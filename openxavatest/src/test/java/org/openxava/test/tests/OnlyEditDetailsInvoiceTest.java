@@ -1,7 +1,6 @@
 package org.openxava.test.tests;
 
 import java.util.*;
-import javax.rmi.*;
 
 import org.openxava.test.model.*;
 import org.openxava.tests.*;

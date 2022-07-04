@@ -1337,7 +1337,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		// though we're not interested in testing date format here, just bigdecimals 
 		String date = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es")).format(Dates.create(1, 1, 2002));  		
 		assertExcel( 
-			"AÃ±o;NÃºmero;Fecha;Suma importes;I.V.A.;Cantidad lÃ­neas;Pagada;Importancia",	
+			"Año;Número;Fecha;Suma importes;I.V.A.;Cantidad líneas;Pagada;Importancia",	
 			"2002;1;\"" + date + "\";\"2500,00\";\"400,00\";2;\"No\";\"Normal\""); // "2500,00" instead of "2.500,00"		
 	}
 	
@@ -1459,8 +1459,6 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}	
 	
 	public void testDateFormatter() throws Exception { 
-		// In order to this test works inside Liferay you have to put
-		// locale.default.request=true in portal-ext.properties
 		setLocale("es");	
 		execute("CRUD.new");
 		setValue("year", String.valueOf(getInvoice().getYear()));

@@ -5,8 +5,6 @@ import org.openxava.util.*;
 /**
  * Birth date month of the current user. <p>
  * 
- * Outside of a portal it will be an empty string. <br>
- * 
  * @author Javier Paniza
  */
 

@@ -5,8 +5,6 @@ import org.openxava.util.*;
 /**
  * Nick name of the current user. <p>
  * 
- * Outside of a portal it will be an empty string. <br>
- * 
  * @author Javier Paniza
  */
 

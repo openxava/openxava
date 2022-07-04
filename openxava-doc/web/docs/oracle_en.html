@@ -19,7 +19,7 @@
     <div class="wiki" style="display: block;">We assume you have already
       installed and running Oracle.<br>
       <h2 id="toc1">Download the JDBC driver for Oracle</h2>
-      <p>Download the Oracle driver from here: <a href="https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html">https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html</a><a
+      <p>Download the Oracle driver from here: <a href="https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html">https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html</a><a
           href="https://dev.mysql.com/downloads/connector/j/"></a></p>
       Choose the database version you're using to go to the specific download
       page. Then download the file <i>ojdbc8.jar</i>, if you're using an old
@@ -43,7 +43,7 @@
       </h2>
       In the project you're going to use Oracle you have to add the variable
       declared above. Click with right mouse button on your project and then
-      choose <i>Java Build Path &gt; Configure Build Path...</i>:<img src="files/project-build-path-eclipse-menu_en.png"
+      choose <i>Java Build Path &gt; Configure Build Path...</i>:<img src="files/project-build-path-eclipse-menu_en.png"
         alt="project-build-path-eclipse-menu_en.png" title="project-build-path-eclipse-menu_en.png">
       <div class="wiki" style="display: block;">Then select the <i>Libraries</i>
         tab:</div>
@@ -72,8 +72,8 @@
 	url="jdbc:oracle:thin:@localhost:1521:mysid"/&gt;
 </code></pre> </div>
     <div class="wiki" style="display: block;">The differences are the <i>driverClassName</i>
-      and the <i>url</i>. The final part of the <i>url</i>, <i>mysid</i> in
-      this example, is the sid of your Oracle database. Obviously, instead of <i>localhost</i>
+      and the <i>url</i>. The final part of the url, <i>mysid</i> in this
+      example, is the sid of your Oracle database. Obviously, instead of <i>localhost</i>
       you should put the address of the server that hosts Oracle, and also put
       the correct <i>username</i> and <i>password</i>.</div>
     <div class="wiki" style="display: block;">
@@ -93,9 +93,9 @@
 &lt;/persistence-unit&gt;
 </code></pre> </div>
     <div class="wiki" style="display: block;">You should use <i>Oracle12cDialect</i>
-      for Oracle 12 or better, that is for Oracle 19 you should use
-      Oracle12cDialect too, as shown above. For older versions of Oracle you can
-      use <i>Oracle10gDialect</i> or <i>Oracle8iDialect</i>. </div>
+      for Oracle 12 or better, that is for Oracle 19 you should use <i>Oracle12cDialect</i>
+      too, as shown above. For older versions of Oracle you can use <i>Oracle10gDialect</i>
+      or <i>Oracle8iDialect</i>. </div>
     <div class="wiki" style="display: block;">Moreover, you have to modify the <i>junit</i>
       persistence unit to point to Oracle. <br>
       <div class="wiki" style="display: block;">

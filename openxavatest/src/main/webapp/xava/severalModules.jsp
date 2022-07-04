@@ -1,9 +1,5 @@
-<%@page import="org.openxava.web.style.Style"%>
-
-<% 
-Style style = new Style(); 
-style.setInsidePortal(true); // In order coreViaAJAX would be false
-Style.setPotalInstance(style);
+<%
+session.setAttribute("xava.coreViaAJAX", false); 
 %>
 
 <jsp:include page="module.jsp">

@@ -59,7 +59,7 @@ public class MetaComponent implements Serializable {
 			if (name.indexOf('.') >= 0) { // A component never is qualified
 				throw new ElementNotFoundException("component_not_found", name);
 			}
-			r = parse(name); 
+			r = parse(name);
 			if (r == null) {				
 				throw new ElementNotFoundException("component_not_found", name);
 			}

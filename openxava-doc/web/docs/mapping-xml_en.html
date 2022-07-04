@@ -11,8 +11,7 @@
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
           / </span> Chapter 5: Object/relational mapping XML (classic) </h1>
       <a class="wiki_link" href="introduction-xml_en.html">1.Introduction XML</a>
-      | <a class="wiki_link" href="model-xml_en.html">2.Model XML</a> | <a class="wiki_link"
-
+      | <a class="wiki_link" href="model-xml_en.html">2.Model XML</a> | <a class="wiki_link"
         href="view-xml_en.html">3.View XML</a> | <a class="wiki_link" href="tab-xml_en.html">4.Tab
         XML</a> | <strong><span class="wiki_link">5.Mapping XML</span></strong>
       | <a class="wiki_link" href="aspects-xml_en.html">6.Aspects XML</a>
@@ -40,8 +39,12 @@
         <div style="margin-left: 2em;"><a href="#Chapter%205:%20Object/relational%20mapping%20XML%20%28classic%29-Object/relational%20philosophy">Object/relational
             philosophy</a></div>
       </div>
-       Object relational mapping allows you to declare in which tables and
-      columns of your database the component data will be stored.<br>
+    </div>
+    <div class="wiki" style="display: block;"><i>Support for XML components was
+        dropped in v7.0</i></div>
+    <div class="wiki" style="display: block;">Object relational mapping allows
+      you to declare in which tables and columns of your database the component
+      data will be stored.<br>
       If ORM is familiar to you: The OpenXava mapping is used to generate the
       code and XML files needed to object/relational mapping. Actually the code
       is generated for:<br>
@@ -84,19 +87,14 @@
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity-mapping</span> <span
-
-class="re0">table</span>=<span class="st0">"table"</span><span class="re2">&gt;</span></span> <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity-mapping</span> <span
+class="re0">table</span>=<span class="st0">"table"</span><span class="re2">&gt;</span></span> <span
 class="sc-1">&lt;!-- 1 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;property-mapping</span> ... <span class="re2">/&gt;</span></span> ... <span
-
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> ... <span class="re2">/&gt;</span></span> ... <span
 class="sc-1">&lt;!-- 2 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;reference-mapping</span> ... <span class="re2">/&gt;</span></span> ... <span
-
+ <span class="sc3"><span class="re1">&lt;reference-mapping</span> ... <span class="re2">/&gt;</span></span> ... <span
 class="sc-1">&lt;!-- 3 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;multiple-property-mapping</span> ... <span
-
+ <span class="sc3"><span class="re1">&lt;multiple-property-mapping</span> ... <span
 class="re2">/&gt;</span></span> ... <span class="sc-1">&lt;!-- 4 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/entity-mapping<span class="re2">&gt;</span></span></span></pre>
       <ol>
@@ -132,20 +130,14 @@ class="re2">/&gt;</span></span> ... <span class="sc-1">&lt;!-- 4 --&gt;</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity-mapping</span> <span
-
-class="re0">table</span>=<span class="st0">"XAVATEST@separator@DELIVERYTYPE"</span><span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity-mapping</span> <span
+class="re0">table</span>=<span class="st0">"XAVATEST@separator@DELIVERYTYPE"</span><span
 class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
-
-class="st0">"number"</span> <span class="re0">column</span>=<span class="st0">"NUMBER"</span><span
-
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
+class="st0">"number"</span> <span class="re0">column</span>=<span class="st0">"NUMBER"</span><span
 class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
-
-class="st0">"description"</span> <span class="re0">column</span>=<span class="st0">"DESCRIPTION"</span> <span
-
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
+class="st0">"description"</span> <span class="re0">column</span>=<span class="st0">"DESCRIPTION"</span> <span
 class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/entity-mapping<span class="re2">&gt;</span></span></span></pre>
       Easier impossible.<br>
@@ -180,14 +172,12 @@ class="re2">/&gt;</span></span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;property-mapping</span></span>
-<span class="sc3"> <span class="re0">property</span>=<span class="st0">"property"</span> &lt;!-- 1 --<span
-
+<span class="sc3"> <span class="re0">property</span>=<span class="st0">"property"</span> &lt;!-- 1 --<span
 class="re2">&gt;</span></span>
  column="column" <span class="sc-1">&lt;!-- 2 --&gt;</span>
  cmp-type="type" <span class="sc-1">&lt;!-- 3 --&gt;</span>
  formula="formula"&gt; <span class="sc-1">&lt;!-- 4 New in v3.1.4 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;converter</span> ... <span class="re2">/&gt;</span></span> <span
-
+ <span class="sc3"><span class="re1">&lt;converter</span> ... <span class="re2">/&gt;</span></span> <span
 class="sc-1">&lt;!-- 5 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/property-mapping<span class="re2">&gt;</span></span></span></pre>
       <ol>
@@ -235,15 +225,11 @@ class="sc-1">&lt;!-- 5 --&gt;</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;property-mapping</span> <span
-
-class="re0">property</span>=<span class="st0">"address_zipCode"</span> <span class="re0">column</span>=<span
-
-class="st0">"ZIPCODE"</span> <span class="re0">cmp-type</span>=<span class="st0">"String"</span><span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;property-mapping</span> <span
+class="re0">property</span>=<span class="st0">"address_zipCode"</span> <span class="re0">column</span>=<span
+class="st0">"ZIPCODE"</span> <span class="re0">cmp-type</span>=<span class="st0">"String"</span><span
 class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;converter</span> <span class="re0">class</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;converter</span> <span class="re0">class</span>=<span
 class="st0">"org.openxava.converters.IntegerStringConverter"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/property-mapping<span class="re2">&gt;</span></span></span></pre>
       cmp-type indicates to which type the converter has to convert to and it is
@@ -438,8 +424,7 @@ class="st0">"org.openxava.converters.IntegerStringConverter"</span><span class="
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.converters</span><span
-
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.converters</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="co3">/**
@@ -447,83 +432,56 @@ class="sy0">;</span>
  *
  * @author Javier Paniza
  */</span>
-<span class="kw2">public</span> <span class="kw2">class</span> IntegerStringConverter <span
-
+<span class="kw2">public</span> <span class="kw2">class</span> IntegerStringConverter <span
 class="kw2">implements</span> IConverter <span class="br0">{</span> <span class="co1">// 1</span>
 &nbsp;
- <span class="kw2">private</span> <span class="kw2">final</span> <span class="kw2">static</span> <a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a> ZERO = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a><span class="br0">(</span><span class="nu0">0</span><span
-
+ <span class="kw2">private</span> <span class="kw2">final</span> <span class="kw2">static</span> <a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+class="kw21">Integer</span></a> ZERO = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+class="kw21">Integer</span></a><span class="br0">(</span><span class="nu0">0</span><span
 class="br0">)</span><span class="sy0">;</span>
 &nbsp;
- <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> toDB<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> o<span class="br0">)</span> <span class="kw2">throws</span> ConversionException <span
-
+ <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> toDB<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> o<span class="br0">)</span> <span class="kw2">throws</span> ConversionException <span
 class="br0">{</span> <span class="co1">// 2</span>
- <span class="kw2">return</span> o==<span class="kw4">null</span><span class="sy0">?</span><span
-
-class="st0">"0"</span>:o.<span class="me1">toString</span><span class="br0">(</span><span
-
+ <span class="kw2">return</span> o==<span class="kw4">null</span><span class="sy0">?</span><span
+class="st0">"0"</span>:o.<span class="me1">toString</span><span class="br0">(</span><span
 class="br0">)</span><span class="sy0">;</span>
  <span class="br0">}</span>
 &nbsp;
- <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> toJava<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> o<span class="br0">)</span> <span class="kw2">throws</span> ConversionException <span
-
+ <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> toJava<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> o<span class="br0">)</span> <span class="kw2">throws</span> ConversionException <span
 class="br0">{</span> <span class="co1">// 3</span>
- <span class="kw1">if</span> <span class="br0">(</span>o == <span class="kw4">null</span><span
-
+ <span class="kw1">if</span> <span class="br0">(</span>o == <span class="kw4">null</span><span
 class="br0">)</span> <span class="kw2">return</span> ZERO<span class="sy0">;</span>
- <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span><span
-
-class="br0">(</span>o <span class="kw2">instanceof</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a><span class="br0">)</span><span class="br0">)</span> <span
-
+ <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span><span
+class="br0">(</span>o <span class="kw2">instanceof</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a><span class="br0">)</span><span class="br0">)</span> <span
 class="br0">{</span>
- <span class="kw2">throw</span> <span class="kw2">new</span> ConversionException<span
-
-class="br0">(</span><span class="st0">"conversion_java_string_expected"</span><span
-
+ <span class="kw2">throw</span> <span class="kw2">new</span> ConversionException<span
+class="br0">(</span><span class="st0">"conversion_java_string_expected"</span><span
 class="br0">)</span><span class="sy0">;</span>
  <span class="br0">}</span>
  <span class="kw2">try</span> <span class="br0">{</span>
- <span class="kw2">return</span> <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a><span class="br0">(</span><span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a><span
-
+ <span class="kw2">return</span> <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+class="kw21">Integer</span></a><span class="br0">(</span><span class="br0">(</span><a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a><span
 class="br0">)</span> o<span class="br0">)</span><span class="sy0">;</span>
  <span class="br0">}</span>
- <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
-
+ <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
 class="kw21">Exception</span></a> ex<span class="br0">)</span> <span class="br0">{</span>
- ex.<span class="me1">printStackTrace</span><span class="br0">(</span><span class="br0">)</span><span
-
+ ex.<span class="me1">printStackTrace</span><span class="br0">(</span><span class="br0">)</span><span
 class="sy0">;</span>
- <span class="kw2">throw</span> <span class="kw2">new</span> ConversionException<span
-
-class="br0">(</span><span class="st0">"conversion_error"</span><span class="br0">)</span><span
-
+ <span class="kw2">throw</span> <span class="kw2">new</span> ConversionException<span
+class="br0">(</span><span class="st0">"conversion_error"</span><span class="br0">)</span><span
 class="sy0">;</span>
  <span class="br0">}</span>
  <span class="br0">}</span>
 &nbsp;
 <span class="br0">}</span></pre>
-      A converter must implement <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/converters/IConverter.html"
-
+      A converter must implement <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/converters/IConverter.html"
           rel="nofollow">IConverter</a></em> (1), this forces it to have a <em>toDB()</em>
       (2) method, that receives the object of the type used in Java (in this
       case an Integer) and returns its representation using a type closer to the
@@ -560,18 +518,14 @@ class="sy0">;</span>
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity<span class="re2">&gt;</span></span></span>
 ...
- <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
 class="st0">"distance"</span><span class="re2">&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;valid-values<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span
 class="st0">"local"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span
 class="st0">"national"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span
 class="st0">"international"</span><span class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;/valid-values<span class="re2">&gt;</span></span></span>
  <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
@@ -603,20 +557,14 @@ class="st0">"international"</span><span class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;property-mapping</span> <span
-
-class="re0">property</span>=<span class="st0">"distance"</span> <span class="re0">column</span>=<span
-
-class="st0">"DISTANCE"</span> <span class="re0">cmp-type</span>=<span class="st0">"String"</span><span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;property-mapping</span> <span
+class="re0">property</span>=<span class="st0">"distance"</span> <span class="re0">column</span>=<span
+class="st0">"DISTANCE"</span> <span class="re0">cmp-type</span>=<span class="st0">"String"</span><span
 class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;converter</span> <span class="re0">class</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;converter</span> <span class="re0">class</span>=<span
 class="st0">"org.openxava.converters.ValidValuesLetterConverter"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
-
-class="st0">"letters"</span> <span class="re0">value</span>=<span class="st0">"LNI"</span><span
-
+ <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
+class="st0">"letters"</span> <span class="re0">value</span>=<span class="st0">"LNI"</span><span
 class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;/converter<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/property-mapping<span class="re2">&gt;</span></span></span></pre>
@@ -651,10 +599,8 @@ class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;property-mapping</span> <span
-
-class="re0">property</span>=<span class="st0">"unitPriceWithTax"</span> <span class="re0">formula</span>=<span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;property-mapping</span> <span
+class="re0">property</span>=<span class="st0">"unitPriceWithTax"</span> <span class="re0">formula</span>=<span
 class="st0">"UNITPRICE * 1.16"</span><span class="re2">/&gt;</span></span></pre>
       The use is simple. Put your calculation exactly in the same way that you
       would put it in a SQL statement.<br>
@@ -691,12 +637,10 @@ class="st0">"UNITPRICE * 1.16"</span><span class="re2">/&gt;</span></span></pre>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;reference-mapping</span></span>
-<span class="sc3"> <span class="re0">reference</span>=<span class="st0">"reference"</span> &lt;!-- 1 --<span
-
+<span class="sc3"> <span class="re0">reference</span>=<span class="st0">"reference"</span> &lt;!-- 1 --<span
 class="re2">&gt;</span></span>
 &gt;
- <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span> ... <span
-
+ <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span> ... <span
 class="re2">/&gt;</span></span> ... <span class="sc-1">&lt;!-- 2 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/reference-mapping<span class="re2">&gt;</span></span></span></pre>
       <ol>
@@ -731,10 +675,8 @@ class="re2">/&gt;</span></span> ... <span class="sc-1">&lt;!-- 2 --&gt;</span>
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity<span class="re2">&gt;</span></span></span>
  ...
- <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">name</span>=<span
-
-class="st0">"invoice"</span> <span class="re0">model</span>=<span class="st0">"Invoice"</span><span
-
+ <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">name</span>=<span
+class="st0">"invoice"</span> <span class="re0">model</span>=<span class="st0">"Invoice"</span><span
 class="re2">/&gt;</span></span>
  ...
 <span class="sc3"><span class="re1">&lt;/entity<span class="re2">&gt;</span></span></span></pre>
@@ -761,23 +703,18 @@ class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity-mapping</span> <span
-
-class="re0">table</span>=<span class="st0">"XAVATEST@separator@DELIVERY"</span><span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity-mapping</span> <span
+class="re0">table</span>=<span class="st0">"XAVATEST@separator@DELIVERY"</span><span
 class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;reference-mapping</span> <span class="re0">reference</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;reference-mapping</span> <span class="re0">reference</span>=<span
 class="st0">"invoice"</span><span class="re2">&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
 <span class="sc3"> <span class="re0">column</span>=<span class="st0">"INVOICE_YEAR"</span></span>
-<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"year"</span><span
-
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"year"</span><span
 class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
 <span class="sc3"> <span class="re0">column</span>=<span class="st0">"INVOICE_NUMBER"</span></span>
-<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"number"</span><span
-
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"number"</span><span
 class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;/reference-mapping<span class="re2">&gt;</span></span></span>
  ...
@@ -809,28 +746,19 @@ class="re2">/&gt;</span></span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"year"</span> <span class="re0">type</span>=<span class="st0">"int"</span> <span
-
-class="re0">key</span>=<span class="st0">"true"</span> <span class="re0">size</span>=<span
-
-class="st0">"4"</span> <span class="re0">required</span>=<span class="st0">"true"</span><span
-
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+class="st0">"year"</span> <span class="re0">type</span>=<span class="st0">"int"</span> <span
+class="re0">key</span>=<span class="st0">"true"</span> <span class="re0">size</span>=<span
+class="st0">"4"</span> <span class="re0">required</span>=<span class="st0">"true"</span><span
 class="re2">&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;default-value-calculator</span></span>
-<span class="sc3"> <span class="re0">class</span>=<span class="st0">"org.openxava.calculators.CurrentYearCalculator"</span><span
-
+<span class="sc3"> <span class="re0">class</span>=<span class="st0">"org.openxava.calculators.CurrentYearCalculator"</span><span
 class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"number"</span> <span class="re0">type</span>=<span class="st0">"int"</span> <span
-
-class="re0">key</span>=<span class="st0">"true"</span> <span class="re0">size</span>=<span
-
-class="st0">"6"</span> <span class="re0">required</span>=<span class="st0">"true"</span><span
-
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+class="st0">"number"</span> <span class="re0">type</span>=<span class="st0">"int"</span> <span
+class="re0">key</span>=<span class="st0">"true"</span> <span class="re0">size</span>=<span
+class="st0">"6"</span> <span class="re0">required</span>=<span class="st0">"true"</span><span
 class="re2">/&gt;</span></span>
  ...</pre>
       If you have a reference to a model which key itself includes references,
@@ -857,28 +785,23 @@ class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;reference-mapping</span> <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;reference-mapping</span> <span
 class="re0">reference</span>=<span class="st0">"delivery"</span><span class="re2">&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
 <span class="sc3"> <span class="re0">column</span>=<span class="st0">"DELIVERY_INVOICE_YEAR"</span></span>
-<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"invoice.year"</span><span
-
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"invoice.year"</span><span
 class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
 <span class="sc3"> <span class="re0">column</span>=<span class="st0">"DELIVERY_INVOICE_NUMBER"</span></span>
-<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"invoice.number"</span><span
-
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"invoice.number"</span><span
 class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
 <span class="sc3"> <span class="re0">column</span>=<span class="st0">"DELIVERY_TYPE"</span></span>
-<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"type.number"</span><span
-
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"type.number"</span><span
 class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
 <span class="sc3"> <span class="re0">column</span>=<span class="st0">"DELIVERY_NUMBER"</span></span>
-<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"number"</span><span
-
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"number"</span><span
 class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/reference-mapping<span class="re2">&gt;</span></span></span></pre>
       As you see, to indicate the properties of referenced models you can
@@ -906,25 +829,20 @@ class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;reference-mapping</span> <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;reference-mapping</span> <span
 class="re0">reference</span>=<span class="st0">"drivingLicence"</span><span class="re2">&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
 <span class="sc3"> <span class="re0">column</span>=<span class="st0">"DRIVINGLICENCE_TYPE"</span></span>
 <span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"type"</span></span>
-<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">"String"</span><span
-
+<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">"String"</span><span
 class="re2">&gt;</span></span> <span class="sc-1">&lt;!-- 1 In this case this line can be omitted --&gt;</span>
- <span class="sc3"><span class="re1">&lt;converter</span> <span class="re0">class</span>=<span
-
-class="st0">"org.openxava.converters.NotNullStringConverter"</span><span class="re2">/&gt;</span></span> <span
-
+ <span class="sc3"><span class="re1">&lt;converter</span> <span class="re0">class</span>=<span
+class="st0">"org.openxava.converters.NotNullStringConverter"</span><span class="re2">/&gt;</span></span> <span
 class="sc-1">&lt;!-- 2 --&gt;</span>
  <span class="sc3"><span class="re1">&lt;/reference-mapping-detail<span class="re2">&gt;</span></span></span>
  <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
 <span class="sc3"> <span class="re0">column</span>=<span class="st0">"DRIVINGLICENCE_LEVEL"</span></span>
-<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"level"</span><span
-
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"level"</span><span
 class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/reference-mapping<span class="re2">&gt;</span></span></span></pre>
       You can use the converter just like in a simple property (2). The
@@ -966,24 +884,19 @@ class="re2">/&gt;</span></span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;multiple-property-mapping</span></span>
-<span class="sc3"> <span class="re0">property</span>=<span class="st0">"property"</span> &lt;!-- 1 --<span
-
+<span class="sc3"> <span class="re0">property</span>=<span class="st0">"property"</span> &lt;!-- 1 --<span
 class="re2">&gt;</span></span>
 &gt;
- <span class="sc3"><span class="re1">&lt;converter</span> ... <span class="re2">/&gt;</span></span> <span
-
+ <span class="sc3"><span class="re1">&lt;converter</span> ... <span class="re2">/&gt;</span></span> <span
 class="sc-1">&lt;!-- 2 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;cmp-field</span> ... <span class="re2">/&gt;</span></span> ... <span
-
+ <span class="sc3"><span class="re1">&lt;cmp-field</span> ... <span class="re2">/&gt;</span></span> ... <span
 class="sc-1">&lt;!-- 3 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/multiple-property-mapping<span class="re2">&gt;</span></span></span></pre>
       <ol>
         <li><strong>property</strong> (required): Name of the property to map.</li>
         <li><strong>converter</strong> (one, required): Implements the logic to
-          convert from Java to the database and vice versa. Must implement <em><a
-
-              class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/converters/IMultipleConverter.html"
-
+          convert from Java to the database and vice versa. Must implement <em><a
+              class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/converters/IMultipleConverter.html"
               rel="nofollow">IMultipleConverter</a></em>.</li>
         <li><strong>cmp-field</strong> (several, required): Maps each column in
           the database with a property of a converter.</li>
@@ -1013,26 +926,18 @@ class="sc-1">&lt;!-- 3 --&gt;</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;multiple-property-mapping</span> <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;multiple-property-mapping</span> <span
 class="re0">property</span>=<span class="st0">"deliveryDate"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;converter</span> <span class="re0">class</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;converter</span> <span class="re0">class</span>=<span
 class="st0">"org.openxava.converters.Date3Converter"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;cmp-field</span> <span class="re0">converter-property</span>=<span
-
-class="st0">"day"</span> <span class="re0">column</span>=<span class="st0">"DAYDELIVERY"</span> <span
-
+ <span class="sc3"><span class="re1">&lt;cmp-field</span> <span class="re0">converter-property</span>=<span
+class="st0">"day"</span> <span class="re0">column</span>=<span class="st0">"DAYDELIVERY"</span> <span
 class="re0">cmp-type</span>=<span class="st0">"int"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;cmp-field</span> <span class="re0">converter-property</span>=<span
-
-class="st0">"month"</span> <span class="re0">column</span>=<span class="st0">"MONTHDELIVERY"</span> <span
-
+ <span class="sc3"><span class="re1">&lt;cmp-field</span> <span class="re0">converter-property</span>=<span
+class="st0">"month"</span> <span class="re0">column</span>=<span class="st0">"MONTHDELIVERY"</span> <span
 class="re0">cmp-type</span>=<span class="st0">"int"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;cmp-field</span> <span class="re0">converter-property</span>=<span
-
-class="st0">"year"</span> <span class="re0">column</span>=<span class="st0">"YEARDELIVERY"</span> <span
-
+ <span class="sc3"><span class="re1">&lt;cmp-field</span> <span class="re0">converter-property</span>=<span
+class="st0">"year"</span> <span class="re0">column</span>=<span class="st0">"YEARDELIVERY"</span> <span
 class="re0">cmp-type</span>=<span class="st0">"int"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/multiple-property-mapping<span class="re2">&gt;</span></span></span></pre>
       DAYDELIVERY, MONTHDELIVERY and YEARDELIVERY are 3 columns in database that
@@ -1225,14 +1130,12 @@ class="re0">cmp-type</span>=<span class="st0">"int"</span><span class="re2">/&gt
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.converters</span><span
-
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.converters</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
-
+<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="co3">/**
@@ -1241,145 +1144,102 @@ class="sy0">;</span>
  *
  * @author Javier Paniza
  */</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Date3Converter <span
-
-class="kw2">implements</span> IMultipleConverter <span class="br0">{</span> <span
-
+<span class="kw2">public</span> <span class="kw2">class</span> Date3Converter <span
+class="kw2">implements</span> IMultipleConverter <span class="br0">{</span> <span
 class="sy0">&lt;!</span>-- <span class="nu0">1</span> --<span class="sy0">&gt;</span>
 &nbsp;
  <span class="kw2">private</span> <span class="kw3">int</span> day<span class="sy0">;</span>
  <span class="kw2">private</span> <span class="kw3">int</span> month<span class="sy0">;</span>
  <span class="kw2">private</span> <span class="kw3">int</span> year<span class="sy0">;</span>
 &nbsp;
- <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> toJava<span class="br0">(</span><span class="br0">)</span> <span
-
-class="kw2">throws</span> ConversionException <span class="br0">{</span> <span class="sy0">&lt;!</span>-- <span
-
+ <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> toJava<span class="br0">(</span><span class="br0">)</span> <span
+class="kw2">throws</span> ConversionException <span class="br0">{</span> <span class="sy0">&lt;!</span>-- <span
 class="nu0">2</span> --<span class="sy0">&gt;</span>
- <span class="kw2">return</span> Dates.<span class="me1">create</span><span class="br0">(</span>day, month, year<span
-
+ <span class="kw2">return</span> Dates.<span class="me1">create</span><span class="br0">(</span>day, month, year<span
 class="br0">)</span><span class="sy0">;</span>
  <span class="br0">}</span>
 &nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> toDB<span class="br0">(</span><a
-
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> javaObject<span class="br0">)</span> <span class="kw2">throws</span> ConversionException <span
-
-class="br0">{</span> <span class="sy0">&lt;!</span>-- <span class="nu0">3</span> --<span
-
+ <span class="kw2">public</span> <span class="kw3">void</span> toDB<span class="br0">(</span><a
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> javaObject<span class="br0">)</span> <span class="kw2">throws</span> ConversionException <span
+class="br0">{</span> <span class="sy0">&lt;!</span>-- <span class="nu0">3</span> --<span
 class="sy0">&gt;</span>
- <span class="kw1">if</span> <span class="br0">(</span>javaObject == <span class="kw4">null</span><span
-
+ <span class="kw1">if</span> <span class="br0">(</span>javaObject == <span class="kw4">null</span><span
 class="br0">)</span> <span class="br0">{</span>
- setDay<span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span><span
-
+ setDay<span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span><span
 class="sy0">;</span>
- setMonth<span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span><span
-
+ setMonth<span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span><span
 class="sy0">;</span>
- setYear<span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span><span
-
+ setYear<span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span><span
 class="sy0">;</span>
  <span class="kw2">return</span><span class="sy0">;</span>
  <span class="br0">}</span>
- <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span><span
-
-class="br0">(</span> javaObject <span class="kw2">instanceof</span> java.<span class="me1">util</span>.<a
-
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
-class="kw166">Date</span></a><span class="br0">)</span><span class="br0">)</span> <span
-
+ <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span><span
+class="br0">(</span> javaObject <span class="kw2">instanceof</span> java.<span class="me1">util</span>.<a
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
+class="kw166">Date</span></a><span class="br0">)</span><span class="br0">)</span> <span
 class="br0">{</span>
- <span class="kw2">throw</span> <span class="kw2">new</span> ConversionException<span
-
-class="br0">(</span><span class="st0">"conversion_db_utildate_expected"</span><span
-
+ <span class="kw2">throw</span> <span class="kw2">new</span> ConversionException<span
+class="br0">(</span><span class="st0">"conversion_db_utildate_expected"</span><span
 class="br0">)</span><span class="sy0">;</span>
  <span class="br0">}</span>
- java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
-class="kw166">Date</span></a> date = <span class="br0">(</span>java.<span class="me1">util</span>.<a
-
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
+ java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
+class="kw166">Date</span></a> date = <span class="br0">(</span>java.<span class="me1">util</span>.<a
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
 class="kw166">Date</span></a><span class="br0">)</span> javaObject<span class="sy0">;</span>
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
-
-class="kw46">Calendar</span></a> cal = <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
-
-class="kw46">Calendar</span></a>.<span class="me1">getInstance</span><span class="br0">(</span><span
-
+ <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
+class="kw46">Calendar</span></a> cal = <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
+class="kw46">Calendar</span></a>.<span class="me1">getInstance</span><span class="br0">(</span><span
 class="br0">)</span><span class="sy0">;</span>
- cal.<span class="me1">setTime</span><span class="br0">(</span>date<span class="br0">)</span><span
-
+ cal.<span class="me1">setTime</span><span class="br0">(</span>date<span class="br0">)</span><span
 class="sy0">;</span>
- setDay<span class="br0">(</span>cal.<span class="me1">get</span><span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
-
-class="kw46">Calendar</span></a>.<span class="me1">DAY_OF_MONTH</span><span class="br0">)</span><span
-
+ setDay<span class="br0">(</span>cal.<span class="me1">get</span><span class="br0">(</span><a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
+class="kw46">Calendar</span></a>.<span class="me1">DAY_OF_MONTH</span><span class="br0">)</span><span
 class="br0">)</span><span class="sy0">;</span>
- setMonth<span class="br0">(</span>cal.<span class="me1">get</span><span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
-
-class="kw46">Calendar</span></a>.<span class="me1">MONTH</span><span class="br0">)</span> + <span
-
+ setMonth<span class="br0">(</span>cal.<span class="me1">get</span><span class="br0">(</span><a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
+class="kw46">Calendar</span></a>.<span class="me1">MONTH</span><span class="br0">)</span> + <span
 class="nu0">1</span><span class="br0">)</span><span class="sy0">;</span>
- setYear<span class="br0">(</span>cal.<span class="me1">get</span><span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
-
-class="kw46">Calendar</span></a>.<span class="me1">YEAR</span><span class="br0">)</span><span
-
+ setYear<span class="br0">(</span>cal.<span class="me1">get</span><span class="br0">(</span><a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
+class="kw46">Calendar</span></a>.<span class="me1">YEAR</span><span class="br0">)</span><span
 class="br0">)</span><span class="sy0">;</span>
  <span class="br0">}</span>
 &nbsp;
- <span class="kw2">public</span> <span class="kw3">int</span> getYear<span class="br0">(</span><span
-
+ <span class="kw2">public</span> <span class="kw3">int</span> getYear<span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span>
  <span class="kw2">return</span> year<span class="sy0">;</span>
  <span class="br0">}</span>
 &nbsp;
- <span class="kw2">public</span> <span class="kw3">int</span> getDay<span class="br0">(</span><span
-
+ <span class="kw2">public</span> <span class="kw3">int</span> getDay<span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span>
  <span class="kw2">return</span> day<span class="sy0">;</span>
  <span class="br0">}</span>
 &nbsp;
- <span class="kw2">public</span> <span class="kw3">int</span> getMonth<span class="br0">(</span><span
-
+ <span class="kw2">public</span> <span class="kw3">int</span> getMonth<span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span>
  <span class="kw2">return</span> month<span class="sy0">;</span>
  <span class="br0">}</span>
 &nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setYear<span class="br0">(</span><span
-
+ <span class="kw2">public</span> <span class="kw3">void</span> setYear<span class="br0">(</span><span
 class="kw3">int</span> i<span class="br0">)</span> <span class="br0">{</span>
  year = i<span class="sy0">;</span>
  <span class="br0">}</span>
 &nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setDay<span class="br0">(</span><span
-
+ <span class="kw2">public</span> <span class="kw3">void</span> setDay<span class="br0">(</span><span
 class="kw3">int</span> i<span class="br0">)</span> <span class="br0">{</span>
  day = i<span class="sy0">;</span>
  <span class="br0">}</span>
 &nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setMonth<span class="br0">(</span><span
-
+ <span class="kw2">public</span> <span class="kw3">void</span> setMonth<span class="br0">(</span><span
 class="kw3">int</span> i<span class="br0">)</span> <span class="br0">{</span>
  month = i<span class="sy0">;</span>
  <span class="br0">}</span>
 &nbsp;
 <span class="br0">}</span></pre>
-      This converter must implement <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/converters/IMultipleConverter.html"
-
+      This converter must implement <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/converters/IMultipleConverter.html"
           rel="nofollow">IMultipleConverter</a></em> (1). This forces it to have
       a <em>toJava()</em> (2) method that must return a Java object from its
       property values (in this case <em>year</em>, <em>month</em> and <em>day</em>).
@@ -1420,45 +1280,30 @@ class="kw3">int</span> i<span class="br0">)</span> <span class="br0">{</span>
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity<span class="re2">&gt;</span></span></span>
  ...
- <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">name</span>=<span
-
-class="st0">"address"</span> <span class="re0">model</span>=<span class="st0">"Address"</span> <span
-
+ <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">name</span>=<span
+class="st0">"address"</span> <span class="re0">model</span>=<span class="st0">"Address"</span> <span
 class="re0">required</span>=<span class="st0">"true"</span><span class="re2">/&gt;</span></span>
  ...
 <span class="sc3"><span class="re1">&lt;/entity<span class="re2">&gt;</span></span></span>
 &nbsp;
-<span class="sc3"><span class="re1">&lt;aggregate</span> <span class="re0">name</span>=<span
-
+<span class="sc3"><span class="re1">&lt;aggregate</span> <span class="re0">name</span>=<span
 class="st0">"Address"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;implements</span> <span class="re0">interface</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;implements</span> <span class="re0">interface</span>=<span
 class="st0">"org.openxava.test.ejb.IWithCity"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"street"</span> <span class="re0">type</span>=<span class="st0">"String"</span> <span
-
-class="re0">size</span>=<span class="st0">"30"</span> <span class="re0">required</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+class="st0">"street"</span> <span class="re0">type</span>=<span class="st0">"String"</span> <span
+class="re0">size</span>=<span class="st0">"30"</span> <span class="re0">required</span>=<span
 class="st0">"true"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"zipCode"</span> <span class="re0">type</span>=<span class="st0">"int"</span> <span
-
-class="re0">size</span>=<span class="st0">"5"</span> <span class="re0">required</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+class="st0">"zipCode"</span> <span class="re0">type</span>=<span class="st0">"int"</span> <span
+class="re0">size</span>=<span class="st0">"5"</span> <span class="re0">required</span>=<span
 class="st0">"true"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"city"</span> <span class="re0">type</span>=<span class="st0">"String"</span> <span
-
-class="re0">size</span>=<span class="st0">"20"</span> <span class="re0">required</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+class="st0">"city"</span> <span class="re0">type</span>=<span class="st0">"String"</span> <span
+class="re0">size</span>=<span class="st0">"20"</span> <span class="re0">required</span>=<span
 class="st0">"true"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">name</span>=<span
-
-class="st0">"state"</span> <span class="re0">required</span>=<span class="st0">"true"</span><span
-
+ <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">name</span>=<span
+class="st0">"state"</span> <span class="re0">required</span>=<span class="st0">"true"</span><span
 class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/aggregate<span class="re2">&gt;</span></span></span></pre>
       Simply a reference to an aggregate. And for mapping it you can do:<br>
@@ -1484,38 +1329,26 @@ class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity-mapping</span> <span
-
-class="re0">table</span>=<span class="st0">"XAVATEST@separator@CUSTOMER"</span><span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity-mapping</span> <span
+class="re0">table</span>=<span class="st0">"XAVATEST@separator@CUSTOMER"</span><span
 class="re2">&gt;</span></span>
  ...
- <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
-
-class="st0">"address_street"</span> <span class="re0">column</span>=<span class="st0">"STREET"</span><span
-
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
+class="st0">"address_street"</span> <span class="re0">column</span>=<span class="st0">"STREET"</span><span
 class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
-
-class="st0">"address_zipCode"</span> <span class="re0">column</span>=<span class="st0">"ZIPCODE"</span> <span
-
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
+class="st0">"address_zipCode"</span> <span class="re0">column</span>=<span class="st0">"ZIPCODE"</span> <span
 class="re0">cmp-type</span>=<span class="st0">"String"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;converter</span> <span class="re0">class</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;converter</span> <span class="re0">class</span>=<span
 class="st0">"org.openxava.converters.IntegerStringConverter"</span><span class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;/property-mapping<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
-
-class="st0">"address_city"</span> <span class="re0">column</span>=<span class="st0">"CITY"</span><span
-
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
+class="st0">"address_city"</span> <span class="re0">column</span>=<span class="st0">"CITY"</span><span
 class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;reference-mapping</span> <span class="re0">reference</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;reference-mapping</span> <span class="re0">reference</span>=<span
 class="st0">"address_state"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span> <span class="re0">column</span>=<span
-
-class="st0">"STATE"</span> <span class="re0">referenced-model-property</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span> <span class="re0">column</span>=<span
+class="st0">"STATE"</span> <span class="re0">referenced-model-property</span>=<span
 class="st0">"id"</span><span class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;/reference-mapping<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/entity-mapping<span class="re2">&gt;</span></span></span></pre>
@@ -1555,98 +1388,68 @@ class="st0">"id"</span><span class="re2">/&gt;</span></span>
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;entity<span class="re2">&gt;</span></span></span>
  ...
- <span class="sc3"><span class="re1">&lt;collection</span> <span class="re0">name</span>=<span
-
-class="st0">"details"</span> <span class="re0">minimum</span>=<span class="st0">"1"</span><span
-
+ <span class="sc3"><span class="re1">&lt;collection</span> <span class="re0">name</span>=<span
+class="st0">"details"</span> <span class="re0">minimum</span>=<span class="st0">"1"</span><span
 class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">model</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">model</span>=<span
 class="st0">"InvoiceDetail"</span><span class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;/collection<span class="re2">&gt;</span></span></span>
  ...
 <span class="sc3"><span class="re1">&lt;/entity<span class="re2">&gt;</span></span></span>
 &nbsp;
-<span class="sc3"><span class="re1">&lt;aggregate</span> <span class="re0">name</span>=<span
-
+<span class="sc3"><span class="re1">&lt;aggregate</span> <span class="re0">name</span>=<span
 class="st0">"InvoiceDetail"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"oid"</span> <span class="re0">type</span>=<span class="st0">"String"</span> <span
-
-class="re0">key</span>=<span class="st0">"true"</span> <span class="re0">hidden</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+class="st0">"oid"</span> <span class="re0">type</span>=<span class="st0">"String"</span> <span
+class="re0">key</span>=<span class="st0">"true"</span> <span class="re0">hidden</span>=<span
 class="st0">"true"</span><span class="re2">&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;default-value-calculator</span></span>
 <span class="sc3"> <span class="re0">class</span>=<span class="st0">"org.openxava.test.calculators.InvoiceDetailOidCalculator"</span></span>
-<span class="sc3"> <span class="re0">on-create</span>=<span class="st0">"true"</span><span
-
+<span class="sc3"> <span class="re0">on-create</span>=<span class="st0">"true"</span><span
 class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
 class="st0">"serviceType"</span><span class="re2">&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;valid-values<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span
 class="st0">"special"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;valid-value</span> <span class="re0">value</span>=<span
 class="st0">"urgent"</span><span class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;/valid-values<span class="re2">&gt;</span></span></span>
  <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"quantity"</span> <span class="re0">type</span>=<span class="st0">"int"</span> <span
-
-class="re0">size</span>=<span class="st0">"4"</span> <span class="re0">required</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+class="st0">"quantity"</span> <span class="re0">type</span>=<span class="st0">"int"</span> <span
+class="re0">size</span>=<span class="st0">"4"</span> <span class="re0">required</span>=<span
 class="st0">"true"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"unitPrice"</span> <span class="re0">stereotype</span>=<span class="st0">"MONEY"</span> <span
-
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+class="st0">"unitPrice"</span> <span class="re0">stereotype</span>=<span class="st0">"MONEY"</span> <span
 class="re0">required</span>=<span class="st0">"true"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"amount"</span> <span class="re0">stereotype</span>=<span class="st0">"MONEY"</span><span
-
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+class="st0">"amount"</span> <span class="re0">stereotype</span>=<span class="st0">"MONEY"</span><span
 class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;calculator</span> <span class="re0">class</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;calculator</span> <span class="re0">class</span>=<span
 class="st0">"org.openxava.test.calculators.DetailAmountCalculator"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
 class="st0">"unitPrice"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
 class="st0">"quantity"</span><span class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;/calculator<span class="re2">&gt;</span></span></span>
  <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">model</span>=<span
-
-class="st0">"Product"</span> <span class="re0">required</span>=<span class="st0">"true"</span><span
-
+ <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">model</span>=<span
+class="st0">"Product"</span> <span class="re0">required</span>=<span class="st0">"true"</span><span
 class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"deliveryDate"</span> <span class="re0">type</span>=<span class="st0">"java.util.Date"</span><span
-
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+class="st0">"deliveryDate"</span> <span class="re0">type</span>=<span class="st0">"java.util.Date"</span><span
 class="re2">&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;default-value-calculator</span></span>
-<span class="sc3"> <span class="re0">class</span>=<span class="st0">"org.openxava.calculators.CurrentDateCalculator"</span><span
-
+<span class="sc3"> <span class="re0">class</span>=<span class="st0">"org.openxava.calculators.CurrentDateCalculator"</span><span
 class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">name</span>=<span
-
-class="st0">"soldBy"</span> <span class="re0">model</span>=<span class="st0">"Seller"</span><span
-
+ <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">name</span>=<span
+class="st0">"soldBy"</span> <span class="re0">model</span>=<span class="st0">"Seller"</span><span
 class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"remarks"</span> <span class="re0">stereotype</span>=<span class="st0">"MEMO"</span><span
-
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+class="st0">"remarks"</span> <span class="re0">stereotype</span>=<span class="st0">"MEMO"</span><span
 class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/aggregate<span class="re2">&gt;</span></span></span></pre>
       You can see a collection of <em>InvoiceDetail</em> which is an aggregate.
@@ -1673,92 +1476,65 @@ class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;aggregate-mapping</span> <span
-
-class="re0">aggregate</span>=<span class="st0">"InvoiceDetail"</span> <span class="re0">table</span>=<span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;aggregate-mapping</span> <span
+class="re0">aggregate</span>=<span class="st0">"InvoiceDetail"</span> <span class="re0">table</span>=<span
 class="st0">"XAVATEST@separator@INVOICEDETAIL"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;reference-mapping</span> <span class="re0">reference</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;reference-mapping</span> <span class="re0">reference</span>=<span
 class="st0">"invoice"</span><span class="re2">&gt;</span></span> <span class="sc-1">&lt;!-- 1 --&gt;</span>
  <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
 <span class="sc3"> <span class="re0">column</span>=<span class="st0">"INVOICE_YEAR"</span></span>
-<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"year"</span><span
-
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"year"</span><span
 class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
 <span class="sc3"> <span class="re0">column</span>=<span class="st0">"INVOICE_NUMBER"</span></span>
-<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"number"</span><span
-
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"number"</span><span
 class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;/reference-mapping<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
-
-class="st0">"oid"</span> <span class="re0">column</span>=<span class="st0">"OID"</span><span
-
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
+class="st0">"oid"</span> <span class="re0">column</span>=<span class="st0">"OID"</span><span
 class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
-
-class="st0">"serviceType"</span> <span class="re0">column</span>=<span class="st0">"SERVICETYPE"</span><span
-
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
+class="st0">"serviceType"</span> <span class="re0">column</span>=<span class="st0">"SERVICETYPE"</span><span
 class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
-
-class="st0">"unitPrice"</span> <span class="re0">column</span>=<span class="st0">"UNITPRICE"</span><span
-
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
+class="st0">"unitPrice"</span> <span class="re0">column</span>=<span class="st0">"UNITPRICE"</span><span
 class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
-
-class="st0">"quantity"</span> <span class="re0">column</span>=<span class="st0">"QUANTITY"</span><span
-
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
+class="st0">"quantity"</span> <span class="re0">column</span>=<span class="st0">"QUANTITY"</span><span
 class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;reference-mapping</span> <span class="re0">reference</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;reference-mapping</span> <span class="re0">reference</span>=<span
 class="st0">"product"</span><span class="re2">&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
 <span class="sc3"> <span class="re0">column</span>=<span class="st0">"PRODUCT_NUMBER"</span></span>
-<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"number"</span><span
-
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"number"</span><span
 class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;/reference-mapping<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;multiple-property-mapping</span> <span
-
+ <span class="sc3"><span class="re1">&lt;multiple-property-mapping</span> <span
 class="re0">property</span>=<span class="st0">"deliveryDate"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;converter</span> <span class="re0">class</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;converter</span> <span class="re0">class</span>=<span
 class="st0">"org.openxava.converters.Date3Converter"</span><span class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;cmp-field</span></span>
-<span class="sc3"> <span class="re0">converter-property</span>=<span class="st0">"day"</span> <span
-
-class="re0">column</span>=<span class="st0">"DAYDELIVERY"</span> <span class="re0">cmp-type</span>=<span
-
+<span class="sc3"> <span class="re0">converter-property</span>=<span class="st0">"day"</span> <span
+class="re0">column</span>=<span class="st0">"DAYDELIVERY"</span> <span class="re0">cmp-type</span>=<span
 class="st0">"int"</span><span class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;cmp-field</span></span>
-<span class="sc3"> <span class="re0">converter-property</span>=<span class="st0">"month"</span> <span
-
-class="re0">column</span>=<span class="st0">"MONTHDELIVERY"</span> <span class="re0">cmp-type</span>=<span
-
+<span class="sc3"> <span class="re0">converter-property</span>=<span class="st0">"month"</span> <span
+class="re0">column</span>=<span class="st0">"MONTHDELIVERY"</span> <span class="re0">cmp-type</span>=<span
 class="st0">"int"</span><span class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;cmp-field</span></span>
-<span class="sc3"> <span class="re0">converter-property</span>=<span class="st0">"year"</span> <span
-
-class="re0">column</span>=<span class="st0">"YEARDELIVERY"</span> <span class="re0">cmp-type</span>=<span
-
+<span class="sc3"> <span class="re0">converter-property</span>=<span class="st0">"year"</span> <span
+class="re0">column</span>=<span class="st0">"YEARDELIVERY"</span> <span class="re0">cmp-type</span>=<span
 class="st0">"int"</span><span class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;/multiple-property-mapping<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;reference-mapping</span> <span class="re0">reference</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;reference-mapping</span> <span class="re0">reference</span>=<span
 class="st0">"soldBy"</span><span class="re2">&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;reference-mapping-detail</span></span>
 <span class="sc3"> <span class="re0">column</span>=<span class="st0">"SOLDBY_NUMBER"</span></span>
-<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"number"</span><span
-
+<span class="sc3"> <span class="re0">referenced-model-property</span>=<span class="st0">"number"</span><span
 class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;/reference-mapping<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
-
-class="st0">"remarks"</span> <span class="re0">column</span>=<span class="st0">"REMARKS"</span><span
-
+ <span class="sc3"><span class="re1">&lt;property-mapping</span> <span class="re0">property</span>=<span
+class="st0">"remarks"</span> <span class="re0">column</span>=<span class="st0">"REMARKS"</span><span
 class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/aggregate-mapping<span class="re2">&gt;</span></span></span></pre>
       The aggregate mapping must be below of the main entity mapping. A
@@ -1797,8 +1573,7 @@ class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
 class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
 &nbsp;
 <span class="sc0">&lt;!DOCTYPE converters SYSTEM "dtds/converters.dtd"&gt;</span>
@@ -1809,76 +1584,58 @@ class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span c
 &nbsp;
 <span class="sc3"><span class="re1">&lt;converters<span class="re2">&gt;</span></span></span>
 &nbsp;
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
 class="st0">"java.lang.String"</span></span>
 <span class="sc3"> <span class="re0">converter-class</span>=<span class="st0">"org.openxava.converters.TrimStringConverter"</span></span>
-<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">"java.lang.String"</span><span
-
+<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">"java.lang.String"</span><span
 class="re2">/&gt;</span></span>
 &nbsp;
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
 class="st0">"int"</span></span>
 <span class="sc3"> <span class="re0">converter-class</span>=<span class="st0">"org.openxava.converters.IntegerNumberConverter"</span></span>
-<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">"java.lang.Integer"</span><span
-
+<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">"java.lang.Integer"</span><span
 class="re2">/&gt;</span></span>
 &nbsp;
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
 class="st0">"java.lang.Integer"</span></span>
 <span class="sc3"> <span class="re0">converter-class</span>=<span class="st0">"org.openxava.converters.IntegerNumberConverter"</span></span>
-<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">"java.lang.Integer"</span><span
-
+<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">"java.lang.Integer"</span><span
 class="re2">/&gt;</span></span>
 &nbsp;
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
 class="st0">"boolean"</span></span>
 <span class="sc3"> <span class="re0">converter-class</span>=<span class="st0">"org.openxava.converters.Boolean01Converter"</span></span>
-<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">"java.lang.Integer"</span><span
-
+<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">"java.lang.Integer"</span><span
 class="re2">/&gt;</span></span>
 &nbsp;
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
 class="st0">"java.lang.Boolean"</span></span>
 <span class="sc3"> <span class="re0">converter-class</span>=<span class="st0">"org.openxava.converters.Boolean01Converter"</span></span>
-<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">"java.lang.Integer"</span><span
-
+<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">"java.lang.Integer"</span><span
 class="re2">/&gt;</span></span>
 &nbsp;
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
 class="st0">"long"</span></span>
 <span class="sc3"> <span class="re0">converter-class</span>=<span class="st0">"org.openxava.converters.LongNumberConverter"</span></span>
-<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">"java.lang.Long"</span><span
-
+<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">"java.lang.Long"</span><span
 class="re2">/&gt;</span></span>
 &nbsp;
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
 class="st0">"java.lang.Long"</span></span>
 <span class="sc3"> <span class="re0">converter-class</span>=<span class="st0">"org.openxava.converters.LongNumberConverter"</span></span>
-<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">"java.lang.Long"</span><span
-
+<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">"java.lang.Long"</span><span
 class="re2">/&gt;</span></span>
 &nbsp;
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
 class="st0">"java.math.BigDecimal"</span></span>
 <span class="sc3"> <span class="re0">converter-class</span>=<span class="st0">"org.openxava.converters.BigDecimalNumberConverter"</span></span>
-<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">"java.math.BigDecimal"</span><span
-
+<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">"java.math.BigDecimal"</span><span
 class="re2">/&gt;</span></span>
 &nbsp;
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
 class="st0">"java.util.Date"</span></span>
 <span class="sc3"> <span class="re0">converter-class</span>=<span class="st0">"org.openxava.converters.DateUtilSQLConverter"</span></span>
-<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">"java.sql.Date"</span><span
-
+<span class="sc3"> <span class="re0">cmp-type</span>=<span class="st0">"java.sql.Date"</span><span
 class="re2">/&gt;</span></span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;/converters<span class="re2">&gt;</span></span></span></pre>
@@ -1919,35 +1676,26 @@ class="re2">/&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> <span
-
-class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> <span
+class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span
 class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
 &nbsp;
 <span class="sc0">&lt;!DOCTYPE component SYSTEM "dtds/component.dtd"&gt;</span>
 &nbsp;
-<span class="sc3"><span class="re1">&lt;component</span> <span class="re0">name</span>=<span
-
+<span class="sc3"><span class="re1">&lt;component</span> <span class="re0">name</span>=<span
 class="st0">"Pupil"</span><span class="re2">&gt;</span></span>
 &nbsp;
  <span class="sc3"><span class="re1">&lt;entity<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"number"</span> <span class="re0">type</span>=<span class="st0">"int"</span> <span
-
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+class="st0">"number"</span> <span class="re0">type</span>=<span class="st0">"int"</span> <span
 class="re0">key</span>=<span class="st0">"true"</span></span>
-<span class="sc3"> <span class="re0">size</span>=<span class="st0">"2"</span> <span
-
+<span class="sc3"> <span class="re0">size</span>=<span class="st0">"2"</span> <span
 class="re0">required</span>=<span class="st0">"true"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
 class="st0">"name"</span> <span class="re0">type</span>=<span class="st0">"String"</span></span>
-<span class="sc3"> <span class="re0">size</span>=<span class="st0">"40"</span> <span
-
+<span class="sc3"> <span class="re0">size</span>=<span class="st0">"40"</span> <span
 class="re0">required</span>=<span class="st0">"true"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">name</span>=<span
-
+ <span class="sc3"><span class="re1">&lt;reference</span> <span class="re0">name</span>=<span
 class="st0">"teacher"</span><span class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;/entity<span class="re2">&gt;</span></span></span>
 &nbsp;

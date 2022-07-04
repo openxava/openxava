@@ -29,9 +29,7 @@
 		for (java.util.Enumeration en = request.getParameterNames(); en
 				.hasMoreElements();) {
 			String name = (String) en.nextElement();
-			if ("application".equals(name) || "module".equals(name)
-					|| "xava.portlet.application".equals(name)
-					|| "xava.portlet.module".equals(name))
+			if ("application".equals(name) || "module".equals(name))
 				continue;
 			String value = request.getParameter(name);
 			result.append('&');
@@ -43,7 +41,7 @@
 	}%>
 
 <%
-	request.setAttribute("style", org.openxava.web.style.Style.getInstance(request));
+	request.setAttribute("style", org.openxava.web.style.Style.getInstance());
 %>
 
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
@@ -81,11 +79,7 @@
 		restoreLastMessage = true;
 	}	
 
-	boolean isPortlet = (session.getAttribute(Ids.decorate(app, request
-			.getParameter("module"), "xava.portlet.uploadActionURL")) != null);
-
-	Module.setPortlet(isPortlet);
-	boolean htmlHead = isPortlet?false:!Is.equalAsStringIgnoreCase(request.getParameter("htmlHead"), "false");
+	boolean htmlHead = !Is.equalAsStringIgnoreCase(request.getParameter("htmlHead"), "false");
 	String version = org.openxava.controller.ModuleManager.getVersion();
 	String realPath = request.getSession().getServletContext()
 			.getRealPath("/");
@@ -107,17 +101,6 @@
 	
 	<%=style.getMetaTags()%>
 	
-	<%
- 		String[] jsFiles = style.getNoPortalModuleJsFiles();
- 			if (jsFiles != null) {
- 				for (int i = 0; i < jsFiles.length; i++) {
- 	%>
-	<script src="<%=contextPath%>/xava/style/<%=jsFiles[i]%>?ox=<%=version%>" type="text/javascript"></script>
-	<%
-				}
-			}
-	%>
-
 <%
 	}
 
@@ -163,13 +146,7 @@
 	<%
 		log.warn(XavaResources.getString("custom_editors_deprecated"));
 		}
-	%>	
-	<script type="text/javascript">
-		if (typeof jQuery != "undefined") {  
-			portalJQuery = jQuery;
-		}       
-	</script>
-	  
+	%>		  
 	<script type="text/javascript" src="<%=contextPath%>/xava/js/jquery.js?ox=<%=version%>"></script>	 
 	<script type="text/javascript" src="<%=contextPath%>/xava/js/jquery-ui.js?ox=<%=version%>"></script>
 	<script type="text/javascript" src="<%=contextPath%>/xava/js/jquery.sorttable.js?ox=<%=version%>"></script>	
@@ -193,20 +170,11 @@
 		}
 	}	
 	%>	
-	
-	<script type="text/javascript">
-		$ = jQuery;
-		if (typeof portalJQuery != "undefined") {  
-			jQuery = portalJQuery;    
-		}   
-	</script>
 <%
 	if (htmlHead) { 	
 %>
 </head> 
 <body bgcolor="#ffffff">
-<%=style.getNoPortalModuleStartDecoration(managerHome
-						.getModuleDescription())%>
 <%
 	}
 %> 
@@ -268,7 +236,6 @@ if (manager.isResetFormPostNeeded()) {
 <%
 	if (htmlHead) { 	
 %>
-<%=style.getNoPortalModuleEndDecoration()%>
 </body>
 </html>
 <%

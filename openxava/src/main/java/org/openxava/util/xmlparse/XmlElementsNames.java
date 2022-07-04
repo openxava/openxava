@@ -163,7 +163,6 @@ public class XmlElementsNames {
 	protected final static String [] xpreremove_calculator = { "preremove-calculator", "calculador-preborrar" };
 	protected final static String [] xfor_models = { "for-models", "para-modelos" };	
 	protected final static String [] xexcept_for_models = { "except-for-models", "excepto-para-modelos" };
-	protected final static String [] xaspect = { "aspect", "aspecto" };
 	protected final static String [] xapply = { "apply", "aplicar" };
 	protected final static String [] xnew_action = { "new-action", "accion-nuevo" }; 
 	protected final static String [] xsave_action = { "save-action", "accion-grabar" };

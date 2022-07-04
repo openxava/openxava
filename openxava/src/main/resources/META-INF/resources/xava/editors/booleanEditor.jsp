@@ -11,10 +11,6 @@ String checked=Boolean.TRUE.equals(value)?"checked='true'":"";
 boolean editable="true".equals(request.getParameter("editable"));
 String disabled=editable?"":"disabled";
 String script = request.getParameter("script");
-String agent = (String) request.getAttribute("xava.portlet.user-agent");
-if (null != agent && agent.indexOf("MSIE")>=0) {
-    script = org.openxava.util.Strings.change(script, "onchange", "onclick");
-}
 %>
 <INPUT id="<%=propertyKey%>" type="checkbox" name="<%=propertyKey%>" class=<%=style.getEditor()%>
 	tabindex="1" 

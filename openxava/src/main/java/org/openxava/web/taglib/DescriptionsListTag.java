@@ -11,7 +11,6 @@ import org.openxava.model.meta.*;
 import org.openxava.util.*;
 import org.openxava.view.*;
 import org.openxava.web.*;
-import org.openxava.web.dwr.Module;
 
 
 /**
@@ -44,7 +43,7 @@ public class DescriptionsListTag extends TagSupport {
 			request.setAttribute(referenceKey, metaReference);
 			String readOnlyAsLabelSuffix = readOnlyAsLabel?"&readOnlyAsLabel=true":"";
 			String editorURL = "reference.jsp?referenceKey=" + referenceKey + "&onlyEditor=true&frame=false&composite=false&descriptionsList=true" + readOnlyAsLabelSuffix; 
-			String editorPrefix = Module.isPortlet()?"/WEB-INF/jsp/xava/":"/xava/";  
+			String editorPrefix = "/xava/";  
 			try {
 				pageContext.include(editorPrefix + editorURL); 
 			}

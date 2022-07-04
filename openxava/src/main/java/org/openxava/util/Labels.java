@@ -275,7 +275,7 @@ public class Labels {
 				catch (MissingResourceException ex) {
 				}			
 			}		
-			ResourceBundle rb = ResourceBundle.getBundle("i18n.Labels", locale);  
+			ResourceBundle rb = ResourceBundle.getBundle("i18n.Labels", locale);
 			return rb.getString(id);
 		}
 		catch (MissingResourceException ex) {

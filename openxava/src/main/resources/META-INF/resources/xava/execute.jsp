@@ -18,12 +18,6 @@
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 
 <%
-String browser = (String) request.getAttribute("xava.portlet.user-agent");
-if (browser == null) { 
-	browser = request.getHeader("user-agent");
-	request.setAttribute("xava.portlet.user-agent", browser);
-}
-
 org.openxava.controller.ModuleManager manager = (org.openxava.controller.ModuleManager) context.get(request, "manager", "org.openxava.controller.ModuleManager");
 manager.setSession(session);
 

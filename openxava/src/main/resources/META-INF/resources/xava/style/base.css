@@ -1346,7 +1346,7 @@ input[type="button"] {
 }
 
 .xava_resizable .ui-resizable-e {
-	background-image: url(../../xava/style/liferay51/images/application/handle_vertical.png) ;
+	background-image: url(../images/handle_vertical.png) ;
 	background-repeat: no-repeat;
 	background-position: center center;
 	bottom: 0;

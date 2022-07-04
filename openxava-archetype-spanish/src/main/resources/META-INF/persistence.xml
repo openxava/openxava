@@ -11,6 +11,15 @@
     	<non-jta-data-source>java://comp/env/jdbc/tuaplicacionDS</non-jta-data-source>
     	<class>org.openxava.session.GalleryImage</class>
     	<class>org.openxava.web.editors.DiscussionComment</class>
+    	<class>com.openxava.naviox.model.ConfigurationRecord</class>
+    	<class>com.openxava.naviox.model.Folder</class>
+    	<class>com.openxava.naviox.model.History</class>
+    	<class>com.openxava.naviox.model.Module</class>
+    	<class>com.openxava.naviox.model.ModuleRights</class>
+    	<class>com.openxava.naviox.model.Organization</class>
+    	<class>com.openxava.naviox.model.Role</class>
+    	<class>com.openxava.naviox.model.SessionRecord</class>
+    	<class>com.openxava.naviox.model.User</class>
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="update"/>
             <property name="javax.persistence.create-database-schemas" value="true"/> 
@@ -38,6 +47,15 @@
     <persistence-unit name="junit">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     	<class>org.openxava.web.editors.DiscussionComment</class>
+    	<class>com.openxava.naviox.model.ConfigurationRecord</class>
+    	<class>com.openxava.naviox.model.Folder</class>
+    	<class>com.openxava.naviox.model.History</class>
+    	<class>com.openxava.naviox.model.Module</class>
+    	<class>com.openxava.naviox.model.ModuleRights</class>
+    	<class>com.openxava.naviox.model.Organization</class>
+    	<class>com.openxava.naviox.model.Role</class>
+    	<class>com.openxava.naviox.model.SessionRecord</class>
+    	<class>com.openxava.naviox.model.User</class>
         <properties>
 			<property name="hibernate.default_schema" value="tuaplicacion"/>
 			<property name="hibernate.connection.url" value="jdbc:hsqldb:hsql://localhost:1666"/>

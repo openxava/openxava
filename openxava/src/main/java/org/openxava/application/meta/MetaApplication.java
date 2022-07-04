@@ -137,7 +137,7 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
      * @exception ElementNotFoundException
 	 */
 	public MetaModule getMetaModule(String name) throws ElementNotFoundException, XavaException {
-		MetaModule result = (MetaModule) metaModules.get(name);		
+		MetaModule result = (MetaModule) metaModules.get(name);
 		if (result == null) {
 			if (existsModel(name)) {				
 				result = createDefaultModule(name);		

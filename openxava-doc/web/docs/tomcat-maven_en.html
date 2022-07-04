@@ -1,0 +1,121 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Deploy in production with Tomcat - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
+          / </span> Deploy in production with Tomcat </h1>
+      <i>If you're using an OpenXava version older than 7.0 look at the <a href="tomcat-ox6_en.html">old
+          instructions</a></i></div>
+    <div class="wiki" style="display: block;"> You can deploy your OpenXava
+      applications in any Java application server with support for Servlet 3.1
+      or better. For this guide we're going to use Apache Tomcat to deploy your
+      OpenXava application. Tomcat is the most used and robust Java application
+      server, ideal for production environments.<br>
+      <h2 id="toc1">Download and install Tomcat</h2>
+      <a href="https://tomcat.apache.org/download-90.cgi">Download Tomcat 9</a>
+      from Apache. OpenXava also works fine with Tomcat 8. Uncompress Tomcat in
+      a folder of your choice. Go to the <i>webapps</i> folder and remove all
+      the folders inside: <i>docs, examples, host-manager, manager</i> and <i>ROOT</i>.
+      They are example and management apps that you don't want to have in a
+      production system.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Create and deploy the WAR<br>
+      </h2>
+      In order to deploy your application into Tomcat you have to create a WAR
+      file from your project. For that, click on right mouse button on your
+      project and choose <i>Run As &gt; Maven build...</i>:</div>
+    <img src="files/run-as-maven-build.png">
+    <div class="wiki" style="display: block;">In the dialog type <i>package</i>
+      as goal:</div>
+    <img src="files/maven-build-package_en.png">
+    <div class="wiki" style="display: block;">Additionally, you can put a better
+      name like <i>invoicing package</i> in this case. Click on <i>Run</i>.
+      Wait until the the execution finishes.</div>
+    <div class="wiki" style="display: block;">Or if you have Maven installed in
+      your computer and you prefer to use command line:
+      <pre><code class="bash">$ cd invoicing
+$ mvn package
+</code></pre> Afterwards get the file <i>invoicing.war</i> (or y<i>ourapplicationname.war</i>)
+      from <i>target</i> folder in your project and copy it to the <i>webapps</i>
+      folder of your Tomcat. Your application is already deployed.</div>
+    <div class="wiki" style="display: block;">
+      <h2>Run Tomcat</h2>
+      <h2><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">To
+          start your Tomcat, with Windows click on the<span> </span></span><em
+          style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">Start</em><span
+          style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"><span>
+          </span>button, type<span>&nbsp;</span></span><em style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">cmd</em><span
+          style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"><span>&nbsp;</span>and
+          press ENTER, then:</span><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">:</span></h2>
+    </div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="shell">set JAVA_HOME=C:\Program Files\Java\jdk-11.0.3
+cd tomcat-9.0.64\bin
+startup</code></pre>
+    </div>
+    <div class="wiki" style="display: block;">With Linux/Mac:
+      <div class="wiki" style="display: block;">
+        <pre><code class="shell">export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+cd tomcat-9.0.64/bin
+./startup.sh</code></pre>
+      </div>
+      <div class="wiki" style="display: block;">Of course, adjust the URLs for
+        your own Tomcat and Java directories.</div>
+      <div class="wiki" style="display: block;">Congratulations! Your
+        application is already running in production, just use your browser to
+        access to it.</div>
+    </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Configure against production database</h2>
+      By default your application goes against the same database you're using in
+      development, the one defined in the datasource from <i>src/main/webapp/META-INF/context.xml</i>
+      of your project. Most times you want to use a different database for
+      production. To overwrite the database used by your application you have to
+      define the datasource in the <i>context.xml</i> found in the <i>conf</i>
+      folder of your Tomcat. For our example, we should edit <i>tomcat-9.0.64/conf/context.xml</i>
+      and leave it in this way:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;!-- The contents of this file will be loaded for each web application --&gt;
+&lt;Context&gt;
+
+    &lt;!-- Default set of monitored resources. If one of these changes, the    --&gt;
+    &lt;!-- web application will be reloaded.                                   --&gt;
+    &lt;WatchedResource&gt;WEB-INF/web.xml&lt;/WatchedResource&gt;
+    &lt;WatchedResource&gt;WEB-INF/tomcat-web.xml&lt;/WatchedResource&gt;
+    &lt;WatchedResource&gt;${catalina.base}/conf/web.xml&lt;/WatchedResource&gt;
+
+    &lt;!-- Uncomment this to disable session persistence across Tomcat restarts --&gt;
+    &lt;!--
+    &lt;Manager pathname="" /&gt;
+    --&gt;
+	
+	 &lt;Resource name="jdbc/invoicingDS" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="invoicing" password="sfh4tjdl" driverClassName="org.hsqldb.jdbcDriver"
+	      url="jdbc:hsqldb:hsql://localhost:1999"/&gt;
+	
+&lt;/Context&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">We use <i>invoicingDS</i> as
+      datasource name, the same of the <i>context.xml</i> included in your WAR,
+      but we define different <i>url</i>, <i>username</i> and <i>password</i>.</div>
+    <div class="wiki" style="display: block;">
+      <div class="wiki" style="display: block;">
+        <h2 id="toc1"><br>
+        </h2>
+      </div>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+  </body>
+</html>

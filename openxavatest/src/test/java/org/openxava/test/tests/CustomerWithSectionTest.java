@@ -753,8 +753,6 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}	
 	
 	public void testRowStyle() throws Exception {
-		// When testing again a portal styleClass in xava.properties must match with
-		// the tested portal in order that this test works fine
 		int c = getListRowCount();
 		boolean found = false;
 		boolean found_red = false;

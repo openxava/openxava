@@ -27,7 +27,6 @@ public class PhoneServletTest extends ModuleTestBase {
 	public void testPhoneServlet() throws Exception {
 		WebClient client = new WebClient();
 		assertNoMobileUI(client, "http://" + getHost() + ":" + getPort() + getContextPath() + "p/" + MODULE); 
-		assertNoMobileUI(client, "http://" + getHost() + ":" + getPort() + getContextPath() +"phone");		
 	}
 
 	private void assertNoMobileUI(WebClient client, String url) throws Exception {

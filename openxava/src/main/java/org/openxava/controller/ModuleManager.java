@@ -139,16 +139,7 @@ public class ModuleManager implements java.io.Serializable {
 	 * @return
 	 */
 	public String getFormAction(HttpServletRequest request) {
-		if (!isFormUpload())
-			return "";
-		String module = !getPreviousModules().isEmpty() ? previousModules
-				.elementAt(0) : getModuleName();
-		Object portletActionURL = request.getSession().getAttribute(
-				Ids.decorate(getApplicationName(), module,
-						"xava.portlet.uploadActionURL"));
-		if (portletActionURL == null)
-			return "";
-		return "action='" + portletActionURL + "'";
+		return "";
 	}
 
 	private void updateXavaMetaActionsInList() {
@@ -1530,7 +1521,7 @@ public class ModuleManager implements java.io.Serializable {
 				setModeControllerName(XavaPreferences.getInstance().getDefaultModeController());
 			}
 			else {
-				setModeControllerName(Style.getInstance(request).getDefaultModeController());
+				setModeControllerName(Style.getInstance().getDefaultModeController());
 			}
 		}		
 	}
@@ -1574,9 +1565,10 @@ public class ModuleManager implements java.io.Serializable {
 	
 	public void executeBeforeLoadPage(HttpServletRequest request, Messages errors, Messages messages) {  
 		try {			
+			if ("SignIn".equals(getModuleName())) return; 
 			String detailId =  request.getParameter("detail");
 			if (!Is.emptyString(detailId)) {
-				getView().setModelName(getMetaModule().getModelName()); 
+				getView().setModelName(getMetaModule().getModelName());  
 				Collection metaKeys = getView().getMetaModel().getMetaPropertiesKey();
 				if (metaKeys.size() != 1) return;
 				MetaProperty metaKey = (MetaProperty) metaKeys.iterator().next();
@@ -1594,9 +1586,7 @@ public class ModuleManager implements java.io.Serializable {
 						executeAction(metaAction, errors, messages, request);
 					}
 					else {
-						if (!"SignIn".equals(getModuleName())) { 
-							errors.add("action_not_available", "'" + action + "'");
-						}
+						errors.add("action_not_available", "'" + action + "'");
 					}
 				}	
 			}
@@ -1763,9 +1753,20 @@ public class ModuleManager implements java.io.Serializable {
 		return false;
 	}
 	
+	/**
+	 * If true the first load of the core of the page on enter in a module is done via AJAX. <br>
+	 * 
+	 * It takes the value from xava.coreViaAJAX of the servlet session, so if you want it return false, write this code:
+	 * <pre>
+	 * session.setAttribute("xava.coreViaAJAX", false);
+	 * </pre>
+	 * 
+	 * Put it to false when you need several modules in the same page.
+	 */
 	public boolean isCoreViaAJAX(HttpServletRequest request) {
-		Style style = (Style) request.getAttribute("style");
-		return !style.isInsidePortal() || !getPreviousModules().isEmpty() || getDialogLevel() > 0 || hasInitForwardActions();
+		Boolean coreViaAJAX = (Boolean) request.getSession().getAttribute("xava.coreViaAJAX");
+		if (coreViaAJAX == null) return true;
+		return coreViaAJAX;
 	}
 	
 	/** 

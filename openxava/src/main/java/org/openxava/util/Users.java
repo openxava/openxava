@@ -89,8 +89,6 @@ public class Users {
 	/**
 	 * Info about the current logged user. <p>
 	 * 
-	 * It only returns meaningful info if we are inside a portal.<br>
-	 * 
 	 * @return Not null. If not info available it returns a UserInfo object with no info.
 	 */
 	public static UserInfo getCurrentUserInfo() {
@@ -119,19 +117,11 @@ public class Users {
 	
 	/**
 	 * Associated the user of the request to the current thread. <p>
-	 * 
-	 * Takes into account JetSpeed 1.5 user managament, althought
-	 * it's generic enought to work in any servlet container.
 	 */
-	public static void setCurrent(HttpServletRequest request) {		
-        String portalUser = (String) request.getSession().getAttribute("xava.portal.user"); 
-        String webUser = (String) request.getSession().getAttribute("xava.user"); 
-        String user = portalUser == null?webUser:portalUser;
+	public static void setCurrent(HttpServletRequest request) {		 
+        String user = (String) request.getSession().getAttribute("xava.user");
 		current.set(user);
 		request.getSession().setAttribute("xava.user", user); 
-				
-		currentUserInfo.set(request.getSession().getAttribute("xava.portal.userinfo")); 
-		
 		currentIP.set(request.getRemoteAddr());
 	}
 	

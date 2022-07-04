@@ -5,17 +5,15 @@
 	<JarScanner scanClassPath="false" />
 	
 	<!-- 
-	To define the access to your database uncomment the corresponding one
-	from the below configurations. If you don't find the yours, look in
-	internet for the JDBC URL and driver class for your database and define 
-	your own Resource entry.
+	Para definir el acceso a tu base de datos descomenta una de las
+	configuraciones de abajo. Si no encuentras la tuya, busca en internet
+	la URL para tu base de datos y define tu propia entrada Resource.
 	
-	You have to adapt the URL to match your server, and maybe the port.
-	You have to define the correct user name and password for your database.
+	Has de adaptar la URL a tu propio servidor, quizás también el puerto.
+	Has de define el usuario y contraseña correctos para tu base de datos.
 	
-	Moreover, you have to copy the JDBC driver (a jar file) corresponding to
-	your database, to the lib folder of your Tomcat, or if you're in development 
-	add the dependency to the pom.xml of your project.
+	Además, has de añadir la dependencia al controlador JDBC 
+	correspodiente a tu base de datos al pom.xml de tu proyecto.	
 	-->
 	 
 	<!-- HSQLDB -->   	
@@ -50,6 +48,34 @@
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="user" password="" 
 	      url="jdbc:as400:localhost"/>
+	-->
+	
+	<!-- Microsoft SQL Server
+	<Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="user" password="" 
+	      url="jdbc:sqlserver://localhost:1433;databaseName=tuaplicaciondb"/>
+	-->
+	
+	<!-- Informix
+	<Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="user" password="" 
+	      url="jdbc:informix-sqli://localhost:1533/tuaplicaciondb:INFORMIXSERVER=tuservidor"/>
 	-->            
-	      	      
+	
+	<!-- Db2
+	<Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="user" password="" 
+	      url="jdbc:db2://localhost:50000/tuaplicaciondb"/>
+	-->
+	
+	<!-- Firebird
+	<Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="user" password="" 
+	      url="jdbc:firebirdsql://localhost:3050/c:/db/tuaplicacion.fdb"/>
+	-->
+	                  	      
 </Context>

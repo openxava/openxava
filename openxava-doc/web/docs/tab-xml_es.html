@@ -6,19 +6,22 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Capítulo 4: Datos tabulares XML (clásico)"></a>
-        <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+      <h1 id="toc0"><a name="Capítulo 4: Datos tabulares XML (clásico)"></a> <span
+          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
           / </span> Capítulo 4: Datos tabulares XML (clásico)</h1>
       <span class="wiki_link"><a class="wiki_link" href="introduction-xml_es.html">1.Introducción
           XML</a> | <a class="wiki_link" href="model-xml_es.html">2.Modelo XML</a>
-        | <a class="wiki_link" href="view-xml_es.html">3.Vista XML</a> | <strong><span
-
-            class="wiki_link">4.Tab XML</span></strong> | <a class="wiki_link"
-
+        | <a class="wiki_link" href="view-xml_es.html">3.Vista XML</a> | <strong><span
+            class="wiki_link">4.Tab XML</span></strong> | <a class="wiki_link"
           href="mapping-xml_es.html">5.Mapeo XML</a> | <a class="wiki_link" href="aspects-xml_es.html">6.Aspectos
           XML</a></span>
-      <hr>
+      <hr> </div>
+    <div class="wiki" style="display: block;"><i>El soporte de componentes XML
+        se quitó en v7.0, aunque la sintaxis aquí expuesta todavía aplica a
+        valores-defecto-tabs.xml<br>
+      </i></div>
+    <div class="wiki" style="display: block;">
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
         <div style="margin-left: 1em;"><a href="#Cap%C3%ADtulo+4:+Datos+tabulares+XML+%28cl%C3%A1sico%29">Capítulo
@@ -44,9 +47,9 @@
         <div style="margin-left: 3em;"><a href="#Cap%C3%ADtulo+4:+Datos+tabulares+XML+%28cl%C3%A1sico%29-Varios+formatos+de+presentaci%C3%B3n+usando+editores+%28nuevo+en+v5.7%29-Quitar+los+gr%C3%A1ficos+de+modo+lista+%28nuevo+en+v5.7%29">Quitar
             los gráficos de modo lista (nuevo en v5.7)</a></div>
       </div>
-       Datos tabulares son aquellos que se visualizan en formato de tabla.
-      Cuando creamos un módulo de OpenXava convencional el usuario puede
-      gestionar la información sobre ese componente con una lista como ésta:<br>
+      Datos tabulares son aquellos que se visualizan en formato de tabla. Cuando
+      creamos un módulo de OpenXava convencional el usuario puede gestionar la
+      información sobre ese componente con una lista como ésta:<br>
       <img src="files/tab_es010.jpg" alt="tab_es010.jpg" title="tab_es010.jpg"><br>
       Esta lista permite al usuario:<br>
       <ul>
@@ -88,26 +91,20 @@
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span></span>
-<span class="sc3">     <span class="re0">nombre</span>=<span class="st0">"nombre"</span>         &lt;!-- 1 --<span
-
+<span class="sc3">     <span class="re0">nombre</span>=<span class="st0">"nombre"</span>         &lt;!-- 1 --<span
 class="re2">&gt;</span></span>
      editor="editor"         <span class="sc-1">&lt;!-- 2  Nuevo en v4.6 --&gt;</span>
      editores="editores"     <span class="sc-1">&lt;!-- 3  Nuevo en v5.7 --&gt;</span>
 &gt;
-    <span class="sc3"><span class="re1">&lt;filtro</span> ... <span class="re2">/&gt;</span></span>           <span
-
+    <span class="sc3"><span class="re1">&lt;filtro</span> ... <span class="re2">/&gt;</span></span>           <span
 class="sc-1">&lt;!-- 4 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;estilo-fila</span> ... <span class="re2">/&gt;</span></span> ...  <span
-
+    <span class="sc3"><span class="re1">&lt;estilo-fila</span> ... <span class="re2">/&gt;</span></span> ...  <span
 class="sc-1">&lt;!-- 5 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;propiedades</span> ... <span class="re2">/&gt;</span></span>      <span
-
+    <span class="sc3"><span class="re1">&lt;propiedades</span> ... <span class="re2">/&gt;</span></span>      <span
 class="sc-1">&lt;!-- 6 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;condicion-base</span> ... <span class="re2">/&gt;</span></span>   <span
-
+    <span class="sc3"><span class="re1">&lt;condicion-base</span> ... <span class="re2">/&gt;</span></span>   <span
 class="sc-1">&lt;!-- 7 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;orden-defecto</span> ... <span class="re2">/&gt;</span></span>    <span
-
+    <span class="sc3"><span class="re1">&lt;orden-defecto</span> ... <span class="re2">/&gt;</span></span>    <span
 class="sc-1">&lt;!-- 8 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span></pre>
       <ol>
@@ -169,10 +166,8 @@ class="sc-1">&lt;!-- 8 --&gt;</span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;estilo-fila</span> <span class="re0">estilo</span>=<span
-
-class="st0">"row-highlight"</span> <span class="re0">propiedad</span>=<span class="st0">"tipo"</span> <span
-
+    <span class="sc3"><span class="re1">&lt;estilo-fila</span> <span class="re0">estilo</span>=<span
+class="st0">"row-highlight"</span> <span class="re0">propiedad</span>=<span class="st0">"tipo"</span> <span
 class="re0">valor</span>=<span class="st0">"fijo"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;propiedades<span class="re2">&gt;</span></span></span>
         nombre, tipo, comercial.nombre,
@@ -215,17 +210,14 @@ class="re0">valor</span>=<span class="st0">"fijo"</span><span class="re2">/&gt;<
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span
 class="re0">nombre</span>=<span class="st0">"Actuales"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;filtro</span> <span class="re0">clase</span>=<span
-
+    <span class="sc3"><span class="re1">&lt;filtro</span> <span class="re0">clase</span>=<span
 class="st0">"org.openxava.test.filtros.FiltroAñoActual"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;propiedades<span class="re2">&gt;</span></span></span>
         año, numero, sumaImportes, iva, cantidadLineas, pagada, cliente.nombre
     <span class="sc3"><span class="re1">&lt;/propiedades<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;condicion-base<span class="re2">&gt;</span></span></span>${año} = ?<span
-
+    <span class="sc3"><span class="re1">&lt;condicion-base<span class="re2">&gt;</span></span></span>${año} = ?<span
 class="sc3"><span class="re1">&lt;/condicion-base<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span></pre>
       La condición tiene la sintaxis SQL, ponemos ? para los argumentos y los
@@ -418,126 +410,82 @@ class="sc3"><span class="re1">&lt;/condicion-base<span class="re2">&gt;</span></
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.filtros</span><span
-
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.filtros</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.filters.*</span><span
-
+<span class="kw2">import</span> <span class="co2">org.openxava.filters.*</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="co3">/**
  * @author Javier Paniza
  */</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> FiltroAñoActual <span
-
-class="kw2">implements</span> IFilter <span class="br0">{</span>            <span
-
+<span class="kw2">public</span> <span class="kw2">class</span> FiltroAñoActual <span
+class="kw2">implements</span> IFilter <span class="br0">{</span>            <span
 class="co1">// 1</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> filter<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> o<span class="br0">)</span> <span class="kw2">throws</span> FilterException <span
-
+    <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> filter<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> o<span class="br0">)</span> <span class="kw2">throws</span> FilterException <span
 class="br0">{</span>  <span class="co1">// 2</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
-
-class="kw46">Calendar</span></a> cal = <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
-
-class="kw46">Calendar</span></a>.<span class="me1">getInstance</span><span class="br0">(</span><span
-
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
+class="kw46">Calendar</span></a> cal = <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
+class="kw46">Calendar</span></a>.<span class="me1">getInstance</span><span class="br0">(</span><span
 class="br0">)</span><span class="sy0">;</span>
-        cal.<span class="me1">setTime</span><span class="br0">(</span><span class="kw2">new</span> java.<span
-
-class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
-class="kw166">Date</span></a><span class="br0">(</span><span class="br0">)</span><span
-
+        cal.<span class="me1">setTime</span><span class="br0">(</span><span class="kw2">new</span> java.<span
+class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
+class="kw166">Date</span></a><span class="br0">(</span><span class="br0">)</span><span
 class="br0">)</span><span class="sy0">;</span>
-        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a> año = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a><span class="br0">(</span>cal.<span class="me1">get</span><span
-
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
-
-class="kw46">Calendar</span></a>.<span class="me1">YEAR</span><span class="br0">)</span><span
-
+        <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+class="kw21">Integer</span></a> año = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+class="kw21">Integer</span></a><span class="br0">(</span>cal.<span class="me1">get</span><span
+class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
+class="kw46">Calendar</span></a>.<span class="me1">YEAR</span><span class="br0">)</span><span
 class="br0">)</span><span class="sy0">;</span>
-        <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span> r = <span
-
+        <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span> r = <span
 class="kw4">null</span><span class="sy0">;</span>
-        <span class="kw1">if</span> <span class="br0">(</span>o == <span class="kw4">null</span><span
-
-class="br0">)</span> <span class="br0">{</span>                                     <span
-
+        <span class="kw1">if</span> <span class="br0">(</span>o == <span class="kw4">null</span><span
+class="br0">)</span> <span class="br0">{</span>                                     <span
 class="co1">// 3</span>
-            r = <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a><span class="br0">[</span><span class="nu0">1</span><span
-
+            r = <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a><span class="br0">[</span><span class="nu0">1</span><span
 class="br0">]</span><span class="sy0">;</span>
-            r<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span> = año<span
-
+            r<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span> = año<span
 class="sy0">;</span>
         <span class="br0">}</span>
-        <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span>o <span
-
-class="kw2">instanceof</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span><span
-
+        <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span>o <span
+class="kw2">instanceof</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span><span
 class="br0">)</span> <span class="br0">{</span>                   <span class="co1">// 4</span>
-            <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span> a = <span
-
-class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span><span
-
+            <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span> a = <span
+class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span><span
 class="br0">)</span> o<span class="sy0">;</span>
-            r = <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a><span class="br0">[</span>a.<span class="me1">length</span> + <span
-
+            r = <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a><span class="br0">[</span>a.<span class="me1">length</span> + <span
 class="nu0">1</span><span class="br0">]</span><span class="sy0">;</span>
-            r<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span> = año<span
-
+            r<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span> = año<span
 class="sy0">;</span>
-            <span class="kw1">for</span> <span class="br0">(</span><span class="kw3">int</span> i = <span
-
-class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> a.<span
-
-class="me1">length</span><span class="sy0">;</span> i++<span class="br0">)</span> <span
-
+            <span class="kw1">for</span> <span class="br0">(</span><span class="kw3">int</span> i = <span
+class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> a.<span
+class="me1">length</span><span class="sy0">;</span> i++<span class="br0">)</span> <span
 class="br0">{</span>
-                r<span class="br0">[</span>i+<span class="nu0">1</span><span class="br0">]</span>=a<span
-
+                r<span class="br0">[</span>i+<span class="nu0">1</span><span class="br0">]</span>=a<span
 class="br0">[</span>i<span class="br0">]</span><span class="sy0">;</span>
             <span class="br0">}</span>
         <span class="br0">}</span>
-        <span class="kw1">else</span> <span class="br0">{</span>                                               <span
-
+        <span class="kw1">else</span> <span class="br0">{</span>                                               <span
 class="co1">// 5</span>
-            r = <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a><span class="br0">[</span><span class="nu0">2</span><span
-
+            r = <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a><span class="br0">[</span><span class="nu0">2</span><span
 class="br0">]</span><span class="sy0">;</span>
-            r<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span> = año<span
-
+            r<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span> = año<span
 class="sy0">;</span>
-            r<span class="br0">[</span><span class="nu0">1</span><span class="br0">]</span> = o<span
-
+            r<span class="br0">[</span><span class="nu0">1</span><span class="br0">]</span> = o<span
 class="sy0">;</span>
         <span class="br0">}</span>
 &nbsp;
@@ -547,10 +495,8 @@ class="sy0">;</span>
 <span class="br0">}</span></pre>
       Un filtro recoge los argumentos que el usuario teclea para filtrar la
       lista y los procesa devolviendo lo que al final se envía a OpenXava para
-      que haga la consulta. Como se ve ha de implementar <em><a class="wiki_link_ext"
-
-          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/filters/IFilter.html"
-
+      que haga la consulta. Como se ve ha de implementar <em><a class="wiki_link_ext"
+          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/filters/IFilter.html"
           rel="nofollow">IFilter</a></em> (1) lo que lo obliga a tener un método
       llamado <em>filter</em> (2) que recibe un objeto que el valor de los
       argumentos y devuelve los argumentos que al final serán usados. Estos
@@ -585,18 +531,15 @@ class="sy0">;</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span
 class="re0">nombre</span>=<span class="st0">"AñoDefecto"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;filtro</span> <span class="re0">clase</span>=<span
-
+    <span class="sc3"><span class="re1">&lt;filtro</span> <span class="re0">clase</span>=<span
 class="st0">"org.openxava.test.filtros.FiltroAñoDefecto"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;propiedades<span class="re2">&gt;</span></span></span>
         año, numero, cliente.numero, cliente.nombre,
         sumaImportes, iva, cantidadLineas, pagada, importancia
     <span class="sc3"><span class="re1">&lt;/propiedades<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;condicion-base<span class="re2">&gt;</span></span></span>${año} = ?<span
-
+    <span class="sc3"><span class="re1">&lt;condicion-base<span class="re2">&gt;</span></span></span>${año} = ?<span
 class="sc3"><span class="re1">&lt;/condicion-base<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span></pre>
       En este caso el filtro es:<br>
@@ -787,116 +730,80 @@ class="sc3"><span class="re1">&lt;/condicion-base<span class="re2">&gt;</span></
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.filtros</span><span
-
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.filtros</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.filters.*</span><span
-
+<span class="kw2">import</span> <span class="co2">org.openxava.filters.*</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="co3">/**
  * @author Javier Paniza
  */</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> FiltroAñoDefecto <span
-
-class="kw2">extends</span> BaseContextFilter <span class="br0">{</span>          <span
-
+<span class="kw2">public</span> <span class="kw2">class</span> FiltroAñoDefecto <span
+class="kw2">extends</span> BaseContextFilter <span class="br0">{</span>          <span
 class="co1">// 1</span>
 &nbsp;
-    <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> filter<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> o<span class="br0">)</span> <span class="kw2">throws</span> FilterException <span
-
+    <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> filter<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> o<span class="br0">)</span> <span class="kw2">throws</span> FilterException <span
 class="br0">{</span>
-        <span class="kw1">if</span> <span class="br0">(</span>o == <span class="kw4">null</span><span
-
+        <span class="kw1">if</span> <span class="br0">(</span>o == <span class="kw4">null</span><span
 class="br0">)</span> <span class="br0">{</span>
-            <span class="kw2">return</span> <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span> <span
-
-class="br0">{</span> getAñoDefecto<span class="br0">(</span><span class="br0">)</span> <span
-
+            <span class="kw2">return</span> <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span> <span
+class="br0">{</span> getAñoDefecto<span class="br0">(</span><span class="br0">)</span> <span
 class="br0">}</span><span class="sy0">;</span>              <span class="co1">// 2</span>
         <span class="br0">}</span>
-        <span class="kw1">if</span> <span class="br0">(</span>o <span class="kw2">instanceof</span> <a
-
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span><span
-
+        <span class="kw1">if</span> <span class="br0">(</span>o <span class="kw2">instanceof</span> <a
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span><span
 class="br0">)</span> <span class="br0">{</span>
-            <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+List"><span
-
-class="kw166">List</span></a> c = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/ArrayList.html"><span
-
-class="kw46">ArrayList</span></a><span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Arrays.html"><span
-
-class="kw46">Arrays</span></a>.<span class="me1">asList</span><span class="br0">(</span><span
-
-class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span><span
-
-class="br0">)</span> o<span class="br0">)</span><span class="br0">)</span><span
-
+            <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+List"><span
+class="kw166">List</span></a> c = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/ArrayList.html"><span
+class="kw46">ArrayList</span></a><span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Arrays.html"><span
+class="kw46">Arrays</span></a>.<span class="me1">asList</span><span class="br0">(</span><span
+class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span><span
+class="br0">)</span> o<span class="br0">)</span><span class="br0">)</span><span
 class="sy0">;</span>
-            c.<span class="me1">add</span><span class="br0">(</span><span class="nu0">0</span>, getAñoDefecto<span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>                             <span
-
+            c.<span class="me1">add</span><span class="br0">(</span><span class="nu0">0</span>, getAñoDefecto<span
+class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>                             <span
 class="co1">// 2</span>
-            <span class="kw2">return</span> c.<span class="me1">toArray</span><span
-
+            <span class="kw2">return</span> c.<span class="me1">toArray</span><span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         <span class="br0">}</span>
         <span class="kw1">else</span> <span class="br0">{</span>
-            <span class="kw2">return</span> <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span> <span
-
-class="br0">{</span> getAñoDefecto<span class="br0">(</span><span class="br0">)</span>, o    <span
-
+            <span class="kw2">return</span> <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span> <span
+class="br0">{</span> getAñoDefecto<span class="br0">(</span><span class="br0">)</span>, o    <span
 class="br0">}</span><span class="sy0">;</span>        <span class="co1">// 2</span>
         <span class="br0">}</span>
     <span class="br0">}</span>
 &nbsp;
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a> getAñoDefecto<span class="br0">(</span><span class="br0">)</span> <span
-
+    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+class="kw21">Integer</span></a> getAñoDefecto<span class="br0">(</span><span class="br0">)</span> <span
 class="kw2">throws</span> FilterException <span class="br0">{</span>
         <span class="kw2">try</span> <span class="br0">{</span>
-            <span class="kw2">return</span> getInteger<span class="br0">(</span><span
-
-class="st0">"xavatest_añoDefecto"</span><span class="br0">)</span><span class="sy0">;</span>              <span
-
+            <span class="kw2">return</span> getInteger<span class="br0">(</span><span
+class="st0">"xavatest_añoDefecto"</span><span class="br0">)</span><span class="sy0">;</span>              <span
 class="co1">// 3</span>
         <span class="br0">}</span>
-        <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
-
+        <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
 class="kw21">Exception</span></a> ex<span class="br0">)</span> <span class="br0">{</span>
-            ex.<span class="me1">printStackTrace</span><span class="br0">(</span><span
-
+            ex.<span class="me1">printStackTrace</span><span class="br0">(</span><span
 class="br0">)</span><span class="sy0">;</span>
-            <span class="kw2">throw</span> <span class="kw2">new</span> FilterException<span
-
+            <span class="kw2">throw</span> <span class="kw2">new</span> FilterException<span
 class="br0">(</span>
-            <span class="st0">"Imposible obtener año defecto asociado a esta sesión"</span><span
-
+            <span class="st0">"Imposible obtener año defecto asociado a esta sesión"</span><span
 class="br0">)</span><span class="sy0">;</span>
         <span class="br0">}</span>
     <span class="br0">}</span>
 &nbsp;
 <span class="br0">}</span></pre>
-      Este filtro desciende de <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/filters/BaseContextFilter.html"
-
+      Este filtro desciende de <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/filters/BaseContextFilter.html"
           rel="nofollow">BaseContextFilter</a></em>, esto le permite acceder al
       valor de los objetos de sesión de OpenXava. Vemos como usa un método <em>getAñoDefecto()</em>
       (2) que a su vez llama a <em>getInteger()</em> (3) el cual (al igual que
@@ -925,16 +832,12 @@ class="br0">)</span><span class="sy0">;</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;objeto</span> <span
-
-class="re0">nombre</span>=<span class="st0">"xavatest_añoDefecto"</span> <span class="re0">clase</span>=<span
-
-class="st0">"java.lang.Integer"</span> <span class="re0">valor</span>=<span class="st0">"1999"</span><span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;objeto</span> <span
+class="re0">nombre</span>=<span class="st0">"xavatest_añoDefecto"</span> <span class="re0">clase</span>=<span
+class="st0">"java.lang.Integer"</span> <span class="re0">valor</span>=<span class="st0">"1999"</span><span
 class="re2">/&gt;</span></span></pre>
       Las acciones lo pueden modificar y tiene como vida la sesión del usuario y
-      es privado para cada módulo. De esto se habla más profundamente en el <a
-
+      es privado para cada módulo. De esto se habla más profundamente en el <a
         class="wiki_link" href="controllers_es.html">capítulo sobre
         controladores</a>.<br>
       Esto es una buena técnica para que en modo lista aparezcan unos datos u
@@ -1129,14 +1032,10 @@ class="re2">/&gt;</span></span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a><span class="br0">(</span>getEnvironment<span class="br0">(</span><span
-
-class="br0">)</span>.<span class="me1">getValue</span><span class="br0">(</span><span
-
-class="st0">"XAVATEST_AÑO_DEFECTO"</span><span class="br0">)</span><span class="br0">)</span><span
-
+</style><pre class="java5"><span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+class="kw21">Integer</span></a><span class="br0">(</span>getEnvironment<span class="br0">(</span><span
+class="br0">)</span>.<span class="me1">getValue</span><span class="br0">(</span><span
+class="st0">"XAVATEST_AÑO_DEFECTO"</span><span class="br0">)</span><span class="br0">)</span><span
 class="sy0">;</span></pre>
       Para aprender más sobre variable de entorno ver el <a class="wiki_link" href="controllers_es.html">capítulo
         sobre controladores</a>.<br>
@@ -1332,22 +1231,18 @@ class="sy0">;</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="sy0">&lt;</span>tab nombre=<span class="st0">"DeValencia"</span><span
-
+</style><pre class="java5"><span class="sy0">&lt;</span>tab nombre=<span class="st0">"DeValencia"</span><span
 class="sy0">&gt;</span>
     <span class="sy0">&lt;</span>condicion-base<span class="sy0">&gt;</span>
         from XAVATEST.<span class="me1">CLIENTE</span>
         inner join XAVATEST.<span class="me1">CLIENTE_PROVINCIA</span> provincias1_
-            on XAVATEST.<span class="me1">CLIENTE</span>.<span class="me1">NUMERO</span>=provincias1_.<span
-
+            on XAVATEST.<span class="me1">CLIENTE</span>.<span class="me1">NUMERO</span>=provincias1_.<span
 class="me1">CUSTOMER</span>
         inner join XAVATEST.<span class="me1">PROVINCIA</span> provincia2_
-            on provincias1_.<span class="me1">PROVINCIA</span>=provincia2_.<span
-
+            on provincias1_.<span class="me1">PROVINCIA</span>=provincia2_.<span
 class="me1">ID</span>
         inner join XAVATEST.<span class="me1">PROVINCIA</span> T_direccion_provincia
-            on XAVATEST.<span class="me1">CLIENTE</span>.<span class="me1">PROVINCIA</span>=T_direccion_provincia.<span
-
+            on XAVATEST.<span class="me1">CLIENTE</span>.<span class="me1">PROVINCIA</span>=T_direccion_provincia.<span
 class="me1">ID</span>
         where provincia2_.<span class="me1">ID</span>=<span class="st0">'AK'</span>
     <span class="sy0">&lt;</span>/condicion-base<span class="sy0">&gt;</span>
@@ -1382,11 +1277,9 @@ class="me1">ID</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span
 class="re0">nombre</span>=<span class="st0">"SelectIntegro"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;propiedades<span class="re2">&gt;</span></span></span>codigo, descripcion, familia<span
-
+    <span class="sc3"><span class="re1">&lt;propiedades<span class="re2">&gt;</span></span></span>codigo, descripcion, familia<span
 class="sc3"><span class="re1">&lt;/propiedades<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;condicion-base<span class="re2">&gt;</span></span></span>
         select ${codigo}, ${descripcion}, XAVATEST@separator@FAMILIA.DESCRIPCION
@@ -1422,14 +1315,11 @@ class="sc3"><span class="re1">&lt;/propiedades<span class="re2">&gt;</span></spa
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span
 class="re0">nombre</span>=<span class="st0">"Simple"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;propiedades<span class="re2">&gt;</span></span></span>año, numero, fecha<span
-
+    <span class="sc3"><span class="re1">&lt;propiedades<span class="re2">&gt;</span></span></span>año, numero, fecha<span
 class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;orden-defecto<span class="re2">&gt;</span></span></span>${año} desc, ${numero} desc<span
-
+    <span class="sc3"><span class="re1">&lt;orden-defecto<span class="re2">&gt;</span></span></span>${año} desc, ${numero} desc<span
 class="sc3"><span class="re1">&lt;/orden-defecto<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span></pre>
       Este orden es solo el inicial, el usuario puede escoger otro con solo
@@ -1438,8 +1328,7 @@ class="sc3"><span class="re1">&lt;/orden-defecto<span class="re2">&gt;</span></s
         por defecto para los tabs a nivel de aplicación <em>(new v4m4)</em></h2>
       Esta funcionalidad funciona en los componentes XML <a class="wiki_link" href="tab_es.html#valores-por-defecto-para-los-tabs">igual
         que en la entidades JPA</a>.<br>
-      <h2 id="toc7"><a name="Capítulo 4: Datos tabulares XML (clásico)-Sumatorio de columna (nuevo en v4.1)"></a><a
-
+      <h2 id="toc7"><a name="Capítulo 4: Datos tabulares XML (clásico)-Sumatorio de columna (nuevo en v4.1)"></a><a
           name="sumatorio-columna"></a>Sumatorio de columna <em>(nuevo en v4.1)</em></h2>
       Para mostrar la suma de todos los valores de una columna al final de la
       lista sólo has de añadir el símbolo + al nombre de la propiedad, como
@@ -1466,11 +1355,9 @@ class="sc3"><span class="re1">&lt;/orden-defecto<span class="re2">&gt;</span></s
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span
 class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>año, numero, descripcion, importe+<span
-
+    <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>año, numero, descripcion, importe+<span
 class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span></pre>
       En este caso se mostrará la suma de la columna <em>importe</em>, tal como
@@ -1510,13 +1397,10 @@ class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span
-
-class="re0">nombre</span>=<span class="st0">"Fichas"</span> <span class="re0">editor</span>=<span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span
+class="re0">nombre</span>=<span class="st0">"Fichas"</span> <span class="re0">editor</span>=<span
 class="st0">"ListaFichasCliente"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;propiedades<span class="re2">&gt;</span></span></span>codigo, nombre, tipo, direccion.ciudad, direccion.provincia.nombre<span
-
+    <span class="sc3"><span class="re1">&lt;propiedades<span class="re2">&gt;</span></span></span>codigo, nombre, tipo, direccion.ciudad, direccion.provincia.nombre<span
 class="sc3"><span class="re1">&lt;/propiedades<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span></pre>
       En este caso el editor <em>ListaFichasCliente</em> se usará para
@@ -1545,10 +1429,8 @@ class="sc3"><span class="re1">&lt;/propiedades<span class="re2">&gt;</span></spa
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">nombre</span>=<span class="st0">"ListaFichasCliente"</span> <span class="re0">url</span>=<span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+class="re0">nombre</span>=<span class="st0">"ListaFichasCliente"</span> <span class="re0">url</span>=<span
 class="st0">"fichasClienteListEditor.jsp"</span><span class="re2">/&gt;</span></span></pre>
       También hemos de escribir el código JSP para el editor en <em>fichasClienteListEditor.jsp</em>.<br>
       Esta característica es para cambiar el editor para un tab concreto de una
@@ -1593,13 +1475,10 @@ class="st0">"fichasClienteListEditor.jsp"</span><span class="re2">/&gt;</span></
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span
-
-class="re0">nombre</span>=<span class="st0">"ConFichas"</span> <span class="re0">editores</span>=<span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span
+class="re0">nombre</span>=<span class="st0">"ConFichas"</span> <span class="re0">editores</span>=<span
 class="st0">"List, Charts, ListaFichasCliente"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;propiedades<span class="re2">&gt;</span></span></span>codigo, nombre, tipo, direccion.ciudad, direccion.provincia.nombre<span
-
+    <span class="sc3"><span class="re1">&lt;propiedades<span class="re2">&gt;</span></span></span>codigo, nombre, tipo, direccion.ciudad, direccion.provincia.nombre<span
 class="sc3"><span class="re1">&lt;/propiedades<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span></pre>
       Este tab tendrá los formatos <em>List</em> y <em>Charts</em>, que son
@@ -1633,13 +1512,10 @@ class="sc3"><span class="re1">&lt;/propiedades<span class="re2">&gt;</span></spa
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span
-
-class="re0">nombre</span>=<span class="st0">"SoloLista"</span> <span class="re0">editores</span>=<span
-
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;tab</span> <span
+class="re0">nombre</span>=<span class="st0">"SoloLista"</span> <span class="re0">editores</span>=<span
 class="st0">"List"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;propiedades<span class="re2">&gt;</span></span></span>codigo, nombre, tipo, direccion.ciudad, direccion.provincia.nombre<span
-
+    <span class="sc3"><span class="re1">&lt;propiedades<span class="re2">&gt;</span></span></span>codigo, nombre, tipo, direccion.ciudad, direccion.provincia.nombre<span
 class="sc3"><span class="re1">&lt;/propiedades<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span></pre>
       Así podemos tener un módulo sin gráficos, sólo la lista de OpenXava de

@@ -2,8 +2,6 @@ package org.openxava.web.style;
 
 import java.util.*;
 
-import javax.servlet.http.*;
-
 import org.apache.commons.logging.*;
 import org.openxava.util.*;
 
@@ -28,54 +26,13 @@ public class Style {
 		 	
 	private static Log log = LogFactory.getLog(Style.class);
 	private static Style instance = null;
-	private static Style portalInstance = null;
-	@SuppressWarnings("rawtypes")
-	private static Collection styleClasses; 
 	private Collection<String> additionalCssFiles; 
 	private String cssFile; 
-	private boolean insidePortal; 
 	private String browser; 
 	
 	public Style() { 		
 	}
 
-	/**
-	 * @since 4.2
-	 */	
-	public static Style getInstance(HttpServletRequest request) {
-		return getInstanceForBrowser(request);
-	}
-	
-	/**
-	 * @since 4.2
-	 */
-	private static Style getInstanceForBrowser(HttpServletRequest request) {
-		String browser = request.getHeader("user-agent"); 
-		Style instance = null; 
-		try {
-			for (Object styleClass: getStyleClasses()) {
-				try {
-					Style style = (Style) Class.forName((String) styleClass).newInstance();
-					if (style.isForBrowse(browser)) {
-						instance = style;							
-						break;
-					}
-				}
-				catch (Exception ex) {
-					log.warn(XavaResources.getString("style_for_browser_warning", browser), ex);
-				}
-			}
-			if (instance == null) instance = portalInstance == null?getInstance():portalInstance;  
-			instance.setBrowser(browser);
-		}
-		catch (Exception ex) {
-			log.warn(XavaResources.getString("style_for_browser_warning", browser), ex); 					
-			instance = portalInstance == null?getInstance():portalInstance; 
-			instance.setBrowser(browser);
-		}			
-		return instance; 
-	}
-	
 	public static Style getInstance() { 
 		if (instance == null) {
 			try {
@@ -94,28 +51,11 @@ public class Style {
 	/**
 	 * 
 	 * @since 4.2
-	 */	
-	public static void setPotalInstance(Style style) { 
-		portalInstance = style;
-	}
-
-	/**
-	 * 
-	 * @since 4.2
 	 */
 	public String getDefaultModeController() {
 		return "Mode";
 	}
-	
-	@SuppressWarnings("rawtypes")
-	private static Collection getStyleClasses() throws Exception {
-		if (styleClasses == null) {
-			PropertiesReader reader = new PropertiesReader(Style.class, "styles.properties");
-			styleClasses = reader.get().keySet();
-		}
-		return styleClasses;
-	}
-	
+		
 	/**
 	 * Pixels to add/substract from list width to a correct adjustament.
 	 * 
@@ -141,21 +81,7 @@ public class Style {
 	public boolean isUseIconsInsteadOfImages() {
 		return XavaPreferences.getInstance().isUseIconsInsteadOfImages();
 	}
-	
-
-	/**
-	 * If this style is specific for the indicated browser.
-	 * 
-	 * @since 4.2
-	 */
-	public boolean isForBrowse(String browser) {
-		return false;
-	}
-		
-	public String [] getNoPortalModuleJsFiles() { 
-		return null;
-	}
-	
+			
 	protected String getJQueryCss() { 
 		return "/xava/style/ui-lightness/jquery-ui.css";
 	}
@@ -170,7 +96,7 @@ public class Style {
 
 	
 	/**
-	 * These css files will be always added, inside and outside portal. <p>
+	 * These css files will be always added. <p>
 	 * 
 	 * To refine it overwrite the {@link #createAdditionalCssFiles} method.<br>
 	 */
@@ -200,14 +126,6 @@ public class Style {
 	
 	public String getInitThemeScript() {
 		return null;
-	}
-	
-	public String getNoPortalModuleStartDecoration(String title) {
-		return "";
-	}
-	
-	public String getNoPortalModuleEndDecoration() {
-		return "";
 	}
 	
 	/**
@@ -1097,7 +1015,7 @@ public class Style {
 	/**
 	 * If <code>true</code< the header in list is aligned as data displayed in its column. <p>
 	 * 
-	 * By default is <code>false</code> and it's used the portal default alignament for headers.
+	 * By default is <code>false</code>.
 	 */
 	public boolean isAlignHeaderAsData() {
 		return false;
@@ -1180,14 +1098,6 @@ public class Style {
 		return false;
 	}
 	
-	public boolean isInsidePortal() {
-		return insidePortal;
-	}
-
-	public void setInsidePortal(boolean insidePortal) {
-		this.insidePortal = insidePortal;
-	}
-
 	public String getSelectedRow(){
 		return "selected-row";
 	}

@@ -23,7 +23,7 @@ public class DealTest extends ModuleTestBase {
 		assertFalse(getHtml().contains("/xava/style/blue.css"));
 		HtmlElement blueLink = getHtmlPage().getBody().getOneHtmlElementByAttribute("a","href", "?theme=blue.css");
 		HtmlPage newPage = blueLink.click();
-		assertFalse(newPage.asXml().contains("/xava/style/terra.css"));
+		assertFalse(newPage.asXml().contains("/xava/style/terra.css")); 
 		assertTrue(newPage.asXml().contains("/xava/style/blue.css"));
 		
 		resetModule();

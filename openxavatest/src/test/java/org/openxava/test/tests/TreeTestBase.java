@@ -1,15 +1,12 @@
 package org.openxava.test.tests;
 
-import java.util.Iterator;
+import java.util.*;
 
-import org.openxava.tests.ModuleTestBase;
-import org.openxava.util.XavaResources;
+import org.openxava.tests.*;
+import org.openxava.util.*;
 
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.HtmlDivision;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
+import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  * 
@@ -28,14 +25,17 @@ public abstract class TreeTestBase extends ModuleTestBase {
 
 	protected String getValueInTreeView(String collection, int row) {
 		DomElement element = getTreeViewElementInRow(collection, row);
-		String value = element.getElementsByTagName("span").item(0)
+		// String value = element.getElementsByTagName("span").item(0) // item(0) does not compile in Eclipse with Java 11 and Maven
+		String value = element.getElementsByTagName("span").get(0)
 				.getTextContent().toString();
 		return value.replace((char) 160, (char) 32); 
 	}
 		
 	protected int getTreeViewRowCount(String collection) throws Exception {
-		HtmlDivision div = (HtmlDivision) getForm().getPage().getElementById("openxavaInput_" + collection);
-		return div.getElementsByTagName("input").getLength();
+		// HtmlDivision div = (HtmlDivision) getForm().getPage().getElementById("openxavaInput_" + collection); // It does not compile in Eclipse with Java 11 and Maven
+		HtmlDivision div = getHtmlPage().getHtmlElementById("openxavaInput_" + collection); 
+		// return div.getElementsByTagName("input").getLength(); // getLength() does not compile in Eclipse with Java 11 and Maven
+		return div.getElementsByTagName("input").size(); 
 	}
 	
 	
@@ -86,7 +86,8 @@ public abstract class TreeTestBase extends ModuleTestBase {
 	 * @throws ElementNotFoundException
 	 */
 	protected HtmlInput getTreeViewXavaElement(String collection, int row) throws ElementNotFoundException {
-		HtmlDivision div = (HtmlDivision) getForm().getPage().getElementById("openxavaInput_" + collection);
+		// HtmlDivision div = (HtmlDivision) getForm().getPage().getElementById("openxavaInput_" + collection); // It does not compile in Eclipse with Java 11 and Maven
+		HtmlDivision div = (HtmlDivision) getHtmlPage().getElementById("openxavaInput_" + collection); 
 		Iterator<HtmlElement> elements = div.getHtmlElementDescendants().iterator(); 		
 		int count = 0;
 		while (elements.hasNext()) {

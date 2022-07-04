@@ -77,11 +77,6 @@ public class XavaPreferences {
 				"showCountInList", "true").trim());
 	}
 
-	public boolean isEMailAsUserNameInPortal() {
-		return "true".equalsIgnoreCase(getProperties().getProperty(
-				"emailAsUserNameInPortal", "false").trim());
-	}
-
 	public String getSMTPHost() {
 		return getProperties().getProperty("smtpHost");
 	}
@@ -176,7 +171,7 @@ public class XavaPreferences {
 	 */	
 	public String getComponentParsersClasses() { 
 		return getProperties().getProperty("componentParsersClasses",
-				"org.openxava.component.parse.XMLComponentParser,org.openxava.component.parse.AnnotatedClassParser").trim();
+				"org.openxava.component.parse.AnnotatedClassParser").trim();
 	}
 	/**
 	 * @since 5.9 
@@ -199,36 +194,6 @@ public class XavaPreferences {
 	public String getThemes() { 
 		return getProperties().getProperty("themes", ""); 
 	}	
-
-	public String getLiferay51StyleClass() {
-		return getProperties().getProperty("liferay51StyleClass",
-				"org.openxava.web.style.Liferay51Style").trim();
-	}
-
-	public String getLiferay41StyleClass() {
-		return getProperties().getProperty("liferay41StyleClass",
-				"org.openxava.web.style.Liferay41Style").trim();
-	}
-
-	public String getLiferay43StyleClass() {
-		return getProperties().getProperty("liferay43StyleClass",
-				"org.openxava.web.style.Liferay43Style").trim();
-	}
-	
-	public String getWebSpherePortal8StyleClass() { 
-		return getProperties().getProperty("webSpherePortal8StyleClass",
-				"org.openxava.web.style.WebSpherePortal8Style").trim();
-	}	
-
-	public String getWebSpherePortal61StyleClass() {
-		return getProperties().getProperty("webSpherePortal61StyleClass",
-				"org.openxava.web.style.WebSpherePortal61Style").trim();
-	}
-
-	public String getJetSpeed2StyleClass() {
-		return getProperties().getProperty("JetSpeed2Style",
-				"org.openxava.web.style.JetSpeed2Style").trim();
-	}
 	
 	/**
 	 * @since 6.4
@@ -391,17 +356,7 @@ public class XavaPreferences {
 		return "true".equalsIgnoreCase(getProperties().getProperty(
 				"showFilterByDefaultInList", "true").trim());
 	}
-
-	public String getPortletLocales() {
-		return getProperties()
-				.getProperty("portletLocales",
-						"bg, ca, de, en, es, fr, in, it, ja, ko, nl, pl, pt, ru, sv, zh");
-	}
 	
-	public boolean hasPortletLocales() { 
-		return !Is.emptyString(getProperties().getProperty("portletLocales"));
-	}
-
 	public String getDefaultPersistenceUnit() {
 		return getProperties().getProperty("defaultPersistenceUnit", "default");
 	}
@@ -511,11 +466,6 @@ public class XavaPreferences {
 		return "true".equalsIgnoreCase(getProperties().getProperty("ignoreAccentsForStringArgumentsInConditions", "false" ).trim()); 
 	}
 	
-	/** @since 4m6 */
-	public String getLiferay6StyleClass() {  
-		return getProperties().getProperty("liferay6StyleClass", "org.openxava.web.style.Liferay6Style").trim(); 
-	}
-
 	/** @since 4.3 */
 	public boolean isSummationInList() {
 		return "true".equalsIgnoreCase(getProperties().getProperty(

@@ -1,10 +1,9 @@
 package org.openxava.tab.meta.xmlparse;
 
 import org.openxava.tab.meta.*;
-import org.openxava.util.XavaException;
-import org.openxava.util.xmlparse.ParserBase;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import org.openxava.util.*;
+import org.openxava.util.xmlparse.*;
+import org.w3c.dom.*;
 
 /**
  * @author: Javier Paniza
@@ -21,7 +20,6 @@ public class TabsDefaultValuesParser extends ParserBase {
 		
 		TabsDefaultValuesParser esParser = new TabsDefaultValuesParser("valores-defecto-tabs.xml", ESPANOL);
 		esParser.parse();
-				
 	}
 	
 	private void addTabs(Element el) throws XavaException {

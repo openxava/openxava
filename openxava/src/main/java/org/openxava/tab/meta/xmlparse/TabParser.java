@@ -5,7 +5,6 @@ package org.openxava.tab.meta.xmlparse;
 
 import org.openxava.filters.meta.*;
 import org.openxava.filters.meta.xmlparse.*;
-import org.openxava.model.meta.xmlparse.*;
 import org.openxava.tab.meta.*;
 import org.openxava.util.*;
 import org.openxava.util.xmlparse.*;
@@ -38,7 +37,6 @@ public class TabParser extends XmlElementsNames {
 		e.setDefaultOrder(ParserUtil.getString(el, xdefault_order[lang]));
 		e.setEditor(el.getAttribute(xeditor[lang]));
 		e.setEditors(el.getAttribute(xeditors[lang]));
-		fillProperties(el, e, lang);
 		return e;
 	}
 		
@@ -53,21 +51,7 @@ public class TabParser extends XmlElementsNames {
 		}
 		return null;		
 	}
-		
-	private static void fillProperties(Element el, MetaTab container, int lang)
-		throws XavaException {
-		NodeList l = el.getChildNodes();
-		int c = l.getLength();
-		for (int i = 0; i < c; i++) {
-			if (!(l.item(i) instanceof Element)) continue;
-			Element d = (Element) l.item(i);
-			String type = d.getTagName();
-			if (type.equals(xproperty[lang])) {
-				container.addMetaProperty(ModelParser.createProperty(d, lang));
-			}
-		}
-	}
-	
+			
 	private static void fillRowStyles(Element el, MetaTab container, int lang)
 		throws XavaException {
 		NodeList l = el.getChildNodes();

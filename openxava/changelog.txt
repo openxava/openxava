@@ -1,6 +1,18 @@
 Change Log for OpenXava project
 ===============================
 
+- Removed XML components support including all related code.
+- IPropertyCodeGenerator interface removed.
+- Documentation modules are no longer supported, now they are just ignored.
+- Dropped support for Liferay, WebSphere Portal, JetSpeed, portals and portlets.
+- IPadStyle removed, it was not enabled by default since v5.0.
+- Method isPortalEnabled() removed from ModuleTestBase.
+- The usage of styles.properties to register styles is removed.
+- Removed emailAsUserNameInPortal and portletLocales from xava.properties.
+- New servlet session attribute xava.coreViaAJAX to disable load via AJAX on entering a module first time.
+- Doc to deploy in production with Tomcat using Maven.
+- Doc to configure MySQL, PostgreSQL, Oracle, MS SQL Server, AS/400, Informix, Db2 and Firebird with Maven. 
+- Added new database commented configurations in new projects: MS SQL Server, Informix, Db2 and Firebird.
 - Addons and OpenXava projects mixed in an unique project, openxava. 
 - Code for navigation and security refactored to be more plugable. 
 - Driver class not included for datasource and persistence unit definitions for new projects.
@@ -15,7 +27,7 @@ Change Log for OpenXava project
 - Maven support.
 - Searching in a @DescriptionsList does not ignore accents in some cases.
 - Removed DocumentLibrary editor for attaching documents using Liferay document library.
-- Lessons 9, 10, 11, 12, 13, 14, 15 and 16 of course include video.
+- Lessons 9, 10, 11, 12, 13, 14, 15, 16 and 17 of course include video.
 - Lesson 9 of course divided into several smaller lessons.
 
 OpenXava 6.6.3 (2022-3-29)

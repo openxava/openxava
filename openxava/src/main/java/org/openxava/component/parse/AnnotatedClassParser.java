@@ -2556,6 +2556,13 @@ public class AnnotatedClassParser implements IComponentParser {
 		}
 		catch (ClassNotFoundException ex) {				
 		}		
+		try {
+			String className = "com.openxava.naviox.model." + name;
+			Class.forName(className);
+			return className;
+		}
+		catch (ClassNotFoundException ex) {				
+		}
 		String suffix = "." + name;
 		// If it's a managed entity
 		for (String className: getManagedClassNames()) {
@@ -2600,7 +2607,7 @@ public class AnnotatedClassParser implements IComponentParser {
 	 * Only for using from MetaApplication class. <p>
 	 */
 	public static Collection<String> friendMetaApplicationGetManagedClassNames() { 
-		return managedClassNames = obtainManagedClassNamesFromFileClassPath(); // If we change this test if generatePortlets works with the database running
+		return managedClassNames = obtainManagedClassNamesFromFileClassPath(); 
 	}
 	
 	public static Collection<String> getManagedClassNames() {

@@ -13,7 +13,6 @@ public class ElClienteTest extends ModuleTestBase {
 	}
 	
 	public void testModuleDescriptionI18n() {
-		if (isPortalEnabled()) return;
 		// This test in only effective when the locale of the server is one other than English
 		assertEquals("OpenXavaTest - The customer", getHtmlPage().getTitleText());
 	}

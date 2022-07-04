@@ -35,7 +35,6 @@ here that you want to override.
 	<object name="xava_currentModule" class="java.lang.String" />
 	<object name="xava_treeViewParser" class="org.openxava.util.TreeViewParser" />
 	<object name="xava_treeViewNodeFullPath" class="java.lang.String" />
-	<object name="xava_liferayLibrary" class="org.openxava.session.LiferayLibrary"/>					
 	<object name="xava_metaActionsInList" class="java.util.Collection"/>
 	<object name="xava_newFileProperty" class="java.lang.String" />
 	<object name="xava_newFilesetProperty" class="java.lang.String" />
@@ -823,12 +822,6 @@ here that you want to override.
 			<set value="false" property="expanded" />
 		</action>
 	</controller>
-	
-	<controller name="LoadLiferayDocument">
-		<action name="loadDocument" 
-			class="org.openxava.actions.LoadLiferayDocumentAction">			
-		</action>	
-	</controller>	
 	
 	<controller name="AttachedFileEditor">
 		<action name="load" class="org.openxava.actions.LoadAttachedFileAction"/>

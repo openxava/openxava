@@ -11,7 +11,6 @@ import org.openxava.model.meta.*;
 import org.openxava.util.*;
 import org.openxava.view.*;
 import org.openxava.web.*;
-import org.openxava.web.dwr.Module;
 
 
 /**
@@ -146,7 +145,7 @@ public class EditorTag extends TagSupport {
 				pageContext.getOut().print(propertyKey);
 				pageContext.getOut().println("'/>");				
 			}		
-			String prefix = Module.isPortlet()?"/WEB-INF/jsp/xava/":"/xava/";  
+			String prefix = "/xava/";  
 			try {
 				pageContext.include(prefix + editorURL); 
 			}
