@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-- Removed outdate documentation in russian, chinese and french.
+- Removed outdated documentation in Russian, Chinese and French.
 - Getting started guide translated to Chinese.
 - Removed XML components support including all related code.
 - IPropertyCodeGenerator interface removed.
