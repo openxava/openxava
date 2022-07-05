@@ -1305,9 +1305,50 @@ class="sy0">,</span>
       For PostgreSQL, the value to use instead of BLOB is BYTEA.<br>
       Also, it appears that the default configuration will create the IMAGES
       table with the VARCHARS at 255 length. Go ahead and drop and re-create the
-      table as above and all should be well.<br>
-      And finally you need to define the mapping in your <em>persistence/hibernate.cfg.xml</em>
-      file, thus:<br>
+      table as above and all should be well.</div>
+    <div class="wiki" style="display: block;"> Verify that <em>persistence.xml</em>
+      contains the <em>GalleryImage</em> entity, if not add it:<br>
+      <div class="wiki">
+        <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;persistence-unit</span> <span
+class="re0">name</span>=<span class="st0">"default"</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;provider<span class="re2">&gt;</span></span></span>org.hibernate.ejb.HibernatePersistence<span
+class="sc3"><span class="re1">&lt;/provider<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;non-jta-data-source<span class="re2">&gt;</span></span></span>java:comp/env/jdbc/OpenXavaTestDS<span
+class="sc3"><span class="re1">&lt;/non-jta-data-source<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.session.GalleryImage<span
+class="sc3"><span class="re1">&lt;/class<span class="re2">&gt; </span></span></span><span
+class="sc-1">&lt;!-- ADD THIS LINE --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.web.editors.DiscussionComment<span
+class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span> 
+  ...
+<span class="sc3"><span class="re1">&lt;/persistence-unit<span class="re2">&gt;</span></span></span>
+&nbsp;</pre>
+        Note that we added <em>&lt;class&gt;org.openxava.session.GalleryImage&lt;/class&gt;</em>.</div>
+      <div class="wiki">If you're using an OpenXava version older than 7.0 you
+        need to define the mapping in your <em>persistence/hibernate.cfg.xml</em>
+        file, thus:</div>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann

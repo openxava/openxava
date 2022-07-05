@@ -1,7 +1,11 @@
 package org.openxava.session;
 
 import java.util.*;
-import org.openxava.hibernate.*;
+
+import javax.persistence.*;
+
+import org.openxava.jpa.*;
+
 
 /**
  * Manages an images gallery. <p>
@@ -25,21 +29,21 @@ public class Gallery {
 	}
 	
 	public Collection<String> getImagesOids() {
-		org.hibernate.query.Query<String> query = XHibernate.getSession().createQuery("select oid from GalleryImage where galleryOid=:galleryOid");
+		Query query = XPersistence.getManager().createQuery("select oid from GalleryImage where galleryOid=:galleryOid");
 		query.setParameter("galleryOid", oid);
-		return query.list();
+		return query.getResultList();
 	}
 
 	public void addImage(byte [] image) {
 		GalleryImage galleryImage = new GalleryImage();
 		galleryImage.setGalleryOid(oid);
 		galleryImage.setImage(image);
-		XHibernate.getSession().save(galleryImage);		
+		XPersistence.getManager().persist(galleryImage);  
 	}
 
 	public void removeImage(String oid) {
-		GalleryImage image = (GalleryImage) XHibernate.getSession().get(GalleryImage.class, oid);
-		XHibernate.getSession().delete(image);
+		GalleryImage image = (GalleryImage) XPersistence.getManager().find(GalleryImage.class, oid);
+		XPersistence.getManager().remove(image);
 	}
 	
 }

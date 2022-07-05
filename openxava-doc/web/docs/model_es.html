@@ -1316,8 +1316,48 @@ class="sy0">,</span>
 &nbsp;</pre>
       El tipo de la columna IMAGE puede ser un tipo más adecuado para almacenar
       byte [] en el caso de nuestra base de datos (por ejemplo LONGVARBINARY) .<br>
-      Y finalmente necesitamos definir el mapeo en nuestro archivo <em>persistence/hibernate.cfg.xml</em>,
-      así:<br>
+      Verifica que <em>persistence.xml</em> contiene la entidad <em>GalleryImage</em>,
+      si no añádela:<br>
+      <div class="wiki">
+        <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;persistence-unit</span> <span
+class="re0">name</span>=<span class="st0">"default"</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;provider<span class="re2">&gt;</span></span></span>org.hibernate.ejb.HibernatePersistence<span
+class="sc3"><span class="re1">&lt;/provider<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;non-jta-data-source<span class="re2">&gt;</span></span></span>java:comp/env/jdbc/OpenXavaTestDS<span
+class="sc3"><span class="re1">&lt;/non-jta-data-source<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.session.GalleryImage<span
+class="sc3"><span class="re1">&lt;/class<span class="re2">&gt; </span></span></span><span
+class="sc-1">&lt;!-- AÑADE ESTA LÍNEA --&gt;</span>
+ <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.web.editors.DiscussionComment<span
+class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span> 
+  ...
+<span class="sc3"><span class="re1">&lt;/persistence-unit<span class="re2">&gt;</span></span></span>
+&nbsp;</pre>
+        Fíjate que hemos añadido <em>&lt;class&gt;org.openxava.session.GalleryImage&lt;/class&gt;</em>.</div>
+      Si usas una versión de OpenXava anterior a 7.0 necesitas definir el mapeo
+      en tu archivo <em>persistence/hibernate.cfg.xml</em>, así:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann

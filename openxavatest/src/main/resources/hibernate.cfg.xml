@@ -17,9 +17,6 @@ persistence.xml.
 		<property name="hibernate.default_schema">XAVATEST</property>
 		-->
 		
-		<!-- GalleryImage is needed only if you uses IMAGES_GALLERY/GALERIA_IMAGENES stereotype -->
-		<mapping resource="GalleryImage.hbm.xml"/>
-		
 		<!-- In order to use State EJB3 entity with Hibernate API  -->
 		<mapping class="org.openxava.test.model.State"/>		
 			</session-factory>

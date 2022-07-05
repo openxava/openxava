@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- IMAGES_GALLERY/GALERIA_IMAGENES stereotype uses JPA for persistence instead of Hibernate.
 - Method usesAnnotatedPOJO() removed from ModuleTestBase.
 - Removed outdated documentation in Russian, Chinese and French.
 - Getting started guide translated to Chinese.
