@@ -202,31 +202,15 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertTrue("It is required at least 10 customers to run this test", total < 10);
 		assertListRowCount(total);
 						
-		if (usesAnnotatedPOJO()) {
-			// In OX3 (using EJB3 entities) we use Enum with null for no value, and 0 for first value
-			String [] normalCondition = { " ", "0", "", "" };		
-			setConditionValues(normalCondition);
-		}
-		else {
-			// In OX2 (using XML component) we use int with 0 for no value, and 1 for first value
-			String [] normalCondition = { " ", "1", "", "" };		
-			setConditionValues(normalCondition);			
-		}
+		String [] normalCondition = { " ", "0", "", "" };		
+		setConditionValues(normalCondition);
 		// execute("List.filter"); // Not needed because filterOnChange=true
 		assertNoErrors();
 		
 		assertListRowCount(normalOnes);
 				
-		if (usesAnnotatedPOJO()) {
-			// In OX3 (using EJB3 entities) we use Enum with null for no value, and 0 for first value
-			String [] steadyCondition = { " ", "1", "", "" }; 
-			setConditionValues(steadyCondition);
-		}
-		else {
-			// In OX2 (using XML component) we use int with 0 for no value, and 1 for first value
-			String [] steadyCondition = { " ", "2", "", "" }; 
-			setConditionValues(steadyCondition);			
-		}
+		String [] steadyCondition = { " ", "1", "", "" }; 
+		setConditionValues(steadyCondition);
 		// execute("List.filter"); // Not needed because filterOnChange=true
 		assertNoErrors();
 		assertListRowCount(steadyOnes);		
@@ -269,24 +253,23 @@ public class CustomerTest extends CustomizeListTestBase {
 	public void testValidValues() throws Exception {   				
 		execute("CRUD.new");
 		// OX3 uses Java 5 enums, and enums have base 0. OX2 valid-value has base 1  
-		boolean base0 = usesAnnotatedPOJO();
 		String [][] validValues = { 
-			{ base0?"0":"1", "Normal" }, 
-			{ base0?"1":"2", "Steady" },
-			{ base0?"2":"3", "Special" }	
+			{ "0", "Normal" }, 
+			{ "1", "Steady" },
+			{ "2", "Special" }	
 		};
 		
-		assertValue("type", base0?"2":"3");		
+		assertValue("type", "2");		
 		assertValidValues("type", validValues);
 	}
 	
 	public void testOnChangeAction() throws Exception {
 		execute("CRUD.new");		
-		assertValue("type", usesAnnotatedPOJO()?"2":"3");		
+		assertValue("type", "2");		
 		setValue("name", "PEPE");
-		assertValue("type", usesAnnotatedPOJO()?"2":"3");
+		assertValue("type", "2");
 		setValue("name", "JAVI");
-		assertValue("type", usesAnnotatedPOJO()?"1":"2"); 		
+		assertValue("type", "1"); 		
 	}	
 		
 	
@@ -296,7 +279,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		execute("CRUD.new");
 		assertNoErrors();
 		setValue("number", "66");
-		setValue("type", usesAnnotatedPOJO()?"1":"2");
+		setValue("type", "1");
 		setValue("name", "JUNIT CUSTOMER");
 		setValue("address.street", "Junit Street");
 		setValue("address.zipCode", "66666");
@@ -312,7 +295,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertNoEditable("number");
 		assertEditable("type");		
 		assertValue("number", "66");
-		assertValue("type", usesAnnotatedPOJO()?"1":"2");
+		assertValue("type", "1");
 		assertValue("name", "Junit Customer"); // Testing formatter with sets
 		assertValue("address.street", "JUNIT STREET"); // Testing overwrite default formatter for applicacion. Use UpperCaseFormatter
 		assertValue("address.zipCode", "66666");
@@ -325,7 +308,7 @@ public class CustomerTest extends CustomizeListTestBase {
 
 		execute("CRUD.new"); 
 		assertValue("number", "");
-		assertValue("type", usesAnnotatedPOJO()?"2":"3");
+		assertValue("type", "2");
 		assertValue("name", "");
 		assertValue("address.street", "");
 		assertValue("address.zipCode", "");
@@ -341,7 +324,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		setValue("number", "66");
 		execute("CRUD.refresh");		
 		assertValue("number", "66");
-		assertValue("type", usesAnnotatedPOJO()?"1":"2"); 
+		assertValue("type", "1"); 
 		assertValue("name", "Junit Customer"); // Testing formatter with sets
 		assertValue("address.street", "JUNIT STREET"); // Testing overwrite default formatter for applicacion. Use UpperCaseFormatter
 		assertValue("address.zipCode", "66666");
@@ -359,7 +342,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertNoErrors();
 		execute("CRUD.new");
 		assertValue("number", "");
-		assertValue("type", usesAnnotatedPOJO()?"2":"3");
+		assertValue("type", "2");
 		assertValue("name", "");
 		
 		// Verifying modified
@@ -367,7 +350,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		setValue("number", "66");
 		execute("CRUD.refresh");		
 		assertValue("number", "66");
-		assertValue("type", usesAnnotatedPOJO()?"1":"2"); 
+		assertValue("type", "1"); 
 		assertValue("name", "Junit Customer");
 		assertValue("seller.number", "2");
 		assertValue("seller.name", "JUANVI LLAVADOR");
@@ -532,7 +515,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		// Creating
 		execute("CRUD.new");
 		setValue("number", "66");
-		setValue("type", usesAnnotatedPOJO()?"0":"1");
+		setValue("type", "0");
 		setValue("name", "JUNIT CUSTOMER");
 		setValue("address.street", "JUNIT STREET");
 		setValue("address.zipCode", "66666");
@@ -718,11 +701,11 @@ public class CustomerTest extends CustomizeListTestBase {
 	
 	public void testDescriptionValidValuesEditor() throws Exception { 
 		execute("CRUD.new");
-		assertValue("type", usesAnnotatedPOJO()?"2":"3");
-		setValue("type", usesAnnotatedPOJO()?"1":"2");
-		assertValue("type", usesAnnotatedPOJO()?"1":"2");
-		setValue("type", usesAnnotatedPOJO()?"2":"3");
-		assertValue("type", usesAnnotatedPOJO()?"2":"3");		
+		assertValue("type", "2");
+		setValue("type", "1");
+		assertValue("type", "1");
+		setValue("type", "2");
+		assertValue("type", "2");		
 	}
 	
 	public void testRefisher() throws Exception { 

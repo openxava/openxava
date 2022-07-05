@@ -18,7 +18,7 @@ public class ShipmentChargeTest extends ModuleTestBase {
 		deleteShipmentCharges();
 		// Creating
 		execute("CRUD.new");
-		setValue("mode", usesAnnotatedPOJO()?"0":"1");
+		setValue("mode", "0");
 		String shipment = toKeyString(getShipment()); 
 		setValue("shipment.KEY", shipment);
 		setValue("amount", "150");
@@ -34,7 +34,7 @@ public class ShipmentChargeTest extends ModuleTestBase {
 		
 		// Searching and verifying
 		execute("List.viewDetail", "row=0");		
-		assertValue("mode", usesAnnotatedPOJO()?"0":"1"); 
+		assertValue("mode", "0"); 
 		assertValue("shipment.KEY", shipment);
 		assertValue("amount", "150.00");
 	}
@@ -46,21 +46,11 @@ public class ShipmentChargeTest extends ModuleTestBase {
 		assertLabelInList(4, "Shipment"); 
 		
 		// reference property: descriptionsList		
-		if (usesAnnotatedPOJO()) { 			
-			setConditionValues(new String[] { "", "", "", "[.MEDIUM.5.INTERNAL.]"} ); // For JPA entities
-		}
-		else {		
-			setConditionValues(new String[] { "", "", "", "[.2.5.1.]"} ); // For XML components
-		}
+		setConditionValues(new String[] { "", "", "", "[.MEDIUM.5.INTERNAL.]"} ); // For JPA entities
 		execute("List.filter");
 		assertListRowCount(0);
 		
-		if (usesAnnotatedPOJO()) { 
-			setConditionValues(new String[] { "", "", "", "[.SLOW.1.INTERNAL.]"} ); // For JPA entities
-		}
-		else {
-			setConditionValues(new String[] { "", "", "", "[.1.1.1.]"} ); // For XML Components
-		}
+		setConditionValues(new String[] { "", "", "", "[.SLOW.1.INTERNAL.]"} ); // For JPA entities
 		execute("List.filter");
 		assertListRowCount(1);
 		
@@ -80,6 +70,6 @@ public class ShipmentChargeTest extends ModuleTestBase {
 	}
 	
 	private Shipment getShipment() {
-		return (Shipment) Shipment.findByMode(usesAnnotatedPOJO()?0:1).iterator().next();
+		return (Shipment) Shipment.findByMode(0).iterator().next();
 	}
 }

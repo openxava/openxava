@@ -62,12 +62,7 @@ public class DeliveryTest extends ModuleTestBase {
 	public void testFilterDescriptionsListAndEnumLetterType_myReportConditionWithDescriptionsListAndValidValues() throws Exception { 
 		assertLabelInList(3, "Type"); 
 		assertLabelInList(7, "Distance");
-		if (usesAnnotatedPOJO()) { 
-			setConditionValues(new String[] { "", "", "", "1", "", "", "", "1"} );	// For annotated POJOs
-		}
-		else {
-			setConditionValues(new String[] { "", "", "", "1", "", "", "", "2"} );	// For XML components
-		}
+		setConditionValues(new String[] { "", "", "", "1", "", "", "", "1"} );	// For annotated POJOs
 		execute("List.filter");
 		assertListRowCount(2);	 	
 		assertValueInList(0, 0, "2004");
@@ -136,7 +131,7 @@ public class DeliveryTest extends ModuleTestBase {
 	
 	public void testModifyEmptyReferenceFromADialog() throws Exception {  
 		execute("CRUD.new");
-		setValue("deliveredBy", usesAnnotatedPOJO()?"1":"2");
+		setValue("deliveredBy", "1");
 		setValue("carrier.number", "1");
 		execute("Reference.modify", "model=Carrier,keyProperty=carrier.number");
 		assertDialog();
@@ -813,7 +808,7 @@ public class DeliveryTest extends ModuleTestBase {
 		setValue("type.number", "1");
 		setValue("number", "66");
 		setValue("description", "JUNIT");
-		setValue("distance", usesAnnotatedPOJO()?"1":"2"); // National, in database 'N'
+		setValue("distance", "1"); // National, in database 'N'
 		execute("CRUD.save");
 		assertNoErrors(); 
 		assertValue("invoice.year", "");
@@ -821,7 +816,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertValue("type.number", "");	
 		assertValue("number", "");
 		assertValue("description", "");
-		assertValue("distance", usesAnnotatedPOJO()?"":"0");		
+		assertValue("distance", "");		
 		// Search just created
 		setValue("invoice.year", "2002");
 		setValue("invoice.number", "1");						
@@ -834,7 +829,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertValue("type.number", "1");
 		assertValue("number", "66");		
 		assertValue("description", "JUNIT");		
-		assertValue("distance", usesAnnotatedPOJO()?"1":"2");
+		assertValue("distance", "1");
 		assertNoErrors();
 		
 		// Verifying database value
@@ -899,28 +894,28 @@ public class DeliveryTest extends ModuleTestBase {
 	
 	public void testViewPropertyAndHideMembers() throws Exception { 
 		execute("CRUD.new");
-		assertValue("deliveredBy", usesAnnotatedPOJO()?"":"0");
+		assertValue("deliveredBy", "");
 		assertNotExists("employee");
 		assertNotExists("carrier.number");
 		
-		setValue("deliveredBy", usesAnnotatedPOJO()?"0":"1");
+		setValue("deliveredBy", "0");
 		assertExists("employee");
 		assertNotExists("carrier.number");
 		
-		setValue("deliveredBy", usesAnnotatedPOJO()?"1":"2");
+		setValue("deliveredBy", "1");
 		assertNotExists("employee");		
 		assertExists("carrier.number");		
 		
-		setValue("deliveredBy", usesAnnotatedPOJO()?"":"0");
+		setValue("deliveredBy", "");
 		assertNotExists("employee");
 		assertNotExists("carrier.number");
 		
-		setValue("deliveredBy", usesAnnotatedPOJO()?"1":"2");
+		setValue("deliveredBy", "1");
 		assertNotExists("employee");
 		assertExists("carrier.number");
 				
 		execute("CRUD.new");
-		assertValue("deliveredBy", usesAnnotatedPOJO()?"":"0");
+		assertValue("deliveredBy", "");
 		assertNotExists("employee");
 		assertNotExists("carrier.number");			
 	}
@@ -944,7 +939,7 @@ public class DeliveryTest extends ModuleTestBase {
 		setValue("type.number", "1");
 		setValue("number", "62");
 		setValue("description", "JUNIT BY EMPLOYEE");
-		setValue("deliveredBy", usesAnnotatedPOJO()?"0":"1");
+		setValue("deliveredBy", "0");
 		setValue("employee", "JUNIT EMPLOYEE");		
 		execute("CRUD.save");
 		assertNoErrors(); 
@@ -955,7 +950,7 @@ public class DeliveryTest extends ModuleTestBase {
 		setValue("type.number", "1");
 		setValue("number", "63");
 		setValue("description", "JUNIT BY CARRIER");
-		setValue("deliveredBy", usesAnnotatedPOJO()?"1":"2");
+		setValue("deliveredBy", "1");
 		setValue("carrier.number", "1"); 		
 		execute("CRUD.save");
 		assertNoErrors();
@@ -1078,21 +1073,21 @@ public class DeliveryTest extends ModuleTestBase {
 	
 	public void testCalculatedValueDependentOnChangePropertyOnChangeAndPropertyOnChangeDepedentOnPropertyOnChange() throws Exception { 
 		execute("CRUD.new");
-		assertValue("distance", usesAnnotatedPOJO()?"":"0");
+		assertValue("distance", "");
 		assertValue("vehicle", "");
 		assertValue("transportMode", "");
-		setValue("distance", usesAnnotatedPOJO()?"0":"1"); // Local
-		assertValue("distance", usesAnnotatedPOJO()?"0":"1");
+		setValue("distance", "0"); // Local
+		assertValue("distance", "0");
 		assertValue("vehicle", "MOTORBIKE");
 		assertValue("transportMode", "STREET/ROAD");  
 		assertValue("driverType", "ANY");
-		setValue("distance", usesAnnotatedPOJO()?"1":"2"); // National
-		assertValue("distance", usesAnnotatedPOJO()?"1":"2");
+		setValue("distance", "1"); // National
+		assertValue("distance", "1");
 		assertValue("vehicle", "CAR");
 		assertValue("transportMode", "HIGHWAY");
 		assertValue("driverType", "DRIVER");
-		setValue("distance", usesAnnotatedPOJO()?"":"0"); // Void
-		assertValue("distance", usesAnnotatedPOJO()?"":"0");
+		setValue("distance", ""); // Void
+		assertValue("distance", "");
 		assertValue("vehicle", "");
 		assertValue("transportMode", "");
 		assertValue("driverType", "DRIVERX");	
@@ -1138,7 +1133,7 @@ public class DeliveryTest extends ModuleTestBase {
 	public void testOnChangeDescriptionsListKey_messagesInChangeAction() throws Exception { 
 		execute("CRUD.new");		
 		assertValue("remarks", "No remarks");
-		setValue("deliveredBy", usesAnnotatedPOJO()?"1":"2");
+		setValue("deliveredBy", "1");
 		assertNoMessages();
 		setValue("carrier.number", "3"); 
 		assertMessagesCount(1); 
@@ -1181,10 +1176,10 @@ public class DeliveryTest extends ModuleTestBase {
 		// I18n of ValidValues
 		execute("CRUD.new");
 		String [][] distanceValues = {
-			{usesAnnotatedPOJO()?"":"0", ""},
-			{usesAnnotatedPOJO()?"0":"1", "Lokal"},			
-			{usesAnnotatedPOJO()?"1":"2", "Nachional"}, 
-			{usesAnnotatedPOJO()?"2":"3", "Internachional"}
+			{ "", ""},
+			{"0", "Lokal"},			
+			{"1", "Nachional"}, 
+			{"2", "Internachional"}
 		};
 		assertValidValues("distance", distanceValues);
 		

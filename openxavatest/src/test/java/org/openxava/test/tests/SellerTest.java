@@ -878,8 +878,7 @@ public class SellerTest extends CustomizeListTestBase {
 		customer1 = new Customer();
 		customer1.setNumber(66);
 		customer1.setName("Customer Junit 66");
-		// customer1.setType(1); // For XML components  
-		customer1.setType(Customer.Type.NORMAL); // For annotated POJOs
+		customer1.setType(Customer.Type.NORMAL); 
 		customer1.setAddress(createAddress());
 		customer1.setRemarks("REMARKS JUNIT 66");
 		customer1.setRelationWithSeller("RELATION JUNIT 66");
@@ -888,8 +887,7 @@ public class SellerTest extends CustomizeListTestBase {
 		customer2 = new Customer();
 		customer2.setNumber(67);
 		customer2.setName("Customer Junit 67");
-		// customer2.setType(1); // For XML components  
-		customer2.setType(Customer.Type.NORMAL); // For annotated POJOs
+		customer2.setType(Customer.Type.NORMAL); 
 		customer2.setAddress(createAddress());
 		customer2.setRemarks("REMARKS JUNIT 67");
 		customer2.setRelationWithSeller("RELATION JUNIT 67");

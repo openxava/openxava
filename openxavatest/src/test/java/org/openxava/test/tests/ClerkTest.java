@@ -45,9 +45,6 @@ public class ClerkTest extends ModuleTestBase {
 	public void testStringTimeAnnotationAndSqlTimeAndStringAsByteArrayInDB_i18nOverXmlLabeInXmlComponents_defaultSizeByAnnotation() throws Exception {  
 		assertListNotEmpty();
 		execute("List.viewDetail", "row=0");
-		if (!usesAnnotatedPOJO()) { // Only has sense in XML components
-			assertLabel("arrivalTime", "The arrival time");  // Since v5.8 label of <property/> takes preference over i18n files
-		}
 		String time = getCurrentTime();
 		setValue("arrivalTime", time);
 		setValue("endingTime", time);

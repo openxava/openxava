@@ -2,10 +2,7 @@ package org.openxava.test.tests;
 
 import java.util.*;
 
-import javax.persistence.*;
-
 import org.apache.commons.lang.*;
-import org.openxava.test.model.*;
 import org.openxava.tests.*;
 import org.openxava.web.*;
 
@@ -39,7 +36,6 @@ public class AJAXTest extends ModuleTestBase {
 	}
 	
 	public void testReadOnlyOnCreate() throws Exception {
-		if (!usesAnnotatedPOJO()) return;
 		changeModule("ColorWithReadOnlyOnCreate");
 		assertValueInList(5, 2, "");
 		execute("List.viewDetail", "row=5");
@@ -81,7 +77,6 @@ public class AJAXTest extends ModuleTestBase {
 	}
 	
 	public void testElementCollections() throws Exception { 
-		if (!usesAnnotatedPOJO()) return;
 		// WARNING! Don't change the order of the below code, because the last case only fails with this order 
 		changeModule("Quote");
 		execute("List.viewDetail", "row=0");
@@ -145,7 +140,6 @@ public class AJAXTest extends ModuleTestBase {
 	}
 	
 	public void testDescriptionsListInElementCollections() throws Exception { 
-		if (!usesAnnotatedPOJO()) return;
 		changeModule("ProductExpenses");
 		execute("CRUD.new");
 		setValueInCollection("expenses", 0, "family.number", "1");
@@ -155,7 +149,6 @@ public class AJAXTest extends ModuleTestBase {
 	}
 	
 	public void testRemoveRowInElementCollections() throws Exception {  
-		if (!usesAnnotatedPOJO()) return;
 		changeModule("Reallocation");
 		execute("List.viewDetail", "row=0");
 		assertLoadedParts("core");
@@ -168,7 +161,6 @@ public class AJAXTest extends ModuleTestBase {
 
 	
 	public void testReferencesInElementCollections() throws Exception { 
-		if (!usesAnnotatedPOJO()) return;
 		changeModule("Route");
 		execute("CRUD.new");
 		setValueInCollection("visits", 0, "customer.number", "1");
@@ -316,7 +308,6 @@ public class AJAXTest extends ModuleTestBase {
 	}
 	
 	public void testAddRemoveActionsForProperty() throws Exception { 
-		if (!usesAnnotatedPOJO()) return;
 		changeModule("Author");
 		execute("List.viewDetail", "row=0");
 		assertNoAction("Author.addSuffix");
@@ -602,7 +593,6 @@ public class AJAXTest extends ModuleTestBase {
 	}
 	
 	public void testShowHideButtons() throws Exception {  
-		if (!usesAnnotatedPOJO()) return;
 		changeModule("Applicant");
 		execute("CRUD.new");
 		execute("Applicant.showButtons", "xava.keyProperty=name");
@@ -610,7 +600,6 @@ public class AJAXTest extends ModuleTestBase {
 	}
 	
 	public void testEditorForCollection() throws Exception {
-		if (!usesAnnotatedPOJO()) return;
 		changeModule("Blog");
 		execute("List.viewDetail", "row=0");
 		/* Before 4m2 when dialog was not used for editing collection details
@@ -899,7 +888,6 @@ public class AJAXTest extends ModuleTestBase {
 	}
 	
 	public void testChangingModelOfView() throws Exception {
-		if (!usesAnnotatedPOJO()) return;
 		changeModule("Human");
 		execute("List.viewDetail", "row=0");		
 		assertLoadedParts("core,");
@@ -916,7 +904,6 @@ public class AJAXTest extends ModuleTestBase {
 	}
 	
 	public void testCustomView_uploadFile() throws Exception {  
-		if (!usesAnnotatedPOJO()) return;
 		changeModule("Product5"); 
 		execute("List.viewDetail", "row=0");
 		assertFilesCount("photos", 0);
@@ -968,11 +955,5 @@ public class AJAXTest extends ModuleTestBase {
 		HtmlInput input = (HtmlInput) page.getHtmlElementById(decorateId("loaded_parts"));
 		return input.getValueAttribute();
 	}
-	
-	@Override
-	protected boolean usesAnnotatedPOJO() {		
-		// Because usesAnnotatedPOJO() of ModuleTestBase requires a module name in constructor
-		return Invoice.class.isAnnotationPresent(Entity.class);
-	}
-		
+			
 }

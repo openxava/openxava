@@ -27,12 +27,12 @@ public class SellerWithCustomersAsAggregateTest extends ModuleTestBase {
 		assertEditable("number"); 
 		assertEditable("name");
 		assertValue("number", ""); // Test if clear the fields
-		assertValue("type", usesAnnotatedPOJO()?"2":"3"); // Test if execute default value calculators
+		assertValue("type", "2"); // Test if execute default value calculators
 		
 		// Creating
 		setValue("number", "66");
 		setValue("name", "JUNIT 66");
-		setValue("type", usesAnnotatedPOJO()?"0":"1");
+		setValue("type", "0");
 		setValue("address.street", "AV. CONSTITUCION");
 		setValue("address.zipCode", "46540");
 		setValue("address.city", "EL PUIG");

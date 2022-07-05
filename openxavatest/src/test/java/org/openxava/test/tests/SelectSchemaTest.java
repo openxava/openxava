@@ -15,7 +15,6 @@ public class SelectSchemaTest extends ModuleTestBase {
 	
 	public void testInitModules() throws Exception {
 		// select first schema: COMPANYA
-		// setValue("schema", "1"); // For XML components  
 		setValue("schema", String.valueOf(SelectSchema.Schema.COMPANYA.ordinal())); // For annotated POJOs
 		execute("SelectSchema.set"); 
 		assertNoErrors(); 
@@ -35,7 +34,6 @@ public class SelectSchemaTest extends ModuleTestBase {
 		
 		// select second schema: COMPANYB
 		changeModule("SelectSchema");
-		// setValue("schema", "2"); // For XML components  
 		setValue("schema", String.valueOf(SelectSchema.Schema.COMPANYB.ordinal())); // For annotated POJOs
 		execute("SelectSchema.set");
 		assertNoErrors();

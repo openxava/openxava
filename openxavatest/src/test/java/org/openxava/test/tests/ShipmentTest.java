@@ -101,8 +101,8 @@ public class ShipmentTest extends ModuleTestBase {
 		// Create
 		execute("CRUD.new");
 		
-		setValue("type", usesAnnotatedPOJO()?"0":"1");
-		setValue("mode", usesAnnotatedPOJO()?"1":"2");
+		setValue("type", "0");
+		setValue("mode", "1");
 		setValue("number", "66");
 		setValue("description", "JUNIT SHIPMENT");
 		setValue("time", "10/22/08 6:01 PM"); 
@@ -110,18 +110,18 @@ public class ShipmentTest extends ModuleTestBase {
 		assertNoErrors(); 
 		
 		assertValue("number", "");
-		assertValue("type", usesAnnotatedPOJO()?"0":"1"); 
-		assertValue("mode", usesAnnotatedPOJO()?"0":"1");
+		assertValue("type", "0"); 
+		assertValue("mode", "0");
 		assertValue("description", "");
 		assertValue("time", "");
 		
 		// Search just created
-		setValue("type", usesAnnotatedPOJO()?"0":"1");
-		setValue("mode", usesAnnotatedPOJO()?"1":"2");
+		setValue("type", "0");
+		setValue("mode", "1");
 		setValue("number", "66");
 		execute("CRUD.refresh");
-		assertValue("type", usesAnnotatedPOJO()?"0":"1"); 		
-		assertValue("mode", usesAnnotatedPOJO()?"1":"2");
+		assertValue("type", "0"); 		
+		assertValue("mode", "1");
 		assertValue("number", "66");
 		assertValue("description", "JUNIT SHIPMENT");
 		assertValue("time", "10/22/2008 6:01 PM"); 
@@ -130,19 +130,19 @@ public class ShipmentTest extends ModuleTestBase {
 		setValue("description", "JUNIT SHIPMENT MODIFIED");
 		execute("CRUD.save");
 		assertNoErrors();
-		assertValue("type", usesAnnotatedPOJO()?"0":"1");
-		assertValue("mode", usesAnnotatedPOJO()?"0":"1");
+		assertValue("type", "0");
+		assertValue("mode", "0");
 		assertValue("number", "");		
 		assertValue("description", "");
 		
 		// Verify
-		setValue("type", usesAnnotatedPOJO()?"0":"1");
-		setValue("mode", usesAnnotatedPOJO()?"1":"2");
+		setValue("type", "0");
+		setValue("mode", "1");
 		setValue("number", "66");
 		execute("CRUD.refresh");		
 		assertValue("number", "66");
-		assertValue("mode", usesAnnotatedPOJO()?"1":"2");
-		assertValue("type", usesAnnotatedPOJO()?"0":"1"); 
+		assertValue("mode", "1");
+		assertValue("type", "0"); 
 		assertValue("description", "JUNIT SHIPMENT MODIFIED");
 										
 		// Delete
@@ -155,8 +155,8 @@ public class ShipmentTest extends ModuleTestBase {
 		// Create
 		execute("CRUD.new");
 		
-		setValue("type", usesAnnotatedPOJO()?"0":"1");
-		setValue("mode", usesAnnotatedPOJO()?"1":"2");
+		setValue("type", "0");
+		setValue("mode", "1");
 		setValue("number", "66");
 		setValue("description", "JUNIT SHIPMENT");
 		execute("CRUD.save"); 		

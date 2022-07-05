@@ -451,14 +451,6 @@ abstract public class ModuleTestBase extends TestCase {
 			option.setSelected(false);
 		}
 	}
-
-	/**
-	 * The business component of the tested module can be defined 
-	 * using a annotated POJO or an XML file.
-	 */
-	protected boolean usesAnnotatedPOJO() {
-		return getMetaModel().isAnnotatedEJB3();
-	}
 				
 	/**
 	 * User logout. <p>

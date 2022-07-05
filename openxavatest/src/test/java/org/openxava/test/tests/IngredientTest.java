@@ -14,7 +14,6 @@ public class IngredientTest extends ModuleTestBase {
 		super(testName, "IngredientWithSections");		
 	}
 	
-	// This test fails with XML components 
 	public void testNavigationWithHiddenKeyAndSections() throws Exception { 
 		assertLabelInList(0, "Name");
 		execute("List.orderBy", "property=name");

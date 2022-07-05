@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Method usesAnnotatedPOJO() removed from ModuleTestBase.
 - Removed outdated documentation in Russian, Chinese and French.
 - Getting started guide translated to Chinese.
 - Removed XML components support including all related code.

@@ -369,7 +369,6 @@ public class Invoice2Test extends ModuleTestBase {
 	}
 	
 	public void testTouchContainerFromCallback_calculatedPropertiesInGroupInCollectionDetail() throws Exception { 
-		if (!usesAnnotatedPOJO()) return; // This case is only implemented in JPA
 		execute("CRUD.new");
 		setValue("number", "66");
 		setValue("vatPercentage", "16");

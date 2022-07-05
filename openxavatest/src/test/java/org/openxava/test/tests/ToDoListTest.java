@@ -18,8 +18,6 @@ public class ToDoListTest extends ModuleTestBase {
 	
 	// Dependent collection == collection with cascade ALL or REMOVE 
 	public void testReferenceToADependentCollectionElement() throws Exception {
-		// This only for JPA. In XML components it's not possible 
-		// reference to an aggregate from outside
 		execute("List.viewDetail", "row=0");
 		assertValue("name", "THE TO DO LIST");
 		assertCollectionRowCount("tasks", 2);

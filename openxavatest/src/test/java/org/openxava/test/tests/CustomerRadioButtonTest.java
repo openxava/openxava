@@ -33,7 +33,7 @@ public class CustomerRadioButtonTest extends ModuleTestBase {
 		// because behaves equals that a combo. Hence it's needed to test visually
 		execute("CRUD.new");
 		setValue("number", "66");		
-		setValue("type", usesAnnotatedPOJO()?"1":"2"); // steady		
+		setValue("type", "1"); // steady		
 		setValue("name", "CUSTOMER JUNIT");
 		setValue("address.street", "DOCTOR PESSET");
 		setValue("address.zipCode", "46540");
@@ -44,14 +44,14 @@ public class CustomerRadioButtonTest extends ModuleTestBase {
 		assertNoErrors(); 
 		assertValue("number", "");
 		assertValue("name", "");
-		assertValue("type", usesAnnotatedPOJO()?"2":"3"); // special, because a default calculator
+		assertValue("type", "2"); // special, because a default calculator
 		
 		
 		setValue("number", "66");
 		execute("CRUD.refresh");
 		assertValue("number", "66");
 		assertValue("name", "Customer Junit");
-		assertValue("type", usesAnnotatedPOJO()?"1":"2"); // steady
+		assertValue("type", "1"); // steady
 		
 		execute("CRUD.delete");
 		assertMessage("Customer deleted successfully"); 

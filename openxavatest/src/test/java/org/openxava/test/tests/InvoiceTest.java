@@ -301,7 +301,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 			{ "considerable", "Considerable" },
 			{ "__MORE__", "[SHOW MORE...]" }
 		};		
-		assertValidValues("name", defaultColumnNames); // It fails with XML components because they do not match exactly with pojos counterparts
+		assertValidValues("name", defaultColumnNames); 
 				
 		setValue("name", "__MORE__");
 		
@@ -963,7 +963,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValueInCollection("xavaPropertiesList", 19, 0, "Name of customer");
 		
 		execute("AddColumns.showMoreColumns");
-		assertCollectionRowCount("xavaPropertiesList", 112); // It fails with XML components because they do not match exactly with pojos counterparts 
+		assertCollectionRowCount("xavaPropertiesList", 112);  
 		assertValueInCollection("xavaPropertiesList",   0, 0, "Additional emails of customer");
 		assertValueInCollection("xavaPropertiesList",   1, 0, "Additional emails of customers of sold by of details");
 		assertValueInCollection("xavaPropertiesList",   2, 0, "Address of delivery places of customer");
@@ -1128,7 +1128,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertAction("AddColumns.showMoreColumns");
 		
 		execute("AddColumns.showMoreColumns");		
-		assertCollectionRowCount("xavaPropertiesList", 112); // It fails with XML components because they do not match exactly with pojos counterparts 
+		assertCollectionRowCount("xavaPropertiesList", 112);  
 		searchBox = getHtmlPage().getHtmlElementById("xava_search_columns_text");
 		searchBox.type("DISCOUNT");
 		assertEquals("DISCOUNT", searchBox.getAttribute("value"));		
@@ -1439,13 +1439,13 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertNoErrors();
 		assertAction("NewCreation.saveNew");
 		assertAction("NewCreation.cancel");	
-		assertValue("Customer", "type", usesAnnotatedPOJO()?"2":"3");
+		assertValue("Customer", "type", "2");
 		execute("Reference.search", "keyProperty=xava.Customer.alternateSeller.number");
 		assertNoErrors();
 		execute("ReferenceSearch.cancel");
 		assertAction("NewCreation.saveNew");
 		assertAction("NewCreation.cancel");	
-		assertValue("Customer", "type", usesAnnotatedPOJO()?"2":"3");		
+		assertValue("Customer", "type", "2");		
 		execute("NewCreation.cancel");
 		assertExists("year");
 		assertExists("number");
@@ -1592,7 +1592,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("Collection.new", "viewObject=xava_view_section1_details");
 		assertNoErrors();
 		assertDialog();
-		setValue("serviceType", usesAnnotatedPOJO()?"":"0");
+		setValue("serviceType", "");
 		setValue("quantity", "20");
 		setValue("unitPrice", getProductUnitPrice());		
 		assertValue("amount", getProductUnitPriceMultiplyBy("20")); 
@@ -1623,7 +1623,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		// end of recalculate testing
 		
 		execute("Collection.new", "viewObject=xava_view_section1_details"); 
-		setValue("serviceType", usesAnnotatedPOJO()?"0":"1");
+		setValue("serviceType", "0");
 		setValue("quantity", "200");
 		setValue("unitPrice", getProductUnitPrice());		
 		assertValue("amount", getProductUnitPriceMultiplyBy("200"));
@@ -1633,7 +1633,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		setValue("soldBy.number", getProductNumber());		
 		execute("Collection.saveAndStay");
 		
-		setValue("serviceType", usesAnnotatedPOJO()?"1":"2");
+		setValue("serviceType", "1");
 		setValue("quantity", "2");
 		setValue("unitPrice", getProductUnitPrice());
 		assertValue("amount", getProductUnitPriceMultiplyBy("2")); 

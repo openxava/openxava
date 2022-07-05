@@ -668,7 +668,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 	private void assertListConfigurationsEnums() throws Exception {
 		clearCondition();
 		setConditionComparators("", "", "", "", "", "", "=");
-		String steady = usesAnnotatedPOJO()?"1":"2";  
+		String steady = "1";  
 		setConditionValues("", "", "", "", "", "", steady); 
 		
 		execute("List.filter");
@@ -680,7 +680,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertListRowCount(5);
 		saveConfiguration(); 
 
-		String normal = usesAnnotatedPOJO()?"0":"1"; 
+		String normal = "0"; 
 		setConditionValues("", "", "", "", "", "", normal); 
 		execute("List.filter");
 		assertListSelectedConfiguration("Type of customer = normal");

@@ -14,22 +14,20 @@ public class ColorWithGroupsAndChangeControllersTest extends ModuleTestBase {
 	}
 
 	public void testViewGroupAndControllerOnChangeGroup_setFocusFromOnChangeAction() throws Exception {
-		assertValue("group", usesAnnotatedPOJO()?"":"0"); 
+		assertValue("group", ""); 
 		assertNotExists("property1");
 		assertNotExists("property2");
 		assertActions(new String[] {});
 		setValue("group", String.valueOf(Color.Group.GROUP1.ordinal())); // For annotated POJOs
-		// setValue("group", "1"); // For XML components   
 		assertExists("property1");
 		assertNotExists("property2");
 		assertFocusOn("property1"); 
 		assertActions(new String[] { "ReturnPreviousModule.return" });
 		setValue("group", String.valueOf(Color.Group.GROUP2.ordinal())); // For annotated POJOs
-		// setValue("group", "2"); // For XML components   
 		assertNotExists("property1");
 		assertExists("property2");
 		assertActions(new String[] { "ReturnPreviousModule.return", "ActionWithImage.new" });
-		setValue("group", usesAnnotatedPOJO()?"":"0");
+		setValue("group", "");
 		assertNotExists("property1");
 		assertNotExists("property2");
 		assertActions(new String[] {});

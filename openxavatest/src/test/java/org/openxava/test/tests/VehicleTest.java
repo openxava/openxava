@@ -15,9 +15,6 @@ public class VehicleTest extends ModuleTestBase {
 	/**
 	 * DescriptionsList1 (key: state), DescriptionsList2 (key: state, city), Integer cityCode not in view.
 	 * It not save the city value.
-	 * 
-	 * This test does not work with XML components:
-	 * https://sourceforge.net/tracker/?func=detail&aid=3504256&group_id=123187&atid=695743
 	 */
 	public void testStateAndCity() throws Exception { 
 		assertListNotEmpty();

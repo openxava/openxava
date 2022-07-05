@@ -496,27 +496,12 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 
 	private void assertAddingStates() throws Exception {
-		if (usesAnnotatedPOJO()) {
-			// In OX3 ManyToMany is supported, then we have a collection of entities
-			execute("Collection.add", "viewObject=xava_view_section1_states");
-			assertValueInList(0, 0, "AK");
-			assertValueInList(4, 0, "CA");
-			checkRow(0);
-			checkRow(4);			
-			execute("AddToCollection.add");
-		}
-		else {
-			// In OX2 many to many is not supported, we simulate it using a collection of aggregates,
-			// therefore the User Interface it's not the same (because it's a collection of aggragates)
-			execute("Collection.new", "viewObject=xava_view_section1_states");
-			setValue("state.id", "AK");
-			assertValue("state.name", "ALASKA");
-			execute("Collection.save");
-			execute("Collection.new", "viewObject=xava_view_section1_states");
-			setValue("state.id", "CA");
-			assertValue("state.name", "CALIFORNIA");
-			execute("Collection.save");			
-		}		
+		execute("Collection.add", "viewObject=xava_view_section1_states");
+		assertValueInList(0, 0, "AK");
+		assertValueInList(4, 0, "CA");
+		checkRow(0);
+		checkRow(4);			
+		execute("AddToCollection.add");
 		assertCollectionRowCount("states", 2); 
 		assertValueInCollection("states", 0, 0, "AK");
 		assertValueInCollection("states", 0, 1, "ALASKA");		
@@ -792,20 +777,15 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValue("name", "");
 		confirmHandler.assertNoMessage();
 		
-		if (usesAnnotatedPOJO()) { 
-			// Transient property by code
-			// XML Components have no transient properties 
-			//   and view properties are not supported yet for this case
-			execute("Navigation.first");
-			assertValue("name", "Javi");
-			assertValue("extendedCity", "");
-			execute("CustomerWithSection.setExtendedCity");
-			assertValue("extendedCity", "46540 EL PUIG (NY)"); // The value does not matter
-			confirmHandler.assertNoMessage();
-			execute("CRUD.new");
-			assertValue("name", "");
-			confirmHandler.assertNoMessage();
-		}
+		execute("Navigation.first");
+		assertValue("name", "Javi");
+		assertValue("extendedCity", "");
+		execute("CustomerWithSection.setExtendedCity");
+		assertValue("extendedCity", "46540 EL PUIG (NY)"); // The value does not matter
+		confirmHandler.assertNoMessage();
+		execute("CRUD.new");
+		assertValue("name", "");
+		confirmHandler.assertNoMessage();
 		
 		assertChangeTransientReferenceByCodeNoMessage(confirmHandler, 
 			"CustomerWithSection.setTransientSellerRefreshing", 
@@ -920,7 +900,6 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 	
 	private void assertChangeTransientReferenceByCodeNoMessage(MessageConfirmHandler confirmHandler, String action,	String expectedNumber, String expectedName) throws Exception {
-		if (!usesAnnotatedPOJO()) return; // Transient reference does not exist in XML components
 		execute("Navigation.first");
 		assertValue("name", "Javi");
 		assertValue("transientSeller.number", "");
