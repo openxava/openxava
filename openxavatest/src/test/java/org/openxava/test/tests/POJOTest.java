@@ -3,9 +3,6 @@ package org.openxava.test.tests;
 import java.math.*;
 import java.util.*;
 
-import javax.persistence.*;
-
-import org.openxava.hibernate.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
 import org.openxava.util.*;
@@ -20,7 +17,6 @@ import junit.framework.*;
 public class POJOTest extends TestCase {
 	
 	static {
-		XHibernate.setConfigurationFile("hibernate-junit.cfg.xml");
 		XPersistence.setPersistenceUnit("junit");
 		DataSourceConnectionProvider.setUseHibernateConnection(true);
 	}
@@ -30,7 +26,6 @@ public class POJOTest extends TestCase {
 	}
 	
 	protected void tearDown() throws Exception {
-		XHibernate.commit();
 		XPersistence.commit();
 	}
 		

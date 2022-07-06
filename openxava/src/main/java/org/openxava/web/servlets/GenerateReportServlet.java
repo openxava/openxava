@@ -12,7 +12,6 @@ import javax.swing.event.*;
 import javax.swing.table.*;
 
 import org.apache.commons.logging.*;
-import org.openxava.hibernate.*;
 import org.openxava.jpa.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.*;
@@ -285,12 +284,6 @@ public class GenerateReportServlet extends HttpServlet {
 	}
 
 	private void setDefaultSchema(HttpServletRequest request) {
-		String hibernateDefaultSchemaTab = (String) request.getSession().getAttribute("xava_hibernateDefaultSchemaTab");
-		if (hibernateDefaultSchemaTab != null) {
-			request.getSession().removeAttribute("xava_hibernateDefaultSchemaTab");
-			XHibernate.setDefaultSchema(hibernateDefaultSchemaTab); 
-			
-		}
 		String jpaDefaultSchemaTab = (String) request.getSession().getAttribute("xava_jpaDefaultSchemaTab");
 		if (jpaDefaultSchemaTab != null) {
 			request.getSession().removeAttribute("xava_jpaDefaultSchemaTab");

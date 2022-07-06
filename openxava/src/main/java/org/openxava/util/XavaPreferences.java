@@ -213,16 +213,6 @@ public class XavaPreferences {
 				"mapFacadeAutoCommit", "false").trim());
 	}
 
-	public boolean isHibernatePersistence() {
-		if (!hibernatePersistenceLoaded) {
-			hibernatePersistenceLoaded = true;
-			hibernatePersistence = getPersistenceProviderClass().toUpperCase()
-					.indexOf("HIBERNATE") >= 0;
-		}
-		return hibernatePersistence;
-	}
-	
-
 	public boolean isDetailOnBottomInCollections() {
 		return "true".equalsIgnoreCase(getProperties().getProperty(
 				"detailOnBottomInCollections", "false").trim());

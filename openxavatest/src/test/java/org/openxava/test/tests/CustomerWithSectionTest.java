@@ -490,8 +490,8 @@ public class CustomerWithSectionTest extends CustomerTest {
 		
 		
 		// Verifying if that other part is not removed
-		changeModule("StateHibernate");
-		assertValueInList(0, 0, "AK");
+		changeModule("StateJPA"); 
+		assertValueInList(0, 0, "AK"); 
 		assertValueInList(4, 0, "CA");		
 	}
 

@@ -1,7 +1,7 @@
 package org.openxava.test.tests;
 
-import org.openxava.jpa.XPersistence;
-import org.openxava.tests.ModuleTestBase;
+import org.openxava.jpa.*;
+import org.openxava.tests.*;
 
 /**
  * 
@@ -29,7 +29,7 @@ public class ParentTest extends ModuleTestBase {
 	 * Tests for normal CRUD operation at parent level.
 	 * @throws Exception
 	 */
-	public void testEmbeddedCollectionFromParentCRUD() throws Exception {
+	public void testEmbeddedCollectionFromParentCRUD() throws Exception { 
 		execute("CRUD.new");
 		setValue("id","FATHER");
 		setValue("description", "THE FATHER");

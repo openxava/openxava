@@ -6,7 +6,6 @@ import java.util.*;
 import org.apache.commons.logging.*;
 import org.openxava.component.*;
 import org.openxava.converters.*;
-import org.openxava.hibernate.*;
 import org.openxava.jpa.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.*;
@@ -93,10 +92,6 @@ abstract public class ModelMapping implements java.io.Serializable {
 			getSchema() == null && !Is.emptyString(XPersistence.getDefaultSchema())) {
 			return  XPersistence.getDefaultSchema() + "." + table; 
 		}
-		else if (getMetaModel().isPojoGenerated() && 
-			getSchema() == null && !Is.emptyString(XHibernate.getDefaultSchema())) {
-			return  XHibernate.getDefaultSchema() + "." + table; 
-		}				
 		return table;
 	}
 	private static boolean isCodeGenerationTime() {

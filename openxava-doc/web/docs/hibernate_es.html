@@ -6,19 +6,22 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Hibernate"></a>
-        <span id="breadcrumbs"> 
-        	<span id="openxava"> 
-            <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> 
-          / <a href="index_es.html">documentación</a> / 
-        </span>
+      <h1 id="toc0"><a name="Hibernate"></a> <span id="breadcrumbs"> <span id="openxava">
+            <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
         Hibernate</h1>
-      OpenXava soporta Hibernate desde la versión 2.0.<br>
+      <i>XHibernate e HibernatePersistenceProvider fueron quitados de OpenXava
+        en v7.0, aunque todavía se puede usar el API de Hibernate, mira las <a
+          href="migration_es.html">instrucciones de migración</a> para v7.0<br>
+      </i>
+      <div class="wiki" style="display: block;"><i> </i></div>
+    </div>
+    <div class="wiki" style="display: block;"> OpenXava soporta Hibernate desde
+      la versión 2.0.<br>
       <h2 id="toc1"><a name="Hibernate-Configurar nuestra aplicacion para que funcione con Hibernate"></a>Configurar
-        nuestra aplicacion para que funcione con Hibernate</h2>
-      Desde la v3.0 JPA, y no Hibernate, es el gestor de pesistencia
-      por defecto, así si usas v3.0 y quieres usar Hibernate como gestor de
+        nuestra aplicacion para que funcione con Hibernate <i>(hasta v6.6.3)</i></h2>
+      Desde la v3.0 JPA, y no Hibernate, es el gestor de pesistencia por
+      defecto, así si usas v3.0 y quieres usar Hibernate como gestor de
       persistencia entonces has de editar el archivo <em>properties/xava.properties</em>
       de tu proyecto, y lo dejarlo así:<br>
       <style type="text/css"><!--
@@ -36,14 +39,12 @@ persistenceProviderClass=org.openxava.model.impl.HibernatePersistenceProvider
 mapFacadeAsEJB=false</pre>
       A partir de ahora, tu aplicación usará Hibernate en lugar de EJB3 JPA para
       manejar la persistencia de los objetos.<br>
-      <h2 id="toc2"><a name="Hibernate-Usando Hibernate en nuestro código"></a>Usando
-        Hibernate en nuestro código</h2>
+      <h2 id="toc1"><a name="Hibernate-Usando Hibernate en nuestro código"></a>Usando
+        Hibernate en nuestro código <i>(hasta v6.6.3)</i></h2>
       Podemos usar las APIs de Hibernate en cualquier parte de una aplicación
       OpenXava, esto es, dentro de calculadores, acciones, filtros, etc.<br>
-      Para facilitar el uso de Hibernate OpenXava provee la clase <em><a class="wiki_link_ext"
-
-          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/hibernate/XHibernate.html"
-
+      Para facilitar el uso de Hibernate OpenXava provee la clase <em><a class="wiki_link_ext"
+          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/hibernate/XHibernate.html"
           rel="nofollow">XHibernate</a></em>. Por ejemplo, si queremos guardar
       un objeto en la base de datos usando Hibernate, la manera típica sería:<br>
       <style type="text/css"><!--
@@ -233,25 +234,18 @@ mapFacadeAsEJB=false</pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">Session sesion = HibernateUtil.<span class="me1">getSessionFactory</span><span
-
-class="br0">(</span><span class="br0">)</span>.<span class="me1">getCurrentSession</span><span
-
+</style><pre class="java5">Session sesion = HibernateUtil.<span class="me1">getSessionFactory</span><span
+class="br0">(</span><span class="br0">)</span>.<span class="me1">getCurrentSession</span><span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-sesion.<span class="me1">beginTransaction</span><span class="br0">(</span><span
-
+sesion.<span class="me1">beginTransaction</span><span class="br0">(</span><span
 class="br0">)</span><span class="sy0">;</span>
 Cliente cliente = ... <span class="sy0">;</span>
-sesion.<span class="me1">save</span><span class="br0">(</span>cliente<span class="br0">)</span><span
-
+sesion.<span class="me1">save</span><span class="br0">(</span>cliente<span class="br0">)</span><span
 class="sy0">;</span>
-sesion.<span class="me1">getTransaction</span><span class="br0">(</span><span class="br0">)</span>.<span
-
-class="me1">commit</span><span class="br0">(</span><span class="br0">)</span><span
-
+sesion.<span class="me1">getTransaction</span><span class="br0">(</span><span class="br0">)</span>.<span
+class="me1">commit</span><span class="br0">(</span><span class="br0">)</span><span
 class="sy0">;</span>
-sesion.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span><span
-
+sesion.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span><span
 class="sy0">;</span>
 &nbsp;</pre>
       Pero, dentro de OpenXava y usando XHibernate podemos escribir:<br>
@@ -443,10 +437,8 @@ class="sy0">;</span>
 
 -->
 </style><pre class="java5">Cliente cliente = ... <span class="sy0">;</span>
-XHibernate.<span class="me1">getSession</span><span class="br0">(</span><span class="br0">)</span>.<span
-
-class="me1">save</span><span class="br0">(</span>cliente<span class="br0">)</span><span
-
+XHibernate.<span class="me1">getSession</span><span class="br0">(</span><span class="br0">)</span>.<span
+class="me1">save</span><span class="br0">(</span>cliente<span class="br0">)</span><span
 class="sy0">;</span>
 &nbsp;</pre>
       Nada más.<br>
@@ -459,10 +451,8 @@ class="sy0">;</span>
       Podemos, opcionalmente, confirmar la transacción en cualquier momento
       llamando a <em>XHibernate.commit()</em>, si después de esto llamamos a <em>XHibernate.getSession()</em>
       una nueva sesión y transacción son creadas.<br>
-      Podemos ver más acerca de esto consultando el API de <em><a class="wiki_link_ext"
-
-          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/hibernate/XHibernate.html"
-
+      Podemos ver más acerca de esto consultando el API de <em><a class="wiki_link_ext"
+          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/hibernate/XHibernate.html"
           rel="nofollow">org.openxava.hibernate.XHibernate</a></em>. </div>
   </body>
 </html>

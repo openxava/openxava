@@ -3,7 +3,6 @@ package org.openxava.test.tests;
 import java.math.*;
 import java.util.*;
 
-import org.openxava.hibernate.*;
 import org.openxava.jpa.*;
 import org.openxava.model.*;
 import org.openxava.util.*;
@@ -17,7 +16,6 @@ import junit.framework.*;
 public class MapFacadeTest extends TestCase {
 	
 	static {
-		XHibernate.setConfigurationFile("hibernate-junit.cfg.xml");
 		XPersistence.setPersistenceUnit("junit");
 	}
 
@@ -27,7 +25,6 @@ public class MapFacadeTest extends TestCase {
 	}
 	
 	protected void tearDown() throws Exception {
-		XHibernate.commit();
 		XPersistence.commit();
 	}
 	

@@ -5,9 +5,10 @@ import java.rmi.*;
 import java.util.*;
 
 import javax.ejb.*;
+import javax.ejb.ObjectNotFoundException;
 
 import org.apache.commons.logging.*;
-import org.hibernate.Hibernate;
+import org.hibernate.*;
 import org.openxava.mapping.*;
 import org.openxava.model.meta.*;
 import org.openxava.util.*;
@@ -246,11 +247,6 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 	}
 
 	public Object createAggregate(MetaModel metaModel, Map values, MetaModel metaModelContainer, Object containerModel, int number) throws CreateException, ValidationException, RemoteException, XavaException {
-		// The next two lines use Hibernate. At the momment for Hibernate and EJB3 
-		// In order to support a EJB3 no hibernate implementations we will need to change them
-		org.openxava.hibernate.impl.DefaultValueIdentifierGenerator.setCurrentContainerKey(containerModel);
-		if (number == 0) number = aggregateNumberGenerator.nextInt();
-		org.openxava.hibernate.impl.DefaultValueIdentifierGenerator.setCurrentCounter(number);
 		return create(metaModel, values);
 	}
 	

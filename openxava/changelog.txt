@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- Removed XHibernate and HibernatePersistenceProvider, though Hibernate API is still available.
+- Removed JDBCTabProvider, used to get list data via JDBC, only used for XML components.
+- Dropped support for Tomcat 7.
+- Servlet 3.1 is the minimum specification version supported.
 - IMAGES_GALLERY/GALERIA_IMAGENES stereotype uses JPA for persistence instead of Hibernate.
 - Method usesAnnotatedPOJO() removed from ModuleTestBase.
 - Removed outdated documentation in Russian, Chinese and French.

@@ -41,7 +41,7 @@ public class JPATest extends TestCase {
 				
 		assertEquals("", remarks);
 		
-		XPersistence.getManager().remove(sf);
+		XPersistence.getManager().remove(sf);		
 	}
 		
 }

@@ -957,30 +957,7 @@
 		<action name="changeToRecord" 
 			class="org.openxava.test.actions.ChangeToFilterBySubfamilyAndYearRecordAction"/>
 	</controller>		
-	
-	<controller name="StateHibernate"> 
-		<action name="search" image="search.gif" mode="detail" 
-			class="org.openxava.test.actions.StateHibernateSearchAction"/>					
-				
-		<action name="save" mode="detail"
-			class="org.openxava.test.actions.StateHibernateSaveAction"
-			image="save.gif"
-			keystroke="F3"/>			
 		
-		<action name="delete" mode="detail"
-			class="org.openxava.test.actions.StateHibernateDeleteAction"
-			image="delete.gif"
-			keystroke="F4"/>
-		
-		<action name="new" 
-			class="org.openxava.actions.NewAction"
-			image="new.gif"
-			keystroke="F2">
-			<set property="restoreModel" value="true"/>			
-		</action>
-			
-	</controller>
-	
 	<controller name="StateJPA"> 
 		<action name="search" image="search.gif" mode="detail" 
 			class="org.openxava.test.actions.StateJPASearchAction"/>					

@@ -7,7 +7,6 @@ import javax.servlet.http.*;
 import org.apache.commons.logging.*;
 import org.openxava.controller.*;
 import org.openxava.controller.meta.*;
-import org.openxava.hibernate.*;
 import org.openxava.jpa.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
@@ -238,7 +237,6 @@ abstract public class BaseAction implements IAction, IRequestAction, IModuleCont
 	 */
 	protected void commit() {
 		XPersistence.commit();
-		XHibernate.commit();		
 	}
 
 	/**
@@ -248,7 +246,6 @@ abstract public class BaseAction implements IAction, IRequestAction, IModuleCont
 	 */	
 	protected void rollback() { 		
 		XPersistence.rollback();
-		XHibernate.rollback();		
 	}
 	
 	/**

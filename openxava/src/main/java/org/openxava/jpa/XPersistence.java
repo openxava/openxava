@@ -7,9 +7,6 @@ import javax.persistence.*;
 import javax.xml.parsers.*;
 
 import org.apache.commons.logging.*;
-import org.hibernate.*;
-import org.openxava.component.*;
-import org.openxava.hibernate.*;
 import org.openxava.jpa.impl.*;
 import org.openxava.util.*;
 
@@ -80,7 +77,6 @@ public class XPersistence {
 	private static Map entityManagerFactories = new HashMap();
 	final private static ThreadLocal currentPersistenceUnitProperties = new ThreadLocal();
 	private static Map defaultPersistenceUnitProperties;
-	private static boolean hibernateEventsRegistered = false;
 
 	/**
 	 * <code>EntityManager</code> associated to current thread. <p>
@@ -107,21 +103,9 @@ public class XPersistence {
 	 */
 	public static EntityManager createManager() {
 		EntityManager m = getEntityManagerFactory().createEntityManager();
-		registerHibernateEvents(m); 
 		return new EntityManagerDecorator(m);
 	}
-				
-	private static void registerHibernateEvents(EntityManager m) { 
-		if (hibernateEventsRegistered) return;
-		Collection<MetaComponent> components = MetaComponent.getAllLoaded();
-		if (components.isEmpty()) return;
-		if (!components.iterator().next().getMetaEntity().isAnnotatedEJB3()) {			
-			XHibernate._registerEvents(((Session) m.getDelegate()).getSessionFactory());
-		}
-		hibernateEventsRegistered = true;
-	}
-	
-	
+		
 	private static EntityManager openManager() {
 		EntityManager m = createManager();
 		m.getTransaction().begin();

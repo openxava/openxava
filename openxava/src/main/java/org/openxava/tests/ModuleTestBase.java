@@ -11,7 +11,6 @@ import org.apache.pdfbox.text.*;
 import org.openxava.application.meta.*;
 import org.openxava.component.*;
 import org.openxava.controller.meta.*;
-import org.openxava.hibernate.*;
 import org.openxava.jpa.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.*;
@@ -114,8 +113,6 @@ abstract public class ModuleTestBase extends TestCase {
 	protected void setUp() throws Exception {
 		locale = null;
 		XPersistence.reset(); 
-		XHibernate.reset();
-		XHibernate.setConfigurationFile("/hibernate-junit.cfg.xml");
 		XPersistence.setPersistenceUnit("junit");
 		resetPreferences();
 		resetModule();	
@@ -133,7 +130,6 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	protected void tearDown() throws Exception {
-		XHibernate.commit();
 		XPersistence.commit();
 		client.close(); 
 		

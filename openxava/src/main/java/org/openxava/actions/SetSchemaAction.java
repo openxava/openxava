@@ -1,10 +1,9 @@
 package org.openxava.actions;
 
-import javax.inject.Inject;
+import javax.inject.*;
 
-import org.openxava.hibernate.XHibernate;
-import org.openxava.jpa.XPersistence;
-import org.openxava.util.Is;
+import org.openxava.jpa.*;
+import org.openxava.util.*;
 
 /**
  * 
@@ -25,9 +24,7 @@ public class SetSchemaAction extends ViewBaseAction {
 			}
 			defaultSchema = newDefaultSchema;	
 			XPersistence.setDefaultSchema(
-					Is.emptyString(defaultSchema) ? XPersistence.getDefaultSchema() : defaultSchema);		
-			XHibernate.setDefaultSchema(
-					Is.emptyString(defaultSchema) ? XHibernate.getDefaultSchema() : defaultSchema);
+				Is.emptyString(defaultSchema) ? XPersistence.getDefaultSchema() : defaultSchema);	
 		}
 	}
 

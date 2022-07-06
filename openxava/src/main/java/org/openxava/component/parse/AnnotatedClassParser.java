@@ -806,7 +806,6 @@ public class AnnotatedClassParser implements IComponentParser {
 		catch (ClassNotFoundException ex) {
 			// If type.type() is a type name and not a class we do not add it, this is not a big problem
 			// since in JPA most data is obtained via JPA so converters are only used for a very few things.
-			// The not supported combination is JPA + JDBCTabProvider + TypeDef, not a very common one.
 			
 			// If type.type() is a class name mistyped the JPA will complain, so we do not to do it here
 			return;
@@ -2620,13 +2619,12 @@ public class AnnotatedClassParser implements IComponentParser {
 				// be created, but sometimes (maybe from junit test, or code generation)  
 				// it's needed to parse the entities anyways, then we'll
 				// try to obtain managed classes without hibernate		
-				if (!XavaPreferences.getInstance().isHibernatePersistence()) { // If we work with Hibernate + XML components it's normal not to have a persistence.xml 
-					// We always have to print the stack trace of ex, because the error can
-					// be other than no connection, then the developer needs info for debug
-					log.warn(XavaResources.getString("managed_classes_not_from_hibernate"), ex);
-				}
+
+				// We always have to print the stack trace of ex, because the error can
+				// be other than no connection, then the developer needs info for debug
+				log.warn(XavaResources.getString("managed_classes_not_from_hibernate"), ex);
 				managedClassNames = obtainManagedClassNamesFromFileClassPath();
-				if (managedClassNames.isEmpty() && !XavaPreferences.getInstance().isHibernatePersistence()) { // If we work with Hibernate + XML components it's normal not to have JPA entities 
+				if (managedClassNames.isEmpty()) {  
 					managedClassNames = null;
 					if (ex instanceof RuntimeException) throw (RuntimeException) ex;
 					else throw new RuntimeException(ex);

@@ -21,7 +21,6 @@ import org.openxava.actions.*;
 import org.openxava.application.meta.*;
 import org.openxava.component.*;
 import org.openxava.controller.meta.*;
-import org.openxava.hibernate.*;
 import org.openxava.jpa.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.*;
@@ -924,12 +923,10 @@ public class ModuleManager implements java.io.Serializable {
 	}
 
 	/**
-	 * Init JPA and Hibernate in order to process the current request.
+	 * Init JPA in order to process the current request.
 	 */
 	public void resetPersistence() { 
-		org.openxava.hibernate.XHibernate.setCmt(false);
 		org.openxava.jpa.XPersistence.reset();
-		org.openxava.hibernate.XHibernate.reset();
 		if (reseter != null) {
 			try {
 				XObjects.execute(reseter, "reset", HttpSession.class, session);
@@ -953,7 +950,6 @@ public class ModuleManager implements java.io.Serializable {
 		try {
 			doCommit();
 			org.openxava.jpa.XPersistence.reset();
-			org.openxava.hibernate.XHibernate.reset();
 		} catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
 			doRollback();
@@ -962,12 +958,10 @@ public class ModuleManager implements java.io.Serializable {
 
 	private static void doCommit() { 
 		XPersistence.commit();
-		XHibernate.commit();
 	}
 
 	static void doRollback() { 
 		XPersistence.rollback();
-		XHibernate.rollback();
 	}
 
 	public void parseMultipartRequest(HttpServletRequest request)

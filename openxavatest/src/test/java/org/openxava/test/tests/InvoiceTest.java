@@ -1461,7 +1461,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	public void testDateFormatter() throws Exception { 
 		setLocale("es");	
 		execute("CRUD.new");
-		setValue("year", String.valueOf(getInvoice().getYear()));
+		setValue("year", String.valueOf(getInvoice().getYear())); 
 		setValue("number", String.valueOf(getInvoice().getNumber()));
 		
 		execute("CRUD.refresh");
@@ -1594,7 +1594,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertDialog();
 		setValue("serviceType", "");
 		setValue("quantity", "20");
-		setValue("unitPrice", getProductUnitPrice());		
+		setValue("unitPrice", getProductUnitPrice()); 		
 		assertValue("amount", getProductUnitPriceMultiplyBy("20")); 
 		setValue("product.number", getProductNumber());
 		assertValue("product.description", getProductDescription());
@@ -2019,7 +2019,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		};		
 		assertActions(initialActions); 
 				
-		setValue("year", String.valueOf(getInvoice().getYear()));
+		setValue("year", String.valueOf(getInvoice().getYear())); 
 		setValue("number", String.valueOf(getInvoice().getNumber()));
 		execute("CRUD.refresh");
 		assertNoErrors();
