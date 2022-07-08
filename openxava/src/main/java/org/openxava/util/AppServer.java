@@ -5,8 +5,10 @@ import java.nio.file.*;
 import java.nio.file.Files;
 import java.util.*;
 
+import org.apache.catalina.*;
 import org.apache.catalina.core.*;
 import org.apache.catalina.startup.*;
+import org.apache.catalina.webresources.*;
 import org.apache.commons.logging.*;
 
 /**
@@ -53,12 +55,9 @@ public class AppServer {
         tomcat.getConnector();
         tomcat.enableNaming();
         StandardContext context = (StandardContext) tomcat.addWebapp(contextPath, webappDir);
-        /* tmr
         WebResourceRoot resources = new StandardRoot(context);
         resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes", "target/classes", "/"));
         context.setResources(resources);
-        */
-        
         tomcat.start();
        	if (tomcat.getConnector().getLocalPort() < 0) {
      		tomcat.stop();
