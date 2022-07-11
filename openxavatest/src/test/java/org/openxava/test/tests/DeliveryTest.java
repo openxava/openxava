@@ -287,7 +287,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertValue("description", "DELIVERY JUNIT 666"); 
 		
 		execute("Sections.change", "activeSection=2");
-		assertCollectionRowCount("details", 3); 
+		assertCollectionRowCount("details", 3); // TMR FALLA
 		
 		execute("DeliveryDetail.new", "viewObject=xava_view_section2_details_details");
 		setValue("number", "14");
@@ -330,7 +330,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertListNotEmpty();
 		execute("List.viewDetail", "row=0");
 		execute("Sections.change", "activeSection=2");
-		assertCollectionRowCount("details", 0); 
+		assertCollectionRowCount("details", 0); // TMR FALLA
 		execute("DeliveryDetail.new", "viewObject=xava_view_section2_details_details");
 		for(int x = 1; x < 5; x++){
 			setValue("number", String.valueOf(x));
@@ -472,7 +472,7 @@ public class DeliveryTest extends ModuleTestBase {
 		setValue("number", "66");
 		setValue("description", "JUNIT DELIVERY DETAIL");
 		execute("DeliveryDetail.save");
-		assertMessage("The action Save for delivery detail executed");
+		assertMessage("The action Save for delivery detail executed"); // TMR FALLA
 		assertNoErrors();				
 		
 		execute("Collection.edit", "row=0,viewObject=xava_view_section2_details_details");
@@ -501,7 +501,7 @@ public class DeliveryTest extends ModuleTestBase {
 		setValue("description", "JUNIT");
 		
 		execute("Sections.change", "activeSection=2");
-		assertCollectionRowCount("details", 0);  
+		assertCollectionRowCount("details", 0);  // TMR FALLA
 		execute("DeliveryDetail.new", "viewObject=xava_view_section2_details_details");		
 		setValue("number", "66");
 		setValue("description", "JUNIT DELIVERY DETAIL");

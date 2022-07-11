@@ -48,7 +48,6 @@ public class Modules implements Serializable {
 	private MetaModule current;
 
 	public static void init(String applicationName) {
-		XSystem._setLogLevelFromJavaLoggingLevelOfXavaPreferences(); // tmr
 		MetaModuleFactory.setApplication(applicationName);
 		DBInitializer.init();
 		createFirstStepsModule(applicationName);

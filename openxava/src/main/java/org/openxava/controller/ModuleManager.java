@@ -41,7 +41,6 @@ public class ModuleManager implements java.io.Serializable {
 
 	static {
 		MetaControllers.setContext(MetaControllers.WEB);
-		// TMR ME QUEDÉ POR AQUÍ: MOVER ESTO A Modules. QUIZÁS QUITAR EL LOG DE HIBERNATE SEA LA MEJOR OPCIÓN
 		XSystem._setLogLevelFromJavaLoggingLevelOfXavaPreferences();
 		Logger.getLogger("org.directwebremoting").setLevel(Level.SEVERE); 
 		setVersionInfo();

@@ -33,7 +33,7 @@ public class TransportChargeWithDescriptionsListTest extends ModuleTestBase {
 		assertValidValues("delivery.KEY", deliveries);
 		setValue("amount", "324.28"); 
 		execute("CRUD.save");
-		assertNoErrors();
+		assertNoErrors(); // TMR FALLA
 		execute("Mode.list");
 		assertListRowCount(1);
 		execute("List.viewDetail", "row=0");

@@ -24,7 +24,7 @@ public class TransportChargeTest extends TransportChargeTestBase {
 		execute("ReferenceSearch.choose", "row=" + row);
 		execute("Sections.change", "activeSection=4,viewObject=xava_view_delivery");
 		
-		assertCollectionRowCount("delivery.details", 3); 
+		assertCollectionRowCount("delivery.details", 3); // TMR FALLA
 		execute("List.orderBy", "property=number,collection=delivery.details"); 
 		assertValueInCollection("delivery.details", 0, 0, "11"); 
 		assertValueInCollection("delivery.details", 1, 0, "12");
@@ -73,7 +73,7 @@ public class TransportChargeTest extends TransportChargeTestBase {
 		
 		setValue("amount", "666");
 		execute("CRUD.save");
-		assertNoErrors();
+		assertNoErrors(); // TMR FALLA
 				
 		assertValue("delivery.invoice.year", "");
 		assertValue("delivery.invoice.number", "");
@@ -113,7 +113,7 @@ public class TransportChargeTest extends TransportChargeTestBase {
 		
 		assertListRowCount(2);
 		
-		assertValueInList(0, 0, String.valueOf(getCharge1().getDelivery().getInvoice().getYear())); 
+		assertValueInList(0, 0, String.valueOf(getCharge1().getDelivery().getInvoice().getYear())); // TMR FALLA
 		assertValueInList(0, 1, String.valueOf(getCharge1().getDelivery().getInvoice().getNumber()));
 		assertValueInList(0, 2, String.valueOf(getCharge1().getDelivery().getNumber()));
 		assertValueInList(0, 3, "100.00");

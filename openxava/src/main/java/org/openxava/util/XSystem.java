@@ -62,11 +62,7 @@ public class XSystem {
 		catch (Exception ex) {
 			log.warn(XavaResources.getString("logging_level_not_set"));
 		}
-		// tmr Logger.getLogger("org.hibernate").setLevel(XavaPreferences.getInstance().getHibernateJavaLoggingLevel());
-		// tmr ini
-		System.out.println("[XSystem._setLogLevelFromJavaLoggingLevelOfXavaPreferences] Hibernate loggint a SEVERE"); // tmr
-		Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
-		// tmr fin
+		Logger.getLogger("org.hibernate").setLevel(XavaPreferences.getInstance().getHibernateJavaLoggingLevel());
 	}
 
 	/**

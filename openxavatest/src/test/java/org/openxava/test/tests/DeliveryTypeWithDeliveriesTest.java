@@ -31,7 +31,7 @@ public class DeliveryTypeWithDeliveriesTest extends ModuleTestBase {
 		setValue("number", "88");
 		setValue("description", "JUNIT DELIVERY DETAIL");		
 		execute("Collection.save");
-		assertNoErrors();
+		assertNoErrors(); // TMR FALLA
 		assertMessage("Delivery type created successfully");
 		assertMessage("Delivery created successfully"); 
 		assertMessage("Delivery detail created successfully");

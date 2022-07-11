@@ -4,6 +4,7 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.hibernate.envers.*;
 import org.openxava.annotations.*;
 
 /**
@@ -13,16 +14,14 @@ import org.openxava.annotations.*;
  * @author Jeromy Altuna
  */
 @Entity
-/* tmr
 @Audited
 @AuditOverrides({
 	@AuditOverride(forClass=Nameable.class, name="name", isAudited=true)
 })
-*/
 @Tab(properties="name, file") 
 public class Exam extends Nameable {
 	
-	@Column(length=32) @Stereotype("FILE") // tmr @NotAudited
+	@Column(length=32) @Stereotype("FILE") @NotAudited
 	private String file;
 	
 	@javax.validation.constraints.Size(min=1, max=4)
