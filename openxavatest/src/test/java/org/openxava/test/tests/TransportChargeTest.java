@@ -73,7 +73,7 @@ public class TransportChargeTest extends TransportChargeTestBase {
 		
 		setValue("amount", "666");
 		execute("CRUD.save");
-		assertNoErrors(); // TMR FALLA
+		assertNoErrors(); // TMR FALLA ME QUEDÉ POR AQUÍ. ACTUALICÉ LA VERSIÓN HSQLDB 
 				
 		assertValue("delivery.invoice.year", "");
 		assertValue("delivery.invoice.number", "");
