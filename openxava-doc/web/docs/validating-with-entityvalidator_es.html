@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lección 18: Validación avanzada - OpenXava</title>
+    <title>Lección 18: Validando con @EntityValidator - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -47,8 +47,8 @@ style="color: white;"><span style="font-family: arial,helvetica,sans-serif;">Val
         <h1 class="nopad">Tabla de contenidos</h1>
         <div style="margin-left: 1em;"><a href="#Leccion-18-Validacion-avanzada">Lección
             18: Validando con @Entity Validator</a></div>
-        <div style="margin-left: 2em;"><a href="#Alternativas-de-validacion-Validar-con-EntityValidator">Nuestra
-            Validación<br>
+        <div style="margin-left: 2em;"><a href="#nuestra-validacion">Nuestra
+            validación<br>
           </a></div>
         <div style="margin-left: 2em;"><a href="#Alternativas-de-validacion-Anadir-la-propiedad-entregado-a-Pedido">Añadir
             la propiedad entregado a Pedido</a><a href="#Alternativas-de-validacion-Validar-con-EntityValidator"><br>
@@ -59,15 +59,15 @@ style="color: white;"><span style="font-family: arial,helvetica,sans-serif;">Val
         <div style="margin-left: 2em;"><a href="#resumen">Resumen</a> </div>
       </div>
       De momento solo hemos hecho validaciones básicas usando la anotación <i>@Required</i>
-      de OpenXava. En este caso, en esta lección vas a aprender a validar usando
-      la anotación @EntityValidator.<br>
-      <h3 id="toc2">Nuestra validación</h3>
+      de OpenXava. En esta lección vas a aprender a validar usando la anotación
+      <i>@EntityValidator</i>.<br>
+      <h2 id="nuestra-validacion">Nuestra validación</h2>
       Vamos a refinar tu código para que el usuario no pueda asignar pedidos a
       una factura si los pedidos no han sido entregados todavía. Es decir, solo
       los pedidos entregados pueden asociarse a una factura. Aprovecharemos la
       oportunidad para explorar diferentes formas de hacer esta validación.<br>
-      <h3 id="toc2"><a name="Alternativas-de-validacion-Anadir-la-propiedad-entregado-a-Pedido"></a>Añadir
-        la propiedad entregado a Pedido</h3>
+      <h2 id="toc2"><a name="Alternativas-de-validacion-Anadir-la-propiedad-entregado-a-Pedido"></a>Añadir
+        la propiedad entregado a Pedido</h2>
       Para hacer esto, lo primero es añadir una nueva propiedad a la entidad <em>Pedido</em>.
       La propiedad <em>entregado</em>:<br>
       <pre><code class="java">@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
@@ -85,8 +85,8 @@ public class Pedido extends DocumentoComercial {
 </code></pre> Ahora tienes una nueva propiedad <em>entregado</em> que el
       usuario puede marcar para indicar que el pedido ha sido entregado. Ejecuta
       el nuevo código y marca algunos de los pedidos existentes como entregados.<br>
-      <h3 id="toc3"><a name="Alternativas-de-validacion-Validar-con-EntityValidator"></a>Validar
-        con <em>@EntityValidator</em></h3>
+      <h2 id="toc3"><a name="Alternativas-de-validacion-Validar-con-EntityValidator"></a>Validar
+        con <em>@EntityValidator</em></h2>
       En tu aplicación actual el usuario puede añadir cualquier pedido que le
       plazca a una factura usando el módulo <em>Factura</em> y puede asignar
       una factura a cualquier pedido desde el módulo <em>Pedido</em>. Vamos a
@@ -161,19 +161,14 @@ pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadid
         añadirá mientras que el otro es rechazado, generando los siguientes
         mensajes:</div>
       <img src="files/validation_es017.png" alt="validation_es017.png" title="validation_es017.png">
-      <div class="wiki" style="display: block;"> Ya tienes tu validación hecha
-        con <i>@EntityValidator</i>. No es difícil, pero es un poco verboso,
-        porque necesitas escribir una clase nueva solo para añadir 2 línea de
-        lógica. Aprendamos otras formas de hacer esta misma validación.</div>
       <div class="wiki" style="display: block;">
-        <h2 id="toc20" style="font-weight: bold; padding: 5px 0px 0px; margin: 0px; font-size: 1.3em; color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><br>
-        </h2>
         <h2 id="resumen">Resumen</h2>
-        <span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">En
-          esta lección has aprendido </span><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">como
-          validar usando @EntityValidator por lo que es un gran avance. En la
-          siguiente lección vamos a ver formas más sencillas en validar y que
-          den este magnifico y útil resultado.</span><br style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+        Ya tienes tu validación hecha con <i>@EntityValidator</i>. No es
+        difícil, pero es un poco verboso, porque necesitas escribir una clase
+        nueva solo para añadir 2 línea de lógica. Esto es un gran avance. En la
+        siguiente lección veremos otras formas más sencillas de efectuar esta
+        misma validación.<span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"></span><br
+          style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
       </div>
       <h3 id="toc4"><a name="Alternativas-de-validacion-Validar-con-metodos-de-retrollamada-JPA"></a><strong></strong><br>
       </h3>
