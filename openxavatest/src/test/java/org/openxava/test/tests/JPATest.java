@@ -5,7 +5,6 @@ import java.util.*;
 import javax.persistence.*;
 
 import org.openxava.jpa.*;
-import org.openxava.model.meta.*;
 import org.openxava.test.model.*;
 import org.openxava.util.*;
 
@@ -43,19 +42,30 @@ public class JPATest extends TestCase {
 		query.setParameter("delivery_invoice_number", 1);
 		*/
 		
-		
-		
 		/* 
 		String queryString="from TransportCharge o where o.delivery.invoice.year = :delivery_invoice_year and o.delivery.invoice.number = :delivery_invoice_number";
 		Query query = XPersistence.getManager().createQuery(queryString);
 		query.setParameter("delivery_invoice_year", 2002);
 		query.setParameter("delivery_invoice_number", 1);
 		*/
-		/*
+
+		/* 
 		String queryString="from TransportCharge o where o.delivery.invoice.year = :delivery_invoice_year";
 		Query query = XPersistence.getManager().createQuery(queryString);
 		query.setParameter("delivery_invoice_year", 2002);
 		*/
+		
+		/*
+		String queryString="from TransportCharge o where o.delivery_invoice.year = :delivery_invoice_year";
+		Query query = XPersistence.getManager().createQuery(queryString);
+		query.setParameter("delivery_invoice_year", 2002);
+		*/
+		
+		// TMR ME QUEDÉ POR AQUÍ: ESTO HA FUNCIONADO. BUSCANDO UNA FORMA DE HACER EL SELECT, DE QUEDARNOS CON 5.6
+		String queryString="from TransportCharge o join fetch o.delivery d where d.invoice.year = :delivery_invoice_year";
+		Query query = XPersistence.getManager().createQuery(queryString);
+		query.setParameter("delivery_invoice_year", 2002);
+		
 		/* FUNCIONA
 		String queryString="from TransportCharge o where o.delivery.invoice = :delivery_invoice";
 		Query query = XPersistence.getManager().createQuery(queryString);
@@ -65,6 +75,7 @@ public class JPATest extends TestCase {
 		query.setParameter("delivery_invoice", key);
 		*/
 		
+		/*
 		String queryString="from TransportCharge o where o.delivery.invoice = :delivery_invoice";
 		Query query = XPersistence.getManager().createQuery(queryString);
 		Map key = new HashMap();
@@ -72,7 +83,7 @@ public class JPATest extends TestCase {
 		key.put("year", 2002);
 		
 		query.setParameter("delivery_invoice", MetaModel.get("Invoice").toPOJO(key));		
-		
+		*/
 		
 		Collection result = query.getResultList();
 		System.out.println("[JPATest.testKeyWithReference] result.size()=" + result.size()); // tmr
