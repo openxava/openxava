@@ -61,7 +61,8 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 		
 
 	public Object find(MetaModel metaModel, Map keyValues) throws FinderException {
-		return find(metaModel, keyValues, true);
+		// tmr return find(metaModel, keyValues, true);
+		return find(metaModel, keyValues, true); // tmr
 	}
 	
 	protected Object find(MetaModel metaModel, Map keyValues, boolean useQueryForFind) throws FinderException {
@@ -265,6 +266,7 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 	}
 	
 	private Object findUsingQuery(MetaModel metaModel, Map keyValues, boolean includeEmptyValues) throws ObjectNotFoundException, FinderException, XavaException {		
+		System.out.println("[POJOPersistenceProviderBase.findUsingQuery] keyValues=" + keyValues); // tmr
 		StringBuffer queryString = new StringBuffer();
 		queryString.append("from ");
 		queryString.append(metaModel.getName());
@@ -295,7 +297,8 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 		if (!hasCondition) { 
 			throw new ObjectNotFoundException(XavaResources.getString("object_by_any_property_not_found", values));
 		}
-										
+		
+		System.out.println("[POJOPersistenceProviderBase.findUsingQuery] queryString=" + queryString); // tmr
 		Object query = createQuery(queryString.toString());	
 		for (Iterator it=values.iterator(); it.hasNext();) {
 			Map.Entry en = (Map.Entry) it.next();

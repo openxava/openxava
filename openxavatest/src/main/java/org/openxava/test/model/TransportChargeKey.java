@@ -9,14 +9,15 @@ import javax.persistence.*;
 public class TransportChargeKey implements java.io.Serializable {
 
 	@Id @ManyToOne(fetch=FetchType.LAZY)
-	/* This the default mapping (at least with Hibernate)
+	/* This the default mapping (at least with Hibernate) tmr */ 
 	@JoinColumns({ 
 		@JoinColumn(name="DELIVERY_INVOICE_YEAR", referencedColumnName="INVOICE_YEAR"),
 		@JoinColumn(name="DELIVERY_INVOICE_NUMBER", referencedColumnName="INVOICE_NUMBER"),
 		@JoinColumn(name="DELIVERY_TYPE", referencedColumnName="TYPE"),
 		@JoinColumn(name="DELIVERY_NUMBER", referencedColumnName="NUMBER")
 	})
-	*/
+	
+	
 	private Delivery delivery;
 
 	

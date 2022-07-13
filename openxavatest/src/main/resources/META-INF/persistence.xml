@@ -20,7 +20,11 @@
             <property name="org.hibernate.envers.audit_strategy" 
             		value="org.hibernate.envers.strategy.ValidityAuditStrategy"/>
             <property name="org.hibernate.envers.audit_strategy_validity_store_revend_timestamp" 
-            		value="true"/>            		
+            		value="true"/>
+            <!-- tmr ini -->		
+            <property name="hibernate.jpa.compliance.query" value="true"/> 
+            
+            <!-- tmr fin -->		            		
         </properties>
     </persistence-unit>      
                             
@@ -50,6 +54,9 @@
         <properties>
 			<property name="hibernate.connection.url" value="jdbc:hsqldb:hsql://localhost:1666"/>
 			<property name="hibernate.default_schema" value="XAVATEST"/>
+			<!-- tmr ini -->
+			<property name="hibernate.show_sql" value="true"/> <!-- tmr -->
+			<!-- tmr fin -->
         </properties>
     </persistence-unit>
                           
