@@ -1,0 +1,202 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lesson 21: Custom Bean Validation annotation - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Lesson 6: Advanced validation"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Lesson 21: Custom Bean Validation annotation</h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
+        Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
+        Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
+        Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
+        Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
+        Agile development</a> |&nbsp;<a class="wiki_link" href="mapped-superclass-inheritance_en.html">6.
+        Mapped superclass inheritance</a> | <a class="wiki_link" href="entity-inheritance_en.html">7.
+        Entity inheritance</a> | <a class="wiki_link" href="view-inheritance_en.html">8.
+        View inheritance</a> | <a class="wiki_link" href="java-properties_en.html">9.
+        Java properties</a> | <a class="wiki_link" href="calculated-properties_en.html">10.
+        Calculated properties </a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11.
+        @DefaultValueCalculator in collections </a> | <a class="wiki_link" href="calculation-and-collections-total_en.html">12.
+        @Calculation and collections totals </a> | <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13.
+        @DefaultValueCalculator from file </a> | <a class="wiki_link" href="manual-schema-evolution_en.html">14.
+        Manual schema evolution </a> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">15.
+        Multi user default value calculation </a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16.
+        Synchronize persistent and computed propierties </a> | <a class="wiki_link"
+
+        href="logic-from-database_en.html">17. Logic from database </a> | <strong>18.
+        Advanced validation </strong> | <a class="wiki_link" href="refining-standard-behavior_en.html">19.
+        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">20.
+        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">21.
+        References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
+        Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
+        Annotations</a> | <a class="wiki_link" href="testing_en.html">D.
+        Automated testing</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Table of contents</h1>
+        <div style="margin-left: 1em;"><a href="#Lesson%206:%20Advanced%20validation">Lesson
+            21: Custom Bean Validation annotation<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Creating%20your%20own%20Bean%20Validation%20annotation">Creating
+            your own Bean Validation annotation</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Creating%20your%20own%20Bean%20Validation%20annotation-Using%20a%20Bean%20Validation%20from%20your%20entity">Using
+            a Bean Validation from your entity</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Creating%20your%20own%20Bean%20Validation%20annotation-Defining%20your%20own%20ISBN%20annotation">Defining
+            your own ISBN annotation</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Creating%20your%20own%20Bean%20Validation%20annotation-Using%20Apache%20Commons%20Validator%20to%20implement%20the%20validation%20logic">Using
+            Apache Commons Validator to implement the validation logic</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Summary">Summary</a></div>
+      </div>
+      In the last lesson you saw how to validate on remove. In this lesson you
+      are going to see how to create your custom Bean Validation annotation. <br>
+      <h2 id="toc10"><a name="Lesson 6: Advanced validation-Creating your own Bean Validation annotation"></a>Creating
+        your own <em>Bean Validation</em> annotation</h2>
+      The techniques in the previous section are very useful for many
+      validations. Nevertheless, sometimes you will face some validations that
+      are very generic and you will want to reuse them over and over again. In
+      this case to define your own <em>Bean Validation</em> annotation can be a
+      good option. Defining a <em>Bean Validation</em> is more verbose but
+      usage and reuse is simple; just adding an annotation to your property or
+      class.<br>
+      We are going to learn how to create a validator from <em>Bean Validation</em>.<br>
+      <h2 id="toc11"><a name="Lesson 6: Advanced validation-Creating your own Bean Validation annotation-Using a Bean Validation from your entity"></a>Using
+        a <em>Bean Validation</em> from your entity</h2>
+      It is very easy. Just annotate your property, as you see in the next code:<br>
+      <pre><code class="java">@ISBN // This annotation indicates this property must be validated as an ISBN
+String isbn;
+</code></pre> By merely adding <em>@ISBN</em> to your property, it will be
+      validated before the entity is saved into the database. Great! The problem
+      is that <em>@ISBN</em> is not included as a built-in constraint in the
+      Bean Validation framework. This is not a big deal. If you want an <em>@ISBN</em>
+      annotation, just create it. Indeed, we are going to create the <em>@ISBN</em>
+      validation annotation in this section.<br>
+      First of all, let's add a new <em>isbn</em> property to <em>Product</em>.
+      Edit your <em>Product</em> class and add to it the code bellow:<br>
+      <pre><code class="java">@Column(length=13)
+String isbn;
+</code></pre> Try out your <em>Product</em> module with the browser. Yes, the <em>isbn</em>
+      property is already there. Now, you can add the validation.<br>
+      <h2 id="toc12"><a name="Lesson 6: Advanced validation-Creating your own Bean Validation annotation-Defining your own ISBN annotation"></a>Defining
+        your own ISBN annotation</h2>
+      Let's create the <em>@ISBN</em> annotation. First, create a package in
+      your project called <em>com.yourcompany.invoicing.annotations</em>. Then
+      click with the right mouse button on it and choose <i>New &gt; Annotation</i>,
+      as following:<br>
+      <img src="files/validation_en020.png" alt="validation_en020.png" title="validation_en020.png"></div>
+    <div class="wiki" style="display: block;">It will show a dialog, type ISBN
+      for the annotation name and click on <i>Finish</i>:</div>
+    <img src="files/validation_en030.png" alt="validation_en030.png" title="validation_en030.png">
+    <div class="wiki" style="display: block;"> Edit the code of your recently
+      created ISBN annotation and leave it as in the next code:<br>
+      <pre><code class="java">package com.yourcompany.invoicing.annotations; // In 'annotations' package
+
+import java.lang.annotation.*;
+import javax.validation.*;
+ 
+@Constraint(validatedBy = com.yourcompany.invoicing.validators.ISBNValidator.class)
+@Target({ElementType.FIELD, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ISBN { // A regular Java annotation definition
+ 
+    Class&lt;?&gt;[] groups() default{};
+    Class&lt;? extends Payload&gt;[] payload() default{};
+    String message() default "isbn_invalid"; // Message id from i18n file
+}
+</code></pre> As you can see, this is a regular annotation definition. The <i>message</i>
+      attribute is the message to show to the user if the validation fails, you
+      can write the message "as is" or put an i18n id. The developer can specify
+      its own message when he uses the annotation, although we provide one by
+      default, "isbn_invalid", so we have to add the next entry into <em>Invoicing-messages_en.properties</em>:
+      <div class="wiki" style="display: block;">
+        <pre><code class="properties">isbn_invalid=ISBN invalid or nonexistent
+</code></pre> </div>
+    </div>
+    <div class="wiki" style="display: block;">The <i>@Constraint</i> indicates
+      the class with the validation logic. Let's write the <em>ISBNValidator</em>
+      class.<br>
+      <h2 id="toc13"><a name="Lesson 6: Advanced validation-Creating your own Bean Validation annotation-Using Apache Commons Validator to implement the validation logic"></a>Using
+        Apache Commons Validator to implement the validation logic</h2>
+      We are going to write the <em>ISBNValidator</em> class with the
+      validation logic for an ISBN. Instead of writing the ISBN validation logic
+      by ourselves we'll use the <a href="http://commons.apache.org/validator/">Commons
+        Validator</a> project from Apache. Commons Validator contains validation
+      algorithms for email addresses, dates, URLs and so on. The <em>commons-validator.jar</em>
+      is included by default in OpenXava projects, so you can use it without
+      further configuration. The code for <em>ISBNValidator</em>:<br>
+      <pre><code class="java">package com.yourcompany.invoicing.validators; // In 'validators' package
+
+import javax.validation.*;
+ 
+import com.yourcompany.invoicing.annotations.*;
+import org.openxava.util.*;
+ 
+public class ISBNValidator
+    implements ConstraintValidator&lt;ISBN, Object&gt; { // Must implement ConstraintValidator
+ 
+    private static org.apache.commons.validator.routines.ISBNValidator
+        validator = // From 'Commons Validator' framework
+            new org.apache.commons.validator.routines.ISBNValidator();
+ 
+    public void initialize(ISBN isbn) {
+ 
+    }
+ 
+    // Contains the validation logic
+    public boolean isValid(Object value, ConstraintValidatorContext context) { 
+        if (Is.empty(value)) return true;
+        return validator.isValid(value.toString()); // Relies on 'Commons Validator'
+    }
+}
+</code></pre> As you see, the validator class must implement <i>ConstraintValidator</i>
+      from the <em>javax.validation</em> package. This forces your validator to
+      implement <i>initialize()</i> and <i>isValid()</i>. The <i>isValid()</i>
+      method contains the validation logic. Note that if the value to validate
+      is empty we assume that it is valid. Validating when the value is present
+      is the responsibility of other annotations like <i>@Required</i>.<br>
+      In this case the validation logic is plain vanilla, because we only call
+      the ISBN validator from the Apache Commons Validator project.</div>
+    <div class="wiki" style="display: block;"> <em>@ISBN</em> is ready to be
+      used. Just annotate your isbn property with it. You can see how:<br>
+      <pre><code class="java">@Column(length=13) @ISBN
+String isbn;
+</code></pre>In this case when you save the class the import for <i>@ISBN</i>
+      is not added automatically. This is because there is another <i>@ISBN</i>
+      available (from Hibernate Validator library included in OpenXava), so
+      OpenXava Studio does not know which one to choose. Don't worry, just put
+      your mouse over the <i>@ISBN</i> annotation and a popup will be shown
+      with several possible solutions, choose <i>Import 'ISBN'
+        (com.yourcompany.invoicing.annotations)</i> so the correct import will
+      be added to <i>Product</i> class:</div>
+    <div class="wiki" style="display: block;"> <img src="files/validation_en035.png"
+
+        alt="validation_en035.png" title="validation_en035.png"> </div>
+    <div class="wiki" style="display: block;"> Now, you can test your module,
+      and verify that the ISBN values you enter are validated correctly.
+      Congratulations, you have written your first <em>Bean Validation</em>.
+      It's not so difficult. One annotation, one class.<br>
+      This <em>@ISBN</em> is good enough for use in real life. Nevertheless,
+      we'll try to improve it, simply to have the chance to experiment with a
+      few interesting possibilities.</div>
+    <br>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc20"><a name="Lesson 6: Advanced validation-Summary"></a>Summary</h2>
+      Congratulations! You have learned how to create your own <em>Bean
+        Validation</em> annotation. In the next lesson you are going to learn
+      how to call a rest service from a validation.&nbsp;&nbsp;</div>
+    <div class="wiki" style="display: block;"><br>
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
+        <a class="wiki_link" href="refining-standard-behavior_en.html">Go to
+          Lesson 19</a></strong> </div>
+  </body>
+</html>

@@ -1,0 +1,117 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lesson 23: Attributes in annotations - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Lesson 6: Advanced validation"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Lesson 23: Attributes in annotations</h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
+        Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
+        Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
+        Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
+        Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
+        Agile development</a> |&nbsp;<a class="wiki_link" href="mapped-superclass-inheritance_en.html">6.
+        Mapped superclass inheritance</a> | <a class="wiki_link" href="entity-inheritance_en.html">7.
+        Entity inheritance</a> | <a class="wiki_link" href="view-inheritance_en.html">8.
+        View inheritance</a> | <a class="wiki_link" href="java-properties_en.html">9.
+        Java properties</a> | <a class="wiki_link" href="calculated-properties_en.html">10.
+        Calculated properties </a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11.
+        @DefaultValueCalculator in collections </a> | <a class="wiki_link" href="calculation-and-collections-total_en.html">12.
+        @Calculation and collections totals </a> | <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13.
+        @DefaultValueCalculator from file </a> | <a class="wiki_link" href="manual-schema-evolution_en.html">14.
+        Manual schema evolution </a> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">15.
+        Multi user default value calculation </a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16.
+        Synchronize persistent and computed propierties </a> | <a class="wiki_link"
+        href="logic-from-database_en.html">17. Logic from database </a> | <strong>18.
+        Advanced validation </strong> | <a class="wiki_link" href="refining-standard-behavior_en.html">19.
+        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">20.
+        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">21.
+        References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
+        Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
+        Annotations</a> | <a class="wiki_link" href="testing_en.html">D.
+        Automated testing</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Table of contents</h1>
+        <div style="margin-left: 1em;"><a href="#Lesson%206:%20Advanced%20validation">Lesson
+            23: Attributes in annotations<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Creating%20your%20own%20Bean%20Validation%20annotation-Adding%20attributes%20to%20your%20annotation">Adding
+            attributes to your annotation</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Summary">Summary</a></div>
+      </div>
+      In the last lesson you learned how to call a REST service to validate the
+      ISBN. In this lesson you are going to learn how to add attributes to your
+      annotation.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc15"><a name="Lesson 6: Advanced validation-Creating your own Bean Validation annotation-Adding attributes to your annotation"></a>Adding
+        attributes to your annotation</h2>
+      It's a good idea to create a new <em>Bean Validation</em> annotation if
+      you reuse the validation several times, usually across several projects.
+      To improve the reusability you may want to parametrize the validation
+      code. For example, for your current project to do the search in <a href="https://openlibrary.org/">openlibrary.org</a>
+      for ISBN is OK, but in another project, or even in another entity of your
+      current project, you do not want to call this particular URL. The code of
+      the annotation has to be more flexible.<br>
+      This flexibility can be achieved by attributes. For example, we can add a
+      boolean search attribute to our <i>ISBN</i> annotation in order to switch
+      on or off the internet search for validation. To implement this
+      functionality, just add the <em>search</em> attribute to the <i>ISBN</i>
+      annotation code:<br>
+      <pre><code class="java">public @interface ISBN {
+    boolean search() default true; // To (de)activate web search on validate
+ 
+    // ...
+}
+</code></pre> This new search attribute can be read from the validator class:<br>
+      <pre><code class="java">public class ISBNValidator implements ConstraintValidator&lt;ISBN, Object&gt; {
+    // ...
+    private boolean search; // Stores the search option
+ 
+    public void initialize(ISBN isbn) { // Read the annotation attributes values
+        this.search = isbn.search();
+    }
+ 
+    public boolean isValid(Object value, ConstraintValidatorContext context) {
+        if (Is.empty(value)) return true;
+        if (!validator.isValid(value.toString())) return false;
+        return search ? isbnExists(value) : true; // Using 'search'
+    }
+    // ...
+}
+</code></pre> Here you see the use of the <i>initialize()</i> method: the
+      source annotation can be used to initialize the validator, in this case
+      simply by storing the <em>isbn.search()</em> value to evaluate it in <i>isValid()</i>.<br>
+      Now you can choose whether you want to call our REST service or skip the
+      ISBN validation:<br>
+      <pre><code class="java">@ISBN(search=false) // In this case no internet search is done to validate the ISBN
+private String isbn;
+</code></pre>Now try out your application and you will notice that the
+      validation will not take place.</div>
+    <div class="wiki" style="display: block;"><br>
+      <h2 id="toc20"><a name="Lesson 6: Advanced validation-Summary"></a>Summary</h2>
+      Congratulations! You have learned how to add attributes to your
+      annotation. In this last lessons&nbsp; you have learned several ways to do
+      validation in an OpenXava application. Also, you know how to encapsulate
+      the reusable validation logic in annotations with custom Bean Validation.<br>
+      Validation is an important part of the logic of your application, and we
+      encourage you to put it into the model, i. e. into your entities. We
+      demonstrated several examples for this technique in the lesson. Sometimes
+      it is more convenient to put logic outside your model classes. You will
+      learn that in the next lessons.<br>
+      <br>
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
+        <a class="wiki_link" href="refining-standard-behavior_en.html">Go to
+          Lesson 19</a></strong> </div>
+  </body>
+</html>

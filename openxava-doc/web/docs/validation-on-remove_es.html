@@ -1,0 +1,160 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lección 20: Validacion al borrar - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Leccion-18-Validacion-avanzada"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Lección 20: Validación al borrar</h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
+        Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
+        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
+        Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
+        Desarrollo ágil</a> | <a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
+        Herencia de superclases mapeadas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
+        Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
+        Herencia de vistas</a> | <a class="wiki_link" href="java-properties_es.html">9.
+        Propiedades Java</a> |<a class="wiki_link" href="calculated-properties_es.html">10.
+        Propiedades calculadas</a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11.
+        @DefaultValueCalculator en colecciones</a> |<a class="wiki_link" href="calculation-and-collections-total_es.html">12.
+        @Calculation y totales de colección</a> |<a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
+        @DefaultValueCalculator desde archivo</a> |<a class="wiki_link" href="manual-schema-evolution_es.html">14.
+        Evolución del esquema manual</a> <strong></strong> |<a class="wiki_link"
+        href="multi-user-default-value-calculation_es.html">15. Cálculo del
+        valor por defecto multiusuario</a> |<a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16.
+        Sincronizar propiedades persistentes y calculadas</a> |<a class="wiki_link"
+        href="logic-from-database_es.html">17. Lógica desde la base de datos</a>
+      | <strong>18. Validación avanzada</strong> | <a class="wiki_link" href="refining-standard-behavior_es.html">19.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">20.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">21.
+        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
+        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
+        Anotaciones</a> | <a class="wiki_link" href="testing_es.html">D.
+        Pruebas automáticas</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#Leccion-18-Validacion-avanzada">Lección
+            20:Validación al borrar<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Alternativas-de-validacion-Validar-al-borrar-con-RemoveValidator">Validar
+            al borrar con @RemoveValidator</a></div>
+        <div style="margin-left: 2em;"><a href="#Alternativas-de-validacion-Validar-al-borrar-con-un-metodo-de-retrollamada">Validar
+            al borrar con un método de retrollamada</a></div>
+        <div style="margin-left: 2em;"><a href="#Alternativas-de-validacion-Cual-es-la-mejor-forma-de-validar">¿Cuál
+            es la mejor forma de validar?</a></div>
+        <div style="margin-left: 2em;"><a href="#resumen">Resumen</a> </div>
+      </div>
+      En la lección anterior vimos muchas alternativas de validación muy
+      sencillas. En esta lección vamos a ver como validar al borrar.<br>
+      <h2 id="toc7"><a name="Alternativas-de-validacion-Validar-al-borrar-con-RemoveValidator"></a>Validar
+        al borrar con <em>@RemoveValidator</em></h2>
+      Las validaciones que hemos visto hasta ahora se hacen cuando la entidad se
+      modifica, pero a veces es útil hacer la validación justo al borrar la
+      entidad y usar la validación para vetar el borrado de la misma.<br>
+      Vamos a modificar la aplicación para impedir que un usuario borre un
+      pedido si éste tiene una factura asociada. Para hacer esto anota tu
+      entidad <em>Pedido</em> con <i>@RemoveValidator</i>, como se muestra a
+      continuación:<br>
+      <pre><code class="java">@RemoveValidator(com.tuempresa.facturacion.validadores.ValidadorBorrarPedido.class) // La clase con la validación
+public class Pedido extends DocumentoComercial {
+</code></pre><em></em>Ahora, antes de borrar un pedido la lógica de <em>ValidadorBorrarPedido</em>
+      se ejecuta y si la validación falla el pedido no se borra. Veamos el
+      código de este validador:<br>
+      <pre><code class="java">package com.tuempresa.facturacion.validadores; // En el paquete 'validadores'
+ 
+import com.tuempresa.facturacion.modelo.*;
+import org.openxava.util.*;
+import org.openxava.validators.*;
+ 
+public class ValidadorBorrarPedido
+    implements IRemoveValidator { // Ha de implementar 'IRemoveValidator'
+ 
+    private Pedido pedido;
+ 
+    public void setEntity(Object entity) // La entidad a borrar se inyectará...
+        throws Exception // ...con este método antes de la validación
+    {
+        this.pedido = (Pedido) entity;
+    }
+ 
+    public void validate(Messages errors) // La lógica de validación
+        throws Exception
+    {
+        if (pedido.getFactura() != null) {
+            // Añadiendo mensajes a 'errors' la validación fallará y el
+            // borrado se abortará
+            errors.add("no_puede_borrar_pedido_con_factura");
+        }
+    }
+}
+</code></pre> La lógica de validación está en el método <i>validate()</i>.
+      Antes de llamarlo la entidad a validar es inyectada usando <i>setEntity()</i>.
+      Si se añaden mensajes al objeto <i>errors</i> la validación fallará y la
+      entidad no se borrará. Has de añadir el mensaje de error en el archivo <em>Facturacion/i18n/MensajesFacturacion_es.properties</em>:<br>
+      <pre><code class="properties">no_puede_borrar_pedido_con_factura=Pedido asociado a factura no puede ser eliminado
+</code></pre> Ahora si intentas borrar un pedido con una factura asociada
+      obtendrás un mensaje de error y el borrado no se producirá.<br>
+      Puedes ver que usar un <i>@RemoveValidator</i> no es difícil, pero es un
+      poco verboso. Has de escribir una clase nueva solo para añadir un simple
+      if. Examinemos una alternativa más breve.<br>
+      <h2 id="toc8"><a name="Alternativas-de-validacion-Validar-al-borrar-con-un-metodo-de-retrollamada"></a>Validar
+        al borrar con un método de retrollamada</h2>
+      Vamos a probar otra forma más simple de hacer esta validación al borrar,
+      moviendo la lógica de validación desde la clase validador a la misma
+      entidad <em>Pedido</em>, en este caso en un método <i>@PreRemove</i>.<br>
+      El primer paso es eliminar la clase <em>ValidadorBorrarPedido</em> de tu
+      proyecto. Además quita la anotación <i>@RemoveValidator</i> de tu entidad
+      <em>Pedido</em>:<br>
+      <pre><code class="java">// @RemoveValidator(com.tuempresa.facturacion.validadores.ValidadorBorrarPedido.class) // Quitamos '@RemoveValidator'
+public class Pedido extends DocumentoComercial {
+</code></pre> Hemos quitado la validación. Añadámosla otra vez, pero ahora
+      dentro de la misma clase <em>Pedido</em>. Añade el método <em>validarPreBorrar()</em>
+      a la clase <em>Pedido</em>, como se muestra a continuación:<br>
+      <pre><code class="java">@PreRemove
+private void validarPreBorrar() {
+    if (factura != null) { // La lógica de validación
+        throw new javax.validation.ValidationException( // Lanza una excepción runtime
+            XavaResources.getString( // Para obtener un mensaje de texto
+                "no_puede_borrar_pedido_con_factura"));
+    }
+}
+</code></pre> Antes de borrar un pedido esta validación se efectuará, si falla
+      se lanzará una <i>ValidationException</i>. Puedes lanzar cualquier
+      excepción runtime para abortar el borrado. Tan solo con un método dentro
+      de la entidad tienes la validación hecha.<br>
+      <h2 id="toc9"><a name="Alternativas-de-validacion-Cual-es-la-mejor-forma-de-validar"></a>¿Cuál
+        es la mejor forma de validar?</h2>
+      Has aprendido varias formas de hacer la validación sobre tus clases del
+      modelo. ¿Cuál de ellas es la mejor? Todas ellas son opciones válidas.
+      Depende de tus circunstancias y preferencias personales. Si tienes una
+      validación que no es trivial y es reutilizable en varios puntos de tu
+      aplicación, entonces usar un <i>@EntityValidator</i> y <i>@RemoveValidator</i>
+      es una buena opción. Por otra parte, si quieres usar tu modelo fuera de
+      OpenXava y sin JPA, entonces el uso de la validación en los <em>setters</em>
+      es mejor.<br>
+      En nuestro caso particular hemos optado por <i>@AssertTrue</i> para la
+      validación “el pedido ha de estar servido para estar en una factura” y por
+      <i>@PreRemove</i> para la validación al borrar. Ya que son las
+      alternativas más simples que funcionan.<br>
+      <h2 id="toc20"><a name="Resumen"></a>Resumen</h2>
+      En esta lección has aprendido varias formas de hacer validación al borrar
+      en una aplicación OpenXava. En la siguiente lección vas a ver como crear
+      una anotación Bean Validation propia. ¡Esto puede llegar a ser muy útil! <br>
+      <strong></strong><br>
+      <br>
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
+        <a class="wiki_link" href="refining-standard-behavior_es.html">Ve a la
+          lección 19</a></strong> </div>
+  </body>
+</html>

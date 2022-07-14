@@ -1,0 +1,123 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lección 23: Atributos en anotaciones - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Leccion-18-Validacion-avanzada"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Lección 23: Atributos en anotaciones</h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
+        Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
+        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
+        Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
+        Desarrollo ágil</a> | <a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
+        Herencia de superclases mapeadas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
+        Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
+        Herencia de vistas</a> | <a class="wiki_link" href="java-properties_es.html">9.
+        Propiedades Java</a> |<a class="wiki_link" href="calculated-properties_es.html">10.
+        Propiedades calculadas</a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11.
+        @DefaultValueCalculator en colecciones</a> |<a class="wiki_link" href="calculation-and-collections-total_es.html">12.
+        @Calculation y totales de colección</a> |<a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
+        @DefaultValueCalculator desde archivo</a> |<a class="wiki_link" href="manual-schema-evolution_es.html">14.
+        Evolución del esquema manual</a> <strong></strong> |<a class="wiki_link"
+        href="multi-user-default-value-calculation_es.html">15. Cálculo del
+        valor por defecto multiusuario</a> |<a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16.
+        Sincronizar propiedades persistentes y calculadas</a> |<a class="wiki_link"
+        href="logic-from-database_es.html">17. Lógica desde la base de datos</a>
+      | <strong>18. Validación avanzada</strong> | <a class="wiki_link" href="refining-standard-behavior_es.html">19.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">20.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">21.
+        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
+        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
+        Anotaciones</a> | <a class="wiki_link" href="testing_es.html">D.
+        Pruebas automáticas</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#Leccion-18-Validacion-avanzada">Lección
+            23: Atributos en anotaciones<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Crear-tu-propia-anotacion-de-Bean-Validation-Anadir-atributos-a-tu-anotacion">Añadir
+            atributos a tu anotación</a></div>
+        <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
+      </div>
+      En la lección anterior aprendiste a como llamar a un servicio REST para
+      validar el ISBN. En esta lección vas a aprender a como añadir atributos a
+      tu anotación.<br>
+      <h2 id="toc15"><a name="Crear-tu-propia-anotacion-de-Bean-Validation-Anadir-atributos-a-tu-anotacion"></a>Añadir
+        atributos a tu anotación</h2>
+      Creas una anotación <em>Bean Validation</em> cuando quieres reutilizar la
+      validación varias veces, usualmente en varios proyectos. En este caso,
+      necesitas hacer tu validación adaptable, para que sea reutilizable de
+      verdad. Por ejemplo, en el proyecto actual buscar en<a href="https://openlibrary.org/">
+        openlibrary.org</a> el ISBN es conveniente, pero en otro proyecto, o
+      incluso en otra entidad de tu actual proyecto, puede que no quieras hacer
+      esa búsqueda. Necesitas hacer tu anotación más flexible.<br>
+      La forma de añadir esta flexibilidad a tu anotación de validación es
+      mediante los atributos. Por ejemplo, podemos añadir un atributo de
+      búsqueda booleano a nuestra anotación <em>ISBN</em> para poder escoger si
+      queremos buscar el ISBN en internet para validar o no. Para hacerlo,
+      simplemente añade el atributo <em>buscar</em> al código de la anotación <i>ISBN</i>,
+      tal como muestra el siguiente código:<br>
+      <pre><code class="java">public @interface ISBN {
+ 
+    boolean buscar() default true; // Para (des)activar la búsqueda web al validar
+    // ... el resto del código
+}
+</code></pre> Este nuevo atributo <em>buscar</em> puede leerse de la clase
+      validador. Míra como:<br>
+      <pre><code class="java">public class ValidadorISBN implements ConstraintValidator&lt;ISBN, Object&gt; {
+    // ...
+    private boolean buscar; // Almacena la opción buscar
+ 
+    public void initialize(ISBN isbn) { // Lee los atributos de la anotación
+        this.buscar = isbn.buscar();
+    }
+ 
+    public boolean isValid(Object valor, ConstraintValidatorContext contexto) {
+        if (Is.empty(valor)) return true;
+        if (!validador.isValid(valor.toString())) return false;
+        return buscar ? existeISBN(valor) : true; // Usa 'buscar'
+    }
+    // ...
+}
+</code></pre> Aquí ves la utilidad del método <i>initialize()</i>, que lee la
+      anotación para inicializar el validador. En este caso simplemente
+      almacenamos el valor de <em>isbn.buscar()</em> para preguntar por él en <i>isValid()</i>.<br>
+      Ahora puedes escoger si quieres llamar a nuestro servicio REST o no para
+      hacer la validación ISBN. Mira como:<br>
+      <pre><code class="java">@ISBN(buscar=false) // En este caso no se hace una búsqueda en la web para validar el ISBN
+private String isbn; <br></code></pre>
+      Ahora prueba la aplicación y verás que la validación no se ejecuta.</div>
+    <div class="wiki" style="display: block;"><br>
+      <h2><a name="Resumen"></a>Resumen</h2>
+      <strong></strong>¡Enhorabuena! Has aprendido a añadir atributos a tu
+      anotación. <span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">En
+        estas últimas has aprendido varias formas de hacer validación en una
+        aplicación OpenXava. Además, ahora estás preparado para encapsular toda
+        la lógica de validación reutilizable en anotaciones usando<span>&nbsp;</span></span><em
+        style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">Bean
+        Validation</em><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">.</span><br
+        style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+      <span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">La
+        validación es una parte importante de la lógica de tu aplicación y te
+        ánimo a que la pongas en el modelo, es decir en las entidades; tal y
+        como esta lección ha mostrado. Aun así, a veces es conveniente poner
+        algo de lógica fuera de las clases del modelo. Aprenderás a hacer esto
+        en las siguientes lecciones.</span> <br>
+      <br>
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
+        <a class="wiki_link" href="refining-standard-behavior_es.html">Ve a la
+          lección 19</a></strong> </div>
+  </body>
+</html>

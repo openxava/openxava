@@ -1,0 +1,236 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lesson 19: Validation alternatives- OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Lesson 6: Advanced validation"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Lesson 19: Validation Alternatives</h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
+        Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
+        Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
+        Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
+        Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
+        Agile development</a> |&nbsp;<a class="wiki_link" href="mapped-superclass-inheritance_en.html">6.
+        Mapped superclass inheritance</a> | <a class="wiki_link" href="entity-inheritance_en.html">7.
+        Entity inheritance</a> | <a class="wiki_link" href="view-inheritance_en.html">8.
+        View inheritance</a> | <a class="wiki_link" href="java-properties_en.html">9.
+        Java properties</a> | <a class="wiki_link" href="calculated-properties_en.html">10.
+        Calculated properties </a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11.
+        @DefaultValueCalculator in collections </a> | <a class="wiki_link" href="calculation-and-collections-total_en.html">12.
+        @Calculation and collections totals </a> | <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13.
+        @DefaultValueCalculator from file </a> | <a class="wiki_link" href="manual-schema-evolution_en.html">14.
+        Manual schema evolution </a> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">15.
+        Multi user default value calculation </a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16.
+        Synchronize persistent and computed propierties </a> | <a class="wiki_link"
+
+        href="logic-from-database_en.html">17. Logic from database </a> | <strong>18.
+        Advanced validation </strong> | <a class="wiki_link" href="refining-standard-behavior_en.html">19.
+        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">20.
+        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">21.
+        References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
+        Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
+        Annotations</a> | <a class="wiki_link" href="testing_en.html">D.
+        Automated testing</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Table of contents</h1>
+        <div style="margin-left: 1em;"><a href="#Lesson%206:%20Advanced%20validation">Lesson
+            18: Advanced validation</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Validating%20with%20a%20JPA%20callback%20method">Validating
+            with a JPA callback method</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Validating%20in%20the%20setter">Validating
+            in the setter</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Validating%20with%20Bean%20Validation">Validating
+            with Bean Validation</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Summary">Summary</a></div>
+      </div>
+      In the last lesson you looked at how to validate using @EntityValidator.
+      In this lesson you are going to learn how to execute this same validation
+      with much less effort.&nbsp;&nbsp; <br>
+      <h2 id="toc4"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating with a JPA callback method"></a>Validating
+        with a JPA callback method</h2>
+      We're going to try another, maybe even simpler, way to do this validation,
+      we'll transfer the validation logic from the validator class into the <em>Order</em>
+      entity itself, in this case in a <i>@PrePersist</i> and <i>@PreUpdate</i>
+      method.<br>
+      First, remove the <em>DeliveredToBeInInvoiceValidator</em> class from
+      your project. Then remove the <i>@EntityValidator</i> annotation from
+      your <em>Order</em> entity:<br>
+      <pre><code class="java">//@EntityValidator( // Remove the '@EntityValidator' annotation
+//    value=com.yourcompany.invoicing.validators.DeliveredToBeInInvoiceValidator.class,
+//    properties= {
+//        @PropertyValue(name="year"),
+//        @PropertyValue(name="number"),
+//        @PropertyValue(name="invoice"),
+//        @PropertyValue(name="delivered")
+//    }
+//)
+public class Order extends CommercialDocument {
+</code></pre> After that we're going to add the validation again, but now inside
+      the <em>Order</em> class itself. Add the <em>validate()</em> method to
+      your <em>Order</em> class:<br>
+      <pre><code class="java">@PrePersist @PreUpdate // Just before creating or updating
+private void validate()  throws Exception {
+    if (invoice != null &amp;&amp; !isDelivered()) { // The validation logic
+        // The validation exception from Bean Validation
+        throw new javax.validation.ValidationException(
+            XavaResources.getString(
+                "order_must_be_delivered",
+                getYear(),
+                getNumber()
+            )
+        );
+    }
+}
+</code></pre>Before saving an order this validation will be executed, if it
+      fails a <i>ValidationException</i> is thrown. This exception is from the
+      <em>Bean Validation</em> framework, so OpenXava knows that it is a
+      validation exception. This way with only one method within your entity you
+      have the validation done.</div>
+    <div class="wiki" style="display: block;">Only one <i>@PrePersist</i>
+      method and one <i>@PreUpdate</i> method by entity are allowed, so before
+      executing the above code you have to comment the <i>@PrePersiste and
+        @PreUpdate</i> annotations you have in <i>recalculateDeliveryDays()</i>,
+      in this way:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">// @PrePersist @PreUpdate // Comment these annotations
+private void recalculateDeliveryDays() {
+    setDeliveryDays(getEstimatedDeliveryDays());
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Don't worry, we'll uncomment these
+      annotations later. Although JPA only allows one <i>@PrePersist</i>/<i>@PreUpdate</i>
+      method you always can create a unique callback method and call all other
+      methods from it, but not needed for our case, because we're not going to
+      keep this validation style as definitive.</div>
+    <div class="wiki" style="display: block;">Now, try to add orders not
+      delivered to an invoice and see the validation errors, like in our first
+      example.<br>
+      <h2 id="toc5"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating in the setter"></a>Validating
+        in the setter</h2>
+      Another alternative to do your validation is to put the validation logic
+      inside the setter method. That's a simple approach. </div>
+    <div class="wiki" style="display: block;">First, put back again the <i>@PrePersist</i>
+      and <i>@PreUpdate</i> annotations in <i>recalculateDeliveryDays(), also
+      </i>remove the <em>validate()</em> method from the <em>Order</em>
+      entity:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@PrePersist @PreUpdate // Add back the callback annotations
+private void recalculateDeliveryDays() {
+    setDeliveryDays(getEstimatedDeliveryDays());
+}
+    
+// Remove the validate() method
+
+// @PrePersist @PreUpdate // Just before creating or updating
+// private void validate()  throws Exception {
+//     if (invoice != null &amp;&amp; !isDelivered()) { // The validation logic
+//         // The validation exception from Bean Validation
+//         throw new javax.validation.ValidationException(
+//             XavaResources.getString( 
+//                 "order_must_be_delivered",
+//                 getYear(),
+//                 getNumber()
+//             )
+//         );
+//     }
+// }    
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Then add the next <em>setInvoice()</em>
+      setter method to <i>Order</i>:<br>
+      <pre><code class="java">public void setInvoice(Invoice invoice) {
+    if (invoice != null &amp;&amp; !isDelivered()) { // The validation logic
+        // The validation exception from Bean Validation
+        throw new javax.validation.ValidationException(
+            XavaResources.getString(
+                "order_must_be_delivered",
+                getYear(),
+                getNumber()
+            )
+        );
+    }
+    this.invoice = invoice; // The regular setter assignment
+}
+</code></pre> This works exactly the same way as the two other options. This is
+      like the <i>@PrePersist/@PreUpdate</i> alternative, only that it does not
+      depend on JPA, it's a basic Java implementation.<br>
+      <h2 id="toc6"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating with Bean Validation"></a>Validating
+        with <em>Bean Validation</em></h2>
+      As a last option we are going to do the shortest one: The validation logic
+      is put into a boolean method annotated with the <i>@AssertTrue</i> Bean
+      Validation annotation.<br>
+      To implement this alternative first remove the <em>setInvoice()</em>
+      method:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">// Remove the setter method
+
+// public void setInvoice(Invoice invoice) {
+//    if (invoice != null &amp;&amp; !isDelivered()) { // The validation logic
+//        // The validation exception from Bean Validation
+//        throw new javax.validation.ValidationException(
+//            XavaResources.getString(
+//                "order_must_be_delivered",
+//                getYear(),
+//                getNumber()
+//            )
+//        );
+//    }
+//    this.invoice = invoice; // The regular setter assignment
+// }
+</code></pre> </div>
+    <div class="wiki" style="display: block;"> Then add the <em>isDeliveredToBeInInvoice()</em>
+      method to your <em>Order</em> entity:<br>
+      <pre><code class="java">@AssertTrue( // Before saving it asserts if this method returns true, if not it throws an exception
+    message="order_must_be_delivered" // Error message in case false
+)
+private boolean isDeliveredToBeInInvoice() {
+    return invoice == null || isDelivered(); // The validation logic
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">In previous forms of validation
+      our error message was constructed using two arguments, <em>year</em> and
+      <em>number</em>, which in our i18n file are represented by <em>{0}/{1}</em>
+      respectively. For the validation case with <i>@AssertTrue</i> we can not
+      pass these two arguments to construct our error message, but we can
+      declare properties and qualified properties of the validated bean in the
+      definition of the message, for that change in <em>Invoicing-messages_en.properties</em>
+      the entry:<br>
+      <pre><code class="properties">order_must_be_delivered=Order {0}/{1} must be delivered in order to be added to an Invoice
+</code></pre> </div>
+    <div class="wiki" style="display: block;">By:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="properties">order_must_be_delivered=Order {year}/{number} must be delivered in order to be added to an Invoice
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Note as we change <i>{0}/{1}</i>
+      by <i>{year}/{number}</i>. OpenXava will fill <em>{year}/{number}</em>
+      with values of <em>year</em> and <em>number</em> that has the <em>Order</em>
+      being updated and does not fulfill the condition of validation.<br>
+      This is the simplest way to validate, because the method with the
+      validation only has to be annotated. The Bean Validation is responsible
+      for calling this method when saving takes place, and throws the
+      corresponding <i>ValidationException</i> if the validation does not
+      succeed.<br>
+      <h2 id="toc20"><a name="Lesson 6: Advanced validation-Summary"></a>Summary</h2>
+      In this lesson you have learned several ways to do validation in an
+      OpenXava application. In the next lesson you are going to learn how to
+      validate on remove and with that you will have explored all of the types
+      of validations. &nbsp; &nbsp; &nbsp; <br>
+      <br>
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
+        <a class="wiki_link" href="refining-standard-behavior_en.html">Go to
+          Lesson 19</a></strong> </div>
+  </body>
+</html>

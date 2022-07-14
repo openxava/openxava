@@ -1,0 +1,198 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lección 21: Anotación Bean Validation propia- OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Leccion-18-Validacion-avanzada"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Lección 21: Anotación Bean Validation propia</h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
+        Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
+        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
+        Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
+        Desarrollo ágil</a> | <a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
+        Herencia de superclases mapeadas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
+        Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
+        Herencia de vistas</a> | <a class="wiki_link" href="java-properties_es.html">9.
+        Propiedades Java</a> |<a class="wiki_link" href="calculated-properties_es.html">10.
+        Propiedades calculadas</a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11.
+        @DefaultValueCalculator en colecciones</a> |<a class="wiki_link" href="calculation-and-collections-total_es.html">12.
+        @Calculation y totales de colección</a> |<a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
+        @DefaultValueCalculator desde archivo</a> |<a class="wiki_link" href="manual-schema-evolution_es.html">14.
+        Evolución del esquema manual</a> <strong></strong> |<a class="wiki_link"
+        href="multi-user-default-value-calculation_es.html">15. Cálculo del
+        valor por defecto multiusuario</a> |<a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16.
+        Sincronizar propiedades persistentes y calculadas</a> |<a class="wiki_link"
+        href="logic-from-database_es.html">17. Lógica desde la base de datos</a>
+      | <strong>18. Validación avanzada</strong> | <a class="wiki_link" href="refining-standard-behavior_es.html">19.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">20.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">21.
+        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
+        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
+        Anotaciones</a> | <a class="wiki_link" href="testing_es.html">D.
+        Pruebas automáticas</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#Leccion-18-Validacion-avanzada">Lección
+            21: Anotación Bean Validation propia<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Crear-tu-propia-anotacion-de-Bean-Validation">Crear
+            tu propia anotación de Bean Validation</a></div>
+        <div style="margin-left: 2em;"><a href="#Crear-tu-propia-anotacion-de-Bean-Validation-Usar-un-Bean-Validation-en-tu-entidad">Usar
+            un Bean Validation en tu entidad</a></div>
+        <div style="margin-left: 2em;"><a href="#Crear-tu-propia-anotacion-de-Bean-Validation-Definir-tu-propia-anotacion-ISBN">Definir
+            tu propia anotación ISBN</a></div>
+        <div style="margin-left: 2em;"><a href="#Crear-tu-propia-anotacion-de-Bean-Validation-Usa-Apache-Commons-Validator-para-implementar-la-logica">Usa
+            Apache Commons Validator para implementar la lógica</a></div>
+        <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
+      </div>
+      En la lección anterior viste como validar al borrar. En esta lección vas a
+      ver como crear una anotación Bean Validation propia. <br>
+      <h2 id="toc10"><a name="Crear-tu-propia-anotacion-de-Bean-Validation"></a>Crear
+        tu propia anotación de <em>Bean Validation</em></h2>
+      Las técnicas mencionadas hasta ahora son muy útiles para la mayoría de las
+      validaciones de tus aplicaciones. Sin embargo, a veces te encuentras con
+      algunas validaciones que son muy genéricas y quieres usarlas una y otra
+      vez. En este caso definir tu propia anotación de <em>Bean Validation</em>
+      puede ser una buena opción. Definir un <em>Bean validation</em> es más
+      largo y engorroso que lo que hemos visto hasta ahora, pero usarlo y
+      reusarlo es simple, tan solo añadir una anotación a tu propiedad o clase.<br>
+      Vamos a aprender como crear un <em>Bean Validation</em>.<br>
+      <h2 id="toc11"><a name="Crear-tu-propia-anotacion-de-Bean-Validation-Usar-un-Bean-Validation-en-tu-entidad"></a>Usar
+        un <em>Bean Validation</em> en tu entidad</h2>
+      Es superfácil. Simplemente anota tu propiedad como ves a continuación:<br>
+      <pre><code class="java">@ISBN // Esta anotación indica que esta propiedad tiene que validarse como un ISBN
+String isbn;
+</code></pre> Solo con añadir <em>@ISBN</em> a tu propiedad ésta será validada
+      justo antes de que la entidad se grabe en la base de datos, ¡genial! El
+      problema es que <em>@ISBN</em> no está incluida como un validador
+      predefinido en el marco de validación <em>Bean Validation</em>. Esto no
+      es un gran problema, si quieres una anotación <em>@ISBN</em>, hazla tú
+      mismo. De hecho, vamos a crear la anotación de validación <em>@ISBN</em>
+      en esta sección.<br>
+      Antes de nada, añadamos una nueva propiedad <em>isbn</em> a <em>Producto</em>.
+      Edita tu clase <em>Producto</em> y añádele el siguiente código:<br>
+      <pre><code class="java">@Column(length=13)
+String isbn;
+</code></pre> Ejecuta el módulo <em>Producto</em> con tu navegador. Sí, la
+      propiedad <em>isbn</em> ya está ahí. Ahora, puedes añadir la validación.<br>
+      <h2 id="toc12"><a name="Crear-tu-propia-anotacion-de-Bean-Validation-Definir-tu-propia-anotacion-ISBN"></a>Definir
+        tu propia anotación <em>ISBN</em></h2>
+      Creemos la anotación <em>@ISBN</em>. Primero, crea un paquete en tu
+      proyecto llamado <em>com.tuempresa.facturacion.anotaciones</em>. Pulsa en
+      él con el botón derecho del ratón y escoge <i>New &gt; Annotation</i>,
+      como sigue:<br>
+      <img src="files/validation_es020.png" alt="validation_es020.png" title="validation_es020.png"><br>
+      Se mostrará un diálogo, teclea ISBN y pulsa en <i>Finish</i>:</div>
+    <img src="files/validation_es030.png" alt="validation_es030.png" title="validation_es030.png">
+    <div class="wiki" style="display: block;">Edita el código de tu recién
+      creada anotación <em>ISBN</em> y déjala así:<br>
+      <pre><code class="java">package com.tuempresa.facturacion.anotaciones; // En el paquete 'anotaciones'
+ 
+import java.lang.annotation.*;
+import javax.validation.*;
+ 
+@Constraint(validatedBy = com.tuempresa.facturacion.validadores.ValidadorISBN.class)
+@Target({ElementType.FIELD, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ISBN {
+ 
+    Class&lt;?&gt;[] groups() default{};
+    Class&lt;? extends Payload&gt;[] payload() default{};
+    String message() default "isbn_invalido"; // Id del mensaje en el archivo i18n
+}
+</code></pre> Como puedes ver, es una definición de anotación normal y
+      corriente. El atributo <i>message</i> es el mensaje a mostrar al usuario
+      si la validación falla, puedes escribir el mensaje tal cual o poner un
+      identificador i18n. El desarrollador puede especificar su propio mensaje
+      cuando use la anotación, aunque nosotros proveemos unos por defecto,
+      "isbn_invalido", por lo que hemos de añadir la siguiente entrada en <em>MensajesFacturacion_es.properties</em>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="properties">isbn_invalido=ISBN inválido o inexistente
+</code></pre> </div>
+    <div class="wiki" style="display: block;"><i>@Constraint</i> indica la clase
+      con la lógica de validación. Escribamos la clase <em>ValidadorISBN</em>.<br>
+      <h2 id="toc13"><a name="Crear-tu-propia-anotacion-de-Bean-Validation-Usa-Apache-Commons-Validator-para-implementar-la-logica"></a>Usa
+        <em>Apache Commons Validator</em> para implementar la lógica</h2>
+      Vamos a escribir la clase <em>ValidadorISBN</em> con la lógica de
+      validación para un <em>ISBN</em>. En lugar de escribir nosotros mismos la
+      lógica para validar un <em>ISBN</em> usaremos el proyecto <a href="http://commons.apache.org/proper/commons-validator/">Commons
+        Validator</a> de Apache. Commons Validator contiene algoritmos de
+      validación para direcciones de correo electrónico, fechas, URL y así por
+      el estilo. El <em>commons-validator.jar</em> se incluye por defecto en
+      los proyectos OpenXava, por tanto lo puedes usar sin ninguna configuración
+      adicional.<br>
+      El código para <em>ValidadorISBN</em> lo puedes ver a continuación:<br>
+      <pre><code class="java">package com.tuempresa.facturacion.validadores; // En el paquete 'validadores'
+ 
+import javax.validation.*;
+ 
+import com.tuempresa.facturacion.anotaciones.*;
+import org.openxava.util.*;
+ 
+public class ValidadorISBN implements ConstraintValidator&lt;ISBN, Object&gt; {
+ 
+    private static org.apache.commons.validator.routines.ISBNValidator
+        validador = // De 'Commons Validator'
+            new org.apache.commons.validator.routines.ISBNValidator();
+ 
+    public void initialize(ISBN isbn) {
+ 
+    }
+    
+    // Contiene la lógica de validación
+    public boolean isValid(Object valor, ConstraintValidatorContext contexto) { 
+        if (Is.empty(valor)) return true;
+        return validador.isValid(valor.toString()); // Usa 'Commons Validator'
+    }
+}
+</code></pre> Como ves, la clase validador tiene que implementar <i>ConstraintValidator</i>
+      del paquete <em>javax.validation</em>. Esto fuerza a tu validador a
+      implementar <i>initialize()</i> e <i>isValid()</i>. El método <i>isValid()</i>
+      contiene la lógica de validación. Fíjate que si el elemento a validar está
+      vacío asumimos que es válido, porque validar si un valor está presente es
+      responsabilidad de otras anotaciones, como <i>@Required</i>, y no de <em>@ISBN</em>.<br>
+      En este caso la lógica de validación es sencillísima, porque nos limitamos
+      a llamar al validador ISBN de Apache Commons Validator.<br>
+      <em>@ISBN</em> está listo para usar. Para hacerlo anota tu propiedad <em>isbn</em>
+      con él. Puedes ver cómo:<br>
+      <pre><code class="java">@Column(length=13) @ISBN
+String isbn;
+</code></pre>En este caso cuando grabes la clase el import para <i>@ISBN</i> no
+      se añade automáticamente. Esto es porque hay otra <i>@ISBN</i> disponible
+      (de la librería Hibernate Validator incluida con OpenXava), por tanto
+      OpenXava Studio no sabe cual escoger. No te preocupes, pon el ratón sobre
+      la anotación <i>@ISBN</i> y una ventana emergente se mostrará con varias
+      soluciones posibles, escoge <i>Import 'ISBN'
+        (com.yourcompany.invoicing.annotations)</i> para que el import correcto
+      se añada a la clase <i>Producto</i>:</div>
+    <div class="wiki" style="display: block;"> <img src="files/validation_es035.png"
+        alt="validation_es035.png" title="validation_es035.png"> </div>
+    <div class="wiki" style="display: block;"> Ahora, puedes probar tu módulo, y
+      verificar que el <em>ISBN</em> que introduces se valida correctamente.
+      Enhorabuena, has escrito tu primer <em>Bean Validation</em>. No ha sido
+      tan difícil: una anotación, una clase.<br>
+      Este <em>@ISBN</em> es suficientemente bueno para usarlo en la vida real,
+      sin embargo, vamos a mejorarlo un poco más y así tendremos la posibilidad
+      de experimentar con algunas posibilidades interesantes.<br>
+      <h2 id="toc20"><a name="Resumen"></a>Resumen</h2>
+      ¡Enhorabuena! Has aprendido como crear tu propia anotación de Bean
+      Validation. En la siguiente lección aprenderás a como llamar a un servicio
+      REST desde una validación.&nbsp;</div>
+    <div class="wiki" style="display: block;"><br>
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
+        <a class="wiki_link" href="refining-standard-behavior_es.html">Ve a la
+          lección 19</a></strong> </div>
+  </body>
+</html>
