@@ -3,19 +3,18 @@ package org.openxava.test.model;
 import java.util.*;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Parameter;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
-import org.openxava.jpa.*;
 import org.openxava.test.actions.*;
 import org.openxava.test.calculators.*;
 import org.openxava.test.filters.*;
 import org.openxava.test.validators.*;
+import org.openxava.jpa.*;
 
 /**
  * This is an example of using references as part of a composite key.<p>
@@ -145,12 +144,6 @@ public class Delivery {
 		condition = "${year} = ?")
 	@NoFrame(forViews="FullInvoice") 
 	@Action(forViews="DEFAULT, MoreSections", value="Delivery.setDefaultInvoice")
-	// tmr ini
-	@JoinColumns({ 
-		@JoinColumn(name="INVOICE_YEAR", referencedColumnName="YEAR"),
-		@JoinColumn(name="INVOICE_NUMBER", referencedColumnName="NUMBER"),
-	})
-	// tmr fin
 	private Invoice invoice;
 	
 	// JoinColumn and ManyToOne fetch are also specified in DeliveryKey because 

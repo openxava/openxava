@@ -62,7 +62,7 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 
 	public Object find(MetaModel metaModel, Map keyValues) throws FinderException {
 		// tmr return find(metaModel, keyValues, true);
-		return find(metaModel, keyValues, true); // tmr
+		return find(metaModel, keyValues, false); // tmr
 	}
 	
 	protected Object find(MetaModel metaModel, Map keyValues, boolean useQueryForFind) throws FinderException {

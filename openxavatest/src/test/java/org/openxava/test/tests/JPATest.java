@@ -49,22 +49,24 @@ public class JPATest extends TestCase {
 		query.setParameter("delivery_invoice_number", 1);
 		*/
 
-		/* 
+		/* FALLA CON 5.4+, FUNCIONA CON 5.3 
 		String queryString="from TransportCharge o where o.delivery.invoice.year = :delivery_invoice_year";
 		Query query = XPersistence.getManager().createQuery(queryString);
 		query.setParameter("delivery_invoice_year", 2002);
 		*/
 		
-		/*
+		/* FUNCIONA 
 		String queryString="from TransportCharge o where o.delivery_invoice.year = :delivery_invoice_year";
 		Query query = XPersistence.getManager().createQuery(queryString);
 		query.setParameter("delivery_invoice_year", 2002);
 		*/
 		
-		// TMR ME QUEDÉ POR AQUÍ: ESTO HA FUNCIONADO. BUSCANDO UNA FORMA DE HACER EL SELECT, DE QUEDARNOS CON 5.6
+		
+		/* FUNCIONA */ 
 		String queryString="from TransportCharge o join fetch o.delivery d where d.invoice.year = :delivery_invoice_year";
 		Query query = XPersistence.getManager().createQuery(queryString);
 		query.setParameter("delivery_invoice_year", 2002);
+		
 		
 		/* FUNCIONA
 		String queryString="from TransportCharge o where o.delivery.invoice = :delivery_invoice";
@@ -85,8 +87,13 @@ public class JPATest extends TestCase {
 		query.setParameter("delivery_invoice", MetaModel.get("Invoice").toPOJO(key));		
 		*/
 		
-		Collection result = query.getResultList();
+		Collection<TransportCharge> result = query.getResultList();
 		System.out.println("[JPATest.testKeyWithReference] result.size()=" + result.size()); // tmr
+		for (TransportCharge t: result) {
+			System.out.println("[JPATest.testKeyWithReference] delivery.invoice.year=" + t.getDelivery().getInvoice().getYear()); // tmp
+			System.out.println("[JPATest.testKeyWithReference] delivery.invoice.number=" + t.getDelivery().getInvoice().getNumber()); // tmp
+		}
+		
 	}
 	
 	public void testConvertersAllPropertiesOnCreate() throws Exception { // One way to avoid nulls

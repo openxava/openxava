@@ -14,6 +14,7 @@ public class TransportChargeTest extends TransportChargeTestBase {
 	}
 	
 	public void testOrderAndFilterInCollectionOfReference() throws Exception {
+		// TMR ¿Comprobar número de líneas en sección?
 		execute("CRUD.new"); 
 		execute("Reference.search", "keyProperty=xava.TransportCharge.delivery.number");
 		int row = getRowOf("2004", "2", "1", "666"); 

@@ -1,5 +1,7 @@
 package org.openxava.test.model;
 
+import javax.persistence.*;
+
 /**
  * 
  * @author Javier Paniza
@@ -7,7 +9,6 @@ package org.openxava.test.model;
 public class InvoiceKey implements java.io.Serializable {
 
 	private int year;
-	
 	private int number;
 	
 	@Override

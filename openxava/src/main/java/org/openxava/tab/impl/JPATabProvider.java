@@ -124,12 +124,21 @@ public class JPATabProvider extends TabProviderBase {
 					suffix = "[" + tokens[1];
 				}
 				if (!isAggregate(reference)) {
+					System.out.println("[JPATabProvider.changePropertiesByJPAProperties] getMetaModel().getName()=" + getMetaModel().getName()); // tmp
+					System.out.println("[JPATabProvider.changePropertiesByJPAProperties] reference=" + reference); // tmp delivery.invoice
+					System.out.println("[JPATabProvider.changePropertiesByJPAProperties] modelElement=" + modelElement); // tmp delivery.invoice.year
 					if (!getMetaModel().getMetaProperty(modelElement).isKey()) {
 						StringBuffer qualifiedElement = new StringBuffer(modelElement.replaceAll("\\.", "_"));
 						int last = qualifiedElement.lastIndexOf("_");
 						qualifiedElement.replace(last, last + 1, ".");
 						jpaElement = "e_" + qualifiedElement + suffix;
 					}
+					// tmr ini
+					// tmr ¿Se testea en JUnit? En la lista de TransportCharge a de aparecd 2002 para año de factura
+					else if (reference.contains(".")) { // More than one level in key references without left join not supported since Hibernate 5.4 
+						jpaElement = "e_" + modelElement;
+					}
+					// tmr fin
 				}
 			}						
 			else if (Strings.isModelName(modelElement)) { 
@@ -138,6 +147,7 @@ public class JPATabProvider extends TabProviderBase {
 			r.replace(i, f + 1, jpaElement);
 			i = r.toString().indexOf("${");
 		}
+		System.out.println("[JPATabProvider.changePropertiesByJPAProperties] result=" + r); // tmp
 		return r.toString();
 	}
 	

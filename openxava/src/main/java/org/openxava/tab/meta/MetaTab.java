@@ -436,6 +436,7 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		Iterator itProperties = getPropertiesNames().iterator();
 		while (itProperties.hasNext()) {
 			String property = (String) itProperties.next();
+			System.out.println("[MetaTab.createSelect] property=" + property); // tmp
 			if (Strings.isModelName(property)) select.append("0");	// the property is a table name not column name
 			else{
 				select.append("${");
@@ -466,6 +467,7 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 				select.append(getBaseCondition());
 			}	
 		}
+		System.out.println("[MetaTab.createSelect] select=" + select); // tmp
 		return select.toString();
 	}
 		

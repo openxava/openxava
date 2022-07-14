@@ -9,12 +9,6 @@ import javax.persistence.*;
 public class DeliveryKey implements java.io.Serializable {
 
 	@Id @ManyToOne(fetch=FetchType.LAZY)
-	// tmr ini
-	@JoinColumns({ 
-		@JoinColumn(name="INVOICE_YEAR", referencedColumnName="YEAR"),
-		@JoinColumn(name="INVOICE_NUMBER", referencedColumnName="NUMBER"),
-	})
-	// tmr fin
 	private Invoice invoice; 
 	@Id @ManyToOne(fetch=FetchType.LAZY)  
 	@JoinColumn(name="TYPE") 
