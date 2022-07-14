@@ -31,8 +31,13 @@ public class JPATabProvider extends TabProviderBase {
 		return changePropertiesByJPAProperties(condition);
 	}
 	
-	public String toQueryField(String propertyName) {		
-		return "e." + propertyName;
+	public String toQueryField(String propertyName) {
+		// tmr ini
+		// tmr ¿Se testea esto? Sería elegir en lista un TransportCharge y que se vea en detalle
+		String prefix = StringUtils.countMatches(propertyName, '.') > 1?"e_":"e." ;
+		return prefix + propertyName;
+		// tmr fin
+		// tmr return "e." + propertyName;
 	}
 
 	public String getSelectBase() {
@@ -46,6 +51,8 @@ public class JPATabProvider extends TabProviderBase {
 	private String getSelectWithEntityAndJoins() {
 		String select = getMetaTab().getSelect();
 		int i = select.indexOf("from ${");
+		System.out.println("[JPATabProvider.getSelectWithEntityAndJoins] select=" + select); // tmp
+		System.out.println("[JPATabProvider.getSelectWithEntityAndJoins] i=" + i); // tmp
 		if (i < 0) return select; 
 		int f = select.indexOf("}", i);
 		StringBuffer entityAndJoins = new StringBuffer();
@@ -53,13 +60,16 @@ public class JPATabProvider extends TabProviderBase {
 		entityAndJoins.append(getMetaModel().getName());
 		entityAndJoins.append(" e");
 		
+		System.out.println("[JPATabProvider.getSelectWithEntityAndJoins] hasReferences()=" + hasReferences()); // tmp
+		
 		if (hasReferences()) {
 			// the tables
 			
-			Iterator itReferencesMappings = getEntityReferencesMappings().iterator();			
+			Iterator itReferencesMappings = getEntityReferencesMappings().iterator();	
 			while (itReferencesMappings.hasNext()) {
 				ReferenceMapping referenceMapping = (ReferenceMapping) itReferencesMappings.next();				
 				String reference = referenceMapping.getReference();			
+				System.out.println("[JPATabProvider.getSelectWithEntityAndJoins] Processing " + reference); // tmp
 				int idx = reference.lastIndexOf('_');				
 				if (idx >= 0) {
 					// In the case of reference to entity in aggregate only we will take the last reference name
@@ -86,6 +96,7 @@ public class JPATabProvider extends TabProviderBase {
 		
 		StringBuffer result = new StringBuffer(select);
 		result.replace(i, f + 2, entityAndJoins.toString());
+		System.out.println("[JPATabProvider.getSelectWithEntityAndJoins] result=" + result); // tmp
 		return result.toString();
 	}	
 	
@@ -185,6 +196,17 @@ public class JPATabProvider extends TabProviderBase {
 		
 		return select;
 	}
+	
+	protected String toSearchBySecondLevelKeyReference(String select) { // tmr ¿Cambiar nombre por addJoinsConditions o algo?
+		int whereIdx = select.indexOf("WHERE");
+		if (whereIdx < 0) return select;
+		System.out.println("[JPATabProvider.toSearchBySecondLevelKeyReference] select=" + select); // tmp
+		String where = select.substring(whereIdx + 5);
+		System.out.println("[JPATabProvider.toSearchBySecondLevelKeyReference] where=" + where); // tmp
+		// TMR ME QUEDÉ POR AQUÍ: PARA AÑADIR LOS JOINS NECESARIOS EN LAS CONDICIONES
+		return select;
+	}
+	
 	
 	private String insertGroupBy(String select, String groupByColumns) { 
 		if (select.contains(" order by ")) {
