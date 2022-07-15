@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>第三章：基本域模型（下）计算默认值、常规参照 - 多對一 （Regular reference - ManyToOne）、依赖对象的集合（dependent objects）</title>
+    <title>第三章：基本域模型（下）计算默认值、常规注解 - 多對一 （Regular reference - ManyToOne）、依赖对象的集合（dependent objects）</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -42,7 +42,7 @@
         <h1 class="nopad">目录</h1>
         <div style="margin-left: 1em;"><a href="#Modeling%20with%20Java">第三章：基本域模型（下）</a></div>
         <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Basic%20domain%20model-Calculating%20default%20values">计算默认值</a></div>
-        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Basic%20domain%20model-Regular%20reference%20%28ManyToOne%29">常规参照 - 多对一 （Regular reference - ManyToOne）</a></div>
+        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Basic%20domain%20model-Regular%20reference%20%28ManyToOne%29">常规注解 - 多对一 （Regular reference - ManyToOne）</a></div>
         <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Basic%20domain%20model-Collection%20of%20dependent%20objects">依赖对象的集合（dependent objects）</a></div>
         <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Summary">总结</a></div>
       </div>
@@ -159,7 +159,7 @@ public class NextNumberForYearCalculator implements ICalculator { // 计算器�
     <div class="wiki" style="display: block;">这些默认值是初始值，用户可以依需求更改他它们。</div>
     <div class="wiki" style="display: block;">请注意，year 跟 number 并不是键，我们正使用 oid 作为键（有用 @id 注解），通常使用单键就好，不过也是可以使用<a
         href="jpa_en.html#Appendix%20B:%20Java%20Persistence%20API-JPA%20Annotations-Composite+key">复合键</a>。<br>
-      <h2 id="toc7"><a name="Modeling with Java-Basic domain model-Regular reference (ManyToOne)"></a>常规参照 - 多对一</h2>
+      <h2 id="toc7"><a name="Modeling with Java-Basic domain model-Regular reference (ManyToOne)"></a>常规注解 - 多对一</h2>
       在在准备好所有属性后，是时后添加与其它实体的关联了。我们将添加从发票（Invoice）到客户（Customer）的引用，因为一张发票总得要有客户，不过在添加客户之前，须删除发票模块中所有当前的发票，因为客户将会是必须的所以可能会跟现在的数据产生故障。<br>
       在 Invoice 实体添加以下代码：</div>
     <div class="wiki" style="display: block;">
@@ -199,7 +199,7 @@ public class Detail {
  
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">要注意的是 Detail 使用 @Embeddable 注解而不是 @Entity，所以您不能定义实体的 @ElementCollection，可嵌入类可以有属性和参照但不能有集合。<br>
+    <div class="wiki" style="display: block;">要注意的是 Detail 使用 @Embeddable 注解而不是 @Entity，所以您不能定义实体的 @ElementCollection，可嵌入类可以有属性和引用但不能有集合。<br>
       目前我们只有产品跟数量，但已足够来运行 Invoice 和 Detail 了。用户可添加、编辑和删除集合中的元素。</div>
     <div class="wiki" style="display: block;"><br>
     </div>
@@ -208,7 +208,7 @@ public class Detail {
     </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;">这截图代表默认下显示的属性是普通属性，默认下不会包括参照的属性。这会让我们的用户界面不太美观，因为现在只看的到数量。不过可以用 @ListProperties 解决：</div>
+    <div class="wiki" style="display: block;">这截图代表默认下显示的属性是普通属性，默认下不会包括引用的属性。这会让我们的用户界面不太美观，因为现在只看的到数量。不过可以用 @ListProperties 解决：</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@ElementCollection
 @ListProperties("product.number, product.description, quantity")

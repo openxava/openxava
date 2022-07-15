@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>第四章：优化用户界面，默认用户界面，使用 @View 定义布局，使用 @ReferenceView 细节化用户参照界面，优化后的用户界面</title>
+    <title>第四章：优化用户界面，默认用户界面，使用 @View 定义布局，使用 @ReferenceView 细节化 Customer 引用的界面，优化后的用户界面</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -44,7 +44,7 @@
           </a></div>
         <div style="margin-left: 2em;"><a href="#default-user-interface">默认用户界面</a></div>
         <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Refining%20the%20user%20interface-Using%20@View%20for%20defining%20layout">使用 @View 定义布局</a></div>
-        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Refining%20the%20user%20interface-Using%20@ReferenceView%20to%20refine%20the%20user%20interface%20for%20reference">使用 @ReferenceView 细节化用户参照界面 <br>
+        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Refining%20the%20user%20interface-Using%20@ReferenceView%20to%20refine%20the%20user%20interface%20for%20reference">使用 @ReferenceView 细节化 Customer 引用的界面 <br>
           </a></div>
         <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Refining%20the%20user%20interface-Refined%20user%20interface">优化后的用户界面</a></div>
         <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Summary">总结</a></div>
@@ -60,7 +60,7 @@
     <div class="wiki" style="display: block;"> <img src="files/modeling_zh110.png"
         alt="modeling_en110.png" title="modeling_en110.png"></div>
     <div class="wiki" style="display: block;"><br>
-      如您所见，OpenXava 会依您在代码中声明的顺序去显示界面上的成员，一个接着一个由上往下。此外，您可以看到在 Customer 参照那里，会使用 Customer 默认视图。<br>
+      如您所见，OpenXava 会依您在代码中声明的顺序去显示界面上的成员，一个接着一个由上往下。此外，您可以看到在 Customer 引用那里，会使用 Customer 默认视图。<br>
       我们将做一些改进。首先，我们将明确定义成员的布局，通过这种方式，我们可以将 year、number 和 date 放在同一行中。其次，我们将在 Customer 使用更简单的视图。当用户在发票输入客户时，不需要查看所有数据。<br>
       <h2 id="toc10"><a name="Modeling with Java-Refining the user interface-Using @View for defining layout"></a>使用 @View 定义布局</h2>
       要在用户界面中定义 Invoice 成员的布局，您必须使用 @View 注解。这很简单，您只需要枚举想显示的成员。代码如下：</div>
@@ -75,8 +75,8 @@ public class Invoice {
 </code></pre> </div>
     <div class="wiki" style="display: block;">最后，我们将显示 Invoice 所有成员，使用逗号分隔 year、number 和 date，这样它们会在同一行显示，且产生更紧凑的用户界面，如下：<br>
       <img src="files/modeling_zh120.png" alt="modeling_en120.png" title="modeling_en120.png"><br>
-      <h2 id="toc11"><a name="Modeling with Java-Refining the user interface-Using @ReferenceView to refine the user interface for reference"></a>使用 @ReferenceView 细节化用户参照界面</h2>
-      您仍然需要优化 Customer 参照的显示方式，因为它显示了 Customer 所有成员。而在 Invoice 中显示更简化的 Customer 视图应来会更好。为此，您需要在 Customer 中定义一个为 Simple 的视图，然后在 Invoice 指定要显示这个 Customer 的 Simple 视图。<br>
+      <h2 id="toc11"><a name="Modeling with Java-Refining the user interface-Using @ReferenceView to refine the user interface for reference"></a>使用 @ReferenceView 细节化 Customer 引用的界面</h2>
+      您仍然需要优化 Customer 引用的显示方式，因为它显示了 Customer 所有成员。而在 Invoice 中显示更简化的 Customer 视图应来会更好。为此，您需要在 Customer 中定义一个为 Simple 的视图，然后在 Invoice 指定要显示这个 Customer 的 Simple 视图。<br>
       首先，我们在 Customer 中定义 Simple 视图：</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@View(name = "Simple", // 只有在指定 Simple 时才会使用此视图
@@ -85,14 +85,14 @@ public class Invoice {
 public class Customer {
 </code></pre> </div>
     <div class="wiki" style="display: block;">如本例，当一个视图有名称时，该视图仅会在该名称被指定时才显示。也就是 说，虽然 Customer 只有这个 @View 注解，但是当你尝试显示 Customer 时，它不会使用这个 Simple 视图，而是默认的那个。如果您定义一个没有名称的@View，则该视图将是默认视图，不过这并不是我们想要的。<br>
-      现在，您必须在 Invoice 中指定 Customer 的参照必须使用这个 Simple 视图。这须要通过@ReferenceView 完成。请以这种方式编辑 Invoice 中的 Customer 参照：</div>
+      现在，您必须在 Invoice 中指定 Customer 引用必须使用这个 Simple 视图。这须要通过@ReferenceView 完成。请以这种方式编辑 Invoice 中的 Customer 引用：</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY, optional=false)
-@ReferenceView("Simple") // 此参照将用名称为 Simple 的视图显示
+@ReferenceView("Simple") // 此注解将用名称为 Simple 的视图显示
 Customer customer;
 </code></pre> </div>
-    <div class="wiki" style="display: block;">非常简单，您只需要在参照上指定你想要显示的视图名称即可。<br>
-      这之后，Customer 参照会以更紧凑的方式显示：<br>
+    <div class="wiki" style="display: block;">非常简单，您只需要在注解上指定你想要显示的视图名称即可。<br>
+      这之后，Customer 引用会以更紧凑的方式显示：<br>
       <img src="files/modeling_zh130.png" alt="modeling_en130.png" title="modeling_en130.png"><br>
       在下面可以看到我们在 Invoice 所优化的界面。<br>
       <h2 id="toc12"><a name="Modeling with Java-Refining the user interface-Refined user interface"></a><span
