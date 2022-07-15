@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-- Lessons 1, 2, 3. 4, 5 and  6 of course translated to Chinese.
+- Lessons 1, 2, 3. 4, 5, 6 and 7 of course translated to Chinese.
 - Removed XHibernate and HibernatePersistenceProvider, though Hibernate API is still available.
 - Removed JDBCTabProvider, used to get list data via JDBC, only used for XML components.
 - Dropped support for Tomcat 7.
