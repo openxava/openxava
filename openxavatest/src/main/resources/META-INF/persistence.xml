@@ -13,7 +13,7 @@
     	<class>org.openxava.web.editors.DiscussionComment</class>
     	<class>org.openxava.util.impl.EmailSubscription</class>
         <properties>
-            <property name="hibernate.show_sql" value="true"/> <!-- tmr -->    
+            <property name="hibernate.show_sql" value="false"/>     
             <property name="hibernate.default_schema" value="XAVATEST"/>
             <property name="hibernate.jdbc.factory_class" 
             		value="org.hibernate.jdbc.NonBatchingBatcherFactory"/>
@@ -21,10 +21,6 @@
             		value="org.hibernate.envers.strategy.ValidityAuditStrategy"/>
             <property name="org.hibernate.envers.audit_strategy_validity_store_revend_timestamp" 
             		value="true"/>
-            <!-- tmr ini -->		
-            <property name="hibernate.jpa.compliance.query" value="true"/> 
-            
-            <!-- tmr fin -->		            		
         </properties>
     </persistence-unit>      
                             
@@ -54,9 +50,6 @@
         <properties>
 			<property name="hibernate.connection.url" value="jdbc:hsqldb:hsql://localhost:1666"/>
 			<property name="hibernate.default_schema" value="XAVATEST"/>
-			<!-- tmr ini -->
-			<property name="hibernate.show_sql" value="true"/> <!-- tmr -->
-			<!-- tmr fin -->
         </properties>
     </persistence-unit>
                           

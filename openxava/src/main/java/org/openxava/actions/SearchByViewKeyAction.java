@@ -35,13 +35,10 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 		Map valuesForSearchByAnyProperty = null;
 		try {									
 			keys = getKeyValuesFromView();		
-			System.out.println("[SearchByViewKeyAction.execute] keys=" + keys); // tmp
 			Map values = null;			
 			if (Maps.isEmpty(keys)) {
-				System.out.println("[SearchByViewKeyAction.execute] A"); // tmp
 				try {					
 					valuesForSearchByAnyProperty = getValuesForSearchByAnyProperty();
-					System.out.println("[SearchByViewKeyAction.execute] valuesForSearchByAnyProperty=" + valuesForSearchByAnyProperty); // tmp
 					getView().clear();
 					values = MapFacade.getValuesByAnyProperty(getModelName(), valuesForSearchByAnyProperty, getMemberNames());
 				}
@@ -52,7 +49,6 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 				}
 			}
 			else {				
-				System.out.println("[SearchByViewKeyAction.execute] B"); // tmp
 				getView().clear(); 
 				values = MapFacade.getValues(getModelName(), keys, getMemberNames());
 			}

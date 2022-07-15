@@ -206,7 +206,6 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	}
 
 	private String insertKeyFields(String select) {				
-		// TMR ME QUEDÉ POR AQUÍ. LOS KEY FIELDS NECESITAN TENER EL e_delivery EN LUGAR DE e.delivery
 		String s = select.trim(); 
 		String sUpperCase = s.toUpperCase(); 
 		if (!(sUpperCase.startsWith("SELECT ") || (sUpperCase.startsWith("SELECT\t")))) return select;				

@@ -63,6 +63,7 @@ public class JPATest extends TestCase {
 		
 		
 		/* FUNCIONA */ 
+		// TMR PONER EN MIGRATION
 		String queryString="from TransportCharge o join fetch o.delivery d where d.invoice.year = :delivery_invoice_year";
 		Query query = XPersistence.getManager().createQuery(queryString);
 		query.setParameter("delivery_invoice_year", 2002);

@@ -14,7 +14,6 @@ public class TransportChargeTest extends TransportChargeTestBase {
 	}
 	
 	public void testOrderAndFilterInCollectionOfReference() throws Exception {
-		// TMR ¿Comprobar número de líneas en sección?
 		execute("CRUD.new"); 
 		execute("Reference.search", "keyProperty=xava.TransportCharge.delivery.number");
 		int row = getRowOf("2004", "2", "1", "666"); 
@@ -25,7 +24,7 @@ public class TransportChargeTest extends TransportChargeTestBase {
 		execute("ReferenceSearch.choose", "row=" + row);
 		execute("Sections.change", "activeSection=4,viewObject=xava_view_delivery");
 		
-		assertCollectionRowCount("delivery.details", 3); // TMR FALLA
+		assertCollectionRowCount("delivery.details", 3); 
 		execute("List.orderBy", "property=number,collection=delivery.details"); 
 		assertValueInCollection("delivery.details", 0, 0, "11"); 
 		assertValueInCollection("delivery.details", 1, 0, "12");
@@ -63,6 +62,7 @@ public class TransportChargeTest extends TransportChargeTestBase {
 		assertNoEditable("delivery.distance");
 		execute("Reference.search", "keyProperty=xava.TransportCharge.delivery.number");
 		String year = getValueInList(0, 0);
+		assertEquals(4, year.length()); // 4 digits so it's a year // tmr
 		String number = getValueInList(0, 1);
 		assertTrue("It is required that year in invoice has value", !Is.emptyString(year));
 		assertTrue("It is required that number in invoice has value", !Is.emptyString(number));
@@ -74,13 +74,14 @@ public class TransportChargeTest extends TransportChargeTestBase {
 		
 		setValue("amount", "666");
 		execute("CRUD.save");
-		assertNoErrors(); // TMR FALLA ME QUEDÉ POR AQUÍ. ACTUALICÉ LA VERSIÓN HSQLDB 
+		assertNoErrors(); 
 				
 		assertValue("delivery.invoice.year", "");
 		assertValue("delivery.invoice.number", "");
 		assertValue("amount", "");
 		
 		execute("Mode.list");
+		assertValueInList(0, 0, year); // tmr
 		execute("List.viewDetail", "row=0"); 
 		assertNoErrors();
 		assertValue("delivery.invoice.year", year);
@@ -114,7 +115,7 @@ public class TransportChargeTest extends TransportChargeTestBase {
 		
 		assertListRowCount(2);
 		
-		assertValueInList(0, 0, String.valueOf(getCharge1().getDelivery().getInvoice().getYear())); // TMR FALLA
+		assertValueInList(0, 0, String.valueOf(getCharge1().getDelivery().getInvoice().getYear())); 
 		assertValueInList(0, 1, String.valueOf(getCharge1().getDelivery().getInvoice().getNumber()));
 		assertValueInList(0, 2, String.valueOf(getCharge1().getDelivery().getNumber()));
 		assertValueInList(0, 3, "100.00");

@@ -23,7 +23,7 @@ public class CustomerContactPersonTest extends ModuleTestBase {
 		assertNoErrors();
 		assertValue("name", "Pepe");
 		assertValue("customer.number", "1");
-		assertValue("customer.name", "Javi");
+		assertValue("customer.name", "Javi"); // TMR FALLA
 	}
 			
 }

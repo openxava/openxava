@@ -33,7 +33,6 @@ public class JPATabProvider extends TabProviderBase {
 	
 	public String toQueryField(String propertyName) {
 		// tmr ini
-		// tmr ¿Se testea esto? Sería elegir en lista un TransportCharge y que se vea en detalle
 		String prefix = StringUtils.countMatches(propertyName, '.') > 1?"e_":"e." ;
 		return prefix + propertyName;
 		// tmr fin
@@ -145,7 +144,6 @@ public class JPATabProvider extends TabProviderBase {
 						jpaElement = "e_" + qualifiedElement + suffix;
 					}
 					// tmr ini
-					// tmr ¿Se testea en JUnit? En la lista de TransportCharge a de aparecd 2002 para año de factura
 					else if (reference.contains(".")) { // More than one level in key references without left join not supported since Hibernate 5.4 
 						jpaElement = "e_" + modelElement;
 					}
@@ -158,7 +156,6 @@ public class JPATabProvider extends TabProviderBase {
 			r.replace(i, f + 1, jpaElement);
 			i = r.toString().indexOf("${");
 		}
-		System.out.println("[JPATabProvider.changePropertiesByJPAProperties] result=" + r); // tmp
 		return r.toString();
 	}
 	
@@ -197,14 +194,31 @@ public class JPATabProvider extends TabProviderBase {
 		return select;
 	}
 	
-	protected String toSearchBySecondLevelKeyReference(String select) { // tmr ¿Cambiar nombre por addJoinsConditions o algo?
+	protected String toIncludeJoinsUsedInWhere(String select) { // tmr
 		int whereIdx = select.indexOf("WHERE");
 		if (whereIdx < 0) return select;
-		System.out.println("[JPATabProvider.toSearchBySecondLevelKeyReference] select=" + select); // tmp
 		String where = select.substring(whereIdx + 5);
-		System.out.println("[JPATabProvider.toSearchBySecondLevelKeyReference] where=" + where); // tmp
-		// TMR ME QUEDÉ POR AQUÍ: PARA AÑADIR LOS JOINS NECESARIOS EN LAS CONDICIONES
-		return select;
+		String [] tokens = where.split(" ");
+		Collection<String> neededJoins = new HashSet<>();
+		for (String token: tokens) {
+			if (token.startsWith("e_")) {
+				String join = Strings.firstToken(token, ".");
+				neededJoins.add(join);
+			}
+		}
+		if (neededJoins.isEmpty()) return select;
+		
+		StringBuffer joins = new StringBuffer();
+		for (String join: neededJoins) {
+			joins.append(" left join ");
+			joins.append(join.replace("e_", "e."));
+			joins.append(" ");
+			joins.append(join);
+		}
+		
+		String selectBase = select.substring(0, whereIdx);
+		String finalSelect = selectBase + joins + " WHERE " + where;
+		return finalSelect;
 	}
 	
 	

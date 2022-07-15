@@ -38,7 +38,7 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 	abstract protected Number executeNumberSelect(String select, String errorId);
 	/** @since 6.4 */
 	abstract protected String toSearchByCollectionMemberSelect(String select);
-	abstract protected String toSearchBySecondLevelKeyReference(String select); // tmr
+	abstract protected String toIncludeJoinsUsedInWhere(String select); // tmr
 	
 	
 	public void setMetaTab(MetaTab metaTab) {
@@ -58,15 +58,10 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		eof = false;
 		this.key = toArray(key);		
 		condition = condition == null ? "" : condition.trim();
-		System.out.println("[TabProviderBase.search] condition=" + condition); // tmp
 		select = translateCondition(condition);
-		System.out.println("[TabProviderBase.search] select.1=" + select); // tmp
 		select = toGroupBySelect(select);
-		System.out.println("[TabProviderBase.search] select.2=" + select); // tmp
 		select = toSearchByCollectionMemberSelect(select); 
-		System.out.println("[TabProviderBase.search] select.3=" + select); // tmp
-		select = toSearchBySecondLevelKeyReference(select); // tmr 
-		System.out.println("[TabProviderBase.search] select.4=" + select); // tmp		
+		select = toIncludeJoinsUsedInWhere(select); // tmr
 		selectSize = createSizeSelect(select); 
 	}
 							
