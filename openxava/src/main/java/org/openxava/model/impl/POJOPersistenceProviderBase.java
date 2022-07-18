@@ -61,8 +61,8 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 		
 
 	public Object find(MetaModel metaModel, Map keyValues) throws FinderException {
-		// tmr return find(metaModel, keyValues, true);
-		return find(metaModel, keyValues, false); // tmr
+		boolean keyIncludesReferenceWithMultipleKey =  metaModel.getAllMetaPropertiesKey().size() != metaModel.getMetaPropertiesKey().size() + metaModel.getMetaReferencesKey().size();
+		return find(metaModel, keyValues, !keyIncludesReferenceWithMultipleKey); 
 	}
 	
 	protected Object find(MetaModel metaModel, Map keyValues, boolean useQueryForFind) throws FinderException {
@@ -80,13 +80,10 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 				}
 			}
 			else {
-				System.out.println("[POJOPersistenceProviderBase.find(" + metaModel.getName() + ")] keyValues=" + keyValues); // tmr
-				if (useQueryForFind) {
-					System.out.println("[POJOPersistenceProviderBase.find(" + metaModel.getName() + ")] A"); // tmr
+				if (useQueryForFind) { 
 					return findByKeyUsingQuery(metaModel, keyValues);
 				}
 				else {
-					System.out.println("[POJOPersistenceProviderBase.find(" + metaModel.getName() + ")] B"); // tmr
 					key = getKey(metaModel, keyValues);
 				}
 			}

@@ -186,7 +186,7 @@ public class XPersistence {
 					factoryProperties = new HashMap(properties);
 					factoryProperties.put("hibernate.implicit_naming_strategy", "legacy-jpa"); 
 				}
-				Logger.getLogger("org.hibernate.boot.registry.classloading.internal").setLevel(Level.SEVERE); // To avoid a warning exception with Envers in development environment // tmr
+				Logger.getLogger("org.hibernate.boot.registry.classloading.internal").setLevel(Level.SEVERE); // To avoid a warning exception with Envers in development environment 
 				entityManagerFactory = Persistence.createEntityManagerFactory(getPersistenceUnit(), factoryProperties);
 			}
 			catch (NoSuchFieldError ex) {

@@ -38,7 +38,7 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 	abstract protected Number executeNumberSelect(String select, String errorId);
 	/** @since 6.4 */
 	abstract protected String toSearchByCollectionMemberSelect(String select);
-	abstract protected String toIncludeJoinsUsedInWhere(String select); // tmr
+	abstract protected String toIncludeJoinsUsedInWhere(String select); 
 	
 	
 	public void setMetaTab(MetaTab metaTab) {
@@ -61,7 +61,7 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		select = translateCondition(condition);
 		select = toGroupBySelect(select);
 		select = toSearchByCollectionMemberSelect(select); 
-		select = toIncludeJoinsUsedInWhere(select); // tmr
+		select = toIncludeJoinsUsedInWhere(select); 
 		selectSize = createSizeSelect(select); 
 	}
 							

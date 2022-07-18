@@ -401,7 +401,7 @@ public class ColorTest extends ModuleTestBase {
 			{ "[.          .VERDE     .]", "----------&-----VERDE:complicated" },
 			{ "[.ROJO      .          .]", "------ROJO&----------:simple" }
 		};
-		assertValidValues("mixture.KEY", validValues); // TMR FALLA
+		assertValidValues("mixture.KEY", validValues); 
 		
 		setValue("mixture.KEY", "[.          .VERDE     .]");
 		execute("TypicalNotResetOnSave.save");

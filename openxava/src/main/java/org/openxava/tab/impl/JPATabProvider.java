@@ -32,11 +32,8 @@ public class JPATabProvider extends TabProviderBase {
 	}
 	
 	public String toQueryField(String propertyName) {
-		// tmr ini
 		String prefix = StringUtils.countMatches(propertyName, '.') > 1?"e_":"e." ;
 		return prefix + propertyName;
-		// tmr fin
-		// tmr return "e." + propertyName;
 	}
 
 	public String getSelectBase() {
@@ -50,16 +47,12 @@ public class JPATabProvider extends TabProviderBase {
 	private String getSelectWithEntityAndJoins() {
 		String select = getMetaTab().getSelect();
 		int i = select.indexOf("from ${");
-		System.out.println("[JPATabProvider.getSelectWithEntityAndJoins] select=" + select); // tmp
-		System.out.println("[JPATabProvider.getSelectWithEntityAndJoins] i=" + i); // tmp
 		if (i < 0) return select; 
 		int f = select.indexOf("}", i);
 		StringBuffer entityAndJoins = new StringBuffer();
 		entityAndJoins.append("from ");
 		entityAndJoins.append(getMetaModel().getName());
 		entityAndJoins.append(" e");
-		
-		System.out.println("[JPATabProvider.getSelectWithEntityAndJoins] hasReferences()=" + hasReferences()); // tmp
 		
 		if (hasReferences()) {
 			// the tables
@@ -68,7 +61,6 @@ public class JPATabProvider extends TabProviderBase {
 			while (itReferencesMappings.hasNext()) {
 				ReferenceMapping referenceMapping = (ReferenceMapping) itReferencesMappings.next();				
 				String reference = referenceMapping.getReference();			
-				System.out.println("[JPATabProvider.getSelectWithEntityAndJoins] Processing " + reference); // tmp
 				int idx = reference.lastIndexOf('_');				
 				if (idx >= 0) {
 					// In the case of reference to entity in aggregate only we will take the last reference name
@@ -95,7 +87,6 @@ public class JPATabProvider extends TabProviderBase {
 		
 		StringBuffer result = new StringBuffer(select);
 		result.replace(i, f + 2, entityAndJoins.toString());
-		System.out.println("[JPATabProvider.getSelectWithEntityAndJoins] result=" + result); // tmp
 		return result.toString();
 	}	
 	
@@ -134,20 +125,15 @@ public class JPATabProvider extends TabProviderBase {
 					suffix = "[" + tokens[1];
 				}
 				if (!isAggregate(reference)) {
-					System.out.println("[JPATabProvider.changePropertiesByJPAProperties] getMetaModel().getName()=" + getMetaModel().getName()); // tmp
-					System.out.println("[JPATabProvider.changePropertiesByJPAProperties] reference=" + reference); // tmp delivery.invoice
-					System.out.println("[JPATabProvider.changePropertiesByJPAProperties] modelElement=" + modelElement); // tmp delivery.invoice.year
 					if (!getMetaModel().getMetaProperty(modelElement).isKey()) {
 						StringBuffer qualifiedElement = new StringBuffer(modelElement.replaceAll("\\.", "_"));
 						int last = qualifiedElement.lastIndexOf("_");
 						qualifiedElement.replace(last, last + 1, ".");
 						jpaElement = "e_" + qualifiedElement + suffix;
 					}
-					// tmr ini
 					else if (reference.contains(".")) { // More than one level in key references without left join not supported since Hibernate 5.4 
 						jpaElement = "e_" + modelElement;
 					}
-					// tmr fin
 				}
 			}						
 			else if (Strings.isModelName(modelElement)) { 
@@ -194,7 +180,7 @@ public class JPATabProvider extends TabProviderBase {
 		return select;
 	}
 	
-	protected String toIncludeJoinsUsedInWhere(String select) { // tmr
+	protected String toIncludeJoinsUsedInWhere(String select) { 
 		int whereIdx = select.indexOf("WHERE");
 		if (whereIdx < 0) return select;
 		String where = select.substring(whereIdx + 5);

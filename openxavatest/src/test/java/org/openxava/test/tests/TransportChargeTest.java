@@ -62,7 +62,7 @@ public class TransportChargeTest extends TransportChargeTestBase {
 		assertNoEditable("delivery.distance");
 		execute("Reference.search", "keyProperty=xava.TransportCharge.delivery.number");
 		String year = getValueInList(0, 0);
-		assertEquals(4, year.length()); // 4 digits so it's a year // tmr
+		assertEquals(4, year.length()); // 4 digits so it's a year 
 		String number = getValueInList(0, 1);
 		assertTrue("It is required that year in invoice has value", !Is.emptyString(year));
 		assertTrue("It is required that number in invoice has value", !Is.emptyString(number));
@@ -81,7 +81,7 @@ public class TransportChargeTest extends TransportChargeTestBase {
 		assertValue("amount", "");
 		
 		execute("Mode.list");
-		assertValueInList(0, 0, year); // tmr
+		assertValueInList(0, 0, year); 
 		execute("List.viewDetail", "row=0"); 
 		assertNoErrors();
 		assertValue("delivery.invoice.year", year);

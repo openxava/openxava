@@ -21,29 +21,11 @@ public class GenerateReportAction extends TabBaseAction implements IForwardActio
 		getRequest().getSession().setAttribute("xava_selectedRowsReportTab", getTab().getSelected()); // We use this most times for peformance
 		getRequest().getSession().setAttribute("xava_selectedKeysReportTab", getTab().getSelectedKeys()); // We use this for cases when selected are out of loaded rows
 		
-		/* tmr
-		String hibernateDefaultSchema = getHibernateDefaultSchema();
-		if (!Is.emptyString(hibernateDefaultSchema)) {
-			getRequest().getSession().setAttribute("xava_hibernateDefaultSchemaTab", hibernateDefaultSchema);
-		}
-		*/
 		if (!Is.emptyString(XPersistence.getDefaultSchema())) {
 			getRequest().getSession().setAttribute("xava_jpaDefaultSchemaTab", XPersistence.getDefaultSchema());
 		}
 	}
 	
-	/* tmr
-	private String getHibernateDefaultSchema() {  
-		try {
-			return XHibernate.getDefaultSchema();
-		}
-		catch (Exception ex) {
-			log.warn(XavaResources.getString("hibernate_default_schema_warning", "__UNKNOWN__")); 
-			return "__UNKNOWN__"; // Not null in order to avoid security holes
-		}
-	}
-	*/
-		
 	public boolean inNewWindow() {
 		return true; 
 	}
