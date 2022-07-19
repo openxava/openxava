@@ -4,7 +4,7 @@
 
   <groupId>org.openxava</groupId>
   <artifactId>openxavatest</artifactId>
-  <version>7.0-SNAPSHOT</version>
+  <version>7.0m3</version>
   <packaging>war</packaging>
 
   <properties>
@@ -17,7 +17,7 @@
     <dependency>
       <groupId>org.openxava</groupId>
       <artifactId>openxava</artifactId>
-      <version>7.0-SNAPSHOT</version>
+      <version>7.0m3</version>
     </dependency>
   </dependencies>
   
