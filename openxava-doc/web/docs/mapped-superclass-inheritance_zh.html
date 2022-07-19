@@ -1,0 +1,109 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>第六章：映射式超类继承，映射超类，简化您的实体</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Lesson 4: Inheritance"></a> <span id="breadcrumbs"> <span
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_zh.html">文档</a> / </span>第六章：映射式超类继承</h1>
+      <strong></strong><strong>课程：</strong><a class="wiki_link" href="getting-started_zh.html">1. 入门教学</a> | <a
+        class="wiki_link" href="basic-domain-model1_zh.html">2. 基本域模型（上）</a> | <a
+        class="wiki_link" href="basic-domain-model2_zh.html">3. 基本域模型（下）</a> | <a
+        class="wiki_link" href="refining-user-interface_zh.html">4. 优化用户界面</a> | <a
+        class="wiki_link" href="agile-development_zh.html">5. 敏捷开发</a> | <b><span
+          class="wiki_link">6. 映射式超类继承</span></b> | <a class="wiki_link"
+        href="entity-inheritance_zh.html">7. 实体继承</a> | <a class="wiki_link"
+        href="view-inheritance_en.html">8. View inheritance</a> | <a class="wiki_link"
+        href="java-properties_en.html">9. Java properties</a> | <a class="wiki_link"
+        href="calculated-properties_en.html">10. Calculated properties </a> | <a
+        class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11. @DefaultValueCalculator in collections</a><strong> </strong> | <a
+        class="wiki_link" href="calculation-and-collections-total_en.html">12. </a><a
+        class="wiki_link" href="calculation-and-collections-total_en.html">@Calculation and colections totals</a> | <a
+        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file</a> | <a
+        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution</a> | <a
+        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation</a> | <a
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed propierties</a> | <a
+        class="wiki_link" href="logic-from-database_en.html">17. Logic from database </a> | <a
+        class="wiki_link" href="validation_en.html">18. Advanced validation</a> | <a
+        class="wiki_link" href="refining-standard-behavior_en.html">19. Refining the standard behavior</a> | <a
+        class="wiki_link" href="business-logic-behavior_en.html">20. Behavior &amp; business logic</a> | <a
+        class="wiki_link" href="references-collections_en.html">21. References &amp; collections</a> | <a
+        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
+        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
+        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+        class="wiki_link" href="testing_en.html">D. Automated testing</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">目录</h1>
+        <div style="margin-left: 1em;"><a href="#toc0">第六章：映射式超类继承</a></div>
+        <div style="margin-left: 2em;"><a href="#mapped-superclass">映射超类</a></div>
+        <div style="margin-left: 2em;"><a href="#simplify-your-entities">简化您的实体</a></div>
+        <div style="margin-left: 2em;"><a href="#summary">总结</a></div>
+      </div>
+      继承是在面向对象中重用代码的一种实用方法。在 JPA 和 OpenXava 中使用继承就像在纯 Java 中使用它一样简单。我们将使用继承来删除重复的代码，例如 UUID，我们将使用 JPA 映射式超类来完成。<br>
+      <br>
+      <div class="wiki" style="display: block;"><br>
+      </div>
+      <h2><a name="mapped-superclass"></a>映射超类</h2>
+      Author、Category 和 Invoice 类有重复的代码，這就是 oid 字段：<em></em><br>
+      <pre><code class="java">@Id @GeneratedValue(generator="system-uuid") @Hidden
+@GenericGenerator(name="system-uuid", strategy = "uuid")
+@Column(length=32)
+String oid;
+</code></pre> 这这段代码在以上三类都是一样的。您也知道复制和粘贴是一种致命的罪过，所以我们必须寻找一个解决方案来消除重复的代码，以避免我们走向地狱。<br>
+      一个优雅的解决方案是通过继承。 JPA 允许很多继承的方法。其中之一个是从映射的超类继承。映射超类是具有 JPA 映射注解的 Java 类，但它并不是实体。它的唯一目标是用作实体的超类。我来现在来使用它，您会很快看到它的实用性。<br>
+      首先，我们将这段重复的代码移动到注解为@MappedSuperclass 的类中。我们将其命名为 identifiable：<br>
+      <pre><code class="java">package com.yourcompany.invoicing.model;
+ 
+import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.openxava.annotations.*;
+import lombok.*;
+ 
+@MappedSuperclass // 表示它是映射式超类而不是实体
+@Getter @Setter
+public class Identifiable {
+ 
+    @Id @GeneratedValue(generator="system-uuid") @Hidden
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @Column(length=32)
+    String oid; // 属性有包括OpenXava 和 JPA 的注释
+ 
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1"><a name="simplify-your-entities"></a>简化您的实体</h2>
+    </div>
+    <div class="wiki" style="display: block;">现在您可以以更简洁的方式定义作者、类别和发票实体。例如，这是 Category 新代码：<br>
+      <pre><code class="java">package com.yourcompany.invoicing.model;
+ 
+import javax.persistence.*;
+import lombok.*;
+ 
+@Entity @Getter @Setter
+public class Category extends Identifiable { //从 identifiable 继承而来，所以不须要 id 这个属性
+  
+    @Column(length=50)
+    String description;
+ 
+}
+</code></pre> 重构非常简单， Category 现在从 Identifiable 继承而来，并删除了 oid 属性。这样，您的代码不仅更短也更优雅，因为您声明该类是 identifiable 可识别的（是什么，而不是如何），并且您从业务逻辑类中删除了一些技术性的代码。<br>
+      将相同的重构应用于 Author 和 Invoice 实体。此外，从现在开始，大多实体将从映射超类 Identifiable 继承。<br>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">我们创建了 Identifiable 类来了解使用映射超类的好处，不过 OpenXava 为您准备了一个可以使用的 Identifiable 类，在 org.openxava.model 包中可以找到。因此，在您的下一个项目中，您不需要再次编写 Identifiable 类，只需使用 OpenXava 自带的即可。<br>
+      <h2><a name="summary"></a>总结</h2>
+      您学到映射式超类是具有 JPA 映射注解的普通类，您可以将其用作实体的基本类。此外，您还学习了如何使用映射式超类来简化代码。<br>
+      <br>
+      <strong><strong>对这节课有什么问题吗？ <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+            rel="nofollow">前往轮譠</a></strong> <strong>一切都顺利吗？</strong></strong><strong> <a
+          class="wiki_link" href="entity-inheritance_zh.html">前往第七章</a></strong> </div>
+  </body>
+</html>

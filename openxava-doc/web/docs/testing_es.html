@@ -14,38 +14,43 @@
           / </span> Apéndice D: Pruebas automáticas</h1>
       <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
         Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
-        Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
+        Modelo básico del dominio (1)</a> |&nbsp;<a class="wiki_link" href="basic-domain-model2_es.html">3.
         Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
         Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
         Desarrollo ágil</a> | <a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
         Herencia de superclases mapedas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
         Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
-        Herencia de vistas</a>| <a class="wiki_link" href="java-properties_es.html">9.
+        Herencia de vistas</a> | <a class="wiki_link" href="java-properties_es.html">9.
         Propiedades Java</a> | <a class="wiki_link" href="calculated-properties_es.html">10.
         Propiedades calculadas</a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11.
-        @DefaultValueCalculator en colecciones</a> |<a class="wiki_link" href="calculation-and-collections-total_es.html">12.
-        @Calculation y totales de colección</a> |<a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
-        @DefaultValueCalculator desde archivo</a> |<a class="wiki_link" href="manual-schema-evolution_es.html">14.
-        Evolución del esquema manual</a> |<a class="wiki_link" href="multi-user-default-value-calculation_es.html">15.
-        Cálculo de valor por defecto multiusuario</a> |<a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16.
-        Sincronizar propiedades persistentes y calculadas</a> |<a class="wiki_link"
-
+        @DefaultValueCalculator en colecciones</a> | <a class="wiki_link" href="calculation-and-collections-total_es.html">12.
+        @Calculation y totales de colección</a> |<a class="wiki_link" href="attributes-in-annotations_es.html"></a>
+      <span style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
+        @DefaultValueCalculator desde archivo</a> | <a class="wiki_link" href="manual-schema-evolution_es.html">14.
+        Evolución del esquema manual</a> | <a class="wiki_link" href="multi-user-default-value-calculation_es.html">15.
+        Cálculo de valor por defecto multiusuario</a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16.
+        Sincronizar propiedades persistentes y calculadas</a> | <a class="wiki_link"
         href="logic-from-database_es.html">17. Lógica desde la base de datos</a>
-      |<a class="wiki_link" href="validation_es.html">18. Validación avanzada</a>
-      | <a class="wiki_link" href="refining-standard-behavior_es.html">19.
-        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">20.
-        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">21.
+      | <a class="wiki_link" href="validating-with-entityvalidator_es.html">18.
+        Validando con @EntityValidator</a> | <a class="wiki_link" href="validation-alternatives_es.html">19.
+        Alternativas de validación&nbsp;</a> | <a class="wiki_link" href="validation-on-remove_es.html">20.
+        Validación al borrar&nbsp;</a> |&nbsp;<a class="wiki_link" href="custom-bean-validation-annotation_es.html">
+        21. Anotación Bean Validation propia</a> | <a class="wiki_link" href="rest-service-call-from-validation_es.html">22.
+        Llamada REST desde una validación&nbsp;</a> | <a class="wiki_link" href="attributes-in-annotations_es.html">23.
+        Atributos en anotaciones</a>&nbsp; | <a class="wiki_link" href="refining-standard-behavior_es.html">24.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">25.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">26.
         Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
         Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
-        Anotaciones</a> 
-      <strong>D. Pruebas automáticas</strong>
-        <hr> 
+        Anotaciones</a> |<a class="wiki_link" href="basic-domain-model2_es.html"></a><a
+        class="wiki_link" href="annotations_es.html"></a> <strong>D. Pruebas
+        automáticas</strong>
+      <hr>
       <div id="toc"><a class="wiki_link" href="testing_es.html">
           <h1 class="nopad">Tabla de contenidos</h1>
         </a>
-        <div style="margin-left: 1em;"><a class="wiki_link" href="testing_es.html"></a><a
-
+        <div style="margin-left: 1em;"><a class="wiki_link" href="testing_es.html"></a><a
             href="#Leccion+3:+Pruebas+automaticas">Apéndice D: Pruebas
             automáticas</a></div>
         <div style="margin-left: 2em;"><a href="#Leccion+3:+Pruebas+automaticas-JUnit">JUnit</a></div>
@@ -276,8 +281,7 @@ public class PruebaCliente extends ModuleTestBase { // Ha de extender de ModuleT
       caso iníciala antes de nada. Para ejecutar la prueba pon el ratón sobre tu
       clase de prueba, <i>PruebaCliente</i>, y con el botón derecho escoge <em>Run
         As &gt; JUnit Test</em>:<br>
-      <img src="files/testing_es030.png" alt="testing_es030.png" title="testing_es030.png"
-
+      <img src="files/testing_es030.png" alt="testing_es030.png" title="testing_es030.png"
         style="height: 285px; width: 800px;"><br>
       Si la prueba no es satisfactoria la barra sale roja. Puedes probarlo.
       Edita <em>PruebaCliente</em> y comenta la línea que da valor al campo <em>nombre</em>:</div>
@@ -873,8 +877,7 @@ private String getNumero() { // El número de factura para una factura nueva
       <p>El código de prueba hasta aquí es para aplicar sobre el código de la
         lección 5. Aquí puedes descarga el código fuente de la lección 5 pero
         incluyendo el código de prueba de arriba:</p>
-      <p><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-testing_es.zip/download"
-
+      <p><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-testing_es.zip/download"
             rel="nofollow">Descarga el código fuente hasta la lección 5 con
             pruebas</a></strong></p>
       <p>Todo el código a descargar a partir de la lección 5 ya include el
@@ -1450,8 +1453,7 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
 }
 </code></pre> Seguramente la prueba manual que hacías mientras estabas
         escribiendo el validador <em>@ISBN</em> era parecida a esta. Por eso,
-        si hubieras escrito tu <a href="http://www.extremeprogramming.org/rules/testfirst.html"
-
+        si hubieras escrito tu <a href="http://www.extremeprogramming.org/rules/testfirst.html"
           rel="nofollow">código de prueba antes que el código de la aplicación</a>,
         lo hubieras podido usar mientras que desarrollabas, lo cual es más
         eficiente que repetir una y otra vez a mano las pruebas con el
@@ -1680,8 +1682,7 @@ private int getFilaDocumentoEnLista(String anyo, String numero)
         Primero probaremos la acción <i>Pedido.crearFactura</i>, la acción para
         crear una factura a partir del modo detalle del pedido visualizado.
         Recordamos aquí como funciona este proceso:<br>
-        <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
-
+        <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
           title="business-logic-behavior_es010.png"><br>
         Ahora vamos a escribir la prueba para verificar que funciona justo de
         esta forma. Añade el método <i>testCrearFacturaDesdePedido()</i> a la
@@ -1806,8 +1807,7 @@ import com.tuempresa.facturacion.modelo.*;
         Ahora probaremos <i>Pedido.crearFacturaDesdePedidosSeleccionados</i>,
         la acción que crea una factura desde varios pedidos en modo lista.
         Recordemos su funcionamiento:<br>
-        <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
-
+        <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
           title="business-logic-behavior_es030.png"><br>
         Escribamos una prueba para verificar que esto funciona justo de esta
         forma. Añade el método <i>testCrearFacturaDesdePedidosSeleccionados()</i>
@@ -2356,8 +2356,7 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
       añade nuevas pruebas. Al final, tendrás una suite de pruebas muy completa.
       En resumen, prueba poco, pero prueba siempre.<br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong><strong></strong> </div>
   </body>
 </html>

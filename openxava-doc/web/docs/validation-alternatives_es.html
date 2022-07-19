@@ -1,0 +1,235 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lección 19: Alternativas de Validación - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Leccion-18-Validacion-avanzada"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Lección 19: Alternativas de validación</h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
+        Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
+        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
+        Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
+        Desarrollo ágil</a> | <a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
+        Herencia de superclases mapedas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
+        Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
+        Herencia de vistas</a> | <a class="wiki_link" href="java-properties_es.html">9.
+        Propiedades Java</a> | <a class="wiki_link" href="calculated-properties_es.html">10.
+        Propiedades calculadas</a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11.
+        @DefaultValueCalculator en colecciones</a> | <a class="wiki_link" href="calculation-and-collections-total_es.html">12.
+        @Calculation y totales de colección</a> |<a class="wiki_link" href="attributes-in-annotations_es.html"></a>
+      <span style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
+        @DefaultValueCalculator desde archivo</a> | <a class="wiki_link" href="manual-schema-evolution_es.html">14.
+        Evolución del esquema manual</a> | <a class="wiki_link" href="multi-user-default-value-calculation_es.html">15.
+        Cálculo de valor por defecto multiusuario</a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16.
+        Sincronizar propiedades persistentes y calculadas</a> | <a class="wiki_link"
+        href="logic-from-database_es.html">17. Lógica desde la base de datos</a>
+      | <a class="wiki_link" href="validating-with-entityvalidator_es.html">18.
+        Validando con @EntityValidator</a> | <strong>19. Alternativas de
+        validación</strong> | <a class="wiki_link" href="validation-on-remove_es.html">20.
+        Validación al borrar&nbsp;</a> |&nbsp;<a class="wiki_link" href="custom-bean-validation-annotation_es.html">
+        21. Anotación Bean Validation propia</a> | <a class="wiki_link" href="rest-service-call-from-validation_es.html">22.
+        Llamada REST desde una validación&nbsp;</a> | <a class="wiki_link" href="attributes-in-annotations_es.html">23.
+        Atributos en anotaciones</a>&nbsp; | <a class="wiki_link" href="refining-standard-behavior_es.html">24.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">25.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">26.
+        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
+        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
+        Anotaciones</a> | <a class="wiki_link" href="testing_es.html">D.
+        Pruebas automáticas</a><a class="wiki_link" href="testing_es.html"></a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#Leccion-18-Validacion-avanzada">Lección
+            19: Alternativas de validación<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Alternativas-de-validacion-Validar-con-metodos-de-retrollamada-JPA">Validar
+            con métodos de retrollamada JPA</a></div>
+        <div style="margin-left: 2em;"><a href="#Alternativas-de-validacion-Validar-en-el-setter">Validar
+            en el setter</a></div>
+        <div style="margin-left: 2em;"><a href="#Alternativas-de-validacion-Validar-con-Bean-Validation">Validar
+            con Bean Validation</a></div>
+        <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
+      </div>
+      En la lección anterior vistes como validar usando <i>@EntityValidator.</i>
+      En esta lección vas a aprender más metodos para ejecutar esta misma
+      validación con mucho menos esfuerzo.<br>
+      <h2 id="toc4"><a name="Alternativas-de-validacion-Validar-con-metodos-de-retrollamada-JPA"></a>Validar
+        con métodos de retrollamada JPA</h2>
+      Vamos a probar otra forma más sencilla de hacer esta validación,
+      simplemente moviendo la lógica de validación desde la clase validador a la
+      misma entidad <em>Pedido</em>, en este caso a un método <i>@PrePersist</i>
+      y <i>@PreUpdate</i>.<br>
+      Lo primero es eliminar la clase <em>ValidadorEntregadoParaEstarEnFactura</em>
+      de tu proyecto. También quita la anotación <i>@EntityValidator</i> de tu
+      entidad <em>Pedido</em>:<br>
+      <pre><code class="java">// @EntityValidator( // Eliminar '@EntityValidator'
+//    value=com.tuempresa.facturacion.validadores.ValidadorEntregadoParaEstarEnFactura.class,
+//    properties= {
+//        @PropertyValue(name="anyo"),
+//        @PropertyValue(name="numero"),
+//        @PropertyValue(name="factura"),
+//        @PropertyValue(name="entregado")
+// })
+public class Pedido extends DocumentoComercial {
+</code></pre> Acabamos de eliminar la validación. Ahora, vamos a añadirla de
+      nuevo, pero ahora dentro de la misma clase <em>Pedido</em>. Escribe el
+      método <em>validar()</em> que se muestra a continuación dentro de tu
+      clase <em>Pedido</em>:<br>
+      <pre><code class="java">@PrePersist @PreUpdate // Antes de crear o modificar
+private void validar() throws Exception {
+    if (factura != null &amp;&amp; !isEntregado()) { // La lógica de validación
+        // La excepción de validación del entorno Bean Validation
+        throw new javax.validation.ValidationException(
+            XavaResources.getString( // Para leer un mensaje i18n
+                "pedido_debe_estar_entregado",
+                getAnyo(),
+                getNumero())
+        );
+    }
+}
+</code></pre>Antes de grabar un pedido esta validación se ejecutará, si falla
+      una <i>ValidationException</i> será lanzada. Esta excepción es del marco
+      de validación Bean Validation, de esta forma OpenXava sabe que es una
+      excepción de validación. Así con solo un método dentro de tu entidad
+      tienes la validación hecha.
+      <div class="wiki" style="display: block;">Sólo está permitido un método <i>@PrePersist</i>
+        y un método <i>@PreUpdate</i> por entidad, por eso antes de ejecutar el
+        código de arriba has de comentar las anotaciones <i>@PrePersist</i> y <i>@PreUpdate</i>
+        que tenías en <i>recalcularDiasEntrega()</i>, de esta manera:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">// @PrePersist @PreUpdate // Comenta estas anotaciones
+private void recalcularDiasEntrega()() {
+    setDiasEntrega(getDiasEntregaEstimados());
+}
+</code></pre> </div>
+      <div class="wiki" style="display: block;">No te preocupes, descomentaremos
+        estas anotaciones más adelante. Aunque JPA sólo permita un método <i>@PrePersist/@PreUpdate</i>
+        siempre tenemos la opción de crear un único método de retrollamada desde
+        el cual llamar a todos los demás métodos que necesitemos, pero esto no
+        hace falta en nuestro caso, porque no vamos a quedarnos con este estilo
+        de validación como definitivo.</div>
+      <div class="wiki" style="display: block;">Ahora, intentar añadir pedidos
+        no entregados a una factura y verás los errores de validación, como en
+        nuestro primer ejemplo.<br>
+      </div>
+      <h2 id="toc5"><a name="Alternativas-de-validacion-Validar-en-el-setter"></a>Validar
+        en el setter</h2>
+      Otra alternativa para hacer tu validación es poner tu lógica de validación
+      dentro del método setter. Es un enfoque simple y llano. </div>
+    <div class="wiki" style="display: block;">Para probarlo, primero vuelve a
+      poner las anotaciones <i>@PrePersist</i> y <i>@PreUpdate</i> en el
+      método <i>recalcularDiasEntrega(), </i>también quita el método <em>validar()</em>
+      de tu entidad <em>Pedido</em>: </div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@PrePersist @PreUpdate // Añádelas de nuevo
+private void recalcularDiasEntrega() {
+    setDiasEntrega(getDiasEntregaEstimados());
+}	
+	
+// Quita el método validar()
+	
+// @PrePersist @PreUpdate // Antes de crear o modificar
+// private void validar() throws Exception {
+//     if (factura != null &amp;&amp; !isEntregado()) { // La lógica de validación
+//         // La excepción de validación del entorno Bean Validation
+//         throw new javax.validation.ValidationException(
+//             XavaResources.getString( // Para leer un mensaje i18n
+//                 "pedido_debe_estar_entregado",
+//                 getAnyo(),
+//                 getNumero())
+//         );
+//     }
+// }    
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Después añade el método setter <em>setFactura()</em>
+      a <i>Pedido</i>:<br>
+      <pre><code class="java">public void setFactura(Factura factura) {
+    if (factura != null &amp;&amp; !isEntregado()) { // La lógica de validación
+        // La excepción de validación del entorno Bean Validation
+        throw new javax.validation.ValidationException(
+            XavaResources.getString( // Para leer un mensaje i18n
+                "pedido_debe_estar_entregado",
+                getAnyo(),
+                getNumero())
+        );
+    }
+    this.factura = factura; // La asignación típica del setter
+}
+</code></pre> Esto funciona exactamente como las dos opciones anteriores. Es
+      parecida a la alternativa del <i>@PrePersist/@PreUpdate</i>, solo que no
+      depende de JPA, es una implementación básica de Java.<br>
+      <h2 id="toc6"><a name="Alternativas-de-validacion-Validar-con-Bean-Validation"></a>Validar
+        con <em>Bean Validation</em></h2>
+      Como opción final vamos a hacer la más breve. Consiste en poner tu lógica
+      de validación dentro de un método booleano anotado con la anotación de
+      Bean Validation <i>@AssertTrue</i>.<br>
+      Para implementar esta alternativa primero quita el método <em>setFactura()</em>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">// Quita el método setter
+
+// public void setFactura(Factura factura) {
+//    if (factura != null &amp;&amp; !isEntregado()) { // La lógica de validación
+//        // La excepción de validación del entorno Bean Validation
+//        throw new javax.validation.ValidationException(
+//            XavaResources.getString( // Para leer un mensaje i18n
+//                "pedido_debe_estar_entregado",
+//                getAnyo(),
+//                getNumero())
+//        );
+//    }
+//    this.factura = factura; // La asignación típica del setter
+// }
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Después, añade <em>isEntregadoParaEstarEnFactura()</em>
+      a tu entidad <em>Pedido</em>, como se muestra a continuación:<br>
+      <pre><code class="java">@AssertTrue(  // Antes de grabar confirma que el método devuelve true, si no lanza una excepción
+    message="pedido_debe_estar_entregado" // Mensaje de error en caso retorne false
+)
+private boolean isEntregadoParaEstarEnFactura() { // ...
+    return factura == null || isEntregado(); // La lógica de validación
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">En las formas anteriores de
+      validación nuestro mensaje de error era construído mediante dos
+      argumentos, <em>anyo</em> y <em>numero</em>, que en nuestro archivo <em>i18n</em>
+      son representados por <em>{0}/{1}</em> respectivamente. Para el caso de
+      validación con <i>@AssertTrue</i> no podemos pasar estos dos argumentos
+      para construir nuestro mensaje de error, sino que podemos declarar
+      propiedades y propiedades calificadas del bean validado en la definición
+      del mensaje, para eso cambia en <em>MensajesFacturacion_es.properties</em>
+      la entrada:<br>
+      <pre><code class="properties">pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadido a una Factura
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Por:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="properties">pedido_debe_estar_entregado=Pedido {anyo}/{numero} debe estar entregado para ser añadido a una Factura
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Fíjate que hemos cambiado <i>{0}/{1}</i>
+      por <i>{anyo}/{numero}</i>. OpenXava llenará <em>{anyo}/{numero}</em>
+      con los valores de <em>anyo</em> y <em>numero</em> que tenga el <em>Pedido</em>
+      que está siendo actualizado y no cumple la condición de validación.<br>
+      Esta es la forma más simple de validar, porque solo anotamos el método con
+      la validación, y es el entorno Bean Validation el responsable de llamar
+      este método al grabar y lanzar la excepción correspondiente si la
+      validación no pasa.<br>
+      <h2 id="toc20"><a name="Resumen"></a>Resumen</h2>
+      En esta lección has aprendido varias formas de hacer validación en una
+      aplicación OpenXava. En la siguiente lección vas a ver como validar al
+      borrar y con eso habrás explorado todos los tipos de validaciones.<br>
+      <br>
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
+      </strong><a class="wiki_link" href="validation-on-remove_es.html"><strong>Ve
+          a la leccion 20</strong>&nbsp;</a> </div>
+  </body>
+</html>

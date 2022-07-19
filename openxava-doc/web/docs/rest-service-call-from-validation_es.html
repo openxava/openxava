@@ -1,0 +1,175 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lección 22: Llamada REST desde una validación - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Leccion-18-Validacion-avanzada"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Lección 22: Llamada REST desde una validación</h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
+        Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
+        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
+        Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
+        Desarrollo ágil</a> | <a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
+        Herencia de superclases mapedas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
+        Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
+        Herencia de vistas</a> | <a class="wiki_link" href="java-properties_es.html">9.
+        Propiedades Java</a> | <a class="wiki_link" href="calculated-properties_es.html">10.
+        Propiedades calculadas</a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11.
+        @DefaultValueCalculator en colecciones</a> | <a class="wiki_link" href="calculation-and-collections-total_es.html">12.
+        @Calculation y totales de colección</a> |<a class="wiki_link" href="attributes-in-annotations_es.html"></a>
+      <span style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
+        @DefaultValueCalculator desde archivo</a> | <a class="wiki_link" href="manual-schema-evolution_es.html">14.
+        Evolución del esquema manual</a> | <a class="wiki_link" href="multi-user-default-value-calculation_es.html">15.
+        Cálculo de valor por defecto multiusuario</a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16.
+        Sincronizar propiedades persistentes y calculadas</a> | <a class="wiki_link"
+        href="logic-from-database_es.html">17. Lógica desde la base de datos</a>
+      | <a class="wiki_link" href="validating-with-entityvalidator_es.html">18.
+        Validando con @EntityValidator</a> | <a class="wiki_link" href="validation-alternatives_es.html">19.
+        Alternativas de validación&nbsp;</a> | <a class="wiki_link" href="validation-on-remove_es.html">20.
+        Validación al borrar&nbsp;</a> |&nbsp;<a class="wiki_link" href="custom-bean-validation-annotation_es.html">
+        21. Anotación Bean Validation propia</a> | <b>22: Llamada REST desde
+        una validación</b> | <a class="wiki_link" href="attributes-in-annotations_es.html">23.
+        Atributos en anotaciones</a>&nbsp; | <a class="wiki_link" href="refining-standard-behavior_es.html">24.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">25.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">26.
+        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
+        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
+        Anotaciones</a> | <a class="wiki_link" href="testing_es.html">D.
+        Pruebas automáticas</a><a class="wiki_link" href="testing_es.html"></a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#Leccion-18-Validacion-avanzada">Lección
+            22: Llamada REST desde una validación<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Crear-tu-propia-anotacion-de-Bean-Validation-Llamar-a-un-servicio-web-REST-para-validar-el-ISBN">Llamar
+            a un servicio web REST para validar el ISBN</a></div>
+        <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
+      </div>
+      En la lección anterior vistes como crear una anotación Bean Validation
+      propia. En esta leccion verás como se llama a un servicio web REST para
+      validar el ISBN.<br>
+      <h2 id="toc14"><a name="Crear-tu-propia-anotacion-de-Bean-Validation-Llamar-a-un-servicio-web-REST-para-validar-el-ISBN"></a>Llamar
+        a un servicio web REST para validar el ISBN</h2>
+      Aunque la mayoría de los validadores tienen una lógica simple, puedes
+      crear validadores con una lógica compleja si lo necesitas. Por ejemplo, en
+      el caso de nuestro ISBN, queremos, no sólo verificar el formato correcto,
+      sino también comprobar que existe de verdad un libro con ese ISBN. Una
+      forma de hacer esto es usando servicios web.<br>
+      Como seguramente ya sepas, un servicio web es una funcionalidad que reside
+      en un servidor web y que tú puedes llamar desde tu programa. La forma
+      tradicional de desarrollar servicios web es mediante los estándares WS-*,
+      como SOAP, UDDI, etc. Aunque, hoy en día, la forma más simple de
+      desarrollar servicios es REST. REST consiste básicamente en usar la ya
+      existente “forma de trabajar” de internet para comunicación entre
+      programas. Llamar a un servicio REST consiste en usar una URL web
+      convencional para obtener un recurso de un servidor web. Este recurso
+      usualmente contiene datos en formato XML, HTML, JSON, etc. En otras
+      palabras, los programas usan internet de la misma manera que lo hacen los
+      usuarios con sus navegadores.<br>
+      Hay bastantes sitio con servicios web SOAP y REST para consultar el ISBN
+      de un libro, vamos a usar <a href="https://openlibrary.org/">openlibrary.org</a>
+      que proporciona una API REST gratuita para consultar su catálogo de
+      libros. Para probar la API de Open Library abre un navegador y ve a la
+      siguiente URL:
+      <div class="wiki" style="display: block;"><a href="https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9780932633439">https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9780932633439</a></div>
+      <div class="wiki" style="display: block;">Donde el último parámetro es el
+        ISBN del libro, a partir del cual obtenemos un JSON con los datos del
+        libro, algo como esto:</div>
+      <img src="files/validation040.png" alt="validation040.png" title="validation040.png">
+      <div class="wiki" style="display: block;">Un JSON es simplemente data con
+        clave/valor que usa {} y [] para anidar y repetir. Si intentas obtener
+        los datos de un libro inexistente, como en esta URL:</div>
+      <div class="wiki" style="display: block;"><a href="https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997">https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997</a></div>
+      <div class="wiki" style="display: block;">Obtienes un JSON vacío, como
+        este:</div>
+      <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
+        style="color: #505050;"><span style="font-family: arial,helvetica,sans-serif;"></span></span>
+      <div class="wiki" style="display: block;">Es decir, un JSON vacío,
+        simplemente unas llaves vacías, así: {}.</div>
+      <div class="wiki" style="display: block;">Para llamar a este servicio web
+        usaremos JAX-RS. JAX-RS es el estándar Java para llamar a servicios web
+        REST. OpenXava incluye soporte para llamar a servicios web usando
+        JAX-RS, por lo que no necesitas añadir ninguna librería adicional.<br>
+        Modifiquemos <em>ValidadorISBN</em> para usar este servicio <em>REST</em>.
+        Veamos el resultado:<br>
+        <pre><code class="java">package com.tuempresa.facturacion.validadores; 
+
+import javax.validation.*;
+import javax.ws.rs.client.*; // Para usar JAX-RS
+import com.tuempresa.facturacion.anotaciones.*;
+import org.apache.commons.logging.*; // Para usar Log
+import org.openxava.util.*;
+ 
+public class ValidadorISBN
+    implements ConstraintValidator&lt;ISBN, Object&gt; {
+	
+    private static Log log = LogFactory.getLog(ValidadorISBN.class); // Instancia 'log'
+ 
+    private static org.apache.commons.validator.routines.ISBNValidator
+        validador = 
+            new org.apache.commons.validator.routines.ISBNValidator();
+ 
+    public void initialize(ISBN isbn) {
+ 
+    }
+ 
+    public boolean isValid(Object valor, ConstraintValidatorContext contexto) {
+        if (Is.empty(valor)) return true;
+        if (!validador.isValid(valor.toString())) return false;
+        return existeISBN(valor); // Aquí hacemos la llamada REST
+    }
+    
+    private boolean existeISBN(Object isbn) {
+        try {
+            // Aquí usamos JAX-RS para llamar al servicio REST
+            String respuesta = ClientBuilder.newClient()
+                .target("http://openlibrary.org/") // El sitio
+                .path("/api/books") // La ruta del servicio
+                .queryParam("jscmd", "data") // Los parámetros
+                .queryParam("format", "json")
+                .queryParam("bibkeys", "ISBN:" + isbn) // El ISBN es un parámetro
+                .request()
+                .get(String.class); // Una cadena con el JSON
+            return !respuesta.equals("{}"); // ¿Está el JSON vacío? Suficiente para nuestro caso
+        }
+        catch (Exception ex) {
+            log.warn("Imposible conectar a openlibrary.org " +
+                "para validar el ISBN. Validación fallida", ex);
+            return false; // Si hay errores asumimos que la validación falla
+        }
+    }
+    
+}
+</code></pre> </div>
+      Simplemente abrimos la URL con el ISBN como parámetro de la petición. Si
+      el JSON resultante es un JSON vacío, es decir {}, la búsqueda ha fallado,
+      en caso contrario hemos encontrado el libro. Para nuestro caso, obtener el
+      JSON como una cadena para poder hacer una comparación simple es el camino
+      más corto, sin embargo JAX-RS permite convertir el JSON en un objeto Java
+      de tu propia clase (<i>Libro</i> por ejemplo) rellenando las propiedades
+      correspondientes, sólo has de usar <i>.get(Libro.class)</i> en lugar de <i>.get(String.class)</i>
+      como última línea de la llamada. </div>
+    <div class="wiki" style="display: block;"> Prueba ahora tu aplicación y
+      verás como si introduces un ISBN no existente la validación falla.<br>
+      <h2 id="toc20"><a name="Resumen"></a>Resumen</h2>
+      <strong></strong>¡Enhorabuena! Has aprendido como llamar a un servicio web
+      REST para validar el ISBN. En la siguiente lección vas a aprender a como
+      añadir atributos a tu anotación.<br>
+      <br>
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
+      </strong><a class="wiki_link" href="attributes-in-annotations_en.html"><strong>Ve
+          a la leccion 23</strong>&nbsp;</a> </div>
+  </body>
+</html>

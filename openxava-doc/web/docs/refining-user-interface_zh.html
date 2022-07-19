@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>第四章：优化用户界面，默认用户界面，使用 @View 定义布局，使用 @ReferenceView 细节化 Customer 引用的界面，优化后的用户界面</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Modeling with Java"></a> <span id="breadcrumbs"> <span
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_zh.html">文档</a> / </span>第四章：优化用户界面 </h1>
+      <strong>课程：</strong><a class="wiki_link" href="getting-started_zh.html">1. 入门教学</a> | <a
+        class="wiki_link" href="basic-domain-model1_zh.html">2. 基本域模型（上）</a> | <a
+        class="wiki_link" href="basic-domain-model2_zh.html">3. 基本域模型（下）</a> | <strong>4. 优化用户界面</strong> | <a
+        class="wiki_link" href="agile-development_zh.html">5. 敏捷开发</a> | <a
+        class="wiki_link" href="mapped-superclass-inheritance_zh.html">6. 映射式超类继承</a> | <a
+        class="wiki_link" href="entity-inheritance_zh.html">7. 实体继承</a> | <a
+        class="wiki_link" href="view-inheritance_en.html">8. View inheritance </a>| <a
+        class="wiki_link" href="java-properties_en.html">9. Java properties</a> | <a
+        class="wiki_link" href="calculated-properties_en.html">10. Calculated properties </a> | <a
+        class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11. @DefaultValueCalculator in collections</a><strong> </strong> | <a
+        class="wiki_link" href="calculation-and-collections-total_en.html">12. </a><a
+        class="wiki_link" href="calculation-and-collections-total_en.html">@Calculation and collections totals</a> | <a
+        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file</a> | <a
+        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution</a> | <a
+        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation</a> | <a
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed propierties</a> | <a
+        class="wiki_link" href="logic-from-database_en.html">17. Logic from database </a> | <a
+        class="wiki_link" href="validation_en.html">18. Advanced validation</a> | <a
+        class="wiki_link" href="refining-standard-behavior_en.html">19. Refining the standard behavior</a> | <a
+        class="wiki_link" href="business-logic-behavior_en.html">20. Behavior &amp; business logic</a> | <a
+        class="wiki_link" href="references-collections_en.html">21. References &amp; collections</a> | <a
+        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
+        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
+        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+        class="wiki_link" href="testing_en.html">D. Automated testing</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">目录</h1>
+        <div style="margin-left: 1em;"><a href="#Modeling%20with%20Java">第四章：优化用户界面<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#default-user-interface">默认用户界面</a></div>
+        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Refining%20the%20user%20interface-Using%20@View%20for%20defining%20layout">使用 @View 定义布局</a></div>
+        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Refining%20the%20user%20interface-Using%20@ReferenceView%20to%20refine%20the%20user%20interface%20for%20reference">使用 @ReferenceView 细节化 Customer 引用的界面 <br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Refining%20the%20user%20interface-Refined%20user%20interface">优化后的用户界面</a></div>
+        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Summary">总结</a></div>
+      </div>
+      由 Java 编写出的发票应用程序的默认界面相当好，不过，只需在类中添加一些注解就能自定义用户界面以面对任何业务应用的要求。</div>
+    <div class="wiki" style="display: block;">在本课中，我们将编写少量代码使我们的应用程序看起来更美观。</div>
+    <br>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc10"><a name="default-user-interface"></a>默认用户界面</h2>
+      这是发票的默认用户界面：</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <img src="files/modeling_zh110.png"
+        alt="modeling_en110.png" title="modeling_en110.png"></div>
+    <div class="wiki" style="display: block;"><br>
+      如您所见，OpenXava 会依您在代码中声明的顺序去显示界面上的成员，一个接着一个由上往下。此外，您可以看到在 Customer 引用那里，会使用 Customer 默认视图。<br>
+      我们将做一些改进。首先，我们将明确定义成员的布局，通过这种方式，我们可以将 year、number 和 date 放在同一行中。其次，我们将在 Customer 使用更简单的视图。当用户在发票输入客户时，不需要查看所有数据。<br>
+      <h2 id="toc10"><a name="Modeling with Java-Refining the user interface-Using @View for defining layout"></a>使用 @View 定义布局</h2>
+      要在用户界面中定义 Invoice 成员的布局，您必须使用 @View 注解。这很简单，您只需要枚举想显示的成员。代码如下：</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@View(members= // 这视图没名称，所以会作为默认视图使用
+    "year, number, date;" + // 当用逗号分隔时，代表是在同一行
+    "customer;" + // 分号代表是新的一行
+    "details;" +
+    "remarks"
+)
+public class Invoice {
+</code></pre> </div>
+    <div class="wiki" style="display: block;">最后，我们将显示 Invoice 所有成员，使用逗号分隔 year、number 和 date，这样它们会在同一行显示，且产生更紧凑的用户界面，如下：<br>
+      <img src="files/modeling_zh120.png" alt="modeling_en120.png" title="modeling_en120.png"><br>
+      <h2 id="toc11"><a name="Modeling with Java-Refining the user interface-Using @ReferenceView to refine the user interface for reference"></a>使用 @ReferenceView 细节化 Customer 引用的界面</h2>
+      您仍然需要优化 Customer 引用的显示方式，因为它显示了 Customer 所有成员。而在 Invoice 中显示更简化的 Customer 视图应来会更好。为此，您需要在 Customer 中定义一个为 Simple 的视图，然后在 Invoice 指定要显示这个 Customer 的 Simple 视图。<br>
+      首先，我们在 Customer 中定义 Simple 视图：</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@View(name = "Simple", // 只有在指定 Simple 时才会使用此视图
+		members = "number, name" // 只有显示 number 和 name 并且在同一行
+)
+public class Customer {
+</code></pre> </div>
+    <div class="wiki" style="display: block;">如本例，当一个视图有名称时，该视图仅会在该名称被指定时才显示。也就是 说，虽然 Customer 只有这个 @View 注解，但是当你尝试显示 Customer 时，它不会使用这个 Simple 视图，而是默认的那个。如果您定义一个没有名称的@View，则该视图将是默认视图，不过这并不是我们想要的。<br>
+      现在，您必须在 Invoice 中指定 Customer 引用必须使用这个 Simple 视图。这须要通过@ReferenceView 完成。请以这种方式编辑 Invoice 中的 Customer 引用：</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY, optional=false)
+@ReferenceView("Simple") // 此注解将用名称为 Simple 的视图显示
+Customer customer;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">非常简单，您只需要在注解上指定你想要显示的视图名称即可。<br>
+      这之后，Customer 引用会以更紧凑的方式显示：<br>
+      <img src="files/modeling_zh130.png" alt="modeling_en130.png" title="modeling_en130.png"><br>
+      在下面可以看到我们在 Invoice 所优化的界面。<br>
+      <h2 id="toc12"><a name="Modeling with Java-Refining the user interface-Refined user interface"></a><span
+          style="font-size: 1.1em; line-height: 1.5;">优化后的用户界面</span></h2>
+      这是 Invoice 界面优化后的成果：<br>
+      <img src="files/modeling_zh140.png" alt="modeling_en140.png" title="modeling_en140.png"><br>
+      您已经看到使用 @View 和 @ReferenceView 为 Invoice 获得更紧凑的用户界面是多么的容易。<br>
+      在没有出很多力的情况下，您已有了一个足够好的用户界面来开始工作了。<span style="line-height: 1.5;"></span><br>
+      <h2 id="toc14"><a name="Modeling with Java-Summary"></a>总结</h2>
+      在本课中，您学会了如何使用一些 OpenXava 的注解来优化默认的用户界面。如果您想了解更多使用 OpenXava 优化用户界面的方法，请查看参考指南。<br>
+      <br>
+      <strong></strong><strong>对这节课有什么问题吗？ <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+          rel="nofollow">前往轮譠</a></strong> <strong>一切都顺利吗？</strong><strong> <a
+          class="wiki_link" href="agile-development_zh.html">前往第五章</a></strong> </div>
+  </body>
+</html>

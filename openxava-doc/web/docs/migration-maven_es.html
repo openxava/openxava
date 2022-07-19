@@ -180,6 +180,86 @@
         en tu proyecto un <i>Run As &gt; Maven clean</i> (<i>mvn clean</i>) y
         después <i>Run As &gt; Maven Build...</i> tecleando <i>package</i>
         como <i>goal</i> (<i>mvn package</i>).</div>
+      <div class="wiki" style="display: block;">
+        <h3>Hibernate actualizado desde 5.3 a 5.6</h3>
+        <p>Hemos trabajado duro adaptando OpenXava para que funcione bien con
+          Hibernate 5.6. Sin embargo, puedes encontrar problemas en tu propio
+          código JPA/Hibernate. Si usas la API de JPA todo debería funcionar tal
+          cual, pero hay nuevos bug en Hibernate 5.6 que pueden hacer que tu
+          código falle. Hemos encontrado el siguiente, por ejemplo.</p>
+        <p>Con Hibernate 5.3 cuando usas una propiedad de una referencia y esta
+          es parte de la clave, no necesitas añadir un <i>join</i> explicito en
+          la consulta. Esto es de esta forma no importa el nivel de profundidad.
+          En Hibernate 5.6, no necesitas añadir un <i>join</i> si tienes sólo
+          un nivel de referencia, pero si tienes un segundo nivel, has de
+          añadirlo, si el segundo nivel tiene una clave compuesta.</p>
+        <p>Diciéndolo con código. Si tienes:</p>
+        <p></p>
+        <pre><code class="java">@Entity
+public class CargoTransporte {
+	
+    @Id @ManyToOne
+    private Albaran albaran;
+
+    ...
+	
+}
+
+@Entity
+public class Albaran {
+	
+    @Id 
+    private int numero;
+
+    @Id @ManyToOne
+    private Factura factura;
+
+    ...
+	
+}
+
+@Entity
+public class Factura {
+	
+    @Id 
+    private int anyo;
+	
+    @Id 
+    private int numero;
+
+    ...
+	
+}
+</code></pre>
+        <p></p>
+        <p>Con el código de arriba la siguiente consulta funciona bien con
+          Hibernate 5.3:</p>
+        <p></p>
+        <pre><code class="java">String consulta="from CargoTransporte c where c.albaran.factura.anyo = :albaran_factura_anyo";
+Query query = XPersistence.getManager().createQuery(consulta);
+query.setParameter("albaran_factura_anyo", 2022);
+</code></pre>
+        <p></p>
+        <p>Pero falla con Hibernate 5.6. Curiosamente si ejecutas la consulta
+          contra <i>Albaran</i> preguntando por <i>factura.anyo</i> funciona,
+          sólo falla con 2 niveles o más. Además, si <i>Factura</i> hubiera
+          tendido clave simple, en lugar de compuesta, hubiera funcionado
+          también. Hibernate 5.6 falla cuando combinas más de un nivel con
+          claves compuestas.</p>
+        <p>No te preocupes, la solución es sencilla, simplemente añade un <i>join</i>
+          explicito para la primera referencia. Es decir, de la siguiente forma
+          funciona con Hibernate 5.6:</p>
+        <p></p>
+        <pre><code class="java">String consulta="from CargoTransporte c join fetch c.albaran a where a.factura.anyo = :albaran_factura_anyo";
+Query query = XPersistence.getManager().createQuery(consulta);
+query.setParameter("albaran_factura_anyo", 2022);
+</code></pre>
+        <p></p>
+        <p>La solución es el <i>join fetch c.albaran a</i>. Moraleja, si alguna
+          consulta te falla con Hibernate 5.6 prueba añadir un <i>join</i>
+          explicito para tu referencia.</p>
+        <h3></h3>
+      </div>
       <h3>Clase de utilidad XHibernate quitada</h3>
       <p>La clase de utilidad <i>XHibernate </i>se ha quitado porque se usaba
         en las aplicaciones con componentes XML, en las aplicaciones JPA usamos
