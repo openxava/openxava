@@ -31,8 +31,9 @@ public class JPATabProvider extends TabProviderBase {
 		return changePropertiesByJPAProperties(condition);
 	}
 	
-	public String toQueryField(String propertyName) {		
-		return "e." + propertyName;
+	public String toQueryField(String propertyName) {
+		String prefix = StringUtils.countMatches(propertyName, '.') > 1?"e_":"e." ;
+		return prefix + propertyName;
 	}
 
 	public String getSelectBase() {
@@ -56,7 +57,7 @@ public class JPATabProvider extends TabProviderBase {
 		if (hasReferences()) {
 			// the tables
 			
-			Iterator itReferencesMappings = getEntityReferencesMappings().iterator();			
+			Iterator itReferencesMappings = getEntityReferencesMappings().iterator();	
 			while (itReferencesMappings.hasNext()) {
 				ReferenceMapping referenceMapping = (ReferenceMapping) itReferencesMappings.next();				
 				String reference = referenceMapping.getReference();			
@@ -130,6 +131,9 @@ public class JPATabProvider extends TabProviderBase {
 						qualifiedElement.replace(last, last + 1, ".");
 						jpaElement = "e_" + qualifiedElement + suffix;
 					}
+					else if (reference.contains(".")) { // More than one level in key references without left join not supported since Hibernate 5.4 
+						jpaElement = "e_" + modelElement;
+					}
 				}
 			}						
 			else if (Strings.isModelName(modelElement)) { 
@@ -175,6 +179,34 @@ public class JPATabProvider extends TabProviderBase {
 		
 		return select;
 	}
+	
+	protected String toIncludeJoinsUsedInWhere(String select) { 
+		int whereIdx = select.indexOf("WHERE");
+		if (whereIdx < 0) return select;
+		String where = select.substring(whereIdx + 5);
+		String [] tokens = where.split(" ");
+		Collection<String> neededJoins = new HashSet<>();
+		for (String token: tokens) {
+			if (token.startsWith("e_")) {
+				String join = Strings.firstToken(token, ".");
+				neededJoins.add(join);
+			}
+		}
+		if (neededJoins.isEmpty()) return select;
+		
+		StringBuffer joins = new StringBuffer();
+		for (String join: neededJoins) {
+			joins.append(" left join ");
+			joins.append(join.replace("e_", "e."));
+			joins.append(" ");
+			joins.append(join);
+		}
+		
+		String selectBase = select.substring(0, whereIdx);
+		String finalSelect = selectBase + joins + " WHERE " + where;
+		return finalSelect;
+	}
+	
 	
 	private String insertGroupBy(String select, String groupByColumns) { 
 		if (select.contains(" order by ")) {

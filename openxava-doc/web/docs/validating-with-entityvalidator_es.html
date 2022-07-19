@@ -1,0 +1,189 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Lección 18: Validando con @EntityValidator - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Leccion-18-Validacion-avanzada"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Lección 18: <b style="font-weight:normal;" id="docs-internal-guid-351fa95d-7fff-f80b-bc72-0d380d234707"><span
+style="font-size:20pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"><strong><span
+style="color: white;"><span style="font-family: arial,helvetica,sans-serif;">Validando con @EntityValidator</span></span></strong><br></span></b></h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
+        Modelo básico del dominio (1)</a>&nbsp; | <a class="wiki_link" href="basic-domain-model2_es.html">3.
+        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
+        Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
+        Desarrollo ágil</a> | <a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
+        Herencia de superclases mapedas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
+        Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
+        Herencia de vistas</a> | <a class="wiki_link" href="java-properties_es.html">9.
+        Propiedades Java</a> | <a class="wiki_link" href="calculated-properties_es.html">10.
+        Propiedades calculadas</a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11.
+        @DefaultValueCalculator en colecciones</a> | <a class="wiki_link" href="calculation-and-collections-total_es.html">12.
+        @Calculation y totales de colección</a> |<a class="wiki_link" href="attributes-in-annotations_es.html"></a>
+      <span style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
+        @DefaultValueCalculator desde archivo</a> | <a class="wiki_link" href="manual-schema-evolution_es.html">14.
+        Evolución del esquema manual</a> | <a class="wiki_link" href="multi-user-default-value-calculation_es.html">15.
+        Cálculo de valor por defecto multiusuario</a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16.
+        Sincronizar propiedades persistentes y calculadas</a> | <a class="wiki_link"
+        href="logic-from-database_es.html">17. Lógica desde la base de datos</a><a
+        class="wiki_link" href="logic-from-database_es.html"></a> | <strong>18.
+        Validando con @EntityValidator</strong> |&nbsp;<a class="wiki_link" href="validation-alternatives_es.html">19.
+        Alternativas de validación&nbsp;</a> | <a class="wiki_link" href="validation-on-remove_es.html">20.
+        Validación al borrar&nbsp;</a> |&nbsp;<a class="wiki_link" href="custom-bean-validation-annotation_es.html">
+        21. Anotación Bean Validation propia</a> | <a class="wiki_link" href="rest-service-call-from-validation_es.html">22.
+        Llamada REST desde una validación&nbsp;</a> | <a class="wiki_link" href="attributes-in-annotations_es.html">23.
+        Atributos en anotaciones</a>&nbsp; | <a class="wiki_link" href="refining-standard-behavior_es.html">24.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">25.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">26.
+        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
+        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
+        Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
+        Anotaciones</a> | <a class="wiki_link" href="testing_es.html">D.
+        Pruebas automáticas</a><a class="wiki_link" href="refining-standard-behavior_es.html"></a><a
+        class="wiki_link" href="testing_es.html"></a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#Leccion-18-Validacion-avanzada">Lección
+            18: Validando con @Entity Validator</a></div>
+        <div style="margin-left: 2em;"><a href="#nuestra-validacion">Nuestra
+            validación<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Alternativas-de-validacion-Anadir-la-propiedad-entregado-a-Pedido">Añadir
+            la propiedad entregado a Pedido</a><a href="#Alternativas-de-validacion-Validar-con-EntityValidator"><br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Alternativas-de-validacion-Validar-con-EntityValidator">
+            Validar con @EntityValidator</a><a href="#Resumen"> <br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#resumen">Resumen</a> </div>
+      </div>
+      De momento solo hemos hecho validaciones básicas usando la anotación <i>@Required</i>
+      de OpenXava. En esta lección vas a aprender a validar usando la anotación
+      <i>@EntityValidator</i>.<br>
+      <h2 id="nuestra-validacion">Nuestra validación</h2>
+      Vamos a refinar tu código para que el usuario no pueda asignar pedidos a
+      una factura si los pedidos no han sido entregados todavía. Es decir, solo
+      los pedidos entregados pueden asociarse a una factura. Aprovecharemos la
+      oportunidad para explorar diferentes formas de hacer esta validación.<br>
+      <h2 id="toc2"><a name="Alternativas-de-validacion-Anadir-la-propiedad-entregado-a-Pedido"></a>Añadir
+        la propiedad entregado a Pedido</h2>
+      Para hacer esto, lo primero es añadir una nueva propiedad a la entidad <em>Pedido</em>.
+      La propiedad <em>entregado</em>:<br>
+      <pre><code class="java">@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
+boolean entregado;
+</code></pre> Además es necesario añadir la propiedad <em>entregado</em> a la
+      vista. Modifica la vista <em>Pedido</em> como muestra el siguiente
+      código:<br>
+      <pre><code class="java">@View(extendsView="super.DEFAULT", 
+    members=
+        "diasEntregaEstimados, entregado, " + // Añade entregado
+        "factura { factura }"
+)
+...
+public class Pedido extends DocumentoComercial {
+</code></pre> Ahora tienes una nueva propiedad <em>entregado</em> que el
+      usuario puede marcar para indicar que el pedido ha sido entregado. Ejecuta
+      el nuevo código y marca algunos de los pedidos existentes como entregados.<br>
+      <h2 id="toc3"><a name="Alternativas-de-validacion-Validar-con-EntityValidator"></a>Validar
+        con <em>@EntityValidator</em></h2>
+      En tu aplicación actual el usuario puede añadir cualquier pedido que le
+      plazca a una factura usando el módulo <em>Factura</em> y puede asignar
+      una factura a cualquier pedido desde el módulo <em>Pedido</em>. Vamos a
+      restringir esto. Solo los pedidos entregados podrán añadirse a una
+      factura.<br>
+      La primera alternativa que usaremos para implementar esta validación es
+      mediante <i>@EntityValidator</i>. Esta anotación te permite asignar a tu
+      entidad una clase con la lógica de validación deseada. Anotemos tu entidad
+      <em>Pedido</em> tal como muestra el siguiente código:<br>
+      <pre><code class="java">@EntityValidator(
+    value=com.tuempresa.facturacion.validadores.ValidadorEntregadoParaEstarEnFactura.class, // Clase con la lógica de validación
+    properties= {
+        @PropertyValue(name="anyo"), // El contenido de estas propiedades
+        @PropertyValue(name="numero"), // se mueve desde la entidad 'Pedido'
+        @PropertyValue(name="factura"), // al validador antes de
+        @PropertyValue(name="entregado") // ejecutar la validación
+})
+public class Pedido extends DocumentoComercial {
+</code></pre><em></em>Cada vez que un objeto <em>Pedido</em> se crea o modifica
+      un objeto del tipo <em>ValidadorEntregadoParaEstarEnFactura</em> es
+      creado, entonces las propiedades <em>anyo</em>, <em>numero</em>, <em>factura</em>
+      y <em>entregado</em> se rellenan con las propiedades del mismo nombre del
+      objeto <em>Pedido</em>. Después de eso, el método <i>validate()</i> del
+      validador se ejecuta. Escribamos el código del validador, primero crea el
+      paquete <i>com.tuempresa.facturacion.validadores </i>y después pon en él
+      esta clase:<br>
+      <pre><code class="java">package com.tuempresa.facturacion.validadores; // En el paquete 'validadores'
+ 
+import com.tuempresa.facturacion.modelo.*;
+import org.openxava.util.*;
+import org.openxava.validators.*;
+import lombok.*;
+ 
+@Getter @Setter 
+public class ValidadorEntregadoParaEstarEnFactura
+    implements IValidator { // ha de implementar 'IValidator'
+ 
+    private int anyo; // Propiedades a ser inyectadas desde Pedido
+    private int numero;
+    private boolean entregado;
+    private Factura factura;
+ 
+    public void validate(Messages errors)
+        throws Exception { // La lógica de validación
+        if (factura == null) return;
+        if (!entregado) {
+            errors.add( // Al añadir mensajes a 'errors' la validación fallará
+                "pedido_debe_estar_entregado", // Un id del archivo i18n
+                anyo, numero); // Argumentos para el mensaje
+        }
+    }
+
+}
+</code></pre> La lógica de validación es extremadamente fácil, si una factura
+      está presente y este pedido no ha sido servido añadimos un mensaje de
+      error, por tanto la validación fallará. Has de añadir el mensaje de error
+      en el archivo <em>Facturacion/i18n/MensajesFacturacion_es.properties</em>.
+      Tal como muestra a continuación:<br>
+      <pre><code class="properties"># Mensajes  para la aplicación Facturacion
+pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadido a una Factura
+</code></pre> Ahora puedes intentar añadir pedidos a una factura con la
+      aplicación, verás como los pedidos no entregados son rechazados. Ve al
+      módulo <i>Facturas</i>, selecciona la pestaña PEDIDOS de una factura y
+      desde ahí pulsa en el botón <i>Añadir</i>:
+      <div class="wiki" style="display: block;"> <img src="files/validation_es010.png"
+          alt="validation_es010.png" title="validation_es010.png"></div>
+      <div class="wiki" style="display: block;">Se mostrará un diálogo con una
+        lista de pedidos para escoger. Selecciona dos, uno de ellos no entregado
+        todavía y pulsa en AÑADIR:</div>
+      <img src="files/validation_es013.png" alt="validation_es013.png" title="validation_es013.png">
+      <div class="wiki" style="display: block;">Entonces el pedido entregado se
+        añadirá mientras que el otro es rechazado, generando los siguientes
+        mensajes:</div>
+      <img src="files/validation_es017.png" alt="validation_es017.png" title="validation_es017.png">
+      <div class="wiki" style="display: block;">
+        <h2 id="resumen">Resumen</h2>
+        Ya tienes tu validación hecha con <i>@EntityValidator</i>. No es
+        difícil, pero es un poco verboso, porque necesitas escribir una clase
+        nueva solo para añadir 2 línea de lógica. Esto es un gran avance. En la
+        siguiente lección veremos otras formas más sencillas de efectuar esta
+        misma validación.<span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"></span><br
+          style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+      </div>
+      <h3 id="toc4"><a name="Alternativas-de-validacion-Validar-con-metodos-de-retrollamada-JPA"></a><strong></strong><br>
+      </h3>
+    </div>
+    <div class="wiki" style="display: block;"> <br>
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
+      </strong><a class="wiki_link" href="validation-alternatives_es.html"><strong>Ve
+          a la lección 19</strong></a> </div>
+  </body>
+</html>

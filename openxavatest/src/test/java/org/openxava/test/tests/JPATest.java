@@ -25,7 +25,7 @@ public class JPATest extends TestCase {
 	protected void tearDown() throws Exception {
 		XPersistence.commit();
 	}
-	
+		
 	public void testConvertersAllPropertiesOnCreate() throws Exception { // One way to avoid nulls
 		Subfamily sf = new Subfamily();
 		sf.setNumber(77);

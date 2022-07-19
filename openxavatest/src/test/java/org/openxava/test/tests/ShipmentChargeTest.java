@@ -23,7 +23,7 @@ public class ShipmentChargeTest extends ModuleTestBase {
 		setValue("shipment.KEY", shipment);
 		setValue("amount", "150");
 		execute("CRUD.save");
-		assertNoErrors();
+		assertNoErrors();  
 		assertValue("shipment.KEY", "");
 		
 		// Verfiying in list
@@ -40,7 +40,7 @@ public class ShipmentChargeTest extends ModuleTestBase {
 	}
 	
 	public void testFilterToDescriptionsList() throws Exception {
-		assertListRowCount(1);
+		assertListRowCount(1); 
 		assertLabelInList(2, "Number of shipment"); 
 		assertLabelInList(3, "Slow");	// fail filter: calculated property and descriptions list
 		assertLabelInList(4, "Shipment"); 

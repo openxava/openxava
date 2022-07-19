@@ -1,18 +1,15 @@
 package org.openxava.actions;
 
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
-import javax.ejb.ObjectNotFoundException;
+import javax.ejb.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.openxava.component.MetaComponent;
-import org.openxava.model.MapFacade;
-import org.openxava.model.meta.MetaEntity;
-import org.openxava.model.meta.MetaProperty;
+import org.apache.commons.logging.*;
+import org.openxava.component.*;
+import org.openxava.model.*;
+import org.openxava.model.meta.*;
 import org.openxava.util.*;
-import org.openxava.web.WebEditors;
+import org.openxava.web.*;
 
 /**
  * Search using as key the data displayed in the view. <p>

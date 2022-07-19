@@ -61,7 +61,8 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 		
 
 	public Object find(MetaModel metaModel, Map keyValues) throws FinderException {
-		return find(metaModel, keyValues, true);
+		boolean keyIncludesReferenceWithMultipleKey =  metaModel.getAllMetaPropertiesKey().size() != metaModel.getMetaPropertiesKey().size() + metaModel.getMetaReferencesKey().size();
+		return find(metaModel, keyValues, !keyIncludesReferenceWithMultipleKey); 
 	}
 	
 	protected Object find(MetaModel metaModel, Map keyValues, boolean useQueryForFind) throws FinderException {
@@ -79,7 +80,7 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 				}
 			}
 			else {
-				if (useQueryForFind) {
+				if (useQueryForFind) { 
 					return findByKeyUsingQuery(metaModel, keyValues);
 				}
 				else {
@@ -295,7 +296,7 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 		if (!hasCondition) { 
 			throw new ObjectNotFoundException(XavaResources.getString("object_by_any_property_not_found", values));
 		}
-										
+		
 		Object query = createQuery(queryString.toString());	
 		for (Iterator it=values.iterator(); it.hasNext();) {
 			Map.Entry en = (Map.Entry) it.next();

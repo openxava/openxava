@@ -472,7 +472,7 @@ public class DeliveryTest extends ModuleTestBase {
 		setValue("number", "66");
 		setValue("description", "JUNIT DELIVERY DETAIL");
 		execute("DeliveryDetail.save");
-		assertMessage("The action Save for delivery detail executed");
+		assertMessage("The action Save for delivery detail executed"); 
 		assertNoErrors();				
 		
 		execute("Collection.edit", "row=0,viewObject=xava_view_section2_details_details");

@@ -10,7 +10,7 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="desarrollo-agil"></a> <span id="breadcrumbs"> <span
+      <h1 id="toc0"><a name="desarrollo-agil"></a> <span id="breadcrumbs"> <span
             id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
         Lección 5: Desarrollo ágil </h1>
@@ -25,22 +25,29 @@
         Herencia de vistas</a> | <a class="wiki_link" href="java-properties_es.html">9.
         Propiedades Java</a> | <a class="wiki_link" href="calculated-properties_es.html">10.
         Propiedades calculadas</a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11.
-        @DefaultValueCalculator en colecciones</a> |<a class="wiki_link" href="calculation-and-collections-total_es.html">12.
-        @Calculation y totales de colección</a> |<a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
-        @DefaultValueCalculator desde archivo</a> |<a class="wiki_link" href="manual-schema-evolution_es.html">14.
-        Evolución del esquema manual</a> |<a class="wiki_link" href="multi-user-default-value-calculation_es.html">15.
-        Cálculo de valor por defecto multiusuario</a> |<a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16.
-        Sincronizar propiedades persistentes y calculadas</a> |<a class="wiki_link"
+        @DefaultValueCalculator en colecciones</a> | <a class="wiki_link" href="calculation-and-collections-total_es.html">12.
+        @Calculation y totales de colección</a> |<a class="wiki_link" href="attributes-in-annotations_es.html"></a>
+      <span style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
+        @DefaultValueCalculator desde archivo</a> | <a class="wiki_link" href="manual-schema-evolution_es.html">14.
+        Evolución del esquema manual</a> | <a class="wiki_link" href="multi-user-default-value-calculation_es.html">15.
+        Cálculo de valor por defecto multiusuario</a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16.
+        Sincronizar propiedades persistentes y calculadas</a> | <a class="wiki_link"
         href="logic-from-database_es.html">17. Lógica desde la base de datos</a>
-      |<a class="wiki_link" href="validation_es.html">18. Validación avanzada</a>
-      | <a class="wiki_link" href="refining-standard-behavior_es.html">19.
-        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">20.
-        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">21.
+      | <a class="wiki_link" href="validating-with-entityvalidator_es.html">18.
+        Validando con @EntityValidator</a> | <a class="wiki_link" href="validation-alternatives_es.html">19.
+        Alternativas de validación&nbsp;</a> | <a class="wiki_link" href="validation-on-remove_es.html">20.
+        Validación al borrar&nbsp;</a> |&nbsp;<a class="wiki_link" href="custom-bean-validation-annotation_es.html">
+        21. Anotación Bean Validation propia</a> | <a class="wiki_link" href="rest-service-call-from-validation_es.html">22.
+        Llamada REST desde una validación&nbsp;</a> | <a class="wiki_link" href="attributes-in-annotations_es.html">23.
+        Atributos en anotaciones</a>&nbsp; | <a class="wiki_link" href="refining-standard-behavior_es.html">24.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">25.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">26.
         Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
         Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
         Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
         Anotaciones</a> | <a class="wiki_link" href="testing_es.html">D.
-        Pruebas automáticas</a><a class="wiki_link" href="testing_es.html"></a>
+        Pruebas automáticas</a><a class="wiki_link" href="mapped-superclass-inheritance_es.html"></a><a
+        class="wiki_link" href="testing_es.html"></a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
@@ -55,7 +62,7 @@
       Hoy en día el desarrollo ágil ya no es una “una técnica nueva y
       rompedora”, sino una forma establecida de hacer desarrollo de software, es
       más, es la forma ideal de desarrollar software para muchos.</div>
-    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=wOhWbPqwBgQ&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=5"
+    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=wOhWbPqwBgQ&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=5"
         target="_blank"><img src="files/agile-development-video_es.png" title="Video para la lección 5: Desarrollo ágil con OpenXava"></a>
     </div>
     <div class="wiki" style="display: block;">Si no te gustan los videos sigue
@@ -121,7 +128,7 @@ Autor autor;
       tiene una referencia a <em>Autor</em>.<br>
       Realmente has escrito una cantidad pequeña de código. Para ver el efecto,
       solo necesitas reiniciar tu aplicación pulsando el botón <i>Run</i>:</div>
-    <div class="wiki" style="display: block;"><img src="files/getting-started_es195.png"
+    <div class="wiki" style="display: block;"><img src="files/getting-started_es195.png"
         alt="getting-started_es195.png" title="getting-started_es195.png"> </div>
     <div class="wiki" style="display: block;">Después ve al navegador y recarga
       la página con el módulo <em>Producto</em>, y ahí verás, un combo para
@@ -175,10 +182,10 @@ Collection&lt;Producto&gt; productos;
       usuarios.<br>
       Aprenderás estos temas avanzados en las siguientes lecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-2-modeling_es.zip/download"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
         <a class="wiki_link" href="mapped-superclass-inheritance_es.html">Ve a
           la lección 6</a></strong> </div>

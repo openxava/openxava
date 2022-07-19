@@ -58,7 +58,6 @@ public class AppServer {
         WebResourceRoot resources = new StandardRoot(context);
         resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes", "target/classes", "/"));
         context.setResources(resources);
-        
         tomcat.start();
        	if (tomcat.getConnector().getLocalPort() < 0) {
      		tomcat.stop();

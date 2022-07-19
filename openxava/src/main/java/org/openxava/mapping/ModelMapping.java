@@ -774,7 +774,7 @@ abstract public class ModelMapping implements java.io.Serializable {
 		
 		return r;
 	}
-
+	
 	public boolean hasReferenceConverters() {  
 		return !getReferenceMappingsWithConverter().isEmpty();
 	}

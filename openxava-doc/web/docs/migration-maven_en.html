@@ -177,6 +177,82 @@
     <div class="wiki" style="display: block;">Finally, you should do in your
       project <i>Run As &gt; Maven clean</i> (<i>mvn clean</i>) and <i>Run As
         &gt; Maven Build...</i> typing <i>package</i> as goal (<i>mvn package</i>).<br>
+      <h3>Hibernate upgraded from 5.3 to 5.6</h3>
+      <p>We have done a hard work to adapt OpenXava in order it works nicely
+        with Hibernate 5.6. However, you can find problems in your own
+        JPA/Hibernate code. If you use JPA API everything should work as it, but
+        there are new bugs in Hibernate 5.6 that can cause your current code to
+        fail. We found the next one, for example.</p>
+      <p>With Hibernate 5.3 when you use a property of a reference and this
+        reference is part of the key, you don't need to add an explicit join in
+        the query. This is in this way no matter the deep level. In Hibernate
+        5.6, you don't need to add the join if you have only one level of
+        reference, but if you have a second level, you have to add it, if the
+        second level has a composite key.</p>
+      <p>Saying it with code. If you have:</p>
+      <p></p>
+      <pre><code class="java">@Entity
+public class TransportCharge {
+	
+    @Id @ManyToOne
+    private Delivery delivery;
+
+    ...
+	
+}
+
+@Entity
+public class Delivery {
+	
+    @Id 
+    private int number;
+
+    @Id @ManyToOne
+    private Invoice invoice;
+
+    ...
+	
+}
+
+@Entity
+public class Invoice {
+	
+    @Id 
+    private int year;
+	
+    @Id 
+    private int number;
+
+    ...
+	
+}
+</code></pre>
+      <p></p>
+      <p>With the above code the next query run nicely with Hibernate 5.3:</p>
+      <p></p>
+      <pre><code class="java">String queryString="from TransportCharge o where o.delivery.invoice.year = :delivery_invoice_year";
+Query query = XPersistence.getManager().createQuery(queryString);
+query.setParameter("delivery_invoice_year", 2022);
+</code></pre>
+      <p></p>
+      <p>But it fails with Hibernate 5.6. Curiously if you do the query against
+        <i>Delivery </i>asking by <i>invoice.year</i> it works, it only fails
+        with 2 levels or more. Moreover, if <i>Invoice</i> would have a single
+        key, instead of a composite one, it works too. Hibernate 5.6 fails when
+        you combine more than one level with composite keys.</p>
+      <p>Don't worry, the solution is easy, just add an explicit <i>join</i>
+        for the first reference. That it, in the next way it works with
+        Hibernate 5.6:</p>
+      <p></p>
+      <pre><code class="java">String queryString="from TransportCharge o join fetch o.delivery d where d.invoice.year = :delivery_invoice_year";
+Query query = XPersistence.getManager().createQuery(queryString);
+query.setParameter("delivery_invoice_year", 2022);
+</code></pre>
+      <p></p>
+      <p>The solution is the <i>join fetch o.delivery d</i>. Conclusion, if
+        some query fails for you with Hibernate 5.6 try to add an explicit <i>join</i>
+        to your reference.</p>
+      <h3></h3>
       <h3>XHibernate utility class removed</h3>
       <p><i>XHibernate</i> utility class has been removed because it was used in
         XML components applications, in JPA applications we use <i>XPersistence</i>
