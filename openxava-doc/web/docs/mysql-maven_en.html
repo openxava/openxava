@@ -41,40 +41,16 @@
 	type="javax.sql.DataSource"
 	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
 	username="root" password="ao49fmsk"
-	url="jdbc:mysql://localhost:3306/"/&gt;
+	url="jdbc:mysql://localhost:3306/myappdb"/&gt;
 </code></pre> </div>
     <div class="wiki" style="display: block;">The differences is the <i>url</i>.
       Obviously, instead of <i>localhost</i> you should put the address of the
-      server that hosts MySQL. Also put the correct <i>username</i> and <i>password</i>.
+      server that hosts MySQL and instead of <i>myappdb</i> the name of your
+      database.. Also put the correct <i>username</i> and <i>password</i>.
       Maybe the above code is already in your <i>context.xml</i> but commented,
       in that case just uncomment it. Don't forget to comment or remove the
       datasource for HSQLDB (the default one when you create a new OpenXava
       project), only one datasource (with the same name) should be active.</div>
-    <div class="wiki" style="display: block;">
-      <h2 id="toc1">Update persistence.xml</h2>
-      In the <i>default</i> persistence unit of <i>persistence.xml</i> (in <i>src/main/resources/META-INF</i>)
-      you have to change the <i>hibernate.default_schema</i> property by <i>hibernate.default_catalog</i>:
-      <br>
-      <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;persistence-unit name="default"&gt;
-	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
-	&lt;non-jta-data-source&gt;java://comp/env/jdbc/MyAppDS&lt;/non-jta-data-source&gt;
-	&lt;class&gt;org.openxava.session.GalleryImage&lt;/class&gt;
-	&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;
-	&lt;properties&gt;
-		&lt;property name="javax.persistence.schema-generation.database.action" value="update"/&gt;
-		&lt;property name="javax.persistence.create-database-schemas" value="true"/&gt; 
-		&lt;property name="hibernate.default_catalog" value="myappdb"/&gt;
-		&lt;property name="hibernate.jdbc.use_streams_for_binary" value="true"/&gt;
-	&lt;/properties&gt;
-&lt;/persistence-unit&gt;
-</code></pre> </div>
-      Note as we use <i>hibernate.default_catalog</i> to indicate your MySQL
-      database, <i>myappdb</i> in this case. Maybe the above code is already in
-      your <i>persistence.xml</i> but commented, in that case just uncomment
-      it. Don't forget to comment or remove the other <i>default</i>
-      persistence unit, only one persistence unit (with the same name) should be
-      active.</div>
     <div class="wiki" style="display: block;">
       <h2>Rebuild your project</h2>
       <p>After the changes you have to rebuild your project. In OpenXava Studio
