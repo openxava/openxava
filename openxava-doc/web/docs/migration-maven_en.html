@@ -182,7 +182,8 @@
         with Hibernate 5.6. However, you can find problems in your own
         JPA/Hibernate code. If you use JPA API everything should work as it, but
         there are new bugs in Hibernate 5.6 that can cause your current code to
-        fail. We found the next one, for example.</p>
+        fail. We found some of them.</p>
+      <h4>Join required in reference in key</h4>
       <p>With Hibernate 5.3 when you use a property of a reference and this
         reference is part of the key, you don't need to add an explicit join in
         the query. This is in this way no matter the deep level. In Hibernate
@@ -252,6 +253,26 @@ query.setParameter("delivery_invoice_year", 2022);
       <p>The solution is the <i>join fetch o.delivery d</i>. Conclusion, if
         some query fails for you with Hibernate 5.6 try to add an explicit <i>join</i>
         to your reference.</p>
+      <h4>Schema is not created automatically</h4>
+      <p>A new bug of Hibernate 5.6 is that it <a href="https://hibernate.atlassian.net/browse/HHH-13403">no
+          longer recognizes javax.persistence.create-database-schemas</a>, so if
+        you have the next configuration in your <i>persistence.xml</i>:</p>
+      <pre><code class="xml">&lt;persistence-unit name="default"&gt;
+    ...
+    &lt;properties&gt;
+        &lt;property name="javax.persistence.schema-generation.database.action" value="update"/&gt;
+        &lt;property name="javax.persistence.create-database-schemas" value="true"/&gt; 
+        &lt;property name="hibernate.default_schema" value="MYSCHEMA"/&gt;
+    &lt;/properties&gt;
+&lt;/persistence-unit&gt;
+</code></pre>
+      <p>With Hibernate 5.3 it created the MYSCHEMA schema and then the tables
+        inside, however with Hibernate 5.6 the MYSCHEMA schema is not created,
+        hence the tables are not create neither. The solution is to create the
+        MYSCHEMA schema by hand. You have to connect to your database with your
+        database explorer and execute a CREATE SCHEMA MYSCHEMA (or equivalent)
+        sentence. After it, you can start the application and the tables will be
+        created.</p>
       <h3></h3>
       <h3>XHibernate utility class removed</h3>
       <p><i>XHibernate</i> utility class has been removed because it was used in

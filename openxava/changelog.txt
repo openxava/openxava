@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- New projects do not include default schema by default in persistence.xml. 
 - Hibernate upgraded to 5.6.10.
 - Hibernate Envers upgraded to 5.6.10.
 - HSQLDB embedded database upgraded to 2.6.1.

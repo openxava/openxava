@@ -1,8 +1,0 @@
-TMR
-
-- Probar crear un proyecto nuevo en español e inglés, tiene que funcionar.
-	- Comprobar persistence.xml y context.xml
-- Poner en migración:
-	- https://hibernate.atlassian.net/browse/HHH-13403
-	- javax.persistence.create-database-schemas
-- Revisar doc de configuraciones de bases de datos

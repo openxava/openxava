@@ -12,7 +12,7 @@
       <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
           / </span> Configuración para MySQL</h1>
-      <i>Si estás usando una versión de OpenXava anterior a la 7.0 mira las <a
+      <i>Si estás usando una versión de OpenXava anterior a la 7.0 mira las <a
           href="mysql-ox6_es.html">instrucciones antiguas</a></i>
       <div class="wiki" style="display: block;">Configurar tu aplicación
         OpenXava contra MySQL es muy fácil, básicamente has de añadir una
@@ -42,40 +42,16 @@
 	type="javax.sql.DataSource"
 	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
 	username="root" password="ao49fmsk"
-	url="jdbc:mysql://localhost:3306/"/&gt;
+	url="jdbc:mysql://localhost:3306/miaplicaciondb"/&gt;
 </code></pre> </div>
       <div class="wiki" style="display: block;">La diferencia es <i>url</i>.
         Obviamente, en lugar de <i>localhost</i> deberías poner la dirección
-        del servidor que alberga MySQL. También pon el <i>username</i> y <i>password</i>
+        del servidor que alberga MySQL y en lugar de <i>miaplicaciondb</i> el
+        nombre de tu base de datos. También pon el <i>username</i> y <i>password</i>
         correctos. Puede que el código de arriba ya esté en tu <i>context.xml</i>
         pero comentado, en ese caso simplemente descoméntalo. No olvides
         comentar o quitar la fuente de datos para HSQLDB (incluida por defecto
         al crear un nuevo proyecto OpenXava), sólo una fuente de datos (con el
-        mismo nombre) debería estar activa.</div>
-      <div class="wiki" style="display: block;">
-        <h2 id="toc1">Actualizar persistence.xml</h2>
-        En la unidad de persistencia <i>default</i> de <i>persistence.xml</i>
-        (en <i>src/main/resources/META-INF</i>) tienes que cambiar <i>hibernate.default_schema</i>
-        property por <i>hibernate.default_catalog</i>: <br>
-        <div class="wiki" style="display: block;">
-          <pre><code class="xml">&lt;persistence-unit name="default"&gt;
-	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
-	&lt;non-jta-data-source&gt;java://comp/env/jdbc/MiAplicacionDS&lt;/non-jta-data-source&gt;
-	&lt;class&gt;org.openxava.session.GalleryImage&lt;/class&gt;
-	&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;
-	&lt;properties&gt;
-		&lt;property name="javax.persistence.schema-generation.database.action" value="update"/&gt;
-		&lt;property name="javax.persistence.create-database-schemas" value="true"/&gt; 
-		&lt;property name="hibernate.default_catalog" value="miaplicaciondb"/&gt;
-		&lt;property name="hibernate.jdbc.use_streams_for_binary" value="true"/&gt;
-	&lt;/properties&gt;
-&lt;/persistence-unit&gt;
-</code></pre> </div>
-        Fíjate como usamos <i>hibernate.default_catalog</i> para indicar tu
-        base de datos MySQL, en este caso <i>miaplicacionb</i>. Quizás este
-        código ya está en tu <i>persistence.xml</i> pero comentado, en ese caso
-        simplemente descoméntalo. No olvides comentar o quitar la otra unidad de
-        persistencia <i>default</i>, sólo una unidad de persistence (con el
         mismo nombre) debería estar activa.</div>
       <div class="wiki" style="display: block;">
         <h2>Reconstruir proyecto</h2>

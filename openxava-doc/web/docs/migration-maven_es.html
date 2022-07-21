@@ -186,7 +186,8 @@
           Hibernate 5.6. Sin embargo, puedes encontrar problemas en tu propio
           código JPA/Hibernate. Si usas la API de JPA todo debería funcionar tal
           cual, pero hay nuevos bug en Hibernate 5.6 que pueden hacer que tu
-          código falle. Hemos encontrado el siguiente, por ejemplo.</p>
+          código falle. Hemos encontrado algunos.</p>
+        <h4>Join requerido en referencias en clave</h4>
         <p>Con Hibernate 5.3 cuando usas una propiedad de una referencia y esta
           es parte de la clave, no necesitas añadir un <i>join</i> explicito en
           la consulta. Esto es de esta forma no importa el nivel de profundidad.
@@ -258,6 +259,27 @@ query.setParameter("albaran_factura_anyo", 2022);
         <p>La solución es el <i>join fetch c.albaran a</i>. Moraleja, si alguna
           consulta te falla con Hibernate 5.6 prueba añadir un <i>join</i>
           explicito para tu referencia.</p>
+        <h4>Esquema no creado automáticamente</h4>
+        <p>Un nuevo bug en Hibernate 5.6 es que <a href="https://hibernate.atlassian.net/browse/HHH-13403">ya
+            no reconoce javax.persistence.create-database-schemas</a>, por lo
+          que si tienes la siguiente configuración en tu <i>persistence.xml</i>:</p>
+        <pre><code class="xml">&lt;persistence-unit name="default"&gt;
+    ...
+    &lt;properties&gt;
+        &lt;property name="javax.persistence.schema-generation.database.action" value="update"/&gt;
+        &lt;property name="javax.persistence.create-database-schemas" value="true"/&gt; 
+        &lt;property name="hibernate.default_schema" value="MIESQUEMA"/&gt;
+    &lt;/properties&gt;
+&lt;/persistence-unit&gt;
+</code></pre>
+        <p>Con Hibernate 5.3 crea el esquema MIESQUEMA y después las tablas
+          dentro, sin embargo con Hibernate 5.6 el esquema MIESQUEMA no se crea,
+          por ende las tablas tampoco se crean. La solución es crear el esquema
+          MIESQUEMA a mano. Has de contectarte a tu base de datos con tu
+          explorador de base de datos y ejecutar una sentencia CREATE SCHEMA
+          MYSCHEMA (o equivalente). Después, puedes arrancar tu aplicación y las
+          tablas serán creadas.</p>
+        <p></p>
         <h3></h3>
       </div>
       <h3>Clase de utilidad XHibernate quitada</h3>

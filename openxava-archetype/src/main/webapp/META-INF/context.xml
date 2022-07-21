@@ -47,7 +47,7 @@
 	<Resource name="jdbc/yourappDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="user" password="" 
-	      url="jdbc:as400:localhost/yourappdb"/>
+	      url="jdbc:as400:localhost/yourapplib"/>
 	-->
 	
 	<!-- Microsoft SQL Server
