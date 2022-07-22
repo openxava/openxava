@@ -59,7 +59,7 @@ public class InvoiceCalculatedDetailsTest extends CustomizeListTestBase {
 		assertTotalInCollection("calculatedDetails", 1, ""); 
 		hideCollection();
 		HtmlElement header = getHtmlPage().getHtmlElementById("ox_openxavatest_InvoiceCalculatedDetails__frame_calculatedDetailsheader");
-		assertEquals("(2)    Sum of Unit price: 31.00    Sum of Quantity: 8", header.asText());
+		assertEquals("(2)    Sum of Unit price: 31.00    Sum of Quantity: 8", header.asNormalizedText());
 	}
 
 	private void assertTotals(String unitPriceSum, String quantitySum, String amountSum) throws Exception {

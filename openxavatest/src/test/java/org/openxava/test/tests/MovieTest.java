@@ -108,7 +108,7 @@ public class MovieTest extends MovieBaseTest {
 		assertListRowCount(3); 
 		execute("List.viewDetail", "row=0");
 		String groupName = getHtmlPage().getElementById("ox_openxavatest_Movie__label_" + groupId)
-										.asText().trim(); 
+										.asNormalizedText().trim(); 
 		assertTrue("Incorrect group name", groupName.equals(Labels.get(groupId)));		
 	}
 	
@@ -206,7 +206,7 @@ public class MovieTest extends MovieBaseTest {
 		List<String> sn = new ArrayList<String>();
 		for(DomElement e : getHtmlPage().getElementsByTagName("span")) {
 			if(e.getAttribute("class").equals("ox-section-tab")) {
-				sn.add(e.asText().trim());
+				sn.add(e.asNormalizedText().trim());
 			}
 		}
 		return sn;

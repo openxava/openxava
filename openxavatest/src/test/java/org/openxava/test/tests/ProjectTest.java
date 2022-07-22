@@ -27,14 +27,14 @@ public class ProjectTest extends ModuleTestBase {
 		assertLinkOnNote(0, "The best time-to-market for Java"); 
 		
 		if (XSystem.isJava9orBetter()) {
-			assertLinkOnNote(1, "Diccionario de la lengua"); // Fails with Java 8 with a problem with Cloudfare protection in RAE
+			assertLinkOnNote(1, "Diccionario de la lengua"); // Fails with Java 8 with a problem with Cloudfare protection in RAE // TMR FALLA ME QUEDÉ POR AQUÍ, HACIENDO FALLAS
 		}
 	}
 
 	private void assertLinkOnNote(int idx, String expectedText) throws IOException {
 		HtmlAnchor link = (HtmlAnchor) getHtmlPage().getHtmlElementById("ox_openxavatest_Project__editor_notes___" + idx + "___docURL").getElementsByTagName("a").get(0); 
 		HtmlPage page = link.click();
-		assertTrue(page.asText().contains(expectedText));
+		assertTrue(page.asNormalizedText().contains(expectedText));
 	}
 		
 	public void testAddElementsToListWithOrderColumn_removeElementFromListWithOrder() throws Exception {  
@@ -156,7 +156,7 @@ public class ProjectTest extends ModuleTestBase {
 		HtmlTable table = getHtmlPage().getHtmlElementById("ox_openxavatest_Project__members");
 		HtmlTableRow row = table.getRow(1);
 		HtmlTableCell cell = row.getCell(2);
-		assertEquals("PETER", cell.asText().trim());
+		assertEquals("PETER", cell.asNormalizedText().trim());
 		HtmlElement link = cell.getElementsByTagName("a").get(0);
 		link.click();
 		waitAJAX();

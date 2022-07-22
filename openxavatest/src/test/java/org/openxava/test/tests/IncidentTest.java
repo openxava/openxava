@@ -1,7 +1,5 @@
 package org.openxava.test.tests;
 
-import static org.openxava.util.Strings.multiline;
-
 import java.text.*;
 import java.util.*;
 
@@ -36,7 +34,8 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		postDiscussionComment("discussion", "Hi, it's me");
 		String timeFirstPost = getCurrentTime();
 		assertDiscussionCommentsCount("discussion", 1); 
-		assertDiscussionCommentText("discussion", 0, multiline("admin - Now", "Hi, it's me"));  
+		// tmr assertDiscussionCommentText("discussion", 0, multiline("admin - Now", "Hi, it's me")); // TMR FALLA 
+		assertDiscussionCommentText("discussion", 0, "admin - Now\nHi, it's me"); // TMR En migration
 		
 		execute("CRUD.save");
 		String id = Incident.findFirst().getId(); 
@@ -56,10 +55,12 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 
 		assertValue("title", "THE JUNIT DISCUSSION");
-		assertValue("description", "This is the big jUnit discussion");
+		// tmr assertValue("description", "This is the big jUnit discussion");
+		assertValue("description", "<p>This is the big jUnit discussion</p>"); // TMR En migration
 
 		assertDiscussionCommentsCount("discussion", 1);
-		assertDiscussionCommentText("discussion", 0, multiline("admin - " + timeFirstPost, "Hi, it's me"));
+		// tmr assertDiscussionCommentText("discussion", 0, multiline("admin - " + timeFirstPost, "Hi, it's me"));
+		assertDiscussionCommentText("discussion", 0, "admin - " + timeFirstPost + "\nHi, it's me"); // tmr
 		postDiscussionComment("discussion", "Soy Juan"); 
 		String timeSecondPost = getCurrentTime();
 		
@@ -67,10 +68,17 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 
 		assertValue("title", "THE JUNIT DISCUSSION");
-		assertValue("description", "This is the big jUnit discussion");
+		// tmr assertValue("description", "This is the big jUnit discussion");
+		assertValue("description", "<p>This is the big jUnit discussion</p>"); // tmr
 		assertDiscussionCommentsCount("discussion", 2);
+		/* tmr
 		assertDiscussionCommentText("discussion", 0, multiline("admin - " + timeFirstPost, "Hi, it's me"));
 		assertDiscussionCommentText("discussion", 1, multiline("juan - " + timeSecondPost, "Soy Juan"));
+		*/
+		// tmr ini
+		assertDiscussionCommentText("discussion", 0, "admin - " + timeFirstPost + "\nHi, it's me");
+		assertDiscussionCommentText("discussion", 1, "juan - " + timeSecondPost + "\nSoy Juan");
+		// tmr fin
 
 		assertEquals(1, discussion.getElementsByTagName("textarea").size());
 		assertEquals(2, discussion.getElementsByAttribute("input", "type", "button").size());	

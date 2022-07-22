@@ -25,6 +25,8 @@ import org.xml.sax.*;
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.html.*;
+import com.gargoylesoftware.htmlunit.html.parser.*;
+import com.gargoylesoftware.htmlunit.javascript.*;
 import com.gargoylesoftware.htmlunit.javascript.host.event.*;
 
 import junit.framework.*;
@@ -111,6 +113,14 @@ abstract public class ModuleTestBase extends TestCase {
 	
 	
 	protected void setUp() throws Exception {
+		// tmr ini
+		System.out.println("[ModuleTestBase.setUp] OFF"); // tmp
+		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF); 
+		java.util.logging.Logger.getLogger("org.apache.commons.httpclient").setLevel(Level.OFF);
+		java.util.logging.Logger.getLogger("org.apache.http").setLevel(Level.OFF);
+		
+		// tmr fin
+
 		locale = null;
 		XPersistence.reset(); 
 		XPersistence.setPersistenceUnit("junit");
@@ -463,6 +473,26 @@ abstract public class ModuleTestBase extends TestCase {
 		client.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		client.getOptions().setThrowExceptionOnScriptError(false);
 		client.getOptions().setCssEnabled(false);
+		// tmr ini
+		System.out.println("[ModuleTestBase.resetModule] LOG_REPORTER"); // tmp
+		client.setJavaScriptErrorListener(new SilentJavaScriptErrorListener());
+		client.setHTMLParserListener(new HTMLParserListener() {
+
+			@Override
+			public void error(String arg0, URL arg1, String arg2, int arg3, int arg4, String arg5) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void warning(String arg0, URL arg1, String arg2, int arg3, int arg4, String arg5) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+	    client.setCssErrorHandler(new SilentCssErrorHandler());
+	    // tmr fin
 		
 		if (getLocale() != null) {
 			client.addRequestHeader("Accept-Language", getLocale());			
@@ -629,7 +659,8 @@ abstract public class ModuleTestBase extends TestCase {
 	private void assertSystemError() { 
 		Object systemError = page.getElementById("xava_system_error"); 
 		if (systemError != null) {
-			fail(((HtmlElement) systemError).asText());
+			// tmr fail(((HtmlElement) systemError).asText());
+			fail(((HtmlElement) systemError).asNormalizedText()); // tmr En changelog
 		}
 	}
 
@@ -767,7 +798,8 @@ abstract public class ModuleTestBase extends TestCase {
 	private boolean pageNotLoaded() throws Exception { 
 		if (page == null) return true;
 		if (isXavaPage()) return false;
-		return page.asText().contains("HTTP 404");
+		// tmr return page.asText().contains("HTTP 404");
+		return page.asNormalizedText().contains("HTTP 404"); // tmr
 	}
 	
 	private boolean isXavaPage() { 
@@ -823,7 +855,8 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 		
 	protected String getValue(String name) throws Exception {		
-		return getFormValue(decorateId(name)); 
+		// tmr return getFormValue(decorateId(name)); 
+		return getFormValue(decorateId(name)).trim(); // tmr
 	}
 	
 	/**
@@ -835,11 +868,11 @@ abstract public class ModuleTestBase extends TestCase {
 	
 	protected String getLabel(String name) throws Exception { 
 		try {
-			return getElementById("label_" + name).asText().trim(); 
+			return getElementById("label_" + name).asNormalizedText().trim(); 
 		}
 		catch (ElementNotFoundException ex) {		
 			return getElementById("frame_" + name + "header").getParentNode()
-					.asText().replaceFirst("\\([0-9]+\\)$", "").trim();
+					.asNormalizedText().replaceFirst("\\([0-9]+\\)$", "").trim();
 		}
 	}
 	
@@ -957,7 +990,7 @@ abstract public class ModuleTestBase extends TestCase {
 	 * The text of the response.
 	 */
 	protected String getText() throws IOException {
-		return page.asText();
+		return page.asNormalizedText();
 	}
 
 	/**
@@ -1349,14 +1382,14 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	protected String getValueInList(int row, int column) throws Exception {
-		return getTableCellInList(row, column).asText().trim();
+		return getTableCellInList(row, column).asNormalizedText().trim();
 	}
 	
 	/**
 	 * @since 5.7 
 	 */
 	protected String getValueInList(int row) throws Exception { 
-		return getElementInList(row).asText().trim().replaceAll("\r\n", "\n").replaceAll("\n", "\r\n"); 
+		return getElementInList(row).asNormalizedText().trim().replaceAll("\r\n", "\n").replaceAll("\n", "\r\n"); 
 	}
 	
 	private HtmlElement getListElement(String id, String errorId) {  
@@ -1458,7 +1491,7 @@ abstract public class ModuleTestBase extends TestCase {
 		catch (IndexOutOfBoundsException ex) {
 			// Because sometimes is needed to explore collections not contained in the module model
 		}
-		return getTableCellInCollection(collection, row, column).asText().trim();
+		return getTableCellInCollection(collection, row, column).asNormalizedText().trim();
 	}
 	
 	private HtmlTableCell getTableCellInCollection(String collection, int row, int column) throws Exception {		
@@ -1472,7 +1505,7 @@ abstract public class ModuleTestBase extends TestCase {
 		for (int i=0;;i++) {
 			HtmlTableCell cell = table.getCellAt(0, i);
 			if (cell == null) break;
-			if (!(Is.emptyString(cell.asText()) || cell.asXml().toLowerCase().contains("<input type=\"checkbox\""))) break; 
+			if (!(Is.emptyString(cell.asNormalizedText()) || cell.asXml().toLowerCase().contains("<input type=\"checkbox\""))) break; 
 			increment++;
 		}
 		if (increment == 0 && table.getId().contains("xavaPropertiesList")) return 2;
@@ -1722,7 +1755,7 @@ abstract public class ModuleTestBase extends TestCase {
 		HtmlTable table = getTable(tableId, message);
 		int increment = getColumnIncrement(table, column); 
 		assertEquals(XavaResources.getString("label_not_match", new Integer(column)), label, 
-				table.getCellAt(0, column+increment).asText().trim());
+				table.getCellAt(0, column+increment).asNormalizedText().trim());
 	}
 	
 	private void assertTotalInList(String tableId, String message, int row, int column, String total) throws Exception { 
@@ -1731,7 +1764,7 @@ abstract public class ModuleTestBase extends TestCase {
 		column+=getColumnIncrement(table, column);
 		HtmlTableCell cell = table.getCellAt(rowInTable, column);
 		List<HtmlElement> inputs = cell.getElementsByAttribute("input", "type", "text");
-		String value = inputs.isEmpty()?cell.asText().trim():inputs.get(0).getAttribute("value");
+		String value = inputs.isEmpty()?cell.asNormalizedText().trim():inputs.get(0).getAttribute("value");
 		assertEquals(XavaResources.getString("total_not_match", new Integer(column)), total, value);
 	}		
 	
@@ -1742,7 +1775,7 @@ abstract public class ModuleTestBase extends TestCase {
 			int i=1;
 			HtmlTableCell cell = table.getCellAt(0, i++);
 			while (cell != null && i < originalColumn + increment + 2) {  
-				String value = cell.asText().trim();
+				String value = cell.asNormalizedText().trim();
 				if (Is.emptyString(value)) increment++;
 				cell = table.getCellAt(0, i++);
 			}
@@ -2002,7 +2035,7 @@ abstract public class ModuleTestBase extends TestCase {
 		int rc = table.getRowCount();
 		StringBuffer messages = new StringBuffer();
 		for (int i = 0; i < rc; i++) {
-			String m = table.getCellAt(i, 0).asText().trim();
+			String m = table.getCellAt(i, 0).asNormalizedText().trim();
 			if (m.equals(message)) return;
 			messages.append(m);
 			messages.append('\n');												
@@ -2109,7 +2142,7 @@ abstract public class ModuleTestBase extends TestCase {
 		}								
 		int rc = table.getRowCount();				
 		for (int i = 0; i < rc; i++) {
-			String error = table.getCellAt(i, 0).asText().trim();
+			String error = table.getCellAt(i, 0).asNormalizedText().trim();
 			if (error.equals(message)) fail(XavaResources.getString(notFoundErrorId, message));
 		}
 	}
@@ -2126,7 +2159,7 @@ abstract public class ModuleTestBase extends TestCase {
 			return "";
 		}
 		if (table.getRowCount() == 0) return "";
-		return table.getCellAt(0, 0).asText().trim();
+		return table.getCellAt(0, 0).asNormalizedText().trim();
 	}	
 	
 	
@@ -2166,7 +2199,7 @@ abstract public class ModuleTestBase extends TestCase {
 		int rc = table.getRowCount();
 		if (rc > 0) {
 			for (int i = 0; i < rc; i++) {
-				String message = table.getCellAt(i, 0).asText().trim();
+				String message = table.getCellAt(i, 0).asNormalizedText().trim();
 				log.error(XavaResources.getString("unexpected_message", label, message));							
 			}			
 			fail(XavaResources.getString("unexpected_messages", label.toLowerCase() + "s"));
@@ -2273,7 +2306,7 @@ abstract public class ModuleTestBase extends TestCase {
 		for (Iterator it = options.iterator(); it.hasNext(); i++) {
 			HtmlOption option = (HtmlOption) it.next();
 			assertEquals(XavaResources.getString("unexpected_key", name), values[i][0], option.getValueAttribute()); 
-			assertEquals(XavaResources.getString("unexpected_description", name), values[i][1], option.asText());			
+			assertEquals(XavaResources.getString("unexpected_description", name), values[i][1], option.asNormalizedText());			
 		}
 	}
 
@@ -2426,7 +2459,7 @@ abstract public class ModuleTestBase extends TestCase {
 			fail(XavaResources.getString("title_not_displayed"));
 			return;
 		}				
-		assertEquals(XavaResources.getString("incorrect_title"), expectedTitle, element.asText());
+		assertEquals(XavaResources.getString("incorrect_title"), expectedTitle, element.asNormalizedText());
 	}
 	
 	protected void assertNoListTitle() throws Exception {		
@@ -2455,7 +2488,7 @@ abstract public class ModuleTestBase extends TestCase {
 			HtmlOption option = (HtmlOption) it.next();
 			if (option.getValueAttribute().equals(key)) {
 				found = true;
-				assertEquals(XavaResources.getString("unexpected_description", name), description, option.asText());
+				assertEquals(XavaResources.getString("unexpected_description", name), description, option.asNormalizedText());
 				break;
 			}
 		}
@@ -2740,7 +2773,7 @@ abstract public class ModuleTestBase extends TestCase {
 	protected void assertDialogTitle(String expectedTitle) throws Exception {		
 		HtmlElement header = (HtmlElement) page.getHtmlElementById(decorateId(getTopDialog())).getPreviousSibling();
 		HtmlElement title = header.getElementsByAttribute("span", "class", "ui-dialog-title").get(0);
-		String label = title.asText();
+		String label = title.asNormalizedText();
 		assertEquals(XavaResources.getString("unexpected_dialog_title"), expectedTitle, label); 
 	}
 	
@@ -2780,7 +2813,7 @@ abstract public class ModuleTestBase extends TestCase {
 		int i=0;
 		for (DomElement comment: getDiscussionCommentsElement(name).getChildElements()) {
 			if (i++ == row) {
-				return comment.asText();
+				return comment.asNormalizedText();
 			}
 		}
 		throw new IndexOutOfBoundsException(XavaResources.getString("not_discussion_comment_at", row)); 
@@ -2850,7 +2883,7 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @since 5.6 
 	 */	
 	protected void assertListSelectedConfiguration(String expectedTitle) {   
-		String title = getSelectListConfigurations().getSelectedOptions().get(0).asText();
+		String title = getSelectListConfigurations().getSelectedOptions().get(0).asNormalizedText();
 		assertEquals(expectedTitle, title); 
 	}
 	
@@ -2885,7 +2918,7 @@ abstract public class ModuleTestBase extends TestCase {
 	private void assertAllComboOptions(HtmlSelect combo, String ... expectedTitles) throws Exception {   
 		List<String> titles = new ArrayList<String>();
 		for (HtmlOption option: combo.getOptions()) {
-			String title = option.asText(); 
+			String title = option.asNormalizedText(); 
 			titles.add(title);
 		}
 		List<String> expectedTitleList = Arrays.asList(expectedTitles);

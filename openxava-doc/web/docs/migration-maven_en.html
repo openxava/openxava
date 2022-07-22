@@ -309,7 +309,30 @@ session.save(customer);
     </div>
     <div class="wiki" style="display: block;">Note as we changed <i>reports</i>
       by <i>src/main/resources/reports</i> in the path, because now all the
-      resources are in <i>src/main/resources</i>. <br>
+      resources are in <i>src/main/resources</i>. </div>
+    <div class="wiki" style="display: block;">
+      <h3>HtmlUnit upgraded from 2.32 to 2.63 (for JUnit tests)</h3>
+      If you use for testing the methods from <i>ModuleTestBase</i> you don't
+      need to touch anything. However, if you use directly the API of HtmlUnit,
+      something that can happen if you use <i>getWebClient()</i> or <i>getHtmlPage()</i>
+      in your test, in that case maybe you need to adapt your code. HtmlUnit
+      keeps its tradition of adding backward incompatible changes in each new
+      minor version, to do this they change capriciously the name of methods, or
+      move things from a package to another. We found the next thing, for
+      example.</div>
+    <div class="wiki" style="display: block;">The method <i>asText()</i> of <i>HtmlElement</i>
+      has been rename as <i>asNormalizedText()</i>, so if you have a code like
+      this in your test:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">HtmlElement card = body.getElementsByAttribute("div", "class", "ox-card").get(2);
+assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asText());
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Change it by:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">HtmlElement card = body.getElementsByAttribute("div", "class", "ox-card").get(2);
+assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asNormalizedText());
+</code></pre> </div>
+    <div class="wiki" style="display: block;">fff<br>
       <h2><a name="Migration-How to update your project to the latest OpenXava?"></a>How
         to update your project to the latest OpenXava 6.x or 5.x?</h2>
       <ul>

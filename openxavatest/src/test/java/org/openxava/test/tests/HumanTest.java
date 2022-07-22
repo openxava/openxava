@@ -181,7 +181,8 @@ public class HumanTest extends ModuleTestBase {
 	}
 	
 	public void testEnableDisableCustomizeList() throws Exception { 
-		getWebClient().getOptions().setCssEnabled(true); 
+		getWebClient().getOptions().setCssEnabled(true);
+		reload(); // tmr Migration, no siempre
 		HtmlAnchor addColumns = getHtmlPage().getHtmlElementById("ox_openxavatest_Human__List___addColumns"); 
 		HtmlElement column0 = getHtmlPage().getHtmlElementById("ox_openxavatest_Human__list_col0");
 		HtmlElement moveColumn0 = column0.getElementsByAttribute("i", "class", "xava_handle mdi mdi-cursor-move ui-sortable-handle").get(0); 		
@@ -206,7 +207,7 @@ public class HumanTest extends ModuleTestBase {
 		assertFalse(addColumns.isDisplayed());
 		assertFalse(moveColumn0.isDisplayed());		
 		assertFalse(removeColumn0.isDisplayed());
-		assertFalse(moveColumn1.isDisplayed());
+		assertFalse(moveColumn1.isDisplayed()); 
 		assertFalse(removeColumn1.isDisplayed());		
 	}
 				

@@ -1015,4 +1015,10 @@ public class Strings {
         return variables;
 	}
 	
+	public static void print(String s) { // tmr A quitar
+		for (int i=0; i<s.length(); i++) {
+			System.out.println("[Strings.print] s[" + i + "]= " + (char) s.charAt(i) + " -> " + (int) s.charAt(i)); // tmp
+		}
+	}
+	
 }
