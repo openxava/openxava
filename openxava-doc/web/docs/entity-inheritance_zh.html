@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>第七章：实体继承，新实体 - 订单（Order），CommercialDocument 作为抽象实体，为使用继承而重构 Invoice，使用继承创建 Order，命名规范和继承，将订单（Order）与发票（Invoice）关联</title>
+    <title>OpenXava 第七章：实体继承</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,46 +9,78 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Lesson 4: Inheritance"></a> <span id="breadcrumbs"> <span
-            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1 id="toc0"><a name="Lesson 4: Inheritance"></a> <span id="breadcrumbs"> <span
+
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
             href="index_zh.html">文档</a> / </span> 第七章：实体继承</h1>
-      <strong>课程：</strong><a class="wiki_link" href="getting-started_zh.html">1. 入门教学</a> | <a
-        class="wiki_link" href="basic-domain-model1_zh.html">2. 基本域模型（上）</a> | <a
-        class="wiki_link" href="basic-domain-model2_zh.html">3. 基本域模型（下）</a> | <a
-        class="wiki_link" href="refining-user-interface_zh.html">4. 优化用户界面</a> | <a
-        class="wiki_link" href="agile-development_zh.html">5. 敏捷开发</a> | <a
-        class="wiki_link" href="mapped-superclass-inheritance_zh.html">6. 映射式超类继承</a> | <b><span
-          class="wiki_link">7. 实体继承</span></b> | <a class="wiki_link" href="view-inheritance_zh.html">8. 视图继承（View）</a> | <a
-        class="wiki_link" href="java-properties_zh.html">9. Java 属性</a> | <a
-        class="wiki_link" href="calculated-properties_zh.html">10. 计算属性</a> | <a
-        class="wiki_link" href="defaultvaluecalculator-in-collections_zh.html">11. 用在集合的 @DefaultValueCalculator</a><strong> </strong> | <a
-        class="wiki_link" href="calculation-and-collections-total_en.html">12. </a><a
-        class="wiki_link" href="calculation-and-collections-total_en.html">@Calculation and collections totals</a> | <a
-        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file</a> | <a
-        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution</a> | <a
-        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation</a> | <a
-        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed propierties</a> | <a
-        class="wiki_link" href="logic-from-database_en.html">17. Logic from database </a> |&nbsp;<a
-        class="wiki_link" href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator&nbsp;</a> |&nbsp; <a
-        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
-        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
-        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
-        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
-        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
-        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
-        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
-        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a><a
-        class="wiki_link" href="validation_en.html"></a><a class="wiki_link"
-        href="references-collections_en.html"></a> | <a class="wiki_link"
-        href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
-        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
-        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+      <strong>课程：</strong><a class="wiki_link" href="getting-started_zh.html">1. 入门教学</a> | <a
+
+        class="wiki_link" href="basic-domain-model1_zh.html">2. 基本域模型（上）</a> | <a
+
+        class="wiki_link" href="basic-domain-model2_zh.html">3. 基本域模型（下）</a> | <a
+
+        class="wiki_link" href="refining-user-interface_zh.html">4. 优化用户界面</a> | <a
+
+        class="wiki_link" href="agile-development_zh.html">5. 敏捷开发</a> | <a
+
+        class="wiki_link" href="mapped-superclass-inheritance_zh.html">6. 映射式超类继承</a> | <b><span
+
+          class="wiki_link">7. 实体继承</span></b> | <a class="wiki_link" href="view-inheritance_zh.html">8. 视图继承（View）</a> | <a
+
+        class="wiki_link" href="java-properties_zh.html">9. Java 属性</a> | <a
+
+        class="wiki_link" href="calculated-properties_zh.html">10. 计算属性</a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-in-collections_zh.html">11. 用在集合的 @DefaultValueCalculator</a><strong> </strong> | <a
+
+        class="wiki_link" href="calculation-and-collections-total_zh.html">12. @Calculation 和集合总计</a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file</a> | <a
+
+        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution</a> | <a
+
+        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation</a> | <a
+
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed propierties</a> | <a
+
+        class="wiki_link" href="logic-from-database_en.html">17. Logic from database </a> |&nbsp;<a
+
+        class="wiki_link" href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator&nbsp;</a> |&nbsp; <a
+
+        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
+
+        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
+
+        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
+
+        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
+
+        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
+
+        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
+
+        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
+
+        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a><a
+
+        class="wiki_link" href="validation_en.html"></a><a class="wiki_link"
+
+        href="references-collections_en.html"></a> | <a class="wiki_link"
+
+        href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
+
+        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
+
+        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+
         class="wiki_link" href="testing_en.html">D. Automated testing</a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#toc0">第七章：实体继承</a></div>
-        <div style="margin-left: 2em;"><a href="#new-order-entity">新实体 - </a><a
+        <div style="margin-left: 2em;"><a href="#new-order-entity">新实体 - </a><a
+
             href="#new-order-entity">订单</a><a href="#new-order-entity">（Order）</a></div>
         <div style="margin-left: 2em;"><a href="#commercialdocument-as-an-abstract-entity">CommercialDocument 作为抽象实体</a></div>
         <div style="margin-left: 2em;"><a href="#invoice-refactored-to-use-inheritance">为使用继承而重构 Invoice<br>
@@ -67,7 +99,8 @@
       如果能在应用程序中管理订单，并将这些订单与其发票相关联。像下一张 UML 图和其 Java 表达方法：</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <img src="files/inheritance_en010.png"
+    <div class="wiki" style="display: block;"> <img src="files/inheritance_en010.png"
+
         alt="inheritance_en010.png" title="inheritance_en010.png"></div>
     <div class="wiki" style="display: block;"><br>
       <pre><code class="java">@Entity
@@ -88,7 +121,8 @@ public class Order {
 </code></pre> 也就是说，一个发票能有多个订单，但一个订单仅能有一个发票。我们没有在 Invoice(1) 引用上没使用延迟获取（Lazy Fetching），这是一个 Hibernate 的错误，当引用拥有双向关系（在 @OneToMany 中的 mappedBy 属性中声明）。<br>
       订单长什么样？好吧，它有一个客户，有几行产品和数量的详细信息，一个年份和一个数字，差不多如下图：</div>
     <div class="wiki" style="display: block;"><br>
-      <img src="files/inheritance_en020.png" alt="inheritance_en020.png"
+      <img src="files/inheritance_en020.png" alt="inheritance_en020.png"
+
         title="inheritance_en020.png"></div>
     <div class="wiki" style="display: block;"><br>
       顺便说一下，这张 UML 图与 Invoice 的图一样。也就是说，要创建您的 Order 实体，您只需复制并粘贴 Invoice 类，工作就完成了。但是，等等！ “复制粘贴”是大罪。因此，我们必须找到一种方法在 Order 重用 Invoice 代码。<br>
@@ -98,7 +132,8 @@ public class Order {
       这是 CommercialDocument 的 UML 图和使用 Java 的表达方法：<em></em></div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <img src="files/inheritance_en030.png"
+    <div class="wiki" style="display: block;"> <img src="files/inheritance_en030.png"
+
         alt="inheritance_en030.png" title="inheritance_en030.png"></div>
     <div class="wiki" style="display: block;"><br>
       <pre><code class="java">public class CommercialDocument { ... }
@@ -107,7 +142,8 @@ public class Invoice extends CommercialDocument { ... }
 </code></pre> 让我们开始重构您目前的代码。首先，使用 Refactor &gt; Rename 将 Invoice 重命名为 CommercialDocument。</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"><img src="files/inheritance_zh035.png"
+    <div class="wiki" style="display: block;"><img src="files/inheritance_zh035.png"
+
         alt="inheritance_zh035.png" title="inheritance_zh035.png"></div>
     <div class="wiki" style="display: block;"><br>
     </div>
@@ -132,13 +168,15 @@ DROP TABLE INVOICING.INVOICE;
 </code></pre> 要执行这些 SQL 语句，首先确保您的应用程序正在运行，然后使用 OpenXava Studio 的菜单选项 OpenXava &gt; Database Manager：</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <img src="files/inheritance040.png"
+    <div class="wiki" style="display: block;"> <img src="files/inheritance040.png"
+
         alt="inheritance040.png" title="inheritance040.png"></div>
     <div class="wiki" style="display: block;"><br>
       然后：</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <img src="files/inheritance_zh050.png"
+    <div class="wiki" style="display: block;"> <img src="files/inheritance_zh050.png"
+
         alt="inheritance_en050.png" title="inheritance_en050.png"></div>
     <div class="wiki" style="display: block;"><br>
       现在您可以执行 Invoice 模块并在浏览器中查看。此外，执行 InvoiceTest（它必须是绿色的）。</div>
@@ -182,7 +220,8 @@ public class Order extends CommercialDocument {
       至此，Order 和 Invoice 完全一样。我们将对它们进行第一个扩展，就是将 Order 与 Invoice 相关联。如图所示：</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <img src="files/inheritance_en010.png"
+    <div class="wiki" style="display: block;"> <img src="files/inheritance_en010.png"
+
         alt="inheritance_en010.png" title="inheritance_en010.png"></div>
     <div class="wiki" style="display: block;"><br>
       您只需要在 Order 添加一个 Invoice 的引用：<br>
@@ -217,12 +256,16 @@ public class Invoice extends CommercialDocument {
     </div>
     <div class="wiki" style="display: block;">
       <h2 id="toc18"><a name="summary"></a>总结</h2>
-      本课向您展示了一些关于如何在 JPA 实体上使用 Java 的继承来简化代码。我们使用 JPA 默认的配置进行继承，尽管您可以使用一些 JPA 注解来优化 JPA 的继承行为（如 @Inheritance、@DiscriminatorColumn、@DiscriminatorValue 等）。要了解有关 JPA 中的继承的更多信息，请阅读 <a
+      本课向您展示了一些关于如何在 JPA 实体上使用 Java 的继承来简化代码。我们使用 JPA 默认的配置进行继承，尽管您可以使用一些 JPA 注解来优化 JPA 的继承行为（如 @Inheritance、@DiscriminatorColumn、@DiscriminatorValue 等）。要了解有关 JPA 中的继承的更多信息，请阅读 <a
+
         class="wiki_link" href="jpa_en.html">附录 B</a>。<br>
       <br>
-      <strong></strong><strong><strong>对这节课有什么问题吗？ <a class="wiki_link_ext"
-            href="http://sourceforge.net/p/openxava/discussion/419690/"
-            rel="nofollow">前往轮譠</a></strong><strong>一切都顺利吗？</strong></strong><strong> <a
+      <strong></strong><strong><strong>对这节课有什么问题吗？ <a class="wiki_link_ext"
+
+            href="http://sourceforge.net/p/openxava/discussion/419690/"
+
+            rel="nofollow">前往轮譠</a></strong><strong>一切都顺利吗？</strong></strong><strong> <a
+
           class="wiki_link" href="view-inheritance_zh.html">前往第八章</a></strong> </div>
   </body>
 </html>

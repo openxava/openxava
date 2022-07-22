@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>OpenXava教學 - 基本域模型（上）：领域模型（Domain model）引用多對一（ManyToOne）作为描述列表（組合）刻板印象（Stereotypes）可嵌入（Embeddable）</title>
+    <title>OpenXava 第二章：基本域模型（上）</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,40 +9,67 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Lesson 2: Modeling with Java"></a> <span id="breadcrumbs"> <span
-            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1 id="toc0"><a name="Lesson 2: Modeling with Java"></a> <span id="breadcrumbs"> <span
+
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
             href="index_zh.html">文档</a> / </span>第二章：基本域模型（上）</h1>
-      <strong>课程：</strong><a class="wiki_link" href="getting-started_zh.html">1. 入门教学</a> | <strong>2. 基本域模型（上）</strong> | <a
-        class="wiki_link" href="basic-domain-model2_zh.html">3. 基本域模型（下）</a> | <a
-        class="wiki_link" href="refining-user-interface_zh.html">4. 优化用户界面</a> | <a
-        class="wiki_link" href="agile-development_zh.html">5. 敏捷开发</a> | <a
-        class="wiki_link" href="mapped-superclass-inheritance_zh.html">6. 映射式超类继承</a> | <a
-        class="wiki_link" href="entity-inheritance_zh.html">7. 实体继承</a> | <a
-        class="wiki_link" href="view-inheritance_zh.html">8. 视图继承（View）</a> | <a
-        class="wiki_link" href="java-properties_zh.html">9. Java 属性</a> | <a
-        class="wiki_link" href="calculated-properties_zh.html">10. 计算属性</a> | <a
-        class="wiki_link" href="defaultvaluecalculator-in-collections_zh.html">11. 用在集合的 @DefaultValueCalculator</a><strong> </strong> | <a
-        class="wiki_link" href="calculation-and-collections-total_en.html">12. </a><a
-        class="wiki_link" href="calculation-and-collections-total_en.html">@Calculation and collections totals</a> | <a
-        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file</a> | <a
-        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution</a> | <a
-        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation</a> | <a
-        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed propierties</a> | <a
-        class="wiki_link" href="logic-from-database_en.html">17. Logic from database </a> |&nbsp;<a
-        class="wiki_link" href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator&nbsp;</a> |&nbsp; <a
-        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
-        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
-        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
-        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
-        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
-        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
-        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
-        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a><a
-        class="wiki_link" href="validation_en.html"></a><a class="wiki_link"
-        href="references-collections_en.html"></a> | <a class="wiki_link"
-        href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
-        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
-        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+      <strong>课程：</strong><a class="wiki_link" href="getting-started_zh.html">1. 入门教学</a> | <strong>2. 基本域模型（上）</strong> | <a
+
+        class="wiki_link" href="basic-domain-model2_zh.html">3. 基本域模型（下）</a> | <a
+
+        class="wiki_link" href="refining-user-interface_zh.html">4. 优化用户界面</a> | <a
+
+        class="wiki_link" href="agile-development_zh.html">5. 敏捷开发</a> | <a
+
+        class="wiki_link" href="mapped-superclass-inheritance_zh.html">6. 映射式超类继承</a> | <a
+
+        class="wiki_link" href="entity-inheritance_zh.html">7. 实体继承</a> | <a
+
+        class="wiki_link" href="view-inheritance_zh.html">8. 视图继承（View）</a> | <a
+
+        class="wiki_link" href="java-properties_zh.html">9. Java 属性</a> | <a
+
+        class="wiki_link" href="calculated-properties_zh.html">10. 计算属性</a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-in-collections_zh.html">11. 用在集合的 @DefaultValueCalculator</a><strong> </strong> | <a
+
+        class="wiki_link" href="calculation-and-collections-total_zh.html">12. @Calculation 和集合总计</a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file</a> | <a
+
+        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution</a> | <a
+
+        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation</a> | <a
+
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed propierties</a> | <a
+
+        class="wiki_link" href="logic-from-database_en.html">17. Logic from database </a> |&nbsp;<a
+
+        class="wiki_link" href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator&nbsp;</a> |&nbsp; <a
+
+        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
+
+        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
+
+        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
+
+        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
+
+        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
+
+        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
+
+        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
+
+        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
+
+        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
+
+        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
+
+        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+
         class="wiki_link" href="testing_en.html">D. Automated testing</a>
       <hr>
       <div id="toc">
@@ -63,7 +90,8 @@
       首先，我们将为您的 Invoicing 应用创建实体，虽然领域模型是很基本的但是足以学习很多。</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <img src="files/modeling_en010.png"
+    <div class="wiki" style="display: block;"> <img src="files/modeling_en010.png"
+
         alt="modeling_en010.png" title="modeling_en010.png"><br>
     </div>
     <div class="wiki" style="display: block;"><br>
@@ -102,14 +130,17 @@ public class Category {
       现在您可以运行应用并在 Category 模块添加一些类别：</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <img src="files/modeling_zh035.png"
+    <div class="wiki" style="display: block;"> <img src="files/modeling_zh035.png"
+
         alt="modeling_en035.png" title="modeling_en035.png"><br>
       <span style="line-height: 1.5;"><br>
       </span></div>
-    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">若您的浏览器显示中文时有乱码，可以参考</span><span
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">若您的浏览器显示中文时有乱码，可以参考</span><span
+
         style="line-height: 1.5;"><a class="wiki_link" href="https://stackoverflow.com/questions/72898278/problem-showing-chinese-in-the-browser-with-openxava/72898356#72898356">这里</a><br>
       </span></div>
-    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">现在，我们将把 Product 与 Category 关联，在您的 Product 实体中添加 Category 及以下注解：</span><span
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">现在，我们将把 Product 与 Category 关联，在您的 Product 实体中添加 Category 及以下注解：</span><span
+
         style="line-height: 1.5;"></span></div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">public class Product {
@@ -124,11 +155,13 @@ public class Category {
  
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">这是一个 JPA 多对一的关系，您可以在<a class="wiki_link"
+    <div class="wiki" style="display: block;">这是一个 JPA 多对一的关系，您可以在<a class="wiki_link"
+
         href="jpa_en.html">附录 B</a>了解更多。在这里，因为 @DescriptionsList 使他作为一个组合显示：</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <img src="files/modeling_zh020.png"
+    <div class="wiki" style="display: block;"> <img src="files/modeling_zh020.png"
+
         alt="modeling_en020.png" title="modeling_en020.png"><br>
     </div>
     <div class="wiki" style="display: block;"><br>
@@ -151,7 +184,8 @@ String remarks;
     <div class="wiki" style="display: block;">您已经了解如何使用刻板印象，现在您只需要使用刻板印象的名称，然后 OpenXava 会特殊处理它。现在运型应用并进入 Product 模块，在新建画面您可以看到：</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <img src="files/modeling_zh040.png"
+    <div class="wiki" style="display: block;"> <img src="files/modeling_zh040.png"
+
         alt="modeling_en040.png" title="modeling_en040.png"><br>
     </div>
     <div class="wiki" style="display: block;"><br>
@@ -175,7 +209,8 @@ String remarks;
     <div class="wiki" style="display: block;">一些可用的注解是：@Password、@Money、 @TextArea、@Label、@DateTime、@Discussion、@Icon、@Telephone、@IP、@EmailList、 @MAC、@StringTime、@HtmlText、@Coordinates、@Files ，@File、等。</div>
     <div class="wiki" style="display: block;">现在 Product 已经好了，接下来换 Customer。<br>
       <h2 id="toc4"><a name="Modeling with Java-Basic domain model-Embeddable"></a>可嵌入（Embeddable）</h2>
-      我们将在客户 Customer 添加地址 Address，由于地址并不跟其它客户共享，所以当客户被删除时，他的地址也一样会被删除。因此我们将地址概念建为可嵌入类，您可以在<a
+      我们将在客户 Customer 添加地址 Address，由于地址并不跟其它客户共享，所以当客户被删除时，他的地址也一样会被删除。因此我们将地址概念建为可嵌入类，您可以在<a
+
         class="wiki_link" href="jpa_en.html#Appendix%20B:%20Java%20Persistence%20API-JPA%20Annotations-Embeddable%20classes">附录 B</a>中了解更多信息。<br>
       接下来我们将 Address 添加至您的项目中，其代码如下：</div>
     <div class="wiki" style="display: block;"><code class="java"> </code>
@@ -224,14 +259,17 @@ Address address; // 常规的 Java 引用
     <div class="wiki" style="display: block;">这是有和没框的差别</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <img src="files/modeling_zh060.png"
+    <div class="wiki" style="display: block;"> <img src="files/modeling_zh060.png"
+
         alt="modeling_en060.png" title="modeling_en060.png"></div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;"></span><br>
       <h2 id="toc14"><a name="Modeling with Java-Summary"></a>总结</h2>
       在本课中您学会如何以组合显示的 @DescriptionList 注解，如何使用刻板印象和 @Embeddable。现在基本的实体都好了，是时候面对应用程序的核心实体：发票 Invoice。这会在下一课开始。<br>
       <br>
-      <strong>对这节课有什么问题吗？ <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-          rel="nofollow">前往轮譠</a></strong> <strong>一切都顺利吗？ <a class="wiki_link"
+      <strong>对这节课有什么问题吗？ <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
+          rel="nofollow">前往轮譠</a></strong> <strong>一切都顺利吗？ <a class="wiki_link"
+
           href="basic-domain-model2_zh.html">前往第三章</a></strong> </div>
   </body>
 </html>
