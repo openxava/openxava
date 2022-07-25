@@ -25,7 +25,6 @@ import org.xml.sax.*;
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.html.*;
-import com.gargoylesoftware.htmlunit.html.parser.*;
 import com.gargoylesoftware.htmlunit.javascript.*;
 import com.gargoylesoftware.htmlunit.javascript.host.event.*;
 
@@ -113,14 +112,6 @@ abstract public class ModuleTestBase extends TestCase {
 	
 	
 	protected void setUp() throws Exception {
-		// tmr ini
-		System.out.println("[ModuleTestBase.setUp] OFF"); // tmp
-		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF); 
-		java.util.logging.Logger.getLogger("org.apache.commons.httpclient").setLevel(Level.OFF);
-		java.util.logging.Logger.getLogger("org.apache.http").setLevel(Level.OFF);
-		
-		// tmr fin
-
 		locale = null;
 		XPersistence.reset(); 
 		XPersistence.setPersistenceUnit("junit");
@@ -473,26 +464,9 @@ abstract public class ModuleTestBase extends TestCase {
 		client.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		client.getOptions().setThrowExceptionOnScriptError(false);
 		client.getOptions().setCssEnabled(false);
-		// tmr ini
-		System.out.println("[ModuleTestBase.resetModule] LOG_REPORTER"); // tmp
 		client.setJavaScriptErrorListener(new SilentJavaScriptErrorListener());
-		client.setHTMLParserListener(new HTMLParserListener() {
-
-			@Override
-			public void error(String arg0, URL arg1, String arg2, int arg3, int arg4, String arg5) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void warning(String arg0, URL arg1, String arg2, int arg3, int arg4, String arg5) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
 	    client.setCssErrorHandler(new SilentCssErrorHandler());
-	    // tmr fin
+	    client.setIncorrectnessListener((message, origin) -> {});
 		
 		if (getLocale() != null) {
 			client.addRequestHeader("Accept-Language", getLocale());			
@@ -659,8 +633,7 @@ abstract public class ModuleTestBase extends TestCase {
 	private void assertSystemError() { 
 		Object systemError = page.getElementById("xava_system_error"); 
 		if (systemError != null) {
-			// tmr fail(((HtmlElement) systemError).asText());
-			fail(((HtmlElement) systemError).asNormalizedText()); // tmr En changelog
+			fail(((HtmlElement) systemError).asNormalizedText()); 
 		}
 	}
 
@@ -798,8 +771,7 @@ abstract public class ModuleTestBase extends TestCase {
 	private boolean pageNotLoaded() throws Exception { 
 		if (page == null) return true;
 		if (isXavaPage()) return false;
-		// tmr return page.asText().contains("HTTP 404");
-		return page.asNormalizedText().contains("HTTP 404"); // tmr
+		return page.asNormalizedText().contains("HTTP 404"); 
 	}
 	
 	private boolean isXavaPage() { 
@@ -855,8 +827,7 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 		
 	protected String getValue(String name) throws Exception {		
-		// tmr return getFormValue(decorateId(name)); 
-		return getFormValue(decorateId(name)).trim(); // tmr
+		return getFormValue(decorateId(name)).trim(); 
 	}
 	
 	/**
@@ -1389,7 +1360,7 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @since 5.7 
 	 */
 	protected String getValueInList(int row) throws Exception { 
-		return getElementInList(row).asNormalizedText().trim().replaceAll("\r\n", "\n").replaceAll("\n", "\r\n"); 
+		return getElementInList(row).asNormalizedText().trim(); 
 	}
 	
 	private HtmlElement getListElement(String id, String errorId) {  

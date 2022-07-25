@@ -60,8 +60,7 @@ public class CarrierTest extends CarrierTestBase {
 		HtmlAnchor deleteLink = getHtmlPage().getHtmlElementById("ox_openxavatest_Carrier__CRUD___delete");
 		// To ensure the question has an apostrophe
 		assertEquals("javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l" 
-			// tmr + (char) 145 // ANSI  
-				+ (char) 8216 // UNICODE: http://www.alanwood.net/demos/ansi.html Migration
+			+ (char) 8216 
 			+"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
 			deleteLink.getHrefAttribute());
 		execute("CRUD.delete");
@@ -72,16 +71,13 @@ public class CarrierTest extends CarrierTestBase {
 		// To ensure the title and question have apostrophe
 		String deleteRowLink = "<a class=\"ox-image-link\" "
 				+ "title=\"Effacer l"  
-				// tmr (char) 145 // ANSI
+				// (char) 145 // ANSI
 				+ (char) 8216 // UNICODE
 				+ "entité\" "
 				+ "href=\"javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l" 
-				// TMR + (char) 145 // ANSI
+				// + (char) 145 // ANSI
 				+ (char) 8216 // UNICODE
 				+ "entité la ligne 1: êtes-vous sûr ?', false, 'CRUD.deleteRow', 'row=0')\">";
-		printHtml(); // tmr
-		System.out.println("[CarrierTest.testApostrophes_switzerlandLocale] html=" + getHtml()); // tmp
-		System.out.println("[CarrierTest.testApostrophes_switzerlandLocale] deleteRowLink=" + deleteRowLink); // tmp
 		assertTrue(getHtml().contains(deleteRowLink));
 		execute("CRUD.deleteRow", "row=0");
 		assertListRowCount(3);
@@ -95,7 +91,7 @@ public class CarrierTest extends CarrierTestBase {
 		// Apostrophe in bottom button
 		HtmlInput showCutRowsButton = getHtmlPage().getHtmlElementById("ox_openxavatest_Carrier__Carrier___showCutRows");
 		assertEquals("Montrer l" + 
-			// TMR (char) 145 + // ANSI  
+			// (char) 145 + // ANSI  
 			(char) 8216 + // UNICODE
 			"article coupé", showCutRowsButton.getValueAttribute());
 		

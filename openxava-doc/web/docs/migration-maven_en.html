@@ -332,7 +332,79 @@ assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asText());
       <pre><code class="java">HtmlElement card = body.getElementsByAttribute("div", "class", "ox-card").get(2);
 assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asNormalizedText());
 </code></pre> </div>
-    <div class="wiki" style="display: block;">fff<br>
+    <div class="wiki" style="display: block;">Add insult to injury
+      asNormalizedText() does not behave exactly as the old asText(), it changes
+      all new lines by a single \n. It means that maybe you have to change some
+      test code if you use asText() and examine the new lines. For example, if
+      you have the next test code:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">assertDiscussionCommentText("discussion", 0, Strings.multiline("admin - Now", "Hi, it's me")); 
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Change it by:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">assertDiscussionCommentText("discussion", 0, "admin - Now\nHi, it's me");
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Note that we no longer use the
+      Strings.multiline() utility and we use single \n. In this case you have
+      not used asNormalizedText() directly, but assertDiscussionCommentText()
+      from ModuleTestBase that uses asNormalizedText() for its implementation.
+      That is, some methods of ModuleTestBase are affected by this new behavior,
+      among them assertValueInList() for Card list format, now you have to use a
+      single \n instead of \r\n. So you have to change:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">assertValueInList(2, "XAVA\r\n3\r\nUnit price: 0.00");
+</code></pre> </div>
+    <div class="wiki" style="display: block;">By:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">assertValueInList(2, "XAVA\n3\nUnit price: 0.00");
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Another change in the way HtmlUnit
+      behaves is that is uses UNICODE characters instead of ANSI character, so
+      if you test for special characters you have to adapt your code. For
+      example, you should change:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">assertEquals(
+    "javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l" 
+        + (char) 145 // ANSI  
+        +"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
+    deleteLink.getHrefAttribute());
+</code></pre> </div>
+    <div class="wiki" style="display: block;">By:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">assertEquals(
+    "javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l" 
+        + (char) 8216 // UNICODE
+        +"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
+    deleteLink.getHrefAttribute());
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Note as we change 145 by 8216. <a
+        href="http://www.alanwood.net/demos/ansi.html">Look at this table</a> to
+      know the mapping between ANSI and UNICODE.</div>
+    <div class="wiki" style="display: block;">Now in @HtmlText or
+      @Stereotype("HTML_TEXT") properties you get the real content, including
+      the HTML tags, surely because a better JavaScript support in HtmlUnit.
+      Therefore, if you have a @HtmlText property called description, change:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">assertValue("description", "This is the big jUnit discussion");
+</code></pre> </div>
+    <div class="wiki" style="display: block;">By:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">assertValue("description", "&lt;p&gt;This is the big jUnit discussion&lt;/p&gt;");
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Also, getValue() and assertValue()
+      now do a trim() to work better with the new HtmlUnit behavior, so you have
+      to change:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">assertValue("city", "46540 ");
+</code></pre> </div>
+    <div class="wiki" style="display: block;">By:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">assertValue("city", "46540");
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Note as we have removed the space
+      after 46540.</div>
+    <div class="wiki" style="display: block;">The new HtmlUnit requires that you
+      reload the page in order that C<br>
       <h2><a name="Migration-How to update your project to the latest OpenXava?"></a>How
         to update your project to the latest OpenXava 6.x or 5.x?</h2>
       <ul>

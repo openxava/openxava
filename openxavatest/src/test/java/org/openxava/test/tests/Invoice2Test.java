@@ -50,7 +50,7 @@ public class Invoice2Test extends ModuleTestBase {
 		assertListSelectedConfiguration("Year = 2002"); 
 		assertListAllConfigurations("Year = 2002", "All");
 		assertListRowCount(1);
-		assertValueInList(0, "1\r\n2002\r\nDate: 1/1/2002, VAT %: 16.0, Amounts sum: 2,500.00, Number: 1, Name: Javi"); 
+		assertValueInList(0, "1\n2002\nDate: 1/1/2002, VAT %: 16.0, Amounts sum: 2,500.00, Number: 1, Name: Javi"); 
 		
 		selectListConfiguration("All"); 
 		assertListAllConfigurations("All", "Year = 2002");
@@ -65,11 +65,11 @@ public class Invoice2Test extends ModuleTestBase {
 		
 		assertListRowCount(5); 
 		
-		assertValueInList(0, "2002\r\n2,500.00\r\nRecord count: 1");
-		assertValueInList(1, "2004\r\n5,706.00\r\nRecord count: 5");
-		assertValueInList(2, "2007\r\n6,059.00\r\nRecord count: 1");
-		assertValueInList(3, "2009\r\n0.00\r\nRecord count: 1");
-		assertValueInList(4, "2011\r\n18,207.00\r\nRecord count: 1");
+		assertValueInList(0, "2002\n2,500.00\nRecord count: 1"); 
+		assertValueInList(1, "2004\n5,706.00\nRecord count: 5");
+		assertValueInList(2, "2007\n6,059.00\nRecord count: 1");
+		assertValueInList(3, "2009\n0.00\nRecord count: 1");
+		assertValueInList(4, "2011\n18,207.00\nRecord count: 1");
 		
 		execute("ListFormat.select", "editor=Charts");
 		assertCombosForGroupByInCharts(); 		

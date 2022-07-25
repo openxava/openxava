@@ -34,8 +34,7 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		postDiscussionComment("discussion", "Hi, it's me");
 		String timeFirstPost = getCurrentTime();
 		assertDiscussionCommentsCount("discussion", 1); 
-		// tmr assertDiscussionCommentText("discussion", 0, multiline("admin - Now", "Hi, it's me")); // TMR FALLA 
-		assertDiscussionCommentText("discussion", 0, "admin - Now\nHi, it's me"); // TMR En migration
+		assertDiscussionCommentText("discussion", 0, "admin - Now\nHi, it's me"); 
 		
 		execute("CRUD.save");
 		String id = Incident.findFirst().getId(); 
@@ -55,12 +54,10 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 
 		assertValue("title", "THE JUNIT DISCUSSION");
-		// tmr assertValue("description", "This is the big jUnit discussion");
-		assertValue("description", "<p>This is the big jUnit discussion</p>"); // TMR En migration
+		assertValue("description", "<p>This is the big jUnit discussion</p>"); 
 
 		assertDiscussionCommentsCount("discussion", 1);
-		// tmr assertDiscussionCommentText("discussion", 0, multiline("admin - " + timeFirstPost, "Hi, it's me"));
-		assertDiscussionCommentText("discussion", 0, "admin - " + timeFirstPost + "\nHi, it's me"); // tmr
+		assertDiscussionCommentText("discussion", 0, "admin - " + timeFirstPost + "\nHi, it's me"); 
 		postDiscussionComment("discussion", "Soy Juan"); 
 		String timeSecondPost = getCurrentTime();
 		
@@ -68,17 +65,10 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 
 		assertValue("title", "THE JUNIT DISCUSSION");
-		// tmr assertValue("description", "This is the big jUnit discussion");
-		assertValue("description", "<p>This is the big jUnit discussion</p>"); // tmr
+		assertValue("description", "<p>This is the big jUnit discussion</p>"); 
 		assertDiscussionCommentsCount("discussion", 2);
-		/* tmr
-		assertDiscussionCommentText("discussion", 0, multiline("admin - " + timeFirstPost, "Hi, it's me"));
-		assertDiscussionCommentText("discussion", 1, multiline("juan - " + timeSecondPost, "Soy Juan"));
-		*/
-		// tmr ini
 		assertDiscussionCommentText("discussion", 0, "admin - " + timeFirstPost + "\nHi, it's me");
 		assertDiscussionCommentText("discussion", 1, "juan - " + timeSecondPost + "\nSoy Juan");
-		// tmr fin
 
 		assertEquals(1, discussion.getElementsByTagName("textarea").size());
 		assertEquals(2, discussion.getElementsByAttribute("input", "type", "button").size());	
