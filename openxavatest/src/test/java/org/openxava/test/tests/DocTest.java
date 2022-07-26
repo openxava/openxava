@@ -24,8 +24,8 @@ public class DocTest extends ModuleTestBase {
 		assertTrue(getValueInList(0, 1).startsWith("En un lugar de la Mancha"));
 		execute("ListFormat.select", "editor=Charts");
 		setValue("xColumn", "content");
-		assertFalse(getHtmlPage().asText().contains("/>"));		
-		assertFalse(getHtmlPage().asText().contains("de cuyo nombre no quiero"));
+		assertFalse(getHtmlPage().asNormalizedText().contains("/>"));		
+		assertFalse(getHtmlPage().asNormalizedText().contains("de cuyo nombre no quiero"));
 	}
 	
 }

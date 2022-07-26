@@ -149,12 +149,12 @@ public class DeliveryTypeTest extends ModuleTestBase {
 	}
 	
 	private void actionInCorrectBar() { 
-		String topBarText = getHtmlPage().getHtmlElementById("ox_openxavatest_DeliveryType__button_bar").asText();
+		String topBarText = getHtmlPage().getHtmlElementById("ox_openxavatest_DeliveryType__button_bar").asNormalizedText();
 		assertTrue(topBarText.contains("Save Refresh")); 
 		assertTrue(topBarText.contains("Save not reset Save not refresh"));
 		assertFalse(topBarText.contains("Assert combo deliveries"));
 		
-		String bottomBarText = getHtmlPage().getHtmlElementById("ox_openxavatest_DeliveryType__bottom_buttons").asText();
+		String bottomBarText = getHtmlPage().getHtmlElementById("ox_openxavatest_DeliveryType__bottom_buttons").asNormalizedText();
 		assertEquals("Save Assert combo deliveries", bottomBarText);		
 	}
 

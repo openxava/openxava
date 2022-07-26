@@ -1,7 +1,5 @@
 package org.openxava.test.tests;
 
-import static org.openxava.util.Strings.multiline;
-
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
@@ -125,14 +123,14 @@ public class ProductTest extends ModuleTestBase {
 	public void testCards() throws Exception { 
 		execute("ListFormat.select", "editor=Cards");
 		assertListRowCount(7);
-		assertValueInList(2, "XAVA\r\n3\r\nUnit price: 0.00, Unit price in pesetas: 0"); 
+		assertValueInList(2, "XAVA\n3\nUnit price: 0.00, Unit price in pesetas: 0"); 
 		
 		assertFalse(getHtml().contains("There are no records"));
 		assertTrue(getHtmlPage().getElementById("xava_loading_more_elements") == null);
 		
 		// To test if the click works, specially that the javascript is well formed including the correct row an so,
 		// for a regular test using execute("List.viewDetail", "row=2") is the way to go
-		HtmlElement card = assertCard3Title("XAVA");
+		HtmlElement card = assertCard3Title("XAVA"); 
 		assertNoAction("CRUD.save");
 		String onClick = card.getOnClickAttribute();
 		assertTrue(onClick.startsWith("if (!getSelection().toString()) ")); // getSelection() does not work in HtmlUnit
@@ -178,7 +176,7 @@ public class ProductTest extends ModuleTestBase {
 	private HtmlElement assertCard3Title(String expectedTitle) { 
 		HtmlElement body = (HtmlElement) getHtmlPage().getElementsByTagName("body").get(0);
 		HtmlElement card = body.getElementsByAttribute("div", "class", "ox-card").get(2);
-		assertEquals(multiline(expectedTitle, "3", "Unit price: 0.00, Unit price in pesetas: 0"), card.asText());
+		assertEquals(expectedTitle + "\n3\nUnit price: 0.00, Unit price in pesetas: 0", card.asNormalizedText()); 
 		return card;
 	}
 		

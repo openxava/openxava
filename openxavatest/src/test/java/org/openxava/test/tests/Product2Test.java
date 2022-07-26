@@ -495,8 +495,8 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertFalse(openFamilyListIcon.isDisplayed());
 		assertTrue(closeFamilyListIcon.isDisplayed());
 		assertEquals(2, familyList.getChildElementCount()); 
-		assertEquals("SOFTWARÉ", familyList.getFirstChild().asText()); 
-		assertEquals("HARDWARE", familyList.getLastChild().asText());
+		assertEquals("SOFTWARÉ", familyList.getFirstChild().asNormalizedText()); 
+		assertEquals("HARDWARE", familyList.getLastChild().asNormalizedText());
 		
 		((HtmlElement) familyList.getFirstChild()).click(); // SOFTWARE
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
@@ -506,8 +506,8 @@ public class Product2Test extends EmailNotificationsTestBase {
 		HtmlElement subfamilyList = getHtmlPage().getHtmlElementById("ui-id-9");
 		assertTrue(subfamilyList.isDisplayed());
 		assertEquals(3, subfamilyList.getChildElementCount());
-		assertEquals("DESARROLLO", subfamilyList.getFirstChild().asText());
-		assertEquals("SISTEMA", subfamilyList.getLastChild().asText());	
+		assertEquals("DESARROLLO", subfamilyList.getFirstChild().asNormalizedText());
+		assertEquals("SISTEMA", subfamilyList.getLastChild().asNormalizedText());	
 		
 		((HtmlElement) subfamilyList.getFirstChild()).click(); // DESARROLLO
 		HtmlElement subfamilyTextField = subfamilyEditor.getOneHtmlElementByAttribute("input", "class", "xava_select editor ui-autocomplete-input");
