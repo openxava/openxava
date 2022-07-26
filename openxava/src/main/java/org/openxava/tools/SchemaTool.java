@@ -114,7 +114,6 @@ public class SchemaTool {
 				}						
 			}
 			else {
-				metadata.addResource("GalleryImage.hbm.xml");
 				for (ManagedType type: XPersistence.getManager().getMetamodel().getManagedTypes()) {
 					Class<?> clazz = type.getJavaType();
 					if (clazz == null || clazz.isInterface()) continue;

@@ -122,7 +122,7 @@ public class Users {
         String user = (String) request.getSession().getAttribute("xava.user");
 		current.set(user);
 		request.getSession().setAttribute("xava.user", user); 
-		currentUserInfo.set(request.getSession().getAttribute("xava.userinfo")); // tmr
+		currentUserInfo.set(request.getSession().getAttribute("xava.userinfo"));
 		currentIP.set(request.getRemoteAddr());
 	}
 	
