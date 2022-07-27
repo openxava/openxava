@@ -1210,7 +1210,7 @@ public class DeliveryTest extends ModuleTestBase {
 			"FACTURABLE MODIFIED"				
 		};
 		for (DomElement item: typeList.getChildElements()) {
-			assertEquals(expectedValues[i++], item.asText());
+			assertEquals(expectedValues[i++], item.asNormalizedText());
 		}
 	}
 

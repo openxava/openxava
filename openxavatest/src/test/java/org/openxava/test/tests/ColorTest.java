@@ -43,10 +43,10 @@ public class ColorTest extends ModuleTestBase {
 		HtmlElement container = getHtmlPage().getHtmlElementById("ox_openxavatest_Color__sc-container-ColorSub_detail"); 
 		HtmlElement menu = getHtmlPage().getHtmlElementById("ox_openxavatest_Color__sc-ColorSub_detail"); 
 		assertTrue("display:none;".equals(menu.getAttribute("style")));
-		assertTrue(container.asText().contains("My processes"));
-		assertTrue(container.asText().contains("First action from subcontroller"));
-		assertTrue(container.asText().contains("Second action"));
-		assertTrue(container.asText().contains("Third action"));
+		assertTrue(container.asNormalizedText().contains("My processes"));
+		assertTrue(container.asNormalizedText().contains("First action from subcontroller"));
+		assertTrue(container.asNormalizedText().contains("Second action"));
+		assertTrue(container.asNormalizedText().contains("Third action"));
 		
 		assertAction("ColorSub.thirdAction");
 		execute("Color.removeThirdAction");
@@ -453,7 +453,7 @@ public class ColorTest extends ModuleTestBase {
 		int x = 0;
 		for (HtmlElement h : e){
 			if (h.hasAttribute("class") && h.getAttribute("class").equals("ox-button-bar-button")){
-				assertTrue(h.asText().trim().equals(texts[x])); 
+				assertTrue(h.asNormalizedText().trim().equals(texts[x])); 
 				x++;
 			}
 		}

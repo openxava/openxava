@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title> Lesson 14: Manual schema evolution - OpenXava</title>
+    <title>OpenXava 第十四章：手动更改 schema</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,66 +9,107 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Lesson 5: Basic business logic"></a> <span
-          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
-            href="index_en.html">文档</a> / </span> Lesson 14: Manual schema evolution</h1>
-      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1. Getting started</a> | <a
-        class="wiki_link" href="basic-domain-model1_en.html">2. Basic domain model (1)</a> | <a
-        class="wiki_link" href="basic-domain-model2_en.html">3. Basic domain model (2)</a> | <a
-        class="wiki_link" href="refining-user-interface_en.html">4. Refining the user interface</a> | <a
-        class="wiki_link" href="agile-development_en.html">5. Agile development</a> |&nbsp;<a
-        class="wiki_link" href="mapped-superclass-inheritance_en.html">6. Mapped superclass inheritance</a> | <a
-        class="wiki_link" href="entity-inheritance_en.html">7. Entity inheritance</a> | <a
-        class="wiki_link" href="view-inheritance_en.html">8. View inheritance</a> | <a
-        class="wiki_link" href="java-properties_en.html">9. Java properties</a> | <a
-        class="wiki_link" href="calculated-properties_en.html">10. Calculated properties </a> | <a
-        class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11. @DefaultValueCalculator in collections </a> | <a
-        class="wiki_link" href="calculation-and-collections-total_en.html">12. </a><a
-        class="wiki_link" href="calculation-and-collections-total_en.html">@Calculation and collections totals</a><a
-        class="wiki_link" href="calculation-and-collections-total_en.html"> </a> | <a
-        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file </a> | <strong>14. Manual schema evolution </strong> | <a
-        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation</a> | <a
-        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed properties</a> | <a
-        class="wiki_link" href="logic-from-database_en.html">17. Logic from database&nbsp;</a> |<span
-        style="color: #0000ee;"></span><span style="color: #0000ee;"> </span><a
-        class="wiki_link" href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator&nbsp;</a> |&nbsp; <a
-        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
-        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
-        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
-        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
-        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
-        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
-        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
-        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
-        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
-        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
-        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
-        class="wiki_link" href="testing_en.html">D. Automated testing</a><a
-        class="wiki_link" href="testing_en.html"></a>
+      <h1 id="toc0"><a name="Lesson 5: Basic business logic"></a> <span
+
+          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
+            href="index_zh.html">文档</a> / </span> 第十四章：手动更改 schema</h1>
+      <strong>课程：</strong><a class="wiki_link" href="getting-started_zh.html">1. 入门教学</a> | <a
+
+        class="wiki_link" href="basic-domain-model1_zh.html">2. 基本域模型（上）</a> | <a
+
+        class="wiki_link" href="basic-domain-model2_zh.html">3. 基本域模型（下）</a> | <a
+
+        class="wiki_link" href="refining-user-interface_zh.html">4. 优化用户界面</a> | <a
+
+        class="wiki_link" href="agile-development_zh.html">5. 敏捷开发</a> | <a
+
+        class="wiki_link" href="mapped-superclass-inheritance_zh.html">6. 映射式超类继承</a> | <a
+
+        class="wiki_link" href="entity-inheritance_zh.html">7. 实体继承</a> | <a
+
+        class="wiki_link" href="view-inheritance_zh.html">8. 视图继承（View）</a> | <a
+
+        class="wiki_link" href="java-properties_zh.html">9. Java 属性</a> | <a
+
+        class="wiki_link" href="calculated-properties_zh.html">10. 计算属性</a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-in-collections_zh.html">11. 用在集合的 @DefaultValueCalculator</a><strong> </strong> | <a
+
+        class="wiki_link" href="calculation-and-collections-total_zh.html">12. @Calculation 和集合总计</a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-from-file_zh.html">13. 从外部文件的 @DefaultValueCalculator</a> <a
+
+        class="wiki_link" href="defaultvaluecalculator-from-file_zh.html"></a><a
+
+        class="wiki_link" href="defaultvaluecalculator-from-file_zh.html"></a>| <strong>14. 手动更改 schema </strong> | <a
+
+        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation</a> | <a
+
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed properties</a> | <a
+
+        class="wiki_link" href="logic-from-database_en.html">17. Logic from database&nbsp;</a> |<span
+
+        style="color: #0000ee;"></span><span style="color: #0000ee;"> </span><a
+
+        class="wiki_link" href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator&nbsp;</a> |&nbsp; <a
+
+        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
+
+        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
+
+        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
+
+        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
+
+        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
+
+        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
+
+        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
+
+        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
+
+        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
+
+        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
+
+        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+
+        class="wiki_link" href="testing_en.html">D. Automated testing</a>
       <hr>
       <div id="toc">
-        <h1 class="nopad">Table of contents</h1>
-        <div style="margin-left: 1em;"><a href="#Lesson%205:%20Basic%20business%20logic">Lesson 14: Manual schema evolution<br>
+        <h1 class="nopad">目录</h1>
+        <div style="margin-left: 1em;"><a href="#Lesson%205:%20Basic%20business%20logic">第十四章：手动更改 schema<br>
           </a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Manual%20schema%20evolution">Manual schema evolution</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Summary">Summary</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Manual%20schema%20evolution">手动更改 schema</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Summary">总结</a></div>
       </div>
     </div>
-    <div class="wiki" style="display: block;">我们學到了如何从外部文件定义总计，从而將配置参数與我们的业务逻辑獨立，從而无需修改代码来配置它们。在本课中，我们将看到如何使用 SQL 语句來修改数据库的表，以便学习如何修改 schema 而不丢失其中包含的数据。<br>
+    <div class="wiki" style="display: block;">我们学到了如何从外部文件定义总计，从而将配置参数与我们的业务逻辑独立，从而无需修改代码来配置它们。在本课中，我们将看到如何使用 SQL 语句来修改数据库的表，以便学习如何修改 schema 而不丢失其中包含的数据。<br>
       <div class="wiki" style="display: block;"><br>
       </div>
     </div>
     <div class="wiki" style="display: block;">
-      <h2><a name="Lesson 5: Basic business logic-Calculated properties-Manual schema evolution"></a>Manual schema evolution</h2>
-      当我們使用 @Calculation 或 @DefaultValueCalculator 之类的东西时，OpenXava 提供的 schema 自动进化模式會顯的有些不足，因为它会在您添加新的属性时添加新的一列，但它並不会用正确的值填充该列。在这种情况下，我们添加了几个具有 @Calculation 的持久属性，其值在用户与對象（记录）互動之前不会重新计算。此外，我们为 vatPercentage 设置了一个默认值，该值仅在用户创建新對象（记录）时有效，而对现有對象无效。我们必须用相應的值填充新列。</div>
-    <div class="wiki" style="display: block;">鉴于我们处于早期开发阶段，删除所有记录會是一個好的解决方案，但在生产环境中这肯定不是一个好主意，因此我们将调整数据库以适应新代码，從而不会丢失数据，来说明手动进化 schema。</div>
-    <div class="wiki" style="display: block;">T最简单的方法是使用应用程序本身进行更新。我们試著更新产品价格。为了讓新计算属性正常工作，所有产品都应该有价格，所以用你的浏览器转到产品模块并确保所有产品都有价格：</div>
-    <img src="files/business-logic_en040.png" alt="business-logic_en040.png"
-      title="business-logic_en040.png">
+      <h2><a name="Lesson 5: Basic business logic-Calculated properties-Manual schema evolution"></a>手动更改 schema</h2>
+      当我们使用 @Calculation 或 @DefaultValueCalculator 之类的东西时，OpenXava 提供的 schema 自动进化模式会显的有些不足，因为它会在您添加新的属性时添加新的一列，但它并不会用正确的值填充该列。在这种情况下，我们添加了几个具有 @Calculation 的持久属性，其值在用户与对象（记录）互动之前不会重新计算。此外，我们为 vatPercentage 设置了一个默认值，该值仅在用户创建新对象（记录）时有效，而对现有对象无效。我们必须用相应的值填充新列。<br>
+      鉴于我们处于早期开发阶段，删除所有记录会是一个好的解决方案，但在生产环境中这肯定不是一个好主意，因此我们将调整数据库以适应新代码，从而不会丢失数据，来说明手动进化 schema。</div>
+    <div class="wiki" style="display: block;">最简单的方法是使用应用程序本身进行更新。我们试着更新产品价格。为了让新计算属性正常工作，所有产品都应该有价格，所以用你的浏览器转到产品模块并确保所有产品都有价格：</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <p> <img src="files/business-logic_zh040.png" alt="business-logic_en040.png"
+
+        title="business-logic_en040.png"> </p>
+    <br>
     <div class="wiki" style="display: block;">如果某些产品没有价格，请编辑并输入价格。</div>
-    <div class="wiki" style="display: block;">接下来的更改并不是那么简单，因此我们将在数据库执行 SQL 语句。要执行这些语句，請确保应用程序正在运行，然后使用 OpenXava Studio 的菜单选项 OpenXava &gt; Database Manager：<br>
-      <img src="files/inheritance040.png" alt="inheritance040.png" title="inheritance040.png"><br>
-      Now you are ready to write and execute SQLs.First, we set value for <i>pricePerUnit</i> column in all details: </div>
+    <div class="wiki" style="display: block;">接下来的更改并不是那么简单，因此我们将在数据库执行 SQL 语句。要执行这些语句，请确保应用程序正在运行，然后使用 OpenXava Studio 的菜单选项 OpenXava &gt; Database Manager：</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <img src="files/inheritance040.png"
+
+        alt="inheritance040.png" title="inheritance040.png"></div>
+    <div class="wiki" style="display: block;"><br>
+      现在您已可以编写和执行 SQL。首先，我们在所有的详细信息中设置 pricePerUnit 列的值：</div>
     <div class="wiki" style="display: block;">
       <pre><code class="sql">UPDATE INVOICING.COMMERCIALDOCUMENT_DETAILS 
 SET PRICEPERUNIT = (
@@ -76,12 +117,12 @@ SET PRICEPERUNIT = (
     WHERE NUMBER = PRODUCT_NUMBER
 )
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Then we update the <i>vatPercentage</i> for all invoices:</div>
+    <div class="wiki" style="display: block;">再来更新所有发票的 vatPercentage：</div>
     <div class="wiki" style="display: block;">
       <pre><code class="sql">UPDATE INVOICING.COMMERCIALDOCUMENT
 SET VATPERCENTAGE = 21
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Next, the updating of <i>vat</i>:</div>
+    <div class="wiki" style="display: block;">之后是 vat 的更新：</div>
     <div class="wiki" style="display: block;">
       <pre><code class="sql">UPDATE INVOICING.COMMERCIALDOCUMENT
 SET VAT = (
@@ -90,7 +131,7 @@ SET VAT = (
     WHERE D.COMMERCIALDOCUMENT_OID = COMMERCIALDOCUMENT.OID
 )
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Finally, we update the <i>totalAmount</i> of all invoices:</div>
+    <div class="wiki" style="display: block;">最后，更新所有发票的 totalAmount：</div>
     <div class="wiki" style="display: block;">
       <pre><code class="sql">UPDATE INVOICING.COMMERCIALDOCUMENT
 SET TOTALAMOUNT = (
@@ -99,17 +140,22 @@ SET TOTALAMOUNT = (
     WHERE D.COMMERCIALDOCUMENT_OID = COMMERCIALDOCUMENT.OID
 )
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Beware, the above sentences work nicely with HSQLDB, the database included with OpenXava. If you're using another database probably you have to adapt the syntax. After executing the above sentences you can try your application. It would behave as in figure at the begin of the section "Total properties of a collection" even for already existing invoices and orders.<br>
+    <div class="wiki" style="display: block;">请注意，以上语句与 OpenXava 包含的数据库 HSQLDB 配合得很好。如果您将它们在别的数据库使用，可能必须调整语法。执行以上语句后，您可以试着运行应用程序。它应该像 12. @Calculation 和集合总计 中 “集合的总计属性” 的图差不多，甚至对已存在的发票和订单也是。<br>
     </div>
     <div class="wiki" style="display: block;">
-      <h2 id="toc6"><a name="Lesson 5: Basic business logic-JPA callback methods"></a></h2>
+      <h2 id="toc6"><br>
+      </h2>
     </div>
     <div class="wiki" style="display: block;">
-      <h2 id="toc14"><a name="Lesson 5: Basic business logic-Summary"></a>Summary</h2>
-      In this lesson you have learned how to manually modify the database schema of our application using SQL statements, so that we do not lose information in a production environment.<strong></strong><br>
+      <h2 id="toc14"><a name="Lesson 5: Basic business logic-Summary"></a>总结</h2>
+      在这章，您学到如何使用 SQL 语句手动更改数据库的表（schema），这样在生产时就不会失去任何已有的资料。<strong></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine? <a
-          class="wiki_link" href="multi-user-default-value-calculation_en.html">Go to Lesson 15</a></strong> </div>
+      <strong></strong><strong><strong>对这节课有什么问题吗？ <a class="wiki_link_ext"
+
+            href="http://sourceforge.net/p/openxava/discussion/419690/"
+
+            rel="nofollow">前往轮譠</a></strong> <strong>一切都顺利吗？</strong></strong><strong></strong><strong> <a
+
+          class="wiki_link" href="multi-user-default-value-calculation_en.html">前往第十五章</a></strong> </div>
   </body>
 </html>

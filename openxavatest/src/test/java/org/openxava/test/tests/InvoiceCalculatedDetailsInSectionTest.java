@@ -27,7 +27,7 @@ public class InvoiceCalculatedDetailsInSectionTest extends CustomizeListTestBase
 		String sections = "";
 		for (HtmlElement section: getHtmlPage().getBody().getElementsByAttribute("div", "class", "ox-section")) {
 			if (!sections.equals("")) sections += " | ";
-			sections += section.asText(); 
+			sections += section.asNormalizedText(); 
 		}
 		assertEquals(expectedLabels, sections);
 	}

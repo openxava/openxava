@@ -29,8 +29,8 @@ public class TeamTest extends ModuleTestBase {
 		HtmlElement container = getHtmlPage().getHtmlElementById("ox_openxavatest_Team__sc-container-TeamMemberSub_detail"); 
 		HtmlElement menu = getHtmlPage().getHtmlElementById("ox_openxavatest_Team__sc-TeamMemberSub_detail"); 
 		assertTrue("display:none;".equals(menu.getAttribute("style")));
-		assertTrue(container.asText().contains("View names"));
-		assertTrue(container.asText().contains("View roles"));
+		assertTrue(container.asNormalizedText().contains("View names"));
+		assertTrue(container.asNormalizedText().contains("View roles"));
 	}
 	
 	public void testSearchingWithInheritanceFromAEntityCollectionElement() throws Exception {  		
@@ -60,13 +60,13 @@ public class TeamTest extends ModuleTestBase {
 	public void testForwardInSameWindow() throws Exception {
 		execute("Team.goMyPublicJSPInSameWindow");
 		assertPopupCount(0);
-		assertTrue(getHtmlPage().asText().contains("The uri of this JSP"));
+		assertTrue(getHtmlPage().asNormalizedText().contains("The uri of this JSP"));
 	}
 	
 	public void testForwardInSameWindowCalculated() throws Exception {
 		execute("Team.goMyPublicJSPInSameWindowCalculated");
 		assertPopupCount(0);
-		assertTrue(getHtmlPage().asText().contains("The uri of this JSP"));
+		assertTrue(getHtmlPage().asNormalizedText().contains("The uri of this JSP"));
 	}
 	
 	public void testForwardToNullInNewWindow() throws Exception {

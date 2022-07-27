@@ -5,7 +5,6 @@ import java.io.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
-import org.openxava.util.*;
 
 import com.gargoylesoftware.htmlunit.html.*;
 
@@ -23,18 +22,15 @@ public class ProjectTest extends ModuleTestBase {
 	public void testWebURLEditor() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		setValueInCollection("notes", 0, 2, "www.openxava.org");
-		setValueInCollection("notes", 1, 2, "http://www.rae.es/");  
-		assertLinkOnNote(0, "The best time-to-market for Java"); 
-		
-		if (XSystem.isJava9orBetter()) {
-			assertLinkOnNote(1, "Diccionario de la lengua"); // Fails with Java 8 with a problem with Cloudfare protection in RAE
-		}
+		setValueInCollection("notes", 1, 2, "http://www.apache.org/"); 
+		assertLinkOnNote(0, "The best time-to-market for Java");
+		assertLinkOnNote(1, "The World's Largest Open Source Foundation"); 
 	}
 
 	private void assertLinkOnNote(int idx, String expectedText) throws IOException {
 		HtmlAnchor link = (HtmlAnchor) getHtmlPage().getHtmlElementById("ox_openxavatest_Project__editor_notes___" + idx + "___docURL").getElementsByTagName("a").get(0); 
 		HtmlPage page = link.click();
-		assertTrue(page.asText().contains(expectedText));
+		assertTrue(page.asNormalizedText().contains(expectedText));
 	}
 		
 	public void testAddElementsToListWithOrderColumn_removeElementFromListWithOrder() throws Exception {  
@@ -156,7 +152,7 @@ public class ProjectTest extends ModuleTestBase {
 		HtmlTable table = getHtmlPage().getHtmlElementById("ox_openxavatest_Project__members");
 		HtmlTableRow row = table.getRow(1);
 		HtmlTableCell cell = row.getCell(2);
-		assertEquals("PETER", cell.asText().trim());
+		assertEquals("PETER", cell.asNormalizedText().trim());
 		HtmlElement link = cell.getElementsByTagName("a").get(0);
 		link.click();
 		waitAJAX();

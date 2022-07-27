@@ -328,9 +328,9 @@ public class AJAXTest extends ModuleTestBase {
 		changeModule("Warehouse");
 		execute("CRUD.new");
 		HtmlElement el = getHtmlPage().getHtmlElementById("ox_openxavatest_Warehouse__editor_time"); 
-		String time = el.asText().trim();		
+		String time = el.asNormalizedText().trim();		
 		execute("CRUD.new");
-		String otherTime = el.asText().trim();		
+		String otherTime = el.asNormalizedText().trim();		
 		assertNotEquals("Time must be changed", time, otherTime);
 		assertLoadedParts("editor_time, errors, messages");
 	}

@@ -1,12 +1,13 @@
 Change Log for OpenXava project
 ===============================
 
+- HtmlUnit upgraded to 2.63.
 - New projects do not include default schema by default in persistence.xml. 
 - Hibernate upgraded to 5.6.10.
 - Hibernate Envers upgraded to 5.6.10.
 - HSQLDB embedded database upgraded to 2.6.1.
 - Lesson 18 of course divided into several smaller lessons.
-- Lessons 1 to 13 of course translated to Chinese.
+- Lessons 1 to 14 of course translated to Chinese.
 - Removed XHibernate and HibernatePersistenceProvider, though Hibernate API is still available.
 - Removed JDBCTabProvider, used to get list data via JDBC, only used for XML components.
 - Dropped support for Tomcat 7.

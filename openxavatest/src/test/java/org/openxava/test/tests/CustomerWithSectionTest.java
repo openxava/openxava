@@ -248,10 +248,10 @@ public class CustomerWithSectionTest extends CustomerTest {
 	public void testForwardToJavaScript() throws Exception {  
 		execute("CRUD.new");
 		HtmlElement console = getHtmlPage().getHtmlElementById("xava_console"); 
-		assertTrue(!console.asText().contains("[CustomerWithSection.testForwardToJavaScript()] javascript: works"));
+		assertTrue(!console.asNormalizedText().contains("[CustomerWithSection.testForwardToJavaScript()] javascript: works"));
 		setValue("website", "javascript:openxava.log('[CustomerWithSection.testForwardToJavaScript()] javascript: works');"); 
 		execute("CustomWebURL.go", "property=website,viewObject=xava_view_section0"); 
-		assertTrue(console.asText().contains("[CustomerWithSection.testForwardToJavaScript()] javascript: works"));
+		assertTrue(console.asNormalizedText().contains("[CustomerWithSection.testForwardToJavaScript()] javascript: works"));
 	}
 	
 	// To fix a concrete bug

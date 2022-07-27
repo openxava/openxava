@@ -12,7 +12,7 @@ public class PublicJSPTest extends TestCase {
 	public void testPublicJSP() throws Exception {
 		WebClient client = new WebClient();
 		HtmlPage page = (HtmlPage) client.getPage("http://" + getHost() + ":" + getPort() + getContextPath() + "public/myPublicJSP.jsp" ); 
-	    assertTrue(page.asText().startsWith("The uri of this JSP is"));
+	    assertTrue(page.asNormalizedText().startsWith("The uri of this JSP is"));
 	}
 	
 	private static String getPort() {						

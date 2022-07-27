@@ -35,7 +35,7 @@ public class DeliveryTypeJSPTest extends ModuleTestBase {
 		assertNotExists("comboDeliveries");		
 		
 		// <xava:label/> taglib
-		String pageText = getHtmlPage().asText();
+		String pageText = getHtmlPage().asNormalizedText();
 		assertTrue(pageText.contains("N\u00famero:"));
 		assertTrue(pageText.contains("Descripci\u00f3n:"));
 	}
