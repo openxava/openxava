@@ -767,7 +767,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		
 		execute("InvoicePrint.printExcel"); 
 		assertNoErrors(); 
-		assertMessage("The print was successful");
+		assertMessage("The print was successful"); // TMR FALLA ME QUEDÉ POR AQUÍ HACIENDO LOS FALLA
 		assertContentTypeForPopup("application/vnd.ms-excel");  		
 		
 		execute("InvoicePrint.printRtf"); 

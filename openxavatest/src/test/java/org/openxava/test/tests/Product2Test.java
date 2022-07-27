@@ -41,7 +41,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		setValue("subfamily.number", "2");
 		execute("FamilyProductsReport.generateExcel");  
 		assertNoErrors();
-		assertContentTypeForPopup("application/vnd.ms-excel"); 
+		assertContentTypeForPopup("application/vnd.ms-excel"); // TMR FALLA
 		assertDialog(); 
 		assertNoAction("Product2.reportBySubfamily");
 		assertAction("FamilyProductsReport.generateExcel");
