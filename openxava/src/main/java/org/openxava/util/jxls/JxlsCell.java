@@ -3,7 +3,9 @@ package org.openxava.util.jxls;
 import java.util.*;
 import java.util.regex.*;
 
+import org.apache.poi.common.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Hyperlink;
 import org.apache.poi.ss.util.*;
 
 /**
@@ -206,18 +208,19 @@ public class JxlsCell {
 			sheet.addMergedRegion(new CellRangeAddress(row-1, row-1+rowSpan-1, column-1, column-1+columnSpan-1));
 		} 		
 		if (type == FORMULA) {
-			cell.setCellType(Cell.CELL_TYPE_FORMULA);
+			// tmr cell.setCellType(Cell.CELL_TYPE_FORMULA); // tmr Migration
 			cell.setCellFormula(text);
 		} else if (type == TEXT) {
-			cell.setCellType(Cell.CELL_TYPE_STRING);
+			// tmr cell.setCellType(Cell.CELL_TYPE_STRING);
 			cell.setCellValue(text);
 		} else {
-			cell.setCellType(Cell.CELL_TYPE_NUMERIC);
+			// tmr cell.setCellType(Cell.CELL_TYPE_NUMERIC);
 			if (type == DATE) cell.setCellValue(date);
 			else cell.setCellValue(number);
 		}
 		if (hyperlink != null) {
-			Hyperlink url = sheet.getWorkbook().getCreationHelper().createHyperlink(Hyperlink.LINK_URL);
+			// tmr Hyperlink url = sheet.getWorkbook().getCreationHelper().createHyperlink(Hyperlink.LINK_URL);
+			Hyperlink url = sheet.getWorkbook().getCreationHelper().createHyperlink(HyperlinkType.FILE); // tmr Migration
 			url.setAddress(hyperlink);
 			cell.setHyperlink(url);
 		} 

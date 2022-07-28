@@ -335,7 +335,8 @@ public class JxlsSheet implements JxlsConstants {
 			} else sheet.setColumnWidth(column-1, columnWidths.get(column)*256);
 		}
 		if (columnSplit != -1 || rowSplit != -1) sheet.createFreezePane(columnSplit, rowSplit);
-		if (zoom != 100) sheet.setZoom(zoom, 100);
+		// tmr if (zoom != 100) sheet.setZoom(zoom, 100);
+		if (zoom != 100) sheet.setZoom(zoom); // tmr ¿Migration?
 	}
 }
 

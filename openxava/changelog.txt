@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Apache POI actualizado
+
 - HtmlUnit upgraded to 2.63.
 - New projects do not include default schema by default in persistence.xml. 
 - Hibernate upgraded to 5.6.10.

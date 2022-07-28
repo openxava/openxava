@@ -232,7 +232,7 @@ public class JxlsStyle implements JxlsConstants {
 		Font font = workbook.fonts.get(fontKey);
 		if (font == null) {
 			font = poiWorkbook.createFont();
-			font.setBoldweight(isBold ? Font.BOLDWEIGHT_BOLD : Font.BOLDWEIGHT_NORMAL);
+			font.setBoldweight(isBold ? Font.BOLDWEIGHT_BOLD : Font.BOLDWEIGHT_NORMAL); // TMR ME QUEDÉ POR AQUÍ, QUITANDO ERRORES DE COMPILACIÓN
 			font.setFontName(fontName);
 			font.setColor(textColor);
 			font.setFontHeightInPoints(fontSize);
