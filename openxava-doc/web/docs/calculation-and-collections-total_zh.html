@@ -26,8 +26,8 @@
         class="wiki_link" href="defaultvaluecalculator-from-file_zh.html">13. 从外部文件的 @DefaultValueCalculator</a> | <a
         class="wiki_link" href="manual-schema-evolution_zh.html">14. 手动更改 schema</a> | <a
         class="wiki_link" href="multi-user-default-value-calculation_zh.html">15. 多用户时默认值的计算</a> | <a
-        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed properties</a> | <a
-        class="wiki_link" href="logic-from-database_en.html">17. Logic from database </a>|<span
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_zh.html">16. 同步持久属性和计算属性</a> | <a
+        class="wiki_link" href="logic-from-database_zh.html">17. 从数据库中的逻辑</a> |<span
         style="color: #0000ee;"></span><span style="color: #0000ee;"> </span><a
         class="wiki_link" href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator&nbsp;</a> |&nbsp; <a
         class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
@@ -92,13 +92,13 @@ for (Object o: query.getResultList()) { // 仅迭代选定的对象
     i.doSomething();
 }
 </code></pre> 通过这种方式，我们将选择记录的工作交给数据库的服务器，而不是 Java 的服务器。而且，折扣并不是每次都重新计算，而是已经计算并保存了。<br>
-          这个在列表模式中也有影响，因为用户不能在计算属性上进行过滤或排序，但可以在带有 @Calculation 的持久属性上做到这一点：</div>
+          这个在列表模式中也有影响，因为用户不能在计算属性上进行筛选或排序，但可以在带有 @Calculation 的持久属性上做到这一点：</div>
         <div class="wiki" style="display: block;"><br>
         </div>
         <div class="wiki" style="display: block;"> <img src="files/business-logic_zh025.png"
             alt="business-logic_en025.png" title="business-logic_en025.png"></div>
         <div class="wiki" style="display: block;"><br>
-          <em></em>@Calculation 在需要过滤和排序时是一个不错的选择，仅一个简单的计算就足够了。不过 @Calculation 其中一个缺点是，只有当用户更改计算器所使用的属性值时，才会重新计算它们的值。因此当您将新的 @Calculation 属性添加到已具有数据的实体时，您必须使用 SQL 更新表中新列的值。另一方面，如果您需要复杂的计算、循环或咨询其他实体，您仍然需要在 getter 中使用以您 Java 逻辑的计算属性。在最后这个情况，如果您需要在列表模式下对计算属性进行排序和过滤，则可以选择同时拥有计算属性和持久属性，并使用 JPA 回调方法同步它们的值（我们将在以后的课程看到回调方法）。</div>
+          <em></em>@Calculation 在需要筛选和排序时是一个不错的选择，仅一个简单的计算就足够了。不过 @Calculation 其中一个缺点是，只有当用户更改计算器所使用的属性值时，才会重新计算它们的值。因此当您将新的 @Calculation 属性添加到已具有数据的实体时，您必须使用 SQL 更新表中新列的值。另一方面，如果您需要复杂的计算、循环或咨询其他实体，您仍然需要在 getter 中使用以您 Java 逻辑的计算属性。在最后这个情况，如果您需要在列表模式下对计算属性进行排序和筛选，则可以选择同时拥有计算属性和持久属性，并使用 JPA 回调方法同步它们的值（我们将在以后的课程看到回调方法）。</div>
       </div>
       <div class="wiki" style="display: block;">
         <h3 id="toc4"><a name="Lesson 5: Basic business logic-Calculated properties-Total properties of a collection"></a>集合的总计属性</h3>
@@ -123,7 +123,7 @@ BigDecimal vat;
 @Calculation("sum(details.amount) + vat")    
 BigDecimal totalAmount;    
 </code></pre></div>
-      <div class="wiki" style="display: block;">请注意我们是为何在 vat 跟 totalAmount 选择持久属性（@Calculation + @ReadOnly）而不是计算属性，这是因为这些算法很简单，并且对它们进行过滤和排序。另外，您可以在@Calculation 中看到如何使用 sum(details.amount) 来引用集合详细信息中金额列（总额列）的总和，这样我们就不需要 baseAmount 属性。另一方面，vatPercentage 是一个传统的持久属性，我们使用 @Digits（来自 Bean Validation 的注解，Java 基准验证）作为 @Column 的替代品来指定其大小。</div>
+      <div class="wiki" style="display: block;">请注意我们是为何在 vat 跟 totalAmount 选择持久属性（@Calculation + @ReadOnly）而不是计算属性，这是因为这些算法很简单，并且对它们进行筛选和排序。另外，您可以在@Calculation 中看到如何使用 sum(details.amount) 来引用集合详细信息中金额列（总额列）的总和，这样我们就不需要 baseAmount 属性。另一方面，vatPercentage 是一个传统的持久属性，我们使用 @Digits（来自 Bean Validation 的注解，Java 基准验证）作为 @Column 的替代品来指定其大小。</div>
       <div class="wiki" style="display: block;"> 现在您已经编写了 CommercialDocument 中的金额属性，就必须修改 detail 集合的属性列表, 来显示 CommercialDocument 的 the total properties（发票和订单）。让我们来看看：<br>
         <pre><code class="java">abstract public class CommercialDocument extends Identifiable {
  
