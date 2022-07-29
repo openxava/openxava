@@ -1,0 +1,141 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>OpenXava 第十八章：使用 @EntityValidator 进行验证</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Lesson 6: Advanced validation"></a> <span
+          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_zh.html">文档</a> / </span>第十八章：使用 @EntityValidator 进行验证</h1>
+      <strong>课程：</strong><a class="wiki_link" href="getting-started_zh.html">1. 入门教学</a> | <a
+        class="wiki_link" href="basic-domain-model1_zh.html">2. 基本域模型（上）</a> | <a
+        class="wiki_link" href="basic-domain-model2_zh.html">3. 基本域模型（下）</a> | <a
+        class="wiki_link" href="refining-user-interface_zh.html">4. 优化用户界面</a> | <a
+        class="wiki_link" href="agile-development_zh.html">5. 敏捷开发</a> | <a
+        class="wiki_link" href="mapped-superclass-inheritance_zh.html">6. 映射式超类继承</a> | <a
+        class="wiki_link" href="entity-inheritance_zh.html">7. 实体继承</a> | <a
+        class="wiki_link" href="view-inheritance_zh.html">8. 视图继承（View）</a> | <a
+        class="wiki_link" href="java-properties_zh.html">9. Java 属性</a> | <a
+        class="wiki_link" href="calculated-properties_zh.html">10. 计算属性</a> | <a
+        class="wiki_link" href="defaultvaluecalculator-in-collections_zh.html">11. 用在集合的 @DefaultValueCalculator</a><strong> </strong> | <a
+        class="wiki_link" href="calculation-and-collections-total_zh.html">12. @Calculation 和集合总计</a> | <a
+        class="wiki_link" href="defaultvaluecalculator-from-file_zh.html">13. 从外部文件的 @DefaultValueCalculator</a> | <a
+        class="wiki_link" href="manual-schema-evolution_zh.html">14. 手动更改 schema</a> | <a
+        class="wiki_link" href="multi-user-default-value-calculation_zh.html">15. 多用户时默认值的计算</a> | <a
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_zh.html">16. 同步持久属性和计算属性</a> | <a
+        class="wiki_link" href="logic-from-database_zh.html">17. 从数据库中的逻辑</a> | <strong>18. 使用 @EntityValidator 进行验证 </strong>|&nbsp; <a
+        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
+        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
+        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
+        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
+        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
+        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
+        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
+        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
+        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
+        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
+        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+        class="wiki_link" href="testing_en.html">D. Automated testing</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">目录</h1>
+        <div style="margin-left: 1em;"><a href="#Lesson%206:%20Advanced%20validation">第十八章：使用 @EntityValidator 进行验证</a></div>
+        <div style="margin-left: 2em;"><a href="#our-validation">我们的验证<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Adding%20delivered//%20property%20to%20//Order">在 Order 中添加</a><a
+            href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Adding%20delivered//%20property%20to%20//Order"> delivered 属性</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Validating%20with%20@EntityValidator">使用 @EntityValidator 进行验证</a></div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#Lesson%206:%20Advanced%20validation-Summary">总结</a> </div>
+      到目前为止，我们只使用 OpenXava 的 @Required 注解做了一些基本的验证。在本章，您将学到使用 @EntityValidator 注解进行验证。<br>
+      <h2 id="our-validation">我们的验证</h2>
+      我们将使用以下逻辑优化代码：如果订单尚未交付，则用户无法用它生成发票或分配给一个已存在的发票。也就是说，只有已交付的订单才能与发票相关联。<br>
+      <h2 id="toc2"><a name="Lesson 6: Advanced validation-Validation alternatives-Adding delivered// property to //Order"></a>在 Order 中添加 delivered 属性<em></em></h2>
+      首先，在 Order 实体中添加一个新属性：已交付（delivered）<br>
+      <pre><code class="java">@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
+boolean delivered;
+</code></pre> 此外，必须将已交付（delivered）属性添加到视图中。请用以下代码修改 Order 的视图：<br>
+      <pre><code class="java">@View(extendsView="super.DEFAULT", 
+    members=
+        "estimatedDeliveryDays, delivered," + // 添加已交付
+        "invoice { invoice }" 
+)
+...
+public class Order extends CommercialDocument {
+</code></pre> 这个新属性允许用户在订单已交付时，改变订单的交付状态。试试新代码并将一些现有订单标记为已交付。<br>
+      <h2 id="toc3"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating with @EntityValidator"></a>使用 @EntityValidator 进行验证<em></em></h2>
+      目前，用户可以在 Invoice 模块中将任何订单添加到任何发票，也能在 Order 模块将一个发票与任何订单相关联。我们将对此进行限制：只有已交付的订单可以添加到发票中。<br>
+      实现此验证的第一个方案是使用 @EntityValidator。此注解允许您为实体指定您想要的验证逻辑。让我们在 Order 实体注解，如下：<br>
+      <pre><code class="java">@EntityValidator(
+    value=com.yourcompany.invoicing.validators.DeliveredToBeInInvoiceValidator.class, // 具有验证逻辑的类
+    properties= {
+        //这些属性的值会在执行验证之前从 Order 实体中移到验证器<br>	@PropertyValue(name="year"), 
+        @PropertyValue(name="number"), 
+        @PropertyValue(name="invoice"), 
+        @PropertyValue(name="delivered") 
+    }
+)
+public class Order extends CommercialDocument {
+</code></pre><em></em>每次新建或修改 Order 对象时，都会创建 DeliveredToBeInInvoiceValidator 对象。该对象会使用 Order 对象中的属性值，如 year、number、invoice 和 delivered。之后，验证器会执行 validate() 方法。现在我们将编写验证器的代码，首先创建 com.yourcompany.invoicing.validators 包，然后将下一个类放入其中：<br>
+      <pre><code class="java">package com.yourcompany.invoicing.validators; // 在 validators 包
+
+import com.yourcompany.invoicing.model.*;
+import org.openxava.util.*;
+import org.openxava.validators.*;
+import lombok.*;
+ 
+@Getter @Setter 
+public class DeliveredToBeInInvoiceValidator
+    implements IValidator { // 必须实现 IValidator
+ 
+    int year; // 要从 Order 注入的属性
+    int number;
+    boolean delivered;
+    Invoice invoice;
+ 
+    public void validate(Messages errors) // 验证的逻辑
+        throws Exception
+    {
+        if (invoice == null) return;
+        if (!delivered) {
+            errors.add( // 在 errors 添加消息，验证将失败
+                "order_must_be_delivered", // i18n 文件裡的 id
+                year, number); // 消息的参数
+         }
+    }
+
+}
+</code></pre> 验证的逻辑非常简单：如果已经有发票但该订单未标记为已交付时，我们会添加一条错误的消息，因此验证将失败。您应该在 Invoicing/i18n/Invoicing-messages_en.properties 文件中添加错误消息。如下所示：<br>
+      <pre><code class="properties"># Messages for the Invoicing application
+order_must_be_delivered=Order {0}/{1} must be delivered in order to be added to an Invoice
+</code></pre> 现在您可以尝试将订单添加到一个发票中，您将看到未交付的订单是如何被拒绝的。之后转到 Order 模块，选择发票的订单选项卡，然后点击增加：</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <img src="files/validation_zh010.png"
+        alt="validation_en010.png" title="validation_en010.png"></div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">它将显示一个视窗，列表中有可选择的订单。选择两张，其中一张尚未交付，然后点击增加：</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <p> <img src="files/validation_zh013.png" alt="validation_en013.png"
+        title="validation_en013.png"> </p>
+    <br>
+    <div class="wiki" style="display: block;">已交付的订单会添加而另一个订单会被拒绝，并且产生以下消息：</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <img src="files/validation_zh017.png" alt="validation_en017.png" title="validation_en017.png"><br>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc20"><a name="Lesson 6: Advanced validation-Summary"></a>总结</h2>
+      您已经有使用 @EntityValidator 的验证了。这并不难，但有点“冗长”，因为为了添加两行代码就得编写一个新的类。不过，这是一个很大的突破。在下一章，我们将看一些使用此验证更简单的方法。<br>
+      <br>
+      <strong><strong><strong>对这节课有什么问题吗？ <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+              rel="nofollow">前往轮譠</a></strong> <strong></strong></strong></strong><strong><strong><strong><strong><strong><strong>一切都顺利吗？ </strong></strong></strong><strong><strong><strong><strong><a
+                      class="wiki_link" href="validation-alternatives_en.html">前往第十九章</a></strong></strong></strong></strong></strong></strong></strong><a
+        class="wiki_link" href="validation-alternatives_en.html"><strong></strong></a> </div>
+  </body>
+</html>
