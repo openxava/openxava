@@ -5,21 +5,7 @@ import org.apache.poi.ss.usermodel.*;
 
 public interface JxlsConstants {
 	
-	/* tmr
-	public static final short EMPTY = CellStyle.NO_FILL;
-	public static final short BLACK = HSSFColor.BLACK.index;
-	public static final short WHITE = HSSFColor.WHITE.index;
-	public static final short RED = HSSFColor.RED.index;;
-	public static final short BLUE = HSSFColor.BLUE.index;;
-	public static final short GREEN = HSSFColor.GREEN.index;;
-	public static final short LIGHT_YELLOW = HSSFColor.LIGHT_YELLOW.index;;
-	public static final short LIGHT_GREY = HSSFColor.GREY_25_PERCENT.index;;
-	public static final short LIGHT_GREEN = HSSFColor.LIGHT_GREEN.index;;
-	*/
-	
-	// tmr ini
-	// tmr Migration
-	public static final short EMPTY = (short) FillPatternType.NO_FILL.ordinal(); // Not sure about this, it was CellStyle.NO_FILL 
+	public static final short EMPTY = FillPatternType.NO_FILL.getCode();  
 	public static final short BLACK = HSSFColor.HSSFColorPredefined.BLACK.getIndex();
 	public static final short WHITE = HSSFColor.HSSFColorPredefined.WHITE.getIndex(); 
 	public static final short RED = HSSFColor.HSSFColorPredefined.RED.getIndex(); 
@@ -28,7 +14,6 @@ public interface JxlsConstants {
 	public static final short LIGHT_YELLOW = HSSFColor.HSSFColorPredefined.LIGHT_YELLOW.getIndex(); 
 	public static final short LIGHT_GREY = HSSFColor.HSSFColorPredefined.GREY_25_PERCENT.getIndex(); 
 	public static final short LIGHT_GREEN = HSSFColor.HSSFColorPredefined.LIGHT_GREEN.getIndex(); 	
-	// tmr fin
 
 	public static final short NONE = 0;
 	public static final short LEFT = 1;
@@ -50,16 +35,8 @@ public interface JxlsConstants {
 
 	public static final int AUTO_SIZE = -1;
 	
-	/* tmr
-	public static final short BORDER_NONE = CellStyle.BORDER_NONE;
-	public static final short BORDER_THIN = CellStyle.BORDER_THIN;
-	public static final short BORDER_THICK = CellStyle.BORDER_THICK;
-	*/
-	// tmr ini
-	// tmr Migration
 	public static final short BORDER_NONE = BorderStyle.NONE.getCode();
 	public static final short BORDER_THIN = BorderStyle.THIN.getCode(); 
 	public static final short BORDER_THICK = BorderStyle.THICK.getCode(); 
-	// tmr fin
 	
 }

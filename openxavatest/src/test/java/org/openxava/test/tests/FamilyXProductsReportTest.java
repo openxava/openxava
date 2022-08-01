@@ -45,7 +45,7 @@ public class FamilyXProductsReportTest extends ModuleTestBase {
 		assertContentTypeForPopup("application/pdf");
 		
 		execute("FamilyProductsReport.generateExcel"); 		
-		assertContentTypeForPopup("application/vnd.ms-excel"); // TMR FALLA		 
+		assertContentTypeForPopup("application/vnd.ms-excel"); 
 	}
 
 }

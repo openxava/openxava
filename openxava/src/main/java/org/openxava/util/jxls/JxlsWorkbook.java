@@ -125,24 +125,24 @@ public class JxlsWorkbook implements JxlsConstants {
 			        for (Cell poiCell : poiRow) {
 			        	int column = poiCell.getColumnIndex() + 1;
 			            switch (poiCell.getCellType()) {
-			            	case Cell.CELL_TYPE_BOOLEAN:
-			                case Cell.CELL_TYPE_STRING:
+			            	case BOOLEAN: 
+			                case STRING:
 			                	sheet.setValue(column, row, poiCell.getRichStringCellValue().getString());
 			                    break;
-			                case Cell.CELL_TYPE_NUMERIC:
+			                case NUMERIC:
 			                    if (DateUtil.isCellDateFormatted(poiCell)) sheet.setValue(column, row, poiCell.getDateCellValue());
 			                    else sheet.setValue(column, row, poiCell.getNumericCellValue());
 			                    break;
-			                case Cell.CELL_TYPE_FORMULA:	
+			                case FORMULA:	
 			                	CellValue poiCellValue = poiEvaluator.evaluate(poiCell);
 			                	switch (poiCellValue.getCellType()) {
-			                		case Cell.CELL_TYPE_NUMERIC:
+			                		case NUMERIC:
 			                			sheet.setValue(column, row, poiCellValue.getNumberValue());
 			                			break;
-			                		case Cell.CELL_TYPE_BOOLEAN:
+			                		case BOOLEAN:
 					                	sheet.setValue(column, row, ""+poiCellValue.getBooleanValue());
 					                    break;
-					                case Cell.CELL_TYPE_STRING:
+					                case STRING:
 					                	sheet.setValue(column, row, poiCellValue.getStringValue());
 					                    break;
 				                    default:
@@ -151,7 +151,7 @@ public class JxlsWorkbook implements JxlsConstants {
 			                    break;
 			                default:
 			                	break;
-			            }
+			            }			        	
 			        }
 				}
 		    }
@@ -396,7 +396,7 @@ public class JxlsWorkbook implements JxlsConstants {
 		    Sheet poiSheet = poiWorkbook.getSheetAt(sheetNum);
 		    for (Row poiRow : poiSheet) {
 		        for (Cell poiCell : poiRow) {
-		            if (poiCell.getCellType() == Cell.CELL_TYPE_FORMULA) poiFormulaEvaluator.evaluateFormulaCell(poiCell);
+		        	if (poiCell.getCellType() == CellType.FORMULA) poiFormulaEvaluator.evaluateFormulaCell(poiCell); 
 		        }
 		    }
 		}

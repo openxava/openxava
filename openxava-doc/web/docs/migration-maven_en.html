@@ -412,7 +412,53 @@ reload(); // ...you have to add this line
 </code></pre> </div>
     <div class="wiki" style="display: block;">Curiously, adding <i>reload()</i>
       is not always needed, just add it where you find that tests with CSS start
-      to fail.<br>
+      to fail.</div>
+    <div class="wiki" style="display: block;">
+      <h3>Apache POI upgraded from 3.15 to 5.1</h3>
+      Apache POI is a Java library used to manipulate Microsoft Documents, like
+      Excel. JasperReports uses it so it has been needed to upgrade POI in order
+      the latest JasperReports works. If you don't use POI directly you don't
+      need to do anything. However if you use the POI API in your code, you have
+      to adapt it, because they have refactored all the code changing names and
+      places, just to be backward incompatible. These are some of the changes we
+      have noted.</div>
+    <div class="wiki" style="display: block;">They have turned all final
+      variables into enums, these are some examples:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">CellType.NUMERIC // Instead of Cell.CELL_TYPE_NUMERIC
+HyperlinkType.FILE // Instead of Hyperlink.LINK_URL
+FillPatternType.SOLID_FOREGROUND // Instead of CellStyle.SOLID_FOREGROUND
+HSSFColor.HSSFColorPredefined.RED // Instead of HSSFColor.RED
+BorderStyle.THIN // Instead of CellStyle.BORDER_THIN
+HorizontalAlignment.LEFT // Instead of CellStyle.ALIGN_LEFT
+</code></pre> </div>
+    <div class="wiki" style="display: block;">If you need to use the <i>short</i>
+      values of the old final variables you can use the <i>getCode()</i> and <i>valueOf()</i>
+      methods present in most of the new enums.</div>
+    <div class="wiki" style="display: block;">The <i>setCellType()</i> method
+      of <i>Cell</i> has been removed:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">Cell cell ... 
+// cell.setCellType(Cell.CELL_TYPE_FORMULA); // No longer exist, not needed
+cell.setCellFormula(text);
+</code></pre> </div>
+    <div class="wiki" style="display: block;"><i>setCellType()</i> is no longer
+      needed because the <i>Cell</i> infers the type from the cell value.</div>
+    <div class="wiki" style="display: block;">The <i>setBoldweight()</i> method
+      of <i>Font</i> has been removed. So you have to change this:
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">font.setBoldweight(Font.BOLDWEIGHT_BOLD);
+</code></pre> </div>
+      <div class="wiki" style="display: block;">By:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">font.setBold(true);
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Note the new <i>setBold()</i>
+        method in <i>Font</i>.</div>
+      <div class="wiki" style="display: block;">There are more incompatible
+        changes in the new Apache POI version. Don't worry, the compiler will
+        advice you of them, and StackOverflow will help you to fix them.<br>
+      </div>
       <h2><a name="Migration-How to update your project to the latest OpenXava?"></a>How
         to update your project to the latest OpenXava 6.x or 5.x?</h2>
       <ul>

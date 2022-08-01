@@ -208,19 +208,15 @@ public class JxlsCell {
 			sheet.addMergedRegion(new CellRangeAddress(row-1, row-1+rowSpan-1, column-1, column-1+columnSpan-1));
 		} 		
 		if (type == FORMULA) {
-			// tmr cell.setCellType(Cell.CELL_TYPE_FORMULA); // tmr Migration
 			cell.setCellFormula(text);
 		} else if (type == TEXT) {
-			// tmr cell.setCellType(Cell.CELL_TYPE_STRING);
 			cell.setCellValue(text);
 		} else {
-			// tmr cell.setCellType(Cell.CELL_TYPE_NUMERIC);
 			if (type == DATE) cell.setCellValue(date);
 			else cell.setCellValue(number);
 		}
 		if (hyperlink != null) {
-			// tmr Hyperlink url = sheet.getWorkbook().getCreationHelper().createHyperlink(Hyperlink.LINK_URL);
-			Hyperlink url = sheet.getWorkbook().getCreationHelper().createHyperlink(HyperlinkType.FILE); // tmr Migration
+			Hyperlink url = sheet.getWorkbook().getCreationHelper().createHyperlink(HyperlinkType.FILE); 
 			url.setAddress(hyperlink);
 			cell.setHyperlink(url);
 		} 
