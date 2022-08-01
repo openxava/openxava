@@ -98,10 +98,10 @@ public class ConfigureImportAction extends TabBaseAction
 					text.append("\"\"");
 				}
 				else {
-					if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC && DateUtil.isCellDateFormatted(cell)) {
+					if (cell.getCellType() == CellType.NUMERIC && DateUtil.isCellDateFormatted(cell)) { 
 						text.append(formatDate(cell.getDateCellValue()));
 					}
-					else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) { 
+					else if (cell.getCellType() == CellType.NUMERIC) { 
 						text.append(formatNumber(cell.getNumericCellValue()));
 					}
 					else {

@@ -231,8 +231,8 @@ public class JxlsStyle implements JxlsConstants {
 		String fontKey = fontName + fontSize + (isBold?"b":"p") + textColor;
 		Font font = workbook.fonts.get(fontKey);
 		if (font == null) {
-			font = poiWorkbook.createFont();
-			font.setBoldweight(isBold ? Font.BOLDWEIGHT_BOLD : Font.BOLDWEIGHT_NORMAL);
+			font = poiWorkbook.createFont(); 
+			font.setBold(isBold); 
 			font.setFontName(fontName);
 			font.setColor(textColor);
 			font.setFontHeightInPoints(fontSize);
@@ -242,32 +242,32 @@ public class JxlsStyle implements JxlsConstants {
 		cellStyle.setFont(font);
 		if (bgColor != EMPTY) {
 			cellStyle.setFillForegroundColor(bgColor);
-			cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+			cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND); 
 		} 
 		if (align == NONE) {
 			if (type == TEXT) align = LEFT;
 			else align = RIGHT;
 		}
-		short poiAlign = CellStyle.ALIGN_LEFT;
-		if (align == RIGHT) poiAlign = CellStyle.ALIGN_RIGHT;
-		else if (align == CENTER) poiAlign = CellStyle.ALIGN_CENTER;
+		HorizontalAlignment poiAlign = HorizontalAlignment.LEFT; 
+		if (align == RIGHT) poiAlign = HorizontalAlignment.RIGHT;
+		else if (align == CENTER) poiAlign = HorizontalAlignment.CENTER;
 		cellStyle.setAlignment(poiAlign);
 		cellStyle.setWrapText(wrap);
-		cellStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+		cellStyle.setVerticalAlignment(VerticalAlignment.CENTER); 
 		if (borderTop != BORDER_NONE) {
-			cellStyle.setBorderTop(borderTop);
+			cellStyle.setBorderTop(BorderStyle.valueOf(borderTop)); 
 			cellStyle.setTopBorderColor(borderColor);
 		}
 		if (borderBottom != BORDER_NONE) {
-			cellStyle.setBorderBottom(borderBottom);
+			cellStyle.setBorderBottom(BorderStyle.valueOf(borderBottom)); 
 			cellStyle.setBottomBorderColor(borderColor);
 		}
 		if (borderLeft != BORDER_NONE) {
-			cellStyle.setBorderLeft(borderLeft);
+			cellStyle.setBorderLeft(BorderStyle.valueOf(borderLeft)); 
 			cellStyle.setLeftBorderColor(borderColor);
 		}
 		if (borderRight != BORDER_NONE) {
-			cellStyle.setBorderRight(borderRight);
+			cellStyle.setBorderRight(BorderStyle.valueOf(borderRight)); 
 			cellStyle.setRightBorderColor(borderColor);
 		}
 		DataFormat df = poiWorkbook.createDataFormat();

@@ -394,7 +394,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		Sheet sheet = wb.getSheetAt(0);
 		Row row = sheet.getRow(1);
 		Cell cell = row.getCell(4);
-		assertEquals(CellType.NUMERIC, cell.getCellTypeEnum());
+		assertEquals(CellType.NUMERIC, cell.getCellType()); 
 		assertEquals("11.0", cell.toString());
 	}
 		

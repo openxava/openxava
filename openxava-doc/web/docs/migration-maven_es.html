@@ -325,16 +325,14 @@ session.save(factura);
         necesitas tocar nada. Sin embargo, si usas directamente el API de
         HtmlUnit, algo que puede ocurrir si usas <i>getWebClient()</i> o <i>getHtmlPage()</i>
         en tu prueba, en ese caso puede ser que necesites adaptar tu código.
-        HtmlUnit
-        mantiene viva su tradición de añadir cambios que producen
+        HtmlUnit mantiene viva su tradición de añadir cambios que producen
         incompatibilidad hacía atrás en cada versión menor, para ello cambian
         caprichosamente el nombre de los métodos, mueven las cosas de un paquete
         a otro o cambian el comportamiento de algún método. Hemos encontrado la
         siguientes cosas, por ejemplo.
         <div class="wiki" style="display: block;">El método <i>asText()</i> de
-          <i>HtmlElement</i>
-          ha sido renombrado como <i>asNormalizedText()</i>, por lo que si
-          tienes un código como este en tu prueba:</div>
+          <i>HtmlElement</i> ha sido renombrado como <i>asNormalizedText()</i>,
+          por lo que si tienes un código como este en tu prueba:</div>
         <div class="wiki" style="display: block;">
           <pre><code class="java">HtmlElement tarjeta = body.getElementsByAttribute("div", "class", "ox-card").get(2);
 assertEquals("Precio unitario: 0.00, Precio unitario en pesetas: 0"), tarjeta.asText());
@@ -408,9 +406,9 @@ assertEquals("Precio unitario: 0.00, Precio unitario en pesetas: 0"), tarjeta.as
           <pre><code class="java">assertValue("descripcion", "&lt;p&gt;Esto es una gran discusión sobre jUnit&lt;/p&gt;");
 </code></pre> </div>
         <div class="wiki" style="display: block;">También, <i>getValue()</i> y
-          <i>assertValue()</i>
-          ahora hacen un <i>trim()</i> para funcionar mejor con el nuevo
-          comportamiento de HtmlUnit, por lo que has de cambiar:</div>
+          <i>assertValue()</i> ahora hacen un <i>trim()</i> para funcionar
+          mejor con el nuevo comportamiento de HtmlUnit, por lo que has de
+          cambiar:</div>
         <div class="wiki" style="display: block;">
           <pre><code class="java">assertValue("poblacion", "46540 ");
 </code></pre> </div>
@@ -431,6 +429,57 @@ reload(); // ...has de añadir esta línea
         <div class="wiki" style="display: block;">Curiosamente, el añadir el <i>reload()</i>
           no es necesario siempre, añádelo cuando te encuentres una prueba con
           CSS que falle.</div>
+        <div class="wiki" style="display: block;">
+          <h3>Apache POI actualizado de 3.15 a 5.1</h3>
+          Apache POI es una librería Java usada para manipular documentos de
+          Microsoft, como Excel. JasperReports la usa por eso ha sido necesario
+          actualizar POI para que la última versión de JasperRerpots funcione.
+          Si no usas POI directamente no tienes que hacer nada. Sin embargo, si
+          usas la API de POI en tu código, has de adaptarla, porque ellos han
+          refactorizado todo el código cambiando nombres y lugares, para hacerlo
+          incompatible. Estos son algunos de los cambios de los que nos hemos
+          dado cuenta.
+          <div class="wiki" style="display: block;">Han convertido todas las
+            variables finales en enums, estos son algunos ejemplos:</div>
+          <div class="wiki" style="display: block;">
+            <pre><code class="java">CellType.NUMERIC // En lugar de Cell.CELL_TYPE_NUMERIC
+HyperlinkType.FILE // En lugar de Hyperlink.LINK_URL
+FillPatternType.SOLID_FOREGROUND // En lugar de CellStyle.SOLID_FOREGROUND
+HSSFColor.HSSFColorPredefined.RED // En lugar de HSSFColor.RED
+BorderStyle.THIN // En lugar de CellStyle.BORDER_THIN
+HorizontalAlignment.LEFT // En lugar de CellStyle.ALIGN_LEFT
+</code></pre> </div>
+          <div class="wiki" style="display: block;">Si necesitas usar los
+            valores <i>short</i> de las viejas variables finales puedes usar
+            los métodos <i>getCode()</i> y <i>valueOf()</i> presentes en la
+            mayoría de los nuevos enums.</div>
+          <div class="wiki" style="display: block;">El método <i>setCellType()</i>
+            de <i>Cell</i> se ha eliminado:</div>
+          <div class="wiki" style="display: block;">
+            <pre><code class="java">Cell cell ... 
+// cell.setCellType(Cell.CELL_TYPE_FORMULA); // Ya no existe, no es necesario
+cell.setCellFormula(text);
+</code></pre> </div>
+          <div class="wiki" style="display: block;"><i>setCellType()</i> ya no
+            es necesario porque <i>Cell</i> colige el tipo del valor de la
+            celda.</div>
+          <div class="wiki" style="display: block;">El método <i>setBoldweight()</i>
+            de <i>Font</i> se ha eliminado. Por lo que tienes que cambiar esto:
+            <div class="wiki" style="display: block;">
+              <pre><code class="java">font.setBoldweight(Font.BOLDWEIGHT_BOLD);
+</code></pre> </div>
+            <div class="wiki" style="display: block;">Por:</div>
+            <div class="wiki" style="display: block;">
+              <pre><code class="java">font.setBold(true);
+</code></pre> </div>
+            <div class="wiki" style="display: block;">Fíjate en el nuevo método
+              <i>setBold()</i> en <i>Font</i>.</div>
+            <div class="wiki" style="display: block;">Hay más cambios
+              incompatibles en la nueva versión de Apache POI. No te preocupes,
+              el compilador te avisará de ellos y StackOverflow te ayudará a
+              arreglarlos.</div>
+          </div>
+        </div>
       </div>
       <h2>¿Cómo actualizar tu proyecto a la última versión de OpenXava 6.x o
         5.x?</h2>
