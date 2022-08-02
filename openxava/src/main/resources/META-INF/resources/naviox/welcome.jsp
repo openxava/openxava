@@ -1,3 +1,5 @@
+<%Servlets.setCharacterEncoding(request, response);%>
+
 <%--
 NaviOX. Navigation and security for OpenXava applications.
 Copyright 2014 Javier Paniza Lucas
@@ -11,6 +13,7 @@ See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl
 
 <%@include file="../xava/imports.jsp"%>
 
+<%@page import="org.openxava.web.servlets.Servlets"%>
 <%@page import="org.openxava.application.meta.MetaApplications"%>
 <%@page import="org.openxava.application.meta.MetaApplication"%>
 <%@page import="org.openxava.util.Locales"%>

@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Incorrect encoding in Welcome page, so in some languages it shows ? instead of the actual characters.
 - JasperReports upgraded to 6.20.
 - Apache POI upgraded to 5.1.
 - Apache Commons IO upgraded to 2.11.
