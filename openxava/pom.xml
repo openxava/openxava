@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.openxava</groupId>
 	<artifactId>openxava</artifactId>
-	<version>7.0-SNAPSHOT</version>
+	<version>7.0m6</version>
 	<name>OpenXava</name>
 	<description>Java framework for fast time-to-market of business applications</description>
 	<url>https://www.openxava.org</url>
