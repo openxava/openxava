@@ -786,11 +786,11 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	public void testGenerateTwoReportsAtOnceWithDifferentParameters() throws Exception { 
-		assertGenerateTwoReportsAtOnce("InvoicePrint.printInvoiceAndCustomer", "pdf"); 
+		assertGenerateTwoReportsAtOnce("InvoicePrint.printInvoiceAndCustomer", "pdf"); // TMR FALLA
 	}
 	
 	public void testGenerateTwoReportsAtOnceWithDifferentParametersUsingAddParameters() throws Exception { 
-		assertGenerateTwoReportsAtOnce("InvoicePrint.printInvoiceAndCustomer2", "pdf"); 
+		assertGenerateTwoReportsAtOnce("InvoicePrint.printInvoiceAndCustomer2", "pdf"); // TMR FALLA
 	}
 
 	
