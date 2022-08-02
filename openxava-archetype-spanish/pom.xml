@@ -8,7 +8,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<openxava.version>7.0m6</openxava.version>
+		<openxava.version>7.0-SNAPSHOT</openxava.version>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
