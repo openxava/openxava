@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fixed 43 potential security vulnerabilities in dependencies, now we have 0 vulnerabilities. 
 - Embedded Tomcat used in development upgraded to 9.0.65.		
 - Hibernate Validator upgraded to 6.0.23.		
 - Groovy upgraded to 4.0.4.		
