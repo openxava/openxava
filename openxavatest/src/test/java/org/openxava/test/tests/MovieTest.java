@@ -30,7 +30,7 @@ public class MovieTest extends MovieBaseTest {
 		assertValue("title", "FORREST GUMP");
 		execute("Movie.printDatasheet");
 		assertNoErrors();
-		assertContentTypeForPopup("application/pdf"); // TMR FALLA
+		assertContentTypeForPopup("application/pdf"); 
 		assertTrue(getPopupPDFAsText().indexOf("FORREST GUMP")>=0);
 		assertTrue(getPopupPDFPageCount() == 3);
 	}

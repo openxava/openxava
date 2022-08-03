@@ -1,10 +1,9 @@
 package org.openxava.validators;
 
-import org.openxava.validators.IPropertyValidator;
-import org.openxava.util.Messages;
+import java.util.*;
 
-import org.apache.commons.validator.GenericValidator;
-import java.util.StringTokenizer;
+import org.apache.commons.validator.*;
+import org.openxava.util.*;
 
 /**
  * @author Janesh Kodikara
@@ -12,20 +11,15 @@ import java.util.StringTokenizer;
 
 public class EmailListValidator implements IPropertyValidator {
 
-	public void validate(Messages errors, Object value, String propertyName,
-			String modelName) throws Exception {
+	public void validate(Messages errors, Object value, String propertyName, String modelName) throws Exception {
+		if (value == null || value.toString().trim().length() == 0) return; 
 
-		if (value == null || value.toString().length() == 0)
-			return;
-
-		StringTokenizer emailAddresses = new StringTokenizer(value.toString(),
-				",");
+		StringTokenizer emailAddresses = new StringTokenizer(value.toString(),	",");
 		while (emailAddresses.hasMoreTokens()) {
-			if (!GenericValidator.isEmail(emailAddresses.nextToken())) {
+			if (!GenericValidator.isEmail(emailAddresses.nextToken().trim())) { 
 				errors.add("email_list_validation_error", propertyName);
 			}
 		}
-
 	}
 
 }

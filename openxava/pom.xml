@@ -9,78 +9,6 @@
 	<description>Java framework for fast time-to-market of business applications</description>
 	<url>https://www.openxava.org</url>
 	
-	
-		<!-- tmr
-		Probar también con Java 8
-
-		Actualizadas:
-		<dependency>
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>6.0.23.Final</version>
-		</dependency>
-		
-		
-		¿Groovy doc?
-		QUITADA
-		<dependency>
-		    <groupId>org.codehaus.groovy</groupId>
-		    <artifactId>groovy-all</artifactId>
-		    <version>2.4.5</version>
-		</dependency>
-		
-		
-		<dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>1.15.2</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>pdfbox</artifactId>
-			<version>2.0.26</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>commons-validator</groupId>
-			<artifactId>commons-validator</artifactId>
-			<version>1.7</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.sun.mail</groupId>
-			<artifactId>jakarta.mail</artifactId>
-			<version>1.6.7</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-			<version>2.3.1</version>
-		</dependency>
-				
-		<dependency>
-			<groupId>org.directwebremoting</groupId>
-			<artifactId>dwr</artifactId>
-			<version>2.0.11-RELEASE</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.24</version>
-			<scope>provided</scope>
-		</dependency>
-		
-		
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-client</artifactId>
-			<version>2.36</version>
-		</dependency>
-		-->
-	
 	<properties>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -181,13 +109,11 @@
 		    <artifactId>jasperreports-fonts</artifactId>
 		    <version>6.20.0</version>
 		</dependency>		
-		<!-- tmr
 		<dependency>
-		    <groupId>org.codehaus.groovy</groupId>
-		    <artifactId>groovy-all</artifactId>
-		    <version>2.4.5</version>
-		</dependency>
-		-->		
+		    <groupId>org.apache.groovy</groupId>
+		    <artifactId>groovy</artifactId>
+		    <version>4.0.4</version>
+		</dependency>		
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>

@@ -320,7 +320,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		setValue("additionalEmails", "pepe@myproject.org, pepe@yahoo.com"); 
 		setValue("website", "http://www.openxava.org");
 		execute("Customer.save");
-		assertNoErrors(); // TMR FALLA ME QUEDÉ POR AQUÍ: HACER LOS FALLA
+		assertNoErrors(); 
 		
 		Customer customer = Customer.findByNumber(2);
 		customer.setWebsite("www.rae.es"); // With no http:// prefix
@@ -857,7 +857,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		confirmHandler.assertNoMessage();
 		assertValue("name", "Javix"); // This save version does not clear the view
 		execute("CRUD.new");
-		confirmHandler.assertNoMessage(); // TMR FALLA
+		confirmHandler.assertNoMessage(); 
 		assertValue("name", "");
 		
 		// Canceling

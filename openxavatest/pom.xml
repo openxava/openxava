@@ -4,7 +4,7 @@
 
   <groupId>org.openxava</groupId>
   <artifactId>openxavatest</artifactId>
-  <version>7.0m3</version>
+  <version>7.0-SNAPSHOP</version>
   <packaging>war</packaging>
 
   <properties>
