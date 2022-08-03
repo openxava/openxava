@@ -22,9 +22,9 @@ public class ProjectTest extends ModuleTestBase {
 	public void testWebURLEditor() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		setValueInCollection("notes", 0, 2, "www.openxava.org");
-		setValueInCollection("notes", 1, 2, "http://www.apache.org/"); 
+		setValueInCollection("notes", 1, 2, "http://www.wikipedia.org/"); 
 		assertLinkOnNote(0, "The best time-to-market for Java");
-		assertLinkOnNote(1, "The World's Largest Open Source Foundation"); 
+		assertLinkOnNote(1, "The Free Encyclopedia"); 
 	}
 
 	private void assertLinkOnNote(int idx, String expectedText) throws IOException {

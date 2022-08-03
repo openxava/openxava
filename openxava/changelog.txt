@@ -1,50 +1,14 @@
 Change Log for OpenXava project
 ===============================
 
-THE NEXT LIBRARIES HAS BEEN UPGRADED:
-		<dependency>
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>6.0.23.Final</version>
-		</dependency>
-		
-		
-<dependency>
-    <groupId>org.apache.groovy</groupId>
-    <artifactId>groovy</artifactId>
-    <version>4.0.4</version>
-</dependency>		
-		
-		<dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>1.15.2</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>pdfbox</artifactId>
-			<version>2.0.26</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>commons-validator</groupId>
-			<artifactId>commons-validator</artifactId>
-			<version>1.7</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.sun.mail</groupId>
-			<artifactId>jakarta.mail</artifactId>
-			<version>1.6.7</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-			<version>2.3.1</version>
-		</dependency>
-				
+- Embedded Tomcat used in development upgraded to 9.0.65.		
+- Hibernate Validator upgraded to 6.0.23.		
+- Groovy upgraded to 4.0.4.		
+- jsoup upgraded to 1.15.2.
+- Apache PDFBox upgraded to 2.0.26.		
+- Apache Commons Validator upgraded to 1.7.		
+- JavaMail upgraded to 1.6.7.				
+- JAXB upgraded to 2.3.1.				
 - DWR upgraded to 2.0.11. 
 - Lombok upgraded to 1.18.24.
 - Jersey (the JAX-RS implementation) upgraded to 2.36.
