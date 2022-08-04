@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Chinese MS950 encoding does not work well with simplified Chinese characters.
 - Java 17 support.
 - Fixed 43 potential security vulnerabilities in dependencies, now we have 0 vulnerabilities. 
 - Embedded Tomcat used in development upgraded to 9.0.65.		
