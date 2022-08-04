@@ -92,7 +92,7 @@ public class CityTest extends ModuleTestBase{
 		assertNoErrors();
 		
 		execute("CRUD.new");
-		assertLocationNotMarkedAsError();
+		assertLocationNotMarkedAsError(); 
 		setValue("location", "In the coast");
 		fireLocationChanged();
 		assertLocationMarkedAsError();
