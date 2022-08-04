@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Chinese MS950 encoding does not work well with simplified Chinese characters.
 - Fix: Incorrect encoding in Welcome page, so in some languages it shows ? instead of the actual characters.
 - JasperReports upgraded to 6.20.
 - Apache POI upgraded to 5.1.
