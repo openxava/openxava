@@ -52,12 +52,12 @@
         <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Basic%20domain%20model-Embeddable">可嵌入（Embeddable）</a></div>
         <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Summary">总结</a></div>
       </div>
-      在本课程您将开始为您的项目创建实体，以便您的发票应用能正常运作。<br>
+      在本章将开始为您的项目创建实体，以便您的发票应用能正常运作。<br>
       经过<a class="wiki_link" href="getting-started_zh.html">第一章</a>后，我们将假设您已知道如何用 OpenXava Studio 创建实体及运作应用程序。</div>
     <br>
     <div class="wiki" style="display: block;">
       <h2 id="toc1"><a name="domain-model"></a>领域模型（Domain model）</h2>
-      首先，我们将为您的 Invoicing 应用创建实体，虽然领域模型是很基本的但是足以学习很多。</div>
+      首先，我们将为您的 invoicing 应用创建实体，虽然领域模型是很基本的但是足以学习很多。</div>
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;"> <img src="files/modeling_en010.png"
@@ -67,7 +67,7 @@
     </div>
     <div class="wiki" style="display: block;">我们将从六个类开始，稍后会添加更多。别忘了您已经有 Customer 和 Product 的最初版本。<br>
       <h2 id="toc2"><a name="Modeling with Java-Basic domain model-Reference (ManyToOne) as descriptions list (combo)"></a>引用多對一(ManyToOne) 作为描述列表（組合）</h2>
-      让我们从最简单的开始，先创建 Category 实体再将他与 Product 关联，将其作为一个组合显示。<br>
+      让我们从最简单的开始，先创建 Category 实体再将它与 Product 关联，将其作为一个组合显示。<br>
       Category 实体的代码是：</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.yourcompany.invoicing.model;
@@ -95,7 +95,7 @@ public class Category {
  
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">他只有一个标识符和一个描述属性。这种情况我们使用 oid(1) 的算法生成 id。这生成器的优点是无需接触您的代码就能将应用程序迁移到另一个数据库（DB2、MySQL、Oracle、Informix 等）。其它 JPA 的 id 生成器都依赖数据库来生成id，从而使他们不像 UUID 一样可移植。<br>
+    <div class="wiki" style="display: block;">它只有一个标识符和一个描述属性。这种情况我们使用 oid(1) 的算法生成 id。这生成器的优点是无需接触您的代码就能将应用程序迁移到另一个数据库（DB2、MySQL、Oracle、Informix 等）。其它 JPA 的 id 生成器都依赖数据库来生成id，从而使它们不像 UUID 一样可移植。<br>
       现在您可以运行应用并在 Category 模块添加一些类别：</div>
     <div class="wiki" style="display: block;"><br>
     </div>
@@ -122,7 +122,7 @@ public class Category {
 }
 </code></pre> </div>
     <div class="wiki" style="display: block;">这是一个 JPA 多对一的关系，您可以在<a class="wiki_link"
-        href="jpa_en.html">附录 B</a>了解更多。在这里，因为 @DescriptionsList 使他作为一个组合显示：</div>
+        href="jpa_en.html">附录 B</a>了解更多。在这里，因为 @DescriptionsList 使它作为一个组合显示：</div>
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;"> <img src="files/modeling_zh020.png"
@@ -131,21 +131,21 @@ public class Category {
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">现在是时候完成您的 Product 实体了。<br>
-      <h2 id="toc3"><a name="Modeling with Java-Basic domain model-Stereotypes"></a>刻板印象</h2>
-      Product 实体至少需要价格等属性，另外有照片和备注的话最好。我们将使用刻板印象来做到这些，例如：您可使用字符串（String）来存储名称、备注或标识符也能使用 Big Decimal 来存储百分比、钱或数量。我们可将用同种类别在不同场景中使用。<br>
-      理解刻板印象最好的方法就是看他如何使用。在 Product 实体中添加 price、photo 和 remark 属性，如下：</div>
+      <h2 id="toc3"><a name="Modeling with Java-Basic domain model-Stereotypes"></a>注解</h2>
+      Product 实体至少需要有价格，另外有照片和备注的话更好。我们将使用注解来做到这些。 Java 中的类、方法、变量、参数和包等都可以被标注，像是给代码上标签。<br>
+      理解注解最好的方法就是看它如何使用。在 Product 实体中添加 price、photo 和 remark 属性，如下：</div>
     <div class="wiki" style="display: block;"><code class="java"> </code>
-      <pre><code class="java">@Stereotype("MONEY") // 该属性用于存储货币
-BigDecimal price; // BigDecimal通常用于钱的数量
-
-@Stereotype("IMAGES_GALLERY") // 会有一个图片库
-@Column(length = 32) // 该32长度的是保存图片库的键
+      <pre><code class="java">@Money // 该属性用于存储货币
+BigDecimal price;  // BigDecimal通常用于钱的数量
+ 
+@Files // 会有一个图片库
+@Column(length=32) // 该32长度的是保存图片库的键
 String photos;
-
-@Stereotype("MEMO") // 会有一个文本区域，该注解是用于大文本或相似
+ 
+@TextArea // 会有一个文本区域，该注解是用于大文本或相似
 String remarks;
 </code></pre> </div>
-    <div class="wiki" style="display: block;">您已经了解如何使用刻板印象，现在您只需要使用刻板印象的名称，然后 OpenXava 会特殊处理它。现在运型应用并进入 Product 模块，在新建画面您可以看到：</div>
+    <div class="wiki" style="display: block;">您已经了解如何使用注解，现在您只需要写上注解， OpenXava 就会特殊处理它。现在如果运型应用并进入 Product 模块，在新建画面您可以看到：</div>
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;"> <img src="files/modeling_zh040.png"
@@ -153,23 +153,11 @@ String remarks;
     </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;">如您所见，每个刻板印象在用户界面都会产生效果并有各自的大小、验证、编辑器等。此外还允许您很轻松的就能重用该功能，例如只需要将字符串属性标记为 @Stereotype(“IMAGES_GALLERY”)，您就可以使用图片库。</div>
-    <div class="wiki" style="display: block;">OpenXava 还有许多内置的刻板印象，例如：PHOTO、 LABEL、BOLD_LABEL、TIME、DATETIME、ZEROS_FILLED、HTML_TEXT、IMAGE_LABEL、EMAIL、 TELEPHONE、WEBURL、IP、ISBN、CREDIT_CARD、EMAIL_LIST、PASSWORD、MAC、FILE、FILES、 ICON、COORDINATES、等。</div>
-    <div class="wiki" style="display: block;">您也可以使用特定的注解替代刻板印象并获得相同的效果，例如：@Money 而不是 @Stereotype(“MONEY”)</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">// 注解替代刻板印象
-      
-@Money // 而不是 @Stereotype("MONEY") 
-BigDecimal price; 
- 
-@Files // 而不是 @Stereotype("IMAGES_GALLERY") 
-@Column(length=32)
-String photos;
- 
-@TextArea // 而不是 @Stereotype("MEMO") 
-String remarks;
-</code></pre> </div>
-    <div class="wiki" style="display: block;">一些可用的注解是：@Password、@Money、 @TextArea、@Label、@DateTime、@Discussion、@Icon、@Telephone、@IP、@EmailList、 @MAC、@StringTime、@HtmlText、@Coordinates、@Files ，@File、等。</div>
+    <div class="wiki" style="display: block;">如您所见，每个注解在用户界面都会产生效果，像各自有不同的大小、验证、编辑器等。此外我们所使用的是 OpenXava 内建的注解。</div>
+    <div class="wiki" style="display: block;"><code class="java">
+      </code> </div>
+    <div class="wiki" style="display: block;">一些其它可用的注解是：@Password、@Money、 @TextArea、@Label、@DateTime、@Discussion、@Icon、@Telephone、@IP、@EmailList、 @MAC、@StringTime、@HtmlText、@Coordinates、@Files ，@File、等。如果您想知道更多，可以到<a
+        class="wiki_link" href="model_en.html#Model-Properties-Stereotype">这里</a>。&nbsp;</div>
     <div class="wiki" style="display: block;">现在 Product 已经好了，接下来换 Customer。<br>
       <h2 id="toc4"><a name="Modeling with Java-Basic domain model-Embeddable"></a>可嵌入（Embeddable）</h2>
       我们将在客户 Customer 添加地址 Address，由于地址并不跟其它客户共享，所以当客户被删除时，他的地址也一样会被删除。因此我们将地址概念建为可嵌入类，您可以在<a
@@ -201,7 +189,7 @@ public class Address {
 
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">现在您看到常规的类如何被注解为 @Embeddable，他的属性跟实体相同方式注解，尽管可嵌入类不支持实体的所有功能。<br>
+    <div class="wiki" style="display: block;">现在您看到常规的类如何被注解为 @Embeddable，它的属性跟实体相同方式注解，尽管可嵌入类不支持实体的所有功能。<br>
       现在您能在任何实体中使用 Address，只需在 Customer 添加它的引用：</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">public class Customer {
@@ -225,8 +213,14 @@ Address address; // 常规的 Java 引用
         alt="modeling_en060.png" title="modeling_en060.png"></div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;"></span><br>
       <h2 id="toc14"><a name="Modeling with Java-Summary"></a>总结</h2>
-      在本课中您学会如何以组合显示的 @DescriptionList 注解，如何使用刻板印象和 @Embeddable。现在基本的实体都好了，是时候面对应用程序的核心实体：发票 Invoice。这会在下一课开始。<br>
-      <br>
+      在本章中您学会如何以组合显示的 @DescriptionList 注解，如何使用注解和 @Embeddable。现在基本的实体都好了，是时候面对应用程序的核心实体：发票 Invoice。这会在下一章开始。</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+          href="https://github.com/openxava/openxava-course_en/tree/lesson-2"
+          rel="nofollow">下载本课源代码</a><br>
+      </strong></div>
+    <div class="wiki" style="display: block;"><strong></strong> <br>
       <strong>对这节课有什么问题吗？ <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">前往轮譠</a></strong> <strong>一切都顺利吗？ <a class="wiki_link"
           href="basic-domain-model2_zh.html">前往第三章</a></strong> </div>
