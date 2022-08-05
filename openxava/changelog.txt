@@ -61,7 +61,7 @@ Change Log for OpenXava project
 - Maven support.
 - Searching in a @DescriptionsList does not ignore accents in some cases.
 - Removed DocumentLibrary editor for attaching documents using Liferay document library.
-- Lessons 9, 10, 11, 12, 13, 14, 15, 16 and 17 of course include video.
+- Lessons 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 and 19 of course include video.
 - Lesson 9 of course divided into several smaller lessons.
 
 OpenXava 6.6.3 (2022-3-29)
