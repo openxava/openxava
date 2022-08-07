@@ -1,9 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lesson 4: Refining the user interface: @View for defining layout,
-      @ReferenceView to refine user interface for references - Modeling with
-      Java - OpenXava course</title>
+    <title>Lesson 4: Refining the user interface: @View for defining layout, @ReferenceView to refine user interface for references - Modeling with Java - OpenXava course</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -12,90 +10,65 @@
   <body>
     <div class="wiki" style="display: block;">
       <h1 id="toc0"><a name="Modeling with Java"></a> <span id="breadcrumbs"> <span
-            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
-              </a> </span> / <a href="index_en.html">documentation</a> / </span>
-        Lesson 4: Refining the user interface </h1>
-      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
-        Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
-        Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
-        Basic domain model (2)</a> | <strong>4. Refining the user interface</strong>
-      | <a class="wiki_link" href="agile-development_en.html">5. Agile
-        development</a> | <a class="wiki_link" href="mapped-superclass-inheritance_en.html">6.
-        Mapped superclass inheritance</a> | <a class="wiki_link" href="entity-inheritance_en.html">7.
-        Entity inheritance</a> | <a class="wiki_link" href="view-inheritance_en.html">8.
-        View inheritance </a>| <a class="wiki_link" href="java-properties_en.html">9.
-        Java properties</a> | <a class="wiki_link" href="calculated-properties_en.html">10.
-        Calculated properties </a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11.
-        @DefaultValueCalculator in collections</a><strong> </strong> | <a class="wiki_link"
-        href="calculation-and-collections-total_en.html">12. </a><a class="wiki_link"
-        href="calculation-and-collections-total_en.html">@Calculation and
-        collections totals</a> | <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13.
-        @DefaultValueCalculator from file</a> | <a class="wiki_link" href="manual-schema-evolution_en.html">14.
-        Manual schema evolution</a> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">15.
-        Multi user default value calculation</a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16.
-        Synchronize persistent and computed propierties</a> | <a class="wiki_link"
-        href="logic-from-database_en.html">17. Logic from database&nbsp;</a> |<span
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_en.html">documentation</a> / </span> Lesson 4: Refining the user interface </h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1. Getting started</a> | <a
+        class="wiki_link" href="basic-domain-model1_en.html">2. Basic domain model (1)</a> | <a
+        class="wiki_link" href="basic-domain-model2_en.html">3. Basic domain model (2)</a> | <strong>4. Refining the user interface</strong> | <a
+        class="wiki_link" href="agile-development_en.html">5. Agile development</a> | <a
+        class="wiki_link" href="mapped-superclass-inheritance_en.html">6. Mapped superclass inheritance</a> | <a
+        class="wiki_link" href="entity-inheritance_en.html">7. Entity inheritance</a> | <a
+        class="wiki_link" href="view-inheritance_en.html">8. View inheritance </a>| <a
+        class="wiki_link" href="java-properties_en.html">9. Java properties</a> | <a
+        class="wiki_link" href="calculated-properties_en.html">10. Calculated properties </a> | <a
+        class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11. @DefaultValueCalculator in collections</a><strong> </strong> | <a
+        class="wiki_link" href="calculation-and-collections-total_en.html">12. </a><a
+        class="wiki_link" href="calculation-and-collections-total_en.html">@Calculation and collections totals</a> | <a
+        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file</a> | <a
+        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution</a> | <a
+        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation</a> | <a
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed propierties</a> | <a
+        class="wiki_link" href="logic-from-database_en.html">17. Logic from database&nbsp;</a> |<span
         style="color: #0000ee;"></span><span style="color: #0000ee;"> </span><a
-        class="wiki_link" href="validating-with-entityvalidator_en.html">18.
-        Validating with @EntityValidator&nbsp;</a> |&nbsp; <a class="wiki_link"
-        href="validation-alternatives_en.html">19.
-        Validation alternatives&nbsp;</a> | <a class="wiki_link" href="validation-on-remove_en.html">20.
-        Validation on remove&nbsp;</a> |&nbsp;<a class="wiki_link" href="custom-bean-validation-annotation_en.html">
-        21. Custom Bean Validation annotation&nbsp;</a> | <a class="wiki_link"
-        href="rest-service-call-from-validation_en.html">22.
-        REST service call from validation&nbsp;</a> | <a class="wiki_link" href="attributes-in-annotations_en.html">23.
-        Attributes in annotations&nbsp;</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">24.
-        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">25.
-        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">26.
-        References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
-        Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
-        Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
-        Annotations</a> | <a class="wiki_link" href="testing_en.html">D.
-        Automated testing</a><a class="wiki_link" href="testing_en.html"></a>
+        class="wiki_link" href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator&nbsp;</a> |&nbsp; <a
+        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
+        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
+        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
+        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
+        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
+        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
+        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
+        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
+        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
+        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
+        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+        class="wiki_link" href="testing_en.html">D. Automated testing</a><a
+        class="wiki_link" href="testing_en.html"></a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
-        <div style="margin-left: 1em;"><a href="#Modeling%20with%20Java">Lesson
-            4: Refining the user interface</a></div>
-        <div style="margin-left: 2em;"><a href="#default-user-interface">Default
-            user interface</a></div>
-        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Refining%20the%20user%20interface-Using%20@View%20for%20defining%20layout">Using
-            @View for defining layout</a></div>
-        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Refining%20the%20user%20interface-Using%20@ReferenceView%20to%20refine%20the%20user%20interface%20for%20reference">Using
-            @ReferenceView to refine the user interface for reference</a></div>
-        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Refining%20the%20user%20interface-Refined%20user%20interface">Refined
-            user interface</a></div>
+        <div style="margin-left: 1em;"><a href="#Modeling%20with%20Java">Lesson 4: Refining the user interface</a></div>
+        <div style="margin-left: 2em;"><a href="#default-user-interface">Default user interface</a></div>
+        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Refining%20the%20user%20interface-Using%20@View%20for%20defining%20layout">Using @View for defining layout</a></div>
+        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Refining%20the%20user%20interface-Using%20@ReferenceView%20to%20refine%20the%20user%20interface%20for%20reference">Using @ReferenceView to refine the user interface for reference</a></div>
+        <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Refining%20the%20user%20interface-Refined%20user%20interface">Refined user interface</a></div>
         <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Summary">Summary</a></div>
       </div>
-      The default user interface for your invoicing application just writing
-      plain Java classes is pretty decent, anyways with just some annotations in
-      your classes you can customize your user interface to fit any case you
-      will face with a business application.</div>
-    <div class="wiki" style="display: block;">In this lesson we're going to make
-      our application looks better with a small amount of code.</div>
+      The default user interface for your invoicing application just writing plain Java classes is pretty decent, anyways with just some annotations in your classes you can customize your user interface to fit any case you will face with a business application.</div>
+    <div class="wiki" style="display: block;">In this lesson we're going to make our application looks better with a small amount of code.</div>
     <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=aEXLnOeMd6s"
-        target="_blank"><img src="files/refining-user-interface-video_en.png" title="Video for lesson 4: Refining the user interface"></a><br>
+        target="_blank"><img src="files/refining-user-interface-video_en.png"
+          title="Video for lesson 4: Refining the user interface"></a><br>
     </div>
-    <div class="wiki" style="display: block;">If you don't like videos follow
-      the instructions below.</div>
+    <div class="wiki" style="display: block;">If you don't like videos follow the instructions below.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc10"><a name="default-user-interface"></a>Default user interface</h2>
       This is the default user interface for <em>Invoice</em>:<br>
       <img src="files/modeling_en110.png" alt="modeling_en110.png" title="modeling_en110.png"><br>
-      As you can see, OpenXava shows all the members, one per row, in the order
-      you have declared them in the source code. Also, you can see how in the
-      case of the customer reference the default view of the <em>Customer</em>
-      is created.<br>
-      We are going to do some improvements. First, we'll define the layout of
-      the members explicitly. In this way we can put <em>year</em>, <em>number</em>
-      and <em>date</em> in the same row. Second, we are going to use a simpler
-      view for <em>Customer</em>. The user does not need to see all the data of
-      the customer when he is entering the invoice.<br>
-      <h2 id="toc10"><a name="Modeling with Java-Refining the user interface-Using @View for defining layout"></a>Using
-        @View for defining layout</h2>
-      For defining the layout of <em>Invoice</em> members in the user interface
-      you have to use the <em>@View</em> annotation. It is easy because you
-      only have to enumerate the members to be shown. Look at the code:</div>
+      As you can see, OpenXava shows all the members, one per row, in the order you have declared them in the source code. Also, you can see how in the case of the customer reference the default view of the <em>Customer</em> is created.<br>
+      We are going to do some improvements. First, we'll define the layout of the members explicitly. In this way we can put <em>year</em>, <em>number</em> and <em>date</em> in the same row. Second, we are going to use a simpler view for <em>Customer</em>. The user does not need to see all the data of the customer when he is entering the invoice.<br>
+      <h2 id="toc10"><a name="Modeling with Java-Refining the user interface-Using @View for defining layout"></a>Using @View for defining layout</h2>
+      For defining the layout of <em>Invoice</em> members in the user interface you have to use the <em>@View</em> annotation. It is easy because you only have to enumerate the members to be shown. Look at the code:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@View(members= // This view has no name, so it will be the view used by default
     "year, number, date;" + // Comma separated means in the same line
@@ -105,19 +78,10 @@
 )
 public class Invoice {
 </code></pre> </div>
-    <div class="wiki" style="display: block;">At the end, we show all the
-      members of <em>Invoice</em>, but we use commas to separate <em>year</em>,
-      <em>number</em> and <em>date</em>. Thus they are in the same line,
-      producing a more compact user interface, as this:<br>
+    <div class="wiki" style="display: block;">At the end, we show all the members of <em>Invoice</em>, but we use commas to separate <em>year</em>, <em>number</em> and <em>date</em>. Thus they are in the same line, producing a more compact user interface, as this:<br>
       <img src="files/modeling_en120.png" alt="modeling_en120.png" title="modeling_en120.png"><br>
-      <h2 id="toc11"><a name="Modeling with Java-Refining the user interface-Using @ReferenceView to refine the user interface for reference"></a>Using
-        @ReferenceView to refine the user interface for reference</h2>
-      You still need to refine the way the <em>customer</em> reference is
-      displayed, because it displays all the members of <em>Customer</em>, and
-      for entering data for an <em>Invoice</em>, a simpler view of the customer
-      may be better. To do so, you have to define a <em>Simple</em> view in <em>Customer</em>,
-      and then indicate in <em>Invoice</em> that you want to use the <em>Simple</em>
-      view of <em>Customer</em> to display it.<br>
+      <h2 id="toc11"><a name="Modeling with Java-Refining the user interface-Using @ReferenceView to refine the user interface for reference"></a>Using @ReferenceView to refine the user interface for reference</h2>
+      You still need to refine the way the <em>customer</em> reference is displayed, because it displays all the members of <em>Customer</em>, and for entering data for an <em>Invoice</em>, a simpler view of the customer may be better. To do so, you have to define a <em>Simple</em> view in <em>Customer</em>, and then indicate in <em>Invoice</em> that you want to use the <em>Simple</em> view of <em>Customer</em> to display it.<br>
       First, let's define the <em>Simple</em> view in <em>Customer</em>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@View(name="Simple", // This view is used only when “Simple” is specified
@@ -125,46 +89,35 @@ public class Invoice {
 )
 public class Customer {
 </code></pre> </div>
-    <div class="wiki" style="display: block;">When a view has a name, as in this
-      case, then that view is only used when that name is specified. That is,
-      though <em>Customer</em> has only this <em>@View</em> annotation, when
-      you try to display a <em>Customer</em> it will not use this <em>Simple</em>
-      view, but the one generated by default. If you define a <em>@View</em>
-      with no name, that view will be the default one, though that is not the
-      case here.<br>
-      Now, you have to indicate that the reference to <em>Customer</em> from <em>Invoice</em>
-      must use this <em>Simple</em> view. This is done by means of <em>@ReferenceView</em>.
-      Edit the <i>customer</i> reference in the <i>Invoice</i> class in this
-      way:</div>
+    <div class="wiki" style="display: block;">When a view has a name, as in this case, then that view is only used when that name is specified. That is, though <em>Customer</em> has only this <em>@View</em> annotation, when you try to display a <em>Customer</em> it will not use this <em>Simple</em> view, but the one generated by default. If you define a <em>@View</em> with no name, that view will be the default one, though that is not the case here.<br>
+      Now, you have to indicate that the reference to <em>Customer</em> from <em>Invoice</em> must use this <em>Simple</em> view. This is done by means of <em>@ReferenceView</em>. Edit the <i>customer</i> reference in the <i>Invoice</i> class in this way:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY, optional=false)
 @ReferenceView("Simple") // The view named 'Simple' is used to display this reference
 Customer customer;
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Really simple, you only have to
-      indicate the name of the view of the referenced entity you want to use.<br>
-      After this the <em>customer</em> reference will be shown in a more
-      compact way:<br>
+    <div class="wiki" style="display: block;">Really simple, you only have to indicate the name of the view of the referenced entity you want to use.<br>
+      After this the <em>customer</em> reference will be shown in a more compact way:<br>
       <img src="files/modeling_en130.png" alt="modeling_en130.png" title="modeling_en130.png"><br>
       You can see below how you have refined your <i>Invoice</i> interface.<br>
       <h2 id="toc12"><a name="Modeling with Java-Refining the user interface-Refined user interface"></a><span
           style="font-size: 1.1em; line-height: 1.5;">Refined user interface</span></h2>
-      This is the result of our refinements in the <em>Invoice</em> user
-      interface:<br>
+      This is the result of our refinements in the <em>Invoice</em> user interface:<br>
       <img src="files/modeling_en140.png" alt="modeling_en140.png" title="modeling_en140.png"><br>
-      You have seen how easy it is to use <em>@View</em> and <em>@ReferenceView</em>
-      to get a more compact user interface for <em>Invoice</em>.<br>
-      Now you have a user interface good enough to start working, and you really
-      have done little work to get it going.<span style="line-height: 1.5;"></span><br>
+      You have seen how easy it is to use <em>@View</em> and <em>@ReferenceView</em> to get a more compact user interface for <em>Invoice</em>.<br>
+      Now you have a user interface good enough to start working, and you really have done little work to get it going.<span
+        style="line-height: 1.5;"></span><br>
       <h2 id="toc14"><a name="Modeling with Java-Summary"></a>Summary</h2>
-      In this lesson you have learned how to refine the default user interface
-      using some OpenXava annotations. If you want to know all possible ways of
-      refining the user interface with OpenXava <a class="wiki_link" href="view_en.html">look
-        at the reference guide</a>.<br>
-      <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
-        <a class="wiki_link" href="agile-development_en.html">Go to Lesson 5</a></strong>
+      In this lesson you have learned how to refine the default user interface using some OpenXava annotations. If you want to know all possible ways of refining the user interface with OpenXava <a
+        class="wiki_link" href="view_en.html">look at the reference guide</a>.</div>
+    <div class="wiki" style="display: block;"><br>
     </div>
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+          href="https://github.com/openxava/openxava-course_en/tree/lesson-4"
+          rel="nofollow">Download source code of this lesson</a></strong> </div>
+    <div class="wiki" style="display: block;"> <br>
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine? <a
+          class="wiki_link" href="agile-development_en.html">Go to Lesson 5</a></strong> </div>
   </body>
 </html>
