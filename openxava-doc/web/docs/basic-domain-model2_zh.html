@@ -58,7 +58,7 @@
     <div class="wiki" style="display: block;">
       <h2 id="toc6"><a name="Modeling with Java-Basic domain model-Calculating default values"></a>计算默认值</h2>
     </div>
-    <div class="wiki" style="display: block;"> 我们将用年月日（year、number、date）编写我们的 Invoice 实体。若这些属性有默认值当然最好，这样用户就不必每次都得输入。编写这个功能非常简单，只需使用 @DefaultValueCalculator 注解。在 Invoice 第一版，您将看到我们如何定义年份和日期的默认值：</div>
+    <div class="wiki" style="display: block;"> 我们将在 Invoice 实体中编写年、日期、编号（year、date、number）。要是这些属性有默认值的话最好，这样用户就不必每次都得输入。编写这个功能非常简单，只需使用 @DefaultValueCalculator 注解。在 Invoice 的第一版，您将看到我们如何定义年、日期、编号的默认值：</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.yourcompany.invoicing.model;
 
@@ -96,15 +96,16 @@ public class Invoice {
 	@DefaultValueCalculator(CurrentLocalDateCalculator.class) // 当前的日期
 	LocalDate date;
 
-	@Stereotype("MEMO")
+	@TextArea
 	String remarks;
 
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">当用户点击“新建”时，将会自动输入当前的年份跟日期。这两个计算器（CurrentYearCalculator 和 CurrentLocalDateCalculator）都包含在 OpenXava 中。您可以在 org.openxava.calculators 包中看到其它内置的计算器。<br>
-        要注意的是，在日期方面，我们使用 LocalDate（来自 java.time 包）他只有年、月、日，而 Java 还有一个 Date 类型是在 java.util 包中，该 Date 不止包括日期，还有时间（小时、秒、毫秒）。在这项目和大多业务应用程序中，我们通常都使用 LocalDate。</span><br>
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">当用户点击“新建”时，将会自动输入当前的年份跟日期。这两个计算器（CurrentYearCalculator 和 CurrentLocalDateCalculator）都包含在 OpenXava 中。您可以在 </span><span
+        style="line-height: 1.5;"><a href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/package-summary.html">org.openxava.calculators</a> 包中看到其它内置的计算器。<br>
+        要注意的是，在日期方面，我们使用 LocalDate（来自 java.time 包）他只有年、月、日，而 Java 还有一个 Date 类型是在 java.util 包中，该 Date 不止包括日期，还有时间（小时、秒、毫秒）。但在这项目和大多业务应用程序中，通常都使用 LocalDate。</span><br>
       有时您需要创建自已的默认值。例如：我们希望新的发票编号是在同一年的最后一个发票编号上加一号。要使用自已的默认计算器很容易。首先，为计算器创建一个包并命名为 com.yourcompany.invoicing.calculators。<br>
-      要创建一个新包，请选择 Invoicing/src 文件夹并点击 New Java Package，输入包名 com.yourcompany.invoicing.calculators 后再点击 Finish。</div>
+      要创建一个新包，请选择 invoicing/src/main/java 文件夹并点击 New Java Package，输入包名 com.yourcompany.invoicing.calculators 后再点击 Finish。</div>
     <div class="wiki" style="display: block;"><br>
     </div>
     <p> <img src="files/modeling_zh064.png" alt="">&nbsp;</p>
@@ -140,7 +141,8 @@ public class NextNumberForYearCalculator implements ICalculator { // 计算器�
 
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">您的计算器必须实现 ICalculator 接口（因此也必须有一个 calculate() 方法）。我们先声明一个年的属性（year）好使用它计算。为了实现逻辑我们使用 JPA 查询，您可以在 附录 B 中了解如何使用 JPA。现在我们只需要在 Invoice 实体中编写 number 属性：</div>
+    <div class="wiki" style="display: block;">您的计算器必须实现 ICalculator 接口（因此须有一个 calculate() 方法）。我们先声明一个年的属性（year）好使用它计算。为了实现逻辑，我们使用 JPA 查询（您可以在 <a
+        class="wiki_link" href="jpa_en.html">附录 B</a> 中了解如何使用 JPA）。现在我们只需要在 Invoice 实体中编写 number 属性：</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">public class Invoice {
   ...
@@ -167,7 +169,7 @@ public class NextNumberForYearCalculator implements ICalculator { // 计算器�
     <div class="wiki" style="display: block;">请注意，year 跟 number 并不是键，我们正使用 oid 作为键（有用 @id 注解），通常使用单键就好，不过也是可以使用<a
         href="jpa_en.html#Appendix%20B:%20Java%20Persistence%20API-JPA%20Annotations-Composite+key">复合键</a>。<br>
       <h2 id="toc7"><a name="Modeling with Java-Basic domain model-Regular reference (ManyToOne)"></a>常规注解 - 多对一</h2>
-      在在准备好所有属性后，是时后添加与其它实体的关联了。我们将添加从发票（Invoice）到客户（Customer）的引用，因为一张发票总得要有客户，不过在添加客户之前，须删除发票模块中所有当前的发票，因为客户将会是必须的所以可能会跟现在的数据产生故障。<br>
+      在在准备好所有属性后，是时后添加与其它实体的关联了。我们将添加从发票（Invoice）到客户（Customer）的引用，因为一张发票总得要有客户，<strong>不过在添加客户之前，须删除发票模块中所有当前的发票</strong>，因为客户将会是必须的所以可能会跟现在的数据产生故障。<br>
       在 Invoice 实体添加以下代码：</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY, optional=false) // Customer 为必须的
@@ -226,9 +228,26 @@ Collection&lt;Detail&gt; details;
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;"><span
           style="line-height: 1.5;"></span></span><span style="line-height: 1.5;"></span><br>
       <img src="files/modeling_zh100.png" alt="modeling_zh100.png" title="modeling_zh100.png"></div>
-    <div class="wiki" style="display: block;"><span style="line-height: 1.5;"></span><br>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">我们发觉 product.number 属性的标签怪怪的，所以想将其更改为：产品编号。为此，我们必须将位于 invoicing/src/main/resources/i18n 文件夹中的 invoicing-labels_en.properties 文件名更改为 invoicing-labels_zh.properties 并添加以下的标签来覆盖 OpenXava 所带的默认标签：</span><span
+        style="line-height: 1.5;"></span><br>
+      <pre><code class="java">product.number = 产品编号<br></code></pre>
+    </div>
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;"></span><img
+        src="files/modeling_zh105.png" alt="modeling_zh100.png" title="modeling_zh100.png"></div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">这样，我们就可以自定义OpenXava 给我们的默认标签或是创建自己的标签。</span><span
+        style="line-height: 1.5;"></span>
       <h2 id="toc14"><a name="Modeling with Java-Summary"></a>总结</h2>
-      恭喜！您已完成域模型的类并有一个可运行的应用程序。现在用户可以使用产品、类别甚至创建发票。产品和类别的界面都不错，尽管发票界面可以改善一点。顺便说一句，您已经使用了一些 OpenXava 注解来优化显示，例如 @DescriptionsList、@NoFrame 和 @ListProperties。再下一章我们将使用更多这类注解来轻松的优化 Invoice 用户界面。</div>
+      恭喜！您已完成域模型的类并有一个可运行的应用程序。现在您的用户可以使用产品、类别、客戶甚至创建发票。产品和类别的界面都不错，雖然发票界面還可以改善。顺便说一句，您已经使用了一些 OpenXava 注解来优化視圖，例如 @DescriptionsList、@NoFrame 和 @ListProperties，另外我们也看到如何更改 OpenXava 自带的默认标签<span
+        style="line-height: 1.5;"></span>。再下一章我们将使用更多这类注解来轻松的优化 Invoice 用户界面。</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+          href="https://github.com/openxava/openxava-course_en/tree/lesson-3"
+          rel="nofollow">下载本课源代码</a></strong><strong></strong>此代码是OX英文版本，标签部份需自行更改</div>
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;"> <strong>对这节课有什么问题吗？ <a
