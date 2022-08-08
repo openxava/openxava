@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Tomcat 10 support.
 - It's possible to develop/run using command line and plain editor with no IDE at all.
 - Fix: Chinese MS950 encoding does not work well with simplified Chinese characters.
 - Java 17 support.
