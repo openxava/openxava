@@ -20,12 +20,14 @@
     <Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="sa" password="" 
+	      driverClassName="org.hsqldb.jdbc.JDBCDriver"
 	      url="jdbc:hsqldb:hsql://localhost:1666"/>
 	      
 	<!-- MySQL       
     <Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="root" password="" 
+	      driverClassName="com.mysql.cj.jdbc.Driver"
 	      url="jdbc:mysql://localhost:3306/tuaplicaciondb"/>	      
 	-->      
 	
@@ -33,6 +35,7 @@
 	<Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="postgres" password="" 
+	      driverClassName="org.postgresql.Driver" 
 	      url="jdbc:postgresql://localhost/tuaplicaciondb"/>
 	-->
 	
@@ -40,6 +43,7 @@
 	<Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="user" password="" 
+	      driverClassName="oracle.jdbc.OracleDriver"
 	      url="jdbc:oracle:thin:@localhost:1521:tuaplicaciondb"/>
 	-->	
 	
@@ -47,6 +51,7 @@
 	<Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="user" password="" 
+	      driverClassName="com.ibm.as400.access.AS400JDBCDriver" 
 	      url="jdbc:as400:localhost/tuaplicacionlib"/>
 	-->
 	
@@ -54,6 +59,7 @@
 	<Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="user" password="" 
+	      driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" 
 	      url="jdbc:sqlserver://localhost:1433;databaseName=tuaplicaciondb"/>
 	-->
 	
@@ -61,6 +67,7 @@
 	<Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="user" password="" 
+	      driverClassName="com.informix.jdbc.IfxDriver"
 	      url="jdbc:informix-sqli://localhost:1533/tuaplicaciondb:INFORMIXSERVER=tuservidor"/>
 	-->            
 	
@@ -68,6 +75,7 @@
 	<Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="user" password="" 
+	      driverClassName="com.ibm.db2.jcc.DB2Driver"
 	      url="jdbc:db2://localhost:50000/tuaplicaciondb"/>
 	-->
 	
@@ -75,6 +83,7 @@
 	<Resource name="jdbc/tuaplicacionDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="user" password="" 
+	      driverClassName="org.firebirdsql.jdbc.FBDriver"
 	      url="jdbc:firebirdsql://localhost:3050/c:/db/tuaplicacion.fdb"/>
 	-->
 	                  	      

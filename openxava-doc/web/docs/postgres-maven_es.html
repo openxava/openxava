@@ -12,8 +12,7 @@
       <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
           / </span> Configuración para PostgreSQL</h1>
-      <i>Si estás usando una versión de OpenXava anterior a la 7.0 mira las <a
-
+      <i>Si estás usando una versión de OpenXava anterior a la 7.0 mira las <a
           href="postgres-ox6_es.html">instrucciones antiguas</a><br>
       </i></div>
     <div class="wiki" style="display: block;">Configurar tu aplicación OpenXava
@@ -43,23 +42,25 @@
     type="javax.sql.DataSource"
     maxTotal="100" maxIdle="20" maxWaitMillis="10000"
     username="root" password="ao49fmsk"
+    driverClassName="org.postgresql.Driver"
     url="jdbc:postgresql://localhost:5432/miaplicaciondb"/&gt;
 </code></pre> </div>
-    <div class="wiki" style="display: block;">La diferencia es <i>url</i>. La
-      parte final de la url, <i>miaplicaciondb</i> en este ejemplo, es el
-      nombre de tu base de datos PostgreSQL. Obviamente, en lugar de <i>localhost</i>
-      deberías poner la dirección del servidor que alberga PostgreSQL. También
-      pon el <i>username</i> y <i>password</i> correctos. Puede que el código
-      de arriba ya esté en tu <i>context.xml</i> pero comentado, en ese caso
-      simplemente descoméntalo. No olvides comentar o quitar la fuente de datos
-      para HSQLDB (incluida por defecto al crear un nuevo proyecto OpenXava),
-      sólo una fuente de datos (con el mismo nombre) debería estar activa.</div>
+    <div class="wiki" style="display: block;">La diferencia está en <i>driverClassName</i>
+      y <i>url</i>. La parte final de la url, <i>miaplicaciondb</i> en este
+      ejemplo, es el nombre de tu base de datos PostgreSQL. Obviamente, en lugar
+      de <i>localhost</i> deberías poner la dirección del servidor que alberga
+      PostgreSQL. También pon el <i>username</i> y <i>password</i> correctos.
+      Puede que el código de arriba ya esté en tu <i>context.xml</i> pero
+      comentado, en ese caso simplemente descoméntalo. No olvides comentar o
+      quitar la fuente de datos para HSQLDB (incluida por defecto al crear un
+      nuevo proyecto OpenXava), sólo una fuente de datos (con el mismo nombre)
+      debería estar activa.</div>
     <div class="wiki" style="display: block;">
       <h2>Reconstruir proyecto</h2>
       Después de los cambios has de reconstruir (rebuild) tu proyecto. En
       OpenXava Studio pulsa con el botón derecho del ratón en tu proyecto y
-      escoge <i>Run As &gt; Maven install</i>, así:  </div>
-    <div class="wiki" style="display: block;"><img src="files/run-as-maven-install.png"
+      escoge <i>Run As &gt; Maven install</i>, así: </div>
+    <div class="wiki" style="display: block;"><img src="files/run-as-maven-install.png"
         alt=""></div>
     <div class="wiki" style="display: block;">O si tienes Maven instalado en tu
       ordenador y prefieres usar la línea de órdenes:

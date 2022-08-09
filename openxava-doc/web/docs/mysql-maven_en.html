@@ -38,15 +38,16 @@
       adjust the datasource to point to MySQL, something like this:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
-	type="javax.sql.DataSource"
-	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
-	username="root" password="ao49fmsk"
-	url="jdbc:mysql://localhost:3306/myappdb"/&gt;
+    type="javax.sql.DataSource"
+    maxTotal="100" maxIdle="20" maxWaitMillis="10000"
+    username="root" password="ao49fmsk"
+    driverClassName="com.mysql.cj.jdbc.Driver"
+    url="jdbc:mysql://localhost:3306/myappdb"/&gt;
 </code></pre> </div>
-    <div class="wiki" style="display: block;">The differences is the <i>url</i>.
-      Obviously, instead of <i>localhost</i> you should put the address of the
-      server that hosts MySQL and instead of <i>myappdb</i> the name of your
-      database.. Also put the correct <i>username</i> and <i>password</i>.
+    <div class="wiki" style="display: block;">The differences is the <i>driverClassName</i>
+      and the <i>url</i>. Obviously, instead of <i>localhost</i> you should
+      put the address of the server that hosts MySQL and instead of <i>myappdb</i>
+      the name of your database.. Also put the correct <i>username</i> and <i>password</i>.
       Maybe the above code is already in your <i>context.xml</i> but commented,
       in that case just uncomment it. Don't forget to comment or remove the
       datasource for HSQLDB (the default one when you create a new OpenXava

@@ -12,7 +12,7 @@
       <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
           / </span> Configuración para Oracle</h1>
-      <i>Si estás usando una versión de OpenXava anterior a la 7.0 mira las <a
+      <i>Si estás usando una versión de OpenXava anterior a la 7.0 mira las <a
           href="oracle-ox6_es.html">instrucciones antiguas</a></i>
       <div class="wiki" style="display: block;">Configurar tu aplicación
         OpenXava contra Oracle es muy fácil, básicamente has de añadir una
@@ -42,17 +42,19 @@
     type="javax.sql.DataSource"
     maxTotal="100" maxIdle="20" maxWaitMillis="10000"
     username="root" password="ao49fmsk"
+    driverClassName="oracle.jdbc.OracleDriver"
     url="jdbc:oracle:thin:@localhost:1521:misid"/&gt;
 </code></pre> </div>
-      <div class="wiki" style="display: block;">La diferencia es <i>url</i>. La
-        parte final de la url, <i>misid</i> en este ejemplo, es el sid de tu
-        base de datos Oracle. Obviamente, en lugar de <i>localhost</i> deberías
-        poner la dirección del servidor que alberga Oracle. También pon el <i>username</i>
-        y <i>password</i> correctos. Puede que el código de arriba ya esté en
-        tu <i>context.xml</i> pero comentado, en ese caso simplemente
-        descoméntalo. No olvides comentar o quitar la fuente de datos para
-        HSQLDB (incluida por defecto al crear un nuevo proyecto OpenXava), sólo
-        una fuente de datos (con el mismo nombre) debería estar activa.</div>
+      <div class="wiki" style="display: block;">La diferencia está en <i>driverClassName</i>
+        y <i>url</i>. La parte final de la url, <i>misid</i> en este ejemplo,
+        es el sid de tu base de datos Oracle. Obviamente, en lugar de <i>localhost</i>
+        deberías poner la dirección del servidor que alberga Oracle. También pon
+        el <i>username</i> y <i>password</i> correctos. Puede que el código de
+        arriba ya esté en tu <i>context.xml</i> pero comentado, en ese caso
+        simplemente descoméntalo. No olvides comentar o quitar la fuente de
+        datos para HSQLDB (incluida por defecto al crear un nuevo proyecto
+        OpenXava), sólo una fuente de datos (con el mismo nombre) debería estar
+        activa.</div>
       <div class="wiki" style="display: block;">
         <h2 id="toc1">Actualizar persistence.xml</h2>
         Necesitas tocar la unidad de persistencia <i>default</i> de <i>persistence.xml</i>

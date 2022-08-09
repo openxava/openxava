@@ -41,17 +41,18 @@
     type="javax.sql.DataSource"
     maxTotal="100" maxIdle="20" maxWaitMillis="10000"
     username="root" password="ao49fmsk"
+    driverClassName="com.ibm.as400.access.AS400JDBCDriver"
     url="jdbc:as400:192.168.1.8/mibiblioteca"/&gt;
 </code></pre> </div>
-      <div class="wiki" style="display: block;">La diferencia es <i>url</i>.
-        Obviamente, en lugar de 192.168.1.8 deberías poner la IP de tu AS/400 y
-        en lugar de <i>mibiblioteca</i> pon la biblioteca del AS/400 donde
-        estén las tablas de la aplicación. También pon el <i>username</i> y <i>password</i>
-        correctos. Puede que el código de arriba ya esté en tu <i>context.xml</i>
-        pero comentado, en ese caso simplemente descoméntalo. No olvides
-        comentar o quitar la fuente de datos para HSQLDB (incluida por defecto
-        al crear un nuevo proyecto OpenXava), sólo una fuente de datos (con el
-        mismo nombre) debería estar activa.</div>
+      <div class="wiki" style="display: block;">La diferencia está en <i>driverClassName</i>
+        y <i>url</i>. Obviamente, en lugar de 192.168.1.8 deberías poner la IP
+        de tu AS/400 y en lugar de <i>mibiblioteca</i> pon la biblioteca del
+        AS/400 donde estén las tablas de la aplicación. También pon el <i>username</i>
+        y <i>password</i> correctos. Puede que el código de arriba ya esté en
+        tu <i>context.xml</i> pero comentado, en ese caso simplemente
+        descoméntalo. No olvides comentar o quitar la fuente de datos para
+        HSQLDB (incluida por defecto al crear un nuevo proyecto OpenXava), sólo
+        una fuente de datos (con el mismo nombre) debería estar activa.</div>
       <div class="wiki" style="display: block;">
         <h2 id="toc1">Actualizar persistence.xml</h2>
         No necesitas tocar la unidad de persistencia <i>default</i> de <i>persistence.xml</i>

@@ -10,10 +10,8 @@
   <body>
     <div class="wiki" style="display: block;">
       <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a
-
-            href="index_es.html">documentación</a> / </span> Configuración para
-        MySQL en OpenXava 6</h1>
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span> Configuración para MySQL en OpenXava 6</h1>
       <i>Si estás usando OpenXava 7.0 o superior mira <a href="mysql_es.html">las
           instrucciones nuevas</a></i></div>
     <div class="wiki" style="display: block;"> Configurar tu aplicación OpenXava
@@ -48,8 +46,7 @@
       En el proyecto en que vayas a usar MySQL has de añadir la variable que
       acabas de declarar. Pulsa con el botón derecho del ratón en tu proyecto y
       selecciona <i>Build Path &gt; Configure Build Path</i>:</div>
-    <img src="files/project-build-path-eclipse-menu_es.png" alt="project-build-path-eclipse-menu_es.png"
-
+    <img src="files/project-build-path-eclipse-menu_es.png" alt="project-build-path-eclipse-menu_es.png"
       title="project-build-path-eclipse-menu_es.png">
     <div class="wiki" style="display: block;">Después selecciona la pestaña <i>Libraries</i>:</div>
     <img src="files/add-db-classpath-variable-to-your-eclipse-project_es.png" title="add-db-classpath-variable-to-your-eclipse-project_es.png">
@@ -72,7 +69,7 @@
 	type="javax.sql.DataSource"
 	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
 	username="root" password="ao49fmsk"
-	driverClassName="com.mysql.jdbc.Driver"
+	driverClassName="com.mysql.cj.jdbc.Driver"
 	url="jdbc:mysql://localhost:3306/"/&gt;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Las diferencias están en el <i>driverClassName</i>

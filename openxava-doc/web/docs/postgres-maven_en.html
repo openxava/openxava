@@ -42,13 +42,14 @@
     type="javax.sql.DataSource"
     maxTotal="100" maxIdle="20" maxWaitMillis="10000"
     username="root" password="ao49fmsk"
+    driverClassName="org.postgresql.Driver"
     url="jdbc:postgresql://localhost:5432/myappdb"/&gt;
 </code></pre> </div>
-    <div class="wiki" style="display: block;">The differences is the <i>url</i>.
-      The final part of the url, <i>myappdb</i> in this example, is the name of
-      your PostgreSQL database. Obviously, instead of <i>localhost</i> you
-      should put the address of the server that hosts PostgreSQL. Also put the
-      correct <i>username</i> and <i>password</i>. Maybe the above code is
+    <div class="wiki" style="display: block;">The differences is the <i>driverClassName</i>
+      and the <i>url</i>. The final part of the url, <i>myappdb</i> in this
+      example, is the name of your PostgreSQL database. Obviously, instead of <i>localhost</i>
+      you should put the address of the server that hosts PostgreSQL. Also put
+      the correct <i>username</i> and <i>password</i>. Maybe the above code is
       already in your <i>context.xml</i> but commented, in that case just
       uncomment it. Don't forget to comment or remove the datasource for HSQLDB
       (the default one when you create a new OpenXava project), only one
@@ -58,7 +59,7 @@
       After the changes you have to rebuild your project. In OpenXava Studio
       click with right mouse button on your project an choose <i>Run As &gt;
         Maven install</i>, thus: </div>
-    <div class="wiki" style="display: block;"><img src="files/run-as-maven-install.png"
+    <div class="wiki" style="display: block;"><img src="files/run-as-maven-install.png"
         alt=""></div>
     <div class="wiki" style="display: block;">Or if you have Maven installed in
       your computer and you prefer to use command line:

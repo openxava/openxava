@@ -39,15 +39,16 @@
         así:</div>
       <div class="wiki" style="display: block;">
         <pre><code class="xml">&lt;Resource name="jdbc/MiAplicacionDS" auth="Container"
-	type="javax.sql.DataSource"
-	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
-	username="root" password="ao49fmsk"
-	url="jdbc:mysql://localhost:3306/miaplicaciondb"/&gt;
+    type="javax.sql.DataSource"
+    maxTotal="100" maxIdle="20" maxWaitMillis="10000"
+    username="root" password="ao49fmsk"
+    driverClassName="com.mysql.cj.jdbc.Driver"
+    url="jdbc:mysql://localhost:3306/miaplicaciondb"/&gt;
 </code></pre> </div>
-      <div class="wiki" style="display: block;">La diferencia es <i>url</i>.
-        Obviamente, en lugar de <i>localhost</i> deberías poner la dirección
-        del servidor que alberga MySQL y en lugar de <i>miaplicaciondb</i> el
-        nombre de tu base de datos. También pon el <i>username</i> y <i>password</i>
+      <div class="wiki" style="display: block;">La diferencia está en <i>driverClassName</i>
+        y <i>url</i>. Obviamente, en lugar de <i>localhost</i> deberías poner
+        la dirección del servidor que alberga MySQL y en lugar de <i>miaplicaciondb</i>
+        el nombre de tu base de datos. También pon el <i>username</i> y <i>password</i>
         correctos. Puede que el código de arriba ya esté en tu <i>context.xml</i>
         pero comentado, en ese caso simplemente descoméntalo. No olvides
         comentar o quitar la fuente de datos para HSQLDB (incluida por defecto
