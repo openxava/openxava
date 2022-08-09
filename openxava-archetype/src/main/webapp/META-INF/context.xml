@@ -63,8 +63,6 @@
 	      url="jdbc:sqlserver://localhost:1433;databaseName=yourappdb"/>
 	-->
 	
-	<!-- TMR ME QUEDÉ POR AQUÍ: ACTUALIZANDO LA DOC -->
-	
 	<!-- Informix
 	<Resource name="jdbc/yourappDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"

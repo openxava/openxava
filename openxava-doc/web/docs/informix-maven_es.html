@@ -43,10 +43,11 @@
     type="javax.sql.DataSource"
     maxTotal="100" maxIdle="20" maxWaitMillis="10000"
     username="root" password="ao49fmsk"
+    driverClassName="com.informix.jdbc.IfxDriver"
     url="jdbc:informix-sqli://localhost:1533/miaplicaciondb:INFORMIXSERVER=miservidor"/&gt;
 </code></pre> </div>
-      <div class="wiki" style="display: block;">La diferencia es <i>url</i>. La
-        parte final de la url hasta antes de INFORMIXSERVER, <i>miaplicaciondb</i>
+      <div class="wiki" style="display: block;">La diferencia está en <i>driverClassName</i>
+        y <i>url</i>. La parte final de la url hasta antes de INFORMIXSERVER, <i>miaplicaciondb</i>
         en este ejemplo, es el nombre de tu base de datos Informix. Obviamente,
         en lugar de <i>localhost</i> deberías poner la dirección del servidor
         que alberga Informix. También pon el <i>username</i> y <i>password</i>

@@ -43,11 +43,12 @@
     type="javax.sql.DataSource"
     maxTotal="100" maxIdle="20" maxWaitMillis="10000"
     username="root" password="ao49fmsk"
+    driverClassName="com.ibm.db2.jcc.DB2Driver"
     url="jdbc:db2://localhost:50000/miaplicaciondb"/&gt;
 </code></pre> </div>
-      <div class="wiki" style="display: block;">La diferencia es <i>url</i>. La
-        parte final de la url, <i>miaplicaciondb</i> en este ejemplo, es el
-        nombre de tu base de datos Db2. Obviamente, en lugar de <i>localhost</i>
+      <div class="wiki" style="display: block;">La diferencia es <i>driverClassName</i>
+        y <i>url</i>. La parte final de la url, <i>miaplicaciondb</i> en este
+        ejemplo, es el nombre de tu base de datos Db2. Obviamente, en lugar de <i>localhost</i>
         deberías poner la dirección del servidor que alberga Db2. También pon el
         <i>username</i> y <i>password</i> correctos. Puede que el código de
         arriba ya esté en tu <i>context.xml</i> pero comentado, en ese caso
