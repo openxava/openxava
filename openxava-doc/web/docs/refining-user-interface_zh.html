@@ -89,7 +89,7 @@ public class Invoice {
 public class Customer {
 </code></pre> </div>
     <div class="wiki" style="display: block;">如本例，当一个视图有名称时，该视图仅会在该名称被指定时才显示。也就是 说，虽然 Customer 只有这个 @View 注解，但是当你尝试显示 Customer 时，它不会使用这个 Simple 视图，而是默认的那个。如果您定义一个没有名称的@View，则该视图将是默认视图，不过这并不是我们想要的。<br>
-      现在，您必须在 Invoice 中指定 Customer 引用必须使用这个 Simple 视图。这须要通过@ReferenceView 完成。请以这种方式编辑 Invoice 中的 Customer 引用：</div>
+      现在，您必须在 Invoice 中指定 Customer 引用必须使用这个 Simple 视图。这须要通过 @ReferenceView 完成。请以这种方式编辑 Invoice 中的 Customer 引用：</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY, optional=false)
 @ReferenceView("Simple") // 此注解将用名称为 Simple 的视图显示
@@ -107,8 +107,16 @@ Customer customer;
       在没有出很多力的情况下，您已有了一个足够好的用户界面来开始工作了。<span style="line-height: 1.5;"></span><br>
       <h2 id="toc14"><a name="Modeling with Java-Summary"></a>总结</h2>
       在本课中，您学会了如何使用一些 OpenXava 的注解来优化默认的用户界面。如果您想了解更多使用 OpenXava 优化用户界面的方法，请查看参考指南。<br>
-      <br>
-      <strong></strong><strong>对这节课有什么问题吗？ <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+          href="https://github.com/openxava/openxava-course_en/tree/lesson-4"
+          rel="nofollow">下载本课源代码</a></strong></div>
+    <div class="wiki" style="display: block;"><strong><br>
+      </strong></div>
+    <div class="wiki" style="display: block;"><strong></strong> <strong></strong><strong>对这节课有什么问题吗？ <a
+          class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">前往轮譠</a></strong> <strong>一切都顺利吗？</strong><strong> <a
           class="wiki_link" href="agile-development_zh.html">前往第五章</a></strong> </div>
   </body>
