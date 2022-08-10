@@ -9,6 +9,28 @@
 	<description>Java framework for fast time-to-market of business applications</description>
 	<url>https://www.openxava.org</url>
 	
+	<licenses>
+		<license>
+			<name>GNU Library General Public License v2.1 or later</name>
+			<url>https://www.opensource.org/licenses/LGPL-2.1</url>
+		</license>
+	</licenses>
+	
+	<developers>
+		<developer>
+			<id>openxava-team</id>
+			<name>The OpenXava Development Team</name>
+			<organization>OpenXava.org</organization>
+			<organizationUrl>https://openxava.org</organizationUrl>
+		</developer>
+	</developers>
+	
+	<scm>
+		<connection>scm:git:git://github.com/openxava/openxava.git</connection>
+		<developerConnection>scm:git:ssh://github.com:openxava/openxava.git</developerConnection>
+		<url>https://github.com/openxava/openxava</url>
+	</scm>
+	
 	<properties>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
