@@ -289,7 +289,9 @@
 			</plugin>
 			-->
 			
-			<!-- TMR ME QUEDÉ POR AQUÍ: ESTO FALLA, POSIBLEMENTE PORQUE TENGO QUE CREAR UNA CLAVE -->
+			<!-- TMR ME QUEDÉ POR AQUÍ: ESTO FALLA, POSIBLEMENTE PORQUE TENGO QUE CREAR UNA CLAVE 
+			Following this: https://central.sonatype.org/publish/publish-maven/
+			-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
