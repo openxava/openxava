@@ -273,11 +273,14 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- tmr 
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>3.4.0</version>
+				<configuration>
+					<failOnError>false</failOnError>
+				</configuration>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
@@ -287,11 +290,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			-->
 			
-			<!-- TMR ME QUEDÉ POR AQUÍ: ESTO FALLA, POSIBLEMENTE PORQUE TENGO QUE CREAR UNA CLAVE 
-			Following this: https://central.sonatype.org/publish/publish-maven/
-			-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
