@@ -57,12 +57,12 @@
         <div style="margin-left: 2em;"><a href="#associating-order-with-invoice">将订单（Order）与发票（Invoice）关联</a></div>
         <div style="margin-left: 2em;"><a href="#summary">总结</a></div>
       </div>
-      一个实体可以继承自另一个实体。这实体继承是很好简化模型的工具。我们将使用它在 Invoicing 应用程序中添加一个新的 Order 实体。<br>
+      一个实体可以继承自另一个实体。这实体继承是很好简化模型的工具。我们将使用它在 invoicing 应用程序中添加一个新的 Order 实体。<br>
       <br>
       <div class="wiki" style="display: block;"><br>
       </div>
       <h2><a name="new-order-entity"></a>新实体 - 订单（Order）</h2>
-      我们想在 Invoicing 应用程序添加一个新概念：订单。方票是您要向客户收取的费用，而订单是客户想从我们这里订购的一个申请。这两个概念密切相关，因为您将对客户向您订购的东西和您最后给的收取费用。<br>
+      我们想在 invoicing 应用程序添加一个新概念：订单。方票是您要向客户收取的费用，而订单是客户想从我们这里订购的一个申请。这两个概念密切相关，因为您将对客户向您订购的东西和您最后给的收取费用。<br>
       如果能在应用程序中管理订单，并将这些订单与其发票相关联。像下一张 UML 图和其 Java 表达方法：</div>
     <div class="wiki" style="display: block;"><br>
     </div>
@@ -126,8 +126,8 @@ public class Invoice extends CommercialDocument {
 }
 </code></pre> <em></em>Invoice 现在有非常简洁的代码，类的主体现在是空的，至少目前来说。<br>
       这新代码需要的数据库架构稍微不同，现在发票和订单将使用鉴别器列存储在同一个表（CommercialDocument 表）。因此，您需要删除旧表，请执行以下 SQL 语句：<br>
-      <pre><code class="sql">DROP TABLE INVOICING.INVOICE_DETAILS;
-DROP TABLE INVOICING.INVOICE;
+      <pre><code class="sql">DROP TABLE INVOICE_DETAILS;
+DROP TABLE INVOICE;
 </code></pre> 要执行这些 SQL 语句，首先确保您的应用程序正在运行，然后使用 OpenXava Studio 的菜单选项 OpenXava &gt; Database Manager：</div>
     <div class="wiki" style="display: block;"><br>
     </div>
@@ -217,8 +217,13 @@ public class Invoice extends CommercialDocument {
     <div class="wiki" style="display: block;">
       <h2 id="toc18"><a name="summary"></a>总结</h2>
       本课向您展示了一些关于如何在 JPA 实体上使用 Java 的继承来简化代码。我们使用 JPA 默认的配置进行继承，尽管您可以使用一些 JPA 注解来优化 JPA 的继承行为（如 @Inheritance、@DiscriminatorColumn、@DiscriminatorValue 等）。要了解有关 JPA 中的继承的更多信息，请阅读 <a
-        class="wiki_link" href="jpa_en.html">附录 B</a>。<br>
-      <br>
+        class="wiki_link" href="jpa_en.html">附录 B</a>。</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+          href="https://github.com/openxava/openxava-course_en/tree/lesson-7"
+          rel="nofollow">下载本课源代码</a></strong></div>
+    <div class="wiki" style="display: block;"> <br>
       <strong></strong><strong><strong>对这节课有什么问题吗？ <a class="wiki_link_ext"
             href="http://sourceforge.net/p/openxava/discussion/419690/"
             rel="nofollow">前往轮譠</a></strong><strong>一切都顺利吗？</strong></strong><strong> <a
