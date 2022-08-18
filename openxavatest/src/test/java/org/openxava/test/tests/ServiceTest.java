@@ -112,7 +112,7 @@ public class ServiceTest extends ModuleTestBase {
 		assertValidValues("type.number", empty);
 		closeDialog();
 		
-		setValue("family", "1");
+		setValue("family", "1"); 
 		String [][] subfamilyValues = {
 			{ "", "" },
 			{ "1" , "01 DESARROLLO" },

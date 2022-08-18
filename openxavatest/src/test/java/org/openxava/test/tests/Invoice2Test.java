@@ -361,7 +361,7 @@ public class Invoice2Test extends ModuleTestBase {
 		assertNotExists("familyList");
 		assertNotExists("productList");
 		execute("InvoiceDetail2.showProductList");
-		assertExists("familyList");
+		assertExists("familyList"); 
 		assertExists("productList");
 		assertValidValuesCount("productList", 1); 
 		setValue("familyList", "1");
@@ -435,7 +435,7 @@ public class Invoice2Test extends ModuleTestBase {
 		execute("InvoiceDetail2.new", "viewObject=xava_view_details");
 		setValue("quantity", "7");
 		setValue("unitPrice", "8");
-		assertValue("amount", "56.00");
+		assertValue("amount", "56.00"); 
 		setValue("product.number", "1"); 
 		assertValue("product.description", "MULTAS DE TRAFICO");
 		execute("Collection.save");
@@ -461,7 +461,7 @@ public class Invoice2Test extends ModuleTestBase {
 		closeDialog();
 		
 		execute("Collection.edit", "row=1,viewObject=xava_view_details");
-		assertValue("product.description", "IBM ESERVER ISERIES 270");
+		assertValue("product.description", "IBM ESERVER ISERIES 270"); 
 		assertValue("product.family.description", "HARDWARE");		
 	}
 	

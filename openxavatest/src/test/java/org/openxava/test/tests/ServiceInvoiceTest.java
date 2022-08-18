@@ -56,7 +56,7 @@ public class ServiceInvoiceTest extends ModuleTestBase {
 		// Restoring
 		execute("List.addColumns");
 		execute("AddColumns.restoreDefault");
-		assertTotalInList("amount", "2,647.86");
+		assertTotalInList("amount", "2,647.86"); 
 		assertTotalInList("number", "");
 		resetModule();
 		assertTotalInList("amount", "2,647.86"); 

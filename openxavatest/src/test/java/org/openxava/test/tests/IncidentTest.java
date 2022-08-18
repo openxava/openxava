@@ -53,7 +53,7 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		
 		execute("List.viewDetail", "row=0");
 
-		assertValue("title", "THE JUNIT DISCUSSION");
+		assertValue("title", "THE JUNIT DISCUSSION"); 
 		assertValue("description", "<p>This is the big jUnit discussion</p>"); 
 
 		assertDiscussionCommentsCount("discussion", 1);

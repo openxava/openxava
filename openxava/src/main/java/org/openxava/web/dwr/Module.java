@@ -42,6 +42,7 @@ public class Module extends DWRBase {
 	private String baseFolder = null;
 	
 	public Result request(HttpServletRequest request, HttpServletResponse response, String application, String module, String additionalParameters, Map values, Map multipleValues, String [] selected, String [] deselected, Boolean firstRequest, String baseFolder) throws Exception {
+		System.out.println("[Module.request] ENTRAMOS 11"); // tmr
 		long ini = System.currentTimeMillis();
 		Result result = new Result(); 
 		result.setApplication(application); 
@@ -99,9 +100,11 @@ public class Module extends DWRBase {
 			result.setUrlParam(getUrlParam());
 			result.setViewSimple(getView().isSimple());
 			result.setDataChanged(getView().isDataChanged());
+			System.out.println("[Module.request] 999"); // tmr
 			return result;
 		}
 		catch (SecurityException ex) {
+			System.out.println("[Module.request] SecurityException"); // tmr
 			if (wasPageReloadedLastTime()) {
 				setPageReloadedLastTime(false);
 				result.setError(ex.getMessage());
@@ -113,11 +116,23 @@ public class Module extends DWRBase {
 			}
 			return result;			
 		}
+		/* tmr
 		catch (Exception ex) {
+			System.out.println("[Module.request] Exception"); // tmr
 			log.error(ex.getMessage(), ex);
 			result.setError(ex.getMessage());
 			return result;
-		}		
+		}
+		*/
+		// tmr ini
+		catch (Throwable ex) { 
+			System.out.println("[Module.request] Throwable"); // tmr
+			log.error(ex.getMessage(), ex);
+			result.setError(ex.getMessage());
+			return result;
+		}
+		
+		// tmr fin
 		finally {			
 			try {
 				ModuleManager.commit(); // If hibernate, jpa, etc is used to render some value here is commit
@@ -192,25 +207,39 @@ public class Module extends DWRBase {
 	}
 
 	private Map getStrokeActions() {  
-		java.util.Iterator it = manager.getAllMetaActionsIterator();
-		Map result = new HashMap();
-		while (it.hasNext()) {
-			MetaAction action = (MetaAction) it.next();
-			if (!action.hasKeystroke()) continue;	
-			if (!manager.actionApplies(action)) continue; 
-
-			KeyStroke key = KeyStroke.getKeyStroke(action.getKeystroke());
-			if (key == null) {
-				continue;
-			}	
-			int keyCode = key.getKeyCode();
-			boolean ctrl = (key.getModifiers() & InputEvent.CTRL_DOWN_MASK) > 0; 
-			boolean alt = (key.getModifiers() & InputEvent.ALT_DOWN_MASK) > 0; 	
-			boolean shift = (key.getModifiers() & InputEvent.SHIFT_DOWN_MASK) > 0;
-			String id = keyCode + "," + ctrl + "," + alt + "," + shift;
-			result.put(id, new StrokeAction(action.getQualifiedName(), action.getConfirmMessage(Locales.getCurrent()), action.isTakesLong()));
+		try { // tmr
+			java.util.Iterator it = manager.getAllMetaActionsIterator();
+			Map result = new HashMap();
+			while (it.hasNext()) {
+				MetaAction action = (MetaAction) it.next();
+				if (!action.hasKeystroke()) continue;	
+				if (!manager.actionApplies(action)) continue; 
+	
+				KeyStroke key = KeyStroke.getKeyStroke(action.getKeystroke());
+				if (key == null) {
+					continue;
+				}	
+				int keyCode = key.getKeyCode();
+				boolean ctrl = (key.getModifiers() & InputEvent.CTRL_DOWN_MASK) > 0; 
+				boolean alt = (key.getModifiers() & InputEvent.ALT_DOWN_MASK) > 0; 	
+				boolean shift = (key.getModifiers() & InputEvent.SHIFT_DOWN_MASK) > 0;
+				String id = keyCode + "," + ctrl + "," + alt + "," + shift;
+				result.put(id, new StrokeAction(action.getQualifiedName(), action.getConfirmMessage(Locales.getCurrent()), action.isTakesLong()));
+			}
+			return result;
+		// tmr ini	
 		}
-		return result;
+		catch (NoClassDefFoundError | UnsatisfiedLinkError er) {
+			// tmr Falta log i18n
+			System.out.println("[Module.getStrokeActions] ADVERTENCIA GORDA: Estas usando un Java HEADLESS: " + er.getClass().getSimpleName()); // tmr
+			return Collections.EMPTY_MAP;
+		} 
+		catch (Throwable th) {
+			System.out.println("[Module.getStrokeActions] No van las Strokes, por lo que sea"); // tmr
+			th.printStackTrace();
+			return Collections.EMPTY_MAP;
+		}
+		// tmr fin
 	}
 	
 	private void changeModule(Result result) {
