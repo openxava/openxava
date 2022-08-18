@@ -10,90 +10,68 @@
   <body>
     <div class="wiki" style="display: block;">
       <h1 id="toc0"><a name="Leccion-4-Herencia"></a> <span id="breadcrumbs"> <span
-            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
-              </a> </span> / <a href="index_es.html">documentación</a> / </span>
-        Lección 8: Herencia de vistas</h1>
-      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
-        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
-        Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
-        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
-        Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
-        Desarrollo ágil</a> | <a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
-        Herencia de superclases mapeadas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
-        Herencia de entidades</a> | <b><span class="wiki_link">8. Herencia de
-          vistas</span></b> |&nbsp;<a class="wiki_link" href="java-properties_es.html">9.
-        Propiedades Java</a> | <a class="wiki_link" href="calculated-properties_es.html">10.
-        Propiedades calculadas</a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11.
-        @DefaultValueCalculator en colecciones</a> | <a class="wiki_link" href="calculation-and-collections-total_es.html">12.
-        @Calculation y totales de colección</a> |<a class="wiki_link" href="attributes-in-annotations_es.html"></a>
-      <span style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
-        @DefaultValueCalculator desde archivo</a> | <a class="wiki_link" href="manual-schema-evolution_es.html">14.
-        Evolución del esquema manual</a> | <a class="wiki_link" href="multi-user-default-value-calculation_es.html">15.
-        Cálculo de valor por defecto multiusuario</a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16.
-        Sincronizar propiedades persistentes y calculadas</a> | <a class="wiki_link"
-        href="logic-from-database_es.html">17. Lógica desde la base de datos</a>
-      | <a class="wiki_link" href="validating-with-entityvalidator_es.html">18.
-        Validando con @EntityValidator</a> | <a class="wiki_link" href="validation-alternatives_es.html">19.
-        Alternativas de validación&nbsp;</a> | <a class="wiki_link" href="validation-on-remove_es.html">20.
-        Validación al borrar&nbsp;</a> |&nbsp;<a class="wiki_link" href="custom-bean-validation-annotation_es.html">
-        21. Anotación Bean Validation propia</a> | <a class="wiki_link" href="rest-service-call-from-validation_es.html">22.
-        Llamada REST desde una validación&nbsp;</a> | <a class="wiki_link" href="attributes-in-annotations_es.html">23.
-        Atributos en anotaciones</a>&nbsp; | <a class="wiki_link" href="refining-standard-behavior_es.html">24.
-        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">25.
-        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">26.
-        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
-        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
-        Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
-        Anotaciones</a> | <a class="wiki_link" href="testing_es.html">D.
-        Pruebas automáticas</a><a class="wiki_link" href="java-properties_es.html"></a><a
-        class="wiki_link" href="testing_es.html"></a><a class="wiki_link" href="testing_es.html"></a>
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_es.html">documentación</a> / </span> Lección 8: Herencia de vistas</h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1. Primeros pasos</a> | <a
+        class="wiki_link" href="basic-domain-model1_es.html">2. Modelo básico del dominio (1)</a> | <a
+        class="wiki_link" href="basic-domain-model2_es.html">3. Modelo básico del dominio (2)</a> | <a
+        class="wiki_link" href="refining-user-interface_es.html">4. Refinar la interfaz de usuario</a> | <a
+        class="wiki_link" href="agile-development_es.html">5. Desarrollo ágil</a> | <a
+        class="wiki_link" href="mapped-superclass-inheritance_es.html">6. Herencia de superclases mapeadas</a> | <a
+        class="wiki_link" href="entity-inheritance_es.html">7. Herencia de entidades</a> | <b><span
+          class="wiki_link">8. Herencia de vistas</span></b> |&nbsp;<a class="wiki_link"
+        href="java-properties_es.html">9. Propiedades Java</a> | <a class="wiki_link"
+        href="calculated-properties_es.html">10. Propiedades calculadas</a> | <a
+        class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11. @DefaultValueCalculator en colecciones</a> | <a
+        class="wiki_link" href="calculation-and-collections-total_es.html">12. @Calculation y totales de colección</a> |<a
+        class="wiki_link" href="attributes-in-annotations_es.html"></a> <span
+        style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13. @DefaultValueCalculator desde archivo</a> | <a
+        class="wiki_link" href="manual-schema-evolution_es.html">14. Evolución del esquema manual</a> | <a
+        class="wiki_link" href="multi-user-default-value-calculation_es.html">15. Cálculo de valor por defecto multiusuario</a> | <a
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16. Sincronizar propiedades persistentes y calculadas</a> | <a
+        class="wiki_link" href="logic-from-database_es.html">17. Lógica desde la base de datos</a> | <a
+        class="wiki_link" href="validating-with-entityvalidator_es.html">18. Validando con @EntityValidator</a> | <a
+        class="wiki_link" href="validation-alternatives_es.html">19. Alternativas de validación&nbsp;</a> | <a
+        class="wiki_link" href="validation-on-remove_es.html">20. Validación al borrar&nbsp;</a> |&nbsp;<a
+        class="wiki_link" href="custom-bean-validation-annotation_es.html"> 21. Anotación Bean Validation propia</a> | <a
+        class="wiki_link" href="rest-service-call-from-validation_es.html">22. Llamada REST desde una validación&nbsp;</a> | <a
+        class="wiki_link" href="attributes-in-annotations_es.html">23. Atributos en anotaciones</a>&nbsp; | <a
+        class="wiki_link" href="refining-standard-behavior_es.html">24. Refinar el comportamiento predefinido</a> | <a
+        class="wiki_link" href="business-logic-behavior_es.html">25. Comportamiento y lógica de negocio</a> | <a
+        class="wiki_link" href="references-collections_es.html">26. Referencias y colecciones</a> | <a
+        class="wiki_link" href="philosophy_es.html">A. Arquitectura y filosofía</a> | <a
+        class="wiki_link" href="jpa_es.html">B. Java Persistence API</a> | <a
+        class="wiki_link" href="annotations_es.html">C. Anotaciones</a> | <a
+        class="wiki_link" href="testing_es.html">D. Pruebas automáticas</a><a
+        class="wiki_link" href="java-properties_es.html"></a><a class="wiki_link"
+        href="testing_es.html"></a><a class="wiki_link" href="testing_es.html"></a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
-        <div style="margin-left: 1em;"><a href="#Leccion-4-Herencia">Lección 8:
-            Herencia de vistas<br>
+        <div style="margin-left: 1em;"><a href="#Leccion-4-Herencia">Lección 8: Herencia de vistas<br>
           </a></div>
-        <div style="margin-left: 2em;"><a href="#Herencia-de-vistas-El-atributo-extendsView">El
-            atributo extendsView</a></div>
-        <div style="margin-left: 2em;"><a href="#Herencia-de-vistas-Vista-para-Factura-usando-herencia">Vista
-            para Factura usando herencia</a></div>
-        <div style="margin-left: 2em;"><a href="#Herencia-de-vistas-Vista-para-Pedido-usando-herencia">Vista
-            para Pedido usando herencia</a></div>
-        <div style="margin-left: 2em;"><a href="#Herencia-de-vistas-Usar-ReferenceView-y-CollectionView-para-refinar-vistas">Usar
-            @ReferenceView y @CollectionView para refinar vistas</a></div>
+        <div style="margin-left: 2em;"><a href="#Herencia-de-vistas-El-atributo-extendsView">El atributo extendsView</a></div>
+        <div style="margin-left: 2em;"><a href="#Herencia-de-vistas-Vista-para-Factura-usando-herencia">Vista para Factura usando herencia</a></div>
+        <div style="margin-left: 2em;"><a href="#Herencia-de-vistas-Vista-para-Pedido-usando-herencia">Vista para Pedido usando herencia</a></div>
+        <div style="margin-left: 2em;"><a href="#Herencia-de-vistas-Usar-ReferenceView-y-CollectionView-para-refinar-vistas">Usar @ReferenceView y @CollectionView para refinar vistas</a></div>
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
-      La herencia no solo sirve para reutilizar código Java y mapeos, sino
-      también para reutilizar la definición de la interfaz de usuario, las
-      definiciones <em>@View</em>. Esta lección muestra como funciona la
-      herencia de vistas.<br>
+      La herencia no solo sirve para reutilizar código Java y mapeos, sino también para reutilizar la definición de la interfaz de usuario, las definiciones <em>@View</em>. Esta lección muestra como funciona la herencia de vistas.<br>
       <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=1moYCXjN9Wc&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=9"
-          target="_blank"><img src="files/view-inheritance-video_es.png" title="Video para la lección 5: Desarrollo ágil con OpenXava"></a>
-      </div>
-      <div class="wiki" style="display: block;">Si no te gustan los videos sigue
-        las instrucciones a continuación. </div>
+          target="_blank"><img src="files/view-inheritance-video_es.png"
+            title="Video para la lección 5: Desarrollo ágil con OpenXava"></a> </div>
+      <div class="wiki" style="display: block;">Si no te gustan los videos sigue las instrucciones a continuación. </div>
       <div class="wiki" style="display: block;"><br>
       </div>
-      <h2 id="toc10"><a name="Herencia-de-vistas-El-atributo-extendsView"></a>El
-        atributo extendsView</h2>
-      Tanto <em>Pedido</em> como <em>Factura</em> usan una interfaz de usuario
-      generada por defecto con todos sus miembros uno por cada línea. Nota como
-      la <em>@View</em> que hemos declarado en <em>DocumentoComercial</em> no
-      se ha heredado. Es decir, si no defines una vista para la entidad se
-      genera una por defecto, la <em>@View</em> de la entidad padre no se usa.
-      Como se muestra aquí:<br>
+      <h2 id="toc10"><a name="Herencia-de-vistas-El-atributo-extendsView"></a>El atributo extendsView</h2>
+      Tanto <em>Pedido</em> como <em>Factura</em> usan una interfaz de usuario generada por defecto con todos sus miembros uno por cada línea. Nota como la <em>@View</em> que hemos declarado en <em>DocumentoComercial</em> no se ha heredado. Es decir, si no defines una vista para la entidad se genera una por defecto, la <em>@View</em> de la entidad padre no se usa. Como se muestra aquí:<br>
       <pre><code class="java">@View(members = "a, b, c;") // Esta vista se usa para visualizar Padre, pero no para Hijo
 public class Padre { ... }
  
 public class Hijo extends Padre { ... } // Hijo se visualiza usando la vista
                                         // generada automáticamente, no la vista de Padre
-</code></pre> Generalmente la vista de la entidad padre “tal cual” no es
-      demasiado útil porque no contiene todas las propiedades de la entidad
-      actual. Por tanto este comportamiento suele venir bien como comportamiento
-      por defecto.<br>
-      Aunque, en una entidad no trivial necesitas refinar la interfaz de usuario
-      y quizás sea útil heredar (en lugar de copiar y pegar) la vista del padre.
-      Puedes hacer esto usando el atributo <em>extendsView</em> en <em>@View</em>:<br>
+</code></pre> Generalmente la vista de la entidad padre “tal cual” no es demasiado útil porque no contiene todas las propiedades de la entidad actual. Por tanto este comportamiento suele venir bien como comportamiento por defecto.<br>
+      Aunque, en una entidad no trivial necesitas refinar la interfaz de usuario y quizás sea útil heredar (en lugar de copiar y pegar) la vista del padre. Puedes hacer esto usando el atributo <em>extendsView</em> en <em>@View</em>:<br>
       <pre><code class="java">@View(members = "a, b, c;") // Esta vista sin nombre es la vista DEFAULT
 public class Padre { ... }
  
@@ -102,22 +80,13 @@ public class Padre { ... }
 @View(name="B" members = "a, b, c; d") // La vista B es igual a la vista A
 public class Hijo extends Padre { ... } // Hijo se visualiza usando la vista
                                         // generada automáticamente, no la vista de Padre
-</code></pre> Usando <em>extendsView</em> los miembros a mostrar serán aquellos
-      en la vista que extendemos más aquellos en <em>members</em> de la actual.<br>
-      Vamos a usar esta característica para definir las vistas para <em>DocumentoComercial</em>,
-      <em>Pedido</em> y <em>Factura</em>.<br>
-      <h2 id="toc11"><a name="Herencia-de-vistas-Vista-para-Factura-usando-herencia"></a>Vista
-        para Factura usando herencia</h2>
-      Dado que la <em>@View</em> de <em>DocumentoComercial</em> no se hereda,
-      la interfaz de usuario actual para <em>Factura</em> es bastante fea:
-      todos los miembros, uno por línea. Vamos a definir una interfaz de usuario
-      mejor. Una vista parecida a la que ya teníamos, pero añadiendo una pestaña
-      para pedidos, así:<br>
-      <img src="files/inheritance_es060.png" alt="inheritance_es060.png" title="inheritance_es060.png"><br>
-      Nota que ponemos todos los miembros de la parte de <em>DocumentoComercial</em>
-      de <em>Factura</em> en la cabecera y la primera pestaña (datos), y la
-      colección de pedidos en la otra pestaña. El siguiente código muestra la
-      forma de definir esto sin herencia.<br>
+</code></pre> Usando <em>extendsView</em> los miembros a mostrar serán aquellos en la vista que extendemos más aquellos en <em>members</em> de la actual.<br>
+      Vamos a usar esta característica para definir las vistas para <em>DocumentoComercial</em>, <em>Pedido</em> y <em>Factura</em>.<br>
+      <h2 id="toc11"><a name="Herencia-de-vistas-Vista-para-Factura-usando-herencia"></a>Vista para Factura usando herencia</h2>
+      Dado que la <em>@View</em> de <em>DocumentoComercial</em> no se hereda, la interfaz de usuario actual para <em>Factura</em> es bastante fea: todos los miembros, uno por línea. Vamos a definir una interfaz de usuario mejor. Una vista parecida a la que ya teníamos, pero añadiendo una pestaña para pedidos, así:<br>
+      <img src="files/inheritance_es060.png" alt="inheritance_es060.png"
+        title="inheritance_es060.png"><br>
+      Nota que ponemos todos los miembros de la parte de <em>DocumentoComercial</em> de <em>Factura</em> en la cabecera y la primera pestaña (datos), y la colección de pedidos en la otra pestaña. El siguiente código muestra la forma de definir esto sin herencia.<br>
       <pre><code class="java">@View( members=
     "anyo, numero, fecha;" +
     "datos {" +
@@ -127,12 +96,8 @@ public class Hijo extends Padre { ... } // Hijo se visualiza usando la vista
     "}" +
     "pedidos { pedidos } "
 )
-</code></pre> Puedes notar como todos los miembros, excepto la parte de <em>pedidos</em>,
-      son comunes para todos los <em>DocumentoComercial</em>. Por lo tanto,
-      vamos a mover esta parte común a <em>DocumentoComercial</em> y redefinir
-      la vista usando herencia.<br>
-      Quita el viejo <em>@View</em> de <em>DocumentoComercial</em> y escribe
-      esto:<br>
+</code></pre> Puedes notar como todos los miembros, excepto la parte de <em>pedidos</em>, son comunes para todos los <em>DocumentoComercial</em>. Por lo tanto, vamos a mover esta parte común a <em>DocumentoComercial</em> y redefinir la vista usando herencia.<br>
+      Quita el viejo <em>@View</em> de <em>DocumentoComercial</em> y escribe esto:<br>
       <pre><code class="java">@View(members=
     "anyo, numero, fecha," + // Los miembros para la cabecera en una línea
     "datos {" + // Una pestaña 'datos' para los datos principales del documento
@@ -142,40 +107,26 @@ public class Hijo extends Padre { ... } // Hijo se visualiza usando la vista
     "}"
 )
 abstract public class DocumentoComercial extends Identifiable {
-</code></pre> Esta vista indica como distribuir los datos comunes para todos los
-      documentos comerciales. Ahora podemos redefinir la vista de <em>Factura</em>
-      a partir de esta:<br>
+</code></pre> Esta vista indica como distribuir los datos comunes para todos los documentos comerciales. Ahora podemos redefinir la vista de <em>Factura</em> a partir de esta:<br>
       <pre><code class="java">@View(extendsView="super.DEFAULT", // Extiende de la vista de DocumentoComercial
     members="pedidos { pedidos }" // Añadimos pedidos dentro de una pestaña
 )
 public class Factura extends DocumentoComercial {
-</code></pre> De esta forma declarar la vista para <em>Factura</em> es más
-      corto, es más, la distribución común para <em>Pedido</em>, <em>Factura</em>
-      y todos los demás posibles <em>DocumentoComercial</em> está en un único
-      sitio, por tanto, si añades una nueva propiedad a <em>DocumentoComercial</em>
-      solo has de tocar la vista de <em>DocumentoComercial</em>.<br>
-      <h2 id="toc12"><a name="Herencia-de-vistas-Vista-para-Pedido-usando-herencia"></a>Vista
-        para Pedido usando herencia</h2>
-      Ahora que tienes una vista adecuada para <em>DocumentoComercial</em>,
-      declarar una vista para <em>Pedido</em> es lo más fácil del mundo. La
-      vista que queremos contiene toda la información del pedido, y su factura
-      asociada en otra pestaña:<br>
-      <img src="files/inheritance_es070.png" alt="inheritance_es070.png" title="inheritance_es070.png"><br>
-      Para obtener este resultado, puedes definir la vista de <em>Pedido</em>
-      extendiendo la vista por defecto de <em>DocumentoComercial</em> y
-      añadiendo la referencia a factura, así:<br>
+</code></pre> De esta forma declarar la vista para <em>Factura</em> es más corto, es más, la distribución común para <em>Pedido</em>, <em>Factura</em> y todos los demás posibles <em>DocumentoComercial</em> está en un único sitio, por tanto, si añades una nueva propiedad a <em>DocumentoComercial</em> solo has de tocar la vista de <em>DocumentoComercial</em>.<br>
+      <h2 id="toc12"><a name="Herencia-de-vistas-Vista-para-Pedido-usando-herencia"></a>Vista para Pedido usando herencia</h2>
+      Ahora que tienes una vista adecuada para <em>DocumentoComercial</em>, declarar una vista para <em>Pedido</em> es lo más fácil del mundo. La vista que queremos contiene toda la información del pedido, y su factura asociada en otra pestaña:<br>
+      <img src="files/inheritance_es070.png" alt="inheritance_es070.png"
+        title="inheritance_es070.png"><br>
+      Para obtener este resultado, puedes definir la vista de <em>Pedido</em> extendiendo la vista por defecto de <em>DocumentoComercial</em> y añadiendo la referencia a factura, así:<br>
       <pre><code class="java">@View(extendsView="super.DEFAULT", // Extiende de la vista de DocumentoComercial
     members="factura { factura } " // Añadimos factura dentro de una pestaña
 )
 public class Pedido extends DocumentoComercial {
-</code></pre> Con esto conseguimos toda la información de <em>DocumentoComercial</em>
-      más una pestaña con la factura.<br>
-      <h2 id="toc13"><a name="Herencia-de-vistas-Usar-ReferenceView-y-CollectionView-para-refinar-vistas"></a>Usar
-        @ReferenceView y @CollectionView para refinar vistas</h2>
-      Queremos que cuando un pedido sea visualizado desde la interfaz de usuario
-      de <em>Factura</em> la vista a usar sea simple, sin cliente ni factura,
-      porque estos datos son redundantes en este caso:<br>
-      <img src="files/inheritance_es080.png" alt="inheritance_es080.png" title="inheritance_es080.png"><br>
+</code></pre> Con esto conseguimos toda la información de <em>DocumentoComercial</em> más una pestaña con la factura.<br>
+      <h2 id="toc13"><a name="Herencia-de-vistas-Usar-ReferenceView-y-CollectionView-para-refinar-vistas"></a>Usar @ReferenceView y @CollectionView para refinar vistas</h2>
+      Queremos que cuando un pedido sea visualizado desde la interfaz de usuario de <em>Factura</em> la vista a usar sea simple, sin cliente ni factura, porque estos datos son redundantes en este caso:<br>
+      <img src="files/inheritance_es080.png" alt="inheritance_es080.png"
+        title="inheritance_es080.png"><br>
       Para obtener este resultado define una vista más simple en <em>Pedido</em>:<br>
       <pre><code class="java">@View( extendsView="super.DEFAULT", // La vista por defecto
     members="factura { factura } "
@@ -187,9 +138,7 @@ public class Pedido extends DocumentoComercial {
         "observaciones"
 )
 public class Pedido extends DocumentoComercial {
-</code></pre> Esta nueva vista definida en <em>Pedido</em> llamada <em>SinClienteNiFactura</em>
-      puede ser referenciada desde <em>Factura</em> para visualizar elementos
-      individuales de la colección <em>pedidos</em> usando <em>@CollectionView</em>:<br>
+</code></pre> Esta nueva vista definida en <em>Pedido</em> llamada <em>SinClienteNiFactura</em> puede ser referenciada desde <em>Factura</em> para visualizar elementos individuales de la colección <em>pedidos</em> usando <em>@CollectionView</em>:<br>
       <pre><code class="java">public class Factura extends DocumentoComercial {
       
     ...      
@@ -197,12 +146,8 @@ public class Pedido extends DocumentoComercial {
     @OneToMany(mappedBy="factura")
     @CollectionView("SinClienteNiFactura") // Esta vista se usa para visualizar pedidos
     private Collection&lt;Pedido&gt; pedidos;
-</code></pre> Y tan solo con este código la colección <em>pedidos</em> usará
-      una vista más apropiada de <em>Factura</em> para visualizar elementos
-      individuales.<br>
-      Además, queremos que desde la interfaz de usuario de <em>Pedido</em> la
-      factura no muestre el cliente y los pedidos, porque son datos redundantes
-      en este caso. Para conseguirlo, vamos a definir una vista más simple en <em>Factura</em>:<br>
+</code></pre> Y tan solo con este código la colección <em>pedidos</em> usará una vista más apropiada de <em>Factura</em> para visualizar elementos individuales.<br>
+      Además, queremos que desde la interfaz de usuario de <em>Pedido</em> la factura no muestre el cliente y los pedidos, porque son datos redundantes en este caso. Para conseguirlo, vamos a definir una vista más simple en <em>Factura</em>:<br>
       <pre><code class="java">@View( extendsView="super.DEFAULT", // La vista por defecto
     members="pedidos { pedidos } "
 )
@@ -213,9 +158,7 @@ public class Pedido extends DocumentoComercial {
         "observaciones"
 )
 public class Factura extends DocumentoComercial {
-</code></pre> Esta nueva vista definida en <em>Factura</em> llamada <em>SinClienteNiPedidos</em>
-      puede ser referenciada desde <em>Pedido</em> para visualizar la
-      referencia a <em>Factura</em> usando <em>@ReferenceView</em>:<br>
+</code></pre> Esta nueva vista definida en <em>Factura</em> llamada <em>SinClienteNiPedidos</em> puede ser referenciada desde <em>Pedido</em> para visualizar la referencia a <em>Factura</em> usando <em>@ReferenceView</em>:<br>
       <pre><code class="java">public class Pedido extends DocumentoComercial {
  
     @ManyToOne
@@ -223,25 +166,19 @@ public class Factura extends DocumentoComercial {
     private Factura factura;
  
     ...
-</code></pre> Ahora la referencia <em>factura</em> será visualizada desde <em>Pedido</em>
-      sin incluir el cliente y los pedidos, por lo que tendrás la interfaz de
-      usuario más simple:<br>
-      <img src="files/inheritance_es090.png" alt="inheritance_es090.png" title="inheritance_es090.png"><br>
+</code></pre> Ahora la referencia <em>factura</em> será visualizada desde <em>Pedido</em> sin incluir el cliente y los pedidos, por lo que tendrás la interfaz de usuario más simple:<br>
+      <img src="files/inheritance_es090.png" alt="inheritance_es090.png"
+        title="inheritance_es090.png"><br>
       <h2 id="toc18"><a name="Resumen"></a>Resumen</h2>
-      Esta lección ha mostrado cómo usar la herencia para simplificar la
-      definición de la interfaz de usuario, por medio del atributo <i>extendsView</i>
-      de <i>@View</i>. Por el camino hemos visto también algunos ejemplo de
-      simplificar la forma en que se visualizan las referencias y colecciones
-      usando <i>@ReferenceView</i> y <i>@CollectionView</i>.</div>
+      Esta lección ha mostrado cómo usar la herencia para simplificar la definición de la interfaz de usuario, por medio del atributo <i>extendsView</i> de <i>@View</i>. Por el camino hemos visto también algunos ejemplo de simplificar la forma en que se visualizan las referencias y colecciones usando <i>@ReferenceView</i> y <i>@CollectionView</i>.</div>
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;"> <strong><a class="wiki_link_ext"
-          href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-inheritance_es.zip/download"
+          href="https://github.com/openxava/openxava-course_es/tree/leccion-8"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
-        <a class="wiki_link" href="basic-business-logic_es.html">Ve a la lección
-          9</a></strong> </div>
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien? <a
+          class="wiki_link" href="basic-business-logic_es.html">Ve a la lección 9</a></strong> </div>
   </body>
 </html>
