@@ -42,7 +42,7 @@ public class Module extends DWRBase {
 	private String baseFolder = null;
 	
 	public Result request(HttpServletRequest request, HttpServletResponse response, String application, String module, String additionalParameters, Map values, Map multipleValues, String [] selected, String [] deselected, Boolean firstRequest, String baseFolder) throws Exception {
-		System.out.println("[Module.request] ENTRAMOS 11"); // tmr
+		System.out.println("[Module.request] ENTRAMOS 14"); // tmr
 		long ini = System.currentTimeMillis();
 		Result result = new Result(); 
 		result.setApplication(application); 
@@ -207,7 +207,7 @@ public class Module extends DWRBase {
 	}
 
 	private Map getStrokeActions() {  
-		try { // tmr
+		// try { // tmr
 			java.util.Iterator it = manager.getAllMetaActionsIterator();
 			Map result = new HashMap();
 			while (it.hasNext()) {
@@ -227,6 +227,7 @@ public class Module extends DWRBase {
 				result.put(id, new StrokeAction(action.getQualifiedName(), action.getConfirmMessage(Locales.getCurrent()), action.isTakesLong()));
 			}
 			return result;
+			/*
 		// tmr ini	
 		}
 		catch (NoClassDefFoundError | UnsatisfiedLinkError er) {
@@ -240,6 +241,8 @@ public class Module extends DWRBase {
 			return Collections.EMPTY_MAP;
 		}
 		// tmr fin
+		 */
+		 
 	}
 	
 	private void changeModule(Result result) {

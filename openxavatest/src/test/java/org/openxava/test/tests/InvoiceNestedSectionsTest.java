@@ -26,7 +26,7 @@ public class InvoiceNestedSectionsTest extends ModuleTestBase {
 		assertCollectionNotEmpty("details"); 
 		execute("Print.generatePdf", "viewObject=xava_view_section1_section0_details"); 
 		assertNoErrors();
-		assertContentTypeForPopup("application/pdf");		
+		assertContentTypeForPopup("application/pdf"); 		
 	}
 	
 	public void testReadOnlyCheckBoxInSpanish() throws Exception { 

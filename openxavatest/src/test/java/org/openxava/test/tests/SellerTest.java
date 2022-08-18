@@ -595,7 +595,7 @@ public class SellerTest extends CustomizeListTestBase {
 		assertMessage("Detail is hidden");
 		
 		execute("Print.generatePdf", "viewObject=xava_view_customers"); 
-		assertContentTypeForPopup("application/pdf");
+		assertContentTypeForPopup("application/pdf"); 
 		
 		execute("Print.generateExcel", "viewObject=xava_view_customers");				
 		assertContentTypeForPopup("text/x-csv");				

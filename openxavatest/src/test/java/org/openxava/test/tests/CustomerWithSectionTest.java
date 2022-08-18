@@ -562,7 +562,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	public void testCustomizeList() throws Exception { 
 		doTestCustomizeList_moveAndRemove(); 
 		resetModule(); 
-		doTestCustomizeList_generatePDF();
+		doTestCustomizeList_generatePDF(); 
 		resetModule(); 
 		doTestRestoreColumns_addRemoveTabColumnsDynamically();
 	}

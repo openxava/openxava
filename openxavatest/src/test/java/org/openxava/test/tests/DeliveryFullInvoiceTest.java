@@ -21,7 +21,7 @@ public class DeliveryFullInvoiceTest extends ModuleTestBase {
 		execute("Sections.change", "activeSection=1,viewObject=xava_view_invoice");
 		assertCollectionRowCount("invoice.details", 2);
 		execute("Print.generatePdf", "viewObject=xava_view_invoice_section1_details"); 
-		assertContentTypeForPopup("application/pdf");
+		assertContentTypeForPopup("application/pdf"); 
 		
 		assertCollectionRowCount("invoice.details", 2);
 		HtmlElement filterText = getHtmlPage().getHtmlElementById("ox_openxavatest_DeliveryFullInvoice__xava_collectionTab_invoice_details_conditionValue___1");

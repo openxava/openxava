@@ -81,6 +81,7 @@ abstract public class ModuleTestBase extends TestCase {
 		XSystem._setLogLevelFromJavaLoggingLevelOfXavaPreferences();
 		Logger.getLogger("com.gargoylesoftware").setLevel(Level.SEVERE);
 		DataSourceConnectionProvider.setUseHibernateConnection(true);
+		System.setProperty("java.awt.headless", "true"); // tmr
 	}
 	
 	/**

@@ -75,7 +75,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertAction("EditableOnOff.setOn");
 	}
 	
-	public void testPdfReportInNestedCollection() throws Exception { 
+	public void testPdfReportInNestedCollection() throws Exception {
 		execute("CRUD.new");
 		setValue("number", "4");
 		execute("CRUD.refresh");
@@ -84,7 +84,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		execute("Collection.edit", "row=0,viewObject=xava_view" + getSection() + "_deliveryPlaces");
 		assertCollectionRowCount("receptionists", 2); // The delivery place has 2 receptionist
 		execute("Print.generatePdf", "viewObject=xava_view_receptionists");		
-		assertContentTypeForPopup("application/pdf");		
+		assertContentTypeForPopup("application/pdf"); 		
 	}
 	
 	public void testListActionInNestedCollection() throws Exception { 
