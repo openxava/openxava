@@ -4,13 +4,9 @@ import java.util.*;
 
 import javax.persistence.*;
 
-import org.openxava.annotations.DefaultValueCalculator;
-import org.openxava.annotations.ReferenceView;
-import org.openxava.annotations.View;
-import org.openxava.annotations.Views;
-import org.openxava.calculators.CurrentDateCalculator;
-import org.openxava.util.Dates;
-import org.openxava.util.XavaResources;
+import org.openxava.annotations.*;
+import org.openxava.calculators.*;
+import org.openxava.util.*;
 
 /**
  * To test @javax.validation.constraints.Size with min and max elements on a 

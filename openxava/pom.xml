@@ -235,8 +235,7 @@
 
 	</dependencies>
 	
-	<!-- tmr ini 
-	
+	<!-- Uncomment to deploy on Maven Central 
 	<distributionManagement>
 		<snapshotRepository>
 			<id>ossrh</id>
@@ -308,6 +307,5 @@
 		</plugins>
 	</build>
 	-->
-	<!-- tmr fin -->
 
 </project>
