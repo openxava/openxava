@@ -9,90 +9,68 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
-          / </span> Lesson 8: View inheritance</h1>
-      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
-        Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
-        Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
-        Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
-        Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
-        Agile development</a> | <a class="wiki_link" href="mapped-superclass-inheritance_en.html">6.
-        Mapped superclass inheritance</a> | <a class="wiki_link" href="entity-inheritance_en.html">7.
-        Entity inheritance</a> | <b><span class="wiki_link">8. View inheritance</span></b>
-      | <a class="wiki_link" href="java-properties_en.html">9. Java properties</a>&nbsp;
-      | <a class="wiki_link" href="calculated-properties_en.html">10.
-        Calculated properties </a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11.
-        @DefaultValueCalculator in collections</a> | <a class="wiki_link" href="calculation-and-collections-total_en.html">12.
-        </a><a class="wiki_link" href="calculation-and-collections-total_en.html">@Calculation
-        and collections totals</a> | <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13.
-        @DefaultValueCalculator from file</a> | <a class="wiki_link" href="manual-schema-evolution_en.html">14.
-        Manual schema evolution</a> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">15.
-        Multi user default value calculation</a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16.
-        Synchronize persistent and computed propierties</a> | <a class="wiki_link"
-        href="logic-from-database_en.html">17. Logic from database&nbsp;</a> |<span
+      <h1 id="toc0"><span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_en.html">documentation</a> / </span> Lesson 8: View inheritance</h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1. Getting started</a> | <a
+        class="wiki_link" href="basic-domain-model1_en.html">2. Basic domain model (1)</a> | <a
+        class="wiki_link" href="basic-domain-model2_en.html">3. Basic domain model (2)</a> | <a
+        class="wiki_link" href="refining-user-interface_en.html">4. Refining the user interface</a> | <a
+        class="wiki_link" href="agile-development_en.html">5. Agile development</a> | <a
+        class="wiki_link" href="mapped-superclass-inheritance_en.html">6. Mapped superclass inheritance</a> | <a
+        class="wiki_link" href="entity-inheritance_en.html">7. Entity inheritance</a> | <b><span
+          class="wiki_link">8. View inheritance</span></b> | <a class="wiki_link"
+        href="java-properties_en.html">9. Java properties</a>&nbsp; | <a
+        class="wiki_link" href="calculated-properties_en.html">10. Calculated properties </a> | <a
+        class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11. @DefaultValueCalculator in collections</a> | <a
+        class="wiki_link" href="calculation-and-collections-total_en.html">12. </a><a
+        class="wiki_link" href="calculation-and-collections-total_en.html">@Calculation and collections totals</a> | <a
+        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file</a> | <a
+        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution</a> | <a
+        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation</a> | <a
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed propierties</a> | <a
+        class="wiki_link" href="logic-from-database_en.html">17. Logic from database&nbsp;</a> |<span
         style="color: #0000ee;"></span><span style="color: #0000ee;"> </span><a
-        class="wiki_link" href="validating-with-entityvalidator_en.html">18.
-        Validating with @EntityValidator&nbsp;</a> |&nbsp; <a class="wiki_link"
-        href="validation-alternatives_en.html">19.
-        Validation alternatives&nbsp;</a> | <a class="wiki_link" href="validation-on-remove_en.html">20.
-        Validation on remove&nbsp;</a> |&nbsp;<a class="wiki_link" href="custom-bean-validation-annotation_en.html">
-        21. Custom Bean Validation annotation&nbsp;</a> | <a class="wiki_link"
-        href="rest-service-call-from-validation_en.html">22.
-        REST service call from validation&nbsp;</a> | <a class="wiki_link" href="attributes-in-annotations_en.html">23.
-        Attributes in annotations&nbsp;</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">24.
-        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">25.
-        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">26.
-        References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
-        Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
-        Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
-        Annotations</a> | <a class="wiki_link" href="testing_en.html">D.
-        Automated testing</a><a class="wiki_link" href="testing_en.html"></a>
+        class="wiki_link" href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator&nbsp;</a> |&nbsp; <a
+        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
+        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
+        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
+        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
+        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
+        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
+        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
+        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
+        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
+        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
+        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+        class="wiki_link" href="testing_en.html">D. Automated testing</a><a
+        class="wiki_link" href="testing_en.html"></a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
-        <div style="margin-left: 1em;"><a href="#toc0">Lesson 8: View
-            inheritance</a></div>
-        <div style="margin-left: 2em;"><a href="#The%20extendsView%20attribute">The
-            extendsView attribute</a></div>
-        <div style="margin-left: 2em;"><a href="#View%20for%20Invoice%20using%20inheritance">View
-            for Invoice using inheritance</a></div>
-        <div style="margin-left: 2em;"><a href="#View%20for%20Order%20using%20inheritance">View
-            for Order using inheritance</a></div>
-        <div style="margin-left: 2em;"><a href="#Using%20@ReferenceView%20and%20@CollectionView%20to%20refine%20views">Using
-            @ReferenceView and @CollectionView to refine views</a></div>
+        <div style="margin-left: 1em;"><a href="#toc0">Lesson 8: View inheritance</a></div>
+        <div style="margin-left: 2em;"><a href="#The%20extendsView%20attribute">The extendsView attribute</a></div>
+        <div style="margin-left: 2em;"><a href="#View%20for%20Invoice%20using%20inheritance">View for Invoice using inheritance</a></div>
+        <div style="margin-left: 2em;"><a href="#View%20for%20Order%20using%20inheritance">View for Order using inheritance</a></div>
+        <div style="margin-left: 2em;"><a href="#Using%20@ReferenceView%20and%20@CollectionView%20to%20refine%20views">Using @ReferenceView and @CollectionView to refine views</a></div>
         <div style="margin-left: 2em;"><a href="#Summary">Summary</a></div>
       </div>
-      You can use inheritance not only for reusing the Java code and mapping,
-      but also for reusing the user interface definition, the <em>@View</em>
-      definitions. This lesson shows how view inheritance works.<br>
+      You can use inheritance not only for reusing the Java code and mapping, but also for reusing the user interface definition, the <em>@View</em> definitions. This lesson shows how view inheritance works.<br>
       <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=RJ-Gs5u6NaY&amp;list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&amp;index=9"
-          target="_blank"><img src="files/view-inheritance-video_en.png" title="Video for lesson 8: View inheritance"></a><br>
+          target="_blank"><img src="files/view-inheritance-video_en.png"
+            title="Video for lesson 8: View inheritance"></a><br>
       </div>
-      <div class="wiki" style="display: block;">If you don't like videos follow
-        the instructions below.</div>
+      <div class="wiki" style="display: block;">If you don't like videos follow the instructions below.</div>
       <div class="wiki" style="display: block;"><br>
       </div>
-      <h2 id="toc10"><a name="The extendsView attribute"></a>The extendsView
-        attribute</h2>
-      Both <em>Order</em> and <em>Invoice</em> use a user interface generated
-      by default with all its members one in each line. Note that the annotation
-      <em>@View</em> that we have declared in <em>CommercialDocument</em> is
-      not inherited by default. That is, if you do not define a view for an
-      entity a default one is generated, and the <em>@View</em> of the parent
-      entity is not used. Just in this way:<br>
+      <h2 id="toc10"><a name="The extendsView attribute"></a>The extendsView attribute</h2>
+      Both <em>Order</em> and <em>Invoice</em> use a user interface generated by default with all its members one in each line. Note that the annotation <em>@View</em> that we have declared in <em>CommercialDocument</em> is not inherited by default. That is, if you do not define a view for an entity a default one is generated, and the <em>@View</em> of the parent entity is not used. Just in this way:<br>
       <pre><code class="java">@View(members = "a, b, c;") // This view is used to display Parent, but not for Child
 public class Parent { ... }
  
 public class Child extends Parent { ... }   // Child is displayed using an automatically
                                             // generated view, not the view from Parent
-</code></pre> Usually the view of the parent entity “as is” is not very useful
-      because it does not contain the new properties that the current entity
-      has. So this behavior is good for default behavior.<br>
-      Although, in a non-trivial entity you may need to refine the user
-      interface, and it might be useful to inherit (instead of copy and paste)
-      the view from the parent. You can do it using the <em>extendsView</em>
-      attribute in <em>@View</em>:<br>
+</code></pre> Usually the view of the parent entity “as is” is not very useful because it does not contain the new properties that the current entity has. So this behavior is good for default behavior.<br>
+      Although, in a non-trivial entity you may need to refine the user interface, and it might be useful to inherit (instead of copy and paste) the view from the parent. You can do it using the <em>extendsView</em> attribute in <em>@View</em>:<br>
       <pre><code class="java">@View(members = "a, b, c;") // This view with no name is the DEFAULT view
 public class Parent { ... }
  
@@ -101,23 +79,13 @@ public class Parent { ... }
 @View(name="B" members = "a, b, c; d") // View B is equals to view A
 public class Child extends Parent { ... }   // Child is displayed using an automatically
                                             // generated view, not the view from Parent
-</code></pre> Using <em>extendsView</em> the members that appear will be those
-      of the extended view plus those declared in members of the current one.<br>
-      We are going to use this feature for defining the views for <em>CommercialDocument</em>,
-      <em>Order</em> and <em>Invoice</em>.<br>
-      <h2><a name="View for Invoice using inheritance"></a>View for Invoice
-        using inheritance</h2>
-      Given that the <em>@View</em> of <em>CommercialDocument</em> has not
-      inherited the current user interface for <em>Invoice</em> it's pretty
-      ugly to see, all the members, each in a line. We are going to define a
-      better user interface. A view similar to the one we defined previously,
-      but adding a tab for orders, thus:</div>
+</code></pre> Using <em>extendsView</em> the members that appear will be those of the extended view plus those declared in members of the current one.<br>
+      We are going to use this feature for defining the views for <em>CommercialDocument</em>, <em>Order</em> and <em>Invoice</em>.<br>
+      <h2><a name="View for Invoice using inheritance"></a>View for Invoice using inheritance</h2>
+      Given that the <em>@View</em> of <em>CommercialDocument</em> has not inherited the current user interface for <em>Invoice</em> it's pretty ugly to see, all the members, each in a line. We are going to define a better user interface. A view similar to the one we defined previously, but adding a tab for orders, thus:</div>
     <div class="wiki" style="display: block;"> <img src="files/inheritance_en060.png"
         alt="inheritance_en060.png" title="inheritance_en060.png"><br>
-      Note that we have put all the members from the <em>CommercialDocument</em>
-      part of the <em>Invoice</em> in the header and the first tab (data), and
-      the collection of orders in the other tab. The next code shows the way to
-      define this view without inheritance.<br>
+      Note that we have put all the members from the <em>CommercialDocument</em> part of the <em>Invoice</em> in the header and the first tab (data), and the collection of orders in the other tab. The next code shows the way to define this view without inheritance.<br>
       <pre><code class="java">@View( members=
     "year, number, date;" +
     "data {" +
@@ -128,11 +96,8 @@ public class Child extends Parent { ... }   // Child is displayed using an autom
     "orders { orders } "
 )
 public class Invoice extends CommercialDocument {
-</code></pre> You can note how all except the orders part is common for every <em>CommercialDocument</em>.
-      Therefore, we are going to move this part to <em>CommercialDocument</em>
-      and then redefine this view using view inheritance.<br>
-      Remove the old <em>@View</em> in <em>CommercialDocument</em>, and write
-      this one:<br>
+</code></pre> You can note how all except the orders part is common for every <em>CommercialDocument</em>. Therefore, we are going to move this part to <em>CommercialDocument</em> and then redefine this view using view inheritance.<br>
+      Remove the old <em>@View</em> in <em>CommercialDocument</em>, and write this one:<br>
       <pre><code class="java">@View(members=
     "year, number, date," + // The members for the header part in one line
     "data {" + // A tab 'data' for the main data of the document
@@ -142,41 +107,27 @@ public class Invoice extends CommercialDocument {
     "}"
 )
 abstract public class CommercialDocument extends Identifiable {
-</code></pre> This view indicates how to layout the common data for all
-      commercial documents. Now we can redefine the view for <em>Invoice</em>
-      from this one:<br>
+</code></pre> This view indicates how to layout the common data for all commercial documents. Now we can redefine the view for <em>Invoice</em> from this one:<br>
       <pre><code class="java">@View(extendsView="super.DEFAULT", // Extends from the CommercialDocument view
     members="orders { orders }" // We add the orders inside a tab
 )
 public class Invoice extends CommercialDocument {
-</code></pre> In this way declaring the view for <em>Invoice</em> is shorter.
-      What's more, the common layout for <em>Order</em>, <em>Invoice</em> and
-      all other possible <em>CommercialDocument</em> objects are all in one
-      place. So if you add a new property to <em>CommercialDocument</em> you
-      only need to touch the view for <em>CommercialDocument</em>.<br>
-      <h2><a name="View for Order using inheritance"></a>View for Order using
-        inheritance</h2>
-      Now that you have a suitable view in <em>CommercialDocument</em>,
-      declararing the view for <em>Order</em> is plain vanilla. We want
-      something like this:<br>
-      <img src="files/inheritance_en070.png" alt="inheritance_en070.png" title="inheritance_en070.png"><br>
-      To get this result, you can define the view for <em>Order</em> by
-      extending the default view for <em>CommercialDocument</em>, adding the
-      referenced invoice in a new tab:<br>
+</code></pre> In this way declaring the view for <em>Invoice</em> is shorter. What's more, the common layout for <em>Order</em>, <em>Invoice</em> and all other possible <em>CommercialDocument</em> objects are all in one place. So if you add a new property to <em>CommercialDocument</em> you only need to touch the view for <em>CommercialDocument</em>.<br>
+      <h2><a name="View for Order using inheritance"></a>View for Order using inheritance</h2>
+      Now that you have a suitable view in <em>CommercialDocument</em>, declararing the view for <em>Order</em> is plain vanilla. We want something like this:<br>
+      <img src="files/inheritance_en070.png" alt="inheritance_en070.png"
+        title="inheritance_en070.png"><br>
+      To get this result, you can define the view for <em>Order</em> by extending the default view for <em>CommercialDocument</em>, adding the referenced invoice in a new tab:<br>
       <pre><code class="java">@View(extendsView="super.DEFAULT", // Extends from the CommercialDocument view
     members="invoice { invoice } " // We add the invoice inside a tab
 )
 public class Order extends CommercialDocument {
-</code></pre> With this we get all the data from <em>CommercialDocument</em>
-      plus a tab with the invoice.<br>
-      <h2><a name="Using @ReferenceView and @CollectionView to refine views"></a>Using
-        @ReferenceView and @CollectionView to refine views</h2>
+</code></pre> With this we get all the data from <em>CommercialDocument</em> plus a tab with the invoice.<br>
+      <h2><a name="Using @ReferenceView and @CollectionView to refine views"></a>Using @ReferenceView and @CollectionView to refine views</h2>
     </div>
-    <div class="wiki" style="display: block;">When an order is to be viewed from
-      the <em>Invoice</em> user interface, we want the view used to do so to be
-      simple, with no customer or invoice information, because this data is
-      redundant in this case:<br>
-      <img src="files/inheritance_en080.png" alt="inheritance_en080.png" title="inheritance_en080.png"><br>
+    <div class="wiki" style="display: block;">When an order is to be viewed from the <em>Invoice</em> user interface, we want the view used to do so to be simple, with no customer or invoice information, because this data is redundant in this case:<br>
+      <img src="files/inheritance_en080.png" alt="inheritance_en080.png"
+        title="inheritance_en080.png"><br>
       To get this result define a simpler view in <em>Order</em>:<br>
       <pre><code class="java">@View( extendsView="super.DEFAULT", // The default view
     members="invoice { invoice } "
@@ -188,9 +139,7 @@ public class Order extends CommercialDocument {
         "remarks"
 )
 public class Order extends CommercialDocument {
-</code></pre> This new view defined in <em>Order</em> named <em>NoCustomerNoInvoice</em>
-      can be referenced from <em>Invoice</em> to display the individual
-      elements of the orders collection using <em>@CollectionView</em>:<br>
+</code></pre> This new view defined in <em>Order</em> named <em>NoCustomerNoInvoice</em> can be referenced from <em>Invoice</em> to display the individual elements of the orders collection using <em>@CollectionView</em>:<br>
       <pre><code class="java">public class Invoice extends CommercialDocument {
 
     ...
@@ -198,11 +147,8 @@ public class Order extends CommercialDocument {
     @OneToMany(mappedBy="invoice")
     @CollectionView("NoCustomerNoInvoice") // This view is used to display orders
     private Collection&lt;Order&gt; orders;
-</code></pre> And with this code only, the orders collection will use a more
-      appropriate view from <em>Invoice</em> to display individual elements.<br>
-      Moreover, we do not want to display the customer and order information
-      from the <em>Order</em> user interface because it is redundant data in
-      this case. To do so, we are going to define a simpler view in <em>Invoice</em>:<br>
+</code></pre> And with this code only, the orders collection will use a more appropriate view from <em>Invoice</em> to display individual elements.<br>
+      Moreover, we do not want to display the customer and order information from the <em>Order</em> user interface because it is redundant data in this case. To do so, we are going to define a simpler view in <em>Invoice</em>:<br>
       <pre><code class="java">@View( extendsView="super.DEFAULT", // The default view
     members="orders { orders }"
 )
@@ -213,9 +159,7 @@ public class Order extends CommercialDocument {
         "remarks"
 )
 public class Invoice extends CommercialDocument {
-</code></pre> This new view defined in <em>Invoice</em> named <em>NoCustomerNoOrders</em>
-      can be referenced from <em>Order</em> to display the reference to <em>Invoice</em>
-      using <em>@ReferenceView</em>:<br>
+</code></pre> This new view defined in <em>Invoice</em> named <em>NoCustomerNoOrders</em> can be referenced from <em>Order</em> to display the reference to <em>Invoice</em> using <em>@ReferenceView</em>:<br>
       <pre><code class="java">public class Order extends CommercialDocument {
  
     @ManyToOne
@@ -223,22 +167,17 @@ public class Invoice extends CommercialDocument {
     private Invoice invoice;
  
     ...
-</code></pre> Now the <em>invoice</em> reference will be displayed from <em>Order</em>
-      without customers and orders so you'll get a simpler user interface:<br>
-      <img src="files/inheritance_en090.png" alt="inheritance_en090.png" title="inheritance_en090.png"><br>
+</code></pre> Now the <em>invoice</em> reference will be displayed from <em>Order</em> without customers and orders so you'll get a simpler user interface:<br>
+      <img src="files/inheritance_en090.png" alt="inheritance_en090.png"
+        title="inheritance_en090.png"><br>
       <h2 id="toc18"><a name="Summary"></a>Summary</h2>
-      This lesson has shown you how to use inheritance to simplify the
-      definition of the user interface, by using the <i>extendsView</i>
-      attribute of <i>@View</i>. Along the way you also have seen some examples
-      of simplifying the way the references and collections are displayed using
-      <i>@ReferenceView</i> and <i>@CollectionView</i>. <br>
+      This lesson has shown you how to use inheritance to simplify the definition of the user interface, by using the <i>extendsView</i> attribute of <i>@View</i>. Along the way you also have seen some examples of simplifying the way the references and collections are displayed using <i>@ReferenceView</i> and <i>@CollectionView</i>. <br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-inheritance_en.zip/download"
+      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_en/tree/lesson-8"
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
       <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
-        <a class="wiki_link" href="java-properties_en.html">Go to Lesson 9</a></strong>
-    </div>
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine? <a
+          class="wiki_link" href="java-properties_en.html">Go to Lesson 9</a></strong> </div>
   </body>
 </html>
