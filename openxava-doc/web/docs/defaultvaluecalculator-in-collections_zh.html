@@ -93,11 +93,11 @@ public class PricePerUnitCalculator implements ICalculator {
         name="productNumber", // 计算器的 productNumber 属性由详细信息的 product.number 填充
         from="product.number")
 )
-@Stereotype("MONEY")
+@Money
 BigDecimal pricePerUnit; // 常规的持久属性
 </code></pre><em></em>这样子，当用户选择一个产品时，该价格字段将使用产品的价格填充，但由于它是持久属性，用户可以更改它。未来，如果产品的价格发生变化，在详细信息中的单价不会改变。<br>
         这代表您必须调整金额计算属性：<br>
-        <pre><code class="java">@Stereotype("MONEY")
+        <pre><code class="java">@Money
 @Depends("pricePerUnit, quantity") // pricePerUnit 而不是 product.number
 public BigDecimal getAmount() {
     if (pricePerUnit == null) return BigDecimal.ZERO; // pricePerUnit 而不是 product 和 product.getPrice()
@@ -115,8 +115,14 @@ Collection&lt;Detail&gt; details;
       </div>
       <div class="wiki" style="display: block;">
         <h2 id="toc14"><a name="Lesson 5: Basic business logic-Summary"></a>总结</h2>
-        在本章，我们学会了如何使用 @DefaultValueCalculator 注解来定义不同属性的值。<strong></strong><br>
-        <br>
+        在本章，我们学会了如何使用 @DefaultValueCalculator 注解来定义不同属性的值。</div>
+      <div class="wiki" style="display: block;"><br>
+        <strong></strong></div>
+      <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+            href="https://github.com/openxava/openxava-course_en/tree/lesson-11"
+            rel="nofollow">下载本课源代码</a><br>
+        </strong></div>
+      <div class="wiki" style="display: block;"><strong></strong> <br>
         <strong></strong><strong><strong>对这节课有什么问题吗？ <a class="wiki_link_ext"
               href="http://sourceforge.net/p/openxava/discussion/419690/"
               rel="nofollow">前往轮譠</a></strong> <strong>一切都顺利吗？</strong></strong><strong> <a

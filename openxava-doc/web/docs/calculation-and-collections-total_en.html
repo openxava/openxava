@@ -9,85 +9,71 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Lesson 5: Basic business logic"></a> <span id="breadcrumbs">
-          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
-              </a> </span> / <a href="index_en.html">documentation</a> / </span>
-        Lesson 12: @Calculation and collections total</h1>
-      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
-        Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
-        Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
-        Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
-        Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
-        Agile development</a> |&nbsp;<a class="wiki_link" href="mapped-superclass-inheritance_en.html">6.
-        Mapped superclass inheritance</a> | <a class="wiki_link" href="entity-inheritance_en.html">7.
-        Entity inheritance</a> | <a class="wiki_link" href="view-inheritance_en.html">8.
-        View inheritance</a> | <a class="wiki_link" href="java-properties_en.html">9.
-        Java properties</a> | <a class="wiki_link" href="calculated-properties_en.html">10.
-        Calculated properties </a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11.
-        @DefaultValueCalculator in collections </a> | <strong>12. @Calculation
-        and collections totals </strong> | <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13.
-        @DefaultValueCalculator from file</a> | <a class="wiki_link" href="manual-schema-evolution_en.html">14.
-        Manual schema evolution</a> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">15.
-        Multi user default value calculation</a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16.
-        Synchronize persistent and computed properties</a> | <a class="wiki_link"
-        href="logic-from-database_en.html">17. Logic from database </a>|<span style="color: #0000ee;"></span><span
-        style="color: #0000ee;"> </span><a class="wiki_link" href="validating-with-entityvalidator_en.html">18.
-        Validating with @EntityValidator&nbsp;</a> |&nbsp; <a class="wiki_link"
-        href="validation-alternatives_en.html">19.
-        Validation alternatives&nbsp;</a> | <a class="wiki_link" href="validation-on-remove_en.html">20.
-        Validation on remove&nbsp;</a> |&nbsp;<a class="wiki_link" href="custom-bean-validation-annotation_en.html">
-        21. Custom Bean Validation annotation&nbsp;</a> | <a class="wiki_link"
-        href="rest-service-call-from-validation_en.html">22.
-        REST service call from validation&nbsp;</a> | <a class="wiki_link" href="attributes-in-annotations_en.html">23.
-        Attributes in annotations&nbsp;</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">24.
-        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">25.
-        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">26.
-        References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
-        Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
-        Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
-        Annotations</a> | <a class="wiki_link" href="testing_en.html">D.
-        Automated testing</a><a class="wiki_link" href="testing_en.html"></a>
+      <h1 id="toc0"><a name="Lesson 5: Basic business logic"></a> <span
+          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_en.html">documentation</a> / </span> Lesson 12: @Calculation and collections total</h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1. Getting started</a> | <a
+        class="wiki_link" href="basic-domain-model1_en.html">2. Basic domain model (1)</a> | <a
+        class="wiki_link" href="basic-domain-model2_en.html">3. Basic domain model (2)</a> | <a
+        class="wiki_link" href="refining-user-interface_en.html">4. Refining the user interface</a> | <a
+        class="wiki_link" href="agile-development_en.html">5. Agile development</a> |&nbsp;<a
+        class="wiki_link" href="mapped-superclass-inheritance_en.html">6. Mapped superclass inheritance</a> | <a
+        class="wiki_link" href="entity-inheritance_en.html">7. Entity inheritance</a> | <a
+        class="wiki_link" href="view-inheritance_en.html">8. View inheritance</a> | <a
+        class="wiki_link" href="java-properties_en.html">9. Java properties</a> | <a
+        class="wiki_link" href="calculated-properties_en.html">10. Calculated properties </a> | <a
+        class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11. @DefaultValueCalculator in collections </a> | <strong>12. @Calculation and collections totals </strong> | <a
+        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file</a> | <a
+        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution</a> | <a
+        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation</a> | <a
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed properties</a> | <a
+        class="wiki_link" href="logic-from-database_en.html">17. Logic from database </a>|<span
+        style="color: #0000ee;"></span><span style="color: #0000ee;"> </span><a
+        class="wiki_link" href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator&nbsp;</a> |&nbsp; <a
+        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
+        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
+        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
+        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
+        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
+        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
+        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
+        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
+        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
+        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
+        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+        class="wiki_link" href="testing_en.html">D. Automated testing</a><a
+        class="wiki_link" href="testing_en.html"></a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
-        <div style="margin-left: 1em;"><a href="#Lesson%205:%20Basic%20business%20logic">Lesson
-            12: @Calculation and Collections total<br>
+        <div style="margin-left: 1em;"><a href="#Lesson%205:%20Basic%20business%20logic">Lesson 12: @Calculation and Collections total<br>
           </a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Persistent%20properties%20with%20Calculation">Persistent
-            properties with @Calculation</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Total%20properties%20of%20a%20collection">Total
-            properties of a collection</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Persistent%20properties%20with%20Calculation">Persistent properties with @Calculation</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Calculated%20properties-Total%20properties%20of%20a%20collection">Total properties of a collection</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Summary">Summary</a></div>
       </div>
     </div>
-    <div class="wiki" style="display: block;">We have seen how to calculate
-      amounts using the<i> @DefaultValueCalculato</i>r annotation on
-      collections. We will now see how to implement totals using the <i>@Calculation</i>
-      annotation.<br>
+    <div class="wiki" style="display: block;">We have seen how to calculate amounts using the<i> @DefaultValueCalculato</i>r annotation on collections. We will now see how to implement totals using the <i>@Calculation</i> annotation.<br>
       <div class="wiki" style="display: block;">
         <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=hr7hDb6_W8I&amp;list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&amp;index=13"
             target="_blank"><img src="files/calculation-and-collections-totals-video_en.png"
               title="Video for lesson 12: Calculation and collections totals with OpenXava"></a><br>
         </div>
-        <div class="wiki" style="display: block;">If you don't like videos
-          follow the instructions below.</div>
+        <div class="wiki" style="display: block;">If you don't like videos follow the instructions below.</div>
         <div class="wiki" style="display: block;"><br>
         </div>
-        <h2><a name="Lesson 5: Basic business logic-Properties in Java"></a></h2>
+        <h2><br>
+        </h2>
       </div>
       <div class="wiki" style="display: block;">
-        <h3><a name="Lesson 5: Basic business logic-Calculated properties-Persistent properties with Calculation"></a>Persistent
-          properties with <i>@Calculation</i></h3>
-        <i> </i>Sometimes calculated properties are not the best option.
-        Imagine that you have a calculated property in <em>Invoice</em>, let's
-        say <em>discount</em>:<br>
+        <h3><a name="Lesson 5: Basic business logic-Calculated properties-Persistent properties with Calculation"></a>Persistent properties with <i>@Calculation</i></h3>
+        <i> </i>Sometimes calculated properties are not the best option. Imagine that you have a calculated property in <em>Invoice</em>, let's say <em>discount</em>:<br>
         <div class="wiki" style="display: block;">
           <pre><code class="java">// DON'T ADD TO YOUR CODE, IT'S JUST TO ILLUSTRATE
 public BigDecimal getDiscount() {
     return getAmount().multiply(new BigDecimal("0.10"));
 }
-</code></pre> If you need to process all those invoices with an <i>discount</i>
-          greater than 1000, you have to code something like the next code:<br>
+</code></pre> If you need to process all those invoices with an <i>discount</i> greater than 1000, you have to code something like the next code:<br>
           <pre><code class="java">// DON'T ADD TO YOUR CODE, IT'S JUST TO ILLUSTRATE
 Query query = getManager().createQuery("from Invoice"); // No condition in query
 for (Object o: query.getResultList()) { // Iterates over all objects
@@ -97,34 +83,14 @@ for (Object o: query.getResultList()) { // Iterates over all objects
             i.doSomething();
     }
 }
-</code></pre> You cannot use a condition in the query to discriminate by <em>discount</em>,
-          because <i>discount</i> is not in the database, it's only in the Java
-          object, so you have to instantiate every object in order to ask by the
-          <i>discount</i>. In some cases this way is a good option, but if you
-          have a really huge amount of invoices, and only a few of them have the
-          <i>discount</i> greater than 1000, then your process will be very
-          inefficient. What alternative do we have?<br>
-          Our alternative is to use the <em>@Calculation</em> annotation. <em>@Calculation</em>
-          is an OpenXava annotation that allows to associate a simple
-          calculation to a persistent property. You can define <em>discount</em>
-          with <em>@Calculation</em> as shown the next code:<br>
+</code></pre> You cannot use a condition in the query to discriminate by <em>discount</em>, because <i>discount</i> is not in the database, it's only in the Java object, so you have to instantiate every object in order to ask by the <i>discount</i>. In some cases this way is a good option, but if you have a really huge amount of invoices, and only a few of them have the <i>discount</i> greater than 1000, then your process will be very inefficient. What alternative do we have?<br>
+          Our alternative is to use the <em>@Calculation</em> annotation. <em>@Calculation</em> is an OpenXava annotation that allows to associate a simple calculation to a persistent property. You can define <em>discount</em> with <em>@Calculation</em> as shown the next code:<br>
           <pre><code class="java">// DON'T ADD TO YOUR CODE, IT'S JUST TO ILLUSTRATE
 @ReadOnly
 @Calculation("amount * 0.10")
 BigDecimal discount;
-</code></pre> This is a regular persistent property, that is with a
-          corresponding column in the database, but it has a calculation defined
-          with <i>@Calculation</i>. In this case the calculation is <i>amount
-            * 0.10</i>, so whenever the user changes <i>amount</i> in the user
-          interface <i>discount</i> will be recalculated instantly. The
-          recalculated value will be saved in the database when user clicks on <i>Save</i>,
-          just like in any persistent property. We also have annotated <i>discount</i>
-          with <i>@ReadOnly</i>, so it looks and behaves like a calculated
-          property, although you can omit <i>@ReadOnly</i> so the user could
-          modify the calculated value.</div>
-        <div class="wiki" style="display: block;"> The most useful thing of <em>@Calculation</em>
-          properties is that you can use it in conditions, so that you can
-          rewrite the above process as shown in the next code:<br>
+</code></pre> This is a regular persistent property, that is with a corresponding column in the database, but it has a calculation defined with <i>@Calculation</i>. In this case the calculation is <i>amount * 0.10</i>, so whenever the user changes <i>amount</i> in the user interface <i>discount</i> will be recalculated instantly. The recalculated value will be saved in the database when user clicks on <i>Save</i>, just like in any persistent property. We also have annotated <i>discount</i> with <i>@ReadOnly</i>, so it looks and behaves like a calculated property, although you can omit <i>@ReadOnly</i> so the user could modify the calculated value.</div>
+        <div class="wiki" style="display: block;"> The most useful thing of <em>@Calculation</em> properties is that you can use it in conditions, so that you can rewrite the above process as shown in the next code:<br>
           <pre><code class="java">// DON'T ADD TO YOUR CODE, IT'S JUST TO ILLUSTRATE
 Query query = getManager().createQuery("from Invoice i where i.discount &gt; :discount"); // Condition allowed
 query.setParameter("discount", new BigDecimal(1000));
@@ -132,38 +98,16 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
     Invoice i = (Invoice) o;
     i.doSomething();
 }
-</code></pre> In this way we put the weight of selecting the records on the
-          database server, and not on the Java server. Moreover, the discounts
-          are not recalculated each time, they are already calculated and saved.<br>
-          This fact also has effect in the list mode, because the user cannot
-          filter or order by calculated properties, but he can do so using
-          persistent properties with <em>@Calculation</em>:<br>
+</code></pre> In this way we put the weight of selecting the records on the database server, and not on the Java server. Moreover, the discounts are not recalculated each time, they are already calculated and saved.<br>
+          This fact also has effect in the list mode, because the user cannot filter or order by calculated properties, but he can do so using persistent properties with <em>@Calculation</em>:<br>
           <img src="files/business-logic_en025.png" alt="business-logic_en025.png"
             title="business-logic_en025.png"><br>
-          <em>@Calculation</em> is a good option when you need filtering and
-          sorting, and a simple calculation is enough. A shortcoming of <i>@Calculation</i>
-          properties is that their values are recalculated only when the user
-          interact with the record and changes some value of the properties used
-          in the calculation, therefore when you add a new <i>@Calculation</i>
-          property to an entity with existing data you have to update the values
-          of the new column in the table using SQL. On the other hand if you
-          need a complex calculation, with loops or consulting other entities,
-          you still need a calculated property with your Java logic in the
-          getter. In this last case if you need to sort and filter in list mode
-          for the calculated property an option is to have both, the calculated
-          and the persistent property, and synchronize their values using JPA
-          callback methods (we'll talk about callback methods in future
-          lessons). </div>
+          <em>@Calculation</em> is a good option when you need filtering and sorting, and a simple calculation is enough. A shortcoming of <i>@Calculation</i> properties is that their values are recalculated only when the user interact with the record and changes some value of the properties used in the calculation, therefore when you add a new <i>@Calculation</i> property to an entity with existing data you have to update the values of the new column in the table using SQL. On the other hand if you need a complex calculation, with loops or consulting other entities, you still need a calculated property with your Java logic in the getter. In this last case if you need to sort and filter in list mode for the calculated property an option is to have both, the calculated and the persistent property, and synchronize their values using JPA callback methods (we'll talk about callback methods in future lessons). </div>
       </div>
       <div class="wiki" style="display: block;">
-        <h3 id="toc4"><a name="Lesson 5: Basic business logic-Calculated properties-Total properties of a collection"></a>Total
-          properties of a collection</h3>
+        <h3 id="toc4"><a name="Lesson 5: Basic business logic-Calculated properties-Total properties of a collection"></a>Total properties of a collection</h3>
       </div>
-      <div class="wiki" style="display: block;">We want to add amounts to <em>Order</em>
-        and <em>Invoice</em> too. To calculate vat, base amount and total
-        amount are indispensable. To do so you only need to add a few properties
-        to <em>CommercialDocument</em> class. The next figure shows the user
-        interface for these properties: </div>
+      <div class="wiki" style="display: block;">We want to add amounts to <em>Order</em> and <em>Invoice</em> too. To calculate vat, base amount and total amount are indispensable. To do so you only need to add a few properties to <em>CommercialDocument</em> class. The next figure shows the user interface for these properties: </div>
       <div class="wiki" style="display: block;"> <img src="files/business-logic_en030.png"
           alt="business-logic_en030.png" title="business-logic_en030.png"><br>
         Add the next code to <i>CommercialDocument</i> entity:<br>
@@ -171,31 +115,18 @@ for (Object o: query.getResultList()) { // Iterates only over selected objects
 BigDecimal vatPercentage;
    
 @ReadOnly
-@Stereotype("MONEY")
+@Money
 @Calculation("sum(details.amount) * vatPercentage / 100")
 BigDecimal vat;
 
 @ReadOnly
-@Stereotype("MONEY")
+@Money
 @Calculation("sum(details.amount) + vat")    
 BigDecimal totalAmount;    
 </code></pre></div>
-      <div class="wiki" style="display: block;">Note how we have chosen <i>@Calculation
-          + @ReadOnly</i> persistent properties over calculated ones for <i>vat</i>
-        and <i>totalAmount</i>, because the calculations are simple, and
-        filtering and ordering for them is very useful. Also, you can see how in
-        <i>@Calculation</i> you can use <i>sum(details.amount)</i> to refer to
-        the sum of the column <i>amount</i> of the collection <i>details</i>,
-        in this way we don't need to have a <i>baseAmount</i> property. On the
-        other hand, <em>vatPercentage</em> is a conventional persistent
-        property. In this case we use <em>@Digits</em> (an annotation from Bean
-        Validation, the validation standard of Java) as an alternative to <em>@Column</em>
-        to specify its size.</div>
-      <div class="wiki" style="display: block;"> Now that you have written the
-        amount properties of <em>CommercialDocument</em>, you must modify the
-        list of properties of the collection to show <a class="wiki_link" href="view_en.html#View-Collection%20customization-Total%20properties%20%28new%20in%20v4.3%29">the
-          total properties</a> of the <em>CommercialDocument</em> (<em>Invoice</em>
-        and <em>Order).</em> Let's see it:<br>
+      <div class="wiki" style="display: block;">Note how we have chosen <i>@Calculation + @ReadOnly</i> persistent properties over calculated ones for <i>vat</i> and <i>totalAmount</i>, because the calculations are simple, and filtering and ordering for them is very useful. Also, you can see how in <i>@Calculation</i> you can use <i>sum(details.amount)</i> to refer to the sum of the column <i>amount</i> of the collection <i>details</i>, in this way we don't need to have a <i>baseAmount</i> property. On the other hand, <em>vatPercentage</em> is a conventional persistent property. In this case we use <em>@Digits</em> (an annotation from Bean Validation, the validation standard of Java) as an alternative to <em>@Column</em> to specify its size.</div>
+      <div class="wiki" style="display: block;"> Now that you have written the amount properties of <em>CommercialDocument</em>, you must modify the list of properties of the collection to show <a
+          class="wiki_link" href="view_en.html#View-Collection%20customization-Total%20properties%20%28new%20in%20v4.3%29">the total properties</a> of the <em>CommercialDocument</em> (<em>Invoice</em> and <em>Order).</em> Let's see it:<br>
         <pre><code class="java">abstract public class CommercialDocument extends Identifiable {
  
     @ElementCollection
@@ -211,35 +142,25 @@ BigDecimal totalAmount;
  
     ...
 }
-</code></pre>Total properties are regular properties of the entity (<i>CommercialDocument</i>
-        in this case) that are placed in the user interface below the column of
-        a collection. For that, in <i>@ListProperties</i> you use square
-        brackets after the property to enumerate them, like <i>amount[commercialDocument.totalAmount]</i>.
-        Moreover, if you want just the summation of the column you don't need a
-        property for that, with a + after the property in <i>@ListProperties</i>
-        is enough, like <i>amount+</i>. In our case we combine both things, +
-        and total properties between [ ]. </div>
-      <div class="wiki" style="display: block;">Now you can try your
-        application. It would behave almost as in figure at the begin of this
-        section. “Almost” because <i>vatPercentage</i> does not have a default
-        value yet. We add it in the next section.<br>
-        <h3 id="toc5"><a name="Lesson 5: Basic business logic-Calculated properties-Default value from a properties file"></a></h3>
+</code></pre>Total properties are regular properties of the entity (<i>CommercialDocument</i> in this case) that are placed in the user interface below the column of a collection. For that, in <i>@ListProperties</i> you use square brackets after the property to enumerate them, like <i>amount[commercialDocument.totalAmount]</i>. Moreover, if you want just the summation of the column you don't need a property for that, with a + after the property in <i>@ListProperties</i> is enough, like <i>amount+</i>. In our case we combine both things, + and total properties between [ ]. </div>
+      <div class="wiki" style="display: block;">Now you can try your application. It would behave almost as in figure at the begin of this section. “Almost” because <i>vatPercentage</i> does not have a default value yet. We add it in the next section.<br>
+        <h3 id="toc5"><br>
+        </h3>
       </div>
       <div class="wiki" style="display: block;">
         <h2 id="toc14"><a name="Lesson 5: Basic business logic-Summary"></a>Summary</h2>
-        In this lesson you have learned how to define persistent properties with
-        specific calculations using the <i>@Calculation</i> annotation and we
-        saw the usefulness of the <i>@Digits</i> annotation to define type and
-        length of fields. We also defined total properties using persistent
-        properties with the <i>@ReadOnly</i> +<i>@Calculation</i> annotations,
-        and we saw how to use sum to override a specific property.</div>
+        In this lesson you have learned how to define persistent properties with specific calculations using the <i>@Calculation</i> annotation and we saw the usefulness of the <i>@Digits</i> annotation to define type and length of fields. We also defined total properties using persistent properties with the <i>@ReadOnly</i> +<i>@Calculation</i> annotations, and we saw how to use sum to override a specific property.</div>
       <div class="wiki" style="display: block;"><br>
       </div>
-      <div class="wiki" style="display: block;"> <strong>Any problem with this
-          lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-            rel="nofollow">Ask in the forum</a></strong> <strong>Everything
-          fine? <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">Go
-            to Lesson 13</a></strong> </div>
+      <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+            href="https://github.com/openxava/openxava-course_en/tree/lesson-12"
+            rel="nofollow">Download source code of this lesson</a></strong></div>
+      <div class="wiki" style="display: block;"><br>
+      </div>
+      <div class="wiki" style="display: block;"> <strong>Any problem with this lesson? <a
+            class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+            rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine? <a
+            class="wiki_link" href="defaultvaluecalculator-from-file_en.html">Go to Lesson 13</a></strong> </div>
     </div>
   </body>
 </html>

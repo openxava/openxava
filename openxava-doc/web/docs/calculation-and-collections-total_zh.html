@@ -113,12 +113,12 @@ for (Object o: query.getResultList()) { // 仅迭代选定的对象
 BigDecimal vatPercentage;
    
 @ReadOnly
-@Stereotype("MONEY")
+@Money
 @Calculation("sum(details.amount) * vatPercentage / 100")
 BigDecimal vat;
 
 @ReadOnly
-@Stereotype("MONEY")
+@Money
 @Calculation("sum(details.amount) + vat")    
 BigDecimal totalAmount;    
 </code></pre></div>
@@ -147,6 +147,11 @@ BigDecimal totalAmount;
       <div class="wiki" style="display: block;">
         <h2 id="toc14"><a name="Lesson 5: Basic business logic-Summary"></a>总结</h2>
         在本章中，您学到了如何使用 @Calculation 注解定义具有特定计算的持久属性，也看到了 @Digits 注解在定义字段类型和长度方面的使用方法。还使用带有 @ReadOnly +@Calculation 注解的持久属性来定义总属性，并且看到了如何使用 sum 来覆盖特定属性。</div>
+      <div class="wiki" style="display: block;"><br>
+      </div>
+      <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+            href="https://github.com/openxava/openxava-course_en/tree/lesson-12"
+            rel="nofollow">下载本课源代码</a></strong></div>
       <div class="wiki" style="display: block;"><br>
       </div>
       <div class="wiki" style="display: block;"> <strong></strong><strong><strong>对这节课有什么问题吗？ <a

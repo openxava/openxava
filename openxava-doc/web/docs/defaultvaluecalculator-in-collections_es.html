@@ -9,80 +9,59 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Leccion-11-DefaultValueCalculator-en-colecciones"></a>
-        <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
-          / </span> Lección 11: @DefaultValueCalculator en colecciones</h1>
-      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
-        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
-        Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
-        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
-        Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
-        Desarrollo ágil</a> | <a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
-        Herencia de superclases mapeadas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
-        Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
-        Herencia de vistas</a> | <a class="wiki_link" href="java-properties_es.html">9.
-        Propiedades Java</a> | <a class="wiki_link" href="calculated-properties_es.html">10.
-        Propiedades calculadas</a> | <strong>11. @DefaultValueCalculator en
-        colecciones</strong> | <a class="wiki_link" href="calculation-and-collections-total_es.html">12.
-        @Calculation y totales de colección</a> | <span style="color: #0000ee;"></span><a
-        class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
-        @DefaultValueCalculator desde archivo</a> | <a class="wiki_link" href="manual-schema-evolution_es.html">14.
-        Evolución del esquema manual</a> | <a class="wiki_link" href="multi-user-default-value-calculation_es.html">15.
-        Cálculo de valor por defecto multiusuario</a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16.
-        Sincronizar propiedades persistentes y calculadas</a> | <a class="wiki_link"
-        href="logic-from-database_es.html">17. Lógica desde la base de datos</a>
-      | <a class="wiki_link" href="validating-with-entityvalidator_es.html">18.
-        Validando con @EntityValidator</a> | <a class="wiki_link" href="validation-alternatives_es.html">19.
-        Alternativas de validación&nbsp;</a> | <a class="wiki_link" href="validation-on-remove_es.html">20.
-        Validación al borrar&nbsp;</a> |&nbsp;<a class="wiki_link" href="custom-bean-validation-annotation_es.html">
-        21. Anotación Bean Validation propia</a> | <a class="wiki_link" href="rest-service-call-from-validation_es.html">22.
-        Llamada REST desde una validación&nbsp;</a> | <a class="wiki_link" href="attributes-in-annotations_es.html">23.
-        Atributos en anotaciones</a>&nbsp; | <a class="wiki_link" href="refining-standard-behavior_es.html">24.
-        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">25.
-        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">26.
-        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
-        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
-        Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
-        Anotaciones</a> | <a class="wiki_link" href="testing_es.html">D.
-        Pruebas automáticas</a>
+      <h1 id="toc0"><a name="Leccion-11-DefaultValueCalculator-en-colecciones"></a> <span
+          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_es.html">documentación</a> / </span> Lección 11: @DefaultValueCalculator en colecciones</h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1. Primeros pasos</a> | <a
+        class="wiki_link" href="basic-domain-model1_es.html">2. Modelo básico del dominio (1)</a> | <a
+        class="wiki_link" href="basic-domain-model2_es.html">3. Modelo básico del dominio (2)</a> | <a
+        class="wiki_link" href="refining-user-interface_es.html">4. Refinar la interfaz de usuario</a> | <a
+        class="wiki_link" href="agile-development_es.html">5. Desarrollo ágil</a> | <a
+        class="wiki_link" href="mapped-superclass-inheritance_es.html">6. Herencia de superclases mapeadas</a> | <a
+        class="wiki_link" href="entity-inheritance_es.html">7. Herencia de entidades</a> | <a
+        class="wiki_link" href="view-inheritance_es.html">8. Herencia de vistas</a> | <a
+        class="wiki_link" href="java-properties_es.html">9. Propiedades Java</a> | <a
+        class="wiki_link" href="calculated-properties_es.html">10. Propiedades calculadas</a> | <strong>11. @DefaultValueCalculator en colecciones</strong> | <a
+        class="wiki_link" href="calculation-and-collections-total_es.html">12. @Calculation y totales de colección</a> | <span
+        style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13. @DefaultValueCalculator desde archivo</a> | <a
+        class="wiki_link" href="manual-schema-evolution_es.html">14. Evolución del esquema manual</a> | <a
+        class="wiki_link" href="multi-user-default-value-calculation_es.html">15. Cálculo de valor por defecto multiusuario</a> | <a
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16. Sincronizar propiedades persistentes y calculadas</a> | <a
+        class="wiki_link" href="logic-from-database_es.html">17. Lógica desde la base de datos</a> | <a
+        class="wiki_link" href="validating-with-entityvalidator_es.html">18. Validando con @EntityValidator</a> | <a
+        class="wiki_link" href="validation-alternatives_es.html">19. Alternativas de validación&nbsp;</a> | <a
+        class="wiki_link" href="validation-on-remove_es.html">20. Validación al borrar&nbsp;</a> |&nbsp;<a
+        class="wiki_link" href="custom-bean-validation-annotation_es.html"> 21. Anotación Bean Validation propia</a> | <a
+        class="wiki_link" href="rest-service-call-from-validation_es.html">22. Llamada REST desde una validación&nbsp;</a> | <a
+        class="wiki_link" href="attributes-in-annotations_es.html">23. Atributos en anotaciones</a>&nbsp; | <a
+        class="wiki_link" href="refining-standard-behavior_es.html">24. Refinar el comportamiento predefinido</a> | <a
+        class="wiki_link" href="business-logic-behavior_es.html">25. Comportamiento y lógica de negocio</a> | <a
+        class="wiki_link" href="references-collections_es.html">26. Referencias y colecciones</a> | <a
+        class="wiki_link" href="philosophy_es.html">A. Arquitectura y filosofía</a> | <a
+        class="wiki_link" href="jpa_es.html">B. Java Persistence API</a> | <a
+        class="wiki_link" href="annotations_es.html">C. Anotaciones</a> | <a
+        class="wiki_link" href="testing_es.html">D. Pruebas automáticas</a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
-        <div style="margin-left: 1em;"><a href="#Leccion-11-DefaultValueCalculator-en-colecciones">Lección
-            11: @DefaultValueCalculator en colecciones<br>
+        <div style="margin-left: 1em;"><a href="#Leccion-11-DefaultValueCalculator-en-colecciones">Lección 11: @DefaultValueCalculator en colecciones<br>
           </a></div>
-        <div style="margin-left: 2em;"><a href="#Propiedades-calculadas-Usar-DefaultValueCalculator">Usar
-            @DefaultValueCalculator</a></div>
+        <div style="margin-left: 2em;"><a href="#Propiedades-calculadas-Usar-DefaultValueCalculator">Usar @DefaultValueCalculator</a></div>
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
-      Hemos agregado lógica del negocio a nuestra aplicación utlizando
-      propiedades persistentes y propiedas calculadas, ahora utilizaremos la
-      anotación <i>@DefaultValueCalculator</i> para las colecciones. <br>
+      Hemos agregado lógica del negocio a nuestra aplicación utlizando propiedades persistentes y propiedas calculadas, ahora utilizaremos la anotación <i>@DefaultValueCalculator</i> para las colecciones. <br>
       <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=KFAV6c9WNU0&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=12"
           target="_blank"><img src="files/defaultvaluecalculator-in-collections-video_es.png"
-            title="Video para la lección 11: DefaultValueCalculator en colecciones con OpenXava"></a>
-      </div>
-      <div class="wiki" style="display: block;">Si no te gustan los videos sigue
-        las instrucciones a continuación. </div>
+            title="Video para la lección 11: DefaultValueCalculator en colecciones con OpenXava"></a> </div>
+      <div class="wiki" style="display: block;">Si no te gustan los videos sigue las instrucciones a continuación. </div>
       <div class="wiki" style="display: block;"><br>
       </div>
       <h2 id="Propiedades-calculadas-Usar-DefaultValueCalculator">Usar <em>@DefaultValueCalculator</em></h2>
-      La forma en que calculamos el importe de la línea de detalle no es la
-      mejor. Tiene, al menos, dos inconvenientes. El primero es que el usuario
-      puede querer tener la posibilidad de cambiar el precio unitario. Y
-      segundo, si el precio de un producto cambia los importes de todas las
-      facturas cambian también, y esto no es bueno.<br>
-      Para evitar estos inconvenientes lo mejor es almacenar el precio de cada
-      producto en cada línea de detalle. Añadamos pues una propiedad persistente
-      <em>precioPorUnidad</em> a la clase <em>Detalle</em> y calculemos su
-      valor desde <em>precio</em> de <em>Producto</em> usando un <em>@DefaultValueCalculator</em>.
-      De tal forma que consigamos el efecto que puedes ver en la siguiente
-      figura:<br>
-      <img src="files/business-logic_es020.png" alt="business-logic_es020.png" title="business-logic_es020.png"><br>
-      La lógica para calcular el valor inicial la tendremos en <em>CalculadorPrecioPorUnidad</em>
-      que simplemente lee el precio del producto. Observa el código de este
-      calculador:<br>
+      La forma en que calculamos el importe de la línea de detalle no es la mejor. Tiene, al menos, dos inconvenientes. El primero es que el usuario puede querer tener la posibilidad de cambiar el precio unitario. Y segundo, si el precio de un producto cambia los importes de todas las facturas cambian también, y esto no es bueno.<br>
+      Para evitar estos inconvenientes lo mejor es almacenar el precio de cada producto en cada línea de detalle. Añadamos pues una propiedad persistente <em>precioPorUnidad</em> a la clase <em>Detalle</em> y calculemos su valor desde <em>precio</em> de <em>Producto</em> usando un <em>@DefaultValueCalculator</em>. De tal forma que consigamos el efecto que puedes ver en la siguiente figura:<br>
+      <img src="files/business-logic_es020.png" alt="business-logic_es020.png"
+        title="business-logic_es020.png"><br>
+      La lógica para calcular el valor inicial la tendremos en <em>CalculadorPrecioPorUnidad</em> que simplemente lee el precio del producto. Observa el código de este calculador:<br>
       <pre><code class="java">package com.tuempresa.facturacion.calculadores; // En el paquete calculadores
  
 import org.openxava.calculators.*;
@@ -105,9 +84,7 @@ public class CalculadorPrecioPorUnidad implements ICalculator {
  
 }
 </code></pre>
-      <div class="wiki" style="display: block;">El siguiente paso es añadir la
-        propiedad <em>precioPorUnidad</em>. Añade el siguiente código a la
-        clase <em>Detalle</em>:<br>
+      <div class="wiki" style="display: block;">El siguiente paso es añadir la propiedad <em>precioPorUnidad</em>. Añade el siguiente código a la clase <em>Detalle</em>:<br>
       </div>
       <pre><code class="java">@DefaultValueCalculator(
     value=CalculadorPrecioPorUnidad.class, // Esta clase calcula el valor inicial
@@ -115,38 +92,33 @@ public class CalculadorPrecioPorUnidad implements ICalculator {
         name="numeroProducto", // La propiedad numeroProducto del calculador...
         from="producto.numero") // ... se llena con el valor de producto.numero de la entidad
 )
-@Stereotype("DINERO")
+@Money
 BigDecimal precioPorUnidad; // Una propiedad persistente convencional
-</code></pre>De esta forma cuando el usuario escoge un producto el campo de
-      precio unitario se rellena con el precio del producto, pero dado que es
-      una propiedad persistente, el usuario puede cambiar este valor. Y si en el
-      futuro el precio del producto cambiara este precio unitario de la línea de
-      detalle no cambiaría.<br>
+</code></pre>De esta forma cuando el usuario escoge un producto el campo de precio unitario se rellena con el precio del producto, pero dado que es una propiedad persistente, el usuario puede cambiar este valor. Y si en el futuro el precio del producto cambiara este precio unitario de la línea de detalle no cambiaría.<br>
       Esto implica que has de adaptar la propiedad calculada <em>importe</em>:<br>
-      <pre><code class="java">@Stereotype("DINERO")
+      <pre><code class="java">@Money
 @Depends("precioPorUnidad, cantidad") // precioPorUnidad en vez de producto.numero
 public BigDecimal getImporte() {
     if (precioPorUnidad == null) return BigDecimal.ZERO; // precioPorUnidad en vez de producto y producto.getPrecio()
     return new BigDecimal(cantidad).multiply(precioPorUnidad); // precioPorUnidad en vez de producto.getPrecio()
 }
-</code></pre> Ahora <em>getImporte()</em> usa <em>precioPorUnidad</em> como
-      fuente en lugar de <em>producto.precio</em>.<br>
-      Finalmente, debemos editar la entidad <em>DocumentoComercial</em> y
-      modificar la lista de propiedades de la colección para mostrar la nueva
-      propiedad:<br>
+</code></pre> Ahora <em>getImporte()</em> usa <em>precioPorUnidad</em> como fuente en lugar de <em>producto.precio</em>.<br>
+      Finalmente, debemos editar la entidad <em>DocumentoComercial</em> y modificar la lista de propiedades de la colección para mostrar la nueva propiedad:<br>
       <pre><code class="java">@ElementCollection
 @ListProperties("producto.numero, producto.descripcion, cantidad, precioPorUnidad, importe") // precioPorUnidad añadida
 Collection&lt;Detalle&gt; detalles;
-</code></pre> Prueba los módulos <em>Pedido</em> y <em>Factura</em> y podrás
-      observar el nuevo comportamiento al añadir líneas de detalle.</div>
+</code></pre> Prueba los módulos <em>Pedido</em> y <em>Factura</em> y podrás observar el nuevo comportamiento al añadir líneas de detalle.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Resumen"></a>Resumen</h2>
-      En esta lección hemos aprendido cómo podemos utilizar la anotación <i>@DefaultValueCalculator</i>
-      para definir el valor de diferentes propiedades. <br>
-      <br>
+      En esta lección hemos aprendido cómo podemos utilizar la anotación <i>@DefaultValueCalculator</i> para definir el valor de diferentes propiedades. </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+          href="https://github.com/openxava/openxava-course_es/tree/leccion-11"
+          rel="nofollow">Descargar código fuente de esta lección</a></strong></div>
+    <div class="wiki" style="display: block;"> <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
-        <a class="wiki_link" href="calculation-and-collections-total_es.html">Ve
-          a la lección 12</a></strong> </div>
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien? <a
+          class="wiki_link" href="calculation-and-collections-total_es.html">Ve a la lección 12</a></strong> </div>
   </body>
 </html>
