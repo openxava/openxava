@@ -42,13 +42,13 @@ public class LinkTag extends ActionTagBase implements IActionTag {
 						 		
 			pageContext.getOut().print("<input name='");
 			pageContext.getOut().print(Ids.decorate(application, module, "action." + getAction())); 
-			pageContext.getOut().println("' type='hidden'/>\n");
+			pageContext.getOut().print("' type='hidden'/>");
 			
 			pageContext.getOut().print("<a ");
 			if (Is.emptyString(getArgv())) { 
 				pageContext.getOut().print("id='");
 				pageContext.getOut().print(Ids.decorate(application, module, getAction())); 
-				pageContext.getOut().println("'");
+				pageContext.getOut().print("'");
 			}
 			if (!Is.emptyString(getCssClass())) {
 				pageContext.getOut().print(" class='");
