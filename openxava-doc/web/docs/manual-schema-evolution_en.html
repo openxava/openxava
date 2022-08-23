@@ -75,32 +75,32 @@
       <img src="files/inheritance040.png" alt="inheritance040.png" title="inheritance040.png"><br>
       Now you are ready to write and execute SQLs.First, we set value for <i>pricePerUnit</i> column in all details: </div>
     <div class="wiki" style="display: block;">
-      <pre><code class="sql">UPDATE INVOICING.COMMERCIALDOCUMENT_DETAILS 
+      <pre><code class="sql">UPDATE COMMERCIALDOCUMENT_DETAILS 
 SET PRICEPERUNIT = (
-    SELECT PRICE FROM INVOICING.PRODUCT 
+    SELECT PRICE FROM PRODUCT 
     WHERE NUMBER = PRODUCT_NUMBER
 )
 </code></pre> </div>
     <div class="wiki" style="display: block;">Then we update the <i>vatPercentage</i> for all invoices:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="sql">UPDATE INVOICING.COMMERCIALDOCUMENT
+      <pre><code class="sql">UPDATE COMMERCIALDOCUMENT
 SET VATPERCENTAGE = 21
 </code></pre> </div>
     <div class="wiki" style="display: block;">Next, the updating of <i>vat</i>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="sql">UPDATE INVOICING.COMMERCIALDOCUMENT
+      <pre><code class="sql">UPDATE COMMERCIALDOCUMENT
 SET VAT = (
     SELECT SUM(PRICEPERUNIT * QUANTITY) * 0.21 
-    FROM INVOICING.COMMERCIALDOCUMENT_DETAILS D 
+    FROM COMMERCIALDOCUMENT_DETAILS D 
     WHERE D.COMMERCIALDOCUMENT_OID = COMMERCIALDOCUMENT.OID
 )
 </code></pre> </div>
     <div class="wiki" style="display: block;">Finally, we update the <i>totalAmount</i> of all invoices:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="sql">UPDATE INVOICING.COMMERCIALDOCUMENT
+      <pre><code class="sql">UPDATE COMMERCIALDOCUMENT
 SET TOTALAMOUNT = (
     SELECT SUM(PRICEPERUNIT * QUANTITY) * 1.21 
-    FROM INVOICING.COMMERCIALDOCUMENT_DETAILS D 
+    FROM COMMERCIALDOCUMENT_DETAILS D 
     WHERE D.COMMERCIALDOCUMENT_OID = COMMERCIALDOCUMENT.OID
 )
 </code></pre> </div>
@@ -114,8 +114,9 @@ SET TOTALAMOUNT = (
     </div>
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Lesson 5: Basic business logic-Summary"></a>Summary</h2>
-      In this lesson you have learned how to manually modify the database schema of our application using SQL statements, so that we do not lose information in a production environment.<strong></strong><br>
-      <br>
+      In this lesson you have learned how to manually modify the database schema of our application using SQL statements, so that we do not lose information in a production environment.<strong></strong>
+      <div class="wiki" style="display: block;"><br>
+        <strong></strong></div>
       <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine? <a
           class="wiki_link" href="multi-user-default-value-calculation_en.html">Go to Lesson 15</a></strong> </div>

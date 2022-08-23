@@ -72,32 +72,32 @@
         <img src="files/inheritance040.png" alt="inheritance040.png" title="inheritance040.png"><br>
         Ahora estás listo para escribir y ejecutar SQLs. Primero, establecemos el valor para la columna <i>precioPorUnidad</i> en todos los detalles: </div>
       <div class="wiki" style="display: block;">
-        <pre><code class="sql">UPDATE FACTURACION.DOCUMENTOCOMERCIAL_DETALLES 
+        <pre><code class="sql">UPDATE DOCUMENTOCOMERCIAL_DETALLES 
 SET PRECIOPORUNIDAD = (
-    SELECT PRECIO FROM FACTURACION.PRODUCTO 
+    SELECT PRECIO FROM PRODUCTO 
     WHERE NUMERO = PRODUCTO_NUMERO
 )
 </code></pre> </div>
       <div class="wiki" style="display: block;">Ahora actualizamos <i>porcentajeIVA</i> para todas las facturas:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="sql">UPDATE FACTURACION.DOCUMENTOCOMERCIAL
+        <pre><code class="sql">UPDATE DOCUMENTOCOMERCIAL
 SET PORCENTAJEIVA = 21
 </code></pre> </div>
       <div class="wiki" style="display: block;">Lo siguiente es actualizar <i>iva</i>:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="sql">UPDATE FACTURACION.DOCUMENTOCOMERCIAL
+        <pre><code class="sql">UPDATE DOCUMENTOCOMERCIAL
 SET IVA = (
     SELECT SUM(PRECIOPORUNIDAD * CANTIDAD) * 0.21 
-    FROM FACTURACION.DOCUMENTOCOMERCIAL_DETALLES D 
+    FROM DOCUMENTOCOMERCIAL_DETALLES D 
     WHERE D.DOCUMENTOCOMERCIAL_OID = DOCUMENTOCOMERCIAL.OID
 )
 </code></pre> </div>
       <div class="wiki" style="display: block;">Finalmente, actualizamos <i>importeTotal</i> en todas las facturas:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="sql">UPDATE FACTURACION.DOCUMENTOCOMERCIAL
+        <pre><code class="sql">UPDATE DOCUMENTOCOMERCIAL
 SET IMPORTETOTAL = (
     SELECT SUM(PRECIOPORUNIDAD * CANTIDAD) * 1.21 
-    FROM FACTURACION.DOCUMENTOCOMERCIAL_DETALLES D 
+    FROM DOCUMENTOCOMERCIAL_DETALLES D 
     WHERE D.DOCUMENTOCOMERCIAL_OID = DOCUMENTOCOMERCIAL.OID
 )
 </code></pre> </div>
@@ -106,8 +106,8 @@ SET IMPORTETOTAL = (
     </div>
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Resumen"></a>Resumen</h2>
-      En esta lección has aprendido cómo modificar de manera manual el esquema de la base de datos de nuestra aplicación utilizando sentencias SQL, de tal forma que no perdamos información en un ambiente de producción.<br>
-      <br>
+      En esta lección has aprendido cómo modificar de manera manual el esquema de la base de datos de nuestra aplicación utilizando sentencias SQL, de tal forma que no perdamos información en un ambiente de producción.</div>
+    <div class="wiki" style="display: block;"><strong></strong> <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien? <a
           class="wiki_link" href="multi-user-default-value-calculation_es.html">Ve a la lección 15</a></strong> </div>
