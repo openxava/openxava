@@ -61,8 +61,8 @@
         <h2 id="toc5"><a name="Lesson 5: Basic business logic-Calculated properties-Default value from a properties file"></a>从属性文件中的默认值</h2>
         为 vatPercentage 设置默认值对用户很方便。您可以使用一个返回固定值的计算器（如 @DefaultValueCalculator），但在这种情况下，更改默认值意味着更改代码。或者，您可以从数据库中读取默认值（从计算器中使用 JPA），但在这种情况下，更改默认值意味着更新数据库表。<br>
         另一种选择是将此配置值存储在一个属性文件中，该文件具有"键 = 值"的对。在这种情况下，更改 vatPercentage 的默认值跟编辑文件一样简单。<br>
-        让我们实现属性文件的选项。在 Invoicing/properties 文件夹中创建一个名为 invoicing.properties 的文件，其中包含以下内容：<br>
-        <pre><code class="properties">defaultVatPercentage=21
+        让我们实现属性文件的选项。在 invoicing/src/main/resources文件夹中创建一个名为 invoicing.properties 的文件，其中包含以下内容：<br>
+        <pre><code class="properties">defaultVatPercentage=6
 </code></pre> 尽管可以使用 Java 中的 java.util.Properties 类来读取此文件，但我们更想自定义类来读取这些属性。我们将这类命名为 InvoicingPreferences，并将它放在一个名为 com.yourcompany.invoicing.util 的新包中。以下是此类的代码：<br>
         <pre><code class="java">package com.yourcompany.invoicing.util; // 在 'util' 包
 
@@ -116,11 +116,17 @@ public class VatPercentageCalculator implements ICalculator {
 </code></pre> 如您所见，它只是从 InvoicingPreferences 返回 defaultVatPercentage。现在，您可以在 CommercialDocument 中的 vatPercentage 属性定义中使用此计算器，如下：<br>
         <pre><code class="java">@DefaultValueCalculator(VatPercentageCalculator.class)
 BigDecimal vatPercentage;
-</code></pre> 使用此代码后，当用户点击创建新发票时，vatPercentage 字段将使用 21 或您在 invoicing.properties 中输入的任何其他值。</div>
+</code></pre> 使用此代码后，当用户点击创建新发票时，vatPercentage 字段将使用 6 或您在 invoicing.properties 中输入的任何其他值。</div>
       <div class="wiki" style="display: block;">
         <h2 id="toc14"><a name="Lesson 5: Basic business logic-Summary"></a>总结</h2>
-        在本章中，您学会了如何在外部文件建立默认值并使用它来来配置我们在应用程序业务逻辑中使用的属性，从而当我们在需要修改这些属性时抽象出修改代码 。<br>
-        <br>
+        在本章中，您学会了如何在外部文件建立默认值并使用它来来配置我们在应用程序业务逻辑中使用的属性，从而当我们在需要修改这些属性时抽象出修改代码 。</div>
+      <div class="wiki" style="display: block;"><br>
+      </div>
+      <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+            href="https://github.com/openxava/openxava-course_en/tree/lesson-13"
+            rel="nofollow">下载本课源代码</a><br>
+        </strong></div>
+      <div class="wiki" style="display: block;"><strong></strong> <br>
         <strong></strong><strong><strong>对这节课有什么问题吗？ <a class="wiki_link_ext"
               href="http://sourceforge.net/p/openxava/discussion/419690/"
               rel="nofollow">前往轮譠</a></strong> <strong>一切都顺利吗？</strong></strong><strong> <a
