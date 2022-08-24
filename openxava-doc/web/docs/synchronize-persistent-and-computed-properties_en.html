@@ -9,83 +9,62 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Lesson 16: Synchronize persistent and computed properties"></a>
-        <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
-          / </span> Lesson 16: Synchronize persistent and computed properties </h1>
-      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
-        Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
-        Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
-        Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
-        Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
-        Agile development</a> |&nbsp;<a class="wiki_link" href="mapped-superclass-inheritance_en.html">6.
-        Mapped superclass inheritance</a> | <a class="wiki_link" href="entity-inheritance_en.html">7.
-        Entity inheritance</a> | <a class="wiki_link" href="view-inheritance_en.html">8.
-        View inheritance</a> | <a class="wiki_link" href="java-properties_en.html">9.
-        Java properties</a> | <a class="wiki_link" href="calculated-properties_en.html">10.
-        Calculated properties </a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11.
-        @DefaultValueCalculator in collections </a> | <a class="wiki_link" href="calculation-and-collections-total_en.html">12.
-        </a><a class="wiki_link" href="calculation-and-collections-total_en.html">@Calculation
-        and collections totals</a><a class="wiki_link" href="calculation-and-collections-total_en.html">
-      </a> | <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13.
-        @DefaultValueCalculator from file </a> | <a class="wiki_link" href="manual-schema-evolution_en.html">14.
-        Manual schema evolution </a> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">15.
-        Multi user default value calculation </a> | <strong>16. Synchronize
-        persistent and computed properties </strong> | <a class="wiki_link" href="logic-from-database_en.html">17.
-        Logic from database&nbsp;</a> |<span style="color: #0000ee;"></span><span
-        style="color: #0000ee;"> </span><a class="wiki_link" href="validating-with-entityvalidator_en.html">18.
-        Validating with @EntityValidator&nbsp;</a> |&nbsp; <a class="wiki_link"
-        href="validation-alternatives_en.html">19.
-        Validation alternatives&nbsp;</a> | <a class="wiki_link" href="validation-on-remove_en.html">20.
-        Validation on remove&nbsp;</a> |&nbsp;<a class="wiki_link" href="custom-bean-validation-annotation_en.html">
-        21. Custom Bean Validation annotation&nbsp;</a> | <a class="wiki_link"
-        href="rest-service-call-from-validation_en.html">22.
-        REST service call from validation&nbsp;</a> | <a class="wiki_link" href="attributes-in-annotations_en.html">23.
-        Attributes in annotations&nbsp;</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">24.
-        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">25.
-        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">26.
-        References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
-        Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
-        Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
-        Annotations</a> | <a class="wiki_link" href="testing_en.html">D.
-        Automated testing</a><a class="wiki_link" href="testing_en.html"></a>
+      <h1 id="toc0"><a name="Lesson 16: Synchronize persistent and computed properties"></a> <span
+          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_en.html">documentation</a> / </span> Lesson 16: Synchronize persistent and computed properties </h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1. Getting started</a> | <a
+        class="wiki_link" href="basic-domain-model1_en.html">2. Basic domain model (1)</a> | <a
+        class="wiki_link" href="basic-domain-model2_en.html">3. Basic domain model (2)</a> | <a
+        class="wiki_link" href="refining-user-interface_en.html">4. Refining the user interface</a> | <a
+        class="wiki_link" href="agile-development_en.html">5. Agile development</a> |&nbsp;<a
+        class="wiki_link" href="mapped-superclass-inheritance_en.html">6. Mapped superclass inheritance</a> | <a
+        class="wiki_link" href="entity-inheritance_en.html">7. Entity inheritance</a> | <a
+        class="wiki_link" href="view-inheritance_en.html">8. View inheritance</a> | <a
+        class="wiki_link" href="java-properties_en.html">9. Java properties</a> | <a
+        class="wiki_link" href="calculated-properties_en.html">10. Calculated properties </a> | <a
+        class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11. @DefaultValueCalculator in collections </a> | <a
+        class="wiki_link" href="calculation-and-collections-total_en.html">12. </a><a
+        class="wiki_link" href="calculation-and-collections-total_en.html">@Calculation and collections totals</a><a
+        class="wiki_link" href="calculation-and-collections-total_en.html"> </a> | <a
+        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file </a> | <a
+        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution </a> | <a
+        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation </a> | <strong>16. Synchronize persistent and computed properties </strong> | <a
+        class="wiki_link" href="logic-from-database_en.html">17. Logic from database&nbsp;</a> |<span
+        style="color: #0000ee;"></span><span style="color: #0000ee;"> </span><a
+        class="wiki_link" href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator&nbsp;</a> |&nbsp; <a
+        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
+        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
+        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
+        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
+        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
+        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
+        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
+        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
+        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
+        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
+        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+        class="wiki_link" href="testing_en.html">D. Automated testing</a><a
+        class="wiki_link" href="testing_en.html"></a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
-        <div style="margin-left: 1em;"><a href="#Lesson%2016:%20Synchronize%20persistent%20and%20computed%20properties">Lesson
-            16: Synchronize persistent and computed properties<br>
+        <div style="margin-left: 1em;"><a href="#Lesson%2016:%20Synchronize%20persistent%20and%20computed%20properties">Lesson 16: Synchronize persistent and computed properties<br>
           </a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods-Synchronizing%20persistent%20and%20calculated%20properties">Synchronizing
-            persistent and calculated properties</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-JPA%20callback%20methods-Synchronizing%20persistent%20and%20calculated%20properties">Synchronizing persistent and calculated properties</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%205:%20Basic%20business%20logic-Summary">Summary</a></div>
       </div>
     </div>
-    <div class="wiki" style="display: block;">In the previous lesson we learned
-      how to define default properties for development in multi-user
-      environments, using <i>JPA callbacks</i>. We will now see how to
-      synchronize both computed and persistent properties.<br>
+    <div class="wiki" style="display: block;">In the previous lesson we learned how to define default properties for development in multi-user environments, using <i>JPA callbacks</i>. We will now see how to synchronize both computed and persistent properties.<br>
       <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=k0neC8Q8VI4&amp;list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&amp;index=17"
           target="_blank"><img src="files/synchronize-persistent-and-computed-properties-video_en.png"
             title="Video for lesson 16: Synchronize persistent and calculated properties"></a><br>
       </div>
-      <div class="wiki" style="display: block;">If you don't like videos follow
-        the instructions below.</div>
+      <div class="wiki" style="display: block;">If you don't like videos follow the instructions below.</div>
       <div class="wiki" style="display: block;"><br>
       </div>
-      <h2 id="toc8"><a name="Lesson 5: Basic business logic-JPA callback methods-Synchronizing persistent and calculated properties"></a>Synchronizing
-        persistent and calculated properties</h2>
-      As we already have learned, calculated properties do not allow to filter
-      or ordering in list, so we prefer persistent properties with <i>@Calculation</i>.
-      However, <i>@Calculation</i> properties are only valid for simple
-      arithmetic calculations. When you need loops, condition, read from
-      database, connect to external services, or some complex logic, <i>@Calculation</i>
-      is not enough. For these cases you need to write the logic with Java, in
-      the getter. But, how we can do this and at the same time keep the ordering
-      and filtering in list? Simple, you can use two properties, one calculated
-      and one persistent, and synchronize both using JPA callback methods.
-      You're going to learn how to do it in this section.</div>
-    <div class="wiki" style="display: block;">Let's add a new property to <i>Order</i>
-      entity called <i>estimatedDeliveryDays</i>:</div>
+      <h2 id="toc8"><a name="Lesson 5: Basic business logic-JPA callback methods-Synchronizing persistent and calculated properties"></a>Synchronizing persistent and calculated properties</h2>
+      As we already have learned, calculated properties do not allow to filter or ordering in list, so we prefer persistent properties with <i>@Calculation</i>. However, <i>@Calculation</i> properties are only valid for simple arithmetic calculations. When you need loops, condition, read from database, connect to external services, or some complex logic, <i>@Calculation</i> is not enough. For these cases you need to write the logic with Java, in the getter. But, how we can do this and at the same time keep the ordering and filtering in list? Simple, you can use two properties, one calculated and one persistent, and synchronize both using JPA callback methods. You're going to learn how to do it in this section.</div>
+    <div class="wiki" style="display: block;">Let's add a new property to <i>Order</i> entity called <i>estimatedDeliveryDays</i>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@Depends("date")
 public int getEstimatedDeliveryDays() {
@@ -97,12 +76,8 @@ public int getEstimatedDeliveryDays() {
     return 1;
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;"> This is a pure calculated
-      property, a getter with Java logic. It calculates the estimated delivery
-      days using <i>date</i> as source. This case cannot be solved with <i>@Calculation</i>
-      that only supports basic arithmetic calculations. </div>
-    <div class="wiki" style="display: block;">We also have to add <i>estimatedDeliveryDays</i>
-      to the default <i>@View</i> declaration in <i>Order</i> code:</div>
+    <div class="wiki" style="display: block;"> This is a pure calculated property, a getter with Java logic. It calculates the estimated delivery days using <i>date</i> as source. This case cannot be solved with <i>@Calculation</i> that only supports basic arithmetic calculations. </div>
+    <div class="wiki" style="display: block;">We also have to add <i>estimatedDeliveryDays</i> to the default <i>@View</i> declaration in <i>Order</i> code:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@View(extendsView="super.DEFAULT", 
     members=
@@ -113,63 +88,36 @@ public int getEstimatedDeliveryDays() {
 public class Order extends CommercialDocument {
 </code></pre> </div>
     <div class="wiki" style="display: block;">The result is this:</div>
-    <img src="files/business-logic_en050.png" alt="business-logic_en050.png" title="business-logic_en050.png">
-    <div class="wiki" style="display: block;">The value is recalculated each
-      time the date changes in the user interface thanks to the <i>@Depends("date")</i>
-      in <i>estimatedDeliveryDays.</i> This is all very nice, but when you go
-      to list mode you cannot order or filter by estimated delivery days. To
-      solve this problem we add a second property, this time a persistent one.
-      Add the next code to your <i>Order</i> entity:</div>
+    <img src="files/business-logic_en050.png" alt="business-logic_en050.png"
+      title="business-logic_en050.png">
+    <div class="wiki" style="display: block;">The value is recalculated each time the date changes in the user interface thanks to the <i>@Depends("date")</i> in <i>estimatedDeliveryDays.</i> This is all very nice, but when you go to list mode you cannot order or filter by estimated delivery days. To solve this problem we add a second property, this time a persistent one. Add the next code to your <i>Order</i> entity:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@Column(columnDefinition="INTEGER DEFAULT 1")
 int deliveryDays;
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Note as we have used <i>@Column(columnDefinition="INTEGER
-        DEFAULT 1")</i>, with this trick when OpenXava creates the column uses
-      "INTEGER DEFAULT 1" as column definition, thus the new column has 1 as
-      default value instead of null, and we avoid an ugly error with our int
-      property. Yes, in many cases <i>@Column(columnDefinition=)</i> is an
-      alternative to do an UPDATE over the table (as we did in "Manual schema
-      evolution" section), although has the problem that is database dependent.
-      Anyways, this <i>columnDefinition</i> dissertation is tangential to our
-      calculated/persistent synchronization issue, <i>@Column</i> is not
-      required at all, it's just convenient for this int property.</div>
-    <div class="wiki" style="display: block;">This new <i>deliveryDays</i>
-      property will contain the same value as <em>estimatedDeliveryDays</em>,
-      but <i><em>deliveryDays</em></i> will be persistent with its
-      corresponding column in the database. The tricky issue here is to have the
-      <em>deliveryDays</em> property synchronized. We will use the JPA callback
-      methods in <em>Order</em> to achieve this. It's enough to assign the
-      value of <i>estimatedDeliveryDays</i> to <i>deliveryDays</i> each time
-      that a new <i>Order</i> is created (<i>@PrePersist</i>) or updated (<i>@PreUpdate</i>).
-      </div>
-    <div class="wiki" style="display: block;">Add a new <i>recalculateDeliveryDays()</i>
-      method to <i>Order</i> entity annotated with <i>@PrePersist</i> and <i>@PreUpdate</i>,
-      thus:<br>
+    <div class="wiki" style="display: block;">Note as we have used <i>@Column(columnDefinition="INTEGER DEFAULT 1")</i>, with this trick when OpenXava creates the column uses "INTEGER DEFAULT 1" as column definition, thus the new column has 1 as default value instead of null, and we avoid an ugly error with our int property. Yes, in many cases <i>@Column(columnDefinition=)</i> is an alternative to do an UPDATE over the table (as we did in "Manual schema evolution" section), although has the problem that is database dependent. Anyways, this <i>columnDefinition</i> dissertation is tangential to our calculated/persistent synchronization issue, <i>@Column</i> is not required at all, it's just convenient for this int property.</div>
+    <div class="wiki" style="display: block;">This new <i>deliveryDays</i> property will contain the same value as <em>estimatedDeliveryDays</em>, but <i><em>deliveryDays</em></i> will be persistent with its corresponding column in the database. The tricky issue here is to have the <em>deliveryDays</em> property synchronized. We will use the JPA callback methods in <em>Order</em> to achieve this. It's enough to assign the value of <i>estimatedDeliveryDays</i> to <i>deliveryDays</i> each time that a new <i>Order</i> is created (<i>@PrePersist</i>) or updated (<i>@PreUpdate</i>). </div>
+    <div class="wiki" style="display: block;">Add a new <i>recalculateDeliveryDays()</i> method to <i>Order</i> entity annotated with <i>@PrePersist</i> and <i>@PreUpdate</i>, thus:<br>
       <pre><code class="java">@PrePersist @PreUpdate 
 private void recalculateDeliveryDays() {
     setDeliveryDays(getEstimatedDeliveryDays());
 }
-</code></pre>Basically, the <i>recalculateDeliveryDays()</i> method is called
-      every time an <em>Order</em> entity is registered in the database for the
-      first time and when the order is updated.</div>
-    <div class="wiki" style="display: block;">You can try the <em>Order</em>
-      module with this code, and you will see how when a order is created or
-      modified, the column in the database for <em>deliveryDays</em> is
-      correctly updated after saving, ready to be used in massive processing and
-      available for ordering and filter in list.</div>
+</code></pre>Basically, the <i>recalculateDeliveryDays()</i> method is called every time an <em>Order</em> entity is registered in the database for the first time and when the order is updated.</div>
+    <div class="wiki" style="display: block;">You can try the <em>Order</em> module with this code, and you will see how when a order is created or modified, the column in the database for <em>deliveryDays</em> is correctly updated after saving, ready to be used in massive processing and available for ordering and filter in list.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Lesson 5: Basic business logic-Summary"></a>Summary</h2>
-      In this lesson you have learned how easy it is to use JPA callback methods
-      to define logic at different specific moments in the life cycle of an
-      entity, allowing us to synchronize persistent and calculated properties
-      when modifying an existing entity, or saving an entity for the first time.</div>
+      In this lesson you have learned how easy it is to use JPA callback methods to define logic at different specific moments in the life cycle of an entity, allowing us to synchronize persistent and calculated properties when modifying an existing entity, or saving an entity for the first time.</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <strong>Any problem with this
-        lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
-        <a class="wiki_link" href="logic-from-database_en.html">Go to Lesson 17</a></strong>
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+          href="https://github.com/openxava/openxava-course_en/tree/lesson-16"
+          rel="nofollow">Download source code of this lesson</a><br>
+      </strong></div>
+    <div class="wiki" style="display: block;"><strong></strong><br>
     </div>
+    <div class="wiki" style="display: block;"> <strong>Any problem with this lesson? <a
+          class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine? <a
+          class="wiki_link" href="logic-from-database_en.html">Go to Lesson 17</a></strong> </div>
   </body>
 </html>

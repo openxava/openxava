@@ -1,8 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lección 16: Sincronizar propiedades persistentes y calculadas -
-      OpenXava</title>
+    <title>Lección 16: Sincronizar propiedades persistentes y calculadas - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -10,81 +9,61 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Leccion-5-Logica-de-negocio-basica"></a> <span id="breadcrumbs">
-          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
-              </a> </span> / <a href="index_es.html">documentación</a> / </span>
-        Lección 16: Sincronizar propiedades persistentes y calculadas</h1>
-      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
-        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
-        Modelo básico del dominio (1)</a> | <a class="wiki_link" href="basic-domain-model2_es.html">3.
-        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
-        Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
-        Desarrollo ágil</a> | <a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
-        Herencia de superclases mapedas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
-        Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
-        Herencia de vistas</a> | <a class="wiki_link" href="java-properties_es.html">9.
-        Propiedades Java</a> | <a class="wiki_link" href="calculated-properties_es.html">10.
-        Propiedades calculadas</a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11.
-        @DefaultValueCalculator en colecciones</a> | <a class="wiki_link" href="calculation-and-collections-total_es.html">12.
-        @Calculation y totales de colección</a> |<a class="wiki_link" href="attributes-in-annotations_es.html"></a>
-      <span style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
-        @DefaultValueCalculator desde archivo</a> | <a class="wiki_link" href="manual-schema-evolution_es.html">14.
-        Evolución del esquema manual</a> | <a class="wiki_link" href="multi-user-default-value-calculation_es.html">15.
-        Cálculo de valor por defecto multiusuario</a><a class="wiki_link" href="multi-user-default-value-calculation_es.html"></a>
-      |<strong> 16. Sincronizar propiedades persistentes y calculadas </strong>|
-      <a class="wiki_link" href="logic-from-database_es.html">17. Lógica desde
-        la base de datos</a> | <a class="wiki_link" href="validating-with-entityvalidator_es.html">18.
-        Validando con @EntityValidator</a> | <a class="wiki_link" href="validation-alternatives_es.html">19.
-        Alternativas de validación&nbsp;</a> | <a class="wiki_link" href="validation-on-remove_es.html">20.
-        Validación al borrar&nbsp;</a> |&nbsp;<a class="wiki_link" href="custom-bean-validation-annotation_es.html">
-        21. Anotación Bean Validation propia</a> | <a class="wiki_link" href="rest-service-call-from-validation_es.html">22.
-        Llamada REST desde una validación&nbsp;</a> | <a class="wiki_link" href="attributes-in-annotations_es.html">23.
-        Atributos en anotaciones</a>&nbsp; | <a class="wiki_link" href="refining-standard-behavior_es.html">24.
-        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">25.
-        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">26.
-        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
-        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
-        Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
-        Anotaciones</a> | <a class="wiki_link" href="testing_es.html">D.
-        Pruebas automáticas</a><a class="wiki_link" href="testing_es.html"></a>
+      <h1 id="toc0"><a name="Leccion-5-Logica-de-negocio-basica"></a> <span
+          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_es.html">documentación</a> / </span> Lección 16: Sincronizar propiedades persistentes y calculadas</h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1. Primeros pasos</a> | <a
+        class="wiki_link" href="basic-domain-model1_es.html">2. Modelo básico del dominio (1)</a> | <a
+        class="wiki_link" href="basic-domain-model2_es.html">3. Modelo básico del dominio (2)</a> | <a
+        class="wiki_link" href="refining-user-interface_es.html">4. Refinar la interfaz de usuario</a> | <a
+        class="wiki_link" href="agile-development_es.html">5. Desarrollo ágil</a> | <a
+        class="wiki_link" href="mapped-superclass-inheritance_es.html">6. Herencia de superclases mapedas</a> | <a
+        class="wiki_link" href="entity-inheritance_es.html">7. Herencia de entidades</a> | <a
+        class="wiki_link" href="view-inheritance_es.html">8. Herencia de vistas</a> | <a
+        class="wiki_link" href="java-properties_es.html">9. Propiedades Java</a> | <a
+        class="wiki_link" href="calculated-properties_es.html">10. Propiedades calculadas</a> | <a
+        class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11. @DefaultValueCalculator en colecciones</a> | <a
+        class="wiki_link" href="calculation-and-collections-total_es.html">12. @Calculation y totales de colección</a> |<a
+        class="wiki_link" href="attributes-in-annotations_es.html"></a> <span
+        style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13. @DefaultValueCalculator desde archivo</a> | <a
+        class="wiki_link" href="manual-schema-evolution_es.html">14. Evolución del esquema manual</a> | <a
+        class="wiki_link" href="multi-user-default-value-calculation_es.html">15. Cálculo de valor por defecto multiusuario</a><a
+        class="wiki_link" href="multi-user-default-value-calculation_es.html"></a> |<strong> 16. Sincronizar propiedades persistentes y calculadas </strong>| <a
+        class="wiki_link" href="logic-from-database_es.html">17. Lógica desde la base de datos</a> | <a
+        class="wiki_link" href="validating-with-entityvalidator_es.html">18. Validando con @EntityValidator</a> | <a
+        class="wiki_link" href="validation-alternatives_es.html">19. Alternativas de validación&nbsp;</a> | <a
+        class="wiki_link" href="validation-on-remove_es.html">20. Validación al borrar&nbsp;</a> |&nbsp;<a
+        class="wiki_link" href="custom-bean-validation-annotation_es.html"> 21. Anotación Bean Validation propia</a> | <a
+        class="wiki_link" href="rest-service-call-from-validation_es.html">22. Llamada REST desde una validación&nbsp;</a> | <a
+        class="wiki_link" href="attributes-in-annotations_es.html">23. Atributos en anotaciones</a>&nbsp; | <a
+        class="wiki_link" href="refining-standard-behavior_es.html">24. Refinar el comportamiento predefinido</a> | <a
+        class="wiki_link" href="business-logic-behavior_es.html">25. Comportamiento y lógica de negocio</a> | <a
+        class="wiki_link" href="references-collections_es.html">26. Referencias y colecciones</a> | <a
+        class="wiki_link" href="philosophy_es.html">A. Arquitectura y filosofía</a> | <a
+        class="wiki_link" href="jpa_es.html">B. Java Persistence API</a> | <a
+        class="wiki_link" href="annotations_es.html">C. Anotaciones</a> | <a
+        class="wiki_link" href="testing_es.html">D. Pruebas automáticas</a><a
+        class="wiki_link" href="testing_es.html"></a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
         <div style="margin-left: 1em;"><a href="#Leccion-5-Logica-de-negocio-basica">Lección
-16:
-            Sincronizar propiedades persistentes y calculadas<br>
+            16: Sincronizar propiedades persistentes y calculadas<br>
           </a></div>
-        <div style="margin-left: 2em;"><a href="#Sincronizar-propiedades-persistentes-y-calculadas">Sincronizar
-            propiedades persistentes y calculadas</a><a href="#Metodos-de-retrollamadas-JPA-Calculo-de-valor-por-defecto-multiusuario"></a></div>
+        <div style="margin-left: 2em;"><a href="#Sincronizar-propiedades-persistentes-y-calculadas">Sincronizar propiedades persistentes y calculadas</a><a
+            href="#Metodos-de-retrollamadas-JPA-Calculo-de-valor-por-defecto-multiusuario"></a></div>
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
-      En la lección anterior aprendimos cómo definir propiedades por defecto
-      para el desarrollo en ambientes multiusuario, utilizando <i>retrollamadas
-        JPA</i>. Veremos ahora cómo sincronizar tanto propiedades calculadas
-      como persistentes.<br>
+      En la lección anterior aprendimos cómo definir propiedades por defecto para el desarrollo en ambientes multiusuario, utilizando <i>retrollamadas JPA</i>. Veremos ahora cómo sincronizar tanto propiedades calculadas como persistentes.<br>
       <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=y9o9MRF3_40&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=16"
           target="_blank"><img src="files/synchronize-persistent-and-computed-properties-video_es.png"
-            title="Video para la lección 16: Sincronizar propiedades persistentes y calculadas"></a>
-      </div>
-      <div class="wiki" style="display: block;">Si no te gustan los videos sigue
-        las instrucciones a continuación. </div>
+            title="Video para la lección 16: Sincronizar propiedades persistentes y calculadas"></a> </div>
+      <div class="wiki" style="display: block;">Si no te gustan los videos sigue las instrucciones a continuación. </div>
       <div class="wiki" style="display: block;"><br>
       </div>
-      <h2 id="Sincronizar-propiedades-persistentes-y-calculadas">Sincronizar
-        propiedades persistentes y calculadas</h2>
-      Como ya hemos aprendido, las propiedades calculadas no permiten filtrar ni
-      ordenar en la lista, por lo que preferimos propiedades persistentes con <i>@Calculation</i>.
-      Sin embargo, las propiedades <i>@Calculation</i> sólo sirven para
-      cálculos aritméticos simples. Cuando necesitas bucles, condiciones, leer
-      de la base de datos, conectar a servicios externos o cualquier lógica
-      compleja, <i>@Calculation</i> no es suficiente. Para estos casos
-      necesitas escribir la lógica con Java, en el getter. Pero, ¿cómo podemos
-      hacer esto y al mismo tiempo mantener la ordenación y el filtrado en la
-      lista? Fácil, puedes usar dos propiedades, una calculada y otra
-      persistente, y mantenerlas sincronizadas usando los métodos de
-      retrollamada de JPA. Vamos a aprender como hacerlo en esta sección.
-      <div class="wiki" style="display: block;">Añadamos un nueva propiedad a la
-        entidad <i>Pedido</i> llamada <i>diasEntregaEstimados</i>:</div>
+      <h2 id="Sincronizar-propiedades-persistentes-y-calculadas">Sincronizar propiedades persistentes y calculadas</h2>
+      Como ya hemos aprendido, las propiedades calculadas no permiten filtrar ni ordenar en la lista, por lo que preferimos propiedades persistentes con <i>@Calculation</i>. Sin embargo, las propiedades <i>@Calculation</i> sólo sirven para cálculos aritméticos simples. Cuando necesitas bucles, condiciones, leer de la base de datos, conectar a servicios externos o cualquier lógica compleja, <i>@Calculation</i> no es suficiente. Para estos casos necesitas escribir la lógica con Java, en el getter. Pero, ¿cómo podemos hacer esto y al mismo tiempo mantener la ordenación y el filtrado en la lista? Fácil, puedes usar dos propiedades, una calculada y otra persistente, y mantenerlas sincronizadas usando los métodos de retrollamada de JPA. Vamos a aprender como hacerlo en esta sección.
+      <div class="wiki" style="display: block;">Añadamos un nueva propiedad a la entidad <i>Pedido</i> llamada <i>diasEntregaEstimados</i>:</div>
       <div class="wiki" style="display: block;">
         <pre><code class="java">@Depends("fecha")
 public int getDiasEntregaEstimados() {
@@ -96,12 +75,8 @@ public int getDiasEntregaEstimados() {
     return 1;
 }
 </code></pre> </div>
-      <div class="wiki" style="display: block;"> Esto es una propiedad calculada
-        pura, un getter con lógica Java. Calcula los día estimados de entrega
-        usando <i>fecha</i> como fuente. Este caso no puede solucionarse con <i>@Calculation</i>
-        que solo soporta operaciones aritméticas básicas. </div>
-      <div class="wiki" style="display: block;">También hemos de añadir <i>diasEntregaEstimados</i>
-        a la declaración de la <i>@View</i> por defecto en el código de <i>Pedido</i>:</div>
+      <div class="wiki" style="display: block;"> Esto es una propiedad calculada pura, un getter con lógica Java. Calcula los día estimados de entrega usando <i>fecha</i> como fuente. Este caso no puede solucionarse con <i>@Calculation</i> que solo soporta operaciones aritméticas básicas. </div>
+      <div class="wiki" style="display: block;">También hemos de añadir <i>diasEntregaEstimados</i> a la declaración de la <i>@View</i> por defecto en el código de <i>Pedido</i>:</div>
       <div class="wiki" style="display: block;">
         <pre><code class="java">@View(extendsView="super.DEFAULT", 
     members=
@@ -112,64 +87,38 @@ public int getDiasEntregaEstimados() {
 public class Pedido extends DocumentoComercial {
 </code></pre> </div>
       <div class="wiki" style="display: block;">El resultado es este:</div>
-      <img src="files/business-logic_es050.png" alt="business-logic_es050.png" title="business-logic_es050.png">
-      <div class="wiki" style="display: block;">El valor se recalcula cada vez
-        que la fecha cambia en la interfaz de usuario gracias a el <i>@Depends("fecha")</i>
-        en <i>diasEntregaEstimados. </i>Todo esto está muy bien, pero cuando
-        vas al modo lista no puedes ordenar ni filtrar por días estimados de
-        entrega. Para solucionar este problema añadimos una segunda propiedad,
-        esta vez persistente. Agrega el siguiente código a tu entidad <i>Pedido</i>:<i><br>
+      <img src="files/business-logic_es050.png" alt="business-logic_es050.png"
+        title="business-logic_es050.png">
+      <div class="wiki" style="display: block;">El valor se recalcula cada vez que la fecha cambia en la interfaz de usuario gracias a el <i>@Depends("fecha")</i> en <i>diasEntregaEstimados. </i>Todo esto está muy bien, pero cuando vas al modo lista no puedes ordenar ni filtrar por días estimados de entrega. Para solucionar este problema añadimos una segunda propiedad, esta vez persistente. Agrega el siguiente código a tu entidad <i>Pedido</i>:<i><br>
         </i></div>
       <div class="wiki" style="display: block;">
         <pre><code class="java">@Column(columnDefinition="INTEGER DEFAULT 1")
 int diasEntrega;
 </code></pre> </div>
-      <div class="wiki" style="display: block;"> Ten en cuenta que hemos usado <i>@Column(columnDefinition="INTEGER
-          DEFAULT 1")</i>, con este truco cuando OpenXava crea la columna usa
-        "INTEGER DEFAULT 1" como definición de columna, por lo que la nueva
-        columna tiene 1 como valor predeterminado en lugar de nulo, y nosotros
-        evitamos un feo error con nuestra propiedad int. Sí, en muchos casos <i>@Column(columnDefinition=)</i>
-        es una alternativa para hacer una ACTUALIZACIÓN sobre la tabla (como
-        hicimos en la lección "Evolución manual del esquema"), aunque tiene el
-        problema de que depende de la base de datos. De todos modos, esta
-        disertación de <i>columnDefinition</i> es tangencial a nuestro problema
-        de sincronización calculada/persistente, <i>@Column</i> no es del todo
-        necesaria, solo es conveniente para nuestra propiedad int. Esta nueva
-        propiedad <i>diasEntrega</i> contendrá el mismo valor que <i>diasEntregaEstimados</i>,
-        pero <i>diasEntrega</i> será persistente con su columna correspondiente
-        en la base de datos. El truco está en mantener sincronizada la propiedad
-        <i>diasEntrega</i>. Usaremos los métodos de retrollamadas JPA en la
-        clase de Pedido. Basta con asignar el valor de <i>díasEntregaEstimados</i>
-        a <i>diasEntrega</i> cada vez que se crea un nuevo pedido (<i>@PrePersist</i>)
-        o se actualiza (<i>@PreUpdate</i>). Agreguemos un nuevo método <i>recalcularDiasEntrega()</i>
-        a la entidad de pedido anotada con <i>@PrePersist</i> y <i>@PreUpdate</i>,
-        por lo tanto: </div>
+      <div class="wiki" style="display: block;"> Ten en cuenta que hemos usado <i>@Column(columnDefinition="INTEGER DEFAULT 1")</i>, con este truco cuando OpenXava crea la columna usa "INTEGER DEFAULT 1" como definición de columna, por lo que la nueva columna tiene 1 como valor predeterminado en lugar de nulo, y nosotros evitamos un feo error con nuestra propiedad int. Sí, en muchos casos <i>@Column(columnDefinition=)</i> es una alternativa para hacer una ACTUALIZACIÓN sobre la tabla (como hicimos en la lección "Evolución manual del esquema"), aunque tiene el problema de que depende de la base de datos. De todos modos, esta disertación de <i>columnDefinition</i> es tangencial a nuestro problema de sincronización calculada/persistente, <i>@Column</i> no es del todo necesaria, solo es conveniente para nuestra propiedad int. Esta nueva propiedad <i>diasEntrega</i> contendrá el mismo valor que <i>diasEntregaEstimados</i>, pero <i>diasEntrega</i> será persistente con su columna correspondiente en la base de datos. El truco está en mantener sincronizada la propiedad <i>diasEntrega</i>. Usaremos los métodos de retrollamadas JPA en la clase de Pedido. Basta con asignar el valor de <i>díasEntregaEstimados</i> a <i>diasEntrega</i> cada vez que se crea un nuevo pedido (<i>@PrePersist</i>) o se actualiza (<i>@PreUpdate</i>). Agreguemos un nuevo método <i>recalcularDiasEntrega()</i> a la entidad de pedido anotada con <i>@PrePersist</i> y <i>@PreUpdate</i>, por lo tanto: </div>
       <pre><code class="java">@PrePersist @PreUpdate 
 private void recalcularDiasEntrega() {
     setDiasEntrega(getDiasEntregaEstimados());
 }
 </code></pre>
-      <div class="wiki" style="display: block;">Básicamente, el método <i>recalcularDiasEntrega()</i>
-        se llama cada vez que se registra una entidad de <i>Pedido</i> en la
-        base de datos por primera vez y cuando se actualiza el pedido. Puedes
-        probar el módulo <i>Pedido</i> con este código, y verás como cuando se
-        crea o modifica un pedido, la columna de la base de datos para <i>diasEntrega</i>
-        se actualiza correctamente después de guardar, lista para ser utilizada
-        en procesamiento masivo y disponible para ordenar y filtrar lista.<i><br>
+      <div class="wiki" style="display: block;">Básicamente, el método <i>recalcularDiasEntrega()</i> se llama cada vez que se registra una entidad de <i>Pedido</i> en la base de datos por primera vez y cuando se actualiza el pedido. Puedes probar el módulo <i>Pedido</i> con este código, y verás como cuando se crea o modifica un pedido, la columna de la base de datos para <i>diasEntrega</i> se actualiza correctamente después de guardar, lista para ser utilizada en procesamiento masivo y disponible para ordenar y filtrar lista.<i><br>
         </i></div>
       <h2> </h2>
     </div>
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Resumen"></a>Resumen</h2>
-      En esta lección has aprendido lo fácil que es utilizar métodos de
-      retrollamadas JPA para definir lógica en diferentes momentos específicos
-      del ciclo de vida de una entidad, permitiéndonos sincronizar propiedades
-      persistentes y calculadas al modificar una entidad ya existente, o grabar
-      por primera vez una entidad.<br>
-      <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
-        <a class="wiki_link" href="logic-from-database_es.html">Ve a la lección
-          17</a></strong> </div>
+      En esta lección has aprendido lo fácil que es utilizar métodos de retrollamadas JPA para definir lógica en diferentes momentos específicos del ciclo de vida de una entidad, permitiéndonos sincronizar propiedades persistentes y calculadas al modificar una entidad ya existente, o grabar por primera vez una entidad.<br>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_es/tree/leccion-16"
+          rel="nofollow">Descargar código fuente de esta lección</a></strong></div>
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+          href="https://github.com/openxava/openxava-course_es/tree/leccion-5"
+          rel="nofollow"><br>
+        </a></strong></div>
+    <div class="wiki" style="display: block;"><strong></strong> <strong>¿Problemas con la lección? <a
+          class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien? <a
+          class="wiki_link" href="logic-from-database_es.html">Ve a la lección 17</a></strong> </div>
   </body>
 </html>

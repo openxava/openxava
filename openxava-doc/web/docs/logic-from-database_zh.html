@@ -57,7 +57,7 @@
       @Calculation 或同步计算/持久属性的另一种替代方法是 @Formula 注解。 @Formula 是 JPA 标准的 Hibernate 扩展，它允许您将属性映射到 SQL 语句。例如，您可以在 CommercialDocument 中使用 @Formula 定义 estimatedProfit，如下：<br>
       <pre><code class="java">@org.hibernate.annotations.Formula("TOTALAMOUNT * 0.10") // 使用 SQL 计算
 @Setter(AccessLevel.NONE) // 只须 getter 所以不生成 setter
-@Stereotype("MONEY")
+@Money
 BigDecimal estimatedProfit; // 一个字段，像持久属性
 </code></pre> 这代表当从数据库中读取一个 CommercialDocument 时，estimatedProfit 字段将透过数据库由 @Formula 计算。用户可以在列表模式下通过 @Formula 的属性筛选或排序，不过它们始终是“只读”的，在详细信息模式下不会实时重新计算。由于它们是只读的，所以不需要 setter 方法，因此我们使用 @Setter(AccessLevel.NONE) 来防止 Lombok 生成 setter。此外，@Formula 的属性依赖数据库，因此您只能使用某些数据库支持的语法。</div>
     <div class="wiki" style="display: block;">
@@ -65,7 +65,7 @@ BigDecimal estimatedProfit; // 一个字段，像持久属性
       在本章中，您学到了一些向实体添加业务逻辑的常用方法。如计算属性、@Calculation、回调方法或@Formula 的用处。但是我们还有许多为您 OpenXava 应用程序添加逻辑的方法，之后会学习如何使用。<br>
       在往后的课程中，您将看如何添加验证、修改模块的标准行为和添加您自己的业务逻辑，以及在应用程序添加自定义逻辑的其他方法。<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-basic-business-logic_en.zip/download"
+      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_en/tree/lesson-17"
           rel="nofollow">下载本课源代码</a></strong><br>
       <br>
       <strong></strong><strong><strong><strong>对这节课有什么问题吗？ <a class="wiki_link_ext"
