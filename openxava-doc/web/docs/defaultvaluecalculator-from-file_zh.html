@@ -61,7 +61,7 @@
         <h2 id="toc5"><a name="Lesson 5: Basic business logic-Calculated properties-Default value from a properties file"></a>从属性文件中的默认值</h2>
         为 vatPercentage 设置默认值对用户很方便。您可以使用一个返回固定值的计算器（如 @DefaultValueCalculator），但在这种情况下，更改默认值意味着更改代码。或者，您可以从数据库中读取默认值（从计算器中使用 JPA），但在这种情况下，更改默认值意味着更新数据库表。<br>
         另一种选择是将此配置值存储在一个属性文件中，该文件具有"键 = 值"的对。在这种情况下，更改 vatPercentage 的默认值跟编辑文件一样简单。<br>
-        让我们实现属性文件的选项。在 invoicing/src/main/resources文件夹中创建一个名为 invoicing.properties 的文件，其中包含以下内容：<br>
+        让我们实现属性文件的选项。在 invoicing/src/main/resources 文件夹中创建一个名为 invoicing.properties 的文件，其中包含以下内容：<br>
         <pre><code class="properties">defaultVatPercentage=6
 </code></pre> 尽管可以使用 Java 中的 java.util.Properties 类来读取此文件，但我们更想自定义类来读取这些属性。我们将这类命名为 InvoicingPreferences，并将它放在一个名为 com.yourcompany.invoicing.util 的新包中。以下是此类的代码：<br>
         <pre><code class="java">package com.yourcompany.invoicing.util; // 在 'util' 包

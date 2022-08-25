@@ -109,7 +109,7 @@ public class DeliveredToBeInInvoiceValidator
     }
 
 }
-</code></pre> 验证的逻辑非常简单：如果已经有发票但该订单未标记为已送达时，我们会添加一条错误的消息，因此验证将失败。您应该在 Invoicing/i18n/Invoicing-messages_zh.properties 文件中添加错误消息并将 Invoicing-messages_en.properties 文件删除。如下所示：<br>
+</code></pre> 验证的逻辑非常简单：如果已经有发票但该订单未标记为已送达时，我们会添加一条错误的消息，因此验证将失败。您应该在 invoicing/src/main/resources/i18n/invoicing-messages_zh.properties 文件中添加错误消息并将 invoicing-messages_en.properties 文件删除。如下所示：<br>
       <pre><code class="properties"># Messages for the Invoicing application
 order_must_be_delivered=订单 {0}/{1} 必须已送达才能添加到发票中<br><br>//在这里，以上中文会以unicode（統一碼）显示 &lt; 请勿复制这行<br></code></pre>
       现在您可以尝试将订单添加到一个发票中，您将看到未送达的订单是如何被拒绝的。之后转到 Order 模块，选择发票的订单选项卡，然后点击增加：</div>
@@ -132,8 +132,16 @@ order_must_be_delivered=订单 {0}/{1} 必须已送达才能添加到发票中<b
     <div class="wiki" style="display: block;">
       <h2 id="toc20"><a name="Lesson 6: Advanced validation-Summary"></a>总结</h2>
       您已经有使用 @EntityValidator 的验证了。这并不难，但有点“冗长”，因为为了添加两行代码就得编写一个新的类。不过，这是一个很大的突破。在下一章，我们将看一些使用此验证更简单的方法。<br>
-      <br>
-      <strong><strong><strong>对这节课有什么问题吗？ <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+    </div>
+    <div class="wiki" style="display: block;"><br>
+      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_en/tree/lesson-18"
+          rel="nofollow">下载本课源代码</a></strong></div>
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+          href="https://github.com/openxava/openxava-course_en/tree/lesson-5"
+          rel="nofollow"><br>
+        </a></strong></div>
+    <div class="wiki" style="display: block;"><strong></strong> <strong><strong><strong>对这节课有什么问题吗？ <a
+              class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
               rel="nofollow">前往轮譠</a></strong> <strong></strong></strong></strong><strong><strong><strong><strong><strong><strong>一切都顺利吗？ </strong></strong></strong><strong><strong><strong><strong><a
                       class="wiki_link" href="validation-alternatives_zh.html">前往第十九章</a></strong></strong></strong></strong></strong></strong></strong><a
         class="wiki_link" href="validation-alternatives_en.html"><strong></strong></a> </div>

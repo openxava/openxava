@@ -9,83 +9,61 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Lesson 6: Advanced validation"></a> <span id="breadcrumbs">
-          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
-              </a> </span> / <a href="index_en.html">documentation</a> / </span>
-        Lesson 18: Validating with @EntityValidator </h1>
-      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
-        Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
-        Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
-        Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
-        Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
-        Agile development</a> |&nbsp;<a class="wiki_link" href="mapped-superclass-inheritance_en.html">6.
-        Mapped superclass inheritance</a> | <a class="wiki_link" href="entity-inheritance_en.html">7.
-        Entity inheritance</a> | <a class="wiki_link" href="view-inheritance_en.html">8.
-        View inheritance</a> | <a class="wiki_link" href="java-properties_en.html">9.
-        Java properties</a> | <a class="wiki_link" href="calculated-properties_en.html">10.
-        Calculated properties </a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11.
-        @DefaultValueCalculator in collections </a> | <a class="wiki_link" href="calculation-and-collections-total_en.html">12.
-        @Calculation and collections totals </a> | <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13.
-        @DefaultValueCalculator from file </a> | <a class="wiki_link" href="manual-schema-evolution_en.html">14.
-        Manual schema evolution </a> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">15.
-        Multi user default value calculation </a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16.
-        Synchronize persistent and computed propierties </a> | <a class="wiki_link"
-
-        href="logic-from-database_en.html">17. Logic from database </a> | <strong>18.
-        Validating with @EntityValidator </strong>|&nbsp; <a class="wiki_link"
-
-        href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a>
-      | <a class="wiki_link" href="validation-on-remove_en.html">20. Validation
-        on remove&nbsp;</a> |&nbsp;<a class="wiki_link" href="custom-bean-validation-annotation_en.html">
-        21. Custom Bean Validation annotation&nbsp;</a> | <a class="wiki_link"
-
-        href="rest-service-call-from-validation_en.html">22. REST service call
-        from validation&nbsp;</a> | <a class="wiki_link" href="attributes-in-annotations_en.html">23.
-        Attributes in annotations&nbsp;</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">24.
-        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">25.
-        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">26.
-        References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
-        Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
-        Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
-        Annotations</a> | <a class="wiki_link" href="testing_en.html">D.
-        Automated testing</a>
+      <h1 id="toc0"><a name="Lesson 6: Advanced validation"></a> <span
+          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_en.html">documentation</a> / </span> Lesson 18: Validating with @EntityValidator </h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1. Getting started</a> | <a
+        class="wiki_link" href="basic-domain-model1_en.html">2. Basic domain model (1)</a> | <a
+        class="wiki_link" href="basic-domain-model2_en.html">3. Basic domain model (2)</a> | <a
+        class="wiki_link" href="refining-user-interface_en.html">4. Refining the user interface</a> | <a
+        class="wiki_link" href="agile-development_en.html">5. Agile development</a> |&nbsp;<a
+        class="wiki_link" href="mapped-superclass-inheritance_en.html">6. Mapped superclass inheritance</a> | <a
+        class="wiki_link" href="entity-inheritance_en.html">7. Entity inheritance</a> | <a
+        class="wiki_link" href="view-inheritance_en.html">8. View inheritance</a> | <a
+        class="wiki_link" href="java-properties_en.html">9. Java properties</a> | <a
+        class="wiki_link" href="calculated-properties_en.html">10. Calculated properties </a> | <a
+        class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11. @DefaultValueCalculator in collections </a> | <a
+        class="wiki_link" href="calculation-and-collections-total_en.html">12. @Calculation and collections totals </a> | <a
+        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file </a> | <a
+        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution </a> | <a
+        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation </a> | <a
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed propierties </a> | <a
+        class="wiki_link" href="logic-from-database_en.html">17. Logic from database </a> | <strong>18. Validating with @EntityValidator </strong>|&nbsp; <a
+        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
+        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
+        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
+        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
+        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
+        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
+        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
+        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
+        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
+        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
+        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+        class="wiki_link" href="testing_en.html">D. Automated testing</a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
-        <div style="margin-left: 1em;"><a href="#Lesson%206:%20Advanced%20validation">Lesson
-            18: Validating with @EntityValidator <br>
+        <div style="margin-left: 1em;"><a href="#Lesson%206:%20Advanced%20validation">Lesson 18: Validating with @EntityValidator <br>
           </a></div>
-        <div style="margin-left: 2em;"><a href="#our-validation">Our
-            validation&nbsp; <br>
+        <div style="margin-left: 2em;"><a href="#our-validation">Our validation&nbsp; <br>
           </a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Adding%20delivered//%20property%20to%20//Order">Adding
-            delivered property to Order</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Validating%20with%20@EntityValidator">Validating
-            with @EntityValidator</a></div>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#Lesson%206:%20Advanced%20validation-Summary">Summary</a>
-      </div>
-      So far we have only done some basic validations using the <i>@Required</i>
-      annotation. In this lesson you are going to learn to validate using the
-      annotation <i>@EntityValidator.</i></div>
-    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=rWZNTf7Sw9E&amp;list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&amp;index=17"
-
-        target="_blank"><img src="files/validating-with-entityvalidator-video_en.png"
-
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Adding%20delivered//%20property%20to%20//Order">Adding delivered property to Order</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Validating%20with%20@EntityValidator">Validating with @EntityValidator</a></div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#Lesson%206:%20Advanced%20validation-Summary">Summary</a> </div>
+      So far we have only done some basic validations using the <i>@Required</i> annotation. In this lesson you are going to learn to validate using the annotation <i>@EntityValidator.</i></div>
+    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=rWZNTf7Sw9E&amp;list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&amp;index=17"
+        target="_blank"><img src="files/validating-with-entityvalidator-video_en.png"
           title="Video for lesson 18: Validating with @EntityValidator"></a><br>
       If you don't like videos follow the instructions below. </div>
     <div class="wiki" style="display: block;">
       <h2 id="our-validation">Our validation</h2>
-      We are going to enhance your code with this logic: if the orders are not
-      delivered yet, then the user cannot assign them to an invoice. That is,
-      only delivered orders can be associated with an invoice.<br>
-      <h2 id="toc2"><a name="Lesson 6: Advanced validation-Validation alternatives-Adding delivered// property to //Order"></a>Adding
-        <em>delivered</em> property to <em>Order</em></h2>
-      First you have to add a new property to the <em>Order</em> entity. The <em>delivered</em>
-      property:<br>
+      We are going to enhance your code with this logic: if the orders are not delivered yet, then the user cannot assign them to an invoice. That is, only delivered orders can be associated with an invoice.<br>
+      <h2 id="toc2"><a name="Lesson 6: Advanced validation-Validation alternatives-Adding delivered// property to //Order"></a>Adding <em>delivered</em> property to <em>Order</em></h2>
+      First you have to add a new property to the <em>Order</em> entity. The <em>delivered</em> property:<br>
       <pre><code class="java">@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
 boolean delivered;
-</code></pre> Moreover it's necessary to add the <em>delivered</em> property to
-      the view. Modify the <em>Order</em> view as shown in the following code:<br>
+</code></pre> Moreover it's necessary to add the <em>delivered</em> property to the view. Modify the <em>Order</em> view as shown in the following code:<br>
       <pre><code class="java">@View(extendsView="super.DEFAULT", 
     members=
         "estimatedDeliveryDays, delivered," + // Add delivered
@@ -93,19 +71,10 @@ boolean delivered;
 )
 ...
 public class Order extends CommercialDocument {
-</code></pre> There is a new <em>delivered</em> property now which indicates
-      the delivery state of an order. Try the new code and mark some of the
-      existing orders as delivered.<br>
-      <h2 id="toc3"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating with @EntityValidator"></a>Validating
-        with <em>@EntityValidator</em></h2>
-      Up to now the user can add any order to any invoice from the <em>Invoice</em>
-      module, and he can associate a particular invoice with any order from the
-      <em>Order</em> module. We are going to restrict this: only delivered
-      orders are allowed to be added to an invoice.<br>
-      The first alternative to implement this validation is by using an <i>@EntityValidator</i>.
-      This annotation allows you to assign the desired validation logic to your
-      entity. Let's annotate the <em>Order</em> entity as show in following
-      code:<br>
+</code></pre> There is a new <em>delivered</em> property now which indicates the delivery state of an order. Try the new code and mark some of the existing orders as delivered.<br>
+      <h2 id="toc3"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating with @EntityValidator"></a>Validating with <em>@EntityValidator</em></h2>
+      Up to now the user can add any order to any invoice from the <em>Invoice</em> module, and he can associate a particular invoice with any order from the <em>Order</em> module. We are going to restrict this: only delivered orders are allowed to be added to an invoice.<br>
+      The first alternative to implement this validation is by using an <i>@EntityValidator</i>. This annotation allows you to assign the desired validation logic to your entity. Let's annotate the <em>Order</em> entity as show in following code:<br>
       <pre><code class="java">@EntityValidator(
     value=com.yourcompany.invoicing.validators.DeliveredToBeInInvoiceValidator.class, // The class with the validation logic
     properties= {
@@ -116,14 +85,7 @@ public class Order extends CommercialDocument {
     }
 )
 public class Order extends CommercialDocument {
-</code></pre><em></em>Every time an <em>Order</em> object is created or
-      modified an object of type <em>DeliveredToBeInInvoiceValidator</em> is
-      created. Then its properties <em>year</em>, <em>number</em>, <em>invoice</em>
-      and <em>delivered</em> are initialized with the properties of the same
-      name from the <em>Order</em> object. After that, the <i>validate()</i>
-      method of the validator is executed. Let's write the validator code, first
-      create the <i>com.yourcompany.invoicing.validators</i> package, then put
-      the next class inside:<br>
+</code></pre><em></em>Every time an <em>Order</em> object is created or modified an object of type <em>DeliveredToBeInInvoiceValidator</em> is created. Then its properties <em>year</em>, <em>number</em>, <em>invoice</em> and <em>delivered</em> are initialized with the properties of the same name from the <em>Order</em> object. After that, the <i>validate()</i> method of the validator is executed. Let's write the validator code, first create the <i>com.yourcompany.invoicing.validators</i> package, then put the next class inside:<br>
       <pre><code class="java">package com.yourcompany.invoicing.validators; // In 'validators' package
 
 import com.yourcompany.invoicing.model.*;
@@ -152,39 +114,32 @@ public class DeliveredToBeInInvoiceValidator
     }
 
 }
-</code></pre> The validation logic is absolutely straightforward: if an invoice
-      is present and this order is not marked as delivered we add an error
-      message, so the validation will fail. You should add the error message in
-      the <em>Invoicing/i18n/Invoicing-messages_en.properties</em> file. As
-      shown below:<br>
+</code></pre> The validation logic is absolutely straightforward: if an invoice is present and this order is not marked as delivered we add an error message, so the validation will fail. You should add the error message in the <em>invoicing/src/main/resources/i18n/invoicing-messages_en.properties</em> file. As shown below:<br>
       <pre><code class="properties"># Messages for the Invoicing application
 order_must_be_delivered=Order {0}/{1} must be delivered in order to be added to an Invoice
-</code></pre> Now you can try to add orders to an invoice with the application,
-      you will see how the undelivered orders are rejected. Go to <i>Invoices</i>
-      module, select the ORDERS tab of an invoice, and from there click on <i>Add</i>
-      button:</div>
-    <div class="wiki" style="display: block;"> <img src="files/validation_en010.png"
-
+</code></pre> Now you can try to add orders to an invoice with the application, you will see how the undelivered orders are rejected. Go to <i>Invoices</i> module, select the ORDERS tab of an invoice, and from there click on <i>Add</i> button:</div>
+    <div class="wiki" style="display: block;"> <img src="files/validation_en010.png"
         alt="validation_en010.png" title="validation_en010.png"></div>
-    <div class="wiki" style="display: block;">It will show a dialog with a list
-      of orders to choose from. Choose two, one of them not delivered yet, then
-      click on ADD:</div>
+    <div class="wiki" style="display: block;">It will show a dialog with a list of orders to choose from. Choose two, one of them not delivered yet, then click on ADD:</div>
     <img src="files/validation_en013.png" alt="validation_en013.png" title="validation_en013.png">
-    <div class="wiki" style="display: block;">Then the delivered order is added
-      and the other rejected, producing the next messages:</div>
+    <div class="wiki" style="display: block;">Then the delivered order is added and the other rejected, producing the next messages:</div>
     <img src="files/validation_en017.png" alt="validation_en017.png" title="validation_en017.png"><br>
     <div class="wiki" style="display: block;">
       <h2 id="toc20"><a name="Lesson 6: Advanced validation-Summary"></a>Summary</h2>
-      Your validation is implemented correctly with <i>@EntityValidator</i>.
-      It's not difficult, but a little “verbose”, because you need to write a
-      “fully featured” new class merely to add 2 lines of code logic. This is a
-      great advance. In the next lesson we are going to look at easier ways of
-      executing the same validation. <br>
-      <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
-          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
-      </strong><a class="wiki_link" href="validation-alternatives_en.html"><strong>Go
-          to lesson 19</strong></a> </div>
+      Your validation is implemented correctly with <i>@EntityValidator</i>. It's not difficult, but a little “verbose”, because you need to write a “fully featured” new class merely to add 2 lines of code logic. This is a great advance. In the next lesson we are going to look at easier ways of executing the same validation. <br>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+          href="https://github.com/openxava/openxava-course_en/tree/lesson-18"
+          rel="nofollow">Download source code of this lesson</a></strong></div>
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+          href="https://github.com/openxava/openxava-course_en/tree/lesson-7"
+          rel="nofollow"><br>
+        </a></strong></div>
+    <div class="wiki" style="display: block;"><strong></strong> <strong>Any problem with this lesson? <a
+          class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine? </strong><a
+        class="wiki_link" href="validation-alternatives_en.html"><strong>Go to lesson 19</strong></a> </div>
   </body>
 </html>

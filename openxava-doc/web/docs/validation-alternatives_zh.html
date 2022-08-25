@@ -160,7 +160,7 @@ private boolean isDeliveredToBeInInvoice() {
 </code></pre> </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;">在之前的验证方法中，错误的消息是使用两个参数构造的（year 和 number），它们在 i18n 文件中，分别代表 {0}/{1}。而对于带有@AssertTrue 的验证方法，我们不能使用这两个参数来构造我们的错误消息，但我们可以在消息的定义中声明 已验证 bean 的属性和合格属性（properties 和 qualified properties），因此须在 Invoicing-messages_zh.properties 中，把：<br>
+    <div class="wiki" style="display: block;">在之前的验证方法中，错误的消息是使用两个参数构造的（year 和 number），它们在 i18n 文件中，分别代表 {0}/{1}。而对于带有@AssertTrue 的验证方法，我们不能使用这两个参数来构造我们的错误消息，但我们可以在消息的定义中声明 已验证 bean 的属性和合格属性（properties 和 qualified properties），因此须在 invoicing-messages_zh.properties 中，把：<br>
       <pre><code class="properties">order_must_be_delivered=订单 {0}/{1} 必须已送达才能添加到发票中
 </code></pre> </div>
     <div class="wiki" style="display: block;">更改为：</div>
@@ -171,9 +171,16 @@ private boolean isDeliveredToBeInInvoice() {
       这是最简单的验证方法，因为只需对带有验证的方法进行注释。数据校验会负责在保存时调用该方法，如果验证不成功则抛出相应的 ValidationException。<br>
       <h2 id="toc20"><a name="Lesson 6: Advanced validation-Summary"></a>总结</h2>
       在本章，您学到了几种在 OpenXava 应用程序中进行验证的方法。在下一课中，您将学习如何在移除时进行验证，由此您将已探索所有类型的验证。<br>
-      <br>
-      <strong>A</strong><strong><strong><strong>对这节课有什么问题吗？ <a class="wiki_link_ext"
-              href="http://sourceforge.net/p/openxava/discussion/419690/"
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+          href="https://github.com/openxava/openxava-course_en/tree/lesson-19"
+          rel="nofollow">下载本课源代码</a></strong></div>
+    <div class="wiki" style="display: block;"><strong><br>
+      </strong></div>
+    <div class="wiki" style="display: block;"><strong></strong> <strong>A</strong><strong><strong><strong>对这节课有什么问题吗？ <a
+              class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
               rel="nofollow">前往轮譠</a></strong> <strong></strong></strong></strong><strong><strong><strong><strong><strong><strong>一切都顺利吗？ </strong></strong></strong></strong></strong></strong><strong><strong><strong><a
               class="wiki_link_ext" href="validation-on-remove_en.html"
               rel="nofollow">前往第二十章</a></strong></strong></strong> </div>
