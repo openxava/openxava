@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Duplicate entry removed from i18n files.
 - Fix: Extra blank space in "hide them" link in list mode.
 - Fix: Module does not start showing a browser error with a headless Java, like the default one in Ubuntu.
 - Tomcat 10 support.
