@@ -2,6 +2,8 @@ package org.openxava.test.tests;
 
 import org.openxava.tests.*;
 
+import com.gargoylesoftware.htmlunit.html.*;
+
 /**
  * 
  * @author Javier Paniza
@@ -26,6 +28,7 @@ public class AccountingInvoiceTest extends ModuleTestBase {
 
 		execute("List.viewDetail", "row=0");
 		assertValue("description", "INVOICE 1");
+		assertDescriptionIsTextArea(); // tmr
 		
 		assertCollectionRowCount("receipts", 0);
 		execute("Collection.add", "viewObject=xava_view_receipts");
@@ -40,6 +43,11 @@ public class AccountingInvoiceTest extends ModuleTestBase {
 		assertValue("description", "DOCUMENT 1");
 		assertCollectionRowCount("positions", 1);
 		assertValueInCollection("positions", 0, 0, "POSITION 1");
+	}
+
+	private void assertDescriptionIsTextArea() {
+		HtmlElement el = getHtmlPage().getHtmlElementById("ox_openxavatest_AccountingInvoice__description");
+		assertTrue(el instanceof HtmlTextArea);
 	}
 					
 }
