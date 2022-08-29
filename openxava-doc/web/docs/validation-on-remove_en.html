@@ -9,82 +9,60 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Lesson 6: Advanced validation"></a> <span id="breadcrumbs">
-          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
-              </a> </span> / <a href="index_en.html">documentation</a> / </span>
-        Lesson 20: Validation on remove</h1>
-      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
-        Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
-        Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
-        Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
-        Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
-        Agile development</a> |&nbsp;<a class="wiki_link" href="mapped-superclass-inheritance_en.html">6.
-        Mapped superclass inheritance</a> | <a class="wiki_link" href="entity-inheritance_en.html">7.
-        Entity inheritance</a> | <a class="wiki_link" href="view-inheritance_en.html">8.
-        View inheritance</a> | <a class="wiki_link" href="java-properties_en.html">9.
-        Java properties</a> | <a class="wiki_link" href="calculated-properties_en.html">10.
-        Calculated properties </a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11.
-        @DefaultValueCalculator in collections </a> | <a class="wiki_link" href="calculation-and-collections-total_en.html">12.
-        @Calculation and collections totals </a> | <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13.
-        @DefaultValueCalculator from file </a> | <a class="wiki_link" href="manual-schema-evolution_en.html">14.
-        Manual schema evolution </a> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">15.
-        Multi user default value calculation </a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16.
-        Synchronize persistent and computed propierties </a> | <a class="wiki_link"
-
-        href="logic-from-database_en.html">17. Logic from database</a> |<span style="color: #0000ee;"></span><span
-
-        style="color: #0000ee;"> </span><a class="wiki_link" href="validating-with-entityvalidator_en.html">18.
-        Validating with @EntityValidator&nbsp;</a> |&nbsp; <a class="wiki_link"
-
-        href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a>
-      | <strong>20. Validation on remove </strong>|&nbsp;<a class="wiki_link"
-
-        href="custom-bean-validation-annotation_en.html"> 21. Custom Bean
-        Validation annotation&nbsp;</a> | <a class="wiki_link" href="rest-service-call-from-validation_en.html">22.
-        REST service call from validation&nbsp;</a> | <a class="wiki_link" href="attributes-in-annotations_en.html">23.
-        Attributes in annotations&nbsp;</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">24.
-        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">25.
-        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">26.
-        References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
-        Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
-        Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
-        Annotations</a> | <a class="wiki_link" href="testing_en.html">D.
-        Automated testing</a><a class="wiki_link" href="testing_en.html"></a>
+      <h1 id="toc0"><a name="Lesson 6: Advanced validation"></a> <span
+          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_en.html">documentation</a> / </span> Lesson 20: Validation on remove</h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1. Getting started</a> | <a
+        class="wiki_link" href="basic-domain-model1_en.html">2. Basic domain model (1)</a> | <a
+        class="wiki_link" href="basic-domain-model2_en.html">3. Basic domain model (2)</a> | <a
+        class="wiki_link" href="refining-user-interface_en.html">4. Refining the user interface</a> | <a
+        class="wiki_link" href="agile-development_en.html">5. Agile development</a> |&nbsp;<a
+        class="wiki_link" href="mapped-superclass-inheritance_en.html">6. Mapped superclass inheritance</a> | <a
+        class="wiki_link" href="entity-inheritance_en.html">7. Entity inheritance</a> | <a
+        class="wiki_link" href="view-inheritance_en.html">8. View inheritance</a> | <a
+        class="wiki_link" href="java-properties_en.html">9. Java properties</a> | <a
+        class="wiki_link" href="calculated-properties_en.html">10. Calculated properties </a> | <a
+        class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11. @DefaultValueCalculator in collections </a> | <a
+        class="wiki_link" href="calculation-and-collections-total_en.html">12. @Calculation and collections totals </a> | <a
+        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file </a> | <a
+        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution </a> | <a
+        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation </a> | <a
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed propierties </a> | <a
+        class="wiki_link" href="logic-from-database_en.html">17. Logic from database</a> |<span
+        style="color: #0000ee;"></span><span style="color: #0000ee;"> </span><a
+        class="wiki_link" href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator&nbsp;</a> |&nbsp; <a
+        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <strong>20. Validation on remove </strong>|&nbsp;<a
+        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
+        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
+        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
+        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
+        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
+        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
+        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
+        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
+        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+        class="wiki_link" href="testing_en.html">D. Automated testing</a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
-        <div style="margin-left: 1em;"><a href="#Lesson%206:%20Advanced%20validation">Lesson
-            20: Validation on remove<br>
+        <div style="margin-left: 1em;"><a href="#Lesson%206:%20Advanced%20validation">Lesson 20: Validation on remove<br>
           </a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Validating%20on%20removal%20with%20@RemoveValidator">Validating
-            on removal with @RemoveValidator</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Validating%20on%20removal%20with%20a%20JPA%20callback%20method">Validating
-            on removal with a JPA callback method</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-What%27s%20the%20best%20way%20of%20validating?">What's
-            the best way of validating?</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Validating%20on%20removal%20with%20@RemoveValidator">Validating on removal with @RemoveValidator</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Validating%20on%20removal%20with%20a%20JPA%20callback%20method">Validating on removal with a JPA callback method</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-What%27s%20the%20best%20way%20of%20validating?">What's the best way of validating?</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Summary">Summary</a></div>
       </div>
-      In the last lesson we looked at validation alternatives to perform on
-      save. In this lesson we are going to look at validation on remove. <a href="https://www.youtube.com/watch?v=VYFfLFuylQo&list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&index=21"
-
-        target="_blank"><img src="files/validation-on-remove-video_en.png"
-
+      In the last lesson we looked at validation alternatives to perform on save. In this lesson we are going to look at validation on remove. <a
+        href="https://www.youtube.com/watch?v=VYFfLFuylQo&amp;list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&amp;index=21"
+        target="_blank"><img src="files/validation-on-remove-video_en.png"
           title="Video for lesson 20: Validation on remove"></a><br>
       If you don't like videos follow the instructions below.
-      <h2 id="toc7"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating on removal with @RemoveValidator"></a>Validating
-        on removal with <em>@RemoveValidator</em></h2>
-      The validations we have seen until now are processed when the entity is
-      modified, but sometimes it's useful or it's required to process the
-      validation before the removal of the entity, and to use the validation to
-      cancel the entity removal.<br>
-      We are going to modify the application to reject the removal of an order
-      if it has an invoice associated. To achieve this annotate your <em>Order</em>
-      entity with <i>@RemoveValidator</i>, as show in following code:<br>
+      <h2 id="toc7"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating on removal with @RemoveValidator"></a>Validating on removal with <em>@RemoveValidator</em></h2>
+      The validations we have seen until now are processed when the entity is modified, but sometimes it's useful or it's required to process the validation before the removal of the entity, and to use the validation to cancel the entity removal.<br>
+      We are going to modify the application to reject the removal of an order if it has an invoice associated. To achieve this annotate your <em>Order</em> entity with <i>@RemoveValidator</i>, as show in following code:<br>
       <pre><code class="java">@RemoveValidator(com.yourcompany.invoicing.validators.OrderRemoveValidator.class) // The class with the validation
 public class Order extends CommercialDocument {
-</code></pre>Now, before removing an order the logic in <em>OrderRemoveValidator</em>
-      is executed, and if validation fails the order is not removed. Let's look
-      at the code for the validator:<br>
+</code></pre>Now, before removing an order the logic in <em>OrderRemoveValidator</em> is executed, and if validation fails the order is not removed. Let's look at the code for the validator:<br>
       <pre><code class="java">package com.yourcompany.invoicing.validators; // In 'validators' package
 
 import com.yourcompany.invoicing.model.*;
@@ -112,31 +90,16 @@ public class OrderRemoveValidator
         }
     }
 }
-</code></pre> The validation logic is in the <i>validate()</i> method. Before
-      calling the entity to be validated, it is injected using <i>setEntity()</i>.
-      If messages are added to the <i>errors</i> object the validation will
-      fail and the entity will not be removed. You have to add the error message
-      in the <em>Invoicing/i18n/Invoicing-messages_en.properties</em> file:<br>
+</code></pre> The validation logic is in the <i>validate()</i> method. Before calling the entity to be validated, it is injected using <i>setEntity()</i>. If messages are added to the <i>errors</i> object the validation will fail and the entity will not be removed. You have to add the error message in the <em>invoicing/src/main/resources/i18n/invoicing-messages_en.properties</em> file:<br>
       <pre><code class="properties">cannot_delete_order_with_invoice=An order with an invoice cannot be deleted
-</code></pre> If you try to remove an order with an associated invoice now, you
-      will get an error message and the removal will be rejected.<br>
-      You can see that using a <i>@RemoveValidator</i> is not difficult but
-      verbose. You have to write a full new class to add a simple if. Let's
-      examine a briefer alternative.<br>
-      <h2 id="toc8"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating on removal with a JPA callback method"></a>Validating
-        on removal with a JPA callback method</h2>
-      We're going to try another, maybe simpler, way to do this removal
-      validation just by moving the validation logic from the validator class to
-      the <em>Order</em> entity itself, in this case in a <i>@PreRemove</i>
-      method.<br>
-      First, remove the <em>OrderRemoveValidator</em> class from your project.
-      Also remove the <i>@RemoveValidator</i> annotation from your <em>Order</em>
-      entity:<br>
+</code></pre> If you try to remove an order with an associated invoice now, you will get an error message and the removal will be rejected.<br>
+      You can see that using a <i>@RemoveValidator</i> is not difficult but verbose. You have to write a full new class to add a simple if. Let's examine a briefer alternative.<br>
+      <h2 id="toc8"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating on removal with a JPA callback method"></a>Validating on removal with a JPA callback method</h2>
+      We're going to try another, maybe simpler, way to do this removal validation just by moving the validation logic from the validator class to the <em>Order</em> entity itself, in this case in a <i>@PreRemove</i> method.<br>
+      First, remove the <em>OrderRemoveValidator</em> class from your project. Also remove the <i>@RemoveValidator</i> annotation from your <em>Order</em> entity:<br>
       <pre><code class="java">//@RemoveValidator(com.yourcompany.invoicing.validators.OrderRemoveValidator.class) // Remove the @RemoveValidator
 public class Order extends CommercialDocument {
-</code></pre> We have just removed the validation. Let's add the functionality
-      again, but now inside the <em>Order</em> class itself. Add the <em>validateOnRemove()</em>
-      method in your <em>Order</em> class:<br>
+</code></pre> We have just removed the validation. Let's add the functionality again, but now inside the <em>Order</em> class itself. Add the <em>validateOnRemove()</em> method in your <em>Order</em> class:<br>
       <pre><code class="java">@PreRemove // Just before removing the entity
 private void validateOnRemove() {
     if (invoice != null) { // The validation logic
@@ -145,32 +108,21 @@ private void validateOnRemove() {
                 "cannot_delete_order_with_invoice"));
     }
 }
-</code></pre> This validation will be processed before the removal of an order.
-      If it fails a <i>ValidationException</i> is thrown. You can throw any
-      runtime exception in order to abort the removal. You have done the
-      validation with a single method inside the entity.<br>
-      <h2 id="toc9"><a name="Lesson 6: Advanced validation-Validation alternatives-What's the best way of validating?"></a>What's
-        the best way of validating?</h2>
-      You have learned several ways to do validations in your model classes.
-      Which of them is the best one? All of them are valid options. It depends
-      on your circumstances and personal preferences. If you have a validation
-      that is non-trivial and reusable across your application, then to use <i>@EntityValidator</i>
-      and <i>@RemoveValidator</i> is a good option. On the other hand, if you
-      want to use your model classes from outside OpenXava and without JPA, then
-      the use of validation in setters is better.<br>
-      In our example we'll use the <i>@AssertTrue</i> for the “delivered to be
-      in invoice” validation and <i>@PreRemove</i> for the removal validation,
-      because this is the simplest procedure.<br>
+</code></pre> This validation will be processed before the removal of an order. If it fails a <i>ValidationException</i> is thrown. You can throw any runtime exception in order to abort the removal. You have done the validation with a single method inside the entity.<br>
+      <h2 id="toc9"><a name="Lesson 6: Advanced validation-Validation alternatives-What's the best way of validating?"></a>What's the best way of validating?</h2>
+      You have learned several ways to do validations in your model classes. Which of them is the best one? All of them are valid options. It depends on your circumstances and personal preferences. If you have a validation that is non-trivial and reusable across your application, then to use <i>@EntityValidator</i> and <i>@RemoveValidator</i> is a good option. On the other hand, if you want to use your model classes from outside OpenXava and without JPA, then the use of validation in setters is better.<br>
+      In our example we'll use the <i>@AssertTrue</i> for the “delivered to be in invoice” validation and <i>@PreRemove</i> for the removal validation, because this is the simplest procedure.<br>
       <h2 id="toc20"><a name="Lesson 6: Advanced validation-Summary"></a>Summary</h2>
-      In this lesson you have learned several ways to do validation in an
-      OpenXava application. In the next lesson you are going to learn how to
-      create your own custom bean validation.This can actually be very
-      useful!&nbsp; <br>
-      <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
-          rel="nofollow">Ask in the forum</a></strong> <strong>Everything
-        fine?&nbsp;</strong><a class="wiki_link" href="custom-bean-validation-annotation_en.html">
-        <strong>Go to lesson 21</strong></a> </div>
+      In this lesson you have learned several ways to do validation in an OpenXava application. In the next lesson you are going to learn how to create your own custom bean validation.This can actually be very useful!&nbsp; <br>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+          href="https://github.com/openxava/openxava-course_en/tree/lesson-20"
+          rel="nofollow">Download source code of this lesson</a></strong></div>
+    <div class="wiki" style="display: block;"><br>
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?&nbsp;</strong><a
+        class="wiki_link" href="custom-bean-validation-annotation_en.html"> <strong>Go to lesson 21</strong></a> </div>
   </body>
 </html>

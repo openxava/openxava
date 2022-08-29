@@ -1,0 +1,162 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>OpenXava 第二十章：删除时验证</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Lesson 6: Advanced validation"></a> <span
+
+          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
+            href="index_zh.html">文档</a> / </span>第二十章：删除时验证</h1>
+      <strong>课程：</strong><a class="wiki_link" href="getting-started_zh.html">1. 入门教学</a> | <a
+
+        class="wiki_link" href="basic-domain-model1_zh.html">2. 基本域模型（上）</a> | <a
+
+        class="wiki_link" href="basic-domain-model2_zh.html">3. 基本域模型（下）</a> | <a
+
+        class="wiki_link" href="refining-user-interface_zh.html">4. 优化用户界面</a> | <a
+
+        class="wiki_link" href="agile-development_zh.html">5. 敏捷开发</a> | <a
+
+        class="wiki_link" href="mapped-superclass-inheritance_zh.html">6. 映射式超类继承</a> | <a
+
+        class="wiki_link" href="entity-inheritance_zh.html">7. 实体继承</a> | <a
+
+        class="wiki_link" href="view-inheritance_zh.html">8. 视图继承（View）</a> | <a
+
+        class="wiki_link" href="java-properties_zh.html">9. Java 属性</a> | <a
+
+        class="wiki_link" href="calculated-properties_zh.html">10. 计算属性</a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-in-collections_zh.html">11. 用在集合的 @DefaultValueCalculator</a><strong> </strong> | <a
+
+        class="wiki_link" href="calculation-and-collections-total_zh.html">12. @Calculation 和集合总计</a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-from-file_zh.html">13. 从外部文件的 @DefaultValueCalculator</a> | <a
+
+        class="wiki_link" href="manual-schema-evolution_zh.html">14. 手动更改 schema</a> | <a
+
+        class="wiki_link" href="multi-user-default-value-calculation_zh.html">15. 多用户时默认值的计算</a> | <a
+
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_zh.html">16. 同步持久属性和计算属性</a> | <a
+
+        class="wiki_link" href="logic-from-database_zh.html">17. 从数据库中的逻辑</a> |<span
+
+        style="color: #0000ee;"></span><span style="color: #0000ee;"> </span><a
+
+        class="wiki_link" href="validating-with-entityvalidator_zh.html">18. 使用 @EntityValidator 进行验证</a> | <a
+
+        class="wiki_link" href="validation-alternatives_zh.html">19. 验证替代方案</a> | <strong>20. 删除时验证 </strong>|&nbsp;<a
+
+        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. 自定义 Bean Validation 注解</a> | <a
+
+        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
+
+        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
+
+        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
+
+        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
+
+        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
+
+        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
+
+        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
+
+        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+
+        class="wiki_link" href="testing_en.html">D. Automated testing</a>
+      <hr>
+      <div id="toc">
+        <h1 class="nopad">目录</h1>
+        <div style="margin-left: 1em;"><a href="#Lesson%206:%20Advanced%20validation">第二十章：删除时验证<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Validating%20on%20removal%20with%20@RemoveValidator">删除时使用 @RemoveValidator 验证</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Validating%20on%20removal%20with%20a%20JPA%20callback%20method">删除时使用 JPA 回调方法验证</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-What%27s%20the%20best%20way%20of%20validating?">哪一个是最佳的验证方法？</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Summary">总结</a></div>
+      </div>
+      在上一章，我们学到在保存时验证的替代方案。在本章，我们将研究在删除时的验证。<br>
+      <h2 id="toc7"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating on removal with @RemoveValidator"></a>删除时使用 @RemoveValidator 验证<em></em></h2>
+      到目前为止我们所看到的验证都是在实体被修改时执行的，但有时在需要删除实体之前执行验证，并使用它来取消实体删除。<br>
+      我们将修改应用程序，当订单有关联的发票时会拒绝删除订单。要实现这一点，得用 @RemoveValidator 注释 Order 实体，如下：<br>
+      <pre><code class="java">@RemoveValidator(com.yourcompany.invoicing.validators.OrderRemoveValidator.class) // 带有验证的类
+public class Order extends CommercialDocument {
+</code></pre>现现在，在删除订单之前，会执行 OrderRemoveValidator 中的逻辑，如果验证失败，则不会删除订单。我们看看验证器的代码：<br>
+      <pre><code class="java">package com.yourcompany.invoicing.validators; // 在验证器包
+
+import com.yourcompany.invoicing.model.*;
+import org.openxava.util.*;
+import org.openxava.validators.*;
+ 
+public class OrderRemoveValidator
+    implements IRemoveValidator { // 必须实现 IRemoveValidator
+ 
+    private Order order;
+ 
+    public void setEntity(Object entity) // 在验证之前将使用此方法注入要移除的实体
+        throws Exception 
+    {
+        this.order = (Order) entity;
+    }
+ 
+    public void validate(Messages errors) // 验证逻辑
+        throws Exception
+    {
+        if (order.getInvoice() != null) {
+            // 通过在errors添加消息，验证将失败並而中止刪除
+            errors.add("cannot_delete_order_with_invoice");
+        }
+    }
+}
+</code></pre> 验证的逻辑在 validate() 方法中。在调用它之前，要验证的实体会使用 setEntity() 注入。如果在 errors 中添加消息，则验证将失败并且实体不会被删除。您必须在 invoicing/src/main/resources/i18n/invoicing-messages_zh.properties 文件中添加：<br>
+      <pre><code class="properties">cannot_delete_order_with_invoice=无法删除带有发票的订单
+</code></pre> 如果您现在尝试删除带有关联发票的订单，您将收到一条错误消息，并且不会删除。<br>
+      如您所见，使用 @RemoveValidator 并不难，但很冗长。您必须编写一个全新的类来添加一个简单的 if。现在让我们研究一个更简短的替代方案<br>
+      <h2 id="toc8"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating on removal with a JPA callback method"></a>删除时使用 JPA 回调方法验证</h2>
+      我们将尝试用另一种更简单的方法来执行删除时的验证，只需将验证逻辑从验证器类移动到 Order 实体，在本例中为 @PreRemove 方法。<br>
+      首先，从您的项目中删除 OrderRemoveValidator 类。还要从您的 Order 实体中删除 @RemoveValidator 注释：<br>
+      <pre><code class="java">//@RemoveValidator(com.yourcompany.invoicing.validators.OrderRemoveValidator.class) // 删除 @RemoveValidator
+public class Order extends CommercialDocument {
+</code></pre> 我们刚刚把验证删除了。现在我们再次添加此功能，但现在是在 Order 类中添加 validateOnRemove() 方法：<br>
+      <pre><code class="java">@PreRemove // 在删除实体前
+private void validateOnRemove() {
+    if (invoice != null) { // 验证逻辑
+        throw new javax.validation.ValidationException( // 抛出运行时异常
+            XavaResources.getString( // 並获取消息
+                "cannot_delete_order_with_invoice"));
+    }
+}
+</code></pre> 此验证将在删除订单之前执行。如果失败，则会抛出 ValidationException。您可以抛出任何运行时异常以中止删除。只需在实体中添加一个方法就能实行验证了。<br>
+      <h2 id="toc9"><a name="Lesson 6: Advanced validation-Validation alternatives-What's the best way of validating?"></a>哪一个是最佳的验证方法？</h2>
+      您已经学到了几种在模型类中进行验证的方法。至于哪一个是最好的？它们都是最佳的选项。因为这取决于您面对的情况和个人喜好。如果您有一个重要且可在整个应用程序中重复使用的验证，那么使用 @EntityValidator 和 @RemoveValidator 是一个不错的选择。另一方面，如果你想在 OpenXava 之外使用你的模型类而不使用 JPA，那么在 setter 中使用验证会更好。<br>
+      在我们的示例中，我们使用 @AssertTrue 进行"订单须已送达才能添加至发票中"的验证，并使用 @PreRemove 进行删除时的验证，因为这是最简单的方案。<br>
+      <h2 id="toc20"><a name="Lesson 6: Advanced validation-Summary"></a>总结</h2>
+      在本章，您学到了几种在 OpenXava 应用程序中进行验证的方法。在下一章，您将学习如何创建自定义的 Bean Validation。这会非常有用！<br>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+
+          href="https://github.com/openxava/openxava-course_en/tree/lesson-20"
+
+          rel="nofollow">下载本课源代码</a></strong></div>
+    <div class="wiki" style="display: block;"><br>
+      <strong></strong><strong><strong><strong>对这节课有什么问题吗？ <a class="wiki_link_ext"
+
+              href="http://sourceforge.net/p/openxava/discussion/419690/"
+
+              rel="nofollow">前往论譠</a></strong> <strong></strong></strong></strong><strong><strong><strong><strong><strong><strong>一切都顺利吗？ </strong></strong></strong></strong></strong></strong><strong></strong><strong><strong><strong><strong><strong><strong> </strong></strong></strong></strong></strong></strong><strong><strong><strong><a
+
+              class="wiki_link_ext" href="custom-bean-validation-annotation_zh.html"
+
+              rel="nofollow">前往第二十一章</a></strong></strong></strong> </div>
+  </body>
+</html>

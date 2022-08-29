@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Lesson 19: Validation alternatives- OpenXava</title>
+    <title>OpenXava 第十九章：验证替代方案</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,38 +9,69 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Lesson 6: Advanced validation"></a> <span
-          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1 id="toc0"><a name="Lesson 6: Advanced validation"></a> <span
+
+          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
             href="index_zh.html">文档</a> / </span>第十九章：验证替代方案</h1>
-      <strong>课程：</strong><a class="wiki_link" href="getting-started_zh.html">1. 入门教学</a> | <a
-        class="wiki_link" href="basic-domain-model1_zh.html">2. 基本域模型（上）</a> | <a
-        class="wiki_link" href="basic-domain-model2_zh.html">3. 基本域模型（下）</a> | <a
-        class="wiki_link" href="refining-user-interface_zh.html">4. 优化用户界面</a> | <a
-        class="wiki_link" href="agile-development_zh.html">5. 敏捷开发</a> | <a
-        class="wiki_link" href="mapped-superclass-inheritance_zh.html">6. 映射式超类继承</a> | <a
-        class="wiki_link" href="entity-inheritance_zh.html">7. 实体继承</a> | <a
-        class="wiki_link" href="view-inheritance_zh.html">8. 视图继承（View）</a> | <a
-        class="wiki_link" href="java-properties_zh.html">9. Java 属性</a> | <a
-        class="wiki_link" href="calculated-properties_zh.html">10. 计算属性</a> | <a
-        class="wiki_link" href="defaultvaluecalculator-in-collections_zh.html">11. 用在集合的 @DefaultValueCalculator</a><strong> </strong> | <a
-        class="wiki_link" href="calculation-and-collections-total_zh.html">12. @Calculation 和集合总计</a> | <a
-        class="wiki_link" href="defaultvaluecalculator-from-file_zh.html">13. 从外部文件的 @DefaultValueCalculator</a> | <a
-        class="wiki_link" href="manual-schema-evolution_zh.html">14. 手动更改 schema</a> | <a
-        class="wiki_link" href="multi-user-default-value-calculation_zh.html">15. 多用户时默认值的计算</a> | <a
-        class="wiki_link" href="synchronize-persistent-and-computed-properties_zh.html">16. 同步持久属性和计算属性</a> | <a
-        class="wiki_link" href="logic-from-database_zh.html">17. 从数据库中的逻辑</a> |<span
-        style="color: #0000ee;"></span><span style="color: #0000ee;"> </span><a
-        class="wiki_link" href="validating-with-entityvalidator_zh.html">18. 使用 @EntityValidator 进行验证</a> | <strong>19. 验证替代方案 </strong>| <a
-        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
-        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
-        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
-        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
-        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
-        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
-        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
-        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
-        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
-        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+      <strong>课程：</strong><a class="wiki_link" href="getting-started_zh.html">1. 入门教学</a> | <a
+
+        class="wiki_link" href="basic-domain-model1_zh.html">2. 基本域模型（上）</a> | <a
+
+        class="wiki_link" href="basic-domain-model2_zh.html">3. 基本域模型（下）</a> | <a
+
+        class="wiki_link" href="refining-user-interface_zh.html">4. 优化用户界面</a> | <a
+
+        class="wiki_link" href="agile-development_zh.html">5. 敏捷开发</a> | <a
+
+        class="wiki_link" href="mapped-superclass-inheritance_zh.html">6. 映射式超类继承</a> | <a
+
+        class="wiki_link" href="entity-inheritance_zh.html">7. 实体继承</a> | <a
+
+        class="wiki_link" href="view-inheritance_zh.html">8. 视图继承（View）</a> | <a
+
+        class="wiki_link" href="java-properties_zh.html">9. Java 属性</a> | <a
+
+        class="wiki_link" href="calculated-properties_zh.html">10. 计算属性</a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-in-collections_zh.html">11. 用在集合的 @DefaultValueCalculator</a><strong> </strong> | <a
+
+        class="wiki_link" href="calculation-and-collections-total_zh.html">12. @Calculation 和集合总计</a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-from-file_zh.html">13. 从外部文件的 @DefaultValueCalculator</a> | <a
+
+        class="wiki_link" href="manual-schema-evolution_zh.html">14. 手动更改 schema</a> | <a
+
+        class="wiki_link" href="multi-user-default-value-calculation_zh.html">15. 多用户时默认值的计算</a> | <a
+
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_zh.html">16. 同步持久属性和计算属性</a> | <a
+
+        class="wiki_link" href="logic-from-database_zh.html">17. 从数据库中的逻辑</a> |<span
+
+        style="color: #0000ee;"></span><span style="color: #0000ee;"> </span><a
+
+        class="wiki_link" href="validating-with-entityvalidator_zh.html">18. 使用 @EntityValidator 进行验证</a> | <strong>19. 验证替代方案 </strong>| <a
+
+        class="wiki_link" href="validation-on-remove_zh.html">20. 删除时验证</a> |&nbsp;<a
+
+        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. 自定义 Bean Validation 注解</a> | <a
+
+        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
+
+        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
+
+        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
+
+        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
+
+        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
+
+        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
+
+        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
+
+        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+
         class="wiki_link" href="testing_en.html">D. Automated testing</a>
       <hr>
       <div id="toc">
@@ -49,7 +80,7 @@
           </a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Validating%20with%20a%20JPA%20callback%20method">使用 JPA 回调方法进行验证</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Validating%20in%20the%20setter">在 setter 中验证</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Validating%20with%20Bean%20Validation">使用数据校验（Bean Validation）进行验证</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Validating%20with%20Bean%20Validation">使用 Bean Validation 进行验证</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Summary">总结</a></div>
       </div>
       在上一章，您了解到如何使用 @EntityValidator 进行验证。在本章，您将学到如何更轻松的执行相同的验证。<br>
@@ -70,7 +101,7 @@ public class Order extends CommercialDocument {
       <pre><code class="java">@PrePersist @PreUpdate // 在新建或更改之前
 private void validate()  throws Exception {
     if (invoice != null &amp;&amp; !isDelivered()) { // 验证逻辑
-        // Bean Validation 数据校验的验证异常
+        // Bean Validation 的验证异常
         throw new javax.validation.ValidationException(
             XavaResources.getString(
                 "order_must_be_delivered",
@@ -104,7 +135,7 @@ private void recalculateDeliveryDays() {
 // @PrePersist @PreUpdate // 在新建或更改之前
 // private void validate()  throws Exception {
 //     if (invoice != null &amp;&amp; !isDelivered()) { // 验证逻辑
-//         // Bean Validation 数据校验的验证异常
+//         // Bean Validation 的验证异常
 //         throw new javax.validation.ValidationException(
 //             XavaResources.getString( 
 //                 "order_must_be_delivered",
@@ -118,7 +149,7 @@ private void recalculateDeliveryDays() {
     <div class="wiki" style="display: block;">再来将以下 setter：setInvoice() 方法添加到 Order：<br>
       <pre><code class="java">public void setInvoice(Invoice invoice) {
     if (invoice != null &amp;&amp; !isDelivered()) { // 验证逻辑
-        // Bean Validation 数据校验的验证异常
+        // Bean Validation 的验证异常
         throw new javax.validation.ValidationException(
             XavaResources.getString(
                 "order_must_be_delivered",
@@ -130,7 +161,7 @@ private void recalculateDeliveryDays() {
     this.invoice = invoice; // 常规的setter
 }
 </code></pre> 这与上两个方法的运作方式完全相同。这一个很像 @PrePersist/@PreUpdate 的方案，只是它不依赖 JPA，它是一个基本 Java 的实现。<br>
-      <h2 id="toc6"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating with Bean Validation"></a>使用数据校验（Bean Validation）进行验证<em></em></h2>
+      <h2 id="toc6"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating with Bean Validation"></a>使用 Bean Validation 进行验证<em></em></h2>
       作为最后一个选项，也是最短的一个：是将验证逻辑放在一个使用数据校验 @AssertTrue 注解的布尔方法（boolean）。<br>
       要实现这个方案，首先删除 setInvoice() 方法：</div>
     <div class="wiki" style="display: block;">
@@ -138,7 +169,7 @@ private void recalculateDeliveryDays() {
 
 // public void setInvoice(Invoice invoice) {
 //    if (invoice != null &amp;&amp; !isDelivered()) { // 验证逻辑
-//        // Bean Validation 数据校验的验证异常
+//        // Bean Validation 的验证异常
 //        throw new javax.validation.ValidationException(
 //            XavaResources.getString(
 //                "order_must_be_delivered",
@@ -174,15 +205,21 @@ private boolean isDeliveredToBeInInvoice() {
     </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
-          href="https://github.com/openxava/openxava-course_en/tree/lesson-19"
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+
+          href="https://github.com/openxava/openxava-course_en/tree/lesson-19"
+
           rel="nofollow">下载本课源代码</a></strong></div>
     <div class="wiki" style="display: block;"><strong><br>
       </strong></div>
-    <div class="wiki" style="display: block;"><strong></strong> <strong>A</strong><strong><strong><strong>对这节课有什么问题吗？ <a
-              class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-              rel="nofollow">前往轮譠</a></strong> <strong></strong></strong></strong><strong><strong><strong><strong><strong><strong>一切都顺利吗？ </strong></strong></strong></strong></strong></strong><strong><strong><strong><a
-              class="wiki_link_ext" href="validation-on-remove_en.html"
+    <div class="wiki" style="display: block;"><strong></strong> <strong></strong><strong><strong><strong>对这节课有什么问题吗？ <a
+
+              class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
+              rel="nofollow">前往论譠</a></strong> <strong></strong></strong></strong><strong><strong><strong><strong><strong><strong>一切都顺利吗？ </strong></strong></strong></strong></strong></strong><strong><strong><strong><a
+
+              class="wiki_link_ext" href="validation-on-remove_zh.html"
+
               rel="nofollow">前往第二十章</a></strong></strong></strong> </div>
   </body>
 </html>
