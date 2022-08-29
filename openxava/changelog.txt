@@ -28,7 +28,7 @@ Change Log for OpenXava project
 - Hibernate Envers upgraded to 5.6.10.
 - HSQLDB embedded database upgraded to 2.6.1.
 - Lesson 18 of course divided into several smaller lessons.
-- Lessons 1 to 19 of course translated to Chinese.
+- Lessons 1 to 21 of course translated to Chinese.
 - Removed XHibernate and HibernatePersistenceProvider, though Hibernate API is still available.
 - Removed JDBCTabProvider, used to get list data via JDBC, only used for XML components.
 - Dropped support for Tomcat 7.
