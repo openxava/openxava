@@ -32,8 +32,8 @@
         style="color: #0000ee;"> </span><a class="wiki_link" href="validating-with-entityvalidator_zh.html">18. 使用 @EntityValidator 进行验证</a> | <a
         class="wiki_link" href="validation-alternatives_zh.html">19. 验证替代方案</a> | <a
         class="wiki_link" href="validation-on-remove_zh.html">20. 删除时验证</a> |&nbsp;<a
-        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. 自定义 Bean Validation 注解</a> | <a
-        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
+        class="wiki_link" href="custom-bean-validation-annotation_zh.html"> 21. 自定义 Bean Validation 注解</a> | <a
+        class="wiki_link" href="rest-service-call-from-validation_zh.html">22. 在验证中调用 REST 服务</a> | <a
         class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
         class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
         class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
@@ -237,6 +237,12 @@ Collection&lt;Detail&gt; details;
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;"></span><img
         src="files/modeling_zh105.png" alt="modeling_zh100.png" title="modeling_zh100.png"></div>
     <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">这新的标签 product.number 会在所有使用它的模块中更改，如果我们只想在 Invoice 实体中的详情集合裡更改，应该使用以下标签：
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">// 在本应用程序我们将使用上一个标签，而不是以下这个<br></code><code
+class="java">Invoice.details.product.number= 产品编号</code></pre>
+      </div>
     </div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">这样，我们就可以自定义OpenXava 给我们的默认标签或是创建自己的标签。</span><span
         style="line-height: 1.5;"></span>
