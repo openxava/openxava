@@ -25,7 +25,7 @@ public class AccountingDocument extends Identifiable {
 	
 	@Required
 	@Column(length = 40)
-	@TextArea // tmr
+	@TextArea 
 	private String description;
 	
 	@OneToMany(mappedBy="document",  cascade=CascadeType.ALL, orphanRemoval=true)

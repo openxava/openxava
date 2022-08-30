@@ -346,7 +346,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		if (getMetaModel() == null) return null;
 		Annotation[] result = null;
 		try {
-			AnnotatedElement element = getMetaModel().getPOJOClass().getDeclaredField(getSimpleName());
+			AnnotatedElement element = Classes.getField(getMetaModel().getPOJOClass(), getSimpleName()); 
 			result = element.getAnnotations();
 		} 
 		catch (NoSuchFieldException ex) {

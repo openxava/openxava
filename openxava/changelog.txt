@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Editors for annotations do not work for child classes using inheritance.
+- New method getField() in Classes utility class.
 - Fix: Tooltip for page numbers always says "First page".
 - Fix: Duplicate entry removed from i18n files.
 - Fix: Extra blank space in "hide them" link in list mode.

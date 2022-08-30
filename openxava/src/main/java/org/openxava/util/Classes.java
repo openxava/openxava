@@ -37,6 +37,24 @@ public class Classes {
 		return result;
 	}
 	
+	/**
+	 * Get a field of the specified class or any of its subclasses, even if it is private.  
+	 * 
+	 * @param theClass  Class where we want to get the field
+	 * @return fieldName  Name of the field we want to get
+	 * @throws NoSuchFieldException  If the field is not present in theClass and in any of its subclasses
+	 * @since 7.0
+	 */	
+	public static Field getField(Class theClass, String fieldName) throws NoSuchFieldException { 
+		try {
+			return theClass.getDeclaredField(fieldName);
+		} 
+		catch (NoSuchFieldException ex) {
+			if (theClass.equals(Object.class)) throw ex;
+			return getField(theClass.getSuperclass(), fieldName);
+		}
+	}
+	
 	private static void fillFieldsAnnotatedWith(Collection<Field> result, Class theClass, Class<? extends Annotation> annotation) {
 		if (Object.class.equals(theClass)) return;
 		for (Field field: theClass.getDeclaredFields()) {

@@ -15,7 +15,7 @@ public class AccountingInvoiceTest extends ModuleTestBase {
 		super(testName, "AccountingInvoice");		
 	}
 			
-	public void testManyToManyNotRemoveEntityWhenReferencedEntityIsAlsoAOneToManyCascadeRemoveFromOtherEntity_excludeMembersOfParentOfCollectionOnAddingColumnsUsingInheritance() throws Exception {
+	public void testManyToManyNotRemoveEntityWhenReferencedEntityIsAlsoAOneToManyCascadeRemoveFromOtherEntity_excludeMembersOfParentOfCollectionOnAddingColumnsUsingInheritance_editorForAnnotationWithInheritance() throws Exception {
 		execute("List.addColumns");
 		assertNoAction("AddColumns.showMoreColumns");
 		// We could have more columns if we modify the model, 
@@ -28,7 +28,7 @@ public class AccountingInvoiceTest extends ModuleTestBase {
 
 		execute("List.viewDetail", "row=0");
 		assertValue("description", "INVOICE 1");
-		assertDescriptionIsTextArea(); // tmr
+		assertDescriptionIsTextArea(); 
 		
 		assertCollectionRowCount("receipts", 0);
 		execute("Collection.add", "viewObject=xava_view_receipts");
