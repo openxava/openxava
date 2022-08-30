@@ -109,8 +109,8 @@ public class ISBNValidator
             return !response.equals("{}"); // JSON 是空的吗？对于我们的情况来说已经足够了。
         }
         catch (Exception ex) {
-            log.warn("Impossible to connect to openlibrary.org " +
-                "to validate the ISBN. Validation fails", ex);
+            log.warn("无法连线至 openlibrary.org " +
+                "验证 ISBN. 验证失败", ex);
             return false; // 如果有错误，验证则失败
         }
     }
