@@ -15,7 +15,7 @@ Change Log for OpenXava project
 - Embedded Tomcat used in development upgraded to 9.0.65.		
 - Hibernate Validator upgraded to 6.0.23.		
 - Groovy upgraded to 4.0.4.		
-- jsoup upgraded to 1.15.2.
+- jsoup upgraded to 1.15.3.
 - Apache PDFBox upgraded to 2.0.26.		
 - Apache Commons Validator upgraded to 1.7.		
 - JavaMail upgraded to 1.6.7.				
