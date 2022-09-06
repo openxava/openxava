@@ -12,97 +12,79 @@
       <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
           / </span> Configuration for Microsoft SQL Server </h1>
-      Configuring your OpenXava application to go against MS SQL Server is very
-      simple, basically you have to install the JDBC driver for MS SQL Server
-      and define correctly the datasource. You don't need to touch any code of
-      your application.</div>
-    <div class="wiki" style="display: block;">We assume you have already
-      installed and running MS SQL Server.<br>
-      <h2 id="toc1">Download the JDBC driver for MS SQL Server</h2>
-      <p>Download the MS SQL Server driver from here: <a href="https://docs.microsoft.com/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server">https://docs.microsoft.com/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server</a></p>
-      You will download a file like this: <i>sqljdbc_7.4.1.0_enu.exe</i> (the
-      version numbers may vary) that is a self-extracting file for Windows or <i>sqljdbc_7.4.1.0_enu.tar.gz</i>
-      for Linux/Mac. Uncompress it to find inside a file called <i>mssql-jdbc-7.4.1.jre8.jar</i>
-      (or so), this last file, the .jar, is the JDBC controller we're going to
-      use.</div>
-    <div class="wiki" style="display: block;">
-      <h2 id="toc1">Create a classpath variable in Eclipse<br>
-      </h2>
-      In order you can connect to MS SQL Server from Eclipse we're going to
-      declare a classpath variable that points to the MS SQL Server JDBC driver,
-      so you can use it in any project you need easily. For that, in Eclipse go
-      to <i>Window &gt; Preferences &gt; Java &gt; Build Path &gt; Classpath
-        Variables</i> where you can add the new variable:</div>
-    <img src="files/create-db-classpath-variable-eclipse_en.png" alt="" title="create-db-classpath-variable-eclipse_en.png">
-    <div class="wiki" style="display: block;">You can call the variable
-      MSSQLSERVER_DRIVER instead of DB_DRIVER if your prefer. The path is the
-      path of the JDBC driver, in our case the path of <i>mssql-jdbc-7.4.1.jre8.jar</i>
-      we have just downloaded.<br>
-      <strong></strong></div>
-    <div class="wiki" style="display: block;">
-      <h2 id="toc1">Add the DB_DRIVER variable to your Eclipse project<br>
-      </h2>
-      In the project you're going to use MS SQL Server you have to add the
-      variable declared above. Click with right mouse button on your project and
-      then choose <i>Java Build Path &gt; Configure Build Path...</i>:<img src="files/project-build-path-eclipse-menu_en.png"
-        alt="project-build-path-eclipse-menu_en.png" title="project-build-path-eclipse-menu_en.png">
-      <div class="wiki" style="display: block;">Then select the <i>Libraries</i>
-        tab:</div>
-    </div>
-    <img src="files/add-db-classpath-variable-to-your-eclipse-project_en.png" title="add-db-classpath-variable-to-your-eclipse-project_en.png">
-    <div class="wiki" style="display: block;">With this we have the driver
-      available for the development environment.</div>
-    <div class="wiki" style="display: block;">
-      <h2>Add the JDBC driver to the production Tomcat</h2>
-      <h2><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Adding
-          the driver in production is much easier. Copy </span><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"><i>mssql-jdbc-7.4.1.jre8.jar</i>
-          to the <i>lib</i> folder of your Tomcat. Done.</span></h2>
-    </div>
-    <div class="wiki" style="display: block;"> </div>
-    <div class="wiki" style="display: block;">
-      <h2 id="toc1">Adjust your datasource definition</h2>
-      For development edit <i>web/META-INF/context.xml</i> of your Eclipse
-      project, and for production edit <i>conf/context.xml</i> of your Tomcat
-      to adjust the datasource to point to MS SQL Server, something like this:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
-	type="javax.sql.DataSource"
-	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
-	username="root" password="ao49fmsk"
-	driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-	url="jdbc:sqlserver://localhost:1433;databaseName=myappdb"/&gt;
-</code></pre> </div>
-    <div class="wiki" style="display: block;">The differences are the <i>driverClassName</i>
-      and the <i>url</i>. The final part of the <i>url</i>, <i>myappdb</i> in
-      this example, is the name of your MS SQL Server database. Obviously,
-      instead of <i>localhost</i> you should put the address of the server that
-      hosts MS SQL Server, and also put the correct <i>username</i> and <i>password</i>.</div>
-    <div class="wiki" style="display: block;">
-      <h2 id="toc1">Update persistence.xml</h2>
-      You don't need to touch the <i>default</i> persistence unit of <i>persistence.xml</i>
-      (in <i>persistence/META-INF</i>), unless you use <i>hibernate.dialect</i>
-      property in which case just remove <i>hibernate.dialect</i> property.
-      However, you have to modify the <i>junit</i> persistence unit to point to
-      MS SQL Server. <br>
+      <i>If you're using an OpenXava version older than 7.0 look at the <a href="ms-sql-server-ox6_en.html">old
+          instructions</a><br>
+      </i>
+      <div class="wiki" style="display: block;">Configuring your OpenXava
+        application to go against MS SQL Server is very simple, basically you
+        have to add a dependency to the JDBC driver for MS SQL Server in your
+        project and define correctly the datasource. You don't need to touch any
+        code of your application.</div>
+      <div class="wiki" style="display: block;">We assume you have already
+        installed and running MS SQL Server.<br>
+        <h2 id="toc1">Add JDBC driver for MS SQL Server to your project</h2>
+        <p>Edit the <i>pom.xml</i> file in the root of your project, there add
+          the next dependency inside the <i>&lt;dependencies&gt;</i> part:</p>
+        <pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.microsoft.sqlserver&lt;/groupId&gt;
+    &lt;artifactId&gt;mssql-jdbc&lt;/artifactId&gt;
+    &lt;version&gt;10.2.1.jre8&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>Maybe the above code is already in your <i>pom.xml</i> but
+        commented, in that case just uncomment it.</div>
+      <div class="wiki" style="display: block;"> </div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;!-- JUnit MS SQL Server --&gt;
-&lt;persistence-unit name="junit"&gt;
-	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
-	&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;
-	&lt;properties&gt;
-		&lt;property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/&gt;
-		&lt;property name="hibernate.connection.username" value="root"/&gt;
-		&lt;property name="hibernate.connection.password" value="ao49fmsk"/&gt;		
-		&lt;property name="hibernate.connection.url" value="jdbc:sqlserver://localhost:1433;databaseName=myappdb"/&gt;
-	&lt;/properties&gt;
-&lt;/persistence-unit&gt;
+        <h2 id="toc1">Adjust your datasource definition</h2>
+        Edit <i>src/main/webapp/META-INF/context.xml</i> of your project to
+        adjust the datasource to point to MS SQL Server something like this:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
+    type="javax.sql.DataSource"
+    maxTotal="100" maxIdle="20" maxWaitMillis="10000"
+    username="root" password="ao49fmsk"
+    driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+    url="jdbc:sqlserver://localhost:1433;databaseName=myappdb"/&gt;
 </code></pre> </div>
-      <div class="wiki" style="display: block;">Adapt the <i>username</i>, <i>password</i>
-        and <i>url</i> to your MS SQL Server configuration.<br>
+      <div class="wiki" style="display: block;">The differences are the <i>driverClassName</i>
+        and the <i>url</i>. The final part of the url, <i>myappdb</i> in this
+        example, is the name of your MS SQL Server database. Obviously, instead
+        of <i>localhost</i> you should put the address of the server that hosts
+        MS SQL Server. Also put the correct <i>username</i> and <i>password</i>.
+        Maybe the above code is already in your <i>context.xml</i> but
+        commented, in that case just uncomment it. Don't forget to comment or
+        remove the datasource for HSQLDB (the default one when you create a new
+        OpenXava project), only one datasource (with the same name) should be
+        active.</div>
+      <div class="wiki" style="display: block;">
+        <h2>Rebuild your project</h2>
+        After the changes you have to rebuild your project. In OpenXava Studio
+        click with right mouse button on your project an choose <i>Run As &gt;
+          Maven install</i>, thus: </div>
+      <div class="wiki" style="display: block;"><img src="files/run-as-maven-install.png"
+          alt=""></div>
+      <div class="wiki" style="display: block;">Or if you have Maven installed
+        in your computer and you prefer to use command line:
+        <pre><code class="bash">$ cd myapp
+$ mvn install
+</code></pre>
+        <p>Optimization note: Instead of a <i>mvn install</i>, that do a
+          complete Maven build, you can use <i>mvn war:exploded</i>, enough to
+          apply the above changes for development. You can run <i>mvn
+            war:exploded</i> from OpenXava Studio with <i>Run As &gt; Maven
+            build...</i> and typing <i>war:exploded</i> for goal.</p>
+        <h2>Run your application</h2>
+        <p>Run your application, it should work nicely against your MS SQL
+          Server database. If it fails, verify that your database server is up,
+          that the user and password in <i>context.xml</i> are correct, that
+          the server IP is correct. Also verify that the user has rights to
+          create databases and tables (if you want to use the automatic schema
+          generation of OpenXava, not needed if the tables already exist).</p>
+        <p>If it still fails ask us in the <a href="https://sourceforge.net/p/openxava/discussion/419690/">OpenXava
+            Help forum</a>. Include the content of your <i>persistence.xml</i>,
+          <i>context.xml</i> (remove the passwords) and specially the stacktrace
+          produced, you can find the trace in the <i>Console</i> tab of
+          OpenXava Studio.</p>
       </div>
-    </div>
-    <br>
-    <div class="wiki" style="display: block;"><br>
     </div>
   </body>
 </html>
