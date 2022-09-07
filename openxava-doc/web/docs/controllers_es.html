@@ -72,10 +72,12 @@
       Los controladores sirven para definir las acciones (botones, vínculos,
       imágenes) que el usuario final puede pulsar. Los controladores se definen
       en un archivo llamado <em>controladores.xml</em> que ha de estar en el
-      directorio <em>xava</em> de nuestro proyecto. No definimos las acciones
-      junto con los componentes porque hay muchas acciones de uso genérico que
-      pueden ser aplicadas a cualquier componente.<br>
-      En <em>OpenXava/xava</em> tenemos un <em>default-controllers.xml</em>
+      directorio <i>src/main/resources/xava</i> de nuestro proyecto (en el
+      directorio <i>xava</i> con v6 o anteriores). No definimos las acciones
+      junto con las entidades porque hay muchas acciones de uso genérico que
+      pueden ser aplicadas a cualquier entidad.<br>
+      En <i>openxava/src/main/resources/xava</i> (en <em>OpenXava/xava</em>
+      para v6 o anterior) tenemos un <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml"><em>default-controllers.xml</em></a>
       que contiene un grupo de componente de uso genérico que podemos usar en
       nuestras aplicaciones.<br>
       El archivo <em>controladores.xml</em> contiene un elemento de tipo <em>&lt;controladores/&gt;</em>
@@ -242,7 +244,8 @@ class="re2">&gt;</span></span>
           aplicaciones OpenXava (que se ejecuten dentro del mismo war).</li>
       </ol>
       Definir objetos de sesión es muy fácil, podemos ver los que están
-      definidos en <em>OpenXava/xava/default-controllers.xml</em>:<br>
+      definidos en <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml"><em>openxava/src/main/resources/xava/default-controllers.xml</em></a>
+      (<em>OpenXava/xava/default-controllers.xml</em> en v6 o anterior):<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -607,8 +610,9 @@ class="st0">"xava_view"</span><span class="re2">/&gt;</span></span>  <span class
     <span class="sc3"><span class="re1">&lt;/accion<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/controladores<span class="re2">&gt;</span></span></span></pre>
       Podemos ahora incluir este controlador en el módulo deseado; esto se hace
-      editando en <em>xava/aplicacion.xml</em> el módulo en el que deseemos
-      usar estas acciones:<br>
+      editando en <em>aplicacion.xml</em>, en la carpeta <i>src/main/resources/xava</i>
+      de tu proyecto (en la carpeta <i>xava</i> con v6 o anterior), el módulo
+      en el que deseemos usar estas acciones:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -2099,7 +2103,9 @@ class="br0">)</span> <span class="br0">{</span> <span class="co1">// getter son 
         de controladores</h2>
       Podemos crear un controlador que herede todas sus acciones de uno o más
       controladores. Un ejemplo de esto lo encontramos en el controlador
-      genérico más típico <em>Typical</em>, este controlador se encuentra en <em>OpenXava/xava/default-controllers.xml</em>:<br>
+      genérico más típico <em>Typical</em>, este controlador se encuentra en <a
+        href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml"><em>openxava/src/main/resources/xava/default-controllers.xml</em></a>
+      (en <em>OpenXava/xava/default-controllers.xml</em> para v6 o anteriores):<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -2532,9 +2538,10 @@ class="sy0">;</span>
       exactamente el mismo funcionamiento que <em>addError()</em>. Los archivos
       i18n para errores y mensajes han de llamarse <em>MiProyecto-messages.properties</em>
       o <em>MensajeMiProyecto.properties</em> y el sufijo del idioma (_en, _ca,
-      _es, _it, etc). Podemos ver como ejemplos los archivos que hay en <em>OpenXavaTest/xava/i18n</em>.
-      Todas las excepciones no atrapadas producen un mensaje de error genérico,
-      excepto si la excepción es una <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/validators/ValidationException.html"
+      _es, _it, etc). Podemos ver como ejemplos los archivos que hay en <a href="https://github.com/openxava/openxava/tree/master/openxavatest/src/main/resources/i18n"><i>openxavatest/src/main/resources/i18n</i></a>
+      (en <em>OpenXavaTest/i18n</em> para v6 o anterior). Todas las excepciones
+      no atrapadas producen un mensaje de error genérico, excepto si la
+      excepción es una <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/validators/ValidationException.html"
           rel="nofollow">ValidationException</a></em> en cuyo caso visualiza el
       mensaje de error de la excepción.<br>
       El método <em>resetDescriptionsCache()</em> (6) borra los caché usados
@@ -2556,8 +2563,8 @@ class="sy0">;</span>
       y pulsamos a buscar (unos prismático) también hace lo mismo. Y cuando
       navegamos por los registros pulsando siguiente o anterior hace la misma
       búsqueda. ¿Cómo podemos personalizar las búsqueda? Vamos a ver cómo.<br>
-      Lo único que hemos de hacer es definir nuestro módulo en <em>xava/aplicacion.xml</em>
-      de la siguiente forma:<br>
+      Lo único que hemos de hacer es definir nuestro módulo en&nbsp;<em><em>src/main/resources/xava/</em>aplicacion.xml</em>
+      (en la carpeta <i>xava</i> para v6 o anterior) de la siguiente forma:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -2596,7 +2603,7 @@ class="st0">"Albaranes"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
       Podemos observar que definimos una variable de entorno XAVA_SEARCH_ACTION
       que tiene el valor de la acción que queremos usar para buscar. Esa acción
-      está definida en <em>xava/controladores.xml</em> así:<br>
+      está definida en <em>controladores.xml</em> así:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -5463,8 +5470,9 @@ class="sy0">;</span>
         cargado.<br>
         <h2 id="toc18"><a name="Controladores-Sobreescribir los controladores por defecto (nuevo en v2.0.3)"></a>Sobreescribir
           los controladores por defecto <em>(nuevo en v2.0.3)</em></h2>
-        Los controladores en <em>OpenXava/xava/default-controllers.xml</em>
-        (antes de v2.0.3 era <em>OpenXava/xava/controllers.xml</em>) son usados
+        Los controladores en <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml"><em>openxava/src/main/resources/xava/default-controllers.xml</em></a>
+        (antes de v7.0 era <em>OpenXava/xava/default-controllers.xml</em>,
+        antes de v2.0.3 era <em>OpenXava/xava/controllers.xml</em>) son usados
         por OpenXava para dar a la aplicación un comportamiento por defecto.
         Muchas veces la forma más fácil de modificar el comportamiento de
         OpenXava es creando nuestros propios controladores y usandolos en
@@ -5475,7 +5483,7 @@ class="sy0">;</span>
         crear en nuestra aplicación un controlador con el mismo nombre que el de
         defecto. Por ejemplo, si queremos refinar el comportamiento de las
         colecciones para nuestra aplicación tenemos que crear un controlador <em>Collection</em>
-        en nuestro <em>xava/controladores.xml</em>, como sigue:<br>
+        en nuestro <em>controladores.xml</em>, como sigue:<br>
         <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -6144,8 +6152,9 @@ class="sy0">;</span>                                                  <span clas
       </div>
       <div class="wiki" style="display: block;">Es por defecto <i>Mode.list</i>.
         Puedes sobrescribirla definiendo tu propio <i>controlador-modo</i> para
-        tu módulo. Para eso, define tu módulo <i>xava/aplicacion.xml</i> en tu
-        proyecto de esta forma:</div>
+        tu módulo. Para eso, define tu módulo en <i>aplicacion.xml</i> (en <i>src/main/resources/xava</i>
+        para v7 o superior y en la carpeta <i>xava</i> para versiones
+        anteriores) en tu proyecto de esta forma:</div>
       <div class="wiki" style="display: block;">
         <pre><code class="xml">&lt;modulo nombre="Autor"&gt;
 	&lt;modelo nombre="Autor"/&gt; 
@@ -6154,7 +6163,7 @@ class="sy0">;</span>                                                  <span clas
 &lt;/modulo&gt;        </code></pre>
       </div>
       <div class="wiki" style="display: block;">Después define tu controlador <i>MiIrModoLista</i>
-        en tu <i>xava/controladores.xml</i>, así:</div>
+        en tu <i>controladores.xml</i>, así:</div>
       <div class="wiki" style="display: block;">
         <pre><code class="xml">&lt;controlador nombre="MiIrModoLista"&gt;
 	&lt;hereda-de controlador="Mode"/&gt;

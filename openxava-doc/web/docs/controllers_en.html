@@ -71,10 +71,12 @@
       </div>
       Controllers are used to define actions (buttons, links, images) that the
       final user can click. The controllers are defined in the <em>controllers.xml</em>
-      file that is in the <em>xava</em> directory of your project.<br>
-      The actions are not defined in components because there are a lot of
-      generic actions that can be applied to any component.<br>
-      In <em>OpenXava/xava</em> you have a <em>default-controllers.xml</em>
+      file that is in the <em>src/main/resources/xava</em> directory of your
+      project (in <i>xava</i> directory in v6 or older).<br>
+      The actions are not defined in entities because there are a lot of generic
+      actions that can be applied to any entity.<br>
+      In <i>openxava/src/main/resources/xava</i> (in <em>OpenXava/xava</em>
+      for v6 or older) you have a <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml"><em>default-controllers.xml</em></a>
       that contains a group of generic controllers that can be used in your
       applications.<br>
       The <em>controllers.xml</em> file contains an element of type <em>&lt;controllers/&gt;</em>
@@ -239,7 +241,9 @@ class="re2">&gt;</span></span>
           will be shared by all modules of all OpenXava applications (running in
           the same .war).</li>
       </ol>
-      Defining session objects is very easy, you can see the defined ones in <em>OpenXava/xava/default-controllers.xml</em>:<br>
+      Defining session objects is very easy, you can see the defined ones in <a
+        href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml"><em>openxava/src/main/resources/xava/default-controllers.xml</em></a>
+      (<em>OpenXava/xava/default-controllers.xml</em> in v6 or older):<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -596,8 +600,9 @@ class="st0">"xava_view"</span><span class="re2">/&gt;</span></span>  <span class
     <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span></pre>
       Now you can include this controller in the module that you want; this is
-      done by editing in <em>xava/application.xml</em> the module in which you
-      can use these actions:<br>
+      done by editing in <em>application.xml</em>, in <i>src/main/resources/xava</i>
+      folder of your project (in <i>xava</i> folder with v6 or older) , the
+      module in which you can use these actions:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -2046,8 +2051,9 @@ class="br0">)</span> <span class="br0">{</span> <span class="co1">// getter are 
       <h2 id="toc8"><a name="Controllers-Controllers inheritance"></a>Controllers
         inheritance</h2>
       You can create a controller that inherits all actions from one or more
-      controllers. An example of this is the generic controller called Typical,
-      this controller is in <em>OpenXava/xava/default-controllers.xml</em>:<br>
+      controllers. An example of this is the generic controller called <i>Typical</i>,
+      this controller is in <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml"><em>openxava/src/main/resources/xava/default-controllers.xml</em></a>&nbsp;
+      (in <em>OpenXava/xava/default-controllers.xml</em> for v6 or older):<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -2477,9 +2483,10 @@ class="sy0">;</span>
         addWarning() (new in v4.3)</em> whose behavior is like <em>addError()</em>.
       The i18n files that hold errors and messages must be called <em>MyProject-messages.properties</em>
       and the language sufix (_en, _ca, _es, _it, etc). You can see the examples
-      in <em>OpenXavaTest/xava/i18n</em>. All not caught exceptions produces a
-      generic error messages, except if the not caught exception is of the type
-      <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/validators/ValidationException.html"
+      in <a href="https://github.com/openxava/openxava/tree/master/openxavatest/src/main/resources/i18n"><i>openxavatest/src/main/resources/i18n</i></a>
+      (in <em>OpenXavaTest/i18n</em> for v6 or older). All not caught
+      exceptions produces a generic error messages, except if the not caught
+      exception is of the type <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/validators/ValidationException.html"
           rel="nofollow">ValidationException</a></em>. In this case the message
       exception is displayed.<br>
       The <em>resetDescriptionsCache()</em> (6) method deletes all cache
@@ -2499,8 +2506,8 @@ class="sy0">;</span>
       search (the binoculars), it also does the same. And when the user
       navigates by the records clicking the next or previous buttons then it
       does the same search. How can you customize this search? Let's see that:<br>
-      You only need to define the module in <em>xava/application.xml</em> this
-      way:<br>
+      You only need to define the module in <em>src/main/resources/xava/application.xml</em>
+      (just in <i>xava</i> folder for v6 or older) this way:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -2539,7 +2546,7 @@ class="st0">"Deliveries"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       You see how it is necessary to define an environment variable named
       XAVA_SEARCH_ACTION that contains the action that you want to use for
-      searching. This action is defined in <em>xava/controllers.xml</em>:<br>
+      searching. This action is defined in <em>controllers.xml</em>:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -5396,8 +5403,9 @@ class="sy0">;</span>
       the file item you will access to the content of the uploaded file.<br>
       <h2 id="toc18"><a name="Controllers-Override the default controllers (new in v2.0.3)"></a>Override
         the default controllers <em>(new in v2.0.3)</em></h2>
-      The controllers in <em>OpenXava/xava/default-controllers.xml</em> (before
-      v2.0.3 it was <em>OpenXava/xava/controllers.xml</em>) are used by
+      The controllers in <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml"><em>openxava/src/main/resources/xava/default-controllers.xml</em></a>
+      (before v7.0 it was <em>OpenXava/xava/default-controllers.xml</em>,
+      before v2.0.3 it was <em>OpenXava/xava/controllers.xml</em>) are used by
       OpenXava to give to application a default behavior. Many times the easier
       way to override the default behavior of OpenXava is creating our own
       controllers and use them in our applications, that is you can create a
@@ -5407,7 +5415,7 @@ class="sy0">;</span>
       override a default controller you only need to create in your application
       a controller with the same name of default one. For example, if you want
       refine the collections behavior for your application then you have to
-      create a <em>Collection</em> controller in your <em>xava/controllers.xml</em>,
+      create a <em>Collection</em> controller in your <em>controllers.xml</em>,
       as following:<br>
       <style type="text/css"><!--
 /**
@@ -6065,7 +6073,8 @@ class="sy0">;</span>                                      <span class="co1">// 3
     </div>
     <div class="wiki" style="display: block;">It's by default <i>Mode.list</i>.
       You can overwrite it defining your own <i>mode-controller</i> for your
-      module. For that, define your module in <i>xava/application.xml</i> of
+      module. For that, define your module in <i>application.xml</i> (in <i>src/main/resources/xava</i>
+      for v7 or better and just in <i>xava</i> folder for older versions) of
       your project in this way:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="xml">&lt;module name="Author"&gt;
@@ -6075,7 +6084,7 @@ class="sy0">;</span>                                      <span class="co1">// 3
 &lt;/module&gt;        </code></pre>
     </div>
     <div class="wiki" style="display: block;">Then you have to define the <i>MyGoListMode</i>
-      controller in your <i>xava/controllers.xml</i>, thus:</div>
+      controller in your <i>controllers.xml</i>, thus:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="xml">&lt;controller name="MyGoListMode"&gt;
 	&lt;extends controller="Mode"/&gt;
