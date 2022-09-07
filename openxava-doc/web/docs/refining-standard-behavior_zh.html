@@ -177,7 +177,7 @@ public class DeleteInvoiceAction
 </code></pre> 动作是个简单的类。它有一个 execute() 方法，是用户点击相应的按钮或链接时會执行的逻辑。一个动作必须实现 org.openxava.actions.IAction 接口，不過通常从 org.openxava.actions 包中扩展 BaseAction、ViewBaseAction 或任何其他基本动作更方便。<br>
       ViewBaseAction 有一个视图属性，您可以在 execute() 中使用 getView()。这个 org.openxava.view.View 类型的对象允许您管理用户界面。在上面我们使用 getView().clear() 清除所显示的数据。<br>
       我们还使用 addMessage()。 所有 addMessage() 添加的消息将在動作执行结束时显示於用户。您可以在 src/main/resources/i18n/invoicing-messages_zh.properties 中添加要显示的消息或条目的 id。<br>
-      在下图中演示了添加自定义删除操作后 Invoice 模块的行为：<br>
+      在下图中演示了添加自定义删除動作后 Invoice 模块的行为：<br>
       <img src="files/refining_behavior_en020.png" alt="refining_behavior_en020.png"
         title="refining_behavior_en020.png"><br>
       这当然是非常笨的行为，所以现在让我们給它添加真正的功能。为了在不刪除的情況下將發票标记为已删除，我们需要在 Invoice 添加一个新属性。我们称它为 deleted。如下：<br>
@@ -335,7 +335,7 @@ abstract public class CommercialDocument extends Deletable {
       当前 Invoice 和 Order 可以正常工作。不過如果您尝试删除任何其他模块中的实体，您将收到一条错误的消息。下图显示了当您尝试删除客户时会发生什么。<br>
       <img src="files/refining_behavior_en030.png" alt="refining_behavior_en030.png"
         title="refining_behavior_en030.png"><br>
-      如果您的实体没有 deleted 的属性，则删除操作将失败。是的，您可以使用 Deletable 來添加 deleted 属性。但是，您可能希望在某些實體中可以使用体标但不刪除，而另些實體會真的從数据库中將實體刪除。我们希望盤動作在所有情况下都有效。<br>
+      如果您的实体没有 deleted 的属性，则删除動作将失败。是的，您可以使用 Deletable 來添加 deleted 属性。但是，您可能希望在某些實體中可以使用体标但不刪除，而另些實體會真的從数据库中將實體刪除。我们希望盤動作在所有情况下都有效。<br>
       OpenXava 會存储所有实体的元数据（Metadata），您可以从代码中访问此元数据。这使您可以确定实体是否具有 deleted 的属性。<br>
       下面的代码展示了如何修改动作，以查明实体是否具有 deleted 的属性，如果没有，则不执行删除的过程：<br>
       <pre><code class="java">public void execute() throws Exception {
@@ -388,7 +388,7 @@ public class InvoicingDeleteAction extends ViewBaseAction {
       <img src="files/refining_behavior_en040.png" alt="refining_behavior_en040.png"
         title="refining_behavior_en040.png"><br>
       在上图中首先要观察的是，在详细模式下搜索比它原本看起来更灵活。用户可以在任何字段或一组字段中输入任何值，然后點击刷新按钮，而第一个匹配的对象将被加载到视图中。<br>
-      现在您可能会想：好吧，我可以像改进 CRUD.delete 一样改进 CRUD.refresh 动作。是的，可以，而且会奏效；当用户點击详细模式的刷新操作时，您的代码将被执行。然而，这里有个微妙的细节。搜索逻辑不仅會从详细模式中调用，也在 OpenXava 模块中其他地方调用。例如，当用户从列表模式中选择一个详细信息时，List.viewDetail 動作會获取該行的键，将其放入详细信息视图中，然后执行搜索的動作。<br>
+      现在您可能会想：好吧，我可以像改进 CRUD.delete 一样改进 CRUD.refresh 动作。是的，可以，而且会奏效；当用户點击详细模式的刷新動作时，您的代码将被执行。然而，这里有个微妙的细节。搜索逻辑不仅會从详细模式中调用，也在 OpenXava 模块中其他地方调用。例如，当用户从列表模式中选择一个详细信息时，List.viewDetail 動作會获取該行的键，将其放入详细信息视图中，然后执行搜索的動作。<br>
       如果要正確的做，得将搜索逻辑放在一个動作、一個模塊中，而所有需要用到搜索的动作都得链接到这个动作上。如上图所示。<br>
       当您看到 CRUD.refresh 的動作代碼時 （在 org.openxava.actions.SearchAction），會更好理解，其代码如下：<br>
       <pre><code class="java">public class SearchAction extends BaseAction
@@ -423,7 +423,7 @@ public class InvoicingDeleteAction extends ViewBaseAction {
         &lt;!-- hidden="true": 该动作不会显示在按钮栏中 --&gt;
  
 &lt;/controller&gt;
-</code></pre> 现在是时候编写一個实现类了。在这种情况下，我们只想优化搜索逻辑，以便以常规方式完成搜索，但它会忽略已删除设置为 true 的实体。为了进行这种细化，我们将使用继承。nd now it's time to write the implementation class. In this case we only want to refine the search logic so that the search is done the regular way with the exception that it is leaving out entities where <em>deleted</em> is set to true. To do this refinement we are going to use inheritance.<br>
+</code></pre> 现在是时候编写一個实现类了。在这种情况下，我们只想优化搜索逻辑，以便以常规方式完成搜索，但它会忽略已删除设置为 true 的实体。为了进行这种细化，我们将使用继承。<br>
       <pre><code class="java">package com.yourcompany.invoicing.actions;
  
 import java.util.*;
@@ -472,11 +472,11 @@ public class SearchExcludingDeletedAction
         }
     }
 }
-</code></pre> The standard logic to search resides in the <i>SearchByViewKeyAction</i> class. Basically, what this action does is that it reads the values from the view and searches for an object. If the id property is present this is used, otherwise all values are used, and the first object that matches the condition is returned. We want to use this same algorithm changing only some details about the <em>deleted</em> property. So instead of overwriting the <i>execute()</i> method, that contains the search logic, we overwrite three protected methods, that are called from <i>execute()</i> and contain some parts suitable to be refined.<br>
-      After these changes you can try your application, and you will find that when you search, a removed invoice or order will never be shown. Even if you choose a deleted invoice or order from list mode an error will be produced and you will not see the data in detail mode.<br>
-      You have seen how defining a <em>XAVA_SEARCH_ACTION</em> environment variable in <em>controllers.xml</em> you establish the search logic in a global way for all your modules at once. If you want to define a specific search action for a particular module just define the environment variable in the module definition in <em>application.xml</em>, as we show below:<br>
+</code></pre> 搜索的标准逻辑位于 SearchByViewKeyAction 类中。基本上，此類的逻辑是从视图中读取值，如果 id 属性存在的話，會使用它搜索，相反如果不存在則會使用所有值搜索，并返回第一个条件匹配的对象。我们希望使用相同的逻辑，仅更改有关 deleted 属性的一些细节。但是，我们没有覆盖包含搜索逻辑的 execute() 方法，而是覆盖了三个受保护的方法，它们从 execute() 调用并包含一些适合更改的部分。<br>
+      做完这些修改后就可以试试应用程序，您会发现当搜索时，被删除的发票或订单不会显示出来。即使您从列表模式中选择已删除的发票或订单，也会产生错误，并且看不到详细模式中的数据。<br>
+      您已经看到如何在 controllers.xml 中定义 XAVA_SEARCH_ACTION 环境变量，您可以將搜索逻辑定義为全局的，也就是為所有模块。如果您想为特定模块定义搜索動作，只需在 application.xml 的模块定义中定义环境变量，如下所示：<br>
       <pre><code class="xml">&lt;module name="Product"&gt;
-    &lt;!-- To give a local value to the environment variable for this module --&gt;
+    &lt;!-- 给这个模块的环境变量一个局部变量 --&gt;
     &lt;env-var
        name="XAVA_SEARCH_ACTION"
        value="Product.searchByNumber"/&gt;
@@ -484,21 +484,21 @@ public class SearchExcludingDeletedAction
     &lt;controller name="Product"/&gt;
     &lt;controller name="Invoicing"/&gt;
 &lt;/module&gt;
-</code></pre> In this way for the module <em>Product</em> the <em>XAVA_SEARCH_ACTION</em> environment variable will be “Product.searchByNumber”. This way, the environment variables are local to the modules. You can define a default value in <em>controllers.xml</em>, but you always have the option to overwrite the value for particular modules. The environment variables are a powerful way to configure your application in an declarative way.<br>
-      We don't want a special way to search for <em>Product</em>, so don't add this module definition to your <em>application.xml</em>. The code here is only to illustrate how to use <em>&lt;env-var /&gt;</em> in modules.<br>
+</code></pre> 这样，对于 Product 模块，XAVA_SEARCH_ACTION 环境变量将是 Product.searchByNumber。也就是說，在這模塊中环境变量是使用局部的。就算您在 controllers.xml 中定义一個默认值，您始终可以选择在想要的模塊中覆盖它。环境变量是一种以声明方式配置应用程序非常强大方法。<br>
+      我们不想要以特殊的方式来搜索 Product，所以不要将此模块的定义添加到您的 application.xml 中。上個代码只是为了说明如何在模块中使用 &lt;env-var /&gt;。<br>
       <h2 id="toc12"><a name="Lesson 7: Refining the standard behavior-List mode"></a>列表模式</h2>
-      We have almost completed the job. When the user removes an entity with a <em>deleted</em> property the entity is marked as deleted instead of actually being removed from the database. And if the user attempts to search for a marked-as-deleted entity he cannot view it in detail mode. However, the user can still see such entities in list mode though, and even worse, if he deletes entities when in list mode, they are actually removed from the database. Let's fix these remaining details.<br>
+      我们几乎要完成了。当用户删除具有 deleted 属性的实体时，该实体會被标记为已删除，但不會从数据库中删除。並且如果用户尝试搜索被标记为已删除的实体時，将无法在详细模式下查看它。但是！用户仍然可以在列表模式下看到这些实体，更糟糕的是，如果他在列表模式下删除实体，它们真的会从数据库中删除。所以让我们修复这些剩余的细节。<br>
       <h3 id="toc13"><a name="Lesson 7: Refining the standard behavior-List mode-Filtering tabular data"></a>筛选表格数据</h3>
-      Only entities where the deleted property is false should be shown in list mode. This is very easy to achieve using the <i>@Tab</i> annotation. This annotation allows you to define the way the tabular data (the data shown in list mode) is displayed, moreover it allows you to define a condition. So, adding this annotation to the entities with <em>deleted</em> property is sufficient to achieve our goal, as we show below:<br>
+      只有 deleted 属性为 false 的实体才应該在列表中显示。使用 @Tab 注解很容易实现这点。此注解允许您定义表格数据（在列表模式下显示的数据）的显示方式，此外它也允许您定义条件。因此，将此注解添加到具有 deleted 属性的实体就足以实现我们的目标，如下所示：<br>
       <pre><code class="java">@Tab(baseCondition = "deleted = false")
 public class Invoice extends CommercialDocument { ... }
  
 @Tab(baseCondition = "deleted = false")
 public class Order extends CommercialDocument { ... }
-</code></pre> And in this simple way the list mode will not show the marked-as-deleted entities.<br>
+</code></pre> 以这简单的方式，在列表模式時，就不会显示有标记为已删除的实体。<br>
       <h3 id="toc14"><a name="Lesson 7: Refining the standard behavior-List mode-List actions"></a>列表的动作</h3>
-      The only remaining detail is that when removing entities from list mode, they should be marked as deleted if applicable. We are going to refine the standard <em>CRUD.deleteSelected</em> and <i>CRUD.deleteRow</i> actions in the same way we used for <em>CRUD.delete</em>.<br>
-      First, we overwrite the <em>deleteSelected</em> and <em>deleteRow</em> actions for our application. Add the following action definition to your <em>Invoicing</em> controller defined in <em>controllers.xml</em>:<br>
+      唯一剩下的细节是，从列表模式中删除实体时，如果可以，它们应该被标记为已删除。我们将像更改 CRUD.delete 一樣，更改 CRUD.deleteSelected 和 CRUD.deleteRow 标准動作。<br>
+      首先，我们先覆盖 deleteSelected 和 deleteRow 動作。将動作的定义添加到 controllers.xml 中的 Invoicing 控制器：<br>
       <pre><code class="java">&lt;controller name="Invoicing"&gt;
     &lt;extends controller="Typical"/&gt;
      ...
@@ -514,39 +514,38 @@ public class Order extends CommercialDocument { ... }
         in-each-row="true"/&gt;
         
 &lt;/controller&gt;
-</code></pre> The standard actions to remove entities from list mode are <em>deleteSelected</em> (to delete the checked rows) and <em>deleteRow</em> (the action displayed in each row). These actions are defined in the <em>CRUD</em> controller. <em>Typical</em> extends <em>CRUD</em>, and <em>Invoicing</em> extends <em>Typical</em>; so <em>Invoicing</em> controller includes these actions by default. Given we have defined these actions with the same name, our actions overwrite the standard ones. That is, from now on the logic for removing selected rows in list mode is in the <em>InvoicingDeleteSelectedAction</em> class. Note how the logic for both actions is in the same Java class:<br>
+</code></pre> 从列表模式中删除实体的标准動作是 deleteSelected（删除选中的行）和 deleteRow（在每行中显示的動作）。这些動作都在 CRUD 控制器中定义的。Typical 從 CRUD 扩展，Invoicing 從 Typical 扩展；所以 Invoicing 控制器默认包含这些动作。鉴于我们已经用相同的名称定义了这些动作，它們会覆盖标准动作。也就是说，从现在开始，在列表模式下删除选定行的逻辑在 InvoicingDeleteSelectedAction 类中。请注意这两个操作的逻辑是如何在同一个 Java 类中的：<br>
       <pre><code class="java">package com.yourcompany.invoicing.actions;
  
 import org.openxava.actions.*;
 import org.openxava.model.meta.*;
  
 public class InvoicingDeleteSelectedAction
-    extends TabBaseAction // To work with tabular data (list) by means of getTab()
-    implements IChainActionWithArgv { // It chains to another action, returned by getNextAction() method
+    extends TabBaseAction // 能通过 getTab() 来处理列表的表格数据
+    implements IChainActionWithArgv { // 它链接到另一个动作，由 getNextAction() 方法返回
  
-    private String nextAction = null; // To store the next action to execute
+    private String nextAction = null; // 存储下一个要执行的动作
  
     public void execute() throws Exception {
         if (!getMetaModel().containsMetaProperty("deleted")) {
-            nextAction="CRUD.deleteSelected"; // 'CRUD.deleteSelected' will be
-            return;    // executed after this action is finished
+            nextAction="CRUD.deleteSelected"; // CRUD.deleteSelected 将在这个动作完成后执行
+            return;
         }
-        markSelectedEntitiesAsDeleted(); // The logic to mark the selected rows
-            // as deleted objects
+        markSelectedEntitiesAsDeleted(); // 將选定的行标记為已刪除的逻辑
     }
  
     private MetaModel getMetaModel() {
         return MetaModel.get(getTab().getModelName());
     }
  
-    public String getNextAction() // Required because of IChainAction
+    public String getNextAction() // 因為 IChainAction 需要
         throws Exception
     {
-        return nextAction; // If null no action will be chained
+        return nextAction; // 如果为 null，则不会链接任何动作
     }
  
     public String getNextActionArgv() throws Exception {
-        return "row=" + getRow(); // Argument to send to chainged action
+        return "row=" + getRow(); // 发送到链接动作的参数
     }
  
     private void markSelectedEntitiesAsDeleted() throws Exception {
@@ -554,72 +553,72 @@ public class InvoicingDeleteSelectedAction
     }
  
 }
-</code></pre> You can see that this action is very similar to <em>InvoicingDeleteAction</em>. If the selected entities don't have the deleted property it chains to the standard action, otherwise it executes its own logic to delete the entities. Although in this case we use <i>IChainActionWithArgv</i> instead of a simpler <i>executeAction()</i> because we need to send an argument to the chained action. Usually the actions for list mode extend <i>TabBaseAction</i>, thus you can use <i>getTab()</i> to obtain the <i>Tab</i> object associated to the list. A <em>Tab</em> (from <i>org.openxava.tab</i>) allows you to manage the tabular data. For example in the <i>getMetaModel()</i> method we retrieve the model name from the <i>Tab</i> in order to obtain the corresponding <i>MetaModel</i>.<br>
-      If the entity has a <em>deleted</em> property then our custom delete logic is executed. This logic is in the <em>markSelectedEntitiesAsDeleted()</em> method:<br>
+</code></pre> 可以看到这个动作与 InvoicingDeleteAction 非常相似。如果选定的实体没有已删除的属性，会链接到标准操作，否则它会执行自己的逻辑来删除实体。不過在这种情况，我们使用 IChainActionWithArgv 而不是更简单的 executeAction()，因为我们需要向链接的操作发送参数。通常列表模式的动作会從 TabBaseAction 扩展，因此您可以使用 getTab() 来获取与列表关联的 Tab 对象。Tab（来自 org.openxava.tab）允许您管理表格的数据。例如，在 getMetaModel() 方法中，我们從 Tab 中詢問模型的名称，以获得相应的 MetaModel。<br>
+      如果实体具有已删除的属性，则执行我们的自定义删除逻辑。这个逻辑在 markSelectedEntitiesAsDeleted() 方法中，如下：<br>
       <pre><code class="java">private void markSelectedEntitiesAsDeleted() throws Exception {
-    Map&lt;String, Object&gt; values = new HashMap&lt;&gt;(); // Values to assign to each entity to be marked
-    values.put("deleted", true); // Just set deleted to true
-    Map&lt;String, Object&gt;[] selectedOnes = getSelectedKeys(); // We get the selected rows
+    Map&lt;String, Object&gt; values = new HashMap&lt;&gt;(); // 给每个要标记的实体的值
+    values.put("deleted", true); // 将 deleted 设置为 true
+    Map&lt;String, Object&gt;[] selectedOnes = getSelectedKeys(); // 获得选中的行
     if (selectedOnes != null) {
-        for (int i = 0; i &lt; selectedOnes.length; i++) { // Loop over all selected rows
-            Map&lt;String, Object&gt; key = selectedOnes[i]; // We obtain the key of each entity
+        for (int i = 0; i &lt; selectedOnes.length; i++) { // 循环所有选中的行
+            Map&lt;String, Object&gt; key = selectedOnes[i]; // 获取每个实体的键
             try {
-                MapFacade.setValues(  // Each entity is modified
+                MapFacade.setValues(  // 修改每个实体
                     getTab().getModelName(),
                     key,
                     values);
             }
-            catch (javax.validation.ValidationException ex) { // If there is a ValidationException...
+            catch (javax.validation.ValidationException ex) { // 如果有 ValidationException...
                 addError("no_delete_row", i, key);
-                addError("remove_error", getTab().getModelName(), ex.getMessage()); // ...we show the message
+                addError("remove_error", getTab().getModelName(), ex.getMessage()); // 则显示消息
             }
-            catch (Exception ex) { // If any other exception is thrown, a generic
-                addError("no_delete_row", i, key); // message is added
+            catch (Exception ex) { // 如果抛出其他的异常则使用通用消息
+                addError("no_delete_row", i, key);
             }
         }
     }
-    getTab().deselectAll(); // After removing we deselect the rows
-    resetDescriptionsCache(); // And reset the cache for combos for this user
+    getTab().deselectAll(); // 删除后我们取消选择的行
+    resetDescriptionsCache(); // 并为该用户重置组合的缓存
 }
-</code></pre> As you see the logic is a plain loop over all selected rows, in each iteration we set the <em>deleted</em> property to true using <i>MapFacade.setValues()</i>. Exceptions are caught inside the loop, so if there is a problem deleting one of the entities, this does not affect the removal of the other entities. Furthermore, we have added a small refinement for the <i>ValidationException</i> case, adding the validation message <i>(ex.getMessage())</i> to the errors to be shown to the user.<br>
-      Here we also deselect all rows by means of <i>getTab().deselectAll()</i>, because we are removing rows. If we don't remove the selection, it would be moved after the action execution.<br>
-      We call <i>resetDescriptionsCache()</i> to update all combos in the current user session and remove all deleted entities. The combos (references marked with <i>@DescriptionsList</i>) use the <i>@Tab</i> of the referenced entity to filter the data. In our case all the combos for invoices and orders use the “deleted = false” condition of the <i>@Tab</i>. So, it's needed to reset the combos cache.<br>
-      Now you have thoroughly improved the way your application deletes the entities. Nevertheless, there still remains a few interesting things we can do with this.<br>
+</code></pre> 如您所见，上面的逻辑是简单循环所有选中的行，並在每行使用 MapFacade.setValues() 将 deleted 属性设置为 true。若有异常会在循环内捕获，因此在删除其中一个实体出现问题時，不会影响其他实体的删除。此外，我们为 ValidationException 案例做了一个小改进，将验证消息 (ex.getMessage()) 添加到要显示给用户的错误中。<br>
+      在这里，我们还通过 getTab().deselectAll() 來取消所有选择的行。由於我们正在删除行，如果我们不删除选择，它将在動作执行后移动。<br>
+      调用 resetDescriptionsCache() 来更新当前用户会话中已删除的实体的所有组合。组合（用@DescriptionsList 标记的引用）使用被引用的实体的 @Tab 来篩選数据。也就是說，如果您有一個發票或訂單的組合並且它在 @Tab 的条件是 deleted = false 的話，它顯示的內容會改變，因此才需要重置组合的缓存。<br>
+      现在，您已经彻底改进了在应用程序裡删除实体的方式。尽管如此，我们仍然可以做一些有趣的事情。<br>
       <h2 id="toc15"><a name="Lesson 7: Refining the standard behavior-Reusing actions code"></a>重用动作的代码</h2>
-      Fantastic! Now your application marks the invoices and orders as deleted instead of actually removing them. One advantage of this approach is that in any given moment, the user can restore an invoice or order deleted by mistake. For this feature to be useful, you have to provide a tool for restoring the deleted entities. Therefore, we are going to create an <em>Invoice trash</em> and an <em>Order trash</em> to bring deleted documents back to life.<br>
+      非常好！现在，您的应用程序會将发票和订单标记为已删除，而不是真的删除它们。这种方法的一个优点是，在任何时刻，用户都可以恢复那些错误删除的发票或订单。要讓此功能有用，您必须提供用于恢复已删除实体的工具。因此，我们将创建一个发票垃圾箱和一个订单垃圾箱，好讓已删除的文档回歸。<br>
       <h3 id="toc16"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Using properties to create reusable actions"></a>使用属性创建可重用的动作</h3>
-      The trash we want is exhibited in the next figure. It is a list of invoices or orders where the user can choose several of them and click the <i>Restore</i> button, or alternatively, for a single entity, click the <i>Restore</i> link on the row of the item to restore.<br>
+      我们想要的垃圾箱如下图所示。它是发票或订单的列表，用户可以點击“恢复”按钮來恢復單個實體或選定多個再點擊也行。<br>
       <img src="files/refining_behavior_en050.png" alt="refining_behavior_en050.png"
         title="refining_behavior_en050.png"><br>
-      The logic of this restore action is to set the <em>deleted</em> property of the selected entities to false. Obviously, this is the same logic we used for deleting, but setting deleted to false instead of true. Since our conscience does not allow us to copy and paste, we're going to reuse the present code. Just adding a <em>restore</em> property to <em>InvoicingDeleteSelectedAction</em> is enough to enable recovery of deleted entities.<br>
+      此恢复動作的逻辑是将选定实体的 deleted 属性设置为 false。显然，这与我们用于删除的逻辑相同，但将 deleted 设置为 false 而不是 true。由于我们的良心不允许我们复制和粘贴，我们将重用当前的代码。方法是将 restore 属性添加到 InvoicingDeleteSelectedAction 來恢复已删除的实体。<br>
       <pre><code class="java">public class InvoicingDeleteSelectedAction ... {
     ...
     @Getter @Setter
-    boolean restore; // A new restore property
+    boolean restore; // 一个新的属性 restore
   
     private void markSelectedEntitiesAsDeleted()
         throws Exception
     {
         Map&lt;String, Object&gt; values = new HashMap&lt;String, Object&gt;();
-        // values.put("deleted", true); // Instead of a hardcoded true, we use
-        values.put("deleted", !isRestore()); // the restore property value
+        // values.put("deleted", true);
+        values.put("deleted", !isRestore()); // 将原本的 true 改成使用 restore 属性的值
         // ...
     }
     // ...
 }
-</code></pre> As you can see, we only added a <em>restore</em> property, and then use its complement as the new value for the <em>deleted</em> property in the entity. If restore is false, (the default), <em>deleted</em> is set to <em>true</em>, meaning that we perform a deletion. But if <em>restore</em> is true the action will save the <em>deleted</em> property as <em>false</em>, making the invoice, order or whatever entity available again in the application.<br>
-      To make this action available you have to define it in <em>controllers.xml</em>:<br>
+</code></pre> 如您所见，我们只添加了一个 restore 属性，然后将其用作实体中 deleted 属性的新值。如果 restore 为默认的 false，deleted 則设置为 true，意味着我们將执行删除。但是，如果 restore 为 true，则该動作会将 deleted 属性保存为 false，从而使发票、订单或任何实体在应用程序中再次可用。<br>
+      要使用此動作，您必须在 controllers.xml 中定义它：<br>
       <pre><code class="xml">&lt;controller name="Trash"&gt;
     &lt;action name="restore" mode="list"
         class="com.yourcompany.invoicing.actions.InvoicingDeleteSelectedAction"&gt;
-        &lt;set property="restore" value="true"/&gt; &lt;!-- Initialize the restore property to --&gt;
-                &lt;!-- true before calling the execute() method of the action --&gt;
+        &lt;set property="restore" value="true"/&gt;
+                &lt;!-- 在调用动作的 execute() 方法之前先将 restore 设置为 true --&gt;
     &lt;/action&gt;
 &lt;/controller&gt;
-</code></pre> From now on you can utilize the <em>Trash.restore</em> action when you need an action for restoring. You're reusing the same code to delete and to restore, thanks to <em>&lt;set /&gt;</em> element of <em>&lt;action /&gt;</em> that allows you to configure the properties of your action.<br>
-      Let's use this new restore action in the new trash modules.<br>
+</code></pre> 从现在开始，您在需要恢复的動作时可以使用 Trash.restore 動作。由于 &lt;action /&gt; 的 &lt;set /&gt; 元素允许您配置動作的属性，您可以重復使用相同的代码来删除和恢复。<br>
+      让我们在新的垃圾箱模块中使用这个新的恢复動作。<br>
       <h3 id="toc17"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Custom modules"></a>自定义模块</h3>
-      As you already know, OpenXava generates a default module for each entity in your application. Still, you always have the option of defining the modules by hand, either by refining the behavior of a certain entity module, or by defining completely new functionality associated to the entity. In this case we're going to create two new modules, <em>InvoiceTrash</em> and <em>OrderTrash</em>, to restore deleted documents. In these modules we will use the <em>Trash</em> controller. See how we define the module in the <em>application.xml</em> file:<br>
+      如您所知，OpenXava 默认为应用程序中的每个实体生成一个模块。尽管如此，您始终可以选择手动定义模块，來更改某个实体模块的行为，或者定义全新的功能。在本例中，我们将创建两个新模块 InvoiceTrash 和 OrderTrash，用來恢复已删除的文档。在这些模块中，我们将使用垃圾箱控制器。看看我们如何在 application.xml 文件中定义這些模块：<br>
       <pre><code class="xml">&lt;application name="invoicing"&gt;
       
     &lt;default-module&gt;
@@ -628,10 +627,10 @@ public class InvoicingDeleteSelectedAction
  
     &lt;module name="InvoiceTrash"&gt;
         &lt;env-var name="XAVA_LIST_ACTION"
-            value="Trash.restore"/&gt; &lt;!-- The action to be shown in each row --&gt;
+            value="Trash.restore"/&gt; &lt;!-- 每行显示的动作 --&gt;
         &lt;model name="Invoice"/&gt;
-        &lt;tab name="Deleted"/&gt; &lt;!-- To show only the deleted entities --&gt;
-        &lt;controller name="Trash"/&gt; &lt;!-- With only one action: restore --&gt;
+        &lt;tab name="Deleted"/&gt; &lt;!-- 只显示已删除的实体 --&gt;
+        &lt;controller name="Trash"/&gt; &lt;!-- 只有一个动作：restore --&gt;
     &lt;/module&gt;
  
     &lt;module name="OrderTrash"&gt;
@@ -642,30 +641,31 @@ public class InvoicingDeleteSelectedAction
     &lt;/module&gt;
     
 &lt;/application&gt;
-</code></pre> These modules work as <em>Invoice</em> and <em>Order</em>, but they define a specific action as a row action using the <em>XAVA_LIST_ACTION</em> environment variable. The next figure shows the <em>InvoiceTrash</em> module in action.<br>
+</code></pre> 这些模块將用在 Invoice 和 Order，但它们使用 XAVA_LIST_ACTION 环境变量将特定動作定义为行的動作。以下图显示了 InvoiceTrash 模块：<br>
       <img src="files/refining_behavior_en060.png" alt="refining_behavior_en060.png"
         title="refining_behavior_en060.png"><br>
       <h3 id="toc18"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Several tabular data definitions by entity"></a>从实体定义表格的数据</h3>
-      Another important detail is that only deleted entities are shown in the list. This is possible because we define a specific <i>@Tab</i> by name for the module.<br>
+      另一个重要细节是列表只會显示已删除的实体，因为我们为模块定义了一个特定的 @Tab。<br>
       <pre><code class="xml">&lt;module ... &gt;
     ...
-    &lt;tab name="Deleted"/&gt; &lt;!-- "Deleted" is a @Tab defined in the entity --&gt;
+    &lt;tab name="Deleted"/&gt; &lt;!-- "Deleted" 是实体中定义的 @Tab --&gt;
     ...
 &lt;/module&gt;
-</code></pre> Of course you must have a <i>@Tab</i> named “Deleted” in your <em>Order</em> and <em>Invoice</em> entities.<br>
-      <pre><code class="java">@Tab(baseCondition = "deleted = false") // No name, so the default tab
-@Tab(name="Deleted", baseCondition = "deleted = true") // A named tab
+</code></pre> 当然，您的 Invoice 和 Order 实体中必须有一个名为 Deleted 的 @Tab。<br>
+      <pre><code class="java">@Tab(baseCondition = "deleted = false") // 没有名字，則使用默认 tab
+@Tab(name="Deleted", baseCondition = "deleted = true") // 有名字的 tab
 public class Invoice extends CommercialDocument { ... }
  
 @Tab(baseCondition = "deleted = false")
 @Tab(name="Deleted", baseCondition = "deleted = true")
 public class Order extends CommercialDocument { ... }
-</code></pre>You use the <i>@Tab</i> with no name as default list for <em>Invoice</em> and <em>Order</em>, but you have a <i>@Tab</i> named "Deleted" you can use for generating a list with only the deleted rows. In our context you use it for the trash modules. Now you can try your new trash modules, if you don't see it in the menu, sign out and sign in again.</div>
+</code></pre>當 @Tab 没有名称時，Invoice 和 Order 會使用默认列表，但您還有一个名为 Deleted 的 @Tab，您可以使用它来生成只有已删除的行的列表。在我們的例子，會将它用于垃圾箱模块。</div>
+    <div class="wiki" style="display: block;">现在您可以尝试新的垃圾箱模块，如果您在菜单中没有看到它們，请重新登录。</div>
     <div class="wiki" style="display: block;">
       <h3 id="toc19"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Reusable obsession"></a>痴迷于重复使用</h3>
-      We have done a good job! The <em>InvoicingDeleteSelectedAction</em> code can delete and restore entities, and we added the restore capacity with a very small amount of code and without copy &amp; paste.<br>
-      Now a lot of pernicious thoughts are swarming around your head. Surely you are thinking: “This action is no longer a mere delete action, but rather a delete and restore action”, and then: “Wait a minute, it is actually an action that updates the deleted property of the current entity”, followed by your next thought: “With very little improvement we can update any property of the entity”.<br>
-      Yes, you're right. You can easily create a more generic action, an <em>UpdatePropertyAction</em> for example; and use it to declare your <em>deleteSelected</em> and restore actions, thereby:<br>
+      做得很好！ InvoicingDeleteSelectedAction 的代码可以删除和恢复实体，並且我們用非常少的代码添加了恢复的功能，而且沒复制粘贴。<br>
+      现在，一定有许多奇怪、有害的想法在你的脑中盘旋。你肯定在想：“这个动作不再是单纯的删除动作，而是删除和恢复的动作”…“等一下，它实际上是一个更新当前实体的 deleted 属性的动作”，然后你的下一个想法是：“再一點改进，我们就可以更新实体的任何属性”。<br>
+      您是对的。您可以轻松创建更通用的動作，例如 UpdatePropertyAction；并使用它来声明您的 deleteSelected 和 restore 動作，如下：<br>
       <pre><code class="xml">&lt;action name="deleteSelected" mode="list" confirm="true"
     class="com.yourcompany.invoicing.actions.UpdatePropertyAction"
     keystroke="Control D"&gt;
@@ -678,10 +678,10 @@ public class Order extends CommercialDocument { ... }
     &lt;set property="property" value="deleted"/&gt;
     &lt;set property="value" value="false"/&gt;
 &lt;/action&gt;
-</code></pre> Although it seems like a good idea, we're not going to create this flexible <em>UpdatePropertyAction</em>. Because the more flexible your code is, the more sophisticated it is. And we don't want sophisticated code. We want simple code, and though simple code is impossible to achieve, we must make an effort to have the simplest possible code. The advice is: create reusable code only when it simplifies your application right now.<br>
+</code></pre> 尽管这看起来是个好主意，我们不会创建这个灵活的 UpdatePropertyAction。因为當代码越灵活，它就越复杂。而我们不想要复杂的代码，而是简单的代码，虽然“简单”的代码是不可能实现的，但我们必须努力拥有尽可能简单的代码。能給的建议是：仅在它能简化您的应用程序时才使用可重用的代码。<br>
       <h2 id="toc23"><a name="Lesson 7: Refining the standard behavior-Summary"></a>总结</h2>
-      The standard OpenXava behavior is only a starting point. Using the delete actions as excuse we have explored a couple of ways to refine the details of the application behavior. With the techniques in this lesson you can not only refine the delete logic, but fully alter the way your OpenXava application works. Thus, you have the possibility of tailoring the behavior of your application to fit your user expectations.<br>
-      The default OpenXava behavior is pretty limited, only CRUD and reporting. If you want a valuable application for your user you need to add specific functionality to help your user solve his problems. We will do more of that in the next lesson.<br>
+      &nbsp;OpenXava 的标准行为只是一个起点。以删除的動作为借口，我们探索了几种方法来優化应用程序行为的细节。使用本章的技术，您不仅可以改进删除逻辑，还可以完全改变 OpenXava 应用程序的工作方式。因此，您可以定制应用程序的行为以符合您用户期望。<br>
+      &nbsp;OpenXava 默认的行为非常有限，只有 CRUD 和报告。如果您想为您的用户提供有价值的应用程序，您需要添加特定的功能来帮助您的用户解决他的问题。我们将在下一章做更多有關這些的事。<br>
       <br>
       <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-7-refining-standard-behavior_en.zip/download"
           rel="nofollow">Download source code of this lesson</a></strong><br>
