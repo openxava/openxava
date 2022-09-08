@@ -90,7 +90,7 @@
             por reutilizar</a></div>
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
-      Espero que estés muy contento con el código de tu aplicación <em>Facturacion</em>.
+      Espero que estés muy contento con el código de tu aplicación <em>facturacion</em>.
       Es realmente simple, básicamente tienes entidades, clases simples que
       modelan tu problema. Toda la lógica de negocio está en esas entidades, y
       OpenXava genera una aplicación con un comportamiento decente a partir de
@@ -107,7 +107,7 @@
       propios controladores y acciones, y asociarlos a tus módulos o entidades,
       de esta forma refinas la forma en que OpenXava se comporta.<br>
       En esta lección refinaremos los controladores y acciones estándar para
-      poder personalizar el comportamiento de tu aplicación <em>Facturacion</em>.<br>
+      poder personalizar el comportamiento de tu aplicación <em>facturacion</em>.<br>
       <h2 id="toc1"><a name="Acciones-personalizadas"></a>Acciones
         personalizadas</h2>
       Por defecto, un módulo OpenXava te permite manejar tu entidad de una forma
@@ -121,10 +121,10 @@
         Typical</h3>
       Por defecto el módulo <em>Factura</em> usa las acciones del controlador <em>Typical</em>.
       El controlador <em>Typical</em> está definido en <em>default-controllers.xml</em>
-      que se encuentra en la carpeta <em>OpenXava/xava</em> de tu workspace.
-      Una definición de controlador es un fragmento de XML con una lista de
-      acciones. OpenXava aplica por defecto el controlador <em>Typical</em> a
-      todos los módulos. Puedes ver su definición:<br>
+      y puedes verlo en la carpeta <a class="wiki_link" href="https://github.com/openxava/openxava/tree/master/openxava/src/main/resources/xava">xava
+        de github</a><em></em>. Una definición de controlador es un fragmento de
+      XML con una lista de acciones. OpenXava aplica por defecto el controlador
+      <em>Typical</em> a todos los módulos. Puedes ver su definición:<br>
       <pre><code class="xml">&lt;controller name="Typical"&gt; &lt;!-- 'Typical' hereda sus acciones de los controladores --&gt;
     &lt;extends controller="Navigation"/&gt; &lt;!-- 'Navigation', --&gt;
     &lt;extends controller="CRUD"/&gt; &lt;!-- 'CRUD' --&gt;
@@ -209,8 +209,8 @@
       todas estas acciones en nuestro módulo <em>Factura</em>, con la excepción
       de que vamos a escribir nuestra propia lógica para la acción de borrar.<br>
       Define tu propio controlador para <em>Factura</em> añadiéndolo al archivo
-      <em>controladores.xml</em> de la carpeta <em>xava</em> de tu proyecto,
-      dejándolo como sigue:<br>
+      <em>controladores.xml</em> de la carpeta <em>src/main/resources/xava</em>
+      de tu proyecto, dejándolo como sigue:<br>
       <pre><code class="xml">&lt;?xml version = "1.0" encoding = "ISO-8859-1"?&gt;
  
 &lt;!DOCTYPE controladores SYSTEM "dtds/controladores.dtd"&gt;
@@ -274,7 +274,7 @@ public class EliminarFactura
       visualizados usando <i>getView().clear()</i>.<br>
       También usamos <i>addMessage()</i>. Todos los mensajes añadidos con <i>addMessage()</i>
       se mostrarán al usuario al final de la ejecución de la acción. Puedes,
-      bien añadir el mensaje a mostrar, o bien un id de una entrada en <em>i18n/MensajesFacturacion_es.properties</em>.<br>
+      bien añadir el mensaje a mostrar, o bien un id de una entrada en <em>src/main/resources/i18n/facturacion-messages_es.properties</em>.<br>
       La siguiente imagen muestra el comportamiento del módulo <em>Factura</em>
       después de añadir la acción de borrar personalizada:<br>
       <img src="files/refining_behavior_es020.png" alt="refining_behavior_es020.png"
@@ -357,7 +357,7 @@ boolean eliminado;
       genérico.<br>
       Reescribamos nuestra acción para borrar. Primero, renombremos <em>EliminarFactura</em>
       (una acción para borrar objetos de tipo <em>Factura</em>) como <em>EliminarParaFacturacion</em>
-      (la acción para borrar objetos en la aplicación <em>Facturacion</em>).
+      (la acción para borrar objetos en la aplicación <em>facturacion</em>).
       Esto implica que tienes que cambiar la entrada para la acción en <em>controladores.xml</em>,
       para cambiar el nombre de la clase. Tal como se muestra a continuación:<br>
       <pre><code class="xml">&lt;accion nombre="delete"
@@ -442,13 +442,13 @@ public class EliminarParaFacturacion extends ViewBaseAction {
       hay ninguna entidad llamada "Facturacion".<br>
       Queremos que el controlador <em>Facturacion</em> sea el controlador usado
       por defecto por todos los módulos de la aplicación. Para hacer esto hemos
-      de modificar el archivo <em>aplicacion.xml</em> que tienes en la carpeta
-      <em>xava</em> de tu aplicación. Dejándolo así:<br>
+      de modificar el archivo <em>aplicacion.xml</em> que esta en la carpeta <i>src/main/resources/xava</i>
+      de tu aplicación. Dejándolo así:<br>
       <pre><code class="xml">&lt;?xml version = "1.0" encoding = "ISO-8859-1"?&gt;
  
 &lt;!DOCTYPE aplicacion SYSTEM "dtds/aplicacion.dtd"&gt;
  
-&lt;aplicacion nombre="Facturacion"&gt;
+&lt;aplicacion nombre="facturacion"&gt;
  
     &lt;!--
     Se asume un módulo por defecto para cada entidad con el
@@ -516,7 +516,7 @@ abstract public class DocumentoComercial extends Eliminable {
  
 }
 </code></pre> Dado que <em>Factura</em> y <em>Pedido</em> son <em>DocumentoComercial</em>,
-      ahora puedes usar tu controlador <em>Facturacion</em> con la <em>ElminarParaFaturacion</em>
+      ahora puedes usar tu controlador <em>Facturacion</em> con la <em>EliminarParaFaturacion</em>
       contra ellos.<br>
       Nos queda un sutil detalle. La entidad <em>Pedido</em> tiene un método <i>@PreRemove</i>
       para hacer una validación al borrar. Esta validación puede impedir el
@@ -683,8 +683,9 @@ public class EliminarParaFacturacion extends ViewBaseAction {
       como valor para <em>XAVA_SEARCH_ACTION</em>. Hagámoslo pues de esta
       manera.<br>
       Para dar valor a la variable de entorno edita el archivo <em>controladores.xml</em>
-      en la carpeta <i>xava</i> de tu proyecto y añade al principio la línea <em>&lt;var-entorno
-        /&gt;</em> como ves a continuación:<br>
+      en la carpeta <i>src/main/resources/xava</i> de tu proyecto y añade al
+      principio la línea <em>&lt;var-entorno /&gt;</em> como ves a
+      continuación:<br>
       <pre><code class="xml">...
 &lt;controladores&gt;
     &lt;!-- Para definir un valor global para una variable de entorno --&gt;
@@ -1033,7 +1034,7 @@ public class EliminarSeleccionadoParaFacturacion
       y <em>PapeleraPedido</em>, para restaurar los documentos borrados.
       Usaremos el controlador <em>Papelera</em> en ellos. El siguiente código
       muestra la definición de módulos en el archivo <em>aplicacion.xml</em>:<br>
-      <pre><code class="xml">&lt;aplicacion nombre="Facturacion"&gt;
+      <pre><code class="xml">&lt;aplicacion nombre="facturacion"&gt;
  
     &lt;modulo-defecto&gt;
         &lt;controlador nombre="Facturacion"/&gt;
@@ -1133,7 +1134,7 @@ public class Pedido extends DocumentoComercial { ... }
       usuario necesitas añadir funcionalidad específica que le ayude a resolver
       sus problemas. Haremos esto en la próxima lección.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-7-refining-standard-behavior_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_es/tree/leccion-24"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"

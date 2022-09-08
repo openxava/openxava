@@ -10,139 +10,78 @@
   <body>
     <div class="wiki" style="display: block;">
       <h1 id="toc0"><a name="Lesson 24: Refining the standard behavior"></a> <span
-          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
-          / </span> Lesson 24: Refining the standard behavior </h1>
-      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
-        Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
-        Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
-        Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
-        Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
-        Agile development</a> |&nbsp;<a class="wiki_link" href="mapped-superclass-inheritance_en.html">6.
-        Mapped superclass inheritance</a> | <a class="wiki_link" href="entity-inheritance_en.html">7.
-        Entity inheritance</a> | <a class="wiki_link" href="view-inheritance_en.html">8.
-        View inheritance</a> | <a class="wiki_link" href="java-properties_en.html">9.
-        Java properties</a> | <a class="wiki_link" href="calculated-properties_en.html">10.
-        Calculated properties </a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11.
-        @DefaultValueCalculator in collections </a> | <a class="wiki_link" href="calculation-and-collections-total_en.html">12.
-        @Calculation and collections totals </a> | <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13.
-        @DefaultValueCalculator from file </a> | <a class="wiki_link" href="manual-schema-evolution_en.html">14.
-        Manual schema evolution </a> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">15.
-        Multi user default value calculation </a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16.
-        Synchronize persistent and computed propierties </a> | <a class="wiki_link"
-        href="logic-from-database_en.html">17. Logic from database </a> |&nbsp;<a
-        class="wiki_link" href="validating-with-entityvalidator_en.html">18.
-        Validating with @EntityValidator&nbsp;</a> |&nbsp; <a class="wiki_link"
-        href="validation-alternatives_en.html">19.
-        Validation alternatives&nbsp;</a> | <a class="wiki_link" href="validation-on-remove_en.html">20.
-        Validation on remove&nbsp;</a> |&nbsp;<a class="wiki_link" href="custom-bean-validation-annotation_en.html">
-        21. Custom Bean Validation annotation&nbsp;</a> | <a class="wiki_link"
-        href="rest-service-call-from-validation_en.html">22.
-        REST service call from validation&nbsp;</a> | <a class="wiki_link" href="attributes-in-annotations_en.html">23.
-        Attributes in annotations&nbsp;</a> | <strong>24. Refining the standard
-        behavior </strong> | <a class="wiki_link" href="business-logic-behavior_en.html">25.
-        Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">26.
-        References &amp; collections</a> | <a class="wiki_link" href="philosophy_en.html">A.
-        Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
-        Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
-        Annotations</a> | <a class="wiki_link" href="testing_en.html">D.
-        Automated testing</a>
+          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_en.html">documentation</a> / </span> Lesson 24: Refining the standard behavior </h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1. Getting started</a> | <a
+        class="wiki_link" href="basic-domain-model1_en.html">2. Basic domain model (1)</a> | <a
+        class="wiki_link" href="basic-domain-model2_en.html">3. Basic domain model (2)</a> | <a
+        class="wiki_link" href="refining-user-interface_en.html">4. Refining the user interface</a> | <a
+        class="wiki_link" href="agile-development_en.html">5. Agile development</a> |&nbsp;<a
+        class="wiki_link" href="mapped-superclass-inheritance_en.html">6. Mapped superclass inheritance</a> | <a
+        class="wiki_link" href="entity-inheritance_en.html">7. Entity inheritance</a> | <a
+        class="wiki_link" href="view-inheritance_en.html">8. View inheritance</a> | <a
+        class="wiki_link" href="java-properties_en.html">9. Java properties</a> | <a
+        class="wiki_link" href="calculated-properties_en.html">10. Calculated properties </a> | <a
+        class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11. @DefaultValueCalculator in collections </a> | <a
+        class="wiki_link" href="calculation-and-collections-total_en.html">12. @Calculation and collections totals </a> | <a
+        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file </a> | <a
+        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution </a> | <a
+        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation </a> | <a
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed propierties </a> | <a
+        class="wiki_link" href="logic-from-database_en.html">17. Logic from database </a> |&nbsp;<a
+        class="wiki_link" href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator&nbsp;</a> |&nbsp; <a
+        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
+        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
+        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
+        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
+        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <strong>24. Refining the standard behavior </strong> | <a
+        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
+        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
+        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
+        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
+        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+        class="wiki_link" href="testing_en.html">D. Automated testing</a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
-        <div style="margin-left: 1em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior">Lesson
-            24: Refining the standard behavior</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Custom%20actions">Custom
-            actions</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Custom%20actions-Typical%20controller">Typical
-            controller</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Custom%20actions-Refining%20the%20controller%20for%20a%20module">Refining
-            the controller for a module</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Custom%20actions-Writing%20your%20own%20action">Writing
-            your own action</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions">Generic
-            actions</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-MapFacade%20for%20generic%20code">MapFacade
-            for generic code</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-Changing%20the%20default%20controller%20for%20all%20modules">Changing
-            the default controller for all modules</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-Come%20back%20to%20the%20model%20a%20little">Come
-            back to the model a little</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-Metadata%20for%20more%20generic%20code">Metadata
-            for more generic code</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-Call%20another%20action%20from%20an%20action">Call
-            another action from an action actions</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-Refining%20the%20default%20search%20action">Refining
-            the default search action</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-List%20mode">List
-            mode</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-List%20mode-Filtering%20tabular%20data">Filtering
-            tabular data</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-List%20mode-List%20actions">List
-            actions</a></div>
-        <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Reusing%20actions%20code">Reusing
-            actions code</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Reusing%20actions%20code-Using%20properties%20to%20create%20reusable%20actions">Using
-            properties to create reusable actions</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Reusing%20actions%20code-Custom%20modules">Custom
-            modules</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Reusing%20actions%20code-Several%20tabular%20data%20definitions%20by%20entity">Several
-            tabular data definitions by entity</a></div>
-        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Reusing%20actions%20code-Reusable%20obsession">Reusable
-            obsession</a></div>
+        <div style="margin-left: 1em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior">Lesson 24: Refining the standard behavior</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Custom%20actions">Custom actions</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Custom%20actions-Typical%20controller">Typical controller</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Custom%20actions-Refining%20the%20controller%20for%20a%20module">Refining the controller for a module</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Custom%20actions-Writing%20your%20own%20action">Writing your own action</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions">Generic actions</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-MapFacade%20for%20generic%20code">MapFacade for generic code</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-Changing%20the%20default%20controller%20for%20all%20modules">Changing the default controller for all modules</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-Come%20back%20to%20the%20model%20a%20little">Come back to the model a little</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-Metadata%20for%20more%20generic%20code">Metadata for more generic code</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-Call%20another%20action%20from%20an%20action">Call another action from an action actions</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Generic%20actions-Refining%20the%20default%20search%20action">Refining the default search action</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-List%20mode">List mode</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-List%20mode-Filtering%20tabular%20data">Filtering tabular data</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-List%20mode-List%20actions">List actions</a></div>
+        <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Reusing%20actions%20code">Reusing actions code</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Reusing%20actions%20code-Using%20properties%20to%20create%20reusable%20actions">Using properties to create reusable actions</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Reusing%20actions%20code-Custom%20modules">Custom modules</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Reusing%20actions%20code-Several%20tabular%20data%20definitions%20by%20entity">Several tabular data definitions by entity</a></div>
+        <div style="margin-left: 3em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Reusing%20actions%20code-Reusable%20obsession">Reusable obsession</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%207:%20Refining%20the%20standard%20behavior-Summary">Summary</a></div>
       </div>
-      I hope you are very happy with the current code of your <i>Invoicing</i>
-      application. It's really simple, you basically have entities, simple
-      classes that model your problem. All the business logic is attached to
-      those entities, and OpenXava generates an application with a decent
-      behavior around them.<br>
-      However, man shall not live by business logic alone. A good behavior is
-      desirable too. Inevitably, you will face that either you, or your user,
-      crave behavior deviating from, or adding to, the standard OpenXava
-      behavior for certain parts of your application. To make sure your
-      application is comfortable and intuitive for the end user refinement of
-      the standard behavior is needed.<br>
-      Application behavior is defined by the controllers. A controller is simply
-      a collection of actions, and an action is what executes when a user clicks
-      a link or button. You can define your own controllers and actions and
-      associate them to modules or entities, and in that way refine how OpenXava
-      behaves.<br>
-      In this lesson we'll refine the standard controllers and actions in order
-      to customize the behavior of your <em>Invoicing</em> application.<br>
-      <h2 id="toc1"><a name="Lesson 7: Refining the standard behavior-Custom actions"></a>Custom
-        actions</h2>
-      By default, an OpenXava module allows you to manage your entity in a way
-      powerful and adequate enough to perform the most common tasks: adding,
-      modifying, removing, searching, generating PDF reports, exporting to Excel
-      (CSV), and import data to entities. These default actions are contained in
-      the <em>Typical</em> controller. You can refine or enhance the behavior
-      of your module by defining your own controller. This section will teach
-      you how to define your own controller and write custom actions.<br>
-      <h3 id="toc2"><a name="Lesson 7: Refining the standard behavior-Custom actions-Typical controller"></a>Typical
-        controller</h3>
-      By default the <em>Invoice</em> module uses the actions from <em>Typical</em>
-      controller. This controller is defined in the <em>default-controllers.xml</em>
-      located in the <em>OpenXava/xava</em> folder of your workspace. A
-      controller definition is an XML fragment with a relation of actions.
-      OpenXava applies the <em>Typical</em> controller by default to all
-      modules. You can see its definition:<br>
+      I hope you are very happy with the current code of your <i>invoicing</i> application. It's really simple, you basically have entities, simple classes that model your problem. All the business logic is attached to those entities, and OpenXava generates an application with a decent behavior around them.<br>
+      However, man shall not live by business logic alone. A good behavior is desirable too. Inevitably, you will face that either you, or your user, crave behavior deviating from, or adding to, the standard OpenXava behavior for certain parts of your application. To make sure your application is comfortable and intuitive for the end user refinement of the standard behavior is needed.<br>
+      Application behavior is defined by the controllers. A controller is simply a collection of actions, and an action is what executes when a user clicks a link or button. You can define your own controllers and actions and associate them to modules or entities, and in that way refine how OpenXava behaves.<br>
+      In this lesson we'll refine the standard controllers and actions in order to customize the behavior of your <em>invoicing</em> application.<br>
+      <h2 id="toc1"><a name="Lesson 7: Refining the standard behavior-Custom actions"></a>Custom actions</h2>
+      By default, an OpenXava module allows you to manage your entity in a way powerful and adequate enough to perform the most common tasks: adding, modifying, removing, searching, generating PDF reports, exporting to Excel (CSV), and import data to entities. These default actions are contained in the <em>Typical</em> controller. You can refine or enhance the behavior of your module by defining your own controller. This section will teach you how to define your own controller and write custom actions.<br>
+      <h3 id="toc2"><a name="Lesson 7: Refining the standard behavior-Custom actions-Typical controller"></a>Typical controller</h3>
+      By default the <em>Invoice</em> module uses the actions from <em>Typical</em> controller. This controller is defined in the <em>default-controllers.xml</em> and you can find it in <a
+        class="wiki_link" href="https://github.com/openxava/openxava/tree/master/openxava/src/main/resources/xava">xava folder from github</a><em></em>. A controller definition is an XML fragment with a relation of actions. OpenXava applies the <em>Typical</em> controller by default to all modules. You can see its definition:<br>
       <pre><code class="xml">&lt;controller name="Typical"&gt; &lt;!-- 'Typical' inherits all actions --&gt;
     &lt;extends controller="Navigation"/&gt; &lt;!-- from 'Navigation', --&gt;
     &lt;extends controller="CRUD"/&gt; &lt;!-- from 'CRUD' --&gt;
     &lt;extends controller="Print"/&gt; &lt;!-- from 'Print' --&gt;
     &lt;extends controller="ImportData"/&gt; &lt;!-- and from 'ImportData' controllers --&gt;
 &lt;/controller&gt;
-</code></pre> Here you can see how a controller can be defined from other
-      controllers. This is controllers inheritance. In this case the <em>Typical</em>
-      controller gets all the actions from the <em>Navigation</em>, <em>Print</em>
-      and <em>CRUD</em> controllers. <em>Navigation</em> contains the action
-      to navigate for object in detail mode. <em>Print</em> contains the
-      actions for printing PDF reports as well as exporting to Excel. <em>CRUD</em>
-      is composed of the actions for creating, reading, updating and deleting. <em>ImportData</em>
-      has the action that allows loading a file, with table format (csv, xls,
-      xlsx), to import records into the module. An extract of the <em>CRUD</em>
-      controller:<br>
+</code></pre> Here you can see how a controller can be defined from other controllers. This is controllers inheritance. In this case the <em>Typical</em> controller gets all the actions from the <em>Navigation</em>, <em>Print</em> and <em>CRUD</em> controllers. <em>Navigation</em> contains the action to navigate for object in detail mode. <em>Print</em> contains the actions for printing PDF reports as well as exporting to Excel. <em>CRUD</em> is composed of the actions for creating, reading, updating and deleting. <em>ImportData</em> has the action that allows loading a file, with table format (csv, xls, xlsx), to import records into the module. An extract of the <em>CRUD</em> controller:<br>
       <pre><code class="xml">&lt;controller name="CRUD"&gt;
  
     &lt;action name="new"
@@ -190,27 +129,15 @@
  
     &lt;!-- More actions... --&gt;
 &lt;/controller&gt;
-</code></pre> Here you see how actions are defined. Basically it amounts to
-      linking a name with a class holding the logic to execute. Moreover, it
-      defines an image and a keystroke, and using <em>&lt;set /&gt;</em> you
-      can configure your action class.<br>
-      The actions are shown by default in both list and detail mode, although
-      you can, by means of <i>mode</i> attribute, specify that the action
-      should be shown only in “list” or “detail” mode.<br>
-      <h3 id="toc3"><a name="Lesson 7: Refining the standard behavior-Custom actions-Refining the controller for a module"></a>Refining
-        the controller for a module</h3>
-      To start of, we will refine the <i>delete</i> action of the <em>Invoice</em>
-      module. Our objective is to modify the delete procedure so that when a
-      user clicks on the<br>
-      delete button the invoice will not be removed but instead simply marked as
-      removed. This way, we can recover the deleted invoices if needed.<br>
+</code></pre> Here you see how actions are defined. Basically it amounts to linking a name with a class holding the logic to execute. Moreover, it defines an image and a keystroke, and using <em>&lt;set /&gt;</em> you can configure your action class.<br>
+      The actions are shown by default in both list and detail mode, although you can, by means of <i>mode</i> attribute, specify that the action should be shown only in “list” or “detail” mode.<br>
+      <h3 id="toc3"><a name="Lesson 7: Refining the standard behavior-Custom actions-Refining the controller for a module"></a>Refining the controller for a module</h3>
+      To start of, we will refine the <i>delete</i> action of the <em>Invoice</em> module. Our objective is to modify the delete procedure so that when a user clicks on the<br>
+      delete button the invoice will not be removed but instead simply marked as removed. This way, we can recover the deleted invoices if needed.<br>
       <img src="files/refining_behavior_en010.png" alt="refining_behavior_en010.png"
         title="refining_behavior_en010.png"><br>
-      The previous figure shows the actions from <em>Typical</em>. We want all
-      of these actions in our <em>Invoice</em> module, except that we're going
-      to write our own logic for the delete action.<br>
-      You have to define your own controller for <em>Invoice</em> in <em>controllers.xml</em>
-      file of the <em>xava</em> folder of your project, leaving it in this way:<br>
+      The previous figure shows the actions from <em>Typical</em>. We want all of these actions in our <em>Invoice</em> module, except that we're going to write our own logic for the delete action.<br>
+      You have to define your own controller for <em>Invoice</em> in <em>controllers.xml</em> file of the <em>src/main/resources/xava</em> folder of your project, leaving it in this way:<br>
       <pre><code class="xml">&lt;?xml version = "1.0" encoding = "ISO-8859-1"?&gt;
  
 &lt;!DOCTYPE controllers SYSTEM "dtds/controllers.dtd"&gt;
@@ -232,21 +159,9 @@
     &lt;/controller&gt;
  
 &lt;/controllers&gt;
-</code></pre> In order to define a controller for your entity, you have to
-      create a controller with the same name as the entity, i.e., if a
-      controller named “Invoice” exists, this controller will be used instead of
-      <em>Typical</em> when you run the <em>Invoice</em> module. The <em>Invoice</em>
-      controller extends <em>Typical</em>, thus all actions from <em>Typical</em>
-      are available for your <em>Invoice</em> module. Any action you define in
-      your <em>Invoice</em> controller will be a button available for the user
-      to click. But since we named our action “delete”, which is shared with an
-      action of the <em>Typical</em> controller, we override the action defined
-      in <em>Typical</em>. In other words, only our new <em>delete</em> action
-      will be present in the user interface.<br>
-      <h3 id="toc4"><a name="Lesson 7: Refining the standard behavior-Custom actions-Writing your own action"></a>Writing
-        your own action</h3>
-      First, create a new package called <i>com.yourcompany.invoicing.actions</i>.
-      Then create a <i>DeleteInvoiceAction</i> class inside it, with this code:<br>
+</code></pre> In order to define a controller for your entity, you have to create a controller with the same name as the entity, i.e., if a controller named “Invoice” exists, this controller will be used instead of <em>Typical</em> when you run the <em>Invoice</em> module. The <em>Invoice</em> controller extends <em>Typical</em>, thus all actions from <em>Typical</em> are available for your <em>Invoice</em> module. Any action you define in your <em>Invoice</em> controller will be a button available for the user to click. But since we named our action “delete”, which is shared with an action of the <em>Typical</em> controller, we override the action defined in <em>Typical</em>. In other words, only our new <em>delete</em> action will be present in the user interface.<br>
+      <h3 id="toc4"><a name="Lesson 7: Refining the standard behavior-Custom actions-Writing your own action"></a>Writing your own action</h3>
+      First, create a new package called <i>com.yourcompany.invoicing.actions</i>. Then create a <i>DeleteInvoiceAction</i> class inside it, with this code:<br>
       <pre><code class="java">package com.yourcompany.invoicing.actions;  // In 'actions' package
 
 import org.openxava.actions.*;
@@ -261,40 +176,18 @@ public class DeleteInvoiceAction
             // clear() clears the data in user interface
     }
 }
-</code></pre> An action is a simple class. It has an <i>execute()</i> method
-      with the logic to perform when users click on the corresponding button or
-      link. An action must implement <i>org.openxava.actions.IAction</i>
-      interface, though usually it is more practical to extend <i>BaseAction</i>,
-      <i> ViewBaseAction</i> or any other base action from the <i>org.openxava.actions</i>
-      package.<br>
-      <i> ViewBaseAction</i> has a <i>view</i> property that you can use from
-      inside <i>execute()</i> with <i>getView()</i>. This object of type <i>org.openxava.view.View</i>
-      allows you manage the user interface. Above we cleared the displayed data
-      using <i>getView().clear()</i>.<br>
-      We also used <i>addMessage()</i>. All the messages added by <i>addMessage()</i>
-      will be shown to the user at the end of action execution. You can either
-      add the message to show or an id of an entry in <em>i18n/Invoicing-messages_en.properties</em>.<br>
-      The following figure demonstrates the behavior of the <em>Invoice</em>
-      module after adding your custom delete action: <br>
+</code></pre> An action is a simple class. It has an <i>execute()</i> method with the logic to perform when users click on the corresponding button or link. An action must implement <i>org.openxava.actions.IAction</i> interface, though usually it is more practical to extend <i>BaseAction</i>, <i> ViewBaseAction</i> or any other base action from the <i>org.openxava.actions</i> package.<br>
+      <i> ViewBaseAction</i> has a <i>view</i> property that you can use from inside <i>execute()</i> with <i>getView()</i>. This object of type <i>org.openxava.view.View</i> allows you manage the user interface. Above we cleared the displayed data using <i>getView().clear()</i>.<br>
+      We also used <i>addMessage()</i>. All the messages added by <i>addMessage()</i> will be shown to the user at the end of action execution. You can either add the message to show or an id of an entry in <em>src/main/resources/i18n/invoicing-messages_en.properties</em>.<br>
+      The following figure demonstrates the behavior of the <em>Invoice</em> module after adding your custom delete action: <br>
       <img src="files/refining_behavior_en020.png" alt="refining_behavior_en020.png"
         title="refining_behavior_en020.png"><br>
-      This is of course mock behavior, so let us now add the real functionality.
-      In order to mark the current invoice as deleted without actually deleting
-      it, we need to add a new property to <em>Invoice</em>. Let's call it <em>deleted</em>.
-      You can see it:<br>
+      This is of course mock behavior, so let us now add the real functionality. In order to mark the current invoice as deleted without actually deleting it, we need to add a new property to <em>Invoice</em>. Let's call it <em>deleted</em>. You can see it:<br>
       <pre><code class="java">@Hidden // It will not be shown by default in views and tabs
 @Column(columnDefinition="BOOLEAN DEFAULT FALSE") // To populate with falses instead of nulls
 boolean deleted;
-</code></pre> As you see, it's a plain boolean property. The only new detail is
-      the use of the <i>@Hidden</i> annotation. It means that when a default
-      view or a tabular list is generated the deleted property will not be
-      shown; although if you explicitly put it in <i>@View(members=)</i> or <i>@Tab(properties=)</i>
-      it will be shown. Use this annotation for properties intended for internal
-      use of the developer but makes no sense to the end user.<br>
-      We use <em>@Column(columnDefinition=)</em> to populate the column with
-      falses instead of nulls. Here you put the SQL column definition to send to
-      the database. It's faster that do an update over the database but the code
-      is more database dependent.<br>
+</code></pre> As you see, it's a plain boolean property. The only new detail is the use of the <i>@Hidden</i> annotation. It means that when a default view or a tabular list is generated the deleted property will not be shown; although if you explicitly put it in <i>@View(members=)</i> or <i>@Tab(properties=)</i> it will be shown. Use this annotation for properties intended for internal use of the developer but makes no sense to the end user.<br>
+      We use <em>@Column(columnDefinition=)</em> to populate the column with falses instead of nulls. Here you put the SQL column definition to send to the database. It's faster that do an update over the database but the code is more database dependent.<br>
       We are now ready to write the real code for your action:<br>
       <pre><code class="java">public void execute() throws Exception {
     Invoice invoice = XPersistence.getManager().find(
@@ -304,64 +197,30 @@ boolean deleted;
     addMessage("object_deleted", "Invoice"); // The "deleted" message
     getView().clear(); // The view is cleared
 }
-</code></pre> The visual effect is the same, a message is shown and the view
-      cleared, but in this case we actually do some work. We find the <em>Invoice</em>
-      entity associated with the current view and modify its <em>deleted</em>
-      property. That is all you have to do, because OpenXava automatically
-      commits the JPA transaction. This means that you can read any object and
-      modify its state from an action, and when the action finishes the modified
-      values will be stored in the database.<br>
-      But we left a loose end here. The "delete" button remains in the view
-      after deleting the entity, that is, when there is no selected object, in
-      addition if the user clicks the button the search instruction will fail
-      and a somewhat technical and unintelligible message will be shown to our
-      helpless user. We can refine this case by not showing the button, such as
-      when we click the <i>New</i> button. Note the small modification of the <i>execute()</i>:<br>
+</code></pre> The visual effect is the same, a message is shown and the view cleared, but in this case we actually do some work. We find the <em>Invoice</em> entity associated with the current view and modify its <em>deleted</em> property. That is all you have to do, because OpenXava automatically commits the JPA transaction. This means that you can read any object and modify its state from an action, and when the action finishes the modified values will be stored in the database.<br>
+      But we left a loose end here. The "delete" button remains in the view after deleting the entity, that is, when there is no selected object, in addition if the user clicks the button the search instruction will fail and a somewhat technical and unintelligible message will be shown to our helpless user. We can refine this case by not showing the button, such as when we click the <i>New</i> button. Note the small modification of the <i>execute()</i>:<br>
       <pre><code class="java">public void execute() throws Exception {
     // ...
     getView().clear();
     getView().setKeyEditable(true); // A new entity
 }
-</code></pre> With <i>getView().setKeyEditable(true)</i> we indicate that we
-      create a new entity and since our delete action has the attribute <em>available-in-new
-        = "false"</em>, then the delete button will not be displayed.<br>
-      Now that you know how to write your own custom actions, it's time to learn
-      how to write generic code.<br>
-      <h2 id="toc5"><a name="Lesson 7: Refining the standard behavior-Generic actions"></a>Generic
-        actions</h2>
-      The above code for your <em>DeleteInvoiceAction</em> reflects the typical
-      way of writing actions. It is concrete code directly accessing and
-      manipulating your entities.<br>
-      But sometimes you have action logic potentially to be used and reused
-      across your application, even across all your applications. In this case,
-      you can use techniques to produce reusable code, converting your custom
-      actions into generic actions.<br>
+</code></pre> With <i>getView().setKeyEditable(true)</i> we indicate that we create a new entity and since our delete action has the attribute <em>available-in-new = "false"</em>, then the delete button will not be displayed.<br>
+      Now that you know how to write your own custom actions, it's time to learn how to write generic code.<br>
+      <h2 id="toc5"><a name="Lesson 7: Refining the standard behavior-Generic actions"></a>Generic actions</h2>
+      The above code for your <em>DeleteInvoiceAction</em> reflects the typical way of writing actions. It is concrete code directly accessing and manipulating your entities.<br>
+      But sometimes you have action logic potentially to be used and reused across your application, even across all your applications. In this case, you can use techniques to produce reusable code, converting your custom actions into generic actions.<br>
       Let's learn these techniques to write generic action code.<br>
-      <h3 id="toc6"><a name="Lesson 7: Refining the standard behavior-Generic actions-MapFacade for generic code"></a>MapFacade
-        for generic code</h3>
-      Imagine that you want to use your <em>DeleteInvoiceAction</em> for <em>Order</em>
-      entities too. Moreover, imagine that you want to use it for all the
-      entities of the application having a <em>deleted</em> property. That is,
-      you want an action to mark as deleted instead of actually removing from
-      the database any entity, not just invoices. In this case, the current code
-      for your action is not enough. You need a more generic code.<br>
-      You can develop more generic actions using an OpenXava class named <i>MapFacade</i>.
-      <i> MapFacade</i> (from <i>org.openxava.model</i> package) allows you to
-      manage the state of your entities using maps, which is very practical
-      since <i>View</i> works with maps. Furthermore, maps are more dynamic
-      than objects, and hence more suitable for generic code.<br>
-      Let's rewrite our delete action. First, we'll rename it from <em>DeleteInvoiceAction</em>
-      (an action to delete <em>Invoice</em> objects) to <em>InvoicingDeleteAction</em>
-      (the delete action of the <em>Invoicing</em> application). This implies
-      that you must alter the class name entry for the action in <em>controllers.xml</em>:<br>
+      <h3 id="toc6"><a name="Lesson 7: Refining the standard behavior-Generic actions-MapFacade for generic code"></a>MapFacade for generic code</h3>
+      Imagine that you want to use your <em>DeleteInvoiceAction</em> for <em>Order</em> entities too. Moreover, imagine that you want to use it for all the entities of the application having a <em>deleted</em> property. That is, you want an action to mark as deleted instead of actually removing from the database any entity, not just invoices. In this case, the current code for your action is not enough. You need a more generic code.<br>
+      You can develop more generic actions using an OpenXava class named <i>MapFacade</i>. <i> MapFacade</i> (from <i>org.openxava.model</i> package) allows you to manage the state of your entities using maps, which is very practical since <i>View</i> works with maps. Furthermore, maps are more dynamic than objects, and hence more suitable for generic code.<br>
+      Let's rewrite our delete action. First, we'll rename it from <em>DeleteInvoiceAction</em> (an action to delete <em>Invoice</em> objects) to <em>InvoicingDeleteAction</em> (the delete action of the <em>invoicing</em> application). This implies that you must alter the class name entry for the action in <em>controllers.xml</em>:<br>
       <pre><code class="xml">&lt;action name="delete"
     mode="detail" confirm="true"
     class="com.yourcompany.invoicing.actions.InvoicingDeleteAction"
     icon="delete"
     available-on-new="false"
     keystroke="Control D"/&gt;
-</code></pre> Now, rename your <em>DeleteInvoiceAction</em> to <em>InvoicingDeleteAction</em>
-      and crewrite its code:<br>
+</code></pre> Now, rename your <em>DeleteInvoiceAction</em> to <em>InvoicingDeleteAction</em> and rewrite its code:<br>
       <pre><code class="java">package com.yourcompany.invoicing.actions;
  
 import java.util.*;
@@ -386,36 +245,12 @@ public class InvoicingDeleteAction extends ViewBaseAction {
         getView().setEditable(false); // The view is left as not editable
     }
 }
-</code></pre> This action executes the same logic as the previous one, but it
-      contains no reference to the <em>Invoice</em> entity. This action is
-      generic and you can use it with <em>Order</em>, <em>Author</em> or any
-      other entity as long they have a <em>deleted</em> property. The trick
-      lies in <i>MapFacade</i>. It allows you to modify an entity from maps.
-      These maps can be obtained directly from the view (using <i>getView().getKeyValues()</i>
-      for example) or created generically as in the case with values above.<br>
-      Additionally you can see two small improvements over the old version.
-      First, we call <i>resetDescriptionsCache()</i>, a method from <i>BaseAction</i>.
-      This method clears the cache used for combos. When you modify an entity,
-      this is needed if you want the combos to reflect the change
-      instantaneously. Second, we call <i>getView().setEditable(false)</i>.
-      This disables the editors of the view, to prevent the user from filling in
-      data in the view. In order to create a new entity the user must click the
-      <i>New</i> button.<br>
-      Now your action is ready to use with any other entity. We could copy and
-      paste the <em>Invoice</em> controller as <em>Order</em> controller in <em>controllers.xml</em>.
-      In this way, our new generic delete logic would be used for <em>Order</em>
-      too. Wait a minute! Did I say “copy and paste”? We don't want to rot in
-      hell, right? So we'll use a more automatic way to apply our new action to
-      all modules. Let us find out how in the next section.<br>
-      <h3 id="toc7"><a name="Lesson 7: Refining the standard behavior-Generic actions-Changing the default controller for all modules"></a>Changing
-        the default controller for all modules</h3>
-      If you use the <em>InvoicingDeleteAction</em> just for <em>Invoice</em>
-      then defining it in the <em>Invoice</em> controller in <em>controllers.xml</em>
-      is a good way to go. But, we improved this action with the sole purpose
-      making it reusable, so let's reuse it. For this we will assign a
-      controller to all modules at once.<br>
-      The first step is to change the name of the controller from <em>Invoice</em>
-      to <em>Invoicing</em> in <em>controllers.xml</em>:<br>
+</code></pre> This action executes the same logic as the previous one, but it contains no reference to the <em>Invoice</em> entity. This action is generic and you can use it with <em>Order</em>, <em>Author</em> or any other entity as long they have a <em>deleted</em> property. The trick lies in <i>MapFacade</i>. It allows you to modify an entity from maps. These maps can be obtained directly from the view (using <i>getView().getKeyValues()</i> for example) or created generically as in the case with values above.<br>
+      Additionally you can see two small improvements over the old version. First, we call <i>resetDescriptionsCache()</i>, a method from <i>BaseAction</i>. This method clears the cache used for combos. When you modify an entity, this is needed if you want the combos to reflect the change instantaneously. Second, we call <i>getView().setEditable(false)</i>. This disables the editors of the view, to prevent the user from filling in data in the view. In order to create a new entity the user must click the <i>New</i> button.<br>
+      Now your action is ready to use with any other entity. We could copy and paste the <em>Invoice</em> controller as <em>Order</em> controller in <em>controllers.xml</em>. In this way, our new generic delete logic would be used for <em>Order</em> too. Wait a minute! Did I say “copy and paste”? We don't want to rot in hell, right? So we'll use a more automatic way to apply our new action to all modules. Let us find out how in the next section.<br>
+      <h3 id="toc7"><a name="Lesson 7: Refining the standard behavior-Generic actions-Changing the default controller for all modules"></a>Changing the default controller for all modules</h3>
+      If you use the <em>InvoicingDeleteAction</em> just for <em>Invoice</em> then defining it in the <em>Invoice</em> controller in <em>controllers.xml</em> is a good way to go. But, we improved this action with the sole purpose making it reusable, so let's reuse it. For this we will assign a controller to all modules at once.<br>
+      The first step is to change the name of the controller from <em>Invoice</em> to <em>Invoicing</em> in <em>controllers.xml</em>:<br>
       <pre><code class="xml">&lt;controller name="Invoicing"&gt;
  
     &lt;extends controller="Typical"/&gt;
@@ -428,20 +263,13 @@ public class InvoicingDeleteAction extends ViewBaseAction {
         keystroke="Control D"/&gt;
  
 &lt;/controller&gt;
-</code></pre> As you already know, when you use the name of an entity, like <em>Invoice</em>,
-      as controller name, that controller will be used by default for the module
-      of that entity. Therefore, if we change the name of the controller, this
-      controller will not be used for the entity. Indeed, the <em>Invoicing</em>
-      controller is not used by any module since there is no entity called <em>Invoicing</em>.<br>
-      We want to make the <em>Invoicing</em> controller the default controller
-      for all the modules in our application. To achieve this we need to modify
-      the <em>application.xml</em> file located in the <em>xava</em> folder of
-      your application. Leave it as:<br>
+</code></pre> As you already know, when you use the name of an entity, like <em>Invoice</em>, as controller name, that controller will be used by default for the module of that entity. Therefore, if we change the name of the controller, this controller will not be used for the entity. Indeed, the <em>Invoicing</em> controller is not used by any module since there is no entity called <em>Invoicing</em>.<br>
+      We want to make the <em>Invoicing</em> controller the default controller for all the modules in our application. To achieve this we need to modify the <em>application.xml</em> file located in the <em>src/main/resources/xava</em> folder of your application. Leave it as:<br>
       <pre><code class="xml">&lt;?xml version = "1.0" encoding = "ISO-8859-1"?&gt;
  
 &lt;!DOCTYPE application SYSTEM "dtds/application.dtd"&gt;
  
-&lt;application name="Invoicing"&gt;
+&lt;application name="invoicing"&gt;
  
     &lt;!--
     A default module for each entity is assumed with the
@@ -452,22 +280,10 @@ public class InvoicingDeleteAction extends ViewBaseAction {
     &lt;/default-module&gt;
  
 &lt;/application&gt;
-</code></pre> In this simple way all modules of your application will use <em>Invoicing</em>
-      instead of <em>Typical</em> as the default controller. Try to execute
-      your <em>Invoice</em> module and see how the <em>InvoicingDeleteAction</em>
-      is executed on deletion of an element.<br>
-      You can try the <em>Order</em> module too, but it will not work because
-      it has no <em>deleted</em> property. We could add the <em>deleted</em>
-      property to <em>Order</em> and it would work with our new controller, but
-      instead of “copying and pasting” the <em>deleted</em> property to all our
-      entities we are going to use a better technique. Let's see it in the next
-      section.<br>
-      <h3 id="toc8"><a name="Lesson 7: Refining the standard behavior-Generic actions-Come back to the model a little"></a>Come
-        back to the model a little</h3>
-      Now your task is to add the <em>deleted</em> property to all the entities
-      of your application, in order to make <em>InvoicingDeleteAction</em>
-      work. This is a good occasion to use inheritance to put this shared code
-      in the same place, instead of using the infamous “copy &amp; paste”.<br>
+</code></pre> In this simple way all modules of your application will use <em>Invoicing</em> instead of <em>Typical</em> as the default controller. Try to execute your <em>Invoice</em> module and see how the <em>InvoicingDeleteAction</em> is executed on deletion of an element.<br>
+      You can try the <em>Order</em> module too, but it will not work because it has no <em>deleted</em> property. We could add the <em>deleted</em> property to <em>Order</em> and it would work with our new controller, but instead of “copying and pasting” the <em>deleted</em> property to all our entities we are going to use a better technique. Let's see it in the next section.<br>
+      <h3 id="toc8"><a name="Lesson 7: Refining the standard behavior-Generic actions-Come back to the model a little"></a>Come back to the model a little</h3>
+      Now your task is to add the <em>deleted</em> property to all the entities of your application, in order to make <em>InvoicingDeleteAction</em> work. This is a good occasion to use inheritance to put this shared code in the same place, instead of using the infamous “copy &amp; paste”.<br>
       First remove the <em>deleted</em> property from <em>Invoice</em>:<br>
       <pre><code class="java">public class Invoice extends CommercialDocument {
  
@@ -477,8 +293,7 @@ public class InvoicingDeleteAction extends ViewBaseAction {
  
     // ...
 }
-</code></pre> And now create a new mapped superclass named <i>Deletable</i> in
-      <i>com.yourcompany.invoicing.model</i> package:
+</code></pre> And now create a new mapped superclass named <i>Deletable</i> in <i>com.yourcompany.invoicing.model</i> package:
       <pre><code class="java">package com.yourcompany.invoicing.model;
  
 import javax.persistence.*;
@@ -493,24 +308,13 @@ public class Deletable extends Identifiable {
     boolean deleted;
  
 }
-</code></pre> <em>Deletable</em> is a mapped superclass. Remember, a mapped
-      superclass is not an entity, but a class with properties, methods and
-      mapping annotations to be used as a superclass for entities. <em>Deletable</em>
-      extends from <em>Identifiable</em>, so any entity that extends <em>Deletable</em>
-      will have the <em>oid</em> and <em>deleted</em> properties.<br>
-      Now you can convert any of your current entities to deletable, you only
-      have to change <em>Identifiable</em> to <em>Deletable</em> as
-      superclass. This is done for <em>CommercialDocument</em>:<br>
+</code></pre> <em>Deletable</em> is a mapped superclass. Remember, a mapped superclass is not an entity, but a class with properties, methods and mapping annotations to be used as a superclass for entities. <em>Deletable</em> extends from <em>Identifiable</em>, so any entity that extends <em>Deletable</em> will have the <em>oid</em> and <em>deleted</em> properties.<br>
+      Now you can convert any of your current entities to deletable, you only have to change <em>Identifiable</em> to <em>Deletable</em> as superclass. This is done for <em>CommercialDocument</em>:<br>
       <pre><code class="java">// abstract public class CommercialDocument extends Identifiable { 
 abstract public class CommercialDocument extends Deletable { 
 ...
-</code></pre> Given that <em>Invoice</em> and <em>Order</em> are subclasses of
-      <em>ComercialDocument</em>, now you can use the <em>Invocing</em>
-      controller with the <em>InvoicingDeleteAction</em> against them.<br>
-      A subtle detail remains. The <em>Order</em> entity has a <i>@PreRemove</i>
-      method to do a validation on remove. This validation can prevent the
-      removal. We can maintain this validation for our custom deletion by just
-      overwriting the <i>setDeleted()</i> method for <i>Order</i>:<br>
+</code></pre> Given that <em>Invoice</em> and <em>Order</em> are subclasses of <em>ComercialDocument</em>, now you can use the <em>Invocing</em> controller with the <em>InvoicingDeleteAction</em> against them.<br>
+      A subtle detail remains. The <em>Order</em> entity has a <i>@PreRemove</i> method to do a validation on remove. This validation can prevent the removal. We can maintain this validation for our custom deletion by just overwriting the <i>setDeleted()</i> method for <i>Order</i>:<br>
       <pre><code class="java">public class Order extends CommercialDocument {
     // ...
  
@@ -528,27 +332,14 @@ abstract public class CommercialDocument extends Deletable {
         super.setDeleted(deleted);
     }
 }
-</code></pre> With this change the validation works just as in the real deletion
-      case, thus we preserve untouched the original behavior.<br>
-      <h3 id="toc9"><a name="Lesson 7: Refining the standard behavior-Generic actions-Metadata for more generic code"></a>Metadata
-        for more generic code</h3>
-      With your current code <em>Invoice</em> and <em>Order</em> work fine.
-      Though if you try to remove an entity in any other module, you'll get an
-      ugly error message. The following figure shows what happens when you try
-      to delete a <em>Customer</em>.<br>
+</code></pre> With this change the validation works just as in the real deletion case, thus we preserve untouched the original behavior.<br>
+      <h3 id="toc9"><a name="Lesson 7: Refining the standard behavior-Generic actions-Metadata for more generic code"></a>Metadata for more generic code</h3>
+      With your current code <em>Invoice</em> and <em>Order</em> work fine. Though if you try to remove an entity in any other module, you'll get an ugly error message. The following figure shows what happens when you try to delete a <em>Customer</em>.<br>
       <img src="files/refining_behavior_en030.png" alt="refining_behavior_en030.png"
         title="refining_behavior_en030.png"><br>
-      If your entity has no <em>deleted</em> property, the delete action fails.
-      Using <em>Deletable</em> as base class you can add the <em>deleted</em>
-      property to all your entities. However, you might want to have entities
-      marked as deleted (so <em>Deletable</em>) and entities to be actually
-      removed from the database. We want the action to work in all cases.<br>
-      OpenXava stores metadata for all entities, and you can access this
-      metadata from your code. This allows you, among other things, to figure
-      out if an entity has a <em>deleted</em> property.<br>
-      The following code shows how to modify the action to find out if the
-      entity has a <em>deleted</em> property, if not, the remove process is not
-      performed:<br>
+      If your entity has no <em>deleted</em> property, the delete action fails. Using <em>Deletable</em> as base class you can add the <em>deleted</em> property to all your entities. However, you might want to have entities marked as deleted (so <em>Deletable</em>) and entities to be actually removed from the database. We want the action to work in all cases.<br>
+      OpenXava stores metadata for all entities, and you can access this metadata from your code. This allows you, among other things, to figure out if an entity has a <em>deleted</em> property.<br>
+      The following code shows how to modify the action to find out if the entity has a <em>deleted</em> property, if not, the remove process is not performed:<br>
       <pre><code class="java">public void execute() throws Exception {
     if (!getView().getMetaModel() // Metadata about the current entity
         .containsMetaProperty("deleted")) // Is there a 'deleted' property?
@@ -559,28 +350,12 @@ abstract public class CommercialDocument extends Deletable {
     }
     // ...
 }
-</code></pre> The key thing here is <i>getView().getMetaModel()</i> that
-      returns a <i>MetaModel</i> object from <i>org.openxava.model.meta</i>
-      package. This object contains metadata about the entity currently
-      displayed in the view. You can ask for the properties, references,
-      collections, methods and other entity metadata. Consult the <a href="../apidocs/org/openxava/model/meta/MetaModel.html"><i>MetaModel
-          </i>API</a> to learn more. In this case we ask if the <em>deleted</em>
-      property exists.<br>
-      For now we only show a message. Let's improve on this to actually delete
-      the entity.<br>
-      <h3 id="toc10"><a name="Lesson 7: Refining the standard behavior-Generic actions-Call another action from an action"></a>Call
-        another action from an action</h3>
-      Our objective is to remove the entity in the usual way if it lacks the <em>deleted</em>
-      property. Our first option is to write the removal logic ourselves, a
-      rather simple task. Nonetheless, it is a much better idea to use the
-      standard removal logic of OpenXava, since we don't need to write any
-      deletion logic and we use a more refined and tested piece of code.<br>
-      For this OpenXava allows to call an action from inside an action, just
-      call to <i>executeAction()</i> indicating the qualified name of your
-      action, that is the name of the controller and the name of the action. In
-      our case for calling the standard OpenXava delete action we should use <i>executeAction("CRUD.delete")</i>.
-      The following code shows <em>InvoicingDeleteAction</em> modified to call
-      to the standard OpenXava delete action:<br>
+</code></pre> The key thing here is <i>getView().getMetaModel()</i> that returns a <i>MetaModel</i> object from <i>org.openxava.model.meta</i> package. This object contains metadata about the entity currently displayed in the view. You can ask for the properties, references, collections, methods and other entity metadata. Consult the <a
+        href="../apidocs/org/openxava/model/meta/MetaModel.html"><i>MetaModel </i>API</a> to learn more. In this case we ask if the <em>deleted</em> property exists.<br>
+      For now we only show a message. Let's improve on this to actually delete the entity.<br>
+      <h3 id="toc10"><a name="Lesson 7: Refining the standard behavior-Generic actions-Call another action from an action"></a>Call another action from an action</h3>
+      Our objective is to remove the entity in the usual way if it lacks the <em>deleted</em> property. Our first option is to write the removal logic ourselves, a rather simple task. Nonetheless, it is a much better idea to use the standard removal logic of OpenXava, since we don't need to write any deletion logic and we use a more refined and tested piece of code.<br>
+      For this OpenXava allows to call an action from inside an action, just call to <i>executeAction()</i> indicating the qualified name of your action, that is the name of the controller and the name of the action. In our case for calling the standard OpenXava delete action we should use <i>executeAction("CRUD.delete")</i>. The following code shows <em>InvoicingDeleteAction</em> modified to call to the standard OpenXava delete action:<br>
       <pre><code class="java">package com.yourcompany.invoicing.actions;
  
 import java.util.*;
@@ -607,48 +382,18 @@ public class InvoicingDeleteAction extends ViewBaseAction {
     }
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Simple. We call to <i>executeAction(“CRUD.delete”)</i>
-      if we want the default delete action of OpenXava to be executed. Thus, we
-      write our custom removal logic (in this case marking a property as true)
-      for some cases, and we “by-pass” to the standard logic for all other
-      cases.<br>
-      Now you can use your <em>InvoicingDeleteAction</em> with any entity. If
-      the entity has a <em>deleted</em> property it will be marked as deleted,
-      otherwise it will be actually deleted from the database.<br>
-      This example shows you how to use <i>executeAction() </i>to refine the
-      standard OpenXava logic. Another way to do so is by means of inheritance.
-      Let's see how in the next section.<br>
-      <h3 id="toc11"><a name="Lesson 7: Refining the standard behavior-Generic actions-Refining the default search action"></a>Refining
-        the default search action</h3>
-      Now, your <em>InvoicingDeleteAction</em> works fine, though it is
-      useless. It is useless to mark objects as deleted if the rest of the
-      application is not aware of that. In other words, we have to modify other
-      parts of the application to treat the marking-as-deleted object as if they
-      do not exist.<br>
-      The most obvious place to start is the search action. If you delete an
-      invoice and then search for it, it should not be found. The following
-      figure shows how searching works in OpenXava.<br>
+    <div class="wiki" style="display: block;">Simple. We call to <i>executeAction(“CRUD.delete”)</i> if we want the default delete action of OpenXava to be executed. Thus, we write our custom removal logic (in this case marking a property as true) for some cases, and we “by-pass” to the standard logic for all other cases.<br>
+      Now you can use your <em>InvoicingDeleteAction</em> with any entity. If the entity has a <em>deleted</em> property it will be marked as deleted, otherwise it will be actually deleted from the database.<br>
+      This example shows you how to use <i>executeAction() </i>to refine the standard OpenXava logic. Another way to do so is by means of inheritance. Let's see how in the next section.<br>
+      <h3 id="toc11"><a name="Lesson 7: Refining the standard behavior-Generic actions-Refining the default search action"></a>Refining the default search action</h3>
+      Now, your <em>InvoicingDeleteAction</em> works fine, though it is useless. It is useless to mark objects as deleted if the rest of the application is not aware of that. In other words, we have to modify other parts of the application to treat the marking-as-deleted object as if they do not exist.<br>
+      The most obvious place to start is the search action. If you delete an invoice and then search for it, it should not be found. The following figure shows how searching works in OpenXava.<br>
       <img src="files/refining_behavior_en040.png" alt="refining_behavior_en040.png"
         title="refining_behavior_en040.png"><br>
-      The first thing to observe in the previous figure is that searching in
-      detail mode is more flexible than it seems. The user can enter any value
-      in any field, or set of fields, and then click the refresh button. The
-      first matching object will get loaded in the view.<br>
-      Now you might think: “Well, I can refine the <em>CRUD.refresh</em> action
-      just in the same was as I refined <em>CRUD.delete</em> “. Yes, you can,
-      and it will work; when the user clicks on the refresh action of detail
-      mode your code will be executed. However, there is a subtle detail here.
-      The search logic is not called only from the detail view, but from several
-      other places in an OpenXava module. For example, when the user chooses a
-      detail from list mode, the <em>List.viewDetail</em> action takes the key
-      from the row, puts it in the detail view, and then executes the search
-      action.<br>
-      We put the search logic for a module in one action, and all actions that
-      need to search will chain to this action. Just as shown in the previous
-      figure.<br>
-      This gets clearer when you see the code for the standard <em>CRUD.refresh</em>
-      action, <i>org.openxava.actions.SearchAction</i> whose code is shown
-      below:<br>
+      The first thing to observe in the previous figure is that searching in detail mode is more flexible than it seems. The user can enter any value in any field, or set of fields, and then click the refresh button. The first matching object will get loaded in the view.<br>
+      Now you might think: “Well, I can refine the <em>CRUD.refresh</em> action just in the same was as I refined <em>CRUD.delete</em> “. Yes, you can, and it will work; when the user clicks on the refresh action of detail mode your code will be executed. However, there is a subtle detail here. The search logic is not called only from the detail view, but from several other places in an OpenXava module. For example, when the user chooses a detail from list mode, the <em>List.viewDetail</em> action takes the key from the row, puts it in the detail view, and then executes the search action.<br>
+      We put the search logic for a module in one action, and all actions that need to search will chain to this action. Just as shown in the previous figure.<br>
+      This gets clearer when you see the code for the standard <em>CRUD.refresh</em> action, <i>org.openxava.actions.SearchAction</i> whose code is shown below:<br>
       <pre><code class="java">public class SearchAction extends BaseAction
     implements IChainAction { // It chains to another action
  
@@ -660,15 +405,8 @@ public class InvoicingDeleteAction extends ViewBaseAction {
             .getValue("XAVA_SEARCH_ACTION");
     }
 }
-</code></pre> As you can see, the standard search action for detail mode does
-      nothing except redirect to another action. This other action is defined in
-      an environment variable called <em>XAVA_SEARCH_ACTION</em>, and can be
-      read using <i>getEnvironment()</i>. Therefore, if you want to refine the
-      OpenXava search logic, the best way to do it is to define your action as <em>XAVA_SEARCH_ACTION</em>.
-      So, let's do it this way.<br>
-      To set the environment variable, edit the <em>controllers.xml</em> file
-      in the <em>xava</em> folder of your project, and add the <em>&lt;env-var
-        /&gt;</em> line at the beginning:<br>
+</code></pre> As you can see, the standard search action for detail mode does nothing except redirect to another action. This other action is defined in an environment variable called <em>XAVA_SEARCH_ACTION</em>, and can be read using <i>getEnvironment()</i>. Therefore, if you want to refine the OpenXava search logic, the best way to do it is to define your action as <em>XAVA_SEARCH_ACTION</em>. So, let's do it this way.<br>
+      To set the environment variable, edit the <em>controllers.xml</em> file in the <em>src/main/resources/xava</em> folder of your project, and add the <em>&lt;env-var /&gt;</em> line at the beginning:<br>
       <pre><code class="xml">...
 &lt;controllers&gt;
     &lt;!-- To define the global value for an environment variable --&gt;
@@ -678,9 +416,7 @@ public class InvoicingDeleteAction extends ViewBaseAction {
  
     &lt;controller name="Invoicing"&gt;
 ...
-</code></pre> This way the value of the <em>XAVA_SEARCH_ACTION</em> environment
-      variable in any module will be “Invoicing.searchExcludingDeleted”, and
-      hence, the search logic for all modules will be in this action.<br>
+</code></pre> This way the value of the <em>XAVA_SEARCH_ACTION</em> environment variable in any module will be “Invoicing.searchExcludingDeleted”, and hence, the search logic for all modules will be in this action.<br>
       Next, we define this action in <em>controllers.xml</em>:<br>
       <pre><code class="xml">&lt;controller name="Invoicing"&gt;
     ...
@@ -690,10 +426,7 @@ public class InvoicingDeleteAction extends ViewBaseAction {
         &lt;!-- hidden="true": Thus the action will not be shown in button bar --&gt;
  
 &lt;/controller&gt;
-</code></pre> And now it's time to write the implementation class. In this case
-      we only want to refine the search logic so that the search is done the
-      regular way with the exception that it is leaving out entities where <em>deleted</em>
-      is set to true. To do this refinement we are going to use inheritance.<br>
+</code></pre> And now it's time to write the implementation class. In this case we only want to refine the search logic so that the search is done the regular way with the exception that it is leaving out entities where <em>deleted</em> is set to true. To do this refinement we are going to use inheritance.<br>
       <pre><code class="java">package com.yourcompany.invoicing.actions;
  
 import java.util.*;
@@ -742,24 +475,9 @@ public class SearchExcludingDeletedAction
         }
     }
 }
-</code></pre> The standard logic to search resides in the <i>SearchByViewKeyAction</i>
-      class. Basically, what this action does is that it reads the values from
-      the view and searches for an object. If the id property is present this is
-      used, otherwise all values are used, and the first object that matches the
-      condition is returned. We want to use this same algorithm changing only
-      some details about the <em>deleted</em> property. So instead of
-      overwriting the <i>execute()</i> method, that contains the search logic,
-      we overwrite three protected methods, that are called from <i>execute()</i>
-      and contain some parts suitable to be refined.<br>
-      After these changes you can try your application, and you will find that
-      when you search, a removed invoice or order will never be shown. Even if
-      you choose a deleted invoice or order from list mode an error will be
-      produced and you will not see the data in detail mode.<br>
-      You have seen how defining a <em>XAVA_SEARCH_ACTION</em> environment
-      variable in <em>controllers.xml</em> you establish the search logic in a
-      global way for all your modules at once. If you want to define a specific
-      search action for a particular module just define the environment variable
-      in the module definition in <em>application.xml</em>, as we show below:<br>
+</code></pre> The standard logic to search resides in the <i>SearchByViewKeyAction</i> class. Basically, what this action does is that it reads the values from the view and searches for an object. If the id property is present this is used, otherwise all values are used, and the first object that matches the condition is returned. We want to use this same algorithm changing only some details about the <em>deleted</em> property. So instead of overwriting the <i>execute()</i> method, that contains the search logic, we overwrite three protected methods, that are called from <i>execute()</i> and contain some parts suitable to be refined.<br>
+      After these changes you can try your application, and you will find that when you search, a removed invoice or order will never be shown. Even if you choose a deleted invoice or order from list mode an error will be produced and you will not see the data in detail mode.<br>
+      You have seen how defining a <em>XAVA_SEARCH_ACTION</em> environment variable in <em>controllers.xml</em> you establish the search logic in a global way for all your modules at once. If you want to define a specific search action for a particular module just define the environment variable in the module definition in <em>application.xml</em>, as we show below:<br>
       <pre><code class="xml">&lt;module name="Product"&gt;
     &lt;!-- To give a local value to the environment variable for this module --&gt;
     &lt;env-var
@@ -769,48 +487,21 @@ public class SearchExcludingDeletedAction
     &lt;controller name="Product"/&gt;
     &lt;controller name="Invoicing"/&gt;
 &lt;/module&gt;
-</code></pre> In this way for the module <em>Product</em> the <em>XAVA_SEARCH_ACTION</em>
-      environment variable will be “Product.searchByNumber”. This way, the
-      environment variables are local to the modules. You can define a default
-      value in <em>controllers.xml</em>, but you always have the option to
-      overwrite the value for particular modules. The environment variables are
-      a powerful way to configure your application in an declarative way.<br>
-      We don't want a special way to search for <em>Product</em>, so don't add
-      this module definition to your <em>application.xml</em>. The code here is
-      only to illustrate how to use <em>&lt;env-var /&gt;</em> in modules.<br>
-      <h2 id="toc12"><a name="Lesson 7: Refining the standard behavior-List mode"></a>List
-        mode</h2>
-      We have almost completed the job. When the user removes an entity with a <em>deleted</em>
-      property the entity is marked as deleted instead of actually being removed
-      from the database. And if the user attempts to search for a
-      marked-as-deleted entity he cannot view it in detail mode. However, the
-      user can still see such entities in list mode though, and even worse, if
-      he deletes entities when in list mode, they are actually removed from the
-      database. Let's fix these remaining details.<br>
-      <h3 id="toc13"><a name="Lesson 7: Refining the standard behavior-List mode-Filtering tabular data"></a>Filtering
-        tabular data</h3>
-      Only entities where the deleted property is false should be shown in list
-      mode. This is very easy to achieve using the <i>@Tab</i> annotation. This
-      annotation allows you to define the way the tabular data (the data shown
-      in list mode) is displayed, moreover it allows you to define a condition.
-      So, adding this annotation to the entities with <em>deleted</em> property
-      is sufficient to achieve our goal, as we show below:<br>
+</code></pre> In this way for the module <em>Product</em> the <em>XAVA_SEARCH_ACTION</em> environment variable will be “Product.searchByNumber”. This way, the environment variables are local to the modules. You can define a default value in <em>controllers.xml</em>, but you always have the option to overwrite the value for particular modules. The environment variables are a powerful way to configure your application in an declarative way.<br>
+      We don't want a special way to search for <em>Product</em>, so don't add this module definition to your <em>application.xml</em>. The code here is only to illustrate how to use <em>&lt;env-var /&gt;</em> in modules.<br>
+      <h2 id="toc12"><a name="Lesson 7: Refining the standard behavior-List mode"></a>List mode</h2>
+      We have almost completed the job. When the user removes an entity with a <em>deleted</em> property the entity is marked as deleted instead of actually being removed from the database. And if the user attempts to search for a marked-as-deleted entity he cannot view it in detail mode. However, the user can still see such entities in list mode though, and even worse, if he deletes entities when in list mode, they are actually removed from the database. Let's fix these remaining details.<br>
+      <h3 id="toc13"><a name="Lesson 7: Refining the standard behavior-List mode-Filtering tabular data"></a>Filtering tabular data</h3>
+      Only entities where the deleted property is false should be shown in list mode. This is very easy to achieve using the <i>@Tab</i> annotation. This annotation allows you to define the way the tabular data (the data shown in list mode) is displayed, moreover it allows you to define a condition. So, adding this annotation to the entities with <em>deleted</em> property is sufficient to achieve our goal, as we show below:<br>
       <pre><code class="java">@Tab(baseCondition = "deleted = false")
 public class Invoice extends CommercialDocument { ... }
  
 @Tab(baseCondition = "deleted = false")
 public class Order extends CommercialDocument { ... }
-</code></pre> And in this simple way the list mode will not show the
-      marked-as-deleted entities.<br>
-      <h3 id="toc14"><a name="Lesson 7: Refining the standard behavior-List mode-List actions"></a>List
-        actions</h3>
-      The only remaining detail is that when removing entities from list mode,
-      they should be marked as deleted if applicable. We are going to refine the
-      standard <em>CRUD.deleteSelected</em> and <i>CRUD.deleteRow</i> actions
-      in the same way we used for <em>CRUD.delete</em>.<br>
-      First, we overwrite the <em>deleteSelected</em> and <em>deleteRow</em>
-      actions for our application. Add the following action definition to your <em>Invoicing</em>
-      controller defined in <em>controllers.xml</em>:<br>
+</code></pre> And in this simple way the list mode will not show the marked-as-deleted entities.<br>
+      <h3 id="toc14"><a name="Lesson 7: Refining the standard behavior-List mode-List actions"></a>List actions</h3>
+      The only remaining detail is that when removing entities from list mode, they should be marked as deleted if applicable. We are going to refine the standard <em>CRUD.deleteSelected</em> and <i>CRUD.deleteRow</i> actions in the same way we used for <em>CRUD.delete</em>.<br>
+      First, we overwrite the <em>deleteSelected</em> and <em>deleteRow</em> actions for our application. Add the following action definition to your <em>Invoicing</em> controller defined in <em>controllers.xml</em>:<br>
       <pre><code class="java">&lt;controller name="Invoicing"&gt;
     &lt;extends controller="Typical"/&gt;
      ...
@@ -826,15 +517,7 @@ public class Order extends CommercialDocument { ... }
         in-each-row="true"/&gt;
         
 &lt;/controller&gt;
-</code></pre> The standard actions to remove entities from list mode are <em>deleteSelected</em>
-      (to delete the checked rows) and <em>deleteRow</em> (the action displayed
-      in each row). These actions are defined in the <em>CRUD</em> controller.
-      <em>Typical</em> extends <em>CRUD</em>, and <em>Invoicing</em> extends <em>Typical</em>;
-      so <em>Invoicing</em> controller includes these actions by default. Given
-      we have defined these actions with the same name, our actions overwrite
-      the standard ones. That is, from now on the logic for removing selected
-      rows in list mode is in the <em>InvoicingDeleteSelectedAction</em> class.
-      Note how the logic for both actions is in the same Java class:<br>
+</code></pre> The standard actions to remove entities from list mode are <em>deleteSelected</em> (to delete the checked rows) and <em>deleteRow</em> (the action displayed in each row). These actions are defined in the <em>CRUD</em> controller. <em>Typical</em> extends <em>CRUD</em>, and <em>Invoicing</em> extends <em>Typical</em>; so <em>Invoicing</em> controller includes these actions by default. Given we have defined these actions with the same name, our actions overwrite the standard ones. That is, from now on the logic for removing selected rows in list mode is in the <em>InvoicingDeleteSelectedAction</em> class. Note how the logic for both actions is in the same Java class:<br>
       <pre><code class="java">package com.yourcompany.invoicing.actions;
  
 import org.openxava.actions.*;
@@ -874,20 +557,8 @@ public class InvoicingDeleteSelectedAction
     }
  
 }
-</code></pre> You can see that this action is very similar to <em>InvoicingDeleteAction</em>.
-      If the selected entities don't have the deleted property it chains to the
-      standard action, otherwise it executes its own logic to delete the
-      entities. Although in this case we use <i>IChainActionWithArgv</i>
-      instead of a simpler <i>executeAction()</i> because we need to send an
-      argument to the chained action. Usually the actions for list mode extend <i>TabBaseAction</i>,
-      thus you can use <i>getTab()</i> to obtain the <i>Tab</i> object
-      associated to the list. A <em>Tab</em> (from <i>org.openxava.tab</i>)
-      allows you to manage the tabular data. For example in the <i>getMetaModel()</i>
-      method we retrieve the model name from the <i>Tab</i> in order to obtain
-      the corresponding <i>MetaModel</i>.<br>
-      If the entity has a <em>deleted</em> property then our custom delete
-      logic is executed. This logic is in the <em>markSelectedEntitiesAsDeleted()</em>
-      method:<br>
+</code></pre> You can see that this action is very similar to <em>InvoicingDeleteAction</em>. If the selected entities don't have the deleted property it chains to the standard action, otherwise it executes its own logic to delete the entities. Although in this case we use <i>IChainActionWithArgv</i> instead of a simpler <i>executeAction()</i> because we need to send an argument to the chained action. Usually the actions for list mode extend <i>TabBaseAction</i>, thus you can use <i>getTab()</i> to obtain the <i>Tab</i> object associated to the list. A <em>Tab</em> (from <i>org.openxava.tab</i>) allows you to manage the tabular data. For example in the <i>getMetaModel()</i> method we retrieve the model name from the <i>Tab</i> in order to obtain the corresponding <i>MetaModel</i>.<br>
+      If the entity has a <em>deleted</em> property then our custom delete logic is executed. This logic is in the <em>markSelectedEntitiesAsDeleted()</em> method:<br>
       <pre><code class="java">private void markSelectedEntitiesAsDeleted() throws Exception {
     Map&lt;String, Object&gt; values = new HashMap&lt;&gt;(); // Values to assign to each entity to be marked
     values.put("deleted", true); // Just set deleted to true
@@ -913,48 +584,17 @@ public class InvoicingDeleteSelectedAction
     getTab().deselectAll(); // After removing we deselect the rows
     resetDescriptionsCache(); // And reset the cache for combos for this user
 }
-</code></pre> As you see the logic is a plain loop over all selected rows, in
-      each iteration we set the <em>deleted</em> property to true using <i>MapFacade.setValues()</i>.
-      Exceptions are caught inside the loop, so if there is a problem deleting
-      one of the entities, this does not affect the removal of the other
-      entities. Furthermore, we have added a small refinement for the <i>ValidationException</i>
-      case, adding the validation message <i>(ex.getMessage())</i> to the
-      errors to be shown to the user.<br>
-      Here we also deselect all rows by means of <i>getTab().deselectAll()</i>,
-      because we are removing rows. If we don't remove the selection, it would
-      be moved after the action execution.<br>
-      We call <i>resetDescriptionsCache()</i> to update all combos in the
-      current user session and remove all deleted entities. The combos
-      (references marked with <i>@DescriptionsList</i>) use the <i>@Tab</i> of
-      the referenced entity to filter the data. In our case all the combos for
-      invoices and orders use the “deleted = false” condition of the <i>@Tab</i>.
-      So, it's needed to reset the combos cache.<br>
-      Now you have thoroughly improved the way your application deletes the
-      entities. Nevertheless, there still remains a few interesting things we
-      can do with this.<br>
-      <h2 id="toc15"><a name="Lesson 7: Refining the standard behavior-Reusing actions code"></a>Reusing
-        actions code</h2>
-      Fantastic! Now your application marks the invoices and orders as deleted
-      instead of actually removing them. One advantage of this approach is that
-      in any given moment, the user can restore an invoice or order deleted by
-      mistake. For this feature to be useful, you have to provide a tool for
-      restoring the deleted entities. Therefore, we are going to create an <em>Invoice
-        trash</em> and an <em>Order trash</em> to bring deleted documents back
-      to life.<br>
-      <h3 id="toc16"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Using properties to create reusable actions"></a>Using
-        properties to create reusable actions</h3>
-      The trash we want is exhibited in the next figure. It is a list of
-      invoices or orders where the user can choose several of them and click the
-      <i>Restore</i> button, or alternatively, for a single entity, click the <i>Restore</i>
-      link on the row of the item to restore.<br>
+</code></pre> As you see the logic is a plain loop over all selected rows, in each iteration we set the <em>deleted</em> property to true using <i>MapFacade.setValues()</i>. Exceptions are caught inside the loop, so if there is a problem deleting one of the entities, this does not affect the removal of the other entities. Furthermore, we have added a small refinement for the <i>ValidationException</i> case, adding the validation message <i>(ex.getMessage())</i> to the errors to be shown to the user.<br>
+      Here we also deselect all rows by means of <i>getTab().deselectAll()</i>, because we are removing rows. If we don't remove the selection, it would be moved after the action execution.<br>
+      We call <i>resetDescriptionsCache()</i> to update all combos in the current user session and remove all deleted entities. The combos (references marked with <i>@DescriptionsList</i>) use the <i>@Tab</i> of the referenced entity to filter the data. In our case all the combos for invoices and orders use the “deleted = false” condition of the <i>@Tab</i>. So, it's needed to reset the combos cache.<br>
+      Now you have thoroughly improved the way your application deletes the entities. Nevertheless, there still remains a few interesting things we can do with this.<br>
+      <h2 id="toc15"><a name="Lesson 7: Refining the standard behavior-Reusing actions code"></a>Reusing actions code</h2>
+      Fantastic! Now your application marks the invoices and orders as deleted instead of actually removing them. One advantage of this approach is that in any given moment, the user can restore an invoice or order deleted by mistake. For this feature to be useful, you have to provide a tool for restoring the deleted entities. Therefore, we are going to create an <em>Invoice trash</em> and an <em>Order trash</em> to bring deleted documents back to life.<br>
+      <h3 id="toc16"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Using properties to create reusable actions"></a>Using properties to create reusable actions</h3>
+      The trash we want is exhibited in the next figure. It is a list of invoices or orders where the user can choose several of them and click the <i>Restore</i> button, or alternatively, for a single entity, click the <i>Restore</i> link on the row of the item to restore.<br>
       <img src="files/refining_behavior_en050.png" alt="refining_behavior_en050.png"
         title="refining_behavior_en050.png"><br>
-      The logic of this restore action is to set the <em>deleted</em> property
-      of the selected entities to false. Obviously, this is the same logic we
-      used for deleting, but setting deleted to false instead of true. Since our
-      conscience does not allow us to copy and paste, we're going to reuse the
-      present code. Just adding a <em>restore</em> property to <em>InvoicingDeleteSelectedAction</em>
-      is enough to enable recovery of deleted entities.<br>
+      The logic of this restore action is to set the <em>deleted</em> property of the selected entities to false. Obviously, this is the same logic we used for deleting, but setting deleted to false instead of true. Since our conscience does not allow us to copy and paste, we're going to reuse the present code. Just adding a <em>restore</em> property to <em>InvoicingDeleteSelectedAction</em> is enough to enable recovery of deleted entities.<br>
       <pre><code class="java">public class InvoicingDeleteSelectedAction ... {
     ...
     @Getter @Setter
@@ -970,13 +610,7 @@ public class InvoicingDeleteSelectedAction
     }
     // ...
 }
-</code></pre> As you can see, we only added a <em>restore</em> property, and
-      then use its complement as the new value for the <em>deleted</em>
-      property in the entity. If restore is false, (the default), <em>deleted</em>
-      is set to <em>true</em>, meaning that we perform a deletion. But if <em>restore</em>
-      is true the action will save the <em>deleted</em> property as <em>false</em>,
-      making the invoice, order or whatever entity available again in the
-      application.<br>
+</code></pre> As you can see, we only added a <em>restore</em> property, and then use its complement as the new value for the <em>deleted</em> property in the entity. If restore is false, (the default), <em>deleted</em> is set to <em>true</em>, meaning that we perform a deletion. But if <em>restore</em> is true the action will save the <em>deleted</em> property as <em>false</em>, making the invoice, order or whatever entity available again in the application.<br>
       To make this action available you have to define it in <em>controllers.xml</em>:<br>
       <pre><code class="xml">&lt;controller name="Trash"&gt;
     &lt;action name="restore" mode="list"
@@ -985,22 +619,11 @@ public class InvoicingDeleteSelectedAction
                 &lt;!-- true before calling the execute() method of the action --&gt;
     &lt;/action&gt;
 &lt;/controller&gt;
-</code></pre> From now on you can utilize the <em>Trash.restore</em> action
-      when you need an action for restoring. You're reusing the same code to
-      delete and to restore, thanks to <em>&lt;set /&gt;</em> element of <em>&lt;action
-        /&gt;</em> that allows you to configure the properties of your action.<br>
+</code></pre> From now on you can utilize the <em>Trash.restore</em> action when you need an action for restoring. You're reusing the same code to delete and to restore, thanks to <em>&lt;set /&gt;</em> element of <em>&lt;action /&gt;</em> that allows you to configure the properties of your action.<br>
       Let's use this new restore action in the new trash modules.<br>
-      <h3 id="toc17"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Custom modules"></a>Custom
-        modules</h3>
-      As you already know, OpenXava generates a default module for each entity
-      in your application. Still, you always have the option of defining the
-      modules by hand, either by refining the behavior of a certain entity
-      module, or by defining completely new functionality associated to the
-      entity. In this case we're going to create two new modules, <em>InvoiceTrash</em>
-      and <em>OrderTrash</em>, to restore deleted documents. In these modules
-      we will use the <em>Trash</em> controller. See how we define the module
-      in the <em>application.xml</em> file:<br>
-      <pre><code class="xml">&lt;application name="Invoicing"&gt;
+      <h3 id="toc17"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Custom modules"></a>Custom modules</h3>
+      As you already know, OpenXava generates a default module for each entity in your application. Still, you always have the option of defining the modules by hand, either by refining the behavior of a certain entity module, or by defining completely new functionality associated to the entity. In this case we're going to create two new modules, <em>InvoiceTrash</em> and <em>OrderTrash</em>, to restore deleted documents. In these modules we will use the <em>Trash</em> controller. See how we define the module in the <em>application.xml</em> file:<br>
+      <pre><code class="xml">&lt;application name="invoicing"&gt;
       
     &lt;default-module&gt;
         &lt;controller name="Invoicing"/&gt;
@@ -1022,24 +645,17 @@ public class InvoicingDeleteSelectedAction
     &lt;/module&gt;
     
 &lt;/application&gt;
-</code></pre> These modules work as <em>Invoice</em> and <em>Order</em>, but
-      they define a specific action as a row action using the <em>XAVA_LIST_ACTION</em>
-      environment variable. The next figure shows the <em>InvoiceTrash</em>
-      module in action.<br>
+</code></pre> These modules work as <em>Invoice</em> and <em>Order</em>, but they define a specific action as a row action using the <em>XAVA_LIST_ACTION</em> environment variable. The next figure shows the <em>InvoiceTrash</em> module in action.<br>
       <img src="files/refining_behavior_en060.png" alt="refining_behavior_en060.png"
         title="refining_behavior_en060.png"><br>
-      <h3 id="toc18"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Several tabular data definitions by entity"></a>Several
-        tabular data definitions by entity</h3>
-      Another important detail is that only deleted entities are shown in the
-      list. This is possible because we define a specific <i>@Tab</i> by name
-      for the module.<br>
+      <h3 id="toc18"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Several tabular data definitions by entity"></a>Several tabular data definitions by entity</h3>
+      Another important detail is that only deleted entities are shown in the list. This is possible because we define a specific <i>@Tab</i> by name for the module.<br>
       <pre><code class="xml">&lt;module ... &gt;
     ...
     &lt;tab name="Deleted"/&gt; &lt;!-- "Deleted" is a @Tab defined in the entity --&gt;
     ...
 &lt;/module&gt;
-</code></pre> Of course you must have a <i>@Tab</i> named “Deleted” in your <em>Order</em>
-      and <em>Invoice</em> entities.<br>
+</code></pre> Of course you must have a <i>@Tab</i> named “Deleted” in your <em>Order</em> and <em>Invoice</em> entities.<br>
       <pre><code class="java">@Tab(baseCondition = "deleted = false") // No name, so the default tab
 @Tab(name="Deleted", baseCondition = "deleted = true") // A named tab
 public class Invoice extends CommercialDocument { ... }
@@ -1047,26 +663,12 @@ public class Invoice extends CommercialDocument { ... }
 @Tab(baseCondition = "deleted = false")
 @Tab(name="Deleted", baseCondition = "deleted = true")
 public class Order extends CommercialDocument { ... }
-</code></pre>You use the <i>@Tab</i> with no name as default list for <em>Invoice</em>
-      and <em>Order</em>, but you have a <i>@Tab</i> named "Deleted" you can
-      use for generating a list with only the deleted rows. In our context you
-      use it for the trash modules. Now you can try your new trash modules, if
-      you don't see it in the menu, sign out and sign in again.</div>
+</code></pre>You use the <i>@Tab</i> with no name as default list for <em>Invoice</em> and <em>Order</em>, but you have a <i>@Tab</i> named "Deleted" you can use for generating a list with only the deleted rows. In our context you use it for the trash modules. Now you can try your new trash modules, if you don't see it in the menu, sign out and sign in again.</div>
     <div class="wiki" style="display: block;">
-      <h3 id="toc19"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Reusable obsession"></a>Reusable
-        obsession</h3>
-      We have done a good job! The <em>InvoicingDeleteSelectedAction</em> code
-      can delete and restore entities, and we added the restore capacity with a
-      very small amount of code and without copy &amp; paste.<br>
-      Now a lot of pernicious thoughts are swarming around your head. Surely you
-      are thinking: “This action is no longer a mere delete action, but rather a
-      delete and restore action”, and then: “Wait a minute, it is actually an
-      action that updates the deleted property of the current entity”, followed
-      by your next thought: “With very little improvement we can update any
-      property of the entity”.<br>
-      Yes, you're right. You can easily create a more generic action, an <em>UpdatePropertyAction</em>
-      for example; and use it to declare your <em>deleteSelected</em> and
-      restore actions, thereby:<br>
+      <h3 id="toc19"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Reusable obsession"></a>Reusable obsession</h3>
+      We have done a good job! The <em>InvoicingDeleteSelectedAction</em> code can delete and restore entities, and we added the restore capacity with a very small amount of code and without copy &amp; paste.<br>
+      Now a lot of pernicious thoughts are swarming around your head. Surely you are thinking: “This action is no longer a mere delete action, but rather a delete and restore action”, and then: “Wait a minute, it is actually an action that updates the deleted property of the current entity”, followed by your next thought: “With very little improvement we can update any property of the entity”.<br>
+      Yes, you're right. You can easily create a more generic action, an <em>UpdatePropertyAction</em> for example; and use it to declare your <em>deleteSelected</em> and restore actions, thereby:<br>
       <pre><code class="xml">&lt;action name="deleteSelected" mode="list" confirm="true"
     class="com.yourcompany.invoicing.actions.UpdatePropertyAction"
     keystroke="Control D"&gt;
@@ -1079,31 +681,16 @@ public class Order extends CommercialDocument { ... }
     &lt;set property="property" value="deleted"/&gt;
     &lt;set property="value" value="false"/&gt;
 &lt;/action&gt;
-</code></pre> Although it seems like a good idea, we're not going to create this
-      flexible <em>UpdatePropertyAction</em>. Because the more flexible your
-      code is, the more sophisticated it is. And we don't want sophisticated
-      code. We want simple code, and though simple code is impossible to
-      achieve, we must make an effort to have the simplest possible code. The
-      advice is: create reusable code only when it simplifies your application
-      right now.<br>
+</code></pre> Although it seems like a good idea, we're not going to create this flexible <em>UpdatePropertyAction</em>. Because the more flexible your code is, the more sophisticated it is. And we don't want sophisticated code. We want simple code, and though simple code is impossible to achieve, we must make an effort to have the simplest possible code. The advice is: create reusable code only when it simplifies your application right now.<br>
       <h2 id="toc23"><a name="Lesson 7: Refining the standard behavior-Summary"></a>Summary</h2>
-      The standard OpenXava behavior is only a starting point. Using the delete
-      actions as excuse we have explored a couple of ways to refine the details
-      of the application behavior. With the techniques in this lesson you can
-      not only refine the delete logic, but fully alter the way your OpenXava
-      application works. Thus, you have the possibility of tailoring the
-      behavior of your application to fit your user expectations.<br>
-      The default OpenXava behavior is pretty limited, only CRUD and reporting.
-      If you want a valuable application for your user you need to add specific
-      functionality to help your user solve his problems. We will do more of
-      that in the next lesson.<br>
+      The standard OpenXava behavior is only a starting point. Using the delete actions as excuse we have explored a couple of ways to refine the details of the application behavior. With the techniques in this lesson you can not only refine the delete logic, but fully alter the way your OpenXava application works. Thus, you have the possibility of tailoring the behavior of your application to fit your user expectations.<br>
+      The default OpenXava behavior is pretty limited, only CRUD and reporting. If you want a valuable application for your user you need to add specific functionality to help your user solve his problems. We will do more of that in the next lesson.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-lesson-7-refining-standard-behavior_en.zip/download"
+      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_en/tree/lesson-24"
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
       <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?
-        <a class="wiki_link" href="business-logic-behavior_en.html">Go to lesson
-          25</a></strong> </div>
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine? <a
+          class="wiki_link" href="business-logic-behavior_en.html">Go to lesson 25</a></strong> </div>
   </body>
 </html>
