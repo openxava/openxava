@@ -2192,9 +2192,10 @@ class="re2">&gt;</span></span>
       Es decir, a partir de v5.7 <em>&lt;para-tabs/&gt;</em> no sustituye sino
       acumula. Fíjate en el atributo <em>icono</em> en <em>&lt;editor/&gt;</em>,
       usado como icono para el botón de formato.<br>
-      Si quieres restringir los formatos disponibles sin tener que tocar <em>OpenXava/xava/default-editors.xml</em>
-      <a class="wiki_link" href="tab_es.html#quitar-formato-lista">usa
-        valores-defecto-tabs.xml</a> de tu proyecto.<br>
+      Si quieres restringir los formatos disponibles sin tener que tocar <i>openxava/src/main/resources/xava/default-editors.xml</i>
+      (<em>OpenXava/xava/default-editors.xml</em> antes de v7) <a class="wiki_link"
+        href="tab_es.html#quitar-formato-lista">usa valores-defecto-tabs.xml</a>
+      de tu proyecto.<br>
       Lo explicado aquí es para hacer cambios a nivel global, para cambiar los
       formatos para una lista concreta puedes usar el atributo <a class="wiki_link"
         href="tab_es.html#varios-formatos-presentaci%C3%B3n-editores">editors de
@@ -2273,8 +2274,9 @@ String claseCSS ="ox-colorido-" + color;
       Si necesitas usar funciones JavaScript, ya sean propias o de terceros, en
       tu editor, no lo puedes hacer incluyendolas directamente en el JSP, porque
       el código HTML del editor se carga vía AJAX. En lugar de eso, has de poner
-      tus funciones en un archivo JS en la carpeta <em>web/xava/editors/js</em>
-      de tu proyecto. Todo el JavaScript que hay ahí se carga automáticamente.<br>
+      tus funciones en un archivo JS en la carpeta <i>src/main/webapp/xava/editors/js</i>
+      de tu proyecto (<em>web/xava/editors/js</em> en v6 o anteriores). Todo el
+      JavaScript que hay ahí se carga automáticamente.<br>
       Es decir, si necesitas usar una función JavaScript <em>f()</em> en tu
       editor, como sigue:<br>
       <style type="text/css"><!--
@@ -2420,11 +2422,12 @@ Esto es para liberar los recursos obtenidos por el editor.
       directamente en el JSP del editor.<br>
       <h3 id="toc12"><a name="Personalizacion-Editores-CSS+en+editores+(nuevo+en+v5.4)"></a>CSS
         en editores <em>(nuevo en v5.4)</em></h3>
-      Todos los archivos CSS en la carpeta <em>web/xava/editors/style</em> de
-      nuestra aplicación se cargan automáticamente. Aquí se ponen los archivos
-      CSS necesarios por los componentes JavaScript que usamos en nuestros
-      editores. También, podemos poner los CSS específicos de nuestros editores.
-      No hay que poner en <em>web/xava/editors/style</em> los CSS para <a class="wiki_link"
+      Todos los archivos CSS en la carpeta <i>src/main/webapp/xava/editors/style</i>
+      (<em>web/xava/editors/style</em> en v6 o anteriores) de nuestra aplicación
+      se cargan automáticamente. Aquí se ponen los archivos CSS necesarios por
+      los componentes JavaScript que usamos en nuestros editores. También,
+      podemos poner los CSS específicos de nuestros editores. No hay que poner
+      en <i>src/main/webapp/xava/editors/style</i> los CSS para <a class="wiki_link"
         href="custom-style_es.html">el estilo general de la aplicación</a>.<br>
       <h3 id="toc13"><a name="Personalizacion-Editores-Editores+personalizables+y+estereotipos+para+crear+combos"></a>Editores
         personalizables y estereotipos para crear combos</h3>
