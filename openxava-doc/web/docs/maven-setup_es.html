@@ -3,29 +3,45 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Configuración Maven - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Maven configuration"></a>
-        <span id="breadcrumbs">
-          <span id="openxava"> 
-            <a href="https://www.openxava.org/"> 
-              <span>o</span>pen<span>x</span>ava
-            </a>
-          </span> 
-          / <a href="index_es.html">documentación</a> / 
-        </span>
+      <h1 id="toc0"><a name="Maven configuration"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
         Configuración Maven</h1>
-      OpenXava no soporta Maven oficialmente. Sin embargo, puedes usar una
-      versión mavenizada de OpenXava proveída por un tercero:</div>
-    <div class="wiki" style="display: block;"><br>
+      OpenXava soporta Maven desde v7.0, por lo que si creas un proyecto nuevo
+      usando OpenXava Studio será un proyecto Maven por defecto.
+      <div class="wiki" style="display: block;">Si tienes una aplicación con
+        OpenXava 6.x o anterior, la mejor forma de mavenizarlo es migrándolo a
+        la última versión de OpenXava. Mira las <a href="migration_es.html">instrucciones
+          de migración</a> para eso.</div>
+      <div class="wiki" style="display: block;">Para crear un proyecto nuevo
+        OpenXava desde la línea de órdenes usando Maven, teclea los siguientes
+        comandos en Windows, Linux o Mac:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="sh">$ mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-archetype-spanish -DarchetypeVersion=RELEASE -DgroupId=com.tuempresa -DartifactId=tuaplicacion -DinteractiveMode=false
+$ cd tuaplicacion
+$ mvn package
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Para ejecutar tu aplicación en
+        Windows:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="dos">c:\&gt; java -cp "target/tuaplicacion/WEB-INF/classes;target/tuaplicacion/WEB-INF/lib/*" com.tuempresa.tuaplicacion.run.tuaplicacion
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Para ejecutar tu aplicación en
+        Linux o Mac:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="sh">$ java -cp "target/tuaplicacion/WEB-INF/classes:target/tuaplicacion/WEB-INF/lib/*" com.tuempresa.tuaplicacion.run.tuaplicacion
+</code></pre> </div>
+      <div class="wiki" style="display: block;">La diferencia es el separador ;
+        o :</div>
+      <div class="wiki" style="display: block;">Además deberías poder usarlo
+        desde Eclipse, IntelliJ, NetBeans, Visual Studio Code o
+        cualquier otro IDE con soporte de Maven.</div>
     </div>
-    <div class="wiki" style="display: block;"><a href="https://github.com/MahaswamiSoftware/openxava_maven_template">Mavenized
-        OpenXava on GitHub</a></div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
-    <div class="wiki" style="display: block;">El equipo de OpenXava no soporta
-      esta versión, por lo que para cualquier problema contacta con los autores
-      de la versión mavenizada.</div>
   </body>
 </html>

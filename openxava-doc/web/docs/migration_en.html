@@ -157,6 +157,7 @@ assertActions(listActions);
       and choose <i> Properties &gt; Deployment Assembly</i>, then you get a
       dialog like this:&nbsp;</div>
     <div class="wiki" style="display: block;"><img src="files/eclipse-deployment-assembly.png"
+
         alt="">
       <div class="wiki" style="display: block;">There select Addons and
         OpenXava, and click on <i> Remove</i> button. Then click on <i>Apply
@@ -809,7 +810,9 @@ execute("Collection.new", "viewObject=xava_view_buildings");</pre>
 
 -->
 </style><pre class="java5"><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> actions = <span
+
 class="br0">{</span>
     <span class="st0">"Navigation.previous"</span>,
     <span class="st0">"Navigation.first"</span>,
@@ -1028,7 +1031,9 @@ assertActions<span class="br0">(</span>actions<span class="br0">)</span><span cl
 
 -->
 </style><pre class="java5">assertValueInList<span class="br0">(</span><span class="nu0">2</span>, <span
+
 class="nu0">4</span>, <span class="st0">"Yes"</span><span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       You should change it by:<br>
       <style type="text/css"><!--
@@ -1219,7 +1224,9 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">assertValueInList<span class="br0">(</span><span class="nu0">2</span>, <span
+
 class="nu0">4</span>, <span class="st0">"Paid"</span><span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       If the property label is "Paid".<br>
       And for the false case, you should change:<br>
@@ -1411,7 +1418,9 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">assertValueInList<span class="br0">(</span><span class="nu0">2</span>, <span
+
 class="nu0">4</span>, <span class="st0">"No"</span><span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       By:<br>
       <style type="text/css"><!--
@@ -1602,7 +1611,9 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">assertValueInList<span class="br0">(</span><span class="nu0">2</span>, <span
+
 class="nu0">4</span>, <span class="st0">""</span><span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       On the other hand if you want to keep the old behavior, just add the next
       entry in your <em>editors.xml</em> file:<br>
@@ -1629,18 +1640,25 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+
 class="re0">url</span>=<span class="st0">"booleanEditor.jsp"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;formatter</span> <span class="re0">class</span>=<span
+
 class="st0">"org.openxava.formatters.BooleanFormatter"</span> <span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;set</span> <span class="re0">property</span>=<span
+
 class="st0">"nullAsFalse"</span> <span class="re0">value</span>=<span class="st0">"true"</span><span
+
 class="re2">/&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;/formatter<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;list-formatter</span> <span class="re0">class</span>=<span
+
 class="st0">"org.openxava.formatters.BooleanIconListFormatter"</span> <span class="re2">/&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
+
 class="st0">"boolean"</span> <span class="re2">/&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
+
 class="st0">"java.lang.Boolean"</span> <span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
       Note the use of <em>BooleanIconListFormatter</em> for list formatter.<br>
@@ -1851,7 +1869,9 @@ class="st0">"java.lang.Boolean"</span> <span class="re2">/&gt;</span></span>
 
 -->
 </style><pre class="java5"><span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> listActions = <span
+
 class="br0">{</span>
     <span class="st0">"Print.generatePdf"</span>,
     <span class="st0">"Print.generateExcel"</span>,
@@ -1872,6 +1892,7 @@ class="br0">{</span>
     <span class="st0">"ImportData.importData"</span>  <span class="co1">// ADD THIS ENTRY</span>
 <span class="br0">}</span><span class="sy0">;</span>
 assertActions<span class="br0">(</span>listActions<span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       <h3 id="toc9"><a name="Migration-Migration from OpenXava 5.7.1 to OpenXava 5.8-Delete action is not available while creating a new element (for JUnit tests)"></a>Delete
         action is not available while creating a new element (for JUnit tests)</h3>
@@ -2066,7 +2087,9 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5"><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> actionsAfterNew = <span
+
 class="br0">{</span>
  <span class="st0">"Navigation.previous"</span>,
  <span class="st0">"Navigation.first"</span>,
@@ -2083,6 +2106,7 @@ class="br0">{</span>
  <span class="st0">"Print.generateExcel"</span>
 <span class="br0">}</span><span class="sy0">;</span>
 assertActions<span class="br0">(</span>actionsAfterNew<span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       <h3 id="toc10"><a name="Migration-Migration from OpenXava 5.7.1 to OpenXava 5.8-Search action no longer available in detail mode (for JUnit tests)"></a>Search
         action no longer available in detail mode (for JUnit tests)</h3>
@@ -2275,7 +2299,9 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5"><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> actions = <span
+
 class="br0">{</span>
  <span class="st0">"Navigation.previous"</span>,
  <span class="st0">"Navigation.first"</span>,
@@ -2479,10 +2505,13 @@ assertActions<span class="br0">(</span>actions<span class="br0">)</span><span cl
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"CRUD.search"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 setValue<span class="br0">(</span><span class="st0">"number"</span>, <span class="st0">"123"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 execute<span class="br0">(</span><span class="st0">"Search.search"</span><span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       By:<br>
       <style type="text/css"><!--
@@ -2673,8 +2702,10 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">setValue<span class="br0">(</span><span class="st0">"number"</span>, <span
+
 class="st0">"123"</span><span class="br0">)</span><span class="sy0">;</span>
 execute<span class="br0">(</span><span class="st0">"CRUD.refresh"</span><span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       Moreover, if you want that the search action comes back use the new <em>SearchForCRUD</em>
       controller that just contains the classic seach action. To define a module
@@ -2703,12 +2734,16 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
+
 class="re0">name</span>=<span class="st0">"Delivery"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+
 class="st0">"Delivery"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+
 class="st0">"SearchForCRUD"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- ADD THIS LINE --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       Another option si to define it in <em>controllers.xml</em> in this way:<br>
@@ -2735,14 +2770,19 @@ class="st0">"SearchForCRUD"</span><span class="re2">/&gt;</span></span> <span cl
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+
 class="re0">name</span>=<span class="st0">"Author"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+
 class="st0">"SearchForCRUD"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- ADD THIS LINE --&gt;</span>
     <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+
 class="st0">"doSomething"</span></span>
 <span class="sc3">        <span class="re0">class</span>=<span class="st0">"com.mycompany.test.actions.DoSomethingAction"</span> <span
+
 class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span></pre>
       Even if you add the search action back with <em>SearchForCRUD</em> you
@@ -2936,6 +2976,7 @@ class="re2">/&gt;</span></span>
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"CRUD.search"</span><span
+
 class="br0">)</span><span class="sy0">;</span></pre>
       By:<br>
       <style type="text/css"><!--
@@ -3126,6 +3167,7 @@ class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"SearchForCRUD.search"</span><span
+
 class="br0">)</span><span class="sy0">;</span></pre>
       Also we have a <em>TypicalWithSearch</em> controller that have all the <em>Typical</em>
       action plus search, just as the old <em>Typical</em>. If you want to use
@@ -3153,8 +3195,10 @@ class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;default-module<span
+
 class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+
 class="st0">"TypicalWithSearch"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/default-module<span class="re2">&gt;</span></span></span></pre>
       <h3 id="toc11"><a name="Migration-Migration from OpenXava 5.7.1 to OpenXava 5.8-Modules with no rows starts executing new action (for JUnit tests)"></a>Modules
@@ -3349,16 +3393,23 @@ class="st0">"TypicalWithSearch"</span><span class="re2">/&gt;</span></span>
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> testCreateExamWithAtLeastOneQuestion<span
+
 class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
 href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
   assertListRowCount<span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// NOW THIS LINE FAILS</span>
   execute<span class="br0">(</span><span class="st0">"CRUD.new"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
   setValue<span class="br0">(</span><span class="st0">"name"</span>, <span class="st0">"ADMISSION"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
   execute<span class="br0">(</span><span class="st0">"CRUD.save"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
   ...
 <span class="br0">}</span></pre>
@@ -3552,18 +3603,26 @@ class="sy0">;</span>
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> testCreateExamWithAtLeastOneQuestion<span
+
 class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
 href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
   execute<span class="br0">(</span><span class="st0">"Mode.list"</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// ADD THIS LINE</span>
   assertListRowCount<span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span><span
+
 class="sy0">;</span>
   execute<span class="br0">(</span><span class="st0">"CRUD.new"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
   setValue<span class="br0">(</span><span class="st0">"name"</span>, <span class="st0">"ADMISSION"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
   execute<span class="br0">(</span><span class="st0">"CRUD.save"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
   ...
 <span class="br0">}</span></pre>
@@ -3757,14 +3816,19 @@ class="sy0">;</span>
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> testCreateExamWithAtLeastOneQuestion<span
+
 class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
 href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
   <span class="co1">// assertListRowCount(0); // REMOVE THIS LINE</span>
   <span class="co1">// execute("CRUD.new"); // REMOVE THIS LINE</span>
   setValue<span class="br0">(</span><span class="st0">"name"</span>, <span class="st0">"ADMISSION"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
   execute<span class="br0">(</span><span class="st0">"CRUD.save"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
   ...
 <span class="br0">}</span></pre>
@@ -3967,7 +4031,9 @@ class="sy0">;</span>
 
 -->
 </style><pre class="java5"><span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> listActions = <span
+
 class="br0">{</span>
   <span class="st0">"Mode.detailAndFirst"</span>,
   <span class="st0">"Mode.split"</span>,
@@ -3980,6 +4046,7 @@ class="br0">{</span>
   <span class="st0">"List.changeConfiguration"</span> <span class="co1">// ADD THIS ENTRY</span>
 <span class="br0">}</span><span class="sy0">;</span>
 assertActions<span class="br0">(</span>listActions<span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       <h3 id="toc15"><a name="Migration-Migration from OpenXava 5.6.1 to OpenXava 5.7-Improved default properties for list and collections (for JUnit tests)"></a>Improved
         default properties for list and collections (for JUnit tests)</h3>
@@ -4179,18 +4246,22 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+
 class="kw166">Entity</span></a>
 <span class="kw2">public</span> <span class="kw2">class</span> Invoice <span class="br0">{</span>
  <span class="kw2">private</span> <span class="kw3">int</span> year<span class="sy0">;</span>
  <span class="kw2">private</span> <span class="kw3">int</span> number<span class="sy0">;</span>
  <span class="kw2">private</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
+
 class="kw166">Date</span></a> date<span class="sy0">;</span>
  @ManyToOne
  <span class="kw2">private</span> Customer customer<span class="sy0">;</span>
 &nbsp;
  @Stereotype<span class="br0">(</span><span class="st0">"FILES"</span><span class="br0">)</span> @Column<span
+
 class="br0">(</span>length=<span class="nu0">32</span><span class="br0">)</span>
  <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> files<span class="sy0">;</span>
 &nbsp;
  ...
@@ -4397,11 +4468,15 @@ class="kw21">String</span></a> files<span class="sy0">;</span>
 
 -->
 </style><pre class="java5">@NewAction<span class="br0">(</span><span class="st0">"Invoice.addDeliveries"</span><span
+
 class="br0">)</span>
 @OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"invoice"</span><span
+
 class="br0">)</span>
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+
 class="kw46">Collection</span></a><span class="sy0">&lt;</span>Delivery<span class="sy0">&gt;</span> deliveries<span
+
 class="sy0">;</span></pre>
       By:<br>
       <style type="text/css"><!--
@@ -4592,11 +4667,15 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">@AddAction<span class="br0">(</span><span class="st0">"Invoice.addDeliveries"</span><span
+
 class="br0">)</span>
 @OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"invoice"</span><span
+
 class="br0">)</span>
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+
 class="kw46">Collection</span></a><span class="sy0">&lt;</span>Delivery<span class="sy0">&gt;</span> deliveries<span
+
 class="sy0">;</span></pre>
       <h3 id="toc17"><a name="Migration-Migration from OpenXava 5.6.1 to OpenXava 5.7-Collections of entities with no REMOVE cascade allow to edit the elements (for JUnit tests)"></a>Collections
         of entities with no REMOVE cascade allow to edit the elements (for JUnit
@@ -4791,7 +4870,9 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"Collection.view"</span>, <span
+
 class="st0">"row=1,viewObject=xava_view_customers"</span><span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       By:<br>
       <style type="text/css"><!--
@@ -4982,7 +5063,9 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"Collection.edit"</span>, <span
+
 class="st0">"row=1,viewObject=xava_view_customers"</span><span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       Note, now it's not "Collection.view" but "Collection.edit".<br>
       <h3 id="toc18"><a name="Migration-Migration from OpenXava 5.6.1 to OpenXava 5.7-Automatic label for references in list optimized (for JUnit tests)"></a>Automatic
@@ -5182,6 +5265,7 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">assertLabelInList<span class="br0">(</span><span class="nu0">4</span>, <span
+
 class="st0">"Name of Customer"</span><span class="br0">)</span><span class="sy0">;</span></pre>
       By this:<br>
       <style type="text/css"><!--
@@ -5372,6 +5456,7 @@ class="st0">"Name of Customer"</span><span class="br0">)</span><span class="sy0"
 
 -->
 </style><pre class="java5">assertLabelInList<span class="br0">(</span><span class="nu0">4</span>, <span
+
 class="st0">"Customer"</span><span class="br0">)</span><span class="sy0">;</span></pre>
       <h2 id="toc19"><a name="Migration-Migration from OpenXava 5.6 to OpenXava 5.6.1"></a>Migration
         from OpenXava 5.6 to OpenXava 5.6.1</h2>
@@ -5572,7 +5657,9 @@ class="st0">"Customer"</span><span class="br0">)</span><span class="sy0">;</span
 
 -->
 </style><pre class="java5"><span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> listActions = <span
+
 class="br0">{</span>
     <span class="st0">"Print.generatePdf"</span>,
     <span class="st0">"Print.generateExcel"</span>,
@@ -5582,6 +5669,7 @@ class="br0">{</span>
     ...
 <span class="br0">}</span><span class="sy0">;</span>
 assertActions<span class="br0">(</span>listActions<span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       Though the action is not available by default, it still exists in OpenXava
       and works perfectly. Indeed there is a new controller <em>TypicalExtendedPrint</em>
@@ -5783,7 +5871,9 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5"><span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> listActions = <span
+
 class="br0">{</span>
   <span class="st0">"Mode.detailAndFirst"</span>,
   <span class="st0">"Mode.split"</span>,
@@ -5795,6 +5885,7 @@ class="br0">{</span>
   <span class="st0">"List.changeConfigurationName"</span> <span class="co1">// ADD THIS ENTRY</span>
 <span class="br0">}</span><span class="sy0">;</span>
 assertActions<span class="br0">(</span>listActions<span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       <h2 id="toc23"><a name="Migration-Migration from OpenXava 5.5 to OpenXava 5.5.1"></a>Migration
         from OpenXava 5.5 to OpenXava 5.5.1</h2>
@@ -5992,12 +6083,17 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5"><span class="kw2">protected</span> <span class="kw3">void</span> setUp<span
+
 class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
 href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
     createEntitiesUsingJPA<span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// Now it fails, because JPA is not still initialized</span>
     <span class="kw2">super</span>.<span class="me1">setUp</span><span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span></pre>
       Change it by:<br>
@@ -6189,12 +6285,17 @@ class="br0">)</span><span class="sy0">;</span>
 
 -->
 </style><pre class="java5"><span class="kw2">protected</span> <span class="kw3">void</span> setUp<span
+
 class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
 href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
     <span class="kw2">super</span>.<span class="me1">setUp</span><span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// JPA is initialized here</span>
     createEntitiesUsingJPA<span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 <span class="br0">}</span></pre>
       <h2 id="toc25"><a name="Migration-Migration from OpenXava 5.4.1 to OpenXava 5.5"></a>Migration
@@ -6397,8 +6498,11 @@ class="sy0">;</span>
 
 -->
 </style><pre class="java5">form.<span class="me1">getSelectByName</span><span class="br0">(</span><span
+
 class="st0">"ox_MyApp_MyModule__myReference___id"</span><span class="br0">)</span>.<span
+
 class="me1">setSelectedAttribute</span><span class="br0">(</span><span class="st0">"TheValue"</span>, <span
+
 class="kw4">true</span><span class="br0">)</span><span class="sy0">;</span></pre>
       By:<br>
       <style type="text/css"><!--
@@ -6589,19 +6693,30 @@ class="kw4">true</span><span class="br0">)</span><span class="sy0">;</span></pre
 
 -->
 </style><pre class="java5">HtmlInput comboInput = form.<span class="me1">getInputByName</span><span
+
 class="br0">(</span><span class="st0">"ox_MyApp_MyModule__myReference___id"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 comboInput.<span class="me1">setValueAttribute</span><span class="br0">(</span><span
+
 class="st0">"TheValue"</span><span class="br0">)</span><span class="sy0">;</span>
 <span class="br0">(</span><span class="br0">(</span>HtmlInput<span class="br0">)</span> comboInput.<span
+
 class="me1">getPreviousElementSibling</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="br0">)</span>.<span class="me1">setValueAttribute</span><span class="br0">(</span><span
+
 class="st0">"Something"</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// A trick to avoid that JavaScript reset the real value</span>
 <span class="br0">(</span><span class="br0">(</span>HtmlInput<span class="br0">)</span> comboInput.<span
+
 class="me1">getNextElementSibling</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="br0">)</span>.<span class="me1">setValueAttribute</span><span class="br0">(</span><span
+
 class="st0">"Something"</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// A trick to avoid that JavaScript reset the real value</span></pre>
       <h2 id="toc27"><a name="Migration-Migration from OpenXava 5.4 to OpenXava 5.4.1"></a>Migration
         from OpenXava 5.4 to OpenXava 5.4.1</h2>
@@ -6611,6 +6726,7 @@ class="co1">// A trick to avoid that JavaScript reset the real value</span></pre
       <h3 id="toc29"><a name="Migration-Migration from OpenXava 5.3.2 to OpenXava 5.4-Icons instead of images for actions"></a>Icons
         instead of images for actions</h3>
       Since v5.4 the standard actions of OpenXava use icons from <a class="wiki_link_ext"
+
         href="https://materialdesignicons.com/" rel="nofollow">Material Design
         Icons</a> instead of gif or png images. The <em>image</em> attribute of
       <em>&lt;action/&gt;</em> in <em>controllers.xml</em> continue to work as
@@ -6643,11 +6759,14 @@ class="co1">// A trick to avoid that JavaScript reset the real value</span></pre
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;action</span> <span
+
 class="re0">name</span>=<span class="st0">"delete"</span> <span class="re0">mode</span>=<span
+
 class="st0">"detail"</span> <span class="re0">confirm</span>=<span class="st0">"true"</span></span>
 <span class="sc3">    <span class="re0">class</span>=<span class="st0">"com.mycompany.myapp.actions.MyDeleteAction"</span></span>
 <span class="sc3">    <span class="re0">image</span>=<span class="st0">"delete.gif"</span></span>
 <span class="sc3">    <span class="re0">keystroke</span>=<span class="st0">"Control D"</span><span
+
 class="re2">/&gt;</span></span></pre>
       By this:<br>
       <style type="text/css"><!--
@@ -6673,13 +6792,17 @@ class="re2">/&gt;</span></span></pre>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;action</span> <span
+
 class="re0">name</span>=<span class="st0">"delete"</span> <span class="re0">mode</span>=<span
+
 class="st0">"detail"</span> <span class="re0">confirm</span>=<span class="st0">"true"</span></span>
 <span class="sc3">    <span class="re0">class</span>=<span class="st0">"com.mycompany.myapp.actions.MyDeleteAction"</span></span>
 <span class="sc3">    <span class="re0">icon</span>=<span class="st0">"delete"</span></span>
 <span class="sc3">    <span class="re0">keystroke</span>=<span class="st0">"Control D"</span><span
+
 class="re2">/&gt;</span></span></pre>
       To see all available icons look at <a class="wiki_link_ext" href="https://materialdesignicons.com/"
+
         rel="nofollow">Material Design Icons</a>.<br>
       On the other hand, if your prefer to continue with the old fashion color
       icons, just add the next line in <em>xava.properties</em>:<br>
@@ -6700,6 +6823,7 @@ class="re2">/&gt;</span></span></pre>
 
 -->
 </style><pre class="properties"><span class="re0">useIconsInsteadOfImages</span><span
+
 class="sy0">=</span><span class="re1">false</span></pre>
       Then all the actions, included the standard ones, will use the old
       colorful images.<br>
@@ -6736,7 +6860,9 @@ class="sy0">=</span><span class="re1">false</span></pre>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;property</span> <span
+
 class="re0">name</span>=<span class="st0">"schema.path"</span> <span class="re0">value</span>=<span
+
 class="st0">"../OpenXavaTest/lib/hsqldb.jar"</span><span class="re2">/&gt;</span></span></pre>
       By this:<br>
       <style type="text/css"><!--
@@ -6762,7 +6888,9 @@ class="st0">"../OpenXavaTest/lib/hsqldb.jar"</span><span class="re2">/&gt;</span
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;property</span> <span
+
 class="re0">name</span>=<span class="st0">"schema.path"</span> <span class="re0">value</span>=<span
+
 class="st0">"../OpenXava/lib/hsqldb.jar"</span><span class="re2">/&gt;</span></span></pre>
       <h2 id="toc33"><a name="Migration-Migration from OpenXava 5.2.1 to OpenXava 5.3"></a>Migration
         from OpenXava 5.2.1 to OpenXava 5.3</h2>
@@ -6961,12 +7089,19 @@ class="st0">"../OpenXava/lib/hsqldb.jar"</span><span class="re2">/&gt;</span></s
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
 class="kw166">Object</span></a> nullSafeGet<span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/ResultSet.html"><span
+
 class="kw44">ResultSet</span></a> resultSet, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a><span class="br0">[</span><span class="br0">]</span> names, <a
+
 href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
 class="kw166">Object</span></a> owner<span class="br0">)</span> <span class="kw2">throws</span> HibernateException, <a
+
 href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
+
 class="kw44">SQLException</span></a> <span class="br0">{</span></pre>
       By:<br>
       <style type="text/css"><!--
@@ -7157,12 +7292,19 @@ class="kw44">SQLException</span></a> <span class="br0">{</span></pre>
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
 class="kw166">Object</span></a> nullSafeGet<span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/ResultSet.html"><span
+
 class="kw44">ResultSet</span></a> resultSet, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a><span class="br0">[</span><span class="br0">]</span> names, SessionImplementor sessionImplementor, <a
+
 href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
 class="kw166">Object</span></a> owner<span class="br0">)</span> <span class="kw2">throws</span> HibernateException, <a
+
 href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
+
 class="kw44">SQLException</span></a> <span class="br0">{</span></pre>
       And this:<br>
       <style type="text/css"><!--
@@ -7353,10 +7495,15 @@ class="kw44">SQLException</span></a> <span class="br0">{</span></pre>
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> nullSafeSet<span
+
 class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/PreparedStatement.html"><span
+
 class="kw44">PreparedStatement</span></a> ps, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
 class="kw166">Object</span></a> value, <span class="kw3">int</span> index<span class="br0">)</span> <span
+
 class="kw2">throws</span> HibernateException, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
+
 class="kw44">SQLException</span></a> <span class="br0">{</span></pre>
       By:<br>
       <style type="text/css"><!--
@@ -7547,10 +7694,15 @@ class="kw44">SQLException</span></a> <span class="br0">{</span></pre>
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> nullSafeSet<span
+
 class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/PreparedStatement.html"><span
+
 class="kw44">PreparedStatement</span></a> ps, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
 class="kw166">Object</span></a> value, <span class="kw3">int</span> index, SessionImplementor sessionImplementor<span
+
 class="br0">)</span> <span class="kw2">throws</span> HibernateException, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/SQLException.html"><span
+
 class="kw44">SQLException</span></a> <span class="br0">{</span></pre>
       Of course, if you call these methods you have to adapt the calling code
       too. For example, a code like this:<br>
@@ -7742,8 +7894,11 @@ class="kw44">SQLException</span></a> <span class="br0">{</span></pre>
 
 -->
 </style><pre class="java5"><span class="br0">(</span><span class="br0">(</span>UserType<span
+
 class="br0">)</span> hibernateType<span class="br0">)</span>.<span class="me1">nullSafeSet</span><span
+
 class="br0">(</span>ps, o, <span class="nu0">1</span><span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       Now it would be:<br>
       <style type="text/css"><!--
@@ -7934,8 +8089,11 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5"><span class="br0">(</span><span class="br0">(</span>UserType<span
+
 class="br0">)</span> hibernateType<span class="br0">)</span>.<span class="me1">nullSafeSet</span><span
+
 class="br0">(</span>ps, o, <span class="nu0">1</span>, <span class="kw4">null</span><span
+
 class="br0">)</span><span class="sy0">;</span></pre>
       Note that sending a null for the new extra parameter is enough.<br>
       Moreover, instead of Hibernate.INTEGER you have to use
@@ -7966,14 +8124,19 @@ class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;persistence-unit</span> <span
+
 class="re0">name</span>=<span class="st0">"default"</span> <span class="re0">transaction-type</span>=<span
+
 class="st0">"RESOURCE_LOCAL"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;provider<span class="re2">&gt;</span></span></span>org.hibernate.ejb.HibernatePersistence<span
+
 class="sc3"><span class="re1">&lt;/provider<span class="re2">&gt;</span></span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
 class="st0">"hibernate.ejb.cfgfile"</span> <span class="re0">value</span>=<span
+
 class="st0">"/hibernate-jpa.cfg.xml"</span><span class="re2">/&gt;</span></span>
         <span class="sc-1">&lt;!-- REMOVE THE NEXT LINES</span>
 <span class="sc-1">        &lt;property name="hibernate.ejb.event.pre-insert" value="org.openxava.hibernate.impl.CalculatorsListener, org.openxava.hibernate.impl.ReferenceConverterToDBListener, org.openxava.hibernate.impl.DefaultValueCalculatorsListener"/&gt;</span>
@@ -8015,13 +8178,16 @@ class="st0">"/hibernate-jpa.cfg.xml"</span><span class="re2">/&gt;</span></span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;persistence-unit</span> <span
+
 class="re0">name</span>=<span class="st0">"default"</span><span class="re2">&gt;</span></span>
     ...
     <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
         ...
         <span class="sc-1">&lt;!-- Add the next entry --&gt;</span>
         <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
 class="st0">"hibernate.connection.release_mode"</span> <span class="re0">value</span>=<span
+
 class="st0">"after_transaction"</span><span class="re2">/&gt;</span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
@@ -8223,6 +8389,7 @@ class="st0">"after_transaction"</span><span class="re2">/&gt;</span></span>
 
 -->
 </style><pre class="java5"><span class="kw2">import</span> <span class="co2">org.hibernate.validator.*</span><span
+
 class="sy0">;</span></pre>
       By:<br>
       <style type="text/css"><!--
@@ -8413,8 +8580,10 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5"><span class="kw2">import</span> <span class="co2">javax.validation.constraints.*</span><span
+
 class="sy0">;</span>
 <span class="kw2">import</span> <span class="co2">org.hibernate.validator.constraints.*</span><span
+
 class="sy0">;</span></pre>
       In the case of <em>@Digits</em> apart of changing the above imports you
       have to change the parameter names, changing this:<br>
@@ -8606,6 +8775,7 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">@Digits<span class="br0">(</span>integerDigits=<span
+
 class="nu0">10</span>, fractionalDigits=<span class="nu0">6</span><span class="br0">)</span></pre>
       By:<br>
       <style type="text/css"><!--
@@ -8796,6 +8966,7 @@ class="nu0">10</span>, fractionalDigits=<span class="nu0">6</span><span class="b
 
 -->
 </style><pre class="java5">@Digits<span class="br0">(</span>integer=<span class="nu0">10</span>, fraction=<span
+
 class="nu0">6</span><span class="br0">)</span></pre>
       You cannot longer use <em>InvalidStateException</em> of Hibernate
       Validator 3. Therefore, if you use it to throw a validation error from
@@ -8990,19 +9161,27 @@ class="nu0">6</span><span class="br0">)</span></pre>
 -->
 </style><pre class="java5">@PreRemove
 <span class="kw2">public</span> <span class="kw3">void</span> validateOnRemove<span
+
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
     <span class="kw1">if</span> <span class="br0">(</span>number == <span class="nu0">1</span><span
+
 class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">throw</span> <span class="kw2">new</span> InvalidStateException<span
+
 class="br0">(</span>
             <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+InvalidValue"><span
+
 class="kw166">InvalidValue</span></a> <span class="br0">[</span><span class="br0">]</span> <span
+
 class="br0">{</span>
                 <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+InvalidValue"><span
+
 class="kw166">InvalidValue</span></a><span class="br0">(</span>
                     <span class="st0">"one_not_deletable"</span>, getClass<span
+
 class="br0">(</span><span class="br0">)</span>, <span class="st0">"number"</span>,
                     getNumber<span class="br0">(</span><span class="br0">)</span>, <span
+
 class="kw2">this</span><span class="br0">)</span>
             <span class="br0">}</span>
         <span class="br0">)</span><span class="sy0">;</span>
@@ -9198,12 +9377,17 @@ class="kw2">this</span><span class="br0">)</span>
 -->
 </style><pre class="java5">@PreRemove
 <span class="kw2">public</span> <span class="kw3">void</span> validateOnRemove<span
+
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
     <span class="kw1">if</span> <span class="br0">(</span>number == <span class="nu0">1</span><span
+
 class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">throw</span> <span class="kw2">new</span> javax.<span
+
 class="me1">validation</span>.<span class="me1">ValidationException</span><span
+
 class="br0">(</span><span class="st0">"one_not_deletable"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
     <span class="br0">}</span>
 <span class="br0">}</span></pre>
@@ -9400,22 +9584,32 @@ class="sy0">;</span>
 
 -->
 </style><pre class="java5">@Constraint<span class="br0">(</span>validatedBy = MyValidator.<span
+
 class="kw2">class</span><span class="br0">)</span> <span class="co1">// Instead of @ValidatorClass(PropertyValidatorValidator.class)</span>
 <span class="kw2">public</span> @<span class="kw2">interface</span> MyAnnotation <span
+
 class="br0">{</span>
 &nbsp;
     ...
 &nbsp;
     <span class="co1">// Add the next code</span>
     <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Class.html"><span
+
 class="kw21">Class</span></a><span class="sy0">&lt;?&gt;</span><span class="br0">[</span><span
+
 class="br0">]</span> groups<span class="br0">(</span><span class="br0">)</span> <span
+
 class="kw1">default</span> <span class="br0">{</span><span class="br0">}</span><span
+
 class="sy0">;</span>
     <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Class.html"><span
+
 class="kw21">Class</span></a><span class="sy0">&lt;?</span> <span class="kw2">extends</span> Payload<span
+
 class="sy0">&gt;</span><span class="br0">[</span><span class="br0">]</span> payload<span
+
 class="br0">(</span><span class="br0">)</span> <span class="kw1">default</span> <span
+
 class="br0">{</span><span class="br0">}</span><span class="sy0">;</span>
 &nbsp;
 <span class="br0">}</span></pre>
@@ -9608,8 +9802,11 @@ class="br0">{</span><span class="br0">}</span><span class="sy0">;</span>
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> RequiredValidator <span
+
 class="kw2">implements</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/xml/validation/Validator.html"><span
+
 class="kw132">Validator</span></a><span class="sy0">&lt;</span>Required<span class="sy0">&gt;</span> <span
+
 class="br0">{</span></pre>
       By:<br>
       <style type="text/css"><!--
@@ -9800,8 +9997,11 @@ class="br0">{</span></pre>
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> RequiredValidator <span
+
 class="kw2">implements</span> ConstraintValidator<span class="sy0">&lt;</span>Required, <a
+
 href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
 class="kw166">Object</span></a><span class="sy0">&gt;</span> <span class="br0">{</span></pre>
       And this:<br>
       <style type="text/css"><!--
@@ -9992,7 +10192,9 @@ class="kw166">Object</span></a><span class="sy0">&gt;</span> <span class="br0">{
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <span class="kw3">boolean</span> isValid<span
+
 class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
 class="kw166">Object</span></a> value<span class="br0">)</span> <span class="br0">{</span></pre>
       By:<br>
       <style type="text/css"><!--
@@ -10183,8 +10385,11 @@ class="kw166">Object</span></a> value<span class="br0">)</span> <span class="br0
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <span class="kw3">boolean</span> isValid<span
+
 class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+
 class="kw166">Object</span></a> value, ConstraintValidatorContext context<span class="br0">)</span> <span
+
 class="br0">{</span></pre>
       You can keep the rest of your code as is.<br>
       <h3 id="toc36"><a name="Migration-Migration from OpenXava 5.2.1 to OpenXava 5.3-@Required, @PropertyValidator and @EntityValidator are Bean Validation restriction"></a>@Required,
@@ -10381,28 +10586,44 @@ class="br0">{</span></pre>
 -->
 </style><pre class="java5"><span class="kw2">try</span> <span class="br0">{</span>
     XPersistence.<span class="me1">commit</span><span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span>
 <span class="kw2">catch</span> <span class="br0">(</span>RollbackException ex<span
+
 class="br0">)</span> <span class="br0">{</span>
     <span class="kw1">if</span> <span class="br0">(</span>ex.<span class="me1">getCause</span><span
+
 class="br0">(</span><span class="br0">)</span> <span class="kw2">instanceof</span> InvalidStateException<span
+
 class="br0">)</span> <span class="br0">{</span>
         InvalidStateException iex = <span class="br0">(</span>InvalidStateException<span
+
 class="br0">)</span> ex.<span class="me1">getCause</span><span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span>
         <span class="kw3">int</span> invalidValuesCount = iex.<span class="me1">getInvalidValues</span><span
+
 class="br0">(</span><span class="br0">)</span>.<span class="me1">length</span><span
+
 class="sy0">;</span>
         <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> property = iex.<span class="me1">getInvalidValues</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="br0">[</span><span class="nu0">0</span><span
+
 class="br0">]</span>.<span class="me1">getPropertyName</span><span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span>
         <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> message = iex.<span class="me1">getInvalidValues</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="br0">[</span><span class="nu0">0</span><span
+
 class="br0">]</span>.<span class="me1">getMessage</span><span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span>
         ...
     <span class="br0">}</span>
@@ -10597,29 +10818,45 @@ class="br0">)</span><span class="sy0">;</span>
 -->
 </style><pre class="java5"><span class="kw2">try</span> <span class="br0">{</span>
     XPersistence.<span class="me1">commit</span><span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span>
 <span class="kw2">catch</span> <span class="br0">(</span>RollbackException ex<span
+
 class="br0">)</span> <span class="br0">{</span>
     <span class="kw1">if</span> <span class="br0">(</span>ex.<span class="me1">getCause</span><span
+
 class="br0">(</span><span class="br0">)</span> <span class="kw2">instanceof</span> ConstraintViolationException<span
+
 class="br0">)</span> <span class="br0">{</span>
         ConstraintViolationException cex = <span class="br0">(</span>ConstraintViolationException<span
+
 class="br0">)</span> ex.<span class="me1">getCause</span><span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span>
         <span class="kw3">int</span> invalidValuesCount = cex.<span class="me1">getConstraintViolations</span><span
+
 class="br0">(</span><span class="br0">)</span>.<span class="me1">size</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         ConstraintViolation v = cex.<span class="me1">getConstraintViolations</span><span
+
 class="br0">(</span><span class="br0">)</span>.<span class="me1">iterator</span><span
+
 class="br0">(</span><span class="br0">)</span>.<span class="me1">next</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> property = v.<span class="me1">getPropertyPath</span><span
+
 class="br0">(</span><span class="br0">)</span>.<span class="me1">toString</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
         <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> message = v.<span class="me1">getMessage</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
         ...
     <span class="br0">}</span>
@@ -10629,6 +10866,7 @@ class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span cl
       Hibernate 4.3 uses a different way for looking the JNDI resources that
       works fine with Tomcat 7.0.27 (and better) and Tomcat 6.0.36 (and better)
       but fails with previous versions. This is not a bug of Hibernate but <a class="wiki_link_ext"
+
         href="https://bz.apache.org/bugzilla/show_bug.cgi?id=52830" rel="nofollow">a
         Tomcat bug</a>. Fortunately, there is a trick to make the new Hibernate
       works even with older Tomcat versions, just add a // to the JNDI name.
@@ -10657,7 +10895,9 @@ class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span cl
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;non-jta-data-source<span
+
 class="re2">&gt;</span></span></span>java:comp/env/jdbc/YourApplicationDS<span class="sc3"><span
+
 class="re1">&lt;/non-jta-data-source<span class="re2">&gt;</span></span></span></pre>
       By this:<br>
       <style type="text/css"><!--
@@ -10683,7 +10923,9 @@ class="re1">&lt;/non-jta-data-source<span class="re2">&gt;</span></span></span><
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;non-jta-data-source<span
+
 class="re2">&gt;</span></span></span>java://comp/env/jdbc/YourApplicationDS<span
+
 class="sc3"><span class="re1">&lt;/non-jta-data-source<span class="re2">&gt;</span></span></span></pre>
       And in <em>hibernate.cfg.xml</em> change this:<br>
       <style type="text/css"><!--
@@ -10709,8 +10951,11 @@ class="sc3"><span class="re1">&lt;/non-jta-data-source<span class="re2">&gt;</sp
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;property</span> <span
+
 class="re0">name</span>=<span class="st0">"hibernate.connection.datasource"</span><span
+
 class="re2">&gt;</span></span>java:comp/env/jdbc/YourApplicationDS<span class="sc3"><span
+
 class="re1">&lt;/property<span class="re2">&gt;</span></span></span></pre>
       By this:<br>
       <style type="text/css"><!--
@@ -10736,8 +10981,11 @@ class="re1">&lt;/property<span class="re2">&gt;</span></span></span></pre>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;property</span> <span
+
 class="re0">name</span>=<span class="st0">"hibernate.connection.datasource"</span><span
+
 class="re2">&gt;</span></span>java://comp/env/jdbc/YourApplicationDS<span class="sc3"><span
+
 class="re1">&lt;/property<span class="re2">&gt;</span></span></span></pre>
       Note the // before <em>comp</em>. If you use JNDI names in other places
       you shoud change them too. The good thing is that newer Tomcat versions
@@ -10944,12 +11192,16 @@ class="re1">&lt;/property<span class="re2">&gt;</span></span></span></pre>
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> OrderLogic <span
+
 class="br0">{</span>
 &nbsp;
     @Formula<span class="br0">(</span><span class="st0">"productPrice * qtyOrdered"</span><span
+
 class="br0">)</span>
     <span class="kw2">public</span> <span class="kw3">void</span> deriveAmount<span
+
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span> <span
+
 class="br0">}</span>
 &nbsp;
 <span class="br0">}</span></pre>
@@ -11144,6 +11396,7 @@ class="br0">}</span>
 
 -->
 </style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+
 class="kw166">Entity</span></a>
 <span class="kw2">public</span> <span class="kw2">class</span> Order <span class="br0">{</span>
 &nbsp;
@@ -11151,10 +11404,14 @@ class="kw166">Entity</span></a>
 &nbsp;
     @PrePersist @PreUpdate
     <span class="kw2">private</span> <span class="kw3">void</span> deriveAmount<span
+
 class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
         amount = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
+
 class="kw27">BigDecimal</span></a><span class="br0">(</span>qtyOrdered<span class="br0">)</span>.<span
+
 class="me1">multiply</span><span class="br0">(</span>productPrice<span class="br0">)</span><span
+
 class="sy0">;</span>
     <span class="br0">}</span>
 <span class="br0">}</span></pre>
@@ -11182,8 +11439,10 @@ class="sy0">;</span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;property</span> <span
+
 class="re0">name</span>=<span class="st0">"hibernate.current_session_context_class"</span></span>
 <span class="sc3">    <span class="re0">value</span>=<span class="st0">"com.autobizlogic.abl.session.LogicThreadLocalSessionContext"</span><span
+
 class="re2">/&gt;</span></span></pre>
       <h3 id="toc40"><a name="Migration-Migration from OpenXava 5.2.1 to OpenXava 5.3-schema.path required in generateSchema ant target"></a>schema.path
         required in generateSchema ant target</h3>
@@ -11214,17 +11473,24 @@ class="re2">/&gt;</span></span></pre>
 -->
 </style><pre class="xml"><span class="sc-1">&lt;!-- Generates the schema from scratch. Shows it in console, but does not execute it --&gt;</span>
 <span class="sc3"><span class="re1">&lt;target</span> <span class="re0">name</span>=<span
+
 class="st0">"generateSchema"</span><span class="re2">&gt;</span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;ant</span> <span class="re0">antfile</span>=<span
+
 class="st0">"../OpenXava/build.xml"</span> <span class="re0">target</span>=<span
+
 class="st0">"generateSchemaJPA"</span><span class="re2">&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
 class="st0">"persistence.unit"</span> <span class="re0">value</span>=<span class="st0">"junit"</span><span
+
 class="re2">/&gt;</span></span>
         <span class="sc-1">&lt;!-- ADD THE NEXT LINE FOR V5.3 --&gt;</span>
         <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
 class="st0">"schema.path"</span> <span class="re0">value</span>=<span class="st0">"../OpenXavaTest/lib/hsqldb.jar"</span><span
+
 class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/ant<span class="re2">&gt;</span></span></span>
 &nbsp;
@@ -11429,12 +11695,18 @@ class="re2">/&gt;</span></span>
 
 -->
 </style><pre class="java5">Invoice invoice = <span class="br0">(</span>Invoice<span
+
 class="br0">)</span> getView<span class="br0">(</span><span class="br0">)</span>.<span
+
 class="me1">getEntity</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 <span class="kw1">if</span> <span class="br0">(</span>invoice.<span class="me1">getCustomer</span><span
+
 class="br0">(</span><span class="br0">)</span>.<span class="me1">getNumber</span><span
+
 class="br0">(</span><span class="br0">)</span> == <span class="nu0">0</span><span
+
 class="br0">)</span> <span class="br0">{</span> <span class="co1">// In v5.2 if customer is empty an empty customer is returned</span></pre>
       By:<br>
       <style type="text/css"><!--
@@ -11625,11 +11897,16 @@ class="br0">)</span> <span class="br0">{</span> <span class="co1">// In v5.2 if 
 
 -->
 </style><pre class="java5">Invoice invoice = <span class="br0">(</span>Invoice<span
+
 class="br0">)</span> getView<span class="br0">(</span><span class="br0">)</span>.<span
+
 class="me1">getEntity</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 <span class="kw1">if</span> <span class="br0">(</span>invoice.<span class="me1">getCustomer</span><span
+
 class="br0">(</span><span class="br0">)</span> == <span class="kw4">null</span><span
+
 class="br0">)</span> <span class="br0">{</span> <span class="co1">// In v5.2.1 if customer is empty a null is returned</span></pre>
       <h2 id="toc43"><a name="Migration-Migration from OpenXava 5.1.x to OpenXava 5.2"></a>Migration
         from OpenXava 5.1.x to OpenXava 5.2</h2>
@@ -11826,7 +12103,9 @@ class="br0">)</span> <span class="br0">{</span> <span class="co1">// In v5.2.1 i
 
 -->
 </style><pre class="java5">getWebClient<span class="br0">(</span><span class="br0">)</span>.<span
+
 class="me1">setCssEnabled</span><span class="br0">(</span><span class="kw4">true</span><span
+
 class="br0">)</span><span class="sy0">;</span></pre>
       By:<br>
       <style type="text/css"><!--
@@ -12017,8 +12296,11 @@ class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">getWebClient<span class="br0">(</span><span class="br0">)</span>.<span
+
 class="me1">getOptions</span><span class="br0">(</span><span class="br0">)</span>.<span
+
 class="me1">setCssEnabled</span><span class="br0">(</span><span class="kw4">true</span><span
+
 class="br0">)</span><span class="sy0">;</span></pre>
       And:<br>
       <style type="text/css"><!--
@@ -12209,7 +12491,9 @@ class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">HtmlElement console = getHtmlPage<span class="br0">(</span><span
+
 class="br0">)</span>.<span class="me1">getElementById</span><span class="br0">(</span><span
+
 class="st0">"xava_console"</span><span class="br0">)</span><span class="sy0">;</span></pre>
       By:<br>
       <style type="text/css"><!--
@@ -12400,7 +12684,9 @@ class="st0">"xava_console"</span><span class="br0">)</span><span class="sy0">;</
 
 -->
 </style><pre class="java5">HtmlElement console = getHtmlPage<span class="br0">(</span><span
+
 class="br0">)</span>.<span class="me1">getHtmlElementById</span><span class="br0">(</span><span
+
 class="st0">"xava_console"</span><span class="br0">)</span><span class="sy0">;</span></pre>
       And many more things. Unfortunately, HtmlUnit team refactor their library
       in each new minor version, so HtmlUnit is never backward compatible.<br>
@@ -12603,6 +12889,7 @@ class="st0">"xava_console"</span><span class="br0">)</span><span class="sy0">;</
         from=<span class="st0">"product.number"</span><span class="br0">)</span>
 <span class="br0">)</span>
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
+
 class="kw27">BigDecimal</span></a> unitPrice<span class="sy0">;</span></pre>
       With versions previous to 5.1 when <em>product.number</em> changes <em>unitPrice</em>
       is recalculated only if it has not value yet. Since version 5.1 <em>unitPrice</em>
@@ -12800,10 +13087,12 @@ class="kw27">BigDecimal</span></a> unitPrice<span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">@OnChange<span class="br0">(</span>OnChangeProductRecalculateUnitPriceAction.<span
+
 class="kw2">class</span><span class="br0">)</span>
 <span class="kw2">private</span> Product product<span class="sy0">;</span>
 &nbsp;
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
+
 class="kw27">BigDecimal</span></a> unitPrice<span class="sy0">;</span></pre>
       <h2 id="toc47"><a name="Migration-Migration from OpenXava 4.9.1 to OpenXava 5.0"></a>Migration
         from OpenXava 4.9.1 to OpenXava 5.0</h2>
@@ -12830,6 +13119,7 @@ class="kw27">BigDecimal</span></a> unitPrice<span class="sy0">;</span></pre>
 
 -->
 </style><pre class="properties"><span class="re0">autologinUser</span><span class="sy0">=</span><span
+
 class="re1">admin</span>
 <span class="re0">autologinPassword</span><span class="sy0">=</span><span class="re1">admin</span></pre>
       In this way your tests will run fine without recode them.<br>
@@ -13023,10 +13313,14 @@ class="re1">admin</span>
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> testMyTest<span
+
 class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
 href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
     login<span class="br0">(</span><span class="st0">"admin"</span>, <span class="st0">"admin"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
     ...
 <span class="br0">}</span></pre>
@@ -13065,29 +13359,37 @@ class="br0">)</span><span class="sy0">;</span>
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;filter<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;filter-name<span class="re2">&gt;</span></span></span>naviox<span
+
 class="sc3"><span class="re1">&lt;/filter-name<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;filter-class<span class="re2">&gt;</span></span></span>com.openxava.naviox.web.NaviOXFilter<span
+
 class="sc3"><span class="re1">&lt;/filter-class<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/filter<span class="re2">&gt;</span></span></span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;filter-mapping<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;filter-name<span class="re2">&gt;</span></span></span>naviox<span
+
 class="sc3"><span class="re1">&lt;/filter-name<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>*.jsp<span
+
 class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/filter-mapping<span class="re2">&gt;</span></span></span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;filter-mapping<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;filter-name<span class="re2">&gt;</span></span></span>naviox<span
+
 class="sc3"><span class="re1">&lt;/filter-name<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>naviox<span
+
 class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/filter-mapping<span class="re2">&gt;</span></span></span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;filter-mapping<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;filter-name<span class="re2">&gt;</span></span></span>naviox<span
+
 class="sc3"><span class="re1">&lt;/filter-name<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>module<span
+
 class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/filter-mapping<span class="re2">&gt;</span></span></span></pre>
       Also change:<br>
@@ -13115,8 +13417,10 @@ class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></sp
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>naviox<span
+
 class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>com.openxava.naviox.web.NaviOXServlet<span
+
 class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/servlet<span class="re2">&gt;</span></span></span></pre>
       By:<br>
@@ -13144,8 +13448,10 @@ class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></s
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>modules<span
+
 class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>org.openxava.web.servlets.ModuleServlet<span
+
 class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/servlet<span class="re2">&gt;</span></span></span></pre>
       And change:<br>
@@ -13172,10 +13478,13 @@ class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></s
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;servlet-mapping<span
+
 class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>naviox<span
+
 class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>/modules/*<span
+
 class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/servlet-mapping<span class="re2">&gt;</span></span></span></pre>
       By:<br>
@@ -13202,10 +13511,13 @@ class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></spa
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;servlet-mapping<span
+
 class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>modules<span
+
 class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>/modules/*<span
+
 class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/servlet-mapping<span class="re2">&gt;</span></span></span></pre>
       Finally remove:<br>
@@ -13232,10 +13544,13 @@ class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></spa
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;servlet-mapping<span
+
 class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>naviox<span
+
 class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>/m/*<span
+
 class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/servlet-mapping<span class="re2">&gt;</span></span></span></pre>
       With the above changes in <em>OpenXava/web.xml</em> you have removed the
@@ -13260,6 +13575,7 @@ class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></spa
 
 -->
 </style><pre class="properties"><span class="re0">styleClass</span><span class="sy0">=</span><span
+
 class="re1">org.openxava.web.style.Liferay51Style</span>
 <span class="re0">styleCSS</span><span class="sy0">=</span><span class="re1">liferay51/css/everything_unpacked.css</span></pre>
       <h3 id="toc50"><a name="Migration-Migration from OpenXava 4.9.1 to OpenXava 5.0-iPad native style is not used by default"></a>iPad
@@ -13302,10 +13618,13 @@ class="re1">org.openxava.web.style.Liferay51Style</span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
+
 class="re0">name</span>=<span class="st0">"FilterByMonth"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+
 class="st0">"FilterByMonth"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+
 class="st0">"FilterByMonth"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       Anyways, always it has been needed to declare the modules for transient
@@ -13333,6 +13652,7 @@ class="st0">"FilterByMonth"</span><span class="re2">/&gt;</span></span>
 
 -->
 </style><pre class="properties"><span class="re0">javaLoggingLevel</span><span class="sy0">=</span><span
+
 class="re1">FINEST</span></pre>
       By:<br>
       <style type="text/css"><!--
@@ -13352,6 +13672,7 @@ class="re1">FINEST</span></pre>
 
 -->
 </style><pre class="properties"><span class="re0">javaLoggingLevel</span><span class="sy0">=</span><span
+
 class="re1">FINE</span></pre>
       If you want to keep a moderate amount of trace.<br>
       Until v4.9.1 the OpenXava projects created from <em>OpenXavaTemplate</em>
@@ -13550,6 +13871,7 @@ class="re1">FINE</span></pre>
 
 -->
 </style><pre class="java5">Objects.<span class="me1">execute</span><span class="br0">(</span>myObject, <span
+
 class="st0">"doSomething"</span><span class="br0">)</span><span class="sy0">;</span></pre>
       Instead now you have to write:<br>
       <style type="text/css"><!--
@@ -13740,6 +14062,7 @@ class="st0">"doSomething"</span><span class="br0">)</span><span class="sy0">;</s
 
 -->
 </style><pre class="java5">XObjects.<span class="me1">execute</span><span class="br0">(</span>myObject, <span
+
 class="st0">"doSomething"</span><span class="br0">)</span><span class="sy0">;</span></pre>
       <h3 id="toc54"><a name="Migration-Migration from OpenXava 4.9.1 to OpenXava 5.0-AccessTracking removed from the distribution"></a>AccessTracking
         removed from the distribution</h3>
@@ -13938,18 +14261,24 @@ class="st0">"doSomething"</span><span class="br0">)</span><span class="sy0">;</s
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> MyModuleTest <span
+
 class="kw2">extends</span> ModuleTestBase <span class="br0">{</span>
 &nbsp;
     ...
 &nbsp;
     @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+
 class="kw21">Override</span></a>
     <span class="kw2">protected</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> getModuleURL<span class="br0">(</span><span class="br0">)</span> <span
+
 class="br0">{</span>
         <span class="co1">// return super.getModuleURL() + "?myParameter=5"; // With ? in v4.x.x</span>
         <span class="kw2">return</span> <span class="kw2">super</span>.<span class="me1">getModuleURL</span><span
+
 class="br0">(</span><span class="br0">)</span> + <span class="st0">"&amp;myParameter=5"</span><span
+
 class="sy0">;</span> <span class="co1">// With &amp; in v5.0</span>
     <span class="br0">}</span>
 <span class="br0">}</span></pre>
@@ -14145,8 +14474,10 @@ class="sy0">;</span> <span class="co1">// With &amp; in v5.0</span>
 
 -->
 </style><pre class="java5">@Digits<span class="br0">(</span>integer=<span class="nu0">10</span><span
+
 class="br0">)</span>
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
+
 class="kw27">BigDecimal</span></a> amount<span class="sy0">;</span></pre>
       With v4.x it had 2 fraction digits because default scale for <em>BigDecimal</em>
       is 2. However, since v5.0 it has 0 digits, because not specifying fraction
@@ -14342,8 +14673,10 @@ class="kw27">BigDecimal</span></a> amount<span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">@Digits<span class="br0">(</span>integer=<span class="nu0">10</span>, fraction=<span
+
 class="nu0">2</span><span class="br0">)</span>
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
+
 class="kw27">BigDecimal</span></a> amount<span class="sy0">;</span></pre>
       <h3 id="toc57"><a name="Migration-Migration from OpenXava 4.9.1 to OpenXava 5.0-BigDecimal formatting fixed (for jUnit tests)"></a>BigDecimal
         formatting fixed (for jUnit tests)</h3>
@@ -14539,6 +14872,7 @@ class="kw27">BigDecimal</span></a> amount<span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">assertValue<span class="br0">(</span><span class="st0">"myBigDecimalNumber"</span>, <span
+
 class="st0">"20"</span><span class="br0">)</span><span class="sy0">;</span></pre>
       by this:<br>
       <style type="text/css"><!--
@@ -14729,6 +15063,7 @@ class="st0">"20"</span><span class="br0">)</span><span class="sy0">;</span></pre
 
 -->
 </style><pre class="java5">assertValue<span class="br0">(</span><span class="st0">"myBigDecimalNumber"</span>, <span
+
 class="st0">"20.00"</span><span class="br0">)</span><span class="sy0">;</span></pre>
       <h2 id="toc58"><a name="Migration-Migration from OpenXava 4.9 to OpenXava 4.9.1"></a>Migration
         from OpenXava 4.9 to OpenXava 4.9.1</h2>
@@ -14934,6 +15269,7 @@ class="st0">"20.00"</span><span class="br0">)</span><span class="sy0">;</span></
 
 -->
 </style><pre class="java5">assertPopupPDFLinesCount<span class="br0">(</span><span
+
 class="nu0">5</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// Maybe now there are 6 lines, because the header uses 2 lines</span></pre>
       <h3 id="toc62"><a name="Migration-Migration from OpenXava 4.8.1 to OpenXava 4.9-CustomReport controller renamed to MyReport"></a>CustomReport
         controller renamed to MyReport</h3>
@@ -15136,6 +15472,7 @@ class="nu0">5</span><span class="br0">)</span><span class="sy0">;</span> <span c
 
 -->
 </style><pre class="java5">@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
+
 class="kw116">View</span></a><span class="br0">(</span>members=
   ...
   <span class="st0">"remarks { advice, shortcut; remarks }"</span>
@@ -15331,7 +15668,9 @@ class="kw116">View</span></a><span class="br0">(</span>members=
 
 -->
 </style><pre class="java5">getView<span class="br0">(</span><span class="br0">)</span>.<span
+
 class="me1">setHidden</span><span class="br0">(</span><span class="st0">"remarks"</span>, <span
+
 class="kw4">true</span><span class="br0">)</span><span class="sy0">;</span></pre>
       You hid the <em>remarks</em> property, however since OpenXava 4.8.1
       you'll hide the <em>remarks</em> section. In this case, if you still want
@@ -15525,6 +15864,7 @@ class="kw4">true</span><span class="br0">)</span><span class="sy0">;</span></pre
 
 -->
 </style><pre class="java5">@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
+
 class="kw116">View</span></a><span class="br0">(</span>members=
    ...
    <span class="st0">"comment { advice, shortcut; remarks }"</span>
@@ -15750,17 +16090,27 @@ class="kw116">View</span></a><span class="br0">(</span>members=
 
 -->
 </style><pre class="java5"><span class="kw3">int</span><span class="br0">[</span><span
+
 class="br0">]</span> selected = tab.<span class="me1">getSelected</span><span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 <span class="kw1">for</span> <span class="br0">(</span><span class="kw3">int</span> i = <span
+
 class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> selected.<span
+
 class="me1">length</span><span class="sy0">;</span> i++<span class="br0">)</span><span
+
 class="br0">{</span>
      <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+
 class="kw46">Map</span></a> key = <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+
 class="kw46">Map</span></a><span class="br0">)</span> tab.<span class="me1">getTableModel</span><span
+
 class="br0">(</span><span class="br0">)</span>.<span class="me1">getObjectAt</span><span
+
 class="br0">(</span>selected<span class="br0">[</span>i<span class="br0">]</span><span
+
 class="br0">)</span><span class="sy0">;</span>
      ....
 <span class="br0">}</span></pre>
@@ -15953,15 +16303,23 @@ class="br0">)</span><span class="sy0">;</span>
 
 -->
 </style><pre class="java5"><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+
 class="kw46">Map</span></a><span class="br0">[</span><span class="br0">]</span> selected = tab.<span
+
 class="me1">getSelectedKeys</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 <span class="kw1">for</span> <span class="br0">(</span><span class="kw3">int</span> i = <span
+
 class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> selected.<span
+
 class="me1">length</span><span class="sy0">;</span> i++<span class="br0">)</span><span
+
 class="br0">{</span>
      <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+
 class="kw46">Map</span></a> key = selected<span class="br0">[</span>i<span class="br0">]</span><span
+
 class="sy0">;</span>
      ....
 <span class="br0">}</span></pre>
@@ -15988,6 +16346,7 @@ class="sy0">;</span>
 
 -->
 </style><pre class="properties"><span class="re0">my_message</span><span class="sy0">=</span><span
+
 class="re1">It can't be in that way</span></pre>
       by<br>
       <style type="text/css"><!--
@@ -16007,6 +16366,7 @@ class="re1">It can't be in that way</span></pre>
 
 -->
 </style><pre class="properties"><span class="re0">my_message</span><span class="sy0">=</span><span
+
 class="re1">It can''t be in that way</span></pre>
       Note, you have to change ' by ''.<br>
       <h2 id="toc73"><a name="Migration-Migration from OpenXava 4.5.1 to OpenXava 4.6"></a>Migration
@@ -16041,10 +16401,14 @@ class="re1">It can''t be in that way</span></pre>
 
 -->
 </style><pre class="html4strict"><span class="sc2">&lt;<span class="kw2">input</span> <span
+
 class="kw3">id</span><span class="sy0">=</span><span class="st0">"&lt;%=propertyKey%&gt;</span></span>"
     name="<span class="sc2">&lt;%<span class="sy0">=</span>propertyKey%&gt;</span>" class="<span
+
 class="sc2">&lt;%<span class="sy0">=</span><span class="kw3">style</span>.getEditor<span
+
 class="br0">(</span><span class="br0">)</span>%&gt;</span> <span class="sc2">&lt;%<span
+
 class="sy0">=</span>numericClass%&gt;</span>"
     type="<span class="sc2">&lt;%<span class="sy0">=</span>inputType%&gt;</span>"
     tabindex="1" <span class="sc-1">&lt;!-- Now, you have put this--&gt;</span>
@@ -17225,14 +17589,19 @@ class="sy0">=</span>numericClass%&gt;</span>"
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> MyOnSelectElementAction <span
+
 class="kw2">extends</span> OnSelectElementBaseAction <span class="br0">{</span>
 &nbsp;
     <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
+
 class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
         doSomethingThatModifiesTheCollection<span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
         getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">refreshCollections</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// Since v4.5 you have to add this line</span>
     <span class="br0">}</span>
 &nbsp;
@@ -17451,7 +17820,9 @@ class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span c
 
 -->
 </style><pre class="java5"><span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> listActions = <span
+
 class="br0">{</span>
 <span class="st0">"Mode.detailAndFirst"</span>,
 <span class="st0">"Mode.split"</span>,
@@ -17463,6 +17834,7 @@ class="br0">{</span>
 <span class="st0">"List.sumColumn"</span> <span class="co1">// ADD THIS ENTRY</span>
 <span class="br0">}</span><span class="sy0">;</span>
 assertActions<span class="br0">(</span>listActions<span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       <h2 id="toc86"><a name="Migration-Migration from OpenXava 4.0 to OpenXava 4.0.1"></a>Migration
         from OpenXava 4.0 to OpenXava 4.0.1</h2>
@@ -17502,15 +17874,19 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;for-type</span> <span
+
 class="re0">type</span>=<span class="st0">"boolean"</span></span>
 <span class="sc3"><span class="re0">converter-class</span>=<span class="st0">"org.openxava.converters.Boolean01Converter"</span></span>
 <span class="sc3"><span class="re0">cmp-type</span>=<span class="st0">"java.lang.Integer"</span><span
+
 class="re2">/&gt;</span></span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
+
 class="st0">"java.lang.Boolean"</span></span>
 <span class="sc3"><span class="re0">converter-class</span>=<span class="st0">"org.openxava.converters.Boolean01Converter"</span></span>
 <span class="sc3"><span class="re0">cmp-type</span>=<span class="st0">"java.lang.Integer"</span><span
+
 class="re2">/&gt;</span></span></pre>
       Remember, adding these lines is rarely necessary, regenerating code must
       be enough. If you application is a JPA application (the usual case) you do
@@ -17725,14 +18101,17 @@ class="re2">/&gt;</span></span></pre>
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> Delivery <span
+
 class="br0">{</span>
 &nbsp;
 @Id @Column<span class="br0">(</span>length=<span class="nu0">5</span><span class="br0">)</span>
 <span class="kw2">private</span> <span class="kw3">int</span> number<span class="sy0">;</span>
 &nbsp;
 @Id @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
+
 class="br0">)</span>
 <span class="kw2">private</span> DeliveryType type<span class="sy0">;</span>  <span
+
 class="co1">// The type must exist in the database always</span>
 ...
 <span class="br0">}</span></pre>
@@ -17942,17 +18321,23 @@ class="co1">// The type must exist in the database always</span>
 
 -->
 </style><pre class="java5">Delivery delivery = <span class="kw2">new</span> Delivery<span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 DeliveryType deliveryType = <span class="kw2">new</span> DeliveryType<span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// We create a new DeliveryType,</span>
 <span class="co1">// instead of searching it</span>
 deliveryType.<span class="me1">setNumber</span><span class="br0">(</span><span class="nu0">66</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// The DeliveryType 66 already exist in database</span>
 delivery.<span class="me1">setType</span><span class="br0">(</span>deliveryType<span
+
 class="br0">)</span><span class="sy0">;</span>
 ...
 <span class="me1">XPersistence</span>.<span class="me1">getManager</span><span class="br0">(</span><span
+
 class="br0">)</span>.<span class="me1">persist</span><span class="br0">(</span>delivery<span
+
 class="br0">)</span><span class="sy0">;</span></pre>
       But, this does not work with Hibernate 3.6, instead you have to write it
       in the next way:<br>
@@ -18144,16 +18529,23 @@ class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">Delivery delivery = <span class="kw2">new</span> Delivery<span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 DeliveryType deliveryType = XPersistence.<span class="me1">getManager</span><span
+
 class="br0">(</span><span class="br0">)</span>
 .<span class="me1">find</span><span class="br0">(</span>DeliveryType.<span class="kw2">class</span>, <span
+
 class="nu0">66</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// We searh it</span>
 delivery.<span class="me1">setType</span><span class="br0">(</span>deliveryType<span
+
 class="br0">)</span><span class="sy0">;</span>
 XPersistence.<span class="me1">getManager</span><span class="br0">(</span><span
+
 class="br0">)</span>.<span class="me1">persist</span><span class="br0">(</span>delivery<span
+
 class="br0">)</span><span class="sy0">;</span></pre>
       <h3 id="toc93"><a name="Migration-Migration from OpenXava 4m5 to OpenXava 4m6-Entity with only one @ManyToOne reference as key (Hibernate 3.6)"></a>Entity
         with only one @ManyToOne reference as key (Hibernate 3.6)</h3>
@@ -18347,13 +18739,17 @@ class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+
 class="kw166">Entity</span></a>
 @IdClass<span class="br0">(</span>CustomerContactPersonKey.<span class="kw2">class</span><span
+
 class="br0">)</span>
 <span class="kw2">public</span> <span class="kw2">class</span> CustomerContactPerson <span
+
 class="br0">{</span>
 &nbsp;
 @Id @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
+
 class="br0">)</span>
 <span class="kw2">private</span> Customer customer<span class="sy0">;</span>
 &nbsp;
@@ -18551,10 +18947,13 @@ class="br0">)</span>
 
 -->
 </style><pre class="java5">@ManyToOne<span class="br0">(</span>fetch=FetchType.<span
+
 class="me1">LAZY</span><span class="br0">)</span>
 @JoinColumn<span class="br0">(</span>name=<span class="st0">"CUSTOMERCONTACT"</span><span
+
 class="br0">)</span> <span class="co1">// With no referencedColumnName attribute</span>
 <span class="kw2">private</span> CustomerContactPerson customerContactPerson<span
+
 class="sy0">;</span></pre>
       And it worked fine. However, with Hibernate 3.6 this does not work.
       Fortunately, there is a way of achieving the same effect. Just write your
@@ -18747,12 +19146,15 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+
 class="kw166">Entity</span></a> <span class="co1">// @IdClass is no longer used</span>
 <span class="kw2">public</span> <span class="kw2">class</span> CustomerContactPerson
 <span class="kw2">implements</span> java.<span class="me1">io</span>.<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
+
 class="kw20">Serializable</span></a> <span class="br0">{</span> <span class="co1">// Must implement Serializable</span>
 &nbsp;
 @Id @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
+
 class="br0">)</span>
 <span class="kw2">private</span> Customer customer<span class="sy0">;</span>
 &nbsp;
@@ -18950,13 +19352,16 @@ class="br0">)</span>
 
 -->
 </style><pre class="java5">@ManyToOne<span class="br0">(</span>fetch=FetchType.<span
+
 class="me1">LAZY</span><span class="br0">)</span>
 @JoinColumns<span class="br0">(</span><span class="br0">{</span>
 @JoinColumn<span class="br0">(</span>name=<span class="st0">"CUSTOMERCONTACT"</span>,
 referencedColumnName=<span class="st0">"CUSTOMER_NUMBER"</span><span class="br0">)</span> <span
+
 class="co1">// referencedColumnName is mandatory</span>
 <span class="br0">}</span><span class="br0">)</span>
 <span class="kw2">private</span> CustomerContactPerson customerContactPerson<span
+
 class="sy0">;</span></pre>
       <h3 id="toc94"><a name="Migration-Migration from OpenXava 4m5 to OpenXava 4m6-CharBooleanType Hibernate type does not work (Hibernate 3.6)"></a>CharBooleanType
         Hibernate type does not work (Hibernate 3.6)</h3>
@@ -18997,8 +19402,10 @@ class="sy0">;</span></pre>
 -->
 </style><pre class="java">@<span class="kw3">Entity</span>
 @Table<span class="br0">(</span>name <span class="sy0">=</span> <span class="st0">"`TABLES`"</span><span
+
 class="br0">)</span>
 @DiscriminatorColumn<span class="br0">(</span>name<span class="sy0">=</span><span
+
 class="st0">"ID"</span>,
 discriminatorType<span class="sy0">=</span>DiscriminatorType.<span class="me1">STRING</span>,
 length<span class="sy0">=</span><span class="nu0">20</span><span class="br0">)</span>
@@ -19033,12 +19440,15 @@ length<span class="sy0">=</span><span class="nu0">20</span><span class="br0">)</
 -->
 </style><pre class="java">@<span class="kw3">Entity</span>
 @Table<span class="br0">(</span>name <span class="sy0">=</span> <span class="st0">"`TABLES`"</span><span
+
 class="br0">)</span>
 @DiscriminatorColumn<span class="br0">(</span>name<span class="sy0">=</span><span
+
 class="st0">"ID"</span>,
 discriminatorType<span class="sy0">=</span>DiscriminatorType.<span class="me1">STRING</span>,
 length<span class="sy0">=</span><span class="nu0">20</span><span class="br0">)</span>
 @DiscriminatorOptions<span class="br0">(</span>insert <span class="sy0">=</span> <span
+
 class="kw2">false</span><span class="br0">)</span> <span class="co1">// &lt;-- Hibernate dependent annotation</span>
 &nbsp;</pre>
       And it will work.<br>
@@ -19236,13 +19646,19 @@ class="kw2">false</span><span class="br0">)</span> <span class="co1">// &lt;-- H
 
 -->
 </style><pre class="java5"><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> host = getProperty<span class="br0">(</span><span
+
 class="st0">"host"</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// Until v4m5</span>
 <span class="co1">// Must be replace with</span>
 <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> host = getXavaJUnitProperty<span class="br0">(</span><span
+
 class="st0">"host"</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// Since v4m6</span></pre>
       This change was needed to allow using Groovy to write JUnit tests.<br>
       <br>
@@ -19279,12 +19695,16 @@ class="co1">// Since v4m6</span></pre>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
+
 class="re0">name</span>=<span class="st0">"ChangeProductsPrice"</span><span class="re2">&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+
 class="st0">"Product"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+
 class="st0">"Navigation"</span><span class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- You have to add this --&gt;</span>
 <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+
 class="st0">"ChangeProductsPrice"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       <h3 id="toc99"><a name="Migration-Migration from OpenXava 4m4 to OpenXava 4m5-New split mode - jUnit changes"></a>New
@@ -19481,7 +19901,9 @@ class="st0">"ChangeProductsPrice"</span><span class="re2">/&gt;</span></span>
 
 -->
 </style><pre class="java5"><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> listActions = <span
+
 class="br0">{</span>
 <span class="st0">"Print.generatePdf"</span>,
 <span class="st0">"Print.generateExcel"</span>,
@@ -19496,6 +19918,7 @@ class="br0">{</span>
 <span class="st0">"List.hideRows"</span>,
 <span class="br0">}</span><span class="sy0">;</span>
 assertActions<span class="br0">(</span>listActions<span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       If you do not like this new split mode, you can remove it from your
       aplication adding the next entry in xava.properties:<br>
@@ -19701,6 +20124,7 @@ class="sy0">;</span></pre>
 -->
 </style><pre class="java5"><span class="co1">// execute("Mode.list"); // NO if defaultModeController=DetailList in xava.properties</span>
 execute<span class="br0">(</span><span class="st0">"DetailList.list"</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// OK if defaultModeController=DetailList in xava.properties</span></pre>
       <h3 id="toc100"><a name="Migration-Migration from OpenXava 4m4 to OpenXava 4m5-New CRUD.deleteRow action - jUnit changes"></a>New
         CRUD.deleteRow action - jUnit changes</h3>
@@ -19896,7 +20320,9 @@ class="br0">)</span><span class="sy0">;</span> <span class="co1">// OK if defaul
 -->
 </style><pre class="java5"><span class="co1">// execute("CRUD.deleteSelected", "row=2"); // NO, since 4m5</span>
 execute<span class="br0">(</span><span class="st0">"CRUD.deleteRow"</span>, <span
+
 class="st0">"row=2"</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// YES</span></pre>
       Moreover, given that CRUD.deleteRow is available by default for all
       module, if you use <em>assertActions()</em> in your tests maybe you have
@@ -20095,17 +20521,24 @@ class="co1">// YES</span></pre>
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> MySearchAction <span
+
 class="kw2">extends</span> ViewBaseAction <span class="br0">{</span>
 &nbsp;
 <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
+
 class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
 ...
 <span class="me1">getView</span><span class="br0">(</span><span class="br0">)</span>.<span
+
 class="me1">setKeyEditable</span><span class="br0">(</span><span class="kw4">false</span><span
+
 class="br0">)</span><span class="sy0">;</span>  <span class="co1">// You have to call setKeyEditable()</span>
 getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">setEditable</span><span
+
 class="br0">(</span><span class="kw4">true</span><span class="br0">)</span><span
+
 class="sy0">;</span>      <span class="co1">// and setEditalbe() explicitly</span>
 ...
 <span class="br0">}</span>
@@ -20306,10 +20739,13 @@ class="sy0">;</span>      <span class="co1">// and setEditalbe() explicitly</spa
 
 -->
 </style><pre class="java5">setValue<span class="br0">(</span><span class="st0">"number"</span>, <span
+
 class="st0">"1"</span><span class="br0">)</span><span class="sy0">;</span>
 execute<span class="br0">(</span><span class="st0">"CRUD.search"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 assertValue<span class="br0">(</span><span class="st0">"description"</span>, <span
+
 class="st0">"Number one"</span><span class="br0">)</span><span class="sy0">;</span></pre>
       It does not work now. You must rewrite it. To do it, you have 2 options.
       The first one is to adapt your test to the new CRUD.search action
@@ -20502,12 +20938,16 @@ class="st0">"Number one"</span><span class="br0">)</span><span class="sy0">;</sp
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"CRUD.search"</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// It shows a dialog</span>
 setValue<span class="br0">(</span><span class="st0">"number"</span>, <span class="st0">"1"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 execute<span class="br0">(</span><span class="st0">"Search.search"</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// It does the search and close the dialog</span>
 assertValue<span class="br0">(</span><span class="st0">"description"</span>, <span
+
 class="st0">"Number one"</span><span class="br0">)</span><span class="sy0">;</span></pre>
       The second option is changing "CRUD.search" by "CRUD.refresh", since the
       old CRUD.search has been renamed as <em>CRUD.refresh</em>:<br>
@@ -20699,10 +21139,13 @@ class="st0">"Number one"</span><span class="br0">)</span><span class="sy0">;</sp
 
 -->
 </style><pre class="java5">setValue<span class="br0">(</span><span class="st0">"number"</span>, <span
+
 class="st0">"1"</span><span class="br0">)</span><span class="sy0">;</span>
 execute<span class="br0">(</span><span class="st0">"CRUD.refresh"</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// Instead of CRUD.search</span>
 assertValue<span class="br0">(</span><span class="st0">"description"</span>, <span
+
 class="st0">"Number one"</span><span class="br0">)</span><span class="sy0">;</span></pre>
       Moreover, given that CRUD.refresh is available by default for all modules,
       if you use <em>assertActions()</em> in your tests maybe you have to add
@@ -20712,6 +21155,7 @@ class="st0">"Number one"</span><span class="br0">)</span><span class="sy0">;</sp
       <h3 id="toc105"><a name="Migration-Migration from OpenXava 4m2 to OpenXava 4m3-MapFacade.getValues() includes the model name in the result"></a>MapFacade.getValues()
         includes the model name in the result</h3>
       <a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/model/MapFacade.html#getValues%28java.lang.String,%20java.util.Map,%20java.util.Map%29"
+
         rel="nofollow">MapFacade.getValues()</a> now includes the model name in
       the result, with an entry with the key <em>MapFacade.MODEL_NAME</em>. If
       you use the standard OpenXava classes (such as <em>View</em> or <em>PropertiesManager</em>)
@@ -20906,15 +21350,21 @@ class="st0">"Number one"</span><span class="br0">)</span><span class="sy0">;</sp
 
 -->
 </style><pre class="java5"><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Map.html"><span
+
 class="kw46">Map</span></a> values = MapFacace.<span class="me1">getValues</span><span
+
 class="br0">(</span><span class="st0">"Person"</span>, key, members<span class="br0">)</span><span
+
 class="sy0">;</span>
 values.<span class="me1">remove</span><span class="br0">(</span>MapFacade.<span
+
 class="me1">MODEL_NAME</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// Maybe you need this line</span></pre>
       <h3 id="toc106"><a name="Migration-Migration from OpenXava 4m2 to OpenXava 4m3-Classes.getSimpleName() method dropped"></a>Classes.getSimpleName()
         method dropped</h3>
       The method getSimpleName() from <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/util/Classes.html"
+
           rel="nofollow">Classes</a></em> has been removed. Use <em>getSimpleName()</em>
       from <em>Class</em> available from Java 5 instead.<br>
       Change this:<br>
@@ -21106,6 +21556,7 @@ class="co1">// Maybe you need this line</span></pre>
 
 -->
 </style><pre class="java5">Classes.<span class="me1">getSimpleName</span><span class="br0">(</span>theClass<span
+
 class="br0">)</span><span class="sy0">;</span></pre>
       by this:<br>
       <style type="text/css"><!--
@@ -21296,6 +21747,7 @@ class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">theClass.<span class="me1">getSimpleName</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></pre>
       <h2 id="toc107"><a name="Migration-Migration from OpenXava 4m1 to OpenXava 4m2"></a>Migration
         from OpenXava 4m1 to OpenXava 4m2</h2>
@@ -21513,18 +21965,26 @@ class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> MyCollectionDetailAction <span
+
 class="kw2">extends</span> ViewBaseAction  <span class="br0">{</span>
 &nbsp;
 <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
+
 class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
 ...
 <span class="me1">getView</span><span class="br0">(</span><span class="br0">)</span>.<span
+
 class="me1">setValue</span><span class="br0">(</span><span class="st0">"name"</span>, <span
+
 class="st0">"Pepe"</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// Now getView() is the dialog view</span>
 getPreviousView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">setValue</span><span
+
 class="br0">(</span><span class="st0">"name"</span>, <span class="st0">"Pepe"</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// getPreviousView() is the</span>
 <span class="co1">// view has opened the dialog</span>
 closeDialog<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
@@ -21732,9 +22192,12 @@ closeDialog<span class="br0">(</span><span class="br0">)</span><span class="sy0"
 -->
 </style><pre class="java5"><span class="co1">// details is the name of the collection</span>
 setValue<span class="br0">(</span><span class="st0">"details.quantity"</span>, <span
+
 class="st0">"6"</span><span class="br0">)</span><span class="sy0">;</span>  <span
+
 class="co1">// Now WRONG! You have to remove 'details'</span>
 setValue<span class="br0">(</span><span class="st0">"quantity"</span>, <span class="st0">"6"</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// CORRECT! Without collection name</span></pre>
       Also the actions available on editing a collection element (so inside a
       dialog) do not use any argument:<br>
@@ -21926,9 +22389,12 @@ class="br0">)</span><span class="sy0">;</span> <span class="co1">// CORRECT! Wit
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"Collection.save"</span>, <span
+
 class="st0">"viewObject=xava_view_section1_details"</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// WRONG!</span>
 execute<span class="br0">(</span><span class="st0">"Collection.save"</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// CORRECT!</span></pre>
       If you want to access to the actions or members of the main view, you have
       to close the dialog first:<br>
@@ -22120,13 +22586,18 @@ class="br0">)</span><span class="sy0">;</span> <span class="co1">// CORRECT!</sp
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"Invoice.editDetail"</span>, <span
+
 class="st0">"row=1,viewObject=xava_view_section1_details"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 assertValue<span class="br0">(</span><span class="st0">"quantity"</span>, <span
+
 class="st0">"234"</span><span class="br0">)</span><span class="sy0">;</span>
 closeDialog<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// Needed before executing CRUD.save</span>
 execute<span class="br0">(</span><span class="st0">"CRUD.save"</span><span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       When you save the collection element the dialog is closed, so if you want
       to add another detail you have to open the dialog again:<br>
@@ -22318,10 +22789,13 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"Collection.save"</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// This closes the dialog</span>
 execute<span class="br0">(</span><span class="st0">"Collection.new"</span>, <span
+
 class="co1">// It's needed to call to 'new' again, to open the dialog</span>
 <span class="st0">"viewObject=xava_view_section1_details"</span><span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       In nested collections you have to change the value of viewObject argument
       of the row actions, again because now it inside of a dialog that is itself
@@ -22515,9 +22989,11 @@ class="sy0">;</span></pre>
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"Collection.new"</span>,
 <span class="st0">"viewObject=xava_view_deliveryPlaces_receptionists"</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// WRONG!</span>
 execute<span class="br0">(</span><span class="st0">"Collection.new"</span>,
 <span class="st0">"viewObject=xava_view_receptionists"</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// CORRECT! Only the last</span>
 <span class="co1">// nested collection name</span></pre>
       This does not only appies to viewObject but also to other references to a
@@ -22711,30 +23187,46 @@ class="sy0">;</span> <span class="co1">// CORRECT! Only the last</span>
 -->
 </style><pre class="java5"><span class="co1">// WRONG: Using "deliveryPlaces.receptionists", the full qualified name</span>
 setConditionValues<span class="br0">(</span><span class="st0">"deliveryPlaces.receptionists"</span>, <span
+
 class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a><span class="br0">[</span><span class="br0">]</span> <span
+
 class="br0">{</span> <span class="st0">"J"</span><span class="br0">}</span> <span
+
 class="br0">)</span><span class="sy0">;</span>
 execute<span class="br0">(</span><span class="st0">"List.filter"</span>, <span class="st0">"collection=deliveryPlaces.receptionists"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 assertCollectionRowCount<span class="br0">(</span><span class="st0">"deliveryPlaces.receptionists"</span>, <span
+
 class="nu0">1</span><span class="br0">)</span><span class="sy0">;</span>
 assertValueInCollection<span class="br0">(</span><span class="st0">"deliveryPlaces.receptionists"</span>, <span
+
 class="nu0">0</span>, <span class="nu0">0</span>, <span class="st0">"JUAN"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 &nbsp;
 <span class="co1">// CORRECT: Using "receptionists", the simple name</span>
 setConditionValues<span class="br0">(</span><span class="st0">"receptionists"</span>, <span
+
 class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a><span class="br0">[</span><span class="br0">]</span> <span
+
 class="br0">{</span> <span class="st0">"J"</span><span class="br0">}</span> <span
+
 class="br0">)</span><span class="sy0">;</span>
 execute<span class="br0">(</span><span class="st0">"List.filter"</span>, <span class="st0">"collection=receptionists"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 assertCollectionRowCount<span class="br0">(</span><span class="st0">"receptionists"</span>, <span
+
 class="nu0">1</span><span class="br0">)</span><span class="sy0">;</span>
 assertValueInCollection<span class="br0">(</span><span class="st0">"receptionists"</span>, <span
+
 class="nu0">0</span>, <span class="nu0">0</span>, <span class="st0">"JUAN"</span><span
+
 class="br0">)</span><span class="sy0">;</span></pre>
       In general, if your test fails try to remove the collection name as prefix
       from member name, action argument, etc.<br>
@@ -22931,9 +23423,11 @@ class="br0">)</span><span class="sy0">;</span></pre>
 </style><pre class="java5"><span class="co1">// Only for collections of entities with no @AsEmbedded</span>
 execute<span class="br0">(</span><span class="st0">"Collection.edit"</span>,
 <span class="st0">"row=0,viewObject=xava_view_customers"</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// WRONG! 'edit' is not longer used</span>
 execute<span class="br0">(</span><span class="st0">"Collection.view"</span>,
 <span class="st0">"row=0,viewObject=xava_view_customers"</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// CORRECT! Now 'view' action is used</span></pre>
       This also implies that the view for element has not editable the key
       properties and has no delete action. Maybe you have to adapt your test:<br>
@@ -23126,8 +23620,10 @@ class="sy0">;</span> <span class="co1">// CORRECT! Now 'view' action is used</sp
 -->
 </style><pre class="java5"><span class="co1">// Inside the dialog that displays the collection element</span>
 assertEditable<span class="br0">(</span><span class="st0">"number"</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// WRONG! Key fields are not editable</span>
 execute<span class="br0">(</span><span class="st0">"Collection.remove"</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// WRONG! 'remove' action are not available</span></pre>
       This change does not apply to collection with @AsEmbeddable, <em>CascadeType.REMOVE</em>
       or <em>CascadeType.ALL</em>.<br>
@@ -23136,8 +23632,11 @@ class="br0">)</span><span class="sy0">;</span> <span class="co1">// WRONG! 'remo
       <h3 id="toc113"><a name="Migration-Migration from OpenXava 3.1.4 to OpenXava 4m1-BaseAction implements IModuleContextAction"></a>BaseAction
         implements IModuleContextAction</h3>
       <a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/BaseAction.html"
+
         rel="nofollow">BaseAction</a> now implements <em><a class="wiki_link_ext"
+
           href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/IModuleContextAction.html"
+
           rel="nofollow">IModuleContextAction</a></em>, so if some of your
       actions implement it you have to rewrite the <em>setContext()</em> method
       using <em>super.setContext()</em>. In this way:<br>
@@ -23167,13 +23666,18 @@ class="br0">)</span><span class="sy0">;</span> <span class="co1">// WRONG! 'remo
 
 -->
 </style><pre class="java"><span class="kw1">public</span> <span class="kw1">class</span> MyAction <span
+
 class="kw1">extends</span> BaseAction <span class="kw1">implements</span> IModuleContextAction <span
+
 class="br0">{</span>
 <span class="kw1">public</span> <span class="kw4">void</span> setContext<span class="br0">(</span>ModuleContext context<span
+
 class="br0">)</span> <span class="br0">{</span>
 <span class="kw1">super</span>.<span class="me1">setContext</span><span class="br0">(</span>context<span
+
 class="br0">)</span><span class="sy0">;</span>  <span class="co1">// You must add this line</span>
 <span class="kw1">this</span>.<span class="me1">context</span> <span class="sy0">=</span> context<span
+
 class="sy0">;</span>
 <span class="br0">}</span>
 <span class="br0">}</span></pre>
@@ -23213,21 +23717,27 @@ class="sy0">;</span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+
 class="re0">name</span>=<span class="st0">"MyReference"</span><span class="re2">&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+
 class="st0">"search"</span> <span class="re0">hidden</span>=<span class="st0">"true"</span></span>
 <span class="sc3"><span class="re0">show-dialog</span>=<span class="st0">"true"</span></span>
 <span class="sc3"><span class="re0">class</span>=<span class="st0">"org.openxava.test.actions.MySearchAction"</span></span>
 <span class="sc3"><span class="re0">image</span>=<span class="st0">"images/search.gif"</span><span
+
 class="re2">&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span
+
 class="st0">"xava_view"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span
+
 class="st0">"xava_referenceSubview"</span><span class="re2">/&gt;</span></span>
 <span class="sc-1">&lt;!-- This line must be removed</span>
 <span class="sc-1">&lt;use-object name="xava_currentReferenceLabel"/&gt;</span>
 <span class="sc-1">--&gt;</span>
 <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span
+
 class="st0">"xava_tab"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span></pre>
@@ -23451,7 +23961,9 @@ class="st0">"xava_tab"</span><span class="re2">/&gt;</span></span>
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"Delivery.generateNumber"</span>, <span
+
 class="st0">"xava.keyProperty=xava.Delivery.number"</span><span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       by<br>
       <style type="text/css"><!--
@@ -23642,6 +24154,7 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"Delivery.generateNumber"</span>, <span
+
 class="st0">"xava.keyProperty=number"</span><span class="br0">)</span><span class="sy0">;</span></pre>
       Just deleting xava.Delivery in this case.<br>
       To avoid a laborious migration OpenXava still support the old style for
@@ -23837,10 +24350,14 @@ class="st0">"xava.keyProperty=number"</span><span class="br0">)</span><span clas
 
 -->
 </style><pre class="java5">HtmlImage image = <span class="br0">(</span>HtmlImage<span
+
 class="br0">)</span>
 page.<span class="me1">getHtmlElementsByName</span><span class="br0">(</span><span
+
 class="st0">"xava.Formula.ingredients.image"</span><span class="br0">)</span>.<span
+
 class="me1">get</span><span class="br0">(</span><span class="nu0">0</span><span
+
 class="br0">)</span><span class="sy0">;</span></pre>
       You need to change by the next code:<br>
       <style type="text/css"><!--
@@ -24031,10 +24548,14 @@ class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">HtmlImage image = <span class="br0">(</span>HtmlImage<span
+
 class="br0">)</span>
 page.<span class="me1">getHtmlElementsByName</span><span class="br0">(</span>decorateId<span
+
 class="br0">(</span><span class="st0">"ingredients.image"</span><span class="br0">)</span><span
+
 class="br0">)</span>.<span class="me1">get</span><span class="br0">(</span><span
+
 class="nu0">0</span><span class="br0">)</span><span class="sy0">;</span></pre>
       You use here decorateId(). Also note the you have to remove the prefix <em>xava.Formula</em>.<br>
       <h2 id="toc120"><a name="Migration-Migration from OpenXava 3.0.3 to OpenXava 3.1"></a>Migration
@@ -24074,6 +24595,7 @@ class="nu0">0</span><span class="br0">)</span><span class="sy0">;</span></pre>
 -->
 </style><pre class="javascript"><span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
 <span class="kw2">function</span> showMap<span class="br0">(</span>v<span class="br0">)</span> <span
+
 class="br0">{</span>
 ...
 <span class="br0">}</span>
@@ -24104,21 +24626,32 @@ class="br0">{</span>
 
 -->
 </style><pre class="javascript"><span class="kw1">if</span> <span class="br0">(</span>openxava <span
+
 class="sy0">==</span> <span class="kw2">null</span><span class="br0">)</span> <span
+
 class="kw2">var</span> openxava <span class="sy0">=</span> <span class="br0">{</span><span
+
 class="br0">}</span><span class="sy0">;</span>
 <span class="kw1">if</span> <span class="br0">(</span>openxava.<span class="me1">editors</span> <span
+
 class="sy0">==</span> <span class="kw2">null</span><span class="br0">)</span> openxava.<span
+
 class="me1">editors</span> <span class="sy0">=</span> <span class="br0">{</span><span
+
 class="br0">}</span><span class="sy0">;</span>
 &nbsp;
 <span class="co1">// googleMapEditor</span>
 <span class="kw1">if</span> <span class="br0">(</span>openxava.<span class="me1">editors</span>.<span
+
 class="me1">googleMap</span> <span class="sy0">==</span> <span class="kw2">null</span><span
+
 class="br0">)</span> openxava.<span class="me1">editors</span>.<span class="me1">googleMap</span> <span
+
 class="sy0">=</span> <span class="br0">{</span><span class="br0">}</span><span class="sy0">;</span>
 openxava.<span class="me1">editors</span>.<span class="me1">googleMap</span>.<span
+
 class="me1">showMap</span> <span class="sy0">=</span> <span class="kw2">function</span><span
+
 class="br0">(</span>v<span class="br0">)</span><span class="br0">{</span>
 ...
 <span class="br0">}</span>
@@ -24147,7 +24680,9 @@ class="br0">(</span>v<span class="br0">)</span><span class="br0">{</span>
 
 -->
 </style><pre class="html4strict"><span class="sc2">&lt;<span class="kw2">input</span> ... <span
+
 class="kw3">onclick</span><span class="sy0">=</span><span class="st0">"showMap(value)"</span><span
+
 class="sy0">/</span>&gt;</span></pre>
       you have to do it qualifiying the function:<br>
       <style type="text/css"><!--
@@ -24173,7 +24708,9 @@ class="sy0">/</span>&gt;</span></pre>
 
 -->
 </style><pre class="html4strict"><span class="sc2">&lt;<span class="kw2">input</span> ... <span
+
 class="kw3">onclick</span><span class="sy0">=</span><span class="st0">"openxava.editors.googleMap.showMap(value)"</span><span
+
 class="sy0">/</span>&gt;</span></pre>
       <h3 id="toc122"><a name="Migration-Migration from OpenXava 3.0.3 to OpenXava 3.1-Call to method View.refreshCollections() when collection data are modified"></a>Call
         to method View.refreshCollections() when collection data are modified</h3>
@@ -24182,6 +24719,7 @@ class="sy0">/</span>&gt;</span></pre>
       refreshed, but if your action is outside of the collection then there is
       no way to know that the collection data have been modified. In this case
       you need to call explicitly to <a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html#refreshCollections%28%29"
+
         rel="nofollow">View.refreshCollections()</a>. For example:<br>
       <style type="text/css"><!--
 /**
@@ -24372,25 +24910,37 @@ class="sy0">/</span>&gt;</span></pre>
 -->
 </style><pre class="java5"><span class="co1">// It's not a collection action</span>
 <span class="kw2">public</span> <span class="kw2">class</span> TranslateAllCarrierNameAction <span
+
 class="kw2">extends</span> ViewBaseAction <span class="br0">{</span>
 &nbsp;
 <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
+
 class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
 <span class="kw1">for</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Iterator.html"><span
+
 class="kw46">Iterator</span></a> it=Carrier.<span class="me1">findAll</span><span
+
 class="br0">(</span><span class="br0">)</span>.<span class="me1">iterator</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> it.<span
+
 class="me1">hasNext</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="br0">)</span> <span class="br0">{</span>
 Carrier c = <span class="br0">(</span>Carrier<span class="br0">)</span> it.<span
+
 class="me1">next</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 c.<span class="me1">translate</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// Carrier is modified,</span>
 <span class="co1">// these data are show currently in a collection of the view</span>
 <span class="br0">}</span>
 getView<span class="br0">(</span><span class="br0">)</span>.<span class="me1">refreshCollections</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// To refresh the data of the</span>
 <span class="co1">// displayed collections</span>
 <span class="br0">}</span>
@@ -24410,8 +24960,11 @@ class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span c
         replaced by HtmlUnit for junit tests using ModuleTestBase</h3>
       <a class="wiki_link_ext" href="http://httpunit.sourceforge.net/" rel="nofollow">HttpUnit</a>
       has been replaced by <a class="wiki_link_ext" href="http://htmlunit.sourceforge.net/"
+
         rel="nofollow">HtmlUnit</a> for junit tests based on <a class="wiki_link_ext"
+
         href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/tests/ModuleTestBase.html"
+
         rel="nofollow">ModuleTestBase</a>. The main reason for this is the lack
       of AJAX support from HttpUnit.<br>
       Most of your current junit test based on <em>ModuleTestBase</em> will
@@ -24610,7 +25163,9 @@ class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span c
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"Reference.search"</span>, <span
+
 class="st0">"keyProperty=xava.Carrier.warehouse.zoneNumber"</span><span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       and the link in the page has keyProperty=xava.Carrier.warehouse.number,
       that is, it's not exactly equal; in the case of the HttpUnit it works, but
@@ -24810,8 +25365,10 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">allowDuplicateSubmit<span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 click<span class="br0">(</span><span class="st0">"MyController.myAction"</span><span
+
 class="br0">)</span><span class="sy0">;</span></pre>
       Calling to allowDuplicateSubmit() is mandatory before to use <em>click()</em>.
       The <em>click()</em> method throw the events associated to the button or
@@ -25010,13 +25567,17 @@ class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"MyController.myAction"</span><span
+
 class="br0">)</span><span class="sy0">;</span></pre>
       <h4 id="toc128"><a name="Migration-Migration from OpenXava 3.0.2 to OpenXava 3.0.3-HttpUnit replaced by HtmlUnit for junit tests using ModuleTestBase-Method getForm() returns a HtmlForm"></a>Method
         getForm() returns a HtmlForm</h4>
       The protected method getForm() of <em>ModuleTestBase</em> that before
       returned a <em><a class="wiki_link_ext" href="http://httpunit.sourceforge.net/doc/api/com/meterware/httpunit/WebForm.html"
+
           rel="nofollow">WebForm</a></em> of HttpUnit now returns a <em><a class="wiki_link_ext"
+
           href="http://htmlunit.sourceforge.net/apidocs/com/gargoylesoftware/htmlunit/html/HtmlForm.html"
+
           rel="nofollow">HtmlForm</a></em> of HtmlUnit. If you are using it in
       some test you must rewrite your test. Fortunately this method is rarely
       used.<br>
@@ -25026,9 +25587,11 @@ class="br0">)</span><span class="sy0">;</span></pre>
         getConversation() replaced by getWebClient()</h4>
       The protected method getConversation() of <em>ModuleTestBase</em> that
       before returned a <em><a class="wiki_link_ext" href="http://httpunit.sourceforge.net/doc/api/com/meterware/httpunit/WebConversation.html"
+
           rel="nofollow">WebConversation()</a></em> of HttpUnit has been
       replaced by <em>getWebClient()</em> method of <em>HtmlUnit</em> that
       retuns a <em><a class="wiki_link_ext" href="http://htmlunit.sourceforge.net/apidocs/com/gargoylesoftware/htmlunit/WebClient.html"
+
           rel="nofollow">WebClient</a></em>. If you are using it in some test
       you must rewrite your test. Fortunately this method is rarely used.<br>
       <br>
@@ -25226,11 +25789,16 @@ class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5"><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> condition = <span
+
 class="br0">{</span> <span class="st0">" "</span>, <span class="st0">""</span>, <span
+
 class="st0">""</span>, <span class="st0">"V"</span> <span class="br0">}</span><span
+
 class="sy0">;</span>
 setConditionValues<span class="br0">(</span>condition<span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       When you want to fill the 4th element and the 2nd one was a combo (an enum
       or boolean). Note that you need to put a blankspace in the first one,
@@ -25426,11 +25994,16 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5"><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> condition = <span
+
 class="br0">{</span> <span class="st0">""</span>, <span class="st0">""</span>, <span
+
 class="st0">""</span>, <span class="st0">"V"</span> <span class="br0">}</span><span
+
 class="sy0">;</span>
 setConditionValues<span class="br0">(</span>cndition<span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       Without bother about blankspaces. Though spaces are still allowed.<br>
       <br>
@@ -25631,6 +26204,7 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">assertError<span class="br0">(</span><span class="st0">"Object of type Invoice does not exists with that key"</span><span
+
 class="br0">)</span><span class="sy0">;</span></pre>
       by<br>
       <br>
@@ -25823,6 +26397,7 @@ class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">assertError<span class="br0">(</span><span class="st0">"Object of type Invoice does not exists with key Year:2008, Number:1"</span><span
+
 class="br0">)</span><span class="sy0">;</span></pre>
       <h3 id="toc133"><a name="Migration-Migration from OpenXava 3.0.1 to OpenXava 3.0.2-Hibernate for user preferences is not longer used"></a>Hibernate
         for user preferences is not longer used</h3>
@@ -25837,10 +26412,15 @@ class="br0">)</span><span class="sy0">;</span></pre>
       <h3 id="toc135"><a name="Migration-Migration from OpenXava 3.0 to OpenXava 3.0.1-Validation annotations now are Hibernate Validator constraints"></a>Validation
         annotations now are Hibernate Validator constraints</h3>
       <a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Required.html"
+
         rel="nofollow">@Required</a>, <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/PropertyValidator.html"
+
           rel="nofollow">@PropertyValidator</a></em> and <em><a class="wiki_link_ext"
+
           href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/EntityValidator.html"
+
           rel="nofollow">@EntityValidator</a></em> are defined <a class="wiki_link"
+
         href="model_en.html#toc29">since 3.0.1 as Hibernate Validator contrains</a>.
       This means that when you save using directly JPA api, these validations
       are enforced.<br>
@@ -26035,6 +26615,7 @@ class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+
 class="kw166">Entity</span></a>
 <span class="kw2">public</span> <span class="kw2">class</span> Customer <span class="br0">{</span>
 &nbsp;
@@ -26043,10 +26624,12 @@ class="kw166">Entity</span></a>
 &nbsp;
 @Required
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> name<span class="sy0">;</span>
 &nbsp;
 @Required
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> remarks<span class="sy0">;</span>
 &nbsp;
 ...
@@ -26242,21 +26825,29 @@ class="kw21">String</span></a> remarks<span class="sy0">;</span>
 
 -->
 </style><pre class="java5">Customer c = <span class="kw2">new</span> Customer<span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 c.<span class="me1">setNumber</span><span class="br0">(</span><span class="nu0">1</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 c.<span class="me1">setName</span><span class="br0">(</span><span class="st0">"JUANITO"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 <span class="co1">// We left remarks property empty</span>
 XPersistence.<span class="me1">getManager</span><span class="br0">(</span><span
+
 class="br0">)</span>.<span class="me1">save</span><span class="br0">(</span>c<span
+
 class="br0">)</span><span class="sy0">;</span>
 XPersistence.<span class="me1">commit</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       The code works with OX3.0, but fails with OX3.0.1, because in OX3.0.1 the
       @Required constraint is enforced when you save using JPA. In OX3.0, and
       older, validation was applied only when you save using OpenXava (con <em><a
+
           class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/model/MapFacade.html"
+
           rel="nofollow">MapFacade</a></em>, or OX standard action).<br>
       To fix this case, for example, you need to fill the <em>remarks</em>
       property before save.<br>
@@ -26456,12 +27047,16 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"Sections.change"</span>, <span
+
 class="st0">"activeSection=2"</span><span class="br0">)</span><span class="sy0">;</span>
 ...
 <span class="me1">execute</span><span class="br0">(</span><span class="st0">"CRUD.new"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 setValue<span class="br0">(</span><span class="st0">"propertyInSection2"</span>, <span
+
 class="st0">"the value"</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// This property is in section 2</span></pre>
       In this case you have to return to the section 2 explicitly:<br>
       <br>
@@ -26654,15 +27249,20 @@ class="co1">// This property is in section 2</span></pre>
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"Sections.change"</span>, <span
+
 class="st0">"activeSection=2"</span><span class="br0">)</span><span class="sy0">;</span>
 ...
 <span class="me1">execute</span><span class="br0">(</span><span class="st0">"CRUD.new"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 <span class="co1">// You must add the next line, because after 'new' we are in section 0</span>
 execute<span class="br0">(</span><span class="st0">"Sections.change"</span>, <span
+
 class="st0">"activeSection=2"</span><span class="br0">)</span><span class="sy0">;</span>
 setValue<span class="br0">(</span><span class="st0">"propertyInSection2"</span>, <span
+
 class="st0">"the value"</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// This property is in section 2</span></pre>
       <h2 id="toc137"><a name="Migration-Migration from OpenXava 2.2.5 to OpenXava 3.0"></a>Migration
         from OpenXava 2.2.5 to OpenXava 3.0</h2>
@@ -26687,10 +27287,15 @@ class="co1">// This property is in section 2</span></pre>
       <h3 id="toc139"><a name="Migration-Migration from OpenXava 2.2.5 to OpenXava 3.0-MapFacade does not longer throw RemoteException"></a>MapFacade
         does not longer throw RemoteException</h3>
       Now the methods of <a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/model/MapFacade.html"
+
         rel="nofollow">MapFacade</a> do not throw <em><a class="wiki_link_ext"
+
           href="http://java.sun.com/j2se/1.4.2/docs/api/java/rmi/RemoteException.html"
+
           rel="nofollow">RemoteException</a></em> but <em><a class="wiki_link_ext"
+
           href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/util/SystemException.html"
+
           rel="nofollow">SystemException</a></em>, that is a runtime exception.<br>
       This has little repercussion on your code, but if you have a code like
       this:<br>
@@ -26885,9 +27490,11 @@ class="co1">// This property is in section 2</span></pre>
 -->
 </style><pre class="java5"><span class="kw2">try</span> <span class="br0">{</span>
 MapFacade.<span class="me1">validate</span><span class="br0">(</span><span class="st0">"Invoice"</span>, values<span
+
 class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span>
 <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/rmi/RemoteException.html"><span
+
 class="kw34">RemoteException</span></a> ex<span class="br0">)</span> <span class="br0">{</span>
 ...
 <span class="br0">}</span>
@@ -27084,14 +27691,17 @@ class="kw34">RemoteException</span></a> ex<span class="br0">)</span> <span class
 -->
 </style><pre class="java5"><span class="kw2">try</span> <span class="br0">{</span>
 MapFacade.<span class="me1">validate</span><span class="br0">(</span><span class="st0">"Invoice"</span>, values<span
+
 class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span>
 <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/org/omg/CORBA/SystemException.html"><span
+
 class="kw135">SystemException</span></a> ex<span class="br0">)</span> <span class="br0">{</span>
 ...
 <span class="br0">}</span>
 &nbsp;</pre>
       Moreover, <a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/util/XavaException.html"
+
         rel="nofollow">XavaException</a> is now a runtime exception. But this
       does not requires any change in your code.<br>
       <br>
@@ -27291,8 +27901,10 @@ class="kw135">SystemException</span></a> ex<span class="br0">)</span> <span clas
 
 -->
 </style><pre class="java5">MapFacade.<span class="me1">create</span><span class="br0">(</span><span
+
 class="st0">"Customer"</span>, customerValues<span class="br0">)</span><span class="sy0">;</span>
 MapFacade.<span class="me1">create</span><span class="br0">(</span><span class="st0">"Invoice"</span>, invoiceValues<span
+
 class="br0">)</span><span class="sy0">;</span></pre>
       These two lines were two transaction. If the invoice creation fails the
       customer was saved. That is, <span style="font-family: monospace;">MapFacade</span>
@@ -27512,12 +28124,16 @@ class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">MapFacade.<span class="me1">create</span><span class="br0">(</span><span
+
 class="st0">"Customer"</span>, customerValues<span class="br0">)</span><span class="sy0">;</span>
 MapFacade.<span class="me1">commit</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 MapFacade.<span class="me1">create</span><span class="br0">(</span><span class="st0">"Invoice"</span>, invoiceValues<span
+
 class="br0">)</span><span class="sy0">;</span>
 MapFacade.<span class="me1">commit</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       <h2 id="toc142"><a name="Migration-Migration from OpenXava 2.2.3 to OpenXava 2.2.4"></a>Migration
         from OpenXava 2.2.3 to OpenXava 2.2.4</h2>
@@ -27762,7 +28378,9 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">assertLabelInList<span class="br0">(</span><span class="nu0">2</span>, <span
+
 class="st0">"Name"</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// for customer.name</span></pre>
       now must write:<br>
       <br>
@@ -27955,7 +28573,9 @@ class="co1">// for customer.name</span></pre>
 
 -->
 </style><pre class="java5">assertLabelInList<span class="br0">(</span><span class="nu0">2</span>, <span
+
 class="st0">"Name of Customer"</span><span class="br0">)</span><span class="sy0">;</span> <span
+
 class="co1">// for customer.name</span></pre>
       <h3 id="toc146"><a name="Migration-Migration from OpenXava 2.2.2 to OpenXava 2.2.3-AccessTracking table schema changed"></a>AccessTracking
         table schema changed</h3>
@@ -28171,6 +28791,7 @@ class="co1">// for customer.name</span></pre>
 
 -->
 </style><pre class="java5">assertValue<span class="br0">(</span><span class="st0">"amount"</span>, <span
+
 class="st0">"20"</span><span class="br0">)</span><span class="sy0">;</span></pre>
       by this one:<br>
       <style type="text/css"><!--
@@ -28361,6 +28982,7 @@ class="st0">"20"</span><span class="br0">)</span><span class="sy0">;</span></pre
 
 -->
 </style><pre class="java5">assertValue<span class="br0">(</span><span class="st0">"amount"</span>, <span
+
 class="st0">"20.00"</span><span class="br0">)</span><span class="sy0">;</span></pre>
       Or, if your prefer the old formatting style you can deactivate the
       formatter or use another editing your editors.xml file.<br>
@@ -28561,9 +29183,12 @@ class="st0">"20.00"</span><span class="br0">)</span><span class="sy0">;</span></
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"Reference.createNew"</span>, <span
+
 class="st0">"model=Family2,keyProperty=xava.Product2.family.number"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 assertAction<span class="br0">(</span><span class="st0">"Mode.list"</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// Since 2.2.1 it fails</span></pre>
       The <span style="font-family: monospace;">assertAction("Mode.list")</span>
       has to be removed.<br>
@@ -28767,19 +29392,28 @@ class="br0">)</span><span class="sy0">;</span> <span class="co1">// Since 2.2.1 
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"Collection.new"</span>, <span
+
 class="st0">"viewObject=xava_view_customers"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 setValue<span class="br0">(</span><span class="st0">"customers.number"</span>, getCustomerNumber2<span
+
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
 assertValueIgnoringCase<span class="br0">(</span><span class="st0">"customers.name"</span>, getCustomer2<span
+
 class="br0">(</span><span class="br0">)</span>.<span class="me1">getName</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
 assertCollectionRowCount<span class="br0">(</span><span class="st0">"customers"</span>,<span
+
 class="nu0">0</span><span class="br0">)</span><span class="sy0">;</span>
 execute<span class="br0">(</span><span class="st0">"Collection.save"</span>, <span
+
 class="st0">"viewObject=xava_view_customers"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 assertCollectionRowCount<span class="br0">(</span><span class="st0">"customers"</span>,<span
+
 class="nu0">1</span><span class="br0">)</span><span class="sy0">;</span></pre>
       by this one:<br>
       <br>
@@ -28972,19 +29606,28 @@ class="nu0">1</span><span class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">assertCollectionRowCount<span class="br0">(</span><span
+
 class="st0">"customers"</span>,<span class="nu0">0</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 execute<span class="br0">(</span><span class="st0">"Collection.add"</span>, <span
+
 class="st0">"viewObject=xava_view_customers"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 assertValueInList<span class="br0">(</span><span class="nu0">5</span>, <span class="nu0">0</span>, getCustomer2<span
+
 class="br0">(</span><span class="br0">)</span>.<span class="me1">getName</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
 execute<span class="br0">(</span><span class="st0">"AddToCollection.add"</span>, <span
+
 class="st0">"row=5"</span><span class="br0">)</span><span class="sy0">;</span>
 assertMessage<span class="br0">(</span><span class="st0">"1 element(s) added to Customers of Seller"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 assertCollectionRowCount<span class="br0">(</span><span class="st0">"customers"</span>,<span
+
 class="nu0">1</span><span class="br0">)</span><span class="sy0">;</span></pre>
       Moreover, now the user can add several entities at once, thus a code as
       this:<br>
@@ -29178,32 +29821,48 @@ class="nu0">1</span><span class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"Collection.new"</span>, <span
+
 class="st0">"viewObject=xava_view_customers"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 setValue<span class="br0">(</span><span class="st0">"customers.number"</span>, getCustomerNumber1<span
+
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
 assertValueIgnoringCase<span class="br0">(</span><span class="st0">"customers.name"</span>, getCustomer1<span
+
 class="br0">(</span><span class="br0">)</span>.<span class="me1">getName</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
 assertCollectionRowCount<span class="br0">(</span><span class="st0">"customers"</span>, <span
+
 class="nu0">0</span><span class="br0">)</span><span class="sy0">;</span>
 execute<span class="br0">(</span><span class="st0">"Collection.save"</span>, <span
+
 class="st0">"viewObject=xava_view_customers"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 assertMessage<span class="br0">(</span><span class="st0">"Customer associated to Seller"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 &nbsp;
 assertCollectionRowCount<span class="br0">(</span><span class="st0">"customers"</span>, <span
+
 class="nu0">1</span><span class="br0">)</span><span class="sy0">;</span>
 setValue<span class="br0">(</span><span class="st0">"customers.number"</span>, getCustomerNumber2<span
+
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
 assertValueIgnoringCase<span class="br0">(</span><span class="st0">"customers.name"</span>, getCustomer2<span
+
 class="br0">(</span><span class="br0">)</span>.<span class="me1">getName</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
 execute<span class="br0">(</span><span class="st0">"Collection.save"</span>, <span
+
 class="st0">"viewObject=xava_view_customers"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 assertCollectionRowCount<span class="br0">(</span><span class="st0">"customers"</span>,<span
+
 class="nu0">2</span><span class="br0">)</span><span class="sy0">;</span></pre>
       can be done in this way:<br>
       <br>
@@ -29396,23 +30055,34 @@ class="nu0">2</span><span class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"Collection.add"</span>, <span
+
 class="st0">"viewObject=xava_view_customers"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 assertValueInList<span class="br0">(</span><span class="nu0">4</span>, <span class="nu0">0</span>, getCustomer1<span
+
 class="br0">(</span><span class="br0">)</span>.<span class="me1">getName</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
 assertValueInList<span class="br0">(</span><span class="nu0">5</span>, <span class="nu0">0</span>, getCustomer2<span
+
 class="br0">(</span><span class="br0">)</span>.<span class="me1">getName</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
 checkRow<span class="br0">(</span><span class="nu0">4</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 checkRow<span class="br0">(</span><span class="nu0">5</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 execute<span class="br0">(</span><span class="st0">"AddToCollection.add"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 assertMessage<span class="br0">(</span><span class="st0">"2 element(s) added to Customers of Seller"</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 assertCollectionRowCount<span class="br0">(</span><span class="st0">"customers"</span>,<span
+
 class="nu0">2</span><span class="br0">)</span><span class="sy0">;</span></pre>
       <h3 id="toc153"><a name="Migration-Migration from OpenXava 2.1.5 to OpenXava 2.2-Default behaviour for collection of aggregates changes"></a>Default
         behaviour for collection of aggregates changes</h3>
@@ -29609,10 +30279,14 @@ class="nu0">2</span><span class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"Collection.save"</span>, <span
+
 class="st0">"viewObject=xava_view_section1_details"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 execute<span class="br0">(</span><span class="st0">"Collection.new"</span>, <span
+
 class="st0">"viewObject=xava_view_section1_details"</span><span class="br0">)</span><span
+
 class="sy0">;</span> <span class="co1">// To remove</span></pre>
       by this one:<br>
       <br>
@@ -29805,7 +30479,9 @@ class="sy0">;</span> <span class="co1">// To remove</span></pre>
 
 -->
 </style><pre class="java5">execute<span class="br0">(</span><span class="st0">"Collection.save"</span>, <span
+
 class="st0">"viewObject=xava_view_section1_details"</span><span class="br0">)</span><span
+
 class="sy0">;</span></pre>
       That is, remove the "Collection.new" call, because after save the detail,
       the "new" action is automatically executed, thus the user interface is
@@ -30013,7 +30689,9 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5"><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> actions = <span
+
 class="br0">{</span>
 <span class="st0">"Navigation.previous"</span>,
 <span class="st0">"Navigation.first"</span>,
@@ -30216,7 +30894,9 @@ assertActions<span class="br0">(</span>actions<span class="br0">)</span><span cl
 
 -->
 </style><pre class="java5"><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> actions = <span
+
 class="br0">{</span>
 <span class="st0">"Navigation.previous"</span>,
 <span class="st0">"Navigation.first"</span>,
@@ -30267,9 +30947,12 @@ assertActions<span class="br0">(</span>actions<span class="br0">)</span><span cl
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;target</span> <span
+
 class="re0">name</span>=<span class="st0">"generarPortlets"</span><span class="re2">&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;ant</span> <span class="re0">antfile</span>=<span
+
 class="st0">"../OpenXava/build.xml"</span> <span class="re0">target</span>=<span
+
 class="st0">"generarPortlets"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/target<span class="re2">&gt;</span></span></span></pre>
       Must change it by:<br>
@@ -30298,9 +30981,12 @@ class="st0">"generarPortlets"</span><span class="re2">/&gt;</span></span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;target</span> <span
+
 class="re0">name</span>=<span class="st0">"generarPortlets"</span><span class="re2">&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;ant</span> <span class="re0">antfile</span>=<span
+
 class="st0">"../OpenXava/build.xml"</span> <span class="re0">target</span>=<span
+
 class="st0">"generatePortlets"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/target<span class="re2">&gt;</span></span></span></pre>
       <br>
@@ -30503,14 +31189,20 @@ class="st0">"generatePortlets"</span><span class="re2">/&gt;</span></span>
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> testSomething<span
+
 class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
 href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
 assertValue<span class="br0">(</span><span class="st0">"number"</span>, <span class="st0">""</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 execute<span class="br0">(</span><span class="st0">"MyControllers.myAction"</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// This does not change number value</span>
 assertValue<span class="br0">(</span><span class="st0">"number"</span>, <span class="st0">"0"</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// because OX parse empty string as 0 (until 2.1.2)</span>
 ...
 <span class="br0">}</span>
@@ -30706,14 +31398,20 @@ class="br0">)</span><span class="sy0">;</span> <span class="co1">// because OX p
 
 -->
 </style><pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> testSomething<span
+
 class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+
 href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+
 class="kw21">Exception</span></a> <span class="br0">{</span>
 assertValue<span class="br0">(</span><span class="st0">"number"</span>, <span class="st0">""</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 execute<span class="br0">(</span><span class="st0">"MyControllers.myAction"</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// This does not change number value</span>
 assertValue<span class="br0">(</span><span class="st0">"number"</span>, <span class="st0">""</span><span
+
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// because now (since 2.1.3) OX parse empty string as null</span>
 ...
 <span class="br0">}</span>
@@ -30751,19 +31449,28 @@ class="br0">)</span><span class="sy0">;</span> <span class="co1">// because now 
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;session-factory<span
+
 class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;property</span></span>
 <span class="sc3"><span class="re0">name</span>=<span class="st0">"hibernate.connection.datasource"</span><span
+
 class="re2">&gt;</span></span>@datasource.prefix@/@datasource@<span class="sc3"><span
+
 class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
 class="st0">"hibernate.dialect"</span><span class="re2">&gt;</span></span>@hibernate.dialect@<span
+
 class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
 class="st0">"hibernate.jdbc.use_get_generated_keys"</span><span class="re2">&gt;</span></span>false<span
+
 class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
 class="st0">"hibernate.show_sql"</span><span class="re2">&gt;</span></span>false<span
+
 class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
 @hibernate.properties@
 ...
@@ -31051,13 +31758,18 @@ class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span><
 
 -->
 </style><pre class="java5">DrivingLicenceKey key = <span class="kw2">new</span> DrivingLicenceKey<span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 key.<span class="me1">setType</span><span class="br0">(</span><span class="st0">"C "</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 key.<span class="me1">setLevel</span><span class="br0">(</span><span class="nu0">1</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 setValue<span class="br0">(</span><span class="st0">"drivingLicence.KEY"</span>, key.<span
+
 class="me1">toString</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 &nbsp;</pre>
       But, if you uses a pure POJOs version, without Key classes, you have to
@@ -31252,13 +31964,18 @@ class="br0">)</span><span class="sy0">;</span>
 
 -->
 </style><pre class="java5">DrivingLicence key = <span class="kw2">new</span> DrivingLicence<span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 key.<span class="me1">setType</span><span class="br0">(</span><span class="st0">"C "</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 key.<span class="me1">setLevel</span><span class="br0">(</span><span class="nu0">1</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 setValue<span class="br0">(</span><span class="st0">"drivingLicence.KEY"</span>, key.<span
+
 class="me1">toString</span><span class="br0">(</span><span class="br0">)</span><span
+
 class="br0">)</span><span class="sy0">;</span>
 &nbsp;</pre>
       It's better to use the last way, because it's valid for POJOs and EJBs.<br>
@@ -31338,13 +32055,19 @@ class="br0">)</span><span class="sy0">;</span>
 <span class="sc3"><span class="re1">&lt;session-factory<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;property</span></span>
 <span class="sc3"><span class="re0">name</span>=<span class="st0">"hibernate.connection.datasource"</span><span
+
 class="re2">&gt;</span></span>@datasource.prefix@/@datasource@<span class="sc3"><span
+
 class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
 class="st0">"hibernate.dialect"</span><span class="re2">&gt;</span></span>@hibernate.dialect@<span
+
 class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
+
 class="st0">"hibernate.show_sql"</span><span class="re2">&gt;</span></span>false<span
+
 class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/session-factory<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/hibernate-configuration<span class="re2">&gt;</span></span></span></pre>
@@ -31574,11 +32297,16 @@ class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span><
 
 -->
 </style><pre class="java5">Customer customer = CustomerUtil.<span class="me1">getHome</span><span
+
 class="br0">(</span><span class="br0">)</span>.<span class="me1">findByName</span><span
+
 class="br0">(</span><span class="st0">"PEPE"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> name = customer.<span class="me1">getName</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></pre>
       By this:<br>
       <style type="text/css"><!--
@@ -31769,11 +32497,16 @@ class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">ICustomer customer = CustomerUtil.<span class="me1">getHome</span><span
+
 class="br0">(</span><span class="br0">)</span>.<span class="me1">findByName</span><span
+
 class="br0">(</span><span class="st0">"PEPE"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+
 class="kw21">String</span></a> name = customer.<span class="me1">getName</span><span
+
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></pre>
       If you use specific EJB methods then you need cast to remote interface:<br>
       <style type="text/css"><!--
@@ -31964,10 +32697,14 @@ class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">Customer customer = CustomerUtil.<span class="me1">getHome</span><span
+
 class="br0">(</span><span class="br0">)</span>.<span class="me1">findByName</span><span
+
 class="br0">(</span><span class="st0">"PEPE"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 CustomerKey key = customer.<span class="me1">getPrimaryKey</span><span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span></pre>
       By this:<br>
       <style type="text/css"><!--
@@ -32158,10 +32895,14 @@ class="br0">)</span><span class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">CustomerRemote customer = CustomerUtil.<span class="me1">getHome</span><span
+
 class="br0">(</span><span class="br0">)</span>.<span class="me1">findByName</span><span
+
 class="br0">(</span><span class="st0">"PEPE"</span><span class="br0">)</span><span
+
 class="sy0">;</span>
 CustomerKey key = customer.<span class="me1">getPrimaryKey</span><span class="br0">(</span><span
+
 class="br0">)</span><span class="sy0">;</span></pre>
       That is, change Customer by ICustomer when possible, if not possible
       change Customer by CustomerRemote.<br>
