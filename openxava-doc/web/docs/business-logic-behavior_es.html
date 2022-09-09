@@ -9,107 +9,68 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1><a name="comportamiento-y-logica-de-negocio"></a> <span id="breadcrumbs">
-          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
-              </a> </span> / <a href="index_es.html">documentación</a> / </span>
-        Lección 25: Comportamiento y lógica de negocio </h1>
-      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
-        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
-        Modelo básico del dominio (1)</a>&nbsp; | <a class="wiki_link" href="basic-domain-model2_es.html">3.
-        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
-        Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
-        Desarrollo ágil</a> | <a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
-        Herencia de superclases mapedas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
-        Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
-        Herencia de vistas</a> | <a class="wiki_link" href="java-properties_es.html">9.
-        Propiedades Java</a> | <a class="wiki_link" href="calculated-properties_es.html">10.
-        Propiedades calculadas</a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11.
-        @DefaultValueCalculator en colecciones</a> | <a class="wiki_link" href="calculation-and-collections-total_es.html">12.
-        @Calculation y totales de colección</a> | <span style="color: #0000ee;"></span><a
-        class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
-        @DefaultValueCalculator desde archivo</a> | <a class="wiki_link" href="manual-schema-evolution_es.html">14.
-        Evolución del esquema manual</a> | <a class="wiki_link" href="multi-user-default-value-calculation_es.html">15.
-        Cálculo de valor por defecto multiusuario</a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16.
-        Sincronizar propiedades persistentes y calculadas</a> | <a class="wiki_link"
-        href="logic-from-database_es.html">17. Lógica desde la base de datos</a>
-      | <a class="wiki_link" href="validating-with-entityvalidator_es.html">18.
-        Validando con @EntityValidator</a> | <a class="wiki_link" href="validation-alternatives_es.html">19.
-        Alternativas de validación&nbsp;</a> | <a class="wiki_link" href="validation-on-remove_es.html">20.
-        Validación al borrar&nbsp;</a> |&nbsp;<a class="wiki_link" href="custom-bean-validation-annotation_es.html">
-        21. Anotación Bean Validation propia</a> | <a class="wiki_link" href="rest-service-call-from-validation_es.html">22.
-        Llamada REST desde una validación&nbsp;</a> | <a class="wiki_link" href="attributes-in-annotations_es.html">23.
-        Atributos en anotaciones</a>&nbsp; | <a class="wiki_link" href="refining-standard-behavior_es.html">24.
-        Refinar el comportamiento predefinido</a> | <strong>25. Comportamiento
-        y lógica de negocio</strong> | <a class="wiki_link" href="references-collections_es.html">26.
-        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
-        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
-        Java Persistence API</a> | <a class="wiki_link" href="annotations_es.html">C.
-        Anotaciones</a> | <a class="wiki_link" href="testing_es.html">D.
-        Pruebas automáticas</a>
+      <h1><a name="comportamiento-y-logica-de-negocio"></a> <span id="breadcrumbs"> <span
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_es.html">documentación</a> / </span> Lección 25: Comportamiento y lógica de negocio </h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1. Primeros pasos</a> | <a
+        class="wiki_link" href="basic-domain-model1_es.html">2. Modelo básico del dominio (1)</a>&nbsp; | <a
+        class="wiki_link" href="basic-domain-model2_es.html">3. Modelo básico del dominio (2)</a> | <a
+        class="wiki_link" href="refining-user-interface_es.html">4. Refinar la interfaz de usuario</a> | <a
+        class="wiki_link" href="agile-development_es.html">5. Desarrollo ágil</a> | <a
+        class="wiki_link" href="mapped-superclass-inheritance_es.html">6. Herencia de superclases mapedas</a> | <a
+        class="wiki_link" href="entity-inheritance_es.html">7. Herencia de entidades</a> | <a
+        class="wiki_link" href="view-inheritance_es.html">8. Herencia de vistas</a> | <a
+        class="wiki_link" href="java-properties_es.html">9. Propiedades Java</a> | <a
+        class="wiki_link" href="calculated-properties_es.html">10. Propiedades calculadas</a> | <a
+        class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11. @DefaultValueCalculator en colecciones</a> | <a
+        class="wiki_link" href="calculation-and-collections-total_es.html">12. @Calculation y totales de colección</a> | <span
+        style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13. @DefaultValueCalculator desde archivo</a> | <a
+        class="wiki_link" href="manual-schema-evolution_es.html">14. Evolución del esquema manual</a> | <a
+        class="wiki_link" href="multi-user-default-value-calculation_es.html">15. Cálculo de valor por defecto multiusuario</a> | <a
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16. Sincronizar propiedades persistentes y calculadas</a> | <a
+        class="wiki_link" href="logic-from-database_es.html">17. Lógica desde la base de datos</a> | <a
+        class="wiki_link" href="validating-with-entityvalidator_es.html">18. Validando con @EntityValidator</a> | <a
+        class="wiki_link" href="validation-alternatives_es.html">19. Alternativas de validación&nbsp;</a> | <a
+        class="wiki_link" href="validation-on-remove_es.html">20. Validación al borrar&nbsp;</a> |&nbsp;<a
+        class="wiki_link" href="custom-bean-validation-annotation_es.html"> 21. Anotación Bean Validation propia</a> | <a
+        class="wiki_link" href="rest-service-call-from-validation_es.html">22. Llamada REST desde una validación&nbsp;</a> | <a
+        class="wiki_link" href="attributes-in-annotations_es.html">23. Atributos en anotaciones</a>&nbsp; | <a
+        class="wiki_link" href="refining-standard-behavior_es.html">24. Refinar el comportamiento predefinido</a> | <strong>25. Comportamiento y lógica de negocio</strong> | <a
+        class="wiki_link" href="references-collections_es.html">26. Referencias y colecciones</a> | <a
+        class="wiki_link" href="philosophy_es.html">A. Arquitectura y filosofía</a> | <a
+        class="wiki_link" href="jpa_es.html">B. Java Persistence API</a> | <a
+        class="wiki_link" href="annotations_es.html">C. Anotaciones</a> | <a
+        class="wiki_link" href="testing_es.html">D. Pruebas automáticas</a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
-        <div style="margin-left: 1em;"><a href="#comportamiento-y-logica-de-negocio">Lección
-            25: Comportamiento y lógica de negocio</a></div>
-        <div style="margin-left: 2em;"><a href="#logica-de-negocio-desde-el-modo-detalle">Lógica
-            de negocio desde el modo detalle</a></div>
-        <div style="margin-left: 3em;"><a href="#crear-una-accion-para-ejecutar-logica-personalizada">Crear
-            una acción para ejecutar lógica personalizada</a></div>
-        <div style="margin-left: 3em;"><a href="#escribiendo-la-logica-de-negocio-real-en-la-entidad">Escribiendo
-            la lógica de negocio real en la entidad</a></div>
-        <div style="margin-left: 3em;"><a href="#escribe-menos-codigo-usando-apache-commons-beanutils">Escribe
-            menos código usando Apache Commons BeanUtils</a></div>
-        <div style="margin-left: 3em;"><a href="#excepciones-de-aplicacion">Excepciones
-            de aplicación</a></div>
-        <div style="margin-left: 3em;"><a href="#validar-desde-la-accion">Validar
-            desde la acción</a></div>
-        <div style="margin-left: 3em;"><a href="#evento-onchange-para-ocultar-mostrar-una-accion-por-codigo">Evento
-            OnChange para ocultar/mostrar una acción por código</a></div>
-        <div style="margin-left: 2em;"><a href="#logica-de-negocio-desde-el-modo-lista">Lógica
-            de negocio desde el modo lista</a></div>
-        <div style="margin-left: 3em;"><a href="#accion-de-lista-con-logica-propia">Acción
-            de lista con lógica propia</a></div>
-        <div style="margin-left: 3em;"><a href="#logica-de-negocio-en-el-modelo-sobre-varias-entidades">Lógica
-            de negocio en el modelo sobre varias entidades</a></div>
-        <div style="margin-left: 2em;"><a href="#mostrar-un-dialogo">Mostrar un
-            diálogo</a></div>
-        <div style="margin-left: 3em;"><a href="#usar-showdialog">Usar
-            showDialog()</a></div>
-        <div style="margin-left: 3em;"><a href="#definir-las-acciones-del-dialogo">Definir
-            las acciones del diálogo</a></div>
-        <div style="margin-left: 3em;"><a href="#cerrar-el-dialogo">Cerrar el
-            diálogo</a></div>
-        <div style="margin-left: 3em;"><a href="#vista-plana-en-lugar-de-dialogo">Vista
-            plana en lugar de diálogo</a></div>
+        <div style="margin-left: 1em;"><a href="#comportamiento-y-logica-de-negocio">Lección 25: Comportamiento y lógica de negocio</a></div>
+        <div style="margin-left: 2em;"><a href="#logica-de-negocio-desde-el-modo-detalle">Lógica de negocio desde el modo detalle</a></div>
+        <div style="margin-left: 3em;"><a href="#crear-una-accion-para-ejecutar-logica-personalizada">Crear una acción para ejecutar lógica personalizada</a></div>
+        <div style="margin-left: 3em;"><a href="#escribiendo-la-logica-de-negocio-real-en-la-entidad">Escribiendo la lógica de negocio real en la entidad</a></div>
+        <div style="margin-left: 3em;"><a href="#escribe-menos-codigo-usando-apache-commons-beanutils">Escribe menos código usando Apache Commons BeanUtils</a></div>
+        <div style="margin-left: 3em;"><a href="#excepciones-de-aplicacion">Excepciones de aplicación</a></div>
+        <div style="margin-left: 3em;"><a href="#validar-desde-la-accion">Validar desde la acción</a></div>
+        <div style="margin-left: 3em;"><a href="#evento-onchange-para-ocultar-mostrar-una-accion-por-codigo">Evento OnChange para ocultar/mostrar una acción por código</a></div>
+        <div style="margin-left: 2em;"><a href="#logica-de-negocio-desde-el-modo-lista">Lógica de negocio desde el modo lista</a></div>
+        <div style="margin-left: 3em;"><a href="#accion-de-lista-con-logica-propia">Acción de lista con lógica propia</a></div>
+        <div style="margin-left: 3em;"><a href="#logica-de-negocio-en-el-modelo-sobre-varias-entidades">Lógica de negocio en el modelo sobre varias entidades</a></div>
+        <div style="margin-left: 2em;"><a href="#mostrar-un-dialogo">Mostrar un diálogo</a></div>
+        <div style="margin-left: 3em;"><a href="#usar-showdialog">Usar showDialog()</a></div>
+        <div style="margin-left: 3em;"><a href="#definir-las-acciones-del-dialogo">Definir las acciones del diálogo</a></div>
+        <div style="margin-left: 3em;"><a href="#cerrar-el-dialogo">Cerrar el diálogo</a></div>
+        <div style="margin-left: 3em;"><a href="#vista-plana-en-lugar-de-dialogo">Vista plana en lugar de diálogo</a></div>
         <div style="margin-left: 2em;"><a href="#resumen">Resumen</a></div>
       </div>
-      OpenXava no es simplemente un marco de trabajo para hacer mantenimientos
-      (altas, bajas, modificaciones y consultas), más bien está concebido para
-      desarrollar aplicaciones de gestión plenamente funcionales. Hasta ahora
-      hemos aprendido como crear y refinar la aplicación para manejar los datos.
-      Ahora vamos a posibilitar al usuario la ejecución de lógica de negocio
-      específica.<br>
-      En esta lección vamos a ver como escribir lógica de negocio en el modelo y
-      llamar a esta lógica desde acciones personalizadas. Así podrás transformar
-      tu aplicación de gestión de datos en una herramienta útil para el trabajo
-      cotidiano de tu usuario.
-      <h2><a name="logica-de-negocio-desde-el-modo-detalle"></a>Lógica de
-        negocio desde el modo detalle</h2>
-      Empezaremos con el caso más simple: un botón en modo detalle para ejecutar
-      cierta lógica. En este caso para crear la factura desde un pedido:<br>
+      OpenXava no es simplemente un marco de trabajo para hacer mantenimientos (altas, bajas, modificaciones y consultas), más bien está concebido para desarrollar aplicaciones de gestión plenamente funcionales. Hasta ahora hemos aprendido como crear y refinar la aplicación para manejar los datos. Ahora vamos a posibilitar al usuario la ejecución de lógica de negocio específica.<br>
+      En esta lección vamos a ver como escribir lógica de negocio en el modelo y llamar a esta lógica desde acciones personalizadas. Así podrás transformar tu aplicación de gestión de datos en una herramienta útil para el trabajo cotidiano de tu usuario.
+      <h2><a name="logica-de-negocio-desde-el-modo-detalle"></a>Lógica de negocio desde el modo detalle</h2>
+      Empezaremos con el caso más simple: un botón en modo detalle para ejecutar cierta lógica. En este caso para crear la factura desde un pedido:<br>
       <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
         title="business-logic-behavior_es010.png"><br>
-      Aquí se muestra como esta nueva acción coge el pedido actual y crea una
-      factura a partir de él. Simplemente copia todos los datos del pedido a la
-      nueva factura, incluyendo las líneas de detalle. Se muestra un mensaje y
-      la pestaña FACTURA del pedido visualizará la factura recién creada. Veamos
-      como codificar este comportamiento.
-      <h3><a name="crear-una-accion-para-ejecutar-logica-personalizada"></a>Crear
-        una acción para ejecutar lógica personalizada</h3>
-      Como ya sabes el primer paso para tener una acción personalizada en tu
-      módulo es definir un controlador con esa acción. Por tanto, editemos <i>
-        controladores.xml</i> y añadamos un nuevo controlador. El siguiente
-      código muestra el controlador <i>Pedido</i>:
+      Aquí se muestra como esta nueva acción coge el pedido actual y crea una factura a partir de él. Simplemente copia todos los datos del pedido a la nueva factura, incluyendo las líneas de detalle. Se muestra un mensaje y la pestaña FACTURA del pedido visualizará la factura recién creada. Veamos como codificar este comportamiento.
+      <h3><a name="crear-una-accion-para-ejecutar-logica-personalizada"></a>Crear una acción para ejecutar lógica personalizada</h3>
+      Como ya sabes el primer paso para tener una acción personalizada en tu módulo es definir un controlador con esa acción. Por tanto, editemos <i> controladores.xml</i> y añadamos un nuevo controlador. El siguiente código muestra el controlador <i>Pedido</i>:
       <pre><code class="xml">&lt;controlador nombre="Pedido"&gt;
 	&lt;hereda-de controlador="Facturacion"/&gt; &lt;!-- Para tener las acciones estándar --&gt;
 
@@ -118,12 +79,7 @@
 	&lt;!-- modo="detail" : Sólo en modo detalle --&gt;
 
 &lt;/controlador&gt;
-</code></pre> Dado que hemos seguido la convención de dar al controlador el
-      mismo nombre que a la entidad y el módulo, ya tenemos automáticamente esta
-      nueva acción disponible para <i>Pedido</i>. El controlador <i>Pedido</i>
-      desciende del controlador <i>Facturacion</i>. Recuerda que creamos un
-      controlador <i>Facturacion</i> en la lección anterior. Es un refinamiento
-      del controlador <i>Typical</i>.<br>
+</code></pre> Dado que hemos seguido la convención de dar al controlador el mismo nombre que a la entidad y el módulo, ya tenemos automáticamente esta nueva acción disponible para <i>Pedido</i>. El controlador <i>Pedido</i> desciende del controlador <i>Facturacion</i>. Recuerda que creamos un controlador <i>Facturacion</i> en la lección anterior. Es un refinamiento del controlador <i>Typical</i>.<br>
       Ahora hemos de escribir el código Java para la acción. Puedes verlo aquí:
       <pre><code class="java">package com.tuempresa.facturacion.acciones; // En el paquete 'acciones'
 
@@ -144,19 +100,10 @@ public class CrearFacturaDesdePedido
             pedido.getFactura());
     }
 }
-</code></pre> Realmente simple. Buscamos la entidad <i>Pedido</i>, llamamos al
-      método <i> crearFactura()</i>, refrescamos la vista y mostramos un
-      mensaje. Fíjate como la acción es un mero intermediario entre la vista (la
-      interfaz de usuario) y el modelo (la lógica de negocio).<br>
-      Recuerda añadir el texto del mensaje en el archivo <i>MensajesFacturacion_es.properties</i>
-      de la carpeta <i>i18n</i>:
+</code></pre> Realmente simple. Buscamos la entidad <i>Pedido</i>, llamamos al método <i> crearFactura()</i>, refrescamos la vista y mostramos un mensaje. Fíjate como la acción es un mero intermediario entre la vista (la interfaz de usuario) y el modelo (la lógica de negocio).<br>
+      Recuerda añadir el texto del mensaje en el archivo <i>facturacion-messages_es.properties</i> de la carpeta <i>src/main/resources/i18n</i>:
       <pre><code class="properties">factura_creada_desde_pedido=Factura {0} creada a partir del pedido actual
-</code></pre> Sin embargo, el mensaje tal cual está no se muestra de forma
-      agradable, porque enviamos como argumento un objeto <i>Factura</i>.
-      Necesitamos un <i>toString()</i> para <i>Factura</i> y <i>Pedido</i>
-      que sea útil para el usuario. Sobrescribiremos <i>toString()</i> de <i>DocumentoComercial</i>
-      (el padre de <i>Factura</i> y <i> Pedido</i>) para conseguirlo. Puedes
-      ver este método <i>toString()</i>:
+</code></pre> Sin embargo, el mensaje tal cual está no se muestra de forma agradable, porque enviamos como argumento un objeto <i>Factura</i>. Necesitamos un <i>toString()</i> para <i>Factura</i> y <i>Pedido</i> que sea útil para el usuario. Sobrescribiremos <i>toString()</i> de <i>DocumentoComercial</i> (el padre de <i>Factura</i> y <i> Pedido</i>) para conseguirlo. Puedes ver este método <i>toString()</i>:
       <pre><code class="java">abstract public class DocumentoComercial extends Eliminable { {
 
     ...
@@ -165,25 +112,11 @@ public class CrearFacturaDesdePedido
         return anyo + "/" + numero;
     }
 }
-</code></pre> El año y el número son perfectos para identificar una factura o
-      pedido desde el punto de vista del usuario.<br>
-      Esto es todo para la acción. Veamos la pieza restante, el método <i>
-        crearFactura()</i> de la entidad <i>Pedido</i>.
-      <h3><a name="escribiendo-la-logica-de-negocio-real-en-la-entidad"></a>Escribiendo
-        la lógica de negocio real en la entidad</h3>
-      La lógica de negocio para crear una nueva <i>Factura</i> está en la
-      entidad <i>Pedido</i>, no en la acción. Esto es la forma natural de
-      hacerlo. El principio esencial de la Orientación a Objetos es que los
-      objetos no son solo datos, sino datos y lógica. El código más bello es
-      aquel cuyos objetos contienen la lógica para manejar sus propios datos. Si
-      tus entidades son meros contenedores de datos (simples envoltorios de las
-      tablas de la base de datos) y tus acciones tienen toda la lógica para
-      manipularlos, en ese caso tu código es una perversión del objetivo
-      original de la Orientación a Objetos.<br>
-      Aparte de las razones espirituales, poner la lógica para crear una <i>Factura</i>
-      dentro de <i>Pedido</i> es un enfoque pragmático, porque de esta forma
-      podemos usar esta lógica desde otras acciones, proceso masivos, servicios
-      web, etc.<br>
+</code></pre> El año y el número son perfectos para identificar una factura o pedido desde el punto de vista del usuario.<br>
+      Esto es todo para la acción. Veamos la pieza restante, el método <i> crearFactura()</i> de la entidad <i>Pedido</i>.
+      <h3><a name="escribiendo-la-logica-de-negocio-real-en-la-entidad"></a>Escribiendo la lógica de negocio real en la entidad</h3>
+      La lógica de negocio para crear una nueva <i>Factura</i> está en la entidad <i>Pedido</i>, no en la acción. Esto es la forma natural de hacerlo. El principio esencial de la Orientación a Objetos es que los objetos no son solo datos, sino datos y lógica. El código más bello es aquel cuyos objetos contienen la lógica para manejar sus propios datos. Si tus entidades son meros contenedores de datos (simples envoltorios de las tablas de la base de datos) y tus acciones tienen toda la lógica para manipularlos, en ese caso tu código es una perversión del objetivo original de la Orientación a Objetos.<br>
+      Aparte de las razones espirituales, poner la lógica para crear una <i>Factura</i> dentro de <i>Pedido</i> es un enfoque pragmático, porque de esta forma podemos usar esta lógica desde otras acciones, proceso masivos, servicios web, etc.<br>
       Veamos el código del método <i>crearFactura()</i> de la clase <i>Pedido</i>:
       <pre><code class="java">public class Pedido extends DocumentoComercial {
 
@@ -200,27 +133,10 @@ public class CrearFacturaDesdePedido
         this.factura = factura; // Siempre después de persist()
     }
 }
-</code></pre> La lógica consiste en crear un nuevo objeto <i>Factura</i>,
-      copiar los datos desde el <i>Pedido</i> actual a él y asignar la entidad
-      resultante a la referencia <i>factura</i> del <i>Pedido</i> actual.<br>
-      Hay tres sutiles detalles aquí. Primero, has de escribir <i>factura.setOid(null)</i>,
-      si no la nueva <i>Factura</i> tendría la misma identidad que el <i>Pedido</i>
-      original, además a JPA no le gusta persistir los objetos con el id
-      autogenerado rellenado de antemano. Segundo, has de asignar la nueva <i>
-        Factura</i> al actual Pedido (<i>this.factura = factura</i>) después de
-      llamar a <i>persist(factura)</i>, si no obtendrás un error de JPA (algo
-      así como "object references an unsaved transient instance". Tercero, hemos
-      de envolver la colección <i>detalles</i> con un <i>new ArrayList()</i>,
-      para que sea una colección nueva aunque con los mismos elementos, porque
-      JPA no quiere la misma colección asignada a dos entidades.
-      <h3><a name="escribe-menos-codigo-usando-apache-commons-beanutils"></a>Escribe
-        menos código usando Apache Commons BeanUtils</h3>
-      Observa como hemos usado <i>BeanUtils.copyProperties()</i> para copiar
-      todas las propiedades del actual <i>Pedido</i> a la nueva <i>Factura</i>.
-      Este método copia todas las propiedades con el mismo nombre de un objeto a
-      otro, incluso si los objetos son de clases diferentes. Esta utilidad
-      pertenece al proyecto de apache Commons BeanUtils. El jar para esta
-      utilidad, <i>commons-beanutils.jar</i>, ya está incluido en tu proyecto.<br>
+</code></pre> La lógica consiste en crear un nuevo objeto <i>Factura</i>, copiar los datos desde el <i>Pedido</i> actual a él y asignar la entidad resultante a la referencia <i>factura</i> del <i>Pedido</i> actual.<br>
+      Hay tres sutiles detalles aquí. Primero, has de escribir <i>factura.setOid(null)</i>, si no la nueva <i>Factura</i> tendría la misma identidad que el <i>Pedido</i> original, además a JPA no le gusta persistir los objetos con el id autogenerado rellenado de antemano. Segundo, has de asignar la nueva <i> Factura</i> al actual Pedido (<i>this.factura = factura</i>) después de llamar a <i>persist(factura)</i>, si no obtendrás un error de JPA (algo así como "object references an unsaved transient instance". Tercero, hemos de envolver la colección <i>detalles</i> con un <i>new ArrayList()</i>, para que sea una colección nueva aunque con los mismos elementos, porque JPA no quiere la misma colección asignada a dos entidades.
+      <h3><a name="escribe-menos-codigo-usando-apache-commons-beanutils"></a>Escribe menos código usando Apache Commons BeanUtils</h3>
+      Observa como hemos usado <i>BeanUtils.copyProperties()</i> para copiar todas las propiedades del actual <i>Pedido</i> a la nueva <i>Factura</i>. Este método copia todas las propiedades con el mismo nombre de un objeto a otro, incluso si los objetos son de clases diferentes. Esta utilidad pertenece al proyecto de apache Commons BeanUtils. El jar para esta utilidad, <i>commons-beanutils.jar</i>, ya está incluido en tu proyecto.<br>
       El siguiente código muestra como usando BeanUtils escribes menos:
       <pre><code class="java">BeanUtils.copyProperties(factura, this);
 // Es lo mismo que
@@ -235,23 +151,10 @@ factura.setIva(getIva());
 factura.setImporteTotal(getImporteTotal());
 factura.setObservaciones(getObservaciones());
 factura.setDetalles(getDetalles());
-</code></pre> Sin embargo, la principal ventaja de usar BeanUtils no es ahorrar
-      tiempo de tecleo, sino que obtienes un código más resistente a los
-      cambios. Porque, si añades, quitas o renombras alguna propiedad de <i>DocumentoComercial</i>
-      (el padre de <i>Factura</i> y <i>Pedido</i>), si estás copiando las
-      propiedades a mano tienes que cambiar el código, mientras que si estás
-      usando <i> BeanUtils.copyProperties()</i> el código funcionará siempre
-      bien, sin tener que cambiarlo.
+</code></pre> Sin embargo, la principal ventaja de usar BeanUtils no es ahorrar tiempo de tecleo, sino que obtienes un código más resistente a los cambios. Porque, si añades, quitas o renombras alguna propiedad de <i>DocumentoComercial</i> (el padre de <i>Factura</i> y <i>Pedido</i>), si estás copiando las propiedades a mano tienes que cambiar el código, mientras que si estás usando <i> BeanUtils.copyProperties()</i> el código funcionará siempre bien, sin tener que cambiarlo.
       <h3><a name="excepciones-de-aplicacion"></a>Excepciones de aplicación</h3>
-      Recuerda la frase: "La excepción que confirma la regla". Las reglas, la
-      vida y el software están llenos de excepciones. Y nuestro método <i>
-        crearFactura()</i> no es una excepción. Hemos escrito código que
-      funciona en los casos más comunes. Pero, ¿qué ocurre si el pedido no está
-      listo para ser facturado o si hay algún problema para acceder a la base de
-      datos? Obviamente, en este caso necesitamos tomar caminos diferentes.<br>
-      Es decir, el simple <i>throws Exception</i> que hemos escrito para el
-      método <i> crearFactura()</i> no es suficiente para un comportamiento
-      refinado. Deberiamos crear nuestra propia excepción, hagámoslo:
+      Recuerda la frase: "La excepción que confirma la regla". Las reglas, la vida y el software están llenos de excepciones. Y nuestro método <i> crearFactura()</i> no es una excepción. Hemos escrito código que funciona en los casos más comunes. Pero, ¿qué ocurre si el pedido no está listo para ser facturado o si hay algún problema para acceder a la base de datos? Obviamente, en este caso necesitamos tomar caminos diferentes.<br>
+      Es decir, el simple <i>throws Exception</i> que hemos escrito para el método <i> crearFactura()</i> no es suficiente para un comportamiento refinado. Deberiamos crear nuestra propia excepción, hagámoslo:
       <pre><code class="java">package com.tuempresa.facturacion.modelo; // En el paquete 'modelo'
 
 import org.openxava.util.*;
@@ -260,12 +163,11 @@ public class CrearFacturaException extends Exception { // No RuntimeException
 
     public CrearFacturaException(String mensaje) {
         // El XavaResources es para traducir el mensaje desde el id en i18n
-        super(XavaResources.getString(mensaje)); 
+        super(XavaResources.getString(mensaje));
     }
 	
 }
-</code></pre>Ahora podemos usar nuestra <i>CrearFacturaException</i> en lugar
-      de <i>Exception</i> en el método <i>crearFactura()</i> de <i>Pedido</i>:
+</code></pre>Ahora podemos usar nuestra <i>CrearFacturaException</i> en lugar de <i>Exception</i> en el método <i>crearFactura()</i> de <i>Pedido</i>:
       <pre><code class="java">public void crearFactura()
     throws CrearFacturaException // Una excepción de aplicación (1)
 {
@@ -290,50 +192,18 @@ public class CrearFacturaException extends Exception { // No RuntimeException
             "imposible_crear_factura", ex);
     }
 }
-</code></pre> Ahora declaramos explícitamente las excepciones de aplicación que
-      este método lanza (1). Una excepción de aplicación es una excepción
-      chequeada que indica un comportamiento especial pero esperado del método.
-      Una excepción de aplicación está relacionada con la lógica de negocio del
-      método. Puedes crear una excepción de aplicación para cada posible caso.
-      Por ejemplo, podrías crear una <i>PedidoYaTieneFacturaException</i> y una
-      <i>PedidoNoEntregadoException</i>. Esto te permitiría tratar cada caso de
-      forma diferente desde el código que usa el método. Aunque, esto no es
-      necesario en nuestro caso, por tanto nosotros simplemente usamos nuestra <i>CrearFacturaException</i>,
-      una excepción de aplicación genérica para este método.<br>
-      También hemos de enfrentarnos a problemas inesperados (2). Los problemas
-      inesperados incluyen errores del sistema (acceso a base de datos, la red o
-      problemas de hardware) o errores de programación (<i>NullPointerException,
-        IndexOutOfBoundsException,</i> etc). Cuando nos encontramos con
-      cualquier problema inesperado lanzamos una <i>RuntimeException</i> (3).
-      En este caso hemos lanzado una <i>SystemException</i>, una <i>RuntimeException</i>
-      incluida en OpenXava por comodidad, pero puedes lanzar la <i>RuntimeException</i>
-      que quieras.<br>
-      No necesitas modificar el código de la acción. Si tu acción no atrapa las
-      excepciones, OpenXava lo hace automáticamente. Muestra los mensajes de las
-      excepciones de aplicación al usuario; y para las excepciones runtime,
-      muestra un mensaje de error genérico y aborta la transacción.<br>
-      Para rematar, añadimos el mensaje para la excepción en los archivos <i>i18n</i>.
-      Edita el archivo <i>MensajesFacturacion_es.properties</i> de la carpeta <i>Facturacion/i18n</i>
-      añadiendo las siguientes entradas:
+</code></pre> Ahora declaramos explícitamente las excepciones de aplicación que este método lanza (1). Una excepción de aplicación es una excepción chequeada que indica un comportamiento especial pero esperado del método. Una excepción de aplicación está relacionada con la lógica de negocio del método. Puedes crear una excepción de aplicación para cada posible caso. Por ejemplo, podrías crear una <i>PedidoYaTieneFacturaException</i> y una <i>PedidoNoEntregadoException</i>. Esto te permitiría tratar cada caso de forma diferente desde el código que usa el método. Aunque, esto no es necesario en nuestro caso, por tanto nosotros simplemente usamos nuestra <i>CrearFacturaException</i>, una excepción de aplicación genérica para este método.<br>
+      También hemos de enfrentarnos a problemas inesperados (2). Los problemas inesperados incluyen errores del sistema (acceso a base de datos, la red o problemas de hardware) o errores de programación (<i>NullPointerException, IndexOutOfBoundsException,</i> etc). Cuando nos encontramos con cualquier problema inesperado lanzamos una <i>RuntimeException</i> (3). En este caso hemos lanzado una <i>SystemException</i>, una <i>RuntimeException</i> incluida en OpenXava por comodidad, pero puedes lanzar la <i>RuntimeException</i> que quieras.<br>
+      No necesitas modificar el código de la acción. Si tu acción no atrapa las excepciones, OpenXava lo hace automáticamente. Muestra los mensajes de las excepciones de aplicación al usuario; y para las excepciones runtime, muestra un mensaje de error genérico y aborta la transacción.<br>
+      Para rematar, añadimos el mensaje para la excepción en los archivos <i>i18n</i>. Edita el archivo <i>facturacion-messages_es.properties</i> de la carpeta <i>src/main/resources/i18n</i> añadiendo las siguientes entradas:
       <pre><code class="properties">pedido_ya_tiene_factura=El pedido ya tiene una factura
 pedido_no_entregado=El pedido todavía no está entregado
 imposible_crear_factura=Imposible crear factura
-</code></pre> Hay cierto debate en la comunidad de desarrolladores sobre la
-      manera correcta de usar las excepciones en Java. El enfoque usado en esta
-      sección es la forma clásica de trabajar con excepciones en el mundo Java
-      empresarial.
+</code></pre> Hay cierto debate en la comunidad de desarrolladores sobre la manera correcta de usar las excepciones en Java. El enfoque usado en esta sección es la forma clásica de trabajar con excepciones en el mundo Java empresarial.
       <h3><a name="validar-desde-la-accion"></a>Validar desde la acción</h3>
-      Usualmente el mejor lugar para las validaciones es el modelo, es decir,
-      las entidades. Sin embargo, a veces es necesario poner lógica de
-      validación en las acciones. Por ejemplo, si quieres preguntar por el
-      estado actual de la interfaz gráfica has de hacer la validación en la
-      acción.<br>
-      En nuestro caso si el usuario pulsa en CREAR FACTURA cuando está creando
-      un nuevo pedido que todavía no ha grabado, fallará. Falla porque es
-      imposible crear una factura desde un pedido inexistente. El usuario ha de
-      grabar el pedido primero.<br>
-      Modificamos el método <i>execute()</i> de <i>CrearFacturaDesdePedido</i>
-      para validar que la factura visualizada actualmente esté grabada:
+      Usualmente el mejor lugar para las validaciones es el modelo, es decir, las entidades. Sin embargo, a veces es necesario poner lógica de validación en las acciones. Por ejemplo, si quieres preguntar por el estado actual de la interfaz gráfica has de hacer la validación en la acción.<br>
+      En nuestro caso si el usuario pulsa en CREAR FACTURA cuando está creando un nuevo pedido que todavía no ha grabado, fallará. Falla porque es imposible crear una factura desde un pedido inexistente. El usuario ha de grabar el pedido primero.<br>
+      Modificamos el método <i>execute()</i> de <i>CrearFacturaDesdePedido</i> para validar que la factura visualizada actualmente esté grabada:
       <pre><code class="java">public void execute() throws Exception {
     // Añade la siguiente condición
     if (getView().getValue("oid") == null) { 
@@ -345,34 +215,14 @@ imposible_crear_factura=Imposible crear factura
     ...
     
 }
-</code></pre> La validación consiste en verificar que el <i>oid</i> es nulo
-      (1), en cuyo caso el usuario está introduciendo un pedido nuevo, pero
-      todavía no lo ha grabado. En este caso se muestra un mensaje y se aborta
-      la creación de la factura. <br>
-      Aquí también tenemos un mensaje para añadir al archivo i18n. Edita el
-      archivo <i>MensajesFacturacion_es.properties</i> de la carpeta <i>Facturacion/i18n</i>
-      añadiendo la siguiente entrada:
+</code></pre> La validación consiste en verificar que el <i>oid</i> es nulo (1), en cuyo caso el usuario está introduciendo un pedido nuevo, pero todavía no lo ha grabado. En este caso se muestra un mensaje y se aborta la creación de la factura. <br>
+      Aquí también tenemos un mensaje para añadir al archivo i18n. Edita el archivo <i>facturacion-messages_es.properties</i> de la carpeta <i>src/main/resources/i18n</i> añadiendo la siguiente entrada:
       <pre><code class="properties">imposible_crear_factura_pedido_no_existe=Imposible crea factura: El pedido no existe todavía
-</code></pre> Las validaciones le dicen al usuario que ha hecho algo mal. Esto
-      es necesario, por supuesto, pero es mejor aún crear una aplicación que
-      ayude al usuario a evitar hacer las cosas mal. Veamos una forma de hacerlo
-      en la siguiente sección.
-      <h3><a name="evento-onchange-para-ocultar-mostrar-una-accion-por-codigo"></a>Evento
-        OnChange para ocultar/mostrar una acción por código</h3>
-      Nuestro actual código es suficientemente robusto como para prevenir que
-      equivocaciones del usuario estropeen los datos. Vamos a ir un paso más
-      allá, impidiendo que el usuario se equivoque. Ocultaremos la acción para
-      crear una nueva factura cuando el pedido no esté listo para ello.<br>
-      OpenXava permite ocultar y mostrar acciones automáticamente. También
-      permite ejecutar una acción cuando cierta propiedad sea cambiada por el
-      usuario en la interfaz de usuario. Con estos dos ingredientes podemos
-      mostrar el botón sólo cuando la acción esté lista para ser usada.<br>
-      Recuerda que una factura puede ser generada desde un pedido si el pedido
-      ha sido entregado y no tiene factura todavía. Por tanto, tenemos que
-      vigilar los cambios en la referencia <i>factura</i> y la propiedad <i>entregado</i>
-      de la entidad <i>Pedido</i>. Lo primero será crear la acción que oculta o
-      muestra la acción para crear una factura desde un pedido, <i>MostrarOcultarCrearFactura</i>,
-      con este código:
+</code></pre> Las validaciones le dicen al usuario que ha hecho algo mal. Esto es necesario, por supuesto, pero es mejor aún crear una aplicación que ayude al usuario a evitar hacer las cosas mal. Veamos una forma de hacerlo en la siguiente sección.
+      <h3><a name="evento-onchange-para-ocultar-mostrar-una-accion-por-codigo"></a>Evento OnChange para ocultar/mostrar una acción por código</h3>
+      Nuestro actual código es suficientemente robusto como para prevenir que equivocaciones del usuario estropeen los datos. Vamos a ir un paso más allá, impidiendo que el usuario se equivoque. Ocultaremos la acción para crear una nueva factura cuando el pedido no esté listo para ello.<br>
+      OpenXava permite ocultar y mostrar acciones automáticamente. También permite ejecutar una acción cuando cierta propiedad sea cambiada por el usuario en la interfaz de usuario. Con estos dos ingredientes podemos mostrar el botón sólo cuando la acción esté lista para ser usada.<br>
+      Recuerda que una factura puede ser generada desde un pedido si el pedido ha sido entregado y no tiene factura todavía. Por tanto, tenemos que vigilar los cambios en la referencia <i>factura</i> y la propiedad <i>entregado</i> de la entidad <i>Pedido</i>. Lo primero será crear la acción que oculta o muestra la acción para crear una factura desde un pedido, <i>MostrarOcultarCrearFactura</i>, con este código:
       <pre><code class="java">package com.tuempresa.facturacion.acciones; // En el paquete 'acciones'
 
 import org.openxava.actions.*; // Necesario para usar OnChangePropertyAction,
@@ -403,10 +253,7 @@ public class MostrarOcultarCrearFactura
         return getView().getValue("factura.oid") != null; // Leemos el valor de la vista
     } 	
 }
-</code></pre>Después anotamos <i>factura</i> y <i>entregado</i> en <i>Pedido</i>
-      con <i>@OnChange</i> para que cuando el usuario cambie el valor de <i>entregado</i>
-      o <i>factura</i> en la pantalla, la acción <i>MostrarOcultarCrearFactura</i>
-      se ejecute:
+</code></pre>Después anotamos <i>factura</i> y <i>entregado</i> en <i>Pedido</i> con <i>@OnChange</i> para que cuando el usuario cambie el valor de <i>entregado</i> o <i>factura</i> en la pantalla, la acción <i>MostrarOcultarCrearFactura</i> se ejecute:
       <pre><code class="java">public class Pedido extends DocumentoComercial {
 
     ...
@@ -419,44 +266,14 @@ public class MostrarOcultarCrearFactura
 
     ...
 }
-</code></pre><i>MostrarOcultarCrearFactura</i> es una acción convencional con un
-      método <i>execute()</i>, aunque extiende de<i> OnChangePropertyBaseAction</i>
-      (1). Todas las acciones anotadas con <i>@OnChange</i> tienen que
-      implementar <i>IOnChangePropertyAction</i>, aunque es más fácil extender
-      de <i>OnChangePropertyBaseAction</i> la cual lo implementa. Desde esta
-      acción puedes usar <i>getNewValue()</i> y <i>getChangedProperty()</i>,
-      aunque en este caso concreto no los necesitamos.<br>
-      El método <i>execute()</i> pregunta si el pedido visualizado está
-      grabado, entregado y todavía no tiene una factura (2), en cuyo caso
-      muestra la acción con <i>addActions("Pedido.crearFactura")</i>, en caso
-      contrario oculta la acción con <i>removeActions("Pedido.crearFactura")</i>.
-      Así, ocultamos o mostramos la acción <i>Pedido.crearFactura</i>,
-      mostrándola solo cuando proceda. Los métodos <i>add/removeActions()</i>
-      permiten especificar varias acciones a mostrar u ocultar separadas por
-      comas.<br>
-      Ahora cuando marcas o desmarcas la casilla <i>entregado</i> o escoges una
-      factura, el botón para la acción se muestra u oculta. También, cuando el
-      usuario pulsa en <i>Nuevo</i> para crear un nuevo pedido el botón para
-      crear la factura se oculta. Sin embargo, al editar un pedido ya existente,
-      el botón estará siempre presente, aunque el pedido no cumpla los
-      requisitos. Esto es porque cuando un objeto se busca y visualiza las
-      acciones <i>@OnChange</i> no se ejecutan por defecto. Podemos cambiar
-      esto con una pequeña modificación en <i> BuscarExcluyendoEliminados</i>:
+</code></pre><i>MostrarOcultarCrearFactura</i> es una acción convencional con un método <i>execute()</i>, aunque extiende de<i> OnChangePropertyBaseAction</i> (1). Todas las acciones anotadas con <i>@OnChange</i> tienen que implementar <i>IOnChangePropertyAction</i>, aunque es más fácil extender de <i>OnChangePropertyBaseAction</i> la cual lo implementa. Desde esta acción puedes usar <i>getNewValue()</i> y <i>getChangedProperty()</i>, aunque en este caso concreto no los necesitamos.<br>
+      El método <i>execute()</i> pregunta si el pedido visualizado está grabado, entregado y todavía no tiene una factura (2), en cuyo caso muestra la acción con <i>addActions("Pedido.crearFactura")</i>, en caso contrario oculta la acción con <i>removeActions("Pedido.crearFactura")</i>. Así, ocultamos o mostramos la acción <i>Pedido.crearFactura</i>, mostrándola solo cuando proceda. Los métodos <i>add/removeActions()</i> permiten especificar varias acciones a mostrar u ocultar separadas por comas.<br>
+      Ahora cuando marcas o desmarcas la casilla <i>entregado</i> o escoges una factura, el botón para la acción se muestra u oculta. También, cuando el usuario pulsa en <i>Nuevo</i> para crear un nuevo pedido el botón para crear la factura se oculta. Sin embargo, al editar un pedido ya existente, el botón estará siempre presente, aunque el pedido no cumpla los requisitos. Esto es porque cuando un objeto se busca y visualiza las acciones <i>@OnChange</i> no se ejecutan por defecto. Podemos cambiar esto con una pequeña modificación en <i> BuscarExcluyendoEliminados</i>:
       <pre><code class="java">public class BuscarExcluyendoEliminados
     // extends SearchByViewKeyAction {
     extends SearchExecutingOnChangeAction { // Usa ésta como clase base
-</code></pre> La acción de búsqueda por defecto, es decir, <i>SearchByViewKeyAction</i>
-      no ejecuta las acciones <i>@OnChange</i> por defecto, por tanto cambiamos
-      nuestra acción de buscar para que extienda de <i>SearchExecutingOnChangeAction</i>.
-      <i> SearchExecutingOnChangeAction</i> se comporta exactamente igual que <i>SearchByViewKeyAction</i>
-      pero ejecutando los eventos <i>OnChange</i>. De esta forma cuando el
-      usuario escoge un pedido la acción <i>MostrarOcultarCrearFactura</i> se
-      ejecuta.<br>
-      Nos queda un pequeño detalle para que todo esto sea perfecto: cuando el
-      usuario pulsa en CREAR FACTURA después de que la factura se haya creado el
-      botón se tiene que ocultar. El usuario no puede crear la factura otra vez.
-      Podemos implementar esta funcionalidad con un ligero refinamiento de <i>CrearFacturaDesdePedido</i>,
-      así:
+</code></pre> La acción de búsqueda por defecto, es decir, <i>SearchByViewKeyAction</i> no ejecuta las acciones <i>@OnChange</i> por defecto, por tanto cambiamos nuestra acción de buscar para que extienda de <i>SearchExecutingOnChangeAction</i>. <i> SearchExecutingOnChangeAction</i> se comporta exactamente igual que <i>SearchByViewKeyAction</i> pero ejecutando los eventos <i>OnChange</i>. De esta forma cuando el usuario escoge un pedido la acción <i>MostrarOcultarCrearFactura</i> se ejecuta.<br>
+      Nos queda un pequeño detalle para que todo esto sea perfecto: cuando el usuario pulsa en CREAR FACTURA después de que la factura se haya creado el botón se tiene que ocultar. El usuario no puede crear la factura otra vez. Podemos implementar esta funcionalidad con un ligero refinamiento de <i>CrearFacturaDesdePedido</i>, así:
       <pre><code class="java">public void execute() throws Exception {
 
     ...
@@ -464,33 +281,15 @@ public class MostrarOcultarCrearFactura
     // Todo ha ido bien, por tanto ocultamos la acción
     removeActions("Pedido.crearFactura"); 
 }
-</code></pre> Como puedes ver simplemente añadimos <i>removeActions("Pedido.crearFactura")</i>
-      al final del método <i>execute()</i>.<br>
-      Mostrar y ocultar acciones no es un sustituto para la validación en el
-      modelo. Las validaciones siguen siendo necesarias porque las entidades
-      pueden ser usadas desde cualquier otra parte de la aplicación, no solo de
-      los módulos de mantenimiento. Sin embargo, el truco de ocultar y mostrar
-      acciones mejora la experiencia del usuario.<br>
-      <h2><a name="logica-de-negocio-desde-el-modo-lista"></a>Lógica de negocio
-        desde el modo lista</h2>
-      En la lección anterior aprendiste como crear acciones de lista. Las
-      acciones de lista son una herramienta utilísima para dar al usuario la
-      posibilidad de aplicar lógica a varios objetos a la vez. En nuestro caso,
-      podemos añadir una acción en el modo lista para crear una nueva factura
-      automáticamente a partir de varios pedidos seleccionados en la lista, de
-      esta manera:<br>
+</code></pre> Como puedes ver simplemente añadimos <i>removeActions("Pedido.crearFactura")</i> al final del método <i>execute()</i>.<br>
+      Mostrar y ocultar acciones no es un sustituto para la validación en el modelo. Las validaciones siguen siendo necesarias porque las entidades pueden ser usadas desde cualquier otra parte de la aplicación, no solo de los módulos de mantenimiento. Sin embargo, el truco de ocultar y mostrar acciones mejora la experiencia del usuario.<br>
+      <h2><a name="logica-de-negocio-desde-el-modo-lista"></a>Lógica de negocio desde el modo lista</h2>
+      En la lección anterior aprendiste como crear acciones de lista. Las acciones de lista son una herramienta utilísima para dar al usuario la posibilidad de aplicar lógica a varios objetos a la vez. En nuestro caso, podemos añadir una acción en el modo lista para crear una nueva factura automáticamente a partir de varios pedidos seleccionados en la lista, de esta manera:<br>
       <img src="files/business-logic-behavior_es020.png" alt="business-logic-behavior_es020.png"
         title="business-logic-behavior_es020.png"><br>
-      Aquí se muestra como esta acción de lista coge los pedidos seleccionados y
-      crea una factura a partir de ellos. Simplemente copia los datos del pedido
-      en la nueva factura, añadiendo las línea de detalle de todos los pedidos
-      en una única factura. También se muestra un mensaje. Veamos como codificar
-      este comportamiento.
-      <h3><a name="accion-de-lista-con-logica-propia"></a>Acción de lista con
-        lógica propia</h3>
-      Como ya sabes, el primer paso para tener una acción propia en tu módulo es
-      añadirla a un controlador. Por tanto, editemos <i>controladores.xml</i>
-      añadiendo una nueva acción al controlador <i>Pedido</i>:
+      Aquí se muestra como esta acción de lista coge los pedidos seleccionados y crea una factura a partir de ellos. Simplemente copia los datos del pedido en la nueva factura, añadiendo las línea de detalle de todos los pedidos en una única factura. También se muestra un mensaje. Veamos como codificar este comportamiento.
+      <h3><a name="accion-de-lista-con-logica-propia"></a>Acción de lista con lógica propia</h3>
+      Como ya sabes, el primer paso para tener una acción propia en tu módulo es añadirla a un controlador. Por tanto, editemos <i>controladores.xml</i> añadiendo una nueva acción al controlador <i>Pedido</i>:
       <pre><code class="xml">&lt;controlador nombre="Pedido"&gt;
 
     ...
@@ -502,8 +301,7 @@ public class MostrarOcultarCrearFactura
 	&lt;!-- modo="list": Sólo se muestra en modo lista --&gt;
 
 &lt;/controlador&gt;
-</code></pre> Solo con esto ya tienes una nueva acción disponible para <i>Pedido</i>
-      en modo lista.<br>
+</code></pre> Solo con esto ya tienes una nueva acción disponible para <i>Pedido</i> en modo lista.<br>
       Ahora hemos de escribir el código Java para la acción:
       <pre><code class="java">package com.tuempresa.facturacion.acciones;
 
@@ -533,36 +331,13 @@ public class CrearFacturaDesdePedidosSeleccionados
         return pedidos;
     }
 }
-</code></pre> Realmente sencillo. Obtenemos la lista de los pedidos marcados en
-      la lista (2), llamamos al método estático <i>crearDesdePedidos()</i> (3)
-      de <i>Factura</i> y mostramos un mensaje (4). En este caso también
-      ponemos la lógica real en la clase del modelo, no en la acción. Dado que
-      la lógica aplica a varios pedidos y crea una nueva factura, el lugar
-      natural para ponerlo es en un método estático de la clase <i>Factura</i>.<br>
-      El método <i>getPedidosSeleccionados()</i> (5) devuelve una colección con
-      las entidades <i>Pedido</i> marcadas por el usuario en la lista. Para
-      hacerlo, el método usa <i>getTab()</i> (6), disponible en <i>TabBaseAction</i>
-      (1), que devuelve un objeto <i>org.openxava.tab.Tab</i>. El objeto <i>Tab</i>
-      te permite manejar los datos tabulares de la lista. En este caso usamos <i>getSelectedKeys()</i>
-      (6) que devuelve una colección con las claves de las filas seleccionadas.
-      Dado que esas claves están en formato <i>Map</i> usamos <i>MapFacade.findEntity()</i>
-      (7) para convertirlas en entidades <i>Pedido</i>.<br>
-      Acuérdate de añadir el texto del mensaje al fichero <i>
-        MensajesFacturacion_es.properties</i> en la carpeta <i>i18n</i>:
+</code></pre> Realmente sencillo. Obtenemos la lista de los pedidos marcados en la lista (2), llamamos al método estático <i>crearDesdePedidos()</i> (3) de <i>Factura</i> y mostramos un mensaje (4). En este caso también ponemos la lógica real en la clase del modelo, no en la acción. Dado que la lógica aplica a varios pedidos y crea una nueva factura, el lugar natural para ponerlo es en un método estático de la clase <i>Factura</i>.<br>
+      El método <i>getPedidosSeleccionados()</i> (5) devuelve una colección con las entidades <i>Pedido</i> marcadas por el usuario en la lista. Para hacerlo, el método usa <i>getTab()</i> (6), disponible en <i>TabBaseAction</i> (1), que devuelve un objeto <i>org.openxava.tab.Tab</i>. El objeto <i>Tab</i> te permite manejar los datos tabulares de la lista. En este caso usamos <i>getSelectedKeys()</i> (6) que devuelve una colección con las claves de las filas seleccionadas. Dado que esas claves están en formato <i>Map</i> usamos <i>MapFacade.findEntity()</i> (7) para convertirlas en entidades <i>Pedido</i>.<br>
+      Acuérdate de añadir el texto del mensaje al fichero <i>facturacion-messages_es.properties</i> en la carpeta <i>src/main/resources/i18n</i>:
       <pre><code class="properties">factura_creada_desde_pedidos=Factura {0} creada a partir de los pedidos: {1}
-</code></pre> Eso es todo para la acción. Veamos la pieza que falta, el método <i>
-        crearDesdePedidos()</i> de la entidad <i>Factura</i>.
-      <h3><a name="logica-de-negocio-en-el-modelo-sobre-varias-entidades"></a>Lógica
-        de negocio en el modelo sobre varias entidades</h3>
-      La lógica de negocio para crear una nueva <i>Factura</i> a partir de
-      varias entidades <i>Pedido</i> está en la capa del modelo, es decir, en
-      las entidades, no en la acción. No podemos poner el método en la clase <i>Pedido</i>,
-      porque el proceso se hace a partir de varios pedidos, no de uno. No
-      podemos usar un método de instancia en <i>Factura</i> porque todavía no
-      existe el objeto <i>Factura</i>, de hecho lo que queremos es crearlo. Por
-      lo tanto, vamos a crear un método de factoría estático en la clase <i>Factura</i>
-      para crear una nueva <i>Factura</i> a partir de varios pedidos. Puedes
-      ver este método aquí:
+</code></pre> Eso es todo para la acción. Veamos la pieza que falta, el método <i> crearDesdePedidos()</i> de la entidad <i>Factura</i>.
+      <h3><a name="logica-de-negocio-en-el-modelo-sobre-varias-entidades"></a>Lógica de negocio en el modelo sobre varias entidades</h3>
+      La lógica de negocio para crear una nueva <i>Factura</i> a partir de varias entidades <i>Pedido</i> está en la capa del modelo, es decir, en las entidades, no en la acción. No podemos poner el método en la clase <i>Pedido</i>, porque el proceso se hace a partir de varios pedidos, no de uno. No podemos usar un método de instancia en <i>Factura</i> porque todavía no existe el objeto <i>Factura</i>, de hecho lo que queremos es crearlo. Por lo tanto, vamos a crear un método de factoría estático en la clase <i>Factura</i> para crear una nueva <i>Factura</i> a partir de varios pedidos. Puedes ver este método aquí:
       <pre><code class="java">public class Factura extends DocumentoComercial {
 
     ...
@@ -588,21 +363,9 @@ public class CrearFacturaDesdePedidosSeleccionados
         return factura;
     }
 }
-</code></pre> Usamos el primer <i>Pedido</i> para crear una nueva <i>Factura</i>
-      usando el método ya existente <i>crearFactura()</i> de <i>Pedido</i>.
-      Entonces llamamos a <i>copiarDetallesAFactura()</i> de <i>Pedido</i>
-      para copiar las líneas de los pedidos restantes a la nueva <i>Factura</i>
-      acumulando en ella el <i>iva</i> e <i>importeTotal</i> de los pedidos.
-      Además, asignamos la nueva <i>Factura</i> como la factura de los pedidos
-      de la colección.<br>
-      Si <i>factura</i> es nulo al final del proceso, es porque la colección <i>pedidos</i>
-      está vacía. En este caso lanzamos una <i>CrearFacturaException</i>, ya
-      que la acción no atrapa las excepciones, OpenXava muestra el mensaje de la
-      excepción al usuario. Esto está bien. Si el usuario no marca los pedido y
-      pulsa en el botón para crear la factura, le aparecerá ese mensaje de
-      error.</div>
-    <div class="wiki" style="display: block;">Todavía nos queda añadir el método
-      <i>copiarDetallesAFactura()</i> a <i>Pedido</i>:</div>
+</code></pre> Usamos el primer <i>Pedido</i> para crear una nueva <i>Factura</i> usando el método ya existente <i>crearFactura()</i> de <i>Pedido</i>. Entonces llamamos a <i>copiarDetallesAFactura()</i> de <i>Pedido</i> para copiar las líneas de los pedidos restantes a la nueva <i>Factura</i> acumulando en ella el <i>iva</i> e <i>importeTotal</i> de los pedidos. Además, asignamos la nueva <i>Factura</i> como la factura de los pedidos de la colección.<br>
+      Si <i>factura</i> es nulo al final del proceso, es porque la colección <i>pedidos</i> está vacía. En este caso lanzamos una <i>CrearFacturaException</i>, ya que la acción no atrapa las excepciones, OpenXava muestra el mensaje de la excepción al usuario. Esto está bien. Si el usuario no marca los pedido y pulsa en el botón para crear la factura, le aparecerá ese mensaje de error.</div>
+    <div class="wiki" style="display: block;">Todavía nos queda añadir el método <i>copiarDetallesAFactura()</i> a <i>Pedido</i>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">public class Pedido extends DocumentoComercial {
 
@@ -616,29 +379,17 @@ public class CrearFacturaDesdePedidosSeleccionados
     }
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Como puedes ver, copia los
-      detalles del pedido actual a la factura y acumula el <i>iva</i> y el <i>importeTotal</i>.</div>
-    <div class="wiki" style="display: block;"> Acuérdate de añadir los textos
-      para los mensajes en el archivo <i>MensajesFacturacion_es.properties</i>
-      de la carpeta <i>i18n</i>:
+    <div class="wiki" style="display: block;">Como puedes ver, copia los detalles del pedido actual a la factura y acumula el <i>iva</i> y el <i>importeTotal</i>.</div>
+    <div class="wiki" style="display: block;"> Acuérdate de añadir los textos para los mensajes en el archivo <i>facturacion-messages_es.properties</i> de la carpeta <i>src/main/resources/i18n</i>:
       <pre><code class="properties">pedidos_no_especificados=Pedidos no especificados
-</code></pre> Este no es el único error con el que el usuario puede encontrarse.
-      Todas las validaciones que hemos escrito para <i>Factura</i> y <i>Pedido</i>
-      hasta ahora se aplican automáticamente, por lo tanto el usuario ha de
-      escoger pedidos ya entregados y sin factura. La validación del modelo
-      impide que el usuario cree una factura desde pedidos no apropiados.
+</code></pre> Este no es el único error con el que el usuario puede encontrarse. Todas las validaciones que hemos escrito para <i>Factura</i> y <i>Pedido</i> hasta ahora se aplican automáticamente, por lo tanto el usuario ha de escoger pedidos ya entregados y sin factura. La validación del modelo impide que el usuario cree una factura desde pedidos no apropiados.
       <h2><a name="mostrar-un-dialogo"></a>Mostrar un diálogo</h2>
-      Después de crear una factura a partir de varios pedidos, sería práctico
-      para el usuario ver y posiblemente editar la nueva factura. Una forma de
-      conseguir esto es sacando un diálogo que permite ver y editar la recién
-      creada factura. De esta forma:<br>
+      Después de crear una factura a partir de varios pedidos, sería práctico para el usuario ver y posiblemente editar la nueva factura. Una forma de conseguir esto es sacando un diálogo que permite ver y editar la recién creada factura. De esta forma:<br>
       <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
         title="business-logic-behavior_es030.png"><br>
       Veamos como implementar este comportamiento.
       <h3><a name="usar-showdialog"></a>Usar showDialog()</h3>
-      El primer paso es modificar <i>CrearFacturaDesdePedidosSeleccionados</i>
-      para mostrar un diálogo después de crear la factura, con sólo añadir unas
-      poca línea al final de <i>execute()</i> es suficiente:<br>
+      El primer paso es modificar <i>CrearFacturaDesdePedidosSeleccionados</i> para mostrar un diálogo después de crear la factura, con sólo añadir unas poca línea al final de <i>execute()</i> es suficiente:<br>
       <pre><code class="java">public void execute() throws Exception {
     Collection&lt;Pedido&gt; pedidos = getPedidosSeleccionados(); 
     Factura factura = Factura.crearDesdePedidos(pedidos); 
@@ -651,24 +402,10 @@ public class CrearFacturaDesdePedidosSeleccionados
     getView().setKeyEditable(false); // Para indicar que el objeto ya existe (3)
     setControllers("EdicionFactura"); // Las acciones del diálogo (4)
 }
-</code></pre>Llamamos a <i>showDialog()</i> (1), lo que saca un diálogo y a
-      partir de ese momento cuando usamos <i>getView()</i> referencia a la
-      vista del diálogo no a la vista principal del módulo. Después de <i>showDialog()</i>
-      el diálogo está en blanco, hasta que asignamos nuestra factura a la vista
-      con <i>getView().setModel(factura)</i> (2), ahora la factura se visualiza
-      en el diálogo. La siguiente línea, <i>getView().setKeyEditable(false)</i>
-      (3), es para indicar que la factura ya está grabada y así más adelante la
-      acción de grabar correspondiente sepa como comportarse. Finalmente, usamos
-      <i>setControllers("EdicionFactura")</i> para definir el controlador con
-      las acciones a presentar en el diálogo, es decir los botones de abajo del
-      diálogo. Fíjate como <i>setControllers()</i> es una alternativa a <i>addActions()</i>.<br>
-      Obviamente, esto no funcionará hasta que tengamos el controlador <i>EdicionFactura</i>
-      definido. Haremos esto en la siguiente sección.
-      <h3><a name="definir-las-acciones-del-dialogo"></a>Definir las acciones
-        del diálogo</h3>
-      El diálogo permite al usuario cambiar la factura y grabar los cambios o
-      simplemente cerrar la factura después de examinarla. Estas acciones se
-      definen en el controlador <i>EdicionFactura</i> en <i>controladores.xml</i>:
+</code></pre>Llamamos a <i>showDialog()</i> (1), lo que saca un diálogo y a partir de ese momento cuando usamos <i>getView()</i> referencia a la vista del diálogo no a la vista principal del módulo. Después de <i>showDialog()</i> el diálogo está en blanco, hasta que asignamos nuestra factura a la vista con <i>getView().setModel(factura)</i> (2), ahora la factura se visualiza en el diálogo. La siguiente línea, <i>getView().setKeyEditable(false)</i> (3), es para indicar que la factura ya está grabada y así más adelante la acción de grabar correspondiente sepa como comportarse. Finalmente, usamos <i>setControllers("EdicionFactura")</i> para definir el controlador con las acciones a presentar en el diálogo, es decir los botones de abajo del diálogo. Fíjate como <i>setControllers()</i> es una alternativa a <i>addActions()</i>.<br>
+      Obviamente, esto no funcionará hasta que tengamos el controlador <i>EdicionFactura</i> definido. Haremos esto en la siguiente sección.
+      <h3><a name="definir-las-acciones-del-dialogo"></a>Definir las acciones del diálogo</h3>
+      El diálogo permite al usuario cambiar la factura y grabar los cambios o simplemente cerrar la factura después de examinarla. Estas acciones se definen en el controlador <i>EdicionFactura</i> en <i>controladores.xml</i>:
       <pre><code class="xml">&lt;controlador nombre="EdicionFactura"&gt;
 
     &lt;accion nombre="grabar"
@@ -679,12 +416,10 @@ public class CrearFacturaDesdePedidosSeleccionados
         clase="org.openxava.actions.CancelAction"/&gt;
 		
 &lt;/controlador&gt;
-</code></pre>Las dos acciones de este controlador representan los dos botones,
-      GRABAR y CERRAR que viste en la imagen anterior.</div>
+</code></pre>Las dos acciones de este controlador representan los dos botones, GRABAR y CERRAR que viste en la imagen anterior.</div>
     <div class="wiki" style="display: block;">
       <h3><a name="cerrar-el-dialogo"></a>Cerrar el diálogo</h3>
-      <i>GrabarFactura</i> contiene sólo una extensión menor de la acción
-      estándar <i>SaveAction</i> de OpenXava:
+      <i>GrabarFactura</i> contiene sólo una extensión menor de la acción estándar <i>SaveAction</i> de OpenXava:
       <pre><code class="java">package com.tuempresa.facturacion.acciones;
 
 import org.openxava.actions.*;
@@ -697,54 +432,32 @@ public class GrabarFactura
         closeDialog(); // (2)
     }
 }
-</code></pre>La acción extiende <i>SaveAction</i> sobrescribiendo el método <i>execute()</i>
-      para simplemente llamar a la lógica estándar, con <i>super.execute()</i>
-      (1), y después cerrar el diálogo con <i>closeDialog()</i> (2). De esta
-      forma, cuando el usuario pulsa en GRABAR, los datos de la factura se
-      graban y el diálogo se cierrar volviendo a la lista de pedidos, listo para
-      continuar creando facturas a partir de pedidos.<br>
-      Para el botón CERRAR usamos <i>CancelAction</i>, una acción incluida en
-      OpenXava que simplemente cierra el diálogo.
-      <h3><a name="vista-plana-en-lugar-de-dialogo"></a>Vista plana en lugar de
-        diálogo</h3>
+</code></pre>La acción extiende <i>SaveAction</i> sobrescribiendo el método <i>execute()</i> para simplemente llamar a la lógica estándar, con <i>super.execute()</i> (1), y después cerrar el diálogo con <i>closeDialog()</i> (2). De esta forma, cuando el usuario pulsa en GRABAR, los datos de la factura se graban y el diálogo se cierra volviendo a la lista de pedidos, listo para continuar creando facturas a partir de pedidos.<br>
+      Para el botón CERRAR usamos <i>CancelAction</i>, una acción incluida en OpenXava que simplemente cierra el diálogo.
+      <h3><a name="vista-plana-en-lugar-de-dialogo"></a>Vista plana en lugar de diálogo</h3>
       A veces en lugar de sacar un diálogo encima:<br>
       <img src="files/business-logic-behavior_es040.png" alt="business-logic-behavior_es040.png"
         title="business-logic-behavior_es040.png"><br>
       Podriamos preferir reemplazar la vista actual por la nueva, así: <br>
       <img src="files/business-logic-behavior_es050.png" alt="business-logic-behavior_es050.png"
         title="business-logic-behavior_es050.png"><br>
-      Esto puede ser útil cuando la cantidad de información a mostrar es muy
-      grande y en un diálogo queda mal. Usar una vista plana en vez de un
-      diálogo es tan fácil como cambiar esta línea de tu <i>CrearFacturaDesdePedidosSeleccionados</i>:
+      Esto puede ser útil cuando la cantidad de información a mostrar es muy grande y en un diálogo queda mal. Usar una vista plana en vez de un diálogo es tan fácil como cambiar esta línea de tu <i>CrearFacturaDesdePedidosSeleccionados</i>:
       <pre><code class="java">showDialog();
 </code></pre>Por esta otra:
       <pre><code class="java">showNewView();
-</code></pre> No hace falta nada más. Bueno, quizás cambiar el nombre de la
-      acción "cerrar" por "volver" en el controlador <i>EdicionFactura</i> en <i>controllers.xml</i>.<br>
+</code></pre> No hace falta nada más. Bueno, quizás cambiar el nombre de la acción "cerrar" por "volver" en el controlador <i>EdicionFactura</i> en <i>controllers.xml</i>.<br>
       <br>
-      El trabajo está terminado. Puedes probar el módulo <i>Pedido</i>: escoge
-      varios pedidos y pulsa en el botón CREAR FACTURA DESDE PEDIDOS
-      SELECCIONADOS. Entonces verás la factura creada en un diálogo.
+      El trabajo está terminado. Puedes probar el módulo <i>Pedido</i>: escoge varios pedidos y pulsa en el botón CREAR FACTURA DESDE PEDIDOS SELECCIONADOS. Entonces verás la factura creada en un diálogo.
       <h2><a name="resumen"></a>Resumen</h2>
-      La sal de tu aplicación son las acciones y los métodos. Gracias a ellos
-      puedes convertir una simple aplicación de gestión de datos en una
-      herramienta útil. En este caso, por ejemplo, hemos provisto al usuario con
-      una forma de crear automáticamente facturas desde pedidos.<br>
-      Has aprendido como crear métodos de lógica de negocio tanto estáticos como
-      de instancia, y como llamarlos desde acciones de modo detalle y modo
-      lista. Por el camino has visto como ocultar y mostrar acciones, usar
-      excepciones, validar en las acciones, mostrar diálogos y cómo hacer las
-      pruebas automáticas de todo esto.<br>
-      Todavía nos quedan muchas cosas interesantes por aprender, por ejemplo en
-      la siguiente lección vamos a refinar el comportamiento de las referencias
-      y colecciones.<br>
+      La sal de tu aplicación son las acciones y los métodos. Gracias a ellos puedes convertir una simple aplicación de gestión de datos en una herramienta útil. En este caso, por ejemplo, hemos provisto al usuario con una forma de crear automáticamente facturas desde pedidos.<br>
+      Has aprendido como crear métodos de lógica de negocio tanto estáticos como de instancia, y como llamarlos desde acciones de modo detalle y modo lista. Por el camino has visto como ocultar y mostrar acciones, usar excepciones, validar en las acciones, mostrar diálogos y cómo hacer las pruebas automáticas de todo esto.<br>
+      Todavía nos quedan muchas cosas interesantes por aprender, por ejemplo en la siguiente lección vamos a refinar el comportamiento de las referencias y colecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-business-logic-behavior_es.zip/download"
+      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_es/tree/leccion-25"
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?
-        <a class="wiki_link" href="references-collections_es.html">Ve a la
-          lección 26</a></strong> </div>
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien? <a
+          class="wiki_link" href="references-collections_es.html">Ve a la lección 26</a></strong> </div>
   </body>
 </html>
