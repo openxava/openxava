@@ -37,7 +37,8 @@
       components and the actions), now you will learn how to assemble these
       pieces in order to create applications.<br>
       The definition of an OpenXava application is given in the file <em>application.xml</em>
-      that can be found in the <em>xava</em> directory of your project.<br>
+      that can be found in the <em>src/main/resources/xava</em> directory of
+      your project (in <i>xava</i> directory in v6 or older).<br>
       The file syntax is:<br>
       <style type="text/css"><!--
 /**
@@ -190,7 +191,7 @@ class="sc-1">&lt;!-- 11  Until v6.6.3 --&gt;</span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;application</span> <span
-class="re0">name</span>=<span class="st0">"Management"</span><span class="re2">&gt;</span></span>
+class="re0">name</span>=<span class="st0">"management"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span
 class="st0">"Warehouse"</span> <span class="re0">folder</span>=<span class="st0">"warehousing"</span><span
 class="re2">&gt;</span></span>
@@ -211,30 +212,31 @@ class="st0">"Warehouse"</span><span class="re2">/&gt;</span></span>
       supported in the current OpenXava version) this module will be in folder
       "warehousing".<br>
       In order to execute this module you need to open your browser and go to:<br>
-      <a class="wiki_link_ext" href="http://localhost:8080/Management/modules/Warehouse"
-        rel="nofollow">http://localhost:8080/Management/modules/Warehouse</a><br>
+      <a class="wiki_link_ext" href="http://localhost:8080/management/modules/Warehouse"
+        rel="nofollow">http://localhost:8080/management/modules/Warehouse</a><br>
       Until v6.6.3 a portlet was generated to allow you to deploy the module as
       a JSR-168/286 portlet in a Java portal. <i>Portal support was removed in
         v7.0.</i><br>
-      You can see the definition of <em>Typical</em> controller in <em>OpenXava/xava/default-controllers.xml</em>,
-      where you also can find other useful controllers such as <em>TypicalNotResetOnSave,
-        TypicalNewOnInit</em> or <em>TypicalRealExcel</em> with a slight
-      differente behavior.<br>
+      You can see the definition of <em>Typical</em> controller in <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml"><i>openxava/src/main/resources/xava/default-controllers.xml</i></a>
+      (in <em>OpenXava/xava/default-controllers.xml<i> </i></em>for v6 or
+      older<em><i>)</i></em>, where you also can find other useful controllers
+      such as <em>TypicalNotResetOnSave, TypicalNewOnInit</em> or <em>TypicalRealExcel</em>
+      with a slight differente behavior.<br>
       <h2 id="toc2"><a name="Application-Default modules (new in v2.2.2)"></a>Default
         modules <em>(new in v2.2.2)</em></h2>
-      OpenXava assumes a default module for each component in the application,
-      although the module is not explicitly defined in applicaction.xml.<br>
-      That is, if you define a component <em>Factura.java</em>, you can open
-      your browser and go to:<br>
-      <a class="wiki_link_ext" href="http://localhost:8080/Management/modules/Invoice"
-        rel="nofollow">http://localhost:8080/Management/modules/Invoice</a><br>
+      OpenXava assumes a default module for each entity in the application,
+      although the module is not explicitly defined in <i>applicaction.xml</i>.<br>
+      That is, if you define an entity <em>Invoice.java</em>, you can open your
+      browser and go to:<br>
+      <a class="wiki_link_ext" href="http://localhost:8080/management/modules/Invoice"
+        rel="nofollow">http://localhost:8080/management/modules/Invoice</a><br>
       Until v6.6.3 a portlet was generated to allow you to deploy the module as
       a JSR-168/286 portlet in a Java portal. <i>Portal support was removed in
         v7.0.</i><br>
       And all this without defining it in <em>application.xml</em>.<br>
       The controller for these default modules will be Typical, but you can
-      change this default value using the default-module element in
-      application.xml, in this way:<br>
+      change this default value using the default-module element in <i>application.xml</i>,
+      in this way:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -258,7 +260,7 @@ class="st0">"Warehouse"</span><span class="re2">/&gt;</span></span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;application</span> <span
-class="re0">name</span>=<span class="st0">"Management"</span><span class="re2">&gt;</span></span>
+class="re0">name</span>=<span class="st0">"management"</span><span class="re2">&gt;</span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;default-module<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
@@ -266,7 +268,7 @@ class="st0">"ManagementCRUD"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/default-module<span class="re2">&gt;</span></span></span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;/application<span class="re2">&gt;</span></span></span></pre>
-      In this case all the default modules of the <em>Management</em>
+      In this case all the default modules of the <em>management</em>
       application will have the controller <em>ManagementCRUD</em> assigned to
       them.<br>
       If you want that certain module does not use these default controllers,
@@ -578,6 +580,7 @@ class="sc-1">&lt;!-- 2 --&gt;</span>
       module.<br>
       <br>
       The syntax for <em>application.xml</em> is not difficult. You can see
-      more examples in <em>OpenXavaTest/xava/application.xml</em>. </div>
+      more examples in <a href="https://raw.githubusercontent.com/openxava/openxava/master/openxavatest/src/main/resources/xava/application.xml"><em>openxavatest/src/main/resources/xava/application.xml</em></a>.
+    </div>
   </body>
 </html>

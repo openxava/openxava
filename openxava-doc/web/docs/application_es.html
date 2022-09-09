@@ -37,7 +37,8 @@
       componentes y las acciones principalmente), ahora vamos a ver como
       ensamblarlas para crear aplicaciones.<br>
       La definición de una aplicación OpenXava se hace en el archivo <em>aplicacion.xml</em>
-      que encontramos en el directorio <em>xava</em> de nuestro proyecto.<br>
+      que encontramos en el directorio <em>src/main/resources/xava</em><em></em>
+      de nuestro proyecto (en el directorio <i>xava</i> en v6 o anteriores).<br>
       La sintaxis de este archivo es:<br>
       <style type="text/css"><!--
 /**
@@ -191,7 +192,7 @@ class="sc-1">&lt;!-- 11  Hasta v6.6.3 --&gt;</span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;aplicacion</span> <span
-class="re0">nombre</span>=<span class="st0">"Gestion"</span><span class="re2">&gt;</span></span>
+class="re0">nombre</span>=<span class="st0">"gestion"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;modulo</span> <span class="re0">nombre</span>=<span
 class="st0">"Almacen"</span> <span class="re0">carpeta</span>=<span class="st0">"almacen"</span><span
 class="re2">&gt;</span></span>
@@ -211,23 +212,24 @@ class="st0">"Almacen"</span><span class="re2">/&gt;</span></span>
       En el caso en que el sistema genere una estructura de módulos (actualmente
       no soportado) este módulo estará en la carpeta "almacen".<br>
       Para ejecutar este módulo podemos desde nuestro navegador escribir:<br>
-      <a class="wiki_link_ext" href="http://localhost:8080/Gestion/modules/Almacen"
-        rel="nofollow">http://localhost:8080/Gestion/modules/Almacen</a><br>
+      <a class="wiki_link_ext" href="http://localhost:8080/gestion/modules/Almacen"
+        rel="nofollow">http://localhost:8080/gestion/modules/Almacen</a><br>
       Hasta v6.6.3 también se generaba un portlet para poder desplegar el módulo
       como un portlet JSR-168/286 en un portal Java. <i>El soporte de portales
         se quito en v7.0</i>.<br>
-      Puedes ver la definición del controlador <em>Typical</em> en <em>OpenXava/xava/default-controllers.xml</em>,
-      donde también puedes encontrar otros controladores útiles tal como <em>TypicalNotResetOnSave,
-        TypicalNewOnInit</em> o <em>TypicalRealExcel</em> con un comportamiento
-      ligeramente diferente.<br>
+      Puedes ver la definición del controlador <em>Typical</em> en <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml"><i>openxava/src/main/resources/xava/default-controllers.xml</i></a>
+      (en <em>OpenXava/xava/default-controllers.xml </em>para v6 o
+      anteriores), donde también puedes encontrar otros controladores útiles tal
+      como <em>TypicalNotResetOnSave, TypicalNewOnInit</em> o <em>TypicalRealExcel</em>
+      con un comportamiento ligeramente diferente.<br>
       <h2 id="toc2"><a name="Aplicacion-Modulos+por+defecto+(nuevo+en+v2.2.2)"></a>Módulos
         por defecto <em>(nuevo en v2.2.2)</em></h2>
-      OpenXava asume un módulo por defecto para cada componente en la
-      aplicación, aunque el módulo no se defina explícitamente en <em>aplicacion.xml</em>.<br>
-      Es decir, si definimos un componente <em>Factura.java</em>, podemos abrir
+      OpenXava asume un módulo por defecto para cada entidad en la aplicación,
+      aunque el módulo no se defina explícitamente en <em>aplicacion.xml</em>.<br>
+      Es decir, si definimos una entidad <em>Factura.java</em>, podemos abrir
       nuestro navegador e ir a:<br>
-      <a class="wiki_link_ext" href="http://localhost:8080/Gestion/modules/Factura"
-        rel="nofollow">http://localhost:8080/Gestion/modules/Factura</a><br>
+      <a class="wiki_link_ext" href="http://localhost:8080/gestion/modules/Factura"
+        rel="nofollow">http://localhost:8080/gestion/modules/Factura</a><br>
       Hasta v6.6.3 también se generaba un portlet para poder desplegar el módulo
       como un portlet JSR-168/286 en un portal Java. <i>El soporte de portales
         se quito en v7.0</i>.<br>
@@ -258,7 +260,7 @@ class="st0">"Almacen"</span><span class="re2">/&gt;</span></span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;aplicacion</span> <span
-class="re0">nombre</span>=<span class="st0">"Gestion"</span><span class="re2">&gt;</span></span>
+class="re0">nombre</span>=<span class="st0">"gestion"</span><span class="re2">&gt;</span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;modulo-defecto<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
@@ -266,7 +268,7 @@ class="st0">"MantenimientoGestion"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/modulo-defecto<span class="re2">&gt;</span></span></span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;/aplicacion<span class="re2">&gt;</span></span></span></pre>
-      En este caso todos los módulos por defecto de la aplicación <em>Gestion</em>
+      En este caso todos los módulos por defecto de la aplicación <em>gestion</em>
       tendrán el controlador <em>MantenimientoGestion</em> asignado a ellos.<br>
       Si queremos que cierto módulo no use estos controladores por defecto,
       tenemos dos opciones:<br>
@@ -578,6 +580,7 @@ class="sc-1">&lt;!-- 2 --&gt;</span>
       borrar, etc. no están presentes. Esto es un simple módulo de consulta.<br>
       <br>
       La sintaxis de <em>aplicacion.xml</em> no tiene mucha complicación.
-      Podemos ver más ejemplos en <em>OpenXavaTest/xava/application.xml</em>. </div>
+      Podemos ver más ejemplos en <a href="https://raw.githubusercontent.com/openxava/openxava/master/openxavatest/src/main/resources/xava/application.xml"><em>openxavatest/src/main/resources/xava/application.xml</em></a>.
+    </div>
   </body>
 </html>

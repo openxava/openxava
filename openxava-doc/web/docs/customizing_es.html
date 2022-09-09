@@ -83,8 +83,9 @@
       Un editor indica como visualizar una propiedad. Consiste en una definición
       XML junto con un fragmento de código JSP.<br>
       Para refinar el comportamiento de los editores de OpenXava o añadir los
-      nuestros podemos crear en el directorio <em>xava</em> de nuestro proyecto
-      un archivo llamado <em>editores.xml</em>. Este archivo es como sigue:<br>
+      nuestros podemos crear en el directorio <i>src/main/resources/xava</i> (<em>xava</em>
+      en v6 o anteriores) de nuestro proyecto un archivo llamado <em>editores.xml</em>.
+      Este archivo es como sigue:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -191,7 +192,8 @@ class="sc-1">&lt;!-- 27  Nuevo en v4.6 --&gt;</span>
             ... editor=/&gt;</em> desde un componente XML.</li>
         <li><strong>url</strong> (obligado): URL de la página JSP que implementa
           el editor. Empieza desde <em>xava/editors</em> (dentro de la carpeta
-          <em>web</em> de nuestro proyecto).</li>
+          <em>src/main/webapp</em> de nuestro proyecto, simplemente <i>web</i>
+          antes de v7).</li>
         <li><strong>formatear</strong> (opcional): Si es <em>true</em> es
           OpenXava el que tiene la responsabilidad de formatear los datos desde
           HTML hasta Java y viceversa, si vale <em>false</em> tiene que hacerlo
@@ -328,8 +330,8 @@ class="st0">"long"</span><span class="re2">/&gt;</span></span>
 class="st0">"java.lang.Long"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
       Aquí asignamos a un grupo de tipos básicos el editor <em>textEditor.jsp</em>
-      (podemos encontrarlo en la carpeta <em>web/xava/editors</em> de nuestro
-      proyecto). El código JSP de este editor es:<br>
+      (podemos encontrarlo en <a href="https://github.com/openxava/openxava/tree/master/openxava/src/main/resources/META-INF/resources/xava/editors"><em>openxava/src/main/resources/META-INF/resources/xava/editors</em></a>).
+      El código JSP de este editor es:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -448,7 +450,8 @@ class="sy1">&lt;%=</span>fvalue<span class="sy1">%&gt;</span>"&gt;
       aparezca en el orden correcto de tabulación <em>(nuevo en v4.5.1)</em>.<br>
       Aunque crear un editor directamente con JSP es sencillo no es una tarea
       muy habitual, es más habitual configurar JSPs ya existentes. Por ejemplo
-      si en nuestro <em>xava/editores.xml</em> ponemos:<br>
+      si en nuestro <em>editores.xml</em> en <i>src/main/resources/xava</i>
+      (simplemente <i>xava</i> antes de v7) ponemos:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -2116,7 +2119,8 @@ class="st0">"miListaEditor.jsp"</span><span class="re2">&gt;</span></span>
       Todos los editores marcados con <em>&lt;for-tabs/&gt;</em> en <em>default-editors.xml</em>
       y <em>&lt;para-tabs/&gt;</em> en <em>editores.xml</em> se usan como
       formatos de lista diferentes que el usuario puede escoger. Por ejemplo, si
-      tenemos esto en <em>OpenXava/xava/default-editors.xml</em>:<br>
+      tenemos esto en <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-editors.xml">openxava/src/main/resources/xava/default-editors.xml</a>
+      (<em>OpenXava/xava/default-editors.xml</em> antes de v7):<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -2189,9 +2193,10 @@ class="re2">&gt;</span></span>
       Es decir, a partir de v5.7 <em>&lt;para-tabs/&gt;</em> no sustituye sino
       acumula. Fíjate en el atributo <em>icono</em> en <em>&lt;editor/&gt;</em>,
       usado como icono para el botón de formato.<br>
-      Si quieres restringir los formatos disponibles sin tener que tocar <em>OpenXava/xava/default-editors.xml</em>
-      <a class="wiki_link" href="tab_es.html#quitar-formato-lista">usa
-        valores-defecto-tabs.xml</a> de tu proyecto.<br>
+      Si quieres restringir los formatos disponibles sin tener que tocar <i>openxava/src/main/resources/xava/default-editors.xml</i>
+      (<em>OpenXava/xava/default-editors.xml</em> antes de v7) <a class="wiki_link"
+        href="tab_es.html#quitar-formato-lista">usa valores-defecto-tabs.xml</a>
+      de tu proyecto.<br>
       Lo explicado aquí es para hacer cambios a nivel global, para cambiar los
       formatos para una lista concreta puedes usar el atributo <a class="wiki_link"
         href="tab_es.html#varios-formatos-presentaci%C3%B3n-editores">editors de
@@ -2270,8 +2275,9 @@ String claseCSS ="ox-colorido-" + color;
       Si necesitas usar funciones JavaScript, ya sean propias o de terceros, en
       tu editor, no lo puedes hacer incluyendolas directamente en el JSP, porque
       el código HTML del editor se carga vía AJAX. En lugar de eso, has de poner
-      tus funciones en un archivo JS en la carpeta <em>web/xava/editors/js</em>
-      de tu proyecto. Todo el JavaScript que hay ahí se carga automáticamente.<br>
+      tus funciones en un archivo JS en la carpeta <i>src/main/webapp/xava/editors/js</i>
+      de tu proyecto (<em>web/xava/editors/js</em> en v6 o anteriores). Todo el
+      JavaScript que hay ahí se carga automáticamente.<br>
       Es decir, si necesitas usar una función JavaScript <em>f()</em> en tu
       editor, como sigue:<br>
       <style type="text/css"><!--
@@ -2301,8 +2307,8 @@ class="kw3">onclick</span><span class="sy0">=</span><span class="st0">"f()"</spa
 class="sy0">/</span>&gt;</span></pre>
       Has de definir la función <em>f()</em> en una archivo JS. Crea un archivo
       llamado <em>miEditor.js</em> (o cualquier otro nombre que quieras), y
-      ponlo en la carpeta <em>web/xava/editors/js</em>. El contenido de ese
-      archivo puede ser:<br>
+      ponlo en la carpeta <i>src/main/webapp/xava/editors/js</i> (<em>web/xava/editors/js</em>
+      en v6 o anteriores). El contenido de ese archivo puede ser:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -2334,7 +2340,7 @@ class="br0">)</span><span class="sy0">;</span>
       no puedes usar el evento <em>onload</em> o equivalente, porque el código
       HTML del editor es cargado vía AJAX, por tanto no se produce carga de la
       página. Has de registrar tu código de inicialización en OpenXava. Puedes
-      hacerlo en tu archivo <em>miEditor.js</em> (o cualquier otro archivo en <em>web/xava/editors/js</em>),
+      hacerlo en tu archivo <em>miEditor.js</em> (o cualquier otro archivo en <i>src/main/webapp/xava/editors/js</i><em></em>),
       como sigue:<br>
       <style type="text/css"><!--
 /**
@@ -2417,11 +2423,12 @@ Esto es para liberar los recursos obtenidos por el editor.
       directamente en el JSP del editor.<br>
       <h3 id="toc12"><a name="Personalizacion-Editores-CSS+en+editores+(nuevo+en+v5.4)"></a>CSS
         en editores <em>(nuevo en v5.4)</em></h3>
-      Todos los archivos CSS en la carpeta <em>web/xava/editors/style</em> de
-      nuestra aplicación se cargan automáticamente. Aquí se ponen los archivos
-      CSS necesarios por los componentes JavaScript que usamos en nuestros
-      editores. También, podemos poner los CSS específicos de nuestros editores.
-      No hay que poner en <em>web/xava/editors/style</em> los CSS para <a class="wiki_link"
+      Todos los archivos CSS en la carpeta <i>src/main/webapp/xava/editors/style</i>
+      (<em>web/xava/editors/style</em> en v6 o anteriores) de nuestra aplicación
+      se cargan automáticamente. Aquí se ponen los archivos CSS necesarios por
+      los componentes JavaScript que usamos en nuestros editores. También,
+      podemos poner los CSS específicos de nuestros editores. No hay que poner
+      en <i>src/main/webapp/xava/editors/style</i> los CSS para <a class="wiki_link"
         href="custom-style_es.html">el estilo general de la aplicación</a>.<br>
       <h3 id="toc13"><a name="Personalizacion-Editores-Editores+personalizables+y+estereotipos+para+crear+combos"></a>Editores
         personalizables y estereotipos para crear combos</h3>
@@ -3054,8 +3061,12 @@ class="re0">key</span>=<span class="st0">"clave_mensaje"</span> <span class="re0
 class="st0">"parametroMensaje"</span> <span class="re0">intParam</span>=<span class="st0">"paramMensaje"</span><span
 class="re2">/&gt;</span></span></pre>
       El mensaje es buscado primero en los archivos de recursos de nuestro
-      proyecto (<em>MiProyecto/i18n/MensajesMiProyecto.properties</em>) y si no
-      se encuentra ahí es buscado en los mensajes por defecto de OpenXava (<em>OpenXava/i18n/Messages.properties</em>).<br>
+      proyecto (<em><em>miproyecto/src/main/resources/i18n/</em></em><em><em><em><em>miproyecto</em></em>-messages_es.properties</em></em>
+      para v7 o superior, y <em>MiProyecto/i18n/MensajesMiProyecto.properties</em>
+      para v6 o anterior) y si no se encuentra ahí es buscado en los mensajes
+      por defecto de OpenXava (<a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/i18n/Messages_en.properties"><i>openxava/src/main/resources/i18n/Messages_en.properties</i></a>
+      <em>para v7 o superior, y </em> <em>OpenXava/i18n/Messages.properties</em>
+      para v6 o anterior).<br>
       Los atributos <em>param</em> y <em>intParam</em> son opcionales. El
       atributo <em>intParam</em> es usado cuando el valor a enviar como
       parametro es de tipo int. Si usamos Java 5 podemos usar siempre param
@@ -3118,8 +3129,12 @@ class="st0">"&lt;%=cantidadTotal%&gt;</span></span>"/&gt;</pre>
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:label</span> <span
 class="re0">key</span>=<span class="st0">"nombreMiembro"</span><span class="re2">/&gt;</span></span></pre>
       El mensaje es buscado primero en los archivos de etiquetas de nuestro
-      proyecto (<em>MiProyecto/i18n/EtiquetasMiProyecto.properties</em>) y si no
-      se encuentra ahí es buscado en los mensajes por defecto de OpenXava (<em>OpenXava/i18n/Labels.properties</em>).<br>
+      proyecto (<em><em>miproyecto/src/main/resources/i18n/</em></em><em><em><em><em>miproyecto</em></em>-labels_es.properties</em></em>
+      para v7 o superior<em>, y </em><em>MiProyecto/i18n/EtiquetasMiProyecto.properties</em>
+      para v6 o anterior) y si no se encuentra ahí es buscado en los mensajes
+      por defecto de OpenXava (<a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/i18n/Labels_en.properties"><i>openxava/src/main/resources/i18n/Labels_en.properties</i></a>
+      para v7 o superior, y<em> </em> <em>OpenXava/i18n/Labels.properties</em>
+      para v6 o anterior).<br>
       <span style="line-height: 1.5;">Esta marca solo genera el texto de la
         etiqueta, sin ningún tipo de formateo HTML.</span><br>
       Con &lt;xava:label/&gt; en lugar de escribir:<br>
