@@ -9,93 +9,61 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="references-collections"></a> <span id="breadcrumbs">
-          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
-              </a> </span> / <a href="index_en.html">documentation</a> / </span>
-        Lesson 26: References &amp; collections </h1>
-      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1.
-        Getting started</a> | <a class="wiki_link" href="basic-domain-model1_en.html">2.
-        Basic domain model (1)</a> | <a class="wiki_link" href="basic-domain-model2_en.html">3.
-        Basic domain model (2)</a> | <a class="wiki_link" href="refining-user-interface_en.html">4.
-        Refining the user interface</a> | <a class="wiki_link" href="agile-development_en.html">5.
-        Agile development</a> |&nbsp;<a class="wiki_link" href="mapped-superclass-inheritance_en.html">6.
-        Mapped superclass inheritance</a> | <a class="wiki_link" href="entity-inheritance_en.html">7.
-        Entity inheritance</a> | <a class="wiki_link" href="view-inheritance_en.html">8.
-        View inheritance</a> | <a class="wiki_link" href="java-properties_en.html">9.
-        Java properties</a> | <a class="wiki_link" href="calculated-properties_en.html">10.
-        Calculated properties </a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11.
-        @DefaultValueCalculator in collections </a> | <a class="wiki_link" href="calculation-and-collections-total_en.html">12.
-        @Calculation and collections totals </a> | <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13.
-        @DefaultValueCalculator from file </a> | <a class="wiki_link" href="manual-schema-evolution_en.html">14.
-        Manual schema evolution </a> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">15.
-        Multi user default value calculation </a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16.
-        Synchronize persistent and computed propierties </a> | <a class="wiki_link"
-        href="logic-from-database_en.html">17. Logic from database&nbsp;</a> | <a
-        class="wiki_link" href="validating-with-entityvalidator_en.html">18.
-        Validating with @EntityValidator&nbsp;</a> |&nbsp; <a class="wiki_link"
-        href="validation-alternatives_en.html">19.
-        Validation alternatives&nbsp;</a> | <a class="wiki_link" href="validation-on-remove_en.html">20.
-        Validation on remove&nbsp;</a> |&nbsp;<a class="wiki_link" href="custom-bean-validation-annotation_en.html">
-        21. Custom Bean Validation annotation&nbsp;</a> | <a class="wiki_link"
-        href="rest-service-call-from-validation_en.html">22.
-        REST service call from validation&nbsp;</a> | <a class="wiki_link" href="attributes-in-annotations_en.html">23.
-        Attributes in annotations&nbsp;</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">24.
-        Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">25.
-        Behavior &amp; business logic</a> | <strong>26. References &amp;
-        collections </strong> | <a class="wiki_link" href="philosophy_en.html">A.
-        Architecture &amp; philosophy</a> | <a class="wiki_link" href="jpa_en.html">B.
-        Java Persistence API</a> | <a class="wiki_link" href="annotations_en.html">C.
-        Annotations</a> | <a class="wiki_link" href="testing_en.html">D.
-        Automated testing</a>
+      <h1 id="toc0"><a name="references-collections"></a> <span id="breadcrumbs"> <span
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_en.html">documentation</a> / </span> Lesson 26: References &amp; collections </h1>
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1. Getting started</a> | <a
+        class="wiki_link" href="basic-domain-model1_en.html">2. Basic domain model (1)</a> | <a
+        class="wiki_link" href="basic-domain-model2_en.html">3. Basic domain model (2)</a> | <a
+        class="wiki_link" href="refining-user-interface_en.html">4. Refining the user interface</a> | <a
+        class="wiki_link" href="agile-development_en.html">5. Agile development</a> |&nbsp;<a
+        class="wiki_link" href="mapped-superclass-inheritance_en.html">6. Mapped superclass inheritance</a> | <a
+        class="wiki_link" href="entity-inheritance_en.html">7. Entity inheritance</a> | <a
+        class="wiki_link" href="view-inheritance_en.html">8. View inheritance</a> | <a
+        class="wiki_link" href="java-properties_en.html">9. Java properties</a> | <a
+        class="wiki_link" href="calculated-properties_en.html">10. Calculated properties </a> | <a
+        class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11. @DefaultValueCalculator in collections </a> | <a
+        class="wiki_link" href="calculation-and-collections-total_en.html">12. @Calculation and collections totals </a> | <a
+        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file </a> | <a
+        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution </a> | <a
+        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation </a> | <a
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed propierties </a> | <a
+        class="wiki_link" href="logic-from-database_en.html">17. Logic from database&nbsp;</a> | <a
+        class="wiki_link" href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator&nbsp;</a> |&nbsp; <a
+        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
+        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
+        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
+        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
+        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
+        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
+        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <strong>26. References &amp; collections </strong> | <a
+        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
+        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
+        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+        class="wiki_link" href="testing_en.html">D. Automated testing</a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
-        <div style="margin-left: 1em;"><a href="#references-collections">Lesson
-            26: References &amp; collections</a></div>
-        <div style="margin-left: 2em;"><a href="#refining-reference-behavior">Refining
-            reference behavior</a></div>
-        <div style="margin-left: 3em;"><a href="#validation-is-good-but-not-enough">Validation
-            is good, but not enough</a></div>
-        <div style="margin-left: 3em;"><a href="#refining-action-for-searching-reference-with-list">Refining
-            action for searching reference with list</a></div>
-        <div style="margin-left: 3em;"><a href="#searching-the-reference-typing-in-fields">Searching
-            the reference typing in fields</a></div>
-        <div style="margin-left: 3em;"><a href="#refining-action-for-searching-reference-typing-key">Refining
-            action for searching reference typing key</a></div>
-        <div style="margin-left: 2em;"><a href="#refining-collection-behavior">Refining
-            collection behavior</a></div>
-        <div style="margin-left: 3em;"><a href="#refining-the-list-for-adding-elements-to-a-collection">Refining
-            the list for adding elements to a collection</a></div>
-        <div style="margin-left: 3em;"><a href="#refining-the-action-to-add-elements-to-a-collection">Refining
-            the action to add elements to a collection</a></div>
+        <div style="margin-left: 1em;"><a href="#references-collections">Lesson 26: References &amp; collections</a></div>
+        <div style="margin-left: 2em;"><a href="#refining-reference-behavior">Refining reference behavior</a></div>
+        <div style="margin-left: 3em;"><a href="#validation-is-good-but-not-enough">Validation is good, but not enough</a></div>
+        <div style="margin-left: 3em;"><a href="#refining-action-for-searching-reference-with-list">Refining action for searching reference with list</a></div>
+        <div style="margin-left: 3em;"><a href="#searching-the-reference-typing-in-fields">Searching the reference typing in fields</a></div>
+        <div style="margin-left: 3em;"><a href="#refining-action-for-searching-reference-typing-key">Refining action for searching reference typing key</a></div>
+        <div style="margin-left: 2em;"><a href="#refining-collection-behavior">Refining collection behavior</a></div>
+        <div style="margin-left: 3em;"><a href="#refining-the-list-for-adding-elements-to-a-collection">Refining the list for adding elements to a collection</a></div>
+        <div style="margin-left: 3em;"><a href="#refining-the-action-to-add-elements-to-a-collection">Refining the action to add elements to a collection</a></div>
         <div style="margin-left: 2em;"><a href="#summary">Summary</a></div>
       </div>
-      In previous lessons you learned how to add your own actions. However this
-      is not enough to fully customize the behavior of your application, because
-      the generated user interface, in concrete the user interface for
-      references and collections, has a standard behavior that sometimes is not
-      the most convenient. <br>
-      Fortunately, OpenXava provides many ways to customize the behavior for
-      references and collections. In this lesson you will learn how to do some
-      of these customizations, and how this adds value to your application.
+      In previous lessons you learned how to add your own actions. However this is not enough to fully customize the behavior of your application, because the generated user interface, in concrete the user interface for references and collections, has a standard behavior that sometimes is not the most convenient. <br>
+      Fortunately, OpenXava provides many ways to customize the behavior for references and collections. In this lesson you will learn how to do some of these customizations, and how this adds value to your application.
       <h2><a name="refining-reference-behavior"></a>Refining reference behavior</h2>
-      You might have noticed that the <i>Order</i> module has a little slip:
-      the user can add any invoice he wants to the current order, even if the
-      invoice customer was different. This is not acceptable. Let's fix it.
-      <h3><a name="validation-is-good-but-not-enough"></a>Validation is good,
-        but not enough</h3>
-      The user can only associate an invoice to an order if both, invoice and
-      order, belong to the same customer. This is specific business logic of
-      your application, so the standard OpenXava behavior does not solve it. The
-      next image shows as a validation error is produced when customer of
-      invoice is incorrect </div>
+      You might have noticed that the <i>Order</i> module has a little slip: the user can add any invoice he wants to the current order, even if the invoice customer was different. This is not acceptable. Let's fix it.
+      <h3><a name="validation-is-good-but-not-enough"></a>Validation is good, but not enough</h3>
+      The user can only associate an invoice to an order if both, invoice and order, belong to the same customer. This is specific business logic of your application, so the standard OpenXava behavior does not solve it. The next image shows as a validation error is produced when customer of invoice is incorrect </div>
     <img src="files/references-collections_en010.png" alt="references-collections_en010"
       title="references-collections_en010">
-    <div class="wiki" style="display: block;"> Since this is business logic we
-      are going to put it in the model layer, that is, in the entities. We'll do
-      it adding a validation. Thus you'll get the effect of the above figure.
-      You already know how to add this validation to your <i>Order </i>entity.
-      It's just adding a method annotated with <i>@AssertTrue</i>:<br>
+    <div class="wiki" style="display: block;"> Since this is business logic we are going to put it in the model layer, that is, in the entities. We'll do it adding a validation. Thus you'll get the effect of the above figure. You already know how to add this validation to your <i>Order </i>entity. It's just adding a method annotated with <i>@AssertTrue</i>:<br>
       <pre><code class="java">public class Order {
 
     ...
@@ -108,27 +76,16 @@
     }
 
 }
-</code></pre>Also you have to add the message to <i>i18n/Invoicing-messages_en.properties</i>:</div>
+</code></pre>Also you have to add the message to <i>src/main/resources/i18n/invoicing-messages_en.properties</i>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="properties">customer_order_invoice_must_match=The customer of the invoice and the order must match
 </code></pre> </div>
-    <div class="wiki" style="display: block;"> Here we verify that the customer
-      of the invoice is the same as the customer of this order. This is enough
-      to preserve the data integrity, but this validation alone is a poor option
-      from the user viewpoint.
-      <h3><a name="refining-action-for-searching-reference-with-list"></a>Refining
-        action for searching reference with list</h3>
-      Although validation prevents the user from assigning an incorrect invoice
-      to an order, he has a hard time trying to find a correct invoice. Because
-      when the user clicks to search an invoice, all existing invoices are
-      shown. We are going to improve this for showing only the invoices from the
-      customer of the current displayed order, in this way:</div>
+    <div class="wiki" style="display: block;"> Here we verify that the customer of the invoice is the same as the customer of this order. This is enough to preserve the data integrity, but this validation alone is a poor option from the user viewpoint.
+      <h3><a name="refining-action-for-searching-reference-with-list"></a>Refining action for searching reference with list</h3>
+      Although validation prevents the user from assigning an incorrect invoice to an order, he has a hard time trying to find a correct invoice. Because when the user clicks to search an invoice, all existing invoices are shown. We are going to improve this for showing only the invoices from the customer of the current displayed order, in this way:</div>
     <img src="files/references-collections_en020.png" alt="references-collections_en020.png"
       title="references-collections_en020.png"><br>
-    <div class="wiki" style="display: block;"> For defining our own search
-      action for the invoice reference we will use the <i>@SearchAction</i>
-      annotation. Here you have the needed modification in <i>Order</i>
-      class:&nbsp;
+    <div class="wiki" style="display: block;"> For defining our own search action for the invoice reference we will use the <i>@SearchAction</i> annotation. Here you have the needed modification in <i>Order</i> class:&nbsp;
       <pre><code class="java">public class Order extends CommercialDocument {
 
     @ManyToOne
@@ -140,13 +97,7 @@
     ...
 	
 }
-</code></pre> In this simple way we define the action to execute when the user
-      clicks on the flashlight button to search an invoice. The argument used
-      for <i> @SearchAction</i>, <i>Order.searchInvoice</i>, is the qualified
-      name of the action, that is the action <i>searchInvoice</i> of the
-      controller <i>Order</i> as defined in <i> controllers.xml</i> file. Now
-      we have to edit <i>controllers.xml</i> to add the definition of our new
-      action:
+</code></pre> In this simple way we define the action to execute when the user clicks on the flashlight button to search an invoice. The argument used for <i> @SearchAction</i>, <i>Order.searchInvoice</i>, is the qualified name of the action, that is the action <i>searchInvoice</i> of the controller <i>Order</i> as defined in <i> controllers.xml</i> file. Now we have to edit <i>controllers.xml</i> to add the definition of our new action:
       <pre><code class="xml">&lt;controller name="Order"&gt;
 
     ...
@@ -160,8 +111,7 @@
         --&gt;
 	
 &lt;/controller&gt;
-</code></pre> Our action extends from <i>ReferenceSearchAction</i> as shown in
-      the next code:
+</code></pre> Our action extends from <i>ReferenceSearchAction</i> as shown in the next code:
       <pre><code class="java">package com.yourcompany.invoicing.actions; // In 'actions' package
 
 import org.openxava.actions.*; // To use ReferenceSearchAction
@@ -179,32 +129,13 @@ public class SearchInvoiceFromOrderAction
         }
     }
 }
-</code></pre> Note how we use <i>getTab().setBaseCondition()</i> to establish a
-      condition for the list to choose the reference. That is, from a <i>
-        ReferenceSearchAction</i> you can use <i>getTab()</i> to manipulate the
-      way the search list behaves. <br>
-      If there is no customer we don't add any condition so all the invoices
-      will be shown, this is the case when the user chooses the invoice before
-      choosing the customer.
-      <h3><a name="searching-the-reference-typing-in-fields"></a>Searching the
-        reference typing in fields</h3>
-      The list for choosing a reference already works fine. However, we want to
-      give the user the possibility to choose the invoice without the list, by
-      just typing the year and number. Very useful if the user already know
-      which invoice he wants. OpenXava provides this functionality by default.
-      If the <i>@Id</i> fields are displayed in the reference they are used for
-      searching, otherwise OpenXava uses the first displayed field to search.
-      This is not convenient in our case, because the first displayed field is
-      the year, and searching an invoice only by year is not very precise. The
-      following image shows the default behavior and a more convenient
-      alternative:<br>
+</code></pre> Note how we use <i>getTab().setBaseCondition()</i> to establish a condition for the list to choose the reference. That is, from a <i> ReferenceSearchAction</i> you can use <i>getTab()</i> to manipulate the way the search list behaves. <br>
+      If there is no customer we don't add any condition so all the invoices will be shown, this is the case when the user chooses the invoice before choosing the customer.
+      <h3><a name="searching-the-reference-typing-in-fields"></a>Searching the reference typing in fields</h3>
+      The list for choosing a reference already works fine. However, we want to give the user the possibility to choose the invoice without the list, by just typing the year and number. Very useful if the user already know which invoice he wants. OpenXava provides this functionality by default. If the <i>@Id</i> fields are displayed in the reference they are used for searching, otherwise OpenXava uses the first displayed field to search. This is not convenient in our case, because the first displayed field is the year, and searching an invoice only by year is not very precise. The following image shows the default behavior and a more convenient alternative:<br>
       <img src="files/references-collections_en030.png" alt="references-collections_en030.png"
         title="references-collections_en030.png"><br>
-      Fortunately it's easy to indicate which fields we want to use to search
-      from a user perspective. This is done by means of <i>@SearchKey</i>
-      annotation. Just edit the <i>CommercialDocument</i> class (remember, the
-      parent of <i>Order</i> and <i> Invoice</i>) and add that annotation to
-      the <i>year</i> and <i>number</i> properties:
+      Fortunately it's easy to indicate which fields we want to use to search from a user perspective. This is done by means of <i>@SearchKey</i> annotation. Just edit the <i>CommercialDocument</i> class (remember, the parent of <i>Order</i> and <i> Invoice</i>) and add that annotation to the <i>year</i> and <i>number</i> properties:
       <pre><code class="java">abstract public class CommercialDocument extends Deletable {
 
     @SearchKey // Add this annotation here
@@ -220,32 +151,16 @@ public class SearchInvoiceFromOrderAction
     ...
 	
 }
-</code></pre> In this way when the user searches an order or invoice from a
-      reference he must type the year and the number, and the corresponding
-      entity will be retrieved from database and will populate the user
-      interface. <br>
-      Now it's easy for the user to choose an invoice for the order without
-      using the searching list, just by typing year and number.
-      <h3><a name="refining-action-for-searching-reference-typing-key"></a>Refining
-        action for searching reference typing key</h3>
-      Now that retrieving an invoice by the year and number is usable, we want
-      to refine it in order to help our user to do his work more efficiently.
-      For example, it would be useful that if the user has not chosen a customer
-      for the order yet and he chooses an invoice, the customer of that invoice
-      will be assigned to the current order automatically. The following image
-      visualizes the wanted behavior:<br>
+</code></pre> In this way when the user searches an order or invoice from a reference he must type the year and the number, and the corresponding entity will be retrieved from database and will populate the user interface. <br>
+      Now it's easy for the user to choose an invoice for the order without using the searching list, just by typing year and number.
+      <h3><a name="refining-action-for-searching-reference-typing-key"></a>Refining action for searching reference typing key</h3>
+      Now that retrieving an invoice by the year and number is usable, we want to refine it in order to help our user to do his work more efficiently. For example, it would be useful that if the user has not chosen a customer for the order yet and he chooses an invoice, the customer of that invoice will be assigned to the current order automatically. The following image visualizes the wanted behavior:<br>
       <img src="files/references-collections_en040.png" alt="references-collections_en040.png"
         title="references-collections_en040.png"><br>
-      On the other hand, if the user already has selected the customer for the
-      order, if he is not the same in the invoice, it will be rejected and a
-      message error displayed, just in this way:</div>
+      On the other hand, if the user already has selected the customer for the order, if he is not the same in the invoice, it will be rejected and a message error displayed, just in this way:</div>
     <img src="files/references-collections_en050.png" alt="references-collections_en050.png"
       title="references-collections_en050.png"><br>
-    <div class="wiki" style="display: block;"> For defining this special
-      behavior we have to add an <i>@OnChangeSearch</i> annotation in the the <i>invoice</i>
-      reference of <i>Order</i>. <i>@OnChangeSearch</i> allows you to define
-      your own action to do the search of the reference when its key changes in
-      the user interface. You can see the modified reference here:
+    <div class="wiki" style="display: block;"> For defining this special behavior we have to add an <i>@OnChangeSearch</i> annotation in the the <i>invoice</i> reference of <i>Order</i>. <i>@OnChangeSearch</i> allows you to define your own action to do the search of the reference when its key changes in the user interface. You can see the modified reference here:
       <pre><code class="java">public class Order extends CommercialDocument {
  
     @ManyToOne
@@ -258,10 +173,7 @@ public class SearchInvoiceFromOrderAction
     ...
 	
 }	
-</code></pre> From now on when the user types a new year and number for the
-      invoice, the logic of <i>OnChangeSearchInvoiceAction</i> will be
-      executed. In this action you have to read the invoice data from database
-      and update the user interface. This is the action code:
+</code></pre> From now on when the user types a new year and number for the invoice, the logic of <i>OnChangeSearchInvoiceAction</i> will be executed. In this action you have to read the invoice data from database and update the user interface. This is the action code:
       <pre><code class="java">package com.yourcompany.invoicing.actions; // In 'actions' package
 
 import java.util.*;
@@ -295,48 +207,18 @@ public class OnChangeSearchInvoiceAction
         }
     }
 }	
-</code></pre> Given the action extends from <i>OnChangeSearchAction</i> (1) and
-      we use <i>super.execute() </i>(2) it behaves just in the standard way,
-      that is, when the user types a year and number the invoice data is
-      retrieved and fills the user interface. Afterwards, we use <i>getView()</i>
-      (3) to obtain the key of the displayed invoice to find the corresponding
-      entity using <i>MapFacade</i> (4). From inside an <i>OnChangeSearchAction</i>
-      <i>getView()</i> returns the subview of the reference, and not the global
-      view. Therefore, in this case <i>getView()</i> is the view of the invoice
-      reference. This allows you to create more reusable <i>@OnChangeSearch</i>
-      actions. Thus you have to write <i>getView().getRoot().getSubview("customer")</i>
-      (5) to access to the customer view. <br>
-      To implement the behavior visualized in the previous image, the action
-      asks if there is no customer (<i>customberNumber == 0</i>) (6). If this is
-      the case it fills the customer from the customer of the invoice. Otherwise
-      it implements the logic from previous image verifying that the customer of
-      the current order matches the customer of the retrieved invoice. <br>
-      The last remaining detail is the message text. Add the next entry to the <i>Invoicing-messages_en.properties</i>
-      file of <i>i18n</i> folder.
+</code></pre> Given the action extends from <i>OnChangeSearchAction</i> (1) and we use <i>super.execute() </i>(2) it behaves just in the standard way, that is, when the user types a year and number the invoice data is retrieved and fills the user interface. Afterwards, we use <i>getView()</i> (3) to obtain the key of the displayed invoice to find the corresponding entity using <i>MapFacade</i> (4). From inside an <i>OnChangeSearchAction</i> <i>getView()</i> returns the subview of the reference, and not the global view. Therefore, in this case <i>getView()</i> is the view of the invoice reference. This allows you to create more reusable <i>@OnChangeSearch</i> actions. Thus you have to write <i>getView().getRoot().getSubview("customer")</i> (5) to access to the customer view. <br>
+      To implement the behavior visualized in the previous image, the action asks if there is no customer (<i>customberNumber == 0</i>) (6). If this is the case it fills the customer from the customer of the invoice. Otherwise it implements the logic from previous image verifying that the customer of the current order matches the customer of the retrieved invoice. <br>
+      The last remaining detail is the message text. Add the next entry to the <i>invoicing-messages_en.properties</i> file of <i>src/main/resources/i18n</i> folder.
       <pre><code class="properties">invoice_customer_not_match=Customer Nº {0} of invoice {1} does not match with customer Nº {2} of the current order
-</code></pre> One interesting thing about <i>@OnChangeSearch</i> is that it is
-      also executed when the invoice is chosen from a list, because in this case
-      the year and number of the invoice also changes. Hence, this is a
-      centralized place to refine the logic for retrieving the reference and
-      populating the view.
-      <h2><a name="refining-collection-behavior"></a>Refining collection
-        behavior</h2>
-      We can refine collections in the same way we have refined references. This
-      is very useful, because it allows us to improve the current behavior of
-      the <i>Invoice </i>module. The user can only add an order to an invoice
-      if the invoice and the orders belongs to the same customer. Moreover, the
-      order must be delivered and must not have an invoice yet.
-      <h3><a name="refining-the-list-for-adding-elements-to-a-collection"></a>Refining
-        the list for adding elements to a collection</h3>
-      Currently when the user tries to add orders to an invoice all the orders
-      are available. We are going to improve this for showing only the orders
-      from the customer of the invoice, delivered and with not invoice yet, just
-      as shown: <br>
+</code></pre> One interesting thing about <i>@OnChangeSearch</i> is that it is also executed when the invoice is chosen from a list, because in this case the year and number of the invoice also changes. Hence, this is a centralized place to refine the logic for retrieving the reference and populating the view.
+      <h2><a name="refining-collection-behavior"></a>Refining collection behavior</h2>
+      We can refine collections in the same way we have refined references. This is very useful, because it allows us to improve the current behavior of the <i>Invoice </i>module. The user can only add an order to an invoice if the invoice and the orders belongs to the same customer. Moreover, the order must be delivered and must not have an invoice yet.
+      <h3><a name="refining-the-list-for-adding-elements-to-a-collection"></a>Refining the list for adding elements to a collection</h3>
+      Currently when the user tries to add orders to an invoice all the orders are available. We are going to improve this for showing only the orders from the customer of the invoice, delivered and with not invoice yet, just as shown: <br>
       <img src="files/references-collections_en60.png" alt="references-collections_en60.png"
         title="references-collections_en60.png"><br>
-      We will use the <i>@AddAction</i> annotation for defining our own action
-      to show the list for adding orders. The following code shows the needed
-      modification in <i>Invoice</i> class.
+      We will use the <i>@AddAction</i> annotation for defining our own action to show the list for adding orders. The following code shows the needed modification in <i>Invoice</i> class.
       <pre><code class="java">public class Invoice extends CommercialDocument {
 
     @OneToMany(mappedBy="invoice")
@@ -347,13 +229,8 @@ public class OnChangeSearchInvoiceAction
     ...
 	
 }
-</code></pre> In this simple way we define the action to execute when the user
-      clicks on the button to add orders. The argument used for <i>@AddAction</i>,
-      <i>Invoice.addOrders</i>, is the qualified name of the action, that is the
-      action <i>addOrders</i> of the controller <i>Invoice</i> as defined in <i>
-        controllers.xml</i> file. <br>
-      Now we have to edit <i>controllers.xml</i> to add the <i>Invoice</i>
-      controller (it does not exist yet) definition with our new action:
+</code></pre> In this simple way we define the action to execute when the user clicks on the button to add orders. The argument used for <i>@AddAction</i>, <i>Invoice.addOrders</i>, is the qualified name of the action, that is the action <i>addOrders</i> of the controller <i>Invoice</i> as defined in <i> controllers.xml</i> file. <br>
+      Now we have to edit <i>controllers.xml</i> to add the <i>Invoice</i> controller (it does not exist yet) definition with our new action:
       <pre><code class="xml">&lt;controller name="Invoice"&gt;
     &lt;extends controller="Invoicing"/&gt;
 
@@ -386,28 +263,14 @@ public class GoAddOrdersToInvoiceAction
         );
     }
 }
-</code></pre> Note how we use <i>getTab().setBaseCondition()</i> to establish a
-      condition for the list to choose the entities to add. That is, from a <i>
-        GoAddElementsToCollectionAction</i> you can use <i>getTab()</i> to
-      manipulate the way the list behaves.
-      <h3><a name="refining-the-action-to-add-elements-to-a-collection"></a>Refining
-        the action to add elements to a collection</h3>
-      A useful improvement for the orders collection would be that when the user
-      adds orders to the current invoice, the detail lines of those orders will
-      be copied automatically to the invoice.<br>
-      We cannot use the <i>@AddAction</i> for this, because it is the action to
-      show the list to add elements to the collection. But this is not the
-      action that adds the elements. <br>
+</code></pre> Note how we use <i>getTab().setBaseCondition()</i> to establish a condition for the list to choose the entities to add. That is, from a <i> GoAddElementsToCollectionAction</i> you can use <i>getTab()</i> to manipulate the way the list behaves.
+      <h3><a name="refining-the-action-to-add-elements-to-a-collection"></a>Refining the action to add elements to a collection</h3>
+      A useful improvement for the orders collection would be that when the user adds orders to the current invoice, the detail lines of those orders will be copied automatically to the invoice.<br>
+      We cannot use the <i>@AddAction</i> for this, because it is the action to show the list to add elements to the collection. But this is not the action that adds the elements. <br>
       Let's learn how to define the action that actually adds the elements: <br>
       <img src="files/references-collections_en70.png" alt="references-collections_en70.png"
         title="references-collections_en70.png"><br>
-      Unfortunately, there is not an annotation to directly define this 'Add'
-      action. However, that is not a very difficult task, we only have to refine
-      the <i>@AddAction</i> instructing it to show our own controller, and in
-      this controller we can put the actions we want. Given we already have
-      defined our <i>@AddAction</i> in the previous section we only have to add
-      a new method to the already existing <i>GoAddOrdersToInvoiceAction</i>
-      class. Add the next <i>getNextController()</i> method to your action:
+      Unfortunately, there is not an annotation to directly define this 'Add' action. However, that is not a very difficult task, we only have to refine the <i>@AddAction</i> instructing it to show our own controller, and in this controller we can put the actions we want. Given we already have defined our <i>@AddAction</i> in the previous section we only have to add a new method to the already existing <i>GoAddOrdersToInvoiceAction</i> class. Add the next <i>getNextController()</i> method to your action:
       <pre><code class="java">public class GoAddOrdersToInvoiceAction ... {
 
     ...
@@ -416,11 +279,7 @@ public class GoAddOrdersToInvoiceAction
         return "AddOrdersToInvoice"; // The controller with the available actions
     }                                // in the list of orders to add
 }
-</code></pre> By default the actions in the list of entities to add (the ADD and
-      CANCEL buttons) are from the standard OpenXava controller <i>AddToCollection</i>.
-      Overwriting <i>getNextController()</i> in our action allows us to define
-      our own controller instead. Add the next definition in <i>controllers.xml</i>
-      for our custom controller for adding elements:
+</code></pre> By default the actions in the list of entities to add (the ADD and CANCEL buttons) are from the standard OpenXava controller <i>AddToCollection</i>. Overwriting <i>getNextController()</i> in our action allows us to define our own controller instead. Add the next definition in <i>controllers.xml</i> for our custom controller for adding elements:
       <pre><code class="xml">&lt;controller name="AddOrdersToInvoice"&gt;
     &lt;extends controller="AddToCollection" /&gt; &lt;!-- Extends from the standard controller --&gt;
 	
@@ -429,10 +288,7 @@ public class GoAddOrdersToInvoiceAction
         class="com.yourcompany.invoicing.actions.AddOrdersToInvoiceAction" /&gt;
 		
 &lt;/controller&gt;
-</code></pre> In this way the action to add orders to the invoice is <i>AddOrdersToInvoiceAction</i>.
-      Remember that the goal of our action is to add the orders to the invoice
-      in the usual way, but also to copy the detail lines from those orders to
-      the invoice. This is the code of the action:<br>
+</code></pre> In this way the action to add orders to the invoice is <i>AddOrdersToInvoiceAction</i>. Remember that the goal of our action is to add the orders to the invoice in the usual way, but also to copy the detail lines from those orders to the invoice. This is the code of the action:<br>
       <pre><code class="java">package com.yourcompany.invoicing.actions; // In 'actions' package
 
 import java.rmi.*;
@@ -462,41 +318,18 @@ public class AddOrdersToInvoiceAction
         order.copyDetailsToInvoice(); // Delegates the main work to the entity (3)
     }
 }
-</code></pre> We overwrite the <i>execute()</i> method only to refresh the view
-      after the process. Really, we want to refine the logic for associating an
-      order to the invoice. The way to do this is overwriting the <i>associateEntity()</i>
-      method. The logic here is simple, after executing the standard logic (1)
-      we search the corresponding <i>Order</i> entity and then call the <i>copyDetailsToInvoice()</i>
-      in that <i>Order</i>. Luckily we already have a method to copy details
-      from an <i>Order</i> to the specified <i>Invoice</i>, we just call this
-      method. </div>
-    <div class="wiki" style="display: block;">Now you only have to create a new
-      invoice, choose a customer and add orders. It is even easier than using
-      the list mode of <i>Order</i> module because from <i>Invoice</i> module
-      only the suitable orders for the customer are shown.
+</code></pre> We overwrite the <i>execute()</i> method only to refresh the view after the process. Really, we want to refine the logic for associating an order to the invoice. The way to do this is overwriting the <i>associateEntity()</i> method. The logic here is simple, after executing the standard logic (1) we search the corresponding <i>Order</i> entity and then call the <i>copyDetailsToInvoice()</i> in that <i>Order</i>. Luckily we already have a method to copy details from an <i>Order</i> to the specified <i>Invoice</i>, we just call this method. </div>
+    <div class="wiki" style="display: block;">Now you only have to create a new invoice, choose a customer and add orders. It is even easier than using the list mode of <i>Order</i> module because from <i>Invoice</i> module only the suitable orders for the customer are shown.
       <h2><a name="summary"></a>Summary</h2>
-      This lesson has shown you how to refine the standard behavior of
-      references and collections in order for your application to fit the users
-      needs. Here you only have seen some illustrative examples, but OpenXava
-      provides many more possibilities for refining collections and references,
-      such as the next annotations: <i>@ReferenceView, @ReadOnly, @NoFrame,
-        @NoCreate, @NoModify, @NoSearch, @AsEmbedded, @SearchAction,
-        @DescriptionsList, @LabelFormat, @Action, @OnChange, @OnChangeSearch,
-        @Editor, @CollectionView, @EditOnly, @ListProperties, @RowStyle,
-        @EditAction, @ViewAction, @NewAction, @SaveAction, @HideDetailAction,
-        @RemoveAction, @RemoveSelectedAction, @ListAction, @DetailAction</i> and
-      <i>@OnSelectElementAction</i>. Look at the <a href="view_en.html#View-Reference%20customization">Reference
-        customization</a> and <a href="view_en.html#View-Collection%20customization">Collection
-        customization</a> sections of reference guide.<br>
-      And if that wasn't enough you always have the option of <a href="customizing_en.html">defining
-        your own editor</a> for references or collections. Editors allows you to
-      create a custom user interface component for displaying and editing the
-      reference or collection. <br>
-      This flexibility allows you to use automatic user interfaces for
-      practically any possible case in real life business applications. </div>
+      This lesson has shown you how to refine the standard behavior of references and collections in order for your application to fit the users needs. Here you only have seen some illustrative examples, but OpenXava provides many more possibilities for refining collections and references, such as the next annotations: <i>@ReferenceView, @ReadOnly, @NoFrame, @NoCreate, @NoModify, @NoSearch, @AsEmbedded, @SearchAction, @DescriptionsList, @LabelFormat, @Action, @OnChange, @OnChangeSearch, @Editor, @CollectionView, @EditOnly, @ListProperties, @RowStyle, @EditAction, @ViewAction, @NewAction, @SaveAction, @HideDetailAction, @RemoveAction, @RemoveSelectedAction, @ListAction, @DetailAction</i> and <i>@OnSelectElementAction</i>. Look at the <a
+        href="view_en.html#View-Reference%20customization">Reference customization</a> and <a
+        href="view_en.html#View-Collection%20customization">Collection customization</a> sections of reference guide.<br>
+      And if that wasn't enough you always have the option of <a href="customizing_en.html">defining your own editor</a> for references or collections. Editors allows you to create a custom user interface component for displaying and editing the reference or collection. <br>
+      This flexibility allows you to use automatic user interfaces for practically any possible case in real life business applications. </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code-references-collections_en.zip/download"
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+          href="https://github.com/openxava/openxava-course_en/tree/lesson-26"
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
       <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
