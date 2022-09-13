@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Source code for the course in English and Spanish available in GitHub for each lesson.
 - Fix: Editors for annotations do not work for child classes using inheritance.
 - New method getField() in Classes utility class.
 - Fix: Tooltip for page numbers always says "First page".
