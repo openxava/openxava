@@ -201,9 +201,9 @@ order_is_not_delivered=订单未送达
 impossible_create_invoice=无法创建发票
 </code></pre> 在开发人员中一直存在关于在 Java 中异常的正确使用方法的争论。本节使用的方法的在 Java Enterprise 世界中处理异常的经典方法。
       <h3><a name="validation-from-action"></a>在动作中验证</h3>
-      Usually the best place for validations is the model, i.e., the entities. However, sometimes it's necessary to put validation logic in the actions. For example, if you want to obtain the current state of the user interface, the validation must be done from the action.<br>
-      In our case, if the user clicks on CREATE INVOICE when creating a new order, and this order is not yet saved, it will fail. It fails because it's impossible to create an invoice from an non-existent order. The user must first save the order.<br>
-      For that add an condition at the begin of the <i>execute()</i> method of <i>CreateInvoiceFromOrderAction</i> to validate that the currently displayed order is saved:
+      通常验证的最佳位置是在模型，也就是在实体。但是，有时需要将验证逻辑放在動作中。例如，如果要获取用户界面的当前状态，则必须从動作进行验证。<br>
+      在我们的例子中，如果用户在创建一个新订单时点击了 CREATE INVOICE，但是这个订单还没有被保存，它将会失败。原因是因为不能从不存在的订单去创建发票。因此用户必须先保存订单。<br>
+      为此，我們在 CreateInvoiceFromOrderAction 的 execute() 方法的开头添加一个条件，以验证当前显示的订单是否已保存：
       <pre><code class="java">public void execute() throws Exception {
     // Add the next condition       
     if (getView().getValue("oid") == null) { 
@@ -215,14 +215,14 @@ impossible_create_invoice=无法创建发票
     ...
     
 }
-</code></pre> The validation consists of verifying if the <i>oid</i> is null (1), in which case the user is entering a new order, but he did not save it yet. In this case a message is shown, and the creation of the invoice is aborted. <br>
-      Here we also have a message to add to the i18n file. Edit the <i>invoicing-messages_en.properties</i> file in the <i>src/main/resources/i18n</i> folder adding the next entry:
-      <pre><code class="properties">impossible_create_invoice_order_not_exist=Impossible to create invoice: The order does not exist yet
-</code></pre> Validations tell the user that he has done something wrong. This is needed, of course, but better still is to create an application that helps the user to avoid any wrong doings. Let's see one way to do so in the next section.
+</code></pre> 此验证會查看 oid 是否为空 (1)，當用户正在输入新订单，但他尚未保存時 oid 是空的。在这种情况下，会显示一条消息，并且发票的创建將被中止。<br>
+      这里我们还有一条消息要添加到 i18n 文件中。请编辑 src/main/resources/i18n 文件夹中的 invoicing-messages_zh.properties 文件，添加以下条目：
+      <pre><code class="properties">impossible_create_invoice_order_not_exist=无法创建发票：订单尚不存在
+</code></pre> 验证會告诉用户他做错了什么。这当然是必要的，但更好的是创建一个能帮助用户避免任何错误行为的应用程序。让我们在下一节中看看如何做的一种方法。
       <h3><a name="on-change-event-to-hide-show-an-action-programmatically"></a>使用 OnChange 事件来隐藏/显示一个动作</h3>
-      Our current code is robust enough to prevent user slips from breaking data. We will go one step further, preventing the user to slip at all. We're going to hide the action for creating a new invoice, if the order is not valid to be invoiced.<br>
-      OpenXava allows to hide and show actions programmatically. It also allows the execution of an action when some property is changed by the user on the screen. We can use these two techniques to show the button only when the action is ready to be used.<br>
-      Remember that an invoice can be generated from an order only if the order has been delivered and it does not yet have an invoice. So, we have to monitor the changes in the <i>invoice</i> reference and <i>delivered</i> property of the <i> Order</i> entity. First, we'll create an action to show or hide the action for creating an invoice from order, <i>ShowHideCreateInvoiceAction, </i>with this code: <br>
+      我们当前的代码足够防止用户因失误而破坏数据。但我们将更进一步，防止用户失誤。如果订单不應該开发票時，我们将隐藏创建新发票的動作。<br>
+      OpenXava 允许自動隐藏和显示動作。也允許用户在界面更改某些属性时，自動执行某此動作。我们可以使用这两种技术仅在准备好使用时才显示動作的按钮。<br>
+      请记住，仅当订单已送達且还没有发票时，才能从订单中生成发票。因此，我们必须监控订单实体的 invoice 引用和 delivered 属性的变化。首先，我们将使用以下代码创建一个動作来显示或隐藏从订单中创建发票的動作 ShowHideCreateInvoiceAction：<br>
       <pre><code class="java">package com.yourcompany.invoicing.actions; // In the 'actions' package
 
 import org.openxava.actions.*; // Needed to use OnChangePropertyAction,
@@ -253,7 +253,7 @@ public class ShowHideCreateInvoiceAction
         return getView().getValue("invoice.oid") != null; // We read the value from the view
     } 	
 }
-</code></pre> Then we annotate <i>invoice</i> and <i>delivered</i> in <i>Order</i> with <i>@OnChange</i> so when the user changes the value of <i>delivered</i> or <i>invoice</i> in the screen, the <i>ShowHideCreateInvoiceAction</i> will be executed:
+</code></pre> 然后我们用 @OnChange 注解 invoice 和 delivered，因此当用户在界面中更改 delivered 或 invoice 的值时，将执行 ShowHideCreateInvoiceAction：
       <pre><code class="java">public class Order extends CommercialDocument {
 
     ...
@@ -266,14 +266,14 @@ public class ShowHideCreateInvoiceAction
 
     ...
 }
-</code></pre> <i>ShowHideCreateInvoiceAction</i> is a conventional action with an <i>execute()</i> method, moreover it extends <i>OnChangePropertyBaseAction</i> (1). All the actions annotated with <i>@OnChange</i> must implement <i>IOnChangePropertyAction</i>, however it's easier to extend <i>OnChangePropertyBaseAction</i> which implements it. From this action you can use the <i>getNewValue()</i> and <i>getChangedProperty()</i>, although in this specific case we don't need them.<br>
-      The <i>execute()</i> method asks if the displayed order is saved, delivered, and does not already have an invoice (2), in that case it shows the action with <i>addActions("Order.createInvoice")</i>, otherwise it hides the action with <i>removeActions("Order.createInvoice")</i>. Thus we hide or show the <i>Order.createInvoice action</i>, only showing it when it is applicable.The <i>add/removeActions()</i> methods allow to specify several actions to show or hide separated by commas. <br>
-      Now when the user checks the delivered checkbox, or chooses an invoice, the action button is shown or hidden. Accordingly, when the user clicks on <i>New</i> button to create a new order the button for creating the invoice is hidden. However, if you choose to modify an already existing order, the button is always present, regardless if the prerequisites are fulfilled. This is because when an object is searched and displayed the <i>@OnChange</i> actions are not executed by default. We can change this with a little modification in <i> SearchExcludingDeleteAction</i>:
+</code></pre> ShowHideCreateInvoiceAction 是一个带有 execute() 方法的常规动作，不過它還從 OnChangePropertyBaseAction 扩展(1)。所有使用 @OnChange 注解的动作都必须实现 IOnChangePropertyAction，但是從已实现它的 OnChangePropertyBaseAction 扩展會容易些。从此動作，您可以使用 getNewValue() 和 getChangedProperty()，尽管在這例子我们不會用到它们。<br>
+      execute() 方法是询问显示的订单是否已保存、已交付并且还没有发票 (2)，若都是，它会使用 addActions("Order.createInvoice") 显示该動作，相反它則会使用 removeActions 隐藏该動作（“Order.createInvoice”）。因此，我们仅在适用时显示 Order.createInvoice 動作。add/removeActions() 方法允许指定显示或隐藏多个動作，它們得以逗号分隔。<br>
+      现在，当用户點擊 delivered 选框或选择发票时，將显示或隐藏該動作的按钮。而当用户點击新建按钮以创建新订单时，用于创建发票的按钮也會被隐藏。但是，如果您选择修改已存在的订单，则无论是否满足先决条件，该按钮始终存在。这是因为在搜索和显示对象时，默认情况下不会执行 @OnChange 操作。我们可以在 SearchExcludingDeleteAction 中稍作修改来改变这一点：
       <pre><code class="java">public class SearchExcludingDeletedAction
     // extends SearchByViewKeyAction {
     extends SearchExecutingOnChangeAction { // Use this as base class
-</code></pre> The default search action, i.e., <i>SearchByViewKeyAction</i> does not execute the <i>@OnChange</i> actions, so we change our search action to extend from <i>SearchExecutingOnChangeAction</i>. <i>SearchExecutingOnChangeAction</i> behaves like <i>SearchByViewKeyAction</i> but executes the on-change events. This way, when the user selects an order, the <i>ShowHideCreateInvoiceAction</i> is executed.<br>
-      A tiny detail remains to make all this perfect: when the user click on CREATE INVOICE, after the invoice has been created, the button should be hidden. It should not be possible to create the same invoice twice. We can implement this functionality by refining the <i>CreateInvoiceFromOrderAction</i>:
+</code></pre> 默认的搜索動作，也就是 SearchByViewKeyAction 默认下不會执行 @OnChange 操作，因此我们将搜索動作更改为从 SearchExecutingOnChangeAction 扩展。 SearchExecutingOnChangeAction 的行为类似于 SearchByViewKeyAction，但执行 OnChange 事件。这样，当用户选择订单时，就会执行 ShowHideCreateInvoiceAction。<br>
+      還差一个微小的细节就完美了：当用户點击 CREATE INVOICE 时，並创建发票后，该按钮应该被隐藏，不能两次创建同一张发票。我们可以通过优化 CreateInvoiceFromOrderAction 来实现这个功能：
       <pre><code class="java">public void execute() throws Exception {
 
     ...
@@ -281,15 +281,15 @@ public class ShowHideCreateInvoiceAction
     // Everything worked fine, so we'll hide the action
     removeActions("Order.createInvoice"); 
 }
-</code></pre> As you can see we just add the <i>removeActions("Order.createInvoice")</i> at the end of the <i>execute()</i> method.<br>
-      Showing and hiding actions is not a substitute for validation in the model. Validations are still necessary since the entities can be used from any other part of the application, not just from the CRUD module. However, the trick of hiding and showing actions improves the user experience.
+</code></pre> 如您所见，我们只是在 execute() 方法的末尾添加了 removeActions("Order.createInvoice")。<br>
+      显示和隐藏動作並不能替代模型中的验证。验证仍然是必要的，因为实体可能从应用程序的任何其他部分使用，而不仅仅是来自 CRUD 模块。然而，隐藏和显示动作的技巧改善了用户体验。
       <h2><a name="business-logic-from-list-mode"></a>列表模式的业务逻辑</h2>
-      In the previous lesson you learned <a href="refining-standard-behavior_en.html#Lesson%207:%20Refining%20the%20standard%20behavior-List%20mode-List%20actions">how to create list actions</a>. List actions are very useful tools that provides the user with the ability to perform some specific logic on multiple objects at the same time. In our case, we can add an action in list mode to create a new invoice automatically from several selected orders in the list. We want this action to work this way:<br>
+      在上一章，您学到如何<a href="refining-standard-behavior_zh.html#Lesson%207:%20Refining%20the%20standard%20behavior-List%20mode-List%20actions">创建列表動作</a>。列表動作是非常有用的工具，它为用户提供了同时对多个对象执行特定逻辑的能力。在我们的例子中，我们可以在列表模式下添加一个動作，以从列表中选定的多個订单创建新发票。以这种方式工作：<br>
       <img src="files/business-logic-behavior_en020.png" alt="business-logic-behavior_en020.png"
         title="business-logic-behavior_en020.png"><br>
-      This list action takes the selected orders and creates an invoice from them. It just copies the order data into the new invoice, adding the detail lines of all the orders in one unique invoice. Also a message is shown. Let's see how to code this behavior.
+      此列表動作會從选定的订单中创建发票。它只是将订单数据复制到新发票中，将所有订单的詳情添加到一张唯一的发票中。还会显示一条消息。让我们看看如何為這行为編寫代碼。
       <h3><a name="list-action-with-custom-logic"></a>在列表使用自定义逻辑的动作</h3>
-      As you already know, the first step towards having a new custom action in your module is to add that action to a controller. So, let's edit <i> controllers.xml</i> adding a new action to the <i>Order</i> controller:
+      正如您所知道的，在模塊使用自定義動作的第一步是將該動作添加到一個控制器中。因此，让我们编辑 controllers.xml 在 Order 控制器添加一个新動作：
       <pre><code class="xml">&lt;controller name="Order"&gt;
 
     ...
@@ -301,8 +301,8 @@ public class ShowHideCreateInvoiceAction
 	&lt;!-- mode="list": Only shown in list mode --&gt;
 
 &lt;/controller&gt;
-</code></pre> This is all that is needed to have this new action available for <i> Order</i> in list mode.<br>
-      Now we have to write the Java code for the action:
+</code></pre> 这些就讓您在 Order 的列表模式下有新的動作。<br>
+      现在我们必须为这个动作编写 Java 代码：
       <pre><code class="java">package com.yourcompany.invoicing.actions;
 
 import java.util.*;
@@ -331,14 +331,14 @@ public class CreateInvoiceFromSelectedOrdersAction
         return result;
     }
 }
-</code></pre> Really simple. We obtain the list of the checked orders in the list (2), call <i>createFromOrders()</i> static method (3) of <i>Invoice</i> and show a message (4). In this case we also put the real logic in the model class, not in the action. Since the logic applies to several orders and creates a new invoice the natural place to put it is a static method of <i>Invoice</i> class.<br>
-      The <i>getSelectedOrders()</i> method (5) returns a collection containing the <i> Order</i> entities checked by the user in the list. This is easily achieved using <i>getTab()</i> (6), available from <i>TabBaseAction</i> (1), that returns an <i>org.openxava.tab.Tab</i> object. The <i>Tab</i> object allows you to manage the tabular data of the list. In this case we use <i>getSelectedKeys()</i> (6) that returns a collection with the keys of the selected rows. Since these keys are in <i>Map</i> format we use <i>MapFacade.findEntity()</i> (7) to convert them to <i>Order</i> entities.<br>
-      As always, add the message text to the <i>invoicing-messages_en.properties</i> file in <i>src/main/resources/i18n</i> folder:
-      <pre><code class="properties">invoice_created_from_orders=Invoice {0} created from orders: {1}
-</code></pre> That's all for the action. Let's see the missing piece, the <i> createFromOrders()</i> method of the <i>Invoice</i> class.
+</code></pre> 這很简单。我们获取列表（2）中已選取的订单，调用 Invoice 的 createFromOrders() 静态方法（3）并显示消息（4）。在这种情况，我们还是將逻辑放在模型类，而不是在动作中。由于该逻辑适用于多个订单并创建新发票，因此把它放在 Invoice 类為静态方法是最自然的方法。<br>
+      getSelectedOrders() 方法會返回一个集合(5)，裡包含用户在列表中選定的 Order 实体。而該方法(5)使用 getTab() 来实现(6)，getTab() 可从 TabBaseAction (1) 获得，它返回一个 org.openxava.tab 的 Tab 对象。Tab 对象允许您管理列表的表格数据。在这种情况下，我们使用 getSelectedKeys() (6) 來返回一个集合，裡包含所有选取行的键。由于这些键是 Map 格式，所以我们使用 MapFacade.findEntity() (7) 将它们转换为 Order 实体。<br>
+      与往常一样，将消息添加到 src/main/resources/i18n 文件夹中的 invoicing-messages_zh.properties：
+      <pre><code class="properties">invoice_created_from_orders=从订单 {1} 创建发票 {0}
+</code></pre> 这就是動作的全部。让我们看看缺少的部分，也就是 Invoice 类的 createFromOrders() 方法。
       <h3><a name="business-logic-in-the-model-over-several-entities"></a>模型中多个实体的业务逻辑</h3>
-      The business logic for creating a new <i>Invoice</i> from several <i>Order</i> entities is in the model layer, i.e., the entities, not in the action. We cannot put the method in <i>Order</i> class, because the process is done from several orders, not just one. We cannot use an instance method in <i>Invoice</i> because the invoice does not exist yet, in fact we want to create it. Therefore, we are going to create a static factory method in the <i>Invoice</i> class for creating a new invoice from several orders.<br>
-      You can see this method here:<br>
+      从多个订单实体创建新发票的业务逻辑在模型层（即实体）中，而不是在動作中。我们不能将方法放在 Order 类中，因为该过程是由多个订单完成的，而不仅仅是一个。我们不能在 Invoice 中使用实例方法，因为发票尚未存在，实际上我们想创建它。因此，我们将在 Invoice 类中创建一个静态工厂方法，用于从多个订单创建一個新发票。<br>
+      你可以在下面看到方法：<br>
       <pre><code class="java">public class Invoice extends CommercialDocument {
 
     ...
@@ -365,9 +365,9 @@ public class CreateInvoiceFromSelectedOrdersAction
         return invoice;
     }
 }
-</code></pre> We use the first <i>Order</i> to create the new <i>Invoice</i> using the already existing <i>createInvoice()</i> method from <i>Order</i>. Then we call&nbsp; to the <i>copyDetailsToInvoice()</i> method of <i>Order </i>to copy the lines from the remaining orders to the new <i>Invoice</i> and accumulates on it the <i>vat</i> and <i>totalAmount</i>. Moreover, we set the new <i>Invoice</i> as the invoice for the orders of the collection.<br>
-      If <i>invoice </i>is null at the end of the process it's because the <i>orders </i>collection is empty. In this case we throw a <i>CreateInvoiceException</i>. Since the action does not catch the exceptions, OpenXava shows the exception message to the user. This is fine. If the user does not check any orders and he clicks on the button for creating an invoice, then this error message will be shown to him.</div>
-    <div class="wiki" style="display: block;">We still have to add the <i>copyDetailsToInvoice()</i> method to <i>Order</i>:</div>
+</code></pre> 我们在第一个 Order 時使用 Order 類中已经存在的 createInvoice() 方法創建新的 Invoice，然后我们调用 Order 的 copyDetailsToInvoice() 方法将剩余订单中的詳情复制到新的 Invoice 中，并在其上累积税額和價稅合計。此外，我们将新的 Invoice 设置为集合中所有订单的发票。<br>
+      如果发票在流程结束时为空，那是因为订单集合为空。在这种情况下，我们將抛出一个 CreateInvoiceException。由于该動作没有捕获异常，OpenXava 會向用户显示异常消息。这是可以的。如果用户没有检查任何订单并且他點击了创建发票的按钮，那么會向他显示此错误消息。</div>
+    <div class="wiki" style="display: block;">我们仍然需要在 Order 中添加 copyDetailsToInvoice() 方法：</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">public class Order extends CommercialDocument {
 
@@ -381,17 +381,17 @@ public class CreateInvoiceFromSelectedOrdersAction
     }
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">As you can see, It copies the details of the current order to the invoice and accumulates the <i>vat</i> and <i>totalAmount</i>.</div>
-    <div class="wiki" style="display: block;"> Remember to add the message text to the <i>invoicing-messages_en.properties</i> file in <i>src/main/resources/i18n</i> folder:
-      <pre><code class="properties">orders_not_specified=Orders not specified
-</code></pre> These are not the only errors the user can get. All previously written validations for <i>Invoice</i> and <i>Order</i> still apply automatically. This ensures that the user has to choose orders from the same customer, that are delivered, that lacks an invoice, etc. Model validation prevents the user from creating invoices from the wrong orders.
+    <div class="wiki" style="display: block;">如您所见，它将当前订单的详细信息复制到发票并累积税額和價稅合計。</div>
+    <div class="wiki" style="display: block;"> 请记住将消息添加到 src/main/resources/i18n 文件夹中的 invoicing-messages_zh.properties：
+      <pre><code class="properties">orders_not_specified=未指定订单
+</code></pre> 这並不是用户可能碰到的唯一異常。所有之前为 Invoice 和 Order 编写的验证都會自动執行。这會确保用户必须选择来自同一客户的订单、並且已交付、也未開发票等。模型中验证可防止用户從不該的订单创建发票。
       <h2><a name="Showing-a-dialog"></a>显示对话框</h2>
-      After creating an invoice from several orders, it would be practical for the user to see and possibly edit the newly created invoice. One way of achieving this is by showing a dialog that allows to view and edit that just created invoice. In this way:<br>
+      从多个订单创建发票后，讓用户可以查看并编辑新建的发票會很方便。实现此目的的一种方法是显示一个对话框，並允许查看和编辑刚刚新建的发票。如下：<br>
       <img src="files/business-logic-behavior_en030.png" alt="business-logic-behavior_en030.png"
         title="business-logic-behavior_en030.png"><br>
-      Let's see how to implement this behavior.
+      让我们看看如何实现这种行为。
       <h3><a name="using-showdialog"></a>使用 showDialog()</h3>
-      The first step is to modify <i>CreateInvoiceFromSelectedOrdersAction</i> to show a dialog after creating the invoice, just adding a few lines at the end of <i>execute()</i>:<br>
+      第一步是修改 CreateInvoiceFromSelectedOrdersAction 以在创建发票后显示一个对话框，只需在 execute() 後添加几行代碼就可以：<br>
       <pre><code class="java">public void execute() throws Exception {
     Collection&lt;Order&gt; orders = getSelectedOrders(); 
     Invoice invoice = Invoice.createFromOrders(orders); 
@@ -404,8 +404,8 @@ public class CreateInvoiceFromSelectedOrdersAction
     getView().setKeyEditable(false); // To indicate that is an existing object (3)
     setControllers("InvoiceEdition"); // The actions of the dialog (4)
 }
-</code></pre>We call to <i>showDialog()</i> (1), it shows a dialog and after that moment when we use <i>getView()</i> it references to the view in the dialog no the main view of the module. After the <i>showDialog()</i> the dialog is blank, until we assign our invoice to the view with <i>getView().setModel(invoice)</i> (2), now the invoice is displayed in the dialog. The next line, <i>getView().setKeyEditable(false)</i> (3), is to indicate that the invoice is already saved, so afterwards the corresponding save action knows how to behaves. Finally, we use <i>setControllers("InvoiceEdition")</i> to define the controller with the actions present in the dialog, that is the buttons on bottom of the dialog. Note as <i>setControllers()</i> is an alternative to <i>addActions()</i>.<br>
-      Obviously, this will not work until we have the <i>InvoiceEdition</i> controller defined. We'll do this in the next section.
+</code></pre>我们调用 showDialog() (1)，它會显示一个对话框，在這之後当我们使用 getView() 时，它引用的是对话框中的视图，而不是模块的主视图。在 showDialog() 之后对话框是空白的，直到我们使用 getView().setModel(invoice) (2) 将发票分配给视图，现在发票显示在对话框中。下一行，getView().setKeyEditable(false) (3) 表示发票已经保存，所以之后对应的保存动作知道如何表现。最后，我们使用 setControllers("InvoiceEdition") 来定义在对话框中存在動作的控制器，也就是对话框底部的按钮。请注意，setControllers() 是 addActions() 的一種替代方法。<br>
+      显然，在我们定义了 InvoiceEdition 控制器之前，这将不起作用。請看下一節。
       <h3><a name="define-the-dialog-actions"></a>定义对话框的动作</h3>
       The dialog allows the user to change the invoice and save the changes or just close the dialog after examining the invoice. These actions are defined in the <i>InvoiceEdition</i> controller in <i>controllers.xml</i>:
       <pre><code class="xml">&lt;controller name="InvoiceEdition"&gt;
