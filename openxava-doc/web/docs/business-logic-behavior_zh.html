@@ -407,7 +407,7 @@ public class CreateInvoiceFromSelectedOrdersAction
 </code></pre>我们调用 showDialog() (1)，它會显示一个对话框，在這之後当我们使用 getView() 时，它引用的是对话框中的视图，而不是模块的主视图。在 showDialog() 之后对话框是空白的，直到我们使用 getView().setModel(invoice) (2) 将发票分配给视图，现在发票显示在对话框中。下一行，getView().setKeyEditable(false) (3) 表示发票已经保存，所以之后对应的保存动作知道如何表现。最后，我们使用 setControllers("InvoiceEdition") 来定义在对话框中存在動作的控制器，也就是对话框底部的按钮。请注意，setControllers() 是 addActions() 的一種替代方法。<br>
       显然，在我们定义了 InvoiceEdition 控制器之前，这将不起作用。請看下一節。
       <h3><a name="define-the-dialog-actions"></a>定义对话框的动作</h3>
-      The dialog allows the user to change the invoice and save the changes or just close the dialog after examining the invoice. These actions are defined in the <i>InvoiceEdition</i> controller in <i>controllers.xml</i>:
+      The dialog allows the user to change the invoice and save the changes or just close the dialog after examining the invoice. These actions are defined in the <i>I&nbsp; nvoiceEdition</i> controller in <i>controllers.xml</i>:&nbsp; <br>
       <pre><code class="xml">&lt;controller name="InvoiceEdition"&gt;
 
     &lt;action name="save"
