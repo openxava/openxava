@@ -103,15 +103,16 @@ styleCSS=dark.css
 </pre></div>
       <div class="wiki" style="display: block;">
         <h2><a name="definir-tu-propio-estilo">Definir tu propio estilo</a></h2>
-        <p>Para crear un nuevo estilo crea tu propio archivo CSS en la carpeta <i>web/xava/style</i>
-          de tu proyecto y apunta a él en la propiedad <i>styleCSS</i> de <i>xava.properties</i>.
-        </p>
+        <p>Para crear un nuevo estilo crea tu propio archivo CSS en la carpeta <i>src/main/webapp/xava/style</i>
+          (<i>web/xava/style</i> antes de v7.0)<i></i> de tu proyecto y apunta a
+          él en la propiedad <i>styleCSS</i> de <i>xava.properties</i>. </p>
         <h3><a name="extender-estilo-existente">Extender un estilo existente <i>(nuevo
               en v6.3)</i></a></h3>
         <p>Si simplemente quieres una pequeña modificación de un estilo
-          existente, puedes extender ese estilo. Por ejemplo, si quieres el
-          estilo Light pero con el menú de la izquierda y el botón principal
-          dorados, crea un archivo <i>dorado.css</i> en <i>web/xava/style</i>
+          existente, puedes extender ese estilo. Mira <a href="https://github.com/openxava/openxava/tree/master/openxava/src/main/resources/META-INF/resources/xava/style">los
+            CSSs para los estilos disponibles en GitHub</a>. Por ejemplo, si
+          quieres el estilo Light pero con el menú de la izquierda y el botón
+          principal dorados, crea un archivo <i>dorado.css</i> en <i>src/main/webapp/xava/style</i>
           con este contenido:</p>
         <div class="wiki" style="display: block;">
           <pre><code class="css">/* dorado.css */
@@ -130,11 +131,11 @@ styleCSS=dark.css
 }
 </code></pre> </div>
         <div class="wiki" style="display: block;">Fíjate que usamos <i>@import
-            'light.css'</i> para extender el estilo Light. Redefinimos la
-          variable <i>--my-highlight</i> que es el color para el botón
-          principal, esta variable es de <i>light.css</i>. Después definimos
-          los colores para el menú de la izquierda. Ahora cambio el valor de <i>styleCSS</i>
-          en <i>xava.properties</i>:</div>
+            'light.css'</i> para extender el <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/xava/style/light.css">estilo
+            Light</a>. Redefinimos la variable <i>--my-highlight</i> que es el
+          color para el botón principal, esta variable es de <i>light.css</i>.
+          Después definimos los colores para el menú de la izquierda. Ahora
+          cambio el valor de <i>styleCSS</i> en <i>xava.properties</i>:</div>
         <pre class="text">styleCSS=dorado.css</pre>
         <div class="wiki" style="display: block;">Para obtener este resultado:</div>
         <img src="files/golden-detail_es.png" alt="">
@@ -144,8 +145,9 @@ styleCSS=dark.css
         </div>
         <div class="wiki" style="display: block;">Por otra parte puedes definir
           tu propio esquema de colores, no sólo un refinamiento, extendiendo
-          directamente de <i>base.css</i>. Por ejemplo, para definir un estilo
-          Rosa crea un <i>rosa.css</i> como este:</div>
+          directamente de <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/xava/style/base.css"><i>base.css</i></a>.
+          Por ejemplo, para definir un estilo Rosa crea un <i>rosa.css</i> como
+          este:</div>
         <div class="wiki" style="display: block;">
           <pre><code class="css">/* rosa.css */
 
@@ -200,8 +202,8 @@ styleCSS=dark.css
           pocos colores y todos los demás se derivan a partir de ellos, así
           tienes un esquema de colores consistente con poco esfuerzo. Además,
           tienes la opción de definir individualmente el color para que detalle
-          de la interfaz de usuario, echa un vistazo a <i>base.css</i> para ver
-          todas las variables de color disponibles, más de 200.</div>
+          de la interfaz de usuario, echa un vistazo a <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/xava/style/base.css"><i>base.css</i></a>
+          para ver todas las variables de color disponibles, más de 200.</div>
         <div class="wiki" style="display: block;">
           <h3><a name="refinar-otros-aspectos">Refinar otros aspectos de la
               interfaz de usuario</a></h3>
@@ -242,8 +244,9 @@ styleCSS=dark.css
     </div>
     <div class="wiki" style="display: block;">Desde la versión 4.5 podemos
       añadir y modificar estilos de la aplicación mediante el fichero <em>custom.css</em>
-      en <em>web/xava/style. </em>Esto afecta sólo a tu aplicación. Esto es
-      una forma fácil de cambiar el estilo sin tener que crear un nuevo tema.</div>
+      en <i>src/main/webapp/xava/style</i> (<i>web/xava/style</i> antes de
+      v7.0)<em>. </em>Esto afecta sólo a tu aplicación. Esto es una forma fácil
+      de cambiar el estilo sin tener que crear un nuevo tema.</div>
     <div class="wiki" style="display: block;">Para sobreescribir un estilo ya
       existente, basta con añadir el nombre del estilo y definirlo en nuestro
       fichero. Poniendo:<br>
@@ -270,9 +273,11 @@ styleCSS=dark.css
       <h2><a name="Anadir-elementos-a-la-pagina"></a>Añadir elementos a la
         página <em>(nuevo en v5.6)</em></h2>
       Si queremos añadir nuestros propios elementos a la pagina para que
-      aparezcan siempre visibles en nuestra aplicación podemos hacerlo en <em>web/naviox/indexExt.jsp</em>
-      de nuestro proyecto. Esto se incluye al final de la página, pero usando
-      CSS podemos colocarlo en cualquier parte de la pantalla.<br>
+      aparezcan siempre visibles en nuestra aplicación podemos hacerlo en <i><em>src/main/webapp/naviox/indexExt.jsp</em></i>
+      (<em>web/naviox/indexExt.jsp</em>
+      ein v6 o anterior) de nuestro proyecto, debería crear la carpeta <i>naviox</i>
+      y el archivo <i>indexExt.jsp</i>. Esto se incluye al final de la página,
+      pero usando CSS podemos colocarlo en cualquier parte de la pantalla.<br>
       Por ejemplo, si queremos poner un cartelito de BETA en la esquina superior
       derecha de la pantalla, así:<br>
       <img src="files/beta-corner_es.png" alt="beta-corner_es.png" title="beta-corner_es.png"><br>

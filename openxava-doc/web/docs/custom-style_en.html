@@ -96,15 +96,17 @@ styleCSS=dark.css
 </pre></div>
     <div class="wiki" style="display: block;">
       <h2><a name="defining-your-own-style">Defining your own style</a></h2>
-      <p>To create a new style just create your own CSS file in <i>web/xava/style</i>
-        folder of your project and point to it in the <i>styleCSS</i> property
-        of <i>xava.properties</i>.</p>
+      <p>To create a new style just create your own CSS file in <i>src/main/webapp/xava/style</i>
+        (<i>web/xava/style</i> before v7.0) folder of your project and point to
+        it in the <i>styleCSS</i> property of <i>xava.properties</i>.</p>
       <h3><a name="extending-existing-style">Extending an existing style <i>(new
             in v6.3)</i></a></h3>
       <p>If you want a slight modification over an existing style, you can
-        extend that style. For example, if you want the Light style but with
-        gold color for the left menu and the main button, create a <i>golden.css</i>
-        file in <i>web/xava/style</i> with this content:</p>
+        extend that style. Look the <a href="https://github.com/openxava/openxava/tree/master/openxava/src/main/resources/META-INF/resources/xava/style">CSS
+          for the available styles in GitHub</a>. For example, if you want the
+        Light style but with gold color for the left menu and the main button,
+        create a <i>golden.css</i> file in <i>src/main/webapp/xava/style</i>
+        with this content:</p>
     </div>
     <div class="wiki" style="display: block;">
       <pre><code class="css">/* golden.css */
@@ -123,10 +125,11 @@ styleCSS=dark.css
 }
 </code></pre> </div>
     <div class="wiki" style="display: block;">Note that we use <i>@import
-        'light.css'</i> to extend Light style. We redefine the <i>--my-highlight</i>
-      variable that is the color for the main button, this variable is from <i>
-        light.css</i>, and then just define the colors for the left menu. Now I
-      change the <i>styleCSS</i> value in <i>xava.properties</i>:</div>
+        'light.css'</i> to extend <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/xava/style/light.css">Light
+        style</a>. We redefine the <i>--my-highlight</i> variable that is the
+      color for the main button, this variable is from <i> light.css</i>, and
+      then just define the colors for the left menu. Now I change the <i>styleCSS</i>
+      value in <i>xava.properties</i>:</div>
     <pre class="text">styleCSS=golden.css</pre>
     <div class="wiki" style="display: block;">To get this result:</div>
     <img src="files/golden-detail_en.png" alt="">
@@ -134,7 +137,7 @@ styleCSS=dark.css
       <h3><a name="color-scheme">Your own color scheme <i>(new in v6.3)</i></a></h3>
     </div>
     <div class="wiki" style="display: block;">On the other hand to define your
-      own color scheme, not just a refinement, extends directly from <i>base.css</i>.
+      own color scheme, not just a refinement, extends directly from <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/xava/style/base.css"><i>base.css</i></a>.
       For example, to define a Pink style create a <i>pink.css</i> like this:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="css">/* pink.css */
@@ -210,10 +213,10 @@ styleCSS=dark.css
       this way:</div>
     <img src="files/frames-with-border_en.png" alt="">
     <div class="wiki" style="display: block;">You can modify any aspect of the
-      user interface, have a look at <i>base.css</i> (or <i>terra.css/light.css</i>
-      antes de v6.3) to see all the available options. Of course, if you're
-      going to change many things an option is to define your own CSS from
-      scratch, without extending <i>base.css</i>.<br>
+      user interface, have a look at <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/xava/style/base.css"><i>base.css</i></a>
+      (or <i>terra.css/light.css</i> antes de v6.3) to see all the available
+      options. Of course, if you're going to change many things an option is to
+      define your own CSS from scratch, without extending <i>base.css</i>.<br>
       <p></p>
       <h2><a name="Custom visual style-Modify the default style (new in v4.5)"></a><span
           style="background-color: #ffffff;">Modify the application style <em>(new
@@ -222,7 +225,8 @@ styleCSS=dark.css
       <div class="wiki" style="display: block;"><span style="background-color: #ffffff;">Since
           version 4.5 you can add and modify styles for your application with
           the file </span><em><span style="background-color: #ffffff;">custom.css</span></em><span
-          style="background-color: #ffffff;"> in </span><em><span style="background-color: #ffffff;">web/xava/style.</span></em><span
+          style="background-color: #ffffff;"> in </span><span style="background-color: #ffffff;"><i>src/main/webapp/xava/style</i>
+          (<i>web/xava/style</i> before v7.0)</span><em><span style="background-color: #ffffff;">.</span></em><span
           style="background-color: #ffffff;"> This affect only to your
           application. This is a fast way to change the visual style without
           creating a new theme.<br>
@@ -402,9 +406,11 @@ background: #9EA8AD;
         <h2 id="toc3"><a name="Custom visual style-Add elements to the page (new in v5.6)"></a>Add
           elements to the page <em>(new in v5.6)</em></h2>
         If you want to add your own elements to the page in order they are
-        always present in your application, you can do it in <em>web/naviox/indexExt.jsp</em>
-        of your project. It is included at the end of the page, but using CSS
-        you can place it in any part of the screen.<br>
+        always present in your application, you can do it in <i><em>src/main/webapp/naviox/indexExt.jsp</em></i>
+        (<em>web/naviox/indexExt.jsp</em> in v6 or older) of your project, you
+        should create the <i>naviox</i> folder and the <i>indexExt.jsp</i>
+        file. It is included at the end of the page, but using CSS you can place
+        it in any part of the screen.<br>
         For example, if you want to show a BETA sign in right top corner, thus:<br>
         <img src="files/beta-corner_en.png" alt="beta-corner_en.png" title="beta-corner_en.png"><br>
         You can write in your <em>indexExt.jsp</em>:<br>

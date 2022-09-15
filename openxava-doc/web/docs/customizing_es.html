@@ -447,11 +447,16 @@ class="sy1">&lt;%=</span>fvalue<span class="sy1">%&gt;</span>"&gt;
       también la alineación (4) y si es o no editable (5). También recibimos el
       trozo de script de javascript (6) que hemos de poner en el editor.<br>
       Hemos de especificar <em>tabindex="1"</em> (7) para que el editor
-      aparezca en el orden correcto de tabulación <em>(nuevo en v4.5.1)</em>.<br>
-      Aunque crear un editor directamente con JSP es sencillo no es una tarea
-      muy habitual, es más habitual configurar JSPs ya existentes. Por ejemplo
-      si en nuestro <em>editores.xml</em> en <i>src/main/resources/xava</i>
-      (simplemente <i>xava</i> antes de v7) ponemos:<br>
+      aparezca en el orden correcto de tabulación <em>(nuevo en v4.5.1)</em>.</div>
+    <div class="wiki" style="display: block;">Para tus propios editores el
+      archivo JSP tiene que estar en la carpeta <i>src/main/webapp/xava/editors</i>
+      (<i>web/xava/editors</i> en v6 o anterior) de tu proyecto, si la carpeta
+      no existe aún, creala.</div>
+    <div class="wiki" style="display: block;"> Aunque crear un editor
+      directamente con JSP es sencillo no es una tarea muy habitual, es más
+      habitual configurar JSPs ya existentes. Por ejemplo si en nuestro <em>editores.xml</em>
+      en <i>src/main/resources/xava</i> (simplemente <i>xava</i> antes de v7)
+      ponemos:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -994,7 +999,8 @@ class="st0">"REGIONES"</span><span class="re2">/&gt;</span></span>
           rel="nofollow">IFormatter</a></em> pero usa <em>String []</em> en vez
       de <em>String</em>. En este caso usamos un formateador genérico que
       simplemente deja pasar el dato.<br>
-      Y para terminar escribimos nuestro editor JSP:<br>
+      Y para terminar escribimos nuestro editor JSP en la carpeta <i>src/main/webapp/xava/editors</i>
+      (<i>web/xava/editors</i> en v6 o anterior) de tu proyecto:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -1326,7 +1332,8 @@ class="st0">"Color"</span><span class="re2">/&gt;</span></span>
       sección <a class="wiki_link" href="view_es.html#Vista-Personalizacion+de+referencia-Escoger+un+editor+%28referencia,+nuevo+in+v3.1.3%29">Escoger
         un editor</a> del <a class="wiki_link" href="view_es.html">capítulo
         sobre Vista</a>).<br>
-      Aquí tenemos el código para <em>colorEditor.jsp</em>:<br>
+      Aquí tenemos el código para <em>colorEditor.jsp</em> en la carpeta <i>src/main/webapp/xava/editors</i>
+      (<i>web/xava/editors</i> en v6 o anterior) de tu proyecto:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -1558,7 +1565,8 @@ class="sy0">/&gt;</span>
       un JSP que contiene el editor para parte de la lista. De esta forma
       tenemos gratis todas las acciones y comportamiento por defecto de las
       colecciones, por tanto solo hemos de preocuparnos por dibujar la lista.<br>
-      El <em>comentariosBlogListEditor.jsp</em> es:<br>
+      El <em>comentariosBlogListEditor.jsp</em> en la carpeta <i>src/main/webapp/xava/editors</i>
+      (<i>web/xava/editors</i> en v6 o anterior) de tu proyecto:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -1879,7 +1887,9 @@ class="st0">"EmpleadoCorporativo"</span><span class="re2">/&gt;</span></span>
       (para usar un editor sólo para un tab concreto de una entidad ver la
       sección <a class="wiki_link" href="tab_es.html#Cap%C3%ADtulo%205:%20Datos%20tabulares-Escoger%20un%20editor%20%28nuevo%20en%20v4.6%29">Escogiendo
         un editor</a> en el <a class="wiki_link" href="tab_es.html">capítulo 5</a>).<br>
-      Aqui tenemos el código para <em>empleadoCorporativoListEditor.jsp</em>:<br>
+      Aqui tenemos el código para <em>empleadoCorporativoListEditor.jsp</em> en
+      la carpeta <i>src/main/webapp/xava/editors</i> (<i>web/xava/editors</i>
+      en v6 o anterior) de tu proyecto:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -2244,7 +2254,8 @@ String nombre;
       <div class="wiki" style="display: block;">Aquí estás asociando la
         anotación <i>Colorido</i> al editor <i>coloridoEditor.jsp</i>. También
         definimos la propiedad "fondo" para enviar al editor. Este es el código
-        de <i>coloridoEditor.jsp</i>:</div>
+        de <i>coloridoEditor.jsp</i> en la carpeta <i>src/main/webapp/xava/editors</i>
+        (<i>web/xava/editors</i> en v6 o anterior) de tu proyecto:</div>
       <div class="wiki" style="display: block;">
         <pre><code class="html">&lt;%
 String fondo = request.getParameter("fondo"); // Lee la propiedad en editores.xml
@@ -2276,8 +2287,9 @@ String claseCSS ="ox-colorido-" + color;
       tu editor, no lo puedes hacer incluyendolas directamente en el JSP, porque
       el código HTML del editor se carga vía AJAX. En lugar de eso, has de poner
       tus funciones en un archivo JS en la carpeta <i>src/main/webapp/xava/editors/js</i>
-      de tu proyecto (<em>web/xava/editors/js</em> en v6 o anteriores). Todo el
-      JavaScript que hay ahí se carga automáticamente.<br>
+      de tu proyecto (<em>web/xava/editors/js</em> en v6 o anteriores). Si la
+      carpeta todavía no existe, creala. Todo el JavaScript que hay ahí se carga
+      automáticamente.<br>
       Es decir, si necesitas usar una función JavaScript <em>f()</em> en tu
       editor, como sigue:<br>
       <style type="text/css"><!--
@@ -2425,11 +2437,12 @@ Esto es para liberar los recursos obtenidos por el editor.
         en editores <em>(nuevo en v5.4)</em></h3>
       Todos los archivos CSS en la carpeta <i>src/main/webapp/xava/editors/style</i>
       (<em>web/xava/editors/style</em> en v6 o anteriores) de nuestra aplicación
-      se cargan automáticamente. Aquí se ponen los archivos CSS necesarios por
-      los componentes JavaScript que usamos en nuestros editores. También,
-      podemos poner los CSS específicos de nuestros editores. No hay que poner
-      en <i>src/main/webapp/xava/editors/style</i> los CSS para <a class="wiki_link"
-        href="custom-style_es.html">el estilo general de la aplicación</a>.<br>
+      se cargan automáticamente. Si la carpeta todavía no existe, creala. Aquí
+      se ponen los archivos CSS necesarios por los componentes JavaScript que
+      usamos en nuestros editores. También, podemos poner los CSS específicos de
+      nuestros editores. No hay que poner en <i>src/main/webapp/xava/editors/style</i>
+      los CSS para <a class="wiki_link" href="custom-style_es.html">el estilo
+        general de la aplicación</a>.<br>
       <h3 id="toc13"><a name="Personalizacion-Editores-Editores+personalizables+y+estereotipos+para+crear+combos"></a>Editores
         personalizables y estereotipos para crear combos</h3>
       Podemos hacer que propiedades simples que se visualicen como combos que
@@ -2810,8 +2823,9 @@ class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
       aunque es aconsejable crear una vista OpenXava explícita para nuestra
       vista JSP, de esta manera podemos controlar los eventos, las propiedades a
       rellenar, el orden del foco, etc explicitamente. Podemos poner nuestro JSP
-      dentro de la carpeta <em>web/jsp-propios</em> (u otra de nuestra
-      elección) de nuestro proyecto, y este JSP puede ser así:<br>
+      dentro de la carpeta <i>src/main/webapp</i><em>/custom-jsp</em><em>/jsp-propios</em>
+      (u otra de nuestra elección) de nuestro proyecto (<i>web</i> en lugar de <i>src/main/webapp</i><em>
+      </em>para versiones anteriores a v7.0), y este JSP puede ser así:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann

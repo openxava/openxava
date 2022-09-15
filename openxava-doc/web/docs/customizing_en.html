@@ -439,10 +439,15 @@ class="sy1">&lt;%=</span>fvalue<span class="sy1">%&gt;</span>"&gt;
       JavaScript (6) fragment to put in the HTML editor. You have to specify <em>tabindex="1"</em>
       (7) in order that the editors would be in the correct tab order <em>(new
         in v4.5.1)</em>.<br>
-      Although creating an editor directly with JSP is easy it is not usual to
-      do it. It's more common to configure existing JSPs. For example, in your <em>editors.xml</em>
-      in <i>src/main/resources/xava</i> (just <i>xava</i> before v7) you can
-      write:<br>
+    </div>
+    <div class="wiki" style="display: block;">For your own editors the JSP file
+      must be in the <i>src/main/webapp/xava/editors</i> folder (<i>web/xava/editors</i>
+      in v6 or older) of your project, if the folder does not exist yet, create
+      it.</div>
+    <div class="wiki" style="display: block;">Although creating an editor
+      directly with JSP is easy it is not usual to do it. It's more common to
+      configure existing JSPs. For example, in your <em>editors.xml</em> in <i>src/main/resources/xava</i>
+      (just <i>xava</i> before v7) you can write:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -983,7 +988,8 @@ class="st0">"REGIONS"</span><span class="re2">/&gt;</span></span>
           rel="nofollow">IFormatter</a></em> but it uses <em>String []</em>
       instead of <em>String</em>. In this case we are using a generic formatter
       that simply do a bypass.<br>
-      The last is to write your JSP editor:<br>
+      The last is to write your JSP editor in the <i>src/main/webapp/xava/editors</i>
+      (<i>web/xava/editors</i> in v6 or older) folder of your project:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -1313,7 +1319,8 @@ class="st0">"Color"</span><span class="re2">/&gt;</span></span>
         href="view_en.html#View-Reference%20customization-Choosing%20an%20editor%20%28reference,%20new%20in%20v3.1.3%29">Choosing
         an editor</a> section in <a class="wiki_link" href="view_en.html">chapter
         about View</a>).<br>
-      Here the code for <em>colorEditor.jsp</em>:<br>
+      Here the code for <em>colorEditor.jsp</em> in the <i>src/main/webapp/xava/editors</i>
+      (<i>web/xava/editors</i> in v6 or older) folder of your project:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -1539,7 +1546,8 @@ class="sy0">/&gt;</span>
       argument a JSP that contains the editor for the list part. In this way you
       have all the actions and default behaviour for collections for free, so
       you only have to do the rendering of the list.<br>
-      The <em>blogCommentsListEditor.jsp</em> is:<br>
+      The <em>blogCommentsListEditor.jsp</em> in the <i>src/main/webapp/xava/editors</i>
+      (<i>web/xava/editors</i> in v6 or older) folder of your project:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -1859,7 +1867,8 @@ class="st0">"CorporationEmployee"</span><span class="re2">/&gt;</span></span>
         href="tab_en.html#Chapter%205:%20Tabular%20data-Choosing%20an%20editor%20%28new%20in%20v4.6%29">Choosing
         an editor</a> section in <a class="wiki_link" href="tab_en.html">chapter
         5</a>).<br>
-      Here is the code for <em>corporationEmployeeListEditor.jsp</em>:<br>
+      Here is the code for <em>corporationEmployeeListEditor.jsp</em> in the <i>src/main/webapp/xava/editors</i>
+      (<i>web/xava/editors</i> in v6 or older) folder of your project:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -2219,7 +2228,9 @@ String name;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Here you're linking the <i>Colorful</i>
       annotation to the <i>colorfulEditor.jsp</i> editor. Also we define a
-      property "background" to send to the editor. This is the code of <i>colorfulEditor.jsp</i>:</div>
+      property "background" to send to the editor. This is the code of <i>colorfulEditor.jsp</i>
+      in the <i>src/main/webapp/xava/editors</i> (<i>web/xava/editors</i> in v6
+      or older) folder of your project:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="html">&lt;%
 String background = request.getParameter("background"); // Reads the property in editors.xml
@@ -2251,8 +2262,9 @@ String cssClass ="ox-colorful-" + color;
       your editor, you cannot include them in the JSP directly, because the
       editor markup is loaded via AJAX. Instead you have to put your functions
       in an JS file and put it in the <i>src/main/webapp/xava/editors/js</i>
-      folder of your project (<em>web/xava/editors/js</em> for v6 or older). All
-      the JavaScript there is loaded automatically.<br>
+      folder of your project (<em>web/xava/editors/js</em> for v6 or older). If
+      the folder does not exist yet, create it. All the JavaScript there is
+      loaded automatically.<br>
       That is, if you need to use a JavaScript function <em>f()</em> from your
       editor, just as following:<br>
       <style type="text/css"><!--
@@ -2400,11 +2412,12 @@ This is to free resources obtained by the editor.
         in editors <em>(new in v5.4)</em></h3>
       All the CSS files in the&nbsp; <i>src/main/webapp/xava/editors/style</i>
       folder (<em>web/xava/editors/style</em> in v6 or older) of your
-      application are loaded automatically. Put here the CSS files needed by the
-      JavaScript components and toolkits you use in your editors. Also, you can
-      put here your own CSS for the style specific for your editors. Don't put
-      in <i>src/main/webapp/xava/editors/style</i> the CSS for the <a class="wiki_link"
-        href="custom-style_en.html">overall application style</a>.<br>
+      application are loaded automatically. If the folder does not exist yet,
+      create it. Put here the CSS files needed by the JavaScript components and
+      toolkits you use in your editors. Also, you can put here your own CSS for
+      the style specific for your editors. Don't put in <i>src/main/webapp/xava/editors/style</i>
+      the CSS for the <a class="wiki_link" href="custom-style_en.html">overall
+        application style</a>.<br>
       <h3 id="toc13"><a name="Customizing-Editors-Custom editors and stereotypes for displaying combos"></a>Custom
         editors and stereotypes for displaying combos</h3>
       You can have simple properties displayed as combos and fill the combos
@@ -2787,9 +2800,9 @@ class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
       if not it is specified the default view of the entity is used; although
       it's advisable to create an explicit OpenXava view for your JSP custom
       view, in this way you can control the events, the properties to populate,
-      the focus order, etc explicitly. You can put your JSP inside <em>web/custom-jsp</em>
-      (or other of your choice) folder of your project, and it can be as this
-      one:<br>
+      the focus order, etc explicitly. You can put your JSP inside <i>src/main/webapp</i><em>/custom-jsp</em>
+      (or other of your choice) folder of your project (<i>web</i> instead of <i>src/main/webapp</i><em>
+      </em>for versions older than v7.0), and it can be as this one:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
