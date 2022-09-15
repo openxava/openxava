@@ -36,8 +36,8 @@
         class="wiki_link" href="custom-bean-validation-annotation_zh.html"> 21. 自定义 Bean Validation 注解</a> | <a
         class="wiki_link" href="rest-service-call-from-validation_zh.html">22. 在验证中调用 REST 服务</a> | <a
         class="wiki_link" href="attributes-in-annotations_zh.html">23. 注解中的属性</a> | <strong>24. 改进标准行为 </strong> | <a
-        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
-        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
+        class="wiki_link" href="business-logic-behavior_zh.html">25. 行为与业务逻辑</a> | <a
+        class="wiki_link" href="references-collections_zh.html">26. 参照与集合</a> | <a
         class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
         class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
         class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
@@ -74,7 +74,7 @@
       <h2 id="toc1"><a name="Lesson 7: Refining the standard behavior-Custom actions"></a>自定义动作</h2>
       默认情况下，一个 OpenXava 的模块在您管理实体上的功能非常全面，其中包括添加、修改、删除、搜索、生成 PDF 报告、导出到 Excel (CSV) 以及将数据导入实体。这些动作默认包含在 Typical 控制器中。您可以通过定义自己的控制器来优化或继承模块的行为。本节将教您如何定义自己的控制器并编写自定义动作。<br>
       <h3 id="toc2"><a name="Lesson 7: Refining the standard behavior-Custom actions-Typical controller"></a>Typical 控制器</h3>
-      默认情况下，Invoice 模块会使用来自 Typical 控制器的动作。此控制器在 <a class="wiki_link" href="https://github.com/openxava/openxava/tree/master/openxava/src/main/resources/xava">github 的 xava 文件夹</a><em></em> 中 default-controllers.xml 里。控制器的定义是一串 XML 里包括动作的列表 。 OpenXava 默认将 Typical 控制器应用于所有模块。你可以看它的定义：<br>
+      默认情况下，Invoice 模块会使用来自 Typical 控制器的动作。此控制器在 <a class="wiki_link" href="https://github.com/openxava/openxava/tree/master/openxava/src/main/resources/xava">github 的 xava 文件夹</a><em></em> 中 default-controllers.xml 里。控制器的定义是一串 XML 里包括动作的列表 。 OpenXava 默认将 Typical 控制器应用于所有模块。您可以看它的定义：<br>
       <pre><code class="xml">&lt;controller name="Typical"&gt; &lt;!-- 'Typical' 从以下控制器中继承它们的动作 --&gt;
     &lt;extends controller="Navigation"/&gt; &lt;!-- 從'Navigation', --&gt;
     &lt;extends controller="CRUD"/&gt; &lt;!-- 從'CRUD' --&gt;
@@ -664,7 +664,7 @@ public class Order extends CommercialDocument { ... }
     <div class="wiki" style="display: block;">
       <h3 id="toc19"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Reusable obsession"></a>痴迷于重复使用</h3>
       做得很好！InvoicingDeleteSelectedAction 的代码可以删除和恢复实体，并且我们用非常少的代码添加了恢复的功能，而且没复制粘贴。<br>
-      现在，一定有许多奇怪、有害的想法在你的脑中盘旋。你肯定在想：“这个动作不再是单纯的删除动作，而是删除和恢复的动作”…“等一下，它实际上是一个更新当前实体的 deleted 属性的动作”，然后你的下一个想法是：“再一点改进，我们就可以更新实体的任何属性”。<br>
+      现在，一定有许多奇怪、有害的想法在您的脑中盘旋。您肯定在想：“这个动作不再是单纯的删除动作，而是删除和恢复的动作”…“等一下，它实际上是一个更新当前实体的 deleted 属性的动作”，然后您的下一个想法是：“再一点改进，我们就可以更新实体的任何属性”。<br>
       您是对的。您可以轻松创建更通用的动作，例如 UpdatePropertyAction；并使用它来声明您的 deleteSelected 和 restore 动作，如下：<br>
       <pre><code class="xml">&lt;action name="deleteSelected" mode="list" confirm="true"
     class="com.yourcompany.invoicing.actions.UpdatePropertyAction"
@@ -689,6 +689,6 @@ public class Order extends CommercialDocument { ... }
       <strong></strong><strong><strong>对这节课有什么问题吗？ <a class="wiki_link_ext"
             href="http://sourceforge.net/p/openxava/discussion/419690/"
             rel="nofollow">前往论譠</a></strong> <strong>一切都顺利吗？</strong></strong><strong> <a
-          class="wiki_link" href="business-logic-behavior_en.html">前往第二十五章</a></strong> </div>
+          class="wiki_link" href="business-logic-behavior_zh.html">前往第二十五章</a></strong> </div>
   </body>
 </html>
