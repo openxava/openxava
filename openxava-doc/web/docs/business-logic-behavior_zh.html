@@ -102,7 +102,7 @@ public class CreateInvoiceFromOrderAction
 </code></pre>真的很简单。我们在获得 Order 实体后(1)，调用 createInvoice() 方法 (2)，之后刷新视图 (3) 并显示一条消息 (4)。可以看到，动作只是视图（用户界面）和模型（业务逻辑）间的中介。<br>
       记得将以下消息添加到 src/main/resources/i18n 文件夹中的 invoicing-messages_zh.properties：<br>
       <pre><code class="properties">invoice_created_from_order=根据当前订单创建发票 {0}
-</code></pre>然而，这条消息并没有很好地显示，因为我们是传递了一个 Invoice 对象作为参数。所以我们需要一个对用户有用的 Invoice 和 Order toString()。我们将覆盖 CommercialDocument（Invoice 和 Order 的父级）的 toString() 来实现这一点。你可以在这里看到这个 toString() 方法：
+</code></pre>然而，这条消息并没有很好地显示，因为我们是传递了一个 Invoice 对象作为参数。所以我们需要一个对用户有用的 Invoice 和 Order toString()。我们将覆盖 CommercialDocument（Invoice 和 Order 的父级）的 toString() 来实现这一点。您可以在这里看到这个 toString() 方法：
       <pre><code class="java">abstract public class CommercialDocument extends Deletable {
 
     ...
@@ -336,7 +336,7 @@ public class CreateInvoiceFromSelectedOrdersAction
 </code></pre>这就是动作的全部。让我们看看缺少的部分，也就是 Invoice 类的 createFromOrders() 方法。
       <h3><a name="business-logic-in-the-model-over-several-entities"></a>模型中多个实体的业务逻辑</h3>
       从多个订单实体创建新发票的业务逻辑在模型层（即实体）中，而不是在动作中。我们不能将方法放在 Order 类中，因为该过程是由多个订单完成的，而不仅仅是一个。我们不能在 Invoice 中使用实例方法，因为发票尚未存在，实际上我们想创建它。因此，我们将在 Invoice 类中创建一个静态工厂方法，用于从多个订单创建一个新发票。<br>
-      你可以在下面看到方法：<br>
+      您可以在下面看到方法：<br>
       <pre><code class="java">public class Invoice extends CommercialDocument {
 
     ...
@@ -458,6 +458,6 @@ public class SaveInvoiceAction
       <strong></strong><strong><strong>对这节课有什么问题吗？ <a class="wiki_link_ext"
             href="http://sourceforge.net/p/openxava/discussion/419690/"
             rel="nofollow">前往论譠</a></strong> <strong>一切都顺利吗？</strong></strong><strong> <a
-          class="wiki_link" href="references-collections_en.html">前往第二十六章</a></strong> </div>
+          class="wiki_link" href="references-collections_zh.html">前往第二十六章</a></strong> </div>
   </body>
 </html>
