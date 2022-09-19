@@ -1,18 +1,39 @@
 Change Log for OpenXava project
 ===============================
 
-- Source code for the course in English and Spanish available in GitHub for each lesson.
-- Fix: Editors for annotations do not work for child classes using inheritance.
-- New method getField() in Classes utility class.
-- Fix: Tooltip for page numbers always says "First page".
-- Fix: Duplicate entry removed from i18n files.
-- Fix: Extra blank space in "hide them" link in list mode.
-- Fix: Module does not start showing a browser error with a headless Java, like the default one in Ubuntu.
-- Tomcat 10 support.
+Main features
+- Maven support.
 - It's possible to develop/run using command line and plain editor with no IDE at all.
-- Fix: Chinese MS950 encoding does not work well with simplified Chinese characters.
 - Java 17 support.
-- Fixed 43 potential security vulnerabilities in dependencies, now we have 0 vulnerabilities. 
+- Tomcat 10 support.
+
+Dropped features
+- Removed XML components support including all related code.
+- Dropped support for Liferay, WebSphere Portal, JetSpeed, portals and portlets.
+- Dropped support for Tomcat 7.
+- Servlet 3.1 is the minimum specification version supported.
+- All EJB related code removed.
+- Method usesAnnotatedPOJO() removed from ModuleTestBase.
+- IPropertyCodeGenerator interface removed.
+- Documentation modules are no longer supported, now they are just ignored.
+- IPadStyle removed, it was not enabled by default since v5.0.
+- Method isPortalEnabled() removed from ModuleTestBase.
+- The usage of styles.properties to register styles is removed.
+- Removed emailAsUserNameInPortal and portletLocales from xava.properties.
+- MapFacade and EntityBean are no longer EJB Session beans. 
+- IRemoteAction interface and Server utility class removed.
+- Removed DocumentLibrary editor for attaching documents using Liferay document library.
+- Removed XHibernate and HibernatePersistenceProvider, though Hibernate API is still available.
+- Removed JDBCTabProvider, used to get list data via JDBC, only used for XML components.
+
+Upgraded libraries
+- JasperReports upgraded to 6.20.
+- Apache POI upgraded to 5.1.
+- Apache Commons IO upgraded to 2.11.
+- HtmlUnit upgraded to 2.63.
+- Hibernate upgraded to 5.6.10.
+- Hibernate Envers upgraded to 5.6.10.
+- HSQLDB embedded database upgraded to 2.6.1.
 - Embedded Tomcat used in development upgraded to 9.0.65.		
 - Hibernate Validator upgraded to 6.0.23.		
 - Groovy upgraded to 4.0.4.		
@@ -24,53 +45,43 @@ Change Log for OpenXava project
 - DWR upgraded to 2.0.11. 
 - Lombok upgraded to 1.18.24.
 - Jersey (the JAX-RS implementation) upgraded to 2.36.
-- Fix: Incorrect encoding in Welcome page, so in some languages it shows ? instead of the actual characters.
-- JasperReports upgraded to 6.20.
-- Apache POI upgraded to 5.1.
-- Apache Commons IO upgraded to 2.11.
-- HtmlUnit upgraded to 2.63.
-- New projects do not include default schema by default in persistence.xml. 
-- Hibernate upgraded to 5.6.10.
-- Hibernate Envers upgraded to 5.6.10.
-- HSQLDB embedded database upgraded to 2.6.1.
-- Lesson 18 of course divided into several smaller lessons.
-- Lessons 1 to 25 of course translated to Chinese.
-- Removed XHibernate and HibernatePersistenceProvider, though Hibernate API is still available.
-- Removed JDBCTabProvider, used to get list data via JDBC, only used for XML components.
-- Dropped support for Tomcat 7.
-- Servlet 3.1 is the minimum specification version supported.
-- IMAGES_GALLERY/GALERIA_IMAGENES stereotype uses JPA for persistence instead of Hibernate.
-- Method usesAnnotatedPOJO() removed from ModuleTestBase.
-- Removed outdated documentation in Russian, Chinese and French.
+
+Documentation improvements
+- Source code for the course in English and Spanish available in GitHub for each lesson.
 - Getting started guide translated to Chinese.
-- Removed XML components support including all related code.
-- IPropertyCodeGenerator interface removed.
-- Documentation modules are no longer supported, now they are just ignored.
-- Dropped support for Liferay, WebSphere Portal, JetSpeed, portals and portlets.
-- IPadStyle removed, it was not enabled by default since v5.0.
-- Method isPortalEnabled() removed from ModuleTestBase.
-- The usage of styles.properties to register styles is removed.
-- Removed emailAsUserNameInPortal and portletLocales from xava.properties.
-- New servlet session attribute xava.coreViaAJAX to disable load via AJAX on entering a module first time.
+- Lessons 1 to 25 of course translated to Chinese.
+- Lessons 9 and 10 of course divided into several smaller lessons.
+- Lessons from 9 to 23 of course include video.
 - Doc to deploy in production with Tomcat using Maven.
-- Doc to configure MySQL, PostgreSQL, Oracle, MS SQL Server, AS/400, Informix, Db2 and Firebird with Maven. 
-- Added new database commented configurations in new projects: MS SQL Server, Informix, Db2 and Firebird.
+- Doc to configure MySQL, PostgreSQL, Oracle, MS SQL Server, AS/400, Informix, Db2 and Firebird with Maven.
+- Removed outdated documentation in Russian, Chinese and French.
+
+Other improvements
 - Addons and OpenXava projects mixed in an unique project, openxava. 
-- Code for navigation and security refactored to be more plugable. 
+- Code for navigation and security refactored to be more plugable.
+- IMAGES_GALLERY/GALERIA_IMAGENES stereotype uses JPA for persistence instead of Hibernate.
+- Added new database commented configurations in new projects: MS SQL Server, Informix, Db2 and Firebird.
+- New projects do not include default schema by default in persistence.xml.
 - Driver class not included for datasource and persistence unit definitions for new projects.
-- Fix: Some links to incorrect lessons in top navigation menu of course.
-- All EJB related code removed.
-- MapFacade and EntityBean are no longer EJB Session beans. 
-- IRemoteAction interface and Server utility class removed.
+- New servlet session attribute xava.coreViaAJAX to disable load via AJAX on entering a module for the first time.
+- New method getField() in Classes utility class.
+- New getAsStreamInPrefixes() method in Resources utility class.
+
+Fixes
+- Fixed 43 potential security vulnerabilities in dependencies, now we have 0 vulnerabilities.
+- Fix: Editors for annotations do not work for child classes using inheritance.
+- Fix: Searching in a @DescriptionsList does not ignore accents in some cases.
+- Fix: Chinese MS950 encoding does not work well with simplified Chinese characters.
+- Fix: Tooltip for page numbers always says "First page".
+- Fix: Duplicate entry removed from i18n files.
+- Fix: Extra blank space in "hide them" link in list mode.
+- Fix: Module does not start showing a browser error with a headless Java, like the default one in Ubuntu.
+- Fix: Incorrect encoding in Welcome page, so in some languages it shows ? instead of the actual characters.
 - Fix: Some code in lesson 2 and 6 of course does not compile. 
 - Fix: Some incorrect explanation sentences in text of course.
-- New getAsStreamInPrefixes() method in Resources utility class.
+- Fix: Some links to incorrect lessons in the top navigation menu of course.
 - Fix: Message for template not found on generating custom PDF is not translated. 
-- Maven support.
-- Searching in a @DescriptionsList does not ignore accents in some cases.
-- Removed DocumentLibrary editor for attaching documents using Liferay document library.
-- Lessons 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 and 23 of course include video.
-- Lesson 9 of course divided into several smaller lessons.
+
 
 OpenXava 6.6.3 (2022-3-29)
 --------------------------
