@@ -1,13 +1,12 @@
 Change Log for OpenXava project
 ===============================
 
-Main features
+OpenXava 7.0 (2022-9-19)
+------------------------
 - Maven support.
 - It's possible to develop/run using command line and plain editor with no IDE at all.
 - Java 17 support.
 - Tomcat 10 support.
-
-Dropped features
 - Removed XML components support including all related code.
 - Dropped support for Liferay, WebSphere Portal, JetSpeed, portals and portlets.
 - Dropped support for Tomcat 7.
@@ -24,8 +23,6 @@ Dropped features
 - Removed DocumentLibrary editor for attaching documents using Liferay document library.
 - Removed XHibernate and HibernatePersistenceProvider, though Hibernate API is still available.
 - Removed JDBCTabProvider, used to get list data via JDBC, only used for XML components.
-
-Upgraded libraries
 - JasperReports upgraded to 6.20.
 - Apache POI upgraded to 5.1.
 - Apache Commons IO upgraded to 2.11.
@@ -44,8 +41,6 @@ Upgraded libraries
 - DWR upgraded to 2.0.11. 
 - Lombok upgraded to 1.18.24.
 - Jersey (the JAX-RS implementation) upgraded to 2.36.
-
-Documentation improvements
 - Source code for the course in English and Spanish available in GitHub for each lesson.
 - Getting started guide translated to Chinese.
 - Lessons 1 to 25 of course translated to Chinese.
@@ -54,8 +49,6 @@ Documentation improvements
 - Doc to deploy in production with Tomcat using Maven.
 - Doc to configure MySQL, PostgreSQL, Oracle, MS SQL Server, AS/400, Informix, Db2 and Firebird with Maven.
 - Removed outdated documentation in Russian, Chinese and French.
-
-Other improvements
 - Addons and OpenXava projects mixed in an unique project, openxava. 
 - Code for navigation and security refactored to be more plugable.
 - IMAGES_GALLERY/GALERIA_IMAGENES stereotype uses JPA for persistence instead of Hibernate.
@@ -65,8 +58,6 @@ Other improvements
 - New servlet session attribute xava.coreViaAJAX to disable load via AJAX on entering a module for the first time.
 - New method getField() in Classes utility class.
 - New getAsStreamInPrefixes() method in Resources utility class.
-
-Fixes
 - Fixed 43 potential security vulnerabilities in dependencies, now we have 0 vulnerabilities.
 - Fix: Editors for annotations do not work for child classes using inheritance.
 - Fix: Searching in a @DescriptionsList does not ignore accents in some cases.
@@ -80,7 +71,6 @@ Fixes
 - Fix: Some incorrect explanation sentences in text of course.
 - Fix: Some links to incorrect lessons in the top navigation menu of course.
 - Fix: Message for template not found on generating custom PDF is not translated. 
-
 
 OpenXava 6.6.3 (2022-3-29)
 --------------------------
