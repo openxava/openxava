@@ -4,11 +4,11 @@
 
   <groupId>org.openxava</groupId>
   <artifactId>invoicedemo</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>7.0</version>
   <packaging>war</packaging>
 
   <properties>
-    <openxava.version>7.0-SNAPSHOT</openxava.version>
+    <openxava.version>7.0</openxava.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>

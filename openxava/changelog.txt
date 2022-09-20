@@ -13,14 +13,13 @@ Dropped features
 - Dropped support for Tomcat 7.
 - Servlet 3.1 is the minimum specification version supported.
 - All EJB related code removed.
-- Method usesAnnotatedPOJO() removed from ModuleTestBase.
+- The methods usesAnnotatedPOJO() and isPortalEnabled() removed from ModuleTestBase.
 - IPropertyCodeGenerator interface removed.
 - Documentation modules are no longer supported, now they are just ignored.
 - IPadStyle removed, it was not enabled by default since v5.0.
-- Method isPortalEnabled() removed from ModuleTestBase.
 - The usage of styles.properties to register styles is removed.
 - Removed emailAsUserNameInPortal and portletLocales from xava.properties.
-- MapFacade and EntityBean are no longer EJB Session beans. 
+- MapFacade and MapFacadeBean are no longer EJB Session Beans. 
 - IRemoteAction interface and Server utility class removed.
 - Removed DocumentLibrary editor for attaching documents using Liferay document library.
 - Removed XHibernate and HibernatePersistenceProvider, though Hibernate API is still available.
