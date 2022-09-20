@@ -847,5 +847,10 @@ here that you want to override.
 			<set property="subscribe" value="false" />	
 		</action>	
 	</controller>
+
+	<controller name="TabRefreshController">
+		<action name="tabRefreshAction"
+			class="org.openxava.actions.TabRefreshAction"/>
+	</controller>
 	
 </controllers>

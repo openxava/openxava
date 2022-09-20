@@ -6866,5 +6866,9 @@ public class View implements java.io.Serializable {
 		if (descriptionsList == null) return "";
 		return descriptionsList.getCondition();
 	}
+	
+	public void setMustRefreshCollection(Boolean mustRefreshCollection) {
+		this.mustRefreshCollection = mustRefreshCollection;
+	}
 
 }
