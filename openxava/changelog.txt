@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Lesson 26 of course translated to Chinese, so now the whole course is in Chinese.
+
 OpenXava 7.0 (2022-9-19)
 ------------------------
 - Maven support.
