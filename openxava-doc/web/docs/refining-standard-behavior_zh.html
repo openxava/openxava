@@ -130,9 +130,12 @@
 </code></pre> 在上面您可以看到如何定义动作。基本上，相当于将名称与执行该逻辑的类链接起来。此外，它定义了一个图标和一个按键，并且如何使用 &lt;set /&gt; 配置动作类。<br>
       默认情况下，动作会以列表和详细模式显示。不过，您可以通过 mode 属性指定动作应仅以“列表”或“详细”模式显示。<br>
       <h3 id="toc3"><a name="Lesson 7: Refining the standard behavior-Custom actions-Refining the controller for a module"></a>优化一个模块的控制器</h3>
-      首先，我们将优化 Invoice 模块的删除动作。我们的目标是修改删除的过程，以便当用户点击删除按钮时发票不会被删除，而是简单地标记为 deleted。这样，我们可以在需要时恢复已删除的发票。<br>
-      <img src="files/refining_behavior_zh010.png" alt="refining_behavior_en010.png"
-        title="refining_behavior_en010.png"><br>
+      首先，我们将优化 Invoice 模块的删除动作。我们的目标是修改删除的过程，以便当用户点击删除按钮时发票不会被删除，而是简单地标记为 deleted。这样，我们可以在需要时恢复已删除的发票。</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <img src="files/refining_behavior_zh010.png"
+        alt="refining_behavior_en010.png" title="refining_behavior_en010.png"></div>
+    <div class="wiki" style="display: block;"><br>
       上图显示 Typical 的动作。我们希望 Invoice 模块包含这些动作，除了删除的动作，我们将为它编写我们自己的逻辑。<br>
       您必须在项目中 src/main/resources/xava 文件夹的 controllers.xml 文件中为 Invoice 定义自己的控制器，如下：<br>
       <pre><code class="xml">&lt;?xml version = "1.0" encoding = "ISO-8859-1"?&gt;
@@ -177,9 +180,12 @@ public class DeleteInvoiceAction
 </code></pre> 动作是个简单的类。它有一个 execute() 方法，是用户点击相应的按钮或链接时会执行的逻辑。一个动作必须实现 org.openxava.actions.IAction 接口，不过通常从 org.openxava.actions 包中扩展 BaseAction、ViewBaseAction 或任何其他基本动作更方便。<br>
       ViewBaseAction 有一个视图属性，您可以在 execute() 中使用 getView()。这个 org.openxava.view.View 类型的对象允许您管理用户界面。在上面我们使用 getView().clear() 清除所显示的数据。<br>
       我们还使用 addMessage()。所有 addMessage() 添加的消息将在动作执行结束时显示于用户。您可以在 src/main/resources/i18n/invoicing-messages_zh.properties 中添加要显示的消息或条目的 id。<br>
-      在下图中演示了添加自定义删除动作后 Invoice 模块的行为：<br>
-      <img src="files/refining_behavior_zh020.png" alt="refining_behavior_en020.png"
-        title="refining_behavior_en020.png"><br>
+      在下图中演示了添加自定义删除动作后 Invoice 模块的行为：</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <img src="files/refining_behavior_zh020.png"
+        alt="refining_behavior_en020.png" title="refining_behavior_en020.png"></div>
+    <div class="wiki" style="display: block;"><br>
       这当然是非常笨的行为，所以现在让我们给它添加真正的功能。为了在不删除的情况下将发票标记为已删除，我们需要在 Invoice 添加一个新属性。我们称它为 deleted。如下：<br>
       <pre><code class="java">@Hidden // 默认情况下不会在视图和列表中显示
 @Column(columnDefinition="BOOLEAN DEFAULT FALSE") // 填充 false 而不是空
@@ -332,10 +338,15 @@ abstract public class CommercialDocument extends Deletable {
 }
 </code></pre> 通过此更改，验证就像在真正的删除案例中一样执行，这样就不用改变原始的行为。<br>
       <h3 id="toc9"><a name="Lesson 7: Refining the standard behavior-Generic actions-Metadata for more generic code"></a>使用元数据以达到更加通用的代码</h3>
-      当前 Invoice 和 Order 可以正常工作。不过如果您尝试删除任何其他模块中的实体，您将收到一条错误的消息。下图显示了当您尝试删除客户时会发生什么。<br>
-      <img src="files/refining_behavior_zh030.png" alt="refining_behavior_en030.png"
-        title="refining_behavior_en030.png"><br>
-      如果您的实体没有 deleted 的属性，则删除动作将失败。是的，您可以使用 Deletable 来添加 deleted 属性。但是，您可能希望在某些实体中可以使用体标但不删除，而另些实体会真的从数据库中将实体删除。我们希望盘动作在所有情况下都有效。<br>
+      当前 Invoice 和 Order 可以正常工作。不过如果您尝试删除任何其他模块中的实体，您将收到一条错误的消息。下图显示了当您尝试删除客户时会发生什么。</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <img src="files/refining_behavior_zh030.png"
+        alt="refining_behavior_en030.png" title="refining_behavior_en030.png"><br>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">如果您的实体没有 deleted 的属性，则删除动作将失败。是的，您可以使用 Deletable 来添加 deleted 属性。但是，您可能希望在某些实体中可以使用体标但不删除，而另些实体会真的从数据库中将实体删除。我们希望盘动作在所有情况下都有效。<br>
       OpenXava 会存储所有实体的元数据（Metadata），您可以从代码中访问此元数据。这使您可以确定实体是否具有 deleted 的属性。<br>
       下面的代码展示了如何修改动作，以查明实体是否具有 deleted 的属性，如果没有，则不执行删除的过程：<br>
       <pre><code class="java">public void execute() throws Exception {
@@ -384,9 +395,12 @@ public class InvoicingDeleteAction extends ViewBaseAction {
       此示例向您展示如何使用 executeAction() 来优化 OpenXava 标准的逻辑。另一种方法是通过继承。让我们在下一节中看看如何。<br>
       <h3 id="toc11"><a name="Lesson 7: Refining the standard behavior-Generic actions-Refining the default search action"></a>优化默认搜索的动作</h3>
       现在，您的 InvoicingDeleteAction 已正常运作，尽管它的用处不是很大。因为将一个对象标记为已删除是没有用的，毕竟在其它地方还是看的到。换句话说，我们必须修改应用程序的其它部分，以将标记为 deleted 的对象视为它们不存在。<br>
-      最明显的是搜索的动作。如果您删除发票后再搜索它，则不应该找到它。下图显示了搜索在 OpenXava 中的工作方式。<br>
-      <img src="files/refining_behavior_zh040.png" alt="refining_behavior_en040.png"
-        title="refining_behavior_en040.png"><br>
+      最明显的是搜索的动作。如果您删除发票后再搜索它，则不应该找到它。下图显示了搜索在 OpenXava 中的工作方式。</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <img src="files/refining_behavior_zh040.png"
+        alt="refining_behavior_en040.png" title="refining_behavior_en040.png"></div>
+    <div class="wiki" style="display: block;"><br>
       在上图中首先要观察的是，在详细模式下搜索比它原本看起来更灵活。用户可以在任何字段或一组字段中输入任何值，然后点击刷新按钮，而第一个匹配的对象将被加载到视图中。<br>
       现在您可能会想：好吧，我可以像改进 CRUD.delete 一样改进 CRUD.refresh 动作。是的，可以，而且会奏效；当用户点击详细模式的刷新动作时，您的代码将被执行。然而，这里有个微妙的细节。搜索逻辑不仅会从详细模式中调用，也在 OpenXava 模块中其他地方调用。例如，当用户从列表模式中选择一个详细信息时，List.viewDetail 动作会获取该行的键，将其放入详细信息视图中，然后执行搜索的动作。<br>
       如果要正确的做，得将搜索逻辑放在一个动作、一个模块中，而所有需要用到搜索的动作都得链接到这个动作上。如上图所示。<br>
@@ -587,9 +601,12 @@ public class InvoicingDeleteSelectedAction
       <h2 id="toc15"><a name="Lesson 7: Refining the standard behavior-Reusing actions code"></a>重用动作的代码</h2>
       非常好！现在，您的应用程序会将发票和订单标记为已删除，而不是真的删除它们。这种方法的一个优点是，在任何时刻，用户都可以恢复那些错误删除的发票或订单。要让此功能有用，您必须提供用于恢复已删除实体的工具。因此，我们将创建一个发票垃圾箱和一个订单垃圾箱，好让已删除的文档回归。<br>
       <h3 id="toc16"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Using properties to create reusable actions"></a>使用属性创建可重用的动作</h3>
-      我们想要的垃圾箱如下图所示。它是发票或订单的列表，用户可以点击“恢复”按钮来恢复单个实体或选定多个再点击也行。<br>
-      <img src="files/refining_behavior_zh050.png" alt="refining_behavior_en050.png"
-        title="refining_behavior_en050.png"><br>
+      我们想要的垃圾箱如下图所示。它是发票或订单的列表，用户可以点击“恢复”按钮来恢复单个实体或选定多个再点击也行。</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <img src="files/refining_behavior_zh050.png"
+        alt="refining_behavior_en050.png" title="refining_behavior_en050.png"></div>
+    <div class="wiki" style="display: block;"><br>
       此恢复动作的逻辑是将选定实体的 deleted 属性设置为 false。显然，这与我们用于删除的逻辑相同，但将 deleted 设置为 false 而不是 true。由于我们的良心不允许我们复制和粘贴，我们将重用当前的代码。方法是将 restore 属性添加到 InvoicingDeleteSelectedAction 来恢复已删除的实体。<br>
       <pre><code class="java">public class InvoicingDeleteSelectedAction ... {
     ...
@@ -641,9 +658,11 @@ public class InvoicingDeleteSelectedAction
     &lt;/module&gt;
     
 &lt;/application&gt;
-</code></pre> 这些模块将用在 Invoice 和 Order，但它们使用 XAVA_LIST_ACTION 环境变量将特定动作定义为行的动作。以下图显示了 InvoiceTrash 模块：<br>
-      <img src="files/refining_behavior_zh060.png" alt="refining_behavior_en060.png"
-        title="refining_behavior_en060.png"><br>
+</code></pre> 这些模块将用在 Invoice 和 Order，但它们使用 XAVA_LIST_ACTION 环境变量将特定动作定义为行的动作。以下图显示了 InvoiceTrash 模块：</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <img src="files/refining_behavior_zh060.png"
+        alt="refining_behavior_en060.png" title="refining_behavior_en060.png"><br>
       <h3 id="toc18"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Several tabular data definitions by entity"></a>从实体定义表格的数据</h3>
       另一个重要细节是列表只会显示已删除的实体，因为我们为模块定义了一个特定的 @Tab。<br>
       <pre><code class="xml">&lt;module ... &gt;

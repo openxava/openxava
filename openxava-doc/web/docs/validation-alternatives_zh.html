@@ -168,7 +168,7 @@ private boolean isDeliveredToBeInInvoice() {
       <pre><code class="properties">order_must_be_delivered=订单 {year}/{number} 必须已送达才能添加到发票中
 </code></pre> </div>
     <div class="wiki" style="display: block;">可以看到我们将 {0}/{1} 更改为 {year}/{number}。 OpenXava 将使用那些正要更新但不满足验证条件的 Order 的 year 和 number 值填充 {year}/{number}。<br>
-      这是最简单的验证方法，因为只需对带有验证的方法进行注释。数据校验会负责在保存时调用该方法，如果验证不成功则抛出相应的 ValidationException。<br>
+      这是最简单的验证方法，因为只需对带有验证的方法进行注解。数据校验会负责在保存时调用该方法，如果验证不成功则抛出相应的 ValidationException。<br>
       <h2 id="toc20"><a name="Lesson 6: Advanced validation-Summary"></a>总结</h2>
       在本章，您学到了几种在 OpenXava 应用程序中进行验证的方法。在下一课中，您将学习如何在移除时进行验证，由此您将已探索所有类型的验证。<br>
     </div>

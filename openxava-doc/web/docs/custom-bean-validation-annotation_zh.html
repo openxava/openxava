@@ -134,9 +134,13 @@ public class ISBNValidator implements ConstraintValidator&lt;ISBN, Object&gt; { 
     <div class="wiki" style="display: block;"> <em></em>@ISBN 已准备好。只需注解您的 isbn 属性。像：<br>
       <pre><code class="java">@Column(length=13) @ISBN
 String isbn;
-</code></pre>在这情况，当您将类的代码保存时，@ISBN 的导入不会自动添加。这是因为还有另一个@ISBN 可用（来自OpenXava 包含的Hibernate Validator 库），所以OpenXava Studio 不知道该选择哪一个。不用担心，只需将鼠标放在@ISBN 注释上，将显示一个弹出窗口，其中包含几种可能的解决方案，选择 Import 'ISBN' (com.yourcompany.invoicing.annotations)，以便将正确的导入添加到 Product 类：</div>
+</code></pre>在这情况，当您将类的代码保存时，@ISBN 的导入不会自动添加。这是因为还有另一个@ISBN 可用（来自OpenXava 包含的Hibernate Validator 库），所以OpenXava Studio 不知道该选择哪一个。不用担心，只需将鼠标放在@ISBN 注解上，将显示一个弹出窗口，其中包含几种可能的解决方案，选择 Import 'ISBN' (com.yourcompany.invoicing.annotations)，以便将正确的导入添加到 Product 类：</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
     <div class="wiki" style="display: block;"> <img src="files/validation_zh035.png"
-        alt="validation_en035.png" title="validation_en035.png"> </div>
+        alt="validation_en035.png" title="validation_en035.png"></div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
     <div class="wiki" style="display: block;"> 现在，您可以试试模块，并验证您输入的 ISBN 值是否正确验证。恭喜！您编写了您的第一个 Bean Validation。并没那么难 ：一个注解，一个类。<br>
       这个 @ISBN 足以在现实生活中使用。尽管如此，我们会尝试改进它，只是为了有机会尝试一些有趣的可能性。</div>
     <br>

@@ -183,7 +183,7 @@ Customer customer;
     </div>
     <div class="wiki" style="display: block;">目前这里不需要再编写什么了，现在我们在 Invoice 中添加详细信息的集合。<br>
       <h2 id="toc8"><a name="Modeling with Java-Basic domain model-Collection of dependent objects"></a>依赖对象的集合</h2>
-      通常一张发票需要包含产品、数量等信息。这些信息是发票的一部份，不与其它发票共享，而当发票被删除时，它们也一并被删除。所以对发票添加详细信息最自然的方法是用可嵌入对象。要使用 JPA 执行需声明一个常规的集合，在 Invoice 里声明并注释 @ElementCollection：</div>
+      通常一张发票需要包含产品、数量等信息。这些信息是发票的一部份，不与其它发票共享，而当发票被删除时，它们也一并被删除。所以对发票添加详细信息最自然的方法是用可嵌入对象。要使用 JPA 执行需声明一个常规的集合，在 Invoice 里声明并注解 @ElementCollection：</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@ElementCollection
 Collection&lt;Detail&gt; details;

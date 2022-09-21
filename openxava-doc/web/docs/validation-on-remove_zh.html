@@ -55,7 +55,7 @@
       在上一章，我们学到在保存时验证的替代方案。在本章，我们将研究在删除时的验证。<br>
       <h2 id="toc7"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating on removal with @RemoveValidator"></a>删除时使用 @RemoveValidator 验证<em></em></h2>
       到目前为止我们所看到的验证都是在实体被修改时执行的，但有时在需要删除实体之前执行验证，并使用它来取消实体删除。<br>
-      我们将修改应用程序，当订单有关联的发票时会拒绝删除订单。要实现这一点，得用 @RemoveValidator 注释 Order 实体，如下：<br>
+      我们将修改应用程序，当订单有关联的发票时会拒绝删除订单。要实现这一点，得用 @RemoveValidator 注解 Order 实体，如下：<br>
       <pre><code class="java">@RemoveValidator(com.yourcompany.invoicing.validators.OrderRemoveValidator.class) // 带有验证的类
 public class Order extends CommercialDocument {
 </code></pre>现现在，在删除订单之前，会执行 OrderRemoveValidator 中的逻辑，如果验证失败，则不会删除订单。我们看看验证器的代码：<br>
@@ -91,7 +91,7 @@ public class OrderRemoveValidator
       如您所见，使用 @RemoveValidator 并不难，但很冗长。您必须编写一个全新的类来添加一个简单的 if。现在让我们研究一个更简短的替代方案<br>
       <h2 id="toc8"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating on removal with a JPA callback method"></a>删除时使用 JPA 回调方法验证</h2>
       我们将尝试用另一种更简单的方法来执行删除时的验证，只需将验证逻辑从验证器类移动到 Order 实体，在本例中为 @PreRemove 方法。<br>
-      首先，从您的项目中删除 OrderRemoveValidator 类。还要从您的 Order 实体中删除 @RemoveValidator 注释：<br>
+      首先，从您的项目中删除 OrderRemoveValidator 类。还要从您的 Order 实体中删除 @RemoveValidator 注解：<br>
       <pre><code class="java">//@RemoveValidator(com.yourcompany.invoicing.validators.OrderRemoveValidator.class) // 删除 @RemoveValidator
 public class Order extends CommercialDocument {
 </code></pre> 我们刚刚把验证删除了。现在我们再次添加此功能，但现在是在 Order 类中添加 validateOnRemove() 方法：<br>

@@ -86,7 +86,7 @@ private void calculateNumber() throws Exception {
 // )
 @ReadOnly // 用户无法修改
 int number;
-</code></pre> 要注意的是，除了删除 @DefaultValueCalculator 之外，我们还添加了 @ReadOnly 注释。这意味着用户不能输入或修改号码。这才是正确的方法，因为数字是在保存对象时生成的，因此用户键入的值始终会被覆盖。<br>
+</code></pre> 要注意的是，除了删除 @DefaultValueCalculator 之外，我们还添加了 @ReadOnly 注解。这意味着用户不能输入或修改号码。这才是正确的方法，因为数字是在保存对象时生成的，因此用户键入的值始终会被覆盖。<br>
     </div>
     <div class="wiki" style="display: block;">现在您可以试试发票或订单模块，会看到该序号为空且不可编辑，而当您保存文档时，会计算序号并跟年份一起以消息显示。<br>
     </div>
