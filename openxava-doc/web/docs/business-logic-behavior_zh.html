@@ -25,8 +25,7 @@
         class="wiki_link" href="defaultvaluecalculator-in-collections_zh.html">11. 用在集合的 @DefaultValueCalculator</a><strong> </strong> | <a
         class="wiki_link" href="calculation-and-collections-total_zh.html">12. @Calculation 和集合总计</a> | <a
         class="wiki_link" href="defaultvaluecalculator-from-file_zh.html">13. 从外部文件的 @DefaultValueCalculator</a> | <a
-        class="wiki_link" href="manual-schema-evolution_zh.html">14. 手动更改 schema</a> <a
-        class="wiki_link" href="manual-schema-evolution_en.html"></a> | <a
+        class="wiki_link" href="manual-schema-evolution_zh.html">14. 手动更改 schema</a> | <a
         class="wiki_link" href="multi-user-default-value-calculation_zh.html">15. 多用户时默认值的计算</a> | <a
         class="wiki_link" href="synchronize-persistent-and-computed-properties_zh.html">16. 同步持久属性和计算属性</a> | <a
         class="wiki_link" href="logic-from-database_zh.html">17. 从数据库中的逻辑</a> |<span
@@ -69,7 +68,8 @@
       <h2><a name="business-logic-in-detail-mode"></a>详细模式的业务逻辑</h2>
       我们将从最简单的情况开始：在详细模式中执行某逻辑的按钮。在这里，我们将添加一个从订单创建发票的按钮：<br>
       <img src="files/business-logic-behavior_zh010.png" alt="business-logic-behavior_en010.png"
-        title="business-logic-behavior_en010.png"><br>
+        title="business-logic-behavior_en010.png"></div>
+    <div class="wiki" style="display: block;"><br>
       以上显示了此动作如何使用当前订单创建发票，它只是将订单中的数据包括详细信息都复制到新的发票里。之后会显示一条消息，而在订单中的发票分页将显示刚创建的发票。让我们看看如何实现这一点。
       <h3><a name="creating-an-action-for-custom-logic"></a>创建执行自定义逻辑的动作</h3>
       正如您所知道的，在模块使用自定义动作的第一步是为该动作定义一个控制器。让我们在 controllers.xml 添加一个新的控制器。以下可看 Order 控制器的代码：
@@ -102,7 +102,7 @@ public class CreateInvoiceFromOrderAction
 </code></pre>真的很简单。我们在获得 Order 实体后(1)，调用 createInvoice() 方法 (2)，之后刷新视图 (3) 并显示一条消息 (4)。可以看到，动作只是视图（用户界面）和模型（业务逻辑）间的中介。<br>
       记得将以下消息添加到 src/main/resources/i18n 文件夹中的 invoicing-messages_zh.properties：<br>
       <pre><code class="properties">invoice_created_from_order=根据当前订单创建发票 {0}
-</code></pre>然而，这条消息并没有很好地显示，因为我们是传递了一个 Invoice 对象作为参数。所以我们需要一个对用户有用的 Invoice 和 Order toString()。我们将覆盖 CommercialDocument（Invoice 和 Order 的父级）的 toString() 来实现这一点。你可以在这里看到这个 toString() 方法：
+</code></pre>然而，这条消息并没有很好地显示，因为我们是传递了一个 Invoice 对象作为参数。所以我们需要一个对用户有用的 Invoice 和 Order toString()。我们将覆盖 CommercialDocument（Invoice 和 Order 的父级）的 toString() 来实现这一点。您可以在这里看到这个 toString() 方法：
       <pre><code class="java">abstract public class CommercialDocument extends Deletable {
 
     ...
@@ -282,9 +282,12 @@ public class ShowHideCreateInvoiceAction
 </code></pre>如您所见，我们只是在 execute() 方法的末尾添加了 removeActions("Order.createInvoice")。<br>
       显示和隐藏动作并不能替代模型中的验证。验证仍然是必要的，因为实体可能从应用程序的任何其他部分使用，而不仅仅是来自 CRUD 模块。然而，隐藏和显示动作的技巧改善了用户体验。
       <h2><a name="business-logic-from-list-mode"></a>列表模式的业务逻辑</h2>
-      在上一章，您学到如何<a href="refining-standard-behavior_zh.html#Lesson%207:%20Refining%20the%20standard%20behavior-List%20mode-List%20actions">创建列表動作</a>。列表动作是非常有用的工具，它为用户提供了同时对多个对象执行特定逻辑的能力。在我们的例子中，我们可以在列表模式下添加一个动作，以从列表中选定的多个订单创建新发票。以这种方式工作：<br>
-      <img src="files/business-logic-behavior_zh020.png" alt="business-logic-behavior_en020.png"
-        title="business-logic-behavior_en020.png"><br>
+      在上一章，您学到如何<a href="refining-standard-behavior_zh.html#Lesson%207:%20Refining%20the%20standard%20behavior-List%20mode-List%20actions">创建列表動作</a>。列表动作是非常有用的工具，它为用户提供了同时对多个对象执行特定逻辑的能力。在我们的例子中，我们可以在列表模式下添加一个动作，以从列表中选定的多个订单创建新发票。以这种方式工作：</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"><img src="files/business-logic-behavior_zh020.png"
+        alt="business-logic-behavior_en020.png" title="business-logic-behavior_en020.png"></div>
+    <div class="wiki" style="display: block;"><br>
       此列表动作会从选定的订单中创建发票。它只是将订单数据复制到新发票中，将所有订单的详情添加到一张唯一的发票中。还会显示一条消息。让我们看看如何为这行为编写代码。
       <h3><a name="list-action-with-custom-logic"></a>在列表使用自定义逻辑的动作</h3>
       正如您所知道的，在模块使用自定义动作的第一步是将该动作添加到一个控制器中。因此，让我们编辑 controllers.xml 在 Order 控制器添加一个新动作：
@@ -336,7 +339,7 @@ public class CreateInvoiceFromSelectedOrdersAction
 </code></pre>这就是动作的全部。让我们看看缺少的部分，也就是 Invoice 类的 createFromOrders() 方法。
       <h3><a name="business-logic-in-the-model-over-several-entities"></a>模型中多个实体的业务逻辑</h3>
       从多个订单实体创建新发票的业务逻辑在模型层（即实体）中，而不是在动作中。我们不能将方法放在 Order 类中，因为该过程是由多个订单完成的，而不仅仅是一个。我们不能在 Invoice 中使用实例方法，因为发票尚未存在，实际上我们想创建它。因此，我们将在 Invoice 类中创建一个静态工厂方法，用于从多个订单创建一个新发票。<br>
-      你可以在下面看到方法：<br>
+      您可以在下面看到方法：<br>
       <pre><code class="java">public class Invoice extends CommercialDocument {
 
     ...
@@ -383,9 +386,12 @@ public class CreateInvoiceFromSelectedOrdersAction
       <pre><code class="properties">orders_not_specified=未指定订单
 </code></pre>这并不是用户可能碰到的唯一异常。所有之前为 Invoice 和 Order 编写的验证都会自动执行。这会确保用户必须选择来自同一客户的订单、并且已交付、也未开发票等。模型中验证可防止用户从不该的订单创建发票。
       <h2><a name="Showing-a-dialog"></a>显示对话框</h2>
-      从多个订单创建发票后，让用户可以查看并编辑新建的发票会很方便。实现此目的的一种方法是显示一个对话框，并允许查看和编辑刚刚新建的发票。如下：<br>
-      <img src="files/business-logic-behavior_zh030.png" alt="business-logic-behavior_en030.png"
-        title="business-logic-behavior_en030.png"><br>
+      从多个订单创建发票后，让用户可以查看并编辑新建的发票会很方便。实现此目的的一种方法是显示一个对话框，并允许查看和编辑刚刚新建的发票。如下：</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <img src="files/business-logic-behavior_zh030.png"
+        alt="business-logic-behavior_en030.png" title="business-logic-behavior_en030.png"></div>
+    <div class="wiki" style="display: block;"><br>
       让我们看看如何实现这种行为。
       <h3><a name="using-showdialog"></a>使用 showDialog()</h3>
       第一步是修改 CreateInvoiceFromSelectedOrdersAction 以在创建发票后显示一个对话框，只需在 execute() 后添加几行代码就可以：<br>
@@ -434,13 +440,23 @@ public class SaveInvoiceAction
 </code></pre>该动作从 SaveAction 扩展并覆盖 execute() 方法，并使用 super.execute() 调用标准逻辑(1)，然后使用 closeDialog() 关闭对话框(2)。这样，当用户点击 SAVE 时，会保存发票和关闭对话框并返回到订单列表，以准备继续从订单创建新发票。<br>
       对于 CLOSE 按钮，我们使用 CancelAction，这是 OpenXava 包含的动作，在这里它会关闭对话框。
       <h3><a name="plain-view-instead-of-dialog"></a>普通视图而不是对话框</h3>
-      有时与其显示对话框：<br>
-      <img src="files/business-logic-behavior_zh040.png" alt="business-logic-behavior_en040.png"
-        title="business-logic-behavior_en040.png"><br>
-      您可能更愿意用新视图替换当前的，如下：<br>
-      <img src="files/business-logic-behavior_zh050.png" alt="business-logic-behavior_en050.png"
-        title="business-logic-behavior_en050.png"><br>
-      这在需要显示的数据量很大，而若在对话框中显示会很难看时，会很有用。使用普通视图而不是对话框非常简单，只需在 CreateInvoiceFromSelectedOrdersAction 中更改这一行：
+      有时与其显示对话框：</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <img src="files/business-logic-behavior_zh040.png"
+        alt="business-logic-behavior_en040.png" title="business-logic-behavior_en040.png"><br>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">您可能更愿意用新视图替换当前的，如下：</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;"> <img src="files/business-logic-behavior_zh050.png"
+        alt="business-logic-behavior_en050.png" title="business-logic-behavior_en050.png"><br>
+    </div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">这在需要显示的数据量很大，而若在对话框中显示会很难看时，会很有用。使用普通视图而不是对话框非常简单，只需在 CreateInvoiceFromSelectedOrdersAction 中更改这一行：
       <pre><code class="java">showDialog();
 </code></pre>换成这行：
       <pre><code class="java">showNewView();
@@ -458,6 +474,6 @@ public class SaveInvoiceAction
       <strong></strong><strong><strong>对这节课有什么问题吗？ <a class="wiki_link_ext"
             href="http://sourceforge.net/p/openxava/discussion/419690/"
             rel="nofollow">前往论譠</a></strong> <strong>一切都顺利吗？</strong></strong><strong> <a
-          class="wiki_link" href="references-collections_en.html">前往第二十六章</a></strong> </div>
+          class="wiki_link" href="references-collections_zh.html">前往第二十六章</a></strong> </div>
   </body>
 </html>

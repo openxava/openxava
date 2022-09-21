@@ -59,12 +59,18 @@
       有很多带有 SOAP 和 REST web service 的网站以供我们查阅书籍的 ISBN，我们将使用 openlibrary.org，它提供免费查阅其书籍目录的 REST API。要试一试 Open Library API，请打开浏览器并到以下连结：</div>
     <div class="wiki" style="display: block;"><a href="https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9780932633439">https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9780932633439</a></div>
     <div class="wiki" style="display: block;">最后一个参数是书籍的 ISBN，从中您将获得包含该书籍数据的 JSON，如下：</div>
-    <img src="files/validation040.png" alt="validation040.png" title="validation040.png">
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <p> <img src="files/validation040.png" alt="validation040.png" title="validation040.png"> </p>
+    <br>
     <div class="wiki" style="display: block;">JSON 只是具有键/值的数据，并使用 {} 和 [] 进行嵌套和重复。如果您尝试获取不存在的书籍的数据时，例如：</div>
     <div class="wiki" style="display: block;"><a href="https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997">https://openlibrary.org/api/books?jscmd=data&amp;format=json&amp;bibkeys=ISBN:9791034369997</a></div>
     <div class="wiki" style="display: block;">您会得到一个空的 JSON，像这样：</div>
-    <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
-      style="color: #505050;"><span style="font-family: arial,helvetica,sans-serif;"></span></span>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <p> <img src="files/validation050.png" alt="validation050.png" title="validation050.png"><span
+        style="color: #505050;"><span style="font-family: arial,helvetica,sans-serif;"></span></span> </p>
+    <br>
     <div class="wiki" style="display: block;">也就是说，一个空的 JSON，只是 {}。</div>
     <div class="wiki" style="display: block;">要调用此 web service，我们将使用 JAX-RS。 JAX-RS 是调用 REST Web 服务的 Java 标准。 OpenXava 支持使用 JAX-RS 调用 web service，因此您无需添加任何库。<br>
       让我们修改 ISBNValidator 以使用此 REST 服务：<br>

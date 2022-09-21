@@ -53,14 +53,15 @@
       在上一章，您学到如何调用 REST 服务来验证 ISBN。在本章，您将了解到如何在注解中添加属性。</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc15"><a name="Lesson 6: Advanced validation-Creating your own Bean Validation annotation-Adding attributes to your annotation"></a>在注解中添加属性</h2>
-      如果您需要重复使用一个验证，而且有时是跨多个项目，那么创建一个 Bean Validation 注解会是一个好方法。为了提高重用性，您需要在验证中使用参数。例如，对于您当前的项目，在 openlibrary.org 中搜索 ISBN 是可以的，但在另一个项目，甚至在您当前项目的另一个实体中，您不想调用这个特定的 URL。因此注解的代码必须更加灵活。<br>
-      这种灵活性可以通过属性来实现。例如，我们可以在 ISBN 注解中添加一个 boolean 搜索属性，以便打开或关闭互联网搜索的验证。要实现此功能，只需将搜索属性添加到 ISBN 注解中：<br>
+      如果您需要重复使用一个验证，而且有时是跨多个项目，那么创建一个 Bean Validation 注解会是一个好方法。为了提高重用性，您需要在验证中使用参数。例如，对于您当前的项目，在 <a
+        href="https://openlibrary.org/">openlibrary.org</a> 中搜索 ISBN 是可以的，但在另一个项目，甚至在您当前项目的另一个实体中，您不想调用这个特定的 URL。因此注解的代码必须更加灵活。<br>
+      这种灵活性可以通过属性来实现。例如，我们可以在 ISBN 注解中添加一个 boolean 搜索属性，以便打开或关闭互联网搜索的验证。要实现此功能，只需将搜索属性添加到位于 com.yourcompany.invoicing.annotations 资料夹中的 ISBN 注解：<br>
       <pre><code class="java">public @interface ISBN {
     boolean search() default true; // 启用或停用搜索
  
     // ...
 }
-</code></pre> 这新的搜索属性可以从验证器类中读取：
+</code></pre> 这新的搜索属性可以从位于 com.yourcompany.invoicing.validators 资料夹中的验证器类中读取：
       <pre><code class="java">public class ISBNValidator implements ConstraintValidator&lt;ISBN, Object&gt; {
     // ...
     private boolean search; // 存储搜索选项
@@ -78,9 +79,11 @@
 }
 </code></pre> 在这里您可以看到 initialize() 是如何使用的：在启用验证器前，先读取注解中属性的值。在这种情况下，我们只需将 isbn.search() 的值存储，好让 isValid() 可以使用。<br>
       现在您可以选择是否要调用 REST 服务来验证 ISBN：<br>
-      <pre><code class="java">@ISBN(search=false) // 在这种情况下，不进行互联网搜索来验证（false）
-private String isbn;
-</code></pre>现在试试您的应用程序，您会注意到它会验证 ISBN 但并不会使用互联网搜索。</div>
+      <pre><code class="java">public class Product{
+//...<br><br>@ISBN(search=false) // 在这种情况下，不进行互联网搜索来验证（false）
+private String isbn;<br><br>//...
+} &nbsp;<br></code></pre>
+      现在试试您的应用程序，您会注意到它会验证 ISBN 但并不会使用互联网搜索。</div>
     <div class="wiki" style="display: block;"><br>
       <h2 id="toc20"><a name="Lesson 6: Advanced validation-Summary"></a>总结</h2>
       恭喜！您已经学到如何在注解中添加属性。在最后这几章，您学到几种在 OpenXava 应用程序中进行验证的方法。现在您还学到如何使用自定义 Bean Validation 将可重用的验证逻辑封装在注解中。<br>

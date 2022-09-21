@@ -81,7 +81,7 @@ for (Object o: query.getResultList()) { // 迭代所有对象
 @ReadOnly
 @Calculation("amount * 0.10")
 BigDecimal discount;
-</code></pre> 这是一个常规的持久属性，也就是说，在数据库中具有相应的列，但它有 @Calculation 定义的一个算法。这情况下是金额 * 0.10，因此每当用户在用户界面更改金额时，折扣将立即重新计算。当用户单击保存时，重新计算的值将保存在数据库中，就像在任何持久属性中一样。我们还使用 @ReadOnly 注释了折扣，因此它在外观上和行为类似于计算属性，不过您可以省略 @ReadOnly 以便用户可以修改计算值</div>
+</code></pre> 这是一个常规的持久属性，也就是说，在数据库中具有相应的列，但它有 @Calculation 定义的一个算法。这情况下是金额 * 0.10，因此每当用户在用户界面更改金额时，折扣将立即重新计算。当用户单击保存时，重新计算的值将保存在数据库中，就像在任何持久属性中一样。我们还使用 @ReadOnly 注解了折扣，因此它在外观上和行为类似于计算属性，不过您可以省略 @ReadOnly 以便用户可以修改计算值</div>
         <div class="wiki" style="display: block;"> @Calculation 属性最有用的地方在于它可以在条件中使用。您可以重写上面的代码，如下：<br>
           <pre><code class="java">// 别添加到您的代码，这只是为了说明！
 Query query = getManager().createQuery("from Invoice i where i.discount &gt; :discount"); // 可以设条件

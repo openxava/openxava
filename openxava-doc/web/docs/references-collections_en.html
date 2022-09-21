@@ -60,7 +60,7 @@
       <h2><a name="refining-reference-behavior"></a>Refining reference behavior</h2>
       You might have noticed that the <i>Order</i> module has a little slip: the user can add any invoice he wants to the current order, even if the invoice customer was different. This is not acceptable. Let's fix it.
       <h3><a name="validation-is-good-but-not-enough"></a>Validation is good, but not enough</h3>
-      The user can only associate an invoice to an order if both, invoice and order, belong to the same customer. This is specific business logic of your application, so the standard OpenXava behavior does not solve it. The next image shows as a validation error is produced when customer of invoice is incorrect </div>
+      The user can only associate an invoice to an order if both, invoice and order, belong to the same customer. This is specific business logic of your application, so the standard OpenXava behavior does not solve it. The next image shows as a validation error is produced when customer of invoice is incorrect: </div>
     <img src="files/references-collections_en010.png" alt="references-collections_en010"
       title="references-collections_en010">
     <div class="wiki" style="display: block;"> Since this is business logic we are going to put it in the model layer, that is, in the entities. We'll do it adding a validation. Thus you'll get the effect of the above figure. You already know how to add this validation to your <i>Order </i>entity. It's just adding a method annotated with <i>@AssertTrue</i>:<br>
