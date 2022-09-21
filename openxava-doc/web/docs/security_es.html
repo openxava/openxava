@@ -3,6 +3,9 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Seguridad y gestión de usuarios - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -38,6 +41,8 @@
             electrónico como nombre de usuario (nuevo en in v6.0)</a></div>
         <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-Restringir-acceso-por-IP">Restringir
             acceso por IP (nuevo en v6.4)</a></div>
+        <div style="margin-left: 2em;"><a href="#codigo-autentificacion-personalizado">Código
+            de autentificación personalizado (nuevo en v7.0)</a></div>
       </div>
       <em>Todas las funcionalidades en este artículo están disponible solo en <a
           href="http://openxava.org/xavapro">XavaPro</a></em><br>
@@ -287,6 +292,55 @@
       <div class="wiki" style="display: block;">Finalmente, pulsa en <i>Grabar</i>.
         Si el valor de <i>IP permitida</i> es blanco el usuario puede acceder
         desde cualquier IP.</div>
+      <div class="wiki" style="display: block;">
+        <h2><a name="codigo-autentificacion-personalizado"></a>Código de
+          autentificación personalizado <em>(nuevo en v7.0)</em></h2>
+        Para definir tu propia lógica de autentificación de usuarios has de
+        crear una clase que implemente la interfaz <a href="https://www.openxava.org/OpenXavaDoc/apidocs/com/openxava/naviox/impl/ISignInHelperProvider.html"><i>ISignInHelperProvider</i></a>.
+        El caso típico sería refinar la manera estándar en que XavaPro
+        autentifica a los usuarios, para eso extiende <i>ProSignInHelperProvider</i>,
+        de esta manera:
+        <div class="wiki" style="display: block;">
+          <pre><code class="java">package com.miempresa.miaplicacion.impl;
+
+import javax.servlet.*;
+import org.openxava.util.*;
+import com.openxava.naviox.impl.*;
+
+public class MiPropioSignInHelperProvider extends ProSignInHelperProvider {
+	
+    @Override
+    public boolean isAuthorized(
+		ServletRequest request, String userName, 
+		String password, Messages errors, String unauthorizedMessage) 
+	{
+        // Esta es tu lógica personalizada de autentificación
+        if (userName.equals("admin") &amp;&amp; password.equals("masterkey")) return true; 
+		
+		
+        // Aquí delegamos en la lógica de autentificación por defecto de XavaPro
+        return super.isAuthorized(request, userName, password, errors, unauthorizedMessage);
+    }
+
+}
+</code></pre> </div>
+        <div class="wiki" style="display: block;">En este caso la lógica es
+          simple, si el usuario teclea "masterkey" como clave para el usuario
+          "admin" el usuario accede a la aplicación como "admin", en caso
+          contrario se aplica la lógica de autentificación por defecto de
+          XavaPro. Sin embargo, aquí puedes escribir cualquier lógica que
+          quieras, incluyendo llama a servicios web, leer tu propia base de
+          datos de usuarios, consultar tu directorio LDAP en la manera que tu
+          quieras, etc.</div>
+        <div class="wiki" style="display: block;">Para que tu aplicación use la
+          clase de arriba para autentificación has de añadir la siguiente
+          entrada en el archivo <i>naviox.properties</i> de tu proyecto:</div>
+        <div class="wiki" style="display: block;">
+          <pre><code class="java">signInHelperProviderClass=com.miempresa.miaplicacion.impl.MiPropioSignInHelperProvider
+</code></pre> </div>
+        <div class="wiki" style="display: block;"><br>
+        </div>
+      </div>
     </div>
   </body>
 </html>
