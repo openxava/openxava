@@ -10,261 +10,30 @@
           <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
         IntelliJ IDEA con OpenXava</h1>
-      <div id="toc">
-        <h1 class="nopad">Tabla de contenidos</h1>
-        <div style="margin-left: 1em;"><a href="#intellij-idea-con-openxava">IntelliJ
-            IDEA con OpenXava</a></div>
-        <div style="margin-left: 2em;"><a href="#instalar-lombok">Instalar
-            Lombok</a></div>
-        <div style="margin-left: 2em;"><a href="#crear-proyecto-openxava-nuevo">Crear
-            un proyecto OpenXava nuevo</a></div>
-        <div style="margin-left: 3em;"><a href="#crear-nuevo-proyecto-intellij">Crear
-            un nuevo proyecto IntelliJ</a></div>
-        <div style="margin-left: 3em;"><a href="#importar-openxava-como-modulo">Importar
-            OpenXava como un módulo</a></div>
-        <div style="margin-left: 3em;"><a href="#importar-addons-como-modulo">Importar
-            Addons como un módulo</a></div>
-        <div style="margin-left: 3em;"><a href="#quitar-modulo-payroll">Quitar
-            el módulo Payroll</a></div>
-        <div style="margin-left: 3em;"><a href="#crear-payroll-como-proyecto-openxava">Crear
-            Payroll como un proyecto OpenXava</a></div>
-        <div style="margin-left: 3em;"><a href="#importar-proyecto-openxava-recien-creado">Importar
-            el proyecto OpenXava recién creado</a></div>
-        <div style="margin-left: 3em;"><a href="#ejecutar-tu-proyecto">Ejecutar
-            tu proyecto</a></div>
-        <div style="margin-left: 2em;"><a href="#migrar-tu-proyecto-existente-desde-eclipse">Migrar
-            tu proyecto existente desde Eclipse</a></div>
-        <div style="margin-left: 3em;"><a href="#crear-proyecto-intellij-nuevo-desde-fuentes-existentes">Crear
-            un proyecto IntelliJ nuevo a partir de fuentes existentes</a></div>
-        <div style="margin-left: 3em;"><a href="#importar-openxava-como-modulo-bis">Importar
-            OpenXava como un módulo</a></div>
-        <div style="margin-left: 3em;"><a href="#importar-addons-como-modulo-bis">Importar
-            Addons como módulo</a></div>
-        <div style="margin-left: 3em;"><a href="#ejecutar-tu-proyecto-bis">Ejecutar
-            tu proyecto</a></div>
-      </div>
-      Aunque OpenXava viene con un workspace de Eclipse listo para usar, usar
-      IntelliJ en lugar de Eclipse is muy fácil. Aquí tienes las instrucciones
-      para dos casos: <a href="#crear-proyecto-openxava-nuevo">crear un
-        proyecto OpenXava nuevo directamente en IntelliJ</a> o <a href="#migrar-tu-proyecto-existente-desde-eclipse">
-        migrar tu proyecto existente desde Eclipse a IntelliJ</a>.</div>
+      <i>Si estás usando una versión de OpenXava anterior a la 7.0 mira las <a
+          href="intellij-ox6_es.html">instrucciones antiguas</a></i></div>
+    <div class="wiki" style="display: block;">OpenXava está basado en Maven por
+      lo que funciona muy bien con IntelliJ.</div>
     <div class="wiki" style="display: block;">
       <h2><a name="instalar-lombok">Instalar Lombok</a></h2>
-      OpenXava no requiere Lombok, sin embargo desde la versión 6.5 lo usamos en
-      la guía de primeros pasos y en el curso de OpenXava, por lo que te
-      recomendamos que lo instales. <a href="https://projectlombok.org/setup/intelliJ">Sigue
-        la documentación oficial para instalar Lombok en tu IntelliJ</a>.<br>
+      OpenXava no requiere Lombok, sin embargo desde lo usamos en la guía de
+      primeros pasos y en el curso de OpenXava, por lo que te recomendamos que
+      lo instales. <a href="https://projectlombok.org/setup/intellij">Sigue la
+        documentación oficial para instalar Lombok en tu IntelliJ</a>.<br>
     </div>
     <div class="wiki" style="display: block;">
       <h2><a name="crear-proyecto-openxava-nuevo">Crear un proyecto OpenXava
           nuevo</a></h2>
-      <p>Vamos a guiarte, paso a paso, para crear y ejecutar un proyecto
-        OpenXava nuevo en IntelliJ IDEA.</p>
-      <h3><a name="crear-nuevo-proyecto-intellij">Crear un nuevo proyecto
-          IntelliJ</a></h3>
-      <p>En IntelliJ escoge <i>File &gt; New &gt; Project...</i>:</p>
-      <img src="files/intellij-file-new-project.png" alt="">
-      <p>Se mostrará el siguiente diálogo:</p>
-      <img src="files/intellij-new-project-step1.png" alt="">
-      <p>Pulsa el botó <i>Next</i> para mostrar el siguiente paso:</p>
-      <img src="files/intellij-new-project-step2.png" alt="">
-      <p>Pulsa en <i>Next</i> otra vez para ir al único paso relevante, el
-        nombre y la ruta de tu proyecto:</p>
-      <img src="files/intellij-new-project-step3.png"></div>
-    <div class="wiki" style="display: block;">Para <i>Project name</i> ponemos
-      <i>Payroll</i>, como ejemplo en este tutorial, pero tú deberías escribir
-      el nombre de tu propio proyecto en su lugar. Para <i>Project location</i>
-      no dejes la que hay por defecto, en su lugar escoge la ruta del workspace
-      de OpenXava más el nombre de tu proyecto, en este caso <i>openxava-6.3/workspace/Payroll</i>.
-      Esto es muy importante, de lo contrario tu proyecto no funcionará después.</div>
-    <div class="wiki" style="display: block;">Pulsa en <i>Finish</i>. IntelliJ
-      te preguntará:</div>
-    <img src="files/intellij-create-new-folder-for-project-question.png" alt="">
-    <div class="wiki" style="display: block;">Pulsa en <i>OK</i>, aunque
-      IntelliJ todavía no estará contento del todo y te preguntará una cosa más:</div>
-    <img src="files/intellij-open-project-new-window.png" alt="">
-    <div class="wiki" style="display: block;">Pulsa en el botón <i>This Window</i>.
-    </div>
-    <div class="wiki" style="display: block;">Por fin, hemos&nbsp; creado un
-      proyecto Java IntelliJ básico. Debería ser algo así:</div>
-    <img src="files/intellij-plain-java-project.png" alt="">
-    <div class="wiki" style="display: block;">
-      <h3><a name="importar-openxava-como-modulo">Importar OpenXava como un
-          módulo</a></h3>
-      <p>Para ello, escoge <i>File &gt; New &gt; Module From Existing
-          Sources...</i>: </p>
-      <img src="files/intellij-new-module-from-existing.png" alt="">
-      <p>Ahora selecciona el proyecto <i>OpenXava</i> dentro de la carpeta
-        workspace en la distribución de OpenXava:</p>
-      <img src="files/intellij-import-openxava-module.png" alt="">
-      <p>Fíjate, escogemos <i>OpenXava</i> dentro de <i>workspace-6.3/workspace</i>.
-        Pulsa en <i>OK</i>.</p>
-      <p>En el siguiente diálogo selecciona <i>Import module from external
-          model &gt; Eclipse</i>:</p>
-      <img src="files/intellij-import-module-select-eclipse.png" alt="">
-      <p>Y pulsa en <i>Next</i>. Esto te llevará al siguiente diálogo:</p>
-      <img src="files/intellij-import-module-select-eclipse-directory.png" alt="">
-      <p>Donde has de pulsar en <i>Next</i> sin tocar nada. </p>
-      <p>En el siguiente paso desmarca <i>OpenXavaTemplate</i> y <i>OpenXavaPlantilla</i>,
-        dejando sólo <i>OpenXava</i>, así:</p>
-      <img src="files/intellij-import-module-openxava-unselect-templates.png" alt="">
-      <p>Pulsa en <i>Next</i>. En el siguiente diálogo sobre el estilo de
-        código:</p>
-      <img src="files/intellij-import-module-code-style.png" alt="">
-      <p>Pulsa en <i>Finish</i>.</p>
-      <h3><a name="importar-addons-como-modulo">Importar Addons como un módulo</a></h3>
-      <p>Para ello, escoge <i>File &gt; New &gt; Module From Existing
-          Sources...</i>: </p>
-      <img src="files/intellij-new-module-from-existing.png" alt="">
-      <p>Ahora selecciona el proyecto <i>Addons</i> dentro de la carpeta
-        workspace en tu distribución de OpenXava:</p>
-      <img src="files/intellij-import-addons-module.png" alt="">
-      <p>Te habrás dado cuenta de que es el mismo procedimiento que usamos para
-        importar <i>OpenXava</i>, así que sí pulsa en <i>OK</i>, después en <i>Next,
-          Next, Next</i> and <i>Finish</i>, aceptando todos los valores por
-        defecto. </p>
-      <p>Finalmente, tienes un proyecto con tres módulos, <i>Addons, OpenXava</i>
-        y <i>Payroll</i>:</p>
-      <img src="files/intellij-project-with-all-modules.png" alt="">
-      <h3><a name="quitar-modulo-payroll">Quitar el módulo Payroll</a></h3>
-      <p>No te preocupes, lo volveremos a añadir enseguida. Pulsa con el botón
-        derecho del ratón en el módulo <i>Payroll</i>, y selecciona <i>Remove
-          Module</i>:</p>
-      <img src="files/intellij-remove-module.png" alt="">
-      <p>IntelliJ te preguntará por confirmación:</p>
-      <img src="files/intellij-remove-module-confirm.png" alt="">
-      <p>Pulsa en <i>Remove</i>, sin miedo.</p>
-      <h3><a name="crear-payroll-como-proyecto-openxava">Crear Payroll como un
-          proyecto OpenXava</a></h3>
-      <p>Busca <i>CreateNewProject.xml</i> en la raíz del módulo OpenXava, y
-        pulsa en él con el botón derecho del ratón. Selecciona la opción <i>Add
-          as Ant Build File</i>:</p>
-      <img src="files/intellij-add-as-ant-build-file.png" alt="">
-      <p>Se mostrará una vista Ant en la derecha. Allí escoge <i>CreateNewProject</i>
-        y pulsa el botón <i>Run</i> (el botón con el botón verde de play).</p>
-      <img src="files/intellij-run-ant-create-new-project.png" alt="">
-      <p>Te preguntará por el nombre del proyecto, teclea <i>Payroll</i>, y
-        pulsa en <i>OK</i>.</p>
-      <img src="files/intellij-openxava-project-name-ant.png" alt="">
-      <p>Espera hasta que el mensaje "Ant Build Progress" desaparezca:</p>
-      <img src="files/intellij-ant-build-progress.png" alt="">
-      <h3><a name="importar-proyecto-openxava-recien-creado">Importar el
-          proyecto OpenXava recién creado</a></h3>
-      <p>Vamos a importar el recién creado proyecto <i>Payroll</i> como un
-        módulo. Escoge <i>File &gt; New &gt; Module From Existing Sources...</i>:
-      </p>
-      <img src="files/intellij-new-module-from-existing.png" alt="">
-      <p>Ahora selecciona el proyecto <i>Payroll</i> dentro de la carpeta
-        workspace de tu distribución de OpenXava:</p>
-      <p><img src="files/intellij-import-payroll-module.png"> </p>
-      <p>Como ya habrás adivinado es el mismo procedimiento usado para importar
-        <i> OpenXava</i> y <i>Addons</i>, así que pulsar en <i>OK</i>, <i>Next,
-          Next, Next</i> y <i>Finish</i>, aceptando todos los valores por
-        defecto. Antes de crear el módulo IntelliJ te preguntará la última
-        cuestión:</p>
-      <img src="files/intellij-modules-files-found.png" alt="">
-      <p>Pulsa en <i>No</i> y por fin tendrás tu proyecto con tres módulos de
-        nuevo, <i>Addons, OpenXava</i> y <i>Nomina</i>:</p>
-      <img src="files/intellij-project-with-all-modules.png" alt="">
-      <h3><a name="ejecutar-tu-proyecto">Ejecutar tu proyecto</a></h3>
-      <p>Por fin, el gran momento. Abre <i>Payroll &gt; src &gt; _run</i>, y
-        allí pulsa en <i>_Run_Payroll</i> con el botón derecho del ratón.
-        Después escoge <i>Run '_Run_Payroll.main()'</i>.</p>
-      <img src="files/intellij-run-payroll.png" alt="">
-      <p>Sé paciente, la primera vez se tiene que compilar todo. Entonces
-        obtendrás por consola:</p>
-      <img src="files/intellij-application-started.png" alt="">
-      <p>Pulsa en el vínculo <a href="http://localhost:8080/Nomina"><i>http://localhost:8080/Nomina</i></a>
-        y prueba tu aplicación. ¡Enhorabuena! Tu nueva aplicación OpenXava está
-        funcionando en IntellJ. Ahora puedes modificar tu código, añadiendo una
-        nueva entidad por ejemplo, y reiniciar tu aplicación para ver los
-        cambios.</p>
-      <h2><a name="migrar-tu-proyecto-existente-desde-eclipse">Migrar tu
-          proyecto existente desde Eclipse</a></h2>
-      <p>Si ya tienes un proyecto OpenXava funcionando con Eclipse y quieres
-        migrarlo a IntelliJ sigue los pasos que siguen.</p>
-      <h3><a name="crear-proyecto-intellij-nuevo-desde-fuentes-existentes">Crear
-          un proyecto IntelliJ nuevo a partir de fuentes existentes</a></h3>
-      <p>En IntelliJ escoge <i>File &gt; New &gt; Project from Existing
-          Sources...</i>:</p>
-      <img src="files/intellij-file-new-project-from-existing.png" alt="">
-      <p>Ahora escoge tu proyecto dentro del workspace de Eclipse, para este
-        tutorial vamos a importar <i>InvoiceDemo</i>, incluido por defecto con
-        OpenXava:</p>
-      <img src="files/intellij-import-project-invoice-demo.png" alt="">
-      <p>En el siguiente diálogo selecciona <i>Import project from external
-          model &gt; Eclipse</i>, posiblemente la opción por defecto:</p>
-      <img src="files/intellij-import-project-select-eclipse.png" alt="">
-      <p>Y pulsa en <i>Next</i>. Esto te lleva al siguiente diálogo:</p>
-      <img src="files/intellij-import-project-select-eclipse-directory.png" alt="">
-      <p>Donde tienes que pulsar <i>Next</i> sin tocar nada. Esto te lleva al
-        siguiente diálogo:</p>
-      <img src="files/intellij-import-invoice-demo-module.png" alt="">
-      <p>Pulsa en <i>Next</i>. En el siguiente diálogo sobre el estilo de
-        código:</p>
-      <img src="files/intellij-import-project-code-style.png" alt="">
-      <p>Pulsa <i>Next</i> sin tocar nada. Ahora has de escoger el JDK:</p>
-      <img src="files/intellij-import-project-select-jdk.png" alt="">
-      <p>Acepta los valores por defecto pulsando en <i>Finish</i>. Ahora
-        IntelliJ se enfaca por algo relacionado con modulos desconocidos:</p>
-      <img src="files/intellij-unknown-modules-error.png" alt="">
-      <p>Ni caso, pulsa en OK, para que te haga una pregunta más:</p>
-      <img src="files/intellij-open-project-new-window.png" alt="">
-      <p>Pulsa en el botón <i>This Window</i> para finalmente tener tu proyecto
-        importado:</p>
-      <img src="files/intellij-invoice-demo-project-without-modules.png" alt=""></div>
-    <div class="wiki" style="display: block;">Todavía nos queda por importar los
-      módulos <i>OpenXava</i> y <i>Addons</i>.</div>
-    <div class="wiki" style="display: block;">
-      <h3><a name="importar-openxava-como-modulo-bis">Importar OpenXava como un
-          módulo</a></h3>
-      <p>Para eso, escoge <i>File &gt; New &gt; Module From Existing Sources...</i>:
-      </p>
-      <img src="files/intellij-new-module-from-existing.png" alt="">
-      <p>Ahora selecciona el proyecto <i>OpenXava</i> dentro de la carpeta
-        workspace de tu distribución OpenXava:</p>
-      <img src="files/intellij-import-openxava-module.png" alt="">
-      <p>Fíjate, escogemos <i>OpenXava</i> dentro de <i>workspace-6.3/workspace</i>.
-        Pulsa en <i>OK</i>.</p>
-      <p>En el siguiente diálogo selecciona <i>Import module from external
-          model &gt; Eclipse</i>:</p>
-      <img src="files/intellij-import-module-select-eclipse.png" alt="">
-      <p>Y pulsa en <i>Next</i>. Esto te lleva al siguiente diálogo:</p>
-      <img src="files/intellij-import-module-select-eclipse-directory.png" alt="">
-      <p>Donde has de pulsar en <i>Next</i> sin tocar nada. </p>
-      <p>En el siguiente paso desmarca <i>OpenXavaTemplate</i> y <i>OpenXavaPlantilla</i>,
-        dejando sólo <i>OpenXava</i>, así:</p>
-      <img src="files/intellij-import-module-openxava-unselect-templates.png" alt="">
-      <p>Pulsa en <i>Next</i>. En el siguiente diálogo sobre el estilo de
-        código:</p>
-      <img src="files/intellij-import-module-code-style.png" alt="">
-      <p>Simplemente pulsa en <i>Finish</i>.</p>
-      <h3><a name="importar-addons-como-modulo-bis">Importar Addons como módulo</a></h3>
-      <p>Para ello, escoge <i>File &gt; New &gt; Module From Existing
-          Sources...</i>: </p>
-      <img src="files/intellij-new-module-from-existing.png" alt="">
-      <p>Ahora selecciona el proyecto <i>Addons</i> dentro de la carpeta
-        workspace en tu distribución de OpenXava:</p>
-      <img src="files/intellij-import-addons-module.png" alt="">
-      <p>Como ya habrás adivinado esto es como importar <i>OpenXava</i>, así
-        que pulsa en <i>OK</i>, <i>Next, Next, Next</i> y <i>Finish</i>,
-        aceptando todos los valores por defecto. </p>
-      <p>Por fin tienes tu proyecto con tres módulos, <i>Addons, OpenXava</i> y
-        <i>InvoiceDemo</i>:</p>
-      <img src="files/intellij-invoice-demo-project-with-modules.png">
-      <h3><a name="ejecutar-tu-proyecto-bis">Ejecutar tu proyecto</a></h3>
-      <p>Abre <i>InvoiceDemo &gt; src &gt; _run</i>, y ahí pulsa en <i>_Run_InvoiceDemo</i>
-        con el botón derecho del ratón. Entonces escoge <i>Run
-          '_Run_Payroll.main()'</i>.</p>
-      <img src="files/intellij-run-invoice-demo.png">
-      <p>Sé paciente, la primera vez tiene que compilarlo todo. Obtendrás en
-        consola:</p>
-      <img src="files/intellij-invoice-demo-started.png">
-      <p>Pulsa en el vínculo <a href="http://localhost:8080/InvoiceDemo"><i>http://localhost:8080/InvoiceDemo</i></a>
-        y prueba tu aplicación. ¡Enhorabuena! Tu aplicación OpenXava está
-        funcionando ahora con IntellJ. Ahora puedes modificar tu código,
-        añadiendo una nueva entidad por ejemplo, y reiniciar tu aplicación para
-        ver los cambios.</p>
+      Crea un nuevo proyecto Maven con IntelliJ, escogiendo <i>org.openxava:openxava-archetype-spanish</i>
+      como arquetipo:<br>
+      <img src="files/intellij-maven-new-project_es.png">
+      <p>Fíjate que escogemos Maven Central como repositorio.</p>
+      <h3><a name="create-new-intellij-project">Empaqueta y ejecuta tu proyecto</a></h3>
+      Antes de ejecutar tu proyecto has de hacer un <i>mvn package</i> en él.
+      Después busca la clase <i>tuaplicacion.java</i> (es el nombre de tu
+      aplicación) dentro del paquete <i>org.example.tuaplicacion.run</i> en <i>src/main/java</i>,
+      y ejecutala.</div>
+    <div class="wiki" style="display: block;"><br>
     </div>
   </body>
 </html>
