@@ -20,13 +20,14 @@ public class EditorsResources {
 	
 	private static Log log = LogFactory.getLog(EditorsResources.class);
 	private static List<String> cssFiles;
-	private static List<String> jsFiles;
+	private static List<String> jsFiles; 
 	
 	public static Collection<String> listCSSFiles(String realPath) { 
 		if (cssFiles == null) {
 			cssFiles = new ArrayList<>();
-			fillFilesFromJar(cssFiles, "style", "css");
+			// tmr fillFilesFromJar(cssFiles, "style", "css");
 			fillFilesFromFileSystem(cssFiles, realPath, "style", "css");
+			fillFilesFromJar(cssFiles, "style", "css"); // tmr
 		}
 		return cssFiles;
 	}
@@ -34,13 +35,14 @@ public class EditorsResources {
 	public static Collection<String> listJSFiles(String realPath) { 
 		if (jsFiles == null) {
 			jsFiles = new ArrayList<>();
-			fillFilesFromJar(jsFiles, "js", "js");
+			// tmr fillFilesFromJar(jsFiles, "js", "js");
 			fillFilesFromFileSystem(jsFiles, realPath, "js", "js");
+			fillFilesFromJar(jsFiles, "js", "js"); // tmr
 		}
 		return jsFiles;
 	}
 	
-	private static void fillFilesFromJar(List<String> result, String folder, String extension) { 
+	private static void fillFilesFromJar(List<String> result, String folder, String extension) {  
 		try {
 			Enumeration<URL> e = EditorsResources.class.getClassLoader().getResources("META-INF/resources/xava/editors/" + folder);
 			while (e.hasMoreElements()) {
@@ -54,7 +56,11 @@ public class EditorsResources {
 						while (entries.hasMoreElements()) {
 							ZipEntry entry = entries.nextElement();
 							if (entry.getName().startsWith("META-INF/resources/xava/editors/" + folder + "/") && entry.getName().endsWith("." + extension)) {
-								result.add(entry.getName().replace("META-INF/resources/xava/editors/", ""));
+								// tmr result.add(entry.getName().replace("META-INF/resources/xava/editors/", ""));
+								// tmr ini
+								String name = entry.getName().replace("META-INF/resources/xava/editors/", ""); 
+								if (!result.contains(name)) result.add(name);
+								// tmr fin
 							}
 						}
 					}
@@ -77,7 +83,11 @@ public class EditorsResources {
 		Arrays.sort(resources);
 		for (int i = 0; i < resources.length; i++) {
 			if (resources[i].endsWith("." + extension)) {
-				result.add(folder + "/" + resources[i]);
+				// tmr result.add(folder + "/" + resources[i]);
+				// tmr ini
+				String name = folder + "/" + resources[i]; 
+				if (!result.contains(name)) result.add(name);
+				// tmr fin
 			}
 		}
 	}
