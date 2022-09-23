@@ -89,8 +89,14 @@ public class ResourceManagerI18n {
 			log.error("Resource " + key + " cannot be translated using application specific resources. We use only " + resourcesFile,ex);
 		}
 		try {
-			ResourceBundle rb = ResourceBundle.getBundle("i18n." + resourcesFile, locale); 
-			return rb.getString(key);
+			ResourceBundle rb = ResourceBundle.getBundle("i18n." + resourcesFile, locale);
+			// TMR: ME QUEDÉ POR AQUÍ. NUNCA LLEGA. NO VA EN INGLÉS EN EL NAVEGADOR, SI QUITAMOS LOS _en
+			System.out.println("[ResourceManagerI18n.getString] locale=" + locale); // tmr
+			System.out.println("[ResourceManagerI18n.getString] resourcesFile=" + resourcesFile); // tmr
+			
+			String translated = rb.getString(key);
+			System.out.println("[ResourceManagerI18n.getString] " + key + " --> " + translated); // tmr
+			return translated;
 		}
 		catch (MissingResourceException ex) {
 			if (XavaPreferences.getInstance().isI18nWarnings()) {
