@@ -25,9 +25,8 @@ public class EditorsResources {
 	public static Collection<String> listCSSFiles(String realPath) { 
 		if (cssFiles == null) {
 			cssFiles = new ArrayList<>();
-			// tmr fillFilesFromJar(cssFiles, "style", "css");
 			fillFilesFromFileSystem(cssFiles, realPath, "style", "css");
-			fillFilesFromJar(cssFiles, "style", "css"); // tmr
+			fillFilesFromJar(cssFiles, "style", "css"); 
 		}
 		return cssFiles;
 	}
@@ -35,9 +34,8 @@ public class EditorsResources {
 	public static Collection<String> listJSFiles(String realPath) { 
 		if (jsFiles == null) {
 			jsFiles = new ArrayList<>();
-			// tmr fillFilesFromJar(jsFiles, "js", "js");
 			fillFilesFromFileSystem(jsFiles, realPath, "js", "js");
-			fillFilesFromJar(jsFiles, "js", "js"); // tmr
+			fillFilesFromJar(jsFiles, "js", "js"); 
 		}
 		return jsFiles;
 	}
@@ -56,11 +54,8 @@ public class EditorsResources {
 						while (entries.hasMoreElements()) {
 							ZipEntry entry = entries.nextElement();
 							if (entry.getName().startsWith("META-INF/resources/xava/editors/" + folder + "/") && entry.getName().endsWith("." + extension)) {
-								// tmr result.add(entry.getName().replace("META-INF/resources/xava/editors/", ""));
-								// tmr ini
 								String name = entry.getName().replace("META-INF/resources/xava/editors/", ""); 
 								if (!result.contains(name)) result.add(name);
-								// tmr fin
 							}
 						}
 					}
@@ -83,11 +78,8 @@ public class EditorsResources {
 		Arrays.sort(resources);
 		for (int i = 0; i < resources.length; i++) {
 			if (resources[i].endsWith("." + extension)) {
-				// tmr result.add(folder + "/" + resources[i]);
-				// tmr ini
 				String name = folder + "/" + resources[i]; 
 				if (!result.contains(name)) result.add(name);
-				// tmr fin
 			}
 		}
 	}

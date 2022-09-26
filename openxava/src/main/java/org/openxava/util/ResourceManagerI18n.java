@@ -90,19 +90,19 @@ public class ResourceManagerI18n {
 		}
 		try {
 			ResourceBundle rb = ResourceBundle.getBundle("i18n." + resourcesFile, locale);
-			// TMR: ME QUEDÉ POR AQUÍ. NUNCA LLEGA. NO VA EN INGLÉS EN EL NAVEGADOR, SI QUITAMOS LOS _en
-			System.out.println("[ResourceManagerI18n.getString] locale=" + locale); // tmr
-			System.out.println("[ResourceManagerI18n.getString] resourcesFile=" + resourcesFile); // tmr
-			
-			String translated = rb.getString(key);
-			System.out.println("[ResourceManagerI18n.getString] " + key + " --> " + translated); // tmr
-			return translated;
+			return rb.getString(key);
 		}
 		catch (MissingResourceException ex) {
-			if (XavaPreferences.getInstance().isI18nWarnings()) {
-				log.warn("Impossible to translate element with id " + key);
+			try {
+				ResourceBundle rb = ResourceBundle.getBundle("i18n." + resourcesFile, Locale.ENGLISH);
+				return rb.getString(key);
 			}
-			return key;
+			catch (MissingResourceException ex2) {
+				if (XavaPreferences.getInstance().isI18nWarnings()) {
+					log.warn("Impossible to translate element with id " + key);
+				}
+				return key;
+			}
 		}
 	}
 	

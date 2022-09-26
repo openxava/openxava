@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Some messages in log not translated when using a JVM language other than English, Spanish or Chinese. 
 - @Coordinates editor does not work in development environment or starting from command line. 
 - Documentation for IntelliJ updated to use Maven.
 - Lesson 26 of course translated to Chinese, so now the whole course is in Chinese.
