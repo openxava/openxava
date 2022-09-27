@@ -1,8 +1,13 @@
 Change Log for OpenXava project
 ===============================
 
-- Some messages in log not translated when using a JVM language other than English, Spanish or Chinese. 
-- @Coordinates editor does not work in development environment or starting from command line. 
+- Driver versions in doc and new projects upgraded for MySQL, PostgreSQL, Oracle and MS SQL Server.
+- Hibernate upgraded to 5.6.11.
+- Hibernate Envers upgraded to 5.6.11.
+- Groovy upgraded to 4.0.5.
+- Jersey upgraded to 2.37.
+- Fix: Some messages in log not translated when using a JVM language other than English, Spanish or Chinese. 
+- Fix: @Coordinates editor does not work in development environment or starting from command line. 
 - Documentation for IntelliJ updated to use Maven.
 - Lesson 26 of course translated to Chinese, so now the whole course is in Chinese.
 
