@@ -13,7 +13,7 @@ import lombok.*;
 /**
  * Esto es un ejemplo de una entidad.
  * 
- * SiÃ©ntete libre de renombrarla, modificarla o borrarla a tu gusto.
+ * Siéntete libre de renombrarla, modificarla o borrarla a tu gusto.
  */
 
 @Entity @Getter @Setter
