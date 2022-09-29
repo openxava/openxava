@@ -59,6 +59,7 @@
 			<groupId>net.sf.jt400</groupId>
 			<artifactId>jt400</artifactId>
 			<version>11.0</version>
+			<classifier>jt400_jdk8</classifier>
 		</dependency>
 		-->
 		
