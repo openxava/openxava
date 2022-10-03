@@ -113,7 +113,11 @@ public class Style {
 	 * @since 4.2
 	 */
 	public String getSetHtmlFunction() {
-		return "function (id, content) { $('#' + id).html(content); };";
+		System.out.println("[Style.getSetHtmlFunction] "); // tmp
+		// TMR ME QUEDÉ POR AQUÍ: FUNCIONA CUANDO SE DEJA UN ESPACIO DESPUÉS DE &lt;
+		// tmr return "function (id, content) { $('#' + id).html(content); };";
+		return "function (id, content) { console.log('contento=' + content); $('#' + id).html(content); };"; // tmr
+		
 	}
 	
 	/** 
