@@ -1,23 +1,15 @@
-/*C6*/SET SCHEMA PUBLIC
+/*C4*/SET SCHEMA PUBLIC
 DISCONNECT
-/*C7*/SET SCHEMA XAVATEST
+/*C5*/SET SCHEMA XAVATEST
 DELETE FROM INCIDENT WHERE ID='4028808d839d0b2801839d0df1db0000'
-INSERT INTO INCIDENT VALUES('4028808d839d0b2801839d0df1db0000','<p>return ""</p>\u000a\u000a<p>return "&lt;a&gt;"</p>\u000a','15fed4a1455b48fcb45cf5eb13ef2176','PRUEBA HTML')
+INSERT INTO INCIDENT VALUES('4028808d839d0b2801839d0df1db0000','<p>1.return</p>\u000a\u000a<p>2.return</p>\u000a\u000a<p>3.return &lt;A</p>\u000a\u000a<p>4.return &gt;a</p>\u000a\u000a<p>5.return /a</p>\u000a\u000a<p>6. return</p>\u000a','15fed4a1455b48fcb45cf5eb13ef2176','PRUEBA HTML')
 COMMIT
 DELETE FROM INCIDENT WHERE ID='4028808d839d0b2801839d0df1db0000'
-INSERT INTO INCIDENT VALUES('4028808d839d0b2801839d0df1db0000','<p>return ""</p>\u000a\u000a<p>return ""</p>\u000a\u000a<p>return &lt;/a&gt;</p>\u000a\u000a<p>&nbsp;</p>\u000a','15fed4a1455b48fcb45cf5eb13ef2176','PRUEBA HTML')
+INSERT INTO INCIDENT VALUES('4028808d839d0b2801839d0df1db0000','<p>1.return</p>\u000a\u000a<p>2.return</p>\u000a\u000a<p>3.return &lt;!-- HOla --&gt;</p>\u000a\u000a<p>4.return &gt;a</p>\u000a\u000a<p>5.return /a</p>\u000a\u000a<p>6. return</p>\u000a','15fed4a1455b48fcb45cf5eb13ef2176','PRUEBA HTML')
 COMMIT
 DELETE FROM INCIDENT WHERE ID='4028808d839d0b2801839d0df1db0000'
-INSERT INTO INCIDENT VALUES('4028808d839d0b2801839d0df1db0000','<p>1.return ""</p>\u000a\u000a<p>2.return ""</p>\u000a\u000a<p>3.return</p>\u000a\u000a<p>4.return&nbsp;" &lt; /a&gt;"</p>\u000a','15fed4a1455b48fcb45cf5eb13ef2176','PRUEBA HTML')
-COMMIT
-INSERT INTO INCIDENT VALUES('2c9a9081839d690d01839d7d02b10000','','a9d78607f33641238e4bf8b9400aed00','MOCO')
+INSERT INTO INCIDENT VALUES('4028808d839d0b2801839d0df1db0000','<p>1.return</p>\u000a\u000a<p>2.return</p>\u000a\u000a<p>3.return &lt;&lt;<!-- HOla --></p>\u000a\u000a<p>4.return &gt;a</p>\u000a\u000a<p>5.return /a</p>\u000a\u000a<p>6. return</p>\u000a','15fed4a1455b48fcb45cf5eb13ef2176','PRUEBA HTML')
 COMMIT
 DELETE FROM INCIDENT WHERE ID='4028808d839d0b2801839d0df1db0000'
-INSERT INTO INCIDENT VALUES('4028808d839d0b2801839d0df1db0000','<p>1.return " &lt;/a&gt;"</p>\u000a\u000a<p>2.return&nbsp;" &lt; /a&gt;"</p>\u000a','15fed4a1455b48fcb45cf5eb13ef2176','PRUEBA HTML')
-COMMIT
-DELETE FROM INCIDENT WHERE ID='4028808d839d0b2801839d0df1db0000'
-INSERT INTO INCIDENT VALUES('4028808d839d0b2801839d0df1db0000','<p>1.return " "</p>\u000a\u000a<p>2.return " &lt; /a&gt;"</p>\u000a\u000a<p>3.return&nbsp;" &lt; /a&gt;"</p>\u000a','15fed4a1455b48fcb45cf5eb13ef2176','PRUEBA HTML')
-COMMIT
-DELETE FROM INCIDENT WHERE ID='4028808d839d0b2801839d0df1db0000'
-INSERT INTO INCIDENT VALUES('4028808d839d0b2801839d0df1db0000','<p>1.return " "</p>\u000a\u000a<p>2.return " &lt; /a&gt;"</p>\u000a\u000a<p>3.return&nbsp;" &lt;/a&gt;"</p>\u000a','15fed4a1455b48fcb45cf5eb13ef2176','PRUEBA HTML')
+INSERT INTO INCIDENT VALUES('4028808d839d0b2801839d0df1db0000','<p>1.return</p>\u000a\u000a<p>2.return</p>\u000a\u000a<p>3.return &lt;<!-- HOla -->a</p>\u000a\u000a<p>4.return &gt;a</p>\u000a\u000a<p>5.return /a</p>\u000a\u000a<p>6. return</p>\u000a','15fed4a1455b48fcb45cf5eb13ef2176','PRUEBA HTML')
 COMMIT

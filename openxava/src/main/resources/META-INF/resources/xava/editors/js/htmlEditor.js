@@ -26,7 +26,6 @@ openxava.addEditorInitFunction(function() {
 		],
 		disableNativeSpellChecker: false,
 		title: false,   
-		entities: false, // tmr
 		removeButtons: 'Save,Templates,Cut,NewPage,Preview,Print,Copy,Paste,PasteText,PasteFromWord,Find,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,CreateDiv,Language,Anchor,Flash,PageBreak,Iframe,ShowBlocks,About,Undo,Redo,Subscript,Superscript,BidiLtr,BidiRtl,SpecialChar,Styles,Font,Scayt,Underline,Strike,BGColor,HorizontalRule' 
 	};
 	$('.ox-simple-ckeditor').ckeditor(simpleConfig);
