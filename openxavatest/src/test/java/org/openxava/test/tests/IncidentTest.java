@@ -28,7 +28,7 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		
 		execute("CRUD.new");
 		setValue("title", "THE JUNIT DISCUSSION");
-		setValue("description", "This is the big jUnit discussion");
+		setValue("description", "This is the big &ltjUnit&gt discussion"); 
 		
 		assertDiscussionCommentsCount("discussion", 0);
 		postDiscussionComment("discussion", "Hi, it's me");
@@ -54,7 +54,7 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 
 		assertValue("title", "THE JUNIT DISCUSSION"); 
-		assertValue("description", "<p>This is the big jUnit discussion</p>"); 
+		assertValue("description", "<p>This is the big <<!-- -->jUnit> discussion</p>"); // The <!-- --> is added by OX to avoid a CKEditor bug that removes any %lt; followed by a character
 
 		assertDiscussionCommentsCount("discussion", 1);
 		assertDiscussionCommentText("discussion", 0, "admin - " + timeFirstPost + "\nHi, it's me"); 
@@ -65,7 +65,7 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 
 		assertValue("title", "THE JUNIT DISCUSSION");
-		assertValue("description", "<p>This is the big jUnit discussion</p>"); 
+		assertValue("description", "<p>This is the big <<!-- -->jUnit> discussion</p>"); // The <!-- --> is added by OX to avoid a CKEditor bug that removes any %lt; followed by a character 
 		assertDiscussionCommentsCount("discussion", 2);
 		assertDiscussionCommentText("discussion", 0, "admin - " + timeFirstPost + "\nHi, it's me");
 		assertDiscussionCommentText("discussion", 1, "juan - " + timeSecondPost + "\nSoy Juan");
@@ -76,6 +76,12 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		discussion = getHtmlPage().getHtmlElementById("ox_openxavatest_Incident__editor_discussion");
 		assertEquals(0, discussion.getElementsByTagName("textarea").size());
 		assertEquals(0, discussion.getElementsByAttribute("input", "type", "button").size());
+		
+		execute("CRUD.save");
+		execute("Mode.list");
+		execute("List.viewDetail", "row=0");
+		assertValue("title", "THE JUNIT DISCUSSION");
+		assertValue("description", "<p>This is the big <<!-- -->jUnit> discussion</p>"); // The <!-- --> is added by OX to avoid a CKEditor bug that removes any %lt; followed by a character
 		
 		execute("CRUD.delete");
 		assertNoErrors();

@@ -258,7 +258,8 @@
 		<for-stereotype stereotype="__ACTION__" />
 	</editor>
 
-	<editor name="HtmlText" url="htmlEditor.jsp" frame="true">		 
+	<editor name="HtmlText" url="htmlEditor.jsp" frame="true">
+		<formatter class="org.openxava.formatters.HtmlTextFormatter"/> 		 
 		<list-formatter class="org.openxava.formatters.HtmlTextListFormatter"/> 
 		<for-stereotype stereotype="HTML_TEXT" />
 		<for-stereotype stereotype="TEXTO_HTML" />
@@ -267,6 +268,7 @@
 	
 	<editor name="SimpleHtmlText" url="htmlEditor.jsp" frame="true">
 		<property name="config" value="simple" />
+		<formatter class="org.openxava.formatters.HtmlTextFormatter"/> 
 		<list-formatter class="org.openxava.formatters.HtmlTextListFormatter"/> 
 		<for-stereotype stereotype="SIMPLE_HTML_TEXT" />
 		<for-stereotype stereotype="TEXTO_HTML_SIMPLE" />

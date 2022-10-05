@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: HtmlText editor removes content when < followed by a character is used, like <a.
 - Fix: New project created from openxava-archetype-spanish contains unknown characters for accents.
 - Fix: Connection to AS/400 fails using the default dependency in new projects pom.xml and docs. 
 - Driver versions in doc and new projects upgraded for MySQL, PostgreSQL, Oracle and MS SQL Server.

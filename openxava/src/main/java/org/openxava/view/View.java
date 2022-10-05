@@ -906,9 +906,7 @@ public class View implements java.io.Serializable {
 	 * @param name  Qualified properties are allowed
 	 */	
 	public Object getValue(String name) throws XavaException {
-		Object result = getValue(name, true);
-		System.out.println("[View.getValue] result=" + result); // tmp
-		return result;
+		return getValue(name, true);
 	}
 	
 	/** @since 6.2.2 */
@@ -1386,9 +1384,7 @@ public class View implements java.io.Serializable {
 			}
 			else { 		
 				if (values == null) values = new HashMap();					
-				System.out.println("[View.trySetValue] v2 value> " + value); // tmp
 				value = Strings.removeXSS(value);
-				System.out.println("[View.trySetValue] v2 value< " + value); // tmp
 				values.put(name, value);
 				resetElementCollectionTotalsForProperty(name); 
 			}	
