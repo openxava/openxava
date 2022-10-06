@@ -10,6 +10,7 @@ import org.apache.catalina.core.*;
 import org.apache.catalina.startup.*;
 import org.apache.catalina.webresources.*;
 import org.apache.commons.logging.*;
+import org.openxava.application.meta.*;
 
 /**
  * 
@@ -24,10 +25,12 @@ public class AppServer {
 		System.out.println(XavaResources.getString("starting_application"));
 		System.setProperty("tomcat.util.scan.StandardJarScanFilter.jarsToSkip", "activation-*.jar,antlr-*.jar,aopalliance-repackaged-*.jar,bcprov-jdk15on-*.jar,byte-buddy-*.jar,castor-*.jar,classmate-*.jar,commons-*.jar,curvesapi-*.jar,dom4j-*.jar,dwr-*.jar,ecj-*.jar,ejb-api-*.jar,fontbox-*.jar,groovy-all-*.jar,hibernate-*.jar,hk2-*.jar,hsqldb-*.jar,htmlunit-*.jar,httpclient-*.jar,httpcore-*.jar,httpmime-*.jar,icu4j-*.jar,itext-*.jar,jackson-*.jar,jakarta.activation-*.jar,jakarta.annotation-api-*.jar,jakarta.inject-*.jar,jakarta.json-*.jar,jakarta.ws.rs-api-*.jar,jandex-*.jar,jasperreports-*.jar,javassist-*.jar,javax.activation-api-*.jar,javax.inject-*.jar,javax.mail-*.jar,javax.persistence-api-*.jar,jaxb-*.jar,jboss-logging-*.jar,jboss-transaction-*.jar,jcommon-*.jar,jersey-*.jar,jetty-*.jar,jfreechart-*.jar,jsoup-*.jar,junit-*.jar,lombok-*.jar,neko-htmlunit-*.jar,osgi-resource-locator-*.jar,pdfbox-*.jar,poi-*.jar,serializer-*.jar,stax-*.jar,tomcat-*.jar,validation-api-*.jar,websocket-*.jar,xalan-*.jar,xercesImpl-*.jar,xml-apis-*.jar,xmlbeans-*.jar,yasson-*.jar");
 		System.setProperty("java.awt.headless", "true"); // In order keystrokes and PDF reports work with a headless Java
+		
+		String contextPath = Is.empty(app)?"":"/" + app;
+		if (Is.empty(app)) app = MetaApplications.getMainMetaApplication().getName(); // To work in ROOT context
 		createDefaultI18nFiles(app);
         String webappDir = new File("target/" + app).getAbsolutePath();
         
-        String contextPath = Is.empty(app)?"":"/" + app;
         Tomcat tomcat = null;
         int initialPort = XavaPreferences.getInstance().getApplicationPort();
         int finalPort = initialPort + 10;
@@ -44,7 +47,7 @@ public class AppServer {
         	System.err.println(XavaResources.getString("app_startup_failed_after_trying_ports"));
         	System.exit(1);
         }
-       	System.out.println(XavaResources.getString("application_started_go", "http://localhost:" + tomcat.getConnector().getLocalPort() + "/" + app));
+        System.out.println(XavaResources.getString("application_started_go", "http://localhost:" + tomcat.getConnector().getLocalPort() + contextPath)); 
         
         tomcat.getServer().await();
 	}
