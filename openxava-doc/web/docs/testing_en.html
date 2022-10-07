@@ -352,8 +352,7 @@ getManager().remove(author); // It works
     <div class="wiki" style="display: block;">Here we filter in list mode all products that contain the “JUNIT” word (remember that you have created two of them in <em>createProducts()</em> method), then we verify that there are two rows, select the second product, and remove it, verifying at the end that one product remains in the list.<br>
       You have learned how to select a row (using <em>checkRow()</em>) and how to assert the row count (using <em>assertListRowCount()</em>). The trickiest part might be filtering the list using <em>setConditionValues()</em> and <em>setConditionComparators()</em>. Both methods receive a variable number of string arguments with values and comparators for the condition, just as shown here:<br>
       <img src="files/testing_en050.png" alt="testing_en050.png" title="testing_en050.png"><br>
-      The values are assigned to the list filter user interface sequentially (from left to right). In this case there are two values, but you can use all you need. You do not need to specify all values. The <em>setConditionValues()</em> method accepts any string value whereas <em>setConditionComparators()</em> accepts the next possible values: <em><em> contains_comparator, </em>starts_comparator,
-        ends_comparator, not_contains_comparator, empty_comparator, not_empty_comparator, =, &lt;&gt;, &gt;=, &lt;=, &gt;,</em> <em>&lt;</em>, <em>in_comparator</em>, <em>not_in_comparator</em> and <em>range_comparator</em>.<br>
+      The values are assigned to the list filter user interface sequentially (from left to right). In this case there are two values, but you can use all you need. You do not need to specify all values. The <em>setConditionValues()</em> method accepts any string value whereas <em>setConditionComparators()</em> accepts the next possible values: <em><em> contains_comparator, </em>starts_comparator, ends_comparator, not_contains_comparator, empty_comparator, not_empty_comparator, =, &lt;&gt;, &gt;=, &lt;=, &gt;,</em> <em>&lt;</em>, <em>in_comparator</em>, <em>not_in_comparator</em> and <em>range_comparator</em>.<br>
       <h3 id="toc10"><a name="Lesson 3: Automated testing-Creating test data using JPA-Using entity instances inside a test"></a>Using entity instances inside a test</h3>
       The remaining test, <em>testUploadPhotos()</em>, chooses a product and upload photos on it. We are going to use in the test an entity created in <em>createProducts()</em>:</div>
     <div class="wiki" style="display: block;">
@@ -1663,21 +1662,22 @@ protected void assertValueInAllRows(int column, String value) throws Exception {
     execute("Sections.change", "activeSection=1"); // invoice matches with the one
                                                    // of the recently added order (5)
     ...
-<br>    execute("Sections.change", "activeSection=0"); // back to invoice details tab	<br>    removeRows(); // remove rows that were added<br>    execute("CRUD.save");
+<br>    execute("Sections.change", "activeSection=0"); // back to invoice details tab	<br>    removeRows(); // remove rows that were added<br>&nbsp; &nbsp; waitAJAX(); // we wait any background JS process to complete<br>    assertCollectionRowCount("details", 0); // then we verify that there are no more rows
+    assertValue("totalAmount", "0,00");<br>    execute("CRUD.save");
 }
 </code></pre> We verify that the invoice for this test has no details. Afterwards, we add an order (2), taking note of its total amount (3), then we verify that current invoice has details (4) and its total amount is the same of the added order (5), finally we delete the rows that were added to details (6). Add the following code in the same class:</div>
       <div class="wiki" style="display: block;"><br>
       </div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">protected void removeRows() throws Exception{
-	// count the number of rows in the table<br>	int contador = getHtmlPage().getElementById("ox_facturacion_Factura__detalles").getChildElements().iterator().next().getChildElementCount()-7; 
-	for (int i=0; i&lt;contador; i++) { // iteramos en cada fila
-		HtmlElement link = (HtmlElement)getHtmlPage().getElementById("ox_facturacion_Factura__detalles___0") // go to details table, then...
+        <pre><code class="java">protected void removeRows() throws Exception {
+	// count the number of rows in the table<br>	int count = getHtmlPage().getElementById("ox_invoicing_Invoice__details").getChildElements().iterator().next().getChildElementCount()-7; 
+	for (int i=0; i &lt; count; i++) { // iteramos en cada fila
+		HtmlElement button= (HtmlElement)getHtmlPage().getElementById("ox_invoicing_Invoice__details___0") // go to details table, then...
 		    	.getChildElements().iterator().next()
 		    	.getChildElements().iterator().next()
 		    	.getChildElements().iterator().next()
 		    	.getChildElements().iterator().next(); // we get the remove button of that row
-		    link.click(); // remove the row
+		    button.click(); // remove the row
 	}
 }</code></pre>
         <div class="wiki" style="display: block;">The <i>testAddOrders()</i> method is finished. This is its definitive code:
@@ -1712,7 +1712,9 @@ protected void assertValueInAllRows(int column, String value) throws Exception {
     execute("Collection.removeSelected",
         "viewObject=xava_view_section1_orders");
     assertCollectionRowCount("orders", 0);<br></code><code class="java"><code
-class="java">       execute("Sections.change", "activeSection=0");<br>    removeRows();<br>    execute("CRUD.save");</code> <br>}
+class="java">       execute("Sections.change", "activeSection=0");<br>    removeRows();<br>    waitAJAX();
+    assertCollectionRowCount("details", 0);
+    assertValue("totalAmount", "0,00");<br>    execute("CRUD.save");</code> <br>}
 </code></pre> We have finished the test code. Now it's time to execute all the tests for your project. They must be green.</div>
       </div>
       <h2 id="summary">Summary</h2>

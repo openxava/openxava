@@ -1649,20 +1649,21 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
     ...
     
     execute("Sections.change", "activeSection=0"); // Volvemos a la pestaña de detalles de la factura
-    eliminarFilas(); // Eliminamos las filas que se agregaron (6)
-    execute("CRUD.save");
+    eliminarFilas(); // Eliminamos las filas que se agregaron (6)<br>    waitAJAX(); // Esperamos que se completen los procesos JS de fondo
+    assertCollectionRowCount("detalles", 0); // Verificamos nuevamente que no hayan filas
+    assertValue("importeTotal", "0,00");<br>   &nbsp;execute("CRUD.save");
     <br>}
 </code></pre>Primero, Verificamos que la factura para esta prueba no tiene detalles (1), después añadimos un pedido (2), tomando nota de su importe total (3), entonces verificamos que la factura actual tiene detalles (4) y que su importe total es el mismo que el del pedido añadido (5), por último borramos las filas que tiene detalles (6). Agregamos el siguiente código en la misma clase de PruebaFactura:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">protected void eliminarFilas() throws Exception{
+        <pre><code class="java">protected void eliminarFilas() throws Exception {
 	// contamos la cantidad de filas que hay en la tabla<br>	int contador = getHtmlPage().getElementById("ox_facturacion_Factura__detalles").getChildElements().iterator().next().getChildElementCount()-7; 
-	for (int i=0; i&lt;contador; i++) { // iteramos en cada fila
-		HtmlElement link = (HtmlElement)getHtmlPage().getElementById("ox_facturacion_Factura__detalles___0") // apuntamos la tabla de detalles y ...
+	for (int i=0; i &lt; contador; i++) { // iteramos en cada fila
+		HtmlElement boton = (HtmlElement)getHtmlPage().getElementById("ox_facturacion_Factura__detalles___0") // apuntamos la tabla de detalles y ...
 		    	.getChildElements().iterator().next()
 		    	.getChildElements().iterator().next()
 		    	.getChildElements().iterator().next()
 		    	.getChildElements().iterator().next(); // llegamos al botón eliminar de esa fila
-		    link.click(); // eliminamos la fila
+		    boton.click(); // eliminamos la fila
 	}
 }</code></pre>
       </div>
@@ -1700,8 +1701,9 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
         "viewObject=xava_view_section1_pedidos");
     assertCollectionRowCount("pedidos", 0);</code><br><code class="java"><code
 class="java">       execute("Sections.change", "activeSection=0"); 
-    eliminarFilas();
-    execute("CRUD.save");</code> }	
+    eliminarFilas();<br>    waitAJAX();
+    assertCollectionRowCount("detalles", 0);
+    assertValue("importeTotal", "0,00");<br>   &nbsp;execute("CRUD.save");</code> }	
 </code></pre> Hemos finalizado el código de las pruebas automáticas. Ahora puedes ejecutar todas las pruebas de tu proyecto. Han de salir en color verde.</div>
       </div>
       <h2 id="resumen">Resumen</h2>
