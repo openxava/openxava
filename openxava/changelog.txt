@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Chunks of XML code in the content of a @HtmlText property are not saved.
 - Fix: Applications using root context do not work since 7.0 from development environment. 
 - Fix: HtmlText editor removes content when < followed by a character is used, like <a.
 - Fix: New project created from openxava-archetype-spanish contains unknown characters for accents.
