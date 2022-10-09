@@ -6,66 +6,44 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Tabular data"></a> <span id="breadcrumbs"> <span
-            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
-              </a> </span> / <a href="index_en.html">documentation</a> / </span>
-        Tabular data </h1>
-      <strong>Reference guide</strong>: <a class="wiki_link" href="model_en.html">Model</a>
-      | <a class="wiki_link" href="view_en.html">View</a> | <strong>Tabular
-        data</strong> | <a class="wiki_link" href="mapping_en.html">Object/relational
-        mapping</a> | <a class="wiki_link" href="controllers_en.html">Controllers</a>
-      | <a class="wiki_link" href="application_en.html">Application</a> | <a class="wiki_link"
-        href="customizing_en.html">Customizing</a>
+      <h1 id="toc0"><a name="Tabular data"></a> <span id="breadcrumbs"> <span
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_en.html">documentation</a> / </span> Tabular data </h1>
+      <strong>Reference guide</strong>: <a class="wiki_link" href="model_en.html">Model</a> | <a
+        class="wiki_link" href="view_en.html">View</a> | <strong>Tabular data</strong> | <a
+        class="wiki_link" href="mapping_en.html">Object/relational mapping</a> | <a
+        class="wiki_link" href="controllers_en.html">Controllers</a> | <a
+        class="wiki_link" href="application_en.html">Application</a> | <a
+        class="wiki_link" href="customizing_en.html">Customizing</a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#Tabular%20data">Tabular data</a></div>
-        <div style="margin-left: 2em;"><a href="#Tabular%20data-Initial%20properties%20and%20emphasize%20rows">Initial
-            properties and emphasize rows</a></div>
-        <div style="margin-left: 2em;"><a href="#Tabular%20data-Filters%20and%20base%20condition">Filters
-            and base condition</a></div>
-        <div style="margin-left: 2em;"><a href="#Tabular%20data-Partial%20select%20%28new%20in%20v5.6%29">Partial
-            select (new in v5.6)</a></div>
-        <div style="margin-left: 2em;"><a href="#Tabular%20data-Complete%20select">Complete
-            select</a></div>
-        <div style="margin-left: 2em;"><a href="#Tabular%20data-Default%20order">Default
-            order</a></div>
-        <div style="margin-left: 2em;"><a href="#Tabular%20data-Default%20values%20for%20tabs%20at%20application%20level%20%28new%20in%20v4m4%29">Default
-            values for tabs at application level (new in v4m4)</a></div>
-        <div style="margin-left: 2em;"><a href="#Tabular%20data-Column%20summation%20%28new%20in%20v4.1%29">Column
-            summation (new in v4.1)</a></div>
-        <div style="margin-left: 2em;"><a href="#Tabular%20data-Choosing%20an%20editor%20%28new%20in%20v4.6%29">Choosing
-            an editor (new in v4.6)</a></div>
-        <div style="margin-left: 2em;"><a href="#Tabular%20data-Disabling%20customization">Disabling
-            customization</a></div>
-        <div style="margin-left: 2em;"><a href="#Tabular%20data-Several%20presentation%20formats%20using%20editors%20%28new%20in%20v5.7%29">Several
-            presentation formats using editors (new in v5.7)</a></div>
-        <div style="margin-left: 2em;"><a href="#Tabular%20data-Removing%20the%20Charts%20from%20list%20mode%20%28new%20in%20v5.7%29">Removing
-            the Charts from list mode (new in v5.7)</a></div>
-        <div style="margin-left: 2em;"><a href="#Tabular%20data-Searching%20by%20the%20content%20of%20a%20collection%20from%20list%20mode">Searching
-            by the content of a collection from list mode (new in v6.4)</a></div>
+        <div style="margin-left: 2em;"><a href="#Tabular%20data-Initial%20properties%20and%20emphasize%20rows">Initial properties and emphasize rows</a></div>
+        <div style="margin-left: 2em;"><a href="#Tabular%20data-Filters%20and%20base%20condition">Filters and base condition</a></div>
+        <div style="margin-left: 2em;"><a href="#Tabular%20data-Partial%20select%20%28new%20in%20v5.6%29">Partial select (new in v5.6)</a></div>
+        <div style="margin-left: 2em;"><a href="#Tabular%20data-Complete%20select">Complete select</a></div>
+        <div style="margin-left: 2em;"><a href="#Tabular%20data-Default%20order">Default order</a></div>
+        <div style="margin-left: 2em;"><a href="#Tabular%20data-Default%20values%20for%20tabs%20at%20application%20level%20%28new%20in%20v4m4%29">Default values for tabs at application level (new in v4m4)</a></div>
+        <div style="margin-left: 2em;"><a href="#Tabular%20data-Column%20summation%20%28new%20in%20v4.1%29">Column summation (new in v4.1)</a></div>
+        <div style="margin-left: 2em;"><a href="#Tabular%20data-Choosing%20an%20editor%20%28new%20in%20v4.6%29">Choosing an editor (new in v4.6)</a></div>
+        <div style="margin-left: 2em;"><a href="#Tabular%20data-Disabling%20customization">Disabling customization</a></div>
+        <div style="margin-left: 2em;"><a href="#Tabular%20data-Several%20presentation%20formats%20using%20editors%20%28new%20in%20v5.7%29">Several presentation formats using editors (new in v5.7)</a></div>
+        <div style="margin-left: 2em;"><a href="#Tabular%20data-Removing%20the%20Charts%20from%20list%20mode%20%28new%20in%20v5.7%29">Removing the Charts from list mode (new in v5.7)</a></div>
+        <div style="margin-left: 2em;"><a href="#Tabular%20data-Searching%20by%20the%20content%20of%20a%20collection%20from%20list%20mode">Searching by the content of a collection from list mode (new in v6.4)</a></div>
       </div>
-      Tabular data is data that is displayed in table format. If you create a
-      conventional OpenXava module, then the user can manage the component data
-      with a list like this:<br>
+      Tabular data is data that is displayed in table format. If you create a conventional OpenXava module, then the user can manage the component data with a list like this:<br>
       <img src="files/tab_en010.jpg" alt="tab_en010.jpg" title="tab_en010.jpg"><br>
       This list allows user to:<br>
       <ul>
         <li>Filter by any columns or a combination of them.</li>
         <li>Order by any column with a single click.</li>
-        <li>Display data by pages, and therefore the user can work efficiently
-          with millions of records.</li>
-        <li>Customize the list: add, remove and change the column order (with
-          the little pencil in the left top corner). This customizations are
-          remembered by user.</li>
-        <li>Generic actions to process the objects in the list: generate PDF
-          reports, export to Excel or remove the selected objects.</li>
+        <li>Display data by pages, and therefore the user can work efficiently with millions of records.</li>
+        <li>Customize the list: add, remove and change the column order (with the little pencil in the left top corner). This customizations are remembered by user.</li>
+        <li>Generic actions to process the objects in the list: generate PDF reports, export to Excel or remove the selected objects.</li>
       </ul>
-      The default list is enough for many cases, moreover the user can customize
-      it. Nevertheless, sometimes it is convenient to modify the list behavior.
-      For this you have the <em>@Tab</em> annotation within the entity
-      definition.<br>
-      The syntax of <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Tab.html"
+      The default list is enough for many cases, moreover the user can customize it. Nevertheless, sometimes it is convenient to modify the list behavior. For this you have the <em>@Tab</em> annotation within the entity definition.<br>
+      The syntax of <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Tab.html"
           rel="nofollow">@Tab</a></em> is:<br>
       <style type="text/css"><!--
 /**
@@ -264,49 +242,26 @@
     editor=<span class="st0">"defult editor"</span>,         <span class="co1">// 7  New in v4.6</span>
     editors=<span class="st0">"all available editors"</span> <span class="co1">// 8  New in v5.7</span>
 <span class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> MyEntity <span class="br0">{</span>
+<span class="kw2">public</span> <span class="kw2">class</span> MyEntity <span
+class="br0">{</span>
 &nbsp;</pre>
       <ol>
-        <li><strong>name</strong> (optional): You can define several tabs in a
-          entity (use <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Tabs.html"
-              rel="nofollow">@Tabs</a></em>for versions older than 6.1), and set
-          a name for each one. This name is used to indicate the tab that you
-          want to use (usually in <em>application.xml</em>).</li>
-        <li><strong><a class="wiki_link" href="tab_en#toc2">filter</a></strong>
-          (optional): Allows to define programmatically some logic to apply to
-          the values entered by user when he filters the list data.</li>
-        <li><strong><a class="wiki_link" href="tab_en#toc1">rowStyles</a></strong>
-          (optional): A simple way to specify a different visual style for some
-          rows. Normally to emphasize rows that fulfill certain condition. You
-          specify an array of <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/RowStyle.html"
-              rel="nofollow">@RowStyle</a></em>, in this way you can use several
-          styles for a tab.</li>
-        <li><strong><a class="wiki_link" href="tab_en#toc1">properties</a></strong>
-          (optional): The list of properties to show initially. Can be qualified
-          (that is you can specify <em>referenceName.propertyName</em> at any
-          depth level). The suffix + <em>(new in v4.1)</em> can be added to a
-          property to show the <a class="wiki_link" href="tab_en#Chapter%205:%20Tabular%20data-Column%20summation%20%28new%20in%20v4.1%29">sum
-            of the column</a> at bottom.</li>
-        <li><strong><a class="wiki_link" href="tab_en#toc2">baseCondition</a></strong>
-          (optional): Condition to be fulfilled by the displayed data. It's
-          added to the user condition if needed.</li>
-        <li><strong><a class="wiki_link" href="tab_en#toc4">defaultOrder</a></strong>
-          (optional): To specify the initial order for data.</li>
-        <li><strong><a class="wiki_link" href="tab_en.html#Tabular%20data-Choosing%20an%20editor%20%28new%20in%20v4.6%29">editor</a></strong>
-          (optional): <em>(New in v4.6)</em> Editor from <em>default-editors.xml</em>
-          or <em>editors.xml</em> used to display the list. It's used for the
-          default format, if the list has several formats the other formats are
-          not affected.</li>
-        <li><strong><a class="wiki_link" href="tab_en.html#Tabular%20data-Several%20presentation%20formats%20using%20editors%20%28new%20in%20v5.7%29">editors</a></strong>
-          (optional): <em>(New in v5.7)</em> Comma separated list of editors
-          used to display the list. Each editor corresponds to an available
-          format for the users. The editors are declared in <em>default-editors.xml</em>
-          or <em>editors.xml</em>.</li>
+        <li><strong>name</strong> (optional): You can define several tabs in a entity (use <em><a
+              class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Tabs.html"
+              rel="nofollow">@Tabs</a></em>for versions older than 6.1), and set a name for each one. This name is used to indicate the tab that you want to use (usually in <em>application.xml</em>).</li>
+        <li><strong><a class="wiki_link" href="#Tabular%20data-Filters%20and%20base%20condition">filter</a></strong> (optional): Allows to define programmatically some logic to apply to the values entered by user when he filters the list data.</li>
+        <li><strong><a class="wiki_link" href="#Tabular%20data-Initial%20properties%20and%20emphasize%20rows">rowStyles</a></strong> (optional): A simple way to specify a different visual style for some rows. Normally to emphasize rows that fulfill certain condition. You specify an array of <em><a
+              class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/RowStyle.html"
+              rel="nofollow">@RowStyle</a></em>, in this way you can use several styles for a tab.</li>
+        <li><strong><a class="wiki_link" href="#Tabular%20data-Initial%20properties%20and%20emphasize%20rows">properties</a></strong> (optional): The list of properties to show initially. Can be qualified (that is you can specify <em>referenceName.propertyName</em> at any depth level). The suffix + <em>(new in v4.1)</em> can be added to a property to show the <a
+            class="wiki_link" href="tab_en#Chapter%205:%20Tabular%20data-Column%20summation%20%28new%20in%20v4.1%29">sum of the column</a> at bottom.</li>
+        <li><strong><a class="wiki_link" href="#Tabular%20data-Filters%20and%20base%20condition">baseCondition</a></strong> (optional): Condition to be fulfilled by the displayed data. It's added to the user condition if needed.</li>
+        <li><strong><a class="wiki_link" href="#Tabular%20data-Default%20order">defaultOrder</a></strong> (optional): To specify the initial order for data.</li>
+        <li><strong><a class="wiki_link" href="#Tabular%20data-Choosing%20an%20editor%20%28new%20in%20v4.6%29">editor</a></strong> (optional): <em>(New in v4.6)</em> Editor from <em>default-editors.xml</em> or <em>editors.xml</em> used to display the list. It's used for the default format, if the list has several formats the other formats are not affected.</li>
+        <li><strong><a class="wiki_link" href="#Tabular%20data-Several%20presentation%20formats%20using%20editors%20%28new%20in%20v5.7%29">editors</a></strong> (optional): <em>(New in v5.7)</em> Comma separated list of editors used to display the list. Each editor corresponds to an available format for the users. The editors are declared in <em>default-editors.xml</em> or <em>editors.xml</em>.</li>
       </ol>
-      <h2 id="toc1"><a name="Tabular data-Initial properties and emphasize rows"></a>Initial
-        properties and emphasize rows</h2>
-      The most simple customization is to indicate the properties to show
-      initially:<br>
+      <h2 id="toc1"><a name="Tabular data-Initial properties and emphasize rows"></a>Initial properties and emphasize rows</h2>
+      The most simple customization is to indicate the properties to show initially:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -495,28 +450,19 @@
 
 -->
 </style><pre class="java5">@Tab<span class="br0">(</span>
- rowStyles=@RowStyle<span class="br0">(</span>style=<span class="st0">"row-highlight"</span>, property=<span
-class="st0">"type"</span>, value=<span class="st0">"steady"</span><span class="br0">)</span>,
+ rowStyles=@RowStyle<span class="br0">(</span>style=<span class="st0">"row-highlight"</span>, property=<span
+class="st0">"type"</span>, value=<span class="st0">"steady"</span><span
+class="br0">)</span>,
  properties=<span class="st0">"name, type, seller.name, address.city, seller.level.description, address.state.name"</span>
 <span class="br0">)</span>
 &nbsp;</pre>
-      These properties are shown the first time the module is executed, after
-      that the user will have the option to change the properties to display.
-      Also you see how you can use qualified properties (properties of
-      references) in any level.<br>
-      In this case you can see also how to indicate a <em><a class="wiki_link_ext"
-          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/RowStyle.html"
-          rel="nofollow">@RowStyle</a></em>; you are saying that the object
-      which property <em>type</em> has the value <em>steady</em> will use the
-      style <em>row-highlight</em>. The style has to be defined in the CSS
-      style-sheet. The <em>row-highlight</em> (<em>highlight</em> in versions
-      previous to v4m3) style is already defined in OpenXava, but you can define
-      your own styles with the <em>custom.css</em> (new in v4.5) file in <i>src/main/webapp/xava/style</i>
-      (since v7) or in <em>web/xava/style</em> (until v6).<br>
+      These properties are shown the first time the module is executed, after that the user will have the option to change the properties to display. Also you see how you can use qualified properties (properties of references) in any level.<br>
+      In this case you can see also how to indicate a <em><a class="wiki_link_ext"
+          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/RowStyle.html"
+          rel="nofollow">@RowStyle</a></em>; you are saying that the object which property <em>type</em> has the value <em>steady</em> will use the style <em>row-highlight</em>. The style has to be defined in the CSS style-sheet. The <em>row-highlight</em> (<em>highlight</em> in versions previous to v4m3) style is already defined in OpenXava, but you can define your own styles with the <em>custom.css</em> (new in v4.5) file in <i>src/main/webapp/xava/style</i> (since v7) or in <em>web/xava/style</em> (until v6).<br>
       The visual effect of above is:<br>
       <img src="files/tab_en020.jpg" alt="tab_en020.jpg" title="tab_en020.jpg"><br>
-      <h2 id="toc2"><a name="Tabular data-Filters and base condition"></a>Filters
-        and base condition</h2>
+      <h2 id="toc2"><a name="Tabular data-Filters and base condition"></a>Filters and base condition</h2>
       A common technique is to combine a filter with a base condition:<br>
       <style type="text/css"><!--
 /**
@@ -711,9 +657,7 @@ class="st0">"type"</span>, value=<span class="st0">"steady"</span><span class="b
  baseCondition=<span class="st0">"${year} = ?"</span>
 <span class="br0">)</span>
 &nbsp;</pre>
-      The condition has to have SQL syntax, you can use <em>?</em> for
-      arguments and the property names inside <em>${}</em>. In this case a
-      filter is used to set the value of the argument. The filter code is:<br>
+      The condition has to have SQL syntax, you can use <em>?</em> for arguments and the property names inside <em>${}</em>. In this case a filter is used to set the value of the argument. The filter code is:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -901,79 +845,80 @@ class="st0">"type"</span>, value=<span class="st0">"steady"</span><span class="b
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.filters</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.filters</span><span
 class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">java.util.*</span><span
+class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.filters.*</span><span
+<span class="kw2">import</span> <span class="co2">org.openxava.filters.*</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="co3">/**
  * @author Javier Paniza
  */</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> CurrentYearFilter <span
+<span class="kw2">public</span> <span class="kw2">class</span> CurrentYearFilter <span
 class="kw2">implements</span> IFilter <span class="br0">{</span> <span class="co1">// (1)</span>
 &nbsp;
- <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a> filter<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a> o<span class="br0">)</span> <span class="kw2">throws</span> FilterException <span
+ <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> filter<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> o<span class="br0">)</span> <span class="kw2">throws</span> FilterException <span
 class="br0">{</span> <span class="co1">// (2)</span>
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
-class="kw46">Calendar</span></a> cal = <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
-class="kw46">Calendar</span></a>.<span class="me1">getInstance</span><span class="br0">(</span><span
+ <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
+class="kw46">Calendar</span></a> cal = <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
+class="kw46">Calendar</span></a>.<span class="me1">getInstance</span><span
+class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ cal.<span class="me1">setTime</span><span class="br0">(</span><span class="kw2">new</span> java.<span
+class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
+class="kw166">Date</span></a><span class="br0">(</span><span class="br0">)</span><span
 class="br0">)</span><span class="sy0">;</span>
- cal.<span class="me1">setTime</span><span class="br0">(</span><span class="kw2">new</span> java.<span
-class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-class="kw166">Date</span></a><span class="br0">(</span><span class="br0">)</span><span
+ <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+class="kw21">Integer</span></a> year = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+class="kw21">Integer</span></a><span class="br0">(</span>cal.<span class="me1">get</span><span
+class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
+class="kw46">Calendar</span></a>.<span class="me1">YEAR</span><span class="br0">)</span><span
 class="br0">)</span><span class="sy0">;</span>
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-class="kw21">Integer</span></a> year = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-class="kw21">Integer</span></a><span class="br0">(</span>cal.<span class="me1">get</span><span
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
-class="kw46">Calendar</span></a>.<span class="me1">YEAR</span><span class="br0">)</span><span
-class="br0">)</span><span class="sy0">;</span>
- <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span> r = <span
+ <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span> r = <span
 class="kw4">null</span><span class="sy0">;</span>
- <span class="kw1">if</span> <span class="br0">(</span>o == <span class="kw4">null</span><span
+ <span class="kw1">if</span> <span class="br0">(</span>o == <span class="kw4">null</span><span
 class="br0">)</span> <span class="br0">{</span> <span class="co1">// (3)</span>
- r = <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a><span class="br0">[</span><span class="nu0">1</span><span
+ r = <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a><span class="br0">[</span><span class="nu0">1</span><span
 class="br0">]</span><span class="sy0">;</span>
- r<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span> = year<span
+ r<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span> = year<span
 class="sy0">;</span>
  <span class="br0">}</span>
- <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span>o <span
-class="kw2">instanceof</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span><span
+ <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span>o <span
+class="kw2">instanceof</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span><span
 class="br0">)</span> <span class="br0">{</span> <span class="co1">// (4)</span>
- <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span> a = <span
-class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span><span
+ <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span> a = <span
+class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span><span
 class="br0">)</span> o<span class="sy0">;</span>
- r = <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a><span class="br0">[</span>a.<span class="me1">length</span> + <span
+ r = <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a><span class="br0">[</span>a.<span class="me1">length</span> + <span
 class="nu0">1</span><span class="br0">]</span><span class="sy0">;</span>
- r<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span> = year<span
+ r<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span> = year<span
 class="sy0">;</span>
- <span class="kw1">for</span> <span class="br0">(</span><span class="kw3">int</span> i = <span
-class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> a.<span
-class="me1">length</span><span class="sy0">;</span> i++<span class="br0">)</span> <span
+ <span class="kw1">for</span> <span class="br0">(</span><span class="kw3">int</span> i = <span
+class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> a.<span
+class="me1">length</span><span class="sy0">;</span> i++<span class="br0">)</span> <span
 class="br0">{</span>
- r<span class="br0">[</span>i+<span class="nu0">1</span><span class="br0">]</span>=a<span
+ r<span class="br0">[</span>i+<span class="nu0">1</span><span class="br0">]</span>=a<span
 class="br0">[</span>i<span class="br0">]</span><span class="sy0">;</span>
  <span class="br0">}</span>
  <span class="br0">}</span>
  <span class="kw1">else</span> <span class="br0">{</span> <span class="co1">// (5)</span>
- r = <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a><span class="br0">[</span><span class="nu0">2</span><span
+ r = <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a><span class="br0">[</span><span class="nu0">2</span><span
 class="br0">]</span><span class="sy0">;</span>
- r<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span> = year<span
+ r<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span> = year<span
 class="sy0">;</span>
- r<span class="br0">[</span><span class="nu0">1</span><span class="br0">]</span> = o<span
+ r<span class="br0">[</span><span class="nu0">1</span><span class="br0">]</span> = o<span
 class="sy0">;</span>
  <span class="br0">}</span>
 &nbsp;
@@ -981,19 +926,8 @@ class="sy0">;</span>
  <span class="br0">}</span>
 &nbsp;
 <span class="br0">}</span></pre>
-      A filter gets the arguments of user type for filtering in lists and for
-      processing, it returns the value that is sent to OpenXava to execute the
-      query. As you see it must implement <em>IFilter</em> (1), this force it
-      to have a method named <em>filter</em> (2) that receives a object with
-      the value of arguments and returns the filtered value that will be used as
-      query argument. These arguments can be null (3), if the user does not type
-      values, a simple object (5), if the user types a single value or an object
-      array (4), if the user types several values. The filter must consider all
-      cases. The filter of this example adds the current year as first argument,
-      and this value is used for filling the arguments in the <em>baseCondition</em>
-      of the tab.<br>
-      To sum up, the tab that you see above only shows the invoices of the
-      current year.<br>
+      A filter gets the arguments of user type for filtering in lists and for processing, it returns the value that is sent to OpenXava to execute the query. As you see it must implement <em>IFilter</em> (1), this force it to have a method named <em>filter</em> (2) that receives a object with the value of arguments and returns the filtered value that will be used as query argument. These arguments can be null (3), if the user does not type values, a simple object (5), if the user types a single value or an object array (4), if the user types several values. The filter must consider all cases. The filter of this example adds the current year as first argument, and this value is used for filling the arguments in the <em>baseCondition</em> of the tab.<br>
+      To sum up, the tab that you see above only shows the invoices of the current year.<br>
       Another case:<br>
       <style type="text/css"><!--
 /**
@@ -1377,83 +1311,82 @@ class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.filters</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.filters</span><span
 class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
+<span class="kw2">import</span> <span class="co2">java.util.*</span><span
+class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.filters.*</span><span
+<span class="kw2">import</span> <span class="co2">org.openxava.filters.*</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="co3">/**
  * @author Javier Paniza
  */</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> DefaultYearFilter <span
-class="kw2">extends</span> BaseContextFilter <span class="br0">{</span> <span class="co1">// (1)</span>
+<span class="kw2">public</span> <span class="kw2">class</span> DefaultYearFilter <span
+class="kw2">extends</span> BaseContextFilter <span class="br0">{</span> <span
+class="co1">// (1)</span>
 &nbsp;
- <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a> filter<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a> o<span class="br0">)</span> <span class="kw2">throws</span> FilterException <span
+ <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> filter<span class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> o<span class="br0">)</span> <span class="kw2">throws</span> FilterException <span
 class="br0">{</span>
- <span class="kw1">if</span> <span class="br0">(</span>o == <span class="kw4">null</span><span
+ <span class="kw1">if</span> <span class="br0">(</span>o == <span class="kw4">null</span><span
 class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span> <span
-class="br0">{</span> getDefaultYear<span class="br0">(</span><span class="br0">)</span> <span
+ <span class="kw2">return</span> <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span> <span
+class="br0">{</span> getDefaultYear<span class="br0">(</span><span class="br0">)</span> <span
 class="br0">}</span><span class="sy0">;</span> <span class="co1">// (2)</span>
  <span class="br0">}</span>
- <span class="kw1">if</span> <span class="br0">(</span>o <span class="kw2">instanceof</span> <a
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span><span
+ <span class="kw1">if</span> <span class="br0">(</span>o <span class="kw2">instanceof</span> <a
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span><span
 class="br0">)</span> <span class="br0">{</span>
- <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+List"><span
-class="kw166">List</span></a> c = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/ArrayList.html"><span
-class="kw46">ArrayList</span></a><span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Arrays.html"><span
-class="kw46">Arrays</span></a>.<span class="me1">asList</span><span class="br0">(</span><span
-class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span><span
-class="br0">)</span> o<span class="br0">)</span><span class="br0">)</span><span
+ <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+List"><span
+class="kw166">List</span></a> c = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/ArrayList.html"><span
+class="kw46">ArrayList</span></a><span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Arrays.html"><span
+class="kw46">Arrays</span></a>.<span class="me1">asList</span><span class="br0">(</span><span
+class="br0">(</span><a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span><span
+class="br0">)</span> o<span class="br0">)</span><span class="br0">)</span><span
 class="sy0">;</span>
- c.<span class="me1">add</span><span class="br0">(</span><span class="nu0">0</span>, getDefaultYear<span
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span
-class="co1">// (2)</span>
- <span class="kw2">return</span> c.<span class="me1">toArray</span><span class="br0">(</span><span
-class="br0">)</span><span class="sy0">;</span>
+ c.<span class="me1">add</span><span class="br0">(</span><span class="nu0">0</span>, getDefaultYear<span
+class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span
+class="sy0">;</span> <span class="co1">// (2)</span>
+ <span class="kw2">return</span> c.<span class="me1">toArray</span><span
+class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
  <span class="br0">}</span>
  <span class="kw1">else</span> <span class="br0">{</span>
- <span class="kw2">return</span> <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span> <span
-class="br0">{</span> getDefaultYear<span class="br0">(</span><span class="br0">)</span>, o <span
+ <span class="kw2">return</span> <span class="kw2">new</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> <span class="br0">[</span><span class="br0">]</span> <span
+class="br0">{</span> getDefaultYear<span class="br0">(</span><span class="br0">)</span>, o <span
 class="br0">}</span><span class="sy0">;</span> <span class="co1">// (2)</span>
  <span class="br0">}</span>
  <span class="br0">}</span>
 &nbsp;
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-class="kw21">Integer</span></a> getDefaultYear<span class="br0">(</span><span class="br0">)</span> <span
-class="kw2">throws</span> FilterException <span class="br0">{</span>
+ <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+class="kw21">Integer</span></a> getDefaultYear<span class="br0">(</span><span
+class="br0">)</span> <span class="kw2">throws</span> FilterException <span
+class="br0">{</span>
  <span class="kw2">try</span> <span class="br0">{</span>
- <span class="kw2">return</span> getInteger<span class="br0">(</span><span class="st0">"xavatest_defaultYear"</span><span
-class="br0">)</span><span class="sy0">;</span> <span class="co1">// (3)</span>
+ <span class="kw2">return</span> getInteger<span class="br0">(</span><span
+class="st0">"xavatest_defaultYear"</span><span class="br0">)</span><span
+class="sy0">;</span> <span class="co1">// (3)</span>
  <span class="br0">}</span>
- <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+ <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
 class="kw21">Exception</span></a> ex<span class="br0">)</span> <span class="br0">{</span>
- ex.<span class="me1">printStackTrace</span><span class="br0">(</span><span class="br0">)</span><span
-class="sy0">;</span>
- <span class="kw2">throw</span> <span class="kw2">new</span> FilterException<span
+ ex.<span class="me1">printStackTrace</span><span class="br0">(</span><span
+class="br0">)</span><span class="sy0">;</span>
+ <span class="kw2">throw</span> <span class="kw2">new</span> FilterException<span
 class="br0">(</span>
- <span class="st0">"Impossible to obtain default year associated with the session"</span><span
+ <span class="st0">"Impossible to obtain default year associated with the session"</span><span
 class="br0">)</span><span class="sy0">;</span>
  <span class="br0">}</span>
  <span class="br0">}</span>
 &nbsp;
 <span class="br0">}</span></pre>
-      This filter extends <em>BaseContextFilter</em>, this allow you to access
-      to the session objects of OpenXava. You can see how it uses a method <em>getDefaultYear()</em>
-      (2) that call to <em>getInteger()</em> (3) which (as <em>getString()</em>,
-      <em>getLong()</em> or the more generic <em>get()</em>) that allows you to
-      access to value of the session object <em>xavatest_defaultYear</em>. This
-      object is defined in <em>controllers.xml</em> this way:<br>
+      This filter extends <em>BaseContextFilter</em>, this allow you to access to the session objects of OpenXava. You can see how it uses a method <em>getDefaultYear()</em> (2) that call to <em>getInteger()</em> (3) which (as <em>getString()</em>, <em>getLong()</em> or the more generic <em>get()</em>) that allows you to access to value of the session object <em>xavatest_defaultYear</em>. This object is defined in <em>controllers.xml</em> this way:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -1476,18 +1409,14 @@ class="br0">)</span><span class="sy0">;</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;object</span> <span
-class="re0">name</span>=<span class="st0">"xavatest_defaultYear"</span> <span class="re0">class</span>=<span
-class="st0">"java.lang.Integer"</span> <span class="re0">value</span>=<span class="st0">"1999"</span><span
-class="re2">/&gt;</span></span></pre>
-      The actions can modify it and its life is the user session life but it's
-      private for each module. This issue is treated in more detail in <a class="wiki_link"
-        href="controllers_en">chapter 7</a>.<br>
-      This is a good technique for data shown in list mode to depend on the user
-      or the configuration that he has chosen.<br>
-      Also it's possible to access environment variables inside a filter of type
-      <em>BaseContextFilter</em>, using <em>getEnvironment()</em> method, just
-      in this way:<br>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;object</span> <span
+class="re0">name</span>=<span class="st0">"xavatest_defaultYear"</span> <span
+class="re0">class</span>=<span class="st0">"java.lang.Integer"</span> <span
+class="re0">value</span>=<span class="st0">"1999"</span><span class="re2">/&gt;</span></span></pre>
+      The actions can modify it and its life is the user session life but it's private for each module. This issue is treated in more detail in <a
+        class="wiki_link" href="controllers_en.html">chapter 7</a>.<br>
+      This is a good technique for data shown in list mode to depend on the user or the configuration that he has chosen.<br>
+      Also it's possible to access environment variables inside a filter of type <em>BaseContextFilter</em>, using <em>getEnvironment()</em> method, just in this way:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -1675,17 +1604,15 @@ class="re2">/&gt;</span></span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-class="kw21">Integer</span></a><span class="br0">(</span>getEnvironment<span class="br0">(</span><span
-class="br0">)</span>.<span class="me1">getValue</span><span class="br0">(</span><span
-class="st0">"XAVATEST_DEFAULT_YEAR"</span><span class="br0">)</span><span class="br0">)</span><span
-class="sy0">;</span></pre>
-      For learning more about environment variables see the <a class="wiki_link"
-        href="controllers_en">chapter 7 about controllers</a>.<br>
-      <h2 id="toc3"><a name="Tabular data-Partial select (new in v5.6)"></a>Partial
-        select <em>(new in v5.6)</em></h2>
-      In <em>baseCondition</em> you can write the select statement from the
-      FROM clause, to do that just start the condition with <em>from</em>:<br>
+</style><pre class="java5"><span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
+class="kw21">Integer</span></a><span class="br0">(</span>getEnvironment<span
+class="br0">(</span><span class="br0">)</span>.<span class="me1">getValue</span><span
+class="br0">(</span><span class="st0">"XAVATEST_DEFAULT_YEAR"</span><span
+class="br0">)</span><span class="br0">)</span><span class="sy0">;</span></pre>
+      For learning more about environment variables see the <a class="wiki_link"
+        href="controllers_en.html">chapter 7 about controllers</a>.<br>
+      <h2 id="toc3"><a name="Tabular data-Partial select (new in v5.6)"></a>Partial select <em>(new in v5.6)</em></h2>
+      In <em>baseCondition</em> you can write the select statement from the FROM clause, to do that just start the condition with <em>from</em>:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -1874,16 +1801,12 @@ class="sy0">;</span></pre>
 
 -->
 </style><pre class="java5">@Tab<span class="br0">(</span>name=<span class="st0">"FromAlaska"</span>,
-    baseCondition=<span class="st0">"from Customer e, in (e.states) s where s.id = 'AK'"</span><span
+    baseCondition=<span class="st0">"from Customer e, in (e.states) s where s.id = 'AK'"</span><span
 class="br0">)</span></pre>
       Use the JPQL syntax with <em>e</em> as alias for the main entity.<br>
-      This is better option than using the complete select because the list of
-      properties is generated by OpenXava, so the user can customize the list
-      while the developer still has the option of creating sophisticated
-      queries.<br>
+      This is better option than using the complete select because the list of properties is generated by OpenXava, so the user can customize the list while the developer still has the option of creating sophisticated queries.<br>
       <h2 id="toc4"><a name="Tabular data-Complete select"></a>Complete select</h2>
-      You can write the complete select statement to obtain the tab data. Since
-      v4.5 you have to use JPQL syntax:<br>
+      You can write the complete select statement to obtain the tab data. Since v4.5 you have to use JPQL syntax:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -2078,8 +2001,7 @@ class="br0">)</span></pre>
         <span class="st0">"from Subfamily e, Family f "</span> +
         <span class="st0">"where e.familyNumber = f.number"</span>
 <span class="br0">)</span></pre>
-      The current implementation requires using <em>e</em> as alias for the
-      main entity.<br>
+      The current implementation requires using <em>e</em> as alias for the main entity.<br>
       <br>
       Until v4.4.x it used SQL syntax:<br>
       <style type="text/css"><!--
@@ -2280,8 +2202,7 @@ class="br0">)</span></pre>
         <span class="st0">" XAVATEST.SUBFAMILY.FAMILY = "</span> +
         <span class="st0">" XAVATEST.FAMILY.NUMBER"</span>
 <span class="br0">)</span></pre>
-      Use it only in extreme cases. Normally it is not necessary, and if you use
-      this technique the user cannot customize his list.<br>
+      Use it only in extreme cases. Normally it is not necessary, and if you use this technique the user cannot customize his list.<br>
       <h2 id="toc5"><a name="Tabular data-Default order"></a>Default order</h2>
       Finally, setting a default order is very easy:<br>
       <style type="text/css"><!--
@@ -2471,19 +2392,14 @@ class="br0">)</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@Tab<span class="br0">(</span>name=<span class="st0">"Simple"</span>, properties=<span
+</style><pre class="java5">@Tab<span class="br0">(</span>name=<span class="st0">"Simple"</span>, properties=<span
 class="st0">"year, number, date"</span>,
     defaultOrder=<span class="st0">"${year} desc, ${number} desc"</span>
 <span class="br0">)</span></pre>
-      This specified the initial order and the user can choose any other order
-      by clicking in the heading of a column.<br>
-      <h2 id="toc6"><a name="Tabular data-Default values for tabs at application level (new in v4m4)"></a><a
-          name="default-values-for-tabs"></a>Default values for tabs at
-        application level <em>(new in v4m4)</em></h2>
-      You can define default values for all (or selected) <em>@Tab</em>s of
-      your application at once. To do so, create a <em>tabs-default-values.xml</em>
-      file in the <i>src/main/resources/xava</i> folder (just <i>xava</i>
-      before v7) of your application, just as the next example:<br>
+      This specified the initial order and the user can choose any other order by clicking in the heading of a column.<br>
+      <h2 id="toc6"><a name="Tabular data-Default values for tabs at application level (new in v4m4)"></a><a
+          name="default-values-for-tabs"></a>Default values for tabs at application level <em>(new in v4m4)</em></h2>
+      You can define default values for all (or selected) <em>@Tab</em>s of your application at once. To do so, create a <em>tabs-default-values.xml</em> file in the <i>src/main/resources/xava</i> folder (just <i>xava</i> before v7) of your application, just as the next example:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -2506,63 +2422,59 @@ class="st0">"year, number, date"</span>,
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
-class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
+class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span
+class="re2">?&gt;</span></span>
 &nbsp;
 <span class="sc0">&lt;!DOCTYPE tabs-default-values SYSTEM "dtds/tabs-default-values.dtd"&gt;</span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;tabs-default-values<span class="re2">&gt;</span></span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;tab<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;filter</span> <span class="re0">class</span>=<span
+        <span class="sc3"><span class="re1">&lt;filter</span> <span class="re0">class</span>=<span
 class="st0">"org.openxava.test.filters.ActiveYearFilter"</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;base-condition<span class="re2">&gt;</span></span></span>${year} = ?<span
+        <span class="sc3"><span class="re1">&lt;base-condition<span class="re2">&gt;</span></span></span>${year} = ?<span
 class="sc3"><span class="re1">&lt;/base-condition<span class="re2">&gt;</span></span></span>
 &nbsp;
-        <span class="sc3"><span class="re1">&lt;for-model</span> <span class="re0">model</span>=<span
+        <span class="sc3"><span class="re1">&lt;for-model</span> <span class="re0">model</span>=<span
 class="st0">"Delivery"</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;for-model</span> <span class="re0">model</span>=<span
+        <span class="sc3"><span class="re1">&lt;for-model</span> <span class="re0">model</span>=<span
 class="st0">"Invoice"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;tab<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>year, number, date<span
+        <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>year, number, date<span
 class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;default-order<span class="re2">&gt;</span></span></span>${number} desc<span
+        <span class="sc3"><span class="re1">&lt;default-order<span class="re2">&gt;</span></span></span>${number} desc<span
 class="sc3"><span class="re1">&lt;/default-order<span class="re2">&gt;</span></span></span>
 &nbsp;
-        <span class="sc3"><span class="re1">&lt;for-model</span> <span class="re0">model</span>=<span
+        <span class="sc3"><span class="re1">&lt;for-model</span> <span class="re0">model</span>=<span
 class="st0">"Delivery"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;tab<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;filter</span> <span class="re0">class</span>=<span
+        <span class="sc3"><span class="re1">&lt;filter</span> <span class="re0">class</span>=<span
 class="st0">"org.openxava.filters.UserFilter"</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;base-condition<span class="re2">&gt;</span></span></span>${user} = ?<span
+        <span class="sc3"><span class="re1">&lt;base-condition<span class="re2">&gt;</span></span></span>${user} = ?<span
 class="sc3"><span class="re1">&lt;/base-condition<span class="re2">&gt;</span></span></span>
 &nbsp;
-        <span class="sc3"><span class="re1">&lt;except-for-model</span> <span class="re0">model</span>=<span
-class="st0">"User"</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;except-for-model</span> <span
+class="re0">model</span>=<span class="st0">"User"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;tab<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;default-order<span class="re2">&gt;</span></span></span>${oid} asc<span
+        <span class="sc3"><span class="re1">&lt;default-order<span class="re2">&gt;</span></span></span>${oid} asc<span
 class="sc3"><span class="re1">&lt;/default-order<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;for-all-models</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;for-all-models</span><span
+class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;/tabs-default-values<span class="re2">&gt;</span></span></span></pre>
-      The <em>&lt;tab/&gt;</em> element follows the syntax of <a class="wiki_link"
-        href="tab-xml_en">XML Components for tabs</a>. With the addition of <em>&lt;for-model/&gt;</em>,
-      <em>&lt;except-for-model/&gt;</em> and <em>&lt;for-all-models/&gt;</em>
-      used to apply the values to the tabs of the desired entities.<br>
-      With this <em>tab</em> elements you define <em>default values</em> for
-      the tabs of your entities, therefore the values used in the <em>@Tab</em>s
-      defined in your entities always take preference over these ones.<br>
-      <h2 id="toc7"><a name="Tabular data-Column summation (new in v4.1)"></a>Column
-        summation <em>(new in v4.1)</em></h2>
-      To show the sum of all the value of a column at the bottom of the list you
-      only have to add the + symbol to the property name, as following:<br>
+      The <em>&lt;tab/&gt;</em> element follows the syntax of <a class="wiki_link"
+        href="tab-xml_en.html">XML Components for tabs</a>. With the addition of <em>&lt;for-model/&gt;</em>, <em>&lt;except-for-model/&gt;</em> and <em>&lt;for-all-models/&gt;</em> used to apply the values to the tabs of the desired entities.<br>
+      With this <em>tab</em> elements you define <em>default values</em> for the tabs of your entities, therefore the values used in the <em>@Tab</em>s defined in your entities always take preference over these ones.<br>
+      <h2 id="toc7"><a name="Tabular data-Column summation (new in v4.1)"></a>Column summation <em>(new in v4.1)</em></h2>
+      To show the sum of all the value of a column at the bottom of the list you only have to add the + symbol to the property name, as following:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -2750,22 +2662,14 @@ class="sc3"><span class="re1">&lt;/default-order<span class="re2">&gt;</span></s
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@Tab<span class="br0">(</span> properties = <span class="st0">"year, number, description, amount+"</span> <span
-class="br0">)</span></pre>
-      In this case the sum of the <em>amount</em> column will be shown just as
-      in the next figure:<br>
+</style><pre class="java5">@Tab<span class="br0">(</span> properties = <span
+class="st0">"year, number, description, amount+"</span> <span class="br0">)</span></pre>
+      In this case the sum of the <em>amount</em> column will be shown just as in the next figure:<br>
       <img src="files/tab_en030.jpg" alt="tab_en030.jpg" title="tab_en030.jpg"><br>
       The summation is only allowed for not calculated numeric properties.<br>
-      <h2 id="toc8"><a name="Tabular data-Choosing an editor (new in v4.6)"></a>Choosing
-        an editor (<em>new in v4.6</em>)</h2>
-      An editor is the actual code (usually a JSP) that displays the list to the
-      user. By default, the editor OpenXava uses for displaying tabular data is
-      a list with pagination, filtering, ordering and search, but you can
-      specify your own editor to display a concrete tab using the atribute <em>editor</em>
-      in <em>@Tab</em>.<br>
-      For example, if you have a list of a <em>Customer</em> entities and you
-      want to display it using a custom user interface, such as a row of cards,
-      you can do it in this way:<br>
+      <h2 id="toc8"><a name="Tabular data-Choosing an editor (new in v4.6)"></a>Choosing an editor (<em>new in v4.6</em>)</h2>
+      An editor is the actual code (usually a JSP) that displays the list to the user. By default, the editor OpenXava uses for displaying tabular data is a list with pagination, filtering, ordering and search, but you can specify your own editor to display a concrete tab using the atribute <em>editor</em> in <em>@Tab</em>.<br>
+      For example, if you have a list of a <em>Customer</em> entities and you want to display it using a custom user interface, such as a row of cards, you can do it in this way:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -2953,15 +2857,11 @@ class="br0">)</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@Tab <span class="br0">(</span> name =<span class="st0">"Cards"</span>, editor=<span
+</style><pre class="java5">@Tab <span class="br0">(</span> name =<span class="st0">"Cards"</span>, editor=<span
 class="st0">"CustomerCardList"</span>,
     properties=<span class="st0">"number, name, type, address.city, address.state.name"</span>
 <span class="br0">)</span></pre>
-      In this case the <em>CustomerCardList</em> editor will be used for
-      displaying/editing the tab data, instead of the default one. You must
-      define your <em>CustomerCardList</em> editor in the <em>editors.xml</em>
-      file in <i>src/main/resources/xava</i> (just <i>xava</i> before v7.0 or
-      older) foder of your project:<br>
+      In this case the <em>CustomerCardList</em> editor will be used for displaying/editing the tab data, instead of the default one. You must define your <em>CustomerCardList</em> editor in the <em>editors.xml</em> file in <i>src/main/resources/xava</i> (just <i>xava</i> before v7.0 or older) foder of your project:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -2984,24 +2884,17 @@ class="st0">"CustomerCardList"</span>,
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-class="re0">name</span>=<span class="st0">"CustomerCardList"</span> <span class="re0">url</span>=<span
-class="st0">"customerCardListEditor.jsp"</span><span class="re2">/&gt;</span></span></pre>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+class="re0">name</span>=<span class="st0">"CustomerCardList"</span> <span
+class="re0">url</span>=<span class="st0">"customerCardListEditor.jsp"</span><span
+class="re2">/&gt;</span></span></pre>
       Also you have to write the JSP code for your editor in <em>customerCardListEditor.jsp</em>.<br>
-      This feature is for changing the editor for a concrete tab in a concrete
-      entity. If you want to change the editor for all tabs of a certain entity
-      type at application level then it's better to configure it using <em>editors.xml</em>
-      file.<br>
-      Learn more on <a class="wiki_link" href="customizing_en.html#Chapter%209:%20Customizing-Editors-Editors%20for%20tabs%20%28list%20mode%29%20%28new%20in%20v4.6%29">Editors
-        for tabs</a> section of <a class="wiki_link" href="customizing_en">chapter
-        9</a>.<br>
-      <h2 id="toc9"><a name="Tabular data-Disabling customization"></a>Disabling
-        customization</h2>
-      The user can customize the list adding, moving, removing columns and some
-      more things:<br>
+      This feature is for changing the editor for a concrete tab in a concrete entity. If you want to change the editor for all tabs of a certain entity type at application level then it's better to configure it using <em>editors.xml</em> file.<br>
+      Learn more on <a class="wiki_link" href="customizing_en.html#Customizing-Editors-Editors%20for%20tabs%20%28list%20mode%29%20%28new%20in%20v4.6%29">Editors for tabs</a> section.<br>
+      <h2 id="toc9"><a name="Tabular data-Disabling customization"></a>Disabling customization</h2>
+      The user can customize the list adding, moving, removing columns and some more things:<br>
       <img src="files/tab_en040.jpg" alt="tab_en040.jpg" title="tab_en040.jpg"><br>
-      If you do not want that your users customizing the list you can disable it
-      at application level adding the next entry in <em>xava.properties</em>:<br>
+      If you do not want that your users customizing the list you can disable it at application level adding the next entry in <em>xava.properties</em>:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -3013,8 +2906,7 @@ class="st0">"customerCardListEditor.jsp"</span><span class="re2">/&gt;</span></s
 
 -->
 </style><pre class="text">customizeList=false</pre>
-      If you want to disable the list customization for a specific list under
-      certain circumstances you can do it by code:<br>
+      If you want to disable the list customization for a specific list under certain circumstances you can do it by code:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -3202,27 +3094,25 @@ class="st0">"customerCardListEditor.jsp"</span><span class="re2">/&gt;</span></s
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> MyAction <span
+</style><pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> MyAction <span
 class="kw2">extends</span> TabBaseAction <span class="br0">{</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> execute<span class="br0">(</span><span
-class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+    <span class="kw2">public</span> <span class="kw3">void</span> execute<span
+class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
 class="kw21">Exception</span></a> <span class="br0">{</span>
-        <span class="kw1">if</span> <span class="br0">(</span>myCondition<span class="br0">)</span> <span
-class="br0">{</span>
-            getTab<span class="br0">(</span><span class="br0">)</span>.<span class="me1">setCustomizeAllowed</span><span
-class="br0">(</span><span class="kw4">false</span><span class="br0">)</span><span
-class="sy0">;</span>
+        <span class="kw1">if</span> <span class="br0">(</span>myCondition<span
+class="br0">)</span> <span class="br0">{</span>
+            getTab<span class="br0">(</span><span class="br0">)</span>.<span
+class="me1">setCustomizeAllowed</span><span class="br0">(</span><span class="kw4">false</span><span
+class="br0">)</span><span class="sy0">;</span>
         <span class="br0">}</span>
         ...
     <span class="br0">}</span>
 &nbsp;
 <span class="br0">}</span></pre>
-      If you want to disable the customization for just a module, there is
-      already a controller for that, called <em>NoCustomizeList (new in v5.0)</em>.
-      Use it when you define your module in <em>application.xml</em> (look at <a
-        class="wiki_link" href="application_en.html">chapter 8</a>) as
-      following:<br>
+      If you want to disable the customization for just a module, there is already a controller for that, called <em>NoCustomizeList (new in v5.0)</em>. Use it when you define your module in <em>application.xml</em> (look at <a
+        class="wiki_link" href="application_en.html">chapter 8</a>) as following:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -3245,28 +3135,21 @@ class="sy0">;</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
 class="re0">name</span>=<span class="st0">"Warehouse"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
 class="st0">"Warehouse"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"NoCustomizeList"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
-      In this way, the <em>Warehouse</em> module does not allow the user to
-      customize the list.<a name="several-presentation-formats-editors"></a><br>
-      <h2 id="toc10"><a name="Tabular data-Several presentation formats using editors (new in v5.7)"></a>Several
-        presentation formats using editors <em>(new in v5.7)</em></h2>
-      The same data can be displayed with different presentation formats, for
-      example, using a list, charts, cards, etc. The user can choose the format
-      using the buttons on the right of top button bar:<br>
+      In this way, the <em>Warehouse</em> module does not allow the user to customize the list.<a
+        name="several-presentation-formats-editors"></a><br>
+      <h2 id="toc10"><a name="Tabular data-Several presentation formats using editors (new in v5.7)"></a>Several presentation formats using editors <em>(new in v5.7)</em></h2>
+      The same data can be displayed with different presentation formats, for example, using a list, charts, cards, etc. The user can choose the format using the buttons on the right of top button bar:<br>
       <img src="files/tab050.png" alt="tab050.png" title="tab050.png"><br>
-      The available formats are all the editors assigned to tab (using <em>&lt;for-tabs/&gt;</em>)
-      in <em>default-editors.xml</em> or <em>editors.xml</em>. However, you
-      can change the editors available for a specific tab with the <em>editors</em>
-      attribute <em>(new in v5.7)</em> of <em>@Tab</em>. For example, if you
-      write a <em>@Tab</em> like this:<br>
+      The available formats are all the editors assigned to tab (using <em>&lt;for-tabs/&gt;</em>) in <em>default-editors.xml</em> or <em>editors.xml</em>. However, you can change the editors available for a specific tab with the <em>editors</em> attribute <em>(new in v5.7)</em> of <em>@Tab</em>. For example, if you write a <em>@Tab</em> like this:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -3454,20 +3337,16 @@ class="st0">"NoCustomizeList"</span><span class="re2">/&gt;</span></span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@Tab <span class="br0">(</span> name =<span class="st0">"WithCards"</span>, editors =<span
+</style><pre class="java5">@Tab <span class="br0">(</span> name =<span class="st0">"WithCards"</span>, editors =<span
 class="st0">"List, Charts, CustomerCardList"</span>,
  properties=<span class="st0">"number, name, type, address.city, address.state.name"</span>
 <span class="br0">)</span></pre>
-      This tab will have <em>List</em> and <em>Charts</em> formats, that are
-      standard, and a custom format, <em>CustomerCardList</em>. <em>CustomerCardList</em>
-      is a custom editor defined in <em>editors.xml</em>.<br>
-      To know how to define the editors for tabs, read the <a class="wiki_link"
-        href="customizing_en.html#editor-for-list-formats">customization
-        documentation</a>.<a name="removing-format-from-list"></a><br>
-      <h2 id="toc11"><a name="Tabular data-Removing the Charts from list mode (new in v5.7)"></a>Removing
-        the Charts from list mode <em>(new in v5.7)</em></h2>
-      To remove <em>Charts</em> (or any other list format) from a concrete list
-      you can use <em>@Tab(editors=)</em> in this way:<br>
+      This tab will have <em>List</em> and <em>Charts</em> formats, that are standard, and a custom format, <em>CustomerCardList</em>. <em>CustomerCardList</em> is a custom editor defined in <em>editors.xml</em>.<br>
+      To know how to define the editors for tabs, read the <a class="wiki_link"
+        href="customizing_en.html#editor-for-list-formats">customization documentation</a>.<a
+        name="removing-format-from-list"></a><br>
+      <h2 id="toc11"><a name="Tabular data-Removing the Charts from list mode (new in v5.7)"></a>Removing the Charts from list mode <em>(new in v5.7)</em></h2>
+      To remove <em>Charts</em> (or any other list format) from a concrete list you can use <em>@Tab(editors=)</em> in this way:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -3655,18 +3534,13 @@ class="st0">"List, Charts, CustomerCardList"</span>,
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@Tab <span class="br0">(</span> name =<span class="st0">"OnlyList"</span>, editors =<span
+</style><pre class="java5">@Tab <span class="br0">(</span> name =<span class="st0">"OnlyList"</span>, editors =<span
 class="st0">"List"</span>,
  properties=<span class="st0">"number, name, type, address.city, address.state.name"</span>
 <span class="br0">)</span></pre>
-      Thus you can get a module without charts, just the plain original OpenXava
-      list. Given that there are only one editor, no button for selecting format
-      is shown.<br>
-      The difference between <em>editor</em> and <em>editors</em>, is that
-      with <em>editor</em> we indicate the editor for the default format, while
-      with <em>editors</em> we specify all the available formats.<br>
-      To remove <em>Charts</em> for all the lists of your application in one
-      shot you can use <em>tabs-default-values.xml</em>:<br>
+      Thus you can get a module without charts, just the plain original OpenXava list. Given that there are only one editor, no button for selecting format is shown.<br>
+      The difference between <em>editor</em> and <em>editors</em>, is that with <em>editor</em> we indicate the editor for the default format, while with <em>editors</em> we specify all the available formats.<br>
+      To remove <em>Charts</em> for all the lists of your application in one shot you can use <em>tabs-default-values.xml</em>:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -3689,30 +3563,25 @@ class="st0">"List"</span>,
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
-class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
+class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span
+class="re2">?&gt;</span></span>
 &nbsp;
 <span class="sc0">&lt;!DOCTYPE tabs-default-values SYSTEM "dtds/tabs-default-values.dtd"&gt;</span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;tabs-default-values<span class="re2">&gt;</span></span></span>
 &nbsp;
-    <span class="sc3"><span class="re1">&lt;tab</span> <span class="re0">editors</span>=<span
+    <span class="sc3"><span class="re1">&lt;tab</span> <span class="re0">editors</span>=<span
 class="st0">"List"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;for-all-models</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;for-all-models</span><span
+class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;/tabs-default-values<span class="re2">&gt;</span></span></span></pre>
-      This technique is not just for removing <em>Charts</em>, it's for
-      restricting the list formats available for all modules. If not all the
-      editors <em>&lt;for-tabs/&gt;</em> are used. </div>
+      This technique is not just for removing <em>Charts</em>, it's for restricting the list formats available for all modules. If not all the editors <em>&lt;for-tabs/&gt;</em> are used. </div>
     <div class="wiki" style="display: block;">
-      <h2 id="toc11"><a name="Tabular data-Searching by the content of a collection from list mode"></a>Searching
-        by the content of a collection from list mode <em>(new in v6.4)</em></h2>
-      It's possible to define a property of a collection in <i>@Tab</i>,
-      therefore the user could search by that property, hence by the content of
-      the collection in list mode. For example, we could have an <i>Invoice</i>
-      module and want to know what invoices have detail lines of certain
-      product. Something like this:</div>
+      <h2 id="toc11"><a name="Tabular data-Searching by the content of a collection from list mode"></a>Searching by the content of a collection from list mode <em>(new in v6.4)</em></h2>
+      It's possible to define a property of a collection in <i>@Tab</i>, therefore the user could search by that property, hence by the content of the collection in list mode. For example, we could have an <i>Invoice</i> module and want to know what invoices have detail lines of certain product. Something like this:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@Tab(properties="year, number, date, customer.name, details.product.description")
 public class Invoice {
@@ -3734,13 +3603,8 @@ public class Detail {
 
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Note as we put <i>details.product.description</i>
-      in the <i>@Tab</i> properties where <i>details</i> is a collection. The
-      result is this:</div>
+    <div class="wiki" style="display: block;">Note as we put <i>details.product.description</i> in the <i>@Tab</i> properties where <i>details</i> is a collection. The result is this:</div>
     <img src="files/tab_en060.png" alt="tab_en060.png" title="tab_en060.png">
-    <div class="wiki" style="display: block;">In the above example the user
-      types 'IBM' for <i>Product of details</i> (<i>details.product.description</i>)
-      and the list shows the invoices that contains detail lines whose product
-      description contains 'IBM'.</div>
+    <div class="wiki" style="display: block;">In the above example the user types 'IBM' for <i>Product of details</i> (<i>details.product.description</i>) and the list shows the invoices that contains detail lines whose product description contains 'IBM'.</div>
   </body>
 </html>
