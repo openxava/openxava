@@ -813,7 +813,7 @@ class="br0">}</span>                         <span class="co1">// 13</span>
         <li>BOLD_LABEL, ETIQUETA_NEGRITA</li>
         <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/StringTime.html">@StringTime</a> (new in v6.6), </i>TIME, HORA</li>
         <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/DateTime.html">@DateTime</a> (new in v6.6), </i>DATETIME, FECHAHORA</li>
-        <li>IMAGES_GALLERY, GALERIA_IMAGENES (<a class="wiki_link" href="#toc6">setup instructions</a>) (since v6.6 you can use <i>@Files</i> as alternative)</li>
+        <li>IMAGES_GALLERY, GALERIA_IMAGENES (<a class="wiki_link" href="#Model-Properties-IMAGES_GALLERY%20stereotype">setup instructions</a>) (since v6.6 you can use <i>@Files</i> as alternative)</li>
         <li>ZEROS_FILLED, RELLENADO_CON_CEROS</li>
         <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/HtmlText.html">@HtmlText</a> (new in v6.6), </i>HTML_TEXT, TEXTO_HTML (text with editable format)</li>
         <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/HtmlText.html">@HtmlText(simple=true)</a> (new in v6.6), </i>SIMPLE_HTML_TEXT, TEXTO_HTML_SIMPLE (<em>new in v5.6</em>, like HTML_TEXT with a simplified UI)</li>
@@ -2053,7 +2053,7 @@ class="br0">{</span> LOCAL, NATIONAL, INTERNATIONAL <span class="br0">}</span><s
 class="sy0">;</span>
 &nbsp;</pre>
       The <em>distance</em> property only can have the following values: LOCAL, NATIONAL or INTERNATIONAL, and as <em>@Required</em> is not specified, no value (null) is allowed too. Since v5.3 if <em>@Required</em> is specified, the first option is the default value and an empty value is not available. If a different default value is required, use <em>@DefaultValueCalculator</em>. Since v5.6.1 the enums annotated with <em>@Required</em> in an <a
-        class="wiki_link" href="model_en.html#Chapter%203:%20Model-Embeddable%20classes">embeddable class</a> will display empty value if it is used in a collection of elements.<br>
+        class="wiki_link" href="#Model-References-Embedded%20reference">embeddable class</a> will display empty value if it is used in a collection of elements.<br>
       <br>
       At the user interface level the current implementation uses a combo. The label for each value is obtained from the <em>i18n</em> files.<br>
       At the database level, the value is by default saved as an integer (0 for LOCAL, 1 for NATIONAL, 2 for INTERNATIONAL and null for no value), but another field type can easily be configured in order to work correctly with legacy databases. See more about this in the <a
@@ -12002,7 +12002,7 @@ class="sy0">;</span>
         class="wiki_link" href="view_en.html">view</a> chapter).<br>
       <h3 id="toc27"><a name="Model-Collections-Element collections (new in v5.0)"></a>Element collections <em>(new in v5.0)</em></h3>
       Since JPA 2.0 you can define a collection of real <a class="wiki_link"
-        href="model_en.html#Chapter%203:%20Model-Embeddable%20classes">embeddable objects</a>. We call these collections <em>element collections</em>.<br>
+        href="#Model-Embeddable%20classes">embeddable objects</a>. We call these collections <em>element collections</em>.<br>
       This is the syntax for element collections:<br>
       <style type="text/css"><!--
 /**
@@ -12221,7 +12221,7 @@ class="br0">}</span> <span class="co1">// 3</span>
         <li><strong>Collection declaration</strong>: A regular Java collection declaration with its getters and setters. The collection is marked with <em><a
               class="wiki_link_ext" href="http://docs.oracle.com/javaee/6/api/javax/persistence/ElementCollection.html"
               rel="nofollow">@ElementCollection (JPA)</a></em>. The elements must be <a
-            class="wiki_link" href="model_en.html#Chapter%203:%20Model-Embeddable%20classes">embeddable classes</a>.</li>
+            class="wiki_link" href="#Model-Embeddable%20classes">embeddable classes</a>.</li>
       </ol>
       The elements in the collection are saved all at once at the same time of the main entity. Moreover, the generated user interface allows the user to modify all the elements of the collection at the same time.<br>
       An embeddable class that is contained within an element collection must not contain collections of any type.<br>
@@ -14213,7 +14213,7 @@ class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
       Since v4.6.1 the validator can implement <em><a class="wiki_link_ext"
           href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/validators/IWithMessage.html"
           rel="nofollow">IWithMessage</a></em> to inject the message from <em>@EntityValidator</em>, it works like in the <a
-        class="wiki_link" href="model_en.html#Chapter%203:%20Model-Properties-Property%20validator">property validator case</a>.</div>
+        class="wiki_link" href="#Model-Properties-Property%20validator">property validator case</a>.</div>
     <div class="wiki" style="display: block;"> You can define more than one validator for entity, as following:<br>
       <div class="wiki" id="content_view">
         <style type="text/css"><!--
@@ -14664,8 +14664,8 @@ class="br0">)</span>
 <span class="kw2">public</span> <span class="kw2">class</span> Product <span
 class="br0">{</span>
 </pre> <em>@EntityValidator</em> is defined as a <a class="wiki_link"
-        href="model_en.html#Model-Bean%20Validation">Bean Validation</a> constraint since v5.3 and as a <a
-        class="wiki_link" href="model_en.html#Model-Hibernate%20Validator%20%28new%20in%20v3.0.1%29">Hibernate Validator</a> constraint until v5.2.x.<br>
+        href="#Model-Bean%20Validation">Bean Validation</a> constraint since v5.3 and as a <a
+        class="wiki_link" href="#Model-Hibernate%20Validator%20%28new%20in%20v3.0.1%29">Hibernate Validator</a> constraint until v5.2.x.<br>
       If you need to use JPA in your validator, please see <a class="wiki_link"
         href="#Model-JPA%20callback%20methods">Using JPA from a Validator or Callback</a>.<br>
       <h2 id="toc32"><a name="Model-Remove validator"></a>Remove validator</h2>
@@ -17933,7 +17933,7 @@ class="sy0">;</span>
           rel="nofollow">@EntityValidator</a></em> are defined as Bean Validation constraints, that means that when you save an entity using directly JPA these validations will apply.<br>
       On the other hand, <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/RemoveValidator.html"
           rel="nofollow">@RemoveValidator</a></em>, <em>@PropertyValidator(onlyOnCreate=true)</em>, <em>EntityValidator(onlyOnCreate=true)</em> and the <a
-        class="wiki_link" href="model_en.html#Model-Properties-Default%20validator%20%28new%20in%20v2.0.3%29">default validator</a> feature of OpenXava are not recognized by Bean Validation or JPA, but only by OpenXava.<br>
+        class="wiki_link" href="#Model-Properties-Default%20validator%20%28new%20in%20v2.0.3%29">default validator</a> feature of OpenXava are not recognized by Bean Validation or JPA, but only by OpenXava.<br>
       <h3 id="toc40"><a name="Model-Bean Validation-@AssertTrue"></a>@AssertTrue</h3>
       Since v4.9 OpenXava allows to inject properties and qualified properties (reference properties) that belong to validated bean, into the message identified by means of the message element of <em><a
           class="wiki_link_ext" href="http://docs.oracle.com/javaee/6/api/javax/validation/constraints/AssertTrue.html"

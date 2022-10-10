@@ -811,7 +811,7 @@ class="br0">}</span>                    <span class="co1">// 13</span></pre>
         <li>ETIQUETA_NEGRITA, BOLD_LABEL</li>
         <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/StringTime.html">@StringTime</a> (</i><i><i></i><i><i>nuevo en </i></i>v6.6), </i>HORA, TIME</li>
         <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/DateTime.html">@DateTime</a> (</i><i><i></i><i><i>nuevo en </i></i>v6.6), </i>FECHAHORA, DATETIME</li>
-        <li>GALERIA_IMAGENES, IMAGES_GALLERY (<a class="wiki_link" href="#toc6">instrucciones</a>) (a partir de v6.6 puedes usar <i>@File</i>s como alternativa)</li>
+        <li>GALERIA_IMAGENES, IMAGES_GALLERY (<a class="wiki_link" href="#Modelo-Propiedades-Estereotipo%20GALERIA_IMAGENES">instrucciones</a>) (a partir de v6.6 puedes usar <i>@File</i>s como alternativa)</li>
         <li>RELLENADO_CON_CEROS, ZEROS_FILLED</li>
         <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/HtmlText.html">@HtmlText</a> (</i><i><i></i><i><i>nuevo en </i></i>v6.6), </i>TEXTO_HTML, HTML_TEXT (texto con formato editable)</li>
         <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/HtmlText.html">@HtmlText(simple=true)</a> (</i><i><i></i><i><i>nuevo en </i></i>v6.6), </i>TEXTO_HTML_SIMPLE, SIMPLE_HTML_TEXT (<em>nuevo en v5.6</em>, como TEXT_HTML pero con una interfaz simplificada)</li>
@@ -2046,7 +2046,7 @@ class="sy0">;</span>
 class="br0">{</span> LOCAL, NACIONAL, INTERNACIONAL <span class="br0">}</span><span
 class="sy0">;</span></pre>
       La propiedad <em>distancia</em> solo puede valer LOCAL, NACIONAL o INTERNACIONAL, y como no hemos puesto <em>@Required</em> también permite valor vacío (null). Desde v5.3 si pones <em>@Required</em>, la primera opción es por defecto y ya no mostrará valor vacío. Si deseas cambiar la opción por defecto usa <em>@DefaultValueCalculator</em>. Desde v5.6.1 los enums anotados con <em>@Required</em> en una <a
-        class="wiki_link" href="model_es.html#Cap%C3%ADtulo%203:%20Modelo-Clases%20incrustables%20%28Embeddable%29">clase incrustable</a> mostrarán valor vacío si ésta es utilizada en una colección de elementos.<br>
+        class="wiki_link" href="#Modelo-Clases%20incrustables%20%28Embeddable%29">clase incrustable</a> mostrarán valor vacío si ésta es utilizada en una colección de elementos.<br>
       <br>
       A nivel de interfaz gráfico la implementación web actual usa un combo. La etiqueta para cada valor se obtienen de los archivos <em>i18n</em>.<br>
       A nivel de base datos por defecto guarda el entero (0 para LOCAL, 1 para NACIONAL, 2 para INTERNACIONAL y null para cuando no hay valor), pero esto se puede configurar fácilmente para poder usar sin problemas bases de datos legadas. Ver más de esto último en el <a
@@ -11996,7 +11996,7 @@ class="sy0">;</span>
         class="wiki_link" href="view_es.html">vista</a>).<br>
       <h3 id="toc27"><a name="Modelo-Colecciones-Colecciones de elementos (nuevo en v5.0)"></a>Colecciones de elementos <em>(nuevo en v5.0)</em></h3>
       A partir de JPA 2.0 puedes definir una colección de auténticos <a
-        class="wiki_link" href="model_es.html#Cap%C3%ADtulo%203:%20Modelo-Clases%20incrustables%20%28Embeddable%29">objetos is</a>. Llamamos a estas colecciones <em>colecciones de elementos</em>.<br>
+        class="wiki_link" href="#Modelo-Clases%20incrustables%20%28Embeddable%29">objetos is</a>. Llamamos a estas colecciones <em>colecciones de elementos</em>.<br>
       Esta es la sintaxis para las colecciones de elementos:<br>
       <style type="text/css"><!--
 /**
@@ -12218,7 +12218,7 @@ class="co1">// 3</span></pre>
         <li><strong>Collection declaration</strong>: Una declaración de colección Java convencional con sus <em>getters</em> y <em>setters</em>. La colección se marca con <em><a
               class="wiki_link_ext" href="http://docs.oracle.com/javaee/6/api/javax/persistence/ElementCollection.html"
               rel="nofollow">@ElementCollection (JPA)</a></em>. Los elementos tienes que ser <a
-            class="wiki_link" href="model_es.html#Cap%C3%ADtulo%203:%20Modelo-Clases%20incrustables%20%28Embeddable%29">clases incrustables</a>.</li>
+            class="wiki_link" href="#Modelo-Clases%20incrustables%20%28Embeddable%29">clases incrustables</a>.</li>
       </ol>
       Los elementos en la colección se graban todos a la vez al mismo tiempo que la entidad principal. Además, la interfaz de usuario generada permite modificar todos los elementos de la colección al mismo tiempo.<br>
       Una clase incrustable usada en una colección de elementos no puede contener colecciones de ningún tipo.<br>
@@ -14205,11 +14205,11 @@ class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span>
 &nbsp;</pre>
       Este validador ha de implementar <em>IValidator</em> (1), lo que le obliga a tener un método <em>validate(Messages messages)</em> (2). En este método solo hay que añadir identificadores de mensajes de error (3) (cuyos textos estarán en los archivos i18n), si en el proceso de validación (es decir en la ejecución de todos los validadores) hubiese al menos un mensaje de error, OpenXava no graba la información y visualiza los mensajes al usuario.<br>
-      En este caso vemos como se accede a <em>descripcion</em> y <em>precioUnitario</em>, por eso la validación se pone a nivel de módelo y no a nivel de propiedad individual, porque abarca más de una propiedad.<br>
+      En este caso vemos como se accede a <em>descripcion</em> y <em>precioUnitario</em>, por eso la validación se pone a nivel de módelo y no a nivel de propiedad individual, porque abarca más de una propiedad. <br>
       A partir de v4.6.1 el validador puede implementar <em><a class="wiki_link_ext"
           href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/validators/IWithMessage.html"
           rel="nofollow">IWithMessage</a></em> para inyectar el mensaje desde <em>@EntityValidator</em>, funciona como en <a
-        class="wiki_link" href="model_es.html#Cap%C3%ADtulo%203:%20Modelo-Propiedades-Validador%20de%20propiedad">el caso del validador de propiedad</a>.<br>
+        class="wiki_link" href="#Modelo-Propiedades-Validador%20de%20propiedad">el caso del validador de propiedad</a>.<br>
       Podemos definir más de un validador por entidad como sigue:<br>
       <div class="wiki" id="content_view">
         <style type="text/css"><!--
@@ -14658,8 +14658,8 @@ class="br0">)</span>
 <span class="kw2">public</span> <span class="kw2">class</span> Product <span
 class="br0">{</span></pre>
       <em>@EntityValidator</em> está definida como una restriccion de <a
-        class="wiki_link" href="model_es.html#Modelo-Bean%20Validation">Bean Validation</a> a partir de v5.3 y como una restricción de <a
-        class="wiki_link" href="model_es.html#Modelo-Hibernate%20Validator%20%28nuevo%20en%20v3.0.1%29">Hibernate Validator</a> hasta v5.2.x<span
+        class="wiki_link" href="#Modelo-Bean%20Validation">Bean Validation</a> a partir de v5.3 y como una restricción de <a
+        class="wiki_link" href="#Modelo-Hibernate%20Validator%20%28nuevo%20en%20v3.0.1%29">Hibernate Validator</a> hasta v5.2.x<span
         class="wiki_link"><em>.</em></span><br>
       Si necesitas usar JPA en tu validador, mira <a class="wiki_link"
         href="#Modelo-Metodos+de+retrollamada+de+JPA">Usar JPA en un validador o método de retrollamada</a>.<br>
@@ -17925,7 +17925,7 @@ class="sy0">;</span>
           rel="nofollow">@EntityValidator</a></em> están definidas como restricciones de Bean Validation, esto significa que cuando grabamos una entidad usando directamente JPA estas validaciones se aplicarán.<br>
       Por otra parte, <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/RemoveValidator.html"
           rel="nofollow">@RemoveValidator</a></em>, <em>@PropertyValidator(onlyOnCreate=true)</em>, <em>EntityValidator(onlyOnCreate=true)</em> y la característica de <a
-        class="wiki_link" href="model_es.html#Modelo-Propiedades-Validador%20por%20defecto%20%28nuevo%20en%20v2.0.3%29">validador por defecto</a> de OpenXava no son reconocidas ni por Bean Validation ni por JPA, sino solo por OpenXava.<br>
+        class="wiki_link" href="#Modelo-Propiedades-Validador%20por%20defecto%20%28nuevo%20en%20v2.0.3%29">validador por defecto</a> de OpenXava no son reconocidas ni por Bean Validation ni por JPA, sino solo por OpenXava.<br>
       <h3 id="toc40"><a name="Modelo-Bean Validation-@AssertTrue"></a>@AssertTrue</h3>
       A partir de v4.9 OpenXava permite inyectar propiedades y propiedades calificadas (propiedades de referencias) del bean validado, en el mensaje identificado mediante el elemento message de <em><a
           class="wiki_link_ext" href="http://docs.oracle.com/javaee/6/api/javax/validation/constraints/AssertTrue.html"
