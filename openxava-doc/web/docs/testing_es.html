@@ -1649,24 +1649,32 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
     ...
     
     execute("Sections.change", "activeSection=0"); // Volvemos a la pestaña de detalles de la factura
-    eliminarFilas(); // Eliminamos las filas que se agregaron (6)<br>    waitAJAX(); // Esperamos que se completen los procesos JS de fondo
+    eliminarFilas(); // Eliminamos las filas que se agregaron (6)   
+    waitAJAX(); // Esperamos que se completen los procesos JS de fondo
     assertCollectionRowCount("detalles", 0); // Verificamos nuevamente que no hayan filas
-    assertValue("importeTotal", "0,00");<br>   &nbsp;execute("CRUD.save");
-    <br>}
-</code></pre>Primero, Verificamos que la factura para esta prueba no tiene detalles (1), después añadimos un pedido (2), tomando nota de su importe total (3), entonces verificamos que la factura actual tiene detalles (4) y que su importe total es el mismo que el del pedido añadido (5), por último borramos las filas que tiene detalles (6). Agregamos el siguiente código en la misma clase de PruebaFactura:</div>
+    assertValue("importeTotal", "0,00");
+    execute("CRUD.save");
+}</code>
+</pre>Primero, Verificamos que la factura para esta prueba no tiene detalles (1), después añadimos un pedido (2), tomando nota de su importe total (3), entonces verificamos que la factura actual tiene detalles (4) y que su importe total es el mismo que el del pedido añadido (5), por último borramos las filas que tiene detalles (6). Agregamos el siguiente código en la misma clase de PruebaFactura:</div>
       <div class="wiki" style="display: block;">
         <pre><code class="java">protected void eliminarFilas() throws Exception {
-	// contamos la cantidad de filas que hay en la tabla<br>	int contador = getHtmlPage().getElementById("ox_facturacion_Factura__detalles").getChildElements().iterator().next().getChildElementCount()-7; 
-	for (int i=0; i &lt; contador; i++) { // iteramos en cada fila
-		HtmlElement boton = (HtmlElement)getHtmlPage().getElementById("ox_facturacion_Factura__detalles___0") // apuntamos la tabla de detalles y ...
-		    	.getChildElements().iterator().next()
-		    	.getChildElements().iterator().next()
-		    	.getChildElements().iterator().next()
-		    	.getChildElements().iterator().next(); // llegamos al botón eliminar de esa fila
-		    boton.click(); // eliminamos la fila
-	}
+  // contamos la cantidad de filas que hay en la tabla, para este ejemplo debemos tener menos de 100 elementos en la tabla
+  int contador = getHtmlPage().getElementById("ox_facturacion_Factura__detalles") // (1)
+  .getChildElements().iterator().next().getChildElementCount()-7; //(2)
+  for (int i=0; i &lt; contador; i++) { 
+	HtmlElement boton = (HtmlElement)getHtmlPage().getElementById("ox_facturacion_Factura__detalles___0") // (3)
+		    .getChildElements().iterator().next()
+		    .getChildElements().iterator().next()
+		    .getChildElements().iterator().next()
+		    .getChildElements().iterator().next(); // (4)
+	boton.click(); // (5)
+   }
 }</code></pre>
       </div>
+      <div class="wiki" style="display: block;">Normalmente para ejecutar un botón, usamos "controlador.accion", por ejemplo para guardar usamos <i>"CRUD.save"</i>, pero en este caso, el boton que elimina la fila es una función JavaScript, por lo que no lo podemos ejecutar de esta manera. Para lograrlo debemos usar la librería de HtmlUnit.</div>
+      <div class="wiki" style="display: block;">Para saber la cantidad de filas que hay en la tabla de detalles, accedemos al código de html con <i>getHtmlPage()</i> y filtramos los elementos de la página por id con <i>getElementById()</i> pasando el id de la tabla como parámetro: <i>"ox_facturacion_Factura__detalles"</i> (1), con <i>getChildElements() </i>nos dará el elemento hijo que es el cuerpo de la tabla, cada fila de la tabla esta representado como un elemento en el cuerpo de la tabla, por lo que usamos <i>getChildElementCount()</i> para saber cuantos elementos tiene y restamos 7 que son las filas que siempre están presentes (2).</div>
+      <div class="wiki" style="display: block;">Ahora vamos a eliminar todas las filas de la tabla, si lo haces manualmente notarás que al eliminar una fila, la de abajo sube arriba.</div>
+      <div class="wiki" style="display: block;">Vamos a iterar la cantidad de veces como sea necesario usando el <i>contador</i>, pero esta vez pasaremos como parámetro el id de la primera fila <i>"ox_facturacion_Factura__detalles___0"</i> (3), el 0 es la enumeración de la fila pero como dijimos recién, al eliminar una fila, la de abajo sube, entonces basta con eliminar siempre la primera fila. Luego llegaremos al elemento donde tenga la funcion del botón (4) y es allí donde paramos y le haremos click (5).</div>
       <div class="wiki" style="display: block;">El método <i>testAnyadirPedidos()</i> está acabado. Éste es su código definitivo:
         <div class="wiki" style="display: block;">
           <pre><code class="java">public void testAnyadirPedidos() throws Exception {
@@ -1699,12 +1707,15 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
     checkRowCollection("pedidos", 0);
     execute("Collection.removeSelected",
         "viewObject=xava_view_section1_pedidos");
-    assertCollectionRowCount("pedidos", 0);</code><br><code class="java"><code
-class="java">       execute("Sections.change", "activeSection=0"); 
-    eliminarFilas();<br>    waitAJAX();
+    assertCollectionRowCount("pedidos", 0);
+    execute("Sections.change", "activeSection=0"); 
+    eliminarFilas();   
+    waitAJAX();
     assertCollectionRowCount("detalles", 0);
-    assertValue("importeTotal", "0,00");<br>   &nbsp;execute("CRUD.save");</code> }	
-</code></pre> Hemos finalizado el código de las pruebas automáticas. Ahora puedes ejecutar todas las pruebas de tu proyecto. Han de salir en color verde.</div>
+    assertValue("importeTotal", "0,00");
+    execute("CRUD.save");
+}</code>
+</pre>Hemos finalizado el código de las pruebas automáticas. Ahora puedes ejecutar todas las pruebas de tu proyecto. Han de salir en color verde.</div>
       </div>
       <h2 id="resumen">Resumen</h2>
       Has automatizado las pruebas de toda la funcionalidad de tu aplicación. Puede parecer que este código de prueba es mucho más largo y aburrido que el código real de la aplicación. Pero recuerda, el código de prueba es el tesoro más valioso que tienes. Quizás ahora no me creas, pero trata de hacer pruebas JUnit y una vez te hayan salvado la vida, ya no podrás desarrollar sin pruebas automáticas nunca más.<br>

@@ -1662,24 +1662,33 @@ protected void assertValueInAllRows(int column, String value) throws Exception {
     execute("Sections.change", "activeSection=1"); // invoice matches with the one
                                                    // of the recently added order (5)
     ...
-<br>    execute("Sections.change", "activeSection=0"); // back to invoice details tab	<br>    removeRows(); // remove rows that were added<br>&nbsp; &nbsp; waitAJAX(); // we wait any background JS process to complete<br>    assertCollectionRowCount("details", 0); // then we verify that there are no more rows
-    assertValue("totalAmount", "0,00");<br>    execute("CRUD.save");
+
+    execute("Sections.change", "activeSection=0"); // back to invoice details tab 
+    removeRows(); // remove rows that were added
+    waitAJAX(); // we wait any background JS process to complete 
+    assertCollectionRowCount("details", 0); // then we verify that there are no more rows
+    assertValue("totalAmount", "0,00");
+    execute("CRUD.save");
 }
 </code></pre> We verify that the invoice for this test has no details. Afterwards, we add an order (2), taking note of its total amount (3), then we verify that current invoice has details (4) and its total amount is the same of the added order (5), finally we delete the rows that were added to details (6). Add the following code in the same class:</div>
-      <div class="wiki" style="display: block;"><br>
-      </div>
       <div class="wiki" style="display: block;">
         <pre><code class="java">protected void removeRows() throws Exception {
-	// count the number of rows in the table<br>	int count = getHtmlPage().getElementById("ox_invoicing_Invoice__details").getChildElements().iterator().next().getChildElementCount()-7; 
-	for (int i=0; i &lt; count; i++) { // iteramos en cada fila
-		HtmlElement button= (HtmlElement)getHtmlPage().getElementById("ox_invoicing_Invoice__details___0") // go to details table, then...
-		    	.getChildElements().iterator().next()
-		    	.getChildElements().iterator().next()
-		    	.getChildElements().iterator().next()
-		    	.getChildElements().iterator().next(); // we get the remove button of that row
-		    button.click(); // remove the row
-	}
+	// count the number of rows in the table, for this example, the number of elements in the table must be less than 100
+  int count = getHtmlPage().getElementById("ox_invoicing_Invoice__details") // (1)
+                              .getChildElements().iterator().next().getChildElementCount()-7; //(2)
+  for (int i=0; i &lt; count; i++) {
+	HtmlElement boton = (HtmlElement)getHtmlPage().getElementById("ox_invoicing_Invoice__details___0") // (3)
+		    .getChildElements().iterator().next()
+		    .getChildElements().iterator().next()
+		    .getChildElements().iterator().next()
+		    .getChildElements().iterator().next(); // (4)
+	boton.click(); // (5)
+   }
 }</code></pre>
+        <div class="wiki" style="display: block;">Normally to execute a button, we use "controller.action", for example to save we use <i>"CRUD.save"</i>, but in this case, the button that removes the row is a JavaScript function, so we cannot execute it this way. To achieve this we must use HtmlUnit library.<br>
+          To know the number of rows in the table <i>details</i>, we access the html code with <i>getHtmlPage()</i> and filter the elements of the page by id with <i>getElementById()</i> passing the id of the table as a parameter: <i>"ox_invoicing_Invoice__details"</i> (1 ), <i>getChildElements()</i> will give us the child element, that is the body of the table, each row of the table is represented as an element in the body, so we use <i>getChildElementCount()</i> to know how many elements it has and subtract 7 which are the rows that are always present (2).<br>
+          Now we are going to delete all the rows of the table, if you do it manually you will notice that when you delete a row, the bottom one goes up, keep this in mind.<br>
+          We are going to iterate as many times as necessary using the counter, but this time we will pass as a parameter the id of the first row <i>"ox_invoicing_Invoicing__details___0"</i> (3), <i>0 </i>is the numbering of the row but as we just said, when deleting a row, the one below goes up, so it is enough to always deleting the first row. Then we will arrive at the element where the button function has (4) and that is where we stop and click on it (5).</div>
         <div class="wiki" style="display: block;">The <i>testAddOrders()</i> method is finished. This is its definitive code:
           <pre><code class="java">public void testAddOrders() throws Exception {
     login("admin", "admin");
@@ -1711,11 +1720,15 @@ protected void assertValueInAllRows(int column, String value) throws Exception {
     checkRowCollection("orders", 0);
     execute("Collection.removeSelected",
         "viewObject=xava_view_section1_orders");
-    assertCollectionRowCount("orders", 0);<br></code><code class="java"><code
-class="java">       execute("Sections.change", "activeSection=0");<br>    removeRows();<br>    waitAJAX();
+    assertCollectionRowCount("orders", 0);
+    execute("Sections.change", "activeSection=0");    
+    removeRows();
+    waitAJAX();
     assertCollectionRowCount("details", 0);
-    assertValue("totalAmount", "0,00");<br>    execute("CRUD.save");</code> <br>}
-</code></pre> We have finished the test code. Now it's time to execute all the tests for your project. They must be green.</div>
+    assertValue("totalAmount", "0,00");
+    execute("CRUD.save");
+    }</code>
+</pre> We have finished the test code. Now it's time to execute all the tests for your project. They must be green.</div>
       </div>
       <h2 id="summary">Summary</h2>
       You have automated the tests for all the functionality of your application. This test code seems to be more verbose and boring than the real application code. But remember, the test code is the most valuable asset you have. Right now you may not believe me, but try to do tests and once they save your life, you will not develop without test code any more.<br>
