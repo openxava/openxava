@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Improved Appendix D of course about testing with examples of HtmlUnit usage.
 - Fix: Chunks of XML code in the content of a @HtmlText property are not saved.
 - Fix: Applications using root context do not work since 7.0 from development environment. 
 - Fix: HtmlText editor removes content when < followed by a character is used, like <a.
