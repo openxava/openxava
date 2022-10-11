@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Outdated documentation to deploy on Weblogic removed.
+- Fix: Broken internal links from annotations to their sections in reference guide.
+- Fix: Broken links from Model chapter of reference guid to API javadoc. 
 - Improved Appendix D of course about testing with examples of HtmlUnit usage.
 - Fix: Chunks of XML code in the content of a @HtmlText property are not saved.
 - Fix: Applications using root context do not work since 7.0 from development environment. 
