@@ -12,40 +12,18 @@
       <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
               href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
             href="index_es.html">documentación</a> / </span> Primeros pasos con OpenXava </h1>
-      Sigue este video para crear y ejecutar tu primer proyecto OpenXava:</div>
-    <div class="wiki" style="display: block;"> <a href="https://youtu.be/_DQ5oGdww3k"
-        target="_blank"><em><img src="files/getting-started_es010.png" title="Sigue este video para empezar con OpenXava"></em></a> <br>
-    </div>
-    <div class="wiki" style="display: block;">O si no te gustan los videos sigue las instrucciones a continuación.<br>
+      <br>
       <h2 id="toc2"><a name="Nuestro-objetivo-Una-pequena-aplicacion-de-facturacion"></a>Crear un proyecto nuevo</h2>
     </div>
-    <div class="wiki" style="display: block;"> En primer lugar has de crear un proyecto OpenXava nuevo:<br>
-      <img src="files/getting-started_es020.png" alt="getting-started_es020.png"
-        title="getting-started_es020.png"><br>
-      Entonces aparecerá un asistente. Teclea el nombre del proyecto, <em>facturacion</em>. Recuerda también escoger <i>Español</i> como idioma para que el código de este tutorial funcione bien. Presiona en <i>Finish</i>:<br>
-      <img src="files/getting-started_es030.png" alt="getting-started_es030.png"
-        title="getting-started_es030.png"></div>
-    <div class="wiki" style="display: block;">Ahora tu proyecto ya está listo para empezar a escribir código:<br>
-      <img src="files/getting-started_es040.png" alt="getting-started_es040.png"
-        title="getting-started_es040.png">
+    <div class="wiki" style="display: block;">Para crear un proyecto nuevo OpenXava desde la línea de órdenes usando Maven, teclea los siguientes comandos en Windows, Linux o Mac:
+      <pre><code class="sh">$ mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-archetype-spanish -DarchetypeVersion=RELEASE -DgroupId=com.tuempresa -DartifactId=facturacion -DinteractiveMode=false
+$ cd tuaplicacion
+$ mvn package</code></pre>
+    </div>
+    <div class="wiki" style="display: block;"> <br>
       <h2 id="toc9"><a name="Crear-tu-primera-entidad"></a>Crear tu primera entidad</h2>
       Desarrollar es muy fácil: solo has de añadir entidades para ir haciendo crecer tu aplicación. Empezaremos con una versión simplificada de <em>Cliente</em> con solo <em>numero</em> y <i>nombre</i>. </div>
-    <div class="wiki" style="display: block;">Abre la carpeta <i>src/main/java</i>, allí selecciona el paquete <em>com.tuempresa.facturacion.modelo</em> y pulsa el botón <em>New Java Class</em>:<br>
-      <img src="files/getting-started_es125.png" alt="getting-started_es125.png"
-        title="getting-started_es125.png"><br>
-      Después teclea <em>Cliente</em> como nombre de clase y pulsa <em>Finish</em>.<br>
-      <img src="files/getting-started_es130.png" alt="getting-started_es130.png"
-        title="getting-started_es130.png"><br>
-      Fíjate que la <em>C</em> de <em>Cliente</em> está en mayúscula, esto es muy importante, en Java todas las clases empiezan con mayúscula.<br>
-      El código inicial que Eclipse proporciona para <em>Cliente</em> es muy simple:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.tuempresa.facturacion.modelo;
- 
-public class Cliente {
- 
-}
-</code></pre> </div>
-    <div class="wiki" style="display: block;">Ahora, te toca a ti rellenar esta clase para convertirla en una entidad adecuada para OpenXava. Solo necesitas añadir la anotación <em>@Entity</em> y las propiedades <em>numero</em> y <em>descripcion</em>:</div>
+    <div class="wiki" style="display: block;">Para esto debes crear un archivo .java dentro de la carpeta src\main\java\com\tuempresa\facturacion\modelo y escribir el código que se presenta abajo:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
@@ -67,13 +45,21 @@ public class Cliente {
  
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Con esto tienes el código suficiente (justo una clase) para ejecutar tu aplicación. Hagámoslo.<br>
+    <div class="wiki" style="display: block;">Con esto tienes el código suficiente (justo una clase) para ejecutar tu aplicación.</div>
+    <br>
+    <div class="wiki" style="display: block;">
       <h2 id="toc10"><a name="Ejecutar-la-aplicacion"></a>Ejecutar la aplicación</h2>
-      Pulsa el botón <i>Run</i>:<br>
-      <img src="files/getting-started_es150.png" alt="getting-started_es150.png"
-        title="getting-started_es150.png"></div>
+      En Windows:
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">mvn compile<br>c:\&gt; java -cp "target/facturacion/WEB-INF/classes;target/facturacion/WEB-INF/lib/*" com.tuempresa.facturacion.run.facturacion</code></pre>
+      </div>
+      <div class="wiki" style="display: block;">En Linux o Mac:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">$ mvn compile<br>$ java -cp "target/facturacion/WEB-INF/classes:target/facturacion/WEB-INF/lib/*" com.tuempresa.facturacion.run.facturacion</code></pre>
+      </div>
+    </div>
     <div class="wiki" style="display: block;">Espera hasta que la consola muestre un mensaje diciendo "Aplicación iniciada", como este:</div>
-    <div class="wiki" style="display: block;"><img src="files/getting-started_es155.png"
+    <div class="wiki" style="display: block;"><img src="files/getting-started-maven_es20.png"
         alt="getting-started_es155.png" title="getting-started_es155.png"> </div>
     <div class="wiki" style="display: block;">Ya tienes tu aplicación ejecutándose. Para verla, abre tu navegador favorito (Chrome, Firefox, Edge o Safari) y ve a la siguiente URL:</div>
     <div class="wiki" style="display: block;"><br>
@@ -84,12 +70,12 @@ public class Cliente {
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">Estás viendo tu aplicación por primera vez. Para empezar pulsa en el botón INICIAR SESIÓN:<br>
-      <img src="files/getting-started_es160.png" alt="getting-started_es160.png"
+      <img src="files/getting-started-maven_es160.png" alt="getting-started_es160.png"
         title="getting-started_es160.png"></div>
     <div class="wiki" style="display: block;">Ahora, introduce admin/admin y pulsa en ENTRAR<em></em>:</div>
-    <img src="files/getting-started_es165.png" alt="Página de identificación">
+    <img src="files/getting-started-maven_es165.png" alt="Página de identificación">
     <div class="wiki" style="display: block;"> Después, pulsa en la parte de la izquierda se mostrará una lista de módulos, escoge <em>Clientes</em>:<br>
-      <img src="files/getting-started_es170.png" alt="getting-started_es170.png"
+      <img src="files/getting-started-maven_es170.png" alt="getting-started_es170.png"
         title="getting-started_es170.png"><br>
       Usa el módulo <em>Clientes</em> para crear nuevos clientes, simplemente introduce el número y el nombre y pulsa <em>Grabar</em>.<br>
       <img src="files/getting-started_es190.png" alt="getting-started_es190.png"
@@ -97,13 +83,7 @@ public class Cliente {
       Pulsa en <em>Lista</em> para ver los clientes que has creado. Enhorabuena, tienes tu primera aplicación OpenXava funcionando.<br>
       <h2 id="toc11"><a name="Modificar-la-aplicacion"></a>Modificar la aplicación</h2>
       A partir de ahora, desarrollar con OpenXava es muy fácil. Simplemente, escribes una clase y ya puedes ver el resultado en el navegador. Creemos una entidad para <i>Producto</i>.</div>
-    <div class="wiki" style="display: block;">Selecciona el paquete <em>com.tuempresa.facturacion.modelo</em> y pulsa el botón <em>New Java Class</em>:<br>
-      <img src="files/getting-started_es125.png" alt="getting-started_es125.png"
-        title="getting-started_es125.png"><br>
-      Después teclea <em>Producto</em> como nombre de clase y pulsa <em>Finish</em>.<br>
-      <img src="files/getting-started_es193.png" alt="getting-started_es193.png"
-        title="getting-started_es193.png"></div>
-    <div class="wiki" style="display: block;">Escribe el siguiente código para <em>Producto</em>:</div>
+    <div class="wiki" style="display: block;">Crea un nuevo archivo .java en src\main\java\com\tuempresa\facturacion\modelo llamado Producto y escribe el siguiente código:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
@@ -122,10 +102,18 @@ public class Producto {
  
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Ahora, pulsa el botón <i>Run</i>, esto parará la aplicación y la volverá a iniciar:</div>
-    <img src="files/getting-started_es195.png" alt="getting-started_es195.png"
-      title="getting-started_es195.png">
-    <div class="wiki" style="display: block;"> Para ver tu nueva entidad en acción abre tu navegador y ve a la URL:<br>
+    <div class="wiki" style="display: block;">Ahora, ejecuta de nuevo la aplicación, no olvides de compilar de nuevo:</div>
+    <div class="wiki" style="display: block;">En Windows:
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">mvn compile<br>c:\&gt; java -cp "target/facturacion/WEB-INF/classes;target/facturacion/WEB-INF/lib/*" com.tuempresa.facturacion.run.facturacion</code></pre>
+      </div>
+      <div class="wiki" style="display: block;">En Linux o Mac:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">$ mvn compile<br>$ java -cp "target/facturacion/WEB-INF/classes:target/facturacion/WEB-INF/lib/*" com.tuempresa.facturacion.run.facturacion</code></pre>
+      </div>
+    </div>
+    <p> </p>
+    <div class="wiki" style="display: block;"> Ahora para ver tu nueva entidad en acción abre tu navegador y ve a la URL:<br>
     </div>
     <div class="wiki" style="display: block;"><br>
     </div>
@@ -135,7 +123,7 @@ public class Producto {
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">Después de identificarte con admin/admin obtendrás:<br>
-      <img src="files/getting-started_es200.png" alt="getting-started_es200.png"
+      <img src="files/getting-started-maven_es200.png" alt="getting-started_es200.png"
         title="getting-started_es200.png"><br>
       Sí, ya tienes un nuevo módulo en marcha, y solo has tenido que escribir una simple clase. Ahora puedes concentrarte en hacer crecer tu aplicación.</div>
     <div class="wiki" style="display: block;">
