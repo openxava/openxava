@@ -11,7 +11,6 @@
     <div class="wiki" style="display: block;">
       <h1> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
             href="index_en.html">documentation</a> / </span> Getting started with OpenXava using IntelliJ</h1>
-      <br>
       <h2 id="toc2"><a name="Lesson 1: Getting started-Our goal: A small invoicing application"></a>Creating a new project</h2>
     </div>
     <div class="wiki" style="display: block;"> First, you have to create a new OpenXava project , with the following settings:<br>
@@ -23,7 +22,7 @@
       <img src="files/getting-started-intellij_en040.png" alt="getting-started_en040.png"
         title="getting-started_en040.png">
       <h2 id="toc9"><a name="Lesson 1: Getting started-Creating your first entity"></a>Creating your first entity</h2>
-      Developing the application is very easy. You only have to add entities in order to make your application grow. We start with a simple version of <em>Customer</em> with only <em>number</em> and <em>description</em>. </div>
+      Developing the application is very easy. You only have to add entities in order to make your application grow. We start with a simple version of <em>Customer</em> with only <em>number</em> and name. </div>
     <div class="wiki" style="display: block;">Open the <i>src/main/java</i> folder, there select the <em>com.yourcompany.invoicing.model</em> package and right click on it, then press<em> Java Class</em> button:<br>
       <img src="files/getting-started-intellij_en125.png" alt="getting-started_en125.png"
         title="getting-started_en125.png"><br>
@@ -63,10 +62,10 @@ public class Customer {
 </code></pre> </div>
     <div class="wiki" style="display: block;">At last you have enough code (just one class) to run your application. Let's run it.<br>
       <h2 id="toc10"><a name="Lesson 1: Getting started-Running the application"></a>Running the application</h2>
-      <p>Type mvn package command in IntelliJ terminal, press enter and wait a little.</p>
+      <p>In the Maven tab, select invoicing &gt; Lifecycle, double click package and wait a while.</p>
       <p> <img src="files/getting-started-intellij_en145.png" alt="getting-started_es150.png"
           title="getting-started_es150.png"></p>
-      Then, in the package com.yourcompany.invoicing.run, right click on invoicing and press on the <i>Run'invoicing.main()'</i> button: <br>
+      Then, in the package <i>com.yourcompany.invoicing.run</i>, right click on <i>invoicing </i>and press on the <i>Run'invoicing.main()'</i> button: <br>
       <img src="files/getting-started-intellij_en150.png" alt="getting-started_en150.png"
         title="getting-started_en150.png"></div>
     <div class="wiki" style="display: block;">Wait until the console shows a message saying "Application started", like this:</div>
@@ -94,7 +93,7 @@ public class Customer {
       Click on <em>List</em> to see the list of created customers. Congratulations, you have your first OpenXava application running.<br>
       <h2 id="toc11"><a name="Lesson 1: Getting started-Modifying the application"></a>Modifying the application</h2>
       From now on, developing the application with OpenXava is very easy. Just write a class and go to your browser to see the result. Let's create a new entity for <i>Product</i>.</div>
-    <div class="wiki" style="display: block;">Select the <em>com.yourcompany.invoicing.model</em> package and click on <em>New Java Class</em> button:<br>
+    <div class="wiki" style="display: block;">Select the <em>com.yourcompany.invoicing.model</em> package and click on <em>New &gt; Java Class</em>:<br>
       <img src="files/getting-started-intellij_en125.png" alt="getting-started_en125.png"
         title="getting-started_en125.png"><br>
       Then type <em>Product</em> as class name and press enter.<br>
@@ -147,7 +146,7 @@ public class Product {
     <div class="wiki" style="display: block;">We'll help you to overcome any difficulty.<br>
       <h2 id="toc12"><a name="Lesson 1: Getting started-Summary"></a>Next steps</h2>
     </div>
-    <div class="wiki" style="display: block;">This getting started guide is the lesson 1 of a complete OpenXava course using IntelliJ. The rest of the course is in Eclipse and will teach you how to develop enterprise applications with OpenXava as well as other Java related technologies, tools and frameworks. Together we will develop step by step a complete application from scratch. The application chosen is a small invoicing application with invoices, customers, products and so on. This application is just a brief way to learn some typical cases in business applications. You can apply everything you learn with the invoicing application to any other business application of any other domain.<br>
+    <div class="wiki" style="display: block;">This guide, getting started using IntelliJ, is the lesson 1 of a complete OpenXava course. The rest of the course is in Eclipse and will teach you how to develop enterprise applications with OpenXava as well as other Java related technologies, tools and frameworks. Together we will develop step by step a complete application from scratch. The application chosen is a small invoicing application with invoices, customers, products and so on. This application is just a brief way to learn some typical cases in business applications. You can apply everything you learn with the invoicing application to any other business application of any other domain.<br>
       This is the content of the course:<br>
       <ul>
         <li>Getting started:</li>
