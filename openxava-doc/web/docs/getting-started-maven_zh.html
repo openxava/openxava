@@ -12,62 +12,19 @@
       <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
               href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
             href="index_zh.html">文档</a> / </span>OpenXava入门</h1>
-      按照以下视频创建并运行您的第一个 OpenXava 项目：</div>
-    <div class="wiki" style="display: block;"> <a href="https://www.bilibili.com/video/BV1SP411E7ZW"
-        target="_blank"><em><img src="files/getting-started_zh010.png" title="点击此处观看视频"></em></a> <br>
-    </div>
-    <div class="wiki" style="display: block;">本視頻也可以在 <a class="wiki_link"
-        href="https://youtu.be/hiHsYjqyZGo">Youtube</a> 觀看。如果您不喜欢视频，可以按照以下说明<br>
+      <br>
       <h2><a name="創建新的項目"></a>创建新的项目</h2>
     </div>
-    <div class="wiki" style="display: block;">首先您必须建立新的 OpenXava 项目：</div>
-    <div class="wiki" style="display: block;"><br>
+    <div class="wiki" style="display: block;">首先您必须在命令行界面使用 Maven 建立新的 OpenXava 项目，请在 Windows、Linux 或 Mac 输入以下命令：</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="sh">$ mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=invoicing -DinteractiveMode=false
+$ cd invoicing
+$ mvn package</code></pre>
     </div>
-    <div class="wiki" style="display: block;"> <img src="files/getting-started_zh020.png"
-        alt="getting-started_es020.png" title="getting-started_es020.png"><br>
-    </div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
-    <div class="wiki" style="display: block;">会出现一个窗口，之后在 Project name 输入项目名称：invoicing。此外我们在此教学将选择英文（English）。最后点击 Finish。</div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
-    <div class="wiki" style="display: block;"> <img src="files/getting-started_zh030.png"
-        alt="getting-started_es030.png" title="getting-started_es030.png"></div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
-    <div class="wiki" style="display: block;">现在项目已建成，您可以开始写代码了</div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
-    <p> <img src="files/getting-started_en040.png" alt="getting-started_es040.png"
-        title="getting-started_es040.png"> </p>
-    <br>
     <div class="wiki" style="display: block;">
       <h2><a name="創建第一個實體"></a>创建第一个实体</h2>
       开发应用程序非常简单：您只需要添加实体使您的应用程序扩展。<br>
-      我们将从 Customer 简易版本开始，只有编号和名称，选择 com.yourcompany.invoicing.model 包并点下 New Java Class 按键。</div>
-    <div class="wiki" style="display: block;"><br>
-      <em></em></div>
-    <div class="wiki" style="display: block;"> <img src="files/getting-started_zh125.png"
-        alt="getting-started_es125.png" title="getting-started_es125.png"></div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
-    <div class="wiki" style="display: block;">再来在 Name 写下 Customer 为类名并按下 Finish。<br>
-      注意 Customer 的"C"必须是大写，在 Java 所有类的开头都是大写。</div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
-    <div class="wiki" style="display: block;"> <img src="files/getting-started_zh130.png"
-        alt="getting-started_es130.png" title="getting-started_es130.png"></div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
-    <div class="wiki" style="display: block;">Eclipse提供的只是最基本的代码：</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.yourcompany.invoicing.model;
- 
-public class Customer {
- 
-}
-</code></pre> </div>
-    <div class="wiki" style="display: block;">现在您得把此类转换成适合 OpenXava 的实体。您只需要添加 @Entity 注解，number 和 description 属性</div>
+      我们将从 Customer 的简易版本开始，它只有编号和名称，为此您必须在 src/main/java/com/yourcompany/invoicing/model 文件夹中创建一个 Customer.java 文件并输入以下代码：</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.yourcompany.invoicing.model;
  
@@ -93,15 +50,18 @@ public class Customer {
 </code></pre> </div>
     <div class="wiki" style="display: block;">现在您已有足够的代码（一个类）来运行应用程序。<br>
       <h2 id="toc10"><a name="Ejecutar-la-aplicacion"></a>运行应用程序</h2>
-      点击 Run 按钮，等到控制台显示“应用程序已启动”，如下：</div>
-    <div class="wiki" style="display: block;"><br>
+      在 Windows 输入以下命令：</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">mvn compile<br>c:\&gt; java -cp "target/invoicing/WEB-INF/classes;target/invoicing/WEB-INF/lib/*" com.yourcompany.invoicing.run.invoicing</code></pre>
+      <div class="wiki" style="display: block;">在 Linux 或 Mac:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">$ mvn compile<br>$ java -cp "target/invoicing/WEB-INF/classes:target/invoicing/WEB-INF/lib/*" com.yourcompany.invoicing.run.invoicing</code></pre>
+      </div>
     </div>
-    <div class="wiki" style="display: block;"> <img src="files/getting-started_zh150.png"
-        alt="getting-started_es150.png" title="getting-started_es150.png"></div>
-    <div class="wiki" style="display: block;"><img src="files/getting-started_zh155.png"
-        alt="getting-started_en155.png" title="getting-started_en155.png"></div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
+    <div class="wiki" style="display: block;"> </div>
+    <div class="wiki" style="display: block;">等到控制台显示“应用程序已启动”，如下：</div>
+    <div class="wiki" style="display: block;"><img src="files/getting-started-maven_zh155.png"
+        alt="getting-started_en155.png" title="getting-started_en155.png"> </div>
     <div class="wiki" style="display: block;">现在您的应用程序已经在运行。请开启您的浏览器（Chrome, Firefox, Internet Explorer 11, Edge o Safari）并输入以下连结：</div>
     <div class="wiki" style="display: block;"><br>
       <span style="color: black;"><span style="font-family: sans-serif;"></span></span></div>
@@ -134,16 +94,7 @@ public class Customer {
     <div class="wiki" style="display: block;">点击 列表 可以察看已创建的客户。恭喜！您已成功运行第一个 OpenXava 应用程序。<br>
       <h2 id="toc11"><a name="修改應用程序"></a>修改应用程序</h2>
       从现在开始，使用 OpenXava 开发应用变的非常容易。只需要编写一个类就可以马上在浏览器看到成果。<br>
-      现在我们创建另一个实体为 Product，选择 com.yourcompany.invoicing.model 包，点下 New Java Class 按键并在 Name 写下 Product 为类名并按下 Finish。</div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
-    <div class="wiki" style="display: block;"> <img src="files/getting-started_zh125.png"
-        alt="getting-started_es125.png" title="getting-started_es125.png"><br>
-      <img src="files/getting-started_zh193.png" alt="getting-started_es193.png"
-        title="getting-started_es193.png"></div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
-    <div class="wiki" style="display: block;">在 Product 里编写以下代码：</div>
+      现在我们创建另一个实体为 Product，在 src/main/java/com/yourcompany/invoicing/model 文件夹中创建一个 Product.java 文件并输入以下代码：</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.yourcompany.invoicing.model;
  
@@ -162,13 +113,15 @@ public class Product {
  
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">现在按下 Run 按钮，这会重启应用程序</div>
-    <div class="wiki" style="display: block;"><br>
+    <div class="wiki" style="display: block;">现在重啟應用程序：</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">mvn compile<br>c:\&gt; java -cp "target/invoicing/WEB-INF/classes;target/invoicing/WEB-INF/lib/*" com.yourcompany.invoicing.run.invoicing</code></pre>
+      <div class="wiki" style="display: block;">在 Linux 或 Mac:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">$ mvn compile<br>$ java -cp "target/invoicing/WEB-INF/classes:target/invoicing/WEB-INF/lib/*" com.yourcompany.invoicing.run.invoicing</code></pre>
+      </div>
     </div>
-    <img src="files/getting-started_zh195.png" alt="getting-started_es195.png"
-      title="getting-started_es195.png">
-    <div class="wiki" style="display: block;"><br>
-    </div>
+    <br>
     <div class="wiki" style="display: block;">在您的浏览器输入以下网址来查看刚创建的实体：</div>
     <div class="wiki" style="display: block;"><br>
     </div>
@@ -198,7 +151,7 @@ public class Product {
       <div class="wiki" style="display: block;">我们会帮助您解决。<br>
         <h2 id="toc12"><a name="Lesson 1: Getting started-Summary"></a>接下来</h2>
       </div>
-      <div class="wiki" style="display: block;">入门教学是 OpenXava 课程中的第一章，该课程会教您如何使用 OpenXava及其它Java相关技术、工具和框架开发企业应用程序。我们将从零开始一步一步的开发一个应用程序，该应用是个包含开发票、管理客户、产 品等的小型应用。开发这应用程序是为了认识和学习业务程序中的典型案例，您可以将在开发票应用所学的内容应用到其它领域的其它业务应用中。</div>
+      <div class="wiki" style="display: block;">本章是 OpenXava 课程中的第一章并使用 Maven，接下来的课程将会在 Eclipse 中並会教您如何使用 OpenXava及其它 Java 相关技术、工具和框架开发企业应用程序。我们将从零开始一步一步的开发一个应用程序，该应用是个包含开发票、管理客户、产 品等的小型应用。开发这应用程序是为了认识和学习业务程序中的典型案例，您可以将在开发票应用所学的内容应用到其它领域的其它业务应用中。</div>
       <div class="wiki" style="display: block;"><br>
         <br>
         这是课程的内容：
@@ -285,7 +238,7 @@ public class Product {
       </div>
       <div class="wiki" style="display: block;"><br>
       </div>
-      <div class="wiki" style="display: block;">您想使用 IntelliJ、MySQL、PostgreSQL、Oracle、Microsoft SQL Server、AS/400、Informix、Db2 或 Firebird 吗? 您想要一个详细的参考指南吗？ 在 <a
+      <div class="wiki" style="display: block;">您想使用 <a href="getting-started-intellij_zh.html">IntelliJ</a>、MySQL、PostgreSQL、Oracle、Microsoft SQL Server、AS/400、Informix、Db2 或 Firebird 吗? 您想要一个详细的参考指南吗？ 在 <a
           href="index_zh.html">OpenXava 文檔</a> 中都找的到并且还有更多内容。
         <ul>
         </ul>
