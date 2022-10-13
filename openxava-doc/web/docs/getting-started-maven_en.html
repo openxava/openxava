@@ -9,9 +9,10 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
             href="index_en.html">documentation</a> / </span> Getting started with OpenXava using Maven</h1>
-      <br>
+      
       <h2 id="toc2"><a name="Lesson 1: Getting started-Our goal: A small invoicing application"></a>Creating a new project</h2>
     </div>
     <div class="wiki" style="display: block;"> First, you have to create a new OpenXava project from command line using Maven, type the next commands for Windows, Linux or Mac:</div>
@@ -21,7 +22,8 @@ $ cd invoicing
 $ mvn package</code></pre>
       <h2 id="toc9"><a name="Lesson 1: Getting started-Creating your first entity"></a>Creating your first entity</h2>
       Developing the application is very easy. You only have to add entities in order to make your application grow. We start with a simple version of <em>Customer</em> with only <em>number</em> and <i>name</i>. </div>
-    <div class="wiki" style="display: block;">You have to create a <i>Customer.java</i> file in the <i>folder src/main/java/com/yourcompany/invoicing/model </i>of this project, then write the code below:<code
+    <div class="wiki" style="display: block;">You have to create a <i>Customer.java</i> file in the <i>folder src/main/java/com/yourcompany/invoicing/model </i>of this project, then write the code below:<code
+
         class="java"></code></div>
     <div class="wiki" style="display: block;"> </div>
     <div class="wiki" style="display: block;">
@@ -49,33 +51,38 @@ public class Customer {
       <h2 id="toc10"><a name="Lesson 1: Getting started-Running the application"></a>Running the application</h2>
       Type the next commands, in Windows:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">mvn compile<br>c:\&gt; java -cp "target/invoicing/WEB-INF/classes;target/invoicing/WEB-INF/lib/*" com.yourcompany.invoicing.run.invoicing</code></pre>
+      <pre><code class="java">c:\&gt; mvn compile<br>c:\&gt; java -cp "target/invoicing/WEB-INF/classes;target/invoicing/WEB-INF/lib/*" com.yourcompany.invoicing.run.invoicing</code></pre>
       <div class="wiki" style="display: block;">In Linux o Mac:</div>
       <div class="wiki" style="display: block;">
         <pre><code class="java">$ mvn compile<br>$ java -cp "target/invoicing/WEB-INF/classes:target/invoicing/WEB-INF/lib/*" com.yourcompany.invoicing.run.invoicing</code></pre>
       </div>
     </div>
     <div class="wiki" style="display: block;">Wait until the console shows a message saying "Application started", like this:</div>
-    <div class="wiki" style="display: block;"><img src="files/getting-started-maven_en155.png"
+    <div class="wiki" style="display: block;"><img src="files/getting-started-maven_en155.png"
+
         alt="getting-started_en155.png" title="getting-started_en155.png"> </div>
     <div class="wiki" style="display: block;">Then your application is already running. To check this, open your favorite browser (Chrome, Firefox, Edge or Safari) and go to the next URL:</div>
     <div class="wiki" style="display: block;"><br>
       <code><i> </i></code></div>
-    <div class="wiki" style="display: block;"><code><i>&nbsp;&nbsp;&nbsp; <a
+    <div class="wiki" style="display: block;"><code><i>&nbsp;&nbsp;&nbsp; <a
+
             href="http://localhost:8080/invoicing" target="_blank">http://localhost:8080/invoicing</a></i></code><br>
     </div>
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">You get your application running for the first time. To start click on SIGN IN button<br>
-      <img src="files/getting-started-maven_en160.png" alt="getting-started_en160.png"
+      <img src="files/getting-started-maven_en160.png" alt="getting-started_en160.png"
+
         title="getting-started_en160.png"></div>
     <div class="wiki" style="display: block;">Now, enter admin/admin and click on SIGN IN:</div>
     <img src="files/getting-started-maven_en165.png" alt="Sign In page">
     <div class="wiki" style="display: block;"> Then on top the left you will have a list of modules, choose <em>Customers</em>:<br>
-      <img src="files/getting-started-maven_en170.png" alt="getting-started_en170.png"
+      <img src="files/getting-started-maven_en170.png" alt="getting-started_en170.png"
+
         title="getting-started_en170.png"><br>
       Use the <em>Customers</em> module to create new customers, just enter number and name and press <em>Save</em>.<br>
-      <img src="files/getting-started_en190.png" alt="getting-started_en190.png"
+      <img src="files/getting-started_en190.png" alt="getting-started_en190.png"
+
         title="getting-started_en190.png"><br>
       Click on <em>List</em> to see the list of created customers. Congratulations, you have your first OpenXava application running.<br>
       <h2 id="toc11"><a name="Lesson 1: Getting started-Modifying the application"></a>Modifying the application</h2>
@@ -103,7 +110,7 @@ public class Product {
     <div class="wiki" style="display: block;">Now, restart your application, don't forget to compile again, in Windows:<br>
     </div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">mvn compile<br>c:\&gt; java -cp "target/invoicing/WEB-INF/classes;target/invoicing/WEB-INF/lib/*" com.yourcompany.invoicing.run.invoicing</code></pre>
+      <pre><code class="java">c:\&gt; mvn compile<br>c:\&gt; java -cp "target/invoicing/WEB-INF/classes;target/invoicing/WEB-INF/lib/*" com.yourcompany.invoicing.run.invoicing</code></pre>
       <div class="wiki" style="display: block;">In Linux o Mac:</div>
       <div class="wiki" style="display: block;">
         <pre><code class="java">$ mvn compile<br>$ java -cp "target/invoicing/WEB-INF/classes:target/invoicing/WEB-INF/lib/*" com.yourcompany.invoicing.run.invoicing</code></pre>
@@ -112,13 +119,15 @@ public class Product {
     <div class="wiki" style="display: block;"> To see your new entity in action open your browser and go to the URL:</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <code><i>&nbsp;&nbsp;&nbsp; <a
+    <div class="wiki" style="display: block;"> <code><i>&nbsp;&nbsp;&nbsp; <a
+
             href="http://localhost:8080/invoicing/modules/Product" target="_blank">http://localhost:8080/invoicing/modules/Product</a></i></code><br>
     </div>
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">After sign in with admin/admin you'll get:<br>
-      <img src="files/getting-started-maven_en200.png" alt="getting-started_en200.png"
+      <img src="files/getting-started-maven_en200.png" alt="getting-started_en200.png"
+
         title="getting-started_en200.png"><br>
       Yes, you have a new module running, and just writing a simple class. Now you can concentrate on growing your application.</div>
     <div class="wiki" style="display: block;">
@@ -126,15 +135,17 @@ public class Product {
       Congratulations! You have created your first OpenXava application. Otherwise, if you have had any problem with the above example, ask in the forum:</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;">&nbsp;&nbsp;&nbsp; <strong><a
-          class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+    <div class="wiki" style="display: block;">&nbsp;&nbsp;&nbsp; <strong><a
+
+          class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
           rel="nofollow">Ask in the forum</a></strong></div>
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">We'll help you to overcome any difficulty.<br>
       <h2 id="toc12"><a name="Lesson 1: Getting started-Summary"></a>Next steps</h2>
     </div>
-    <div class="wiki" style="display: block;">This getting started guide is the lesson 1 of a complete OpenXava course in Maven. The rest of the course is in Eclipse and will teach you how to develop enterprise applications with OpenXava as well as other Java related technologies, tools and frameworks. Together we will develop step by step a complete application from scratch. The application chosen is a small invoicing application with invoices, customers, products and so on. This application is just a brief way to learn some typical cases in business applications. You can apply everything you learn with the invoicing application to any other business application of any other domain.<br>
+    <div class="wiki" style="display: block;">This guide, getting started using Maven, is the lesson 1 of a complete OpenXava course. The rest of the course is in Eclipse and will teach you how to develop enterprise applications with OpenXava as well as other Java related technologies, tools and frameworks. Together we will develop step by step a complete application from scratch. The application chosen is a small invoicing application with invoices, customers, products and so on. This application is just a brief way to learn some typical cases in business applications. You can apply everything you learn with the invoicing application to any other business application of any other domain.<br>
       This is the content of the course:<br>
       <ul>
         <li>Getting started:</li>
@@ -168,8 +179,10 @@ public class Product {
         </ul>
         <li> Advanced validation:</li>
         <ul>
-          <li><a class="wiki_link" href="validating-with-entityvalidator_en.html">Lesson 18: Validating with @EntityValidator&nbsp;</a>&nbsp;&nbsp;<a
-              class="wiki_link" href="validation-alternatives_en.html"><span
+          <li><a class="wiki_link" href="validating-with-entityvalidator_en.html">Lesson 18: Validating with @EntityValidator&nbsp;</a>&nbsp;&nbsp;<a
+
+              class="wiki_link" href="validation-alternatives_en.html"><span
+
                 style="color: #505050;"></span></a></li>
           <li><a class="wiki_link" href="validation-alternatives_en.html">Lesson 19: Validation alternatives&nbsp;</a>&nbsp;&nbsp;</li>
           <li><a class="wiki_link" href="validation-on-remove_en.html">Lesson 20: Validation on remove&nbsp;</a>&nbsp;&nbsp;</li>
@@ -179,17 +192,20 @@ public class Product {
         </ul>
         <li> Refining the standard behavior: </li>
         <ul>
-          <li><a class="wiki_link" href="refining-standard-behavior_en.html">Lesson 24: Refining the standard behavior</a><a
+          <li><a class="wiki_link" href="refining-standard-behavior_en.html">Lesson 24: Refining the standard behavior</a><a
+
               class="wiki_link" href="refining-standard-behavior_en.html"></a></li>
         </ul>
         <li> Behavior &amp; business logic: </li>
         <ul>
-          <li><a class="wiki_link" href="business-logic-behavior_en.html">Lesson 25: Behavior &amp; business logic</a><a
+          <li><a class="wiki_link" href="business-logic-behavior_en.html">Lesson 25: Behavior &amp; business logic</a><a
+
               class="wiki_link" href="business-logic-behavior_en.html"></a></li>
         </ul>
         <li> References &amp; collections: </li>
         <ul>
-          <li><a class="wiki_link" href="references-collections_en.html">Lesson 26: References &amp; collections</a><a
+          <li><a class="wiki_link" href="references-collections_en.html">Lesson 26: References &amp; collections</a><a
+
               class="wiki_link" href="references-collections_en.html"></a></li>
         </ul>
         <li> Appendices: </li>
@@ -205,23 +221,29 @@ public class Product {
     </div>
     <div class="wiki" style="display: block;">You're ready to continue to the next lesson, however you should consider to have a look at some base knowledge, such as:<br>
       <ul>
-        <li>If you're new to Java you should read an introductory Java book or read the <a
-            class="wiki_link_ext" href="https://docs.oracle.com/javase/tutorial/"
+        <li>If you're new to Java you should read an introductory Java book or read the <a
+
+            class="wiki_link_ext" href="https://docs.oracle.com/javase/tutorial/"
+
             rel="nofollow">Java Tutorial</a>.</li>
-        <li>If you're interested in the philosophy and architecture of OpenXava <a
+        <li>If you're interested in the philosophy and architecture of OpenXava <a
+
             class="wiki_link" href="philosophy_en.html">read the appendix A</a> of this course.</li>
-        <li>The appendices B and C about <a class="wiki_link" href="jpa_en.html">Java Persistence API</a> and <a
+        <li>The appendices B and C about <a class="wiki_link" href="jpa_en.html">Java Persistence API</a> and <a
+
             class="wiki_link" href="annotations_en.html">annotations</a> will be very useful for you.</li>
       </ul>
       <p><br>
       </p>
-      <p>Do you want to use <a href="getting-started-intellij_en.html">IntelliJ</a>? Do you want to go against MySQL, PostgreSQL, Oracle, Microsoft SQL Server, AS/400, Informix, Db2 or Firebird? Do you want a detailed reference guide? Look at <a
+      <p>Do you want to use <a href="getting-started-intellij_en.html">IntelliJ</a>? Do you want to go against MySQL, PostgreSQL, Oracle, Microsoft SQL Server, AS/400, Informix, Db2 or Firebird? Do you want a detailed reference guide? Look at <a
+
           href="index_en.html">the OpenXava documentation</a>, that includes this and much more.</p>
       <ul>
       </ul>
       <br>
       <strong>Are you ready? <a class="wiki_link" href="basic-domain-model1_en.html">Go to Lesson 2</a></strong></div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link"
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link"
+
           href="modeling_en.html"><br>
         </a></strong> </div>
   </body>
