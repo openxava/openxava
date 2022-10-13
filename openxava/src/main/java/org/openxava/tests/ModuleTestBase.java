@@ -2798,7 +2798,7 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @since 5.7
 	 */
 	protected String getDiscussionCommentContentText(String name, int row) {  
-		return getDiscussionCommentText(name, row).split("\r\n", 2)[1];
+		return getDiscussionCommentText(name, row).split("\n", 2)[1];
 	}
 	
 	/**
