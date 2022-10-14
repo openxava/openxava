@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+TEST AND REMOVE: Fix: Sign in box fills all space in screen when using flowLayout. 
+
 - Fix: Image and text in actions of subcontrollers are too close, also space is not the same that for icons.
 - Outdated documentation to deploy on Weblogic removed.
 - Fix: Broken internal links from annotations to their sections in reference guide.
