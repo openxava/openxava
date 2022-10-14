@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Image and text in actions of subcontrollers are too close, also space is not the same that for icons.
 - Outdated documentation to deploy on Weblogic removed.
 - Fix: Broken internal links from annotations to their sections in reference guide.
 - Fix: Broken links from Model chapter of reference guid to API javadoc. 
