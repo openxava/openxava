@@ -21,7 +21,6 @@ public class IncidentTest extends EmailNotificationsTestBase {
 	public void testDiscussionEditor_defaultPropertiesForListWithoutTab_discussionEmailNotifications() throws Exception {  
 		subscribeToEmailNotifications(); 
 
-		
 		execute("Mode.list"); 
 		assertDefaultPropertiesForListWithoutTab(); 
 		
