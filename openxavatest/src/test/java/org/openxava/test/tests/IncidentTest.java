@@ -21,6 +21,7 @@ public class IncidentTest extends EmailNotificationsTestBase {
 	public void testDiscussionEditor_defaultPropertiesForListWithoutTab_discussionEmailNotifications() throws Exception {  
 		subscribeToEmailNotifications(); 
 
+		
 		execute("Mode.list"); 
 		assertDefaultPropertiesForListWithoutTab(); 
 		
@@ -35,6 +36,7 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		String timeFirstPost = getCurrentTime();
 		assertDiscussionCommentsCount("discussion", 1); 
 		assertDiscussionCommentText("discussion", 0, "admin - Now\nHi, it's me"); 
+		assertDiscussionCommentContentText("discussion", 0, "Hi, it's me");
 		
 		execute("CRUD.save");
 		String id = Incident.findFirst().getId(); 
