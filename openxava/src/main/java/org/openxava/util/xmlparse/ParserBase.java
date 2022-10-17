@@ -101,10 +101,10 @@ abstract public class ParserBase extends XmlElementsNames {
 			createObjects();
 		} 
 		catch (Exception ex) {
-			log.error(ex.getMessage(), ex);
 			if (getClass().getResourceAsStream(xmlFileCompleteURL) == null) {
 				// file is empty
 			} else {
+				log.error(ex.getMessage(), ex);
 				throw new XavaException("xml_loading_error", xmlFileCompleteURL);
 			}
 
