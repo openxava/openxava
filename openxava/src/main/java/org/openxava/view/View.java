@@ -5249,7 +5249,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	public boolean isFlowLayout() { 
-		if ("SignIn".equals(getModelName())) return false; // A little ad hoc, but was the simplest way at the moment
+		if ("SignIn".equals(getModelName()) || "ProSignIn".equals(getModelName())) return false; // A little ad hoc, but was the simplest way at the moment 
 		if (Chart.class.getSimpleName().equals(getModelName())) return false; // A little ad hoc, but was the simplest way at the moment
 		return XavaPreferences.getInstance().isFlowLayout(); 
 	}
