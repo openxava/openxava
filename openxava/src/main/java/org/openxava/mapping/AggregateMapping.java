@@ -13,7 +13,7 @@ public class AggregateMapping extends ModelMapping {
 
 	private String modelName;
 	
-		
+	/* tmr	
 	public void addReferenceMapping(ReferenceMapping referenceMapping) throws XavaException { 		
 		super.addReferenceMapping(referenceMapping);
 		if (!getMetaModel().containsMetaReference(referenceMapping.getReference())) {
@@ -24,6 +24,7 @@ public class AggregateMapping extends ModelMapping {
 		}
 
 	}
+	*/
 	
 	public String getModelName() {
 		return modelName;
