@@ -48,6 +48,7 @@ String spanId = Ids.decorate(request, "sc-span-" + controllerName + "_" + mode);
 				style="padding:4px; background: url(<%=request.getContextPath()%>/<%=style.getImagesFolder()%>/<%=image%>) no-repeat 5px 50%;">				
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</span>
+                &nbsp;&nbsp;
 			<% } %>
 			<%= Labels.get(controllerName)%>
 			<i id='<%=imageId%>' class="mdi mdi-menu-down"></i>&nbsp;

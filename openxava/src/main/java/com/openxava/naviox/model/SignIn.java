@@ -20,6 +20,7 @@ import org.openxava.annotations.*;
  * @author Javier Paniza 
  */
 
+//WARNING: IF YOU RENAME THIS CLASS REVISE View.isFlowLayout()
 public class SignIn {
 	
 	@Required  
