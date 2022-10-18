@@ -9,39 +9,34 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Maven configuration"></a> <span id="breadcrumbs">
-          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
-              </a> </span> / <a href="index_en.html">documentation</a> / </span>
-        Maven configuration </h1>
-      OpenXava supports Maven since v7.0, so if you create a new project using
-      OpenXava Studio it is a Maven project by default.</div>
-    <div class="wiki" style="display: block;">If you have an application with
-      OpenXava 6.x or older, the best way of mavenizing it is migrating to the
-      latest OpenXava version. Look at the <a href="migration_en.html">migrations
-        instructions</a> for that.</div>
-    <div class="wiki" style="display: block;">To create a new OpenXava project
-      from command line using Maven, type the next commands for
-      Windows, Linux or Mac:</div>
+      <h1 id="toc0"><a name="Maven configuration"></a> <span id="breadcrumbs"> <span
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_en.html">documentation</a> / </span> Maven configuration </h1>
+      OpenXava supports Maven since v7.0, so if you create a new project using OpenXava Studio it is a Maven project by default.</div>
+    <div class="wiki" style="display: block;">If you have an application with OpenXava 6.x or older, the best way of mavenizing it is migrating to the latest OpenXava version. Look at the <a
+        href="migration_en.html">migrations instructions</a> for that.</div>
+    <div class="wiki" style="display: block;">To create a new OpenXava project from command line using Maven, type the next commands for Windows, Linux or Mac:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="sh">$ mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourapp -DinteractiveMode=false
 $ cd yourapp
 $ mvn package
 </code></pre> </div>
-    <div class="wiki" style="display: block;">To run your application in
-      Windows:</div>
+    <div class="wiki" style="display: block;">To run your application in Windows:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="dos">c:\&gt; java -cp "target/yourapp/WEB-INF/classes;target/yourapp/WEB-INF/lib/*" com.yourcompany.yourapp.run.yourapp
 </code></pre> </div>
-    <div class="wiki" style="display: block;">To run your application in Linux
-      or Mac:</div>
+    <div class="wiki" style="display: block;">To run your application in Linux or Mac:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="sh">$ java -cp "target/yourapp/WEB-INF/classes:target/yourapp/WEB-INF/lib/*" com.yourcompany.yourapp.run.yourapp
 </code></pre> </div>
-    <div class="wiki" style="display: block;">The difference is the separator ;
-      or :</div>
-    <div class="wiki" style="display: block;">Also you should be able to use it
-      from Eclipse, IntelliJ, NetBeans, Visual Studio Code or any other IDE with
-      Maven support.</div>
+    <div class="wiki" style="display: block;">The difference is the separator ; or :</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">You can also follow the <a
+        href="getting-started-maven_en.html">getting started guide using Maven</a>.</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">Also you should be able to use it from Eclipse, IntelliJ, NetBeans, Visual Studio Code or any other IDE with Maven support.</div>
     <br>
   </body>
 </html>
