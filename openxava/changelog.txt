@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: assertDiscussionCommentContentText() of ModuleTestBase does not work since 7.0. 
 - Getting started guide using Maven in English, Spanish and Chinese.
 - Fix: Image and text in actions of subcontrollers are too close, also space is not the same that for icons.
 - Outdated documentation to deploy on Weblogic removed.
