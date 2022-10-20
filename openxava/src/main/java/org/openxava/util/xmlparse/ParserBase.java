@@ -1,7 +1,10 @@
 package org.openxava.util.xmlparse;
 
 
+import java.io.*;
 import java.net.*;
+import java.nio.file.*;
+import java.nio.file.Files;
 import java.util.*;
 
 import javax.xml.parsers.*;
@@ -94,15 +97,28 @@ abstract public class ParserBase extends XmlElementsNames {
 		return documentBuilder;
 	}	
 
-	private void _parse(String xmlFileCompleteURL) throws XavaException {
+	private void _parse(String xmlFileCompleteURL) throws XavaException, URISyntaxException {
 		try {						
 			Document doc = getDocumentBuilder().parse(xmlFileCompleteURL);			
 			root = (Element) doc.getDocumentElement();
 			createObjects();
 		} 
 		catch (Exception ex) {
-			log.error(ex.getMessage(), ex);
-			throw new XavaException("xml_loading_error", xmlFileCompleteURL);
+			try {
+				URL url = new URL(xmlFileCompleteURL);
+				Path path = Paths.get(url.toURI());     
+				byte[] fileBytes = Files.readAllBytes(path);
+				if (fileBytes.length > 0 ) {
+					//file is not empty but have error
+					log.error(ex.getMessage(), ex);
+					throw new XavaException("xml_loading_error", xmlFileCompleteURL);
+				}else {
+					//file is empty
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				log.error(e.getMessage(), e);
+			}
 		}		
 	}
 	
