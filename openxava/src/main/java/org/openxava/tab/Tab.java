@@ -424,12 +424,12 @@ public class Tab implements java.io.Serializable, Cloneable {
 	
 	private int pageRowCount = XavaPreferences.getInstance().getPageRowCount();
 	private Object [] titleArguments;
-	private List<MetaProperty> metaPropertiesNotCalculated; 
+	private transient List<MetaProperty> metaPropertiesNotCalculated;
 	private ReferenceMapping referencesCollectionMapping;
 	private Object[] baseConditionValuesForReference;
 	private String baseCondition;
 	private String baseConditionForReference;
-	private MetaTab metaTab;
+	private transient MetaTab metaTab;
 	private boolean descendingOrder = false;
 	private boolean descendingOrder2 = false; 
 	private String orderBy;	
@@ -443,7 +443,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	private String[] conditionValuesTo;	// to the range: conditionValues like 'from' and conditionValuesTo like 'to'
 	private String[] conditionComparatorsToWhere;
 	private Object[] conditionValuesToWhere;
-	private List<MetaProperty> metaProperties; 
+	private transient List<MetaProperty> metaProperties;
 	private int page = 1;
 	private boolean notResetNextTime = false;
 	private int initialIndex;	 			
@@ -453,7 +453,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	private transient HttpServletRequest request; 
 	private boolean metaTabCloned = false;
 	private boolean titleVisible = false;
-	private List metaPropertiesKey;
+	private transient List metaPropertiesKey;
 	private String titleId = null;	
 	private boolean notResetPageNextTime;
 	private boolean rowsHidden;
@@ -485,7 +485,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	private String editor;   
 	private Messages errors;
 	private String defaultCondition;
-	private Collection<MetaProperty> metaPropertiesBeforeGrouping;
+	private transient Collection<MetaProperty> metaPropertiesBeforeGrouping;
 	private boolean optimizeChunkSize = false; 
 	
 	public static void setRefiner(Object newRefiner) {

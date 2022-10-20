@@ -1,5 +1,8 @@
 package org.openxava.actions;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 import java.text.*;
 import java.util.*;
 
@@ -31,19 +34,20 @@ public class ConfigureImportAction extends TabBaseAction
 	public void execute() throws Exception {
 		String fileName = "UNKNOWN";
 		try {
-	        FileItem fi = (FileItem) getView().getValue("file");                         
-	        if (fi != null && !Is.emptyString(fi.getName())) {
-	        	fileName = fi.getName().toLowerCase();
+			CustomFileItem customFileItem = (CustomFileItem) getView().getValue("file");
+			if (customFileItem != null && !Is.emptyString(customFileItem.getFileName())) {
+				fileName = customFileItem.getFileName().toLowerCase();
+				InputStream inputStream = new ByteArrayInputStream(customFileItem.getBytes());
 	        	if (fileName.endsWith(".xlsx") ) {
-	        		if (!configureImport(excelToCSV(new XSSFWorkbook(fi.getInputStream())))) cancel();
+	        		if (!configureImport(excelToCSV(new XSSFWorkbook(inputStream)))) cancel();
 		        	return;
 	        	}
 	        	else if (fileName.endsWith(".csv")) {
-		        	if (!configureImport(fi.getString().trim())) cancel(); 
+		        	if (!configureImport(customFileItem.getString().trim())) cancel();
 		        	return;
 	        	} 	        	
 	        	else if (fileName.endsWith(".xls")) {
-		        	if (!configureImport(excelToCSV(new HSSFWorkbook(fi.getInputStream())))) cancel(); 
+		        	if (!configureImport(excelToCSV(new HSSFWorkbook(inputStream)))) cancel();
 		        	return;
 	        	}
 	        	else {
