@@ -116,7 +116,6 @@ abstract public class ParserBase extends XmlElementsNames {
 					//file is empty
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				log.error(e.getMessage(), e);
 			}
 		}		

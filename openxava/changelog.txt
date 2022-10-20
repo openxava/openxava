@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Empty configuration file, like editors.xml, controllers.xml, etc, produces a parse exception.
 - Getting started guide using IntelliJ in English, Spanish and Chinese.
 - Fix: assertDiscussionCommentContentText() of ModuleTestBase does not work since 7.0. 
 - Getting started guide using Maven in English, Spanish and Chinese.
