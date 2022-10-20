@@ -452,7 +452,9 @@ openxava.initLists = function(application, module) {
 	    stop: function( event, ui ) {
 	    	ui.item.css("width", "");
 	    	var tableId = $(event.target).closest("table").attr("id"); 
-	    	Tab.moveProperty(tableId, ui.item.startPos - 2, ui.item.index() - 2);
+	    	Tab.moveProperty(tableId, ui.item.startPos - 2, ui.item.index() - 2, () => {
+				openxava.executeAction(application, module, '', false, 'TabRefreshController.tabRefreshAction', 'tabObject=' + tableId)
+			});
 	    }
 	});
 	$('.xava_sortable_row').sortable({ 
@@ -737,7 +739,9 @@ openxava.removeColumn = function(application, module, columnId, tabObject) {
 	th.fadeOut();
     $(table).find("td:nth-child(" + i + ")").fadeOut();
 	var property = $("#" + columnId).closest("th").attr("data-property");
-	Tab.removeProperty(application, module, property, tabObject);
+	Tab.removeProperty(application, module, property, tabObject, () => {
+		openxava.executeAction(application, module, '', false, 'TabRefreshController.tabRefreshAction', 'tabObject=' + tabObject)
+	});
 }
 
 openxava.setPageRowCount = function(application, module, collection, select) {	
