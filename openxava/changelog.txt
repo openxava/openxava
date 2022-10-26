@@ -1,6 +1,14 @@
 Change Log for OpenXava project
 ===============================
 
+- Tomcat-dbcp upgraded to 9.0.68.
+- Tomcat-embed-jasper upgraded to 9.0.68.
+- Tomcat-embed-core upgraded to 9.0.68.
+- jaxb-impl upgraded from 2.3.1 to 2.3.7.
+- Pdfbox upgraded to 2.0.27.
+- Groovy upgraded to 4.0.6.
+- Hibernate-envers upgraded to 5.6.12.Final.
+- Hibernate-core upgraded to 5.6.12.Final.
 - Getting started guide using Visual Studio Code in English, Spanish and Chinese.
 - Fix: Bad layout for "Loading..." message on Safari 16 in MacOS 12.
 
