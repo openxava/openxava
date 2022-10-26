@@ -323,7 +323,8 @@ input[type="checkbox"] {
 	z-index: 9999999; 
 	position: fixed; 
 	top: -1px; 
-	left: calc(50% - 45px); 	 
+	left: calc(50% - 45px); 	
+	white-space: nowrap; 
 }
 
 #xava_loading, #xava_loading i {

@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Bad layout for "Loading..." message on Safari 16 in MacOS 12.
+
 OpenXava 7.0.1 (2022-10-21)
 ---------------------------
 - Hibernate upgraded to 5.6.11.
