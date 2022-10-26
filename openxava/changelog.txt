@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Getting started guide using Visual Studio Code in English, Spanish and Chinese.
 - Fix: Bad layout for "Loading..." message on Safari 16 in MacOS 12.
 
 OpenXava 7.0.1 (2022-10-21)
