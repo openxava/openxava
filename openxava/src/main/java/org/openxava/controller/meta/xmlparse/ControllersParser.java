@@ -61,9 +61,9 @@ public class ControllersParser extends ParserBase {
 		for (int i = 0; i < c; i++) {
 			MetaController ctrl= createController(l.item(i));
 			if (ctrl != null) {
-				if (duplicateWarning && MetaControllers.contains(ctrl.getName())) {
-					log.warn(XavaResources.getString("trying_to_load_controller_twice_warning", ctrl.getName()));
-				}
+//				if (duplicateWarning && MetaControllers.contains(ctrl.getName())) {
+//					log.warn(XavaResources.getString("trying_to_load_controller_twice_warning", ctrl.getName()));
+//				} 
 				MetaControllers._addMetaController(ctrl);
 			}
 		}
