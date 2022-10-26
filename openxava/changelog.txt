@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Ambiguous comment in model documentation in English about file persistence configuration.
 - Getting started guide using Visual Studio Code in English, Spanish and Chinese.
 - Fix: Bad layout for "Loading..." message on Safari 16 in MacOS 12.
 
