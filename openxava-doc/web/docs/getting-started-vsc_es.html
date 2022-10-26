@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Tutorial OpenXava: Primeros pasos usando IntelliJ</title>
+    <title>Tutorial OpenXava: Primeros pasos usando Visual Studio Code</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -11,27 +11,28 @@
     <div class="wiki" style="display: block;">
       <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
               href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
-            href="index_es.html">documentación</a> / </span> Primeros pasos con OpenXava usando IntelliJ</h1>
+            href="index_es.html">documentación</a> / </span> Primeros pasos con OpenXava usando Visual Studio Code<span
+          style="color: #505050;"></span></h1>
       <h2 id="toc2"><a name="Nuestro-objetivo-Una-pequena-aplicacion-de-facturacion"></a>Crear un proyecto nuevo</h2>
     </div>
-    <div class="wiki" style="display: block;"> En primer lugar has de crear un nuevo proyecto OpenXava, con las siguientes configuraciones:<br>
-      <img src="files/getting-started-intellij_es020.png" alt="getting-started_es020.png"
-        title="getting-started_es020.png"></div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
+    <div class="wiki" style="display: block;">Si aún no has instalado alguna extensión para Java en tu Visual Studio Code, puedes visitar <a
+        href="https://code.visualstudio.com/docs/languages/java">aquí</a> y seguir las instrucciones.</div>
+    <div class="wiki" style="display: block;">Ahora con el entorno configurado, procedemos a crear un nuevo proyecto OpenXava, pulsa F1 y sigue las instrucciones:<br>
+      <img src="files/getting-started-vsc_es020.png" alt="getting-started_es030.png"
+        title="getting-started_es030.png"></div>
     <div class="wiki" style="display: block;">Ahora tu proyecto ya está listo para empezar a escribir código:<br>
-      <img src="files/getting-started-intellij_es040.png" alt="getting-started_es040.png"
+      <img src="files/getting-started-vsc_es040.png" alt="getting-started_es040.png"
         title="getting-started_es040.png">
       <h2 id="toc9"><a name="Crear-tu-primera-entidad"></a>Crear tu primera entidad</h2>
       Desarrollar es muy fácil: solo has de añadir entidades para ir haciendo crecer tu aplicación. Empezaremos con una versión simplificada de <em>Cliente</em> con solo <em>numero</em> y <i>nombre</i>. </div>
-    <div class="wiki" style="display: block;">Abre la carpeta <i>src/main/java</i>, allí selecciona el paquete <em>com.tuempresa.facturacion.modelo</em>, pulsa el clic derecho y elige<em></em>:<br>
-      <img src="files/getting-started-intellij_es125.png" alt="getting-started_es125.png"
+    <div class="wiki" style="display: block;">En la sección de <i>JAVA PROJECTS</i>, abre la carpeta <i>src/main/java</i>, selecciona el paquete <em>com.tuempresa.facturacion.modelo</em> y pulsa el botón "+"<em> </em>:<br>
+      <img src="files/getting-started-vsc_es125.png" alt="getting-started_es125.png"
         title="getting-started_es125.png"><br>
-      Después teclea <em>Cliente</em> como nombre de clase y presiona enter.<br>
-      <img src="files/getting-started-intellij_es130.png" alt="getting-started_es130.png"
+      Después teclea <em>Cliente</em> como nombre de clase y presiona <i>Enter</i>.<br>
+      <img src="files/getting-started-vsc_es130.png" alt="getting-started_es130.png"
         title="getting-started_es130.png"><br>
       Fíjate que la <em>C</em> de <em>Cliente</em> está en mayúscula, esto es muy importante, en Java todas las clases empiezan con mayúscula.<br>
-      El código inicial que IntelliJ proporciona para <em>Cliente</em> es muy simple:</div>
+      El código inicial que Visual Studio Code proporciona para <em>Cliente</em> es muy simple:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
@@ -39,7 +40,7 @@ public class Cliente {
  
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Ahora, te toca a ti rellenar esta clase para convertirla en una entidad adecuada para OpenXava. Solo necesitas añadir la anotación <em>@Entity</em> y las propiedades <em>numero</em> y nombre:</div>
+    <div class="wiki" style="display: block;">Ahora, te toca a ti rellenar esta clase para convertirla en una entidad adecuada para OpenXava. Solo necesitas añadir la anotación <em>@Entity</em> y las propiedades <em>numero</em> y <i>nombre</i>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.tuempresa.facturacion.modelo;
  
@@ -63,14 +64,15 @@ public class Cliente {
 </code></pre> </div>
     <div class="wiki" style="display: block;">Con esto tienes el código suficiente (justo una clase) para ejecutar tu aplicación. Hagámoslo.<br>
       <h2 id="toc10"><a name="Ejecutar-la-aplicacion"></a>Ejecutar la aplicación</h2>
-      <p>En la pestaña de Maven, selecciona facturacion &gt; Lifecycle, haz doble clic en package y espera un rato.</p>
-      <p><img src="files/getting-started-intellij_es145.png" alt="getting-started_es150.png"
-          title="getting-started_es150.png"></p>
-      Luego, en el paquete <i>com.tuempresa.facturacion.run</i> haz clic derecho en <i>facturacion</i> y pulsa el botón <i>Run'facturacion.main()'</i>:<br>
-      <img src="files/getting-started-intellij_es150.png" alt="getting-started_es150.png"
+    </div>
+    <div class="wiki" style="display: block;">Antes de iniciar la aplicación por primera vez, debes hacer un <i>package</i>: </div>
+    <div class="wiki" style="display: block;"><img src="files/getting-started-vsc_es145.png"
+        alt="getting-started_es150.png" title="getting-started_es150.png"></div>
+    <div class="wiki" style="display: block;"> Luego pulsa el botón <i>Run</i> haciendo clic derecho en <i>facturacion</i>:<br>
+      <img src="files/getting-started-vsc_es150.png" alt="getting-started_es150.png"
         title="getting-started_es150.png"></div>
     <div class="wiki" style="display: block;">Espera hasta que la consola muestre un mensaje diciendo "Aplicación iniciada", como este:</div>
-    <div class="wiki" style="display: block;"><img src="files/getting-started-intellij_es155.png"
+    <div class="wiki" style="display: block;"><img src="files/getting-started-vsc_es155.png"
         alt="getting-started_es155.png" title="getting-started_es155.png"> </div>
     <div class="wiki" style="display: block;">Ya tienes tu aplicación ejecutándose. Para verla, abre tu navegador favorito (Chrome, Firefox, Edge o Safari) y ve a la siguiente URL:</div>
     <div class="wiki" style="display: block;"><br>
@@ -94,11 +96,11 @@ public class Cliente {
       Pulsa en <em>Lista</em> para ver los clientes que has creado. Enhorabuena, tienes tu primera aplicación OpenXava funcionando.<br>
       <h2 id="toc11"><a name="Modificar-la-aplicacion"></a>Modificar la aplicación</h2>
       A partir de ahora, desarrollar con OpenXava es muy fácil. Simplemente, escribes una clase y ya puedes ver el resultado en el navegador. Creemos una entidad para <i>Producto</i>.</div>
-    <div class="wiki" style="display: block;">Selecciona el paquete <em>com.tuempresa.facturacion.modelo</em> y pulsa en <em>New &gt;Java Class</em>:<br>
-      <img src="files/getting-started-intellij_es192.png" alt="getting-started_es125.png"
+    <div class="wiki" style="display: block;">Selecciona el paquete <em>com.tuempresa.facturacion.modelo</em> y pulsa el botón "+"<em></em>:<br>
+      <img src="files/getting-started-vsc_es192.png" alt="getting-started_es125.png"
         title="getting-started_es125.png"><br>
-      Después teclea <em>Producto</em> como nombre de clase y presiona enter.<br>
-      <img src="files/getting-started-intellij_es193.png" alt="getting-started_es193.png"
+      Después teclea <em>Producto</em> como nombre de clase y pulsa <i>Enter</i>.<br>
+      <img src="files/getting-started-vsc_es193.png" alt="getting-started_es193.png"
         title="getting-started_es193.png"></div>
     <div class="wiki" style="display: block;">Escribe el siguiente código para <em>Producto</em>:</div>
     <div class="wiki" style="display: block;">
@@ -119,8 +121,8 @@ public class Producto {
  
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Ahora, pulsa el botón <i>Run</i>, esto parará la aplicación y la volverá a iniciar:</div>
-    <img src="files/getting-started-intellij_es195.png" alt="getting-started_es195.png"
+    <div class="wiki" style="display: block;">Ahora, pulsa el botón <i>Reiniciar</i>, esto parará la aplicación y la volverá a iniciar:</div>
+    <img src="files/getting-started-vsc_es195.png" alt="getting-started_es195.png"
       title="getting-started_es195.png">
     <div class="wiki" style="display: block;"> Para ver tu nueva entidad en acción abre tu navegador y ve a la URL:<br>
     </div>
@@ -132,7 +134,7 @@ public class Producto {
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">Después de identificarte con admin/admin obtendrás:<br>
-      <img src="files/getting-started-maven_es200.png" alt="getting-started_es200.png"
+      <img src="files/getting-started_es200.png" alt="getting-started_es200.png"
         title="getting-started_es200.png"><br>
       Sí, ya tienes un nuevo módulo en marcha, y solo has tenido que escribir una simple clase. Ahora puedes concentrarte en hacer crecer tu aplicación.</div>
     <div class="wiki" style="display: block;">
@@ -150,7 +152,7 @@ public class Producto {
       <div class="wiki" style="display: block;">Te ayudaremos a resolver cualquier dificultad.<br>
         <h2 id="toc12">Siguientes pasos</h2>
       </div>
-      <div class="wiki" style="display: block;">Esta guía de primeros pasos usando IntelliJ, es la lección 1 de un curso completo de OpenXava. El resto del curso esta en Eclipse y te enseñará cómo desarrollar aplicaciones empresariales con OpenXava, así como con otras tecnologías, herramientas y marcos de trabajo Java. Desarrollaremos paso a paso una aplicación completa desde cero. Se trata de una pequeña aplicación de facturación con facturas, clientes, productos y así por el estilo. Esta aplicación es una mera excusa para aprender algunos casos típicos en aplicaciones de gestión. Puedes aplicar todo lo que aprendas con esta aplicación a cualquier otra aplicación de gestión en cualquier otro dominio.<br>
+      <div class="wiki" style="display: block;">Esta guía de primeros pasos usando Visual Studio Code es la lección 1 de un curso completo de OpenXava. El resto del curso está en Eclipse y te enseñará cómo desarrollar aplicaciones empresariales con OpenXava, así como con otras tecnologías, herramientas y marcos de trabajo Java. Desarrollaremos paso a paso una aplicación completa desde cero. Se trata de una pequeña aplicación de facturación con facturas, clientes, productos y así por el estilo. Esta aplicación es una mera excusa para aprender algunos casos típicos en aplicaciones de gestión. Puedes aplicar todo lo que aprendas con esta aplicación a cualquier otra aplicación de gestión en cualquier otro dominio.<br>
         <br>
         Este es el contenido del curso:
         <ul>
@@ -246,8 +248,8 @@ public class Producto {
       </div>
       <div class="wiki" style="display: block;"><br>
       </div>
-      <div class="wiki" style="display: block;">¿Quieres usar <a href="getting-started-maven_es.html">Maven</a> o <a
-          href="getting-started-vsc_es.html">Visual Studio Code</a>? ¿Quieres ir contra MySQL, PostgreSQL, Oracle, Microsoft SQL Server, AS/400, Informix, Db2 o Firebird? ¿Quieres una guía de referencia detallada? Echa un vistazo a <a
+      <div class="wiki" style="display: block;">¿Quieres usar <a href="getting-started-intellij_es.html">IntelliJ</a> o <a
+          href="getting-started-maven_es.html">Maven</a>? ¿Quieres ir contra MySQL, PostgreSQL, Oracle, Microsoft SQL Server, AS/400, Informix, Db2 o Firebird? ¿Quieres una guía de referencia detallada? Echa un vistazo a <a
           href="index_es.html">la documentación de OpenXava</a>, que incluye todo esto y mucho más.
         <ul>
         </ul>

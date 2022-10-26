@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>OpenXava教学：入门 使用Maven</title>
+    <title>OpenXava教学：入门（在Maven）</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,11 +9,9 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
-
-              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
-
-            href="index_zh.html">文档</a> / </span>OpenXava入门 使用Maven</h1>
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_zh.html">文档</a> / </span>在 Maven 的 OpenXava 入门</h1>
       <h2><a name="創建新的項目"></a>创建新的项目</h2>
     </div>
     <div class="wiki" style="display: block;">首先您必须在命令行界面使用 Maven 建立新的 OpenXava 项目，请在 Windows、Linux 或 Mac 输入以下命令：</div>
@@ -25,7 +23,7 @@ $ mvn package</code></pre>
     <div class="wiki" style="display: block;">
       <h2><a name="創建第一個實體"></a>创建第一个实体</h2>
       开发应用程序非常简单：您只需要添加实体使您的应用程序扩展。<br>
-      我们将从 Customer 的简易版本开始，它只有编号和名称，为此您必须在 src/main/java/com/yourcompany/invoicing/model 文件夹中创建一个 Customer.java 文件并输入以下代码：</div>
+      我们将从 Customer 的简易版本开始，它只有 number 和 name，为此您必须在 src/main/java/com/yourcompany/invoicing/model 文件夹中创建一个 Customer.java 文件并输入以下代码：</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.yourcompany.invoicing.model;
  
@@ -61,38 +59,33 @@ public class Customer {
     </div>
     <div class="wiki" style="display: block;"> </div>
     <div class="wiki" style="display: block;">等到控制台显示“应用程序已启动”，如下：</div>
-    <div class="wiki" style="display: block;"><img src="files/getting-started-maven_zh155.png"
-
+    <div class="wiki" style="display: block;"><img src="files/getting-started-maven_zh155.png"
         alt="getting-started_en155.png" title="getting-started_en155.png"> </div>
     <div class="wiki" style="display: block;">现在您的应用程序已经在运行。请开启您的浏览器（Chrome, Firefox, Internet Explorer 11, Edge o Safari）并输入以下连结：</div>
     <div class="wiki" style="display: block;"><br>
       <span style="color: black;"><span style="font-family: sans-serif;"></span></span></div>
-    <div class="wiki" style="display: block;"> <code><i>&nbsp;&nbsp;&nbsp; </i></code><code><i><a
-
+    <div class="wiki" style="display: block;"> <code><i>&nbsp;&nbsp;&nbsp; </i></code><code><i><a
             href="http://localhost:8080/invoicing" target="_blank">http://localhost:8080/invoicing</a></i></code> </div>
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">这是您第一次运行此应用程序，请点击登录按钮并在用户/密码中输入 admin/admin 再点击登录</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <img src="files/getting-started_zh160.png"
-
+    <div class="wiki" style="display: block;"> <img src="files/getting-started_zh160.png"
         alt="getting-started_zh160.png" title="getting-started_zh160.png"></div>
     <img src="files/getting-started_zh165.png" alt="Página de identificación">
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">在左边会有模块列表，选择客戶（Customers）</div>
     <div class="wiki" style="display: block;"><br>
-      <img src="files/getting-started_zh170.png" alt="getting-started_es170.png"
-
+      <img src="files/getting-started_zh170.png" alt="getting-started_es170.png"
         title="getting-started_es170.png"><br>
     </div>
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">我们将使用客戶（Customers）模块来创建新的客户，只需要输入编号和名称并按下保存</div>
     <div class="wiki" style="display: block;"><br>
-      <img src="files/getting-started_zh190.png" alt="getting-started_es190.png"
-
+      <img src="files/getting-started_zh190.png" alt="getting-started_es190.png"
         title="getting-started_es190.png"><br>
     </div>
     <div class="wiki" style="display: block;"><br>
@@ -131,8 +124,7 @@ public class Product {
     <div class="wiki" style="display: block;">在您的浏览器输入以下网址来查看刚创建的实体：</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"><code><i>&nbsp;&nbsp;&nbsp; </i></code><code><i><a
-
+    <div class="wiki" style="display: block;"><code><i>&nbsp;&nbsp;&nbsp; </i></code><code><i><a
             href="http://localhost:8080/invoicing/modules/Product" target="_blank">http://localhost:8080/invoicing/modules/Product</a></i></code><br>
     </div>
     <div class="wiki" style="display: block;"><br>
@@ -140,8 +132,7 @@ public class Product {
     <div class="wiki" style="display: block;">使用 admin/admin 登录后将看到：</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <img src="files/getting-started_zh200.png"
-
+    <div class="wiki" style="display: block;"> <img src="files/getting-started_zh200.png"
         alt="getting-started_es200.png" title="getting-started_es200.png"><br>
     </div>
     <div class="wiki" style="display: block;"><br>
@@ -151,10 +142,8 @@ public class Product {
       <h2 id="toc1">有任何问题吗？</h2>
       恭喜！您已创建您的第一个 OpenXava 应用程序，若您在过程当中遇到任何问题，可以在论譠提问：</div>
     <div class="wiki" style="display: block;"><br>
-      <div class="wiki" style="display: block;">&nbsp;&nbsp;&nbsp; <strong><a
-
-            class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
+      <div class="wiki" style="display: block;">&nbsp;&nbsp;&nbsp; <strong><a
+            class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
             rel="nofollow">前往论譠</a></strong> </div>
       <div class="wiki" style="display: block;"><br>
       </div>
@@ -198,36 +187,30 @@ public class Product {
           </ul>
           <li> 高级验证：</li>
           <ul>
-            <li><a class="wiki_link" href="validating-with-entityvalidator_zh.html">第十八章：使用 @EntityValidator 进行验证</a> <a
-
-                class="wiki_link" href="validation-alternatives_en.html"><span
-
+            <li><a class="wiki_link" href="validating-with-entityvalidator_zh.html">第十八章：使用 @EntityValidator 进行验证</a> <a
+                class="wiki_link" href="validation-alternatives_en.html"><span
                   style="color: #505050;"></span></a></li>
             <li><a class="wiki_link" href="validation-alternatives_zh.html">第十九章：验证替代方案</a></li>
             <li><a class="wiki_link" href="validation-on-remove_zh.html">第二十章：删除时验证 <br>
               </a></li>
             <li><a class="wiki_link" href="custom-bean-validation-annotation_zh.html">第二十一章：自定义 Bean Validation 注解</a></li>
             <li><a class="wiki_link" href="rest-service-call-from-validation_zh.html">第二十二章：在验证中调用 REST 服务 </a></li>
-            <li><a class="wiki_link" href="attributes-in-annotations_zh.html">第二十三章：注解中的属性</a><a
-
+            <li><a class="wiki_link" href="attributes-in-annotations_zh.html">第二十三章：注解中的属性</a><a
                 class="wiki_link" href="attributes-in-annotations_en.html"></a></li>
           </ul>
           <li> 完善默认行为：</li>
           <ul>
-            <li><a class="wiki_link" href="refining-standard-behavior_zh.html">第二十四章：改进标准行为</a><a
-
+            <li><a class="wiki_link" href="refining-standard-behavior_zh.html">第二十四章：改进标准行为</a><a
                 class="wiki_link" href="refining-standard-behavior_en.html"></a></li>
           </ul>
           <li> 业务行为与逻辑：</li>
           <ul>
-            <li><a class="wiki_link" href="business-logic-behavior_zh.html">第二十五章：行为与业务逻辑</a><a
-
+            <li><a class="wiki_link" href="business-logic-behavior_zh.html">第二十五章：行为与业务逻辑</a><a
                 class="wiki_link" href="business-logic-behavior_en.html"></a></li>
           </ul>
           <li> 注解与集合：</li>
           <ul>
-            <li><a class="wiki_link" href="references-collections_zh.html">第二十六章：参照与集合</a><a
-
+            <li><a class="wiki_link" href="references-collections_zh.html">第二十六章：参照与集合</a><a
                 class="wiki_link" href="references-collections_en.html"></a></li>
           </ul>
           <li> 附录：</li>
@@ -243,31 +226,26 @@ public class Product {
       </div>
       <div class="wiki" style="display: block;">您已准备好进入下一章，但您也可以考虑阅读一些基础知识，例如：<br>
         <ul>
-          <li>如果您是 Java 新手，可以阅读一本介绍 Java 的书籍或<span style="color: #0000ee;"> </span><a
-
-              class="wiki_link_ext" href="https://docs.oracle.com/javase/tutorial/"
-
+          <li>如果您是 Java 新手，可以阅读一本介绍 Java 的书籍或<span style="color: #0000ee;"> </span><a
+              class="wiki_link_ext" href="https://docs.oracle.com/javase/tutorial/"
               rel="nofollow">Java教程</a>。</li>
-          <li>如果您对 OpenXava 的理念和架构感兴趣，阅读本课程的 <a class="wiki_link" href="philosophy_en.html"><span
-
+          <li>如果您对 OpenXava 的理念和架构感兴趣，阅读本课程的 <a class="wiki_link" href="philosophy_en.html"><span
                 style="color: #505050;"></span>附录 A</a>。</li>
-          <li>关于 <a class="wiki_link" href="jpa_en.html">Java Persistence API</a> 和 <a
-
+          <li>关于 <a class="wiki_link" href="jpa_en.html">Java Persistence API</a> 和 <a
               class="wiki_link" href="annotations_en.html">注解（annotations）</a>的 附录 B 和 C 对您会非常有用。 </li>
         </ul>
       </div>
       <div class="wiki" style="display: block;"><br>
       </div>
-      <div class="wiki" style="display: block;">您想使用 <a href="getting-started-intellij_zh.html">IntelliJ</a>、MySQL、PostgreSQL、Oracle、Microsoft SQL Server、AS/400、Informix、Db2 或 Firebird 吗? 您想要一个详细的参考指南吗？ 在 <a
-
+      <div class="wiki" style="display: block;">您想使用 <a href="getting-started-intellij_zh.html">IntelliJ</a>、<a
+          href="getting-started-vsc_zh.html">Visual Studio Code</a>、MySQL、PostgreSQL、Oracle、Microsoft SQL Server、AS/400、Informix、Db2 或 Firebird 吗? 您想要一个详细的参考指南吗？ 在 <a
           href="index_zh.html">OpenXava 文檔</a> 中都找的到并且还有更多内容。
         <ul>
         </ul>
         <br>
         <strong>您准备好了吗？ </strong><strong><a class="wiki_link" href="basic-domain-model1_zh.html">到第二章<br>
           </a></strong></div>
-      <div class="wiki" style="display: block;"><strong><a class="wiki_link"
-
+      <div class="wiki" style="display: block;"><strong><a class="wiki_link"
             href="modeling_es.html"><br>
           </a></strong></div>
       <strong></strong> </div>

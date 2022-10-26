@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>OpenXava Tutorial: Getting Started</title>
+    <title>OpenXava Tutorial: Getting Started using Visual Studio Code</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -10,32 +10,29 @@
   <body>
     <div class="wiki" style="display: block;">
       <h1> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
-            href="index_en.html">documentation</a> / </span> Getting started with OpenXava </h1>
-      Follow the next video to create and run your first OpenXava project:</div>
-    <div class="wiki" style="display: block;"> <a href="https://youtu.be/BHx3o6npIUI"
-        target="_blank"><em><img src="files/getting-started_en010.png" title="Follow this video to start with OpenXava"></em></a> <br>
-      Or if you don't like videos follow the instructions below.<br>
+            href="index_en.html">documentation</a> / </span> Getting started with OpenXava using Visual Studio Code<span
+          style="color: #505050;"></span></h1>
       <h2 id="toc2"><a name="Lesson 1: Getting started-Our goal: A small invoicing application"></a>Creating a new project</h2>
     </div>
-    <div class="wiki" style="display: block;"> First, you have to create a new OpenXava project:<br>
-      <img src="files/getting-started_en020.png" alt="getting-started_en020.png"
-        title="getting-started_en020.png"><br>
-      Then a wizard will appear. Just type the project name, <em>invoicing</em>. Also choose English as language so the code below works. Click the <em>Finish</em> button:<br>
-      <img src="files/getting-started_en030.png" alt="getting-started_en030.png"
-        title="getting-started_en030.png"></div>
+    <div class="wiki" style="display: block;">If you haven't yet installed any extension for Java in Visual Studio Code, you can visit <a
+        href="https://code.visualstudio.com/docs/languages/java">here</a> and follow the instructions.<br>
+    </div>
+    <div class="wiki" style="display: block;">Now with the configured environment, we proceed create a new OpenXava project, press F1 and follow the instructions:<br>
+      <img src="files/getting-started-vsc_en020.png" alt="getting-started_en020.png"
+        title="getting-started_en020.png"></div>
     <div class="wiki" style="display: block;">Now your project is ready to start to write code:<br>
-      <img src="files/getting-started_en040.png" alt="getting-started_en040.png"
+      <img src="files/getting-started-vsc_en040.png" alt="getting-started_en040.png"
         title="getting-started_en040.png">
       <h2 id="toc9"><a name="Lesson 1: Getting started-Creating your first entity"></a>Creating your first entity</h2>
       Developing the application is very easy. You only have to add entities in order to make your application grow. We start with a simple version of <em>Customer</em> with only <em>number</em> and name. </div>
-    <div class="wiki" style="display: block;">Open the <i>src/main/java</i> folder, there select the <em>com.yourcompany.invoicing.model</em> package and click on <em>New Java Class</em> button:<br>
-      <img src="files/getting-started_en125.png" alt="getting-started_en125.png"
+    <div class="wiki" style="display: block;">In the <i>JAVA PROJECTS</i> section, Open the <i>src/main/java</i> folder, there select the <em>com.yourcompany.invoicing.model</em> package and click on "+" button:<br>
+      <img src="files/getting-started-vsc_en125.png" alt="getting-started_en125.png"
         title="getting-started_en125.png"><br>
-      Then type <em>Customer</em> as class name and press <em>Finish</em>.<br>
-      <img src="files/getting-started_en130.png" alt="getting-started_en130.png"
+      Then type <em>Customer</em> as class name and press <em>Enter</em>.<br>
+      <img src="files/getting-started-vsc_en130.png" alt="getting-started_en130.png"
         title="getting-started_en130.png"><br>
       Note that the <em>C</em> of <em>Customer</em> is uppercase, this is very important, all Java classes start with uppercase.<br>
-      The initial code that Eclipse provides for <em>Customer</em> is pretty simple:</div>
+      The initial code that Visual Studio Code provides for <em>Customer</em> is pretty simple:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.yourcompany.invoicing.model;
  
@@ -43,7 +40,7 @@ public class Customer {
  
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Now, you have to fill this class in order to convert it to an entity suitable for OpenXava. You only need to add the <em>@Entity</em> annotation, the <em>number</em> and the <em>name </em>properties:</div>
+    <div class="wiki" style="display: block;">Now, you have to fill this class in order to convert it to an entity suitable for OpenXava. You only need to add the <em>@Entity</em> annotation, the <em>number</em> and the name properties:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package com.yourcompany.invoicing.model;
  
@@ -67,11 +64,15 @@ public class Customer {
 </code></pre> </div>
     <div class="wiki" style="display: block;">At last you have enough code (just one class) to run your application. Let's run it.<br>
       <h2 id="toc10"><a name="Lesson 1: Getting started-Running the application"></a>Running the application</h2>
-      Click on the <i>Run</i> button: <br>
-      <img src="files/getting-started_en150.png" alt="getting-started_en150.png"
+    </div>
+    <div class="wiki" style="display: block;">Before starting the application at first time, you need to package:</div>
+    <div class="wiki" style="display: block;"><img src="files/getting-started-vsc_en145.png"
+        alt="getting-started_en150.png" title="getting-started_en150.png"></div>
+    <div class="wiki" style="display: block;">Then right click on invoicing and click the <i>Run</i> button: <br>
+      <img src="files/getting-started-vsc_en150.png" alt="getting-started_en150.png"
         title="getting-started_en150.png"></div>
     <div class="wiki" style="display: block;">Wait until the console shows a message saying "Application started", like this:</div>
-    <div class="wiki" style="display: block;"><img src="files/getting-started_en155.png"
+    <div class="wiki" style="display: block;"><img src="files/getting-started-vsc_en155.png"
         alt="getting-started_en155.png" title="getting-started_en155.png"> </div>
     <div class="wiki" style="display: block;">Then your application is already running. To check this, open your favorite browser (Chrome, Firefox, Edge or Safari) and go to the next URL:</div>
     <div class="wiki" style="display: block;"><br>
@@ -82,12 +83,12 @@ public class Customer {
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">You get your application running for the first time. To start click on SIGN IN button<br>
-      <img src="files/getting-started_en160.png" alt="getting-started_en160.png"
+      <img src="files/getting-started-maven_en160.png" alt="getting-started_en160.png"
         title="getting-started_en160.png"></div>
     <div class="wiki" style="display: block;">Now, enter admin/admin and click on SIGN IN:</div>
-    <img src="files/getting-started_en165.png" alt="Sign In page">
+    <img src="files/getting-started-maven_en165.png" alt="Sign In page">
     <div class="wiki" style="display: block;"> Then on top the left you will have a list of modules, choose <em>Customers</em>:<br>
-      <img src="files/getting-started_en170.png" alt="getting-started_en170.png"
+      <img src="files/getting-started-maven_en170.png" alt="getting-started_en170.png"
         title="getting-started_en170.png"><br>
       Use the <em>Customers</em> module to create new customers, just enter number and name and press <em>Save</em>.<br>
       <img src="files/getting-started_en190.png" alt="getting-started_en190.png"
@@ -95,11 +96,11 @@ public class Customer {
       Click on <em>List</em> to see the list of created customers. Congratulations, you have your first OpenXava application running.<br>
       <h2 id="toc11"><a name="Lesson 1: Getting started-Modifying the application"></a>Modifying the application</h2>
       From now on, developing the application with OpenXava is very easy. Just write a class and go to your browser to see the result. Let's create a new entity for <i>Product</i>.</div>
-    <div class="wiki" style="display: block;">Select the <em>com.yourcompany.invoicing.model</em> package and click on <em>New Java Class</em> button:<br>
-      <img src="files/getting-started_en125.png" alt="getting-started_en125.png"
+    <div class="wiki" style="display: block;">Select the <em>com.yourcompany.invoicing.model</em> package and click on "+" button:<br>
+      <img src="files/getting-started-vsc_en192.png" alt="getting-started_en125.png"
         title="getting-started_en125.png"><br>
-      Then type <em>Product</em> as class name and press <em>Finish</em>.<br>
-      <img src="files/getting-started_en193.png" alt="getting-started_en193.png"
+      Then type <em>Product</em> as class name and press <i>Enter</i>.<br>
+      <img src="files/getting-started-vsc_en193.png" alt="getting-started_en193.png"
         title="getting-started_en193.png"></div>
     <div class="wiki" style="display: block;">Write the next code for <em>Product</em>:</div>
     <div class="wiki" style="display: block;">
@@ -121,7 +122,7 @@ public class Product {
 }
 </code></pre> </div>
     <div class="wiki" style="display: block;">Now, click on the <i>Run</i> button, it stops your application and restarts it again:</div>
-    <img src="files/getting-started_en195.png" alt="getting-started_en195.png"
+    <img src="files/getting-started-vsc_en195.png" alt="getting-started_en195.png"
       title="getting-started_en195.png">
     <div class="wiki" style="display: block;"> To see your new entity in action open your browser and go to the URL:</div>
     <div class="wiki" style="display: block;"><br>
@@ -148,7 +149,7 @@ public class Product {
     <div class="wiki" style="display: block;">We'll help you to overcome any difficulty.<br>
       <h2 id="toc12"><a name="Lesson 1: Getting started-Summary"></a>Next steps</h2>
     </div>
-    <div class="wiki" style="display: block;">This getting started guide is the lesson 1 of a complete OpenXava course. This course is meant to teach you how to develop enterprise applications with OpenXava as well as other Java related technologies, tools and frameworks. Together we will develop step by step a complete application from scratch. The application chosen is a small invoicing application with invoices, customers, products and so on. This application is just a brief way to learn some typical cases in business applications. You can apply everything you learn with the invoicing application to any other business application of any other domain.<br>
+    <div class="wiki" style="display: block;">This guide, getting started using Visual Studio Code, is the lesson 1 of a complete OpenXava course. The rest of the course is in Eclipse and will teach you how to develop enterprise applications with OpenXava as well as other Java related technologies, tools and frameworks. Together we will develop step by step a complete application from scratch. The application chosen is a small invoicing application with invoices, customers, products and so on. This application is just a brief way to learn some typical cases in business applications. You can apply everything you learn with the invoicing application to any other business application of any other domain.<br>
       This is the content of the course:<br>
       <ul>
         <li>Getting started:</li>
@@ -230,7 +231,7 @@ public class Product {
       <p><br>
       </p>
       <p>Do you want to use <a href="getting-started-maven_en.html">IntelliJ</a>, <a
-          href="getting-started-maven_en.html">Maven</a> or <a href="getting-started-vsc_en.html">Visual Studio Code</a>? Do you want to go against MySQL, PostgreSQL, Oracle, Microsoft SQL Server, AS/400, Informix, Db2 or Firebird? Do you want a detailed reference guide? Look at <a
+          href="getting-started-maven_en.html">Maven</a>? Do you want to go against MySQL, PostgreSQL, Oracle, Microsoft SQL Server, AS/400, Informix, Db2 or Firebird? Do you want a detailed reference guide? Look at <a
           href="index_en.html">the OpenXava documentation</a>, that includes this and much more.</p>
       <ul>
       </ul>
