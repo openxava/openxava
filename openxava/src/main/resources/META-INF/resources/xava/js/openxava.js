@@ -452,8 +452,9 @@ openxava.initLists = function(application, module) {
 	    stop: function( event, ui ) {
 	    	ui.item.css("width", "");
 	    	var tableId = $(event.target).closest("table").attr("id"); 
-	    	Tab.moveProperty(tableId, ui.item.startPos - 2, ui.item.index() - 2, () => {
-				openxava.executeAction(application, module, '', false, 'TabRefreshController.tabRefreshAction', 'tabObject=' + tableId)
+	    	Tab.moveProperty(tableId, ui.item.startPos - 2, ui.item.index() - 2, () => { // tmr
+				// tmr openxava.executeAction(application, module, '', false, 'TabRefreshController.tabRefreshAction', 'tabObject=' + tableId)
+				openxava.renumberListColumns(tableId); // tmr
 			});
 	    }
 	});
@@ -485,6 +486,26 @@ openxava.renumberCollection = function(table) {
 		});
 	});
 }
+
+// tmr ini
+openxava.renumberListColumns = function(tableId) {
+	console.log("[openxava.renumberListColumns] tableId=" + tableId); // tmr
+	var table = $('#' + tableId);
+	var column = 0;
+	table.find("th").each(function() {
+		// TMR ME QUEDÉ POR AQUÍ. PARECE QUE FUNCIONA, PERO TENGO QUE RENOMBRAR EL INPUT TAMBIÉN
+		var div = $(this).children('div').first();
+		var divId = div.attr("id");
+		if (divId) {
+			var newId = tableId + "_col" + column++;
+			console.log("[openxava.renumberListColumns] divId=" + divId); // tmr
+			console.log("[openxava.renumberListColumns] newId=" + newId); // tmr
+			console.log("[openxava.renumberListColumns] --------"); // tmr
+			div.attr("id", newId);
+		}
+	});
+}
+// tmr fin
 
 openxava.resetListsSize = function(application, module) {
 	openxava.setListsSize(application, module, "list", openxava.listAdjustment); 
@@ -739,8 +760,8 @@ openxava.removeColumn = function(application, module, columnId, tabObject) {
 	th.fadeOut();
     $(table).find("td:nth-child(" + i + ")").fadeOut();
 	var property = $("#" + columnId).closest("th").attr("data-property");
-	Tab.removeProperty(application, module, property, tabObject, () => {
-		openxava.executeAction(application, module, '', false, 'TabRefreshController.tabRefreshAction', 'tabObject=' + tabObject)
+	Tab.removeProperty(application, module, property, tabObject, () => { // tmr
+		// tmr openxava.executeAction(application, module, '', false, 'TabRefreshController.tabRefreshAction', 'tabObject=' + tabObject)
 	});
 }
 

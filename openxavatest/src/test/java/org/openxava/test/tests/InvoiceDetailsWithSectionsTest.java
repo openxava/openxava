@@ -65,6 +65,7 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		assertLabelInList(4, "V.A.T.");
 		assertLabelInList(5, "Amounts sum");
 		assertLabelInList(6, "Details count");
+		
 		resetModule();
 		assertLabelInList(0, "Year");
 		assertLabelInList(1, "Paid");
@@ -72,7 +73,23 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		assertLabelInList(3, "Date");
 		assertLabelInList(4, "V.A.T.");
 		assertLabelInList(5, "Amounts sum");
-		assertLabelInList(6, "Details count");		
+		assertLabelInList(6, "Details count");
+		
+		// tmr ini
+		moveColumn(0, 1);
+		assertLabelInList(0, "Paid");
+		assertLabelInList(1, "Year");
+		assertLabelInList(2, "Number");
+		assertLabelInList(3, "Date");
+		assertLabelInList(4, "V.A.T.");
+		assertLabelInList(5, "Amounts sum");
+		assertLabelInList(6, "Details count");
+		
+		assertListRowCount(3); // Because latest Number = 1
+		setConditionValues("", "2004");
+		execute("List.filter");
+		assertListRowCount(5);
+		// tmr fin
 	}
 	
 	private void assertFocusInDialogWithAllMembersInSections() throws Exception {   

@@ -1,8 +1,12 @@
 package org.openxava.actions;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+/**
+ * tmr
+ * 
+ * @author javi
+ */
 @Getter
 @Setter
 public class TabRefreshAction extends ViewBaseAction implements ICustomViewAction {
