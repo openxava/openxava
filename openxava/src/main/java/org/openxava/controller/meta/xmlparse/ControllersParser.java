@@ -14,22 +14,20 @@ public class ControllersParser extends ParserBase {
 	
 	private static Log log = LogFactory.getLog(ControllersParser.class); 
 	
-	private String context; // only for spanish version (with swing and web)
-	private boolean duplicateWarning; 	
+	private String context; // only for spanish version (with swing and web)	
 	
-	public ControllersParser(String xmlFileURL, int language, boolean duplicateWarning) {
+	public ControllersParser(String xmlFileURL, int language) {
 		super(xmlFileURL, language);
-		this.duplicateWarning = duplicateWarning; 
 	}
 	
 	public static void configureControllers(String context) throws XavaException {
-		ControllersParser defaultParser = new ControllersParser("default-controllers.xml", ENGLISH, false);
+		ControllersParser defaultParser = new ControllersParser("default-controllers.xml", ENGLISH);
 		defaultParser.setContext(context);
 		defaultParser.parse();
-		ControllersParser enParser = new ControllersParser("controllers.xml", ENGLISH, true);
+		ControllersParser enParser = new ControllersParser("controllers.xml", ENGLISH);
 		enParser.setContext(context);
 		enParser.parse();		
-		ControllersParser esParser = new ControllersParser("controladores.xml", ESPANOL, true);
+		ControllersParser esParser = new ControllersParser("controladores.xml", ESPANOL);
 		esParser.setContext(context);
 		esParser.parse();
 	}
@@ -61,9 +59,6 @@ public class ControllersParser extends ParserBase {
 		for (int i = 0; i < c; i++) {
 			MetaController ctrl= createController(l.item(i));
 			if (ctrl != null) {
-//				if (duplicateWarning && MetaControllers.contains(ctrl.getName())) {
-//					log.warn(XavaResources.getString("trying_to_load_controller_twice_warning", ctrl.getName()));
-//				} 
 				MetaControllers._addMetaController(ctrl);
 			}
 		}
