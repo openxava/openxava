@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Message "WARNING! Trying to load controller {0} twice" for each controller.
 - Driver versions in doc and new projects upgraded for MySQL, Db2.
 - Tomcat-dbcp upgraded to 9.0.68.
 - Tomcat-embed-jasper upgraded to 9.0.68.
