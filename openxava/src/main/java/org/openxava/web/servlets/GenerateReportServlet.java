@@ -168,12 +168,10 @@ public class GenerateReportServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		try {				
 			Tab tab = (Tab) request.getSession().getAttribute("xava_reportTab");
-			int [] selectedRowsNumber = (int []) request.getSession().getAttribute("xava_selectedRowsReportTab");
-			Map [] selectedKeys = (Map []) request.getSession().getAttribute("xava_selectedKeysReportTab");
+			int [] selectedRowsNumber = tab.getSelected();
+			Map [] selectedKeys = tab.getSelectedKeys();
 			int [] selectedRows = getSelectedRows(selectedRowsNumber, selectedKeys, tab);			
-			request.getSession().removeAttribute("xava_selectedRowsReportTab");
 			Integer columnCountLimit = (Integer) request.getSession().getAttribute("xava_columnCountLimitReportTab");
-			request.getSession().removeAttribute("xava_columnCountLimitReportTab");
 			
 			setDefaultSchema(request);
 			String uri = request.getRequestURI();				
@@ -243,7 +241,7 @@ public class GenerateReportServlet extends HttpServlet {
 			throw new ServletException(XavaResources.getString("report_error"));
 		}		
 		finally {
-			request.getSession().removeAttribute("xava_reportTab");
+			// request.getSession().removeAttribute("xava_reportTab"); // We don't do because in some browser configuration the PDF is asked twice and fails in the second one.
 			SessionData.clean();
 		}
 	}
@@ -286,7 +284,7 @@ public class GenerateReportServlet extends HttpServlet {
 	private void setDefaultSchema(HttpServletRequest request) {
 		String jpaDefaultSchemaTab = (String) request.getSession().getAttribute("xava_jpaDefaultSchemaTab");
 		if (jpaDefaultSchemaTab != null) {
-			request.getSession().removeAttribute("xava_jpaDefaultSchemaTab");
+			// request.getSession().removeAttribute("xava_jpaDefaultSchemaTab"); // We don't do because in some browser configuration the PDF is asked twice so second one we'll not use the correct schema
 			XPersistence.setDefaultSchema(jpaDefaultSchemaTab);			
 		}
 	}
