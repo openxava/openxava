@@ -489,19 +489,19 @@ openxava.renumberCollection = function(table) {
 
 // tmr ini
 openxava.renumberListColumns = function(tableId) {
+	// TMR ME QUEDÉ POR AQUÍ: HAY QUE BUSCAR EN LOS INPUT QUE ESTÁN EN LA SUBCABECERA, CON TDs
 	console.log("[openxava.renumberListColumns] tableId=" + tableId); // tmr
 	var table = $('#' + tableId);
 	var column = 0;
-	table.find("th").each(function() {
-		// TMR ME QUEDÉ POR AQUÍ. PARECE QUE FUNCIONA, PERO TENGO QUE RENOMBRAR EL INPUT TAMBIÉN
+	table.find("tr.xava_filter td").each(function() {
 		var div = $(this).children('div').first();
-		var divId = div.attr("id");
+		var divId = div.attr("class");
 		if (divId) {
 			var newId = tableId + "_col" + column++;
 			console.log("[openxava.renumberListColumns] divId=" + divId); // tmr
 			console.log("[openxava.renumberListColumns] newId=" + newId); // tmr
 			console.log("[openxava.renumberListColumns] --------"); // tmr
-			div.attr("id", newId);
+			//div.attr("id", newId);
 		}
 	});
 }
