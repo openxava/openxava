@@ -9,10 +9,8 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Modelar+con+Java"></a> <span id="breadcrumbs"> <span
-
-            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
-
+      <h1 id="toc0"><a name="Modelar+con+Java"></a> <span id="breadcrumbs"> <span
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
             href="index_es.html">documentación</a> / </span>Configurar OpenXava para LeanXcale</h1>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
@@ -28,32 +26,30 @@
         </a>
         <div style="margin-left: 2em;"><a href="#aniadir-dependencias">Añadir dependencias, repositorio y propiedades<br>
           </a> </div>
-      </div>
+        <a href="#reconstruir-proyecto">Reconstruir proyecto<br>
+        </a> <a href="#ejecutar-aplicacion">Ejecutar Aplicacion<br>
+        </a> </div>
       <h2 id="toc1"><a name="que-es-leanxcale"></a>Qué es LeanXcale?</h2>
       LeanXcale es un motor de base de datos ACID que escala linealmente desde un solo nodo hasta cientos de nodos, cuenta con una API key-value de latencia en milisegundos y ejecuta de manera sencilla queries analíticas de SQL y GIS.<br>
       Permite acompañar tu negocio desde el MVP hasta el despliegue global, provee una plataforma rápida y flexible con una visión 360° de toda la información disponible.<br>
       <h3 id="toc2"><a name="empezar-con-leanxcale"></a>Empezar con LeanXcale</h3>
-      LeanXcale provee una versión gratuita con 14 días de prueba sin necesidad de proveer información alguna. Solo necesitas registrarte con tu mail <a
-
-        href="https://www.leanxcale.com/trial">aquí</a> <img src="files/leanxcale-configuration_es10.png"
-
-        alt="leanxcale-configuration_es10.png" title="leanxcale-configuration_es10.png"> <br>
+      LeanXcale provee una versión gratuita con 14 días de prueba sin necesidad de proveer información alguna. Solo necesitas registrarte con tu mail <a
+        href="https://www.leanxcale.com/trial">aquí</a><br>
+      <img src="files/leanxcale-configuration_es10.png" alt="leanxcale-configuration_es10.png"
+        title="leanxcale-configuration_es10.png"> <br>
       Dentro de unos minutos te llegará un mail para activar la versión de prueba y te llevará directamente a la plataforma LeanXcale. <br>
       <h2 id="toc3"><a name="que-es-openxava"></a>Qué es OpenXava?</h2>
       Es un framework Java de código abierto con alta productividad, enfocado para el desarrollo de aplicaciones web empresariales adaptables a múltiples plataformas y soporta prácticamente todos los base de datos relacionales.
       <h3 id="toc4"><a name="empezar-con-openxava"></a>Empezar con OpenXava</h3>
-      OpenXava es gratuito y puedes decargar el Studio registrandote <a
-
+      OpenXava es gratuito y puedes decargar el Studio registrandote <a
         href="https://openxava.org/downloads/register">aquí</a> o puedes usar otro IDE como IntelliJ, VSC con Maven. Una vez registrado, te llegará un mail con el link para descargar el Studio, para este ejemplo usaremos este IDE. <br>
-      <img src="files/leanxcale-configuration_es10.png" alt="leanxcale-configuration_es10.png"
-
+      <img src="files/leanxcale-configuration_es10.png" alt="leanxcale-configuration_es10.png"
         title="leanxcale-configuration_es10.png">
       <h2 id="toc5"><a name="configurar-openxava-para-leanxcale"></a>Configurar OpenXava para LeanXcale</h2>
       Primero debes crear un proyecto OpenXava <br>
-      <img src="files/leanxcale-configuration_es30.png" alt="leanxcale-configuration_es30.png"
-
+      <img src="files/leanxcale-configuration_es30.png" alt="leanxcale-configuration_es30.png"
         title="leanxcale-configuration_es30.png"><br>
-      Ahora creamos una nueva clase Cliente en el paquete com.tuempresa.facturacion.modelo:
+      Ahora creamos una nueva clase <i>Cliente </i>en el paquete <i>com.tuempresa.facturacion.modelo</i>:
       <pre><code class="java">package com.tuempresa.leanxcale.modelo;
 import javax.persistence.*;
 import org.openxava.annotations.*;
@@ -73,7 +69,7 @@ public class Cliente {
  
 }</code></pre>
       <h3 id="toc7"><a name="aniadir-dependencias"></a>Añadir dependencias, repositorio y propiedades</h3>
-      Edita el archivo <i>pom.xml</i> en la raíz de tu proyecto, allí añade las siguientes dependencias dentro de &lt;dependencies&gt;:
+      Edita el archivo <i>pom.xml</i> en la raíz de tu proyecto, allí añade las siguientes dependencias dentro de <i>&lt;dependencies&gt;</i>:
       <pre><code class="xml">&lt;dependency&gt;
 	&lt;groupId&gt;com.leanxcale&lt;/groupId&gt;
 	&lt;artifactId&gt;qe-driver&lt;/artifactId&gt;
@@ -85,37 +81,41 @@ public class Cliente {
 	&lt;artifactId&gt;hibernate-connector&lt;/artifactId&gt;
 	&lt;version&gt;1.9.4&lt;/version&gt;
 &lt;/dependency&gt;<br></code></pre>
-      En el mismo archivo archivo añade el siguiente repositorio en &lt;repositories&gt;:
+      En el mismo archivo archivo añade el siguiente repositorio en <i>&lt;repositories&gt;</i>:
       <pre><code class="xml">&lt;repository&gt;
 	&lt;id&gt;maven-releases&lt;/id&gt;
 	&lt;url&gt;https://nexus.leanxcale.com/repository/maven-releases&lt;/url&gt;
 &lt;/repository&gt;</code></pre>
       Quedaría algo así:<br>
-      <img src="files/leanxcale-configuration_es50.png" alt="leanxcale-configuration_es50.png"
-
+      <img src="files/leanxcale-configuration_es50.png" alt="leanxcale-configuration_es50.png"
         title="leanxcale-configuration_es50.png"><br>
-      Faltaría agregar una propiedad en persistence.xml ubicado en la carpeta src/main/resources/META-INF <br>
+      Faltaría agregar una propiedad en <i>persistence.xml</i> ubicado en la carpeta <i>src/main/resources/META-INF</i> <br>
       <pre><code class="xml">&lt;properties&gt;
       &lt;!-- ... --&gt;
       &lt;property name="hibernate.dialect" value="com.leanxcale.connector.hibernate.LxDialect"/&gt;
 &lt;/properties&gt;</code></pre>
-      <img src="files/leanxcale-configuration_es60.png" alt="leanxcale-configuration_es60.png"
-
+      <img src="files/leanxcale-configuration_es60.png" alt="leanxcale-configuration_es60.png"
         title="leanxcale-configuration_es60.png"><br>
-      Ahora ve a la plataforma de LeanXcale, sección How To Connect y copia el URL <br>
-      <img src="files/leanxcale-configuration_es70.png" alt="leanxcale-configuration_es70.png"
-
+      Ahora ve a la plataforma de LeanXcale, sección "How To Connect" y copia el url:<br>
+      <img src="files/leanxcale-configuration_es70.png" alt="leanxcale-configuration_es70.png"
         title="leanxcale-configuration_es70.png"><br>
-      Luego edita el archivo context.xml ubicado en src/main/webapp/MEFA-INF
+      Luego edita el archivo <i>context.xml</i> ubicado en <i>src/main/webapp/MEFA-INF</i>:
       <pre><code class="xml">&lt;Resource name="jdbc/leanxcaleDS" auth="Container" type="javax.sql.DataSource"
 	  maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	  username="app" password="app" 
 	  driverClassName="com.leanxcale.client.Driver"
 	  url="jdbc:leanxcale://a5357d898f9318f2a75b.lxc-db.com:1522/db"/&gt;</code></pre>
-      Obviamente, debes adaptarlo al proyecto y cambiar el usuario, contraseña y en URL usa el que copiaste en LeanXcale.<br>
-      <img src="files/leanxcale-configuration_es80.png" alt="leanxcale-configuration_es80.png"
-
-        title="leanxcale-configuration_es80.png"></div>
-    
+      Obviamente, debes adaptarlo al proyecto. cambiar el usuario, contraseña y en url pega el que copiaste en la plataforma de LeanXcale.<br>
+      <img src="files/leanxcale-configuration_es80.png" alt="leanxcale-configuration_es80.png"
+        title="leanxcale-configuration_es80.png"><br>
+      <h2 id="toc5"><a name="reconstruir-proyecto"></a>Reconstruir proyecto</h2>
+      Después de los cambios has de reconstruir (rebuild) tu proyecto. En OpenXava Studio pulsa con el botón derecho del ratón en tu proyecto y escoge <i>Run As &gt; Maven install</i>, así:<br>
+      <img src="files/run-as-maven-install.png" alt=""> <br>
+      O si tienes Maven instalado en tu ordenador y prefieres usar la línea de órdenes:
+      <pre><code class="bash">$ cd miaplicacion
+$ mvn install
+</code></pre> Nota de optimización: En lugar de <i>mvn install</i>, que hace un <i>build</i> de Maven completo, puedes usar <i>mvn war:exploded</i>, suficiente para aplicar los cambios de arriba para desarrollo. Puedes llamar a <i>mvn war:exploded</i> desde el OpenXava Studio con <i>Run As &gt; Maven build...</i> y tecleando <i>war:exploded</i> para <i>goal</i>.
+      <h2 id="toc5"><a name="ejecutar-aplicacion"></a>Ejecutar aplicacion</h2>
+      Ejecuta tu aplicación, debería funcionar bien contra tu base de datos LeanXcale. Si fallara, verifica que tu base de datos está funcionando, que el usuario, la contraseña y el url son correctos. </div>
   </body>
 </html>
