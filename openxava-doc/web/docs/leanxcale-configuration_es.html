@@ -99,18 +99,23 @@ public class Cliente {
       &lt;!-- ... --&gt;
       &lt;property name="hibernate.dialect" value="com.leanxcale.connector.hibernate.LxDialect"/&gt;
 &lt;/properties&gt;</code></pre>
-            <img src="files/leanxcale-configuration_es60.png" alt="leanxcale-configuration_es60.png"
+      <img src="files/leanxcale-configuration_es60.png" alt="leanxcale-configuration_es60.png"
 
         title="leanxcale-configuration_es60.png"><br>
-      Ahora ve a la plataforma de LeanXcale, sección How To Connect y copia el URL imagen, Luego edita el archivo context.xml ubicado en src/main/webapp/MEFA-INF
+      Ahora ve a la plataforma de LeanXcale, sección How To Connect y copia el URL <br>
+      <img src="files/leanxcale-configuration_es70.png" alt="leanxcale-configuration_es70.png"
+
+        title="leanxcale-configuration_es70.png"><br>
+      Luego edita el archivo context.xml ubicado en src/main/webapp/MEFA-INF
       <pre><code class="xml">&lt;Resource name="jdbc/leanxcaleDS" auth="Container" type="javax.sql.DataSource"
 	  maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	  username="app" password="app" 
 	  driverClassName="com.leanxcale.client.Driver"
 	  url="jdbc:leanxcale://a5357d898f9318f2a75b.lxc-db.com:1522/db"/&gt;</code></pre>
       Obviamente, debes adaptarlo al proyecto y cambiar el usuario, contraseña y en URL usa el que copiaste en LeanXcale.<br>
-          <img src="files/leanxcale-configuration_es80.png" alt="leanxcale-configuration_es80.png"
+      <img src="files/leanxcale-configuration_es80.png" alt="leanxcale-configuration_es80.png"
 
-        title="leanxcale-configuration_es80.png"><br></div>
+        title="leanxcale-configuration_es80.png"></div>
+    
   </body>
 </html>
