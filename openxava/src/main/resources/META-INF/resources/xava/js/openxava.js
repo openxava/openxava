@@ -449,19 +449,19 @@ openxava.initLists = function(application, module) {
 	    	ui.helper.addClass("xava_dropped");
 	    	ui.item.startPos = ui.item.index(); 
 	    },
-	    // tmr ini
-	    update: function( event, ui ) {
-	    	console.log("[sorttable] update"); // tmr
-	    },
-	    // tmr fin
 	    stop: function( event, ui ) {
 	    	console.log("[sorttable] stop"); // tmr
 	    	ui.item.css("width", "");
 	    	var tableId = $(event.target).closest("table").attr("id"); 
 	    	Tab.moveProperty(tableId, ui.item.startPos - 2, ui.item.index() - 2, () => { // tmr
 				// tmr openxava.executeAction(application, module, '', false, 'TabRefreshController.tabRefreshAction', 'tabObject=' + tableId)
-				openxava.renumberListColumns(tableId); // tmr
+				
 			});
+			// tmr ini
+			setTimeout(function() {
+			    openxava.renumberListColumns(tableId);
+			}, 200);
+			// tmr fin
 	    }
 	});
 	$('.xava_sortable_row').sortable({ 
@@ -495,24 +495,25 @@ openxava.renumberCollection = function(table) {
 
 // tmr ini
 openxava.renumberListColumns = function(tableId) {
-	// TMR ME QUEDÉ POR AQUÍ: EL ORDEN DE LECTURA TODAVÍA NO ES EL CORRECTO, TIENE EL DE ANTES DE MOVER 
+	// TMR ME QUEDÉ POR AQUÍ: CON ESTE CÓDIGO FUNCIONA CUANDO NO HAY UN COLUMAN BOOLEAN EN MEDIO
 	console.log("[openxava.renumberListColumns] tableId=" + tableId); // tmr
 	var table = $('#' + tableId);
-	var column = 0;
 	var token1 = new RegExp("__\\d+", "g");
 	var count = 0;
-	table.find("tr.xava_filter td input").each(function() {
-		var oldId = $(this).attr("id");
-		if (oldId) {
-			console.log("[openxava.renumberListColumns] oldId=" + oldId); // tmr
-			var columnIndex = (count++ / 2) | 0;
-			var token2 = "__" + columnIndex++;
-			var newId = oldId.replace(token1, token2)
-			//console.log("[openxava.renumberListColumns] newId=" + newId); // tmr
-			//console.log("[openxava.renumberListColumns] ------"); // tmr
-			//$(this).attr("id", newId);
-			//$(this).attr("name", newId);
-		}	
+	table.find("tr.xava_filter").children().each(function() {
+		$(this).find("input").each(function() {
+			var oldName = $(this).attr("name");
+			if (oldName) {
+				console.log("[openxava.renumberListColumns] oldName=" + oldName); // tmr
+				var columnIndex = (count++ / 2) | 0;
+				var token2 = "__" + columnIndex;
+				var newName = oldName.replace(token1, token2)
+				//console.log("[openxava.renumberListColumns] newName=" + newName); // tmr
+				//console.log("[openxava.renumberListColumns] ------"); // tmr
+				$(this).attr("name", newName);
+				if ($(this).attr("id")) $(this).attr("id", newName);
+			}	
+		});	
 	});
 }
 // tmr fin
