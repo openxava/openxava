@@ -17,8 +17,14 @@ String collection = request.getParameter("collection");
 String collectionArgv = Is.emptyString(collection)?"":"collection="+collection;
 %>
 <div>
+	<%-- tmr
 	<input type="hidden" name="<xava:id name='<%=prefix + "conditionValue." + index%>'/>" value="true">
 	<input type="hidden" name="<xava:id name='<%=prefix + "conditionValueTo." + index%>'/>" >
+	--%>
+	<%-- tmr ini --%>
+	<input id="<xava:id name='<%=prefix + "conditionValue." + index%>'/>" type="hidden" name="<xava:id name='<%=prefix + "conditionValue." + index%>'/>" value="true">
+	<input id="<xava:id name='<%=prefix + "conditionValueTo." + index%>'/>" type="hidden" name="<xava:id name='<%=prefix + "conditionValueTo." + index%>'/>" >
+	<%-- tmr fin --%>
 	<!-- conditionValueTo: we need all indexes to implement the range filters -->
 </div>
 

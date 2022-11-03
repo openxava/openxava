@@ -495,23 +495,32 @@ openxava.renumberCollection = function(table) {
 
 // tmr ini
 openxava.renumberListColumns = function(tableId) {
-	// TMR ME QUEDÉ POR AQUÍ: CON ESTE CÓDIGO FUNCIONA CUANDO NO HAY UN COLUMAN BOOLEAN EN MEDIO
+	// TMR ME QUEDÉ POR AQUÍ: INTENANDO RENUMERAR LOS SELECTs, PERO NO FUNCIONÓ
 	console.log("[openxava.renumberListColumns] tableId=" + tableId); // tmr
 	var table = $('#' + tableId);
 	var token1 = new RegExp("__\\d+", "g");
 	var count = 0;
 	table.find("tr.xava_filter").children().each(function() {
-		$(this).find("input").each(function() {
-			var oldName = $(this).attr("name");
-			if (oldName) {
-				console.log("[openxava.renumberListColumns] oldName=" + oldName); // tmr
+		var td = $(this);
+		td.find("input").each(function() {
+			var input = $(this);
+			var oldId = input.attr("id");
+			if (oldId) {
+				console.log("[openxava.renumberListColumns] oldId=" + oldId); // tmr
 				var columnIndex = (count++ / 2) | 0;
 				var token2 = "__" + columnIndex;
-				var newName = oldName.replace(token1, token2)
-				//console.log("[openxava.renumberListColumns] newName=" + newName); // tmr
+				var newId = oldId.replace(token1, token2)
+				//console.log("[openxava.renumberListColumns] newId=" + newId); // tmr
 				//console.log("[openxava.renumberListColumns] ------"); // tmr
-				$(this).attr("name", newName);
-				if ($(this).attr("id")) $(this).attr("id", newName);
+				input.attr("id", newId);
+				input.attr("name", newId);
+				td.find("select").each(function() {
+					var select = $(this);
+					var oldId = select.attr("id");
+					var newId = oldId.replace(token1, token2);
+					select.attr("id", newId);
+					select.attr("name", newId);
+				});
 			}	
 		});	
 	});
