@@ -493,10 +493,10 @@ public class SearchExcludingDeletedAction
       We have almost completed the job. When the user removes an entity with a <em>deleted</em> property the entity is marked as deleted instead of actually being removed from the database. And if the user attempts to search for a marked-as-deleted entity he cannot view it in detail mode. However, the user can still see such entities in list mode though, and even worse, if he deletes entities when in list mode, they are actually removed from the database. Let's fix these remaining details.<br>
       <h3 id="toc13"><a name="Lesson 7: Refining the standard behavior-List mode-Filtering tabular data"></a>Filtering tabular data</h3>
       Only entities where the deleted property is false should be shown in list mode. This is very easy to achieve using the <i>@Tab</i> annotation. This annotation allows you to define the way the tabular data (the data shown in list mode) is displayed, moreover it allows you to define a condition. So, adding this annotation to the entities with <em>deleted</em> property is sufficient to achieve our goal, as we show below:<br>
-      <pre><code class="java">@Tab(baseCondition = "deleted = false")
+      <pre><code class="java">@Tab(baseCondition = "${deleted} = false")
 public class Invoice extends CommercialDocument { ... }
  
-@Tab(baseCondition = "deleted = false")
+@Tab(baseCondition = "${deleted} = false")
 public class Order extends CommercialDocument { ... }
 </code></pre> And in this simple way the list mode will not show the marked-as-deleted entities.<br>
       <h3 id="toc14"><a name="Lesson 7: Refining the standard behavior-List mode-List actions"></a>List actions</h3>
@@ -656,12 +656,12 @@ public class InvoicingDeleteSelectedAction
     ...
 &lt;/module&gt;
 </code></pre> Of course you must have a <i>@Tab</i> named “Deleted” in your <em>Order</em> and <em>Invoice</em> entities.<br>
-      <pre><code class="java">@Tab(baseCondition = "deleted = false") // No name, so the default tab
-@Tab(name="Deleted", baseCondition = "deleted = true") // A named tab
+      <pre><code class="java">@Tab(baseCondition = "${deleted} = false") // No name, so the default tab
+@Tab(name="Deleted", baseCondition = "${deleted} = true") // A named tab
 public class Invoice extends CommercialDocument { ... }
  
-@Tab(baseCondition = "deleted = false")
-@Tab(name="Deleted", baseCondition = "deleted = true")
+@Tab(baseCondition = "${deleted} = false")
+@Tab(name="Deleted", baseCondition = "${deleted} = true")
 public class Order extends CommercialDocument { ... }
 </code></pre>You use the <i>@Tab</i> with no name as default list for <em>Invoice</em> and <em>Order</em>, but you have a <i>@Tab</i> named "Deleted" you can use for generating a list with only the deleted rows. In our context you use it for the trash modules. Now you can try your new trash modules, if you don't see it in the menu, sign out and sign in again.</div>
     <div class="wiki" style="display: block;">

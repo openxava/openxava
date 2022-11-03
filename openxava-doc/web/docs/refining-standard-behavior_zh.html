@@ -504,10 +504,10 @@ public class SearchExcludingDeletedAction
       我们几乎要完成了。当用户删除具有 deleted 属性的实体时，该实体會被标记为已删除，但不會从数据库中删除。並且如果用户尝试搜索被标记为已删除的实体時，将无法在详细模式下查看它。但是！用户仍然可以在列表模式下看到这些实体，更糟糕的是，如果他在列表模式下删除实体，它们真的会从数据库中删除。所以让我们修复这些剩余的细节。<br>
       <h3 id="toc13"><a name="Lesson 7: Refining the standard behavior-List mode-Filtering tabular data"></a>筛选表格数据</h3>
       只有 deleted 属性为 false 的实体才应該在列表中显示。使用 @Tab 注解很容易实现这点。此注解允许您定义表格数据（在列表模式下显示的数据）的显示方式，此外它也允许您定义条件。因此，将此注解添加到具有 deleted 属性的实体就足以实现我们的目标，如下所示：<br>
-      <pre><code class="java">@Tab(baseCondition = "deleted = false")
+      <pre><code class="java">@Tab(baseCondition = "${deleted} = false")
 public class Invoice extends CommercialDocument { ... }
  
-@Tab(baseCondition = "deleted = false")
+@Tab(baseCondition = "${deleted} = false")
 public class Order extends CommercialDocument { ... }
 </code></pre> 以这简单的方式，在列表模式時，就不会显示有标记为已删除的实体。<br>
       <h3 id="toc14"><a name="Lesson 7: Refining the standard behavior-List mode-List actions"></a>列表的动作</h3>
@@ -671,12 +671,12 @@ public class InvoicingDeleteSelectedAction
     ...
 &lt;/module&gt;
 </code></pre> 当然，您的 Invoice 和 Order 实体中必须有一个名为 Deleted 的 @Tab。<br>
-      <pre><code class="java">@Tab(baseCondition = "deleted = false") // 没有名字，則使用默认 tab
-@Tab(name="Deleted", baseCondition = "deleted = true") // 有名字的 tab
+      <pre><code class="java">@Tab(baseCondition = "${deleted} = false") // 没有名字，則使用默认 tab
+@Tab(name="Deleted", baseCondition = "${deleted} = true") // 有名字的 tab
 public class Invoice extends CommercialDocument { ... }
  
-@Tab(baseCondition = "deleted = false")
-@Tab(name="Deleted", baseCondition = "deleted = true")
+@Tab(baseCondition = "${deleted} = false")
+@Tab(name="Deleted", baseCondition = "${deleted} = true")
 public class Order extends CommercialDocument { ... }
 </code></pre>当 @Tab 没有名称时，Invoice 和 Order 会使用默认列表，但您还有一个名为 Deleted 的 @Tab，您可以使用它来生成只有已删除的行的列表。在我们的例子，会将它用于垃圾箱模块。<br>
       现在您可以尝试新的垃圾箱模块，如果您在菜单中没有看到它们，请重新登录。</div>
