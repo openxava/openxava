@@ -1,0 +1,148 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>在OpenXava使用LeanXcale</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="Modelar+con+Java"></a> <span id="breadcrumbs"> <span
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_zh.html">文档</a> / </span>OpenXava 与 LeanXcale</h1>
+      <div id="toc">
+        <h1 class="nopad">目录</h1>
+        <a href="#que-es-leanxcale">LeanXcale 是什么? </a><br>
+        <div style="margin-left: 2em;"> <a href="#registrarte-en-leanxcale">注册 LeanXcale<br>
+          </a> </div>
+        <a href="#que-es-openxava">OpenXava 是什么?</a> <br>
+        <div style="margin-left: 2em;"><a href="#registrarte-descargar-openxava-studio">注册并下载 OpenXava Studio<br>
+          </a> </div>
+        <a href="#crear-nuevo-proyecto-openxava">创建 OpenXava 新项目<br>
+        </a>
+        <div style="margin-left: 2em;"><a href="#configurar-openxava-para-leanxcale">配置 OpenXava 以使用 LeanXcale<br>
+          </a> </div>
+        <a href="#reconstruir-proyecto">重建项目<br>
+        </a> <a href="#ejecutar-aplicacion">运行应用程序<br>
+        </a> </div>
+      <h2 id="toc1"><a name="que-es-leanxcale"></a>LeanXcale 是什么?</h2>
+      LeanXcale 是一个 ACID 数据库引擎，可以从单个节点线性灵活地扩展到数百个节点，并拥有一个具有个位数毫秒延迟的键值 API，并在大容量下保持相同的性能。<br>
+      LeanXcale 可以随着您的业务增长而线性扩展，从 MVP 到全球部署；另外还提供了一个快速灵活的平台，可以 360 度全方位查看所有可用信息。<br>
+      <h3 id="toc2"><a name="registrarte-en-leanxcale"></a>注册 LeanXcale</h3>
+      LeanXcale 有试用版而且无需提供任何信息。您只需要在<a href="https://www.leanxcale.com/trial">此处</a>使用您的电子邮件注册<span
+        style="color: #0000ee;"></span><br>
+      <img src="files/leanxcale-configuration_es10.png" alt="leanxcale-configuration_es10.png"
+        title="leanxcale-configuration_es10.png"> <br>
+      几分钟后，您将收到一封激活试用版的电子邮件，点击后会将您带到 LeanXcale 平台。<br>
+      <h2 id="toc3"><a name="que-es-openxava"></a>OpenXava 是什么?</h2>
+      OpenXava 是一个高生产力的 Java 开源框架，专注于开发多平台的企业 Web 应用程序，且几乎支持所有关系数据库。<br>
+      <h3 id="toc4"><a name="registrarte-descargar-openxava-studio"></a>注册并下载 OpenXava Studio</h3>
+      OpenXava 是免费的，您可以在<a href="https://openxava.org/downloads/register">此处</a>注册并下载 Studio，或者您可以在其他 IDE 使用 Maven，如在 IntelliJ、VSC。 在注册后，您将收到一封电子邮件，其中包含下载的链接，以下面我们将使用此 IDE。<br>
+      <img src="files/leanxcale-configuration_zh20.png" alt="leanxcale-configuration_en20.png"
+        title="leanxcale-configuration_en20.png">
+      <h2 id="toc5"><a name="crear-nuevo-proyecto-openxava"></a>创建 OpenXava 新项目</h2>
+      首先，点击 OpenXava &gt; New OpenXava Project 并在视窗输入 ：<br>
+      <img src="files/leanxcale-configuration_zh30.png" alt="leanxcale-configuration_en30.png"
+        title="leanxcale-configuration_en30.png"><br>
+      打开 src/main/java 文件夹，选择 com.yourcompany.invoicing.model 包并点击 New Java Class 按钮：<br>
+      <img src="files/getting-started_zh125.png" alt="getting-started_es125.png"
+        title="getting-started_es125.png"><br>
+      再来在 Name 写下 Customer 为类名并按下 Finish。<br>
+      注意 Customer 的"C"必须是大写，在 Java 所有类的开头都是大写。 <br>
+      <img src="files/getting-started_zh130.png" alt="getting-started_es130.png"
+        title="getting-started_es130.png"><br>
+      在 Customer 贴上以下代码：
+      <pre><code class="java">package com.yourcompany.invoicing.model;
+ 
+import javax.persistence.*;
+import org.openxava.annotations.*;
+import lombok.*;
+ 
+@Entity  
+@Getter @Setter 
+public class Customer {
+ 
+    @Id  
+    @Column(length=6)  
+    int number;
+ 
+    @Column(length=50) 
+    @Required 
+    String name;
+ 
+}</code></pre>
+      <h3 id="toc7"><a name="configurar-openxava-para-leanxcale"></a>配置 OpenXava 以使用 LeanXcale</h3>
+      编辑项目根文件夹中的 pom.xml 文件，在 <i>&lt;dependencies&gt;</i> 中添加：
+      <pre><code class="xml">&lt;dependency&gt;
+	&lt;groupId&gt;com.leanxcale&lt;/groupId&gt;
+	&lt;artifactId&gt;qe-driver&lt;/artifactId&gt;
+	&lt;version&gt;1.9.4&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+	&lt;groupId&gt;com.leanxcale.connectors&lt;/groupId&gt;
+	&lt;artifactId&gt;hibernate-connector&lt;/artifactId&gt;
+	&lt;version&gt;1.9.4&lt;/version&gt;
+&lt;/dependency&gt;<br></code></pre>
+      在同个文件中的 &lt;repositories&gt; 添加以下：
+      <pre><code class="xml">&lt;repository&gt;
+	&lt;id&gt;maven-releases&lt;/id&gt;
+	&lt;url&gt;https://nexus.leanxcale.com/repository/maven-releases&lt;/url&gt;
+&lt;/repository&gt;</code></pre>
+      添加后大约是这样：<br>
+      <img src="files/leanxcale-configuration_es50.png" alt="leanxcale-configuration_es50.png"
+        title="leanxcale-configuration_es50.png">&nbsp; </div>
+    <div class="wiki" style="display: block;"> 另外在 src/main/resources/META-INF 文件夹中的 persistence.xml 里添加：<br>
+      <pre><code class="xml">&lt;properties&gt;
+      &lt;!-- ... --&gt;
+      &lt;property name="hibernate.dialect" value="com.leanxcale.connector.hibernate.LxDialect"/&gt;
+&lt;/properties&gt;</code></pre>
+      <img src="files/leanxcale-configuration_es60.png" alt="leanxcale-configuration_es60.png"
+        title="leanxcale-configuration_es60.png"><br>
+      现在到 LeanXcale 平台，在“How To Connect”页面复制 url：<br>
+      <img src="files/leanxcale-configuration_es70.png" alt="leanxcale-configuration_es70.png"
+        title="leanxcale-configuration_es70.png"><br>
+      然后编辑位于 src/main/webapp/MEFA-INF 文件夹中的 context.xml 文件：
+      <pre><code class="xml">&lt;Resource name="jdbc/invoicingDS" auth="Container" type="javax.sql.DataSource"
+	  maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	  username="app" password="app" 
+	  driverClassName="com.leanxcale.client.Driver"
+	  url="jdbc:leanxcale://a5357d898f9318f2a75b.lxc-db.com:1522/db"/&gt;</code></pre>
+      显然，您必须更改的是用户、密码（如果您使用的是试用版，用户/密码为“app”），在 URL 中贴上您在 LeanXcale 平台上复制的那个。<br>
+      <img src="files/leanxcale-configuration_en80.png" alt="leanxcale-configuration_en80.png"
+        title="leanxcale-configuration_en80.png"><br>
+      <h2 id="toc5"><a name="reconstruir-proyecto"></a>重建项目</h2>
+      做完所有更改后，必须重建项目。在您的项目上點击右键，然后选择 Run As &gt; Maven install：<br>
+      <img src="files/run-as-maven-install.png" alt=""><br>
+      优化小纸条：您可以使用 mvn war:exploded 代替 mvn install 进行完整的 Maven 构建，足以在開發環境中使用上面所有的更改。点击 Run As &gt; Maven build 并在 goals 输入 war:exploded。
+      <h2 id="toc5"><a name="ejecutar-aplicacion"></a>运行应用程序</h2>
+      点击 Run 按钮，等直到控制台显示“应用程序已启动”，如下：<br>
+      <img src="files/getting-started_zh150.png" alt="getting-started_es150.png"
+        title="getting-started_es150.png"><br>
+      <img src="files/getting-started_zh155.png" alt="getting-started_es155.png"
+        title="getting-started_es155.png"> <br>
+      现在您的应用程序已经在运行。请开启您的浏览器（Chrome, Firefox, Internet Explorer 11, Edge o Safari）并输入以下连结：<br>
+      <br>
+      <code><i>&nbsp;&nbsp;&nbsp; <a href="http://localhost:8080/facturacion"
+            target="_blank"> http://localhost:8080/invoicing</a></i></code><br>
+      <code><i><a href="http://localhost:8080/facturacion" target="_blank"></a></i></code><br>
+      这是您第一次运行此应用程序，请点击登录按钮并在用户/密码中输入 admin/admin 再点击登录<br>
+      <img src="files/getting-started_zh160.png" alt="getting-started_es160.png"
+        title="getting-started_es160.png"> <br>
+      <img src="files/getting-started_zh165.png" alt="Página de identificación"> <br>
+      在左边会有模块列表，选择客戶（Customers）<br>
+      <img src="files/getting-started_zh170.png" alt="getting-started_es170.png"
+        title="getting-started_es170.png"><br>
+      点击 列表 可以察看已创建的客户。恭喜！您已成功运行第一个 OpenXava 应用程序。<br>
+      <img src="files/getting-started_zh190.png" alt="getting-started_es190.png"
+        title="getting-started_es190.png"><br>
+      <br>
+      <strong>您喜欢 OpenXava 吗? <a class="wiki_link" href="getting-started_zh.html">我们邀请您至课程第一章</a></strong><a
+        class="wiki_link" href="getting-started_es.html"><br>
+      </a><strong><strong></strong>使用 OpenXava 时碰到什么问题吗？ </strong><strong><a
+          class="wiki_link_ext" href="https://sourceforge.net/p/openxava/discussion/419690/"
+          rel="nofollow">前往论坛</a></strong></div>
+  </body>
+</html>
