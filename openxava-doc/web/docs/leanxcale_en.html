@@ -1,0 +1,152 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Config OpenXava for LeanXcale</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_en.html">documentation</a> / </span>OpenXava with LeanXcale</h1>
+      <div id="toc">
+        <h1 class="nopad">Tabla of contents</h1>
+        <a href="#what-is-leanxcale">What is LeanXcale? <br>
+        </a>
+        <div style="margin-left: 2em;"> <a href="#signup-leanxcale">Sign up for LeanXcale<br>
+          </a> </div>
+        <a href="#what-is-openxava">What is OpenXava? <br>
+        </a>
+        <div style="margin-left: 2em;"><a href="#signup-download-openxava-studio">Sign up and download OpenXava Studio<br>
+          </a> </div>
+        <a href="#create-new-openxava-project">Create new OpenXava project<br>
+        </a>
+        <div style="margin-left: 2em;"><a href="#config-openxava-for-leanxcale">Config OpenXava for LeanXcale<br>
+          </a> </div>
+        <a href="#rebuild-project">Rebuild the project<br>
+        </a> <a href="#run-application">Run application<br>
+        </a> </div>
+      <h2 id="toc1"><a name="what-is-leanxcale"></a>What is LeanXcale?</h2>
+      LeanXcale is an ACID database engine that scales linearly and flexibly from a single node up to hundreds of nodes and boasts a key–value API with single-digit millisecond latency and maintains the same performance for large volumes.<br>
+      LeanXcale can scale linearly as your business grows; from the MVP to global deployment, also provides a fast and flexible platform with a 360º view of all available information.<br>
+      <h3 id="2"><a name="signup-leanxcale"></a>Sign up for LeanXcale</h3>
+      LeanXcale provides a trial version without the need to provide any information. You just need to register with your email <a
+        href="https://www.leanxcale.com/trial">here</a><br>
+      <img src="files/leanxcale-configuration_es10.png" alt="leanxcale-configuration_es10.png"
+        title="leanxcale-configuration_es10.png"> <br>
+      In few minutes you will receive an email to activate the trial version and it will take you directly to the LeanXcale platform. <br>
+      <h2 id="toc3"><a name="what-is-openxava"></a>What is OpenXava?</h2>
+      OpenXava is a Java open-source framework with high productivity, focused on the development of enterprise web application adaptable to multiplatform and supports practically all relational databases.<br>
+      <h3 id="toc4"><a name="signup-download-openxava-studio"></a>Sign up and download OpenXava Studio</h3>
+      OpenXava is free and you can download the Studio sign up <a href="https://openxava.org/downloads/register">here</a> or you can use another IDE such as IntelliJ, VSC with Maven. once registered, you will receive an email with a link to download the Studio, below we will use this IDE. <br>
+      <img src="files/leanxcale-configuration_en20.png" alt="leanxcale-configuration_en20.png"
+        title="leanxcale-configuration_en20.png">
+      <h2 id="toc5"><a name="create-new-openxava-project"></a>Create new OpenXava project</h2>
+      First you have to click on <i>OpenXava &gt; New OpenXava Project</i> and a window will pop up <br>
+      <img src="files/leanxcale-configuration_en30.png" alt="leanxcale-configuration_en30.png"
+        title="leanxcale-configuration_en30.png"><br>
+      Open the <i>src/main/java</i> folder, there select the <i>com.yourcompany.invoicing.model</i> package and click on <i>New Java Class</i> button:<br>
+      <img src="files/getting-started_en125.png" alt="getting-started_es125.png"
+        title="getting-started_es125.png"><br>
+      Then type <em>Customer</em> as class name and press <em>Finish</em>.<br>
+      <img src="files/getting-started_en130.png" alt="getting-started_es130.png"
+        title="getting-started_es130.png"><br>
+      Copy the following code in <i>Customer</i>:
+      <pre><code class="java">package com.yourcompany.invoicing.model;
+ 
+import javax.persistence.*;
+import org.openxava.annotations.*;
+import lombok.*;
+ 
+@Entity  
+@Getter @Setter
+public class Customer {
+ 
+    @Id  
+    @Column(length=6) 
+    int number;
+ 
+    @Column(length=50) 
+    @Required  
+    String name;
+ 
+}</code></pre>
+      <h3 id="toc7"><a name="config-openxava-for-leanxcale"></a>Config OpenXava for LeanXcale</h3>
+      Edit the pom.xml file in the project root folder and add the following dependencies in <i>&lt;dependencies&gt;</i>:
+      <pre><code class="xml">&lt;dependency&gt;
+	&lt;groupId&gt;com.leanxcale&lt;/groupId&gt;
+	&lt;artifactId&gt;qe-driver&lt;/artifactId&gt;
+	&lt;version&gt;1.9.4&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+	&lt;groupId&gt;com.leanxcale.connectors&lt;/groupId&gt;
+	&lt;artifactId&gt;hibernate-connector&lt;/artifactId&gt;
+	&lt;version&gt;1.9.4&lt;/version&gt;
+&lt;/dependency&gt;<br></code></pre>
+      In the same file, add the following repository in <i>&lt;repositories&gt;</i>:
+      <pre><code class="xml">&lt;repository&gt;
+	&lt;id&gt;maven-releases&lt;/id&gt;
+	&lt;url&gt;https://nexus.leanxcale.com/repository/maven-releases&lt;/url&gt;
+&lt;/repository&gt;</code></pre>
+      It would be something like this:<br>
+      <img src="files/leanxcale-configuration_es50.png" alt="leanxcale-configuration_es50.png"
+        title="leanxcale-configuration_es50.png">&nbsp; </div>
+    <div class="wiki" style="display: block;"> Would remain to add a property in <i>persistence.xml</i> located in <i>src/main/resources/META-INF</i> folder: <br>
+      <pre><code class="xml">&lt;properties&gt;
+      &lt;!-- ... --&gt;
+      &lt;property name="hibernate.dialect" value="com.leanxcale.connector.hibernate.LxDialect"/&gt;
+&lt;/properties&gt;</code></pre>
+      <img src="files/leanxcale-configuration_es60.png" alt="leanxcale-configuration_es60.png"
+        title="leanxcale-configuration_es60.png"><br>
+      Now go to LeanXcale platform, "How To Connect" and copy the url:<br>
+      <img src="files/leanxcale-configuration_es70.png" alt="leanxcale-configuration_es70.png"
+        title="leanxcale-configuration_es70.png"><br>
+      Then edit the <i>context.xml</i> file located in <i>src/main/webapp/MEFA-INF</i> folder:
+      <pre><code class="xml">&lt;Resource name="jdbc/invoicingDS" auth="Container" type="javax.sql.DataSource"
+	  maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	  username="app" password="app" 
+	  driverClassName="com.leanxcale.client.Driver"
+	  url="jdbc:leanxcale://a5357d898f9318f2a75b.lxc-db.com:1522/db"/&gt;</code></pre>
+      Obviously, you have to adapt it to your project. change the username, password(if you are using trial version, user/password is "app"), in the url paste the one you copied on the LeanXcale platform.<br>
+      <img src="files/leanxcale-configuration_en80.png" alt="leanxcale-configuration_en80.png"
+        title="leanxcale-configuration_en80.png"><br>
+      <h2 id="toc5"><a name="rebuild-project"></a>Rebuild the project</h2>
+      After the changes you have to rebuild your project. In OpenXava Studio click with right mouse button on your project an choose Run As &gt; Maven install, thus:<br>
+      <img src="files/run-as-maven-install.png" alt=""><br>
+      Optimization note: Instead of a <i>mvn install</i>, that do a complete Maven <i>build</i>, you can use <i>mvn war:exploded</i>, enough to apply the above changes for development. You can run <i>mvn war:exploded</i> from OpenXava Studio with <i>Run As &gt; Maven build</i>... and typing <i>war:exploded</i> for <i>goal</i>.
+      <h2 id="toc5"><a name="run-application"></a>Run application</h2>
+      Click on the <i>Run </i>button:<br>
+      <img src="files/getting-started_en150.png" alt="getting-started_es150.png"
+        title="getting-started_es150.png"><br>
+      Wait until the console shows a message saying "Application started", like this: <br>
+      <img src="files/getting-started_en155.png" alt="getting-started_es155.png"
+        title="getting-started_es155.png"> <br>
+      Then your application is already running. To check this, open your favorite browser (Chrome, Firefox, Edge or Safari) and go to the next URL: <br>
+      <br>
+      <code><i>&nbsp;&nbsp;&nbsp; <a href="http://localhost:8080/facturacion"
+            target="_blank"> http://localhost:8080/invoicing</a></i></code><br>
+      <code><i><a href="http://localhost:8080/facturacion" target="_blank"></a></i></code><br>
+      You get your application running for the first time. To start click on SIGN IN button<br>
+      <img src="files/getting-started_en160.png" alt="getting-started_es160.png"
+        title="getting-started_es160.png"> <br>
+      Now, enter admin/admin and click on SIGN IN: <br>
+      <img src="files/getting-started_en165.png" alt="Página de identificación"> <br>
+      Then on top the left you will have a list of modules, choose <em>Customers</em>:<br>
+      <img src="files/getting-started_en170.png" alt="getting-started_es170.png"
+        title="getting-started_es170.png"><br>
+      Use the <em>Customers</em> module to create new customers, just enter number and name and press <em>Save</em>.<br>
+      <img src="files/getting-started_en190.png" alt="getting-started_es190.png"
+        title="getting-started_es190.png"><br>
+      Click on <i>List </i>to see the list of created customers. Congratulations, you have your first OpenXava application running.<br>
+      <br>
+      <strong>Do you like OpenXava and want more details?</strong><strong> <a
+          class="wiki_link" href="getting-started_en.html">We invite you to watch lesson 1</a></strong><a
+        class="wiki_link" href="getting-started_es.html"><br>
+      </a><strong><strong></strong>Did you have problems with OpenXava? </strong><strong><a
+          class="wiki_link_ext" href="https://sourceforge.net/p/openxava/discussion/419690/"
+          rel="nofollow">Ask in the forum</a></strong></div>
+  </body>
+</html>
