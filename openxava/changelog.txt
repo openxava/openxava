@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- HSQLDB embedded database upgraded to 2.7.1
 - Fix: Generate PDF fails in some browser configurations that ask for the PDF twice. 
 - Fix: JS and CSS for editors not loaded when there are blank spaces in path.
 - Fix: Message "WARNING! Trying to load controller {0} twice" for each controller.
