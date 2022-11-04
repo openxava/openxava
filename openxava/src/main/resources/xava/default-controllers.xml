@@ -851,10 +851,4 @@ here that you want to override.
 		</action>	
 	</controller>
 
-	<!-- tmr -->
-	<controller name="TabRefreshController">
-		<action name="tabRefreshAction"
-				class="org.openxava.actions.TabRefreshAction"/>
-	</controller>
-	
 </controllers>

@@ -805,8 +805,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 			condition =  condition.replace(" group by ", " and " + removeOrder(lastCondition) + " group by ");
 			key = ArrayUtils.addAll(key, lastKey);
 		}
-		System.out.println("[Tab.search] condition=" + condition); // tmp
-		System.out.println("[Tab.search] key=" + Arrays.toString(key)); // tmp
 		tab.search(condition, key);		
 	}
 	
@@ -866,8 +864,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 		MetaProperty pOrder = null;
 		MetaProperty pOrder2 = null;
 		if (!(conditionValues == null || conditionValues.length == 0)) {
-			System.out.println("[Tab.createCondition] conditionValues=" + Arrays.toString(conditionValues)); // tmp
-			System.out.println("[Tab.createCondition] getMetaPropertiesNotCalculated()=" + getMetaPropertiesNotCalculated()); // tmp
 			for (int i = 0; i < this.conditionValues.length; i++) {
 				MetaProperty p = (MetaProperty) getMetaPropertiesNotCalculated().get(i);
 				if (orderBy != null && p.getQualifiedName().equals(orderBy)) {

@@ -450,13 +450,9 @@ openxava.initLists = function(application, module) {
 	    	ui.item.startPos = ui.item.index(); 
 	    },
 	    stop: function( event, ui ) {
-	    	console.log("[sorttable] stop"); // tmr
 	    	ui.item.css("width", "");
 	    	var tableId = $(event.target).closest("table").attr("id"); 
-	    	Tab.moveProperty(tableId, ui.item.startPos - 2, ui.item.index() - 2, () => { // tmr
-				// tmr openxava.executeAction(application, module, '', false, 'TabRefreshController.tabRefreshAction', 'tabObject=' + tableId)
-				
-			});
+	    	Tab.moveProperty(tableId, ui.item.startPos - 2, ui.item.index() - 2);
 			// tmr ini
 			setTimeout(function() {
 			    openxava.renumberListColumns(tableId);
@@ -495,7 +491,8 @@ openxava.renumberCollection = function(table) {
 
 // tmr ini
 openxava.renumberListColumns = function(tableId) {
-	// TMR ME QUEDÉ POR AQUÍ: INTENANDO RENUMERAR LOS SELECTs, PERO NO FUNCIONÓ
+	// TMR ME QUEDÉ POR AQUÍ: FUNCIONA CON BOOLEANOS Y COMPARADORES. NO FUNCIONA EN COLECCIONES Y FALTA LO DE QUITAR COLUMNA. 
+	// TMR		REVISAR OTROS "SOLO COMBOS" COMO VALID-VALUES Y REFERENCES
 	console.log("[openxava.renumberListColumns] tableId=" + tableId); // tmr
 	var table = $('#' + tableId);
 	var token1 = new RegExp("__\\d+", "g");
@@ -516,10 +513,10 @@ openxava.renumberListColumns = function(tableId) {
 				input.attr("name", newId);
 				td.find("select").each(function() {
 					var select = $(this);
-					var oldId = select.attr("id");
-					var newId = oldId.replace(token1, token2);
-					select.attr("id", newId);
-					select.attr("name", newId);
+					var oldName = select.attr("name");
+					var newName = oldName.replace(token1, token2);
+					select.attr("name", newName);
+					if (select.attr("id")) select.attr("id", newName);
 				});
 			}	
 		});	

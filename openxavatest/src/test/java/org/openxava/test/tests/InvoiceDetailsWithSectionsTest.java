@@ -86,10 +86,10 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		assertLabelInList(6, "Details count");
 		
 		assertListRowCount(3); // Because latest Number = 1
-		Thread.sleep(1000); // tmr
-		setConditionValues("", "2004");
+		setConditionComparators("", "<", "=", "=");
+		setConditionValues("true", "2007", "", "");
 		execute("List.filter");
-		assertListRowCount(5);
+		assertListRowCount(6);
 		// tmr fin
 	}
 	
