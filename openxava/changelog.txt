@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Code in lesson 24 of course does not work for databases other than HSQLDB.
 - Documentation to configure your OpenXava application to work LeanXcale database.
 - Fix: Generate PDF fails in some browser configurations that ask for the PDF twice. 
 - Fix: JS and CSS for editors not loaded when there are blank spaces in path.
