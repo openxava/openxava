@@ -75,7 +75,6 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		assertLabelInList(5, "Amounts sum");
 		assertLabelInList(6, "Details count");
 		
-		// tmr ini
 		moveColumn(0, 1);
 		assertLabelInList(0, "Paid");
 		assertLabelInList(1, "Year");
@@ -105,7 +104,6 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		setConditionValues("true", "1", "");
 		execute("List.filter");
 		assertListRowCount(3);
-		// tmr fin
 	}
 	
 	private void assertFocusInDialogWithAllMembersInSections() throws Exception {   

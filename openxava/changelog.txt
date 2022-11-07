@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Filtering in list and collections does not work just after moving or removing a column.
 - Fix: Ambiguous comment in model documentation in English about file persistence configuration.
 - Fix: Code in lesson 24 of course does not work for databases other than HSQLDB.
 - Documentation to configure your OpenXava application to work LeanXcale database.

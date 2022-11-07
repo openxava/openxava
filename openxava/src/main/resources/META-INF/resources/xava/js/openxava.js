@@ -451,17 +451,12 @@ openxava.initLists = function(application, module) {
 	    },
 	    stop: function( event, ui ) {
 	    	ui.item.css("width", "");
-	    	// tmr var tableId = $(event.target).closest("table").attr("id");
-	    	// tmr ini
 	    	var table = $(event.target).closest("table");
 	    	var tableId = table.attr("id");
-	    	// tmr fin 
 	    	Tab.moveProperty(tableId, ui.item.startPos - 2, ui.item.index() - 2);
-			// tmr ini
 			setTimeout(function() {
 			    openxava.renumberListColumns(table);
 			}, 200);
-			// tmr fin
 	    }
 	});
 	$('.xava_sortable_row').sortable({ 
@@ -493,7 +488,6 @@ openxava.renumberCollection = function(table) {
 	});
 }
 
-// tmr ini
 openxava.renumberListColumns = function(table) {
 	var token1 = new RegExp("__\\d+", "g");
 	var count = 0;
@@ -519,7 +513,6 @@ openxava.renumberListColumns = function(table) {
 		});	
 	});
 }
-// tmr fin
 
 openxava.resetListsSize = function(application, module) {
 	openxava.setListsSize(application, module, "list", openxava.listAdjustment); 
@@ -771,10 +764,6 @@ openxava.removeColumn = function(application, module, columnId, tabObject) {
 	var th = $("#" + columnId).closest("th"); 
 	var i = th.index() + 1;
 	var table = th.closest("table");
-	// tmr th.fadeOut();
-	// tmr $(table).find("td:nth-child(" + i + ")").fadeOut();
-	// tmr ini
-
   	$(table).find("td:nth-child(" + i + ")").fadeOut(400, function() {
 		$(this).remove();
   	});
@@ -782,8 +771,6 @@ openxava.removeColumn = function(application, module, columnId, tabObject) {
 		th.remove();
 		openxava.renumberListColumns(table);
   	});
-	// tmr fin
-    
 	var property = $("#" + columnId).closest("th").attr("data-property");
 	Tab.removeProperty(application, module, property, tabObject);
 }
