@@ -2,6 +2,11 @@ Change Log for OpenXava project
 ===============================
 
 - Fix: Ambiguous comment in model documentation in English about file persistence configuration.
+- Fix: Code in lesson 24 of course does not work for databases other than HSQLDB.
+- Documentation to configure your OpenXava application to work LeanXcale database.
+- Fix: Generate PDF fails in some browser configurations that ask for the PDF twice. 
+- Fix: JS and CSS for editors not loaded when there are blank spaces in path.
+- Fix: Message "WARNING! Trying to load controller {0} twice" for each controller.
 - Driver versions in doc and new projects upgraded for MySQL, Db2.
 - Tomcat-dbcp upgraded to 9.0.68.
 - Tomcat-embed-jasper upgraded to 9.0.68.

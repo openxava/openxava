@@ -48,7 +48,7 @@ public class EditorsResources {
 				if (url.getProtocol().equals("jar")) {
 					String jarURL = url.getFile().replace("file:", "");
 					jarURL = Strings.noLastTokenWithoutLastDelim(jarURL, "!");
-					ZipFile zip = new ZipFile(jarURL);
+					ZipFile zip = new ZipFile(jarURL.replaceAll("%20", " "));
 					try {
 						Enumeration<? extends ZipEntry> entries = zip.entries();
 						while (entries.hasMoreElements()) {
