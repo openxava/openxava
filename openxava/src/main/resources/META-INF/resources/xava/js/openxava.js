@@ -451,11 +451,15 @@ openxava.initLists = function(application, module) {
 	    },
 	    stop: function( event, ui ) {
 	    	ui.item.css("width", "");
-	    	var tableId = $(event.target).closest("table").attr("id"); 
+	    	// tmr var tableId = $(event.target).closest("table").attr("id");
+	    	// tmr ini
+	    	var table = $(event.target).closest("table");
+	    	var tableId = table.attr("id");
+	    	// tmr fin 
 	    	Tab.moveProperty(tableId, ui.item.startPos - 2, ui.item.index() - 2);
 			// tmr ini
 			setTimeout(function() {
-			    openxava.renumberListColumns(tableId);
+			    openxava.renumberListColumns(table);
 			}, 200);
 			// tmr fin
 	    }
@@ -490,11 +494,7 @@ openxava.renumberCollection = function(table) {
 }
 
 // tmr ini
-openxava.renumberListColumns = function(tableId) {
-	// TMR ME QUEDÉ POR AQUÍ: FUNCIONA CON BOOLEANOS Y COMPARADORES. NO FUNCIONA EN COLECCIONES Y FALTA LO DE QUITAR COLUMNA. 
-	// TMR		REVISAR OTROS "SOLO COMBOS" COMO VALID-VALUES Y REFERENCES
-	console.log("[openxava.renumberListColumns] tableId=" + tableId); // tmr
-	var table = $('#' + tableId);
+openxava.renumberListColumns = function(table) {
 	var token1 = new RegExp("__\\d+", "g");
 	var count = 0;
 	table.find("tr.xava_filter").children().each(function() {
@@ -503,12 +503,9 @@ openxava.renumberListColumns = function(tableId) {
 			var input = $(this);
 			var oldId = input.attr("id");
 			if (oldId) {
-				console.log("[openxava.renumberListColumns] oldId=" + oldId); // tmr
 				var columnIndex = (count++ / 2) | 0;
 				var token2 = "__" + columnIndex;
 				var newId = oldId.replace(token1, token2)
-				//console.log("[openxava.renumberListColumns] newId=" + newId); // tmr
-				//console.log("[openxava.renumberListColumns] ------"); // tmr
 				input.attr("id", newId);
 				input.attr("name", newId);
 				td.find("select").each(function() {
@@ -774,12 +771,21 @@ openxava.removeColumn = function(application, module, columnId, tabObject) {
 	var th = $("#" + columnId).closest("th"); 
 	var i = th.index() + 1;
 	var table = th.closest("table");
-	th.fadeOut();
-    $(table).find("td:nth-child(" + i + ")").fadeOut();
+	// tmr th.fadeOut();
+	// tmr $(table).find("td:nth-child(" + i + ")").fadeOut();
+	// tmr ini
+
+  	$(table).find("td:nth-child(" + i + ")").fadeOut(400, function() {
+		$(this).remove();
+  	});
+  	th.fadeOut(400, function() {
+		th.remove();
+		openxava.renumberListColumns(table);
+  	});
+	// tmr fin
+    
 	var property = $("#" + columnId).closest("th").attr("data-property");
-	Tab.removeProperty(application, module, property, tabObject, () => { // tmr
-		// tmr openxava.executeAction(application, module, '', false, 'TabRefreshController.tabRefreshAction', 'tabObject=' + tabObject)
-	});
+	Tab.removeProperty(application, module, property, tabObject);
 }
 
 openxava.setPageRowCount = function(application, module, collection, select) {	

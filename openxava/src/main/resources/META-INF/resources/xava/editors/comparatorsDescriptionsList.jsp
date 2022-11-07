@@ -89,9 +89,15 @@ String collection = request.getParameter("collection");
 String collectionArgv = Is.emptyString(collection)?"":"collection="+collection;
 %>
 <div>
+	<%-- tmr
 	<input type="hidden" name="<xava:id name='<%=prefix  + "conditionComparator."  + index%>'/>" value="<%=Tab.EQ_COMPARATOR%>">
 	<input type="hidden" name="<xava:id name='<%=prefix  + "conditionValueTo."  + index%>'/>" >
-	<!-- conditionValueTo: we need all indexes to implement the range filters -->
+	--%>
+	<%-- tmr ini --%>
+	<input id="<xava:id name='<%=prefix  + "conditionComparator."  + index%>'/>" type="hidden" name="<xava:id name='<%=prefix  + "conditionComparator."  + index%>'/>" value="<%=Tab.EQ_COMPARATOR%>">
+	<input id="<xava:id name='<%=prefix  + "conditionValueTo."  + index%>'/>" type="hidden" name="<xava:id name='<%=prefix  + "conditionValueTo."  + index%>'/>" >
+	<%-- tmr fin --%>
+	<%-- conditionValueTo: we need all indexes to implement the range filters --%>
 </div>
 <% if (index < 0) { %>
 <select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" style="width: 100%;" class=<%=style.getEditor()%>>

@@ -25,7 +25,7 @@ String collectionArgv = Is.emptyString(collection)?"":"collection="+collection;
 	<input id="<xava:id name='<%=prefix + "conditionValue." + index%>'/>" type="hidden" name="<xava:id name='<%=prefix + "conditionValue." + index%>'/>" value="true">
 	<input id="<xava:id name='<%=prefix + "conditionValueTo." + index%>'/>" type="hidden" name="<xava:id name='<%=prefix + "conditionValueTo." + index%>'/>" >
 	<%-- tmr fin --%>
-	<!-- conditionValueTo: we need all indexes to implement the range filters -->
+	<%-- conditionValueTo: we need all indexes to implement the range filters --%>
 </div>
 
 <select name="<xava:id name='<%=prefix + "conditionComparator."  + index%>'/>" style="width: 100%;" class=<%=style.getEditor()%>

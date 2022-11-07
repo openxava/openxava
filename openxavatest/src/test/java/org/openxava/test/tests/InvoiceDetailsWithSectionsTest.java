@@ -90,6 +90,21 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		setConditionValues("true", "2007", "", "");
 		execute("List.filter");
 		assertListRowCount(6);
+		
+		clearCondition();
+		removeColumn(1);
+		assertLabelInList(0, "Paid");
+		assertLabelInList(1, "Number");
+		assertLabelInList(2, "Date");
+		assertLabelInList(3, "V.A.T.");
+		assertLabelInList(4, "Amounts sum");
+		assertLabelInList(5, "Details count");
+		
+		assertListRowCount(9); 
+		setConditionComparators("", "=", "=");
+		setConditionValues("true", "1", "");
+		execute("List.filter");
+		assertListRowCount(3);
 		// tmr fin
 	}
 	
