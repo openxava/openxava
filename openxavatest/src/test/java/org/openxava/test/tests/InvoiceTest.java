@@ -1166,7 +1166,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertLabelInList(5, "Paid");
 		assertLabelInList(6, "Importance");
 		
-		removeColumn(4); // VAT, the original index is used until an ajax reload is done
+		removeColumn(3); // VAT
 		assertListColumnCount(6);
 		assertLabelInList(0, "Year");
 		assertLabelInList(1, "Number");

@@ -451,8 +451,12 @@ openxava.initLists = function(application, module) {
 	    },
 	    stop: function( event, ui ) {
 	    	ui.item.css("width", "");
-	    	var tableId = $(event.target).closest("table").attr("id"); 
+	    	var table = $(event.target).closest("table");
+	    	var tableId = table.attr("id");
 	    	Tab.moveProperty(tableId, ui.item.startPos - 2, ui.item.index() - 2);
+			setTimeout(function() {
+			    openxava.renumberListColumns(table);
+			}, 200);
 	    }
 	});
 	$('.xava_sortable_row').sortable({ 
@@ -481,6 +485,32 @@ openxava.renumberCollection = function(table) {
 				.replace(new RegExp("'row=\\d+,viewObject=", "g"), "'row=" + (rowIndex - 1) + ",viewObject=")
 			$(this).attr("href", newHref);
 		});
+	});
+}
+
+openxava.renumberListColumns = function(table) {
+	var token1 = new RegExp("__\\d+", "g");
+	var count = 0;
+	table.find("tr.xava_filter").children().each(function() {
+		var td = $(this);
+		td.find("input").each(function() {
+			var input = $(this);
+			var oldId = input.attr("id");
+			if (oldId) {
+				var columnIndex = (count++ / 2) | 0;
+				var token2 = "__" + columnIndex;
+				var newId = oldId.replace(token1, token2)
+				input.attr("id", newId);
+				input.attr("name", newId);
+				td.find("select").each(function() {
+					var select = $(this);
+					var oldName = select.attr("name");
+					var newName = oldName.replace(token1, token2);
+					select.attr("name", newName);
+					if (select.attr("id")) select.attr("id", newName);
+				});
+			}	
+		});	
 	});
 }
 
@@ -734,8 +764,13 @@ openxava.removeColumn = function(application, module, columnId, tabObject) {
 	var th = $("#" + columnId).closest("th"); 
 	var i = th.index() + 1;
 	var table = th.closest("table");
-	th.fadeOut();
-    $(table).find("td:nth-child(" + i + ")").fadeOut();
+  	$(table).find("td:nth-child(" + i + ")").fadeOut(400, function() {
+		$(this).remove();
+  	});
+  	th.fadeOut(400, function() {
+		th.remove();
+		openxava.renumberListColumns(table);
+  	});
 	var property = $("#" + columnId).closest("th").attr("data-property");
 	Tab.removeProperty(application, module, property, tabObject);
 }

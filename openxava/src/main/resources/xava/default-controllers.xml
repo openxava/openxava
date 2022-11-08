@@ -850,5 +850,5 @@ here that you want to override.
 			<set property="subscribe" value="false" />	
 		</action>	
 	</controller>
-	
+
 </controllers>

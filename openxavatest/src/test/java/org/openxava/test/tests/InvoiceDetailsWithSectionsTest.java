@@ -65,6 +65,7 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		assertLabelInList(4, "V.A.T.");
 		assertLabelInList(5, "Amounts sum");
 		assertLabelInList(6, "Details count");
+		
 		resetModule();
 		assertLabelInList(0, "Year");
 		assertLabelInList(1, "Paid");
@@ -72,7 +73,37 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		assertLabelInList(3, "Date");
 		assertLabelInList(4, "V.A.T.");
 		assertLabelInList(5, "Amounts sum");
-		assertLabelInList(6, "Details count");		
+		assertLabelInList(6, "Details count");
+		
+		moveColumn(0, 1);
+		assertLabelInList(0, "Paid");
+		assertLabelInList(1, "Year");
+		assertLabelInList(2, "Number");
+		assertLabelInList(3, "Date");
+		assertLabelInList(4, "V.A.T.");
+		assertLabelInList(5, "Amounts sum");
+		assertLabelInList(6, "Details count");
+		
+		assertListRowCount(3); // Because latest Number = 1
+		setConditionComparators("", "<", "=", "=");
+		setConditionValues("true", "2007", "", "");
+		execute("List.filter");
+		assertListRowCount(6);
+		
+		clearCondition();
+		removeColumn(1);
+		assertLabelInList(0, "Paid");
+		assertLabelInList(1, "Number");
+		assertLabelInList(2, "Date");
+		assertLabelInList(3, "V.A.T.");
+		assertLabelInList(4, "Amounts sum");
+		assertLabelInList(5, "Details count");
+		
+		assertListRowCount(9); 
+		setConditionComparators("", "=", "=");
+		setConditionValues("true", "1", "");
+		execute("List.filter");
+		assertListRowCount(3);
 	}
 	
 	private void assertFocusInDialogWithAllMembersInSections() throws Exception {   

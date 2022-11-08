@@ -25,9 +25,10 @@ String collection = request.getParameter("collection");
 String collectionArgv = Is.emptyString(collection)?"":"collection="+collection;
 %>
 <div>
-	<input type="hidden" name="<xava:id name='<%=prefix  + "conditionComparator."  + index%>'/>" value="<%=Tab.EQ_COMPARATOR%>" >
-	<input type="hidden" name="<xava:id name='<%=prefix  + "conditionValueTo."  + index%>'/>" >
-	<!-- conditionValueTo: we need all indexes to implement the range filters -->
+	<%-- id needed in order openxava.renumberListColumns() works  --%>
+	<input id="<xava:id name='<%=prefix  + "conditionComparator."  + index%>'/>" value="<%=Tab.EQ_COMPARATOR%>" type="hidden" name="<xava:id name='<%=prefix  + "conditionComparator."  + index%>'/>" value="<%=Tab.EQ_COMPARATOR%>" >
+	<input id="<xava:id name='<%=prefix  + "conditionValueTo."  + index%>'/>" type="hidden" name="<xava:id name='<%=prefix  + "conditionValueTo."  + index%>'/>" >	
+	<%-- conditionValueTo: we need all indexes to implement the range filters --%>
 </div>
 
 <select name="<xava:id name='<%=prefix  + "conditionValue."  + index%>'/>" style="width: 100%;" class=<%=style.getEditor()%>

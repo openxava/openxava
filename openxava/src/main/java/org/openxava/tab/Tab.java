@@ -862,7 +862,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		setFilteredConditionValues(); 
 		
 		MetaProperty pOrder = null;
-		MetaProperty pOrder2 = null;			
+		MetaProperty pOrder2 = null;
 		if (!(conditionValues == null || conditionValues.length == 0)) {
 			for (int i = 0; i < this.conditionValues.length; i++) {
 				MetaProperty p = (MetaProperty) getMetaPropertiesNotCalculated().get(i);

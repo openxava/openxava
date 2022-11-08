@@ -2,6 +2,9 @@ Change Log for OpenXava project
 ===============================
 
 - HSQLDB embedded database upgraded to 2.7.1
+- Fix: Filtering in list and collections does not work just after moving or removing a column.
+- Fix: Ambiguous comment in model documentation in English about file persistence configuration.
+- Fix: Code in lesson 24 of course does not work for databases other than HSQLDB.
 - Documentation to configure your OpenXava application to work LeanXcale database.
 - Fix: Generate PDF fails in some browser configurations that ask for the PDF twice. 
 - Fix: JS and CSS for editors not loaded when there are blank spaces in path.
