@@ -41,7 +41,7 @@ public class Incident extends Identifiable {
 	private Collection<IncidentActivity> activity; 
 	
 	@PreRemove
-	private void removeDiscussion() { 
+	private void removeDiscussion() { // Seems that it does not work, maybe a bug 
 		DiscussionComment.removeForDiscussion(discussion);
 	}
 	

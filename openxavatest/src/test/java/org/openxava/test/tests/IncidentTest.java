@@ -3,6 +3,7 @@ package org.openxava.test.tests;
 import java.text.*;
 import java.util.*;
 
+import org.openxava.jpa.*;
 import org.openxava.test.model.*;
 
 import com.gargoylesoftware.htmlunit.html.*;
@@ -95,7 +96,12 @@ public class IncidentTest extends EmailNotificationsTestBase {
 			"REMOVED: email=openxavatest1@getnada.com, user=juan, application=OpenXavaTest, module=Incident, url=http://localhost:8080" + getContextPath() + "modules/Incident, key={id=" + id + "}"				
 		);			
 	}
-
+	
+	protected void tearDown() throws Exception { 
+		// Because the @PreRemove of Incident does not work, maybe a bug to solve in the future
+		XPersistence.getManager().createQuery("delete from DiscussionComment").executeUpdate();
+		super.tearDown();
+	}
 	
 	private void assertDefaultPropertiesForListWithoutTab() throws Exception {  
 		assertListColumnCount(2);
