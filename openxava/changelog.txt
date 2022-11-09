@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: SchemaTool does not generate well constraints for Microsoft SQL Server inside schemas.
 - HSQLDB embedded database upgraded to 2.7.1.
 - Fixed 1 potential security vulnerabilities in dependencies, now we have 0 vulnerabilities.
 - Fix: Filtering in list and collections does not work just after moving or removing a column.

@@ -181,6 +181,7 @@ public class SchemaTool {
 	private boolean supportsSchemasInIndexDefinitions(Connection connection) throws SQLException { 
 		DatabaseMetaData metaData = connection.getMetaData();
 		if ("PostgreSQL".equals(metaData.getDatabaseProductName())) return false;
+		if ("Microsoft SQL Server".equals(metaData.getDatabaseProductName())) return false; 
 		return metaData.supportsSchemasInIndexDefinitions();
 	}
 	
