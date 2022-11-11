@@ -6,6 +6,7 @@ import javax.inject.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.model.*;
+import org.openxava.tab.*;
 import org.openxava.util.*;
 import org.openxava.validators.*;
 import org.openxava.view.*;
@@ -106,23 +107,17 @@ abstract public class ViewBaseAction extends BaseAction {
 	protected void returnToPreviousView() {		
 		if (getPreviousViews() != null) {
 			if (!getPreviousViews().empty()) {		
-				
-//				Tab tab = (Tab) getContext().get(getRequest(), "xava_tab");
-//				Tab mainTab = (Tab) getContext().get(getRequest(), "xava_mainTab");
-//				System.out.println("tab " + tab.getModelName() + " maintab " + mainTab.getModelName());
-//				if (tab != null && mainTab != null && getPreviousView().getModelName() != null) {
-//					if (getPreviousView().getModelName().equalsIgnoreCase(mainTab.getModelName())) {
-//						System.out.println("getModelName no null");
-//						getContext().put(getRequest(), "xava_tab", mainTab);
-//					}
-//				}
-//				if (tab != null) {
-//					tab.deselectAll();
-//					tab.reset();
-//				}
-				
-				
-				
+				Tab tab = (Tab) getContext().get(getRequest(), "xava_tab");
+				Tab mainTab = (Tab) getContext().get(getRequest(), "xava_mainTab");
+				if (tab != null && mainTab != null && getPreviousView().getModelName() != null) {
+					if (getPreviousView().getModelName().equalsIgnoreCase(mainTab.getModelName())) {
+						getContext().put(getRequest(), "xava_tab", mainTab);
+					}
+				}
+				if (tab != null) {
+					tab.deselectAll();
+					tab.reset();
+				}
 				View previousView = (View) getPreviousViews().pop();
 				previousView.setRequest(getRequest());
 				setView(previousView);
