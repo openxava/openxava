@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Documentation to modify OpenXava code with Maven version.
 - Fix: New project created from openxava-archetype-spanish has an archetype-metadata.xml in root folder. 
 - Fix: New project created from openxava-archetype-spanish contains unknown characters for accents.
 - Improved Oracle configuration documentation.
