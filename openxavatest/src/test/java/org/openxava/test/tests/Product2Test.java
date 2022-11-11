@@ -317,12 +317,34 @@ public class Product2Test extends EmailNotificationsTestBase {
 		execute("Navigation.next");		
 		assertValue("number", "2");
 		assertValue("family.number", "2");
+		assertValue("description", "IBM ESERVER ISERIES 270");
 		assertValue("subfamily.number", "11");		
 		execute("Navigation.next");
 		assertValue("number", "3");
 		assertValue("family.number", "1");
 		assertValue("subfamily.number", "1");						
 	}
+	
+	public void testDefaultValueStillInMainTabWhenChangeTabOnReferenceSearch() throws Exception {		
+		assertNoDialog();
+		setConditionValues(new String [] {"3", "", "", "", "", ""});
+		execute("List.filter");
+		assertListRowCount(1);
+		execute("Product2.reportBySubfamily");
+		assertDialog();
+		setValue("subfamily.number", "3");
+		execute("Reference.modify", "model=Subfamily2,keyProperty=subfamily.number");
+		assertDialog();
+		execute("Collection.add", "viewObject=xava_view_productsValues");
+		assertDialog();
+		assertListRowCount(7);
+		closeDialog();
+		closeDialog();
+		closeDialog();
+		assertNoDialog();
+		assertListRowCount(1);
+	}
+	
 	
 	public void testCreateModifyAndReadWithDescriptionsListReference() throws Exception {
 				
