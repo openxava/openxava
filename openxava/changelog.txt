@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Original list condition lost when a dialog from list mode shows another list.
 - Fix: SchemaTool does not generate well constraints for Microsoft SQL Server inside schemas.
 - Documentation to modify OpenXava code with Maven version.
 - Fix: New project created from openxava-archetype-spanish has an archetype-metadata.xml in root folder. 
