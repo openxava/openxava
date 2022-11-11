@@ -10,7 +10,135 @@
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
           / </span> Modificar código de OpenXava</h1>
       Puedes modificar el código de OpenXava para adaptarlo a tus necesidades,
-      arreglar algún fallo, añadir nuevas características, etc.<br>
+      arreglar algún fallo, añadir nuevas características, etc.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc1">Desde v7.0</h2>
+      <div class="wiki" style="display: block;">El código de OpenXava ya no se
+        incluye en la distribución, ahora lo tienes que coger desde el <a href="https://github.com/openxava/openxava">repositorio
+          de OpenXava en GitHub repository</a>. El código de OpenXava
+        propiamente dicho está en el proyecto <i>openxava</i> dentro del
+        repositorio:</div>
+      <img src="files/openxava-in-github_es.png">
+      <div class="wiki" style="display: block;">Puedes modificarlo, compilarlo e
+        instalarlo usando Git, Maven y tu IDE favorito. Si no estás
+        familiarizado con Git y Maven, aquí te presentamos una guía detallada
+        para modificar el código de OpenXava para tu aplicación usando OpenXava
+        Studio.</div>
+      <div class="wiki" style="display: block;">
+        <h3>Descargar el código desde GitHub</h3>
+        <p>Primero ve a la <a href="https://github.com/openxava/openxava">pagina
+            de OpenXava en GitHub</a> y copia la URL del repositorio:</p>
+        <img src="files/copy-openxava-repository-url_es.png">
+        <p>Después abre la perspectiva Git en OpenXava Studio, para ello pulsa
+          en el botón en la esquina superior derecha:</p>
+        <img src="files/add-perspective-eclipse.png" alt=""></div>
+      <div class="wiki" style="display: block;">Esto muestra un diálogo, escoge
+        la perspectiva Git:</div>
+      <div class="wiki" style="display: block;"><img src="files/choose-git-perspective-eclipse.png"
+          alt=""><br>
+        <p>Una vez en la perspectiva Git, pulsa en <i>Clone a Git repository</i>:</p>
+        <img src="files/clone-git-repository-option-eclipse.png" alt="">
+        <p>Dado que la has copiado desde la página de GitHub, la URL del
+          repositorio OpenXava se ha rellenado automáticamente, sólo tienes que
+          pulsar en <i>Next</i>:</p>
+        <img src="files/clone-git-repository-step1-eclipse.png" alt="">
+        <p>Se muestran todas las ramas, simplemente pulsa en <i>Next</i>:</p>
+        <img src="files/clone-git-repository-step2-eclipse.png" alt="">
+        <p>Para acabar pulsa en <i>Finish</i>:</p>
+        <img src="files/clone-git-repository-step3-eclipse.png" alt="">
+        <p>Ahora sé paciente mientras que el código del repositorio se descarga
+          desde GitHub:</p>
+        <img src="files/progress-importing-repository-eclipse.png" alt="">
+        <p>Cuando acabe tendrás el repositorio <i>openxava </i>listado en la
+          parte izquierda de OpenXava Studio:</p>
+        <img src="files/openxava-repository-git-perspective-eclipse.png" alt="">
+        <p>¡Enhorabuena! El repositorio de OpenXava está descargado en tu
+          ordenador y configurado en el OpenXava Studio. El siguiente paso es
+          importar el proyecto <i>openxava</i>
+          en tu workspace.</p>
+        <h3>Importar openxava en el workspace</h3>
+        <p>Primero, vuelve a la perspectiva Java, para ello pulsa el botón
+          correspondiente en la esquina superior derecha del OpenXava Studio:</p>
+        <img src="files/change-to-java-perspective-eclipse.png" alt="">
+        <p>Para importar el proyecto <i>openxava</i> pulsa en <i>File &gt;
+            Import...</i>: </p>
+        <img src="files/file-import-eclipse.png" alt="">
+        <p>Ahora selecciona <i>Git &gt; Projects from Git</i> y pulsa en <i>Next</i>:</p>
+        <img src="files/import-step1-eclipse.png" alt="">
+        <p>Escoge <i>Existing local repository</i> y pulsa en <i>Next</i>:</p>
+        <img src="files/import-step2-eclipse.png" alt="">
+        <p>Selecciona el repositorio <i>openxava</i> y pulsa en <i>Next</i>:</p>
+        <img src="files/import-step3-eclipse.png" alt="">
+        <p>Selecciona la carpeta <i>openxava</i> y pulsa en <i>Next</i>:</p>
+        <img src="files/import-step4-eclipse.png" alt="">
+        <p>Asegurate de que <i>openxava</i> está marcado y pulsa en <i>Finish</i>:</p>
+        <img src="files/import-step5-eclipse.png" alt="">
+        <p>Y por fin el proyecto <i>openxava</i> con todo su código está en tu
+          workspace:</p>
+        <img src="files/openxava-project-in-workspace-eclipse.png" alt="">
+        <p>Ahora ya puedes modificar el código de openxava a tu gusto.</p>
+        <h3>Modificar código de OpenXava</h3>
+        <p>Primero, asegurate de que la versión en <i>openxava/pom.xml</i> es
+          una SNAPSHOT. Abre el <i>pom.xml</i> dentro del proyecto <i>openxava</i>
+          y verifica la versión:</p>
+        <img src="files/openxava-pom-snapshot-version-eclipse.png" alt="">
+        <p>Si estás usando la rama master seguramente la versión será una
+          SNAPSHOT, si no modificala añadiendo el sufijo -SNAPSHOT. Esto
+          significa que es una versión de trabajo, sin código congelado sino
+          lista para ser modificada.</p>
+        <p>Ahora es el momento de modificar el código. Por ejemplo, edita el
+          código de <i>NewAction.java</i> code añadiendo un print, como esto:</p>
+        <img src="files/modifying-new-action.png" alt="">
+        <p>Después haz un <i>mvn install</i> en <i>openxava</i>, de esta
+          manera:</p>
+        <img src="files/openxava-maven-install-eclipse.png" alt="">
+        <p>En esta ocasión no es necesario hacer un <i>mvn clean</i> porque
+          acabamos de descargar el código y <i>target</i> está vacío, pero si
+          coges código nuevo desde GitHub (con un pull) deberías hacer un <i>mvn
+            clean</i> también.</p>
+        <p>Ahora, ve a tu proyecto, edita el <i>pom.xml</i> y pon en la
+          propiedad <i>openxava.version</i> el valor de la versión SNAPSHOT de
+          OpenXava que tienes en tu workspace:</p>
+        <img src="files/invoicing-pom-update-to-snapshot.png" alt="">
+        <p>Esto es importante, porque si no tu proyecto no usará tu versión
+          modificada sino la versión oficial de Maven Central.</p>
+        <p>Después haz un <i>mvn clean</i> en tu proyecto:</p>
+        <img src="files/invoicing-maven-clean.png" alt="">
+        <p>Y un <i>mvn install</i> también en tu proyecto:</p>
+        <img src="files/invoicing-maven-install.png" alt="">
+        <p>!Enhorabuena! Tu proyecto está listo para que lo ejecutes con tu
+          OpenXava modificado. Pruébalo.</p>
+        <h3>Acortar el ciclo de modificación</h3>
+        <p>Los pasos de arriba son para la primera modificación. A partir de
+          ahora va a ser más fácil. Para hacer una modificación sólo necesitas
+          tres pasos:</p>
+        <ol>
+          <li>Modifica el código de openxava.</li>
+          <li>Haz un mvn install en openxava.</li>
+          <li>Haz un mvn war:exploded en tu proyecto. Para esto puedes usar Run
+            As &gt; Build Maven ...</li>
+        </ol>
+        <p>Y la siguiente vuelta de tuerca es usar el modo debug. Arranca tu
+          aplicación pulsando el escarabajo:</p>
+        <img src="files/debug-button-eclipse.png" alt="">
+        <p>De esta forma podrás modificar el código de openxava y ver el
+          resultado en el acto, sin relanzar la aplicación e incluso sin
+          recargar la página en el navegadro. Magia pura.</p>
+        <h3>Ramas</h3>
+        <p>En el ejemplo de arriba hemos modicado directamente la rama master,
+          lo que no es un problema dado que no tienes permisos para hacer un
+          push contra el repositorio de OpenXava. Sin embargo, puedes hacer un
+          uso más avanzado de las ramas. Como mínimo, deberías crear tu propia
+          rama antes de hacer cualquier cambio y hacer el cambio en tu propia
+          rama. Cuando el cambio esté completo y funcione bien, puedes mezclar
+          tu rama con el master.</p>
+        Si quieres contribuir código a OpenXava, deberías crearte una cuenta en
+        GitHub y después hacer un clon del repositorio de OpenXava en tu cuenta.
+        Sigue las instrucciones de arriba pero coge el código de tu propio
+        repositorio en vez desde openxava/openxava. De esta forma, puedes crear
+        una rama, hacer un push y crear un pull request contra el repositorio
+        original de OpenXava, donde podría ser aprobado e incluido en la
+        siguiente versión oficial de OpenXava.</div>
       <h2 id="toc1">Desde v6.4</h2>
       <i> Has de definir OpenXava.buildOpenXava (o OpenXava.buildAddons) en
         External Tools de Eclipse (OpenXava Studio). Para aprender como ejecutar
