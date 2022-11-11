@@ -44,10 +44,10 @@ of openxava.js you have to test it visually at least for the next cases:
 	- Type:
 		 5.2.2017. -> 5.2.2017.
 		 5.2.2017  -> 5.2.2017.
-		 5.2.17.   -> 5.2.2017.
-		 5.2.17    -> 5.2.2017.
-		 05022017  -> 5.2.2017.
-		 050217    -> 5.2.2017.	 		
+		 5.2.17.   -> 5.2.2017. showing another date
+		 5.2.17    -> 5.2.2017. showing another date
+		 05022017  -> 5.2.2017. show but error
+		 050217    -> 5.2.2017.	show but error	
 	
 Use any entity with a date in list mode. Like Invoice filtering by date in list.
 - With = (calendar shown)
