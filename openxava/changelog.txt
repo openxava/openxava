@@ -1,31 +1,31 @@
 Change Log for OpenXava project
 ===============================
 
+- HSQLDB embedded database upgraded to 2.7.1.
+- Embedded Tomcat used in development upgraded to 9.0.68.
+- Hibernate upgraded to 5.6.12.
+- Hibernate Envers upgraded to 5.6.12.
+- JAXB impl upgraded to 2.3.7.
+- PdfBox upgraded to 2.0.27.
+- Groovy upgraded to 4.0.6.
+- Driver versions in doc and new projects upgraded for MySQL and Db2.
+
+- Documentation to modify OpenXava code with Maven version.
+- Getting started guide using Visual Studio Code in English, Spanish and Chinese.
+- Documentation to configure your OpenXava application to work with LeanXcale database.
+- Improved Oracle configuration documentation.
+
+- Fixed 1 potential security vulnerabilities in dependencies, now we have 0 vulnerabilities.
+- Fix: JS and CSS for editors not loaded when there are blank spaces in path.
+- Fix: Message "WARNING! Trying to load controller {0} twice" for each controller.
 - Fix: Original list condition lost when a dialog from list mode shows another list.
 - Fix: SchemaTool does not generate well constraints for Microsoft SQL Server inside schemas.
-- Documentation to modify OpenXava code with Maven version.
 - Fix: New project created from openxava-archetype-spanish has an archetype-metadata.xml in root folder. 
 - Fix: New project created from openxava-archetype-spanish contains unknown characters for accents.
-- Improved Oracle configuration documentation.
-- HSQLDB embedded database upgraded to 2.7.1.
-- Fixed 1 potential security vulnerabilities in dependencies, now we have 0 vulnerabilities.
 - Fix: Filtering in list and collections does not work just after moving or removing a column.
 - Fix: Ambiguous comment in model documentation in English about file persistence configuration.
 - Fix: Code in lesson 24 of course does not work for databases other than HSQLDB.
-- Documentation to configure your OpenXava application to work LeanXcale database.
 - Fix: Generate PDF fails in some browser configurations that ask for the PDF twice. 
-- Fix: JS and CSS for editors not loaded when there are blank spaces in path.
-- Fix: Message "WARNING! Trying to load controller {0} twice" for each controller.
-- Driver versions in doc and new projects upgraded for MySQL, Db2.
-- Tomcat-dbcp upgraded to 9.0.68.
-- Tomcat-embed-jasper upgraded to 9.0.68.
-- Tomcat-embed-core upgraded to 9.0.68.
-- jaxb-impl upgraded from 2.3.1 to 2.3.7.
-- Pdfbox upgraded to 2.0.27.
-- Groovy upgraded to 4.0.6.
-- Hibernate-envers upgraded to 5.6.12.Final.
-- Hibernate-core upgraded to 5.6.12.Final.
-- Getting started guide using Visual Studio Code in English, Spanish and Chinese.
 - Fix: Bad layout for "Loading..." message on Safari 16 in MacOS 12.
 
 OpenXava 7.0.1 (2022-10-21)
