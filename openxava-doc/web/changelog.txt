@@ -1,6 +1,33 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.0.2 (2022-11-11)
+---------------------------
+- HSQLDB embedded database upgraded to 2.7.1.
+- Embedded Tomcat used in development upgraded to 9.0.68.
+- Hibernate upgraded to 5.6.12.
+- Hibernate Envers upgraded to 5.6.12.
+- JAXB impl upgraded to 2.3.7.
+- PdfBox upgraded to 2.0.27.
+- Groovy upgraded to 4.0.6.
+- Driver versions in doc and new projects upgraded for MySQL and Db2.
+- Documentation to modify OpenXava code with Maven version.
+- Getting started guide using Visual Studio Code in English, Spanish and Chinese.
+- Documentation to configure your OpenXava application to work with LeanXcale database.
+- Improved Oracle configuration documentation.
+- Fixed 1 potential security vulnerabilities in dependencies, now we have 0 vulnerabilities.
+- Fix: JS and CSS for editors not loaded when there are blank spaces in path.
+- Fix: Message "WARNING! Trying to load controller {0} twice" for each controller.
+- Fix: Original list condition lost when a dialog from list mode shows another list.
+- Fix: SchemaTool does not generate well constraints for Microsoft SQL Server inside schemas.
+- Fix: New project created from openxava-archetype-spanish has an archetype-metadata.xml in root folder. 
+- Fix: New project created from openxava-archetype-spanish contains unknown characters for accents.
+- Fix: Filtering in list and collections does not work just after moving or removing a column.
+- Fix: Ambiguous comment in model documentation in English about file persistence configuration.
+- Fix: Code in lesson 24 of course does not work for databases other than HSQLDB.
+- Fix: Generate PDF fails in some browser configurations that ask for the PDF twice. 
+- Fix: Bad layout for "Loading..." message on Safari 16 in MacOS 12.
+
 OpenXava 7.0.1 (2022-10-21)
 ---------------------------
 - Hibernate upgraded to 5.6.11.
@@ -22,7 +49,6 @@ OpenXava 7.0.1 (2022-10-21)
 - Fix: Chunks of XML code in the content of a @HtmlText property are not saved.
 - Fix: Applications using root context do not work since 7.0 from development environment. 
 - Fix: HtmlText editor removes content when < followed by a character is used, like <a.
-- Fix: New project created from openxava-archetype-spanish contains unknown characters for accents.
 - Fix: Connection to AS/400 fails using the default dependency in new projects pom.xml and docs. 
 - Fix: Some messages in log not translated when using a JVM language other than English, Spanish or Chinese. 
 - Fix: Empty configuration file, like editors.xml, controllers.xml, etc, produces a parse exception.
