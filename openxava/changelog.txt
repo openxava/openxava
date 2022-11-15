@@ -1,6 +1,12 @@
 Change Log for OpenXava project
 ===============================
 
+- Hibernate upgraded to 5.6.14.
+- Tomcat-embed-core upgraded to 9.0.69.
+- Tomcat-embed-jasper upgraded to 9.0.69.
+- Tomcat-dbcp upgraded to 9.0.69.
+- Driver versions in doc and new projects upgraded for Microsoft SQL Server, Informix, Firebird.
+
 OpenXava 7.0.2 (2022-11-11)
 ---------------------------
 - HSQLDB embedded database upgraded to 2.7.1.
