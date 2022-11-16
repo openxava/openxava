@@ -877,7 +877,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 					valuesToWhere.add("");
 					comparatorsToWhere.add(this.conditionComparators[i]);
 				}
-				else if (!Is.empty(WebEditors.getEditorURLDescriptionsList(getTabName(), getModelName(), Ids.decorate(request, p.getQualifiedName()), i, getCollectionPrefix(), p.getQualifiedName(), p.getName()))){  
+				// TMR ME QUEDÉ POR AQUÍ: CON ESTO FUNCIONA: FALTA DEJAR MARCADO EL QUE TOCA. NO TENER DUPLICADOS
+				// TMR   QUIZAS DEBERÍA DEJAR COMO ANTES CUANDO HAYA UN SOLO CAMPO
+				else if (false) { // tmr if (!Is.empty(WebEditors.getEditorURLDescriptionsList(getTabName(), getModelName(), Ids.decorate(request, p.getQualifiedName()), i, getCollectionPrefix(), p.getQualifiedName(), p.getName()))){  
 					if (Is.empty(this.conditionValues[i])){
 						comparatorsToWhere.add(this.conditionComparators[i]);
 						valuesToWhere.add(this.conditionValues[i]);
@@ -1828,10 +1830,12 @@ public class Tab implements java.io.Serializable, Cloneable {
 
 	private String[] getConditionFilterParameters(String prefix) {
 		String conditionComparator = request.getParameter(prefix + "0");
+		System.out.println("[Tab.getConditionFilterParameters] " + prefix + "0=" + conditionComparator); // tmr
 		Collection conditionComparators = new ArrayList();
 		for (int i=1; conditionComparator != null; i++) {
 			conditionComparators.add(Strings.removeXSS(conditionComparator)); 
 			conditionComparator = request.getParameter(prefix + i);
+			System.out.println("[Tab.getConditionFilterParameters] " + prefix + i + "=" + conditionComparator); // tmr
 		}
 		String [] result = new String[conditionComparators.size()];
 		conditionComparators.toArray(result);		

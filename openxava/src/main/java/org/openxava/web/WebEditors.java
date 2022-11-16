@@ -304,6 +304,8 @@ public class WebEditors {
 	public static String getEditorURLDescriptionsList(String tabName, String tabModelName, String propertyKey, int index, String prefix, String qualifiedName, String name){
 		if (qualifiedName.indexOf('.') < 0) return "";
 
+		System.out.println("[WebEditors.getEditorURLDescriptionsList] name=" + name); // tmr
+		System.out.println("[WebEditors.getEditorURLDescriptionsList] qualifiedName=" + qualifiedName); // tmr
 		String url = "";
 		String defaultURL = "";
 		MetaModel metaModel = MetaModel.get(tabModelName);
@@ -339,10 +341,16 @@ public class WebEditors {
 					+ "&prefix=" + prefix
 					+ "&editable=true" 
 					+ "&model=" + metaReference.getReferencedModelName()
+					/* tmr
 					+ "&keyProperty=" + metaReference.getKeyProperty(propertyKey)
 					+ "&keyProperties=" + metaReference.getKeyProperties()
 					+ "&descriptionProperty=" + metaDescriptionsList.getDescriptionPropertyName()
 					+ "&descriptionProperties=" + metaDescriptionsList.getDescriptionPropertiesNames()
+					*/
+					// tmr ini
+					+ "&keyProperty=" + name
+					+ "&descriptionProperty=" + name
+					// tmr fin
 					+ "&parameterValuesProperties=" + metaReference.getParameterValuesPropertiesInDescriptionsList(metaView)
 					+ "&condition=" + refineURLParam(metaDescriptionsList.getCondition())
 					+ "&filter=" + getFilterClass(metaDescriptionsList) 
