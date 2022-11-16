@@ -4,9 +4,28 @@ openxava.getScript(openxava.contextPath + "/xava/editors/flatpickr/" + openxava.
 
 openxava.addEditorInitFunction(function() {
 	if (openxava.browser.htmlUnit) return;
+
+    var withEnter = false;
+    var dateEnter;
+
+	$('.xava_date > input').keydown(function(event) {
+    var keycode = event.keyCode || event.which;	
+    if(keycode == 13) {
+        dateEnter = $(this).val();
+		if (dateEnter.includes("/") || dateEnter.includes(".") || dateEnter.includes("-") || !(dateEnter.length < 9)){
+			withEnter = false;
+		}else{
+			withEnter = true;
+		}
+    }
+	});
 	$('.xava_date > input').change(function() { 
 		var dateFormat = $(this).parent().data("dateFormat");
-  		var date = $(this).val();
+  		if (withEnter == true){
+			var date =dateEnter;
+		}else{
+			var date = $(this).val();
+		}
 		if (date === "") return;
 		date = date.trim(); 
 		var separator = dateFormat.substr(1, 1); 
