@@ -2,13 +2,12 @@
 
 openxava.getScript(openxava.contextPath + "/xava/editors/flatpickr/" + openxava.language + ".js");
 
-
 openxava.addEditorInitFunction(function() {
+    
+    if (openxava.browser.htmlUnit) return;
     
     var withEnter = false;
     var dateEnter;
-	
-	if (openxava.browser.htmlUnit) return;
 	
 	$('.xava_date > input').keydown(function(event) {
     var keycode = event.keyCode || event.which;	
@@ -21,7 +20,6 @@ openxava.addEditorInitFunction(function() {
 		}
     }
 	});
-	
 	$('.xava_date > input').change(function() { 
 		var dateFormat = $(this).parent().data("dateFormat");
 		if (withEnter == true){
