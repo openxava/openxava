@@ -118,9 +118,11 @@ openxava.refreshPage = function(result) {
 		for (var id in changedParts) {			
 			changed = changed + id + ", ";  			
 			try {
+			console.log("id " + id);
 				openxava.setHtml(id, changedParts[id]);
 			}
 			catch (ex) {
+			console.log("ex> " + ex);
 				changed = changed + " ERROR";
 				alert("Error refreshing part: " + id);
 				errors = true;
