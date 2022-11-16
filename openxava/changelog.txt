@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Typos in View chapter of Reference Guide.
 - Hibernate upgraded to 5.6.14.
 - Tomcat-embed-core upgraded to 9.0.69.
 - Tomcat-embed-jasper upgraded to 9.0.69.
