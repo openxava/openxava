@@ -35,6 +35,7 @@ of openxava.js you have to test it visually at least for the next cases:
 	- In English:
 		 32402   ->  3/24/2002
 	- Test some of the above cases in list filter.
+	- Test some of the above cases using enter key in list filter.
 - Year at beginning: Put the locale to South Africa
 	- Change the date with calendar. Date is kept correct, day is not turned in 4 digits.
 	- Modify the date with keyboard. Date is kept correct, day is not turned in 4 digits.
@@ -44,10 +45,10 @@ of openxava.js you have to test it visually at least for the next cases:
 	- Type:
 		 5.2.2017. -> 5.2.2017.
 		 5.2.2017  -> 5.2.2017.
-		 5.2.17.   -> 5.2.2017. showing another date
-		 5.2.17    -> 5.2.2017. showing another date
-		 05022017  -> 5.2.2017. show but error
-		 050217    -> 5.2.2017.	show but error	
+		 5.2.17.   -> 5.2.2017.
+		 5.2.17    -> 5.2.2017.
+		 05022017  -> 5.2.2017.
+		 050217    -> 5.2.2017.
 	
 Use any entity with a date in list mode. Like Invoice filtering by date in list.
 - With = (calendar shown)

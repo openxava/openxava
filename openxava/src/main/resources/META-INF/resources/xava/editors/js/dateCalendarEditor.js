@@ -14,7 +14,6 @@ openxava.addEditorInitFunction(function() {
     var keycode = event.keyCode || event.which;	
     if(keycode == 13) {
         dateEnter = $(this).val();
-        console.log(dateEnter);
 		if (dateEnter.includes("/") || dateEnter.includes(".") || dateEnter.includes("-") || !(dateEnter.length < 9)){
 			withEnter = false;
 		}else{
