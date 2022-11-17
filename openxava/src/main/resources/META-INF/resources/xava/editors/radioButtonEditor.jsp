@@ -52,7 +52,7 @@ Boolean isHorizontal = Boolean.valueOf(horizontal);
 
 <% if (!isHorizontal.booleanValue()) %> <br> <% ; %>
 
-<% 
+<%
 } // while 
 %> 
  </div> 
