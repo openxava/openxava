@@ -512,7 +512,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	public void testTabSetConditionValueForReference_changeReferenceLabel() throws Exception { 
 		assertListRowCount(5);
 		execute("Customer.filterBySellerOne");
-		assertListRowCount(2);
+		assertListRowCount(2); // TMR FALLA
 		assertValueInList(0, "name", "Javi");
 		assertValueInList(0, "seller.name", "MANUEL CHAVARRI");
 		assertValueInList(1, "name", "Juanillo");

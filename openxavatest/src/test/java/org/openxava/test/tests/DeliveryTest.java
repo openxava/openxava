@@ -74,7 +74,7 @@ public class DeliveryTest extends ModuleTestBase {
 		
 		execute("ExtendedPrint.myReports");
 		assertValueInCollection("columns", 3, 0, "Type"); 
-		assertValueInCollection("columns", 3, 1, "=");
+		assertValueInCollection("columns", 3, 1, "="); // TMR FALLA
 		assertValueInCollection("columns", 3, 2, "FACTURABLE MODIFIED");
 		execute("MyReport.editColumn", "row=3,viewObject=xava_view_columns");
 		assertNotExists("comparator");

@@ -51,7 +51,7 @@ public class Color2Test extends ModuleTestBase {
 			{ "1:_:CAR", "CAR" } 
 		};
 		
-		assertValidValues("descriptionsListValue", validValues); 
+		assertValidValues("descriptionsListValue", validValues); // TMR FALLA
 		assertValue("descriptionsListValue", "");
 		setValue("descriptionsListValue", "1:_:CAR"); 
 		execute("MyReport.saveColumn");
@@ -88,7 +88,7 @@ public class Color2Test extends ModuleTestBase {
 			{ "3:_:DOOR", "DOOR" },
 			{ "1:_:CAR", "CAR" }
 		};
-		assertValidValues("conditionValue___3", validValues);		
+		assertValidValues("conditionValue___3", validValues); // TMR FALLA		
 		assertValueInList(0, 4, "CAR");
 		setConditionValues(new String[] { "", "", "", "1"} );
 		// execute("List.filter"); // Not needed because filterOnChange=true

@@ -55,12 +55,12 @@ public class CustomerTest extends CustomizeListTestBase {
 		this.moduleName = moduleName; 
 	}
 	
-	public void testDescriptionsListInListForSecondLevelReferences_clearConditionExecutesFilter() throws Exception { 
+	public void testDescriptionsListInListForSecondLevelReferences_clearConditionExecutesFilter() throws Exception { // TMR FALLA
 		assertListRowCount(5); 
 		assertLabelInList(4, "Seller level"); 
 		setConditionValues("", "", "", "", "A");
 		execute("List.filter");
-		assertListRowCount(3);
+		assertListRowCount(3); // TMR FALLA
 		
 		HtmlElement c = getHtmlPage().getHtmlElementById("ox_openxavatest_" + moduleName + "__xava_clear_condition");  
 		c.click();
@@ -668,7 +668,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		return section;		
 	}
 	
-	public void testFilterToDescriptionsListWithBaseConditionAndFilter() throws Exception {   
+	public void testFilterToDescriptionsListWithBaseConditionAndFilter() throws Exception { // TMR FALLA  
 		try{
 			// warehouse has a filter zoneNumber <= 999
 			Warehouse.findByZoneNumberNumber(1000, 1);	
@@ -685,7 +685,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertValueInCollection("deliveryPlaces", 0, 3, "CENTRAL VALENCIA"); 
 		setConditionValues("deliveryPlaces", new String[] { "", "", "", "[.1.2.]" } );
 		// execute("List.filter", "collection=deliveryPlaces"); // Not needed because filterOnChange=true
-		assertCollectionRowCount("deliveryPlaces", 0);		
+		assertCollectionRowCount("deliveryPlaces", 0); // TMR FALLA		
 		setConditionValues("deliveryPlaces", new String[] { "", "", "", "[.1.1.]" } );
 		// execute("List.filter", "collection=deliveryPlaces"); // Not needed because filterOnChange=true
 		assertCollectionNotEmpty("deliveryPlaces");

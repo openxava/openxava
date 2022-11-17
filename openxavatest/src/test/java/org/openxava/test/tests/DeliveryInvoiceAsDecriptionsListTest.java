@@ -15,7 +15,8 @@ public class DeliveryInvoiceAsDecriptionsListTest extends ModuleTestBase {
 	}
 	
 	
-	public void testFilterInDescriptionsList() throws Exception { 
+	public void testFilterInDescriptionsList() throws Exception {
+		/* tmr
 		String [][] invoices2004comparator = {
 			{"", ""},	
 			{"[.10.2004.]:_:2004 10 Juanillo", "2004 10 Juanillo"},
@@ -24,7 +25,24 @@ public class DeliveryInvoiceAsDecriptionsListTest extends ModuleTestBase {
 			{"[.2.2004.]:_:2004 2 Juanillo", "2004 2 Juanillo"},
 			{"[.9.2004.]:_:2004 9 Javi", "2004 9 Javi"}
 		};
-		assertValidValues("conditionValue___0", invoices2004comparator);			
+		assertValidValues("conditionValue___0", invoices2004comparator);
+		*/
+		// tmr ini
+		String [][] invoices2004comparator0 = {
+			{"", ""},	
+			{"2004", "2004"}
+		};
+		assertValidValues("conditionValue___0", invoices2004comparator0);
+		String [][] invoices2004comparator1 = {
+			{"", ""},	
+			{"2", "2"},
+			{"9", "9"},
+			{"10", "10"},
+			{"11", "11"},
+			{"12", "12"}
+		};
+		assertValidValues("conditionValue___1", invoices2004comparator1);		
+		// tmr fin
 		execute("CRUD.new");
 		String [][] invoices2004 = {
 			{"", ""},	

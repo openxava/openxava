@@ -877,7 +877,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 					valuesToWhere.add("");
 					comparatorsToWhere.add(this.conditionComparators[i]);
 				}
-				// TMR ME QUEDÉ POR AQUÍ: CON ESTO FUNCIONA: FALTA DEJAR MARCADO EL QUE TOCA. NO TENER DUPLICADOS
+				// TMR ME QUEDÉ POR AQUÍ: CON ESTO FUNCIONA: 
 				// TMR   QUIZAS DEBERÍA DEJAR COMO ANTES CUANDO HAYA UN SOLO CAMPO
 				else if (false) { // tmr if (!Is.empty(WebEditors.getEditorURLDescriptionsList(getTabName(), getModelName(), Ids.decorate(request, p.getQualifiedName()), i, getCollectionPrefix(), p.getQualifiedName(), p.getName()))){  
 					if (Is.empty(this.conditionValues[i])){

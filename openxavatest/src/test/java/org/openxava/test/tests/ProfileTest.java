@@ -17,7 +17,7 @@ public class ProfileTest extends ModuleTestBase {
 		assertListRowCount(3);
 		
 		setConditionValues("", "", "1:_:1 APPLICATION 1");
-		assertListRowCount(1);
+		assertListRowCount(1); // TMR FALLA
 		assertValueInList(0, "description", "PROFILE 111");
 		
 		setConditionValues("", "", "3.0:_:3.0 APPLICATION 3.0");

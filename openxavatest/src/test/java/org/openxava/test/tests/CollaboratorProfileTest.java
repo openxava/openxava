@@ -15,7 +15,7 @@ public class CollaboratorProfileTest extends ModuleTestBase {
 	public void testCompositeKeyReferenceAsDescriptionsList() throws Exception { 
 		assertListRowCount(2);
 		setConditionValues("", "[.2.222.]:_:PROFILE 222");
-		assertListRowCount(1);
+		assertListRowCount(1); // TMR FALLA
 		assertValueInList(0, 0, "COLLABORATOR 22");
 		assertValueInList(0, 1, "PROFILE 222");
 		assertListConfigurationsWithCompositeKeyReferenceAsDescriptionsList(); 

@@ -16,11 +16,16 @@ public class Product2OnlySoftwareTest extends ModuleTestBase {
 	public void testQualifiedPropertiesInDescriptionsListCondition_percentSymbolInDescriptionsListCondition() throws Exception {
 		String [][] softwareValuesInListFilter = {
 			{ "", ""},
+			/* tmr
 			{ "1:_:DESARROLLO", "DESARROLLO"},
 			{ "2:_:GESTION", "GESTION"},						  
-			{ "3:_:SISTEMA", "SISTEMA"}						
+			{ "3:_:SISTEMA", "SISTEMA"}
+			*/						
+			{ "DESARROLLO", "DESARROLLO"}, // tmr en migration
+			{ "GESTION", "GESTION"},						  
+			{ "SISTEMA", "SISTEMA"}			
 		};		
-		assertValidValues("conditionValue___3", softwareValuesInListFilter); 
+		assertValidValues("conditionValue___3", softwareValuesInListFilter); // TMR FALLA
 		execute("CRUD.new");
 		String [][] softwareValues = {
 			{ "", ""},

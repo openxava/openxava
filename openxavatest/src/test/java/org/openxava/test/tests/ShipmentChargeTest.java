@@ -46,11 +46,13 @@ public class ShipmentChargeTest extends ModuleTestBase {
 		assertLabelInList(4, "Shipment"); 
 		
 		// reference property: descriptionsList		
-		setConditionValues(new String[] { "", "", "", "[.MEDIUM.5.INTERNAL.]"} ); // For JPA entities
+		// tmr setConditionValues(new String[] { "", "", "", "[.MEDIUM.5.INTERNAL.]"} ); 
+		setConditionValues(new String[] { "", "", "", "CINC"} ); // TMR EN migration
 		execute("List.filter");
-		assertListRowCount(0);
+		assertListRowCount(0); 
 		
-		setConditionValues(new String[] { "", "", "", "[.SLOW.1.INTERNAL.]"} ); // For JPA entities
+		// TMR setConditionValues(new String[] { "", "", "", "[.SLOW.1.INTERNAL.]"} ); 
+		setConditionValues(new String[] { "", "", "", "UNO INTERNO"} ); // TMR
 		execute("List.filter");
 		assertListRowCount(1);
 		

@@ -1,6 +1,7 @@
 package org.openxava.calculators;
 
 import java.util.*;
+import java.util.stream.*;
 
 import javax.swing.table.*;
 
@@ -63,6 +64,9 @@ public class DescriptionsCalculator implements ICalculator {
 				KeyAndDescriptionComparator.getByKey():
 					KeyAndDescriptionComparator.getByDescription();										
 			Collections.sort(result, comparator);
+			// tmr
+			result = (List) result.stream().distinct().collect(Collectors.toList()); // tmr No siempre
+			// tmr
 		}
 		return result;
 	}

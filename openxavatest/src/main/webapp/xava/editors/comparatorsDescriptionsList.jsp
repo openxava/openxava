@@ -80,9 +80,12 @@ calculator.setDescriptionProperty(descriptionProperty);
 String descriptionProperties = request.getParameter("descriptionProperties");
 if (descriptionProperties == null) descriptionProperties = request.getParameter("propiedadesDescripcion");
 calculator.setDescriptionProperties(descriptionProperties);
+/* tmr
 String orderByKey = request.getParameter("orderByKey");
 if (orderByKey == null) orderByKey = request.getParameter("ordenadoPorClave");
 calculator.setOrderByKey(orderByKey);
+*/
+calculator.setOrderByKey(true); // tmr
 System.out.println("[comparatorsDescriptionsList.jsp] keyProperty=" + keyProperty); // tmr
 System.out.println("[comparatorsDescriptionsList.jsp] keyProperties=" + keyProperties); // tmr
 System.out.println("[comparatorsDescriptionsList.jsp] descriptionProperty=" + descriptionProperty); // tmr
@@ -126,9 +129,15 @@ String collectionArgv = Is.emptyString(collection)?"":"collection="+collection;
 		String keyPrefix = cl.getKey() + Tab.DESCRIPTIONS_LIST_SEPARATOR;
 		Object key = keyPrefix + description;
 		*/
-		Object key = cl.getKey(); // tmr
+		String key = cl.getKey().toString(); // tmr
 		// tmr if (keyPrefix.equals(valuePrefix)) { 
+		
+		System.out.println("[comparatorsDescriptionsList.jsp] key>" + key + "<"); // tmr
+		System.out.println("[comparatorsDescriptionsList.jsp] key.getClass()>" + key.getClass() + "<"); // tmr
+		System.out.println("[comparatorsDescriptionsList.jsp] value>" + value + "<"); // tmr
+		System.out.println("[comparatorsDescriptionsList.jsp] value.getClass()>" + value.getClass() + "<"); // tmr
 		if (key.equals(value)) { // tmr
+			System.out.println("[comparatorsDescriptionsList.jsp] EQUALS: " + key + " == " + value); // tmr
 			selected = "selected"; 
 			selectedDescription = description;
 		} 		

@@ -324,12 +324,14 @@ public class ColorTest extends ModuleTestBase {
 		assertLabelInList(5, "Characteristic thing"); 
 		assertValueInList(0, 4, "CAR");
 		assertValueInList(0, 5, "3 PLACES");
-		setConditionValues(new String[] { "", "", "", "1", "0" } );
+		// tmr setConditionValues(new String[] { "", "", "", "1", "0" } );
+		setConditionValues(new String[] { "", "", "", "CAR", "3 PLACES" } ); // tmr
 		execute("List.filter");
 		assertNoErrors();
-		assertListRowCount(1);
+		assertListRowCount(1); // TMR FALLA
 
 		try{
+			// TMR ME QUEDÉ POR AQUÍ AUNQUE SALGA VERDE ESTO TENDRÍA QUE ADAPTARLO. ¿PROBARLO CON VERSIÓN ORIGINAL?
 			setConditionValues(new String[] { "", "", "", "", "2"} );	// descriptionsList has a condition: number < 2
 		}
 		catch(IllegalArgumentException ex){
