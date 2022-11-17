@@ -56,7 +56,7 @@ if (editable || !label) {
     name="<%=propertyKey%>" class="<%=style.getEditor()%> <%=numericClass%>"
 	type="<%=inputType%>" 
 	tabindex="1"
-	title="<%=p.getDescription(request)%>"
+	title="probando"
 	<%=align%>
 	maxlength="<%=maxLength%>" 
 	size="<%=size%>"
@@ -73,7 +73,7 @@ if (editable || !label) {
 }
 %>
 <% if (!editable) { %>
-	<input type="hidden" name="<%=propertyKey%>" value="<%=fvalue%>">
+	<input type="hidden" name="<%=propertyKey%>" value="<%=fvalue%>" title="<%=p.getDescription(request)%>">
 <% } %>			
 
 
