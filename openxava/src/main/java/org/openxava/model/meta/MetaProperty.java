@@ -133,7 +133,15 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		return obtainValidValueLabel(locale, getValidValue(i));
 	}
 	
-	public String getQualifiedLabel(Locale locale) throws XavaException { 
+	public String getQualifiedLabel(Locale locale) throws XavaException { // tmr
+		String result = getQualifiedLabelImpl(locale);
+		//System.out.println("[MetaProperty.getQualifiedLabel] getId()=" + getId()); // tmr
+		//System.out.println("[MetaProperty.getQualifiedLabel] getQualifiedName()=" + getQualifiedName()); // tmr
+		//System.out.println("[MetaProperty.getQualifiedLabel] result=" + result); // tmr
+		return result;
+	}
+	
+	public String getQualifiedLabelImpl(Locale locale) throws XavaException { 
 		if (!Is.emptyString(qualifiedLabel)) return qualifiedLabel;
 		String labelId = getId();
 		boolean tabReferenceLabel = isTabReferenceLabel(labelId);

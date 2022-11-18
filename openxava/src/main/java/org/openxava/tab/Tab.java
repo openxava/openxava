@@ -56,11 +56,12 @@ public class Tab implements java.io.Serializable, Cloneable {
 		private Boolean all; 
 		
 		private String translateCondition(String condition) {
-			// IF YOU CHANGE THIS CODE TEST IT WITH ignoreAccentsForStringArgumentsInConditions true and false
+			// IF YOU CHANGE THIS CODE TEST IT WITH ignoreAccentsForStringArgumentsInConditions true and false // tmr tener en cuenta
 			try { 
 				condition = removeBaseConditionAndDefaultOrder(condition); 
 				if (isAll(condition)) return Labels.get("all"); 
 				String result = condition + " ";
+				Map<String, String> translations = new HashMap<>(); // tmr
 				if (conditionValues != null) {
 					result = result.replaceAll("\\([\\?,*]+\\)", "(?)"); // Groups: (?,?,?) --> (?)
 					result = result.replaceAll(
@@ -70,12 +71,19 @@ public class Tab implements java.io.Serializable, Cloneable {
 						String conditionValue = conditionValues[i];
 						if (Is.emptyString(conditionValue)) continue;
 						String conditionComparator = conditionComparators[i];
+						// tmr ini
+						MetaProperty metaProperty = getMetaPropertiesNotCalculated().get(i);
+						String qualifiedName = metaProperty.getQualifiedName(); 
+						String translation = metaProperty.getQualifiedLabel(Locales.getCurrent());
+						translations.put(qualifiedName, translation);
+						// tmr fin
 						if (Is.anyEqual(conditionComparator, STARTS_COMPARATOR, CONTAINS_COMPARATOR, ENDS_COMPARATOR, NOT_CONTAINS_COMPARATOR)) { 
 							result = result.replaceFirst("\\?", XavaResources.getString(conditionComparator) + " " + conditionValue);
 						}
 						else if (EQ_COMPARATOR.equals(conditionComparator) && getMetaPropertiesNotCalculated().get(i).hasValidValues()) { 
 							result = result.replaceFirst("\\?", getMetaPropertiesNotCalculated().get(i).getValidValueLabel(Integer.parseInt(conditionValue)));
 						}
+						/* tmr
 						else if (EQ_COMPARATOR.equals(conditionComparator) && conditionValue.contains(":_:")) { // For descriptions lists
 							String qualifiedName = getMetaPropertiesNotCalculated().get(i).getQualifiedName();
 							String rootName = Strings.noLastTokenWithoutLastDelim(qualifiedName, ".").replace(".", "\\.");
@@ -83,6 +91,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 							result = result.replaceFirst("\\?", conditionValue.split(":_:")[1]);
 							result = result.replace("and ${" + rootName +  "} = ?", "");
 						}	
+						*/
 						else {
 							result = result.replaceFirst("\\?", conditionValue);
 						}
@@ -111,7 +120,11 @@ public class Tab implements java.io.Serializable, Cloneable {
 					f = r.toString().indexOf("}", i + 2);
 					if (f < 0) break;
 					String property = r.substring(i + 2, f);
-					String translation = Labels.getQualified(property); 
+					// tmr String translation = Labels.getQualified(property);
+					// tmr ini
+					String translation = translations.get(property);
+					if (translation == null) translation = Labels.getQualified(property);
+					// tmr fin
 					r.replace(i, f + 1, translation);
 					i = r.toString().indexOf("${");
 				}
@@ -170,7 +183,16 @@ public class Tab implements java.io.Serializable, Cloneable {
 			if (metaPropertiesNotCalculated == null) {
 				metaPropertiesNotCalculated = new ArrayList<MetaProperty>();
 				for (String propertyName: Strings.toCollection(propertiesNames)) {
-					MetaProperty property = getMetaTab().getMetaModel().getMetaProperty(propertyName);
+					// tmr MetaProperty property = getMetaTab().getMetaModel().getMetaProperty(propertyName);
+					// tmr ini
+					MetaProperty property = null;
+					try {
+						property = getMetaProperty(propertyName);
+					}
+					catch (ElementNotFoundException ex) {
+						property = getMetaTab().getMetaModel().getMetaProperty(propertyName);
+					}
+					// tmr fin
 					if (!property.isCalculated()) {
 						property = property.cloneMetaProperty();
 						property.setQualifiedName(propertyName);
@@ -508,7 +530,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 			if (Is.emptyString(getModelName())) return Collections.EMPTY_LIST;
 			metaProperties = getMetaTab().getMetaProperties();
 			setPropertiesLabels(metaProperties);
-		}		
+		}	
 		return metaProperties;
 	}
 	
@@ -1830,12 +1852,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 
 	private String[] getConditionFilterParameters(String prefix) {
 		String conditionComparator = request.getParameter(prefix + "0");
-		System.out.println("[Tab.getConditionFilterParameters] " + prefix + "0=" + conditionComparator); // tmr
 		Collection conditionComparators = new ArrayList();
 		for (int i=1; conditionComparator != null; i++) {
 			conditionComparators.add(Strings.removeXSS(conditionComparator)); 
 			conditionComparator = request.getParameter(prefix + i);
-			System.out.println("[Tab.getConditionFilterParameters] " + prefix + i + "=" + conditionComparator); // tmr
 		}
 		String [] result = new String[conditionComparators.size()];
 		conditionComparators.toArray(result);		

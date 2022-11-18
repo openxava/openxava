@@ -81,6 +81,7 @@ public class Color2Test extends ModuleTestBase {
 		assertValueInList(3, 6, "CAR");
 		assertValueInList(3, 7, "LAMPPOST");
 		assertLabelInList(4, "Used to"); 
+		/* tmr
 		String [][] validValues = {
 			{ "", "" },
 			{ "2:_:LAMPPOST", "LAMPPOST" },
@@ -88,9 +89,20 @@ public class Color2Test extends ModuleTestBase {
 			{ "3:_:DOOR", "DOOR" },
 			{ "1:_:CAR", "CAR" }
 		};
-		assertValidValues("conditionValue___3", validValues); // TMR FALLA		
+		*/
+		// tmr ini
+		String [][] validValues = {
+			{ "", "" },
+			{ "LAMPPOST", "LAMPPOST" },
+			{ "HOUSE", "HOUSE" },
+			{ "DOOR", "DOOR" },
+			{ "CAR", "CAR" }
+		};		
+		// tmr fin
+		assertValidValues("conditionValue___3", validValues); 		
 		assertValueInList(0, 4, "CAR");
-		setConditionValues(new String[] { "", "", "", "1"} );
+		// tmr setConditionValues(new String[] { "", "", "", "1"} );
+		setConditionValues(new String[] { "", "", "", "CAR"} ); // tmr
 		// execute("List.filter"); // Not needed because filterOnChange=true
 		assertListRowCount(1); 
 	}
