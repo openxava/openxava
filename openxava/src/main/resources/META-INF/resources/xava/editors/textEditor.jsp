@@ -56,7 +56,7 @@ if (editable || !label) {
     name="<%=propertyKey%>" class="<%=style.getEditor()%> <%=numericClass%>"
 	type="<%=inputType%>" 
 	tabindex="1"
-	title="probando"
+	title="<%=p.getDescription(request)%>"
 	<%=align%>
 	maxlength="<%=maxLength%>" 
 	size="<%=size%>"
