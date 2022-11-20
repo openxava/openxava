@@ -166,7 +166,23 @@ else if (filter != null) {
 }
 java.util.Collection descriptions = calculator.getDescriptions();
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
-String title = (p == null)?"":p.getDescription(request);
+   if (p == null) {
+   System.out.println("propertyKey");
+   System.out.println(propertyKey);
+   System.out.println("view.getMetaView().getModelName()");
+   System.out.println(view.getMetaView().getModelName());
+   System.out.println("view.getMetaReference(Appointment.view.type)");
+   System.out.println(view.getMetaReference("type").getDescription());
+   //String t = "type";
+   //MetaReference meref = view.getMetaReference(t);
+   //System.out.println(mref.getDescription());
+   //String title = ref.getDescription();
+   
+   }else{
+   System.out.println("no es nulo");
+   }
+String title = (p == null)?view.getMetaReference("type").getDescription():p.getDescription(request);
+   //String title = (p == null)?"nulo":mref.getDescription();
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
 boolean editable = "true".equals(request.getParameter("editable"));
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel() || "true".equalsIgnoreCase(request.getParameter("readOnlyAsLabel"));
