@@ -7,3 +7,6 @@ Warehouse:
 - Click on New.
 - The first field has not tooltip.
 - The second field shows a black tooltip with an arrow in the correct place.
+Appointment:
+- Go to any element
+- Mouse over Type select, it should show a regular tooltip.
