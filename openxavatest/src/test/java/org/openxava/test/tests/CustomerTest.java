@@ -55,12 +55,13 @@ public class CustomerTest extends CustomizeListTestBase {
 		this.moduleName = moduleName; 
 	}
 	
-	public void testDescriptionsListInListForSecondLevelReferences_clearConditionExecutesFilter() throws Exception { // TMR FALLA
+	public void testDescriptionsListInListForSecondLevelReferences_clearConditionExecutesFilter() throws Exception { 
 		assertListRowCount(5); 
 		assertLabelInList(4, "Seller level"); 
-		setConditionValues("", "", "", "", "A");
+		// TMR setConditionValues("", "", "", "", "A");
+		setConditionValues("", "", "", "", "MANAGER"); 
 		execute("List.filter");
-		assertListRowCount(3); // TMR FALLA
+		assertListRowCount(3); 
 		
 		HtmlElement c = getHtmlPage().getHtmlElementById("ox_openxavatest_" + moduleName + "__xava_clear_condition");  
 		c.click();
@@ -668,7 +669,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		return section;		
 	}
 	
-	public void testFilterToDescriptionsListWithBaseConditionAndFilter() throws Exception { // TMR FALLA  
+	public void testFilterToDescriptionsListWithBaseConditionAndFilter() throws Exception {   
 		try{
 			// warehouse has a filter zoneNumber <= 999
 			Warehouse.findByZoneNumberNumber(1000, 1);	
@@ -683,18 +684,23 @@ public class CustomerTest extends CustomizeListTestBase {
 		
 		assertLabelInCollection("deliveryPlaces", 3, "Preferred warehouse"); 
 		assertValueInCollection("deliveryPlaces", 0, 3, "CENTRAL VALENCIA"); 
-		setConditionValues("deliveryPlaces", new String[] { "", "", "", "[.1.2.]" } );
+		// tmr setConditionValues("deliveryPlaces", new String[] { "", "", "", "[.1.2.]" } );
+		setConditionValues("deliveryPlaces", new String[] { "", "", "", "VALENCIA SURETE" } ); // tmr
+		
 		// execute("List.filter", "collection=deliveryPlaces"); // Not needed because filterOnChange=true
-		assertCollectionRowCount("deliveryPlaces", 0); // TMR FALLA		
-		setConditionValues("deliveryPlaces", new String[] { "", "", "", "[.1.1.]" } );
+		assertCollectionRowCount("deliveryPlaces", 0); 	
+		// tmr setConditionValues("deliveryPlaces", new String[] { "", "", "", "[.1.1.]" } );
+		setConditionValues("deliveryPlaces", new String[] { "", "", "", "CENTRAL VALENCIA" } ); // tmr
 		// execute("List.filter", "collection=deliveryPlaces"); // Not needed because filterOnChange=true
 		assertCollectionNotEmpty("deliveryPlaces");
 		
 		try{
-			setConditionValues("deliveryPlaces", new String[] { "", "", "", "[.1.1000.]"} );	
+			// TMR setConditionValues("deliveryPlaces", new String[] { "", "", "", "[.1.1000.]"} );	
+			setConditionValues("deliveryPlaces", new String[] { "", "", "", "ULTRALMACEN"} ); // ULTRALMACEN DOES NOT EXIST
 		}
 		catch(IllegalArgumentException ex){
-			assertTrue(ex.getMessage().equals("No option found with value: [.1.1000.]"));
+			// TMR assertTrue(ex.getMessage().equals("No option found with value: [.1.1000.]"));
+			assertTrue(ex.getMessage().equals("No option found with value: ULTRALMACEN")); // TMR
 		}
 		
 	}

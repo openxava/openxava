@@ -43,6 +43,7 @@ public class Color2Test extends ModuleTestBase {
 		assertExists("descriptionsListValue"); 
 		assertExists("order");
 
+		/* tmr
 		String [][] validValues = {
 			{ "", "" },
 			{ "2:_:LAMPPOST", "LAMPPOST" },
@@ -50,15 +51,27 @@ public class Color2Test extends ModuleTestBase {
 			{ "3:_:DOOR", "DOOR" },
 			{ "1:_:CAR", "CAR" } 
 		};
+		*/
+		// tmr ini
+		String [][] validValues = {
+			{ "", "" },
+			{ "LAMPPOST", "LAMPPOST" },
+			{ "HOUSE", "HOUSE" },
+			{ "DOOR", "DOOR" },
+			{ "CAR", "CAR" } 
+		};		
+		// tmr fin
 		
-		assertValidValues("descriptionsListValue", validValues); // TMR FALLA
+		assertValidValues("descriptionsListValue", validValues); 
 		assertValue("descriptionsListValue", "");
-		setValue("descriptionsListValue", "1:_:CAR"); 
+		// tmr setValue("descriptionsListValue", "1:_:CAR");  
+		setValue("descriptionsListValue", "CAR"); // tmr En migration
 		execute("MyReport.saveColumn");
 		assertValueInCollection("columns", 4, 2, "CAR"); 
 		
 		execute("MyReport.editColumn", "row=4,viewObject=xava_view_columns");
-		assertValue("descriptionsListValue", "1:_:CAR"); 		
+		// tmr assertValue("descriptionsListValue", "1:_:CAR"); 		
+		assertValue("descriptionsListValue", "CAR"); // tmr
 		closeDialog();
 		
 		execute("MyReport.generatePdf"); 
@@ -69,7 +82,8 @@ public class Color2Test extends ModuleTestBase {
 		assertValueInCollection("columns", 4, 0, "Used to"); 
 		assertValueInCollection("columns", 4, 2, "CAR");
 		execute("MyReport.editColumn", "row=4,viewObject=xava_view_columns");
-		assertValue("descriptionsListValue", "1:_:CAR"); 		
+		// tmr assertValue("descriptionsListValue", "1:_:CAR"); 		
+		assertValue("descriptionsListValue", "CAR"); // tmr
 		closeDialog();
 		
 		execute("MyReport.remove", "xava.keyProperty=name");				

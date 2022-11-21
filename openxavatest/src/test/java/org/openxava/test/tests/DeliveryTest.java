@@ -62,7 +62,8 @@ public class DeliveryTest extends ModuleTestBase {
 	public void testFilterDescriptionsListAndEnumLetterType_myReportConditionWithDescriptionsListAndValidValues() throws Exception { 
 		assertLabelInList(3, "Type"); 
 		assertLabelInList(7, "Distance");
-		setConditionValues(new String[] { "", "", "", "1", "", "", "", "1"} );	// For annotated POJOs
+		// tmr setConditionValues(new String[] { "", "", "", "1", "", "", "", "1"} );	
+		setConditionValues(new String[] { "", "", "", "FACTURABLE MODIFIED", "", "", "", "1"} ); // tmr
 		execute("List.filter");
 		assertListRowCount(2);	 	
 		assertValueInList(0, 0, "2004");
@@ -74,7 +75,7 @@ public class DeliveryTest extends ModuleTestBase {
 		
 		execute("ExtendedPrint.myReports");
 		assertValueInCollection("columns", 3, 0, "Type"); 
-		assertValueInCollection("columns", 3, 1, "="); // TMR FALLA
+		assertValueInCollection("columns", 3, 1, "="); 
 		assertValueInCollection("columns", 3, 2, "FACTURABLE MODIFIED");
 		execute("MyReport.editColumn", "row=3,viewObject=xava_view_columns");
 		assertNotExists("comparator");
@@ -84,7 +85,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertNotExists("validValuesValue");
 		assertExists("descriptionsListValue");
 		assertExists("order");
-		assertDescriptionValue("descriptionsListValue", "FACTURABLE MODIFIED");  
+		assertDescriptionValue("descriptionsListValue", "FACTURABLE MODIFIED"); // TMR FALLA ME QUEDÉ POR AQUÍ  
 		execute("MyReport.saveColumn");
 		assertValueInCollection("columns", 3, 0, "Type"); 
 		assertValueInCollection("columns", 3, 1, "=");

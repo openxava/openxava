@@ -103,7 +103,8 @@ public class MyReportColumn implements java.io.Serializable {
 			return getReport().getMetaModel().getMetaProperty(getName()).getValidValueLabel(getValidValuesIndex()); 
 		}
 		if (!Is.emptyString(descriptionsListValue)) {
-			return descriptionsListValue.split(Tab.DESCRIPTIONS_LIST_SEPARATOR)[1];
+			// tmr return descriptionsListValue.split(Tab.DESCRIPTIONS_LIST_SEPARATOR)[1];
+			return descriptionsListValue; // tmr
 		}
 		return value;
 	}

@@ -512,14 +512,15 @@ public class CustomerWithSectionTest extends CustomerTest {
 	public void testTabSetConditionValueForReference_changeReferenceLabel() throws Exception { 
 		assertListRowCount(5);
 		execute("Customer.filterBySellerOne");
-		assertListRowCount(2); // TMR FALLA
+		assertListRowCount(2); 
 		assertValueInList(0, "name", "Javi");
 		assertValueInList(0, "seller.name", "MANUEL CHAVARRI");
 		assertValueInList(1, "name", "Juanillo");
 		assertValueInList(1, "seller.name", "MANUEL CHAVARRI");
 		HtmlSelect comboSeller = getHtmlPage().getElementByName("ox_openxavatest_CustomerWithSection__conditionValue___2");
 		String selectedValue = comboSeller.getSelectedOptions().get(0).getValueAttribute();
-		assertEquals("1:_:MANUEL CHAVARRI", selectedValue);
+		// TMR assertEquals("1:_:MANUEL CHAVARRI", selectedValue);
+		assertEquals("MANUEL CHAVARRI", selectedValue); // TMR
 
 		
 		execute("CRUD.new");

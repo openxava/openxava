@@ -328,14 +328,15 @@ public class ColorTest extends ModuleTestBase {
 		setConditionValues(new String[] { "", "", "", "CAR", "3 PLACES" } ); // tmr
 		execute("List.filter");
 		assertNoErrors();
-		assertListRowCount(1); // TMR FALLA
+		assertListRowCount(1); 
 
 		try{
-			// TMR ME QUEDÉ POR AQUÍ AUNQUE SALGA VERDE ESTO TENDRÍA QUE ADAPTARLO. ¿PROBARLO CON VERSIÓN ORIGINAL?
-			setConditionValues(new String[] { "", "", "", "", "2"} );	// descriptionsList has a condition: number < 2
+			// setConditionValues(new String[] { "", "", "", "", "2"} );	// descriptionsList has a condition: number < 2
+			setConditionValues(new String[] { "", "", "", "", "BIG"} );	// BIG is number 2 and descriptionsList has a condition: number < 2
 		}
 		catch(IllegalArgumentException ex){
-			assertTrue(ex.getMessage().equals("No option found with value: 2"));
+			// tmr assertTrue(ex.getMessage().equals("No option found with value: 2"));
+			assertTrue(ex.getMessage().equals("No option found with value: DIA")); // TMR
 		}
 	}
 	
