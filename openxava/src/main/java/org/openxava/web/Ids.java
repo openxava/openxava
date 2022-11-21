@@ -1,6 +1,7 @@
 package org.openxava.web;
 
 import javax.servlet.http.*;
+
 import org.openxava.controller.*;
 
 /**
@@ -31,6 +32,13 @@ public class Ids {
 	public static String undecorate(String name) {
 		if (name == null) return null;
 		name = name.replaceAll("___", ".");
+		if (!name.startsWith("ox_")) return name;
+		return name.substring(name.indexOf("__") + 2);		
+	}
+	
+	public static String undecorateDouble(String name) {
+		if (name == null) return null;
+		name = name.replaceAll("__", ".");
 		if (!name.startsWith("ox_")) return name;
 		return name.substring(name.indexOf("__") + 2);		
 	}

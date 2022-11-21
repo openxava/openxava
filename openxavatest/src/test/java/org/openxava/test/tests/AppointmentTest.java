@@ -4,6 +4,8 @@ import java.util.*;
 
 import org.openxava.tests.*;
 
+import com.gargoylesoftware.htmlunit.html.*;
+
 /**
  * 
  * @author Javier Paniza
@@ -13,6 +15,13 @@ public class AppointmentTest extends ModuleTestBase {
 	
 	public AppointmentTest(String testName) {
 		super(testName, "Appointment");		
+	}
+	
+	public void testAppointmentTooltip() throws Exception {
+		execute("CRUD.new");
+		HtmlElement select = getHtmlPage().getElementByName("ox_openxavatest_Appointment__type__KEY____CONTROL__"); 
+		String title = select.getAttribute("title");
+		assertEquals("Type tooltip", title);
 	}
 	
 	public void testDateAsDATETIME() throws Exception {

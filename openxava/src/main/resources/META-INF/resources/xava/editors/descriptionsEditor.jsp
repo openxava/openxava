@@ -12,6 +12,7 @@
 <%@ page import="org.openxava.mapping.PropertyMapping"%>
 <%@ page import="org.openxava.converters.IConverter"%>
 <%@ page import="java.util.Arrays"%>
+<%@ page import="org.openxava.web.Ids"%>
 
 <%
 String viewObject = request.getParameter("viewObject");
@@ -167,19 +168,34 @@ else if (filter != null) {
 }
 java.util.Collection descriptions = calculator.getDescriptions();
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
-String title = "";
-if (p == null){
-   String[] splitP = propertyKey.split("__");
+String title = "";  
+
+
+try{
+   if (p == null){
+   String first = Ids.undecorate(propertyKey);
+   System.out.println(first);
+   String second = Ids.undecorateDouble(first);
+   System.out.println(second);
+   
+   String[] splitP = second.split("\\.");
    String[] spNoNull = Arrays.stream(splitP)
-    .filter(value ->
-    value != null && value.length() > 0)
-    .toArray(size -> new String[size]);
-   String ss = spNoNull[spNoNull.length-2].replace("_", "");
+   .filter(value ->
+   value != null && value.length() > 0)
+   .toArray(size -> new String[size]);
+   //String ss = spNoNull[spNoNull.length-2].replace("_", "");
+    System.out.println(spNoNull.length);
+    String ss =spNoNull[spNoNull.length-2];
+   System.out.println(spNoNull[spNoNull.length-2]);
    String d = view.getMetaReference(ss).getDescription();
    title = (d == "")?"":d;
    }else{
    title = p.getDescription(request);
+   }
+   }catch (Exception e){
+   title = "";
 }
+
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
 boolean editable = "true".equals(request.getParameter("editable"));
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel() || "true".equalsIgnoreCase(request.getParameter("readOnlyAsLabel"));

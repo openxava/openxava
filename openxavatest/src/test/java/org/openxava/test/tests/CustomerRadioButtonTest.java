@@ -27,6 +27,14 @@ public class CustomerRadioButtonTest extends ModuleTestBase {
 		assertValue("type", "2");	// special
 	}
 	
+	
+	public void testCustomerRadioButtonTooltip() throws Exception {
+		execute("CRUD.new");
+		HtmlElement select = getHtmlPage().getElementByName("ox_openxavatest_CustomerRadioButton__address___state___id__CONTROL__"); 
+		String title = select.getAttribute("title");
+		assertEquals("Address state", title);
+	}
+
 	public void testEditorByView_radioButton() throws Exception { 
 		// Really editor by property-view must be tested visually
 		// and about radioButton we only test that it's possible to use in junit test,
