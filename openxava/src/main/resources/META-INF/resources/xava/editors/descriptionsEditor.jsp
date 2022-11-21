@@ -11,6 +11,7 @@
 <%@ page import="org.openxava.filters.IRequestFilter" %>
 <%@ page import="org.openxava.mapping.PropertyMapping"%>
 <%@ page import="org.openxava.converters.IConverter"%>
+<%@ page import="java.util.Arrays"%>
 
 <%
 String viewObject = request.getParameter("viewObject");
@@ -165,9 +166,20 @@ else if (filter != null) {
 	calculator.setParameters(null, filter);
 }
 java.util.Collection descriptions = calculator.getDescriptions();
-String[] splitP = propertyKey.split("__");
-String d = view.getMetaReference(splitP[1]).getDescription();
-String title = (d == "")?"":d;
+MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
+String title = "";
+if (p == null){
+   String[] splitP = propertyKey.split("__");
+   String[] spNoNull = Arrays.stream(splitP)
+    .filter(value ->
+    value != null && value.length() > 0)
+    .toArray(size -> new String[size]);
+   String ss = spNoNull[spNoNull.length-2].replace("_", "");
+   String d = view.getMetaReference(ss).getDescription();
+   title = (d == "")?"":d;
+   }else{
+   title = p.getDescription(request);
+}
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
 boolean editable = "true".equals(request.getParameter("editable"));
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel() || "true".equalsIgnoreCase(request.getParameter("readOnlyAsLabel"));

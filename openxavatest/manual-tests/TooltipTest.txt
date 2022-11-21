@@ -10,3 +10,6 @@ Warehouse:
 Appointment:
 - Go to any element
 - Mouse over Type select, it should show a regular tooltip.
+Customer Radio Button:
+- Go to any element
+- Mouse over Address>State, it should show a regular tooltip.
