@@ -175,15 +175,14 @@ try{
    if (p == null){
         String first = Ids.undecorate(propertyKey);
         String second = Ids.undecorateDouble(first);
-   
-        String[] splitP = second.split("\\.");
-        String[] spNoNull = Arrays.stream(splitP)
+        String[] split = second.split("\\.");
+        String[] noNull = Arrays.stream(split)
         .filter(value ->
         value != null && value.length() > 0)
         .toArray(size -> new String[size]);
-        String ss =spNoNull[spNoNull.length-2];
-        String d = view.getMetaReference(ss).getDescription();
-        title = (d == "")?"":d;
+        String refName =noNull[noNull.length-2];
+        String d = view.getMetaReference(refName).getDescription();
+        title = (d == null)?"":d;
    }else{
         title = p.getDescription(request);
    }
@@ -225,7 +224,6 @@ if (editable) {
 	<span class="<%=style.getDescriptionsList()%> <%=style.getEditor()%>">
 	<%-- The JavaScript code depends on the order of the next elements --%>
     <input 
-           id = "<%=propertyKey%>__CONTROL__" 
            name="<%=propertyKey%>__CONTROL__" 
            type="text" 
            tabindex="1" 
