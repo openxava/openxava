@@ -173,26 +173,21 @@ String title = "";
 
 try{
    if (p == null){
-   String first = Ids.undecorate(propertyKey);
-   System.out.println(first);
-   String second = Ids.undecorateDouble(first);
-   System.out.println(second);
+        String first = Ids.undecorate(propertyKey);
+        String second = Ids.undecorateDouble(first);
    
-   String[] splitP = second.split("\\.");
-   String[] spNoNull = Arrays.stream(splitP)
-   .filter(value ->
-   value != null && value.length() > 0)
-   .toArray(size -> new String[size]);
-   //String ss = spNoNull[spNoNull.length-2].replace("_", "");
-    System.out.println(spNoNull.length);
-    String ss =spNoNull[spNoNull.length-2];
-   System.out.println(spNoNull[spNoNull.length-2]);
-   String d = view.getMetaReference(ss).getDescription();
-   title = (d == "")?"":d;
+        String[] splitP = second.split("\\.");
+        String[] spNoNull = Arrays.stream(splitP)
+        .filter(value ->
+        value != null && value.length() > 0)
+        .toArray(size -> new String[size]);
+        String ss =spNoNull[spNoNull.length-2];
+        String d = view.getMetaReference(ss).getDescription();
+        title = (d == "")?"":d;
    }else{
-   title = p.getDescription(request);
+        title = p.getDescription(request);
    }
-   }catch (Exception e){
+}catch (Exception e){
    title = "";
 }
 
@@ -229,10 +224,20 @@ if (editable) {
 	%>
 	<span class="<%=style.getDescriptionsList()%> <%=style.getEditor()%>">
 	<%-- The JavaScript code depends on the order of the next elements --%>
-	<input name="<%=propertyKey%>__CONTROL__" type="text" tabindex="1" class="xava_select <%=style.getEditor()%>" size="<%=maxDescriptionLength%>" <%=script%> title="<%=title%>" 
-		data-values='<%=values%>' value="<%=selectedDescription%>"/>
+    <input 
+           id = "<%=propertyKey%>__CONTROL__" 
+           name="<%=propertyKey%>__CONTROL__" 
+           type="text" 
+           tabindex="1" 
+           class="xava_select <%=style.getEditor()%>" 
+           size="<%=maxDescriptionLength%>" 
+           <%=script%> 
+        title="<%=title%>" 
+		data-values='<%=values%>' 
+        value="<%=selectedDescription%>"/>
+    
 	<input id="<%=propertyKey%>" type="hidden" name="<%=propertyKey%>" value="<%=selectedKey%>"/>
-	<input type="hidden" name="<%=propertyKey%>__DESCRIPTION__" value="<%=selectedDescription%>"/>
+    <input type="hidden" name="<%=propertyKey%>__DESCRIPTION__" value="<%=selectedDescription%>"/>
 	<a class="ox-layout-descriptions-editor-handler" href="javascript:descriptionsEditor.open('<%=propertyKey%>')"><i class="mdi mdi-menu-down"></i></a> 		
 	<a class="ox-layout-descriptions-editor-handler" href="javascript:descriptionsEditor.close('<%=propertyKey%>')" style="display: none"><i class="mdi mdi-menu-up"></i></a>
 	</span>
