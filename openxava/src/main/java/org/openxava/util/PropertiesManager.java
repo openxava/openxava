@@ -81,7 +81,6 @@ public class PropertiesManager implements java.io.Serializable {
 			return met.invoke(object, (Object []) null); 
 		}
 		catch (PropertiesManagerException ex) {
-			System.out.println("[PropertiesManager.executeGet] A"); // tmp
 			throw ex;
 		}
 		catch (InvocationTargetException ex) {

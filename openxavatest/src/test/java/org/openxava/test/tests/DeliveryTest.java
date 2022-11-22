@@ -85,7 +85,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertNotExists("validValuesValue");
 		assertExists("descriptionsListValue");
 		assertExists("order");
-		assertDescriptionValue("descriptionsListValue", "FACTURABLE MODIFIED"); // TMR FALLA ME QUEDÉ POR AQUÍ  
+		assertDescriptionValue("descriptionsListValue", "FACTURABLE MODIFIED");  
 		execute("MyReport.saveColumn");
 		assertValueInCollection("columns", 3, 0, "Type"); 
 		assertValueInCollection("columns", 3, 1, "=");

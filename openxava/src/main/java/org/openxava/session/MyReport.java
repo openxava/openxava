@@ -8,7 +8,7 @@ import javax.persistence.*;
 import org.apache.commons.logging.*;
 import org.openxava.annotations.*;
 import org.openxava.model.meta.*;
-import org.openxava.session.MyReportColumn.Order;
+import org.openxava.session.MyReportColumn.*;
 import org.openxava.tab.Tab;
 import org.openxava.util.*;
 
@@ -141,10 +141,13 @@ public class MyReport implements java.io.Serializable {
 							if (property.getMetaModel().isAnnotatedEJB3()) validValue++;		
 							column.setValidValuesValue(validValue); 
 						}
+						/* tmr
 						else if (values[i].contains(Tab.DESCRIPTIONS_LIST_SEPARATOR)) {
 							column.setDescriptionsListValue(values[i]);
 						}
+						*/
 						else {
+							column.setDescriptionsListValue(values[i]); // tmr
 							column.setValue(values[i]);
 						} 
 					}

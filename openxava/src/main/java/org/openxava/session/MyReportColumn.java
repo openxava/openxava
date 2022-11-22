@@ -9,7 +9,6 @@ import javax.persistence.*;
 import org.apache.commons.logging.*;
 import org.openxava.actions.*;
 import org.openxava.annotations.*;
-import org.openxava.tab.Tab;
 import org.openxava.util.*;
 
 
@@ -121,7 +120,8 @@ public class MyReportColumn implements java.io.Serializable {
 			return Integer.toString(getValidValuesIndex()); 
 		}
 		if (!Is.emptyString(descriptionsListValue)) {
-			return descriptionsListValue.split(Tab.DESCRIPTIONS_LIST_SEPARATOR)[0];
+			// tmr return descriptionsListValue.split(org.openxava.tab.Tab.DESCRIPTIONS_LIST_SEPARATOR)[0];
+			return descriptionsListValue; // tmr
 		}
 		return value;
 	}

@@ -304,8 +304,6 @@ public class WebEditors {
 	public static String getEditorURLDescriptionsList(String tabName, String tabModelName, String propertyKey, int index, String prefix, String qualifiedName, String name){
 		if (qualifiedName.indexOf('.') < 0) return "";
 
-		System.out.println("[WebEditors.getEditorURLDescriptionsList] name=" + name); // tmr
-		System.out.println("[WebEditors.getEditorURLDescriptionsList] qualifiedName=" + qualifiedName); // tmr
 		String url = "";
 		String defaultURL = "";
 		MetaModel metaModel = MetaModel.get(tabModelName);

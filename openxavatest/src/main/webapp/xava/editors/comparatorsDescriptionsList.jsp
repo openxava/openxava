@@ -86,6 +86,7 @@ if (orderByKey == null) orderByKey = request.getParameter("ordenadoPorClave");
 calculator.setOrderByKey(orderByKey);
 */
 calculator.setOrderByKey(true); // tmr
+calculator.setDistinct(true); // tmr
 
 java.util.Collection descriptions = calculator.getDescriptions();
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
@@ -113,7 +114,7 @@ String collectionArgv = Is.emptyString(collection)?"":"collection="+collection;
 <%
 	java.util.Iterator it = descriptions.iterator();
 	String selectedDescription = "";	
-	String valuePrefix = value.split(Tab.DESCRIPTIONS_LIST_SEPARATOR)[0] + Tab.DESCRIPTIONS_LIST_SEPARATOR; 
+	// tmr String valuePrefix = value.split(Tab.DESCRIPTIONS_LIST_SEPARATOR)[0] + Tab.DESCRIPTIONS_LIST_SEPARATOR; 
 	while (it.hasNext()) {
 		KeyAndDescription cl = (KeyAndDescription) it.next();	
 		String selected = "";

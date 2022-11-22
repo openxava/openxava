@@ -397,7 +397,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 */
 	public final static String COLLECTION_PREFIX = "xava_collectionTab_";
 	public final static String TAB_RESETED_PREFIX = "xava.tab.reseted.";
-	public final static String DESCRIPTIONS_LIST_SEPARATOR = ":_:";
+	// tmr public final static String DESCRIPTIONS_LIST_SEPARATOR = ":_:";
 	public final static int MAX_CONFIGURATIONS_COUNT = 20;
 	public final static String GROUP_COUNT_PROPERTY = "__GROUP_COUNT__"; 
 	
@@ -899,9 +899,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 					valuesToWhere.add("");
 					comparatorsToWhere.add(this.conditionComparators[i]);
 				}
-				// TMR ME QUEDÉ POR AQUÍ: CON ESTO FUNCIONA: 
-				// TMR   QUIZAS DEBERÍA DEJAR COMO ANTES CUANDO HAYA UN SOLO CAMPO
-				else if (false) { // tmr if (!Is.empty(WebEditors.getEditorURLDescriptionsList(getTabName(), getModelName(), Ids.decorate(request, p.getQualifiedName()), i, getCollectionPrefix(), p.getQualifiedName(), p.getName()))){  
+				/* tmr
+				else if (!Is.empty(WebEditors.getEditorURLDescriptionsList(getTabName(), getModelName(), Ids.decorate(request, p.getQualifiedName()), i, getCollectionPrefix(), p.getQualifiedName(), p.getName()))){  
 					if (Is.empty(this.conditionValues[i])){
 						comparatorsToWhere.add(this.conditionComparators[i]);
 						valuesToWhere.add(this.conditionValues[i]);
@@ -942,6 +941,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 					}
 					
 				}
+				*/
 				else if (conditionComparators[i].equals(EMPTY_COMPARATOR)) {
 					if (firstCondition) firstCondition = false;
 					else sb.append(" and ");

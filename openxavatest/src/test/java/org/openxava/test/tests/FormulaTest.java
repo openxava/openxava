@@ -55,9 +55,10 @@ public class FormulaTest extends ModuleTestBase {
 		execute("List.goNextPage", "collection=ingredients");
 		assertValueInCollection("ingredients", 2, 1, "CAFE");
 		execute("List.goPreviousPage", "collection=ingredients");
-		setConditionValues("ingredients", new String[] { "", Ingredient.findByName("CAFE").getOid()});
+		// tmr setConditionValues("ingredients", new String[] { "", Ingredient.findByName("CAFE").getOid()});
+		setConditionValues("ingredients", new String[] { "", "CAFE"}); // tmr
 		execute("List.filter", "collection=ingredients");
-		assertCollectionRowCount("ingredients", 1); // TMR FALLA
+		assertCollectionRowCount("ingredients", 1); 
 		assertValueInCollection("ingredients", 0, 1, "CAFE");
 		checkRowCollection("ingredients", 0);
 		assertValue("selectedIngredientSize", "1");
@@ -70,7 +71,8 @@ public class FormulaTest extends ModuleTestBase {
 		checkRowCollection("ingredients", 5);
 		assertValue("selectedIngredientSize", "2");
 		assertRowCollectionUnchecked("ingredients", 0);
-		setConditionValues("ingredients", new String[] { "", Ingredient.findByName("CAFE").getOid()});
+		// tmr setConditionValues("ingredients", new String[] { "", Ingredient.findByName("CAFE").getOid()});
+		setConditionValues("ingredients", new String[] { "", "CAFE"}); // tmr
 		execute("List.filter", "collection=ingredients");
 		assertCollectionRowCount("ingredients", 1);
 		assertValueInCollection("ingredients", 0, 1, "CAFE");
@@ -106,9 +108,10 @@ public class FormulaTest extends ModuleTestBase {
 		assertValueInCollection("ingredients", 1, 1, "CAFE");
 		checkAllCollection("ingredients");
 
-		setConditionValues("ingredients", new String[] { "", Ingredient.findByName("AZUCAR").getOid()});
+		// tmr setConditionValues("ingredients", new String[] { "", Ingredient.findByName("AZUCAR").getOid()});
+		setConditionValues("ingredients", new String[] { "", "AZUCAR" }); // tmr
 		execute("List.filter", "collection=ingredients");
-		assertCollectionRowCount("ingredients", 1); // TMR FALLA
+		assertCollectionRowCount("ingredients", 1); 
 		assertRowCollectionChecked("ingredients", 0);
 		
 		setConditionValues("ingredients", new String[] { "", "" });
@@ -152,7 +155,7 @@ public class FormulaTest extends ModuleTestBase {
 		execute("ChangeModule.goFormula");
 		
 		//
-		testOnSelectElementAction(); // TMR FALLA
+		testOnSelectElementAction(); 
 	}
 	
 	public void testOnSelectElementAction() throws Exception { 
@@ -181,9 +184,10 @@ public class FormulaTest extends ModuleTestBase {
 		assertRowCollectionUnchecked("ingredients", 1);
 		
 		// not execute the associated actions if there are no items in the collection
-		setConditionValues("ingredients", new String[] { "", "03C6B61AC0A8011600000000AB4E7ACB"} );	// id milk
+		// tmr setConditionValues("ingredients", new String[] { "", "03C6B61AC0A8011600000000AB4E7ACB"} );	// id milk
+		setConditionValues("ingredients", new String[] { "", "LECHE" } );	
 		execute("List.filter", "collection=ingredients");
-		assertCollectionRowCount("ingredients", 0); // TMR FALLA
+		assertCollectionRowCount("ingredients", 0); 
 		uncheckAllCollection("ingredients");
 		checkAllCollection("ingredients");
 		assertNoErrors();
