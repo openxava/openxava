@@ -169,27 +169,23 @@ else if (filter != null) {
 java.util.Collection descriptions = calculator.getDescriptions();
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 String title = "";  
-
-
-try{
-   if (p == null){
-        String first = Ids.undecorate(propertyKey);
-        String second = Ids.undecorateDouble(first);
-        String[] split = second.split("\\.");
-        String[] noNull = Arrays.stream(split)
-        .filter(value ->
-        value != null && value.length() > 0)
+try {
+    if (p == null) {
+    String undecorated = Ids.undecorateRef(propertyKey);
+    String[] split = undecorated.split("\\.");
+    String[] noNull = Arrays.stream(split)
+        .filter(value -> value != null && value.length() > 0)
         .toArray(size -> new String[size]);
-        String refName =noNull[noNull.length-2];
-        String d = view.getMetaReference(refName).getDescription();
-        title = (d == null)?"":d;
-   }else{
-        title = p.getDescription(request);
-   }
-}catch (Exception e){
-   title = "";
+    String refName = noNull[noNull.length - 2];
+    String d = view.getMetaReference(refName).getDescription();
+    title = (d == null) ? "" : d;
+    } 
+    else {
+    title = p.getDescription(request);
+    }
+} catch (Exception e) {
+  title = "";
 }
-
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
 boolean editable = "true".equals(request.getParameter("editable"));
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel() || "true".equalsIgnoreCase(request.getParameter("readOnlyAsLabel"));

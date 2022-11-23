@@ -36,11 +36,10 @@ public class Ids {
 		return name.substring(name.indexOf("__") + 2);		
 	}
 	
-	public static String undecorateDouble(String name) {
-		if (name == null) return null;
+	public static String undecorateRef(String propertyKey) {
+		String name = undecorate(propertyKey);
 		name = name.replaceAll("__", ".");
-		if (!name.startsWith("ox_")) return name;
-		return name.substring(name.indexOf("__") + 2);		
+		return name;
 	}
 
 }
