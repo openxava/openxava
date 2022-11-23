@@ -16,16 +16,13 @@ public class ProfileTest extends ModuleTestBase {
 	public void testFilteringInListByDescriptionsListWhenKeyWithDot() throws Exception {
 		assertListRowCount(3);
 		
-		// tmr setConditionValues("", "", "1:_:1 APPLICATION 1");
-		setConditionValues("", "", "APPLICATION 1"); // tmr
-		assertListRowCount(1); // TMR FALLA
+		setConditionValues("", "", "APPLICATION 1"); 
+		assertListRowCount(1); 
 		assertValueInList(0, "description", "PROFILE 111");
 		
-		// tmr setConditionValues("", "", "3.0:_:3.0 APPLICATION 3.0");
-		setConditionValues("", "", "APPLICATION 3.0"); // tmr
+		setConditionValues("", "", "APPLICATION 3.0"); 
 		assertListRowCount(1);
 		assertValueInList(0, "description", "PROFILE 333");
-		
 	}
 				
 }

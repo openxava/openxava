@@ -16,12 +16,7 @@ public class Product2OnlySoftwareTest extends ModuleTestBase {
 	public void testQualifiedPropertiesInDescriptionsListCondition_percentSymbolInDescriptionsListCondition() throws Exception {
 		String [][] softwareValuesInListFilter = {
 			{ "", ""},
-			/* tmr
-			{ "1:_:DESARROLLO", "DESARROLLO"},
-			{ "2:_:GESTION", "GESTION"},						  
-			{ "3:_:SISTEMA", "SISTEMA"}
-			*/						
-			{ "DESARROLLO", "DESARROLLO"}, // tmr en migration
+			{ "DESARROLLO", "DESARROLLO"}, 
 			{ "GESTION", "GESTION"},						  
 			{ "SISTEMA", "SISTEMA"}			
 		};		

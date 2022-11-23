@@ -56,12 +56,12 @@ public class Tab implements java.io.Serializable, Cloneable {
 		private Boolean all; 
 		
 		private String translateCondition(String condition) {
-			// IF YOU CHANGE THIS CODE TEST IT WITH ignoreAccentsForStringArgumentsInConditions true and false // tmr tener en cuenta
+			// IF YOU CHANGE THIS CODE TEST IT WITH ignoreAccentsForStringArgumentsInConditions true and false 
 			try { 
 				condition = removeBaseConditionAndDefaultOrder(condition); 
 				if (isAll(condition)) return Labels.get("all"); 
 				String result = condition + " ";
-				Map<String, String> translations = new HashMap<>(); // tmr
+				Map<String, String> translations = new HashMap<>(); 
 				if (conditionValues != null) {
 					result = result.replaceAll("\\([\\?,*]+\\)", "(?)"); // Groups: (?,?,?) --> (?)
 					result = result.replaceAll(
@@ -71,27 +71,16 @@ public class Tab implements java.io.Serializable, Cloneable {
 						String conditionValue = conditionValues[i];
 						if (Is.emptyString(conditionValue)) continue;
 						String conditionComparator = conditionComparators[i];
-						// tmr ini
 						MetaProperty metaProperty = getMetaPropertiesNotCalculated().get(i);
 						String qualifiedName = metaProperty.getQualifiedName(); 
 						String translation = metaProperty.getQualifiedLabel(Locales.getCurrent());
 						translations.put(qualifiedName, translation);
-						// tmr fin
 						if (Is.anyEqual(conditionComparator, STARTS_COMPARATOR, CONTAINS_COMPARATOR, ENDS_COMPARATOR, NOT_CONTAINS_COMPARATOR)) { 
 							result = result.replaceFirst("\\?", XavaResources.getString(conditionComparator) + " " + conditionValue);
 						}
 						else if (EQ_COMPARATOR.equals(conditionComparator) && getMetaPropertiesNotCalculated().get(i).hasValidValues()) { 
 							result = result.replaceFirst("\\?", getMetaPropertiesNotCalculated().get(i).getValidValueLabel(Integer.parseInt(conditionValue)));
 						}
-						/* tmr
-						else if (EQ_COMPARATOR.equals(conditionComparator) && conditionValue.contains(":_:")) { // For descriptions lists
-							String qualifiedName = getMetaPropertiesNotCalculated().get(i).getQualifiedName();
-							String rootName = Strings.noLastTokenWithoutLastDelim(qualifiedName, ".").replace(".", "\\.");
-							result = result.replaceAll("\\$\\{" + rootName + "\\.[a-zA-Z0-9_\\.]+\\}", "\\${" + rootName + "}");
-							result = result.replaceFirst("\\?", conditionValue.split(":_:")[1]);
-							result = result.replace("and ${" + rootName +  "} = ?", "");
-						}	
-						*/
 						else {
 							result = result.replaceFirst("\\?", conditionValue);
 						}
@@ -120,11 +109,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 					f = r.toString().indexOf("}", i + 2);
 					if (f < 0) break;
 					String property = r.substring(i + 2, f);
-					// tmr String translation = Labels.getQualified(property);
-					// tmr ini
 					String translation = translations.get(property);
 					if (translation == null) translation = Labels.getQualified(property);
-					// tmr fin
 					r.replace(i, f + 1, translation);
 					i = r.toString().indexOf("${");
 				}
@@ -183,8 +169,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 			if (metaPropertiesNotCalculated == null) {
 				metaPropertiesNotCalculated = new ArrayList<MetaProperty>();
 				for (String propertyName: Strings.toCollection(propertiesNames)) {
-					// tmr MetaProperty property = getMetaTab().getMetaModel().getMetaProperty(propertyName);
-					// tmr ini
 					MetaProperty property = null;
 					try {
 						property = getMetaProperty(propertyName);
@@ -192,7 +176,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 					catch (ElementNotFoundException ex) {
 						property = getMetaTab().getMetaModel().getMetaProperty(propertyName);
 					}
-					// tmr fin
 					if (!property.isCalculated()) {
 						property = property.cloneMetaProperty();
 						property.setQualifiedName(propertyName);
@@ -397,7 +380,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 */
 	public final static String COLLECTION_PREFIX = "xava_collectionTab_";
 	public final static String TAB_RESETED_PREFIX = "xava.tab.reseted.";
-	// tmr public final static String DESCRIPTIONS_LIST_SEPARATOR = ":_:";
 	public final static int MAX_CONFIGURATIONS_COUNT = 20;
 	public final static String GROUP_COUNT_PROPERTY = "__GROUP_COUNT__"; 
 	
@@ -899,49 +881,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 					valuesToWhere.add("");
 					comparatorsToWhere.add(this.conditionComparators[i]);
 				}
-				/* tmr
-				else if (!Is.empty(WebEditors.getEditorURLDescriptionsList(getTabName(), getModelName(), Ids.decorate(request, p.getQualifiedName()), i, getCollectionPrefix(), p.getQualifiedName(), p.getName()))){  
-					if (Is.empty(this.conditionValues[i])){
-						comparatorsToWhere.add(this.conditionComparators[i]);
-						valuesToWhere.add(this.conditionValues[i]);
-						continue;
-					}
-					
-					String reference = p.getQualifiedName().replace("." + p.getName(), "");
-					MetaReference metaReference = getMetaTab().getMetaModel().getMetaReference(reference); 
-					List<CmpField> fields = (List<CmpField>) metaReference.getMetaModel().getMapping().getReferenceMapping(metaReference.getName()).getCmpFields();
-					Collections.sort(fields, CMPFieldComparator.getInstance());
-					
-					ModelMapping mapping = getMetaTab().getMetaModel().getMapping();
-					String keyValues = this.conditionValues[i].replace("[.", "").replace(".]", ""); 
-					if (keyValues.contains(DESCRIPTIONS_LIST_SEPARATOR)) { 
-						keyValues = keyValues.substring(0, keyValues.indexOf(DESCRIPTIONS_LIST_SEPARATOR));
-					}
-					String [] keyTokens = keyValues.split("\\.", fields.size()); 
-					int tokensIndex = 0; 
-					for (CmpField field : fields) {					
-						String property = field.getCmpPropertyName().substring(field.getCmpPropertyName().indexOf('_', 1) + 1).replace("_", "."); 
-						String value = keyTokens[tokensIndex++];
-						MetaProperty metaProperty = getMetaTab().getMetaModel().getMetaReference(reference).getMetaModelReferenced().getMetaProperty(property);
-						valuesToWhere.add(metaProperty.parse(value.toString(), getLocale()));
-						comparatorsToWhere.add(this.conditionComparators[i]);
-						
-						if (firstCondition) firstCondition = false;
-						else sb.append(" and ");
-						sb.append("${");
-						sb.append(reference);
-						sb.append('.');
-						sb.append(property);
-						sb.append("} ");
-						sb.append(convertComparator(p, this.conditionComparators[i]));
-						sb.append(" ? ");
-						
-						if (metaPropertiesKey == null) metaPropertiesKey = new ArrayList();
-						metaPropertiesKey.add(metaProperty);						
-					}
-					
-				}
-				*/
 				else if (conditionComparators[i].equals(EMPTY_COMPARATOR)) {
 					if (firstCondition) firstCondition = false;
 					else sb.append(" and ");

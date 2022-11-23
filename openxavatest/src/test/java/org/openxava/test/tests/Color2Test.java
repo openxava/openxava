@@ -43,16 +43,6 @@ public class Color2Test extends ModuleTestBase {
 		assertExists("descriptionsListValue"); 
 		assertExists("order");
 
-		/* tmr
-		String [][] validValues = {
-			{ "", "" },
-			{ "2:_:LAMPPOST", "LAMPPOST" },
-			{ "0:_:HOUSE", "HOUSE" },
-			{ "3:_:DOOR", "DOOR" },
-			{ "1:_:CAR", "CAR" } 
-		};
-		*/
-		// tmr ini
 		String [][] validValues = {
 			{ "", "" },
 			{ "LAMPPOST", "LAMPPOST" },
@@ -60,18 +50,15 @@ public class Color2Test extends ModuleTestBase {
 			{ "DOOR", "DOOR" },
 			{ "CAR", "CAR" } 
 		};		
-		// tmr fin
 		
 		assertValidValues("descriptionsListValue", validValues); 
 		assertValue("descriptionsListValue", "");
-		// tmr setValue("descriptionsListValue", "1:_:CAR");  
-		setValue("descriptionsListValue", "CAR"); // tmr En migration
+		setValue("descriptionsListValue", "CAR"); 
 		execute("MyReport.saveColumn");
 		assertValueInCollection("columns", 4, 2, "CAR"); 
 		
-		execute("MyReport.editColumn", "row=4,viewObject=xava_view_columns");
-		// tmr assertValue("descriptionsListValue", "1:_:CAR"); 		
-		assertValue("descriptionsListValue", "CAR"); // tmr
+		execute("MyReport.editColumn", "row=4,viewObject=xava_view_columns"); 		
+		assertValue("descriptionsListValue", "CAR"); 
 		closeDialog();
 		
 		execute("MyReport.generatePdf"); 
@@ -82,8 +69,7 @@ public class Color2Test extends ModuleTestBase {
 		assertValueInCollection("columns", 4, 0, "Used to"); 
 		assertValueInCollection("columns", 4, 2, "CAR");
 		execute("MyReport.editColumn", "row=4,viewObject=xava_view_columns");
-		// tmr assertValue("descriptionsListValue", "1:_:CAR"); 		
-		assertValue("descriptionsListValue", "CAR"); // tmr
+		assertValue("descriptionsListValue", "CAR"); 
 		closeDialog();
 		
 		execute("MyReport.remove", "xava.keyProperty=name");				
@@ -95,16 +81,6 @@ public class Color2Test extends ModuleTestBase {
 		assertValueInList(3, 6, "CAR");
 		assertValueInList(3, 7, "LAMPPOST");
 		assertLabelInList(4, "Used to"); 
-		/* tmr
-		String [][] validValues = {
-			{ "", "" },
-			{ "2:_:LAMPPOST", "LAMPPOST" },
-			{ "0:_:HOUSE", "HOUSE" },
-			{ "3:_:DOOR", "DOOR" },
-			{ "1:_:CAR", "CAR" }
-		};
-		*/
-		// tmr ini
 		String [][] validValues = {
 			{ "", "" },
 			{ "LAMPPOST", "LAMPPOST" },
@@ -112,11 +88,9 @@ public class Color2Test extends ModuleTestBase {
 			{ "DOOR", "DOOR" },
 			{ "CAR", "CAR" }
 		};		
-		// tmr fin
 		assertValidValues("conditionValue___3", validValues); 		
 		assertValueInList(0, 4, "CAR");
-		// tmr setConditionValues(new String[] { "", "", "", "1"} );
-		setConditionValues(new String[] { "", "", "", "CAR"} ); // tmr
+		setConditionValues(new String[] { "", "", "", "CAR"} ); 
 		// execute("List.filter"); // Not needed because filterOnChange=true
 		assertListRowCount(1); 
 	}

@@ -58,7 +58,6 @@ public class CustomerTest extends CustomizeListTestBase {
 	public void testDescriptionsListInListForSecondLevelReferences_clearConditionExecutesFilter() throws Exception { 
 		assertListRowCount(5); 
 		assertLabelInList(4, "Seller level"); 
-		// TMR setConditionValues("", "", "", "", "A");
 		setConditionValues("", "", "", "", "MANAGER"); 
 		execute("List.filter");
 		assertListRowCount(3); 
@@ -684,23 +683,19 @@ public class CustomerTest extends CustomizeListTestBase {
 		
 		assertLabelInCollection("deliveryPlaces", 3, "Preferred warehouse"); 
 		assertValueInCollection("deliveryPlaces", 0, 3, "CENTRAL VALENCIA"); 
-		// tmr setConditionValues("deliveryPlaces", new String[] { "", "", "", "[.1.2.]" } );
-		setConditionValues("deliveryPlaces", new String[] { "", "", "", "VALENCIA SURETE" } ); // tmr
+		setConditionValues("deliveryPlaces", new String[] { "", "", "", "VALENCIA SURETE" } ); 
 		
 		// execute("List.filter", "collection=deliveryPlaces"); // Not needed because filterOnChange=true
 		assertCollectionRowCount("deliveryPlaces", 0); 	
-		// tmr setConditionValues("deliveryPlaces", new String[] { "", "", "", "[.1.1.]" } );
-		setConditionValues("deliveryPlaces", new String[] { "", "", "", "CENTRAL VALENCIA" } ); // tmr
+		setConditionValues("deliveryPlaces", new String[] { "", "", "", "CENTRAL VALENCIA" } ); 
 		// execute("List.filter", "collection=deliveryPlaces"); // Not needed because filterOnChange=true
 		assertCollectionNotEmpty("deliveryPlaces");
 		
 		try{
-			// TMR setConditionValues("deliveryPlaces", new String[] { "", "", "", "[.1.1000.]"} );	
 			setConditionValues("deliveryPlaces", new String[] { "", "", "", "ULTRALMACEN"} ); // ULTRALMACEN DOES NOT EXIST
 		}
 		catch(IllegalArgumentException ex){
-			// TMR assertTrue(ex.getMessage().equals("No option found with value: [.1.1000.]"));
-			assertTrue(ex.getMessage().equals("No option found with value: ULTRALMACEN")); // TMR
+			assertTrue(ex.getMessage().equals("No option found with value: ULTRALMACEN")); 
 		}
 		
 	}

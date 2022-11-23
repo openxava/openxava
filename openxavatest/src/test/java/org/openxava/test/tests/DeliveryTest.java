@@ -62,8 +62,7 @@ public class DeliveryTest extends ModuleTestBase {
 	public void testFilterDescriptionsListAndEnumLetterType_myReportConditionWithDescriptionsListAndValidValues() throws Exception { 
 		assertLabelInList(3, "Type"); 
 		assertLabelInList(7, "Distance");
-		// tmr setConditionValues(new String[] { "", "", "", "1", "", "", "", "1"} );	
-		setConditionValues(new String[] { "", "", "", "FACTURABLE MODIFIED", "", "", "", "1"} ); // tmr
+		setConditionValues(new String[] { "", "", "", "FACTURABLE MODIFIED", "", "", "", "1"} ); 
 		execute("List.filter");
 		assertListRowCount(2);	 	
 		assertValueInList(0, 0, "2004");

@@ -519,8 +519,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInList(1, "seller.name", "MANUEL CHAVARRI");
 		HtmlSelect comboSeller = getHtmlPage().getElementByName("ox_openxavatest_CustomerWithSection__conditionValue___2");
 		String selectedValue = comboSeller.getSelectedOptions().get(0).getValueAttribute();
-		// TMR assertEquals("1:_:MANUEL CHAVARRI", selectedValue);
-		assertEquals("MANUEL CHAVARRI", selectedValue); // TMR
+		assertEquals("MANUEL CHAVARRI", selectedValue); 
 
 		
 		execute("CRUD.new");

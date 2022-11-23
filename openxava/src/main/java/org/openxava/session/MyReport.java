@@ -141,13 +141,8 @@ public class MyReport implements java.io.Serializable {
 							if (property.getMetaModel().isAnnotatedEJB3()) validValue++;		
 							column.setValidValuesValue(validValue); 
 						}
-						/* tmr
-						else if (values[i].contains(Tab.DESCRIPTIONS_LIST_SEPARATOR)) {
-							column.setDescriptionsListValue(values[i]);
-						}
-						*/
 						else {
-							column.setDescriptionsListValue(values[i]); // tmr
+							column.setDescriptionsListValue(values[i]); 
 							column.setValue(values[i]);
 						} 
 					}

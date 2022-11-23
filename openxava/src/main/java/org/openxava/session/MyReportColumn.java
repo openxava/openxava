@@ -83,7 +83,8 @@ public class MyReportColumn implements java.io.Serializable {
 
 	
 	public String getComparator() {
-		if (booleanValue != null || validValuesValue > 0 || !Is.emptyString(descriptionsListValue)) return org.openxava.tab.Tab.EQ_COMPARATOR;
+		if (booleanValue != null || validValuesValue > 0) return org.openxava.tab.Tab.EQ_COMPARATOR;
+		if (!Is.emptyString(descriptionsListValue) && Is.emptyString(comparator)) return org.openxava.tab.Tab.EQ_COMPARATOR;
 		return comparator;
 	}
 
@@ -102,8 +103,7 @@ public class MyReportColumn implements java.io.Serializable {
 			return getReport().getMetaModel().getMetaProperty(getName()).getValidValueLabel(getValidValuesIndex()); 
 		}
 		if (!Is.emptyString(descriptionsListValue)) {
-			// tmr return descriptionsListValue.split(Tab.DESCRIPTIONS_LIST_SEPARATOR)[1];
-			return descriptionsListValue; // tmr
+			return descriptionsListValue; 
 		}
 		return value;
 	}
@@ -120,8 +120,7 @@ public class MyReportColumn implements java.io.Serializable {
 			return Integer.toString(getValidValuesIndex()); 
 		}
 		if (!Is.emptyString(descriptionsListValue)) {
-			// tmr return descriptionsListValue.split(org.openxava.tab.Tab.DESCRIPTIONS_LIST_SEPARATOR)[0];
-			return descriptionsListValue; // tmr
+			return descriptionsListValue; 
 		}
 		return value;
 	}

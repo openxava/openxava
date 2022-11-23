@@ -228,7 +228,7 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		assertCollectionRowCount("columns", 3);
 		assertValueInCollection("columns", 0, 0, "Calculated");
 		assertValueInCollection("columns", 1, 0, "Number");
-		assertValueInCollection("columns", 1, 1, ">"); // TMR FALLA ME QUEDÉ POR AQUÍ. EL ÚNICO FALLO DE LA SUITE
+		assertValueInCollection("columns", 1, 1, ">"); 
 		assertValueInCollection("columns", 1, 2, "1");
 		assertValueInCollection("columns", 1, 3, "");
 		assertValueInCollection("columns", 2, 0, "Name");

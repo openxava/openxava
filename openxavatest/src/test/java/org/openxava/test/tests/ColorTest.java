@@ -324,19 +324,16 @@ public class ColorTest extends ModuleTestBase {
 		assertLabelInList(5, "Characteristic thing"); 
 		assertValueInList(0, 4, "CAR");
 		assertValueInList(0, 5, "3 PLACES");
-		// tmr setConditionValues(new String[] { "", "", "", "1", "0" } );
-		setConditionValues(new String[] { "", "", "", "CAR", "3 PLACES" } ); // tmr
+		setConditionValues(new String[] { "", "", "", "CAR", "3 PLACES" } ); 
 		execute("List.filter");
 		assertNoErrors();
 		assertListRowCount(1); 
 
 		try{
-			// setConditionValues(new String[] { "", "", "", "", "2"} );	// descriptionsList has a condition: number < 2
 			setConditionValues(new String[] { "", "", "", "", "BIG"} );	// BIG is number 2 and descriptionsList has a condition: number < 2
 		}
 		catch(IllegalArgumentException ex){
-			// tmr assertTrue(ex.getMessage().equals("No option found with value: 2"));
-			assertTrue(ex.getMessage().equals("No option found with value: DIA")); // TMR
+			assertTrue(ex.getMessage().equals("No option found with value: DIA")); 
 		}
 	}
 	

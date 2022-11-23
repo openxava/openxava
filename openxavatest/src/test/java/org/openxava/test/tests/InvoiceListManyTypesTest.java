@@ -23,7 +23,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertListConfigurationGroups();		
 		assertListConfigurationsEnums();
 		assertListConfigurationsYearMonthYearMonth(); 
-		assertListConfigurationsDescriptionsLists(); // TMR FALLA		
+		assertListConfigurationsDescriptionsLists(); 	
 		assertListConfigurationsOrdering();
 		assertListConfigurationsRanges();
 		assertListConfigurationsColumns(); 
@@ -591,8 +591,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 	
 	private void assertListConfigurationsDescriptionsLists() throws Exception {
 		clearCondition();
-		// tmr setConditionValues("", "", "", "", "", "", "", "1:_:MANUEL CHAVARRI");
-		setConditionValues("", "", "", "", "", "", "", "MANUEL CHAVARRI"); // tmr
+		setConditionValues("", "", "", "", "", "", "", "MANUEL CHAVARRI"); 
 		execute("List.filter");
 		assertListSelectedConfiguration("Seller of customer = manuel chavarri");
 		assertListAllConfigurations("Seller of customer = manuel chavarri", "All", "Year/month of date = 2006/11", "Month of date = 1", 
@@ -784,31 +783,19 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		setConditionComparators("=", "=", "=", "=", "<>", Tab.STARTS_COMPARATOR);
 		setConditionValues("", "", "", "", "true", "j"); 
 		execute("List.filter");
-		// tmr assertListSelectedConfiguration("Not paid and name of customer starts with j"); // Here the boolean is not the last one
-		// tmr Esto podría ser otro bug para changelog, lo de customer en lugar de name of customer
-		// tmr ¿En migration? Puede que el caso no sea muy común
 		assertListSelectedConfiguration("Not paid and customer starts with j"); // Here the boolean is not the last one
-		// tmr assertListAllConfigurations("Not paid and name of customer starts with j", "All", "Not paid", "Paid", "Year 2004 and number > 10", "Number = 1"); 
-		assertListAllConfigurations("Not paid and customer starts with j", "All", "Not paid", "Paid", "Year 2004 and number > 10", "Number = 1"); // tmr
+		assertListAllConfigurations("Not paid and customer starts with j", "All", "Not paid", "Paid", "Year 2004 and number > 10", "Number = 1"); 
 		assertListRowCount(6);
 		saveConfiguration(); 
 		
 		selectListConfiguration("Paid");
 		assertListSelectedConfiguration("Paid");
-		// tmr assertListAllConfigurations("Paid", "All", "Not paid and name of customer starts with j", "Not paid", "Year 2004 and number > 10", "Number = 1"); 
-		assertListAllConfigurations("Paid", "All", "Not paid and customer starts with j", "Not paid", "Year 2004 and number > 10", "Number = 1"); // tmr
+		assertListAllConfigurations("Paid", "All", "Not paid and customer starts with j", "Not paid", "Year 2004 and number > 10", "Number = 1"); 
 		assertListRowCount(1);
 
-		/* tmr
-		selectListConfiguration("Not paid and name of customer starts with j");
-		assertListSelectedConfiguration("Not paid and name of customer starts with j");
-		assertListAllConfigurations("Not paid and name of customer starts with j", "All", "Paid", "Not paid", "Year 2004 and number > 10", "Number = 1"); 
-		*/
-		// tmr ini
 		selectListConfiguration("Not paid and customer starts with j");
 		assertListSelectedConfiguration("Not paid and customer starts with j");
 		assertListAllConfigurations("Not paid and customer starts with j", "All", "Paid", "Not paid", "Year 2004 and number > 10", "Number = 1"); 		
-		// tmr fin
 		assertListRowCount(6);
 	}
 

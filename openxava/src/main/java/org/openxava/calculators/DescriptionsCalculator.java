@@ -44,7 +44,7 @@ public class DescriptionsCalculator implements ICalculator {
 	private Collection keyPropertiesCollection;
 	private MetaTab metaTab;
 	private int hiddenPropertiesCount; 
-	private boolean distinct = false; // tmr En changelog  
+	private boolean distinct = false;   
 	
 	
 	/**
@@ -64,9 +64,7 @@ public class DescriptionsCalculator implements ICalculator {
 				KeyAndDescriptionComparator.getByKey():
 					KeyAndDescriptionComparator.getByDescription();										
 			Collections.sort(result, comparator);
-			// tmr
-			if (isDistinct()) result = (List) result.stream().distinct().collect(Collectors.toList()); // tmr 
-			// tmr
+			if (isDistinct()) result = (List) result.stream().distinct().collect(Collectors.toList());  
 		}
 		return result;
 	}
@@ -398,10 +396,20 @@ public class DescriptionsCalculator implements ICalculator {
 		this.order = order;
 	}
 
+	/** 
+	 * To allow not duplicated results.
+	 *  
+	 * @since 7.0.3
+	 */
 	public boolean isDistinct() {
 		return distinct;
 	}
 
+	/** 
+	 * To allow not duplicated results.
+	 *  
+	 * @since 7.0.3
+	 */	
 	public void setDistinct(boolean distinct) {
 		this.distinct = distinct;
 	}
