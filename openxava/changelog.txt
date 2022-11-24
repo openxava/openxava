@@ -1,6 +1,20 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Bad values for list filter in combos if @DescriptionsList uses several field for description. 
+- New property distinct in DescriptionsCalculator to allow not duplicated results.
+- Removed Tab.DESCRIPTIONS_LIST_SEPARATOR final variable. 
+- Fix: Sometimes property name used for list configuration names do not match the column label in list. 
+- Fix: Missing configuration property in LeanXcale documentation.
+- Fix: Typos in View chapter of Reference Guide.
+- Hibernate upgraded to 5.6.14.
+- Tomcat-embed-core upgraded to 9.0.69.
+- Tomcat-embed-jasper upgraded to 9.0.69.
+- Tomcat-dbcp upgraded to 9.0.69.
+- Driver versions in doc and new projects upgraded for Microsoft SQL Server, Informix, Firebird.
+
+OpenXava 7.0.2 (2022-11-11)
+---------------------------
 - HSQLDB embedded database upgraded to 2.7.1.
 - Embedded Tomcat used in development upgraded to 9.0.68.
 - Hibernate upgraded to 5.6.12.
@@ -9,12 +23,10 @@ Change Log for OpenXava project
 - PdfBox upgraded to 2.0.27.
 - Groovy upgraded to 4.0.6.
 - Driver versions in doc and new projects upgraded for MySQL and Db2.
-
 - Documentation to modify OpenXava code with Maven version.
 - Getting started guide using Visual Studio Code in English, Spanish and Chinese.
 - Documentation to configure your OpenXava application to work with LeanXcale database.
 - Improved Oracle configuration documentation.
-
 - Fixed 1 potential security vulnerabilities in dependencies, now we have 0 vulnerabilities.
 - Fix: JS and CSS for editors not loaded when there are blank spaces in path.
 - Fix: Message "WARNING! Trying to load controller {0} twice" for each controller.

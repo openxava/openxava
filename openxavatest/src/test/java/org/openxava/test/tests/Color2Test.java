@@ -45,20 +45,20 @@ public class Color2Test extends ModuleTestBase {
 
 		String [][] validValues = {
 			{ "", "" },
-			{ "2:_:LAMPPOST", "LAMPPOST" },
-			{ "0:_:HOUSE", "HOUSE" },
-			{ "3:_:DOOR", "DOOR" },
-			{ "1:_:CAR", "CAR" } 
-		};
+			{ "LAMPPOST", "LAMPPOST" },
+			{ "HOUSE", "HOUSE" },
+			{ "DOOR", "DOOR" },
+			{ "CAR", "CAR" } 
+		};		
 		
 		assertValidValues("descriptionsListValue", validValues); 
 		assertValue("descriptionsListValue", "");
-		setValue("descriptionsListValue", "1:_:CAR"); 
+		setValue("descriptionsListValue", "CAR"); 
 		execute("MyReport.saveColumn");
 		assertValueInCollection("columns", 4, 2, "CAR"); 
 		
-		execute("MyReport.editColumn", "row=4,viewObject=xava_view_columns");
-		assertValue("descriptionsListValue", "1:_:CAR"); 		
+		execute("MyReport.editColumn", "row=4,viewObject=xava_view_columns"); 		
+		assertValue("descriptionsListValue", "CAR"); 
 		closeDialog();
 		
 		execute("MyReport.generatePdf"); 
@@ -69,7 +69,7 @@ public class Color2Test extends ModuleTestBase {
 		assertValueInCollection("columns", 4, 0, "Used to"); 
 		assertValueInCollection("columns", 4, 2, "CAR");
 		execute("MyReport.editColumn", "row=4,viewObject=xava_view_columns");
-		assertValue("descriptionsListValue", "1:_:CAR"); 		
+		assertValue("descriptionsListValue", "CAR"); 
 		closeDialog();
 		
 		execute("MyReport.remove", "xava.keyProperty=name");				
@@ -83,14 +83,14 @@ public class Color2Test extends ModuleTestBase {
 		assertLabelInList(4, "Used to"); 
 		String [][] validValues = {
 			{ "", "" },
-			{ "2:_:LAMPPOST", "LAMPPOST" },
-			{ "0:_:HOUSE", "HOUSE" },
-			{ "3:_:DOOR", "DOOR" },
-			{ "1:_:CAR", "CAR" }
-		};
-		assertValidValues("conditionValue___3", validValues);		
+			{ "LAMPPOST", "LAMPPOST" },
+			{ "HOUSE", "HOUSE" },
+			{ "DOOR", "DOOR" },
+			{ "CAR", "CAR" }
+		};		
+		assertValidValues("conditionValue___3", validValues); 		
 		assertValueInList(0, 4, "CAR");
-		setConditionValues(new String[] { "", "", "", "1"} );
+		setConditionValues(new String[] { "", "", "", "CAR"} ); 
 		// execute("List.filter"); // Not needed because filterOnChange=true
 		assertListRowCount(1); 
 	}
