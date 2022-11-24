@@ -1,7 +1,6 @@
 Change Log for OpenXava project
 ===============================
 
-TMR ME QUEDE POR HACER LA DOCUMENTACIÓN DE MIGRACIÓN
 - Fix: Bad values for list filter in combos if @DescriptionsList uses several field for description. 
 - New property distinct in DescriptionsCalculator to allow not duplicated results.
 - Removed Tab.DESCRIPTIONS_LIST_SEPARATOR final variable. 
