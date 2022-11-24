@@ -7,26 +7,22 @@ openxava.addEditorInitFunction(function() {
     if (openxava.browser.htmlUnit) return;
     
     var withEnter = false;
-    var dateEnter;
+    var enterDate;
 	
 	$('.xava_date > input').keydown(function(event) {
-    var keycode = event.keyCode || event.which;	
-    if(keycode == 13) {
-        dateEnter = $(this).val();
-		if (dateEnter.includes("/") || dateEnter.includes(".") || dateEnter.includes("-") || !(dateEnter.length < 9)){
-			withEnter = false;
-		}else{
-			withEnter = true;
-		}
-    }
+	    var keycode = event.keyCode || event.which;	
+	    if(keycode == 13) {
+	        enterDate = $(this).val();
+			if (enterDate.includes("/") || enterDate.includes(".") || enterDate.includes("-") || !(enterDate.length < 9)){
+				withEnter = false;
+			}else{
+				withEnter = true;
+			}
+	    }
 	});
 	$('.xava_date > input').change(function() { 
 		var dateFormat = $(this).parent().data("dateFormat");
-		if (withEnter == true){
-			var date =dateEnter;
-		}else{
-			var date = $(this).val();
-		}
+		var date = withEnter?enterDate:$(this).val();
 		if (date === "") return;
 		date = date.trim(); 
 		var separator = dateFormat.substr(1, 1); 
