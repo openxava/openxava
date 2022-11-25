@@ -7,6 +7,7 @@ openxava.addEditorInitFunction(function() {
 
     var withEnter = false;
     var dateEnter;
+	var onOpenDateTime;
 
 	$('.xava_date > input').keydown(function(event) {
     var keycode = event.keyCode || event.which;	
@@ -20,6 +21,7 @@ openxava.addEditorInitFunction(function() {
     }
 	});
 	$('.xava_date > input').change(function() { 
+        console.log(".xava_date > input");
 		var dateFormat = $(this).parent().data("dateFormat");
   		if (withEnter == true){
 			var date =dateEnter;
@@ -66,16 +68,56 @@ openxava.addEditorInitFunction(function() {
 	    allowInput: true,
 	    clickOpens: false,  
 	    wrap: true,
-	    locale: openxava.language, 
+	    locale: openxava.language,
+		onOpen : function(selectedDates, dateStr, instance){
+			onOpenDateTime = dateStr;
+        },
 	    onChange: function(selectedDates, dateStr, instance) {
+			//console.log(".xava_date > onChange " + $(instance.input).data("datePopupJustClosed"));
+			/*
         	if (!$(instance.input).data("datePopupJustClosed") || dateStr === $(instance.input).attr('value')) {
+				console.log(".xava_date > onChange " + $(instance.input).attr('value'));
         		$(instance.input).data("changedCancelled", true);
-        	}
+        	}*/
+			console.log(onOpenDateTime.length);
+			if (onOpenDateTime != null && onOpenDateTime.length > 10 ){
+				console.log("mayor a 10")
+				// si entro al calendario
+				if (onOpenDateTime == dateStr){
+				console.log("onChange igual");
+				$(instance.input).data("changedCancelled", true);
+				}else{
+				console.log("onChange no igual");
+				}
+				
+			}else{
+				//si no entro al calendario
+				//si mi fecha actual es distinto al input no pasa nada, de lo contrario lo actualiza
+				var st = (dateStr === $(instance.input).attr('value'))?"iguald":"noiguald";
+				console.log(st);
+				
+				if (st == "iguald"){
+					$(instance.input).data("changedCancelled", true);
+				}
+				//$(instance.input).attr('value', dateStr);
+			}
+
         	$(instance.input).attr('value', dateStr);
-        	$(instance.input).removeData("datePopupJustClosed");
+        	//$(instance.input).removeData("datePopupJustClosed");
     	},
+
     	onClose: function(selectedDates, dateStr, instance) {
-	    	$(instance.input).data("datePopupJustClosed", true);
+			/*
+			if ( onOpenDateTime == dateStr){
+				console.log("onClose igual");
+				$(instance.input).data("changedCancelled", true);
+			}else{
+				$(instance.input).data("changedCancelled", false);
+				console.log("onClose no es igual");
+			}
+			$(instance.input).attr('value', dateStr);*/
+            //console.log(".xava_date > onClose" + dateStr);
+	    	//$(instance.input).data("datePopupJustClosed", false);
     	},    	 
 	});
 });
