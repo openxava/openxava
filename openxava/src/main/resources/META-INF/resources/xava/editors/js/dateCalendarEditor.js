@@ -73,49 +73,69 @@ openxava.addEditorInitFunction(function() {
 			onOpenDateTime = dateStr;
         },
 	    onChange: function(selectedDates, dateStr, instance) {
-			//console.log(".xava_date > onChange " + $(instance.input).data("datePopupJustClosed"));
 			/*
         	if (!$(instance.input).data("datePopupJustClosed") || dateStr === $(instance.input).attr('value')) {
 				console.log(".xava_date > onChange " + $(instance.input).attr('value'));
         		$(instance.input).data("changedCancelled", true);
         	}*/
-			console.log(onOpenDateTime.length);
-			if (onOpenDateTime != null && onOpenDateTime.length > 10 ){
-				console.log("mayor a 10")
-				// si entro al calendario
-				if (onOpenDateTime == dateStr){
-				console.log("onChange igual");
-				$(instance.input).data("changedCancelled", true);
+			
+			console.log(onOpenDateTime);
+			console.log(dateStr);
+			//abro el calendario, uso el onOpenDateTime
+			if (onOpenDateTime != null){
+				if (onOpenDateTime.length > 10 ){
+					//con hora
+					console.log("calendario onOpen > 10");
+					if (onOpenDateTime == dateStr){
+						// no cambiar si es igual
+						console.log("onChange igual");
+						$(instance.input).data("changedCancelled", true);
+					}else{
+						// no cambiar si es que el usuario quiere cambiar mas datos
+						// si pongo que cambie, actuara como el calendario normal, onchange siempre si se cambia solo 1 dato
+						console.log("onChange no igual");
+						$(instance.input).data("changedCancelled", true);
+					}
 				}else{
-				console.log("onChange no igual");
+					//sin hora
+					console.log("calendario onOpen < 10");
+					if (onOpenDateTime == dateStr){
+						// no cambiar si es igual
+						console.log("onChange igual");
+						$(instance.input).data("changedCancelled", true);
+					}else{
+						// no cambiar si es que el usuario quiere cambiar mas datos
+						// si pongo que cambie, actuara como el calendario normal, onchange siempre si se cambia solo 1 dato
+						console.log("se ejecuta onChange");
+					}
 				}
-				
+
 			}else{
-				//si no entro al calendario
-				//si mi fecha actual es distinto al input no pasa nada, de lo contrario lo actualiza
-				var st = (dateStr === $(instance.input).attr('value'))?"iguald":"noiguald";
-				console.log(st);
-				
-				if (st == "iguald"){
+				//no entro al calendario, uso el input
+				if (dateStr === $(instance.input).attr('value')){
+					//es igual, no hago el cambio
 					$(instance.input).data("changedCancelled", true);
+				}else{
+					//es distinto
+					$(instance.input).attr('value', dateStr);
 				}
 				//$(instance.input).attr('value', dateStr);
 			}
 
-        	$(instance.input).attr('value', dateStr);
+        	//$(instance.input).attr('value', dateStr);
         	//$(instance.input).removeData("datePopupJustClosed");
     	},
 
     	onClose: function(selectedDates, dateStr, instance) {
-			/*
 			if ( onOpenDateTime == dateStr){
 				console.log("onClose igual");
 				$(instance.input).data("changedCancelled", true);
 			}else{
-				$(instance.input).data("changedCancelled", false);
+				//$(instance.input).data("changedCancelled", false);
 				console.log("onClose no es igual");
+				$(instance.input).attr('value', dateStr);
 			}
-			$(instance.input).attr('value', dateStr);*/
+			//$(instance.input).attr('value', dateStr);
             //console.log(".xava_date > onClose" + dateStr);
 	    	//$(instance.input).data("datePopupJustClosed", false);
     	},    	 
