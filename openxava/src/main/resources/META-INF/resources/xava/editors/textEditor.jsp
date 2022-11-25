@@ -73,7 +73,7 @@ if (editable || !label) {
 }
 %>
 <% if (!editable) { %>
-	<input type="hidden" name="<%=propertyKey%>" value="<%=fvalue%>" title="<%=p.getDescription(request)%>">
+	<input type="hidden" name="<%=propertyKey%>" value="<%=fvalue%>">
 <% } %>			
 
 

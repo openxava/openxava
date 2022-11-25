@@ -171,20 +171,19 @@ MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 String title = "";  
 try {
     if (p == null) {
-    String undecorated = Ids.undecorateRef(propertyKey);
-    String[] split = undecorated.split("\\.");
-    String[] noNull = Arrays.stream(split)
-        .filter(value -> value != null && value.length() > 0)
-        .toArray(size -> new String[size]);
-    String refName = noNull[noNull.length - 2];
-    String d = view.getMetaReference(refName).getDescription();
-    title = (d == null) ? "" : d;
-    } 
-    else {
-    title = p.getDescription(request);
+        String undecorated = Ids.undecorateRef(propertyKey);
+        String[] split = undecorated.split("\\.");
+        String[] noNull = Arrays.stream(split)
+            .filter(value - > value != null && value.length() > 0)
+            .toArray(size - > new String[size]);
+        String refName = noNull[noNull.length - 2];
+        String d = view.getMetaReference(refName).getDescription();
+        title = (d == null) ? "" : d;
+    } else {
+        title = p.getDescription(request);
     }
 } catch (Exception e) {
-  title = "";
+    title = "";
 }
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
 boolean editable = "true".equals(request.getParameter("editable"));
