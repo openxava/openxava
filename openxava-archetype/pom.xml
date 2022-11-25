@@ -67,7 +67,7 @@
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
-    		<version>11.2.1.jre8</version>
+    		<version>12.1.0.jre8-preview</version>
 		</dependency>
 		-->
 		
@@ -75,7 +75,7 @@
 		<dependency>
 			<groupId>com.ibm.informix</groupId>
 			<artifactId>jdbc</artifactId>
-			<version>4.50.8</version>
+			<version>4.50.9</version>
 		</dependency>
 		-->
 		
@@ -91,7 +91,7 @@
 		<dependency>
 			<groupId>org.firebirdsql.jdbc</groupId>
 			<artifactId>jaybird</artifactId>
-			<version>4.0.6.java8</version>
+			<version>4.0.7.java8</version>
 		</dependency>
 		-->
 		

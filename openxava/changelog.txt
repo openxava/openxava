@@ -1,6 +1,19 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Wrong date formating when pressing ENTER in the field after fill the date. 
+- Fix: Bad values for list filter in combos if @DescriptionsList uses several field for description. 
+- New property distinct in DescriptionsCalculator to allow not duplicated results.
+- Removed Tab.DESCRIPTIONS_LIST_SEPARATOR final variable. 
+- Fix: Sometimes property name used for list configuration names do not match the column label in list. 
+- Fix: Missing configuration property in LeanXcale documentation.
+- Fix: Typos in View chapter of Reference Guide.
+- Hibernate upgraded to 5.6.14.
+- Tomcat-embed-core upgraded to 9.0.69.
+- Tomcat-embed-jasper upgraded to 9.0.69.
+- Tomcat-dbcp upgraded to 9.0.69.
+- Driver versions in doc and new projects upgraded for Microsoft SQL Server, Informix, Firebird.
+
 OpenXava 7.0.2 (2022-11-11)
 ---------------------------
 - HSQLDB embedded database upgraded to 2.7.1.
