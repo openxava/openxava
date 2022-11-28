@@ -4130,9 +4130,12 @@ public class View implements java.io.Serializable {
 	
 	public MetaProperty getMetaProperty(String name) throws XavaException {		
 		int idx = name.indexOf('.');
+		System.out.println("[View.getMetaProperty] name=" + name); // tmp
 		if (idx >= 0) {
 			String reference = name.substring(0, idx);
 			String member = name.substring(idx + 1);
+			System.out.println("[View.getMetaProperty] reference=" + reference); // tmp
+			System.out.println("[View.getMetaProperty] member=" + member); // tmp
 			if (reference.equals("__PARENT__")) {
 				return getParent().getMetaModel().getMetaProperty(member);
 			}
@@ -4144,8 +4147,18 @@ public class View implements java.io.Serializable {
 				if (getMetaModel().containsMetaCollection(reference)) { 
 					// From element collection
 					String collectionMember = Strings.noFirstTokenWithoutFirstDelim(member, ".");
-					collectionMember = collectionMember.replaceAll("^this\\.", ""); 
-					return getMetaModel().getMetaCollection(reference).getMetaReference().getMetaModelReferenced().getMetaProperty(collectionMember);
+					System.out.println("[View.getMetaProperty] collectionMember> " + collectionMember); // tmp
+					collectionMember = collectionMember.replaceAll("^this\\.", "");
+					System.out.println("[View.getMetaProperty] collectionMember< " + collectionMember); // tmp
+					// tmr Falta tener en cuenta el this. en collection member
+					try { // tmr
+						return getMetaModel().getMetaCollection(reference).getMetaReference().getMetaModelReferenced().getMetaProperty(collectionMember);
+					// tmr ini
+					}
+					catch (ElementNotFoundException ex2) {
+						return getRoot().getMetaModel().getMetaProperty(collectionMember);
+					}
+					// tmr fin
 				}
 				if (getMetaModel().containsMetaReference(reference)) { 
 					return getMetaModel().getMetaReference(reference).getMetaModelReferenced().getMetaProperty(member);
@@ -4164,9 +4177,12 @@ public class View implements java.io.Serializable {
 	
 	public MetaReference getMetaReference(String name) throws XavaException { 			
 		int idx = name.indexOf('.');
+		System.out.println("[View(" + getModelName() + ").getMetaReference] name=" + name); // tmp
 		if (idx >= 0) {
 			String reference = name.substring(0, idx);
 			String member = name.substring(idx + 1);
+			System.out.println("[View(" + getModelName() + ").getMetaReference] reference=" + reference); // tmp
+			System.out.println("[View(" + getModelName() + ").getMetaReference] member=" + member); // tmp
 			try { 
 				return getSubview(reference).getMetaReference(member);
 			}
@@ -4174,10 +4190,22 @@ public class View implements java.io.Serializable {
 				if (!getMetaModel().containsMetaCollection(reference)) throw ex;
 				// From element collection
 				String collectionMember = Strings.noFirstTokenWithoutFirstDelim(member, ".");
+				System.out.println("[View(" + getModelName() + ").getMetaReference] collectionMember=" + collectionMember); // tmp
 				return getMetaModel().getMetaCollection(reference).getMetaReference().getMetaModelReferenced().getMetaReference(collectionMember);
 			}
 		}				
 		return getMetaModel().getMetaReference(name);
+	}
+	
+	public boolean containsMetaReference(String name) throws XavaException { // tmr 	
+		System.out.println("[View(" + getModelName() + ").containsMetaReference] name=" + name); // tmp
+		try { 
+			getMetaReference(name);
+			return true;
+		}
+		catch (ElementNotFoundException ex) {
+			return false;
+		}
 	}
 		
 	private Collection getMetaPropertiesIncludingSections() throws XavaException {
@@ -4509,7 +4537,14 @@ public class View implements java.io.Serializable {
 		return depends;
 	}
 	
-	public String getParameterValuesPropertiesInDescriptionsList(MetaReference ref) throws XavaException {
+	public String getParameterValuesPropertiesInDescriptionsList(MetaReference ref) throws XavaException { // tmr
+		String result = _getParameterValuesPropertiesInDescriptionsList(ref);
+		System.out.println("[View.getParameterValuesPropertiesInDescriptionsList(" + getModelName() + ")] ref=" + ref.getName() + ", result=" + result); // tmp
+		return result;
+	}
+	
+	public String _getParameterValuesPropertiesInDescriptionsList(MetaReference ref) throws XavaException {
+		// TMR ME QUEDÉ POR AQUÍ: AQUÍ YA DEVUELVE evaluations.0.family. PRIMERO PUEDO PONER DEVOLVERLO BIEN A PIÑON FIJO, PARA VER SI ARREGLA EL PROBLEMA
 		if (ref.getName().contains(".")) {
 			MetaReference unqualifiedRef = ref.cloneMetaReference();
 			unqualifiedRef.setName(Strings.lastToken(ref.getName(), "."));

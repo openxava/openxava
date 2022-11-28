@@ -10,9 +10,7 @@ import org.openxava.model.*;
 import lombok.*;
 
 /**
- * tmr ME QUEDÉ POR AQUÍ. ENTIDADES HECHAS, FALTA CREAR TABLAS, COMPROBAR QUE FUNCIONA,
- * tmr						AÑADIR CONDICIÓN EN DESCRIPTIONSLIST, REPRODUCIR BUG,
- * tmr						HACER PRUEBA JUNIT. ARREGLAR BUG.
+ * tmr						
  * @author Javier Paniza 
  */
 
@@ -22,6 +20,7 @@ public class ProductsEvaluation2 extends Identifiable {
 	@Column(length=40) @Required
 	String description;
 	
+	@DescriptionsList
 	@ManyToOne(fetch = FetchType.LAZY)
 	Family2 family;
 	

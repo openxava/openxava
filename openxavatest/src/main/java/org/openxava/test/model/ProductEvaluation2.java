@@ -17,6 +17,10 @@ public class ProductEvaluation2 {
 		
 	@ManyToOne(fetch=FetchType.LAZY)
 	@DescriptionsList
+	@DescriptionsList(
+		 depends="family", 
+		 condition="${family.number} = ?" 
+	)
 	Product2 product;
 
 	@Column(length=40) 

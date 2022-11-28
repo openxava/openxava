@@ -119,6 +119,7 @@ if (calculator == null) {
 }
 if (parameterValuesStereotypes != null || parameterValuesProperties != null) {	
 	java.util.Iterator it = null;
+	System.out.println("[descriptionsEditor.jsp] parameterValuesProperties=" + parameterValuesProperties); // tmr
 	if (parameterValuesStereotypes != null) {
 		it = view.getPropertiesNamesFromStereotypesList(parameterValuesStereotypes).iterator();		
 	}
@@ -142,10 +143,15 @@ if (parameterValuesStereotypes != null || parameterValuesProperties != null) {
 		
 		Object parameterValue = null; 
 		if (parameterValueKey != null) {
-			if (v.getMetaModel().containsMetaReference(parameterValueKey)) {
+			System.out.println("[descriptionsEditor.jsp] parameterValueKey=" + parameterValueKey); // tmr
+			System.out.println("[descriptionsEditor.jsp] v.getModelName()=" + v.getModelName()); // tmr
+			// tmr if (v.getMetaModel().containsMetaReference(parameterValueKey)) { 
+			if (v.containsMetaReference(parameterValueKey)) { // tmr
+				System.out.println("[descriptionsEditor.jsp] A"); // tmr
 				parameterValue = v.getSubview(parameterValueKey).getEntity();
 			}
 			else {
+				System.out.println("[descriptionsEditor.jsp] B"); // tmr
 				parameterValue = v.getValue(parameterValueKey);
 				PropertyMapping mapping = v.getMetaProperty(parameterValueKey).getMapping();
 				if (mapping != null) {
