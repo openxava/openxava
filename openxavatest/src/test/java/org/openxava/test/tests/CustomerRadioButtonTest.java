@@ -32,7 +32,6 @@ public class CustomerRadioButtonTest extends ModuleTestBase {
 		assertValue("type", "2");	// special
 	}
 	
-	
 	public void testEditorByView_radioButton() throws Exception { 
 		// Really editor by property-view must be tested visually
 		// and about radioButton we only test that it's possible to use in junit test,
