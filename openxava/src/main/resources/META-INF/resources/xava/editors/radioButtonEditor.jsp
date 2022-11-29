@@ -2,6 +2,15 @@
  
 <%@ include file="validValueEditorCommon.jsp"%>
 
+<%  
+description = p.getValidValueLabel(request, value);  
+if (label) { 
+%> 
+<%=description%> 
+<% 
+} 
+else { 
+%>  
 <div class="<%=style.getRadioButtons()%>">
 <% 
 java.util.Iterator it = p.validValuesLabels(request); 
@@ -22,5 +31,6 @@ Boolean isHorizontal = Boolean.valueOf(horizontal);
 
 <% 
 } // while 
+}
 %> 
  </div> 
