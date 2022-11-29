@@ -3360,7 +3360,7 @@ public class View implements java.io.Serializable {
 		}		 		 				
 	}
 	
-	public boolean throwsPropertyChanged(String propertyName) throws XavaException {
+	public boolean throwsPropertyChanged(String propertyName) throws XavaException { 
 		int idx = propertyName.indexOf('.'); 
 		if (idx >= 0) {
 			String reference = propertyName.substring(0, idx);			
@@ -4130,12 +4130,9 @@ public class View implements java.io.Serializable {
 	
 	public MetaProperty getMetaProperty(String name) throws XavaException {		
 		int idx = name.indexOf('.');
-		System.out.println("[View.getMetaProperty] name=" + name); // tmp
 		if (idx >= 0) {
 			String reference = name.substring(0, idx);
 			String member = name.substring(idx + 1);
-			System.out.println("[View.getMetaProperty] reference=" + reference); // tmp
-			System.out.println("[View.getMetaProperty] member=" + member); // tmp
 			if (reference.equals("__PARENT__")) {
 				return getParent().getMetaModel().getMetaProperty(member);
 			}
@@ -4147,18 +4144,8 @@ public class View implements java.io.Serializable {
 				if (getMetaModel().containsMetaCollection(reference)) { 
 					// From element collection
 					String collectionMember = Strings.noFirstTokenWithoutFirstDelim(member, ".");
-					System.out.println("[View.getMetaProperty] collectionMember> " + collectionMember); // tmp
 					collectionMember = collectionMember.replaceAll("^this\\.", "");
-					System.out.println("[View.getMetaProperty] collectionMember< " + collectionMember); // tmp
-					// tmr Falta tener en cuenta el this. en collection member
-					try { // tmr
-						return getMetaModel().getMetaCollection(reference).getMetaReference().getMetaModelReferenced().getMetaProperty(collectionMember);
-					// tmr ini
-					}
-					catch (ElementNotFoundException ex2) {
-						return getRoot().getMetaModel().getMetaProperty(collectionMember);
-					}
-					// tmr fin
+					return getMetaModel().getMetaCollection(reference).getMetaReference().getMetaModelReferenced().getMetaProperty(collectionMember);
 				}
 				if (getMetaModel().containsMetaReference(reference)) { 
 					return getMetaModel().getMetaReference(reference).getMetaModelReferenced().getMetaProperty(member);
@@ -4177,12 +4164,9 @@ public class View implements java.io.Serializable {
 	
 	public MetaReference getMetaReference(String name) throws XavaException { 			
 		int idx = name.indexOf('.');
-		System.out.println("[View(" + getModelName() + ").getMetaReference] name=" + name); // tmp
 		if (idx >= 0) {
 			String reference = name.substring(0, idx);
 			String member = name.substring(idx + 1);
-			System.out.println("[View(" + getModelName() + ").getMetaReference] reference=" + reference); // tmp
-			System.out.println("[View(" + getModelName() + ").getMetaReference] member=" + member); // tmp
 			try { 
 				return getSubview(reference).getMetaReference(member);
 			}
@@ -4190,24 +4174,12 @@ public class View implements java.io.Serializable {
 				if (!getMetaModel().containsMetaCollection(reference)) throw ex;
 				// From element collection
 				String collectionMember = Strings.noFirstTokenWithoutFirstDelim(member, ".");
-				System.out.println("[View(" + getModelName() + ").getMetaReference] collectionMember=" + collectionMember); // tmp
 				return getMetaModel().getMetaCollection(reference).getMetaReference().getMetaModelReferenced().getMetaReference(collectionMember);
 			}
 		}				
 		return getMetaModel().getMetaReference(name);
 	}
 	
-	public boolean containsMetaReference(String name) throws XavaException { // tmr 	
-		System.out.println("[View(" + getModelName() + ").containsMetaReference] name=" + name); // tmp
-		try { 
-			getMetaReference(name);
-			return true;
-		}
-		catch (ElementNotFoundException ex) {
-			return false;
-		}
-	}
-		
 	private Collection getMetaPropertiesIncludingSections() throws XavaException {
 		if (!hasSections()) return getMetaProperties();
 		if (metaPropertiesIncludingSections == null) { 
@@ -4471,8 +4443,13 @@ public class View implements java.io.Serializable {
 		return subview.getMetaView(subview.getMetaReference(member));
 	}
 	
+	public boolean throwsReferenceChanged(MetaReference ref) throws XavaException { // tmr
+		boolean result = _throwsReferenceChanged(ref);
+		if ("family".equals(ref.getName())) result = true; // tmr OJO A PIÑON FIJO
+		return result;
+	}
 	
-	public boolean throwsReferenceChanged(MetaReference ref) throws XavaException {
+	public boolean _throwsReferenceChanged(MetaReference ref) throws XavaException { // tmr
 		String refName = ref.getName(); 
 		int idx = refName.indexOf('.');
 		if (idx >= 0) {
@@ -4539,13 +4516,18 @@ public class View implements java.io.Serializable {
 	
 	public String getParameterValuesPropertiesInDescriptionsList(MetaReference ref) throws XavaException { // tmr
 		String result = _getParameterValuesPropertiesInDescriptionsList(ref);
-		System.out.println("[View.getParameterValuesPropertiesInDescriptionsList(" + getModelName() + ")] ref=" + ref.getName() + ", result=" + result); // tmp
+		// tmr ini
+		// TMR ME QUEDÉ POR AQUÍ: YA FUNCIONA, FALTA QUITAR EL CÓDIGO A PIÑON FIJO
+		if (ref.getName().startsWith("evaluations")) { // TMR OJO, PIÑON FIJO, NO DEJAR ASÍ
+			return "family.number"; // TMR OJO, PIÑON FIJO, NO DEJAR ASÍ
+		}
+		// tmr fin
 		return result;
 	}
 	
 	public String _getParameterValuesPropertiesInDescriptionsList(MetaReference ref) throws XavaException {
-		// TMR ME QUEDÉ POR AQUÍ: AQUÍ YA DEVUELVE evaluations.0.family. PRIMERO PUEDO PONER DEVOLVERLO BIEN A PIÑON FIJO, PARA VER SI ARREGLA EL PROBLEMA
-		if (ref.getName().contains(".")) {
+		// tmr if (ref.getName().contains(".")) {
+		if (false) { // TMR OJO A PIÑON FIJO
 			MetaReference unqualifiedRef = ref.cloneMetaReference();
 			unqualifiedRef.setName(Strings.lastToken(ref.getName(), "."));
 			String prefix = Strings.noLastToken(ref.getName(), ".");
@@ -5784,6 +5766,7 @@ public class View implements java.io.Serializable {
 			changedPropertiesActionsAndReferencesWithNotCompositeEditor = new HashMap();
 			fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(changedPropertiesActionsAndReferencesWithNotCompositeEditor);
 		}		
+		System.out.println("[View.getChangedPropertiesActionsAndReferencesWithNotCompositeEditor] " + changedPropertiesActionsAndReferencesWithNotCompositeEditor); // tmp
 		return changedPropertiesActionsAndReferencesWithNotCompositeEditor;
 	}
 	
@@ -5831,7 +5814,9 @@ public class View implements java.io.Serializable {
 				)
 			)
 		{
-			result.put(getPropertyPrefix(), getParent().getViewForChangedProperty());
+			// tmr result.put(getPropertyPrefix(), getParent().getViewForChangedProperty());
+			// tmr Testear AJAX
+			result.put(getPropertyPrefix().replaceAll(".-1.", ".0."), getParent().getViewForChangedProperty()); // tmr
 			return;
 		}
 		
