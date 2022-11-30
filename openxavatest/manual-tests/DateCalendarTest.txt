@@ -21,6 +21,7 @@ of openxava.js you have to test it visually at least for the next cases:
 		added (a 17 is turned in a 2017) and the rest of the date is not changed.
 	- Try to put the date in blank and lose focus, the date must be keep blank.
 - Add "20" to year when two digits with 4 digits format in DateTimeCombined (in English) with Shipment:
+*** si apreto enter con 2 digitos en anio falla
 	- Edit the Shipment with date/time, it should have 4 digits for year.
 	- Change the year by a two digits value (like 17). 
 	- It should be completed to four digits (2017) and not losing the hour value.

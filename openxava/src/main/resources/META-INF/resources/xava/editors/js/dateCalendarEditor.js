@@ -6,28 +6,24 @@ openxava.addEditorInitFunction(function() {
 	if (openxava.browser.htmlUnit) return;
 
     var withEnter = false;
-    var dateEnter;
+    var enterDate;
 	var onOpenDateTime;
 
 	$('.xava_date > input').keydown(function(event) {
-    var keycode = event.keyCode || event.which;	
-    if(keycode == 13) {
-        dateEnter = $(this).val();
-		if (dateEnter.includes("/") || dateEnter.includes(".") || dateEnter.includes("-") || !(dateEnter.length < 9)){
-			withEnter = false;
-		}else{
-			withEnter = true;
-		}
-    }
+	    var keycode = event.keyCode || event.which;	
+	    if(keycode == 13) {
+	        enterDate = $(this).val();
+			if ((enterDate.includes("/") || enterDate.includes(".") || enterDate.includes("-")) && enterDate.length > 9){
+				withEnter = false;
+			}else{
+				withEnter = true;
+			}
+	    }
 	});
 	$('.xava_date > input').change(function() { 
-        console.log(".xava_date > input");
+        console.log(".xava_date > input" + enterDate);
 		var dateFormat = $(this).parent().data("dateFormat");
-  		if (withEnter == true){
-			var date =dateEnter;
-		}else{
-			var date = $(this).val();
-		}
+		var date = withEnter?enterDate:$(this).val();
 		if (date === "") return;
 		date = date.trim(); 
 		var separator = dateFormat.substr(1, 1); 
@@ -74,17 +70,22 @@ openxava.addEditorInitFunction(function() {
         },
 	    onChange: function(selectedDates, dateStr, instance) {
 			/*
-        	if (!$(instance.input).data("datePopupJustClosed") || dateStr === $(instance.input).attr('value')) {
-				console.log(".xava_date > onChange " + $(instance.input).attr('value'));
+			if (!$(instance.input).data("datePopupJustClosed") || dateStr === $(instance.input).attr('value')) {
         		$(instance.input).data("changedCancelled", true);
-        	}*/
+        	}
+        	$(instance.input).attr('value', dateStr);
+        	$(instance.input).removeData("datePopupJustClosed");*/
+
 			
-			console.log(onOpenDateTime);
-			console.log(dateStr);
-			//abro el calendario, uso el onOpenDateTime
+			console.log("onChange")
+			console.log("onOpenDateTime " + onOpenDateTime);
+			console.log("dateStr " + dateStr);
+			//si onOpenDateTime tiene valor, es porque estoy abriendo el calendario
 			if (onOpenDateTime != null){
 				if (onOpenDateTime.length > 10 ){
-					//con hora
+					//con hora, no hago el cambio, dejo que onClose lo defina
+                    $(instance.input).data("changedCancelled", true);
+                    /*
 					console.log("calendario onOpen > 10");
 					if (onOpenDateTime == dateStr){
 						// no cambiar si es igual
@@ -95,10 +96,12 @@ openxava.addEditorInitFunction(function() {
 						// si pongo que cambie, actuara como el calendario normal, onchange siempre si se cambia solo 1 dato
 						console.log("onChange no igual");
 						$(instance.input).data("changedCancelled", true);
-					}
-				}else{
+					}*/
+				 }else{
 					//sin hora
-					console.log("calendario onOpen < 10");
+					console.log("calendario onOpen sin horario");
+					console.log("onOpenDateTime" + onOpenDateTime);
+					console.log("dateStr" + dateStr);
 					if (onOpenDateTime == dateStr){
 						// no cambiar si es igual
 						console.log("onChange igual");
@@ -109,35 +112,44 @@ openxava.addEditorInitFunction(function() {
 						console.log("se ejecuta onChange");
 					}
 				}
-
 			}else{
 				//no entro al calendario, uso el input
+				console.log("input");
+				console.log("$(instance.input).attr('value') " + $(instance.input).attr('value'));
+				console.log("dateStr " + dateStr);
+				console.log("enterDate " + enterDate);
 				if (dateStr === $(instance.input).attr('value')){
 					//es igual, no hago el cambio
+					console.log("es igual");
 					$(instance.input).data("changedCancelled", true);
 				}else{
+					console.log("es distinto");
 					//es distinto
 					$(instance.input).attr('value', dateStr);
 				}
 				//$(instance.input).attr('value', dateStr);
 			}
-
-        	//$(instance.input).attr('value', dateStr);
-        	//$(instance.input).removeData("datePopupJustClosed");
     	},
 
     	onClose: function(selectedDates, dateStr, instance) {
-			if ( onOpenDateTime == dateStr){
-				console.log("onClose igual");
+			if (onOpenDateTime != null){
+				if ( onOpenDateTime == dateStr){
+				//console.log("onClose igual");
 				$(instance.input).data("changedCancelled", true);
 			}else{
 				//$(instance.input).data("changedCancelled", false);
 				console.log("onClose no es igual");
 				$(instance.input).attr('value', dateStr);
+				$("#ox_openxavatest_Appointment__time").change();
+                
+                console.log("onClose " + $(instance.input).attr('value'));
+				//onOpenDateTime = '';
 			}
-			//$(instance.input).attr('value', dateStr);
-            //console.log(".xava_date > onClose" + dateStr);
-	    	//$(instance.input).data("datePopupJustClosed", false);
+			}
+			/*	
+			$(instance.input).attr('value', dateStr);
+            console.log(".xava_date > onClose" + dateStr);
+	    	$(instance.input).data("datePopupJustClosed", false);*/
     	},    	 
 	});
 });
