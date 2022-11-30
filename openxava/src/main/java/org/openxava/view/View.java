@@ -920,6 +920,12 @@ public class View implements java.io.Serializable {
 			return false;
 		}
 	}
+	
+	private String removePrefixFromElementCollectionMember(String memberName) { // tmr
+		int idx = memberName.indexOf(".");
+		int idx2 = memberName.indexOf(".", idx+1);
+		return memberName.substring(idx2+1);
+	}
 
 	/**
 	 * 
@@ -4443,13 +4449,7 @@ public class View implements java.io.Serializable {
 		return subview.getMetaView(subview.getMetaReference(member));
 	}
 	
-	public boolean throwsReferenceChanged(MetaReference ref) throws XavaException { // tmr
-		boolean result = _throwsReferenceChanged(ref);
-		if ("family".equals(ref.getName())) result = true; // tmr OJO A PIÑON FIJO
-		return result;
-	}
-	
-	public boolean _throwsReferenceChanged(MetaReference ref) throws XavaException { // tmr
+	public boolean throwsReferenceChanged(MetaReference ref) throws XavaException { 
 		String refName = ref.getName(); 
 		int idx = refName.indexOf('.');
 		if (idx >= 0) {
@@ -4490,6 +4490,17 @@ public class View implements java.io.Serializable {
 			p.setName(propertyName);
 			if (hasDependentsProperties(p))	return true;						
 		}
+		// tmr ini
+		if (hasSubviews()) {
+			Iterator itSubviews = getSubviews().values().iterator();
+			while (itSubviews.hasNext()) {
+				View subview = (View) itSubviews.next();
+				if (subview.isRepresentsElementCollection()) {
+					if (subview.throwsReferenceChanged(ref)) return true;
+				}
+			}
+		}
+		// tmr fin
 		return displayAsDescriptionsListAndReferenceView(ref); 
 	}
 		
@@ -4514,20 +4525,17 @@ public class View implements java.io.Serializable {
 		return depends;
 	}
 	
-	public String getParameterValuesPropertiesInDescriptionsList(MetaReference ref) throws XavaException { // tmr
-		String result = _getParameterValuesPropertiesInDescriptionsList(ref);
+	public String getParameterValuesPropertiesInDescriptionsList(MetaReference ref) throws XavaException {
 		// tmr ini
-		// TMR ME QUEDÉ POR AQUÍ: YA FUNCIONA, FALTA QUITAR EL CÓDIGO A PIÑON FIJO
-		if (ref.getName().startsWith("evaluations")) { // TMR OJO, PIÑON FIJO, NO DEJAR ASÍ
-			return "family.number"; // TMR OJO, PIÑON FIJO, NO DEJAR ASÍ
+		if (isMemberFromElementCollection(ref.getName())) {
+			ref = ref.cloneMetaReference();
+			String collection = Strings.firstToken(ref.getName(), ".");
+			ref.setName(removePrefixFromElementCollectionMember(ref.getName()));
+			return ref.getParameterValuesPropertiesInDescriptionsList(getSubview(collection).getMetaView()); 
 		}
+		else
 		// tmr fin
-		return result;
-	}
-	
-	public String _getParameterValuesPropertiesInDescriptionsList(MetaReference ref) throws XavaException {
-		// tmr if (ref.getName().contains(".")) {
-		if (false) { // TMR OJO A PIÑON FIJO
+		if (ref.getName().contains(".")) {			
 			MetaReference unqualifiedRef = ref.cloneMetaReference();
 			unqualifiedRef.setName(Strings.lastToken(ref.getName(), "."));
 			String prefix = Strings.noLastToken(ref.getName(), ".");
@@ -5766,7 +5774,6 @@ public class View implements java.io.Serializable {
 			changedPropertiesActionsAndReferencesWithNotCompositeEditor = new HashMap();
 			fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(changedPropertiesActionsAndReferencesWithNotCompositeEditor);
 		}		
-		System.out.println("[View.getChangedPropertiesActionsAndReferencesWithNotCompositeEditor] " + changedPropertiesActionsAndReferencesWithNotCompositeEditor); // tmp
 		return changedPropertiesActionsAndReferencesWithNotCompositeEditor;
 	}
 	
@@ -5816,6 +5823,7 @@ public class View implements java.io.Serializable {
 		{
 			// tmr result.put(getPropertyPrefix(), getParent().getViewForChangedProperty());
 			// tmr Testear AJAX
+			// TMR ME QUEDÉ POR AQUÍ: TIENE QUE FUNCIONAR CON TODAS
 			result.put(getPropertyPrefix().replaceAll(".-1.", ".0."), getParent().getViewForChangedProperty()); // tmr
 			return;
 		}

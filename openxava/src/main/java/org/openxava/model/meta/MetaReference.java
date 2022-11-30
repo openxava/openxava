@@ -232,8 +232,12 @@ public class MetaReference extends MetaMember implements Cloneable {
 			}
 			else {
 				try {
-					String reference = member.startsWith("this.")?member.substring(5):member; 
-					MetaModel fromIDepends = getMetaModel().getMetaReference(reference).getMetaModelReferenced();
+					String reference = member.startsWith("this.")?member.substring(5):member;
+					// tmr MetaModel fromIDepends = getMetaModel().getMetaReference(reference).getMetaModelReferenced();
+					// tmr ini
+					MetaModel metaModel = member.startsWith("this.")?getMetaModel():metaView.getParent().getMetaModel();
+					MetaModel fromIDepends = metaModel.getMetaReference(reference).getMetaModelReferenced();
+					// tmr fin
 					for (Iterator it=fromIDepends.getKeyPropertiesNames().iterator(); it.hasNext();) {
 						String key = (String) it.next();
 						if (result.length() > 0) result.append(',');
