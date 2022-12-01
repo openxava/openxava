@@ -4,7 +4,7 @@
 
 <%  
 description = p.getValidValueLabel(request, value);  
-if (label) { 
+if (label && !editable) { 
 %> 
 <%=description%> 
 <% 
