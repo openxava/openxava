@@ -174,8 +174,8 @@ try {
         String undecorated = Ids.undecorateRef(propertyKey);
         String[] split = undecorated.split("\\.");
         String[] noNull = Arrays.stream(split)
-            .filter(value - > value != null && value.length() > 0)
-            .toArray(size - > new String[size]);
+            .filter(value -> value != null && value.length() > 0)
+            .toArray(size -> new String[size]);
         String refName = noNull[noNull.length - 2];
         String d = view.getMetaReference(refName).getDescription();
         title = (d == null) ? "" : d;
