@@ -13,17 +13,14 @@ openxava.addEditorInitFunction(function() {
 	    var keycode = event.keyCode || event.which;	
 	    if(keycode == 13) {
 	        enterDate = $(this).val();
-			if ((enterDate.includes("/") || enterDate.includes(".") || enterDate.includes("-")) && (enterDate.length > 9)){
-				console.log("false");
+			if (enterDate.includes("/") || enterDate.includes(".") || enterDate.includes("-") || !(enterDate.length < 9)){
 				withEnter = false;
 			}else{
-				console.log("true");
 				withEnter = true;
 			}
 	    }
 	});
 	$('.xava_date > input').change(function() { 
-		console.log(".xava_date > input" + enterDate);
 		var dateFormat = $(this).parent().data("dateFormat");
 		var date = withEnter?enterDate:$(this).val();
 		if (date === "") return;
@@ -60,8 +57,6 @@ openxava.addEditorInitFunction(function() {
   			date = dateNoYear + separator + prefix + year + suffix + time; 
   		}			
   		$(this).val(date);
-		enterDate = undefined;
-		withEnter = false;
 	});
 	$('.flatpickr-calendar').remove();
 	$('.xava_date').flatpickr({
@@ -70,9 +65,6 @@ openxava.addEditorInitFunction(function() {
 	    wrap: true,
 	    locale: openxava.language, 
 	    onChange: function(selectedDates, dateStr, instance) {
-			console.log("onChange dateStr " + dateStr);
-            console.log("onChange $(instance.input).attr('value') " + $(instance.input).attr('value'));
-            console.log("onChange enterDate " + enterDate);
         	if (!$(instance.input).data("datePopupJustClosed") || dateStr === $(instance.input).attr('value')) {
         		$(instance.input).data("changedCancelled", true);
         	}
