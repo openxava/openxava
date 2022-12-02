@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Some missing images in Chinese version of course.   
 - Fix: Wrong date formating when pressing ENTER in the field after fill the date. 
 - Fix: Bad values for list filter in combos if @DescriptionsList uses several field for description. 
 - New property distinct in DescriptionsCalculator to allow not duplicated results.
