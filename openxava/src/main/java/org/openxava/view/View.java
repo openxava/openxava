@@ -4527,6 +4527,7 @@ public class View implements java.io.Serializable {
 	
 	public String getParameterValuesPropertiesInDescriptionsList(MetaReference ref) throws XavaException {
 		// tmr ini
+		// TMR ME QUEDÉ POR AQUÍ: FALLA ProductExpenses Y PARECE QUE ES POR EL CÓDIGO DE ABAJO
 		if (isMemberFromElementCollection(ref.getName())) {
 			ref = ref.cloneMetaReference();
 			String collection = Strings.firstToken(ref.getName(), ".");
@@ -5823,8 +5824,16 @@ public class View implements java.io.Serializable {
 		{
 			// tmr result.put(getPropertyPrefix(), getParent().getViewForChangedProperty());
 			// tmr Testear AJAX
-			// TMR ME QUEDÉ POR AQUÍ: TIENE QUE FUNCIONAR CON TODAS
-			result.put(getPropertyPrefix().replaceAll(".-1.", ".0."), getParent().getViewForChangedProperty()); // tmr
+			// tmr ini
+			String propertyName = getPropertyPrefix();
+			int idx = propertyName.indexOf(".-1.");
+			if (idx >= 0) { // A property from a element collection but there is no a row selected
+				int rowCount = getParent().getCollectionSize() + 2;
+				for (int i=0; i < rowCount; i++) {
+					result.put(propertyName.replaceAll(".-1.", "." + i + "."), getParent().getViewForChangedProperty()); 
+				}
+			}
+			// tmr fin
 			return;
 		}
 		

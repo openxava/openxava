@@ -15,7 +15,7 @@ public class ProductExpensesTest extends ModuleTestBase {
 		super(testName, "ProductExpenses");		
 	}
 		
-	public void testDescriptionsListInElementCollection() throws Exception {
+	public void testDescriptionsListInElementCollection() throws Exception { // tmr Este test tiene que funcionar
 		execute("CRUD.new");
 		setValue("description", "JUNIT EXPENSES");
 		
