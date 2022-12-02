@@ -14,49 +14,29 @@
       bug, add a new feature, etc.<br>
       <div class="wiki" style="display: block;">XavaPro source code is included
         in XavaPro distribution, inside a folder called source-code:</div>
-      <img src="files/openxava-in-github_en.png" alt="">
+      <img src="files/source-code-folder-xavapro.png" alt=""><br>
       <div class="wiki" style="display: block;">You can modify, build and
-        install it using Git, Maven and your favorite IDE. If you're not used to
-        Git and Maven, we present here a detailed guide to modify OpenXava code
-        for your application using OpenXava Studio.</div>
+        install it using Maven and your favorite IDE. If you're not used to
+        Maven, we present here a detailed guide to modify XavaPro code for your
+        application using OpenXava Studio.</div>
       <div class="wiki" style="display: block;">
-        <h3>Dowload code from GitHub</h3>
-        <p>First go to the <a href="https://github.com/openxava/openxava">OpenXava
-            page in GitHub</a> en copy the repository URL:</p>
-        <img src="files/copy-openxava-repository-url_en.png" alt="">
-        <p>Then open the Git perspective in OpenXava Studio, for that click on
-          the button on right top part:</p>
-        <img src="files/add-perspective-eclipse.png" alt=""></div>
-      <div class="wiki" style="display: block;">It shows a dialog, choose the
-        Git perspective:</div>
-      <div class="wiki" style="display: block;"><img src="files/choose-git-perspective-eclipse.png"
-          alt=""><br>
-        <p>In Git perspective click on <i>Clone a Git repository</i>:</p>
-        <img src="files/clone-git-repository-option-eclipse.png" alt="">
-        <p>Given that you have copied it from GitHub page, the OpenXava
-          repository URI has been automatically filled, just click on <i>Next</i>:</p>
-        <img src="files/clone-git-repository-step1-eclipse.png" alt="">
-        <p>It shows all the branches, just click on <i>Next</i> again:</p>
-        <img src="files/clone-git-repository-step2-eclipse.png" alt="">
-        <p>Finally click on <i>Finish</i>:</p>
-        <img src="files/clone-git-repository-step3-eclipse.png" alt="">
-        <p>Now be patient while the repository code is downloaded from GitHub:</p>
-        <img src="files/progress-importing-repository-eclipse.png" alt="">
-        <p>After it you have the <i>openxava </i>repository listed in left
-          side of OpenXava Studio:</p>
-        <img src="files/openxava-repository-git-perspective-eclipse.png" alt="">
-        <p>Congratulations! The OpenXava repository is downloaded in your
-          computer and configured in OpenXava Studio. The next step to import
-          the <i>openxava</i> project into your workspace.</p>
-        <h2>Import openxava into workspace</h2>
-        <p>First, go back to Java perspective, to that click on the
-          corresponding button on top right side in OpenXava Studio:</p>
-        <img src="files/change-to-java-perspective-eclipse.png" alt="">
-        <p>To import the <i>openxava</i> project click on <i>File &gt;
-            Import...</i>: </p>
+        <h2>Install a JDK 8</h2>
+        XavaPro is compiled with Java 8 in order to work with Java 8, 11 and 17.
+        You have to install a Java 8 in you computer and configure OpenXava
+        Studio to recognized it. </div>
+      <div class="wiki" style="display: block;">First, download a JDK 8 and
+        install it in your computer. Then in OpenXava Studio open Windows &gt;
+        Preferences &gt; Java &gt; Installed JREs. There add the JDK 8 to the
+        list of JREs. In this way:</div>
+      <img src="files/jdk8-in-eclipse-jres.png" alt="">
+      <div class="wiki" style="display: block;">Note that is not need that
+        choose it as the default one.<br>
+        <h2></h2>
+        <h2>Import xavapro into workspace</h2>
+        To import the <i>openxava</i> project click on <i>File &gt; Import...</i>:<br>
         <img src="files/file-import-eclipse.png" alt="">
-        <p>Now select <i>Git &gt; Projects from Git</i> and click on <i>Next</i>:</p>
-        <img src="files/import-step1-eclipse.png" alt="">
+        <p>Now select <i>General &gt; Existing Projects into Workspace</i>:</p>
+        <img src="files/import-existing-project-eclipse.png" alt=""><br>
         <p>Choose <i>Existing local repository</i> and click on <i>Next</i>:</p>
         <img src="files/import-step2-eclipse.png" alt="">
         <p>Select the <i>openxava</i> repository and click on <i>Next</i>:</p>
