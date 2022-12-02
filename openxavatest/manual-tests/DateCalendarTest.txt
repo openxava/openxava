@@ -8,7 +8,7 @@ of openxava.js you have to test it visually at least for the next cases:
 	- Use the dialog to select the current date, then go to list. No message shown.
 	- Use the dialog to select any date, then go to list. A message shown.
 	- Go first record, go previous record (a message "We already are at the beginning of the list" is shown).
-	- Focus on date. Go to list mode. No message shown.
+	- Focus on date. Go to list mode. No message shown.	
 - @OnChange: Add an @OnChange(OnChangeVoidAction.class) action to a date property. Use Order.	
 	- Lose the focus of date, without change it. @OnChange action not executed.
 	- Go to list mode. No "Data changed" message shown.
@@ -20,6 +20,11 @@ of openxava.js you have to test it visually at least for the next cases:
 	- Type a date with only two digits for year and lose focus the 20 is
 		added (a 17 is turned in a 2017) and the rest of the date is not changed.
 	- Try to put the date in blank and lose focus, the date must be keep blank.
+- The tests below must be done in the following order, first with calendar dialog, then with enter and finally with tab or blur
+	- Order detail mode: select any date with dialog.
+	- Change the year using two digits and press enter.
+	- Change the year again using two digits and blur or press tab.
+	- Those dates should be changed correctly.
 - Add "20" to year when two digits with 4 digits format in DateTimeCombined (in English) with Shipment:
 *** si apreto enter con 2 digitos en anio falla
 	- Edit the Shipment with date/time, it should have 4 digits for year.
@@ -42,6 +47,7 @@ of openxava.js you have to test it visually at least for the next cases:
 	- Type 20170617. It is turned into 2017/06/17.	
 - Finish with separator: Put the locale to Serbian
 	- Change the date with calendar. Date is kept correct, 20 is not added to date.
+	- Alternate these below changes with enter, tab and blur
 	- Type:
 		 5.2.2017. -> 5.2.2017.
 		 5.2.2017  -> 5.2.2017.
