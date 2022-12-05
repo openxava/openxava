@@ -14,8 +14,13 @@ public class CustomerRadioButtonTest extends ModuleTestBase {
 		super(testName, "CustomerRadioButton");		
 	}
 	
-	public void testSelectTheLabelOnRadioButton() throws Exception {
+	public void testSelectTheLabelOnRadioButton_descriptionsListTooltip() throws Exception {
 		execute("CRUD.new");
+		
+		HtmlElement select = getHtmlPage().getElementByName("ox_openxavatest_CustomerRadioButton__address___state___id__CONTROL__"); 
+		String title = select.getAttribute("title");
+		assertEquals("Address state", title);
+		
 		HtmlElement c = getHtmlPage().getHtmlElementById("ox_openxavatest_CustomerRadioButton__type1");	// steady  
 		c.click();
 		waitAJAX();

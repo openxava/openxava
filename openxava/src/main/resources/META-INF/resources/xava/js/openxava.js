@@ -259,20 +259,21 @@ openxava.initPlaceholder = function(){
 	});
 }
 
-openxava.initTooltips = function() { 
-	$(".xava_editor").find("input").tooltip({ 
-		position: {
-			my: "left+3 center", at: "right center", 
-	        using: function( position, feedback ) {
-			$( this ).css( position );
-			$( "<div>" )
-				.addClass( "arrow" )
-				.addClass( feedback.vertical )
-				.addClass( feedback.horizontal )
-				.appendTo( this );
-	        }
-		}
-	});	
+openxava.initTooltips = function() {
+    $(".editor, .xava_editor").find("input").tooltip({
+        position: {
+            my: "left+3 center",
+            at: "right center",
+            using: function(position, feedback) {
+                $(this).css(position);
+                $("<div>")
+                    .addClass("arrow")
+                    .addClass(feedback.vertical)
+                    .addClass(feedback.horizontal)
+                    .appendTo(this);
+            }
+        }
+    });
 }
 
 openxava.initViewSimple = function(application, module, viewSimple) { 
