@@ -5827,9 +5827,12 @@ public class View implements java.io.Serializable {
 			String propertyName = getPropertyPrefix();
 			int idx = propertyName.indexOf(".-1.");
 			if (idx >= 0) { // A property from a element collection but there is no a row selected
-				int rowCount = getParent().getCollectionSize() + 2;
-				for (int i=0; i < rowCount; i++) {
-					result.put(propertyName.replaceAll(".-1.", "." + i + "."), getParent().getViewForChangedProperty()); 
+				View collectionView = getParent();
+				if (collectionView.isRepresentsElementCollection()) {
+					int rowCount =  collectionView.getCollectionSize() + 2;
+					for (int i=0; i < rowCount; i++) {
+						result.put(propertyName.replaceAll(".-1.", "." + i + "."), getParent().getViewForChangedProperty()); 
+					}
 				}
 			}
 			else result.put(getPropertyPrefix(), getParent().getViewForChangedProperty());

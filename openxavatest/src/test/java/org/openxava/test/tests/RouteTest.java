@@ -75,7 +75,7 @@ public class RouteTest extends ModuleTestBase {
 		assertValueInCollection("visits", 1, "product.number", "");		
 	}
 	
-	public void testElementCollectionWithOnChangesThatChangesRootViewRefreshesOnResetView() throws Exception { 
+	public void testElementCollectionWithOnChangesThatChangesRootViewRefreshesOnResetView() throws Exception {
 		execute("List.viewDetail", "row=0");
 		execute("CRUD.save");
 		execute("CRUD.new"); // It failed at the second action call

@@ -12,6 +12,7 @@ import org.openxava.test.model.*;
 import com.gargoylesoftware.htmlunit.html.*;
 
 /**
+ * 
  * @author Javier Paniza
  */
 
@@ -91,7 +92,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 		setValue("color.number", "1");
 		execute("CRUD.save");
-		assertNoErrors();
+		assertNoErrors(); // TMR ME QUEDÉ POR AQUÍ FALLA. OTROS TEST DE ESTA CLASE TAMBIÉN FALLAN
 		assertValue("description", "");
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
