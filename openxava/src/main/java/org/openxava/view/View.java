@@ -921,12 +921,6 @@ public class View implements java.io.Serializable {
 		}
 	}
 	
-	private String removePrefixFromElementCollectionMember(String memberName) { // tmr
-		int idx = memberName.indexOf(".");
-		int idx2 = memberName.indexOf(".", idx+1);
-		return memberName.substring(idx2+1);
-	}
-
 	/**
 	 * 
 	 * @param name  Qualified properties are allowed
@@ -4525,16 +4519,21 @@ public class View implements java.io.Serializable {
 		return depends;
 	}
 	
-	public String getParameterValuesPropertiesInDescriptionsList(MetaReference ref) throws XavaException {
+	public String getParameterValuesPropertiesInDescriptionsList(MetaReference ref) throws XavaException { // tmr
 		// tmr ini
-		// TMR ME QUEDÉ POR AQUÍ: FALLA ProductExpenses Y PARECE QUE ES POR EL CÓDIGO DE ABAJO
 		if (isMemberFromElementCollection(ref.getName())) {
 			ref = ref.cloneMetaReference();
 			String collection = Strings.firstToken(ref.getName(), ".");
-			ref.setName(removePrefixFromElementCollectionMember(ref.getName()));
-			return ref.getParameterValuesPropertiesInDescriptionsList(getSubview(collection).getMetaView()); 
+			String refName = ref.getName();
+			int idx = refName.indexOf(".");
+			int idx2 = refName.indexOf(".", idx+1);
+			String prefix = refName.substring(0, idx2+1);
+			refName = refName.substring(idx2+1);
+			ref.setName(refName);
+			String result = ref.getParameterValuesPropertiesInDescriptionsList(getSubview(collection).getMetaView());
+			return result.replace("this.", prefix + "this.");
 		}
-		else
+		// tmr else
 		// tmr fin
 		if (ref.getName().contains(".")) {			
 			MetaReference unqualifiedRef = ref.cloneMetaReference();
@@ -5833,6 +5832,7 @@ public class View implements java.io.Serializable {
 					result.put(propertyName.replaceAll(".-1.", "." + i + "."), getParent().getViewForChangedProperty()); 
 				}
 			}
+			else result.put(getPropertyPrefix(), getParent().getViewForChangedProperty());
 			// tmr fin
 			return;
 		}

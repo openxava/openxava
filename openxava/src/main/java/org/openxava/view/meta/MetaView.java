@@ -871,9 +871,12 @@ public class MetaView extends MetaElement implements Cloneable {
 	private void setSection(boolean section) {
 		this.section = section;
 	}
-	// tmr private MetaView getParent() {
-	public MetaView getParent() { // tmr
+	private MetaView getParent() { 
 		return parent;
+	}
+	public MetaView getRoot() { // tmr
+		if (parent == null) return this;
+		return parent.getRoot();
 	}
 	private void setParent(MetaView parent) {
 		this.parent = parent;

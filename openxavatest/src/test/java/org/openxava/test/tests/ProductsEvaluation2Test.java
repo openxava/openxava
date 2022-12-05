@@ -50,8 +50,6 @@ public class ProductsEvaluation2Test extends ModuleTestBase {
 		};		
 		assertValidValuesInCollection("evaluations", 0, "product.number", softwareValues);
 		assertValidValuesInCollection("evaluations", 1, "product.number", softwareValues);
-		
-		// tmr ¿Hacer también un test de AJAX?
 	}
 	
 }

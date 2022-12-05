@@ -76,6 +76,15 @@ public class AJAXTest extends ModuleTestBase {
 			"errors, messages"); 
 	}
 	
+	public void testDescriptionsListInElementCollectionDependsOnMainEntityProperty() throws Exception { // tmr 
+		changeModule("ProductsEvaluation2");
+		setValue("family.number", "1"); // SOFTWARE
+		assertLoadedParts( 
+			"reference_editor_evaluations.0.product," +
+			"reference_editor_evaluations.1.product," +
+			"errors, messages");
+	}
+	
 	public void testElementCollections() throws Exception { 
 		// WARNING! Don't change the order of the below code, because the last case only fails with this order 
 		changeModule("Quote");
