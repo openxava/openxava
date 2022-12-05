@@ -145,7 +145,7 @@
 		<module name="CustomerSimple" folder="invoicing.variations">	
 		<model name="Customer"/>
 		<view name="SimpleStateAsForm"/>
-		<controller name="Typical"/>	</module>		<module name="CustomerMinimum" folder="invoicing.variations">			<model name="Customer"/>		<view name="Minimum"/>		<controller name="Typical"/>	</module>			<module name="CustomerDemo" folder="invoicing.variations">			<model name="Customer"/>		<view name="Demo"/>		<tab name="Demo"/>		<controller name="Typical"/>	</module>			<module name="CustomerAligned" folder="invoicing.variations">			<model name="Customer"/>		<view name="Aligned"/>		<tab name="Demo"/>		<controller name="Typical"/>	</module>		<module name="CustomerNotAligned" folder="invoicing.variations">			<model name="Customer"/>		<view name="NotAligned"/>		<tab name="Demo"/>		<controller name="Typical"/>	</module>							<module name="CustomerReadOnly" folder="invoicing.variations">	
+		<controller name="Typical"/>	</module>		<module name="CustomerMinimum" folder="invoicing.variations">			<model name="Customer"/>		<view name="Minimum"/>		<controller name="Typical"/>	</module>			<module name="CustomerDemo" folder="invoicing.variations">			<model name="Customer"/>		<view name="Demo"/>		<tab name="Demo"/>		<controller name="Typical"/>	</module>			<module name="CustomerAligned" folder="invoicing.variations">			<model name="Customer"/>		<view name="Aligned"/>		<tab name="Demo"/>		<controller name="Typical"/>	</module>		<module name="CustomerNotAligned" folder="invoicing.variations">			<model name="Customer"/>		<view name="NotAligned"/>		<tab name="Demo"/>		<controller name="Typical"/>	</module>							<module name="CustomerReadOnly" folder="invoicing.variations">	
 		<env-var name="XAVA_SEARCH_ACTION" value="CRUD.searchReadOnly"/>		<model name="Customer"/>		<view name="WithSection"/>		<controller name="Print"/>			</module>		<module name="CustomerWithSection" folder="invoicing.variations">	
 		<model name="Customer"/>
 		<view name="WithSection"/>		<controller name="CustomerWithSection"/>	</module>
@@ -162,7 +162,7 @@
 		<model name="Customer"/>
 		<controller name="CustomerNewOnInitInherited"/>		
 	</module>
-			<module name="CustomerTwoSellersInList" folder="invoicing.variations">			<model name="Customer"/>		<tab name="TwoSellers"/>		<controller name="Typical"/>			</module>
+			<module name="CustomerTwoSellersInList" folder="invoicing.variations">			<model name="Customer"/>		<tab name="TwoSellers"/>		<controller name="Typical"/>			</module>
 	
 	<module name="CustomerTwoSellersNumberInList" folder="invoicing.variations">	
 		<model name="Customer"/>
@@ -174,7 +174,7 @@
 	<module name="CustomerRadioButton" folder="invoicing.variations">	
 		<model name="Customer"/>		
 		<view name="TypeWithRadioButton"/>
-		<controller name="Typical"/>
+		<controller name="CustomerRadioButton"/>
 	</module>		<module name="CustomerFramesOnSameRow" folder="invoicing.variations">			<model name="Customer"/>		<view name="FramesOnSameRow"/>		<controller name="Typical"/>	</module>			<module name="CustomerThreeFramesOnSameRow" folder="invoicing.variations">			<model name="Customer"/>		<view name="ThreeFramesOnSameRow"/>		<controller name="Typical"/>	</module>	<module name="CustomerFramesAndPropertyOnSameRow" folder="invoicing.variations">			<model name="Customer"/>		<view name="FramesAndPropertyOnSameRow"/>		<controller name="Typical"/>	</module>		<module name="GoingToCustomer">		<model name="Customer"/>		<view name="Intermediate"/>		<controller name="ChangeModule"/>		<mode-controller name="Void"/>	</module>		<module name="GoCustomerInvoices">
 		<model name="Customer"/>
 		<view name="Intermediate"/>
