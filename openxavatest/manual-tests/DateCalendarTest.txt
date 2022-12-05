@@ -26,9 +26,8 @@ of openxava.js you have to test it visually at least for the next cases:
 	- Change the year again using two digits and blur or press tab.
 	- Those dates should be changed correctly.
 - Add "20" to year when two digits with 4 digits format in DateTimeCombined (in English) with Shipment:
-*** si apreto enter con 2 digitos en anio falla
 	- Edit the Shipment with date/time, it should have 4 digits for year.
-	- Change the year by a two digits value (like 17). 
+	- Change the year by a two digits value (like 17). *Not work with enter but work with tab or blur
 	- It should be completed to four digits (2017) and not losing the hour value.
 	- Insert a space at the beginning of the date, then type other two year digits (like 15).
 	- It should be completed to four digits (2015) and not losing the hour value.
@@ -50,11 +49,11 @@ of openxava.js you have to test it visually at least for the next cases:
 	- Alternate these below changes with enter, tab and blur
 	- Type:
 		 5.2.2017. -> 5.2.2017.
-		 5.2.2017  -> 5.2.2017.
-		 5.2.17.   -> 5.2.2017.
+		 5.2.2018  -> 5.2.2018.
+		 5.2.19.   -> 5.2.2019.
 		 5.2.17    -> 5.2.2017.
-		 05022017  -> 5.2.2017.
-		 050217    -> 5.2.2017.	 		
+		 05022018  -> 5.2.2018.
+		 050219    -> 5.2.2019.	 		
 	
 Use any entity with a date in list mode. Like Invoice filtering by date in list.
 - With = (calendar shown)
