@@ -17,7 +17,7 @@ public class AppointmentTest extends ModuleTestBase {
 		super(testName, "Appointment");		
 	}
 	
-	public void testAppointmentTooltip() throws Exception {
+	public void testDescriptionsListTooltip() throws Exception {
 		execute("CRUD.new");
 		HtmlElement select = getHtmlPage().getElementByName("ox_openxavatest_Appointment__type__KEY____CONTROL__"); 
 		String title = select.getAttribute("title");

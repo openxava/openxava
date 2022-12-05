@@ -36,7 +36,8 @@ public class Ids {
 		return name.substring(name.indexOf("__") + 2);		
 	}
 	
-	public static String undecorateRef(String propertyKey) {
+	/** @since 7.0.3 */
+	public static String undecorateRef(String propertyKey) { 
 		String name = undecorate(propertyKey);
 		name = name.replaceAll("__", ".");
 		return name;
