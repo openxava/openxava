@@ -403,6 +403,7 @@ public class View implements java.io.Serializable {
 	private void polish() { 
 		if (polisher == null) return;
 		if (polished) return;
+		// TMR ME QUEDÉ POR AQUÍ: JUNIT TEST HECHO, CREO QUE EL PROBLEMA ESTÁ AQUÍ, QUIZÁS EN LA CONDICIÓN
 		if (!isFirstLevel() && !(isGroup() || isSection())) return;
 
 		try {
