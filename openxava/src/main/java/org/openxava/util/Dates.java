@@ -269,7 +269,8 @@ public class Dates {
 		System.out.println("Dates " + locale);
 		if (df instanceof SimpleDateFormat) {
 			System.out.println("getDateTimeFormatForParsing Simple");
-			String pattern = ((SimpleDateFormat) df).toPattern();
+			String pattern2 = ((SimpleDateFormat) df).toPattern();
+			String pattern = locale.toString().equalsIgnoreCase("sr")?pattern2.substring(0,10) + (pattern2.substring(10, pattern2.length())).replace(".", ":"):pattern2;
 			System.out.println("pattern " + pattern.toString());
 			boolean java9 = XSystem.isJava9orBetter();
 			if (java9) pattern = pattern.replace(", ", " ");

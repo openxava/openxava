@@ -52,7 +52,7 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 	}
 
 	private DateFormat getDateTimeFormat(boolean forParsing) { 
-		System.out.println("getDateTimeFormat " + Dates.getDateTimeFormat().toString());
+		System.out.println("getDateTimeFormat " + forParsing);
 		System.out.println("Locales.getCurrent().getLanguage() " + Locales.getCurrent().getLanguage());
 		if (isExtendedFormat()) {
 			System.out.println("isExtendedFormat " + extendedDateTimeFormat);
