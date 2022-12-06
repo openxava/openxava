@@ -20,9 +20,16 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 	private static DateFormat dotDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm"); // Only for some locales like "hr"
 	
 	public String format(HttpServletRequest request, Object date) {
+		System.out.println("format");
 		if (date == null) return "";
-		if (date instanceof String || date instanceof Number) return date.toString();
-		if (Dates.getYear((java.util.Date)date) < 2) return "";
+		if (date instanceof String || date instanceof Number) {
+			System.out.println("format date.toString " + date.toString() );
+			return date.toString();
+		}
+		if (Dates.getYear((java.util.Date)date) < 2) {
+			System.out.println("Dates.getYear((java.util.Date)date) < 2");
+			return "";
+		}
 		return getDateTimeFormat(false).format(date); 
 	}
 
@@ -45,13 +52,25 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 	}
 
 	private DateFormat getDateTimeFormat(boolean forParsing) { 
-		if (isExtendedFormat()) return extendedDateTimeFormat;
-		if (isDotFormat()) return dotDateFormat; 
+		System.out.println("getDateTimeFormat " + Dates.getDateTimeFormat().toString());
+		System.out.println("Locales.getCurrent().getLanguage() " + Locales.getCurrent().getLanguage());
+		if (isExtendedFormat()) {
+			System.out.println("isExtendedFormat " + extendedDateTimeFormat);
+			return extendedDateTimeFormat;
+		}
+		if (isDotFormat()) {
+			System.out.println("isDotFormat " + dotDateFormat);
+			return dotDateFormat; 
+		}
 		return forParsing?Dates.getDateTimeFormatForParsing(Locales.getCurrent()):Dates.getDateTimeFormat();  
 	}
 	
 	private DateFormat[] getDateTimeFormats() {
-		if (isExtendedFormat() || isDotFormat()) return getExtendedDateTimeFormats(); 
+		System.out.println("DateFormat[] getDateTimeFormat ");
+		if (isExtendedFormat() || isDotFormat()) {
+			System.out.println("isExtendedFormat() || isDotFormat()" + getExtendedDateTimeFormats());
+			return getExtendedDateTimeFormats(); 
+		}
 		return new DateFormat [] { getDateTimeFormat(true) }; 
 	}
 	

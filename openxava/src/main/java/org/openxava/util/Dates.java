@@ -266,8 +266,11 @@ public class Dates {
 	private static DateFormat getDateTimeFormat(Locale locale, boolean fourDigitsForYear) { 
 		// To use the Java 8 (and previous) format for Java 9 and better
 		DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale);
+		System.out.println("Dates " + locale);
 		if (df instanceof SimpleDateFormat) {
+			System.out.println("getDateTimeFormatForParsing Simple");
 			String pattern = ((SimpleDateFormat) df).toPattern();
+			System.out.println("pattern " + pattern.toString());
 			boolean java9 = XSystem.isJava9orBetter();
 			if (java9) pattern = pattern.replace(", ", " ");
 			if (fourDigitsForYear && !pattern.contains("yyyy")) pattern = pattern.replace("yy", "yyyy");
@@ -278,7 +281,11 @@ public class Dates {
 		        sdf.setDateFormatSymbols(symbols);
 			}
 			df = sdf;
-		}		
+			System.out.println("sdf.toPattern() " + sdf.toPattern());
+		}else {
+			System.out.println("getDateTimeFormatForParsing no Simple");
+		}
+		
 		return df;
 	}
 
@@ -497,9 +504,17 @@ public class Dates {
 	 */
 	public static String dateFormatForJSCalendar() { 
 		Locale locale = Locales.getCurrent();
+		System.out.println("localeLanguage " + locale.getLanguage());
 		DateFormatter df = new DateFormatter();
 		String date = "hr".equals(locale.getLanguage())?"01.02.1971":df.format(null, create(1, 2, 1971)); // d, m, y
 		boolean always4InYear= "es".equals(locale.getLanguage()) || "pl".equals(locale.getLanguage());
+		System.out.println(date.
+			replaceAll("01", "d").
+			replaceAll("02", "m").
+			replaceAll("1971", "Y").
+			replaceAll("71", always4InYear?"Y":"y").
+			replaceAll("1", "j").
+			replaceAll("2", "n"));
 		return date.
 			replaceAll("01", "d").
 			replaceAll("02", "m").
@@ -514,8 +529,12 @@ public class Dates {
 	 */	
 	public static String dateTimeFormatForJSCalendar() {
 		Locale locale = Locales.getCurrent();
+		System.out.println("localeLanguage " + locale.getLanguage());
 		DateTimeCombinedFormatter df = new DateTimeCombinedFormatter(); 
-		String datetime = df.format(null, create(1, 2, 1971, 15, 59, 0)); // d, m, y, hr, min, sec		
+		System.out.println(df);
+		//String datetime = "hr".equals(locale.getLanguage())?"01.02.1971 ":df.format(null, create(1, 2, 1971, 15, 59, 0)); // d, m, y, hr, min, sec	
+		String datetime = df.format(null, create(1, 2, 1971, 15, 59, 0)); // d, m, y, hr, min, sec	
+		System.out.println("datetime " + datetime);
 		boolean always4InYear= "es".equals(locale.getLanguage()) || "pl".equals(locale.getLanguage());
 		String result = datetime.
 				
@@ -535,7 +554,7 @@ public class Dates {
 				replaceAll("1", "j"). 	// day - single digit
 				replaceAll("2", "n")	// month - ??? seems only double digit is supported by calendar
 				;
-
+		System.out.println("result " + result);
 		return result;
 	}	
 	
