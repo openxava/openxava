@@ -403,7 +403,7 @@ public class View implements java.io.Serializable {
 	private void polish() { 
 		if (polisher == null) return;
 		if (polished) return;
-		// TMR ME QUEDÉ POR AQUÍ: JUNIT TEST HECHO, CREO QUE EL PROBLEMA ESTÁ AQUÍ, QUIZÁS EN LA CONDICIÓN
+		
 		if (!isFirstLevel() && !(isGroup() || isSection())) return;
 
 		try {
@@ -435,7 +435,7 @@ public class View implements java.io.Serializable {
 	
 	private MetaModule getMetaModuleForModel() { 
 		ModuleManager moduleManager = getModuleManager(getRequest()); 
-		if (getRoot() == this) return moduleManager.getMetaModule();  
+		if (getRoot() == this && moduleManager.getDialogLevel() == 0) return moduleManager.getMetaModule(); 
 		MetaApplication app = MetaApplications.getMetaApplication(getModuleManager(getRequest()).getApplicationName());
 		String modelName = getModelName();
 		if (modelName.contains(".")) modelName = Strings.lastToken(modelName, ".");
