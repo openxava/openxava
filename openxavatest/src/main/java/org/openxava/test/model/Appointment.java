@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.model.*;
-import org.openxava.test.actions.*;
 
 /**
  * 
@@ -19,7 +18,6 @@ public class Appointment extends Identifiable {
 	
 	@DateTime 
 	@Required
-	@OnChange(OnChangeVoidAction.class)
 	private Date time;
 	
 	@Column(length=60) @Required
