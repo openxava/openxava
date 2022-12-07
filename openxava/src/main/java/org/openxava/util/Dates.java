@@ -267,8 +267,8 @@ public class Dates {
 		// To use the Java 8 (and previous) format for Java 9 and better
 		DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale);
 		if (df instanceof SimpleDateFormat) {
-			String patternBeforeSr = ((SimpleDateFormat) df).toPattern();
-			String pattern = locale.toString().equalsIgnoreCase("sr")?patternBeforeSr.substring(0,10) + (patternBeforeSr.substring(10, patternBeforeSr.length())).replace(".", ":"):patternBeforeSr;
+			String patternBeforeReFormat = ((SimpleDateFormat) df).toPattern();
+			String pattern = locale.toString().equalsIgnoreCase("sr")?patternBeforeReFormat.substring(0,10) + (patternBeforeReFormat.substring(10, patternBeforeReFormat.length())).replace(".", ":"):patternBeforeReFormat;
 			boolean java9 = XSystem.isJava9orBetter();
 			if (java9) pattern = pattern.replace(", ", " ");
 			if (fourDigitsForYear && !pattern.contains("yyyy")) pattern = pattern.replace("yy", "yyyy");
