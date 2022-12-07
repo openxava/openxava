@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 
 import org.hibernate.annotations.Parameter;
 import org.openxava.annotations.*;
