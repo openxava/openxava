@@ -245,6 +245,7 @@ public class MetaReference extends MetaMember implements Cloneable {
 					System.out.println("[MetaReference(" + getMetaModel().getName() + "::" + getName() + ")._getParameterValuesPropertiesInDescriptionsList] member=" + member); // tmr
 					System.out.println("[MetaReference(" + getMetaModel().getName() + "::" + getName() + ")._getParameterValuesPropertiesInDescriptionsList] getMetaModel()=" + getMetaModel()); // tmr
 					System.out.println("[MetaReference(" + getMetaModel().getName() + "::" + getName() + ")._getParameterValuesPropertiesInDescriptionsList] metaView.getRoot().getMetaModel())=" + metaView.getRoot().getMetaModel()); // tmr
+					System.out.println("[MetaReference(" + getMetaModel().getName() + "::" + getName() + ")._getParameterValuesPropertiesInDescriptionsList] metaView.getMetaModel())=" + metaView.getMetaModel()); // tmr
 					/* TMR ME QUEDÉ POR AQUÍ: AQUÍ ESTÁ LA CLAVE
 [MetaReference(Product2::subfamily)._getParameterValuesPropertiesInDescriptionsList] member=family
 [MetaReference(Product2::subfamily)._getParameterValuesPropertiesInDescriptionsList] getMetaModel()=Product2
