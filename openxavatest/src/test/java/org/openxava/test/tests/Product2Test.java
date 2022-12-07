@@ -92,7 +92,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 		setValue("color.number", "1");
 		execute("CRUD.save");
-		assertNoErrors(); // TMR ME QUEDÉ POR AQUÍ FALLA. OTROS TEST DE ESTA CLASE TAMBIÉN FALLAN
+		assertNoErrors(); 
 		assertValue("description", "");
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
@@ -285,7 +285,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		};
 		
 		assertValue("subfamily.number", "");		
-		assertValidValues("subfamily.number", voidValues);
+		assertValidValues("subfamily.number", voidValues); // TMR FALLA
 		
 		// Change value
 		setValue("family.number", "2");

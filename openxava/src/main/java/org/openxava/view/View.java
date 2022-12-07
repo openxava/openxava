@@ -4520,8 +4520,15 @@ public class View implements java.io.Serializable {
 	}
 	
 	public String getParameterValuesPropertiesInDescriptionsList(MetaReference ref) throws XavaException { // tmr
+		String result = _getParameterValuesPropertiesInDescriptionsList(ref);
+		System.out.println("[View(" + getModelName() + ").getParameterValuesPropertiesInDescriptionsList(" + ref.getName() + ")] result=" + result); // tmr
+		return result;
+	}
+	
+	public String _getParameterValuesPropertiesInDescriptionsList(MetaReference ref) throws XavaException { // tmr
 		// tmr ini
 		if (isMemberFromElementCollection(ref.getName())) {
+			System.out.println("[View(" + getModelName() + ")._getParameterValuesPropertiesInDescriptionsList(" + ref.getName() + ")] A"); // tmr
 			ref = ref.cloneMetaReference();
 			String collection = Strings.firstToken(ref.getName(), ".");
 			String refName = ref.getName();
@@ -4535,7 +4542,8 @@ public class View implements java.io.Serializable {
 		}
 		// tmr else
 		// tmr fin
-		if (ref.getName().contains(".")) {			
+		if (ref.getName().contains(".")) {
+			System.out.println("[View(" + getModelName() + ")._getParameterValuesPropertiesInDescriptionsList(" + ref.getName() + ")] B"); // tmr
 			MetaReference unqualifiedRef = ref.cloneMetaReference();
 			unqualifiedRef.setName(Strings.lastToken(ref.getName(), "."));
 			String prefix = Strings.noLastToken(ref.getName(), ".");
@@ -4549,6 +4557,7 @@ public class View implements java.io.Serializable {
 			return sb.toString();
 		}	
 		else {
+			System.out.println("[View(" + getModelName() + ")._getParameterValuesPropertiesInDescriptionsList(" + ref.getName() + ")] C"); // tmr
 			return ref.getParameterValuesPropertiesInDescriptionsList(getMetaView());
 		} 
 	}
@@ -5822,7 +5831,6 @@ public class View implements java.io.Serializable {
 			)
 		{
 			// tmr result.put(getPropertyPrefix(), getParent().getViewForChangedProperty());
-			// tmr Testear AJAX
 			// tmr ini
 			String propertyName = getPropertyPrefix();
 			int idx = propertyName.indexOf(".-1.");
