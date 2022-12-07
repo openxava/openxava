@@ -8,7 +8,12 @@ of openxava.js you have to test it visually at least for the next cases:
 	- Use the dialog to select the current date, then go to list. No message shown.
 	- Use the dialog to select any date, then go to list. A message shown.
 	- Go first record, go previous record (a message "We already are at the beginning of the list" is shown).
-	- Focus on date. Go to list mode. No message shown.	
+	- Focus on date. Go to list mode. No message shown.
+- The tests below must be done in the following order, first with calendar dialog, then with enter and finally with tab or blur
+	- Order detail mode: select any date with dialog.
+	- Change the year using two digits and press enter.
+	- Change the year again using two digits and blur or press tab.
+	- Those dates should be changed correctly.
 - @OnChange: Add an @OnChange(OnChangeVoidAction.class) action to a date property. Use Order.	
 	- Lose the focus of date, without change it. @OnChange action not executed.
 	- Go to list mode. No "Data changed" message shown.
@@ -16,18 +21,17 @@ of openxava.js you have to test it visually at least for the next cases:
 	- Use the dialog to select any date. @OnChange action executed, one time.
 	- Select a different date using the dialog (it will execute the action), 
 		then enter and lose the focus of the date, it does not execute the action.
+- @OnChange: Add an @OnChange(OnChangeVoidAction.class) action to a time property. Use Shipment.
+	- Use the dialog to select the current date and lost focus. @OnChange action not executed.
+	- Use the dialog to select any date or time, the action should not executed, then enter or blur and the action executed.
 - Add "20" to year when two digits with 4 digits format (in Spanish):
 	- Type a date with only two digits for year and lose focus the 20 is
 		added (a 17 is turned in a 2017) and the rest of the date is not changed.
 	- Try to put the date in blank and lose focus, the date must be keep blank.
-- The tests below must be done in the following order, first with calendar dialog, then with enter and finally with tab or blur
-	- Order detail mode: select any date with dialog.
-	- Change the year using two digits and press enter.
-	- Change the year again using two digits and blur or press tab.
-	- Those dates should be changed correctly.
 - Add "20" to year when two digits with 4 digits format in DateTimeCombined (in English) with Shipment:
+	(the following test works with tab and blur but not with enter key yet)
 	- Edit the Shipment with date/time, it should have 4 digits for year.
-	- Change the year by a two digits value (like 17). *Not work with enter but work with tab or blur
+	- Change the year by a two digits value (like 17).
 	- It should be completed to four digits (2017) and not losing the hour value.
 	- Insert a space at the beginning of the date, then type other two year digits (like 15).
 	- It should be completed to four digits (2015) and not losing the hour value.
@@ -53,8 +57,11 @@ of openxava.js you have to test it visually at least for the next cases:
 		 5.2.19.   -> 5.2.2019.
 		 5.2.17    -> 5.2.2017.
 		 05022018  -> 5.2.2018.
-		 050219    -> 5.2.2019.	 		
-	
+		 050219    -> 5.2.2019.
+	- Go to Shipment
+	- Change the date and time with calendar. Date is kept correct, 20 is not added between date and time, time appears like "00:00" and not "00.00" in java 8
+	- Change (the following test works with tab and blur but not with enter key yet):
+		 25.12.2006. 11:33 to 25.12.18 05:05 -> 25.12.2018. 05:05
 Use any entity with a date in list mode. Like Invoice filtering by date in list.
 - With = (calendar shown)
 - Change to year = (calendar not shown).
