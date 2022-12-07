@@ -78,9 +78,8 @@ calculator.setDescriptionProperty(descriptionProperty);
 String descriptionProperties = request.getParameter("descriptionProperties");
 if (descriptionProperties == null) descriptionProperties = request.getParameter("propiedadesDescripcion");
 calculator.setDescriptionProperties(descriptionProperties);
-String orderByKey = request.getParameter("orderByKey");
-if (orderByKey == null) orderByKey = request.getParameter("ordenadoPorClave");
-calculator.setOrderByKey(orderByKey);
+calculator.setOrderByKey(true); 
+calculator.setDistinct(true); 
 
 java.util.Collection descriptions = calculator.getDescriptions();
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
@@ -108,15 +107,13 @@ String collectionArgv = Is.emptyString(collection)?"":"collection="+collection;
 <%
 	java.util.Iterator it = descriptions.iterator();
 	String selectedDescription = "";	
-	String valuePrefix = value.split(Tab.DESCRIPTIONS_LIST_SEPARATOR)[0] + Tab.DESCRIPTIONS_LIST_SEPARATOR; 
 	while (it.hasNext()) {
 		KeyAndDescription cl = (KeyAndDescription) it.next();	
 		String selected = "";
 		String description = formatter==null?cl.getDescription().toString():formatter.format(request, cl.getDescription());
 		// Intead of asking index < 0 it would better to use a specific parameter such as descriptionInKey or so
-		String keyPrefix = cl.getKey() + Tab.DESCRIPTIONS_LIST_SEPARATOR;
-		Object key = keyPrefix + description;
-		if (keyPrefix.equals(valuePrefix)) { 
+		String key = cl.getKey().toString(); 
+		if (key.equals(value)) { 
 			selected = "selected"; 
 			selectedDescription = description;
 		} 		

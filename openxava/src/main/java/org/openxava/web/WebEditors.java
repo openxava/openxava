@@ -339,10 +339,8 @@ public class WebEditors {
 					+ "&prefix=" + prefix
 					+ "&editable=true" 
 					+ "&model=" + metaReference.getReferencedModelName()
-					+ "&keyProperty=" + metaReference.getKeyProperty(propertyKey)
-					+ "&keyProperties=" + metaReference.getKeyProperties()
-					+ "&descriptionProperty=" + metaDescriptionsList.getDescriptionPropertyName()
-					+ "&descriptionProperties=" + metaDescriptionsList.getDescriptionPropertiesNames()
+					+ "&keyProperty=" + name
+					+ "&descriptionProperty=" + name
 					+ "&parameterValuesProperties=" + metaReference.getParameterValuesPropertiesInDescriptionsList(metaView)
 					+ "&condition=" + refineURLParam(metaDescriptionsList.getCondition())
 					+ "&filter=" + getFilterClass(metaDescriptionsList) 

@@ -1,6 +1,7 @@
 package org.openxava.web;
 
 import javax.servlet.http.*;
+
 import org.openxava.controller.*;
 
 /**
@@ -33,6 +34,13 @@ public class Ids {
 		name = name.replaceAll("___", ".");
 		if (!name.startsWith("ox_")) return name;
 		return name.substring(name.indexOf("__") + 2);		
+	}
+	
+	/** @since 7.0.3 */
+	public static String undecorateRef(String propertyKey) { 
+		String name = undecorate(propertyKey);
+		name = name.replaceAll("__", ".");
+		return name;
 	}
 
 }

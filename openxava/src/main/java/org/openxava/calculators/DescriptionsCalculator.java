@@ -1,6 +1,7 @@
 package org.openxava.calculators;
 
 import java.util.*;
+import java.util.stream.*;
 
 import javax.swing.table.*;
 
@@ -43,7 +44,7 @@ public class DescriptionsCalculator implements ICalculator {
 	private Collection keyPropertiesCollection;
 	private MetaTab metaTab;
 	private int hiddenPropertiesCount; 
-	
+	private boolean distinct = false;   
 	
 	
 	/**
@@ -63,6 +64,7 @@ public class DescriptionsCalculator implements ICalculator {
 				KeyAndDescriptionComparator.getByKey():
 					KeyAndDescriptionComparator.getByDescription();										
 			Collections.sort(result, comparator);
+			if (isDistinct()) result = (List) result.stream().distinct().collect(Collectors.toList());  
 		}
 		return result;
 	}
@@ -392,6 +394,24 @@ public class DescriptionsCalculator implements ICalculator {
 
 	public void setOrder(String order) {		
 		this.order = order;
+	}
+
+	/** 
+	 * To allow not duplicated results.
+	 *  
+	 * @since 7.0.3
+	 */
+	public boolean isDistinct() {
+		return distinct;
+	}
+
+	/** 
+	 * To allow not duplicated results.
+	 *  
+	 * @since 7.0.3
+	 */	
+	public void setDistinct(boolean distinct) {
+		this.distinct = distinct;
 	}
 
 }

@@ -797,6 +797,12 @@
 		<action name="returnWithChainedAction" class="org.openxava.test.actions.ChainToReturnPreviousModuleAction"/>
 	</controller>
 	
+	<controller name="CustomerRadioButton">		
+		<extends controller="Typical"/>
+		<action name="notEditableView" mode="detail"
+			class="org.openxava.test.actions.NotEditableViewAction" />
+	</controller>
+		
 	<controller name="ProductFromInvoice">
 		<action name="return" 
 			class="org.openxava.test.actions.ReturnToInvoiceAction"/>									
