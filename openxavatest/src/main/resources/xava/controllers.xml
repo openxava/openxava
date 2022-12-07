@@ -797,8 +797,7 @@
 		<action name="returnWithChainedAction" class="org.openxava.test.actions.ChainToReturnPreviousModuleAction"/>
 	</controller>
 	
-	<controller name="CustomerRadioButton">
-		<!--  extends controller="EditableOnOff"/-->		
+	<controller name="CustomerRadioButton">		
 		<extends controller="Typical"/>
 		<action name="notEditableView" mode="detail"
 			class="org.openxava.test.actions.NotEditableViewAction" />
