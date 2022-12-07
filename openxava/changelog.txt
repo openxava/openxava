@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: ValidValuesRadioButton editor for enums is not shown when the editor is read only.
 - Fix: Tooltips do not work for @DescriptionsList references.
 - Fix: Some missing images in Chinese version of course.   
 - Fix: Wrong date formating when pressing ENTER in the field after fill the date. 
