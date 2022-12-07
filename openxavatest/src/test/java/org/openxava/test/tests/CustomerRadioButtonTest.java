@@ -60,7 +60,7 @@ public class CustomerRadioButtonTest extends ModuleTestBase {
 		
 		execute("CustomerRadioButton.notEditableView");
 		assertNoEditable("type");
-		assertValue("type", "1");
+		assertValue("type", "1"); 
 				
 		execute("CRUD.delete");
 		assertMessage("Customer deleted successfully"); 
