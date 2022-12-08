@@ -56,7 +56,8 @@ openxava.addEditorInitFunction(function() {
             date = dateNoYear + separator + prefix + year + suffix + time;
         }
         date = date.includes(".20 ") ? date.replace(".20 ", " ") : date;
-        $(this).val(date);
+        $(this).first().val(date);
+        //$(this).val(date);
         enterDate = undefined;
         withEnter = false;
     });
