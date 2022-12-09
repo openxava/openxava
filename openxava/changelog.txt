@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @DescriptionsList in an @ElementCollection depending on a member of the main entity does not work.  
+- Fix: SchemaTool adds double semicolon at the end of each sentence in console output.
 - Fix: @OnChange action not executed always on date with time editor when using calendar popup.
 - Fix: @OnChange action is executed several times on date with time editor as changing using calendar.
 - Fix: Time is formatted with incorrect separator with Java 8 for Serbian language.
