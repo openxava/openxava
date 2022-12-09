@@ -4484,7 +4484,6 @@ public class View implements java.io.Serializable {
 			p.setName(propertyName);
 			if (hasDependentsProperties(p))	return true;						
 		}
-		// tmr ini
 		if (hasSubviews()) {
 			Iterator itSubviews = getSubviews().values().iterator();
 			while (itSubviews.hasNext()) {
@@ -4494,7 +4493,6 @@ public class View implements java.io.Serializable {
 				}
 			}
 		}
-		// tmr fin
 		return displayAsDescriptionsListAndReferenceView(ref); 
 	}
 		
@@ -4519,16 +4517,8 @@ public class View implements java.io.Serializable {
 		return depends;
 	}
 	
-	public String getParameterValuesPropertiesInDescriptionsList(MetaReference ref) throws XavaException { // tmr
-		String result = _getParameterValuesPropertiesInDescriptionsList(ref);
-		System.out.println("[View(" + getModelName() + ").getParameterValuesPropertiesInDescriptionsList(" + ref.getName() + ")] result=" + result); // tmr
-		return result;
-	}
-	
-	public String _getParameterValuesPropertiesInDescriptionsList(MetaReference ref) throws XavaException { // tmr
-		// tmr ini
+	public String getParameterValuesPropertiesInDescriptionsList(MetaReference ref) throws XavaException { 
 		if (isMemberFromElementCollection(ref.getName())) {
-			System.out.println("[View(" + getModelName() + ")._getParameterValuesPropertiesInDescriptionsList(" + ref.getName() + ")] A"); // tmr
 			ref = ref.cloneMetaReference();
 			String collection = Strings.firstToken(ref.getName(), ".");
 			String refName = ref.getName();
@@ -4537,18 +4527,15 @@ public class View implements java.io.Serializable {
 			String prefix = refName.substring(0, idx2+1);
 			refName = refName.substring(idx2+1);
 			ref.setName(refName);
-			String result = ref.getParameterValuesPropertiesInDescriptionsList(getSubview(collection).getMetaView());
+			String result = ref.getParameterValuesPropertiesInDescriptionsList(getSubview(collection).getMetaView(), getRoot().getMetaView());  
 			return result.replace("this.", prefix + "this.");
 		}
-		// tmr else
-		// tmr fin
 		if (ref.getName().contains(".")) {
-			System.out.println("[View(" + getModelName() + ")._getParameterValuesPropertiesInDescriptionsList(" + ref.getName() + ")] B"); // tmr
 			MetaReference unqualifiedRef = ref.cloneMetaReference();
 			unqualifiedRef.setName(Strings.lastToken(ref.getName(), "."));
 			String prefix = Strings.noLastToken(ref.getName(), ".");
 			StringBuffer sb = new StringBuffer();
-			StringTokenizer st = new StringTokenizer(unqualifiedRef.getParameterValuesPropertiesInDescriptionsList(getMetaView(ref)), ", ");
+			StringTokenizer st = new StringTokenizer(unqualifiedRef.getParameterValuesPropertiesInDescriptionsList(getMetaView(ref), getRoot().getMetaView()), ", "); 
 			while (st.hasMoreTokens()) {
 				String property = st.nextToken();
 				if (sb.length() > 0) sb.append(",");
@@ -4557,8 +4544,7 @@ public class View implements java.io.Serializable {
 			return sb.toString();
 		}	
 		else {
-			System.out.println("[View(" + getModelName() + ")._getParameterValuesPropertiesInDescriptionsList(" + ref.getName() + ")] C"); // tmr
-			return ref.getParameterValuesPropertiesInDescriptionsList(getMetaView());
+			return ref.getParameterValuesPropertiesInDescriptionsList(getMetaView(), getRoot().getMetaView()); 
 		} 
 	}
 	
@@ -5830,8 +5816,6 @@ public class View implements java.io.Serializable {
 				)
 			)
 		{
-			// tmr result.put(getPropertyPrefix(), getParent().getViewForChangedProperty());
-			// tmr ini
 			String propertyName = getPropertyPrefix();
 			int idx = propertyName.indexOf(".-1.");
 			if (idx >= 0) { // A property from a element collection but there is no a row selected
@@ -5844,7 +5828,6 @@ public class View implements java.io.Serializable {
 				}
 			}
 			else result.put(getPropertyPrefix(), getParent().getViewForChangedProperty());
-			// tmr fin
 			return;
 		}
 		

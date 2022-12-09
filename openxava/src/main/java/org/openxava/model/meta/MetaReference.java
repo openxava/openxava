@@ -217,13 +217,12 @@ public class MetaReference extends MetaMember implements Cloneable {
 		this.searchKey = searchKey;
 	}
 	
-	public String getParameterValuesPropertiesInDescriptionsList(MetaView metaView) throws XavaException { // tmr
-		String result = _getParameterValuesPropertiesInDescriptionsList(metaView);
-		System.out.println("[MetaReference(" + getMetaModel().getName() + "::" + getName() + ").getParameterValuesPropertiesInDescriptionsList] result=" + result); // tmr
-		return result;
+	public String getParameterValuesPropertiesInDescriptionsList(MetaView metaView) throws XavaException { 
+		return getParameterValuesPropertiesInDescriptionsList(metaView, metaView);
 	}
-
-	public String _getParameterValuesPropertiesInDescriptionsList(MetaView metaView) throws XavaException { // tmr
+	
+	/** @since 7.0.3 */
+	public String getParameterValuesPropertiesInDescriptionsList(MetaView metaView, MetaView rootMetaView) throws XavaException { 
 		MetaDescriptionsList descriptionsList = metaView.getMetaDescriptionList(this);		
 		if (descriptionsList == null) return "";
 		String depends = descriptionsList.getDepends();		
@@ -235,42 +234,24 @@ public class MetaReference extends MetaMember implements Cloneable {
 			if (usesReferenceInCondition(member, descriptionsList.getCondition())) {
 				if (result.length() > 0) result.append(',');
 				result.append(member);
-				System.out.println("[MetaReference(" + getMetaModel().getName() + "::" + getName() + ")._getParameterValuesPropertiesInDescriptionsList] A: member=" + member); // tmr
 			}
 			else {
 				try {
 					String reference = member.startsWith("this.")?member.substring(5):member;
-					// tmr MetaModel fromIDepends = getMetaModel().getMetaReference(reference).getMetaModelReferenced();
-					// tmr ini
-					System.out.println("[MetaReference(" + getMetaModel().getName() + "::" + getName() + ")._getParameterValuesPropertiesInDescriptionsList] member=" + member); // tmr
-					System.out.println("[MetaReference(" + getMetaModel().getName() + "::" + getName() + ")._getParameterValuesPropertiesInDescriptionsList] getMetaModel()=" + getMetaModel()); // tmr
-					System.out.println("[MetaReference(" + getMetaModel().getName() + "::" + getName() + ")._getParameterValuesPropertiesInDescriptionsList] metaView.getRoot().getMetaModel())=" + metaView.getRoot().getMetaModel()); // tmr
-					System.out.println("[MetaReference(" + getMetaModel().getName() + "::" + getName() + ")._getParameterValuesPropertiesInDescriptionsList] metaView.getMetaModel())=" + metaView.getMetaModel()); // tmr
-					/* TMR ME QUEDÉ POR AQUÍ: AQUÍ ESTÁ LA CLAVE
-[MetaReference(Product2::subfamily)._getParameterValuesPropertiesInDescriptionsList] member=family
-[MetaReference(Product2::subfamily)._getParameterValuesPropertiesInDescriptionsList] getMetaModel()=Product2
-[MetaReference(Product2::subfamily)._getParameterValuesPropertiesInDescriptionsList] metaView.getRoot().getMetaModel())=FilterBySubfamily
-[MetaReference(Product2::subfamily)._getParameterValuesPropertiesInDescriptionsList] C: member=family
- 
-					 */
-					MetaModel metaModel = member.startsWith("this.")?getMetaModel():metaView.getRoot().getMetaModel();
+					MetaModel metaModel = member.startsWith("this.")?getMetaModel():rootMetaView.getMetaModel();
 					MetaModel fromIDepends = metaModel.getMetaReference(reference).getMetaModelReferenced();
-					// tmr fin
 					for (Iterator it=fromIDepends.getKeyPropertiesNames().iterator(); it.hasNext();) {
 						String key = (String) it.next();
 						if (result.length() > 0) result.append(',');
 						result.append(member);
 						result.append('.');
 						result.append(key);
-						System.out.println("[MetaReference(" + getMetaModel().getName() + "::" + getName() + ")._getParameterValuesPropertiesInDescriptionsList] B: member=" + member + "." + key); // tmr
 					}
 				}
 				catch (ElementNotFoundException ex) {
-					ex.printStackTrace(); // tmr No existe la referencia family en FilterBySubfamily
 					// not reference, it is simple property
 					if (result.length() > 0) result.append(',');
 					result.append(member);			
-					System.out.println("[MetaReference(" + getMetaModel().getName() + "::" + getName() + ")._getParameterValuesPropertiesInDescriptionsList] C: member=" + member); // tmr
 				}		
 			}
 		}		

@@ -3,7 +3,7 @@ package org.openxava.test.tests;
 import org.openxava.tests.*;
 
 /**
- * tmr
+ * 
  * @author Javier Paniza
  */
 
@@ -13,7 +13,7 @@ public class ProductsEvaluation2Test extends ModuleTestBase {
 		super(testName, "ProductsEvaluation2");		
 	}
 		
-	public void testDescriptionsListInElementCollectionDependsOnMainEntityProperty() throws Exception { // tmr
+	public void testDescriptionsListInElementCollectionDependsOnMainEntityProperty() throws Exception { 
 		// By now it has no records, so it enters in detail mode
 		String [][] familyValues = { 
 			{ "", "" },

@@ -76,7 +76,7 @@ public class AJAXTest extends ModuleTestBase {
 			"errors, messages"); 
 	}
 	
-	public void testDescriptionsListInElementCollectionDependsOnMainEntityProperty() throws Exception { // tmr 
+	public void testDescriptionsListInElementCollectionDependsOnMainEntityProperty() throws Exception {  
 		changeModule("ProductsEvaluation2");
 		setValue("family.number", "1");
 		assertLoadedParts( 

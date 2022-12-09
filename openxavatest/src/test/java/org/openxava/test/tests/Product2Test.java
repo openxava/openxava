@@ -285,7 +285,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		};
 		
 		assertValue("subfamily.number", "");		
-		assertValidValues("subfamily.number", voidValues); // TMR FALLA
+		assertValidValues("subfamily.number", voidValues); 
 		
 		// Change value
 		setValue("family.number", "2");

@@ -601,17 +601,7 @@ public class MetaView extends MetaElement implements Cloneable {
 			}
 		}
 		else {
-			// tmr result = metaModelReferenced.getMetaViewByDefault();
-			// tmr ini
-			// tmr ME QUEDÉ POR AQUÍ: PROBÉ ESTO PERO NO LO ARREGLA. HACER UN mvn install DE OPENXAVA ANTES DE DESCARTARLO
-			// TMR EJECUTAR FamilyProductsReport ANTES DE Product2 HACE QUE FALLE
-			try {
-				result = (MetaView) metaModelReferenced.getMetaViewByDefault().clone(); 
-			}
-			catch (CloneNotSupportedException e) {
-				throw new XavaException("meta_view_reference_error_no_clone");				
-			}
-			// tmr fin
+			result = metaModelReferenced.getMetaViewByDefault();
 		}
 		result.setLabel(r.getLabel());
 		result.setParent(this); 
@@ -884,10 +874,7 @@ public class MetaView extends MetaElement implements Cloneable {
 	private MetaView getParent() { 
 		return parent;
 	}
-	public MetaView getRoot() { // tmr
-		if (parent == null) return this;
-		return parent.getRoot();
-	}
+	
 	private void setParent(MetaView parent) {
 		this.parent = parent;
 	}

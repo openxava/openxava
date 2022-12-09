@@ -3,7 +3,6 @@ package org.openxava.test.run;
 import org.openxava.tools.*;
 
 /**
- * tmr
  * 
  * @author Javier Paniza
  */
