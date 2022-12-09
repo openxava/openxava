@@ -1,0 +1,95 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Modificar código de XavaPro</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span> Modificar código de XavaPro</h1>
+      Las ediciones Enterprise y Corporate de XavaPro incluyen el código fuente
+      completo, por lo que puedes modificar el código de XavaPro para adaptarlo
+      a tus necesidades, corregir un error, añadir una nueva función, etc..<br>
+      <div class="wiki" style="display: block;">El código fuente de XavaPro está
+        incluido en la distribución de XavaPro, dentro de una carpeta llamada <i>source-code</i>:</div>
+      <img src="files/source-code-folder-xavapro.png" alt=""><br>
+      <div class="wiki" style="display: block;">Puedes modificarlo, compilarlo e
+        instalarlo usando Maven y tu IDE favorito. Si no estás acostumbrado a
+        Maven, aquí te presentamos una guía detallada para modificar el código
+        de XavaPro para tu aplicación usando OpenXava Studio.</div>
+      <div class="wiki" style="display: block;">
+        <h2>Instalar un JDK 8</h2>
+        XavaPro está compilado con Java 8 para poder trabajar con Java 8, 11 y
+        17. Tienes que instalar Java 8 en tu ordenador y configurar OpenXava
+        Studio para reconocerlo.&nbsp;</div>
+      <div class="wiki" style="display: block;">Primero, descarga un JDK 8 e
+        instálalo en tu ordenador. Luego en OpenXava Studio abre <i>Windows
+          &gt; Preferences &gt; Java &gt; Installed JREs</i>. Una vez allí,
+        añade el JDK 8 a la lista de JREs. De este modo:</div>
+      <img src="files/jdk8-in-eclipse-jres.png" alt=""> </div>
+    <div class="wiki" style="display: block;">Fíjate como no es necesario
+      elegirlo como predeterminado.
+      <h2>Importar xavapro en el workspace</h2>
+      Para importar el proyecto <i>xavapro</i> pulsa en <i>File &gt; Import...</i>:<br>
+      <img src="files/file-import-eclipse.png" alt="">
+      <p>Ahora selecciona <i>General &gt; Existing Projects into Workspace </i>y
+        pulsa en <i>Next</i>:</p>
+      <img src="files/import-existing-project-eclipse.png" alt=""><br>
+      <p>En <i>Select root directory</i> pulsa en <i>Browse...</i> para
+        escoger la carpeta donde está el código de XavaPro, es decir <i>xavapro-7.x.x/source-code</i>:</p>
+      <img src="files/import-existing-project-eclipse-2.png" alt=""><br>
+      <p>Asegurate de que el proyecto <i>xavapro</i> está marcado y pulsa en <i>Finish</i>.</p>
+      Al final, el proyecto <i>xavapro</i> con todo su código estará en tu
+      workspace:<br>
+      <img src="files/xavapro-project-in-workspace.png" alt=""><br>
+      <p>Ahora puedes modificar el código de <i>xavapro</i> a tu gusto.</p>
+      <h2>Modificar el código de XavaPro</h2>
+      <p>Primero, cambia la versión en <i>xavapro/pom.xml</i> para que sea un
+        SNAPSHOT. Abre el <i>pom.xml</i> dentro del proyecto <i>xavapro</i> y
+        añade el sufijo -SNAPSHOT al número de versión:</p>
+      <img src="files/xavapro-pom-snapshot-version-eclipse.png" alt="">
+      <p>Significa que es una versión de trabajo, no con funciones congeladas
+        sino lista para ser modificada.</p>
+      <p>Ahora es el momento de modificar el código. Por ejemplo, edita el
+        código de <i>ProSignInHelperProvider.java</i> y añade una condición
+        adicional en el método <i>isAuthorized()</i>, como esta:</p>
+      <img src="files/modifying-isauthorized-method.png" alt="">
+      <p>Luego haz un <i>mvn install</i> en <i>xavapro</i>, de esta forma:</p>
+      <img src="files/xavapro-maven-install-eclipse.png" alt="">
+      <p>En esta ocasión no ha sido necesario hacer un <i>mvn clean</i> porque
+        es la primera vez y <i>target</i> está vacío, pero si obtienes el
+        código de una versión nueva de XavaPro deberías hacer un <i>mvn clean</i>
+        también.</p>
+      <p>Ahora, ve a tu proyecto, edita el <i>pom.xml</i> y pon la propiedad <i>openxava.version</i>
+        al valor de la versión SNAPSHOT de XavaPro que tienes en tu workspace:</p>
+      <img src="files/invoicing-pom-update-to-snapshot.png" alt="">
+      <p>Esto es importante, de lo contrario tu proyecto no usará el <i>xavapro</i>
+        que has modificado, sino la versión oficial de tu repositorio Maven.</p>
+      <p>Después haz un <i>mvn clean</i> en tu proyecto:</p>
+      <img src="files/invoicing-maven-clean.png" alt="">
+      <p>Y un <i>mvn install</i> también en tu proyecto:</p>
+      <img src="files/invoicing-maven-install.png" alt="">
+      <p><b style="font-weight:normal;" id="docs-internal-guid-e854b573-7fff-2fb6-97bb-8ff2b48835dd"><span
+style="font-size:11.5pt;font-family:Arial;color:#0d0d0d;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">¡Enhorabuena</span></b>!
+        Tu proyecto está listo para ejecutarse con tu XavaPro modificado.
+        Pruébalo.</p>
+      <h2>Acortar el ciclo de modificación</h2>
+      <p>Los pasos anteriores son para la primera modificación. A partir de
+        ahora, las próximas modificaciones serán mucho más fáciles, solo tres
+        pasos:</p>
+      <ol>
+        <li>Modifica el código de <i>xavapro</i>.</li>
+        <li>Haz un <i>mvn install</i> en <i>xavapro</i>.</li>
+        <li>Haz un <i>mvn war:exploded</i> en tu proyecto. Para esto puedes
+          usar <i>Run As &gt; Build Maven ...</i></li>
+      </ol>
+      <p>Eso no es todo, también puedes iniciar tu aplicación en modo de
+        depuración, pulsando el botón con el escarabajo:</p>
+      <img src="files/debug-button-eclipse.png" alt=""> </div>
+    <div class="wiki" style="display: block;">De esta forma puedes modificar el
+      código en <i>xavapro</i> y ver el resultado al instante, incluso sin
+      reiniciar tu aplicación o recargar el navegador. Magia pura.</div>
+  </body>
+</html>
