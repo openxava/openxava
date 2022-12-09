@@ -156,8 +156,7 @@ public class SchemaTool {
 					if (onlySequences && !script.startsWith("create sequence ")) continue;
 					script = addSchema(script, supportsSchemasInIndexDefinitions, schema); 
 					if (console) {
-						System.out.print(script); 
-						System.out.println(';');
+						System.out.println(script); 
 					}
 					else {
 						log.info(XavaResources.getString("executing") + ": " + script);
