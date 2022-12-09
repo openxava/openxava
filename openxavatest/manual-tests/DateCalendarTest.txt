@@ -9,7 +9,7 @@ of openxava.js you have to test it visually at least for the next cases:
 	- Use the dialog to select any date, then go to list. A message shown.
 	- Go first record, go previous record (a message "We already are at the beginning of the list" is shown).
 	- Focus on date. Go to list mode. No message shown.
-- The tests below must be done in the following order, first with calendar dialog, then with enter and finally with tab or blur
+- Dialog + Enter: User Order in the following order:
 	- Order detail mode: select any date with dialog.
 	- Change the year using two digits and press enter.
 	- Change the year again using two digits and blur or press tab.
