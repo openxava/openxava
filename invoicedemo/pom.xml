@@ -4,7 +4,7 @@
 
   <groupId>org.openxava</groupId>
   <artifactId>invoicedemo</artifactId>
-  <version>7.0.3</version>
+  <version>7.0.4-SNAPSHOT</version>
   <packaging>war</packaging>
 
   <properties>
