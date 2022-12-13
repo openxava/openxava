@@ -34,7 +34,7 @@ public class ConfigureImportAction extends TabBaseAction
 	public void execute() throws Exception {
 		String fileName = "UNKNOWN";
 		try {
-			CustomFileItem customFileItem = (CustomFileItem) getView().getValue("file");
+			XFileItem customFileItem = (XFileItem) getView().getValue("file");
 			if (customFileItem != null && !Is.emptyString(customFileItem.getFileName())) {
 				fileName = customFileItem.getFileName().toLowerCase();
 				InputStream inputStream = new ByteArrayInputStream(customFileItem.getBytes());

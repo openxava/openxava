@@ -20,7 +20,7 @@ public class LoadFileItemAction extends ViewBaseAction implements IProcessLoaded
 			FileItem fi = (FileItem)i.next();
 			String fileName = fi.getName();			
 			if (!Is.emptyString(fileName)) {
-				CustomFileItem customFileItem = new CustomFileItem();
+				XFileItem customFileItem = new XFileItem();
 				customFileItem.setFileName(fi.getName());
 				customFileItem.setBytes(fi.get());
 				customFileItem.setString(fi.getString());

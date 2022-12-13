@@ -1,17 +1,18 @@
-package org.openxava.actions;
-import java.io.Serializable;
+package org.openxava.util;
+import java.io.*;
 
-public class CustomFileItem implements Serializable {
+// TMR Falta comentar
+public class XFileItem implements Serializable {
     private String fileName;
 
     private byte[] bytes;
 
     private String string;
 
-    public CustomFileItem() {
+    public XFileItem() {
     }
 
-    public CustomFileItem(String fileName, byte[] bytes, String string) {
+    public XFileItem(String fileName, byte[] bytes, String string) {
         this.fileName = fileName;
         this.bytes = bytes;
         this.string = string;
