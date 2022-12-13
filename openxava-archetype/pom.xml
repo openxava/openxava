@@ -9,7 +9,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<openxava.version>7.0.2</openxava.version>
+		<openxava.version>7.0.4-SNAPSHOT</openxava.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- OpenXava applications work nicely with Java 1.8, 11 and 17 -->
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -67,7 +67,7 @@
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
-    		<version>11.2.1.jre8</version>
+    		<version>12.1.0.jre8-preview</version>
 		</dependency>
 		-->
 		
@@ -75,7 +75,7 @@
 		<dependency>
 			<groupId>com.ibm.informix</groupId>
 			<artifactId>jdbc</artifactId>
-			<version>4.50.8</version>
+			<version>4.50.9</version>
 		</dependency>
 		-->
 		
@@ -91,7 +91,7 @@
 		<dependency>
 			<groupId>org.firebirdsql.jdbc</groupId>
 			<artifactId>jaybird</artifactId>
-			<version>4.0.6.java8</version>
+			<version>4.0.7.java8</version>
 		</dependency>
 		-->
 		

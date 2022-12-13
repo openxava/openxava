@@ -267,7 +267,8 @@ public class Dates {
 		// To use the Java 8 (and previous) format for Java 9 and better
 		DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale);
 		if (df instanceof SimpleDateFormat) {
-			String pattern = ((SimpleDateFormat) df).toPattern();
+			String patternBeforeReFormat = ((SimpleDateFormat) df).toPattern();
+			String pattern = locale.toString().equalsIgnoreCase("sr")?patternBeforeReFormat.substring(0,10) + (patternBeforeReFormat.substring(10, patternBeforeReFormat.length())).replace(".", ":"):patternBeforeReFormat;
 			boolean java9 = XSystem.isJava9orBetter();
 			if (java9) pattern = pattern.replace(", ", " ");
 			if (fourDigitsForYear && !pattern.contains("yyyy")) pattern = pattern.replace("yy", "yyyy");
@@ -278,7 +279,7 @@ public class Dates {
 		        sdf.setDateFormatSymbols(symbols);
 			}
 			df = sdf;
-		}		
+		}
 		return df;
 	}
 
@@ -515,7 +516,7 @@ public class Dates {
 	public static String dateTimeFormatForJSCalendar() {
 		Locale locale = Locales.getCurrent();
 		DateTimeCombinedFormatter df = new DateTimeCombinedFormatter(); 
-		String datetime = df.format(null, create(1, 2, 1971, 15, 59, 0)); // d, m, y, hr, min, sec		
+		String datetime = df.format(null, create(1, 2, 1971, 15, 59, 0)); // d, m, y, hr, min, sec	
 		boolean always4InYear= "es".equals(locale.getLanguage()) || "pl".equals(locale.getLanguage());
 		String result = datetime.
 				
@@ -535,7 +536,7 @@ public class Dates {
 				replaceAll("1", "j"). 	// day - single digit
 				replaceAll("2", "n")	// month - ??? seems only double digit is supported by calendar
 				;
-
+		
 		return result;
 	}	
 	

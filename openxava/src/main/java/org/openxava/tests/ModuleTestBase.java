@@ -1110,20 +1110,6 @@ abstract public class ModuleTestBase extends TestCase {
 	private void setCollectionCondition(String id, String[] values) throws Exception {
 		for (int i=0; i<values.length; i++) {
 			try {
-				String fieldId = decorateId(id + "." + i);
-				try {							
-					HtmlSelect select = getSelectByName(fieldId); 
-					for (HtmlOption option: select.getOptions()) {
-						String value = option.getValueAttribute(); 
-						if (value.contains(Tab.DESCRIPTIONS_LIST_SEPARATOR)) {
-							String key = value.substring(0, value.indexOf(Tab.DESCRIPTIONS_LIST_SEPARATOR));
-							if (key.equals(values[i])) values[i] = value;
-						}
-					}
-				}
-				catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex2) {
-				}
-				
 				// A bit Ad Hoc, because we assume that filtering fields have always onchange events, 
 				// if that changes this will not be real, but we have no option
 				// since HtmlUnit 2.32 stopped to react to change events on inputs

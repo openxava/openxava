@@ -1,6 +1,35 @@
 Change Log for OpenXava project
 ===============================
 
+- Zero downtime deployment(ZDD) and horizontal scaling support.
+- New XFileItem in util package to use as a serializable alternative to FileItem from Apache FileUpload.
+- Session data size reduced to a great extent.  
+- Fix: User redirected to list mode from detail when an action execution is sent to a different server.
+- Fix: Import CSV/Excel failed to work when using cluster of sever instances.
+- Fix: Older version of view still used even after the application upgraded to a newer version with ZDD.
+- Fix: Error while switching to a collection tab in the detail view after a server restart.
+
+OpenXava 7.0.3 (2022-12-9)
+--------------------------
+- Hibernate Envers upgraded to 5.6.14.
+- Embedded Tomcat used in development upgraded to 9.0.69.
+- Driver versions in doc and new projects upgraded for Microsoft SQL Server, Informix and Firebird.
+- New property distinct in DescriptionsCalculator to allow not duplicated results.
+- Removed Tab.DESCRIPTIONS_LIST_SEPARATOR final variable. 
+- Fix: @DescriptionsList in an @ElementCollection depending on a member of the main entity does not work.  
+- Fix: Wrong date formatting when pressing ENTER in the field after fill the date. 
+- Fix: @OnChange action not executed always on date with time editor when using calendar popup.
+- Fix: @OnChange action is executed several times on date with time editor as changing using calendar.
+- Fix: Time is formatted with incorrect separator with Java 8 for Serbian language.
+- Fix: ValidValuesRadioButton editor for enums is not shown when the editor is read only.
+- Fix: Tooltips do not work for @DescriptionsList references.
+- Fix: Bad values for list filter in combos if @DescriptionsList uses several fields for description. 
+- Fix: Sometimes property names used for list configuration names do not match the column label in list. 
+- Fix: Missing configuration property in LeanXcale documentation.
+- Fix: Typos in View chapter of Reference Guide.
+- Fix: Some missing images in the Chinese version of course.   
+- Fix: SchemaTool adds a double semicolon at the end of each sentence in console output.
+
 OpenXava 7.0.2 (2022-11-11)
 ---------------------------
 - HSQLDB embedded database upgraded to 2.7.1.

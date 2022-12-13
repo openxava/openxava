@@ -216,8 +216,13 @@ public class MetaReference extends MetaMember implements Cloneable {
 	public void setSearchKey(boolean searchKey) {
 		this.searchKey = searchKey;
 	}
-
-	public String getParameterValuesPropertiesInDescriptionsList(MetaView metaView) throws XavaException {
+	
+	public String getParameterValuesPropertiesInDescriptionsList(MetaView metaView) throws XavaException { 
+		return getParameterValuesPropertiesInDescriptionsList(metaView, metaView);
+	}
+	
+	/** @since 7.0.3 */
+	public String getParameterValuesPropertiesInDescriptionsList(MetaView metaView, MetaView rootMetaView) throws XavaException { 
 		MetaDescriptionsList descriptionsList = metaView.getMetaDescriptionList(this);		
 		if (descriptionsList == null) return "";
 		String depends = descriptionsList.getDepends();		
@@ -228,12 +233,13 @@ public class MetaReference extends MetaMember implements Cloneable {
 			String member = st.nextToken().trim();
 			if (usesReferenceInCondition(member, descriptionsList.getCondition())) {
 				if (result.length() > 0) result.append(',');
-				result.append(member);							
+				result.append(member);
 			}
 			else {
 				try {
-					String reference = member.startsWith("this.")?member.substring(5):member; 
-					MetaModel fromIDepends = getMetaModel().getMetaReference(reference).getMetaModelReferenced();
+					String reference = member.startsWith("this.")?member.substring(5):member;
+					MetaModel metaModel = member.startsWith("this.")?getMetaModel():rootMetaView.getMetaModel();
+					MetaModel fromIDepends = metaModel.getMetaReference(reference).getMetaModelReferenced();
 					for (Iterator it=fromIDepends.getKeyPropertiesNames().iterator(); it.hasNext();) {
 						String key = (String) it.next();
 						if (result.length() > 0) result.append(',');

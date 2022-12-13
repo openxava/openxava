@@ -18,7 +18,7 @@
         propiedad <i>openxava.version</i> para que apunte a la última versión
         de OpenXava, así: </p>
       <pre><code class="xml">&lt;properties&gt;
-    &lt;openxava.version&gt;7.0.2&lt;/openxava.version&gt;
+    &lt;openxava.version&gt;7.0.3&lt;/openxava.version&gt;
     ...
 &lt;/properties&gt;
 </code></pre>
@@ -44,6 +44,59 @@
         instrucciones de abajo para adaptar tu código.</div>
       <div class="wiki" style="display: block;"><br>
       </div>
+      <h2>Para migrar de OpenXava 7.0.2 a OpenXava 7.0.3</h2>
+      <h3>Los combos de @DescriptionsList en la parte del filtro de la lista ya
+        no usan la clave</h3>
+      <p>Para arreglar un fallo, los combos de las referencias marcadas como <i>@DescriptionsList</i>
+        en el filtro de la lista o colecciones ya no usan la clave, sino el
+        valor del campo. Esto es algo interno, no afecta el funcionamiento de la
+        aplicación. Pero es posible que tengas que adaptar algo de código. Si
+        tienes una condición como esta en una acción:</p>
+      <pre><code class="java">getTab().setConditionValue("vendedor.nombre", 1);
+</code></pre>
+      <p>Cámbiala por:</p>
+      <pre><code class="java">getTab().setConditionValue("vendedor.nombre", "JUAN HERRERO");
+</code></pre>
+      <p>Fíjate como ahora para <i>vendedor.nombre</i> usamos el nombre del
+        vendedor, no el id. Hemos hecho esto para arreglar un bug, pero como
+        efecto secundario ahora es más natural y además funciona de la misma
+        manera para referencias con o sin <i>@DescriptionsList</i>, así que
+        añadir o quitar un <i>@DescriptionsList</i> a una referencia no afecta
+        al código de tus acciones.</p>
+      <p>También tienes que adaptar tu código JUnit que pone valor al filtro de
+        la lista si se usan referencias con <i>@DescriptionsList</i>. Es
+        decir,&nbsp; cambia:</p>
+      <pre><code class="java">setConditionValues("", "1");
+</code></pre>
+      <div class="wiki" style="display: block;">Por: </div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">setConditionValues("", "AUTOMÓVIL");
+</code></pre>
+        <p>Aquí estás cambiando el id por la descripción o el nombre. Haz lo
+          mismo con el código JUnit que verifica el contenido del combo. Cambia:</p>
+        <pre><code class="java">String [][] valoresValidos = {
+    { "", "" },
+    { "2:_:FAROLA", "FAROLA" },
+    { "0:_:CASA", "CASA" },
+    { "3:_:PUERTA", "PUERTA" },
+    { "1:_:AUTOMÓVIL", "AUTOMÓVIL" }
+};
+assertValidValues("conditionValue___3", valoresValidos);        
+</code></pre>
+        <p>Por:</p>
+        <pre><code class="java">String [][] valoresValidos = {
+    { "", "" },
+    { "FAROLA", "FAROLA" },
+    { "CASA", "CASA" },
+    { "PUERTA", "PUERTA" },
+    { "AUTOMÓVIL", "AUTOMÓVIL" }
+};
+assertValidValues("conditionValue___3", valoresValidos);
+</code></pre>
+        <p>Nota como hemos quitado el prefijo <i>id:_:</i> en la parte de la
+          clave del mapa. Ahora, las claves y los valores son iguales.</p>
+      </div>
+      <h2></h2>
       <h2>Para migrar de OpenXava 7.0.1 a OpenXava 7.0.2</h2>
       No hay consideraciones.
       <h2>Para migrar de OpenXava 7.0 a OpenXava 7.0.1</h2>

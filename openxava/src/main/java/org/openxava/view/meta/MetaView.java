@@ -604,7 +604,7 @@ public class MetaView extends MetaElement implements Cloneable {
 			}
 		}
 		else {
-			result = metaModelReferenced.getMetaViewByDefault();			
+			result = metaModelReferenced.getMetaViewByDefault();
 		}
 		result.setLabel(r.getLabel());
 		result.setParent(this); 
@@ -874,9 +874,10 @@ public class MetaView extends MetaElement implements Cloneable {
 	private void setSection(boolean section) {
 		this.section = section;
 	}
-	private MetaView getParent() {
+	private MetaView getParent() { 
 		return parent;
 	}
+	
 	private void setParent(MetaView parent) {
 		this.parent = parent;
 	}

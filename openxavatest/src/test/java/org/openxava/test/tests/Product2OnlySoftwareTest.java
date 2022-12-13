@@ -16,9 +16,9 @@ public class Product2OnlySoftwareTest extends ModuleTestBase {
 	public void testQualifiedPropertiesInDescriptionsListCondition_percentSymbolInDescriptionsListCondition() throws Exception {
 		String [][] softwareValuesInListFilter = {
 			{ "", ""},
-			{ "1:_:DESARROLLO", "DESARROLLO"},
-			{ "2:_:GESTION", "GESTION"},						  
-			{ "3:_:SISTEMA", "SISTEMA"}						
+			{ "DESARROLLO", "DESARROLLO"}, 
+			{ "GESTION", "GESTION"},						  
+			{ "SISTEMA", "SISTEMA"}			
 		};		
 		assertValidValues("conditionValue___3", softwareValuesInListFilter); 
 		execute("CRUD.new");

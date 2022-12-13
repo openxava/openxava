@@ -1,0 +1,96 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Modify XavaPro code</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
+          / </span> Modify XavaPro code </h1>
+      Enterprise and Corporate editions of XavaPro include the complete source
+      code, so you can modify the XavaPro code to adapt it to your needs, fix a
+      bug, add a new feature, etc.<br>
+      <div class="wiki" style="display: block;">XavaPro source code is included
+        in XavaPro distribution, inside a folder called <i>source-code</i>:</div>
+      <img src="files/source-code-folder-xavapro.png" alt=""><br>
+      <div class="wiki" style="display: block;">You can modify, build and
+        install it using Maven and your favorite IDE. If you're not used to
+        Maven, we present here a detailed guide to modify XavaPro code for your
+        application using OpenXava Studio.</div>
+      <div class="wiki" style="display: block;">
+        <h2>Install a JDK 8</h2>
+        XavaPro is compiled with Java 8 in order to work with Java 8, 11 and 17.
+        You have to install Java 8 in your computer and configure OpenXava
+        Studio to recognize it. </div>
+      <div class="wiki" style="display: block;">First, download JDK 8 and
+        install it on your computer. Then in OpenXava Studio open <i>Windows
+          &gt; Preferences &gt; Java &gt; Installed JREs</i>. Once there add the
+        JDK 8 to the list of JREs. In this way:</div>
+      <img src="files/jdk8-in-eclipse-jres.png" alt="">
+      <div class="wiki" style="display: block;">Note that it is not necessary to
+        choose it as the default one.
+        <h2>Import xavapro into workspace</h2>
+        To import the <i>xavapro</i> project click on <i>File &gt; Import...</i>:<br>
+        <img src="files/file-import-eclipse.png" alt="">
+        <p>Now select <i>General &gt; Existing Projects into Workspace </i>and
+          click on <i>Next</i>:</p>
+        <img src="files/import-existing-project-eclipse.png" alt=""><br>
+        <p>In <i>Select root directory </i>browse to choose the folder where
+          the XavaPro code is, that is, <i>xavapro-7.x.x/source-code</i>:</p>
+        <img src="files/import-existing-project-eclipse-2.png" alt=""><br>
+        <p>Make sure that <i>xavapro</i> project is checked, then click on <i>Finish</i>.</p>
+        Finally the <i>xavapro</i> project with all its code is in your
+        workspace:<br>
+        <img src="files/xavapro-project-in-workspace.png" alt=""><br>
+        <p>Now you can modify the xavapro code at your taste.</p>
+        <h2>Modify XavaPro code</h2>
+        <p>First, change the version in <i>xavapro/pom.xml</i> to be a
+          SNAPSHOT. Open the <i>pom.xml</i> inside the <i>xavapro</i> project
+          and add the -SNAPSHOT suffix to the version number:</p>
+        <img src="files/xavapro-pom-snapshot-version-eclipse.png" alt="">
+        <p>It means that it is a working version, not with fixed features but
+          ready to be modified.</p>
+        <p>Now, it's time to modify the code. For example, edit the <i>ProSignInHelperProvider.java</i>
+          code and add a extra condition in the <i>isAuthorized()</i> method,
+          like this:</p>
+        <img src="files/modifying-isauthorized-method.png" alt="">
+        <p>Then make a <i>mvn install</i> on <i>xavapro</i>, in this way:</p>
+        <img src="files/xavapro-maven-install-eclipse.png" alt="">
+        <p>This time it's not needed to do a <i>mvn clean</i> because it's the
+          first time and <i>target</i> is empty, but if you get the code of a
+          new XavaPro version you should do a <i>mvn clean</i> too.</p>
+        <p>Now, go to your project, edit the <i>pom.xml</i> and put the <i>openxava.version</i>
+          property to the value of the XavaPro SNAPSHOT version you have in your
+          workspace:</p>
+        <img src="files/invoicing-pom-update-to-snapshot.png" alt="">
+        <p>This is important, otherwise your project will not use the <i>xavapro</i>
+          you have modified, but the official version from your Maven
+          repository.</p>
+        <p>Then do a <i>mvn clean</i> on your project:</p>
+        <img src="files/invoicing-maven-clean.png" alt="">
+        <p>And then a <i>mvn install</i> on your project:</p>
+        <img src="files/invoicing-maven-install.png" alt="">
+        <p><b style="font-weight:normal;" id="docs-internal-guid-e854b573-7fff-2fb6-97bb-8ff2b48835dd"><span
+style="font-size:11.5pt;font-family:Arial;color:#0d0d0d;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Congratulations</span></b>!
+          Your project is ready to run with your modified XavaPro. Try it.</p>
+        <h2>Shorten modification cycle</h2>
+        <p>The above steps are for the very first modification. From now on, the
+          next modifications can be easy, just three steps:</p>
+        <ol>
+          <li>Modify <i>xavapro</i> code.</li>
+          <li>Do a <i>mvn install</i> on <i>xavapro</i>.</li>
+          <li>Do a <i>mvn war:exploded</i> in your project. For this you can
+            use <i>Run As &gt; Build Maven ...</i></li>
+        </ol>
+        <p>Even more, you can start your application in debug mode, clicking on
+          the bug:</p>
+        <img src="files/debug-button-eclipse.png" alt="">
+        <p>In this way you can modify the code in <i>xavapro</i> and see the
+          result instantly, even without relaunching your application or
+          reloading the browser. Just like magic.</p>
+      </div>
+    </div>
+  </body>
+</html>

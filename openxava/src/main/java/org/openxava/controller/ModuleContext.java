@@ -24,8 +24,8 @@ public class ModuleContext implements java.io.Serializable {
 		MetaControllers.setContext(MetaControllers.WEB);		
 	}
 	
-	private transient Map<String, Map> contexts = null; 
-	private transient Map globalContext = null; 
+	private Map<String, Map> contexts = null;
+	private Map globalContext = null;
 	private String lastUsedWindowId; 
 	private String windowIdForNextTime = null;
 

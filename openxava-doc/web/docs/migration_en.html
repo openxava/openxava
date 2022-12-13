@@ -18,7 +18,7 @@
         the <i>openxava.version</i> property to point to the latest OpenXava
         version, thus:</p>
       <pre><code class="xml">&lt;properties&gt;
-    &lt;openxava.version&gt;7.0.2&lt;/openxava.version&gt;
+    &lt;openxava.version&gt;7.0.3&lt;/openxava.version&gt;
     ...
 &lt;/properties&gt;
 </code></pre>
@@ -45,6 +45,54 @@
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">
+      <h2 id="from-6.6.3-to-7.0">Migration from OpenXava 7.0.2 to OpenXava 7.0.3</h2>
+      <h3>@DescriptionsList combos in filter part of lists no longer use key</h3>
+      <p>To solve a bug, the combos for references as <i>@DescriptionsList</i>
+        in filter part of list and collections no longer use the key, but the
+        value of the field. This is something internal, it does not affect the
+        application behavior. But it's possible you have to adapt some code. If
+        you have a code like this in an action:</p>
+      <pre><code class="java">getTab().setConditionValue("seller.name", 1);
+</code></pre>
+      <p>Change it by:</p>
+      <pre><code class="java">getTab().setConditionValue("seller.name", "JOHN SMITH");
+</code></pre>
+      <p>Note as now for <i>seller.name</i> we use the actual seller name, not
+        the id. We did it to fix a bug, but as a lateral effect now it's more
+        natural and moreover it works in the same way of a reference with no <i>@DescriptionsList</i>,
+        so adding or removing a <i>@DescriptionsList</i> to your reference does
+        not affect the code of your actions.</p>
+      <p>Also you have to adapt your JUnit code that set value to list filter if
+        a reference with <i>@DescriptionsList</i> is used. That is, change:</p>
+      <pre><code class="java">setConditionValues("", "1");
+</code></pre> </div>
+    <div class="wiki" style="display: block;">By: </div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">setConditionValues("", "CAR");
+</code></pre>
+      <p>Here you're changing the id by the description or the name. Do the same
+        for the JUnit code that verify the combo content. Change:</p>
+      <pre><code class="java">String [][] validValues = {
+    { "", "" },
+    { "2:_:LAMPPOST", "LAMPPOST" },
+    { "0:_:HOUSE", "HOUSE" },
+    { "3:_:DOOR", "DOOR" },
+    { "1:_:CAR", "CAR" }
+};
+assertValidValues("conditionValue___3", validValues);        
+</code></pre>
+      <p>By:</p>
+      <pre><code class="java">String [][] validValues = {
+    { "", "" },
+    { "LAMPPOST", "LAMPPOST" },
+    { "HOUSE", "HOUSE" },
+    { "DOOR", "DOOR" },
+    { "CAR", "CAR" }
+};
+assertValidValues("descriptionsListValue", validValues);        
+</code></pre>
+      <p>Note that we have removed the prefix <i>id:_:</i> for the key part of
+        the map. Now, key and value have the same value.</p>
       <h2>Migration from OpenXava 7.0.1 to OpenXava 7.0.2</h2>
       No issues.
       <h2>Migration from OpenXava 7.0 to OpenXava 7.0.1</h2>

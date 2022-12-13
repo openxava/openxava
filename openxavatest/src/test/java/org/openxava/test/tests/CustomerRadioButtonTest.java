@@ -14,8 +14,13 @@ public class CustomerRadioButtonTest extends ModuleTestBase {
 		super(testName, "CustomerRadioButton");		
 	}
 	
-	public void testSelectTheLabelOnRadioButton() throws Exception {
+	public void testSelectTheLabelOnRadioButton_descriptionsListTooltip() throws Exception {
 		execute("CRUD.new");
+		
+		HtmlElement select = getHtmlPage().getElementByName("ox_openxavatest_CustomerRadioButton__address___state___id__CONTROL__"); 
+		String title = select.getAttribute("title");
+		assertEquals("Address state", title);
+		
 		HtmlElement c = getHtmlPage().getHtmlElementById("ox_openxavatest_CustomerRadioButton__type1");	// steady  
 		c.click();
 		waitAJAX();
@@ -27,7 +32,7 @@ public class CustomerRadioButtonTest extends ModuleTestBase {
 		assertValue("type", "2");	// special
 	}
 	
-	public void testEditorByView_radioButton() throws Exception { 
+	public void testEditorByView_radioButton_radioButtonNoEditable() throws Exception { 
 		// Really editor by property-view must be tested visually
 		// and about radioButton we only test that it's possible to use in junit test,
 		// because behaves equals that a combo. Hence it's needed to test visually
@@ -52,6 +57,10 @@ public class CustomerRadioButtonTest extends ModuleTestBase {
 		assertValue("number", "66");
 		assertValue("name", "Customer Junit");
 		assertValue("type", "1"); // steady
+		
+		execute("CustomerRadioButton.notEditableView"); 
+		assertNoEditable("type");
+		assertValue("type", "1");
 		
 		execute("CRUD.delete");
 		assertMessage("Customer deleted successfully"); 
