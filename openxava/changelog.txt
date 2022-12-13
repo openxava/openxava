@@ -1,6 +1,14 @@
 Change Log for OpenXava project
 ===============================
 
+- Zero downtime deployment(ZDD) and horizontal scaling support.
+- New XFileItem in util package to use as a serializable alternative to FileItem from Apache FileUpload.
+- Session data size reduced to a great extent.  
+- Fix: User redirected to list mode from detail when an action execution is sent to a different server.
+- Fix: Import CSV/Excel failed to work when using cluster of sever instances.
+- Fix: Older version of view still used even after the application upgraded to a newer version with ZDD.
+- Fix: Error while switching to a collection tab in the detail view after a server restart.
+
 OpenXava 7.0.3 (2022-12-9)
 --------------------------
 - Hibernate Envers upgraded to 5.6.14.

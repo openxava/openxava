@@ -1,7 +1,12 @@
 package org.openxava.util;
 import java.io.*;
 
-// TMR Falta comentar
+/**
+ * Serializable FileItem to use as alternative to FileItem from Apache Commons FileUpload.
+ * 
+ * @author Harsha Mahaswami
+ * @since 7.0.4
+ */
 public class XFileItem implements Serializable {
     private String fileName;
 
