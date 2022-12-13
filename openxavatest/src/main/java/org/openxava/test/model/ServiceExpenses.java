@@ -8,17 +8,15 @@ import javax.persistence.*;
 import org.openxava.annotations.*;
 import org.openxava.model.*;
 
-import lombok.*;
-
 /**
  * 
  * @author Javier Paniza 
  */
 
 @Entity
-@View(name = "DateTime", members="expenses2")
-@View(members= "description; expenses")
-@Tab(properties = "description, discount")
+//@View(name = "DateTime", members="expenses2")
+//@View(members= "description; expenses")
+//@Tab(properties = "description, discount")
 public class ServiceExpenses extends Identifiable {
 	
 	@Column(length=40)
@@ -30,12 +28,12 @@ public class ServiceExpenses extends Identifiable {
 	private BigDecimal discount;
 	
 	@ElementCollection
-	@ListProperties("time, invoice.year, invoice.number, invoice.amount+[serviceExpenses.discount], status, receptionist")   
+	@ListProperties("invoice.year, invoice.number, invoice.amount+[serviceExpenses.discount], status, receptionist")   
 	private Collection<ServiceExpense> expenses;
 
-	@Embedded
-	@Getter @Setter
-	ServiceExpense expenses2;
+//	@Embedded
+//	@Getter @Setter
+//	ServiceExpense expenses2;
 	
 	public String getDescription() {
 		return description;
