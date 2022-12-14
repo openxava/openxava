@@ -36,7 +36,7 @@ public class DateTimeSeparatedFormatter extends DateTimeBaseFormatter implements
 		String fDate = strings[0];
 		String fTime = strings[1];
 		String dateTime = fDate + " " + fTime;
-				
+		
         // SimpleDateFormat does not work well with -
 		if (dateTime.indexOf('-') >= 0) { 
 			dateTime = Strings.change(dateTime, "-", "/");
@@ -45,7 +45,7 @@ public class DateTimeSeparatedFormatter extends DateTimeBaseFormatter implements
 		DateFormat [] dateFormats = getDateTimeFormats();
 		for (int i=0; i < dateFormats.length; i++) {
 			try {			
-				java.util.Date result =  (java.util.Date) dateFormats[i].parseObject(dateTime);		
+				java.util.Date result =  (java.util.Date) dateFormats[i].parseObject(dateTime);
 				return new java.sql.Timestamp( result.getTime() );
 			}
 			catch (ParseException ex) {				
