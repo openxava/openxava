@@ -52,6 +52,7 @@ OpenXava 7.0.2 (2022-11-11)
 - Fix: New project created from openxava-archetype-spanish has an archetype-metadata.xml in root folder. 
 - Fix: New project created from openxava-archetype-spanish contains unknown characters for accents.
 - Fix: Filtering in list and collections does not work just after moving or removing a column.
+- Fix: Error dialog moving the last column after removing a column in list customization.
 - Fix: Ambiguous comment in model documentation in English about file persistence configuration.
 - Fix: Code in lesson 24 of course does not work for databases other than HSQLDB.
 - Fix: Generate PDF fails in some browser configurations that ask for the PDF twice. 
