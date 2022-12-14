@@ -63,7 +63,11 @@ of openxava.js you have to test it visually at least for the next cases:
 	- Change the date and time with calendar. Date is kept correct, 20 is not added between date and time, time appears like "00:00" and not "00.00" in java 8
 	- Change (the following test works with tab and blur but not with enter key yet):
 		 25.12.2006. 11:33 to 25.12.18 05:05 -> 25.12.2018. 05:05
-	
+- Time in DateTime separated, use ShipmentSeparatedTime in Spanish
+	- Go to the first element and select any date using calendar, the time input should be empty
+	- Change the year of the date using input and 2 digit then press enter, the date should change correctly
+	- Type 12:12 in time then blur or enter, the date should not be changed
+	- Save and change the language to serbian, the time in list mode should be 12:12 and not 12.12 
 Use any entity with a date in list mode. Like Invoice filtering by date in list.
 - With = (calendar shown)
 - Change to year = (calendar not shown).
