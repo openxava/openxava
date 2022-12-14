@@ -24,7 +24,8 @@ openxava.addEditorInitFunction(function() {
         var date = withEnter?enterDate:$(this).val();
         if (date === "") return;
         date = date.trim();
-        if (date.length > 5 && !date.includes(":")) {
+        if (date.length < 6 && date.includes(":")) {
+        } else {
             var separator = dateFormat.substr(1, 1);
             var idx = date.lastIndexOf(separator);
             if (idx < 0) {
