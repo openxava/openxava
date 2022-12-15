@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Time part not formatted correctly in DateTimeSeparatedCalendar editor with Serbian and Java 8.
+- Fix: Time part distorted on modify it in a @DateTime property using DateTimeSeparatedCalendar editor.
 - Zero downtime deployment(ZDD) and horizontal scaling support.
 - New XFileItem in util package to use as a serializable alternative to FileItem from Apache FileUpload.
 - Session data size reduced to a great extent.  
