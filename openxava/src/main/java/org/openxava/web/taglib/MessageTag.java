@@ -48,7 +48,7 @@ public class MessageTag extends TagSupport {
 			else {
 				string = XavaResources.getString(getKey()); 
 			}
-			string = string.replace("''", "\'+ \"'\" +\'");
+			string = string.replace("'", "\'+ \"'\" +\'");
 			pageContext.getOut().print(string);
 		}
 		catch (Exception ex) {
