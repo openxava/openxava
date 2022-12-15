@@ -118,11 +118,9 @@ openxava.refreshPage = function(result) {
 		for (var id in changedParts) {			
 			changed = changed + id + ", ";  			
 			try {
-			console.log("id " + id);
 				openxava.setHtml(id, changedParts[id]);
 			}
 			catch (ex) {
-			console.log("ex> " + ex);
 				changed = changed + " ERROR";
 				alert("Error refreshing part: " + id);
 				errors = true;
@@ -261,20 +259,21 @@ openxava.initPlaceholder = function(){
 	});
 }
 
-openxava.initTooltips = function() { 
-	$(".xava_editor").find("input").tooltip({ 
-		position: {
-			my: "left+3 center", at: "right center", 
-	        using: function( position, feedback ) {
-			$( this ).css( position );
-			$( "<div>" )
-				.addClass( "arrow" )
-				.addClass( feedback.vertical )
-				.addClass( feedback.horizontal )
-				.appendTo( this );
-	        }
-		}
-	});	
+openxava.initTooltips = function() {
+    $(".editor, .xava_editor").find("input").tooltip({
+        position: {
+            my: "left+3 center",
+            at: "right center",
+            using: function(position, feedback) {
+                $(this).css(position);
+                $("<div>")
+                    .addClass("arrow")
+                    .addClass(feedback.vertical)
+                    .addClass(feedback.horizontal)
+                    .appendTo(this);
+            }
+        }
+    });
 }
 
 openxava.initViewSimple = function(application, module, viewSimple) { 
