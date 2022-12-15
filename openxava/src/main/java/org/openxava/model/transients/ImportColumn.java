@@ -11,7 +11,7 @@ import org.openxava.annotations.*;
  */
 
 @Embeddable
-public class ImportColumn {
+public class ImportColumn implements java.io.Serializable {
 	
 	private String nameInApp;
 	
