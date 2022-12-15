@@ -8,7 +8,6 @@ import org.openxava.jpa.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
 
-import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
 
 /**
@@ -16,21 +15,7 @@ import com.gargoylesoftware.htmlunit.html.*;
  * @author Jeromy Altuna
  */
 public class UserWithNicknameTest extends ModuleTestBase {
-	
-	private class MyAlertHandler implements AlertHandler {
 		
-		private String message;
-
-		public void handleAlert(Page page, String message) {
-			this.message = message;
-		}
-		
-		public String getMessage() {
-			return message;
-		}
-
-	}
-	
 	private String frameId;
 		
 	public UserWithNicknameTest(String testName) {
@@ -70,29 +55,19 @@ public class UserWithNicknameTest extends ModuleTestBase {
 		removeNicknames();
 	}
 	
-	public void testAttachFilesFromEmbeddableClass() throws Exception {
-		MyAlertHandler alertHandler = new MyAlertHandler();
-		getWebClient().setAlertHandler(alertHandler);
-		
+	public void testAttachFilesFromEmbeddableClass_catalanMessages() throws Exception {
 		setValue("name", "ANATOLY KARPOV");
 		setValue("nickname.nickname", "POSITIONAL GAMER II");
 		execute("CRUD.save");
 		assertMessage("User with nickname created successfully"); 
 		execute("Mode.list");
+		setLocale("ca");
 		execute("List.viewDetail", "row=0");
 		attachFiles(); 		
 		execute("CRUD.delete");
 		assertNoErrors();
 		removeNicknames();
 		removeFiles(); 
-
-		setLocale("ca");
-		//execute("CRUD.new");
-		System.out.println(getLocale());
-		System.out.println(alertHandler.getMessage() );
-		//assertNotEquals("Error refreshing part", "ox_openxavatest_UserWithNickname__core", alertHandler.getMessage());
-		//assertEquals("Error refreshing part: ox_openxavatest_UserWithNickname__core", alertHandler.getMessage());
-		//setLocale("en");
 	}	
 
 	public void testStoreFrameStatusWithTooLongName() throws Exception {
