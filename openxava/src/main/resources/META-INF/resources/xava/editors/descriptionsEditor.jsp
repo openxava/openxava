@@ -11,6 +11,8 @@
 <%@ page import="org.openxava.filters.IRequestFilter" %>
 <%@ page import="org.openxava.mapping.PropertyMapping"%>
 <%@ page import="org.openxava.converters.IConverter"%>
+<%@ page import="java.util.Arrays"%>
+<%@ page import="org.openxava.web.Ids"%>
 
 <%
 String viewObject = request.getParameter("viewObject");
@@ -166,7 +168,23 @@ else if (filter != null) {
 }
 java.util.Collection descriptions = calculator.getDescriptions();
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
-String title = (p == null)?"":p.getDescription(request);
+String title = "";  
+try {
+    if (p == null) {
+        String undecorated = Ids.undecorateRef(propertyKey);
+        String[] split = undecorated.split("\\.");
+        String[] noNull = Arrays.stream(split)
+            .filter(value -> value != null && value.length() > 0)
+            .toArray(size -> new String[size]);
+        String refName = noNull[noNull.length - 2];
+        String d = view.getMetaReference(refName).getDescription();
+        title = (d == null) ? "" : d;
+    } else {
+        title = p.getDescription(request);
+    }
+} catch (Exception e) {
+    title = "";
+}
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
 boolean editable = "true".equals(request.getParameter("editable"));
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel() || "true".equalsIgnoreCase(request.getParameter("readOnlyAsLabel"));
@@ -200,10 +218,10 @@ if (editable) {
 	%>
 	<span class="<%=style.getDescriptionsList()%> <%=style.getEditor()%>">
 	<%-- The JavaScript code depends on the order of the next elements --%>
-	<input name="<%=propertyKey%>__CONTROL__" type="text" tabindex="1" class="xava_select <%=style.getEditor()%>" size="<%=maxDescriptionLength%>" <%=script%> title="<%=title%>" 
+    <input name="<%=propertyKey%>__CONTROL__" type="text" tabindex="1" class="xava_select <%=style.getEditor()%>" size="<%=maxDescriptionLength%>" <%=script%> title="<%=title%>" 
 		data-values='<%=values%>' value="<%=selectedDescription%>"/>
 	<input id="<%=propertyKey%>" type="hidden" name="<%=propertyKey%>" value="<%=selectedKey%>"/>
-	<input type="hidden" name="<%=propertyKey%>__DESCRIPTION__" value="<%=selectedDescription%>"/>
+    <input type="hidden" name="<%=propertyKey%>__DESCRIPTION__" value="<%=selectedDescription%>"/>
 	<a class="ox-layout-descriptions-editor-handler" href="javascript:descriptionsEditor.open('<%=propertyKey%>')"><i class="mdi mdi-menu-down"></i></a> 		
 	<a class="ox-layout-descriptions-editor-handler" href="javascript:descriptionsEditor.close('<%=propertyKey%>')" style="display: none"><i class="mdi mdi-menu-up"></i></a>
 	</span>
@@ -232,7 +250,7 @@ if (bold) { %> <b> <%}%>
 	}
 	else {	
 %>
-	<input name="<%=propertyKey%>__DESCRIPTION__" class=<%=style.getEditor()%>
+    <input name="<%=propertyKey%>__DESCRIPTION__" class=<%=style.getEditor()%>
 		type="text" 
 		title="<%=title%>"
 		maxlength="<%=description.toString().length()%>" 

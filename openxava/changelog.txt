@@ -1,13 +1,39 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Time part not formatted correctly in DateTimeSeparatedCalendar editor with Serbian and Java 8.
+- Fix: Time part distorted on modify it in a @DateTime property using DateTimeSeparatedCalendar editor.
+- Driver versions in doc and new projects upgraded for PostgreSQL, Oracle, AS/400, Firebird.
+- Embedded Tomcat used in development upgraded to 9.0.70.
+- Hibernate upgraded to 5.6.14.Final.
+- Zero downtime deployment(ZDD) and horizontal scaling support.
+- New XFileItem in util package to use as a serializable alternative to FileItem from Apache FileUpload.
+- Session data size reduced to a great extent.  
+- Fix: User redirected to list mode from detail when an action execution is sent to a different server.
+- Fix: Import CSV/Excel failed to work when using cluster of sever instances.
+- Fix: Older version of view still used even after the application upgraded to a newer version with ZDD.
+- Fix: Error while switching to a collection tab in the detail view after a server restart.
+
+OpenXava 7.0.3 (2022-12-9)
+--------------------------
+- Hibernate Envers upgraded to 5.6.14.
+- Embedded Tomcat used in development upgraded to 9.0.69.
+- Driver versions in doc and new projects upgraded for Microsoft SQL Server, Informix and Firebird.
+- New property distinct in DescriptionsCalculator to allow not duplicated results.
+- Removed Tab.DESCRIPTIONS_LIST_SEPARATOR final variable. 
+- Fix: @DescriptionsList in an @ElementCollection depending on a member of the main entity does not work.  
+- Fix: Wrong date formatting when pressing ENTER in the field after fill the date. 
+- Fix: @OnChange action not executed always on date with time editor when using calendar popup.
+- Fix: @OnChange action is executed several times on date with time editor as changing using calendar.
+- Fix: Time is formatted with incorrect separator with Java 8 for Serbian language.
+- Fix: ValidValuesRadioButton editor for enums is not shown when the editor is read only.
+- Fix: Tooltips do not work for @DescriptionsList references.
+- Fix: Bad values for list filter in combos if @DescriptionsList uses several fields for description. 
+- Fix: Sometimes property names used for list configuration names do not match the column label in list. 
 - Fix: Missing configuration property in LeanXcale documentation.
 - Fix: Typos in View chapter of Reference Guide.
-- Hibernate upgraded to 5.6.14.
-- Tomcat-embed-core upgraded to 9.0.69.
-- Tomcat-embed-jasper upgraded to 9.0.69.
-- Tomcat-dbcp upgraded to 9.0.69.
-- Driver versions in doc and new projects upgraded for Microsoft SQL Server, Informix, Firebird.
+- Fix: Some missing images in the Chinese version of course.   
+- Fix: SchemaTool adds a double semicolon at the end of each sentence in console output.
 
 OpenXava 7.0.2 (2022-11-11)
 ---------------------------
@@ -31,6 +57,7 @@ OpenXava 7.0.2 (2022-11-11)
 - Fix: New project created from openxava-archetype-spanish has an archetype-metadata.xml in root folder. 
 - Fix: New project created from openxava-archetype-spanish contains unknown characters for accents.
 - Fix: Filtering in list and collections does not work just after moving or removing a column.
+- Fix: Error dialog moving the last column after removing a column in list customization.
 - Fix: Ambiguous comment in model documentation in English about file persistence configuration.
 - Fix: Code in lesson 24 of course does not work for databases other than HSQLDB.
 - Fix: Generate PDF fails in some browser configurations that ask for the PDF twice. 

@@ -9,7 +9,7 @@ import org.openxava.actions.*;
 public class FilterBySellerOneAction extends TabBaseAction {
 
 	public void execute() throws Exception {
-		getTab().setConditionValue("seller.name", 1);
+		getTab().setConditionValue("seller.name", "MANUEL CHAVARRI"); 
 	}
 
 }

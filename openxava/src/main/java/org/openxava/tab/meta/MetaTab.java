@@ -101,7 +101,7 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		}
 		return metaProperties;
 	}
-
+	
 	public Collection getMetaPropertiesHidden() throws XavaException {
 		if (metaPropertiesHidden == null) {
 			metaPropertiesHidden = namesToMetaProperties(getHiddenPropertiesNames());

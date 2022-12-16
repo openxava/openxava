@@ -72,34 +72,34 @@ public class View implements java.io.Serializable {
 	private boolean focusForward;
 	private String focusPropertyId;
 	private String focusCurrentId; 
-	private Map membersNamesWithHidden;
-	private Map groupsViews;
+	private transient Map membersNamesWithHidden;
+	private transient Map groupsViews;
 	private Collection membersNamesInGroup;
 	private Map collectionMemberNames;
 	private static int nextOid = 0;	
 	private int collectionEditingRow = -1;
 	private boolean searchingObject;
-	private Collection membersNamesWithoutSections;
-	private Collection membersNamesWithoutSectionsAndCollections; 
+	private transient Collection membersNamesWithoutSections;
+	private transient Collection membersNamesWithoutSectionsAndCollections;
 	private View parent;
 	private View realParent; 
-	private List<MetaProperty> metaPropertiesList;
+	private transient List<MetaProperty> metaPropertiesList;
 	private boolean knowIfDisplayDetailInCollection;
 	private boolean displayDetailInCollection;
 	private String lastPropertyKeyName;
 	private String nameOflastPropertyMarkedAsSearchKey;
-	private Map<String, View> subviews; 
-	private Set hiddenMembers;		
+	private transient Map<String, View> subviews;
+	private transient Set hiddenMembers;
 	private int oid;
-	private List metaProperties;
-	private Collection metaPropertiesQualified;
+	private transient List metaProperties;
+	private transient Collection metaPropertiesQualified;
 	private Map calculatedPropertiesNames;
 	private Map mapStereotypesProperties;
 	private Map membersNames;
-	private MetaModel metaModel;
-	private Collection metaMembers;
+	private transient MetaModel metaModel;
+	private transient Collection metaMembers;
 	private Map values; 
-	private MetaView metaView;
+	private transient MetaView metaView;
 	private boolean keyEditable = true;
 	private boolean editable = true;
 	private boolean representsAggregate;
@@ -117,7 +117,7 @@ public class View implements java.io.Serializable {
 	private transient HttpServletRequest request;
 	private Collection depends;
 	private boolean hasToSearchOnChangeIfSubview = true;
-	private Map<MetaView, View> sectionsViews;
+	private transient Map<MetaView, View> sectionsViews;
 	private int activeSection;
 	private String memberName;
 	private boolean collectionMembersEditables; 
@@ -132,8 +132,8 @@ public class View implements java.io.Serializable {
 	private Collection metaPropertiesIncludingSections;
 	private Collection metaPropertiesIncludingGroups;
 	private Collection metaMembersIncludingGroups; 
-	private Collection metaMembersIncludingHiddenKey;
-	private Collection<MetaMember> metaMembersIncludingCollectionTotals; 
+	private transient Collection metaMembersIncludingHiddenKey;
+	private transient Collection<MetaMember> metaMembersIncludingCollectionTotals;
 	private Map labels;
 	private Collection executedActions;	
 	private boolean registeringExecutedActions = false;
@@ -161,12 +161,12 @@ public class View implements java.io.Serializable {
 	private Collection fullOrderActionsNamesRow; 
 	private Map collectionTotals; 
 	private int collectionTotalsCount = -1;
-	private Collection<MetaProperty> recalculatedMetaProperties;
+	private transient Collection<MetaProperty> recalculatedMetaProperties;
 	private List<Map<String, Object>> collectionValues; 
 	private Map<String, Collection<String>> changedActionsByProperty = null; 
 	private Collection propertiesWithChangedActions;
-	private Object model;
-	private List sections;
+	private transient Object model;
+	private transient List sections;
 	private boolean polished = true;
 	private boolean actionsNamesListRefined = false; 
 	private boolean actionsNamesRowRefined = false; 
@@ -403,6 +403,7 @@ public class View implements java.io.Serializable {
 	private void polish() { 
 		if (polisher == null) return;
 		if (polished) return;
+		
 		if (!isFirstLevel() && !(isGroup() || isSection())) return;
 
 		try {
@@ -434,7 +435,7 @@ public class View implements java.io.Serializable {
 	
 	private MetaModule getMetaModuleForModel() { 
 		ModuleManager moduleManager = getModuleManager(getRequest()); 
-		if (getRoot() == this) return moduleManager.getMetaModule();  
+		if (getRoot() == this && moduleManager.getDialogLevel() == 0) return moduleManager.getMetaModule(); 
 		MetaApplication app = MetaApplications.getMetaApplication(getModuleManager(getRequest()).getApplicationName());
 		String modelName = getModelName();
 		if (modelName.contains(".")) modelName = Strings.lastToken(modelName, ".");
@@ -920,7 +921,7 @@ public class View implements java.io.Serializable {
 			return false;
 		}
 	}
-
+	
 	/**
 	 * 
 	 * @param name  Qualified properties are allowed
@@ -3360,7 +3361,7 @@ public class View implements java.io.Serializable {
 		}		 		 				
 	}
 	
-	public boolean throwsPropertyChanged(String propertyName) throws XavaException {
+	public boolean throwsPropertyChanged(String propertyName) throws XavaException { 
 		int idx = propertyName.indexOf('.'); 
 		if (idx >= 0) {
 			String reference = propertyName.substring(0, idx);			
@@ -4144,7 +4145,7 @@ public class View implements java.io.Serializable {
 				if (getMetaModel().containsMetaCollection(reference)) { 
 					// From element collection
 					String collectionMember = Strings.noFirstTokenWithoutFirstDelim(member, ".");
-					collectionMember = collectionMember.replaceAll("^this\\.", ""); 
+					collectionMember = collectionMember.replaceAll("^this\\.", "");
 					return getMetaModel().getMetaCollection(reference).getMetaReference().getMetaModelReferenced().getMetaProperty(collectionMember);
 				}
 				if (getMetaModel().containsMetaReference(reference)) { 
@@ -4179,7 +4180,7 @@ public class View implements java.io.Serializable {
 		}				
 		return getMetaModel().getMetaReference(name);
 	}
-		
+	
 	private Collection getMetaPropertiesIncludingSections() throws XavaException {
 		if (!hasSections()) return getMetaProperties();
 		if (metaPropertiesIncludingSections == null) { 
@@ -4443,8 +4444,7 @@ public class View implements java.io.Serializable {
 		return subview.getMetaView(subview.getMetaReference(member));
 	}
 	
-	
-	public boolean throwsReferenceChanged(MetaReference ref) throws XavaException {
+	public boolean throwsReferenceChanged(MetaReference ref) throws XavaException { 
 		String refName = ref.getName(); 
 		int idx = refName.indexOf('.');
 		if (idx >= 0) {
@@ -4485,6 +4485,15 @@ public class View implements java.io.Serializable {
 			p.setName(propertyName);
 			if (hasDependentsProperties(p))	return true;						
 		}
+		if (hasSubviews()) {
+			Iterator itSubviews = getSubviews().values().iterator();
+			while (itSubviews.hasNext()) {
+				View subview = (View) itSubviews.next();
+				if (subview.isRepresentsElementCollection()) {
+					if (subview.throwsReferenceChanged(ref)) return true;
+				}
+			}
+		}
 		return displayAsDescriptionsListAndReferenceView(ref); 
 	}
 		
@@ -4509,13 +4518,25 @@ public class View implements java.io.Serializable {
 		return depends;
 	}
 	
-	public String getParameterValuesPropertiesInDescriptionsList(MetaReference ref) throws XavaException {
+	public String getParameterValuesPropertiesInDescriptionsList(MetaReference ref) throws XavaException { 
+		if (isMemberFromElementCollection(ref.getName())) {
+			ref = ref.cloneMetaReference();
+			String collection = Strings.firstToken(ref.getName(), ".");
+			String refName = ref.getName();
+			int idx = refName.indexOf(".");
+			int idx2 = refName.indexOf(".", idx+1);
+			String prefix = refName.substring(0, idx2+1);
+			refName = refName.substring(idx2+1);
+			ref.setName(refName);
+			String result = ref.getParameterValuesPropertiesInDescriptionsList(getSubview(collection).getMetaView(), getRoot().getMetaView());  
+			return result.replace("this.", prefix + "this.");
+		}
 		if (ref.getName().contains(".")) {
 			MetaReference unqualifiedRef = ref.cloneMetaReference();
 			unqualifiedRef.setName(Strings.lastToken(ref.getName(), "."));
 			String prefix = Strings.noLastToken(ref.getName(), ".");
 			StringBuffer sb = new StringBuffer();
-			StringTokenizer st = new StringTokenizer(unqualifiedRef.getParameterValuesPropertiesInDescriptionsList(getMetaView(ref)), ", ");
+			StringTokenizer st = new StringTokenizer(unqualifiedRef.getParameterValuesPropertiesInDescriptionsList(getMetaView(ref), getRoot().getMetaView()), ", "); 
 			while (st.hasMoreTokens()) {
 				String property = st.nextToken();
 				if (sb.length() > 0) sb.append(",");
@@ -4524,7 +4545,7 @@ public class View implements java.io.Serializable {
 			return sb.toString();
 		}	
 		else {
-			return ref.getParameterValuesPropertiesInDescriptionsList(getMetaView());
+			return ref.getParameterValuesPropertiesInDescriptionsList(getMetaView(), getRoot().getMetaView()); 
 		} 
 	}
 	
@@ -5796,7 +5817,18 @@ public class View implements java.io.Serializable {
 				)
 			)
 		{
-			result.put(getPropertyPrefix(), getParent().getViewForChangedProperty());
+			String propertyName = getPropertyPrefix();
+			int idx = propertyName.indexOf(".-1.");
+			if (idx >= 0) { // A property from a element collection but there is no a row selected
+				View collectionView = getParent();
+				if (collectionView.isRepresentsElementCollection()) {
+					int rowCount =  collectionView.getCollectionSize() + 2;
+					for (int i=0; i < rowCount; i++) {
+						result.put(propertyName.replaceAll(".-1.", "." + i + "."), getParent().getViewForChangedProperty()); 
+					}
+				}
+			}
+			else result.put(getPropertyPrefix(), getParent().getViewForChangedProperty());
 			return;
 		}
 		
