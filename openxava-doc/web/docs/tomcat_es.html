@@ -12,7 +12,7 @@
       <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
           / </span> Desplegar en producción con Tomcat</h1>
-      <i>Si estás usando una versión de OpenXava anterior a la 7.0 mira las <a
+      <i>Si estás usando una versión de OpenXava anterior a la 7.0 mira las <a
           href="tomcat-ox6_es.html">instrucciones antiguas</a></i></div>
     <div class="wiki" style="display: block;"> Puedes desplegar tus aplicaciones
       OpenXava en cualquier servidor de aplicaciones Java con soporte de Servlet
@@ -21,9 +21,9 @@
       usado y robusto, ideal para entornos de producción.<br>
       <h2 id="toc1">Descargar e instalar Tomcat</h2>
       <a href="https://tomcat.apache.org/download-90.cgi">Descarga Tomcat 9</a>
-      desde Apache. OpenXava también funciona bien con Tomcat 8. Descomprime el
-      Tomcat en una carpeta de tu elección. Ve a la carpeta <i>webapps</i> y
-      borra las carpetas que hay dentro: <i>docs, examples, host-manager,
+      desde Apache. OpenXava también funciona bien con Tomcat 8 and Tomcat 10.
+      Descomprime el Tomcat en una carpeta de tu elección. Ve a la carpeta <i>webapps</i>
+      y borra las carpetas que hay dentro: <i>docs, examples, host-manager,
         manager</i> and <i>ROOT</i>. Son aplicaciones de ejemplo y
       administración que no deberías tener en un sistema de producción.</div>
     <div class="wiki" style="display: block;">
@@ -45,13 +45,15 @@
 $ mvn package
 </code></pre> Después coge el archivo <i>facturacion.war</i> (o <i>tunombreaplicacion.war</i>)
       de la carpeta <i>target</i> de tu proyecto y cópialo en la carpeta <i>webapps</i>
-      de tu Tomcat. Tu aplicación ya está desplegada.</div>
+      de tu Tomcat. Tu aplicación ya está desplegada. ¡Ojo! Para Tomcat 10 has
+      de crear una carpeta llamada <i>webapps-javaee</i> dentro de la carpeta
+      del Tomcat 10 y después copia ahí el war, en lugar de a <i>webapps</i>. </div>
     <div class="wiki" style="display: block;">
       <h2>Ejecutar Tomcat</h2>
       <h2><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Para
-          arrancar tu Tomcat, con Windows pulsa el botón de </span><em style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">Inicio</em><span
+          arrancar tu Tomcat, con Windows pulsa el botón de </span><em style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">Inicio</em><span
           style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"><span>,
-          </span>teclea<span> </span></span><em style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">cmd</em><span
+          </span>teclea<span> </span></span><em style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">cmd</em><span
           style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"><span>
           </span>y pulsa INTRO, entonces:</span><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">:</span></h2>
     </div>
