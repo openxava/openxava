@@ -157,16 +157,24 @@ public class ModuleManager implements java.io.Serializable {
 	}
 
 	public void removeMetaAction(MetaAction action) {
-		if (!getMetaActions().contains(action)) return;
+		if (!getMetaActions().contains(action) && !getMetaControllerElements().contains(action) && !isSubcontrollersExist()) return;
 		getMetaActions().remove(action);
 		getMetaControllerElements().remove(action);
 		for (MetaSubcontroller sub: getSubcontrollers()) {
-			getSubcontrollerMetaActions(sub.getControllerName()).remove(action);
+				getSubcontrollerMetaActions(sub.getControllerName()).remove(action);
 		}
 		defaultActionQualifiedName = null;
 		actionsChanged = true;
 		actionsAddedOrRemoved = true;		
 		this.controllersNames = MODIFIED_CONTROLLERS;
+	}
+	
+	private boolean isSubcontrollersExist() {
+		try {
+			if (getSubcontrollers().size() != 0) return true;
+			
+		} catch (Exception e) { }
+		return false;
 	}
 
 	public Collection getRowActionsNames() {
