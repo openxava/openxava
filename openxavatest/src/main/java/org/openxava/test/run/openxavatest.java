@@ -11,7 +11,7 @@ import org.openxava.util.*;
 public class openxavatest {
 
 	public static void main(String[] args) throws Exception {
-		DBServer.start("openxavatest-db"); // To use your own database comment this line and configure web/META-INF/context.xml
+		// tmr DBServer.start("openxavatest-db"); // To use your own database comment this line and configure web/META-INF/context.xml
 		AppServer.run("openxavatest"); // Use AppServer.run("") to run in root context
 	}
 

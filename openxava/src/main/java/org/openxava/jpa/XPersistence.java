@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.xml.parsers.*;
 
 import org.apache.commons.logging.*;
+import org.hibernate.*;
 import org.openxava.jpa.impl.*;
 import org.openxava.util.*;
 
@@ -196,7 +197,14 @@ public class XPersistence {
 			catch (ParserConfigurationException ex) {
 				log.error(XavaResources.getString("incorrect_openxava_upgrade"));
 				throw new RuntimeException(ex);
-			}			
+			}	
+			// tmr ini
+			// TMR ME QUEDÉ POR AQUÍ, LO SIGUIENT SERÍA PROBAR REINTENTAR CON UN DIALECTO CUALQUIERA
+			catch (HibernateException ex) {
+				System.out.println("[XPersistence.getEntityManagerFactory] HIBERNATE EXCEPTION"); // tmp
+				ex.printStackTrace();
+			}
+			// tmr fin
 			entityManagerFactories.put(new HashMap(properties), entityManagerFactory);			
 		}
 		return entityManagerFactory;

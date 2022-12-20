@@ -2622,7 +2622,16 @@ public class AnnotatedClassParser implements IComponentParser {
 
 				// We always have to print the stack trace of ex, because the error can
 				// be other than no connection, then the developer needs info for debug
-				log.warn(XavaResources.getString("managed_classes_not_from_hibernate"), ex);
+				// tmr log.warn(XavaResources.getString("managed_classes_not_from_hibernate"), ex);
+				System.out.println("[AnnotatedClassParser.getManagedClassNames] ex.getClass()=" + ex.getClass()); // tmp
+				if (ex.getCause() != null) {
+					System.out.println("[AnnotatedClassParser.getManagedClassNames] ex.getCause().getClass()=" + ex.getCause().getClass()); // tmp
+					if (ex.getCause().getCause() != null) {
+						System.out.println("[AnnotatedClassParser.getManagedClassNames] ex.getCause().getCause().getClass()=" + ex.getCause().getCause().getClass()); // tmp
+					}
+				}
+				System.out.println("[AnnotatedClassParser.getManagedClassNames] EX.CAUSE"); // tmp
+				//ex.getCause().printStackTrace(); // tmr
 				managedClassNames = obtainManagedClassNamesFromFileClassPath();
 				if (managedClassNames.isEmpty()) {  
 					managedClassNames = null;
