@@ -61,6 +61,8 @@
             (nuevo en v5.5)</a></div>
         <div style="margin-left: 3em;"><a href="#toc20">xava:descriptionsList
             (nuevo en v2.0.3)</a></div>
+        <div style="margin-left: 2em;"><a href="#modificar-jsps-nucleo-openxava">Modificar
+            el código JSP del nucleo de OpenXava</a></div>
         <div style="margin-left: 2em;"><a href="#Personalizacion-Configuracion+de+propiedades+en+xava.properties">Configuración
             de propiedades en xava.properties</a></div>
       </div>
@@ -3339,8 +3341,8 @@ class="sy0">=</span><span class="st0">"nivel"</span><span class="sy0">/&gt;</spa
       ejemplo <em>Comercial</em>). Un combo es mostrado con todos los niveles
       disponibles.</div>
     <div class="wiki" style="display: block;">
-      <h2><a name="modifying-openxava-core-jsps"></a>Modificar el código JSP del
-        nucleo de OpenXava</h2>
+      <h2><a name="modificar-jsps-nucleo-openxava"></a>Modificar el código JSP
+        del nucleo de OpenXava</h2>
       <i>Estas instrucciones son para v7 o superior, con v6 o anterior tienes el
         código JSP dentro de la carpeta web de tu aplicación</i>
       <div class="wiki" style="display: block;">OpenXava utiliza un grupo de
@@ -3354,12 +3356,12 @@ class="sy0">=</span><span class="st0">"nivel"</span><span class="sy0">/&gt;</spa
         usuario, como:</div>
       <div class="wiki" style="display: block;">
         <ul>
-          <li>Usa <a href="#Personalizacion-Editores">editores propios</a> para
-            definir como una parte de tu vista se genera.</li>
-          <li>Usa <a href="#Customizing-Custom%20JSP%20view%20and%20OpenXava%20taglibs">vistas
-              propias&nbsp; JSP</a> para definir completamente la forma en que
-            la vista para el módulo se genera.</li>
-          <li>Usa un estilo pesonalizado, al combinar CSS y algo de JSP <a href="custom-style_es.html#Anadir-elementos-a-la-pagina">puedes
+          <li>Usar <a href="#Personalizacion-Editores">editores propios</a>
+            para definir como una parte de tu vista se genera.</li>
+          <li>Usar <a href="#Personalizacion-Vistas+JSP+propias+y+taglibs+de+OpenXava">vistas
+              propias&nbsp; JSP</a> para definir completamente la
+            forma en que la vista para el módulo se genera.</li>
+          <li>Usar un estilo pesonalizado, al combinar CSS y algo de JSP <a href="custom-style_es.html#Anadir-elementos-a-la-pagina">puedes
               añadir cualquier elemento visual</a> a tu aplicación, como
             cartelitos, pies y cabeceras.</li>
         </ul>
@@ -3369,25 +3371,23 @@ class="sy0">=</span><span class="st0">"nivel"</span><span class="sy0">/&gt;</spa
         disponibles en código OpenXava en GitHub, aquí:</div>
       <div class="wiki" style="display: block;"> </div>
       <div class="wiki" style="display: block;"><a href="https://github.com/openxava/openxava/tree/master/openxava/src/main/resources/META-INF/resources">https://github.com/openxava/openxava/tree/master/openxava/src/main/resources/META-INF/resources</a></div>
-      <div class="wiki" style="display: block;">Ahí tienes dos foles, <i>naviox</i>
-        y
-        <i> xava</i>. La carpeta <i>naviox</i> genera el marco de navegación e
-        inicio de sesión, mientras que la carpeta <i>xava</i> genera la
+      <div class="wiki" style="display: block;">Ahí tienes dos carpetas, <i>naviox</i>
+        y <i> xava</i>. La carpeta <i>naviox</i> genera el marco de navegación
+        e inicio de sesión, mientras que la carpeta <i>xava</i> genera la
         interfaz de usuario para el módulo, incluido el modo de detalle y lista.
         Debes copiar el JSP que deseas modificar de GitHub a la carpeta <i>src/main/webapp</i>
         en tu proyecto. Por ejemplo, supongamos que quieres modificar la forma
-        en que funciona la barra de botones. Has de descargar el código de
-        barras del botones JSP desde aquí:</div>
+        en que funciona la barra de botones. Has de descargar el código de la
+        barra de botones JSP desde aquí:</div>
       <div class="wiki" style="display: block;"><a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/xava/buttonBar.jsp">https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/xava/buttonBar.jsp</a>
         (pulsa en el botón <i>Raw</i>)</div>
       <div class="wiki" style="display: block;">Luego copia <i>buttonBar.jsp</i>
         en la carpeta <i>src/main/webapp/xava</i> de tu proyecto y ahora ya
-        puedes modificar el
-        <i> buttonBar.jsp</i> que tienes. Tu proyecto usará tu propio <i>buttonBar.jsp</i>
-        en lugar del incluido en el jar de OpenXava. Ten en cuenta que en
-        futuras versiones de OpenXava <i>buttonBar.jsp</i> podría modificarse,
-        quizás para corregir un error, por lo tanto, después de actualizar a una
-        nueva versión, debes comparar el nuevo código de <i>buttonBar.jsp</i>
+        puedes modificar el <i> buttonBar.jsp</i> que tienes. Tu proyecto usará
+        tu propio <i>buttonBar.jsp</i> en lugar del incluido en el jar de
+        OpenXava. Ten en cuenta que en futuras versiones de OpenXava <i>buttonBar.jsp</i>
+        podría modificarse, quizás para corregir un error, por lo tanto, después
+        de actualizar a una nueva versión, debes comparar el nuevo código de <i>buttonBar.jsp</i>
         con el antiguo código de <i>buttonBar.jsp</i> para ver si hay cambios,
         y si es el caso, tienes que aplicar esos cambios a tu propio <i>buttonBar.jsp</i>.</div>
       <div class="wiki" style="display: block;">Generalmente no necesitas
@@ -3395,11 +3395,10 @@ class="sy0">=</span><span class="st0">"nivel"</span><span class="sy0">/&gt;</spa
         página de Bienvenida (<i>naviox/welcome.jsp</i>) y la página de Primeros
         Pasos (<i>naviox/firstSteps.jsp</i>). La página <i>welcome.jsp</i> es
         la página a la que va el usuario cuando entra en la raíz de tu
-        aplicación, mientras que
-        <i> firstSteps.jsp</i> es la página a la que va después de iniciar
-        sesión en la aplicación por primera vez.</div>
+        aplicación, mientras que <i> firstSteps.jsp</i> es la página a la que
+        va después de iniciar sesión en la aplicación por primera vez.</div>
     </div>
-    <div class="wiki" style="display: block;"> <br>
+    <div class="wiki" style="display: block;">
       <h2 id="toc21"><a name="Personalizacion-Configuracion+de+propiedades+en+xava.properties"></a>Configuración
         de propiedades en xava.properties</h2>
       El archivo <em>xava.properties</em> permite cambiar el comportamiento de
