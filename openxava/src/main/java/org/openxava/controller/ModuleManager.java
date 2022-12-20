@@ -157,6 +157,7 @@ public class ModuleManager implements java.io.Serializable {
 	}
 
 	public void removeMetaAction(MetaAction action) {
+		if (!getMetaActions().contains(action)) return;
 		getMetaActions().remove(action);
 		getMetaControllerElements().remove(action);
 		for (MetaSubcontroller sub: getSubcontrollers()) {
