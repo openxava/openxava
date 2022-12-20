@@ -39,8 +39,7 @@ public class OrderTest extends ModuleTestBase {
 		assertTrue(takes < 4000); // With the fix it takes 2500, without it it taken around 8000 (but never less 5600)
 		
 		setLocale("zh");
-		HtmlElement element = (HtmlElement) (getHtmlPage().getElementsByTagName("nobr").get(4));
-		assertEquals("客户编号", element.getTextContent());
+		assertLabelInList(3,"客户编号");
 		setLocale("en");
 		
 		execute("List.viewDetail", "row=0"); 
