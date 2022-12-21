@@ -25,7 +25,8 @@ OpenXava 7.0.3 (2022-12-9)
 - Embedded Tomcat used in development upgraded to 9.0.69.
 - Driver versions in doc and new projects upgraded for Microsoft SQL Server, Informix and Firebird.
 - New property distinct in DescriptionsCalculator to allow not duplicated results.
-- Removed Tab.DESCRIPTIONS_LIST_SEPARATOR final variable. 
+- Removed Tab.DESCRIPTIONS_LIST_SEPARATOR final variable.
+- Fix: @ElementCollection with a hidden id of a reference: Session object null not found in controllers.xml. 
 - Fix: @DescriptionsList in an @ElementCollection depending on a member of the main entity does not work.  
 - Fix: Wrong date formatting when pressing ENTER in the field after fill the date. 
 - Fix: @OnChange action not executed always on date with time editor when using calendar popup.
