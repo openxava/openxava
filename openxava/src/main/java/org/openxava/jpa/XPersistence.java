@@ -181,9 +181,8 @@ public class XPersistence {
 		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) 
 			entityManagerFactories.get(properties); 
 		if (entityManagerFactory == null) {
-			Map factoryProperties = properties; // tmr
+			Map factoryProperties = properties; 
 			try {
-				// tmr Map factoryProperties = properties;
 				if (PersistenceXml.getPropetyValue(getPersistenceUnit(), "hibernate.implicit_naming_strategy") == null) { 
 					factoryProperties = new HashMap(properties);
 					factoryProperties.put("hibernate.implicit_naming_strategy", "legacy-jpa"); 
@@ -199,14 +198,14 @@ public class XPersistence {
 				log.error(XavaResources.getString("incorrect_openxava_upgrade"));
 				throw new RuntimeException(ex);
 			}	
-			// tmr ini
 			catch (HibernateException ex) {
-				// tmr comentario
+				// In case there is no connection to database and dialect is not set we get
+				// a too generic error, so we set a hibernate.dialect (whatever) and try again
+				// to get a meaningful message.
 				factoryProperties = new HashMap(factoryProperties);
-				factoryProperties.put("hibernate.dialect", "org.hibernate.dialect.HSQLDialect"); // tmr comentario
+				factoryProperties.put("hibernate.dialect", "org.hibernate.dialect.HSQLDialect"); // HSQLDialect but it could be whatever else
 				entityManagerFactory = Persistence.createEntityManagerFactory(getPersistenceUnit(), factoryProperties);
 			}
-			// tmr fin
 			entityManagerFactories.put(new HashMap(properties), entityManagerFactory);			
 		}
 		return entityManagerFactory;
