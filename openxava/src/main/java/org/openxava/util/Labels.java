@@ -142,7 +142,9 @@ public class Labels {
 				return get(id.substring(idxDot + 1), locale, qualified);
 			}
 			else {
-				String composeLabel = get(id.substring(idxDot + 1), locale, null, qualified) + " " + 
+				String composeLabel = locale.getLanguage().equalsIgnoreCase("zh")
+					?get(parent, locale, null, false) + get(id.substring(idxDot + 1), locale, null, qualified)	
+					:get(id.substring(idxDot + 1), locale, null, qualified) + " " + 
 					XavaResources.getString("of", locale) + " " +
 					get(parent, locale, null, false);
 				return Strings.firstUpper(composeLabel.toLowerCase());

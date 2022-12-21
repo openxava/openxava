@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Automatic labels for list column headers for references has incorrect order in Chinese.
 - Doc for put in your project modified versions of JSPs from OpenXava to customizing project behavior. 
 - Doc for deploying in Tomcat modified to include instructions for Tomcat 10.
 - Fix: View with @Files/@File generates a JavaScript error dialog when language is Catalan.
