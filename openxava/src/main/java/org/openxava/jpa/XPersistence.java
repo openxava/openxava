@@ -181,8 +181,9 @@ public class XPersistence {
 		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) 
 			entityManagerFactories.get(properties); 
 		if (entityManagerFactory == null) {
+			Map factoryProperties = properties; // tmr
 			try {
-				Map factoryProperties = properties;
+				// tmr Map factoryProperties = properties;
 				if (PersistenceXml.getPropetyValue(getPersistenceUnit(), "hibernate.implicit_naming_strategy") == null) { 
 					factoryProperties = new HashMap(properties);
 					factoryProperties.put("hibernate.implicit_naming_strategy", "legacy-jpa"); 
@@ -199,10 +200,11 @@ public class XPersistence {
 				throw new RuntimeException(ex);
 			}	
 			// tmr ini
-			// TMR ME QUEDÉ POR AQUÍ, LO SIGUIENT SERÍA PROBAR REINTENTAR CON UN DIALECTO CUALQUIERA
 			catch (HibernateException ex) {
-				System.out.println("[XPersistence.getEntityManagerFactory] HIBERNATE EXCEPTION"); // tmp
-				ex.printStackTrace();
+				// tmr comentario
+				factoryProperties = new HashMap(factoryProperties);
+				factoryProperties.put("hibernate.dialect", "org.hibernate.dialect.HSQLDialect"); // tmr comentario
+				entityManagerFactory = Persistence.createEntityManagerFactory(getPersistenceUnit(), factoryProperties);
 			}
 			// tmr fin
 			entityManagerFactories.put(new HashMap(properties), entityManagerFactory);			

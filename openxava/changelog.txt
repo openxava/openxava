@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Too generic error when no connection to database: cannot be null when 'hibernate.dialect' not set.
 - Fix: Automatic labels for list column headers for references has incorrect order in Chinese.
 - Doc for put in your project modified versions of JSPs from OpenXava to customizing project behavior. 
 - Doc for deploying in Tomcat modified to include instructions for Tomcat 10.
