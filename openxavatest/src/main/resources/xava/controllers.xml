@@ -128,6 +128,12 @@
 	<controller name="JPACRUD">	
 		<action name="create" mode="detail" 
 			class="org.openxava.test.actions.CreateUsingJPAAction"/>
+	</controller>	
+	
+	<controller name="Order">	
+	<extends controller="Typical"/>			
+        <action name="onlyButton" mode="detail" 
+			class="org.openxava.test.actions.OnlyButton"/>
 	</controller>				
 		
 	<controller name="OrderDetail">				

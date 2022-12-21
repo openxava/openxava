@@ -9,18 +9,18 @@ import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.jpa.*;
 import org.openxava.model.*;
+import org.openxava.test.actions.*;
 
 @Entity
 @Table(name="TOrder")
 @View(members=
-	"year, number, date;" +
+	"year, number, date, delivered;" +
 	"customer;" +
 	"details;" +
 	"amount;" +
 	"remarks"
 )
 @View(name="ProductInDetailAsDescriptionsList", extendsView = "DEFAULT") 
-
 public class Order extends Identifiable {
 	
 	@Column(length=4) 
@@ -50,7 +50,6 @@ public class Order extends Identifiable {
 	@Stereotype("MEMO") 
 	private String remarks;
 	
-	
 	@Stereotype("MONEY")
 	public BigDecimal getAmount() {
 		BigDecimal result = BigDecimal.ZERO;
@@ -70,6 +69,10 @@ public class Order extends Identifiable {
 		Integer lastNumber = (Integer) query.getSingleResult();
 		this.setNumber(lastNumber == null?1:lastNumber + 1);
 	}
+	
+	@Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
+	@OnChange(ShowHideCreate.class) // Añade esto
+	boolean delivered;
 
 	public int getYear() {
 		return year;
@@ -98,7 +101,7 @@ public class Order extends Identifiable {
 	public Customer getCustomer() {
 		return customer;
 	}
-
+	
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
@@ -118,5 +121,12 @@ public class Order extends Identifiable {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
-		
+	
+	public boolean getDelivered() {
+		return delivered;
+	}
+	
+	public void setDelivered(boolean delivered) {
+		 this.delivered = delivered;
+	}
 }

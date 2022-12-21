@@ -59,6 +59,17 @@ public class OrderTest extends ModuleTestBase {
 		assertNoAction("ReferenceSearch.choose");		
 	}
 	
+	public void testRemoveMetaAction() throws Exception{
+		execute("CRUD.new");
+		assertNoAction("Order.onlyButton");
+		execute("Reference.search", "keyProperty=customer.number");
+		execute("ReferenceSearch.choose", "row=0");
+		execute("CRUD.save");
+		assertNoErrors(); 
+		execute("CRUD.refresh");
+		execute("CRUD.delete");
+	}
+	
 	public void testCalculatedPropertiesFromCollection_generatedValueOnPersistRefreshedInView_rowAction_noAddActionInCascadeCollections_idInCreationMessageWhenEmptySearchKeys() throws Exception {
 		setLocale("es"); // Verify that entity names are translated in the messages  
 		String nextNumber = getNextNumber();
