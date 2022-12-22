@@ -6,7 +6,7 @@ import org.openxava.jpa.*;
 import org.openxava.util.*;
 
 /**
- * 
+ * tmr Quitar: Problema de seguridad.
  * @author Federico Alcantara
  */
 public class SetSchemaAction extends ViewBaseAction {

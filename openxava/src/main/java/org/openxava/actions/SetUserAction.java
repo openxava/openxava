@@ -1,12 +1,11 @@
 package org.openxava.actions;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.*;
 
-import org.openxava.actions.BaseAction;
-import org.openxava.util.Is;
+import org.openxava.util.*;
 
 /**
- * 
+ * tmr Quitar: Problema de seguridad
  * @author Federico Alcantar 
  */
 public class SetUserAction extends BaseAction{
