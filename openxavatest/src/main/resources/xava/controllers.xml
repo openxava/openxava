@@ -133,7 +133,7 @@
 	<controller name="Order">	
 	<extends controller="Typical"/>			
         <action name="onlyButton" mode="detail" 
-			class="org.openxava.test.actions.OnlyButton"/>
+			class="org.openxava.test.actions.OnlyButtonAction"/>
 	</controller>				
 		
 	<controller name="OrderDetail">				

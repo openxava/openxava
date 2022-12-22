@@ -71,7 +71,7 @@ public class Order extends Identifiable {
 	}
 	
 	@Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
-	@OnChange(ShowHideCreate.class) // Añade esto
+	@OnChange(ShowHideCreateAction.class) // Añade esto
 	boolean delivered;
 
 	public int getYear() {
