@@ -83,13 +83,10 @@ public class NaviOXFilter implements Filter {
 				String originalURI = secureRequest.getRequestURI();
 				// tmr ini
 				String originalParameters = secureRequest.getQueryString(); // tmr
-				System.out.println("[NaviOXFilter.doFilter] originalParameters.1=" + originalParameters); // tmr
 				String parametersQuery = "";
 				if (!Is.emptyString(originalParameters)) {
 					originalParameters = originalParameters.replace("&", "__AMP__");
-					System.out.println("[NaviOXFilter.doFilter] originalParameters.2=" + originalParameters); // tmr
 					parametersQuery = "&originalParameters=" + originalParameters;
-					System.out.println("[NaviOXFilter.doFilter] parametersQuery=" + parametersQuery); // tmr
 				}
 				// tmr fin
 				String organization = OrganizationsCurrent.get(request);

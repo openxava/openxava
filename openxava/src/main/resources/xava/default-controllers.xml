@@ -767,15 +767,19 @@ here that you want to override.
 		independent of the presentation layer).
 	 -->
 	<controller name="UrlParameters">
+		<!-- tmr ¿En migration?
 		<action name="setSchema" before-each-request="true" hidden="true"
 			class="org.openxava.actions.SetSchemaAction">
 		</action>
+		-->
 		<action name="setLocale" on-each-request="true" hidden="true"
 			class="org.openxava.actions.SetLocaleAction">
 		</action>
+		<!-- tmr 
 		<action name="setUser" on-each-request="true" hidden="true"
 			class="org.openxava.actions.SetUserAction">
 		</action>
+		-->
 	</controller>
 
 	<!-- This controller integrates Treeview behavior to OpenXava -->	
