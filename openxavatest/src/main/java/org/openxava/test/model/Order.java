@@ -127,6 +127,6 @@ public class Order extends Identifiable {
 	}
 	
 	public void setDelivered(boolean delivered) {
-		 this.delivered = delivered;
+		this.delivered = delivered;
 	}
 }

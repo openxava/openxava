@@ -131,9 +131,9 @@
 	</controller>	
 	
 	<controller name="Order">	
-	<extends controller="Typical"/>			
-        <action name="onlyButton" mode="detail" 
-			class="org.openxava.test.actions.OnlyButtonAction"/>
+		<extends controller="Typical"/>			
+        <action name="anAction" mode="detail" 
+			class="org.openxava.test.actions.VoidAction"/>
 	</controller>				
 		
 	<controller name="OrderDetail">				
