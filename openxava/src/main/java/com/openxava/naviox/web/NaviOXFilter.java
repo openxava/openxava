@@ -81,24 +81,19 @@ public class NaviOXFilter implements Filter {
 			else {
 				char base = secureRequest.getRequestURI().split("/")[Is.emptyString(request.getServletContext().getContextPath())?1:2].charAt(0)=='p'?'p':'m';
 				String originalURI = secureRequest.getRequestURI();
-				// tmr ini
-				String originalParameters = secureRequest.getQueryString(); // tmr
+				String originalParameters = secureRequest.getQueryString(); 
 				String parametersQuery = "";
 				if (!Is.emptyString(originalParameters)) {
 					originalParameters = originalParameters.replace("&", "__AMP__");
 					parametersQuery = "&originalParameters=" + originalParameters;
 				}
-				// tmr fin
 				String organization = OrganizationsCurrent.get(request);
 				if (organization != null) originalURI = originalURI.replace("/modules/", "/o/" + organization + "/m/");
 				String userAccessModule = modules.getUserAccessModule(request);
-				// tmr RequestDispatcher dispatcher = request.getRequestDispatcher("/" + base + "/" + userAccessModule + "?originalURI=" + originalURI);
-				// tmr ini
 				RequestDispatcher dispatcher = request.getRequestDispatcher(
 					"/" + base + "/" + userAccessModule + 
 					"?originalURI=" + originalURI +
 					parametersQuery);
-				// tmr fin
 				dispatcher.forward(secureRequest, response); 
 			}
 		} 
