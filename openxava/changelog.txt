@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Hiding the same action several times shows an error when saving the entity afterwards.
 - Fix: Parameters in URL are not passed after login.
 - Fix: Security risk when a module of the application uses UrlParameters controller.
 - Actions setSchema and setUser removed from UrlParameters controller. 
