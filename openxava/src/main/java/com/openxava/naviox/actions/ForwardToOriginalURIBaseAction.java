@@ -26,6 +26,7 @@ abstract public class ForwardToOriginalURIBaseAction extends ViewBaseAction impl
 
 	protected void forwardToOriginalURI() throws Exception {
 		String originalURI = getRequest().getParameter("originalURI");
+		String originalParameters = getRequest().getParameter("originalParameters"); 
 		if (originalURI == null) {
 			forwardURI = "/";
 		}
@@ -38,21 +39,8 @@ abstract public class ForwardToOriginalURIBaseAction extends ViewBaseAction impl
 				forwardURI = "/";
 			}
 		}
-		addPermalinkParameters();  
+		if (!Is.emptyString(originalParameters)) forwardURI = forwardURI + "?" + originalParameters.replace("__AMP__", "&"); 
 		forwardURI = SignInHelper.refineForwardURI(getRequest(), forwardURI); 
-	}
-	
-	private void addPermalinkParameters() { 
-		String detail = getRequest().getParameter("detail");
-		if (!Is.emptyString(detail)) {
-			forwardURI = forwardURI + "?detail=" + detail;  
-		}
-		else {
-			String action = getRequest().getParameter("action");
-			if (!Is.emptyString(action)) {
-				forwardURI = forwardURI + "?action=" + action;  
-			}			
-		}
 	}
 
 	public String getForwardURI() {

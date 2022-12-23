@@ -1,6 +1,12 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Parameters in URL are not passed after login.
+- Fix: Security risk when a module of the application uses UrlParameters controller.
+- Actions setSchema and setUser removed from UrlParameters controller. 
+- Fix: Too generic error when no connection to database: cannot be null when 'hibernate.dialect' not set.
+- Fix: Automatic labels for list column headers for references has incorrect order in Chinese.
+- Doc for put in your project modified versions of JSPs from OpenXava to customizing project behavior. 
 - Doc for deploying in Tomcat modified to include instructions for Tomcat 10.
 - Fix: View with @Files/@File generates a JavaScript error dialog when language is Catalan.
 - Fix: Time part not formatted correctly in DateTimeSeparatedCalendar editor with Serbian and Java 8.
@@ -22,7 +28,8 @@ OpenXava 7.0.3 (2022-12-9)
 - Embedded Tomcat used in development upgraded to 9.0.69.
 - Driver versions in doc and new projects upgraded for Microsoft SQL Server, Informix and Firebird.
 - New property distinct in DescriptionsCalculator to allow not duplicated results.
-- Removed Tab.DESCRIPTIONS_LIST_SEPARATOR final variable. 
+- Removed Tab.DESCRIPTIONS_LIST_SEPARATOR final variable.
+- Fix: @ElementCollection with a hidden id of a reference: Session object null not found in controllers.xml. 
 - Fix: @DescriptionsList in an @ElementCollection depending on a member of the main entity does not work.  
 - Fix: Wrong date formatting when pressing ENTER in the field after fill the date. 
 - Fix: @OnChange action not executed always on date with time editor when using calendar popup.
