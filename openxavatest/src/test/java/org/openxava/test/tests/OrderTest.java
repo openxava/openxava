@@ -59,7 +59,7 @@ public class OrderTest extends ModuleTestBase {
 		assertNoAction("ReferenceSearch.choose");		
 	}
 	
-	public void testRemoveMetaAction() throws Exception{
+	public void testRemoveActionTwice() throws Exception{
 		execute("CRUD.new");
 		assertNoAction("Order.onlyButton");
 		execute("Reference.search", "keyProperty=customer.number");
