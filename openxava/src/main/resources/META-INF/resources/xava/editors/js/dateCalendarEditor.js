@@ -1,39 +1,45 @@
 // WARNING: IF YOU CHANGE THIS PASS DateCalendarTest.txt
 openxava.getScript(openxava.contextPath + "/xava/editors/flatpickr/" + openxava.language + ".js");
 
+function validDate(date){
+    var pattern = /[^.\-:\/\d]/g;
+    invalidDate = (pattern.test(date))?false:true;
+    console.log(invalidDate);
+    console.log(date.match(pattern));
+    return date;
+}
+
 openxava.addEditorInitFunction(function() {
     if (openxava.browser.htmlUnit) return;
     var withEnter = false;
     var enterDate;
     var onOpenDateTime;
-    var validDate = false;
-    var regExp = /[0-9]+:\.\/-/g;
-    
+    var invalidDate = false;
+
     $('.xava_date > input').keydown(function(event) {
-        console.log("keydown");
         var keycode = event.keyCode || event.which;
         if (keycode == 13) {
-            enterDate = $(this).val();
-            validDate = regExp.test(enterDate)?true:false;
+            enterDate = validDate($(this).val());
             if ((enterDate.includes("/") || enterDate.includes(".") || enterDate.includes("-")) && enterDate.length > 9) {
                 withEnter = false;
             } else {
-                console.log("enter");
                 withEnter = true;
             }
         }
     });
     
-    $('.xava_date > input').on('blur', function() {
-        enterDate = $(this).val();
-        validDate = regExp.test(enterDate)?true:false;
-        console.log(validDate);
-    });
+      $('.xava_date > input').on('blur', function() {
+          enterDate = validDate($(this).val());
+          //validDate = regExp.test(enterDate)?true:false;
+          //console.log(validDate);
+      });
     
     $('.xava_date > input').change(function() {
         var dateFormat = $(this).parent().data("dateFormat");
         var date = withEnter?enterDate:$(this).val();
         if (date === "") return;
+        //if (invalidDate = true) return;
+        console.log(validDate(date));
         date = date.trim();
         if (date.length < 6 && date.includes(":")) {
         } else {
@@ -42,15 +48,10 @@ openxava.addEditorInitFunction(function() {
             if (idx < 0) {
                 if (date.length % 2 != 0) date = " " + date;
                 var inc = dateFormat.substr(0, 1) === 'Y'?2:0;
-                console.log(inc);
                 var last = date.substring(4 + inc);
-                console.log(last);
                 var middle = date.substring(2 + inc, 4 + inc);
-                console.log(middle);
                 var first = date.substring(0, 2 + inc);
-                console.log(first);
                 date = first + separator + middle + separator + last;
-                console.log(date);
                 date = date.trim();
             }
             idx = date.lastIndexOf(separator);
@@ -75,8 +76,6 @@ openxava.addEditorInitFunction(function() {
             }
             date = date.includes(".20 ") ? date.replace(".20 ", " ") : date;
             $(this).val(date);
-            console.log("function");
-            console.log(date);
             enterDate = undefined;
             withEnter = false;
         }
@@ -88,17 +87,9 @@ openxava.addEditorInitFunction(function() {
         wrap: true,
         locale: openxava.language,
         onOpen: function(selectedDates, dateStr, instance) {
-            console.log("onOpen");
-            console.log(selectedDates);
-            console.log(dateStr);
             onOpenDateTime = dateStr;
         },
         onChange: function(selectedDates, dateStr, instance) {
-            dateStr = validDate?dateStr:$('.xava_date > input').val('');
-            selectedDates  = validDate?selectedDates:$('.xava_date > input').val('');
-            console.log("onChange");
-            console.log(selectedDates);
-            console.log(dateStr);
             if (onOpenDateTime != null) {
                 if (onOpenDateTime.length > 10) {
                     $(instance.input).data("changedCancelled", true);
@@ -113,16 +104,11 @@ openxava.addEditorInitFunction(function() {
                 if (dateStr === $(instance.input).attr('value')) {
                     $(instance.input).data("changedCancelled", true);
                 } else {
-                    console.log("else");
-                    console.log(dateStr);
                     $(instance.input).attr('value', dateStr);
                 }
             }
         },
         onClose: function(selectedDates, dateStr, instance) {
-            console.log("onClose");
-            console.log(selectedDates);
-            console.log(dateStr);
             if (onOpenDateTime != null) {
                 if (onOpenDateTime == dateStr) {
                     $(instance.input).data("changedCancelled", true);
