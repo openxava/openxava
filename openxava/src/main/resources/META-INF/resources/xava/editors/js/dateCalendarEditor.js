@@ -9,6 +9,7 @@ function validDate(date){
         invalidDate = date;
         invalid = true;
         return date;
+        
     }
 }
 
