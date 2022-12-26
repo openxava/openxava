@@ -3,10 +3,13 @@ openxava.getScript(openxava.contextPath + "/xava/editors/flatpickr/" + openxava.
 
 function validDate(date){
     var pattern = /[^.\-:\/\d]/g;
-    invalidDate = (pattern.test(date))?false:true;
-    console.log(invalidDate);
-    console.log(date.match(pattern));
-    return date;
+    if (pattern.test(date)){
+        return date;
+    } else {
+        invalidDate = date;
+        invalid = true;
+        return date;
+    }
 }
 
 openxava.addEditorInitFunction(function() {
@@ -14,7 +17,8 @@ openxava.addEditorInitFunction(function() {
     var withEnter = false;
     var enterDate;
     var onOpenDateTime;
-    var invalidDate = false;
+    var invalid = false;
+    var invalidDate;
 
     $('.xava_date > input').keydown(function(event) {
         var keycode = event.keyCode || event.which;
@@ -40,6 +44,7 @@ openxava.addEditorInitFunction(function() {
         if (date === "") return;
         //if (invalidDate = true) return;
         console.log(validDate(date));
+        console.log(invalid);
         date = date.trim();
         if (date.length < 6 && date.includes(":")) {
         } else {
