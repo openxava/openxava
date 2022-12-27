@@ -1,17 +1,6 @@
 // WARNING: IF YOU CHANGE THIS PASS DateCalendarTest.txt
 openxava.getScript(openxava.contextPath + "/xava/editors/flatpickr/" + openxava.language + ".js");
 
-function validDate(date){
-    var pattern = /[^.\-:\/\d]/g;
-    if (pattern.test(date)){
-        return date;
-    } else {
-        invalidDate = date;
-        invalid = true;
-        return date;
-        
-    }
-}
 
 openxava.addEditorInitFunction(function() {
     if (openxava.browser.htmlUnit) return;
@@ -24,7 +13,7 @@ openxava.addEditorInitFunction(function() {
     $('.xava_date > input').keydown(function(event) {
         var keycode = event.keyCode || event.which;
         if (keycode == 13) {
-            enterDate = validDate($(this).val());
+            enterDate = validInputOnlyDate($(this).val());
             if ((enterDate.includes("/") || enterDate.includes(".") || enterDate.includes("-")) && enterDate.length > 9) {
                 withEnter = false;
             } else {
@@ -33,22 +22,18 @@ openxava.addEditorInitFunction(function() {
         }
     });
     
-      $('.xava_date > input').on('blur', function() {
-          enterDate = validDate($(this).val());
-          //validDate = regExp.test(enterDate)?true:false;
-          //console.log(validDate);
-      });
+    $('.xava_date > input').on('blur', function() {
+        enterDate = validInputOnlyDate($(this).val());
+        withEnter = true;
+        console.log(enterDate);
+    });
     
     $('.xava_date > input').change(function() {
         var dateFormat = $(this).parent().data("dateFormat");
         var date = withEnter?enterDate:$(this).val();
         if (date === "") return;
-        //if (invalidDate = true) return;
-        console.log(validDate(date));
-        console.log(invalid);
         date = date.trim();
-        if (date.length < 6 && date.includes(":")) {
-        } else {
+        if (!date.length < 6 && !date.includes(":")) {
             var separator = dateFormat.substr(1, 1);
             var idx = date.lastIndexOf(separator);
             if (idx < 0) {
@@ -59,6 +44,13 @@ openxava.addEditorInitFunction(function() {
                 var first = date.substring(0, 2 + inc);
                 date = first + separator + middle + separator + last;
                 date = date.trim();
+            }
+            validDate(date, dateFormat, separator);
+            if (invalid == true) {
+                $(this).val(invalidDate);
+                invalid = false;
+                invalidDate = undefined;
+                return;
             }
             idx = date.lastIndexOf(separator);
             var idxSpace = date.indexOf(' ');
@@ -81,6 +73,7 @@ openxava.addEditorInitFunction(function() {
                 date = dateNoYear + separator + prefix + year + suffix + time;
             }
             date = date.includes(".20 ") ? date.replace(".20 ", " ") : date;
+            date = invalid?invalidDate:date;
             $(this).val(date);
             enterDate = undefined;
             withEnter = false;
@@ -93,6 +86,7 @@ openxava.addEditorInitFunction(function() {
         wrap: true,
         locale: openxava.language,
         onOpen: function(selectedDates, dateStr, instance) {
+            console.log("open");
             onOpenDateTime = dateStr;
         },
         onChange: function(selectedDates, dateStr, instance) {
@@ -115,6 +109,7 @@ openxava.addEditorInitFunction(function() {
             }
         },
         onClose: function(selectedDates, dateStr, instance) {
+            console.log("close");
             if (onOpenDateTime != null) {
                 if (onOpenDateTime == dateStr) {
                     $(instance.input).data("changedCancelled", true);
@@ -125,4 +120,43 @@ openxava.addEditorInitFunction(function() {
             }
         },
     });
+
+    function validInputOnlyDate(date) {
+        var pattern = /[^.\-:\/\d]/g;
+        if (pattern.test(date)) {
+            invalidDate = date;
+            invalid = true;
+        }
+        return date;
+    }
+
+    function validDate(date, format, separator) {
+        var splittedDate = date.split(separator);
+        if (format.substr(0, 1) === 'Y') {
+            if (format.substr(2, 3) === 'd' || format.substr(2, 3) === 'j') {
+                if (parseInt(splittedDate[1]) > 31 || parseInt(splittedDate[2] > 12)) {
+                    invalid = true;
+                    invalidDate = date;
+                }
+            } else {
+                if (parseInt(splittedDate[1]) > 12 || parseInt(splittedDate[2] > 31)) {
+                    invalid = true;
+                    invalidDate = date;
+                }
+            }
+        } else {
+            if (format.substr(0, 1) === 'd' || format.substr(0, 1) === 'j') {
+                if (parseInt(splittedDate[0]) > 31 || parseInt(splittedDate[1] > 12)) {
+                    invalid = true;
+                    invalidDate = date;
+                }
+            } else {
+                if (parseInt(splittedDate[0]) > 12 || parseInt(splittedDate[1] > 31)) {
+                    invalid = true;
+                    invalidDate = date;
+                }
+            }
+        }
+    }
+    
 });
