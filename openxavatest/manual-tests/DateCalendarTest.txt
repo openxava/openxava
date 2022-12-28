@@ -37,7 +37,7 @@ of openxava.js you have to test it visually at least for the next cases:
 	- It should be completed to four digits (2015) and not losing the hour value.
 - Adding separators when missing (use the second date in Quarter):
 	- In Spanish: 
-		 51106   -> 05/11/2006		 		
+		 51106   -> 05/11/2006 		
 		051196   -> 05/11/1996
 		24022019 -> 24/02/2019
 		 7111999 -> 07/11/1999
@@ -45,6 +45,15 @@ of openxava.js you have to test it visually at least for the next cases:
 		 32402   ->  3/24/2002
 	- Test some of the above cases in list filter.
 	- Test some of the above cases using enter key in list filter.
+- Validate date input and date number (use the second date in Quarter):
+	- In Spanish: 
+		put 51+06 then unfocus -> 05/1+/2006 -> When try to save should be show an error msg	
+		03/06/2010 change to 03/b6/2010 then unfocus, the date should not be autoformatted, sould be the same 03/b6/2010 
+		03/06/2010 to 33/06/2010 then unfocus, the date should not be autoformatted, sould be the same 33/06/2010
+		33/06/2010 then open calendar dialog, then unfocus calendar, focus input, unfocus input, the date should be the same.
+	- In Chinese:
+		2010-6-3 to 2010-b-3 then unfocus, the date should not be autoformatted, sould be the same 2010-b-3
+		2010-6-3 to 2010-6-33 then unfocus, the date should not be autoformatted, sould be the same 2010-6-33
 - Year at beginning: Put the locale to South Africa
 	- Change the date with calendar. Date is kept correct, day is not turned in 4 digits.
 	- Modify the date with keyboard. Date is kept correct, day is not turned in 4 digits.
