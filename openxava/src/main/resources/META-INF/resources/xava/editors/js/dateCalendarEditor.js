@@ -20,9 +20,7 @@ openxava.addEditorInitFunction(function() {
     });
     
     $('.xava_date > input').on('blur', function() {
-        console.log("onBlur");
         enterDate = validInputOnlyDate($(this).val());
-        readInput = ((enterDate.includes("/") || enterDate.includes(".") || enterDate.includes("-")) && enterDate.length > 9)?false:true;
     });
     
     $('.xava_date > input').change(function() {
@@ -43,17 +41,6 @@ openxava.addEditorInitFunction(function() {
             date = date.trim();
         }
         validDate(date, dateFormat, separator);
-        console.log("invalid after validDate " + invalid);
-        // if (invalid == true) {
-        //     $(this).val(invalidDate);
-        //     invalid = false;
-        //     invalidDate = undefined;
-        //     enterDate = undefined;
-        //     readInput = false;
-        //     return;
-        // } 
-        console.log("before");
-        console.log(date);
         idx = date.lastIndexOf(separator);
         var idxSpace = date.indexOf(' ');
         var pureDate = date;
@@ -76,18 +63,14 @@ openxava.addEditorInitFunction(function() {
         }
         date = date.includes(".20 ") ? date.replace(".20 ", " ") : date;
         date = invalid ? invalidDate : date;
-        console.log("after: " + invalid);
-        console.log(date);
         $(this).val(date);
         enterDate = undefined;
         readInput = false;
-
         if (onChangeChecked == true && invalid == true){
             onChangeChecked = false;
             invalid = false;
             invalidDate = undefined;
         }
-        console.log("invalid final:" + invalid);
     });
     $('.flatpickr-calendar').remove();
     $('.xava_date').flatpickr({
@@ -100,7 +83,6 @@ openxava.addEditorInitFunction(function() {
         },
         onChange: function(selectedDates, dateStr, instance) {
             dateStr = invalid?invalidDate:dateStr;
-            console.log("onChange" + dateStr + " " +$(instance.input).attr('value'));
             if (onOpenDateTime != null) {
                 if (onOpenDateTime.length > 10) {
                     $(instance.input).data("changedCancelled", true);
@@ -144,7 +126,6 @@ openxava.addEditorInitFunction(function() {
     }
 
     function validDate(date, format, separator) {
-        //console.log(date);
         if (date.length > 11){
             var dateWithTime = date.split(" ");
             date = dateWithTime[0];
