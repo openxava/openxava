@@ -49,8 +49,8 @@ of openxava.js you have to test it visually at least for the next cases:
 	- In Spanish: 
 		put 51+06 then unfocus -> 05/1+/2006 -> When try to save should be show an error msg	
 		03/06/2010 change to 03/b6/2010 then unfocus, the date should not be autoformatted, sould be the same 03/b6/2010 
+			then open calendar dialog, then unfocus calendar, focus input, unfocus input, the date should be the same too.
 		03/06/2010 to 33/06/2010 then unfocus, the date should not be autoformatted, sould be the same 33/06/2010
-		33/06/2010 then open calendar dialog, then unfocus calendar, focus input, unfocus input, the date should be the same.
 	- In Chinese:
 		2010-6-3 to 2010-b-3 then unfocus, the date should not be autoformatted, sould be the same 2010-b-3
 		2010-6-3 to 2010-6-33 then unfocus, the date should not be autoformatted, sould be the same 2010-6-33

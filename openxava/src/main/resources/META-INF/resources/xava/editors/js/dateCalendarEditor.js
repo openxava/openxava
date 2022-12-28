@@ -51,7 +51,7 @@ openxava.addEditorInitFunction(function() {
         //     enterDate = undefined;
         //     readInput = false;
         //     return;
-        // }
+        // } 
         console.log("before");
         console.log(date);
         idx = date.lastIndexOf(separator);
@@ -81,6 +81,7 @@ openxava.addEditorInitFunction(function() {
         $(this).val(date);
         enterDate = undefined;
         readInput = false;
+
         if (onChangeChecked == true && invalid == true){
             onChangeChecked = false;
             invalid = false;
@@ -129,6 +130,7 @@ openxava.addEditorInitFunction(function() {
                     $('.xava_date > input').change();
                 }
             }
+            onOpenDateTime = undefined;
         },
     });
 
@@ -150,24 +152,24 @@ openxava.addEditorInitFunction(function() {
         var splittedDate = date.split(separator);
         if (format.substr(0, 1) === 'Y') {
             if (format.substr(2, 3) === 'd' || format.substr(2, 3) === 'j') {
-                if (parseInt(splittedDate[1]) > 31 || parseInt(splittedDate[2] > 12)) {
+                if (parseInt(splittedDate[1]) > 31 || parseInt(splittedDate[2]) > 12) {
                     invalid = true;
                     invalidDate = date;
                 }
             } else {
-                if (parseInt(splittedDate[1]) > 12 || parseInt(splittedDate[2] > 31)) {
+                if (parseInt(splittedDate[1]) > 12 || parseInt(splittedDate[2]) > 31) {
                     invalid = true;
                     invalidDate = date;
                 }
             }
         } else {
             if (format.substr(0, 1) === 'd' || format.substr(0, 1) === 'j') {
-                if (parseInt(splittedDate[0]) > 31 || parseInt(splittedDate[1] > 12)) {
+                if (parseInt(splittedDate[0]) > 31 || parseInt(splittedDate[1]) > 12) {
                     invalid = true;
                     invalidDate = date;
                 }
             } else {
-                if (parseInt(splittedDate[0]) > 12 || parseInt(splittedDate[1] > 31)) {
+                if (parseInt(splittedDate[0]) > 12 || parseInt(splittedDate[1]) > 31) {
                     invalid = true;
                     invalidDate = date;
                 }
