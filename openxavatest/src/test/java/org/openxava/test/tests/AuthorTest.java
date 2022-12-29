@@ -23,8 +23,8 @@ public class AuthorTest extends CustomizeListTestBase {
 		assertLabelInList(1, "Biography");
 		execute("List.addColumns");
 		assertCollectionRowCount("xavaPropertiesList", 2); 		
-		assertValueInCollection("xavaPropertiesList",  0, 0, "Name of humans");
-		assertValueInCollection("xavaPropertiesList",  1, 0, "Sex of humans");
+		assertValueInCollection("xavaPropertiesList",  0, 0, "Humans name");
+		assertValueInCollection("xavaPropertiesList",  1, 0, "Humans sex");
 		checkRow("selectedProperties", "humans.name");
 		execute("AddColumns.addColumns");
 		assertListRowCount(2);

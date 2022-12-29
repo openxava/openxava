@@ -79,7 +79,9 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInCollection("columns", 0, 0, "Name");
 		assertValueInCollection("columns", 1, 0, "Type");
 		assertValueInCollection("columns", 2, 0, "Seller");
-		assertValueInCollection("columns", 3, 0, "City of address"); 
+		//correccion
+		//assertValueInCollection("columns", 3, 0, "City of address"); 
+		assertValueInCollection("columns", 3, 0, "Address city"); 
 		assertValueInCollection("columns", 4, 0, "Seller level");
 		assertValueInCollection("columns", 5, 0, "State of address");
 		assertValueInCollection("columns", 6, 0, "Web site");

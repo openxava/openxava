@@ -142,11 +142,28 @@ public class Labels {
 				return get(id.substring(idxDot + 1), locale, qualified);
 			}
 			else {
-				String composeLabel = locale.getLanguage().equalsIgnoreCase("zh")
-					?get(parent, locale, null, false) + get(id.substring(idxDot + 1), locale, null, qualified)	
-					:get(id.substring(idxDot + 1), locale, null, qualified) + " " + 
+//				String composeLabel = locale.getLanguage().equalsIgnoreCase("zh")
+//					?get(parent, locale, null, false) + get(id.substring(idxDot + 1), locale, null, qualified)	
+//					:get(id.substring(idxDot + 1), locale, null, qualified) + " " + 
+//					XavaResources.getString("of", locale) + " " +
+//					get(parent, locale, null, false);
+				String composeLabel = "";
+				switch (locale.getLanguage()) {
+				case ("zh"):
+					composeLabel = get(parent, locale, null, false) + get(id.substring(idxDot + 1), locale, null, qualified);
+					break;
+				case ("en"):
+					composeLabel = get(parent, locale, null, false) + " " + get(id.substring(idxDot + 1), locale, null, qualified);;
+					System.out.println(composeLabel);
+					break;
+				default:
+					composeLabel = get(id.substring(idxDot + 1), locale, null, qualified) + " " + 
 					XavaResources.getString("of", locale) + " " +
 					get(parent, locale, null, false);
+					break;
+				}
+				
+				
 				return Strings.firstUpper(composeLabel.toLowerCase());
 			}			
 		}
