@@ -248,6 +248,7 @@
 		<property name="fillWithZeros" value="true" />
 		<for-stereotype stereotype="ZEROS_FILLED" />
 		<for-stereotype stereotype="RELLENADO_CON_CEROS" />
+		<for-annotation annotation="org.openxava.annotations.ZerosFilled"/> 
 	</editor>
 
 	<!-- 
