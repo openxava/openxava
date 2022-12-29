@@ -154,6 +154,9 @@ public class Labels {
 					break;
 				case ("en"):
 					composeLabel = get(parent, locale, null, false) + " " + get(id.substring(idxDot + 1), locale, null, qualified);;
+					System.out.println("id");
+					System.out.println(id);
+					System.out.println("composeLabel");
 					System.out.println(composeLabel);
 					break;
 				default:
