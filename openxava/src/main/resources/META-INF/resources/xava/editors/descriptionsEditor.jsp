@@ -36,7 +36,9 @@ if (Is.emptyString(orderForId)) orderForId = request.getParameter("orden");
 orderForId = Is.emptyString(orderForId)?"":"." + orderForId;
 
 String descriptionsCalculatorKey = propertyKey + modelForId + conditionForId + orderByKeyForId + orderForId + ".descriptionsCalculator"; 
+   System.out.println("descriptionsCalculatorKey " + descriptionsCalculatorKey);
 DescriptionsCalculator calculator = (DescriptionsCalculator) request.getSession().getAttribute(descriptionsCalculatorKey);	
+
 
 IFilter filter = null;
 String filterClass=request.getParameter("filter");
@@ -89,47 +91,65 @@ if (parameterValuesStereotypes == null) {
 	parameterValuesStereotypes=request.getParameter("estereotiposValoresParametros");
 }
 if (calculator == null) { 
+   System.out.println("calculator null");
 	calculator = new DescriptionsCalculator();
 	// The arguments in English and Spanish for compatibility with
 	// a big amount of stereotypes made in spanish using this editor
 	String condition = request.getParameter("condition");
 	if (condition == null) condition = request.getParameter("condicion");
 	calculator.setCondition(condition);
+   System.out.println("condition " + condition);
 	String order = request.getParameter("order");
 	if (order == null) order = request.getParameter("orden");
 	calculator.setOrder(order);
 	calculator.setUseConvertersInKeys(true);
+   System.out.println("order " + order);
 	String model = request.getParameter("model");
 	if (model == null) model = request.getParameter("modelo");
 	calculator.setModel(model);
+   System.out.println("model " + model);
 	String keyProperty = request.getParameter("keyProperty");
 	if (keyProperty == null) keyProperty = request.getParameter("propiedadClave");
 	calculator.setKeyProperty(keyProperty);
+   System.out.println("keyProperty " + keyProperty);
 	String keyProperties = request.getParameter("keyProperties");
 	if (keyProperties == null) keyProperties = request.getParameter("propiedadesClave");
 	calculator.setKeyProperties(keyProperties);
+   System.out.println("keyProperties " + keyProperties);
 	String descriptionProperty = request.getParameter("descriptionProperty");
 	if (descriptionProperty == null) descriptionProperty = request.getParameter("propiedadDescripcion");
 	calculator.setDescriptionProperty(descriptionProperty);
+   System.out.println("descriptionProperty " + descriptionProperty);
 	String descriptionProperties = request.getParameter("descriptionProperties");
 	if (descriptionProperties == null) descriptionProperties = request.getParameter("propiedadesDescripcion");
 	calculator.setDescriptionProperties(descriptionProperties);
+   System.out.println("descriptionProperties " + descriptionProperties);
 	String orderByKey = request.getParameter("orderByKey");
 	if (orderByKey == null) orderByKey = request.getParameter("ordenadoPorClave");
 	calculator.setOrderByKey(orderByKey);
+   System.out.println("orderByKey " + orderByKey);
+   System.out.println("descriptionsCalculatorKey " + descriptionsCalculatorKey);
 	request.getSession().setAttribute(descriptionsCalculatorKey, calculator);
+   java.util.Collection descriptions = calculator.getDescriptions();
+System.out.println(Arrays.toString(descriptions.toArray())); 
 }
 if (parameterValuesStereotypes != null || parameterValuesProperties != null) {	
+    System.out.println("calculator no null");
 	java.util.Iterator it = null;
 	if (parameterValuesStereotypes != null) {
+   System.out.println("Stereotype");
 		it = view.getPropertiesNamesFromStereotypesList(parameterValuesStereotypes).iterator();		
 	}
 	else  {
+   System.out.println("No stereotype");
 		it = view.getPropertiesNamesFromPropertiesList(parameterValuesProperties).iterator();		
 	}
+   System.out.println(Arrays.toString(view.getPropertiesNamesFromPropertiesList(parameterValuesProperties).toArray()));
 	java.util.Collection p = new java.util.ArrayList();
 	while (it.hasNext()) {
+   System.out.println("it.hasNext");
 		String parameterValueKey = (String) it.next();
+   System.out.println("parameterValueKey " + parameterValueKey);
 		org.openxava.view.View v = null;
 		if (parameterValueKey != null && parameterValueKey.startsWith("this.")) {
 			parameterValueKey = parameterValueKey.substring(5);
@@ -164,9 +184,11 @@ if (parameterValuesStereotypes != null || parameterValuesProperties != null) {
 	calculator.setParameters(p, filter);
 }
 else if (filter != null) {
+   System.out.println("filter no null");
 	calculator.setParameters(null, filter);
 }
 java.util.Collection descriptions = calculator.getDescriptions();
+System.out.println(Arrays.toString(descriptions.toArray()));
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 String title = "";  
 try {
@@ -196,6 +218,8 @@ if (editable) {
 		int maxDescriptionLength = 0;
 		while (it.hasNext()) {
 			KeyAndDescription cl = (KeyAndDescription) it.next();	
+            System.out.println(it);
+            System.out.println(cl);
 			String selected = "";
 			String description = formatter==null?cl.getDescription().toString():formatter.format(request, cl.getDescription());
 			if (description.length() > maxDescriptionLength) maxDescriptionLength = description.length();

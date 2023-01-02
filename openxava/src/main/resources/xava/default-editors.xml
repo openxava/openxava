@@ -373,4 +373,8 @@
 		<for-model-property model="SignIn" property="user" />				
 	</editor>
 		
+		
+	<editor url="editableDescriptionsList.jsp">
+		<for-annotation annotation="org.openxava.annotations.EditableDescriptionsList"/> 
+	</editor>
 </editors>
