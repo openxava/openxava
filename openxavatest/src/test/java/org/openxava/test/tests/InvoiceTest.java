@@ -258,7 +258,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 			{ "comment", "Comment" },
 			{ "paid", "Paid" },
 			{ "customer.number", "Number of customer" },
-			{ "customer.name", "Name of customer" },
+			{ "customer.name", "Customer name" },
 			{ "customer.type", "Type of customer" },
 			{ "customer.photo", "Photo of customer" },
 			{ "customer.telephone", "Telephone of customer" },
@@ -314,7 +314,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 			{ "comment", "Comment" },
 			{ "paid", "Paid" },
 			{ "customer.number", "Number of customer" },
-			{ "customer.name", "Name of customer" },
+			{ "customer.name", "Customer name" },
 			{ "customer.type", "Type of customer" },
 			{ "customer.photo", "Photo of customer" },
 			{ "customer.telephone", "Telephone of customer" },
@@ -369,7 +369,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 			{ "details.soldBy.level.id", "Id of level of sold by of details" },
 			{ "details.soldBy.level.description", "Description of level of sold by of details" },
 			{ "details.soldBy.customers.number", "Number of customers of sold by of details" },
-			{ "details.soldBy.customers.name", "Name of customers of sold by of details" },
+			{ "details.soldBy.customers.name", "Customer names of sold by of details" },
 			{ "details.soldBy.customers.type", "Type of customers of sold by of details" },
 			{ "details.soldBy.customers.photo", "Photo of customers of sold by of details" },
 			{ "details.soldBy.customers.telephone", "Telephone of customers of sold by of details" },
@@ -958,7 +958,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValueInCollection("xavaPropertiesList", 16, 0, "Free of details");
 		assertValueInCollection("xavaPropertiesList", 17, 0, "Incidents of deliveries");
 		assertValueInCollection("xavaPropertiesList", 18, 0, "Lokal of customer");
-		assertValueInCollection("xavaPropertiesList", 19, 0, "Name of customer");
+		assertValueInCollection("xavaPropertiesList", 19, 0, "Customer name");
 		
 		execute("AddColumns.showMoreColumns");
 		assertCollectionRowCount("xavaPropertiesList", 112);  
@@ -1009,8 +1009,8 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValueInCollection("xavaPropertiesList",  44, 0, "Name of alternate seller of customer");
 		assertValueInCollection("xavaPropertiesList",  45, 0, "Name of carrier of deliveries");
 		assertValueInCollection("xavaPropertiesList",  46, 0, "Name of contact person of shipment of deliveries");
-		assertValueInCollection("xavaPropertiesList",  47, 0, "Name of customer");
-		assertValueInCollection("xavaPropertiesList",  48, 0, "Name of customers of sold by of details");
+		assertValueInCollection("xavaPropertiesList",  47, 0, "Customer name");
+		assertValueInCollection("xavaPropertiesList",  48, 0, "Customer names of sold by of details");
 		assertValueInCollection("xavaPropertiesList",  49, 0, "Name of delivery places of customer");
 		assertValueInCollection("xavaPropertiesList",  50, 0, "Name of group of customer");
 		assertValueInCollection("xavaPropertiesList",  51, 0, "Name of preferred warehouse of delivery places of customer");
@@ -1102,8 +1102,8 @@ public class InvoiceTest extends CustomizeListTestBase {
 	public void testCustomizeListSearchColumns_customizeListPressEnterWithoutChoosingColumns() throws Exception {   
 		execute("List.addColumns");
 		assertCollectionRowCount("xavaPropertiesList", 20); 		
-		assertValueInCollection("xavaPropertiesList",  0, 0, "Additional emails of customer");  
-		assertValueInCollection("xavaPropertiesList", 19, 0, "Name of customer"); 
+		assertValueInCollection("xavaPropertiesList",  0, 0, "Comment");  
+		assertValueInCollection("xavaPropertiesList", 19, 0, "Deliveries distance"); 
 		assertAction("AddColumns.showMoreColumns");
 
 		HtmlElement searchBox = getHtmlPage().getHtmlElementById("xava_search_columns_text");
@@ -1121,8 +1121,8 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertEquals("", searchBox.getAttribute("value"));
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
 		assertCollectionRowCount("xavaPropertiesList", 20); 		
-		assertValueInCollection("xavaPropertiesList",  0, 0, "Additional emails of customer"); 
-		assertValueInCollection("xavaPropertiesList", 19, 0, "Name of customer"); 
+		assertValueInCollection("xavaPropertiesList",  0, 0, "Comment"); 
+		assertValueInCollection("xavaPropertiesList", 19, 0, "Deliveries distance"); 
 		assertAction("AddColumns.showMoreColumns");
 		
 		execute("AddColumns.showMoreColumns");		
@@ -1217,26 +1217,26 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("List.addColumns");
 		
 		assertCollectionRowCount("xavaPropertiesList", 20); // It only loads the first 20.
-		assertValueInCollection("xavaPropertiesList",  0, 0, "Additional emails of customer");
-		assertValueInCollection("xavaPropertiesList",  1, 0, "Amount of details");
-		assertValueInCollection("xavaPropertiesList",  2, 0, "City of customer");
-		assertValueInCollection("xavaPropertiesList",  3, 0, "Comment");
-		assertValueInCollection("xavaPropertiesList",  4, 0, "Considerable");
-		assertValueInCollection("xavaPropertiesList",  5, 0, "Customer discount");
-		assertValueInCollection("xavaPropertiesList",  6, 0, "Customer type discount");
-		assertValueInCollection("xavaPropertiesList",  7, 0, "Date as label of deliveries");
-		assertValueInCollection("xavaPropertiesList",  8, 0, "Date of deliveries");
-		assertValueInCollection("xavaPropertiesList",  9, 0, "Delivery date");
-		assertValueInCollection("xavaPropertiesList", 10, 0, "Delivery date of details");
-		assertValueInCollection("xavaPropertiesList", 11, 0, "Description of deliveries");
-		assertValueInCollection("xavaPropertiesList", 12, 0, "Distance of deliveries");
-		assertValueInCollection("xavaPropertiesList", 13, 0, "Driver type of deliveries");
-		assertValueInCollection("xavaPropertiesList", 14, 0, "Email of customer");
-		assertValueInCollection("xavaPropertiesList", 15, 0, "Employee of deliveries");
-		assertValueInCollection("xavaPropertiesList", 16, 0, "Free of details");
-		assertValueInCollection("xavaPropertiesList", 17, 0, "Incidents of deliveries");
-		assertValueInCollection("xavaPropertiesList", 18, 0, "Lokal of customer");
-		assertValueInCollection("xavaPropertiesList", 19, 0, "Name of customer");
+		assertValueInCollection("xavaPropertiesList",  0, 0, "Comment");
+		assertValueInCollection("xavaPropertiesList",  1, 0, "Considerable");
+		assertValueInCollection("xavaPropertiesList",  2, 0, "Customer additional emails");
+		assertValueInCollection("xavaPropertiesList",  3, 0, "Customer city");
+		assertValueInCollection("xavaPropertiesList",  4, 0, "Customer discount");
+		assertValueInCollection("xavaPropertiesList",  5, 0, "Customer email");
+		assertValueInCollection("xavaPropertiesList",  6, 0, "Customer lokal");
+		assertValueInCollection("xavaPropertiesList",  7, 0, "Customer name");
+		assertValueInCollection("xavaPropertiesList",  8, 0, "Customer number");
+		assertValueInCollection("xavaPropertiesList",  9, 0, "Customer photo");
+		assertValueInCollection("xavaPropertiesList", 10, 0, "Customer relation with seller");
+		assertValueInCollection("xavaPropertiesList", 11, 0, "Customer remarks");
+		assertValueInCollection("xavaPropertiesList", 12, 0, "Customer telephone");
+		assertValueInCollection("xavaPropertiesList", 13, 0, "Customer type");
+		assertValueInCollection("xavaPropertiesList", 14, 0, "Customer type discount");
+		assertValueInCollection("xavaPropertiesList", 15, 0, "Customer web site");
+		assertValueInCollection("xavaPropertiesList", 16, 0, "Deliveries date");
+		assertValueInCollection("xavaPropertiesList", 17, 0, "Deliveries date as label");
+		assertValueInCollection("xavaPropertiesList", 18, 0, "Deliveries description");
+		assertValueInCollection("xavaPropertiesList", 19, 0, "Deliveries distance");
 		checkRow("selectedProperties", "customer.name"); 
 		checkRow("selectedProperties", "deliveryDate"); 
 		 		
@@ -1251,31 +1251,31 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertLabelInList(5, "Details count");
 		assertLabelInList(6, "Paid");
 		assertLabelInList(7, "Importance");
-		assertLabelInList(8, "Delivery date"); 
-		assertLabelInList(9, "Customer");
+		assertLabelInList(8, "Customer"); 
+		assertLabelInList(9, "Deliveries date");
 		
 		execute("List.addColumns");
 		assertCollectionRowCount("xavaPropertiesList", 20); 
-		assertValueInCollection("xavaPropertiesList",  0, 0, "Additional emails of customer");
-		assertValueInCollection("xavaPropertiesList",  1, 0, "Amount of details");
-		assertValueInCollection("xavaPropertiesList",  2, 0, "City of customer");
-		assertValueInCollection("xavaPropertiesList",  3, 0, "Comment");
-		assertValueInCollection("xavaPropertiesList",  4, 0, "Considerable");
-		assertValueInCollection("xavaPropertiesList",  5, 0, "Customer discount");
-		assertValueInCollection("xavaPropertiesList",  6, 0, "Customer type discount");
-		assertValueInCollection("xavaPropertiesList",  7, 0, "Date as label of deliveries");
-		assertValueInCollection("xavaPropertiesList",  8, 0, "Date of deliveries");
-		assertValueInCollection("xavaPropertiesList",  9, 0, "Delivery date of details");
-		assertValueInCollection("xavaPropertiesList", 10, 0, "Description of deliveries");
-		assertValueInCollection("xavaPropertiesList", 11, 0, "Distance of deliveries");
-		assertValueInCollection("xavaPropertiesList", 12, 0, "Driver type of deliveries");
-		assertValueInCollection("xavaPropertiesList", 13, 0, "Email of customer");
-		assertValueInCollection("xavaPropertiesList", 14, 0, "Employee of deliveries");
-		assertValueInCollection("xavaPropertiesList", 15, 0, "Free of details");
-		assertValueInCollection("xavaPropertiesList", 16, 0, "Incidents of deliveries");
-		assertValueInCollection("xavaPropertiesList", 17, 0, "Lokal of customer");
-		assertValueInCollection("xavaPropertiesList", 18, 0, "Number of customer");
-		assertValueInCollection("xavaPropertiesList", 19, 0, "Number of deliveries");
+		assertValueInCollection("xavaPropertiesList",  0, 0, "Comment");
+		assertValueInCollection("xavaPropertiesList",  1, 0, "Considerable");
+		assertValueInCollection("xavaPropertiesList",  2, 0, "Customer additional emails");
+		assertValueInCollection("xavaPropertiesList",  3, 0, "Customer city");
+		assertValueInCollection("xavaPropertiesList",  4, 0, "Customer discount");
+		assertValueInCollection("xavaPropertiesList",  5, 0, "Customer email");
+		assertValueInCollection("xavaPropertiesList",  6, 0, "Customer lokal");
+		assertValueInCollection("xavaPropertiesList",  7, 0, "Customer number");
+		assertValueInCollection("xavaPropertiesList",  8, 0, "Customer photo");
+		assertValueInCollection("xavaPropertiesList",  9, 0, "Customer relation with seller");
+		assertValueInCollection("xavaPropertiesList", 10, 0, "Customer remarks");
+		assertValueInCollection("xavaPropertiesList", 11, 0, "Customer telephone");
+		assertValueInCollection("xavaPropertiesList", 12, 0, "Customer type");
+		assertValueInCollection("xavaPropertiesList", 13, 0, "Customer type discount");
+		assertValueInCollection("xavaPropertiesList", 14, 0, "Customer web site");
+		assertValueInCollection("xavaPropertiesList", 15, 0, "Deliveries date as label");
+		assertValueInCollection("xavaPropertiesList", 16, 0, "Deliveries description");
+		assertValueInCollection("xavaPropertiesList", 17, 0, "Deliveries distance");
+		assertValueInCollection("xavaPropertiesList", 18, 0, "Deliveries driver type");
+		assertValueInCollection("xavaPropertiesList", 19, 0, "Deliveries employee");
 		
 		execute("AddColumns.cancel");
 		
@@ -1288,8 +1288,8 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertLabelInList(5, "Details count");
 		assertLabelInList(6, "Paid");
 		assertLabelInList(7, "Importance");
-		assertLabelInList(8, "Delivery date"); 
-		assertLabelInList(9, "Customer");
+		assertLabelInList(8, "Customer"); 
+		assertLabelInList(9, "Deliveries date");
 
 		
 		// To test that detail view is not broken because of the dialog
@@ -1297,13 +1297,13 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertExists("year");
 		
 		execute("Mode.list");
-		assertLabelInList(9, "Customer"); 
+		assertLabelInList(9, "Deliveries date"); 
 		execute("List.changeColumnName", "property=customer.name"); 
 		assertDialog();
 		assertValue("name", "Customer");
-		setValue("name", "The name of customer ");
+		setValue("name", "The Customer name ");
 		execute("ChangeColumnName.change");
-		assertLabelInList(9, "The name of customer");
+		assertLabelInList(8, "The Customer name");
 	}
 	
 	private void doTestCustomizeList_storePreferences() throws Exception {
