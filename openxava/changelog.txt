@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Brazilian Portuguese translation for labels and messages. 
+- Fix: Unneeded final spaces in English and Spanish i18n messages files. 
 - Fix: Error in browser developer tools console: downloadable font: download failed.
 - Fix: Hiding the same action several times shows an error when saving the entity afterwards.
 - Fix: Parameters in URL are not passed after login.
