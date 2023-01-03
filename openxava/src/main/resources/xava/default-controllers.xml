@@ -756,10 +756,8 @@ here that you want to override.
 	</controller>
 		
 	<!-- You can add this controller to your application and you will be able to
-		switch between schemas by appending parameter `schema`.
-		Also you can switch your locale by appending the `locale` parameter.
-		If you append the `user` parameter to the url it will save its value
-		in a session attribute 'xava.user'.
+		switch your locale by appending the `locale` parameter.
+		Since v7.0.4 'schema' and 'user' parameters are no longer supported.
 		All these actions rely on request.getParameter which depends on the presentation
 		layer. 
 		Keep in mind that it is not recommended to based your application behavior
@@ -767,14 +765,8 @@ here that you want to override.
 		independent of the presentation layer).
 	 -->
 	<controller name="UrlParameters">
-		<action name="setSchema" before-each-request="true" hidden="true"
-			class="org.openxava.actions.SetSchemaAction">
-		</action>
 		<action name="setLocale" on-each-request="true" hidden="true"
 			class="org.openxava.actions.SetLocaleAction">
-		</action>
-		<action name="setUser" on-each-request="true" hidden="true"
-			class="org.openxava.actions.SetUserAction">
 		</action>
 	</controller>
 
