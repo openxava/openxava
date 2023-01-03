@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Error in browser developer tools console: downloadable font: download failed.
 - Fix: Hiding the same action several times shows an error when saving the entity afterwards.
 - Fix: Parameters in URL are not passed after login.
 - Fix: Security risk when a module of the application uses UrlParameters controller.
