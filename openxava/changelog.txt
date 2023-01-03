@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: When typing a wrong date it is modified to a correct one instead of keeping it as wrong date.
 - Brazilian Portuguese translation for labels and messages. 
 - Fix: Unneeded final spaces in English and Spanish i18n messages files. 
 - Fix: Error in browser developer tools console: downloadable font: download failed.
