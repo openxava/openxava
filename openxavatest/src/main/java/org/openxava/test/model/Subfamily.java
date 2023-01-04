@@ -50,7 +50,6 @@ public class Subfamily {
 	private String oid;
 	
 	@Column(length=3) @Required 
-	//@Stereotype("ZEROS_FILLED")
 	@ZerosFilled
 	private int number;
 	
