@@ -1518,7 +1518,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		setValue("number", String.valueOf(getInvoice().getNumber()));
 		execute("CRUD.refresh");
 		assertNoErrors();
-		assertValue("date", "04/01/1943");  
+		assertValue("date", "04/01/2043");  
 		
 		setValue("date", "30/2/2008");
 		execute("CRUD.save");
