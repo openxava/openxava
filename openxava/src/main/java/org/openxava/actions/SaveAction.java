@@ -72,7 +72,7 @@ public class SaveAction extends TabBaseAction {
 	protected Map create() throws Exception {
 		Map values = null;
 		if (isResetAfterOnCreate() || (!isRefreshAfter() && !getView().getMetaModel().hasHiddenKey())) {
-			Collection<String> possibleGeneratedProperties = getPossibleGeneratedProperties();
+			Collection<String> possibleGeneratedProperties = getPropertiesToShowInEntityCreatedMessage();
 			if (possibleGeneratedProperties == null) {
 				MapFacade.create(getModelName(), getValuesToSave());
 				addMessage("entity_created", getModelName());
@@ -110,7 +110,17 @@ public class SaveAction extends TabBaseAction {
 			.collect(Collectors.joining("/"));
 	}
 
-	private Collection<String> getPossibleGeneratedProperties() throws Exception { 
+	/**
+	 * Properties which values will display at the end of the message "{Entity} created successfully". <br>
+	 * 
+	 * Displaying the key in the message does not always apply. The default implementation is pretty good, 
+	 * but you can overwrite this method to define your own properties or just return null to not show 
+	 * any property.
+	 * 
+	 * @since 7.0.4
+	 * @return The properties to show or null to not show any property
+	 */
+	protected Collection<String> getPropertiesToShowInEntityCreatedMessage() throws Exception {  
 		MetaModel metaModel = getView().getMetaModel();
 		if (!metaModel.hasHiddenKey()) return null;
 		
