@@ -1,30 +1,33 @@
 Change Log for OpenXava project
 ===============================
 
-- New protected method getPropertiesToShowInEntityCreatedMessage() in SaveAction to customize message.
-- Fix: When typing a wrong date it is modified to a correct one instead of keeping it as wrong date.
+- Embedded Tomcat used in development upgraded to 9.0.70.
+- Hibernate upgraded to 5.6.14.
+- Driver versions in doc and new projects upgraded for PostgreSQL, Oracle, AS/400 and Firebird.
+
+- Doc for putting in your project modified versions of JSPs from OpenXava to customizing project behavior. 
+- Doc for deploying in Tomcat modified to include instructions for Tomcat 10.
+
+- Zero downtime deployment(ZDD) and horizontal scaling support.
 - Brazilian Portuguese translation for labels and messages. 
-- Fix: Unneeded final spaces in English and Spanish i18n messages files. 
+- Session data size reduced to a great extent.  
+- Actions setSchema and setUser removed from UrlParameters controller. 
+- New protected method getPropertiesToShowInEntityCreatedMessage() in SaveAction to customize message.
+- New XFileItem in util package to use as a serializable alternative to FileItem from Apache FileUpload.
+
+- Fix: When typing a wrong date it is modified to a correct one instead of keeping it as wrong date.
 - Fix: Error in browser developer tools console: downloadable font: download failed.
 - Fix: Hiding the same action several times shows an error when saving the entity afterwards.
 - Fix: Parameters in URL are not passed after login.
 - Fix: Security risk when a module of the application uses UrlParameters controller.
-- Actions setSchema and setUser removed from UrlParameters controller. 
-- Fix: Too generic error when no connection to database: cannot be null when 'hibernate.dialect' not set.
-- Fix: Automatic labels for list column headers for references has incorrect order in Chinese.
-- Doc for put in your project modified versions of JSPs from OpenXava to customizing project behavior. 
-- Doc for deploying in Tomcat modified to include instructions for Tomcat 10.
-- Fix: View with @Files/@File generates a JavaScript error dialog when language is Catalan.
+- Fix: Too generic error when no connection to database: cannot be null when 'hibernate.dialect' is not set.
+- Fix: Automatic labels for list column headers for references have incorrect order in Chinese.
+- Fix: View with @Files/@File generates a JavaScript error dialog when the language is Catalan.
 - Fix: Time part not formatted correctly in DateTimeSeparatedCalendar editor with Serbian and Java 8.
 - Fix: Time part distorted on modify it in a @DateTime property using DateTimeSeparatedCalendar editor.
-- Driver versions in doc and new projects upgraded for PostgreSQL, Oracle, AS/400, Firebird.
-- Embedded Tomcat used in development upgraded to 9.0.70.
-- Hibernate upgraded to 5.6.14.Final.
-- Zero downtime deployment(ZDD) and horizontal scaling support.
-- New XFileItem in util package to use as a serializable alternative to FileItem from Apache FileUpload.
-- Session data size reduced to a great extent.  
 - Fix: User redirected to list mode from detail when an action execution is sent to a different server.
-- Fix: Import CSV/Excel failed to work when using cluster of sever instances.
+- Fix: Import CSV/Excel failed to work when using a cluster of server instances.
+- Fix: Unneeded final spaces in English and Spanish i18n messages files. 
 - Fix: Older version of view still used even after the application upgraded to a newer version with ZDD.
 - Fix: Error while switching to a collection tab in the detail view after a server restart.
 
