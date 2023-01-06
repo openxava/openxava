@@ -41,8 +41,8 @@
         <h2>Para migrar de OpenXava 7.0.4 a OpenXava 7.0.5</h2>
       </div>
       <div class="wiki" style="display: block;">
-        <h3>Las etiquetas en ingles ahora tienen otro orden</h3>
-        <p>Notamos que las etiquetas usadas en listas y colecciones, cuales están traducidas a inglés, si bien se entendían, podían estar mejor. Para esto cambiamos el orden de las palabras y afecta a los test automáticos JUnit que usen métodos como assertValue(), assertLabelInList(), assertValueInCollection(), entre otros que se usen para verificar etiquetas. Por ejemplo si tienes algo así:</p>
+        <h3>Las etiquetas en inglés ahora tienen otro orden</h3>
+        <p>Notamos que las etiquetas en listas y colecciones, cuando están traducidas a inglés, si bien se entendían, podían estar mejor. Para esto, cambiamos el orden de las palabras y afecta al código JUnit que use métodos como assertValue(), assertLabelInList(), assertValueInCollection(), entre otros que se usen para verificar etiquetas. Por ejemplo, si tienes algo así:</p>
         <pre><code class="java">assertLabelInList(0, "Year of invoice");
 </code></pre>
         <p>Cambiala por:</p>
