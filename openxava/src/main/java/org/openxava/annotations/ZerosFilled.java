@@ -3,7 +3,7 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * Used to fill the field with zeros, the amount of zero is what remains to complete the field. (Leading zero) <p>	
+ * Used to fill the field with zeros, the amount of zero is what remains to complete the field (Leading zero). <p>	
  *
  * Applies to properties.<p>
  * 
@@ -14,7 +14,7 @@ import java.lang.annotation.*;
  * &nbsp;private int number;
  * </pre>
  * 
- * It's synonymous of @Stereotype("ZEROS_FILLED") and @Stereotype("RELLENADO_CON_CEROS")
+ * It's synonymous of @Stereotype("ZEROS_FILLED") and @Stereotype("RELLENADO_CON_CEROS").
  * 
  * @author Chungyen Tsai
  */
