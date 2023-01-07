@@ -16,6 +16,7 @@ import java.lang.annotation.*;
  * 
  * It's synonymous of @Stereotype("ZEROS_FILLED") and @Stereotype("RELLENADO_CON_CEROS").
  * 
+ * @since 7.1
  * @author Chungyen Tsai
  */
 
