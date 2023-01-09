@@ -1,20 +1,19 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.0.4 (2023-1-5)
+-------------------------
 - Embedded Tomcat used in development upgraded to 9.0.70.
 - Hibernate upgraded to 5.6.14.
 - Driver versions in doc and new projects upgraded for PostgreSQL, Oracle, AS/400 and Firebird.
-
 - Doc for putting in your project modified versions of JSPs from OpenXava to customizing project behavior. 
 - Doc for deploying in Tomcat modified to include instructions for Tomcat 10.
-
 - Zero downtime deployment(ZDD) and horizontal scaling support.
 - Brazilian Portuguese translation for labels and messages. 
 - Session data size reduced to a great extent.  
 - Actions setSchema and setUser removed from UrlParameters controller. 
 - New protected method getPropertiesToShowInEntityCreatedMessage() in SaveAction to customize message.
 - New XFileItem in util package to use as a serializable alternative to FileItem from Apache FileUpload.
-
 - Fix: When typing a wrong date it is modified to a correct one instead of keeping it as wrong date.
 - Fix: Error in browser developer tools console: downloadable font: download failed.
 - Fix: Hiding the same action several times shows an error when saving the entity afterwards.

@@ -1,13 +1,43 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.0.4 (2023-1-5)
+-------------------------
+- Embedded Tomcat used in development upgraded to 9.0.70.
+- Hibernate upgraded to 5.6.14.
+- Driver versions in doc and new projects upgraded for PostgreSQL, Oracle, AS/400 and Firebird.
+- Doc for putting in your project modified versions of JSPs from OpenXava to customizing project behavior. 
+- Doc for deploying in Tomcat modified to include instructions for Tomcat 10.
+- Zero downtime deployment(ZDD) and horizontal scaling support.
+- Brazilian Portuguese translation for labels and messages. 
+- Session data size reduced to a great extent.  
+- Actions setSchema and setUser removed from UrlParameters controller. 
+- New protected method getPropertiesToShowInEntityCreatedMessage() in SaveAction to customize message.
+- New XFileItem in util package to use as a serializable alternative to FileItem from Apache FileUpload.
+- Fix: When typing a wrong date it is modified to a correct one instead of keeping it as wrong date.
+- Fix: Error in browser developer tools console: downloadable font: download failed.
+- Fix: Hiding the same action several times shows an error when saving the entity afterwards.
+- Fix: Parameters in URL are not passed after login.
+- Fix: Security risk when a module of the application uses UrlParameters controller.
+- Fix: Too generic error when no connection to database: cannot be null when 'hibernate.dialect' is not set.
+- Fix: Automatic labels for list column headers for references have incorrect order in Chinese.
+- Fix: View with @Files/@File generates a JavaScript error dialog when the language is Catalan.
+- Fix: Time part not formatted correctly in DateTimeSeparatedCalendar editor with Serbian and Java 8.
+- Fix: Time part distorted on modify it in a @DateTime property using DateTimeSeparatedCalendar editor.
+- Fix: User redirected to list mode from detail when an action execution is sent to a different server.
+- Fix: Import CSV/Excel failed to work when using a cluster of server instances.
+- Fix: Unneeded final spaces in English and Spanish i18n messages files. 
+- Fix: Older version of view still used even after the application upgraded to a newer version with ZDD.
+- Fix: Error while switching to a collection tab in the detail view after a server restart.
+
 OpenXava 7.0.3 (2022-12-9)
 --------------------------
 - Hibernate Envers upgraded to 5.6.14.
 - Embedded Tomcat used in development upgraded to 9.0.69.
 - Driver versions in doc and new projects upgraded for Microsoft SQL Server, Informix and Firebird.
 - New property distinct in DescriptionsCalculator to allow not duplicated results.
-- Removed Tab.DESCRIPTIONS_LIST_SEPARATOR final variable. 
+- Removed Tab.DESCRIPTIONS_LIST_SEPARATOR final variable.
+- Fix: @ElementCollection with a hidden id of a reference: Session object null not found in controllers.xml. 
 - Fix: @DescriptionsList in an @ElementCollection depending on a member of the main entity does not work.  
 - Fix: Wrong date formatting when pressing ENTER in the field after fill the date. 
 - Fix: @OnChange action not executed always on date with time editor when using calendar popup.
@@ -44,6 +74,7 @@ OpenXava 7.0.2 (2022-11-11)
 - Fix: New project created from openxava-archetype-spanish has an archetype-metadata.xml in root folder. 
 - Fix: New project created from openxava-archetype-spanish contains unknown characters for accents.
 - Fix: Filtering in list and collections does not work just after moving or removing a column.
+- Fix: Error dialog moving the last column after removing a column in list customization.
 - Fix: Ambiguous comment in model documentation in English about file persistence configuration.
 - Fix: Code in lesson 24 of course does not work for databases other than HSQLDB.
 - Fix: Generate PDF fails in some browser configurations that ask for the PDF twice. 
