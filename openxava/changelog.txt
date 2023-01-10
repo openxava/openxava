@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Added Log4j as dependency.
+- Fix: Error in log: ERROR StatusLogger Log4j2 could not find a logging implementation. 
+
 OpenXava 7.0.4 (2023-1-5)
 -------------------------
 - Embedded Tomcat used in development upgraded to 9.0.70.
