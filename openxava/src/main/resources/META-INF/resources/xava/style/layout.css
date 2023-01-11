@@ -13,10 +13,7 @@
 
 .ox-layout-not-aligned-cell.ox-editor-wrapper .xava_editor {
 	display: inline-block;
-}
-
-.ox-layout-not-aligned-cell.ox-editor-wrapper .ox-action-link {
-	position: absolute;
+	vertical-align: middle;
 }
 
 .ox-layout-new-line {
