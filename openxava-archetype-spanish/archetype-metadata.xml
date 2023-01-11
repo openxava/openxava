@@ -3,8 +3,6 @@
     xmlns="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-  <!-- Spanish Archetype Metadata 7.0.4 Reyes version -->	
-
   <fileSets>
     <fileSet filtered="true" packaged="true" encoding="ISO-8859-1">
       <directory>src/main/java</directory>

@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: New project created from openxava-archetype-spanish contains unknown characters for accents.
 - Added Log4j as dependency.
 - Fix: Error in log: ERROR StatusLogger Log4j2 could not find a logging implementation. 
 
@@ -75,7 +76,6 @@ OpenXava 7.0.2 (2022-11-11)
 - Fix: Original list condition lost when a dialog from list mode shows another list.
 - Fix: SchemaTool does not generate well constraints for Microsoft SQL Server inside schemas.
 - Fix: New project created from openxava-archetype-spanish has an archetype-metadata.xml in root folder. 
-- Fix: New project created from openxava-archetype-spanish contains unknown characters for accents.
 - Fix: Filtering in list and collections does not work just after moving or removing a column.
 - Fix: Error dialog moving the last column after removing a column in list customization.
 - Fix: Ambiguous comment in model documentation in English about file persistence configuration.
