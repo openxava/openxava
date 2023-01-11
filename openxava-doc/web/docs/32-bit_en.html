@@ -12,47 +12,46 @@
       <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
           / </span> 32-bit</h1>
-      OpenXava Studio (openxava.exe in Windows or openxava executable in
-      Mac/Linux) requires a 64-bit machine to work. However, you can use
-      OpenXava framework in a 32-bit computer, even the latest version. Just
-      download a 32-bit Java and a 32-bit Eclipse, then switch your Eclipse
-      workspace to use the one included in OpenXava distribution.</div>
+      <i>If you're using an OpenXava version older than 7.0 look at the <a href="32-bit-ox6_en.html">old
+          instructions</a></i></div>
+    <div class="wiki" style="display: block;"> OpenXava Studio (openxava.exe in
+      Windows or openxava executable in Mac/Linux) requires a 64-bit machine to
+      work. However, you can use OpenXava framework in a 32-bit computer, even
+      the latest version. Just download a 32-bit Java and use Maven. You can use
+      any plain text editor or if your prefer a Java IDE you can download a
+      32-bit Eclipse.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc1">Install Java for 32-bit</h2>
       Go to <a href="https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html">Oracle
         JDK 8 download page</a>, there choose a distribution with x86 in the
       name (or i586 in the filename), like <i>Linux x86 Compressed Archive</i>
       or <i>Windows x86</i>:</div>
-    <div class="wiki" style="display: block;"> <a href="https://www.oracle.com/java/technologies/javase-jdk11-downloads.html"
-
-        target="_blank"><img src="files/jdk8-download.png" title="jdk8-download.png"
-
+    <div class="wiki" style="display: block;"> <a href="https://www.oracle.com/java/technologies/javase-jdk11-downloads.html"
+        target="_blank"><img src="files/jdk8-download.png" title="jdk8-download.png"
           style="box-shadow: 0px 0px 5px lightgray" alt="jdk8-download.png"></a>
       <div class="wiki" style="display: block;">Download it, run it and follow
         all the steps to install the JDK in your computer.</div>
       <div class="wiki" style="display: block;">
-        <h2>Download and install OpenXava</h2>
-        Download the latest OpenXava version from <a href="https://www.openxava.org/">openxava.org</a>
-        and uncompress it in your computer. You will get a folder called <i>openxava-6.x</i>
-        with three subfolders: <i>doc, studio</i> and <i>workspace</i>. We're
-        going to use the <i>workspace</i> folder in the next section. There is
-        also an <i>openxava.exe</i> or <i>openxava</i> Linux executable in the
-        root, don't click on it, it does not work with 32-bit.</div>
+        <h2>Download and install Maven</h2>
+        <a href="https://maven.apache.org/download.cgi"> Download the latest
+          Maven</a> version from Apache and install it in your computer.</div>
+      <div class="wiki" style="display: block;">
+        <h2>Create your first OpenXava project</h2>
+        Now you can <a href="getting-started-maven_en.html">follow the OpenXava
+          getting started guide with Maven</a> to create your first OpenXava
+        project with your 32-bit computer. You don't need OpenXava Studio, you
+        can do it with command line and a plain text editor. </div>
     </div>
     <div class="wiki" style="display: block;">
-      <h2>Download and install Eclipse </h2>
+      <h2>Use Eclipse </h2>
+      Instead of using a plain editor you can use a Java IDE, like Eclipse.
       Eclipse 2018-09 was the last with 32-bit support, so <a href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-java-2018-09-win32.zip">download
         Eclipse 2018-09 for Windows 32</a> or <a href="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-java-2018-09-linux-gtk.tar.gz">for
         Linux 32</a>. Uncompress the downloaded file and click on the eclipse
-      executable you have inside the <i>eclipse</i> folder. </div>
-    <div class="wiki" style="display: block;"><span style="line-height: 1.5;"><br>
-      </span></div>
-    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">After
-        starting Eclipse follow the instructions to use OpenXava with Eclipse:</span></div>
-    <div class="wiki" style="display: block;"> <br>
-      <b><a href="eclipse_en.html">Follow the OpenXava with Eclipse
-          guide</a></b> <br>
-      <br>
+      executable you have inside the <i>eclipse</i> folder. Then use the import
+      options of Eclipse to include your OpenXava project in your Eclipse
+      workspace. Eclipse has full support to work with Maven projects.</div>
+    <div class="wiki" style="display: block;"><br>
     </div>
   </body>
 </html>
