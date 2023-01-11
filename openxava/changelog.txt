@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Driver versions in doc and new projects upgraded for Firebird.
+- Groovy upgrated to 4.0.7.
 - Fix: New project created from openxava-archetype-spanish contains unknown characters for accents.
 - Added Log4j as dependency.
 - Fix: Error in log: ERROR StatusLogger Log4j2 could not find a logging implementation. 
