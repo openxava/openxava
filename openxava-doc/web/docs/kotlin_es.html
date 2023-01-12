@@ -1,0 +1,105 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Configuración Kotlin en OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+      <h1 id="toc0"><a name="intellij-idea-con-openxava"></a> <span id="breadcrumbs"> <span
+
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
+            href="index_es.html">documentación</a> / </span>Configuración Kotlin en OpenXava</h1>
+      Desde v7.0 puedes desarrollar fácilmente proyectos OpenXava usando Kotlin, en este artículo usaremos IntelliJ IDEA como entorno.</div>
+    <div class="wiki" style="display: block;">
+      <h2><a name="crear-proyecto-openxava-nuevo">Añadir dependencias en pom.xml</a></h2>
+      Define la versión de Kotlin en <i>properties</i>:
+      <pre><code class="xml">&lt;properties&gt;
+    &lt;kotlin.version&gt;1.8.0&lt;/kotlin.version&gt;
+&lt;/properties&gt;
+</code></pre>Añade la siguiente dependencia para usar la librería de Kotlin en <i>dependencies</i>:<br>
+      <pre><code class="xml">&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
+        &lt;artifactId&gt;kotlin-stdlib-jdk8&lt;/artifactId&gt;
+        &lt;version&gt;${kotlin.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>Para compilar proyectos que incluyan código Kotlin y Java, añade lo siguiente en <i>build</i>:<br>
+      <pre><code class="xml">&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
+            &lt;artifactId&gt;kotlin-maven-plugin&lt;/artifactId&gt;
+            &lt;version&gt;${kotlin.version}&lt;/version&gt;
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;compile&lt;/id&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;compile&lt;/goal&gt;
+                    &lt;/goals&gt;
+                    &lt;configuration&gt;
+                        &lt;sourceDirs&gt;
+                            &lt;sourceDir&gt;${project.basedir}/src/main/kotlin&lt;/sourceDir&gt;
+                            &lt;sourceDir&gt;${project.basedir}/src/main/java&lt;/sourceDir&gt;
+                        &lt;/sourceDirs&gt;
+                    &lt;/configuration&gt;
+                &lt;/execution&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;test-compile&lt;/id&gt;
+                    &lt;goals&gt; &lt;goal&gt;test-compile&lt;/goal&gt; &lt;/goals&gt;
+                    &lt;configuration&gt;
+                        &lt;sourceDirs&gt;
+                            &lt;sourceDir&gt;${project.basedir}/src/test/kotlin&lt;/sourceDir&gt;
+                            &lt;sourceDir&gt;${project.basedir}/src/test/java&lt;/sourceDir&gt;
+                        &lt;/sourceDirs&gt;
+                    &lt;/configuration&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.5.1&lt;/version&gt;
+            &lt;executions&gt;
+                &lt;!-- Replacing default-compile as it is treated specially by maven --&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;default-compile&lt;/id&gt;
+                    &lt;phase&gt;none&lt;/phase&gt;
+                &lt;/execution&gt;
+                &lt;!-- Replacing default-testCompile as it is treated specially by maven --&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;default-testCompile&lt;/id&gt;
+                    &lt;phase&gt;none&lt;/phase&gt;
+                &lt;/execution&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;java-compile&lt;/id&gt;
+                    &lt;phase&gt;compile&lt;/phase&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;compile&lt;/goal&gt;
+                    &lt;/goals&gt;
+                &lt;/execution&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;java-test-compile&lt;/id&gt;
+                    &lt;phase&gt;test-compile&lt;/phase&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;testCompile&lt;/goal&gt;
+                    &lt;/goals&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
+      <h3><a name="create-new-intellij-project">Empaqueta y ejecuta tu proyecto</a></h3>
+      Antes de ejecutar tu proyecto debes hacer un <i>compile </i>y <i>package</i>. Después busca la clase <i>tuaplicacion </i>(es el nombre de tu aplicación) dentro del paquete <i>org.example.tuaplicacion.run</i> en <i>src/main/java</i>, y ejecútala.</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">Puedes encontrar más detalles de usar Kotlin en proyectos maven por <a
+
+        href="https://kotlinlang.org/docs/maven.htmlhttps://kotlinlang.org/docs/maven.html">aquí</a>.</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+  </body>
+</html>
