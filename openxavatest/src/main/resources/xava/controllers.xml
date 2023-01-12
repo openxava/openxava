@@ -1416,6 +1416,13 @@
 		</action>
 	</controller>
 	
+	<controller name="Movie3">
+		<extends controller="Typical" />
+		<action name="voidAction" mode="detail"
+			class="org.openxava.test.actions.VoidAction">
+		</action>
+	</controller>
+	
   	<controller name="ResetViewOnInit">
         <action name="init" class="org.openxava.test.actions.ResetViewAction"
             hidden="true" on-init="true" /> 
