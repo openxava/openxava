@@ -16,7 +16,10 @@ City module:
 	for Valencia City Hall 
 	- The previous point is removed.
 	- The map is positioned and the mark is set without losing the focus in the field.
-- Click on Show Seller Dialog Action, the map should not be on the top, should be behind the dialog.
+- Click on Show Seller Dialog Action
+	- The map should not be on the top.
+	- The map should be behind the dialog.
+	(can make browser's window smaller, until the dialog opens above the map ).
 	
 CityReadOnly module:	
 - Go to first city. A map with its corresponding mark is shown.
