@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Doc for using Groovy in OpenXava applications upgraded to Maven/OpenXava 7 version.
 - Doc for developing with a 32-bit machine upgraded to Maven/OpenXava 7 version. 
 - Fix: New project created from openxava-archetype-spanish contains unknown characters for accents.
 - Added Log4j as dependency.
