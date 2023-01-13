@@ -1521,7 +1521,7 @@
 		
 	<controller name="City">
 		<extends controller="Typical" />
-		<action name="showSellerDialogAction" mode="detail"
+		<action name="showSellerDialog" mode="detail"
 			class="org.openxava.test.actions.ShowSellerDialogAction"/>
 	</controller>
 </controllers>

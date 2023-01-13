@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @Coordinates map from base view on top of dialog, hiding the dialog content.
 - Driver version in doc and new projects upgraded for Firebird.
 - Groovy upgrated to 4.0.7.
 - Doc for using Groovy in OpenXava applications upgraded to Maven/OpenXava 7 version.
