@@ -27,7 +27,7 @@ public class Movie3 extends Identifiable {
 	
 	@File(maxFileSizeInKb = 90) 
 	@Column(length=32)
-	@Action(value = "Movie3.voidAction")
+	@Action(value = "Movie3.button")
 	private String trailer;
 		
 	@Stereotype("IMAGES_GALLERY")

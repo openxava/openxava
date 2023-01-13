@@ -1418,7 +1418,7 @@
 	
 	<controller name="Movie3">
 		<extends controller="Typical" />
-		<action name="voidAction" mode="detail"
+		<action name="button" mode="detail" hidden="true"
 			class="org.openxava.test.actions.VoidAction">
 		</action>
 	</controller>

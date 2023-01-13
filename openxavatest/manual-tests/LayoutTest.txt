@@ -10,7 +10,7 @@ at least the next cases:
 - Movie3WithSection: The @Files property is shown and fill all the section width.
 - Invoice: In Amounts section all the fields are aligned to left with labels and fields near.
 - CarrierWithCollectionsTogether: Collections frames aligned with Header frame on right. 
-- Movie3: VoidAction button must be vertically aligned to the middle in div.ox-layout-not-aligned-cell.ox-editor-wrapper (div of @File)
+- Movie3: Button must be in the same row with @File and should be align vertically in the middle of the div.
 
 With flowLayout=true in xava.properties:
 - Customer: The icon of 'Web site' property must be on right, inside the field.
