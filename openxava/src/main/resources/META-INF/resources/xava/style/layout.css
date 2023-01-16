@@ -11,11 +11,6 @@
 	display: inline-block;	
 }
 
-.ox-layout-not-aligned-cell.ox-editor-wrapper:has(.ox-file) {
-	display: flex;
-	align-items: center;
-}
-
 .ox-layout-new-line {
 	display: table-column-group;
 }

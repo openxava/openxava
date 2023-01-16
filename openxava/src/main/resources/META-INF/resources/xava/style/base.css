@@ -2645,3 +2645,8 @@ div[id$="_Index__view"] .ox-list-title {
 	height: 450px;
     margin: 7px 0px 0px 2px;
 }
+
+div[class="filepond--root xava_upload ox-file filepond--hopper"]{
+    display: inline-block;
+     vertical-align: middle;
+}
