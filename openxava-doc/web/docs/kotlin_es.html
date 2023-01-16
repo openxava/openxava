@@ -6,15 +6,13 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="intellij-idea-con-openxava"></a> <span id="breadcrumbs"> <span
-
-            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
-
+      <h1 id="toc0"><a name="intellij-idea-con-openxava"></a> <span id="breadcrumbs"> <span
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
             href="index_es.html">documentación</a> / </span>Configuración Kotlin en OpenXava</h1>
-      Desde v7.0 puedes desarrollar fácilmente proyectos OpenXava usando Kotlin, en este artículo usaremos IntelliJ IDEA como entorno.</div>
+      Desde v7.0 puedes desarrollar fácilmente proyectos OpenXava con Kotlin usando OpenXava Studio, Eclipse, IntelliJ IDEA, entre otros.</div>
     <div class="wiki" style="display: block;">
-      <h2><a name="crear-proyecto-openxava-nuevo">Añadir dependencias en pom.xml</a></h2>
-      Define la versión de Kotlin en <i>properties</i>:
+      <h2><a name="añadir-dependencias-en-pom.xml">Añadir dependencias en pom.xml</a></h2>
+      Para desarrollar con Kotlin debes definir la versión de Kotlin en <i>properties</i> en el archivo <i>pom.xml</i> ubicado en la carpeta raíz del proyecto:
       <pre><code class="xml">&lt;properties&gt;
     &lt;kotlin.version&gt;1.8.0&lt;/kotlin.version&gt;
 &lt;/properties&gt;
@@ -62,7 +60,7 @@
             &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
             &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
             &lt;version&gt;3.5.1&lt;/version&gt;
-            &lt;executions&gt;
+            &lt;executions&gt;s
                 &lt;!-- Replacing default-compile as it is treated specially by maven --&gt;
                 &lt;execution&gt;
                     &lt;id&gt;default-compile&lt;/id&gt;
@@ -92,14 +90,192 @@
     &lt;/plugins&gt;
 &lt;/build&gt;
 </code></pre>
-      <h3><a name="create-new-intellij-project">Empaqueta y ejecuta tu proyecto</a></h3>
-      Antes de ejecutar tu proyecto debes hacer un <i>compile </i>y <i>package</i>. Después busca la clase <i>tuaplicacion </i>(es el nombre de tu aplicación) dentro del paquete <i>org.example.tuaplicacion.run</i> en <i>src/main/java</i>, y ejecútala.</div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
-    <div class="wiki" style="display: block;">Puedes encontrar más detalles de usar Kotlin en proyectos maven por <a
-
-        href="https://kotlinlang.org/docs/maven.htmlhttps://kotlinlang.org/docs/maven.html">aquí</a>.</div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
+      <h2><a name="create-new-intellij-project">Empaqueta y ejecuta tu proyecto</a></h2>
+      Antes de ejecutar tu proyecto debes hacer un <i>compile </i>y <i>package</i>. Después busca la clase <i>tuaplicacion </i>(es el nombre de tu aplicación) dentro del paquete <i>org.example.tuaplicacion.run</i> en <i>src/main/java</i>, y ejecútala. <br>
+      <div class="wiki" style="display: block;">Puedes encontrar más detalles de usar Kotlin en proyectos maven por <a
+          href="https://kotlinlang.org/docs/maven.html">aquí</a>.</div>
+      <h2><a name="algunos ejemplos de código">Algunos ejemplos de código</a></h2>
+      Las entidades JPA con Kotlin serían algo como:<br>
+      <pre><br><span style="color:#cc7832;">package </span>com.yourcompany.invoicing.model<br><br><span
+style="color:#cc7832;">import </span>lombok.Getter<br><span style="color:#cc7832;">import </span>lombok.Setter<br><span
+style="color:#cc7832;">import </span>org.apache.xmlbeans.impl.soap.Detail<br><span
+style="color:#cc7832;">import </span>org.openxava.annotations.*<br><span
+style="color:#cc7832;">import </span>org.openxava.calculators.CurrentLocalDateCalculator<br><span
+style="color:#cc7832;">import </span>org.openxava.calculators.CurrentYearCalculator<br><span
+style="color:#cc7832;">import </span>org.openxava.jpa.XPersistence<br><span
+style="color:#cc7832;">import </span>java.math.BigDecimal<br><span style="color:#cc7832;">import </span>java.time.LocalDate<br><span
+style="color:#cc7832;">import </span>javax.persistence.*<br><br><br>@Entity<br>@Getter<br>@Setter<br>@View(<br>    members = <span
+style="color:#6a8759;">"year, number, date," </span>+ <span style="color:#808080;"><br></span><span
+style="color:#808080;">            </span><span style="color:#6a8759;">"data {" </span>+  <span
+style="color:#808080;"><br></span><span style="color:#808080;">            </span><span
+style="color:#6a8759;">"customer;" </span>+ <span style="color:#6a8759;">"details;" </span>+ <span
+style="color:#6a8759;">"remarks" </span>+ <span style="color:#6a8759;">"}"<br></span>)<br><span
+style="color:#cc7832;">abstract class </span>CommercialDocument() : Deletable() {<br>    @Column(length = <span
+style="color:#6897bb;">4</span>)<br>    @DefaultValueCalculator(CurrentYearCalculator::<span
+style="color:#cc7832;">class</span>)<br>    @SearchKey<br>    <span style="color:#cc7832;">var </span>year = <span
+style="color:#6897bb;">0<br></span><span style="color:#6897bb;"><br></span><span
+style="color:#6897bb;">    </span>@Column(length = <span style="color:#6897bb;">6</span>)<br>    @ReadOnly<br>    @SearchKey<br>    <span
+style="color:#cc7832;">var </span>number = <span style="color:#6897bb;">0<br></span><span
+style="color:#6897bb;"><br></span><span style="color:#6897bb;">    </span>@Required<br>    @DefaultValueCalculator(CurrentLocalDateCalculator::<span
+style="color:#cc7832;">class</span>)<br>    <span style="color:#cc7832;">var </span>date: LocalDate? = <span
+style="color:#cc7832;">null<br></span><span style="color:#cc7832;"><br></span><span
+style="color:#cc7832;">    </span>@ManyToOne(fetch = FetchType.LAZY<span
+style="color:#cc7832;">, </span>optional = <span style="color:#cc7832;">false</span>)<br>    @ReferenceView(<span
+style="color:#6a8759;">"Simple"</span>)<br>    <span style="color:#cc7832;">var </span>customer: Customer? = <span
+style="color:#cc7832;">null<br></span><span style="color:#cc7832;"><br></span><span
+style="color:#cc7832;">    </span>@ElementCollection<br>    @ListProperties(<br>        <span
+style="color:#6a8759;">"product.number, product.description, quantity, pricePerUnit, " </span>+ <span
+style="color:#6a8759;">"amount+["<br></span><span style="color:#6a8759;">                </span>+ <span
+style="color:#6a8759;">"commercialDocument.vatPercentage," </span>+ <span
+style="color:#6a8759;">"commercialDocument.vat," </span>+ <span style="color:#6a8759;">"commercialDocument.totalAmount" </span>+ <span
+style="color:#6a8759;">"]"<br></span><span style="color:#6a8759;">    </span>)<br>    <span
+style="color:#cc7832;">var </span>details: Collection&lt;Detail&gt;? = <span
+style="color:#cc7832;">null<br></span><span style="color:#cc7832;"><br></span><span
+style="color:#cc7832;">    </span>@TextArea<br>    <span style="color:#cc7832;">var </span>remarks: String? = <span
+style="color:#cc7832;">null<br></span><span style="color:#cc7832;"><br></span><span
+style="color:#cc7832;">    </span>@ReadOnly<br>    @Money<br>    @Calculation(<span
+style="color:#6a8759;">"sum(details.amount)"</span>)<br>    <span style="color:#cc7832;">var </span>totalAmount: BigDecimal? = <span
+style="color:#cc7832;">null<br><br></span><span style="color:#cc7832;">    </span>@PrePersist<br>    @Throws(Exception::<span
+style="color:#cc7832;">class</span>)<br>    <span style="color:#cc7832;">private fun </span><span
+style="color:#ffc66d;">calculateNumber</span>() {<br>        <span style="color:#cc7832;">val </span>query = XPersistence.getManager()<br>            .createQuery(<span
+style="color:#6a8759;">"select max(i.number) from " </span>+ javaClass.simpleName + <span
+style="color:#6a8759;">" i where i.year = :year"</span>)<br>        query.setParameter(<span
+style="color:#6a8759;">"year"</span><span style="color:#cc7832;">, </span>year)<br>        <span
+style="color:#cc7832;">val </span>lastNumber: Int? = query.singleResult <span
+style="color:#cc7832;">as </span>Int<br>        number = <span style="color:#cc7832;">if </span>(lastNumber == <span
+style="color:#cc7832;">null</span>) <span style="color:#6897bb;">1 </span><span
+style="color:#cc7832;">else </span>lastNumber + <span style="color:#6897bb;">1<br></span><span
+style="color:#6897bb;">    </span>}<br>}</pre>
+      Las acciones:
+      <pre><code class="xml"><span style="color:#cc7832;">package </span>com.yourcompany.invoicing.actions<br><br><span
+style="color:#cc7832;">import </span>org.openxava.actions.TabBaseAction<br><br><span
+style="color:#cc7832;">class </span>ChangeYearConditionAction : TabBaseAction() {<br>    <span
+style="color:#cc7832;">var </span><span style="color:#9876aa;">year </span>= <span
+style="color:#6897bb;">0<br></span><span style="color:#6897bb;"><br></span><span
+style="color:#6897bb;">    </span>@<span style="color:#bbb529;">Throws</span>(Exception::<span
+style="color:#cc7832;">class</span>)<br>    <span style="color:#cc7832;">override fun </span><span
+style="color:#ffc66d;">execute</span>() {<br>        <span style="color:#9876aa;font-style:italic;">tab</span>.setConditionValue(<span
+style="color:#6a8759;">"year"</span><span style="color:#cc7832;">, </span><span
+style="color:#9876aa;">year</span>)<br>    }<br>}
+</code></pre> Incluso las pruebas JUnit:
+      <pre><code class="xml"><span style="color:#cc7832;">package </span>org.openxava.test.tests<br><br><span
+style="color:#cc7832;">import </span>com.gargoylesoftware.htmlunit.ElementNotFoundException<br><span
+style="color:#cc7832;">import </span>com.gargoylesoftware.htmlunit.Page<br><span
+style="color:#cc7832;">import </span>com.gargoylesoftware.htmlunit.html.HtmlElement<br><span
+style="color:#cc7832;">import </span>org.openxava.jpa.XPersistence<br><span
+style="color:#cc7832;">import </span>org.openxava.tests.ModuleTestBase<br><span
+style="color:#cc7832;">import </span>org.openxava.util.Dates<br><span style="color:#cc7832;">import </span>java.util.*<br><br><span
+style="color:#cc7832;">class </span>OrderTest(testName: String?) : ModuleTestBase(testName<span
+style="color:#cc7832;">, </span><span style="color:#6a8759;">"Order"</span>) {<br>    <br>    @<span
+style="color:#bbb529;">Throws</span>(Exception::<span style="color:#cc7832;">class</span>)<br>    <span
+style="color:#cc7832;">fun </span><span style="color:#ffc66d;">testCalculatedPropertiesFromCollection_generatedValueOnPersistRefreshedInView_rowAction_noAddActionInCascadeCollections_idInCreationMessageWhenEmptySearchKeys</span>() {<br>        <span
+style="color:#9876aa;font-style:italic;">locale </span>= <span style="color:#6a8759;">"es" </span><span
+style="color:#808080;">// Verify that entity names are translated in the messages<br></span><span
+style="color:#808080;">        </span><span style="color:#cc7832;">val </span>nextNumber = <span
+style="color:#9876aa;">nextNumber<br></span><span style="color:#9876aa;">        </span>execute(<span
+style="color:#6a8759;">"CRUD.new"</span>)<br>        assertValue(<span style="color:#6a8759;">"number"</span><span
+style="color:#cc7832;">, </span><span style="color:#6a8759;">""</span>)<br>        setValue(<span
+style="color:#6a8759;">"customer.number"</span><span style="color:#cc7832;">, </span><span
+style="color:#6a8759;">"1"</span>)<br>        assertValue(<span style="color:#6a8759;">"customer.name"</span><span
+style="color:#cc7832;">, </span><span style="color:#6a8759;">"Javi"</span>)<br>        assertNoAction(<span
+style="color:#6a8759;">"Collection.add"</span>)<br>        assertCollectionRowCount(<span
+style="color:#6a8759;">"details"</span><span style="color:#cc7832;">, </span><span
+style="color:#6897bb;">0</span>)<br>        execute(<span style="color:#6a8759;">"Collection.new"</span><span
+style="color:#cc7832;">, </span><span style="color:#6a8759;">"viewObject=xava_view_details"</span>)<br>        setValue(<span
+style="color:#6a8759;">"product.number"</span><span style="color:#cc7832;">, </span><span
+style="color:#6a8759;">"1"</span>)<br>        assertValue(<span style="color:#6a8759;">"product.description"</span><span
+style="color:#cc7832;">, </span><span style="color:#6a8759;">"MULTAS DE TRAFICO"</span>)<br>        assertValue(<span
+style="color:#6a8759;">"product.unitPrice"</span><span style="color:#cc7832;">, </span><span
+style="color:#6a8759;">"11,00"</span>)<br>        setValue(<span style="color:#6a8759;">"quantity"</span><span
+style="color:#cc7832;">, </span><span style="color:#6a8759;">"10"</span>)<br>        assertValue(<span
+style="color:#6a8759;">"amount"</span><span style="color:#cc7832;">, </span><span
+style="color:#6a8759;">"110,00"</span>)<br>        execute(<span style="color:#6a8759;">"Collection.save"</span>)<br>        assertNoErrors()<br>        assertMessage(<span
+style="color:#6a8759;">"Orden creado/a satisfactoriamente"</span>)<br>        assertCollectionRowCount(<span
+style="color:#6a8759;">"details"</span><span style="color:#cc7832;">, </span><span
+style="color:#6897bb;">1</span>)<br>        assertValue(<span style="color:#6a8759;">"amount"</span><span
+style="color:#cc7832;">, </span><span style="color:#6a8759;">"110,00"</span>)<br>        assertValue(<span
+style="color:#6a8759;">"number"</span><span style="color:#cc7832;">, </span>nextNumber)<br>        assertValueInCollection(<span
+style="color:#6a8759;">"details"</span><span style="color:#cc7832;">, </span><span
+style="color:#6897bb;">0</span><span style="color:#cc7832;">, </span><span
+style="color:#6a8759;">"quantity"</span><span style="color:#cc7832;">, </span><span
+style="color:#6a8759;">"10"</span>)<br>        assertValueInCollection(<span
+style="color:#6a8759;">"details"</span><span style="color:#cc7832;">, </span><span
+style="color:#6897bb;">0</span><span style="color:#cc7832;">, </span><span
+style="color:#6a8759;">"amount"</span><span style="color:#cc7832;">, </span><span
+style="color:#6a8759;">"110,00"</span>)<br>        execute(<span style="color:#6a8759;">"OrderDetail.reduceQuantity"</span><span
+style="color:#cc7832;">, </span><span style="color:#6a8759;">"row=0,viewObject=xava_view_details"</span>)<br>        assertValueInCollection(<span
+style="color:#6a8759;">"details"</span><span style="color:#cc7832;">, </span><span
+style="color:#6897bb;">0</span><span style="color:#cc7832;">, </span><span
+style="color:#6a8759;">"quantity"</span><span style="color:#cc7832;">, </span><span
+style="color:#6a8759;">"9"</span>)<br>        assertValueInCollection(<span
+style="color:#6a8759;">"details"</span><span style="color:#cc7832;">, </span><span
+style="color:#6897bb;">0</span><span style="color:#cc7832;">, </span><span
+style="color:#6a8759;">"amount"</span><span style="color:#cc7832;">, </span><span
+style="color:#6a8759;">"99,00"</span>)<br>        assertNoAction(<span style="color:#6a8759;">"OrderDetail.reduceQuantity"</span><span
+style="color:#cc7832;">, </span><span style="color:#6a8759;">"viewObject=xava_view_details"</span>)<br>        execute(<span
+style="color:#6a8759;">"CRUD.delete"</span>)<br>        assertNoErrors()<br><br>        <span
+style="color:#808080;">// Id in creation message when empty search keys<br></span><span
+style="color:#808080;">        </span>execute(<span style="color:#6a8759;">"CRUD.new"</span>)<br>        assertValue(<span
+style="color:#6a8759;">"number"</span><span style="color:#cc7832;">, </span><span
+style="color:#6a8759;">""</span>)<br>        setValue(<span style="color:#6a8759;">"customer.number"</span><span
+style="color:#cc7832;">, </span><span style="color:#6a8759;">"1"</span>)<br>        assertValue(<span
+style="color:#6a8759;">"customer.name"</span><span style="color:#cc7832;">, </span><span
+style="color:#6a8759;">"Javi"</span>)<br>        <span style="color:#cc7832;">val </span>year = getValue(<span
+style="color:#6a8759;">"year"</span>)<br>        execute(<span style="color:#6a8759;">"CRUD.save"</span>)<br>        assertMessage(<span
+style="color:#6a8759;">"Orden creado/a satisfactoriamente: </span><span
+style="color:#cc7832;">$</span>year<span style="color:#6a8759;">/</span><span
+style="color:#cc7832;">$</span>nextNumber<span style="color:#6a8759;">"</span>)<br>        execute(<span
+style="color:#6a8759;">"Mode.list"</span>)<br>        setConditionValues(year<span
+style="color:#cc7832;">, </span>nextNumber)<br>        execute(<span style="color:#6a8759;">"List.filter"</span>)<br>        assertValueInList(<span
+style="color:#6897bb;">0</span><span style="color:#cc7832;">, </span><span
+style="color:#6897bb;">0</span><span style="color:#cc7832;">, </span>year)<br>        assertValueInList(<span
+style="color:#6897bb;">0</span><span style="color:#cc7832;">, </span><span
+style="color:#6897bb;">1</span><span style="color:#cc7832;">, </span>nextNumber)<br>        execute(<span
+style="color:#6a8759;">"CRUD.deleteRow"</span><span style="color:#cc7832;">, </span><span
+style="color:#6a8759;">"row=0"</span>)<br>        assertNoErrors()<br>    }<br><br>    @<span
+style="color:#bbb529;">Throws</span>(Exception::<span style="color:#cc7832;">class</span>)<br>    <span
+style="color:#cc7832;">fun </span><span style="color:#ffc66d;">testDoubleClickOnlyInsertsACollectionElement</span>() {<br>        <span
+style="color:#cc7832;">var </span>doubleClick = <span style="color:#cc7832;">false<br></span><span
+style="color:#cc7832;">        while </span>(!doubleClick) {<br>            execute(<span
+style="color:#6a8759;">"CRUD.new"</span>)<br>            setValue(<span
+style="color:#6a8759;">"customer.number"</span><span style="color:#cc7832;">, </span><span
+style="color:#6a8759;">"1"</span>)<br>            assertCollectionRowCount(<span
+style="color:#6a8759;">"details"</span><span style="color:#cc7832;">, </span><span
+style="color:#6897bb;">0</span>)<br>            execute(<span style="color:#6a8759;">"Collection.new"</span><span
+style="color:#cc7832;">, </span><span style="color:#6a8759;">"viewObject=xava_view_details"</span>)<br>            setValue(<span
+style="color:#6a8759;">"product.number"</span><span style="color:#cc7832;">, </span><span
+style="color:#6a8759;">"1"</span>)<br>            setValue(<span style="color:#6a8759;">"quantity"</span><span
+style="color:#cc7832;">, </span><span style="color:#6a8759;">"10"</span>)<br>            <span
+style="color:#cc7832;">val </span>action = <span style="color:#9876aa;font-style:italic;">htmlPage</span>.getHtmlElementById&lt;HtmlElement&gt;(decorateId(<span
+style="color:#6a8759;">"Collection.save"</span>))<br>            action.click&lt;Page&gt;() <span
+style="color:#808080;">// Not dblClick(), it does not reproduce the problem<br></span><span
+style="color:#808080;">            </span><span style="color:#cc7832;">try </span>{<br>                <span
+style="color:#9876aa;font-style:italic;">htmlPage</span>.getHtmlElementById&lt;HtmlElement&gt;(decorateId(<span
+style="color:#6a8759;">"Collection.save"</span>))<br>            } <span
+style="color:#cc7832;">catch </span>(ex: ElementNotFoundException) {<br>                <span
+style="color:#cc7832;">continue  </span><span style="color:#808080;">// Because sometimes the action is executed very fast and<br></span><span
+style="color:#808080;">                // when the second click happens the dialog is already closed<br></span><span
+style="color:#808080;">                // This case cannot occurs in real life (because with no dialog<br></span><span
+style="color:#808080;">                // there is no button to click) but it can occurs in test<br></span><span
+style="color:#808080;">                // (because we have a reference to the link)<br></span><span
+style="color:#808080;">            </span>}<br>            action.click&lt;Page&gt;()<br>            doubleClick = <span
+style="color:#cc7832;">true<br></span><span style="color:#cc7832;">            </span>Thread.sleep(<span
+style="color:#6897bb;">4000</span>)<br>            assertNoErrors()<br>            assertCollectionRowCount(<span
+style="color:#6a8759;">"details"</span><span style="color:#cc7832;">, </span><span
+style="color:#6897bb;">1</span>)<br>            execute(<span style="color:#6a8759;">"CRUD.delete"</span>)<br>            assertNoErrors()<br>        }<br>    }<br><br>    @<span
+style="color:#cc7832;">get</span>:<span style="color:#bbb529;">Throws</span>(Exception::<span
+style="color:#cc7832;">class</span>)<br>    <span style="color:#cc7832;">private val </span><span
+style="color:#9876aa;">nextNumber</span>: String<br>        <span style="color:#cc7832;">private get</span>() {<br>            <span
+style="color:#cc7832;">val </span>query = XPersistence.getManager().createQuery(<br>                <span
+style="color:#6a8759;">"select max(o.number) from Order o where o.year = :year"<br></span><span
+style="color:#6a8759;">            </span>)<br>            query.setParameter(<span
+style="color:#6a8759;">"year"</span><span style="color:#cc7832;">, </span>Dates.getYear(Date()))<br>            <span
+style="color:#cc7832;">var </span>lastNumber = query.<span style="color:#9876aa;font-style:italic;">singleResult </span><span
+style="color:#cc7832;">as </span>Int<br>            <span style="color:#cc7832;">if </span>(lastNumber == <span
+style="color:#cc7832;">null</span>) lastNumber = <span style="color:#6897bb;">0<br></span><span
+style="color:#6897bb;">            </span><span style="color:#cc7832;">return </span>Integer.toString(lastNumber + <span
+style="color:#6897bb;">1</span>)<br>        }<br>}
+</code></pre> <br>
+      Puedes encontrar más detalles sobre Kotlin en su <a href="https://kotlinlang.org/docs/home.html">documentación</a>. </div>
   </body>
 </html>
