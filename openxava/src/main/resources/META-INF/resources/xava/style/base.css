@@ -2551,7 +2551,9 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 .ox-file {
-	width: 330px;;
+	width: 330px;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 .ox-file .filepond--item, .ox-files .filepond--item {
@@ -2645,9 +2647,4 @@ div[id$="_Index__view"] .ox-list-title {
 	height: 450px;
     margin: 7px 0px 0px 2px;
     z-index: 1;
-}
-
-div[class="filepond--root xava_upload ox-file filepond--hopper"]{
-    display: inline-block;
-     vertical-align: middle;
 }
