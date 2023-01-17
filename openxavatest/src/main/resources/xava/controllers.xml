@@ -1526,4 +1526,9 @@
 			class="org.openxava.test.actions.LoadTextFileAction"/>
 	</controller>
 		
+	<controller name="City">
+		<extends controller="Typical" />
+		<action name="showSellerDialog" mode="detail"
+			class="org.openxava.test.actions.ShowSellerDialogAction"/>
+	</controller>
 </controllers>
