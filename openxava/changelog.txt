@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: JavaScript from an IJavaScriptPostAction not executed if the action calls to showDialog().
 - Fix: Incorrect placement in the UI for an @Action associated to a @File property.
 - Fix: @Coordinates map from base view on top of dialog, hiding the dialog content.
 - Driver version in doc and new projects upgraded for Firebird.
