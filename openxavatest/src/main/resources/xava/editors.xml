@@ -218,5 +218,10 @@
 		<property name="background" value="yellow"/> 
 		<for-annotation annotation="org.openxava.test.annotations.Colorful"/>
 	</editor>
+	
+	<editor url="textWithSuffixEditor.jsp">
+		<property name="suffix" value="one_not_deletable"/>
+		<for-model-property model="UserWithNickname" property="name" />
+	</editor>
 		
 </editors>
