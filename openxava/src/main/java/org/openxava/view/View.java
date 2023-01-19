@@ -6788,7 +6788,19 @@ public class View implements java.io.Serializable {
 	}
 	
 	public boolean isPropertyUsedInCalculation(String qualifiedName) {  
-		return !Is.emptyString(getDependentCalculationPropertyNameFor(qualifiedName));
+		// tmr return !Is.emptyString(getDependentCalculationPropertyNameFor(qualifiedName));
+		// tmr ini
+		boolean propertyUsedInCalculation = !Is.emptyString(getDependentCalculationPropertyNameFor(qualifiedName));
+		if (propertyUsedInCalculation) return true;
+		if (isMemberFromElementCollection(qualifiedName)) {
+			String collection = Strings.firstToken(qualifiedName, ".");
+			int idx = qualifiedName.indexOf(".");
+			int idx2 = qualifiedName.indexOf(".", idx+1);
+			qualifiedName = qualifiedName.substring(idx2+1);
+			return getSubview(collection).isPropertyUsedInCalculation(qualifiedName);
+		}
+		return false;
+		// tmr fin
 	}
 	
 	public String getDependentCalculationPropertyNameFor(String qualifiedName) { 
@@ -6796,7 +6808,18 @@ public class View implements java.io.Serializable {
 			if (property.usesForCalculation(qualifiedName)) {
 				return property.getName(); 
 			}
-		}		
+		}
+		// tmr ini
+		if (isMemberFromElementCollection(qualifiedName)) {
+			String collection = Strings.firstToken(qualifiedName, ".");
+			int idx = qualifiedName.indexOf(".");
+			int idx2 = qualifiedName.indexOf(".", idx+1);
+			String prefix = qualifiedName.substring(0, idx2+1);
+			qualifiedName = qualifiedName.substring(idx2+1);
+			String dependentCalculationPropertyName = getSubview(collection).getDependentCalculationPropertyNameFor(qualifiedName);
+			if (dependentCalculationPropertyName != null) return prefix + dependentCalculationPropertyName;
+		}
+		// tmr fin
 		return null;
 	}
 	

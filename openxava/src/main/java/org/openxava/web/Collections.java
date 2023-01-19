@@ -34,11 +34,11 @@ public class Collections {
 	/**
 	 * @since 5.9
 	 */
-	public static String sumPropertyScript(HttpServletRequest request, View rootView, String sumProperty) { 
+	public static String sumPropertyScript(HttpServletRequest request, View rootView, String sumProperty) { // tmr Mover a otra clase
 		return sumPropertyScript(request.getParameter("application"), request.getParameter("module"), rootView, sumProperty);
 	}
 	
-	public static String sumPropertyScript(String application, String module, View rootView, String sumProperty) { 
+	public static String sumPropertyScript(String application, String module, View rootView, String sumProperty) { // tmr Mover a otra clase 
 		String calculatedProperty = rootView.getDependentCalculationPropertyNameFor(sumProperty);
 		String calculatedPropertyKey = org.openxava.web.Ids.decorate(application, module, calculatedProperty);
 		MetaProperty calculatedMetaProperty = rootView.getMetaProperty(calculatedProperty);
