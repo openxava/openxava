@@ -18,8 +18,10 @@ public class HtmlTextListFormatter implements IFormatter {
 		if (object == null) return "";
 		String text = Jsoup.parse(object.toString()).text();
 		if (text.length() > MAX_LENGHT) {
-			String content = text.substring(0, MAX_LENGHT) + "...";
+			String content = (text.substring(0, MAX_LENGHT) + "...");
+			//content = replaceChar(content);
 			String tooltip  = text.length() > TOOLTIP_MAX_LENGHT?text.substring(0, TOOLTIP_MAX_LENGHT) + "...":text;
+			//tooltip = replaceChar(tooltip);
 			return "<span title='" + tooltip + "'>" + content + "</span>";
 		}
 		else {
@@ -29,6 +31,10 @@ public class HtmlTextListFormatter implements IFormatter {
 
 	public Object parse(HttpServletRequest request, String string) throws Exception {
 		return null;
+	}
+	
+	private String replaceChar(String text) {
+		return text.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("'", "&#39;");
 	}
 
 }
