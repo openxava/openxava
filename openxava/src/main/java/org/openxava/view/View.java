@@ -3577,7 +3577,7 @@ public class View implements java.io.Serializable {
 					(hasSearchMemberKeys() && isLastPropertyMarkedAsSearch(changedPropertyQualifiedName))  // Explicit search key
 					)
 				) {
-				if (!searchingObject) { // To avoid recursive infinite loops				
+				if (!searchingObject) { // To avoid recursive infinite loops	
 					try {
 						searchingObject = true;												
 						IOnChangePropertyAction action = getParent().getMetaView().createOnChangeSearchAction(getMemberName());
@@ -3642,7 +3642,8 @@ public class View implements java.io.Serializable {
 	private void executeOnChangeAction(String changedPropertyQualifiedName, IOnChangePropertyAction action) 
 		throws XavaException 
 	{
-		if (!actionRegisteredAsExecuted(changedPropertyQualifiedName, action)) {
+		// TMR ME QUEDÉ POR AQUÍ, AL QUITAR EL IF DE ABAJO FUNCIONA
+		if (!actionRegisteredAsExecuted(changedPropertyQualifiedName, action)) { // tmr Al quitar este if funciona bien
 			View viewOfAction = this;
 			while (viewOfAction.isGroup()) viewOfAction = viewOfAction.getParent();
 			action.setView(viewOfAction);
