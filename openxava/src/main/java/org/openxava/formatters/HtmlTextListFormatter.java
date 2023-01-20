@@ -19,9 +19,9 @@ public class HtmlTextListFormatter implements IFormatter {
 		String text = Jsoup.parse(object.toString()).text();
 		if (text.length() > MAX_LENGHT) {
 			String content = (text.substring(0, MAX_LENGHT) + "...");
-			//content = replaceChar(content);
+			content = replaceChar(content);
 			String tooltip  = text.length() > TOOLTIP_MAX_LENGHT?text.substring(0, TOOLTIP_MAX_LENGHT) + "...":text;
-			//tooltip = replaceChar(tooltip);
+			tooltip = replaceChar(tooltip);
 			return "<span title='" + tooltip + "'>" + content + "</span>";
 		}
 		else {
