@@ -6788,8 +6788,6 @@ public class View implements java.io.Serializable {
 	}
 	
 	public boolean isPropertyUsedInCalculation(String qualifiedName) {  
-		// tmr return !Is.emptyString(getDependentCalculationPropertyNameFor(qualifiedName));
-		// tmr ini
 		boolean propertyUsedInCalculation = !Is.emptyString(getDependentCalculationPropertyNameFor(qualifiedName));
 		if (propertyUsedInCalculation) return true;
 		if (isMemberFromElementCollection(qualifiedName)) {
@@ -6800,7 +6798,6 @@ public class View implements java.io.Serializable {
 			return getSubview(collection).isPropertyUsedInCalculation(qualifiedName);
 		}
 		return false;
-		// tmr fin
 	}
 	
 	public String getDependentCalculationPropertyNameFor(String qualifiedName) { 
@@ -6809,7 +6806,6 @@ public class View implements java.io.Serializable {
 				return property.getName(); 
 			}
 		}
-		// tmr ini
 		if (isMemberFromElementCollection(qualifiedName)) {
 			String collection = Strings.firstToken(qualifiedName, ".");
 			int idx = qualifiedName.indexOf(".");
@@ -6819,9 +6815,8 @@ public class View implements java.io.Serializable {
 			String dependentCalculationPropertyName = getSubview(collection).getDependentCalculationPropertyNameFor(qualifiedName);
 			if (dependentCalculationPropertyName != null) return prefix + dependentCalculationPropertyName;
 		}
-		// tmr fin
 		return null;
-	}
+	} 
 	
 	private String getCollectionAction(String action, String defaultAction) {
 		if (action == null && defaultAction == null) return null;

@@ -38,7 +38,6 @@ public class EditorTag extends TagSupport {
 	
 	public int doStartTag() throws JspException {
 		try {
-			System.out.println("[EditorTag.doStartTag] property >>>> " + property); // tmp
 			HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
 
 			ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");
@@ -91,10 +90,7 @@ public class EditorTag extends TagSupport {
 			
 			View rootView = view.getCollectionRootOrRoot();
 			if (rootView.isPropertyUsedInCalculation(propertyPrefix + property)) {
-				// TMR ME QUEDÉ POR AQUÍ: YA ENTRA Y AÑADE EL EVENTO. AHORA FALLA EN JS: openxava.calculate()
-				System.out.println("[EditorTag.doStartTag] script > " + script); // tmp
-				script = Collections.sumPropertyScript(application, module, rootView, propertyPrefix + property);
-				System.out.println("[EditorTag.doStartTag] script < " + script); // tmp
+				script = EditorsJS.calculateScript(application, module, rootView, propertyPrefix + property); 
 			}
 
 			script = script + scriptFocus;
@@ -111,7 +107,6 @@ public class EditorTag extends TagSupport {
 			if (displaySize > -1) {
 				maxSize = "maxSize=" + displaySize + "&";
 			}
-			System.out.println("[EditorTag.doStartTag] script=" + script); // tmp
 			
 			editorURL.append(nexus)
 				.append(maxSize)
@@ -136,11 +131,12 @@ public class EditorTag extends TagSupport {
 			pageContext.getOut().print(editable);
 			pageContext.getOut().println("'/>");
 			if (metaProperty.hasCalculation()) { 
-				String calculationKey = propertyKey + "_CALCULATION_";  
+				String calculationKey = propertyKey + "_CALCULATION_";
+				String collectionPrefix = inElementCollection?getCollectionPrefix():""; 
 				pageContext.getOut().print("<input type='hidden' id='"); 
 				pageContext.getOut().print(calculationKey);
 				pageContext.getOut().print("' value=\"");
-				pageContext.getOut().print(toJavaScriptExpression(metaProperty));
+				pageContext.getOut().print(toJavaScriptExpression(metaProperty, collectionPrefix));
 				pageContext.getOut().println("\"/>");
 			}			
 			if (org.openxava.web.WebEditors.hasMultipleValuesFormatter(metaProperty, viewName)) { 
@@ -170,13 +166,19 @@ public class EditorTag extends TagSupport {
 		return SKIP_BODY;
 	}
 	
-	private String toJavaScriptExpression(MetaProperty metaProperty) { 
+	private String getCollectionPrefix() {
+		int idx = property.indexOf(".");
+		int idx2 = property.indexOf(".", idx+1);
+		return property.substring(0, idx2+1);
+	}
+
+	private String toJavaScriptExpression(MetaProperty metaProperty, String collectionPrefix) {   
 		StringBuffer expression = new StringBuffer();
 	    for (String property: metaProperty.getPropertiesNamesUsedForCalculation()) {
     		expression.append("var ");
     		expression.append(property.replace(".", "_"));
     		expression.append("=openxava.getNumber(application,module,'");
-    		expression.append(property);
+    		expression.append(collectionPrefix + property); 
     		expression.append("');");
 	    }
 	    expression.append(

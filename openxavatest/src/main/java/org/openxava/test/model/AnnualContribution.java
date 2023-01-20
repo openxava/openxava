@@ -7,7 +7,6 @@ import javax.persistence.*;
 import lombok.*;
 
 /**
- * tmr
  * 
  * @since 7.0.5
  * @author Javier Paniza
