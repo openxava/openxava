@@ -3,16 +3,22 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Configuración Kotlin en OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
-    <div class="wiki" id="content_view" style="display: block;">
+    <div class="wiki" style="display: block;">
       <h1 id="toc0"><a name="intellij-idea-con-openxava"></a> <span id="breadcrumbs"> <span
             id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
             href="index_es.html">documentación</a> / </span>Configuración Kotlin en OpenXava</h1>
-      Desde v7.0 puedes desarrollar fácilmente proyectos OpenXava con Kotlin usando OpenXava Studio, Eclipse, IntelliJ IDEA, entre otros.</div>
-    <div class="wiki" style="display: block;">
+      Desde v7.0 puedes desarrollar fácilmente proyectos OpenXava con Kotlin usando OpenXava Studio, Eclipse, IntelliJ IDEA, entre otros. <a
+        href="https://kotlinlang.org/">Kotlin</a> es un lenguaje usado en la mayoría de las aplicaciones para Android y se puede desarrollar sobre JVM o JS. Una de las características es que Kotlin está diseñado para interoperar completamente con la sintaxis de Java, es decir que puedes compilar ambos códigos y que interactuen entre sí sin problemas. <br>
+      A continuación usaremos IntelliJ IDEA, desarrollado por JetBrains, el mismo equipo también se dedica a desarrollar Kotlin, por lo que tendrá mejor soporte. <br>
+      En cambio, para usar Kotlin en Eclipse u OpenXava Studio debes seguir la <a
+        href="https://kotlinlang.org/docs/kotlin-ide.html#eclipse">guia</a> en Kotlin y usar la librería que es contribuida y mantenida por miembros de la comunidad.
       <h2><a name="añadir-dependencias-en-pom.xml">Añadir dependencias en pom.xml</a></h2>
-      Para desarrollar con Kotlin debes definir la versión de Kotlin en <i>properties</i> en el archivo <i>pom.xml</i> ubicado en la carpeta raíz del proyecto:
+      Después de haber creado un proyecto OpenXava(<a href="intellij_es.html">cómo hacerlo</a>), debes definir la versión de Kotlin en <i>properties</i> en el archivo <i>pom.xml</i> ubicado en la carpeta raíz del proyecto:
       <pre><code class="xml">&lt;properties&gt;
     &lt;kotlin.version&gt;1.8.0&lt;/kotlin.version&gt;
 &lt;/properties&gt;
@@ -89,91 +95,94 @@
         &lt;/plugin&gt;
     &lt;/plugins&gt;
 &lt;/build&gt;
-</code></pre>
+</code></pre>Crea la carpeta <i>kotlin</i> en <i>src/main</i> para almacenar el código Kotlin y en la misma carpeta crea el paquete <i>com.yourcompany.invoicing.model</i> para las entidades OpenXava. Quizás debas hacer un <i>Reload project</i> en Maven para que puedas crear paquetes en la carpeta <i>kotlin</i>. <br>
+      <br>
+      Prueba con una simple entidad JPA creando una clase Kotlin en el paquete <i>model</i> con el nombre de <i>Customer</i>:<br>
+      <pre><code class="java">package com.yourcompany.invoicing.model
+
+import org.openxava.annotations.Required
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.Id
+
+@Entity
+class Customer {
+
+    @Id
+    @Column(length = 6)
+    var number : Int ?= null
+
+    @Required
+    @Column(length = 50)
+    var name : String ?= null
+
+}</code></pre>
       <h2><a name="create-new-intellij-project">Empaqueta y ejecuta tu proyecto</a></h2>
-      Antes de ejecutar tu proyecto debes hacer un <i>compile </i>y <i>package</i>. Después busca la clase <i>tuaplicacion </i>(es el nombre de tu aplicación) dentro del paquete <i>org.example.tuaplicacion.run</i> en <i>src/main/java</i>, y ejecútala. <br>
-      <div class="wiki" style="display: block;">Puedes encontrar más detalles de usar Kotlin en proyectos maven por <a
-          href="https://kotlinlang.org/docs/maven.html">aquí</a>.</div>
-      <h2><a name="algunos ejemplos de código">Algunos ejemplos de código</a></h2>
-      Comenzando por una simple entidad JPA:
-      <pre><code class="xml"><span style="color:#cc7832;">package </span>com.yourcompany.invoicing.model<br><br><span
-style="color:#cc7832;">import </span>org.openxava.annotations.<span style="color:#bbb529;">Required</span><span
-style="color:#bbb529;"><br></span><span style="color:#cc7832;">import </span>javax.persistence.<span
-style="color:#bbb529;">Column</span><span style="color:#bbb529;"><br></span><span
-style="color:#cc7832;">import </span>javax.persistence.<span style="color:#bbb529;">Entity<br></span><span
-style="color:#cc7832;">import </span>javax.persistence.<span style="color:#bbb529;">Id<br></span><span
-style="color:#bbb529;"><br></span><span style="color:#bbb529;">@Entity</span><br><span
-style="color:#cc7832;">class </span>Customer {<br><br>    <span style="color:#bbb529;">@Id<br></span><span
-style="color:#bbb529;">    @Column</span>(length = <span style="color:#6897bb;">6</span>)<br>    <span
-style="color:#cc7832;">var </span><span style="color:#9876aa;">number </span>: Int ?= <span
-style="color:#cc7832;">null<br></span><span style="color:#cc7832;"><br></span><span
-style="color:#cc7832;">    </span><span style="color:#bbb529;">@Required<br></span><span
-style="color:#bbb529;">    @Column</span>(length = <span style="color:#6897bb;">50</span>)<br>    <span
-style="color:#cc7832;">var </span><span style="color:#9876aa;">name </span>: String ?= <span
-style="color:#cc7832;">null<br></span><span style="color:#cc7832;"></span><span
-style="color:#cc7832;"><br></span>}
-</code></pre> Crear un botón(acción) simple donde muestra un mensaje:
-      <pre><code class="xml"><span style="color:#cc7832;">package </span>com.yourcompany.invoicing.action<br><br><span
-style="color:#cc7832;">import </span>org.openxava.actions.ViewBaseAction<br><br><span
-style="color:#cc7832;">class </span>ShowMessageAction : ViewBaseAction() {<br>    <span
-style="color:#cc7832;">var </span><span style="color:#9876aa;">message</span>: String? = <span
-style="color:#cc7832;">null<br></span><span style="color:#cc7832;"><br></span><span
-style="color:#cc7832;">    </span>@<span style="color:#bbb529;">Throws</span>(Exception::<span
-style="color:#cc7832;">class</span>)<br>    <span style="color:#cc7832;">override fun </span><span
-style="color:#ffc66d;">execute</span>() {<br>        addMessage(<span style="color:#9876aa;">message</span>)<br>    }<br>}
-</code></pre> Recuerda que debes declarar la acción en el controlador que se encuentra en <i>src/main/resources/xava</i>:<br>
-      <pre><span style="color:#e8bf6a;">&lt;controller name </span><span
-style="color:#6a8759;">="Customer"</span><span style="color:#e8bf6a;">&gt;<br></span><span
-style="color:#e8bf6a;">    &lt;extends </span><span style="color:#bababa;">controller</span><span
-style="color:#6a8759;">="Typical"</span><span style="color:#e8bf6a;">/&gt;<br></span><span
-style="color:#e8bf6a;">    &lt;action name</span><span style="color:#6a8759;">="showMessage" </span><span
-style="color:#bababa;">class</span><span style="color:#6a8759;">="com.yourcompany.invoicing.action.ShowMessageAction" mode</span><span
-style="color:#6a8759;">="detail"</span><span style="color:#e8bf6a;">&gt;<br></span><span
-style="color:#e8bf6a;">        &lt;set property</span><span style="color:#6a8759;">="message" value</span><span
-style="color:#6a8759;">="message_for_action"</span><span style="color:#e8bf6a;">/&gt;<br></span><span
-style="color:#e8bf6a;">    &lt;/action&gt;<br></span><span style="color:#e8bf6a;">&lt;/controller&gt;</span></pre>
-      Añadir el mensaje en el archivo <i>invoicing-messages_en.properties</i> de la carpeta <i>src/main/resources/i18n</i>:
-      <pre><code class="xml"><span style="color:#cc7832;"><span style="color:#cc7832;">message_for_action</span><span
-style="color:#808080;">=</span><span style="color:#6a8759;">"Welcome to OpenXava!"</span></span>
-</code></pre>&nbsp;Una entidad con más características:
-      <pre><code class="xml"><span style="color:#cc7832;">package </span>com.yourcompany.invoicing.model<br><br><span
-style="color:#cc7832;">import </span>org.openxava.annotations.*<br><span
-style="color:#cc7832;">import </span>org.openxava.calculators.CurrentLocalDateCalculator<br><span
-style="color:#cc7832;">import </span>org.openxava.calculators.CurrentYearCalculator<br><span
-style="color:#cc7832;">import </span>java.time.LocalDate<br><span style="color:#cc7832;">import </span>javax.persistence.*<br><br><span
-style="color:#bbb529;">@Entity<br></span><span style="color:#bbb529;">@View</span>(members=<br><span
-style="color:#6a8759;">"year, number, date," </span>+<br>        <span style="color:#6a8759;">"data {" </span>+<br>        <span
-style="color:#6a8759;">"customer;" </span>+<br>        <span style="color:#6a8759;">"details;" </span>+<br>        <span
-style="color:#6a8759;">"remarks" </span>+<br>        <span style="color:#6a8759;">"}"<br></span>)<br><span
-style="color:#cc7832;">class </span>Invoice  : Identifiable(){<br><br>    <span
-style="color:#bbb529;">@Column</span>(length = <span style="color:#6897bb;">4</span>)<br>    <span
-style="color:#bbb529;">@DefaultValueCalculator</span>(CurrentYearCalculator::<span
-style="color:#cc7832;">class</span>)<br>    <span style="color:#cc7832;">var </span><span
-style="color:#9876aa;">year </span>: Int? = <span style="color:#cc7832;">null<br></span><span
-style="color:#cc7832;"><br></span><span style="color:#cc7832;">    </span><span
-style="color:#bbb529;">@Column</span>(length = <span style="color:#6897bb;">6</span>)<br>    <span
-style="color:#cc7832;">var </span><span style="color:#9876aa;">number </span>: Int? = <span
-style="color:#cc7832;">null<br></span><span style="color:#cc7832;"><br></span><span
-style="color:#cc7832;">    </span><span style="color:#bbb529;">@Required<br></span><span
-style="color:#bbb529;">    @DefaultValueCalculator</span>(CurrentLocalDateCalculator::<span
-style="color:#cc7832;">class</span>)<br>    <span style="color:#cc7832;">var </span><span
-style="color:#9876aa;">date</span>:  LocalDate? = <span style="color:#cc7832;">null<br></span><span
-style="color:#cc7832;"><br></span><span style="color:#cc7832;">    </span><span
-style="color:#bbb529;">@ManyToOne</span>(fetch = FetchType.<span style="color:#9876aa;font-style:italic;">LAZY</span><span
-style="color:#cc7832;">, </span>optional = <span style="color:#cc7832;">false</span>)<br>    <span
-style="color:#bbb529;">@ReferenceView</span>(<span style="color:#6a8759;">"Simple"</span>)<br>    <span
-style="color:#cc7832;">var </span><span style="color:#9876aa;">customer</span>: Customer? = <span
-style="color:#cc7832;">null<br></span><span style="color:#cc7832;"><br></span><span
-style="color:#cc7832;">    </span><span style="color:#bbb529;">@ElementCollection<br></span><span
-style="color:#bbb529;">    @ListProperties</span>(<span style="color:#6a8759;">"product.number, product.description, quantity"</span>)<br>    <span
-style="color:#cc7832;">var </span><span style="color:#9876aa;">details</span>: Collection&lt;Detail&gt;? = <span
-style="color:#cc7832;">null<br></span><span style="color:#cc7832;"><br></span><span
-style="color:#cc7832;">    </span><span style="color:#bbb529;">@TextArea<br></span><span
-style="color:#bbb529;">    </span><span style="color:#cc7832;">var </span><span
-style="color:#9876aa;">remarks</span>: String? = <span style="color:#cc7832;">null<br></span>}</code></pre>
-      Puedes encontrar más detalles sobre Kotlin en su <a href="https://kotlinlang.org/docs/home.html">documentación</a>.</div>
-    <div class="wiki" style="display: block;">También puedes ver más sobre como usar OpenXava en nuestro <a
-        href="https://www.openxava.org/OpenXavaDoc/docs/course_es.html">curso</a> desarrollado en Java.<br>
+      Antes de ejecutar tu proyecto debes hacer un <i>mvn package</i>. Después busca la clase <i>invoicing</i> dentro del paquete <i>com.yourcompany.invoicing.run</i> en <i>src/main/java</i>, y ejecútala. <br>
+      <br>
+      <h2><a>Algunos ejemplos de código:</a></h2>
+      Crear un botón simple(acción) donde muestra un mensaje, deja la clase Kotlin <i>ShowMessageAction</i> en el paquete <i>com.yourcompany.invoicing.action</i>:
+      <pre><code class="java">package com.yourcompany.invoicing.action
+
+import org.openxava.actions.ViewBaseAction
+
+class ShowMessageAction : ViewBaseAction() {
+
+    @Throws(Exception::class)
+    override fun execute() {
+        addMessage("Hola Mundo!")
+    }<br><br>&nbsp;}</code></pre>
+      Recuerda que debes declarar la acción en <i>controllers.xml</i> que se encuentra en <i>src/main/resources/xava</i>:<br>
+      <pre><code class="xml">&lt;controller name ="Customer"&gt;
+    &lt;extends controller ="Typical"/&gt;
+    &lt;action name ="showMessage" class ="com.yourcompany.invoicing.action.ShowMessageAction" mode="detail"&gt;
+    &lt;/action&gt;
+&lt;/controller&gt;<br></code></pre>
+      Una entidad con más características:
+      <pre><code class="java">package com.yourcompany.invoicing.model
+
+import org.openxava.annotations.*
+import org.openxava.calculators.CurrentLocalDateCalculator
+import org.openxava.calculators.CurrentYearCalculator
+import java.time.LocalDate
+import javax.persistence.*
+
+@Entity
+@View(members="""
+	year, number, date,
+        data {
+        customer;
+        details;
+        remarks }
+	"""
+)
+class Invoice  : Identifiable() {
+
+    @Column(length = 4)
+    @DefaultValueCalculator(CurrentYearCalculator::class)
+    var year : Int? = null
+
+    @Column(length = 6)
+    var number : Int? = null
+
+    @Required
+    @DefaultValueCalculator(CurrentLocalDateCalculator::class)
+    var date:  LocalDate? = null
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ReferenceView("Simple")
+    var customer: Customer? = null
+
+    @ElementCollection
+    @ListProperties("product.number, product.description, quantity")
+    var details: Collection&lt;Detail&gt;? = null
+
+    @TextArea
+    var remarks: String? = null<br><br>&nbsp;}</code></pre>
+      Puedes encontrar más detalles sobre Kotlin en su <a href="https://kotlinlang.org/docs/home.html">documentación</a> y como integrar Kotlin en proyectos <a
+        href="https://kotlinlang.org/docs/maven.html">maven</a>.<br>
+      También puedes ver más sobre como usar OpenXava en nuestro <a href="https://www.openxava.org/OpenXavaDoc/docs/course_es.html">curso</a> desarrollado en Java. <br>
+      <br>
     </div>
   </body>
 </html>
