@@ -2731,13 +2731,13 @@ public class View implements java.io.Serializable {
 	private void registerExecutedAction(String name, Object action) {
 		if (!getRoot().registeringExecutedActions) return;		
 		if (getRoot().executedActions == null) getRoot().executedActions = new HashSet();
-		getRoot().executedActions.add(getModelName() + "::" + name + "::" + action.getClass());
+		getRoot().executedActions.add(getModelName() + "::" + getMemberName() + "::" + name + "::" + action.getClass()); 
 	}
 	
 	private boolean actionRegisteredAsExecuted(String name, Object action) {
 		if (!getRoot().registeringExecutedActions) return false;
 		if (getRoot().executedActions == null) return false;
-		return getRoot().executedActions.contains(getModelName() + "::" + name + "::" + action.getClass());
+		return getRoot().executedActions.contains(getModelName() + "::" + getMemberName() + "::" + name + "::" + action.getClass()); 
 	}
 
 	public boolean isKeyEditable() {
@@ -3642,8 +3642,7 @@ public class View implements java.io.Serializable {
 	private void executeOnChangeAction(String changedPropertyQualifiedName, IOnChangePropertyAction action) 
 		throws XavaException 
 	{
-		// TMR ME QUEDÉ POR AQUÍ, AL QUITAR EL IF DE ABAJO FUNCIONA
-		if (!actionRegisteredAsExecuted(changedPropertyQualifiedName, action)) { // tmr Al quitar este if funciona bien
+		if (!actionRegisteredAsExecuted(changedPropertyQualifiedName, action)) { 
 			View viewOfAction = this;
 			while (viewOfAction.isGroup()) viewOfAction = viewOfAction.getParent();
 			action.setView(viewOfAction);

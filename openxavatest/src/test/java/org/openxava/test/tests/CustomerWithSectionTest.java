@@ -292,7 +292,6 @@ public class CustomerWithSectionTest extends CustomerTest {
 		execute("Dialog.cancel");
 		assertNoDialog();
 		
-		// tmr ini
 		assertValue("seller.number", "");
 		assertValue("seller.name", "");
 		assertValue("alternateSeller.number", "");
@@ -301,8 +300,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValue("seller.number", "2");
 		assertValue("seller.name", "JUANVI LLAVADOR");
 		assertValue("alternateSeller.number", "1");
-		assertValue("alternateSeller.name", "MANUEL CHAVARRI");		
-		// tmr fin
+		assertValue("alternateSeller.name", "DON MANUEL CHAVARRI");		
 	}
 	
 	public void testTELEPHONE_EMAIL_EMAIL_LIST_WEBURLstereotypes() throws Exception { 
