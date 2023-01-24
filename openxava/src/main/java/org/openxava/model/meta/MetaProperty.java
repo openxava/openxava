@@ -391,10 +391,12 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	 * @author Radoslaw Ostrzycki, Newitech Sp. z o.o. ; based on Javier's code for size
 	 */
 	public int getScale() throws XavaException {
+		System.out.println("[MetaProperty(" + getName() + ").getScale] 09.scale=" + scale); // tmp
 		if (scale == null) { 
 			if (!Is.emptyString(getStereotype())) {				
 				try {					
 					scale = DefaultSize.scaleForStereotype(getStereotype());
+					System.out.println("[MetaProperty(" + getName() + ").getScale] A.scale=" + scale); // tmp
 					return scale;
 				}
 				catch (ElementNotFoundException ex) {
@@ -405,7 +407,8 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			Annotation[] annotations = getAnnotations(); 
 			if (annotations != null) for (Annotation annotation: annotations) {
 				try {					
-					scale = DefaultSize.scaleForAnnotation(annotation);					
+					scale = DefaultSize.scaleForAnnotation(annotation);
+					System.out.println("[MetaProperty(" + getName() + ").getScale] B.scale=" + scale); // tmp
 					return scale;
 				}
 				catch (ElementNotFoundException ex) {
@@ -415,16 +418,20 @@ public class MetaProperty extends MetaMember implements Cloneable {
 						
 			if (hasValidValues()) {
 				scale = 0;
+				System.out.println("[MetaProperty(" + getName() + ").getScale] C.scale=" + scale); // tmp
 			}
 			else {
 				try {
 					scale = DefaultSize.scaleForType(getType());
+					System.out.println("[MetaProperty(" + getName() + ").getScale] D.scale=" + scale); // tmp
 				}
 				catch (ElementNotFoundException ex) {
 					scale = 0; // default scale is 0
+					System.out.println("[MetaProperty(" + getName() + ").getScale] F.scale=" + scale); // tmp
 				}
 			}
 		}		
+		System.out.println("[MetaProperty(" + getName() + ").getScale] 99.scale=" + scale); // tmp
 		return scale;		
 	}
 	
@@ -663,6 +670,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	
 	public void setScale(int newScale) {
 		scale = newScale;
+		System.out.println("[MetaProperty(" + getName() + ").setScale] scale=" + scale); // tmp
 	}	
 	
 	public boolean hasValidValues() {

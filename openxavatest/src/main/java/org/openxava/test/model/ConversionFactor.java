@@ -1,11 +1,9 @@
 package org.openxava.test.model;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
+import java.io.*;
+import java.math.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 
 @Entity
@@ -24,7 +22,8 @@ public class ConversionFactor implements Serializable {
 	@Column(length = 30)
 	private String toUnit;
 	
-	@Column(scale = 6)
+	// TMR @Column(scale = 6)
+	@Column(length = 6, scale = 0) // tmr
 	private BigDecimal factor;
 	
 	@Digits(integer=10, fraction=6) 
