@@ -1,24 +1,21 @@
 package org.openxava.actions;
 
-import java.util.Iterator;
+import java.util.*;
 
-import javax.inject.Inject;
+import javax.inject.*;
 
-import org.openxava.mapping.ModelMapping;
-import org.openxava.model.meta.MetaModel;
-import org.openxava.model.meta.MetaReference;
-import org.openxava.tab.Tab;
-import org.openxava.util.ElementNotFoundException;
-import org.openxava.util.XavaException;
-import org.openxava.view.View;
-import org.openxava.view.meta.MetaReferenceView;
-import org.openxava.view.meta.MetaView;
+import org.openxava.mapping.*;
+import org.openxava.model.meta.*;
+import org.openxava.tab.*;
+import org.openxava.util.*;
+import org.openxava.view.*;
+import org.openxava.view.meta.*;
 
 /**
  * @author Javier Paniza
  */
 
-public class ReferenceSearchAction extends ReferenceBaseAction implements INavigationAction {
+public class ReferenceSearchAction extends ReferenceBaseAction implements ICustomViewAction {
 	
 	@Inject		
 	private Tab tab;	
@@ -84,7 +81,7 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements INavig
 			
 		showDialog();
 		getView().setTitleId("choose_reference_prompt", ref.getLabel()); 
-		 
+		setControllers(getNextController()); 
 	}
 
 	private MetaReference getMetaReference(MetaModel metaRootModel, String referenceName) throws XavaException {
