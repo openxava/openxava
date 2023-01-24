@@ -9,13 +9,10 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="configuration-for-kotlin"></a> <span id="breadcrumbs"> <span
-
-            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
-
+      <h1 id="toc0"><a name="configuration-for-kotlin"></a> <span id="breadcrumbs"> <span
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
             href="index_en.html">documentation</a> / </span>Configuration for Kotlin</h1>
-      Since v7.0 you can easily develop OpenXava projects with Kotlin using OpenXava Studio, Eclipse, IntelliJ IDEA and others. <a
-
+      Since v7.0 you can easily develop OpenXava projects with Kotlin using OpenXava Studio, Eclipse, IntelliJ IDEA and others. <a
         href="https://kotlinlang.org/">Kotlin</a> is the most used language in Android applications and can be developed on JVM or JS. One of the Kotlin's features is that it's designed to fully interoperate with Java syntax, it means that you can compile both codes and have them interact with each other without any problems.<br>
       <h2><a name="add-dependencies-in-pom.xml">Add dependencies in pom.xml</a></h2>
       After created an OpenXava project (<a href="intellij_en.html">how to</a>), you must define the Kotlin version in properties in the <i>pom.xml</i> file located in the root folder of the project:
@@ -120,8 +117,7 @@ class Customer {
 
 }</code></pre>
       <h2><a name="package-and-run-your-project">Package and run your project</a></h2>
-      Before running your project for the first time, you must make a <i>mvn package</i>, in the next ones mvn compile is enough. Then find the <i>invoicing</i> class inside the package <i>com.yourcompany.invoicing.run</i> in <i>src/main/java</i>, and run it. In the browser go to <a
-
+      Before running your project for the first time, you must make a <i>mvn package</i>, in the next ones mvn compile is enough. Then find the <i>invoicing</i> class inside the package <i>com.yourcompany.invoicing.run</i> in <i>src/main/java</i>, and run it. In the browser go to <a
         href="http://localhost:8080/invoicing">http://localhost:8080/invoicing</a> and log in with <i>admin/admin</i> as username/password to see the results.<br>
       <h2><a>Other codes examples</a></h2>
       To create a simple button(action) where it displays a message, put the Kotlin <i>ShowMessageAction</i>(<i>ShowMessageAction.kt</i>) class in the <i>com.yourcompany.invoicing.action</i> package of the <i>kotlin</i> folder:
@@ -138,8 +134,7 @@ class ShowMessageAction : ViewBaseAction() {
       Remember that you have to declare the action in <i>controllers.xml</i> in <i>src/main/resources/xava</i>:<br>
       <pre><code class="xml">&lt;controller name ="Customer"&gt;
     &lt;extends controller ="Typical"/&gt;
-    &lt;action name ="showMessage" class ="com.yourcompany.invoicing.action.ShowMessageAction" mode="detail"&gt;
-    &lt;/action&gt;
+    &lt;action name ="showMessage" class ="com.yourcompany.invoicing.action.ShowMessageAction" mode="detail"/&gt;
 &lt;/controller&gt;<br></code></pre>
       An entity with more features:
       <pre><code class="java">package com.yourcompany.invoicing.model
@@ -154,9 +149,9 @@ import javax.persistence.*
 @View(members="""
 	year, number, date,
         data {
-        customer;
-        details;
-        remarks }
+        	customer;
+        	details;
+        	remarks <br>	}
 	"""
 )
 class Invoice  : Identifiable() {
@@ -183,12 +178,10 @@ class Invoice  : Identifiable() {
     @TextArea
     var remarks: String? = null<br><br>&nbsp;}</code></pre>
       If you decide to develop your OpenXava project with Kotlin, we recommend use IntelliJ IDEA, because it comes with Kotlin included which offers autocompletion, code coloring, automatic compilation, etc. <br>
-      You can find more details about Kotlin in its <a href="https://kotlinlang.org/docs/home.html">documentation</a> and how to integrate Kotlin into <a
-
+      You can find more details about Kotlin in its <a href="https://kotlinlang.org/docs/home.html">documentation</a> and how to integrate Kotlin into <a
         href="https://kotlinlang.org/docs/maven.html">maven</a> projects.<br>
       You can also see more about how to use OpenXava in our <a href="https://www.openxava.org/OpenXavaDoc/docs/course_en.html">course</a> developed in Java.<br>
       <br>
     </div>
-    
   </body>
 </html>
