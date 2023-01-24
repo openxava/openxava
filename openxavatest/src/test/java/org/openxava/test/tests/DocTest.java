@@ -16,7 +16,7 @@ public class DocTest extends ModuleTestBase {
 		super(testName, "Doc");		
 	}
 			
-	public void testHtmlTextToolTip_htmlTextInCharts_htmlTextWithQuoteAndMinorSymbol() throws Exception { 
+	public void testHtmlTextToolTip_htmlTextInCharts_htmlTextWithQuoteAndGreaterThanSymbol() throws Exception { 
 		assertValueInList(0, 0, "DON QUIJOTE");
 		
 		String html = getHtml();
