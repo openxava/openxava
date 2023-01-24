@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: The second call to View.setValueNotifying() from an @OnChange action doesn't fire the change event.
+- Fix: @Calculation does not work for members of @Embeddable in @ElementCollection.
 - Fix: Editors with suffix don't show well the suffix if it has apostrophe.
 - Fix: JavaScript from an IJavaScriptPostAction not executed if the action calls to showDialog().
 - Fix: Incorrect placement in the UI for an @Action associated to a @File property.

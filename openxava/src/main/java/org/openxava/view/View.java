@@ -2731,13 +2731,13 @@ public class View implements java.io.Serializable {
 	private void registerExecutedAction(String name, Object action) {
 		if (!getRoot().registeringExecutedActions) return;		
 		if (getRoot().executedActions == null) getRoot().executedActions = new HashSet();
-		getRoot().executedActions.add(getModelName() + "::" + name + "::" + action.getClass());
+		getRoot().executedActions.add(getModelName() + "::" + getMemberName() + "::" + name + "::" + action.getClass()); 
 	}
 	
 	private boolean actionRegisteredAsExecuted(String name, Object action) {
 		if (!getRoot().registeringExecutedActions) return false;
 		if (getRoot().executedActions == null) return false;
-		return getRoot().executedActions.contains(getModelName() + "::" + name + "::" + action.getClass());
+		return getRoot().executedActions.contains(getModelName() + "::" + getMemberName() + "::" + name + "::" + action.getClass()); 
 	}
 
 	public boolean isKeyEditable() {
@@ -3577,7 +3577,7 @@ public class View implements java.io.Serializable {
 					(hasSearchMemberKeys() && isLastPropertyMarkedAsSearch(changedPropertyQualifiedName))  // Explicit search key
 					)
 				) {
-				if (!searchingObject) { // To avoid recursive infinite loops				
+				if (!searchingObject) { // To avoid recursive infinite loops	
 					try {
 						searchingObject = true;												
 						IOnChangePropertyAction action = getParent().getMetaView().createOnChangeSearchAction(getMemberName());
@@ -3642,7 +3642,7 @@ public class View implements java.io.Serializable {
 	private void executeOnChangeAction(String changedPropertyQualifiedName, IOnChangePropertyAction action) 
 		throws XavaException 
 	{
-		if (!actionRegisteredAsExecuted(changedPropertyQualifiedName, action)) {
+		if (!actionRegisteredAsExecuted(changedPropertyQualifiedName, action)) { 
 			View viewOfAction = this;
 			while (viewOfAction.isGroup()) viewOfAction = viewOfAction.getParent();
 			action.setView(viewOfAction);
@@ -6788,7 +6788,16 @@ public class View implements java.io.Serializable {
 	}
 	
 	public boolean isPropertyUsedInCalculation(String qualifiedName) {  
-		return !Is.emptyString(getDependentCalculationPropertyNameFor(qualifiedName));
+		boolean propertyUsedInCalculation = !Is.emptyString(getDependentCalculationPropertyNameFor(qualifiedName));
+		if (propertyUsedInCalculation) return true;
+		if (isMemberFromElementCollection(qualifiedName)) {
+			String collection = Strings.firstToken(qualifiedName, ".");
+			int idx = qualifiedName.indexOf(".");
+			int idx2 = qualifiedName.indexOf(".", idx+1);
+			qualifiedName = qualifiedName.substring(idx2+1);
+			return getSubview(collection).isPropertyUsedInCalculation(qualifiedName);
+		}
+		return false;
 	}
 	
 	public String getDependentCalculationPropertyNameFor(String qualifiedName) { 
@@ -6796,9 +6805,18 @@ public class View implements java.io.Serializable {
 			if (property.usesForCalculation(qualifiedName)) {
 				return property.getName(); 
 			}
-		}		
+		}
+		if (isMemberFromElementCollection(qualifiedName)) {
+			String collection = Strings.firstToken(qualifiedName, ".");
+			int idx = qualifiedName.indexOf(".");
+			int idx2 = qualifiedName.indexOf(".", idx+1);
+			String prefix = qualifiedName.substring(0, idx2+1);
+			qualifiedName = qualifiedName.substring(idx2+1);
+			String dependentCalculationPropertyName = getSubview(collection).getDependentCalculationPropertyNameFor(qualifiedName);
+			if (dependentCalculationPropertyName != null) return prefix + dependentCalculationPropertyName;
+		}
 		return null;
-	}
+	} 
 	
 	private String getCollectionAction(String action, String defaultAction) {
 		if (action == null && defaultAction == null) return null;

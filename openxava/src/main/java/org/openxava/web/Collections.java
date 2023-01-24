@@ -2,7 +2,6 @@ package org.openxava.web;
 
 import javax.servlet.http.*;
 
-import org.openxava.model.meta.*;
 import org.openxava.util.*;
 import org.openxava.view.*;
 
@@ -35,19 +34,7 @@ public class Collections {
 	 * @since 5.9
 	 */
 	public static String sumPropertyScript(HttpServletRequest request, View rootView, String sumProperty) { 
-		return sumPropertyScript(request.getParameter("application"), request.getParameter("module"), rootView, sumProperty);
-	}
-	
-	public static String sumPropertyScript(String application, String module, View rootView, String sumProperty) { 
-		String calculatedProperty = rootView.getDependentCalculationPropertyNameFor(sumProperty);
-		String calculatedPropertyKey = org.openxava.web.Ids.decorate(application, module, calculatedProperty);
-		MetaProperty calculatedMetaProperty = rootView.getMetaProperty(calculatedProperty);
-		return " onchange=\"openxava.calculate(" +
-			"'" + application + "'," +
-			"'" + module + "'," +
-			"'" + calculatedPropertyKey + "'," +
-			"'" + calculatedMetaProperty.getScale() + "'" + 
-			")\"";
+		return EditorsJS.calculateScript(request.getParameter("application"), request.getParameter("module"), rootView, sumProperty); 
 	}
 
 }
