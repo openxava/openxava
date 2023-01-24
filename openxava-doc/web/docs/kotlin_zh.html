@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Configuración Kotlin en OpenXava</title>
+    <title>在 OpenXava 使用 Kotlin 的配置</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,14 +9,15 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="intellij-idea-con-openxava"></a> <span id="breadcrumbs"> <span
-            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1 id="toc0"><a></a> <span id="breadcrumbs"> <span id="openxava"> <a
+
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
             href="index_zh.html">文档</a> / </span>使用 Kotlin 的配置</h1>
-      自从7.0版本开始，您可以在 OpenXava Studio、Eclipse、IntelliJ IDEA 等使用 Kotlin 开发 OpenXava 项目。<a
+      自从7.0版本开始，您可以在 OpenXava Studio、Eclipse、IntelliJ IDEA 等使用 Kotlin 开发 OpenXava 项目。<a
+
         href="https://kotlinlang.org/">Kotlin</a> 是如今大多数 Android 应用程序使用的语言，它可以在 JVM 或 JS 之上开发。其中一个特性是 Kotlin 能与 Java 完全兼容，这意味着您可以编写这两种代码并一起使用而不会出现任何问题。<br>
-      接下来我们将使用 IntelliJ IDEA，它由 JetBrains 开发，这个团队也开发 Kotlin，所以它们两者互相都会有更好的支持。<br>
-      相反，要在 Eclipse 或 OpenXava Studio 中使用 Kotlin，您必须遵循 Kotlin <a href="https://kotlinlang.org/docs/kotlin-ide.html#eclipse">指南</a>并使用由社区成员贡献和维护的库。
-      <h2><a name="añadir-dependencias-en-pom.xml">在 pom.xml 中添加依赖</a></h2>
+      <h2><a>在 pom.xml 中添加依赖</a></h2>
       在創建一個 OpenXava 項目後（<a href="intellij_zh.html">如何創建</a>），您必須在項目中根文件夾中的 pom.xml 中定義 Kotlin 的版本：
       <pre><code class="xml">&lt;properties&gt;
     &lt;kotlin.version&gt;1.8.0&lt;/kotlin.version&gt;
@@ -95,11 +96,10 @@
     &lt;/plugins&gt;
 &lt;/build&gt;
 </code></pre>
-      <h2><a name="prueba-una-entidad-simple">试试一个简单的实体<br>
-        </a></h2>
+      <h2><a>试试一个简单的实体</a></h2>
       在 src/main 中創建 kotlin 文件夾以存儲 Kotlin 代碼，並在同一文件夾中創建 com.yourcompany.invoicing.model 包。 您可能需要使用 Maven Reload Project 以便您可以在 kotlin 文件夹中创建包。<br>
       <br>
-      在 model 包中创建一个名为 Customer 的 Kotlin 类：<br>
+      在 model 包中创建一个名为 Customer 的 Kotlin 类（Customer.kt）：<br>
       <pre><code class="java">package com.yourcompany.invoicing.model
 
 import org.openxava.annotations.Required
@@ -119,12 +119,13 @@ class Customer {
     var name : String ?= null
 
 }</code></pre>
-      <h2><a name="create-new-intellij-project">打包并运行您的项目</a></h2>
-      在运行你的项目之前，你必须 mvn package。然后在 src/main/java 中的 com.yourcompany.invoicing.run 包中找到 invoicing 类，并运行它。接下来在浏览器中输入 <a
+      <h2><a>打包并运行您的项目</a></h2>
+      在您第一次运行项目前，必须 mvn package，往后只需要 mvn compile 即可。然后在 src/main/java 中的 com.yourcompany.invoicing.run 包中找到 invoicing 类，并运行它。接下来在浏览器中输入 <a
+
         href="http://localhost:8080/invoicing">http://localhost:8080/invoicing</a>，并使用 admin/admin（用户/密码）登录，就可以看到以上的成果。<br>
       <br>
       <h2><a>其它代码示例：</a></h2>
-      要创建一个显示消息的按钮（动作），请在 kotlin文件夾的 com.yourcompany.invoicing.action 包中創建 ShowMessageAction 类：
+      要创建一个显示消息的按钮（动作），请在 kotlin文件夾的 com.yourcompany.invoicing.action 包中創建 ShowMessageAction 类（ShowMessageAction.kt）：
       <pre><code class="java">package com.yourcompany.invoicing.action
 
 import org.openxava.actions.ViewBaseAction
@@ -182,7 +183,9 @@ class Invoice  : Identifiable() {
 
     @TextArea
     var remarks: String? = null<br><br>&nbsp;}</code></pre>
-      您可以在 Kotlin 的<a href="https://kotlinlang.org/docs/home.html">文档</a>中找到更多有关的信息以及如何将 <a
+      如果您决定使用 Kotlin 开发您的 OpenXava 项目，我们建议您使用 IntelliJ IDEA，因为它包含 Kotlin，並提供智能代码补全、代码着色、自动编译等功能。
+      <br>您可以在 Kotlin 的<a href="https://kotlinlang.org/docs/home.html">文档</a>中找到更多有关的信息以及如何将 <a
+
         href="https://kotlinlang.org/docs/maven.html">Kotlin 集成到 Maven</a> 项目。</div>
     <div class="wiki" style="display: block;"> 您还可以在我们用 Java 开发的<a href="https://www.openxava.org/OpenXavaDoc/docs/course_zh.html">课程</a>中看到更多关于如何使用 OpenXava 的信息。 <br>
       <br>
