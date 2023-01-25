@@ -41,6 +41,10 @@
 		<extends controller="Typical"/>
 		<action name="fillTitle" class="org.openxava.test.actions.BookTitleFromWebServiceAction" mode="detail"/>
 		<action name="showOutOfPrint" class="org.openxava.test.actions.ShowOutOfPrintBooksOnlyAction" mode="list"/>
+		
+		<action name="addAction" class="org.openxava.test.actions.AddActionInReferenceSearchAction" mode="detail" icon="magnify" hidden="true"/>
+		<action name="doNothing" class="org.openxava.test.actions.VoidAction" mode="detail"/>
+		
 	</controller>
 		
 	<controller name="Clerk">
@@ -589,9 +593,9 @@
 		<action name="stopRefisher" class="org.openxava.test.actions.StopRefisherAction"/>
 		
 		<action name="filterBySellerOne" class="org.openxava.test.actions.FilterBySellerOneAction" mode="list"/>
-		
+			
 	</controller>
-	
+		
 	<controller name="ArtistSomeMembersReadOnly"> 
 		
 		<action name="search"
