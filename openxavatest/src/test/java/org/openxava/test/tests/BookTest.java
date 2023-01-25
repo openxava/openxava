@@ -52,7 +52,7 @@ public class BookTest extends ModuleTestBase {
 		assertError("Books about RPG are not allowed");
 	}
 	
-	public void testReferenceNameMatchesIdOfReferencedEntityName_callRESTService_addActionInReferenceSearchAction() throws Exception { 
+	public void testReferenceNameMatchesIdOfReferencedEntityName_callRESTService_showCustomActionInReferenceSearchAction() throws Exception { 
 		execute("CRUD.new");
 		execute("Book.addAction", "keyProperty=author.author");	
 		assertListNotEmpty();
