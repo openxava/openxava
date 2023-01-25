@@ -81,7 +81,7 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 			
 		showDialog();
 		getView().setTitleId("choose_reference_prompt", ref.getLabel()); 
-		setControllers(getNextController()); 
+		setControllers(getNextControllers()); 
 	}
 
 	private MetaReference getMetaReference(MetaModel metaRootModel, String referenceName) throws XavaException {
