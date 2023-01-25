@@ -419,7 +419,7 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 		String align =p.isNumber() && !p.hasValidValues() && !tab.isFromCollection(p)?"vertical-align: middle;text-align: right; ":"vertical-align: middle; "; 
 		String cellStyle = align + style.getListCellStyle();
 		int columnWidth = tab.getColumnWidth(c);		 		
-		String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px"; 
+		String width = columnWidth<0 || !resizeColumns?"width:100%":"width: " + columnWidth + "px"; 
 		String fvalue = null;
 		Object title = null;
 		if (tab.isFromCollection(p)) {
@@ -432,8 +432,8 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 %>
 	<td class="<%=cssCellClass%>" style="<%=cellStyle%>; padding-right: 0px">
 		<% if (style.isRowLinkable()) { %> 	
-		<xava:link action='<%=action%>' argv='<%="row=" + f + actionArgv%>' cssClass='<%=cssStyle%>' cssStyle="text-decoration: none; outline: none; display: grid; height: inherit; align-items: center;">
-			<div title="<%=title%>" class="<xava:id name='tipable'/> <xava:id name='<%=id%>'/>_col<%=c%>" style="overflow: hidden; <%=width%>">
+		<xava:link action='<%=action%>' argv='<%="row=" + f + actionArgv%>' cssClass='<%=cssStyle%>' cssStyle="text-decoration: none; outline: none; ">
+			<div title="<%=title%>" class="<xava:id name='tipable'/> <xava:id name='<%=id%>'/>_col<%=c%>" style="overflow: hidden; display:grid; align-items: center; background-color: green; height: 100%; <%=width%>">
 				<%if (resizeColumns) {%><nobr><%}%>
 				<%=fvalue%><%if (resizeColumns) {%>&nbsp;<%}%>
 				<%if (resizeColumns) {%></nobr><%}%>
