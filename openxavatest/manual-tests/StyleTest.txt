@@ -3,7 +3,6 @@ Therefore, when you touch the CSSs you have to test it visually
 with Terra and Light theme at least the next cases:
 - Invoice: List mode with cursor.
 	- When row is colored and selectable, it's respond when clicked. Even not clicking on the text.
-	- When row is colored and selectable but the cursor is on cell border(between cells), it's not respond when clicked.
 - Invoice: Go to first detail. 
 	- Checkbox of paid must be well aligned.
 	- Action links in name of customer and street of address must be well aligned.
