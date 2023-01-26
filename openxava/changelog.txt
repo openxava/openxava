@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: The addActions() method does not work if called from an action that extends ReferenceSearchAction.
 - Fix: Row selectable in list only when the mouse is just on text of the cell content.
 - Fix: If a @HtmlEditor has XML content columns to the right are shifted one position to the left in list.
 - Fix: A ' followed by > breaks the cell content in list for @HtmlText properties.
