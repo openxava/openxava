@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Row selectable in list only when the mouse is just on text of the cell content.
+- Fix: If a @HtmlEditor has XML content columns to the right are shifted one position to the left in list.
+- Fix: A ' followed by > breaks the cell content in list for @HtmlText properties.
+- Fix: When a @HtmlEditor has an apostrophe the tooltip in list mode is shown only until that apostrophe. 
+- Fix: The second call to View.setValueNotifying() from an @OnChange action doesn't fire the change event.
 - Fix: @Calculation does not work for members of @Embeddable in @ElementCollection.
 - Fix: Editors with suffix don't show well the suffix if it has apostrophe.
 - Fix: JavaScript from an IJavaScriptPostAction not executed if the action calls to showDialog().
