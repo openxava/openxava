@@ -64,7 +64,7 @@ public class ModulesHelperProvider implements IModulesHelperProvider {
 	}
 	
 	public boolean isPublic(HttpServletRequest request, String moduleName) { 
-		return "FirstSteps".equals(moduleName); 
+		return Modules.FIRST_STEPS.equals(moduleName); 
 	}
 	
 	public boolean showsIndexLink() { 

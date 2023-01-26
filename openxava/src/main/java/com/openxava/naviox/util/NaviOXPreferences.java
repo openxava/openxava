@@ -18,6 +18,7 @@ import org.apache.commons.logging.*;
 import org.openxava.util.*;
 import org.openxava.validators.*;
 
+import com.openxava.naviox.Modules;
 import com.openxava.naviox.impl.*;
 import com.openxava.phone.impl.*;
 
@@ -223,7 +224,7 @@ public class NaviOXPreferences {
 	 * @since 6.3.2
 	 */	
 	public String getInitialModule() { 
-		return getProperties().getProperty("initialModule", "FirstSteps").trim();
+		return getProperties().getProperty("initialModule", Modules.FIRST_STEPS).trim();
 	}
 		
 	/**
