@@ -18,7 +18,7 @@
         the <i>openxava.version</i> property to point to the latest OpenXava
         version, thus:</p>
       <pre><code class="xml">&lt;properties&gt;
-    &lt;openxava.version&gt;7.0.4&lt;/openxava.version&gt;
+    &lt;openxava.version&gt;7.0.5&lt;/openxava.version&gt;
     ...
 &lt;/properties&gt;
 </code></pre>
@@ -45,6 +45,8 @@
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">
+      <h2>Migration from OpenXava 7.0.4 to OpenXava 7.0.5</h2>
+      No issues.
       <h2>Migration from OpenXava 7.0.3 to OpenXava 7.0.4</h2>
       No issues.
       <h2 id="from-6.6.3-to-7.0">Migration from OpenXava 7.0.2 to OpenXava 7.0.3</h2>
@@ -110,7 +112,7 @@ assertValidValues("descriptionsListValue", validValues);
       <p>The easier way to migrate to Maven is creating a new project using
         OpenXava 7.0, and then copying the source code and resources from your
         current project to the new one. So, first create a new OpenXava project
-        using Openxava Studio 7, for that you can follow the instructions in <a
+        using Openxava Studio 7, for that you can follow the instructions in <a
           href="getting-started_en.html">Getting started guide</a>.</p>
       <p>The next step is to copy all your source code and resources from the
         old project to the corresponding folder in the new project, as
@@ -448,7 +450,7 @@ assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asNormalizedTex
         +"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
     deleteLink.getHrefAttribute());
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
+    <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
         href="http://www.alanwood.net/demos/ansi.html">Look at this table</a> to
       know the mapping between ANSI and UNICODE.</div>
     <div class="wiki" style="display: block;">Now in <i>@HtmlText</i> or <i>@Stereotype("HTML_TEXT")</i>
