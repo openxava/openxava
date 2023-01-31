@@ -245,7 +245,7 @@
     	</dependency>
 	</dependencies>
 	
-	<!-- Uncomment to deploy on Maven Central -->       
+	<!-- Uncomment to deploy on Maven Central        
 	<distributionManagement>
 		<snapshotRepository>
 			<id>ossrh</id>
@@ -316,5 +316,6 @@
 			</plugin>
 		</plugins>
 	</build>
+	-->
 
 </project>
