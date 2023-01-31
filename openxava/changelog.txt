@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Incorrect encoding when sending emails with attachments using Emails utility class.
+
 OpenXava 7.0.5 (2023-1-27)
 --------------------------
 - Added Log4j (2.19.0) as a new dependency.
