@@ -281,7 +281,7 @@ public class Emails {
 		Multipart multipart = new MimeMultipart();
 		// content
 		MimeBodyPart messagePart = new MimeBodyPart();
-		messagePart.setText(content);
+		messagePart.setText(content, XSystem.getEncoding(), "html");
 		multipart.addBodyPart(messagePart);
 		// attachments
 		for (int i = 0; i < attachments.length; i++){

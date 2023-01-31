@@ -1,6 +1,27 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.0.5 (2023-1-27)
+--------------------------
+- Added Log4j (2.19.0) as a new dependency.
+- Groovy upgraded to 4.0.7.
+- Driver version in doc and new projects upgraded for Firebird.
+- Doc for using Groovy in OpenXava applications upgraded to Maven/OpenXava 7 version.
+- Doc for developing with a 32-bit machine upgraded to Maven/OpenXava 7 version. 
+- Fix: @Calculation does not work for members of @Embeddable in @ElementCollection.
+- Fix: JavaScript from an IJavaScriptPostAction not executed if the action calls to showDialog().
+- Fix: @Coordinates map from base view hides dialog content.
+- Fix: The addActions() method does not work if called from an action that extends ReferenceSearchAction.
+- Fix: Row selectable in list only when the mouse is just on text of the cell content.
+- Fix: If a @HtmlText has XML content, columns to the right are shifted one position to the left in the list.
+- Fix: A ' followed by > breaks the cell content in the list for @HtmlText properties.
+- Fix: When a @HtmlText has an apostrophe the tooltip in list mode is shown only until that apostrophe. 
+- Fix: The second call to View.setValueNotifying() from an @OnChange action doesn't fire the change event.
+- Fix: Editors with suffix don't show the suffix well if it has an apostrophe.
+- Fix: New project created from openxava-archetype-spanish contains unknown characters for accents.
+- Fix: Incorrect placement in the UI for an @Action associated with a @File property.
+- Fix: Error in log: ERROR StatusLogger Log4j2 could not find a logging implementation. 
+
 OpenXava 7.0.4 (2023-1-5)
 -------------------------
 - Embedded Tomcat used in development upgraded to 9.0.70.
@@ -72,7 +93,6 @@ OpenXava 7.0.2 (2022-11-11)
 - Fix: Original list condition lost when a dialog from list mode shows another list.
 - Fix: SchemaTool does not generate well constraints for Microsoft SQL Server inside schemas.
 - Fix: New project created from openxava-archetype-spanish has an archetype-metadata.xml in root folder. 
-- Fix: New project created from openxava-archetype-spanish contains unknown characters for accents.
 - Fix: Filtering in list and collections does not work just after moving or removing a column.
 - Fix: Error dialog moving the last column after removing a column in list customization.
 - Fix: Ambiguous comment in model documentation in English about file persistence configuration.
