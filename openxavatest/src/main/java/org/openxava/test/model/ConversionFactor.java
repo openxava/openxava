@@ -22,12 +22,29 @@ public class ConversionFactor implements Serializable {
 	@Column(length = 30)
 	private String toUnit;
 	
-	// TMR @Column(scale = 6)
-	@Column(length = 6, scale = 0) // tmr
+	@Column(scale = 6)
 	private BigDecimal factor;
 	
 	@Digits(integer=10, fraction=6) 
 	private BigDecimal reverseFactor;
+	
+	// TMR ME QUEDÉ POR AQUÍ. PREPARANDO PROPIEDADES PARA HACER PRUEBA UNITARIA
+	// TMR  ¿PONER EN MIGRATION?
+
+
+	public BigDecimal getShortFactor() { // tmr
+		return factor;
+	}
+	
+	@Column(length=6, scale=0)
+	public BigDecimal getFactorIndex() { // tmr
+		return factor.multiply(new BigDecimal("1000000"));
+	}
+	
+	@Column(precision=6, scale=0)
+	public BigDecimal getFactorGrade() { // tmr
+		return factor.multiply(new BigDecimal("1000000"));
+	}
 	
 	public Long getId() {
 		return id;

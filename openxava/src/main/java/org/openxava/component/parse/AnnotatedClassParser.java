@@ -893,9 +893,6 @@ public class AnnotatedClassParser implements IComponentParser {
 				// This is can be a problem when the developer put 255 explicitly. 
 				property.setSize(0);
 				// tmr ini
-				// TMR ME QUEDÉ POR AQUÍ. CON ESTE CÓDIGO PARECE QUE FUNCIONA, FALTA:
-				// TMR  - HACER PRUEBA UNITARIA
-				// TMR  - ¿PONER EN MIGRATION?
 				if (column.scale() > 0) {
 					property.setScale(column.scale());
 				}
