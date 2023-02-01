@@ -9,10 +9,13 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a></a> <span id="breadcrumbs"> <span id="openxava"> <a
-              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1 id="toc0"><a></a> <span id="breadcrumbs"> <span id="openxava"> <a
+
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
             href="index_zh.html">文档</a> / </span>使用 Kotlin 的配置</h1>
-      自从7.0版本开始，您可以在 OpenXava Studio、Eclipse、IntelliJ IDEA 等使用 Kotlin 开发 OpenXava 项目。<a
+      自从7.0版本开始，您可以在 OpenXava Studio、Eclipse、IntelliJ IDEA 等使用 Kotlin 开发 OpenXava 项目。<a
+
         href="https://kotlinlang.org/">Kotlin</a> 是如今大多数 Android 应用程序使用的语言，它可以在 JVM 或 JS 之上开发。其中一个特性是 Kotlin 能与 Java 完全兼容，这意味着您可以编写这两种代码并一起使用而不会出现任何问题。<br>
       <h2><a>在 pom.xml 中添加依赖</a></h2>
       在創建一個 OpenXava 項目後（<a href="intellij_en.html">如何創建</a>），您必須在項目中根文件夾中的 pom.xml 中定義 Kotlin 的版本：
@@ -117,7 +120,8 @@ class Customer {
 
 }</code></pre>
       <h2><a>打包并运行您的项目</a></h2>
-      在您第一次运行项目前，必须 mvn package，往后只需要 mvn compile 即可。然后在 src/main/java 中的 com.yourcompany.invoicing.run 包中找到 invoicing 类，并运行它。接下来在浏览器中输入 <a
+      在您第一次运行项目前，必须 mvn package，往后只需要 mvn compile 即可。然后在 src/main/java 中的 com.yourcompany.invoicing.run 包中找到 invoicing 类，并运行它。接下来在浏览器中输入 <a
+
         href="http://localhost:8080/invoicing">http://localhost:8080/invoicing</a>，并使用 admin/admin（用户/密码）登录，就可以看到以上的成果。<br>
       <br>
       <h2><a>其它代码示例：</a></h2>
@@ -143,6 +147,7 @@ class ShowMessageAction : ViewBaseAction() {
 import org.openxava.annotations.*
 import org.openxava.calculators.CurrentLocalDateCalculator
 import org.openxava.calculators.CurrentYearCalculator
+import org.openxava.model.Identifiable
 import java.time.LocalDate
 import javax.persistence.*
 
@@ -179,7 +184,8 @@ class Invoice  : Identifiable() {
     @TextArea
     var remarks: String? = null<br><br>&nbsp;}</code></pre>
       如果您决定使用 Kotlin 开发您的 OpenXava 项目，我们建议您使用 IntelliJ IDEA，因为它包含 Kotlin，並提供智能代码补全、代码着色、自动编译等功能。 <br>
-      您可以在 Kotlin 的<a href="https://kotlinlang.org/docs/home.html">文档</a>中找到更多有关的信息以及如何将 <a
+      您可以在 Kotlin 的<a href="https://kotlinlang.org/docs/home.html">文档</a>中找到更多有关的信息以及如何将 <a
+
         href="https://kotlinlang.org/docs/maven.html">Kotlin 集成到 Maven</a> 项目。</div>
     <div class="wiki" style="display: block;"> 您还可以在我们用 Java 开发的<a href="https://www.openxava.org/OpenXavaDoc/docs/course_zh.html">课程</a>中看到更多关于如何使用 OpenXava 的信息。 <br>
       <br>
