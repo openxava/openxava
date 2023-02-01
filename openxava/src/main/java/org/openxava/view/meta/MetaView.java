@@ -148,6 +148,8 @@ public class MetaView extends MetaElement implements Cloneable {
 				allMetaMembers.addAll(section.getAllMetaMembers());
 			}			
 		}
+		System.out.println("allMetaMembers");
+		System.out.println(allMetaMembers);
 		hasMembersDuplicated(allMetaMembers);
 		return allMetaMembers;
 	}
@@ -943,7 +945,7 @@ public class MetaView extends MetaElement implements Cloneable {
 		ArrayList<String> nameArray = new ArrayList<String>();
 		while(i.hasNext()) {
 			MetaMember m = i.next();
-			if (!(m.getName().equalsIgnoreCase(PropertiesSeparator.INSTANCE.getName()))) {
+			if ((m.getMetaModel() != null) && !(m.getName().equalsIgnoreCase(PropertiesSeparator.INSTANCE.getName()))) {
 				String s = m.getMetaModel().toString() + "." + m.getName().toString();
 				nameArray.add(s);
 			}
@@ -952,7 +954,6 @@ public class MetaView extends MetaElement implements Cloneable {
 		if(toCompare.size() < nameArray.size()){
 			throw new XavaException("duplicated_properties_in_module", modelName);
 		}
-
 	}
 
 }
