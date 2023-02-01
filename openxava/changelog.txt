@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @Column(precision/length=x, scale=0) the scale part is ignored and assumed 2 instead when formating. 
 - Fix: Incorrect encoding when sending emails with attachments using Emails utility class.
 
 OpenXava 7.0.5 (2023-1-27)

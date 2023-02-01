@@ -28,21 +28,18 @@ public class ConversionFactor implements Serializable {
 	@Digits(integer=10, fraction=6) 
 	private BigDecimal reverseFactor;
 	
-	// TMR ME QUEDÉ POR AQUÍ. PREPARANDO PROPIEDADES PARA HACER PRUEBA UNITARIA
-	// TMR  ¿PONER EN MIGRATION?
-
-
-	public BigDecimal getShortFactor() { // tmr
+	// With no @Column, for a test
+	public BigDecimal getShortFactor() { 
 		return factor;
 	}
 	
 	@Column(length=6, scale=0)
-	public BigDecimal getFactorIndex() { // tmr
+	public BigDecimal getFactorIndex() { 
 		return factor.multiply(new BigDecimal("1000000"));
 	}
 	
 	@Column(precision=6, scale=0)
-	public BigDecimal getFactorGrade() { // tmr
+	public BigDecimal getFactorGrade() { 
 		return factor.multiply(new BigDecimal("1000000"));
 	}
 	
