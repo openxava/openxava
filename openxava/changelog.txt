@@ -1,6 +1,22 @@
 Change Log for OpenXava project
 ===============================
 
+Labels_en
+---------
+passwordMin
+
+Labels_es
+---------
+SignIn.signIn
+SignIn.signUp
+SignUp.signUp
+passwordMinLength
+
+
+- Fix: Entradas en mensajes y etiquetas no usadas
+- Fix: Etiquetas faltan en inglés
+
+
 - Fix: @Column(precision/length=x, scale=0) the scale part is ignored and assumed 2 instead when formating. 
 - Fix: Incorrect encoding when sending emails with attachments using Emails utility class.
 
