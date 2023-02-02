@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Embedded Tomcat used in development upgraded to 9.0.71.
+- Groovy upgraded to 4.0.8.
+- Driver version in doc and new projects upgraded for MySQL, PostgreSQL, Microsoft SQL Server, Firebird.
 - Fix: Purged not used entries in labels and messages i18 files.
 - Fix: Some labels missing in English translation.
 - Fix: @Column(precision/length=x, scale=0) the scale part is ignored and assumed 2 instead when formating. 
