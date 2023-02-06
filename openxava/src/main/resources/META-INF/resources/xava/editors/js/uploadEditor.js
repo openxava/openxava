@@ -43,20 +43,7 @@ openxava.addEditorInitFunction(function() {
 		    		filesIds.forEach(function(fileId) { 
 		    			const url = fileURL + "&fileId=" + fileId;
 		    			count++; 
-		    			pond.addFile(url, {metadata:; { fileId: fileId }});
-                        if ($(input).attr("class") === "xava_upload ox-file" && $('.ox-element-collection').find('.filepond--root').length !== 0) {
-                            var idSelector = "#" + input.id;
-                            var classSelector = idSelector + " > .filepond--list-scroller";
-                            var splittedFileName = $(idSelector).find('legend').text().split(".");
-                            console.log(splittedFileName[splittedFileName.length - 1]);
-                            if (splittedFileName.length > 1 && uploadEditor.imgList.includes(splittedFileName[splittedFileName.length - 1].toUpperCase())) {
-                                $(idSelector).css('height', '100px');
-                                console.log(classSelector);
-                                $(classSelector).css('height', '75%');
-                            } else {
-                                $(idSelector).css('height', '67px');
-                            } 
-                        }
+		    			pond.addFile(url, {metadata: { fileId: fileId }});
 		    		});
 	    		}
 	    		else {
@@ -67,29 +54,27 @@ openxava.addEditorInitFunction(function() {
 	    		var c = 1;
 	    		pond.onaddfile = function() {
 	    			if (c++ === count) {
-                        console.log($(idSelector).find('.filepond--list-scroller').length);
-//                        if ($(input).attr("class") === "xava_upload ox-file" && $('.ox-element-collection').find('.filepond--root').length !== 0) {
-//                            var idSelector = "#" + input.id;
-//                            var classSelector = idSelector + " > .filepond--list-scroller";
-//                            var splittedFileName = $(idSelector).find('legend').text().split(".");
-//                            console.log(splittedFileName[splittedFileName.length - 1]);
-//                            if (splittedFileName.length > 1 && uploadEditor.imgList.includes(splittedFileName[splittedFileName.length - 1].toUpperCase())) {
-//                                $(idSelector).css('height', '100px');
-//                                console.log(classSelector);
-//                                $(classSelector).css('height', '75%');
-//                            } else {
-//                                $(idSelector).css('height', '67px');
-//                            } 
-//                        }
 	    				uploadEditor.enableUpload(pond, input);
-	    			}
+                        console.log("enable1");
+                        if ($(input).attr("class") === "xava_upload ox-file" && $('.ox-element-collection').find('.filepond--root').length !== 0) {
+                           var idSelector = "#" + input.id;
+                           var classSelector = idSelector + " > .filepond--list-scroller";
+                           var splittedFileName = $(idSelector).find('legend').text().split(".");
+                           if (splittedFileName.length > 1 && uploadEditor.imgList.includes(splittedFileName[splittedFileName.length - 1].toUpperCase())) {
+                               $(idSelector).css('height','180px');
+                           } else {
+                               $(idSelector).css('height', '67px');
+                           } 
+                       }
+                    }    
 	    		} 
 	    	}
 	    	else {
 	    		uploadEditor.enableUpload(pond, input);
+                console.log("enable2");
                 if ($(input).attr("class") === "xava_upload ox-file" && $('.ox-element-collection').find('.filepond--root').length !== 0) {
-                    var idSelector = "#" + input.id;
-                    $(idSelector).css('height','67px');
+                        var idSelector = "#" + input.id;
+                        $(idSelector).css('height', '67px');
                 }
 	    	}
 	    	pond.onremovefile = function(error, file) { 
@@ -141,13 +126,27 @@ openxava.addEditorInitFunction(function() {
                     var idSelector = "#" + input.id;
 				    var classSelector = idSelector + " > .filepond--list-scroller";
 					if (file.fileExtension != undefined && uploadEditor.imgList.includes(file.fileExtension.toUpperCase())) {
-                        $(idSelector).css('height','100px');
-                        $(classSelector).css('height', '75%');
+                        $(idSelector).css('height','180px');
                     } else {
                         $(idSelector).css('height','67px');
                     }
 				}
 	        }
+            
+//            pond.onaddfile = function (){
+//                       if ($(input).attr("class") === "xava_upload ox-file" && $('.ox-element-collection').find('.filepond--root').length !== 0) {
+//                           var idSelector = "#" + input.id;
+//                           var classSelector = idSelector + " > .filepond--list-scroller";
+//                           var splittedFileName = $(idSelector).find('legend').text().split(".");
+//                           if (splittedFileName.length > 1 && uploadEditor.imgList.includes(splittedFileName[splittedFileName.length - 1].toUpperCase())) {
+//                               $(idSelector).css('height','100px');
+//                               $(classSelector).css('height', '75%');
+//                           } else {
+//                               $(idSelector).css('height', '67px');
+//                           } 
+//                       }
+//            }
+            
     	}    	
     });
 	
@@ -251,3 +250,4 @@ uploadEditor.fileValidateTypeLabelExpectedTypesMap = {
 }
 
 uploadEditor.imgList = ['GIF','JPEG','JPG','PNG','TIF','TIFF','WBMP','ICO','JNG','BMP','SVG','WEBP'];
+
