@@ -27,7 +27,7 @@
         @DefaultValueCalculator desde archivo</a> | <a class="wiki_link" href="manual-schema-evolution_es.html">14.
         Evolución del esquema manual</a> | <a class="wiki_link" href="multi-user-default-value-calculation_es.html">15.
         Cálculo de valor por defecto multiusuario</a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16.
-        Sincronizar propiedades persistentes y calculadas</a> | <a class="wiki_link"
+        Sincronizar propiedades persistentes y calculadas</a> | <a class="wiki_link"
         href="logic-from-database_es.html">17. Lógica desde la base de datos</a>
       | <a class="wiki_link" href="validating-with-entityvalidator_es.html">18.
         Validando con @EntityValidator</a> | <a class="wiki_link" href="validation-alternatives_es.html">19.
@@ -39,8 +39,8 @@
         Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">25.
         Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">26.
         Referencias y colecciones</a> | <strong>A. Arquitectura y filosofía</strong>
-      | <a class="wiki_link" href="jpa_es.html">B. Java Persistence API</a> | <a
-        class="wiki_link" href="annotations_es.html">C. Anotaciones</a> | <a class="wiki_link"
+      | <a class="wiki_link" href="jpa_es.html">B. Java Persistence API</a> | <a
+        class="wiki_link" href="annotations_es.html">C. Anotaciones</a> | <a class="wiki_link"
         href="testing_es.html">D. Pruebas automáticas</a><a class="wiki_link" href="testing_es.html"></a>
       <hr>
       <div id="toc">
@@ -73,7 +73,7 @@
       se estructura desde un punto de vista orientado a objetos puro. Por lo
       tanto, puedes enfrentarte a aplicaciones complejas con él.<br>
       La aproximación de OpenXava al desarrollo rápido no es por medio de usar
-      entornos visuales (como Visual Basic o Delphi), o <em>scripting</em>,
+      entornos visuales (como Visual Basic, Delphi o plataformas Low-Code), o <em>scripting</em>,
       como PHP. Más bien, el enfoque de OpenXava es dirigido por el modelo
       (model-driven), donde el corazón de tu aplicación son clases Java que
       describen tu problema. De esta forma conseguimos productividad sin
@@ -138,7 +138,7 @@
       </table>
       <span style="line-height: 1.5;">Podemos decir pues, que OpenXava es un
         Marco de trabajo Ligero Dirigido por el Modelo:</span><br>
-      <span style="line-height: 0px; overflow: hidden;"><img src="files/philosophy_es020.png"
+      <span style="line-height: 0px; overflow: hidden;"><img src="files/philosophy_es020.png"
           alt="philosophy_es020.png" title="philosophy_es020.png"></span><br>
       A partir de clases Java simples obtienes una aplicación lista para usar.
       La siguiente sección sobre el concepto de Componente de Negocio revelará
@@ -153,11 +153,11 @@
       Así se organizan los artefactos de software en una aplicación MVC:<br>
       <img src="files/philosophy_es030.png" alt="philosophy_es030.png" title="philosophy_es030.png"><br>
       Todos los artefactos para la interfaz de usuario de la aplicación, tales
-      como páginas JSP, JSF, Swing, código JavaFX, etc. están en el mismo lugar,
-      la capa de la vista. Lo mismo ocurre para el modelo y el controlador. Esto
-      contrasta con una arquitectura basada en componentes de negocio donde los
-      artefactos de software se organizan alrededor de los conceptos de negocio,
-      de esta manera:<br>
+      como archivos HTML, JavaScript, CSS, JSP, JSF, Swing, JavaFX, etc. están
+      en el mismo lugar, la capa de la vista. Lo mismo ocurre para el modelo y
+      el controlador. Esto contrasta con una arquitectura basada en componentes
+      de negocio donde los artefactos de software se organizan alrededor de los
+      conceptos de negocio, de esta manera:<br>
       <img src="files/philosophy_es040.png" alt="philosophy_es040.png" title="philosophy_es040.png"><br>
       Aquí, todos los artefactos de software acerca del concepto de factura,
       como la interfaz de usuario, acceso a base de datos, lógica de negocio,
@@ -362,11 +362,11 @@
  * Una clase Java para definir un componente de negocio.
  */</span>
 &nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>  <span class="co1">// Base de datos</span>
-@Table<span class="br0">(</span>name=<span class="st0">"GSTFCT"</span><span class="br0">)</span>  <span
+@Table<span class="br0">(</span>name=<span class="st0">"GSTFCT"</span><span class="br0">)</span>  <span
 class="co1">// Base de datos</span>
-@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
+@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
 class="kw116">View</span></a><span class="br0">(</span>members=  <span class="co1">// Interfaz de usuario</span>
     <span class="st0">"anyo, numero, fecha, pagada;"</span> +
     <span class="st0">"cliente, comercial;"</span> +
@@ -376,25 +376,25 @@ class="kw116">View</span></a><span class="br0">(</span>members=  <span class="co
 <span class="kw2">public</span> <span class="kw2">class</span> Factura <span class="br0">{</span>
 &nbsp;
     @Id  <span class="co1">// Base de datos</span>
-    @Column<span class="br0">(</span>length=<span class="nu0">4</span><span class="br0">)</span>  <span
+    @Column<span class="br0">(</span>length=<span class="nu0">4</span><span class="br0">)</span>  <span
 class="co1">// Base de datos</span>
-    @Max<span class="br0">(</span><span class="nu0">9999</span><span class="br0">)</span>  <span
+    @Max<span class="br0">(</span><span class="nu0">9999</span><span class="br0">)</span>  <span
 class="co1">// Validación</span>
     @Required  <span class="co1">// Validación</span>
     @DefaultValueCalculator<span class="br0">(</span>  <span class="co1">// Lógica de negocio declarativa</span>
         CurrentYearCalculator.<span class="kw2">class</span>
     <span class="br0">)</span>
-    <span class="kw2">private</span> <span class="kw3">int</span> anyo<span class="sy0">;</span>  <span
+    <span class="kw2">private</span> <span class="kw3">int</span> anyo<span class="sy0">;</span>  <span
 class="co1">// Estructura de datos (1)</span>
 &nbsp;
-    @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
+    @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
 class="br0">)</span>  <span class="co1">// Base de datos</span>
     @DescriptionsList  <span class="co1">// Interfaz de usuario</span>
-    <span class="kw2">private</span> Comercial comercial<span class="sy0">;</span>  <span
+    <span class="kw2">private</span> Comercial comercial<span class="sy0">;</span>  <span
 class="co1">//  Estructura de datos</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> aplicarDescuentos<span
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>  <span
+    <span class="kw2">public</span> <span class="kw3">void</span> aplicarDescuentos<span
+class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>  <span
 class="co1">// Lógica de negocio programática (2)</span>
         ...
     <span class="br0">}</span>
@@ -589,7 +589,7 @@ class="co1">// Lógica de negocio programática (2)</span>
       con anotaciones. En los otro apéndices puedes aprender más detalles sobre
       las anotaciones que podemos usar con OpenXava.<br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
           rel="nofollow">Pregunta en el foro</a></strong> </div>
   </body>
 </html>
