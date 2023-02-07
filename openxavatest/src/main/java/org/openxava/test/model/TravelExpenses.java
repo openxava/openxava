@@ -37,7 +37,7 @@ public class TravelExpenses {
 	Date date;
 	
 	@ElementCollection
-	@ListProperties("description, amount[travelExpenses.total]")  
+	@ListProperties("description, amount[travelExpenses.total], archivo")  
 	Collection<TravelExpense> expenses;
 	
 	public BigDecimal getTotal() {

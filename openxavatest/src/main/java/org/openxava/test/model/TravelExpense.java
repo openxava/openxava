@@ -21,5 +21,8 @@ public class TravelExpense {
 	@Money
 	@Column(precision = 15, scale = 2)
 	BigDecimal amount;
+	
+	@Stereotype("FILE")
+	String archivo;
 
 }

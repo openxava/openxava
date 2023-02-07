@@ -96,3 +96,5 @@ Element collections: Car with Chrome
 - Click on New.
 - Enter a description in the first row.
 - Enter another description in the second row. A third rows is shown, but without error.
+
+Element collections:

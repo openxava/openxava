@@ -7,6 +7,8 @@ openxava.addEditorInitFunction(function() {
     FilePond.registerPlugin(FilePondPluginFileValidateSize);  
 
     $('.xava_upload').each(function() {
+        var idSelector = "";
+        var classSelector = "";
     	const input = this;
     	if (FilePond.find(input) == null) {
 	    	const pond = FilePond.create(input); 
@@ -55,26 +57,22 @@ openxava.addEditorInitFunction(function() {
 	    		pond.onaddfile = function() {
 	    			if (c++ === count) {
 	    				uploadEditor.enableUpload(pond, input);
-                        console.log("enable1");
                         if ($(input).attr("class") === "xava_upload ox-file" && $('.ox-element-collection').find('.filepond--root').length !== 0) {
-                           var idSelector = "#" + input.id;
-                           var classSelector = idSelector + " > .filepond--list-scroller";
+                           idSelector = "#" + input.id;
                            var splittedFileName = $(idSelector).find('legend').text().split(".");
-                           if (splittedFileName.length > 1 && uploadEditor.imgList.includes(splittedFileName[splittedFileName.length - 1].toUpperCase())) {
-                               $(idSelector).css('height','180px');
-                           } else {
+                           if (splittedFileName.length > 1 && !(uploadEditor.imgList.includes(splittedFileName[splittedFileName.length - 1].toUpperCase()))) {
                                $(idSelector).css('height', '67px');
-                           } 
+                           }
                        }
                     }    
 	    		} 
 	    	}
 	    	else {
 	    		uploadEditor.enableUpload(pond, input);
-                console.log("enable2");
-                if ($(input).attr("class") === "xava_upload ox-file" && $('.ox-element-collection').find('.filepond--root').length !== 0) {
-                        var idSelector = "#" + input.id;
-                        $(idSelector).css('height', '67px');
+                if ($(input).attr("class").includes("xava_upload ox-file")  && $('.ox-element-collection').find('.filepond--root').length !== 0) {
+					console.log("es");
+                        idSelector = "#" + input.id;
+                        $(idSelector).css('height', '75px');
                 }
 	    	}
 	    	pond.onremovefile = function(error, file) { 
@@ -123,30 +121,16 @@ openxava.addEditorInitFunction(function() {
             
             pond.onprocessfile = function(error, file) {
 				if ($(input).attr("class") === "xava_upload ox-file" && $('.ox-element-collection').find('.filepond--root').length !== 0) {
-                    var idSelector = "#" + input.id;
-				    var classSelector = idSelector + " > .filepond--list-scroller";
+                    idSelector = "#" + input.id;
+				    classSelector = idSelector + " > .filepond--list-scroller";
 					if (file.fileExtension != undefined && uploadEditor.imgList.includes(file.fileExtension.toUpperCase())) {
                         $(idSelector).css('height','180px');
+                        $(classSelector).css('height','83%');
                     } else {
                         $(idSelector).css('height','67px');
                     }
 				}
 	        }
-            
-//            pond.onaddfile = function (){
-//                       if ($(input).attr("class") === "xava_upload ox-file" && $('.ox-element-collection').find('.filepond--root').length !== 0) {
-//                           var idSelector = "#" + input.id;
-//                           var classSelector = idSelector + " > .filepond--list-scroller";
-//                           var splittedFileName = $(idSelector).find('legend').text().split(".");
-//                           if (splittedFileName.length > 1 && uploadEditor.imgList.includes(splittedFileName[splittedFileName.length - 1].toUpperCase())) {
-//                               $(idSelector).css('height','100px');
-//                               $(classSelector).css('height', '75%');
-//                           } else {
-//                               $(idSelector).css('height', '67px');
-//                           } 
-//                       }
-//            }
-            
     	}    	
     });
 	
