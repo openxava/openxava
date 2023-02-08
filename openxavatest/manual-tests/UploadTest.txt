@@ -97,4 +97,9 @@ Element collections: Car with Chrome
 - Enter a description in the first row.
 - Enter another description in the second row. A third rows is shown, but without error.
 
-Element collections:
+Element collections with Stereotype("ARCHIVO" / "FILE") and @File:
+- Go to TravelExpenses
+- Click on new
+- Add new image then add file in second row
+- The size of image is biggest than file
+- The third row's editor is small like above before adding files
