@@ -118,7 +118,7 @@ openxava.addEditorInitFunction(function() {
             if (input.dataset.maxFileSize != null) {
                 pond.maxFileSize = input.dataset.maxFileSize;
             }
-            
+             
             if ($(input).attr("class") === "xava_upload ox-file" && $('.ox-element-collection').find('.filepond--root').length !== 0) {
                 pond.onprocessfile = function(error, file) {
                     idSelector = "#" + input.id;
