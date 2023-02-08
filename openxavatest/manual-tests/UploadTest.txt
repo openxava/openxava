@@ -100,6 +100,10 @@ Element collections: Car with Chrome
 Element collections with Stereotype("ARCHIVO" / "FILE") and @File:
 - Go to TravelExpenses
 - Click on new
-- Add new image then add file in second row
-- The size of image is biggest than file
-- The third row's editor is small like above before adding files
+- In Expenses collection add new image then add any other file in second row.
+- The image's height preview is biggest than the file.
+- Add one more file in third row.
+- The height of fourth row's editor should be small.
+- Save it.
+- Go to list, and edit again, these files and image must keep the same size of height, the img biggest than file.
+- Delete them, the height should return as it was before, like fourth row.

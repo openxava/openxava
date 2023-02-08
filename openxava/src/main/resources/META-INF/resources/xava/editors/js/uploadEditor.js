@@ -5,6 +5,8 @@ openxava.addEditorInitFunction(function() {
     FilePond.registerPlugin(FilePondPluginImagePreview);
     FilePond.registerPlugin(FilePondPluginFileValidateType);
     FilePond.registerPlugin(FilePondPluginFileValidateSize);  
+    var idSelector = "";
+    var classSelector = "";
 
     $('.xava_upload').each(function() {
         var idSelector = "";
@@ -69,13 +71,11 @@ openxava.addEditorInitFunction(function() {
                 }
             } else {
                 uploadEditor.enableUpload(pond, input);
-                if ($(input).attr("class").includes("xava_upload ox-file") && $('.ox-element-collection').find('.filepond--root').length !== 0) {
-                    idSelector = "#" + input.id;
-                    $(idSelector).css('height', '75px');
-                }
+                uploadEditor.resizeHeight(input);
             }
             pond.onremovefile = function(error, file) {
                 uploadEditor.removeFile(input, file);
+                uploadEditor.resizeHeight(input);
             }
             if (input.dataset.editable === "true") {
                 pond.allowDrop = false;
@@ -161,6 +161,13 @@ uploadEditor.removeFile = function(input, file) {
 		url: uploadEditor.getUploadURL(input) + uploadEditor.getFileIdParam(file), 
 		method: "DELETE"
 	})
+}
+
+uploadEditor.resizeHeight = function(input) {
+    if ($(input).attr("class").includes("xava_upload ox-file") && $('.ox-element-collection').find('.filepond--root').length !== 0) {
+        idSelector = "#" + input.id;
+        $(idSelector).css('height', '75px');
+    }
 }
 
 uploadEditor.fileValidateTypeLabelExpectedTypesMap = {
