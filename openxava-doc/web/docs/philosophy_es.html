@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="static/style.css" type="text/css">
   </head>
   <body>
-    <div class="wiki" id="content_view" style="display: block;">
+    <div class="wiki" style="display: block;">
       <h1 id="toc0"><a name="Apéndice A: Arquitectura y filosofía"></a> <span id="breadcrumbs">
           <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
@@ -22,8 +22,8 @@
         Propiedades Java</a> | <a class="wiki_link" href="calculated-properties_es.html">10.
         Propiedades calculadas</a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11.
         @DefaultValueCalculator en colecciones</a> | <a class="wiki_link" href="calculation-and-collections-total_es.html">12.
-        @Calculation y totales de colección</a> |<a class="wiki_link" href="attributes-in-annotations_es.html"></a>
-      <span style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
+        @Calculation y totales de colección</a> | <span style="color: #0000ee;"></span><a
+        class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
         @DefaultValueCalculator desde archivo</a> | <a class="wiki_link" href="manual-schema-evolution_es.html">14.
         Evolución del esquema manual</a> | <a class="wiki_link" href="multi-user-default-value-calculation_es.html">15.
         Cálculo de valor por defecto multiusuario</a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16.
@@ -41,7 +41,7 @@
         Referencias y colecciones</a> | <strong>A. Arquitectura y filosofía</strong>
       | <a class="wiki_link" href="jpa_es.html">B. Java Persistence API</a> | <a
         class="wiki_link" href="annotations_es.html">C. Anotaciones</a> | <a class="wiki_link"
-        href="testing_es.html">D. Pruebas automáticas</a><a class="wiki_link" href="testing_es.html"></a>
+        href="testing_es.html">D. Pruebas automáticas</a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
@@ -558,11 +558,12 @@ class="co1">// Lógica de negocio programática (2)</span>
         personalizada</h3>
       A veces necesitas visualizar tu componente de negocio usando una interfaz
       de usuario especial, por ejemplo, usando una galería de fotos, un mapa, un
-      gráfico, un calendario, etc. Para esto puedes usar una vista
-      personalizada, que te permite generar la interfaz de usuario usando
-      JavaScript, HTML, JSP, etc. a mano, y entonces usarla dentro de tu
-      aplicación OpenXava. El siguiente pantallazo muestra un módulo OpenXava
-      que usa una vista personalizada:<br>
+      gráfico, un cuadro de mandos, un calendario, etc. Para esto puedes usar
+      una vista personalizada, que te permite generar la interfaz de usuario
+      usando JavaScript, HTML, JSP, etc. a mano, incluso puedes usar librerías
+      JavaScript de terceros. Esta vista hecha por ti la puedes incluir dentro
+      de tu aplicación OpenXava. El siguiente pantallazo muestra un módulo
+      OpenXava que usa una vista personalizada:<br>
       <img src="files/philosophy_es100.png" alt="philosophy_es100.png" title="philosophy_es100.png"><br>
       <span style="line-height: 1.5;">Resumiendo, OpenXava genera la interfaz de
         usuario automáticamente para ti, pero siempre tienes la opción de
@@ -586,7 +587,7 @@ class="co1">// Lógica de negocio programática (2)</span>
       flexible como para ser útil en el desarrollo de aplicaciones de gestión de
       la vida real.<br>
       Como conclusión, podrás desarrollar aplicaciones con simples clases Java
-      con anotaciones. En los otro apéndices puedes aprender más detalles sobre
+      con anotaciones. En los otros apéndices puedes aprender más detalles sobre
       las anotaciones que podemos usar con OpenXava.<br>
       <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"

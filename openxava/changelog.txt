@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Appendix A of course about architecture and philosophy updated to version 7. 
 - Embedded Tomcat used in development upgraded to 9.0.71.
 - Groovy upgraded to 4.0.8.
 - Driver version in doc and new projects upgraded for MySQL, PostgreSQL, Microsoft SQL Server, Firebird.
