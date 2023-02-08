@@ -5,8 +5,6 @@ openxava.addEditorInitFunction(function() {
     FilePond.registerPlugin(FilePondPluginImagePreview);
     FilePond.registerPlugin(FilePondPluginFileValidateType);
     FilePond.registerPlugin(FilePondPluginFileValidateSize);  
-    var idSelector = "";
-    var classSelector = "";
 
     $('.xava_upload').each(function() {
         var idSelector = "";
