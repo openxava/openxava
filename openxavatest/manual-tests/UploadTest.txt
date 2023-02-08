@@ -107,3 +107,4 @@ Element collections with Stereotype("ARCHIVO" / "FILE") and @File:
 - Save it.
 - Go to list, and edit again, these files and image must keep the same size of height, the img biggest than file.
 - Delete them, the height should return as it was before, like fourth row.
+- Return to list and delete object.
