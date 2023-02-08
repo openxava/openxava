@@ -81,10 +81,13 @@ openxava.addEditorInitFunction(function() {
                 pond.allowPaste = false;
             }
             if (input.dataset.throwsChanged === "true") {
+                console.log("change");
                 pond.onprocessfile = function(error, file) {
+                    console.log("p");
                     openxava.throwPropertyChanged(input.dataset.application, input.dataset.module, input.id);
                 }
                 pond.onremovefile = function(error, file) {
+                    console.log("r");
                     uploadEditor.removeFile(input, file);
                     openxava.throwPropertyChanged(input.dataset.application, input.dataset.module, input.id);
                 }
@@ -115,9 +118,9 @@ openxava.addEditorInitFunction(function() {
             if (input.dataset.maxFileSize != null) {
                 pond.maxFileSize = input.dataset.maxFileSize;
             }
-
-            pond.onprocessfile = function(error, file) {
-                if ($(input).attr("class") === "xava_upload ox-file" && $('.ox-element-collection').find('.filepond--root').length !== 0) {
+            
+            if ($(input).attr("class") === "xava_upload ox-file" && $('.ox-element-collection').find('.filepond--root').length !== 0) {
+                pond.onprocessfile = function(error, file) {
                     idSelector = "#" + input.id;
                     classSelector = idSelector + " > .filepond--list-scroller";
                     if (file.fileExtension != undefined && uploadEditor.imgList.includes(file.fileExtension.toUpperCase())) {
