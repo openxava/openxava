@@ -9,131 +9,130 @@ openxava.addEditorInitFunction(function() {
     $('.xava_upload').each(function() {
         var idSelector = "";
         var classSelector = "";
-    	const input = this;
-    	if (FilePond.find(input) == null) {
-	    	const pond = FilePond.create(input); 
-	    	if (typeof pond === 'undefined') return;
-	    	if (input.dataset.mutiple === "true") pond.allowMultiple = true;
-	    	if (input.dataset.preview === "false") pond.allowImagePreview = false; 
-	    	if (input.dataset.application == null) {
-	    		var id = input.id.split("_", 4);	    		
-	    		input.dataset.application = id[1];
-	    		input.dataset.module = id[2];
-	    		input.dataset.empty = true;
-	    	}
-	    	const fileURL = uploadEditor.getFileURL(input);
-	    	pond.onactivatefile = function(file) {
-	    		if (openxava.browser.edge || openxava.browser.ie) window.open(fileURL + uploadEditor.getFileIdParam(file)); 
-	    		else if (pond.allowImagePreview && file.file.type.indexOf("image") == 0) { 
-	    			if (openxava.browser.ff) {
-		    			openxava.setUrlParam("");
-		    			window.location = URL.createObjectURL(file.file);
-		    		}
-		    		else window.open(URL.createObjectURL(file.file));
-	    		}
-	    		else {
-	    			var link = document.createElement('a');
-	    			link.href = URL.createObjectURL(file.file);
-	    			link.download = file.filename;
-	    			link.dispatchEvent(new MouseEvent('click'));
-	    		}
-	    	}	    	
-	    	if (input.dataset.empty !== "true") {
-	    		var count = 0; 
-	    		if (typeof input.dataset.files !== 'undefined') {
-		    		const filesIds = input.dataset.files.split(",");
-		    		filesIds.forEach(function(fileId) { 
-		    			const url = fileURL + "&fileId=" + fileId;
-		    			count++; 
-		    			pond.addFile(url, {metadata: { fileId: fileId }});
-		    		});
-	    		}
-	    		else {
-	    			count = 1; 
-	    			pond.addFile(fileURL);
-	    		}
-	    		
-	    		var c = 1;
-	    		pond.onaddfile = function() {
-	    			if (c++ === count) {
-	    				uploadEditor.enableUpload(pond, input);
-                        if ($(input).attr("class") === "xava_upload ox-file" && $('.ox-element-collection').find('.filepond--root').length !== 0) {
-                           idSelector = "#" + input.id;
-                           var splittedFileName = $(idSelector).find('legend').text().split(".");
-                           if (splittedFileName.length > 1 && !(uploadEditor.imgList.includes(splittedFileName[splittedFileName.length - 1].toUpperCase()))) {
-                               $(idSelector).css('height', '67px');
-                           }
-                       }
-                    }    
-	    		} 
-	    	}
-	    	else {
-	    		uploadEditor.enableUpload(pond, input);
-                if ($(input).attr("class").includes("xava_upload ox-file")  && $('.ox-element-collection').find('.filepond--root').length !== 0) {
-					console.log("es");
-                        idSelector = "#" + input.id;
-                        $(idSelector).css('height', '75px');
+        const input = this;
+        if (FilePond.find(input) == null) {
+            const pond = FilePond.create(input);
+            if (typeof pond === 'undefined') return;
+            if (input.dataset.mutiple === "true") pond.allowMultiple = true;
+            if (input.dataset.preview === "false") pond.allowImagePreview = false;
+            if (input.dataset.application == null) {
+                var id = input.id.split("_", 4);
+                input.dataset.application = id[1];
+                input.dataset.module = id[2];
+                input.dataset.empty = true;
+            }
+            const fileURL = uploadEditor.getFileURL(input);
+            pond.onactivatefile = function(file) {
+                if (openxava.browser.edge || openxava.browser.ie) window.open(fileURL + uploadEditor.getFileIdParam(file));
+                else if (pond.allowImagePreview && file.file.type.indexOf("image") == 0) {
+                    if (openxava.browser.ff) {
+                        openxava.setUrlParam("");
+                        window.location = URL.createObjectURL(file.file);
+                    } else window.open(URL.createObjectURL(file.file));
+                } else {
+                    var link = document.createElement('a');
+                    link.href = URL.createObjectURL(file.file);
+                    link.download = file.filename;
+                    link.dispatchEvent(new MouseEvent('click'));
                 }
-	    	}
-	    	pond.onremovefile = function(error, file) { 
-    			uploadEditor.removeFile(input, file); 
-    		}
-	    	if (input.dataset.editable === "true") {
-		    	pond.allowDrop = false;
-		    	pond.allowBrowse = false;
-		    	pond.allowPaste = false;
-	    	}
-	    	if (input.dataset.throwsChanged === "true") {
-		    	pond.onprocessfile = function(error, file) {
-		    		openxava.throwPropertyChanged(input.dataset.application, input.dataset.module, input.id);
-		    	}	    	
-		    	pond.onremovefile = function(error, file) {
-		    		uploadEditor.removeFile(input, file);
-		    		openxava.throwPropertyChanged(input.dataset.application, input.dataset.module, input.id);
-		    	}	    		    	
-	    	}
-	    	pond.allowRevert = false;
-		    pond.onerror = function(error) {
-	    	if (error && error.code == 406) {
-					openxava.ajaxRequest(input.dataset.application, input.dataset.module, false, false);
-			    }
-		    }
-		    
-		    pond.onaddfilestart = function() {
-		    	openxava.hideErrors(input.dataset.application, input.dataset.module);
-		    }		
-		    
-		    pond.beforeRemoveFile = function() {
-		    	return confirm(openxava.confirmRemoveFileMessage);   
-		    }
+            }
+            if (input.dataset.empty !== "true") {
+                var count = 0;
+                if (typeof input.dataset.files !== 'undefined') {
+                    const filesIds = input.dataset.files.split(",");
+                    filesIds.forEach(function(fileId) {
+                        const url = fileURL + "&fileId=" + fileId;
+                        count++;
+                        pond.addFile(url, {
+                            metadata: {
+                                fileId: fileId
+                            }
+                        });
+                    });
+                } else {
+                    count = 1;
+                    pond.addFile(fileURL);
+                }
 
-		    pond.fileValidateTypeLabelExpectedTypesMap = uploadEditor.fileValidateTypeLabelExpectedTypesMap;		    
-		    pond.fileValidateTypeDetectType = (source, type) => new Promise((resolve, reject) => {
-    			if (type == "" && source.name.substr(-4).toLowerCase() === '.csv') {
-    				type = "text/csv";
-    			}
-        		resolve(type);
-    		})
-    		
-    		if (input.dataset.maxFileSize != null) {
-    			pond.maxFileSize = input.dataset.maxFileSize;
-    		}    		
-            
-            pond.onprocessfile = function(error, file) {
-				if ($(input).attr("class") === "xava_upload ox-file" && $('.ox-element-collection').find('.filepond--root').length !== 0) {
-                    idSelector = "#" + input.id;
-				    classSelector = idSelector + " > .filepond--list-scroller";
-					if (file.fileExtension != undefined && uploadEditor.imgList.includes(file.fileExtension.toUpperCase())) {
-                        $(idSelector).css('height','180px');
-                        $(classSelector).css('height','83%');
-                    } else {
-                        $(idSelector).css('height','67px');
+                var c = 1;
+                pond.onaddfile = function() {
+                    if (c++ === count) {
+                        uploadEditor.enableUpload(pond, input);
+                        if ($(input).attr("class") === "xava_upload ox-file" && $('.ox-element-collection').find('.filepond--root').length !== 0) {
+                            idSelector = "#" + input.id;
+                            var splittedFileName = $(idSelector).find('legend').text().split(".");
+                            if (splittedFileName.length > 1 && !(uploadEditor.imgList.includes(splittedFileName[splittedFileName.length - 1].toUpperCase()))) {
+                                $(idSelector).css('height', '67px');
+                            }
+                        }
                     }
-				}
-	        }
-    	}    	
+                }
+            } else {
+                uploadEditor.enableUpload(pond, input);
+                if ($(input).attr("class").includes("xava_upload ox-file") && $('.ox-element-collection').find('.filepond--root').length !== 0) {
+                    idSelector = "#" + input.id;
+                    $(idSelector).css('height', '75px');
+                }
+            }
+            pond.onremovefile = function(error, file) {
+                uploadEditor.removeFile(input, file);
+            }
+            if (input.dataset.editable === "true") {
+                pond.allowDrop = false;
+                pond.allowBrowse = false;
+                pond.allowPaste = false;
+            }
+            if (input.dataset.throwsChanged === "true") {
+                pond.onprocessfile = function(error, file) {
+                    openxava.throwPropertyChanged(input.dataset.application, input.dataset.module, input.id);
+                }
+                pond.onremovefile = function(error, file) {
+                    uploadEditor.removeFile(input, file);
+                    openxava.throwPropertyChanged(input.dataset.application, input.dataset.module, input.id);
+                }
+            }
+            pond.allowRevert = false;
+            pond.onerror = function(error) {
+                if (error && error.code == 406) {
+                    openxava.ajaxRequest(input.dataset.application, input.dataset.module, false, false);
+                }
+            }
+
+            pond.onaddfilestart = function() {
+                openxava.hideErrors(input.dataset.application, input.dataset.module);
+            }
+
+            pond.beforeRemoveFile = function() {
+                return confirm(openxava.confirmRemoveFileMessage);
+            }
+
+            pond.fileValidateTypeLabelExpectedTypesMap = uploadEditor.fileValidateTypeLabelExpectedTypesMap;
+            pond.fileValidateTypeDetectType = (source, type) => new Promise((resolve, reject) => {
+                if (type == "" && source.name.substr(-4).toLowerCase() === '.csv') {
+                    type = "text/csv";
+                }
+                resolve(type);
+            })
+
+            if (input.dataset.maxFileSize != null) {
+                pond.maxFileSize = input.dataset.maxFileSize;
+            }
+
+            pond.onprocessfile = function(error, file) {
+                if ($(input).attr("class") === "xava_upload ox-file" && $('.ox-element-collection').find('.filepond--root').length !== 0) {
+                    idSelector = "#" + input.id;
+                    classSelector = idSelector + " > .filepond--list-scroller";
+                    if (file.fileExtension != undefined && uploadEditor.imgList.includes(file.fileExtension.toUpperCase())) {
+                        $(idSelector).css('height', '180px');
+                        $(classSelector).css('height', '83%');
+                    } else {
+                        $(idSelector).css('height', '67px');
+                    }
+                }
+            }
+        }
     });
-	
+
 });
 
 uploadEditor.enableUpload = function(pond, input) {
