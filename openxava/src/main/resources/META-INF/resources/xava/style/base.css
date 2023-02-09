@@ -2585,8 +2585,24 @@ div[id$="_Index__view"] .ox-list-title {
 	display: none !important;
 }
 
-.ox-element-collection .filepond--root { 
+.ox-element-collection-file {
+	height: 67px;
+}
+
+.ox-element-collection-file-scroll {
+	height: 100%;
+}
+
+.ox-element-collection-image-scroll {
+	height: 83%;
+}
+
+.ox-element-collection-image {
 	height: 180px;
+}
+
+.ox-element-collection-add-new {
+	height: 75px
 }
 
 .ox-list img {

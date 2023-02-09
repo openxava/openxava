@@ -60,9 +60,15 @@ openxava.addEditorInitFunction(function() {
                         uploadEditor.enableUpload(pond, input);
                         if ($(input).attr("class") === "xava_upload ox-file" && $('.ox-element-collection').find('.filepond--root').length !== 0) {
                             idSelector = "#" + input.id;
+                            classSelector = idSelector + " > .filepond--list-scroller";
                             var splittedFileName = $(idSelector).find('legend').text().split(".");
-                            if (splittedFileName.length > 1 && !(uploadEditor.imgList.includes(splittedFileName[splittedFileName.length - 1].toUpperCase()))) {
-                                $(idSelector).css('height', '67px');
+                            if (splittedFileName.length > 1 && (uploadEditor.imgList.includes(splittedFileName[splittedFileName.length - 1].toUpperCase()))) {
+                                $(idSelector).addClass("ox-element-collection-image");
+                                $(classSelector).css("height","");
+                                $(classSelector).addClass("ox-element-collection-image-scroll");
+                            } else {
+                                $(idSelector).addClass("ox-element-collection-file");
+                                $(classSelector).addClass("ox-element-collection-file-scroll");
                             }
                         }
                     }
@@ -81,13 +87,10 @@ openxava.addEditorInitFunction(function() {
                 pond.allowPaste = false;
             }
             if (input.dataset.throwsChanged === "true") {
-                console.log("change");
                 pond.onprocessfile = function(error, file) {
-                    console.log("p");
                     openxava.throwPropertyChanged(input.dataset.application, input.dataset.module, input.id);
                 }
                 pond.onremovefile = function(error, file) {
-                    console.log("r");
                     uploadEditor.removeFile(input, file);
                     openxava.throwPropertyChanged(input.dataset.application, input.dataset.module, input.id);
                 }
@@ -99,7 +102,7 @@ openxava.addEditorInitFunction(function() {
                 }
             }
 
-            pond.onaddfilestart = function() {
+            pond.onaddfilestart = function(file) {
                 openxava.hideErrors(input.dataset.application, input.dataset.module);
             }
 
@@ -120,14 +123,15 @@ openxava.addEditorInitFunction(function() {
             }
              
             if ($(input).attr("class") === "xava_upload ox-file" && $('.ox-element-collection').find('.filepond--root').length !== 0) {
-                pond.onprocessfile = function(error, file) {
+                pond.onprocessfilestart = function(file) {
                     idSelector = "#" + input.id;
                     classSelector = idSelector + " > .filepond--list-scroller";
                     if (file.fileExtension != undefined && uploadEditor.imgList.includes(file.fileExtension.toUpperCase())) {
-                        $(idSelector).css('height', '180px');
-                        $(classSelector).css('height', '83%');
+                        $(idSelector).removeClass("ox-element-collection-add-new").addClass("ox-element-collection-image");
+                        $(classSelector).addClass("ox-element-collection-image-scroll");
                     } else {
-                        $(idSelector).css('height', '67px');
+                        $(idSelector).removeClass("ox-element-collection-add-new").addClass("ox-element-collection-file");
+                        $(classSelector).addClass("ox-element-collection-file-scroll");
                     }
                 }
             }
@@ -167,7 +171,9 @@ uploadEditor.removeFile = function(input, file) {
 uploadEditor.resizeHeight = function(input) {
     if ($(input).attr("class").includes("xava_upload ox-file") && $('.ox-element-collection').find('.filepond--root').length !== 0) {
         idSelector = "#" + input.id;
-        $(idSelector).css('height', '75px');
+        classSelector = idSelector + " > .filepond--list-scroller";
+        $(idSelector).removeClass("ox-element-collection-file ox-element-collection-image").addClass("ox-element-collection-add-new");
+        $(classSelector).removeClass("ox-element-collection-image-scroll ox-element-collection-file-scroll");
     }
 }
 
