@@ -10,16 +10,16 @@
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
           / </span> Eclipse</h1>
       <i>Si estás usando una versión de OpenXava anterior a la 7.0 mira las <a
-          href="32-bit-ox6_es.html">instrucciones antiguas</a></i></div>
+          href="eclipse-ox6_es.html">instrucciones antiguas</a></i></div>
     <div class="wiki" style="display: block;">OpenXava incluye OpenXava Studio,
       por lo que no necesitas un IDE adicional para trabajar con OpenXava.
       OpenXava Studio está basado en OpenXava pero es más ligero y bonito.
       Además, puedes instalar cualquier plugin de Eclipse que necesites en
-      OpenXava Studio y cambiar el tema visual, para poner un tema claro o
-      iconos con color, por ejemplo. De todas formas, si prefieres trabajar con
-      tu propio Eclipse también es posible. Además, si usas Eclipse IDE for
-      Enterprise Java Developers, puedes añadir un servidor Tomcat en la pestaña
-      <i>Servers</i> tab y añadirle tu aplicación OpenXava. </div>
+      OpenXava Studio y cambiar el tema visual, para poner un tema claro, por
+      ejemplo. De todas formas, si prefieres trabajar con tu propio Eclipse
+      también es posible. Además, si usas Eclipse IDE for Enterprise Java
+      Developers, puedes añadir un servidor Tomcat en la pestaña <i>Servers</i>
+      tab y añadirle tu aplicación OpenXava. </div>
     <div class="wiki" style="display: block;">
       <h2>Instalar Lombok</h2>
       OpenXava no requiere Lombok, sin embargo lo usamos en la guía de primeros
@@ -29,66 +29,58 @@
       <h2> </h2>
     </div>
     <div class="wiki" style="display: block;">
-      <h2> Usar workspace de OpenXava</h2>
-      Después de iniciar tu Eclipse éste te preguntará que selecciones un
-      worspace, selecciona la carpeta <i>workspace</i> incluida en tu
-      distribución de OpenXava: <br>
-      <img src="files/switch-workspace_es.png" alt="switch-workspace_es.png" title="switch-workspace_es.png"><br>
+      <h2> Crear un nuevo proyecto Maven</h2>
+      Hay un arquetipo Maven para crear nuevos proyectos OpenXava, por lo que
+      puedes crear un nuevo proyecto Maven desde Eclipse de la forma habitual.
+      Abre el menú en Eclipse <i>File &gt; New &gt; Project…</i> El cual
+      mostrará el siguiente diálogo, donde has de escoger <i>Maven Project</i>
+      y pulsar en <i>Next</i>: <br>
+      <img src="files/eclipse-new-maven-project.png" alt="eclipse-new-maven-project.png"
+        title="eclipse-new-maven-project.png"><br>
     </div>
-    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Probablemente
-        Eclipse se quejará de la versión del workspace (demasiado nuevo o
-        demasiado viejo) con un diálogo como este:</span></div>
-    <img src="files/newer-workspace-version-message.png" alt="newer-workspace-version-message.png"
-      title="newer-workspace-version-message.png">
-    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">No
-        hagas caso y pulsa en <i>Continue</i>.<br>
-      </span></div>
-    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Si
-        lo has hecho bien, verás los proyectos <i>Addons</i> y <i>OpenXava</i>
-        a la izquierda, dentro del <i>Package Explorer,</i> de esta forma:</span></div>
-    <img src="files/initial-openxava-workspace-with-eclipse.png" alt="initial-openxava-workspace-with-eclipse.png"
-      title="initial-openxava-workspace-with-eclipse.png">
-    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Si
-        no, no estás en el workspace de OpenXava, usa </span><em><span style="line-height: 1.5;">File
-          &gt; Switch Workspace</span></em><span style="line-height: 1.5;"> para
-        buscar el workspace de OpenXava otra vez.</span></div>
-    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Para
-        que el workspace de OpenXava funcione bien has de seleccionar el tema
-        Dark. En el menú de arriba selecciona <i>Window &gt; Preferences &gt;
-          General &gt; Appearance</i>:</span></div>
-    <img src="files/eclipse-change-to-dark-theme.png" alt="eclipse-change-to-dark-theme.png"
-      title="eclipse-change-to-dark-theme.png">
-    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Elige
-        <i>Dark</i> para <i>Theme</i> y pulsa en el botón <i>Apply and Close</i>.</span>
-      <h2>Crear un nuevo proyecto Java</h2>
-      Has de crear un nuevo proyecto Java convencional, para ello escoge <i>File
-        &gt; New &gt; Project</i> en el menú:<br>
-      <img src="files/create-new-project-menu.png" alt="create-new-project-menu.png"
-        title="create-new-project-menu.png"><br>
-      Después selecciona <i>Java Project </i>y pulsa en <i>Next</i>:<br>
-      <img src="files/select-java-as-type-project.png" alt="select-java-as-type-project.png"
-        title="select-java-as-type-project.png"><br>
-    </div>
-    <div class="wiki" style="display: block;">Ahora teclea el nombre del
-      proyecto, <em>Facturación</em> por ejemplo, y pulsa en el botón <em>Finish</em>:<br>
-      <img src="files/create-new-java-project-wizard_es.png" alt="create-new-java-project-wizard_es.png"
-        title="create-new-java-project-wizard_es.png"><br>
-      Si estás usando Java 9 o superior con una versión reciente de Eclipse, te
-      preguntará:<br>
-      <img src="files/dont-create-module_es.png" alt="Asking for module name">
-      <div class="wiki" style="display: block;">Pulsa en <i>Don't Create</i>.</div>
-      Después de este paso ya tienes un proyecto Java vacío llamado <em>Facturacion</em>:<br>
-      <img src="files/bare-java-project_es.png" alt="bare-java-project_es.png" title="bare-java-project_es.png"><br>
-    </div>
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">En
+        el siguiente paso simplemente pulsa en <i>Next</i>:</span></div>
+    <img src="files/eclipse-maven-project-location.png" alt="eclipse-maven-project-location.png"
+      title="eclipse-maven-project-location.png">
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Ahora
+        es el momento de elegir el arquetipo, escribe <i>org.openxava</i> en el
+        filtro para mostrar solo los arquetipos de OpenXava, luego elige <i>openxava-archetype-spanish</i>
+        y haz clic en <i>Next:</i></span></div>
+    <img src="files/eclipse-choose-maven-openxava-archetype_es.png" alt="eclipse-choose-maven-openxava-archetype_es.png"
+      title="eclipse-choose-maven-openxava-archetype_es.png">
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Finalmente,
+        debes introducir el nombre de tu proyecto, ponlo en el campo <i>Artifact
+          id</i>, en minúsculas. Para los campos <i>Group Id</i> y <i>Package</i>,
+        introduce el dominio de tu empresa al revés (si trabajas para
+        Telefónica, sería com.telefonica, por ejemplo). Debes quitar el nombre
+        de la aplicación de <i>Package</i>, porque Eclipse lo añade
+        incorrectamente. Además, asegúrate de desmarcar la opción <i>run
+          archetype generation interactively</i>:</span></div>
+    <img src="files/eclipse-new-maven-project-parameters_es.png" alt="eclipse-new-maven-project-parameters_es.png"
+      title="eclipse-new-maven-project-parameters_es.png">
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Pulsa
+        <i>Finish</i> en el diálogo anterior para crear tu proyecto. Después,
+        deberías tener tu nuevo proyecto OpenXava en tu workspace, así:</span></div>
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;"><img
+          src="files/eclipse-just-created-openxava-maven-project_es.png" alt="eclipse-just-created-openxava-maven-project_es.png"
+          title="eclipse-just-created-openxava-maven-project_es.png"><br>
+      </span>
+      <h2>Compila tu nuevo proyecto</h2>
+      Una vez creado, debe compilar tu proyecto para que funcione. Para ello,
+      elige la opción <i>Run As &gt; Maven install</i> en tu proyecto::<br>
+      <img src="files/eclipse-maven-install_es.png" alt="eclipse-maven-install_es.png"
+        title="eclipse-maven-install_es.png"></div>
+    <div class="wiki" style="display: block;">Ahora tu proyecto está listo para
+      ejecutarse.</div>
     <div class="wiki" style="display: block;">
-      <h2>Convierte el proyecto en un proyecto OpenXava</h2>
-      Ahora has de convertir tu proyecto Java simple y llano en un proyecto
-      OpenXava. Dentro del proyecto <i>OpenXava</i> tienes un archivo <i>CrearNuevoProyecto.xml</i>,
-      ejecutalo como un <i>Ant Build</i>, de esta manera:<br>
-      <img src="files/run-crear-nuevo-proyecto.png" alt="run-crear-nuevo-proyecto.png"
-        title="run-crear-nuevo-proyecto.png"><br>
-      Ahora refresca tu proyecto con F5 y ya estás listo para seguir la guía de
-      primeros pasos:</div>
+      <h2>Ejecuta tu proyecto</h2>
+      Para ejecutar tu proyecto, coloca el ratón sobre la carpeta <i>src/main/java</i>
+      dentro de tu proyecto, haz clic con el botón derecho del ratón y
+      selecciona <i>Run As &gt; Java Application</i>:<br>
+      <img src="files/eclipse-maven-run-project_es.png" alt="eclipse-maven-run-project_es.png"
+        title="eclipse-maven-run-project_es.png"><br>
+      Tu proyecto se está ejecutando ahora. Ya estás listo para seguir la guía
+      de primeros pasos:</div>
     <div class="wiki" style="display: block;"> <br>
       <b><a href="getting-started_es.html">Sigue la guía Primeros pasos</a></b>
       <br>
