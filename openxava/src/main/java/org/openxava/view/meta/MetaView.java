@@ -50,6 +50,11 @@ public class MetaView extends MetaElement implements Cloneable {
 	private Collection notAlwaysEnabledViewActionsNames;
 	private String extendsView;
 	private boolean extendedFromExtendsView = false;
+	
+	//private Collection<MetaMember> allMetaMembersC = new ArrayList();
+	private Collection<MetaMember> allMetaMembersC;
+	private int count = 0;
+	private boolean accumulate = false;
 
 	private void addMemberName(String memberName) {
 		_membersNames.add(memberName);
@@ -143,11 +148,12 @@ public class MetaView extends MetaElement implements Cloneable {
 	}
 
 	// Including members inside sections
-	private Collection<MetaMember> getAllMetaMembers() throws XavaException {
-		System.out.println("getAllMetaMembers" + allMetaMembers);
-		
-		if (!hasSections())
+	private Collection<MetaMember> getAllMetaMembers() throws XavaException {	
+		if (!hasSections()) {
+			accumulate = true;
+			count = 0;
 			return getMetaMembers();
+		}
 		if (allMetaMembers == null) {
 			allMetaMembers = new ArrayList();
 			allMetaMembers.addAll(getMetaMembers());
@@ -157,8 +163,7 @@ public class MetaView extends MetaElement implements Cloneable {
 				allMetaMembers.addAll(section.getAllMetaMembers());
 			}
 		}
-		System.out.println("fin getAllMetaMembers" + allMetaMembers);
-		System.out.println(getName());
+		System.out.println("verificar todo");
 		verifyMembersDuplicated(allMetaMembers);
 		return allMetaMembers;
 	}
@@ -180,7 +185,6 @@ public class MetaView extends MetaElement implements Cloneable {
 	 * @return Not null, of type <tt>MetaMember</tt> and read only
 	 */
 	public Collection getMetaMembers() throws XavaException {
-		System.out.println("getMetaMembers");
 		if (metaMembers == null) {
 			metaMembers = new ArrayList();
 			Iterator it = getMembersNames().iterator();
@@ -213,6 +217,15 @@ public class MetaView extends MetaElement implements Cloneable {
 				}
 			}
 			metaMembers = Collections.unmodifiableCollection(metaMembers);
+		}
+		if (count == 1 && accumulate) {
+			if (allMetaMembersC == null) allMetaMembersC = new ArrayList();
+			allMetaMembersC.addAll(metaMembers);
+			verifyMembersDuplicated(allMetaMembersC);
+			count = 0 ;
+			accumulate = false;
+		}else if (count == 0 && accumulate){
+			count = 1 ;
 		}
 		return metaMembers;
 	}
@@ -1000,11 +1013,11 @@ public class MetaView extends MetaElement implements Cloneable {
 		String view = getExtendsView();
 		String modelName = getModelName();
 		String duplicated = "";
-		System.out.println("n " + getName());
+		System.out.println(allMetaMembers);
 		for (MetaMember m : allMetaMembers) {
 			if ((m.getMetaModel() != null) && !(m.getName().equalsIgnoreCase(PropertiesSeparator.INSTANCE.getName()))) {
 				if (Collections.frequency(allMetaMembers, m) != 1 && !duplicated.contains(m.getName())) {
-					duplicated = duplicated + m.getName() + " ";
+					duplicated = duplicated + m.getName() + ", ";
 				}
 			}
 		}
@@ -1012,7 +1025,7 @@ public class MetaView extends MetaElement implements Cloneable {
 			if (getName().length() > 1) {
 				throw new XavaException("duplicated_properties_in_view", getModelName(), duplicated, getName());
 			} else {
-				//throw new XavaException("duplicated_properties_in_view", getModelName(), duplicated);
+				throw new XavaException("duplicated_properties_in_view", getModelName(), duplicated, "");
 			}
 		}
 	}
