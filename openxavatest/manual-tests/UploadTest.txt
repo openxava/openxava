@@ -97,14 +97,13 @@ Element collections: Car with Chrome
 - Enter a description in the first row.
 - Enter another description in the second row. A third rows is shown, but without error.
 
-Element collections with Stereotype("ARCHIVO" / "FILE") and @File:
-- Go to TravelExpenses
+Element collections with Stereotype("ARCHIVO" / "FILE") and @File: TravelExpenses
 - Click on new
-- In Expenses collection add new image then add any other file in second row.
-- The image's height preview is biggest than the file.
-- Add one more file in third row.
-- The height of fourth row's editor should be small.
-- Save it.
-- Go to list, and edit again, these files and image must keep the same size of height, the img biggest than file.
-- Delete them, the height should return as it was before, like fourth row.
-- Return to list and delete object.
+- In Expenses collection search and add image in row 1, 3, 5.
+- Search and add another type of file in row 2,4.
+- Put any amount in those five rows.
+- 1, 3, 5 row should be biggest than 2, 4.
+- Save, go to list then open the travel expenses agian, their height of them should be the same as the previous point.
+- Delete any row that have image, then add a file, the height sould be correct.
+- Delete any row that have file, then add an image, the height sould be correct.
+- Go to list, delete row 0.

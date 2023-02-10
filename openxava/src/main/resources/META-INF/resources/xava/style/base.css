@@ -2585,8 +2585,12 @@ div[id$="_Index__view"] .ox-list-title {
 	display: none !important;
 }
 
+.ox-element-collection .filepond--root { 
+	height: 180px;
+}
+
 .ox-element-collection-file {
-	height: 67px;
+	height: 67px !important;
 }
 
 .ox-element-collection-file-scroll {
@@ -2597,12 +2601,8 @@ div[id$="_Index__view"] .ox-list-title {
 	height: 83%;
 }
 
-.ox-element-collection-image {
-	height: 180px;
-}
-
 .ox-element-collection-add-new {
-	height: 75px;
+	height: 75px !important;
 }
 
 .ox-list img {
