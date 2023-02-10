@@ -5,6 +5,7 @@ import java.math.*;
 import javax.persistence.*;
 
 import org.openxava.annotations.*;
+import org.openxava.annotations.File;
 
 import lombok.*;
 
@@ -22,7 +23,8 @@ public class TravelExpense {
 	@Column(precision = 15, scale = 2)
 	BigDecimal amount;
 	
-	@Stereotype("FILE")
-	String archivo;
+	@File
+	@Column(length = 32)
+	String file;
 
 }
