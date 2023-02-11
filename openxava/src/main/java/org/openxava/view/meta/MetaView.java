@@ -163,7 +163,6 @@ public class MetaView extends MetaElement implements Cloneable {
 				allMetaMembers.addAll(section.getAllMetaMembers());
 			}
 		}
-		System.out.println("verificar todo");
 		verifyMembersDuplicated(allMetaMembers);
 		return allMetaMembers;
 	}
@@ -1013,7 +1012,6 @@ public class MetaView extends MetaElement implements Cloneable {
 		String view = getExtendsView();
 		String modelName = getModelName();
 		String duplicated = "";
-		System.out.println(allMetaMembers);
 		for (MetaMember m : allMetaMembers) {
 			if ((m.getMetaModel() != null) && !(m.getName().equalsIgnoreCase(PropertiesSeparator.INSTANCE.getName()))) {
 				if (Collections.frequency(allMetaMembers, m) != 1 && !duplicated.contains(m.getName())) {
