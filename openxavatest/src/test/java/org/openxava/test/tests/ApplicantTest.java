@@ -5,6 +5,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import org.apache.commons.lang.*;
+import org.openxava.controller.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
 
@@ -178,9 +179,16 @@ public class ApplicantTest extends ModuleTestBase {
 		assertHelp("en"); 
 	}
 	
-	public void testChangeLocaleAffectsMenu() throws Exception {  
+	public void testChangeLocaleAffectsMenu_assertCssWellUploaded() throws Exception {  
 		modulesLimit = false;
 		resetModule();
+		
+		HtmlElement head = (HtmlElement) getHtmlPage().getHead();
+		DomElement linkCss = head.getChildElements().iterator().next()
+				.getNextElementSibling()
+				.getNextElementSibling();
+		String[] s = linkCss.getAttribute("href").split("/");
+		assertEquals(s[s.length-1], "terra.css?ox=" + ModuleManager.getVersion());
 		
 		assertLabels("Name", "Author"); 
 		
