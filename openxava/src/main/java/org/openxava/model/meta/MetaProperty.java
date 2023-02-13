@@ -405,7 +405,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			Annotation[] annotations = getAnnotations(); 
 			if (annotations != null) for (Annotation annotation: annotations) {
 				try {					
-					scale = DefaultSize.scaleForAnnotation(annotation);					
+					scale = DefaultSize.scaleForAnnotation(annotation);
 					return scale;
 				}
 				catch (ElementNotFoundException ex) {

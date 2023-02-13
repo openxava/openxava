@@ -892,20 +892,22 @@ public class AnnotatedClassParser implements IComponentParser {
 				// is omitted, then we put 0 in order to OX calculate its default size.
 				// This is can be a problem when the developer put 255 explicitly. 
 				property.setSize(0);
+				if (column.scale() > 0) {
+					property.setScale(column.scale());
+				}
 			}
 			else {
 				property.setSize(column.length());
+				property.setScale(column.scale()); // Even if 0 
 			}
 			// This will take care of the scale for fractional size different than 2
-			if (column.scale() > 0) {
-				property.setScale(column.scale());
-			}
 			if (column.precision() > 0) {
 				if (column.scale() > 0) {
 					property.setSize(column.precision() + 1 + column.scale());
 				} else {
 					property.setSize(column.precision());
 				}
+				property.setScale(column.scale()); // Even if 0 
 			}
 		}
 		else if (element.isAnnotationPresent(javax.validation.constraints.Digits.class)) {
