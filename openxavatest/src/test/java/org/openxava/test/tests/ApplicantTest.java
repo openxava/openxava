@@ -1,9 +1,12 @@
 package org.openxava.test.tests;
 
+import java.io.*;
+import java.nio.charset.*;
 import java.util.*;
 
 import javax.persistence.*;
 
+import org.apache.commons.io.*;
 import org.apache.commons.lang.*;
 import org.openxava.controller.*;
 import org.openxava.test.model.*;
@@ -183,12 +186,14 @@ public class ApplicantTest extends ModuleTestBase {
 		modulesLimit = false;
 		resetModule();
 		
-		HtmlElement head = (HtmlElement) getHtmlPage().getHead();
-		DomElement linkCss = head.getChildElements().iterator().next()
-				.getNextElementSibling()
-				.getNextElementSibling();
-		String[] s = linkCss.getAttribute("href").split("/");
-		assertEquals(s[s.length-1], "terra.css?ox=" + ModuleManager.getVersion());
+		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("META-INF/resources/xava/style/terra.css");
+		StringWriter writer = new StringWriter();
+		IOUtils.copy(inputStream, writer, StandardCharsets.UTF_8);
+		String s = "@import 'base.css?ox=" + ModuleManager.getVersion() + "';";
+		boolean data = writer.toString().startsWith(s);
+		System.out.println(s);
+		System.out.println(writer.toString());
+		assertTrue(data);
 		
 		assertLabels("Name", "Author"); 
 		
