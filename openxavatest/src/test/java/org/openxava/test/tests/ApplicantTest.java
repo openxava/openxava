@@ -181,11 +181,20 @@ public class ApplicantTest extends ModuleTestBase {
 		assertHelp("en"); 
 	}
 	
-	public void testChangeLocaleAffectsMenu_assertCssWellUploaded() throws Exception {  
+	public void testChangeLocaleAffectsMenu_assertCssInLatestVersion() throws Exception {  
 		modulesLimit = false;
 		resetModule();
+		
+		HtmlElement head = (HtmlElement) getHtmlPage().getHead();
+		//terra
+		DomElement linkCss = head.getChildElements().iterator().next()
+				.getNextElementSibling()
+				.getNextElementSibling();
 
-		String s = "http://localhost:8080/openxavatest/xava/style/terra.css?ox=" + ModuleManager.getVersion(); 
+		String s = getHtmlPage().getUrl().getProtocol() + "://" 
+				+ getHtmlPage().getUrl().getHost() + ":"
+				+ getHtmlPage().getUrl().getPort() + linkCss.getAttribute("href");
+		
 		URL url = new URL(s);
 		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
 		assertEquals("@import 'base.css?ox=" + ModuleManager.getVersion() + "';", in.readLine());
