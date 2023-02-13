@@ -1,12 +1,11 @@
 package org.openxava.test.tests;
 
 import java.io.*;
-import java.nio.charset.*;
+import java.net.*;
 import java.util.*;
 
 import javax.persistence.*;
 
-import org.apache.commons.io.*;
 import org.apache.commons.lang.*;
 import org.openxava.controller.*;
 import org.openxava.test.model.*;
@@ -185,15 +184,12 @@ public class ApplicantTest extends ModuleTestBase {
 	public void testChangeLocaleAffectsMenu_assertCssWellUploaded() throws Exception {  
 		modulesLimit = false;
 		resetModule();
-		
-		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("META-INF/resources/xava/style/terra.css");
-		StringWriter writer = new StringWriter();
-		IOUtils.copy(inputStream, writer, StandardCharsets.UTF_8);
-		String s = "@import 'base.css?ox=" + ModuleManager.getVersion() + "';";
-		boolean data = writer.toString().startsWith(s);
-		System.out.println(s);
-		System.out.println(writer.toString());
-		assertTrue(data);
+
+		String s = "http://localhost:8080/openxavatest/xava/style/terra.css?ox=" + ModuleManager.getVersion(); 
+		URL url = new URL(s);
+		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+		assertEquals("@import 'base.css?ox=" + ModuleManager.getVersion() + "';", in.readLine());
+		in.close();
 		
 		assertLabels("Name", "Author"); 
 		
