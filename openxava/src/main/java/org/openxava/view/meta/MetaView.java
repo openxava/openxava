@@ -952,7 +952,7 @@ public class MetaView extends MetaElement implements Cloneable {
 	private void verifyMembersDuplicated(Collection<MetaMember> allMetaMembers) throws XavaException {
 		Iterator<MetaMember> it = allMetaMembers.iterator();
 		String modelName = getModelName();
-		String viewName = getName() != null ? " " + getName() + " " : " ";
+		String viewName = getName().length() > 1 ? " " + getName() + " " : " ";
 		String duplicated = "";
 		for (MetaMember m : allMetaMembers) {
 			if ((m.getMetaModel() != null) && !(m.getName().equalsIgnoreCase(PropertiesSeparator.INSTANCE.getName()))) {
@@ -962,7 +962,7 @@ public class MetaView extends MetaElement implements Cloneable {
 			}
 		}
 		if (duplicated.length() > 1) {
-			throw new XavaException("duplicated_properties_in_view", getModelName(), duplicated, getName());
+			throw new XavaException("duplicated_properties_in_view", getModelName(), duplicated, viewName);
 		}
 		countDuplicatedProperties = 0 ;
 		accumulateDuplicatedProperties = false;
