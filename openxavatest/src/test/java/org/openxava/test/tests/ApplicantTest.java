@@ -181,7 +181,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertHelp("en"); 
 	}
 	
-	public void testChangeLocaleAffectsMenu_assertCssInLatestVersion() throws Exception {  
+	public void testChangeLocaleAffectsMenu_assertCSSInLatestVersion() throws Exception {  
 		modulesLimit = false;
 		resetModule();
 		
