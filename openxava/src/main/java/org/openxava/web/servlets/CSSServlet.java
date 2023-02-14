@@ -17,9 +17,9 @@ import org.openxava.util.*;
  */
 
 @WebServlet("/xava/style/*")
-public class CssServlet extends HttpServlet {
+public class CSSServlet extends HttpServlet {
 	
-	private static Log log = LogFactory.getLog(CssServlet.class);
+	private static Log log = LogFactory.getLog(CSSServlet.class);
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
@@ -33,7 +33,7 @@ public class CssServlet extends HttpServlet {
 			}
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
-			throw new ServletException(XavaResources.getString("attached_file_error"));
+			throw new ServletException(XavaResources.getString("attachments_css_servlet_error", request.getServletPath() + request.getPathInfo()));
 		}
 	}
 
