@@ -191,11 +191,11 @@ public class ApplicantTest extends ModuleTestBase {
 				.getNextElementSibling()
 				.getNextElementSibling();
 
-		String s = getHtmlPage().getUrl().getProtocol() + "://" 
+		String urlCss = getHtmlPage().getUrl().getProtocol() + "://" 
 				+ getHtmlPage().getUrl().getHost() + ":"
 				+ getHtmlPage().getUrl().getPort() + linkCss.getAttribute("href");
 		
-		URL url = new URL(s);
+		URL url = new URL(urlCss);
 		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
 		assertEquals("@import 'base.css?ox=" + ModuleManager.getVersion() + "';", in.readLine());
 		in.close();
