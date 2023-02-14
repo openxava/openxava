@@ -51,8 +51,8 @@ public class MetaView extends MetaElement implements Cloneable {
 	private String extendsView; 
 	private boolean extendedFromExtendsView = false;
 	
-	private int count = 0;
-	private boolean accumulate = false;
+	private int countDuplicatedProperties = 0;
+	private boolean accumulateDuplicatedProperties = false;
 	
 	private void addMemberName(String memberName) {
 		_membersNames.add(memberName);
@@ -142,8 +142,8 @@ public class MetaView extends MetaElement implements Cloneable {
 	// Including members inside sections
 	private Collection<MetaMember> getAllMetaMembers() throws XavaException {  
 		if (!hasSections()) {
-			accumulate = true;
-			count = 0;
+			accumulateDuplicatedProperties = true;
+			countDuplicatedProperties = 0;
 			return getMetaMembers();
 		}
 		if (allMetaMembers == null) {		
@@ -213,12 +213,10 @@ public class MetaView extends MetaElement implements Cloneable {
 			}
 			metaMembers = Collections.unmodifiableCollection(metaMembers);						
 		}
-		if (count == 1 && accumulate) {
+		if (countDuplicatedProperties == 1 && accumulateDuplicatedProperties) {
 			verifyMembersDuplicated(metaMembers);
-			count = 0 ;
-			accumulate = false;
-		}else if (count == 0 && accumulate){
-			count = 1 ;
+		}else if (countDuplicatedProperties == 0 && accumulateDuplicatedProperties){
+			countDuplicatedProperties = 1 ;
 		}
 		return metaMembers;
 	}
@@ -953,8 +951,8 @@ public class MetaView extends MetaElement implements Cloneable {
 	
 	private void verifyMembersDuplicated(Collection<MetaMember> allMetaMembers) throws XavaException {
 		Iterator<MetaMember> it = allMetaMembers.iterator();
-		String view = getExtendsView();
 		String modelName = getModelName();
+		String viewName = getName() != null ? " " + getName() + " " : " ";
 		String duplicated = "";
 		for (MetaMember m : allMetaMembers) {
 			if ((m.getMetaModel() != null) && !(m.getName().equalsIgnoreCase(PropertiesSeparator.INSTANCE.getName()))) {
@@ -966,6 +964,8 @@ public class MetaView extends MetaElement implements Cloneable {
 		if (duplicated.length() > 1) {
 			throw new XavaException("duplicated_properties_in_view", getModelName(), duplicated, getName());
 		}
+		countDuplicatedProperties = 0 ;
+		accumulateDuplicatedProperties = false;
 	}
 
 }
