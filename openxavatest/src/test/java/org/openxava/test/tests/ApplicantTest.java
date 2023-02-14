@@ -188,12 +188,13 @@ public class ApplicantTest extends ModuleTestBase {
 		HtmlElement head = (HtmlElement) getHtmlPage().getHead();
 		//terra
 		DomElement linkCss = head.getChildElements().iterator().next()
-				.getNextElementSibling()
-				.getNextElementSibling();
+								 .getNextElementSibling()
+								 .getNextElementSibling();
 
 		String urlCss = getHtmlPage().getUrl().getProtocol() + "://" 
-				+ getHtmlPage().getUrl().getHost() + ":"
-				+ getHtmlPage().getUrl().getPort() + linkCss.getAttribute("href");
+						+ getHtmlPage().getUrl().getHost() + ":"
+						+ getHtmlPage().getUrl().getPort() 
+						+ linkCss.getAttribute("href");
 		
 		URL url = new URL(urlCss);
 		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
