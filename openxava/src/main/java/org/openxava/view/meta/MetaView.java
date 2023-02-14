@@ -962,7 +962,7 @@ public class MetaView extends MetaElement implements Cloneable {
 			}
 		}
 		if (duplicated.length() > 1) {
-			throw new XavaException("duplicated_properties_in_view", getModelName(), duplicated, viewName);
+			throw new XavaException("duplicated_properties_in_view", modelName, duplicated, viewName);
 		}
 		countDuplicatedProperties = 0 ;
 		accumulateDuplicatedProperties = false;
