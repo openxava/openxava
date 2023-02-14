@@ -187,16 +187,16 @@ public class ApplicantTest extends ModuleTestBase {
 		
 		HtmlElement head = (HtmlElement) getHtmlPage().getHead();
 		//terra
-		DomElement linkCss = head.getChildElements().iterator().next()
+		DomElement linkCSS = head.getChildElements().iterator().next()
 								 .getNextElementSibling()
 								 .getNextElementSibling();
 
-		String urlCss = getHtmlPage().getUrl().getProtocol() + "://" 
+		String urlCSS = getHtmlPage().getUrl().getProtocol() + "://" 
 						+ getHtmlPage().getUrl().getHost() + ":"
 						+ getHtmlPage().getUrl().getPort() 
-						+ linkCss.getAttribute("href");
+						+ linkCSS.getAttribute("href");
 		
-		URL url = new URL(urlCss);
+		URL url = new URL(urlCSS);
 		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
 		assertEquals("@import 'base.css?ox=" + ModuleManager.getVersion() + "';", in.readLine());
 		in.close();
