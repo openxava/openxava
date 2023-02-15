@@ -13,13 +13,15 @@ import org.openxava.test.validators.*;
  */
 @Entity
 @View(members="number; description; comboDeliveries")
-@View(name="WithDeliveries", members="number; description; deliveries") 
+@View(name="WithDeliveries", members="number; description; deliveries")
+@View(name="ReadOnlyNumber", members="number; description") // tmr
 @RemoveValidator(value=DeliveryTypeRemoveValidator.class,
 	properties=@PropertyValue(name="number")
 )
 public class DeliveryType {
 	
 	@Id @Column(length=4)
+	@ReadOnly(forViews="ReadOnlyNumber") // tmr
 	private int number;
 	
 	@Required

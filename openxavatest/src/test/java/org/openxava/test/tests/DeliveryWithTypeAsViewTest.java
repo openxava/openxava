@@ -1,0 +1,23 @@
+package org.openxava.test.tests;
+
+import org.openxava.tests.*;
+
+/**
+ * tmr 
+ * @author Javier Paniza
+ */
+
+public class DeliveryWithTypeAsViewTest extends ModuleTestBase {
+	
+	public DeliveryWithTypeAsViewTest(String testName) {
+		super(testName, "DeliveryWithTypeAsView");		
+	}
+			
+	public void testCompositeKeyWithReferencesWithReadOnlyInIdOfReferencedEntity() throws Exception {
+		execute("List.viewDetail", "row=0");
+		assertNoAction("Reference.search", "keyProperty=type.number");
+		execute("CRUD.new");
+		assertAction("Reference.search", "keyProperty=type.number");
+	}
+
+}
