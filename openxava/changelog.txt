@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Date3Type converter for mapping does not read/assign the day well for get/setPropertyValue().
 - Fix: @DefaultValueCalculator dependent on other properties modifies @Id properties of existing entities.
 - Fix: @File inside @ElementCollection is too tall even if it only stores files that are not images. 
 - Documentation about using standard Eclipse with OpenXava updated to work with OpenXava 7 and Maven. 
