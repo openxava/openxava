@@ -13,10 +13,10 @@ import org.openxava.model.*;
  */
 
 @Entity
-@Views({
-	@View(members="name, icon; employees {employees}"), 
-	@View(name="Simple", members="name")
-})
+//@Views({
+	@View(members="name, icon; employees2 {name}")
+	//@View(name="Simple", members="name")
+//})
 public class Corporation extends Identifiable {
 
 	@Required

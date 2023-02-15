@@ -34,14 +34,7 @@ import lombok.*;
 @Views({
 	@View(members=
 		"year, number, date, paid, detailsCount;" + // detailsCount is useful for testing READ COMMITED (with HSQLDB 2)	
-		"discounts [" +
-		"	customerDiscount, customerTypeDiscount, yearDiscount;" +
-		"];" +
-		"comment;" +
-		"customer { customer }" + // We need a section with just a reference...		
-		"details { details }" +	// ...followed by a section with a collection, to a layout bug
-		"amounts { amountsSum; vatPercentage; vat }" +
-		"deliveries { deliveries }"
+		"test {year}" 
 	),
 	@View(name="CustomerNoFrame", members= // Don't change the members, they for testing a layout bug			
 		"year, number;" + 
