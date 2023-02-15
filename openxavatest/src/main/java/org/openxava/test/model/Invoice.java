@@ -41,7 +41,7 @@ import lombok.*;
 		"customer { customer }" + // We need a section with just a reference...		
 		"details { details }" +	// ...followed by a section with a collection, to a layout bug
 		"amounts { amountsSum; vatPercentage; vat }" +
-		"deliveries { deliveries; vat }"
+		"deliveries { deliveries }"
 	),
 	@View(name="CustomerNoFrame", members= // Don't change the members, they for testing a layout bug			
 		"year, number;" + 
