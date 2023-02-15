@@ -141,9 +141,7 @@ public class MetaView extends MetaElement implements Cloneable {
 
 	// Including members inside sections
 	private Collection<MetaMember> getAllMetaMembers() throws XavaException {  
-		System.out.println("getAllMetaMembers");
 		if (!hasSections()) {
-			System.out.println("no sections");
 			accumulateDuplicatedProperties = true;
 			countDuplicatedProperties = 0;
 			return getMetaMembers();
@@ -157,7 +155,6 @@ public class MetaView extends MetaElement implements Cloneable {
 				allMetaMembers.addAll(section.getAllMetaMembers());
 			}			
 		}
-		System.out.println("fin");
 		accumulateDuplicatedProperties = false;
 		countDuplicatedProperties = 0;
 		verifyMembersDuplicated(allMetaMembers);
@@ -181,7 +178,6 @@ public class MetaView extends MetaElement implements Cloneable {
 	 * @return Not null, of type <tt>MetaMember</tt> and read only
 	 */
 	public Collection getMetaMembers() throws XavaException {
-		System.out.println("getMetaMembers");
 		if (metaMembers == null) {
 			metaMembers = new ArrayList();
 			Iterator it = getMembersNames().iterator();		
@@ -220,12 +216,10 @@ public class MetaView extends MetaElement implements Cloneable {
 			metaMembers = Collections.unmodifiableCollection(metaMembers);						
 		}
 		if (countDuplicatedProperties == 1 && accumulateDuplicatedProperties) {
-			System.out.println("2");
 			accumulateDuplicatedProperties = false;
 			countDuplicatedProperties = 0;
 			verifyMembersDuplicated(metaMembers);
 		}else if (countDuplicatedProperties == 0 && accumulateDuplicatedProperties){
-			System.out.println("1");
 			countDuplicatedProperties = 1 ;
 		}
 		return metaMembers;
@@ -961,7 +955,6 @@ public class MetaView extends MetaElement implements Cloneable {
 	
 	private void verifyMembersDuplicated(Collection<MetaMember> allMetaMembers) throws XavaException {
 		Iterator<MetaMember> it = allMetaMembers.iterator();
-		System.out.println(allMetaMembers);
 		String modelName = getModelName();
 		String viewName = getName().length() > 1 ? " " + getName() + " " : " ";
 		String duplicated = "";
@@ -973,19 +966,8 @@ public class MetaView extends MetaElement implements Cloneable {
 			}
 		}
 		if (duplicated != "") {
-			System.out.println("prethrow");
-			throw new XavaException("duplicated_properties_in_view", modelName, duplicated, viewName);
-//			try
-//			{
-//				throw new XavaException("duplicated_properties_in_view", modelName, duplicated, viewName);
-//			}
-//			catch(XavaException e)
-//			{
-//			  System.out.println(e.getMessage());
-//			}
+			log.warn(XavaResources.getString("duplicated_properties_in_view", modelName, duplicated, viewName), new XavaException("duplicated_properties_in_view", modelName, duplicated, viewName));
 		}
-		System.out.println("posthrow");
-		duplicated = "";
 	}
 
 }
