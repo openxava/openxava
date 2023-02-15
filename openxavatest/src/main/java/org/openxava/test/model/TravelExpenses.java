@@ -28,7 +28,7 @@ public class TravelExpenses {
 	
 	@Column(length=6) 
 	@DefaultValueCalculator(value=NextTravelExpensesNumberCalculator.class,
-	    properties=@PropertyValue(name="year") 
+		properties=@PropertyValue(name="date") 
 	)
 	@Id
 	int number;
