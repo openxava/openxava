@@ -99,7 +99,6 @@ public class Module extends DWRBase {
 			result.setUrlParam(getUrlParam());
 			result.setViewSimple(getView().isSimple());
 			result.setDataChanged(getView().isDataChanged());
-			System.out.println("[Module.request] ox_openxavatest_DeliveryWithTypeAsView__property_actions_type___number=" + result.getChangedParts().get("ox_openxavatest_DeliveryWithTypeAsView__property_actions_type___number")); // tmp
 			return result;
 		}
 		catch (SecurityException ex) {
@@ -568,7 +567,7 @@ public class Module extends DWRBase {
 					put(result, "property_actions_" + qualifiedName, 
 						"propertyActions.jsp?propertyKey=" + qualifiedName +
 						"&propertyName=" + name +
-						"&editable=" + containerView.isEditable(name) +	// TMR ME QUEDÉ POR AQUÍ. CREO QUE ES ESTO				
+						"&editable=" + containerView.isEditable(name) +					
 						"&viewObject=" + containerView.getViewObject() +
 						"&lastSearchKey=" + containerView.isLastSearchKey(name));
 				}

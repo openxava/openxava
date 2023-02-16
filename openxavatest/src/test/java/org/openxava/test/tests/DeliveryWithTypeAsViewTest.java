@@ -18,6 +18,7 @@ public class DeliveryWithTypeAsViewTest extends ModuleTestBase {
 		assertNoAction("Reference.search", "keyProperty=type.number");
 		execute("CRUD.new");
 		assertAction("Reference.search", "keyProperty=type.number");
+		assertEditable("type.number");
 	}
 
 }
