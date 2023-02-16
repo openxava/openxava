@@ -39,11 +39,10 @@ public class CSSServlet extends HttpServlet {
 	
 	private InputStream getCSSAsStream(String resourceName, String prefix) { 
 		InputStream stream = null;
-		FileInputStream file = null;
 		try {
 			if (getClass().getClassLoader().getResourceAsStream("META-INF/resources/" + prefix + resourceName) != null) return stream = getClass().getClassLoader().getResourceAsStream("META-INF/resources/" + prefix + resourceName);
 			
-			file = new FileInputStream(getServletContext().getRealPath("/") + prefix + resourceName);
+			FileInputStream file = new FileInputStream(getServletContext().getRealPath("/") + prefix + resourceName);
 			if (file != null) return stream = file;
 		} catch (Exception e) { }
 		return stream;
