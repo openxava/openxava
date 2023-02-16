@@ -113,7 +113,6 @@ import org.openxava.test.validators.*;
 		"remarks;" +
 		"details" 
 	),
-	// tmr ini
 	@View(name="TypeAsView", members=
 		"invoice;" +	
 		"type;" +
@@ -122,7 +121,6 @@ import org.openxava.test.validators.*;
 		"description;" +
 		"remarks;"
 	),
-	// tmr fin
 	@View(name="FullInvoice", members= "invoice; number; description"),
 	@View(name="InvoiceAsDescriptionsList", members= "invoice; number; description"),
 	@View(name="Search", members= "invoice; type; number; date;	description;")
@@ -168,7 +166,7 @@ public class Delivery {
 	})
 	@Action(forViews="DEFAULT, MoreSections", value="Delivery.setDefaultType")
 	@OnChange(forViews="DEFAULT", value = OnChangeDeliveryTypeAction.class)
-	@ReferenceView(forViews="TypeAsView", value="ReadOnlyNumber") // tmr
+	@ReferenceView(forViews="TypeAsView", value="ReadOnlyNumber") 
 	private DeliveryType type;
 	
 	@Type(type="org.openxava.types.Date3Type")

@@ -2808,13 +2808,12 @@ public class View implements java.io.Serializable {
 			if (metaPropertyView != null) {
 				if (isKeyEditable() && metaPropertyView.isReadOnly() && !metaPropertyView.isReadOnlyOnCreate())	return true;
 			}
-			// tmr if (metaProperty.isReadOnly()) return false;			
 			if (metaProperty.isKey() || 
 				(metaProperty.isSearchKey() && isRepresentsEntityReference())) 
 			{
 				return isKeyEditable();
 			}
-			if (metaProperty.isReadOnly()) return false; // tmr
+			if (metaProperty.isReadOnly()) return false; 
 			if (!isEditable()) return false;			
 			
 			return isMarkedAsEditable(metaProperty.getName());
