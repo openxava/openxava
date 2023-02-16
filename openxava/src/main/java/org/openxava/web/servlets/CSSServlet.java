@@ -24,15 +24,9 @@ public class CSSServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			if (request.getRequestURI().endsWith(".css")) {
-				String path = request.getServletPath() + request.getPathInfo();
-				System.out.println(request.getServletPath());
-				System.out.println(request.getPathInfo());
-				//InputStream inputStream = getClass().getClassLoader().getResourceAsStream("META-INF/resources/" + path);
-				InputStream inputStream = Resources.getAsStreamInPrefixes(request.getPathInfo().toString(), request.getServletPath().toString());
-				//URL url = Resources.getAsStreamInPrefixes(path, "META-INF/resources/", "../webapp/", "/");
-				
-				
-				System.out.println(inputStream.getClass().getResource(path).getPath());
+				String prefix = request.getServletPath();
+				String file = request.getPathInfo();
+				InputStream inputStream = getCSSAsStream(file, prefix);
 				StringWriter writer = new StringWriter();
 				IOUtils.copy(inputStream, writer, StandardCharsets.UTF_8);
 				String data = writer.toString().replaceAll("@import (['\"].*)\\.css", "@import $1.css?ox=" + ModuleManager.getVersion());
@@ -42,6 +36,26 @@ public class CSSServlet extends HttpServlet {
 			log.error(e.getMessage(), e);
 			throw new ServletException(XavaResources.getString("attachments_css_servlet_error", request.getServletPath() + request.getPathInfo()));
 		}
+	}
+	
+	private InputStream getCSSAsStream(String resourceName, String prefix) { 
+		InputStream stream = null;
+		System.out.println(resourceName);
+		System.out.println(prefix);
+		try {
+			if (getClass().getClassLoader().getResourceAsStream(prefix + resourceName) != null) {
+				System.out.println("1");
+				///
+				return stream = getClass().getClassLoader().getResourceAsStream(prefix + resourceName);
+			}
+			if (getClass().getClassLoader().getResourceAsStream("META-INF/resources/" + prefix + resourceName) != null) {
+				System.out.println("2");
+				return stream = getClass().getClassLoader().getResourceAsStream("META-INF/resources/" + prefix + resourceName);
+			}
+		} catch (Exception e) {
+			
+		}
+		return null;
 	}
 
 }
