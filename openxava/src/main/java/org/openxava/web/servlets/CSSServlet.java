@@ -40,7 +40,6 @@ public class CSSServlet extends HttpServlet {
 	private InputStream getCSSAsStream(String resourceName, String prefix) { 
 		InputStream stream = null;
 		FileInputStream file = null;
-		System.out.println((getServletContext().getRealPath("/") + prefix + resourceName));
 		try {
 			if (getClass().getClassLoader().getResourceAsStream("META-INF/resources/" + prefix + resourceName) != null) return stream = getClass().getClassLoader().getResourceAsStream("META-INF/resources/" + prefix + resourceName);
 			

@@ -354,7 +354,6 @@ public class ApplicantTest extends ModuleTestBase {
 	}
 	
 	private void assertCSSWellUploaded(HtmlPage page) throws IOException {
-		
 		HtmlElement head = (HtmlElement) page.getHead();
 		DomElement linkCSS = head.getChildElements().iterator().next()
 								 .getNextElementSibling()
@@ -364,7 +363,6 @@ public class ApplicantTest extends ModuleTestBase {
 						+ page.getUrl().getHost() + ":"
 						+ page.getUrl().getPort() 
 						+ linkCSS.getAttribute("href");
-		System.out.println(urlCSS);
 		URL url = new URL(urlCSS);
 		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
 		assertEquals("@import 'base.css?ox=" + ModuleManager.getVersion() + "';", in.readLine());
