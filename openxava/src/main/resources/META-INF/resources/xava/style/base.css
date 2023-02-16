@@ -2589,6 +2589,22 @@ div[id$="_Index__view"] .ox-list-title {
 	height: 180px;
 }
 
+.ox-element-collection-file {
+	height: 67px !important;
+}
+
+.ox-element-collection-file-scroll {
+	height: 100%;
+}
+
+.ox-element-collection-image-scroll {
+	height: 83%;
+}
+
+.ox-element-collection-add-new {
+	height: 75px !important;
+}
+
 .ox-list img {
 	max-height: 30px;
 }

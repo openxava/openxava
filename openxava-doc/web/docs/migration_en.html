@@ -45,6 +45,33 @@
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">
+      <h2 id="from-6.6.3-to-7.0">Migration from OpenXava 7.0.5 to OpenXava 7.0.6</h2>
+      <h3>@Column(length=x) with no scale is no longer scale=2 by default</h3>
+      <p>We fixed a bug about that <i>scale=0</i> for <i>@Column</i> does not
+        work, and given that when <i>scale</i> is not defined its default value
+        is 0, now <i>@Column(length=x)</i> has <i>scale=0</i> as default value
+        instead of the <i>scale=2</i>. That is, you have to change this code:</p>
+      <p></p>
+      <pre><code class="java">@Column(length=6)
+BigDecimal factor;
+</code></pre>
+      <p></p>
+      <p>By this one:</p>
+      <p></p>
+      <pre><code class="java">@Column(length=6, scale=2) // ADD scale=2
+BigDecimal factor;
+</code></pre>
+      <p></p>
+      <p>If you do not define <i>length</i> or <i>precision</i> the value of <i>scale</i>
+        is still 2, as always, so if you have:</p>
+      <p></p>
+      <pre><code class="java">@Column(column="FCTR")// scale is 2 by default, as always
+BigDecimal factor;
+</code></pre>
+      <p></p>
+      <p>You don't need to change anything. Moreover, if <i>@Column</i>
+        annotation is missing altogether
+        <i> scale</i> is still 2, as always.</p>
       <h2>Migration from OpenXava 7.0.4 to OpenXava 7.0.5</h2>
       No issues.
       <h2>Migration from OpenXava 7.0.3 to OpenXava 7.0.4</h2>

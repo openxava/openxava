@@ -3,18 +3,19 @@ package org.openxava.test.model;
 import java.util.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.Columns;
+import org.hibernate.annotations.*;
 import org.hibernate.annotations.Parameter;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
+import org.openxava.jpa.*;
 import org.openxava.test.actions.*;
 import org.openxava.test.calculators.*;
 import org.openxava.test.filters.*;
 import org.openxava.test.validators.*;
-import org.openxava.jpa.*;
 
 /**
  * This is an example of using references as part of a composite key.<p>
@@ -159,7 +160,7 @@ public class Delivery {
 	@OnChange(forViews="DEFAULT", value = OnChangeDeliveryTypeAction.class) 
 	private DeliveryType type;
 	
-	@Type(type="org.openxava.types.Date3Type") 
+	@Type(type="org.openxava.types.Date3Type")
 	@Columns(columns = { @Column(name="year"), @Column(name="month"), @Column(name="day") })
 	@Required
 	@DefaultValueCalculator(CurrentDateCalculator.class)

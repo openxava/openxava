@@ -3548,7 +3548,7 @@ public class View implements java.io.Serializable {
 						calculateValue(pr, pr.getMetaCalculator(), pr.getCalculator(), errors, messages);
 						calculationDone = true;
 					}
-					if (pr.hasDefaultValueCalculator()) {	
+					if (pr.hasDefaultValueCalculator() && !(pr.isKey() && !isKeyEditable())) { 
 						calculateValue(pr, pr.getMetaCalculatorDefaultValue(), pr.createDefaultValueCalculator(), errors, messages);
 						calculationDone = true;
 					}				
