@@ -24,7 +24,6 @@ public class CSSServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			if (request.getRequestURI().endsWith(".css")) {
-
 				InputStream inputStream = getCSSAsStream(request.getPathInfo(), request.getServletPath());
 				StringWriter writer = new StringWriter();
 				IOUtils.copy(inputStream, writer, StandardCharsets.UTF_8);
@@ -40,16 +39,14 @@ public class CSSServlet extends HttpServlet {
 	
 	private InputStream getCSSAsStream(String resourceName, String prefix) { 
 		InputStream stream = null;
+		FileInputStream file = null;
+		System.out.println((getServletContext().getRealPath("/") + prefix + resourceName));
 		try {
-			if (getClass().getClassLoader().getResourceAsStream("META-INF/resources/" + prefix + resourceName) != null) {
-				return stream = getClass().getClassLoader().getResourceAsStream("META-INF/resources/" + prefix + resourceName);
-			}
-			if (new FileInputStream(getServletContext().getRealPath("/") + prefix + resourceName) != null) {
-				return stream = new FileInputStream(getServletContext().getRealPath("/") + prefix + resourceName);
-			}
-		} catch (Exception e) {
+			if (getClass().getClassLoader().getResourceAsStream("META-INF/resources/" + prefix + resourceName) != null) return stream = getClass().getClassLoader().getResourceAsStream("META-INF/resources/" + prefix + resourceName);
 			
-		}
+			file = new FileInputStream(getServletContext().getRealPath("/") + prefix + resourceName);
+			if (file != null) return stream = file;
+		} catch (Exception e) { }
 		return stream;
 	}
 

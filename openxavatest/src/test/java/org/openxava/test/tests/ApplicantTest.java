@@ -184,23 +184,6 @@ public class ApplicantTest extends ModuleTestBase {
 	public void testChangeLocaleAffectsMenu_assertCSSInLatestVersion() throws Exception {  
 		modulesLimit = false;
 		resetModule();
-		
-		HtmlElement head = (HtmlElement) getHtmlPage().getHead();
-		//terra
-		DomElement linkCSS = head.getChildElements().iterator().next()
-								 .getNextElementSibling()
-								 .getNextElementSibling();
-
-		String urlCSS = getHtmlPage().getUrl().getProtocol() + "://" 
-						+ getHtmlPage().getUrl().getHost() + ":"
-						+ getHtmlPage().getUrl().getPort() 
-						+ linkCSS.getAttribute("href");
-		
-		URL url = new URL(urlCSS);
-		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-		assertEquals("@import 'base.css?ox=" + ModuleManager.getVersion() + "';", in.readLine());
-		in.close();
-		
 		assertLabels("Name", "Author"); 
 		
 		execute("Applicant.changeToSpanish");
@@ -208,6 +191,12 @@ public class ApplicantTest extends ModuleTestBase {
 		
 		assertLabels("Nombre", "Autor");
 		assertHelp("es"); 
+		
+		HtmlPage page = getHtmlPage();
+		assertCSSWellUploaded(page);		
+		HtmlElement cssHref = page.getAnchorByHref("?theme=rose.css");
+		page = cssHref.click();
+		assertCSSWellUploaded(page);
 	}
 	
 	private void assertLabels(String propertyLabel, String moduleLabel) throws Exception {
@@ -362,6 +351,24 @@ public class ApplicantTest extends ModuleTestBase {
 		execute("AddColumns.restoreDefault");
 		assertListColumnCount(1);
 		assertListAllConfigurations("All"); 
+	}
+	
+	private void assertCSSWellUploaded(HtmlPage page) throws IOException {
+		
+		HtmlElement head = (HtmlElement) page.getHead();
+		DomElement linkCSS = head.getChildElements().iterator().next()
+								 .getNextElementSibling()
+								 .getNextElementSibling();
+
+		String urlCSS = page.getUrl().getProtocol() + "://" 
+						+ page.getUrl().getHost() + ":"
+						+ page.getUrl().getPort() 
+						+ linkCSS.getAttribute("href");
+		System.out.println(urlCSS);
+		URL url = new URL(urlCSS);
+		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+		assertEquals("@import 'base.css?ox=" + ModuleManager.getVersion() + "';", in.readLine());
+		in.close();
 	}
 	
 	protected String getModuleURL() {
