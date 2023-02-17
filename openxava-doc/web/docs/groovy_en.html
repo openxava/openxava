@@ -6,92 +6,37 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Groovy"></a>
-        <span id="breadcrumbs">
-          <span id="openxava">
-          	<a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava
-            </a>
-          </span>  
-          / <a href="index_en.html">documentation</a> /  
-				</span>
-        Groovy
-      </h1>
-      <a class="wiki_link_ext" href="http://groovy.codehaus.org/" rel="nofollow">Groovy</a>
-      is an agile and dynamic language for the Java Virtual Machine. Since
-      OpenXava 4m6 you can write the code of your applications using Groovy
-      instead of Java. Even you can combine both languages in the same
-      application.<br>
-      <h2 id="toc1"><a name="Groovy-Configuring Eclipse"></a>Configuring Eclipse</h2>
-      The easiest way to work with Grooy in OpenXava is using the <a class="wiki_link_ext"
-
-        href="http://groovy.codehaus.org/Eclipse+Plugin" rel="nofollow">Groovy
-        Eclipse</a> plugin. Follow <a class="wiki_link_ext" href="http://docs.codehaus.org/display/GROOVY/Install+Groovy-Eclipse+Plugin"
-
-        rel="nofollow">these instructions</a> from Groovy site to install the
-      plugin in Eclipse.<br>
-      If you're using an OpenXava version previous to v5.0 go to <em>Preferences
-        &gt; Groovy &gt; Compiler</em> and choose <em>Groovy Compiler 1.8</em>.<br>
+      <h1 id="toc0"><a name="Groovy"></a> <span id="breadcrumbs"> <span id="openxava">
+            <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Groovy </h1>
+      <a href="https://groovy-lang.org/">Groovy</a> is an agile and dynamic
+      language for the Java Virtual Machine. Since OpenXava 4m6 you can write
+      the code of your applications using Groovy instead of Java. Even you can
+      combine both languages in the same application.<br>
+      <h2 id="toc1"><a name="Groovy-Configuring Eclipse"></a>Configuring
+        OpenXava Studio</h2>
+      The easiest way to work with Grooy in OpenXava is using the <a href="https://github.com/groovy/groovy-eclipse">Groovy
+        Eclipse</a> plugin. Given that OpenXava Studio is based on Eclipse, you
+      can install the plugin on it. In OpenXava Studio go to <i>Help &gt;
+        Eclipse Marketplace</i> menu and look for "Groovy". Then install the one
+      called "Groovy Development Tools":<br>
+    </div>
+    <img src="files/install-groovy-plugin.png" alt="">
+    <div class="wiki" style="display: block;">If you're using an OpenXava
+      version previous to v5.0 go to <em>Preferences &gt; Groovy &gt; Compiler</em>
+      and choose <em>Groovy Compiler 1.8</em>.<br>
       You have to give Groovy nature to your OpenXava project: click the right
       button in your project, and choose <em>Configure &gt; Convert to Groovy
         project</em>. Projects created between OpenXava v4m6 and v5.9.1 have
-      Groovy nature by default.<br>
+      Groovy nature by default, but in OpenXava v6 and v7 you have to add the
+      Groovy nature explicitly.<br>
       From now on, you can add Groovy classes to your project, or convert some
       of your Java classes into Groovy classes, and it just will work. When you
-      press Ctrl-B the <em>.groovy</em> classes will compile into <em>.class</em>
-      automatically.<br>
-      <h2 id="toc2"><a name="Groovy-From command line"></a>From command line</h2>
-      If you work from command line, instead of using Eclipse, add a new <em>compile</em>
-      ant target to the <em>build.xml</em> of your project:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc-1">&lt;!--</span>
-<span class="sc-1">Compile all .java and .groovy</span>
-<span class="sc-1">Not needed to call it if you work inside Eclipse</span>
-<span class="sc-1">--&gt;</span>
-<span class="sc3"><span class="re1">&lt;target</span> <span class="re0">name</span>=<span
-
-class="st0">"compile"</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;ant</span> <span class="re0">antfile</span>=<span
-
-class="st0">"../OpenXava/build.xml"</span> <span class="re0">target</span>=<span
-
-class="st0">"compile"</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/target<span class="re2">&gt;</span></span></span></pre>
-      And remember to call it before calling another target:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.text  {font-family:monospace;}
-.text .imp {font-weight: bold; color: red;}
-.text span.xtra { display:block; }
-
--->
-</style><pre class="text">$ ant compile deployWar</pre>
-      The <em>compile</em> ant target is included by default in the new
-      projects.<br>
+      save a <em>.groovy</em> class it will compile into <em>.class</em>
+      automatically. You can put your Groovy code in <i>src/main/java</i>
+      folder of your project for OpenXava v7 or in any source folder in previous
+      version of OpenXava.<br>
       <h2 id="toc3"><a name="Groovy-Some sample code"></a>Some sample code</h2>
       You can write the JPA entities with Groovy:<br>
       <style type="text/css"><!--
@@ -126,21 +71,19 @@ class="st0">"compile"</span><span class="re2">/&gt;</span></span>
 
 -->
 </style><pre class="groovy"><span class="kw2">package</span> <span class="co2">org.openxava.test.model</span><span
-
 class="sy0">;</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">javax.persistence.*</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">org.openxava.annotations.*</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.calculators.*</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.jpa.*</span>
+<span class="kw2">import</span> <span class="co2">org.openxava.calculators.*</span><br><span
+class="kw2">import</span> <span class="co2">org.openxava.model.*</span><br><span
+class="kw2">import</span> <span class="co2">org.openxava.jpa.*</span>
 &nbsp;
 @<span class="kw3">Entity</span>
 @Table<span class="br0">(</span>name<span class="sy0">=</span><span class="st0">"TOrder"</span><span
-
 class="br0">)</span>
 @<span class="kw3">View</span><span class="br0">(</span>members<span class="sy0">=</span><span
-
 class="st0">"""
     year, number, date;
     customer;
@@ -151,50 +94,37 @@ class="st0">"""
 <span class="br0">)</span>
 &nbsp;
 <span class="kw2">class</span> Order <span class="kw2">extends</span> Identifiable <span
-
 class="br0">{</span>
 &nbsp;
     @Column<span class="br0">(</span>length<span class="sy0">=</span><span class="nu0">4</span><span
-
 class="br0">)</span>
     @DefaultValueCalculator<span class="br0">(</span>CurrentYearCalculator.<span
-
 class="kw2">class</span><span class="br0">)</span>
     <span class="kw4">int</span> year
 &nbsp;
     @Column<span class="br0">(</span>length<span class="sy0">=</span><span class="nu0">6</span><span
-
 class="br0">)</span>
     <span class="kw4">int</span> number
 &nbsp;
     @Required
     @DefaultValueCalculator<span class="br0">(</span>CurrentDateCalculator.<span
-
 class="kw2">class</span><span class="br0">)</span>
     <span class="kw3">Date</span> date
 &nbsp;
     @ManyToOne<span class="br0">(</span>fetch<span class="sy0">=</span>FetchType.<span
-
 class="me1">LAZY</span>, optional<span class="sy0">=</span><span class="kw2">false</span><span
-
 class="br0">)</span>
     @ReferenceView<span class="br0">(</span><span class="st0">"Simplest"</span><span
-
 class="br0">)</span>
     Customer customer
 &nbsp;
     @OneToMany<span class="br0">(</span>mappedBy<span class="sy0">=</span><span
-
 class="st0">"parent"</span>, cascade<span class="sy0">=</span>CascadeType.<span
-
 class="me1">ALL</span><span class="br0">)</span>
     @ListProperties<span class="br0">(</span><span class="st0">"product.number, product.description, quantity, product.unitPrice, amount"</span><span
-
 class="br0">)</span>
     Collection<span class="sy0">&lt;</span>OrderDetail<span class="sy0">&gt;</span> details <span
-
 class="sy0">=</span> <span class="kw2">new</span> ArrayList<span class="sy0">&lt;</span>OrderDetail<span
-
 class="sy0">&gt;</span><span class="br0">(</span><span class="br0">)</span>
 &nbsp;
     @Stereotype<span class="br0">(</span><span class="st0">"MEMO"</span><span class="br0">)</span>
@@ -202,13 +132,10 @@ class="sy0">&gt;</span><span class="br0">(</span><span class="br0">)</span>
 &nbsp;
     @Stereotype<span class="br0">(</span><span class="st0">"MONEY"</span><span class="br0">)</span>
     <span class="kw3">BigDecimal</span> getAmount<span class="br0">(</span><span
-
 class="br0">)</span> <span class="br0">{</span>
         <span class="kw3">BigDecimal</span> result <span class="sy0">=</span> <span
-
 class="nu0">0</span>
         details.<span class="kw5">each</span> <span class="br0">{</span> OrderDetail detail <span
-
 class="sy0">-&gt;</span>
             result <span class="sy0">+=</span> detail.<span class="me1">amount</span>
         <span class="br0">}</span>
@@ -217,29 +144,20 @@ class="sy0">-&gt;</span>
 &nbsp;
     @PrePersist
     <span class="kw4">void</span> calculateNumber<span class="br0">(</span><span
-
 class="br0">)</span> <span class="kw2">throws</span> <span class="kw3">Exception</span> <span
-
 class="br0">{</span>
         Query query <span class="sy0">=</span> XPersistence.<span class="me1">getManager</span><span
-
 class="br0">(</span><span class="br0">)</span>
             .<span class="me1">createQuery</span><span class="br0">(</span><span
-
 class="st0">"select max(o.number) from Order o "</span> <span class="sy0">+</span>
                     <span class="st0">"where o.year = :year"</span><span class="br0">)</span>
         query.<span class="me1">setParameter</span><span class="br0">(</span><span
-
 class="st0">"year"</span>, year<span class="br0">)</span>
         <span class="kw3">Integer</span> lastNumber <span class="sy0">=</span> <span
-
 class="br0">(</span><span class="kw3">Integer</span><span class="br0">)</span> query.<span
-
 class="me1">getSingleResult</span><span class="br0">(</span><span class="br0">)</span>
         <span class="kw2">this</span>.<span class="me1">number</span> <span class="sy0">=</span> lastNumber <span
-
 class="sy0">==</span> <span class="kw2">null</span><span class="sy0">?</span><span
-
 class="nu0">1</span>:lastNumber <span class="sy0">+</span> <span class="nu0">1</span>
     <span class="br0">}</span>
 &nbsp;
@@ -282,18 +200,14 @@ class="nu0">1</span>:lastNumber <span class="sy0">+</span> <span class="nu0">1</
 <span class="kw2">import</span> <span class="co2">org.openxava.actions.*</span>
 &nbsp;
 <span class="kw2">class</span> ChangeYearConditionAction <span class="kw2">extends</span> TabBaseAction <span
-
 class="br0">{</span>
 &nbsp;
     <span class="kw4">int</span> year<span class="sy0">;</span>
 &nbsp;
     <span class="kw4">void</span> <span class="kw9">execute</span><span class="br0">(</span><span
-
 class="br0">)</span> <span class="kw2">throws</span> <span class="kw3">Exception</span> <span
-
 class="br0">{</span>
         tab.<span class="me1">setConditionValue</span><span class="br0">(</span><span
-
 class="st0">"year"</span>, year<span class="br0">)</span>
     <span class="br0">}</span>
 &nbsp;
@@ -340,164 +254,114 @@ class="st0">"year"</span>, year<span class="br0">)</span>
 <span class="kw2">import</span> <span class="co2">com.gargoylesoftware.htmlunit.html.*</span>
 &nbsp;
 <span class="kw2">import</span> <span class="co2">static</span> org.<span class="me1">openxava</span>.<span
-
 class="me1">jpa</span>.<span class="me1">XPersistence</span>.<span class="sy0">*</span>
 &nbsp;
 <span class="kw2">class</span> OrderTest <span class="kw2">extends</span> ModuleTestBase <span
-
 class="br0">{</span>
 &nbsp;
     OrderTest<span class="br0">(</span><span class="kw3">String</span> testName<span
-
 class="br0">)</span> <span class="br0">{</span>
         <span class="kw2">super</span><span class="br0">(</span>testName, <span
-
 class="st0">"Order"</span><span class="br0">)</span>
     <span class="br0">}</span>
 &nbsp;
     <span class="kw4">void</span> testCalculatedPropertiesFromCollection_generatedValueOnPersistRefreshedInView<span
-
 class="br0">(</span><span class="br0">)</span>
         <span class="kw2">throws</span> <span class="kw3">Exception</span>
     <span class="br0">{</span>
         <span class="kw3">String</span> nextNumber <span class="sy0">=</span> getNextNumber<span
-
 class="br0">(</span><span class="br0">)</span>
         <span class="kw9">execute</span><span class="br0">(</span><span class="st0">"CRUD.new"</span><span
-
 class="br0">)</span>
         assertValue<span class="br0">(</span><span class="st0">"number"</span>, <span
-
 class="st0">""</span><span class="br0">)</span>
         setValue<span class="br0">(</span><span class="st0">"customer.number"</span>, <span
-
 class="st0">"1"</span><span class="br0">)</span>
         assertValue<span class="br0">(</span><span class="st0">"customer.name"</span>, <span
-
 class="st0">"Javi"</span><span class="br0">)</span>
         assertCollectionRowCount<span class="br0">(</span><span class="st0">"details"</span>, <span
-
 class="nu0">0</span><span class="br0">)</span>
         <span class="kw9">execute</span><span class="br0">(</span><span class="st0">"Collection.new"</span>, <span
-
 class="st0">"viewObject=xava_view_details"</span><span class="br0">)</span>
         setValue<span class="br0">(</span><span class="st0">"product.number"</span>, <span
-
 class="st0">"1"</span><span class="br0">)</span>
         assertValue<span class="br0">(</span><span class="st0">"product.description"</span>, <span
-
 class="st0">"MULTAS DE TRAFICO"</span><span class="br0">)</span>
         assertValue<span class="br0">(</span><span class="st0">"product.unitPrice"</span>, <span
-
 class="st0">"11.00"</span><span class="br0">)</span>
         setValue<span class="br0">(</span><span class="st0">"quantity"</span>, <span
-
 class="st0">"10"</span><span class="br0">)</span>
         assertValue<span class="br0">(</span><span class="st0">"amount"</span>, <span
-
 class="st0">"110.00"</span><span class="br0">)</span>
         <span class="kw9">execute</span><span class="br0">(</span><span class="st0">"Collection.save"</span><span
-
 class="br0">)</span>
         assertNoErrors<span class="br0">(</span><span class="br0">)</span>
         assertCollectionRowCount<span class="br0">(</span><span class="st0">"details"</span>, <span
-
 class="nu0">1</span><span class="br0">)</span>
         assertValue<span class="br0">(</span><span class="st0">"amount"</span>, <span
-
 class="st0">"110.00"</span><span class="br0">)</span>
         assertValue<span class="br0">(</span><span class="st0">"number"</span>, nextNumber<span
-
 class="br0">)</span>
         <span class="kw9">execute</span><span class="br0">(</span><span class="st0">"CRUD.delete"</span><span
-
 class="br0">)</span>
         assertNoErrors<span class="br0">(</span><span class="br0">)</span>
     <span class="br0">}</span>
 &nbsp;
     <span class="kw4">void</span> testDoubleClickOnlyInsertsACollectionElement<span
-
 class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <span
-
 class="kw3">Exception</span> <span class="br0">{</span>
         <span class="kw9">execute</span><span class="br0">(</span><span class="st0">"CRUD.new"</span><span
-
 class="br0">)</span>
         setValue<span class="br0">(</span><span class="st0">"customer.number"</span>, <span
-
 class="st0">"1"</span><span class="br0">)</span>
         assertCollectionRowCount<span class="br0">(</span><span class="st0">"details"</span>, <span
-
 class="nu0">0</span><span class="br0">)</span>
         <span class="kw9">execute</span><span class="br0">(</span><span class="st0">"Collection.new"</span>, <span
-
 class="st0">"viewObject=xava_view_details"</span><span class="br0">)</span>
         setValue<span class="br0">(</span><span class="st0">"product.number"</span>, <span
-
 class="st0">"1"</span><span class="br0">)</span>
         setValue<span class="br0">(</span><span class="st0">"quantity"</span>, <span
-
 class="st0">"10"</span><span class="br0">)</span>
         HtmlElement action <span class="sy0">=</span> getForm<span class="br0">(</span><span
-
 class="br0">)</span>.<span class="me1">getElementById</span><span class="br0">(</span>decorateId<span
-
 class="br0">(</span><span class="st0">"Collection.save"</span><span class="br0">)</span><span
-
 class="br0">)</span>
 &nbsp;
         action.<span class="me1">click</span><span class="br0">(</span><span class="br0">)</span> <span
-
 class="co1">// Not dblClick(), it does not reproduce the problem</span>
         action.<span class="me1">click</span><span class="br0">(</span><span class="br0">)</span>
         <span class="kw3">Thread</span>.<span class="me1">sleep</span><span class="br0">(</span><span
-
 class="nu0">3000</span><span class="br0">)</span>
 &nbsp;
         assertNoErrors<span class="br0">(</span><span class="br0">)</span>
         assertCollectionRowCount<span class="br0">(</span><span class="st0">"details"</span>, <span
-
 class="nu0">1</span><span class="br0">)</span>
 &nbsp;
         <span class="kw9">execute</span><span class="br0">(</span><span class="st0">"CRUD.delete"</span><span
-
 class="br0">)</span>
         assertNoErrors<span class="br0">(</span><span class="br0">)</span>
     <span class="br0">}</span>
 &nbsp;
     <span class="kw2">private</span> <span class="kw3">String</span> getNextNumber<span
-
 class="br0">(</span><span class="br0">)</span> <span class="kw2">throws</span> <span
-
 class="kw3">Exception</span> <span class="br0">{</span>
         Query query <span class="sy0">=</span> getManager<span class="br0">(</span><span
-
 class="br0">)</span>.
             <span class="me1">createQuery</span><span class="br0">(</span>
                 <span class="st0">"select max(o.number) from Order o where o.year = :year"</span><span
-
 class="br0">)</span>
         query.<span class="me1">setParameter</span><span class="br0">(</span><span
-
 class="st0">"year"</span>, Dates.<span class="me1">getYear</span><span class="br0">(</span><span
-
 class="kw2">new</span> <span class="kw3">Date</span><span class="br0">(</span><span
-
 class="br0">)</span><span class="br0">)</span><span class="br0">)</span>
         <span class="kw3">Integer</span> lastNumber <span class="sy0">=</span> <span
-
 class="br0">(</span><span class="kw3">Integer</span><span class="br0">)</span> query.<span
-
 class="me1">getSingleResult</span><span class="br0">(</span><span class="br0">)</span>
         <span class="kw1">if</span> <span class="br0">(</span>lastNumber <span class="sy0">==</span> <span
-
 class="kw2">null</span><span class="br0">)</span> lastNumber <span class="sy0">=</span> <span
-
 class="nu0">0</span>
         <span class="kw2">return</span> <span class="kw3">Integer</span>.<span class="me1">toString</span><span
-
 class="br0">(</span>lastNumber <span class="sy0">+</span> <span class="nu0">1</span><span
-
 class="br0">)</span>
     <span class="br0">}</span>
 &nbsp;
@@ -540,10 +404,8 @@ class="br0">)</span>
 
 -->
 </style><pre class="groovy">@Views<span class="br0">(</span><span class="br0">[</span> <span
-
 class="co1">// Use [ instead of {</span>
     @<span class="kw3">View</span><span class="br0">(</span>members<span class="sy0">=</span><span
-
 class="st0">""" // Use """</span> <span class="kw1">for</span> multiline strings
         building <span class="br0">[</span>
             name, function<span class="sy0">;</span>
@@ -554,9 +416,9 @@ class="st0">""" // Use """</span> <span class="kw1">for</span> multiline strings
 ]) // Use ] instead of }</span></pre>
       Note how we use <em>@Views([ ... ])</em> instead of <em>@Views({ ... })</em>.
       Note also that you can use """ for multiline strings.<br>
-      For more details about Groovy syntax read <em><a class="wiki_link_ext" href="http://groovy.codehaus.org/Groovy+style+and+language+feature+guidelines+for+Java+developers"
-
-          rel="nofollow">Groovy style and language feature guidelines for Java
-          developers</a></em>. </div>
+      For more details about Groovy syntax read about <a href="https://groovy-lang.org/differences.html">Groovy
+        differences with Java</a>.</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
   </body>
 </html>

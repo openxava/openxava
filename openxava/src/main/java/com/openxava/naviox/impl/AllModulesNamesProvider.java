@@ -19,6 +19,8 @@ import org.openxava.application.meta.*;
 import org.openxava.component.parse.*;
 import org.openxava.util.*;
 
+import com.openxava.naviox.Modules;
+
 /**
  * @since 5.6 
  * @author Javier Paniza
@@ -27,7 +29,7 @@ public class AllModulesNamesProvider implements IAllModulesNamesProvider {
 
 	public Collection<String> getAllModulesNames(MetaApplication app) {
 		Collection<String> allModulesNames = new HashSet<String>(app.getModulesNames());
-		allModulesNames.remove("FirstSteps"); 
+		allModulesNames.remove(Modules.FIRST_STEPS); 
 		for (String className: AnnotatedClassParser.getManagedClassNames()) {
 			if (moduleForClass(className)) {
 				allModulesNames.add(Strings.lastToken(className, "."));

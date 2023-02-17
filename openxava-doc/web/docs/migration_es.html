@@ -18,7 +18,7 @@
         propiedad <i>openxava.version</i> para que apunte a la última versión
         de OpenXava, así: </p>
       <pre><code class="xml">&lt;properties&gt;
-    &lt;openxava.version&gt;7.0.3&lt;/openxava.version&gt;
+    &lt;openxava.version&gt;7.0.5&lt;/openxava.version&gt;
     ...
 &lt;/properties&gt;
 </code></pre>
@@ -44,6 +44,37 @@
         instrucciones de abajo para adaptar tu código.</div>
       <div class="wiki" style="display: block;"><br>
       </div>
+      <h2>Para migrar de OpenXava 7.0.5 a OpenXava 7.0.6</h2>
+      <h3>@Column(length=x) sin scale ya no es scale=2 por defecto</h3>
+      <p>Hemos arreglado un fallo relacionado con que <i>scale=0</i> para <i>@Column</i>
+        no funciona, y dado que cuando <i>scale</i> no está definido su valor
+        por defecto es 0, ahora <i>@Column(length=x)</i> tiene <i>scale=0</i>
+        como valor por defecto en lugar de <i>scale=2</i>. Es decir, has de
+        cambiar este código: </p>
+      <p></p>
+      <pre><code class="java">@Column(length=6)
+BigDecimal factor;
+</code></pre>
+      <p></p>
+      <p>Por este otro:</p>
+      <p></p>
+      <pre><code class="java">@Column(length=6, scale=2) // AÑADE scale=2
+BigDecimal factor;
+</code></pre>
+      <p></p>
+      <p>Si no defines <i>length</i> o <i>precision</i> el valor de <i>scale</i>
+        todavía es 2, como siempre, por tanto si tienes:</p>
+      <p></p>
+      <pre><code class="java">@Column(column="FCTR")// scale es 2 por defecto, como siempre
+BigDecimal factor;
+</code></pre>
+      <p></p>
+      No necesitas cambiar nada. Además, si la anotación <i>@Column</i> se
+      omite por completo <i>scale</i> todavía es 2, como siempre.
+      <h2>Para migrar de OpenXava 7.0.4 a OpenXava 7.0.5</h2>
+      No hay consideraciones.
+      <h2>Para migrar de OpenXava 7.0.3 a OpenXava 7.0.4</h2>
+      No hay consideraciones.
       <h2>Para migrar de OpenXava 7.0.2 a OpenXava 7.0.3</h2>
       <h3>Los combos de @DescriptionsList en la parte del filtro de la lista ya
         no usan la clave</h3>

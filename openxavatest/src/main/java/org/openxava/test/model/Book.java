@@ -23,6 +23,7 @@ public class Book extends Identifiable {
 	private String title; 
 	
 	@ManyToOne 
+	@SearchAction("Book.addAction")
 	private Author author;
 		 
 	private boolean outOfPrint;  

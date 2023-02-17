@@ -2551,7 +2551,9 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 .ox-file {
-	width: 330px;;
+	width: 330px;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 .ox-file .filepond--item, .ox-files .filepond--item {
@@ -2585,6 +2587,22 @@ div[id$="_Index__view"] .ox-list-title {
 
 .ox-element-collection .filepond--root { 
 	height: 180px;
+}
+
+.ox-element-collection-file {
+	height: 67px !important;
+}
+
+.ox-element-collection-file-scroll {
+	height: 100%;
+}
+
+.ox-element-collection-image-scroll {
+	height: 83%;
+}
+
+.ox-element-collection-add-new {
+	height: 75px !important;
 }
 
 .ox-list img {
@@ -2644,4 +2662,5 @@ div[id$="_Index__view"] .ox-list-title {
 	width: 100%;
 	height: 450px;
     margin: 7px 0px 0px 2px;
+    z-index: 1;
 }
