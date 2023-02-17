@@ -194,7 +194,7 @@ public class ApplicantTest extends ModuleTestBase {
 		
 		HtmlPage page = getHtmlPage();
 		assertCSSWellUploaded(page);		
-		HtmlElement cssHref = page.getAnchorByHref("?theme=rose.css");
+		HtmlElement cssHref = page.getAnchorByHref("?theme=pink.css");
 		page = cssHref.click();
 		assertCSSWellUploaded(page);
 	}

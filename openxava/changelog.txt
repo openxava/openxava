@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: When adding OpenXava as dependency in a Spring Boot application CSS styles are not applied. 
+- Fix: Adding a third party library with servlet filters (@WebFilter) can break the filters chain.
 - Fix: Key field not editable for searching in a reference if marked as @ReadOnly in the referenced entity. 
 - Fix: Reference in a key to an entity with a @ReadOnly id does not show search action on New from detail. 
 - Fix: Although duplicate members are illegal in @View no warning message or stacktrace is shown in log.
