@@ -1,24 +1,25 @@
 Change Log for OpenXava project
 ===============================
+- Embedded Tomcat used in development upgraded to 9.0.71.
+- Groovy upgraded to 4.0.8.
+- Driver version in doc and new projects upgraded for MySQL, PostgreSQL, Microsoft SQL Server, Firebird.
 
-- Fix: Root cause not shown in message when JavaScript error refreshing a part of the page.
+- Documentation about using standard Eclipse with OpenXava updated to work with OpenXava 7 and Maven. 
+- Appendix A of course about architecture and philosophy updated to version 7. 
+
 - Fix: When adding OpenXava as dependency in a Spring Boot application CSS styles are not applied. 
 - Fix: Adding a third party library with servlet filters (@WebFilter) can break the filters chain.
 - Fix: Key field not editable for searching in a reference if marked as @ReadOnly in the referenced entity. 
 - Fix: Reference in a key to an entity with a @ReadOnly id does not show search action on New from detail. 
 - Fix: Although duplicate members are illegal in @View no warning message or stacktrace is shown in log.
+- Fix: Root cause not shown in message when JavaScript error refreshing a part of the page.
 - Fix: Date3Type converter for mapping does not read/assign the day well for get/setPropertyValue().
 - Fix: @DefaultValueCalculator dependent on other properties modifies @Id properties of existing entities.
-- Fix: @File inside @ElementCollection is too tall even if it only stores files that are not images. 
-- Documentation about using standard Eclipse with OpenXava updated to work with OpenXava 7 and Maven. 
-- Appendix A of course about architecture and philosophy updated to version 7. 
-- Embedded Tomcat used in development upgraded to 9.0.71.
-- Groovy upgraded to 4.0.8.
-- Driver version in doc and new projects upgraded for MySQL, PostgreSQL, Microsoft SQL Server, Firebird.
 - Fix: Purged not used entries in labels and messages i18 files.
 - Fix: Some labels missing in English translation.
 - Fix: @Column(precision/length=x, scale=0) the scale part is ignored and assumed 2 instead when formating. 
 - Fix: Incorrect encoding when sending emails with attachments using Emails utility class.
+- Fix: @File inside @ElementCollection is too tall even if it only stores files that are not images. 
 
 OpenXava 7.0.5 (2023-1-27)
 --------------------------
