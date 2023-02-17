@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Root cause not shown in message when JavaScript error refreshing a part of the page.
 - Fix: When adding OpenXava as dependency in a Spring Boot application CSS styles are not applied. 
 - Fix: Adding a third party library with servlet filters (@WebFilter) can break the filters chain.
 - Fix: Key field not editable for searching in a reference if marked as @ReadOnly in the referenced entity. 
