@@ -122,7 +122,7 @@ openxava.refreshPage = function(result) {
 			}
 			catch (ex) {
 				changed = changed + " ERROR";
-				alert("Error refreshing part: " + id);
+				alert("Error refreshing part: " + id + "\nCause: " + ex);
 				errors = true;
 				break;
 			}			
