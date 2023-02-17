@@ -1,6 +1,12 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Key field not editable for searching in a reference if marked as @ReadOnly in the referenced entity. 
+- Fix: Reference in a key to an entity with a @ReadOnly id does not show search action on New from detail. 
+- Fix: Although duplicate members are illegal in @View no warning message or stacktrace is shown in log.
+- Fix: Date3Type converter for mapping does not read/assign the day well for get/setPropertyValue().
+- Fix: @DefaultValueCalculator dependent on other properties modifies @Id properties of existing entities.
+- Fix: @File inside @ElementCollection is too tall even if it only stores files that are not images. 
 - Documentation about using standard Eclipse with OpenXava updated to work with OpenXava 7 and Maven. 
 - Appendix A of course about architecture and philosophy updated to version 7. 
 - Embedded Tomcat used in development upgraded to 9.0.71.

@@ -47,6 +47,7 @@ public class CSSServlet extends HttpServlet {
 		 * - rose no pink
 		   - } catch (Exception e) { } : No
 		   - materialdesignicons.css.map No se devolvía
+		   - En i18n attachments_css_servlet_error bajo a versión 7.0
 		 * 
 		 */
 		InputStream stream = null;

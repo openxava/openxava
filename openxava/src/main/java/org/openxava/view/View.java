@@ -2794,7 +2794,7 @@ public class View implements java.io.Serializable {
 	 * If at this moment is editable.
 	 */
 	public boolean isEditable(MetaProperty metaProperty) {
-		if (isEditableImpl(metaProperty)) return true;		
+		if (isEditableImpl(metaProperty)) return true;				
 		if (isLastSearchKey(metaProperty)) return isKeyEditable();
 		return false;
 	}
@@ -2808,12 +2808,12 @@ public class View implements java.io.Serializable {
 			if (metaPropertyView != null) {
 				if (isKeyEditable() && metaPropertyView.isReadOnly() && !metaPropertyView.isReadOnlyOnCreate())	return true;
 			}
-			if (metaProperty.isReadOnly()) return false;			
 			if (metaProperty.isKey() || 
 				(metaProperty.isSearchKey() && isRepresentsEntityReference())) 
 			{
 				return isKeyEditable();
 			}
+			if (metaProperty.isReadOnly()) return false; 
 			if (!isEditable()) return false;			
 			
 			return isMarkedAsEditable(metaProperty.getName());
@@ -3548,7 +3548,7 @@ public class View implements java.io.Serializable {
 						calculateValue(pr, pr.getMetaCalculator(), pr.getCalculator(), errors, messages);
 						calculationDone = true;
 					}
-					if (pr.hasDefaultValueCalculator()) {	
+					if (pr.hasDefaultValueCalculator() && !(pr.isKey() && !isKeyEditable())) { 
 						calculateValue(pr, pr.getMetaCalculatorDefaultValue(), pr.createDefaultValueCalculator(), errors, messages);
 						calculationDone = true;
 					}				
