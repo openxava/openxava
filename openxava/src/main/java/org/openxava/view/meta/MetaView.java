@@ -541,11 +541,14 @@ public class MetaView extends MetaElement implements Cloneable {
 
 	private void calculateDefaultValuesForDescriptionsList(MetaReference r, MetaDescriptionsList metaDescriptionsList) throws XavaException {
 		Collection properties = r.getMetaModelReferenced().getPropertiesNames();
-		if (properties.contains("descripcion")) metaDescriptionsList.setDescriptionPropertyName("descripcion");
-		else if (properties.contains("description")) metaDescriptionsList.setDescriptionPropertyName("description");
-		else if (properties.contains("nombre")) metaDescriptionsList.setDescriptionPropertyName("nombre");
-		else if (properties.contains("name")) metaDescriptionsList.setDescriptionPropertyName("name");
-		else throw new XavaException("description_property_required");
+		boolean hasDefaultProperty = false;
+		for (String propertyName: XavaPreferences.getInstance().getDefaultDescriptionPropertiesValueForDescriptionsList()) {
+			if (properties.contains(propertyName)) metaDescriptionsList.setDescriptionPropertyName(propertyName);
+			hasDefaultProperty = true;
+		}
+		if (!hasDefaultProperty) {
+			throw new XavaException("description_property_required");
+		}
 	}
 	
 	public MetaDescriptionsList createMetaDescriptionList(MetaReference r) throws XavaException {

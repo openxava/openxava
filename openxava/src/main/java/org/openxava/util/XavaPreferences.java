@@ -487,5 +487,10 @@ public class XavaPreferences {
 		String path = getProperties().getProperty("filesPath");
 		return path != null ? path : System.getProperty("user.home") + System.getProperty("file.separator") + "oxfiles";
 	}
+	public String[] getDefaultDescriptionPropertiesValueForDescriptionsList() {
+		String properties = getProperties().getProperty("defaultDescriptionPropertiesValueForDescriptionsList", "descripcion,description,nombre,name");
+		return properties.split(",");
+		
+	}
 	
 }
