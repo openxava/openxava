@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- defaultDescriptionPropertiesValueForDescriptionsList in xava.properties for @DescriptionsList defaults.
+
 OpenXava 7.0.6 (2023-2-17)
 --------------------------
 - Embedded Tomcat used in development upgraded to 9.0.71.
