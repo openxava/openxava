@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- New @ZerosFilled annotation equivalent to ZEROS_FILLED/RELLENADO_CON_CEROS stereotype.
 - Automatic translation of English labels improved for qualified properties.
 - defaultDescriptionPropertiesValueForDescriptionsList in xava.properties for @DescriptionsList defaults.
 
