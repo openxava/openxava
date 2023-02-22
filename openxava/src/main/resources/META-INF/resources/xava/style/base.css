@@ -2665,7 +2665,7 @@ div[id$="_Index__view"] .ox-list-title {
     z-index: 1;
 }
 
-.select-editable {position:relative; background-color:white; border:solid grey 1px;  width:120px; height:18px;}
-.select-editable select {position:absolute; top:0px; left:0px; font-size:14px; border:none; width:120px; margin:0;}
-.select-editable input {position:absolute; top:0px; left:0px; width:100px; padding:1px; font-size:12px; border:none;}
-.select-editable select:focus, .select-editable input:focus {outline:none;}
+.select-editable {position:relative; width:120px;}
+.select-editable > * {position:absolute; top:0; left:0; box-sizing:border-box; outline:none;}
+.select-editable select {width:100%;}
+.select-editable input {width:calc(100% - 20px); margin:1px; border:none; text-overflow:ellipsis;}
