@@ -23,7 +23,7 @@ public class AccountingInvoiceTest extends ModuleTestBase {
 		// like Date of document of positions, Description of document of positions, Number of document of positions
 		// That is no column with "of document of positions", not even after pressing AddColumns.showMoreColumns (not shown by now)
 		assertCollectionRowCount("xavaPropertiesList", 1); 		
-		assertValueInCollection("xavaPropertiesList",  0, 0, "Description of positions");
+		assertValueInCollection("xavaPropertiesList",  0, 0, "Positions description");
 		closeDialog();
 
 		execute("List.viewDetail", "row=0");

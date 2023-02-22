@@ -76,8 +76,8 @@ public class Color2Test extends ModuleTestBase {
 	}
 	
 	public void testFilterDescriptionsList_keyReferenceWithSameNameThatPropertyFather_twoReferencesToSameModelInList() throws Exception {  
-		assertLabelInList(6, "Thing of characteristic thing"); 
-		assertLabelInList(7, "Thing of another ct");
+		assertLabelInList(6, "Characteristic thing thing"); 
+		assertLabelInList(7, "Another ct thing");
 		assertValueInList(3, 6, "CAR");
 		assertValueInList(3, 7, "LAMPPOST");
 		assertLabelInList(4, "Used to"); 

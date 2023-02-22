@@ -257,36 +257,36 @@ public class InvoiceTest extends CustomizeListTestBase {
 			{ "vatPercentage", "VAT %" },
 			{ "comment", "Comment" },
 			{ "paid", "Paid" },
-			{ "customer.number", "Number of customer" },
-			{ "customer.name", "Name of customer" },
-			{ "customer.type", "Type of customer" },
-			{ "customer.photo", "Photo of customer" },
-			{ "customer.telephone", "Telephone of customer" },
-			{ "customer.email", "Email of customer" },
-			{ "customer.additionalEmails", "Additional emails of customer" },
-			{ "customer.website", "Web site of customer" },
-			{ "customer.remarks", "Remarks of customer" },
-			{ "customer.relationWithSeller", "Relation with seller of customer" },
-			{ "customer.city", "City of customer" },
-			{ "customer.local", "Lokal of customer" },
-			{ "details.serviceType", "Service type of details" },
-			{ "details.quantity", "Quantity of details" },
-			{ "details.unitPrice", "Unit price of details" },
-			{ "details.deliveryDate", "Delivery date of details" },
-			{ "details.remarks", "Remarks of details" },
-			{ "details.amount", "Amount of details" },
-			{ "details.free", "Free of details" },
-			{ "deliveries.number", "Number of deliveries" },
-			{ "deliveries.date", "Date of deliveries" },
-			{ "deliveries.description", "Description of deliveries" },
-			{ "deliveries.distance", "Distance of deliveries" },
-			{ "deliveries.vehicle", "Vehicle of deliveries" },
-			{ "deliveries.driverType", "Driver type of deliveries" },
-			{ "deliveries.employee", "Employee of deliveries" },
-			{ "deliveries.remarks", "Remarks of deliveries" },
-			{ "deliveries.incidents", "Incidents of deliveries" },
-			{ "deliveries.dateAsLabel", "Date as label of deliveries" },
-			{ "deliveries.transportMode", "Transport mode of deliveries" },
+			{ "customer.number", "Customer number" },
+			{ "customer.name", "Customer name" },
+			{ "customer.type", "Customer type" },
+			{ "customer.photo", "Customer photo" },
+			{ "customer.telephone", "Customer telephone" },
+			{ "customer.email", "Customer email" },
+			{ "customer.additionalEmails", "Customer additional emails" },
+			{ "customer.website", "Customer web site" },
+			{ "customer.remarks", "Customer remarks" },
+			{ "customer.relationWithSeller", "Customer relation with seller" },
+			{ "customer.city", "Customer city" },
+			{ "customer.local", "Customer lokal" },
+			{ "details.serviceType", "Details service type" },
+			{ "details.quantity", "Details quantity" },
+			{ "details.unitPrice", "Details unit price" },
+			{ "details.deliveryDate", "Details delivery date" },
+			{ "details.remarks", "Details remarks" },
+			{ "details.amount", "Details amount" },
+			{ "details.free", "Details free" },
+			{ "deliveries.number", "Deliveries number" },
+			{ "deliveries.date", "Deliveries date" },
+			{ "deliveries.description", "Deliveries description" },
+			{ "deliveries.distance", "Deliveries distance" },
+			{ "deliveries.vehicle", "Deliveries vehicle" },
+			{ "deliveries.driverType", "Deliveries driver type" },
+			{ "deliveries.employee", "Deliveries employee" },
+			{ "deliveries.remarks", "Deliveries remarks" },
+			{ "deliveries.incidents", "Deliveries incidents" },
+			{ "deliveries.dateAsLabel", "Deliveries date as label" },
+			{ "deliveries.transportMode", "Deliveries transport mode" },
 			{ "amountsSum", "Amounts sum" },
 			{ "customerDiscount", "Customer discount" },
 			{ "customerTypeDiscount", "Customer type discount" },
@@ -313,108 +313,108 @@ public class InvoiceTest extends CustomizeListTestBase {
 			{ "vatPercentage", "VAT %" },
 			{ "comment", "Comment" },
 			{ "paid", "Paid" },
-			{ "customer.number", "Number of customer" },
-			{ "customer.name", "Name of customer" },
-			{ "customer.type", "Type of customer" },
-			{ "customer.photo", "Photo of customer" },
-			{ "customer.telephone", "Telephone of customer" },
-			{ "customer.email", "Email of customer" },
-			{ "customer.additionalEmails", "Additional emails of customer" },
-			{ "customer.website", "Web site of customer" },
-			{ "customer.remarks", "Remarks of customer" },
-			{ "customer.address.street", "Street of address of customer" },
-			{ "customer.address.zipCode", "Zip code of address of customer" },
-			{ "customer.address.city", "City of address of customer" },
-			{ "customer.address.state.id", "Id of state of address of customer" },
+			{ "customer.number", "Customer number" },
+			{ "customer.name", "Customer name" },
+			{ "customer.type", "Customer type" },
+			{ "customer.photo", "Customer photo" },
+			{ "customer.telephone", "Customer telephone" },
+			{ "customer.email", "Customer email" },
+			{ "customer.additionalEmails", "Customer additional emails" },
+			{ "customer.website", "Customer web site" },
+			{ "customer.remarks", "Customer remarks" },
+			{ "customer.address.street", "Customer address street" },
+			{ "customer.address.zipCode", "Customer address zip code" },
+			{ "customer.address.city", "Customer address city" },
+			{ "customer.address.state.id", "Customer address state id" },
 			{ "customer.address.state.name", "State" },
-			{ "customer.address.state.fullNameWithFormula", "Full name with formula of state of address of customer" },
-			{ "customer.address.state.fullName", "Full name of state of address of customer" },
-			{ "customer.address.asString", "As string of address of customer" },
-			{ "customer.seller.number", "Number of seller of customer" },
-			{ "customer.seller.name", "Name of seller of customer" },
-			{ "customer.seller.level.id", "Id of level of seller of customer" },
-			{ "customer.seller.level.description", "Description of level of seller of customer" },
-			{ "customer.seller.regions", "Regions of seller of customer" },
-			{ "customer.relationWithSeller", "Relation with seller of customer" },
-			{ "customer.alternateSeller.number", "Number of alternate seller of customer" },
-			{ "customer.alternateSeller.name", "Name of alternate seller of customer" },
-			{ "customer.alternateSeller.level.id", "Id of level of alternate seller of customer" },
-			{ "customer.alternateSeller.level.description", "Description of level of alternate seller of customer" },
-			{ "customer.alternateSeller.regions", "Regions of alternate seller of customer" },
-			{ "customer.group.name", "Name of group of customer" },
-			{ "customer.deliveryPlaces.name", "Name of delivery places of customer" },
-			{ "customer.deliveryPlaces.address", "Address of delivery places of customer" },
-			{ "customer.deliveryPlaces.preferredWarehouse.zoneNumber", "Zone of preferred warehouse of delivery places of customer" },
+			{ "customer.address.state.fullNameWithFormula", "Customer address state full name with formula" },
+			{ "customer.address.state.fullName", "Customer address state full name" },
+			{ "customer.address.asString", "Customer address as string" },
+			{ "customer.seller.number", "Customer seller number" },
+			{ "customer.seller.name", "Customer seller name" },
+			{ "customer.seller.level.id", "Customer seller level id" },
+			{ "customer.seller.level.description", "Customer seller level description" },
+			{ "customer.seller.regions", "Customer seller regions" },
+			{ "customer.relationWithSeller", "Customer relation with seller" },
+			{ "customer.alternateSeller.number", "Customer alternate seller number" },
+			{ "customer.alternateSeller.name", "Customer alternate seller name" },
+			{ "customer.alternateSeller.level.id", "Customer alternate seller level id" },
+			{ "customer.alternateSeller.level.description", "Customer alternate seller level description" },
+			{ "customer.alternateSeller.regions", "Customer alternate seller regions" },
+			{ "customer.group.name", "Customer group name" },
+			{ "customer.deliveryPlaces.name", "Customer delivery places name" },
+			{ "customer.deliveryPlaces.address", "Customer delivery places address" },
+			{ "customer.deliveryPlaces.preferredWarehouse.zoneNumber", "Customer delivery places preferred warehouse zone" },
 			{ "customer.deliveryPlaces.preferredWarehouse.number", "Warehouse number" },
-			{ "customer.deliveryPlaces.preferredWarehouse.name", "Name of preferred warehouse of delivery places of customer" },
-			{ "customer.deliveryPlaces.remarks", "Remarks of delivery places of customer" },
-			{ "customer.deliveryPlaces.receptionists.name", "Name of receptionists of delivery places of customer" },
-			{ "customer.city", "City of customer" },
-			{ "customer.local", "Lokal of customer" },
-			{ "details.serviceType", "Service type of details" },
-			{ "details.quantity", "Quantity of details" },
-			{ "details.unitPrice", "Unit price of details" },
-			{ "details.product.number", "Number of product of details" },
-			{ "details.product.description", "Description of product of details" },
-			{ "details.product.photos", "Photos of product of details" },
-			{ "details.product.familyNumber", "Family of product of details" },
-			{ "details.product.subfamilyNumber", "Subfamily of product of details" },
-			{ "details.product.unitPrice", "Unit price of product of details" },
-			{ "details.product.remarks", "Remarks of product of details" },
-			{ "details.product.unitPriceInPesetas", "Unit price in pesetas of product of details" },
-			{ "details.product.warehouseKey", "Warehouse of product of details" },
-			{ "details.deliveryDate", "Delivery date of details" },
-			{ "details.soldBy.number", "Number of sold by of details" },
-			{ "details.soldBy.name", "Name of sold by of details" },
-			{ "details.soldBy.level.id", "Id of level of sold by of details" },
-			{ "details.soldBy.level.description", "Description of level of sold by of details" },
-			{ "details.soldBy.customers.number", "Number of customers of sold by of details" },
-			{ "details.soldBy.customers.name", "Name of customers of sold by of details" },
-			{ "details.soldBy.customers.type", "Type of customers of sold by of details" },
-			{ "details.soldBy.customers.photo", "Photo of customers of sold by of details" },
-			{ "details.soldBy.customers.telephone", "Telephone of customers of sold by of details" },
-			{ "details.soldBy.customers.email", "Email of customers of sold by of details" },
-			{ "details.soldBy.customers.additionalEmails", "Additional emails of customers of sold by of details" },
-			{ "details.soldBy.customers.website", "Web site of customers of sold by of details" },
-			{ "details.soldBy.customers.remarks", "Remarks of customers of sold by of details" },
-			{ "details.soldBy.customers.relationWithSeller", "Relation with seller of customers of sold by of details" },
-			{ "details.soldBy.customers.city", "City of customers of sold by of details" },
-			{ "details.soldBy.customers.local", "Lokal of customers of sold by of details" },
-			{ "details.soldBy.regions", "Regions of sold by of details" },
-			{ "details.remarks", "Remarks of details" },
-			{ "details.amount", "Amount of details" },
-			{ "details.free", "Free of details" },
-			{ "deliveries.number", "Number of deliveries" },
-			{ "deliveries.type.number", "Number of type of deliveries" },
-			{ "deliveries.type.description", "Description of type of deliveries" },
-			{ "deliveries.date", "Date of deliveries" },
-			{ "deliveries.description", "Description of deliveries" },
-			{ "deliveries.distance", "Distance of deliveries" },
-			{ "deliveries.vehicle", "Vehicle of deliveries" },
-			{ "deliveries.driverType", "Driver type of deliveries" },
-			{ "deliveries.carrier.number", "Number of carrier of deliveries" },
-			{ "deliveries.carrier.name", "Name of carrier of deliveries" },
-			{ "deliveries.carrier.drivingLicence.type", "Type of driving licence of carrier of deliveries" },
-			{ "deliveries.carrier.drivingLicence.level", "Level of driving licence of carrier of deliveries" },
-			{ "deliveries.carrier.drivingLicence.description", "Description of driving licence of carrier of deliveries" },
-			{ "deliveries.carrier.warehouse.zoneNumber", "Zone of warehouse of carrier of deliveries" },
+			{ "customer.deliveryPlaces.preferredWarehouse.name", "Customer delivery places preferred warehouse name" },
+			{ "customer.deliveryPlaces.remarks", "Customer delivery places remarks" },
+			{ "customer.deliveryPlaces.receptionists.name", "Customer delivery places receptionists name" },
+			{ "customer.city", "Customer city" },
+			{ "customer.local", "Customer lokal" },
+			{ "details.serviceType", "Details service type" },
+			{ "details.quantity", "Details quantity" },
+			{ "details.unitPrice", "Details unit price" },
+			{ "details.product.number", "Details product number" },
+			{ "details.product.description", "Details product description" },
+			{ "details.product.photos", "Details product photos" },
+			{ "details.product.familyNumber", "Details product family" },
+			{ "details.product.subfamilyNumber", "Details product subfamily" },
+			{ "details.product.unitPrice", "Details product unit price" },
+			{ "details.product.remarks", "Details product remarks" },
+			{ "details.product.unitPriceInPesetas", "Details product unit price in pesetas" },
+			{ "details.product.warehouseKey", "Details product warehouse" },
+			{ "details.deliveryDate", "Details delivery date" },
+			{ "details.soldBy.number", "Details sold by number" },
+			{ "details.soldBy.name", "Details sold by name" },
+			{ "details.soldBy.level.id", "Details sold by level id" },
+			{ "details.soldBy.level.description", "Details sold by level description" },
+			{ "details.soldBy.customers.number", "Details sold by customers number" },
+			{ "details.soldBy.customers.name", "Details sold by customers name" },
+			{ "details.soldBy.customers.type", "Details sold by customers type" },
+			{ "details.soldBy.customers.photo", "Details sold by customers photo" },
+			{ "details.soldBy.customers.telephone", "Details sold by customers telephone" },
+			{ "details.soldBy.customers.email", "Details sold by customers email" },
+			{ "details.soldBy.customers.additionalEmails", "Details sold by customers additional emails" },
+			{ "details.soldBy.customers.website", "Details sold by customers web site" },
+			{ "details.soldBy.customers.remarks", "Details sold by customers remarks" },
+			{ "details.soldBy.customers.relationWithSeller", "Details sold by customers relation with seller" },
+			{ "details.soldBy.customers.city", "Details sold by customers city" },
+			{ "details.soldBy.customers.local", "Details sold by customers lokal" },
+			{ "details.soldBy.regions", "Details sold by regions" },
+			{ "details.remarks", "Details remarks" },
+			{ "details.amount", "Details amount" },
+			{ "details.free", "Details free" },
+			{ "deliveries.number", "Deliveries number" },
+			{ "deliveries.type.number", "Deliveries type number" },
+			{ "deliveries.type.description", "Deliveries type description" },
+			{ "deliveries.date", "Deliveries date" },
+			{ "deliveries.description", "Deliveries description" },
+			{ "deliveries.distance", "Deliveries distance" },
+			{ "deliveries.vehicle", "Deliveries vehicle" },
+			{ "deliveries.driverType", "Deliveries driver type" },
+			{ "deliveries.carrier.number", "Deliveries carrier number" },
+			{ "deliveries.carrier.name", "Deliveries carrier name" },
+			{ "deliveries.carrier.drivingLicence.type", "Deliveries carrier driving licence type" },
+			{ "deliveries.carrier.drivingLicence.level", "Deliveries carrier driving licence level" },
+			{ "deliveries.carrier.drivingLicence.description", "Deliveries carrier driving licence description" },
+			{ "deliveries.carrier.warehouse.zoneNumber", "Deliveries carrier warehouse zone" },
 			{ "deliveries.carrier.warehouse.number", "Warehouse number" },
-			{ "deliveries.carrier.warehouse.name", "Name of warehouse of carrier of deliveries" },
-			{ "deliveries.carrier.remarks", "Remarks of carrier of deliveries" },
-			{ "deliveries.carrier.calculated", "Calculated of carrier of deliveries" },
-			{ "deliveries.employee", "Employee of deliveries" },
-			{ "deliveries.shipment.type", "Type of shipment of deliveries" },
-			{ "deliveries.shipment.mode", "Mode of shipment of deliveries" },
-			{ "deliveries.shipment.number", "Number of shipment of deliveries" },
-			{ "deliveries.shipment.description", "Description of shipment of deliveries" },
-			{ "deliveries.shipment.time", "Time of shipment of deliveries" },
-			{ "deliveries.shipment.customerContactPerson.name", "Name of contact person of shipment of deliveries" },
-			{ "deliveries.remarks", "Remarks of deliveries" },
-			{ "deliveries.incidents", "Incidents of deliveries" },
-			{ "deliveries.details.number", "Number of details of deliveries" },
-			{ "deliveries.details.description", "Description of details of deliveries" },
-			{ "deliveries.dateAsLabel", "Date as label of deliveries" },
-			{ "deliveries.transportMode", "Transport mode of deliveries" },
+			{ "deliveries.carrier.warehouse.name", "Deliveries carrier warehouse name" },
+			{ "deliveries.carrier.remarks", "Deliveries carrier remarks" },
+			{ "deliveries.carrier.calculated", "Deliveries carrier calculated" },
+			{ "deliveries.employee", "Deliveries employee" },
+			{ "deliveries.shipment.type", "Deliveries shipment type" },
+			{ "deliveries.shipment.mode", "Deliveries shipment mode" },
+			{ "deliveries.shipment.number", "Deliveries shipment number" },
+			{ "deliveries.shipment.description", "Deliveries shipment description" },
+			{ "deliveries.shipment.time", "Deliveries shipment time" },
+			{ "deliveries.shipment.customerContactPerson.name", "Deliveries shipment contact person name" },
+			{ "deliveries.remarks", "Deliveries remarks" },
+			{ "deliveries.incidents", "Deliveries incidents" },
+			{ "deliveries.details.number", "Deliveries details number" },
+			{ "deliveries.details.description", "Deliveries details description" },
+			{ "deliveries.dateAsLabel", "Deliveries date as label" },
+			{ "deliveries.transportMode", "Deliveries transport mode" },
 			{ "amountsSum", "Amounts sum" },
 			{ "customerDiscount", "Customer discount" },
 			{ "customerTypeDiscount", "Customer type discount" },
@@ -438,10 +438,10 @@ public class InvoiceTest extends CustomizeListTestBase {
 		setValue("name", "__MORE__");
 		setValue("name", "customer.seller.name");
 		execute("MyReport.saveColumn");
-		assertValueInCollection("columns", 8, 0, "Name of seller of customer"); 
+		assertValueInCollection("columns", 8, 0, "Customer seller name"); 
 		execute("MyReport.editColumn", "row=8,viewObject=xava_view_columns");
 		assertValue("name", "customer.seller.name");
-		assertValue("label", "Name of seller of customer");
+		assertValue("label", "Customer seller name");
 		assertValidValuesCount("name", defaultColumnNames.length + 1);
 	}
 	
@@ -939,141 +939,141 @@ public class InvoiceTest extends CustomizeListTestBase {
 		
 		execute("List.addColumns");
 		assertCollectionRowCount("xavaPropertiesList", 20); // The limit is 20
-		assertValueInCollection("xavaPropertiesList",  0, 0, "Additional emails of customer");
-		assertValueInCollection("xavaPropertiesList",  1, 0, "Amount of details");
-		assertValueInCollection("xavaPropertiesList",  2, 0, "City of customer");
-		assertValueInCollection("xavaPropertiesList",  3, 0, "Comment");
-		assertValueInCollection("xavaPropertiesList",  4, 0, "Considerable");
-		assertValueInCollection("xavaPropertiesList",  5, 0, "Customer discount");
-		assertValueInCollection("xavaPropertiesList",  6, 0, "Customer type discount");
-		assertValueInCollection("xavaPropertiesList",  7, 0, "Date as label of deliveries");
-		assertValueInCollection("xavaPropertiesList",  8, 0, "Date of deliveries");
-		assertValueInCollection("xavaPropertiesList",  9, 0, "Delivery date");
-		assertValueInCollection("xavaPropertiesList", 10, 0, "Delivery date of details");
-		assertValueInCollection("xavaPropertiesList", 11, 0, "Description of deliveries");
-		assertValueInCollection("xavaPropertiesList", 12, 0, "Distance of deliveries");
-		assertValueInCollection("xavaPropertiesList", 13, 0, "Driver type of deliveries");
-		assertValueInCollection("xavaPropertiesList", 14, 0, "Email of customer");
-		assertValueInCollection("xavaPropertiesList", 15, 0, "Employee of deliveries");
-		assertValueInCollection("xavaPropertiesList", 16, 0, "Free of details");
-		assertValueInCollection("xavaPropertiesList", 17, 0, "Incidents of deliveries");
-		assertValueInCollection("xavaPropertiesList", 18, 0, "Lokal of customer");
-		assertValueInCollection("xavaPropertiesList", 19, 0, "Name of customer");
+		assertValueInCollection("xavaPropertiesList",  0, 0, "Comment");
+		assertValueInCollection("xavaPropertiesList",  1, 0, "Considerable");
+		assertValueInCollection("xavaPropertiesList",  2, 0, "Customer additional emails");
+		assertValueInCollection("xavaPropertiesList",  3, 0, "Customer city");
+		assertValueInCollection("xavaPropertiesList",  4, 0, "Customer discount");
+		assertValueInCollection("xavaPropertiesList",  5, 0, "Customer email");
+		assertValueInCollection("xavaPropertiesList",  6, 0, "Customer lokal");
+		assertValueInCollection("xavaPropertiesList",  7, 0, "Customer name");
+		assertValueInCollection("xavaPropertiesList",  8, 0, "Customer number");
+		assertValueInCollection("xavaPropertiesList",  9, 0, "Customer photo");
+		assertValueInCollection("xavaPropertiesList", 10, 0, "Customer relation with seller");
+		assertValueInCollection("xavaPropertiesList", 11, 0, "Customer remarks");
+		assertValueInCollection("xavaPropertiesList", 12, 0, "Customer telephone");
+		assertValueInCollection("xavaPropertiesList", 13, 0, "Customer type");
+		assertValueInCollection("xavaPropertiesList", 14, 0, "Customer type discount");
+		assertValueInCollection("xavaPropertiesList", 15, 0, "Customer web site");
+		assertValueInCollection("xavaPropertiesList", 16, 0, "Deliveries date");
+		assertValueInCollection("xavaPropertiesList", 17, 0, "Deliveries date as label");
+		assertValueInCollection("xavaPropertiesList", 18, 0, "Deliveries description");
+		assertValueInCollection("xavaPropertiesList", 19, 0, "Deliveries distance");
 		
 		execute("AddColumns.showMoreColumns");
 		assertCollectionRowCount("xavaPropertiesList", 112);  
-		assertValueInCollection("xavaPropertiesList",   0, 0, "Additional emails of customer");
-		assertValueInCollection("xavaPropertiesList",   1, 0, "Additional emails of customers of sold by of details");
-		assertValueInCollection("xavaPropertiesList",   2, 0, "Address of delivery places of customer");
-		assertValueInCollection("xavaPropertiesList",   3, 0, "Amount of details");
-		assertValueInCollection("xavaPropertiesList",   4, 0, "As string of address of customer");
-		assertValueInCollection("xavaPropertiesList",   5, 0, "Calculated of carrier of deliveries");
-		assertValueInCollection("xavaPropertiesList",   6, 0, "City of address of customer");
-		assertValueInCollection("xavaPropertiesList",   7, 0, "City of customer");
-		assertValueInCollection("xavaPropertiesList",   8, 0, "City of customers of sold by of details");
-		assertValueInCollection("xavaPropertiesList",   9, 0, "Comment");
-		assertValueInCollection("xavaPropertiesList",  10, 0, "Considerable");
-		assertValueInCollection("xavaPropertiesList",  11, 0, "Customer discount");
-		assertValueInCollection("xavaPropertiesList",  12, 0, "Customer type discount");
-		assertValueInCollection("xavaPropertiesList",  13, 0, "Date as label of deliveries");
-		assertValueInCollection("xavaPropertiesList",  14, 0, "Date of deliveries");
-		assertValueInCollection("xavaPropertiesList",  15, 0, "Delivery date");
-		assertValueInCollection("xavaPropertiesList",  16, 0, "Delivery date of details");
-		assertValueInCollection("xavaPropertiesList",  17, 0, "Description of deliveries");
-		assertValueInCollection("xavaPropertiesList",  18, 0, "Description of details of deliveries");
-		assertValueInCollection("xavaPropertiesList",  19, 0, "Description of driving licence of carrier of deliveries");
-		assertValueInCollection("xavaPropertiesList",  20, 0, "Description of level of alternate seller of customer");
-		assertValueInCollection("xavaPropertiesList",  21, 0, "Description of level of seller of customer");
-		assertValueInCollection("xavaPropertiesList",  22, 0, "Description of level of sold by of details");
-		assertValueInCollection("xavaPropertiesList",  23, 0, "Description of product of details");
-		assertValueInCollection("xavaPropertiesList",  24, 0, "Description of shipment of deliveries");
-		assertValueInCollection("xavaPropertiesList",  25, 0, "Description of type of deliveries");
-		assertValueInCollection("xavaPropertiesList",  26, 0, "Distance of deliveries");
-		assertValueInCollection("xavaPropertiesList",  27, 0, "Driver type of deliveries");
-		assertValueInCollection("xavaPropertiesList",  28, 0, "Email of customer");
-		assertValueInCollection("xavaPropertiesList",  29, 0, "Email of customers of sold by of details");
-		assertValueInCollection("xavaPropertiesList",  30, 0, "Employee of deliveries");
-		assertValueInCollection("xavaPropertiesList",  31, 0, "Family of product of details");
-		assertValueInCollection("xavaPropertiesList",  32, 0, "Free of details");
-		assertValueInCollection("xavaPropertiesList",  33, 0, "Full name of state of address of customer");
-		assertValueInCollection("xavaPropertiesList",  34, 0, "Full name with formula of state of address of customer");
-		assertValueInCollection("xavaPropertiesList",  35, 0, "Id of level of alternate seller of customer");
-		assertValueInCollection("xavaPropertiesList",  36, 0, "Id of level of seller of customer");
-		assertValueInCollection("xavaPropertiesList",  37, 0, "Id of level of sold by of details");
-		assertValueInCollection("xavaPropertiesList",  38, 0, "Id of state of address of customer");
-		assertValueInCollection("xavaPropertiesList",  39, 0, "Incidents of deliveries");
-		assertValueInCollection("xavaPropertiesList",  40, 0, "Level of driving licence of carrier of deliveries");
-		assertValueInCollection("xavaPropertiesList",  41, 0, "Lokal of customer");
-		assertValueInCollection("xavaPropertiesList",  42, 0, "Lokal of customers of sold by of details");
-		assertValueInCollection("xavaPropertiesList",  43, 0, "Mode of shipment of deliveries");
-		assertValueInCollection("xavaPropertiesList",  44, 0, "Name of alternate seller of customer");
-		assertValueInCollection("xavaPropertiesList",  45, 0, "Name of carrier of deliveries");
-		assertValueInCollection("xavaPropertiesList",  46, 0, "Name of contact person of shipment of deliveries");
-		assertValueInCollection("xavaPropertiesList",  47, 0, "Name of customer");
-		assertValueInCollection("xavaPropertiesList",  48, 0, "Name of customers of sold by of details");
-		assertValueInCollection("xavaPropertiesList",  49, 0, "Name of delivery places of customer");
-		assertValueInCollection("xavaPropertiesList",  50, 0, "Name of group of customer");
-		assertValueInCollection("xavaPropertiesList",  51, 0, "Name of preferred warehouse of delivery places of customer");
-		assertValueInCollection("xavaPropertiesList",  52, 0, "Name of receptionists of delivery places of customer");
-		assertValueInCollection("xavaPropertiesList",  53, 0, "Name of seller of customer");
-		assertValueInCollection("xavaPropertiesList",  54, 0, "Name of sold by of details");
-		assertValueInCollection("xavaPropertiesList",  55, 0, "Name of warehouse of carrier of deliveries");
-		assertValueInCollection("xavaPropertiesList",  56, 0, "Number of alternate seller of customer");
-		assertValueInCollection("xavaPropertiesList",  57, 0, "Number of carrier of deliveries");
-		assertValueInCollection("xavaPropertiesList",  58, 0, "Number of customer");
-		assertValueInCollection("xavaPropertiesList",  59, 0, "Number of customers of sold by of details");
-		assertValueInCollection("xavaPropertiesList",  60, 0, "Number of deliveries");
-		assertValueInCollection("xavaPropertiesList",  61, 0, "Number of details of deliveries");
-		assertValueInCollection("xavaPropertiesList",  62, 0, "Number of preferred warehouse of delivery places of customer");
-		assertValueInCollection("xavaPropertiesList",  63, 0, "Number of product of details");
-		assertValueInCollection("xavaPropertiesList",  64, 0, "Number of seller of customer");
-		assertValueInCollection("xavaPropertiesList",  65, 0, "Number of shipment of deliveries");
-		assertValueInCollection("xavaPropertiesList",  66, 0, "Number of sold by of details");
-		assertValueInCollection("xavaPropertiesList",  67, 0, "Number of type of deliveries");
-		assertValueInCollection("xavaPropertiesList",  68, 0, "Photo of customer");
-		assertValueInCollection("xavaPropertiesList",  69, 0, "Photo of customers of sold by of details");
-		assertValueInCollection("xavaPropertiesList",  70, 0, "Photos of product of details");
-		assertValueInCollection("xavaPropertiesList",  71, 0, "Product unit price sum");
-		assertValueInCollection("xavaPropertiesList",  72, 0, "Quantity of details");
-		assertValueInCollection("xavaPropertiesList",  73, 0, "Regions of alternate seller of customer");
-		assertValueInCollection("xavaPropertiesList",  74, 0, "Regions of seller of customer");
-		assertValueInCollection("xavaPropertiesList",  75, 0, "Regions of sold by of details");
-		assertValueInCollection("xavaPropertiesList",  76, 0, "Relation with seller of customer");
-		assertValueInCollection("xavaPropertiesList",  77, 0, "Relation with seller of customers of sold by of details");
-		assertValueInCollection("xavaPropertiesList",  78, 0, "Remarks of carrier of deliveries");
-		assertValueInCollection("xavaPropertiesList",  79, 0, "Remarks of customer");
-		assertValueInCollection("xavaPropertiesList",  80, 0, "Remarks of customers of sold by of details");
-		assertValueInCollection("xavaPropertiesList",  81, 0, "Remarks of deliveries");
-		assertValueInCollection("xavaPropertiesList",  82, 0, "Remarks of delivery places of customer");
-		assertValueInCollection("xavaPropertiesList",  83, 0, "Remarks of details");
-		assertValueInCollection("xavaPropertiesList",  84, 0, "Remarks of product of details");
-		assertValueInCollection("xavaPropertiesList",  85, 0, "Seller discount");
-		assertValueInCollection("xavaPropertiesList",  86, 0, "Service type of details");
-		assertValueInCollection("xavaPropertiesList",  87, 0, "State of address of customer");
-		assertValueInCollection("xavaPropertiesList",  88, 0, "Street of address of customer");
-		assertValueInCollection("xavaPropertiesList",  89, 0, "Subfamily of product of details");
-		assertValueInCollection("xavaPropertiesList",  90, 0, "Telephone of customer");
-		assertValueInCollection("xavaPropertiesList",  91, 0, "Telephone of customers of sold by of details");
-		assertValueInCollection("xavaPropertiesList",  92, 0, "Time of shipment of deliveries");
-		assertValueInCollection("xavaPropertiesList",  93, 0, "Total");
-		assertValueInCollection("xavaPropertiesList",  94, 0, "Transport mode of deliveries");
-		assertValueInCollection("xavaPropertiesList",  95, 0, "Type of customer");
-		assertValueInCollection("xavaPropertiesList",  96, 0, "Type of customers of sold by of details");
-		assertValueInCollection("xavaPropertiesList",  97, 0, "Type of driving licence of carrier of deliveries");
-		assertValueInCollection("xavaPropertiesList",  98, 0, "Type of shipment of deliveries");
-		assertValueInCollection("xavaPropertiesList",  99, 0, "Unit price in pesetas of product of details");
-		assertValueInCollection("xavaPropertiesList", 100, 0, "Unit price of details");
-		assertValueInCollection("xavaPropertiesList", 101, 0, "Unit price of product of details");
-		assertValueInCollection("xavaPropertiesList", 102, 0, "VAT %");
-		assertValueInCollection("xavaPropertiesList", 103, 0, "Vehicle of deliveries");
-		assertValueInCollection("xavaPropertiesList", 104, 0, "Warehouse number of carrier of deliveries");
-		assertValueInCollection("xavaPropertiesList", 105, 0, "Warehouse of product of details");
-		assertValueInCollection("xavaPropertiesList", 106, 0, "Web site of customer");
-		assertValueInCollection("xavaPropertiesList", 107, 0, "Web site of customers of sold by of details");
-		assertValueInCollection("xavaPropertiesList", 108, 0, "Year discount");
-		assertValueInCollection("xavaPropertiesList", 109, 0, "Zip code of address of customer");
-		assertValueInCollection("xavaPropertiesList", 110, 0, "Zone of preferred warehouse of delivery places of customer");
-		assertValueInCollection("xavaPropertiesList", 111, 0, "Zone of warehouse of carrier of deliveries");
+		assertValueInCollection("xavaPropertiesList",   0, 0, "Comment");
+		assertValueInCollection("xavaPropertiesList",   1, 0, "Considerable");
+		assertValueInCollection("xavaPropertiesList",   2, 0, "Customer additional emails");
+		assertValueInCollection("xavaPropertiesList",   3, 0, "Customer address as string");
+		assertValueInCollection("xavaPropertiesList",   4, 0, "Customer address city");
+		assertValueInCollection("xavaPropertiesList",   5, 0, "Customer address state");
+		assertValueInCollection("xavaPropertiesList",   6, 0, "Customer address state full name");
+		assertValueInCollection("xavaPropertiesList",   7, 0, "Customer address state full name with formula");
+		assertValueInCollection("xavaPropertiesList",   8, 0, "Customer address state id");
+		assertValueInCollection("xavaPropertiesList",   9, 0, "Customer address street");
+		assertValueInCollection("xavaPropertiesList",  10, 0, "Customer address zip code");
+		assertValueInCollection("xavaPropertiesList",  11, 0, "Customer alternate seller level description");
+		assertValueInCollection("xavaPropertiesList",  12, 0, "Customer alternate seller level id");
+		assertValueInCollection("xavaPropertiesList",  13, 0, "Customer alternate seller name");
+		assertValueInCollection("xavaPropertiesList",  14, 0, "Customer alternate seller number");
+		assertValueInCollection("xavaPropertiesList",  15, 0, "Customer alternate seller regions");
+		assertValueInCollection("xavaPropertiesList",  16, 0, "Customer city");
+		assertValueInCollection("xavaPropertiesList",  17, 0, "Customer delivery places address");
+		assertValueInCollection("xavaPropertiesList",  18, 0, "Customer delivery places name");
+		assertValueInCollection("xavaPropertiesList",  19, 0, "Customer delivery places preferred warehouse name");
+		assertValueInCollection("xavaPropertiesList",  20, 0, "Customer delivery places preferred warehouse number");
+		assertValueInCollection("xavaPropertiesList",  21, 0, "Customer delivery places preferred warehouse zone");
+		assertValueInCollection("xavaPropertiesList",  22, 0, "Customer delivery places receptionists name");
+		assertValueInCollection("xavaPropertiesList",  23, 0, "Customer delivery places remarks");
+		assertValueInCollection("xavaPropertiesList",  24, 0, "Customer discount");
+		assertValueInCollection("xavaPropertiesList",  25, 0, "Customer email");
+		assertValueInCollection("xavaPropertiesList",  26, 0, "Customer group name");
+		assertValueInCollection("xavaPropertiesList",  27, 0, "Customer lokal");
+		assertValueInCollection("xavaPropertiesList",  28, 0, "Customer name");
+		assertValueInCollection("xavaPropertiesList",  29, 0, "Customer number");
+		assertValueInCollection("xavaPropertiesList",  30, 0, "Customer photo");
+		assertValueInCollection("xavaPropertiesList",  31, 0, "Customer relation with seller");
+		assertValueInCollection("xavaPropertiesList",  32, 0, "Customer remarks");
+		assertValueInCollection("xavaPropertiesList",  33, 0, "Customer seller level description");
+		assertValueInCollection("xavaPropertiesList",  34, 0, "Customer seller level id");
+		assertValueInCollection("xavaPropertiesList",  35, 0, "Customer seller name");
+		assertValueInCollection("xavaPropertiesList",  36, 0, "Customer seller number");
+		assertValueInCollection("xavaPropertiesList",  37, 0, "Customer seller regions");
+		assertValueInCollection("xavaPropertiesList",  38, 0, "Customer telephone");
+		assertValueInCollection("xavaPropertiesList",  39, 0, "Customer type");
+		assertValueInCollection("xavaPropertiesList",  40, 0, "Customer type discount");
+		assertValueInCollection("xavaPropertiesList",  41, 0, "Customer web site");
+		assertValueInCollection("xavaPropertiesList",  42, 0, "Deliveries carrier calculated");
+		assertValueInCollection("xavaPropertiesList",  43, 0, "Deliveries carrier driving licence description");
+		assertValueInCollection("xavaPropertiesList",  44, 0, "Deliveries carrier driving licence level");
+		assertValueInCollection("xavaPropertiesList",  45, 0, "Deliveries carrier driving licence type");
+		assertValueInCollection("xavaPropertiesList",  46, 0, "Deliveries carrier name");
+		assertValueInCollection("xavaPropertiesList",  47, 0, "Deliveries carrier number");
+		assertValueInCollection("xavaPropertiesList",  48, 0, "Deliveries carrier remarks");
+		assertValueInCollection("xavaPropertiesList",  49, 0, "Deliveries carrier warehouse name");
+		assertValueInCollection("xavaPropertiesList",  50, 0, "Deliveries carrier warehouse number");
+		assertValueInCollection("xavaPropertiesList",  51, 0, "Deliveries carrier warehouse zone");
+		assertValueInCollection("xavaPropertiesList",  52, 0, "Deliveries date");
+		assertValueInCollection("xavaPropertiesList",  53, 0, "Deliveries date as label");
+		assertValueInCollection("xavaPropertiesList",  54, 0, "Deliveries description");
+		assertValueInCollection("xavaPropertiesList",  55, 0, "Deliveries details description");
+		assertValueInCollection("xavaPropertiesList",  56, 0, "Deliveries details number");
+		assertValueInCollection("xavaPropertiesList",  57, 0, "Deliveries distance");
+		assertValueInCollection("xavaPropertiesList",  58, 0, "Deliveries driver type");
+		assertValueInCollection("xavaPropertiesList",  59, 0, "Deliveries employee");
+		assertValueInCollection("xavaPropertiesList",  60, 0, "Deliveries incidents");
+		assertValueInCollection("xavaPropertiesList",  61, 0, "Deliveries number");
+		assertValueInCollection("xavaPropertiesList",  62, 0, "Deliveries remarks");
+		assertValueInCollection("xavaPropertiesList",  63, 0, "Deliveries shipment contact person name");
+		assertValueInCollection("xavaPropertiesList",  64, 0, "Deliveries shipment description");
+		assertValueInCollection("xavaPropertiesList",  65, 0, "Deliveries shipment mode");
+		assertValueInCollection("xavaPropertiesList",  66, 0, "Deliveries shipment number");
+		assertValueInCollection("xavaPropertiesList",  67, 0, "Deliveries shipment time");
+		assertValueInCollection("xavaPropertiesList",  68, 0, "Deliveries shipment type");
+		assertValueInCollection("xavaPropertiesList",  69, 0, "Deliveries transport mode");
+		assertValueInCollection("xavaPropertiesList",  70, 0, "Deliveries type description");
+		assertValueInCollection("xavaPropertiesList",  71, 0, "Deliveries type number");
+		assertValueInCollection("xavaPropertiesList",  72, 0, "Deliveries vehicle");
+		assertValueInCollection("xavaPropertiesList",  73, 0, "Delivery date");
+		assertValueInCollection("xavaPropertiesList",  74, 0, "Details amount");
+		assertValueInCollection("xavaPropertiesList",  75, 0, "Details delivery date");
+		assertValueInCollection("xavaPropertiesList",  76, 0, "Details free");
+		assertValueInCollection("xavaPropertiesList",  77, 0, "Details product description");
+		assertValueInCollection("xavaPropertiesList",  78, 0, "Details product family");
+		assertValueInCollection("xavaPropertiesList",  79, 0, "Details product number");
+		assertValueInCollection("xavaPropertiesList",  80, 0, "Details product photos");
+		assertValueInCollection("xavaPropertiesList",  81, 0, "Details product remarks");
+		assertValueInCollection("xavaPropertiesList",  82, 0, "Details product subfamily");
+		assertValueInCollection("xavaPropertiesList",  83, 0, "Details product unit price");
+		assertValueInCollection("xavaPropertiesList",  84, 0, "Details product unit price in pesetas");
+		assertValueInCollection("xavaPropertiesList",  85, 0, "Details product warehouse");
+		assertValueInCollection("xavaPropertiesList",  86, 0, "Details quantity");
+		assertValueInCollection("xavaPropertiesList",  87, 0, "Details remarks");
+		assertValueInCollection("xavaPropertiesList",  88, 0, "Details service type");
+		assertValueInCollection("xavaPropertiesList",  89, 0, "Details sold by customers additional emails");
+		assertValueInCollection("xavaPropertiesList",  90, 0, "Details sold by customers city");
+		assertValueInCollection("xavaPropertiesList",  91, 0, "Details sold by customers email");
+		assertValueInCollection("xavaPropertiesList",  92, 0, "Details sold by customers lokal");
+		assertValueInCollection("xavaPropertiesList",  93, 0, "Details sold by customers name");
+		assertValueInCollection("xavaPropertiesList",  94, 0, "Details sold by customers number");
+		assertValueInCollection("xavaPropertiesList",  95, 0, "Details sold by customers photo");
+		assertValueInCollection("xavaPropertiesList",  96, 0, "Details sold by customers relation with seller");
+		assertValueInCollection("xavaPropertiesList",  97, 0, "Details sold by customers remarks");
+		assertValueInCollection("xavaPropertiesList",  98, 0, "Details sold by customers telephone");
+		assertValueInCollection("xavaPropertiesList",  99, 0, "Details sold by customers type");
+		assertValueInCollection("xavaPropertiesList", 100, 0, "Details sold by customers web site");
+		assertValueInCollection("xavaPropertiesList", 101, 0, "Details sold by level description");
+		assertValueInCollection("xavaPropertiesList", 102, 0, "Details sold by level id");
+		assertValueInCollection("xavaPropertiesList", 103, 0, "Details sold by name");
+		assertValueInCollection("xavaPropertiesList", 104, 0, "Details sold by number");
+		assertValueInCollection("xavaPropertiesList", 105, 0, "Details sold by regions");
+		assertValueInCollection("xavaPropertiesList", 106, 0, "Details unit price");
+		assertValueInCollection("xavaPropertiesList", 107, 0, "Product unit price sum");
+		assertValueInCollection("xavaPropertiesList", 108, 0, "Seller discount");
+		assertValueInCollection("xavaPropertiesList", 109, 0, "Total");
+		assertValueInCollection("xavaPropertiesList", 110, 0, "VAT %");
+		assertValueInCollection("xavaPropertiesList", 111, 0, "Year discount");
 		
 		assertNoAction("AddColumns.showMoreColumns");
 		
@@ -1088,7 +1088,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertLabelInList(5, "Details count");
 		assertLabelInList(6, "Paid");
 		assertLabelInList(7, "Importance");
-		assertLabelInList(8, "City of address of customer");
+		assertLabelInList(8, "Customer address city");
 
 		// Restoring, for next time that test execute
 		removeColumn(8); 
@@ -1102,8 +1102,8 @@ public class InvoiceTest extends CustomizeListTestBase {
 	public void testCustomizeListSearchColumns_customizeListPressEnterWithoutChoosingColumns() throws Exception {   
 		execute("List.addColumns");
 		assertCollectionRowCount("xavaPropertiesList", 20); 		
-		assertValueInCollection("xavaPropertiesList",  0, 0, "Additional emails of customer");  
-		assertValueInCollection("xavaPropertiesList", 19, 0, "Name of customer"); 
+		assertValueInCollection("xavaPropertiesList",  0, 0, "Comment");  
+		assertValueInCollection("xavaPropertiesList", 19, 0, "Deliveries distance"); 
 		assertAction("AddColumns.showMoreColumns");
 
 		HtmlElement searchBox = getHtmlPage().getHtmlElementById("xava_search_columns_text");
@@ -1121,8 +1121,8 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertEquals("", searchBox.getAttribute("value"));
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
 		assertCollectionRowCount("xavaPropertiesList", 20); 		
-		assertValueInCollection("xavaPropertiesList",  0, 0, "Additional emails of customer"); 
-		assertValueInCollection("xavaPropertiesList", 19, 0, "Name of customer"); 
+		assertValueInCollection("xavaPropertiesList",  0, 0, "Comment"); 
+		assertValueInCollection("xavaPropertiesList", 19, 0, "Deliveries distance"); 
 		assertAction("AddColumns.showMoreColumns");
 		
 		execute("AddColumns.showMoreColumns");		
@@ -1217,28 +1217,28 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("List.addColumns");
 		
 		assertCollectionRowCount("xavaPropertiesList", 20); // It only loads the first 20.
-		assertValueInCollection("xavaPropertiesList",  0, 0, "Additional emails of customer");
-		assertValueInCollection("xavaPropertiesList",  1, 0, "Amount of details");
-		assertValueInCollection("xavaPropertiesList",  2, 0, "City of customer");
-		assertValueInCollection("xavaPropertiesList",  3, 0, "Comment");
-		assertValueInCollection("xavaPropertiesList",  4, 0, "Considerable");
-		assertValueInCollection("xavaPropertiesList",  5, 0, "Customer discount");
-		assertValueInCollection("xavaPropertiesList",  6, 0, "Customer type discount");
-		assertValueInCollection("xavaPropertiesList",  7, 0, "Date as label of deliveries");
-		assertValueInCollection("xavaPropertiesList",  8, 0, "Date of deliveries");
-		assertValueInCollection("xavaPropertiesList",  9, 0, "Delivery date");
-		assertValueInCollection("xavaPropertiesList", 10, 0, "Delivery date of details");
-		assertValueInCollection("xavaPropertiesList", 11, 0, "Description of deliveries");
-		assertValueInCollection("xavaPropertiesList", 12, 0, "Distance of deliveries");
-		assertValueInCollection("xavaPropertiesList", 13, 0, "Driver type of deliveries");
-		assertValueInCollection("xavaPropertiesList", 14, 0, "Email of customer");
-		assertValueInCollection("xavaPropertiesList", 15, 0, "Employee of deliveries");
-		assertValueInCollection("xavaPropertiesList", 16, 0, "Free of details");
-		assertValueInCollection("xavaPropertiesList", 17, 0, "Incidents of deliveries");
-		assertValueInCollection("xavaPropertiesList", 18, 0, "Lokal of customer");
-		assertValueInCollection("xavaPropertiesList", 19, 0, "Name of customer");
+		assertValueInCollection("xavaPropertiesList",  0, 0, "Comment");
+		assertValueInCollection("xavaPropertiesList",  1, 0, "Considerable");
+		assertValueInCollection("xavaPropertiesList",  2, 0, "Customer additional emails");
+		assertValueInCollection("xavaPropertiesList",  3, 0, "Customer city");
+		assertValueInCollection("xavaPropertiesList",  4, 0, "Customer discount");
+		assertValueInCollection("xavaPropertiesList",  5, 0, "Customer email");
+		assertValueInCollection("xavaPropertiesList",  6, 0, "Customer lokal");
+		assertValueInCollection("xavaPropertiesList",  7, 0, "Customer name");
+		assertValueInCollection("xavaPropertiesList",  8, 0, "Customer number");
+		assertValueInCollection("xavaPropertiesList",  9, 0, "Customer photo");
+		assertValueInCollection("xavaPropertiesList", 10, 0, "Customer relation with seller");
+		assertValueInCollection("xavaPropertiesList", 11, 0, "Customer remarks");
+		assertValueInCollection("xavaPropertiesList", 12, 0, "Customer telephone");
+		assertValueInCollection("xavaPropertiesList", 13, 0, "Customer type");
+		assertValueInCollection("xavaPropertiesList", 14, 0, "Customer type discount");
+		assertValueInCollection("xavaPropertiesList", 15, 0, "Customer web site");
+		assertValueInCollection("xavaPropertiesList", 16, 0, "Deliveries date");
+		assertValueInCollection("xavaPropertiesList", 17, 0, "Deliveries date as label");
+		assertValueInCollection("xavaPropertiesList", 18, 0, "Deliveries description");
+		assertValueInCollection("xavaPropertiesList", 19, 0, "Deliveries distance");
 		checkRow("selectedProperties", "customer.name"); 
-		checkRow("selectedProperties", "deliveryDate"); 
+		checkRow("selectedProperties", "deliveries.date"); 
 		 		
 		execute("AddColumns.addColumns");
 				
@@ -1251,31 +1251,31 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertLabelInList(5, "Details count");
 		assertLabelInList(6, "Paid");
 		assertLabelInList(7, "Importance");
-		assertLabelInList(8, "Delivery date"); 
-		assertLabelInList(9, "Customer");
+		assertLabelInList(8, "Customer"); 
+		assertLabelInList(9, "Deliveries date");
 		
 		execute("List.addColumns");
 		assertCollectionRowCount("xavaPropertiesList", 20); 
-		assertValueInCollection("xavaPropertiesList",  0, 0, "Additional emails of customer");
-		assertValueInCollection("xavaPropertiesList",  1, 0, "Amount of details");
-		assertValueInCollection("xavaPropertiesList",  2, 0, "City of customer");
-		assertValueInCollection("xavaPropertiesList",  3, 0, "Comment");
-		assertValueInCollection("xavaPropertiesList",  4, 0, "Considerable");
-		assertValueInCollection("xavaPropertiesList",  5, 0, "Customer discount");
-		assertValueInCollection("xavaPropertiesList",  6, 0, "Customer type discount");
-		assertValueInCollection("xavaPropertiesList",  7, 0, "Date as label of deliveries");
-		assertValueInCollection("xavaPropertiesList",  8, 0, "Date of deliveries");
-		assertValueInCollection("xavaPropertiesList",  9, 0, "Delivery date of details");
-		assertValueInCollection("xavaPropertiesList", 10, 0, "Description of deliveries");
-		assertValueInCollection("xavaPropertiesList", 11, 0, "Distance of deliveries");
-		assertValueInCollection("xavaPropertiesList", 12, 0, "Driver type of deliveries");
-		assertValueInCollection("xavaPropertiesList", 13, 0, "Email of customer");
-		assertValueInCollection("xavaPropertiesList", 14, 0, "Employee of deliveries");
-		assertValueInCollection("xavaPropertiesList", 15, 0, "Free of details");
-		assertValueInCollection("xavaPropertiesList", 16, 0, "Incidents of deliveries");
-		assertValueInCollection("xavaPropertiesList", 17, 0, "Lokal of customer");
-		assertValueInCollection("xavaPropertiesList", 18, 0, "Number of customer");
-		assertValueInCollection("xavaPropertiesList", 19, 0, "Number of deliveries");
+		assertValueInCollection("xavaPropertiesList",  0, 0, "Comment");
+		assertValueInCollection("xavaPropertiesList",  1, 0, "Considerable");
+		assertValueInCollection("xavaPropertiesList",  2, 0, "Customer additional emails");
+		assertValueInCollection("xavaPropertiesList",  3, 0, "Customer city");
+		assertValueInCollection("xavaPropertiesList",  4, 0, "Customer discount");
+		assertValueInCollection("xavaPropertiesList",  5, 0, "Customer email");
+		assertValueInCollection("xavaPropertiesList",  6, 0, "Customer lokal");
+		assertValueInCollection("xavaPropertiesList",  7, 0, "Customer number");
+		assertValueInCollection("xavaPropertiesList",  8, 0, "Customer photo");
+		assertValueInCollection("xavaPropertiesList",  9, 0, "Customer relation with seller");
+		assertValueInCollection("xavaPropertiesList", 10, 0, "Customer remarks");
+		assertValueInCollection("xavaPropertiesList", 11, 0, "Customer telephone");
+		assertValueInCollection("xavaPropertiesList", 12, 0, "Customer type");
+		assertValueInCollection("xavaPropertiesList", 13, 0, "Customer type discount");
+		assertValueInCollection("xavaPropertiesList", 14, 0, "Customer web site");
+		assertValueInCollection("xavaPropertiesList", 15, 0, "Deliveries date as label");
+		assertValueInCollection("xavaPropertiesList", 16, 0, "Deliveries description");
+		assertValueInCollection("xavaPropertiesList", 17, 0, "Deliveries distance");
+		assertValueInCollection("xavaPropertiesList", 18, 0, "Deliveries driver type");
+		assertValueInCollection("xavaPropertiesList", 19, 0, "Deliveries employee");
 		
 		execute("AddColumns.cancel");
 		
@@ -1288,8 +1288,8 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertLabelInList(5, "Details count");
 		assertLabelInList(6, "Paid");
 		assertLabelInList(7, "Importance");
-		assertLabelInList(8, "Delivery date"); 
-		assertLabelInList(9, "Customer");
+		assertLabelInList(8, "Customer"); 
+		assertLabelInList(9, "Deliveries date");
 
 		
 		// To test that detail view is not broken because of the dialog
@@ -1297,13 +1297,13 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertExists("year");
 		
 		execute("Mode.list");
-		assertLabelInList(9, "Customer"); 
+		assertLabelInList(9, "Deliveries date"); 
 		execute("List.changeColumnName", "property=customer.name"); 
 		assertDialog();
 		assertValue("name", "Customer");
-		setValue("name", "The name of customer ");
+		setValue("name", "The Customer name ");
 		execute("ChangeColumnName.change");
-		assertLabelInList(9, "The name of customer");
+		assertLabelInList(8, "The Customer name");
 	}
 	
 	private void doTestCustomizeList_storePreferences() throws Exception {
@@ -1317,8 +1317,8 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertLabelInList(5, "Details count"); 
 		assertLabelInList(6, "Paid");
 		assertLabelInList(7, "Importance");
-		assertLabelInList(8, "Delivery date"); 
-		assertLabelInList(9, "The name of customer");
+		assertLabelInList(8, "The Customer name"); 
+		assertLabelInList(9, "Deliveries date");
 	}	
 	
 	public void testGenerateExcel() throws Exception {
@@ -1502,23 +1502,23 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertNoErrors();
 		assertValue("date", "04/01/2004");
 		
-		setValue("date", "4/1/42"); // If current year is 2022 
+		setValue("date", "4/1/43"); // If current year is 2023 
 		execute("CRUD.save");
 		assertNoErrors();
 		setValue("year", String.valueOf(getInvoice().getYear()));
 		setValue("number", String.valueOf(getInvoice().getNumber()));
 		execute("CRUD.refresh");
 		assertNoErrors();
-		assertValue("date", "04/01/2042"); 
+		assertValue("date", "04/01/2043"); 
 		
-		setValue("date", "040143"); // If current year is 2022 
+		setValue("date", "040144"); // If current year is 2023 
 		execute("CRUD.save");
 		assertNoErrors();
 		setValue("year", String.valueOf(getInvoice().getYear()));
 		setValue("number", String.valueOf(getInvoice().getNumber()));
 		execute("CRUD.refresh");
 		assertNoErrors();
-		assertValue("date", "04/01/1943");  
+		assertValue("date", "04/01/1944"); 
 		
 		setValue("date", "30/2/2008");
 		execute("CRUD.save");

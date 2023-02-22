@@ -14,7 +14,9 @@ public class InvoicePropertiesFromCollectionInListTest extends CustomizeListTest
 	
 	public void testPropertiesFromCollectionInList() throws Exception { 
 		assertListRowCount(9);
-		assertLabelInList(9, "Unit price of product of details");
+		//correccion
+		//assertLabelInList(9, "Unit price of product of details");
+		assertLabelInList(9, "Details product unit price");
 		assertLabelInList(10, "Deliveries");
 		assertValueInList(0, 9, "...");
 		assertValueInList(0, 10, "...");

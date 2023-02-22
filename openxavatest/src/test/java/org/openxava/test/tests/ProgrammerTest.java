@@ -36,8 +36,8 @@ public class ProgrammerTest extends ModuleTestBase {
 		assertListColumnCount(5);  
 		assertLabelInList(0, "Name");
 		assertLabelInList(1, "Sex");
-		assertLabelInList(2, "Author of favorite author"); 
-		assertLabelInList(3, "Biography of favorite author");
+		assertLabelInList(2, "Favorite author author"); 
+		assertLabelInList(3, "Favorite author biography");
 		assertLabelInList(4, "Main language");
 		
 		assertListRowCount(3);
