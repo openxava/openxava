@@ -28,7 +28,7 @@ public class TravelExpenses {
 	
 	@Column(length=6) 
 	@DefaultValueCalculator(value=NextTravelExpensesNumberCalculator.class,
-	    properties=@PropertyValue(name="year") 
+		properties=@PropertyValue(name="date") 
 	)
 	@Id
 	int number;
@@ -37,7 +37,7 @@ public class TravelExpenses {
 	Date date;
 	
 	@ElementCollection
-	@ListProperties("description, amount[travelExpenses.total]")  
+	@ListProperties("description, amount[travelExpenses.total], file")  
 	Collection<TravelExpense> expenses;
 	
 	public BigDecimal getTotal() {

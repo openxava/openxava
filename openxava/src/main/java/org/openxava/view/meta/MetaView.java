@@ -51,6 +51,9 @@ public class MetaView extends MetaElement implements Cloneable {
 	private String extendsView; 
 	private boolean extendedFromExtendsView = false;
 	
+	private int countDuplicatedProperties = 0;
+	private boolean accumulateDuplicatedProperties = false;
+	
 	private void addMemberName(String memberName) {
 		_membersNames.add(memberName);
 	}
@@ -138,7 +141,11 @@ public class MetaView extends MetaElement implements Cloneable {
 
 	// Including members inside sections
 	private Collection<MetaMember> getAllMetaMembers() throws XavaException {  
-		if (!hasSections()) return getMetaMembers();
+		if (!hasSections()) {
+			accumulateDuplicatedProperties = true;
+			countDuplicatedProperties = 0;
+			return getMetaMembers();
+		}
 		if (allMetaMembers == null) {		
 			allMetaMembers = new ArrayList();
 			allMetaMembers.addAll(getMetaMembers());
@@ -148,6 +155,9 @@ public class MetaView extends MetaElement implements Cloneable {
 				allMetaMembers.addAll(section.getAllMetaMembers());
 			}			
 		}
+		accumulateDuplicatedProperties = false;
+		countDuplicatedProperties = 0;
+		verifyMembersDuplicated(allMetaMembers);
 		return allMetaMembers;
 	}
 	
@@ -204,6 +214,13 @@ public class MetaView extends MetaElement implements Cloneable {
 				}
 			}
 			metaMembers = Collections.unmodifiableCollection(metaMembers);						
+		}
+		if (countDuplicatedProperties == 1 && accumulateDuplicatedProperties) {
+			accumulateDuplicatedProperties = false;
+			countDuplicatedProperties = 0;
+			verifyMembersDuplicated(metaMembers);
+		}else if (countDuplicatedProperties == 0 && accumulateDuplicatedProperties){
+			countDuplicatedProperties = 1 ;
 		}
 		return metaMembers;
 	}
@@ -523,12 +540,14 @@ public class MetaView extends MetaElement implements Cloneable {
 	}
 
 	private void calculateDefaultValuesForDescriptionsList(MetaReference r, MetaDescriptionsList metaDescriptionsList) throws XavaException {
-		Collection properties = r.getMetaModelReferenced().getPropertiesNames();
-		if (properties.contains("descripcion")) metaDescriptionsList.setDescriptionPropertyName("descripcion");
-		else if (properties.contains("description")) metaDescriptionsList.setDescriptionPropertyName("description");
-		else if (properties.contains("nombre")) metaDescriptionsList.setDescriptionPropertyName("nombre");
-		else if (properties.contains("name")) metaDescriptionsList.setDescriptionPropertyName("name");
-		else throw new XavaException("description_property_required");
+		Collection<String> properties = r.getMetaModelReferenced().getPropertiesNames();
+		for (String propertyName: XavaPreferences.getInstance().getDefaultDescriptionPropertiesValueForDescriptionsList()) {
+			if (properties.contains(propertyName.trim())) { // trim() to support space after comma, thus: defaultDescriptionPropertiesValueForDescriptionsList=descripcion, description, nombre, name 
+				metaDescriptionsList.setDescriptionPropertyName(propertyName);
+				return;
+			}
+		}
+		throw new XavaException("description_property_required");
 	}
 	
 	public MetaDescriptionsList createMetaDescriptionList(MetaReference r) throws XavaException {
@@ -934,6 +953,23 @@ public class MetaView extends MetaElement implements Cloneable {
 		MetaDescriptionsList descriptionsList = metaReferenceView.getMetaDescriptionsList(); 
 		if (descriptionsList == null) return "";  
 		return descriptionsList.getLabelStyle();		
+	}
+	
+	private void verifyMembersDuplicated(Collection<MetaMember> allMetaMembers) throws XavaException {
+		Iterator<MetaMember> it = allMetaMembers.iterator();
+		String modelName = getModelName();
+		String viewName = getName().length() > 1 ? " " + getName() + " " : " ";
+		String duplicated = "";
+		for (MetaMember m : allMetaMembers) {
+			if ((m.getMetaModel() != null) && !(m.getName().equalsIgnoreCase(PropertiesSeparator.INSTANCE.getName()))) {
+				if (Collections.frequency(allMetaMembers, m) != 1 && !duplicated.contains(m.getName())) {
+					duplicated = duplicated == "" ? m.getName() : duplicated + ", " + m.getName();
+				}
+			}
+		}
+		if (duplicated != "") {
+			log.warn(XavaResources.getString("duplicated_properties_in_view", modelName, duplicated, viewName), new XavaException("duplicated_properties_in_view", modelName, duplicated, viewName));
+		}
 	}
 
 }

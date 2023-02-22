@@ -291,6 +291,16 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertDialog();
 		execute("Dialog.cancel");
 		assertNoDialog();
+		
+		assertValue("seller.number", "");
+		assertValue("seller.name", "");
+		assertValue("alternateSeller.number", "");
+		assertValue("alternateSeller.name", "");
+		setValue("name", "Pedro");
+		assertValue("seller.number", "2");
+		assertValue("seller.name", "JUANVI LLAVADOR");
+		assertValue("alternateSeller.number", "1");
+		assertValue("alternateSeller.name", "DON MANUEL CHAVARRI");		
 	}
 	
 	public void testTELEPHONE_EMAIL_EMAIL_LIST_WEBURLstereotypes() throws Exception { 

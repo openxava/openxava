@@ -632,7 +632,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 			"Year in group(2002, 2004)", "Year not in group(2002, 2004)", "Customer email is not empty and not paid", 
 			"Customer email is empty", "Customer email is not empty", "Not paid and customer starts with j", 
 			"Paid", "Not paid", "Year 2004 and number > 10", "Number = 1");
-		assertListRowCount(1);
+		assertListRowCount(1); 
 		saveConfiguration(); 
 		
 		setConditionValues("", "", "2006/11");

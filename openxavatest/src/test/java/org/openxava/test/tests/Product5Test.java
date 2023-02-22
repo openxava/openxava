@@ -175,11 +175,12 @@ public class Product5Test extends CustomizeListTestBase {
 	
 	
 	/* it fails after you execute an action with addActions or removeActions */
-	public void testDialogAfterAddRemoveActions() throws Exception {
+	public void testDialogAfterAddRemoveActions_javaScriptPostActionInDialog() throws Exception { 
 		assertAction("Product5.goB");
 		execute("List.viewDetail", "row=0");
 		assertAction("Navigation.first");
 		execute("Product5.seeInitial");
+		assertEquals("OpenXavaTest - Product 5 - Showing initial", getHtmlPage().getTitleText()); 
 		assertNoErrors();
 		assertAction("Dialog.cancel");
 		execute("Dialog.cancel");
@@ -187,4 +188,5 @@ public class Product5Test extends CustomizeListTestBase {
 		
 		assertValue("unitPrice", "11.0000"); // We test that has 4 decimals, the specific value does not matter
 	}
+
 }

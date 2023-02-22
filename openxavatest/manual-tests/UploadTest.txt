@@ -96,3 +96,15 @@ Element collections: Car with Chrome
 - Click on New.
 - Enter a description in the first row.
 - Enter another description in the second row. A third rows is shown, but without error.
+
+Element collections with @File: TravelExpenses
+- Click on new
+- In Expenses collection search and add image in row 1, 3, 5.
+- Search and add another type of file in row 2,4.
+- Put any amount in those five rows.
+- 1, 3, 5 row should be biggest than 2, 4.
+- Save (beware all fields are filled), go to list then open the travel expenses again, 
+	their height of them should be the same as the previous point.
+- Remove an image from any row, then add a file on that row, the height should be correct.
+- Remove a file from any row, then add an image on that row, the height should be correct.
+- Go to list, delete row 0.
