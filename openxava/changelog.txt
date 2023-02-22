@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Automatic translation of English labels improved for qualified properties.
 - defaultDescriptionPropertiesValueForDescriptionsList in xava.properties for @DescriptionsList defaults.
 
 OpenXava 7.0.6 (2023-2-17)
