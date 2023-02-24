@@ -55,6 +55,30 @@ import org.openxava.test.validators.*;
 		"	]" +
 		"}" 
 	),
+	@View(name="EditableValidValues", members=
+		"invoice;" +
+		"deliveryData [" +
+		"	type, number;" +			
+		"	date;" +
+		"	description;" +
+		"	shipment;" +
+		"	transportData [" +
+		"		distance; vehicle; transportMode; driverType;" +
+		"	]" +
+		"	deliveryByData [" +
+		"		deliveredBy;" +
+		"		carrier;" +
+		"		employee;" +			
+		"	]" +
+		"]"  +
+		"comments { advice, shortcut; remarks }" + // shortcut in a section to test a case
+		"incidents { incidents }" +
+		"details {" +
+		"	details [" +
+		"		details" +
+		"	]" +
+		"}" 
+	),
 	@View(name="InInvoice", members="number; date; type; description;"),
 	@View(name="GroupsInSections", members=
 		"invoice;" +			
@@ -161,7 +185,7 @@ public class Delivery {
 	@Id @ManyToOne(fetch=FetchType.LAZY)	
 	@JoinColumn(name="TYPE")
 	@DescriptionsLists({		
-		@DescriptionsList(forViews="DEFAULT, MoreSections, Search, Simple", order="${number} desc"), 
+		@DescriptionsList(forViews="DEFAULT, MoreSections, Search, Simple, EditableValidValues", order="${number} desc"), 
 		@DescriptionsList(forViews="GroupsInSections")
 	})
 	@Action(forViews="DEFAULT, MoreSections", value="Delivery.setDefaultType")
@@ -232,7 +256,7 @@ public class Delivery {
 		properties={
 			@PropertyValue(name="enumType", value="org.openxava.test.model.Delivery$DeliveredBy")
 			// If we do not put value EnumCalculator will return null
-			//@PropertyValue(name="value", value="CARRIER")
+			//@ProapertyValue(name="value", value="CARRIER")
 		}
 	)
 	@OnChange(OnChangeDeliveryByAction.class)
@@ -247,6 +271,7 @@ public class Delivery {
 	@Transient
 	@Column(length=2)
 	@OnChange(OnChangeShortcutAction.class)
+	@Editor(forViews=("EditableValidValues"), value="EditableValidValues")
 	private String shortcut;
 		
 	@Stereotype("LABEL")
