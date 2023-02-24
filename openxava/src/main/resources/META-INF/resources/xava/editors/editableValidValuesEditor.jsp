@@ -27,31 +27,12 @@ Object description = validValues.get(value);
     
 <%
 if (editable) { 
-   /*
-   System.out.println(viewObject);
-   System.out.println(collectionName);
-   System.out.println(propertyKey);
-   System.out.println(script);
-   System.out.println(value);
-   System.out.println(view.getValidValues(p.getName()));
-   System.out.println(description);
-   */
-   /*
-   xava_view
-   null
-   ox_facturacion_Dropdown__lista
-    onblur="openxava.onBlur('facturacion','Dropdown','ox_facturacion_Dropdown__lista')" onfocus="openxava.onFocus('facturacion','Dropdown','ox_facturacion_Dropdown__lista')"
-   holaK
-   {holaK=holaV, holaK2=holaV2, holaK3=holaV3, holaK4=holaV4}
-   holaV
-   */
-   
+   int valueSize = 0;
 	if (validValues.isEmpty()) { %>
-   <input id="<%=propertyKey%>" name="<%=propertyKey%>" 
-		type="text" 
-		value="<%=value%>"/>
+   <input id="<%=propertyKey%>" name="<%=propertyKey%>" class=<%=style.getEditor()%> type="text" tabindex="1" maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=value%>" <%=script%> title="<%=p.getDescription(request)%>"/>
     <%
 	} else {
+       //int valueSize = 0;
        %>
         <div class="select-editable">
     <select tabindex="1" class=<%=style.getEditor()%> <%=script%> 
@@ -63,8 +44,10 @@ if (editable) {
 			<%
 			for (Map.Entry e: validValues.entrySet()) {
 				String selected = e.getKey().equals(value) ?"selected":"";
+               String v = e.getValue().toString();
+               valueSize = valueSize > v.length() ? valueSize : v.length();
 			%>
-				<option value="<%=e.getKey()%>" <%=selected%>> <%=e.getValue()%> </option>
+				<option value="<%=e.getValue()%>" <%=selected%>> <%=e.getValue()%> </option>
 			<%
 			} // while
 			%>
@@ -72,7 +55,7 @@ if (editable) {
 	<input id="<%=propertyKey%>" name="<%=propertyKey%>" 
 		type="text" 
 		oninput="this.previousElementSibling.options[0].value=this.value; this.previousElementSibling.options[0].innerHTML=this.value" 
-		onchange="this.previousElementSibling.selectedIndex=0" value="<%=value%>" />
+		onchange="this.previousElementSibling.selectedIndex=0" value="<%=value%>" maxlength="<%=p.getSize()%>" size="<%=valueSize%>"/>
 	<input type="hidden" name="<%=propertyKey%>__DESCRIPTION__" value="<%=description%>"/>
 </div>
 <%		
