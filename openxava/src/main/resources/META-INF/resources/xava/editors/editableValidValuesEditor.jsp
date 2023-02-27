@@ -33,6 +33,7 @@ boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabe
 Object value = request.getAttribute(propertyKey + ".value") == null ? "" : request.getAttribute(propertyKey + ".value");
 Map<Object, Object> validValues = view.getValidValues(p.getName()) == null ? Collections.emptyMap(): view.getValidValues(p.getName()) ;
 Object description = validValues.get(value);
+String optionHidden = new String(new char[p.getSize()]).replace("\0", "A");
 %>
     
 <%
@@ -42,9 +43,10 @@ if (editable) {
 	<input id="<%=propertyKey%>" name="<%=propertyKey%>" class=<%=style.getEditor()%> type="text" tabindex="1" maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=value%>" <%=script%> title="<%=p.getDescription(request)%>"/>
 <%
 	} else {
+    System.out.println(optionHidden);
 %>
     <div class="select-editable">
-    	<select tabindex="1" class=<%=style.getEditor()%> title="<%=p.getDescription(request)%>" <%=scriptSelect%>>
+    	<select tabindex="1" class=<%=style.getEditor()%> title="<%=p.getDescription(request)%>" onchange="this.nextElementSibling.value=this.options[selectedIndex].text" <%=scriptSelect%>>
 <% 
 		if (view.hasBlankValidValue(p.getName())) { 
 %>
@@ -57,9 +59,10 @@ if (editable) {
 			<option value="<%=e.getKey()%>" <%=selected%>> <%=e.getValue()%> </option>
 <%
 		}
-%>
+%>      
+        <option hidden><%=optionHidden%></option>
 		</select>
-		<input id="<%=propertyKey%>" name="<%=propertyKey%>" type="text"  <%=scriptInput%> oninput="this.previousElementSibling.options[0].value=this.value; this.previousElementSibling.options[0].innerHTML=this.value"  maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>"/>
+		<input id="<%=propertyKey%>" name="<%=propertyKey%>" type="text"  <%=scriptInput%> onchange="this.previousElementSibling.selectedIndex=0" oninput="this.previousElementSibling.options[0].value=this.value; this.previousElementSibling.options[0].innerHTML=this.value"  maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>"/>
 		<input type="hidden" name="<%=propertyKey%>__DESCRIPTION__" value="<%=description%>"/>
 	</div>
 <%		

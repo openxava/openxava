@@ -2666,25 +2666,26 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 .select-editable {
-	position:relative;
+	position: relative;
 }
 
 .select-editable > * {
-	top:0; left:0; 
-	box-sizing:border-box; 
-	outline:none;
+	top: 0; 
+	left: 0; 
+	box-sizing: border-box; 
+	outline: none;
 }
 
 .select-editable select {
-	width:100%;
+	width: 100%	
 }
 
 .select-editable input {
-	position:absolute; 
-	width:calc(100% - 20px); 
-	height:80%; 
-	margin-top:3px; 
-	margin-left:3px; 
-	border:none; 
-	text-overflow:ellipsis; 
+	position: absolute; 
+	width: calc(100% - 20px); 
+	height: 80%; 
+	margin-top: 3px; 
+	margin-left: 3px; 
+	border: none; 
+	text-overflow: ellipsis;
 }
