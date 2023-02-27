@@ -71,7 +71,7 @@ import org.openxava.test.validators.*;
 		"		employee;" +			
 		"	]" +
 		"]"  +
-		"comments { advice, shortcut; remarks }" + // shortcut in a section to test a case
+		"comments { advice, shortcut; remarks }" + 
 		"incidents { incidents }" +
 		"details {" +
 		"	details [" +
@@ -256,7 +256,7 @@ public class Delivery {
 		properties={
 			@PropertyValue(name="enumType", value="org.openxava.test.model.Delivery$DeliveredBy")
 			// If we do not put value EnumCalculator will return null
-			//@ProapertyValue(name="value", value="CARRIER")
+			//@PropertyValue(name="value", value="CARRIER")
 		}
 	)
 	@OnChange(OnChangeDeliveryByAction.class)

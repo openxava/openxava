@@ -7726,6 +7726,10 @@ class="st0">"Black"</span><span class="br0">)</span><span class="sy0">;</span></
         href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html#disableValidValues%28java.lang.String%29"><i>disableValidValues()</i></a>, <a
         href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html#removeBlankValidValue%28java.lang.String%29"><i>removeBlankValidValue()</i></a> and <a
         href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html#hasBlankValidValue%28java.lang.String%29"><i>hasBlankValidValue()</i></a>.<br>
+      Since v7.1 you can select and edit the selected option or enter a new value directly using <i>EditableValidValues</i> editor, for example:
+      <pre class="java">@Editor("EditableValidValues")<br>@Column(length = 15)<br><span
+class="kw1">private</span> <span class="kw3">String</span> color<span class="sy0">;</span></pre>
+      In this example choosing <i>White</i>, you can edit it by <i>White beige</i> or enter a new value as <i>Yellow</i>. These new values will not be added to the original list of options for use in other records.<br>
       <h2 id="toc14"><a name="View-Reference customization"></a>Reference customization</h2>
       You can refine the visual aspect and behavior of a reference in a view using the next annotations:<br>
       <style type="text/css"><!--

@@ -19,19 +19,18 @@ String script = request.getParameter("script");
 String scriptSelect = ""; 
 String scriptInput = "";
 if (script.contains("onchange=")){
-       String selectOnChange = "this.nextElementSibling.value=this.options[selectedIndex].text; ";
-       String inputOnChange= "this.previousElementSibling.selectedIndex=0; ";
-       int i = script.indexOf("onchange=") + 10;
-       scriptSelect = script.substring(0,i) + selectOnChange + script.substring(i);
-       scriptInput = script.substring(0,i) + inputOnChange + script.substring(i);
-       }else{
-       scriptSelect = script;
+	String selectOnChange = "this.nextElementSibling.value=this.options[selectedIndex].text; ";
+    String inputOnChange= "this.previousElementSibling.selectedIndex=0; ";
+    int i = script.indexOf("onchange=") + 10;
+    scriptSelect = script.substring(0,i) + selectOnChange + script.substring(i);
+    scriptInput = script.substring(0,i) + inputOnChange + script.substring(i);
+} else {
+    scriptSelect = script;
     scriptInput = script;
 }   
 boolean editable = "true".equals(request.getParameter("editable")); 
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
 Object value = request.getAttribute(propertyKey + ".value") == null ? "" : request.getAttribute(propertyKey + ".value");
-   //nullpointer
 Map<Object, Object> validValues = view.getValidValues(p.getName()) == null ? Collections.emptyMap(): view.getValidValues(p.getName()) ;
 Object description = validValues.get(value);
 %>
