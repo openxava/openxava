@@ -37,7 +37,6 @@ Object description = validValues.get(value);
     
 <%
 if (editable) { 
-	int valueSize = 0;
 	if (validValues.isEmpty()) {
 %>
 	<input id="<%=propertyKey%>" name="<%=propertyKey%>" class=<%=style.getEditor()%> type="text" tabindex="1" maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=value%>" <%=script%> title="<%=p.getDescription(request)%>"/>
