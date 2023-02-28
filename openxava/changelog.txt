@@ -1,7 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
-- Working: Content Security Policy (CSP) Header Not Set.
+- Fix: Data filtering in .htaccess for some URLs.
+- Fix: Content Security Policy (CSP) Header Not Set.
 
 - New @ZerosFilled annotation equivalent to ZEROS_FILLED/RELLENADO_CON_CEROS stereotype.
 - Automatic translation of English labels improved for qualified properties.
