@@ -16,17 +16,20 @@ if (!org.openxava.util.Is.emptyString(collectionName)) {
 String propertyKey = request.getParameter("propertyKey");
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 String script = request.getParameter("script"); 
-String scriptSelect = ""; 
-String scriptInput = "";
+String scriptSelect = script; 
+String scriptInput = script;
 if (script.contains("onchange=")){
 	String selectOnChange = "this.nextElementSibling.value=this.options[selectedIndex].text; ";
     String inputOnChange= "this.previousElementSibling.selectedIndex=0; ";
     int i = script.indexOf("onchange=") + 10;
     scriptSelect = script.substring(0,i) + selectOnChange + script.substring(i);
+   System.out.println(scriptSelect);
     scriptInput = script.substring(0,i) + inputOnChange + script.substring(i);
+   System.out.println(scriptInput);
+   
 } else {
-    scriptSelect = script;
-    scriptInput = script;
+    //scriptSelect = script;
+    //scriptInput = script;
 }   
 boolean editable = "true".equals(request.getParameter("editable")); 
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
@@ -43,10 +46,9 @@ if (editable) {
 	<input id="<%=propertyKey%>" name="<%=propertyKey%>" class=<%=style.getEditor()%> type="text" tabindex="1" maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=value%>" <%=script%> title="<%=p.getDescription(request)%>"/>
 <%
 	} else {
-    System.out.println(optionHidden);
 %>
-    <div class="select-editable">
-    	<select tabindex="1" class=<%=style.getEditor()%> title="<%=p.getDescription(request)%>" onchange="this.nextElementSibling.value=this.options[selectedIndex].text" <%=scriptSelect%>>
+    <div class="ox-select-editable">
+    	<select tabindex="1" class=<%=style.getEditor()%> title="<%=p.getDescription(request)%>" <%=scriptSelect%> onchange="this.nextElementSibling.value=this.options[selectedIndex].text">
 <% 
 		if (view.hasBlankValidValue(p.getName())) { 
 %>

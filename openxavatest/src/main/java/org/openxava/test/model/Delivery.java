@@ -271,7 +271,7 @@ public class Delivery {
 	@Transient
 	@Column(length=2)
 	@OnChange(OnChangeShortcutAction.class)
-	@Editor(forViews=("EditableValidValues"), value="EditableValidValues")
+	@Editor(forViews="EditableValidValues", value="EditableValidValues")
 	private String shortcut;
 		
 	@Stereotype("LABEL")

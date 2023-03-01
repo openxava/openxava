@@ -20,9 +20,9 @@ public class DeliveryEditableValidValuesTest extends ModuleTestBase {
 		input.type("DY");
 		input.blur();
 
-		HtmlSelect select = (HtmlSelect) ((HtmlElement)getHtmlPage().getFirstByXPath("//div[@class='select-editable']")).getFirstElementChild();
+		HtmlSelect select = (HtmlSelect) ((HtmlElement)getHtmlPage().getFirstByXPath("//div[@class='ox-select-editable']")).getFirstElementChild();
 		assertEquals(select.getOption(0).getValueAttribute(), "DY");
-		getHtmlPage().refresh();
+		waitAJAX();
 		assertValue("remarks", "Delayed");
 	}
 	

@@ -2665,22 +2665,22 @@ div[id$="_Index__view"] .ox-list-title {
     z-index: 1;
 }
 
-.select-editable {
+.ox-select-editable {
 	position: relative;
 }
 
-.select-editable > * {
+.ox-select-editable > * {
 	top: 0; 
 	left: 0; 
 	box-sizing: border-box; 
 	outline: none;
 }
 
-.select-editable select {
+.ox-select-editable select {
 	width: 100%	
 }
 
-.select-editable input {
+.ox-select-editable input {
 	position: absolute; 
 	width: calc(100% - 20px); 
 	height: 80%; 
