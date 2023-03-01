@@ -79,9 +79,9 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInCollection("columns", 0, 0, "Name");
 		assertValueInCollection("columns", 1, 0, "Type");
 		assertValueInCollection("columns", 2, 0, "Seller");
-		assertValueInCollection("columns", 3, 0, "City of address"); 
+		assertValueInCollection("columns", 3, 0, "Address city"); 
 		assertValueInCollection("columns", 4, 0, "Seller level");
-		assertValueInCollection("columns", 5, 0, "State of address");
+		assertValueInCollection("columns", 5, 0, "Address state");
 		assertValueInCollection("columns", 6, 0, "Web site");
 		
 		execute("MyReport.editColumn", "row=0,viewObject=xava_view_columns");
@@ -95,22 +95,22 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInCollection("columns", 0, 0, "My name");
 		assertValueInCollection("columns", 1, 0, "Type");
 		assertValueInCollection("columns", 2, 0, "Seller");
-		assertValueInCollection("columns", 3, 0, "City of address");
+		assertValueInCollection("columns", 3, 0, "Address city");
 		assertValueInCollection("columns", 4, 0, "My seller level");
-		assertValueInCollection("columns", 5, 0, "State of address");
+		assertValueInCollection("columns", 5, 0, "Address state");
 		assertValueInCollection("columns", 6, 0, "Web site");
 		
 		execute("MyReport.generatePdf");						 
-		assertPopupPDFLine(2, "My name Type Seller City of address My seller level State of address Web site"); 
+		assertPopupPDFLine(2, "My name Type Seller Address city My seller level Address state Web site"); 
 		assertLabelInList(0, "Name"); // The list labels are not affected
 		
 		execute("ExtendedPrint.myReports");
 		assertValueInCollection("columns", 0, 0, "My name");
 		assertValueInCollection("columns", 1, 0, "Type");
 		assertValueInCollection("columns", 2, 0, "Seller");
-		assertValueInCollection("columns", 3, 0, "City of address");
+		assertValueInCollection("columns", 3, 0, "Address city");
 		assertValueInCollection("columns", 4, 0, "My seller level");
-		assertValueInCollection("columns", 5, 0, "State of address");
+		assertValueInCollection("columns", 5, 0, "Address state");
 		assertValueInCollection("columns", 6, 0, "Web site");
 		execute("MyReport.editColumn", "row=0,viewObject=xava_view_columns");
 		assertValue("label", "My name");
@@ -584,9 +584,9 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertLabelInList(0, "Name");
 		assertLabelInList(1, "Type");
 		assertLabelInList(2, "Seller");
-		assertLabelInList(3, "City of address");
+		assertLabelInList(3, "Address city");
 		assertLabelInList(4, "Seller level");
-		assertLabelInList(5, "State of address");
+		assertLabelInList(5, "Address state");
 		assertLabelInList(6, "Web site");
 		assertTrue("It is needed customers for execute this test", getListRowCount() > 1);
 		String name = getValueInList(0, 0);
@@ -604,9 +604,9 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertLabelInList(0, "Type");
 		assertLabelInList(1, "Seller");
 		assertLabelInList(2, "Name");
-		assertLabelInList(3, "City of address");
+		assertLabelInList(3, "Address city");
 		assertLabelInList(4, "Seller level");
-		assertLabelInList(5, "State of address");
+		assertLabelInList(5, "Address state");
 		assertLabelInList(6, "Web site");		
 		assertValueInList(0, 0, type);
 		assertValueInList(0, 1, seller);
@@ -622,10 +622,10 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertListColumnCount(7);
 		assertLabelInList(0, "Type");
 		assertLabelInList(1, "Seller");		
-		assertLabelInList(2, "City of address");
+		assertLabelInList(2, "Address city");
 		assertLabelInList(3, "Seller level");
 		assertLabelInList(4, "Name");
-		assertLabelInList(5, "State of address");
+		assertLabelInList(5, "Address state");
 		assertLabelInList(6, "Web site");
 		assertValueInList(0, 0, type);
 		assertValueInList(0, 1, seller);
@@ -641,9 +641,9 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertListColumnCount(6);
 		assertLabelInList(0, "Type");
 		assertLabelInList(1, "Seller");		
-		assertLabelInList(2, "City of address");		
+		assertLabelInList(2, "Address city");		
 		assertLabelInList(3, "Name");
-		assertLabelInList(4, "State of address");
+		assertLabelInList(4, "Address state");
 		assertLabelInList(5, "Web site");
 		assertValueInList(0, 0, type);
 		assertValueInList(0, 1, seller);
@@ -660,9 +660,9 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertListColumnCount(6);
 		assertLabelInList(0, "Type");
 		assertLabelInList(1, "Seller");		
-		assertLabelInList(2, "City of address");		
+		assertLabelInList(2, "Address city");		
 		assertLabelInList(3, "Name");
-		assertLabelInList(4, "State of address");
+		assertLabelInList(4, "Address state");
 		assertLabelInList(5, "Web site");
 		removeColumn(3); 
 		assertNoErrors();
@@ -682,9 +682,9 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertLabelInList(0, "Name");
 		assertLabelInList(1, "Type");
 		assertLabelInList(2, "Seller");
-		assertLabelInList(3, "City of address");
+		assertLabelInList(3, "Address city");
 		assertLabelInList(4, "Seller level");
-		assertLabelInList(5, "State of address"); 
+		assertLabelInList(5, "Address state"); 
 		assertLabelInList(6, "Web site");
 		assertTrue("Must to have customers for run this test", getListRowCount() > 1);
 		String name = getValueInList(0, 0);
@@ -700,9 +700,9 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertListColumnCount(6);
 		assertLabelInList(0, "Name");
 		assertLabelInList(1, "Type");
-		assertLabelInList(2, "City of address");
+		assertLabelInList(2, "Address city");
 		assertLabelInList(3, "Seller level");
-		assertLabelInList(4, "State of address"); 
+		assertLabelInList(4, "Address state"); 
 		assertLabelInList(5, "Web site");
 		assertValueInList(0, 0, name);
 		assertValueInList(0, 1, type);
@@ -717,9 +717,9 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertLabelInList(0, "Name");
 		assertLabelInList(1, "Type");
 		assertLabelInList(2, "Seller");		
-		assertLabelInList(3, "City of address");
+		assertLabelInList(3, "Address city");
 		assertLabelInList(4, "Seller level");
-		assertLabelInList(5, "State of address"); 
+		assertLabelInList(5, "Address state"); 
 		assertLabelInList(6, "Web site");
 		assertValueInList(0, 0, name);
 		assertValueInList(0, 1, type);

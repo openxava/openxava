@@ -41,7 +41,7 @@ public class ShipmentChargeTest extends ModuleTestBase {
 	
 	public void testFilterToDescriptionsList() throws Exception {
 		assertListRowCount(1); 
-		assertLabelInList(2, "Number of shipment"); 
+		assertLabelInList(2, "Shipment number"); 
 		assertLabelInList(3, "Slow");	// fail filter: calculated property and descriptions list
 		assertLabelInList(4, "Shipment"); 
 		

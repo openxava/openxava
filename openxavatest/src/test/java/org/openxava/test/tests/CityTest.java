@@ -19,7 +19,7 @@ public class CityTest extends ModuleTestBase{
 	public void testStateFullNameWithFormulaFromAReference_listFormatter_isolateModuleSessionForEachBrowserTab() throws Exception {		
 		assertValueInList(0, 0, "1"); 
 		assertValueInList(0, 1, "PHOENIX CITY"); 
-		assertLabelInList(2, "Full name with formula of state"); 
+		assertLabelInList(2, "State full name with formula"); 
 		assertValueInList(0, 2, "AZARIZONA");
 		assertValueInList(1, 1, "TUCSON CITY"); 
 		execute("List.viewDetail", "row=0");

@@ -1,10 +1,13 @@
 package org.openxava.test.tests;
 
+import java.io.*;
+import java.net.*;
 import java.util.*;
 
 import javax.persistence.*;
 
 import org.apache.commons.lang.*;
+import org.openxava.controller.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
 
@@ -178,10 +181,9 @@ public class ApplicantTest extends ModuleTestBase {
 		assertHelp("en"); 
 	}
 	
-	public void testChangeLocaleAffectsMenu() throws Exception {  
+	public void testChangeLocaleAffectsMenu_assertCSSInLatestVersion() throws Exception {  
 		modulesLimit = false;
 		resetModule();
-		
 		assertLabels("Name", "Author"); 
 		
 		execute("Applicant.changeToSpanish");
@@ -189,6 +191,12 @@ public class ApplicantTest extends ModuleTestBase {
 		
 		assertLabels("Nombre", "Autor");
 		assertHelp("es"); 
+		
+		HtmlPage page = getHtmlPage();
+		assertCSSWellUploaded(page);		
+		HtmlElement cssHref = page.getAnchorByHref("?theme=pink.css");
+		page = cssHref.click();
+		assertCSSWellUploaded(page);
 	}
 	
 	private void assertLabels(String propertyLabel, String moduleLabel) throws Exception {
@@ -343,6 +351,22 @@ public class ApplicantTest extends ModuleTestBase {
 		execute("AddColumns.restoreDefault");
 		assertListColumnCount(1);
 		assertListAllConfigurations("All"); 
+	}
+	
+	private void assertCSSWellUploaded(HtmlPage page) throws IOException {
+		HtmlElement head = (HtmlElement) page.getHead();
+		DomElement linkCSS = head.getChildElements().iterator().next()
+								 .getNextElementSibling()
+								 .getNextElementSibling();
+
+		String urlCSS = page.getUrl().getProtocol() + "://" 
+						+ page.getUrl().getHost() + ":"
+						+ page.getUrl().getPort() 
+						+ linkCSS.getAttribute("href");
+		URL url = new URL(urlCSS);
+		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+		assertEquals("@import 'base.css?ox=" + ModuleManager.getVersion() + "';", in.readLine());
+		in.close();
 	}
 	
 	protected String getModuleURL() {

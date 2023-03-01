@@ -18,7 +18,7 @@
         the <i>openxava.version</i> property to point to the latest OpenXava
         version, thus:</p>
       <pre><code class="xml">&lt;properties&gt;
-    &lt;openxava.version&gt;7.0.5&lt;/openxava.version&gt;
+    &lt;openxava.version&gt;7.0.6&lt;/openxava.version&gt;
     ...
 &lt;/properties&gt;
 </code></pre>
@@ -45,6 +45,26 @@
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">
+      <h2>Migration from OpenXava 7.0.6 to OpenXava 7.1</h2>
+      <div class="wiki" style="display: block;">
+        <h3>Labels in English now have different order (for JUnit tests)</h3>
+        <p>We noticed that labels in list and collection when are translated to
+          English, they can be understandable, but could be better. For this, we
+          changed the order of the words and this affect JUnit code that use
+          method like <i>assertValue(), assertLabelInList(),
+            assertValueInCollection()</i>, and more that used to verify labels.
+          For example, if you have something like this:</p>
+        <pre><code class="java">assertLabelInList(0, "Year of invoice");
+</code></pre>
+        <p>Change it by:</p>
+        <pre><code class="java">assertLabelInList(0, "Invoice year");
+</code></pre>
+        <p>If labels were before:</p>
+        <pre><code class="java">customer.address = Address of customer<br>customer.address.street = Street of address of customer<br>customer.address.street.number = Number of street of address of customer <br></code></pre>
+        <p>Now they are:<br>
+        </p>
+        <pre><code class="java">customer.address = Customer address<br>customer.address.street = Customer address street<br>customer.address.street.number = Customer address street number
+</code></pre> </div>
       <h2 id="from-6.6.3-to-7.0">Migration from OpenXava 7.0.5 to OpenXava 7.0.6</h2>
       <h3>@Column(length=x) with no scale is no longer scale=2 by default</h3>
       <p>We fixed a bug about that <i>scale=0</i> for <i>@Column</i> does not
@@ -70,8 +90,7 @@ BigDecimal factor;
 </code></pre>
       <p></p>
       <p>You don't need to change anything. Moreover, if <i>@Column</i>
-        annotation is missing altogether
-        <i> scale</i> is still 2, as always.</p>
+        annotation is missing altogether <i> scale</i> is still 2, as always.</p>
       <h2>Migration from OpenXava 7.0.4 to OpenXava 7.0.5</h2>
       No issues.
       <h2>Migration from OpenXava 7.0.3 to OpenXava 7.0.4</h2>
