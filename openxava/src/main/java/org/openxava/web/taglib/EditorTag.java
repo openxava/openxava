@@ -102,9 +102,9 @@ public class EditorTag extends TagSupport {
 			MetaEditor metaEditor = WebEditors.getMetaEditorFor(metaProperty, viewName);
 			String editorBaseURL = org.openxava.web.WebEditors.getUrl(metaProperty, viewName);
 			if (view.hasValidValues(property)) {
-				editorBaseURL = metaEditor.getName().equalsIgnoreCase("EditableValidValues") ? 
-													"editors/editableValidValuesEditor.jsp" : 
-													"editors/dynamicValidValuesEditor.jsp";
+				editorBaseURL = (!metaEditor.getName().equalsIgnoreCase("TextField") && !metaEditor.getName().equalsIgnoreCase("")) ? 
+								"editors/" + metaEditor.getUrl() :
+								"editors/dynamicValidValuesEditor.jsp";
 			}
 			StringBuffer editorURL = new StringBuffer(editorBaseURL);			
 			char nexus = editorURL.toString().indexOf('?') < 0?'?':'&';
