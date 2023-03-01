@@ -373,5 +373,7 @@
 	<editor url="textEditor.jsp">
 		<for-model-property model="SignIn" property="user" />				
 	</editor>
+	
+	<editor url="editableValidValuesEditor.jsp" name="EditableValidValues"/>
 		
 </editors>
