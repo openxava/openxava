@@ -5,12 +5,15 @@ import java.nio.file.*;
 import java.nio.file.Files;
 import java.util.*;
 
+import javax.servlet.*;
+
 import org.apache.catalina.*;
 import org.apache.catalina.core.*;
 import org.apache.catalina.startup.*;
 import org.apache.catalina.webresources.*;
 import org.apache.commons.logging.*;
 import org.openxava.application.meta.*;
+import org.openxava.web.servlets.*;
 
 /**
  * 
@@ -54,15 +57,38 @@ public class AppServer {
 	
 	private static Tomcat startTomcat(String webappDir, String contextPath, int port) throws Exception { 
         Tomcat tomcat = new Tomcat();
+        System.out.println("[AppServer.startTomcat] v2"); // tmr
         tomcat.setBaseDir("temp"); 
         tomcat.setPort(port);
         tomcat.getConnector();
         tomcat.enableNaming();
+        
+        // tmr ini
+        // TMR ME QUEDÉ POR AQUÍ: LO DE ABAJO NO FUNCIONA, NI SIQUIERA ARRANCA
+        Context ctx = tomcat.addContext(contextPath, webappDir);
+        ctx.getServletContext().setSessionTrackingModes(Collections.singleton(SessionTrackingMode.COOKIE));
+        SessionCookieConfig sessionCookieConfig = ctx.getServletContext().getSessionCookieConfig();
+        sessionCookieConfig.setHttpOnly(true);
+        sessionCookieConfig.setSecure(true);
+        sessionCookieConfig.setPath("/");
+        sessionCookieConfig.setMaxAge(30 * 60); // 30 minutos        
+        // tmr fin
+        
         StandardContext context = (StandardContext) tomcat.addWebapp(contextPath, webappDir);
+
         WebResourceRoot resources = new StandardRoot(context);
         resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes", "target/classes", "/"));
         context.setResources(resources);
         context.setParentClassLoader(Thread.currentThread().getContextClassLoader()); // To work with mvn exec:java from command line
+        
+        // tmr ini
+        // tmr Asegurarse que sigue funcinoando el ROOT context, quizas haya que ponerle un if
+        // tmr Mover a un método
+        Context rootContext = tomcat.addContext("", new File(".").getAbsolutePath());
+        Tomcat.addServlet(rootContext, "notFound", new NotFoundServlet());
+        rootContext.addServletMappingDecoded("/robots.txt", "notFound");
+        rootContext.addServletMappingDecoded("/sitemap.xml", "notFound");
+		// tmr fin
         tomcat.start();
        	if (tomcat.getConnector().getLocalPort() < 0) {
      		tomcat.stop();

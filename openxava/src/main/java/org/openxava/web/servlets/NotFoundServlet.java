@@ -6,6 +6,8 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
+import org.openxava.web.filters.*;
+
 /**
  * tmr
  * 
@@ -15,8 +17,9 @@ import javax.servlet.http.*;
 @WebServlet({"/m/.htaccess", "/dwr/call/plaincall/.htaccess"})
 public class NotFoundServlet extends HttpServlet {
 	
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setHeader("Content-Security-Policy", ContentSecurityPolicyFilter.CSP_HEADER); 
+		response.sendError(HttpServletResponse.SC_NOT_FOUND);
 	}
 
 }

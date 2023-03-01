@@ -40,6 +40,7 @@ public class CSSServlet extends HttpServlet {
 	}
 	
 	private InputStream getCSSAsStream(String resourceName, String prefix) throws FileNotFoundException {
+		if (resourceName == null) return null; // tmr Esto resuelve el bug de una excepcion cuando se pone xava/style en la URL. Poner en changelog
 		InputStream stream = getClass().getClassLoader().getResourceAsStream("META-INF/resources/" + prefix + resourceName);
 		if (stream != null) return stream;
 		stream = new FileInputStream(getServletContext().getRealPath("/") + prefix + resourceName);
