@@ -5,8 +5,6 @@ import java.nio.file.*;
 import java.nio.file.Files;
 import java.util.*;
 
-import javax.servlet.*;
-
 import org.apache.catalina.*;
 import org.apache.catalina.core.*;
 import org.apache.catalina.startup.*;
@@ -57,24 +55,14 @@ public class AppServer {
 	
 	private static Tomcat startTomcat(String webappDir, String contextPath, int port) throws Exception { 
         Tomcat tomcat = new Tomcat();
-        System.out.println("[AppServer.startTomcat] v2"); // tmr
+        System.out.println("[AppServer.startTomcat] v8"); // tmr
         tomcat.setBaseDir("temp"); 
         tomcat.setPort(port);
         tomcat.getConnector();
         tomcat.enableNaming();
         
-        // tmr ini
-        // TMR ME QUEDÉ POR AQUÍ: LO DE ABAJO NO FUNCIONA, NI SIQUIERA ARRANCA
-        Context ctx = tomcat.addContext(contextPath, webappDir);
-        ctx.getServletContext().setSessionTrackingModes(Collections.singleton(SessionTrackingMode.COOKIE));
-        SessionCookieConfig sessionCookieConfig = ctx.getServletContext().getSessionCookieConfig();
-        sessionCookieConfig.setHttpOnly(true);
-        sessionCookieConfig.setSecure(true);
-        sessionCookieConfig.setPath("/");
-        sessionCookieConfig.setMaxAge(30 * 60); // 30 minutos        
-        // tmr fin
-        
         StandardContext context = (StandardContext) tomcat.addWebapp(contextPath, webappDir);
+        context.setCookies(true); // tmr
 
         WebResourceRoot resources = new StandardRoot(context);
         resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes", "target/classes", "/"));
