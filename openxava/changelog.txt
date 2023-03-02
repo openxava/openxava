@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- New EditableValidValues editor for View.addValidValue() that allows to edit the value and having a combo.
+- Fix: @Editor has not effect affect calling View.addValidValue() on the property. 
 - New @ZerosFilled annotation equivalent to ZEROS_FILLED/RELLENADO_CON_CEROS stereotype.
 - Automatic translation of English labels improved for qualified properties.
 - defaultDescriptionPropertiesValueForDescriptionsList in xava.properties for @DescriptionsList defaults.
