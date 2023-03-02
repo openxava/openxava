@@ -569,6 +569,10 @@ here that you want to override.
 			class="org.openxava.actions.ModifyFromReferenceAction"
 			icon="border-color"
 			image="edit.gif"/>
+		<action name="remove" 
+			class="org.openxava.actions.RemoveFromReferenceAction"
+			icon="border-color"
+			image="remove.gif"/>
 	</controller>
 	
 	<!--
