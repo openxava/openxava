@@ -20,11 +20,12 @@ public class ContentSecurityPolicyFilter implements Filter {
 
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-    	System.out.println("[ContentSecurityPolicyFilter.doFilter] "); // tmr
+    	System.out.println("[ContentSecurityPolicyFilter.doFilter] v5"); // tmr
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         // TMR httpResponse.setHeader("Content-Security-Policy", CSP_HEADER);
-        // TMR ME QUEDÉ POR AQUÍ PROBANDO LO DE script-src.. NO FUNCIONA EL BOTÓN DE INICIO
-        httpResponse.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline'; frame-ancestors 'self'; form-action 'self'");
+        // TMR nonce-tmr1 tiene que ser generado
+        // TMR ME QUEDÉ POR AQUÍ: YA FUNCIONA EL WELCOLME, AHORA TIENES QUE FUNCIONAR EL SIGNIN
+        httpResponse.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'nonce-tmr1' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; frame-ancestors 'self'; form-action 'self'");
         chain.doFilter(request, response);
     }
 

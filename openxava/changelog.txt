@@ -7,6 +7,10 @@ Change Log for OpenXava project
 Haciendo: Session ID in URL Rewrite
 
 Pendiente:
+- Probar CKEditor.
+- Probar generar PDF.
+- Probar generar varios PDFs.
+- Probar en Chrome, Firefox, Edge, Safari, iPad y Android.
 - Probar una aplicación autentificada.
 - Probar una aplicación en ROOT.
 - Que funcione en un WAR, para los que lo prueben contra las app de openxava.org

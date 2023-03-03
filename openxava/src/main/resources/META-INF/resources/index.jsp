@@ -10,7 +10,7 @@ if (Users.getCurrent() != null || OrganizationsCurrent.get(request) != null) {
 	String url = Browsers.isMobile(request) && !"Index".equals(modules.getCurrent(request))?"phone":"m/" + module;
 %>
 
-<script type="text/javascript">
+<script type="text/javascript" nonce="tmr1"> <%-- tmr nonce ¿En migration para código propio? --%>
 window.location="<%=url%>";
 </script>
 

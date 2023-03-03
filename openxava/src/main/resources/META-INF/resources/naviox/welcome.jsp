@@ -55,8 +55,19 @@ if (title == null) title = metaApplication.getLabel();
 
 <div class="ox-bottom-buttons">
 	<input type="hidden">
-	<input type="button" tabindex="1" onclick="window.location='m/SignIn'" value="<xava:label key='SignIn'/>">   
+	<%-- tmr
+	<input type="button" tabindex="1" onclick="window.location='m/SignIn'" value="<xava:label key='SignIn'/>">
+	%>
+	<%-- tmr ini --%>
+	<input id="welcome_go_signin" type="button" tabindex="1" value="<xava:label key='SignIn'/>">
+	<%-- tmr fin --%>   
 </div>
 
 </body>
 
+<%-- tmr ini --%>
+<script type="text/javascript" nonce="tmr1"> <%-- tmr nonce ¿En migration para código propio? --%>
+	var button = document.getElementById('welcome_go_signin');
+	button.onclick = function () { window.location='m/SignIn'; }
+</script>
+<%-- tmr fin --%>
