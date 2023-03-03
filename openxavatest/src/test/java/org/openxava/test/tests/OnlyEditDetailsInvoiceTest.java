@@ -68,6 +68,7 @@ public class OnlyEditDetailsInvoiceTest extends ModuleTestBase {
 			"Reference.search",
 			"Reference.createNew",
 			"Reference.modify",
+			"Reference.remove",
 			"Collection.save",
 			"Collection.hideDetail",
 		};		

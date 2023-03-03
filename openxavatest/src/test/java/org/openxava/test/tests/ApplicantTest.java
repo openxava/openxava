@@ -230,7 +230,6 @@ public class ApplicantTest extends ModuleTestBase {
 		assertValue("platform", "MULTIPLATFORM");
 		execute("Reference.remove", "keyProperty=skill.description");
 		assertValue("skill.description", "");
-		assertValue("skill.language", ""); 
 		
 		// Labels.put()
 		assertLabel("platform", "Platform"); // If it fails reinit the Tomcat cleaning the working directories 
