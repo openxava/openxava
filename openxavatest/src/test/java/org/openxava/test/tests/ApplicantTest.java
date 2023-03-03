@@ -220,7 +220,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertEquals(expectedName, moduleName.asNormalizedText());
 	}	
 	
-	public void testPolymorphicReferenceFromBaseClass_savingTwiceWithNoRefreshAfterAndHiddenKey_showHideButtons_labelsPut() throws Exception {  
+	public void testPolymorphicReferenceFromBaseClass_savingTwiceWithNoRefreshAfterAndHiddenKey_showHideButtons_labelsPut_clearElementCollection() throws Exception {  
 		// Polymorphic reference from base class
 		execute("List.viewDetail", "row=0");
 		assertNoErrors(); 
@@ -228,6 +228,9 @@ public class ApplicantTest extends ModuleTestBase {
 		assertValue("skill.description", "PROGRAMMING");
 		assertValue("skill.language", "JAVA"); 
 		assertValue("platform", "MULTIPLATFORM");
+		execute("Reference.remove", "keyProperty=skill.description");
+		assertValue("skill.description", "");
+		assertValue("skill.language", ""); 
 		
 		// Labels.put()
 		assertLabel("platform", "Platform"); // If it fails reinit the Tomcat cleaning the working directories 

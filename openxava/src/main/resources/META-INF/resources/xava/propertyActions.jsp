@@ -27,7 +27,7 @@ if (lastSearchKey) {
 <xava:action action='Reference.modify' argv='<%="model="+referencedModel + ",keyProperty=" + propertyKey%>'/>	
 	<% } %>
 	<% if (editable) {%>
-<xava:action action='Reference.remove' argv='<%="model="+referencedModel + ",keyProperty=" + propertyKey%>'/>	
+<xava:action action='Reference.remove' argv='<%="keyProperty=" + propertyKey%>'/>	
 	<% } %>
 <% 
 }
