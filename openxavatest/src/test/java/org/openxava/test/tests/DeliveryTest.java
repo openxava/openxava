@@ -513,7 +513,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertNoErrors();
 	}
 	
-	public void testReferenceAsDescriptionsListWithValidValuesInKey_validateViewPropertiesOnModify() throws Exception { 
+	public void testReferenceAsDescriptionsListWithValidValuesInKey_validateViewPropertiesOnModify_clearDescriptionListSelectedOption() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		assertValue("shipment.KEY", ""); 
 		Shipment shipment = (Shipment) Shipment.findAll().iterator().next();
@@ -528,7 +528,8 @@ public class DeliveryTest extends ModuleTestBase {
 		assertValue("shipment.KEY", toKeyString(shipment)); 
 		assertDescriptionValue("shipment.KEY", shipment.getDescription());
 		// Restoring		
-		setValue("shipment.KEY", "");
+		execute("Reference.remove", "keyProperty=shipment__KEY__");
+		assertValue("shipment.KEY", "");
 		setValue("advice", "Restoring");
 		execute("CRUD.save");
 		assertNoErrors();

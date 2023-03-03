@@ -220,7 +220,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertEquals(expectedName, moduleName.asNormalizedText());
 	}	
 	
-	public void testPolymorphicReferenceFromBaseClass_savingTwiceWithNoRefreshAfterAndHiddenKey_showHideButtons_labelsPut_clearElementCollection() throws Exception {  
+	public void testPolymorphicReferenceFromBaseClass_savingTwiceWithNoRefreshAfterAndHiddenKey_showHideButtons_labelsPut_clearReferencedElement() throws Exception {  
 		// Polymorphic reference from base class
 		execute("List.viewDetail", "row=0");
 		assertNoErrors(); 
