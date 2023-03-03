@@ -81,7 +81,7 @@ manager.setModuleName(module); // In order to show the correct description in he
 
 	<script type='text/javascript' src='<%=request.getContextPath()%>/naviox/js/naviox.js?ox=<%=oxVersion%>'></script> 
 	
-	<script>
+	<script nonce="tmr1"> <%-- tmr nonce --%>
 	$(function() {
 		naviox.lockSessionMilliseconds = <%=com.openxava.naviox.model.Configuration.getInstance().getLockSessionMilliseconds()%>; 
 		naviox.application = "<%=app%>";

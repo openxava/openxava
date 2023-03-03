@@ -210,6 +210,15 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initPlaceholder();
 	openxava.listenChanges(); 
 	openxava.initFocusKey();
+	// tmr ini
+	// TMR ME QUEDÉ POR AQUÍ. FUNCIONA EL BOTON PARA ENTRAR, COMPROBAR QUE ZAP SIGUE ESTANDO CONTENTO
+	// TMR   HAY QUE HACER QUE VAYAN LOS DEMÁS EVENTOS
+	$('[onclick]').each(function() {
+  		$(this).click(function() {
+  			eval($(this).attr('onclick'));
+		});
+	});
+	// tmr fin
   	$('#xava_save_list_configuration').fadeIn(1000, 'swing'); 
 }
 
