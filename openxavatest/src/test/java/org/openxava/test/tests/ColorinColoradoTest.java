@@ -25,7 +25,8 @@ public class ColorinColoradoTest extends ModuleTestBase {
 			// No more actions because we need just one action with icon and no image for the top bar button, to test a case	
 			"ColorinColorado.fillName",
 			"Reference.createNew", 
-			"Reference.modify"
+			"Reference.modify",
+			"Reference.remove"
 		};
 		assertActions(actions);
 		HtmlElement buttonBar = getHtmlPage().getHtmlElementById("ox_openxavatest_ColorinColorado__button_bar");
