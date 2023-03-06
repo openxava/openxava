@@ -76,6 +76,7 @@ public class AppServer {
         Tomcat.addServlet(rootContext, "notFound", new NotFoundServlet());
         rootContext.addServletMappingDecoded("/robots.txt", "notFound");
         rootContext.addServletMappingDecoded("/sitemap.xml", "notFound");
+        rootContext.addServletMappingDecoded("/favicon.ico", "notFound");
 		// tmr fin
         tomcat.start();
        	if (tomcat.getConnector().getLocalPort() < 0) {

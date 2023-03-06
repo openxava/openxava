@@ -260,7 +260,9 @@ if (manager.isResetFormPostNeeded()) {
 			String onLoadFunction = prefix + "_openxavaOnLoad";
 			String initiated = prefix + "_initiated";%>
 <%=onLoadFunction%> = function() {
-	document.additionalParameters="<%=getAdditionalParameters(request)%>"; 
+	<%-- tmr TMR ME QUEDÉ POR AQUÍ: ESTO PRODUCE EL PROBLEMA ROJO. SI PONEMOS EN openxava EN LUGAR DE document NO SE ARREGLA
+	document.additionalParameters="<%=getAdditionalParameters(request)%>";
+	--%> 
 	if (openxava != null && openxava.<%=initiated%> == null) {
 		openxava.browser.ie = <%=Browsers.isIE(request)%>;
 		openxava.browser.ff = <%=Browsers.isFF(request)%>;
@@ -308,7 +310,7 @@ if (manager.isResetFormPostNeeded()) {
 		openxava.setFocus("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>"); 
 		<%}%>
 		openxava.<%=initiated%> = true;
-	}	
+	}
 }
 <%=onLoadFunction%>();
 </script>
