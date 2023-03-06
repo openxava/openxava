@@ -225,7 +225,7 @@ public class DeliveryTest extends ModuleTestBase {
 	}
 	
 	
-	public void testCreateEntityWithCollectionFromReference_secondLevelDialog_clearReferencedValues() throws Exception {     
+	public void testCreateEntityWithCollectionFromReference_secondLevelDialog_cleanReferencedValues() throws Exception {     
 		execute("CRUD.new");
 		execute("Reference.createNew", "model=Invoice,keyProperty=xava.Delivery.invoice.number");		
 		assertDialog();
@@ -1134,7 +1134,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertValue("remarks", "No remarks");							
 	}
 	
-	public void testOnChangeDescriptionsListKey_messagesInChangeAction_clearDescriptionListValueWithOnChange() throws Exception { 
+	public void testOnChangeDescriptionsListKey_messagesInChangeAction_cleanDescriptionListValueWithOnChange() throws Exception { 
 		execute("CRUD.new");		
 		assertValue("remarks", "No remarks");
 		setValue("deliveredBy", "1");
