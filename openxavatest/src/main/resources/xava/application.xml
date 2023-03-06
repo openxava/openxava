@@ -78,7 +78,7 @@
 		<model name="Delivery"/>
 		<view name="GroupsInSections"/>
 		<controller name="Typical"/>
-	</module>		<module name="DeliveryListFilteredProgramatically" folder="invoicing.variations">		<model name="Delivery"/>		<controller name="DeliveryListFilteredProgramatically"/>	</module>	
+	</module>		<module name="DeliveryEditableValidValues">		<model name="Delivery"/>		<view name="EditableValidValues"/>			<controller name="DeliveryEditableValidValues"/>	</module>		<module name="DeliveryListFilteredProgramatically" folder="invoicing.variations">		<model name="Delivery"/>		<controller name="DeliveryListFilteredProgramatically"/>	</module>	
 	<module name="DeliveryRemarks2002" folder="invoicing.variations">
 		<model name="Delivery"/>
 		<tab name="Remarks2002"/>		
@@ -89,7 +89,7 @@
 		<model name="Delivery"/>
 		<view name="FullInvoice"/>		
 		<controller name="Typical"/>
-	</module>		<module name="DeliveryInvoiceAsDecriptionsList" folder="invoicing.variations">		<model name="Delivery"/>		<view name="InvoiceAsDescriptionsList"/>				<tab name="InvoiceAsDescriptionsList"/>		<controller name="Typical"/>	</module>		<module name="Invoice6WithDetails" folder="warehousing/variations"> 		<model name="Invoice6"/>		<view name="WithDetails"/>		<controller name="Typical"/>	</module>		<module name="InvoicesByYear" folder="warehousing/variations"> 		<model name="InvoicesByYear"/>		<controller name="InvoicesByYear"/>		<mode-controller name="DetailOnly"/>	</module>			
+	</module>		<module name="DeliveryWithTypeAsView" folder="invoicing.variations">		<model name="Delivery"/>		<view name="TypeAsView"/>				<controller name="Typical"/>	</module>		<module name="DeliveryInvoiceAsDecriptionsList" folder="invoicing.variations">		<model name="Delivery"/>		<view name="InvoiceAsDescriptionsList"/>				<tab name="InvoiceAsDescriptionsList"/>		<controller name="Typical"/>	</module>		<module name="Invoice6WithDetails" folder="warehousing/variations"> 		<model name="Invoice6"/>		<view name="WithDetails"/>		<controller name="Typical"/>	</module>		<module name="InvoicesByYear" folder="warehousing/variations"> 		<model name="InvoicesByYear"/>		<controller name="InvoicesByYear"/>		<mode-controller name="DetailOnly"/>	</module>			
 	<module name="TransportChargeWithDistance" folder="invoicing.variations">
 		<model name="TransportCharge"/>
 		<tab name="WithDistance"/>		

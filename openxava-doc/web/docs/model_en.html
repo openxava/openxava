@@ -854,11 +854,15 @@ class="br0">}</span>                         <span class="co1">// 13</span>
             rel="nofollow">BV</a>): Scale (size of decimal part) of property.
           Only applies to numeric properties. If you do not use <em>@Column</em>
           or <em>@Digits</em> a default value is assumed, if you use <em>@Column</em>
-          without <em>scale</em> a default value is assumed, however if you use
-          <em>@Digits</em> without <em>fraction</em>, 0 is assumed. The default
-          value is associated to the stereotype or type and is obtained from <em>default-size.xml</em>.
-          <em>@Digits</em> is from Bean Validation <em>(new in v4.1)</em> or
-          Hibernate Validator <em>(until v5.2.x)</em>.</li>
+          without <i>length</i>, without <i>precision</i> and without <em>scale</em>
+          a default value is assumed for <i>scale</i>, if you use <em>@Column</em>
+          with <i>length</i> or <i>precision</i> and without <em>scale</em> a
+          0 is assumed for <i>scale (new in v7.0.6 </i>before a default value
+          was assumed<i>), </i>if you use <em>@Digits</em> without <em>fraction</em>,
+          0 is assumed. The default value is associated to the stereotype or
+          type and is obtained from <em>default-size.xml</em>. <em>@Digits</em>
+          is from Bean Validation <em>(new in v4.1)</em> or Hibernate Validator
+          <em>(until v5.2.x)</em>.</li>
         <li><strong>@Required</strong> (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Required.html"
             rel="nofollow">OX</a>), <strong>@Min</strong> (<a class="wiki_link_ext"
             href="http://docs.jboss.org/hibernate/beanvalidation/spec/1.1/api/javax/validation/constraints/Min.html"
@@ -971,7 +975,8 @@ class="br0">}</span>                         <span class="co1">// 13</span>
         <li>IMAGES_GALLERY, GALERIA_IMAGENES (<a class="wiki_link" href="#Model-Properties-IMAGES_GALLERY%20stereotype">setup
             instructions</a>) (since v6.6 you can use <i>@Files</i> as
           alternative)</li>
-        <li>ZEROS_FILLED, RELLENADO_CON_CEROS</li>
+        <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/ZerosFilled.html">@ZerosFilled</a>
+            (new in v7.1), </i>ZEROS_FILLED, RELLENADO_CON_CEROS</li>
         <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/HtmlText.html">@HtmlText</a>
             (new in v6.6), </i>HTML_TEXT, TEXTO_HTML (text with editable
           format)</li>

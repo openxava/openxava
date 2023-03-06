@@ -17,8 +17,8 @@ public class Warehouse2Test extends ModuleTestBase {
 	
 	public void testEmbeddedId() throws Exception {
 		// List mode
-		assertLabelInList(0, "Zone of key"); 
-		assertLabelInList(1, "Number of key");
+		assertLabelInList(0, "Key zone"); 
+		assertLabelInList(1, "Key number");
 		assertLabelInList(2, "Name"); 
 		assertListNotEmpty();
 		String zoneNumber = getValueInList(0, 0);

@@ -1,7 +1,7 @@
 package org.openxava.test.tests;
 
-import org.openxava.jpa.XPersistence;
-import org.openxava.tests.ModuleTestBase;
+import org.openxava.jpa.*;
+import org.openxava.tests.*;
 
 public class ConversionFactorTest extends ModuleTestBase {
 
@@ -17,7 +17,7 @@ public class ConversionFactorTest extends ModuleTestBase {
 		XPersistence.commit(); 
 	}
 	
-	public void testDigits() throws Exception { 
+	public void testDigits_columnScale() throws Exception { 
 		execute("CRUD.new");
 		setValue("id", "1");
 		setValue("fromUnit", "GALLONS");
@@ -32,5 +32,8 @@ public class ConversionFactorTest extends ModuleTestBase {
 		assertValue("toUnit", "CUBIC FEET");
 		assertValue("factor", "0.133681");
 		assertValue("reverseFactor", "7.480519");
+		assertValue("shortFactor", "0.13");
+		assertValue("factorIndex", "133,681");
+		assertValue("factorGrade", "133,681");
 	}
 }

@@ -11,6 +11,7 @@ import org.openxava.model.meta.*;
 import org.openxava.util.*;
 import org.openxava.view.*;
 import org.openxava.web.*;
+import org.openxava.web.meta.*;
 
 
 /**
@@ -89,17 +90,22 @@ public class EditorTag extends TagSupport {
 			"";
 			
 			View rootView = view.getCollectionRootOrRoot();
-			if (rootView.isPropertyUsedInCalculation(propertyPrefix + property)) { 
-				script = Collections.sumPropertyScript(application, module, rootView, propertyPrefix + property); 
+			if (rootView.isPropertyUsedInCalculation(propertyPrefix + property)) {
+				script = EditorsJS.calculateScript(application, module, rootView, propertyPrefix + property); 
 			}
 
 			script = script + scriptFocus;
 
 			boolean editable = explicitEditable?this.editable:view.isEditable(property);  
-			
 			boolean inElementCollection = property.contains(".");
 			String viewName = inElementCollection?"":view.getViewName();
-			String editorBaseURL = view.hasValidValues(property)?"editors/dynamicValidValuesEditor.jsp":org.openxava.web.WebEditors.getUrl(metaProperty, viewName); // We could move editors/dynamicValidValuesEditor.jsp to default-editors.xml
+			MetaEditor metaEditor = WebEditors.getMetaEditorFor(metaProperty, viewName);
+			String editorBaseURL = org.openxava.web.WebEditors.getUrl(metaProperty, viewName);
+			if (view.hasValidValues(property)) {
+				editorBaseURL = (!metaEditor.getName().equalsIgnoreCase("")) ? 
+								"editors/" + metaEditor.getUrl() :
+								"editors/dynamicValidValuesEditor.jsp";
+			}
 			StringBuffer editorURL = new StringBuffer(editorBaseURL);			
 			char nexus = editorURL.toString().indexOf('?') < 0?'?':'&';
 			String maxSize = "";
@@ -131,11 +137,12 @@ public class EditorTag extends TagSupport {
 			pageContext.getOut().print(editable);
 			pageContext.getOut().println("'/>");
 			if (metaProperty.hasCalculation()) { 
-				String calculationKey = propertyKey + "_CALCULATION_";  
+				String calculationKey = propertyKey + "_CALCULATION_";
+				String collectionPrefix = inElementCollection?getCollectionPrefix():""; 
 				pageContext.getOut().print("<input type='hidden' id='"); 
 				pageContext.getOut().print(calculationKey);
 				pageContext.getOut().print("' value=\"");
-				pageContext.getOut().print(toJavaScriptExpression(metaProperty));
+				pageContext.getOut().print(toJavaScriptExpression(metaProperty, collectionPrefix));
 				pageContext.getOut().println("\"/>");
 			}			
 			if (org.openxava.web.WebEditors.hasMultipleValuesFormatter(metaProperty, viewName)) { 
@@ -165,13 +172,19 @@ public class EditorTag extends TagSupport {
 		return SKIP_BODY;
 	}
 	
-	private String toJavaScriptExpression(MetaProperty metaProperty) { 
+	private String getCollectionPrefix() {
+		int idx = property.indexOf(".");
+		int idx2 = property.indexOf(".", idx+1);
+		return property.substring(0, idx2+1);
+	}
+
+	private String toJavaScriptExpression(MetaProperty metaProperty, String collectionPrefix) {   
 		StringBuffer expression = new StringBuffer();
 	    for (String property: metaProperty.getPropertiesNamesUsedForCalculation()) {
     		expression.append("var ");
     		expression.append(property.replace(".", "_"));
     		expression.append("=openxava.getNumber(application,module,'");
-    		expression.append(property);
+    		expression.append(collectionPrefix + property); 
     		expression.append("');");
 	    }
 	    expression.append(

@@ -35,7 +35,7 @@ public class Date3Type implements CompositeUserType {
 			case 1:	
 				return Dates.getMonth(date);
 			case 2:
-				return Dates.getYear(date);				
+				return Dates.getDay(date);				
 		}
 		throw new HibernateException(XavaResources.getString("date3_type_only_3_properties"));
 	}
@@ -51,7 +51,7 @@ public class Date3Type implements CompositeUserType {
 				Dates.setMonth(date, intValue);
 				break;
 			case 2:
-				Dates.setYear(date, intValue); 
+				Dates.setDay(date, intValue); 
 				break;
 		}
 		throw new HibernateException(XavaResources.getString("date3_type_only_3_properties"));	

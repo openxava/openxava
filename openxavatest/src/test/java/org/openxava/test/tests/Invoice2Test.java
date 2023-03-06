@@ -80,7 +80,7 @@ public class Invoice2Test extends ModuleTestBase {
 			{"number", "Number"},
 			{"vatPercentage", "VAT %"},
 			{"amountsSum", "Amounts sum"},
-			{"customer.number", "Number of customer"},  
+			{"customer.number", "Customer number"},  
 			{"__MORE__", "[SHOW MORE...]"}
 		};
 		assertValidValuesInCollection("columns", 0, "name", chartColumnValues); 
@@ -137,7 +137,7 @@ public class Invoice2Test extends ModuleTestBase {
 			"Group by year of date",
 			"Group by vat %",
 			"Group by amounts sum",
-			"Group by number of customer",
+			"Group by customer number",
 			"Group by customer"
 		);
 		

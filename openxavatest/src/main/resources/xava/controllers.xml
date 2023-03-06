@@ -41,6 +41,10 @@
 		<extends controller="Typical"/>
 		<action name="fillTitle" class="org.openxava.test.actions.BookTitleFromWebServiceAction" mode="detail"/>
 		<action name="showOutOfPrint" class="org.openxava.test.actions.ShowOutOfPrintBooksOnlyAction" mode="list"/>
+		
+		<action name="addAction" class="org.openxava.test.actions.AddActionInReferenceSearchAction" mode="detail" icon="magnify" hidden="true"/>
+		<action name="doNothing" class="org.openxava.test.actions.VoidAction" mode="detail"/>
+		
 	</controller>
 		
 	<controller name="Clerk">
@@ -347,6 +351,18 @@
 		<action name="setOff" mode="detail"
 			class="org.openxava.test.actions.SetEditableOffAction"/>
 	</controller>
+	
+	<controller name="DeliveryEditableValidValues">
+		<extends controller="Typical"/>	
+		<action name="addShortcutOptions"
+			class="org.openxava.test.actions.AddShortcutOptionsAction"/>
+		<action name="clearShortcutOptions"
+			class="org.openxava.test.actions.ClearShortcutOptionsAction"/>
+		<action name="disableShortcutOptions"
+			class="org.openxava.test.actions.DisableShortcutOptionsAction"/>			
+		<action name="removeBlankShortcutOption"
+			class="org.openxava.test.actions.RemoveBlankShortcutOptionAction"/>
+	</controller>
 		
 	<controller name="Delivery">
 		<extends controller="EditableOnOff"/>		
@@ -589,9 +605,9 @@
 		<action name="stopRefisher" class="org.openxava.test.actions.StopRefisherAction"/>
 		
 		<action name="filterBySellerOne" class="org.openxava.test.actions.FilterBySellerOneAction" mode="list"/>
-		
+			
 	</controller>
-	
+		
 	<controller name="ArtistSomeMembersReadOnly"> 
 		
 		<action name="search"
@@ -1416,6 +1432,13 @@
 		</action>
 	</controller>
 	
+	<controller name="Movie3">
+		<extends controller="Typical" />
+		<action name="button" mode="detail" hidden="true"
+			class="org.openxava.test.actions.VoidAction">
+		</action>
+	</controller>
+	
   	<controller name="ResetViewOnInit">
         <action name="init" class="org.openxava.test.actions.ResetViewAction"
             hidden="true" on-init="true" /> 
@@ -1519,4 +1542,9 @@
 			class="org.openxava.test.actions.LoadTextFileAction"/>
 	</controller>
 		
+	<controller name="City">
+		<extends controller="Typical" />
+		<action name="showSellerDialog" mode="detail"
+			class="org.openxava.test.actions.ShowSellerDialogAction"/>
+	</controller>
 </controllers>

@@ -3,18 +3,19 @@ package org.openxava.test.model;
 import java.util.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.Columns;
+import org.hibernate.annotations.*;
 import org.hibernate.annotations.Parameter;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
+import org.openxava.jpa.*;
 import org.openxava.test.actions.*;
 import org.openxava.test.calculators.*;
 import org.openxava.test.filters.*;
 import org.openxava.test.validators.*;
-import org.openxava.jpa.*;
 
 /**
  * This is an example of using references as part of a composite key.<p>
@@ -47,6 +48,30 @@ import org.openxava.jpa.*;
 		"	]" +
 		"]"  +
 		"comments { advice, shortcut; remarks }" + // shortcut in a section to test a case
+		"incidents { incidents }" +
+		"details {" +
+		"	details [" +
+		"		details" +
+		"	]" +
+		"}" 
+	),
+	@View(name="EditableValidValues", members=
+		"invoice;" +
+		"deliveryData [" +
+		"	type, number;" +			
+		"	date;" +
+		"	description;" +
+		"	shipment;" +
+		"	transportData [" +
+		"		distance; vehicle; transportMode; driverType;" +
+		"	]" +
+		"	deliveryByData [" +
+		"		deliveredBy;" +
+		"		carrier;" +
+		"		employee;" +			
+		"	]" +
+		"]"  +
+		"comments { advice, shortcut; remarks }" + 
 		"incidents { incidents }" +
 		"details {" +
 		"	details [" +
@@ -111,7 +136,15 @@ import org.openxava.jpa.*;
 		"advice;" + 
 		"remarks;" +
 		"details" 
-	),	
+	),
+	@View(name="TypeAsView", members=
+		"invoice;" +	
+		"type;" +
+		"number;" +			
+		"date;" +
+		"description;" +
+		"remarks;"
+	),
 	@View(name="FullInvoice", members= "invoice; number; description"),
 	@View(name="InvoiceAsDescriptionsList", members= "invoice; number; description"),
 	@View(name="Search", members= "invoice; type; number; date;	description;")
@@ -152,14 +185,15 @@ public class Delivery {
 	@Id @ManyToOne(fetch=FetchType.LAZY)	
 	@JoinColumn(name="TYPE")
 	@DescriptionsLists({		
-		@DescriptionsList(forViews="DEFAULT, MoreSections, Search, Simple", order="${number} desc"), 
+		@DescriptionsList(forViews="DEFAULT, MoreSections, Search, Simple, EditableValidValues", order="${number} desc"), 
 		@DescriptionsList(forViews="GroupsInSections")
 	})
 	@Action(forViews="DEFAULT, MoreSections", value="Delivery.setDefaultType")
-	@OnChange(forViews="DEFAULT", value = OnChangeDeliveryTypeAction.class) 
+	@OnChange(forViews="DEFAULT", value = OnChangeDeliveryTypeAction.class)
+	@ReferenceView(forViews="TypeAsView", value="ReadOnlyNumber") 
 	private DeliveryType type;
 	
-	@Type(type="org.openxava.types.Date3Type") 
+	@Type(type="org.openxava.types.Date3Type")
 	@Columns(columns = { @Column(name="year"), @Column(name="month"), @Column(name="day") })
 	@Required
 	@DefaultValueCalculator(CurrentDateCalculator.class)
@@ -237,6 +271,7 @@ public class Delivery {
 	@Transient
 	@Column(length=2)
 	@OnChange(OnChangeShortcutAction.class)
+	@Editor(forViews="EditableValidValues", value="EditableValidValues")
 	private String shortcut;
 		
 	@Stereotype("LABEL")

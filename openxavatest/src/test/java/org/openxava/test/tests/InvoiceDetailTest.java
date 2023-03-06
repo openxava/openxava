@@ -19,11 +19,11 @@ public class InvoiceDetailTest extends ModuleTestBase {
 		assertListRowCount(10);
 		assertListColumnCount(14);
 		assertLabelInList(12, "Amount");
-		selectGroupBy("Group by year of invoice");
+		selectGroupBy("Group by invoice year");
 		assertNoErrors();
 		assertListRowCount(5);
 		assertListColumnCount(4);
-		assertLabelInList(0, "Year of invoice"); 
+		assertLabelInList(0, "Invoice year"); 
 		assertLabelInList(1, "Quantity");
 		assertLabelInList(2, "Unit price");
 		assertLabelInList(3, "Record count");

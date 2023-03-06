@@ -49,7 +49,7 @@ public class Subfamily {
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	private String oid;
 	
-	@Column(length=3) @Required @Stereotype("ZEROS_FILLED")
+	@Column(length=3) @Required @ZerosFilled
 	private int number;
 	
 	@Required @Stereotype("FAMILY") @Column(name="FAMILY")

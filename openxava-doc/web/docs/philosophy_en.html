@@ -6,7 +6,7 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Appendix A: Architecture &amp; philosophy"></a> <span
+      <h1 id="toc0"><a name="Appendix A: Architecture &amp; philosophy"></a> <span
           id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
           / </span> Appendix A: Architecture &amp; philosophy </h1>
@@ -21,24 +21,24 @@
         View inheritance</a> | <a class="wiki_link" href="java-properties_en.html">9.
         Java properties</a> | <a class="wiki_link" href="calculated-properties_en.html">10.
         Calculated properties </a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11.
-        @DefaultValueCalculator in collections</a><strong> </strong> | <a class="wiki_link"
-        href="calculation-and-collections-total_en.html">12. </a><a class="wiki_link"
+        @DefaultValueCalculator in collections</a><strong> </strong> | <a class="wiki_link"
+        href="calculation-and-collections-total_en.html">12. </a><a class="wiki_link"
         href="calculation-and-collections-total_en.html">@Calculation and
         collections totals</a> | <a class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13.
         @DefaultValueCalculator from file</a> | <a class="wiki_link" href="manual-schema-evolution_en.html">14.
         Manual schema evolution</a> | <a class="wiki_link" href="multi-user-default-value-calculation_en.html">15.
         Multi user default value calculation</a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16.
-        Synchronize persistent and computed propierties</a> | <a class="wiki_link"
-        href="logic-from-database_en.html">17. Logic from database&nbsp;</a> |<span
-        style="color: #0000ee;"></span><span style="color: #0000ee;"> </span><a
+        Synchronize persistent and computed propierties</a> | <a class="wiki_link"
+        href="logic-from-database_en.html">17. Logic from database&nbsp;</a> |<span
+        style="color: #0000ee;"></span><span style="color: #0000ee;"> </span><a
         class="wiki_link" href="validating-with-entityvalidator_en.html">18.
-        Validating with @EntityValidator&nbsp;</a> |&nbsp; <a class="wiki_link"
-        href="validation-alternatives_en.html">19.
-        Validation alternatives&nbsp;</a> | <a class="wiki_link" href="validation-on-remove_en.html">20.
-        Validation on remove&nbsp;</a> |&nbsp;<a class="wiki_link" href="custom-bean-validation-annotation_en.html">
-        21. Custom Bean Validation annotation&nbsp;</a> | <a class="wiki_link"
-        href="rest-service-call-from-validation_en.html">22.
-        REST service call from validation&nbsp;</a> | <a class="wiki_link" href="attributes-in-annotations_en.html">23.
+        Validating with @EntityValidator&nbsp;</a> |&nbsp; <a class="wiki_link"
+        href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a>
+      | <a class="wiki_link" href="validation-on-remove_en.html">20. Validation
+        on remove&nbsp;</a> |&nbsp;<a class="wiki_link" href="custom-bean-validation-annotation_en.html">
+        21. Custom Bean Validation annotation&nbsp;</a> | <a class="wiki_link"
+        href="rest-service-call-from-validation_en.html">22. REST service call
+        from validation&nbsp;</a> | <a class="wiki_link" href="attributes-in-annotations_en.html">23.
         Attributes in annotations&nbsp;</a> | <a class="wiki_link" href="refining-standard-behavior_en.html">24.
         Refining the standard behavior</a> | <a class="wiki_link" href="business-logic-behavior_en.html">25.
         Behavior &amp; business logic</a> | <a class="wiki_link" href="references-collections_en.html">26.
@@ -78,11 +78,11 @@
       application code is structured in a very pure object oriented way,
       allowing you to develop arbitrarily complex applications.<br>
       The OpenXava approach for rapid development differs from those that use
-      visual environments (like Visual Basic or Delphi) or scripting (like PHP).
-      Instead, OpenXava uses a model-driven development approach, where the core
-      of your application are Java classes that model your problem. This means
-      you can stay productive while still maintaining a high level of
-      encapsulation.<br>
+      visual environments (like Visual Basic, Delphi or Low-Code platforms) or
+      scripting (like PHP). Instead, OpenXava uses a model-driven development
+      approach, where the core of your application are Java classes that model
+      your problem. This means you can stay productive while still maintaining a
+      high level of encapsulation.<br>
       This lesson will show you the concepts behind OpenXava as well as an
       overview of its architecture.<br>
       <h2 id="toc1"><a name="Appendix A: Architecture &amp; philosophy-The OpenXava concepts"></a>The
@@ -153,10 +153,11 @@
         artifacts in an MVC application:</span><br>
       <img src="files/philosophy_en030.png" alt="philosophy_en030.png" title="philosophy_en030.png"><br>
       All code units associated with the creation of the user interface, like
-      JSP pages, JSF, Swing, JavaFX, etc., are kept closely together in the view
-      layer, and likewise, for the model and controller layers. This contrasts
-      with a business component architecture where the software artifacts are
-      organized around business concepts, in this way:<br>
+      HTML, JavaScript, CSS, JSP pages, JSF, Swing, JavaFX, etc., are kept
+      closely together in the view layer, and likewise, for the model and
+      controller layers. This contrasts with a business component architecture
+      where the software artifacts are organized around business concepts, in
+      this way:<br>
       <img src="files/philosophy_en040.png" alt="philosophy_en040.png" title="philosophy_en040.png"><br>
       Here, all software artifacts contributing to the invoice concept, like
       user interface, database access, and business logic, are gathered in the
@@ -358,11 +359,11 @@
  * A Java class for defining a business component.
  */</span>
 &nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>  <span class="co1">// Database</span>
-@Table<span class="br0">(</span>name=<span class="st0">"GSTFCT"</span><span class="br0">)</span>  <span
+@Table<span class="br0">(</span>name=<span class="st0">"GSTFCT"</span><span class="br0">)</span>  <span
 class="co1">// Database</span>
-@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
+@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
 class="kw116">View</span></a><span class="br0">(</span>members=  <span class="co1">// User interface</span>
     <span class="st0">"year, number, date, paid;"</span> +
     <span class="st0">"customer, seller;"</span> +
@@ -372,25 +373,25 @@ class="kw116">View</span></a><span class="br0">(</span>members=  <span class="co
 <span class="kw2">public</span> <span class="kw2">class</span> Invoice <span class="br0">{</span>
 &nbsp;
     @Id  <span class="co1">// Database</span>
-    @Column<span class="br0">(</span>length=<span class="nu0">4</span><span class="br0">)</span>  <span
+    @Column<span class="br0">(</span>length=<span class="nu0">4</span><span class="br0">)</span>  <span
 class="co1">// Database</span>
-    @Max<span class="br0">(</span><span class="nu0">9999</span><span class="br0">)</span>  <span
+    @Max<span class="br0">(</span><span class="nu0">9999</span><span class="br0">)</span>  <span
 class="co1">// Validation</span>
     @Required  <span class="co1">// Validation</span>
     @DefaultValueCalculator<span class="br0">(</span>  <span class="co1">// Declarative business logic</span>
         CurrentYearCalculator.<span class="kw2">class</span>
     <span class="br0">)</span>
-    <span class="kw2">private</span> <span class="kw3">int</span> year<span class="sy0">;</span>  <span
+    <span class="kw2">private</span> <span class="kw3">int</span> year<span class="sy0">;</span>  <span
 class="co1">// Data structure (1)</span>
 &nbsp;
-    @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
+    @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
 class="br0">)</span>  <span class="co1">// Database</span>
     @DescriptionsList     <span class="co1">// User interface</span>
-    <span class="kw2">private</span> Seller seller<span class="sy0">;</span>  <span
+    <span class="kw2">private</span> Seller seller<span class="sy0">;</span>  <span
 class="co1">// Data structure</span>
 &nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> applyDiscounts<span
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>  <span
+    <span class="kw2">public</span> <span class="kw3">void</span> applyDiscounts<span
+class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>  <span
 class="co1">// Programmatic business logic (2)</span>
         ...
     <span class="br0">}</span>
@@ -546,10 +547,11 @@ class="co1">// Programmatic business logic (2)</span>
         view</h3>
       Some Business Components might not render appropriately using the standard
       OpenXava view. Instead, a very particular interface may be needed like a
-      map, photo gallery, graphic or a calendar. In such cases, you can create
-      your custom interface, using JavaScript, HTML, JSP, or similar, and then
-      use it inside your OpenXava application. The next screenshot is from an
-      OpenXava module that uses a custom view:<br>
+      map, photo gallery, graphic, dashboard or a calendar. In such cases, you
+      can create your custom interface, using JavaScript, HTML, JSP, or similar,
+      even you can use third-party JavaScript libraries. Then you can use it
+      inside your OpenXava application. The next screenshot is from an OpenXava
+      module that uses a custom view:<br>
       <img src="files/philosophy_en100.png" alt="philosophy_en100.png" title="philosophy_en100.png"><br>
       In other words, OpenXava automatically generates a user interface for your
       Business Components, but you always have the option of doing it yourself.<br>
@@ -571,7 +573,7 @@ class="co1">// Programmatic business logic (2)</span>
       classes with annotations. In the other appendices you can learn more
       details about the annotations you can use with OpenXava.<br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">Ask in the forum</a></strong> </div>
   </body>
 </html>

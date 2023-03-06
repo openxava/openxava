@@ -270,6 +270,7 @@ public class Module extends DWRBase {
 	private void fillResult(Result result, Map values, Map multipleValues, String[] selected, String[] deselected, String additionalParameters) throws Exception {
 		Map changedParts = result.getChangedParts();
 		View view = getView();
+		result.setPostJS((String) request.getAttribute("xava.postjs")); 
 		view.resetCollectionsCache();
 
 		if (manager.isShowDialog() || manager.isHideDialog() || firstRequest) {
@@ -277,7 +278,6 @@ public class Module extends DWRBase {
 				changedParts.put(decorateId("dialog" + manager.getDialogLevel()),   
 					getURIAsString("core.jsp?buttonBar=false", values, multipleValues, selected, deselected, additionalParameters)					
 				);		
-				view.resetCollectionsCache(); 
 				result.setFocusPropertyId(getView().getFocusPropertyId());
 				return;
 			}			
@@ -314,8 +314,6 @@ public class Module extends DWRBase {
 			result.setFocusPropertyId(Lists.FOCUS_PROPERTY_ID);
 		}
 		
-		result.setPostJS((String) request.getAttribute("xava.postjs"));
-		getView().resetCollectionsCache();
 		if (result.isHideDialog()) result.setFocusPropertyId(null); // To avoid scrolling to the beginning of the page on closing a dialog, something ugly in long pages working on the bottom part.
 	}
 

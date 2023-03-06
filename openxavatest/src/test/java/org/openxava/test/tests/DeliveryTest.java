@@ -555,7 +555,7 @@ public class DeliveryTest extends ModuleTestBase {
 		}
 		assertTrue("It's required deliveries with invoices with and without seller discount", withDiscount && withoutDiscount); 
 		
-		assertLabelInList(0, "Year of invoice"); // We need Year to test this case, because is a numeric property of a reference in the first column
+		assertLabelInList(0, "Invoice year"); // We need Year to test this case, because is a numeric property of a reference in the first column
 		execute("ListFormat.select", "editor=Charts"); 
 		assertNoErrors(); 
 		assertExists("xColumn"); 
@@ -1251,7 +1251,7 @@ public class DeliveryTest extends ModuleTestBase {
 		}
 		assertTrue("For this test is need at least one delivery with value in 'distance' property", thereIsOne);
 		
-		selectGroupBy("Group by year of date of invoice");
+		selectGroupBy("Group by year of invoice date");
 		assertNoErrors();
 		assertListRowCount(3); 
 		assertValuesInList(0, "2002", "1"); 
@@ -1261,9 +1261,9 @@ public class DeliveryTest extends ModuleTestBase {
 		selectGroupBy("Group by distance");
 		assertNoErrors();
 		assertListRowCount(3); 
-		assertValuesInList(0, "",          "4");
+		assertValuesInList(0, "", "4");
 		assertValuesInList(1, "Nachional", "2");
-		assertValuesInList(2, "Lokal",     "1");
+		assertValuesInList(2, "Lokal", "1");
 	}
 	 
 	public void testSetValueAgainstPropertiesOfSectionsHiddenAndShowed() throws Exception {

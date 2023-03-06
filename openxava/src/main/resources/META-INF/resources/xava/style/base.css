@@ -2551,7 +2551,9 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 .ox-file {
-	width: 330px;;
+	width: 330px;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 .ox-file .filepond--item, .ox-files .filepond--item {
@@ -2585,6 +2587,22 @@ div[id$="_Index__view"] .ox-list-title {
 
 .ox-element-collection .filepond--root { 
 	height: 180px;
+}
+
+.ox-element-collection-file {
+	height: 67px !important;
+}
+
+.ox-element-collection-file-scroll {
+	height: 100%;
+}
+
+.ox-element-collection-image-scroll {
+	height: 83%;
+}
+
+.ox-element-collection-add-new {
+	height: 75px !important;
 }
 
 .ox-list img {
@@ -2644,4 +2662,30 @@ div[id$="_Index__view"] .ox-list-title {
 	width: 100%;
 	height: 450px;
     margin: 7px 0px 0px 2px;
+    z-index: 1;
+}
+
+.ox-select-editable {
+	position: relative;
+}
+
+.ox-select-editable > * {
+	top: 0; 
+	left: 0; 
+	box-sizing: border-box; 
+	outline: none;
+}
+
+.ox-select-editable select {
+	width: 100%	
+}
+
+.ox-select-editable input {
+	position: absolute; 
+	width: calc(100% - 20px); 
+	height: 80%; 
+	margin-top: 3px; 
+	margin-left: 3px; 
+	border: none; 
+	text-overflow: ellipsis;
 }
