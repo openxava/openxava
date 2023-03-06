@@ -1,5 +1,7 @@
 package org.openxava.actions;
 
+import java.util.*;
+
 import org.openxava.view.*;
 
 public class RemoveFromReferenceAction extends ReferenceBaseAction {
@@ -8,7 +10,9 @@ public class RemoveFromReferenceAction extends ReferenceBaseAction {
 	public void execute() throws Exception {
 		super.execute();
 		View reference = getReferenceSubview();
-		reference.clear();
+		Map<?, ?> values = reference.getValues();
+		values.replaceAll( (k,v)->v=null);
+		reference.setValuesNotifying(values);
 	}
 
 }

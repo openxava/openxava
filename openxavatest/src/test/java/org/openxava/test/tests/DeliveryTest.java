@@ -225,7 +225,7 @@ public class DeliveryTest extends ModuleTestBase {
 	}
 	
 	
-	public void testCreateEntityWithCollectionFromReference_secondLevelDialog() throws Exception {     
+	public void testCreateEntityWithCollectionFromReference_secondLevelDialog_clearReferencedValues() throws Exception {     
 		execute("CRUD.new");
 		execute("Reference.createNew", "model=Invoice,keyProperty=xava.Delivery.invoice.number");		
 		assertDialog();
@@ -235,6 +235,8 @@ public class DeliveryTest extends ModuleTestBase {
 		execute("Reference.search", "keyProperty=customer.number");		
 		execute("ReferenceSearch.choose", "row=1"); 
 		assertValue("customer.name", "Juanillo"); 
+		execute("Reference.remove", "keyProperty=customer.number"); 
+		assertValue("customer.number", "");
 		setValue("customer.number", "1");
 		assertValue("customer.name", "Javi"); 
 		execute("Sections.change", "activeSection=2");
@@ -513,7 +515,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertNoErrors();
 	}
 	
-	public void testReferenceAsDescriptionsListWithValidValuesInKey_validateViewPropertiesOnModify_clearDescriptionListSelectedOption() throws Exception { 
+	public void testReferenceAsDescriptionsListWithValidValuesInKey_validateViewPropertiesOnModify() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		assertValue("shipment.KEY", ""); 
 		Shipment shipment = (Shipment) Shipment.findAll().iterator().next();
@@ -527,9 +529,8 @@ public class DeliveryTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		assertValue("shipment.KEY", toKeyString(shipment)); 
 		assertDescriptionValue("shipment.KEY", shipment.getDescription());
-		// Restoring		
-		execute("Reference.remove", "keyProperty=shipment__KEY__");
-		assertValue("shipment.KEY", "");
+		// Restoring
+		setValue("shipment.KEY", "");
 		setValue("advice", "Restoring");
 		execute("CRUD.save");
 		assertNoErrors();
@@ -954,7 +955,7 @@ public class DeliveryTest extends ModuleTestBase {
 		setValue("number", "63");
 		setValue("description", "JUNIT BY CARRIER");
 		setValue("deliveredBy", "1");
-		setValue("carrier.number", "1"); 		
+		setValue("carrier.number", "1"); 	
 		execute("CRUD.save");
 		assertNoErrors();
 				
@@ -1133,7 +1134,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertValue("remarks", "No remarks");							
 	}
 	
-	public void testOnChangeDescriptionsListKey_messagesInChangeAction() throws Exception { 
+	public void testOnChangeDescriptionsListKey_messagesInChangeAction_clearDescriptionListValueWithOnChange() throws Exception { 
 		execute("CRUD.new");		
 		assertValue("remarks", "No remarks");
 		setValue("deliveredBy", "1");
@@ -1143,7 +1144,10 @@ public class DeliveryTest extends ModuleTestBase {
 		assertMessage("Carrier changed");		
 		assertValue("remarks", "The carrier is 3");				
 		setValue("carrier.number", "2");		
-		assertValue("remarks", "The carrier is 2");				
+		assertValue("remarks", "The carrier is 2");
+		execute("Reference.remove", "keyProperty=carrier.number");
+		assertMessagesCount(1); 
+		assertMessage("Carrier changed");	
 	}
 	
 	public void testHideInSection() throws Exception { 
