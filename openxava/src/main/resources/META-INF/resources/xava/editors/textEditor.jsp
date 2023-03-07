@@ -50,6 +50,9 @@ if (fillWithZeros && fvalue.length() > 0) {
 	fvalue = Strings.fix(fvalue, size, Align.RIGHT, '0');
 }
 
+String inputMask = request.getParameter("inputMask");    
+    
+    
 if (editable || !label) { 
 %>
 <input id="<%=propertyKey%>"

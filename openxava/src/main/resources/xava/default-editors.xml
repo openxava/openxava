@@ -375,5 +375,9 @@
 	</editor>
 	
 	<editor name="EditableValidValues" url="editableValidValuesEditor.jsp" />
+	
+	<editor name="InputMask" url="textEditor.jsp"> 
+		<for-annotation annotation="org.openxava.annotations.InputMask"/> 
+	</editor>n
 		
 </editors>
