@@ -32,11 +32,15 @@
 			if ("application".equals(name) || "module".equals(name))
 				continue;
 			String value = request.getParameter(name);
-			result.append('&');
-			result.append(name);
-			result.append('=');
-			result.append(value);
+			// TMR ME QUEDÉ POR AQUÍ: FUE LO ÚLTIMO Y FUNCIONÓ: EN CHANGELOG CSS ATTACKS
+			if (!Is.emptyString(value) && !(value.contains("<") || value.contains("\""))) { // tmr
+				result.append('&');
+				result.append(name);
+				result.append('=');
+				result.append(value);
+			} // tmr
 		}
+		System.out.println("[module.jsp] getAdditionalParameters()=" + result); // tmr
 		return result.toString();
 	}%>
 
@@ -199,6 +203,11 @@ if (manager.isResetFormPostNeeded()) {
 	<input id="<xava:id name='loading'/>" type="hidden" value="<%=coreViaAJAX%>"/>
 	<input id="<xava:id name='loaded_parts'/>" type="hidden" value=""/>
 	<input id="<xava:id name='view_member'/>" type="hidden" value=""/>
+	
+	<%-- tmr ini 
+	<input id="xava_additionalParameters" type="hidden" value="<%=getAdditionalParameters(request)%>"/>
+	--%>
+	<%-- tmr ini --%>
 		
 	<%-- Layer for progress bar --%>
 	<div id='xava_processing_layer' style='display:none;'>
@@ -260,9 +269,7 @@ if (manager.isResetFormPostNeeded()) {
 			String onLoadFunction = prefix + "_openxavaOnLoad";
 			String initiated = prefix + "_initiated";%>
 <%=onLoadFunction%> = function() {
-	<%-- tmr TMR ME QUEDÉ POR AQUÍ: ESTO PRODUCE EL PROBLEMA ROJO. SI PONEMOS EN openxava EN LUGAR DE document NO SE ARREGLA
-	document.additionalParameters="<%=getAdditionalParameters(request)%>";
-	--%> 
+	document.additionalParameters="<%=getAdditionalParameters(request)%>"; 
 	if (openxava != null && openxava.<%=initiated%> == null) {
 		openxava.browser.ie = <%=Browsers.isIE(request)%>;
 		openxava.browser.ff = <%=Browsers.isFF(request)%>;
