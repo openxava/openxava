@@ -15,7 +15,7 @@ if (editable && view.isModifyForReference(ref)) {
    
 if (editable) { 
 %>
-	<xava:action action='Reference.remove' argv='<%=",keyProperty=" + keyPropertyForAction%>'/>
+	<xava:action action='Reference.clear' argv='<%=",keyProperty=" + keyPropertyForAction%>'/>
 <%
 }
 

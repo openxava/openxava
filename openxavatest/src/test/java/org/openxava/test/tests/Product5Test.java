@@ -124,7 +124,7 @@ public class Product5Test extends CustomizeListTestBase {
 			"Mode.list", 
 			"List.filter", "List.changeColumnName", "Print.generatePdf",  
 			"Collection.removeSelected", "CollectionCopyPaste.cut", "List.orderBy", "Collection.new",  
-			"Reference.createNew", "Reference.modify", "Reference.remove", "Print.generateExcel", 
+			"Reference.createNew", "Reference.modify", "Reference.clear", "Print.generateExcel", 
 			"Product5.seeInitial",
 			"Product5.addPhoto" 
 		};

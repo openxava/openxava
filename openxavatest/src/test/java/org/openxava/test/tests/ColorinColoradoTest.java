@@ -26,7 +26,7 @@ public class ColorinColoradoTest extends ModuleTestBase {
 			"ColorinColorado.fillName",
 			"Reference.createNew", 
 			"Reference.modify",
-			"Reference.remove"
+			"Reference.clear"
 		};
 		assertActions(actions);
 		HtmlElement buttonBar = getHtmlPage().getHtmlElementById("ox_openxavatest_ColorinColorado__button_bar");

@@ -4,15 +4,15 @@ import java.util.*;
 
 import org.openxava.view.*;
 
-public class RemoveFromReferenceAction extends ReferenceBaseAction {
+public class ClearReferenceAction extends ReferenceBaseAction {
 	
 	@Override
 	public void execute() throws Exception {
 		super.execute();
-		View reference = getReferenceSubview();
-		Map<?, ?> values = reference.getValues();
+		View referenceView = getReferenceSubview();
+		Map<?, ?> values = referenceView.getKeyValues();
 		values.replaceAll( (k,v)->v=null);
-		reference.setValuesNotifying(values);
+		referenceView.setValuesNotifying(values);
 	}
 
 }
