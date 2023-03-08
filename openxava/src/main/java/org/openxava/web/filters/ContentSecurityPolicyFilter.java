@@ -19,7 +19,7 @@ public class ContentSecurityPolicyFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         // TMR nonce-tmr1 tiene que ser generado
-        httpResponse.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'nonce-tmr1' 'unsafe-eval'; frame-ancestors 'self'; form-action 'self'");
+        httpResponse.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'nonce-tmr1'; frame-ancestors 'self'; form-action 'self'");
         chain.doFilter(request, response);
     }
 

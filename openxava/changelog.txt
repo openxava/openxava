@@ -1,12 +1,19 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Cross-Site Scripting (XSS) vulnerabilities.
 - Fix: Data filtering in .htaccess for some URLs.
 - Fix: Content Security Policy (CSP) Header Not Set.
 
 Haciendo: Session ID in URL Rewrite
 
 Pendiente:
+- Corregir errores en consola de Firefox.
+- Corregir aspectos estéticos: 
+	- Blanco después de formulario.
+	- Icono de carga de módulo fijo en menú de la izquierda.
+	- Animación para procesos masivos sale siempre.
+	- Cabecera de la lista. 
 - Probar todos los eventos. Al cambiar, por ejemplo.
 - Probar CKEditor.
 - Probar generar PDF.

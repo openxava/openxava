@@ -77,6 +77,7 @@ public class AppServer {
         rootContext.addServletMappingDecoded("/robots.txt", "notFound");
         rootContext.addServletMappingDecoded("/sitemap.xml", "notFound");
         rootContext.addServletMappingDecoded("/favicon.ico", "notFound");
+        rootContext.addServletMappingDecoded("/naviox/*", "notFound");
 		// tmr fin
         tomcat.start();
        	if (tomcat.getConnector().getLocalPort() < 0) {

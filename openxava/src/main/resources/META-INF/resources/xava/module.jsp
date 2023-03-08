@@ -40,7 +40,6 @@
 				result.append(value);
 			} // tmr
 		}
-		System.out.println("[module.jsp] getAdditionalParameters()=" + result); // tmr
 		return result.toString();
 	}%>
 
