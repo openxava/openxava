@@ -32,6 +32,7 @@ public class CSSServlet extends HttpServlet {
 			StringWriter writer = new StringWriter();
 			IOUtils.copy(inputStream, writer, StandardCharsets.UTF_8);
 			String data = writer.toString().replaceAll("@import (['\"].*)\\.css", "@import $1.css?ox=" + ModuleManager.getVersion());
+			response.setContentType("text/css"); // tmr
 			response.getWriter().append(data);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

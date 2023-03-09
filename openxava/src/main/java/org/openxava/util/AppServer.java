@@ -10,6 +10,7 @@ import org.apache.catalina.core.*;
 import org.apache.catalina.startup.*;
 import org.apache.catalina.webresources.*;
 import org.apache.commons.logging.*;
+import org.apache.tomcat.util.http.*;
 import org.openxava.application.meta.*;
 import org.openxava.web.servlets.*;
 
@@ -55,14 +56,19 @@ public class AppServer {
 	
 	private static Tomcat startTomcat(String webappDir, String contextPath, int port) throws Exception { 
         Tomcat tomcat = new Tomcat();
-        System.out.println("[AppServer.startTomcat] v8"); // tmr
+        System.out.println("[AppServer.startTomcat] v3"); // tmr
         tomcat.setBaseDir("temp"); 
         tomcat.setPort(port);
         tomcat.getConnector();
         tomcat.enableNaming();
         
         StandardContext context = (StandardContext) tomcat.addWebapp(contextPath, webappDir);
-        context.setCookies(true); // tmr
+        // context.setCookies(true); // tmr Una prueba para quitar lo del sessionid, pero al final va bien sin esto, quitarlo
+        // tmr ini
+        Rfc6265CookieProcessor processor = new Rfc6265CookieProcessor();
+        processor.setSameSiteCookies("Strict");
+        context.setCookieProcessor(processor);
+        // tmr fin
 
         WebResourceRoot resources = new StandardRoot(context);
         resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes", "target/classes", "/"));

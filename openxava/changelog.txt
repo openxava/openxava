@@ -1,13 +1,16 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: X-Content-Type-Options Header Missing.
+- Fix: Cookie without SameSite attribute.
+- Fix: Application error disclosure.
+- Fix: Session ID in URL rewrite.
 - Fix: Cross-Site Scripting (XSS) vulnerabilities.
 - Fix: Data filtering in .htaccess for some URLs.
 - Fix: Content Security Policy (CSP) Header Not Set.
 
-Haciendo: Session ID in URL Rewrite
-
 Pendiente:
+- Comprobar si los CSS ahora hacen caché.
 - Corregir errores en consola de Firefox.
 - Corregir aspectos estéticos: 
 	- Blanco después de formulario.

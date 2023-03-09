@@ -30,7 +30,17 @@ if ("true".equals(request.getParameter("init"))) {
 }
 String app = request.getParameter("application");
 String module = context.getCurrentModule(request);
-modules.setCurrent(request); 
+// tmr ini
+try {
+	modules.setCurrent(request);
+}
+catch (org.openxava.util.ElementNotFoundException ex) {
+	//ex.printStackTrace(); // tmr Cambiar por un log
+	response.sendError(HttpServletResponse.SC_NOT_FOUND);
+	return;
+}
+// tmr fin
+// tmr modules.setCurrent(request); 
 String oxVersion = org.openxava.controller.ModuleManager.getVersion();
 String title = (String) request.getAttribute("naviox.pageTitle");
 if (title == null) title = modules.getCurrentModuleDescription(request); 
