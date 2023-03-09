@@ -4,6 +4,9 @@ import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.FIELD, ElementType.METHOD })
-public @interface InputMask {
-	String mask();
+public @interface Mask {
+	
+	String with() default "";
+	
+	String isFor() default "";
 }

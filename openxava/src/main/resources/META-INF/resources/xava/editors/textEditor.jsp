@@ -21,7 +21,9 @@ String disabled=editable?"":"disabled";
 String script = request.getParameter("script");
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
 String inputType = request.getParameter("inputType");
-if (inputType == null) inputType = "text"; 
+if (inputType == null){
+   inputType = "text"; 
+   }
 String smaxSize = request.getParameter("maxSize");
 int maxSize = 0;
 if (!org.openxava.util.Is.emptyString(smaxSize)) {
@@ -49,9 +51,20 @@ boolean fillWithZeros = "true".equals(request.getParameter("fillWithZeros"));
 if (fillWithZeros && fvalue.length() > 0) {	
 	fvalue = Strings.fix(fvalue, size, Align.RIGHT, '0');
 }
+String inputMaskAlias = request.getParameter("isFor") != null ? request.getParameter("isFor") : "";
+String inputMask = "";
+if (inputMaskAlias.length() > 1){
+    inputMaskAlias = "data-inputmask=\"'alias': '" + inputMaskAlias + "'\"";
+} else {
+    inputMask = request.getParameter("with") != null ? request.getParameter("with") : "";
+    if (inputMask.length() > 1) {
+    inputMask = "data-inputmask=\"'mask': '" + inputMask + "'\"";
+    } else {
+    System.out.println("no hay");
+    }
+}
 
-String inputMask = request.getParameter("inputMask");    
-    
+
     
 if (editable || !label) { 
 %>
@@ -67,6 +80,8 @@ if (editable || !label) {
 	value="<%=Strings.change(fvalue, "\"", "&quot;")%>"	
 	<%=disabled%>
 	<%=script%>	
+    <%=inputMask%>
+    <%=inputMaskAlias%>
 	/>
 <%
 } else {
@@ -127,3 +142,9 @@ private String getNumericAlt(int size, int scale) {
 	}
 }
 %>
+    
+    	<script type="text/javascript">
+		$(document).ready(function(){
+            $(":input").inputmask({"placeholder":" ", clearMaskOnLostFocus: true});
+		})
+	</script>
