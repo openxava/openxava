@@ -143,8 +143,35 @@ private String getNumericAlt(int size, int scale) {
 }
 %>
     
-    	<script type="text/javascript">
-		$(document).ready(function(){
-            $(":input").inputmask({"placeholder":" ", clearMaskOnLostFocus: true});
-		})
-	</script>
+<script type = "text/javascript" >
+    $(document).ready(function() {
+        $(":input").inputmask();
+        Inputmask.extendDefaults({
+            'autoUnmask': true,
+            'placeholder': "*",
+            'clearMaskOnLostFocus': true,
+            'removeMaskOnSubmit': true,
+            'clearIncomplete': true
+        });
+
+        Inputmask.extendDefinitions({
+            'A': {
+                validator: "[A-Za-z\u0410-\u044F\u0401\u0451\u00C0-\u00FF\u00B5]",
+                casing: "upper" //auto uppercasing
+            },
+            '0': {
+                validator: "[0-9\(\)\.\+/ ]"
+            }
+        });
+        Inputmask.extendAliases({
+            'currency2': {
+                prefix: "",
+                groupSeparator: ",",
+                radixPoint: ",",
+                alias: "numeric",
+                digits: 2,
+                digitsOptional: !1
+            }
+        });
+    }) </script>
+    
