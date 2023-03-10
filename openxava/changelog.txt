@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- New action in references to clear the reference value just clicking on a button.
+- New action in @DescriptionsList to clear the selected value of the combo just clicking on a button.
 - New article in documentation to use Kotlin to develop with OpenXava in English, Spanish and Chinese.
 - New EditableValidValues editor for View.addValidValue() that allows to edit the value and having a combo.
 - Fix: @Editor has not effect affect calling View.addValidValue() on the property. 

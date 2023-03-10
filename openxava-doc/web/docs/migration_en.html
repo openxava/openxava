@@ -9,11 +9,14 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Migration"></a> <span id="breadcrumbs"> <span
-            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
-            href="index_en.html">documentation</a> / </span> Migration </h1>
+      <h1 id="toc0"><a name="Migration"></a> <span id="breadcrumbs"> <span id="openxava">
+            <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>
+        Migration </h1>
       <h2>How to update your project to the latest OpenXava?</h2>
-      <p>Edit the <i>pom.xml</i> file in your project and change the value of the <i>openxava.version</i> property to point to the latest OpenXava version, thus:</p>
+      <p>Edit the <i>pom.xml</i> file in your project and change the value of
+        the <i>openxava.version</i> property to point to the latest OpenXava
+        version, thus:</p>
       <pre><code class="xml">&lt;properties&gt;
     &lt;openxava.version&gt;7.0.6&lt;/openxava.version&gt;
     ...
@@ -24,25 +27,33 @@
         <li>With OpenXava Studio: </li>
         <ul>
           <li><i>Right mouse button in your project &gt; Run As &gt; Maven clean</i></li>
-          <li><i>Right mouse button in your project &gt; Run As &gt; Maven install</i></li>
+          <li><i>Right mouse button in your project &gt; Run As &gt; Maven
+              install</i></li>
         </ul>
         <li>Or with command line: <i>mvn clean package</i></li>
       </ul>
     </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;">If current version is 6.x you should follow the instructions in <a
-        href="#from-6.6.3-to-7.0">Migration from OpenXava 6.6.3 to OpenXava 7.0</a> section first.</div>
+    <div class="wiki" style="display: block;">If current version is 6.x you
+      should follow the instructions in <a href="#from-6.6.3-to-7.0">Migration
+        from OpenXava 6.6.3 to OpenXava 7.0</a> section first.</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;">Finally, revise the instructions below to adapt your code.</div>
+    <div class="wiki" style="display: block;">Finally, revise the instructions
+      below to adapt your code.</div>
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">
       <h2>Migration from OpenXava 7.0.6 to OpenXava 7.1</h2>
       <div class="wiki" style="display: block;">
         <h3>Labels in English now have different order (for JUnit tests)</h3>
-        <p>We noticed that labels in list and collection when are translated to English, they can be understandable, but could be better. For this, we changed the order of the words and this affect JUnit code that use method like <i>assertValue(), assertLabelInList(), assertValueInCollection()</i>, and more that used to verify labels. For example, if you have something like this:</p>
+        <p>We noticed that labels in list and collection when are translated to
+          English, they can be understandable, but could be better. For this, we
+          changed the order of the words and this affect JUnit code that use
+          method like <i>assertValue(), assertLabelInList(),
+            assertValueInCollection()</i>, and more that used to verify labels.
+          For example, if you have something like this:</p>
         <pre><code class="java">assertLabelInList(0, "Year of invoice");
 </code></pre>
         <p>Change it by:</p>
@@ -55,7 +66,9 @@
         <pre><code class="java">customer.address = Customer address<br>customer.address.street = Customer address street<br>customer.address.street.number = Customer address street number
 </code></pre>
         <h3>New action in references and @DescriptionsList (for JUnit tests)</h3>
-        References and @DescriptionsList have new action for the users (Reference.clear), so if you test for all present actions in your JUnit tests, you have to modify it and add Reference.clear. For example:<br>
+        References and <i>@DescriptionsList</i> have new action for the users (<i>Reference.clear</i>),
+        so if you test for all present actions in your JUnit tests, you have to
+        modify it and add <i>Reference.clear</i>. For example:<br>
         <pre><code class="java">String [] actions= {
 	"CRUD.new",
 	"CRUD.save",
@@ -70,7 +83,10 @@
       </div>
       <h2 id="from-6.6.3-to-7.0">Migration from OpenXava 7.0.5 to OpenXava 7.0.6</h2>
       <h3>@Column(length=x) with no scale is no longer scale=2 by default</h3>
-      <p>We fixed a bug about that <i>scale=0</i> for <i>@Column</i> does not work, and given that when <i>scale</i> is not defined its default value is 0, now <i>@Column(length=x)</i> has <i>scale=0</i> as default value instead of the <i>scale=2</i>. That is, you have to change this code:</p>
+      <p>We fixed a bug about that <i>scale=0</i> for <i>@Column</i> does not
+        work, and given that when <i>scale</i> is not defined its default value
+        is 0, now <i>@Column(length=x)</i> has <i>scale=0</i> as default value
+        instead of the <i>scale=2</i>. That is, you have to change this code:</p>
       <p></p>
       <pre><code class="java">@Column(length=6)
 BigDecimal factor;
@@ -82,34 +98,46 @@ BigDecimal factor;
 BigDecimal factor;
 </code></pre>
       <p></p>
-      <p>If you do not define <i>length</i> or <i>precision</i> the value of <i>scale</i> is still 2, as always, so if you have:</p>
+      <p>If you do not define <i>length</i> or <i>precision</i> the value of <i>scale</i>
+        is still 2, as always, so if you have:</p>
       <p></p>
       <pre><code class="java">@Column(column="FCTR")// scale is 2 by default, as always
 BigDecimal factor;
 </code></pre>
       <p></p>
-      <p>You don't need to change anything. Moreover, if <i>@Column</i> annotation is missing altogether <i> scale</i> is still 2, as always.</p>
+      <p>You don't need to change anything. Moreover, if <i>@Column</i>
+        annotation is missing altogether <i> scale</i> is still 2, as always.</p>
       <h2>Migration from OpenXava 7.0.4 to OpenXava 7.0.5</h2>
       No issues.
       <h2>Migration from OpenXava 7.0.3 to OpenXava 7.0.4</h2>
       No issues.
       <h2 id="from-6.6.3-to-7.0">Migration from OpenXava 7.0.2 to OpenXava 7.0.3</h2>
       <h3>@DescriptionsList combos in filter part of lists no longer use key</h3>
-      <p>To solve a bug, the combos for references as <i>@DescriptionsList</i> in filter part of list and collections no longer use the key, but the value of the field. This is something internal, it does not affect the application behavior. But it's possible you have to adapt some code. If you have a code like this in an action:</p>
+      <p>To solve a bug, the combos for references as <i>@DescriptionsList</i>
+        in filter part of list and collections no longer use the key, but the
+        value of the field. This is something internal, it does not affect the
+        application behavior. But it's possible you have to adapt some code. If
+        you have a code like this in an action:</p>
       <pre><code class="java">getTab().setConditionValue("seller.name", 1);
 </code></pre>
       <p>Change it by:</p>
       <pre><code class="java">getTab().setConditionValue("seller.name", "JOHN SMITH");
 </code></pre>
-      <p>Note as now for <i>seller.name</i> we use the actual seller name, not the id. We did it to fix a bug, but as a lateral effect now it's more natural and moreover it works in the same way of a reference with no <i>@DescriptionsList</i>, so adding or removing a <i>@DescriptionsList</i> to your reference does not affect the code of your actions.</p>
-      <p>Also you have to adapt your JUnit code that set value to list filter if a reference with <i>@DescriptionsList</i> is used. That is, change:</p>
+      <p>Note as now for <i>seller.name</i> we use the actual seller name, not
+        the id. We did it to fix a bug, but as a lateral effect now it's more
+        natural and moreover it works in the same way of a reference with no <i>@DescriptionsList</i>,
+        so adding or removing a <i>@DescriptionsList</i> to your reference does
+        not affect the code of your actions.</p>
+      <p>Also you have to adapt your JUnit code that set value to list filter if
+        a reference with <i>@DescriptionsList</i> is used. That is, change:</p>
       <pre><code class="java">setConditionValues("", "1");
 </code></pre> </div>
     <div class="wiki" style="display: block;">By: </div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">setConditionValues("", "CAR");
 </code></pre>
-      <p>Here you're changing the id by the description or the name. Do the same for the JUnit code that verify the combo content. Change:</p>
+      <p>Here you're changing the id by the description or the name. Do the same
+        for the JUnit code that verify the combo content. Change:</p>
       <pre><code class="java">String [][] validValues = {
     { "", "" },
     { "2:_:LAMPPOST", "LAMPPOST" },
@@ -129,18 +157,28 @@ assertValidValues("conditionValue___3", validValues);
 };
 assertValidValues("descriptionsListValue", validValues);        
 </code></pre>
-      <p>Note that we have removed the prefix <i>id:_:</i> for the key part of the map. Now, key and value have the same value.</p>
+      <p>Note that we have removed the prefix <i>id:_:</i> for the key part of
+        the map. Now, key and value have the same value.</p>
       <h2>Migration from OpenXava 7.0.1 to OpenXava 7.0.2</h2>
       No issues.
       <h2>Migration from OpenXava 7.0 to OpenXava 7.0.1</h2>
       No issues.
       <h2 id="from-6.6.3-to-7.0">Migration from OpenXava 6.6.3 to OpenXava 7.0</h2>
       <h3>Convert your project to Maven structure</h3>
-      <p>OpenXava 7 is Maven compatible, so the classic structure of an OpenXava project is no longer recognized. You have to turn your project into a standard Maven project. Fortunately, all your current code is valid, only that it have to be placed in different folders. If you're not familiar with Maven, look at the <a
-          href="https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html">standard directory layout of a Maven project</a>.</p>
-      <p>The easier way to migrate to Maven is creating a new project using OpenXava 7.0, and then copying the source code and resources from your current project to the new one. So, first create a new OpenXava project using Openxava Studio 7, for that you can follow the instructions in <a
+      <p>OpenXava 7 is Maven compatible, so the classic structure of an OpenXava
+        project is no longer recognized. You have to turn your project into a
+        standard Maven project. Fortunately, all your current code is valid,
+        only that it have to be placed in different folders. If you're not
+        familiar with Maven, look at the <a href="https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html">standard
+          directory layout of a Maven project</a>.</p>
+      <p>The easier way to migrate to Maven is creating a new project using
+        OpenXava 7.0, and then copying the source code and resources from your
+        current project to the new one. So, first create a new OpenXava project
+        using Openxava Studio 7, for that you can follow the instructions in <a
           href="getting-started_en.html">Getting started guide</a>.</p>
-      <p>The next step is to copy all your source code and resources from the old project to the corresponding folder in the new project, as following:</p>
+      <p>The next step is to copy all your source code and resources from the
+        old project to the corresponding folder in the new project, as
+        following:</p>
       <ul>
         <li>From <i>src</i> to <i>src/main/java</i></li>
         <li>From <i>xava</i> to <i>src/main/resources/xava</i></li>
@@ -151,13 +189,18 @@ assertValidValues("descriptionsListValue", validValues);
       </ul>
       <p>The test code is in a different folder in Maven, so you should copy:</p>
       <ul>
-        <li>From <i>src/com.yourcompany.yourapp.tests</i> to <i> src/test/java/com.yourcompany.yourapp.tests</i></li>
-        <li><i>properties/xava-junit.properties</i> to <i> src/test/resources/xava-junit.properties</i></li>
+        <li>From <i>src/com.yourcompany.yourapp.tests</i> to <i>
+            src/test/java/com.yourcompany.yourapp.tests</i></li>
+        <li><i>properties/xava-junit.properties</i> to <i>
+            src/test/resources/xava-junit.properties</i></li>
       </ul>
       <p>The above is enough for most applications. </p>
     </div>
-    <div class="wiki" style="display: block;">The web code now is in <i>src/main/webapp</i> instead of <i>web</i>. First, create a folder called <i>xava</i> in <i>src/main/webapp</i> to put there your web code. </div>
-    <div class="wiki" style="display: block;">If you have your own custom editors you have to copy the editors code:
+    <div class="wiki" style="display: block;">The web code now is in <i>src/main/webapp</i>
+      instead of <i>web</i>. First, create a folder called <i>xava</i> in <i>src/main/webapp</i>
+      to put there your web code. </div>
+    <div class="wiki" style="display: block;">If you have your own custom
+      editors you have to copy the editors code:
       <ul>
         <li>From <i>web/xava/editors</i> to <i>src/main/webapp/xava/editors</i></li>
         <li>From <i>web/xava/editors/js</i> to <i>src/main/webapp/xava/editors/js</i></li>
@@ -167,24 +210,71 @@ assertValidValues("descriptionsListValue", validValues);
       <ul>
         <li><i>custom.css</i> from <i>web/xava/style</i> to <i>src/main/webapp/xava/style</i></li>
         <li>Your own JSPs from <i>web</i> to <i>src/main/webapp</i></li>
-        <li>If you have modified some JSP of OpenXava, you can copy it from <i>web/xava</i> to <i>src/main/webapp/xava</i>. Don't worry if you don't see any JSP there, now JSP OpenXava code is inside the OpenXava jar and not included in your project, but if you put some JSP in <i>xava</i> folder it overrides the one in OpenXava.</li>
+        <li>If you have modified some JSP of OpenXava, you can copy it from <i>web/xava</i>
+          to <i>src/main/webapp/xava</i>. Don't worry if you don't see any JSP
+          there, now JSP OpenXava code is inside the OpenXava jar and not
+          included in your project, but if you put some JSP in <i>xava</i>
+          folder it overrides the one in OpenXava.</li>
       </ul>
-      <p>The <i>servlets.xml</i>, <i>filters.xml</i> and <i>listeners.xml</i> files are no longer supported. You can copy their content to the <i>web.xml</i>, that now is empty and ready for your own things, in <i>src/main/webapp/WEB-INF</i>. If you use <i>@WebServlet</i>, <i>@WebFilter</i> and <i>@WebListener</i> annotations you don't need to do any change.</p>
-      <p>If you use an extra third party library in your application you have to add a dependency in the <i>pom.xml</i> file in the root of your project. You no longer are going to copy jars in <i>web/WEB/lib</i>. If you're not familiar with Maven read about <a
-          href="https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html">Maven dependecy mechanism</a>.</p>
-      <p>If you use a database other than HSQLDB you have to add the dependency for your JDBC driver. For example, if you use MySQL add the next entry to your <i>pom.xml</i>:</p>
+      <p>The <i>servlets.xml</i>, <i>filters.xml</i> and <i>listeners.xml</i>
+        files are no longer supported. You can copy their content to the <i>web.xml</i>,
+        that now is empty and ready for your own things, in <i>src/main/webapp/WEB-INF</i>.
+        If you use <i>@WebServlet</i>, <i>@WebFilter</i> and <i>@WebListener</i>
+        annotations you don't need to do any change.</p>
+      <p>If you use an extra third party library in your application you have to
+        add a dependency in the <i>pom.xml</i> file in the root of your
+        project. You no longer are going to copy jars in <i>web/WEB/lib</i>. If
+        you're not familiar with Maven read about <a href="https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html">Maven
+          dependecy mechanism</a>.</p>
+      <p>If you use a database other than HSQLDB you have to add the dependency
+        for your JDBC driver. For example, if you use MySQL add the next entry
+        to your <i>pom.xml</i>:</p>
       <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;mysql&lt;/groupId&gt;
     &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
     &lt;version&gt;8.0.29&lt;/version&gt;
 &lt;/dependency&gt;
 </code></pre>
-      <p>For other database just ask Google, something like "maven dependency oracle" for example. In order your JDBC driver will be downloaded and included in your project you have to execute "mvn package" in your project. You can do it from command line (if you have Maven installed in your machine) or from OpenXava Studio (not needed to have Maven installed), with <i>Run As &gt; Maven Build...</i> in your project and typing "package" as goal. This step is not needed if you use HSQLDB as database.</p>
-      <p>Now you can run your application. Put your mouse on <i>src/main/java</i> of your project and choose <i>Run As &gt; Java Application</i>. From now on, you can modify your code and relaunch your application as always, even if you launch it in debug mode you can modify the code and see the result without relaunch the application. That it, you can work in development as you're used to do.</p>
-      <p>We no longer use Ant. Now you do everything using Maven commands. If you're not familiar with Maven read some Maven introduction documentation. For example, to create the war for deploying in production you use "mvn package", and get the war ready to be deployed in Tomcat in the <i>target</i> folder of your project.&nbsp; You can run all maven commands from OpenXava Studio, with the option <i>Run As</i> on your project. </p>
-      Note that when you created the project with OpenXava the project name is in lowercase, this is because the nomenclature for Maven is to use lowercase for the name of <i>artifactId</i>, that matches with project name and deliverable (the generated war). For new projects you should user lowercase for project name. However, for years we have promoted first uppercase letter for project name in documentation, so probably you have your old project with its name starting with uppercase. You can choose migrating to lowercase and adopt the Maven standard way, but keep in mind that it would change the browser URL used by your users. </div>
-    <div class="wiki" style="display: block;">That is, if your application name was "Accounting" and you change it to "accounting", now the next URL: <i> https://yoursite.com/Accounting</i> does not work anymore. Now you have to use <i>https://yoursite.com/accounting</i> (with <i>accounting</i> in lowercase). If that is acceptable for your users, good. If not, you can rename your Maven project so it uses your old project name (<i>Accounting</i> in this case) and your users can continue using the original URLs. </div>
-    <div class="wiki" style="display: block;">Let's say that you want to change the project name from "accounting" to "Accounting". For that edit <i>pom.xml</i> and change:</div>
+      <p>For other database just ask Google, something like "maven dependency
+        oracle" for example. In order your JDBC driver will be downloaded and
+        included in your project you have to execute "mvn package" in your
+        project. You can do it from command line (if you have Maven installed in
+        your machine) or from OpenXava Studio (not needed to have Maven
+        installed), with <i>Run As &gt; Maven Build...</i> in your project and
+        typing "package" as goal. This step is not needed if you use HSQLDB as
+        database.</p>
+      <p>Now you can run your application. Put your mouse on <i>src/main/java</i>
+        of your project and choose <i>Run As &gt; Java Application</i>. From
+        now on, you can modify your code and relaunch your application as
+        always, even if you launch it in debug mode you can modify the code and
+        see the result without relaunch the application. That it, you can work
+        in development as you're used to do.</p>
+      <p>We no longer use Ant. Now you do everything using Maven commands. If
+        you're not familiar with Maven read some Maven introduction
+        documentation. For example, to create the war for deploying in
+        production you use "mvn package", and get the war ready to be deployed
+        in Tomcat in the <i>target</i> folder of your project.&nbsp; You can
+        run all maven commands from OpenXava Studio, with the option <i>Run As</i>
+        on your project. </p>
+      Note that when you created the project with OpenXava the project name is
+      in lowercase, this is because the nomenclature for Maven is to use
+      lowercase for the name of <i>artifactId</i>, that matches with project
+      name and deliverable (the generated war). For new projects you should user
+      lowercase for project name. However, for years we have promoted first
+      uppercase letter for project name in documentation, so probably you have
+      your old project with its name starting with uppercase. You can choose
+      migrating to lowercase and adopt the Maven standard way, but keep in mind
+      that it would change the browser URL used by your users. </div>
+    <div class="wiki" style="display: block;">That is, if your application name
+      was "Accounting" and you change it to "accounting", now the next URL: <i>
+        https://yoursite.com/Accounting</i> does not work anymore. Now you have
+      to use <i>https://yoursite.com/accounting</i> (with <i>accounting</i> in
+      lowercase). If that is acceptable for your users, good. If not, you can
+      rename your Maven project so it uses your old project name (<i>Accounting</i>
+      in this case) and your users can continue using the original URLs. </div>
+    <div class="wiki" style="display: block;">Let's say that you want to change
+      the project name from "accounting" to "Accounting". For that edit <i>pom.xml</i>
+      and change:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="xml">&lt;artifactId&gt;accounting&lt;/artifactId&gt;</code></pre>
     </div>
@@ -200,7 +290,8 @@ assertValidValues("descriptionsListValue", validValues);
     <div class="wiki" style="display: block;">
       <pre><code class="xml">&lt;finalName&gt;Accounting&lt;/finalName&gt;</code></pre>
     </div>
-    <div class="wiki" style="display: block;">Then edit <i>application.xml</i> (in <i> src/main/resources/xava</i>) and change:</div>
+    <div class="wiki" style="display: block;">Then edit <i>application.xml</i>
+      (in <i> src/main/resources/xava</i>) and change:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="xml">&lt;application name="accounting"&gt;</code></pre>
     </div>
@@ -208,7 +299,9 @@ assertValidValues("descriptionsListValue", validValues);
     <div class="wiki" style="display: block;">
       <pre><code class="xml">&lt;application name="Accounting"&gt;</code></pre>
     </div>
-    <div class="wiki" style="display: block;">Also in the launcher class, that is <i>accounting.java</i> in the package <i>com.yourcompany.accounting.run</i>, change:</div>
+    <div class="wiki" style="display: block;">Also in the launcher class, that
+      is <i>accounting.java</i> in the package <i>com.yourcompany.accounting.run</i>,
+      change:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">AppServer.run("accounting");</code></pre>
     </div>
@@ -216,11 +309,22 @@ assertValidValues("descriptionsListValue", validValues);
     <div class="wiki" style="display: block;">
       <pre><code class="java">AppServer.run("Accounting");</code></pre>
     </div>
-    <div class="wiki" style="display: block;">Finally, you should do in your project <i>Run As &gt; Maven clean</i> (<i>mvn clean</i>) and <i>Run As &gt; Maven Build...</i> typing <i>package</i> as goal (<i>mvn package</i>).<br>
+    <div class="wiki" style="display: block;">Finally, you should do in your
+      project <i>Run As &gt; Maven clean</i> (<i>mvn clean</i>) and <i>Run As
+        &gt; Maven Build...</i> typing <i>package</i> as goal (<i>mvn package</i>).<br>
       <h3>Hibernate upgraded from 5.3 to 5.6</h3>
-      <p>We have done a hard work to adapt OpenXava in order it works nicely with Hibernate 5.6. However, you can find problems in your own JPA/Hibernate code. If you use JPA API everything should work as it, but there are new bugs in Hibernate 5.6 that can cause your current code to fail. We found some of them.</p>
+      <p>We have done a hard work to adapt OpenXava in order it works nicely
+        with Hibernate 5.6. However, you can find problems in your own
+        JPA/Hibernate code. If you use JPA API everything should work as it, but
+        there are new bugs in Hibernate 5.6 that can cause your current code to
+        fail. We found some of them.</p>
       <h4>Join required in reference in key</h4>
-      <p>With Hibernate 5.3 when you use a property of a reference and this reference is part of the key, you don't need to add an explicit join in the query. This is in this way no matter the deep level. In Hibernate 5.6, you don't need to add the join if you have only one level of reference, but if you have a second level, you have to add it, if the second level has a composite key.</p>
+      <p>With Hibernate 5.3 when you use a property of a reference and this
+        reference is part of the key, you don't need to add an explicit join in
+        the query. This is in this way no matter the deep level. In Hibernate
+        5.6, you don't need to add the join if you have only one level of
+        reference, but if you have a second level, you have to add it, if the
+        second level has a composite key.</p>
       <p>Saying it with code. If you have:</p>
       <p></p>
       <pre><code class="java">@Entity
@@ -267,17 +371,27 @@ Query query = XPersistence.getManager().createQuery(queryString);
 query.setParameter("delivery_invoice_year", 2022);
 </code></pre>
       <p></p>
-      <p>But it fails with Hibernate 5.6. Curiously if you do the query against <i>Delivery </i>asking by <i>invoice.year</i> it works, it only fails with 2 levels or more. Moreover, if <i>Invoice</i> would have a single key, instead of a composite one, it works too. Hibernate 5.6 fails when you combine more than one level with composite keys.</p>
-      <p>Don't worry, the solution is easy, just add an explicit <i>join</i> for the first reference. That it, in the next way it works with Hibernate 5.6:</p>
+      <p>But it fails with Hibernate 5.6. Curiously if you do the query against
+        <i>Delivery </i>asking by <i>invoice.year</i> it works, it only fails
+        with 2 levels or more. Moreover, if <i>Invoice</i> would have a single
+        key, instead of a composite one, it works too. Hibernate 5.6 fails when
+        you combine more than one level with composite keys.</p>
+      <p>Don't worry, the solution is easy, just add an explicit <i>join</i>
+        for the first reference. That it, in the next way it works with
+        Hibernate 5.6:</p>
       <p></p>
       <pre><code class="java">String queryString="from TransportCharge o join fetch o.delivery d where d.invoice.year = :delivery_invoice_year";
 Query query = XPersistence.getManager().createQuery(queryString);
 query.setParameter("delivery_invoice_year", 2022);
 </code></pre>
       <p></p>
-      <p>The solution is the <i>join fetch o.delivery d</i>. Conclusion, if some query fails for you with Hibernate 5.6 try to add an explicit <i>join</i> to your reference.</p>
+      <p>The solution is the <i>join fetch o.delivery d</i>. Conclusion, if
+        some query fails for you with Hibernate 5.6 try to add an explicit <i>join</i>
+        to your reference.</p>
       <h4>Schema is not created automatically</h4>
-      <p>A new bug of Hibernate 5.6 is that it <a href="https://hibernate.atlassian.net/browse/HHH-13403">no longer recognizes javax.persistence.create-database-schemas</a>, so if you have the next configuration in your <i>persistence.xml</i>:</p>
+      <p>A new bug of Hibernate 5.6 is that it <a href="https://hibernate.atlassian.net/browse/HHH-13403">no
+          longer recognizes javax.persistence.create-database-schemas</a>, so if
+        you have the next configuration in your <i>persistence.xml</i>:</p>
       <pre><code class="xml">&lt;persistence-unit name="default"&gt;
     ...
     &lt;properties&gt;
@@ -287,10 +401,20 @@ query.setParameter("delivery_invoice_year", 2022);
     &lt;/properties&gt;
 &lt;/persistence-unit&gt;
 </code></pre>
-      <p>With Hibernate 5.3 it created the MYSCHEMA schema and then the tables inside, however with Hibernate 5.6 the MYSCHEMA schema is not created, hence the tables are not create neither. The solution is to create the MYSCHEMA schema by hand. You have to connect to your database with your database explorer and execute a CREATE SCHEMA MYSCHEMA (or equivalent) sentence. After it, you can start the application and the tables will be created.</p>
+      <p>With Hibernate 5.3 it created the MYSCHEMA schema and then the tables
+        inside, however with Hibernate 5.6 the MYSCHEMA schema is not created,
+        hence the tables are not create neither. The solution is to create the
+        MYSCHEMA schema by hand. You have to connect to your database with your
+        database explorer and execute a CREATE SCHEMA MYSCHEMA (or equivalent)
+        sentence. After it, you can start the application and the tables will be
+        created.</p>
       <h3></h3>
       <h3>XHibernate utility class removed</h3>
-      <p><i>XHibernate</i> utility class has been removed because it was used in XML components applications, in JPA applications we use <i>XPersistence</i> instead, and we have removed XML components support in v7.0. Hibernate API is still available. In the rare case you use <i>XHibernate</i> in some point of your code, change:</p>
+      <p><i>XHibernate</i> utility class has been removed because it was used in
+        XML components applications, in JPA applications we use <i>XPersistence</i>
+        instead, and we have removed XML components support in v7.0. Hibernate
+        API is still available. In the rare case you use <i>XHibernate</i> in
+        some point of your code, change:</p>
       <pre><code class="java">Session session = XHibernate.getSession();
 session.save(customer);
 </code></pre>
@@ -298,12 +422,19 @@ session.save(customer);
       <pre><code class="java">Session session = (Session) XPersistence.getManager().getDelegate();
 session.save(customer);
 </code></pre>
-      <p>That is, you can get a Hibernate <i>Session</i> object from the JPA manager. Another alternative would be to <a
-          href="https://docs.jboss.org/hibernate/orm/5.6/quickstart/html_single/#hibernate-gsg-tutorial-basic-test">get the Hibernate session directly in the Hibernate way</a>, but in this case you have to create the <i>SessionFactory</i> by yourself and be responsible of closing the transaction and session.</p>
+      <p>That is, you can get a Hibernate <i>Session</i> object from the JPA
+        manager. Another alternative would be to <a href="https://docs.jboss.org/hibernate/orm/5.6/quickstart/html_single/#hibernate-gsg-tutorial-basic-test">get
+          the Hibernate session directly in the Hibernate way</a>, but in this
+        case you have to create the <i>SessionFactory</i> by yourself and be
+        responsible of closing the transaction and session.</p>
       <h3></h3>
       <h3>Project resources in different place (for JUnit tests)</h3>
-      Given that now your OpenXava projects have a standard Maven structure, most of the resources of your project are in a different place now, so if you use them from some JUnit test you have to adapt the path of the resource. </div>
-    <div class="wiki" style="display: block;">For example, if you have the next line in a JUnit test:</div>
+      Given that now your OpenXava projects have a standard Maven structure,
+      most of the resources of your project are in a different place now, so if
+      you use them from some JUnit test you have to adapt the path of the
+      resource. </div>
+    <div class="wiki" style="display: block;">For example, if you have the next
+      line in a JUnit test:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">uploadFile("scripts", "reports/Corporation.html");</code></pre>
     </div>
@@ -311,11 +442,22 @@ session.save(customer);
     <div class="wiki" style="display: block;">
       <pre><code class="java">uploadFile("scripts", "src/main/resources/reports/Corporation.html");</code></pre>
     </div>
-    <div class="wiki" style="display: block;">Note as we changed <i>reports</i> by <i>src/main/resources/reports</i> in the path, because now all the resources are in <i>src/main/resources</i>. </div>
+    <div class="wiki" style="display: block;">Note as we changed <i>reports</i>
+      by <i>src/main/resources/reports</i> in the path, because now all the
+      resources are in <i>src/main/resources</i>. </div>
     <div class="wiki" style="display: block;">
       <h3>HtmlUnit upgraded from 2.32 to 2.63 (for JUnit tests)</h3>
-      If you use for testing the methods from <i>ModuleTestBase</i> you don't need to touch anything. However, if you use directly the API of HtmlUnit, something that can happen if you use <i>getWebClient()</i> or <i>getHtmlPage()</i> in your test, in that case maybe you need to adapt your code. HtmlUnit keeps its tradition of adding backward incompatible changes in each new minor version, to do this they change capriciously the name of methods, move things from a package to another or change the behavior of some method. We found the next things, for example.</div>
-    <div class="wiki" style="display: block;">The <i>asText()</i> method of <i>HtmlElement</i> has been rename as <i>asNormalizedText()</i>, so if you have a code like this in your test:</div>
+      If you use for testing the methods from <i>ModuleTestBase</i> you don't
+      need to touch anything. However, if you use directly the API of HtmlUnit,
+      something that can happen if you use <i>getWebClient()</i> or <i>getHtmlPage()</i>
+      in your test, in that case maybe you need to adapt your code. HtmlUnit
+      keeps its tradition of adding backward incompatible changes in each new
+      minor version, to do this they change capriciously the name of methods,
+      move things from a package to another or change the behavior of some
+      method. We found the next things, for example.</div>
+    <div class="wiki" style="display: block;">The <i>asText()</i> method of <i>HtmlElement</i>
+      has been rename as <i>asNormalizedText()</i>, so if you have a code like
+      this in your test:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">HtmlElement card = body.getElementsByAttribute("div", "class", "ox-card").get(2);
 assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asText());
@@ -325,7 +467,11 @@ assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asText());
       <pre><code class="java">HtmlElement card = body.getElementsByAttribute("div", "class", "ox-card").get(2);
 assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asNormalizedText());
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Adding insult to injury <i>asNormalizedText()</i> does not behave exactly as the old <i>asText()</i>, now it changes all new lines by a single \n. It means that maybe you have to change some test code if you use <i>asText()</i> and examine the new lines. For example, if you have the next test code:</div>
+    <div class="wiki" style="display: block;">Adding insult to injury <i>asNormalizedText()</i>
+      does not behave exactly as the old <i>asText()</i>, now it changes all
+      new lines by a single \n. It means that maybe you have to change some test
+      code if you use <i>asText()</i> and examine the new lines. For example,
+      if you have the next test code:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">assertDiscussionCommentText("discussion", 0, Strings.multiline("admin - Now", "Hi, it's me")); 
 </code></pre> </div>
@@ -333,7 +479,13 @@ assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asNormalizedTex
     <div class="wiki" style="display: block;">
       <pre><code class="java">assertDiscussionCommentText("discussion", 0, "admin - Now\nHi, it's me");
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Note that we no longer use the <i>Strings.multiline()</i> utility and we use single \n. In this case you have not used <i>asNormalizedText()</i> directly, but <i>assertDiscussionCommentText()</i> from <i>ModuleTestBase</i> that uses <i>asNormalizedText()</i> for its implementation. That is, some methods of <i>ModuleTestBase</i> are affected by this new behavior, among them <i>assertValueInList()</i> for Card list format, now you have to use a single \n instead of \r\n. So you have to change:</div>
+    <div class="wiki" style="display: block;">Note that we no longer use the <i>Strings.multiline()</i>
+      utility and we use single \n. In this case you have not used <i>asNormalizedText()</i>
+      directly, but <i>assertDiscussionCommentText()</i> from <i>ModuleTestBase</i>
+      that uses <i>asNormalizedText()</i> for its implementation. That is, some
+      methods of <i>ModuleTestBase</i> are affected by this new behavior, among
+      them <i>assertValueInList()</i> for Card list format, now you have to use
+      a single \n instead of \r\n. So you have to change:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">assertValueInList(2, "XAVA\r\n3\r\nUnit price: 0.00");
 </code></pre> </div>
@@ -341,7 +493,10 @@ assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asNormalizedTex
     <div class="wiki" style="display: block;">
       <pre><code class="java">assertValueInList(2, "XAVA\n3\nUnit price: 0.00");
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Another change in the way HtmlUnit behaves is that is uses UNICODE characters instead of ANSI characters, so if you test for special characters you have to adapt your code. For example, you should change:</div>
+    <div class="wiki" style="display: block;">Another change in the way HtmlUnit
+      behaves is that is uses UNICODE characters instead of ANSI characters, so
+      if you test for special characters you have to adapt your code. For
+      example, you should change:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">assertEquals(
     "javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l" 
@@ -358,8 +513,12 @@ assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asNormalizedTex
     deleteLink.getHrefAttribute());
 </code></pre> </div>
     <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
-        href="http://www.alanwood.net/demos/ansi.html">Look at this table</a> to know the mapping between ANSI and UNICODE.</div>
-    <div class="wiki" style="display: block;">Now in <i>@HtmlText</i> or <i>@Stereotype("HTML_TEXT")</i> properties you get the real content, including the HTML tags, surely because a better JavaScript support in HtmlUnit. Therefore, if you have a <i>@HtmlText</i> property called <i>description</i>, change:</div>
+        href="http://www.alanwood.net/demos/ansi.html">Look at this table</a> to
+      know the mapping between ANSI and UNICODE.</div>
+    <div class="wiki" style="display: block;">Now in <i>@HtmlText</i> or <i>@Stereotype("HTML_TEXT")</i>
+      properties you get the real content, including the HTML tags, surely
+      because a better JavaScript support in HtmlUnit. Therefore, if you have a
+      <i>@HtmlText</i> property called <i>description</i>, change:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">assertValue("description", "This is the big jUnit discussion");
 </code></pre> </div>
@@ -367,7 +526,9 @@ assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asNormalizedTex
     <div class="wiki" style="display: block;">
       <pre><code class="java">assertValue("description", "&lt;p&gt;This is the big jUnit discussion&lt;/p&gt;");
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Also, <i>getValue()</i> and <i>assertValue()</i> now do a <i>trim()</i> to work better with the new HtmlUnit behavior, so you have to change:</div>
+    <div class="wiki" style="display: block;">Also, <i>getValue()</i> and <i>assertValue()</i>
+      now do a <i>trim()</i> to work better with the new HtmlUnit behavior, so
+      you have to change:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">assertValue("city", "46540 ");
 </code></pre> </div>
@@ -375,17 +536,29 @@ assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asNormalizedTex
     <div class="wiki" style="display: block;">
       <pre><code class="java">assertValue("city", "46540");
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Note as we have removed the space after 46540.</div>
-    <div class="wiki" style="display: block;">The new HtmlUnit requires you to reload the page in order that CSS works correctly, so if you activate CSS for your test you must do a <i>reload()</i> after it. In this way:</div>
+    <div class="wiki" style="display: block;">Note as we have removed the space
+      after 46540.</div>
+    <div class="wiki" style="display: block;">The new HtmlUnit requires you to
+      reload the page in order that CSS works correctly, so if you activate CSS
+      for your test you must do a <i>reload()</i> after it. In this way:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">getWebClient().getOptions().setCssEnabled(true); // If you do this then...
 reload(); // ...you have to add this line
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Curiously, adding <i>reload()</i> is not always needed, just add it where you find that tests with CSS start to fail.</div>
+    <div class="wiki" style="display: block;">Curiously, adding <i>reload()</i>
+      is not always needed, just add it where you find that tests with CSS start
+      to fail.</div>
     <div class="wiki" style="display: block;">
       <h3>Apache POI upgraded from 3.15 to 5.1</h3>
-      Apache POI is a Java library used to manipulate Microsoft Documents, like Excel. JasperReports uses it so it has been needed to upgrade POI in order the latest JasperReports works. If you don't use POI directly you don't need to do anything. However if you use the POI API in your code, you have to adapt it, because they have refactored all the code changing names and places, just to be backward incompatible. These are some of the changes we have noted.</div>
-    <div class="wiki" style="display: block;">They have turned all final variables into enums, these are some examples:</div>
+      Apache POI is a Java library used to manipulate Microsoft Documents, like
+      Excel. JasperReports uses it so it has been needed to upgrade POI in order
+      the latest JasperReports works. If you don't use POI directly you don't
+      need to do anything. However if you use the POI API in your code, you have
+      to adapt it, because they have refactored all the code changing names and
+      places, just to be backward incompatible. These are some of the changes we
+      have noted.</div>
+    <div class="wiki" style="display: block;">They have turned all final
+      variables into enums, these are some examples:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">CellType.NUMERIC // Instead of Cell.CELL_TYPE_NUMERIC
 HyperlinkType.FILE // Instead of Hyperlink.LINK_URL
@@ -394,15 +567,20 @@ HSSFColor.HSSFColorPredefined.RED // Instead of HSSFColor.RED
 BorderStyle.THIN // Instead of CellStyle.BORDER_THIN
 HorizontalAlignment.LEFT // Instead of CellStyle.ALIGN_LEFT
 </code></pre> </div>
-    <div class="wiki" style="display: block;">If you need to use the <i>short</i> values of the old final variables you can use the <i>getCode()</i> and <i>valueOf()</i> methods present in most of the new enums.</div>
-    <div class="wiki" style="display: block;">The <i>setCellType()</i> method of <i>Cell</i> has been removed:</div>
+    <div class="wiki" style="display: block;">If you need to use the <i>short</i>
+      values of the old final variables you can use the <i>getCode()</i> and <i>valueOf()</i>
+      methods present in most of the new enums.</div>
+    <div class="wiki" style="display: block;">The <i>setCellType()</i> method
+      of <i>Cell</i> has been removed:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">Cell cell ... 
 // cell.setCellType(Cell.CELL_TYPE_FORMULA); // No longer exist, not needed
 cell.setCellFormula(text);
 </code></pre> </div>
-    <div class="wiki" style="display: block;"><i>setCellType()</i> is no longer needed because the <i>Cell</i> infers the type from the cell value.</div>
-    <div class="wiki" style="display: block;">The <i>setBoldweight()</i> method of <i>Font</i> has been removed. So you have to change this:
+    <div class="wiki" style="display: block;"><i>setCellType()</i> is no longer
+      needed because the <i>Cell</i> infers the type from the cell value.</div>
+    <div class="wiki" style="display: block;">The <i>setBoldweight()</i> method
+      of <i>Font</i> has been removed. So you have to change this:
       <div class="wiki" style="display: block;">
         <pre><code class="java">font.setBoldweight(Font.BOLDWEIGHT_BOLD);
 </code></pre> </div>
@@ -410,12 +588,18 @@ cell.setCellFormula(text);
       <div class="wiki" style="display: block;">
         <pre><code class="java">font.setBold(true);
 </code></pre> </div>
-      <div class="wiki" style="display: block;">Note the new <i>setBold()</i> method in <i>Font</i>.</div>
-      <div class="wiki" style="display: block;">There are more incompatible changes in the new Apache POI version. Don't worry, the compiler will advice you of them, and StackOverflow will help you to fix them.<br>
+      <div class="wiki" style="display: block;">Note the new <i>setBold()</i>
+        method in <i>Font</i>.</div>
+      <div class="wiki" style="display: block;">There are more incompatible
+        changes in the new Apache POI version. Don't worry, the compiler will
+        advice you of them, and StackOverflow will help you to fix them.<br>
       </div>
-      <h2><a name="Migration-How to update your project to the latest OpenXava?"></a>Migration to OpenXava 6.6.3</h2>
-      <p>For migrating to OpenXava 6.6.3 from any older OpenXava version (since 1.0):</p>
-      <p style="font-size: larger"><b><a href="migration-ox6_en.html">Follow the OpenXava 6.x migration instructions</a></b></p>
+      <h2><a name="Migration-How to update your project to the latest OpenXava?"></a>Migration
+        to OpenXava 6.6.3</h2>
+      <p>For migrating to OpenXava 6.6.3 from any older OpenXava version (since
+        1.0):</p>
+      <p style="font-size: larger"><b><a href="migration-ox6_en.html">Follow the
+            OpenXava 6.x migration instructions</a></b></p>
       <p> </p>
     </div>
   </body>
