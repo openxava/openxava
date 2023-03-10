@@ -10,17 +10,11 @@ Change Log for OpenXava project
 - Fix: Content Security Policy (CSP) Header Not Set.
 
 Pendiente:
-- Comprobar si los CSS ahora hacen caché.
-- Corregir errores en consola de Firefox.
-- Corregir aspectos estéticos: 
-	- Blanco después de formulario.
-	- Icono de carga de módulo fijo en menú de la izquierda.
-	- Animación para procesos masivos sale siempre.
-	- Cabecera de la lista. 
 - Probar todos los eventos. Al cambiar, por ejemplo.
 - Probar CKEditor.
 - Probar generar PDF.
 - Probar generar varios PDFs.
+- Probar hacer signout
 - Probar en Chrome, Firefox, Edge, Safari, iPad y Android.
 - Probar una aplicación autentificada.
 - Probar una aplicación en ROOT.
