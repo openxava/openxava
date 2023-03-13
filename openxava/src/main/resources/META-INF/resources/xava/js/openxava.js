@@ -219,13 +219,18 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	$('a[href^="javascript:"]').click(function() {
         eval($(this).attr('href'));
     });
+    $('[onchange]').each(function() {	
+  		$(this).change(function() {
+  			eval($(this).attr('onchange'));
+		});
+	});
     $('[onblur]').each(function() {
-  		$(this).click(function() {
+  		$(this).blur(function() {
   			eval($(this).attr('onblur'));
 		});
 	});
-	$('[onfocus]').each(function() {
-  		$(this).click(function() {
+	$('[onfocus]').each(function() {	
+  		$(this).focus(function() {
   			eval($(this).attr('onfocus'));
 		});
 	});

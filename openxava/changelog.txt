@@ -10,8 +10,6 @@ Change Log for OpenXava project
 - Fix: Content Security Policy (CSP) Header Not Set.
 
 Pendiente:
-- Probar todos los eventos. Al cambiar, por ejemplo.
-- Probar CKEditor.
 - Probar generar PDF.
 - Probar generar varios PDFs.
 - Probar hacer signout
