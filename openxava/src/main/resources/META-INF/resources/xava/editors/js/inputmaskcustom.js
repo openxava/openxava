@@ -1,5 +1,4 @@
 openxava.addEditorInitFunction(function() {
-        var specialChars = "!@#$%^&*()_+=-[]{}';:\"<>.,?/`~";
         $(":input").inputmask();
         Inputmask.extendDefaults({
             'placeholder': "*"
@@ -17,7 +16,7 @@ openxava.addEditorInitFunction(function() {
                 casing: null
             },
             '#': {
-                validator: specialChars,
+                validator: "[!@#$%^&*()_+=-{}';:\"<>.,?/`~ ]",
                 casing: null
             }
         });
