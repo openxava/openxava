@@ -1547,4 +1547,12 @@
 		<action name="showSellerDialog" mode="detail"
 			class="org.openxava.test.actions.ShowSellerDialogAction"/>
 	</controller>
+	
+	<controller name="InputMask">
+		<extends controller="Typical" />
+		<action name="setON" mode="detail"
+			class="org.openxava.test.actions.SetEditableOnAction"/>
+		<action name="setOFF" mode="detail"
+			class="org.openxava.test.actions.SetEditableOffAction"/>
+	</controller>
 </controllers>

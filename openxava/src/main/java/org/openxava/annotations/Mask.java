@@ -5,8 +5,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.FIELD, ElementType.METHOD })
 public @interface Mask {
-	
-	String with() default "";
-	
-	String isFor() default "";
+
+	String value() default "";
 }

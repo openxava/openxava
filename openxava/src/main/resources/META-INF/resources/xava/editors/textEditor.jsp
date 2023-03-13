@@ -21,9 +21,7 @@ String disabled=editable?"":"disabled";
 String script = request.getParameter("script");
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
 String inputType = request.getParameter("inputType");
-if (inputType == null){
-   inputType = "text"; 
-   }
+if (inputType == null) inputType = "text"; 
 String smaxSize = request.getParameter("maxSize");
 int maxSize = 0;
 if (!org.openxava.util.Is.emptyString(smaxSize)) {
@@ -46,25 +44,17 @@ if (p.isNumber()) {
 	numericAlt = getNumericAlt(p.getSize(), p.getScale()); 
 	numericClass = "xava_numeric"; 
 }	
-
+    
 boolean fillWithZeros = "true".equals(request.getParameter("fillWithZeros"));
 if (fillWithZeros && fvalue.length() > 0) {	
 	fvalue = Strings.fix(fvalue, size, Align.RIGHT, '0');
 }
-String inputMaskAlias = request.getParameter("isFor") != null ? request.getParameter("isFor") : "";
-String inputMask = "";
-if (inputMaskAlias.length() > 1){
-    inputMaskAlias = "data-inputmask=\"'alias': '" + inputMaskAlias + "'\"";
-} else {
-    inputMask = request.getParameter("with") != null ? request.getParameter("with") : "";
-    if (inputMask.length() > 1) {
-    inputMask = "data-inputmask=\"'mask': '" + inputMask + "'\"";
-    } else {
-    System.out.println("no hay");
-    }
+    
+String im = request.getParameter("value") != null ? request.getParameter("value") : "";
+if (im.length() > 1) {
+    System.out.println(im);
+    im = "data-inputmask=\"'alias': '" + im + "'\"";
 }
-
-
     
 if (editable || !label) { 
 %>
@@ -80,8 +70,7 @@ if (editable || !label) {
 	value="<%=Strings.change(fvalue, "\"", "&quot;")%>"	
 	<%=disabled%>
 	<%=script%>	
-    <%=inputMask%>
-    <%=inputMaskAlias%>
+    <%=im%>
 	/>
 <%
 } else {
@@ -142,36 +131,3 @@ private String getNumericAlt(int size, int scale) {
 	}
 }
 %>
-    
-<script type = "text/javascript" >
-    $(document).ready(function() {
-        $(":input").inputmask();
-        Inputmask.extendDefaults({
-            'autoUnmask': true,
-            'placeholder': "*",
-            'clearMaskOnLostFocus': true,
-            'removeMaskOnSubmit': true,
-            'clearIncomplete': true
-        });
-
-        Inputmask.extendDefinitions({
-            'A': {
-                validator: "[A-Za-z\u0410-\u044F\u0401\u0451\u00C0-\u00FF\u00B5]",
-                casing: "upper" //auto uppercasing
-            },
-            '0': {
-                validator: "[0-9\(\)\.\+/ ]"
-            }
-        });
-        Inputmask.extendAliases({
-            'currency2': {
-                prefix: "",
-                groupSeparator: ",",
-                radixPoint: ",",
-                alias: "numeric",
-                digits: 2,
-                digitsOptional: !1
-            }
-        });
-    }) </script>
-    
