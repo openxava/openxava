@@ -22,7 +22,7 @@ public class InputMask extends Identifiable{
 	@Mask("LLLLLL")
 	String alphabetical;
 	
-	@Mask("%23%23%23%23%23%23")
+	@Mask("############################")
 	String specialChars;
 	
 	@Mask("AAAAAA")

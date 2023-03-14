@@ -16,7 +16,7 @@ openxava.addEditorInitFunction(function() {
                 casing: null
             },
             '#': {
-                validator: "[!@#$%^&*()_+=-{}';:\"<>.,?/`~ ]",
+                validator: "[-!@#$%^&*()_+={}';:\"<>.,?/`~ ]",
                 casing: null
             }
         });

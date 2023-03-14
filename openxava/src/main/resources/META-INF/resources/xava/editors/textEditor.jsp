@@ -50,10 +50,9 @@ if (fillWithZeros && fvalue.length() > 0) {
 	fvalue = Strings.fix(fvalue, size, Align.RIGHT, '0');
 }
     
-String im = request.getParameter("value") != null ? request.getParameter("value") : "";
+String im = (request.getParameter("value") != null) && (request.getParameter("value").toString().matches("[-AL0!@#$%^&*()_+={}';:\"<>.,?/` \\~]+")) ? request.getParameter("value") : "";
 if (im.length() > 1) {
-    System.out.println(im);
-    im = "data-inputmask=\"'alias': '" + im + "'\"";
+    im = "data-inputmask=\"'mask': '" + im + "'\"";
 }
     
 if (editable || !label) { 
