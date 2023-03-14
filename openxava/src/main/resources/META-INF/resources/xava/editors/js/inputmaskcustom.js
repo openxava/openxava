@@ -1,7 +1,7 @@
 openxava.addEditorInitFunction(function() {
         $(":input").inputmask();
         Inputmask.extendDefaults({
-            'placeholder': "*"
+            'placeholder': " "
         });
         Inputmask.extendDefinitions({
             'L': {
