@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: XSLT injection vulnerabilities.
 - Fix: X-Content-Type-Options Header Missing.
 - Fix: Cookie without SameSite attribute.
 - Fix: Application error disclosure.
@@ -9,14 +10,14 @@ Change Log for OpenXava project
 - Fix: Data filtering in .htaccess for some URLs.
 - Fix: Content Security Policy (CSP) Header Not Set.
 
+
 Pendiente:
-- Probar generar PDF.
-- Probar generar varios PDFs.
-- Probar hacer signout
-- Probar en Chrome, Firefox, Edge, Safari, iPad y Android.
-- Probar una aplicación autentificada.
-- Probar una aplicación en ROOT.
-- Que funcione en un WAR, para los que lo prueben contra las app de openxava.org
+- Nonces
+- Revisar código
+- Suite
+- Doc migration nonce.
+- Doc nonce en customizing
+- Doc migration eventos.
 
 - New @ZerosFilled annotation equivalent to ZEROS_FILLED/RELLENADO_CON_CEROS stereotype.
 - Automatic translation of English labels improved for qualified properties.

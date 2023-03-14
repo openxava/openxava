@@ -5,11 +5,14 @@ import java.nio.file.*;
 import java.nio.file.Files;
 import java.util.*;
 
+import javax.servlet.http.*;
+
 import org.apache.catalina.*;
 import org.apache.catalina.core.*;
 import org.apache.catalina.startup.*;
 import org.apache.catalina.webresources.*;
 import org.apache.commons.logging.*;
+import org.apache.tomcat.util.descriptor.web.*;
 import org.apache.tomcat.util.http.*;
 import org.openxava.application.meta.*;
 import org.openxava.web.servlets.*;
@@ -56,18 +59,21 @@ public class AppServer {
 	
 	private static Tomcat startTomcat(String webappDir, String contextPath, int port) throws Exception { 
         Tomcat tomcat = new Tomcat();
-        System.out.println("[AppServer.startTomcat] v3"); // tmr
         tomcat.setBaseDir("temp"); 
         tomcat.setPort(port);
         tomcat.getConnector();
         tomcat.enableNaming();
         
         StandardContext context = (StandardContext) tomcat.addWebapp(contextPath, webappDir);
-        // context.setCookies(true); // tmr Una prueba para quitar lo del sessionid, pero al final va bien sin esto, quitarlo
         // tmr ini
         Rfc6265CookieProcessor processor = new Rfc6265CookieProcessor();
         processor.setSameSiteCookies("Strict");
         context.setCookieProcessor(processor);
+        
+        ErrorPage errorPage = new ErrorPage();
+        errorPage.setErrorCode(HttpServletResponse.SC_NOT_FOUND);
+        errorPage.setLocation("/WEB-INF/error404.html");   
+        context.addErrorPage(errorPage);
         // tmr fin
 
         WebResourceRoot resources = new StandardRoot(context);
@@ -76,14 +82,14 @@ public class AppServer {
         context.setParentClassLoader(Thread.currentThread().getContextClassLoader()); // To work with mvn exec:java from command line
         
         // tmr ini
-        // tmr Asegurarse que sigue funcinoando el ROOT context, quizas haya que ponerle un if
-        // tmr Mover a un método
-        Context rootContext = tomcat.addContext("", new File(".").getAbsolutePath());
-        Tomcat.addServlet(rootContext, "notFound", new NotFoundServlet());
-        rootContext.addServletMappingDecoded("/robots.txt", "notFound");
-        rootContext.addServletMappingDecoded("/sitemap.xml", "notFound");
-        rootContext.addServletMappingDecoded("/favicon.ico", "notFound");
-        rootContext.addServletMappingDecoded("/naviox/*", "notFound");
+        if (!Is.emptyString(contextPath)) {
+	        Context rootContext = tomcat.addContext("", new File(".").getAbsolutePath());
+	        Tomcat.addServlet(rootContext, "notFound", new NotFoundServlet());
+	        rootContext.addServletMappingDecoded("/robots.txt", "notFound");
+	        rootContext.addServletMappingDecoded("/sitemap.xml", "notFound");
+	        rootContext.addServletMappingDecoded("/favicon.ico", "notFound");
+	        rootContext.addServletMappingDecoded("/naviox/*", "notFound");
+        }
 		// tmr fin
         tomcat.start();
        	if (tomcat.getConnector().getLocalPort() < 0) {

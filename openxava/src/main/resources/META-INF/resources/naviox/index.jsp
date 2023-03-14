@@ -18,9 +18,15 @@ See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl
 <%@page import="org.openxava.util.XavaPreferences"%>
 <%@page import="org.openxava.web.style.XavaStyle"%>
 <%@page import="org.openxava.web.style.Themes"%> 
+<%@ page import="org.apache.commons.logging.LogFactory" %> <%-- tmr --%>
+<%@ page import="org.apache.commons.logging.Log" %> <%-- tmr --%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="modules" class="com.openxava.naviox.Modules" scope="session"/>
+
+<%!
+private static Log log = LogFactory.getLog("index.jsp"); // tmr
+%>
 
 <%
 String windowId = context.getWindowId(request);
@@ -35,7 +41,7 @@ try {
 	modules.setCurrent(request);
 }
 catch (org.openxava.util.ElementNotFoundException ex) {
-	//ex.printStackTrace(); // tmr Cambiar por un log
+	log.error(ex.getMessage(), ex);
 	response.sendError(HttpServletResponse.SC_NOT_FOUND);
 	return;
 }

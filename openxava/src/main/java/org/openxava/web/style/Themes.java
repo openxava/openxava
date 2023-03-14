@@ -42,7 +42,8 @@ public class Themes {
 		}
 		String newTheme = request.getParameter("theme");
 		try {
-			if (!Is.emptyString(newTheme)) {
+			// tmr if (!Is.emptyString(newTheme)) {
+			if (!Is.emptyString(newTheme) && getAll().contains(newTheme)) { // tmr
 				Preferences pref = getPreferences();
 				pref.put("theme", newTheme);
 				pref.flush();
@@ -60,7 +61,7 @@ public class Themes {
 		String themes = XavaPreferences.getInstance().getThemes();
 		return Strings.toCollection(themes, ",");
 	}
-	
+		
 	/** @since 6.4 */
 	public static String cssToLabel(String cssFile) { 
 		return Strings.firstUpper(cssFile.replace(".css", "").replace("-", " "));

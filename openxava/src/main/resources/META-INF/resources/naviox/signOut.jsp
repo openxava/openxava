@@ -26,6 +26,6 @@ if (!Configuration.getInstance().isSharedUsersBetweenOrganizations()
 session.invalidate();
 %>
 
-<script type="text/javascript">
+<script type="text/javascript" nonce="tmr1"> <%-- tmr nonce --%>
 window.location="<%=String.format("%s/m/SignIn", base)%>";
 </script>
