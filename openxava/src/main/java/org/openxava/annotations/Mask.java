@@ -7,4 +7,5 @@ import java.lang.annotation.*;
 public @interface Mask {
 
 	String value() default "";
+	
 }

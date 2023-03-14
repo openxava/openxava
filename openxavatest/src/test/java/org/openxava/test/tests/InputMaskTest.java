@@ -9,7 +9,6 @@ public class InputMaskTest extends ModuleTestBase {
 	public InputMaskTest(String testName) {
 		super(testName, "InputMask");		
 	}
-
 	
 	public void testMaskedValue_inputWithMask_setEditable() throws Exception {
 		execute("List.viewDetail", "row=0");
