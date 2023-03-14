@@ -13,22 +13,18 @@ public class InputMaskTest extends ModuleTestBase {
 	
 	public void testMaskedValue_inputWithMask_setEditable() throws Exception {
 		execute("List.viewDetail", "row=0");
-		assertValue("staticMask", "12.345.678");
+		assertValue("staticMask", "01.Jun1 !");
 		assertValue("numerical", "12345678");
-		assertValue("alphabetical", "alpALP");
-		assertValue("alphanumeric", "Al 123");
+		assertValue("alphabetical", "Ju NIT");
+		assertValue("alphanumeric", "JuN 17");
+		assertValue("specialChars", "-!@#$%^&*()_+= {}';:\"<>.,?/`~");
 		execute("CRUD.new");
 		
 		HtmlInput staticMask = (HtmlInput) getHtmlPage().getElementById("ox_openxavatest_InputMask__staticMask");
 		staticMask.focus();
-		staticMask.type("12345678");
+		staticMask.type("2 Te5t..");
 		staticMask.blur();
-		assertValue("staticMask", "12.345.678");
-		HtmlInput alphanumeric = (HtmlInput) getHtmlPage().getElementById("ox_openxavatest_InputMask__alphanumeric");
-		alphanumeric.focus();
-		alphanumeric.type("Al 123");
-		alphanumeric.blur();
-		assertValue("alphanumeric", "Al 123");
+		assertValue("staticMask", "2 .Te5t..");
 		
 		execute("InputMask.setOFF");
 		assertNoEditable("staticMask");

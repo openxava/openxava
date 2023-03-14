@@ -13,7 +13,7 @@ import lombok.*;
 @Setter
 public class InputMask extends Identifiable{
 	
-	@Mask("00.000.000")
+	@Mask("00.LLAA##")
 	String staticMask;
 	
 	@Mask("00000000")
@@ -22,7 +22,7 @@ public class InputMask extends Identifiable{
 	@Mask("LLLLLL")
 	String alphabetical;
 	
-	@Mask("######")
+	@Mask("#############################")
 	String specialChars;
 	
 	@Mask("AAAAAA")
