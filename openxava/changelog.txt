@@ -1,8 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Embedded Tomcat used in development upgraded to 9.0.73.
 - Log4j-api and core upgraded to 2.20.0.
-- Jersey client, hk2 and media upgraded to 3.1.1.
+- Jersey client, hk2 and media upgraded to 2.39.
 - Lombok upgraded to 1.18.26.
 - Jsoup upgraded to 1.15.4.
 - Groovy upgraded to 4.0.10.
