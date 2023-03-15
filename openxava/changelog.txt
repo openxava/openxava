@@ -1,6 +1,13 @@
 Change Log for OpenXava project
 ===============================
 
+- Log4j-api and core upgraded to 2.20.0.
+- Jersey client, hk2 and media upgraded to 3.1.1.
+- Lombok upgraded to 1.18.26.
+- Jsoup upgraded to 1.15.4.
+- Groovy upgraded to 4.0.10.
+- Hibernate upgraded to 5.6.15.Final.
+- Commons-fileupload upgraded to 1.5.
 - Driver version in doc and new projects upgraded for PostgreSQL, Oracle, AS/400.
 - New action in references to clear the reference value just clicking on a button.
 - New action in @DescriptionsList to clear the selected value of the combo just clicking on a button.
