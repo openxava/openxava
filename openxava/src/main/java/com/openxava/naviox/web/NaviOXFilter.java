@@ -52,6 +52,7 @@ public class NaviOXFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		try {
+			System.out.println("[NaviOXFilter.doFilter] "); // tmr
 			XPersistence.reset();
 			Initializer.init(request);
 			HttpSession session = ((HttpServletRequest) request).getSession();
@@ -75,6 +76,7 @@ public class NaviOXFilter implements Filter {
 			
 			Users.setCurrent(secureRequest); 
 		
+			/* tmr
 			if (modules.isModuleAuthorized(secureRequest)) {
 				chain.doFilter(secureRequest, response);
 			}
@@ -97,6 +99,7 @@ public class NaviOXFilter implements Filter {
 					parametersQuery);
 				dispatcher.forward(secureRequest, response); 
 			}
+			*/
 		} 
 		finally {
 			XPersistence.commit();
