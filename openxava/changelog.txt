@@ -12,12 +12,13 @@ Change Log for OpenXava project
 
 
 Pendiente:
-- Nonces
-- Revisar código
+- Merge desde master
 - Suite
 - Doc migration nonce.
 - Doc nonce en customizing
 - Doc migration eventos.
+- Pasarle el ZAP
+- Limpiar código. Poner comentario de si se cambia pasar ZAP.
 
 - New @ZerosFilled annotation equivalent to ZEROS_FILLED/RELLENADO_CON_CEROS stereotype.
 - Automatic translation of English labels improved for qualified properties.

@@ -32,7 +32,6 @@
 			if ("application".equals(name) || "module".equals(name))
 				continue;
 			String value = request.getParameter(name);
-			// TMR ME QUEDÉ POR AQUÍ: FUE LO ÚLTIMO Y FUNCIONÓ: EN CHANGELOG CSS ATTACKS
 			if (!Is.emptyString(value) && !(value.contains("<") || value.contains("\""))) { // tmr
 				result.append('&');
 				result.append(name);
@@ -136,7 +135,7 @@
 	<script type='text/javascript' src='<%=contextPath%>/dwr/interface/Tab.js?ox=<%=version%>'></script>
 	<script type='text/javascript' src='<%=contextPath%>/dwr/interface/View.js?ox=<%=version%>'></script>
 	<script type='text/javascript' src='<%=contextPath%>/xava/js/openxava.js?ox=<%=version%>'></script>
-	<script type='text/javascript' nonce="tmr1"> <%-- tmr nonce --%>
+	<script type='text/javascript' <xava:nonce/>> <%-- tmr nonce --%>
 		openxava.lastApplication='<%=app%>'; 		
 		openxava.lastModule='<%=module%>'; 
 		openxava.language='<%=Locales.getCurrent().getLanguage()%>'; 
@@ -202,12 +201,7 @@ if (manager.isResetFormPostNeeded()) {
 	<input id="<xava:id name='loading'/>" type="hidden" value="<%=coreViaAJAX%>"/>
 	<input id="<xava:id name='loaded_parts'/>" type="hidden" value=""/>
 	<input id="<xava:id name='view_member'/>" type="hidden" value=""/>
-	
-	<%-- tmr ini 
-	<input id="xava_additionalParameters" type="hidden" value="<%=getAdditionalParameters(request)%>"/>
-	--%>
-	<%-- tmr ini --%>
-		
+			
 	<%-- Layer for progress bar --%>
 	<div id='xava_processing_layer' style='display:none;'>
 		<%=XavaResources.getString(request, "processing")%><br/>
@@ -261,7 +255,7 @@ if (manager.isResetFormPostNeeded()) {
 		String browser = request.getHeader("user-agent"); 
 %>
 
-<script type="text/javascript" nonce="tmr1"> <%-- tmr nonce --%>
+<script type="text/javascript" <xava:nonce/>> <%-- tmr nonce --%>
 <%String prefix = Strings.change(manager.getApplicationName(), "-",
 					"_")
 					+ "_" + Strings.change(manager.getModuleName(), "-", "_");

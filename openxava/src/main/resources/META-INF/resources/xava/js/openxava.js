@@ -210,7 +210,13 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initPlaceholder();
 	openxava.listenChanges(); 
 	openxava.initFocusKey();
-	// tmr ini
+	openxava.initInlineEvents(); // tmr
+  	$('#xava_save_list_configuration').fadeIn(1000, 'swing'); 
+}
+
+openxava.initFocusKey = function() { }
+
+openxava.initInlineEvents =  function() { // tmr 
 	$('[onclick]').each(function() {
   		$(this).click(function() {
   			eval($(this).attr('onclick'));
@@ -234,12 +240,7 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
   			eval($(this).attr('onfocus'));
 		});
 	});
-	// tmr fin
-  	$('#xava_save_list_configuration').fadeIn(1000, 'swing'); 
 }
-
-
-openxava.initFocusKey = function() { } 
 
 openxava.setEnterAsFocusKey = function() {
 	var focusables = $('input:focusable[tabindex="1"], select:focusable[tabindex="1"], textarea:focusable[tabindex="1"]');

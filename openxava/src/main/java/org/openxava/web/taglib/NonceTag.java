@@ -21,7 +21,6 @@ public class NonceTag extends TagSupport {
 	
 	public int doStartTag() throws JspException {		
 		try {
-			// TMR ME QUEDÉ POR AQUÍ: FALTA PROBARLO
 			HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
 			pageContext.getOut().print("nonce='");
 			pageContext.getOut().print(Nonces.get(request));

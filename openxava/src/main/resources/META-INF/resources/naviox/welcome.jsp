@@ -59,15 +59,20 @@ if (title == null) title = metaApplication.getLabel();
 	<input type="button" tabindex="1" onclick="window.location='m/SignIn'" value="<xava:label key='SignIn'/>">
 	%>
 	<%-- tmr ini --%>
+	<%-- tmr En migración poner dos opciones: nonce y href --%>
+	<a href="m/SignIn">
 	<input id="welcome_go_signin" type="button" tabindex="1" value="<xava:label key='SignIn'/>">
+	</a>
 	<%-- tmr fin --%>   
 </div>
 
 </body>
 
-<%-- tmr ini --%>
-<script type="text/javascript" nonce="tmr1"> <%-- tmr nonce ¿En migration para código propio? --%>
+<%-- tmr nonce ¿En migration para código propio?  --%>
+<%-- tmr ini 
+<script type="text/javascript" <xava:nonce/>> 
 	var button = document.getElementById('welcome_go_signin');
 	button.onclick = function () { window.location='m/SignIn'; }
 </script>
+--%>
 <%-- tmr fin --%>
