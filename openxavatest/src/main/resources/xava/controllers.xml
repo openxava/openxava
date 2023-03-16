@@ -351,6 +351,18 @@
 		<action name="setOff" mode="detail"
 			class="org.openxava.test.actions.SetEditableOffAction"/>
 	</controller>
+	
+	<controller name="DeliveryEditableValidValues">
+		<extends controller="Typical"/>	
+		<action name="addShortcutOptions"
+			class="org.openxava.test.actions.AddShortcutOptionsAction"/>
+		<action name="clearShortcutOptions"
+			class="org.openxava.test.actions.ClearShortcutOptionsAction"/>
+		<action name="disableShortcutOptions"
+			class="org.openxava.test.actions.DisableShortcutOptionsAction"/>			
+		<action name="removeBlankShortcutOption"
+			class="org.openxava.test.actions.RemoveBlankShortcutOptionAction"/>
+	</controller>
 		
 	<controller name="Delivery">
 		<extends controller="EditableOnOff"/>		

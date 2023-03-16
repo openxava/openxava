@@ -64,7 +64,24 @@
         <p>Ahora son:<br>
         </p>
         <pre><code class="java">customer.address = Customer address<br>customer.address.street = Customer address street<br>customer.address.street.number = Customer address street number
-</code></pre> </div>
+</code></pre>
+        <h3>Nueva acción en referencias y @DescriptionsList (para pruebas JUnit)</h3>
+        Las referencias y <i>@DescriptionsList</i> tienen una nueva acción para
+        el usuario (<i>Reference.clear</i>), por lo que si comprueban todas las
+        acciones presentes en las pruebas JUnit, hace falta modificarlas y
+        agregar la nueva acción Reference.clear. Por ejemplo:
+        <pre><code class="java">String [] acciones= {
+	"CRUD.new",
+	"CRUD.save",
+	"CRUD.refresh",
+	"Mode.list",
+	"Reference.search",
+	"Reference.createNew",
+	"Reference.modify",
+	"Reference.clear", // AÑADE ESTA ENTRADA
+	"Sections.change"
+};<br>assertActions(acciones); <br></code></pre>
+        <code class="java"> </code></div>
       <h2>Para migrar de OpenXava 7.0.5 a OpenXava 7.0.6</h2>
       <h3>@Column(length=x) sin scale ya no es scale=2 por defecto</h3>
       <p>Hemos arreglado un fallo relacionado con que <i>scale=0</i> para <i>@Column</i>

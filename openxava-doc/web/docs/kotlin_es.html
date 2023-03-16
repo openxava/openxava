@@ -1,0 +1,193 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>OpenXava - Configuración para Kotlin</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="configuracion-para-kotlin"></a> <span id="breadcrumbs"> <span
+
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
+            href="index_es.html">documentación</a> / </span>Configuración para Kotlin</h1>
+      Desde v7.0 puedes desarrollar fácilmente proyectos OpenXava con Kotlin usando OpenXava Studio, Eclipse, IntelliJ IDEA, entre otros. <a
+
+        href="https://kotlinlang.org/">Kotlin</a> es un lenguaje usado en la mayoría de las aplicaciones para Android y se puede desarrollar sobre JVM o JS. Una de las características es que Kotlin está diseñado para interoperar completamente con la sintaxis de Java, es decir que puedes compilar ambos códigos y que interactuen entre sí sin problemas. <br>
+      <h2><a name="añadir-dependencias-en-pom.xml">Añadir dependencias en pom.xml</a></h2>
+      Después de haber creado un proyecto OpenXava (<a href="intellij_es.html">cómo hacerlo</a>), debes definir la versión de Kotlin en <i>properties</i> en el archivo <i>pom.xml</i> ubicado en la carpeta raíz del proyecto:
+      <pre><code class="xml">&lt;properties&gt;
+    &lt;kotlin.version&gt;1.8.0&lt;/kotlin.version&gt;
+&lt;/properties&gt;
+</code></pre>Añade la siguiente dependencia para usar la librería de Kotlin en <i>dependencies</i>:<br>
+      <pre><code class="xml">&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
+        &lt;artifactId&gt;kotlin-stdlib-jdk8&lt;/artifactId&gt;
+        &lt;version&gt;${kotlin.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>Para compilar proyectos que incluyan código Kotlin y Java, añade lo siguiente en <i>build</i>:<br>
+      <pre><code class="xml">&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
+            &lt;artifactId&gt;kotlin-maven-plugin&lt;/artifactId&gt;
+            &lt;version&gt;${kotlin.version}&lt;/version&gt;
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;compile&lt;/id&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;compile&lt;/goal&gt;
+                    &lt;/goals&gt;
+                    &lt;configuration&gt;
+                        &lt;sourceDirs&gt;
+                            &lt;sourceDir&gt;${project.basedir}/src/main/kotlin&lt;/sourceDir&gt;
+                            &lt;sourceDir&gt;${project.basedir}/src/main/java&lt;/sourceDir&gt;
+                        &lt;/sourceDirs&gt;
+                    &lt;/configuration&gt;
+                &lt;/execution&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;test-compile&lt;/id&gt;
+                    &lt;goals&gt; &lt;goal&gt;test-compile&lt;/goal&gt; &lt;/goals&gt;
+                    &lt;configuration&gt;
+                        &lt;sourceDirs&gt;
+                            &lt;sourceDir&gt;${project.basedir}/src/test/kotlin&lt;/sourceDir&gt;
+                            &lt;sourceDir&gt;${project.basedir}/src/test/java&lt;/sourceDir&gt;
+                        &lt;/sourceDirs&gt;
+                    &lt;/configuration&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.5.1&lt;/version&gt;
+            &lt;executions&gt;
+                &lt;!-- Replacing default-compile as it is treated specially by maven --&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;default-compile&lt;/id&gt;
+                    &lt;phase&gt;none&lt;/phase&gt;
+                &lt;/execution&gt;
+                &lt;!-- Replacing default-testCompile as it is treated specially by maven --&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;default-testCompile&lt;/id&gt;
+                    &lt;phase&gt;none&lt;/phase&gt;
+                &lt;/execution&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;java-compile&lt;/id&gt;
+                    &lt;phase&gt;compile&lt;/phase&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;compile&lt;/goal&gt;
+                    &lt;/goals&gt;
+                &lt;/execution&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;java-test-compile&lt;/id&gt;
+                    &lt;phase&gt;test-compile&lt;/phase&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;testCompile&lt;/goal&gt;
+                    &lt;/goals&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
+      <h2><a name="prueba-una-entidad-simple">Prueba una entidad simple</a></h2>
+      Crea la carpeta <i>kotlin</i> en <i>src/main</i> para almacenar el código Kotlin y en la misma carpeta crea el paquete <i>com.tuempresa.facturacion.modelo</i> para las entidades OpenXava. Quizás debas hacer un <i>Reload project</i> en Maven para que puedas crear paquetes en la carpeta <i>kotlin</i>. <br>
+      <br>
+      Crea una clase Kotlin en el paquete <i>modelo</i> con el nombre de <i>Cliente </i>(o un archivo <i>Cliente.kt</i> en Eclipse u OpenXava Studio):<br>
+      <pre><code class="java">package com.tuempresa.facturacion.modelo
+
+import org.openxava.annotations.Required
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.Id
+
+@Entity
+class Cliente {
+
+    @Id
+    @Column(length = 6)
+    var numero : Int ?= null
+
+    @Required
+    @Column(length = 50)
+    var nombre : String ?= null
+
+}</code></pre>
+      <h2><a name="empaqueta-y-ejecuta-tu-proyecto">Empaqueta y ejecuta tu proyecto</a></h2>
+      Antes de ejecutar tu proyecto por primera vez debes hacer un <i>mvn package</i>, en las próximas basta con <i>mvn compile</i>. Después busca la clase <i>facturacion</i> dentro del paquete <i>com.tuempresa.facturacion.run</i> en <i>src/main/java</i>, y ejecútala. Luego en el navegador ingresa <a
+
+        href="http://localhost:8080/invoicing">http://localhost:8080/facturacion</a> e inicia sesión <i>con admin/admin</i> como usuario/contraseña para ver los resultados.<br>
+      <h2><a>Otros ejemplos de código</a></h2>
+      Crear un botón simple (acción) donde muestra un mensaje, deja la clase Kotlin <i>MostrarMensaje </i>(<i>MostrarMensaje.kt</i>) en el paquete <i>com.tuempresa.facturacion.accion </i>de la carpeta kotlin:
+      <pre><code class="java">package com.tuempresa.facturacion.accion
+
+import org.openxava.actions.ViewBaseAction
+
+class MostrarMensaje : ViewBaseAction() {
+
+    @Throws(Exception::class)
+    override fun execute() {
+        addMessage("Hola Mundo!")
+    }<br><br>&nbsp;}</code></pre>
+      Recuerda que debes declarar la acción en <i>controladores.xml</i> que se encuentra en <i>src/main/resources/xava</i>:<br>
+      <pre><code class="xml">&lt;controlador nombre ="Cliente"&gt;
+    &lt;hereda-de controlador ="Typical"/&gt;
+    &lt;accion nombre ="mostrarMensaje" clase ="com.tuempresa.facturacion.accion.MostrarMensaje" modo ="detail"/&gt;
+&lt;/controlador&gt;<br></code></pre>
+      Una entidad con más características:
+      <pre><code class="java">package com.tuempresa.facturacion.modelo
+
+import org.openxava.annotations.*
+import org.openxava.calculators.CurrentLocalDateCalculator
+import org.openxava.calculators.CurrentYearCalculator
+import org.openxava.model.Identifiable
+import java.time.LocalDate
+import javax.persistence.*
+
+@Entity
+@View(members="""
+	anyo, numero, fecha,
+    	datos {
+    		cliente;
+    		detalles;
+    		observaciones <br>	}
+	"""
+)
+class Factura : Identifiable() {
+
+    @Column(length = 4)
+    @DefaultValueCalculator(CurrentYearCalculator::class)
+    var anyo : Int? = null
+
+    @Column(length = 6)
+    var numero : Int? = null
+
+    @Required
+    @DefaultValueCalculator(CurrentLocalDateCalculator::class)
+    var fecha :  LocalDate? = null
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ReferenceView("Simple")
+    var cliente : Cliente? = null
+
+    @ElementCollection
+    @ListProperties("producto.numero, producto.descripcion, cantidad")
+    var detalles: Collection&lt;Detalle&gt;? = null
+
+    @TextArea
+    var observaciones : String? = null<br><br>&nbsp;}</code></pre>
+      Si decides desarrollar tu proyecto OpenXava con Kotlin, recomendamos usar IntelliJ IDEA ya que viene con Kotlin incluido que ofrece autocompletado, coloreado de código, compilación automática, etc.<br>
+      Puedes encontrar más detalles sobre Kotlin en su <a href="https://kotlinlang.org/docs/home.html">documentación</a> y como integrar Kotlin en proyectos <a
+
+        href="https://kotlinlang.org/docs/maven.html">maven</a>.<br>
+      También puedes ver más sobre como usar OpenXava en nuestro <a href="https://www.openxava.org/OpenXavaDoc/docs/course_es.html">curso</a> desarrollado en Java. <br>
+      <br>
+    </div>
+  </body>
+</html>
