@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Denial of service vulnerability.
 - Embedded Tomcat used in development upgraded to 9.0.73.
 - Log4j-api and core upgraded to 2.20.0.
 - Jersey client, hk2 and media upgraded to 2.39.
