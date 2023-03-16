@@ -305,7 +305,9 @@ public class ApplicantTest extends ModuleTestBase {
 		hideButton.click();
 		Thread.sleep(500);
 		
-		assertFalse(modulesList.isDisplayed());
+		Thread.sleep(5000); // tmr
+		printHtml(); // tmr
+		assertFalse(modulesList.isDisplayed()); // TMR FALLA ME QUEDÉ POR AQUÍ
 		assertTrue(menuButton.isDisplayed());
 		assertTrue(extendedTitle.isDisplayed());
 		assertFalse(hideButton.isDisplayed());

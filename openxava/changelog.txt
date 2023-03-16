@@ -12,7 +12,6 @@ Change Log for OpenXava project
 
 
 Pendiente:
-- Merge desde master
 - Suite
 - Doc migration nonce.
 - Doc nonce en customizing
