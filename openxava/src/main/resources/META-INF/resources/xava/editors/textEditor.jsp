@@ -52,6 +52,7 @@ if (fillWithZeros && fvalue.length() > 0) {
     
 String im = (request.getParameter("value") != null) && (request.getParameter("value").toString().matches("[-AL0!@#$%^&*()_+={}';:\"<>.,?/` \\~]+")) ? request.getParameter("value") : "";
 if (im.length() > 1) {
+    size = im.length();
     im = "data-inputmask=\"'mask': '" + im + "'\"";
 }
     
@@ -130,3 +131,35 @@ private String getNumericAlt(int size, int scale) {
 	}
 }
 %>
+    
+    
+<script type="text/javascript"> 
+    $(document).ready(function(){
+        <%
+        if (im.length() > 1) {
+        %>  
+            $("#<%=propertyKey%>").inputmask(
+            {
+            "placeholder":" ",
+            "definitions":{
+            'L': {
+                validator: "[A-Za-z]",
+                casing: null
+            },
+            '0': {
+                validator: "[0-9]"
+            },
+            'A': {
+                validator: "[0-9a-zA-Z]",
+                casing: null
+            },
+            '#': {
+                validator: "[0-9 +-]"
+            }
+            }});
+        <% } %>
+        });
+</script>
+
+    
+    

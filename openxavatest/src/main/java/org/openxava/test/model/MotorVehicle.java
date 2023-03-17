@@ -1,6 +1,7 @@
 package org.openxava.test.model;
 
 import javax.persistence.*;
+
 import org.openxava.annotations.*;
 
 
@@ -23,6 +24,7 @@ public class MotorVehicle {
 	
 	@Required
 	@Column(length = 7)
+	@Mask("LA-#000")
 	private String licensePlate;
 	
 	private boolean roadworthy;
