@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Inline JavaScript for events in HTML elements.
 - Fix: XSLT injection vulnerabilities.
 - Fix: X-Content-Type-Options Header Missing.
 - Fix: Cookie without SameSite attribute.

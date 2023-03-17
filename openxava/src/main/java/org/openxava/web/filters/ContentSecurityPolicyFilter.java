@@ -3,7 +3,6 @@ package org.openxava.web.filters;
 import java.io.*;
 
 import javax.servlet.*;
-import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
 import org.openxava.web.*;
@@ -15,7 +14,7 @@ import org.openxava.web.*;
  * @author Javier Paniza
  */
 
-@WebFilter("/*")
+// tmr @WebFilter("/*")
 public class ContentSecurityPolicyFilter implements Filter {
 	
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

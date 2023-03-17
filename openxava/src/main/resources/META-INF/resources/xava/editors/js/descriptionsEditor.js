@@ -6,7 +6,7 @@ openxava.addEditorInitFunction(function() {
 		$(this).autocomplete({
 			source: eval($(this).data("values")), 
 			minLength: 0,
-			disabled: true, // For IE11 not open combos on init with accents
+			// tmr disabled: true, // For IE11 not open combos on init with accents
 			select: function( event, ui ) {
 				$(event.target).val(ui.item.label);
 				$(event.target).next().val(ui.item.value);
@@ -56,6 +56,7 @@ openxava.addEditorInitFunction(function() {
 		
 		$(this).attr("autocomplete", "nope");
 
+		/* tmr
 		var editor = $(this);
 		$(this).parent().click(function() {
 			editor.autocomplete("enable");
@@ -63,6 +64,7 @@ openxava.addEditorInitFunction(function() {
 		$(this).focus(function() {
 			editor.autocomplete("enable");
 		});		
+		*/
 
 	});
 
@@ -70,6 +72,7 @@ openxava.addEditorInitFunction(function() {
 });
 
 descriptionsEditor.open = function(id) {
+	console.log("[descriptionsEditor.open] id=" + id);
 	var control = $("#" + id).prev();
 	control.autocomplete( "search", "" );
 	control.focus(); 

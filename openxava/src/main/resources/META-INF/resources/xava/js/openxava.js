@@ -218,25 +218,35 @@ openxava.initFocusKey = function() { }
 
 openxava.initInlineEvents =  function() { // tmr 
 	$('[onclick]').each(function() {
-  		$(this).click(function() {
+  		$(this).off('click').click(function() {
   			eval($(this).attr('onclick'));
 		});
 	});
-	$('a[href^="javascript:"]').click(function() {
-        eval($(this).attr('href'));
-    });
+	// TMR ME QUEDÉ POR AQUÍ. ESTO NO FUNCIONA EN ServiceExpense PARA ABRIR EL COMBO DE LA TERCERCA LÍNEA
+	// TMR  OJO TENEMOS LA CSP APAGADA. TENDRÁ QUE FUNCIONAR BIEN CON ELLA ENCENDIDA. TAMBIÉN TENDRÁ
+	// TMR  QUE FUNCIONAR LO DE OCULTAR LA LISTA DE MÓDULOS CON Y SIN CSP
+	$('a[href^="javascript:"]').each(function() {
+		if ($(this).attr('href') != "javascript:void(0)") {
+			$(this).data("onclick", $(this).attr('href'));
+			$(this).prop("href", "javascript:void(0)");
+		}
+		console.log("[openxava.initInlineEvents] href: " + $(this).attr('href') + " --> onclick: " + $(this).data('onclick'));
+  		$(this).off('click').click(function() {
+  			eval($(this).data('onclick'));
+		});
+	});
     $('[onchange]').each(function() {	
-  		$(this).change(function() {
+  		$(this).off('change').change(function() {
   			eval($(this).attr('onchange'));
 		});
 	});
     $('[onblur]').each(function() {
-  		$(this).blur(function() {
+  		$(this).off('blur').blur(function() {
   			eval($(this).attr('onblur'));
 		});
 	});
 	$('[onfocus]').each(function() {	
-  		$(this).focus(function() {
+  		$(this).off('focus').focus(function() {
   			eval($(this).attr('onfocus'));
 		});
 	});
