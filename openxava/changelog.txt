@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Htmlunit upgraded to 2.70.
 - Fix: Denial of service vulnerability.
 - Embedded Tomcat used in development upgraded to 9.0.73.
 - Log4j-api and core upgraded to 2.20.0.
