@@ -74,7 +74,9 @@ public class NaviOXFilter implements Filter {
 			
 			HttpServletRequest secureRequest = new SecureRequest(request);
 			
-			Users.setCurrent(secureRequest); 
+			Users.setCurrent(secureRequest);
+			
+			chain.doFilter(secureRequest, response); // tmr
 		
 			/* tmr
 			if (modules.isModuleAuthorized(secureRequest)) {
