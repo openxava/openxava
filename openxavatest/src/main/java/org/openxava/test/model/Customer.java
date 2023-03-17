@@ -8,8 +8,6 @@ import org.openxava.annotations.*;
 import org.openxava.jpa.*;
 import org.openxava.test.actions.*;
 
-import lombok.*;
-
 
 /**
  * 
@@ -21,6 +19,7 @@ import lombok.*;
 @View( members= 	
 	"number;" +  
 	"type;" +
+	"passport, creditCard;" + 
 	"name, Customer.changeNameLabel();" +
 	"photo;" +
 	"telephone, email;" +
@@ -223,7 +222,7 @@ import lombok.*;
 	"}"
 )
 
-@View( name="PersonalInformation", members="name; passport; creditCard;")
+@View( name="PersonalInformation", members="name; passport, creditCard;")
 
 @Tabs ({
 	@Tab(
@@ -353,11 +352,11 @@ public class Customer implements IWithName {
 	)
 	private Collection<State> states;
 	
-	@Getter @Setter
+	//@Getter @Setter
 	@Mask("L00000000")
 	String passport;
 	
-	@Getter @Setter
+	//@Getter @Setter
 	@Mask("0000 0000 0000 0000")
 	String creditCard;
 	
@@ -553,6 +552,22 @@ public class Customer implements IWithName {
 
 	public void setTransientSeller(Seller transientSeller) {
 		this.transientSeller = transientSeller;
+	}
+	
+	public String getPassport() {
+		return passport;
+	}
+
+	public void setPassport(String passport) {
+		this.passport = passport;
+	}
+	
+	public String getCreditCard() {
+		return creditCard;
+	}
+
+	public void setCreditCard(String creditCard) {
+		this.creditCard = creditCard;
 	}
 				
 }
