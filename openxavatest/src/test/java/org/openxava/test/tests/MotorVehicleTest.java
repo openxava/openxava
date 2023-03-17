@@ -4,6 +4,8 @@ import org.openxava.jpa.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
 
+import com.gargoylesoftware.htmlunit.html.*;
+
 
 /**
  *
@@ -29,10 +31,14 @@ public class MotorVehicleTest extends ModuleTestBase {
 		removeDriver();
 	}
 	
-	public void testConstraintAnnotationMessage() throws Exception {		
+	public void testConstraintAnnotationMessage_testMask() throws Exception {		
 		execute("CRUD.new");
 		setValue("type", "MOTORBIKE");
-		setValue("licensePlate", "L2-0002");
+		HtmlInput licenseInput = (HtmlInput) getHtmlPage().getElementById("ox_openxavatest_MotorVehicle__licensePlate");
+		licenseInput.focus();
+		licenseInput.type("L20002");
+		licenseInput.blur();
+		assertValue("licensePlate", "L2-0002");
 		execute("CRUD.save");
 		assertNoErrors(); 
 		execute("Mode.list");

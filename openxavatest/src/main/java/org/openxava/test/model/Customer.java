@@ -8,6 +8,8 @@ import org.openxava.annotations.*;
 import org.openxava.jpa.*;
 import org.openxava.test.actions.*;
 
+import lombok.*;
+
 
 /**
  * 
@@ -221,6 +223,8 @@ import org.openxava.test.actions.*;
 	"}"
 )
 
+@View( name="PersonalInformation", members="name; passport; creditCard;")
+
 @Tabs ({
 	@Tab(
 		rowStyles={
@@ -348,7 +352,15 @@ public class Customer implements IWithName {
 		inverseJoinColumns=@JoinColumn(name="STATE") 
 	)
 	private Collection<State> states;
-	 	
+	
+	@Getter @Setter
+	@Mask("L00000000")
+	String passport;
+	
+	@Getter @Setter
+	@Mask("0000 0000 0000 0000")
+	String creditCard;
+	
 	@Column(length=40)	
 	@Depends("address.zipCode, address.city")	
 	public String getCity() {
