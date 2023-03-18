@@ -1666,11 +1666,14 @@ mapsZoomOffset=-1
       <br>
       También puedes agregar carácteres especiales, espacio en blanco de manera estática e incluso combinar los validadores, por ejemplo:<br>
       <pre class="java5">@Mask("L-000000")
-<span class="kw2">private</span> String pasaporte<span class="sy0">;<br><br></span>@Mask("0000 0000 0000 0000")
-<span class="kw2">private</span> String tarjeta<span class="sy0">;<br></span><br>@Mask("LL 000 AA")
-<span class="kw2">private</span> String <span class="sy0"><span style="color: #505050;">patente</span>;</span><span
-class="sy0"><br></span></pre>
-      <br>
+<span class="kw2">private</span> String pasaporte<span class="sy0">;<br></span>
+@Mask("0000 0000 0000 0000")
+<span class="kw2">private</span> String tarjeta<span class="sy0">;<br></span>
+@Mask("LL 000 AA")
+<span class="kw2">private</span> String patente<span class="sy0">;<br></span>
+@Mask("0.000/0-000")
+<span class="kw2">private</span> String customMask<span class="sy0">;</span>
+</pre> <img src="files/model_es008.png" alt="model_es008.png" title="model_es008.png">
       <h3 id="toc11"><a name="Modelo-Propiedades-Concurrencia+y+propiedad+version"></a>Concurrencia y propiedad versión</h3>
       Concurrencia es la habilidad de una aplicación para permitir que varios usuarios graben datos al mismo tiempo sin perder información. OpenXava usa un esquema de concurrencia optimista. Usando concurrencia optimista los registros no se bloquean permitiendo un alto nivel de concurrencia sin perder la integridad de la información.<br>
       Por ejemplo, si un usuario A lee un registro y entonces un usuario B lee el mismo registro, lo modifica y graba los cambios, cuando el usuario A intente grabar el registro recibirá un error y tendrá que refrescar los datos y reintentar su modificación.<br>
