@@ -352,11 +352,9 @@ public class Customer implements IWithName {
 	)
 	private Collection<State> states;
 	
-	//@Getter @Setter
-	@Mask("L00000000")
+	@Mask("L-A#0000")
 	String passport;
 	
-	//@Getter @Setter
 	@Mask("0000 0000 0000 0000")
 	String creditCard;
 	

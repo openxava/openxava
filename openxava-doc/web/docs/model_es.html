@@ -34,7 +34,7 @@
         <div style="margin-left: 4em;"><a href="#Modelo-Propiedades-Estereotipos%20ARCHIVO%20%28nuevo%20en%20v5.0%29//%20y%20ARCHIVOS%20//%28nuevo%20en%20v5.1%29-Almacenamiento%20en%20Base%20de%20Datos">Almacenamiento en Base de Datos</a></div>
         <div style="margin-left: 3em;"><a href="#discusion">Discusion (nuevo en v5.6)</a></div>
         <div style="margin-left: 3em;"><a href="#coordenadas">Coordenadas (nuevo en v6.6)</a></div>
-        <div style="margin-left: 3em;"><a href="#mascaras">Máscaras (nuevo en v7.1)<br>
+        <div style="margin-left: 3em;"><a href="#mascaras">Máscara (nuevo en v7.1)<br>
           </a></div>
         <div style="margin-left: 3em;"><a href="#Modelo-Propiedades-Concurrencia+y+propiedad+version">Concurrencia y propiedad versión</a></div>
         <div style="margin-left: 3em;"><a href="#Modelo-Propiedades-Enums">Enums</a></div>
@@ -1655,23 +1655,22 @@ mapsZoomOffset=-1
 </code></pre> </div>
       <div class="wiki" style="display: block;">Donde <i>ubicacion</i> es una propiedad <i>@Coordinates</i>. Fíjate que usamos un grupo (las propiedades entre corchetes []) para las propiedades planas y colocamos la propiedad <i>ubicacion</i> al lado (usando una coma). El resultado es:</div>
       <img src="files/model_es007.png" alt="model_es007.png" title="model_es007.png"><br>
-      <h3><a name="mascaras"></a>Máscaras <em>(nuevo en v7.1)</em></h3>
-      Una máscara en una cadena de carácteres define el formato válido de los valores de entrada. Para esto debes usar la anotación @Mask con algunos de los siguientes validadores:<br>
+      <h3><a name="mascaras"></a>Máscara <em>(nuevo en v7.1)</em></h3>
+      Una máscara en una cadena de carácteres define el formato válido de los valores de entrada. Para esto debes usar la anotación <i>@Mask</i> con algunos de los siguientes validadores:<br>
       <ul>
-        <li>'L': el usuario deberá ingresar en su lugar una letra alfabética de A ~ z o un espacio en blanco.</li>
-        <li>'0': el usuario deberá ingresar en su lugar un dígito o un espacio en blanco.</li>
-        <li>'A': el usuario deberá ingresar en su lugar un carácter alfanumérico o un espacio en blanco.</li>
-        <li>'#': el usuario deberá ingresar en su lugar un carácter especial o un espacio en blanco.</li>
+        <li>'L': el usuario deberá ingresar en su lugar una letra alfabética de A ~ z.</li>
+        <li>'0': el usuario deberá ingresar en su lugar un dígito.</li>
+        <li>'A': el usuario deberá ingresar en su lugar un carácter alfanumérico.</li>
+        <li>'#': el usuario deberá ingresar en su lugar un dígito, espacio en blanco, '+' o '-'.</li>
       </ul>
-      Por ejemplo:<br>
-      <pre class="java5">@Mask("LLLL")
-<span class="kw2">private</span> String soloLetra<span class="sy0">;<br><br></span>@Mask("0000")
-<span class="kw2">private</span> String soloDígito<span class="sy0">;<br></span><br>@Mask("AAAA")
-<span class="kw2">private</span> String alfanumerico<span class="sy0">;<br></span><br>@Mask("####")
-<span class="kw2">private</span> String caracteresEspeciales<span class="sy0">;<br></span></pre>
-      También puedes agregar carácteres especiales, espacio en blanco de manera estática e incluso combinar los validadores. Por ejemplo:<br>
-      <pre class="java5">@Mask("LL 000.AAA")
-<span class="kw2">private</span> String combinado<span class="sy0">;</span></pre>
+      <br>
+      También puedes agregar carácteres especiales, espacio en blanco de manera estática e incluso combinar los validadores, por ejemplo:<br>
+      <pre class="java5">@Mask("L-000000")
+<span class="kw2">private</span> String pasaporte<span class="sy0">;<br><br></span>@Mask("0000 0000 0000 0000")
+<span class="kw2">private</span> String tarjeta<span class="sy0">;<br></span><br>@Mask("LL 000 AA")
+<span class="kw2">private</span> String <span class="sy0"><span style="color: #505050;">patente</span>;</span><span
+class="sy0"><br></span></pre>
+      <br>
       <h3 id="toc11"><a name="Modelo-Propiedades-Concurrencia+y+propiedad+version"></a>Concurrencia y propiedad versión</h3>
       Concurrencia es la habilidad de una aplicación para permitir que varios usuarios graben datos al mismo tiempo sin perder información. OpenXava usa un esquema de concurrencia optimista. Usando concurrencia optimista los registros no se bloquean permitiendo un alto nivel de concurrencia sin perder la integridad de la información.<br>
       Por ejemplo, si un usuario A lee un registro y entonces un usuario B lee el mismo registro, lo modifica y graba los cambios, cuando el usuario A intente grabar el registro recibirá un error y tendrá que refrescar los datos y reintentar su modificación.<br>

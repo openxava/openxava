@@ -24,7 +24,6 @@ public class MotorVehicle {
 	
 	@Required
 	@Column(length = 7)
-	@Mask("LA-#000")
 	private String licensePlate;
 	
 	private boolean roadworthy;

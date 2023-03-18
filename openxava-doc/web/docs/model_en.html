@@ -34,7 +34,7 @@
         <div style="margin-left: 4em;"><a href="#Model-Properties-FILE%20%28new%20in%20v5.0%29//%20and%20FILES%20//%28new%20in%20v5.1%29%20stereotypes-Storage%20in%20Database">Storage in Database</a></div>
         <div style="margin-left: 3em;"><a href="#discussion">Discussion (new in v5.6)</a></div>
         <div style="margin-left: 3em;"><a href="#coordinates">Coordinates (new in v6.6)</a></div>
-        <div style="margin-left: 3em;"><a href="#masks">Masks (new in v7.1)<br>
+        <div style="margin-left: 3em;"><a href="#masks">Mask (new in v7.1)<br>
           </a></div>
         <div style="margin-left: 3em;"><a href="#Model-Properties-Concurrency%20and%20version%20property">Concurrency and version property</a></div>
         <div style="margin-left: 3em;"><a href="#Model-Properties-Enums">Enums</a></div>
@@ -1660,23 +1660,22 @@ mapsZoomOffset=-1
 </code></pre> </div>
     <div class="wiki" style="display: block;">Where <i>location</i> <i>@Coordinates</i> is a&nbsp; property. Note as we used a group (those properties between square brackets []) for the plain properties and place that group side by side (using a comma) with the <i>location</i> property. The result is:<br>
       <img src="files/model_en007.png" alt="model_en007.png" title="model_en007.png"><br>
-      <h3><a name="masks"></a>Masks <em>(new in v7.1)</em></h3>
-      A mask in String defines the valid format of input values. To do this, you must use the @Mask annotation with some of the following validators:<br>
+      <h3><a name="masks"></a>Mask <em>(new in v7.1)</em></h3>
+      A mask in String defines the valid format of input values. To do this, you must use the <i>@Mask</i> annotation with some of the following validators:<br>
       <ul>
-        <li>'L': the user must enter an alphabetical letter from A ~ z or a blank space instead.</li>
-        <li>'0': the user must enter a digit or a blank space instead.</li>
-        <li>'A': the user must enter an alphanumeric character or a blank space instead.</li>
-        <li>'#': the user must enter a special character or a blank space instead.</li>
+        <li>'L': the user must enter an alphabetical letter from A ~ z.</li>
+        <li>'0': the user must enter a digit.</li>
+        <li>'A': the user must enter an alphanumeric character.</li>
+        <li>'#': the user must enter a digit, blank space, '+' or '-'.</li>
       </ul>
-      For example:<br>
-      <pre class="java5">@Mask("LLLL")
-<span class="kw2">private</span> String onlyLetter<span class="sy0">;<br><br></span>@Mask("0000")
-<span class="kw2">private</span> String onlyDigit<span class="sy0">;<br></span><br>@Mask("AAAA")
-<span class="kw2">private</span> String alphanumeric<span class="sy0">;<br></span><br>@Mask("####")
-<span class="kw2">private</span> String specialCharacters<span class="sy0">;<br></span></pre>
-      You can also add special characters, blank spaces statically and even combine validators. For example:<br>
-      <pre class="java5">@Mask("LL 000.AAA")
-<span class="kw2">private</span> String combined<span class="sy0">;</span></pre>
+      <br>
+      You can also add special characters, blank spaces statically and even combine validators, for example:<br>
+      <pre class="java5">@Mask("L-0000000")
+<span class="kw2">private</span> String passport<span class="sy0">;<br><br></span>@Mask("0000 0000 0000 0000")
+<span class="kw2">private</span> String creditCard<span class="sy0">;<br></span><br>@Mask("LL 000 AA")
+<span class="kw2">private</span> String carPlate<span class="sy0">;</span><span
+class="sy0"><br></span></pre>
+      <br>
     </div>
     <div class="wiki" style="display: block;">
       <h3 id="toc11"><a name="Model-Properties-Concurrency and version property"></a>Concurrency and version property</h3>

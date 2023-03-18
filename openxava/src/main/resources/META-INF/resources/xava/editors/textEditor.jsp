@@ -139,27 +139,27 @@ private String getNumericAlt(int size, int scale) {
         <%
         if (im.length() > 1) {
         %>  
-            $("#<%=propertyKey%>").inputmask(
-            {
-            "placeholder":" ",
-            "definitions":{
-            'L': {
-                validator: "[A-Za-z]",
-                casing: null
-            },
-            '0': {
-                validator: "[0-9]"
-            },
-            'A': {
-                validator: "[0-9a-zA-Z]",
-                casing: null
-            },
-            '#': {
-                validator: "[0-9 +-]"
-            }
+            $("#<%=propertyKey%>").inputmask({
+                "placeholder":" ",
+                "definitions":{
+                    'L': {
+                        validator: "[A-Za-z]",
+                        casing: null
+                    },
+                    '0': {
+                        validator: "[0-9]"
+                    },
+                    'A': {
+                        validator: "[0-9a-zA-Z]",
+                        casing: null
+                    },
+                    '#': {
+                        validator: "[0-9 +-]"
+                    }
             }});
-        <% } %>
-        });
+        <% 
+        } %>
+    });
 </script>
 
     

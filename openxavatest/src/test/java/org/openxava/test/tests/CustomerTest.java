@@ -104,12 +104,34 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertCollectionRowCount("receptionists", 2);
 	}
 				
-	public void testObtainAggregateValues() throws Exception { 
+	public void testObtainAggregateValues_testMask() throws Exception { 
 		String city = getValueInList(0, "address.city");
 		assertTrue("Value for city in first customer is required for run this test", !Is.emptyString(city));
 		execute("List.viewDetail", "row=0");
 		assertValue("address.city", city);
 		assertNoLabel("addres.city");
+		
+		HtmlInput passportInput = (HtmlInput) getHtmlPage().getElementById("ox_openxavatest_Customer__passport");
+		passportInput.focus();
+		passportInput.type("E123456");
+		passportInput.blur();
+		assertValue("passport", "E-123456");
+		
+		HtmlInput cardNumberInput = (HtmlInput) getHtmlPage().getElementById("ox_openxavatest_Customer__creditCard");
+		cardNumberInput.focus();
+		cardNumberInput.type("1234000056780000");
+		cardNumberInput.blur();
+		assertValue("creditCard", "1234 0000 5678 0000");
+		
+		execute("Customer.save");
+		execute("Mode.list");
+		execute("List.viewDetail", "row=0");
+		assertValue("passport", "E-123456");
+		assertValue("creditCard", "1234 0000 5678 0000");
+		setValue("passport", "");
+		setValue("creditCard", "");
+		assertValue("passport", "");
+		assertValue("creditCard", "");
 	}
 	
 	public void testCalculatedPropertyDependsOnPropertyOfAggregate() throws Exception { 
