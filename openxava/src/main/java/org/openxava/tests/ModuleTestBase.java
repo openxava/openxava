@@ -594,13 +594,15 @@ abstract public class ModuleTestBase extends TestCase {
 
 		HtmlElement element  = getElementById(action);
 		
+		/* tmr
 		if (element instanceof HtmlAnchor) {
 			// Because input.click() fails with HtmlUnit 2.5/2.6/2.7 in some circumstances
 			page.executeJavaScript(((HtmlAnchor)element).getHrefAttribute()); 
 		}
 		else {
+		*/
 			element.click();
-		}		
+		// tmr }		
 		resetForm(); 		
 		restorePage(); 		
 	}
@@ -689,21 +691,27 @@ abstract public class ModuleTestBase extends TestCase {
 			if (arguments != null) { // 'List.viewDetail', 'row=0'				
 				if (
 					(
-						anchor.getHrefAttribute().contains("'" + action + "', '" + arguments + "'") ||
-						anchor.getHrefAttribute().contains("'" + action + "', '," + arguments + "'")							
+						getHrefAttribute(anchor).contains("'" + action + "', '" + arguments + "'") ||  
+						getHrefAttribute(anchor).contains("'" + action + "', '," + arguments + "'")							
 					)
-					&& anchor.getHrefAttribute().indexOf(moduleMarkForAnchor) >= 0)  			
+					&& getHrefAttribute(anchor).indexOf(moduleMarkForAnchor) >= 0)  			
 				{				
 					return anchor;				
 				}
 			}
 			else { // 'ReferenceSearch.choose'				
-				if (anchor.getHrefAttribute().endsWith("'" + action + "')")) {				
+				if (getHrefAttribute(anchor).endsWith("'" + action + "')")) {				
 					return anchor;				
 				}				
 			}
 		}		
 		return null;
+	}
+	
+	private String getHrefAttribute(HtmlAnchor anchor) { // tmr
+		String originalHref = anchor.getHrefAttribute(); 
+		if (!originalHref.equals("javascript:void(0)")) return originalHref;
+		return anchor.getAttribute("onclicke");
 	}
 	
 	
@@ -726,13 +734,15 @@ abstract public class ModuleTestBase extends TestCase {
 			}			
 		}
 		if (element != null) {
+			/* tmr
 			if (!clicking && element instanceof HtmlAnchor) { 
 				// Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.9 in some circumstances
 				page.executeJavaScript(((HtmlAnchor)element).getHrefAttribute());
 			}
 			else {
+			*/
 				element.click();
-			}
+			// tmr }
 			resetForm(); 
 		}
 		else {

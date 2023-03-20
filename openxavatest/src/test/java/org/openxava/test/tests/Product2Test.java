@@ -277,7 +277,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		};
 		
 		assertValue("family.number", "2"); // 2 is the default value		
-		assertValidValues("family.number", familyValues); // TMR FALLA
+		assertValidValues("family.number", familyValues); 
 		setValue("family.number", "");
 		
 		String [][] voidValues = {
@@ -432,7 +432,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 			{ "2", "HARDWARE" },
 			{ "3", "SERVICIOS" }	
 		};
-		assertValidValues("family.number", familyValues); // TMR FALLA
+		assertValidValues("family.number", familyValues); 
 		
 		execute("Reference.createNew", "model=Family2,keyProperty=xava.Product2.family.number");
 		assertAction("NewCreation.saveNew");
@@ -571,7 +571,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertEquals("", familyTextField.getAttribute("value")); 
 		
 		execute("CRUD.new");
-		familyList = getHtmlPage().getHtmlElementById("ui-id-27"); // TMR FALLA
+		familyList = getHtmlPage().getHtmlElementById("ui-id-27"); 
 		assertFalse(familyList.isDisplayed());
 		assertEquals(0, familyList.getChildElementCount());
 		familyTextField = getDescriptionsListTextField("family");

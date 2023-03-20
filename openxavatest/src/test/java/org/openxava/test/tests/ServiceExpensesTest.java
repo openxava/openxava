@@ -104,9 +104,8 @@ public class ServiceExpensesTest extends ModuleTestBase {
 		setValueInCollection("expenses", 0, 0, "2016");
 		assertComboOpens(1, 2); 
 		setValueInCollection("expenses", 1, 0, "2016");
-		// tmr assertComboOpens(2, 7); 
-		assertComboOpens(2, 11); // tmr 
-	
+		assertComboOpens(2, 7); 
+		
 		assertCollectionTotals();		
 		
 		execute("ServiceExpenses.removeColumnSum");

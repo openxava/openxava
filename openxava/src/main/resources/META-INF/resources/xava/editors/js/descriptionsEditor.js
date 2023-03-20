@@ -72,7 +72,6 @@ openxava.addEditorInitFunction(function() {
 });
 
 descriptionsEditor.open = function(id) {
-	console.log("[descriptionsEditor.open] id=" + id);
 	var control = $("#" + id).prev();
 	control.autocomplete( "search", "" );
 	control.focus(); 

@@ -13,6 +13,7 @@ Change Log for OpenXava project
 
 
 Pendiente:
+- Mezclar desde master.
 - Suite
 - Doc migration nonce.
 - Doc nonce en customizing
