@@ -1092,7 +1092,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 
 		// Restoring, for next time that test execute
 		removeColumn(8); 
-		assertListColumnCount(8); 
+		assertListColumnCount(8); // TMR FALLA
 
 		// Always starts with 20
 		execute("List.addColumns");
@@ -1157,7 +1157,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertLabelInList(7, "Importance");
 
 		removeColumn(2);
-		assertListColumnCount(7);
+		assertListColumnCount(7); // TMR FALLA
 		assertLabelInList(0, "Year");
 		assertLabelInList(1, "Number");
 		assertLabelInList(2, "Amounts sum");
@@ -2216,7 +2216,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("ListFormat.select", "editor=Charts");
 		assertNoAction("CRUD.deleteSelected"); 
 		assertNoDialog(); 
-		assertChartTypeLink("BAR"); 
+		assertChartTypeLink("BAR"); // TMR FALLA
 		assertChartTypeLink("LINE");
 		assertChartTypeLink("PIE");
 		assertValue("xColumn", "year");

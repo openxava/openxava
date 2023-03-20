@@ -570,7 +570,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 	
 	public void testCustomizeList() throws Exception { 
-		doTestCustomizeList_moveAndRemove(); 
+		doTestCustomizeList_moveAndRemove(); // TMR FALLA
 		resetModule(); 
 		doTestCustomizeList_generatePDF(); 
 		resetModule(); 
@@ -744,7 +744,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInList(0, 0, value);
 		
 		removeColumn(7); 
-		assertListColumnCount(7); 
+		assertListColumnCount(7); // TMR FALLA
 	}	
 	
 	public void testRowStyle() throws Exception {

@@ -186,7 +186,7 @@ public class HumanTest extends ModuleTestBase {
 		HtmlAnchor addColumns = getHtmlPage().getHtmlElementById("ox_openxavatest_Human__List___addColumns"); 
 		HtmlElement column0 = getHtmlPage().getHtmlElementById("ox_openxavatest_Human__list_col0");
 		HtmlElement moveColumn0 = column0.getElementsByAttribute("i", "class", "xava_handle mdi mdi-cursor-move ui-sortable-handle").get(0); 		
-		HtmlAnchor removeColumn0 = getHtmlPage().getAnchorByHref("javascript:openxava.removeColumn('openxavatest', 'Human', 'ox_openxavatest_Human__list_col0', 'xava_tab')");
+		HtmlAnchor removeColumn0 = getHtmlPage().getAnchorByHref("javascript:openxava.removeColumn('openxavatest', 'Human', 'ox_openxavatest_Human__list_col0', 'xava_tab')"); // TMR FALLA
 		HtmlElement column1 = getHtmlPage().getHtmlElementById("ox_openxavatest_Human__list_col1");
 		HtmlElement moveColumn1 = column1.getElementsByAttribute("i", "class", "xava_handle mdi mdi-cursor-move ui-sortable-handle").get(0); 
 		HtmlAnchor removeColumn1 = getHtmlPage().getAnchorByHref("javascript:openxava.removeColumn('openxavatest', 'Human', 'ox_openxavatest_Human__list_col1', 'xava_tab')"); 

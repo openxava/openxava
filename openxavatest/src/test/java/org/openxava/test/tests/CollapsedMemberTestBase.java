@@ -52,7 +52,7 @@ public abstract class CollapsedMemberTestBase extends ModuleTestBase {
 		super.setUp(); //loads the module
 	}
 	
-	public void testCollapsedMember() throws Exception { 
+	public void testCollapsedMember() throws Exception { // TMR FALLA
 		//step 1: ensures that a @Collapsed reference view is hidden 
 		//on module initialization for the first time.
 		waitForSafeSynchronization();

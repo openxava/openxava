@@ -132,7 +132,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertLabel("address.state", "Province");
 	}
 		
-	public void testFilterByMemberOfAggregate() throws Exception {  
+	public void testFilterByMemberOfAggregate() throws Exception {  // TMR FALLA
 		assertListRowCount(5); 
 		String [] totalCondition = { "", "", "", "V" };		
 		setConditionValues(totalCondition);		
@@ -150,7 +150,7 @@ public class CustomerTest extends CustomizeListTestBase {
 
 		// Restoring the list
 		execute("List.addColumns");
-		execute("AddColumns.restoreDefault"); 
+		execute("AddColumns.restoreDefault"); // TMR FALLA
 		assertNoErrors();
 	}
 	

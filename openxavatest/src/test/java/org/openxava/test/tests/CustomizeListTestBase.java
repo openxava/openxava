@@ -1,6 +1,6 @@
 package org.openxava.test.tests;
 
-import org.openxava.tests.ModuleTestBase; 
+import org.openxava.tests.*;
 
 import com.gargoylesoftware.htmlunit.html.*;
 
@@ -53,8 +53,10 @@ abstract public class CustomizeListTestBase extends ModuleTestBase {
 		HtmlTable table = getHtmlPage().getHtmlElementById(decorateId(collection));
 		HtmlElement header = table.getRow(0).getCell(index + 2);
 		HtmlElement icon = header.getElementsByAttribute("i", "class", "mdi mdi-close-circle").get(0);
-		HtmlElement removeLink = icon.getEnclosingElement("a");		
-		getHtmlPage().executeJavaScript(((HtmlAnchor) removeLink).getHrefAttribute()); // Because removeLink.click() does not work with HtmlUnit 2.32
+		HtmlElement removeLink = icon.getEnclosingElement("a");
+		System.out.println("[CustomizeListTestBase.removeColumn] Using onclicke"); // tmr
+		getHtmlPage().executeJavaScript(((HtmlAnchor) removeLink).getAttribute("onclicke")); // Because removeLink.click() does not work with HtmlUnit 2.70
+		// tmr getHtmlPage().executeJavaScript(((HtmlAnchor) removeLink).getHrefAttribute()); // Because removeLink.click() does not work with HtmlUnit 2.32
 		Thread.sleep(700); 
 	}
 

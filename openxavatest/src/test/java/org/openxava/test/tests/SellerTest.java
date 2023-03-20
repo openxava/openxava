@@ -471,7 +471,7 @@ public class SellerTest extends CustomizeListTestBase {
 		execute("CRUD.new");
 		assertCollectionColumnCount("customers", 7);
 		removeColumn("customers", 6); 
-		assertCollectionColumnCount("customers", 6); 
+		assertCollectionColumnCount("customers", 6); // TMR FALLA 
 		resetModule();
 		execute("CRUD.new");
 		assertCollectionColumnCount("customers", 6); 

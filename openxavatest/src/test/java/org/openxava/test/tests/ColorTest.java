@@ -210,7 +210,7 @@ public class ColorTest extends ModuleTestBase {
 	}
 	
 	public void testKeysWithZeroValue_actionsTooltips() throws Exception { 
-		assertLinkTooltip("Color.seeMessageSelected", "See message selected"); 
+		assertLinkTooltip("Color.seeMessageSelected", "See message selected"); // TMR FALLA
 		assertValueInList(0, "number", "0");
 		assertValueInList(0, "name", "ROJO");
 		execute("List.viewDetail", "row=0");

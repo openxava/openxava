@@ -161,9 +161,9 @@ public class AuthorTest extends CustomizeListTestBase {
 		assertListRowCount(1);
 		removeColumn(1); 
 		assertListRowCount(1);
-		assertListColumnCount(1); 
-		execute("List.addColumns");
-		execute("AddColumns.restoreDefault");
+		assertListColumnCount(1); // TMR FALLA
+		execute("List.addColumns"); 
+		execute("AddColumns.restoreDefault"); // TMR ME QUEDÉ POR AQUÍ, FALLA PORQUE NO EJECUTA LA ACCIÓN ANTERIOR, CREO
 		assertListColumnCount(2);
 		assertListRowCount(1); 
 	}

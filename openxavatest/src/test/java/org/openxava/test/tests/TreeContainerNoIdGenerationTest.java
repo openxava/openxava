@@ -1,9 +1,8 @@
 package org.openxava.test.tests;
 
-import org.openxava.jpa.XPersistence;
-import org.openxava.test.model.TreeContainerNoIdGeneration;
-import org.openxava.test.model.TreeItemNoIdGeneration;
-import org.openxava.util.Is;
+import org.openxava.jpa.*;
+import org.openxava.test.model.*;
+import org.openxava.util.*;
 
 
 /**
@@ -62,7 +61,7 @@ public class TreeContainerNoIdGenerationTest extends TreeTestBase {
 		// Check if it is there
 		assertValueInTreeViewIgnoreCase("treeItems", 7, "ROOT ITEM 2");
 		executeOnTreeViewItem("treeItems", "Collection.edit", 7);
-		assertValue("description", "ROOT ITEM 2");
+		assertValue("description", "ROOT ITEM 2"); // TMR FALLA
 		// Delete it from data
 		execute("TreeView.remove");
 		assertNoErrors();

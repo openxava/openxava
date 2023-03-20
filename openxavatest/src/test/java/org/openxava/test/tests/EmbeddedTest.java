@@ -3,13 +3,11 @@
  */
 package org.openxava.test.tests;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.regex.*;
 
-import org.openxava.tests.ModuleTestBase;
+import org.openxava.tests.*;
 
-import com.gargoylesoftware.htmlunit.html.DomNodeList;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.*;
 
 
 /**
@@ -26,7 +24,7 @@ public class EmbeddedTest extends ModuleTestBase {
 	public void testSearch() throws Exception {
 		execute("CRUD.new");
 		HtmlElement element = getSearchElement();
-		String keyProperty = extractKeyProperty(element); 
+		String keyProperty = extractKeyProperty(element); // TMR FALLA
 		execute("Reference.search", "keyProperty=" + keyProperty);
 		assertNoErrors();
 		execute("ReferenceSearch.cancel");
