@@ -31,6 +31,12 @@
 		selectable-items="false"> 
 		<for-tabs/>
 	</editor>	
+	
+	<editor name="Calendar" url="calendarEditor.jsp" 
+		icon="calendar" 
+		selectable-items="false"> 
+		<for-tabs/>
+	</editor>
 		
 	<editor name="Reference" url="referenceEditor.jsp" frame="true" composite="true">
 		<for-references/>

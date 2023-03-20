@@ -6,9 +6,11 @@
 <%@ page import="org.openxava.util.Locales"%> 
 <%@ page import="org.openxava.controller.meta.MetaSubcontroller"%>
 <%@ page import="java.util.Collection"%>
+<%@ page import="java.util.List"%>
 <%@ page import="org.openxava.web.Ids"%>
 <%@ page import="org.openxava.util.EmailNotifications"%> 
 <%@ page import="org.openxava.controller.meta.MetaControllerElement"%>
+<%@ page import="org.openxava.model.meta.MetaProperty"%>
 
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
@@ -78,11 +80,29 @@ if (manager.isButtonBarVisible()) {
 		tabObject = (tabObject == null || tabObject.equals(""))?"xava_tab":tabObject;
 		org.openxava.tab.Tab tab = (org.openxava.tab.Tab) context.get(request, tabObject);
 		Collection<String> editors = org.openxava.web.WebEditors.getEditors(tab.getMetaTab());
+        List<MetaProperty> listProperty = tab.getMetaProperties();
+        boolean hasLocalDate = false;
+        //boolean hasLocalDate = listProperty.stream().anyMatch(property -> property.getTypeName().equals("java.time.LocalDate"));
+        
+        
+        for (MetaProperty property : listProperty) {
+        System.out.println(property.getTypeName());
+            if (property.getTypeName().equals("java.time.LocalDate") || property.getTypeName().equals("java.util.Date")){
+                hasLocalDate = true;
+                break;
+            }
+        }
+        System.out.println(tab.getTotalPropertiesNames().toString());
+        if (!hasLocalDate) editors.remove("Calendar");
+        
+        System.out.println(editors);
+
 		if (editors.size() > 1) for (String editor: editors) {
 			String icon = org.openxava.web.WebEditors.getIcon(editor);
 			if (icon == null) continue; 
 			String selected = editor.equals(tab.getEditor())?style.getSelectedListFormat():"";
 			if (Is.emptyString(editor)) editor = "__NONAME__"; 
+        
 	%>
 	<xava:link action="ListFormat.select" argv='<%="editor=" + editor%>' cssClass="<%=selected%>">
 		<i class="mdi mdi-<%=icon%>" onclick="openxava.onSelectListFormat(event)" title="<%=org.openxava.util.Labels.get(editor)%>"></i>
