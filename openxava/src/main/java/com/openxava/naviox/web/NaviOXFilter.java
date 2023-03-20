@@ -76,9 +76,6 @@ public class NaviOXFilter implements Filter {
 			
 			Users.setCurrent(secureRequest);
 			
-			chain.doFilter(secureRequest, response); // tmr
-		
-			/* tmr
 			if (modules.isModuleAuthorized(secureRequest)) {
 				chain.doFilter(secureRequest, response);
 			}
@@ -101,7 +98,6 @@ public class NaviOXFilter implements Filter {
 					parametersQuery);
 				dispatcher.forward(secureRequest, response); 
 			}
-			*/
 		} 
 		finally {
 			XPersistence.commit();
