@@ -503,6 +503,7 @@ openxava.initLists = function(application, module) {
 	    	var tableId = table.attr("id");
 	    	View.moveCollectionElement(tableId, ui.item.startPos - 1, ui.item.index() - 1);
 	    	openxava.renumberCollection(table);
+	  		openxava.initInlineEvents(); // tmr
 	    }	
 	});
 	openxava.watchColumnsSearch();
@@ -514,8 +515,14 @@ openxava.initLists = function(application, module) {
 openxava.renumberCollection = function(table) { 
 	table.find("tr").each(function(rowIndex) {
 		$(this).find("a").each(function() {
+			/* tmr
 			var newHref = $(this).attr("href")
 				.replace(new RegExp("'row=\\d+,viewObject=", "g"), "'row=" + (rowIndex - 1) + ",viewObject=")
+			*/	
+			// tmr ini
+			var newHref = $(this).attr("onclicke")
+				.replace(new RegExp("'row=\\d+,viewObject=", "g"), "'row=" + (rowIndex - 1) + ",viewObject=");
+			// tmr fin
 			$(this).attr("href", newHref);
 		});
 	});
@@ -820,7 +827,7 @@ openxava.executeActionConfirmLosesChangedData = function(application, module, co
 	openxava.executeAction(application, module, confirmMessage, takesLong, action, argv, range, alreadyProcessed, inNewWindow);
 }
 
-openxava.executeAction = function(application, module, confirmMessage, takesLong, action, argv, range, alreadyProcessed, inNewWindow) { 
+openxava.executeAction = function(application, module, confirmMessage, takesLong, action, argv, range, alreadyProcessed, inNewWindow) {
 	if (confirmMessage != "" && !confirm(confirmMessage)) return;
 	if (takesLong) { 
 		$('#xava_processing_layer').fadeIn(); 
