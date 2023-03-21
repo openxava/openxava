@@ -9,7 +9,10 @@ import org.openxava.actions.*;
 public class OnChangeCarrierInDeliveryAction extends OnChangePropertyBaseAction {
 	
 	public void execute() throws Exception {
-		if (getNewValue() == null) return;
+		if (getNewValue() == null) {
+			addMessage("carrier_changed");
+			return;
+		}
 		getView().setValue("remarks", "The carrier is " + getNewValue());
 		addMessage("carrier_changed");		
 	}

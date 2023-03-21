@@ -12,6 +12,12 @@ if (editable && view.isModifyForReference(ref)) {
 	<xava:action action='Reference.modify' argv='<%="model="+ref.getReferencedModelName() + ",keyProperty=" + keyPropertyForAction%>'/>
 <%
 }
+   
+if (editable) { 
+%>
+	<xava:action action='Reference.clear' argv='<%=",keyProperty=" + keyPropertyForAction%>'/>
+<%
+}
 
 java.util.Iterator itActions = view.getActionsNamesForReference(ref, editable).iterator(); 
 while (itActions.hasNext()) {

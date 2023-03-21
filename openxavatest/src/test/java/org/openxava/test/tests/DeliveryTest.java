@@ -665,6 +665,7 @@ public class DeliveryTest extends ModuleTestBase {
 			"Reference.search",
 			"Reference.createNew",
 			"Reference.modify",
+			"Reference.clear",
 			"Sections.change",
 			"Delivery.setDefaultInvoice",
 			"Delivery.setDefaultType",
@@ -695,6 +696,7 @@ public class DeliveryTest extends ModuleTestBase {
 			"Reference.search",
 			"Reference.createNew",
 			"Reference.modify",
+			"Reference.clear",
 			"Sections.change",
 			"Delivery.setDefaultInvoice",
 			"Delivery.setDefaultType",			
@@ -1130,7 +1132,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertValue("remarks", "No remarks");							
 	}
 	
-	public void testOnChangeDescriptionsListKey_messagesInChangeAction() throws Exception { 
+	public void testOnChangeDescriptionsListKey_messagesInChangeAction_cleanDescriptionListValueWithOnChangeAndWhenNotEditable() throws Exception { 
 		execute("CRUD.new");		
 		assertValue("remarks", "No remarks");
 		setValue("deliveredBy", "1");
@@ -1140,7 +1142,13 @@ public class DeliveryTest extends ModuleTestBase {
 		assertMessage("Carrier changed");		
 		assertValue("remarks", "The carrier is 3");				
 		setValue("carrier.number", "2");		
-		assertValue("remarks", "The carrier is 2");				
+		assertValue("remarks", "The carrier is 2");
+		execute("Reference.clear", "keyProperty=carrier.number");
+		assertMessagesCount(1);
+		assertMessage("Carrier changed");
+		assertValue("carrier.number","");
+		execute("EditableOnOff.setOff");
+		assertNoAction("Reference.clear", "keyProperty=carrier.number");
 	}
 	
 	public void testHideInSection() throws Exception { 

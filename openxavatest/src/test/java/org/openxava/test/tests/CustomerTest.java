@@ -247,7 +247,8 @@ public class CustomerTest extends CustomizeListTestBase {
 		String sellerName = getValueInList(0, 1);
 		execute("ReferenceSearch.choose", "row=0");
 		assertTrue("The name of first seller can't be empty string", sellerName.trim().length() > 0);		
-		assertValue("seller.name", sellerName);		
+		assertValue("seller.name", sellerName);	
+		assertValue("seller.number","1");
 	}
 
 	public void testValidValues() throws Exception {   				
@@ -361,7 +362,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertMessage("Customer deleted successfully");
 	}
 		
-	public void testSearchReferenceOnChangeCodeAndOnChangeActionInSubview() throws Exception { 
+	public void testSearchReferenceOnChangeCodeAndOnChangeActionInSubview_cleanReferencedValueWithOnChange() throws Exception { 
 		execute("CRUD.new"); 
 		setValue("seller.number", "1");
 		assertValue("seller.number", "1");
@@ -380,7 +381,11 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertValue("alternateSeller.name", "DON JUANVI LLAVADOR");
 		assertNoErrors();
 		assertMessage("OnChangeVoidAction executed");
-		assertMessagesCount(1);					
+		assertMessagesCount(1);
+		execute("Reference.clear", "keyProperty=alternateSeller.number");
+		assertValue("alternateSeller.number", "");
+		assertValue("alternateSeller.name", "");
+		assertMessage("OnChangeVoidAction executed");
 	}
 	
 	public void testSearchReferenceWithListAndOnChangeActionInSubview() throws Exception {
@@ -409,7 +414,9 @@ public class CustomerTest extends CustomizeListTestBase {
 		// It is checked the 0 of other time
 		execute("ReferenceSearch.cancel");
 		assertValue("alternateSeller.number", "2");
-		assertValue("alternateSeller.name", "DON JUANVI LLAVADOR");								
+		assertValue("alternateSeller.name", "DON JUANVI LLAVADOR");	
+		
+		
 	}
 	
 	public void testCustomSearchReferenceAction_searchDialogWhenNotFound() throws Exception { 
@@ -611,7 +618,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertMessage("Customer deleted successfully");
 	}
 
-	public void testSetEditableOfReferences_notOnChangeActionsOfReferences() throws Exception {  
+	public void testSetEditableOfReferences_notOnChangeActionsOfReferences_disableReferenceActions() throws Exception {  
 		execute("List.viewDetail", "row=0");		
 		assertNoMessage("OnChangeVoidAction executed"); 
 		assertEditable("address.street");
@@ -641,8 +648,9 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertNoAction("MyReference.search", "keyProperty=seller.number"); 
 		assertNoAction("Reference.createNew", "model=Seller,keyProperty=seller.number");
 		assertNoAction("Reference.modify", "model=Seller,keyProperty=seller.number");
+		assertNoAction("Reference.clear", "keyProperty=seller.number");
 		assertNoEditable("seller.number");
-		assertNoEditable("seller.name");		
+		assertNoEditable("seller.name");
 	}
 	
 	public void testFocus() throws Exception {

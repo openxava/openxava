@@ -64,7 +64,23 @@
         <p>Now they are:<br>
         </p>
         <pre><code class="java">customer.address = Customer address<br>customer.address.street = Customer address street<br>customer.address.street.number = Customer address street number
-</code></pre> </div>
+</code></pre>
+        <h3>New action in references and @DescriptionsList (for JUnit tests)</h3>
+        References and <i>@DescriptionsList</i> have new action for the users (<i>Reference.clear</i>),
+        so if you test for all present actions in your JUnit tests, you have to
+        modify it and add <i>Reference.clear</i>. For example:<br>
+        <pre><code class="java">String [] actions= {
+	"CRUD.new",
+	"CRUD.save",
+	"CRUD.refresh",
+	"Mode.list",
+	"Reference.search",
+	"Reference.createNew",
+	"Reference.modify",
+	"Reference.clear", // ADD THIS ENTRY
+	"Sections.change"
+};<br>assertActions(actions); </code></pre>
+      </div>
       <h2 id="from-6.6.3-to-7.0">Migration from OpenXava 7.0.5 to OpenXava 7.0.6</h2>
       <h3>@Column(length=x) with no scale is no longer scale=2 by default</h3>
       <p>We fixed a bug about that <i>scale=0</i> for <i>@Column</i> does not
