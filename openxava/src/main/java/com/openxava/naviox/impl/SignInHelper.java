@@ -31,7 +31,8 @@ public class SignInHelper {
 	private static ISignInHelperProvider provider; 
 	
 	/** @return Qualified name of the action to add, or null if none. */
-	public static String init(HttpServletRequest request, View view) {
+	// tmr public static String init(HttpServletRequest request, View view) {
+	public static String [] init(HttpServletRequest request, View view) {
 		return getProvider().init(request, view); 
 	}
 	

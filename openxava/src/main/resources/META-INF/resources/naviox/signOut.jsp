@@ -27,10 +27,5 @@ session.invalidate();
 %>
 
 <script type="text/javascript">
-<%-- tmr
 window.location="<%=String.format("%s/m/SignIn", base)%>";
---%>
-<%-- tmr ini --%>
-window.location="<%=String.format("%s/auth/sign_out", base)%>";
-<%-- tmr fin --%>
 </script>

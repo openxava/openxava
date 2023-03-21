@@ -26,7 +26,8 @@ import org.openxava.view.*;
 public interface ISignInHelperProvider {
 	
 	/** @return Qualified name of the action to add, or null if none. */
-	String init(HttpServletRequest request, View view);
+	// tmr String init(HttpServletRequest request, View view);
+	String [] init(HttpServletRequest request, View view); // tmr
 	
 	void initRequest(HttpServletRequest request, View view);
 	
