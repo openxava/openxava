@@ -95,7 +95,8 @@ if (manager.isButtonBarVisible()) {
             }
         }
         System.out.println(tab.getTotalPropertiesNames().toString());
-        if (!hasLocalDate) editors.remove("Calendar");
+        //
+        //if (!hasLocalDate) editors.remove("Calendar");
         
         System.out.println(editors);
 

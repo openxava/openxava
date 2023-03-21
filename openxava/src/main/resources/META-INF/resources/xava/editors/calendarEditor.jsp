@@ -10,8 +10,10 @@
 		org.openxava.tab.Tab tab = (org.openxava.tab.Tab) context.get(request, tabObject);
 		Collection<String> editors = org.openxava.web.WebEditors.getEditors(tab.getMetaTab());
         List<MetaProperty> listProperty = tab.getMetaProperties();
-    String dateLabel = "";
-           
+        //List events = new ArrayList();
+    
+    //tomar el nombre de la propiedad, setear condicion para cargar datos en el calendar
+        String dateLabel = ""; 
         for (MetaProperty property : listProperty) {
             if (property.getTypeName().equals("java.time.LocalDate") || property.getTypeName().equals("java.util.Date")){
                 System.out.println("hay");
@@ -19,9 +21,19 @@
                 break;
             }
         }
-    tab.setConditionValue(dateLabel, "14/08/2009");
+    //tab.setConditionValue(dateLabel, "14/08/2009");
     //System.out.println(tab.getConditionValues().toString());
-    System.out.println(tab.getConditionValuesTo().toString());
+    //System.out.println(tab.getConditionValuesTo().toString());
+    
+    //leer todas las filas de la tabla y cargar datos en el calendar
+/*
+    for (int i = 0; i < tab.getTableModel().getRowCount(); i++) {
+        HashMap<String, Integer> numId = null;
+        numId = (HashMap<String, Integer>) tab.getTableModel().getObjectAt(i);
+        listaCliente.add(getCliente(numeroCliente.entrySet().iterator().next().getValue()));
+    }
+  */  
+    
    %>
 
 <Calendar id="ec"/>
@@ -37,12 +49,16 @@ let ec = new EventCalendar(document.getElementById('ec'), {
             end: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
     events: [
-        // your list of events
+        {start:'2022-03-21', end:'2022-03-22', title: 'title 1'},
+        {start:'2022-03-25', title: 'title 1'}
     ],
     views: {
             timeGridWeek: {pointer: true},
             resourceTimeGridWeek: {pointer: true}
         },
-    editable: true
+    editable: true,
+    displayEventEnd: false,
+    //eventTimeFormat: {dateStyle: 'short', hour:'numeric'},
+                           
 });
 </script>
