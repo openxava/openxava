@@ -24,6 +24,9 @@ String mode = request.getParameter("xava_mode");
 if (mode == null) mode = manager.isSplitMode()?"detail":manager.getModeName();
 boolean headerButtonBar = !manager.isSplitMode() || mode.equals("list");
 boolean listFormats = !manager.isSplitMode() && mode.equals("list"); 
+   
+boolean hasLocalDate = false;
+String dateLabel = "";
 
 if (manager.isButtonBarVisible()) {
 %>
@@ -81,13 +84,12 @@ if (manager.isButtonBarVisible()) {
 		org.openxava.tab.Tab tab = (org.openxava.tab.Tab) context.get(request, tabObject);
 		Collection<String> editors = org.openxava.web.WebEditors.getEditors(tab.getMetaTab());
         List<MetaProperty> listProperty = tab.getMetaProperties();
-        boolean hasLocalDate = false;
         //boolean hasLocalDate = listProperty.stream().anyMatch(property -> property.getTypeName().equals("java.time.LocalDate"));
         
         
         for (MetaProperty property : listProperty) {
-        System.out.println(property.getTypeName());
             if (property.getTypeName().equals("java.time.LocalDate") || property.getTypeName().equals("java.util.Date")){
+                dateLabel = property.getPlaceholder();
                 hasLocalDate = true;
                 break;
             }
