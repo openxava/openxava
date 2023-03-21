@@ -1,5 +1,7 @@
 package org.openxava.test.tests;
 
+import static org.openxava.tests.HtmlUnitUtils.getHrefAttribute;
+
 import java.io.*;
 
 import org.openxava.jpa.*;
@@ -154,10 +156,11 @@ public class ProjectTest extends ModuleTestBase {
 		HtmlTableCell cell = row.getCell(2);
 		assertEquals("PETER", cell.asNormalizedText().trim());
 		HtmlElement link = cell.getElementsByTagName("a").get(0);
-		link.click();
+		// tmr link.click();
+		getHtmlPage().executeJavaScript(getHrefAttribute(link)); // tmr
 		waitAJAX();
 		
-		assertValue("name", "PETER"); // TMR FALLA
+		assertValue("name", "PETER"); // TMR FALLA ME QUEDÉ POR AQUÍ: BUG DE VERDAD FALLA EL MÓDULOS
 		closeDialog();
 		
 		moveRow("members", 1, 0);

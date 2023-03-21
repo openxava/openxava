@@ -1,5 +1,7 @@
 package org.openxava.test.tests;
 
+import static org.openxava.tests.HtmlUnitUtils.getHrefAttribute;
+
 import org.openxava.model.meta.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
@@ -59,25 +61,38 @@ public class CarrierTest extends CarrierTestBase {
 		execute("List.viewDetail", "row=0");
 		HtmlAnchor deleteLink = getHtmlPage().getHtmlElementById("ox_openxavatest_Carrier__CRUD___delete");
 		// To ensure the question has an apostrophe
-		assertEquals("javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l" // TMR FALLA
+		assertEquals("javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l" 
 			+ (char) 8216 
 			+"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
-			deleteLink.getHrefAttribute());
+			// tmr deleteLink.getHrefAttribute());
+			getHrefAttribute(deleteLink)); // tmr
 		execute("CRUD.delete");
 		execute("Mode.list");
 		assertListRowCount(4);
 		
 		// Confirm row action with apostrophe and title in actions
 		// To ensure the title and question have apostrophe
+		printHtml(); // tmr
 		String deleteRowLink = "<a class=\"ox-image-link\" "
 				+ "title=\"Effacer l"  
 				// (char) 145 // ANSI
 				+ (char) 8216 // UNICODE
 				+ "entité\" "
-				+ "href=\"javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l" 
+				// tmr ini
+				+ "href=\"javascript:void(0)\" "
+				+ "onclicke=\"javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l"
+				// tmr fin
+				// tmr + "href=\"javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l" 
 				// + (char) 145 // ANSI
 				+ (char) 8216 // UNICODE
 				+ "entité la ligne 1: êtes-vous sûr ?', false, 'CRUD.deleteRow', 'row=0')\">";
+		/*
+<a class="ox-image-link" title="Effacer l?entité" href="javascript:void(0)" onclicke="javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l?entité la ligne 1: êtes-vous sûr ?', false, 'CRUD.deleteRow', 'row=0')">
+		 */
+		
+		
+		
+		
 		assertTrue(getHtml().contains(deleteRowLink));
 		execute("CRUD.deleteRow", "row=0");
 		assertListRowCount(3);
@@ -192,7 +207,7 @@ public class CarrierTest extends CarrierTestBase {
 		assertLabelInCollection("fellowCarriers", 4, "Remarks");
 						
 		removeColumn("fellowCarriers", 4); 
-		assertCollectionColumnCount("fellowCarriers", 4); // TMR FALLA
+		assertCollectionColumnCount("fellowCarriers", 4); 
 		assertLabelInCollection("fellowCarriers", 0, "Number");
 		assertLabelInCollection("fellowCarriers", 1, "Name");
 		assertLabelInCollection("fellowCarriers", 2, "Calculated");

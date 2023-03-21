@@ -13,7 +13,7 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 	
 	public void testFocusInDialogWithAllMembersInSections_indexOfOutBoundInList() throws Exception { 
 		// In the next order to reproduce a bug in the second assert that only occurs if we execute the first assert before
-		assertIndexOfOutBoundInList(); // TMR FALLA
+		assertIndexOfOutBoundInList(); 
 		assertFocusInDialogWithAllMembersInSections();
 	}
 	
@@ -93,7 +93,7 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		clearCondition();
 		removeColumn(1);
 		assertLabelInList(0, "Paid");
-		assertLabelInList(1, "Number"); // TMR FALLA
+		assertLabelInList(1, "Number"); 
 		assertLabelInList(2, "Date");
 		assertLabelInList(3, "V.A.T.");
 		assertLabelInList(4, "Amounts sum");

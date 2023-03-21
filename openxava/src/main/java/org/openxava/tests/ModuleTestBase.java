@@ -1,5 +1,7 @@
 package org.openxava.tests;
 
+import static org.openxava.tests.HtmlUnitUtils.getHrefAttribute;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -594,15 +596,14 @@ abstract public class ModuleTestBase extends TestCase {
 
 		HtmlElement element  = getElementById(action);
 		
-		/* tmr
 		if (element instanceof HtmlAnchor) {
-			// Because input.click() fails with HtmlUnit 2.5/2.6/2.7 in some circumstances
-			page.executeJavaScript(((HtmlAnchor)element).getHrefAttribute()); 
+			// Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.70 in some circumstances
+			// tmr page.executeJavaScript(((HtmlAnchor)element).getHrefAttribute());
+			page.executeJavaScript(getHrefAttribute(element)); // tmr			
 		}
 		else {
-		*/
 			element.click();
-		// tmr }		
+		}		
 		resetForm(); 		
 		restorePage(); 		
 	}
@@ -708,11 +709,6 @@ abstract public class ModuleTestBase extends TestCase {
 		return null;
 	}
 	
-	private String getHrefAttribute(HtmlAnchor anchor) { // tmr
-		String originalHref = anchor.getHrefAttribute(); 
-		if (!originalHref.equals("javascript:void(0)")) return originalHref;
-		return anchor.getAttribute("onclicke");
-	}
 	
 	
 	
@@ -734,15 +730,14 @@ abstract public class ModuleTestBase extends TestCase {
 			}			
 		}
 		if (element != null) {
-			/* tmr
 			if (!clicking && element instanceof HtmlAnchor) { 
-				// Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.9 in some circumstances
-				page.executeJavaScript(((HtmlAnchor)element).getHrefAttribute());
+				// Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.9/2.70 in some circumstances
+				// tmr page.executeJavaScript(((HtmlAnchor)element).getHrefAttribute());
+				page.executeJavaScript(getHrefAttribute(element)); // tmr				
 			}
 			else {
-			*/
 				element.click();
-			// tmr }
+			}
 			resetForm(); 
 		}
 		else {

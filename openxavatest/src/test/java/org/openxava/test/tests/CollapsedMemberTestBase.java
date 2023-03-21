@@ -52,7 +52,7 @@ public abstract class CollapsedMemberTestBase extends ModuleTestBase {
 		super.setUp(); //loads the module
 	}
 	
-	public void testCollapsedMember() throws Exception { // TMR FALLA
+	public void testCollapsedMember() throws Exception { 
 		//step 1: ensures that a @Collapsed reference view is hidden 
 		//on module initialization for the first time.
 		waitForSafeSynchronization();
@@ -61,7 +61,8 @@ public abstract class CollapsedMemberTestBase extends ModuleTestBase {
 		
 		//step 2: checks that after clicking on expansion icon the frame
 		//changes to opened.
-		HtmlAnchor expansionIcon= getHtmlPage().getAnchorByHref(
+		// tmr HtmlAnchor expansionIcon= getHtmlPage().getAnchorByHref(
+		HtmlElement expansionIcon= HtmlUnitUtils.getAnchor(getHtmlPage(), // tmr 
 				"javascript:openxava.showFrame('" + getFrameId() + "')");
 		expansionIcon.click();		
 		waitForSafeSynchronization();

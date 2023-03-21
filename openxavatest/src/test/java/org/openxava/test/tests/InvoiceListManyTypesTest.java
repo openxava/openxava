@@ -26,7 +26,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertListConfigurationsDescriptionsLists(); 	
 		assertListConfigurationsOrdering();
 		assertListConfigurationsRanges();
-		assertListConfigurationsColumns(); // TMR FALLA
+		assertListConfigurationsColumns(); 
 		assertListConfigurationsChangeName();
 		assertListConfigurationsI18n(); 
 		assertListConfigurationsPersistence();

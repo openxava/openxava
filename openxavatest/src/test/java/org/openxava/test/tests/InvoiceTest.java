@@ -9,6 +9,7 @@ import org.openxava.actions.*;
 import org.openxava.jpa.*;
 import org.openxava.test.calculators.*;
 import org.openxava.test.model.*;
+import org.openxava.tests.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
 
@@ -1092,7 +1093,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 
 		// Restoring, for next time that test execute
 		removeColumn(8); 
-		assertListColumnCount(8); // TMR FALLA
+		assertListColumnCount(8); 
 
 		// Always starts with 20
 		execute("List.addColumns");
@@ -1157,7 +1158,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertLabelInList(7, "Importance");
 
 		removeColumn(2);
-		assertListColumnCount(7); // TMR FALLA
+		assertListColumnCount(7); 
 		assertLabelInList(0, "Year");
 		assertLabelInList(1, "Number");
 		assertLabelInList(2, "Amounts sum");
@@ -2216,7 +2217,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("ListFormat.select", "editor=Charts");
 		assertNoAction("CRUD.deleteSelected"); 
 		assertNoDialog(); 
-		assertChartTypeLink("BAR"); // TMR FALLA
+		assertChartTypeLink("BAR"); 
 		assertChartTypeLink("LINE");
 		assertChartTypeLink("PIE");
 		assertValue("xColumn", "year");
@@ -2310,12 +2311,12 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValueInCollection("columns", 0, 0, "Number");
 	}
 
-	private void assertChartTypeSelected(String chartType) { 
+	private void assertChartTypeSelected(String chartType) throws Exception { 
 		assertEquals("ox-selected-chart-type", getChartTypeLink(chartType).getAttribute("class"));
 	}
 
 
-	private void assertChartTypeLink(String chartType) { 
+	private void assertChartTypeLink(String chartType) throws Exception { 
 		try {
 			getChartTypeLink(chartType); 
 		}
@@ -2324,8 +2325,9 @@ public class InvoiceTest extends CustomizeListTestBase {
 		}
 	}
 	
-	private HtmlElement getChartTypeLink(String chartType) { 
-		return getHtmlPage().getAnchorByHref("javascript:openxava.executeAction('openxavatest', 'Invoice', '', false, 'Chart.selectType', 'chartType=" + chartType + "')"); 
+	private HtmlElement getChartTypeLink(String chartType) throws Exception { 
+		// tmr return getHtmlPage().getAnchorByHref("javascript:openxava.executeAction('openxavatest', 'Invoice', '', false, 'Chart.selectType', 'chartType=" + chartType + "')"); 
+		return HtmlUnitUtils.getAnchor(getHtmlPage(), "javascript:openxava.executeAction('openxavatest', 'Invoice', '', false, 'Chart.selectType', 'chartType=" + chartType + "')");
 	}
 	
 	private void assertChartDisplayed() throws Exception {

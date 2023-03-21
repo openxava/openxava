@@ -24,7 +24,7 @@ public class EmbeddedTest extends ModuleTestBase {
 	public void testSearch() throws Exception {
 		execute("CRUD.new");
 		HtmlElement element = getSearchElement();
-		String keyProperty = extractKeyProperty(element); // TMR FALLA
+		String keyProperty = extractKeyProperty(element); 
 		execute("Reference.search", "keyProperty=" + keyProperty);
 		assertNoErrors();
 		execute("ReferenceSearch.cancel");
@@ -42,7 +42,8 @@ public class EmbeddedTest extends ModuleTestBase {
 		DomNodeList list = getHtmlPage().getElementsByTagName("a");
 		for (int index = 0; index < list.getLength(); index++) {
 			HtmlElement element = (HtmlElement) list.get(index);
-			if (element.getAttribute("href").contains("Reference.search")) {
+			// tmr if (element.getAttribute("href").contains("Reference.search")) {
+			if (HtmlUnitUtils.getHrefAttribute(element).contains("Reference.search")) { // tmr
 				returnValue = element;
 				break;
 			}
@@ -52,7 +53,8 @@ public class EmbeddedTest extends ModuleTestBase {
 	}
 	
 	private String extractKeyProperty(HtmlElement element) {
-		String href = element.getAttribute("href");
+		// tmr String href = element.getAttribute("href");
+		String href = HtmlUnitUtils.getHrefAttribute(element); // tmr
 		Matcher matcher = keyPropertyPattern.matcher(href);
 		if (matcher.matches()) {
 			return matcher.group(1);
