@@ -19,7 +19,6 @@ import org.openxava.test.actions.*;
 @View( members= 	
 	"number;" +  
 	"type;" +
-	"passport, creditCard;" + 
 	"name, Customer.changeNameLabel();" +
 	"photo;" +
 	"telephone, email;" +
@@ -112,6 +111,7 @@ import org.openxava.test.actions.*;
 	"number;" + 
 	"customer {" + 				
 	"	type;" + 
+	"passport, creditCard;" + 
 	"	name, Customer.changeNameLabel();" +
 	"	photo;" +
 	"	telephone, email, additionalEmails;" + 
