@@ -211,6 +211,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		setValue("creditCard", "");
 		assertValue("passport", "");
 		assertValue("creditCard", "");
+		execute("Customer.save");
 	}
 	
 	public void assertDialogsInNestedCollections(boolean closeDialog) throws Exception { 
