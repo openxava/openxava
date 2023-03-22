@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- New @Mask annotation to define the valid format for entering data in a text field.
 - HtmlUnit upgraded to 2.70.
 - Fix: Denial of service vulnerability.
 - Embedded Tomcat used in development upgraded to 9.0.73.
