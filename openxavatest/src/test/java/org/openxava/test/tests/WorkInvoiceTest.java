@@ -16,7 +16,7 @@ public class WorkInvoiceTest extends ModuleTestBase {
 	}
 	
 	public void testCalculation() throws Exception {
-		assertCalculation(".", ","); // TMR FALLA
+		assertCalculation(".", ","); 
 		setLocale("es");
 		assertCalculation(",", ".");
 	}

@@ -237,7 +237,7 @@ openxava.initInlineEvents =  function() { // tmr
 		});
 	});
     $('[onblur]').each(function() {
-  		$(this).off('blur').blur(function() {
+  		$(this).blur(function() { 
   			eval($(this).attr('onblur'));
 		});
 	});
