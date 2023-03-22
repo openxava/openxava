@@ -52,7 +52,7 @@ public class TreeViewNoDefaultPathTest extends TreeViewTestBase {
 		// Check if it is there
 		assertValueInTreeViewIgnoreCase("treeItemTwos", 7, "ROOT ITEM 2");
 		executeOnTreeViewItem("treeItemTwos", "Collection.edit", 7);
-		assertValue("description", "ROOT ITEM 2"); // TMR FALLA
+		assertValue("description", "ROOT ITEM 2"); 
 		// Delete it from data
 		execute("TreeView.remove");
 		assertNoErrors();

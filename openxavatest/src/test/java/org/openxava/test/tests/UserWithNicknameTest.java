@@ -9,7 +9,6 @@ import org.openxava.jpa.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
 
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.html.*;
 
 /**
@@ -104,13 +103,16 @@ public class UserWithNicknameTest extends ModuleTestBase {
 		waitView();
 	}
 	
-	private HtmlAnchor getAnchorByHref(String href) { // tmr
+	private HtmlAnchor getAnchorByHref(String href) throws Exception { // tmr
+		return (HtmlAnchor) HtmlUnitUtils.getAnchor(getHtmlPage(), href); 
+		/* tmr
 		try {
 			return getHtmlPage().getAnchorByHref(href);
 		}
 		catch (ElementNotFoundException ex) {
 			return getHtmlPage().getBody().getOneHtmlElementByAttribute("a", "onclicke", href);
 		}
+		*/
 	}
 	
 	private void openFrame() throws Exception {
