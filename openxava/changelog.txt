@@ -13,7 +13,6 @@ Change Log for OpenXava project
 
 
 Pendiente:
-- Suite
 - Doc migration nonce.
 - Doc nonce en customizing
 - Doc migration eventos.
