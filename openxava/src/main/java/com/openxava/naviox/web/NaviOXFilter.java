@@ -68,7 +68,11 @@ public class NaviOXFilter implements Filter {
 						SignInHelper.signIn((HttpServletRequest) request, autologinUser); 
 					}					
 				}
-				// TMR ME QUEDÉ POR AQUÍ: ¿PONER AQUÍ LO DE PREGUNTAR POR LO DE AZURE?
+				// tmr ini
+				else {
+					SignInHelper.printUser((HttpServletRequest) request, (HttpServletResponse) response);
+				}
+				// tmr fin
 			}
 			session.setAttribute("xava.user", session.getAttribute("naviox.user")); // We use naviox.user instead of working only
 						// with xava.user in order to prevent some security hole using UrlParameters.setUser

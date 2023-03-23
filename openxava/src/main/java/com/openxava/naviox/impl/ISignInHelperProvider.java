@@ -37,6 +37,8 @@ public interface ISignInHelperProvider {
 	
 	boolean isAuthorized(ServletRequest request, String userName, String password, Messages errors, String unauthorizedMessage);
 
+	void printUser(HttpServletRequest request, HttpServletResponse response); // tmr
+
 	
 	
 }

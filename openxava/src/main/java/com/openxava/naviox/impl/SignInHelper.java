@@ -80,4 +80,9 @@ public class SignInHelper {
 		return provider;
 	}
 
+	public static void printUser(HttpServletRequest request, HttpServletResponse response) { // tmr
+		getProvider().printUser(request, response);
+		
+	}
+
 }

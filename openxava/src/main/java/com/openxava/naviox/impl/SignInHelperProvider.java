@@ -81,4 +81,7 @@ public class SignInHelperProvider implements ISignInHelperProvider {
 		return users;		
 	}
 
+	public void printUser(HttpServletRequest request, HttpServletResponse response) { // tmr
+	}
+
 }
