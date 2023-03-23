@@ -16,6 +16,7 @@ Pendiente:
 - Doc migration nonce.
 - Doc nonce en customizing
 - Doc migration eventos.
+- Doc eventos en customizing.
 - Pasarle el ZAP
 - Limpiar código. Poner comentario de si se cambia pasar ZAP.
 

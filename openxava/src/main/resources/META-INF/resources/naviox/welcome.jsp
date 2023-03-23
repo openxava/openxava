@@ -61,7 +61,7 @@ if (title == null) title = metaApplication.getLabel();
 	<%-- tmr ini --%>
 	<%-- tmr En migración poner dos opciones: nonce y href --%>
 	<a href="m/SignIn">
-	<input id="welcome_go_signin" type="button" tabindex="1" value="<xava:label key='SignIn'/>">
+	<input type="button" tabindex="1" value="<xava:label key='SignIn'/>">
 	</a>
 	<%-- tmr fin --%>   
 </div>

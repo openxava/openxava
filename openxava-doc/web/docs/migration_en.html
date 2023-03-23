@@ -47,6 +47,64 @@
     <div class="wiki" style="display: block;">
       <h2>Migration from OpenXava 7.0.6 to OpenXava 7.1</h2>
       <div class="wiki" style="display: block;">
+        <h3>Inline JavaScript in JSP requires once attribute</h3>
+        <p>This is for security reasons. You rarely are using inline JavaScript
+          in your code in OpenXava applications, given that they do no work
+          since OpenXava 3.1 for editors or custom views. However, if you have
+          custom code outside a regular Java module, like <i>welcome.jsp</i>,
+          or some custom header or footer for your application, maybe you have
+          some inline scripts, in this case you have to add an attribute <i>once</i>
+          to your inline script using the new <i>&lt;xava:once/&gt;</i> taglib.</p>
+        <p>For example, if you <i>welcome.jsp</i> page has this code:</p>
+        <p></p>
+        <pre><code class="html">&lt;script type="text/javascript"&gt; 
+    var button = document.getElementById('welcome_go_signin');
+    button.onclick = function () { window.location='m/SignIn'; }
+&lt;/script&gt;
+</code></pre>
+        <p></p>
+        <p>You should change it by:</p>
+        <p></p>
+        <pre><code class="html">&lt;%@include file="../xava/imports.jsp"%&gt;
+    
+    ...
+    
+&lt;script type="text/javascript" &lt;xava:nonce/&gt;&gt; 
+    var button = document.getElementById('welcome_go_signin');
+    button.onclick = function () { window.location='m/SignIn'; }
+&lt;/script&gt;
+</code></pre>
+        <p></p>
+        <p>Note the new <i>&lt;xava:once&gt;</i> element, and that you have to
+          include <i>imports.jsp</i>.</p>
+        <p>Still better, you could look for an alternative that does not use
+          inline script at all. In this case, for example, we could change the <i>onclick</i>
+          event with a <i>window.location</i> by a plain <i>&lt;a ref="" /&gt;</i>,
+          if possible.</p>
+        <h3>Inline events in HTML elements are no longer allowed</h3>
+        <p>If you have write your own editors or custom views and you are using
+          onclick, onfocus, onblur, etc. They are no going to work anymore. This
+          is for security reasons.You have to remove the events from the HTML
+          and move them to a JS file. </p>
+        <p>That is, if you have a code like this:</p>
+        <p></p>
+        <pre><code class="html">&lt;input type="button" tabindex="1" onclick="window.location='m/SignIn'" value="&lt;xava:label key='SignIn'/&gt;"&gt;
+</code></pre>
+        <p></p>
+        <p>Remove the onclick and add an id to the element, leaving it in this
+          way:</p>
+        <p></p>
+        <pre><code class="html">&lt;input id="welcome_go_signin" type="button" tabindex="1" value="&lt;xava:label key='SignIn'/&gt;"&gt;
+</code></pre>
+        <p></p>
+        <p>Then add a JS file, let's say events.js (or whatever name your
+          prefer), in src/webapp/xava/editors/js, with the next content:</p>
+        <p><pre><code class="javascript">var button = document.getElementById('welcome_go_signin');
+button.onclick = function () { window.location='m/SignIn'; }
+</code></pre>
+        </p>
+        <p>Ev</p>
+        <p></p>
         <h3>Labels in English now have different order (for JUnit tests)</h3>
         <p>We noticed that labels in list and collection when are translated to
           English, they can be understandable, but could be better. For this, we
@@ -174,7 +232,7 @@ assertValidValues("descriptionsListValue", validValues);
       <p>The easier way to migrate to Maven is creating a new project using
         OpenXava 7.0, and then copying the source code and resources from your
         current project to the new one. So, first create a new OpenXava project
-        using Openxava Studio 7, for that you can follow the instructions in <a
+        using Openxava Studio 7, for that you can follow the instructions in <a
           href="getting-started_en.html">Getting started guide</a>.</p>
       <p>The next step is to copy all your source code and resources from the
         old project to the corresponding folder in the new project, as
@@ -512,7 +570,7 @@ assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asNormalizedTex
         +"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
     deleteLink.getHrefAttribute());
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
+    <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
         href="http://www.alanwood.net/demos/ansi.html">Look at this table</a> to
       know the mapping between ANSI and UNICODE.</div>
     <div class="wiki" style="display: block;">Now in <i>@HtmlText</i> or <i>@Stereotype("HTML_TEXT")</i>
