@@ -49,13 +49,13 @@
       <div class="wiki" style="display: block;">
         <h3>Inline JavaScript in JSP requires once attribute</h3>
         <p>This is for security reasons. You rarely are using inline JavaScript
-          in your code in OpenXava applications, given that they do no work
+          in your code in OpenXava applications, given that they do not work
           since OpenXava 3.1 for editors or custom views. However, if you have
           custom code outside a regular Java module, like <i>welcome.jsp</i>,
           or some custom header or footer for your application, maybe you have
           some inline scripts, in this case you have to add an attribute <i>once</i>
           to your inline script using the new <i>&lt;xava:once/&gt;</i> taglib.</p>
-        <p>For example, if you <i>welcome.jsp</i> page has this code:</p>
+        <p>For example, if your <i>welcome.jsp</i> page has this code:</p>
         <p></p>
         <pre><code class="html">&lt;script type="text/javascript"&gt; 
     var button = document.getElementById('welcome_go_signin');
@@ -82,28 +82,33 @@
           event with a <i>window.location</i> by a plain <i>&lt;a ref="" /&gt;</i>,
           if possible.</p>
         <h3>Inline events in HTML elements are no longer allowed</h3>
-        <p>If you have write your own editors or custom views and you are using
-          onclick, onfocus, onblur, etc. They are no going to work anymore. This
-          is for security reasons.You have to remove the events from the HTML
-          and move them to a JS file. </p>
+        <p>If you have to write your own editors or custom views and you are
+          using
+          <i> onclick, onfocus, onblur</i>, etc. They are not going to work
+          anymore. This is for security reasons.You have to remove the events
+          from the HTML and move them to a JS file. </p>
         <p>That is, if you have a code like this:</p>
         <p></p>
         <pre><code class="html">&lt;input type="button" tabindex="1" onclick="window.location='m/SignIn'" value="&lt;xava:label key='SignIn'/&gt;"&gt;
 </code></pre>
         <p></p>
-        <p>Remove the onclick and add an id to the element, leaving it in this
-          way:</p>
+        <p>Remove the <i>onclick</i> and add an id to the element, leaving it
+          in this way:</p>
         <p></p>
         <pre><code class="html">&lt;input id="welcome_go_signin" type="button" tabindex="1" value="&lt;xava:label key='SignIn'/&gt;"&gt;
 </code></pre>
         <p></p>
-        <p>Then add a JS file, let's say events.js (or whatever name your
-          prefer), in src/webapp/xava/editors/js, with the next content:</p>
-        <p><pre><code class="javascript">var button = document.getElementById('welcome_go_signin');
+        <p>Then add a JS file, let's say <i>events.js</i> (or whatever name you
+          prefer), in <i>src/main/webapp/xava/editors/js</i> (create the folder
+          if it does no exist yet) of your project,&nbsp; with the next content:</p>
+        <p></p>
+        <pre><code class="javascript">var button = document.getElementById('welcome_go_signin');
 button.onclick = function () { window.location='m/SignIn'; }
 </code></pre>
-        </p>
-        <p>Ev</p>
+        <p></p>
+        <p>Note as we use the id to add the event using JavaScript code, a
+          secure code because it's downloaded from the server that hosts the
+          application.</p>
         <p></p>
         <h3>Labels in English now have different order (for JUnit tests)</h3>
         <p>We noticed that labels in list and collection when are translated to

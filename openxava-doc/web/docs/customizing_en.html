@@ -3366,6 +3366,25 @@ class="sy0">=</span><span class="st0">"level"</span><span class="sy0">/&gt;</spa
       page is the page the user gets when he enters in the root of your
       application, while <i>firstSteps.jsp</i> is the page he gets after login
       in the application the very first time.</div>
+    <div class="wiki" style="display: block;">For using JavaScript in OpenXava
+      core pages, put the JavaScript in external JS files and include it in your
+      JSPs. It is not recommended to use inline JavaScript because in many
+      pages, the one whose content is obtained via AJAX, are not going work. In
+      other pages, like <i>welcome.jsp</i>, headers, footers, etc. it could
+      work, but since v7.1 you must add the <i>nonce</i> attribute using <i>&lt;xava:nonce
+        /&gt;</i>, in this way:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="html">&lt;%@include file="../xava/imports.jsp"%&gt;
+    
+    ...
+    
+&lt;script type="text/javascript" &lt;xava:nonce/&gt;&gt; 
+    var button = document.getElementById('welcome_go_signin');
+    button.onclick = function () { window.location='m/SignIn'; }
+&lt;/script&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Note the new <i>&lt;xava:once&gt;</i>
+      element, and that you have to include <i>imports.jsp</i>.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc21"><a name="Customizing-Xava Properties Settings"></a>Xava
         Properties Settings</h2>
