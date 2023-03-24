@@ -13,9 +13,6 @@ Change Log for OpenXava project
 
 
 Pendiente:
-- Doc migration nonce. En inglés, gramatica con google. Falta revisar yo y traducir.
-- Doc migration eventos. En inglés, gramatica con google. Falta revisar yo y traducir.
-- Doc nonce en customizing. En inglés. Si revisar
 - Pasarle el ZAP
 - Limpiar código. Poner comentario de si se cambia pasar ZAP.
 
