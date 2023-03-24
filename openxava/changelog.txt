@@ -16,6 +16,15 @@ Pendiente:
 - Pasarle el ZAP
 	- Dio este error: Application Error Disclosure 
 		En: http://localhost:8081/insecureapp/xava/list.pdf?application=insecureapp&module=YourFirstEntity&time=1679676675697
+
+		<!doctype html><html lang="en"><head><title>HTTP Status 500  Internal Server Error</title><style type="text/css">body {font-family:Tahoma,Arial,sans-serif;} h1, h2, h3, b {color:white;background-color:#525D76;} h1 {font-size:22px;} h2 {font-size:16px;} h3 {font-size:14px;} p {font-size:12px;} a {color:black;} .line {height:1px;background-color:#525D76;border:none;}</style></head><body><h1>HTTP Status 500  Internal Server Error</h1><hr class="line" /><p><b>Type</b> Exception Report</p><p><b>Message</b> Problema al generar informe</p><p><b>Description</b> The server encountered an unexpected condition that prevented it from fulfilling the request.</p><p><b>Exception</b></p><pre>javax.servlet.ServletException: Problema al generar informe
+	org.openxava.web.servlets.GenerateReportServlet.doGet(GenerateReportServlet.java:247)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:502)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:596)
+	org.openxava.web.filters.ContentSecurityPolicyFilter.doFilter(ContentSecurityPolicyFilter.java:25)
+</pre><p><b>Note</b> The full stack trace of the root cause is available in the server logs.</p><hr class="line" /><h3>Apache Tomcat/9.0.73</h3></body></html>
+		
+		
 - Limpiar código. Poner comentario de si se cambia pasar ZAP.
 
 
