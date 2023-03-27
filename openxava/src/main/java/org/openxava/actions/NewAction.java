@@ -1,10 +1,15 @@
 package org.openxava.actions;
 
+import javax.inject.*;
+
 /**
  * @author Javier Paniza
  */
 
 public class NewAction extends ViewBaseAction implements IChangeModeAction, IModelAction {
+	
+	@Inject  
+	private String date; 
 	
 	private String modelName; 
 	private boolean restoreModel = false; 
@@ -32,5 +37,13 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 	public void setRestoreModel(boolean restoreModel) {
 		this.restoreModel = restoreModel;
 	}
-	
+
+	public String getDate() {
+		return IChangeModeAction.DETAIL;
+	}
+
+	public void setDate(String date) { 
+		System.out.println("set" + date);
+		this.date = date;		
+	}
 }

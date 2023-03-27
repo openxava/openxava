@@ -1,77 +1,74 @@
 <%@ include file="../imports.jsp"%>
-    
-<%@ include file="./cardsEditor.jsp"%>
-    
+
 <%@ page import="org.openxava.model.meta.MetaProperty"%>
 <%@ page import="java.util.Collection"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="org.openxava.web.editors.CalendarEvent"%>
+<%@ page import="org.openxava.web.editors.CalendarEventIterator"%>
+    
+<%@ page import="org.openxava.tab.Tab"%>
+<%@ page import="org.openxava.view.View"%>
+<%@ page import="org.openxava.controller.ModuleManager" %>
+<%@page import="org.openxava.controller.meta.MetaControllers"%>
+<%@page import="org.openxava.controller.meta.MetaAction"%>
+
+<jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
+<jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
+<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
     
 <% 
-   String tabObject = request.getParameter("tabObject");
-		tabObject = (tabObject == null || tabObject.equals(""))?"xava_tab":tabObject;
-		//org.openxava.tab.Tab tab = (org.openxava.tab.Tab) context.get(request, tabObject);
-		Collection<String> editors = org.openxava.web.WebEditors.getEditors(tab.getMetaTab());
-        List<MetaProperty> listProperty = tab.getMetaProperties();
-        List<String> listTitle = new ArrayList<>();
-        //List events = new ArrayList();
+ModuleManager manager = (ModuleManager) context.get(request, "manager", "org.openxava.controller.ModuleManager");
+Tab tab = (Tab) context.get(request, "xava_tab");
+View view = (View) context.get(request, "xava_view");
+String action = request.getParameter("rowAction");
+//MetaAction action2 = MetaControllers.getMetaAction(request.getParameter("action"));
+action=action==null?manager.getEnvironment().getValue("XAVA_LIST_ACTION"):action;
+Collection<String> editors = org.openxava.web.WebEditors.getEditors(tab.getMetaTab());
+List<MetaProperty> listProperty = tab.getMetaProperties();
+List<CalendarEvent> listEvent = new ArrayList<>();
+String events = "";
+String rows = "";
+CalendarEventIterator  it = new CalendarEventIterator(tab, view, request, errors);
     
-    //tomar el nombre de la propiedad, setear condicion para cargar datos en el calendar
-        String dateLabel = ""; 
-        for (MetaProperty property : listProperty) {
-            if (property.getTypeName().equals("java.time.LocalDate") || property.getTypeName().equals("java.util.Date")){
-                System.out.println("hay");
-                dateLabel = property.getLabel();
-                break;
-            }
-        }
-    //tab.setConditionValue(dateLabel, "14/08/2009");
-    //System.out.println(tab.getConditionValues().toString());
-    //System.out.println(tab.getConditionValuesTo().toString());
-    
-    //leer todas las filas de la tabla y cargar datos en el calendar
-/*
-    for (int i = 0; i < tab.getTableModel().getRowCount(); i++) {
-        HashMap<String, Integer> numId = null;
-        numId = (HashMap<String, Integer>) tab.getTableModel().getObjectAt(i);
-        listaCliente.add(getCliente(numeroCliente.entrySet().iterator().next().getValue()));
-    }
-    */
-    
-    for (Card card: new CardIterator(tab, view, request, errors)) {
-        String s = card.getSubheader() + " - " + card.getHeader();
-            System.out.println(s);
-            listTitle.add(s);
+listEvent = it.getEvents();
 
-}
-    
-      StringBuilder sb = new StringBuilder();
-  sb.append("[");
-  for (int j = 0; j < listTitle.size(); j++) {
-    sb.append("\"").append(listTitle.get(j)).append("\"");
-    if (j != listTitle.size() - 1) {
-      sb.append(",");
+StringBuilder sb = new StringBuilder();
+sb.append("[");
+for (int i = 0; i < listEvent.size(); i++) {
+    CalendarEvent evento = listEvent.get(i);
+    sb.append("{");
+    sb.append("\"start\":\"" + evento.getStart() + "\",");
+    sb.append("\"end\":\"" + evento.getEnd() + "\",");
+    sb.append("\"title\":\"" + evento.getTitle() + "\",");
+    sb.append("\"extendedProps\":{ \"row\":\"" + evento.getRow() + "\"}");
+    sb.append("}");
+    if (i < listEvent.size() - 1) {
+        sb.append(",");
     }
-  }
-  sb.append("]");
-  String listTitleJson = sb.toString();
+}
+sb.append("]");
+
+events = sb.toString();
+//System.out.println(events); 
+/*
+if (action2 != null) {
+    System.out.println(action2); 
+    } else {
+    System.out.println("es null"); 
+    }*/
     
-    
-    
-    
-    
-    
-    
-   %>
+%>
 
 <Calendar id="ec"/>
 
 
 <script type="text/javascript">
-    var onlyDate={year: 'numeric', month: 'numeric', day: 'numeric'};
-    var listCards = [];
+    var onlyDate={month: 'numeric', day: 'numeric'};
+    var onlyTime={hour: 'numeric', minute: '2-digit'};
+    var noTime = {};
+    var clicked = false;
     
-    var events = [];
 let ec = new EventCalendar(document.getElementById('ec'), {
     view: 'dayGridMonth',
     height: '800px',
@@ -82,28 +79,38 @@ let ec = new EventCalendar(document.getElementById('ec'), {
         },
     events: createEvents(),
     views: {
-            timeGridWeek: {pointer: true},
-            resourceTimeGridWeek: {pointer: true}
+            dayGridMonth: {eventTimeFormat: noTime},
+            timeGridWeek: {eventTimeFormat: onlyTime},
+            timeGridDay: {eventTimeFormat: onlyTime}
         },
     editable: true,
     displayEventEnd: false,
+    pointer: true,
     // para ver solo dia fecha año
-    eventTimeFormat: onlyDate,
-                           
-});
-    function createEvents() {
-        let days = [];
-        listCards = <%=listTitleJson%>;
-        //console.log(listCards);
-        for (let i = 0; i<listCards.length; i++){
-            let event = new Object();
-            event.start = '2023-03-2' + i + ' 00:00';
-            event.title = listCards[i];
-            console.log(event);
-            events.push(event);
+    locale: navigator.language,
+    eventClick: function(e){
+        if (!getSelection().toString()) {
+            openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', false, false, '<%=action%>', 'row=' +   parseInt(e.event.extendedProps.row));
         }
-        console.log(events);
-        return events;
+    },
+    dateClick: function(e){
+        console.log(JSON.stringify(e.dateStr));    
+        if (!getSelection().toString()) {
+            openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', false, false, 'CRUD.new', 'date=aloha');
+        }
     }
+});
+    
+function createEvents() {
+    let listEvents = ""; 
+    <%
+    if (events.length() > 0) {
+    %>
+       listEvents = <%=events%>;
+    <% } %>
+    //console.log(listEvents);
+    return listEvents;
+}
+    
     
 </script>

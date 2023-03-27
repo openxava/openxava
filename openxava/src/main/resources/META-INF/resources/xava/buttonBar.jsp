@@ -94,11 +94,11 @@ if (manager.isButtonBarVisible()) {
                 break;
             }
         }
-        System.out.println(tab.getTotalPropertiesNames().toString());
+        //System.out.println(tab.getTotalPropertiesNames().toString());
         //
         //if (!hasLocalDate) editors.remove("Calendar");
         
-        System.out.println(editors);
+        //System.out.println(editors);
 
 		if (editors.size() > 1) for (String editor: editors) {
 			String icon = org.openxava.web.WebEditors.getIcon(editor);
