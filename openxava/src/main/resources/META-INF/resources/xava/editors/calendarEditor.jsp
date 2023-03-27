@@ -22,7 +22,7 @@ ModuleManager manager = (ModuleManager) context.get(request, "manager", "org.ope
 Tab tab = (Tab) context.get(request, "xava_tab");
 View view = (View) context.get(request, "xava_view");
 String action = request.getParameter("rowAction");
-//MetaAction action2 = MetaControllers.getMetaAction(request.getParameter("action"));
+String action2 = manager.getEnvironment().getValue("XAVA_LIST_ACTION");
 action=action==null?manager.getEnvironment().getValue("XAVA_LIST_ACTION"):action;
 Collection<String> editors = org.openxava.web.WebEditors.getEditors(tab.getMetaTab());
 List<MetaProperty> listProperty = tab.getMetaProperties();
@@ -51,12 +51,12 @@ sb.append("]");
 
 events = sb.toString();
 //System.out.println(events); 
-/*
+
 if (action2 != null) {
     System.out.println(action2); 
     } else {
     System.out.println("es null"); 
-    }*/
+    }
     
 %>
 
@@ -94,9 +94,9 @@ let ec = new EventCalendar(document.getElementById('ec'), {
         }
     },
     dateClick: function(e){
-        console.log(JSON.stringify(e.dateStr));    
+        console.log(JSON.stringify(e));    
         if (!getSelection().toString()) {
-            openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', false, false, 'CRUD.new', 'date=aloha');
+            openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', false, false, 'CRUD.new', 'value='+ e.dateStr);
         }
     }
 });

@@ -1,6 +1,9 @@
 package org.openxava.actions;
 
-import javax.inject.*;
+import java.text.*;
+import java.util.*;
+
+import org.openxava.util.*;
 
 /**
  * @author Javier Paniza
@@ -8,8 +11,7 @@ import javax.inject.*;
 
 public class NewAction extends ViewBaseAction implements IChangeModeAction, IModelAction {
 	
-	@Inject  
-	private String date; 
+	private String value = ""; 
 	
 	private String modelName; 
 	private boolean restoreModel = false; 
@@ -38,12 +40,29 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 		this.restoreModel = restoreModel;
 	}
 
-	public String getDate() {
-		return IChangeModeAction.DETAIL;
+	public String getValue() {
+		return value;
 	}
 
-	public void setDate(String date) { 
-		System.out.println("set" + date);
-		this.date = date;		
+	public void setValue(String value) throws ParseException { 
+		this.value = formatDate(value);		
 	}
+	
+	private String formatDate(String date) throws ParseException {
+		String dateFormat = Dates.dateFormatForJSCalendar();
+		dateFormat = dateFormat.replace("n", "M")
+							   .replace("j", "d")
+							   .replace("m", "MM")
+							   .replace("d", "dd")
+							   .replace("Y", "yyyy");
+		
+		SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
+		Date d = in.parse(date);
+		SimpleDateFormat out = new SimpleDateFormat(dateFormat);
+        String outputDateStr = out.format(d);
+        return outputDateStr;
+		
+	}
+	
+	
 }
