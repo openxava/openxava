@@ -18,14 +18,14 @@ See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl
 <%@page import="org.openxava.util.XavaPreferences"%>
 <%@page import="org.openxava.web.style.XavaStyle"%>
 <%@page import="org.openxava.web.style.Themes"%> 
-<%@ page import="org.apache.commons.logging.LogFactory" %> <%-- tmr --%>
-<%@ page import="org.apache.commons.logging.Log" %> <%-- tmr --%>
+<%@ page import="org.apache.commons.logging.LogFactory" %> 
+<%@ page import="org.apache.commons.logging.Log" %> 
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="modules" class="com.openxava.naviox.Modules" scope="session"/>
 
 <%!
-private static Log log = LogFactory.getLog("index.jsp"); // tmr
+private static Log log = LogFactory.getLog("index.jsp"); 
 %>
 
 <%
@@ -36,7 +36,6 @@ if ("true".equals(request.getParameter("init"))) {
 }
 String app = request.getParameter("application");
 String module = context.getCurrentModule(request);
-// tmr ini
 try {
 	modules.setCurrent(request);
 }
@@ -45,8 +44,6 @@ catch (org.openxava.util.ElementNotFoundException ex) {
 	response.sendError(HttpServletResponse.SC_NOT_FOUND);
 	return;
 }
-// tmr fin
-// tmr modules.setCurrent(request); 
 String oxVersion = org.openxava.controller.ModuleManager.getVersion();
 String title = (String) request.getAttribute("naviox.pageTitle");
 if (title == null) title = modules.getCurrentModuleDescription(request); 
@@ -97,7 +94,7 @@ manager.setModuleName(module); // In order to show the correct description in he
 
 	<script type='text/javascript' src='<%=request.getContextPath()%>/naviox/js/naviox.js?ox=<%=oxVersion%>'></script> 
 	
-	<script <xava:nonce/>> <%-- tmr nonce --%>
+	<script <xava:nonce/>> 
 	$(function() {
 		naviox.lockSessionMilliseconds = <%=com.openxava.naviox.model.Configuration.getInstance().getLockSessionMilliseconds()%>; 
 		naviox.application = "<%=app%>";

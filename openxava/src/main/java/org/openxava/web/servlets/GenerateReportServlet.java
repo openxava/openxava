@@ -168,12 +168,10 @@ public class GenerateReportServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		try {				
 			Tab tab = (Tab) request.getSession().getAttribute("xava_reportTab");
-			// tmr ini
-			if (tab == null) {
+			if (tab == null) { // If you change this pass the ZAP test again
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 				return;
 			}
-			// tmr fin
 			int [] selectedRowsNumber = tab.getSelected();
 			Map [] selectedKeys = tab.getSelectedKeys();
 			int [] selectedRows = getSelectedRows(selectedRowsNumber, selectedKeys, tab);			

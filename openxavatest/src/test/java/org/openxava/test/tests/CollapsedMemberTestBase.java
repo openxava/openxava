@@ -61,8 +61,7 @@ public abstract class CollapsedMemberTestBase extends ModuleTestBase {
 		
 		//step 2: checks that after clicking on expansion icon the frame
 		//changes to opened.
-		// tmr HtmlAnchor expansionIcon= getHtmlPage().getAnchorByHref(
-		HtmlElement expansionIcon= HtmlUnitUtils.getAnchor(getHtmlPage(), // tmr 
+		HtmlElement expansionIcon= HtmlUnitUtils.getAnchor(getHtmlPage(),  
 				"javascript:openxava.showFrame('" + getFrameId() + "')");
 		expansionIcon.click();		
 		waitForSafeSynchronization();

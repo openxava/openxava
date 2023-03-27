@@ -5,7 +5,7 @@ import java.util.*;
 import javax.servlet.*;
 
 /**
- * tmr
+ * Utility class to generate nonce numbers for using in inline JavaScript.
  * 
  * @since 7.1
  * @author Javier Paniza

@@ -103,16 +103,8 @@ public class UserWithNicknameTest extends ModuleTestBase {
 		waitView();
 	}
 	
-	private HtmlAnchor getAnchorByHref(String href) throws Exception { // tmr
+	private HtmlAnchor getAnchorByHref(String href) throws Exception { 
 		return (HtmlAnchor) HtmlUnitUtils.getAnchor(getHtmlPage(), href); 
-		/* tmr
-		try {
-			return getHtmlPage().getAnchorByHref(href);
-		}
-		catch (ElementNotFoundException ex) {
-			return getHtmlPage().getBody().getOneHtmlElementByAttribute("a", "onclicke", href);
-		}
-		*/
 	}
 	
 	private void openFrame() throws Exception {

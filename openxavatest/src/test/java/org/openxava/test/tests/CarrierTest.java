@@ -64,34 +64,23 @@ public class CarrierTest extends CarrierTestBase {
 		assertEquals("javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l" 
 			+ (char) 8216 
 			+"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
-			// tmr deleteLink.getHrefAttribute());
-			getHrefAttribute(deleteLink)); // tmr
+			getHrefAttribute(deleteLink)); 
 		execute("CRUD.delete");
 		execute("Mode.list");
 		assertListRowCount(4);
 		
 		// Confirm row action with apostrophe and title in actions
 		// To ensure the title and question have apostrophe
-		printHtml(); // tmr
 		String deleteRowLink = "<a class=\"ox-image-link\" "
 				+ "title=\"Effacer l"  
 				// (char) 145 // ANSI
 				+ (char) 8216 // UNICODE
 				+ "entité\" "
-				// tmr ini
 				+ "href=\"javascript:void(0)\" "
 				+ "onclicke=\"javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l"
-				// tmr fin
-				// tmr + "href=\"javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l" 
 				// + (char) 145 // ANSI
 				+ (char) 8216 // UNICODE
 				+ "entité la ligne 1: êtes-vous sûr ?', false, 'CRUD.deleteRow', 'row=0')\">";
-		/*
-<a class="ox-image-link" title="Effacer l?entité" href="javascript:void(0)" onclicke="javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l?entité la ligne 1: êtes-vous sûr ?', false, 'CRUD.deleteRow', 'row=0')">
-		 */
-		
-		
-		
 		
 		assertTrue(getHtml().contains(deleteRowLink));
 		execute("CRUD.deleteRow", "row=0");

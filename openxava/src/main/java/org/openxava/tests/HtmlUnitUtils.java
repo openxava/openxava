@@ -19,7 +19,8 @@ import junit.framework.*;
 
 public class HtmlUnitUtils {
 	
-	public static String getHrefAttribute(HtmlElement element) { // tmr
+	/** @since 7.1 */
+	public static String getHrefAttribute(HtmlElement element) { 
 		HtmlAnchor anchor = (HtmlAnchor) element;
 		String originalHref = anchor.getHrefAttribute(); 
 		if (!originalHref.equals("javascript:void(0)")) return originalHref;
@@ -40,12 +41,10 @@ public class HtmlUnitUtils {
 		if ("a".equals(element)) {
 			List<HtmlElement> result = page.getBody().getElementsByAttribute(element, "href", url);
 			if (!result.isEmpty()) return result;
-			// tmr ini
 			if (url.startsWith("javascript:")) {
 				result = page.getBody().getElementsByAttribute(element, "onclicke", url);
 				if (!result.isEmpty()) return result;				
 			}
-			// tmr fin
 		}
 		return page.getBody().getElementsByAttribute(element, "onclick", "window.location='" + url + "'");
 	}

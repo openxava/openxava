@@ -1,4 +1,4 @@
-<%@include file="../xava/imports.jsp"%> <%-- tmr --%>
+<%@include file="../xava/imports.jsp"%> 
 
 <%@page import="com.openxava.naviox.util.OrganizationsCurrent"%> 
 <%@page import="org.openxava.web.Browsers"%>
@@ -12,7 +12,7 @@ if (Users.getCurrent() != null || OrganizationsCurrent.get(request) != null) {
 	String url = Browsers.isMobile(request) && !"Index".equals(modules.getCurrent(request))?"phone":"m/" + module;
 %>
 
-<script type="text/javascript" <xava:nonce/>> <%-- tmr nonce ¿En migration para código propio? --%>
+<script type="text/javascript" <xava:nonce/>>
 window.location="<%=url%>";
 </script>
 

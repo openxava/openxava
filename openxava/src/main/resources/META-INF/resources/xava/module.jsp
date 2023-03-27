@@ -32,12 +32,12 @@
 			if ("application".equals(name) || "module".equals(name))
 				continue;
 			String value = request.getParameter(name);
-			if (!Is.emptyString(value) && !(value.contains("<") || value.contains("\""))) { // tmr
+			if (!Is.emptyString(value) && !(value.contains("<") || value.contains("\""))) { // If change pass the ZAP test again
 				result.append('&');
 				result.append(name);
 				result.append('=');
 				result.append(value);
-			} // tmr
+			} 
 		}
 		return result.toString();
 	}%>

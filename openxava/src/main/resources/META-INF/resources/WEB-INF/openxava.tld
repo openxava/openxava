@@ -197,13 +197,11 @@
     </attribute>
   </tag>
   
-  <!-- tmr ini -->
   <tag>
     <name>nonce</name>
     <tagclass>org.openxava.web.taglib.NonceTag</tagclass>
     <bodycontent>empty</bodycontent>
     <info>Generates a nonce attribute to add to inline JavaScript scripts</info>
   </tag>  
-  <!-- tmr fin -->         
                 
 </taglib>

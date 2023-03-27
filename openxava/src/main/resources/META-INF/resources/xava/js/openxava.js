@@ -210,13 +210,13 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initPlaceholder();
 	openxava.listenChanges(); 
 	openxava.initFocusKey();
-	openxava.initInlineEvents(); // tmr
+	openxava.initInlineEvents(); 
   	$('#xava_save_list_configuration').fadeIn(1000, 'swing'); 
 }
 
 openxava.initFocusKey = function() { }
 
-openxava.initInlineEvents =  function() { // tmr 
+openxava.initInlineEvents =  function() {  
 	$('[onclick]').each(function() {
   		$(this).off('click').click(function() {
   			eval($(this).attr('onclick'));
@@ -503,7 +503,7 @@ openxava.initLists = function(application, module) {
 	    	var tableId = table.attr("id");
 	    	View.moveCollectionElement(tableId, ui.item.startPos - 1, ui.item.index() - 1);
 	    	openxava.renumberCollection(table);
-	  		openxava.initInlineEvents(); // tmr
+	  		openxava.initInlineEvents(); 
 	    }	
 	});
 	openxava.watchColumnsSearch();
@@ -515,14 +515,8 @@ openxava.initLists = function(application, module) {
 openxava.renumberCollection = function(table) { 
 	table.find("tr").each(function(rowIndex) {
 		$(this).find("a").each(function() {
-			/* tmr
-			var newHref = $(this).attr("href")
-				.replace(new RegExp("'row=\\d+,viewObject=", "g"), "'row=" + (rowIndex - 1) + ",viewObject=")
-			*/	
-			// tmr ini
 			var newHref = $(this).attr("onclicke")
 				.replace(new RegExp("'row=\\d+,viewObject=", "g"), "'row=" + (rowIndex - 1) + ",viewObject=");
-			// tmr fin
 			$(this).attr("href", newHref);
 		});
 	});

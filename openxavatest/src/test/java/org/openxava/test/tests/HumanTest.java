@@ -180,7 +180,7 @@ public class HumanTest extends ModuleTestBase {
 		assertFalse(s.contains("display: none") || s.contains("display:none")); 
 	}
 	
-	private HtmlAnchor getAnchorByHref(String href) throws Exception { // tmr
+	private HtmlAnchor getAnchorByHref(String href) throws Exception { 
 		return (HtmlAnchor) HtmlUnitUtils.getAnchor(getHtmlPage(), href);
 	}
 	

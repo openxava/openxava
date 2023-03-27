@@ -42,8 +42,7 @@ public class Themes {
 		}
 		String newTheme = request.getParameter("theme");
 		try {
-			// tmr if (!Is.emptyString(newTheme)) {
-			if (!Is.emptyString(newTheme) && getAll().contains(newTheme)) { // tmr
+			if (!Is.emptyString(newTheme) && getAll().contains(newTheme)) { // If change this pass the ZAP test again
 				Preferences pref = getPreferences();
 				pref.put("theme", newTheme);
 				pref.flush();

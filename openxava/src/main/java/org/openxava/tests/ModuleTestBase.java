@@ -598,8 +598,7 @@ abstract public class ModuleTestBase extends TestCase {
 		
 		if (element instanceof HtmlAnchor) {
 			// Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.70 in some circumstances
-			// tmr page.executeJavaScript(((HtmlAnchor)element).getHrefAttribute());
-			page.executeJavaScript(getHrefAttribute(element)); // tmr			
+			page.executeJavaScript(getHrefAttribute(element)); 			
 		}
 		else {
 			element.click();
@@ -732,8 +731,7 @@ abstract public class ModuleTestBase extends TestCase {
 		if (element != null) {
 			if (!clicking && element instanceof HtmlAnchor) { 
 				// Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.9/2.70 in some circumstances
-				// tmr page.executeJavaScript(((HtmlAnchor)element).getHrefAttribute());
-				page.executeJavaScript(getHrefAttribute(element)); // tmr				
+				page.executeJavaScript(getHrefAttribute(element)); 				
 			}
 			else {
 				element.click();

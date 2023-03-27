@@ -2337,7 +2337,6 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	private HtmlElement getChartTypeLink(String chartType) throws Exception { 
-		// tmr return getHtmlPage().getAnchorByHref("javascript:openxava.executeAction('openxavatest', 'Invoice', '', false, 'Chart.selectType', 'chartType=" + chartType + "')"); 
 		return HtmlUnitUtils.getAnchor(getHtmlPage(), "javascript:openxava.executeAction('openxavatest', 'Invoice', '', false, 'Chart.selectType', 'chartType=" + chartType + "')");
 	}
 	
