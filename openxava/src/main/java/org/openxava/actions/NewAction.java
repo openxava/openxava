@@ -1,9 +1,6 @@
 package org.openxava.actions;
 
 import java.text.*;
-import java.util.*;
-
-import org.openxava.util.*;
 
 /**
  * @author Javier Paniza
@@ -45,9 +42,9 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 	}
 
 	public void setValue(String value) throws ParseException { 
-		this.value = formatDate(value);		
+		this.value = value;		
 	}
-	
+	/*
 	private String formatDate(String date) throws ParseException {
 		String dateFormat = Dates.dateFormatForJSCalendar();
 		dateFormat = dateFormat.replace("n", "M")
@@ -62,7 +59,7 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
         String outputDateStr = out.format(d);
         return outputDateStr;
 		
-	}
+	}*/
 	
 	
 }
