@@ -97,10 +97,21 @@ public class NaviOXFilter implements Filter {
 					parametersQuery = "&originalParameters=" + originalParameters;
 				}
 				String userAccessModule = modules.getUserAccessModule(request);
+				/* tmr
 				RequestDispatcher dispatcher = request.getRequestDispatcher(
 					"/" + base + "/" + userAccessModule + 
 					"?originalURI=" + originalURI +
 					parametersQuery);
+				*/
+				// tmr ini
+				String dispatcherURL = "/" + base + "/" + userAccessModule + "?originalURI=" + originalURI + parametersQuery;
+				if (Users.getCurrent() == null) {					
+					session.setAttribute("naviox.userAccessURL", dispatcherURL); // tmr ¿Este nombre de atributo? ¿naviox como prefijo? ¿URL o URI?
+					session.setAttribute("naviox.originalURL", originalURI + parametersQuery); // tmr ¿Este nombre de atributo? ¿naviox como prefijo? ¿URL o URI?
+					dispatcherURL = "/azure/signIn"; // tmr Obviamente no se puede quedar así									
+				}
+				RequestDispatcher dispatcher = request.getRequestDispatcher(dispatcherURL); 				
+				// tmr fin
 				dispatcher.forward(secureRequest, response); 
 			}
 		} 
