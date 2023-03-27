@@ -11,7 +11,6 @@ Change Log for OpenXava project
 - Fix: Cross-Site Scripting (XSS) vulnerabilities.
 - Fix: Data filtering in .htaccess for some URLs.
 - Fix: Content Security Policy (CSP) Header Not Set.
-
 - New @Mask annotation to define the valid format for entering data in a text field.
 - HtmlUnit upgraded to 2.70.
 - Fix: Denial of service vulnerability.
