@@ -82,9 +82,11 @@ public class NaviOXFilter implements Filter {
 			Users.setCurrent(secureRequest);
 			
 			if (modules.isModuleAuthorized(secureRequest)) {
+				System.out.println("[NaviOXFilter.doFilter] MODULE AUTHORIZED"); // tmr
 				chain.doFilter(secureRequest, response);
 			}
 			else {
+				System.out.println("[NaviOXFilter.doFilter] MODULE NO AUTHORIZED"); // tmr
 				char base = secureRequest.getRequestURI().split("/")[Is.emptyString(request.getServletContext().getContextPath())?1:2].charAt(0)=='p'?'p':'m';
 				String originalURI = secureRequest.getRequestURI();
 				String organization = OrganizationsCurrent.get(request);
@@ -105,11 +107,16 @@ public class NaviOXFilter implements Filter {
 				*/
 				// tmr ini
 				String dispatcherURL = "/" + base + "/" + userAccessModule + "?originalURI=" + originalURI + parametersQuery;
-				if (Users.getCurrent() == null) {					
+				if (Users.getCurrent() == null && session.getAttribute("naviox.originalURL") == null) {
+					System.out.println("[NaviOXFilter.doFilter] NO USER"); // tmr
 					session.setAttribute("naviox.userAccessURL", dispatcherURL); // tmr ¿Este nombre de atributo? ¿naviox como prefijo? ¿URL o URI?
 					session.setAttribute("naviox.originalURL", originalURI + parametersQuery); // tmr ¿Este nombre de atributo? ¿naviox como prefijo? ¿URL o URI?
 					dispatcherURL = "/azure/signIn"; // tmr Obviamente no se puede quedar así									
 				}
+				else {
+					System.out.println("[NaviOXFilter.doFilter] USER IN SESSION"); // tmr
+				}
+				System.out.println("[NaviOXFilter.doFilter] dispatcherURL=" + dispatcherURL); // tmr
 				RequestDispatcher dispatcher = request.getRequestDispatcher(dispatcherURL); 				
 				// tmr fin
 				dispatcher.forward(secureRequest, response); 
