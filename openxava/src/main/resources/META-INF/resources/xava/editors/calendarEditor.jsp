@@ -61,10 +61,10 @@ events = sb.toString();
 
 if (dateFormat != null) {
     dateFormat = dateFormat.replace("n", "M")
-								   .replace("j", "d")
-								   .replace("m", "MM")
-								   .replace("d", "dd")
-								   .replace("Y", "yyyy");
+                           .replace("m", "MM")
+			               .replace("d", "dd")
+				           .replace("j", "d")
+				           .replace("Y", "yyyy");
     } else {
     System.out.println("es null"); 
     }
@@ -80,7 +80,8 @@ if (dateFormat != null) {
     var noTime = {};
     var clicked = false;
     var dateFormat = '<%=dateFormat%>';
-    console.log(dateFormat);
+    var formattedDate = "";
+    //console.log(dateFormat);
     
 let ec = new EventCalendar(document.getElementById('ec'), {
     view: 'dayGridMonth',
@@ -107,10 +108,19 @@ let ec = new EventCalendar(document.getElementById('ec'), {
         }
     },
     dateClick: function(e){
-        console.log(JSON.stringify(e));    
+        //console.log(JSON.stringify(e));    
         reformatDate(e.dateStr);
+        let value = {
+            "dates" : {
+                "label": "date",
+                "date" : formattedDate
+            }
+        };
+        console.log(JSON.stringify(value));
+        // .replace(",","*")
+        
         if (!getSelection().toString()) {
-            openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', false, false, '<%=actionNew%>', 'value='+ e.dateStr);
+            openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', false, false, '<%=actionNew%>', 'value=' +  JSON.stringify(value).replace(",","*"));
         }
     }
 });
@@ -122,23 +132,37 @@ function createEvents() {
     %>
        listEvents = <%=events%>;
     <% } %>
-    //console.log(listEvents);
     return listEvents;
 }
     
 function reformatDate(date){
     console.log("reformat");
+    //let y const son locales, let se puede mutar y const no se cambia el valor
     let d = new Date(date);
-    console.log(d);
-
-    let mes = d.getMonth() + 1; // getMonth() devuelve el mes en base 0, por eso sumamos 1
-    let dia = d.getDate();
-    let anio = d.getFullYear();
-    let fechaFormateada = mes + "/" + dia + "/" + anio;
-    
-    console.log("fechaFormateada " + fechaFormateada); // muestra la fecha formateada
-    
-    //console.log("format" + dateFormat);
+    formattedDate = formatDate(d, dateFormat);
 }
     
+function getSeparator(date){
+    const separatorRegex = /[^0-9]/g;
+    const separator = dateString.match(separatorRegex)[0];
+    return separator;
+}
+    
+function formatDate(date, format) {
+    console.log(date);
+    console.log(format);
+  const map = {
+    M: date.getMonth() + 1,
+    d: date.getDate(),
+    h: date.getHours(),
+    m: date.getMinutes(),
+    s: date.getSeconds(),
+    y: date.getFullYear().toString().slice(-2),
+    yyyy: date.getFullYear()
+  };
+  
+  return format.replace(/M|d|h|m|s|yyyy|y/gi, matched => {
+    return map[matched];
+  });
+}
 </script>

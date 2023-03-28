@@ -42,24 +42,16 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 	}
 
 	public void setValue(String value) throws ParseException { 
+		System.out.println(value.replace("*", ","));
+		/*
+		JsonReader jsonReader = Json.createReader(new StringReader(value));
+		JsonObject jsonObject = jsonReader.readObject();
+		jsonReader.close();
+		for (String key : jsonObject.keySet()) {
+		    String v = jsonObject.get(key).toString();
+		    System.out.println(key + ": " + v);
+		}*/
 		this.value = value;		
 	}
-	/*
-	private String formatDate(String date) throws ParseException {
-		String dateFormat = Dates.dateFormatForJSCalendar();
-		dateFormat = dateFormat.replace("n", "M")
-							   .replace("j", "d")
-							   .replace("m", "MM")
-							   .replace("d", "dd")
-							   .replace("Y", "yyyy");
-		
-		SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
-		Date d = in.parse(date);
-		SimpleDateFormat out = new SimpleDateFormat(dateFormat);
-        String outputDateStr = out.format(d);
-        return outputDateStr;
-		
-	}*/
-	
 	
 }
