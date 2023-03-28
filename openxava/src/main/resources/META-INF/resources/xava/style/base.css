@@ -604,6 +604,12 @@ a #loading_more_modules, a:hover #load_more_modules  {
 	margin-top: 6px;
 }
 
+/* tmr ini */
+#loading_more_modules {
+	display: none;
+}
+/* tmr fin */
+
 A:hover .module-row, A:hover .folder-row, A:hover #organizations_index { 
 	background: var(--module-row-hover-background); 
 }
@@ -889,6 +895,13 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	}
 }
 
+/* tmr ini */
+.ox-display-block {
+	display: block;
+}
+
+/* tmr fin */
+
 .ox-collection-list-actions .ox-button-bar-button a {
 	padding: 6px;  
 }
@@ -964,6 +977,17 @@ i.module-loading  {
 	font-weight: bold;
 	font-size: 150%;
 }
+
+/* tmr ini */
+.module-name .module-loading {
+	float: right; 
+	display:none;
+}
+
+.loading_more_modules .module-loading {
+	float: right;
+}
+/* tmr fin */
 
 .mobile i.module-loading, .mobile #loading_more_elements  {
 	color: var(--mobile-icon-module-loading-color);
@@ -1941,6 +1965,13 @@ div.ox-subcontroller table{
 	margin: -20px 0px 10px 9px;
 	padding: 20px 20px 5px 5px;	
 }
+
+/* tmr ini */
+.ox-chart-data .ct-chart {
+	width: calc(100vw - 385px); 
+	height: calc(100vh - 300px);
+}
+/* tmr fin */
 
 .firefox .ct-chart {
 	margin-left: -25px;

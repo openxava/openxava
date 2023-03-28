@@ -7,6 +7,7 @@
 
 <div class="<%=style.getChartType()%>">
 <%
+// TMR ME QUEDÉ POR AQUÍ: QUITANDO INLINE STYLE
 String chartObject = request.getParameter("chartObject");
 chartObject = (chartObject == null || chartObject.equals(""))?"xava_chart":chartObject;
 Chart chart = (Chart) context.get(request, chartObject);

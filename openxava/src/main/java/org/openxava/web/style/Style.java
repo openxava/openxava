@@ -397,17 +397,20 @@ public class Style {
 	/**
 	 * @since 6.0
 	 */
+	/* tmr
 	public String getChartData() {   
 		return "ox-chart-data";
 	}
+	*/
 	
 	/**
 	 * @since 5.9
 	 */
+	/* tmr
 	public String getChartsDataStyle() { 
 		return "width:calc(100vw - 385px); height:calc(100vh - 300px);"; 
 	}
-
+	*/
 	
 	/**
 	 * @since 5.7
