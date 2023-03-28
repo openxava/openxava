@@ -1191,13 +1191,15 @@ input[type="button"]:focus {
 }
 
 .ox-bottom-buttons input:nth-of-type(2), 
+.ox-bottom-buttons a:nth-of-type(1) input, 
 .ox-discussion-post-button input[type="button"]:nth-of-type(1) {
 	background: var(--default-action-button-background);
 	color: var(--default-action-button-color);
 	box-shadow: 0px 1px 3px var(--default-action-button-shadow); 
 }
 
-.ox-bottom-buttons input:nth-of-type(2):hover, 
+.ox-bottom-buttons input:nth-of-type(2):hover,
+.ox-bottom-buttons a:nth-of-type(1) input:hover,  
 .ox-discussion-post-button input:nth-of-type(1):hover {
 	color: var(--default-action-button-hover-color); 
 	background: var(--default-action-button-hover-background);

@@ -25,7 +25,7 @@ public class WorkCostTest extends WorkCostTestBase {
 		
 		setValue("worker.nickName", "john");
 		assertValue("worker.hourPrice", "20.00");
-		assertValue("total", "5,800.00");
+		assertValue("total", "5,800.00"); 
 		
 		setValue("tripCost", "299.9");
 		assertValue("total", "6,147.88");

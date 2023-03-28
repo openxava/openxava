@@ -10,7 +10,10 @@ import org.apache.catalina.core.*;
 import org.apache.catalina.startup.*;
 import org.apache.catalina.webresources.*;
 import org.apache.commons.logging.*;
+import org.apache.tomcat.util.descriptor.web.*;
+import org.apache.tomcat.util.http.*;
 import org.openxava.application.meta.*;
+import org.openxava.web.servlets.*;
 
 /**
  * 
@@ -58,17 +61,46 @@ public class AppServer {
         tomcat.setPort(port);
         tomcat.getConnector();
         tomcat.enableNaming();
+        
         StandardContext context = (StandardContext) tomcat.addWebapp(contextPath, webappDir);
+
+        // If you change the next 3 lines pass the ZAP test again
+        Rfc6265CookieProcessor processor = new Rfc6265CookieProcessor();
+        processor.setSameSiteCookies("Strict");
+        context.setCookieProcessor(processor);
+        
+        // If you change the content of error404.html or error500.html pass the ZAP test again 
+        addErrorPage(context, 404);
+        addErrorPage(context, 500); // The Error 500 page should not content "Internal Server Error" string to pass ZAP        
+
         WebResourceRoot resources = new StandardRoot(context);
         resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes", "target/classes", "/"));
         context.setResources(resources);
         context.setParentClassLoader(Thread.currentThread().getContextClassLoader()); // To work with mvn exec:java from command line
+        
+        if (!Is.emptyString(contextPath)) {
+        	// If you change the next code pass the ZAP test again
+	        Context rootContext = tomcat.addContext("", new File(".").getAbsolutePath());
+	        Tomcat.addServlet(rootContext, "notFound", new NotFoundServlet());
+	        rootContext.addServletMappingDecoded("/robots.txt", "notFound");
+	        rootContext.addServletMappingDecoded("/sitemap.xml", "notFound");
+	        rootContext.addServletMappingDecoded("/favicon.ico", "notFound");
+	        rootContext.addServletMappingDecoded("/naviox/*", "notFound");
+        }
+
         tomcat.start();
        	if (tomcat.getConnector().getLocalPort() < 0) {
      		tomcat.stop();
      		return null;
        	}
        	return tomcat;
+	}
+
+	private static void addErrorPage(StandardContext context, int errorCode) {
+		ErrorPage errorPage = new ErrorPage();
+        errorPage.setErrorCode(errorCode);
+        errorPage.setLocation("/WEB-INF/error" + errorCode + ".html");   
+        context.addErrorPage(errorPage);
 	}
 	
 	private static void createDefaultI18nFiles(String app) {

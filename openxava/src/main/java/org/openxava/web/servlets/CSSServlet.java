@@ -32,6 +32,7 @@ public class CSSServlet extends HttpServlet {
 			StringWriter writer = new StringWriter();
 			IOUtils.copy(inputStream, writer, StandardCharsets.UTF_8);
 			String data = writer.toString().replaceAll("@import (['\"].*)\\.css", "@import $1.css?ox=" + ModuleManager.getVersion());
+			response.setContentType("text/css"); // If you change this pass the ZAP test again
 			response.getWriter().append(data);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -40,6 +41,7 @@ public class CSSServlet extends HttpServlet {
 	}
 	
 	private InputStream getCSSAsStream(String resourceName, String prefix) throws FileNotFoundException {
+		if (resourceName == null) return null; // If you change this pass the ZAP test again
 		InputStream stream = getClass().getClassLoader().getResourceAsStream("META-INF/resources/" + prefix + resourceName);
 		if (stream != null) return stream;
 		stream = new FileInputStream(getServletContext().getRealPath("/") + prefix + resourceName);

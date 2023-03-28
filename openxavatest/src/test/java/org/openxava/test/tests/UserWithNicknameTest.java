@@ -98,15 +98,17 @@ public class UserWithNicknameTest extends ModuleTestBase {
 	}
 	
 	private void closeFrame() throws Exception {
-		HtmlAnchor icon = getHtmlPage().getAnchorByHref(
-						"javascript:openxava.hideFrame('" + getFrameId() + "')");
+		HtmlAnchor icon = getAnchorByHref("javascript:openxava.hideFrame('" + getFrameId() + "')");
 		icon.click();
 		waitView();
 	}
 	
+	private HtmlAnchor getAnchorByHref(String href) throws Exception { 
+		return (HtmlAnchor) HtmlUnitUtils.getAnchor(getHtmlPage(), href); 
+	}
+	
 	private void openFrame() throws Exception {
-		HtmlAnchor icon = getHtmlPage().getAnchorByHref(
-						"javascript:openxava.showFrame('" + getFrameId() + "')");
+		HtmlAnchor icon = getAnchorByHref("javascript:openxava.showFrame('" + getFrameId() + "')");
 		icon.click();
 		waitView();
 	}

@@ -3,13 +3,11 @@
  */
 package org.openxava.test.tests;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.regex.*;
 
-import org.openxava.tests.ModuleTestBase;
+import org.openxava.tests.*;
 
-import com.gargoylesoftware.htmlunit.html.DomNodeList;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.*;
 
 
 /**
@@ -44,7 +42,7 @@ public class EmbeddedTest extends ModuleTestBase {
 		DomNodeList list = getHtmlPage().getElementsByTagName("a");
 		for (int index = 0; index < list.getLength(); index++) {
 			HtmlElement element = (HtmlElement) list.get(index);
-			if (element.getAttribute("href").contains("Reference.search")) {
+			if (HtmlUnitUtils.getHrefAttribute(element).contains("Reference.search")) { 
 				returnValue = element;
 				break;
 			}
@@ -54,7 +52,7 @@ public class EmbeddedTest extends ModuleTestBase {
 	}
 	
 	private String extractKeyProperty(HtmlElement element) {
-		String href = element.getAttribute("href");
+		String href = HtmlUnitUtils.getHrefAttribute(element); 
 		Matcher matcher = keyPropertyPattern.matcher(href);
 		if (matcher.matches()) {
 			return matcher.group(1);

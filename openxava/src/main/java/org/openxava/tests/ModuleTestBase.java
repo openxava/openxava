@@ -1,5 +1,7 @@
 package org.openxava.tests;
 
+import static org.openxava.tests.HtmlUnitUtils.getHrefAttribute;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -595,8 +597,8 @@ abstract public class ModuleTestBase extends TestCase {
 		HtmlElement element  = getElementById(action);
 		
 		if (element instanceof HtmlAnchor) {
-			// Because input.click() fails with HtmlUnit 2.5/2.6/2.7 in some circumstances
-			page.executeJavaScript(((HtmlAnchor)element).getHrefAttribute()); 
+			// Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.70 in some circumstances
+			page.executeJavaScript(getHrefAttribute(element)); 			
 		}
 		else {
 			element.click();
@@ -689,22 +691,23 @@ abstract public class ModuleTestBase extends TestCase {
 			if (arguments != null) { // 'List.viewDetail', 'row=0'				
 				if (
 					(
-						anchor.getHrefAttribute().contains("'" + action + "', '" + arguments + "'") ||
-						anchor.getHrefAttribute().contains("'" + action + "', '," + arguments + "'")							
+						getHrefAttribute(anchor).contains("'" + action + "', '" + arguments + "'") ||  
+						getHrefAttribute(anchor).contains("'" + action + "', '," + arguments + "'")							
 					)
-					&& anchor.getHrefAttribute().indexOf(moduleMarkForAnchor) >= 0)  			
+					&& getHrefAttribute(anchor).indexOf(moduleMarkForAnchor) >= 0)  			
 				{				
 					return anchor;				
 				}
 			}
 			else { // 'ReferenceSearch.choose'				
-				if (anchor.getHrefAttribute().endsWith("'" + action + "')")) {				
+				if (getHrefAttribute(anchor).endsWith("'" + action + "')")) {				
 					return anchor;				
 				}				
 			}
 		}		
 		return null;
 	}
+	
 	
 	
 	
@@ -727,8 +730,8 @@ abstract public class ModuleTestBase extends TestCase {
 		}
 		if (element != null) {
 			if (!clicking && element instanceof HtmlAnchor) { 
-				// Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.9 in some circumstances
-				page.executeJavaScript(((HtmlAnchor)element).getHrefAttribute());
+				// Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.9/2.70 in some circumstances
+				page.executeJavaScript(getHrefAttribute(element)); 				
 			}
 			else {
 				element.click();

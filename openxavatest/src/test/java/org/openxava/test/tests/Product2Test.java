@@ -571,7 +571,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertEquals("", familyTextField.getAttribute("value")); 
 		
 		execute("CRUD.new");
-		familyList = getHtmlPage().getHtmlElementById("ui-id-27");
+		familyList = getHtmlPage().getHtmlElementById("ui-id-27"); 
 		assertFalse(familyList.isDisplayed());
 		assertEquals(0, familyList.getChildElementCount());
 		familyTextField = getDescriptionsListTextField("family");

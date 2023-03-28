@@ -93,7 +93,7 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		clearCondition();
 		removeColumn(1);
 		assertLabelInList(0, "Paid");
-		assertLabelInList(1, "Number");
+		assertLabelInList(1, "Number"); 
 		assertLabelInList(2, "Date");
 		assertLabelInList(3, "V.A.T.");
 		assertLabelInList(4, "Amounts sum");

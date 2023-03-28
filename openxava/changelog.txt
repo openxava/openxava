@@ -1,6 +1,18 @@
 Change Log for OpenXava project
 ===============================
 
+- New <xava:nonce/> taglib to generate a nonce number for using in inline JavaScript.
+- Fix: Inline JavaScript for events in HTML elements.
+- Fix: XSLT injection vulnerabilities.
+- Fix: X-Content-Type-Options Header Missing.
+- Fix: Cookie without SameSite attribute.
+- Fix: Application error disclosure.
+- Fix: Session ID in URL rewrite.
+- Fix: Cross-Site Scripting (XSS) vulnerabilities.
+- Fix: Data filtering in .htaccess for some URLs.
+- Fix: Content Security Policy (CSP) Header Not Set.
+- New @Mask annotation to define the valid format for entering data in a text field.
+- HtmlUnit upgraded to 2.70.
 - Fix: Denial of service vulnerability.
 - Embedded Tomcat used in development upgraded to 9.0.73.
 - Log4j-api and core upgraded to 2.20.0.

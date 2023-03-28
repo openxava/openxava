@@ -9,6 +9,8 @@ License: GNU Lesser General Public License (LGPL), version 2.1 or later.
 See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
 --%>
 
+<%@include file="../xava/imports.jsp"%> 
+
 <%@page import="org.openxava.controller.ModuleManager"%>
 <%@page import="com.openxava.naviox.model.Configuration"%>
 <%@page import="com.openxava.naviox.util.NaviOXPreferences"%>
@@ -26,6 +28,6 @@ if (!Configuration.getInstance().isSharedUsersBetweenOrganizations()
 session.invalidate();
 %>
 
-<script type="text/javascript">
+<script type="text/javascript" <xava:nonce/>> 
 window.location="<%=String.format("%s/m/SignIn", base)%>";
 </script>

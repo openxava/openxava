@@ -46,6 +46,61 @@
       </div>
       <h2>Para migrar de OpenXava 7.0.6 a OpenXava 7.1</h2>
       <div class="wiki" style="display: block;">
+        <h3>JavaScript en línea en los JSP requiere el atributo once</h3>
+        <p>Esto es por razones de seguridad. Rara vez se utiliza JavaScript en
+          línea en el código de las aplicaciones de OpenXava, ya que no
+          funcionan desde OpenXava 3.1 para editores o vistas personalizadas.
+          Sin embargo, si tienes código personalizado fuera de un módulo
+          OpenXava normal, como <i>welcome.jsp</i>, o algún encabezado o pie de
+          página personalizado para tu aplicación, tal vez tengas algunos
+          scripts en línea. En este caso, debes agregar un atributo <i>once</i>
+          a tu script en línea utilizando la nueva etiqueta <i>&lt;xava:once/&gt;</i>
+          de la biblioteca de etiquetas.</p>
+        <p>Por ejemplo, si tu página <i>welcome.jsp</i> tiene este
+          código:</p>
+        <pre><code class="html">&lt;script type="text/javascript"&gt; 
+    var button = document.getElementById('welcome_go_signin');
+    button.onclick = function () { window.location='m/SignIn'; }
+&lt;/script&gt;
+</code></pre>
+        <p>Deberías cambiarlo por:</p>
+        <pre><code class="html">&lt;%@include file="../xava/imports.jsp"%&gt;
+    
+    ...
+    
+&lt;script type="text/javascript" &lt;xava:nonce/&gt;&gt; 
+    var button = document.getElementById('welcome_go_signin');
+    button.onclick = function () { window.location='m/SignIn'; }
+&lt;/script&gt;
+</code></pre>
+        <p>Fíjate en el nuevo elemento <i>&lt;xava:once&gt;</i> y que has de
+          incluir <i>imports.jsp</i>.</p>
+        <p>Aún mejor, podrías buscar una alternativa que no use ningún script en
+          línea. En este caso, por ejemplo, podríamos cambiar el evento <i>onclick
+            </i>con un <i>window.location</i> por un simple <i>&lt;a ref=""
+            /&gt;</i>, si es posible.</p>
+        <h3>Ya no se soportan eventos en línea en elementos HTML</h3>
+        <p>Si tienes que escribir tus propios editores o vistas personalizadas y
+          estás usando onclick, onfocus, onblur, etc., ya no van a funcionar.
+          Esto es por razones de seguridad. Tienes que eliminar los eventos del
+          HTML y moverlos a un archivo JS. </p>
+        <p>Es decir, si tienes un código como este:</p>
+        <pre><code class="html">&lt;input type="button" tabindex="1" onclick="window.location='m/SignIn'" value="&lt;xava:label key='SignIn'/&gt;"&gt;
+</code></pre>
+        <p>Quita el evento <i>onclick</i> y añade un id al elemento, dejándolo
+          de esta manera:</p>
+        <pre><code class="html">&lt;input id="welcome_go_signin" type="button" tabindex="1" value="&lt;xava:label key='SignIn'/&gt;"&gt;
+</code></pre>
+        <p>Después añade un archivo JS, digamos <i>eventos.js</i> (o cualquier
+          otro nombre que prefieras), en <i>src/main/webapp/xava/editors/js</i>
+          (crea la carpeta si todavía no existe) de tu proyecto, con el
+          siguiente contenido:</p>
+        <pre><code class="javascript">var button = document.getElementById('welcome_go_signin');
+button.onclick = function () { window.location='m/SignIn'; }
+</code></pre>
+        <p>Observa cómo utilizamos el ID para añadir el evento usando código
+          JavaScript, un código seguro porque es descargado desde el servidor
+          que aloja la aplicación.</p>
         <h3>Las etiquetas en inglés ahora tienen otro orden (para las pruebas
           JUnit)</h3>
         <p>Notamos que las etiquetas en listas y colecciones, cuando están

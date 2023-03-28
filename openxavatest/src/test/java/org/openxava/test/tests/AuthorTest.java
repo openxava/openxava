@@ -162,8 +162,8 @@ public class AuthorTest extends CustomizeListTestBase {
 		removeColumn(1); 
 		assertListRowCount(1);
 		assertListColumnCount(1); 
-		execute("List.addColumns");
-		execute("AddColumns.restoreDefault");
+		execute("List.addColumns"); 
+		execute("AddColumns.restoreDefault"); 
 		assertListColumnCount(2);
 		assertListRowCount(1); 
 	}

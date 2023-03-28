@@ -39,7 +39,7 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		
 		removeColumn("details", 2);  
 		
-		assertTotalInCollection("details", 1, 3,   "400.00");
+		assertTotalInCollection("details", 1, 3,   "400.00"); 
 		assertTotalInCollection("details", 2, 3, "2,900.00");		
 		
 		execute("Print.generatePdf", "viewObject=xava_view_details"); 

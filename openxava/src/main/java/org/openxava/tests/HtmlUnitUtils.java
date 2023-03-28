@@ -2,13 +2,13 @@ package org.openxava.tests;
 
 import java.util.*;
 
-import junit.framework.*;
-
 import org.openxava.util.*;
 
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.html.*;
+
+import junit.framework.*;
 
 /**
  * Utility class for easier use of HtmlUnit.
@@ -18,6 +18,14 @@ import com.gargoylesoftware.htmlunit.html.*;
  */
 
 public class HtmlUnitUtils {
+	
+	/** @since 7.1 */
+	public static String getHrefAttribute(HtmlElement element) { 
+		HtmlAnchor anchor = (HtmlAnchor) element;
+		String originalHref = anchor.getHrefAttribute(); 
+		if (!originalHref.equals("javascript:void(0)")) return originalHref;
+		return anchor.getAttribute("onclicke");
+	}
 	
 	public static HtmlElement getAnchor(HtmlPage page, String url) throws Exception { 
 		return getAnchors(page, url).get(0); 		
@@ -33,6 +41,10 @@ public class HtmlUnitUtils {
 		if ("a".equals(element)) {
 			List<HtmlElement> result = page.getBody().getElementsByAttribute(element, "href", url);
 			if (!result.isEmpty()) return result;
+			if (url.startsWith("javascript:")) {
+				result = page.getBody().getElementsByAttribute(element, "onclicke", url);
+				if (!result.isEmpty()) return result;				
+			}
 		}
 		return page.getBody().getElementsByAttribute(element, "onclick", "window.location='" + url + "'");
 	}

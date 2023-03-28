@@ -44,12 +44,19 @@ if (p.isNumber()) {
 	numericAlt = getNumericAlt(p.getSize(), p.getScale()); 
 	numericClass = "xava_numeric"; 
 }	
-
+    
 boolean fillWithZeros = "true".equals(request.getParameter("fillWithZeros"));
 if (fillWithZeros && fvalue.length() > 0) {	
 	fvalue = Strings.fix(fvalue, size, Align.RIGHT, '0');
 }
-
+    
+String im = (request.getParameter("value") != null) && (request.getParameter("value").toString().matches("[-AL0!@#$%^&*()_+={}';:\"<>.,?/` \\~]+")) ? request.getParameter("value") : "";
+if (im.length() > 1) {
+    size = im.length();
+    maxLength= im.length();
+    im = "data-inputmask=\"'mask': '" + im + "'\"";
+}
+    
 if (editable || !label) { 
 %>
 <input id="<%=propertyKey%>"
@@ -64,6 +71,7 @@ if (editable || !label) {
 	value="<%=Strings.change(fvalue, "\"", "&quot;")%>"	
 	<%=disabled%>
 	<%=script%>	
+    <%=im%>
 	/>
 <%
 } else {
@@ -124,3 +132,6 @@ private String getNumericAlt(int size, int scale) {
 	}
 }
 %>
+
+    
+    

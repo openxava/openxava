@@ -210,11 +210,43 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initPlaceholder();
 	openxava.listenChanges(); 
 	openxava.initFocusKey();
+	openxava.initInlineEvents(); 
   	$('#xava_save_list_configuration').fadeIn(1000, 'swing'); 
 }
 
+openxava.initFocusKey = function() { }
 
-openxava.initFocusKey = function() { } 
+openxava.initInlineEvents =  function() {  
+	$('[onclick]').each(function() {
+  		$(this).off('click').click(function() {
+  			eval($(this).attr('onclick'));
+		});
+	});
+	$('a[href^="javascript:"]').each(function() {
+		if ($(this).attr('href') != "javascript:void(0)") {
+			$(this).attr("onclicke", $(this).attr('href'));
+			$(this).attr("href", "javascript:void(0)");
+		}
+  		$(this).off('click').click(function() {
+  			eval($(this).attr('onclicke'));
+		});
+	});
+    $('[onchange]').each(function() {	
+  		$(this).off('change').change(function() {
+  			eval($(this).attr('onchange'));
+		});
+	});
+    $('[onblur]').each(function() {
+  		$(this).blur(function() { 
+  			eval($(this).attr('onblur'));
+		});
+	});
+	$('[onfocus]').each(function() {	
+  		$(this).off('focus').focus(function() {
+  			eval($(this).attr('onfocus'));
+		});
+	});
+}
 
 openxava.setEnterAsFocusKey = function() {
 	var focusables = $('input:focusable[tabindex="1"], select:focusable[tabindex="1"], textarea:focusable[tabindex="1"]');
@@ -471,6 +503,7 @@ openxava.initLists = function(application, module) {
 	    	var tableId = table.attr("id");
 	    	View.moveCollectionElement(tableId, ui.item.startPos - 1, ui.item.index() - 1);
 	    	openxava.renumberCollection(table);
+	  		openxava.initInlineEvents(); 
 	    }	
 	});
 	openxava.watchColumnsSearch();
@@ -482,8 +515,8 @@ openxava.initLists = function(application, module) {
 openxava.renumberCollection = function(table) { 
 	table.find("tr").each(function(rowIndex) {
 		$(this).find("a").each(function() {
-			var newHref = $(this).attr("href")
-				.replace(new RegExp("'row=\\d+,viewObject=", "g"), "'row=" + (rowIndex - 1) + ",viewObject=")
+			var newHref = $(this).attr("onclicke")
+				.replace(new RegExp("'row=\\d+,viewObject=", "g"), "'row=" + (rowIndex - 1) + ",viewObject=");
 			$(this).attr("href", newHref);
 		});
 	});
@@ -788,7 +821,7 @@ openxava.executeActionConfirmLosesChangedData = function(application, module, co
 	openxava.executeAction(application, module, confirmMessage, takesLong, action, argv, range, alreadyProcessed, inNewWindow);
 }
 
-openxava.executeAction = function(application, module, confirmMessage, takesLong, action, argv, range, alreadyProcessed, inNewWindow) { 
+openxava.executeAction = function(application, module, confirmMessage, takesLong, action, argv, range, alreadyProcessed, inNewWindow) {
 	if (confirmMessage != "" && !confirm(confirmMessage)) return;
 	if (takesLong) { 
 		$('#xava_processing_layer').fadeIn(); 
