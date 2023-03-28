@@ -38,9 +38,8 @@ List<CalendarEvent> listEvent = new ArrayList<>();
 String dateFormat = Dates.dateFormatForJSCalendar();
 String events = "";
 String rows = "";
-CalendarEventIterator  it = new CalendarEventIterator(tab, view, request, errors);
     
-
+CalendarEventIterator  it = new CalendarEventIterator(tab, view, request, errors);
 listEvent = it.getEvents();
 StringBuilder sb = new StringBuilder();
 sb.append("[");
@@ -65,8 +64,6 @@ if (dateFormat != null) {
 			               .replace("d", "dd")
 				           .replace("j", "d")
 				           .replace("Y", "yyyy");
-    } else {
-    System.out.println("es null"); 
     }
   
 %>
@@ -81,7 +78,6 @@ if (dateFormat != null) {
     var clicked = false;
     var dateFormat = '<%=dateFormat%>';
     var formattedDate = "";
-    //console.log(dateFormat);
     
 let ec = new EventCalendar(document.getElementById('ec'), {
     view: 'dayGridMonth',
@@ -108,19 +104,17 @@ let ec = new EventCalendar(document.getElementById('ec'), {
         }
     },
     dateClick: function(e){
-        //console.log(JSON.stringify(e));    
         reformatDate(e.dateStr);
         let value = {
-            "dates" : {
-                "label": "date",
-                "date" : formattedDate
-            }
-        };
-        console.log(JSON.stringify(value));
-        // .replace(",","*")
-        
+            "dates":[
+                {"label": "date",
+                "date" : formattedDate},
+                {"label": "date",
+                "date" : formattedDate}
+            ]};
+        console.log(JSON.stringify(value).replaceAll(",","_"));
         if (!getSelection().toString()) {
-            openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', false, false, '<%=actionNew%>', 'value=' +  JSON.stringify(value).replace(",","*"));
+            openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', false, false, '<%=actionNew%>', 'value=' +  JSON.stringify(value).replaceAll(",","_"));
         }
     }
 });
@@ -136,8 +130,6 @@ function createEvents() {
 }
     
 function reformatDate(date){
-    console.log("reformat");
-    //let y const son locales, let se puede mutar y const no se cambia el valor
     let d = new Date(date);
     formattedDate = formatDate(d, dateFormat);
 }
@@ -149,8 +141,6 @@ function getSeparator(date){
 }
     
 function formatDate(date, format) {
-    console.log(date);
-    console.log(format);
   const map = {
     M: date.getMonth() + 1,
     d: date.getDate(),
