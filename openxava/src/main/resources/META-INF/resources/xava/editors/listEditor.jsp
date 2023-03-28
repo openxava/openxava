@@ -455,8 +455,8 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 } 
 %>
 <tr class="<%=style.getTotalRow()%>">
-<td style="<%=style.getTotalEmptyCellStyle()%>"/>
-<td style="<%=style.getTotalEmptyCellStyle()%>"/>
+<td/>
+<td/>
 <%
 for (int c=0; c<model.getColumnCount(); c++) {
 	MetaProperty p = tab.getMetaProperty(c);
@@ -504,7 +504,7 @@ for (int c=0; c<model.getColumnCount(); c++) {
 	}
 	else if (tab.hasTotal(c + 1)) { 
 	%>
-	<td class="<%=style.getTotalLabelCell()%>" style="<%=style.getTotalLabelCellStyle()%>">
+	<td class="ox-total-label-cell">
 		<div class="<xava:id name='<%=id%>'/>_col<%=c%>" style="overflow: hidden; <%=width%>">
 		<%=tab.getTotalLabel(0, c + 1)%>&nbsp;
 		</div>	
@@ -513,7 +513,7 @@ for (int c=0; c<model.getColumnCount(); c++) {
 	}	
 	else {
 	%>	 
-	<td style="<%=style.getTotalEmptyCellStyle()%>"/>
+	<td/>
 	<%		
 	}	
 }
@@ -524,8 +524,8 @@ int additionalTotalsCount = tab.getAdditionalTotalsCount() + 1;
 for (int i=1; i<additionalTotalsCount; i++) {
 %>
 <tr class="<%=style.getTotalRow()%>">
-<td style="<%=style.getTotalEmptyCellStyle()%>"/>
-<td style="<%=style.getTotalEmptyCellStyle()%>"/>
+<td/>
+<td/>
 <%
 for (int c=0; c<model.getColumnCount(); c++) {
 	MetaProperty p = tab.getMetaProperty(c);
@@ -548,7 +548,7 @@ for (int c=0; c<model.getColumnCount(); c++) {
 	}
 	else if (tab.hasTotal(i, c + 1)) { 
 	%>
-	<td class="<%=style.getTotalLabelCell()%>" style="<%=style.getTotalLabelCellStyle()%>">
+	<td class="ox-total-label-cell">
 		<div class="<xava:id name='<%=id%>'/>_col<%=c%>" style="overflow: hidden; <%=width%>">		
 		<%=tab.getTotalLabel(i, c + 1)%>&nbsp;
 		</div>
@@ -558,7 +558,7 @@ for (int c=0; c<model.getColumnCount(); c++) {
 	}
 	else {
 	%>	 
-	<td style="<%=style.getTotalEmptyCellStyle()%>">
+	<td>
 		<div class="<xava:id name='<%=id%>'/>_col<%=c%>"/>
 	</td>
 	<%		

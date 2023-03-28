@@ -6,6 +6,7 @@ import org.apache.commons.logging.*;
 import org.openxava.util.*;
 
 /**
+ * tmr ¿Los cambios aquí afectan migration o custom visual style doc?
  * This class and its subclasses is used from JSP code to give
  * style to the web applications. <p>
  * 
@@ -380,10 +381,11 @@ public class Style {
 	 * 
 	 * @since 5.4
 	 */
+	/* tmr
 	public String getSelectedChartType() {  
 		return "ox-selected-chart-type";
 	}
-	
+	*/
 	
 	
 	/**
@@ -1250,14 +1252,18 @@ public class Style {
 	public String getTotalCell() {
 		return "ox-total-cell"; 
 	}
+	
+	// TMR ME QUEDÉ POR AQUÍ: QUITANDO LOS INLINE STYLE DE LOS TOTALES 
 
 	/**
 	 * 
 	 * @since 5.1
 	 */
+	/* tmr
 	public String getTotalLabelCell() { 
 		return "ox-total-label-cell"; 
 	}
+	*/
 
 
 	public String getTotalCapableCell() {
@@ -1269,17 +1275,21 @@ public class Style {
 		return "";
 	}
 
+	/* tmr
 	public String getTotalEmptyCellStyle() { 
 		return ""; 
 	}
+	*/
 	
 	/**
 	 * 
 	 * @since 4.3
 	 */
+	/* tmr
 	public String getTotalLabelCellStyle() {  
 		return "vertical-align: middle; text-align: right;" + getTotalEmptyCellStyle();
 	}
+	*/
 	
 	public String getTotalCapableCellStyle() { 
 		return "";

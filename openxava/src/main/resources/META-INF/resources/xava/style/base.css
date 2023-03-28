@@ -1576,6 +1576,10 @@ input[type="button"] {
 
 .ox-total-label-cell { 
 	font-weight: bold;
+	/* tmr ini */
+	vertical-align: middle; 
+	text-align: right;
+	/* tmr fin */
 }
 
 .ox-frame .ox-list-header {
@@ -2034,6 +2038,10 @@ div.ox-subcontroller table{
 .ox-selected-chart-type i {
 	color: var(--selected-chart-type-icon-color);
 	border-bottom: 3px solid var(--selected-chart-type-icon-border-bottom);
+	/* tmr ini */
+	pointer-events: none; 
+	cursor: default;
+	/* tmr fin */
 }
 
 .ox-charts .ox-list {

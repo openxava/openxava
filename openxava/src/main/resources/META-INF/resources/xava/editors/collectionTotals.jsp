@@ -26,9 +26,9 @@ for (int i=0; i<additionalTotalsCount; i++) {
 %>
 	<tr class="<%=style.getTotalRow()%>">
 	<% if (!(subview.isRepresentsElementCollection() && !subview.isCollectionEditable())) { %>
-		<td style="<%=style.getTotalEmptyCellStyle()%>"/>
+		<td/>
 		<% if (!subview.getMetaCollection().isElementCollection()) { %>
-		<td style="<%=style.getTotalEmptyCellStyle()%>"/>
+		<td/>
 		<% } %>
 	<% } %>	
 <%
@@ -61,19 +61,19 @@ for (int c = 0; it.hasNext(); c++) {
 	}
 	else if (subview.hasCollectionTotal(i, c + 1) && (i > 0 || !subview.hasCollectionSum(c + 1))) { 	
 	%>
-	<td class="<%=style.getTotalLabelCell()%>" style="<%=style.getTotalLabelCellStyle()%>">
+	<td class="ox-total-label-cell">
 		<%=subview.getCollectionTotalLabel(i, c + 1)%>&nbsp;
 	</td>
 	<%	
 	}
 	else {
 	%>	 
-	<td style="<%=style.getTotalEmptyCellStyle()%>"/>
+	<td/>
 	<%		
 	}	
 	if (elementCollection && subview.isLastSearchKey(p.getName())) { 
 	%>
-	<td style="<%=style.getTotalEmptyCellStyle()%>"/>	
+	<td/>	
 	<%	
 	}
 }
