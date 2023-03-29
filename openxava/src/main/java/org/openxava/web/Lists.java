@@ -1,9 +1,7 @@
 package org.openxava.web;
 
-import java.util.*;
-import org.openxava.model.meta.*;
-
 /**
+ * tmr Eliminar esta clase
  * Utilities used from JSP files for lists. 
  * 
  * @since 4.5.1
@@ -13,6 +11,7 @@ public class Lists {
 	
 	public final static String FOCUS_PROPERTY_ID="listConfigurations"; 
 	
+	/* tmr
 	public static String getOverflow(String browser, Collection<MetaProperty> metaProperties) {
 		boolean ie9 = browser != null && browser.indexOf("MSIE 9") >= 0;
 		if (!ie9) return "overflow: auto;";
@@ -26,5 +25,5 @@ public class Lists {
 		}
 		return size>75?"overflow-x: scroll;":"";
 	}
-
+	*/
 }

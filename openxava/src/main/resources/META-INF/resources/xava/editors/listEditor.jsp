@@ -87,10 +87,10 @@ if (grouping) action = null;
 
 <%String resizeColumnClass = resizeColumns?style.getResizeColumns():""; %>
 <div class="<xava:id name='<%=scrollId%>'/> <%=resizeColumnClass%> ox-overflow-auto">
-<table id="<xava:id name='<%=id%>'/>" class="xava_sortable_column <%=style.getList()%>" <%=style.getListCellSpacing()%> style="<%=style.getListStyle()%>">
+<table id="<xava:id name='<%=id%>'/>" class="xava_sortable_column <%=style.getList()%>" <%=style.getListCellSpacing()%>>
 <% if (sortable) { %><tbody class="xava_sortable_row"><% } %> 
 <tr class="<%=style.getListHeader()%>">
-<th class="<%=style.getListHeaderCell()%>" style="text-align: center">
+<th class="ox-list-header" style="text-align: center">
 <nobr>
 	<% if (tab.isCustomizeAllowed()) { %>
 	<a  id="<xava:id name='<%="customize_" + id%>'/>" href="javascript:openxava.customizeList('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=id%>')" title="<xava:message key='customize_list'/>" class="<%=style.getActionImage()%>">
@@ -116,7 +116,7 @@ if (grouping) action = null;
 	%>
 </nobr> 
 </th>
-<th class="<%=style.getListHeaderCell()%>" width="5">
+<th class="ox-list-header" width="5">
 	<%
 		if (!singleSelection){
 			String actionOnClickAll = Actions.getActionOnClickAll(
@@ -143,7 +143,7 @@ while (it.hasNext()) {
 	int columnWidth = tab.getColumnWidth(columnIndex);
 	String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px";
 %>
-<th class="<%=style.getListHeaderCell()%>" style="<%=align%>; padding-right: 0px" data-property="<%=property.getQualifiedName()%>">
+<th class="ox-list-header" style="<%=align%>; padding-right: 0px" data-property="<%=property.getQualifiedName()%>">
 <% if (resizeColumns) { %> <nobr> <% } %> 
 <div id="<xava:id name='<%=id%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):("")) %>" style="overflow: hidden; <%=width%>" >
 <%

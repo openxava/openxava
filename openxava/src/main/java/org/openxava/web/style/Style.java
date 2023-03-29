@@ -460,9 +460,11 @@ public class Style {
 		return ""; 
 	}
 	
+	/* tmr
 	public String getListStyle() { 
 		return ""; 
 	}	
+	*/
 	
 	public String getListCellStyle() {
 		return ""; 
@@ -472,9 +474,11 @@ public class Style {
 		return "ox-list-header";
 	}
 	
+	/* tmr
 	public String getListHeaderCell() { 
 		return getListHeader();
 	}
+	*/
 	
 	public String getListSubheader() {
 		return "ox-list-subheader";

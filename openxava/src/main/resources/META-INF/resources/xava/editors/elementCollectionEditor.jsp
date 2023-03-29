@@ -43,11 +43,11 @@ boolean hideTotals = "true".equals(request.getParameter("hideTotals"));
 <% if (resizeColumns) { %> 
 <div class="<xava:id name='collection_scroll'/>">
 <% } %>
-<table id="<xava:id name='<%=idCollection%>'/>" class="<%=style.getList()%>" <%=style.getListCellSpacing()%> style="<%=style.getListStyle()%>">
+<table id="<xava:id name='<%=idCollection%>'/>" class="<%=style.getList()%>" <%=style.getListCellSpacing()%>>
 <% if (sortable) { %><tbody class="xava_sortable_elements"><% } %> 
 <tr class="<%=style.getListHeader()%>">
 	<% if (subview.isCollectionEditable()) { %>
-	<th class=<%=style.getListHeaderCell()%> width="5"/>
+	<th class="ox-list-header" width="5"/>
 	<% } %>
 <%
 	// Heading
@@ -91,7 +91,7 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 		}
 	}
 %>
-	<th <%=headerId%> <%=dataDefaultValue%> class=<%=style.getListHeaderCell()%> style="padding-right: 0px">
+	<th <%=headerId%> <%=dataDefaultValue%> class="ox-list-header ox-padding-right-0">
 		<div id="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):(""))%>" style="overflow: hidden; <%=width%>" >
 		<%if (resizeColumns) {%><nobr><%}%>
 		<%=label%>&nbsp;

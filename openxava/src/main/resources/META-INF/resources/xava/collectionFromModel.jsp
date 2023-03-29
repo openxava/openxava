@@ -20,17 +20,17 @@ boolean sortable = subview.isCollectionSortable();
 <% if (resizeColumns) { %> 
 <div class="<xava:id name='collection_scroll'/> ox-overflow-auto">
 <% } %>
-<table id="<xava:id name='<%=idCollection%>'/>" class="<%=style.getList()%>" <%=style.getListCellSpacing()%> style="<%=style.getListStyle()%>">
+<table id="<xava:id name='<%=idCollection%>'/>" class="<%=style.getList()%>" <%=style.getListCellSpacing()%>>
 <% if (sortable) { %><tbody class="xava_sortable_row"><% } %> 
 <tr class="<%=style.getListHeader()%>">
 	<%
 		if (lineAction != null) {
 	%>	
-	<th class=<%=style.getListHeaderCell()%>></th>
+	<th class="ox-list-header"></th>
 	<%
 		}
 	%>	
-	<th class=<%=style.getListHeaderCell()%> width="5">
+	<th class="ox-list-header" width="5">
 	<%
 		String actionOnClickAll = Actions.getActionOnClickAll(
 		request.getParameter("application"), request.getParameter("module"), 
@@ -48,7 +48,7 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 	int columnWidth = subview.getCollectionColumnWidth(columnIndex);
 	String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px";
 %>
-	<th class=<%=style.getListHeaderCell()%> style="padding-right: 0px">
+	<th class="ox-list-header" style="padding-right: 0px">
 		<div id="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):(""))%>" style="overflow: hidden; <%=width%>" >
 		<%if (resizeColumns) {%><nobr><%}%>
 		<%=label%>&nbsp;

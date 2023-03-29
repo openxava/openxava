@@ -19,7 +19,7 @@ searchWord = searchWord == null?"":searchWord.toLowerCase();
 boolean originalColumnsToAddUntilSecondLevel = tab.isColumnsToAddUntilSecondLevel();
 if (!Is.emptyString(searchWord)) tab.setColumnsToAddUntilSecondLevel(false);
 %>
-<table id="<xava:id name='xavaPropertiesList'/>" class='<%=style.getList()%>' width="100%" <%=style.getListCellSpacing()%> style="margin-bottom: 5px; <%=style.getListStyle()%>">
+<table id="<xava:id name='xavaPropertiesList'/>" class='<%=style.getList()%>' width="100%" <%=style.getListCellSpacing()%> style="margin-bottom: 5px;">
 <tr class="<%=style.getListPair()%>" style="border-bottom: 1px solid; height: 0px;"/> 
 <%
 int f=0;
