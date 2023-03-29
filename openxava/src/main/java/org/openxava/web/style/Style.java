@@ -558,9 +558,11 @@ public class Style {
 	 * 
 	 * @since 5.0
 	 */
+	/* tmr
 	public String getElementCollection() { 
 		return "ox-element-collection";
 	}
+	*/
 
 	/**
 	 * 
@@ -777,9 +779,11 @@ public class Style {
 	/**
 	 * @since 5.5
 	 */
+	/* tmr
 	public String getDateCalendar() {   
 		return "ox-date-calendar";
 	}
+	*/
 	
 	/**
 	 * @since 6.4.1
@@ -1249,12 +1253,12 @@ public class Style {
 		return "ox-total-row";
 	}
 		
+	/* tmr
 	public String getTotalCell() {
 		return "ox-total-cell"; 
 	}
+	*/
 	
-	// TMR ME QUEDÉ POR AQUÍ: QUITANDO LOS INLINE STYLE DE LOS TOTALES 
-
 	/**
 	 * 
 	 * @since 5.1
@@ -1265,15 +1269,17 @@ public class Style {
 	}
 	*/
 
-
+	/* tmr
 	public String getTotalCapableCell() {
 		return "ox-total-capable-cell"; 
 	}
-
+	*/
 	
+	/* tmr
 	public String getTotalCellStyle() {
 		return "";
 	}
+	*/
 
 	/* tmr
 	public String getTotalEmptyCellStyle() { 
@@ -1291,9 +1297,11 @@ public class Style {
 	}
 	*/
 	
+	/* tmr
 	public String getTotalCapableCellStyle() { 
 		return "";
 	}
+	*/
 	
 	/**
 	 * 

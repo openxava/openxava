@@ -15,13 +15,10 @@ String selectedRowStyle = style.getSelectedRowStyle();
 String rowStyle = "border-bottom: 1px solid;";
 MetaAction onSelectCollectionElementMetaAction = Is.empty(onSelectCollectionElementAction) ? null : MetaControllers.getMetaAction(onSelectCollectionElementAction);
 boolean resizeColumns = style.allowsResizeColumns() && XavaPreferences.getInstance().isResizeColumns();
-String browser = request.getHeader("user-agent");
-boolean scrollSupported = !(browser != null && (browser.indexOf("MSIE 6") >= 0 || browser.indexOf("MSIE 7") >= 0));
-String styleOverflow = org.openxava.web.Lists.getOverflow(browser, subview.getMetaPropertiesList());
 boolean sortable = subview.isCollectionSortable();
 %>
-<% if (resizeColumns && scrollSupported) { %> 
-<div class="<xava:id name='collection_scroll'/>" style="<%=styleOverflow%>">
+<% if (resizeColumns) { %> 
+<div class="<xava:id name='collection_scroll'/> ox-overflow-auto">
 <% } %>
 <table id="<xava:id name='<%=idCollection%>'/>" class="<%=style.getList()%>" <%=style.getListCellSpacing()%> style="<%=style.getListStyle()%>">
 <% if (sortable) { %><tbody class="xava_sortable_row"><% } %> 
@@ -154,7 +151,7 @@ for (int f=0; itAggregates.hasNext(); f++) {
 <jsp:include page="collectionTotals.jsp" />
 <% if (sortable) { %></tbody><% } %>
 </table>
-<% if (resizeColumns && scrollSupported) { %>
+<% if (resizeColumns) { %>
 </div>
 <% } %>
  

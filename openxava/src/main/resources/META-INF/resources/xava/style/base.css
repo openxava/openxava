@@ -689,6 +689,13 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 	padding-right: 25px;
 }
 
+/* tmr ini */
+.ox-date-calendar a {  
+	position: relative; 
+	right: 25px;
+}
+/* tmr fin */
+
 .flatpickr-day.selected {
 	background: var(--calendar-selected-day) !important;
 	border-color: transparent !important;
@@ -718,6 +725,12 @@ input[type="radio"] {
 .ox-list-subheader input[type="text"] { 
     height: 28px;
 }
+
+/* tmr ini */
+.ox-list-subheader select {
+	width: 100%;
+}
+/* tmr fin */
 
 select:not([multiple]) { 
 	height: 30px;
@@ -900,6 +913,21 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	display: block;
 }
 
+.ox-display-none {
+	display: none;
+}
+
+.ox-padding-right-0 {
+	padding-right: 0px;
+}
+
+.ox-text-align-right { 
+	text-align: right;
+}
+
+.ox-overflow-auto {
+	overflow: auto;
+}
 /* tmr fin */
 
 .ox-collection-list-actions .ox-button-bar-button a {
@@ -1568,6 +1596,12 @@ input[type="button"] {
 .ox-total-capable-cell { 
 	text-align: right;
 }
+
+/* tmr ini */
+.ox-total-cell > div, .ox-total-capable-cell > div {
+	overflow: hidden; 
+}
+/* tmr fin */
 
 .ox-total-row td { 
 	vertical-align: baseline; 

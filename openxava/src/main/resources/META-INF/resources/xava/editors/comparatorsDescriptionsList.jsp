@@ -94,9 +94,9 @@ String collectionArgv = Is.emptyString(collection)?"":"collection="+collection;
 	<%-- conditionValueTo: we need all indexes to implement the range filters --%>
 </div>
 <% if (index < 0) { %>
-<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" style="width: 100%;" class=<%=style.getEditor()%>>
+<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=<%=style.getEditor()%>>
 <% } else {  %>
-<select name="<xava:id name='<%=prefix + "conditionValue." + index%>'/>" style="width: 100%;" class=<%=style.getEditor()%>
+<select name="<xava:id name='<%=prefix + "conditionValue." + index%>'/>" class=<%=style.getEditor()%>
 <% if(filterOnChange) { %>
 	onchange="openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '', false, 'List.filter','<%=collectionArgv%>')"
 <% } %>

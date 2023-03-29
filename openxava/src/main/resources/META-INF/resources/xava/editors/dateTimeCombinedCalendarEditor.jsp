@@ -16,7 +16,7 @@ boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabe
 if (editable || !label) {
 	String dateClass = editable?"xava_date":""; 
 %>
-<span class="<%=dateClass%> <%=style.getDateCalendar()%>" 
+<span class="<%=dateClass%> ox-date-calendar" 
 	data-date-format="<%=org.openxava.util.Dates.dateTimeFormatForJSCalendar()%>"
 	data-enable-time="true">
 	<input type="text" name="<%=propertyKey%>" id="<%=propertyKey%>" class="<%=style.getEditor()%>" title="<%=p.getDescription(request)%>"
@@ -25,7 +25,7 @@ if (editable || !label) {
 		maxlength="19"
 		data-input
 		size="19" 
-		value="<%=fvalue%>" <%=disabled%> <%=script%>><%if (editable) {%><a href="javascript:void(0)" data-toggle style="position: relative; right: 25px;"><i class="mdi mdi-calendar-clock"></i></a><%} %>	
+		value="<%=fvalue%>" <%=disabled%> <%=script%>><%if (editable) {%><a href="javascript:void(0)" data-toggle><i class="mdi mdi-calendar-clock"></i></a><%} %>	
 </span>
 
 <%

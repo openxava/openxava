@@ -32,19 +32,16 @@ String propertyPrefix = propertyPrefixAccumulated == null?collectionName + ".":p
 
 String rowStyle = "border-bottom: 1px solid;";
 boolean resizeColumns = style.allowsResizeColumns() && XavaPreferences.getInstance().isResizeColumns();
-String browser = request.getHeader("user-agent");
-boolean scrollSupported = !(browser != null && (browser.indexOf("MSIE 6") >= 0 || browser.indexOf("MSIE 7") >= 0));
-String styleOverflow = org.openxava.web.Lists.getOverflow(browser, subview.getMetaPropertiesList());
-String collectionClass = subview.isEditable()?"class='" + style.getElementCollection() + "'":"";
+String collectionClass = subview.isEditable()?"ox-element-collection":"";
 boolean sortable = subview.isCollectionSortable();
 String removeSelectedAction = subview.getRemoveSelectedCollectionElementsAction();
 boolean suppressRemoveAction = removeSelectedAction != null && "".equals(removeSelectedAction);
 boolean labelOnEachCell = "true".equals(request.getParameter("labelOnEachCell"));
 boolean hideTotals = "true".equals(request.getParameter("hideTotals"));
 %>
-<div <%=collectionClass%>>
-<% if (resizeColumns && scrollSupported) { %> 
-<div class="<xava:id name='collection_scroll'/>" style="<%=styleOverflow%>">
+<div class="<%=collectionClass%> ox-overflow-auto">
+<% if (resizeColumns) { %> 
+<div class="<xava:id name='collection_scroll'/>">
 <% } %>
 <table id="<xava:id name='<%=idCollection%>'/>" class="<%=style.getList()%>" <%=style.getListCellSpacing()%> style="<%=style.getListStyle()%>">
 <% if (sortable) { %><tbody class="xava_sortable_elements"><% } %> 
@@ -222,7 +219,7 @@ for (int f=0; f < rowCount; f++) {
 <% } %> 
 <% if (sortable) { %></tbody><% } %>
 </table>
-<% if (resizeColumns && scrollSupported) { %>
+<% if (resizeColumns) { %>
 </div>
 <% } %>
 </div> 

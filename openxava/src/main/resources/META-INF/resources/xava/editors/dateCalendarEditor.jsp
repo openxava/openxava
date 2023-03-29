@@ -18,14 +18,14 @@ int sizeIncrement = browser.contains("Chrome")?0:2;
 if (editable || !label) {
 	String dateClass = editable?"xava_date":""; 
 %>
-<span class="<%=dateClass%> <%=style.getDateCalendar()%>" data-date-format="<%=org.openxava.util.Dates.dateFormatForJSCalendar()%>">
+<span class="<%=dateClass%> ox-date-calendar" data-date-format="<%=org.openxava.util.Dates.dateFormatForJSCalendar()%>">
 <input type="text" name="<%=propertyKey%>" id="<%=propertyKey%>" class="<%=style.getEditor()%>" title="<%=p.getDescription(request)%>"
 	tabindex="1" 
 	align='<%=align%>'
 	maxlength="<%=p.getSize()%>"
 	data-input
 	size="<%=p.getSize() + sizeIncrement%>" 
-	value="<%=fvalue%>" <%=disabled%> <%=script%>><%if (editable) {%><a href="javascript:void(0)" data-toggle style="position: relative; right: 25px;"><i class="mdi mdi-calendar"></i></a><%} %>	
+	value="<%=fvalue%>" <%=disabled%> <%=script%>><%if (editable) {%><a href="javascript:void(0)" data-toggle><i class="mdi mdi-calendar"></i></a><%} %>	
 </span> 
 <%
 } else {

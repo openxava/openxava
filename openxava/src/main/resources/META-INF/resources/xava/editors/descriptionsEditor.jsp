@@ -223,7 +223,7 @@ if (editable) {
 	<input id="<%=propertyKey%>" type="hidden" name="<%=propertyKey%>" value="<%=selectedKey%>"/>
     <input type="hidden" name="<%=propertyKey%>__DESCRIPTION__" value="<%=selectedDescription%>"/>
 	<a class="ox-layout-descriptions-editor-handler" href="javascript:descriptionsEditor.open('<%=propertyKey%>')"><i class="mdi mdi-menu-down"></i></a> 		
-	<a class="ox-layout-descriptions-editor-handler" href="javascript:descriptionsEditor.close('<%=propertyKey%>')" style="display: none"><i class="mdi mdi-menu-up"></i></a>
+	<a class="ox-layout-descriptions-editor-handler ox-display-none" href="javascript:descriptionsEditor.close('<%=propertyKey%>')"><i class="mdi mdi-menu-up"></i></a>
 	</span>
 	<% 	
 } else { 

@@ -75,9 +75,6 @@ if (request.getAttribute(org.openxava.tab.Tab.TAB_RESETED_PREFIX + tab) == null)
 	request.setAttribute(org.openxava.tab.Tab.TAB_RESETED_PREFIX + tab, Boolean.TRUE); 
 }
 boolean resizeColumns = style.allowsResizeColumns() && tab.isResizeColumns();
-String browser = request.getHeader("user-agent");
-boolean scrollSupported = !(browser != null && (browser.indexOf("MSIE 6") >= 0 || browser.indexOf("MSIE 7") >= 0));
-String styleOverflow = org.openxava.web.Lists.getOverflow(browser, tab.getMetaProperties());
 boolean sortable = !Is.emptyString(collection) && view.isRepresentsSortableCollection();  
 boolean simple = sortable;
 if (simple) filter = false;
@@ -88,10 +85,8 @@ if (grouping) action = null;
 
 <input type="hidden" name="xava_list<%=tab.getTabName()%>_filter_visible"/>
 
-<% if (scrollSupported) { %>
 <%String resizeColumnClass = resizeColumns?style.getResizeColumns():""; %>
-<div class="<xava:id name='<%=scrollId%>'/> <%=resizeColumnClass%>" style="<%=styleOverflow%>">
-<% } %> 
+<div class="<xava:id name='<%=scrollId%>'/> <%=resizeColumnClass%> ox-overflow-auto">
 <table id="<xava:id name='<%=id%>'/>" class="xava_sortable_column <%=style.getList()%>" <%=style.getListCellSpacing()%> style="<%=style.getListStyle()%>">
 <% if (sortable) { %><tbody class="xava_sortable_row"><% } %> 
 <tr class="<%=style.getListHeader()%>">
@@ -293,11 +288,11 @@ while (it.hasNext()) {
 	String styleCalendar = "";
 	if (isDate) { 
 		if (Is.anyEqual(comparator, "year_comparator", "year_month_comparator", "month_comparator")) {
-			classConditionValue="class='" + style.getDateCalendar() + "'";
+			classConditionValue="class='ox-date-calendar'";
 			dateDisabled = "xava_date_disabled";
 			styleCalendar = "display: none;"; 
 		}
-		else classConditionValue="class='xava_date " + style.getDateCalendar() + "'";  
+		else classConditionValue="class='xava_date ox-date-calendar'";  
 	}
 	String attrConditionValue = isDate?"data-date-format='" + org.openxava.util.Dates.dateFormatForJSCalendar(isTimestamp) + "'":"";
 	if (isTimestamp) attrConditionValue += " data-enable-time='true'"; 
@@ -317,7 +312,7 @@ while (it.hasNext()) {
 	<%=isDate?"data-input":""%> 
 	style="<%=styleConditionValue%>; width: 100%; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;"/>
 	<% if (isDate) { %>
-		<a href="javascript:void(0)" data-toggle style="position: relative; right: 25px; <%=styleConditionValue%> <%=styleCalendar%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
+		<a href="javascript:void(0)" data-toggle style="<%=styleConditionValue%> <%=styleCalendar%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
 	<% } %>
 </nobr>
 <br/>
@@ -328,7 +323,7 @@ while (it.hasNext()) {
 	<%=isDate?"data-input":""%> 
 	style="<%=styleConditionValueTo%>; width: 100%; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;"/>
 	<% if (isDate) { %>
-		<a href="javascript:void(0)" data-toggle style="position: relative; right: 25px; <%=styleConditionValueTo%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
+		<a href="javascript:void(0)" data-toggle style="<%=styleConditionValueTo%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
 	<% } %>
 </nobr>
 	<%			
@@ -460,8 +455,7 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 <%
 for (int c=0; c<model.getColumnCount(); c++) {
 	MetaProperty p = tab.getMetaProperty(c);
-	String align =p.isNumber() && !p.hasValidValues()?"text-align: right; ":"";	
-	String cellStyle = align + style.getTotalCellStyle();
+	String align =p.isNumber() && !p.hasValidValues()?"ox-text-align-right":"";	
 	int columnWidth = tab.getColumnWidth(c);		 		
 	String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px";
 	
@@ -469,8 +463,8 @@ for (int c=0; c<model.getColumnCount(); c++) {
 		Object total = tab.getTotal(c); 
 		String ftotal = WebEditors.format(request, p, total, errors, view.getViewName(), true);
 	%>
-	<td class="<%=style.getTotalCell()%>" style="<%=cellStyle%>; padding-right: 0px">
-		<div class="<xava:id name='<%=id%>'/>_col<%=c%>" style="overflow: hidden; <%=width%>">
+	<td class="ox-total-cell ox-padding-right-0 <%=align%>">
+		<div class="<xava:id name='<%=id%>'/>_col<%=c%>" style="<%=width%>">
 			<nobr>
 			<% if (!tab.isFixedTotal(c) && XavaPreferences.getInstance().isSummationInList()) { %>
 				<xava:action action='List.removeColumnSum' argv='<%="property="+p.getQualifiedName() + collectionArgv%>'/>
@@ -495,8 +489,8 @@ for (int c=0; c<model.getColumnCount(); c++) {
 	}
 	else if (XavaPreferences.getInstance().isSummationInList() && tab.isTotalCapable(c)) { 
 	%>
-	<td class="<%=style.getTotalCapableCell()%>" style="<%=style.getTotalCapableCellStyle() %>">
-		<div class="<xava:id name='<%=id%>'/>_col<%=c%>" style="overflow: hidden; <%=width%>">
+	<td class="ox-total-capable-cell">
+		<div class="<xava:id name='<%=id%>'/>_col<%=c%>" style="<%=width%>">
 			<xava:action action='List.sumColumn' argv='<%="property="+p.getQualifiedName() + collectionArgv%>'/>&nbsp;
 		</div>	
 	</td>
@@ -529,14 +523,13 @@ for (int i=1; i<additionalTotalsCount; i++) {
 <%
 for (int c=0; c<model.getColumnCount(); c++) {
 	MetaProperty p = tab.getMetaProperty(c);
-	String align =p.isNumber() && !p.hasValidValues()?"text-align: right; ":"";
-	String cellStyle = align + style.getTotalCellStyle(); 
+	String align =p.isNumber() && !p.hasValidValues()?"ox-text-align-right":"";
 	int columnWidth = tab.getColumnWidth(c);		 		
 	String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px";
 	if (tab.hasTotal(i, c)) {
 	%> 	
-		<td class="<%=style.getTotalCell()%>" style="<%=cellStyle%>">
-			<div class="<xava:id name='<%=id%>'/>_col<%=c%>" style="overflow: hidden; <%=width%>">
+		<td class="ox-total-cell <%=align%>">
+			<div class="<xava:id name='<%=id%>'/>_col<%=c%>" style="<%=width%>">
 				<jsp:include page="collectionTotal.jsp">
 					<jsp:param name="row" value="<%=i%>"/>
 					<jsp:param name="column" value="<%=c%>"/>
@@ -595,9 +588,7 @@ if (lastRow != null) {
 %>
 <% if (sortable) { %></tbody><% } %> 
 </table>
-<% if (scrollSupported) { %>
 </div> 
-<% } %>
 
 <% if (!tab.isRowsHidden() && !simple) { %>
 <table width="100%" class="<%=style.getListInfo()%>" cellspacing=0 cellpadding=0>

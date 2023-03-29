@@ -1753,7 +1753,7 @@ abstract public class ModuleTestBase extends TestCase {
 	private boolean isElementCollection(HtmlTable table) { 
 		HtmlElement container = (HtmlElement) table.getParentNode(); 
 		if (XavaPreferences.getInstance().isResizeColumns()) container = (HtmlElement) container.getParentNode();
-		return Style.getInstance().getElementCollection().equals(container.getAttribute("class"));
+		return "ox-element-collection".equals(container.getAttribute("class"));
 	}
 
 	private int getTotalsRowCount(HtmlTable table) { 
