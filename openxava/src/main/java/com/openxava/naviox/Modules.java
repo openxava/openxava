@@ -286,6 +286,7 @@ public class Modules implements Serializable {
 			String applicationName = MetaModuleFactory.getApplication(); 
 			String moduleName = uri[uri.length - 1]; 
 			if (moduleName.equals("SignIn")) return true; // tmr
+			if (moduleName.equals("DEFAULT")) return false; // tmr
 			return isModuleAuthorized(request, MetaModuleFactory.create(applicationName, moduleName)); 
 		}
 		catch (Exception ex) {			

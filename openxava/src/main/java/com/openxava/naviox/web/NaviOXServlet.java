@@ -18,9 +18,9 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
+import org.openxava.util.*;
 import org.openxava.web.*;
 
-import com.openxava.naviox.*;
 import com.openxava.naviox.impl.*;
 
 /**
@@ -36,21 +36,12 @@ public class NaviOXServlet extends HttpServlet {
 		String [] uri = request.getRequestURI().split("/");
 		System.out.println("[NaviOXServlet.doGet] uri=" + Arrays.toString(uri)); // tmr
 		System.out.println("[NaviOXServlet.doGet] uri.length=" + uri.length); // tmr
-		/*
-		if (uri.length < 3) {
+		// tmr if (uri.length < 3) {
+		if (uri.length < 4) { // tmr
 			response.getWriter().print(XavaResources.getString(request, "module_name_missing"));
 			return;
 		}
-		*/
-		// tmr ini
-		if (uri.length < 4) {
-			// TMR ME QUEDÉ POR AQUÍ: INTENTANDO QUE /modules VAYA AL A ÚLTIMO MÓDULO CON LA URL, PARA LLAMARLO DESDE welcome.jsp
-			// TMR  INTENTANDO QUE SSO FUNCIONE BIEN CUANDO SE ENTRA EN RÁIZ. YA FUNCIONA BIEN CUANDO SE ENTRA DIRECTAMENTE EN MÓDULO
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/m/" + getModules(request).getCurrent(request));
-			dispatcher.forward(request, response);
-			return;
-		}		
-		// tmr fin
+
 		String applicationName = MetaModuleFactory.getApplication(); 
 		String moduleName = uri[uri.length - 1];
 		System.out.println("[NaviOXServlet.doGet] moduleName=" + moduleName); // tmr
@@ -60,20 +51,8 @@ public class NaviOXServlet extends HttpServlet {
 		dispatcher.forward(request, response);		
 	}
 	
-	
-	private Modules getModules(HttpServletRequest request) { // tmr
-		Modules modules = (Modules) request.getSession().getAttribute("modules");
-		if (modules == null) {
-			modules = new Modules();
-			request.getSession().setAttribute("modules", modules);
-		}
-		return modules;
-	}
-
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-	
 
 }

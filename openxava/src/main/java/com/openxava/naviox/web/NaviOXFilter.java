@@ -107,6 +107,8 @@ public class NaviOXFilter implements Filter {
 				*/
 				// tmr ini
 				String dispatcherURL = "/" + base + "/" + userAccessModule + "?originalURI=" + originalURI + parametersQuery;
+				System.out.println("[NaviOXFilter.doFilter] Users.getCurrent()=" + Users.getCurrent()); // tmr
+				System.out.println("[NaviOXFilter.doFilter] session.getAttribute(naviox.originalURL)=" + session.getAttribute("naviox.originalURL")); // tmr
 				if (Users.getCurrent() == null && session.getAttribute("naviox.originalURL") == null) {
 					System.out.println("[NaviOXFilter.doFilter] NO USER"); // tmr
 					session.setAttribute("naviox.userAccessURL", dispatcherURL); // tmr ¿Este nombre de atributo? ¿naviox como prefijo? ¿URL o URI?
