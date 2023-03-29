@@ -23,7 +23,7 @@ ModuleManager manager = (ModuleManager) context.get(request, "manager", "org.ope
 Tab tab = (Tab) context.get(request, "xava_tab");
 View view = (View) context.get(request, "xava_view");
 String action = request.getParameter("rowAction");
-
+String hola = "alohaa";
 action=action==null?manager.getEnvironment().getValue("XAVA_LIST_ACTION"):action;
 Collection<String> editors = org.openxava.web.WebEditors.getEditors(tab.getMetaTab());
 String actionNew = "";
@@ -67,92 +67,17 @@ if (dateFormat != null) {
     }
   
 %>
+<div>CALENDARIO</div>
+<Calendar id="xava_calendar"/>
 
-<Calendar id="ec"/>
-
-
-<script type="text/javascript">
-    var onlyDate={month: 'numeric', day: 'numeric'};
-    var onlyTime={hour: 'numeric', minute: '2-digit'};
-    var noTime = {};
-    var clicked = false;
+    
+<script type="text/javascript" <xava:nonce/>>
     var dateFormat = '<%=dateFormat%>';
-    var formattedDate = "";
-    
-let ec = new EventCalendar(document.getElementById('ec'), {
-    view: 'dayGridMonth',
-    height: '800px',
-    headerToolbar: {
-            start: 'prev,today,next',
-            center: 'title',
-            end: 'dayGridMonth,timeGridWeek,timeGridDay'
-        },
-    events: createEvents(),
-    views: {
-            dayGridMonth: {eventTimeFormat: noTime},
-            timeGridWeek: {eventTimeFormat: onlyTime},
-            timeGridDay: {eventTimeFormat: onlyTime}
-        },
-    editable: true,
-    displayEventEnd: false,
-    pointer: true,
-    // para ver solo dia fecha año
-    locale: navigator.language,
-    eventClick: function(e){
-        if (!getSelection().toString()) {
-            openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', false, false, '<%=action%>', 'row=' +   parseInt(e.event.extendedProps.row));
-        }
-    },
-    dateClick: function(e){
-        reformatDate(e.dateStr);
-        let value = {
-            "dates":[
-                {"label": "date",
-                "date" : formattedDate},
-                {"label": "date",
-                "date" : formattedDate}
-            ]};
-        console.log(JSON.stringify(value).replaceAll(",","_"));
-        if (!getSelection().toString()) {
-            openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', false, false, '<%=actionNew%>', 'value=' +  JSON.stringify(value).replaceAll(",","_"));
-        }
-    }
-});
-    
-function createEvents() {
-    let listEvents = ""; 
-    <%
-    if (events.length() > 0) {
-    %>
-       listEvents = <%=events%>;
-    <% } %>
-    return listEvents;
-}
-    
-function reformatDate(date){
-    let d = new Date(date);
-    formattedDate = formatDate(d, dateFormat);
-}
-    
-function getSeparator(date){
-    const separatorRegex = /[^0-9]/g;
-    const separator = dateString.match(separatorRegex)[0];
-    return separator;
-}
-    
-function formatDate(date, format) {
-  const map = {
-    M: date.getMonth() + 1,
-    d: date.getDate(),
-    h: date.getHours(),
-    m: date.getMinutes(),
-    s: date.getSeconds(),
-    y: date.getFullYear().toString().slice(-2),
-    yyyy: date.getFullYear()
-  };
-  
-  return format.replace(/M|d|h|m|s|yyyy|y/gi, matched => {
-    return map[matched];
-  });
-}
+    var calendarRequestApplication = '<%=request.getParameter("application")%>';
+    var calendarRequestModule = '<%=request.getParameter("module")%>';
+    var calendarAction = '<%=action%>';
+    var calendarNewAction = '<%=actionNew%>';
+    var events = '<%=events%>';
 </script>
+
+
