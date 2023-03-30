@@ -92,7 +92,7 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 	}
 %>
 	<th <%=headerId%> <%=dataDefaultValue%> class="ox-list-header ox-padding-right-0">
-		<div id="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):(""))%>" style="overflow: hidden; <%=width%>" >
+		<div id="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):(""))%>" style="<%=width%>" >
 		<%if (resizeColumns) {%><nobr><%}%>
 		<%=label%>&nbsp;
 		<%if (resizeColumns) {%></nobr><%}%>
@@ -112,19 +112,19 @@ Collection values = subview.getCollectionValues();
 if (values == null) values = java.util.Collections.EMPTY_LIST;
 int rowCount = subview.isCollectionEditable()?values.size() + 2:values.size(); 
 for (int f=0; f < rowCount; f++) {
-	String cssClass=f%2==0?style.getListPair():style.getListOdd();
-	String cssCellClass=f%2==0?style.getListPairCell():style.getListOddCell();
+	String cssClass=f%2==0?"ox-list-pair":"ox-list-odd";
+	String cssCellClass=f%2==0?"ox-list-pair":"ox-list-odd";
 	String idRow = Ids.decorate(request, propertyPrefix) + f;	
 	String events=f%2==0?style.getListPairEvents():style.getListOddEvents();
-	String newRowStyle = subview.isCollectionEditable() && f == rowCount - 1?"display: none;":"";
+	String newRowStyle = subview.isCollectionEditable() && f == rowCount - 1?"ox-display-none":"";
 	String lastRowEvent = subview.isCollectionEditable() && f >= rowCount - 2?"onchange='elementCollectionEditor.onChangeRow(this, "+  f + ")'":"";
-	String actionsStyle = subview.isCollectionEditable() && f >= rowCount - 2?"style='visibility:hidden;'":"";
+	String actionsStyle = subview.isCollectionEditable() && f >= rowCount - 2?"class='ox-visibility-hidden'":"";
 	String app = request.getParameter("application");
 	String module = request.getParameter("module");
 	boolean hasTotals = subview.hasCollectionTotals();
 	String sortableClass = subview.isCollectionEditable() && f >= rowCount - 2?"":"xava_sortable_element_row";
 %>
-<tr id="<%=idRow%>" class="<%=cssClass%> <%=sortableClass%>" <%=events%> style="border-bottom: 1px solid; <%=newRowStyle%>">
+<tr id="<%=idRow%>" class="<%=cssClass%> <%=sortableClass%> <%=newRowStyle%>" <%=events%>>
 <% if (subview.isCollectionEditable()) { %>
 	<td class="<%=cssCellClass%>" style="vertical-align: middle;text-align: center;padding-right: 2px; <%=style.getListCellStyle()%>">
 	<nobr <%=actionsStyle%>>

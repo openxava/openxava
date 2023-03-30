@@ -239,7 +239,7 @@ public class TreeViewParser {
 							fvalue = WebEditors.format(request, p, reader.getValueAt(index, c), errors, viewObject, true);
 						}
 						html.append("<td class=\"");
-						html.append((c%2==0?style.getListPairCell():style.getListOddCell()));
+						html.append((c%2==0?"ox-list-pair":"ox-list-odd"));
 						html.append("\" style=\"");
 						html.append(cellStyle);
 						html.append("\">");

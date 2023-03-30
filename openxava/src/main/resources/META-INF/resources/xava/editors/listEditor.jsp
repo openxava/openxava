@@ -61,7 +61,6 @@ boolean singleSelection="true".equalsIgnoreCase(request.getParameter("singleSele
 String onSelectCollectionElementAction = view.getOnSelectCollectionElementAction();
 MetaAction onSelectCollectionElementMetaAction = Is.empty(onSelectCollectionElementAction) ? null : MetaControllers.getMetaAction(onSelectCollectionElementAction);
 String selectedRowStyle = style.getSelectedRowStyle();
-String rowStyle = "border-bottom: 1px solid;";
 int currentRow = ((Number) context.get(request, "xava_row")).intValue(); 
 String cssCurrentRow = style.getCurrentRow();
 int totalSize = -1; 
@@ -122,7 +121,7 @@ if (grouping) action = null;
 			String actionOnClickAll = Actions.getActionOnClickAll(
 			request.getParameter("application"), request.getParameter("module"), 
 			onSelectCollectionElementAction, viewObject, prefix,
-			selectedRowStyle, rowStyle, tabObject);
+			selectedRowStyle, "", tabObject);
 	%>
 	<input type="checkbox" name="<xava:id name='xava_selected_all'/>" value="<%=prefix%>selected_all" <%=actionOnClickAll%> />
 	<%
@@ -145,7 +144,7 @@ while (it.hasNext()) {
 %>
 <th class="ox-list-header" style="<%=align%>; padding-right: 0px" data-property="<%=property.getQualifiedName()%>">
 <% if (resizeColumns) { %> <nobr> <% } %> 
-<div id="<xava:id name='<%=id%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):("")) %>" style="overflow: hidden; <%=width%>" >
+<div id="<xava:id name='<%=id%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):("")) %>" style="<%=width%>" >
 <%
 	if (tab.isCustomizeAllowed()) {
 %>
@@ -362,8 +361,8 @@ if (totalSize > 0 || !Is.emptyString(collection)) {
 int finalIndex = simple?Integer.MAX_VALUE:tab.getFinalIndex();
 for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) {
 	String checked=tab.isSelected(f)?"checked='true'":"";	
-	String cssClass=f%2==0?style.getListPair():style.getListOdd();	
-	String cssCellClass=f%2==0?style.getListPairCell():style.getListOddCell(); 
+	String cssClass=f%2==0?"ox-list-pair":"ox-list-odd";	
+	String cssCellClass=f%2==0?"ox-list-pair":"ox-list-odd"; 
 	String cssStyle = tab.getStyle(f);
 	if (cssStyle != null) {
 		cssClass = cssClass + " " + cssStyle; 
@@ -371,6 +370,7 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 	}
 	String events=f%2==0?style.getListPairEvents():style.getListOddEvents(); 
 	String cssClassToActionOnClick = cssClass;
+	String rowStyle = "";
 	if (tab.isSelected(f)){
 		cssClass = "_XAVA_SELECTED_ROW_ " + cssClass; 
 		rowStyle = rowStyle + " " + selectedRowStyle;

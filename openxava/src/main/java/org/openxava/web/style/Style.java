@@ -492,10 +492,11 @@ public class Style {
 		return "";
 	}
 	
+	/* tmr
 	public String getListPair() { 
 		return "ox-list-pair";
 	}
-
+	*/
 	
 	/** 
 	 * @param  Since v4m5 it has no parameters
@@ -504,14 +505,17 @@ public class Style {
 		return "";
 	}	
 	
+	/* tmr
 	public String getListPairCell() { 
 		return getListPair();
 	}
+	*/
 	
+	/* tmr
 	public String getListOdd() { 
 		return "ox-list-odd";
 	}
-	
+	*/
 	
 	
 	/** 
@@ -521,9 +525,11 @@ public class Style {
 		return "";
 	}		
 		
+	/* tmr
 	public String getListOddCell() { 
 		return getListOdd();
 	}
+	*/
 	
 	public String getListPairSelected() { 
 		return "list-pair-selected";

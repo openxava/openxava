@@ -928,6 +928,10 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 .ox-overflow-auto {
 	overflow: auto;
 }
+
+.ox-visibility-hidden {
+	visibility: hidden;
+}
 /* tmr fin */
 
 .ox-collection-list-actions .ox-button-bar-button a {
@@ -1080,6 +1084,12 @@ i {
 .ox-list-odd i, .ox-list-pair i {
 	vertical-align: -7px;
 }
+
+/* tmr ini */
+tr.ox-list-odd, tr.ox-list-pair {
+	border-bottom: 1px solid;
+}
+/* tmr fin */
 
 .ox-list-odd .ox-image-link, .ox-list-pair .ox-image-link {
 	padding: 0px 0px 10px 0px;
@@ -1598,7 +1608,7 @@ input[type="button"] {
 }
 
 /* tmr ini */
-.ox-total-cell > div, .ox-total-capable-cell > div {
+.ox-total-cell > div, .ox-total-capable-cell > div, ox-list-header > div {
 	overflow: hidden; 
 }
 /* tmr fin */

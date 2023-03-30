@@ -1511,7 +1511,7 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 
 	private String getDefaultRowStyle(int row) {
-		return (row % 2 == 0)?Style.getInstance().getListPair():Style.getInstance().getListOdd();
+		return (row % 2 == 0)?"ox-list-pair":"ox-list-odd";
 	}
 
 	private boolean collectionHasFilterHeader(HtmlTable table) {

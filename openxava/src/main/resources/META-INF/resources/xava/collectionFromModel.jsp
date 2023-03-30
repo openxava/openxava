@@ -49,7 +49,7 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 	String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px";
 %>
 	<th class="ox-list-header" style="padding-right: 0px">
-		<div id="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):(""))%>" style="overflow: hidden; <%=width%>" >
+		<div id="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):(""))%>" style="<%=width%>" >
 		<%if (resizeColumns) {%><nobr><%}%>
 		<%=label%>&nbsp;
 		<%if (resizeColumns) {%></nobr><%}%>
@@ -67,8 +67,8 @@ if (aggregates == null) aggregates = java.util.Collections.EMPTY_LIST;
 Iterator itAggregates = aggregates.iterator();
 for (int f=0; itAggregates.hasNext(); f++) {
 	Map row = (Map) itAggregates.next();
-	String cssClass=f%2==0?style.getListPair():style.getListOdd();
-	String cssCellClass=f%2==0?style.getListPairCell():style.getListOddCell();
+	String cssClass=f%2==0?"ox-list-pair":"ox-list-odd";
+	String cssCellClass=f%2==0?"ox-list-pair":"ox-list-odd";
 	String selectedClass = "";
 	if (f == subview.getCollectionEditingRow()) { 
 		selectedClass = f%2==0?style.getListPairSelected():style.getListOddSelected();
@@ -78,7 +78,7 @@ for (int f=0; itAggregates.hasNext(); f++) {
 	String idRow = Ids.decorate(request, propertyPrefix) + f;	
 	String events=f%2==0?style.getListPairEvents():style.getListOddEvents(); 
 %>
-<tr id="<%=idRow%>" class="<%=cssClass%>" <%=events%> style="border-bottom: 1px solid;">
+<tr id="<%=idRow%>" class="<%=cssClass%>" <%=events%>>
 <%
 	if (lineAction != null) {
 %>
