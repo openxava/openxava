@@ -68,10 +68,9 @@ if (dateFormat != null) {
   
 %>
 <div>CALENDARIO</div>
-<Calendar id="xava_calendar"/>
+<div id='xava_calendar'></div>
 
-    
-<script type="text/javascript" <xava:nonce/>>
+<script type="text/javascript">
     var dateFormat = '<%=dateFormat%>';
     var calendarRequestApplication = '<%=request.getParameter("application")%>';
     var calendarRequestModule = '<%=request.getParameter("module")%>';
@@ -79,5 +78,3 @@ if (dateFormat != null) {
     var calendarNewAction = '<%=actionNew%>';
     var events = '<%=events%>';
 </script>
-
-
