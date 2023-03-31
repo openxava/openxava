@@ -2,7 +2,6 @@ package org.openxava.actions;
 
 import java.io.*;
 import java.text.*;
-import java.util.*;
 
 import javax.json.*;
 
@@ -67,11 +66,12 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
             String label = date.getString("label");
             String dateStr = date.getString("date");
             ce.setStartLabel(label);
-            
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            Date d = format.parse(dateStr);
-            //ce.setStartAsDate(d);
             ce.setStart(dateStr);
+            
+            //SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            //Date d = format.parse(dateStr);
+            //ce.setStartAsDate(d);
+            
             System.out.println(label + ": " + dateStr);
         }
 		

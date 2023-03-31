@@ -7,8 +7,10 @@ import java.util.*;
 import javax.servlet.http.*;
 import javax.swing.table.*;
 
+import org.openxava.controller.*;
 import org.openxava.formatters.*;
 import org.openxava.model.meta.*;
+import org.openxava.session.*;
 import org.openxava.tab.*;
 import org.openxava.util.*;
 import org.openxava.view.*;
@@ -76,12 +78,18 @@ public class CalendarEventIterator {
 		// System.out.println(tab.getMetaTab().getBaseCondition());
 		if (tab.getConditionComparators() != null) {
 		} else {
-			System.out.println("null");
+			System.out.println("no hay condicion" + tab.getTotalSize());
+			System.out.println(Arrays.toString(tab.getMetaTab().getMetaModel().getMetaProperties().toArray()));
+			System.out.println(Arrays.toString(tab.getMetaProperties().toArray()));
+			//createTab();
+			//tab.getMetaPropertiesNoCalculated()
+			//tab.getcondi
 			// llamar a filter() de tab para setConditionParameters
 			// getMetaPropertiesNoCalculated
 			// tab.setBaseCondition( "${" + dateName + "} between '2002-11-01' and
 			// '2004-12-31'");
 		}
+		
 
 		//System.out.println(tab.getPropertiesNamesAsString());
 		// System.out.println(tab.getTotalPropertiesNames()); []
@@ -270,5 +278,54 @@ public class CalendarEventIterator {
 		}
 		return booleanFormatter;
 	}
+	
+	
+	private static void createTab(HttpServletRequest request, Tab tab)  {
+		Tab calendarTab = tab.clone();
+		calendarTab.clearProperties();
+		
+		calendarTab.setRequest(request);
+		//esto no se usa
+		//crear yo una nueva tabla buscando Dates y filtrar por eso
+		
+		/*
+		for (ChartColumn column: chart.getColumns()) {
+			addColumn(calendarTab, column);
+		}*/
+		
+			ChartColumn column = new ChartColumn();
+			
+			
+			System.out.println(Arrays.toString(tab.getMetaTab().getMetaModel().getMetaProperties().toArray()));
+			System.out.println(Arrays.toString(tab.getMetaProperties().toArray()));
+			/*
+			
+			for (MetaProperty property : tab.getMetaTab().getMetaModel().getMetaProperties()) {
+				calendarTab.
+			
+			}*/
+			/*
+			MetaProperty property = tab.getMetaTab().getMetaModel().getMetaProperty();
+			if (property != null) {
+				column.setChart(chart);
+				column.setName(chart.getxColumn());				
+				addColumn(calendarTab, column);
+			}*/
+		
+
+		getContext(request).put(request, "xava_calendarTab", calendarTab); 
+	}
+	
+	private static void addColumn(Tab tab, ChartColumn column) {	
+		if (!tab.containsProperty(column.getName())) {  
+			tab.addProperty(column.getName());			
+			tab.setLabel(column.getName(), column.getLabel());
+		}
+	}
+
+	private static ModuleContext getContext(HttpServletRequest request) { 
+		return (ModuleContext) request.getSession().getAttribute("context");
+	}
+
 
 }
