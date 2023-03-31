@@ -91,13 +91,16 @@ public class NaviOXFilter implements Filter {
 				char base = secureRequest.getRequestURI().split("/")[Is.emptyString(request.getServletContext().getContextPath())?1:2].charAt(0)=='p'?'p':'m';
 				String originalURI = secureRequest.getRequestURI();
 				String organization = OrganizationsCurrent.get(request);
+				System.out.println("[NaviOXFilter.doFilter] organization=" + organization); // tmr
+				System.out.println("[NaviOXFilter.doFilter] originalURI> " + originalURI); // tmr
 				if (organization != null) originalURI = originalURI.replace("/modules/", "/o/" + organization + "/m/");
+				System.out.println("[NaviOXFilter.doFilter] originalURI< " + originalURI); // tmr
 				String originalParameters = secureRequest.getQueryString();
 				String parametersQuery = "";
 				if (!Is.emptyString(originalParameters)) {
 					if (organization != null) originalParameters = originalParameters.replace("organization=" + organization + "&", "");
 					originalParameters = originalParameters.replace("&", "__AMP__");
-					parametersQuery = "&originalParameters=" + originalParameters;
+					parametersQuery = "?originalParameters=" + originalParameters;
 				}
 				String userAccessModule = modules.getUserAccessModule(request);
 				/* tmr
@@ -113,7 +116,9 @@ public class NaviOXFilter implements Filter {
 				if (Users.getCurrent() == null && session.getAttribute("naviox.originalURL") == null) {
 					System.out.println("[NaviOXFilter.doFilter] NO USER"); // tmr
 					session.setAttribute("naviox.userAccessURL", dispatcherURL); // tmr ¿Este nombre de atributo? ¿naviox como prefijo? ¿URL o URI?
+					System.out.println("[NaviOXFilter.doFilter] naviox.userAccessURL=" + dispatcherURL); // tmr
 					session.setAttribute("naviox.originalURL", originalURI + parametersQuery); // tmr ¿Este nombre de atributo? ¿naviox como prefijo? ¿URL o URI?
+					System.out.println("[NaviOXFilter.doFilter] naviox.originalURL=" + session.getAttribute("naviox.originalURL")); // tmr
 					dispatcherURL = "/azure/signIn"; // tmr Obviamente no se puede quedar así									
 				}
 				else {
