@@ -18,8 +18,6 @@ window.location="<%=url%>";
 }
 else {
 // tmr ini
-// TMR ME QUEDÉ POR AQUÍ: ESTO FUNCIONA PARA ROOT, FALTA PROBARLO MEJOR (CON 2 APPS) Y PROBAR LO DEL MODULO OTRA VEZ
-// TRM   TENDRIA QUE QUITAR LO DE DEFAULT
 	if (session.getAttribute("naviox.originalURL") == null) {
 		session.setAttribute("naviox.originalURL", request.getContextPath()); 
 		%>
