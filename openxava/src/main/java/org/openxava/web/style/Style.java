@@ -341,9 +341,11 @@ public class Style {
 		return "ox-frame-content";
 	}
 	
+	/* tmr
 	public String getList() {  
 		return "ox-list";
 	}
+	*/
 	
 	/**
 	 * 
@@ -466,13 +468,17 @@ public class Style {
 	}	
 	*/
 	
+	/* tmr
 	public String getListCellStyle() {
 		return ""; 
 	}
+	*/
 	
+	/* tmr
 	public String getListHeader() { 
 		return "ox-list-header";
 	}
+	*/
 	
 	/* tmr
 	public String getListHeaderCell() { 
@@ -578,9 +584,11 @@ public class Style {
 	 * 
 	 * @since 6.0
 	 */	
+	/* tmr
 	public String getElementCollectionDataCell() {  
 		return "ox-element-collection-data-cell";
 	}
+	*/
 
 	public String getFrameHeaderStartDecoration() {
 		return getFrameHeaderStartDecoration(0); 

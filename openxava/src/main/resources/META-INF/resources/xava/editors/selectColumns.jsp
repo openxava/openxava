@@ -19,7 +19,7 @@ searchWord = searchWord == null?"":searchWord.toLowerCase();
 boolean originalColumnsToAddUntilSecondLevel = tab.isColumnsToAddUntilSecondLevel();
 if (!Is.emptyString(searchWord)) tab.setColumnsToAddUntilSecondLevel(false);
 %>
-<table id="<xava:id name='xavaPropertiesList'/>" class='<%=style.getList()%>' width="100%" <%=style.getListCellSpacing()%> style="margin-bottom: 5px;">
+<table id="<xava:id name='xavaPropertiesList'/>" class='ox-list' width="100%" <%=style.getListCellSpacing()%> style="margin-bottom: 5px;">
 <tr class="ox-list-pair" style="height: 0px;"/> 
 <%
 int f=0;
@@ -43,13 +43,13 @@ for (Iterator it=tab.getColumnsToAdd().iterator(); it.hasNext();) {
 	if (tab.isColumnsToAddUntilSecondLevel() && c > 20) break;
 %>
 <tr id="<%=rowId%>" class="<%=cssClass%>" <%=events%>>
-	<td class="<%=cssCellClass%>" style="<%=style.getListCellStyle()%>" width="5">
+	<td class="<%=cssCellClass%>" width="5">
 		<xava:action action='AddColumns.addColumn' argv='<%="property=" + property%>'/>
 	</td>		
-	<td class="<%=cssCellClass%>" style="<%=style.getListCellStyle()%>" width="5">
+	<td class="<%=cssCellClass%>" width="5">
 		<input type="checkbox" name="<xava:id name='xava_selected'/>" value="selectedProperties:<%=property%>" <%=actionOnClick%>/>
 	</td>
-	<td class="<%=cssCellClass%>" style="<%=style.getListCellStyle()%>"> 
+	<td class="<%=cssCellClass%>"> 
 		<xava:link action='AddColumns.addColumn' argv='<%="property=" + property%>' cssStyle="text-decoration: none; outline: none;">
 		<div><%=propertyI18n%></div>
 		</xava:link>

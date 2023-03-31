@@ -43,9 +43,9 @@ boolean hideTotals = "true".equals(request.getParameter("hideTotals"));
 <% if (resizeColumns) { %> 
 <div class="<xava:id name='collection_scroll'/>">
 <% } %>
-<table id="<xava:id name='<%=idCollection%>'/>" class="<%=style.getList()%>" <%=style.getListCellSpacing()%>>
+<table id="<xava:id name='<%=idCollection%>'/>" class="ox-list" <%=style.getListCellSpacing()%>>
 <% if (sortable) { %><tbody class="xava_sortable_elements"><% } %> 
-<tr class="<%=style.getListHeader()%>">
+<tr class="ox-list-header">
 	<% if (subview.isCollectionEditable()) { %>
 	<th class="ox-list-header" width="5"/>
 	<% } %>
@@ -126,7 +126,7 @@ for (int f=0; f < rowCount; f++) {
 %>
 <tr id="<%=idRow%>" class="<%=cssClass%> <%=sortableClass%> <%=newRowStyle%>" <%=events%>>
 <% if (subview.isCollectionEditable()) { %>
-	<td class="<%=cssCellClass%>" style="vertical-align: middle;text-align: center;padding-right: 2px; <%=style.getListCellStyle()%>">
+	<td class="<%=cssCellClass%> ox-element-collection-action-cell">
 	<nobr <%=actionsStyle%>>
 	<%if (sortable) { %>
 	<i class="xava_handle mdi mdi-swap-vertical"></i>
@@ -158,8 +158,7 @@ for (int f=0; f < rowCount; f++) {
 	it = subview.getMetaPropertiesList().iterator();	
 	for (int columnIndex = 0; it.hasNext(); columnIndex++) { 
 		MetaProperty p = (MetaProperty) it.next();
-		String align =p.isNumber() && !p.hasValidValues()?"vertical-align: middle;text-align: right; ":"vertical-align: middle; "; 
-		String cellStyle = style.getListCellStyle() + align;
+		String align =p.isNumber() && !p.hasValidValues()?"ox-text-align-right":""; 
 		int columnWidth = subview.getCollectionColumnWidth(columnIndex);
 		String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px";
 		String referenceName = null;
@@ -182,11 +181,11 @@ for (int f=0; f < rowCount; f++) {
 			fvalue = org.openxava.web.WebEditors.formatToStringOrArray(request, p, value, errors, view.getViewName(), false);
 		}
 %>
-	<td class="<%=cssCellClass%> <%=style.getElementCollectionDataCell()%>" style="<%=cellStyle%>; padding-right: 0px">
+	<td class="<%=cssCellClass%> <%=align%> ox-element-collection-data-cell">
 		<% if (labelOnEachCell) { %>
 			<span class="<%=style.getLabel()%>"><%=p.getQualifiedLabel(request)%></span>
 		<% } %>
-		<div class="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" style="overflow: hidden; <%=width%>" <%=lastRowEvent%>>
+		<div class="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" style="<%=width%>" <%=lastRowEvent%>>
 		<nobr> 
 		<% if (!subview.isCollectionMembersEditables()) {%>
 			<% if (referenceName == null) { %>
@@ -205,7 +204,7 @@ for (int f=0; f < rowCount; f++) {
 		</div>
 	</td>		
 	<% if (searchAction != null && subview.isLastSearchKey(p.getName())) {	%>
-	<td class="<%=cssCellClass%>" style="<%=cellStyle%>; padding-left: 3px; padding-right: 0px;">
+	<td class="<%=cssCellClass%> <%=align%> ox-element-collection-search-action-cell">
 		<xava:action action='<%=searchAction%>' argv='<%="keyProperty="+propertyName%>'/> 								
 	</td>
 	<% } %>

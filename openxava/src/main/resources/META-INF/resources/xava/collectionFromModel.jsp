@@ -20,9 +20,9 @@ boolean sortable = subview.isCollectionSortable();
 <% if (resizeColumns) { %> 
 <div class="<xava:id name='collection_scroll'/> ox-overflow-auto">
 <% } %>
-<table id="<xava:id name='<%=idCollection%>'/>" class="<%=style.getList()%>" <%=style.getListCellSpacing()%>>
+<table id="<xava:id name='<%=idCollection%>'/>" class="ox-list" <%=style.getListCellSpacing()%>>
 <% if (sortable) { %><tbody class="xava_sortable_row"><% } %> 
-<tr class="<%=style.getListHeader()%>">
+<tr class="ox-list-header">
 	<%
 		if (lineAction != null) {
 	%>	
@@ -82,7 +82,7 @@ for (int f=0; itAggregates.hasNext(); f++) {
 <%
 	if (lineAction != null) {
 %>
-<td class="<%=cssCellClass%>" style="vertical-align: middle;text-align: center;padding-right: 2px; <%=style.getListCellStyle()%>">
+<td class="<%=cssCellClass%>" style="vertical-align: middle;text-align: center;padding-right: 2px;">
 <nobr>
 	<%if (sortable) { %>
 	<i class="xava_handle mdi mdi-swap-vertical"></i>	
@@ -107,7 +107,7 @@ for (int f=0; itAggregates.hasNext(); f++) {
 		selectedRowStyle, rowStyle, 
 		onSelectCollectionElementMetaAction, tabObject);
 %>
-<td class="<%=cssCellClass%>" width="5" style="<%=style.getListCellStyle()%>">
+<td class="<%=cssCellClass%>" width="5">
 <input type="checkbox" name="<xava:id name='xava_selected'/>" value="<%=propertyPrefix%>__SELECTED__:<%=f%>" <%=actionOnClick%>/>
 </td>
 <%
@@ -115,7 +115,7 @@ for (int f=0; itAggregates.hasNext(); f++) {
 	for (int columnIndex = 0; it.hasNext(); columnIndex++) { 
 		MetaProperty p = (MetaProperty) it.next();
 		String align =p.isNumber() && !p.hasValidValues()?"vertical-align: middle;text-align: right; ":"vertical-align: middle; ";
-		String cellStyle = align + style.getListCellStyle();
+		String cellStyle = align;
 		int columnWidth = subview.getCollectionColumnWidth(columnIndex);
 		String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px"; 
 		String fvalue = null;

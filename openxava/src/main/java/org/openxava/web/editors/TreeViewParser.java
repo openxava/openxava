@@ -220,9 +220,8 @@ public class TreeViewParser {
 				treeNode = nodeHolder.treeNode;
 				html = new StringBuilder("");
 				if (tab.getTableModel().getColumnCount() > 1) {
-					html.append("<table class=\"");
-					html.append(style.getList());
-					html.append("\" width=\"100%\" ");
+					html.append("<table class=\"ox-list\" ");
+					html.append("width=\"100%\" ");
 					html.append(styleListCellSpacing);
 					html.append(" title=\"");
 					html.append(tooltip);
@@ -230,7 +229,7 @@ public class TreeViewParser {
 					for (int c = 0; c < tab.getTableModel().getColumnCount(); c++) {
 						MetaProperty p = tab.getMetaProperty(c);
 						String align =p.isNumber() && !p.hasValidValues()?"vertical-align: middle;text-align: right; ":"vertical-align: middle; ";
-						String cellStyle = align + style.getListCellStyle();
+						String cellStyle = align;
 						String fvalue = null;
 						if (p.hasValidValues()) {
 							fvalue = p.getValidValueLabel(reader.getValueAt(index, c));

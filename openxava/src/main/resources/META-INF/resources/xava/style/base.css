@@ -724,6 +724,12 @@ input[type="radio"] {
 
 .ox-list-subheader input[type="text"] { 
     height: 28px;
+    /* tmr ini */
+    width: 100%; 
+    box-sizing: border-box; 
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box;
+    /* tmr fin */
 }
 
 /* tmr ini */
@@ -917,12 +923,24 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	display: none;
 }
 
+.ox-display-inline {
+	display: inline;
+}
+
 .ox-padding-right-0 {
 	padding-right: 0px;
 }
 
 .ox-text-align-right { 
 	text-align: right;
+}
+
+.ox-text-align-center { 
+	text-align: center;
+}
+
+.ox-vertical-align-middle {
+	vertical-align: middle;
 }
 
 .ox-overflow-auto {
@@ -1402,9 +1420,31 @@ input[type="button"] {
 	border-bottom-style: hidden; 
 }
 
+
+
 .ox-element-collection-data-cell .ox-image-link {
 	display: none;
 }
+
+/* tmr ini */
+.ox-element-collection-data-cell {
+	padding-right: 0px;
+	vertical-align: middle;
+}
+
+.ox-element-collection-action-cell {
+	vertical-align: middle;
+	text-align: center;
+	padding-right: 2px;
+}
+
+.ox-element-collection-search-action-cell {
+	vertical-align: middle; 
+	padding-left: 3px; 
+	padding-right: 0px;
+}
+
+/* tmr fin */
 
 .selected-row, .selected-row td {
 	background: var(--selected-row-background) !important; 
@@ -1608,7 +1648,7 @@ input[type="button"] {
 }
 
 /* tmr ini */
-.ox-total-cell > div, .ox-total-capable-cell > div, ox-list-header > div {
+.ox-total-cell > div, .ox-total-capable-cell > div, ox-list-header > div, .ox-element-collection-data-cell > div {
 	overflow: hidden; 
 }
 /* tmr fin */
