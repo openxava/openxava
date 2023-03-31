@@ -70,7 +70,7 @@ if (dateFormat != null) {
 <div>CALENDARIO</div>
 <div id='xava_calendar'></div>
 
-<script type="text/javascript">
+<script type="text/javascript" <xava:nonce/>>
     var dateFormat = '<%=dateFormat%>';
     var calendarRequestApplication = '<%=request.getParameter("application")%>';
     var calendarRequestModule = '<%=request.getParameter("module")%>';
