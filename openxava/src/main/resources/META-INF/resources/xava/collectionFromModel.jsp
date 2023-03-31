@@ -11,7 +11,6 @@
 String tabObject = request.getParameter("tabObject"); 
 tabObject = (tabObject == null || tabObject.equals(""))?"xava_tab":tabObject;
 String onSelectCollectionElementAction = subview.getOnSelectCollectionElementAction();
-String selectedRowStyle = style.getSelectedRowStyle();
 String rowStyle = "border-bottom: 1px solid;";
 MetaAction onSelectCollectionElementMetaAction = Is.empty(onSelectCollectionElementAction) ? null : MetaControllers.getMetaAction(onSelectCollectionElementAction);
 boolean resizeColumns = style.allowsResizeColumns() && XavaPreferences.getInstance().isResizeColumns();
@@ -35,7 +34,7 @@ boolean sortable = subview.isCollectionSortable();
 		String actionOnClickAll = Actions.getActionOnClickAll(
 		request.getParameter("application"), request.getParameter("module"), 
 		onSelectCollectionElementAction, idCollection, propertyPrefix, 
-		selectedRowStyle, rowStyle, tabObject);
+		"", rowStyle, tabObject);
 	%>
 	<input type="checkbox" name="<xava:id name='xava_selected_all'/>" value="<%=propertyPrefix%>selected_all" <%=actionOnClickAll%> />
 	</th>
@@ -104,7 +103,7 @@ for (int f=0; itAggregates.hasNext(); f++) {
 	String actionOnClick = Actions.getActionOnClick(
 		request.getParameter("application"), request.getParameter("module"), 
 		onSelectCollectionElementAction, f, viewName, idRow,
-		selectedRowStyle, rowStyle, 
+		"", rowStyle, 
 		onSelectCollectionElementMetaAction, tabObject);
 %>
 <td class="<%=cssCellClass%>" width="5">

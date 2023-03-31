@@ -736,6 +736,14 @@ input[type="radio"] {
 .ox-list-subheader select {
 	width: 100%;
 }
+
+.ox-list-subheader-resize {
+	padding-right: 12px;
+}
+
+.ox-list-subheader-no-resize {
+	padding-right: 2px;
+}
 /* tmr fin */
 
 select:not([multiple]) { 
@@ -1648,7 +1656,9 @@ input[type="button"] {
 }
 
 /* tmr ini */
-.ox-total-cell > div, .ox-total-capable-cell > div, ox-list-header > div, .ox-element-collection-data-cell > div {
+.ox-total-cell > div, .ox-total-capable-cell > div, 
+.ox-list-header > div, .ox-element-collection-data-cell > div,
+td.ox-list-subheader > div {
 	overflow: hidden; 
 }
 /* tmr fin */

@@ -490,9 +490,11 @@ public class Style {
 		return "ox-list-subheader";
 	}	
 
+	/* tmr
 	public String getListSubheaderCell() { 
 		return getListSubheader();
 	}
+	*/
 	
 	public String getListOrderBy() {
 		return "";
@@ -1129,9 +1131,11 @@ public class Style {
 		return "selected-row";
 	}
 	
-	public String getSelectedRowStyle(){
+	/* tmr
+	public String getSelectedRowStyle() {
 		return "";
 	}
+	*/
 
 	public void setBrowser(String browser) {
 		this.browser = browser;

@@ -59,7 +59,6 @@ String lastRow = request.getParameter("lastRow");
 boolean singleSelection="true".equalsIgnoreCase(request.getParameter("singleSelection"));
 String onSelectCollectionElementAction = view.getOnSelectCollectionElementAction();
 MetaAction onSelectCollectionElementMetaAction = Is.empty(onSelectCollectionElementAction) ? null : MetaControllers.getMetaAction(onSelectCollectionElementAction);
-String selectedRowStyle = style.getSelectedRowStyle();
 int currentRow = ((Number) context.get(request, "xava_row")).intValue(); 
 String cssCurrentRow = style.getCurrentRow();
 int totalSize = -1; 
@@ -120,7 +119,7 @@ if (grouping) action = null;
 			String actionOnClickAll = Actions.getActionOnClickAll(
 			request.getParameter("application"), request.getParameter("module"), 
 			onSelectCollectionElementAction, viewObject, prefix,
-			selectedRowStyle, "", tabObject);
+			"", "", tabObject);
 	%>
 	<input type="checkbox" name="<xava:id name='xava_selected_all'/>" value="<%=prefix%>selected_all" <%=actionOnClickAll%> />
 	<%
@@ -199,10 +198,10 @@ String headerLabel=Strings.noLastToken(label) + " <nobr>" + Strings.lastToken(la
 	if (filter) {
 %>
 <tr id="<xava:id name='<%="list_filter_" + id%>'/>" class="xava_filter <%=style.getListSubheader()%> <%=tab.isFilterVisible()?"":"ox-display-none"%>">
-<td class="<%=style.getFilterCell()%> <%=style.getListSubheaderCell()%>"> 
+<td class="<%=style.getFilterCell()%> ox-list-subheader"> 
 <xava:action action="List.filter" argv="<%=collectionArgv%>"/>
 </td> 
-<td class=<%=style.getListSubheaderCell()%> width="5"> 
+<td class="ox-list-subheader" width="5"> 
 	<a title='<xava:message key="clear_condition_values"/>' href="javascript:void(0)">
 		<i class="mdi mdi-eraser" 
 			id="<xava:id name='<%=prefix + "xava_clear_condition"%>' />" 
@@ -233,10 +232,10 @@ while (it.hasNext()) {
 		String comparator = conditionComparators==null?"":Strings.change(conditionComparators[iConditionValues], "=", Tab.EQ_COMPARATOR);
 		int columnWidth = tab.getColumnWidth(columnIndex);
 		String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px;";
-		String paddingRight = resizeColumns?"padding-right: 12px;":"padding-right: 2px;"; 
+		String paddingRight = resizeColumns?"ox-list-subheader-resize":"ox-list-subheader-no-resize"; 
 %>
-<td class="<%=style.getListSubheaderCell()%>" align="left">
-<div class="<xava:id name='<%=id%>'/>_col<%=columnIndex%>" style="overflow: hidden; <%=width%> <%=paddingRight%>">
+<td class="ox-list-subheader" align="left">
+<div class="<xava:id name='<%=id%>'/>_col<%=columnIndex%> <%=paddingRight%>" style="<%=width%>">
 <% 		
 		if (isValidValues) {
 %>
@@ -288,7 +287,7 @@ while (it.hasNext()) {
 		if (Is.anyEqual(comparator, "year_comparator", "year_month_comparator", "month_comparator")) {
 			classConditionValue="class='ox-date-calendar'";
 			dateDisabled = "xava_date_disabled";
-			styleCalendar = "display: none;"; 
+			styleCalendar = "ox-display-none"; 
 		}
 		else classConditionValue="class='xava_date ox-date-calendar'";  
 	}
@@ -298,8 +297,8 @@ while (it.hasNext()) {
 %>
 <br/>
 <%  } %>
-<% String styleXavaComparator = Is.emptyString(value) && !isEmptyComparator?"style='display: none'":""; %>
-<span class="xava_comparator" <%=styleXavaComparator%>> 
+<% String styleXavaComparator = Is.emptyString(value) && !isEmptyComparator?"ox-display-none":""; %>
+<span class="xava_comparator <%=styleXavaComparator%>"> 
 <jsp:include page="<%=urlComparatorsCombo%>" />
 <br/> 
 </span>
@@ -309,7 +308,7 @@ while (it.hasNext()) {
 	maxlength="<%=maxLength%>" size="<%=length%>" value="<%=value%>" placeholder="<%=labelFrom%>"
 	<%=isDate?"data-input":""%>/>
 	<% if (isDate) { %>
-		<a href="javascript:void(0)" data-toggle class="<%=styleConditionValue%>" style="<%=styleCalendar%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
+		<a href="javascript:void(0)" data-toggle class="<%=styleConditionValue%> <%=styleCalendar%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
 	<% } %>
 </nobr>
 <br/>
@@ -331,7 +330,7 @@ while (it.hasNext()) {
 	}
 	else {
 %>
-<th class=<%=style.getListSubheaderCell()%>>
+<th class="ox-list-subheader">
 	<div class="<xava:id name='<%=id%>'/>_col<%=columnIndex%>"/>
 </th>
 <%
@@ -367,14 +366,12 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 	}
 	String events=f%2==0?style.getListPairEvents():style.getListOddEvents(); 
 	String cssClassToActionOnClick = cssClass;
-	String rowStyle = "";
 	if (tab.isSelected(f)){
 		cssClass = "_XAVA_SELECTED_ROW_ " + cssClass; 
-		rowStyle = rowStyle + " " + selectedRowStyle;
 	}
 	String prefixIdRow = Ids.decorate(request, prefix);	
 %>
-<tr id="<%=prefixIdRow%><%=f%>" class="<%=cssClass%>" <%=events%> style="<%=rowStyle%>">
+<tr id="<%=prefixIdRow%><%=f%>" class="<%=cssClass%>" <%=events%>>
 	<td class="<%=cssCellClass%>" style="vertical-align: middle;text-align: center;">
 	<nobr> 
 	<%if (sortable) { %>
@@ -397,7 +394,7 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 	String actionOnClick = Actions.getActionOnClick(
 		request.getParameter("application"), request.getParameter("module"), 
 		onSelectCollectionElementAction, f, viewObject, prefixIdRow + f,
-		selectedRowStyle, rowStyle, 
+		"", "", 
 		onSelectCollectionElementMetaAction, tabObject);
 %>
 	</nobr> 
