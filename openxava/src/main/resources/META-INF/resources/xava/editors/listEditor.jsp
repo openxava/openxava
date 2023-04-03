@@ -417,11 +417,10 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 			fvalue = WebEditors.format(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
 			title = WebEditors.formatTitle(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
 		}
-		System.out.println("[listEditor.jsp] cssStyle=" + cssStyle); // tmr 
 %>
 	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell">
-		<xava:link action='<%=action%>' argv='<%="row=" + f + actionArgv%>' cssClass='<%=cssStyle%>' cssStyle="text-decoration: none; outline: none">
-			<div title="<%=title%>" class="<xava:id name='tipable'/> <xava:id name='<%=id%>'/>_col<%=c%>" style="overflow: hidden; display:grid; align-items: center; height: 100%; <%=width%>">
+		<xava:link action='<%=action%>' argv='<%="row=" + f + actionArgv%>' cssClass='<%=cssStyle%>'>
+			<div title="<%=title%>" class="<xava:id name='tipable'/> <xava:id name='<%=id%>'/>_col<%=c%>" style="<%=width%>">
 				<%if (resizeColumns) {%><nobr><%}%>
 				<%=fvalue%><%if (resizeColumns) {%>&nbsp;<%}%>
 				<%if (resizeColumns) {%></nobr><%}%>
@@ -485,7 +484,7 @@ for (int c=0; c<model.getColumnCount(); c++) {
 	else if (tab.hasTotal(c + 1)) { 
 	%>
 	<td class="ox-total-label-cell">
-		<div class="<xava:id name='<%=id%>'/>_col<%=c%>" style="overflow: hidden; <%=width%>">
+		<div class="<xava:id name='<%=id%>'/>_col<%=c%>" style="<%=width%>">
 		<%=tab.getTotalLabel(0, c + 1)%>&nbsp;
 		</div>	
 	</td>
@@ -528,7 +527,7 @@ for (int c=0; c<model.getColumnCount(); c++) {
 	else if (tab.hasTotal(i, c + 1)) { 
 	%>
 	<td class="ox-total-label-cell">
-		<div class="<xava:id name='<%=id%>'/>_col<%=c%>" style="overflow: hidden; <%=width%>">		
+		<div class="<xava:id name='<%=id%>'/>_col<%=c%>" style="<%=width%>">		
 		<%=tab.getTotalLabel(i, c + 1)%>&nbsp;
 		</div>
 		<%@ include file="listEditorTotalActionsExt.jsp"%>

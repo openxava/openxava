@@ -24,8 +24,6 @@ public class LinkTag extends ActionTagBase implements IActionTag {
 		
 	public int doStartTag() throws JspException {		
 		try {
-			System.out.println("[LinkTag.doStartTag] getCssStyle=" + getCssStyle()); // tmr
-			System.out.println("[LinkTag.doStartTag] getCssClass()=" + getCssClass()); // tmr
 			if (Is.emptyString(getAction())) {  
 				return EVAL_BODY_INCLUDE; 
 			}
@@ -57,9 +55,7 @@ public class LinkTag extends ActionTagBase implements IActionTag {
 				pageContext.getOut().print(getCssClass());
 				pageContext.getOut().print("'");	
 			}
-			System.out.println("[LinkTag.doStartTag] 2. getCssStyle()=" + getCssStyle()); // tmr
 			if (!Is.emptyString(getCssStyle())) {
-				System.out.println("[LinkTag.doStartTag] Adding style"); // tmr
 				pageContext.getOut().print(" style='");
 				pageContext.getOut().print(getCssStyle());
 				pageContext.getOut().print("'");	

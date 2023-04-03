@@ -1118,6 +1118,14 @@ i {
 	padding-right: 0px;
 	vertical-align: middle;
 }
+
+.ox-list-data-cell > a > div {
+	overflow: hidden; 
+	display:grid; 
+	align-items: center; 
+	height: 100%; 
+}
+
 /* tmr fin */
 
 .ox-list-odd i, .ox-list-pair i {
@@ -1677,6 +1685,12 @@ td.ox-list-subheader > div {
 	text-align: right;
 	/* tmr fin */
 }
+
+/* tmr ini */
+.ox-total-label-cell > div {
+	overflow: hidden;
+}
+/* tmr fin */ 
 
 .ox-frame .ox-list-header {
 	height: 30px;
