@@ -21,7 +21,7 @@ public class ContentSecurityPolicyFilter implements Filter {
     	// If you change this pass the ZAP test again
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         // tmr httpResponse.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'nonce-" + Nonces.get(request) +"' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; worker-src 'self' blob:;frame-ancestors 'self'; form-action 'self'");
-        httpResponse.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'nonce-" + Nonces.get(request) +"' 'unsafe-eval'; img-src 'self' data: blob:; worker-src 'self' blob:;frame-ancestors 'self'; form-action 'self'"); // tmr
+        httpResponse.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'nonce-" + Nonces.get(request) +"' 'unsafe-eval'; img-src 'self' data: blob:; font-src 'self' data:; worker-src 'self' blob:;frame-ancestors 'self'; form-action 'self'"); // tmr
         httpResponse.setHeader("X-Content-Type-Options", "nosniff");
         chain.doFilter(request, response);
     }
