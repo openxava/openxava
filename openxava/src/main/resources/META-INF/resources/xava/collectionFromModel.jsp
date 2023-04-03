@@ -81,7 +81,7 @@ for (int f=0; itAggregates.hasNext(); f++) {
 <%
 	if (lineAction != null) {
 %>
-<td class="<%=cssCellClass%>" style="vertical-align: middle;text-align: center;padding-right: 2px;">
+<td class="<%=cssCellClass%> ox-list-action-cell">
 <nobr>
 	<%if (sortable) { %>
 	<i class="xava_handle mdi mdi-swap-vertical"></i>	
@@ -125,7 +125,6 @@ for (int f=0; itAggregates.hasNext(); f++) {
 		Object title = WebEditors.formatTitle(request, p, value, errors, view.getViewName(), true); 
 %>
 	<td class="<%=cssCellClass%>" style="<%=cellStyle%>; padding-right: 0px">
-	<% if (style.isRowLinkable()) { %> 	
 	<xava:link action="<%=lineAction%>" argv='<%="row="+f + ",viewObject="+viewName%>' cssStyle="text-decoration: none; outline: none">
 	<div title="<%=title%>" class="<xava:id name='tipable'/> <xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" style="overflow: hidden; <%=width%>">
 	<%if (resizeColumns) {%><nobr><%}%>
@@ -133,13 +132,6 @@ for (int f=0; itAggregates.hasNext(); f++) {
 	<%if (resizeColumns) {%></nobr><%}%>
 	</div>
 	</xava:link>
-	<% } else { %>	 
-	<div title="<%=title%>" class="<xava:id name='tipable'/> <xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" style="overflow: hidden; <%=width%>">
-		<%if (resizeColumns) {%><nobr><%}%>
-	 	<%=fvalue%>&nbsp;
-	 	<%if (resizeColumns) {%></nobr><%}%>	 
-	</div>
-	<% } %> 
 	</td>
 		
 <%

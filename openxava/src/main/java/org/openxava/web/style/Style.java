@@ -1090,10 +1090,11 @@ public class Style {
 	 * 
 	 * @since 4.2
 	 */	
+	/* tmr
 	public boolean isRowLinkable() { 
 		return true;
 	}
-	
+	*/
 		
 	public String getBottomButtonsStyle() {
 		return "";

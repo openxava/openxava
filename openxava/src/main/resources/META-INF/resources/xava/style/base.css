@@ -1107,6 +1107,19 @@ i {
     font-weight: bold;
 }
 
+/* tmr ini */
+.ox-list-action-cell {
+	vertical-align: middle;
+	text-align: center;
+	padding-right: 2px;
+}
+
+.ox-list-data-cell {
+	padding-right: 0px;
+	vertical-align: middle;
+}
+/* tmr fin */
+
 .ox-list-odd i, .ox-list-pair i {
 	vertical-align: -7px;
 }
@@ -1435,17 +1448,6 @@ input[type="button"] {
 }
 
 /* tmr ini */
-.ox-element-collection-data-cell {
-	padding-right: 0px;
-	vertical-align: middle;
-}
-
-.ox-element-collection-action-cell {
-	vertical-align: middle;
-	text-align: center;
-	padding-right: 2px;
-}
-
 .ox-element-collection-search-action-cell {
 	vertical-align: middle; 
 	padding-left: 3px; 

@@ -372,7 +372,7 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 	String prefixIdRow = Ids.decorate(request, prefix);	
 %>
 <tr id="<%=prefixIdRow%><%=f%>" class="<%=cssClass%>" <%=events%>>
-	<td class="<%=cssCellClass%>" style="vertical-align: middle;text-align: center;">
+	<td class="<%=cssCellClass%> ox-list-action-cell">
 	<nobr> 
 	<%if (sortable) { %>
 	<i class="xava_handle mdi mdi-swap-vertical"></i>	
@@ -405,8 +405,7 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 <%
 	for (int c=0; c<model.getColumnCount(); c++) {
 		MetaProperty p = tab.getMetaProperty(c);
-		String align =p.isNumber() && !p.hasValidValues() && !tab.isFromCollection(p)?"vertical-align: middle;text-align: right; ":"vertical-align: middle; "; 
-		String cellStyle = align;
+		String align =p.isNumber() && !p.hasValidValues() && !tab.isFromCollection(p)?"ox-text-align-right":""; 
 		int columnWidth = tab.getColumnWidth(c);		 		
 		String width = columnWidth<0 || !resizeColumns?"width:100%":"width: " + columnWidth + "px"; 
 		String fvalue = null;
@@ -417,10 +416,10 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 		else {
 			fvalue = WebEditors.format(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
 			title = WebEditors.formatTitle(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
-		} 
+		}
+		System.out.println("[listEditor.jsp] cssStyle=" + cssStyle); // tmr 
 %>
-	<td class="<%=cssCellClass%>" style="<%=cellStyle%>; padding-right: 0px">
-		<% if (style.isRowLinkable()) { %> 	
+	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell">
 		<xava:link action='<%=action%>' argv='<%="row=" + f + actionArgv%>' cssClass='<%=cssStyle%>' cssStyle="text-decoration: none; outline: none">
 			<div title="<%=title%>" class="<xava:id name='tipable'/> <xava:id name='<%=id%>'/>_col<%=c%>" style="overflow: hidden; display:grid; align-items: center; height: 100%; <%=width%>">
 				<%if (resizeColumns) {%><nobr><%}%>
@@ -428,13 +427,6 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 				<%if (resizeColumns) {%></nobr><%}%>
 			</div>
 		</xava:link>
-		<% } else { %>		
-		<div title="<%=title%>" class="<xava:id name='tipable'/> <xava:id name='<%=id%>'/>_col<%=c%>" style="overflow: hidden; <%=width%>">
-			<%if (resizeColumns) {%><nobr><%}%>
-			<%=fvalue%>&nbsp;
-			<%if (resizeColumns) {%></nobr><%}%>
-		</div>
-		<% } %>
 	</td>
 <%
 	}

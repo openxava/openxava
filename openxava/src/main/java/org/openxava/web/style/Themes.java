@@ -53,7 +53,7 @@ public class Themes {
 				return newTheme;
 			}		
 			String theme = getPreferences().get("theme", XavaPreferences.getInstance().getStyleCSS());
-			if (!all.contains(theme)) theme = XavaPreferences.getInstance().getStyleCSS(); 
+			if (!all.contains(theme)) theme = XavaPreferences.getInstance().getStyleCSS(); // tmr It could be a bug fixed for changelog, even no related with CSP
 			return theme;
 		} 
 		catch (Exception ex) {

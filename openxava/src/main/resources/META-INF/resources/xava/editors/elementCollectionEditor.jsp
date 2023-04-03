@@ -126,7 +126,7 @@ for (int f=0; f < rowCount; f++) {
 %>
 <tr id="<%=idRow%>" class="<%=cssClass%> <%=sortableClass%> <%=newRowStyle%>" <%=events%>>
 <% if (subview.isCollectionEditable()) { %>
-	<td class="<%=cssCellClass%> ox-element-collection-action-cell">
+	<td class="<%=cssCellClass%> ox-list-action-cell">
 	<nobr <%=actionsStyle%>>
 	<%if (sortable) { %>
 	<i class="xava_handle mdi mdi-swap-vertical"></i>
@@ -181,7 +181,7 @@ for (int f=0; f < rowCount; f++) {
 			fvalue = org.openxava.web.WebEditors.formatToStringOrArray(request, p, value, errors, view.getViewName(), false);
 		}
 %>
-	<td class="<%=cssCellClass%> <%=align%> ox-element-collection-data-cell">
+	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell">
 		<% if (labelOnEachCell) { %>
 			<span class="<%=style.getLabel()%>"><%=p.getQualifiedLabel(request)%></span>
 		<% } %>
