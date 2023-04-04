@@ -299,6 +299,13 @@ a:hover {
 	text-decoration: underline;
 }
 
+/* tmr ini */
+
+form {
+	display: inline;
+}
+/* tmr fin */
+
 .ipad input, .ipad textarea, .iphone input, .iphone textarea {
 	-webkit-appearance: none;
 }
@@ -331,6 +338,10 @@ input[type="checkbox"] {
 	color: var(--xava-loading-color);
 }
 
+#xava_loading i, #xava_loading2 i {
+	vertical-align: middle;
+}  
+
 .spin {
 	animation: spin 1s infinite linear;
 }
@@ -351,6 +362,7 @@ input[type="checkbox"] {
 	font-weight: bold;
 	text-align: center;
 	font-size: 130%; 	
+	display: none;
 }
 
 #xava_processing_layer i {
@@ -607,6 +619,10 @@ a #loading_more_modules, a:hover #load_more_modules  {
 /* tmr ini */
 #loading_more_modules {
 	display: none;
+}
+
+.ox-module {
+	display: inline;
 }
 /* tmr fin */
 
@@ -1388,6 +1404,11 @@ input[type="button"] {
 	background-color:transparent; 
 	size: 0;
 }
+
+.ox-core-bottom-buttons-separator {
+	clear: both; 
+	padding-top: 2px;
+}
 /* tmr fin */
 
 .ox-button-bar a[id*="delete"]:hover i {
@@ -1556,7 +1577,8 @@ input[type="button"] {
 }
 
 .ox-detail {
-	margin: 8px 10px 0px 12px;  
+	margin: 8px 10px 0px 12px;
+	padding-top: 2px; /* tmr */  
 }
 
 .ox-flow-layout, .ox-frame .ox-flow-layout > div.ox-flow-layout { 
@@ -1860,6 +1882,7 @@ td.ox-list-subheader > div {
 	color: var(--message-box-close-color); 
 	float: right;
 	margin-left: 10px;
+	cursor: pointer; /* tmr */
 }
 
 .ox-message-box .mdi-close:hover {

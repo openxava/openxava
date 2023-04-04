@@ -150,6 +150,7 @@ public class XavaStyle extends Style {
 		return "</td>";
 	}
 
+	/* tmr
 	public String getErrorStartDecoration () {  
 		return "<div class='ox-message-box'>"; 
 	}
@@ -157,7 +158,9 @@ public class XavaStyle extends Style {
 	public String getErrorEndDecoration () { 
 		return "</div>";
 	}
+	*/
 	
+	/* tmr
 	public String getMessageStartDecoration () {  
 		return "<div class='ox-message-box'>"; 
 	}
@@ -165,19 +168,24 @@ public class XavaStyle extends Style {
 	public String getMessageEndDecoration () { 
 		return "</div>";
 	}
+	*/
 	
 	/**
 	 * @since 5.5
 	 */
+	/* tmr
 	public String getWarningStartDecoration() { 
 		return "<div class='ox-message-box'>"; 
 	}
+	*/
 
 	/**
 	 * @since 5.5
 	 */
+	/* tmr
 	public String getInfoStartDecoration() { 
 		return "<div class='ox-message-box'>"; 
 	}
+	*/
 	
 }

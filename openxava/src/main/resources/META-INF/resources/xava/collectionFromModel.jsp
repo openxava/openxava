@@ -124,8 +124,8 @@ for (int f=0; itAggregates.hasNext(); f++) {
 		Object title = WebEditors.formatTitle(request, p, value, errors, view.getViewName(), true); 
 %>
 	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell">
-	<xava:link action="<%=lineAction%>" argv='<%="row="+f + ",viewObject="+viewName%>' cssStyle="text-decoration: none; outline: none">
-	<div title="<%=title%>" class="<xava:id name='tipable'/> <xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" style="overflow: hidden; <%=width%>">
+	<xava:link action="<%=lineAction%>" argv='<%="row="+f + ",viewObject="+viewName%>'>
+	<div title="<%=title%>" class="<xava:id name='tipable'/> <xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" style="<%=width%>">
 	<%if (resizeColumns) {%><nobr><%}%>
 	<%=fvalue%>&nbsp; 
 	<%if (resizeColumns) {%></nobr><%}%>

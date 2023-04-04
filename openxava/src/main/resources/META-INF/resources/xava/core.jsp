@@ -13,7 +13,7 @@ String focusPropertyId = manager.isListMode()?org.openxava.web.Lists.FOCUS_PROPE
 %>
 <form id="<xava:id name='form'/>" name="<xava:id name='form'/>"
 	method='POST' <%=manager.getEnctype()%> 
-	<%=manager.getFormAction(request)%> style="display: inline;"
+	<%=manager.getFormAction(request)%> 
 	onsubmit="return false">
 	
 <%-- Here, and not at bottom of form, because if there are some erroneous
@@ -56,15 +56,15 @@ String listModeClass=manager.isListMode()?"class='" + style.getListMode() + "'":
 		</div>
 	<% } %>    
     
-    	<div id='<xava:id name="errors"/>' style="display: inline;"> 
+    	<div id='<xava:id name="errors"/>' class="ox-display-inline"> 
     		<jsp:include page="errors.jsp"/>
 		</div>
     
-		<div id='<xava:id name="messages"/>' style="display: inline;"> 
+		<div id='<xava:id name="messages"/>' class="ox-display-inline"> 
 			<jsp:include page="messages.jsp"/>
 		</div>            
 
-    	<div id='<xava:id name="view"/>' <%=manager.isListMode()?"":("class='" + style.getDetail() + (view.isSimple()?" ox-simple-layout":"") + (view.isFlowLayout()?" ox-flow-layout":"") +  "'")%> style='padding-top: 2px;'>
+    	<div id='<xava:id name="view"/>' <%=manager.isListMode()?"":("class='ox-detail" + (view.isSimple()?" ox-simple-layout":"") + (view.isFlowLayout()?" ox-flow-layout":"") +  "'")%>>
 			<jsp:include page='<%=manager.getViewURL()%>'/>		
 		</div>    	
 		
@@ -72,11 +72,9 @@ String listModeClass=manager.isListMode()?"class='" + style.getListMode() + "'":
 	
 	</div>
 
-	<% if (style.isSeparatorBeforeBottomButtons()) { %>
-	<div style="clear: both; padding-top: 2px;"></div>
-	<% } %>
+	<div class="ox-core-bottom-buttons-separator"></div>
 
-    <div id='<xava:id name="bottom_buttons"/>' class="<%=style.getBottomButtons()%>" style="<%=style.getBottomButtonsStyle()%>">
+    <div id='<xava:id name="bottom_buttons"/>' class="<%=style.getBottomButtons()%>">
 		<jsp:include page="bottomButtons.jsp"/>
 	</div>
     

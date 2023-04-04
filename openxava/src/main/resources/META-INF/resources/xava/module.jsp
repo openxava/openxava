@@ -203,12 +203,12 @@ if (manager.isResetFormPostNeeded()) {
 	<input id="<xava:id name='view_member'/>" type="hidden" value=""/>
 			
 	<%-- Layer for progress bar --%>
-	<div id='xava_processing_layer' style='display:none;'>
+	<div id='xava_processing_layer'>
 		<%=XavaResources.getString(request, "processing")%><br/>
 		<i class="mdi mdi-settings spin"></i>
 	</div>	
 	<%=style.getCoreStartDecoration()%>
-	<div id="<xava:id name='core'/>" style="display: inline;" class="<%=style.getModule()%>">
+	<div id="<xava:id name='core'/>" class="ox-module">
 		<%			
 			if (!coreViaAJAX) {
 		%>
@@ -226,12 +226,12 @@ if (manager.isResetFormPostNeeded()) {
 	<div id="xava_console" >
 	</div>
 	<div id="xava_loading">				
-		<i class="mdi mdi-autorenew module-loading spin" style="vertical-align: middle"></i>
+		<i class="mdi mdi-autorenew module-loading spin"></i>
 		&nbsp;<xava:message key="loading"/>...		 
 	</div>
 	<% if (!style.isFixedPositionSupported()) { %>
 	<div id="xava_loading2">
-		<i class="mdi mdi-autorenew module-loading spin" style="vertical-align: middle"></i>
+		<i class="mdi mdi-autorenew module-loading spin"></i>
 		&nbsp;<xava:message key="loading"/>...
 	</div>	
 	<% } %>	

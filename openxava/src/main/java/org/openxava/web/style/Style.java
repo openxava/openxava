@@ -188,9 +188,11 @@ public class Style {
 		return "page_navigation.gif";
 	}
 		
+	/* tmr
 	public String getModule() {
 		return "ox-module";		
 	}
+	*/
 	
 	/**
 	 * @since 6.0
@@ -207,10 +209,11 @@ public class Style {
 		return "ox-view";
 	}
 	
+	/* tmr
 	public String getDetail() {
 		return "ox-detail";
 	}
-
+	*/
 
 	public String getModuleSpacing() {
 		return "style='padding: 4px;'";		
@@ -828,10 +831,11 @@ public class Style {
 		return "ox-money";
 	}
 
-			
+	/* tmr
 	public String getErrors() { 
 		return "ox-errors";
 	}
+	*/
 	
 	public String getMessages() { 
 		return "ox-messages";
@@ -851,6 +855,7 @@ public class Style {
 		return "ox-warnings"; 
 	}	
 
+	/* tmr
 	public String getErrorStartDecoration () { 
 		return "";
 	}
@@ -858,6 +863,7 @@ public class Style {
 	public String getErrorEndDecoration () { 
 		return "";
 	}
+	*/
 	
 	/**
 	 * For messages
@@ -871,10 +877,13 @@ public class Style {
 	 * 
 	 * @since 5.8
 	 */
+	/* tmr
 	public String getErrorsWrapper() {  
 		return "ox-errors-wrapper";
 	}
+	*/
 	
+	/* tmr
 	public String getMessageStartDecoration() { 
 		return "";
 	}
@@ -882,34 +891,43 @@ public class Style {
 	public String getMessageEndDecoration() { 
 		return "";
 	}
+	*/
 	
 	/**
 	 * @since 5.5
 	 */
+	/* tmr
 	public String getWarningStartDecoration() { 
 		return getMessageStartDecoration();
 	}
+	*/
 	
 	/**
 	 * @since 5.5
 	 */
+	/* tmr
 	public String getWarningEndDecoration () { 
 		return getMessageEndDecoration();
 	}
+	*/
 	
 	/**
 	 * @since 5.5
 	 */
+	/* tmr
 	public String getInfoStartDecoration() { 
 		return getMessageStartDecoration();
 	}
+	*/
 	
 	/**
 	 * @since 5.5
 	 */
+	/* tmr
 	public String getInfoEndDecoration () { 
 		return getMessageEndDecoration();
 	}
+	*/
 	
 	public String getButton() {
 		return ""; 
@@ -963,15 +981,17 @@ public class Style {
 		return "ox-active-section";
 	}
 	
-	
+	/* tmr
 	public String getSectionLink() {
 		return "ox-section-link";
 	}
+	*/
 
-	
+	/* tmr
 	public String getSectionLinkStyle() {
 		return null;
 	}
+	*/
 		
 	public String getSectionBarStartDecoration() { 
 		return "<td>";
@@ -1104,9 +1124,11 @@ public class Style {
 	}
 	*/
 		
+	/* tmr
 	public String getBottomButtonsStyle() {
 		return "";
 	}
+	*/
 	
 	public String getBottomButtons() {
 		return "ox-bottom-buttons";

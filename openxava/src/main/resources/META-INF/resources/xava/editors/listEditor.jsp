@@ -552,7 +552,7 @@ for (int c=0; c<model.getColumnCount(); c++) {
 }
 else {
 %>
-<tr id="nodata"><td class="<%=totalSize==0?style.getMessages():style.getErrors()%>">
+<tr id="nodata"><td class='<%=totalSize==0?style.getMessages():"ox-errors"%>'>
 <% if (totalSize == 0) { %>
 <b><xava:message key="no_objects"/></b>
 <% } else { %>

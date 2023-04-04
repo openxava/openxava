@@ -1,6 +1,16 @@
 Change Log for OpenXava project
 ===============================
 
+Pendiente:
+
+- Buscar style= en lo demás.
+- Buscar style = 
+- Buscar en todo el workspace
+- Documentar migración ya no style de HTML
+- Documentar migración ya no clase Style.
+- Revisar doc customizing, por si acaso.
+- Revisar doc estilo propio por si acaso.
+
 - New <xava:nonce/> taglib to generate a nonce number for using in inline JavaScript.
 - Fix: Inline JavaScript for events in HTML elements.
 - Fix: XSLT injection vulnerabilities.

@@ -67,7 +67,7 @@ String propertyPrefix = propertyPrefixAccumulated == null?collectionName + ".":p
 	} catch (Exception ex) {
 %>
 </td></tr>
-<tr><td class='<%=style.getErrors()%>'>
+<tr><td class='ox-errors'>
 <%=ex.getLocalizedMessage()%>
 <%
 	}
@@ -196,7 +196,7 @@ else {
 	<% } %>
 <% } catch (Exception ex) { %>
 </td></tr>
-<tr><td class='<%=style.getErrors()%>'>
+<tr><td class='ox-errors'>
 <%=ex.getLocalizedMessage()%>
 <% } %>
 </td></tr>
