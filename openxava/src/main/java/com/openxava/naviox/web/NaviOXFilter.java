@@ -93,7 +93,18 @@ public class NaviOXFilter implements Filter {
 				String organization = OrganizationsCurrent.get(request);
 				System.out.println("[NaviOXFilter.doFilter] organization=" + organization); // tmr
 				System.out.println("[NaviOXFilter.doFilter] originalURI> " + originalURI); // tmr
-				if (organization != null) originalURI = originalURI.replace("/modules/", "/o/" + organization + "/m/");
+				// tmr if (organization != null) originalURI = originalURI.replace("/modules/", "/o/" + organization + "/m/");
+				// tmr ini
+				// TMR ME QUEDÉ POR AQUÍ: PROBÉ LO DE ABAJO PERO NO FUNCIONÓ
+				// TMR  CON ORGANIZACIONES FUNCIONA CON LA URL DEL MÓDULO
+				// TMR  PERO NO SI SE VA AL RAÍZ
+				if (organization != null) {
+					if (originalURI.equals(((HttpServletRequest) request).getContextPath())) {
+						originalURI = originalURI + "/o/" + organization;
+					}
+					else originalURI = originalURI.replace("/modules/", "/o/" + organization + "/m/");
+				}
+				// tmr fin
 				System.out.println("[NaviOXFilter.doFilter] originalURI< " + originalURI); // tmr
 				String originalParameters = secureRequest.getQueryString();
 				String parametersQuery = "";
@@ -115,7 +126,7 @@ public class NaviOXFilter implements Filter {
 				System.out.println("[NaviOXFilter.doFilter] session.getAttribute(naviox.originalURL)=" + session.getAttribute("naviox.originalURL")); // tmr
 				if (Users.getCurrent() == null && session.getAttribute("naviox.originalURL") == null) {
 					System.out.println("[NaviOXFilter.doFilter] NO USER"); // tmr
-					session.setAttribute("naviox.userAccessURL", dispatcherURL); // tmr ¿Este nombre de atributo? ¿naviox como prefijo? ¿URL o URI?
+					session.setAttribute("naviox.userAccessURL", dispatcherURL); // tmr ¿La utilizamos? ¿Este nombre de atributo? ¿naviox como prefijo? ¿URL o URI? ¿La utilizamos?
 					System.out.println("[NaviOXFilter.doFilter] naviox.userAccessURL=" + dispatcherURL); // tmr
 					session.setAttribute("naviox.originalURL", originalURI + parametersQuery); // tmr ¿Este nombre de atributo? ¿naviox como prefijo? ¿URL o URI?
 					System.out.println("[NaviOXFilter.doFilter] naviox.originalURL=" + session.getAttribute("naviox.originalURL")); // tmr
