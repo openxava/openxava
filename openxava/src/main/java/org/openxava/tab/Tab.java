@@ -1754,6 +1754,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	public void setConditionParameters() { 
 		if (!conditionJustCleared) {
 			String collectionPrefix = getCollectionPrefix();		
+			System.out.println("collectionPrefix " + collectionPrefix );
 			setConditionComparators(collectionPrefix);
 			setConditionValues(collectionPrefix);
 			setConditionValuesTo(collectionPrefix);

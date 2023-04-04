@@ -158,7 +158,7 @@
 	<%
 	for (String editorJS: EditorsResources.listJSFiles(realPath)) {
 	%>
-	<script type="text/javascript" charset="ISO-8859-1" src="<%=contextPath%>/xava/editors/<%=editorJS%>?ox=<%=version%>"></script>
+	<script type="text/javascript" charset="UTF-8" src="<%=contextPath%>/xava/editors/<%=editorJS%>?ox=<%=version%>"></script>
 	<%
 	}
 	

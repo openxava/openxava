@@ -12,19 +12,26 @@ openxava.addEditorInitFunction(function() {
         };
         var noTime = {};
         var formattedDate = "";
-
+        var listaEventos = "";
+        var calendarjQ;
+        
         $("#xava_calendar").ready(function() {
             console.log("dentro");
+            if (listaEventos === ""){
+                listaEventos = createEvents();
+            }
             var calendarEl = $('#xava_calendar')[0];
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 headerToolbar: {
-                    left: 'prev,today,next',
+                    left: 'prev2,today,next2',
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
-                events: createEvents(),
+                events: listaEventos,
                 editable: true,
+                showNonCurrentDates: false,
+                displayEventTime: false,
                 views: {
                     dayGridMonth: {
                         eventTimeFormat: noTime
@@ -37,6 +44,31 @@ openxava.addEditorInitFunction(function() {
                     }
                 },
                 locale: navigator.language,
+                customButtons: {
+      next2: {
+        text: 'next2',
+        click: function() {
+          //alert('clicked custom button 1!');
+             //openxava.executeAction(calendarRequestApplication, calendarRequestModule, false, false, 'Calendar.next', 'month=next');
+            calendar.next();
+            console.log(listaEventos);
+            calendar._initialDate = "2023-05-01";
+        }
+      },
+      prev2: {
+        text: 'prev2',
+        click: function() {
+          //alert('clicked custom button 2!');
+            //openxava.executeAction(calendarRequestApplication, calendarRequestModule, false, false, 'Calendar.prev', 'month=prev');    
+            getPrev();
+            //calendar.refetchEvents();
+            //calendarEl.load($('#xava_calendar')[0]);
+            calendar.prev();
+//            Calendar.test("hola");
+            //calendar._initialDate = "2023-03-01";
+        }
+      }
+    },
                 eventClick: function(e) {
                     if (!getSelection().toString()) {
                         openxava.executeAction(calendarRequestApplication, calendarRequestModule, false, false, calendarAction, 'row=' + parseInt(e.event.extendedProps.row));
@@ -46,11 +78,6 @@ openxava.addEditorInitFunction(function() {
                     console.log(e);
                     console.log(e.dateStr);
                     reformatDate(e.dateStr);
-                    let s = FullCalendar.formatDate(e.date.dateStr,{
-                  month: 'long',
-                  year: 'numeric',
-                    day: 'numeric',
-            })
                     let value = {
                         "dates": [{
                                 "label": "date",
@@ -69,9 +96,9 @@ openxava.addEditorInitFunction(function() {
                 }
             });
             calendar.render();
+            var calendarjQ = $(calendarEl);
+            
         });
-
-
 
 
         function createEvents() {
@@ -80,7 +107,9 @@ openxava.addEditorInitFunction(function() {
             if (events.length > 0) {
                 listEvents = events;
             }
-            return JSON.parse(listEvents);
+            console.log(listEvents);
+            listaEventos = JSON.parse(listEvents);
+            return listaEventos;
         }
 
         function reformatDate(date) {
@@ -116,6 +145,38 @@ openxava.addEditorInitFunction(function() {
             return format.replace(/(M+|d+|h+|m+|s+|yyyy|yy)/gi, matched => {
         return map[matched];
     });
+        }
+        
+        function getPrev(){
+            //listaEventos =  createEvents();
+
+            let json = 
+                [
+  {
+    "start": "2023-03-28 00:00:00.0",
+    "end": "2023-03-28 11:11:11.1",
+    "title": "Año: 2023-Año: 2023-Número: 2",
+    "extendedProps": {
+      "row": "1"
+    }
+  },
+  {
+    "start": "2023-03-27 00:00:00.0",
+    "end": "2023-03-27 11:11:11.1",
+    "title": "Año: 2023-Año: 2023-Número: 3",
+    "extendedProps": {
+      "row": "2"
+    }
+  }
+];
+            let jsonString = JSON.stringify(json);
+            listaEventos = JSON.parse(jsonString);
+            //calendarjQ.load($('#xava_calendar')[0]);
+            $('#xava_calendar')[0].load($('#xava_calendar')[0]);
+            calendarjQ.load(calendarjQ);
+            console.log("luego de load");
+            Calendar.test(calendarRequestApplication,calendarRequestModule);
+            //Calendar.getEvents(calendarRequestApplication,calendarRequestModule, tab, view);
         }
 
     }

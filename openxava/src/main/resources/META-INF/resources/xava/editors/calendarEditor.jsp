@@ -6,6 +6,8 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="org.openxava.web.editors.CalendarEvent"%>
 <%@ page import="org.openxava.web.editors.CalendarEventIterator"%>
+<%@ page import="org.openxava.util.ToJson"%>
+<%@ page import="org.json.*"%>
     
 <%@ page import="org.openxava.tab.Tab"%>
 <%@ page import="org.openxava.view.View"%>
@@ -22,6 +24,9 @@
 ModuleManager manager = (ModuleManager) context.get(request, "manager", "org.openxava.controller.ModuleManager");
 Tab tab = (Tab) context.get(request, "xava_tab");
 View view = (View) context.get(request, "xava_view");
+String contextPath = (String) request.getAttribute("xava.contextPath");
+if (contextPath == null) contextPath = request.getContextPath();
+String version = org.openxava.controller.ModuleManager.getVersion();
 String action = request.getParameter("rowAction");
 String hola = "alohaa";
 action=action==null?manager.getEnvironment().getValue("XAVA_LIST_ACTION"):action;
@@ -40,6 +45,7 @@ String events = "";
 String rows = "";
     
 CalendarEventIterator  it = new CalendarEventIterator(tab, view, request, errors);
+
 listEvent = it.getEvents();
 StringBuilder sb = new StringBuilder();
 sb.append("[");
@@ -65,11 +71,16 @@ if (dateFormat != null) {
 				           .replace("j", "d")
 				           .replace("Y", "yyyy");
     }
+
   
 %>
-<div>CALENDARIO</div>
+    <div>CALENDARIO
+    </div>
+    
 <div id='xava_calendar'></div>
 
+<script type='text/javascript' src='<%=contextPath%>/dwr/interface/Calendar.js?ox=<%=version%>'></script>	    
+    
 <script type="text/javascript" <xava:nonce/>>
     var dateFormat = '<%=dateFormat%>';
     var calendarRequestApplication = '<%=request.getParameter("application")%>';
@@ -77,4 +88,6 @@ if (dateFormat != null) {
     var calendarAction = '<%=action%>';
     var calendarNewAction = '<%=actionNew%>';
     var events = '<%=events%>';
+    var view = '<%=view%>';
+    var tab = '<%=tab%>';
 </script>

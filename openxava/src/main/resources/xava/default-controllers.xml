@@ -845,5 +845,15 @@ here that you want to override.
 			<set property="subscribe" value="false" />	
 		</action>	
 	</controller>
+	
+	<controller name="Calendar">
+		<action name="next"
+			class="org.openxava.actions.GetEventsAction"
+			hidden="true"/>
+		
+		<action name="prev"
+			class="org.openxava.actions.GetEventsAction"
+			hidden="true"/>	
+	</controller>
 
 </controllers>

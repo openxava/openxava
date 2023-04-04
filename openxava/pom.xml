@@ -243,6 +243,11 @@
       		<artifactId>log4j-core</artifactId>
       		<version>2.20.0</version>
     	</dependency>
+    	<dependency>
+   			 <groupId>org.json</groupId>
+    		<artifactId>json</artifactId>
+    		<version>20230227</version>
+		</dependency>
 	</dependencies>
 	
 	<!-- Uncomment to deploy on Maven Central         

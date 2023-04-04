@@ -8,6 +8,7 @@ import javax.servlet.http.*;
 import javax.swing.table.*;
 
 import org.openxava.controller.*;
+import org.openxava.filters.*;
 import org.openxava.formatters.*;
 import org.openxava.model.meta.*;
 import org.openxava.session.*;
@@ -17,6 +18,7 @@ import org.openxava.view.*;
 import org.openxava.web.*;
 
 import lombok.*;
+
 
 @Getter
 @Setter
@@ -36,7 +38,8 @@ public class CalendarEventIterator {
 	String title;
 	CalendarEvent event;
 	BooleanFormatter booleanFormatter; 
-	
+	DateFilter dateFilter = new DateFilter();
+	Date currentMonth;
 	String date2 = "";
 
 	List<String> listTitle = new ArrayList<>();
@@ -60,7 +63,7 @@ public class CalendarEventIterator {
 		// en cada evento debo tener start end y title
 		// primero obtengo la columna de la(las) fechas
 		// luego hago la iteracion por cada
-
+		
 		// System.out.println(tab.getTotalSize());
 		// obtengo el index de algun tipo de dato de fecha
 		// System.out.println(tab.getMetaProperties().get(2).getTypeName());
@@ -78,6 +81,20 @@ public class CalendarEventIterator {
 		// System.out.println(tab.getMetaTab().getBaseCondition());
 		if (tab.getConditionComparators() != null) {
 		} else {
+			DateFilter dateFilter = new DateFilter();
+	        Calendar calendar = Calendar.getInstance();
+	        Date firstDayOfMonth = getFirstDayOfMonth(calendar.getTime());
+	        Date lastDayOfMonth = getLastDayOfMonth(calendar.getTime());
+			dateFilter.setStart(firstDayOfMonth);
+			dateFilter.setEnd(lastDayOfMonth);
+//			Labels label = new Labels();
+//			label.get("today", locale, "todayD");
+			System.out.println(firstDayOfMonth.toString() + "---" + lastDayOfMonth.toString());
+			
+			tab.setFilter(dateFilter);
+			//obtener la propiedad a filtrar y usar primer y ultimo dia del mes
+			tab.setBaseCondition("date between ? and ?");
+			
 			System.out.println("no hay condicion" + tab.getTotalSize());
 			System.out.println(Arrays.toString(tab.getMetaTab().getMetaModel().getMetaProperties().toArray()));
 			System.out.println(Arrays.toString(tab.getMetaProperties().toArray()));
@@ -130,6 +147,37 @@ public class CalendarEventIterator {
 		
 		return listEvent;
 	}
+	
+	/*
+	public List<CalendarEvent> getEvents(String accion, LocalDate date) throws RemoteException {
+		System.out.println("getEvents2");
+		return null;
+		/*
+		List<CalendarEvent> listEvent = new ArrayList<>();
+		DateFilter dateFilter = new DateFilter();
+        Calendar calendar = Calendar.getInstance();
+        Date firstDayOfMonth = getFirstDayOfMonth(calendar.getTime());
+        Date lastDayOfMonth = getLastDayOfMonth(calendar.getTime());
+		dateFilter.setStart(firstDayOfMonth);
+		dateFilter.setEnd(lastDayOfMonth);
+		System.out.println(firstDayOfMonth.toString() + "---" + lastDayOfMonth.toString());
+		
+		
+		int tableSize = 0;
+		tableSize = tab.getTableModel().getTotalSize();
+		if (tableSize > 0) {
+			for (int i = 0; i<tableSize; i++) {
+				event = new CalendarEvent();
+				event.start = obtainDateContent(i);
+				event.title = obtainContent(i);
+				event.end = date2;
+				event.row = Integer.toString(i);
+				listEvent.add(event);
+			}
+		}
+		
+		return listEvent;
+	}*/
 
 
 	// obtengo los datos de la fila pero antes aniadir lo que esta primero
@@ -326,6 +374,43 @@ public class CalendarEventIterator {
 	private static ModuleContext getContext(HttpServletRequest request) { 
 		return (ModuleContext) request.getSession().getAttribute("context");
 	}
+	
+	
+	private static void filtEvents(String date) {
+		if (!date.isEmpty()) {
+			//no es vacio
+			DateFilter dateFilter = new DateFilter();
+	        Calendar calendar = Calendar.getInstance();
+	        Date firstDayOfMonth = getFirstDayOfMonth(calendar.getTime());
+	        Date lastDayOfMonth = getLastDayOfMonth(calendar.getTime());
+			dateFilter.setStart(firstDayOfMonth);
+			dateFilter.setEnd(lastDayOfMonth);
+		}
+		DateFilter dateFilter = new DateFilter();
+        Calendar calendar = Calendar.getInstance();
+        Date firstDayOfMonth = getFirstDayOfMonth(calendar.getTime());
+        Date lastDayOfMonth = getLastDayOfMonth(calendar.getTime());
+		dateFilter.setStart(firstDayOfMonth);
+		dateFilter.setEnd(lastDayOfMonth);
+	}
 
+    private static Date getFirstDayOfMonth(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
 
+    private static Date getLastDayOfMonth(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        return calendar.getTime();
+    }
 }
