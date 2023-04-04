@@ -19,8 +19,8 @@ searchWord = searchWord == null?"":searchWord.toLowerCase();
 boolean originalColumnsToAddUntilSecondLevel = tab.isColumnsToAddUntilSecondLevel();
 if (!Is.emptyString(searchWord)) tab.setColumnsToAddUntilSecondLevel(false);
 %>
-<table id="<xava:id name='xavaPropertiesList'/>" class='ox-list' width="100%" <%=style.getListCellSpacing()%> style="margin-bottom: 5px;">
-<tr class="ox-list-pair" style="height: 0px;"/> 
+<table id="<xava:id name='xavaPropertiesList'/>" class='ox-list ox-select-columns-list' width="100%" <%=style.getListCellSpacing()%>>
+<tr class="ox-list-pair"/> 
 <%
 int f=0;
 Locale currentLocale = Locales.getCurrent(); //Trifon
@@ -50,7 +50,7 @@ for (Iterator it=tab.getColumnsToAdd().iterator(); it.hasNext();) {
 		<input type="checkbox" name="<xava:id name='xava_selected'/>" value="selectedProperties:<%=property%>" <%=actionOnClick%>/>
 	</td>
 	<td class="<%=cssCellClass%>"> 
-		<xava:link action='AddColumns.addColumn' argv='<%="property=" + property%>' cssStyle="text-decoration: none; outline: none;">
+		<xava:link action='AddColumns.addColumn' argv='<%="property=" + property%>'>
 		<div><%=propertyI18n%></div>
 		</xava:link>
 	</td>
@@ -66,7 +66,7 @@ if (tab.isColumnsToAddUntilSecondLevel()) {
 <td/>
 <td/>
 <td>
-<xava:link action="AddColumns.showMoreColumns" cssClass="<%=style.getActionLink()%>" cssStyle="margin-left: 0px;" /> 
+<xava:link action="AddColumns.showMoreColumns" cssClass="<%=style.getActionLink()%>"/> 
 </td>
 </tr>
 <%

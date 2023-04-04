@@ -577,8 +577,8 @@ if (lastRow != null) {
 
 <% if (!tab.isRowsHidden() && !simple) { %>
 <table width="100%" class="<%=style.getListInfo()%>" cellspacing=0 cellpadding=0>
-<tr class='<%=style.getListInfoDetail()%>'>
-<td class='<%=style.getListInfoDetail()%>'>
+<tr class='ox-list-info-detail'>
+<td class='ox-list-info-detail'>
 <%
 int last=tab.getLastPage();
 int current=tab.getPage();
@@ -666,7 +666,7 @@ else {
 </span>
 <% } // of if (style.isChangingPageRowCountAllowed()) %>
 </td>
-<td style='text-align: right; vertical-align: middle' class='<%=style.getListInfoDetail()%>'>
+<td class='ox-list-info-detail'>
 <% if (XavaPreferences.getInstance().isShowCountInList() && !style.isShowRowCountOnTop() && !grouping && totalSize < Integer.MAX_VALUE) { %> 
 <xava:message key="list_count" intParam="<%=totalSize%>"/>
 <% } %>

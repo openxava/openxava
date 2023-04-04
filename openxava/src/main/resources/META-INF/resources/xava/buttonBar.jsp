@@ -25,9 +25,9 @@ boolean listFormats = !manager.isSplitMode() && mode.equals("list");
 
 if (manager.isButtonBarVisible()) {
 %>
-	<div class="<%=style.getButtonBar()%>"> 
+	<div class="ox-button-bar"> 
 	<div id="<xava:id name='controllerElement'/>">
-	<span style="float: left">
+	<span>
 	<%
 	java.util.Stack previousViews = (java.util.Stack) context.get(request, "xava_previousViews");
 	if (manager.isDetailMode() && !manager.isDetailModeOnly() && previousViews.isEmpty()) { 
@@ -70,8 +70,8 @@ if (manager.isButtonBarVisible()) {
 	</div>
 
 	<div id="<xava:id name='modes'/>">
-	<span style="float: right">
-	<span style="float: left;" class="<%=style.getListFormats()%>">
+	<span>
+	<span class="ox-list-formats">
 	<%
 	if (listFormats) { 	
 		String tabObject = request.getParameter("tabObject");

@@ -238,10 +238,12 @@ public class Style {
 	public String getCustomizeControls() { 
 		return "ox-customize-controls";
 	}
-		
+	
+	/* tmr
 	public String getButtonBar() {
 		return "ox-button-bar"; 
 	}
+	*/
 	
 	/**
 	 * @since 6.6
@@ -351,9 +353,11 @@ public class Style {
 	 * 
 	 * @since 5.4
 	 */
+	/* tmr
 	public String getListFormats() { 
 		return "ox-list-formats";
 	}
+	*/
 	
 	/**
 	 * 
@@ -551,9 +555,11 @@ public class Style {
 		return "ox-list-info";
 	}	
 	
+	/* tmr
 	public String getListInfoDetail() {
 		return "ox-list-info-detail";
 	}
+	*/
 	
 	public String getListTitle() {
 		return "ox-list-title";
@@ -746,9 +752,11 @@ public class Style {
 	}
 	
 	/** @since 5.6.1 */
+	/* tmr
 	public String getWebURL() { 
 		return "ox-web-url";
 	}
+	*/
 	
 	public String getSmallLabel() {
 		return "small-label";

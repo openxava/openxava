@@ -694,6 +694,11 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 	position: relative; 
 	right: 25px;
 }
+
+.ox-web-url a {
+	position: relative; 
+	right: 25px;" 
+}
 /* tmr fin */
 
 .flatpickr-day.selected {
@@ -910,6 +915,25 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	padding: 6px 6px 6px 0px;  
 }
 
+/* tmr ini */
+.ox-button-bar .ox-button-bar-button a img {
+	vertical-align: text-top;  
+	padding-left: 7px;
+} 
+
+.ox-button-bar > div:first-child > span:first-child {
+	 float: left;
+}
+
+.ox-button-bar > div:last-child > span:first-child {
+	 float: right;
+}
+
+.ox-button-bar > div:last-child > span:first-child > span:first-child {
+	 float: left;
+}
+/* tmr fin */
+
 @media only screen and (max-width: 870px) {
 	.ox-button-bar .ox-action-label {
 		display: none;
@@ -1108,6 +1132,27 @@ i {
 }
 
 /* tmr ini */
+.ox-tree-collection {
+	 visibility: hidden; 
+}
+
+.ox-tree-collection, .ox-tree-collection > table, .ox-tree-collection input[type="checkbox"] {
+	height:0px;
+}
+
+.ox-list.ox-select-columns-list {
+	margin-bottom: 5px;
+}
+
+.ox-select-columns-list tr:first-child {
+	height: 0px;
+}
+
+.ox-list.ox-select-columns-list tr:last-child td:last-child a {
+	margin-left: 0px;
+	padding-left: 0px;
+}
+
 .ox-list-action-cell {
 	vertical-align: middle;
 	text-align: center;
@@ -1335,6 +1380,15 @@ input[type="button"] {
 	color: var(--delete-button-hover-color);
 	box-shadow: none; 
 }
+
+/* tmr ini */
+.ox-bottom-buttons button {
+	padding: 0; 
+	border: none; 
+	background-color:transparent; 
+	size: 0;
+}
+/* tmr fin */
 
 .ox-button-bar a[id*="delete"]:hover i {
   color: var(--delete-button-hover-color);
@@ -1725,6 +1779,13 @@ td.ox-list-subheader > div {
 .ox-list-info-detail { 
 	padding-right: 20px;
 }
+
+/* tmr ini */
+.ox-list-info-detail td:last-child {
+	text-align: right; 
+	vertical-align: middle;
+}
+/* tmr fin */
  
 .ui-dialog .ox-detail {
 	margin: 0px 0px 0px 0px; 

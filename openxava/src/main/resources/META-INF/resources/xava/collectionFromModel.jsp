@@ -47,7 +47,7 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 	int columnWidth = subview.getCollectionColumnWidth(columnIndex);
 	String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px";
 %>
-	<th class="ox-list-header" style="padding-right: 0px">
+	<th class="ox-list-header ox-padding-right-0">
 		<div id="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):(""))%>" style="<%=width%>" >
 		<%if (resizeColumns) {%><nobr><%}%>
 		<%=label%>&nbsp;
@@ -113,8 +113,7 @@ for (int f=0; itAggregates.hasNext(); f++) {
 	it = subview.getMetaPropertiesList().iterator();	
 	for (int columnIndex = 0; it.hasNext(); columnIndex++) { 
 		MetaProperty p = (MetaProperty) it.next();
-		String align =p.isNumber() && !p.hasValidValues()?"vertical-align: middle;text-align: right; ":"vertical-align: middle; ";
-		String cellStyle = align;
+		String align =p.isNumber() && !p.hasValidValues()?"ox-text-align-right":"";
 		int columnWidth = subview.getCollectionColumnWidth(columnIndex);
 		String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px"; 
 		String fvalue = null;
@@ -124,7 +123,7 @@ for (int f=0; itAggregates.hasNext(); f++) {
 		fvalue = WebEditors.format(request, p, value, errors, view.getViewName(), true);	
 		Object title = WebEditors.formatTitle(request, p, value, errors, view.getViewName(), true); 
 %>
-	<td class="<%=cssCellClass%>" style="<%=cellStyle%>; padding-right: 0px">
+	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell">
 	<xava:link action="<%=lineAction%>" argv='<%="row="+f + ",viewObject="+viewName%>' cssStyle="text-decoration: none; outline: none">
 	<div title="<%=title%>" class="<xava:id name='tipable'/> <xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" style="overflow: hidden; <%=width%>">
 	<%if (resizeColumns) {%><nobr><%}%>
