@@ -138,11 +138,11 @@ while (it.hasNext()) {
 		align =property.isNumber() && !property.hasValidValues()?"ox-text-align-right":"";
 	}
 	int columnWidth = tab.getColumnWidth(columnIndex);
-	String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px";
+	String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
 %>
 <th class="ox-list-header ox-padding-right-0 ox-vertical-align-middle <%=align%>" data-property="<%=property.getQualifiedName()%>">
 <% if (resizeColumns) { %> <nobr> <% } %> 
-<div id="<xava:id name='<%=id%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):("")) %>" style="<%=width%>" >
+<div id="<xava:id name='<%=id%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):("")) %>" <%=width%>>
 <%
 	if (tab.isCustomizeAllowed()) {
 %>
@@ -231,11 +231,11 @@ while (it.hasNext()) {
 		String valueTo= conditionValuesTo==null?"":conditionValuesTo[iConditionValues];
 		String comparator = conditionComparators==null?"":Strings.change(conditionComparators[iConditionValues], "=", Tab.EQ_COMPARATOR);
 		int columnWidth = tab.getColumnWidth(columnIndex);
-		String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px;";
+		String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
 		String paddingRight = resizeColumns?"ox-list-subheader-resize":"ox-list-subheader-no-resize"; 
 %>
 <td class="ox-list-subheader" align="left">
-<div class="<xava:id name='<%=id%>'/>_col<%=columnIndex%> <%=paddingRight%>" style="<%=width%>">
+<div class="<xava:id name='<%=id%>'/>_col<%=columnIndex%> <%=paddingRight%>" <%=width%>>
 <% 		
 		if (isValidValues) {
 %>
@@ -407,7 +407,8 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 		MetaProperty p = tab.getMetaProperty(c);
 		String align =p.isNumber() && !p.hasValidValues() && !tab.isFromCollection(p)?"ox-text-align-right":""; 
 		int columnWidth = tab.getColumnWidth(c);		 		
-		String width = columnWidth<0 || !resizeColumns?"width:100%":"width: " + columnWidth + "px"; 
+		String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
+		String widthClass = width.equals("")?"ox-width-100":"";  
 		String fvalue = null;
 		Object title = null;
 		if (tab.isFromCollection(p)) {
@@ -420,7 +421,7 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 %>
 	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell">
 		<xava:link action='<%=action%>' argv='<%="row=" + f + actionArgv%>' cssClass='<%=cssStyle%>'>
-			<div title="<%=title%>" class="<xava:id name='tipable'/> <xava:id name='<%=id%>'/>_col<%=c%>" style="<%=width%>">
+			<div title="<%=title%>" class="<xava:id name='tipable'/> <xava:id name='<%=id%>'/>_col<%=c%> <%=widthClass%>" <%=width%>>
 				<%if (resizeColumns) {%><nobr><%}%>
 				<%=fvalue%><%if (resizeColumns) {%>&nbsp;<%}%>
 				<%if (resizeColumns) {%></nobr><%}%>
@@ -442,14 +443,14 @@ for (int c=0; c<model.getColumnCount(); c++) {
 	MetaProperty p = tab.getMetaProperty(c);
 	String align =p.isNumber() && !p.hasValidValues()?"ox-text-align-right":"";	
 	int columnWidth = tab.getColumnWidth(c);		 		
-	String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px";
+	String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
 	
 	if (tab.hasTotal(c)) {
 		Object total = tab.getTotal(c); 
 		String ftotal = WebEditors.format(request, p, total, errors, view.getViewName(), true);
 	%>
 	<td class="ox-total-cell ox-padding-right-0 <%=align%>">
-		<div class="<xava:id name='<%=id%>'/>_col<%=c%>" style="<%=width%>">
+		<div class="<xava:id name='<%=id%>'/>_col<%=c%>" <%=width%>>
 			<nobr>
 			<% if (!tab.isFixedTotal(c) && XavaPreferences.getInstance().isSummationInList()) { %>
 				<xava:action action='List.removeColumnSum' argv='<%="property="+p.getQualifiedName() + collectionArgv%>'/>
@@ -475,7 +476,7 @@ for (int c=0; c<model.getColumnCount(); c++) {
 	else if (XavaPreferences.getInstance().isSummationInList() && tab.isTotalCapable(c)) { 
 	%>
 	<td class="ox-total-capable-cell">
-		<div class="<xava:id name='<%=id%>'/>_col<%=c%>" style="<%=width%>">
+		<div class="<xava:id name='<%=id%>'/>_col<%=c%>" <%=width%>>
 			<xava:action action='List.sumColumn' argv='<%="property="+p.getQualifiedName() + collectionArgv%>'/>&nbsp;
 		</div>	
 	</td>
@@ -484,7 +485,7 @@ for (int c=0; c<model.getColumnCount(); c++) {
 	else if (tab.hasTotal(c + 1)) { 
 	%>
 	<td class="ox-total-label-cell">
-		<div class="<xava:id name='<%=id%>'/>_col<%=c%>" style="<%=width%>">
+		<div class="<xava:id name='<%=id%>'/>_col<%=c%>" <%=width%>>
 		<%=tab.getTotalLabel(0, c + 1)%>&nbsp;
 		</div>	
 	</td>
@@ -510,11 +511,11 @@ for (int c=0; c<model.getColumnCount(); c++) {
 	MetaProperty p = tab.getMetaProperty(c);
 	String align =p.isNumber() && !p.hasValidValues()?"ox-text-align-right":"";
 	int columnWidth = tab.getColumnWidth(c);		 		
-	String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px";
+	String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
 	if (tab.hasTotal(i, c)) {
 	%> 	
 		<td class="ox-total-cell <%=align%>">
-			<div class="<xava:id name='<%=id%>'/>_col<%=c%>" style="<%=width%>">
+			<div class="<xava:id name='<%=id%>'/>_col<%=c%>" <%=width%>>
 				<jsp:include page="collectionTotal.jsp">
 					<jsp:param name="row" value="<%=i%>"/>
 					<jsp:param name="column" value="<%=c%>"/>
@@ -527,7 +528,7 @@ for (int c=0; c<model.getColumnCount(); c++) {
 	else if (tab.hasTotal(i, c + 1)) { 
 	%>
 	<td class="ox-total-label-cell">
-		<div class="<xava:id name='<%=id%>'/>_col<%=c%>" style="<%=width%>">		
+		<div class="<xava:id name='<%=id%>'/>_col<%=c%>" <%=width%>>		
 		<%=tab.getTotalLabel(i, c + 1)%>&nbsp;
 		</div>
 		<%@ include file="listEditorTotalActionsExt.jsp"%>

@@ -6,10 +6,15 @@ Pendiente:
 - Buscar style= en lo demás.
 - Buscar style = 
 - Buscar en todo el workspace
+- Comprobar filepond, calendar y ckeditor.
+- Comprobar mensajes navegador
+- Revisar código.
+- Suite
 - Documentar migración ya no style de HTML
 - Documentar migración ya no clase Style.
 - Revisar doc customizing, por si acaso.
 - Revisar doc estilo propio por si acaso.
+- Limpiar código
 
 - New <xava:nonce/> taglib to generate a nonce number for using in inline JavaScript.
 - Fix: Inline JavaScript for events in HTML elements.

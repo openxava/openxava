@@ -56,7 +56,7 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 	MetaProperty p = (MetaProperty) it.next();	
 	String label = p.getQualifiedLabel(request);
 	int columnWidth = subview.getCollectionColumnWidth(columnIndex);
-	String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px";
+	String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
 	MetaReference ref = null;	
 	if (p.getName().contains(".")) {
 		String refName = org.openxava.util.Strings.noLastTokenWithoutLastDelim(p.getName(), ".");
@@ -92,7 +92,7 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 	}
 %>
 	<th <%=headerId%> <%=dataDefaultValue%> class="ox-list-header ox-padding-right-0">
-		<div id="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):(""))%>" style="<%=width%>" >
+		<div id="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):(""))%>" <%=width%>>
 		<%if (resizeColumns) {%><nobr><%}%>
 		<%=label%>&nbsp;
 		<%if (resizeColumns) {%></nobr><%}%>
@@ -160,7 +160,7 @@ for (int f=0; f < rowCount; f++) {
 		MetaProperty p = (MetaProperty) it.next();
 		String align =p.isNumber() && !p.hasValidValues()?"ox-text-align-right":""; 
 		int columnWidth = subview.getCollectionColumnWidth(columnIndex);
-		String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px";
+		String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
 		String referenceName = null;
 		String searchAction = null;
 		if (p.getName().contains(".")) {
@@ -185,7 +185,7 @@ for (int f=0; f < rowCount; f++) {
 		<% if (labelOnEachCell) { %>
 			<span class="<%=style.getLabel()%>"><%=p.getQualifiedLabel(request)%></span>
 		<% } %>
-		<div class="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" style="<%=width%>" <%=lastRowEvent%>>
+		<div class="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" <%=width%> <%=lastRowEvent%>>
 		<nobr> 
 		<% if (!subview.isCollectionMembersEditables()) {%>
 			<% if (referenceName == null) { %>

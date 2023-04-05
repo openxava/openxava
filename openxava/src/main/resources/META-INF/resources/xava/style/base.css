@@ -998,6 +998,10 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 .ox-visibility-hidden {
 	visibility: hidden;
 }
+
+.ox-width-100 {
+	width: 100%;
+}
 /* tmr fin */
 
 .ox-collection-list-actions .ox-button-bar-button a {
@@ -1935,10 +1939,20 @@ td.ox-list-subheader > div {
 	margin-right: -7px;  
 }
 
-.ox-subcontroller-button  .mdi-menu-down {
+.ox-subcontroller-button .mdi-menu-down {
 	margin: 0px !important; 
 	margin-right: -5px !important;
 }
+
+/* tmr ini */
+.ox-subcontroller {
+	display:none;
+}
+
+.ox-subcontroller-button img {
+	padding-right: 4px;
+}
+/* tmr fin */
 
 .ox-subcontroller, .ui-autocomplete { 
 	padding: 10px 5px 10px 5px;
