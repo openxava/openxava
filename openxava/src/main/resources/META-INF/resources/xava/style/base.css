@@ -2938,3 +2938,11 @@ div[id$="_Index__view"] .ox-list-title {
 	border: none; 
 	text-overflow: ellipsis;
 }
+
+/* tmr ini */
+.ox-list-boolean-icon {
+	display: inline-block; 
+	width: calc(100% - 10px); 
+	text-align: center;
+}
+/* tmr fin */

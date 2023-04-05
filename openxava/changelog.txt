@@ -2,7 +2,6 @@ Change Log for OpenXava project
 ===============================
 
 Pendiente:
-
 - Buscar style= en lo demás.
 - Buscar style = 
 - Buscar en todo el workspace
@@ -10,8 +9,9 @@ Pendiente:
 - Comprobar mensajes navegador
 - Revisar código.
 - Suite
-- Documentar migración ya no style de HTML
-- Documentar migración ya no clase Style.
+- Documentar migración ya no style de HTML. Avisar formateadores, servlets, etc.
+- Documentar migración ya no clase Style. 
+- Documentar migración response.setContentType("text/html") en servlets
 - Revisar doc customizing, por si acaso.
 - Revisar doc estilo propio por si acaso.
 - Limpiar código
