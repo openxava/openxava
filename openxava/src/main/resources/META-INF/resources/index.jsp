@@ -12,6 +12,13 @@ if (Users.getCurrent() != null || OrganizationsCurrent.get(request) != null) {
 	System.out.println("[index.jsp] A. module=" + module); // tmr
 	String url = Browsers.isMobile(request) && !"Index".equals(modules.getCurrent(request))?"phone":"m/" + module;
 	System.out.println("[index.jsp] A. url=" + url); // tmr
+	// tmr ini
+	if (Users.getCurrent() == null && session.getAttribute("naviox.originalURL") == null) {
+		session.setAttribute("naviox.originalURL", request.getContextPath());
+		url = request.getContextPath() + "/azure/signIn";
+		System.out.println("[index.jsp] A. url.2=" + url); // tmr
+	}
+	// tmr fin
 %>
 
 <script type="text/javascript">

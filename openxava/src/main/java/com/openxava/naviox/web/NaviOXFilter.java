@@ -93,18 +93,7 @@ public class NaviOXFilter implements Filter {
 				String organization = OrganizationsCurrent.get(request);
 				System.out.println("[NaviOXFilter.doFilter] organization=" + organization); // tmr
 				System.out.println("[NaviOXFilter.doFilter] originalURI> " + originalURI); // tmr
-				// tmr if (organization != null) originalURI = originalURI.replace("/modules/", "/o/" + organization + "/m/");
-				// tmr ini
-				// TMR ME QUEDÉ POR AQUÍ: PROBÉ LO DE ABAJO PERO NO FUNCIONÓ
-				// TMR  CON ORGANIZACIONES FUNCIONA CON LA URL DEL MÓDULO
-				// TMR  PERO NO SI SE VA AL RAÍZ
-				if (organization != null) {
-					if (originalURI.equals(((HttpServletRequest) request).getContextPath())) {
-						originalURI = originalURI + "/o/" + organization;
-					}
-					else originalURI = originalURI.replace("/modules/", "/o/" + organization + "/m/");
-				}
-				// tmr fin
+				if (organization != null) originalURI = originalURI.replace("/modules/", "/o/" + organization + "/m/");
 				System.out.println("[NaviOXFilter.doFilter] originalURI< " + originalURI); // tmr
 				String originalParameters = secureRequest.getQueryString();
 				String parametersQuery = "";
@@ -142,6 +131,7 @@ public class NaviOXFilter implements Filter {
 			}
 		} 
 		finally {
+			System.out.println("[NaviOXFilter.doFilter] OrganizationsCurrent.get(request)=" + OrganizationsCurrent.get(request)); // tmr
 			XPersistence.commit();
 		}
 	}
