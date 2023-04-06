@@ -1,3 +1,26 @@
+if (calendarEditor == null) var calendarEditor = {};
+
+var calendarEl;
+var calendar;
+var listEvents;
+
+calendarEditor.setEvents = function(calendarEvents){
+    console.log("entra");
+    console.log(calendarEvents);
+    listEvents = JSON.parse(calendarEvents);
+    for (let e of listEvents) {
+        calendar.addEvent({
+            title: e.title,
+            start: e.start,
+            end: e.end,
+            "extendedProps": {
+                        "row": e.row
+            }
+        });
+    }
+    
+}
+
 openxava.addEditorInitFunction(function() {
     
     if ($("#xava_calendar").length) {
@@ -15,24 +38,15 @@ openxava.addEditorInitFunction(function() {
         var segundavez = false;
         //var listaEventos = JSON.parse(events);
         var initial = '2023-04-07';
-        var calendarEditor = {};
 
-        var url = 'http://localhost/now.php';
-        var listEvents;
-        Calendar.getEvents(calendarRequestApplication, calendarRequestModule, calendarEditor.setEvents);
-        
-        calendarEditor.setEvents = function(calendarEvents){
-            listEvents = calendarEvents;
-            console.log(listEvents);
-        }
-                
-        Calendar.test(calendarRequestApplication, calendarRequestModule);
+        listEvents = [];
+        Calendar.getEvents(calendarRequestApplication, calendarRequestModule, "", calendarEditor.setEvents);
         
         
         $("#xava_calendar").ready(function() {
             console.log("dentro");
-            var calendarEl = $('#xava_calendar')[0];
-            var calendar = new FullCalendar.Calendar(calendarEl, {
+            calendarEl = $('#xava_calendar')[0];
+            calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 editable: true,
                 locale: navigator.language,
@@ -40,7 +54,7 @@ openxava.addEditorInitFunction(function() {
                 displayEventTime: false,
                 events: listEvents,
                 editable: true,
-                initialDate: initial,
+                //initialDate: initial,
                 //progressiveEventRendering: true,
                 headerToolbar: {
                     left: 'prev2,today,next2',
@@ -68,7 +82,7 @@ openxava.addEditorInitFunction(function() {
                             //alert('clicked custom button 1!');
                             //openxava.executeAction(calendarRequestApplication, calendarRequestModule, false, false, 'Calendar.next', 'month=next');
                             calendar.next();
-                            calendar._initialDate = "2023-05-01";
+                            //calendar._initialDate = "2023-05-01";
                         }
                     },
                     prev2: {
@@ -76,17 +90,26 @@ openxava.addEditorInitFunction(function() {
                         click: function() {
                             //hacer una consulta y obtener un json como respuesta
                             //agregar los nuevos eventos con calendar.add, al parecer es uno por uno
-                            console.log(calendar.getEvents());
                             //elimino todos los eventos existentes en la memoria
                             var events = calendar.getEvents();
                             events.forEach(function(event) {
                                 event.remove();
                             });
                             
+                            //debo cambiar ahora el mes para obtener el mes actual en la vista
+                            let currentViewDate = calendar.view.activeStart;
+                            let currentMonth = prevViewDate.getMonth();
+                            console.log(currentMonth);
+                            calendar.prev();
+                            let prevViewDate = calendar.view.activeStart;
+                            let prevMonth = prevViewDate.getMonth();
+                            console.log(prevMonth);
+                            let month = (currentMonth != prevMonth) ? prevMonth : "";
                             //obtener los eventos del nuevo filtro en un array con dwr
-
+                            Calendar.getEvents(calendarRequestApplication, calendarRequestModule, month, calendarEditor.setEvents);
+                            
                             //recorrer el array y agregarlos con calendar.add
-                            calendar.addEvent(e);
+
                             calendar.addEvent({
                                 title: 'dynamic event',
                                 start: '2023-03-25T00:00:00',
@@ -97,7 +120,7 @@ openxava.addEditorInitFunction(function() {
                             });
                             //testear si se necesita
                             //calendar.refetchEvents();
-                            calendar.prev();
+                           
                         }
                     }
                 },

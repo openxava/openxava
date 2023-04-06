@@ -1,4 +1,4 @@
-package org.openxava.web.editors;
+package org.openxava.web.dwr;
 
 import java.util.*;
 
@@ -25,4 +25,8 @@ public class CalendarEvent {
 	//no usado aun
 	Date startAsDate;
 	
+    @Override
+    public String toString() {
+        return "Event [start=" + start + ", end=" + end + ", row=" + row + "]";
+    }
 }

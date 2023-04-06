@@ -4,9 +4,7 @@
 <%@ page import="java.util.Collection"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="org.openxava.web.editors.CalendarEvent"%>
-<%@ page import="org.openxava.web.editors.CalendarEventIterator"%>
-    <%@ page import="org.openxava.web.dwr.OXCalendar"%>
+<%@ page import="org.openxava.web.dwr.OXCalendar"%>
 <%@ page import="org.openxava.util.ToJson"%>
 <%@ page import="org.json.*"%>
     

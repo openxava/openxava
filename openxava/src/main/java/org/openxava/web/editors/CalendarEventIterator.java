@@ -13,10 +13,11 @@ import org.openxava.filters.*;
 import org.openxava.formatters.*;
 import org.openxava.model.meta.*;
 import org.openxava.session.*;
-import org.openxava.tab.*;
+import org.openxava.tab.Tab;
 import org.openxava.util.*;
-import org.openxava.view.*;
+import org.openxava.view.View;
 import org.openxava.web.*;
+import org.openxava.web.dwr.*;
 
 import lombok.*;
 
@@ -145,15 +146,17 @@ public class CalendarEventIterator {
 		tableSize = tab.getTableModel().getTotalSize();
 		if (tableSize > 0) {
 			//System.out.println("tabSize");
+			
 			for (int i = 0; i<tableSize; i++) {
 				//System.out.println("for");
 				event = new CalendarEvent();
-				event.start = obtainDateContent(i);
-				event.title = obtainContent(i);
-				event.end = date2;
-				event.row = Integer.toString(i);
+				event.setStart(obtainDateContent(i));
+				event.setEnd(date2);
+				event.setTitle(obtainContent(i));
+				event.setRow(Integer.toString(i));
 				listEvent.add(event);
 			}
+			
 		}
 		
 		//onclick="if (!getSelection().toString()) openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', false, false, '<%=action%>', '<%="row=" + (i++)%>');"
