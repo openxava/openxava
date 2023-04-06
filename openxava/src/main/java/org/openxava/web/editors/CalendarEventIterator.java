@@ -2,6 +2,7 @@ package org.openxava.web.editors;
 
 import java.math.*;
 import java.rmi.*;
+import java.time.*;
 import java.util.*;
 
 import javax.servlet.http.*;
@@ -41,6 +42,8 @@ public class CalendarEventIterator {
 	DateFilter dateFilter = new DateFilter();
 	Date currentMonth;
 	String date2 = "";
+	@Getter @Setter
+	String initDate = "";
 
 	List<String> listTitle = new ArrayList<>();
 	// List<String> comparators = new ArrayList<>();
@@ -48,6 +51,8 @@ public class CalendarEventIterator {
 	List<String> conditionValues = new ArrayList<>();
 	List<String> conditionValuesTo = new ArrayList<>();
 	String[] conditionValuesTo2;
+	
+	boolean primera = false;
 
 	public CalendarEventIterator(Tab tab, View view, HttpServletRequest request, Messages errors) {
 		this.tab = tab;
@@ -55,6 +60,7 @@ public class CalendarEventIterator {
 		this.view = view;
 		this.request = request;
 		this.errors = errors;
+		this.initDate = LocalDate.now().toString();
 	}
 
 	// Tomar todas las filas de este mes si no hay condiciones
@@ -81,30 +87,38 @@ public class CalendarEventIterator {
 		// System.out.println(tab.getMetaTab().getBaseCondition());
 		if (tab.getConditionComparators() != null) {
 		} else {
-			DateFilter dateFilter = new DateFilter();
-	        Calendar calendar = Calendar.getInstance();
-	        Date firstDayOfMonth = getFirstDayOfMonth(calendar.getTime());
-	        Date lastDayOfMonth = getLastDayOfMonth(calendar.getTime());
-			dateFilter.setStart(firstDayOfMonth);
-			dateFilter.setEnd(lastDayOfMonth);
-//			Labels label = new Labels();
-//			label.get("today", locale, "todayD");
-			System.out.println(firstDayOfMonth.toString() + "---" + lastDayOfMonth.toString());
+			System.out.println("basecondition");
+			System.out.println(tab.getBaseCondition());
+			if (tab.getBaseCondition() == null) {
+				DateFilter dateFilter = new DateFilter();
+		        Calendar calendar = Calendar.getInstance();
+		        Date firstDayOfMonth = getFirstDayOfMonth(calendar.getTime());
+		        Date lastDayOfMonth = getLastDayOfMonth(calendar.getTime());
+				dateFilter.setStart(firstDayOfMonth);
+				dateFilter.setEnd(lastDayOfMonth);
+//				Labels label = new Labels();
+//				label.get("today", locale, "todayD");
+				System.out.println(firstDayOfMonth.toString() + "---" + lastDayOfMonth.toString());
+				
+				tab.setFilter(dateFilter);
+				//obtener la propiedad a filtrar y usar primer y ultimo dia del mes
+				tab.setBaseCondition("date between ? and ?");
+				
+				System.out.println("no hay condicion, size: " + tab.getTotalSize());
+				//System.out.println(Arrays.toString(tab.getMetaTab().getMetaModel().getMetaProperties().toArray()));
+				//System.out.println(Arrays.toString(tab.getMetaProperties().toArray()));
+				//createTab();
+				//tab.getMetaPropertiesNoCalculated()
+				//tab.getcondi
+				// llamar a filter() de tab para setConditionParameters
+				// getMetaPropertiesNoCalculated
+				// tab.setBaseCondition( "${" + dateName + "} between '2002-11-01' and
+				// '2004-12-31'");
+			} else {
+				
+			}
 			
-			tab.setFilter(dateFilter);
-			//obtener la propiedad a filtrar y usar primer y ultimo dia del mes
-			tab.setBaseCondition("date between ? and ?");
 			
-			System.out.println("no hay condicion" + tab.getTotalSize());
-			System.out.println(Arrays.toString(tab.getMetaTab().getMetaModel().getMetaProperties().toArray()));
-			System.out.println(Arrays.toString(tab.getMetaProperties().toArray()));
-			//createTab();
-			//tab.getMetaPropertiesNoCalculated()
-			//tab.getcondi
-			// llamar a filter() de tab para setConditionParameters
-			// getMetaPropertiesNoCalculated
-			// tab.setBaseCondition( "${" + dateName + "} between '2002-11-01' and
-			// '2004-12-31'");
 		}
 		
 
@@ -143,7 +157,7 @@ public class CalendarEventIterator {
 		}
 		
 		//onclick="if (!getSelection().toString()) openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', false, false, '<%=action%>', '<%="row=" + (i++)%>');"
-	    
+	    primera = true;
 		
 		return listEvent;
 	}
@@ -312,10 +326,13 @@ public class CalendarEventIterator {
 	private String format(int column, Object value) {
 		MetaProperty p = tab.getMetaProperty(column);
 		if (p.hasValidValues()) {
+			System.out.println("primer return");
 			return p.getValidValueLabel(value);
 		} else if (p.getType().equals(boolean.class) || p.getType().equals(Boolean.class)) {
+			System.out.println("segundo return");
 			return getBooleanFormatter().format(null, value);
 		} else {
+			System.out.println("tercer return");
 			return WebEditors.format(request, p, value, errors, view.getViewName(), true);
 		}
 	}

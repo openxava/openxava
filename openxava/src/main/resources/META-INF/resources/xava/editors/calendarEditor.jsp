@@ -6,6 +6,7 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="org.openxava.web.editors.CalendarEvent"%>
 <%@ page import="org.openxava.web.editors.CalendarEventIterator"%>
+    <%@ page import="org.openxava.web.dwr.OXCalendar"%>
 <%@ page import="org.openxava.util.ToJson"%>
 <%@ page import="org.json.*"%>
     
@@ -38,15 +39,17 @@ for (MetaAction ma: manager.getMetaActions()) {
        break;
    }
 }
-List<MetaProperty> listProperty = tab.getMetaProperties();
-List<CalendarEvent> listEvent = new ArrayList<>();
+//List<MetaProperty> listProperty = tab.getMetaProperties();
+//List<CalendarEvent> listEvent = new ArrayList<>();
 String dateFormat = Dates.dateFormatForJSCalendar();
 String events = "";
 String rows = "";
-    
-CalendarEventIterator  it = new CalendarEventIterator(tab, view, request, errors);
-
-listEvent = it.getEvents();
+OXCalendar.setData(view, errors);
+//CalendarEventIterator  it = new CalendarEventIterator(tab, view, request, errors);
+//System.out.println(tab.getFilter());
+//String initDate = it.getInitDate();
+//listEvent = it.getEvents();
+    /*
 StringBuilder sb = new StringBuilder();
 sb.append("[");
 for (int i = 0; i < listEvent.size(); i++) {
@@ -63,7 +66,7 @@ for (int i = 0; i < listEvent.size(); i++) {
 }
 sb.append("]");
 events = sb.toString();
-
+*/
 if (dateFormat != null) {
     dateFormat = dateFormat.replace("n", "M")
                            .replace("m", "MM")
@@ -87,7 +90,4 @@ if (dateFormat != null) {
     var calendarRequestModule = '<%=request.getParameter("module")%>';
     var calendarAction = '<%=action%>';
     var calendarNewAction = '<%=actionNew%>';
-    var events = '<%=events%>';
-    var view = '<%=view%>';
-    var tab = '<%=tab%>';
 </script>
