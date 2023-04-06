@@ -4,7 +4,6 @@ import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
 import org.apache.commons.logging.*;
-import org.openxava.controller.*;
 import org.openxava.controller.meta.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
@@ -54,6 +53,7 @@ public class ImageTag extends ActionTagBase {
 				pageContext.getOut().print(" style='");
 				pageContext.getOut().print(getCssStyle());
 				pageContext.getOut().print("'");	
+				throw new RuntimeException("Atributo style en Image tag no soportado"); // tmr Cambiar por un log
 			}			
 			pageContext.getOut().print(" title='");
 			pageContext.getOut().print(filterApostrophes(getTooltip(metaAction))); 

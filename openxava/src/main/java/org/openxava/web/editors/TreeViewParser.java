@@ -228,8 +228,7 @@ public class TreeViewParser {
 					html.append("\"> <tr>");
 					for (int c = 0; c < tab.getTableModel().getColumnCount(); c++) {
 						MetaProperty p = tab.getMetaProperty(c);
-						String align =p.isNumber() && !p.hasValidValues()?"vertical-align: middle;text-align: right; ":"vertical-align: middle; ";
-						String cellStyle = align;
+						String align =p.isNumber() && !p.hasValidValues()?" ox-text-align-right":"";
 						String fvalue = null;
 						if (p.hasValidValues()) {
 							fvalue = p.getValidValueLabel(reader.getValueAt(index, c));
@@ -239,8 +238,8 @@ public class TreeViewParser {
 						}
 						html.append("<td class=\"");
 						html.append((c%2==0?"ox-list-pair":"ox-list-odd"));
-						html.append("\" style=\"");
-						html.append(cellStyle);
+						html.append(" ox-list-data-cell");
+						html.append(align);
 						html.append("\">");
 						html.append(fvalue);
 						html.append("</td"); 

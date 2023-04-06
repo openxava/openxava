@@ -59,6 +59,7 @@ public class LinkTag extends ActionTagBase implements IActionTag {
 				pageContext.getOut().print(" style='");
 				pageContext.getOut().print(getCssStyle());
 				pageContext.getOut().print("'");	
+				throw new RuntimeException("Atributo style en Link tag no soportado"); // tmr Cambiar por un log
 			}
 			pageContext.getOut().print(" title='");
 			pageContext.getOut().print(filterApostrophes(getTooltip(metaAction))); 

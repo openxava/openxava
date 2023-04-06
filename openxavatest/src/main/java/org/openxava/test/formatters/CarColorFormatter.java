@@ -1,6 +1,7 @@
 package org.openxava.test.formatters;
 
 import javax.servlet.http.*;
+
 import org.openxava.formatters.*;
 import org.openxava.test.model.*;
 import org.openxava.util.*;
@@ -14,7 +15,9 @@ public class CarColorFormatter implements IFormatter  {
 	public String format(HttpServletRequest request, Object object) throws Exception {
 		Car.Color color = (Car.Color) object;
 		if (color == null || color == Car.Color.UNSPECIFIED) return "";
-		return "<i class='mdi mdi-square' style='color: " + color.name() + "'></i><span style=\"vertical-align: bottom\">: " + Strings.firstUpper(color.name().toLowerCase()) + "</span>";
+		// tmr return "<i class='mdi mdi-square' style='color: " + color.name() + "'></i><span style=\"vertical-align: bottom\">: " + Strings.firstUpper(color.name().toLowerCase()) + "</span>";
+		// tmr ¿En migración?
+		return "<nobr><i class='mdi mdi-square ox-color-" + color.name().toLowerCase() + "'></i><span class='ox-vertical-align-sub'> :" + Strings.firstUpper(color.name().toLowerCase()) + "</span></nobr>";
 	}
 
 	public Object parse(HttpServletRequest request, String string) throws Exception {

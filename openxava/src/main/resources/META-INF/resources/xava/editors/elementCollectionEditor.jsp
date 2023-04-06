@@ -30,7 +30,6 @@ String idCollection = org.openxava.web.Collections.id(request, collectionName);
 String propertyPrefixAccumulated = request.getParameter("propertyPrefix");
 String propertyPrefix = propertyPrefixAccumulated == null?collectionName + ".":propertyPrefixAccumulated + collectionName + ".";
 
-String rowStyle = "border-bottom: 1px solid;";
 boolean resizeColumns = style.allowsResizeColumns() && XavaPreferences.getInstance().isResizeColumns();
 String collectionClass = subview.isEditable()?"ox-element-collection":"";
 boolean sortable = subview.isCollectionSortable();

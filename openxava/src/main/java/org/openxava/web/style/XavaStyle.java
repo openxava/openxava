@@ -64,9 +64,11 @@ public class XavaStyle extends Style {
 		return "ox-frame";
 	}
 	
+	/* tmr
 	public String getModuleSpacing() {
 		return "";		
 	}
+	*/
 		
 	/**
 	 * @since 5.1.1
@@ -82,33 +84,13 @@ public class XavaStyle extends Style {
 		return -40;		
 	}
 
-	public String getFrameHeaderStartDecoration(int width, boolean collection) {   
-		StringBuffer r = new StringBuffer();
-		r.append("<div ");
-		r.append(" class='");
-		r.append(getFrame());
-		if (collection) {
-			r.append(' ');
-			r.append(getCollection());
-		}
-		if (width == 100) { 
-			r.append(' ');			
-			r.append(getFullFrame()); 
-		}
-		else if (width == 50) { // Two frames in a row
-			r.append(' ');			
-			r.append(getHalfFrame()); 		
-		}		
-		r.append("'"); 
-		r.append(getFrameSpacing());
-		r.append(">");
-		r.append("<div class='");
-		r.append(getFrameTitle());
-		r.append("'>");		
-		r.append("\n");						
-		return r.toString();
+	/* tmr
+	public String getFrameHeaderStartDecoration(int width, boolean collection) {
+	   // tmr Movido a padre
 	}
+	*/
 		
+	/* tmr Movido a padre
 	public String getFrameTitleStartDecoration() {
 		StringBuffer r = new StringBuffer();
 		r.append("<span ");
@@ -117,30 +99,31 @@ public class XavaStyle extends Style {
 		r.append("'>\n");
 		return r.toString();
 	}
+	*/
 	
+	/* tmr Movido a padre
 	public String getFrameActionsStartDecoration() {		
 		return "<span class='" + getFrameActions() + "'>"; 
 	}
 	
+	*/
+	
+	/* tmr Movido a padre
 	public String getFrameHeaderEndDecoration() {
 		return "</div>";			
 	}
+	*/
 	
+	/* tmr Movido a padre
 	public String getFrameContentStartDecoration(String id, boolean closed) {
-		StringBuffer r = new StringBuffer();
-		r.append("<div id='");
-		r.append(id);
-		r.append("' ");
-		if (closed) r.append("style='display: none;'");
-		r.append("><div class='");
-		r.append(getFrameContent());	
-		r.append("'>\n");
-		return r.toString();
 	}
+	*/
 		
+	/* tmr Movido a padre
 	public String getFrameContentEndDecoration() { 
 		return "\n</div></div></div>"; 
 	}
+	*/
 		
 	public String getSectionBarStartDecoration() { 
 		return "<td>";

@@ -2,10 +2,8 @@ Change Log for OpenXava project
 ===============================
 
 Pendiente:
-- Buscar style= en lo demás.
-- Buscar style = 
-- Buscar en todo el workspace
-- Comprobar filepond, calendar y ckeditor.
+- Buscar en todo el workspace: TMR ME QUEDÉ POR AQUÍ: para hacer Corporation.html
+- Comprobar filepond, calendar, ckeditor y charts.
 - Comprobar mensajes navegador
 - Revisar código.
 - Suite

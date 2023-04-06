@@ -215,9 +215,11 @@ public class Style {
 	}
 	*/
 
+	/* tmr
 	public String getModuleSpacing() {
-		return "style='padding: 4px;'";		
+
 	}
+	*/
 	
 	public String getActionLink() {
 		return "ox-action-link";
@@ -622,39 +624,43 @@ public class Style {
 	}
 
 	public String getFrameHeaderStartDecoration(int width, boolean collection) {   
+		// Copiado de XavaStyle
 		StringBuffer r = new StringBuffer();
-		r.append("<table ");
+		r.append("<div ");
 		r.append(" class='");
-		if (width != 0) { // For several collections in the same row 
-			r.append(getFrame());
-		}
+		r.append(getFrame());
 		if (collection) {
 			r.append(' ');
 			r.append(getCollection());
 		}
-		r.append("' style='float:left;margin-right:4px;");
-		if (width != 0) {
-			r.append("width:");
-			r.append(width);
-			r.append("%");
+		if (width == 100) { 
+			r.append(' ');			
+			r.append(getFullFrame()); 
+		}
+		else if (width == 50) { // Two frames in a row
+			r.append(' ');			
+			r.append(getHalfFrame()); 		
 		}		
-		r.append("'");
+		r.append("'"); 
 		r.append(getFrameSpacing());
 		r.append(">");
-		r.append("<tr class='");
+		r.append("<div class='");
 		r.append(getFrameTitle());
 		r.append("'>");		
-		r.append("<th>\n");						
+		r.append("\n");						
 		return r.toString();
+
 	}
 	
 	public String getFrameHeaderEndDecoration() { 		
-		return "</th></tr>";			
+		// tmr return "</th></tr>";			
+		return "</div>"; // tmr
 	}
 	
-	public String getFrameTitleStartDecoration() { 		
+	public String getFrameTitleStartDecoration() {
+		// tmr Copiado desde XavaStyle
 		StringBuffer r = new StringBuffer();
-		r.append("<span style='float: left' ");
+		r.append("<span ");
 		r.append("class='");
 		r.append(getFrameTitleLabel());
 		r.append("'>\n");
@@ -674,7 +680,8 @@ public class Style {
 	}
 	
 	public String getFrameActionsStartDecoration() {		
-		return "<span class='" + getFrameActions() + "' style='float: right'>"; 
+		// tmr Copiado de XavaStyle
+		return "<span class='" + getFrameActions() + "'>";
 	}	
 	public String getFrameActionsEndDecoration() { 
 		return "</span>";
@@ -705,20 +712,22 @@ public class Style {
 		return getFrameContentStartDecoration(UUID.randomUUID().toString(), false);
 	}
 		
-	public String getFrameContentStartDecoration(String id, boolean closed) { 
-		StringBuffer r = new StringBuffer();		
-		r.append("<tr id='");
+	public String getFrameContentStartDecoration(String id, boolean closed) {
+		// tmr Copiado de XavaStyle
+		StringBuffer r = new StringBuffer();
+		r.append("<div id='");
 		r.append(id);
 		r.append("' ");
-		if (closed) r.append("style='display: none;'");
-		r.append("><td class='");
-		r.append(getFrameContent());
+		if (closed) r.append("class='ox-display-none'");
+		r.append("><div class='");
+		r.append(getFrameContent());	
 		r.append("'>\n");
 		return r.toString();
 	}	
 	
 	public String getFrameContentEndDecoration() { 
-		return "\n</td></tr></table>";
+		// tmr return "\n</td></tr></table>";
+		return "\n</div></div></div>"; // tmr
 	}
 	
 	public String getFrame() { 

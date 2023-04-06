@@ -1588,10 +1588,20 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	// Because HtmlElement.isDisplayed only works when CSS is active
-	private boolean isDisplayed(HtmlElement element) { 
+	private boolean isDisplayed(HtmlElement element) {
+		/* tmr
 		String style = element.getAttribute("style");
 		if (style == null) return true;
 		return !(style.contains("display: none") || style.contains("display:none")); // Enough for our cases
+		*/
+		// tmr ini
+		String cssClass = element.getAttribute("class");
+		if (cssClass != null && cssClass.contains("ox-display-none")) return false;
+		
+		String style = element.getAttribute("style");
+		if (style == null) return true;
+		return !(style.contains("display: none") || style.contains("display:none")); 		
+		// tmr fin
 	}
 
 	/**

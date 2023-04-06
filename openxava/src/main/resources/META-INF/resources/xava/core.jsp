@@ -40,7 +40,7 @@ with Firefox 3 and Liferay 5.1.1, 5.1.2 and 5.2.2 produces a JavaScript error.
 String listModeClass=manager.isListMode()?"class='" + style.getListMode() + "'":""; 
 %>
 
-<div <%=listModeClass%> <%=style.getModuleSpacing()%>>
+<div <%=listModeClass%>>
 
 	<% if (buttonBar) {	%> 
     <div id='<xava:id name="button_bar"/>' class="<%=style.getButtonBarContainer()%>">     

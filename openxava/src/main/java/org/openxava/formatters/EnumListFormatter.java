@@ -18,11 +18,10 @@ public class EnumListFormatter implements IMetaPropertyFormatter {
 			metaProperty.getValidValueLabel(((Number) object).intValue()):
 			metaProperty.getValidValueLabel(object);
 		Style style = (Style) request.getAttribute("style");
-		// TMR ME QUEDÉ POR AQUÍ: PARA QUITAR LOS STYLES 
 		if (style != null && object instanceof IIconEnum) { 
 			return "<span class='" + style.getIconInList() + "'><i class='mdi mdi-" + ((IIconEnum) object).getIcon() + 
 				"' title='" + label + "'></i>" +
-				"<span style='display:none'>" + label + "</span></span>";
+				"<span class='ox-display-none'>" + label + "</span></span>";
 		}
 		return label;
 	}
