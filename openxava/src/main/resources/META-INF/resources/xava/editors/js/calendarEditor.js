@@ -5,6 +5,7 @@ var calendar;
 var listEvents;
 var setEvents = true;
 
+
 calendarEditor.setEvents = function(calendarEvents) {
     console.log("entra");
     //console.log(calendarEvents);
@@ -27,13 +28,22 @@ calendarEditor.setEvents = function(calendarEvents) {
         });
         listEvents = [];
     }
-
-
 }
 
+
 openxava.addEditorInitFunction(function() {
+    
+    
 
     if ($("#xava_calendar").length) {
+        
+var application = $('#xava_calendar_application').val();
+var module = $('#xava_calendar_module').val();
+var dateFormat = $('#xava_calendar_dateFormat').val();
+var newAction = $("#xava_calendar_action").val().split(",")[1];
+var selectAction = $("#xava_calendar_action").val().split(",")[0];
+        
+        
         console.log("si");
         var onlyDate = {
             month: 'numeric',
@@ -50,7 +60,7 @@ openxava.addEditorInitFunction(function() {
         var initial = '2023-04-07';
 
         listEvents = [];
-        Calendar.getEvents(calendarRequestApplication, calendarRequestModule, "", calendarEditor.setEvents);
+        //Calendar.getEvents(application, module, "", calendarEditor.setEvents);
 
 
         $("#xava_calendar").ready(function() {
@@ -62,7 +72,7 @@ openxava.addEditorInitFunction(function() {
                 locale: navigator.language,
                 showNonCurrentDates: false,
                 displayEventTime: false,
-                events: [],
+                events: JSON.parse(events),
                 editable: true,
                 //initialDate: initial,
                 progressiveEventRendering: true,
@@ -111,7 +121,7 @@ openxava.addEditorInitFunction(function() {
                             //console.log(month);
                             //obtener los eventos del nuevo filtro en un array con dwr
                             //y agregarlos con calendar.add
-                            Calendar.getEvents(calendarRequestApplication, calendarRequestModule, month, calendarEditor.setEvents);
+                            Calendar.getEvents(application, module, month, calendarEditor.setEvents);
                             //setEvents = true;
 
                             console.log("new events");

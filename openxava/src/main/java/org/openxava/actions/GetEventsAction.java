@@ -29,6 +29,7 @@ public class GetEventsAction extends TabBaseAction{
 		dateFilter.setEnd(lastDayOfMonth);
 		tab.setFilter(dateFilter);
 		tab.setBaseCondition("date between ? and ?");
+		
 		System.out.println("ACCION");
 		//System.out.println(month);
 	}

@@ -15,6 +15,7 @@ import org.openxava.tab.Tab;
 import org.openxava.util.*;
 import org.openxava.view.View;
 import org.openxava.web.*;
+import org.openxava.web.editors.*;
 
 import lombok.*;
 
@@ -36,12 +37,13 @@ public class OXCalendar extends DWRBase {
 	private static Messages errors;
 	private static View view;
 	private CalendarEvent event;
-
-	public static void setData(View view, Messages errors) {
+	private CalendarEventIterator ci;
+	
+	public static void setOX(View view, Messages errors) {
 		OXCalendar.view = view;
 		OXCalendar.errors = errors;
 	}
-
+	
 	// List<CalendarEvent>
 	public String getEvents(HttpServletRequest request, HttpServletResponse response, String application, String module,
 			String month) throws RemoteException {
@@ -50,7 +52,11 @@ public class OXCalendar extends DWRBase {
 		this.module = module;
 		this.response = response;
 
+		System.out.println(request);
+		System.out.println(application);
+		System.out.println(module);
 		// initRequest(request, response, application, module);
+		
 
 		List<CalendarEvent> calendarEvents = new ArrayList<>();
 
@@ -60,28 +66,20 @@ public class OXCalendar extends DWRBase {
 		filter = setFilterForMonth(month);
 		// System.out.println("getEvents 2");
 		// obtener tab y settear el tab con el filtro
+
 		String tabObject = "xava_tab";
-		System.out.println(request);
-		System.out.println(application);
-		System.out.println(module);
-		System.out.println(tabObject);
-		tab = new Tab();
-		tab.reset();
 		tab = getTab(request, application, module, tabObject);
-		this.table = tab.getTableModel();
-		
-		System.out.println("size: " + tab.getTotalSize());
-		//tab2.clearCondition();
 		tab.setFilter(filter);
 		tab.setBaseCondition("date between ? and ?");
-		tab.filter();
+		this.table = tab.getTableModel();
+		tab.
 		
-		System.out.println(tab.getFilter().toString());
 
 		// obtener todos los eventos del tab
 		System.out.println("getEvents 3 tab size= " + tab.getTableModel().getTotalSize());
 		int tableSize = 0;
 		tableSize = tab.getTableModel().getTotalSize();
+		//System.out.println("getEvents 4");
 		if (tableSize > 0) {
 			for (int i = 0; i < tableSize; i++) {
 				event = new CalendarEvent();
@@ -92,7 +90,7 @@ public class OXCalendar extends DWRBase {
 				calendarEvents.add(event);
 			}
 		}
-
+		//System.out.println("getEvents 5");
 		JSONArray jsonArray = new JSONArray();
 		for (CalendarEvent event : calendarEvents) {
 			JSONObject jsonObject = new JSONObject();
@@ -103,8 +101,7 @@ public class OXCalendar extends DWRBase {
 			jsonArray.put(jsonObject);
 		}
 		 System.out.println(jsonArray.toString());
-
-		return jsonArray.toString();
+		 return jsonArray.toString();
 	}
 
 	// setear el filtro y obtener ambas fechas de rango

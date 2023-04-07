@@ -8,6 +8,7 @@ import java.util.*;
 import javax.servlet.http.*;
 import javax.swing.table.*;
 
+import org.json.*;
 import org.openxava.controller.*;
 import org.openxava.filters.*;
 import org.openxava.formatters.*;
@@ -52,11 +53,16 @@ public class CalendarEventIterator {
 	List<String> conditionValues = new ArrayList<>();
 	List<String> conditionValuesTo = new ArrayList<>();
 	String[] conditionValuesTo2;
+	//DateFilter filter;
 	
 	boolean primera = false;
 
 	public CalendarEventIterator(Tab tab, View view, HttpServletRequest request, Messages errors) {
 		this.tab = tab;
+		DateFilter filter = new DateFilter();
+		filter = setFilterForMonth("");
+		tab.setFilter(filter);
+		tab.setBaseCondition("date between ? and ?");
 		this.table = tab.getTableModel();
 		this.view = view;
 		this.request = request;
@@ -65,136 +71,96 @@ public class CalendarEventIterator {
 	}
 
 	// Tomar todas las filas de este mes si no hay condiciones
-	public List<CalendarEvent> getEvents() throws RemoteException {
-		List<CalendarEvent> listEvent = new ArrayList<>();
-		// en cada evento debo tener start end y title
-		// primero obtengo la columna de la(las) fechas
-		// luego hago la iteracion por cada
-		
-		// System.out.println(tab.getTotalSize());
-		// obtengo el index de algun tipo de dato de fecha
-		// System.out.println(tab.getMetaProperties().get(2).getTypeName());
-		List<MetaProperty> properties = tab.getMetaProperties();
-		//dateIndex = indexForAny(1, "java.util.Date");
+	public String getEvents() throws RemoteException {
+		List<CalendarEvent> calendarEvents = new ArrayList<>();
+		String month = "";
+		// primero traer con el filtro del mes actual
+		//DateFilter filter = new DateFilter();
+		//filter = setFilterForMonth(month);
+		//tab.setFilter(filter);
+		//tab.setBaseCondition("date between ? and ?");
+		// System.out.println("getEvents 2");
+		// obtener tab y settear el tab con el filtro
 
-		// obtengo el label de ese tipo de datos para filtrar y filtro
-		//dateLabel = tab.getMetaProperties().get(dateIndex).getLabel();
-
-		// nombre de la propiedad
-		//dateName = tab.getMetaProperties().get(dateIndex).getName();
-
-		// settear condicion cuando es nulo
-		// comparators = tab.getConditionComparators();
-		// System.out.println(tab.getMetaTab().getBaseCondition());
-		if (tab.getConditionComparators() != null) {
-		} else {
-			System.out.println("basecondition");
-			System.out.println(tab.getBaseCondition());
-			if (tab.getBaseCondition() == null) {
-				DateFilter dateFilter = new DateFilter();
-		        Calendar calendar = Calendar.getInstance();
-		        Date firstDayOfMonth = getFirstDayOfMonth(calendar.getTime());
-		        Date lastDayOfMonth = getLastDayOfMonth(calendar.getTime());
-				dateFilter.setStart(firstDayOfMonth);
-				dateFilter.setEnd(lastDayOfMonth);
-//				Labels label = new Labels();
-//				label.get("today", locale, "todayD");
-				System.out.println(firstDayOfMonth.toString() + "---" + lastDayOfMonth.toString());
-				
-				tab.setFilter(dateFilter);
-				//obtener la propiedad a filtrar y usar primer y ultimo dia del mes
-				tab.setBaseCondition("date between ? and ?");
-				
-				System.out.println("no hay condicion, size: " + tab.getTotalSize());
-				//System.out.println(Arrays.toString(tab.getMetaTab().getMetaModel().getMetaProperties().toArray()));
-				//System.out.println(Arrays.toString(tab.getMetaProperties().toArray()));
-				//createTab();
-				//tab.getMetaPropertiesNoCalculated()
-				//tab.getcondi
-				// llamar a filter() de tab para setConditionParameters
-				// getMetaPropertiesNoCalculated
-				// tab.setBaseCondition( "${" + dateName + "} between '2002-11-01' and
-				// '2004-12-31'");
-			} else {
-				
-			}
-			
-			
-		}
+		//tab.setFilter(filter);
+		//tab.setBaseCondition("date between ? and ?");
+		//this.table = tab.getTableModel();
 		
 
-		//System.out.println(tab.getPropertiesNamesAsString());
-		// System.out.println(tab.getTotalPropertiesNames()); []
-		// Queda por determinar que usar entre los 2
-		//System.out.println(tab.getTableModel().getTotalSize());
-		//System.out.println(tab.getTableModel().getRowCount());
-
-		// si no hay condicion previa, filtro yo mismo en el mes actual para evitar
-		// hacer loop entre miles de registros
-		if (tab.getConditionValues() != null) {
-			System.out.println("getConditionValues");
-			System.out.println(Arrays.toString(tab.getConditionValues()));
-			System.out.println(Arrays.toString(tab.getConditionValuesTo()));
-			System.out.println(Arrays.toString(tab.getConditionComparators()));
-		} else {
-
-		}
-		
-		//si hay filas en la tabla, leer una por una y cargar en objetos event
-		
+		// obtener todos los eventos del tab
+		System.out.println("getEvents 3 tab size= " + tab.getTableModel().getTotalSize());
 		int tableSize = 0;
 		tableSize = tab.getTableModel().getTotalSize();
+		//System.out.println("getEvents 4");
 		if (tableSize > 0) {
-			//System.out.println("tabSize");
-			
-			for (int i = 0; i<tableSize; i++) {
-				//System.out.println("for");
+			for (int i = 0; i < tableSize; i++) {
 				event = new CalendarEvent();
-				event.setStart(obtainDateContent(i));
+				event.setStart(obtainRowsDate(i));
 				event.setEnd(date2);
 				event.setTitle(obtainContent(i));
 				event.setRow(Integer.toString(i));
-				listEvent.add(event);
+				calendarEvents.add(event);
 			}
-			
 		}
+		//System.out.println("getEvents 5");
+		JSONArray jsonArray = new JSONArray();
+		for (CalendarEvent event : calendarEvents) {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("title", event.getTitle());
+			jsonObject.put("start", event.getStart());
+			jsonObject.put("end", event.getEnd());
+			jsonObject.put("row", event.getRow());
+			jsonArray.put(jsonObject);
+		}
+		//System.out.println(jsonArray.toString());
+		//String escapedJsonString = JsonNodeFactory.instance.textNode(jsonArray.toString()).toString();
 		
-		//onclick="if (!getSelection().toString()) openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', false, false, '<%=action%>', '<%="row=" + (i++)%>');"
-	    primera = true;
-		
-		return listEvent;
+		return jsonArray.toString();
 	}
 	
-	/*
-	public List<CalendarEvent> getEvents(String accion, LocalDate date) throws RemoteException {
-		System.out.println("getEvents2");
-		return null;
-		/*
-		List<CalendarEvent> listEvent = new ArrayList<>();
-		DateFilter dateFilter = new DateFilter();
-        Calendar calendar = Calendar.getInstance();
-        Date firstDayOfMonth = getFirstDayOfMonth(calendar.getTime());
-        Date lastDayOfMonth = getLastDayOfMonth(calendar.getTime());
-		dateFilter.setStart(firstDayOfMonth);
-		dateFilter.setEnd(lastDayOfMonth);
-		System.out.println(firstDayOfMonth.toString() + "---" + lastDayOfMonth.toString());
-		
-		
-		int tableSize = 0;
-		tableSize = tab.getTableModel().getTotalSize();
-		if (tableSize > 0) {
-			for (int i = 0; i<tableSize; i++) {
-				event = new CalendarEvent();
-				event.start = obtainDateContent(i);
-				event.title = obtainContent(i);
-				event.end = date2;
-				event.row = Integer.toString(i);
-				listEvent.add(event);
-			}
+	private DateFilter setFilterForMonth(String month) {
+		DateFilter df = new DateFilter();
+		if (month.isEmpty()) {
+			Date firstDayOfMonth = getFirstDayOfMonth("");
+			Date lastDayOfMonth = getLastDayOfMonth("");
+			df.setStart(firstDayOfMonth);
+			df.setEnd(lastDayOfMonth);
+			System.out.println("primer return");
+			return df;
+		} else {
+			//System.out.println("View month: " + month);
+			Date firstDayOfMonth = getFirstDayOfMonth(month);
+			Date lastDayOfMonth = getLastDayOfMonth(month);
+			df.setStart(firstDayOfMonth);
+			df.setEnd(lastDayOfMonth);
+			//System.out.println("View month: " + firstDayOfMonth + "..."  + lastDayOfMonth);
+			System.out.println("segundo return");
+			return df;
 		}
-		
-		return listEvent;
-	}*/
+	}
+
+	private static Date getFirstDayOfMonth(String month) {
+		Calendar calendar = Calendar.getInstance();
+		if (!month.isEmpty()) calendar.set(Calendar.MONTH, Integer.parseInt(month));
+		calendar.set(Calendar.DAY_OF_MONTH, 1);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		return calendar.getTime();
+	}
+
+	private static Date getLastDayOfMonth(String month) {
+		Calendar calendar = Calendar.getInstance();
+		if (!month.isEmpty()) calendar.set(Calendar.MONTH, Integer.parseInt(month));
+		calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+		calendar.set(Calendar.HOUR_OF_DAY, 23);
+		calendar.set(Calendar.MINUTE, 59);
+		calendar.set(Calendar.SECOND, 59);
+		calendar.set(Calendar.MILLISECOND, 999);
+		return calendar.getTime();
+	}
+
 
 
 	// obtengo los datos de la fila pero antes aniadir lo que esta primero
@@ -278,7 +244,7 @@ public class CalendarEventIterator {
 	}
 
 	// obtener la fecha para start
-	private String obtainDateContent(int row) {
+	private String obtainRowsDate(int row) {
 		String t = "";
 		int idx = -1;
 		idx = indexForAny(1, "date", "java.util.Date", "Date");
@@ -300,31 +266,7 @@ public class CalendarEventIterator {
 		}
 		return t;
 	}
-	
-//	private String obtainDate2Content(int row) {
-//		String t = "";
-//		String[] s;
-//		t = obtainDateContent(row);
-//		s = t.split(" ");
-//		t = s[1].replaceAll("0", "1");
-//		return s[0] + " " + t;
-//	}
 
-//	private int getFirstIdxForAny() {
-//		if (titleFirstIdx < 0) {
-//			titleFirstIdx = indexForAny();
-//			if (titleFirstIdx < 0 && !tab.getMetaProperties().isEmpty())
-//				titleFirstIdx = 0;
-//		}
-//		return titleFirstIdx;
-//	}
-
-//	private int getDateIdx() {
-//		int fromInit = -1;
-//		fromInit = indexForAny(1, "java.util.Date", "Date", "date");
-//		if (fromInit < 0 && !tab.getMetaProperties().isEmpty()) fromInit = 0;
-//		return fromInit;
-//	}
 	
 	private String format(int column, Object value) {
 		MetaProperty p = tab.getMetaProperty(column);
