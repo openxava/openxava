@@ -36,7 +36,6 @@ public class OXCalendar extends DWRBase {
 	private static Messages errors;
 	private static View view;
 	private CalendarEvent event;
-	private static int currentMonth;
 
 	public static void setData(View view, Messages errors) {
 		OXCalendar.view = view;
@@ -55,20 +54,32 @@ public class OXCalendar extends DWRBase {
 
 		List<CalendarEvent> calendarEvents = new ArrayList<>();
 
-		// System.out.println("getEvents 1");
+		System.out.println("getEvents 1 mes = " + month);
 		// primero traer con el filtro del mes actual
+		DateFilter filter = new DateFilter();
 		filter = setFilterForMonth(month);
 		// System.out.println("getEvents 2");
 		// obtener tab y settear el tab con el filtro
 		String tabObject = "xava_tab";
+		System.out.println(request);
+		System.out.println(application);
+		System.out.println(module);
+		System.out.println(tabObject);
+		tab = new Tab();
+		tab.reset();
 		tab = getTab(request, application, module, tabObject);
 		this.table = tab.getTableModel();
-		// System.out.println("size: " + tab.getTotalSize());
+		
+		System.out.println("size: " + tab.getTotalSize());
+		//tab2.clearCondition();
 		tab.setFilter(filter);
 		tab.setBaseCondition("date between ? and ?");
+		tab.filter();
+		
+		System.out.println(tab.getFilter().toString());
 
 		// obtener todos los eventos del tab
-		// System.out.println("getEvents 3");
+		System.out.println("getEvents 3 tab size= " + tab.getTableModel().getTotalSize());
 		int tableSize = 0;
 		tableSize = tab.getTableModel().getTotalSize();
 		if (tableSize > 0) {
@@ -91,43 +102,36 @@ public class OXCalendar extends DWRBase {
 			jsonObject.put("row", event.getRow());
 			jsonArray.put(jsonObject);
 		}
-		// System.out.println(jsonArray.toString());
+		 System.out.println(jsonArray.toString());
 
 		return jsonArray.toString();
 	}
 
 	// setear el filtro y obtener ambas fechas de rango
 	private DateFilter setFilterForMonth(String month) {
+		DateFilter df = new DateFilter();
 		if (month.isEmpty()) {
-			DateFilter dateFilter = new DateFilter();
-			Calendar calendar = Calendar.getInstance();
-			Date firstDayOfMonth = getFirstDayOfMonth(calendar.getTime());
-			Date lastDayOfMonth = getLastDayOfMonth(calendar.getTime());
-			currentMonth = calendar.get(Calendar.MONTH) + 1;
-			dateFilter.setStart(firstDayOfMonth);
-			dateFilter.setEnd(lastDayOfMonth);
-			// System.out.println("Current month: " + currentMonth);
-			return dateFilter;
+			Date firstDayOfMonth = getFirstDayOfMonth("");
+			Date lastDayOfMonth = getLastDayOfMonth("");
+			df.setStart(firstDayOfMonth);
+			df.setEnd(lastDayOfMonth);
+			System.out.println("primer return");
+			return df;
 		} else {
-			int viewMonth = Integer.parseInt(month);
-			Calendar calendar = Calendar.getInstance();
-			System.out.println("prev");
-			calendar.set(Calendar.MONTH, viewMonth);
-			calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
-			Date primerDiaMes = calendar.getTime();
-			calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-			Date ultimoDiaMes = calendar.getTime();
-			System.out.println(primerDiaMes);
-			System.out.println(ultimoDiaMes);
-
-			System.out.println("View month: " + viewMonth);
-			return null;
+			//System.out.println("View month: " + month);
+			Date firstDayOfMonth = getFirstDayOfMonth(month);
+			Date lastDayOfMonth = getLastDayOfMonth(month);
+			df.setStart(firstDayOfMonth);
+			df.setEnd(lastDayOfMonth);
+			//System.out.println("View month: " + firstDayOfMonth + "..."  + lastDayOfMonth);
+			System.out.println("segundo return");
+			return df;
 		}
-
 	}
 
-	private static Date getFirstDayOfMonth(Date date) {
+	private static Date getFirstDayOfMonth(String month) {
 		Calendar calendar = Calendar.getInstance();
+		if (!month.isEmpty()) calendar.set(Calendar.MONTH, Integer.parseInt(month));
 		calendar.set(Calendar.DAY_OF_MONTH, 1);
 		calendar.set(Calendar.HOUR_OF_DAY, 0);
 		calendar.set(Calendar.MINUTE, 0);
@@ -136,8 +140,9 @@ public class OXCalendar extends DWRBase {
 		return calendar.getTime();
 	}
 
-	private static Date getLastDayOfMonth(Date date) {
+	private static Date getLastDayOfMonth(String month) {
 		Calendar calendar = Calendar.getInstance();
+		if (!month.isEmpty()) calendar.set(Calendar.MONTH, Integer.parseInt(month));
 		calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
 		calendar.set(Calendar.HOUR_OF_DAY, 23);
 		calendar.set(Calendar.MINUTE, 59);
@@ -147,6 +152,7 @@ public class OXCalendar extends DWRBase {
 	}
 
 	private static Tab getTab(HttpServletRequest request, String application, String module, String tabOject) {
+		//Tab tab = new Tab();
 		Tab tab = (org.openxava.tab.Tab) getContext(request).get(application, module, tabOject);
 		request.setAttribute("xava.application", application);
 		request.setAttribute("xava.module", module);

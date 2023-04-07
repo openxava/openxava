@@ -3,10 +3,18 @@ if (calendarEditor == null) var calendarEditor = {};
 var calendarEl;
 var calendar;
 var listEvents;
+var setEvents = true;
 
-calendarEditor.setEvents = function(calendarEvents){
+calendarEditor.setEvents = function(calendarEvents) {
     console.log("entra");
-    console.log(calendarEvents);
+    //console.log(calendarEvents);
+    // sacar el if cuando tab funcione bien
+    var events = calendar.getEvents();
+    console.log("old events");
+    console.log(events);
+    events.forEach(function(event) {
+        event.remove();
+    });
     listEvents = JSON.parse(calendarEvents);
     for (let e of listEvents) {
         calendar.addEvent({
@@ -14,15 +22,17 @@ calendarEditor.setEvents = function(calendarEvents){
             start: e.start,
             end: e.end,
             "extendedProps": {
-                        "row": e.row
+                "row": e.row
             }
         });
+        listEvents = [];
     }
-    
+
+
 }
 
 openxava.addEditorInitFunction(function() {
-    
+
     if ($("#xava_calendar").length) {
         console.log("si");
         var onlyDate = {
@@ -41,8 +51,8 @@ openxava.addEditorInitFunction(function() {
 
         listEvents = [];
         Calendar.getEvents(calendarRequestApplication, calendarRequestModule, "", calendarEditor.setEvents);
-        
-        
+
+
         $("#xava_calendar").ready(function() {
             console.log("dentro");
             calendarEl = $('#xava_calendar')[0];
@@ -52,18 +62,15 @@ openxava.addEditorInitFunction(function() {
                 locale: navigator.language,
                 showNonCurrentDates: false,
                 displayEventTime: false,
-                events: listEvents,
+                events: [],
                 editable: true,
                 //initialDate: initial,
-                //progressiveEventRendering: true,
+                progressiveEventRendering: true,
                 headerToolbar: {
                     left: 'prev2,today,next2',
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
-                locale: navigator.language,
-                showNonCurrentDates: false,
-                displayEventTime: false,
                 views: {
                     dayGridMonth: {
                         eventTimeFormat: noTime
@@ -91,36 +98,29 @@ openxava.addEditorInitFunction(function() {
                             //hacer una consulta y obtener un json como respuesta
                             //agregar los nuevos eventos con calendar.add, al parecer es uno por uno
                             //elimino todos los eventos existentes en la memoria
-                            var events = calendar.getEvents();
-                            events.forEach(function(event) {
-                                event.remove();
-                            });
-                            
+
+                            console.log("after remove");
+                            console.log(calendar.getEvents());
                             //debo cambiar ahora el mes para obtener el mes actual en la vista
                             let currentViewDate = calendar.view.activeStart;
-                            let currentMonth = prevViewDate.getMonth();
-                            console.log(currentMonth);
+                            let currentMonth = currentViewDate.getMonth();
                             calendar.prev();
                             let prevViewDate = calendar.view.activeStart;
                             let prevMonth = prevViewDate.getMonth();
-                            console.log(prevMonth);
                             let month = (currentMonth != prevMonth) ? prevMonth : "";
+                            //console.log(month);
                             //obtener los eventos del nuevo filtro en un array con dwr
+                            //y agregarlos con calendar.add
                             Calendar.getEvents(calendarRequestApplication, calendarRequestModule, month, calendarEditor.setEvents);
-                            
-                            //recorrer el array y agregarlos con calendar.add
+                            //setEvents = true;
 
-                            calendar.addEvent({
-                                title: 'dynamic event',
-                                start: '2023-03-25T00:00:00',
-                                allDay: true,
-                                "extendedProps": {
-                                        "row": "0"
-                                    }
-                            });
+                            console.log("new events");
+                            console.log(calendar.getEvents());
+
+
                             //testear si se necesita
                             //calendar.refetchEvents();
-                           
+
                         }
                     }
                 },
@@ -152,7 +152,7 @@ openxava.addEditorInitFunction(function() {
             });
             calendar.render();
         });
-    
+
 
         /*
                 function createEvents() {
