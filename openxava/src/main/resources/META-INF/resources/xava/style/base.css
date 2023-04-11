@@ -256,156 +256,6 @@
 	--mobile-search-modules-filter-list-shadow: var(--button-bar-background);
 }
 
-/* tmr ini */
-.ox-color-aliceblue { color: aliceblue }
-.ox-color-antiquewhite { color: antiquewhite }
-.ox-color-aqua { color: aqua }
-.ox-color-aquamarine { color: aquamarine }
-.ox-color-azure { color: azure }
-.ox-color-beige { color: beige }
-.ox-color-bisque { color: bisque }
-.ox-color-black { color: black }
-.ox-color-blanchedalmond { color: blanchedalmond }
-.ox-color-blue { color: blue }
-.ox-color-blueviolet { color: blueviolet }
-.ox-color-brown { color: brown }
-.ox-color-burlywood { color: burlywood }
-.ox-color-cadetblue { color: cadetblue }
-.ox-color-chartreuse { color: chartreuse }
-.ox-color-chocolate { color: chocolate }
-.ox-color-coral { color: coral }
-.ox-color-cornflowerblue { color: cornflowerblue }
-.ox-color-cornsilk { color: cornsilk }
-.ox-color-crimson { color: crimson }
-.ox-color-cyan { color: cyan }
-.ox-color-darkblue { color: darkblue }
-.ox-color-darkcyan { color: darkcyan }
-.ox-color-darkgoldenrod { color: darkgoldenrod }
-.ox-color-darkgray { color: darkgray }
-.ox-color-darkgrey { color: darkgrey }
-.ox-color-darkgreen { color: darkgreen }
-.ox-color-darkkhaki { color: darkkhaki }
-.ox-color-darkmagenta { color: darkmagenta }
-.ox-color-darkolivegreen { color: darkolivegreen }
-.ox-color-darkorange { color: darkorange }
-.ox-color-darkorchid { color: darkorchid }
-.ox-color-darkred { color: darkred }
-.ox-color-darksalmon { color: darksalmon }
-.ox-color-darkseagreen { color: darkseagreen }
-.ox-color-darkslateblue { color: darkslateblue }
-.ox-color-darkslategray { color: darkslategray }
-.ox-color-darkslategrey { color: darkslategrey }
-.ox-color-darkturquoise { color: darkturquoise }
-.ox-color-darkviolet { color: darkviolet }
-.ox-color-deeppink { color: deeppink }
-.ox-color-deepskyblue { color: deepskyblue }
-.ox-color-dimgray { color: dimgray }
-.ox-color-dimgrey { color: dimgrey }
-.ox-color-dodgerblue { color: dodgerblue }
-.ox-color-firebrick { color: firebrick }
-.ox-color-floralwhite { color: floralwhite }
-.ox-color-forestgreen { color: forestgreen }
-.ox-color-fuchsia { color: fuchsia }
-.ox-color-gainsboro { color: gainsboro }
-.ox-color-ghostwhite { color: ghostwhite }
-.ox-color-gold { color: gold }
-.ox-color-goldenrod { color: goldenrod }
-.ox-color-gray { color: gray }
-.ox-color-grey { color: grey }
-.ox-color-green { color: green }
-.ox-color-greenyellow { color: greenyellow }
-.ox-color-honeydew { color: honeydew }
-.ox-color-hotpink { color: hotpink }
-.ox-color-indianred { color: indianred }
-.ox-color-indigo { color: indigo }
-.ox-color-ivory { color: ivory }
-.ox-color-khaki { color: khaki }
-.ox-color-lavender { color: lavender }
-.ox-color-lavenderblush { color: lavenderblush }
-.ox-color-lawngreen { color: lawngreen }
-.ox-color-lemonchiffon { color: lemonchiffon }
-.ox-color-lightblue { color: lightblue }
-.ox-color-lightcoral { color: lightcoral }
-.ox-color-lightcyan { color: lightcyan }
-.ox-color-lightgoldenrodyellow { color: lightgoldenrodyellow }
-.ox-color-lightgray { color: lightgray }
-.ox-color-lightgrey { color: lightgrey }
-.ox-color-lightgreen { color: lightgreen }
-.ox-color-lightpink { color: lightpink }
-.ox-color-lightsalmon { color: lightsalmon }
-.ox-color-lightseagreen { color: lightseagreen }
-.ox-color-lightskyblue { color: lightskyblue }
-.ox-color-lightslategray { color: lightslategray }
-.ox-color-lightslategrey { color: lightslategrey }
-.ox-color-lightsteelblue { color: lightsteelblue }
-.ox-color-lightyellow { color: lightyellow }
-.ox-color-lime { color: lime }
-.ox-color-limegreen { color: limegreen }
-.ox-color-linen { color: linen }
-.ox-color-magenta { color: magenta }
-.ox-color-maroon { color: maroon }
-.ox-color-mediumaquamarine { color: mediumaquamarine }
-.ox-color-mediumblue { color: mediumblue }
-.ox-color-mediumorchid { color: mediumorchid }
-.ox-color-mediumpurple { color: mediumpurple }
-.ox-color-mediumseagreen { color: mediumseagreen }
-.ox-color-mediumslateblue { color: mediumslateblue }
-.ox-color-mediumspringgreen { color: mediumspringgreen }
-.ox-color-mediumturquoise { color: mediumturquoise }
-.ox-color-mediumvioletred { color: mediumvioletred }
-.ox-color-midnightblue { color: midnightblue }
-.ox-color-mintcream { color: mintcream }
-.ox-color-mistyrose { color: mistyrose }
-.ox-color-moccasin { color: moccasin }
-.ox-color-navajowhite { color: navajowhite }
-.ox-color-navy { color: navy }
-.ox-color-oldlace { color: oldlace }
-.ox-color-olive { color: olive }
-.ox-color-olivedrab { color: olivedrab }
-.ox-color-orange { color: orange }
-.ox-color-orangered { color: orangered }
-.ox-color-orchid { color: orchid }
-.ox-color-palegoldenrod { color: palegoldenrod }
-.ox-color-palegreen { color: palegreen }
-.ox-color-paleturquoise { color: paleturquoise }
-.ox-color-palevioletred { color: palevioletred }
-.ox-color-papayawhip { color: papayawhip }
-.ox-color-peachpuff { color: peachpuff }
-.ox-color-peru { color: peru }
-.ox-color-pink { color: pink }
-.ox-color-plum { color: plum }
-.ox-color-powderblue { color: powderblue }
-.ox-color-purple { color: purple }
-.ox-color-red { color: red }
-.ox-color-rosybrown { color: rosybrown }
-.ox-color-royalblue { color: royalblue }
-.ox-color-saddlebrown { color: saddlebrown }
-.ox-color-salmon { color: salmon }
-.ox-color-sandybrown { color: sandybrown }
-.ox-color-seagreen { color: seagreen }
-.ox-color-seashell { color: seashell }
-.ox-color-sienna { color: sienna }
-.ox-color-silver { color: silver }
-.ox-color-skyblue { color: skyblue }
-.ox-color-slateblue { color: slateblue }
-.ox-color-slategray { color: slategray }
-.ox-color-slategrey { color: slategrey }
-.ox-color-snow { color: snow }
-.ox-color-springgreen { color: springgreen }
-.ox-color-steelblue { color: steelblue }
-.ox-color-tan { color: tan }
-.ox-color-teal { color: teal }
-.ox-color-thistle { color: thistle }
-.ox-color-tomato { color: tomato }
-.ox-color-turquoise { color: turquoise }
-.ox-color-violet { color: violet }
-.ox-color-wheat { color: wheat }
-.ox-color-white { color: white }
-.ox-color-whitesmoke { color: whitesmoke }
-.ox-color-yellow { color: yellow }
-/* tmr fin */
-
-
 @font-face {
     font-family: 'Roboto';
     src: url('../fonts/roboto-regular-webfont.woff') format('woff');
@@ -1168,6 +1018,11 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 .ox-width-100 {
 	width: 100%;
 }
+
+.ox-color-inherit, .ox-color-inherit:hover {
+	color: inherit;
+}
+
 /* tmr fin */
 
 .ox-collection-list-actions .ox-button-bar-button a {

@@ -52,6 +52,12 @@ public abstract class CollapsedMemberTestBase extends ModuleTestBase {
 		super.setUp(); //loads the module
 	}
 	
+	protected void resetModule() throws Exception { // tmr
+		super.resetModule();		
+		getWebClient().getOptions().setCssEnabled(true);
+		reload();
+	}
+	
 	public void testCollapsedMember() throws Exception { 
 		//step 1: ensures that a @Collapsed reference view is hidden 
 		//on module initialization for the first time.
@@ -90,19 +96,27 @@ public abstract class CollapsedMemberTestBase extends ModuleTestBase {
 	
 	////////////////////////////////////////////////////////////////////////
 	
-	private void assertFrameHtmlStatus(boolean closed) {		
+	private void assertFrameHtmlStatus(boolean closed) throws Exception{		
 		String frameId= getFrameId();
 		
 		HtmlElement hiddenFrame= getHtmlPage().getHtmlElementById(frameId + "hide"); 
-		String hiddenFrameStyle= hiddenFrame.getAttribute("style");
+		// tmr String hiddenFrameStyle= hiddenFrame.getAttribute("style");
 		
 		HtmlElement shownFrame= getHtmlPage().getHtmlElementById(frameId + "show"); 
-		String shownFrameStyle= shownFrame.getAttribute("style");
+		// tmr String shownFrameStyle= shownFrame.getAttribute("style");
 	
 		//according to frameActions.jsp
+		/* tmr
+		 ¿En migration?
 		assertTrue(closed? 
 				hiddenFrameStyle.contains("display: none") :
 					shownFrameStyle.contains("display: none"));
+		*/
+		// tmr ini
+		assertTrue(closed? 
+			!hiddenFrame.isDisplayed():
+			!shownFrame.isDisplayed());
+		// tmr fin
 	}
 	
 	private void assertFramePrefStatus(boolean closed) throws Exception {
