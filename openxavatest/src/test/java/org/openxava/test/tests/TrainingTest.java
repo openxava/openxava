@@ -32,7 +32,7 @@ public class TrainingTest extends ModuleTestBase {
 		String currentDate = new SimpleDateFormat("M/d/yyyy").format(new java.util.Date()); 
 		assertValueInCollection("sessions", 0, "date", "");  
 		setValueInCollection("sessions", 0, "description", "RUNNING IN THE STREET");
-		assertValueInCollection("sessions", 0, "date", currentDate); 
+		assertValueInCollection("sessions", 0, "date", currentDate); // tmr falla 
 		assertCollectionRowCount("sessions", 1);
 		assertValueInCollection("sessions", 1, "description", "");  
 		assertValueInCollection("sessions", 1, "kms", "");
@@ -131,7 +131,7 @@ public class TrainingTest extends ModuleTestBase {
 		setValue("description", "JUNIT TRAINING"); 
 		HtmlElement row = getHtmlPage().getHtmlElementById("ox_openxavatest_Training__sessions___0"); 
 		HtmlElement removeLink = row.getElementsByTagName("a").get(0);
-		assertTrue(!removeLink.isDisplayed());
+		assertTrue(!removeLink.isDisplayed()); // tmr falla
 		setValueInCollection("sessions", 0, "description", "ONE");
 		assertTrue(removeLink.isDisplayed()); 
 		setValueInCollection("sessions", 0, "kms", "11");

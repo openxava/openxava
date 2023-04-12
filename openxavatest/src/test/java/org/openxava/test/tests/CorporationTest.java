@@ -60,7 +60,7 @@ public class CorporationTest extends ModuleTestBase {
 	public void testIconEditor() throws Exception { 
 		getWebClient().getOptions().setCssEnabled(true);
 		execute("List.viewDetail", "row=0");
-		assertNoIconInEditor(); 
+		assertNoIconInEditor(); // tmr falla
 		execute("Icon.add", "newIconProperty=icon");
 		executeIconChoose("alarm-check"); 
 

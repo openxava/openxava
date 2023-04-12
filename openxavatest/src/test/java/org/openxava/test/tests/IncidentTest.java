@@ -31,7 +31,7 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		setValue("title", "THE JUNIT DISCUSSION");
 		setValue("description", "This is the big &ltjUnit&gt discussion"); 
 		
-		assertDiscussionCommentsCount("discussion", 0);
+		assertDiscussionCommentsCount("discussion", 0); // tmr falla
 		postDiscussionComment("discussion", "Hi, it's me");
 		String timeFirstPost = getCurrentTime();
 		assertDiscussionCommentsCount("discussion", 1); 

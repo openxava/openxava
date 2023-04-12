@@ -17,7 +17,7 @@ public class ServiceExpensesTest extends ModuleTestBase {
 		
 	public void testSeachKeysEnumsAndDescriptionsListInElementCollection() throws Exception { 
 		execute("CRUD.new");
-		assertLabelInCollection("expenses", 4, "Receptionist");
+		assertLabelInCollection("expenses", 4, "Receptionist"); // tmr falla
 		setValue("description", "JUNIT EXPENSES");
 		setValueInCollection("expenses", 0, "invoice.year", "2007");
 		assertValueInCollection("expenses", 0, "invoice.year", "2007"); 
@@ -104,7 +104,7 @@ public class ServiceExpensesTest extends ModuleTestBase {
 		setValueInCollection("expenses", 0, 0, "2016");
 		assertComboOpens(1, 2); 
 		setValueInCollection("expenses", 1, 0, "2016");
-		assertComboOpens(2, 7); 
+		assertComboOpens(2, 7); // tmr falla
 		
 		assertCollectionTotals();		
 		

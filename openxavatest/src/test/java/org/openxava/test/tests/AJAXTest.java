@@ -133,7 +133,7 @@ public class AJAXTest extends ModuleTestBase {
 		HtmlElement removeIcon = row.getElementsByTagName("a").get(0).getElementsByTagName("i").get(0); 
 		removeIcon.click();		
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		assertLoadedParts(
+		assertLoadedParts( // tmr falla
 			"collection_total_0_4_details.," +
 			"collection_total_2_4_details.," +
 			"collection_total_3_4_details.," +

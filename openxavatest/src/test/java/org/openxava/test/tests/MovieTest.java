@@ -134,7 +134,7 @@ public class MovieTest extends MovieBaseTest {
 		assertListRowCount(2);
 		assertValueInList(0, 0, "GATTACA");
 		assertValueInList(1, 0, "NOVECENTO");
-		assertTrue(isNotVisibleConditionValue(2));
+		assertTrue(isNotVisibleConditionValue(2)); // tmr falla
 		
 		setConditionComparators("=", "=", "=");
 		execute("List.filter");
@@ -169,7 +169,7 @@ public class MovieTest extends MovieBaseTest {
 		// execute("List.filter");
 		assertListRowCount(1);
 		assertValueInList(0, 0, "FORREST GUMP");
-		assertTrue(isNotVisibleConditionValue(2));		
+		assertTrue(isNotVisibleConditionValue(2)); // tmr falla		
 		
 		setConditionComparators("=", "=", "=");
 		execute("List.filter");

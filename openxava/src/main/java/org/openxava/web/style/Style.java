@@ -7,6 +7,7 @@ import org.openxava.util.*;
 
 /**
  * tmr ¿Los cambios aquí afectan migration o custom visual style doc?
+ * tmr ¿Quitar los demás? ¿Quitar Style por completo?
  * This class and its subclasses is used from JSP code to give
  * style to the web applications. <p>
  * 

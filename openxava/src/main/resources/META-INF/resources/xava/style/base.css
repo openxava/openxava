@@ -292,6 +292,7 @@ a {
 	color: var(--link-color); 
 	text-decoration: none;
 	outline: none; 
+	cursor: pointer; /* tmr */
 }
 
 a:hover {

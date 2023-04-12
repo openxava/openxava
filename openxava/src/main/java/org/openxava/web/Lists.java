@@ -1,7 +1,6 @@
 package org.openxava.web;
 
 /**
- * tmr Eliminar esta clase
  * Utilities used from JSP files for lists. 
  * 
  * @since 4.5.1

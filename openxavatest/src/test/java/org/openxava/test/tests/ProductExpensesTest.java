@@ -68,7 +68,7 @@ public class ProductExpensesTest extends ModuleTestBase {
 		
 		assertValueInCollection("expenses", 0, "carrier.number", ""); 
 		setValueInCollection("expenses", 0, "invoice.KEY", "[.1.2002.]");
-		assertValueInCollection("expenses", 0, "carrier.number", "3"); 
+		assertValueInCollection("expenses", 0, "carrier.number", "3"); // tmr falla
 		setValueInCollection("expenses", 0, "product.number", "4");
 		assertValidValuesInCollection("expenses", 0, "subfamily.number", noValidValues);
 		setValueInCollection("expenses", 0, "family.number", "1");
@@ -113,7 +113,7 @@ public class ProductExpensesTest extends ModuleTestBase {
 		handler.click();
 		HtmlElement combo = getHtmlPage().getHtmlElementById("ui-id-1");
 		((HtmlElement) combo.getFirstElementChild()).click();
-		assertCollectionRowCount("expenses", 1);
+		assertCollectionRowCount("expenses", 1); // tmr falla
 	}
 			
 }

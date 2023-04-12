@@ -45,7 +45,7 @@ public class AuthorTest extends CustomizeListTestBase {
 		assertListRowCount(2);
 		
 		HtmlSelect comparator = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__conditionComparator___0");
-		assertFalse(comparator.isDisplayed());
+		assertFalse(comparator.isDisplayed()); // tmr falla
 		HtmlInput value = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__conditionValue___0");
 		value.focus();
 		assertTrue(comparator.isDisplayed());

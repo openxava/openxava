@@ -17,7 +17,7 @@ public class ServiceExpenses2Test extends ModuleTestBase {
 	}
 	
 	public void testEnumsWithRequiedValueInElementCollection_defaultValueCalculatorWithNoFromInElementCollectionWhenSearchingReferenceWithDialog() throws Exception {		
-		assertEnumsWithRequiredValueInElementCollection();
+		assertEnumsWithRequiredValueInElementCollection(); // tmr falla
 		assertDefaultValueCalculatorWithNoFromInElementCollectionWhenSearchingReferenceWithDialog(); 
 	}
 

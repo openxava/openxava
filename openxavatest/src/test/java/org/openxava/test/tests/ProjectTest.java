@@ -98,7 +98,7 @@ public class ProjectTest extends ModuleTestBase {
 		
 		setValueInCollection("notes", 3, "note", "A");
 		setValueInCollection("notes", 4, "note", "B");
-		setValueInCollection("notes", 5, "note", "C"); 
+		setValueInCollection("notes", 5, "note", "C"); // tmr falla
 		
 	
 		assertCollectionRowCount("notes", 6);  

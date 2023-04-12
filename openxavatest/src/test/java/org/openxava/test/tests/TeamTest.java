@@ -28,7 +28,7 @@ public class TeamTest extends ModuleTestBase {
 
 		HtmlElement container = getHtmlPage().getHtmlElementById("ox_openxavatest_Team__sc-container-TeamMemberSub_detail"); 
 		HtmlElement menu = getHtmlPage().getHtmlElementById("ox_openxavatest_Team__sc-TeamMemberSub_detail"); 
-		assertTrue("display:none;".equals(menu.getAttribute("style")));
+		assertTrue("display:none;".equals(menu.getAttribute("style"))); // tmr falla
 		assertTrue(container.asNormalizedText().contains("View names"));
 		assertTrue(container.asNormalizedText().contains("View roles"));
 	}

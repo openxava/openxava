@@ -495,7 +495,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		HtmlElement openFamilyListIcon = familyEditor.getOneHtmlElementByAttribute("i", "class", "mdi mdi-menu-down");
 		HtmlElement closeFamilyListIcon = familyEditor.getOneHtmlElementByAttribute("i", "class", "mdi mdi-menu-up");
 		assertTrue(openFamilyListIcon.isDisplayed());
-		assertFalse(closeFamilyListIcon.isDisplayed());
+		assertFalse(closeFamilyListIcon.isDisplayed()); // tmr falla
 		openFamilyListIcon.click();
 		assertTrue(familyList.isDisplayed());
 		assertEquals(3, familyList.getChildElementCount());

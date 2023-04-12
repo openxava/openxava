@@ -42,7 +42,7 @@ public class ColorTest extends ModuleTestBase {
 
 		HtmlElement container = getHtmlPage().getHtmlElementById("ox_openxavatest_Color__sc-container-ColorSub_detail"); 
 		HtmlElement menu = getHtmlPage().getHtmlElementById("ox_openxavatest_Color__sc-ColorSub_detail"); 
-		assertTrue("display:none;".equals(menu.getAttribute("style")));
+		assertTrue("display:none;".equals(menu.getAttribute("style"))); // tmr falla
 		assertTrue(container.asNormalizedText().contains("My processes"));
 		assertTrue(container.asNormalizedText().contains("First action from subcontroller"));
 		assertTrue(container.asNormalizedText().contains("Second action"));

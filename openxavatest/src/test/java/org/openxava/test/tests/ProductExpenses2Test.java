@@ -24,7 +24,7 @@ public class ProductExpenses2Test extends ModuleTestBase {
 		assertValueInCollection("expenses", 0, "product.number", ""); 
 		setValueInCollection("expenses", 0, "carrier.number", "3");  
 		
-		assertValueInCollection("expenses", 0, "invoice.KEY", "[.1.2002.]");
+		assertValueInCollection("expenses", 0, "invoice.KEY", "[.1.2002.]"); // tmr falla
 		assertComboDescription("invoice__KEY__", "2002 1"); 
 		assertValueInCollection("expenses", 0, "product.number", "2");	
 		assertComboDescription("product___number", "IBM ESERVER ISERIES 270"); 

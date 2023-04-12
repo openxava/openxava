@@ -74,7 +74,7 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 	public void testTotalsAndAddActionInCollectionFrame() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		execute("List.sumColumn", "property=quantity,collection=details");
-		assertTotalsInFrameOfCollection("details", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 400.00    Total: 2,900.00    Sum of Quantity: 150", false);         
+		assertTotalsInFrameOfCollection("details", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 400.00    Total: 2,900.00    Sum of Quantity: 150", false); // tmr falla         
 		execute("List.removeColumnSum", "property=quantity,collection=details");
 		assertTotalsInFrameOfCollection("calculatedDetails", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 400.00    Total: 2,900.00", true);  
 		
