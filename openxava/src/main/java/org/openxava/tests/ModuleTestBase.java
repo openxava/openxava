@@ -2819,6 +2819,8 @@ abstract public class ModuleTestBase extends TestCase {
 		client.getOptions().setCssEnabled(true); 		
 		HtmlElement comments = getDiscussionCommentsElement(name);
 		assertEquals(expectedCount + 1, comments.getChildElementCount());
+		// TMR ME QUEDÉ POR AQUÍ: PROBANDO ESTE TEST
+		System.out.println("[ModuleTestBase.assertDiscussionCommentsCount] getLastElementChild=\n" + comments.getLastElementChild().asXml()); // tmr
 		assertFalse(comments.getLastElementChild().isDisplayed());
 	}
 
