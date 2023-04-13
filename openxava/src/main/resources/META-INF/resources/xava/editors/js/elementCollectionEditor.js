@@ -53,16 +53,17 @@ elementCollectionEditor.setDefaultValues = function(table, rowIndex) {
 	});
 }
 
-elementCollectionEditor.removeRow = function(application, module, element, rowIndex, hasTotals) { 
+elementCollectionEditor.removeRow = function(application, module, element, rowIndex, hasTotals) {
 	var currentRow = $(element).parent().parent().parent().parent();
 	var nextRow = currentRow.next();
 	currentRow.remove();
 	elementCollectionEditor.renumber(nextRow, rowIndex);
 	if (hasTotals) {
+		console.log("[elementCollectionEditor.removeRow] Calling ElementCollection.refreshTotals"); // tmr
 		openxava.executeAction(application, module, "", false, "ElementCollection.refreshTotals");
 	}	
 	openxava.initEditors();
-	openxava.initInlineEvents(); 
+	openxava.initInlineEvents();
 }
 
 elementCollectionEditor.renumber = function(row, rowIndex) { 
@@ -77,7 +78,8 @@ elementCollectionEditor.renumber = function(row, rowIndex) {
 		.replace(new RegExp("this, \\d+", "g"), "this, " + rowIndex)
 		.replace(new RegExp("keyProperty=(.*)\\.\\d+\\.", "g"), "keyProperty=$1." + rowIndex + ".");
 	row.html(rowHtml);
-	if ($(row).css("display") !== 'none') { // is:visible/hidden not work on mobile (removing one record removes all until end)
+	// tmr if ($(row).css("display") !== 'none') { // is:visible/hidden not work on mobile (removing one record removes all until end)
+	if (!$(row).hasClass("ox-display-none") && $(row).css("display") !== 'none') { // is:visible/hidden not work on mobile (removing one record removes all until end)
 		elementCollectionEditor.renumber(row.next(), rowIndex + 1);
 	}
 }

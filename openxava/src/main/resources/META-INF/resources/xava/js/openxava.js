@@ -216,7 +216,7 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 
 openxava.initFocusKey = function() { }
 
-openxava.initInlineEvents =  function() {  
+openxava.initInlineEvents =  function() {
 	$('[onclick]').each(function() {
   		$(this).off('click').click(function() {
   			eval($(this).attr('onclick'));
