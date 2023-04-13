@@ -36,7 +36,9 @@ comments.add(templateComment);
 
 for (DiscussionComment comment: comments) {
 		String hidden = comment.getId() == null?"ox-display-none":"";
-		String formattedTime = comment.getTime()==null?XavaResources.getString(request, "now"):DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locales.getCurrent()).format(comment.getTime());
+		// tmr String formattedTime = comment.getTime()==null?XavaResources.getString(request, "now"):DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locales.getCurrent()).format(comment.getTime());
+		// tmr Poner en changelog
+		String formattedTime = comment.getTime()==null?XavaResources.getString(request, "now"):org.openxava.util.Dates.getDateTimeFormat(Locales.getCurrent()).format(comment.getTime()); // tmr
 %>
 	<div class="ox-discussion-comment <%=hidden%>"> 
 		<div class="ox-discussion-comment-header"><span class="ox-discussion-comment-author"><%=comment.getUserName()%></span> - <%=formattedTime%></div>

@@ -1588,7 +1588,8 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	// Because HtmlElement.isDisplayed only works when CSS is active
-	private boolean isDisplayed(HtmlElement element) {
+	// tmr private boolean isDisplayed(HtmlElement element) {
+	private boolean isDisplayed(DomElement element) { // tmr
 		/* tmr
 		String style = element.getAttribute("style");
 		if (style == null) return true;
@@ -2816,12 +2817,11 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @since 5.6
 	 */	
 	protected void assertDiscussionCommentsCount(String name, int expectedCount) {
-		client.getOptions().setCssEnabled(true); 		
+		// tmr client.getOptions().setCssEnabled(true); 		
 		HtmlElement comments = getDiscussionCommentsElement(name);
 		assertEquals(expectedCount + 1, comments.getChildElementCount());
-		// TMR ME QUEDÉ POR AQUÍ: PROBANDO ESTE TEST
-		System.out.println("[ModuleTestBase.assertDiscussionCommentsCount] getLastElementChild=\n" + comments.getLastElementChild().asXml()); // tmr
-		assertFalse(comments.getLastElementChild().isDisplayed());
+		// tmr assertFalse(comments.getLastElementChild().isDisplayed());
+		assertFalse(isDisplayed(comments.getLastElementChild())); // tmr
 	}
 
 	/**
