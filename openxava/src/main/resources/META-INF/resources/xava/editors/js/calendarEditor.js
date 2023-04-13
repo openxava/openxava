@@ -23,7 +23,7 @@ calendarEditor.setEvents = function(calendarEvents) {
             start: e.start,
             end: e.end,
             "extendedProps": {
-                "row": e.row
+                "key": e.key
             }
         });
         listEvents = [];
@@ -60,7 +60,7 @@ var selectAction = $("#xava_calendar_action").val().split(",")[0];
         var initial = '2023-04-07';
 
         listEvents = [];
-        //Calendar.getEvents(application, module, "", calendarEditor.setEvents);
+        Calendar.getEvents(application, module, "", calendarEditor.setEvents);
 
 
         $("#xava_calendar").ready(function() {
@@ -70,9 +70,10 @@ var selectAction = $("#xava_calendar_action").val().split(",")[0];
                 initialView: 'dayGridMonth',
                 editable: true,
                 locale: navigator.language,
-                showNonCurrentDates: false,
+                //showNonCurrentDates: false,
                 displayEventTime: false,
-                events: JSON.parse(events),
+                //events: JSON.parse(events),
+                events: listEvents,
                 editable: true,
                 //initialDate: initial,
                 progressiveEventRendering: true,
@@ -96,10 +97,13 @@ var selectAction = $("#xava_calendar_action").val().split(",")[0];
                     next2: {
                         text: 'next',
                         click: function() {
-                            //alert('clicked custom button 1!');
-                            //openxava.executeAction(calendarRequestApplication, calendarRequestModule, false, false, 'Calendar.next', 'month=next');
+                            let currentViewDate = calendar.view.activeStart;
+                            let currentMonth = currentViewDate.getMonth();
                             calendar.next();
-                            //calendar._initialDate = "2023-05-01";
+                            let nextViewDate = calendar.view.activeStart;
+                            let nextMonth = nextViewDate.getMonth();
+                            let month = (currentMonth != nextMonth) ? nextMonth : "";
+                                                        Calendar.getEvents(application, module, month, calendarEditor.setEvents);
                         }
                     },
                     prev2: {
@@ -109,20 +113,22 @@ var selectAction = $("#xava_calendar_action").val().split(",")[0];
                             //agregar los nuevos eventos con calendar.add, al parecer es uno por uno
                             //elimino todos los eventos existentes en la memoria
 
-                            console.log("after remove");
-                            console.log(calendar.getEvents());
                             //debo cambiar ahora el mes para obtener el mes actual en la vista
-                            let currentViewDate = calendar.view.activeStart;
+                            let currentViewDate = calendar.view.currentStart;
                             let currentMonth = currentViewDate.getMonth();
+                            console.log(currentViewDate);
                             calendar.prev();
-                            let prevViewDate = calendar.view.activeStart;
+                            let prevViewDate = calendar.view.currentStart;
                             let prevMonth = prevViewDate.getMonth();
+                            console.log(prevViewDate);
                             let month = (currentMonth != prevMonth) ? prevMonth : "";
-                            //console.log(month);
+                            console.log(month);
                             //obtener los eventos del nuevo filtro en un array con dwr
                             //y agregarlos con calendar.add
+                            
+                            //se debe cambiar la logica y decidir si se traer eventos por mes unicamente o por cada view que hace
                             Calendar.getEvents(application, module, month, calendarEditor.setEvents);
-                            //setEvents = true;
+
 
                             console.log("new events");
                             console.log(calendar.getEvents());
@@ -135,8 +141,9 @@ var selectAction = $("#xava_calendar_action").val().split(",")[0];
                     }
                 },
                 eventClick: function(e) {
+                    console.log(e.event);
                     if (!getSelection().toString()) {
-                        openxava.executeAction(calendarRequestApplication, calendarRequestModule, false, false, calendarAction, 'row=' + parseInt(e.event.extendedProps.row));
+                        openxava.executeAction(application, module, false, false, selectAction, 'row=' + parseInt(e.event.extendedProps.key));
                     }
                 },
                 dateClick: function(e) {
@@ -156,7 +163,7 @@ var selectAction = $("#xava_calendar_action").val().split(",")[0];
                     };
                     console.log(JSON.stringify(value).replaceAll(",", "_"));
                     if (!getSelection().toString()) {
-                        openxava.executeAction(calendarRequestApplication, calendarRequestModule, false, false, calendarNewAction, 'value=' + JSON.stringify(value).replaceAll(",", "_"));
+                        openxava.executeAction(application, module, false, false, newAction, 'value=' + JSON.stringify(value).replaceAll(",", "_"));
                     }
                 }
             });

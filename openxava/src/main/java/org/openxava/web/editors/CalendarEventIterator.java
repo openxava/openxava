@@ -53,16 +53,11 @@ public class CalendarEventIterator {
 	List<String> conditionValues = new ArrayList<>();
 	List<String> conditionValuesTo = new ArrayList<>();
 	String[] conditionValuesTo2;
-	//DateFilter filter;
 	
 	boolean primera = false;
 
 	public CalendarEventIterator(Tab tab, View view, HttpServletRequest request, Messages errors) {
 		this.tab = tab;
-		DateFilter filter = new DateFilter();
-		filter = setFilterForMonth("");
-		tab.setFilter(filter);
-		tab.setBaseCondition("date between ? and ?");
 		this.table = tab.getTableModel();
 		this.view = view;
 		this.request = request;
@@ -72,21 +67,23 @@ public class CalendarEventIterator {
 
 	// Tomar todas las filas de este mes si no hay condiciones
 	public String getEvents() throws RemoteException {
+		System.out.println("getEvents 1");
 		List<CalendarEvent> calendarEvents = new ArrayList<>();
 		String month = "";
 		// primero traer con el filtro del mes actual
-		//DateFilter filter = new DateFilter();
-		//filter = setFilterForMonth(month);
-		//tab.setFilter(filter);
-		//tab.setBaseCondition("date between ? and ?");
+		DateFilter filter = new DateFilter();
+		System.out.println("getEvents 2");
+		filter = setFilterForMonth(month);
+		tab.setFilter(filter);
+		tab.setBaseCondition("date between ? and ?");
 		// System.out.println("getEvents 2");
 		// obtener tab y settear el tab con el filtro
 
-		//tab.setFilter(filter);
-		//tab.setBaseCondition("date between ? and ?");
+//		tab.setFilter(filter);
+//		tab.setBaseCondition("date between ? and ?");
 		//this.table = tab.getTableModel();
 		
-
+		
 		// obtener todos los eventos del tab
 		System.out.println("getEvents 3 tab size= " + tab.getTableModel().getTotalSize());
 		int tableSize = 0;
@@ -98,7 +95,7 @@ public class CalendarEventIterator {
 				event.setStart(obtainRowsDate(i));
 				event.setEnd(date2);
 				event.setTitle(obtainContent(i));
-				event.setRow(Integer.toString(i));
+				event.setKey(Integer.toString(i));
 				calendarEvents.add(event);
 			}
 		}
@@ -109,7 +106,7 @@ public class CalendarEventIterator {
 			jsonObject.put("title", event.getTitle());
 			jsonObject.put("start", event.getStart());
 			jsonObject.put("end", event.getEnd());
-			jsonObject.put("row", event.getRow());
+			jsonObject.put("row", event.getKey());
 			jsonArray.put(jsonObject);
 		}
 		//System.out.println(jsonArray.toString());

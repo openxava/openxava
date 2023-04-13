@@ -1,7 +1,5 @@
 package org.openxava.web.dwr;
 
-import java.util.*;
-
 import lombok.*;
 
 
@@ -17,16 +15,13 @@ public class CalendarEvent {
 	String start;
 	String end;
 	String title;
-	String row;
+	String key;
 	
 	String startLabel;
 	String endLabel;
-	
-	//no usado aun
-	Date startAsDate;
-	
+
     @Override
     public String toString() {
-        return "Event [start=" + start + ", end=" + end + ", row=" + row + "]";
+        return "Event [start=" + start + ", end=" + end + ", key=" + key + "]";
     }
 }

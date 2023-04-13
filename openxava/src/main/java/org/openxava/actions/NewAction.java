@@ -6,6 +6,7 @@ import java.text.*;
 import javax.json.*;
 
 import org.openxava.util.*;
+import org.openxava.web.dwr.*;
 import org.openxava.web.editors.*;
 
 /**
