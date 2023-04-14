@@ -1733,14 +1733,7 @@ abstract public class ModuleTestBase extends TestCase {
 	private void assertTotalInList(String tableId, String message, int row, int column, String total) throws Exception { 
 		HtmlTable table = getTable(tableId, message);
 		int rowInTable = table.getRowCount() - getTotalsRowCount(table) + row;
-		/*
-		System.out.println("[ModuleTestBase.assertTotalInList] table.getRowCount()=" + table.getRowCount()); // tmr
-		System.out.println("[ModuleTestBase.assertTotalInList] getTotalsRowCount(table)=" + getTotalsRowCount(table)); // tmr
-		System.out.println("[ModuleTestBase.assertTotalInList] "); // tmr
-		*/
 		column+=getColumnIncrement(table, column);
-		System.out.println("[ModuleTestBase.assertTotalInList] rowInTable=" + rowInTable); // tmr
-		System.out.println("[ModuleTestBase.assertTotalInList] column=" + column); // tmr
 		HtmlTableCell cell = table.getCellAt(rowInTable, column);
 		List<HtmlElement> inputs = cell.getElementsByAttribute("input", "type", "text");
 		String value = inputs.isEmpty()?cell.asNormalizedText().trim():inputs.get(0).getAttribute("value");
@@ -1749,7 +1742,7 @@ abstract public class ModuleTestBase extends TestCase {
 	
 	private int getColumnIncrement(HtmlTable table, int originalColumn) {
 		int increment = table.getCellAt(0, 1).asXml().contains("type=\"checkbox\"")
-				|| table.getCellAt(0, 0).asXml().contains("javascript:openxava.customizeList(")?2:1;		
+				|| table.getCellAt(0, 0).asXml().contains("javascript:openxava.customizeList(")?2:1;
 		if (isElementCollection(table)) {
 			int i=1;
 			HtmlTableCell cell = table.getCellAt(0, i++);
@@ -1762,8 +1755,8 @@ abstract public class ModuleTestBase extends TestCase {
 		int i=1;
 		HtmlTableCell cell = table.getCellAt(0, i);
 		while (cell != null && i < originalColumn + increment + 1) {			
-			if (!cell.isDisplayed()) increment++;			
-			//if (!isDisplayed(cell)) increment++; // tmr
+			// tmr if (!cell.isDisplayed()) increment++;			
+			if (!isDisplayed(cell)) increment++; // tmr
 			cell = table.getCellAt(0, ++i);
 		} 
 		return increment;
@@ -1772,7 +1765,12 @@ abstract public class ModuleTestBase extends TestCase {
 	private boolean isElementCollection(HtmlTable table) { 
 		HtmlElement container = (HtmlElement) table.getParentNode(); 
 		if (XavaPreferences.getInstance().isResizeColumns()) container = (HtmlElement) container.getParentNode();
-		return "ox-element-collection".equals(container.getAttribute("class"));
+		// tmr return "ox-element-collection".equals(container.getAttribute("class"));
+		// tmr ini
+		String containerClass = container.getAttribute("class");
+		if (containerClass == null) return false;
+		return containerClass.contains("ox-element-collection");
+		// tmr fin
 	}
 
 	private int getTotalsRowCount(HtmlTable table) { 

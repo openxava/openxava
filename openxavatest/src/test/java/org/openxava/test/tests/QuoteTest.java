@@ -42,8 +42,8 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		setValueInCollection("details", 0, "unitPrice", "100");
 		setValueInCollection("details", 0, "quantity", "2");
 		assertValueInCollection("details", 0, "amount", "200.00");  
-		
-		assertTotalInCollection("details", 0, "amount", "200.00"); // tmr falla ME QUEDÉ POR AQUÍ
+				
+		assertTotalInCollection("details", 0, "amount", "200.00");
 		assertTotalInCollection("details", 1, "amount",  "21.00"); 
 		assertTotalInCollection("details", 2, "amount",  "42.00");
 		assertTotalInCollection("details", 3, "amount", "242.00");
@@ -214,7 +214,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		setValueInCollection("details", 0, "quantity", "2");
 		assertValueInCollection("details", 0, "amount", "22.00"); 
 		
-		assertTotalInCollection("details", 0, "amount", "22.00"); // tmr falla
+		assertTotalInCollection("details", 0, "amount", "22.00"); 
 		assertTotalInCollection("details", 1, "amount", "21.00"); 
 		assertTotalInCollection("details", 2, "amount",  "4.62");
 		assertTotalInCollection("details", 3, "amount", "26.62");
@@ -267,7 +267,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertValue("year", "2014"); // This one ... 
 		assertValue("number", "1");  // ... has 3 details
 		
-		assertTotalInCollection("details", 0, "amount", "162.00"); // tmr falla
+		assertTotalInCollection("details", 0, "amount", "162.00"); 
 		assertTotalInCollection("details", 1, "amount",  "21.00"); 
 		assertTotalInCollection("details", 2, "amount",  "34.02");
 		assertTotalInCollection("details", 3, "amount", "196.02");
@@ -296,7 +296,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertNoErrors();
 		assertMessage("MULTAS DE TRAFICO, IBM ESERVER ISERIES 270, XAVA"); 
 		
-		assertTotalInCollection("details", 0, "amount", "162.00"); // tmr falla
+		assertTotalInCollection("details", 0, "amount", "162.00"); 
 		assertTotalInCollection("details", 1, "amount",  "21.00"); 
 		assertTotalInCollection("details", 2, "amount",  "34.02");
 		assertTotalInCollection("details", 3, "amount", "196.02");

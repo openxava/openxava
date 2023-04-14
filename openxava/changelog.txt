@@ -2,8 +2,7 @@ Change Log for OpenXava project
 ===============================
 
 Pendiente:
-- Arreglar fallos de la suite
-- Suite
+- Suite. TMR ME QUEDÉ PARA VOLVER A LANZAR LA SUITE, YA ARREGLÉ TODOS LOS FALLOS
 - Documentar migración ya no style de HTML. Avisar formateadores, servlets, etc.
 - Documentar migración ya no clase Style. 
 - Documentar migración response.setContentType("text/html") en servlets

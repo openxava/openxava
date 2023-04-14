@@ -16,7 +16,7 @@ public class ReallocationTest extends ModuleTestBase {
 	}	
 
 	public void testDefaultValueCalculatorForReferencesInElementCollections_booleansInElementCollections() throws Exception {
-		assertDefaultValueCalculatorForReferencesInElementCollections(); // tmr falla
+		assertDefaultValueCalculatorForReferencesInElementCollections(); 
 		assertBooleansInElementCollections();		
 	}
 
