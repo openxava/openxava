@@ -134,7 +134,7 @@ public class MovieTest extends MovieBaseTest {
 		assertListRowCount(2);
 		assertValueInList(0, 0, "GATTACA");
 		assertValueInList(1, 0, "NOVECENTO");
-		assertTrue(isNotVisibleConditionValue(2)); // tmr falla
+		assertTrue(isNotVisibleConditionValue(2)); 
 		
 		setConditionComparators("=", "=", "=");
 		execute("List.filter");
@@ -169,7 +169,7 @@ public class MovieTest extends MovieBaseTest {
 		// execute("List.filter");
 		assertListRowCount(1);
 		assertValueInList(0, 0, "FORREST GUMP");
-		assertTrue(isNotVisibleConditionValue(2)); // tmr falla		
+		assertTrue(isNotVisibleConditionValue(2));		
 		
 		setConditionComparators("=", "=", "=");
 		execute("List.filter");
@@ -216,7 +216,8 @@ public class MovieTest extends MovieBaseTest {
 		String idConditionValue = "ox_" + getXavaJUnitProperty("application") + 
 				                  "_Movie__conditionValue___" + index;
 		HtmlElement input = getHtmlPage().getHtmlElementById(idConditionValue); 
-		return input.getAttribute("style").contains("display: none");			
+		// tmr return input.getAttribute("style").contains("display: none");			
+		return input.getAttribute("class").contains("ox-display-none"); // tmr
 	}
 	
 }

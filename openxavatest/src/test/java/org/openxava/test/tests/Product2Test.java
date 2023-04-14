@@ -483,6 +483,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		createWarehouseWithQuote(); // To test a bug with quotes
 
 		getWebClient().getOptions().setCssEnabled(true);
+		reload(); // tmr
 		execute("CRUD.new");
 		
 		getHtmlPage().getHtmlElementById("ox_openxavatest_Product2__reference_editor_warehouse"); // Warehouse combo must be to test the "quotes" bug
@@ -495,7 +496,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		HtmlElement openFamilyListIcon = familyEditor.getOneHtmlElementByAttribute("i", "class", "mdi mdi-menu-down");
 		HtmlElement closeFamilyListIcon = familyEditor.getOneHtmlElementByAttribute("i", "class", "mdi mdi-menu-up");
 		assertTrue(openFamilyListIcon.isDisplayed());
-		assertFalse(closeFamilyListIcon.isDisplayed()); // tmr falla
+		assertFalse(closeFamilyListIcon.isDisplayed()); 
 		openFamilyListIcon.click();
 		assertTrue(familyList.isDisplayed());
 		assertEquals(3, familyList.getChildElementCount());

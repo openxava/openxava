@@ -64,7 +64,7 @@ public class HunterTest extends ModuleTestBase {
 		setConditionComparators("hounds", new String [] {"empty_comparator"});		
 		// execute("List.filter", "collection=hounds");
 		assertCollectionRowCount("hounds", 0); 
-		assertTrue(isNotVisibleConditionValue(0)); // tmr falla
+		assertTrue(isNotVisibleConditionValue(0)); 
 		
 		// Filter Date
 		setConditionComparators("hounds", new String [] {"=", "=", "empty_comparator"});
@@ -84,7 +84,7 @@ public class HunterTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		execute("Collection.add", "viewObject=xava_view_section0_hounds"); 
 		execute("AddToCollection.add", "row=1");
-		assertCollectionRowCount("hounds", 2); // tmr falla
+		assertCollectionRowCount("hounds", 2); 
 		
 		assertFalse(isNotVisibleConditionValue(0));
 		assertFalse(isNotVisibleConditionValue(2));
@@ -113,7 +113,7 @@ public class HunterTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		execute("Collection.add", "viewObject=xava_view_section0_hounds");
 		execute("AddToCollection.add", "row=2");
-		assertErrorsCount(2); // If it fails maybe we have to adjust the bird date of OTTERHOUND // tmr falla
+		assertErrorsCount(2); // If it fails maybe we have to adjust the bird date of OTTERHOUND 
 		assertError("Untrained OTTERHOUND, less than 2 years old");
 		execute("AddToCollection.cancel");
 		assertCollectionRowCount("hounds", 1);
@@ -124,6 +124,7 @@ public class HunterTest extends ModuleTestBase {
 				"ox_" + getXavaJUnitProperty("application") + 
 				"_Hunter__xava_collectionTab_hounds_conditionValue___" + index;
 		HtmlElement input = getHtmlPage().getHtmlElementById(idConditionValue); 
-		return input.getAttribute("style").contains("display: none");			
+		// tmr return input.getAttribute("style").contains("display: none");			
+		return input.getAttribute("class").contains("ox-display-none"); // tmr
 	}
 }

@@ -16,7 +16,8 @@ public class ProductExpenses2Test extends ModuleTestBase {
 	}
 		
 	public void testDescriptionsListWithDefaultValueInElementCollection_descriptionsListAfterRemovingRowInElementCollection() throws Exception {  
-		getWebClient().getOptions().setCssEnabled(true); 
+		getWebClient().getOptions().setCssEnabled(true);
+		reload(); // tmr
 		execute("CRUD.new");
 		setValue("description", "JUNIT EXPENSES");
 		
@@ -24,7 +25,7 @@ public class ProductExpenses2Test extends ModuleTestBase {
 		assertValueInCollection("expenses", 0, "product.number", ""); 
 		setValueInCollection("expenses", 0, "carrier.number", "3");  
 		
-		assertValueInCollection("expenses", 0, "invoice.KEY", "[.1.2002.]"); // tmr falla
+		assertValueInCollection("expenses", 0, "invoice.KEY", "[.1.2002.]"); 
 		assertComboDescription("invoice__KEY__", "2002 1"); 
 		assertValueInCollection("expenses", 0, "product.number", "2");	
 		assertComboDescription("product___number", "IBM ESERVER ISERIES 270"); 

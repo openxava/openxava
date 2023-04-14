@@ -43,7 +43,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		setValueInCollection("details", 0, "quantity", "2");
 		assertValueInCollection("details", 0, "amount", "200.00");  
 		
-		assertTotalInCollection("details", 0, "amount", "200.00"); // tmr falla
+		assertTotalInCollection("details", 0, "amount", "200.00"); // tmr falla ME QUEDÉ POR AQUÍ
 		assertTotalInCollection("details", 1, "amount",  "21.00"); 
 		assertTotalInCollection("details", 2, "amount",  "42.00");
 		assertTotalInCollection("details", 3, "amount", "242.00");

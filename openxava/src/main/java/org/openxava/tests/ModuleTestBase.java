@@ -1582,7 +1582,7 @@ abstract public class ModuleTestBase extends TestCase {
 			if (!Is.emptyString(row.getId()) && !row.getId().equals("nodata") && !row.getId().contains("_list_filter_")) {
 				if (isDisplayed(row)) count++;
 				else count--; // In this way we discount the empty row in element collection just above the hidden one
-			}
+			}			
 		}
 		return count;
 	}
@@ -1595,7 +1595,7 @@ abstract public class ModuleTestBase extends TestCase {
 		if (style == null) return true;
 		return !(style.contains("display: none") || style.contains("display:none")); // Enough for our cases
 		*/
-		// tmr ini
+		// tmr ini		
 		String cssClass = element.getAttribute("class");
 		if (cssClass != null && cssClass.contains("ox-display-none")) return false;
 		
@@ -1733,7 +1733,14 @@ abstract public class ModuleTestBase extends TestCase {
 	private void assertTotalInList(String tableId, String message, int row, int column, String total) throws Exception { 
 		HtmlTable table = getTable(tableId, message);
 		int rowInTable = table.getRowCount() - getTotalsRowCount(table) + row;
+		/*
+		System.out.println("[ModuleTestBase.assertTotalInList] table.getRowCount()=" + table.getRowCount()); // tmr
+		System.out.println("[ModuleTestBase.assertTotalInList] getTotalsRowCount(table)=" + getTotalsRowCount(table)); // tmr
+		System.out.println("[ModuleTestBase.assertTotalInList] "); // tmr
+		*/
 		column+=getColumnIncrement(table, column);
+		System.out.println("[ModuleTestBase.assertTotalInList] rowInTable=" + rowInTable); // tmr
+		System.out.println("[ModuleTestBase.assertTotalInList] column=" + column); // tmr
 		HtmlTableCell cell = table.getCellAt(rowInTable, column);
 		List<HtmlElement> inputs = cell.getElementsByAttribute("input", "type", "text");
 		String value = inputs.isEmpty()?cell.asNormalizedText().trim():inputs.get(0).getAttribute("value");
@@ -1756,6 +1763,7 @@ abstract public class ModuleTestBase extends TestCase {
 		HtmlTableCell cell = table.getCellAt(0, i);
 		while (cell != null && i < originalColumn + increment + 1) {			
 			if (!cell.isDisplayed()) increment++;			
+			//if (!isDisplayed(cell)) increment++; // tmr
 			cell = table.getCellAt(0, ++i);
 		} 
 		return increment;
