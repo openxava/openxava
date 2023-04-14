@@ -6,7 +6,6 @@ import javax.inject.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.tab.*;
-import org.openxava.tab.impl.*;
 import org.openxava.util.*;
 
 /**
@@ -28,6 +27,8 @@ public class ViewDetailAction extends TabBaseAction implements IChainAction, IMo
 	@Inject
 	private Tab mainTab;
 	
+	private String calendarKey;
+	
 	private Map nextKey = null;	// si viene de deleteAction el contenido de selectedKeys varia y no podemos saber desde dónde estabamos partiendo
 	private boolean deleteAllSelected = false;
 	
@@ -44,7 +45,11 @@ public class ViewDetailAction extends TabBaseAction implements IChainAction, IMo
 		int previous = -1;
 		
 		Map [] selectedOnes = getTab().getSelectedKeys();
-		
+		if (calendarKey != null) {
+			key.clear();
+			key.put(calendarKey.split("-")[0], calendarKey.split("-")[1]);
+			getView().setValues(key);
+		} else {
 		if (!Is.empty(nextKey)) key = nextKey;
 		else if (isDeleteAllSelected()) key = null;
 		else if (!explicitRow && selectedOnes != null && selectedOnes.length > 0){	// hay seleccionados y no hay fila específica
@@ -88,9 +93,13 @@ public class ViewDetailAction extends TabBaseAction implements IChainAction, IMo
 			// row = previous;
 			if (previous >= 0) row = previous;
 		}		
-		if (key != null) {		
-			getView().setValues(key);									
+		if (key != null) {	
+			getView().setValues(key);
 		}	
+		
+		
+			
+		}
 	}
 	
 	public int getRow() {
@@ -175,5 +184,13 @@ public class ViewDetailAction extends TabBaseAction implements IChainAction, IMo
 	public void setDeleteAllSelected(boolean deleteAllSelected) {
 		this.deleteAllSelected = deleteAllSelected;
 	}	
+	
+    public String getCalendarKey() {
+        return calendarKey;
+    }
+
+    public void setCalendarKey(String calendarKey) {
+        this.calendarKey = calendarKey;
+    }
 
 }

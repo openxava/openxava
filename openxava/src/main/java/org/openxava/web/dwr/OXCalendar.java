@@ -35,81 +35,42 @@ public class OXCalendar extends DWRBase {
 	private String date2;
 	int titleFirstIdx = -1;
 	private BooleanFormatter booleanFormatter;
-	private static Messages errors;
-	private static View view;
+	//private static Messages errors;
+	//private static View view;
+	private Messages errors;
+	private View view;
 	private CalendarEvent event;
 	private CalendarEventIterator ci;
-
+	private List<String> keysList;
+	
 	int keysListSize = 0;
 	int datesListSize = 0;
 	int properties1ListSize = 0;
 	int properties2ListSize = 0;
 
-	public static void setOX(View view, Messages errors) {
-		OXCalendar.view = view;
-		OXCalendar.errors = errors;
-	}
-
 	// List<CalendarEvent>
 	public String getEvents(HttpServletRequest request, HttpServletResponse response, String application, String module,
 			String month) throws RemoteException {
-		long ini = System.currentTimeMillis();
 		System.out.println("dwr");
 		this.application = application;
 		this.module = module;
 		this.response = response;
-
-//		System.out.println(request);
-//		System.out.println(application);
-//		System.out.println(module);
-		// initRequest(request, response, application, module);
+		this.view = getView(request, application, module);
+		errors = new Messages();
 
 		List<CalendarEvent> calendarEvents = new ArrayList<>();
 
-		System.out.println("getEvents 1 mes = " + month);
+		String tabObject = "xava_tab";
+		tab2 = getTab(request, application, module, tabObject);
+		tab = tab2.clone();
+		// obtener el filtro del mes actual o del mes recibido
+		DateFilter filter = new DateFilter();
+		filter = setFilterForMonth(month);
+		tab.setFilter(filter);
+		tab.setBaseCondition("date between ? and ?");
+		tab = setProperties(tab);
 
-		try {
-			// System.out.println("entra try");
-			// se debe hacer un clon del tab para trabajar sobre ella
-			// de lo contrario, el tab siempre se filtrara sobre el mismo, es decir, se
-			// aplicara
-			// un filtro sobre otro filtro y no sobre la tabla completa
-			String tabObject = "xava_tab";
-			// long ini = System.currentTimeMillis();
-			tab2 = getTab(request, application, module, tabObject);
-			// System.out.println("getEvents 3 tab cuesta= " + cuesta);
-			tab = tab2.clone();
-			// System.out.println("getEvents 2 cl count" +
-			// tab.getTableModel().getColumnCount());
-			tab.clearProperties();
-			tab.addProperty("id");
-
-			// sin clonar
-//			String tabObject = "xava_tab";
-//			tab = getTab(request, application, module, tabObject);
-//			tab.reset();
-			// esto esta haciendo la consulta jpa
-			// System.out.println("getEvents after reset" +
-			// tab.getTableModel().getTotalSize());
-			// tab.clearCondition();
-
-			// obtener el filtro del mes actual o del mes recibido
-			DateFilter filter = new DateFilter();
-			filter = setFilterForMonth(month);
-			// settear el filtro con basecondition al clon de la tabla
-			tab.setFilter(filter);
-			tab.setBaseCondition("date between ? and ?");
-			// tab.filter();
-
-			tab = setProperties(tab);
-
-			// System.out.println("getEvents 2 cl count" +
-			// tab.getTableModel().getColumnCount());
-			this.table = tab.getTableModel();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("ha fallado");
-		}
+		this.table = tab.getTableModel();
 
 		// obtener todos los eventos del tab clonado
 		// como ya se como es la tabla ahora, uso los size para determinar que columna
@@ -117,17 +78,13 @@ public class OXCalendar extends DWRBase {
 
 		int tableSize = 0;
 		tableSize = tab.getTableModel().getTotalSize();
-
 		System.out.println("getEvents 3 tab size= " + tableSize);
-		System.out.println("getEvents 3 tab size= " + tab.getPropertiesNamesAsString());
-		System.out.println("getEvents 3 tab size= " + tab.getMetaTab().getPropertiesNames());
-		// System.out.println("getEvents 4");
 		if (tableSize > 0) {
 			for (int i = 0; i < tableSize; i++) {
 				System.out.println("for " + i);
 				event = new CalendarEvent();
 				List<String> k = obtainRowsKey(i);
-				event.key = k.get(0);
+				event.key = keysList.get(0) + "-" + k.get(0);
 				List<String> d = obtainRowsDate(i);
 				// suponiendo que hay una propiedad fecha al menos
 				event.start = d.get(0);
@@ -136,20 +93,16 @@ public class OXCalendar extends DWRBase {
 				calendarEvents.add(event);
 			}
 		}
-		// System.out.println("getEvents 5");
 		JSONArray jsonArray = new JSONArray();
 		for (CalendarEvent event : calendarEvents) {
 			JSONObject jsonObject = new JSONObject();
 			jsonObject.put("title", event.getTitle());
 			jsonObject.put("start", event.getStart());
 			jsonObject.put("end", event.getEnd());
-			// cambiar row por key despues
 			jsonObject.put("key", event.getKey());
 			jsonArray.put(jsonObject);
 		}
 		System.out.println(jsonArray.toString());
-		long cuesta = System.currentTimeMillis() - ini;
-		System.out.println("getEvents tarda " + cuesta);
 		return jsonArray.toString();
 	}
 
@@ -161,17 +114,12 @@ public class OXCalendar extends DWRBase {
 			Date lastDayOfMonth = getLastDayOfMonth("");
 			df.setStart(firstDayOfMonth);
 			df.setEnd(lastDayOfMonth);
-			System.out.println("primer return");
 			return df;
 		} else {
-			// System.out.println("View month: " + month);
 			Date firstDayOfMonth = getFirstDayOfMonth(month);
 			Date lastDayOfMonth = getLastDayOfMonth(month);
 			df.setStart(firstDayOfMonth);
 			df.setEnd(lastDayOfMonth);
-			// System.out.println("View month: " + firstDayOfMonth + "..." +
-			// lastDayOfMonth);
-			System.out.println("segundo return");
 			return df;
 		}
 	}
@@ -186,9 +134,7 @@ public class OXCalendar extends DWRBase {
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
 
-		// obtener hasta 6 dias antes del mes indicado
-		// calendar.add(Calendar.DAY_OF_MONTH, -6);
-
+		calendar.add(Calendar.DAY_OF_MONTH, -6);
 		return calendar.getTime();
 	}
 
@@ -202,31 +148,28 @@ public class OXCalendar extends DWRBase {
 		calendar.set(Calendar.SECOND, 59);
 		calendar.set(Calendar.MILLISECOND, 999);
 
-		// obtener hasta 6 dias despues del mes indicado, para vistas semanales
-		// calendar.add(Calendar.MONTH, 1);
-		// calendar.add(Calendar.DAY_OF_MONTH, 5);
+		calendar.add(Calendar.MONTH, 1);
+		calendar.add(Calendar.DAY_OF_MONTH, 5);
 		return calendar.getTime();
 	}
 
 	private static Tab getTab(HttpServletRequest request, String application, String module, String tabOject) {
-		// Tab tab = new Tab();
-		Tab tab = (org.openxava.tab.Tab) getContext(request).get(application, module, tabOject);
+		Tab tab = (Tab) getContext(request).get(application, module, tabOject);
 		request.setAttribute("xava.application", application);
 		request.setAttribute("xava.module", module);
 		tab.setRequest(request);
 		return tab;
 	}
+	
+	protected org.openxava.view.View getView(HttpServletRequest request, String application, String module) { 
+		View view = (View) getContext(request).get(application, module, "xava_view"); 
+		request.setAttribute("xava.application", application);
+		request.setAttribute("xava.module", module);
+		view.setRequest(request);
+		return view;
+	}
 
-	/*
-	 * //setear tab con el filtro private void setTabWithFilter(Tab tab, DateFilter
-	 * filter) { tab.setFilter(filter); }
-	 */
-
-	// obtener la fecha para start
-	// nunca deberia ser nulo ya que en el editor preguntamos si tiene un elemento
-	// que sea date, pero preguntamos igual
-	// doble verificacion para que ese nombre "fecha, date" no sea de otro tipo de
-	// elemento
+	// obtener la fecha de la fila
 	private List<String> obtainRowsDate(int row) {
 		List<String> result = new ArrayList<>();
 		int i = keysListSize;
@@ -236,49 +179,12 @@ public class OXCalendar extends DWRBase {
 		Object value2 = table.getValueAt(row, i + 1);
 		// si la primera propiedad con nombre date o fecha es otra cosa, entonces
 		// saltearlo
-		if (verifyValue(value))
-			result.add(value.toString());
-		// result.add(verifyValue(value) ? value.toString() : "");
-
-		// si tengo 2 fechas, en caso que no haya, result 1 ya es null
+		if (verifyValue(value)) result.add(value.toString());
+		// si tengo 2 fechas, validar tambien
 		if (datesListSize == 2) {
-			if (verifyValue(value2))
-				result.add(value2.toString());
-			// result.add(verifyValue(value2) ? value2.toString() : "");
+			if (verifyValue(value2)) result.add(value2.toString());
 		}
 		return result;
-	}
-
-	private boolean verifyValue(Object value) {
-		boolean b = true;
-		if (!(value instanceof BigDecimal) && Is.empty(value))
-			b = false;
-		if (value instanceof byte[])
-			b = false;
-		return b;
-	}
-
-	private int indexForAny(int ordinal, String... properties) {
-		int timesFound = 0;
-		// System.out.println(Arrays.toString(properties));
-		for (String propertyName : properties) {
-			// System.out.println("pn " + propertyName);
-			int idx = 0;
-			for (MetaProperty metaProperty : tab.getMetaProperties()) {
-				// System.out.println("tn " + metaProperty.getQualifiedName());
-				if (metaProperty.getQualifiedName().contains(propertyName)) {
-
-					// siempre tira java.util.Date
-					// System.out.println("contiene");
-					if (++timesFound == ordinal) {
-						// System.out.println("equal");
-						return idx;
-					}
-				}
-				idx++;
-			}
-		}
-		return -1;
 	}
 
 	// obtengo los datos de la fila pero antes aniadir lo que esta primero
@@ -289,7 +195,6 @@ public class OXCalendar extends DWRBase {
 		int j = properties2ListSize;
 		int jColumn = keysListSize + datesListSize + properties1ListSize;
 		Object value;
-		Object value2;
 		for (int k = 0; k < i; k++) {
 			value = table.getValueAt(row, iColumn);
 			if (verifyValue(value)) {
@@ -329,43 +234,23 @@ public class OXCalendar extends DWRBase {
 		}
 		return result;
 	}
-
-	// obtener lo que tenga que estar primero, sino uso el primero por defecto
-	private String obtainFirstContentForTitle(int row) {
-		String result = "";
-		int idx = 0;
-		// este if se usa si se busca mas de una propiedad
-		// de fabrica es -1
-		if (titleFirstIdx < 0) {
-			titleFirstIdx = indexForAny(1, "name", "nombre", "title", "titulo", "description", "descripcion", "number",
-					"numero", "id");
-			// si no encuentra ninguna propiedad anterior, agarra el primero
-			// no se esta contemplando la tabla vacia aun
-			idx = (titleFirstIdx < 0 && !tab.getMetaProperties().isEmpty()) ? 0 : titleFirstIdx;
-		}
-		// int idx = titleFirstIdx;
-		// if (idx >= 0) {
-		Object value = table.getValueAt(row, idx);
+	
+	private boolean verifyValue(Object value) {
+		boolean b = true;
 		if (!(value instanceof BigDecimal) && Is.empty(value))
-			return result;
+			b = false;
 		if (value instanceof byte[])
-			return result;
-		result = tab.getMetaProperty(idx).getLabel() + ": " + format(idx, value);
-		// }
-		// System.out.println(t);
-		return result;
+			b = false;
+		return b;
 	}
 
 	private String format(int column, Object value) {
 		MetaProperty p = tab.getMetaProperty(column);
 		if (p.hasValidValues()) {
-			// System.out.println("primer return");
 			return p.getValidValueLabel(value);
 		} else if (p.getType().equals(boolean.class) || p.getType().equals(Boolean.class)) {
-			// System.out.println("segundo return");
 			return getBooleanFormatter().format(null, value);
 		} else {
-			// System.out.println("tercer return");
 			return WebEditors.format(request, p, value, errors, view.getViewName(), true);
 		}
 	}
@@ -392,38 +277,44 @@ public class OXCalendar extends DWRBase {
 				"number", "numero");
 		String[] datesName = { "date", "fecha" };
 
-		List<String> keysList = new ArrayList<>(mm.getAllKeyPropertiesNames());
+		keysList = new ArrayList<>(mm.getAllKeyPropertiesNames());
 		List<String> datesList = new ArrayList<>();
 		List<String> properties1List = new ArrayList<>();
 		List<String> properties2List = new ArrayList<>();
 
 		int mpCount = 0;
 		int properties1ListCount = 0;
-		int properties2ListCount2 = 0;
+		int maxLimit = 6;
 
 		newTabColumn.addAll(keysList);
 
 		// lista de propiedades no calculadas y fecha
 		List<MetaProperty> mp = tab.getMetaPropertiesNotCalculated();
-
+		System.out.println(tab.getMetaPropertiesNotCalculated());
 		for (MetaProperty metaProperty : mp) {
+			System.out.println(metaProperty.getQualifiedName());
+			// 2 columnas de fecha
 			for (String name : datesName) {
 				if (mpCount < 2 && metaProperty.getQualifiedName().contains(name)) {
+					System.out.println("is date");
 					// or metaProperty.getTypeName().contains(name)
 					datesList.add(metaProperty.getQualifiedName());
 					mpCount++;
 				}
 			}
-			// por defecto estamos usando solo 1 propiedad
-			if (properties1ListCount < 1 && expectedNames.contains(metaProperty.getQualifiedName())) {
+			//columna para propiedades esperadas, usar maxLimit para no traer de mas
+			if (properties1ListCount < maxLimit && expectedNames.contains(metaProperty.getQualifiedName())) {
+				System.out.println("is expected");
 				properties1List.add(metaProperty.getQualifiedName());
 				properties1ListCount++;
 			}
-			// no hago contador, sino que agrego todos, luego decido sumarlo al tab o no
-			// dependiendo si properties1List encontro algo pero sigue siendo menor que
-			// properties1ListCount
-			if (!datesList.contains(metaProperty.getQualifiedName())
-					&& !keysList.contains(metaProperty.getQualifiedName())) {
+			//columna para las otras propiedades, segun orden, en caso de haber llegado a max no agregar
+			//debo usar otra lista ya que el for va uno por uno
+			if (properties1ListCount < maxLimit && 
+					!datesList.contains(metaProperty.getQualifiedName()) && 
+					!keysList.contains(metaProperty.getQualifiedName()) &&
+					!properties1List.contains(metaProperty.getQualifiedName())) {
+				System.out.println("isnt expected but added");
 				properties2List.add(metaProperty.getQualifiedName());
 			}
 
@@ -432,7 +323,7 @@ public class OXCalendar extends DWRBase {
 		newTabColumn.addAll(datesList);
 		newTabColumn.addAll(properties1List);
 		// en caso que no encontro nada, agregar hasta la cantidad necesaria
-		if (properties1ListCount < 1) {
+		if (properties1ListCount < maxLimit) {
 			for (int i = 0; i < properties1ListCount; i++) {
 				newTabColumn.add(properties2List.get(i));
 			}
@@ -446,11 +337,10 @@ public class OXCalendar extends DWRBase {
 		datesListSize = datesList.size();
 		properties1ListSize = properties1List.size();
 		properties2ListSize = properties2List.size();
-		System.out.println(keysListSize + " " + datesListSize + " " + properties1ListSize + " " + properties2ListSize);
-
+		
 		tab.clearProperties();
 		tab.addProperties(newTabColumn);
-		System.out.println(Arrays.toString(newTabColumn.toArray()));
+		System.out.println(tab.getPropertiesNamesAsString());
 		return tab;
 	}
 

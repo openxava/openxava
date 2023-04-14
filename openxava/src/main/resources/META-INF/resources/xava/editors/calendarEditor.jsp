@@ -28,8 +28,9 @@ if (contextPath == null) contextPath = request.getContextPath();
 String version = org.openxava.controller.ModuleManager.getVersion();
 String action = request.getParameter("rowAction");
 action=action==null?manager.getEnvironment().getValue("XAVA_LIST_ACTION"):action;
-
-OXCalendar.setOX(view,errors);
+String dateFormat = Dates.dateFormatForJSCalendar();
+   
+//OXCalendar.setOX(view,errors);
 
 String actionNew = "";
 for (MetaAction ma: manager.getMetaActions()) {
@@ -39,7 +40,7 @@ for (MetaAction ma: manager.getMetaActions()) {
    }
 }
 
-String dateFormat = Dates.dateFormatForJSCalendar();
+
 
 if (dateFormat != null) {
     dateFormat = dateFormat.replace("n", "M")

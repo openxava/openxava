@@ -7,7 +7,6 @@ import javax.json.*;
 
 import org.openxava.util.*;
 import org.openxava.web.dwr.*;
-import org.openxava.web.editors.*;
 
 /**
  * @author Javier Paniza

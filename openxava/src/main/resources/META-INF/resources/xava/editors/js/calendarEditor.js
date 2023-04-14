@@ -78,7 +78,7 @@ var selectAction = $("#xava_calendar_action").val().split(",")[0];
                 //initialDate: initial,
                 progressiveEventRendering: true,
                 headerToolbar: {
-                    left: 'prev2,today,next2',
+                    left: 'prev,today,next',
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
@@ -94,56 +94,42 @@ var selectAction = $("#xava_calendar_action").val().split(",")[0];
                     }
                 },
                 customButtons: {
-                    next2: {
-                        text: 'next',
+                    next: {
                         click: function() {
-                            let currentViewDate = calendar.view.activeStart;
+                            let currentViewDate = calendar.view.currentStart;
                             let currentMonth = currentViewDate.getMonth();
                             calendar.next();
-                            let nextViewDate = calendar.view.activeStart;
+                            let nextViewDate = calendar.view.currentStart;
                             let nextMonth = nextViewDate.getMonth();
                             let month = (currentMonth != nextMonth) ? nextMonth : "";
                                                         Calendar.getEvents(application, module, month, calendarEditor.setEvents);
                         }
                     },
-                    prev2: {
-                        text: 'prev',
+                    prev: {
                         click: function() {
-                            //hacer una consulta y obtener un json como respuesta
-                            //agregar los nuevos eventos con calendar.add, al parecer es uno por uno
-                            //elimino todos los eventos existentes en la memoria
-
-                            //debo cambiar ahora el mes para obtener el mes actual en la vista
                             let currentViewDate = calendar.view.currentStart;
                             let currentMonth = currentViewDate.getMonth();
-                            console.log(currentViewDate);
                             calendar.prev();
                             let prevViewDate = calendar.view.currentStart;
                             let prevMonth = prevViewDate.getMonth();
-                            console.log(prevViewDate);
                             let month = (currentMonth != prevMonth) ? prevMonth : "";
-                            console.log(month);
-                            //obtener los eventos del nuevo filtro en un array con dwr
-                            //y agregarlos con calendar.add
-                            
-                            //se debe cambiar la logica y decidir si se traer eventos por mes unicamente o por cada view que hace
                             Calendar.getEvents(application, module, month, calendarEditor.setEvents);
-
-
-                            console.log("new events");
-                            console.log(calendar.getEvents());
-
-
-                            //testear si se necesita
-                            //calendar.refetchEvents();
-
+                        }
+                    },
+                    today: {
+                        click: function(){
+                            let currentDate = new Date();
+                            let currentMonth = currentDate.getMonth();
+                            calendar.today();
+                            Calendar.getEvents(application, module, currentMonth, calendarEditor.setEvents);
+                            
                         }
                     }
                 },
                 eventClick: function(e) {
                     console.log(e.event);
                     if (!getSelection().toString()) {
-                        openxava.executeAction(application, module, false, false, selectAction, 'row=' + parseInt(e.event.extendedProps.key));
+                        openxava.executeAction(application, module, false, false, selectAction, 'calendarKey=' + e.event.extendedProps.key);
                     }
                 },
                 dateClick: function(e) {
