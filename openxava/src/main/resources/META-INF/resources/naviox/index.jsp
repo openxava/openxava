@@ -1,3 +1,4 @@
+<%@page import="com.openxava.naviox.util.NaviOXPreferences"%>
 <%Servlets.setCharacterEncoding(request, response);%>
 
 <%--
@@ -80,7 +81,7 @@ manager.setModuleName(module); // In order to show the correct description in he
 				 <jsp:include page="moduleHeader.jsp"/>
 			</div>
 			<% if ("SignIn".equals(module)) {  %>
-			<jsp:include page='signIn.jsp'/>
+			<jsp:include page='<%=NaviOXPreferences.getInstance().getSignInJSP()%>'/>
 			<% } else { %>
 			<div id="module"> 	
 				<jsp:include page='<%="../xava/module.jsp?application=" + app + "&module=" + module + "&htmlHead=false"%>'/>
