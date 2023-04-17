@@ -264,6 +264,6 @@ public class NaviOXPreferences {
 
 	/** @since 7.1 */
 	public String getSignInJSP() {
-		return getProperties().getProperty("signInJSP", "SingIn.jsp").trim();
+		return getProperties().getProperty("signInJSP", "signIn.jsp").trim();
 	}
 }
