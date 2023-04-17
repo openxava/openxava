@@ -4,15 +4,10 @@ var calendarEl;
 var calendar;
 var listEvents;
 var setEvents = true;
-
+var startName;
 
 calendarEditor.setEvents = function(calendarEvents) {
-    console.log("entra");
-    //console.log(calendarEvents);
-    // sacar el if cuando tab funcione bien
     var events = calendar.getEvents();
-    console.log("old events");
-    console.log(events);
     events.forEach(function(event) {
         event.remove();
     });
@@ -27,24 +22,19 @@ calendarEditor.setEvents = function(calendarEvents) {
             }
         });
         listEvents = [];
+        startName = e.startName;
     }
 }
 
-
 openxava.addEditorInitFunction(function() {
-    
-    
-
     if ($("#xava_calendar").length) {
+        var application = $('#xava_calendar_application').val();
+        var module = $('#xava_calendar_module').val();
+        var dateFormat = $('#xava_calendar_dateFormat').val();
+        var newAction = $("#xava_calendar_action").val().split(",")[1];
+        var selectAction = $("#xava_calendar_action").val().split(",")[0];
         
-var application = $('#xava_calendar_application').val();
-var module = $('#xava_calendar_module').val();
-var dateFormat = $('#xava_calendar_dateFormat').val();
-var newAction = $("#xava_calendar_action").val().split(",")[1];
-var selectAction = $("#xava_calendar_action").val().split(",")[0];
-        
-        
-        console.log("si");
+        //tiempo
         var onlyDate = {
             month: 'numeric',
             day: 'numeric'
@@ -78,18 +68,18 @@ var selectAction = $("#xava_calendar_action").val().split(",")[0];
                 //initialDate: initial,
                 progressiveEventRendering: true,
                 headerToolbar: {
-                    left: 'prev,today,next',
+                    left: 'prev,next',
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
                 views: {
-                    dayGridMonth: {
+                    dayGrid: {
                         eventTimeFormat: noTime
                     },
-                    timeGridWeek: {
+                    timeGrid: {
                         eventTimeFormat: onlyTime
                     },
-                    timeGridDay: {
+                    day: {
                         eventTimeFormat: onlyTime
                     }
                 },
@@ -102,7 +92,7 @@ var selectAction = $("#xava_calendar_action").val().split(",")[0];
                             let nextViewDate = calendar.view.currentStart;
                             let nextMonth = nextViewDate.getMonth();
                             let month = (currentMonth != nextMonth) ? nextMonth : "";
-                                                        Calendar.getEvents(application, module, month, calendarEditor.setEvents);
+                            Calendar.getEvents(application, module, month, calendarEditor.setEvents);
                         }
                     },
                     prev: {
@@ -117,37 +107,28 @@ var selectAction = $("#xava_calendar_action").val().split(",")[0];
                         }
                     },
                     today: {
-                        click: function(){
+                        click: function() {
                             let currentDate = new Date();
                             let currentMonth = currentDate.getMonth();
                             calendar.today();
                             Calendar.getEvents(application, module, currentMonth, calendarEditor.setEvents);
-                            
+
                         }
                     }
                 },
                 eventClick: function(e) {
-                    console.log(e.event);
                     if (!getSelection().toString()) {
                         openxava.executeAction(application, module, false, false, selectAction, 'calendarKey=' + e.event.extendedProps.key);
                     }
                 },
                 dateClick: function(e) {
-                    console.log(e);
-                    console.log(e.dateStr);
-                    reformatDate(e.dateStr);
+                    let selectedDate = reformatDate(e.dateStr);
                     let value = {
-                        "dates": [{
-                                "label": "date",
-                                "date": formattedDate
-                            },
-                            {
-                                "label": "date",
-                                "date": formattedDate
-                            }
-                        ]
+                        "dates": {
+                            "name": startName,
+                            "date": selectedDate
+                        }
                     };
-                    console.log(JSON.stringify(value).replaceAll(",", "_"));
                     if (!getSelection().toString()) {
                         openxava.executeAction(application, module, false, false, newAction, 'value=' + JSON.stringify(value).replaceAll(",", "_"));
                     }
@@ -156,46 +137,11 @@ var selectAction = $("#xava_calendar_action").val().split(",")[0];
             calendar.render();
         });
 
-
-        /*
-                function createEvents() {
-                    // probar despues con return events directamente cuando es un modulo sin registros
-                    let listEvents = "";
-                    console.log("create")
-                    if (!segundavez) {
-                        listEvents = events;
-                    }
-                    if (segundavez) {
-                        let e = [{
-                                "start": "2023-03-28 00:00:00.0",
-                                "end": "2023-03-28 11:11:11.1",
-                                "title": "Nombre: Javi-Año: 2023-Número: 1",
-                                "extendedProps": {
-                                    "row": "0"
-                                }
-                            },
-                            {
-                                "start": "2023-03-27 00:00:00.0",
-                                "end": "2023-03-27 11:11:11.1",
-                                "title": "Año: 2023-Año: 2023-Número: 2",
-                                "extendedProps": {
-                                    "row": "1"
-                                }
-                            }
-                        ];
-                        listEvents = e;
-                    }
-                    console.log(events);
-                    segundavez = true;
-                    return JSON.parse(listEvents);
-                }
-        */
         function reformatDate(date) {
             date = (date.toString().length < 11) ? date + 'T00:00:00' : date;
             let d = new Date(date);
-            console.log(d);
-            console.log(dateFormat);
             formattedDate = formatDate(d, dateFormat);
+            return formattedDate;
         }
 
         function getSeparator(date) {

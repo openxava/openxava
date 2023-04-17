@@ -7,6 +7,7 @@
 <%@ page import="org.openxava.controller.meta.MetaSubcontroller"%>
 <%@ page import="java.util.Collection"%>
 <%@ page import="java.util.List"%>
+<%@ page import="java.util.ArrayList"%>
 <%@ page import="org.openxava.web.Ids"%>
 <%@ page import="org.openxava.util.EmailNotifications"%> 
 <%@ page import="org.openxava.controller.meta.MetaControllerElement"%>
@@ -84,21 +85,27 @@ if (manager.isButtonBarVisible()) {
 		org.openxava.tab.Tab tab = (org.openxava.tab.Tab) context.get(request, tabObject);
 		Collection<String> editors = org.openxava.web.WebEditors.getEditors(tab.getMetaTab());
         List<MetaProperty> listProperty = tab.getMetaProperties();
-        //boolean hasLocalDate = listProperty.stream().anyMatch(property -> property.getTypeName().equals("java.time.LocalDate"));
-        
+        List<MetaProperty> listProperty2 = new ArrayList<>(tab.getMetaTab().getMetaModel().getMetaProperties());
         
         for (MetaProperty property : listProperty) {
-            if (property.getTypeName().equals("java.time.LocalDate") || property.getTypeName().equals("java.util.Date")){
+            String propTypeName = property.getTypeName();
+            if (propTypeName.equals("java.time.LocalDate") || propTypeName.equals("java.util.Date") || propTypeName.equals("java.sql.Date")){
                 dateLabel = property.getPlaceholder();
                 hasLocalDate = true;
                 break;
             }
         }
-        //System.out.println(tab.getTotalPropertiesNames().toString());
-        //
-        //if (!hasLocalDate) editors.remove("Calendar");
-        
-        //System.out.println(editors);
+        if (hasLocalDate == false) {
+            for (MetaProperty property : listProperty2) {
+                String propTypeName = property.getTypeName();
+                if (propTypeName.equals("java.time.LocalDate") || propTypeName.equals("java.util.Date") || propTypeName.equals("java.sql.Date")){
+                    dateLabel = property.getPlaceholder();
+                    hasLocalDate = true;
+                    break;
+                }
+            }
+        }
+        if (!hasLocalDate) editors.remove("Calendar");
 
 		if (editors.size() > 1) for (String editor: editors) {
 			String icon = org.openxava.web.WebEditors.getIcon(editor);

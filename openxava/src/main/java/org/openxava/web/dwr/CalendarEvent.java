@@ -16,9 +16,8 @@ public class CalendarEvent {
 	String end;
 	String title;
 	String key;
-	
-	String startLabel;
-	String endLabel;
+	String startName;
+	String endName;
 
     @Override
     public String toString() {

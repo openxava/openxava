@@ -34,6 +34,14 @@ public class DateFormatter implements IFormatter {
 		return getDateFormat().format(date);
 	}
 		
+	public String formatCalendarEditor(Object date) {
+		if (date == null) return "";
+		if (date instanceof String || date instanceof Number) return date.toString(); 
+		if (Dates.getYear((java.util.Date)date) < 2) return "";
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return df.format(date);
+	}
+	
 	public Object parse(HttpServletRequest request, String string) throws ParseException {
 		if (Is.emptyString(string)) return null;				
 		if (isExtendedFormat()) { 

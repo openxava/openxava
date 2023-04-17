@@ -5,7 +5,6 @@ import java.text.*;
 
 import javax.json.*;
 
-import org.openxava.util.*;
 import org.openxava.web.dwr.*;
 
 /**
@@ -13,31 +12,31 @@ import org.openxava.web.dwr.*;
  */
 
 public class NewAction extends ViewBaseAction implements IChangeModeAction, IModelAction {
-	
-	private String value = ""; 
+
+	private String value = "";
 	private CalendarEvent ce = new CalendarEvent();
-	
-	private String modelName; 
-	private boolean restoreModel = false; 
-	
+
+	private String modelName;
+	private boolean restoreModel = false;
+
 	public void execute() throws Exception {
-		if (restoreModel) getView().setModelName(modelName); 
+		if (restoreModel) getView().setModelName(modelName);
 		getView().setKeyEditable(true);
 		getView().setEditable(true);
 		getView().reset();
-		if (value.length()>1) {
-			System.out.println(ce.getStartLabel()+ ": " + ce.getStart());
-			getView().setValue(ce.getStartLabel(), ce.getStart());
+		if (!value.isEmpty()) {
+			getView().setValue(ce.getStartName(), ce.getStart());
 		}
-		if (getView().hasSections()) getView().setActiveSection(0);
+		if (getView().hasSections())
+			getView().setActiveSection(0);
 	}
-		
+
 	public String getNextMode() {
 		return IChangeModeAction.DETAIL;
 	}
 
-	public void setModel(String modelName) { 
-		this.modelName = modelName;		
+	public void setModel(String modelName) {
+		this.modelName = modelName;
 	}
 
 	public boolean isRestoreModel() {
@@ -52,41 +51,17 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 		return value;
 	}
 
-	public void setValue(String value) throws ParseException { 
-		System.out.println("set");
+	public void setValue(String value) throws ParseException {
 		String v = value.replaceAll("_", ",");
-		System.out.println(v);
 		JsonReader jsonReader = Json.createReader(new StringReader(v));
-        JsonObject jsonObject = jsonReader.readObject();
-        jsonReader.close();
-		
-        JsonArray dates = jsonObject.getJsonArray("dates");
-        for (int i = 0; i < dates.size(); i++) {
-            JsonObject date = dates.getJsonObject(i);
-            String label = date.getString("label");
-            String dateStr = date.getString("date");
-            ce.setStartLabel(label);
-            ce.setStart(dateStr);
-            
-            //SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            //Date d = format.parse(dateStr);
-            //ce.setStartAsDate(d);
-            
-            System.out.println(label + ": " + dateStr);
-        }
-		
-		this.value = v;		
+		JsonObject jsonObject = jsonReader.readObject();
+		jsonReader.close();
+		JsonObject date = jsonObject.getJsonObject("dates");
+		String name = date.getString("name");
+		String dateStr = date.getString("date");
+		ce.setStartName(name);
+		ce.setStart(dateStr);
+		this.value = v;
 	}
-	
-	private String getFormat() throws ParseException {
-		String dateFormat = Dates.dateFormatForJSCalendar();
-		dateFormat = dateFormat.replace("n", "M")
-							   .replace("m", "MM")
-							   .replace("d", "dd")
-							   .replace("j", "d")
-							   .replace("Y", "yyyy");
-        return dateFormat;
 
-	}
-	
 }
