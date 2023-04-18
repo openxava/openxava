@@ -47,6 +47,44 @@
     <div class="wiki" style="display: block;">
       <h2>Migration from OpenXava 7.0.6 to OpenXava 7.1</h2>
       <div class="wiki" style="display: block;">
+        <h3>Inline style in HTML no longer allowed</h3>
+        <p>This is for security reasons. It means that you have to move the
+          style from HTML to CSS in your custom views, editors, formatters,
+          servlets, etc. </p>
+        <p>For example, if you have this HTML code:</p>
+        <pre><code class="html">&lt;div style="padding: 20px; background-color: green;"&gt;
+</code></pre>
+        <p>The <i>style</i> part is no longer recognized. Now, you have to
+          change <i>style</i> by a <i>class</i>:</p>
+        <pre><code class="html">&lt;div class="my-background"&gt;
+</code></pre>
+        <p>And add the class to your CSS file (your theme CSS or <i>custom.css</i>):</p>
+        <pre><code class="css">.my-background {
+    padding: 20px; 
+    background-color: green;
+}
+</code></pre>
+        <p>Also you can change the style by other classic HTML tags, like <i>&lt;b&gt;&lt;i&gt;</i>
+          or <i>&lt;font&gt;</i>. Especially when you need to use some dynamic
+          value, like a color from a database. For example, you could change
+          this Java code that generates HTML:</p>
+        <pre><code class="java">return "&lt;i class='mdi mdi-square' style='color: " + colorHexValue + "'&gt;&lt;/i&gt;";
+</code></pre>
+        <p>By this:</p>
+        <pre><code class="java">return "&lt;font color='" + colorHexValue + "'&gt;&lt;i class='mdi mdi-square ox-color-inherit'&gt;&lt;/i&gt;&lt;/font&gt;"; 
+</code></pre>
+        <p>Note the use of <i>&lt;font&gt;</i> to indicate the color. In this
+          case we also use <i>ox-color-inherit</i> class (included in OpenXava)
+          to overwrite the color given by OpenXava CSS to <i>&lt;i&gt;</i>
+          elements.</p>
+        <h3>Servlets require explicit type content</h3>
+        <p>This is for security reasons. Your servlets require to set the
+          content type explicitly. So, if you don't do so, you have to add the
+          next line to your servlerts:</p>
+        <pre><code class="java">response.setContentType("text/html"); 
+</code></pre>
+        You have to indicate the corresponding mime type, in this example
+        "text/html" for a HTML document.<br>
         <h3>Inline JavaScript in JSP requires once attribute</h3>
         <p>This is for security reasons. You rarely are using inline JavaScript
           in your code in OpenXava applications, given that they do not work
@@ -55,8 +93,7 @@
           or some custom header or footer for your application, maybe you have
           some inline scripts, in this case you have to add an attribute <i>once</i>
           to your inline script using the new <i>&lt;xava:once/&gt;</i> taglib.</p>
-        <p>For example, if your <i>welcome.jsp</i> page has this
-          code:</p>
+        <p>For example, if your <i>welcome.jsp</i> page has this code:</p>
         <pre><code class="html">&lt;script type="text/javascript"&gt; 
     var button = document.getElementById('welcome_go_signin');
     button.onclick = function () { window.location='m/SignIn'; }
@@ -227,7 +264,6 @@ assertValidValues("descriptionsListValue", validValues);
         OpenXava 7.0, and then copying the source code and resources from your
         current project to the new one. So, first create a new OpenXava project
         using Openxava Studio 7, for that you can follow the instructions in <a
-
           href="getting-started_en.html">Getting started guide</a>.</p>
       <p>The next step is to copy all your source code and resources from the
         old project to the corresponding folder in the new project, as
@@ -566,7 +602,6 @@ assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asNormalizedTex
     deleteLink.getHrefAttribute());
 </code></pre> </div>
     <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
-
         href="http://www.alanwood.net/demos/ansi.html">Look at this table</a> to
       know the mapping between ANSI and UNICODE.</div>
     <div class="wiki" style="display: block;">Now in <i>@HtmlText</i> or <i>@Stereotype("HTML_TEXT")</i>
