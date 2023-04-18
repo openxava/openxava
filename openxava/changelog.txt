@@ -1,11 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- Inline style removed from all generated HTML code by OpenXava.
+- Inline style no longer allowed in HTML.
+- Many methods from org.openxava.web.Style removed, used internally by UI generator. 
+
 Pendiente:
-- Suite. TMR ME QUEDÉ PARA VOLVER A LANZAR LA SUITE, YA ARREGLÉ TODOS LOS FALLOS
-- Documentar migración ya no style de HTML. Avisar formateadores, servlets, etc.
-- Documentar migración ya no clase Style. 
-- Documentar migración response.setContentType("text/html") en servlets
 - Revisar doc customizing, por si acaso. Buscar style=
 - Revisar doc estilo propio por si acaso.
 - Limpiar código
