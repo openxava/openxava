@@ -8,6 +8,7 @@
 <%@ page import="java.util.Collection"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.Arrays"%>
 <%@ page import="org.openxava.web.Ids"%>
 <%@ page import="org.openxava.util.EmailNotifications"%> 
 <%@ page import="org.openxava.controller.meta.MetaControllerElement"%>
@@ -85,12 +86,13 @@ if (manager.isButtonBarVisible()) {
 		org.openxava.tab.Tab tab = (org.openxava.tab.Tab) context.get(request, tabObject);
 		Collection<String> editors = org.openxava.web.WebEditors.getEditors(tab.getMetaTab());
         List<MetaProperty> listProperty = tab.getMetaProperties();
-        List<MetaProperty> listProperty2 = new ArrayList<>(tab.getMetaTab().getMetaModel().getMetaProperties());
+        List<MetaProperty> listProperty2 = new ArrayList<> (tab.getMetaTab().getMetaModel().getMetaProperties());
+        List<String> dates = Arrays.asList("java.time.LocalDate", "java.util.Date", "java.sql.Date");
+        
         
         for (MetaProperty property : listProperty) {
             String propTypeName = property.getTypeName();
-            if (propTypeName.equals("java.time.LocalDate") || propTypeName.equals("java.util.Date") || propTypeName.equals("java.sql.Date")){
-                dateLabel = property.getPlaceholder();
+            if (dates.contains(property.getTypeName())) {
                 hasLocalDate = true;
                 break;
             }
@@ -98,8 +100,7 @@ if (manager.isButtonBarVisible()) {
         if (hasLocalDate == false) {
             for (MetaProperty property : listProperty2) {
                 String propTypeName = property.getTypeName();
-                if (propTypeName.equals("java.time.LocalDate") || propTypeName.equals("java.util.Date") || propTypeName.equals("java.sql.Date")){
-                    dateLabel = property.getPlaceholder();
+                if (dates.contains(property.getTypeName())) {
                     hasLocalDate = true;
                     break;
                 }

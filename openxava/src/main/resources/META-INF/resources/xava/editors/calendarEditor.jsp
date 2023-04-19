@@ -28,7 +28,7 @@ String version = org.openxava.controller.ModuleManager.getVersion();
 String action = request.getParameter("rowAction");
 action=action==null?manager.getEnvironment().getValue("XAVA_LIST_ACTION"):action;
 String dateFormat = Dates.dateFormatForJSCalendar();
-
+System.out.println("jsp1");
 String actionNew = "";
 for (MetaAction ma: manager.getMetaActions()) {
    if (ma.getName().equals("new")) {
@@ -36,7 +36,7 @@ for (MetaAction ma: manager.getMetaActions()) {
        break;
    }
 }
-
+System.out.println("jsp2");
 
 if (dateFormat != null) {
     dateFormat = dateFormat.replace("n", "M")

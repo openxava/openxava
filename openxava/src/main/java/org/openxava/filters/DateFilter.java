@@ -1,15 +1,13 @@
 package org.openxava.filters;
 
-import java.util.*;
-
 import lombok.*;
 
 public class DateFilter implements IFilter {
 
 	@Getter @Setter
-	Date start;
+	Object start;
 	@Getter @Setter
-	Date end;
+	Object end;
 	
 	
 	@Override
