@@ -6,9 +6,11 @@ Change Log for OpenXava project
 - Many methods from org.openxava.web.Style removed, used internally by UI generator. 
 
 Pendiente:
-- Revisar doc customizing, por si acaso. Buscar style=
 - Revisar doc estilo propio por si acaso.
+- Lanzar pruebas de @Colorful
 - Limpiar código
+- Mezclar desde master.
+- Suite.
 
 - New <xava:nonce/> taglib to generate a nonce number for using in inline JavaScript.
 - Fix: Inline JavaScript for events in HTML elements.
