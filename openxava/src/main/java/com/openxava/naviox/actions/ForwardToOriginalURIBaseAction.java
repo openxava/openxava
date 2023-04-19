@@ -25,8 +25,25 @@ abstract public class ForwardToOriginalURIBaseAction extends ViewBaseAction impl
 	private String forwardURI = null;
 
 	protected void forwardToOriginalURI() throws Exception {
+		/* tmr
 		String originalURI = getRequest().getParameter("originalURI");
-		String originalParameters = getRequest().getParameter("originalParameters"); 
+		String originalParameters = getRequest().getParameter("originalParameters");
+		*/
+		// tmr ini
+		String originalURI = null;
+		String originalParameters = null;
+		String originalURL = (String) getRequest().getSession().getAttribute("naviox.originalURL");
+		if (originalURL != null) {
+			getRequest().getSession().removeAttribute("naviox.originalURL");
+			String [] url = originalURL.split("\\?");
+			originalURI = url[0];
+			if (url.length > 1) {
+				originalParameters = url[1].replace("originalParameters=", ""); 
+			}
+		}
+		System.out.println("[ForwardToOriginalURIBaseAction.forwardToOriginalURI] originalURI=" + originalURI); // tmr
+		System.out.println("[ForwardToOriginalURIBaseAction.forwardToOriginalURI] originalParameters=" + originalParameters); // tmr
+		// tmr fin
 		if (originalURI == null) {
 			forwardURI = "/";
 		}
