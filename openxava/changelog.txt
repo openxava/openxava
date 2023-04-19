@@ -6,8 +6,6 @@ Change Log for OpenXava project
 - Many methods from org.openxava.web.Style removed, used internally by UI generator. 
 
 Pendiente:
-- Revisar doc estilo propio por si acaso.
-- Lanzar pruebas de @Colorful
 - Limpiar código
 - Mezclar desde master.
 - Suite.
