@@ -42,6 +42,9 @@
             access by IP (new in v6.4)</a></div>
         <div style="margin-left: 2em;"><a href="#custom-authentication-code">Custom
             authentication code (new in v7.0)</a></div>
+        <div style="margin-left: 2em;"><a href="#custom-signin-page">Custom Sign
+            In page (new in v7.1)<br>
+          </a></div>
       </div>
       <em>All the features in this article are available only in <a href="http://openxava.org/xavapro">XavaPro</a></em><br>
       <h2 id="toc1"><a name="Security and user management-User management"></a>User
@@ -74,7 +77,7 @@
       choose that role to edit in detail mode. Then click in the module where
       you want to restrict those actions, and a dialog like the next one will
       appear:<br>
-      <img src="files/xavapro-restrict-actions_en.png" alt="xavapro-restrict-actions_en.png"
+      <img src="files/xavapro-restrict-actions_en.png" alt="xavapro-restrict-actions_en.png"
         title="xavapro-restrict-actions_en.png"><br>
       Select the actions you want to exclude and click on <em>Save</em>. From
       now on, all the users of that role will not be able to execute those
@@ -92,7 +95,7 @@
       module and choose that <strong>role</strong> to edit in detail mode. Then
       click in the module where you want to restrict those members, and a dialog
       like the next one will appear:<br>
-      <img src="files/restrict-data-read-only-data-xavapro_en.png" alt="restrict-data-read-only-data-xavapro_en.png"
+      <img src="files/restrict-data-read-only-data-xavapro_en.png" alt="restrict-data-read-only-data-xavapro_en.png"
         title="restrict-data-read-only-data-xavapro_en.png"><br>
       Select the members you want to exclude in <em>Excluded data</em> and
       click on <em>Save</em>. From now on, all the users of that role will not
@@ -108,7 +111,7 @@
       example. Go to the <em>Roles</em> module and choose that <strong>role</strong>
       to edit in detail mode, once there click on the module you want to hide in
       the menu, and a dialog like the next one will appear:<br>
-      <img src="files/hide-module-in-menu-for-role_en.png" alt="hide-module-in-menu-for-role_en.png"
+      <img src="files/hide-module-in-menu-for-role_en.png" alt="hide-module-in-menu-for-role_en.png"
         title="hide-module-in-menu-for-role_en.png"><br>
       Check the <i>Not in menu</i> option and click on <em>Save</em>. From now
       on, all the users of that role will not see the module, <i>Customer</i>
@@ -121,7 +124,7 @@
       There are a lot of options available for user management and password
       policies. In the <em>Admin</em> folder you'll find a <em>Configuration</em>
       module:<br>
-      <img src="files/xavapro-configuration_en.png" alt="xavapro-configuration_en.png"
+      <img src="files/xavapro-configuration_en.png" alt="xavapro-configuration_en.png"
         title="xavapro-configuration_en.png"><br>
       You can configure these policies in order for your system to be PCI-DSS
       compliant, which is required for any applications which handles credit
@@ -199,16 +202,16 @@
       <h2 id="toc7"><a name="Security and user management-Creation date and record of logins for each user"></a>Creation
         date and record of logins for each user</h2>
       Just go to the users module to see that data:<br>
-      <img src="files/user-creation-date-sessions_en.png" alt="user-creation-date-sessions_en.png"
+      <img src="files/user-creation-date-sessions_en.png" alt="user-creation-date-sessions_en.png"
         title="user-creation-date-sessions_en.png"><br>
       <h2 id="toc8"><a name="Security and user management-Password recovery (new in v5.7)"></a>Password
         recovery <em>(new in v5.7)</em></h2>
       The user can recover his password by himself. When he fails to put the
       correct password a "Forgot your password?" message with a link is shown:<br>
-      <img src="files/recover-password-login_en.png" alt="recover-password-login_en.png"
+      <img src="files/recover-password-login_en.png" alt="recover-password-login_en.png"
         title="recover-password-login_en.png"><br>
       When the user clicks on the link goes to a page to enter his email:<br>
-      <img src="files/enter-email-recover-password_en.png" alt="enter-email-recover-password_en.png"
+      <img src="files/enter-email-recover-password_en.png" alt="enter-email-recover-password_en.png"
         title="enter-email-recover-password_en.png"><br>
       After clicking on the "Recover password" button an email with instructions
       to recover the password is sent. Of course, a user with that email has to
@@ -243,7 +246,7 @@
       In order the recovering password mechanism works it's needed that each
       user has his email registered in the system. So now if the user has no
       email XavaPro asks for it after sign in:<br>
-      <img src="files/enter-email-personal-data_en.png" alt="enter-email-personal-data_en.png"
+      <img src="files/enter-email-personal-data_en.png" alt="enter-email-personal-data_en.png"
         title="enter-email-personal-data_en.png"><br>
       Entering the email is not required, the user can go to any other module
       and leaves the email blank if he wishes.<br>
@@ -319,9 +322,33 @@ public class MyCustomSignInHelperProvider extends ProSignInHelperProvider {
       above class for authentication you have to add the next entry in the <i>naviox.properties</i>
       file of your project:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">signInHelperProviderClass=com.mycompany.myapp.impl.MyCustomSignInHelperProvider
+      <pre><code class="properties">signInHelperProviderClass=com.mycompany.myapp.impl.MyCustomSignInHelperProvider
 </code></pre> </div>
-    <div class="wiki" style="display: block;"><br>
+    <div class="wiki" style="display: block;">
+      <div class="wiki" style="display: block;">
+        <h2><a name="custom-signin-page"></a>Custom Sign In page <em>(new in
+            v7.1)</em></h2>
+        To define your own custom Sign In page create a JSP inside the <i>src/main/webapp/naviox</i>
+        folder in your project, maybe you need to create the <i>naviox</i>
+        folder. For example, you could create a <i>mySignIn.jsp</i> (or
+        whatever name you want except <i>signIn.jsp</i>) with this content:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="html">&lt;div&gt;Hi, I'm a custom sign in page&lt;/div&gt;
+&lt;div&gt;
+&lt;jsp:include page="signIn.jsp"/&gt;
+&lt;/div&gt;
+</code></pre> </div>
+      <div class="wiki" style="display: block;">In this case we include the
+        original Sign In page (<i>signIn.jsp</i>) adding some additional
+        content, but you can create the page from scratch, or include your own
+        OpenXava module (look at the original <i>signIn.jsp</i> code) that use
+        your own entity and controllers.</div>
+      <div class="wiki" style="display: block;">In order your application uses
+        the above Sign In page you have to add the next entry in the <i>naviox.properties</i>
+        file of your project:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="properties">signInJSP=mySignIn.jsp
+</code></pre> </div>
     </div>
   </body>
 </html>
