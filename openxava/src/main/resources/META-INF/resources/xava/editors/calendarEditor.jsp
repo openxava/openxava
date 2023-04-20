@@ -14,7 +14,6 @@
     
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
-    
 <% 
 ModuleManager manager = (ModuleManager) context.get(request, "manager", "org.openxava.controller.ModuleManager");
 View view = (View) context.get(request, "xava_view");
@@ -41,7 +40,7 @@ if (dateFormat != null) {
 				           .replace("j", "d")
 				           .replace("Y", "yyyy");
     }
-   
+   //<xava:nonce/> //nonce='abc123'
 %>
 <div>
     <input type="hidden" id="xava_calendar_module" value="<%=request.getParameter("module")%>">
@@ -52,4 +51,4 @@ if (dateFormat != null) {
     
 <div id='xava_calendar'></div>
 
-<script type='text/javascript' src='<%=contextPath%>/dwr/interface/Calendar.js?ox=<%=version%>'></script>
+<script type='text/javascript' <xava:nonce/> src='<%=contextPath%>/dwr/interface/Calendar.js?ox=<%=version%>'></script>

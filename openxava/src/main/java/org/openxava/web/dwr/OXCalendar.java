@@ -76,15 +76,16 @@ public class OXCalendar extends DWRBase {
 		this.table = tab.getTableModel();
 		int tableSize = 0;
 		String json = null;
-		
-		
+
 		try {
 			tableSize = tab.getTableModel().getTotalSize();
-			System.out.println("ingresando datos");
+			System.out.println("ingresando datos" + tableSize);
 			if (tableSize > 0) {
 				for (int i = 0; i < tableSize; i++) {
 					event = new CalendarEvent();
+					System.out.println("1");
 					event.key = obtainRowsKey(i);
+					System.out.println("2");
 					List<String> d = obtainRowsDate(i);
 					System.out.println("date " + d.get(0));
 					event.start = d.get(0).split("_")[1];
@@ -94,10 +95,20 @@ public class OXCalendar extends DWRBase {
 					event.title = obtainRowsTitle(i);
 					calendarEvents.add(event);
 				}
+			} else {
+				event = new CalendarEvent();
+				List<String> d = obtainRowsDate(0);
+				// no seria necesario, se supone que no debe ser vacio el primero (0)
+				event.startName = d.get(0).split("_")[0].equals("") 
+							  && !d.get(1).split("_")[0].equals("") 
+								? d.get(1).split("_")[0] 
+								: d.get(0).split("_")[0];
+				calendarEvents.add(event);
 			}
 			ObjectMapper objectMapper = new ObjectMapper();
 			json = objectMapper.writeValueAsString(calendarEvents);
 		} catch (JsonProcessingException | RemoteException e) {
+			System.out.println("error");
 			e.printStackTrace();
 		}
 
@@ -169,44 +180,63 @@ public class OXCalendar extends DWRBase {
 
 	// obtener la fecha de la fila
 	private List<String> obtainRowsDate(int row) {
+		
 		List<String> result = new ArrayList<>();
 		StringBuffer dateWithName = new StringBuffer();
 		int i = keysListSize;
-		// System.out.println("keylistsize " + i);
-		// System.out.println(tab.getPropertiesNamesAsString());
+		 System.out.println("keylistsize " + i);
+		 System.out.println(tab.getPropertiesNamesAsString());
 		if (datesListSize == 0)
 			return result;
-		Object value = table.getValueAt(row, i);
-		Object value2 = table.getValueAt(row, (i + 1));
-		DateFormatter df = new DateFormatter();
-		// si la primera propiedad con nombre date o fecha es otra cosa, entonces
-		// saltearlo
-		// System.out.println("antes if");
-		if (verifyValue(value)) {
-			System.out.println(tab.getMetaProperty(i).getQualifiedName());
-			System.out.println(value.toString());
+		
+		if (row == 0) {
 			dateWithName.append(tab.getMetaProperty(i).getQualifiedName());
 			dateWithName.append("_");
-			dateWithName.append(df.formatCalendarEditor(value, dateWithTime, oldLib));
-
 			result.add(dateWithName.toString());
-		}
-		// si tengo 2 fechas, validar tambien
-		// aca hay que hacer algo para que se pueda seleccionar la fecha final, ya que
-		// cualquiera puede ser la segunda fecha
-		// en un principio conviene desactivar esto y dejar todo con inicio unicamente
-		if (datesListSize == 2) {
-			if (verifyValue(value2)) {
+			// no usado actualmente
+			if (datesListSize == 2) {
 				dateWithName = new StringBuffer();
 				dateWithName.append(tab.getMetaProperty((i + 1)).getQualifiedName());
 				dateWithName.append("_");
-				dateWithName.append(df.formatCalendarEditor(value2, dateWithTime, oldLib));
-				// dateWithName.append(df.formatCalendarEditor(value2));
+				dateWithName.append("");
 				result.add(dateWithName.toString());
 			}
+		} else {
+			Object value = table.getValueAt(row, i);
+			Object value2 = table.getValueAt(row, (i + 1));
+			DateFormatter df = new DateFormatter();
+			// si la primera propiedad con nombre date o fecha es otra cosa, entonces
+			// saltearlo
+			// System.out.println("antes if");
+			if (verifyValue(value)) {
+				System.out.println(tab.getMetaProperty(i).getQualifiedName());
+				System.out.println(value.toString());
+				dateWithName.append(tab.getMetaProperty(i).getQualifiedName());
+				dateWithName.append("_");
+				dateWithName.append(df.formatCalendarEditor(value, dateWithTime, oldLib));
+				result.add(dateWithName.toString());
+			}
+			// si tengo 2 fechas, validar tambien
+			// aca hay que hacer algo para que se pueda seleccionar la fecha final, ya que
+			// cualquiera puede ser la segunda fecha
+			// en un principio conviene desactivar esto y dejar todo con inicio unicamente
+			if (datesListSize == 2) {
+				if (verifyValue(value2)) {
+					dateWithName = new StringBuffer();
+					dateWithName.append(tab.getMetaProperty((i + 1)).getQualifiedName());
+					dateWithName.append("_");
+					dateWithName.append(df.formatCalendarEditor(value2, dateWithTime, oldLib));
+					// dateWithName.append(df.formatCalendarEditor(value2));
+					result.add(dateWithName.toString());
+				}
+			}
 		}
-		// System.out.println("resultados");
-		// System.out.println(result);
+		
+		
+		
+
+		 System.out.println("resultados");
+		 System.out.println(result);
 		return result;
 	}
 
