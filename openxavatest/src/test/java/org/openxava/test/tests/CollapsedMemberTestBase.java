@@ -52,7 +52,7 @@ public abstract class CollapsedMemberTestBase extends ModuleTestBase {
 		super.setUp(); //loads the module
 	}
 	
-	protected void resetModule() throws Exception { // tmr
+	protected void resetModule() throws Exception { 
 		super.resetModule();		
 		getWebClient().getOptions().setCssEnabled(true);
 		reload();
@@ -100,23 +100,13 @@ public abstract class CollapsedMemberTestBase extends ModuleTestBase {
 		String frameId= getFrameId();
 		
 		HtmlElement hiddenFrame= getHtmlPage().getHtmlElementById(frameId + "hide"); 
-		// tmr String hiddenFrameStyle= hiddenFrame.getAttribute("style");
 		
 		HtmlElement shownFrame= getHtmlPage().getHtmlElementById(frameId + "show"); 
-		// tmr String shownFrameStyle= shownFrame.getAttribute("style");
 	
 		//according to frameActions.jsp
-		/* tmr
-		 ¿En migration?
-		assertTrue(closed? 
-				hiddenFrameStyle.contains("display: none") :
-					shownFrameStyle.contains("display: none"));
-		*/
-		// tmr ini
 		assertTrue(closed? 
 			!hiddenFrame.isDisplayed():
 			!shownFrame.isDisplayed());
-		// tmr fin
 	}
 	
 	private void assertFramePrefStatus(boolean closed) throws Exception {

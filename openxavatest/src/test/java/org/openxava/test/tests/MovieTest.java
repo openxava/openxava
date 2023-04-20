@@ -215,9 +215,8 @@ public class MovieTest extends MovieBaseTest {
 	private boolean isNotVisibleConditionValue(int index) {
 		String idConditionValue = "ox_" + getXavaJUnitProperty("application") + 
 				                  "_Movie__conditionValue___" + index;
-		HtmlElement input = getHtmlPage().getHtmlElementById(idConditionValue); 
-		// tmr return input.getAttribute("style").contains("display: none");			
-		return input.getAttribute("class").contains("ox-display-none"); // tmr
+		HtmlElement input = getHtmlPage().getHtmlElementById(idConditionValue); 			
+		return input.getAttribute("class").contains("ox-display-none"); 
 	}
 	
 }

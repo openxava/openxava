@@ -461,11 +461,9 @@ openxava.updateRootIds = function(application, moduleFrom, moduleTo) {
 }
 
 openxava.initLists = function(application, module) {
-	// tmr ini
 	$("[data-width]").each(function() {
 		$(this).width($(this).data("width"));		
 	});
-	// tmr fin  
 	$(".xava_resizable").resizable({
 		handles: 'e',
 		resize: function(event, ui) { 

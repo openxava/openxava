@@ -124,7 +124,6 @@ public class HunterTest extends ModuleTestBase {
 				"ox_" + getXavaJUnitProperty("application") + 
 				"_Hunter__xava_collectionTab_hounds_conditionValue___" + index;
 		HtmlElement input = getHtmlPage().getHtmlElementById(idConditionValue); 
-		// tmr return input.getAttribute("style").contains("display: none");			
-		return input.getAttribute("class").contains("ox-display-none"); // tmr
+		return input.getAttribute("class").contains("ox-display-none"); 
 	}
 }

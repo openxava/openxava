@@ -1588,21 +1588,13 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	// Because HtmlElement.isDisplayed only works when CSS is active
-	// tmr private boolean isDisplayed(HtmlElement element) {
-	private boolean isDisplayed(DomElement element) { // tmr
-		/* tmr
-		String style = element.getAttribute("style");
-		if (style == null) return true;
-		return !(style.contains("display: none") || style.contains("display:none")); // Enough for our cases
-		*/
-		// tmr ini		
+	private boolean isDisplayed(DomElement element) { 
 		String cssClass = element.getAttribute("class");
 		if (cssClass != null && cssClass.contains("ox-display-none")) return false;
 		
 		String style = element.getAttribute("style");
 		if (style == null) return true;
 		return !(style.contains("display: none") || style.contains("display:none")); 		
-		// tmr fin
 	}
 
 	/**
@@ -1755,8 +1747,7 @@ abstract public class ModuleTestBase extends TestCase {
 		int i=1;
 		HtmlTableCell cell = table.getCellAt(0, i);
 		while (cell != null && i < originalColumn + increment + 1) {			
-			// tmr if (!cell.isDisplayed()) increment++;			
-			if (!isDisplayed(cell)) increment++; // tmr
+			if (!isDisplayed(cell)) increment++; 
 			cell = table.getCellAt(0, ++i);
 		} 
 		return increment;
@@ -1765,12 +1756,9 @@ abstract public class ModuleTestBase extends TestCase {
 	private boolean isElementCollection(HtmlTable table) { 
 		HtmlElement container = (HtmlElement) table.getParentNode(); 
 		if (XavaPreferences.getInstance().isResizeColumns()) container = (HtmlElement) container.getParentNode();
-		// tmr return "ox-element-collection".equals(container.getAttribute("class"));
-		// tmr ini
 		String containerClass = container.getAttribute("class");
 		if (containerClass == null) return false;
 		return containerClass.contains("ox-element-collection");
-		// tmr fin
 	}
 
 	private int getTotalsRowCount(HtmlTable table) { 
@@ -2823,11 +2811,9 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @since 5.6
 	 */	
 	protected void assertDiscussionCommentsCount(String name, int expectedCount) {
-		// tmr client.getOptions().setCssEnabled(true); 		
 		HtmlElement comments = getDiscussionCommentsElement(name);
 		assertEquals(expectedCount + 1, comments.getChildElementCount());
-		// tmr assertFalse(comments.getLastElementChild().isDisplayed());
-		assertFalse(isDisplayed(comments.getLastElementChild())); // tmr
+		assertFalse(isDisplayed(comments.getLastElementChild())); 
 	}
 
 	/**

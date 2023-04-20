@@ -3,12 +3,21 @@ Change Log for OpenXava project
 
 - Inline style removed from all generated HTML code by OpenXava.
 - Inline style no longer allowed in HTML.
-- Many methods from org.openxava.web.Style removed, used internally by UI generator. 
+- Many methods from org.openxava.web.Style removed, used internally by UI generator.
+- Fix: UI with no CSS style at all if the user has as preference a no longer existing theme. 
+- Data and time for posts in @Discussion use the format of date fields.
+- Attribute cssStyle ignored in <xava:link> and <xava:image> taglibs.
+- New classes in base.css to use as alternative to inline style, like ox-display-none, ox-width-100, etc. 
+ 
 
 Pendiente:
-- Limpiar código
 - Mezclar desde master.
 - Suite.
+- Comprobar que "cssStyle ignored in <xava:link> and <xava:image>" está documentado en customizing.
+- Comprobar que está en migración:
+
+		getWebClient().getOptions().setCssEnabled(true);
+		reload(); // tmr En migration
 
 - New <xava:nonce/> taglib to generate a nonce number for using in inline JavaScript.
 - Fix: Inline JavaScript for events in HTML elements.

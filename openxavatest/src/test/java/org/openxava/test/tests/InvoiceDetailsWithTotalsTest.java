@@ -72,10 +72,9 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 	}
 
 	public void testTotalsAndAddActionInCollectionFrame() throws Exception {
-		// tmr ini
 		getWebClient().getOptions().setCssEnabled(true);
 		reload();
-		// tmr fin
+
 		execute("List.viewDetail", "row=0");
 		execute("List.sumColumn", "property=quantity,collection=details");
 		assertTotalsInFrameOfCollection("details", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 400.00    Total: 2,900.00    Sum of Quantity: 150", false);          
@@ -122,7 +121,6 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 	}	
 	
 	private void assertTotalsInFrameOfCollection(String collection, String totals, boolean addAction) throws Exception {
-		// tmr getWebClient().getOptions().setCssEnabled(true); 
 		HtmlElement header = getHtmlPage().getHtmlElementById("ox_openxavatest_InvoiceDetailsWithTotals__frame_" + collection + "header"); 
 		assertEquals("", header.asNormalizedText());
 		hideCollection(collection); 

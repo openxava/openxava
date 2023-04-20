@@ -6,10 +6,14 @@ import org.apache.commons.logging.*;
 import org.openxava.util.*;
 
 /**
- * tmr ¿Los cambios aquí afectan migration o custom visual style doc?
- * tmr ¿Quitar los demás? ¿Quitar Style por completo?
  * This class and its subclasses is used from JSP code to give
  * style to the web applications. <p>
+ * 
+ * Since v7.1 we started to use directly CSS classes in HTML and
+ * removing methods from this class. This class was useful
+ * when working with portals to get the portal style, given
+ * that since v7.0 portals are no longer supported, now it's a
+ * overload.<br>
  * 
  * The nomenclature is:
  * <ul>
@@ -20,10 +24,12 @@ import org.openxava.util.*;
  * <li>..StartDecoration/EndDecoration: HTML code to put before and after.
  * <li>..Spacing: Table spacing
  * </ul>
- * 
+ *
+ * @deprecated Since v7.1 should use directly the CSS classes in your HTML code.
  * @author Javier Paniza
  */ 
 
+@Deprecated
 public class Style {
 		 	
 	private static Log log = LogFactory.getLog(Style.class);
@@ -188,13 +194,7 @@ public class Style {
 	public String getPageNavigationImage() { 
 		return "page_navigation.gif";
 	}
-		
-	/* tmr
-	public String getModule() {
-		return "ox-module";		
-	}
-	*/
-	
+			
 	/**
 	 * @since 6.0
 	 */
@@ -209,19 +209,7 @@ public class Style {
 	public String getView() { 
 		return "ox-view";
 	}
-	
-	/* tmr
-	public String getDetail() {
-		return "ox-detail";
-	}
-	*/
-
-	/* tmr
-	public String getModuleSpacing() {
-
-	}
-	*/
-	
+		
 	public String getActionLink() {
 		return "ox-action-link";
 	}
@@ -244,36 +232,14 @@ public class Style {
 	public String getCustomizeControls() { 
 		return "ox-customize-controls";
 	}
-	
-	/* tmr
-	public String getButtonBar() {
-		return "ox-button-bar"; 
-	}
-	*/
-	
+		
 	/**
 	 * @since 6.6
 	 */
 	public String getButtonBarContainer() {
 		return "ox-button-bar-container"; 
 	}
-	
-	/* tmr
-	public String getButtonBarButton() { 
-		return "ox-button-bar-button";
-	}
-	*/
-	
-	/** 
-	 * 
-	 * @since 5.4
-	 */
-	/* tmr
-	public String getSubcontrollerButton() {
-		return "ox-subcontroller-button"; 
-	}
-	*/
-	
+		
 	public boolean isSeveralActionsPerRow() {
 		return true;
 	}
@@ -352,23 +318,7 @@ public class Style {
 	protected String getFrameContent() { 
 		return "ox-frame-content";
 	}
-	
-	/* tmr
-	public String getList() {  
-		return "ox-list";
-	}
-	*/
-	
-	/**
-	 * 
-	 * @since 5.4
-	 */
-	/* tmr
-	public String getListFormats() { 
-		return "ox-list-formats";
-	}
-	*/
-	
+		
 	/**
 	 * 
 	 * @since 5.4
@@ -391,18 +341,7 @@ public class Style {
 	 */
 	public String getChartXColumn() {  
 		return "ox-chart-x-column";
-	}
-
-	/**
-	 * 
-	 * @since 5.4
-	 */
-	/* tmr
-	public String getSelectedChartType() {  
-		return "ox-selected-chart-type";
-	}
-	*/
-	
+	}	
 	
 	/**
 	 * 
@@ -411,25 +350,7 @@ public class Style {
 	public String getChartType() {  
 		return "ox-chart-type";
 	}
-	
-	/**
-	 * @since 6.0
-	 */
-	/* tmr
-	public String getChartData() {   
-		return "ox-chart-data";
-	}
-	*/
-	
-	/**
-	 * @since 5.9
-	 */
-	/* tmr
-	public String getChartsDataStyle() { 
-		return "width:calc(100vw - 385px); height:calc(100vh - 300px);"; 
-	}
-	*/
-	
+		
 	/**
 	 * @since 5.7
 	 */
@@ -475,70 +396,21 @@ public class Style {
 	public String getListCellSpacing() {
 		return ""; 
 	}
-	
-	/* tmr
-	public String getListStyle() { 
-		return ""; 
-	}	
-	*/
-	
-	/* tmr
-	public String getListCellStyle() {
-		return ""; 
-	}
-	*/
-	
-	/* tmr
-	public String getListHeader() { 
-		return "ox-list-header";
-	}
-	*/
-	
-	/* tmr
-	public String getListHeaderCell() { 
-		return getListHeader();
-	}
-	*/
-	
+		
 	public String getListSubheader() {
 		return "ox-list-subheader";
 	}	
 
-	/* tmr
-	public String getListSubheaderCell() { 
-		return getListSubheader();
-	}
-	*/
-	
 	public String getListOrderBy() {
 		return "";
 	}
-	
-	/* tmr
-	public String getListPair() { 
-		return "ox-list-pair";
-	}
-	*/
 	
 	/** 
 	 * @param  Since v4m5 it has no parameters
 	 */
 	public String getListPairEvents() {  
 		return "";
-	}	
-	
-	/* tmr
-	public String getListPairCell() { 
-		return getListPair();
-	}
-	*/
-	
-	/* tmr
-	public String getListOdd() { 
-		return "ox-list-odd";
-	}
-	*/
-	
+	}		
 	
 	/** 
 	 * @param  Since v4m5 it has no parameters
@@ -547,12 +419,6 @@ public class Style {
 		return "";
 	}		
 		
-	/* tmr
-	public String getListOddCell() { 
-		return getListOdd();
-	}
-	*/
-	
 	public String getListPairSelected() { 
 		return "list-pair-selected";
 	}
@@ -564,12 +430,6 @@ public class Style {
 	public String getListInfo() {
 		return "ox-list-info";
 	}	
-	
-	/* tmr
-	public String getListInfoDetail() {
-		return "ox-list-info-detail";
-	}
-	*/
 	
 	public String getListTitle() {
 		return "ox-list-title";
@@ -588,26 +448,6 @@ public class Style {
 		return "";
 	}
 	
-	/**
-	 * 
-	 * @since 5.0
-	 */
-	/* tmr
-	public String getElementCollection() { 
-		return "ox-element-collection";
-	}
-	*/
-
-	/**
-	 * 
-	 * @since 6.0
-	 */	
-	/* tmr
-	public String getElementCollectionDataCell() {  
-		return "ox-element-collection-data-cell";
-	}
-	*/
-
 	public String getFrameHeaderStartDecoration() {
 		return getFrameHeaderStartDecoration(0); 
 	}
@@ -625,7 +465,6 @@ public class Style {
 	}
 
 	public String getFrameHeaderStartDecoration(int width, boolean collection) {   
-		// Copiado de XavaStyle
 		StringBuffer r = new StringBuffer();
 		r.append("<div ");
 		r.append(" class='");
@@ -654,12 +493,10 @@ public class Style {
 	}
 	
 	public String getFrameHeaderEndDecoration() { 		
-		// tmr return "</th></tr>";			
-		return "</div>"; // tmr
+		return "</div>"; 
 	}
 	
 	public String getFrameTitleStartDecoration() {
-		// tmr Copiado desde XavaStyle
 		StringBuffer r = new StringBuffer();
 		r.append("<span ");
 		r.append("class='");
@@ -681,7 +518,6 @@ public class Style {
 	}
 	
 	public String getFrameActionsStartDecoration() {		
-		// tmr Copiado de XavaStyle
 		return "<span class='" + getFrameActions() + "'>";
 	}	
 	public String getFrameActionsEndDecoration() { 
@@ -714,7 +550,6 @@ public class Style {
 	}
 		
 	public String getFrameContentStartDecoration(String id, boolean closed) {
-		// tmr Copiado de XavaStyle
 		StringBuffer r = new StringBuffer();
 		r.append("<div id='");
 		r.append(id);
@@ -727,8 +562,7 @@ public class Style {
 	}	
 	
 	public String getFrameContentEndDecoration() { 
-		// tmr return "\n</td></tr></table>";
-		return "\n</div></div></div>"; // tmr
+		return "\n</div></div></div>"; 
 	}
 	
 	public String getFrame() { 
@@ -767,14 +601,7 @@ public class Style {
 	public String getEditorSuffix() { 
 		return "ox-editor-suffix"; 
 	}
-	
-	/** @since 5.6.1 */
-	/* tmr
-	public String getWebURL() { 
-		return "ox-web-url";
-	}
-	*/
-	
+		
 	public String getSmallLabel() {
 		return "small-label";
 	}
@@ -822,15 +649,6 @@ public class Style {
 	}
 	
 	/**
-	 * @since 5.5
-	 */
-	/* tmr
-	public String getDateCalendar() {   
-		return "ox-date-calendar";
-	}
-	*/
-	
-	/**
 	 * @since 6.4.1
 	 */
 	public String getReadOnlyHtmlText() { 
@@ -845,12 +663,6 @@ public class Style {
 		return "ox-money";
 	}
 
-	/* tmr
-	public String getErrors() { 
-		return "ox-errors";
-	}
-	*/
-	
 	public String getMessages() { 
 		return "ox-messages";
 	}
@@ -869,16 +681,6 @@ public class Style {
 		return "ox-warnings"; 
 	}	
 
-	/* tmr
-	public String getErrorStartDecoration () { 
-		return "";
-	}
-	
-	public String getErrorEndDecoration () { 
-		return "";
-	}
-	*/
-	
 	/**
 	 * For messages
 	 */
@@ -886,63 +688,6 @@ public class Style {
 		return "ox-messages-wrapper";
 	}
 
-	/**
-	 * For errors
-	 * 
-	 * @since 5.8
-	 */
-	/* tmr
-	public String getErrorsWrapper() {  
-		return "ox-errors-wrapper";
-	}
-	*/
-	
-	/* tmr
-	public String getMessageStartDecoration() { 
-		return "";
-	}
-	
-	public String getMessageEndDecoration() { 
-		return "";
-	}
-	*/
-	
-	/**
-	 * @since 5.5
-	 */
-	/* tmr
-	public String getWarningStartDecoration() { 
-		return getMessageStartDecoration();
-	}
-	*/
-	
-	/**
-	 * @since 5.5
-	 */
-	/* tmr
-	public String getWarningEndDecoration () { 
-		return getMessageEndDecoration();
-	}
-	*/
-	
-	/**
-	 * @since 5.5
-	 */
-	/* tmr
-	public String getInfoStartDecoration() { 
-		return getMessageStartDecoration();
-	}
-	*/
-	
-	/**
-	 * @since 5.5
-	 */
-	/* tmr
-	public String getInfoEndDecoration () { 
-		return getMessageEndDecoration();
-	}
-	*/
-	
 	public String getButton() {
 		return ""; 
 	}
@@ -959,8 +704,7 @@ public class Style {
 	 */
 	public String getSortIndicator2() { 
 		return "ox-sort-indicator2";
-	}
-	
+	}	
 
 	/**
 	 * @since v5.7
@@ -994,19 +738,7 @@ public class Style {
 	public String getActiveSection() { 
 		return "ox-active-section";
 	}
-	
-	/* tmr
-	public String getSectionLink() {
-		return "ox-section-link";
-	}
-	*/
-
-	/* tmr
-	public String getSectionLinkStyle() {
-		return null;
-	}
-	*/
-		
+			
 	public String getSectionBarStartDecoration() { 
 		return "<td>";
 	}
@@ -1128,22 +860,6 @@ public class Style {
 		return true;
 	}	
 		
-	/**
-	 * 
-	 * @since 4.2
-	 */	
-	/* tmr
-	public boolean isRowLinkable() { 
-		return true;
-	}
-	*/
-		
-	/* tmr
-	public String getBottomButtonsStyle() {
-		return "";
-	}
-	*/
-	
 	public String getBottomButtons() {
 		return "ox-bottom-buttons";
 	}
@@ -1176,12 +892,6 @@ public class Style {
 		return "selected-row";
 	}
 	
-	/* tmr
-	public String getSelectedRowStyle() {
-		return "";
-	}
-	*/
-
 	public void setBrowser(String browser) {
 		this.browser = browser;
 	}
@@ -1319,57 +1029,7 @@ public class Style {
 	public String getTotalRow() { 
 		return "ox-total-row";
 	}
-		
-	/* tmr
-	public String getTotalCell() {
-		return "ox-total-cell"; 
-	}
-	*/
-	
-	/**
-	 * 
-	 * @since 5.1
-	 */
-	/* tmr
-	public String getTotalLabelCell() { 
-		return "ox-total-label-cell"; 
-	}
-	*/
-
-	/* tmr
-	public String getTotalCapableCell() {
-		return "ox-total-capable-cell"; 
-	}
-	*/
-	
-	/* tmr
-	public String getTotalCellStyle() {
-		return "";
-	}
-	*/
-
-	/* tmr
-	public String getTotalEmptyCellStyle() { 
-		return ""; 
-	}
-	*/
-	
-	/**
-	 * 
-	 * @since 4.3
-	 */
-	/* tmr
-	public String getTotalLabelCellStyle() {  
-		return "vertical-align: middle; text-align: right;" + getTotalEmptyCellStyle();
-	}
-	*/
-	
-	/* tmr
-	public String getTotalCapableCellStyle() { 
-		return "";
-	}
-	*/
-	
+				
 	/**
 	 * 
 	 * @since 4.2
@@ -1410,15 +1070,6 @@ public class Style {
 		return "ox-layout-content";
 	}
 
-	/**
-	 * @since 4.8
-	 */
-	/* tmr
-	public String getSubcontroller() {
-		return "ox-subcontroller";
-	}
-	*/
-	
 	/**
 	 * @since 4.9.1
 	 * @return Style for the second and next frames within the same row.

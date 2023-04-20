@@ -668,7 +668,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	
 	public void testFilterByRange() throws Exception{ 
 		getWebClient().getOptions().setCssEnabled(true); 
-		reload(); // tmr
+		reload(); 
 		
 		assertListRowCount(9); 
 		assertLabelInList(0, "Year");

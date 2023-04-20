@@ -42,18 +42,15 @@ public class Themes {
 		}
 		String newTheme = request.getParameter("theme");
 		try {
-			// tmr ini
 			Collection<String> all = getAll();
 			if (!Is.emptyString(newTheme) && all.contains(newTheme)) { // If change this pass the ZAP test again
-			// tmr fin
-			// tmr if (!Is.emptyString(newTheme) && getAll().contains(newTheme)) { // If change this pass the ZAP test again
 				Preferences pref = getPreferences();
 				pref.put("theme", newTheme);
 				pref.flush();
 				return newTheme;
 			}		
 			String theme = getPreferences().get("theme", XavaPreferences.getInstance().getStyleCSS());
-			if (!all.contains(theme)) theme = XavaPreferences.getInstance().getStyleCSS(); // tmr It could be a bug fixed for changelog, even no related with CSP
+			if (!all.contains(theme)) theme = XavaPreferences.getInstance().getStyleCSS(); 
 			return theme;
 		} 
 		catch (Exception ex) {

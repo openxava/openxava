@@ -483,7 +483,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		createWarehouseWithQuote(); // To test a bug with quotes
 
 		getWebClient().getOptions().setCssEnabled(true);
-		reload(); // tmr
+		reload(); 
 		execute("CRUD.new");
 		
 		getHtmlPage().getHtmlElementById("ox_openxavatest_Product2__reference_editor_warehouse"); // Warehouse combo must be to test the "quotes" bug

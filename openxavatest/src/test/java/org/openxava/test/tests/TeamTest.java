@@ -16,10 +16,9 @@ public class TeamTest extends ModuleTestBase {
 	}
 	
 	public void testSubcontrollerInCollection() throws Exception {
-		// tmr ini
 		getWebClient().getOptions().setCssEnabled(true);
 		reload();
-		// tmr fin
+
 		assertListRowCount(1);
 		assertValueInList(0, 0, "ALFA");
 		execute("List.viewDetail", "row=0");
@@ -32,17 +31,10 @@ public class TeamTest extends ModuleTestBase {
 
 		HtmlElement container = getHtmlPage().getHtmlElementById("ox_openxavatest_Team__sc-container-TeamMemberSub_detail"); 
 		HtmlElement menu = getHtmlPage().getHtmlElementById("ox_openxavatest_Team__sc-TeamMemberSub_detail");
-		/* tmr
-		assertTrue("display:none;".equals(menu.getAttribute("style"))); 
-		assertTrue(container.asNormalizedText().contains("View names"));
-		assertTrue(container.asNormalizedText().contains("View roles"));
-		*/
-		// tmr ini
 		assertFalse(menu.isDisplayed());
 		String containerContent = container.asXml();
 		assertTrue(containerContent.contains("View names"));
 		assertTrue(containerContent.contains("View roles"));
-		// tmr fin
 	}
 	
 	public void testSearchingWithInheritanceFromAEntityCollectionElement() throws Exception {  		

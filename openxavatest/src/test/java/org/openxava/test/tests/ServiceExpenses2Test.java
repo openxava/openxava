@@ -81,8 +81,7 @@ public class ServiceExpenses2Test extends ModuleTestBase {
 	private void assertNumberOfRowsShownInElementCollection(int number) {
 		String elementId = "ox_openxavatest_ServiceExpenses2__expenses___" + number;
 		HtmlElement tr = getHtmlPage().getHtmlElementById(elementId); 
-		// tmr assertTrue(tr.getAttribute("style").contains("display: none"));		
-		assertTrue(tr.getAttribute("class").contains("ox-display-none")); // tmr
+		assertTrue(tr.getAttribute("class").contains("ox-display-none")); 
 	}
 	
 	private String getCurrentDate() { 

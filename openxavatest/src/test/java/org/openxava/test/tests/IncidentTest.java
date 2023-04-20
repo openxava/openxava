@@ -112,8 +112,7 @@ public class IncidentTest extends EmailNotificationsTestBase {
 
 	
 	private String getCurrentTime() { 
-		// tmr return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, new Locale(getLocale())).format(new java.util.Date());
-		return Dates.getDateTimeFormat(new Locale(getLocale())).format(new java.util.Date()); // tmr
+		return Dates.getDateTimeFormat(new Locale(getLocale())).format(new java.util.Date()); 
 	}
 	
 }

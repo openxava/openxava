@@ -128,7 +128,7 @@ public class TrainingTest extends ModuleTestBase {
 	
 	public void testRemoveRowInElementCollection() throws Exception { 
 		getWebClient().getOptions().setCssEnabled(true); 
-		reload(); // tmr
+		reload(); 
 		setValue("description", "JUNIT TRAINING"); 
 		HtmlElement row = getHtmlPage().getHtmlElementById("ox_openxavatest_Training__sessions___0"); 
 		HtmlElement removeLink = row.getElementsByTagName("a").get(0);

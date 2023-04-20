@@ -56,10 +56,11 @@ public class LinkTag extends ActionTagBase implements IActionTag {
 				pageContext.getOut().print("'");	
 			}
 			if (!Is.emptyString(getCssStyle())) {
+				// We still add it but ignored because of CSP
 				pageContext.getOut().print(" style='");
 				pageContext.getOut().print(getCssStyle());
 				pageContext.getOut().print("'");	
-				throw new RuntimeException("Atributo style en Link tag no soportado"); // tmr Cambiar por un log
+				log.warn(XavaResources.getString("style_attribute_not_supported_in_tag", "Image", getAction(), getCssStyle()));
 			}
 			pageContext.getOut().print(" title='");
 			pageContext.getOut().print(filterApostrophes(getTooltip(metaAction))); 

@@ -25,12 +25,7 @@ if (editable || !label) {
 	maxlength="<%=p.getSize()%>"
 	data-input
 	size="<%=p.getSize() + sizeIncrement%>" 
-	<%-- tmr
-	value="<%=fvalue%>" <%=disabled%> <%=script%>><%if (editable) {%><a href="javascript:void(0)" data-toggle><i class="mdi mdi-calendar"></i></a><%} %>
-	--%>
-	<%-- tmr ini --%>
 	value="<%=fvalue%>" <%=disabled%> <%=script%>><%if (editable) {%><a data-toggle><i class="mdi mdi-calendar"></i></a><%} %>
-	<%-- tmr fin --%>	
 </span> 
 <%
 } else {

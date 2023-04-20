@@ -23,8 +23,7 @@ public class DocTest extends ModuleTestBase {
 		assertTrue(html.contains("tres partes de su hacienda")); // The tooltip is complete
 		assertEquals(2, StringUtils.countMatches(html, "En un lugar de la Mancha")); // The tooltip is not duplicated
 		
-		// tmr HtmlDivision div = (HtmlDivision) getHtmlPage().getByXPath("//div[@class='ox_openxavatest_Doc__tipable ox_openxavatest_Doc__list_col1']").get(0); 
-		HtmlDivision div = (HtmlDivision) getHtmlPage().getByXPath("//div[@class='ox_openxavatest_Doc__tipable ox_openxavatest_Doc__list_col1 ox-width-100']").get(0); // tmr 
+		HtmlDivision div = (HtmlDivision) getHtmlPage().getByXPath("//div[@class='ox_openxavatest_Doc__tipable ox_openxavatest_Doc__list_col1 ox-width-100']").get(0);  
 		String title = "En un lugar de la Mancha\'2, de cuyo nombre no quiero> acordarme3, <editor url=\"booleanWithSuffixEditor.jsp\"> </editor> no ha";
 		assertTrue(div.getFirstElementChild().getAttribute("title").startsWith(title));
 		

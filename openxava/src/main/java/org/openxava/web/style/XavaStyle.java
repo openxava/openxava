@@ -7,9 +7,11 @@ import org.openxava.web.*;
 
 /**
  * @since 6.0 
+ * @deprecated  Since v7.1 as Style parent class.
  * @author Javier Paniza
  */
 
+@Deprecated
 public class XavaStyle extends Style {
 	
 	private static XavaStyle instance = null;
@@ -64,11 +66,6 @@ public class XavaStyle extends Style {
 		return "ox-frame";
 	}
 	
-	/* tmr
-	public String getModuleSpacing() {
-		return "";		
-	}
-	*/
 		
 	/**
 	 * @since 5.1.1
@@ -84,47 +81,6 @@ public class XavaStyle extends Style {
 		return -40;		
 	}
 
-	/* tmr
-	public String getFrameHeaderStartDecoration(int width, boolean collection) {
-	   // tmr Movido a padre
-	}
-	*/
-		
-	/* tmr Movido a padre
-	public String getFrameTitleStartDecoration() {
-		StringBuffer r = new StringBuffer();
-		r.append("<span ");
-		r.append("class='");
-		r.append(getFrameTitleLabel());
-		r.append("'>\n");
-		return r.toString();
-	}
-	*/
-	
-	/* tmr Movido a padre
-	public String getFrameActionsStartDecoration() {		
-		return "<span class='" + getFrameActions() + "'>"; 
-	}
-	
-	*/
-	
-	/* tmr Movido a padre
-	public String getFrameHeaderEndDecoration() {
-		return "</div>";			
-	}
-	*/
-	
-	/* tmr Movido a padre
-	public String getFrameContentStartDecoration(String id, boolean closed) {
-	}
-	*/
-		
-	/* tmr Movido a padre
-	public String getFrameContentEndDecoration() { 
-		return "\n</div></div></div>"; 
-	}
-	*/
-		
 	public String getSectionBarStartDecoration() { 
 		return "<td>";
 	}
@@ -132,43 +88,5 @@ public class XavaStyle extends Style {
 	public String getSectionBarEndDecoration() {
 		return "</td>";
 	}
-
-	/* tmr
-	public String getErrorStartDecoration () {  
-		return "<div class='ox-message-box'>"; 
-	}
-	
-	public String getErrorEndDecoration () { 
-		return "</div>";
-	}
-	*/
-	
-	/* tmr
-	public String getMessageStartDecoration () {  
-		return "<div class='ox-message-box'>"; 
-	}
-		
-	public String getMessageEndDecoration () { 
-		return "</div>";
-	}
-	*/
-	
-	/**
-	 * @since 5.5
-	 */
-	/* tmr
-	public String getWarningStartDecoration() { 
-		return "<div class='ox-message-box'>"; 
-	}
-	*/
-
-	/**
-	 * @since 5.5
-	 */
-	/* tmr
-	public String getInfoStartDecoration() { 
-		return "<div class='ox-message-box'>"; 
-	}
-	*/
 	
 }

@@ -17,7 +17,7 @@ public class ProductExpenses2Test extends ModuleTestBase {
 		
 	public void testDescriptionsListWithDefaultValueInElementCollection_descriptionsListAfterRemovingRowInElementCollection() throws Exception {  
 		getWebClient().getOptions().setCssEnabled(true);
-		reload(); // tmr
+		reload(); 
 		execute("CRUD.new");
 		setValue("description", "JUNIT EXPENSES");
 		

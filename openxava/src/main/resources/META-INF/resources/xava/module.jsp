@@ -135,7 +135,7 @@
 	<script type='text/javascript' src='<%=contextPath%>/dwr/interface/Tab.js?ox=<%=version%>'></script>
 	<script type='text/javascript' src='<%=contextPath%>/dwr/interface/View.js?ox=<%=version%>'></script>
 	<script type='text/javascript' src='<%=contextPath%>/xava/js/openxava.js?ox=<%=version%>'></script>
-	<script type='text/javascript' <xava:nonce/>> <%-- tmr nonce --%>
+	<script type='text/javascript' <xava:nonce/>> 
 		openxava.lastApplication='<%=app%>'; 		
 		openxava.lastModule='<%=module%>'; 
 		openxava.language='<%=Locales.getCurrent().getLanguage()%>'; 
@@ -255,7 +255,7 @@ if (manager.isResetFormPostNeeded()) {
 		String browser = request.getHeader("user-agent"); 
 %>
 
-<script type="text/javascript" <xava:nonce/>> <%-- tmr nonce --%>
+<script type="text/javascript" <xava:nonce/>> 
 <%String prefix = Strings.change(manager.getApplicationName(), "-",
 					"_")
 					+ "_" + Strings.change(manager.getModuleName(), "-", "_");

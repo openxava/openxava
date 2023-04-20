@@ -41,7 +41,7 @@ public class AuthorTest extends CustomizeListTestBase {
 	
 	public void testComparatorsShownOnDemand_noFilterInCollectionByDefault() throws Exception { 
 		getWebClient().getOptions().setCssEnabled(true);
-		reload(); // tmr En migration
+		reload(); 
 		
 		assertListRowCount(2);
 		
