@@ -113,7 +113,7 @@ public class ProductExpensesTest extends ModuleTestBase {
 		handler.click();
 		HtmlElement combo = getHtmlPage().getHtmlElementById("ui-id-1");
 		((HtmlElement) combo.getFirstElementChild()).click();
-		assertCollectionRowCount("expenses", 1);
+		assertCollectionRowCount("expenses", 1); 
 	}
 			
 }

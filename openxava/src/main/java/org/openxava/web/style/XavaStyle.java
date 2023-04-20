@@ -7,9 +7,11 @@ import org.openxava.web.*;
 
 /**
  * @since 6.0 
+ * @deprecated  Since v7.1 as Style parent class.
  * @author Javier Paniza
  */
 
+@Deprecated
 public class XavaStyle extends Style {
 	
 	private static XavaStyle instance = null;
@@ -64,9 +66,6 @@ public class XavaStyle extends Style {
 		return "ox-frame";
 	}
 	
-	public String getModuleSpacing() {
-		return "";		
-	}
 		
 	/**
 	 * @since 5.1.1
@@ -82,102 +81,12 @@ public class XavaStyle extends Style {
 		return -40;		
 	}
 
-	public String getFrameHeaderStartDecoration(int width, boolean collection) {   
-		StringBuffer r = new StringBuffer();
-		r.append("<div ");
-		r.append(" class='");
-		r.append(getFrame());
-		if (collection) {
-			r.append(' ');
-			r.append(getCollection());
-		}
-		if (width == 100) { 
-			r.append(' ');			
-			r.append(getFullFrame()); 
-		}
-		else if (width == 50) { // Two frames in a row
-			r.append(' ');			
-			r.append(getHalfFrame()); 		
-		}		
-		r.append("'"); 
-		r.append(getFrameSpacing());
-		r.append(">");
-		r.append("<div class='");
-		r.append(getFrameTitle());
-		r.append("'>");		
-		r.append("\n");						
-		return r.toString();
-	}
-		
-	public String getFrameTitleStartDecoration() {
-		StringBuffer r = new StringBuffer();
-		r.append("<span ");
-		r.append("class='");
-		r.append(getFrameTitleLabel());
-		r.append("'>\n");
-		return r.toString();
-	}
-	
-	public String getFrameActionsStartDecoration() {		
-		return "<span class='" + getFrameActions() + "'>"; 
-	}
-	
-	public String getFrameHeaderEndDecoration() {
-		return "</div>";			
-	}
-	
-	public String getFrameContentStartDecoration(String id, boolean closed) {
-		StringBuffer r = new StringBuffer();
-		r.append("<div id='");
-		r.append(id);
-		r.append("' ");
-		if (closed) r.append("style='display: none;'");
-		r.append("><div class='");
-		r.append(getFrameContent());	
-		r.append("'>\n");
-		return r.toString();
-	}
-		
-	public String getFrameContentEndDecoration() { 
-		return "\n</div></div></div>"; 
-	}
-		
 	public String getSectionBarStartDecoration() { 
 		return "<td>";
 	}
 	
 	public String getSectionBarEndDecoration() {
 		return "</td>";
-	}
-
-	public String getErrorStartDecoration () {  
-		return "<div class='ox-message-box'>"; 
-	}
-	
-	public String getErrorEndDecoration () { 
-		return "</div>";
-	}
-	
-	public String getMessageStartDecoration () {  
-		return "<div class='ox-message-box'>"; 
-	}
-		
-	public String getMessageEndDecoration () { 
-		return "</div>";
-	}
-	
-	/**
-	 * @since 5.5
-	 */
-	public String getWarningStartDecoration() { 
-		return "<div class='ox-message-box'>"; 
-	}
-
-	/**
-	 * @since 5.5
-	 */
-	public String getInfoStartDecoration() { 
-		return "<div class='ox-message-box'>"; 
 	}
 	
 }

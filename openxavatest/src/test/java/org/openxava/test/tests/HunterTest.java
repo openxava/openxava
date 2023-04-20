@@ -64,7 +64,7 @@ public class HunterTest extends ModuleTestBase {
 		setConditionComparators("hounds", new String [] {"empty_comparator"});		
 		// execute("List.filter", "collection=hounds");
 		assertCollectionRowCount("hounds", 0); 
-		assertTrue(isNotVisibleConditionValue(0));
+		assertTrue(isNotVisibleConditionValue(0)); 
 		
 		// Filter Date
 		setConditionComparators("hounds", new String [] {"=", "=", "empty_comparator"});
@@ -124,6 +124,6 @@ public class HunterTest extends ModuleTestBase {
 				"ox_" + getXavaJUnitProperty("application") + 
 				"_Hunter__xava_collectionTab_hounds_conditionValue___" + index;
 		HtmlElement input = getHtmlPage().getHtmlElementById(idConditionValue); 
-		return input.getAttribute("style").contains("display: none");			
+		return input.getAttribute("class").contains("ox-display-none"); 
 	}
 }

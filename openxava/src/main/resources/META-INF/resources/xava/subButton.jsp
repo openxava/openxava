@@ -34,7 +34,7 @@ String aId = Ids.decorate(request, "sc-a-" + controllerName + "_" + mode);
 String spanId = Ids.decorate(request, "sc-span-" + controllerName + "_" + mode);
 %>
 <span id='<%=containerId%>'>
-	<span id='<%=buttonId%>' class="<%=style.getButtonBarButton()%> <%=style.getSubcontrollerButton()%>">
+	<span id='<%=buttonId%>' class="ox-button-bar-button ox-subcontroller-button">
 		<a 
 			id ='<%=aId%>'
 			href="javascript:openxava.subcontroller('<%=id%>','<%=containerId%>','<%=buttonId%>','<%=imageId%>','<%=aId%>','<%=spanId%>')" 
@@ -43,12 +43,7 @@ String spanId = Ids.decorate(request, "sc-span-" + controllerName + "_" + mode);
 			<% if (!Is.emptyString(icon) && (style.isUseIconsInsteadOfImages() || Is.emptyString(image))) { %>
 			<i class="mdi mdi-<%=icon%>"></i>
 			<% } else { %>
-			<span
-				id='<%=spanId%>' 
-				style="padding:4px; background: url(<%=request.getContextPath()%>/<%=style.getImagesFolder()%>/<%=image%>) no-repeat 5px 50%;">				
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			</span>
-                &nbsp;&nbsp;
+            <img src="<%=request.getContextPath()%>/<%=style.getImagesFolder()%>/<%=image%>"/>
 			<% } %>
 			<%= Labels.get(controllerName)%>
 			<i id='<%=imageId%>' class="mdi mdi-menu-down"></i>&nbsp;
@@ -56,7 +51,7 @@ String spanId = Ids.decorate(request, "sc-span-" + controllerName + "_" + mode);
 		</a>
 	</span>
 	
-	<div id="<%=id%>" class="<%=style.getSubcontroller()%>" style="display:none;">
+	<div id="<%=id%>" class="ox-subcontroller">
 		<table>
 		<%
 		Collection actions = manager.getSubcontrollerMetaActions(controllerName);

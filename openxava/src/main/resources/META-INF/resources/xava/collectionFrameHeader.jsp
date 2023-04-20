@@ -20,7 +20,7 @@ View view = (View) context.get(request, viewObject);
 View collectionView = view.getSubview(collectionName);
 String viewName = viewObject + "_" + collectionName;
 String frameId = Ids.decorate(request, "frame_" + view.getPropertyPrefix() + collectionName);
-String hiddenStyle = view.isFrameClosed(frameId)?"":"style='display: none'";
+String hiddenStyle = view.isFrameClosed(frameId)?"":"ox-display-none";
 if (!collectionView.isCollectionFromModel()) {
 	Tab tab = collectionView.getCollectionTab();
 	if (request.getAttribute(Tab.TAB_RESETED_PREFIX + tab) == null) {
@@ -34,7 +34,7 @@ if (!collectionView.isCollectionFromModel()) {
 	}
 }
 %>
-<span <%=hiddenStyle%>>
+<span class="<%=hiddenStyle%>">
 (<%=collectionView.getCollectionSize()%>)
 <%
 	if (collectionView.isCollectionEditable()) {
@@ -44,7 +44,7 @@ if (!collectionView.isCollectionFromModel()) {
 	}
 %>
 </span>
-<span class="<%=style.getFrameTotals()%>" <%=hiddenStyle%>>
+<span class="<%=style.getFrameTotals()%> <%=hiddenStyle%>">
 <%
 	int totalRows = collectionView.getCollectionTotalsCount();
 int totalColumns = collectionView.getMetaPropertiesList().size();

@@ -668,6 +668,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	
 	public void testFilterByRange() throws Exception{ 
 		getWebClient().getOptions().setCssEnabled(true); 
+		reload(); 
 		
 		assertListRowCount(9); 
 		assertLabelInList(0, "Year");
@@ -679,7 +680,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertListRowCount(9); 
 		assertTrue(isVisibleConditionValueTo(0)); 
 		assertFalse(isVisibleConditionValueToCalendar(0));
-		assertFalse(isVisibleConditionValueTo(2));		
+		assertFalse(isVisibleConditionValueTo(2)); 		
 		assertFalse(isVisibleConditionValueToCalendar(2));
 		setConditionValuesTo("2004");
 		execute("List.filter");

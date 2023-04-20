@@ -25,7 +25,7 @@ public class RouteTest extends ModuleTestBase {
 		assertValue("description", "ROUTE KM 11");
 		setValueInCollection("visits", 1, "km", "12");
 		assertValueInCollection("visits", 0, "description", "VISIT KM 11");
-		assertValueInCollection("visits", 1, "description", "VISIT KM 12");
+		assertValueInCollection("visits", 1, "description", "VISIT KM 12"); 
 		assertValue("description", "ROUTE KM 12");
 		setValueInCollection("visits", 0, "km", "13");
 		assertValueInCollection("visits", 0, "description", "VISIT KM 13");

@@ -130,10 +130,11 @@ public class AJAXTest extends ModuleTestBase {
 			"errors, messages");
 		
 		HtmlElement row = getHtmlPage().getHtmlElementById("ox_openxavatest_Quote__details___1"); 
-		HtmlElement removeIcon = row.getElementsByTagName("a").get(0).getElementsByTagName("i").get(0); 
-		removeIcon.click();		
+		HtmlElement removeIcon = row.getElementsByTagName("a").get(0).getElementsByTagName("i").get(0);
+		removeIcon.click();
+
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		assertLoadedParts(
+		assertLoadedParts( 
 			"collection_total_0_4_details.," +
 			"collection_total_2_4_details.," +
 			"collection_total_3_4_details.," +

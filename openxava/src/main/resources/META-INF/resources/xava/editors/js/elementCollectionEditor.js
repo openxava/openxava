@@ -15,7 +15,7 @@ openxava.addEditorInitFunction(function() {
 elementCollectionEditor.onChangeRow = function(element, rowIndex) {
 	var currentRow = $(element).parent().parent();
 	var nextRow = currentRow.next();
-	if (nextRow.is(':visible')) return;			
+	if (!nextRow.hasClass('ox-display-none')) return; 
 	var newRow = nextRow.clone();
 	var token1 = new RegExp("__" + (rowIndex + 1), "g");
 	var token2 = "__" + (rowIndex + 2);
@@ -28,15 +28,16 @@ elementCollectionEditor.onChangeRow = function(element, rowIndex) {
 	token2 = ", this, " + (rowIndex + 2) + ", ";
 	newRowHtml = newRowHtml.replace(token1, token2);
 	newRow.html(newRowHtml);
-	newRow.css("display", "none"); 
+	newRow.addClass("ox-display-none"); 
 	var table = currentRow.parent().parent();	
 	elementCollectionEditor.setDefaultValues(table, rowIndex); 
 	nextRow.show();
+	nextRow.removeClass("ox-display-none"); 
 	$(nextRow).after(newRow);
 	currentRow.children().first().find("nobr").css('visibility', 'visible');
 	currentRow.addClass("xava_sortable_element_row"); 
 	openxava.initEditors();
-	openxava.initInlineEvents(); 
+	openxava.initInlineEvents();
 }
 
 elementCollectionEditor.setDefaultValues = function(table, rowIndex) {
@@ -53,7 +54,7 @@ elementCollectionEditor.setDefaultValues = function(table, rowIndex) {
 	});
 }
 
-elementCollectionEditor.removeRow = function(application, module, element, rowIndex, hasTotals) { 
+elementCollectionEditor.removeRow = function(application, module, element, rowIndex, hasTotals) {
 	var currentRow = $(element).parent().parent().parent().parent();
 	var nextRow = currentRow.next();
 	currentRow.remove();
@@ -62,7 +63,7 @@ elementCollectionEditor.removeRow = function(application, module, element, rowIn
 		openxava.executeAction(application, module, "", false, "ElementCollection.refreshTotals");
 	}	
 	openxava.initEditors();
-	openxava.initInlineEvents(); 
+	openxava.initInlineEvents();
 }
 
 elementCollectionEditor.renumber = function(row, rowIndex) { 
@@ -77,7 +78,7 @@ elementCollectionEditor.renumber = function(row, rowIndex) {
 		.replace(new RegExp("this, \\d+", "g"), "this, " + rowIndex)
 		.replace(new RegExp("keyProperty=(.*)\\.\\d+\\.", "g"), "keyProperty=$1." + rowIndex + ".");
 	row.html(rowHtml);
-	if ($(row).css("display") !== 'none') { // is:visible/hidden not work on mobile (removing one record removes all until end)
+	if (!$(row).hasClass("ox-display-none") && $(row).css("display") !== 'none') { // is:visible/hidden not work on mobile (removing one record removes all until end)
 		elementCollectionEditor.renumber(row.next(), rowIndex + 1);
 	}
 }

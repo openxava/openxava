@@ -59,6 +59,7 @@ public class CorporationTest extends ModuleTestBase {
 
 	public void testIconEditor() throws Exception { 
 		getWebClient().getOptions().setCssEnabled(true);
+		reload(); 
 		execute("List.viewDetail", "row=0");
 		assertNoIconInEditor(); 
 		execute("Icon.add", "newIconProperty=icon");

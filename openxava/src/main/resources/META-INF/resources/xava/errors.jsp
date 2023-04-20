@@ -7,17 +7,17 @@
 <%
 if (errors.contains()) {
 %>
-<div class='<%=style.getErrorsWrapper()%>'>
+<div class='ox-errors-wrapper'>
 <table id="<xava:id name='errors_table'/>">
 <%
 	java.util.Iterator it = errors.getStrings(request).iterator();
 	while (it.hasNext()) {		
 %>
-<tr><td class='<%=style.getErrors()%>'>
-<%=style.getErrorStartDecoration()%>
-<i class="mdi mdi-close" style="cursor: pointer;" onclick="$(this).parent().fadeOut()"></i>
+<tr><td class='ox-errors'>
+<div class='ox-message-box'>
+<i class="mdi mdi-close" onclick="$(this).parent().fadeOut()"></i>
 <%=it.next()%>
-<%=style.getErrorEndDecoration()%>
+</div>
 </td></tr>
 <% } %>
 </table>

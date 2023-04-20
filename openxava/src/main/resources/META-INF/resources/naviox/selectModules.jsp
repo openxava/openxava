@@ -50,7 +50,7 @@ for (Iterator it= modulesList.iterator(); it.hasNext();) {
 			<% if (bookmarkModules) { %>
 			<i class="mdi mdi-star bookmark-decoration"></i>
 			<% } %>
-			<i id="<%=module.getName()%>_loading" class="mdi mdi-autorenew module-loading spin" style="float: right; display:none;"></i>
+			<i id="<%=module.getName()%>_loading" class="mdi mdi-autorenew module-loading spin"></i>
 		</div>
 	</div>	
 	</a>
@@ -62,9 +62,9 @@ if (loadMore) {
 %>
 	<a  href="javascript:naviox.displayAllModulesList('<%=searchWord%>')">
 	<div id="more_modules" class="module-row" onclick="$('#loading_more_modules').show(); $('#load_more_modules').hide();">
-	<span id="loading_more_modules" style="display:none;">
+	<span id="loading_more_modules">
 	<xava:message key="loading"/>...
-	<i class="mdi mdi-autorenew module-loading spin" style="float: right;"></i>
+	<i class="mdi mdi-autorenew module-loading spin"></i>
 	</span>
 	<span id="load_more_modules">
 	<xava:message key="load_more_modules"/>...

@@ -4,7 +4,6 @@ import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
 import org.apache.commons.logging.*;
-import org.openxava.controller.*;
 import org.openxava.controller.meta.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
@@ -51,9 +50,11 @@ public class ImageTag extends ActionTagBase {
 				pageContext.getOut().print("'");	
 			}
 			if (!Is.emptyString(getCssStyle())) {
+				// We still add it but ignored because of CSP
 				pageContext.getOut().print(" style='");
 				pageContext.getOut().print(getCssStyle());
-				pageContext.getOut().print("'");	
+				pageContext.getOut().print("'");
+				log.warn(XavaResources.getString("style_attribute_not_supported_in_tag", "Image", getAction(), getCssStyle()));
 			}			
 			pageContext.getOut().print(" title='");
 			pageContext.getOut().print(filterApostrophes(getTooltip(metaAction))); 

@@ -1,10 +1,10 @@
 package org.openxava.test.tests;
 
-import java.text.*;
 import java.util.*;
 
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
+import org.openxava.util.*;
 
 import com.gargoylesoftware.htmlunit.html.*;
 
@@ -19,7 +19,7 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		super(testName, "Incident");		
 	}
 	
-	public void testDiscussionEditor_defaultPropertiesForListWithoutTab_discussionEmailNotifications() throws Exception {  
+	public void testDiscussionEditor_defaultPropertiesForListWithoutTab_discussionEmailNotifications() throws Exception {
 		subscribeToEmailNotifications(); 
 
 		execute("Mode.list"); 
@@ -31,7 +31,7 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		setValue("title", "THE JUNIT DISCUSSION");
 		setValue("description", "This is the big &ltjUnit&gt discussion"); 
 		
-		assertDiscussionCommentsCount("discussion", 0);
+		assertDiscussionCommentsCount("discussion", 0); 
 		postDiscussionComment("discussion", "Hi, it's me");
 		String timeFirstPost = getCurrentTime();
 		assertDiscussionCommentsCount("discussion", 1); 
@@ -112,7 +112,7 @@ public class IncidentTest extends EmailNotificationsTestBase {
 
 	
 	private String getCurrentTime() { 
-		return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, new Locale(getLocale())).format(new java.util.Date());
+		return Dates.getDateTimeFormat(new Locale(getLocale())).format(new java.util.Date()); 
 	}
 	
 }

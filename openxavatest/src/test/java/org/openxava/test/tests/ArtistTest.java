@@ -51,9 +51,7 @@ public class ArtistTest extends ModuleTestBase {
 	
 	private void assertEditorForAnnotation(String property, String color) { 
 		String editorHTML = getHtmlPage().getHtmlElementById("ox_openxavatest_Artist__editor_" + property).asXml();
-		assertTrue(editorHTML.contains("color: " + color + ";"));
-		assertTrue(editorHTML.contains("background: yellow;"));
-		assertTrue(editorHTML.contains("class=\"ox-colorful-" + color + "\""));
+		assertTrue(editorHTML.contains("class=\"colorful-color-" + color + " colorful-background-yellow\"")); 		 
 	}
 
 	private void assertErrorStyle() throws Exception {

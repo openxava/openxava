@@ -42,13 +42,16 @@ public class Themes {
 		}
 		String newTheme = request.getParameter("theme");
 		try {
-			if (!Is.emptyString(newTheme) && getAll().contains(newTheme)) { // If change this pass the ZAP test again
+			Collection<String> all = getAll();
+			if (!Is.emptyString(newTheme) && all.contains(newTheme)) { // If change this pass the ZAP test again
 				Preferences pref = getPreferences();
 				pref.put("theme", newTheme);
 				pref.flush();
 				return newTheme;
 			}		
-			return getPreferences().get("theme", XavaPreferences.getInstance().getStyleCSS());
+			String theme = getPreferences().get("theme", XavaPreferences.getInstance().getStyleCSS());
+			if (!all.contains(theme)) theme = XavaPreferences.getInstance().getStyleCSS(); 
+			return theme;
 		} 
 		catch (Exception ex) {
 			log.warn(XavaResources.getString("user_theme_error_using_default"), ex);

@@ -19,16 +19,16 @@ searchWord = searchWord == null?"":searchWord.toLowerCase();
 boolean originalColumnsToAddUntilSecondLevel = tab.isColumnsToAddUntilSecondLevel();
 if (!Is.emptyString(searchWord)) tab.setColumnsToAddUntilSecondLevel(false);
 %>
-<table id="<xava:id name='xavaPropertiesList'/>" class='<%=style.getList()%>' width="100%" <%=style.getListCellSpacing()%> style="margin-bottom: 5px; <%=style.getListStyle()%>">
-<tr class="<%=style.getListPair()%>" style="border-bottom: 1px solid; height: 0px;"/> 
+<table id="<xava:id name='xavaPropertiesList'/>" class='ox-list ox-select-columns-list' width="100%" <%=style.getListCellSpacing()%>>
+<tr class="ox-list-pair"/> 
 <%
 int f=0;
 Locale currentLocale = Locales.getCurrent(); //Trifon
 int c=0; 
 for (Iterator it=tab.getColumnsToAdd().iterator(); it.hasNext();) { 
 	String property = (String) it.next();
-	String cssClass=c%2==0?style.getListPair():style.getListOdd();	
-	String cssCellClass=c%2==0?style.getListPairCell():style.getListOddCell();
+	String cssClass=c%2==0?"ox-list-pair":"ox-list-odd";	
+	String cssCellClass=c%2==0?"ox-list-pair":"ox-list-odd";
 	String events=c%2==0?style.getListPairEvents():style.getListOddEvents();	
 	String rowId = Ids.decorate(request, "xavaPropertiesList") + f;
 	String actionOnClick = org.openxava.web.Actions.getActionOnClick(
@@ -42,15 +42,15 @@ for (Iterator it=tab.getColumnsToAdd().iterator(); it.hasNext();) {
 	c++;
 	if (tab.isColumnsToAddUntilSecondLevel() && c > 20) break;
 %>
-<tr id="<%=rowId%>" class="<%=cssClass%>" <%=events%> style="border-bottom: 1px solid;">
-	<td class="<%=cssCellClass%>" style="<%=style.getListCellStyle()%>" width="5">
+<tr id="<%=rowId%>" class="<%=cssClass%>" <%=events%>>
+	<td class="<%=cssCellClass%>" width="5">
 		<xava:action action='AddColumns.addColumn' argv='<%="property=" + property%>'/>
 	</td>		
-	<td class="<%=cssCellClass%>" style="<%=style.getListCellStyle()%>" width="5">
+	<td class="<%=cssCellClass%>" width="5">
 		<input type="checkbox" name="<xava:id name='xava_selected'/>" value="selectedProperties:<%=property%>" <%=actionOnClick%>/>
 	</td>
-	<td class="<%=cssCellClass%>" style="<%=style.getListCellStyle()%>"> 
-		<xava:link action='AddColumns.addColumn' argv='<%="property=" + property%>' cssStyle="text-decoration: none; outline: none;">
+	<td class="<%=cssCellClass%>"> 
+		<xava:link action='AddColumns.addColumn' argv='<%="property=" + property%>'>
 		<div><%=propertyI18n%></div>
 		</xava:link>
 	</td>
@@ -62,11 +62,11 @@ for (Iterator it=tab.getColumnsToAdd().iterator(); it.hasNext();) {
 <%
 if (tab.isColumnsToAddUntilSecondLevel()) {
 %>
-<tr class="<%=style.getListPair()%>">
+<tr class="ox-list-pair">
 <td/>
 <td/>
 <td>
-<xava:link action="AddColumns.showMoreColumns" cssClass="<%=style.getActionLink()%>" cssStyle="margin-left: 0px;" /> 
+<xava:link action="AddColumns.showMoreColumns" cssClass="<%=style.getActionLink()%>"/> 
 </td>
 </tr>
 <%

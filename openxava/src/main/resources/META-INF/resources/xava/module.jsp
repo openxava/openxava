@@ -135,7 +135,7 @@
 	<script type='text/javascript' src='<%=contextPath%>/dwr/interface/Tab.js?ox=<%=version%>'></script>
 	<script type='text/javascript' src='<%=contextPath%>/dwr/interface/View.js?ox=<%=version%>'></script>
 	<script type='text/javascript' src='<%=contextPath%>/xava/js/openxava.js?ox=<%=version%>'></script>
-	<script type='text/javascript' <xava:nonce/>> <%-- tmr nonce --%>
+	<script type='text/javascript' <xava:nonce/>> 
 		openxava.lastApplication='<%=app%>'; 		
 		openxava.lastModule='<%=module%>'; 
 		openxava.language='<%=Locales.getCurrent().getLanguage()%>'; 
@@ -203,12 +203,12 @@ if (manager.isResetFormPostNeeded()) {
 	<input id="<xava:id name='view_member'/>" type="hidden" value=""/>
 			
 	<%-- Layer for progress bar --%>
-	<div id='xava_processing_layer' style='display:none;'>
+	<div id='xava_processing_layer'>
 		<%=XavaResources.getString(request, "processing")%><br/>
 		<i class="mdi mdi-settings spin"></i>
 	</div>	
 	<%=style.getCoreStartDecoration()%>
-	<div id="<xava:id name='core'/>" style="display: inline;" class="<%=style.getModule()%>">
+	<div id="<xava:id name='core'/>" class="ox-module">
 		<%			
 			if (!coreViaAJAX) {
 		%>
@@ -226,12 +226,12 @@ if (manager.isResetFormPostNeeded()) {
 	<div id="xava_console" >
 	</div>
 	<div id="xava_loading">				
-		<i class="mdi mdi-autorenew module-loading spin" style="vertical-align: middle"></i>
+		<i class="mdi mdi-autorenew module-loading spin"></i>
 		&nbsp;<xava:message key="loading"/>...		 
 	</div>
 	<% if (!style.isFixedPositionSupported()) { %>
 	<div id="xava_loading2">
-		<i class="mdi mdi-autorenew module-loading spin" style="vertical-align: middle"></i>
+		<i class="mdi mdi-autorenew module-loading spin"></i>
 		&nbsp;<xava:message key="loading"/>...
 	</div>	
 	<% } %>	
@@ -255,7 +255,7 @@ if (manager.isResetFormPostNeeded()) {
 		String browser = request.getHeader("user-agent"); 
 %>
 
-<script type="text/javascript" <xava:nonce/>> <%-- tmr nonce --%>
+<script type="text/javascript" <xava:nonce/>> 
 <%String prefix = Strings.change(manager.getApplicationName(), "-",
 					"_")
 					+ "_" + Strings.change(manager.getModuleName(), "-", "_");

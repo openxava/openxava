@@ -15,7 +15,7 @@ String action="openxava.executeAction('" + app + "', 'CorporationEmployee'," +
 	"false, false, 'CorporationEmployee.filter', 'segment='+this.value)";
 %>
 
-<select name="<xava:id name='chooseSegment'/>" style='margin-bottom: 6px' onchange=
+<select name="<xava:id name='chooseSegment'/>" class='corporation-employee-list-select' onchange=
 	"<%=action%>">							
 	<option value="all" <%=all%>>All employees</option>
 	<option value="low" <%=low%>>Low salary employees</option>

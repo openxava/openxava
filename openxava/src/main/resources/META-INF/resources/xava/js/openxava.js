@@ -216,7 +216,7 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 
 openxava.initFocusKey = function() { }
 
-openxava.initInlineEvents =  function() {  
+openxava.initInlineEvents =  function() {
 	$('[onclick]').each(function() {
   		$(this).off('click').click(function() {
   			eval($(this).attr('onclick'));
@@ -460,7 +460,10 @@ openxava.updateRootIds = function(application, moduleFrom, moduleTo) {
 				openxava.decorateId(application, moduleTo, "view_member");	
 }
 
-openxava.initLists = function(application, module) {  
+openxava.initLists = function(application, module) {
+	$("[data-width]").each(function() {
+		$(this).width($(this).data("width"));		
+	});
 	$(".xava_resizable").resizable({
 		handles: 'e',
 		resize: function(event, ui) { 
@@ -665,7 +668,7 @@ openxava.decorateId = function(application, module, simpleName) {
 
 openxava.systemError = function(result) { 
 	document.body.style.cursor='auto';	
-	openxava.getElementById(result.application, result.module, "core").innerHTML="<big id='xava_system_error'><big style='padding: 5px;font-weight: bold; color: rgb(255, 0, 0);'>ERROR: " + result.error + "</big></big>";
+	openxava.getElementById(result.application, result.module, "core").innerHTML="<big id='xava_system_error'><big>ERROR: " + result.error + "</big></big>";
 }
 
 openxava.processKey = function(event) {	

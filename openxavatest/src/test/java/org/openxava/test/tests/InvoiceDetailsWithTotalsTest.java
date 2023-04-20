@@ -71,10 +71,13 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		assertTotalsInFrameOfCollection("calculatedDetails", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 425.00    Total: 2,925.00", true); 
 	}
 
-	public void testTotalsAndAddActionInCollectionFrame() throws Exception { 
+	public void testTotalsAndAddActionInCollectionFrame() throws Exception {
+		getWebClient().getOptions().setCssEnabled(true);
+		reload();
+
 		execute("List.viewDetail", "row=0");
 		execute("List.sumColumn", "property=quantity,collection=details");
-		assertTotalsInFrameOfCollection("details", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 400.00    Total: 2,900.00    Sum of Quantity: 150", false);         
+		assertTotalsInFrameOfCollection("details", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 400.00    Total: 2,900.00    Sum of Quantity: 150", false);          
 		execute("List.removeColumnSum", "property=quantity,collection=details");
 		assertTotalsInFrameOfCollection("calculatedDetails", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 400.00    Total: 2,900.00", true);  
 		
@@ -118,7 +121,6 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 	}	
 	
 	private void assertTotalsInFrameOfCollection(String collection, String totals, boolean addAction) throws Exception {
-		getWebClient().getOptions().setCssEnabled(true); 
 		HtmlElement header = getHtmlPage().getHtmlElementById("ox_openxavatest_InvoiceDetailsWithTotals__frame_" + collection + "header"); 
 		assertEquals("", header.asNormalizedText());
 		hideCollection(collection); 

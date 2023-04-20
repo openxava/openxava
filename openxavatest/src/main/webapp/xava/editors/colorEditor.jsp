@@ -15,8 +15,8 @@ for (int c=0; it.hasNext() && c < 3; c++) {
 %>	
 <input name="<%=propertyKey%>" value="<%=color.getNumber()%>" type="radio" <%=checked%> 
 	tabindex="1"/>
-<span style="font-weight: bold; color: #<%=color.getHexValue()%>;">	
-	<%=color.getName()%>
+<span>	
+	<font color="#<%=color.getHexValue()%>"><b><%=color.getName()%></b></font>
 </span>
 <%
 }

@@ -45,7 +45,7 @@ int activeSection = view.getActiveSection();
 				<%
 				String viewObjectArgv = "xava_view".equals(viewObject)?"":",viewObject=" + viewObject;
 				%>
-				<xava:link action='Sections.change' argv='<%="activeSection=" + i + viewObjectArgv%>' cssClass='<%=style.getSectionLink()%>' cssStyle='<%=style.getSectionLinkStyle()%>'>
+				<xava:link action='Sections.change' argv='<%="activeSection=" + i + viewObjectArgv%>' cssClass='ox-section-link'>
 				<span id="<%=labelId%>"><%=sectionName%></span>
 				<span id="<xava:id name='<%=sectionView.getViewObject() +  "_collectionSize"%>'/>"><%=collectionCountLabel%></span>
 				</xava:link>				

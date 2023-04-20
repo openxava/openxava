@@ -1335,92 +1335,36 @@ class="st0">"Color"</span><span class="re2">/&gt;</span></span>
         un editor</a> del <a class="wiki_link" href="view_es.html">capítulo
         sobre Vista</a>).<br>
       Aquí tenemos el código para <em>colorEditor.jsp</em> en la carpeta <i>src/main/webapp/xava/editors</i>
-      (<i>web/xava/editors</i> en v6 o anterior) de tu proyecto:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
+      (<i>web/xava/editors</i> en v6 o anterior) de tu proyecto:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="html">&lt;%@page import="java.util.Iterator"%&gt;
+&lt;%@page import="org.openxava.test.model.Color"%&gt;
 
--->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span
-class="sy0">=</span><span class="st0">"java.util.Iterator"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-class="st0">"org.openxava.test.model.Color"</span><span class="sy1">%&gt;</span><span
-class="sy1">&lt;%</span>
-&nbsp;
-String propertyKey <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-class="br0">(</span><span class="st0">"propertyKey"</span><span class="br0">)</span><span
-class="sy0">;</span> <span class="co1">// Id de la propiedad clave de la referencia (1)</span>
-Object value <span class="sy0">=</span> request<span class="sy0">.</span>getAttribute<span
-class="br0">(</span>propertyKey <span class="sy0">+</span> <span class="st0">".value"</span><span
-class="br0">)</span><span class="sy0">;</span> <span class="co1">// Podemos usar propertyKey + ".value" (2)</span>
-<span class="kw1">if</span> <span class="br0">(</span>value <span class="sy0">==</span> <span
-class="kw4">null</span><span class="br0">)</span> value <span class="sy0">=</span> <span
-class="nu0">0</span><span class="sy0">;</span>
-&nbsp;
-<span class="kw1">for</span> <span class="br0">(</span>Iterator it <span class="sy0">=</span> Color<span
-class="sy0">.</span>findAll<span class="br0">(</span><span class="br0">)</span><span
-class="sy0">.</span>iterator<span class="br0">(</span><span class="br0">)</span><span
-class="sy0">;</span> it<span class="sy0">.</span>hasNext<span class="br0">(</span><span
-class="br0">)</span><span class="sy0">;</span> <span class="br0">)</span> <span
-class="br0">{</span>
- Color color <span class="sy0">=</span> <span class="br0">(</span>Color<span class="br0">)</span> it<span
-class="sy0">.</span><span class="kw3">next</span><span class="br0">(</span><span
-class="br0">)</span><span class="sy0">;</span>
- String checked <span class="sy0">=</span> value<span class="sy0">.</span>equals<span
-class="br0">(</span>color<span class="sy0">.</span>getNumber<span class="br0">(</span><span
-class="br0">)</span><span class="br0">)</span>?<span class="st0">"checked='checked'"</span><span
-class="sy0">:</span><span class="st0">""</span><span class="sy0">;</span>
-<span class="sy1">%&gt;</span>
-&lt;span style="font-weight: bold; color: #<span class="sy1">&lt;%=</span>color<span
-class="sy0">.</span>getHexValue<span class="br0">(</span><span class="br0">)</span><span
-class="sy1">%&gt;</span>; vertical-align: bottom"&gt;
- &lt;input name="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" value="<span
-class="sy1">&lt;%=</span>color<span class="sy0">.</span>getNumber<span class="br0">(</span><span
-class="br0">)</span><span class="sy1">%&gt;</span>" type="radio" <span class="sy1">&lt;%=</span>checked<span
-class="sy1">%&gt;</span>/&gt; &lt;!-- (3) --&gt;
- <span class="sy1">&lt;%=</span>color<span class="sy0">.</span>getName<span class="br0">(</span><span
-class="br0">)</span><span class="sy1">%&gt;</span>
+&lt;%
+String propertyKey = request.getParameter("propertyKey"); // Id de la propiedad clave de la referencia (1)
+Object value = request.getAttribute(propertyKey + ".value"); // Podemos usar propertyKey + ".value" (2)
+if (value == null) value = new Integer(0);
+%&gt;
+
+&lt;%
+Iterator it = Color.findAll().iterator();
+for (int c=0; it.hasNext() &amp;&amp; c &lt; 3; c++) {
+	Color color = (Color) it.next();
+	String checked = value.equals(color.getNumber())?"checked='checked'":"";
+%&gt;	
+&lt;input name="&lt;%=propertyKey%&gt;" value="&lt;%=color.getNumber()%&gt;" type="radio" &lt;%=checked%&gt; &lt;!-- (3) --&gt;
+	tabindex="1"/&gt;
+&lt;span&gt;	
+	&lt;font color="#&lt;%=color.getHexValue()%&gt;"&gt;&lt;b&gt;&lt;%=color.getName()%&gt;&lt;/b&gt;&lt;/font&gt;
 &lt;/span&gt;
-<span class="sy1">&lt;%</span>
-<span class="br0">}</span>
-<span class="sy1">%&gt;</span></pre>
-      El parámetro "propertyKey" (1) nos da el id de la propiedad clave de la
-      referencia. Podemos usarlo para nombrar el elemento HTML input (3) o para
-      obtener su valor actual (2). La lista de parámetros que se puede usar es:<br>
+&lt;%
+}
+%&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">El parámetro "propertyKey" (1) nos
+      da el id de la propiedad clave de la referencia. Podemos usarlo para
+      nombrar el elemento HTML input (3) o para obtener su valor actual (2). La
+      lista de parámetros que se puede usar es:<br>
       <ol>
         <li><strong>referenceKey</strong>: El identificador único que OX da a
           esta referencia.</li>
@@ -1972,7 +1916,7 @@ class="sy0">+</span>
 class="sy0">;</span>
 <span class="sy1">%&gt;</span>
 &nbsp;
-&lt;select name="&lt;xava:id name='escogerSegmento'/&gt;" style='margin-bottom: 6px' onchange=
+&lt;select name="&lt;xava:id name='escogerSegmento'/&gt;" onchange=
     "<span class="sy1">&lt;%=</span>action<span class="sy1">%&gt;</span>"&gt;
     &lt;option value="all" <span class="sy1">&lt;%=</span>todos<span class="sy1">%&gt;</span>&gt;Todos los empleados&lt;/option&gt;
     &lt;option value="low" <span class="sy1">&lt;%=</span>bajo<span class="sy1">%&gt;</span>&gt;Empleados con salario bajo&lt;/option&gt;
@@ -2073,8 +2017,7 @@ class="sy0">&lt;</span> tab<span class="sy0">.</span>getFinalIndex<span class="b
 class="br0">)</span><span class="sy0">;</span> r<span class="sy0">++</span><span
 class="br0">)</span> <span class="br0">{</span>
 <span class="sy1">%&gt;</span>
-    &lt;xava:link action="List.viewDetail"&gt;&lt;div
-      style="border: 2px solid rgb(130, 143, 149); display: inline-block; padding: 10px; margin-bottom: 10px;"&gt;
+    &lt;xava:link action="List.viewDetail"&gt;&lt;div class="ficha-cliente"&gt;
     &lt;h4&gt;<span class="sy1">&lt;%=</span>model<span class="sy0">.</span>getValueAt<span
 class="br0">(</span>r<span class="sy0">,</span> <span class="nu0">1</span><span
 class="br0">)</span><span class="sy1">%&gt;</span>(<span class="sy1">&lt;%=</span>model<span
@@ -2092,6 +2035,23 @@ class="nu0">4</span><span class="br0">)</span><span class="sy1">%&gt;</span>)
 <span class="sy1">&lt;%</span>
 <span class="br0">}</span>
 <span class="sy1">%&gt;</span></pre>
+      Para este editor usamos una clase CSS, <i>ficha-cliente </i>(el estilo
+      en línea no está permitido desde v7.1), pon esta clase CSS en un archivo <em>fichasClienteListEditor</em><em>.</em><i>css</i>
+      dentro de la carpeta <i>src/main/webapp/xava/editors/style</i> (<i>web/xava/editors/style</i>
+      en v6 o anterior) de tu proyecto, puede que necesites crear la carpeta <i>style</i>
+      la primera vez:
+      <div class="wiki" style="display: block;">
+        <pre><code class="css">.ficha-cliente {
+    border: 2px solid rgb(130, 143, 149); 
+    display: inline-block; 
+    padding: 10px; 
+    margin-bottom: 10px;
+}
+</code></pre></div>
+      <div class="wiki" style="display: block;">
+        <h3 id="toc8"><a name="Customizing-Editors-JavaScript in editors"></a><span
+            style="font-size: 1.1em;"><strong></strong></span></h3>
+      </div>
       Además, podemos definir la forma en que las listas se visualizan por
       defecto en toda la aplicación, usando <em>&lt;para-tabs/&gt;</em>, para
       ello editamos <em>editores.xml</em> y añadimos:<br>
@@ -2260,20 +2220,12 @@ String nombre;
         (<i>web/xava/editors</i> en v6 o anterior) de tu proyecto:</div>
       <div class="wiki" style="display: block;">
         <pre><code class="html">&lt;%
-String fondo = request.getParameter("fondo"); // Lee la propiedad en editores.xml
-String color = request.getParameter("color"); // Lee el atributo de la anotación @Colorido
-String claseCSS ="ox-colorido-" + color;
+String fondo = request.getParameter("fondo");
+String color = request.getParameter("color");
 %&gt;
 
-&lt;style&gt;
-.&lt;%=claseCSS%&gt; input {
-    color: &lt;%=color%&gt;;
-    background: &lt;%=fondo%&gt;;
-}
-&lt;/style&gt;
-
-&lt;span class="&lt;%=claseCSS%&gt;"&gt;
-    &lt;jsp:include page="textEditor.jsp"/&gt;
+&lt;span class="colorido-color-&lt;%=color%&gt; colorido-fondo-&lt;%=background%&gt;"&gt;
+	&lt;jsp:include page="textEditor.jsp"/&gt;
 &lt;/span&gt;
 </code></pre> </div>
       <div class="wiki" style="display: block;">En este caso el editor
@@ -2281,6 +2233,37 @@ String claseCSS ="ox-colorido-" + color;
         colores personalizados para las letras y el fondo. Lo importante aquí es
         que puedes leer el atributo definido en tu anotación (<i>color = "green"</i>
         en este caso) usando <i>request.getParameter("color")</i>.</div>
+      <div class="wiki" style="display: block;">Para este editor usamos algunas
+        clases CSS para los colores (porque los estilos en línea no se permiten
+        desde la v7.1), pon estas clases CSS en un archivo <i>coloridoEditor.css</i>
+        dentro de la carpeta <i>src/main/webapp/xava/editors/style</i> (<i>web/xava/editors/style</i>
+        en v6 o anterior) de tu proyecto, puede que necesites crear la carpeta <i>style</i>
+        la primera vez:
+        <div class="wiki" style="display: block;">
+          <pre><code class="css">.colorido-color-black input { color: black; }
+.colorido-fondo-black input { background: black; }
+.colorido-color-white input{ color: white; }
+.colorido-fondo-white input{ background: white; }
+.colorido-color-red input{ color: red; }
+.colorido-fondo-red input{ background: red; }
+.colorido-color-green input{ color: green; }
+.colorido-fondo-green input{ background: green; }
+.colorido-color-blue input{ color: blue; }
+.colorido-fondo-blue input{ background: blue; }
+.colorido-color-yellow input{ color: yellow; }
+.colorido-fondo-yellow input{ background: yellow; }
+.colorido-color-orange input{ color: orange; }
+.colorido-fondo-orange input{ background: orange; }
+.colorido-color-purple input{ color: purple; }
+.colorido-fondo-purple input{ background: purple; }
+.colorido-color-gray input{ color: gray; }
+.colorido-fondo-gray input{ background: gray; }
+</code></pre></div>
+        <div class="wiki" style="display: block;">
+          <h3 id="toc8"><a name="Customizing-Editors-JavaScript in editors"></a><span
+              style="font-size: 1.1em;"><strong></strong></span></h3>
+        </div>
+      </div>
       <h3 id="toc8"><a name="Personalizacion-Editores-JavaScript+en+los+editores"></a>JavaScript
         en los editores</h3>
       <h4 id="toc9"><a name="Personalizacion-Editores-JavaScript+en+los+editores-A+partir+de+v4m3"></a>A

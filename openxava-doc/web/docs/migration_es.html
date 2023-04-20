@@ -46,6 +46,46 @@
       </div>
       <h2>Para migrar de OpenXava 7.0.6 a OpenXava 7.1</h2>
       <div class="wiki" style="display: block;">
+        <h2></h2>
+        <div class="wiki" style="display: block;">
+          <h3>Estilo en línea en HTML ya no está permitido.</h3>
+          <p>Esto es por razones de seguridad. Esto significa que debes mover el
+            estilo de HTML a CSS en tus vistas personalizadas, editores,
+            formateadores, servlets, etc.</p>
+          <p>Por ejemplo, si tienes este código HTML:</p>
+          <pre><code class="html">&lt;div style="padding: 20px; background-color: green;"&gt;
+</code></pre>
+          <p>La parte de <i>style</i> ya no es reconocida. Ahora, debes cambiar
+            el <i>style</i> por una <i>class</i>:</p>
+          <pre><code class="html">&lt;div class="mi-fondo"&gt;
+</code></pre>
+          <p>Y agregar la clase a tu archivo CSS (ya sea el CSS de tu tema o <i>custom.css</i>):</p>
+          <pre><code class="css">.mi-fondo {
+    padding: 20px; 
+    background-color: green;
+}
+</code></pre>
+          <p>También puedes cambiar el estilo por otras etiquetas HTML clásicas,
+            como <i>&lt;b&gt;&lt;i&gt;</i> o <i>&lt;font&gt;</i>.
+            Especialmente cuando necesitas usar algún valor dinámico, como un
+            color de una base de datos. Por ejemplo, podrías cambiar este código
+            Java que genera HTML:</p>
+          <pre><code class="java">return "&lt;i class='mdi mdi-square' style='color: " + valorHexColor + "'&gt;&lt;/i&gt;";
+</code></pre>
+          <p>Por esto:</p>
+          <pre><code class="java">return "&lt;font color='" + valorHexColor + "'&gt;&lt;i class='mdi mdi-square ox-color-inherit'&gt;&lt;/i&gt;&lt;/font&gt;"; 
+</code></pre>
+          <p>Fíjate en el uso de <i>&lt;font&gt;</i> para indicar el color. En
+            este caso también utilizamos la clase <i>ox-color-inherit</i>
+            (incluida en OpenXava) para sobrescribir el color dado por el CSS de
+            OpenXava a los elementos <i>&lt;i&gt;</i>.</p>
+          <h3>Los servlets requieren un tipo de contenido explícito.</h3>
+          <p>Esto es por razones de seguridad. Tus servlets requieren establecer
+            explícitamente el tipo de contenido. Por lo tanto, si todavía no lo
+            hacías, debes agregar la siguiente línea a tus servlets:</p>
+          <pre><code class="java">response.setContentType("text/html"); 
+</code></pre>Debes indicar el tipo MIME correspondiente, en este ejemplo
+          "text/html" para un documento HTML.</div>
         <h3>JavaScript en línea en los JSP requiere el atributo once</h3>
         <p>Esto es por razones de seguridad. Rara vez se utiliza JavaScript en
           línea en el código de las aplicaciones de OpenXava, ya que no
@@ -56,8 +96,7 @@
           scripts en línea. En este caso, debes agregar un atributo <i>once</i>
           a tu script en línea utilizando la nueva etiqueta <i>&lt;xava:once/&gt;</i>
           de la biblioteca de etiquetas.</p>
-        <p>Por ejemplo, si tu página <i>welcome.jsp</i> tiene este
-          código:</p>
+        <p>Por ejemplo, si tu página <i>welcome.jsp</i> tiene este código:</p>
         <pre><code class="html">&lt;script type="text/javascript"&gt; 
     var button = document.getElementById('welcome_go_signin');
     button.onclick = function () { window.location='m/SignIn'; }
@@ -120,6 +159,19 @@ button.onclick = function () { window.location='m/SignIn'; }
         </p>
         <pre><code class="java">customer.address = Customer address<br>customer.address.street = Customer address street<br>customer.address.street.number = Customer address street number
 </code></pre>
+        <h3>Recargar página necesario para usar CSS en las pruebas (para pruebas
+          JUnit)</h3>
+        Dado que el estilo en línea se ha movido a los archivos CSS ahora a
+        veces es necesario que recargues la página para que el CSS funcione
+        correctamente, por lo que si activas el CSS para tu prueba tienes que
+        hacer un <i>reload()</i> después. Así:
+        <div class="wiki" style="display: block;">
+          <pre><code class="java">getWebClient().getOptions().setCssEnabled(true); // Si haces esto...
+reload(); // ...has de añadir esta línea
+</code></pre> </div>
+        <div class="wiki" style="display: block;">Curiosamente, el añadir el <i>reload()</i>
+          no es necesario siempre, añádelo cuando te encuentres una prueba con
+          CSS que falle.</div>
         <h3>Nueva acción en referencias y @DescriptionsList (para pruebas JUnit)</h3>
         Las referencias y <i>@DescriptionsList</i> tienen una nueva acción para
         el usuario (<i>Reference.clear</i>), por lo que si comprueban todas las

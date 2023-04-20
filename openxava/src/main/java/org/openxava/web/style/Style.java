@@ -9,6 +9,12 @@ import org.openxava.util.*;
  * This class and its subclasses is used from JSP code to give
  * style to the web applications. <p>
  * 
+ * Since v7.1 we started to use directly CSS classes in HTML and
+ * removing methods from this class. This class was useful
+ * when working with portals to get the portal style, given
+ * that since v7.0 portals are no longer supported, now it's a
+ * overload.<br>
+ * 
  * The nomenclature is:
  * <ul>
  * <li>By default: CSS class name.
@@ -18,10 +24,12 @@ import org.openxava.util.*;
  * <li>..StartDecoration/EndDecoration: HTML code to put before and after.
  * <li>..Spacing: Table spacing
  * </ul>
- * 
+ *
+ * @deprecated Since v7.1 should use directly the CSS classes in your HTML code.
  * @author Javier Paniza
  */ 
 
+@Deprecated
 public class Style {
 		 	
 	private static Log log = LogFactory.getLog(Style.class);
@@ -186,11 +194,7 @@ public class Style {
 	public String getPageNavigationImage() { 
 		return "page_navigation.gif";
 	}
-		
-	public String getModule() {
-		return "ox-module";		
-	}
-	
+			
 	/**
 	 * @since 6.0
 	 */
@@ -205,16 +209,7 @@ public class Style {
 	public String getView() { 
 		return "ox-view";
 	}
-	
-	public String getDetail() {
-		return "ox-detail";
-	}
-
-
-	public String getModuleSpacing() {
-		return "style='padding: 4px;'";		
-	}
-	
+		
 	public String getActionLink() {
 		return "ox-action-link";
 	}
@@ -238,29 +233,13 @@ public class Style {
 		return "ox-customize-controls";
 	}
 		
-	public String getButtonBar() {
-		return "ox-button-bar"; 
-	}
-	
 	/**
 	 * @since 6.6
 	 */
 	public String getButtonBarContainer() {
 		return "ox-button-bar-container"; 
 	}
-	
-	public String getButtonBarButton() { 
-		return "ox-button-bar-button";
-	}
-	
-	/** 
-	 * 
-	 * @since 5.4
-	 */
-	public String getSubcontrollerButton() {
-		return "ox-subcontroller-button"; 
-	}
-	
+		
 	public boolean isSeveralActionsPerRow() {
 		return true;
 	}
@@ -339,19 +318,7 @@ public class Style {
 	protected String getFrameContent() { 
 		return "ox-frame-content";
 	}
-	
-	public String getList() {  
-		return "ox-list";
-	}
-	
-	/**
-	 * 
-	 * @since 5.4
-	 */
-	public String getListFormats() { 
-		return "ox-list-formats";
-	}
-	
+		
 	/**
 	 * 
 	 * @since 5.4
@@ -374,17 +341,7 @@ public class Style {
 	 */
 	public String getChartXColumn() {  
 		return "ox-chart-x-column";
-	}
-
-	/**
-	 * 
-	 * @since 5.4
-	 */
-	public String getSelectedChartType() {  
-		return "ox-selected-chart-type";
-	}
-	
-	
+	}	
 	
 	/**
 	 * 
@@ -393,22 +350,7 @@ public class Style {
 	public String getChartType() {  
 		return "ox-chart-type";
 	}
-	
-	/**
-	 * @since 6.0
-	 */
-	public String getChartData() {   
-		return "ox-chart-data";
-	}
-	
-	/**
-	 * @since 5.9
-	 */
-	public String getChartsDataStyle() { 
-		return "width:calc(100vw - 385px); height:calc(100vh - 300px);"; 
-	}
-
-	
+		
 	/**
 	 * @since 5.7
 	 */
@@ -454,56 +396,21 @@ public class Style {
 	public String getListCellSpacing() {
 		return ""; 
 	}
-	
-	public String getListStyle() { 
-		return ""; 
-	}	
-	
-	public String getListCellStyle() {
-		return ""; 
-	}
-	
-	public String getListHeader() { 
-		return "ox-list-header";
-	}
-	
-	public String getListHeaderCell() { 
-		return getListHeader();
-	}
-	
+		
 	public String getListSubheader() {
 		return "ox-list-subheader";
 	}	
 
-	public String getListSubheaderCell() { 
-		return getListSubheader();
-	}
-	
 	public String getListOrderBy() {
 		return "";
 	}
-	
-	public String getListPair() { 
-		return "ox-list-pair";
-	}
-
 	
 	/** 
 	 * @param  Since v4m5 it has no parameters
 	 */
 	public String getListPairEvents() {  
 		return "";
-	}	
-	
-	public String getListPairCell() { 
-		return getListPair();
-	}
-	
-	public String getListOdd() { 
-		return "ox-list-odd";
-	}
-	
-	
+	}		
 	
 	/** 
 	 * @param  Since v4m5 it has no parameters
@@ -512,10 +419,6 @@ public class Style {
 		return "";
 	}		
 		
-	public String getListOddCell() { 
-		return getListOdd();
-	}
-	
 	public String getListPairSelected() { 
 		return "list-pair-selected";
 	}
@@ -527,10 +430,6 @@ public class Style {
 	public String getListInfo() {
 		return "ox-list-info";
 	}	
-	
-	public String getListInfoDetail() {
-		return "ox-list-info-detail";
-	}
 	
 	public String getListTitle() {
 		return "ox-list-title";
@@ -549,22 +448,6 @@ public class Style {
 		return "";
 	}
 	
-	/**
-	 * 
-	 * @since 5.0
-	 */
-	public String getElementCollection() { 
-		return "ox-element-collection";
-	}
-
-	/**
-	 * 
-	 * @since 6.0
-	 */	
-	public String getElementCollectionDataCell() {  
-		return "ox-element-collection-data-cell";
-	}
-
 	public String getFrameHeaderStartDecoration() {
 		return getFrameHeaderStartDecoration(0); 
 	}
@@ -583,38 +466,39 @@ public class Style {
 
 	public String getFrameHeaderStartDecoration(int width, boolean collection) {   
 		StringBuffer r = new StringBuffer();
-		r.append("<table ");
+		r.append("<div ");
 		r.append(" class='");
-		if (width != 0) { // For several collections in the same row 
-			r.append(getFrame());
-		}
+		r.append(getFrame());
 		if (collection) {
 			r.append(' ');
 			r.append(getCollection());
 		}
-		r.append("' style='float:left;margin-right:4px;");
-		if (width != 0) {
-			r.append("width:");
-			r.append(width);
-			r.append("%");
+		if (width == 100) { 
+			r.append(' ');			
+			r.append(getFullFrame()); 
+		}
+		else if (width == 50) { // Two frames in a row
+			r.append(' ');			
+			r.append(getHalfFrame()); 		
 		}		
-		r.append("'");
+		r.append("'"); 
 		r.append(getFrameSpacing());
 		r.append(">");
-		r.append("<tr class='");
+		r.append("<div class='");
 		r.append(getFrameTitle());
 		r.append("'>");		
-		r.append("<th>\n");						
+		r.append("\n");						
 		return r.toString();
+
 	}
 	
 	public String getFrameHeaderEndDecoration() { 		
-		return "</th></tr>";			
+		return "</div>"; 
 	}
 	
-	public String getFrameTitleStartDecoration() { 		
+	public String getFrameTitleStartDecoration() {
 		StringBuffer r = new StringBuffer();
-		r.append("<span style='float: left' ");
+		r.append("<span ");
 		r.append("class='");
 		r.append(getFrameTitleLabel());
 		r.append("'>\n");
@@ -634,7 +518,7 @@ public class Style {
 	}
 	
 	public String getFrameActionsStartDecoration() {		
-		return "<span class='" + getFrameActions() + "' style='float: right'>"; 
+		return "<span class='" + getFrameActions() + "'>";
 	}	
 	public String getFrameActionsEndDecoration() { 
 		return "</span>";
@@ -665,20 +549,20 @@ public class Style {
 		return getFrameContentStartDecoration(UUID.randomUUID().toString(), false);
 	}
 		
-	public String getFrameContentStartDecoration(String id, boolean closed) { 
-		StringBuffer r = new StringBuffer();		
-		r.append("<tr id='");
+	public String getFrameContentStartDecoration(String id, boolean closed) {
+		StringBuffer r = new StringBuffer();
+		r.append("<div id='");
 		r.append(id);
 		r.append("' ");
-		if (closed) r.append("style='display: none;'");
-		r.append("><td class='");
-		r.append(getFrameContent());
+		if (closed) r.append("class='ox-display-none'");
+		r.append("><div class='");
+		r.append(getFrameContent());	
 		r.append("'>\n");
 		return r.toString();
 	}	
 	
 	public String getFrameContentEndDecoration() { 
-		return "\n</td></tr></table>";
+		return "\n</div></div></div>"; 
 	}
 	
 	public String getFrame() { 
@@ -717,12 +601,7 @@ public class Style {
 	public String getEditorSuffix() { 
 		return "ox-editor-suffix"; 
 	}
-	
-	/** @since 5.6.1 */
-	public String getWebURL() { 
-		return "ox-web-url";
-	}
-	
+		
 	public String getSmallLabel() {
 		return "small-label";
 	}
@@ -770,13 +649,6 @@ public class Style {
 	}
 	
 	/**
-	 * @since 5.5
-	 */
-	public String getDateCalendar() {   
-		return "ox-date-calendar";
-	}
-	
-	/**
 	 * @since 6.4.1
 	 */
 	public String getReadOnlyHtmlText() { 
@@ -791,11 +663,6 @@ public class Style {
 		return "ox-money";
 	}
 
-			
-	public String getErrors() { 
-		return "ox-errors";
-	}
-	
 	public String getMessages() { 
 		return "ox-messages";
 	}
@@ -814,14 +681,6 @@ public class Style {
 		return "ox-warnings"; 
 	}	
 
-	public String getErrorStartDecoration () { 
-		return "";
-	}
-	
-	public String getErrorEndDecoration () { 
-		return "";
-	}
-	
 	/**
 	 * For messages
 	 */
@@ -829,51 +688,6 @@ public class Style {
 		return "ox-messages-wrapper";
 	}
 
-	/**
-	 * For errors
-	 * 
-	 * @since 5.8
-	 */
-	public String getErrorsWrapper() {  
-		return "ox-errors-wrapper";
-	}
-	
-	public String getMessageStartDecoration() { 
-		return "";
-	}
-	
-	public String getMessageEndDecoration() { 
-		return "";
-	}
-	
-	/**
-	 * @since 5.5
-	 */
-	public String getWarningStartDecoration() { 
-		return getMessageStartDecoration();
-	}
-	
-	/**
-	 * @since 5.5
-	 */
-	public String getWarningEndDecoration () { 
-		return getMessageEndDecoration();
-	}
-	
-	/**
-	 * @since 5.5
-	 */
-	public String getInfoStartDecoration() { 
-		return getMessageStartDecoration();
-	}
-	
-	/**
-	 * @since 5.5
-	 */
-	public String getInfoEndDecoration () { 
-		return getMessageEndDecoration();
-	}
-	
 	public String getButton() {
 		return ""; 
 	}
@@ -890,8 +704,7 @@ public class Style {
 	 */
 	public String getSortIndicator2() { 
 		return "ox-sort-indicator2";
-	}
-	
+	}	
 
 	/**
 	 * @since v5.7
@@ -925,17 +738,7 @@ public class Style {
 	public String getActiveSection() { 
 		return "ox-active-section";
 	}
-	
-	
-	public String getSectionLink() {
-		return "ox-section-link";
-	}
-
-	
-	public String getSectionLinkStyle() {
-		return null;
-	}
-		
+			
 	public String getSectionBarStartDecoration() { 
 		return "<td>";
 	}
@@ -1057,19 +860,6 @@ public class Style {
 		return true;
 	}	
 		
-	/**
-	 * 
-	 * @since 4.2
-	 */	
-	public boolean isRowLinkable() { 
-		return true;
-	}
-	
-		
-	public String getBottomButtonsStyle() {
-		return "";
-	}
-	
 	public String getBottomButtons() {
 		return "ox-bottom-buttons";
 	}
@@ -1102,10 +892,6 @@ public class Style {
 		return "selected-row";
 	}
 	
-	public String getSelectedRowStyle(){
-		return "";
-	}
-
 	public void setBrowser(String browser) {
 		this.browser = browser;
 	}
@@ -1243,45 +1029,7 @@ public class Style {
 	public String getTotalRow() { 
 		return "ox-total-row";
 	}
-		
-	public String getTotalCell() {
-		return "ox-total-cell"; 
-	}
-
-	/**
-	 * 
-	 * @since 5.1
-	 */
-	public String getTotalLabelCell() { 
-		return "ox-total-label-cell"; 
-	}
-
-
-	public String getTotalCapableCell() {
-		return "ox-total-capable-cell"; 
-	}
-
-	
-	public String getTotalCellStyle() {
-		return "";
-	}
-
-	public String getTotalEmptyCellStyle() { 
-		return ""; 
-	}
-	
-	/**
-	 * 
-	 * @since 4.3
-	 */
-	public String getTotalLabelCellStyle() {  
-		return "vertical-align: middle; text-align: right;" + getTotalEmptyCellStyle();
-	}
-	
-	public String getTotalCapableCellStyle() { 
-		return "";
-	}
-	
+				
 	/**
 	 * 
 	 * @since 4.2
@@ -1322,13 +1070,6 @@ public class Style {
 		return "ox-layout-content";
 	}
 
-	/**
-	 * @since 4.8
-	 */
-	public String getSubcontroller() {
-		return "ox-subcontroller";
-	}
-	
 	/**
 	 * @since 4.9.1
 	 * @return Style for the second and next frames within the same row.

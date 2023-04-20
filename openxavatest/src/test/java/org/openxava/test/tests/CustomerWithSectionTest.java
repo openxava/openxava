@@ -563,7 +563,8 @@ public class CustomerWithSectionTest extends CustomerTest {
 	
 	public void testShowHideFilterInList() throws Exception { 
 		getWebClient().getOptions().setCssEnabled(true); 
-		assertFalse(getElementById("show_filter_list").isDisplayed());
+		reload(); 
+		assertFalse(getElementById("show_filter_list").isDisplayed()); 
 		assertTrue(getElementById("hide_filter_list").isDisplayed()); 
 		assertTrue(getElementById("list_filter_list").isDisplayed());
 		getElementById("hide_filter_list").click();
