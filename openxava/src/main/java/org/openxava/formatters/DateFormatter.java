@@ -40,7 +40,7 @@ public class DateFormatter implements IFormatter {
 	public String formatCalendarEditor(Object date, boolean withTime, boolean oldLib) {
 		String format;
 		if (date == null) return "";
-		if (date instanceof String || date instanceof Number) return date.toString(); 
+		if (date instanceof String || date instanceof Number) return date.toString();
 		if (oldLib) {
 			format = withTime ? "yyyy-MM-dd HH:mm:ss" : "yyyy-MM-dd";
 			DateFormat df = new SimpleDateFormat(format);
@@ -49,21 +49,6 @@ public class DateFormatter implements IFormatter {
 			DateTimeFormatter formatter = withTime ? DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss") : DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			return withTime ? ((LocalDateTime)date).format(formatter) : ((LocalDate) date).format(formatter);
 		}
-	}
-	
-	public String formatCalendarEditor(Object date) {
-		System.out.println("entra a format");
-		if (date == null) {
-			System.out.println("1");
-			return "";
-		}
-		System.out.println("pass 1");
-		if (date instanceof String || date instanceof Number) {
-
-			return date.toString(); 
-		}
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		return df.format(date);
 	}
 	
 	public Object parse(HttpServletRequest request, String string) throws ParseException {

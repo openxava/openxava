@@ -5,8 +5,6 @@ import java.text.*;
 
 import javax.json.*;
 
-import org.openxava.web.dwr.*;
-
 /**
  * @author Javier Paniza
  */
@@ -14,7 +12,7 @@ import org.openxava.web.dwr.*;
 public class NewAction extends ViewBaseAction implements IChangeModeAction, IModelAction {
 
 	private String value = "";
-	private CalendarEvent ce = new CalendarEvent();
+	//private CalendarEvent ce = new CalendarEvent();
 
 	private String modelName;
 	private boolean restoreModel = false;
@@ -25,7 +23,14 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 		getView().setEditable(true);
 		getView().reset();
 		if (!value.isEmpty()) {
-			getView().setValue(ce.getStartName(), ce.getStart());
+			String v = value.replaceAll("_", ",");
+			JsonReader jsonReader = Json.createReader(new StringReader(v));
+			JsonObject jsonObject = jsonReader.readObject();
+			jsonReader.close();
+			JsonObject date = jsonObject.getJsonObject("dates");
+			String name = date.getString("name");
+			String dateStr = date.getString("date");
+			getView().setValue(name, dateStr);
 		}
 		if (getView().hasSections())
 			getView().setActiveSection(0);
@@ -52,16 +57,7 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 	}
 
 	public void setValue(String value) throws ParseException {
-		String v = value.replaceAll("_", ",");
-		JsonReader jsonReader = Json.createReader(new StringReader(v));
-		JsonObject jsonObject = jsonReader.readObject();
-		jsonReader.close();
-		JsonObject date = jsonObject.getJsonObject("dates");
-		String name = date.getString("name");
-		String dateStr = date.getString("date");
-		ce.setStartName(name);
-		ce.setStart(dateStr);
-		this.value = v;
+		this.value = value;
 	}
 
 }

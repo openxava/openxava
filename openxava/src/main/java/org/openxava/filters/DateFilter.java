@@ -2,20 +2,16 @@ package org.openxava.filters;
 
 import lombok.*;
 
+@Getter
+@Setter
 public class DateFilter implements IFilter {
 
-	@Getter @Setter
-	Object start;
-	@Getter @Setter
-	Object end;
-	
-	
+	private Object start;
+	private Object end;
+
 	@Override
 	public Object filter(Object o) throws FilterException {
-		return new Object[] {
-				getStart(),
-				getEnd()
-		};
+		return new Object[] { getStart(), getEnd() };
 	}
 
 }

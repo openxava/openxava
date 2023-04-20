@@ -48,12 +48,12 @@ public class ViewDetailAction extends TabBaseAction implements IChainAction, IMo
 			key = new HashMap<>();
 			MetaModel metaModel = getView().getMetaView().getMetaModel();
 			String[] calendarKeys = calendarKey.split("_");
-			List<String> s2 = new ArrayList<>(metaModel.getAllKeyPropertiesNames());
+			List<String> allKeyPropertiesNames = new ArrayList<>(metaModel.getAllKeyPropertiesNames());
 			List<MetaProperty> metaPropertyKeys = metaModel.getAllMetaPropertiesKey();
 			for (int i = 0; i < calendarKeys.length; i++) {
 				MetaProperty property = metaPropertyKeys.get(i);
 				Object keyObject = property.parse(calendarKeys[i]);
-				key.put(s2.get(i).toString(), keyObject);
+				key.put(allKeyPropertiesNames.get(i).toString(), keyObject);
 			}
 			getView().setValues(key);
 		} else {

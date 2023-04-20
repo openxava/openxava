@@ -8,7 +8,6 @@ import java.util.*;
 import javax.servlet.http.*;
 import javax.swing.table.*;
 
-import org.json.*;
 import org.openxava.filters.*;
 import org.openxava.formatters.*;
 import org.openxava.model.meta.*;
@@ -16,6 +15,9 @@ import org.openxava.tab.Tab;
 import org.openxava.util.*;
 import org.openxava.view.View;
 import org.openxava.web.*;
+
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.databind.*;
 
 import lombok.*;
 
@@ -48,7 +50,7 @@ public class OXCalendar extends DWRBase {
 	private List<String> datesList = new ArrayList<>();
 
 	public String getEvents(HttpServletRequest request, HttpServletResponse response, String application, String module,
-			String month) throws RemoteException {
+			String month) {
 		System.out.println("dwr");
 		this.application = application;
 		this.module = module;
@@ -73,34 +75,33 @@ public class OXCalendar extends DWRBase {
 
 		this.table = tab.getTableModel();
 		int tableSize = 0;
-		tableSize = tab.getTableModel().getTotalSize();
-		System.out.println("ingresando datos");
-		if (tableSize > 0) {
-			for (int i = 0; i < tableSize; i++) {
-				event = new CalendarEvent();
-				event.key = obtainRowsKey(i);
-				List<String> d = obtainRowsDate(i);
-				System.out.println("date " + d.get(0));
-				event.start = d.get(0).split("_")[1];
-				event.startName = d.get(0).split("_")[0];
-				event.end = "";
-				// event.end = (d.size() > 1) ? d.get(1).split("_")[1] : "";
-				event.title = obtainRowsTitle(i);
-				calendarEvents.add(event);
+		String json = null;
+		
+		
+		try {
+			tableSize = tab.getTableModel().getTotalSize();
+			System.out.println("ingresando datos");
+			if (tableSize > 0) {
+				for (int i = 0; i < tableSize; i++) {
+					event = new CalendarEvent();
+					event.key = obtainRowsKey(i);
+					List<String> d = obtainRowsDate(i);
+					System.out.println("date " + d.get(0));
+					event.start = d.get(0).split("_")[1];
+					event.startName = d.get(0).split("_")[0];
+					event.end = "";
+					// event.end = (d.size() > 1) ? d.get(1).split("_")[1] : "";
+					event.title = obtainRowsTitle(i);
+					calendarEvents.add(event);
+				}
 			}
+			ObjectMapper objectMapper = new ObjectMapper();
+			json = objectMapper.writeValueAsString(calendarEvents);
+		} catch (JsonProcessingException | RemoteException e) {
+			e.printStackTrace();
 		}
-		JSONArray jsonArray = new JSONArray();
-		for (CalendarEvent event : calendarEvents) {
-			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("title", event.getTitle());
-			jsonObject.put("start", event.getStart());
-			jsonObject.put("end", event.getEnd());
-			jsonObject.put("key", event.getKey());
-			jsonObject.put("startName", event.getStartName());
-			jsonArray.put(jsonObject);
-		}
-		// System.out.println(jsonArray.toString());
-		return jsonArray.toString();
+
+		return json.toString();
 	}
 
 	private DateFilter setFilterForMonth(String month) {
@@ -232,7 +233,9 @@ public class OXCalendar extends DWRBase {
 
 		for (int k = 0; k < j; k++) {
 			currentColumn = jColumn + k;
+			System.out.println(currentColumn);
 			value = table.getValueAt(row, currentColumn);
+			System.out.println(value);
 			if (verifyValue(value)) {
 				if (result.length() > 0)
 					result.append(" - ");
@@ -346,7 +349,7 @@ public class OXCalendar extends DWRBase {
 
 		// lista de propiedades no calculadas y fecha
 		List<MetaProperty> mp = tab.getMetaPropertiesNotCalculated();
-		// System.out.println(tab.getMetaPropertiesNotCalculated());
+		System.out.println(tab.getMetaPropertiesNotCalculated());
 		// System.out.println("2");
 		for (MetaProperty metaProperty : mp) {
 			// System.out.println(metaProperty.getQualifiedName());
@@ -370,7 +373,7 @@ public class OXCalendar extends DWRBase {
 			// columna para las otras propiedades, segun orden, en caso de haber llegado a
 			// max no agregar
 			// debo usar otra lista ya que el for va uno por uno
-			// System.out.println(properties2ListCount + " ? " + properties1ListCount);
+			//System.out.println(properties2ListCount + " ? " + properties1ListCount);
 			if (properties2ListCount < maxLimit && !datesList.contains(metaProperty.getQualifiedName())
 					&& !keysList.contains(metaProperty.getQualifiedName())
 					&& !properties1List.contains(metaProperty.getQualifiedName())) {
@@ -397,7 +400,7 @@ public class OXCalendar extends DWRBase {
 		// System.out.println(keysListSize + " " + datesListSize + " " +
 		// properties1ListSize + " " + properties2ListSize);
 		// System.out.println(newTabColumn);
-		// System.out.println(tab.getPropertiesNamesAsString());
+		 System.out.println(tab.getPropertiesNamesAsString());
 		return tab;
 	}
 

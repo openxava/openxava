@@ -5,16 +5,12 @@
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="org.openxava.web.dwr.OXCalendar"%>
-<%@ page import="org.openxava.util.ToJson"%>
-<%@ page import="org.json.*"%>
     
 <%@ page import="org.openxava.view.View"%>
 <%@ page import="org.openxava.controller.ModuleManager" %>
 <%@ page import="org.openxava.controller.meta.MetaControllers"%>
 <%@ page import="org.openxava.controller.meta.MetaAction"%>
 <%@ page import="org.openxava.util.Dates"%>
-<%@ page import="com.fasterxml.jackson.databind.*"%>
-<%@ page import="com.fasterxml.jackson.core.io.*"%>
     
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
