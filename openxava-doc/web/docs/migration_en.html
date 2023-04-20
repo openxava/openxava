@@ -82,8 +82,7 @@
           content type explicitly. So, if you don't do so, you have to add the
           next line to your servlerts:</p>
         <pre><code class="java">response.setContentType("text/html"); 
-</code></pre>
-        You have to indicate the corresponding mime type, in this example
+</code></pre> You have to indicate the corresponding mime type, in this example
         "text/html" for a HTML document.<br>
         <h3>Inline JavaScript in JSP requires once attribute</h3>
         <p>This is for security reasons. You rarely are using inline JavaScript
@@ -154,6 +153,18 @@ button.onclick = function () { window.location='m/SignIn'; }
         </p>
         <pre><code class="java">customer.address = Customer address<br>customer.address.street = Customer address street<br>customer.address.street.number = Customer address street number
 </code></pre>
+        <h3>Reloading page needed to use CSS in tests (for JUnit tests)</h3>
+        Given that inline style has been moved to CSS now sometimes it's
+        required you to reload the page in order that CSS works correctly, so if
+        you activate CSS for your test you must do a <i>reload()</i> after it.
+        In this way:
+        <div class="wiki" style="display: block;">
+          <pre><code class="java">getWebClient().getOptions().setCssEnabled(true); // If you do this then...
+reload(); // ...you have to add this line
+</code></pre> </div>
+        <div class="wiki" style="display: block;">Curiously, adding <i>reload()</i>
+          is not always needed, just add it where you find that tests with CSS
+          start to fail.</div>
         <h3>New action in references and @DescriptionsList (for JUnit tests)</h3>
         References and <i>@DescriptionsList</i> have new action for the users (<i>Reference.clear</i>),
         so if you test for all present actions in your JUnit tests, you have to
