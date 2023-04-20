@@ -261,5 +261,9 @@ public class NaviOXPreferences {
 	public String getEmailValidatorForSignUpClass() { 
 		return getProperties().getProperty("emailValidatorForSignUpClass", EmailValidator.class.getName()).trim();
 	}
-		
+
+	/** @since 7.1 */
+	public String getSignInJSP() {
+		return getProperties().getProperty("signInJSP", "signIn.jsp").trim();
+	}
 }
