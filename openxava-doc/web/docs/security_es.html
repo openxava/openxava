@@ -42,9 +42,13 @@
         <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-Restringir-acceso-por-IP">Restringir
             acceso por IP (nuevo en v6.4)</a></div>
         <div style="margin-left: 2em;"><a href="#codigo-autentificacion-personalizado">Código
-            de autentificación personalizado (nuevo en v7.0)</a></div>
+            de autentificación personalizado (nuevo en <br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#codigo-autentificacion-personalizado">v7.0)</a></div>
+        <div style="margin-left: 2em;"><a href="#pagina-identificacion-personalizada">Página
+            de identificación (login) personalizada (nuevo en v7.1)</a></div>
       </div>
-      <em>Todas las funcionalidades en este artículo están disponible solo en <a
+      <em>Todas las funcionalidades en este artículo están disponible solo en <a
           href="http://openxava.org/xavapro">XavaPro</a></em><br>
       <h2 id="toc1"><a name="Seguridad+y+gestion+de+usuarios-Gestion+de+usuarios"></a>Gestión
         de usuarios</h2>
@@ -75,7 +79,7 @@
       algunas acciones, ve al módulo <em>Roles</em> y escoge ese rol para
       editarlo en modo detalle. Ahora haz click en el módulo donde quieras
       restringir las acciones. Te aparecerá un diálogo como este:<br>
-      <img src="files/xavapro-restrict-actions_es.png" alt="xavapro-restrict-actions_es.png"
+      <img src="files/xavapro-restrict-actions_es.png" alt="xavapro-restrict-actions_es.png"
         title="xavapro-restrict-actions_es.png"><br>
       Selecciona las acciones que quieras excluir y pulsar <em>Grabar</em>. A
       partir de ahora, todos los usuario de ese rol no podrán ejecutar esas
@@ -95,7 +99,7 @@
       y escoge ese rol para editarlo en modo detalle. Ahora haz click en el
       módulo donde quieras restringir el acceso a los miembros. Te aparecerá un
       diálogo como este:<br>
-      <img src="files/restrict-data-read-only-data-xavapro_es.png" alt="restrict-data-read-only-data-xavapro_es.png"
+      <img src="files/restrict-data-read-only-data-xavapro_es.png" alt="restrict-data-read-only-data-xavapro_es.png"
         title="restrict-data-read-only-data-xavapro_es.png"><br>
       Selecciona los miembros en <em>Datos excluidos</em> que quieras excluir y
       pulsar <em>Grabar</em>. A partir de ahora, todos los usuario de ese rol
@@ -111,7 +115,7 @@
       ejemplo. Ve al módulo <em>Roles</em> y escoge el rol que quieras editar
       en modo detalle, una vez allí pulsa en el módulo que quieras ocultar en el
       menú y un diálogo como el siguiente aparecerá:<br>
-      <img src="files/hide-module-in-menu-for-role_es.png" alt="hide-module-in-menu-for-role_es.png"
+      <img src="files/hide-module-in-menu-for-role_es.png" alt="hide-module-in-menu-for-role_es.png"
         title="hide-module-in-menu-for-role_es.png"><br>
       Marca la opción <i>No en el menú</i> y pulsa en <em>Grabar</em>. A
       partir de ahora, todos los usuario de ese rol no verán el módulo, <i>Customer</i>
@@ -124,7 +128,7 @@
       Hay un montón de opciones para configurar las políticas de gestión de
       usuarios y contraseñas. En la carpeta <em>Admin</em> encontrarás un
       módulo <em>Configuración</em>:<br>
-      <img src="files/xavapro-configuration_es.png" alt="xavapro-configuration_es.png"
+      <img src="files/xavapro-configuration_es.png" alt="xavapro-configuration_es.png"
         title="xavapro-configuration_es.png"><br>
       Puedes configurar estas políticas para que tu sistema sea compatible con
       PCI-DSS, algo muy útil en aplicaciones bancarias.<br>
@@ -204,18 +208,18 @@
       <h2 id="toc7"><a name="Seguridad+y+gestion+de+usuarios-Fecha+de+creacion+de+usuario+y+registro+de+inicios+de+sesion"></a>Fecha
         de creación de usuario y registro de inicios de sesión</h2>
       Ve al módulo de usuarios para ver esta información:<br>
-      <img src="files/user-creation-date-sessions_es.png" alt="user-creation-date-sessions_es.png"
+      <img src="files/user-creation-date-sessions_es.png" alt="user-creation-date-sessions_es.png"
         title="user-creation-date-sessions_es.png"><br>
       <h2 id="toc8"><a name="Seguridad+y+gestion+de+usuarios-Recuperacion+de+contrasena"></a>Recuperación
         de contraseña <em>(nuevo en v5.7)</em></h2>
       El usuario puede recuperar su contraseña por sí mismo. Cuando falla al
       introducir la contraseña correcta se muestra un mensaje "¿Has olvidado tu
       contraseña?" con un vínculo:<br>
-      <img src="files/recover-password-login_es.png" alt="recover-password-login_es.png"
+      <img src="files/recover-password-login_es.png" alt="recover-password-login_es.png"
         title="recover-password-login_es.png"><br>
       Cuando el usuario pulsa en el vínculo va a una página para introducir su
       correo electrónico:<br>
-      <img src="files/enter-email-recover-password_es.png" alt="enter-email-recover-password_es.png"
+      <img src="files/enter-email-recover-password_es.png" alt="enter-email-recover-password_es.png"
         title="enter-email-recover-password_es.png"><br>
       Después de pulsar en el botón "Recuperar contraseña" un correo electrónico
       con instrucciones para recuperar la contraseña es enviado. Por supuesto,
@@ -253,7 +257,7 @@
       necesario que cada usuario tenga su correo electrónico registrado en el
       sistema. Por tanto ahora si el usuario no tiene correo electrónico XavaPro
       se lo pregunta después de entrar:<br>
-      <img src="files/enter-email-personal-data_es.png" alt="enter-email-personal-data_es.png"
+      <img src="files/enter-email-personal-data_es.png" alt="enter-email-personal-data_es.png"
         title="enter-email-personal-data_es.png"><br>
       Introducir el correo no es obligatorio, el usuario puede irse a cualquier
       otro módulo dejando el correo electrónico en blanco.<br>
@@ -287,7 +291,7 @@
       ese usuario sólo pueda acceder desde esa IP. Para ello, ve al módulo <i>Usuarios</i>
       en la carpeta <i>Admin</i>, escoge un usuario y dale valor al campo <i>IP
         permitida</i>:</div>
-    <div class="wiki" style="display: block;"> <img src="files/allowed-ip_es.png"
+    <div class="wiki" style="display: block;"> <img src="files/allowed-ip_es.png"
         alt="allowed-ip_es.png" title="allowed-ip_es.png">
       <div class="wiki" style="display: block;">Finalmente, pulsa en <i>Grabar</i>.
         Si el valor de <i>IP permitida</i> es blanco el usuario puede acceder
@@ -339,29 +343,30 @@ public class MiPropioSignInHelperProvider extends ProSignInHelperProvider {
           <pre><code class="properties">signInHelperProviderClass=com.miempresa.miaplicacion.impl.MiPropioSignInHelperProvider
 </code></pre> </div>
         <div class="wiki" style="display: block;">
-          <h2>Página de identificación (login) personalizada <em>(new in v7.1)</em></h2>
+          <h2><a name="pagina-identificacion-personalizada"></a>Página de
+            identificación (login) personalizada <em>(nuevo en v7.1)</em></h2>
           Para definir tu propia página de identificación de usuario (página de
           login) crea un JSP dentro de la carpeta <i>src/main/webapp/naviox</i>
           de tu proyecto, puede que necesites crear la carpeta <i>naviox</i>.
           Por ejemplo, puedes crear un <i>miSignIn.jsp</i> (o cualquier otro
-          nombre excepto <i>signIn.jsp</i>) con este contenido:TMR ME QUEDÉ POR
-          AQUÍ<br>
+          nombre excepto <i>signIn.jsp</i>) con este contenido:<br>
           <div class="wiki" style="display: block;">
-            <pre><code class="html">&lt;div&gt;Hi, I'm a custom sign in page&lt;/div&gt;
+            <pre><code class="html">&lt;div&gt;Hola, soy un página de identificación personalizada&lt;/div&gt;
 &lt;div&gt;
 &lt;jsp:include page="signIn.jsp"/&gt;
 &lt;/div&gt;
 </code></pre> </div>
-          <div class="wiki" style="display: block;">In this case we include the
-            original Sign In page (<i>signIn.jsp</i>) adding some additional
-            content, but you can create the page from scratch, or include your
-            own OpenXava module (look at the original <i>signIn.jsp</i> code)
-            that use your own entity and controllers.</div>
-          <div class="wiki" style="display: block;">In order your application
-            uses the above Sign In page you have to add the next entry in the <i>naviox.properties</i>
-            file of your project:</div>
+          <div class="wiki" style="display: block;">En este caso incluimos la
+            página de identificación original (<i>signIn.jsp</i>) añadiendo
+            algún contenido adicional, pero puedes crear la página desde cero, o
+            incluir tu propio módulo OpenXava (mira el <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/naviox/signIn.jsp">código
+              original de <i>signIn.jsp</i></a>) que use tu propia entidad y
+            controladores.</div>
+          <div class="wiki" style="display: block;">Para que la aplicación use
+            la susodicha página de identificación has de añadir la siguiente
+            entrada en el archivo <i>naviox.properties</i> de tu proyecto:</div>
           <div class="wiki" style="display: block;">
-            <pre><code class="properties">signInJSP=mySignIn.jsp</code></pre>
+            <pre><code class="properties">signInJSP=miSignIn.jsp</code></pre>
           </div>
         </div>
       </div>
