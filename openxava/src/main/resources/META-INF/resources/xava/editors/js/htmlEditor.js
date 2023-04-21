@@ -1,3 +1,21 @@
+// tmr ini
+// TMR ME QUEDÉ POR AQUI: HA FUNCIONADO. FALTA :
+// TMR - REVISAR MENSAJES CONSOLA FIREFOX
+// TMR - PROBAR CONTENIDO EXISTENTE
+// TMR - DIFERENCIA NORMAL/SIMPLE
+// TMR - ESTILO  
+openxava.addEditorInitFunction(function() {
+	tinymce.init({
+	  selector: '.ox-ckeditor',
+	  base_url: openxava.contextPath + '/xava/editors/tinymce/'
+	});
+	tinymce.init({
+	  selector: '.ox-simple-ckeditor',
+	  base_url: openxava.contextPath + '/xava/editors/tinymce/'
+	});
+});
+// tmr fin
+/* tmr
 openxava.addEditorInitFunction(function() {
 	var config = { 
 		language: openxava.language,
@@ -59,3 +77,4 @@ openxava.addEditorDestroyFunction(function() {
 		CKEDITOR.instances[instance].destroy(false); // Needs to be false, otherwise calculated properties in the same view reset editor content
 	}
 });
+*/
