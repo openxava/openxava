@@ -11,7 +11,9 @@ calendarEditor.setEvents = function(calendarEvents) {
     events.forEach(function(event) {
         event.remove();
     });
+    console.log("old vacio" + events);
     listEvents = JSON.parse(calendarEvents);
+    console.log(listEvents);
     for (let e of listEvents) {
         calendar.addEvent({
             title: e.title,
@@ -24,6 +26,7 @@ calendarEditor.setEvents = function(calendarEvents) {
         listEvents = [];
         startName = e.startName;
     }
+    console.log(events);
 }
 
 openxava.addEditorInitFunction(function() {
@@ -33,23 +36,12 @@ openxava.addEditorInitFunction(function() {
         var dateFormat = $('#xava_calendar_dateFormat').val();
         var newAction = $("#xava_calendar_action").val().split(",")[1];
         var selectAction = $("#xava_calendar_action").val().split(",")[0];
-        
-        //tiempo
-        var onlyDate = {
-            month: 'numeric',
-            day: 'numeric'
-        };
-        var onlyTime = {
-            hour: 'numeric',
-            minute: '2-digit'
-        };
-        var noTime = {};
         var formattedDate = "";
-        var segundavez = false;
         //var listaEventos = JSON.parse(events);
-        var initial = '2023-04-07';
 
         listEvents = [];
+        console.log(application + " " + module + " " + dateFormat + " " + newAction + " " + selectAction);
+        
         Calendar.getEvents(application, module, "", calendarEditor.setEvents);
 
 
@@ -62,48 +54,45 @@ openxava.addEditorInitFunction(function() {
                 locale: navigator.language,
                 //showNonCurrentDates: false,
                 displayEventTime: false,
-                //events: JSON.parse(events),
                 events: listEvents,
                 editable: true,
-                //initialDate: initial,
                 progressiveEventRendering: true,
                 headerToolbar: {
                     left: 'prev,next',
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
-                views: {
-                    dayGrid: {
-                        eventTimeFormat: noTime
-                    },
-                    timeGrid: {
-                        eventTimeFormat: onlyTime
-                    },
-                    day: {
-                        eventTimeFormat: onlyTime
-                    }
-                },
                 customButtons: {
                     next: {
                         click: function() {
+                            //if (openxava.isRequesting(application, module)) return;
                             let currentViewDate = calendar.view.currentStart;
+                            console.log()
                             let currentMonth = currentViewDate.getMonth();
+                            let currentYear = currentViewDate.getFullYear();
                             calendar.next();
                             let nextViewDate = calendar.view.currentStart;
                             let nextMonth = nextViewDate.getMonth();
-                            let month = (currentMonth != nextMonth) ? nextMonth : "";
-                            Calendar.getEvents(application, module, month, calendarEditor.setEvents);
+                            let nextYear = nextViewDate.getFullYear();
+                            let monthYear = (currentYear != nextYear || currentMonth != nextMonth) ? nextMonth + "_" + nextYear : "";
+                            console.log("next " + monthYear);
+                            Calendar.getEvents(application, module, monthYear, calendarEditor.setEvents);
                         }
                     },
                     prev: {
                         click: function() {
+                            //if (openxava.isRequesting(application, module)) return;
                             let currentViewDate = calendar.view.currentStart;
                             let currentMonth = currentViewDate.getMonth();
+                            let currentYear = currentViewDate.getFullYear();
                             calendar.prev();
                             let prevViewDate = calendar.view.currentStart;
                             let prevMonth = prevViewDate.getMonth();
-                            let month = (currentMonth != prevMonth) ? prevMonth : "";
-                            Calendar.getEvents(application, module, month, calendarEditor.setEvents);
+                            let prevYear = prevViewDate.getFullYear();
+                            console.log(prevYear);
+                            let monthYear = (currentYear != prevYear || currentMonth != prevMonth) ? prevMonth + "_" + prevYear : "";
+                            console.log("prev " + monthYear);
+                            Calendar.getEvents(application, module, monthYear, calendarEditor.setEvents);
                         }
                     },
                     today: {

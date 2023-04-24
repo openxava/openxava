@@ -50,7 +50,7 @@ public class OXCalendar extends DWRBase {
 	private List<String> datesList = new ArrayList<>();
 
 	public String getEvents(HttpServletRequest request, HttpServletResponse response, String application, String module,
-			String month) {
+			String monthYear) throws InterruptedException {
 		System.out.println("dwr");
 		this.application = application;
 		this.module = module;
@@ -58,20 +58,30 @@ public class OXCalendar extends DWRBase {
 		view = getView(request, application, module);
 		errors = new Messages();
 		List<CalendarEvent> calendarEvents = new ArrayList<>();
-
+		//System.out.println(application + " " + module);
 		String tabObject = "xava_tab";
 		tab2 = getTab(request, application, module, tabObject);
+		//System.out.println("antes print");
+		//System.out.println(tab2.getPropertiesNamesAsString());
+//		if (tab2 == null) {
+//			System.out.println("es null");
+//		} else {
+//			System.out.println("no es null");
+//		}
 		tab = tab2.clone();
-
+		
+		System.out.println("cloned");
 		// tengo que saber si es fecha con tiempo o no, tambien
 		setDatesProperty();
-
+		//System.out.println("setProperty");
 		DateFilter filter = new DateFilter();
-		filter = setFilterForMonth(month);
+		filter = setFilterForMonth(monthYear);
+		System.out.println("antes de setFilter con dname " + dateName);
 		tab.setFilter(filter);
-		tab.setBaseCondition(dateName + " between ? and ?");
+		// hay que cambiar despues por ${}
+		tab.setBaseCondition( dateName + " between ? and ?");
 		tab = setProperties(tab);
-		System.out.println(tab.getPropertiesNamesAsString());
+		System.out.println("antes de tablemodel");
 
 		this.table = tab.getTableModel();
 		int tableSize = 0;
@@ -81,13 +91,14 @@ public class OXCalendar extends DWRBase {
 			tableSize = tab.getTableModel().getTotalSize();
 			System.out.println("ingresando datos" + tableSize);
 			if (tableSize > 0) {
+				System.out.println("table size mayor a 0");
 				for (int i = 0; i < tableSize; i++) {
 					event = new CalendarEvent();
-					System.out.println("1");
+					//System.out.println("1");
 					event.key = obtainRowsKey(i);
-					System.out.println("2");
+					//System.out.println("2");
 					List<String> d = obtainRowsDate(i);
-					System.out.println("date " + d.get(0));
+					//System.out.println("date " + d.get(0));
 					event.start = d.get(0).split("_")[1];
 					event.startName = d.get(0).split("_")[0];
 					event.end = "";
@@ -97,7 +108,7 @@ public class OXCalendar extends DWRBase {
 				}
 			} else {
 				event = new CalendarEvent();
-				List<String> d = obtainRowsDate(0);
+				List<String> d = obtainRowsDate(-1);
 				// no seria necesario, se supone que no debe ser vacio el primero (0)
 				event.startName = d.get(0).split("_")[0].equals("") 
 							  && !d.get(1).split("_")[0].equals("") 
@@ -111,32 +122,44 @@ public class OXCalendar extends DWRBase {
 			System.out.println("error");
 			e.printStackTrace();
 		}
-
+		Thread.sleep(5000);
 		return json.toString();
 	}
 
-	private DateFilter setFilterForMonth(String month) {
+	private DateFilter setFilterForMonth(String monthYear) {
 		DateFilter df = new DateFilter();
-		Date firstDayOfMonth = month.isEmpty() ? getFirstDayOfMonth("") : getFirstDayOfMonth(month);
-		Date lastDayOfMonth = month.isEmpty() ? getLastDayOfMonth("") : getLastDayOfMonth(month);
+		
+		String month = !monthYear.isEmpty() ? monthYear.split("_")[0] : "" ;
+		String year = !monthYear.isEmpty() ? monthYear.split("_")[1] : "" ;
+		
+		System.out.println("entra a filtro" + dateWithTime + month.isEmpty() + month);
+		Date firstDayOfMonth = getFirstDayOfMonth(month, year);
+		Date lastDayOfMonth = getLastDayOfMonth(month, year);
 		if (dateWithTime) {
+			System.out.println("datewithtime");
 			df.setStart(firstDayOfMonth);
 			df.setEnd(lastDayOfMonth);
+			System.out.println( firstDayOfMonth + " -- " + lastDayOfMonth);
 		} else {
+			System.out.println("date no withtime");
 			Instant f = firstDayOfMonth.toInstant();
 			Instant l = lastDayOfMonth.toInstant();
 			LocalDate first = f.atZone(ZoneId.systemDefault()).toLocalDate();
 			LocalDate last = l.atZone(ZoneId.systemDefault()).toLocalDate();
+			//System.out.println( first + " -- " + last);
 			df.setStart(first);
 			df.setEnd(last);
 		}
+		System.out.println("termina filtro");
 		return df;
 	}
 
-	private static Date getFirstDayOfMonth(String month) {
+	private static Date getFirstDayOfMonth(String month, String year) {
 		Calendar calendar = Calendar.getInstance();
-		if (!month.isEmpty())
+		if (!month.isEmpty()) {
 			calendar.set(Calendar.MONTH, Integer.parseInt(month));
+			calendar.set(Calendar.YEAR, Integer.parseInt(year));
+		}
 		calendar.set(Calendar.DAY_OF_MONTH, 1);
 		calendar.set(Calendar.HOUR_OF_DAY, 0);
 		calendar.set(Calendar.MINUTE, 0);
@@ -144,13 +167,16 @@ public class OXCalendar extends DWRBase {
 		calendar.set(Calendar.MILLISECOND, 0);
 
 		calendar.add(Calendar.DAY_OF_MONTH, -6);
+		System.out.println(calendar.getTime());
 		return calendar.getTime();
 	}
 
-	private static Date getLastDayOfMonth(String month) {
+	private static Date getLastDayOfMonth(String month, String year) {
 		Calendar calendar = Calendar.getInstance();
-		if (!month.isEmpty())
+		if (!month.isEmpty()) {
 			calendar.set(Calendar.MONTH, Integer.parseInt(month));
+			calendar.set(Calendar.YEAR, Integer.parseInt(year));
+		}
 		calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
 		calendar.set(Calendar.HOUR_OF_DAY, 23);
 		calendar.set(Calendar.MINUTE, 59);
@@ -184,12 +210,12 @@ public class OXCalendar extends DWRBase {
 		List<String> result = new ArrayList<>();
 		StringBuffer dateWithName = new StringBuffer();
 		int i = keysListSize;
-		 System.out.println("keylistsize " + i);
-		 System.out.println(tab.getPropertiesNamesAsString());
-		if (datesListSize == 0)
-			return result;
+		 //System.out.println("keylistsize " + i);
+		 //System.out.println(tab.getPropertiesNamesAsString());
+		if (datesListSize == 0) return result;
 		
-		if (row == 0) {
+		if (row == -1) {
+			System.out.println("row -1");
 			dateWithName.append(tab.getMetaProperty(i).getQualifiedName());
 			dateWithName.append("_");
 			result.add(dateWithName.toString());
@@ -260,7 +286,8 @@ public class OXCalendar extends DWRBase {
 				result.append(format(currentColumn, value));
 			}
 		}
-
+		System.out.println("after list 1 " + result.toString());
+		System.out.println("next list size " + j);
 		for (int k = 0; k < j; k++) {
 			currentColumn = jColumn + k;
 			System.out.println(currentColumn);
@@ -274,7 +301,7 @@ public class OXCalendar extends DWRBase {
 				result.append(format(currentColumn, value));
 			}
 		}
-
+		System.out.println("after list 2 " + result.toString());
 		return result.toString();
 	}
 
@@ -330,15 +357,19 @@ public class OXCalendar extends DWRBase {
 		int mpCount = 0;
 		List<String> dateWithTimeList = Arrays.asList("java.util.Date", "java.time.LocalDateTime",
 				"java.time.ZonedDateTime");
+		System.out.println("entra a setDatesProperty");
+		//System.out.println(tab.getMetaPropertiesNotCalculated());
 		for (MetaProperty property : mp) {
 			for (String name : datesName) {
 				if (mpCount < 2 && property.getQualifiedName().contains(name)) {
 					// or metaProperty.getTypeName().contains(name)
-					// System.out.println(metaProperty.getTypeName());
-					if (mpCount == 0)
-						dateName = property.getQualifiedName();
+					System.out.println("name " + property.getQualifiedName());
+					// por el momento se esta usando el primer date
+					if (mpCount == 0 && !property.getQualifiedName().contains(".")) dateName = property.getQualifiedName();
 					datesList.add(property.getQualifiedName());
 					mpCount++;
+					
+					//ambos booleanos
 					dateWithTime = dateWithTimeList.contains(property.getTypeName()) ? true : false;
 					// por el momento se usara para filtrar solo java.util y java.time
 					String className = property.getTypeName();
@@ -353,6 +384,7 @@ public class OXCalendar extends DWRBase {
 			}
 
 		}
+		System.out.println("termina");
 	}
 
 	private Tab setProperties(Tab tab) {
@@ -379,8 +411,8 @@ public class OXCalendar extends DWRBase {
 
 		// lista de propiedades no calculadas y fecha
 		List<MetaProperty> mp = tab.getMetaPropertiesNotCalculated();
-		System.out.println(tab.getMetaPropertiesNotCalculated());
-		// System.out.println("2");
+		//System.out.println(tab.getMetaPropertiesNotCalculated());
+		//System.out.println("2");
 		for (MetaProperty metaProperty : mp) {
 			// System.out.println(metaProperty.getQualifiedName());
 			// 2 columnas de fecha
@@ -399,6 +431,7 @@ public class OXCalendar extends DWRBase {
 				properties1List.add(metaProperty.getQualifiedName());
 				properties1ListCount++;
 				properties2ListCount++;
+				System.out.println(metaProperty.getQualifiedName() + " +1 = " + properties1ListCount);
 			}
 			// columna para las otras propiedades, segun orden, en caso de haber llegado a
 			// max no agregar
@@ -407,30 +440,39 @@ public class OXCalendar extends DWRBase {
 			if (properties2ListCount < maxLimit && !datesList.contains(metaProperty.getQualifiedName())
 					&& !keysList.contains(metaProperty.getQualifiedName())
 					&& !properties1List.contains(metaProperty.getQualifiedName())) {
+				System.out.println("< max " + properties2ListCount + " = " + metaProperty.getQualifiedName() );
 				properties2List.add(metaProperty.getQualifiedName());
 				properties2ListCount++;
 			}
 		}
-		// System.out.println("3");
+		 System.out.println("3");
 		newTabColumn.addAll(datesList);
 		newTabColumn.addAll(properties1List);
 		// en caso que no encontro nada, agregar hasta la cantidad necesaria
 
-		for (int i = 0; i < properties2List.size(); i++) {
-			newTabColumn.add(properties2List.get(i));
+		if (properties1ListCount < maxLimit) {
+			int j = 0;
+			for (int i = properties1ListCount; i < maxLimit; i++) {
+				newTabColumn.add(properties2List.get(j));
+				j++;
+			}
+			properties2ListSize = j;
+		} else {
+			properties2ListSize = 0;
 		}
+		
+		
 
 		keysListSize = keysList.size();
 		datesListSize = datesList.size();
 		properties1ListSize = properties1List.size();
-		properties2ListSize = properties2List.size();
-		// System.out.println("4");
+		//properties2ListSize = properties2List.size();
+		//System.out.println("4");
 		tab.clearProperties();
 		tab.addProperties(newTabColumn);
-		// System.out.println(keysListSize + " " + datesListSize + " " +
-		// properties1ListSize + " " + properties2ListSize);
+		//System.out.println(keysListSize + " " + datesListSize + " " + properties1ListSize + " " + properties2ListSize);
 		// System.out.println(newTabColumn);
-		 System.out.println(tab.getPropertiesNamesAsString());
+		//System.out.println(tab.getPropertiesNamesAsString());
 		return tab;
 	}
 
