@@ -110,20 +110,23 @@ public class NaviOXFilter implements Filter {
 					parametersQuery);
 				*/
 				// tmr ini
-				String dispatcherURL = "/" + base + "/" + userAccessModule + "?originalURI=" + originalURI + parametersQuery;
+				String dispatcherURL = "/" + base + "/" + userAccessModule;
 				System.out.println("[NaviOXFilter.doFilter] Users.getCurrent()=" + Users.getCurrent()); // tmr
 				System.out.println("[NaviOXFilter.doFilter] session.getAttribute(naviox.originalURL)=" + session.getAttribute("naviox.originalURL")); // tmr
-				if (Users.getCurrent() == null && session.getAttribute("naviox.originalURL") == null) {
+				String signInURL = SignInHelper.getSignInURL();
+				if (signInURL != null && Users.getCurrent() == null && session.getAttribute("naviox.originalURL") == null) {
 					System.out.println("[NaviOXFilter.doFilter] NO USER"); // tmr
 					session.setAttribute("naviox.userAccessURL", dispatcherURL); // tmr ¿La utilizamos? ¿Este nombre de atributo? ¿naviox como prefijo? ¿URL o URI? ¿La utilizamos?
 					System.out.println("[NaviOXFilter.doFilter] naviox.userAccessURL=" + dispatcherURL); // tmr
-					session.setAttribute("naviox.originalURL", originalURI + parametersQuery); // tmr ¿Este nombre de atributo? ¿naviox como prefijo? ¿URL o URI?
-					System.out.println("[NaviOXFilter.doFilter] naviox.originalURL=" + session.getAttribute("naviox.originalURL")); // tmr
-					dispatcherURL = "/azure/signIn"; // tmr Obviamente no se puede quedar así									
+					// tmr session.setAttribute("naviox.originalURL", originalURI + parametersQuery); // tmr ¿Este nombre de atributo? ¿naviox como prefijo? ¿URL o URI?
+					// tmr System.out.println("[NaviOXFilter.doFilter] naviox.originalURL=" + session.getAttribute("naviox.originalURL")); // tmr
+					dispatcherURL = signInURL; 									
 				}
 				else {
 					System.out.println("[NaviOXFilter.doFilter] USER IN SESSION"); // tmr
 				}
+				session.setAttribute("naviox.originalURL", originalURI + parametersQuery); // tmr ¿Este nombre de atributo? ¿naviox como prefijo? ¿URL o URI?
+				System.out.println("[NaviOXFilter.doFilter] naviox.originalURL=" + session.getAttribute("naviox.originalURL")); // tmr				
 				System.out.println("[NaviOXFilter.doFilter] dispatcherURL=" + dispatcherURL); // tmr
 				RequestDispatcher dispatcher = request.getRequestDispatcher(dispatcherURL); 				
 				// tmr fin

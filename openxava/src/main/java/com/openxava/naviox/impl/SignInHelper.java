@@ -66,6 +66,13 @@ public class SignInHelper {
 		return getProvider().isAuthorized(request, userName, password, errors, unauthorizedMessage);
 	}
 	
+	/**
+	 * @since 7.1 
+	 */
+	public static String getSignInURL() { // tmr 
+		return getProvider().getSignInURL();
+	}
+	
 	
 	private static ISignInHelperProvider getProvider() {
 		if (provider == null) {

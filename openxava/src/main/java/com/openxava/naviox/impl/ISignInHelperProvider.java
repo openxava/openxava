@@ -39,6 +39,8 @@ public interface ISignInHelperProvider {
 
 	void printUser(HttpServletRequest request, HttpServletResponse response); // tmr
 
-	
-	
+	/**
+	 * @since 7.1 
+	 */
+	String getSignInURL(); // tmr ¿En migration? 
 }

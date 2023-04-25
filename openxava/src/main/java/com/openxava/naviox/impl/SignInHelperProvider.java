@@ -84,4 +84,8 @@ public class SignInHelperProvider implements ISignInHelperProvider {
 	public void printUser(HttpServletRequest request, HttpServletResponse response) { // tmr
 	}
 
+	public String getSignInURL() { // tmr
+		return null;
+	}
+
 }
