@@ -42,6 +42,9 @@ public class OXCalendar extends DWRBase {
 	private BooleanFormatter booleanFormatter;
 	private CalendarEvent event;
 	private String dateName;
+	private boolean tabHasCondition;
+	private String[] tabConditionValues;
+	private String[] tabConditionComparators;
 
 	private int keysListSize = 0;
 	private int datesListSize = 0;
@@ -50,38 +53,51 @@ public class OXCalendar extends DWRBase {
 	private List<String> datesList = new ArrayList<>();
 
 	public String getEvents(HttpServletRequest request, HttpServletResponse response, String application, String module,
-			String monthYear) throws InterruptedException {
+			String monthYear) throws InterruptedException, RemoteException {
 		System.out.println("dwr");
 		this.application = application;
 		this.module = module;
 		this.response = response;
 		view = getView(request, application, module);
 		errors = new Messages();
+		//initRequest(request, response, application, module); 
 		List<CalendarEvent> calendarEvents = new ArrayList<>();
 		//System.out.println(application + " " + module);
 		String tabObject = "xava_tab";
 		tab2 = getTab(request, application, module, tabObject);
-		//System.out.println("antes print");
-		//System.out.println(tab2.getPropertiesNamesAsString());
-//		if (tab2 == null) {
-//			System.out.println("es null");
-//		} else {
-//			System.out.println("no es null");
-//		}
 		tab = tab2.clone();
-		
-		System.out.println("cloned");
-		// tengo que saber si es fecha con tiempo o no, tambien
+		System.out.println("antes de setDatesProperty tab size " + tab.getTableModel().getTotalSize());
 		setDatesProperty();
-		//System.out.println("setProperty");
-		DateFilter filter = new DateFilter();
-		filter = setFilterForMonth(monthYear);
-		System.out.println("antes de setFilter con dname " + dateName);
-		tab.setFilter(filter);
-		// hay que cambiar despues por ${}
-		tab.setBaseCondition( dateName + " between ? and ?");
+		
+		tabHasCondition = false;
+		if (tab.getConditionValues() != null) {
+			for (String condition : tab.getConditionValues()) {
+				if (condition!=null && !condition.equals("")) {
+					tabHasCondition = true;
+					break;
+				}
+			}
+		}
+		if (!tabHasCondition) {
+			//usar filtro
+			DateFilter filter = new DateFilter();
+			filter = setFilterForMonth(monthYear);
+			System.out.println("antes de setFilter con dname " + dateName);
+			tab.setFilter(filter);
+			// hay que cambiar despues por ${}
+			tab.setBaseCondition( dateName + " between ? and ?");
+			// no deberia filtrar en nada sino trabajar con toda la tabla directamente
+		} else {
+			tabConditionValues = tab.getConditionValues();
+			tabConditionComparators = tab.getConditionComparators();
+			System.out.println(tab.getConditionValues());
+			System.out.println(tab.getConditionComparators());
+			//tab = getTab(request, application, module, tabObject);
+			System.out.println("tab tiene condiciones " + tab.getTableModel().getTotalSize());
+		}
+		
 		tab = setProperties(tab);
-		System.out.println("antes de tablemodel");
+		System.out.println("antes de tablemodel " + tab.getTableModel().getTotalSize());
 
 		this.table = tab.getTableModel();
 		int tableSize = 0;
@@ -358,9 +374,10 @@ public class OXCalendar extends DWRBase {
 		List<String> dateWithTimeList = Arrays.asList("java.util.Date", "java.time.LocalDateTime",
 				"java.time.ZonedDateTime");
 		System.out.println("entra a setDatesProperty");
-		//System.out.println(tab.getMetaPropertiesNotCalculated());
+		System.out.println(tab.getMetaPropertiesNotCalculated());
 		for (MetaProperty property : mp) {
 			for (String name : datesName) {
+				System.out.println("name " + name);
 				if (mpCount < 2 && property.getQualifiedName().contains(name)) {
 					// or metaProperty.getTypeName().contains(name)
 					System.out.println("name " + property.getQualifiedName());
@@ -387,7 +404,7 @@ public class OXCalendar extends DWRBase {
 		System.out.println("termina");
 	}
 
-	private Tab setProperties(Tab tab) {
+	private Tab setProperties(Tab tab) throws RemoteException {
 		// luego de clonar la tabla y hacer el filtro
 		// obtener los keys en la primera columna (luego en multikey hacer un contador o
 		// algo para designar la cantidad de columnas)
@@ -408,7 +425,7 @@ public class OXCalendar extends DWRBase {
 		int maxLimit = 2;
 
 		newTabColumn.addAll(keysList);
-
+		System.out.println("1 tab " + tab.getTableModel().getTotalSize());
 		// lista de propiedades no calculadas y fecha
 		List<MetaProperty> mp = tab.getMetaPropertiesNotCalculated();
 		//System.out.println(tab.getMetaPropertiesNotCalculated());
@@ -433,6 +450,7 @@ public class OXCalendar extends DWRBase {
 				properties2ListCount++;
 				System.out.println(metaProperty.getQualifiedName() + " +1 = " + properties1ListCount);
 			}
+			System.out.println("2 tab " + tab.getTableModel().getTotalSize());
 			// columna para las otras propiedades, segun orden, en caso de haber llegado a
 			// max no agregar
 			// debo usar otra lista ya que el for va uno por uno
@@ -444,6 +462,7 @@ public class OXCalendar extends DWRBase {
 				properties2List.add(metaProperty.getQualifiedName());
 				properties2ListCount++;
 			}
+			System.out.println("3 tab " + tab.getTableModel().getTotalSize());
 		}
 		 System.out.println("3");
 		newTabColumn.addAll(datesList);
@@ -461,18 +480,35 @@ public class OXCalendar extends DWRBase {
 			properties2ListSize = 0;
 		}
 		
-		
+		System.out.println("4 tab " + tab.getTableModel().getTotalSize());
 
 		keysListSize = keysList.size();
 		datesListSize = datesList.size();
 		properties1ListSize = properties1List.size();
 		//properties2ListSize = properties2List.size();
 		//System.out.println("4");
-		tab.clearProperties();
-		tab.addProperties(newTabColumn);
+		System.out.println("4 tab antes de clean " + tab.getTableModel().getTotalSize());
+
+		//tab.clearProperties();
+		//System.out.println("4 tab despues de clean " + tab.getTableModel().getTotalSize());
+		//no funciona con condiciones
+		//tab.addProperties(newTabColumn);
+		
+		if (tabHasCondition) {
+			System.out.println("tiene condicion antes de aniadir propiedades");
+			for (int i = 0; i<newTabColumn.size(); i++) {
+				tab.addProperty(i, newTabColumn.get(i));
+			}
+		} else {
+			tab.clearProperties();
+			tab.addProperties(newTabColumn);
+		}
+		
+		
 		//System.out.println(keysListSize + " " + datesListSize + " " + properties1ListSize + " " + properties2ListSize);
 		// System.out.println(newTabColumn);
-		//System.out.println(tab.getPropertiesNamesAsString());
+		System.out.println(tab.getPropertiesNamesAsString());
+		System.out.println("5 tab " + tab.getTableModel().getTotalSize());
 		return tab;
 	}
 

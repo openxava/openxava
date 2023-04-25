@@ -5,6 +5,9 @@ var calendar;
 var listEvents;
 var setEvents = true;
 var startName;
+var outApplication;
+var outModule;
+var requesting = false;
 
 calendarEditor.setEvents = function(calendarEvents) {
     var events = calendar.getEvents();
@@ -27,6 +30,18 @@ calendarEditor.setEvents = function(calendarEvents) {
         startName = e.startName;
     }
     console.log(events);
+    let result = {
+        "result": {
+            "application": outApplication,
+            "module": outModule
+        }
+    };
+    console.log(result);
+    requesting = false;
+    //openxava.resetRequesting(result);
+    //if (openxava.isRequesting(outApplication, outModule)) openxava.resetRequesting(result);
+    //console.log("isRequesting = " + openxava.isRequesting(outApplication, outModule));
+    
 }
 
 openxava.addEditorInitFunction(function() {
@@ -37,13 +52,14 @@ openxava.addEditorInitFunction(function() {
         var newAction = $("#xava_calendar_action").val().split(",")[1];
         var selectAction = $("#xava_calendar_action").val().split(",")[0];
         var formattedDate = "";
-        //var listaEventos = JSON.parse(events);
-
+        outApplication = application;
+        outModule = module;
+        
         listEvents = [];
         console.log(application + " " + module + " " + dateFormat + " " + newAction + " " + selectAction);
-        
+        requesting = true;
         Calendar.getEvents(application, module, "", calendarEditor.setEvents);
-
+        //openxava.setRequesting(application, module);
 
         $("#xava_calendar").ready(function() {
             console.log("dentro");
@@ -65,9 +81,12 @@ openxava.addEditorInitFunction(function() {
                 customButtons: {
                     next: {
                         click: function() {
+                            if (requesting) return;
+                            requesting = true;
+                            //console.log("isRequesting = " + openxava.isRequesting(application, module));
                             //if (openxava.isRequesting(application, module)) return;
+                            //openxava.setRequesting(application, module);
                             let currentViewDate = calendar.view.currentStart;
-                            console.log()
                             let currentMonth = currentViewDate.getMonth();
                             let currentYear = currentViewDate.getFullYear();
                             calendar.next();
@@ -81,7 +100,11 @@ openxava.addEditorInitFunction(function() {
                     },
                     prev: {
                         click: function() {
+                            if (requesting) return;
+                            requesting = true;
+                            //console.log("isRequesting = " +  openxava.isRequesting(application, module));
                             //if (openxava.isRequesting(application, module)) return;
+                            //openxava.setRequesting(application, module);
                             let currentViewDate = calendar.view.currentStart;
                             let currentMonth = currentViewDate.getMonth();
                             let currentYear = currentViewDate.getFullYear();
