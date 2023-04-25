@@ -2,11 +2,13 @@
 openxava.addEditorInitFunction(function() {
 	tinymce.init({
 	  selector: '.ox-ckeditor',
-	  base_url: openxava.contextPath + '/xava/editors/tinymce/'
+	  base_url: openxava.contextPath + '/xava/editors/tinymce/',
+	  promotion: false
 	});
 	tinymce.init({
 	  selector: '.ox-simple-ckeditor',
-	  base_url: openxava.contextPath + '/xava/editors/tinymce/'
+	  base_url: openxava.contextPath + '/xava/editors/tinymce/',
+	  promotion: false
 	});
 });
 

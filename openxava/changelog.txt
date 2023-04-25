@@ -2,15 +2,13 @@ Change Log for OpenXava project
 ===============================
 
 Falta:
-- REVISAR MENSAJES CONSOLA FIREFOX
-- ZAP
 - Cambiar nombre .ox-ckeditor, revisar CSSs
+- Quitar botones publicidad.
 - IDIOMAS
 - DIFERENCIA NORMAL/SIMPLE
 - ESTILO
-- LIBERACIÓN
 - PRUEBAS MANUALES  
-- SUITE
+- SUITE (Borrar datos de Incident)
 
 
 - New property signInJSP in naviox.properties to define a custom login page.
