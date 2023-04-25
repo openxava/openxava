@@ -1,9 +1,4 @@
 // tmr ini
-// TMR ME QUEDÉ POR AQUI: HA FUNCIONADO. FALTA :
-// TMR - REVISAR MENSAJES CONSOLA FIREFOX
-// TMR - PROBAR CONTENIDO EXISTENTE
-// TMR - DIFERENCIA NORMAL/SIMPLE
-// TMR - ESTILO  
 openxava.addEditorInitFunction(function() {
 	tinymce.init({
 	  selector: '.ox-ckeditor',
@@ -14,6 +9,15 @@ openxava.addEditorInitFunction(function() {
 	  base_url: openxava.contextPath + '/xava/editors/tinymce/'
 	});
 });
+
+openxava.addEditorPreRequestFunction(function() {
+	tinymce.triggerSave(); 
+});
+
+openxava.addEditorDestroyFunction(function() {
+	tinymce.remove();
+});
+
 // tmr fin
 /* tmr
 openxava.addEditorInitFunction(function() {

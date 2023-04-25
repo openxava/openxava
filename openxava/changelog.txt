@@ -1,6 +1,18 @@
 Change Log for OpenXava project
 ===============================
 
+Falta:
+- REVISAR MENSAJES CONSOLA FIREFOX
+- ZAP
+- Cambiar nombre .ox-ckeditor, revisar CSSs
+- IDIOMAS
+- DIFERENCIA NORMAL/SIMPLE
+- ESTILO
+- LIBERACIÓN
+- PRUEBAS MANUALES  
+- SUITE
+
+
 - New property signInJSP in naviox.properties to define a custom login page.
 - Inline style no longer allowed in HTML.
 - Inline style removed from all generated HTML code by OpenXava.
