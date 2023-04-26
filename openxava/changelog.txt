@@ -2,13 +2,18 @@ Change Log for OpenXava project
 ===============================
 
 Falta:
-- Cambiar nombre .ox-ckeditor, revisar CSSs
-- Quitar botones publicidad.
-- IDIOMAS
+- Pruebas automáticas: TMR ME QUEDÉ POR AQUÍ, NO FUNCIONAN PORQUE HTMLUNIT NO RECONOCE TINY Y DEJA DE FUNCIONAR COMPLETAMENTE 
+	- Buscar en ModuleTestBase por ckeditor.
+	- Probar pruebas de Incident y Doc 
+- PRUEBAS MANUALES  
+- Revisar código
+- SUITE (Borrar datos de Incident)
+- ¿Documentación? Mirar en migración y referencia
+- Limpiar código.
+
+Postpuesto para 7.1.1:
 - DIFERENCIA NORMAL/SIMPLE
 - ESTILO
-- PRUEBAS MANUALES  
-- SUITE (Borrar datos de Incident)
 
 
 - New property signInJSP in naviox.properties to define a custom login page.

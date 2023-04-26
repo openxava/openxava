@@ -156,7 +156,12 @@
 	<script type='text/javascript' src='<%=contextPath%>/xava/js/typewatch.js?ox=<%=version%>'></script>
 
 	<%
+	// tmr ini
+	String browser = request.getHeader("user-agent"); 
+	boolean browserIsHtmlUnit = browser != null && browser.contains("HtmlUnit");
+	// tmr fin
 	for (String editorJS: EditorsResources.listJSFiles(realPath)) {
+		if (browserIsHtmlUnit && editorJS.equals("js/tinymce.js")) continue; // tmr A piñon fijo, debería estar en una propiedad, incluso disponible en aplicación final, por si añaden su propio JS
 	%>
 	<script type="text/javascript" charset="ISO-8859-1" src="<%=contextPath%>/xava/editors/<%=editorJS%>?ox=<%=version%>"></script>
 	<%
@@ -252,7 +257,7 @@ if (manager.isResetFormPostNeeded()) {
 	$("#xava_reset_form").submit();
 	</script>		
 <% } else  { 		
-		String browser = request.getHeader("user-agent"); 
+		// tmr String browser = request.getHeader("user-agent"); 
 %>
 
 <script type="text/javascript" <xava:nonce/>> 
@@ -294,7 +299,8 @@ if (manager.isResetFormPostNeeded()) {
 		<% if (XavaPreferences.getInstance().isEnterMovesToNextField()) { %>
 		openxava.initFocusKey = openxava.setEnterAsFocusKey;
 		<% } %>
-		<% if (browser != null && browser.contains("HtmlUnit")) { // Because of low performance of fadeIn with HtmlUnit %>
+		<%-- tmr if (browser != null && browser.contains("HtmlUnit")) { // Because of low performance of fadeIn with HtmlUnit --%>
+		<% if (browserIsHtmlUnit) { // Because of low performance of fadeIn with HtmlUnit %> <%-- tmr --%> 
 		openxava.fadeIn = openxava.show;
 		openxava.browser.htmlUnit = true; 
 		<% } %>

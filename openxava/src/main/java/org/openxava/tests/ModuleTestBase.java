@@ -242,10 +242,17 @@ abstract public class ModuleTestBase extends TestCase {
 			catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex2) {
 				HtmlTextArea textArea = getTextAreaByName(id); 
 				assertNotDisable(name, textArea);
-				String textAreaClass = textArea.getAttribute("class"); 
+				String textAreaClass = textArea.getAttribute("class");
+				/* tmr
 				if (textAreaClass != null && textAreaClass.contains("cke")) {
 					getHtmlPage().executeJavaScript("CKEDITOR.instances['" + textArea.getId() + "'].setData('" + value + "');");
 				}
+				*/
+				// tmr ini
+				if (textAreaClass != null && textAreaClass.contains("html-text")) {
+					getHtmlPage().executeJavaScript("tinymce.get('" + textArea.getId() + "').setContent('" + value + "');");
+				}				
+				// tmr fin
 				else textArea.setText(value);
 				refreshNeeded = !Is.emptyString(textArea.getOnChangeAttribute());
 			}

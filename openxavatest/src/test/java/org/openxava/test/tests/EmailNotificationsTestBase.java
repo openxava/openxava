@@ -18,6 +18,7 @@ abstract public class EmailNotificationsTestBase extends ModuleTestBase {
 	protected void subscribeToEmailNotifications() throws Exception { 
 		removeAllEmailSubscriptions();
 		changeModule("SignIn");
+		printHtml(); // tmr
 		login("openxavatest1@getnada.com", "test1");
 		changeModule(module);
 		execute(EmailNotificationsUtils.getEmailSubscriptionAction()); 
