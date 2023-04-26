@@ -129,11 +129,13 @@ openxava.addEditorInitFunction(function() {
                     }
                 },
                 eventClick: function(e) {
+                    if (requesting) return;
                     if (!getSelection().toString()) {
                         openxava.executeAction(application, module, false, false, selectAction, 'calendarKey=' + e.event.extendedProps.key);
                     }
                 },
                 dateClick: function(e) {
+                    if (requesting) return;
                     let selectedDate = reformatDate(e.dateStr);
                     let value = {
                         "dates": {

@@ -39,10 +39,11 @@ public class OXCalendar extends DWRBase {
 
 	private boolean dateWithTime;
 	private boolean oldLib;
+	private boolean hasCondition;
+	private boolean hasFilter;
 	private BooleanFormatter booleanFormatter;
 	private CalendarEvent event;
 	private String dateName;
-	private boolean tabHasCondition;
 	private String[] tabConditionValues;
 	private String[] tabConditionComparators;
 
@@ -62,43 +63,48 @@ public class OXCalendar extends DWRBase {
 		errors = new Messages();
 		//initRequest(request, response, application, module); 
 		List<CalendarEvent> calendarEvents = new ArrayList<>();
-		//System.out.println(application + " " + module);
+		System.out.println(application + " " + module);
 		String tabObject = "xava_tab";
+		System.out.println("antes de getTab " + application + module);
+		System.out.println(request);
 		tab2 = getTab(request, application, module, tabObject);
+		//System.out.println(tab2.getModelName());
+		//System.out.println(tab2.getPropertiesNamesAsString());
+		//System.out.println(tab2.gettab);
 		tab = tab2.clone();
-		System.out.println("antes de setDatesProperty tab size " + tab.getTableModel().getTotalSize());
+		System.out.println("despues de getTab");
+		System.out.println("antes de setDatesProperty tab size " + Arrays.toString(tab.getConditionValues()));
 		setDatesProperty();
 		
-		tabHasCondition = false;
-		if (tab.getConditionValues() != null) {
-			for (String condition : tab.getConditionValues()) {
-				if (condition!=null && !condition.equals("")) {
-					tabHasCondition = true;
-					break;
-				}
-			}
-		}
-		if (!tabHasCondition) {
-			//usar filtro
-			DateFilter filter = new DateFilter();
-			filter = setFilterForMonth(monthYear);
-			System.out.println("antes de setFilter con dname " + dateName);
-			tab.setFilter(filter);
-			// hay que cambiar despues por ${}
-			tab.setBaseCondition( dateName + " between ? and ?");
-			// no deberia filtrar en nada sino trabajar con toda la tabla directamente
+		hasCondition = tabHasCondition(tab);
+		hasFilter = tab.getFilter() != null ? true : false;
+		
+//		if (tab.getConditionValues() != null) {
+//			for (String condition : tab.getConditionValues()) {
+//				if (condition!=null && !condition.equals("")) {
+//					tabHasCondition = true;
+//					System.out.println("tab tiene condiciones ");
+//					break;
+//				}
+//			}
+//		}
+		
+		if (tab.getFilter() != null) {
+			System.out.println("tiene");
 		} else {
-			tabConditionValues = tab.getConditionValues();
-			tabConditionComparators = tab.getConditionComparators();
-			System.out.println(tab.getConditionValues());
-			System.out.println(tab.getConditionComparators());
-			//tab = getTab(request, application, module, tabObject);
-			System.out.println("tab tiene condiciones " + tab.getTableModel().getTotalSize());
+			System.out.println("no tiene");
 		}
 		
+		//si tiene filtros o condiciones no hara nada, traera todos los eventos
+		if (!hasCondition && !hasFilter) {
+			setFilter(tab, monthYear);
+		}
+		System.out.println("antes de setProperties tabsize " + tab.getTableModel().getTotalSize());
 		tab = setProperties(tab);
-		System.out.println("antes de tablemodel " + tab.getTableModel().getTotalSize());
-
+		//System.out.println("antes de tablemodel " + tab.getTableModel().getTotalSize());
+		
+		//if (!hasCondition && hasFilter) setFilter(tab, monthYear);
+		
 		this.table = tab.getTableModel();
 		int tableSize = 0;
 		String json = null;
@@ -273,10 +279,6 @@ public class OXCalendar extends DWRBase {
 				}
 			}
 		}
-		
-		
-		
-
 		 System.out.println("resultados");
 		 System.out.println(result);
 		return result;
@@ -368,22 +370,29 @@ public class OXCalendar extends DWRBase {
 	}
 
 	private void setDatesProperty() {
-		List<MetaProperty> mp = tab.getMetaPropertiesNotCalculated();
+		//List<MetaProperty> mp = tab.getMetaPropertiesNotCalculated();
+		//List<String> mp = tab.getMetaTab().getMetaModel().getPropertiesNames();
+		List<MetaProperty> mp = new ArrayList<>(tab.getMetaTab().getMetaModel().getMetaProperties());
 		String[] datesName = { "date", "fecha" };
 		int mpCount = 0;
 		List<String> dateWithTimeList = Arrays.asList("java.util.Date", "java.time.LocalDateTime",
 				"java.time.ZonedDateTime");
+
 		System.out.println("entra a setDatesProperty");
-		System.out.println(tab.getMetaPropertiesNotCalculated());
+		//System.out.println((tab.getMetaTab().getMetaModel().getPropertiesNames()));
+		//System.out.println(tab.getMetaTab().getMetaModel().getMetaProperties());
 		for (MetaProperty property : mp) {
 			for (String name : datesName) {
-				System.out.println("name " + name);
-				if (mpCount < 2 && property.getQualifiedName().contains(name)) {
+				//System.out.println("name " + property.getName());
+				//if (mpCount < 2 && property.getQualifiedName().contains(name)) {
+				if (mpCount < 2 && property.getName().contains(name)) {
 					// or metaProperty.getTypeName().contains(name)
-					System.out.println("name " + property.getQualifiedName());
+					System.out.println("name " + mpCount + " " + property.getName() + "  "  + property.getTypeName());
 					// por el momento se esta usando el primer date
-					if (mpCount == 0 && !property.getQualifiedName().contains(".")) dateName = property.getQualifiedName();
-					datesList.add(property.getQualifiedName());
+					if (mpCount == 0 && !property.getName().contains(".")) dateName = property.getName();
+					datesList.add(property.getName());
+					//if (mpCount == 0 && !property.getQualifiedName().contains(".")) dateName = property.getQualifiedName();
+					//datesList.add(property.getQualifiedName());					
 					mpCount++;
 					
 					//ambos booleanos
@@ -494,11 +503,20 @@ public class OXCalendar extends DWRBase {
 		//no funciona con condiciones
 		//tab.addProperties(newTabColumn);
 		
-		if (tabHasCondition) {
-			System.out.println("tiene condicion antes de aniadir propiedades");
-			for (int i = 0; i<newTabColumn.size(); i++) {
-				tab.addProperty(i, newTabColumn.get(i));
-			}
+		if (hasCondition) {
+			System.out.println("tiene condicion antes de aniadir propiedades " + tab.getTableModel().getTotalSize() + "-" + Arrays.toString(tab.getConditionValues()));
+			System.out.println("count " + tab.getConfigurationsCount());
+
+			String[] conditionValues = tab.getConditionValues();
+			String[] conditionValuesTo = tab.getConditionValuesTo();
+			String[] conditionComparators = tab.getConditionComparators();
+			
+			tab.addProperties(newTabColumn, conditionValues, conditionValuesTo, conditionComparators);
+			
+//			for (int i = 0; i<newTabColumn.size(); i++) {
+//				tab.addProperty(i, newTabColumn.get(i));
+//			}
+			System.out.println("tiene condicion despues de aniadir propiedades " + tab.getTableModel().getTotalSize() + "-" + Arrays.toString(tab.getConditionValues()));
 		} else {
 			tab.clearProperties();
 			tab.addProperties(newTabColumn);
@@ -508,8 +526,30 @@ public class OXCalendar extends DWRBase {
 		//System.out.println(keysListSize + " " + datesListSize + " " + properties1ListSize + " " + properties2ListSize);
 		// System.out.println(newTabColumn);
 		System.out.println(tab.getPropertiesNamesAsString());
-		System.out.println("5 tab " + tab.getTableModel().getTotalSize());
+		
 		return tab;
+	}
+	
+	private boolean tabHasCondition(Tab tab) {
+		boolean b = false;
+		if (tab.getConditionValues() != null) {
+			for (String condition : tab.getConditionValues()) {
+				if (condition!=null && !condition.equals("")) {
+					b = true;
+					break;
+				}
+			}
+		}
+		return b;
+	}
+
+	private void setFilter(Tab tab, String monthYear) {
+		DateFilter filter = new DateFilter();
+		filter = setFilterForMonth(monthYear);
+		System.out.println("antes de setFilter con dname " + dateName);
+		tab.setFilter(filter);
+		// hay que cambiar despues por ${}
+		tab.setBaseCondition("${" + dateName + "} between ? and ?");
 	}
 
 }

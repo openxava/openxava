@@ -35,13 +35,13 @@ public class ModuleContext implements java.io.Serializable {
 	 */
 	public Object get(HttpServletRequest request, String objectName) throws XavaException {  
 		String application = request.getParameter("application");
-		if (Is.emptyString(application)) {
-			throw new XavaException("application_and_module_required_in_request");
-		}
+		application = Is.emptyString(application) ? (String) request.getAttribute("xava.application") : application; 
+		if (Is.emptyString(application)) throw new XavaException("application_and_module_required_in_request");
+
 		String module = request.getParameter("module");
-		if (Is.emptyString(module)) {
-			throw new XavaException("application_and_module_required_in_request");
-		}		
+		module = Is.emptyString(module) ? (String) request.getAttribute("xava.module") : module;
+		if (Is.emptyString(module)) throw new XavaException("application_and_module_required_in_request");
+		
 		return get(application, module, objectName);		
 	}
 	
