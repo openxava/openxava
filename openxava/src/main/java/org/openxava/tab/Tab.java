@@ -1,7 +1,6 @@
 package org.openxava.tab;
 
 import java.math.*;
-import java.rmi.*;
 import java.sql.*;
 import java.text.*;
 import java.util.*;
@@ -1950,8 +1949,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 
 	public Collection<Configuration> getConfigurations() {  
 		List<Configuration> result = new ArrayList(configurations.values());  
-		System.out.println("configuracion");
-		System.out.println(configurations.get(result.get(0).getName()));
 		Collections.sort(result);
 		return result;
 	}
@@ -2110,19 +2107,11 @@ public class Tab implements java.io.Serializable, Cloneable {
 		addProperties(Collections.singleton(propertyName));
 	}
 	
-	public void addProperty(int index, String propertyName) throws XavaException, RemoteException {
+	public void addProperty(int index, String propertyName) throws XavaException{
 		cloneMetaTab();
 		getMetaTab().addProperty(index, propertyName);
 		resetAfterChangeProperties();
-		if (configuration == null) {
-			System.out.println("configuration == null");
-			saveConfiguration();
-		}
-//		System.out.println(getTableModel().getTotalSize());
-//		System.out.println(Arrays.toString(configuration.getConditionValues()));
-//		System.out.println(Arrays.toString(configuration.getConditionValuesTo()));
-//		System.out.println(Arrays.toString(configuration.getConditionComparators()));
-//		System.out.println(getPropertiesNamesAsString());
+		if (configuration == null) saveConfiguration();
 		configuration.setConditionValues(insertEmptyString(configuration.getConditionValues(), index)); 
 		configuration.setConditionValuesTo(insertEmptyString(configuration.getConditionValuesTo(), index));
 		configuration.setConditionComparators(insertEmptyString(configuration.getConditionComparators(), index));
@@ -2133,7 +2122,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		} 
 	}
 	
-	public void addProperties(List<String> propertiesName, String[] conditionValues, String[] conditionValuesTo, String[] conditionComparators) throws XavaException, RemoteException {
+	public void addProperties(List<String> propertiesName, String[] conditionValues, String[] conditionValuesTo, String[] conditionComparators) throws XavaException {
 		cloneMetaTab();
 		configuration.setConditionValues(conditionValues);
 		configuration.setConditionValuesTo(conditionValuesTo);
@@ -2142,10 +2131,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		for (int i = 0; i < propertiesName.size(); i++) {
 			getMetaTab().addProperty(i, propertiesName.get(i));
 			resetAfterChangeProperties();
-			if (configuration == null) {
-				System.out.println("configuration == null");
-				saveConfiguration();
-			}
+			if (configuration == null) saveConfiguration();
 			configuration.setConditionValues(insertEmptyString(configuration.getConditionValues(), i)); 
 			configuration.setConditionValuesTo(insertEmptyString(configuration.getConditionValuesTo(), i));
 			configuration.setConditionComparators(insertEmptyString(configuration.getConditionComparators(), i));
@@ -2294,10 +2280,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 				saveConfigurationPreferences(false);
 			} 
 		} 
-		System.out.println(Arrays.toString(configuration.getConditionValues()));
-		System.out.println(Arrays.toString(configuration.getConditionValuesTo()));
-		System.out.println(Arrays.toString(configuration.getConditionComparators()));
-
 		removeUserPreferences(); 
 	}
 	

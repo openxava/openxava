@@ -12,8 +12,6 @@ import javax.json.*;
 public class NewAction extends ViewBaseAction implements IChangeModeAction, IModelAction {
 
 	private String value = "";
-	//private CalendarEvent ce = new CalendarEvent();
-
 	private String modelName;
 	private boolean restoreModel = false;
 

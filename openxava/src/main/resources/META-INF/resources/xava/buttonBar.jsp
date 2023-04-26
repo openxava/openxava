@@ -97,7 +97,7 @@ if (manager.isButtonBarVisible()) {
                 break;
             }
         }
-        if (hasLocalDate == false) {
+        if (!hasLocalDate) {
             for (MetaProperty property : listProperty2) {
                 String propTypeName = property.getTypeName();
                 if (dates.contains(property.getTypeName())) {
