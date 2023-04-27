@@ -65,6 +65,10 @@ public class CalendarTest extends TestCase {
 		wait(driver);
 		Thread.sleep(8000);
 		verifyConditionEvents("past");
+		
+		moveToListView();
+		wait(driver);
+		deteleEvents();
 	}
 
 	public void tearDown() throws Exception {
@@ -85,15 +89,8 @@ public class CalendarTest extends TestCase {
 	private void moveToCalendarView() throws InterruptedException {
 		WebElement tabCalendar = driver.findElement(By.cssSelector(".mdi.mdi-calendar"));
 		WebElement tabCalendarParent = tabCalendar.findElement(By.xpath(".."));
-		// System.out.println("padre");
 		String title = tabCalendarParent.getAttribute("class");
-		// System.out.println(title);
-		if (title != null && title.equals("ox-selected-list-format")) {
-			System.out.println("esta en la vista calendar");
-			// esta en vista calendar
-		} else {
-			// no esta en vista calendar
-			System.out.println("no esta en la vista calendar");
+		if (!(title != null && title.equals("ox-selected-list-format"))) {
 			tabCalendar.click();
 		}
 	}
@@ -102,12 +99,9 @@ public class CalendarTest extends TestCase {
 		WebElement tabList = driver.findElement(By.cssSelector(".mdi.mdi-table-large"));
 		WebElement tabListParent = tabList.findElement(By.xpath(".."));
 		String title = tabListParent.getAttribute("class");
-		if (title != null && title.equals("ox-selected-list-format")) {
-			System.out.println("esta en la vista lista");
-			// esta en vista calendar
-		} else {
+		if (!(title != null && title.equals("ox-selected-list-format"))) {
 			tabList.click();
-		}
+		}	
 	}
 
 	private void nextOnCalendar() throws InterruptedException {
@@ -123,21 +117,18 @@ public class CalendarTest extends TestCase {
 	private List<Date> setDates() {
 		List<Date> dates = new ArrayList<>();
 		Calendar calendar = Calendar.getInstance();
-		// Primer día del mes actual
 		calendar.set(Calendar.DAY_OF_MONTH, 1);
 		Date currentMonth = calendar.getTime();
-		// Primer día del mes anterior
 		calendar.add(Calendar.MONTH, -1);
 		calendar.set(Calendar.DAY_OF_MONTH, 1);
 		Date previousMonth = calendar.getTime();
-		// Primer día del mes siguiente
 		calendar.add(Calendar.MONTH, 2);
 		calendar.set(Calendar.DAY_OF_MONTH, 1);
 		Date nextMonth = calendar.getTime();
 		dates.add(previousMonth);
 		dates.add(currentMonth);
 		dates.add(nextMonth);
-		System.out.println(dates);
+
 		return dates;
 	}
 
@@ -146,7 +137,6 @@ public class CalendarTest extends TestCase {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat dateFormat2 = new SimpleDateFormat();
 		for (int i = 0; i < dates.size(); i++) {
-			System.out.println(i);
 			if (i == 2) {
 				nextOnCalendar();
 				Thread.sleep(8000);
@@ -183,50 +173,6 @@ public class CalendarTest extends TestCase {
 		buttonList.click();
 		wait(driver);
 		Thread.sleep(8000);
-	}
-
-	//se usara para claves 
-	private void createDelivery() throws Exception {
-		List<Date> dates = setDates();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat dateFormat2 = new SimpleDateFormat();
-		for (int i = 0; i < dates.size(); i++) {
-			System.out.println(i);
-			if (i == 2) {
-				nextOnCalendar();
-				Thread.sleep(8000);
-				wait(driver);
-			}
-			String dateString = dateFormat.format(dates.get(i));
-			WebElement day = driver
-					.findElement(By.xpath("//div[contains(@class,'fc-daygrid-day-frame') and ancestor::td[@data-date='"
-							+ dateString + "']]"));
-			day.click();
-			wait(driver);
-
-			WebElement inputInvoiceYear = driver.findElement(By.id("ox_openxavatest_Delivery__invoice___year"));
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(dates.get(i));
-			inputInvoiceYear.sendKeys(String.valueOf(calendar.get(Calendar.YEAR)));
-			WebElement inputInvoiceNumber = driver.findElement(By.id("ox_openxavatest_Delivery__invoice___number"));
-			int invoiceNumber = (10 + i);
-			inputInvoiceNumber.sendKeys(String.valueOf(invoiceNumber));
-			wait(driver);
-			WebElement inputNumber = driver.findElement(
-					By.cssSelector("[id='ox_openxavatest_Delivery__number'][name='ox_openxavatest_Delivery__number']"));
-			int deliveryNumber = (70 + i);
-			inputNumber.sendKeys(String.valueOf(deliveryNumber));
-			WebElement setDeliveryType = driver
-					.findElement(By.id("ox_openxavatest_Delivery__Delivery___setDefaultType"));
-			setDeliveryType.click();
-			WebElement buttonSave = driver.findElement(By.id("ox_openxavatest_Delivery__CRUD___save"));
-			buttonSave.click();
-			wait(driver);
-			WebElement buttonList = driver.findElement(By.id("ox_openxavatest_Delivery__Mode___list"));
-			buttonList.click();
-			wait(driver);
-			Thread.sleep(8000);
-		}
 	}
 
 	private void verifyPrevInvoiceEvent() throws Exception {
@@ -300,6 +246,19 @@ public class CalendarTest extends TestCase {
 		            "a.fc-event.fc-event-draggable.fc-event-resizable.fc-event-start.fc-event-end.fc-event-" + time + ".fc-daygrid-event.fc-daygrid-dot-event"));
 		} catch (NoSuchElementException e) {}
 		assertNull(currentMonthEvent);
+	}
+	
+	private void deteleEvents() throws Exception {
+		WebElement clearFilterAction = driver.findElement(By.cssSelector("td.ox-list-subheader a:has(i.mdi.mdi-eraser)"));
+		clearFilterAction.click();
+		wait(driver);
+		for (int i = 0; i < 4; i ++) {
+			WebElement element = driver.findElement(By.xpath("//a[contains(@class, 'ox-image-link') and .//i[contains(@class, 'mdi-delete')]]"));
+			element.click();
+			Alert alert = driver.switchTo().alert();
+			alert.accept();
+			wait(driver);
+		}
 	}
 	
 }
