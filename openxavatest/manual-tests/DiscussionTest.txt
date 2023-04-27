@@ -34,4 +34,6 @@ Incident module:
 	- No bottom buttons on module.
 - Go to Activity tab.
 	- Collection weight must be normal, not narrowed, no scrollbar.
+- Go to list modo, select the created incident.
+	- Added comments in above tests present.	
 - Delete the created incident.  	

@@ -19,6 +19,10 @@ public class Discussion extends DWRBase {
 	
 	public void postComment(HttpServletRequest request, HttpServletResponse response, String application, String module, String discussionId, String commentContent) {
 		try {
+			System.out.println("[Discussion.postComment] application=" + application); // tmr
+			System.out.println("[Discussion.postComment] module=" + module); // tmr
+			System.out.println("[Discussion.postComment] discussionId=" + discussionId); // tmr
+			System.out.println("[Discussion.postComment] commentContent=" + commentContent); // tmr
 			initRequest(request, response, application, module); 
 			DiscussionComment comment = new DiscussionComment();
 			comment.setDiscussionId(discussionId);

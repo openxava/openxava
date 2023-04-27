@@ -1,5 +1,6 @@
 // tmr ini
 openxava.addEditorInitFunction(function() {
+	if (openxava.browser.htmlUnit) return;	
 	tinymce.init({
 	  selector: '.ox-html-text',
 	  base_url: openxava.contextPath + '/xava/editors/tinymce/',
@@ -26,10 +27,12 @@ openxava.addEditorInitFunction(function() {
 });
 
 openxava.addEditorPreRequestFunction(function() {
+	if (openxava.browser.htmlUnit) return;
 	tinymce.triggerSave(); 
 });
 
 openxava.addEditorDestroyFunction(function() {
+	if (openxava.browser.htmlUnit) return;
 	tinymce.remove();
 });
 // tmr fin

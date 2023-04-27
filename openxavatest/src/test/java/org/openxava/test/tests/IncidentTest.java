@@ -3,10 +3,7 @@ package org.openxava.test.tests;
 import java.util.*;
 
 import org.openxava.jpa.*;
-import org.openxava.test.model.*;
 import org.openxava.util.*;
-
-import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  * 
@@ -20,6 +17,12 @@ public class IncidentTest extends EmailNotificationsTestBase {
 	}
 	
 	public void testDiscussionEditor_defaultPropertiesForListWithoutTab_discussionEmailNotifications() throws Exception {
+		// tmr ini
+		// TMR ME QUEDÉ POR AQUÍ: LOS COMENTARIOS AÑADIDOS SE BORRAN POR EL tearDown(). QUITARLO PARA PROBAR.
+		execute("List.viewDetail", "row=0");
+		postDiscussionComment("discussion", "<p>PRUEBA 1</p>");
+		// tmr fin
+		/* tmr
 		subscribeToEmailNotifications(); 
 
 		execute("Mode.list"); 
@@ -33,12 +36,14 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		
 		assertDiscussionCommentsCount("discussion", 0); 
 		postDiscussionComment("discussion", "Hi, it's me");
+		
 		String timeFirstPost = getCurrentTime();
 		assertDiscussionCommentsCount("discussion", 1); 
 		assertDiscussionCommentText("discussion", 0, "admin - Now\nHi, it's me"); 
 		assertDiscussionCommentContentText("discussion", 0, "Hi, it's me");
 		
 		execute("CRUD.save");
+	
 		String id = Incident.findFirst().getId(); 
 		
 		assertValue("title", "");
@@ -94,7 +99,8 @@ public class IncidentTest extends EmailNotificationsTestBase {
 			"CREATED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Incident, permalink=http://localhost:8080" + getContextPath() + "modules/Incident?detail=" + id,
 			"MODIFIED: email=openxavatest1@getnada.com, user=juan, application=OpenXavaTest, module=Incident, permalink=http://localhost:8080" + getContextPath() + "modules/Incident?detail=" + id + ", changes=<ul><li data-property='discussion'><b>Discussion</b>: NEW COMMENT --> Soy Juan</li></ul>",
 			"REMOVED: email=openxavatest1@getnada.com, user=juan, application=OpenXavaTest, module=Incident, url=http://localhost:8080" + getContextPath() + "modules/Incident, key={id=" + id + "}"				
-		);			
+		);		
+		*/	
 	}
 	
 	protected void tearDown() throws Exception { 

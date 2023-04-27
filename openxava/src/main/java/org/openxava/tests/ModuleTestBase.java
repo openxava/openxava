@@ -247,13 +247,12 @@ abstract public class ModuleTestBase extends TestCase {
 				if (textAreaClass != null && textAreaClass.contains("cke")) {
 					getHtmlPage().executeJavaScript("CKEDITOR.instances['" + textArea.getId() + "'].setData('" + value + "');");
 				}
+				else textArea.setText(value);
 				*/
 				// tmr ini
-				if (textAreaClass != null && textAreaClass.contains("html-text")) {
-					getHtmlPage().executeJavaScript("tinymce.get('" + textArea.getId() + "').setContent('" + value + "');");
-				}				
+				textArea.setText(value);
 				// tmr fin
-				else textArea.setText(value);
+				
 				refreshNeeded = !Is.emptyString(textArea.getOnChangeAttribute());
 			}
 		}		
@@ -472,7 +471,7 @@ abstract public class ModuleTestBase extends TestCase {
 	protected void resetModule() throws Exception {
 		client = new WebClient(getBrowserVersion()); 
 		client.getOptions().setThrowExceptionOnFailingStatusCode(false);
-		client.getOptions().setThrowExceptionOnScriptError(false);
+		// tmr client.getOptions().setThrowExceptionOnScriptError(false);
 		client.getOptions().setCssEnabled(false);
 		client.setJavaScriptErrorListener(new SilentJavaScriptErrorListener());
 	    client.setCssErrorHandler(new SilentCssErrorHandler());
@@ -2829,11 +2828,22 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @since 5.6
 	 */		
 	protected void postDiscussionComment(String name, String commentContent) throws Exception { 
-		HtmlElement discussion = getDiscussionElement(name); 
+		
+		/* tmr
+		HtmlElement discussion = getDiscussionElement(name);
 		HtmlElement textarea = discussion.getElementsByTagName("textarea").get(0);
-		getHtmlPage().executeJavaScript("CKEDITOR.instances['" + textarea.getId() + "'].setData(\"" + commentContent + "\");");  
+		getHtmlPage().executeJavaScript("CKEDITOR.instances['" + textarea.getId() + "'].setData(\"" + commentContent + "\");");
 		HtmlElement postButton = discussion.getOneHtmlElementByAttribute("input", "type", "button");
 		getHtmlPage().executeJavaScript(postButton.getOnClickAttribute()); 
+		*/
+		// tmr ini
+		System.out.println("[ModuleTestBase.postDiscussionComment] v4"); // tmr
+		String discussionId = getValue(name);
+		System.out.println("[ModuleTestBase.postDiscussionComment] discussionId="+ discussionId); // tmr
+		String comment = commentContent.contains("'")? "\"" + commentContent + "\"": "'" + commentContent + "'"; 		
+		getHtmlPage().executeJavaScript("discussionEditor.postMessageHtmlUnit('" + application + "', '" + module + "', '" + discussionId + "', " + comment + ")");
+		// tmr fin
+
 	}
 	
 	private HtmlElement getDiscussionElement(String name) {   
