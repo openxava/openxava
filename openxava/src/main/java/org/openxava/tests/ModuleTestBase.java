@@ -250,7 +250,10 @@ abstract public class ModuleTestBase extends TestCase {
 				else textArea.setText(value);
 				*/
 				// tmr ini
-				textArea.setText(value);
+				if (textAreaClass != null && textAreaClass.contains("html-text")) {
+					textArea.setText("<p>" + value + "</p>"); // To simulate the TinyCME behavior
+				}
+				else textArea.setText(value);
 				// tmr fin
 				
 				refreshNeeded = !Is.emptyString(textArea.getOnChangeAttribute());
@@ -2840,7 +2843,7 @@ abstract public class ModuleTestBase extends TestCase {
 		System.out.println("[ModuleTestBase.postDiscussionComment] v4"); // tmr
 		String discussionId = getValue(name);
 		System.out.println("[ModuleTestBase.postDiscussionComment] discussionId="+ discussionId); // tmr
-		String comment = commentContent.contains("'")? "\"" + commentContent + "\"": "'" + commentContent + "'"; 		
+		String comment = commentContent.contains("'")? "\"<p>" + commentContent + "</p>\"": "'<p>" + commentContent + "</p>'"; 		
 		getHtmlPage().executeJavaScript("discussionEditor.postMessageHtmlUnit('" + application + "', '" + module + "', '" + discussionId + "', " + comment + ")");
 		// tmr fin
 

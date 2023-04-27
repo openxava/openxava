@@ -2,8 +2,10 @@ package org.openxava.test.tests;
 
 import java.util.*;
 
-import org.openxava.jpa.*;
+import org.openxava.test.model.*;
 import org.openxava.util.*;
+
+import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  * 
@@ -17,12 +19,6 @@ public class IncidentTest extends EmailNotificationsTestBase {
 	}
 	
 	public void testDiscussionEditor_defaultPropertiesForListWithoutTab_discussionEmailNotifications() throws Exception {
-		// tmr ini
-		// TMR ME QUEDÉ POR AQUÍ: LOS COMENTARIOS AÑADIDOS SE BORRAN POR EL tearDown(). QUITARLO PARA PROBAR.
-		execute("List.viewDetail", "row=0");
-		postDiscussionComment("discussion", "<p>PRUEBA 1</p>");
-		// tmr fin
-		/* tmr
 		subscribeToEmailNotifications(); 
 
 		execute("Mode.list"); 
@@ -61,6 +57,8 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 
 		assertValue("title", "THE JUNIT DISCUSSION"); 
+		// TMR ME QUEDÉ POR AQUÍ: FALLA LO DE ABAJO, PERO OJO, QUE PARECE QUE NO FUNCIONA CON TinyCME, QUE NO GRABA EL HTML EN REAL
+		// TMR  SI ES ESE EL CASO HABRÍA QUE AÑADIRLO EN LA PRUEBA MANUAL
 		assertValue("description", "<p>This is the big <<!-- -->jUnit> discussion</p>"); // The <!-- --> is added by OX to avoid a CKEditor bug that removes any %lt; followed by a character
 
 		assertDiscussionCommentsCount("discussion", 1);
@@ -100,12 +98,11 @@ public class IncidentTest extends EmailNotificationsTestBase {
 			"MODIFIED: email=openxavatest1@getnada.com, user=juan, application=OpenXavaTest, module=Incident, permalink=http://localhost:8080" + getContextPath() + "modules/Incident?detail=" + id + ", changes=<ul><li data-property='discussion'><b>Discussion</b>: NEW COMMENT --> Soy Juan</li></ul>",
 			"REMOVED: email=openxavatest1@getnada.com, user=juan, application=OpenXavaTest, module=Incident, url=http://localhost:8080" + getContextPath() + "modules/Incident, key={id=" + id + "}"				
 		);		
-		*/	
 	}
 	
 	protected void tearDown() throws Exception { 
 		// Because the @PreRemove of Incident does not work, maybe a bug to solve in the future
-		XPersistence.getManager().createQuery("delete from DiscussionComment").executeUpdate();
+		// tmr XPersistence.getManager().createQuery("delete from DiscussionComment").executeUpdate();
 		super.tearDown();
 	}
 	
