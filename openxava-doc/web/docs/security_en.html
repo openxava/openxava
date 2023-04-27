@@ -42,6 +42,9 @@
             access by IP (new in v6.4)</a></div>
         <div style="margin-left: 2em;"><a href="#custom-authentication-code">Custom
             authentication code (new in v7.0)</a></div>
+        <div style="margin-left: 2em;"><a href="#custom-signin-page">Custom Sign
+            In page (new in v7.1)<br>
+          </a></div>
       </div>
       <em>All the features in this article are available only in <a href="http://openxava.org/xavapro">XavaPro</a></em><br>
       <h2 id="toc1"><a name="Security and user management-User management"></a>User
@@ -319,9 +322,33 @@ public class MyCustomSignInHelperProvider extends ProSignInHelperProvider {
       above class for authentication you have to add the next entry in the <i>naviox.properties</i>
       file of your project:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">signInHelperProviderClass=com.mycompany.myapp.impl.MyCustomSignInHelperProvider
+      <pre><code class="properties">signInHelperProviderClass=com.mycompany.myapp.impl.MyCustomSignInHelperProvider
 </code></pre> </div>
-    <div class="wiki" style="display: block;"><br>
+    <div class="wiki" style="display: block;">
+      <div class="wiki" style="display: block;">
+        <h2><a name="custom-signin-page"></a>Custom Sign In page <em>(new in
+            v7.1)</em></h2>
+        To define your own custom Sign In page create a JSP inside the <i>src/main/webapp/naviox</i>
+        folder in your project, maybe you need to create the <i>naviox</i>
+        folder. For example, you could create a <i>mySignIn.jsp</i> (or
+        whatever name you want except <i>signIn.jsp</i>) with this content:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="html">&lt;div&gt;Hi, I'm a custom sign in page&lt;/div&gt;
+&lt;div&gt;
+&lt;jsp:include page="signIn.jsp"/&gt;
+&lt;/div&gt;
+</code></pre> </div>
+      <div class="wiki" style="display: block;">In this case we include the
+        original Sign In page (<i>signIn.jsp</i>) adding some additional
+        content, but you can create the page from scratch, or include your own
+        OpenXava module (look at the <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/naviox/signIn.jsp">original
+          <i>signIn.jsp</i> code</a>) that use your own entity and controllers.</div>
+      <div class="wiki" style="display: block;">In order your application uses
+        the above Sign In page you have to add the next entry in the <i>naviox.properties</i>
+        file of your project:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="properties">signInJSP=mySignIn.jsp
+</code></pre> </div>
     </div>
   </body>
 </html>

@@ -11,13 +11,14 @@ License: GNU Lesser General Public License (LGPL), version 2.1 or later.
 See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
 --%>
 
-<%@include file="../xava/imports.jsp"%>
+<%@ include file="../xava/imports.jsp"%>
 
-<%@page import="org.openxava.web.servlets.Servlets"%>
-<%@page import="org.openxava.util.Locales"%>
-<%@page import="org.openxava.util.XavaPreferences"%>
-<%@page import="org.openxava.web.style.XavaStyle"%>
-<%@page import="org.openxava.web.style.Themes"%> 
+<%@ page import="com.openxava.naviox.util.NaviOXPreferences"%>
+<%@ page import="org.openxava.web.servlets.Servlets"%>
+<%@ page import="org.openxava.util.Locales"%>
+<%@ page import="org.openxava.util.XavaPreferences"%>
+<%@ page import="org.openxava.web.style.XavaStyle"%>
+<%@ page import="org.openxava.web.style.Themes"%> 
 <%@ page import="org.apache.commons.logging.LogFactory" %> 
 <%@ page import="org.apache.commons.logging.Log" %> 
 
@@ -80,7 +81,7 @@ manager.setModuleName(module); // In order to show the correct description in he
 				 <jsp:include page="moduleHeader.jsp"/>
 			</div>
 			<% if ("SignIn".equals(module)) {  %>
-			<jsp:include page='signIn.jsp'/>
+			<jsp:include page='<%=NaviOXPreferences.getInstance().getSignInJSP()%>'/>
 			<% } else { %>
 			<div id="module"> 	
 				<jsp:include page='<%="../xava/module.jsp?application=" + app + "&module=" + module + "&htmlHead=false"%>'/>

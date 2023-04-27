@@ -42,7 +42,11 @@
         <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-Restringir-acceso-por-IP">Restringir
             acceso por IP (nuevo en v6.4)</a></div>
         <div style="margin-left: 2em;"><a href="#codigo-autentificacion-personalizado">Código
-            de autentificación personalizado (nuevo en v7.0)</a></div>
+            de autentificación personalizado (nuevo en <br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#codigo-autentificacion-personalizado">v7.0)</a></div>
+        <div style="margin-left: 2em;"><a href="#pagina-identificacion-personalizada">Página
+            de identificación (login) personalizada (nuevo en v7.1)</a></div>
       </div>
       <em>Todas las funcionalidades en este artículo están disponible solo en <a
           href="http://openxava.org/xavapro">XavaPro</a></em><br>
@@ -336,9 +340,34 @@ public class MiPropioSignInHelperProvider extends ProSignInHelperProvider {
           clase de arriba para autentificación has de añadir la siguiente
           entrada en el archivo <i>naviox.properties</i> de tu proyecto:</div>
         <div class="wiki" style="display: block;">
-          <pre><code class="java">signInHelperProviderClass=com.miempresa.miaplicacion.impl.MiPropioSignInHelperProvider
+          <pre><code class="properties">signInHelperProviderClass=com.miempresa.miaplicacion.impl.MiPropioSignInHelperProvider
 </code></pre> </div>
-        <div class="wiki" style="display: block;"><br>
+        <div class="wiki" style="display: block;">
+          <h2><a name="pagina-identificacion-personalizada"></a>Página de
+            identificación (login) personalizada <em>(nuevo en v7.1)</em></h2>
+          Para definir tu propia página de identificación de usuario (página de
+          login) crea un JSP dentro de la carpeta <i>src/main/webapp/naviox</i>
+          de tu proyecto, puede que necesites crear la carpeta <i>naviox</i>.
+          Por ejemplo, puedes crear un <i>miSignIn.jsp</i> (o cualquier otro
+          nombre excepto <i>signIn.jsp</i>) con este contenido:<br>
+          <div class="wiki" style="display: block;">
+            <pre><code class="html">&lt;div&gt;Hola, soy un página de identificación personalizada&lt;/div&gt;
+&lt;div&gt;
+&lt;jsp:include page="signIn.jsp"/&gt;
+&lt;/div&gt;
+</code></pre> </div>
+          <div class="wiki" style="display: block;">En este caso incluimos la
+            página de identificación original (<i>signIn.jsp</i>) añadiendo
+            algún contenido adicional, pero puedes crear la página desde cero, o
+            incluir tu propio módulo OpenXava (mira el <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/naviox/signIn.jsp">código
+              original de <i>signIn.jsp</i></a>) que use tu propia entidad y
+            controladores.</div>
+          <div class="wiki" style="display: block;">Para que la aplicación use
+            la susodicha página de identificación has de añadir la siguiente
+            entrada en el archivo <i>naviox.properties</i> de tu proyecto:</div>
+          <div class="wiki" style="display: block;">
+            <pre><code class="properties">signInJSP=miSignIn.jsp</code></pre>
+          </div>
         </div>
       </div>
     </div>
