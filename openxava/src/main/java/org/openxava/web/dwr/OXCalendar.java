@@ -144,7 +144,7 @@ public class OXCalendar extends DWRBase {
 			System.out.println("error");
 			e.printStackTrace();
 		}
-		Thread.sleep(5000);
+		//Thread.sleep(5000);
 		return json.toString();
 	}
 
