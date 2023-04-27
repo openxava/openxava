@@ -85,10 +85,8 @@ if (manager.isButtonBarVisible()) {
 		Collection<String> editors = org.openxava.web.WebEditors.getEditors(tab.getMetaTab());
         List<MetaProperty> listProperty = tab.getMetaProperties();
         List<MetaProperty> listProperty2 = new ArrayList<> (tab.getMetaTab().getMetaModel().getMetaProperties());
-        System.out.println(listProperty);
-        System.out.println(listProperty2);
+        
         hasLocalDate = Dates.hasLocalDate(listProperty) || Dates.hasLocalDate(listProperty2);
-
         if (!hasLocalDate) editors.remove("Calendar");
 
 		if (editors.size() > 1) for (String editor: editors) {
