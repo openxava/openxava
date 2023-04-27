@@ -30,8 +30,7 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 			String dateStr = date.getString("date");
 			getView().setValue(name, dateStr);
 		}
-		if (getView().hasSections())
-			getView().setActiveSection(0);
+		if (getView().hasSections()) getView().setActiveSection(0);
 	}
 
 	public String getNextMode() {

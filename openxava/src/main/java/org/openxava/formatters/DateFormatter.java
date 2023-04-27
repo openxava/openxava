@@ -37,10 +37,13 @@ public class DateFormatter implements IFormatter {
 	}
 		
 	
-	public String formatCalendarEditor(Object date, boolean withTime, boolean oldLib) {
+	public String format(Object date, boolean withTime, boolean oldLib) {
 		String format;
 		if (date == null) return "";
 		if (date instanceof String || date instanceof Number) return date.toString();
+		// si es libreria vieja, usa SimpleDateFormat, de lo contrario usa DateTimeFormatter 
+		// tambien debe diferenciar si el date fuente viene con horario o no.
+		// este resultado se usa para ubicar el evento en el calendario
 		if (oldLib) {
 			format = withTime ? "yyyy-MM-dd HH:mm:ss" : "yyyy-MM-dd";
 			DateFormat df = new SimpleDateFormat(format);

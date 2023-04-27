@@ -13,7 +13,7 @@
 <%@ page import="org.openxava.util.EmailNotifications"%> 
 <%@ page import="org.openxava.controller.meta.MetaControllerElement"%>
 <%@ page import="org.openxava.model.meta.MetaProperty"%>
-
+<%@ page import="org.openxava.util.Dates"%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
@@ -26,9 +26,7 @@ String mode = request.getParameter("xava_mode");
 if (mode == null) mode = manager.isSplitMode()?"detail":manager.getModeName();
 boolean headerButtonBar = !manager.isSplitMode() || mode.equals("list");
 boolean listFormats = !manager.isSplitMode() && mode.equals("list"); 
-   
 boolean hasLocalDate = false;
-String dateLabel = "";
 
 if (manager.isButtonBarVisible()) {
 %>
@@ -87,25 +85,10 @@ if (manager.isButtonBarVisible()) {
 		Collection<String> editors = org.openxava.web.WebEditors.getEditors(tab.getMetaTab());
         List<MetaProperty> listProperty = tab.getMetaProperties();
         List<MetaProperty> listProperty2 = new ArrayList<> (tab.getMetaTab().getMetaModel().getMetaProperties());
-        List<String> dates = Arrays.asList("java.time.LocalDate", "java.util.Date", "java.sql.Date");
-        
-        
-        for (MetaProperty property : listProperty) {
-            String propTypeName = property.getTypeName();
-            if (dates.contains(property.getTypeName())) {
-                hasLocalDate = true;
-                break;
-            }
-        }
-        if (!hasLocalDate) {
-            for (MetaProperty property : listProperty2) {
-                String propTypeName = property.getTypeName();
-                if (dates.contains(property.getTypeName())) {
-                    hasLocalDate = true;
-                    break;
-                }
-            }
-        }
+        System.out.println(listProperty);
+        System.out.println(listProperty2);
+        hasLocalDate = Dates.hasLocalDate(listProperty) || Dates.hasLocalDate(listProperty2);
+
         if (!hasLocalDate) editors.remove("Calendar");
 
 		if (editors.size() > 1) for (String editor: editors) {

@@ -22,6 +22,8 @@ public class CalendarTest extends TestCase {
 		driver = new ChromeDriver(options);
 	}
 
+	// usamos Thread.sleep(8000) ya que en OXCalendar se uso 5000 
+	// para simular el costo de traer muchos registros
 	public void testNavegacion() throws Exception {
 		driver.get("http://localhost:8080/openxavatest/m/Invoice");
 		wait(driver);
@@ -51,7 +53,6 @@ public class CalendarTest extends TestCase {
 
 		driver.get("http://localhost:8080/openxavatest/m/InvoiceCalendar");
 		wait(driver);
-		//verificar que en el mes actual no se vean eventos del mes (deberia estar 2 eventos en el mes actual)
 		moveToListView();
 		wait(driver);
 		setInvoiceCondition("InvoiceCalendar");
