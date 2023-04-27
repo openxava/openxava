@@ -73,6 +73,7 @@
 	--button-hover-color: var(--action-hover-color);
 	--button-focus-outline: var(--input-focus-border);
 	--button-hover-background: var(--action-hover-background);
+	--azure-signin-button-background: var(--background); /* tmr */
 	
 	--link-color: var(--action-color);
 	--action-link-color: var(--action-color);
@@ -1447,6 +1448,16 @@ input[type="button"] {
 #sign_in_box, .ox-card, .ox-list, .ox-chart-data, .cke_chrome {  
 	box-shadow: 0px 0px 3px var(--shadow) !important; 
 }
+
+/* tmr ini */
+#sign_in_box .ox-image-link {
+    display: none;
+}
+
+input[id$="_SignIn__Azure___signInWithAzureAD"] {
+    background: var(--azure-signin-button-background);
+}
+/* tmr fin */
 
 .ox-frame {
 	background: linear-gradient(

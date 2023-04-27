@@ -41,8 +41,6 @@ abstract public class ForwardToOriginalURIBaseAction extends ViewBaseAction impl
 				originalParameters = url[1].replace("originalParameters=", ""); 
 			}
 		}
-		System.out.println("[ForwardToOriginalURIBaseAction.forwardToOriginalURI] originalURI=" + originalURI); // tmr
-		System.out.println("[ForwardToOriginalURIBaseAction.forwardToOriginalURI] originalParameters=" + originalParameters); // tmr
 		// tmr fin
 		if (originalURI == null) {
 			forwardURI = "/";

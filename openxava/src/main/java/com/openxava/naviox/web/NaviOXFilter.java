@@ -69,11 +69,6 @@ public class NaviOXFilter implements Filter {
 						SignInHelper.signIn((HttpServletRequest) request, autologinUser); 
 					}					
 				}
-				// tmr ini
-				else {
-					SignInHelper.printUser((HttpServletRequest) request, (HttpServletResponse) response);
-				}
-				// tmr fin
 			}
 			session.setAttribute("xava.user", session.getAttribute("naviox.user")); // We use naviox.user instead of working only
 						// with xava.user in order to prevent some security hole using UrlParameters.setUser
@@ -83,18 +78,13 @@ public class NaviOXFilter implements Filter {
 			Users.setCurrent(secureRequest);
 			
 			if (modules.isModuleAuthorized(secureRequest)) {
-				System.out.println("[NaviOXFilter.doFilter] MODULE AUTHORIZED"); // tmr
 				chain.doFilter(secureRequest, response);
 			}
 			else {
-				System.out.println("[NaviOXFilter.doFilter] MODULE NO AUTHORIZED"); // tmr
 				char base = secureRequest.getRequestURI().split("/")[Is.emptyString(request.getServletContext().getContextPath())?1:2].charAt(0)=='p'?'p':'m';
 				String originalURI = secureRequest.getRequestURI();
 				String organization = OrganizationsCurrent.get(request);
-				System.out.println("[NaviOXFilter.doFilter] organization=" + organization); // tmr
-				System.out.println("[NaviOXFilter.doFilter] originalURI> " + originalURI); // tmr
 				if (organization != null) originalURI = originalURI.replace("/modules/", "/o/" + organization + "/m/");
-				System.out.println("[NaviOXFilter.doFilter] originalURI< " + originalURI); // tmr
 				String originalParameters = secureRequest.getQueryString();
 				String parametersQuery = "";
 				if (!Is.emptyString(originalParameters)) {
@@ -111,30 +101,17 @@ public class NaviOXFilter implements Filter {
 				*/
 				// tmr ini
 				String dispatcherURL = "/" + base + "/" + userAccessModule;
-				System.out.println("[NaviOXFilter.doFilter] Users.getCurrent()=" + Users.getCurrent()); // tmr
-				System.out.println("[NaviOXFilter.doFilter] session.getAttribute(naviox.originalURL)=" + session.getAttribute("naviox.originalURL")); // tmr
 				String signInURL = SignInHelper.getSignInURL();
 				if (signInURL != null && Users.getCurrent() == null && session.getAttribute("naviox.originalURL") == null) {
-					System.out.println("[NaviOXFilter.doFilter] NO USER"); // tmr
-					session.setAttribute("naviox.userAccessURL", dispatcherURL); // tmr ¿La utilizamos? ¿Este nombre de atributo? ¿naviox como prefijo? ¿URL o URI? ¿La utilizamos?
-					System.out.println("[NaviOXFilter.doFilter] naviox.userAccessURL=" + dispatcherURL); // tmr
-					// tmr session.setAttribute("naviox.originalURL", originalURI + parametersQuery); // tmr ¿Este nombre de atributo? ¿naviox como prefijo? ¿URL o URI?
-					// tmr System.out.println("[NaviOXFilter.doFilter] naviox.originalURL=" + session.getAttribute("naviox.originalURL")); // tmr
 					dispatcherURL = signInURL; 									
 				}
-				else {
-					System.out.println("[NaviOXFilter.doFilter] USER IN SESSION"); // tmr
-				}
-				session.setAttribute("naviox.originalURL", originalURI + parametersQuery); // tmr ¿Este nombre de atributo? ¿naviox como prefijo? ¿URL o URI?
-				System.out.println("[NaviOXFilter.doFilter] naviox.originalURL=" + session.getAttribute("naviox.originalURL")); // tmr				
-				System.out.println("[NaviOXFilter.doFilter] dispatcherURL=" + dispatcherURL); // tmr
+				session.setAttribute("naviox.originalURL", originalURI + parametersQuery); // tmr  
 				RequestDispatcher dispatcher = request.getRequestDispatcher(dispatcherURL); 				
 				// tmr fin
 				dispatcher.forward(secureRequest, response); 
 			}
 		} 
 		finally {
-			System.out.println("[NaviOXFilter.doFilter] OrganizationsCurrent.get(request)=" + OrganizationsCurrent.get(request)); // tmr
 			XPersistence.commit();
 		}
 	}

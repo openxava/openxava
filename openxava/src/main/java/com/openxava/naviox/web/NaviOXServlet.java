@@ -12,7 +12,6 @@
 package com.openxava.naviox.web;
 
 import java.io.*;
-import java.util.*;
 
 import javax.servlet.*;
 import javax.servlet.annotation.*;
@@ -32,10 +31,7 @@ import com.openxava.naviox.impl.*;
 public class NaviOXServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("[NaviOXServlet.doGet] request.getRequestURI()=" + request.getRequestURI()); // tmr
 		String [] uri = request.getRequestURI().split("/");
-		System.out.println("[NaviOXServlet.doGet] uri=" + Arrays.toString(uri)); // tmr
-		System.out.println("[NaviOXServlet.doGet] uri.length=" + uri.length); // tmr
 		// tmr if (uri.length < 3) {
 		if (uri.length < 4) { // tmr
 			response.getWriter().print(XavaResources.getString(request, "module_name_missing"));
@@ -44,7 +40,6 @@ public class NaviOXServlet extends HttpServlet {
 
 		String applicationName = MetaModuleFactory.getApplication(); 
 		String moduleName = uri[uri.length - 1];
-		System.out.println("[NaviOXServlet.doGet] moduleName=" + moduleName); // tmr
 		String url = Browsers.isMobile(request)?"/p/" + moduleName:"/naviox/index.jsp?application=" + applicationName + "&module=" + moduleName;
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);		
 		
