@@ -28,7 +28,8 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		
 		execute("CRUD.new");
 		setValue("title", "THE JUNIT DISCUSSION");
-		setValue("description", "This is the big &ltjUnit&gt discussion"); 
+		// tmr setValue("description", "This is the big &ltjUnit&gt discussion"); 
+		setValue("description", "This is the big &lt;jUnit&gt; discussion"); // tmr
 		
 		assertDiscussionCommentsCount("discussion", 0); 
 		postDiscussionComment("discussion", "Hi, it's me");
@@ -57,9 +58,8 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 
 		assertValue("title", "THE JUNIT DISCUSSION"); 
-		// TMR ME QUEDÉ POR AQUÍ: FALLA LO DE ABAJO, PERO OJO, QUE PARECE QUE NO FUNCIONA CON TinyCME, QUE NO GRABA EL HTML EN REAL
-		// TMR  SI ES ESE EL CASO HABRÍA QUE AÑADIRLO EN LA PRUEBA MANUAL
-		assertValue("description", "<p>This is the big <<!-- -->jUnit> discussion</p>"); // The <!-- --> is added by OX to avoid a CKEditor bug that removes any %lt; followed by a character
+		// tmr assertValue("description", "<p>This is the big <<!-- -->jUnit> discussion</p>"); // The <!-- --> is added by OX to avoid a CKEditor bug that removes any %lt; followed by a character
+		assertValue("description", "<p>This is the big <jUnit> discussion</p>"); // tmr
 
 		assertDiscussionCommentsCount("discussion", 1);
 		assertDiscussionCommentText("discussion", 0, "admin - " + timeFirstPost + "\nHi, it's me"); 
@@ -70,7 +70,8 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 
 		assertValue("title", "THE JUNIT DISCUSSION");
-		assertValue("description", "<p>This is the big <<!-- -->jUnit> discussion</p>"); // The <!-- --> is added by OX to avoid a CKEditor bug that removes any %lt; followed by a character 
+		// tmr assertValue("description", "<p>This is the big <<!-- -->jUnit> discussion</p>"); // The <!-- --> is added by OX to avoid a CKEditor bug that removes any %lt; followed by a character 
+		assertValue("description", "<p>This is the big <jUnit> discussion</p>");  // tmr
 		assertDiscussionCommentsCount("discussion", 2);
 		assertDiscussionCommentText("discussion", 0, "admin - " + timeFirstPost + "\nHi, it's me");
 		assertDiscussionCommentText("discussion", 1, "juan - " + timeSecondPost + "\nSoy Juan");
@@ -86,13 +87,14 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
 		assertValue("title", "THE JUNIT DISCUSSION");
-		assertValue("description", "<p>This is the big <<!-- -->jUnit> discussion</p>"); // The <!-- --> is added by OX to avoid a CKEditor bug that removes any %lt; followed by a character
+		// tmr assertValue("description", "<p>This is the big <<!-- -->jUnit> discussion</p>"); // The <!-- --> is added by OX to avoid a CKEditor bug that removes any %lt; followed by a character
+		assertValue("description", "<p>This is the big <jUnit> discussion</p>"); // tmr
 		
 		execute("CRUD.delete");
 		assertNoErrors();
 
 		// data-property='DISCUSSION' instead of 'discussion' is something we don't care much for now
-		assertEmailNotifications( 
+		assertEmailNotifications( // TMR ME QUEDÉ POR AQUÍ: FALLA PORQUE CONVIERTE LOS &LT;&GT; EN <> 
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Incident, permalink=http://localhost:8080" + getContextPath() + "modules/Incident, changes=<ul><li data-property='DISCUSSION'><b>Discussion</b>: NEW COMMENT --> Hi, it's me</li></ul>",
 			"CREATED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Incident, permalink=http://localhost:8080" + getContextPath() + "modules/Incident?detail=" + id,
 			"MODIFIED: email=openxavatest1@getnada.com, user=juan, application=OpenXavaTest, module=Incident, permalink=http://localhost:8080" + getContextPath() + "modules/Incident?detail=" + id + ", changes=<ul><li data-property='discussion'><b>Discussion</b>: NEW COMMENT --> Soy Juan</li></ul>",

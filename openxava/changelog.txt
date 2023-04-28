@@ -2,7 +2,7 @@ Change Log for OpenXava project
 ===============================
 
 Falta:
-- Pruebas automáticas: TMR ME QUEDÉ POR AQUÍ, NO FUNCIONAN PORQUE HTMLUNIT NO RECONOCE TINY Y DEJA DE FUNCIONAR COMPLETAMENTE 
+- Pruebas automáticas:  
 	- Buscar en ModuleTestBase por ckeditor.
 	- Probar pruebas de Incident y Doc 
 - PRUEBAS MANUALES  
