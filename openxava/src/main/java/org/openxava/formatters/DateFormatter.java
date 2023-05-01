@@ -1,8 +1,6 @@
 package org.openxava.formatters;
 
 import java.text.*;
-import java.time.*;
-import java.time.format.*;
 
 import javax.servlet.http.*;
 
@@ -34,24 +32,6 @@ public class DateFormatter implements IFormatter {
 		if (date instanceof String || date instanceof Number) return date.toString(); 
 		if (Dates.getYear((java.util.Date)date) < 2) return "";
 		return getDateFormat().format(date);
-	}
-		
-	
-	public String format(Object date, boolean withTime, boolean oldLib) {
-		String format;
-		if (date == null) return "";
-		if (date instanceof String || date instanceof Number) return date.toString();
-		// si es libreria vieja, usa SimpleDateFormat, de lo contrario usa DateTimeFormatter 
-		// tambien debe diferenciar si el date fuente viene con horario o no.
-		// este resultado se usa para ubicar el evento en el calendario
-		if (oldLib) {
-			format = withTime ? "yyyy-MM-dd HH:mm:ss" : "yyyy-MM-dd";
-			DateFormat df = new SimpleDateFormat(format);
-			return df.format(date);
-		} else {
-			DateTimeFormatter formatter = withTime ? DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss") : DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			return withTime ? ((LocalDateTime)date).format(formatter) : ((LocalDate) date).format(formatter);
-		}
 	}
 	
 	public Object parse(HttpServletRequest request, String string) throws ParseException {

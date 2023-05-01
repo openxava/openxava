@@ -2,12 +2,15 @@ package org.openxava.web.dwr;
 
 import java.math.*;
 import java.rmi.*;
+import java.text.*;
 import java.time.*;
+import java.time.format.*;
 import java.util.*;
 
 import javax.servlet.http.*;
 import javax.swing.table.*;
 
+import org.apache.commons.logging.*;
 import org.openxava.filters.*;
 import org.openxava.formatters.*;
 import org.openxava.model.meta.*;
@@ -29,8 +32,10 @@ import lombok.*;
 
 @Getter
 @Setter
-public class OXCalendar extends DWRBase {
-
+public class Calendar extends DWRBase {
+	
+	private static Log log = LogFactory.getLog(Calendar.class);
+	
 	transient private HttpServletRequest request;
 	transient private HttpServletResponse response;
 	private String application;
@@ -41,7 +46,7 @@ public class OXCalendar extends DWRBase {
 	private Tab tab;
 	private Tab tab2;
 	private TableModel table;
-	private DateFilter filter;
+	private DateRangeFilter filter;
 
 	private boolean dateWithTime;
 	private boolean oldLib;
@@ -60,7 +65,7 @@ public class OXCalendar extends DWRBase {
 	private List<String> datesList = new ArrayList<>();
 
 	public String getEvents(HttpServletRequest request, HttpServletResponse response, String application, String module,
-			String monthYear) throws InterruptedException, RemoteException {
+			String monthYear) throws RemoteException, JsonProcessingException{
 		System.out.println("dwr");
 		this.application = application;
 		this.module = module;
@@ -84,46 +89,39 @@ public class OXCalendar extends DWRBase {
 		this.table = tab.getTableModel();
 		int tableSize = 0;
 		String json = null;
-
-		try {
-			tableSize = tab.getTableModel().getTotalSize();
-			System.out.println("ingresando datos" + tableSize);
-			if (tableSize > 0) {
-				System.out.println("table size mayor a 0");
-				for (int i = 0; i < tableSize; i++) {
-					event = new CalendarEvent();
-					event.key = obtainRowsKey(i);
-					List<String> d = obtainRowsDate(i);
-					event.start = d.get(0).split("_")[1];
-					event.startName = d.get(0).split("_")[0];
-					event.end = "";
-					// para usarse en rango de fecha
-					// event.end = (d.size() > 1) ? d.get(1).split("_")[1] : "";
-					event.title = obtainRowsTitle(i);
-					calendarEvents.add(event);
-				}
-			} else {
+		
+		tableSize = tab.getTableModel().getTotalSize();
+		System.out.println("ingresando datos" + tableSize);
+		if (tableSize > 0) {
+			System.out.println("table size mayor a 0");
+			for (int i = 0; i < tableSize; i++) {
 				event = new CalendarEvent();
-				List<String> d = obtainRowsDate(-1);
-				// aunque no es necesario, ya que se supone que no debe ser vacio el primero (0), pero por las dudas
-				event.startName = d.get(0).split("_")[0].equals("") 
-							  && !d.get(1).split("_")[0].equals("") 
-								? d.get(1).split("_")[0] 
-								: d.get(0).split("_")[0];
+				event.key = obtainRowsKey(i);
+				List<String> d = obtainRowsDate(i);
+				event.start = d.get(0).split("_")[1];
+				event.startName = d.get(0).split("_")[0];
+				event.end = "";
+				// para usarse en rango de fecha
+				// event.end = (d.size() > 1) ? d.get(1).split("_")[1] : "";
+				event.title = obtainRowsTitle(i);
 				calendarEvents.add(event);
 			}
-			ObjectMapper objectMapper = new ObjectMapper();
-			json = objectMapper.writeValueAsString(calendarEvents);
-		} catch (JsonProcessingException | RemoteException e) {
-			//System.out.println("error");
-			e.printStackTrace();
+		} else {
+			event = new CalendarEvent();
+			List<String> d = obtainRowsDate(-1);
+			// aunque no es necesario, ya que se supone que no debe ser vacio el primero (0), y el segundo esta usado para la segunda fecha
+			String f = d.get(0).split("_")[0];			
+			String s = d.size() > 1 ? d.get(1).split("_")[0] : "";
+			event.startName = f.equals("")  && !s.equals("") ? s : f;
+			calendarEvents.add(event);
 		}
-		//Thread.sleep(5000);
+		ObjectMapper objectMapper = new ObjectMapper();
+		json = objectMapper.writeValueAsString(calendarEvents);
 		return json.toString();
 	}
 
-	private DateFilter setFilterForMonth(String monthYear) {
-		DateFilter df = new DateFilter();
+	private DateRangeFilter setFilterForMonth(String monthYear) {
+		DateRangeFilter df = new DateRangeFilter();
 		String month = !monthYear.isEmpty() ? monthYear.split("_")[0] : "" ;
 		String year = !monthYear.isEmpty() ? monthYear.split("_")[1] : "" ;
 
@@ -144,34 +142,34 @@ public class OXCalendar extends DWRBase {
 	}
 
 	private static Date getFirstDayOfMonth(String month, String year) {
-		Calendar calendar = Calendar.getInstance();
+		java.util.Calendar calendar = java.util.Calendar.getInstance();
 		if (!month.isEmpty()) {
-			calendar.set(Calendar.MONTH, Integer.parseInt(month));
-			calendar.set(Calendar.YEAR, Integer.parseInt(year));
+			calendar.set(java.util.Calendar.MONTH, Integer.parseInt(month));
+			calendar.set(java.util.Calendar.YEAR, Integer.parseInt(year));
 		}
-		calendar.set(Calendar.DAY_OF_MONTH, 1);
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
+		calendar.set(java.util.Calendar.DAY_OF_MONTH, 1);
+		calendar.set(java.util.Calendar.HOUR_OF_DAY, 0);
+		calendar.set(java.util.Calendar.MINUTE, 0);
+		calendar.set(java.util.Calendar.SECOND, 0);
+		calendar.set(java.util.Calendar.MILLISECOND, 0);
 
-		calendar.add(Calendar.DAY_OF_MONTH, -6);
+		calendar.add(java.util.Calendar.DAY_OF_MONTH, -6);
 		return calendar.getTime();
 	}
 
 	private static Date getLastDayOfMonth(String month, String year) {
-		Calendar calendar = Calendar.getInstance();
+		java.util.Calendar calendar = java.util.Calendar.getInstance();
 		if (!month.isEmpty()) {
-			calendar.set(Calendar.MONTH, Integer.parseInt(month));
-			calendar.set(Calendar.YEAR, Integer.parseInt(year));
+			calendar.set(java.util.Calendar.MONTH, Integer.parseInt(month));
+			calendar.set(java.util.Calendar.YEAR, Integer.parseInt(year));
 		}
-		calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-		calendar.set(Calendar.HOUR_OF_DAY, 23);
-		calendar.set(Calendar.MINUTE, 59);
-		calendar.set(Calendar.SECOND, 59);
-		calendar.set(Calendar.MILLISECOND, 999);
+		calendar.set(java.util.Calendar.DAY_OF_MONTH, calendar.getActualMaximum(java.util.Calendar.DAY_OF_MONTH));
+		calendar.set(java.util.Calendar.HOUR_OF_DAY, 23);
+		calendar.set(java.util.Calendar.MINUTE, 59);
+		calendar.set(java.util.Calendar.SECOND, 59);
+		calendar.set(java.util.Calendar.MILLISECOND, 999);
 
-		calendar.add(Calendar.DAY_OF_MONTH, 6);
+		calendar.add(java.util.Calendar.DAY_OF_MONTH, 6);
 		return calendar.getTime();
 	}
 
@@ -212,13 +210,12 @@ public class OXCalendar extends DWRBase {
 		} else {
 			Object value = table.getValueAt(row, i);
 			Object value2 = table.getValueAt(row, (i + 1));
-			DateFormatter df = new DateFormatter();
 			// si la primera propiedad con nombre date o fecha es otra cosa, entonces
 			// saltearlo
 			if (verifyValue(value)) {
 				dateWithName.append(tab.getMetaProperty(i).getQualifiedName());
 				dateWithName.append("_");
-				dateWithName.append(df.format(value, dateWithTime, oldLib));
+				dateWithName.append(format(value, dateWithTime, oldLib));
 				result.add(dateWithName.toString());
 			}
 			// si tengo 2 fechas, validar tambien
@@ -230,7 +227,7 @@ public class OXCalendar extends DWRBase {
 					dateWithName = new StringBuffer();
 					dateWithName.append(tab.getMetaProperty((i + 1)).getQualifiedName());
 					dateWithName.append("_");
-					dateWithName.append(df.format(value2, dateWithTime, oldLib));
+					dateWithName.append(format(value2, dateWithTime, oldLib));
 					result.add(dateWithName.toString());
 				}
 			}
@@ -323,7 +320,7 @@ public class OXCalendar extends DWRBase {
 
 		for (MetaProperty property : mp) {
 			for (String name : datesName) {
-				if (mpCount < 2 && property.getName().contains(name)) {
+				if (mpCount < 2 && property.getName().toLowerCase().contains(name)) {
 					System.out.println("name " + mpCount + " " + property.getName() + "  "  + property.getTypeName());
 					// por el momento se esta usando el primer date
 					if (mpCount == 0 && !property.getName().contains(".")) dateName = property.getName();
@@ -345,7 +342,7 @@ public class OXCalendar extends DWRBase {
 		}
 	}
 
-	private Tab setProperties(Tab tab) throws RemoteException {
+	private Tab setProperties(Tab tab) {
 		// luego de clonar la tabla y hacer el filtro
 		// obtener los keys en las primeras columnas
 		// obtener los dates para las segundas columnas
@@ -431,10 +428,27 @@ public class OXCalendar extends DWRBase {
 	}
 
 	private void setFilter(Tab tab, String monthYear) {
-		DateFilter filter = new DateFilter();
+		DateRangeFilter filter = new DateRangeFilter();
 		filter = setFilterForMonth(monthYear);
 		tab.setFilter(filter);
 		tab.setBaseCondition("${" + dateName + "} between ? and ?");
+	}
+	
+	public String format(Object date, boolean withTime, boolean oldLib) {
+		String format;
+		if (date == null) return "";
+		if (date instanceof String || date instanceof Number) return date.toString();
+		// si es libreria vieja, usa SimpleDateFormat, de lo contrario usa DateTimeFormatter 
+		// tambien debe diferenciar si el date fuente viene con horario o no.
+		// este resultado se usa para ubicar el evento en el calendario
+		if (oldLib) {
+			format = withTime ? "yyyy-MM-dd HH:mm:ss" : "yyyy-MM-dd";
+			DateFormat df = new SimpleDateFormat(format);
+			return df.format(date);
+		} else {
+			DateTimeFormatter formatter = withTime ? DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss") : DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			return withTime ? ((LocalDateTime)date).format(formatter) : ((LocalDate) date).format(formatter);
+		}
 	}
 
 }

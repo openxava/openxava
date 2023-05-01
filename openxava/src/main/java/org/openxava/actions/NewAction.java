@@ -1,17 +1,12 @@
 package org.openxava.actions;
 
-import java.io.*;
-import java.text.*;
-
-import javax.json.*;
-
 /**
  * @author Javier Paniza
  */
 
 public class NewAction extends ViewBaseAction implements IChangeModeAction, IModelAction {
 
-	private String value = "";
+	private String startDate = "";
 	private String modelName;
 	private boolean restoreModel = false;
 
@@ -20,16 +15,7 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 		getView().setKeyEditable(true);
 		getView().setEditable(true);
 		getView().reset();
-		if (!value.isEmpty()) {
-			String v = value.replaceAll("_", ",");
-			JsonReader jsonReader = Json.createReader(new StringReader(v));
-			JsonObject jsonObject = jsonReader.readObject();
-			jsonReader.close();
-			JsonObject date = jsonObject.getJsonObject("dates");
-			String name = date.getString("name");
-			String dateStr = date.getString("date");
-			getView().setValue(name, dateStr);
-		}
+		if (!startDate.isEmpty()) setValueFromCalendar();
 		if (getView().hasSections()) getView().setActiveSection(0);
 	}
 
@@ -49,12 +35,21 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 		this.restoreModel = restoreModel;
 	}
 
-	public String getValue() {
-		return value;
+	public String getStartDate() {
+		return startDate;
 	}
 
-	public void setValue(String value) throws ParseException {
-		this.value = value;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	
+	private void setValueFromCalendar() {
+		//startDate=date_07/04/2023,endDate=date2_08/04/2023
+		//private String endDate = "";
+		String[] start = startDate.split("_");
+		String name = start[0];
+		String dateStr = start[1];
+		getView().setValue(name, dateStr);
 	}
 
 }

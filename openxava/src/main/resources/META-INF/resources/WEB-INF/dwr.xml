@@ -35,7 +35,7 @@
     </create>
     
     <create creator="new" javascript="Calendar">
-      <param name="class" value="org.openxava.web.dwr.OXCalendar"/>
+      <param name="class" value="org.openxava.web.dwr.Calendar"/>
     </create>
         
     <convert converter="bean" match="org.openxava.web.dwr.Result"/>    

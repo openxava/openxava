@@ -4,7 +4,7 @@ import lombok.*;
 
 @Getter
 @Setter
-public class DateFilter implements IFilter {
+public class DateRangeFilter implements IFilter {
 
 	private Object start;
 	private Object end;

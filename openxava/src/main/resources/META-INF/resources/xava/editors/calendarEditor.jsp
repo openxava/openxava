@@ -4,7 +4,7 @@
 <%@ page import="java.util.Collection"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="org.openxava.web.dwr.OXCalendar"%>
+<%@ page import="org.openxava.web.dwr.Calendar"%>
     
 <%@ page import="org.openxava.view.View"%>
 <%@ page import="org.openxava.controller.ModuleManager" %>

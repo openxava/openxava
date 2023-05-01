@@ -137,14 +137,10 @@ openxava.addEditorInitFunction(function() {
                 dateClick: function(e) {
                     if (requesting) return;
                     let selectedDate = reformatDate(e.dateStr);
-                    let value = {
-                        "dates": {
-                            "name": startName,
-                            "date": selectedDate
-                        }
-                    };
+                    let value = 'startDate=' + startName + '_' + selectedDate;
                     if (!getSelection().toString()) {
-                        openxava.executeAction(application, module, false, false, newAction, 'value=' + JSON.stringify(value).replaceAll(",", "_"));
+                        //openxava.executeAction(application, module, false, false, newAction, 'value=' + JSON.stringify(value).replaceAll(",", "_"));
+                        openxava.executeAction(application, module, false, false, newAction, value);
                     }
                 }
             });

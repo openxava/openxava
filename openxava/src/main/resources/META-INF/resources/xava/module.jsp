@@ -157,15 +157,10 @@
 
 	<%
 	for (String editorJS: EditorsResources.listJSFiles(realPath)) {
-       if (editorJS.contains("utf8")){
+       String encoding = editorJS.toLowerCase().endsWith("-utf8.js") ? "UTF-8" : "ISO-8859-1"; 
     %>
-	<script type="text/javascript" charset="UTF-8" src="<%=contextPath%>/xava/editors/<%=editorJS%>?ox=<%=version%>"></script>
+	<script type="text/javascript" charset="<%=encoding%>" src="<%=contextPath%>/xava/editors/<%=editorJS%>?ox=<%=version%>"></script>
 	<%
-       } else {
-    %>
-	<script type="text/javascript" charset="ISO-8859-1" src="<%=contextPath%>/xava/editors/<%=editorJS%>?ox=<%=version%>"></script>
-	<%
-       }
 	}
 	
 	String[] jsFiles = request.getParameterValues("jsFiles");
