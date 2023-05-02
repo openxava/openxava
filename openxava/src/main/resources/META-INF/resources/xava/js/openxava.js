@@ -30,7 +30,7 @@ openxava.ajaxRequest = function(application, module, firstRequest, inNewWindow) 
 	if (inNewWindow) {
 		openxava.newWindow = window.open('', '_blank'); 
 	}
-	openxava.preRequestEditors(); // tmr Cronometrar
+	openxava.preRequestEditors(); // tmr
 	Module.request(
 			application, module, document.additionalParameters,			
 			openxava.getFormValues(openxava.getForm(application, module)), 

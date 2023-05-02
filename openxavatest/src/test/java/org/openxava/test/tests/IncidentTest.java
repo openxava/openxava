@@ -40,7 +40,7 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		assertDiscussionCommentContentText("discussion", 0, "Hi, it's me");
 		
 		execute("CRUD.save");
-	
+		
 		String id = Incident.findFirst().getId(); 
 		
 		assertValue("title", "");
@@ -58,8 +58,8 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 
 		assertValue("title", "THE JUNIT DISCUSSION"); 
-		// tmr assertValue("description", "<p>This is the big <<!-- -->jUnit> discussion</p>"); // The <!-- --> is added by OX to avoid a CKEditor bug that removes any %lt; followed by a character
-		assertValue("description", "<p>This is the big <jUnit> discussion</p>"); // tmr
+		// tmr assertValue("description", "<p>This is the big <<!-- -->jUnit> discussion</p>"); // The <!-- --> is added by OX to avoid TinyCME or CKEditor removes any %lt; followed by a character, maybe a textarea problem
+		assertValue("description", "<p>This is the big <<!-- -->jUnit<!-- -->> discussion</p>"); // The <!-- --> is added by OX to avoid TinyCME or CKEditor removes any %lt; followed by a character, maybe a textarea problem // tmr
 
 		assertDiscussionCommentsCount("discussion", 1);
 		assertDiscussionCommentText("discussion", 0, "admin - " + timeFirstPost + "\nHi, it's me"); 
@@ -70,8 +70,8 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 
 		assertValue("title", "THE JUNIT DISCUSSION");
-		// tmr assertValue("description", "<p>This is the big <<!-- -->jUnit> discussion</p>"); // The <!-- --> is added by OX to avoid a CKEditor bug that removes any %lt; followed by a character 
-		assertValue("description", "<p>This is the big <jUnit> discussion</p>");  // tmr
+		// tmr assertValue("description", "<p>This is the big <<!-- -->jUnit> discussion</p>"); // The <!-- --> is added by OX to avoid TinyCME or CKEditor removes any %lt; followed by a character, maybe a textarea problem  
+		assertValue("description", "<p>This is the big <<!-- -->jUnit<!-- -->> discussion</p>"); // The <!-- --> is added by OX to avoid TinyCME or CKEditor removes any %lt; followed by a character, maybe a textarea problem // tmr
 		assertDiscussionCommentsCount("discussion", 2);
 		assertDiscussionCommentText("discussion", 0, "admin - " + timeFirstPost + "\nHi, it's me");
 		assertDiscussionCommentText("discussion", 1, "juan - " + timeSecondPost + "\nSoy Juan");
@@ -87,14 +87,14 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
 		assertValue("title", "THE JUNIT DISCUSSION");
-		// tmr assertValue("description", "<p>This is the big <<!-- -->jUnit> discussion</p>"); // The <!-- --> is added by OX to avoid a CKEditor bug that removes any %lt; followed by a character
-		assertValue("description", "<p>This is the big <jUnit> discussion</p>"); // tmr
+		// tmr assertValue("description", "<p>This is the big <<!-- -->jUnit> discussion</p>"); // The <!-- --> is added by OX to avoid TinyCME or CKEditor removes any %lt; followed by a character, maybe a textarea problem 
+		assertValue("description", "<p>This is the big <<!-- -->jUnit<!-- -->> discussion</p>"); // The <!-- --> is added by OX to avoid TinyCME or CKEditor removes any %lt; followed by a character, maybe a textarea problem // tmr
 		
 		execute("CRUD.delete");
 		assertNoErrors();
 
 		// data-property='DISCUSSION' instead of 'discussion' is something we don't care much for now
-		assertEmailNotifications( // TMR ME QUEDÉ POR AQUÍ: FALLA PORQUE CONVIERTE LOS &LT;&GT; EN <> 
+		assertEmailNotifications(  
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Incident, permalink=http://localhost:8080" + getContextPath() + "modules/Incident, changes=<ul><li data-property='DISCUSSION'><b>Discussion</b>: NEW COMMENT --> Hi, it's me</li></ul>",
 			"CREATED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Incident, permalink=http://localhost:8080" + getContextPath() + "modules/Incident?detail=" + id,
 			"MODIFIED: email=openxavatest1@getnada.com, user=juan, application=OpenXavaTest, module=Incident, permalink=http://localhost:8080" + getContextPath() + "modules/Incident?detail=" + id + ", changes=<ul><li data-property='discussion'><b>Discussion</b>: NEW COMMENT --> Soy Juan</li></ul>",

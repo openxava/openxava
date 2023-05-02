@@ -3,7 +3,7 @@ package org.openxava.formatters;
 import javax.servlet.http.*;
 
 /**
- * tmr Quitarlo
+ * 
  * @since 7.0.1
  * @author Javier Paniza
  */
@@ -17,13 +17,23 @@ public class HtmlTextFormatter implements IFormatter {
 		if (!(object instanceof String)) return "";
 		String html = (String) object;
 		// tmr return html.replace("&lt;", "&lt;<!-- -->");
-		return html; // tmr
+		// tmr ini
+		return html
+			.replace("&lt;", "&lt;<!-- -->") // The most important
+			.replace("&gt;", "<!-- -->&gt;");
+		// tmr fin
 	}
 
 	public Object parse(HttpServletRequest request, String html) throws Exception {
 		if (html == null) return "";
 		// tmr return html.replace("&lt;<!-- -->", "&lt;");
-		return html; // tmr .replace("&lt;<!-- -->", "&lt;");
+		// tmr ini
+		return html
+			.replace("&lt;<!-- -->", "&lt;")
+			.replace("<!-- -->&gt;", "&gt;")
+			.replace("<<!-- -->", "&lt;")
+			.replace("<!-- -->>", "&gt;");
+		// tmr fin
 	}
 
 }

@@ -18,17 +18,13 @@ discussionEditor.postMessage = function(application, module, discussionId) {
 }
 
 discussionEditor.postMessageHtmlUnit = function(application, module, discussionId, commentContent) {
-	console.log("[discussionEditor.postMessageHtmlUnit] 10"); // tmr
 	var comments = $('#xava_comments_' + discussionId);
 	var lastComment = comments.children().last(); 
 	var template = lastComment.clone();
 	lastComment.find(".ox-discussion-comment-content").html(commentContent);
 	lastComment.show(); 
-	console.log("[discussionEditor.postMessageHtmlUnit] PRE"); // tmr
 	Discussion.postComment(application, module, discussionId, commentContent);
-	console.log("[discussionEditor.postMessageHtmlUnit] POST"); // tmr
 	comments.append(template);
-	console.log("[discussionEditor.postMessageHtmlUnit] 999"); // tmr 
 }
 
 discussionEditor.cancel = function(discussionId) {

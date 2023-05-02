@@ -26,7 +26,7 @@ openxava.addEditorInitFunction(function() {
 	});
 });
 
-openxava.addEditorPreRequestFunction(function() {
+openxava.addEditorPreRequestFunction(function() { // tmr Documentar
 	if (openxava.browser.htmlUnit) return;
 	tinymce.triggerSave(); 
 });

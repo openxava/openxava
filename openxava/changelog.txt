@@ -2,13 +2,16 @@ Change Log for OpenXava project
 ===============================
 
 Falta:
-- Pruebas automáticas:  
-	- Buscar en ModuleTestBase por ckeditor.
-	- Probar pruebas de Incident y Doc 
-- PRUEBAS MANUALES  
-- Revisar código
-- SUITE (Borrar datos de Incident)
-- ¿Documentación? Mirar en migración y referencia
+- SUITE: Fallidos:
+	- Invoice2Test
+	- ServiceTest
+	- OrderProductInDetailAsDescriptionsListTest
+	- Product2WithFormulaTest
+	- CustomerWithSectionTest
+	- CustomerTest
+	- Invoice4Test
+	- Etc. 
+- Documentación: Mirar en migración y referencia (al menos en customizing para nuevo evento)
 - Limpiar código.
 
 Postpuesto para 7.1.1:

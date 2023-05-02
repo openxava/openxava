@@ -2840,9 +2840,7 @@ abstract public class ModuleTestBase extends TestCase {
 		getHtmlPage().executeJavaScript(postButton.getOnClickAttribute()); 
 		*/
 		// tmr ini
-		System.out.println("[ModuleTestBase.postDiscussionComment] v4"); // tmr
 		String discussionId = getValue(name);
-		System.out.println("[ModuleTestBase.postDiscussionComment] discussionId="+ discussionId); // tmr
 		String comment = commentContent.contains("'")? "\"<p>" + commentContent + "</p>\"": "'<p>" + commentContent + "</p>'"; 		
 		getHtmlPage().executeJavaScript("discussionEditor.postMessageHtmlUnit('" + application + "', '" + module + "', '" + discussionId + "', " + comment + ")");
 		// tmr fin
