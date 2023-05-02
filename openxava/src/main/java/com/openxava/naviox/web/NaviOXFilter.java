@@ -52,8 +52,6 @@ public class NaviOXFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		try {
-			System.out.println("[NaviOXFilter.doFilter] url=" + ((HttpServletRequest) request).getRequestURL()); // tmr
-			System.out.println("[NaviOXFilter.doFilter] queryString=" + ((HttpServletRequest) request).getQueryString()); // tmr
 			XPersistence.reset();
 			Initializer.init(request);
 			HttpSession session = ((HttpServletRequest) request).getSession();
