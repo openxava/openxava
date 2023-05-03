@@ -13,9 +13,7 @@ calendarEditor.setEvents = function(calendarEvents) {
     events.forEach(function(event) {
         event.remove();
     });
-    console.log("old vacio" + events);
     calendarEditor.listEvents = JSON.parse(calendarEvents);
-    console.log(calendarEditor.listEvents);
     for (let e of calendarEditor.listEvents) {
         calendarEditor.calendar.addEvent({
             title: e.title,
@@ -28,20 +26,15 @@ calendarEditor.setEvents = function(calendarEvents) {
         calendarEditor.listEvents = [];
         calendarEditor.startName = e.startName;
     }
-    console.log(events);
     let result = {
         "result": {
             "application": calendarEditor.outApplication,
             "module": calendarEditor.outModule
         }
     };
-    console.log(result);
     calendarEditor.requesting = false;
-    //openxava.resetRequesting(result);
-    //if (openxava.isRequesting(outApplication, outModule)) openxava.resetRequesting(result);
-    //console.log("isRequesting = " + openxava.isRequesting(outApplication, outModule));
-    
 }
+
 
 openxava.addEditorInitFunction(function() {
     if ($("#xava_calendar").length) {
@@ -53,77 +46,46 @@ openxava.addEditorInitFunction(function() {
         var formattedDate = "";
         calendarEditor.outApplication = application;
         calendarEditor.outModule = module;
-        
+        var calendarElement = document.getElementById('xava_calendar');
+
         calendarEditor.listEvents = [];
-        console.log(application + " " + module + " " + dateFormat + " " + newAction + " " + selectAction);
         calendarEditor.requesting = true;
         Calendar.getEvents(application, module, "", calendarEditor.setEvents);
-        //openxava.setRequesting(application, module);
 
         $("#xava_calendar").ready(function() {
-            console.log("dentro");
             calendarEditor.calendarEl = $('#xava_calendar')[0];
             calendarEditor.calendar = new FullCalendar.Calendar(calendarEditor.calendarEl, {
                 initialView: 'dayGridMonth',
                 editable: true,
                 locale: navigator.language,
-                //showNonCurrentDates: false,
                 displayEventTime: false,
                 events: calendarEditor.listEvents,
                 editable: true,
                 progressiveEventRendering: true,
                 headerToolbar: {
-                    left: 'prev,next',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    left: 'prev,next title',
+                    center: '',
+                    right: ''
                 },
                 customButtons: {
                     next: {
                         click: function() {
-                            if (calendarEditor.requesting) return;
-                            calendarEditor.requesting = true;
-                            //console.log("isRequesting = " + openxava.isRequesting(application, module));
-                            //if (openxava.isRequesting(application, module)) return;
-                            //openxava.setRequesting(application, module);
-                            let currentViewDate = calendarEditor.calendar.view.currentStart;
-                            let currentMonth = currentViewDate.getMonth();
-                            let currentYear = currentViewDate.getFullYear();
-                            calendarEditor.calendar.next();
-                            let nextViewDate = calendarEditor.calendar.view.currentStart;
-                            let nextMonth = nextViewDate.getMonth();
-                            let nextYear = nextViewDate.getFullYear();
-                            let monthYear = (currentYear != nextYear || currentMonth != nextMonth) ? nextMonth + "_" + nextYear : "";
-                            console.log("next " + monthYear);
-                            Calendar.getEvents(application, module, monthYear, calendarEditor.setEvents);
+                            getEvents("next");
                         }
                     },
                     prev: {
                         click: function() {
-                            if (calendarEditor.requesting) return;
-                            calendarEditor.requesting = true;
-                            //console.log("isRequesting = " +  openxava.isRequesting(application, module));
-                            //if (openxava.isRequesting(application, module)) return;
-                            //openxava.setRequesting(application, module);
-                            let currentViewDate = calendarEditor.calendar.view.currentStart;
-                            let currentMonth = currentViewDate.getMonth();
-                            let currentYear = currentViewDate.getFullYear();
-                            calendarEditor.calendar.prev();
-                            let prevViewDate = calendarEditor.calendar.view.currentStart;
-                            let prevMonth = prevViewDate.getMonth();
-                            let prevYear = prevViewDate.getFullYear();
-                            console.log(prevYear);
-                            let monthYear = (currentYear != prevYear || currentMonth != prevMonth) ? prevMonth + "_" + prevYear : "";
-                            console.log("prev " + monthYear);
-                            Calendar.getEvents(application, module, monthYear, calendarEditor.setEvents);
+                            getEvents("prev");
                         }
                     },
                     today: {
                         click: function() {
+                            if (calendarEditor.requesting) return;
+                            calendarEditor.requesting = true;
                             let currentDate = new Date();
                             let currentMonth = currentDate.getMonth();
                             calendarEditor.calendar.today();
                             Calendar.getEvents(application, module, currentMonth, calendarEditor.setEvents);
-
                         }
                     }
                 },
@@ -138,13 +100,13 @@ openxava.addEditorInitFunction(function() {
                     let selectedDate = reformatDate(e.dateStr);
                     let value = 'startDate=' + calendarEditor.startName + '_' + selectedDate;
                     if (!getSelection().toString()) {
-                        //openxava.executeAction(application, module, false, false, newAction, 'value=' + JSON.stringify(value).replaceAll(",", "_"));
                         openxava.executeAction(application, module, false, false, newAction, value);
                     }
                 }
             });
             calendarEditor.calendar.render();
-        }); 
+            formatTitle();
+        });
 
         function reformatDate(date) {
             date = (date.toString().length < 11) ? date + 'T00:00:00' : date;
@@ -153,10 +115,22 @@ openxava.addEditorInitFunction(function() {
             return formattedDate;
         }
 
-        function getSeparator(date) {
-            const separatorRegex = /[^A-Za-z0-9]/g;
-            const separator = dateString.match(separatorRegex)[0];
-            return separator;
+        function getEvents(month) {
+            if (calendarEditor.requesting) return;
+            calendarEditor.requesting = true;
+            //if (openxava.isRequesting(application, module)) return;
+            //openxava.setRequesting(application, module);
+            let currentViewDate = calendarEditor.calendar.view.currentStart;
+            let currentMonth = currentViewDate.getMonth();
+            let currentYear = currentViewDate.getFullYear();
+            cleanTitle();
+            month === 'next' ? calendarEditor.calendar.next() : calendarEditor.calendar.prev();
+            formatTitle();
+            let newViewDate = calendarEditor.calendar.view.currentStart;
+            let newMonth = newViewDate.getMonth();
+            let newYear = newViewDate.getFullYear();
+            let monthYear = (currentYear != newYear || currentMonth != newMonth) ? newMonth + "_" + newYear : "";
+            Calendar.getEvents(application, module, monthYear, calendarEditor.setEvents);
         }
 
         function formatDate(date, format) {
@@ -174,12 +148,35 @@ openxava.addEditorInitFunction(function() {
                 yyyy: date.getFullYear(),
                 yy: date.getFullYear().toString().slice(-2)
             };
-
+            
             return format.replace(/(M+|d+|h+|m+|s+|yyyy|yy)/gi, matched => {
                 return map[matched];
             });
         }
-
+        
+        function formatTitle(){
+            const h2 = calendarElement.querySelector(".fc-toolbar-title");
+            const text = h2.textContent;
+            const capitalizedTitle = text.charAt(0).toUpperCase() + text.slice(1);
+            h2.textContent = capitalizedTitle;
+        }
+        
+        function cleanTitle(){
+            const h2 = calendarElement.querySelector(".fc-toolbar-title");
+            h2.textContent = "";
+        }
+        
+        calendarElement.addEventListener('mousewheel', function(event) {
+            event.wheelDelta >= 0 ? getEvents('prev') : getEvents('next');
+            event.preventDefault();
+        });
+        
+        window.addEventListener('resize', function() {
+            calendarElement.style.width = (window.innerHeight * 0.9)+ 'px';
+            calendarElement.style.height = (window.innerHeight * 0.763)+ 'px';
+        });
     }
+
+
 
 });

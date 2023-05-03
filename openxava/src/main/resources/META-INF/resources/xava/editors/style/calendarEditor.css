@@ -1,0 +1,28 @@
+.fc-toolbar-title {
+  display: inline;
+  padding: 5px;
+  vertical-align: middle;
+}
+
+.xava_calendar {
+ margin-left: 30px;
+ width: 90vh; 
+ height: 76.3vh;
+ 
+}
+
+.fc .fc-daygrid-body-unbalanced .fc-daygrid-day {
+ min-height: 1em;
+}
+
+.fc .fc-button-primary {
+ color: var(--action-color);
+ background-color: transparent;
+ border-color: transparent; 
+}
+
+.fc .fc-button-primary:hover {
+ background-color: var(--action-hover-background);
+ color: var(--action-hover-color);
+ border-color: transparent; 
+}

@@ -117,6 +117,12 @@ public class Calendar extends DWRBase {
 		}
 		ObjectMapper objectMapper = new ObjectMapper();
 		json = objectMapper.writeValueAsString(calendarEvents);
+//		try {
+//			Thread.sleep(5000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		return json.toString();
 	}
 
@@ -248,9 +254,9 @@ public class Calendar extends DWRBase {
 			currentColumn = iColumn + k;
 			value = table.getValueAt(row, currentColumn);
 			if (verifyValue(value)) {
-				if (result.length() > 0) result.append(" - ");
-				result.append(tab.getMetaProperty(currentColumn).getLabel());
-				result.append(": ");
+				if (result.length() > 0) result.append(" / ");
+				//result.append(tab.getMetaProperty(currentColumn).getLabel());
+				//result.append(": ");
 				result.append(format(currentColumn, value));
 			}
 		}
@@ -258,9 +264,9 @@ public class Calendar extends DWRBase {
 			currentColumn = jColumn + k;
 			value = table.getValueAt(row, currentColumn);
 			if (verifyValue(value)) {
-				if (result.length() > 0) result.append(" - ");
-				result.append(tab.getMetaProperty(currentColumn).getLabel());
-				result.append(": ");
+				if (result.length() > 0) result.append(" / ");
+				//result.append(tab.getMetaProperty(currentColumn).getLabel());
+				//result.append(": ");
 				result.append(format(currentColumn, value));
 			}
 		}

@@ -44,6 +44,6 @@ if (dateFormat != null) {
     <input type="hidden" id="xava_calendar_action" value="<%=action%>,<%=actionNew%>">
     <input type="hidden" id="xava_calendar_dateFormat" value="<%=dateFormat%>">
 </div>
-<div id='xava_calendar'></div>
+<div id='xava_calendar' class='xava_calendar'></div>
 
 <script type='text/javascript' <xava:nonce/> src='<%=contextPath%>/dwr/interface/Calendar.js?ox=<%=version%>'></script>
