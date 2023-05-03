@@ -2107,7 +2107,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		addProperties(Collections.singleton(propertyName));
 	}
 	
-	public void addProperty(int index, String propertyName) throws XavaException{
+	public void addProperty(int index, String propertyName) throws XavaException {
 		cloneMetaTab();
 		getMetaTab().addProperty(index, propertyName);
 		resetAfterChangeProperties();
@@ -2132,6 +2132,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 			getMetaTab().addProperty(i, propertiesName.get(i));
 			resetAfterChangeProperties();
 			if (configuration == null) saveConfiguration();
+			System.out.println(Arrays.toString(configuration.getConditionValues()));
+			System.out.println(Arrays.toString(configuration.getConditionValuesTo()));
+			System.out.println(Arrays.toString(configuration.getConditionComparators()));
 			configuration.setConditionValues(insertEmptyString(configuration.getConditionValues(), i)); 
 			configuration.setConditionValuesTo(insertEmptyString(configuration.getConditionValuesTo(), i));
 			configuration.setConditionComparators(insertEmptyString(configuration.getConditionComparators(), i));

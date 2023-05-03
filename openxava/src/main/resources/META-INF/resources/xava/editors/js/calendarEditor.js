@@ -14,6 +14,7 @@ calendarEditor.setEvents = function(calendarEvents) {
         event.remove();
     });
     calendarEditor.listEvents = JSON.parse(calendarEvents);
+    console.log(JSON.parse(calendarEvents));
     for (let e of calendarEditor.listEvents) {
         calendarEditor.calendar.addEvent({
             title: e.title,

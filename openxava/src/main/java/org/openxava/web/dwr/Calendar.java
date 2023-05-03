@@ -65,8 +65,7 @@ public class Calendar extends DWRBase {
 	private List<String> datesList = new ArrayList<>();
 
 	public String getEvents(HttpServletRequest request, HttpServletResponse response, String application, String module,
-			String monthYear) throws RemoteException, JsonProcessingException{
-		System.out.println("dwr");
+			String monthYear) throws RemoteException, JsonProcessingException, InterruptedException{
 		this.application = application;
 		this.module = module;
 		this.response = response;
@@ -77,6 +76,8 @@ public class Calendar extends DWRBase {
 		String tabObject = "xava_tab";
 		tab2 = getTab(request, application, module, tabObject);
 		tab = tab2.clone();
+		
+		System.out.println("antes setDatesProperty " + tab.getTableModel().getTotalSize());
 
 		setDatesProperty();
 		hasCondition = tabHasCondition(tab);
@@ -91,9 +92,7 @@ public class Calendar extends DWRBase {
 		String json = null;
 		
 		tableSize = tab.getTableModel().getTotalSize();
-		System.out.println("ingresando datos" + tableSize);
 		if (tableSize > 0) {
-			System.out.println("table size mayor a 0");
 			for (int i = 0; i < tableSize; i++) {
 				event = new CalendarEvent();
 				event.key = obtainRowsKey(i);
@@ -117,12 +116,7 @@ public class Calendar extends DWRBase {
 		}
 		ObjectMapper objectMapper = new ObjectMapper();
 		json = objectMapper.writeValueAsString(calendarEvents);
-//		try {
-//			Thread.sleep(5000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		Thread.sleep(3000);
 		return json.toString();
 	}
 
@@ -327,16 +321,11 @@ public class Calendar extends DWRBase {
 		for (MetaProperty property : mp) {
 			for (String name : datesName) {
 				if (mpCount < 2 && property.getName().toLowerCase().contains(name)) {
-					System.out.println("name " + mpCount + " " + property.getName() + "  "  + property.getTypeName());
-					// por el momento se esta usando el primer date
 					if (mpCount == 0 && !property.getName().contains(".")) dateName = property.getName();
 					datesList.add(property.getName());			
 					mpCount++;
-					
-					//ambos booleanos
+
 					dateWithTime = dateWithTimeList.contains(property.getTypeName()) ? true : false;
-					// por el momento se usara para filtrar solo java.util y java.time
-					// se filtran por java util y java time como libreria vieja y nueva
 					String className = property.getTypeName();
 					if (className.startsWith("java.util.")) {
 						oldLib = true;
@@ -348,17 +337,7 @@ public class Calendar extends DWRBase {
 		}
 	}
 
-	private Tab setProperties(Tab tab) {
-		// luego de clonar la tabla y hacer el filtro
-		// obtener los keys en las primeras columnas
-		// obtener los dates para las segundas columnas
-		// si no tiene 2 date, solamente habra 1 columna
-		// luego ver si hay propiedades que se llamen como lo esperado
-		// de lo contrario, agarrar los primeros por default en las terceras columnas
-		// generalmente las propiedades esperadas estan en el tab por defecto
-		// por lo cual se usa getMetaPropertiesNotCalculated para traer las propiedades del tab unicamente
-		// no se traen las propiedades calculadas debido al costo de la consulta
-
+	private Tab setProperties(Tab tab) throws RemoteException {
 		List<String> newTabColumn = new ArrayList<>();
 		List<String> expectedNames = Arrays.asList("name", "nombre", "title", "titulo", "description", "descripcion",
 				"number", "numero");
@@ -367,20 +346,16 @@ public class Calendar extends DWRBase {
 		List<String> properties2List = new ArrayList<>();
 		int properties1ListCount = 0;
 		int properties2ListCount = 0;
-		// por momento se traen hasta 2 propiedades
 		int maxLimit = 2;
 
 		newTabColumn.addAll(keysList);
 		List<MetaProperty> mp = tab.getMetaPropertiesNotCalculated();
 		for (MetaProperty metaProperty : mp) {
-			// columna para propiedades esperadas, usar maxLimit para no traer de mas
 			if (properties1ListCount < maxLimit && expectedNames.contains(metaProperty.getQualifiedName())) {
 				properties1List.add(metaProperty.getQualifiedName());
 				properties1ListCount++;
 				properties2ListCount++;
 			}
-			// columna para las otras propiedades, en caso de haber llegado a max no agregar mas
-			// debo usar otra lista ya que el for va uno por uno
 			if (properties2ListCount < maxLimit && !datesList.contains(metaProperty.getQualifiedName())
 					&& !keysList.contains(metaProperty.getQualifiedName())
 					&& !properties1List.contains(metaProperty.getQualifiedName())) {
@@ -391,7 +366,6 @@ public class Calendar extends DWRBase {
 		newTabColumn.addAll(datesList);
 		newTabColumn.addAll(properties1List);
 
-		// si la lista1 es menor que maxLimit significa que queda mas lugar para agregar, agrego la segunda lista
 		if (properties1ListCount < maxLimit) {
 			int j = 0;
 			for (int i = properties1ListCount; i < maxLimit; i++) {
@@ -400,7 +374,6 @@ public class Calendar extends DWRBase {
 			}
 			properties2ListSize = j;
 		} else {
-			// si ya no hay mas lugar, lista2size = 0
 			properties2ListSize = 0;
 		}
 
@@ -409,14 +382,20 @@ public class Calendar extends DWRBase {
 		properties1ListSize = properties1List.size();
 		
 		if (hasCondition) {
+			System.out.println("tiene condicion antes de aniadir propiedades " + tab.getTableModel().getTotalSize() + " - " + Arrays.toString(tab.getConditionValues()));
 			String[] conditionValues = tab.getConditionValues();
 			String[] conditionValuesTo = tab.getConditionValuesTo();
 			String[] conditionComparators = tab.getConditionComparators();
+			System.out.println(tab.getMetaTab().getPropertiesNames());
 			tab.addProperties(newTabColumn, conditionValues, conditionValuesTo, conditionComparators);
 		} else {
 			tab.clearProperties();
 			tab.addProperties(newTabColumn);
 		}
+		
+		System.out.println(tab.getMetaTab().getPropertiesNames());
+		System.out.println(tab.getTableModel().getTotalSize());
+		
 		return tab;
 	}
 	
@@ -444,9 +423,6 @@ public class Calendar extends DWRBase {
 		String format;
 		if (date == null) return "";
 		if (date instanceof String || date instanceof Number) return date.toString();
-		// si es libreria vieja, usa SimpleDateFormat, de lo contrario usa DateTimeFormatter 
-		// tambien debe diferenciar si el date fuente viene con horario o no.
-		// este resultado se usa para ubicar el evento en el calendario
 		if (oldLib) {
 			format = withTime ? "yyyy-MM-dd HH:mm:ss" : "yyyy-MM-dd";
 			DateFormat df = new SimpleDateFormat(format);

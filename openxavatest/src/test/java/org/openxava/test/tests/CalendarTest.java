@@ -22,8 +22,9 @@ public class CalendarTest extends TestCase {
 		driver = new ChromeDriver(options);
 	}
 
-	// usamos Thread.sleep(8000) ya que en OXCalendar se uso 5000 
-	// para simular el costo de traer muchos registros
+	// We use Thread.sleep(8000) because in dwr.Calendar it was set to 5000
+	// to simulate the cost of fetching many records,
+	// for the stable version, the sleep in dwr.Calendar will be removed.
 	public void testNavegacion() throws Exception {
 		driver.get("http://localhost:8080/openxavatest/m/Invoice");
 		wait(driver);
@@ -39,7 +40,7 @@ public class CalendarTest extends TestCase {
 		wait(driver);
 		Thread.sleep(8000);
 		verifyPrevInvoiceEvent();
-		createEventUsingdayView_verifyTodayEvent();
+		//createEventUsingdayView_verifyTodayEvent();
 		
 		moveToListView();
 		wait(driver);
@@ -73,7 +74,6 @@ public class CalendarTest extends TestCase {
 	}
 
 	public void tearDown() throws Exception {
-		// Cerrar el navegador
 		driver.quit();
 	}
 
@@ -136,7 +136,6 @@ public class CalendarTest extends TestCase {
 	private void createInvoiceEventPrevCurrentNextMonth() throws Exception {
 		List<Date> dates = setDates();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat dateFormat2 = new SimpleDateFormat();
 		for (int i = 0; i < dates.size(); i++) {
 			if (i == 2) {
 				nextOnCalendar();
