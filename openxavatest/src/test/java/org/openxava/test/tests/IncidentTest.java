@@ -2,6 +2,7 @@ package org.openxava.test.tests;
 
 import java.util.*;
 
+import org.openxava.jpa.*;
 import org.openxava.test.model.*;
 import org.openxava.util.*;
 
@@ -28,8 +29,7 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		
 		execute("CRUD.new");
 		setValue("title", "THE JUNIT DISCUSSION");
-		// tmr setValue("description", "This is the big &ltjUnit&gt discussion"); 
-		setValue("description", "This is the big &lt;jUnit&gt; discussion"); // tmr
+		setValue("description", "This is the big &lt;jUnit&gt; discussion"); 
 		
 		assertDiscussionCommentsCount("discussion", 0); 
 		postDiscussionComment("discussion", "Hi, it's me");
@@ -58,8 +58,7 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 
 		assertValue("title", "THE JUNIT DISCUSSION"); 
-		// tmr assertValue("description", "<p>This is the big <<!-- -->jUnit> discussion</p>"); // The <!-- --> is added by OX to avoid TinyCME or CKEditor removes any %lt; followed by a character, maybe a textarea problem
-		assertValue("description", "<p>This is the big <<!-- -->jUnit<!-- -->> discussion</p>"); // The <!-- --> is added by OX to avoid TinyCME or CKEditor removes any %lt; followed by a character, maybe a textarea problem // tmr
+		assertValue("description", "<p>This is the big <<!-- -->jUnit<!-- -->> discussion</p>"); // The <!-- --> is added by OX to avoid TinyCME or CKEditor removes any %lt; followed by a character, maybe a textarea problem 
 
 		assertDiscussionCommentsCount("discussion", 1);
 		assertDiscussionCommentText("discussion", 0, "admin - " + timeFirstPost + "\nHi, it's me"); 
@@ -70,8 +69,7 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 
 		assertValue("title", "THE JUNIT DISCUSSION");
-		// tmr assertValue("description", "<p>This is the big <<!-- -->jUnit> discussion</p>"); // The <!-- --> is added by OX to avoid TinyCME or CKEditor removes any %lt; followed by a character, maybe a textarea problem  
-		assertValue("description", "<p>This is the big <<!-- -->jUnit<!-- -->> discussion</p>"); // The <!-- --> is added by OX to avoid TinyCME or CKEditor removes any %lt; followed by a character, maybe a textarea problem // tmr
+		assertValue("description", "<p>This is the big <<!-- -->jUnit<!-- -->> discussion</p>"); // The <!-- --> is added by OX to avoid TinyCME or CKEditor removes any %lt; followed by a character, maybe a textarea problem 
 		assertDiscussionCommentsCount("discussion", 2);
 		assertDiscussionCommentText("discussion", 0, "admin - " + timeFirstPost + "\nHi, it's me");
 		assertDiscussionCommentText("discussion", 1, "juan - " + timeSecondPost + "\nSoy Juan");
@@ -87,8 +85,7 @@ public class IncidentTest extends EmailNotificationsTestBase {
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
 		assertValue("title", "THE JUNIT DISCUSSION");
-		// tmr assertValue("description", "<p>This is the big <<!-- -->jUnit> discussion</p>"); // The <!-- --> is added by OX to avoid TinyCME or CKEditor removes any %lt; followed by a character, maybe a textarea problem 
-		assertValue("description", "<p>This is the big <<!-- -->jUnit<!-- -->> discussion</p>"); // The <!-- --> is added by OX to avoid TinyCME or CKEditor removes any %lt; followed by a character, maybe a textarea problem // tmr
+		assertValue("description", "<p>This is the big <<!-- -->jUnit<!-- -->> discussion</p>"); // The <!-- --> is added by OX to avoid TinyCME or CKEditor removes any %lt; followed by a character, maybe a textarea problem 
 		
 		execute("CRUD.delete");
 		assertNoErrors();
@@ -104,7 +101,7 @@ public class IncidentTest extends EmailNotificationsTestBase {
 	
 	protected void tearDown() throws Exception { 
 		// Because the @PreRemove of Incident does not work, maybe a bug to solve in the future
-		// tmr XPersistence.getManager().createQuery("delete from DiscussionComment").executeUpdate();
+		XPersistence.getManager().createQuery("delete from DiscussionComment").executeUpdate();
 		super.tearDown();
 	}
 	

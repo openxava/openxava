@@ -37,7 +37,7 @@
             for list formats (new in v5.7)</a></div>
         <div style="margin-left: 3em;"><a href="#editors-for-annotations">Editors
             for annotations (new in v6.6)</a></div>
-        <div style="margin-left: 3em;"><a href="#Customizing-Editors-JavaScript%20in%20editors">JavaScript
+        <div style="margin-left: 3em;"><a href="#javascript-in-editors">JavaScript
             in editors</a></div>
         <div style="margin-left: 4em;"><a href="#Customizing-Editors-JavaScript%20in%20editors-Since%20v4m3">Since
             v4m3</a></div>
@@ -2234,8 +2234,8 @@ String color = request.getParameter("color"); // Read the attribute from the @Co
 .colorful-background-pink input{ background: pink; }
 </code></pre></div>
     <div class="wiki" style="display: block;">
-      <h3 id="toc8"><a name="Customizing-Editors-JavaScript in editors"></a><span
-          style="font-size: 1.1em;"><strong>JavaScript in editors</strong></span></h3>
+      <h3 id="toc8"><a name="javascript-in-editors"></a><span style="font-size: 1.1em;"><strong>JavaScript
+            in editors</strong></span></h3>
       <h4 id="toc9"><a name="Customizing-Editors-JavaScript in editors-Since v4m3"></a>Since
         v4m3</h4>
       If you need custom or third-party JavaScript functions to be used from
@@ -2245,8 +2245,8 @@ String color = request.getParameter("color"); // Read the attribute from the @Co
       folder of your project (<em>web/xava/editors/js</em> for v6 or older). If
       the folder does not exist yet, create it. All the JavaScript there is
       loaded automatically.<br>
-      That is, if you need to use a JavaScript function <em>f()</em> from your
-      editor, just as following:<br>
+      Moreover, since v7.1 you cannot user inline events, like <i>onclick</i>,
+      you cannot write this code:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -2271,44 +2271,17 @@ String color = request.getParameter("color"); // Read the attribute from the @Co
 -->
 </style><pre class="html4strict"><span class="sc2">&lt;<span class="kw2">input</span> ... <span
 class="kw3">onclick</span><span class="sy0">=</span><span class="st0">"f()"</span><span
-class="sy0">/</span>&gt;</span></pre>
-      You have to define the <em>f()</em> function in a JS file. Create a file
-      called <em>myEditor.js</em> (or whatever name you want), and put it in <i>src/main/webapp/xava/editors/js</i>
-      (<em>web/xava/editors/js</em> for v6 or older) folder. The content of that
-      file can be:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.javascript  {font-family:monospace;}
-.javascript .imp {font-weight: bold; color: red;}
-.javascript .kw1 {color: #000066; font-weight: bold;}
-.javascript .kw2 {color: #003366; font-weight: bold;}
-.javascript .kw3 {color: #000066;}
-.javascript .co1 {color: #006600; font-style: italic;}
-.javascript .co2 {color: #009966; font-style: italic;}
-.javascript .coMULTI {color: #006600; font-style: italic;}
-.javascript .es0 {color: #000099; font-weight: bold;}
-.javascript .br0 {color: #009900;}
-.javascript .sy0 {color: #339933;}
-.javascript .st0 {color: #3366CC;}
-.javascript .nu0 {color: #CC0000;}
-.javascript .me1 {color: #660066;}
-.javascript span.xtra { display:block; }
-
--->
-</style><pre class="javascript"><span class="kw2">function</span> f<span class="br0">(</span><span
-class="br0">)</span> <span class="br0">{</span>
-<span class="kw3">alert</span><span class="br0">(</span><span class="st0">"Hello. It's f()"</span><span
-class="br0">)</span><span class="sy0">;</span>
-<span class="br0">}</span></pre>
-      On the other hand. If you need JavaScript initialization logic for your
-      editor, you cannot use <em>onload</em> event or equivalent, because the
-      editor markup is loaded via AJAX, so no page loading is produced. You have
-      to register your initialization code in OpenXava. You can do it in your <em>myEditor.js</em>
-      file (or another file in <i>src/main/webapp/xava/editors/js</i>), as
-      following:<br>
+class="sy0">/</span>&gt; &lt;!-- NOT ALLOWED SINCE v7.1 --&gt;</span></pre>
+      Instead you have to attach the events from the code in your JS files. For
+      your JavaScript code create a file called <em>myEditor.js</em> (or
+      whatever name you want), and put it in <i>src/main/webapp/xava/editors/js
+      </i>(<i>web/xava/editors/js </i>for<i> v6 </i>or older)<i> </i>folder<i>.</i></div>
+    <div class="wiki" style="display: block;">Most times you need JavaScript
+      initialization logic for your editor, you cannot use <em>onload</em>
+      event or equivalent, because the editor markup is loaded via AJAX, so no
+      page loading is produced. You have to register your initialization code in
+      OpenXava. You can do it in your <em>myEditor.js</em> file (or another
+      file in <i>src/main/webapp/xava/editors/js</i>), as following:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -2379,8 +2352,64 @@ This is to free resources obtained by the editor.
 */</span>
 ...
 <span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></pre>
-      <h4 id="toc10"><a name="Customizing-Editors-JavaScript in editors-Until v4m2"></a>Until
-        v4m2</h4>
+      <h4 id="toc10"><a name="Customizing-Editors-JavaScript in editors-Until v4m2"></a></h4>
+      <p>Since v7.1 you can also define a function to call just after each AJAX
+        request done by OpenXava for your editor in your <em>myEditor.js</em>
+        file:<br>
+      </p>
+      <div class="wiki">
+        <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.javascript  {font-family:monospace;}
+.javascript .imp {font-weight: bold; color: red;}
+.javascript .kw1 {color: #000066; font-weight: bold;}
+.javascript .kw2 {color: #003366; font-weight: bold;}
+.javascript .kw3 {color: #000066;}
+.javascript .co1 {color: #006600; font-style: italic;}
+.javascript .co2 {color: #009966; font-style: italic;}
+.javascript .coMULTI {color: #006600; font-style: italic;}
+.javascript .es0 {color: #000099; font-weight: bold;}
+.javascript .br0 {color: #009900;}
+.javascript .sy0 {color: #339933;}
+.javascript .st0 {color: #3366CC;}
+.javascript .nu0 {color: #CC0000;}
+.javascript .me1 {color: #660066;}
+.javascript span.xtra { display:block; }
+
+-->
+</style><pre class="javascript">openxava.<span class="me1">addEditorPreRequestFunction</span><span
+class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
+class="br0">)</span> <span class="br0">{</span> <span class="co1">// New in v7.1</span>
+<span class="coMULTI">/*
+Here the code to execute on your editor
+before each AJAX request from OpenXava.
+*/</span>
+...
+<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></pre>
+        <h4 id="toc10"><a name="Customizing-Editors-JavaScript in editors-Until v4m2"></a></h4>
+      </div>
+      For example, if you want to show a JavaScript alert when the user click on
+      a button of your editor, and you have this code in you <i>myEditor.jsp</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="html">&lt;input class="my-editor" type="button" value="Say hello"/&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Just add the next code in you <i>
+        myEditor.js</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="javascript">openxava.addEditorInitFunction(function() {
+	
+	$(".my-editor").click(function() {
+  		alert("Hello");
+	});
+	
+});
+</code></pre> </div>
+    <div class="wiki" style="display: block;">In this case we use jquery to
+      attach the event, but you can do it in any other way.<br>
+      <h4>Until v4m2</h4>
       You have to put all the JavaScript code for all your editors in <em>custom-editors.js</em>
       in the folder <em>web/xava/js</em>. This technique is still supported
       though deprecated.<br>

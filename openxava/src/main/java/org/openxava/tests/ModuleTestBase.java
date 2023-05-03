@@ -243,18 +243,10 @@ abstract public class ModuleTestBase extends TestCase {
 				HtmlTextArea textArea = getTextAreaByName(id); 
 				assertNotDisable(name, textArea);
 				String textAreaClass = textArea.getAttribute("class");
-				/* tmr
-				if (textAreaClass != null && textAreaClass.contains("cke")) {
-					getHtmlPage().executeJavaScript("CKEDITOR.instances['" + textArea.getId() + "'].setData('" + value + "');");
-				}
-				else textArea.setText(value);
-				*/
-				// tmr ini
 				if (textAreaClass != null && textAreaClass.contains("html-text")) {
 					textArea.setText("<p>" + value + "</p>"); // To simulate the TinyCME behavior
 				}
 				else textArea.setText(value);
-				// tmr fin
 				
 				refreshNeeded = !Is.emptyString(textArea.getOnChangeAttribute());
 			}
@@ -474,7 +466,7 @@ abstract public class ModuleTestBase extends TestCase {
 	protected void resetModule() throws Exception {
 		client = new WebClient(getBrowserVersion()); 
 		client.getOptions().setThrowExceptionOnFailingStatusCode(false);
-		// tmr client.getOptions().setThrowExceptionOnScriptError(false);
+		client.getOptions().setThrowExceptionOnScriptError(false);
 		client.getOptions().setCssEnabled(false);
 		client.setJavaScriptErrorListener(new SilentJavaScriptErrorListener());
 	    client.setCssErrorHandler(new SilentCssErrorHandler());
@@ -2831,20 +2823,9 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @since 5.6
 	 */		
 	protected void postDiscussionComment(String name, String commentContent) throws Exception { 
-		
-		/* tmr
-		HtmlElement discussion = getDiscussionElement(name);
-		HtmlElement textarea = discussion.getElementsByTagName("textarea").get(0);
-		getHtmlPage().executeJavaScript("CKEDITOR.instances['" + textarea.getId() + "'].setData(\"" + commentContent + "\");");
-		HtmlElement postButton = discussion.getOneHtmlElementByAttribute("input", "type", "button");
-		getHtmlPage().executeJavaScript(postButton.getOnClickAttribute()); 
-		*/
-		// tmr ini
 		String discussionId = getValue(name);
 		String comment = commentContent.contains("'")? "\"<p>" + commentContent + "</p>\"": "'<p>" + commentContent + "</p>'"; 		
 		getHtmlPage().executeJavaScript("discussionEditor.postMessageHtmlUnit('" + application + "', '" + module + "', '" + discussionId + "', " + comment + ")");
-		// tmr fin
-
 	}
 	
 	private HtmlElement getDiscussionElement(String name) {   

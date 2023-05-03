@@ -30,7 +30,7 @@ openxava.ajaxRequest = function(application, module, firstRequest, inNewWindow) 
 	if (inNewWindow) {
 		openxava.newWindow = window.open('', '_blank'); 
 	}
-	openxava.preRequestEditors(); // tmr
+	openxava.preRequestEditors(); 
 	Module.request(
 			application, module, document.additionalParameters,			
 			openxava.getFormValues(openxava.getForm(application, module)), 
@@ -585,8 +585,7 @@ openxava.addEditorInitFunction = function(initFunction) {
 	openxava.editorsInitFunctions.push(initFunction);	
 }
 
-// tmr ini
-openxava.addEditorPreRequestFunction = function(preRequestFunction) { // tmr En customizing doc 
+openxava.addEditorPreRequestFunction = function(preRequestFunction) {  
 	if (openxava.editorsPreRequestFunctions == null) {
 		openxava.editorsPreRequestFunctions = new Array();	
 	}
@@ -599,7 +598,6 @@ openxava.preRequestEditors = function() {
 		openxava.editorsPreRequestFunctions[i]();
 	}
 }
-// tmr fin
 
 openxava.destroyEditors = function() {   
 	if (openxava.editorsDestroyFunctions == null) return;	
