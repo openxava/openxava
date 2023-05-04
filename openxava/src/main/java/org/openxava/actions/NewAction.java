@@ -6,7 +6,7 @@ package org.openxava.actions;
 
 public class NewAction extends ViewBaseAction implements IChangeModeAction, IModelAction {
 
-	private String startDate = "";
+	private String defaultValues = "";
 	private String modelName;
 	private boolean restoreModel = false;
 
@@ -15,7 +15,7 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 		getView().setKeyEditable(true);
 		getView().setEditable(true);
 		getView().reset();
-		if (!startDate.isEmpty()) setValueFromCalendar();
+		if (!defaultValues.isEmpty()) setValueFromDefaultValues();
 		if (getView().hasSections()) getView().setActiveSection(0);
 	}
 
@@ -35,18 +35,18 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 		this.restoreModel = restoreModel;
 	}
 
-	public String getStartDate() {
-		return startDate;
+	public String getDefaultValues() {
+		return defaultValues;
 	}
 
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
+	public void setDefaultValues(String defaultValues) {
+		this.defaultValues = defaultValues;
 	}
 	
-	private void setValueFromCalendar() {
-		//startDate=date_07/04/2023,endDate=date2_08/04/2023
-		//private String endDate = "";
-		String[] start = startDate.split("_");
+	private void setValueFromDefaultValues() {
+		//defaultvalues=name:dateStr;name2:dateStr
+		String[] dates = defaultValues.split(";");
+		String[] start = dates[0].split(":");
 		String name = start[0];
 		String dateStr = start[1];
 		getView().setValue(name, dateStr);

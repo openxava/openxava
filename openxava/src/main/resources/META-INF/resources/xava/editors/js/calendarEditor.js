@@ -14,7 +14,6 @@ calendarEditor.setEvents = function(calendarEvents) {
         event.remove();
     });
     calendarEditor.listEvents = JSON.parse(calendarEvents);
-    console.log(JSON.parse(calendarEvents));
     for (let e of calendarEditor.listEvents) {
         calendarEditor.calendar.addEvent({
             title: e.title,
@@ -99,7 +98,7 @@ openxava.addEditorInitFunction(function() {
                 dateClick: function(e) {
                     if (calendarEditor.requesting) return;
                     let selectedDate = reformatDate(e.dateStr);
-                    let value = 'startDate=' + calendarEditor.startName + '_' + selectedDate;
+                    let value = 'defaultValues=' + calendarEditor.startName + ':' + selectedDate;
                     if (!getSelection().toString()) {
                         openxava.executeAction(application, module, false, false, newAction, value);
                     }

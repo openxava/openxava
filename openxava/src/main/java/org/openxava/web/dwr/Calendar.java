@@ -297,6 +297,7 @@ public class Calendar extends DWRBase {
 
 	private void setDatesProperty() {
 		List<MetaProperty> mp = new ArrayList<>(tab.getMetaTab().getMetaModel().getMetaProperties());
+		List<String> calculatedProperties = new ArrayList<>(tab.getMetaTab().getMetaModel().getCalculatedPropertiesNames());
 		String[] datesName = { "date", "fecha" };
 		int mpCount = 0;
 		List<String> dateWithTimeList = Arrays.asList("java.util.Date", "java.time.LocalDateTime",
@@ -304,7 +305,7 @@ public class Calendar extends DWRBase {
 
 		for (MetaProperty property : mp) {
 			for (String name : datesName) {
-				if (mpCount < 2 && property.getName().toLowerCase().contains(name)) {
+				if (mpCount < 2 && !calculatedProperties.contains(property.getName()) && property.getName().toLowerCase().contains(name)) {
 					if (mpCount == 0 && !property.getName().contains(".")) dateName = property.getName();
 					datesList.add(property.getName());			
 					mpCount++;
@@ -323,8 +324,7 @@ public class Calendar extends DWRBase {
 
 	private Tab setProperties(Tab tab) {
 		List<String> newTabColumn = new ArrayList<>();
-		List<String> expectedNames = Arrays.asList("name", "nombre", "title", "titulo", "description", "descripcion",
-				"number", "numero", "anyo", "fecha");
+		List<String> expectedNames = Arrays.asList("anyo", "year", "number", "numero", "name", "nombre", "title", "titulo", "description", "descripcion");
 		List<String> keysList = new ArrayList<>(tab.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
 		List<String> properties1List = new ArrayList<>();
 		List<String> properties2List = new ArrayList<>();
