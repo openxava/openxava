@@ -121,7 +121,7 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	private void resetPreferences() throws Exception {
-		getUtilClient().getPage("http://" + getHost() + ":" + getPort() + getContextPath() + "xava/resetPreferences.jsp?zxy=HOljkso83"); 
+		getUtilClient().getPage("http://" + getHost() + ":" + getPort() + getContextPath() + "xava/resetPreferences.jsp?zxy=HOljkso83");
 	}
 	
 	private static WebClient getUtilClient() throws Exception { 
