@@ -10,6 +10,7 @@ import org.openxava.calculators.*;
 import org.openxava.jpa.*;
 import org.openxava.model.*;
 import org.openxava.test.actions.*;
+import org.openxava.test.filters.*;
 
 @Entity
 @Table(name="TOrder")
@@ -21,6 +22,13 @@ import org.openxava.test.actions.*;
 	"remarks"
 )
 @View(name="ProductInDetailAsDescriptionsList", extendsView = "DEFAULT") 
+@Tabs({
+	@Tab(properties="year, number, date, customer.number, customer.name, remarks, delivered, amount"), 
+	@Tab(name="DefaultYearEnv", 
+	filter=DefaultYearEnvFilter.class,
+	properties="year, number, date, customer.number, customer.name, remarks, delivered, amount",
+	baseCondition="${year} = ?"
+)})
 public class Order extends Identifiable {
 	
 	@Column(length=4) 

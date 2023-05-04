@@ -65,7 +65,7 @@ public class Calendar extends DWRBase {
 	private List<String> datesList = new ArrayList<>();
 
 	public String getEvents(HttpServletRequest request, HttpServletResponse response, String application, String module,
-			String monthYear) throws RemoteException, JsonProcessingException, InterruptedException{
+			String monthYear) throws RemoteException, JsonProcessingException{
 		this.application = application;
 		this.module = module;
 		this.response = response;
@@ -76,8 +76,6 @@ public class Calendar extends DWRBase {
 		String tabObject = "xava_tab";
 		tab2 = getTab(request, application, module, tabObject);
 		tab = tab2.clone();
-		
-		System.out.println("antes setDatesProperty " + tab.getTableModel().getTotalSize());
 
 		setDatesProperty();
 		hasCondition = tabHasCondition(tab);
@@ -108,7 +106,6 @@ public class Calendar extends DWRBase {
 		} else {
 			event = new CalendarEvent();
 			List<String> d = obtainRowsDate(-1);
-			// aunque no es necesario, ya que se supone que no debe ser vacio el primero (0), y el segundo esta usado para la segunda fecha
 			String f = d.get(0).split("_")[0];			
 			String s = d.size() > 1 ? d.get(1).split("_")[0] : "";
 			event.startName = f.equals("")  && !s.equals("") ? s : f;
@@ -116,7 +113,6 @@ public class Calendar extends DWRBase {
 		}
 		ObjectMapper objectMapper = new ObjectMapper();
 		json = objectMapper.writeValueAsString(calendarEvents);
-		Thread.sleep(3000);
 		return json.toString();
 	}
 
@@ -199,7 +195,6 @@ public class Calendar extends DWRBase {
 			dateWithName.append(tab.getMetaProperty(i).getQualifiedName());
 			dateWithName.append("_");
 			result.add(dateWithName.toString());
-			// no usado actualmente
 			if (datesListSize == 2) {
 				dateWithName = new StringBuffer();
 				dateWithName.append(tab.getMetaProperty((i + 1)).getQualifiedName());
@@ -210,18 +205,12 @@ public class Calendar extends DWRBase {
 		} else {
 			Object value = table.getValueAt(row, i);
 			Object value2 = table.getValueAt(row, (i + 1));
-			// si la primera propiedad con nombre date o fecha es otra cosa, entonces
-			// saltearlo
 			if (verifyValue(value)) {
 				dateWithName.append(tab.getMetaProperty(i).getQualifiedName());
 				dateWithName.append("_");
 				dateWithName.append(format(value, dateWithTime, oldLib));
 				result.add(dateWithName.toString());
 			}
-			// si tengo 2 fechas, validar tambien
-			// aca hay que hacer algo para que se pueda seleccionar la fecha final, ya que
-			// cualquiera puede ser la segunda fecha
-			// en un principio conviene desactivar esto y dejar todo con inicio unicamente
 			if (datesListSize == 2) {
 				if (verifyValue(value2)) {
 					dateWithName = new StringBuffer();
@@ -235,7 +224,6 @@ public class Calendar extends DWRBase {
 		return result;
 	}
 
-	// obtengo los datos de la fila pero antes aniadir lo que esta primero
 	private String obtainRowsTitle(int row) {
 		StringBuffer result = new StringBuffer();
 		int i = properties1ListSize;
@@ -249,8 +237,6 @@ public class Calendar extends DWRBase {
 			value = table.getValueAt(row, currentColumn);
 			if (verifyValue(value)) {
 				if (result.length() > 0) result.append(" / ");
-				//result.append(tab.getMetaProperty(currentColumn).getLabel());
-				//result.append(": ");
 				result.append(format(currentColumn, value));
 			}
 		}
@@ -259,8 +245,6 @@ public class Calendar extends DWRBase {
 			value = table.getValueAt(row, currentColumn);
 			if (verifyValue(value)) {
 				if (result.length() > 0) result.append(" / ");
-				//result.append(tab.getMetaProperty(currentColumn).getLabel());
-				//result.append(": ");
 				result.append(format(currentColumn, value));
 			}
 		}
@@ -337,10 +321,10 @@ public class Calendar extends DWRBase {
 		}
 	}
 
-	private Tab setProperties(Tab tab) throws RemoteException {
+	private Tab setProperties(Tab tab) {
 		List<String> newTabColumn = new ArrayList<>();
 		List<String> expectedNames = Arrays.asList("name", "nombre", "title", "titulo", "description", "descripcion",
-				"number", "numero");
+				"number", "numero", "anyo", "fecha");
 		List<String> keysList = new ArrayList<>(tab.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
 		List<String> properties1List = new ArrayList<>();
 		List<String> properties2List = new ArrayList<>();
@@ -382,20 +366,15 @@ public class Calendar extends DWRBase {
 		properties1ListSize = properties1List.size();
 		
 		if (hasCondition) {
-			System.out.println("tiene condicion antes de aniadir propiedades " + tab.getTableModel().getTotalSize() + " - " + Arrays.toString(tab.getConditionValues()));
 			String[] conditionValues = tab.getConditionValues();
 			String[] conditionValuesTo = tab.getConditionValuesTo();
 			String[] conditionComparators = tab.getConditionComparators();
-			System.out.println(tab.getMetaTab().getPropertiesNames());
 			tab.addProperties(newTabColumn, conditionValues, conditionValuesTo, conditionComparators);
 		} else {
 			tab.clearProperties();
 			tab.addProperties(newTabColumn);
 		}
-		
-		System.out.println(tab.getMetaTab().getPropertiesNames());
-		System.out.println(tab.getTableModel().getTotalSize());
-		
+
 		return tab;
 	}
 	

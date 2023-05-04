@@ -2132,9 +2132,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 			getMetaTab().addProperty(i, propertiesName.get(i));
 			resetAfterChangeProperties();
 			if (configuration == null) saveConfiguration();
-			System.out.println(Arrays.toString(configuration.getConditionValues()));
-			System.out.println(Arrays.toString(configuration.getConditionValuesTo()));
-			System.out.println(Arrays.toString(configuration.getConditionComparators()));
 			configuration.setConditionValues(insertEmptyString(configuration.getConditionValues(), i)); 
 			configuration.setConditionValuesTo(insertEmptyString(configuration.getConditionValuesTo(), i));
 			configuration.setConditionComparators(insertEmptyString(configuration.getConditionComparators(), i));

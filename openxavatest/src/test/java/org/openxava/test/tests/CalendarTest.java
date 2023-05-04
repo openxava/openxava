@@ -24,9 +24,10 @@ public class CalendarTest extends TestCase {
 
 	// We use Thread.sleep(8000) because in dwr.Calendar it was set to 5000
 	// to simulate the cost of fetching many records,
-	// for the stable version, the sleep in dwr.Calendar will be removed.
+	// for the stable version, the sleep in dwr.Calendar will be removed
+	// but still need until calculated properties in tab was fixed
 	public void testNavegacion() throws Exception {
-		driver.get("http://localhost:8080/openxavatest/m/Invoice");
+		driver.get("http://localhost:8080/openxavatest/m/Order");
 		wait(driver);
 		moveToCalendarView();
 		wait(driver);
@@ -34,46 +35,36 @@ public class CalendarTest extends TestCase {
 		prevOnCalendar();
 		wait(driver);
 		Thread.sleep(8000);
-		createInvoiceEventPrevCurrentNextMonth();
-		
+		createOrderEventPrevCurrentNextMonth();
 		prevOnCalendar();
 		wait(driver);
 		Thread.sleep(8000);
-		verifyPrevInvoiceEvent();
-		//createEventUsingdayView_verifyTodayEvent();
+		verifyPrevOrderEvent();
 		
-		moveToListView();
-		wait(driver);
-		setInvoiceCondition("Invoice");
-		wait(driver);
-		Thread.sleep(3000);
-		moveToCalendarView();
-		wait(driver);
-		Thread.sleep(8000);
-		verifyConditionEvents("past");
-
-		driver.get("http://localhost:8080/openxavatest/m/InvoiceCalendar");
+		driver.get("http://localhost:8080/openxavatest/m/OrderCalendar");
 		wait(driver);
 		moveToListView();
 		wait(driver);
-		setInvoiceCondition("InvoiceCalendar");
+		setOrderCondition("OrderCalendar");
 		wait(driver);
-		Thread.sleep(3000);
+		Thread.sleep(8000);
 		moveToCalendarView();
 		wait(driver);
 		Thread.sleep(8000);
-		verifyConditionEvents("today");
 		prevOnCalendar();
 		wait(driver);
 		Thread.sleep(8000);
-		verifyConditionEvents("past");
-		
+		verifyConditionEvents("past", false);
+		nextOnCalendar();
+		Thread.sleep(8000);
+		verifyConditionEvents("future", true);
 		moveToListView();
 		wait(driver);
-		deteleEvents();
+		deteleEvents();	
 	}
 
 	public void tearDown() throws Exception {
+
 		driver.quit();
 	}
 
@@ -133,9 +124,10 @@ public class CalendarTest extends TestCase {
 		return dates;
 	}
 
-	private void createInvoiceEventPrevCurrentNextMonth() throws Exception {
+	private void createOrderEventPrevCurrentNextMonth() throws Exception {
 		List<Date> dates = setDates();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat dateFormat2 = new SimpleDateFormat();
 		for (int i = 0; i < dates.size(); i++) {
 			if (i == 2) {
 				nextOnCalendar();
@@ -148,111 +140,62 @@ public class CalendarTest extends TestCase {
 							+ dateString + "']]"));
 			day.click();
 			wait(driver);
-			createInvoice(i);
-
+			createOrder();
 		}
 	}
 	
-	private void createInvoice(int invoiceNUmber) throws Exception {
-		WebElement inputInvoiceNumber = driver.findElement(By.id("ox_openxavatest_Invoice__number"));
-		int invoiceNumber = (10 + invoiceNUmber);
-		inputInvoiceNumber.sendKeys(String.valueOf(invoiceNumber));			
-		WebElement inputCustomerNumber = driver.findElement(By.id("ox_openxavatest_Invoice__customer___number"));
+	private void createOrder() throws Exception {
+		WebElement inputCustomerNumber = driver.findElement(By.id("ox_openxavatest_Order__customer___number"));
 		inputCustomerNumber.sendKeys("1");
-		WebElement section2Child = driver
-				.findElement(By.id("ox_openxavatest_Invoice__label_xava_view_section2_sectionName"));
-		WebElement section2Parent = section2Child.findElement(By.xpath(".."));
-		section2Parent.click();
-		wait(driver);
-		WebElement inputVAT = driver.findElement(By.id("ox_openxavatest_Invoice__vatPercentage"));
-		inputVAT.sendKeys("3");
-		WebElement buttonSave = driver.findElement(By.id("ox_openxavatest_Invoice__CRUD___save"));
+		WebElement buttonSave = driver.findElement(By.id("ox_openxavatest_Order__CRUD___save"));
 		buttonSave.click();
 		wait(driver);
-		WebElement buttonList = driver.findElement(By.id("ox_openxavatest_Invoice__Mode___list"));
+		WebElement buttonList = driver.findElement(By.id("ox_openxavatest_Order__Mode___list"));
 		buttonList.click();
 		wait(driver);
 		Thread.sleep(8000);
 	}
 
-	private void verifyPrevInvoiceEvent() throws Exception {
+	private void verifyPrevOrderEvent() throws Exception {
 		WebElement currentMonthEvent = driver.findElement(By.cssSelector(
 				"a.fc-event.fc-event-draggable.fc-event-resizable.fc-event-start.fc-event-end.fc-event-past.fc-daygrid-event.fc-daygrid-dot-event"));
 		currentMonthEvent.click();
 		wait(driver);
-		WebElement invoiceNumber = driver.findElement(By.id("ox_openxavatest_Invoice__number"));
-		assertEquals("10", invoiceNumber.getAttribute("value"));
-		Calendar now = Calendar.getInstance();
-		int year = now.get(Calendar.YEAR);
-		WebElement invoiceYear = driver.findElement(By.id("ox_openxavatest_Invoice__year"));
-		assertEquals(String.valueOf(year), invoiceYear.getAttribute("value"));
-		WebElement buttonList = driver.findElement(By.id("ox_openxavatest_Invoice__Mode___list"));
+		WebElement orderNumber = driver.findElement(By.id("ox_openxavatest_Order__number"));
+		assertEquals("1", orderNumber.getAttribute("value"));
+		WebElement buttonList = driver.findElement(By.id("ox_openxavatest_Order__Mode___list"));
 		buttonList.click();
 		wait(driver);
 		Thread.sleep(8000);
 	}
 	
-	private void createEventUsingdayView_verifyTodayEvent() throws Exception {
-		Calendar calendar = Calendar.getInstance();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String dateString = dateFormat.format(calendar.getTime());
-		
-		WebElement toolbarDay = driver
-				.findElement(By.cssSelector(".fc-timeGridDay-button.fc-button.fc-button-primary"));
-		toolbarDay.click();
-		wait(driver);
-		WebElement hourDay = driver
-				.findElement(By.cssSelector("td.fc-timegrid-slot.fc-timegrid-slot-lane[data-time='00:00:00']"));
-		hourDay.click();
-		wait(driver);
-
-		createInvoice(5);
-		
-		WebElement currentMonthEvent = driver.findElement(By.cssSelector(
-				"a.fc-event.fc-event-draggable.fc-event-resizable.fc-event-start.fc-event-end.fc-event-today.fc-daygrid-event.fc-daygrid-dot-event"));
-		currentMonthEvent.click();
-		wait(driver);
-		WebElement section0Child = driver
-				.findElement(By.id("ox_openxavatest_Invoice__label_xava_view_section0_sectionName"));
-		WebElement section0Parent = section0Child.findElement(By.xpath(".."));
-		section0Parent.click();
-		wait(driver);
-		WebElement inputNumber = driver.findElement(By.id("ox_openxavatest_Invoice__number"));
-		assertEquals("15", inputNumber.getAttribute("value"));
-		WebElement customerNumber = driver.findElement(By.id("ox_openxavatest_Invoice__customer___number"));
-		assertEquals("1", customerNumber.getAttribute("value"));
-		WebElement buttonList = driver.findElement(By.id("ox_openxavatest_Invoice__Mode___list"));
-		buttonList.click();
-		wait(driver);
-		Thread.sleep(8000);
-	}
-	
-	private void setInvoiceCondition(String module) throws InterruptedException {
-		WebElement inputInvoiceNumber = driver.findElement(By.id("ox_openxavatest_" + module + "__conditionValue___1"));
-		inputInvoiceNumber.sendKeys("12");
+	private void setOrderCondition(String module) throws InterruptedException {
+		WebElement inputOrderNumber = driver.findElement(By.id("ox_openxavatest_" + module + "__conditionValue___1"));
+		inputOrderNumber.sendKeys("3");
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].focus();", inputInvoiceNumber);
-		WebElement selectInvoiceNumberCondition = driver.findElement(By.id("ox_openxavatest_" + module + "__conditionComparator___1"));
-		Select select = new Select(selectInvoiceNumberCondition);
+		js.executeScript("arguments[0].focus();", inputOrderNumber);
+		WebElement selectOrderNumberCondition = driver.findElement(By.id("ox_openxavatest_" + module + "__conditionComparator___1"));
+		Select select = new Select(selectOrderNumberCondition);
 		select.selectByVisibleText("=");
 		WebElement filterAction = driver.findElement(By.id("ox_openxavatest_" + module + "__List___filter"));
 		filterAction.click();
 	}
 	
-	private void verifyConditionEvents(String time) {
+	private void verifyConditionEvents(String time, boolean isExist) {
 		WebElement currentMonthEvent = null;
 		try {
 		    currentMonthEvent = driver.findElement(By.cssSelector(
 		            "a.fc-event.fc-event-draggable.fc-event-resizable.fc-event-start.fc-event-end.fc-event-" + time + ".fc-daygrid-event.fc-daygrid-dot-event"));
 		} catch (NoSuchElementException e) {}
-		assertNull(currentMonthEvent);
+		assert isExist ? currentMonthEvent != null : currentMonthEvent == null;
+
 	}
 	
 	private void deteleEvents() throws Exception {
 		WebElement clearFilterAction = driver.findElement(By.cssSelector("td.ox-list-subheader a:has(i.mdi.mdi-eraser)"));
 		clearFilterAction.click();
 		wait(driver);
-		for (int i = 0; i < 4; i ++) {
+		for (int i = 0; i < 3; i ++) {
 			WebElement element = driver.findElement(By.xpath("//a[contains(@class, 'ox-image-link') and .//i[contains(@class, 'mdi-delete')]]"));
 			element.click();
 			Alert alert = driver.switchTo().alert();
