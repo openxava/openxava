@@ -1,11 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-Pendiente:
-* FilePond actualizado a 4.30.4
-* Pruebas manuales hechas y pasada.
-- TMR ME QUEDÉ PARA PASAR SUITE 
-
+- FilePond JavaScript library used by upload editor upgraded to 4.30.4 for security reasons.
 - CKEditor replaced by TinyMCE for @TextHtml and @Discussion for security reasons.
 - Fix: Broken links in customizing doc of reference guide.
 - New property signInJSP in naviox.properties to define a custom login page.
