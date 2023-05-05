@@ -32,8 +32,7 @@ public class NaviOXServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String [] uri = request.getRequestURI().split("/");
-		// tmr if (uri.length < 3) {
-		if (uri.length < 4) { // tmr
+		if (uri.length < 4) { 
 			response.getWriter().print(XavaResources.getString(request, "module_name_missing"));
 			return;
 		}

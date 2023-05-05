@@ -15,7 +15,7 @@
 String propertyKey = request.getParameter("propertyKey");
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
-String align = p.isNumber()?"style='text-align:right'":"";
+String align = p.isNumber()?"ox-text-align-right":"";
 boolean editable="true".equals(request.getParameter("editable"));
 String disabled=editable?"":"disabled";
 String script = request.getParameter("script");
@@ -44,26 +44,33 @@ if (p.isNumber()) {
 	numericAlt = getNumericAlt(p.getSize(), p.getScale()); 
 	numericClass = "xava_numeric"; 
 }	
-
+    
 boolean fillWithZeros = "true".equals(request.getParameter("fillWithZeros"));
 if (fillWithZeros && fvalue.length() > 0) {	
 	fvalue = Strings.fix(fvalue, size, Align.RIGHT, '0');
 }
-
+    
+String im = (request.getParameter("value") != null) && (request.getParameter("value").toString().matches("[-AL0!@#$%^&*()_+={}';:\"<>.,?/` \\~]+")) ? request.getParameter("value") : "";
+if (im.length() > 1) {
+    size = im.length();
+    maxLength= im.length();
+    im = "data-inputmask=\"'mask': '" + im + "'\"";
+}
+    
 if (editable || !label) { 
 %>
 <input id="<%=propertyKey%>"
-    name="<%=propertyKey%>" class="<%=style.getEditor()%> <%=numericClass%>"
+    name="<%=propertyKey%>" class="<%=style.getEditor()%> <%=numericClass%> <%=align%>"
 	type="<%=inputType%>" 
 	tabindex="1"
 	title="<%=p.getDescription(request)%>"
-	<%=align%>
 	maxlength="<%=maxLength%>" 
 	size="<%=size%>"
 	<%=numericAlt%> 
 	value="<%=Strings.change(fvalue, "\"", "&quot;")%>"	
 	<%=disabled%>
 	<%=script%>	
+    <%=im%>
 	/>
 <%
 } else {
@@ -124,3 +131,6 @@ private String getNumericAlt(int size, int scale) {
 	}
 }
 %>
+
+    
+    

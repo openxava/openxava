@@ -73,7 +73,7 @@
 	--button-hover-color: var(--action-hover-color);
 	--button-focus-outline: var(--input-focus-border);
 	--button-hover-background: var(--action-hover-background);
-	--azure-signin-button-background: var(--background); /* tmr */
+	--azure-signin-button-background: var(--background); 
 	
 	--link-color: var(--action-color);
 	--action-link-color: var(--action-color);
@@ -257,7 +257,6 @@
 	--mobile-search-modules-filter-list-shadow: var(--button-bar-background);
 }
 
-
 @font-face {
     font-family: 'Roboto';
     src: url('../fonts/roboto-regular-webfont.woff') format('woff');
@@ -294,10 +293,15 @@ a {
 	color: var(--link-color); 
 	text-decoration: none;
 	outline: none; 
+	cursor: pointer; 
 }
 
 a:hover {
 	text-decoration: underline;
+}
+
+form {
+	display: inline;
 }
 
 .ipad input, .ipad textarea, .iphone input, .iphone textarea {
@@ -332,6 +336,10 @@ input[type="checkbox"] {
 	color: var(--xava-loading-color);
 }
 
+#xava_loading i, #xava_loading2 i {
+	vertical-align: middle;
+}  
+
 .spin {
 	animation: spin 1s infinite linear;
 }
@@ -352,6 +360,7 @@ input[type="checkbox"] {
 	font-weight: bold;
 	text-align: center;
 	font-size: 130%; 	
+	display: none;
 }
 
 #xava_processing_layer i {
@@ -379,6 +388,12 @@ input[type="checkbox"] {
 
 .xava_handle {
 	cursor: move;
+}
+
+#xava_system_error big {
+	padding: 5px;
+	font-weight: bold; 
+	color: rgb(255, 0, 0);
 }
 
 .sign-in {	 
@@ -605,6 +620,14 @@ a #loading_more_modules, a:hover #load_more_modules  {
 	margin-top: 6px;
 }
 
+#loading_more_modules {
+	display: none;
+}
+
+.ox-module {
+	display: inline;
+}
+
 A:hover .module-row, A:hover .folder-row, A:hover #organizations_index { 
 	background: var(--module-row-hover-background); 
 }
@@ -684,6 +707,16 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 	padding-right: 25px;
 }
 
+.ox-date-calendar a {  
+	position: relative; 
+	right: 25px;
+}
+
+.ox-web-url a {
+	position: relative; 
+	right: 25px;" 
+}
+
 .flatpickr-day.selected {
 	background: var(--calendar-selected-day) !important;
 	border-color: transparent !important;
@@ -712,6 +745,22 @@ input[type="radio"] {
 
 .ox-list-subheader input[type="text"] { 
     height: 28px;
+    width: 100%; 
+    box-sizing: border-box; 
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box;
+}
+
+.ox-list-subheader select {
+	width: 100%;
+}
+
+.ox-list-subheader-resize {
+	padding-right: 12px;
+}
+
+.ox-list-subheader-no-resize {
+	padding-right: 2px;
 }
 
 select:not([multiple]) { 
@@ -878,6 +927,23 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	padding: 6px 6px 6px 0px;  
 }
 
+.ox-button-bar .ox-button-bar-button a img {
+	vertical-align: text-top;  
+	padding-left: 7px;
+} 
+
+.ox-button-bar > div:first-child > span:first-child {
+	 float: left;
+}
+
+.ox-button-bar > div:last-child > span:first-child {
+	 float: right;
+}
+
+.ox-button-bar > div:last-child > span:first-child > span:first-child {
+	 float: left;
+}
+
 @media only screen and (max-width: 870px) {
 	.ox-button-bar .ox-action-label {
 		display: none;
@@ -888,6 +954,59 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	.ox-button-bar .ox-button-bar-button a {  
         padding-left: 4px;
 	}
+}
+
+.ox-display-block {
+	display: block;
+}
+
+.ox-display-none {
+	display: none;
+}
+
+.ox-display-inline {
+	display: inline;
+}
+
+.ox-padding-right-0 {
+	padding-right: 0px;
+}
+
+.ox-text-align-right { 
+	text-align: right;
+}
+
+.ox-text-align-center { 
+	text-align: center;
+}
+
+.ox-vertical-align-middle {
+	vertical-align: middle;
+}
+
+.ox-vertical-align-bottom {
+	vertical-align: bottom;
+}
+
+.ox-vertical-align-sub {
+	vertical-align: sub;
+}
+
+
+.ox-overflow-auto {
+	overflow: auto;
+}
+
+.ox-visibility-hidden {
+	visibility: hidden;
+}
+
+.ox-width-100 {
+	width: 100%;
+}
+
+.ox-color-inherit, .ox-color-inherit:hover {
+	color: inherit;
 }
 
 .ox-collection-list-actions .ox-button-bar-button a {
@@ -966,6 +1085,15 @@ i.module-loading  {
 	font-size: 150%;
 }
 
+.module-name .module-loading {
+	float: right; 
+	display:none;
+}
+
+.loading_more_modules .module-loading {
+	float: right;
+}
+
 .mobile i.module-loading, .mobile #loading_more_elements  {
 	color: var(--mobile-icon-module-loading-color);
 }
@@ -1026,8 +1154,51 @@ i {
     font-weight: bold;
 }
 
+.ox-tree-collection {
+	 visibility: hidden; 
+}
+
+.ox-tree-collection, .ox-tree-collection > table, .ox-tree-collection input[type="checkbox"] {
+	height:0px;
+}
+
+.ox-list.ox-select-columns-list {
+	margin-bottom: 5px;
+}
+
+.ox-select-columns-list tr:first-child {
+	height: 0px;
+}
+
+.ox-list.ox-select-columns-list tr:last-child td:last-child a {
+	margin-left: 0px;
+	padding-left: 0px;
+}
+
+.ox-list-action-cell {
+	vertical-align: middle;
+	text-align: center;
+	padding-right: 2px;
+}
+
+.ox-list-data-cell {
+	padding-right: 0px;
+	vertical-align: middle;
+}
+
+.ox-list-data-cell > a > div {
+	overflow: hidden; 
+	display:grid; 
+	align-items: center; 
+	height: 100%; 
+}
+
 .ox-list-odd i, .ox-list-pair i {
 	vertical-align: -7px;
+}
+
+tr.ox-list-odd, tr.ox-list-pair {
+	border-bottom: 1px solid;
 }
 
 .ox-list-odd .ox-image-link, .ox-list-pair .ox-image-link {
@@ -1192,13 +1363,15 @@ input[type="button"]:focus {
 }
 
 .ox-bottom-buttons input:nth-of-type(2), 
+.ox-bottom-buttons a:nth-of-type(1) input, 
 .ox-discussion-post-button input[type="button"]:nth-of-type(1) {
 	background: var(--default-action-button-background);
 	color: var(--default-action-button-color);
 	box-shadow: 0px 1px 3px var(--default-action-button-shadow); 
 }
 
-.ox-bottom-buttons input:nth-of-type(2):hover, 
+.ox-bottom-buttons input:nth-of-type(2):hover,
+.ox-bottom-buttons a:nth-of-type(1) input:hover,  
 .ox-discussion-post-button input:nth-of-type(1):hover {
 	color: var(--default-action-button-hover-color); 
 	background: var(--default-action-button-hover-background);
@@ -1224,6 +1397,18 @@ input[type="button"] {
 	background: var(--delete-button-hover-background);
 	color: var(--delete-button-hover-color);
 	box-shadow: none; 
+}
+
+.ox-bottom-buttons button {
+	padding: 0; 
+	border: none; 
+	background-color:transparent; 
+	size: 0;
+}
+
+.ox-core-bottom-buttons-separator {
+	clear: both; 
+	padding-top: 2px;
 }
 
 .ox-button-bar a[id*="delete"]:hover i {
@@ -1339,8 +1524,16 @@ input[type="button"] {
 	border-bottom-style: hidden; 
 }
 
+
+
 .ox-element-collection-data-cell .ox-image-link {
 	display: none;
+}
+
+.ox-element-collection-search-action-cell {
+	vertical-align: middle; 
+	padding-left: 3px; 
+	padding-right: 0px;
 }
 
 .selected-row, .selected-row td {
@@ -1381,7 +1574,8 @@ input[type="button"] {
 }
 
 .ox-detail {
-	margin: 8px 10px 0px 12px;  
+	margin: 8px 10px 0px 12px;
+	padding-top: 2px;   
 }
 
 .ox-flow-layout, .ox-frame .ox-flow-layout > div.ox-flow-layout { 
@@ -1449,7 +1643,6 @@ input[type="button"] {
 	box-shadow: 0px 0px 3px var(--shadow) !important; 
 }
 
-/* tmr ini */
 #sign_in_box .ox-image-link {
     display: none;
 }
@@ -1457,7 +1650,6 @@ input[type="button"] {
 input[id$="_SignIn__Azure___signInWithAzureAD"] {
     background: var(--azure-signin-button-background);
 }
-/* tmr fin */
 
 .ox-frame {
 	background: linear-gradient(
@@ -1554,6 +1746,12 @@ input[id$="_SignIn__Azure___signInWithAzureAD"] {
 	text-align: right;
 }
 
+.ox-total-cell > div, .ox-total-capable-cell > div, 
+.ox-list-header > div, .ox-element-collection-data-cell > div,
+td.ox-list-subheader > div {
+	overflow: hidden; 
+}
+
 .ox-total-row td { 
 	vertical-align: baseline; 
 	padding-top: 5px;	
@@ -1561,6 +1759,12 @@ input[id$="_SignIn__Azure___signInWithAzureAD"] {
 
 .ox-total-label-cell { 
 	font-weight: bold;
+	vertical-align: middle; 
+	text-align: right;
+}
+
+.ox-total-label-cell > div {
+	overflow: hidden;
 }
 
 .ox-frame .ox-list-header {
@@ -1595,6 +1799,11 @@ input[id$="_SignIn__Azure___signInWithAzureAD"] {
 
 .ox-list-info-detail { 
 	padding-right: 20px;
+}
+
+.ox-list-info-detail td:last-child {
+	text-align: right; 
+	vertical-align: middle;
 }
  
 .ui-dialog .ox-detail {
@@ -1670,6 +1879,7 @@ input[id$="_SignIn__Azure___signInWithAzureAD"] {
 	color: var(--message-box-close-color); 
 	float: right;
 	margin-left: 10px;
+	cursor: pointer; 
 }
 
 .ox-message-box .mdi-close:hover {
@@ -1722,9 +1932,17 @@ input[id$="_SignIn__Azure___signInWithAzureAD"] {
 	margin-right: -7px;  
 }
 
-.ox-subcontroller-button  .mdi-menu-down {
+.ox-subcontroller-button .mdi-menu-down {
 	margin: 0px !important; 
 	margin-right: -5px !important;
+}
+
+.ox-subcontroller {
+	display:none;
+}
+
+.ox-subcontroller-button img {
+	padding-right: 4px;
 }
 
 .ox-subcontroller, .ui-autocomplete { 
@@ -1951,6 +2169,11 @@ div.ox-subcontroller table{
 	padding: 20px 20px 5px 5px;	
 }
 
+.ox-chart-data .ct-chart {
+	width: calc(100vw - 385px); 
+	height: calc(100vh - 300px);
+}
+
 .firefox .ct-chart {
 	margin-left: -25px;
 }
@@ -2012,6 +2235,8 @@ div.ox-subcontroller table{
 .ox-selected-chart-type i {
 	color: var(--selected-chart-type-icon-color);
 	border-bottom: 3px solid var(--selected-chart-type-icon-border-bottom);
+	pointer-events: none; 
+	cursor: default;
 }
 
 .ox-charts .ox-list {
@@ -2699,4 +2924,10 @@ div[id$="_Index__view"] .ox-list-title {
 	margin-left: 3px; 
 	border: none; 
 	text-overflow: ellipsis;
+}
+
+.ox-list-boolean-icon {
+	display: inline-block; 
+	width: calc(100% - 10px); 
+	text-align: center;
 }

@@ -32,10 +32,12 @@
 			if ("application".equals(name) || "module".equals(name))
 				continue;
 			String value = request.getParameter(name);
-			result.append('&');
-			result.append(name);
-			result.append('=');
-			result.append(value);
+			if (!Is.emptyString(value) && !(value.contains("<") || value.contains("\""))) { // If change pass the ZAP test again
+				result.append('&');
+				result.append(name);
+				result.append('=');
+				result.append(value);
+			} 
 		}
 		return result.toString();
 	}%>
@@ -133,7 +135,7 @@
 	<script type='text/javascript' src='<%=contextPath%>/dwr/interface/Tab.js?ox=<%=version%>'></script>
 	<script type='text/javascript' src='<%=contextPath%>/dwr/interface/View.js?ox=<%=version%>'></script>
 	<script type='text/javascript' src='<%=contextPath%>/xava/js/openxava.js?ox=<%=version%>'></script>
-	<script type='text/javascript'>
+	<script type='text/javascript' <xava:nonce/>> 
 		openxava.lastApplication='<%=app%>'; 		
 		openxava.lastModule='<%=module%>'; 
 		openxava.language='<%=Locales.getCurrent().getLanguage()%>'; 
@@ -154,9 +156,13 @@
 	<script type='text/javascript' src='<%=contextPath%>/xava/js/typewatch.js?ox=<%=version%>'></script>
 
 	<%
+	String browser = request.getHeader("user-agent"); 
+	boolean browserIsHtmlUnit = browser != null && browser.contains("HtmlUnit");
 	for (String editorJS: EditorsResources.listJSFiles(realPath)) {
-	%>
-	<script type="text/javascript" charset="ISO-8859-1" src="<%=contextPath%>/xava/editors/<%=editorJS%>?ox=<%=version%>"></script>
+		if (browserIsHtmlUnit && editorJS.equals("js/tinymce.js")) continue; // Ad hoc, we should move this outside OpenXava core, in a file or following convention
+        String encoding = editorJS.toLowerCase().endsWith("-utf8.js") ? "UTF-8" : "ISO-8859-1"; 
+    %>
+	<script type="text/javascript" charset="<%=encoding%>" src="<%=contextPath%>/xava/editors/<%=editorJS%>?ox=<%=version%>"></script>
 	<%
 	}
 	
@@ -199,14 +205,14 @@ if (manager.isResetFormPostNeeded()) {
 	<input id="<xava:id name='loading'/>" type="hidden" value="<%=coreViaAJAX%>"/>
 	<input id="<xava:id name='loaded_parts'/>" type="hidden" value=""/>
 	<input id="<xava:id name='view_member'/>" type="hidden" value=""/>
-		
+			
 	<%-- Layer for progress bar --%>
-	<div id='xava_processing_layer' style='display:none;'>
+	<div id='xava_processing_layer'>
 		<%=XavaResources.getString(request, "processing")%><br/>
 		<i class="mdi mdi-settings spin"></i>
 	</div>	
 	<%=style.getCoreStartDecoration()%>
-	<div id="<xava:id name='core'/>" style="display: inline;" class="<%=style.getModule()%>">
+	<div id="<xava:id name='core'/>" class="ox-module">
 		<%			
 			if (!coreViaAJAX) {
 		%>
@@ -224,12 +230,12 @@ if (manager.isResetFormPostNeeded()) {
 	<div id="xava_console" >
 	</div>
 	<div id="xava_loading">				
-		<i class="mdi mdi-autorenew module-loading spin" style="vertical-align: middle"></i>
+		<i class="mdi mdi-autorenew module-loading spin"></i>
 		&nbsp;<xava:message key="loading"/>...		 
 	</div>
 	<% if (!style.isFixedPositionSupported()) { %>
 	<div id="xava_loading2">
-		<i class="mdi mdi-autorenew module-loading spin" style="vertical-align: middle"></i>
+		<i class="mdi mdi-autorenew module-loading spin"></i>
 		&nbsp;<xava:message key="loading"/>...
 	</div>	
 	<% } %>	
@@ -250,10 +256,9 @@ if (manager.isResetFormPostNeeded()) {
 	$("#xava_reset_form").submit();
 	</script>		
 <% } else  { 		
-		String browser = request.getHeader("user-agent"); 
 %>
 
-<script type="text/javascript">
+<script type="text/javascript" <xava:nonce/>> 
 <%String prefix = Strings.change(manager.getApplicationName(), "-",
 					"_")
 					+ "_" + Strings.change(manager.getModuleName(), "-", "_");
@@ -292,7 +297,7 @@ if (manager.isResetFormPostNeeded()) {
 		<% if (XavaPreferences.getInstance().isEnterMovesToNextField()) { %>
 		openxava.initFocusKey = openxava.setEnterAsFocusKey;
 		<% } %>
-		<% if (browser != null && browser.contains("HtmlUnit")) { // Because of low performance of fadeIn with HtmlUnit %>
+		<% if (browserIsHtmlUnit) { // Because of low performance of fadeIn with HtmlUnit %>  
 		openxava.fadeIn = openxava.show;
 		openxava.browser.htmlUnit = true; 
 		<% } %>
@@ -308,7 +313,7 @@ if (manager.isResetFormPostNeeded()) {
 		openxava.setFocus("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>"); 
 		<%}%>
 		openxava.<%=initiated%> = true;
-	}	
+	}
 }
 <%=onLoadFunction%>();
 </script>

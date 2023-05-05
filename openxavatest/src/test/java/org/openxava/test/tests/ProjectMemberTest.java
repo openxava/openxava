@@ -27,7 +27,7 @@ public class ProjectMemberTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		assertValue("name", "THE BIG PROJECT");
 		assertCollectionRowCount("members", 4);
-		assertValueInCollection("members", 0, 0, "JOHN");
+		assertValueInCollection("members", 0, 0, "JOHN"); 
 		assertValueInCollection("members", 1, 0, "JUAN");
 		assertValueInCollection("members", 2, 0, "PETER");
 		assertValueInCollection("members", 3, 0, "JUNIT PROJECT MEMBER");
@@ -51,7 +51,7 @@ public class ProjectMemberTest extends ModuleTestBase {
 		changeModule("Project");
 		execute("List.viewDetail", "row=0");
 		assertValue("name", "THE BIG PROJECT");
-		assertCollectionRowCount("members", 3);
+		assertCollectionRowCount("members", 3); 
 		assertValueInCollection("members", 0, 0, "JOHN");
 		assertValueInCollection("members", 1, 0, "JUAN");
 		assertValueInCollection("members", 2, 0, "PETER");		

@@ -35,8 +35,7 @@ public class SignInHelperProvider implements ISignInHelperProvider {
 	private static Log log = LogFactory.getLog(SignInHelperProvider.class);
 	private Properties users;
 	
-	// tmr public String init(HttpServletRequest request, View view) {
-	public String [] init(HttpServletRequest request, View view) { // tmr ¿En migration? ¿Modificar doc sobre personalizar signin?
+	public String [] init(HttpServletRequest request, View view) { 
 		return null;
 	}
 	
@@ -81,7 +80,7 @@ public class SignInHelperProvider implements ISignInHelperProvider {
 		return users;		
 	}
 
-	public String getSignInURL() { // tmr
+	public String getSignInURL() { 
 		return null;
 	}
 

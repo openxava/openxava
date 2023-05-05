@@ -22,14 +22,8 @@ import com.openxava.naviox.impl.*;
 public class InitSignInAction extends ViewBaseAction {  
 
 	public void execute() throws Exception {
-		/* tmr
-		String actionToAdd = SignInHelper.init(getRequest(), getView());
-		if (actionToAdd != null) addActions(actionToAdd);
-		*/
-		// tmr ini
 		String [] actionToAdds = SignInHelper.init(getRequest(), getView());
 		if (actionToAdds != null) addActions(actionToAdds);		
-		// tmr fin
 	}
 
 }

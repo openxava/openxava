@@ -23,7 +23,7 @@ String collectionArgv = Is.emptyString(collection)?"":"collection="+collection;
 	<%-- conditionValueTo: we need all indexes to implement the range filters --%>
 </div>
 
-<select name="<xava:id name='<%=prefix + "conditionComparator."  + index%>'/>" style="width: 100%;" class=<%=style.getEditor()%>
+<select name="<xava:id name='<%=prefix + "conditionComparator."  + index%>'/>" class=<%=style.getEditor()%>
 <% if(filterOnChange) { %>
 	onchange="openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '', false, 'List.filter','<%=collectionArgv%>')"
 <% } %>

@@ -48,7 +48,12 @@ public class DeliveryTest extends ModuleTestBase {
 		super(testName, "Delivery");		
 	}
 	
-	public void testChangeNameOfGroupAndSection() throws Exception {  
+	public void testChangeNameOfGroupAndSection_showCalendarEditorWithDate() throws Exception {  
+		execute("ListFormat.select", "editor=Cards");
+		HtmlElement div = (HtmlElement) getHtmlPage().getElementById("xava_calendar");
+		assertNoErrors();
+		execute("ListFormat.select", "editor=List");
+		
 		execute("CRUD.new");
 		assertLabel("number", "Number");
 		assertLabel("deliveryData", "Delivery data");

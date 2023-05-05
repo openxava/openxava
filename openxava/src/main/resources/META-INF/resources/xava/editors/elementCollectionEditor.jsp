@@ -30,27 +30,23 @@ String idCollection = org.openxava.web.Collections.id(request, collectionName);
 String propertyPrefixAccumulated = request.getParameter("propertyPrefix");
 String propertyPrefix = propertyPrefixAccumulated == null?collectionName + ".":propertyPrefixAccumulated + collectionName + ".";
 
-String rowStyle = "border-bottom: 1px solid;";
 boolean resizeColumns = style.allowsResizeColumns() && XavaPreferences.getInstance().isResizeColumns();
-String browser = request.getHeader("user-agent");
-boolean scrollSupported = !(browser != null && (browser.indexOf("MSIE 6") >= 0 || browser.indexOf("MSIE 7") >= 0));
-String styleOverflow = org.openxava.web.Lists.getOverflow(browser, subview.getMetaPropertiesList());
-String collectionClass = subview.isEditable()?"class='" + style.getElementCollection() + "'":"";
+String collectionClass = subview.isEditable()?"ox-element-collection":"";
 boolean sortable = subview.isCollectionSortable();
 String removeSelectedAction = subview.getRemoveSelectedCollectionElementsAction();
 boolean suppressRemoveAction = removeSelectedAction != null && "".equals(removeSelectedAction);
 boolean labelOnEachCell = "true".equals(request.getParameter("labelOnEachCell"));
 boolean hideTotals = "true".equals(request.getParameter("hideTotals"));
 %>
-<div <%=collectionClass%>>
-<% if (resizeColumns && scrollSupported) { %> 
-<div class="<xava:id name='collection_scroll'/>" style="<%=styleOverflow%>">
+<div class="<%=collectionClass%> ox-overflow-auto">
+<% if (resizeColumns) { %> 
+<div class="<xava:id name='collection_scroll'/>">
 <% } %>
-<table id="<xava:id name='<%=idCollection%>'/>" class="<%=style.getList()%>" <%=style.getListCellSpacing()%> style="<%=style.getListStyle()%>">
+<table id="<xava:id name='<%=idCollection%>'/>" class="ox-list" <%=style.getListCellSpacing()%>>
 <% if (sortable) { %><tbody class="xava_sortable_elements"><% } %> 
-<tr class="<%=style.getListHeader()%>">
+<tr class="ox-list-header">
 	<% if (subview.isCollectionEditable()) { %>
-	<th class=<%=style.getListHeaderCell()%> width="5"/>
+	<th class="ox-list-header" width="5"/>
 	<% } %>
 <%
 	// Heading
@@ -59,7 +55,7 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 	MetaProperty p = (MetaProperty) it.next();	
 	String label = p.getQualifiedLabel(request);
 	int columnWidth = subview.getCollectionColumnWidth(columnIndex);
-	String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px";
+	String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
 	MetaReference ref = null;	
 	if (p.getName().contains(".")) {
 		String refName = org.openxava.util.Strings.noLastTokenWithoutLastDelim(p.getName(), ".");
@@ -94,8 +90,8 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 		}
 	}
 %>
-	<th <%=headerId%> <%=dataDefaultValue%> class=<%=style.getListHeaderCell()%> style="padding-right: 0px">
-		<div id="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):(""))%>" style="overflow: hidden; <%=width%>" >
+	<th <%=headerId%> <%=dataDefaultValue%> class="ox-list-header ox-padding-right-0">
+		<div id="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):(""))%>" <%=width%>>
 		<%if (resizeColumns) {%><nobr><%}%>
 		<%=label%>&nbsp;
 		<%if (resizeColumns) {%></nobr><%}%>
@@ -115,21 +111,21 @@ Collection values = subview.getCollectionValues();
 if (values == null) values = java.util.Collections.EMPTY_LIST;
 int rowCount = subview.isCollectionEditable()?values.size() + 2:values.size(); 
 for (int f=0; f < rowCount; f++) {
-	String cssClass=f%2==0?style.getListPair():style.getListOdd();
-	String cssCellClass=f%2==0?style.getListPairCell():style.getListOddCell();
+	String cssClass=f%2==0?"ox-list-pair":"ox-list-odd";
+	String cssCellClass=f%2==0?"ox-list-pair":"ox-list-odd";
 	String idRow = Ids.decorate(request, propertyPrefix) + f;	
 	String events=f%2==0?style.getListPairEvents():style.getListOddEvents();
-	String newRowStyle = subview.isCollectionEditable() && f == rowCount - 1?"display: none;":"";
+	String newRowStyle = subview.isCollectionEditable() && f == rowCount - 1?"ox-display-none":"";
 	String lastRowEvent = subview.isCollectionEditable() && f >= rowCount - 2?"onchange='elementCollectionEditor.onChangeRow(this, "+  f + ")'":"";
-	String actionsStyle = subview.isCollectionEditable() && f >= rowCount - 2?"style='visibility:hidden;'":"";
+	String actionsStyle = subview.isCollectionEditable() && f >= rowCount - 2?"class='ox-visibility-hidden'":"";
 	String app = request.getParameter("application");
 	String module = request.getParameter("module");
 	boolean hasTotals = subview.hasCollectionTotals();
 	String sortableClass = subview.isCollectionEditable() && f >= rowCount - 2?"":"xava_sortable_element_row";
 %>
-<tr id="<%=idRow%>" class="<%=cssClass%> <%=sortableClass%>" <%=events%> style="border-bottom: 1px solid; <%=newRowStyle%>">
+<tr id="<%=idRow%>" class="<%=cssClass%> <%=sortableClass%> <%=newRowStyle%>" <%=events%>>
 <% if (subview.isCollectionEditable()) { %>
-	<td class="<%=cssCellClass%>" style="vertical-align: middle;text-align: center;padding-right: 2px; <%=style.getListCellStyle()%>">
+	<td class="<%=cssCellClass%> ox-list-action-cell">
 	<nobr <%=actionsStyle%>>
 	<%if (sortable) { %>
 	<i class="xava_handle mdi mdi-swap-vertical"></i>
@@ -161,10 +157,9 @@ for (int f=0; f < rowCount; f++) {
 	it = subview.getMetaPropertiesList().iterator();	
 	for (int columnIndex = 0; it.hasNext(); columnIndex++) { 
 		MetaProperty p = (MetaProperty) it.next();
-		String align =p.isNumber() && !p.hasValidValues()?"vertical-align: middle;text-align: right; ":"vertical-align: middle; "; 
-		String cellStyle = style.getListCellStyle() + align;
+		String align =p.isNumber() && !p.hasValidValues()?"ox-text-align-right":""; 
 		int columnWidth = subview.getCollectionColumnWidth(columnIndex);
-		String width = columnWidth<0 || !resizeColumns?"":"width: " + columnWidth + "px";
+		String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
 		String referenceName = null;
 		String searchAction = null;
 		if (p.getName().contains(".")) {
@@ -185,11 +180,11 @@ for (int f=0; f < rowCount; f++) {
 			fvalue = org.openxava.web.WebEditors.formatToStringOrArray(request, p, value, errors, view.getViewName(), false);
 		}
 %>
-	<td class="<%=cssCellClass%> <%=style.getElementCollectionDataCell()%>" style="<%=cellStyle%>; padding-right: 0px">
+	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell">
 		<% if (labelOnEachCell) { %>
 			<span class="<%=style.getLabel()%>"><%=p.getQualifiedLabel(request)%></span>
 		<% } %>
-		<div class="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" style="overflow: hidden; <%=width%>" <%=lastRowEvent%>>
+		<div class="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" <%=width%> <%=lastRowEvent%>>
 		<nobr> 
 		<% if (!subview.isCollectionMembersEditables()) {%>
 			<% if (referenceName == null) { %>
@@ -208,7 +203,7 @@ for (int f=0; f < rowCount; f++) {
 		</div>
 	</td>		
 	<% if (searchAction != null && subview.isLastSearchKey(p.getName())) {	%>
-	<td class="<%=cssCellClass%>" style="<%=cellStyle%>; padding-left: 3px; padding-right: 0px;">
+	<td class="<%=cssCellClass%> <%=align%> ox-element-collection-search-action-cell">
 		<xava:action action='<%=searchAction%>' argv='<%="keyProperty="+propertyName%>'/> 								
 	</td>
 	<% } %>
@@ -222,7 +217,7 @@ for (int f=0; f < rowCount; f++) {
 <% } %> 
 <% if (sortable) { %></tbody><% } %>
 </table>
-<% if (resizeColumns && scrollSupported) { %>
+<% if (resizeColumns) { %>
 </div>
 <% } %>
 </div> 

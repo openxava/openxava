@@ -30,6 +30,7 @@ openxava.ajaxRequest = function(application, module, firstRequest, inNewWindow) 
 	if (inNewWindow) {
 		openxava.newWindow = window.open('', '_blank'); 
 	}
+	openxava.preRequestEditors(); 
 	Module.request(
 			application, module, document.additionalParameters,			
 			openxava.getFormValues(openxava.getForm(application, module)), 
@@ -210,11 +211,43 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initPlaceholder();
 	openxava.listenChanges(); 
 	openxava.initFocusKey();
+	openxava.initInlineEvents(); 
   	$('#xava_save_list_configuration').fadeIn(1000, 'swing'); 
 }
 
+openxava.initFocusKey = function() { }
 
-openxava.initFocusKey = function() { } 
+openxava.initInlineEvents =  function() {
+	$('[onclick]').each(function() {
+  		$(this).off('click').click(function() {
+  			eval($(this).attr('onclick'));
+		});
+	});
+	$('a[href^="javascript:"]').each(function() {
+		if ($(this).attr('href') != "javascript:void(0)") {
+			$(this).attr("onclicke", $(this).attr('href'));
+			$(this).attr("href", "javascript:void(0)");
+		}
+  		$(this).off('click').click(function() {
+  			eval($(this).attr('onclicke'));
+		});
+	});
+    $('[onchange]').each(function() {	
+  		$(this).off('change').change(function() {
+  			eval($(this).attr('onchange'));
+		});
+	});
+    $('[onblur]').each(function() {
+  		$(this).blur(function() { 
+  			eval($(this).attr('onblur'));
+		});
+	});
+	$('[onfocus]').each(function() {	
+  		$(this).off('focus').focus(function() {
+  			eval($(this).attr('onfocus'));
+		});
+	});
+}
 
 openxava.setEnterAsFocusKey = function() {
 	var focusables = $('input:focusable[tabindex="1"], select:focusable[tabindex="1"], textarea:focusable[tabindex="1"]');
@@ -428,7 +461,10 @@ openxava.updateRootIds = function(application, moduleFrom, moduleTo) {
 				openxava.decorateId(application, moduleTo, "view_member");	
 }
 
-openxava.initLists = function(application, module) {  
+openxava.initLists = function(application, module) {
+	$("[data-width]").each(function() {
+		$(this).width($(this).data("width"));		
+	});
 	$(".xava_resizable").resizable({
 		handles: 'e',
 		resize: function(event, ui) { 
@@ -471,6 +507,7 @@ openxava.initLists = function(application, module) {
 	    	var tableId = table.attr("id");
 	    	View.moveCollectionElement(tableId, ui.item.startPos - 1, ui.item.index() - 1);
 	    	openxava.renumberCollection(table);
+	  		openxava.initInlineEvents(); 
 	    }	
 	});
 	openxava.watchColumnsSearch();
@@ -482,8 +519,8 @@ openxava.initLists = function(application, module) {
 openxava.renumberCollection = function(table) { 
 	table.find("tr").each(function(rowIndex) {
 		$(this).find("a").each(function() {
-			var newHref = $(this).attr("href")
-				.replace(new RegExp("'row=\\d+,viewObject=", "g"), "'row=" + (rowIndex - 1) + ",viewObject=")
+			var newHref = $(this).attr("onclicke")
+				.replace(new RegExp("'row=\\d+,viewObject=", "g"), "'row=" + (rowIndex - 1) + ",viewObject=");
 			$(this).attr("href", newHref);
 		});
 	});
@@ -546,6 +583,20 @@ openxava.addEditorInitFunction = function(initFunction) {
 		openxava.editorsInitFunctions = new Array();	
 	}
 	openxava.editorsInitFunctions.push(initFunction);	
+}
+
+openxava.addEditorPreRequestFunction = function(preRequestFunction) {  
+	if (openxava.editorsPreRequestFunctions == null) {
+		openxava.editorsPreRequestFunctions = new Array();	
+	}
+	openxava.editorsPreRequestFunctions.push(preRequestFunction);	
+}
+
+openxava.preRequestEditors = function() {   
+	if (openxava.editorsPreRequestFunctions == null) return;	
+	for (var i in openxava.editorsPreRequestFunctions) {
+		openxava.editorsPreRequestFunctions[i]();
+	}
 }
 
 openxava.destroyEditors = function() {   
@@ -632,7 +683,7 @@ openxava.decorateId = function(application, module, simpleName) {
 
 openxava.systemError = function(result) { 
 	document.body.style.cursor='auto';	
-	openxava.getElementById(result.application, result.module, "core").innerHTML="<big id='xava_system_error'><big style='padding: 5px;font-weight: bold; color: rgb(255, 0, 0);'>ERROR: " + result.error + "</big></big>";
+	openxava.getElementById(result.application, result.module, "core").innerHTML="<big id='xava_system_error'><big>ERROR: " + result.error + "</big></big>";
 }
 
 openxava.processKey = function(event) {	
@@ -788,7 +839,7 @@ openxava.executeActionConfirmLosesChangedData = function(application, module, co
 	openxava.executeAction(application, module, confirmMessage, takesLong, action, argv, range, alreadyProcessed, inNewWindow);
 }
 
-openxava.executeAction = function(application, module, confirmMessage, takesLong, action, argv, range, alreadyProcessed, inNewWindow) { 
+openxava.executeAction = function(application, module, confirmMessage, takesLong, action, argv, range, alreadyProcessed, inNewWindow) {
 	if (confirmMessage != "" && !confirm(confirmMessage)) return;
 	if (takesLong) { 
 		$('#xava_processing_layer').fadeIn(); 

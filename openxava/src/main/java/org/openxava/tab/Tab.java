@@ -32,6 +32,7 @@ import org.openxava.web.*;
  * @author Javier Paniza
  * @author Ana Andrés
  * @author Trifon Trifonov
+ * @author Chungyen Tsai
  */
 
 public class Tab implements java.io.Serializable, Cloneable { 
@@ -2120,6 +2121,36 @@ public class Tab implements java.io.Serializable, Cloneable {
 		if (configuration.isAll() || configuration.hasCustomName()) { 
 			saveConfigurationPreferences(false);
 		} 
+	}
+	
+	
+	/**
+	 * 
+	 * Add properties without using old configuration. 
+	 * 
+	 * @since 7.1
+	 */
+	public void addProperties(List<String> propertiesName, String[] conditionValues, String[] conditionValuesTo, String[] conditionComparators) throws XavaException {
+		cloneMetaTab();
+		configuration.setConditionValues(conditionValues);
+		configuration.setConditionValuesTo(conditionValuesTo);
+		configuration.setConditionComparators(conditionComparators);
+		
+		for (int i = 0; i < propertiesName.size(); i++) {
+			getMetaTab().addProperty(i, propertiesName.get(i));
+			resetAfterChangeProperties();
+			if (configuration == null) saveConfiguration();
+			configuration.setConditionValues(insertEmptyString(configuration.getConditionValues(), i)); 
+			configuration.setConditionValuesTo(insertEmptyString(configuration.getConditionValuesTo(), i));
+			configuration.setConditionComparators(insertEmptyString(configuration.getConditionComparators(), i));
+			configuration.setPropertiesNames(getPropertiesNamesAsString());
+			applyConfiguration(); 
+			if (configuration.isAll() || configuration.hasCustomName()) { 
+				saveConfigurationPreferences(false);
+			} 
+		}
+		
+
 	}
 	
 	private String [] growWithEmptyStrings(String [] original, int size) { 

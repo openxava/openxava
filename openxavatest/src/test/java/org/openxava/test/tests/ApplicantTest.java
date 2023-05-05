@@ -159,7 +159,7 @@ public class ApplicantTest extends ModuleTestBase {
 		HtmlAnchor loadMoreModules = (HtmlAnchor) getHtmlPage().getHtmlElementById("more_modules").getParentNode();
 		loadMoreModules.click();
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		assertModulesCount(60); // We have to adjust this when we add new modules that content "invoice" 
+		assertModulesCount(61); // We have to adjust this when we add new modules that content "invoice" 
 		
 		
 		searchBox.type(" \b");
@@ -305,7 +305,7 @@ public class ApplicantTest extends ModuleTestBase {
 		hideButton.click();
 		Thread.sleep(500);
 		
-		assertFalse(modulesList.isDisplayed());
+		assertFalse(modulesList.isDisplayed()); 
 		assertTrue(menuButton.isDisplayed());
 		assertTrue(extendedTitle.isDisplayed());
 		assertFalse(hideButton.isDisplayed());

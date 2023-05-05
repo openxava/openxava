@@ -25,9 +25,8 @@ import org.openxava.view.*;
 
 public interface ISignInHelperProvider {
 	
-	/** @return Qualified name of the action to add, or null if none. */
-	// tmr String init(HttpServletRequest request, View view);
-	String [] init(HttpServletRequest request, View view); // tmr
+	/** @return Qualified names of the actions to add, or null if none. */
+	String [] init(HttpServletRequest request, View view); 
 	
 	void initRequest(HttpServletRequest request, View view);
 	
@@ -40,5 +39,5 @@ public interface ISignInHelperProvider {
 	/**
 	 * @since 7.1 
 	 */
-	String getSignInURL(); // tmr ¿En migration? 
+	String getSignInURL();  
 }

@@ -29,6 +29,8 @@ public class ColorTest extends ModuleTestBase {
 	}
 	
 	public void testSubcontroller() throws Exception {
+		getWebClient().getOptions().setCssEnabled(true);
+		reload();
 		String linkXml = getHtmlPage().getHtmlElementById("ox_openxavatest_Color__sc-a-ColorSub_list").asXml();
 		assertTrue(linkXml.contains("<i class=\"mdi mdi-run\""));
 		assertFalse(linkXml.contains("images/"));
@@ -42,11 +44,12 @@ public class ColorTest extends ModuleTestBase {
 
 		HtmlElement container = getHtmlPage().getHtmlElementById("ox_openxavatest_Color__sc-container-ColorSub_detail"); 
 		HtmlElement menu = getHtmlPage().getHtmlElementById("ox_openxavatest_Color__sc-ColorSub_detail"); 
-		assertTrue("display:none;".equals(menu.getAttribute("style")));
-		assertTrue(container.asNormalizedText().contains("My processes"));
-		assertTrue(container.asNormalizedText().contains("First action from subcontroller"));
-		assertTrue(container.asNormalizedText().contains("Second action"));
-		assertTrue(container.asNormalizedText().contains("Third action"));
+		assertTrue(!menu.isDisplayed());
+		String containerContent = container.asXml();
+		assertTrue(containerContent.contains("My processes"));
+		assertTrue(containerContent.contains("First action from subcontroller"));
+		assertTrue(containerContent.contains("Second action"));
+		assertTrue(containerContent.contains("Third action"));		
 		
 		assertAction("ColorSub.thirdAction");
 		execute("Color.removeThirdAction");
@@ -462,7 +465,7 @@ public class ColorTest extends ModuleTestBase {
 	private void assertLinkTooltip(String action, String tooltip) { 
 		for (HtmlElement el: getHtmlPage().getBody().getElementsByTagName("a")) { 
 			HtmlAnchor link = (HtmlAnchor) el;
-			if (link.getHrefAttribute().contains("'" + action + "'")) {
+			if (HtmlUnitUtils.getHrefAttribute(link).contains("'" + action + "'")) { 
 				assertEquals(tooltip, link.getAttribute("title"));
 				return;
 			}

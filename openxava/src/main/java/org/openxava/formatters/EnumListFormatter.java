@@ -1,6 +1,7 @@
 package org.openxava.formatters;
 
 import javax.servlet.http.*;
+
 import org.openxava.model.*;
 import org.openxava.model.meta.*;
 import org.openxava.web.style.*;
@@ -20,7 +21,7 @@ public class EnumListFormatter implements IMetaPropertyFormatter {
 		if (style != null && object instanceof IIconEnum) { 
 			return "<span class='" + style.getIconInList() + "'><i class='mdi mdi-" + ((IIconEnum) object).getIcon() + 
 				"' title='" + label + "'></i>" +
-				"<span style='display:none'>" + label + "</span></span>";
+				"<span class='ox-display-none'>" + label + "</span></span>";
 		}
 		return label;
 	}

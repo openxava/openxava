@@ -1,5 +1,7 @@
 package org.openxava.test.tests;
 
+import org.openxava.tests.*;
+
 import com.gargoylesoftware.htmlunit.html.*;
 
 
@@ -40,7 +42,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		setValueInCollection("details", 0, "unitPrice", "100");
 		setValueInCollection("details", 0, "quantity", "2");
 		assertValueInCollection("details", 0, "amount", "200.00");  
-		
+				
 		assertTotalInCollection("details", 0, "amount", "200.00");
 		assertTotalInCollection("details", 1, "amount",  "21.00"); 
 		assertTotalInCollection("details", 2, "amount",  "42.00");
@@ -212,7 +214,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		setValueInCollection("details", 0, "quantity", "2");
 		assertValueInCollection("details", 0, "amount", "22.00"); 
 		
-		assertTotalInCollection("details", 0, "amount", "22.00");
+		assertTotalInCollection("details", 0, "amount", "22.00"); 
 		assertTotalInCollection("details", 1, "amount", "21.00"); 
 		assertTotalInCollection("details", 2, "amount",  "4.62");
 		assertTotalInCollection("details", 3, "amount", "26.62");
@@ -294,7 +296,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertNoErrors();
 		assertMessage("MULTAS DE TRAFICO, IBM ESERVER ISERIES 270, XAVA"); 
 		
-		assertTotalInCollection("details", 0, "amount", "162.00");
+		assertTotalInCollection("details", 0, "amount", "162.00"); 
 		assertTotalInCollection("details", 1, "amount",  "21.00"); 
 		assertTotalInCollection("details", 2, "amount",  "34.02");
 		assertTotalInCollection("details", 3, "amount", "196.02");
@@ -327,7 +329,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		HtmlElement input = row1.getElementsByTagName("input").get(1);
 		assertEquals("ox_openxavatest_Quote__details___1___product___number", input.getAttribute("id"));
 		HtmlElement searchActionLink = row1.getElementsByTagName("a").get(1);
-		assertEquals("javascript:openxava.executeAction('openxavatest', 'Quote', '', false, 'Reference.search', 'keyProperty=details.1.product.number')", searchActionLink.getAttribute("href")); 
+		assertEquals("javascript:openxava.executeAction('openxavatest', 'Quote', '', false, 'Reference.search', 'keyProperty=details.1.product.number')", HtmlUnitUtils.getHrefAttribute(searchActionLink));  
 	}
 	
 	private void removeRow(int row) throws Exception { 

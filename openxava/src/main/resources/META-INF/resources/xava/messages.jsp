@@ -13,10 +13,10 @@ if (messages.contains()) {
 	while (it.hasNext()) {		
 %>
 <tr><td class=<%=style.getWarnings()%>>
-<%=style.getWarningStartDecoration()%>
-<i class="mdi mdi-close" style="cursor: pointer;" onclick="$(this).parent().fadeOut()"></i>
+<div class='ox-message-box'>
+<i class="mdi mdi-close" onclick="$(this).parent().fadeOut()"></i>
 <%=it.next()%>
-<%=style.getWarningEndDecoration()%>
+</div>
 </td></tr>
 <% } %>
 </table>
@@ -26,10 +26,10 @@ if (messages.contains()) {
 	while (it.hasNext()) {		
 %>
 <tr><td class=<%=style.getMessages()%>>
-<%=style.getMessageStartDecoration()%>
-<i class="mdi mdi-close" style="cursor: pointer;" onclick="$(this).parent().fadeOut()"></i>
+<div class='ox-message-box'>
+<i class="mdi mdi-close" onclick="$(this).parent().fadeOut()"></i>
 <%=it.next()%>
-<%=style.getMessageEndDecoration()%>
+</div>
 </td></tr>
 <% } %>
 </table>
@@ -39,10 +39,10 @@ if (messages.contains()) {
 	while (it.hasNext()) {		
 %>
 <tr><td class=<%=style.getInfos()%>>
-<%=style.getInfoStartDecoration()%>
-<i class="mdi mdi-close" style="cursor: pointer;" onclick="$(this).parent().fadeOut()"></i>
+<div class='ox-message-box'>
+<i class="mdi mdi-close" onclick="$(this).parent().fadeOut()"></i>
 <%=it.next()%>
-<%=style.getInfoEndDecoration()%>
+</div>
 </td></tr>
 <% } %>
 </table>

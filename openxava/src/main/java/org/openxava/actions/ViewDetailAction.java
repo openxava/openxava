@@ -5,8 +5,8 @@ import java.util.*;
 import javax.inject.*;
 
 import org.apache.commons.logging.*;
+import org.openxava.model.meta.*;
 import org.openxava.tab.*;
-import org.openxava.tab.impl.*;
 import org.openxava.util.*;
 
 /**
@@ -28,6 +28,8 @@ public class ViewDetailAction extends TabBaseAction implements IChainAction, IMo
 	@Inject
 	private Tab mainTab;
 	
+	private String calendarKey;
+	
 	private Map nextKey = null;	// si viene de deleteAction el contenido de selectedKeys varia y no podemos saber desde dónde estabamos partiendo
 	private boolean deleteAllSelected = false;
 	
@@ -37,60 +39,82 @@ public class ViewDetailAction extends TabBaseAction implements IChainAction, IMo
 	}
 
 	public void execute() throws Exception {
-		getView().setModelName(model); 
-		getView().setViewName(getManager().getXavaViewName()); 
+		getView().setModelName(model);
+		getView().setViewName(getManager().getXavaViewName());
 		setAtListBegin(false);
-		setNoElementsInList(false);				
-		int previous = -1;
+		setNoElementsInList(false);
 		
-		Map [] selectedOnes = getTab().getSelectedKeys();
-		
-		if (!Is.empty(nextKey)) key = nextKey;
-		else if (isDeleteAllSelected()) key = null;
-		else if (!explicitRow && selectedOnes != null && selectedOnes.length > 0){	// hay seleccionados y no hay fila específica
-			// buscamos la clave actual y la situamos en el array, después buscaremos según el increment
-			Map keyActual = getView().getKeyValues();
-			List l = Arrays.asList(selectedOnes);
-			if (isGoFirst()) {
-				key = (Map) l.get(0);
+		if (calendarKey != null) {
+			key = new HashMap<>();
+			MetaModel metaModel = getView().getMetaView().getMetaModel();
+			String[] calendarKeys = calendarKey.split("_");
+			List<String> allKeyPropertiesNames = new ArrayList<>(metaModel.getAllKeyPropertiesNames());
+			List<MetaProperty> metaPropertyKeys = metaModel.getAllMetaPropertiesKey();
+			for (int i = 0; i < calendarKeys.length; i++) {
+				MetaProperty property = metaPropertyKeys.get(i);
+				Object keyObject = property.parse(calendarKeys[i]);
+				key.put(allKeyPropertiesNames.get(i).toString(), keyObject);
 			}
-			else{
-				int index = 0;
-				if (Is.empty(keyActual)) index = row;
-				else index = l.indexOf(keyActual);
-				if (increment < 0 && index == 0){
+			getView().setValues(key);
+		} else {
+			int previous = -1;
+			Map[] selectedOnes = getTab().getSelectedKeys();
+			if (!Is.empty(nextKey))
+				key = nextKey;
+			else if (isDeleteAllSelected())
+				key = null;
+			else if (!explicitRow && selectedOnes != null && selectedOnes.length > 0) { // hay seleccionados y no hay
+																						// fila específica
+				// buscamos la clave actual y la situamos en el array, después buscaremos
+				// según el increment
+				Map keyActual = getView().getKeyValues();
+				List l = Arrays.asList(selectedOnes);
+				if (isGoFirst()) {
+					key = (Map) l.get(0);
+				} else {
+					int index = 0;
+					if (Is.empty(keyActual))
+						index = row;
+					else
+						index = l.indexOf(keyActual);
+					if (increment < 0 && index == 0) {
+						setAtListBegin(true);
+						addError("at_list_begin");
+						return;
+					}
+					index = index + increment;
+					if (l.size() == index)
+						key = null; // last element
+					else
+						key = (Map) l.get(index);
+					row = index; // We use row to store the last index
+				}
+			} else { // no hay seleccionados o hay fila específica
+				if (increment < 0 && row == 0) {
 					setAtListBegin(true);
-					addError("at_list_begin");			
+					addError("at_list_begin");
 					return;
 				}
-				index = index + increment;
-				if (l.size() == index) key = null;	// last element
-				else key = (Map)l.get(index);
-				row = index; // We use row to store the last index
+
+				previous = row;
+				row = goFirst ? 0 : row + increment;
+
+				if (row < 0)
+					row = 0;
+				key = (Map) getTab().getTableModel().getObjectAt(row);
 			}
+			if (key == null) {
+				setNoElementsInList(true);
+				addError("no_list_elements");
+				// row = previous;
+				if (previous >= 0)
+					row = previous;
+			}
+			if (key != null) {
+				getView().setValues(key);
+			}
+
 		}
-		else{	// no hay seleccionados o hay fila específica
-			if (increment < 0 && row == 0) {
-				setAtListBegin(true);
-				addError("at_list_begin");			
-				return;
-			}		
-			
-			previous = row;
-			row = goFirst?0:row + increment;
-			
-			if (row < 0) row = 0; 
-			key = (Map) getTab().getTableModel().getObjectAt(row);
-		}
-		if (key == null) {
-			setNoElementsInList(true);
-			addError("no_list_elements");
-			// row = previous;
-			if (previous >= 0) row = previous;
-		}		
-		if (key != null) {		
-			getView().setValues(key);									
-		}	
 	}
 	
 	public int getRow() {
@@ -175,5 +199,13 @@ public class ViewDetailAction extends TabBaseAction implements IChainAction, IMo
 	public void setDeleteAllSelected(boolean deleteAllSelected) {
 		this.deleteAllSelected = deleteAllSelected;
 	}	
+	
+    public String getCalendarKey() {
+        return calendarKey;
+    }
+
+    public void setCalendarKey(String calendarKey) {
+        this.calendarKey = calendarKey;
+    }
 
 }

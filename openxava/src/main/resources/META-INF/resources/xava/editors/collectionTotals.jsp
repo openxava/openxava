@@ -26,22 +26,20 @@ for (int i=0; i<additionalTotalsCount; i++) {
 %>
 	<tr class="<%=style.getTotalRow()%>">
 	<% if (!(subview.isRepresentsElementCollection() && !subview.isCollectionEditable())) { %>
-		<td style="<%=style.getTotalEmptyCellStyle()%>"/>
+		<td/>
 		<% if (!subview.getMetaCollection().isElementCollection()) { %>
-		<td style="<%=style.getTotalEmptyCellStyle()%>"/>
+		<td/>
 		<% } %>
 	<% } %>	
 <%
 java.util.Iterator it = subview.getMetaPropertiesList().iterator(); 
 for (int c = 0; it.hasNext(); c++) {
 	MetaProperty p = (MetaProperty) it.next();
-	String align =p.isNumber() && !p.hasValidValues()?"text-align: right; ":"";
-	String cellStyle = align + style.getTotalCellStyle(); 
-	
+	String align =p.isNumber() && !p.hasValidValues()?"ox-text-align-right":"";
 	if (subview.hasCollectionTotal(i, c)) {
 	%> 	
-	<td class="<%=style.getTotalCell()%>" style="<%=cellStyle%>">	
-	<div id="<xava:id name='<%="collection_total_" + i + "_" + c + "_" + collectionPrefix%>'/>" class=" <xava:id name='<%=idCollection%>'/>_col<%=c%>" style="overflow: hidden; ">
+	<td class="ox-total-cell <%=align%>">	
+	<div id="<xava:id name='<%="collection_total_" + i + "_" + c + "_" + collectionPrefix%>'/>" class=" <xava:id name='<%=idCollection%>'/>_col<%=c%>">
 	<jsp:include page="collectionTotal.jsp">
 		<jsp:param name="row" value="<%=i%>"/>
 		<jsp:param name="column" value="<%=c%>"/>
@@ -52,8 +50,8 @@ for (int c = 0; it.hasNext(); c++) {
 	}
 	else if (i==0 && XavaPreferences.getInstance().isSummationInList() && subview.isCollectionTotalCapable(c)) { 
 	%>
-	<td class="<%=style.getTotalCapableCell()%>" style="<%=style.getTotalCapableCellStyle() %>">
-		<div class=" <xava:id name='<%=idCollection%>'/>_col<%=c%>" style="overflow: hidden; "> 
+	<td class="ox-total-capable-cell">
+		<div class=" <xava:id name='<%=idCollection%>'/>_col<%=c%>"> 
 			<xava:action action='CollectionTotals.sumColumn' argv='<%="property="+p.getName() + collectionArgv%>'/>&nbsp;
 		</div>	
 	</td>
@@ -61,19 +59,19 @@ for (int c = 0; it.hasNext(); c++) {
 	}
 	else if (subview.hasCollectionTotal(i, c + 1) && (i > 0 || !subview.hasCollectionSum(c + 1))) { 	
 	%>
-	<td class="<%=style.getTotalLabelCell()%>" style="<%=style.getTotalLabelCellStyle()%>">
+	<td class="ox-total-label-cell">
 		<%=subview.getCollectionTotalLabel(i, c + 1)%>&nbsp;
 	</td>
 	<%	
 	}
 	else {
 	%>	 
-	<td style="<%=style.getTotalEmptyCellStyle()%>"/>
+	<td/>
 	<%		
 	}	
 	if (elementCollection && subview.isLastSearchKey(p.getName())) { 
 	%>
-	<td style="<%=style.getTotalEmptyCellStyle()%>"/>	
+	<td/>	
 	<%	
 	}
 }

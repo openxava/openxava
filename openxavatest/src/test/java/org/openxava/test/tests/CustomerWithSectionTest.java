@@ -185,10 +185,33 @@ public class CustomerWithSectionTest extends CustomerTest {
 		execute("MyReport.remove", "xava.keyProperty=name");
 	}
 	
-	public void testDialogsInNestedCollections() throws Exception {
+	public void testDialogsInNestedCollections_mask() throws Exception {
 		execute("List.viewDetail", "row=0"); 
 		assertDialogsInNestedCollections(false); 
 		assertDialogsInNestedCollections(true);
+		
+		HtmlInput passportInput = (HtmlInput) getHtmlPage().getElementById("ox_openxavatest_CustomerWithSection__passport");
+		passportInput.focus();
+		passportInput.type("E123456");
+		passportInput.blur();
+		assertValue("passport", "E-123456");
+		
+		HtmlInput cardNumberInput = (HtmlInput) getHtmlPage().getElementById("ox_openxavatest_CustomerWithSection__creditCard");
+		cardNumberInput.focus();
+		cardNumberInput.type("1234000056780000");
+		cardNumberInput.blur();
+		assertValue("creditCard", "1234 0000 5678 0000");
+		
+		execute("Customer.save");
+		execute("Mode.list");
+		execute("List.viewDetail", "row=0");
+		assertValue("passport", "E-123456");
+		assertValue("creditCard", "1234 0000 5678 0000");
+		setValue("passport", "");
+		setValue("creditCard", "");
+		assertValue("passport", "");
+		assertValue("creditCard", "");
+		execute("Customer.save");
 	}
 	
 	public void assertDialogsInNestedCollections(boolean closeDialog) throws Exception { 
@@ -540,7 +563,8 @@ public class CustomerWithSectionTest extends CustomerTest {
 	
 	public void testShowHideFilterInList() throws Exception { 
 		getWebClient().getOptions().setCssEnabled(true); 
-		assertFalse(getElementById("show_filter_list").isDisplayed());
+		reload(); 
+		assertFalse(getElementById("show_filter_list").isDisplayed()); 
 		assertTrue(getElementById("hide_filter_list").isDisplayed()); 
 		assertTrue(getElementById("list_filter_list").isDisplayed());
 		getElementById("hide_filter_list").click();
@@ -570,7 +594,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 	
 	public void testCustomizeList() throws Exception { 
-		doTestCustomizeList_moveAndRemove(); 
+		doTestCustomizeList_moveAndRemove();
 		resetModule(); 
 		doTestCustomizeList_generatePDF(); 
 		resetModule(); 

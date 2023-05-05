@@ -111,6 +111,7 @@ import org.openxava.test.actions.*;
 	"number;" + 
 	"customer {" + 				
 	"	type;" + 
+	"passport, creditCard;" + 
 	"	name, Customer.changeNameLabel();" +
 	"	photo;" +
 	"	telephone, email, additionalEmails;" + 
@@ -220,6 +221,8 @@ import org.openxava.test.actions.*;
 	"	seller; " +
 	"}"
 )
+
+@View( name="PersonalInformation", members="name; passport, creditCard;")
 
 @Tabs ({
 	@Tab(
@@ -348,7 +351,13 @@ public class Customer implements IWithName {
 		inverseJoinColumns=@JoinColumn(name="STATE") 
 	)
 	private Collection<State> states;
-	 	
+	
+	@Mask("L-A#0000")
+	String passport;
+	
+	@Mask("0000 0000 0000 0000")
+	String creditCard;
+	
 	@Column(length=40)	
 	@Depends("address.zipCode, address.city")	
 	public String getCity() {
@@ -541,6 +550,22 @@ public class Customer implements IWithName {
 
 	public void setTransientSeller(Seller transientSeller) {
 		this.transientSeller = transientSeller;
+	}
+	
+	public String getPassport() {
+		return passport;
+	}
+
+	public void setPassport(String passport) {
+		this.passport = passport;
+	}
+	
+	public String getCreditCard() {
+		return creditCard;
+	}
+
+	public void setCreditCard(String creditCard) {
+		this.creditCard = creditCard;
 	}
 				
 }

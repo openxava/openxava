@@ -33,7 +33,7 @@ public class DateFormatter implements IFormatter {
 		if (Dates.getYear((java.util.Date)date) < 2) return "";
 		return getDateFormat().format(date);
 	}
-		
+	
 	public Object parse(HttpServletRequest request, String string) throws ParseException {
 		if (Is.emptyString(string)) return null;				
 		if (isExtendedFormat()) { 

@@ -47,6 +47,94 @@
     <div class="wiki" style="display: block;">
       <h2>Migration from OpenXava 7.0.6 to OpenXava 7.1</h2>
       <div class="wiki" style="display: block;">
+        <h3>Inline style in HTML no longer allowed</h3>
+        <p>This is for security reasons. It means that you have to move the
+          style from HTML to CSS in your custom views, editors, formatters,
+          servlets, etc. </p>
+        <p>For example, if you have this HTML code:</p>
+        <pre><code class="html">&lt;div style="padding: 20px; background-color: green;"&gt;
+</code></pre>
+        <p>The <i>style</i> part is no longer recognized. Now, you have to
+          change <i>style</i> by a <i>class</i>:</p>
+        <pre><code class="html">&lt;div class="my-background"&gt;
+</code></pre>
+        <p>And add the class to your CSS file (your theme CSS or <i>custom.css</i>):</p>
+        <pre><code class="css">.my-background {
+    padding: 20px; 
+    background-color: green;
+}
+</code></pre>
+        <p>Also you can change the style by other classic HTML tags, like <i>&lt;b&gt;&lt;i&gt;</i>
+          or <i>&lt;font&gt;</i>. Especially when you need to use some dynamic
+          value, like a color from a database. For example, you could change
+          this Java code that generates HTML:</p>
+        <pre><code class="java">return "&lt;i class='mdi mdi-square' style='color: " + colorHexValue + "'&gt;&lt;/i&gt;";
+</code></pre>
+        <p>By this:</p>
+        <pre><code class="java">return "&lt;font color='" + colorHexValue + "'&gt;&lt;i class='mdi mdi-square ox-color-inherit'&gt;&lt;/i&gt;&lt;/font&gt;"; 
+</code></pre>
+        <p>Note the use of <i>&lt;font&gt;</i> to indicate the color. In this
+          case we also use <i>ox-color-inherit</i> class (included in OpenXava)
+          to overwrite the color given by OpenXava CSS to <i>&lt;i&gt;</i>
+          elements.</p>
+        <h3>Servlets require explicit type content</h3>
+        <p>This is for security reasons. Your servlets require to set the
+          content type explicitly. So, if you don't do so, you have to add the
+          next line to your servlerts:</p>
+        <pre><code class="java">response.setContentType("text/html"); 
+</code></pre> You have to indicate the corresponding mime type, in this example
+        "text/html" for a HTML document.<br>
+        <h3>Inline JavaScript in JSP requires once attribute</h3>
+        <p>This is for security reasons. You rarely are using inline JavaScript
+          in your code in OpenXava applications, given that they do not work
+          since OpenXava 3.1 for editors or custom views. However, if you have
+          custom code outside a regular OpenXava module, like <i>welcome.jsp</i>,
+          or some custom header or footer for your application, maybe you have
+          some inline scripts, in this case you have to add an attribute <i>once</i>
+          to your inline script using the new <i>&lt;xava:once/&gt;</i> taglib.</p>
+        <p>For example, if your <i>welcome.jsp</i> page has this code:</p>
+        <pre><code class="html">&lt;script type="text/javascript"&gt; 
+    var button = document.getElementById('welcome_go_signin');
+    button.onclick = function () { window.location='m/SignIn'; }
+&lt;/script&gt;
+</code></pre>
+        <p>You should change it by:</p>
+        <pre><code class="html">&lt;%@include file="../xava/imports.jsp"%&gt;
+    
+    ...
+    
+&lt;script type="text/javascript" &lt;xava:nonce/&gt;&gt; 
+    var button = document.getElementById('welcome_go_signin');
+    button.onclick = function () { window.location='m/SignIn'; }
+&lt;/script&gt;
+</code></pre>
+        <p>Note the new <i>&lt;xava:once&gt;</i> element, and that you have to
+          include <i>imports.jsp</i>.</p>
+        <p>Still better, you could look for an alternative that does not use
+          inline script at all. In this case, for example, we could change the <i>onclick</i>
+          event with a <i>window.location</i> by a plain <i>&lt;a ref="" /&gt;</i>,
+          if possible.</p>
+        <h3>Inline events in HTML elements are no longer allowed</h3>
+        <p>If you have to write your own editors or custom views and you are
+          using <i> onclick, onfocus, onblur</i>, etc. They are not going to
+          work anymore. This is for security reasons.You have to remove the
+          events from the HTML and move them to a JS file. </p>
+        <p>That is, if you have a code like this:</p>
+        <pre><code class="html">&lt;input type="button" tabindex="1" onclick="window.location='m/SignIn'" value="&lt;xava:label key='SignIn'/&gt;"&gt;
+</code></pre>
+        <p>Remove the <i>onclick</i> and add an id to the element, leaving it
+          in this way:</p>
+        <pre><code class="html">&lt;input id="welcome_go_signin" type="button" tabindex="1" value="&lt;xava:label key='SignIn'/&gt;"&gt;
+</code></pre>
+        <p>Then add a JS file, let's say <i>events.js</i> (or whatever name you
+          prefer), in <i>src/main/webapp/xava/editors/js</i> (create the folder
+          if it does no exist yet) of your project, with the next content:</p>
+        <pre><code class="javascript">var button = document.getElementById('welcome_go_signin');
+button.onclick = function () { window.location='m/SignIn'; }
+</code></pre>
+        <p>Note as we use the id to add the event using JavaScript code, a
+          secure code because it's downloaded from the server that hosts the
+          application.</p>
         <h3>Labels in English now have different order (for JUnit tests)</h3>
         <p>We noticed that labels in list and collection when are translated to
           English, they can be understandable, but could be better. For this, we
@@ -65,6 +153,18 @@
         </p>
         <pre><code class="java">customer.address = Customer address<br>customer.address.street = Customer address street<br>customer.address.street.number = Customer address street number
 </code></pre>
+        <h3>Reloading page needed to use CSS in tests (for JUnit tests)</h3>
+        Given that inline style has been moved to CSS now sometimes it's
+        required you to reload the page in order that CSS works correctly, so if
+        you activate CSS for your test you must do a <i>reload()</i> after it.
+        In this way:
+        <div class="wiki" style="display: block;">
+          <pre><code class="java">getWebClient().getOptions().setCssEnabled(true); // If you do this then...
+reload(); // ...you have to add this line
+</code></pre> </div>
+        <div class="wiki" style="display: block;">Curiously, adding <i>reload()</i>
+          is not always needed, just add it where you find that tests with CSS
+          start to fail.</div>
         <h3>New action in references and @DescriptionsList (for JUnit tests)</h3>
         References and <i>@DescriptionsList</i> have new action for the users (<i>Reference.clear</i>),
         so if you test for all present actions in your JUnit tests, you have to
@@ -81,6 +181,13 @@
 	"Sections.change"
 };<br>assertActions(actions); </code></pre>
       </div>
+      <h3>New entity to declare in persistence.xml (for XavaPro)</h3>
+      If you use XavaPro, or you plan to use it in the future, edit the <i>persistence.xml</i>
+      file and add the next entry to all you persistence units:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;class&gt;com.openxava.naviox.model.SSORecord&lt;/class&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;"><i></i>
       <h2 id="from-6.6.3-to-7.0">Migration from OpenXava 7.0.5 to OpenXava 7.0.6</h2>
       <h3>@Column(length=x) with no scale is no longer scale=2 by default</h3>
       <p>We fixed a bug about that <i>scale=0</i> for <i>@Column</i> does not
@@ -174,7 +281,8 @@ assertValidValues("descriptionsListValue", validValues);
       <p>The easier way to migrate to Maven is creating a new project using
         OpenXava 7.0, and then copying the source code and resources from your
         current project to the new one. So, first create a new OpenXava project
-        using Openxava Studio 7, for that you can follow the instructions in <a
+        using Openxava Studio 7, for that you can follow the instructions in <a
+
           href="getting-started_en.html">Getting started guide</a>.</p>
       <p>The next step is to copy all your source code and resources from the
         old project to the corresponding folder in the new project, as
@@ -512,7 +620,8 @@ assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asNormalizedTex
         +"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
     deleteLink.getHrefAttribute());
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
+    <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
+
         href="http://www.alanwood.net/demos/ansi.html">Look at this table</a> to
       know the mapping between ANSI and UNICODE.</div>
     <div class="wiki" style="display: block;">Now in <i>@HtmlText</i> or <i>@Stereotype("HTML_TEXT")</i>

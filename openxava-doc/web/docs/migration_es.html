@@ -46,6 +46,100 @@
       </div>
       <h2>Para migrar de OpenXava 7.0.6 a OpenXava 7.1</h2>
       <div class="wiki" style="display: block;">
+        <h2></h2>
+        <div class="wiki" style="display: block;">
+          <h3>Estilo en línea en HTML ya no está permitido.</h3>
+          <p>Esto es por razones de seguridad. Esto significa que debes mover el
+            estilo de HTML a CSS en tus vistas personalizadas, editores,
+            formateadores, servlets, etc.</p>
+          <p>Por ejemplo, si tienes este código HTML:</p>
+          <pre><code class="html">&lt;div style="padding: 20px; background-color: green;"&gt;
+</code></pre>
+          <p>La parte de <i>style</i> ya no es reconocida. Ahora, debes cambiar
+            el <i>style</i> por una <i>class</i>:</p>
+          <pre><code class="html">&lt;div class="mi-fondo"&gt;
+</code></pre>
+          <p>Y agregar la clase a tu archivo CSS (ya sea el CSS de tu tema o <i>custom.css</i>):</p>
+          <pre><code class="css">.mi-fondo {
+    padding: 20px; 
+    background-color: green;
+}
+</code></pre>
+          <p>También puedes cambiar el estilo por otras etiquetas HTML clásicas,
+            como <i>&lt;b&gt;&lt;i&gt;</i> o <i>&lt;font&gt;</i>.
+            Especialmente cuando necesitas usar algún valor dinámico, como un
+            color de una base de datos. Por ejemplo, podrías cambiar este código
+            Java que genera HTML:</p>
+          <pre><code class="java">return "&lt;i class='mdi mdi-square' style='color: " + valorHexColor + "'&gt;&lt;/i&gt;";
+</code></pre>
+          <p>Por esto:</p>
+          <pre><code class="java">return "&lt;font color='" + valorHexColor + "'&gt;&lt;i class='mdi mdi-square ox-color-inherit'&gt;&lt;/i&gt;&lt;/font&gt;"; 
+</code></pre>
+          <p>Fíjate en el uso de <i>&lt;font&gt;</i> para indicar el color. En
+            este caso también utilizamos la clase <i>ox-color-inherit</i>
+            (incluida en OpenXava) para sobrescribir el color dado por el CSS de
+            OpenXava a los elementos <i>&lt;i&gt;</i>.</p>
+          <h3>Los servlets requieren un tipo de contenido explícito.</h3>
+          <p>Esto es por razones de seguridad. Tus servlets requieren establecer
+            explícitamente el tipo de contenido. Por lo tanto, si todavía no lo
+            hacías, debes agregar la siguiente línea a tus servlets:</p>
+          <pre><code class="java">response.setContentType("text/html"); 
+</code></pre>Debes indicar el tipo MIME correspondiente, en este ejemplo
+          "text/html" para un documento HTML.</div>
+        <h3>JavaScript en línea en los JSP requiere el atributo once</h3>
+        <p>Esto es por razones de seguridad. Rara vez se utiliza JavaScript en
+          línea en el código de las aplicaciones de OpenXava, ya que no
+          funcionan desde OpenXava 3.1 para editores o vistas personalizadas.
+          Sin embargo, si tienes código personalizado fuera de un módulo
+          OpenXava normal, como <i>welcome.jsp</i>, o algún encabezado o pie de
+          página personalizado para tu aplicación, tal vez tengas algunos
+          scripts en línea. En este caso, debes agregar un atributo <i>once</i>
+          a tu script en línea utilizando la nueva etiqueta <i>&lt;xava:once/&gt;</i>
+          de la biblioteca de etiquetas.</p>
+        <p>Por ejemplo, si tu página <i>welcome.jsp</i> tiene este código:</p>
+        <pre><code class="html">&lt;script type="text/javascript"&gt; 
+    var button = document.getElementById('welcome_go_signin');
+    button.onclick = function () { window.location='m/SignIn'; }
+&lt;/script&gt;
+</code></pre>
+        <p>Deberías cambiarlo por:</p>
+        <pre><code class="html">&lt;%@include file="../xava/imports.jsp"%&gt;
+    
+    ...
+    
+&lt;script type="text/javascript" &lt;xava:nonce/&gt;&gt; 
+    var button = document.getElementById('welcome_go_signin');
+    button.onclick = function () { window.location='m/SignIn'; }
+&lt;/script&gt;
+</code></pre>
+        <p>Fíjate en el nuevo elemento <i>&lt;xava:once&gt;</i> y que has de
+          incluir <i>imports.jsp</i>.</p>
+        <p>Aún mejor, podrías buscar una alternativa que no use ningún script en
+          línea. En este caso, por ejemplo, podríamos cambiar el evento <i>onclick
+            </i>con un <i>window.location</i> por un simple <i>&lt;a ref=""
+            /&gt;</i>, si es posible.</p>
+        <h3>Ya no se soportan eventos en línea en elementos HTML</h3>
+        <p>Si tienes que escribir tus propios editores o vistas personalizadas y
+          estás usando onclick, onfocus, onblur, etc., ya no van a funcionar.
+          Esto es por razones de seguridad. Tienes que eliminar los eventos del
+          HTML y moverlos a un archivo JS. </p>
+        <p>Es decir, si tienes un código como este:</p>
+        <pre><code class="html">&lt;input type="button" tabindex="1" onclick="window.location='m/SignIn'" value="&lt;xava:label key='SignIn'/&gt;"&gt;
+</code></pre>
+        <p>Quita el evento <i>onclick</i> y añade un id al elemento, dejándolo
+          de esta manera:</p>
+        <pre><code class="html">&lt;input id="welcome_go_signin" type="button" tabindex="1" value="&lt;xava:label key='SignIn'/&gt;"&gt;
+</code></pre>
+        <p>Después añade un archivo JS, digamos <i>eventos.js</i> (o cualquier
+          otro nombre que prefieras), en <i>src/main/webapp/xava/editors/js</i>
+          (crea la carpeta si todavía no existe) de tu proyecto, con el
+          siguiente contenido:</p>
+        <pre><code class="javascript">var button = document.getElementById('welcome_go_signin');
+button.onclick = function () { window.location='m/SignIn'; }
+</code></pre>
+        <p>Observa cómo utilizamos el ID para añadir el evento usando código
+          JavaScript, un código seguro porque es descargado desde el servidor
+          que aloja la aplicación.</p>
         <h3>Las etiquetas en inglés ahora tienen otro orden (para las pruebas
           JUnit)</h3>
         <p>Notamos que las etiquetas en listas y colecciones, cuando están
@@ -65,6 +159,19 @@
         </p>
         <pre><code class="java">customer.address = Customer address<br>customer.address.street = Customer address street<br>customer.address.street.number = Customer address street number
 </code></pre>
+        <h3>Recargar página necesario para usar CSS en las pruebas (para pruebas
+          JUnit)</h3>
+        Dado que el estilo en línea se ha movido a los archivos CSS ahora a
+        veces es necesario que recargues la página para que el CSS funcione
+        correctamente, por lo que si activas el CSS para tu prueba tienes que
+        hacer un <i>reload()</i> después. Así:
+        <div class="wiki" style="display: block;">
+          <pre><code class="java">getWebClient().getOptions().setCssEnabled(true); // Si haces esto...
+reload(); // ...has de añadir esta línea
+</code></pre> </div>
+        <div class="wiki" style="display: block;">Curiosamente, el añadir el <i>reload()</i>
+          no es necesario siempre, añádelo cuando te encuentres una prueba con
+          CSS que falle.</div>
         <h3>Nueva acción en referencias y @DescriptionsList (para pruebas JUnit)</h3>
         Las referencias y <i>@DescriptionsList</i> tienen una nueva acción para
         el usuario (<i>Reference.clear</i>), por lo que si comprueban todas las
@@ -82,6 +189,15 @@
 	"Sections.change"
 };<br>assertActions(acciones); <br></code></pre>
         <code class="java"> </code></div>
+      <h3>Nueva entidad a declarar en persistence.xml (para XavaPro)</h3>
+      Si usas XavaPro, o planeas usarlo en el futuro, edita el archivo <i>persistence.xml</i>
+      y añade la siguiente entrada a todas tus unidades de persistencia
+      <div class="wiki" style="display: block;">
+        <pre><code class="xml">&lt;class&gt;com.openxava.naviox.model.SSORecord&lt;/class&gt;
+</code></pre> </div>
+      <div class="wiki" style="display: block;"><i></i>
+        <h2 id="from-6.6.3-to-7.0"></h2>
+      </div>
       <h2>Para migrar de OpenXava 7.0.5 a OpenXava 7.0.6</h2>
       <h3>@Column(length=x) sin scale ya no es scale=2 por defecto</h3>
       <p>Hemos arreglado un fallo relacionado con que <i>scale=0</i> para <i>@Column</i>

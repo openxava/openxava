@@ -14,7 +14,7 @@ public class CarTest extends ModuleTestBase {
 	}
 	
 	public void testImageInElementCollection_listFormattersForEnums() throws Exception {
-		assertValueInList(0, "color", ": Red");
+		assertValueInList(0, "color", ": Red"); 
 		
 		execute("CRUD.new");		
 		setValue("make", "ALFA ROMEO");

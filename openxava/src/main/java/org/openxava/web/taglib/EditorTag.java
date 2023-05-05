@@ -114,6 +114,12 @@ public class EditorTag extends TagSupport {
 				maxSize = "maxSize=" + displaySize + "&";
 			}
 			
+			if (editorURL.toString().contains("#")) {
+				String replaced = editorURL.toString().replaceAll("#", "%23");
+				editorURL.setLength(0);
+				editorURL.append(replaced);
+			}
+
 			editorURL.append(nexus)
 				.append(maxSize)
 				.append("script=")

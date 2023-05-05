@@ -1,8 +1,8 @@
 package org.openxava.test.tests;
 
-import org.openxava.jpa.XPersistence;
-import org.openxava.test.model.TreeItemTwo;
-import org.openxava.util.Is;
+import org.openxava.jpa.*;
+import org.openxava.test.model.*;
+import org.openxava.util.*;
 
 
 /**
@@ -52,7 +52,7 @@ public class TreeViewNoDefaultPathTest extends TreeViewTestBase {
 		// Check if it is there
 		assertValueInTreeViewIgnoreCase("treeItemTwos", 7, "ROOT ITEM 2");
 		executeOnTreeViewItem("treeItemTwos", "Collection.edit", 7);
-		assertValue("description", "ROOT ITEM 2");
+		assertValue("description", "ROOT ITEM 2"); 
 		// Delete it from data
 		execute("TreeView.remove");
 		assertNoErrors();

@@ -18,7 +18,7 @@ String script = request.getParameter("script");
 <% if (editable) { %>
 	<% if (Is.emptyString(fvalue)) { %>
 		<xava:link action="Icon.add" argv='<%="newIconProperty="+Ids.undecorate(propertyKey)%>'><i class="mdi mdi-plus"></i></xava:link>
-		<span style="visibility: hidden;"><xava:action action="Icon.remove" argv='<%="newIconProperty="+Ids.undecorate(propertyKey)%>'/></span>		
+		<span class="ox-visibility-hidden"><xava:action action="Icon.remove" argv='<%="newIconProperty="+Ids.undecorate(propertyKey)%>'/></span>		
 	<% } else { %>
 		<xava:link action="Icon.change" argv='<%="newIconProperty="+Ids.undecorate(propertyKey)%>'><i class="mdi mdi-<%=fvalue%>"></i></xava:link>
 		<xava:action action="Icon.remove" argv='<%="newIconProperty="+Ids.undecorate(propertyKey)%>'/>	

@@ -6,10 +6,14 @@
 <%@ page import="org.openxava.util.Locales"%> 
 <%@ page import="org.openxava.controller.meta.MetaSubcontroller"%>
 <%@ page import="java.util.Collection"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.Arrays"%>
 <%@ page import="org.openxava.web.Ids"%>
 <%@ page import="org.openxava.util.EmailNotifications"%> 
 <%@ page import="org.openxava.controller.meta.MetaControllerElement"%>
-
+<%@ page import="org.openxava.model.meta.MetaProperty"%>
+<%@ page import="org.openxava.util.Dates"%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
@@ -22,12 +26,13 @@ String mode = request.getParameter("xava_mode");
 if (mode == null) mode = manager.isSplitMode()?"detail":manager.getModeName();
 boolean headerButtonBar = !manager.isSplitMode() || mode.equals("list");
 boolean listFormats = !manager.isSplitMode() && mode.equals("list"); 
+boolean hasLocalDate = false;
 
 if (manager.isButtonBarVisible()) {
 %>
-	<div class="<%=style.getButtonBar()%>"> 
+	<div class="ox-button-bar"> 
 	<div id="<xava:id name='controllerElement'/>">
-	<span style="float: left">
+	<span>
 	<%
 	java.util.Stack previousViews = (java.util.Stack) context.get(request, "xava_previousViews");
 	if (manager.isDetailMode() && !manager.isDetailModeOnly() && previousViews.isEmpty()) { 
@@ -70,19 +75,26 @@ if (manager.isButtonBarVisible()) {
 	</div>
 
 	<div id="<xava:id name='modes'/>">
-	<span style="float: right">
-	<span style="float: left;" class="<%=style.getListFormats()%>">
+	<span>
+	<span class="ox-list-formats">
 	<%
 	if (listFormats) { 	
 		String tabObject = request.getParameter("tabObject");
 		tabObject = (tabObject == null || tabObject.equals(""))?"xava_tab":tabObject;
 		org.openxava.tab.Tab tab = (org.openxava.tab.Tab) context.get(request, tabObject);
 		Collection<String> editors = org.openxava.web.WebEditors.getEditors(tab.getMetaTab());
+        List<MetaProperty> listProperty = tab.getMetaProperties();
+        List<MetaProperty> listProperty2 = new ArrayList<> (tab.getMetaTab().getMetaModel().getMetaProperties());
+        
+        hasLocalDate = Dates.hasLocalDate(listProperty) || Dates.hasLocalDate(listProperty2);
+        if (!hasLocalDate) editors.remove("Calendar");
+
 		if (editors.size() > 1) for (String editor: editors) {
 			String icon = org.openxava.web.WebEditors.getIcon(editor);
 			if (icon == null) continue; 
 			String selected = editor.equals(tab.getEditor())?style.getSelectedListFormat():"";
 			if (Is.emptyString(editor)) editor = "__NONAME__"; 
+        
 	%>
 	<xava:link action="ListFormat.select" argv='<%="editor=" + editor%>' cssClass="<%=selected%>">
 		<i class="mdi mdi-<%=icon%>" onclick="openxava.onSelectListFormat(event)" title="<%=org.openxava.util.Labels.get(editor)%>"></i>

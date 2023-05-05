@@ -5,6 +5,8 @@ import java.time.format.*;
 
 import org.openxava.tests.*;
 
+import com.gargoylesoftware.htmlunit.html.*;
+
 /**
  *
  * @author Javier Paniza
@@ -18,7 +20,12 @@ public class Invoice6Test extends ModuleTestBase {
 		super(testName, "Invoice6");		
 	}
 	
-	public void testLocalDate() throws Exception {
+	public void testLocalDate_showCalendarEditorWithLocalDate() throws Exception {
+		execute("ListFormat.select", "editor=Cards");
+		HtmlElement div = (HtmlElement) getHtmlPage().getElementById("xava_calendar");
+		assertNoErrors();
+		execute("ListFormat.select", "editor=List");
+		
 		assertValueInList(0, 2, "1/1/2002"); 
 		assertValueInList(1, 2, "1/4/2004");
 		execute("List.viewDetail", "row=0");

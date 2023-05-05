@@ -1,5 +1,7 @@
 package org.openxava.tests;
 
+import static org.openxava.tests.HtmlUnitUtils.getHrefAttribute;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -240,11 +242,12 @@ abstract public class ModuleTestBase extends TestCase {
 			catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex2) {
 				HtmlTextArea textArea = getTextAreaByName(id); 
 				assertNotDisable(name, textArea);
-				String textAreaClass = textArea.getAttribute("class"); 
-				if (textAreaClass != null && textAreaClass.contains("cke")) {
-					getHtmlPage().executeJavaScript("CKEDITOR.instances['" + textArea.getId() + "'].setData('" + value + "');");
+				String textAreaClass = textArea.getAttribute("class");
+				if (textAreaClass != null && textAreaClass.contains("html-text")) {
+					textArea.setText("<p>" + value + "</p>"); // To simulate the TinyCME behavior
 				}
 				else textArea.setText(value);
+				
 				refreshNeeded = !Is.emptyString(textArea.getOnChangeAttribute());
 			}
 		}		
@@ -595,8 +598,8 @@ abstract public class ModuleTestBase extends TestCase {
 		HtmlElement element  = getElementById(action);
 		
 		if (element instanceof HtmlAnchor) {
-			// Because input.click() fails with HtmlUnit 2.5/2.6/2.7 in some circumstances
-			page.executeJavaScript(((HtmlAnchor)element).getHrefAttribute()); 
+			// Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.70 in some circumstances
+			page.executeJavaScript(getHrefAttribute(element)); 			
 		}
 		else {
 			element.click();
@@ -689,22 +692,23 @@ abstract public class ModuleTestBase extends TestCase {
 			if (arguments != null) { // 'List.viewDetail', 'row=0'				
 				if (
 					(
-						anchor.getHrefAttribute().contains("'" + action + "', '" + arguments + "'") ||
-						anchor.getHrefAttribute().contains("'" + action + "', '," + arguments + "'")							
+						getHrefAttribute(anchor).contains("'" + action + "', '" + arguments + "'") ||  
+						getHrefAttribute(anchor).contains("'" + action + "', '," + arguments + "'")							
 					)
-					&& anchor.getHrefAttribute().indexOf(moduleMarkForAnchor) >= 0)  			
+					&& getHrefAttribute(anchor).indexOf(moduleMarkForAnchor) >= 0)  			
 				{				
 					return anchor;				
 				}
 			}
 			else { // 'ReferenceSearch.choose'				
-				if (anchor.getHrefAttribute().endsWith("'" + action + "')")) {				
+				if (getHrefAttribute(anchor).endsWith("'" + action + "')")) {				
 					return anchor;				
 				}				
 			}
 		}		
 		return null;
 	}
+	
 	
 	
 	
@@ -727,8 +731,8 @@ abstract public class ModuleTestBase extends TestCase {
 		}
 		if (element != null) {
 			if (!clicking && element instanceof HtmlAnchor) { 
-				// Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.9 in some circumstances
-				page.executeJavaScript(((HtmlAnchor)element).getHrefAttribute());
+				// Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.9/2.70 in some circumstances
+				page.executeJavaScript(getHrefAttribute(element)); 				
 			}
 			else {
 				element.click();
@@ -1508,7 +1512,7 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 
 	private String getDefaultRowStyle(int row) {
-		return (row % 2 == 0)?Style.getInstance().getListPair():Style.getInstance().getListOdd();
+		return (row % 2 == 0)?"ox-list-pair":"ox-list-odd";
 	}
 
 	private boolean collectionHasFilterHeader(HtmlTable table) {
@@ -1579,16 +1583,19 @@ abstract public class ModuleTestBase extends TestCase {
 			if (!Is.emptyString(row.getId()) && !row.getId().equals("nodata") && !row.getId().contains("_list_filter_")) {
 				if (isDisplayed(row)) count++;
 				else count--; // In this way we discount the empty row in element collection just above the hidden one
-			}
+			}			
 		}
 		return count;
 	}
 	
 	// Because HtmlElement.isDisplayed only works when CSS is active
-	private boolean isDisplayed(HtmlElement element) { 
+	private boolean isDisplayed(DomElement element) { 
+		String cssClass = element.getAttribute("class");
+		if (cssClass != null && cssClass.contains("ox-display-none")) return false;
+		
 		String style = element.getAttribute("style");
 		if (style == null) return true;
-		return !(style.contains("display: none") || style.contains("display:none")); // Enough for our cases
+		return !(style.contains("display: none") || style.contains("display:none")); 		
 	}
 
 	/**
@@ -1728,7 +1735,7 @@ abstract public class ModuleTestBase extends TestCase {
 	
 	private int getColumnIncrement(HtmlTable table, int originalColumn) {
 		int increment = table.getCellAt(0, 1).asXml().contains("type=\"checkbox\"")
-				|| table.getCellAt(0, 0).asXml().contains("javascript:openxava.customizeList(")?2:1;		
+				|| table.getCellAt(0, 0).asXml().contains("javascript:openxava.customizeList(")?2:1;
 		if (isElementCollection(table)) {
 			int i=1;
 			HtmlTableCell cell = table.getCellAt(0, i++);
@@ -1741,7 +1748,7 @@ abstract public class ModuleTestBase extends TestCase {
 		int i=1;
 		HtmlTableCell cell = table.getCellAt(0, i);
 		while (cell != null && i < originalColumn + increment + 1) {			
-			if (!cell.isDisplayed()) increment++;			
+			if (!isDisplayed(cell)) increment++; 
 			cell = table.getCellAt(0, ++i);
 		} 
 		return increment;
@@ -1750,7 +1757,9 @@ abstract public class ModuleTestBase extends TestCase {
 	private boolean isElementCollection(HtmlTable table) { 
 		HtmlElement container = (HtmlElement) table.getParentNode(); 
 		if (XavaPreferences.getInstance().isResizeColumns()) container = (HtmlElement) container.getParentNode();
-		return Style.getInstance().getElementCollection().equals(container.getAttribute("class"));
+		String containerClass = container.getAttribute("class");
+		if (containerClass == null) return false;
+		return containerClass.contains("ox-element-collection");
 	}
 
 	private int getTotalsRowCount(HtmlTable table) { 
@@ -2803,10 +2812,9 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @since 5.6
 	 */	
 	protected void assertDiscussionCommentsCount(String name, int expectedCount) {
-		client.getOptions().setCssEnabled(true); 		
 		HtmlElement comments = getDiscussionCommentsElement(name);
 		assertEquals(expectedCount + 1, comments.getChildElementCount());
-		assertFalse(comments.getLastElementChild().isDisplayed());
+		assertFalse(isDisplayed(comments.getLastElementChild())); 
 	}
 
 	/**
@@ -2815,11 +2823,9 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @since 5.6
 	 */		
 	protected void postDiscussionComment(String name, String commentContent) throws Exception { 
-		HtmlElement discussion = getDiscussionElement(name); 
-		HtmlElement textarea = discussion.getElementsByTagName("textarea").get(0);
-		getHtmlPage().executeJavaScript("CKEDITOR.instances['" + textarea.getId() + "'].setData(\"" + commentContent + "\");");  
-		HtmlElement postButton = discussion.getOneHtmlElementByAttribute("input", "type", "button");
-		getHtmlPage().executeJavaScript(postButton.getOnClickAttribute()); 
+		String discussionId = getValue(name);
+		String comment = commentContent.contains("'")? "\"<p>" + commentContent + "</p>\"": "'<p>" + commentContent + "</p>'"; 		
+		getHtmlPage().executeJavaScript("discussionEditor.postMessageHtmlUnit('" + application + "', '" + module + "', '" + discussionId + "', " + comment + ")");
 	}
 	
 	private HtmlElement getDiscussionElement(String name) {   

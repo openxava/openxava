@@ -148,8 +148,8 @@ if (!Is.emptyString(chart.getxColumn())) {
 <input type="hidden" id='<%=idPrefix + "type" %>' value="<%=chartTypeName %>" />
 <input type="hidden" id='<%=propertyKey%>' value="<%=fvalue%>" />
 
-<div class="<%=style.getChartData()%>">
-	<div class="ct-chart ct-perfect-fourth" id='<%=idPrefix + "container" %>' style="<%=style.getChartsDataStyle()%>">
+<div class="ox-chart-data">
+	<div class="ct-chart ct-perfect-fourth" id='<%=idPrefix + "container" %>'>
 	</div>
 </div>
 

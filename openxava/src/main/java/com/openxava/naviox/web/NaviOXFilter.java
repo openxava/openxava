@@ -91,21 +91,13 @@ public class NaviOXFilter implements Filter {
 					parametersQuery = "?originalParameters=" + originalParameters;
 				}
 				String userAccessModule = modules.getUserAccessModule(request);
-				/* tmr
-				RequestDispatcher dispatcher = request.getRequestDispatcher(
-					"/" + base + "/" + userAccessModule + 
-					"?originalURI=" + originalURI +
-					parametersQuery);
-				*/
-				// tmr ini
 				String dispatcherURL = "/" + base + "/" + userAccessModule;
 				String signInURL = SignInHelper.getSignInURL();
 				if (signInURL != null && Users.getCurrent() == null && session.getAttribute("naviox.originalURL") == null) {
 					dispatcherURL = signInURL; 									
 				}
-				session.setAttribute("naviox.originalURL", originalURI + parametersQuery); // tmr  
+				session.setAttribute("naviox.originalURL", originalURI + parametersQuery);   
 				RequestDispatcher dispatcher = request.getRequestDispatcher(dispatcherURL); 				
-				// tmr fin
 				dispatcher.forward(secureRequest, response); 
 			}
 		} 

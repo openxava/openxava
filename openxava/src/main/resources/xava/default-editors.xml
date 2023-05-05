@@ -31,6 +31,12 @@
 		selectable-items="false"> 
 		<for-tabs/>
 	</editor>	
+	
+	<editor name="Calendar" url="calendarEditor.jsp" 
+		icon="calendar" 
+		selectable-items="false"> 
+		<for-tabs/>
+	</editor>
 		
 	<editor name="Reference" url="referenceEditor.jsp" frame="true" composite="true">
 		<for-references/>
@@ -375,5 +381,9 @@
 	</editor>
 	
 	<editor name="EditableValidValues" url="editableValidValuesEditor.jsp" />
+	
+	<editor name="Mask" url="textEditor.jsp"> 
+		<for-annotation annotation="org.openxava.annotations.Mask"/> 
+	</editor>
 		
 </editors>

@@ -41,11 +41,12 @@ public class AuthorTest extends CustomizeListTestBase {
 	
 	public void testComparatorsShownOnDemand_noFilterInCollectionByDefault() throws Exception { 
 		getWebClient().getOptions().setCssEnabled(true);
+		reload(); 
 		
 		assertListRowCount(2);
 		
 		HtmlSelect comparator = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__conditionComparator___0");
-		assertFalse(comparator.isDisplayed());
+		assertFalse(comparator.isDisplayed()); 
 		HtmlInput value = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__conditionValue___0");
 		value.focus();
 		assertTrue(comparator.isDisplayed());
@@ -162,8 +163,8 @@ public class AuthorTest extends CustomizeListTestBase {
 		removeColumn(1); 
 		assertListRowCount(1);
 		assertListColumnCount(1); 
-		execute("List.addColumns");
-		execute("AddColumns.restoreDefault");
+		execute("List.addColumns"); 
+		execute("AddColumns.restoreDefault"); 
 		assertListColumnCount(2);
 		assertListRowCount(1); 
 	}

@@ -30,8 +30,7 @@ public class SignInHelper {
 	private static Log log = LogFactory.getLog(SignInHelper.class);
 	private static ISignInHelperProvider provider; 
 	
-	/** @return Qualified name of the action to add, or null if none. */
-	// tmr public static String init(HttpServletRequest request, View view) {
+	/** @return Qualified names of the actions to add, or null if none. */
 	public static String [] init(HttpServletRequest request, View view) {
 		return getProvider().init(request, view); 
 	}
@@ -69,7 +68,7 @@ public class SignInHelper {
 	/**
 	 * @since 7.1 
 	 */
-	public static String getSignInURL() { // tmr 
+	public static String getSignInURL() { 
 		return getProvider().getSignInURL();
 	}
 	

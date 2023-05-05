@@ -168,6 +168,10 @@ public class GenerateReportServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		try {				
 			Tab tab = (Tab) request.getSession().getAttribute("xava_reportTab");
+			if (tab == null) { // If you change this pass the ZAP test again
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				return;
+			}
 			int [] selectedRowsNumber = tab.getSelected();
 			Map [] selectedKeys = tab.getSelectedKeys();
 			int [] selectedRows = getSelectedRows(selectedRowsNumber, selectedKeys, tab);			
@@ -250,13 +254,13 @@ public class GenerateReportServlet extends HttpServlet {
 		response.setContentType("text/html");	
 		response.getWriter().println("<html><head><title>");
 		response.getWriter().println(XavaResources.getString("no_rows_report_message_title")); 
-		response.getWriter().println("</title></head><body style='font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;'>");
-		response.getWriter().println("<h1 style='font-size:22px;'>");
+		response.getWriter().println("</title></head><body><font face='Tahoma,Arial,sans-serif'>");
+		response.getWriter().println("<h1>");
 		response.getWriter().println(XavaResources.getString("no_rows_report_message_title"));
 		response.getWriter().println("</h1>");
-		response.getWriter().println("<p style='font-size:16px;'>");
-		response.getWriter().println(XavaResources.getString("no_rows_report_message_detail")); 
-		response.getWriter().println("</p></body></html>");
+		response.getWriter().println("<font size='+1'><p>");
+		response.getWriter().println(XavaResources.getString("no_rows_report_message_detail"));
+		response.getWriter().println("</font></p></font></body></html>");
 	}
 
 	private String getCurrentDate() {

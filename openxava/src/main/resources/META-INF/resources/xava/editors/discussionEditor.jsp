@@ -35,10 +35,10 @@ templateComment.setUserName(Users.getCurrent());
 comments.add(templateComment);
 
 for (DiscussionComment comment: comments) {
-		String hidden = comment.getId() == null?"style='display:none;'":"";
-		String formattedTime = comment.getTime()==null?XavaResources.getString(request, "now"):DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locales.getCurrent()).format(comment.getTime());
+		String hidden = comment.getId() == null?"ox-display-none":"";
+		String formattedTime = comment.getTime()==null?XavaResources.getString(request, "now"):org.openxava.util.Dates.getDateTimeFormat(Locales.getCurrent()).format(comment.getTime()); 
 %>
-	<div class="ox-discussion-comment" <%=hidden%>> 
+	<div class="ox-discussion-comment <%=hidden%>"> 
 		<div class="ox-discussion-comment-header"><span class="ox-discussion-comment-author"><%=comment.getUserName()%></span> - <%=formattedTime%></div>
 		<div class="ox-discussion-comment-content"><%=comment.getComment()%></div>  
 	</div>
@@ -48,12 +48,12 @@ for (DiscussionComment comment: comments) {
 </div>
 
 <% if (editable) { %>
-<textarea id="xava_new_comment_<%=discussionId%>" class="ox-simple-ckeditor xava-new-comment" tabindex="1"></textarea>
+<textarea id="xava_new_comment_<%=discussionId%>" class="ox-simple-html-text xava-new-comment" tabindex="1"></textarea>
 
 <div id="xava_new_comment_<%=discussionId%>_buttons" class="ox-discussion-post-button">
-	<input type="button" tabindex="1" class="<%=style.getButton()%>" style="display: none;" 
+	<input type="button" tabindex="1" class="<%=style.getButton()%> ox-display-none" 
 		onclick="discussionEditor.postMessage('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=discussionId%>')" value="<xava:label key="addComment"/>"/>
-	<input type="button" tabindex="1" class="<%=style.getButton()%>" style="display: none;" 
+	<input type="button" tabindex="1" class="<%=style.getButton()%> ox-display-none" 
 		onclick="discussionEditor.cancel('<%=discussionId%>')" 
 		value="<xava:label key="cancel"/>"/>
 </div>

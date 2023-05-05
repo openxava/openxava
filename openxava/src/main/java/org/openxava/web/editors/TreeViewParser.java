@@ -1,22 +1,19 @@
 package org.openxava.web.editors;
 
 import java.util.*;
+import java.util.Collections;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.openxava.annotations.Tree;
-import org.openxava.model.meta.MetaProperty;
+import org.apache.commons.logging.*;
+import org.openxava.annotations.*;
+import org.openxava.model.meta.*;
 import org.openxava.tab.Tab;
-import org.openxava.util.Is;
-import org.openxava.util.Messages;
-import org.openxava.util.XavaResources;
+import org.openxava.util.*;
 import org.openxava.view.View;
-import org.openxava.view.meta.MetaCollectionView;
-import org.openxava.view.meta.MetaView;
-import org.openxava.web.WebEditors;
-import org.openxava.web.style.Style;
+import org.openxava.view.meta.*;
+import org.openxava.web.*;
+import org.openxava.web.style.*;
 
 /**
  * Parse the tree view and produces a javascript snippet.
@@ -223,19 +220,15 @@ public class TreeViewParser {
 				treeNode = nodeHolder.treeNode;
 				html = new StringBuilder("");
 				if (tab.getTableModel().getColumnCount() > 1) {
-					html.append("<table class=\"");
-					html.append(style.getList());
-					html.append("\" width=\"100%\" ");
+					html.append("<table class=\"ox-list\" ");
+					html.append("width=\"100%\" ");
 					html.append(styleListCellSpacing);
-					html.append(" style=\"");
-					html.append(style.getListStyle());
-					html.append("\" title=\"");
+					html.append(" title=\"");
 					html.append(tooltip);
 					html.append("\"> <tr>");
 					for (int c = 0; c < tab.getTableModel().getColumnCount(); c++) {
 						MetaProperty p = tab.getMetaProperty(c);
-						String align =p.isNumber() && !p.hasValidValues()?"vertical-align: middle;text-align: right; ":"vertical-align: middle; ";
-						String cellStyle = align + style.getListCellStyle();
+						String align =p.isNumber() && !p.hasValidValues()?" ox-text-align-right":"";
 						String fvalue = null;
 						if (p.hasValidValues()) {
 							fvalue = p.getValidValueLabel(reader.getValueAt(index, c));
@@ -244,9 +237,9 @@ public class TreeViewParser {
 							fvalue = WebEditors.format(request, p, reader.getValueAt(index, c), errors, viewObject, true);
 						}
 						html.append("<td class=\"");
-						html.append((c%2==0?style.getListPairCell():style.getListOddCell()));
-						html.append("\" style=\"");
-						html.append(cellStyle);
+						html.append((c%2==0?"ox-list-pair":"ox-list-odd"));
+						html.append(" ox-list-data-cell");
+						html.append(align);
 						html.append("\">");
 						html.append(fvalue);
 						html.append("</td"); 

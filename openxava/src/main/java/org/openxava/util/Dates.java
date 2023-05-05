@@ -6,6 +6,7 @@ import java.time.format.*;
 import java.util.*;
 
 import org.openxava.formatters.*;
+import org.openxava.model.meta.*;
 
 /**
  * Utilities to working with dates (<tt>java.util.Date</tt>). <p>  
@@ -642,6 +643,22 @@ public class Dates {
 		public  int days;
 		public  int months;
 		public  int years;
+	}
+	
+	/**
+	 * Used to verify if the entity has dates
+	 * 
+	 * @since 7.1
+	 */
+	public static boolean hasLocalDate(List<MetaProperty> listProperty) {
+		List<String> dates = Arrays.asList("java.time.LocalDate", "java.util.Date", "java.sql.Date");
+	    for (MetaProperty property : listProperty) {
+	        String propertyTypeName = property.getTypeName();
+	        if (dates.contains(propertyTypeName)) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 	
 }

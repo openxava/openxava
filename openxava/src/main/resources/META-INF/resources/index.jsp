@@ -1,31 +1,30 @@
+<%@include file="../xava/imports.jsp"%> 
+
 <%@page import="com.openxava.naviox.util.OrganizationsCurrent"%> 
 <%@page import="org.openxava.web.Browsers"%>
 <%@page import="org.openxava.util.Users"%>
-<%@page import="com.openxava.naviox.impl.SignInHelper"%> <%-- tmr --%>
+<%@page import="com.openxava.naviox.impl.SignInHelper"%> 
 
 <jsp:useBean id="modules" class="com.openxava.naviox.Modules" scope="session"/>
 
 <%
-String signInURL = SignInHelper.getSignInURL(); // tmr
+String signInURL = SignInHelper.getSignInURL(); 
 if (Users.getCurrent() != null || OrganizationsCurrent.get(request) != null) {
 	String module = Users.getCurrent() == null?"SignIn":modules.getCurrent(request);
 	String url = Browsers.isMobile(request) && !"Index".equals(modules.getCurrent(request))?"phone":"m/" + module;
-	// tmr ini
 	if (signInURL != null && Users.getCurrent() == null && session.getAttribute("naviox.originalURL") == null) {
 		session.setAttribute("naviox.originalURL", request.getContextPath());
 		url = request.getContextPath() + signInURL;
 	}
-	// tmr fin
 %>
 
-<script type="text/javascript">
+<script type="text/javascript" <xava:nonce/>>
 window.location="<%=url%>";
 </script>
 
 <%
 }
 else {
-// tmr ini
 	if (signInURL != null && session.getAttribute("naviox.originalURL") == null) {
 		session.setAttribute("naviox.originalURL", request.getContextPath()); 
 		%>

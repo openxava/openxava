@@ -6,8 +6,8 @@ boolean closed="true".equals(request.getParameter("closed"));
 String frameContentId=frameId + "content";
 String frameShowId=frameId + "show";
 String frameHideId=frameId + "hide";
-String hideStyle=closed?"style='display: none'":"";
-String showStyle=closed?"":"style='display: none'";
+String hideClass=closed?"class='ox-display-none'":"";
+String showClass=closed?"":"class='ox-display-none'";
 
 String minimizeImage = null;
 if (style.getMinimizeImage() != null) minimizeImage=!style.getMinimizeImage().startsWith("/")?request.getContextPath() + "/" + style.getMinimizeImage():style.getMinimizeImage();
@@ -15,7 +15,7 @@ String restoreImage = null;
 if (style.getRestoreImage() != null) restoreImage=!style.getRestoreImage().startsWith("/")?request.getContextPath() + "/" + style.getRestoreImage():style.getRestoreImage();
 %> 		
 
-<span id="<%=frameHideId%>" <%=hideStyle%>>
+<span id="<%=frameHideId%>" <%=hideClass%>>
 	<a href="javascript:openxava.hideFrame('<%=frameId%>')">
 		<% if (minimizeImage == null) { %>
 		<i class="mdi mdi-menu-down"></i>
@@ -24,7 +24,7 @@ if (style.getRestoreImage() != null) restoreImage=!style.getRestoreImage().start
 		<% } %>
 	</a>
 </span> 
-<span id="<%=frameShowId%>" <%=showStyle%>>
+<span id="<%=frameShowId%>" <%=showClass%>>
 	<a href="javascript:openxava.showFrame('<%=frameId%>')">
 		<% if (restoreImage == null) { %>
 		<i class="mdi mdi-menu-right"></i>
