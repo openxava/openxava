@@ -242,11 +242,12 @@ abstract public class ModuleTestBase extends TestCase {
 			catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex2) {
 				HtmlTextArea textArea = getTextAreaByName(id); 
 				assertNotDisable(name, textArea);
-				String textAreaClass = textArea.getAttribute("class"); 
-				if (textAreaClass != null && textAreaClass.contains("cke")) {
-					getHtmlPage().executeJavaScript("CKEDITOR.instances['" + textArea.getId() + "'].setData('" + value + "');");
+				String textAreaClass = textArea.getAttribute("class");
+				if (textAreaClass != null && textAreaClass.contains("html-text")) {
+					textArea.setText("<p>" + value + "</p>"); // To simulate the TinyCME behavior
 				}
 				else textArea.setText(value);
+				
 				refreshNeeded = !Is.emptyString(textArea.getOnChangeAttribute());
 			}
 		}		
@@ -2822,11 +2823,9 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @since 5.6
 	 */		
 	protected void postDiscussionComment(String name, String commentContent) throws Exception { 
-		HtmlElement discussion = getDiscussionElement(name); 
-		HtmlElement textarea = discussion.getElementsByTagName("textarea").get(0);
-		getHtmlPage().executeJavaScript("CKEDITOR.instances['" + textarea.getId() + "'].setData(\"" + commentContent + "\");");  
-		HtmlElement postButton = discussion.getOneHtmlElementByAttribute("input", "type", "button");
-		getHtmlPage().executeJavaScript(postButton.getOnClickAttribute()); 
+		String discussionId = getValue(name);
+		String comment = commentContent.contains("'")? "\"<p>" + commentContent + "</p>\"": "'<p>" + commentContent + "</p>'"; 		
+		getHtmlPage().executeJavaScript("discussionEditor.postMessageHtmlUnit('" + application + "', '" + module + "', '" + discussionId + "', " + comment + ")");
 	}
 	
 	private HtmlElement getDiscussionElement(String name) {   

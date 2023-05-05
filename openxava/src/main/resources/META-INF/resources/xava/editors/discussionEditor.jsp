@@ -48,7 +48,7 @@ for (DiscussionComment comment: comments) {
 </div>
 
 <% if (editable) { %>
-<textarea id="xava_new_comment_<%=discussionId%>" class="ox-simple-ckeditor xava-new-comment" tabindex="1"></textarea>
+<textarea id="xava_new_comment_<%=discussionId%>" class="ox-simple-html-text xava-new-comment" tabindex="1"></textarea>
 
 <div id="xava_new_comment_<%=discussionId%>_buttons" class="ox-discussion-post-button">
 	<input type="button" tabindex="1" class="<%=style.getButton()%> ox-display-none" 

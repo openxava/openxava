@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- FilePond JavaScript library used by upload editor upgraded to 4.30.4 for security reasons.
+- CKEditor replaced by TinyMCE for @TextHtml and @Discussion for security reasons.
+- Fix: Broken links in customizing doc of reference guide.
 - New property signInJSP in naviox.properties to define a custom login page.
 - Inline style no longer allowed in HTML.
 - Inline style removed from all generated HTML code by OpenXava.

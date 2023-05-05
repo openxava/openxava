@@ -4,12 +4,12 @@
 boolean editable="true".equals(request.getParameter("editable"));
 
 if (editable) {
-	String cssClass = "ox-ckeditor";
-	String ckeConfig = request.getParameter("config");
+	String cssClass = "ox-html-text";
+	String conf = request.getParameter("config"); 
 	if ("true".equals(request.getParameter("simple"))) {
-		ckeConfig = "simple";
+		conf = "simple";  
 	} 
-	if (ckeConfig != null) cssClass = "ox-" + ckeConfig + "-ckeditor"; 
+	if (conf != null) cssClass = "ox-" + conf + "-html-text"; 
 %>
 <jsp:include page="textAreaEditor.jsp">
 	<jsp:param name="cssClass" value="<%=cssClass%>" />

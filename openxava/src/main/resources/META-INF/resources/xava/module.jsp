@@ -156,8 +156,11 @@
 	<script type='text/javascript' src='<%=contextPath%>/xava/js/typewatch.js?ox=<%=version%>'></script>
 
 	<%
+	String browser = request.getHeader("user-agent"); 
+	boolean browserIsHtmlUnit = browser != null && browser.contains("HtmlUnit");
 	for (String editorJS: EditorsResources.listJSFiles(realPath)) {
-       String encoding = editorJS.toLowerCase().endsWith("-utf8.js") ? "UTF-8" : "ISO-8859-1"; 
+		if (browserIsHtmlUnit && editorJS.equals("js/tinymce.js")) continue; // Ad hoc, we should move this outside OpenXava core, in a file or following convention
+        String encoding = editorJS.toLowerCase().endsWith("-utf8.js") ? "UTF-8" : "ISO-8859-1"; 
     %>
 	<script type="text/javascript" charset="<%=encoding%>" src="<%=contextPath%>/xava/editors/<%=editorJS%>?ox=<%=version%>"></script>
 	<%
@@ -253,7 +256,6 @@ if (manager.isResetFormPostNeeded()) {
 	$("#xava_reset_form").submit();
 	</script>		
 <% } else  { 		
-		String browser = request.getHeader("user-agent"); 
 %>
 
 <script type="text/javascript" <xava:nonce/>> 
@@ -295,7 +297,7 @@ if (manager.isResetFormPostNeeded()) {
 		<% if (XavaPreferences.getInstance().isEnterMovesToNextField()) { %>
 		openxava.initFocusKey = openxava.setEnterAsFocusKey;
 		<% } %>
-		<% if (browser != null && browser.contains("HtmlUnit")) { // Because of low performance of fadeIn with HtmlUnit %>
+		<% if (browserIsHtmlUnit) { // Because of low performance of fadeIn with HtmlUnit %>  
 		openxava.fadeIn = openxava.show;
 		openxava.browser.htmlUnit = true; 
 		<% } %>
