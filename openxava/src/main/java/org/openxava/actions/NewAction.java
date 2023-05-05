@@ -2,6 +2,7 @@ package org.openxava.actions;
 
 /**
  * @author Javier Paniza
+ * @author Chungyen Tsai
  */
 
 public class NewAction extends ViewBaseAction implements IChangeModeAction, IModelAction {
@@ -35,10 +36,30 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 		this.restoreModel = restoreModel;
 	}
 
+	/**
+	 * A string with default values in string format. <br>
+	 * 
+	 * We use : to separate key from value and ; to separate entries, thus:
+	 * <pre>
+	 * name:John;date:2/2/2034
+	 * </pre>
+	 *  
+	 * @since 7.1 
+	 */
 	public String getDefaultValues() {
 		return defaultValues;
 	}
 
+	/**
+	 * A string with default values in string format. <br>
+	 * 
+	 * We use : to separate key from value and ; to separate entries, thus:
+	 * <pre>
+	 * name:John;date:2/2/2034
+	 * </pre>
+	 *  
+	 * @since 7.1 
+	 */
 	public void setDefaultValues(String defaultValues) {
 		this.defaultValues = defaultValues;
 	}

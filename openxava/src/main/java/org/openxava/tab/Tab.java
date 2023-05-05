@@ -32,6 +32,7 @@ import org.openxava.web.*;
  * @author Javier Paniza
  * @author Ana Andrés
  * @author Trifon Trifonov
+ * @author Chungyen Tsai
  */
 
 public class Tab implements java.io.Serializable, Cloneable { 

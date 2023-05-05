@@ -18,7 +18,6 @@ public class CalendarTest extends TestCase {
 	public void setUp() throws Exception {
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--remote-allow-origins=*");
-		System.setProperty("webdriver.chrome.driver", "C:/Program Files/Google/Chrome/Application/chromedriver.exe");
 		driver = new ChromeDriver(options);
 	}
 
@@ -65,7 +64,6 @@ public class CalendarTest extends TestCase {
 	}
 
 	public void tearDown() throws Exception {
-
 		driver.quit();
 	}
 
