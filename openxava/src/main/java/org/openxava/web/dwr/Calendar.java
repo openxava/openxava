@@ -65,7 +65,7 @@ public class Calendar extends DWRBase {
 	private List<String> datesList = new ArrayList<>();
 
 	public String getEvents(HttpServletRequest request, HttpServletResponse response, String application, String module,
-			String monthYear) throws RemoteException, JsonProcessingException{
+			String monthYear) throws RemoteException, JsonProcessingException {
 		this.application = application;
 		this.module = module;
 		this.response = response;
@@ -95,10 +95,11 @@ public class Calendar extends DWRBase {
 				event = new CalendarEvent();
 				event.key = obtainRowsKey(i);
 				List<String> d = obtainRowsDate(i);
-				event.start = d.get(0).split("_")[1];
-				event.startName = d.get(0).split("_")[0];
+				String[] startDate = d.get(0).split("_");
+				event.start = startDate[1];
+				event.startName = startDate[0];
 				event.end = "";
-				// para usarse en rango de fecha
+				// for date range
 				// event.end = (d.size() > 1) ? d.get(1).split("_")[1] : "";
 				event.title = obtainRowsTitle(i);
 				calendarEvents.add(event);

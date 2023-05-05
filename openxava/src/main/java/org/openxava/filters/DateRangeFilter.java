@@ -2,6 +2,15 @@ package org.openxava.filters;
 
 import lombok.*;
 
+/**
+ * Used in {@link org.openxava.web.dwr.Calendar} to filter dates. <p>
+ * 
+ * @since 7.1
+ * @author Chungyen Tsai
+ *
+ */
+
+
 @Getter
 @Setter
 public class DateRangeFilter implements IFilter {

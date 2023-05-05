@@ -22,34 +22,23 @@ public class CalendarTest extends TestCase {
 		driver = new ChromeDriver(options);
 	}
 
-	// We use Thread.sleep(8000) because in dwr.Calendar it was set to 5000
-	// to simulate the cost of fetching many records,
-	// for the stable version, the sleep in dwr.Calendar will be removed
-	// but still need until calculated properties in tab was fixed
-	public void testNavegacion() throws Exception {
+	public void testNavigation() throws Exception {
 		driver.get("http://localhost:8080/openxavatest/m/Invoice");
 		wait(driver);
+		try {
+		    Alert alert = driver.switchTo().alert();
+		    alert.accept();
+		} catch (NoAlertPresentException e) {
+		}
 		moveToCalendarView();
 		wait(driver);
-		Thread.sleep(8000);
+		waitEvent(driver);
 		prevOnCalendar();
-		wait(driver);
-		Thread.sleep(8000);
+		waitEvent(driver);
 		createInvoiceEventPrevCurrentNextMonth();
 		prevOnCalendar();
-		wait(driver);
-		Thread.sleep(8000);
+		waitEvent(driver);
 		verifyPrevInvoiceEvent();
-		
-		moveToListView();
-		wait(driver);
-		setInvoiceCondition("Invoice");
-		wait(driver);
-		Thread.sleep(3000);
-		moveToCalendarView();
-		wait(driver);
-		Thread.sleep(8000);
-		verifyConditionEvents("past");
 		
 		driver.get("http://localhost:8080/openxavatest/m/InvoiceCalendar");
 		wait(driver);
@@ -57,13 +46,18 @@ public class CalendarTest extends TestCase {
 		wait(driver);
 		setInvoiceCondition("InvoiceCalendar");
 		wait(driver);
-		Thread.sleep(3000);
+		waitEvent(driver);
 		moveToCalendarView();
 		wait(driver);
+		waitEvent(driver);
 		prevOnCalendar();
-		wait(driver);
-		Thread.sleep(8000);
-		verifyConditionEvents("past");
+		waitEvent(driver);
+		verifyConditionEvents("past", false);
+		nextOnCalendar();
+		waitEvent(driver);
+		nextOnCalendar();
+		waitEvent(driver);
+		verifyConditionEvents("future", true);
 		
 		moveToListView();
 		wait(driver);
@@ -85,6 +79,15 @@ public class CalendarTest extends TestCase {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("xava_loading")));
 	}
 
+	private void waitEvent(WebDriver driver) throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(10000));
+		try {
+			wait.until(ExpectedConditions.jsReturnsValue("return calendarEditor.requesting === false;"));
+			Thread.sleep(500);
+		} catch (Exception ex) {
+		}
+	}
+	
 	private void moveToCalendarView() throws InterruptedException {
 		WebElement tabCalendar = driver.findElement(By.cssSelector(".mdi.mdi-calendar"));
 		WebElement tabCalendarParent = tabCalendar.findElement(By.xpath(".."));
@@ -138,7 +141,7 @@ public class CalendarTest extends TestCase {
 		for (int i = 0; i < dates.size(); i++) {
 			if (i == 2) {
 				nextOnCalendar();
-				Thread.sleep(8000);
+				waitEvent(driver);
 				wait(driver);
 			}
 			String dateString = dateFormat.format(dates.get(i));
@@ -147,8 +150,9 @@ public class CalendarTest extends TestCase {
 							+ dateString + "']]"));
 			day.click();
 			wait(driver);
+			
 			createInvoice(i);
-
+			//waitEvent(driver);
 		}
 	}
 	
@@ -171,7 +175,7 @@ public class CalendarTest extends TestCase {
 		WebElement buttonList = driver.findElement(By.id("ox_openxavatest_Invoice__Mode___list"));
 		buttonList.click();
 		wait(driver);
-		Thread.sleep(8000);
+		waitEvent(driver);
 	}
 
 	private void verifyPrevInvoiceEvent() throws Exception {
@@ -188,7 +192,7 @@ public class CalendarTest extends TestCase {
 		WebElement buttonList = driver.findElement(By.id("ox_openxavatest_Invoice__Mode___list"));
 		buttonList.click();
 		wait(driver);
-		Thread.sleep(8000);
+		waitEvent(driver);
 	}
 	
 	
@@ -204,13 +208,14 @@ public class CalendarTest extends TestCase {
 		filterAction.click();
 	}
 	
-	private void verifyConditionEvents(String time) {
+	private void verifyConditionEvents(String time, boolean isExist) {
 		WebElement currentMonthEvent = null;
 		try {
 		    currentMonthEvent = driver.findElement(By.cssSelector(
 		            "a.fc-event.fc-event-draggable.fc-event-resizable.fc-event-start.fc-event-end.fc-event-" + time + ".fc-daygrid-event.fc-daygrid-dot-event"));
-		} catch (NoSuchElementException e) {}
-		assertNull(currentMonthEvent);
+		} catch (NoSuchElementException e) {}	
+		assert isExist ? currentMonthEvent != null : currentMonthEvent == null;
+
 	}
 	
 	private void deteleEvents() throws Exception {

@@ -2122,6 +2122,13 @@ public class Tab implements java.io.Serializable, Cloneable {
 		} 
 	}
 	
+	
+	/**
+	 * 
+	 * Add properties without using old configuration. 
+	 * 
+	 * @since 7.1
+	 */
 	public void addProperties(List<String> propertiesName, String[] conditionValues, String[] conditionValuesTo, String[] conditionComparators) throws XavaException {
 		cloneMetaTab();
 		configuration.setConditionValues(conditionValues);
