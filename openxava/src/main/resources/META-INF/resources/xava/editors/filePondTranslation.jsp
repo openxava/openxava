@@ -5,7 +5,7 @@
 <% 
 if (!Locales.getCurrent().getLanguage().equals("en") && request.getAttribute("xava.filepond.transaled") == null) {  
 %>
-	<script>
+	<script <xava:nonce/>>
 	FilePond.setOptions({
 		labelIdle: '<xava:message key="filepond_labelIdle"/>',
 		labelFileWaitingForSize: '<xava:message key="filepond_labelFileWaitingForSize"/>',

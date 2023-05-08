@@ -96,7 +96,7 @@ if(!Is.empty(key)){
 		</table>		
 	</div>
 
-	<script type="text/javascript">
+	<script type="text/javascript" <xava:nonce/>>
 		$(document).ready(function(){
 			var tree_<%=collectionName%> = {};
 			tree_<%=collectionName%>.tree = <%=javaScriptCode%>

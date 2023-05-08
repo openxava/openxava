@@ -252,7 +252,7 @@ if (manager.isResetFormPostNeeded()) {
 if (manager.isResetFormPostNeeded()) {  
 	manager.setResetFormPostNeeded(false);		
 %>		
-	<script type="text/javascript">
+	<script type="text/javascript" <xava:nonce/>>
 	$("#xava_reset_form").submit();
 	</script>		
 <% } else  { 		

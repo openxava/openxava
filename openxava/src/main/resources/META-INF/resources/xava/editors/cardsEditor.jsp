@@ -46,7 +46,7 @@ if (loadMore) {
 	<i class="mdi mdi-autorenew spin"></i>
 	<xava:message key="loading"/>...
 </div>
-<script>
+<script <xava:nonce/>>
 if ($("#xava_loading_more_elements").is(":visible")) {
 	$(window).scroll(function () {
 		if ($("#xava_loading_more_elements").is(":visible")) {

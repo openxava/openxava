@@ -83,5 +83,13 @@ public class HtmlUnitUtils {
 			.setUserAgent(userAgent)
 			.build();
 	}
+	
+	public static BrowserVersion getDefaultBrowser() throws Exception { // tmr
+		return new BrowserVersion.BrowserVersionBuilder(BrowserVersion.BEST_SUPPORTED)
+			.setUserAgent(BrowserVersion.BEST_SUPPORTED.getUserAgent() + " HtmlUnit")
+			.build();
+	}
+	
+	
 		
 }
