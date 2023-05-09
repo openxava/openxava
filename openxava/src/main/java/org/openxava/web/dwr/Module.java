@@ -126,7 +126,7 @@ public class Module extends DWRBase {
 				cleanRequest();
 			}
 			long time = System.currentTimeMillis() - ini; 
-			log.debug(XavaResources.getString("request_time") + "=" + time + " ms"); 
+			log.debug(XavaResources.getString("request_time") + "=" + time + " ms");
 		}
 	}
 	

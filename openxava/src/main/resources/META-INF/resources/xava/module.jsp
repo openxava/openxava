@@ -324,5 +324,5 @@ try {
 finally {
 	context.cleanCurrentWindowId(); 
 	org.openxava.util.SessionData.clean();
-} 
+}
 %>
