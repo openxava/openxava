@@ -72,7 +72,10 @@ String listModeClass=manager.isListMode()?"class='" + style.getListMode() + "'":
 	
 	</div>
 
+	<% if (style.isSeparatorBeforeBottomButtons()) { %> 
 	<div class="ox-core-bottom-buttons-separator"></div>
+	<% } %> 
+	
 
     <div id='<xava:id name="bottom_buttons"/>' class="<%=style.getBottomButtons()%>">
 		<jsp:include page="bottomButtons.jsp"/>

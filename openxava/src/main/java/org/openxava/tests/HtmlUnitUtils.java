@@ -74,8 +74,7 @@ public class HtmlUnitUtils {
 	}
 	
 	public static BrowserVersion getAndroidBrowser() throws Exception { 
-		// tmr return getBrowser("Mozilla/5.0 (Linux; U; Android 4.1.1; es-es; Vodafone 875 Build/JRO03C) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.1 Mobile Safari/534.30 SVN/050HCG5");
-		return getBrowser("Mozilla/5.0 (Linux; U; Android 4.1.1; es-es; Vodafone 875 Build/JRO03C) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.1 Mobile Safari/534.30 SVN/050HCG5 HtmlUnit"); // tmr 
+		return getBrowser("Mozilla/5.0 (Linux; U; Android 4.1.1; es-es; Vodafone 875 Build/JRO03C) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.1 Mobile Safari/534.30 SVN/050HCG5 HtmlUnit");  
 	}
 	
 	public static BrowserVersion getBrowser(String userAgent) throws Exception {
@@ -84,7 +83,8 @@ public class HtmlUnitUtils {
 			.build();
 	}
 	
-	public static BrowserVersion getDefaultBrowser() throws Exception { // tmr
+	/** @since 7.1 */
+	public static BrowserVersion getDefaultBrowser() throws Exception { 
 		return new BrowserVersion.BrowserVersionBuilder(BrowserVersion.BEST_SUPPORTED)
 			.setUserAgent(BrowserVersion.BEST_SUPPORTED.getUserAgent() + " HtmlUnit")
 			.build();

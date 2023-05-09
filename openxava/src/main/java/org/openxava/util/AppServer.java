@@ -66,8 +66,7 @@ public class AppServer {
 
         // If you change the next 3 lines pass the ZAP test again
         Rfc6265CookieProcessor processor = new Rfc6265CookieProcessor();
-        // tmr processor.setSameSiteCookies("Strict");
-        processor.setSameSiteCookies("Lax"); // "Strict" does not work with Azure AD and "None" does not work with Chrome // tmr
+        processor.setSameSiteCookies("Lax"); // "Strict" does not work with Azure AD and "None" does not work with Chrome 
         context.setCookieProcessor(processor);
         
         // If you change the content of error404.html or error500.html pass the ZAP test again 

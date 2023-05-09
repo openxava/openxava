@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- New getDefaultBrowser() method in HtmlUnitUtils.
 - New getSignInURL() method in ISignInHelperProvider.
 - Return type for init() method in ISignInHelperProvider now is String[] instead of String.
 - New start(String dbName, int port) method with port number in DBServer.
