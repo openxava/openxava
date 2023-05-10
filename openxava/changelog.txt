@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Link in migration English doc for migration from OpenXava 6.6.3 to OpenXava 7.0 to incorrect section.
 - New getDefaultBrowser() method in HtmlUnitUtils.
 - New getSignInURL() method in ISignInHelperProvider.
 - Return type for init() method in ISignInHelperProvider now is String[] instead of String.
