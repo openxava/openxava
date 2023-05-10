@@ -1647,7 +1647,7 @@ input[type="button"] {
     display: none;
 }
 
-input[id$="_SignIn__Azure___signInWithAzureAD"] {
+input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
     background: var(--azure-signin-button-background);
 }
 
