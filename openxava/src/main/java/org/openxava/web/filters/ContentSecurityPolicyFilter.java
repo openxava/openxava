@@ -6,6 +6,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
+import org.openxava.util.*;
 import org.openxava.web.*;
 
 /**
@@ -17,12 +18,27 @@ import org.openxava.web.*;
 @WebFilter("/*") // If you change this pass the ZAP test again
 public class ContentSecurityPolicyFilter implements Filter {
 
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    private static String mapsTileProviderURL; 
+
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     	// If you change this pass the ZAP test again
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        httpResponse.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'nonce-" + Nonces.get(request) +"' 'unsafe-eval'; style-src 'self' 'nonce-" + Nonces.get(request) +"'; img-src 'self' data: blob:; worker-src 'self' blob:; frame-ancestors 'self'; form-action 'self'; font-src 'self' data:");
+        httpResponse.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'nonce-" + Nonces.get(request) +"' 'unsafe-eval'; style-src 'self' 'nonce-" + Nonces.get(request) +"'; img-src 'self' data: blob: " + getMapsTileProviderURL() + "; worker-src 'self' blob:; frame-ancestors 'self'; form-action 'self'; font-src 'self' data:");
+        
         httpResponse.setHeader("X-Content-Type-Options", "nosniff");
         chain.doFilter(request, response);
+    }
+    
+    private static String getMapsTileProviderURL() { 
+    	if (mapsTileProviderURL == null) {
+    		mapsTileProviderURL = getBaseURL(XavaPreferences.getInstance().getMapsTileProvider());
+    	}
+    	return mapsTileProviderURL;    	
+    }
+    
+    private static String getBaseURL(String url) { 
+        String[] tokens = url.split("/");
+        return tokens[0] + "//" + tokens[2] + "/" ;
     }
 
 }

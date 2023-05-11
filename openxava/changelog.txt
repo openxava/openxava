@@ -20,6 +20,7 @@ Change Log for OpenXava project
 - Fix: Content Security Policy (CSP) header not set.
 
 - FilePond JavaScript library used by the upload editor upgraded to 4.30.4 for security reasons.
+- Leaflet JavaScript library used for maps upgraded to 1.9.3.
 - HtmlUnit upgraded to 2.70.
 - Embedded Tomcat used in development upgraded to 9.0.73.
 - Log4j-api and core upgraded to 2.20.0.
