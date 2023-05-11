@@ -187,7 +187,26 @@ reload(); // ...you have to add this line
     <div class="wiki" style="display: block;">
       <pre><code class="xml">&lt;class&gt;com.openxava.naviox.model.SSORecord&lt;/class&gt;
 </code></pre> </div>
-    <div class="wiki" style="display: block;"><i></i>
+    <div class="wiki" style="display: block;">
+      <h2>
+      </h2>
+      <h3>Add new SSO module to admin role and Admin folder (for XavaPro)</h3>
+      XavaPro includes a new administration module called SSO. When creating a
+      new project, this module is automatically associated with the <i>admin </i>role
+      and included in the <i>Admin</i> folder. However, for existing projects,
+      you need to manually add it because XavaPro doesn't automatically add new
+      modules to roles or folders for security reasons.<br>
+      First, add the SSO module to the <i>admin</i> role. Open the <i>Roles</i>
+      module, search for the <i>admin</i> role in the list, and select it. In
+      the <i>admin</i> detail, click to add a new module, search for SSO, and
+      add it:<br>
+      <img src="files/add-sso-to-admin-role_en.png" alt=""><br>
+      Next, add the SSO module to the<i> Admin</i> folder. Open the <i>Folders</i>
+      module, search for the <i>Admin</i> folder in the list, and select it. In
+      the <i>Admin</i> detail, click to add a new module, search for SSO, and
+      add it:</div>
+    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_en.png"
+        alt=""><br>
       <h2>Migration from OpenXava 7.0.5 to OpenXava 7.0.6</h2>
       <h3>@Column(length=x) with no scale is no longer scale=2 by default</h3>
       <p>We fixed a bug about that <i>scale=0</i> for <i>@Column</i> does not
@@ -281,8 +300,7 @@ assertValidValues("descriptionsListValue", validValues);
       <p>The easier way to migrate to Maven is creating a new project using
         OpenXava 7.0, and then copying the source code and resources from your
         current project to the new one. So, first create a new OpenXava project
-        using Openxava Studio 7, for that you can follow the instructions in <a
-
+        using Openxava Studio 7, for that you can follow the instructions in <a
           href="getting-started_en.html">Getting started guide</a>.</p>
       <p>The next step is to copy all your source code and resources from the
         old project to the corresponding folder in the new project, as
@@ -620,8 +638,7 @@ assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asNormalizedTex
         +"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
     deleteLink.getHrefAttribute());
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
-
+    <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
         href="http://www.alanwood.net/demos/ansi.html">Look at this table</a> to
       know the mapping between ANSI and UNICODE.</div>
     <div class="wiki" style="display: block;">Now in <i>@HtmlText</i> or <i>@Stereotype("HTML_TEXT")</i>

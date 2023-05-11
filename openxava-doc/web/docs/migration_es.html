@@ -46,7 +46,6 @@
       </div>
       <h2>Para migrar de OpenXava 7.0.6 a OpenXava 7.1</h2>
       <div class="wiki" style="display: block;">
-        <h2></h2>
         <div class="wiki" style="display: block;">
           <h3>Estilo en línea en HTML ya no está permitido.</h3>
           <p>Esto es por razones de seguridad. Esto significa que debes mover el
@@ -195,9 +194,24 @@ reload(); // ...has de añadir esta línea
       <div class="wiki" style="display: block;">
         <pre><code class="xml">&lt;class&gt;com.openxava.naviox.model.SSORecord&lt;/class&gt;
 </code></pre> </div>
-      <div class="wiki" style="display: block;"><i></i>
-        <h2 id="from-6.6.3-to-7.0"></h2>
-      </div>
+      <div class="wiki" style="display: block;"> </div>
+      <h3>Añadir nuevo módulo SSO a rol admin y carpeta Admin (para XavaPro)</h3>
+      XavaPro incluye un nuevo módulo de administración llamado SSO. Al crear un
+      nuevo proyecto este módulo está asociado por defecto al rol <i>admin</i>
+      y está incluido en la carpeta <i>Admin</i>, sin embargo con los proyectos
+      existente tienes que añadirlo tu manualmente, porque XavaPro no añade
+      nuevos módulos a roles o carpetas automáticamente por seguridad.</div>
+    <div class="wiki" style="display: block;">Primero añade el módulo SSO al rol
+      <i>admin</i>. Abre el módulo <i>Roles</i>, busca el rol <i>admin</i> en
+      la lista y escógelo. Dentro del detalle de <i>admin</i> pulsa para añadir
+      un nuevo módulo, busca SSO y añádelo:</div>
+    <img src="files/add-sso-to-admin-role_es.png" alt="">
+    <div class="wiki" style="display: block;">Después añade el módulo SSO a la
+      carpeta <i>Admin</i>. Abre el módulo <i>Carpetas</i>, busca la carpeta <i>Admin</i>
+      en la lista y escógelo. Dentro del detalle de <i>Admin</i> pulsa para
+      añadir un nuevo módulo, busca SSO y añádelo:</div>
+    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_es.png"
+        alt=""><br>
       <h2>Para migrar de OpenXava 7.0.5 a OpenXava 7.0.6</h2>
       <h3>@Column(length=x) sin scale ya no es scale=2 por defecto</h3>
       <p>Hemos arreglado un fallo relacionado con que <i>scale=0</i> para <i>@Column</i>
