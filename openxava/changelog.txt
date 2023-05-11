@@ -48,7 +48,8 @@ Change Log for OpenXava project
 - New getSignInURL() method in ISignInHelperProvider.
 - Return type for init() method in ISignInHelperProvider now is String[] instead of String.
 - New start(String dbName, int port) method with port number in DBServer.
-- New defaultValues property in NewAction to send default values in a string with key/value format. 
+- New defaultValues property in NewAction to send default values in a string with key/value format.
+- Some new common use labels to be used in applications. 
 
 - Fix: Broken links in customizing doc of reference guide.
 - Fix: UI with no CSS style at all if the user has as preference a no longer existing theme. 
