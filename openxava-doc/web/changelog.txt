@@ -1,6 +1,59 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.1 (2023-5-12)
+------------------------
+- Calendar format for list mode automatic for every module whose entity contains a date.
+- New @Mask annotation to define the valid format for entering data in a text field.
+- New action in references to clear the reference value just clicking on a button.
+- New action in @DescriptionsList to clear the selected value of the combo just by clicking on a button.
+- New EditableValidValues editor for View.addValidValue() that allows editing the value and having a combo.
+- CKEditor replaced by TinyMCE for @TextHtml and @Discussion for security reasons.
+- FilePond JavaScript library used by the upload editor upgraded to 4.30.4 for security reasons.
+- Leaflet JavaScript library used for maps upgraded to 1.9.3.
+- HtmlUnit upgraded to 2.70.
+- Embedded Tomcat used in development upgraded to 9.0.73.
+- Log4j-api and core upgraded to 2.20.0.
+- Jersey client, hk2 and media upgraded to 2.39.
+- Lombok upgraded to 1.18.26.
+- Jsoup upgraded to 1.15.4.
+- Groovy upgraded to 4.0.10.
+- Hibernate upgraded to 5.6.15.Final.
+- Commons-fileupload upgraded to 1.5.
+- Driver version in doc and new projects upgraded for PostgreSQL, Oracle, AS/400.
+- New article in documentation to use Kotlin to develop with OpenXava in English, Spanish and Chinese.
+- New @ZerosFilled annotation equivalent to ZEROS_FILLED/RELLENADO_CON_CEROS stereotype.
+- Automatic translation of English labels improved for qualified properties.
+- defaultDescriptionPropertiesValueForDescriptionsList in xava.properties for @DescriptionsList defaults.
+- New property signInJSP in naviox.properties to define a custom login page.
+- Inline style is no longer allowed in HTML.
+- Inline style removed from all generated HTML code by OpenXava.
+- Many methods from org.openxava.web.Style removed, used internally by the UI generator.
+- Data and time for posts in @Discussion use the format of date fields.
+- Attribute cssStyle ignored in <xava:link> and <xava:image> taglibs.
+- New classes in base.css to use as alternative to inline style, like ox-display-none, ox-width-100, etc. 
+- New <xava:nonce/> taglib to generate a nonce number for use in inline JavaScript.
+- New getDefaultBrowser() method in HtmlUnitUtils.
+- New getSignInURL() method in ISignInHelperProvider.
+- Return type for init() method in ISignInHelperProvider now is String[] instead of String.
+- New start(String dbName, int port) method with port number in DBServer.
+- New defaultValues property in NewAction to send default values in a string with key/value format.
+- Some new common use labels to be used in applications. 
+- Fix: Denial of service vulnerability.
+- Fix: Inline JavaScript for events in HTML elements.
+- Fix: XSLT injection vulnerabilities.
+- Fix: X-Content-Type-Options header missing.
+- Fix: Cookie without SameSite attribute.
+- Fix: Application error disclosure.
+- Fix: Session ID in URL rewrite.
+- Fix: Cross-Site Scripting (XSS) vulnerabilities.
+- Fix: Data filtering in .htaccess for some URLs.
+- Fix: Content Security Policy (CSP) header not set.
+- Fix: Broken links in customizing doc of reference guide.
+- Fix: UI with no CSS style at all if the user has as preference a no longer existing theme. 
+- Fix: Link in migration English doc for migration from OpenXava 6.6.3 to OpenXava 7.0 to incorrect section.
+- Fix: @Editor has no effect calling View.addValidValue() on the property.
+
 OpenXava 7.0.6 (2023-2-17)
 --------------------------
 - Embedded Tomcat used in development upgraded to 9.0.71.
