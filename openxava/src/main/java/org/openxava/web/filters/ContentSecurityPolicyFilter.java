@@ -28,6 +28,12 @@ public class ContentSecurityPolicyFilter implements Filter {
         httpResponse.setHeader("X-Content-Type-Options", "nosniff");
         chain.doFilter(request, response);
     }
+	
+	public void init(FilterConfig cfg) throws ServletException { // In order to work with Tomcat 8.x		
+	}
+	
+	public void destroy() { // In order to work with Tomcat 8.x
+	}
     
     private static String getMapsTileProviderURL() { 
     	if (mapsTileProviderURL == null) {

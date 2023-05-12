@@ -9,7 +9,7 @@ Warehouse:
 - The second field shows a black tooltip with an arrow in the correct place.
 Appointment:
 - Go to any element
-- Mouse over Type select, it should show a black tooltip with an arrow in the correct place.
-Customer Radio Button:
+- Mouse over Type combo, it should show a black tooltip with an arrow in the correct place.
+CustomerRadioButton:
 - Go to any element
 - Mouse over Address>State, it should show a black tooltip with an arrow in the correct place.

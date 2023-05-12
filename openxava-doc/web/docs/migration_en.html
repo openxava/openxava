@@ -181,6 +181,31 @@ reload(); // ...you have to add this line
 	"Sections.change"
 };<br>assertActions(actions); </code></pre>
       </div>
+      <h3>Tomcat 8.x requires a minimum Java 8 compilation level</h3>
+      If you are using Tomcat 8.x for your production applications, you need to
+      set the JSP page compilation level to at least 1.8. To do this, edit the <i>web.xml</i>
+      file in the <i>conf</i> folder of your Tomcat, locate a servlet named <i>jsp</i>,
+      and add the following parameters:
+      <div class="wiki" style="display: block;">
+        <pre><code class="xml">&lt;servlet&gt;
+	&lt;servlet-name&gt;jsp&lt;/servlet-name&gt;
+	&lt;servlet-class&gt;org.apache.jasper.servlet.JspServlet&lt;/servlet-class&gt;
+	...
+	&lt;!-- Add the next parameters to compile with Java 8 --&gt;
+	&lt;init-param&gt;
+	  &lt;param-name&gt;compilerSourceVM&lt;/param-name&gt;
+	  &lt;param-value&gt;1.8&lt;/param-value&gt;
+	&lt;/init-param&gt;
+	&lt;init-param&gt;
+	  &lt;param-name&gt;compilerTargetVM&lt;/param-name&gt;
+	  &lt;param-value&gt;1.8&lt;/param-value&gt;
+	&lt;/init-param&gt;		
+	...
+&lt;/servlet&gt;
+</code></pre>
+        <h3></h3>
+        <h3></h3>
+      </div>
       <h3>New entity to declare in persistence.xml (for XavaPro)</h3>
       If you use XavaPro, or you plan to use it in the future, edit the <i>persistence.xml</i>
       file and add the next entry to all you persistence units:</div>
@@ -188,8 +213,7 @@ reload(); // ...you have to add this line
       <pre><code class="xml">&lt;class&gt;com.openxava.naviox.model.SSORecord&lt;/class&gt;
 </code></pre> </div>
     <div class="wiki" style="display: block;">
-      <h2>
-      </h2>
+      <h2> </h2>
       <h3>Add new SSO module to admin role and Admin folder (for XavaPro)</h3>
       XavaPro includes a new administration module called SSO. When creating a
       new project, this module is automatically associated with the <i>admin </i>role

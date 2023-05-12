@@ -9,7 +9,7 @@
 	      username="sa" password="" 
 	      driverClassName="org.hsqldb.jdbc.JDBCDriver"
 	      url="jdbc:hsqldb:hsql://localhost:1666"/>
-	          
+	                     
 	<Resource name="jdbc/companyaDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="sa" password="" 
@@ -21,19 +21,20 @@
 	      username="sa" password="" 
 	      driverClassName="org.hsqldb.jdbc.JDBCDriver"
 	      url="jdbc:hsqldb:file:data/company-b-db"/>
+	      
      
-	<!-- For WTP     
+	<!-- For WTP/Tomcat      
 	<Resource name="jdbc/companyaDS" auth="Container"
 		maxActive="20" maxIdle="5" maxWait="10000" 
 		username="sa" password="" type="javax.sql.DataSource"
 		driverClassName="org.hsqldb.jdbc.JDBCDriver" 
-		url="jdbc:hsqldb:file:/Users/javie/git/openxava/openxavatest/data/company-a-db"/> 
+		url="jdbc:hsqldb:file:/Users/javi/git/openxava/openxavatest/data/company-a-db"/> 
 		
 	<Resource name="jdbc/companybDS" auth="Container" 
 		maxActive="20" maxIdle="5" maxWait="10000" 
 		username="sa" password="" type="javax.sql.DataSource" 
 		driverClassName="org.hsqldb.jdbc.JDBCDriver"
-		url="jdbc:hsqldb:file:/Users/javie/git/openxava/openxavatest/data/company-b-db"/>
+		url="jdbc:hsqldb:file:/Users/javi/git/openxava/openxavatest/data/company-b-db"/>
 	-->	 
 		
 </Context>

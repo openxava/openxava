@@ -188,6 +188,29 @@ reload(); // ...has de añadir esta línea
 	"Sections.change"
 };<br>assertActions(acciones); <br></code></pre>
         <code class="java"> </code></div>
+      <h3>Tomcat 8.x requiere nivel de compilación Java 8 como mínimo</h3>
+      Si usas Tomcat 8.x para tus aplicaciones en producción has de poner el
+      nivel de compilación de las páginas JSP a 1.8 como mínimo. Para ello edita
+      el archivo <i>web.xml</i> en la carpeta <i>conf</i> de tu Tomcat, busca
+      un servlet llamado <i>jsp</i> y añade los siguiente parámetros:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;servlet&gt;
+	&lt;servlet-name&gt;jsp&lt;/servlet-name&gt;
+	&lt;servlet-class&gt;org.apache.jasper.servlet.JspServlet&lt;/servlet-class&gt;
+	...
+	&lt;!-- Añade los siguiente parametros para compilar con Java 8 --&gt;
+	&lt;init-param&gt;
+	  &lt;param-name&gt;compilerSourceVM&lt;/param-name&gt;
+	  &lt;param-value&gt;1.8&lt;/param-value&gt;
+	&lt;/init-param&gt;
+	&lt;init-param&gt;
+	  &lt;param-name&gt;compilerTargetVM&lt;/param-name&gt;
+	  &lt;param-value&gt;1.8&lt;/param-value&gt;
+	&lt;/init-param&gt;		
+	...
+&lt;/servlet&gt;
+</code></pre>
+      <h3></h3>
       <h3>Nueva entidad a declarar en persistence.xml (para XavaPro)</h3>
       Si usas XavaPro, o planeas usarlo en el futuro, edita el archivo <i>persistence.xml</i>
       y añade la siguiente entrada a todas tus unidades de persistencia
