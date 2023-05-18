@@ -6,7 +6,7 @@ Change Log for OpenXava project
 - Pdfbox upgraded to 2.0.28.
 - Jaxb impl upgraded to 2.3.8.
 - Embedded Tomcat used in development upgraded to 9.0.75.
-- Driver version in doc and new projects upgraded for MySQL, PostgreSQL, Oracle, Informix.
+- Driver version in doc and new projects upgraded for MySQL, PostgreSQL, Oracle, Informix, AS/400.
 
 OpenXava 7.1 (2023-5-12)
 ------------------------

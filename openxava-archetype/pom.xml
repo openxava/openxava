@@ -54,12 +54,11 @@
 		</dependency>
 		-->
 		
-		<!-- AS/400
+		<!-- AS/400 
 		<dependency>
 			<groupId>net.sf.jt400</groupId>
 			<artifactId>jt400</artifactId>
 			<version>11.2</version>
-			<classifier>jt400_jdk8</classifier>
 		</dependency>
 		-->
 		
