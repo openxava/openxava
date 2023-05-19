@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Mixed encoding introduced by new Brazilian Portuguese messages translation.
+
 OpenXava 7.1 (2023-5-12)
 ------------------------
 - Calendar format for list mode automatic for every module whose entity contains a date.
