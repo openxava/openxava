@@ -193,10 +193,12 @@ public class ApplicantTest extends ModuleTestBase {
 		assertHelp("es"); 
 		
 		HtmlPage page = getHtmlPage();
-		assertCSSWellUploaded(page);		
+		assertCSSWellUploaded(page, false);
+		assertCSSWellUploaded(page, true);
+		System.out.println(page.getUrl());
 		HtmlElement cssHref = page.getAnchorByHref("?theme=pink.css");
 		page = cssHref.click();
-		assertCSSWellUploaded(page);
+		assertCSSWellUploaded(page, false);
 	}
 	
 	private void assertLabels(String propertyLabel, String moduleLabel) throws Exception {
@@ -353,7 +355,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertListAllConfigurations("All"); 
 	}
 	
-	private void assertCSSWellUploaded(HtmlPage page) throws IOException {
+	private void assertCSSWellUploaded(HtmlPage page, boolean custom) throws IOException {
 		HtmlElement head = (HtmlElement) page.getHead();
 		DomElement linkCSS = head.getChildElements().iterator().next()
 								 .getNextElementSibling()
@@ -363,10 +365,21 @@ public class ApplicantTest extends ModuleTestBase {
 						+ page.getUrl().getHost() + ":"
 						+ page.getUrl().getPort() 
 						+ linkCSS.getAttribute("href");
-		URL url = new URL(urlCSS);
-		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-		assertEquals("@import 'base.css?ox=" + ModuleManager.getVersion() + "';", in.readLine());
-		in.close();
+		URL url;
+		BufferedReader in;
+		System.out.println(urlCSS);
+		if (custom) {
+			urlCSS = urlCSS.replace("terra", "custom");
+			url = new URL(urlCSS);
+			in = new BufferedReader(new InputStreamReader(url.openStream()));
+			assertEquals(".corporation-employee-list-select {", in.readLine());
+			in.close();
+		} else {
+			url = new URL(urlCSS);
+			in = new BufferedReader(new InputStreamReader(url.openStream()));
+			assertEquals("@import 'base.css?ox=" + ModuleManager.getVersion() + "';", in.readLine());
+			in.close();
+		}
 	}
 	
 	protected String getModuleURL() {
