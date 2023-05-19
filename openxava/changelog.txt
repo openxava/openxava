@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: FirstSteps module does not show left modules menu with narrow screen.
 - Fix: Missing space in in group filter name, now instead of "in group(v1, v2)" it's "in group (v1, v2)".  
 - Fix: Mixed encoding introduced by new Brazilian Portuguese messages translation.
 

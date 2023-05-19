@@ -1,6 +1,7 @@
 package org.openxava.test.tests;
 
 import org.openxava.tests.*;
+
 import com.gargoylesoftware.htmlunit.html.*;
 
 /**
@@ -18,6 +19,7 @@ public class FirstStepsTest extends ModuleTestBase {
 		reload();
 		HtmlElement modulesList = getHtmlPage().getHtmlElementById("modules_list");
 		assertTrue(modulesList.isDisplayed());
+		assertTrue(modulesList.getAttribute("class").contains("ox-display-block-important"));
 		
 		assertTrue(getHtmlPage().getElementsById("module_header_menu_button").isEmpty());
 		assertTrue(getHtmlPage().getElementsById("module_extended_title").isEmpty());
