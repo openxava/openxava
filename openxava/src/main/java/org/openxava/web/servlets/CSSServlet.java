@@ -32,7 +32,7 @@ public class CSSServlet extends HttpServlet {
 			}
 
 			String contentType = getContentType(request.getPathInfo());
-			response.setContentType(contentType);
+			response.setContentType(contentType); // // If you change this pass the ZAP test again
 			StringWriter writer;
 			String data = "";
 			if (contentType == null) return;
@@ -47,7 +47,6 @@ public class CSSServlet extends HttpServlet {
 			writer = new StringWriter();
 			IOUtils.copy(inputStream, writer, StandardCharsets.UTF_8);
 			data = writer.toString(); 
-			
 			if (contentType.startsWith("text/css")) {
 				data = data.replaceAll("@import (['\"].*)\\.css", "@import $1.css?ox=" + ModuleManager.getVersion());
 			}
@@ -72,7 +71,6 @@ public class CSSServlet extends HttpServlet {
 		} catch (FileNotFoundException e) {
 		}
 		if (!isEmpty) {
-			System.out.println("META-INF/resources" + prefix + " --- " + resourceName);
 			stream = getClass().getClassLoader().getResourceAsStream("META-INF/resources" + prefix + resourceName);
 			if (stream != null) {
 				return stream;
