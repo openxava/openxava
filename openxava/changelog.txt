@@ -1,12 +1,13 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Wrong classifier in dependency for AS/400 JDBC driver in template projects and doc.
 - JasperReports and fonts upgraded to 6.20.5.
 - Groovy upgraded to 4.0.12. 
 - Pdfbox upgraded to 2.0.28.
 - Jaxb impl upgraded to 2.3.8.
 - Embedded Tomcat used in development upgraded to 9.0.75.
-- Driver version in doc and new projects upgraded for MySQL, PostgreSQL, Oracle, Informix, AS/400.
+- Driver version in doc and new projects upgraded for MySQL, PostgreSQL, Oracle, Informix.
 
 OpenXava 7.1 (2023-5-12)
 ------------------------
