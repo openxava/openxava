@@ -1,7 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
-
+- MS SQL documentation improved to deal with secure connection problems.
+- Fix: Broken link in reference guide main menu to Overview, a no longer existing section.
 - Fix: Wrong classifier in dependency for AS/400 JDBC driver in template projects and doc.
 - JasperReports and fonts upgraded to 6.20.5.
 - Groovy upgraded to 4.0.12. 
