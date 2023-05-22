@@ -1,0 +1,147 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>OpenXava - SSO with Azure AD</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="configuracion-para-kotlin"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>SSO
+        with Azure AD</h1>
+      <a href="http://openxava.org/xavapro"></a><em>All the features in this
+        article are available only in <a href="http://openxava.org/xavapro">XavaPro</a></em></div>
+    <div class="wiki" style="display: block;">Since XavaPro 7.1&nbsp; you can
+      configure user identification to use Azure AD, allowing you to use <b>Single
+        Sign-On</b> (SSO). This way, the user can authenticate once and access
+      all your XavaPro applications and other non-XavaPro applications that also
+      use Azure AD. Furthermore, using Azure AD enables you to utilize <b>two-step
+        authentication</b> for your XavaPro applications. <br>
+      <h2><a name="añadir-dependencias-en-pom.xml">SSO configuration in XavaPro</a></h2>
+      In the <i>Admin</i> folder, you have a module called SSO to configure
+      Azure AD:<code class="xml"></code> </div>
+    <img src="files/sso-module_en.png">
+    <div class="wiki" style="display: block;">If you check the <i>Enabled</i>
+      checkbox and fill in the remaining fields with the correct configuration
+      of your Azure AD for your application, when you sign in, you will have a
+      new button labeled SIGN IN WITH AZURE AD:</div>
+    <img src="files/sigin-in-with-azuread_en.png">
+    <div class="wiki" style="display: block;">If the user clicks on SIGN IN WITH
+      AZURE AD, he will be given the option to sign in using his Azure
+      credentials:</div>
+    <img src="files/microsoft-sign-in_en.png" alt="">
+    <div class="wiki" style="display: block;">Furthermore, if the user is
+      already signed in on that browser, they will access the application
+      without being prompted for authentication. However, for this to happen,
+      the user needs to be added to the application in Azure AD configuration
+      and also registered as a XavaPro user in the application, with the
+      corresponding roles assigned. Please note that <b>the user must be
+        registered in the XavaPro application with the same name as in Azure</b>,
+      otherwise access to the application will not be possible.<br>
+      <h2>Configure the application in Azure AD</h2>
+      If you already use Azure AD in your organization, you will be familiar
+      with configuring applications and assigning users to them. You will also
+      know where to find the values for the XavaPro SSO form. However, if you
+      have never used Azure AD before, don't worry. Here is a guide to help you
+      register your application in Azure AD. Azure AD offers a free tier good
+      enough to enable SSO in your XavaPro applications. </div>
+    <div class="wiki" style="display: block;">
+      <h3>Azure AD Control Panel</h3>
+    </div>
+    <div class="wiki" style="display: block;">The first step is to sign up for
+      Azure AD at this address: <a href="https://azure.microsoft.com/en-us/products/active-directory">https://azure.microsoft.com/en-us/products/active-directory</a>
+      (if the link doesn't work, search for "Azure AD" on Google). Once you have
+      signed up, go to the Azure main page, which is usually accessible after
+      you log in. If not, go to <a href="https://portal.azure.com/">https://portal.azure.com/</a>.
+      From there, click on <i>Azure Active Directory</i>:</div>
+    <img src="files/azure-menu-azure-ad-option_en.png">
+    <div class="wiki" style="display: block;">This takes you to the Azure AD
+      administration page:</div>
+    <img src="files/azure-ad-dashboard_en.png">
+    <div class="wiki" style="display: block;">
+      <h3>Add application in Azure AD</h3>
+    </div>
+    <div class="wiki" style="display: block;">Let's assume that we have a
+      XavaPro application called <i>invoicing</i> and we want to register it in
+      Azure AD. We should follow the next steps.</div>
+    <div class="wiki" style="display: block;">First, open the <i>Add</i> menu
+      and click on <i>App registration</i>:</div>
+    <img src="files/azure-ad-add-app-registration_en.png">
+    <div class="wiki" style="display: block;">
+      <div> In the <i>Register an application page</i> that appears, enter your
+        application's registration information:
+        <ul>
+          <li>In the <i>Name</i> field, enter "invoicing".</li>
+          <li>Under <i>Supported account types</i>, select <i>Accounts in this
+              organizational directory only</i>.</li>
+          <li>In the <i>Redirect URI</i> section, select <i>Web</i> in the
+            combo-box and enter the following redirect URI: <i>http://localhost:8080/invoicing/sso/azure/redirect</i></li>
+        </ul>
+        <img src="files/azure-ad-app-registration-form_en.png">
+        <ol>
+        </ol>
+        Select <i>Register</i> to create the application.
+        <ol>
+        </ol>
+        <h3>Create secret</h3>
+        <p>On the Azure AD administration page, choose the <i>App registrations</i>
+          option from the left menu. This will display the list of your
+          applications. Click on <i>invoicing</i>.</p>
+        <img src="files/azure-ad-app-registration-choose-app_en.png">
+        <ol>
+        </ol>
+        In the app's registration screen, click on the <i>Certificates &amp;
+          secrets</i> option in the left to open the page where we can generate
+        secrets and upload certificates. In the <i>Client secrets</i> section,
+        click on <i>New client secret</i>:
+        <ol>
+        </ol>
+        <img src="files/azure-ad-new-client-secret-option_en.png"><br>
+        <p>Type a key description (for instance app secret), Select one of the
+          available key durations (6 months, 1 year, 2 years, or Never Expires)
+          as per your security concerns.</p>
+        <ol>
+        </ol>
+        <img src="files/azure-ad-app-secret-form_en.png">
+        <ol>
+        </ol>
+        <p>The generated key value will be displayed when you click the <i>Add</i>
+          button. Copy the generated value for use in the steps later. You'll
+          need this key later in your XavaPro SSO configuration. This key value
+          will not be displayed again, and is not retrievable by any other
+          means, so make sure to note it from the Azure portal before navigating
+          to any other screen or section.</p>
+        <ol>
+        </ol>
+        <img src="files/azure-ad-secret-value_en.png"></div>
+      <div>
+        <h2>Configure the Azure AD application in XavaPro</h2>
+        <p>In Azure AD, go to <i>App registrations</i> and select your
+          application to view its essential information. Then, in your XavaPro
+          application, open the SSO module within the <i>Admin</i> folder and
+          fill in the required information:</p>
+        <ul>
+          <li>Enter the <i>Client id</i> in XavaPro with the <i>Application
+              (client)</i> ID from Azure AD.</li>
+          <li>In the XavaPro <i>Authority</i> field, add the prefix <i>https://login.microsoftonline.com/</i>
+            and append the Azure AD <i>Directory (tenant) ID</i>.</li>
+          <li>In the XavaPro <i>Secret</i> field, enter the application secret
+            you created in the previous step and have presumably noted down.</li>
+        </ul>
+        <p>In this way:</p>
+        <img src="files/azure-ad-sso-xavapro-from-azure-conf_en.png">
+        <p>Check the <i>Enabled</i> checkbox, and your application will now
+          work with Azure AD. Remember to register users in your XavaPro
+          application with the corresponding roles; otherwise, it will not work.
+          If you do this with other XavaPro applications, you will be able to
+          authenticate yourself the first time and access the other applications
+          without login. Additionally, you can enable two-step authentication
+          for your users from Azure AD.</p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -18,7 +18,7 @@ See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl
 
 <%
 boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(modules.getCurrentModuleName());
-String display = isFirstSteps?"class='ox-display-block'":""; 
+String display = isFirstSteps?"class='ox-display-block-important'":"";
 %>
 
 <div id="modules_list" <%=display%>>  
