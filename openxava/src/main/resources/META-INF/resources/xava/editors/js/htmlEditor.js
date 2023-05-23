@@ -7,8 +7,11 @@ openxava.addEditorInitFunction(function() {
 	  promotion: false,
 	  branding: false
 	});
+	// TMR ME QUEDÉ POR AQUÍ, EL COMBO DE ESTILOS ACABÓ DE SALIR. ACORDARME DE LOS LINKS, LO PUEDO POSPONER PERO HE DE HACERLO
 	tinymce.init({
 	  selector: '.ox-simple-html-text',
+	  toolbar: 'styles | bold italic forecolor | alignleft aligncenter alignright alignjustify | outdent indent | link image', /* tmr */
+	  menubar: false, /* tmr */
 	  base_url: openxava.contextPath + '/xava/editors/tinymce/',
 	  language: openxava.language,
 	  promotion: false,
@@ -23,6 +26,10 @@ openxava.addEditorInitFunction(function() {
 			$('.ox-button-bar-button').fadeOut(); 
     	});
 	});
+	/*
+	To get all buttons
+	 tinyMCE.activeEditor.ui.registry.getAll().buttons=" + tinyMCE.activeEditor.ui.registry.getAll().buttons); 
+	 */
 });
 
 openxava.addEditorPreRequestFunction(function() { 
