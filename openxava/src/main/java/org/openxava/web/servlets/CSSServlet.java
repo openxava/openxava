@@ -22,21 +22,32 @@ public class CSSServlet extends HttpServlet {
 
 	private static Log log = LogFactory.getLog(CSSServlet.class);
 
+	private Map<String, String> map;
+
+	@Override
+	public void init() throws ServletException {
+		map = new HashMap<>();
+		map.put(".css", "text/css");
+		map.put(".png", "image/png");
+		map.put(".jpg", "image/jpeg");
+		map.put(".jpeg", "image/jpeg");
+		map.put(".map", "application/octet-stream");
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			InputStream inputStream = getCSSAsStream(request.getPathInfo(), request.getServletPath());
+			InputStream inputStream = getResourceAsStream(request.getPathInfo(), request.getServletPath());
 			if (inputStream == null) {
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 				return;
 			}
-
 			String contentType = getContentType(request.getPathInfo());
 			response.setContentType(contentType); // // If you change this pass the ZAP test again
 			StringWriter writer;
 			String data = "";
 			if (contentType == null) return;
-			if (contentType.startsWith("image/png")) {
+			if (contentType.startsWith("image/")) {
 				OutputStream outputStream = response.getOutputStream();
 				IOUtils.copy(inputStream, outputStream);
 				outputStream.close();
@@ -58,7 +69,7 @@ public class CSSServlet extends HttpServlet {
 		}
 	}
 
-	private InputStream getCSSAsStream(String resourceName, String prefix) throws FileNotFoundException {
+	private InputStream getResourceAsStream(String resourceName, String prefix) throws FileNotFoundException {
 		if (resourceName == null) return null; // If you change this pass the ZAP test again
 		boolean isEmpty = false;
 		InputStream stream;
@@ -80,16 +91,10 @@ public class CSSServlet extends HttpServlet {
 	}
 
 	private String getContentType(String resourceName) {
-		Map<String, String> extensionToContentType = new HashMap<>();
-		extensionToContentType.put(".css", "text/css");
-		extensionToContentType.put(".png", "image/png");
-		extensionToContentType.put(".jpg", "image/jpeg");
-		extensionToContentType.put(".jpeg", "image/jpeg");
-		extensionToContentType.put(".map", "application/octet-stream");
 		int dotIndex = resourceName.lastIndexOf(".");
 		if (dotIndex != -1) {
 			String extension = resourceName.substring(dotIndex);
-			return extensionToContentType.get(extension);
+			return map.get(extension);
 		}
 		return null;
 	}

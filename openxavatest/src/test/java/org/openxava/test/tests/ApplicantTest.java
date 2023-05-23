@@ -181,7 +181,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertHelp("en"); 
 	}
 	
-	public void testChangeLocaleAffectsMenu_assertCSSInLatestVersion() throws Exception {  
+	public void testChangeLocaleAffectsMenu_assertCSSInLatestVersionAndIcons() throws Exception {  
 		modulesLimit = false;
 		resetModule();
 		assertLabels("Name", "Author"); 
@@ -195,10 +195,23 @@ public class ApplicantTest extends ModuleTestBase {
 		HtmlPage page = getHtmlPage();
 		assertCSSWellUploaded(page, false);
 		assertCSSWellUploaded(page, true);
-		System.out.println(page.getUrl());
 		HtmlElement cssHref = page.getAnchorByHref("?theme=pink.css");
 		page = cssHref.click();
 		assertCSSWellUploaded(page, false);
+		String iconUrl = page.getUrl().getProtocol() + "://" 
+				+ page.getUrl().getHost() + ":"
+				+ page.getUrl().getPort() + "/openxavatest/xava/style/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png";
+		double imageSizeInKB = 0;
+        URL url = new URL(iconUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("HEAD");
+        int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            double imageSizeInBytes = connection.getContentLength();
+            imageSizeInKB = imageSizeInBytes / 1024;
+        }
+        connection.disconnect();
+        assertTrue(imageSizeInKB > 0.0);
 	}
 	
 	private void assertLabels(String propertyLabel, String moduleLabel) throws Exception {
@@ -367,7 +380,6 @@ public class ApplicantTest extends ModuleTestBase {
 						+ linkCSS.getAttribute("href");
 		URL url;
 		BufferedReader in;
-		System.out.println(urlCSS);
 		if (custom) {
 			urlCSS = urlCSS.replace("terra", "custom");
 			url = new URL(urlCSS);
