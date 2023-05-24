@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Impossible to add links in @HtmlText.
+- It's possible to go to the page from a link in @HtmlText.
 - Fix: The simple attribute in @HtmlText has no effect.
 - Button for changing font color added to button bar for @HtmlText editor. 
 - Fix: Server error in calendar when the property name for date does not contain 'date' or 'fecha'.
