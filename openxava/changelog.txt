@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: The simple attribute in @HtmlText has no effect.
+- Button for changing font color added to button bar for @HtmlText editor. 
 - Fix: Server error in calendar when the property name for date does not contain 'date' or 'fecha'.
 - MS SQL documentation improved to deal with secure connection problems.
 - Fix: Broken link in reference guide main menu to Overview, a no longer existing section.

@@ -2,16 +2,16 @@ openxava.addEditorInitFunction(function() {
 	if (openxava.browser.htmlUnit) return;	
 	tinymce.init({
 	  selector: '.ox-html-text',
+	  toolbar: 'styles | bold italic forecolor | alignleft aligncenter alignright alignjustify | outdent indent', 
 	  base_url: openxava.contextPath + '/xava/editors/tinymce/',
 	  language: openxava.language,
 	  promotion: false,
 	  branding: false
 	});
-	// TMR ME QUEDÉ POR AQUÍ, EL COMBO DE ESTILOS ACABÓ DE SALIR. ACORDARME DE LOS LINKS, LO PUEDO POSPONER PERO HE DE HACERLO
 	tinymce.init({
 	  selector: '.ox-simple-html-text',
-	  toolbar: 'styles | bold italic forecolor | alignleft aligncenter alignright alignjustify | outdent indent | link image', /* tmr */
-	  menubar: false, /* tmr */
+	  toolbar: 'styles | bold italic forecolor | alignleft aligncenter alignright alignjustify | outdent indent', 
+	  menubar: false,
 	  base_url: openxava.contextPath + '/xava/editors/tinymce/',
 	  language: openxava.language,
 	  promotion: false,

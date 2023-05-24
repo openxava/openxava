@@ -1,5 +1,2 @@
-/*C6*/SET SCHEMA PUBLIC
-create table XAVATEST.UserWithBirthday (id varchar(32) not null, birthday date, userName varchar(255), primary key (id))
-DISCONNECT
-/*C7*/SET SCHEMA PUBLIC
+/*C3*/SET SCHEMA PUBLIC
 DISCONNECT
