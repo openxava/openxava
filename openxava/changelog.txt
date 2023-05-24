@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Server error in calendar when the property name for date does not contain 'date' or 'fecha'.
 - MS SQL documentation improved to deal with secure connection problems.
 - Fix: Broken link in reference guide main menu to Overview, a no longer existing section.
 - Fix: Wrong classifier in dependency for AS/400 JDBC driver in template projects and doc.
