@@ -61,6 +61,17 @@ public class CalendarTest extends TestCase {
 		moveToListView();
 		wait(driver);
 		deteleEvents();
+		
+		// date properties with any name
+		driver.get("http://localhost:8080/openxavatest/m/UserWithBirthday");
+		wait(driver);
+		moveToListView();
+		wait(driver);
+		moveToCalendarView();
+		wait(driver);
+		waitEvent(driver);
+		moveToListView();
+		wait(driver);
 	}
 
 	public void tearDown() throws Exception {

@@ -193,10 +193,15 @@ public class ApplicantTest extends ModuleTestBase {
 		assertHelp("es"); 
 		
 		HtmlPage page = getHtmlPage();
+<<<<<<< HEAD
 		assertCSSWellUploaded(page, false);
 		assertCSSWellUploaded(page, true);
+=======
+		assertCSSWellUploaded(page);		
+>>>>>>> refs/heads/master
 		HtmlElement cssHref = page.getAnchorByHref("?theme=pink.css");
 		page = cssHref.click();
+<<<<<<< HEAD
 		assertCSSWellUploaded(page, false);
 		String iconUrl = page.getUrl().getProtocol() + "://" 
 				+ page.getUrl().getHost() + ":"
@@ -212,6 +217,9 @@ public class ApplicantTest extends ModuleTestBase {
         }
         connection.disconnect();
         assertTrue(imageSizeInKB > 0.0);
+=======
+		assertCSSWellUploaded(page);
+>>>>>>> refs/heads/master
 	}
 	
 	private void assertLabels(String propertyLabel, String moduleLabel) throws Exception {
@@ -368,7 +376,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertListAllConfigurations("All"); 
 	}
 	
-	private void assertCSSWellUploaded(HtmlPage page, boolean custom) throws IOException {
+	private void assertCSSWellUploaded(HtmlPage page) throws IOException {
 		HtmlElement head = (HtmlElement) page.getHead();
 		DomElement linkCSS = head.getChildElements().iterator().next()
 								 .getNextElementSibling()
@@ -378,6 +386,7 @@ public class ApplicantTest extends ModuleTestBase {
 						+ page.getUrl().getHost() + ":"
 						+ page.getUrl().getPort() 
 						+ linkCSS.getAttribute("href");
+<<<<<<< HEAD
 		URL url;
 		BufferedReader in;
 		if (custom) {
@@ -392,6 +401,12 @@ public class ApplicantTest extends ModuleTestBase {
 			assertEquals("@import 'base.css?ox=" + ModuleManager.getVersion() + "';", in.readLine());
 			in.close();
 		}
+=======
+		URL url = new URL(urlCSS);
+		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+		assertEquals("@import 'base.css?ox=" + ModuleManager.getVersion() + "';", in.readLine());
+		in.close();
+>>>>>>> refs/heads/master
 	}
 	
 	protected String getModuleURL() {
