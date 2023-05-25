@@ -65,6 +65,12 @@ public class CalendarTest extends TestCase {
 		// date properties with any name
 		driver.get("http://localhost:8080/openxavatest/m/UserWithBirthday");
 		wait(driver);
+		try {
+			WebElement buttonList = driver.findElement(By.id("ox_openxavatest_UserWithBirthday__Mode___list"));
+			buttonList.click();
+			wait(driver);
+		} catch (NoSuchElementException e) {
+		}
 		moveToListView();
 		wait(driver);
 		moveToCalendarView();
@@ -146,7 +152,6 @@ public class CalendarTest extends TestCase {
 	private void createInvoiceEventPrevCurrentNextMonth() throws Exception {
 		List<Date> dates = setDates();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat dateFormat2 = new SimpleDateFormat();
 		for (int i = 0; i < dates.size(); i++) {
 			if (i == 2) {
 				nextOnCalendar();
@@ -159,9 +164,7 @@ public class CalendarTest extends TestCase {
 							+ dateString + "']]"));
 			day.click();
 			wait(driver);
-			
 			createInvoice(i);
-			//waitEvent(driver);
 		}
 	}
 	
