@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Applications no longer work in root context (AppServer.run("") or ROOT.war).
 - Fix: Impossible to add links in @HtmlText.
 - It's possible to go to the page from a link in @HtmlText.
 - Fix: The simple attribute in @HtmlText has no effect.
