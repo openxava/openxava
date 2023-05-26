@@ -27,11 +27,32 @@ public class CSSServlet extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		map = new HashMap<>();
-		map.put(".css", "text/css");
-		map.put(".png", "image/png");
-		map.put(".jpg", "image/jpeg");
-		map.put(".jpeg", "image/jpeg");
-		map.put(".map", "application/octet-stream");
+	    map.put(".jpg", "image/jpeg");
+	    map.put(".jpeg", "image/jpeg");
+	    map.put(".png", "image/png");
+	    map.put(".gif", "image/gif");
+	    map.put(".bmp", "image/bmp");
+	    map.put(".webp", "image/webp");
+	    map.put(".svg", "image/svg+xml");
+
+	    map.put(".mp3", "audio/mpeg");
+	    map.put(".wav", "audio/wav");
+	    map.put(".ogg", "audio/ogg");
+	    map.put(".mid", "audio/midi");
+
+	    map.put(".mp4", "video/mp4");
+	    map.put(".avi", "video/x-msvideo");
+	    map.put(".mov", "video/quicktime");
+	    map.put(".mkv", "video/x-matroska");
+	    map.put(".wmv", "video/x-ms-wmv");
+
+	    map.put(".txt", "text/plain");
+	    map.put(".pdf", "application/pdf");
+	    map.put(".doc", "application/msword");
+	    map.put(".xls", "application/vnd.ms-excel");
+	    map.put(".ppt", "application/vnd.ms-powerpoint");
+	    map.put(".map", "application/octet-stream");
+	    map.put(".css", "text/css");
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -47,7 +68,7 @@ public class CSSServlet extends HttpServlet {
 			StringWriter writer;
 			String data = "";
 			if (contentType == null) return;
-			if (contentType.startsWith("image/")) {
+			if (!contentType.startsWith("text/css")) {
 				OutputStream outputStream = response.getOutputStream();
 				IOUtils.copy(inputStream, outputStream);
 				outputStream.close();
@@ -58,9 +79,7 @@ public class CSSServlet extends HttpServlet {
 			writer = new StringWriter();
 			IOUtils.copy(inputStream, writer, StandardCharsets.UTF_8);
 			data = writer.toString(); 
-			if (contentType.startsWith("text/css")) {
-				data = data.replaceAll("@import (['\"].*)\\.css", "@import $1.css?ox=" + ModuleManager.getVersion());
-			}
+			data = data.replaceAll("@import (['\"].*)\\.css", "@import $1.css?ox=" + ModuleManager.getVersion());
 			response.getWriter().append(data);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

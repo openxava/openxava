@@ -198,20 +198,7 @@ public class ApplicantTest extends ModuleTestBase {
 		HtmlElement cssHref = page.getAnchorByHref("?theme=pink.css");
 		page = cssHref.click();
 		assertCSSWellUploaded(page, false);
-		String iconUrl = page.getUrl().getProtocol() + "://" 
-				+ page.getUrl().getHost() + ":"
-				+ page.getUrl().getPort() + "/openxavatest/xava/style/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png";
-		double imageSizeInKB = 0;
-        URL url = new URL(iconUrl);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("HEAD");
-        int responseCode = connection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            double imageSizeInBytes = connection.getContentLength();
-            imageSizeInKB = imageSizeInBytes / 1024;
-        }
-        connection.disconnect();
-        assertTrue(imageSizeInKB > 0.0);
+		assertIconShowed(page);
 	}
 	
 	private void assertLabels(String propertyLabel, String moduleLabel) throws Exception {
@@ -392,6 +379,23 @@ public class ApplicantTest extends ModuleTestBase {
 			assertEquals("@import 'base.css?ox=" + ModuleManager.getVersion() + "';", in.readLine());
 			in.close();
 		}
+	}
+	
+	private void assertIconShowed(HtmlPage page) throws IOException {
+		String iconUrl = page.getUrl().getProtocol() + "://" 
+				+ page.getUrl().getHost() + ":"
+				+ page.getUrl().getPort() + "/openxavatest/xava/style/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png";
+		double imageSizeInKB = 0;
+        URL url = new URL(iconUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("HEAD");
+        int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            double imageSizeInBytes = connection.getContentLength();
+            imageSizeInKB = imageSizeInBytes / 1024;
+        }
+        connection.disconnect();
+        assertTrue(imageSizeInKB > 0.0);
 	}
 	
 	protected String getModuleURL() {
