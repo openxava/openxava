@@ -79,40 +79,27 @@ openxava.addEditorInitFunction(function() {
         wrap: true,
         locale: openxava.language,
         onOpen: function(selectedDates, dateStr, instance) {
-			console.log("onOpen: " + dateStr);
             onOpenDateTime = dateStr;
         },
         onChange: function(selectedDates, dateStr, instance) {
             dateStr = invalid?invalidDate:dateStr;
-			console.log( "invalid: " + invalid + " ? " + invalidDate + " : " + dateStr + " and " + $(instance.input).attr('value'));
-			
             if (onOpenDateTime != null) {
                 if (onOpenDateTime.length > 10) {
-					console.log("onOpenDateTime date + time");
                     $(instance.input).data("changedCancelled", true);
-					//$(instance.input).removeData("changedCancelled");
                 } else {
-					console.log("onOpenDateTime date");
                     if (onOpenDateTime == dateStr) {
-						console.log("onOpenDateTime date onOpenDateTime == dateStr");
                         $(instance.input).data("changedCancelled", true);
-						//$(instance.input).removeData("changedCancelled");
                     } else {
-						console.log("onOpenDateTime date onOpenDateTime != dateStr");
 						$(instance.input).removeData("changedCancelled");
                         $(instance.input).attr('value', dateStr);
-						//$('.xava_date > input').change();
                     }
+					onOpenDateTime = undefined;
                 }
-				onOpenDateTime = undefined;
             } else {
                 if (dateStr === $(instance.input).attr('value')) {
-					console.log("!onOpenDateTime ===" + invalid);
                     $(instance.input).data("changedCancelled", true);
                     onChangeChecked = invalid?true:false;
-					
                 } else {
-					console.log("!onOpenDateTime !=" + invalid);
 					$(instance.input).removeData("changedCancelled");
                     $(instance.input).attr('value', dateStr);
                     onChangeChecked = invalid?true:false;
@@ -122,18 +109,14 @@ openxava.addEditorInitFunction(function() {
         },
         onClose: function(selectedDates, dateStr, instance) {
             if (onOpenDateTime != null) {
-				console.log("onClose: " + onOpenDateTime);
                 if (onOpenDateTime == dateStr) {
-					console.log("onOpenDateTime == dateStr");
                     $(instance.input).data("changedCancelled", true);
                 } else {
-					console.log("onOpenDateTime != dateStr");
 					$(instance.input).removeData("changedCancelled");
                     $(instance.input).attr('value', dateStr);
-                    //$('.xava_date > input').change();
+                    $('.xava_date > input').change();
                 }
             }
-            //onOpenDateTime = undefined;
         },
     });
 
