@@ -198,7 +198,7 @@ public class ApplicantTest extends ModuleTestBase {
 		HtmlElement cssHref = page.getAnchorByHref("?theme=pink.css");
 		page = cssHref.click();
 		assertCSSWellUploaded(page, false);
-		assertIconShowed(page);
+		assertResorcesWellReaded(page);
 	}
 	
 	private void assertLabels(String propertyLabel, String moduleLabel) throws Exception {
@@ -381,7 +381,7 @@ public class ApplicantTest extends ModuleTestBase {
 		}
 	}
 	
-	private void assertIconShowed(HtmlPage page) throws IOException {
+	private void assertResorcesWellReaded(HtmlPage page) throws IOException {
 		String iconUrl = page.getUrl().getProtocol() + "://" 
 				+ page.getUrl().getHost() + ":"
 				+ page.getUrl().getPort() + "/openxavatest/xava/style/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png";
