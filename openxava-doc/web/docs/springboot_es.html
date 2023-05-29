@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Configuración para MySQL - OpenXava</title>
+    <title>Spring Boot</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -13,7 +13,7 @@
               href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
             href="index_es.html">documentación</a> / </span>Spring Boot</h1>
       Spring Boot es una herramienta que hace que el desarrollo de aplicaciones web y microservicios con Spring Framework sea más rápido y fácil.<br>
-      En esta publicación integraremos OpenXava en una aplicación Spring Boot simple con servicios Rest y JPA para aprovechar la vista generada automaticamente por OpenXava. Tomaremos el proyecto de <a
+      En esta publicación integraremos OpenXava en una aplicación Spring Boot simple con servicios Rest y JPA para aprovechar la vista generada automáticamente por OpenXava. Tomaremos el proyecto de <a
         href="https://www.bezkoder.com/spring-boot-jpa-crud-rest-api/">BezKoder</a> como base, lo puedes descargar directamente <a
         href="https://github.com/bezkoder/spring-boot-data-jpa-mysql">aquí</a> e importarlo en <a
         href="https://spring.io/tools">Spring Tool Suite 4</a> for Eclipse. Así mismo vas a necesitar <a
@@ -23,27 +23,28 @@
     <div class="wiki" style="display: block;">
       <h2 id="toc1">Importar y configurar proyecto en Spring Tool Suite 4</h2>
       <p>Luego de descargar el proyecto, abre Spring Tool Suite 4 e importa el proyecto.<br>
-        Configura application.properties ubicado en src/main/resources y adaptalo a tu base de datos MySQL.</p>
-      <p>imagen 1</p>
+        Configura application.properties ubicado en src/main/resources y adáptalo a tu base de datos MySQL.</p>
+      <p><img src="files/springboot_010.png" alt=""></p>
       <p>Maven Update &gt; Maven Install &gt; inicia la aplicación como Spring Boot App.</p>
-      <p>imagen 2</p>
+      <p><img src="files/springboot_020.png" alt=""></p>
       <p>Comprueba que los servicios funcionen correctamente ingresando a <a
           href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorials</a></p>
       <div class="wiki" style="display: block;">
         <h2 id="toc1">Crear y configurar proyecto en OpenXava</h2>
         <p>Crea un nuevo proyecto OpenXava con OpenXava Studio.</p>
-        <p>imagen de openxava new project</p>
-        <p>imagen 3</p>
-        <p>Agrega el dialecto MySQL8 o la versión que uses.</p>
+        <p><img src="files/getting-started_es020.png" alt="getting-started_es020.png"
+            title="getting-started_es020.png"></p>
+        <p><img src="files/springboot_030.png" alt=""></p>
+        <p>Agrega el dialecto de MySQL8 o la versión que uses en el archivo persistence.xml ubicado en src/main/resources/META-INF.</p>
         <pre><code class="xml">&lt;property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/&gt;</code></pre>
-        <p>imagen 4</p>
-        <p>Configura el archivo context.xml de la carpeta src/main/webapp/META-INF comenta el resource de HSQLDB, descomenta el de MySQL y configura la conexión a la base de datos.</p>
-        <p>imagen 5</p>
+        <p><img src="files/springboot_040.png" alt=""></p>
+        <p>Configura el archivo context.xml de la carpeta src/main/webapp/META-INF, comenta el resource de HSQLDB, usa el de MySQL y configura la conexión a la base de datos.</p>
+        <p><img src="files/springboot_050.png" alt=""></p>
         <code class="xml"> </code></div>
       <div class="wiki" style="display: block;"> </div>
       <div class="wiki" style="display: block;">
         <h2 id="toc1">Reemplaza el archivo application.properties del proyecto Spring Boot</h2>
-        Usaremos una de las maneras para integrar OpenXava en una aplicación Spring Boot, primero debes reemplazar el archivo application.properties configurandolo manualmente creando una clase @Configuration.</div>
+        Usaremos una de las maneras para integrar OpenXava en una aplicación Spring Boot, primero debes reemplazar el archivo application.properties configurándolo manualmente creando una clase @Configuration.</div>
       <div class="wiki" style="display: block;">Para esto crea una clase llamada AppConfig en el paquete com.bezkoder.spring.datajpa, dentro define las configuraciones de conexión a la base de datos, las entidades y repositorios a leer, por ejemplo:</div>
       <div class="wiki" style="display: block;">
         <pre><code class="java">@Configuration
@@ -84,7 +85,8 @@ public class AppConfig {
 
 }</code></pre>
       </div>
-      <div class="wiki" style="display: block;">imagen 6</div>
+      <div class="wiki" style="display: block;"><img src="files/springboot_060.png"
+          alt=""></div>
       <div class="wiki" style="display: block;">Elimina el archivo application.properties y prueba que los servicios sigan funcionando correctamente ingresando a <a
           href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorials</a></div>
       <span style="color: #0000ee;">A</span>ñade extends SpringBootServletInitializer en SpringBootDataJpaApplication ubicado en el paquete com.bezkoder.spring.datajpa:
@@ -112,16 +114,16 @@ public class SpringBootDataJpaApplication extends SpringBootServletInitializer {
 &lt;/build&gt;<br></code></pre>
         </div>
       </div>
-      <div class="wiki" style="display: block;">Por último copia los siguientes archivos y carpetas del proyecto OpenXava al proyecto Spring Boot bajo la misma ruta:</div>
+      <div class="wiki" style="display: block;">Por último, copia los siguientes archivos y carpetas del proyecto OpenXava al proyecto Spring Boot bajo la misma ruta:</div>
       <ul>
         <li>Todos los archivos y carpetas de src/main/resources.</li>
         <li>La carpeta webapp ubicado en src/main.</li>
       </ul>
-      <p>imagen 7</p>
-      <p>Opcional: modificar el archivo naviox.properties de la carpeta src/main/resources quitando # a las lineas de autologinUser y autologinPassword</p>
-      <p>imagen 8</p>
+      <p><img src="files/springboot_070.png" alt=""></p>
+      <p>Opcional: modificar el archivo naviox.properties de la carpeta src/main/resources quitando # a las líneas de autologinUser y autologinPassword</p>
+      <p><img src="files/springboot_080.png" alt=""></p>
       <p>Debería quedar con estos cambios:</p>
-      <p>imagen 9</p>
+      <p><img src="files/springboot_090.png" alt=""></p>
       <ul>
       </ul>
       <div class="wiki" style="display: block;">
@@ -133,14 +135,14 @@ public class SpringBootDataJpaApplication extends SpringBootServletInitializer {
           <li>Maven package</li>
         </ul>
         <p>Copia el archivo springbootdatajpa.war de la carpeta target a la carpeta webapp donde tienes instalado Tomcat 9 y ejecuta startup.bat desde la carpeta bin</p>
-        <p>imagen 10</p>
+        <p><img src="files/springboot_100.png" alt=""></p>
         <p>Abre el navegador e ingresa al siguiente url para abrir la aplicación OpenXava (inicia sesión con admin/admin si no has hecho el paso opcional): <code><i><a
                 href="http://localhost:8080/springbootdatajpa" target="_blank">http://localhost:8080/springbootdatajpa</a><br>
             </i></code></p>
         <p>Dentro podrás generar una vista con OpenXava aprovechando la entidad que tiene el proyecto y realizar operaciones CRUD.</p>
         <p>Comprueba que los servicios del proyecto Spring Boot estén funcionando: <a
             href="http://localhost:8080/springbootdatajpa/api/tutorials">http://localhost:8080/springbootdatajpa/api/tutorials</a></p>
-        <p>Verás que en vez de devolver un json, esta devolviendo un xml, esto es debido al bug de la libreria JasperReports que trae OpenXava, lo resolveremos momentaneamente en este ejemplo excluyendo una dependencia de esa libreria, no es recomendable hacerlo para producción:</p>
+        <p>Verás que en vez de devolver un json, está devolviendo un xml, esto es debido al bug de la libreria JasperReports que trae OpenXava, lo resolveremos momentáneamente en este ejemplo excluyendo una dependencia de esa libreria, que no es recomendable hacerlo en producción:</p>
         <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.openxava&lt;/groupId&gt;
     &lt;artifactId&gt;openxava&lt;/artifactId&gt;
