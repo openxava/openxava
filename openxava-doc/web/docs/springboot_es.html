@@ -27,8 +27,8 @@
       <p><img src="files/springboot_010.png" alt=""></p>
       <p>Maven Update &gt; Maven Install &gt; inicia la aplicación como Spring Boot App.</p>
       <p><img src="files/springboot_020.png" alt=""></p>
-      <p>Comprueba que los servicios funcionen correctamente ingresando a <a
-          href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorials</a></p>
+      <p>Comprueba que los servicios funcionen correctamente ingresando a <i><a
+            href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorials</a></i></p>
       <div class="wiki" style="display: block;">
         <h2 id="toc1">Crear y configurar proyecto en OpenXava</h2>
         <p>Crea un nuevo proyecto OpenXava con OpenXava Studio.</p>
@@ -87,8 +87,8 @@ public class AppConfig {
       </div>
       <div class="wiki" style="display: block;"><img src="files/springboot_060.png"
           alt=""></div>
-      <div class="wiki" style="display: block;">Elimina el archivo application.properties y prueba que los servicios sigan funcionando correctamente ingresando a <a
-          href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorials</a></div>
+      <div class="wiki" style="display: block;">Elimina el archivo application.properties y prueba que los servicios sigan funcionando correctamente ingresando a <i><a
+            href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorials</a></i></div>
       <span style="color: #0000ee;">A</span>ñade extends SpringBootServletInitializer en SpringBootDataJpaApplication ubicado en el paquete com.bezkoder.spring.datajpa:
       <div class="wiki" style="display: block;">
         <pre><code class="java">@SpringBootApplication
@@ -136,12 +136,11 @@ public class SpringBootDataJpaApplication extends SpringBootServletInitializer {
         </ul>
         <p>Copia el archivo springbootdatajpa.war de la carpeta target a la carpeta webapp donde tienes instalado Tomcat 9 y ejecuta startup.bat desde la carpeta bin</p>
         <p><img src="files/springboot_100.png" alt=""></p>
-        <p>Abre el navegador e ingresa al siguiente url para abrir la aplicación OpenXava (inicia sesión con admin/admin si no has hecho el paso opcional): <code><i><a
-                href="http://localhost:8080/springbootdatajpa" target="_blank">http://localhost:8080/springbootdatajpa</a><br>
-            </i></code></p>
+        <p>Abre el navegador e ingresa al siguiente url para abrir la aplicación OpenXava (inicia sesión con admin/admin si no has hecho el paso opcional): <br>
+          <i><a href="http://localhost:8080/springbootdatajpa">http://localhost:8080/springbootdatajpa</a></i></p>
         <p>Dentro podrás generar una vista con OpenXava aprovechando la entidad que tiene el proyecto y realizar operaciones CRUD.</p>
-        <p>Comprueba que los servicios del proyecto Spring Boot estén funcionando: <a
-            href="http://localhost:8080/springbootdatajpa/api/tutorials">http://localhost:8080/springbootdatajpa/api/tutorials</a></p>
+        <p>Comprueba que los servicios del proyecto Spring Boot estén funcionando: <i><a
+              href="http://localhost:8080/springbootdatajpa/api/tutorials">http://localhost:8080/springbootdatajpa/api/tutorials</a></i></p>
         <p>Verás que en vez de devolver un json, está devolviendo un xml, esto es debido al bug de la libreria JasperReports que trae OpenXava, lo resolveremos momentáneamente en este ejemplo excluyendo una dependencia de esa libreria, que no es recomendable hacerlo en producción:</p>
         <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.openxava&lt;/groupId&gt;
@@ -155,9 +154,9 @@ public class SpringBootDataJpaApplication extends SpringBootServletInitializer {
     &lt;/exclusions&gt;
 &lt;/dependency&gt;<br></code></pre>
         <p></p>
-        <p>Si deseas quitar springbootdatajpa del url, simplemente renombra el archivo springbootdatajpa.war a ROOT.war ubicado en la carpeta de webapps, con esto ingresas a la aplicación OpenXava con el url <code><i><a
-                href="http://localhost:8080/" target="_blank">http://localhost:8080</a></i></code>&nbsp; y a los servicios REST como antes con <a
-            href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorials</a><br>
+        <p>Si deseas quitar springbootdatajpa del url, simplemente renombra el archivo springbootdatajpa.war a ROOT.war ubicado en la carpeta de webapps, con esto ingresas a la aplicación OpenXava con el url <i><a
+              href="http://localhost:8080">http://localhost:8080</a></i> y a los servicios como antes con <i><a
+              href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorials</a></i><br>
           <code></code></p>
       </div>
     </div>
