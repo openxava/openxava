@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: X for closing dialogs is no longer shown.
+- Fix: Custom style from custom.css file in xava/style of your project is no longer recognized.
+- Fix: All resources other than CSS from xava/style folder ignored.
+- Fix: Applications no longer work in root context (AppServer.run("") or ROOT.war).
 - Fix: Impossible to add links in @HtmlText.
 - It's possible to go to the page from a link in @HtmlText.
 - Fix: The simple attribute in @HtmlText has no effect.
