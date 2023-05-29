@@ -22,37 +22,37 @@ public class CSSServlet extends HttpServlet {
 
 	private static Log log = LogFactory.getLog(CSSServlet.class);
 
-	private Map<String, String> map;
+	private Map<String, String> contentTypes;
 
 	@Override
 	public void init() throws ServletException {
-		map = new HashMap<>();
-	    map.put(".jpg", "image/jpeg");
-	    map.put(".jpeg", "image/jpeg");
-	    map.put(".png", "image/png");
-	    map.put(".gif", "image/gif");
-	    map.put(".bmp", "image/bmp");
-	    map.put(".webp", "image/webp");
-	    map.put(".svg", "image/svg+xml");
+		contentTypes = new HashMap<>();
+	    contentTypes.put(".jpg", "image/jpeg");
+	    contentTypes.put(".jpeg", "image/jpeg");
+	    contentTypes.put(".png", "image/png");
+	    contentTypes.put(".gif", "image/gif");
+	    contentTypes.put(".bmp", "image/bmp");
+	    contentTypes.put(".webp", "image/webp");
+	    contentTypes.put(".svg", "image/svg+xml");
 
-	    map.put(".mp3", "audio/mpeg");
-	    map.put(".wav", "audio/wav");
-	    map.put(".ogg", "audio/ogg");
-	    map.put(".mid", "audio/midi");
+	    contentTypes.put(".mp3", "audio/mpeg");
+	    contentTypes.put(".wav", "audio/wav");
+	    contentTypes.put(".ogg", "audio/ogg");
+	    contentTypes.put(".mid", "audio/midi");
 
-	    map.put(".mp4", "video/mp4");
-	    map.put(".avi", "video/x-msvideo");
-	    map.put(".mov", "video/quicktime");
-	    map.put(".mkv", "video/x-matroska");
-	    map.put(".wmv", "video/x-ms-wmv");
+	    contentTypes.put(".mp4", "video/mp4");
+	    contentTypes.put(".avi", "video/x-msvideo");
+	    contentTypes.put(".mov", "video/quicktime");
+	    contentTypes.put(".mkv", "video/x-matroska");
+	    contentTypes.put(".wmv", "video/x-ms-wmv");
 
-	    map.put(".txt", "text/plain");
-	    map.put(".pdf", "application/pdf");
-	    map.put(".doc", "application/msword");
-	    map.put(".xls", "application/vnd.ms-excel");
-	    map.put(".ppt", "application/vnd.ms-powerpoint");
-	    map.put(".map", "application/octet-stream");
-	    map.put(".css", "text/css");
+	    contentTypes.put(".txt", "text/plain");
+	    contentTypes.put(".pdf", "application/pdf");
+	    contentTypes.put(".doc", "application/msword");
+	    contentTypes.put(".xls", "application/vnd.ms-excel");
+	    contentTypes.put(".ppt", "application/vnd.ms-powerpoint");
+	    contentTypes.put(".map", "application/octet-stream");
+	    contentTypes.put(".css", "text/css");
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -113,7 +113,7 @@ public class CSSServlet extends HttpServlet {
 		int dotIndex = resourceName.lastIndexOf(".");
 		if (dotIndex != -1) {
 			String extension = resourceName.substring(dotIndex);
-			return map.get(extension);
+			return contentTypes.get(extension);
 		}
 		return null;
 	}
