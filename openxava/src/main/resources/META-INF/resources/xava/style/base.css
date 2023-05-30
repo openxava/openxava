@@ -1185,21 +1185,20 @@ i {
 	padding-right: 2px;
 }
 
-.ox-list-data-cell {
+.ox-list-data-cell { 
 	padding-right: 0px;
 	vertical-align: middle;
+	padding-top: 3px;
 }
 
 .ox-list-data-cell > a > div {
 	overflow: hidden; 
-	display:grid; 
-	align-items: center; 
-	height: 100%; 
 }
 
 .ox-list-odd i, .ox-list-pair i {
 	vertical-align: -7px;
 }
+
 
 tr.ox-list-odd, tr.ox-list-pair {
 	border-bottom: 1px solid;
@@ -1228,7 +1227,6 @@ tr.ox-list-odd, tr.ox-list-pair {
 
 .ox-list-odd .mdi-border-color, .ox-list-pair .mdi-border-color {
 	vertical-align: -9px;
-
 }
 
 .ox-list-pair div, .ox-list-odd div, .ox-total-cell {  
@@ -2430,6 +2428,7 @@ span[id*="reference_editor"] + .ox-layout-detail {
 
 .ox-icon-in-list i {
 	color: var(--icon-in-list);
+	vertical-align: 0px; 
 }
 
 ::-webkit-scrollbar {
