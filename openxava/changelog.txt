@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: When @OnChange in a date property on modifying date year is set to current year.
 - Fix: @Icon bad aligned in ManyToMany, @OrderColumn or calculated collections.
 - Fix: @OnChange in date property not fired sometimes when using popup calendar.
 - Fix: X for closing dialogs is no longer shown.
