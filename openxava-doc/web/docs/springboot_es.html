@@ -18,15 +18,21 @@
         href="https://github.com/bezkoder/spring-boot-data-jpa-mysql">aquí</a> e importarlo en <a
         href="https://spring.io/tools">Spring Tool Suite 4</a> for Eclipse. Así mismo vas a necesitar <a
         href="https://openxava.org/downloads/register">OpenXava Studio</a> y <a
-        href="https://dev.mysql.com/downloads/mysql/">MySQL</a>. Al final levantaremos la aplicación en un servidor <a
+        href="https://dev.mysql.com/downloads/mysql/">MySQL</a>(usaremos MySQL8 en este ejemplo). Al final levantaremos la aplicación en un servidor <a
         href="https://tomcat.apache.org/download-90.cgi">Tomcat 9</a>.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc1">Importar y configurar proyecto en Spring Tool Suite 4</h2>
-      <p>Luego de descargar el proyecto, abre Spring Tool Suite 4 e importa el proyecto.<br>
-        Configura application.properties ubicado en src/main/resources y adáptalo a tu base de datos MySQL.</p>
+      <p>Descarga el proyecto como zip</p>
+      <p><img src="files/springboot_004.png" alt=""></p>
+      <p>Para importar el proyecto en Spring Tool Suite 4, debes seleccionarlo desde la carpeta donde lo has descomprimido</p>
+      <p><img src="files/springboot_005.png" alt=""></p>
+      <p><img src="files/springboot_006.png" alt=""></p>
+      <p> Configura application.properties ubicado en src/main/resources, adáptalo a tu base de datos MySQL con tu url, username, password y dialecto, recuerda tener levantado la base de datos MySQL.</p>
       <p><img src="files/springboot_010.png" alt=""></p>
-      <p>Maven Update &gt; Maven Install &gt; inicia la aplicación como Spring Boot App.</p>
+      <p>Maven Update Project &gt; Maven Install &gt; inicia la aplicación como Spring Boot App.</p>
       <p><img src="files/springboot_020.png" alt=""></p>
+      <p>Crea algunos registros manualmente en MySQL, por ejemplo: </p>
+      <p><img src="files/springboot_007.png" alt=""></p>
       <p>Comprueba que los servicios funcionen correctamente ingresando a <i><a
             href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorials</a></i></p>
       <div class="wiki" style="display: block;">
@@ -35,17 +41,17 @@
         <p><img src="files/getting-started_es020.png" alt="getting-started_es020.png"
             title="getting-started_es020.png"></p>
         <p><img src="files/springboot_030.png" alt=""></p>
-        <p>Agrega el dialecto de MySQL8 o la versión que uses en el archivo persistence.xml ubicado en src/main/resources/META-INF.</p>
+        <p>Agrega el dialecto de MySQL8 en el archivo <i>persistence.xml</i> ubicado en <i>src/main/resources/META-INF</i>.</p>
         <pre><code class="xml">&lt;property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/&gt;</code></pre>
         <p><img src="files/springboot_040.png" alt=""></p>
-        <p>Configura el archivo context.xml de la carpeta src/main/webapp/META-INF, comenta el resource de HSQLDB, usa el de MySQL y configura la conexión a la base de datos.</p>
+        <p>Configura el archivo <em>context.xml</em> de la carpeta <em>src/main/webapp/META-INF</em>, comenta el resource de HSQLDB, usa el de MySQL y configura la conexión a la base de datos.</p>
         <p><img src="files/springboot_050.png" alt=""></p>
         <code class="xml"> </code></div>
       <div class="wiki" style="display: block;"> </div>
       <div class="wiki" style="display: block;">
-        <h2 id="toc1">Reemplaza el archivo application.properties del proyecto Spring Boot</h2>
-        Usaremos una de las maneras para integrar OpenXava en una aplicación Spring Boot, primero debes reemplazar el archivo application.properties configurándolo manualmente creando una clase @Configuration.</div>
-      <div class="wiki" style="display: block;">Para esto crea una clase llamada AppConfig en el paquete com.bezkoder.spring.datajpa, dentro define las configuraciones de conexión a la base de datos, las entidades y repositorios a leer, por ejemplo:</div>
+        <h2 id="toc1">Reemplazar application.properties y copiar archivos al proyecto Spring Boot</h2>
+        Usaremos una de las maneras para integrar OpenXava en una aplicación Spring Boot, primero debes reemplazar el archivo <em>application.properties</em> configurándolo manualmente creando una clase <em>@Configuration</em>.</div>
+      <div class="wiki" style="display: block;">Para esto crea una clase llamada <em>AppConfig</em> en el paquete <em>com.bezkoder.spring.datajpa</em>, dentro define las configuraciones de conexión a la base de datos, las entidades y repositorios a leer, por ejemplo:</div>
       <div class="wiki" style="display: block;">
         <pre><code class="java">@Configuration
 @EnableJpaRepositories("com.bezkoder.spring.datajpa.repository")
@@ -56,7 +62,7 @@ public class AppConfig {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/database");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/yourdatabase");
         dataSource.setUsername("root");
         dataSource.setPassword("");
         return dataSource;
@@ -89,7 +95,7 @@ public class AppConfig {
           alt=""></div>
       <div class="wiki" style="display: block;">Elimina el archivo application.properties y prueba que los servicios sigan funcionando correctamente ingresando a <i><a
             href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorials</a></i></div>
-      <span style="color: #0000ee;">A</span>ñade extends SpringBootServletInitializer en SpringBootDataJpaApplication ubicado en el paquete com.bezkoder.spring.datajpa:
+      <span style="color: #0000ee;">A</span>ñade <em>extends SpringBootServletInitializer</em> en <em>SpringBootDataJpaApplication</em> ubicado en el paquete <em>com.bezkoder.spring.datajpa</em>:
       <div class="wiki" style="display: block;">
         <pre><code class="java">@SpringBootApplication
 public class SpringBootDataJpaApplication extends SpringBootServletInitializer {
@@ -100,7 +106,7 @@ public class SpringBootDataJpaApplication extends SpringBootServletInitializer {
 	}
 }
 </code></pre> </div>
-      <div class="wiki" style="display: block;">Ahora configura el pom.xml agregando la dependencia de OpenXava, el finalName es opcional pero lo usaremos en este ejemplo:
+      <div class="wiki" style="display: block;">Ahora configura el <em>pom.xml</em> agregando la dependencia de OpenXava, el <em>finalName</em> es opcional pero lo usaremos en este ejemplo:
         <div class="wiki" style="display: block;">
           <pre><code class="xml">&lt;packaging&gt;war&lt;/packaging&gt;<br><br>&lt;dependencies&gt;
     ...
@@ -116,11 +122,11 @@ public class SpringBootDataJpaApplication extends SpringBootServletInitializer {
       </div>
       <div class="wiki" style="display: block;">Por último, copia los siguientes archivos y carpetas del proyecto OpenXava al proyecto Spring Boot bajo la misma ruta:</div>
       <ul>
-        <li>Todos los archivos y carpetas de src/main/resources.</li>
-        <li>La carpeta webapp ubicado en src/main.</li>
+        <li>Todos los archivos y carpetas de <em>src/main/resources</em>.</li>
+        <li>La carpeta <em>webapp </em>ubicado en <em>src/main</em>.</li>
       </ul>
       <p><img src="files/springboot_070.png" alt=""></p>
-      <p>Opcional: modificar el archivo naviox.properties de la carpeta src/main/resources quitando # a las líneas de autologinUser y autologinPassword</p>
+      <p>Opcional: modificar el archivo <em>naviox.properties</em> de la carpeta <em>src/main/resources</em> quitando # a las líneas de <em>autologinUser </em>y <em>autologinPassword</em></p>
       <p><img src="files/springboot_080.png" alt=""></p>
       <p>Debería quedar con estos cambios:</p>
       <p><img src="files/springboot_090.png" alt=""></p>
@@ -128,17 +134,20 @@ public class SpringBootDataJpaApplication extends SpringBootServletInitializer {
       </ul>
       <div class="wiki" style="display: block;">
         <h2>Ejecutar aplicacion</h2>
-        <p>Recuerda tener configurado JAVA_HOME y hacer los siguientes pasos antes de ejecutar la aplicación:</p>
+        <p>Recuerda tener configurado <em>JAVA_HOME</em> y hacer los siguientes pasos antes de ejecutar la aplicación:</p>
         <ul>
-          <li>Maven &gt; update project</li>
-          <li>Maven clean</li>
-          <li>Maven package</li>
+          <li><em>Maven &gt; update project</em></li>
+          <em> </em>
+          <li><em>Maven clean</em></li>
+          <em> </em>
+          <li><em>Maven package</em></li>
         </ul>
-        <p>Copia el archivo springbootdatajpa.war de la carpeta target a la carpeta webapp donde tienes instalado Tomcat 9 y ejecuta startup.bat desde la carpeta bin</p>
+        <p>Copia el archivo <em>springbootdatajpa.war</em> de la carpeta <em>target </em>a la carpeta <em>webapp </em>donde tienes instalado Tomcat 9 y ejecuta <em>startup.bat</em> desde la carpeta <em>bin</em></p>
         <p><img src="files/springboot_100.png" alt=""></p>
         <p>Abre el navegador e ingresa al siguiente url para abrir la aplicación OpenXava (inicia sesión con admin/admin si no has hecho el paso opcional): <br>
           <i><a href="http://localhost:8080/springbootdatajpa">http://localhost:8080/springbootdatajpa</a></i></p>
-        <p>Dentro podrás generar una vista con OpenXava aprovechando la entidad que tiene el proyecto y realizar operaciones CRUD.</p>
+        <p><img src="files/springboot_110.png" alt=""></p>
+        <p>Aprovechando las vistas que genera OpenXava con las entidades del proyecto ya puedes realizar operaciones CRUD.</p>
         <p>Comprueba que los servicios del proyecto Spring Boot estén funcionando: <i><a
               href="http://localhost:8080/springbootdatajpa/api/tutorials">http://localhost:8080/springbootdatajpa/api/tutorials</a></i></p>
         <p>Verás que en vez de devolver un json, está devolviendo un xml, esto es debido al bug de la libreria JasperReports que trae OpenXava, lo resolveremos momentáneamente en este ejemplo excluyendo una dependencia de esa libreria, que no es recomendable hacerlo en producción:</p>
@@ -156,7 +165,11 @@ public class SpringBootDataJpaApplication extends SpringBootServletInitializer {
         <p></p>
         <p>Si deseas quitar springbootdatajpa del url, simplemente renombra el archivo springbootdatajpa.war a ROOT.war ubicado en la carpeta de webapps, con esto ingresas a la aplicación OpenXava con el url <i><a
               href="http://localhost:8080">http://localhost:8080</a></i> y a los servicios como antes con <i><a
-              href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorials</a></i><br>
+              href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorial<span
+                style="color: #505050;">s</span></a></i></p>
+        <p><br>
+        </p>
+        <p><br>
           <code></code></p>
       </div>
     </div>
