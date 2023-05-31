@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-
+- Fix: @Icon bad aligned in ManyToMany, @OrderColumn or calculated collections.
 - Fix: @OnChange in date property not fired sometimes when using popup calendar.
 - Fix: X for closing dialogs is no longer shown.
 - Fix: Custom style from custom.css file in xava/style of your project is no longer recognized.
