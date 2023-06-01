@@ -9,24 +9,16 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
-
-              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
-
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
             href="index_es.html">documentación</a> / </span>Spring Boot</h1>
       Spring Boot es una herramienta que hace que el desarrollo de aplicaciones web y microservicios con Spring Framework sea más rápido y fácil.<br>
-      En esta publicación integraremos OpenXava en una aplicación Spring Boot simple con servicios Rest y JPA para aprovechar la vista generada automáticamente por OpenXava. Tomaremos el proyecto de <a
-
-        href="https://www.bezkoder.com/spring-boot-jpa-crud-rest-api/">BezKoder</a> como base, lo puedes descargar directamente <a
-
-        href="https://github.com/bezkoder/spring-boot-data-jpa-mysql">aquí</a> e importarlo en <a
-
-        href="https://spring.io/tools">Spring Tool Suite 4</a> for Eclipse. Así mismo vas a necesitar <a
-
-        href="https://openxava.org/downloads/register">OpenXava Studio</a> y <a
-
-        href="https://dev.mysql.com/downloads/mysql/">MySQL</a>(usaremos MySQL8 en este ejemplo). Al final levantaremos la aplicación en un servidor <a
-
+      En esta publicación integraremos OpenXava en una aplicación Spring Boot simple con servicios Rest y JPA para aprovechar la vista generada automáticamente por OpenXava. Tomaremos el proyecto de <a
+        href="https://www.bezkoder.com/spring-boot-jpa-crud-rest-api/">BezKoder</a> como base, lo puedes descargar directamente <a
+        href="https://github.com/bezkoder/spring-boot-data-jpa-mysql">aquí</a> e importarlo en <a
+        href="https://spring.io/tools">Spring Tool Suite 4</a> for Eclipse. Así mismo vas a necesitar <a
+        href="https://openxava.org/downloads/register">OpenXava Studio</a> y <a
+        href="https://dev.mysql.com/downloads/mysql/">MySQL</a>(usaremos MySQL8 en este ejemplo). Al final levantaremos la aplicación en un servidor <a
         href="https://tomcat.apache.org/download-90.cgi">Tomcat 9</a>.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc1">Importar y configurar proyecto en Spring Tool Suite 4</h2>
@@ -37,30 +29,28 @@
       <p><img src="files/springboot_005.png" alt=""></p>
       <p>Busca la carpeta donde has descomprimido el proyecto y seleccionalo.</p>
       <p><img src="files/springboot_006.png" alt=""></p>
-      <p> Abre application.properties ubicado en src/main/resources, adáptalo a tu base de datos MySQL con tu url, username, password y dialecto, recuerda tener levantado la base de datos MySQL.</p>
+      <p> Abre application.properties ubicado en src/main/resources, adáptalo a tu base de datos MySQL con tu URL, username, password y dialecto, recuerda tener levantado la base de datos MySQL.</p>
+      <pre><code class="xml">spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL8Dialect</code></pre>
       <p><img src="files/springboot_010.png" alt=""></p>
       <ul>
-        <li>Click derecho en el proyecto<em> &gt; Maven &gt; Update Project<br>
+        <li>Clic derecho en el proyecto<em> &gt; Maven &gt; Update Project<br>
           </em></li>
-        <li>Click derecho en el proyecto<em> &gt; Run As &gt; Maven Install<br>
+        <li>Clic derecho en el proyecto<em> &gt; Run As &gt; Maven Install<br>
           </em></li>
-        <li>Click derecho en el proyecto<em> &gt; Run As &gt; <i>Spring Boot App</i></em></li>
+        <li>Clic derecho en el proyecto<em> &gt; Run As &gt; <i>Spring Boot App</i></em></li>
         <li>Tener base de datos MySQL levantado<i><br>
           </i></li>
       </ul>
       <p><img src="files/springboot_020.png" alt=""></p>
       <p>Crea algunos registros manualmente en MySQL, por ejemplo: </p>
       <pre><code class="sql">INSERT INTO `yourdatabase`.`tutorials` (`id`, `description`, `published`, `title`) VALUES ('1', 'description 1', 0, 'title 1');</code></pre>
-      <p></p>
       <p><img src="files/springboot_007.png" alt=""></p>
-      <p>Comprueba que los servicios funcionen correctamente ingresando a <i><a
-
+      <p>Comprueba que los servicios funcionen correctamente ingresando a <i><a
             href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorials</a></i></p>
       <div class="wiki" style="display: block;">
         <h2 id="toc1">Crear y configurar proyecto en OpenXava</h2>
         <p>Crea un nuevo proyecto OpenXava con OpenXava Studio.</p>
-        <p><img src="files/getting-started_es020.png" alt="getting-started_es020.png"
-
+        <p><img src="files/getting-started_es020.png" alt="getting-started_es020.png"
             title="getting-started_es020.png"></p>
         <p>Project name: <i>spring-boot-data-jpa</i></p>
         <p>Group id: <i>com.bezkoder</i></p>
@@ -68,7 +58,7 @@
         <p>Agrega el dialecto de MySQL8 en el archivo <i>persistence.xml</i> ubicado en <i>src/main/resources/META-INF</i>.</p>
         <pre><code class="xml">&lt;property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/&gt;</code></pre>
         <p><img src="files/springboot_040.png" alt=""></p>
-        <p>Configura el archivo <em>context.xml</em> de la carpeta <em>src/main/webapp/META-INF</em>, comenta el resource de HSQLDB, usa el de MySQL y configura la conexión a la base de datos usando tu url, usuario y contraseña.</p>
+        <p>Configura el archivo <em>context.xml</em> de la carpeta <em>src/main/webapp/META-INF</em>, comenta el resource de HSQLDB, usa el de MySQL y configura la conexión a la base de datos usando tu URL, usuario y contraseña.</p>
         <p><img src="files/springboot_050.png" alt=""></p>
         <code class="xml"> </code></div>
       <div class="wiki" style="display: block;"> </div>
@@ -130,13 +120,12 @@ public class AppConfig {
 
 }</code></pre>
       </div>
-      <div class="wiki" style="display: block;"><img src="files/springboot_060.png"
-
+      <div class="wiki" style="display: block;"><img src="files/springboot_060.png"
           alt=""></div>
-      <div class="wiki" style="display: block;">Elimina el archivo application.properties y prueba que los servicios sigan funcionando correctamente ingresando a <i><a
-
+      <div class="wiki" style="display: block;">Elimina el archivo application.properties y prueba que los servicios sigan funcionando correctamente ingresando a <i><a
             href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorials</a></i></div>
-      <span style="color: #0000ee;">A</span>ñade <em>extends SpringBootServletInitializer</em> en <em>SpringBootDataJpaApplication</em> ubicado en el paquete <em>com.bezkoder.spring.datajpa</em>:
+      <img src="files/springboot_065.png" alt=""></div>
+    <div class="wiki" style="display: block;"><span style="color: #0000ee;">A</span>ñade <em>extends SpringBootServletInitializer</em> en <em>SpringBootDataJpaApplication</em> ubicado en el paquete <em>com.bezkoder.spring.datajpa</em>:
       <div class="wiki" style="display: block;">
         <pre><code class="java">@SpringBootApplication
 public class SpringBootDataJpaApplication extends SpringBootServletInitializer {
@@ -174,7 +163,7 @@ public class SpringBootDataJpaApplication extends SpringBootServletInitializer {
       <ul>
       </ul>
       <div class="wiki" style="display: block;">
-        <h2>Ejecutar aplicacion</h2>
+        <h2>Ejecutar aplicación</h2>
         <p>Recuerda tener configurado <em>JAVA_HOME</em> y hacer los siguientes pasos antes de ejecutar la aplicación:</p>
         <ul>
           <li><em>Maven &gt; update project</em></li>
@@ -189,10 +178,9 @@ public class SpringBootDataJpaApplication extends SpringBootServletInitializer {
           <i><a href="http://localhost:8080/springbootdatajpa">http://localhost:8080/springbootdatajpa</a></i></p>
         <p><img src="files/springboot_110.png" alt=""></p>
         <p>Aprovechando las vistas que genera OpenXava con las entidades del proyecto ya puedes realizar operaciones CRUD.</p>
-        <p>Comprueba que los servicios del proyecto Spring Boot estén funcionando: <i><a
-
+        <p>Comprueba que los servicios del proyecto Spring Boot estén funcionando: <i><a
               href="http://localhost:8080/springbootdatajpa/api/tutorials">http://localhost:8080/springbootdatajpa/api/tutorials</a></i></p>
-        <p>Verás que en vez de devolver un json, está devolviendo un xml, esto es debido al bug de la libreria JasperReports que trae OpenXava, lo resolveremos momentáneamente en este ejemplo excluyendo una dependencia de esa libreria, que no es recomendable hacerlo en producción:</p>
+        <p>Verás que en vez de devolver un json, está devolviendo un xml, esto es debido al bug de la librería JasperReports que trae OpenXava, lo resolveremos momentáneamente en este ejemplo excluyendo una dependencia de esa librería, que no es recomendable hacerlo en producción:</p>
         <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.openxava&lt;/groupId&gt;
     &lt;artifactId&gt;openxava&lt;/artifactId&gt;
@@ -205,12 +193,9 @@ public class SpringBootDataJpaApplication extends SpringBootServletInitializer {
     &lt;/exclusions&gt;
 &lt;/dependency&gt;<br></code></pre>
         <p></p>
-        <p>Si deseas quitar springbootdatajpa del url, simplemente renombra el archivo springbootdatajpa.war a ROOT.war ubicado en la carpeta de webapps, con esto ingresas a la aplicación OpenXava con el url <i><a
-
-              href="http://localhost:8080">http://localhost:8080</a></i> y a los servicios como antes con <i><a
-
-              href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorial<span
-
+        <p>Si deseas quitar springbootdatajpa del url, simplemente renombra el archivo springbootdatajpa.war a ROOT.war ubicado en la carpeta de webapps, con esto ingresas a la aplicación OpenXava con el url <i><a
+              href="http://localhost:8080">http://localhost:8080</a></i> y a los servicios como antes con <i><a
+              href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorial<span
                 style="color: #505050;">s</span></a></i></p>
         <p><br>
         </p>
