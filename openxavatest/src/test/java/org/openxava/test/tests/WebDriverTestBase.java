@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ui.*;
 import junit.framework.*;
 
 /**
- * tmr Indicar a Chungyen
  * Base class to test using Selenium WebDriver
  * 
  * @author Javier Paniza

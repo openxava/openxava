@@ -247,19 +247,11 @@ openxava.initInlineEvents =  function() {
   			eval($(this).attr('onfocus'));
 		});
 	});
-	// tmr ini
 	$('form[onsubmit]').each(function() {	
-		console.log("[openxava.initInlineEvents] submit added"); // tmr
   		$(this).off('submit').submit(function() {
-  			// TMR ME QUEDÉ POR AQUÍ: RETURN FALSE NO FUNCINA, ME QUEDÉ PARA PROBAR preventDefault(): 
-  			// TMR 	https://stackoverflow.com/questions/9347282/using-jquery-preventing-form-from-submitting
-  			alert("Hola");
-  			var result = eval($(this).attr('onsubmit'));
-  			console.log("[openxava.initInlineEvents] submit.result=" + result); // tmr
   			return false;
 		});
-	});	
-	// tmr fin
+	});
 }
 
 openxava.setEnterAsFocusKey = function() {
