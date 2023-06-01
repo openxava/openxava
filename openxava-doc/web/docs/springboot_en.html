@@ -11,18 +11,18 @@
     <div class="wiki" style="display: block;">
       <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
               href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
-            href="index_es.html">documentation</a> / </span>Spring Boot</h1>
+            href="index_en.html">documentation</a> / </span>Spring Boot</h1>
       Spring Boot is a tool that makes web application and microservices development with Spring Framework faster and easier.<br>
       The idea of integrating OpenXava into a simple Spring Boot application with Rest services and JPA is to leverage the automatically generated view by OpenXava. We will take <a
         href="https://www.bezkoder.com/spring-boot-jpa-crud-rest-api/">BezKoder's</a> project as a base, which you can download directly <a
         href="https://github.com/bezkoder/spring-boot-data-jpa-mysql">here</a> and import it into <a
-        href="https://spring.io/tools">Spring Tool Suite 4</a> for Eclipse. You will also need <a
+        href="https://spring.io/tools">Spring Tool Suite 4 for Eclipse</a>. You will also need <a
         href="https://openxava.org/downloads/register">OpenXava Studio</a> and <a
         href="https://dev.mysql.com/downloads/mysql/">MySQL</a>(we will use MySQL 8 in this example). Finally, we will deploy the application on a <a
         href="https://tomcat.apache.org/download-90.cgi">Tomcat 9</a> server.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc1">Import and configure the project in Spring Tool Suite 4</h2>
-      <p><a href="https://github.com/bezkoder/spring-boot-data-jpa-mysql">Download</a> the project as a zip file.</p>
+      <p><a href="https://github.com/bezkoder/spring-boot-data-jpa-mysql">Download</a> the project as a zip file then unzip it.</p>
       <p><img src="files/springboot_004.png" alt=""></p>
       <p>Select <em>Import projects</em> from <em>Package Explorer</em> view or <em>File &gt; Import </em>and select <em>Existing Maven Projects.<br>
         </em></p>
@@ -172,6 +172,7 @@ public class SpringBootDataJpaApplication extends SpringBootServletInitializer {
         </ul>
         <p>Copy the <em>springbootdatajpa.war</em> file from the target folder to the <em>webapp </em>folder of your installed Tomcat 9. Then, run <em>startup.bat</em> from the <em>bin </em>folder.<em></em></p>
         <p><img src="files/springboot_100.png" alt=""></p>
+        <p><img src="files/springboot_105.png" alt=""></p>
         <p>Open your browser and access the following URL to open the OpenXava application (login with <em>admin/admin</em> if you haven't done the optional step):<br>
           <i><a href="http://localhost:8080/springbootdatajpa">http://localhost:8080/springbootdatajpa</a></i></p>
         <p><img src="files/springboot_110.png" alt=""></p>

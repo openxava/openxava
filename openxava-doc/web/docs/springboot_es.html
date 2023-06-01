@@ -9,20 +9,28 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
-              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
             href="index_es.html">documentación</a> / </span>Spring Boot</h1>
       Spring Boot es una herramienta que hace que el desarrollo de aplicaciones web y microservicios con Spring Framework sea más rápido y fácil.<br>
-      En esta publicación integraremos OpenXava en una aplicación Spring Boot simple con servicios Rest y JPA para aprovechar la vista generada automáticamente por OpenXava. Tomaremos el proyecto de <a
-        href="https://www.bezkoder.com/spring-boot-jpa-crud-rest-api/">BezKoder</a> como base, lo puedes descargar directamente <a
-        href="https://github.com/bezkoder/spring-boot-data-jpa-mysql">aquí</a> e importarlo en <a
-        href="https://spring.io/tools">Spring Tool Suite 4</a> for Eclipse. Así mismo vas a necesitar <a
-        href="https://openxava.org/downloads/register">OpenXava Studio</a> y <a
-        href="https://dev.mysql.com/downloads/mysql/">MySQL</a>(usaremos MySQL8 en este ejemplo). Al final levantaremos la aplicación en un servidor <a
+      En esta publicación integraremos OpenXava en una aplicación Spring Boot simple con servicios Rest y JPA para aprovechar la vista generada automáticamente por OpenXava. Tomaremos el proyecto de <a
+
+        href="https://www.bezkoder.com/spring-boot-jpa-crud-rest-api/">BezKoder</a> como base, lo puedes descargar directamente <a
+
+        href="https://github.com/bezkoder/spring-boot-data-jpa-mysql">aquí</a> e importarlo en <a
+
+        href="https://spring.io/tools">Spring Tool Suite 4 for Eclipse</a>. Así mismo vas a necesitar <a
+
+        href="https://openxava.org/downloads/register">OpenXava Studio</a> y <a
+
+        href="https://dev.mysql.com/downloads/mysql/">MySQL</a>(usaremos MySQL8 en este ejemplo). Al final levantaremos la aplicación en un servidor <a
+
         href="https://tomcat.apache.org/download-90.cgi">Tomcat 9</a>.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc1">Importar y configurar proyecto en Spring Tool Suite 4</h2>
-      <p><a href="https://github.com/bezkoder/spring-boot-data-jpa-mysql">Descarga</a> el proyecto como archivo comprimido zip.</p>
+      <p><a href="https://github.com/bezkoder/spring-boot-data-jpa-mysql">Descarga</a> el proyecto como archivo comprimido zip y descomprimelo.</p>
       <p><img src="files/springboot_004.png" alt=""></p>
       <p>Selecciona Import projects desde la vista de <em>Package Explorer</em> o bien <em>File &gt; Import </em>y selecciona Existing Maven Projects<em>.<br>
         </em></p>
@@ -45,12 +53,14 @@
       <p>Crea algunos registros manualmente en MySQL, por ejemplo: </p>
       <pre><code class="sql">INSERT INTO `yourdatabase`.`tutorials` (`id`, `description`, `published`, `title`) VALUES ('1', 'description 1', 0, 'title 1');</code></pre>
       <p><img src="files/springboot_007.png" alt=""></p>
-      <p>Comprueba que los servicios funcionen correctamente ingresando a <i><a
+      <p>Comprueba que los servicios funcionen correctamente ingresando a <i><a
+
             href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorials</a></i></p>
       <div class="wiki" style="display: block;">
         <h2 id="toc1">Crear y configurar proyecto en OpenXava</h2>
         <p>Crea un nuevo proyecto OpenXava con OpenXava Studio.</p>
-        <p><img src="files/getting-started_es020.png" alt="getting-started_es020.png"
+        <p><img src="files/getting-started_es020.png" alt="getting-started_es020.png"
+
             title="getting-started_es020.png"></p>
         <p>Project name: <i>spring-boot-data-jpa</i></p>
         <p>Group id: <i>com.bezkoder</i></p>
@@ -120,9 +130,11 @@ public class AppConfig {
 
 }</code></pre>
       </div>
-      <div class="wiki" style="display: block;"><img src="files/springboot_060.png"
+      <div class="wiki" style="display: block;"><img src="files/springboot_060.png"
+
           alt=""></div>
-      <div class="wiki" style="display: block;">Elimina el archivo application.properties y prueba que los servicios sigan funcionando correctamente ingresando a <i><a
+      <div class="wiki" style="display: block;">Elimina el archivo application.properties y prueba que los servicios sigan funcionando correctamente ingresando a <i><a
+
             href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorials</a></i></div>
       <img src="files/springboot_065.png" alt=""></div>
     <div class="wiki" style="display: block;"><span style="color: #0000ee;">A</span>ñade <em>extends SpringBootServletInitializer</em> en <em>SpringBootDataJpaApplication</em> ubicado en el paquete <em>com.bezkoder.spring.datajpa</em>:
@@ -174,11 +186,13 @@ public class SpringBootDataJpaApplication extends SpringBootServletInitializer {
         </ul>
         <p>Copia el archivo <em>springbootdatajpa.war</em> de la carpeta <em>target </em>a la carpeta <em>webapp </em>donde tienes instalado Tomcat 9 y ejecuta <em>startup.bat</em> desde la carpeta <em>bin</em></p>
         <p><img src="files/springboot_100.png" alt=""></p>
+        <p><img src="files/springboot_105.png" alt=""></p>
         <p>Abre el navegador e ingresa al siguiente url para abrir la aplicación OpenXava (inicia sesión con admin/admin si no has hecho el paso opcional): <br>
           <i><a href="http://localhost:8080/springbootdatajpa">http://localhost:8080/springbootdatajpa</a></i></p>
         <p><img src="files/springboot_110.png" alt=""></p>
         <p>Aprovechando las vistas que genera OpenXava con las entidades del proyecto ya puedes realizar operaciones CRUD.</p>
-        <p>Comprueba que los servicios del proyecto Spring Boot estén funcionando: <i><a
+        <p>Comprueba que los servicios del proyecto Spring Boot estén funcionando: <i><a
+
               href="http://localhost:8080/springbootdatajpa/api/tutorials">http://localhost:8080/springbootdatajpa/api/tutorials</a></i></p>
         <p>Verás que en vez de devolver un json, está devolviendo un xml, esto es debido al bug de la librería JasperReports que trae OpenXava, lo resolveremos momentáneamente en este ejemplo excluyendo una dependencia de esa librería, que no es recomendable hacerlo en producción:</p>
         <pre><code class="xml">&lt;dependency&gt;
@@ -193,9 +207,12 @@ public class SpringBootDataJpaApplication extends SpringBootServletInitializer {
     &lt;/exclusions&gt;
 &lt;/dependency&gt;<br></code></pre>
         <p></p>
-        <p>Si deseas quitar springbootdatajpa del url, simplemente renombra el archivo springbootdatajpa.war a ROOT.war ubicado en la carpeta de webapps, con esto ingresas a la aplicación OpenXava con el url <i><a
-              href="http://localhost:8080">http://localhost:8080</a></i> y a los servicios como antes con <i><a
-              href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorial<span
+        <p>Si deseas quitar springbootdatajpa del url, simplemente renombra el archivo springbootdatajpa.war a ROOT.war ubicado en la carpeta de webapps, con esto ingresas a la aplicación OpenXava con el url <i><a
+
+              href="http://localhost:8080">http://localhost:8080</a></i> y a los servicios como antes con <i><a
+
+              href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorial<span
+
                 style="color: #505050;">s</span></a></i></p>
         <p><br>
         </p>
