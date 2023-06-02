@@ -17,7 +17,8 @@ public interface IForwardAction extends IAction {
 	 * If it starts with "http://" or "https://" the action will forward to the
 	 * absolute URL in internet (since v4m1).
 	 * 
-	 * Since 4.0.1 if it starts with "javascript:" the corresponding code will executed 
+	 * Since 7.1 using "javascript:" as prefix to execute JavaScript is not allowed. Since 4.0.1 if 
+	 * it starts with "javascript:" the corresponding code will executed 
 	 * by the browser. Since 5.9 you should use IJavaScriptPostAction to execute JavaScript
 	 * because IForwardAction with javascript: does not update the page before
 	 * executing the JavaScript, but executes the JavaScript instead.  

@@ -1,6 +1,35 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.1.1 (2023-6-2)
+-------------------------
+- It's possible to go to the page from a link in @HtmlText.
+- Button for changing font color added to button bar for @HtmlText editor. 
+- JasperReports and fonts upgraded to 6.20.5.
+- Groovy upgraded to 4.0.12. 
+- Pdfbox upgraded to 2.0.28.
+- Jaxb impl upgraded to 2.3.8.
+- Embedded Tomcat used in development upgraded to 9.0.75.
+- Driver version in doc and new projects upgraded for MySQL, PostgreSQL, Oracle, Informix.
+- MS SQL documentation improved to deal with secure connection problems.
+- Fix: Sign in form does not work if the user presses ENTER to login.
+- Fix: Custom style from custom.css file in xava/style of your project is no longer recognized.
+- Fix: Impossible to add links in @HtmlText.
+- Fix: X for closing dialogs is no longer shown.
+- Fix: The simple attribute in @HtmlText has no effect.
+- Fix: Applications no longer work in root context (AppServer.run("") or ROOT.war).
+- Fix: Server error in calendar when the property name for date does not contain 'date' or 'fecha'.
+- Fix: @OnChange in date property not fired sometimes when using popup calendar.
+- Fix: When @OnChange in a date property on modifying date year is set to current year.
+- Fix: Default action is not executed on pressing ENTER.
+- Fix: @Icon badly aligned in ManyToMany, @OrderColumn or calculated collections.
+- Fix: All resources other than CSS from xava/style folder ignored.
+- Fix: Broken link in reference guide main menu to Overview, a no longer existing section.
+- Fix: Wrong classifier in dependency for AS/400 JDBC driver in template projects and doc.
+- Fix: FirstSteps module does not show left modules menu with narrow screen.
+- Fix: Missing space in group filter name, now instead of "in group(v1, v2)" it's "in group (v1, v2)".  
+- Fix: Mixed encoding introduced by new Brazilian Portuguese messages translation.
+
 OpenXava 7.1 (2023-5-12)
 ------------------------
 - Calendar format for list mode automatic for every module whose entity contains a date.
