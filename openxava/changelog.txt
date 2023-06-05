@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- HSQLDB updated to 2.7.2.
+- Lombok updated to 1.18.28.
+- Jersey media updated to 2.39.1.
+
 OpenXava 7.1.1 (2023-6-2)
 -------------------------
 - It's possible to go to the page from a link in @HtmlText.
