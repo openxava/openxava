@@ -22,3 +22,7 @@
 	</td>
 </tr>
 </table>
+
+<%-- tmr ini --%>
+<img id="oximage" src="https://openxava.org/images/demo1_es.png"/>
+<%-- tmr fin --%>
