@@ -15,13 +15,34 @@ public class ContentSecurityPolicyTest extends WebDriverTestBase {
 		WebDriver driver = createWebDriver();
 		driver.get("http://localhost:8080/openxavatest/m/SellerJSP?detail=1"); 
 		wait(driver);
-		Thread.sleep(500); // Because painting image requires some time
+		
+		long ini = System.currentTimeMillis(); // tmr
+		waitImageLoaded(driver);
+		long cuesta = System.currentTimeMillis() - ini; // tmr
+		System.out.println("[ContentSecurityPolicyTest.testContentSecurityPolicyExceptions] cuesta="+ cuesta); // tmr
 		WebElement img = driver.findElement(By.id("oximage"));
-		assertTrue(img.isDisplayed());
-		// TMR ME QUEDÉ POR AQUÍ: INTENTANDO HACER EL TEST. EL isDisplayed() NO FUNCIONA PERO PARECE QUE EL getSize() SÍ
-		System.out.println("[ContentSecurityPolicyTest.testContentSecurityPolicyExceptions] img.getSize()=" + img.getSize()); // tmr
-
+		assertEquals(new Dimension(500, 290), img.getSize()); // So, the original image is displayed
+		
+		WebElement greeting = driver.findElement(By.id("greeting"));
+		assertEquals("Hello from openxava.org", greeting.getText());
+		
+		WebElement hidden = driver.findElement(By.id("thehidden"));
+		assertFalse(hidden.isDisplayed());
+		
+		// TMR ME QUEDÉ POR AQUÍ, ACABO DE AÑADIR UN IFRAME, FALTA COMPROBARLO, HACER EL TEST E IMPLEMENTARLO. 
+		// TMR   SOLO FALTAN LOS FRAMES PARA ACABAR
+		
 		// tmr driver.quit();
+	}
+	
+	private void waitImageLoaded(WebDriver driver) throws Exception {
+		Thread.sleep(500); 
+		WebElement img = driver.findElement(By.id("oximage"));
+		Dimension zero = new Dimension(0, 0);
+		for (int c=0; c<10 && img.getSize().equals(zero); c++) {
+			Thread.sleep(500);
+		}
+		
 	}
 
 }

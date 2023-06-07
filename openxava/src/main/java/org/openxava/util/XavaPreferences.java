@@ -494,4 +494,19 @@ public class XavaPreferences {
 		return properties.split(",");
 	}
 	
+	/** @since 7.1.2 */
+	public String getTrustedHostsForImages() { // tmr Falta documentar, en customizing y en proyecto plantilla 
+		return getProperties().getProperty("trustedHostsForImages", "");
+	}
+	
+	/** @since 7.1.2 */
+	public String getTrustedHostsForScripts() { // tmr Falta documentar, en customizing y en proyecto plantilla 
+		return getProperties().getProperty("trustedHostsForScripts", "");
+	}
+	
+	/** @since 7.1.2 */
+	public String getTrustedHostsForStyles() { // tmr Falta documentar, en customizing y en proyecto plantilla 
+		return getProperties().getProperty("trustedHostsForStyles", "");
+	}	
+	
 }
