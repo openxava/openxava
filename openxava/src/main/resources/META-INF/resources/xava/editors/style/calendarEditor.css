@@ -26,3 +26,29 @@
  color: var(--action-hover-color);
  border-color: transparent; 
 }
+
+.fc-day:hover,
+.fc-day-today:hover {
+ background-color: var(--action-hover-background) !important;
+ cursor: pointer;
+}
+
+.fc-day-today {
+ background: var(--list-row-hover-background) !important;
+}
+
+.fc-button {
+  box-shadow: none !important;
+}
+
+#xava_calendar table,
+#xava_calendar th,
+#xava_calendar td {
+  border-color: var(--action-hover-background);
+}
+
+#fc-daygrid-event-dot {
+ border : var(--action-color);
+}
+
+
