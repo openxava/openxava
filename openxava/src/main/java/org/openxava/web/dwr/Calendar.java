@@ -83,7 +83,7 @@ public class Calendar extends DWRBase {
 		if (!hasCondition && !hasFilter) {
 			setFilter(tab, monthYear);
 		}
-
+		
 		tab = setProperties(tab);
 		this.table = tab.getTableModel();
 		int tableSize = 0;
@@ -347,10 +347,11 @@ public class Calendar extends DWRBase {
 		}
 		newTabColumn.addAll(datesList);
 		newTabColumn.addAll(properties1List);
-
+		
 		if (properties1ListCount < maxLimit) {
 			int j = 0;
 			for (int i = properties1ListCount; i < maxLimit; i++) {
+				if (j+1 > properties2ListCount) break;
 				newTabColumn.add(properties2List.get(j));
 				j++;
 			}
@@ -358,7 +359,7 @@ public class Calendar extends DWRBase {
 		} else {
 			properties2ListSize = 0;
 		}
-
+		
 		keysListSize = keysList.size();
 		datesListSize = datesList.size();
 		properties1ListSize = properties1List.size();
