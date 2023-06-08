@@ -255,6 +255,13 @@
 	--mobile-icon-module-loading-color: black;
 	--mobile-search-modules-filter-list-background: var(--button-bar-background);
 	--mobile-search-modules-filter-list-shadow: var(--button-bar-background);
+	
+	--calendar-day-hover-background: var(--action-hover-background);
+	--calendar-today-background: var(--list-row-hover-background);
+	--calendar-button-color: var(--action-color);
+	--calendar-button-hover-color: var(--action-hover-color);
+	--calendar-button-hover-background: var(--action-hover-background);
+	--calendar-cell-border-color: var(--action-hover-background);
 }
 
 @font-face {
