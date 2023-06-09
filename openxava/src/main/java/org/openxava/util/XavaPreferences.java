@@ -495,18 +495,23 @@ public class XavaPreferences {
 	}
 	
 	/** @since 7.1.2 */
-	public String getTrustedHostsForImages() { // tmr Falta documentar, en customizing y en proyecto plantilla 
+	public String getTrustedHostsForImages() {  
 		return getProperties().getProperty("trustedHostsForImages", "");
 	}
 	
 	/** @since 7.1.2 */
-	public String getTrustedHostsForScripts() { // tmr Falta documentar, en customizing y en proyecto plantilla 
+	public String getTrustedHostsForScripts() {  
 		return getProperties().getProperty("trustedHostsForScripts", "");
 	}
 	
 	/** @since 7.1.2 */
-	public String getTrustedHostsForStyles() { // tmr Falta documentar, en customizing y en proyecto plantilla 
+	public String getTrustedHostsForStyles() {  
 		return getProperties().getProperty("trustedHostsForStyles", "");
-	}	
+	}
+	
+	/** @since 7.1.2 */
+	public String getTrustedHostsForFrames() {  
+		return getProperties().getProperty("trustedHostsForFrames", "");
+	}
 	
 }

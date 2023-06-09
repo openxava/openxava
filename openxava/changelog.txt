@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- New property trustedHostsForImages in xava.properties for exceptions in CSP for source of images. 
+- New property trustedHostsForScripts in xava.properties for exceptions in CSP for source of scripts.
+- New property trustedHostsForStyles in xava.properties for exceptions in CSP for source of CSS files.
+- New property trustedHostsForFrames in xava.properties for exceptions in CSP for frame and iframes.
 - HSQLDB updated to 2.7.2.
 - Lombok updated to 1.18.28.
 - Jersey media updated to 2.39.1.

@@ -23,7 +23,6 @@
 </tr>
 </table>
 
-<%-- tmr ini --%>
 <img id="oximage" src="https://openxava.org/images/demo1_es.png"/>
 
 <script type='text/javascript' src='https://openxava.org/test/sayHello.js'></script>
@@ -33,5 +32,3 @@
 <div id="thehidden">You shouldn't be watching this</div>
 
 <iframe id="bye" src="https://openxava.org/test/bye.html"/>
-
-<%-- tmr fin --%>

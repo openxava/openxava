@@ -23,9 +23,6 @@ public class ContentSecurityPolicyFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     	// If you change this pass the ZAP test again
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        // TMR Tengo que volver a pasar el ZAP
-        // tmr httpResponse.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'nonce-" + Nonces.get(request) +"' 'unsafe-eval'; style-src 'self' 'nonce-" + Nonces.get(request) +"'; img-src 'self' data: blob: " + getMapsTileProviderURL() + "; worker-src 'self' blob:; frame-ancestors 'self'; form-action 'self'; font-src 'self' data:");
-        // tmr ini
         String policy = "default-src 'self'; script-src 'self' 'nonce-" + 
         	Nonces.get(request) + 
         	"' 'unsafe-eval' " + 
@@ -36,11 +33,10 @@ public class ContentSecurityPolicyFilter implements Filter {
         	getTrustedHostsForStyles() + 
         	"; img-src 'self' data: blob: " + 
         	getMapsTileProviderURL() + getTrustedHostsForImages() +
-        	"; worker-src 'self' blob:; frame-ancestors 'self'; form-action 'self'; font-src 'self' data:";
-        System.out.println("[ContentSecurityPolicyFilter.doFilter] policy=" + policy); // tmr
-        
+        	"; worker-src 'self' blob:; frame-src 'self' " +
+        	getTrustedHostsForFrames() +
+        	"; frame-ancestors 'self'; form-action 'self'; font-src 'self' data:";        
         httpResponse.setHeader("Content-Security-Policy", policy);
-        // tmr fin
         httpResponse.setHeader("X-Content-Type-Options", "nosniff");
         chain.doFilter(request, response);
     }
@@ -51,21 +47,25 @@ public class ContentSecurityPolicyFilter implements Filter {
 	public void destroy() { // In order to work with Tomcat 8.x
 	}
 	
-	private String getTrustedHostsForImages() { // tmr
+	private String getTrustedHostsForImages() { 
 		return XavaPreferences.getInstance().getTrustedHostsForImages().replace(",", " ");
 	}
 	
-	private String getTrustedHostsForScripts() { // tmr
+	private String getTrustedHostsForScripts() {
 		return XavaPreferences.getInstance().getTrustedHostsForScripts().replace(",", " ");
 	}
 	
-	private String getTrustedHostsForStyles() { // tmr
+	private String getTrustedHostsForStyles() { 
 		return XavaPreferences.getInstance().getTrustedHostsForStyles().replace(",", " ");
 	}	
+	
+	private String getTrustedHostsForFrames() { 
+		return XavaPreferences.getInstance().getTrustedHostsForFrames().replace(",", " ");
+	}
     
     private static String getMapsTileProviderURL() { 
     	if (mapsTileProviderURL == null) {
-    		mapsTileProviderURL = getBaseURL(XavaPreferences.getInstance().getMapsTileProvider()) + " "; // tmr + " " 
+    		mapsTileProviderURL = getBaseURL(XavaPreferences.getInstance().getMapsTileProvider()) + " ";  
     	}
     	return mapsTileProviderURL;    	
     }

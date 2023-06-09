@@ -961,7 +961,7 @@ public class AJAXTest extends ModuleTestBase {
 	}
 		
 	private String getLoadedParts() { 
-		HtmlPage page = (HtmlPage) getWebClient().getCurrentWindow().getEnclosedPage();
+		HtmlPage page = getHtmlPage(); 
 		HtmlInput input = (HtmlInput) page.getHtmlElementById(decorateId("loaded_parts"));
 		return input.getValueAttribute();
 	}
