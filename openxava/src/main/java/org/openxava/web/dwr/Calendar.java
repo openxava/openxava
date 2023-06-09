@@ -190,7 +190,6 @@ public class Calendar extends DWRBase {
 		StringBuffer dateWithName = new StringBuffer();
 		int i = keysListSize;
 		if (datesListSize == 0) return result;
-		
 		if (row == -1) {
 			dateWithName.append(tab.getMetaProperty(i).getQualifiedName());
 			dateWithName.append("_");
@@ -211,7 +210,7 @@ public class Calendar extends DWRBase {
 				dateWithName.append(format(value, dateWithTime, oldLib));
 				result.add(dateWithName.toString());
 			}
-			if (datesListSize == 2) {
+			if (datesListSize > 1) {
 				if (verifyValue(value2)) {
 					dateWithName = new StringBuffer();
 					dateWithName.append(tab.getMetaProperty((i + 1)).getQualifiedName());
@@ -221,6 +220,7 @@ public class Calendar extends DWRBase {
 				}
 			}
 		}
+		
 		return result;
 	}
 
@@ -301,7 +301,7 @@ public class Calendar extends DWRBase {
 		List<String> dateWithTimeList = Arrays.asList("java.util.Date", "java.time.LocalDateTime",
 				"java.time.ZonedDateTime");
 		List<String> acceptedDateTypes = Arrays.asList("java.time.LocalDate", "java.util.Date", "java.sql.Date");
-		
+		List<String> sortedProperties = tab.getMetaTab().getMetaModel().getPropertiesNames();
 		for (MetaProperty property : mp) {
 		        String propertyTypeName = property.getTypeName();
 		        if (mpCount < 2 && !calculatedProperties.contains(property.getName()) && acceptedDateTypes.contains(propertyTypeName)) {
@@ -318,6 +318,7 @@ public class Calendar extends DWRBase {
 					} 
 		        }
 		}
+		datesList.sort(Comparator.comparingInt(sortedProperties::indexOf));
 	}
 
 	private Tab setProperties(Tab tab) {
