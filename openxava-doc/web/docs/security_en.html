@@ -43,8 +43,11 @@
         <div style="margin-left: 2em;"><a href="#custom-authentication-code">Custom
             authentication code (new in v7.0)</a></div>
         <div style="margin-left: 2em;"><a href="#custom-signin-page">Custom Sign
-            In page (new in v7.1)<br>
-          </a></div>
+            In page (new in v7.1)</a></div>
+        <div style="margin-left: 2em;"><a href="#sso">Single Sign-On (SSO) (new
+            in v7.1)</a><a href="#custom-signin-page"></a></div>
+        <div style="margin-left: 2em;"><a href="#2fa">Two-Factor Authentication
+            (2FA) (new in v7.1)</a><a href="#custom-signin-page"> </a></div>
       </div>
       <em>All the features in this article are available only in <a href="http://openxava.org/xavapro">XavaPro</a></em><br>
       <h2 id="toc1"><a name="Security and user management-User management"></a>User
@@ -350,5 +353,15 @@ public class MyCustomSignInHelperProvider extends ProSignInHelperProvider {
         <pre><code class="properties">signInJSP=mySignIn.jsp
 </code></pre> </div>
     </div>
+    <div class="wiki" style="display: block;">
+      <h2><a name="sso"></a>Single Sign-On (SSO) <em>(new in v7.1)</em></h2>
+      Since XavaPro 7.1 you can use Azure AD to give SSO to your OpenXava
+      applications. Look at the <a href="sso-azure-ad_en.html">SSO with Azure
+        AD guide</a>.</div>
+    <div class="wiki" style="display: block;">
+      <h2><a name="2fa"></a>Two-Factor Authentication (2FA) <em>(new in v7.1)</em></h2>
+      Since XavaPro 7.1 you can use Azure AD to give Two-Factor Authentication
+      to your OpenXava applications. Look at the <a href="sso-azure-ad_en.html">SSO
+        with Azure AD guide</a>. </div>
   </body>
 </html>

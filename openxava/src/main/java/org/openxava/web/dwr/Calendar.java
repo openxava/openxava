@@ -71,7 +71,7 @@ public class Calendar extends DWRBase {
 		this.response = response;
 		view = getView(request, application, module);
 		errors = new Messages();
-		
+
 		List<CalendarEvent> calendarEvents = new ArrayList<>();
 		String tabObject = "xava_tab";
 		tab2 = getTab(request, application, module, tabObject);
@@ -83,12 +83,11 @@ public class Calendar extends DWRBase {
 		if (!hasCondition && !hasFilter) {
 			setFilter(tab, monthYear);
 		}
+
 		tab = setProperties(tab);
-		
 		this.table = tab.getTableModel();
 		int tableSize = 0;
 		String json = null;
-		
 		tableSize = tab.getTableModel().getTotalSize();
 		if (tableSize > 0) {
 			for (int i = 0; i < tableSize; i++) {
@@ -253,7 +252,6 @@ public class Calendar extends DWRBase {
 	}
 
 	private String obtainRowsKey(int row) {
-		List<String> result = new ArrayList<>();
 		StringBuffer keys = new StringBuffer();
 		int j = keysListSize;
 		Object value;
@@ -299,27 +297,26 @@ public class Calendar extends DWRBase {
 	private void setDatesProperty() {
 		List<MetaProperty> mp = new ArrayList<>(tab.getMetaTab().getMetaModel().getMetaProperties());
 		List<String> calculatedProperties = new ArrayList<>(tab.getMetaTab().getMetaModel().getCalculatedPropertiesNames());
-		String[] datesName = { "date", "fecha" };
 		int mpCount = 0;
 		List<String> dateWithTimeList = Arrays.asList("java.util.Date", "java.time.LocalDateTime",
 				"java.time.ZonedDateTime");
-
+		List<String> acceptedDateTypes = Arrays.asList("java.time.LocalDate", "java.util.Date", "java.sql.Date");
+		
 		for (MetaProperty property : mp) {
-			for (String name : datesName) {
-				if (mpCount < 2 && !calculatedProperties.contains(property.getName()) && property.getName().toLowerCase().contains(name)) {
+		        String propertyTypeName = property.getTypeName();
+		        if (mpCount < 2 && !calculatedProperties.contains(property.getName()) && acceptedDateTypes.contains(propertyTypeName)) {
+		        	datesList.add(property.getName());	
 					if (mpCount == 0 && !property.getName().contains(".")) dateName = property.getName();
-					datesList.add(property.getName());			
 					mpCount++;
 
 					dateWithTime = dateWithTimeList.contains(property.getTypeName()) ? true : false;
 					String className = property.getTypeName();
-					if (className.startsWith("java.util.")) {
+					if (className.startsWith("java.util.") || className.startsWith("java.sql.Date")) {
 						oldLib = true;
 					} else if (className.startsWith("java.time.")) {
 						oldLib = false;
 					} 
-				}
-			}
+		        }
 		}
 	}
 
@@ -331,10 +328,10 @@ public class Calendar extends DWRBase {
 		List<String> properties2List = new ArrayList<>();
 		int properties1ListCount = 0;
 		int properties2ListCount = 0;
-		int maxLimit = 2;
 
 		newTabColumn.addAll(keysList);
 		List<MetaProperty> mp = tab.getMetaPropertiesNotCalculated();
+		int maxLimit = mp.size()>2 ? 2 : 1;
 		for (MetaProperty metaProperty : mp) {
 			if (properties1ListCount < maxLimit && expectedNames.contains(metaProperty.getQualifiedName())) {
 				properties1List.add(metaProperty.getQualifiedName());

@@ -201,9 +201,6 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	if (openxava.initTheme != null) openxava.initTheme();
 	openxava.clearLists(application, module); 
 	openxava.initLists(application, module);
-	if (typeof currentRow != "undefined") {
-		openxava.initEditors(); 
-	}
 	openxava.initSelectedRows();
 	openxava.initCurrentRow(application, module, currentRow);
 	openxava.initViewSimple(application, module, viewSimple);
@@ -212,6 +209,9 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.listenChanges(); 
 	openxava.initFocusKey();
 	openxava.initInlineEvents(); 
+	if (typeof currentRow != "undefined") {
+		openxava.initEditors(); 
+	}
   	$('#xava_save_list_configuration').fadeIn(1000, 'swing'); 
 }
 
@@ -245,6 +245,11 @@ openxava.initInlineEvents =  function() {
 	$('[onfocus]').each(function() {	
   		$(this).off('focus').focus(function() {
   			eval($(this).attr('onfocus'));
+		});
+	});
+	$('form[onsubmit]').each(function() {	
+  		$(this).off('submit').submit(function() {
+  			return false;
 		});
 	});
 }

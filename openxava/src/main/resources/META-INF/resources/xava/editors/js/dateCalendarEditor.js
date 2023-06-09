@@ -25,7 +25,7 @@ openxava.addEditorInitFunction(function() {
     
     $('.xava_date > input').change(function() {
         var dateFormat = $(this).parent().data("dateFormat");
-        var date = readInput?enterDate:$(this).val();
+        var date = readInput?enterDate:$(this).val(); 
         if (date === "") return;
         date = date.trim();
         if (date.length < 6 && date.includes(":")) return;
@@ -90,14 +90,17 @@ openxava.addEditorInitFunction(function() {
                     if (onOpenDateTime == dateStr) {
                         $(instance.input).data("changedCancelled", true);
                     } else {
+						$(instance.input).removeData("changedCancelled");
                         $(instance.input).attr('value', dateStr);
                     }
+					onOpenDateTime = undefined;
                 }
             } else {
                 if (dateStr === $(instance.input).attr('value')) {
                     $(instance.input).data("changedCancelled", true);
                     onChangeChecked = invalid?true:false;
-                } else {
+                } else {	
+					$(instance.input).removeData("changedCancelled");
                     $(instance.input).attr('value', dateStr);
                     onChangeChecked = invalid?true:false;
                 }
@@ -108,11 +111,12 @@ openxava.addEditorInitFunction(function() {
                 if (onOpenDateTime == dateStr) {
                     $(instance.input).data("changedCancelled", true);
                 } else {
+					$(instance.input).removeData("changedCancelled");
                     $(instance.input).attr('value', dateStr);
                     $('.xava_date > input').change();
+					onOpenDateTime = undefined;
                 }
             }
-            onOpenDateTime = undefined;
         },
     });
 

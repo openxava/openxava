@@ -2439,8 +2439,7 @@ antes de cada llamada AJAX de OpenXava.
         <div class="wiki" style="display: block;">En este caso usamos jquery
           para asociar el evento, pero puedes hacerlo de cualquier otra forma.<br>
         </div>
-        <p>
-        </p>
+        <p> </p>
         <h4></h4>
       </div>
       <h4><a name="Personalizacion-Editores-JavaScript+en+los+editores-Hasta+v4m2"></a>Hasta
@@ -4141,6 +4140,59 @@ class="sy0">=</span><span class="st0">"nivel"</span><span class="sy0">/&gt;</spa
               IRequestReportParametersProvider.<br>
             </td>
             <td>org.openxava.util.DefaultReportParametersProvider<br>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3"><br>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3"><strong>Content Security Policy (CSP)</strong><br>
+            </td>
+          </tr>
+          <tr>
+            <td>trustedHostsForImages <i>(nuevo en v7.1.2)</i><br>
+            </td>
+            <td>Lista de sitios, separados por comas, que se pueden utilizar
+              como origen para las imágenes. Se añade a img-src de la Política
+              de Seguridad de Contenido (Content Security Policy, CSP). Puedes
+              utilizar cualquier <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources">&lt;host-source&gt;
+                como se explica en la documentación de CSP</a>.<br>
+            </td>
+            <td><br>
+            </td>
+          </tr>
+          <tr>
+            <td>trustedHostsForScripts <i>(</i><i><i>nuevo en</i> v7.1.2)</i><br>
+            </td>
+            <td>Lista de sitios, separados por comas, que se pueden utilizar
+              como origen para los scripts. Se añade a script-src de la Política
+              de Seguridad de Contenido (Content Security Policy, CSP). Puedes
+              utilizar cualquier <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources">&lt;host-source&gt;
+                como se explica en la documentación de CSP</a>. </td>
+            <td><br>
+            </td>
+          </tr>
+          <tr>
+            <td>trustedHostsForStyles <i>(</i><i><i>nuevo en</i> v7.1.2)</i><br>
+            </td>
+            <td>Lista de sitios, separados por comas, que se pueden utilizar
+              como origen para los archivos CSS. Se añade a style-src de la
+              Política de Seguridad de Contenido (Content Security Policy, CSP).
+              Puedes utilizar cualquier <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources">&lt;host-source&gt;
+                como se explica en la documentación de CSP</a>. </td>
+            <td><br>
+            </td>
+          </tr>
+          <tr>
+            <td>trustedHostsForFrames <i>(</i><i><i>nuevo en</i> v7.1.2)</i><br>
+            </td>
+            <td>Lista de sitios, separados por comas, que se pueden utilizar
+              como origen para los frames e iframes. Se añade a frame-src de la
+              Política de Seguridad de Contenido (Content Security Policy, CSP).
+              Puedes utilizar cualquier <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources">&lt;host-source&gt;
+                como se explica en la documentación de CSP</a>. </td>
+            <td><br>
             </td>
           </tr>
           <tr>

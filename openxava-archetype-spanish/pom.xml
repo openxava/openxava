@@ -8,7 +8,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<openxava.version>7.1.1-SNAPSHOT</openxava.version>
+		<openxava.version>7.1.2-SNAPSHOT</openxava.version>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 		<!-- Las aplicaciones OpenXava funcionan bien con Java 1.8, 11 y 17 -->
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -33,7 +33,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>		
-    		<version>8.0.32</version>
+    		<version>8.0.33</version>
 		</dependency>
 		-->
 		
@@ -41,7 +41,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
     		<artifactId>postgresql</artifactId>
-    		<version>42.5.4</version>
+    		<version>42.6.0</version>
 		</dependency>
 		-->
 		
@@ -49,16 +49,16 @@
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
 			<artifactId>ojdbc8</artifactId>
-			<version>21.9.0.0</version>
+			<version>23.2.0.0</version>
 		</dependency>
 		-->
 		
-		<!-- AS/400
+		<!-- AS/400 
 		<dependency>
 			<groupId>net.sf.jt400</groupId>
 			<artifactId>jt400</artifactId>
 			<version>11.2</version>
-			<classifier>jt400_jdk8</classifier>
+			<classifier>jd400-jdk8</classifier>
 		</dependency>
 		-->
 		
@@ -74,7 +74,7 @@
 		<dependency>
 			<groupId>com.ibm.informix</groupId>
 			<artifactId>jdbc</artifactId>
-			<version>4.50.9</version>
+			<version>4.50.10</version>
 		</dependency>
 		-->
 		

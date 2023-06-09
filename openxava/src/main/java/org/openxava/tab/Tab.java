@@ -126,8 +126,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 				result = result.replace(" between ", " " + XavaResources.getString("between") + " "); 
 				result = result.replace(" not like ", " "); 
 				result = result.replace(" like ", " ");  
-				result = result.replace(" not in(", " " + XavaResources.getString("not_in_comparator") + "("); 
-				result = result.replace(" in(", " " + XavaResources.getString("in_comparator") + "("); 
+				result = result.replace(" not in(", " " + XavaResources.getString("not_in_comparator") + " ("); 
+				result = result.replace(" in(", " " + XavaResources.getString("in_comparator") + " ("); 
 				result = result.replace("year/month(", " " + Labels.get("year") + "/" + Labels.get("month") + " " + XavaResources.getString("of") + " ");
 				result = result.replace("year(", " " + Labels.get("year") + " " + XavaResources.getString("of") + " ");
 				result = result.replace("month(", " " + Labels.get("month") + " " + XavaResources.getString("of") + " ");		
