@@ -15,7 +15,7 @@ import lombok.*;
 @Setter
 public class Event extends Identifiable{
 
-	@OnChange(OnChangeVoidAction.class)
+	@OnChange(OnChangeVoidCalendarAction.class)
 	LocalDate startDate;
 	
 	@OnChange(OnChangeVoidAction.class)
