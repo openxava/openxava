@@ -23,6 +23,8 @@ public class DateCalendarTest extends WebDriverTestBase {
 	private void testMultipleDateWithOnChange() throws Exception {
 		driver.get("http://localhost:8080/openxavatest/m/Event");
 		wait(driver);
+		moveToListView(driver);
+		wait(driver);
 		WebElement element = driver.findElement(By.xpath("//a[@onclicke=\"javascript:openxava.executeAction('openxavatest', 'Event', '', false, 'List.viewDetail', 'row=0')\"]"));
 		element.click();
 		wait(driver);
@@ -44,5 +46,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 
 		assertEquals(mensajeEsperado, mensaje);
 	}
+	
+
 	
 }

@@ -9,9 +9,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.support.ui.*;
 
-import junit.framework.*;
-
-public class CalendarTest extends TestCase {
+public class CalendarTest extends WebDriverTestBase {
 
 	private WebDriver driver;
 
@@ -78,20 +76,62 @@ public class CalendarTest extends TestCase {
 		waitEvent(driver);
 		moveToListView();
 		wait(driver);
+		
+		//use first date property as event start time
+		driver.get("http://localhost:8080/openxavatest/m/Event");
+		wait(driver);
+		moveToCalendarView();
+		wait(driver);
+		waitEvent(driver);
+		List<Date> dates = setDates();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String dateString = dateFormat.format(dates.get(1));
+		
+		WebElement day = driver
+				.findElement(By.xpath("//div[contains(@class,'fc-daygrid-day-frame') and ancestor::td[@data-date='"
+						+ dateString + "']]"));
+		day.click();
+		wait(driver);
+		List<WebElement> iconElements = driver.findElements(By.cssSelector("i.mdi.mdi-calendar"));
+		if (!iconElements.isEmpty()) {
+		    WebElement firstIconElement = iconElements.get(1);
+		    firstIconElement.click();
+		}
+		Thread.sleep(500);
+		
+		List<WebElement> spanElements = driver.findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day ' and text()='2']"));
+		if (!spanElements.isEmpty()) {
+			System.out.println(spanElements.size());
+		    WebElement spanElement = spanElements.get(1);
+		    spanElement.click();
+		}
+		wait(driver);
+		WebElement buttonSave = driver.findElement(By.id("ox_openxavatest_Event__CRUD___save"));
+		buttonSave.click();
+		wait(driver);
+		WebElement buttonList = driver.findElement(By.id("ox_openxavatest_Event__Mode___list"));
+		buttonList.click();
+		wait(driver);
+		waitEvent(driver);
+		
+		List<WebElement> events = driver.findElements(By.xpath("//div[contains(@class,'fc-daygrid-event-harness') and ancestor::td[@data-date='"
+                + dateString + "']]"));
+		assertTrue(!events.isEmpty());
+		events.get(0).click();
+		wait(driver);
+		Thread.sleep(5000);
+		WebElement element = driver.findElement(By.xpath("//a[@onclicke=\"javascript:openxava.executeAction('openxavatest', 'Event', 'Borra la entidad actual: ¿Estás seguro?', false, 'CRUD.delete')\"]"));
+		element.click();
+		Alert alert = driver.switchTo().alert();
+		alert.accept();
+		wait(driver);
+		WebElement buttonList2 = driver.findElement(By.id("ox_openxavatest_Event__Mode___list"));
+		buttonList2.click();
+		wait(driver);
 	}
 
 	public void tearDown() throws Exception {
 		driver.quit();
-	}
-
-	private void wait(WebDriver driver) throws Exception {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(100));
-		try {
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("xava_loading")));
-		} catch (Exception ex) {
-		}
-		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("xava_loading")));
 	}
 
 	private void waitEvent(WebDriver driver) throws Exception {
@@ -150,8 +190,8 @@ public class CalendarTest extends TestCase {
 	}
 
 	private void createInvoiceEventPrevCurrentNextMonth() throws Exception {
-		List<Date> dates = setDates();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		List<Date> dates = setDates();
 		for (int i = 0; i < dates.size(); i++) {
 			if (i == 2) {
 				nextOnCalendar();

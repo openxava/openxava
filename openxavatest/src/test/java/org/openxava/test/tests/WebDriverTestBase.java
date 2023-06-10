@@ -33,5 +33,23 @@ abstract public class WebDriverTestBase extends TestCase {
 		wait = new WebDriverWait(driver, Duration.ofSeconds(10)); 
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("xava_loading"))); 
 	}
+	
+	protected void moveToListView(WebDriver driver) throws InterruptedException {
+		WebElement tabList = driver.findElement(By.cssSelector(".mdi.mdi-table-large"));
+		WebElement tabListParent = tabList.findElement(By.xpath(".."));
+		String title = tabListParent.getAttribute("class");
+		if (!(title != null && title.equals("ox-selected-list-format"))) {
+			tabList.click();
+		}	
+	}
+	
+	private void moveToCalendarView(WebDriver driver) throws InterruptedException {
+		WebElement tabCalendar = driver.findElement(By.cssSelector(".mdi.mdi-calendar"));
+		WebElement tabCalendarParent = tabCalendar.findElement(By.xpath(".."));
+		String title = tabCalendarParent.getAttribute("class");
+		if (!(title != null && title.equals("ox-selected-list-format"))) {
+			tabCalendar.click();
+		}
+	}
 
 }
