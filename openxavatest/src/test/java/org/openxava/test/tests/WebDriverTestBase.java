@@ -34,22 +34,69 @@ abstract public class WebDriverTestBase extends TestCase {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("xava_loading"))); 
 	}
 	
-	protected void moveToListView(WebDriver driver) throws InterruptedException {
+	protected void waitCalendarEvent(WebDriver driver) throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(10000));
+		try {
+			wait.until(ExpectedConditions.jsReturnsValue("return calendarEditor.requesting === false;"));
+			Thread.sleep(500);
+		} catch (Exception ex) {
+		}
+	}
+	
+	protected void moveToListView(WebDriver driver) throws Exception {
 		WebElement tabList = driver.findElement(By.cssSelector(".mdi.mdi-table-large"));
 		WebElement tabListParent = tabList.findElement(By.xpath(".."));
 		String title = tabListParent.getAttribute("class");
 		if (!(title != null && title.equals("ox-selected-list-format"))) {
 			tabList.click();
-		}	
+		}
+		wait(driver);
 	}
 	
-	private void moveToCalendarView(WebDriver driver) throws InterruptedException {
+	protected void moveToCalendarView(WebDriver driver) throws Exception {
 		WebElement tabCalendar = driver.findElement(By.cssSelector(".mdi.mdi-calendar"));
 		WebElement tabCalendarParent = tabCalendar.findElement(By.xpath(".."));
 		String title = tabCalendarParent.getAttribute("class");
 		if (!(title != null && title.equals("ox-selected-list-format"))) {
 			tabCalendar.click();
 		}
+		wait(driver);
+		waitCalendarEvent(driver);
+	}
+	
+	protected void acceptInDialogJS(WebDriver driver) throws Exception {
+		//use it after verifying that the test works well. 
+		//it helps to avoid errors when starting the browser with the module.
+		//can use too for click Accept case.
+		try {
+			Alert alert = driver.switchTo().alert();
+			alert.accept();
+			wait(driver);
+		} catch(NoAlertPresentException e) {
+			
+		}
+	}
+	
+	protected void goToListFromDetailView(WebDriver driver, String modelName) throws Exception {
+		WebElement buttonList = driver.findElement(By.id("ox_openxavatest_" + modelName + "__Mode___list"));
+		buttonList.click();
+		wait(driver);
+		//if back to CalendarView, need add another wait after this method
+		//waitCalendarEvent(driver);
+	}
+	
+	protected void saveFromDetailView(WebDriver driver, String modelName) throws Exception {
+		WebElement buttonSave = driver.findElement(By.id("ox_openxavatest_" + modelName + "__CRUD___save"));
+		buttonSave.click();
+		wait(driver);
+	}
+	
+	protected void deleteFromDetailView(WebDriver driver, String modelName) throws Exception {
+		WebElement buttonDelete = driver.findElement(By.id("ox_openxavatest_" + modelName + "__CRUD___delete"));
+		buttonDelete.click();
+		wait(driver);
+		acceptInDialogJS(driver);
+		wait(driver);
 	}
 
 }
