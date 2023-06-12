@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Some mistypes in code keywords (nonce) in migrations instructions to 7.1.
+- Fix: IForwardAction for executing JavaScript no longer supported not included in migration doc to 7.1. 
+- Fix: Migration documentation from 6 to 7 misses some resources to copy and to exclude.
+- Fix: Customizing doc for Welcome and First Steps pages references master branch, sometimes not compatible. 
+
 - Article in documentation to integrate Spring Boot with OpenXava.
 - New property trustedHostsForImages in xava.properties for exceptions in CSP for source of images. 
 - New property trustedHostsForScripts in xava.properties for exceptions in CSP for source of scripts.
