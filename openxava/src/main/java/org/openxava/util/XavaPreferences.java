@@ -494,4 +494,24 @@ public class XavaPreferences {
 		return properties.split(",");
 	}
 	
+	/** @since 7.1.2 */
+	public String getTrustedHostsForImages() {  
+		return getProperties().getProperty("trustedHostsForImages", "");
+	}
+	
+	/** @since 7.1.2 */
+	public String getTrustedHostsForScripts() {  
+		return getProperties().getProperty("trustedHostsForScripts", "");
+	}
+	
+	/** @since 7.1.2 */
+	public String getTrustedHostsForStyles() {  
+		return getProperties().getProperty("trustedHostsForStyles", "");
+	}
+	
+	/** @since 7.1.2 */
+	public String getTrustedHostsForFrames() {  
+		return getProperties().getProperty("trustedHostsForFrames", "");
+	}
+	
 }
