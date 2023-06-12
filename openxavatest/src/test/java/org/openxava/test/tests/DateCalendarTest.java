@@ -13,14 +13,14 @@ public class DateCalendarTest extends WebDriverTestBase {
 	}
 
 	public void testNavigation() throws Exception {
-		testMultipleDateWithOnChange();
+		forTestMultipleDateWithOnChange();
 	}
 
 	public void tearDown() throws Exception {
 		driver.quit();
 	}
 	
-	private void testMultipleDateWithOnChange() throws Exception {
+	private void forTestMultipleDateWithOnChange() throws Exception {
 		driver.get("http://localhost:8080/openxavatest/m/Event");
 		wait(driver);
 		acceptInDialogJS(driver);

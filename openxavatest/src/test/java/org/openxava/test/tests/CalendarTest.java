@@ -16,10 +16,10 @@ public class CalendarTest extends WebDriverTestBase {
 	}
 
 	public void testNavigation() throws Exception {
-		testAddEventAndVerify();
-		testConditions();
-		testAnyNameAsDateProperty();
-		testMultipleDateAndFirstDateAsEventStart();
+		forTestAddEventAndVerify();
+		forTestConditions();
+		forTestAnyNameAsDateProperty();
+		forTestMultipleDateAndFirstDateAsEventStart();
 	}
 
 	public void tearDown() throws Exception {
@@ -142,7 +142,7 @@ public class CalendarTest extends WebDriverTestBase {
 		}
 	}
 	
-	private void testAnyNameAsDateProperty() throws Exception {
+	private void forTestAnyNameAsDateProperty() throws Exception {
 		driver.get("http://localhost:8080/openxavatest/m/UserWithBirthday");
 		wait(driver);
 		acceptInDialogJS(driver);
@@ -155,7 +155,7 @@ public class CalendarTest extends WebDriverTestBase {
 		moveToListView(driver);
 	}
 	
-	private void testAddEventAndVerify() throws Exception {
+	private void forTestAddEventAndVerify() throws Exception {
 		driver.get("http://localhost:8080/openxavatest/m/Invoice");
 		wait(driver);
 		acceptInDialogJS(driver);
@@ -166,7 +166,7 @@ public class CalendarTest extends WebDriverTestBase {
 		verifyPrevInvoiceEvent();
 	}
 	
-	private void testConditions() throws Exception {
+	private void forTestConditions() throws Exception {
 		driver.get("http://localhost:8080/openxavatest/m/InvoiceCalendar");
 		wait(driver);
 		moveToListView(driver);
@@ -182,7 +182,7 @@ public class CalendarTest extends WebDriverTestBase {
 		deteleEvents();
 	}
 	
-	private void testMultipleDateAndFirstDateAsEventStart() throws Exception {
+	private void forTestMultipleDateAndFirstDateAsEventStart() throws Exception {
 		driver.get("http://localhost:8080/openxavatest/m/Event");
 		wait(driver);
 		acceptInDialogJS(driver);
