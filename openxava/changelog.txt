@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @OnChange on several date properties applies only to last date when using popup calendar.
+- Fix: Calendar list format doesn't take the first date property as the date for calendar sometimes.
+- Fix: Calendar list format problems when more than 2 date properties in the entity.
 - Fix: Some mistypes in code keywords (nonce) in migrations instructions to 7.1.
 - Fix: IForwardAction for executing JavaScript no longer supported not included in migration doc to 7.1. 
 - Fix: Migration documentation from 6 to 7 misses some resources to copy and to exclude.

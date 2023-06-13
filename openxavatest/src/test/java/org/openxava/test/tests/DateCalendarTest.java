@@ -41,10 +41,10 @@ public class DateCalendarTest extends WebDriverTestBase {
 		}
 		wait(driver);
 		WebElement divElement = driver.findElement(By.cssSelector("div.ox-message-box"));
-		String mensaje = divElement.getText();
-		String mensajeEsperado = "Calendar changed";
+		String message = divElement.getText();
+		String expectedMessage = "Calendar changed";
 
-		assertEquals(mensajeEsperado, mensaje);
+		assertEquals(expectedMessage, message);
 	}
 	
 
