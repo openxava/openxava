@@ -87,15 +87,15 @@
           <pre><code class="java">response.setContentType("text/html"); 
 </code></pre>Debes indicar el tipo MIME correspondiente, en este ejemplo
           "text/html" para un documento HTML.</div>
-        <h3>JavaScript en línea en los JSP requiere el atributo once</h3>
+        <h3>JavaScript en línea en los JSP requiere el atributo nonce</h3>
         <p>Esto es por razones de seguridad. Rara vez se utiliza JavaScript en
           línea en el código de las aplicaciones de OpenXava, ya que no
           funcionan desde OpenXava 3.1 para editores o vistas personalizadas.
           Sin embargo, si tienes código personalizado fuera de un módulo
           OpenXava normal, como <i>welcome.jsp</i>, o algún encabezado o pie de
           página personalizado para tu aplicación, tal vez tengas algunos
-          scripts en línea. En este caso, debes agregar un atributo <i>once</i>
-          a tu script en línea utilizando la nueva etiqueta <i>&lt;xava:once/&gt;</i>
+          scripts en línea. En este caso, debes agregar un atributo <i>nonce</i>
+          a tu script en línea utilizando la nueva etiqueta <i>&lt;xava:nonce/&gt;</i>
           de la biblioteca de etiquetas.</p>
         <p>Por ejemplo, si tu página <i>welcome.jsp</i> tiene este código:</p>
         <pre><code class="html">&lt;script type="text/javascript"&gt; 
@@ -113,7 +113,7 @@
     button.onclick = function () { window.location='m/SignIn'; }
 &lt;/script&gt;
 </code></pre>
-        <p>Fíjate en el nuevo elemento <i>&lt;xava:once&gt;</i> y que has de
+        <p>Fíjate en el nuevo elemento <i>&lt;xava:nonce&gt;</i> y que has de
           incluir <i>imports.jsp</i>.</p>
         <p>Aún mejor, podrías buscar una alternativa que no use ningún script en
           línea. En este caso, por ejemplo, podríamos cambiar el evento <i>onclick
@@ -141,6 +141,39 @@ button.onclick = function () { window.location='m/SignIn'; }
         <p>Observa cómo utilizamos el ID para añadir el evento usando código
           JavaScript, un código seguro porque es descargado desde el servidor
           que aloja la aplicación.</p>
+        <h3>IForwardAction ya no se puede utilizar para ejecutar JavaScript</h3>
+        <p>Dadas las nuevas restricciones de seguridad, no es posible redirigir
+          a JavaScript, por lo que si utilizas <i>IForwardAction</i> para
+          redirigir a una URL que comienza con <i>javascript:</i> para ejecutar
+          código, eso no funcionará. En su lugar, utiliza <i>IJavaScriptPostAction</i>
+          para ejecutar JavaScript. Es decir, si tienes una acción como esta:</p>
+        <pre><code class="java">public class DecirHola extends BaseAction implements IForwardAction {    
+
+    public void execute() throws Exception {
+    }
+
+    public String getForwardURI() {
+    	return "javascript:alert('Hola')";
+    }
+
+    public boolean inNewWindow() {
+        return false;
+    }
+
+}
+</code></pre>
+        <p>Reescríbela de esta manera:</p>
+        <pre><code class="java">public class DecirHola extends BaseAction implements IJavaScriptPostAction {
+
+    public void execute() throws Exception {
+    }
+
+    public String getPostJavaScript() {
+	return "alert('Hola')";
+    }
+
+}
+</code></pre>
         <h3>Las etiquetas en inglés ahora tienen otro orden (para las pruebas
           JUnit)</h3>
         <p>Notamos que las etiquetas en listas y colecciones, cuando están
@@ -235,7 +268,7 @@ reload(); // ...has de añadir esta línea
       carpeta <i>Admin</i>. Abre el módulo <i>Carpetas</i>, busca la carpeta <i>Admin</i>
       en la lista y escógelo. Dentro del detalle de <i>Admin</i> pulsa para
       añadir un nuevo módulo, busca SSO y añádelo:</div>
-    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_es.png"
+    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_es.png"
         alt=""><br>
       <h2>Para migrar de OpenXava 7.0.5 a OpenXava 7.0.6</h2>
       <h3>@Column(length=x) sin scale ya no es scale=2 por defecto</h3>
@@ -343,7 +376,8 @@ assertValidValues("conditionValue___3", valoresValidos);
         el viejo proyecto a la carpeta correspondiente en el nuevo proyecto,
         como sigue:</p>
       <ul>
-        <li>De <i>src</i> a <i>src/main/java</i></li>
+        <li>De <i>src</i> a <i>src/main/java </i>(si estás usando XavaPro no
+          copies <i>com.openxava.naviox.model</i> que ahora está incluido en <i>xavapro.jar</i>)</li>
         <li>De <i>xava</i> a <i>src/main/resources/xava</i></li>
         <li>De <i>i18n</i> a <i>src/main/resources/i18n</i></li>
         <li>De <i>properties</i> a <i>src/main/resources</i></li>
@@ -374,10 +408,11 @@ assertValidValues("conditionValue___3", valoresValidos);
         <li><i>custom.css</i> de <i>web/xava/style</i> a <i>src/main/webapp/xava/style</i></li>
         <li>Tus propios JSPs de <i>web</i> to <i>src/main/webapp</i></li>
         <li>Si has modificado algún JSP de OpenXava, puedes copiarlo desde <i>web/xava</i>
-          a <i>src/main/webapp/xava</i>. No te preocupes si no ves ningún JSP
-          allí, ahora el código JSP de OpenXava está dentro del jar de OpenXava
-          y no se incluye en tu proyecto, pero si pones algún JSP en la carpeta
-          <i>xava</i> éste sobrescribe el de OpenXava.</li>
+          a <i>src/main/webapp/xava</i> y desde <i>web/naviox</i> a <i>src/main/webapp/naviox</i>.
+          No te preocupes si no ves ningún JSP allí, ahora el código JSP de
+          OpenXava está dentro del jar de OpenXava y no se incluye en tu
+          proyecto, pero si pones algún JSP en la carpeta <i>xava</i> éste
+          sobrescribe el de OpenXava.</li>
       </ul>
       <p>Los archivos <i>servlets.xml</i>, <i>filters.xml</i> y <i>listeners.xml</i>
         ya no se soportan. Puedes copiar su contenido a <i>web.xml</i>, que

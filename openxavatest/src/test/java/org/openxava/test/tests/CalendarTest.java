@@ -1,134 +1,41 @@
 package org.openxava.test.tests;
 
 import java.text.*;
-import java.time.*;
 import java.util.*;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.support.ui.*;
 
-import junit.framework.*;
-
-public class CalendarTest extends TestCase {
+public class CalendarTest extends WebDriverTestBase {
 
 	private WebDriver driver;
 
 	public void setUp() throws Exception {
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--remote-allow-origins=*");
-		driver = new ChromeDriver(options);
+		driver = createWebDriver();
 	}
 
 	public void testNavigation() throws Exception {
-		driver.get("http://localhost:8080/openxavatest/m/Invoice");
-		wait(driver);
-		try {
-		    Alert alert = driver.switchTo().alert();
-		    alert.accept();
-		} catch (NoAlertPresentException e) {
-		}
-		moveToCalendarView();
-		wait(driver);
-		waitEvent(driver);
-		prevOnCalendar();
-		waitEvent(driver);
-		createInvoiceEventPrevCurrentNextMonth();
-		prevOnCalendar();
-		waitEvent(driver);
-		verifyPrevInvoiceEvent();
-		
-		driver.get("http://localhost:8080/openxavatest/m/InvoiceCalendar");
-		wait(driver);
-		moveToListView();
-		wait(driver);
-		setInvoiceCondition("InvoiceCalendar");
-		wait(driver);
-		waitEvent(driver);
-		moveToCalendarView();
-		wait(driver);
-		waitEvent(driver);
-		prevOnCalendar();
-		waitEvent(driver);
-		verifyConditionEvents("past", false);
-		nextOnCalendar();
-		waitEvent(driver);
-		nextOnCalendar();
-		waitEvent(driver);
-		verifyConditionEvents("future", true);
-		
-		moveToListView();
-		wait(driver);
-		deteleEvents();
-		
-		// date properties with any name
-		driver.get("http://localhost:8080/openxavatest/m/UserWithBirthday");
-		wait(driver);
-		try {
-			WebElement buttonList = driver.findElement(By.id("ox_openxavatest_UserWithBirthday__Mode___list"));
-			buttonList.click();
-			wait(driver);
-		} catch (NoSuchElementException e) {
-		}
-		moveToListView();
-		wait(driver);
-		moveToCalendarView();
-		wait(driver);
-		waitEvent(driver);
-		moveToListView();
-		wait(driver);
+		forTestAddEventAndVerify();
+		forTestConditions();
+		forTestAnyNameAsDateProperty();
+		forTestMultipleDateAndFirstDateAsEventStart();
 	}
 
 	public void tearDown() throws Exception {
 		driver.quit();
 	}
 
-	private void wait(WebDriver driver) throws Exception {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(100));
-		try {
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("xava_loading")));
-		} catch (Exception ex) {
-		}
-		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("xava_loading")));
-	}
-
-	private void waitEvent(WebDriver driver) throws Exception {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(10000));
-		try {
-			wait.until(ExpectedConditions.jsReturnsValue("return calendarEditor.requesting === false;"));
-			Thread.sleep(500);
-		} catch (Exception ex) {
-		}
-	}
-	
-	private void moveToCalendarView() throws InterruptedException {
-		WebElement tabCalendar = driver.findElement(By.cssSelector(".mdi.mdi-calendar"));
-		WebElement tabCalendarParent = tabCalendar.findElement(By.xpath(".."));
-		String title = tabCalendarParent.getAttribute("class");
-		if (!(title != null && title.equals("ox-selected-list-format"))) {
-			tabCalendar.click();
-		}
-	}
-	
-	private void moveToListView() throws InterruptedException {
-		WebElement tabList = driver.findElement(By.cssSelector(".mdi.mdi-table-large"));
-		WebElement tabListParent = tabList.findElement(By.xpath(".."));
-		String title = tabListParent.getAttribute("class");
-		if (!(title != null && title.equals("ox-selected-list-format"))) {
-			tabList.click();
-		}	
-	}
-
-	private void nextOnCalendar() throws InterruptedException {
+	private void nextOnCalendar() throws Exception {
 		WebElement next = driver.findElement(By.cssSelector(".fc-icon.fc-icon-chevron-right"));
 		next.click();
+		waitCalendarEvent(driver);
 	}
 
-	private void prevOnCalendar() throws InterruptedException {
+	private void prevOnCalendar() throws Exception {
 		WebElement prev = driver.findElement(By.cssSelector(".fc-icon.fc-icon-chevron-left"));
 		prev.click();
+		waitCalendarEvent(driver);
 	}
 
 	private List<Date> setDates() {
@@ -150,12 +57,12 @@ public class CalendarTest extends TestCase {
 	}
 
 	private void createInvoiceEventPrevCurrentNextMonth() throws Exception {
-		List<Date> dates = setDates();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		List<Date> dates = setDates();
 		for (int i = 0; i < dates.size(); i++) {
 			if (i == 2) {
 				nextOnCalendar();
-				waitEvent(driver);
+				waitCalendarEvent(driver);
 				wait(driver);
 			}
 			String dateString = dateFormat.format(dates.get(i));
@@ -181,13 +88,9 @@ public class CalendarTest extends TestCase {
 		wait(driver);
 		WebElement inputVAT = driver.findElement(By.id("ox_openxavatest_Invoice__vatPercentage"));
 		inputVAT.sendKeys("3");
-		WebElement buttonSave = driver.findElement(By.id("ox_openxavatest_Invoice__CRUD___save"));
-		buttonSave.click();
-		wait(driver);
-		WebElement buttonList = driver.findElement(By.id("ox_openxavatest_Invoice__Mode___list"));
-		buttonList.click();
-		wait(driver);
-		waitEvent(driver);
+		saveFromDetailView(driver, "Invoice");
+		goToListFromDetailView(driver, "Invoice");
+		waitCalendarEvent(driver);
 	}
 
 	private void verifyPrevInvoiceEvent() throws Exception {
@@ -201,10 +104,8 @@ public class CalendarTest extends TestCase {
 		int year = now.get(Calendar.YEAR);
 		WebElement invoiceYear = driver.findElement(By.id("ox_openxavatest_Invoice__year"));
 		assertEquals(String.valueOf(year), invoiceYear.getAttribute("value"));
-		WebElement buttonList = driver.findElement(By.id("ox_openxavatest_Invoice__Mode___list"));
-		buttonList.click();
-		wait(driver);
-		waitEvent(driver);
+		goToListFromDetailView(driver, "Invoice");
+		waitCalendarEvent(driver);
 	}
 	
 	
@@ -237,10 +138,87 @@ public class CalendarTest extends TestCase {
 		for (int i = 0; i < 3; i ++) {
 			WebElement element = driver.findElement(By.xpath("//a[contains(@class, 'ox-image-link') and .//i[contains(@class, 'mdi-delete')]]"));
 			element.click();
-			Alert alert = driver.switchTo().alert();
-			alert.accept();
-			wait(driver);
+			acceptInDialogJS(driver);
 		}
+	}
+	
+	private void forTestAnyNameAsDateProperty() throws Exception {
+		driver.get("http://localhost:8080/openxavatest/m/UserWithBirthday");
+		wait(driver);
+		acceptInDialogJS(driver);
+		try {
+			goToListFromDetailView(driver, "UserWithBirthday");
+		} catch (NoSuchElementException e) {
+		}
+		moveToListView(driver);
+		moveToCalendarView(driver);
+		moveToListView(driver);
+	}
+	
+	private void forTestAddEventAndVerify() throws Exception {
+		driver.get("http://localhost:8080/openxavatest/m/Invoice");
+		wait(driver);
+		acceptInDialogJS(driver);
+		moveToCalendarView(driver);
+		prevOnCalendar();
+		createInvoiceEventPrevCurrentNextMonth();
+		prevOnCalendar();
+		verifyPrevInvoiceEvent();
+	}
+	
+	private void forTestConditions() throws Exception {
+		driver.get("http://localhost:8080/openxavatest/m/InvoiceCalendar");
+		wait(driver);
+		moveToListView(driver);
+		setInvoiceCondition("InvoiceCalendar");
+		wait(driver);
+		moveToCalendarView(driver);
+		prevOnCalendar();
+		verifyConditionEvents("past", false);
+		nextOnCalendar();
+		nextOnCalendar();
+		verifyConditionEvents("future", true);
+		moveToListView(driver);
+		deteleEvents();
+	}
+	
+	private void forTestMultipleDateAndFirstDateAsEventStart() throws Exception {
+		driver.get("http://localhost:8080/openxavatest/m/Event");
+		wait(driver);
+		acceptInDialogJS(driver);
+		moveToCalendarView(driver);
+		List<Date> dates = setDates();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String dateString = dateFormat.format(dates.get(1));
+		
+		WebElement day = driver
+				.findElement(By.xpath("//div[contains(@class,'fc-daygrid-day-frame') and ancestor::td[@data-date='"
+						+ dateString + "']]"));
+		day.click();
+		wait(driver);
+		List<WebElement> iconElements = driver.findElements(By.cssSelector("i.mdi.mdi-calendar"));
+		if (!iconElements.isEmpty()) {
+		    WebElement firstIconElement = iconElements.get(1);
+		    firstIconElement.click();
+		}
+		
+		List<WebElement> spanElements = driver.findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day ' and text()='2']"));
+		if (!spanElements.isEmpty()) {
+		    WebElement spanElement = spanElements.get(1);
+		    spanElement.click();
+		}
+		wait(driver);
+		saveFromDetailView(driver, "Event");
+		goToListFromDetailView(driver, "Event");
+		waitCalendarEvent(driver);
+		
+		List<WebElement> events = driver.findElements(By.xpath("//div[contains(@class,'fc-daygrid-event-harness') and ancestor::td[@data-date='"
+                + dateString + "']]"));
+		assertTrue(!events.isEmpty());
+		events.get(0).click();
+		wait(driver);
+		deleteFromDetailView(driver, "Event");
+		goToListFromDetailView(driver, "Event");
 	}
 	
 }

@@ -10,6 +10,7 @@ openxava.addEditorInitFunction(function() {
     var invalid = false;
     var invalidDate;
     var onChangeChecked = false;
+	var calendarClosed = false;
 
     $('.xava_date > input').keydown(function(event) {
         var keycode = event.keyCode || event.which;
@@ -86,6 +87,7 @@ openxava.addEditorInitFunction(function() {
             if (onOpenDateTime != null) {
                 if (onOpenDateTime.length > 10) {
                     $(instance.input).data("changedCancelled", true);
+					onOpenDateTime = calendarClosed ? undefined : onOpenDateTime;
                 } else {
                     if (onOpenDateTime == dateStr) {
                         $(instance.input).data("changedCancelled", true);
@@ -114,8 +116,8 @@ openxava.addEditorInitFunction(function() {
 					$(instance.input).removeData("changedCancelled");
                     $(instance.input).attr('value', dateStr);
                     $('.xava_date > input').change();
-					onOpenDateTime = undefined;
                 }
+				calendarClosed = true;
             }
         },
     });

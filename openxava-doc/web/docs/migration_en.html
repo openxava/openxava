@@ -86,14 +86,15 @@
         <pre><code class="java">response.setContentType("text/html"); 
 </code></pre> You have to indicate the corresponding mime type, in this example
         "text/html" for a HTML document.<br>
-        <h3>Inline JavaScript in JSP requires once attribute</h3>
+        <h3>Inline JavaScript in JSP requires nonce attribute</h3>
         <p>This is for security reasons. You rarely are using inline JavaScript
           in your code in OpenXava applications, given that they do not work
           since OpenXava 3.1 for editors or custom views. However, if you have
           custom code outside a regular OpenXava module, like <i>welcome.jsp</i>,
           or some custom header or footer for your application, maybe you have
-          some inline scripts, in this case you have to add an attribute <i>once</i>
-          to your inline script using the new <i>&lt;xava:once/&gt;</i> taglib.</p>
+          some inline scripts, in this case you have to add an attribute <i>nonce</i>
+          to your inline script using the new <i>&lt;xava:nonce/&gt;</i>
+          taglib.</p>
         <p>For example, if your <i>welcome.jsp</i> page has this code:</p>
         <pre><code class="html">&lt;script type="text/javascript"&gt; 
     var button = document.getElementById('welcome_go_signin');
@@ -110,7 +111,7 @@
     button.onclick = function () { window.location='m/SignIn'; }
 &lt;/script&gt;
 </code></pre>
-        <p>Note the new <i>&lt;xava:once&gt;</i> element, and that you have to
+        <p>Note the new <i>&lt;xava:nonce&gt;</i> element, and that you have to
           include <i>imports.jsp</i>.</p>
         <p>Still better, you could look for an alternative that does not use
           inline script at all. In this case, for example, we could change the <i>onclick</i>
@@ -137,6 +138,39 @@ button.onclick = function () { window.location='m/SignIn'; }
         <p>Note as we use the id to add the event using JavaScript code, a
           secure code because it's downloaded from the server that hosts the
           application.</p>
+        <h3>IForwardAction no longer can be used to execute JavaScript</h3>
+        <p>Given the new security restrictions it's not possible to redirect to
+          JavaScript, so if you use <i>IForwardAction</i> to redirect to a URL
+          starting with <i>javascript:</i> to execute code, that is not going
+          to work. To execute JavaScript use <i>IJavaScriptPostAction</i>
+          instead. That is, if you have an action like this:</p>
+        <pre><code class="java">public class SayHelloAction extends BaseAction implements IForwardAction {    
+
+    public void execute() throws Exception {
+    }
+
+    public String getForwardURI() {
+    	return "javascript:alert('Hello')";
+    }
+
+    public boolean inNewWindow() {
+        return false;
+    }
+
+}
+</code></pre>
+        <p>Rewrite it in this way:</p>
+        <pre><code class="java">public class SayHelloAction extends BaseAction implements IJavaScriptPostAction {
+
+    public void execute() throws Exception {
+    }
+
+    public String getPostJavaScript() {
+	return "alert('Hello')";
+    }
+
+}
+</code></pre>
         <h3>Labels in English now have different order (for JUnit tests)</h3>
         <p>We noticed that labels in list and collection when are translated to
           English, they can be understandable, but could be better. For this, we
@@ -231,7 +265,7 @@ reload(); // ...you have to add this line
       module, search for the <i>Admin</i> folder in the list, and select it. In
       the <i>Admin</i> detail, click to add a new module, search for SSO, and
       add it:</div>
-    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_en.png"
+    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_en.png"
         alt=""><br>
       <h2>Migration from OpenXava 7.0.5 to OpenXava 7.0.6</h2>
       <h3>@Column(length=x) with no scale is no longer scale=2 by default</h3>
@@ -326,13 +360,16 @@ assertValidValues("descriptionsListValue", validValues);
       <p>The easier way to migrate to Maven is creating a new project using
         OpenXava 7.0, and then copying the source code and resources from your
         current project to the new one. So, first create a new OpenXava project
-        using Openxava Studio 7, for that you can follow the instructions in <a
+        using Openxava Studio 7, for that you can follow the instructions in <a
           href="getting-started_en.html">Getting started guide</a>.</p>
       <p>The next step is to copy all your source code and resources from the
         old project to the corresponding folder in the new project, as
         following:</p>
       <ul>
-        <li>From <i>src</i> to <i>src/main/java</i></li>
+        <li>From <i>src</i> to <i>src/main/java </i>(if you're using XavaPro
+          don't copy the code in <i>com.openxava.naviox.model</i> now included
+          in <i>xavapro.jar</i>)<i><br>
+          </i></li>
         <li>From <i>xava</i> to <i>src/main/resources/xava</i></li>
         <li>From <i>i18n</i> to <i>src/main/resources/i18n</i></li>
         <li>From <i>properties</i> to <i>src/main/resources</i></li>
@@ -363,10 +400,10 @@ assertValidValues("descriptionsListValue", validValues);
         <li><i>custom.css</i> from <i>web/xava/style</i> to <i>src/main/webapp/xava/style</i></li>
         <li>Your own JSPs from <i>web</i> to <i>src/main/webapp</i></li>
         <li>If you have modified some JSP of OpenXava, you can copy it from <i>web/xava</i>
-          to <i>src/main/webapp/xava</i>. Don't worry if you don't see any JSP
-          there, now JSP OpenXava code is inside the OpenXava jar and not
-          included in your project, but if you put some JSP in <i>xava</i>
-          folder it overrides the one in OpenXava.</li>
+          to <i>src/main/webapp/xava</i> and from <i>web/naviox</i> to <i>src/main/webapp/naviox</i>.
+          Don't worry if you don't see any JSP there, now JSP OpenXava code is
+          inside the OpenXava jar and not included in your project, but if you
+          put some JSP in <i>xava</i> folder it overrides the one in OpenXava.</li>
       </ul>
       <p>The <i>servlets.xml</i>, <i>filters.xml</i> and <i>listeners.xml</i>
         files are no longer supported. You can copy their content to the <i>web.xml</i>,
@@ -664,7 +701,7 @@ assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asNormalizedTex
         +"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
     deleteLink.getHrefAttribute());
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
+    <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
         href="http://www.alanwood.net/demos/ansi.html">Look at this table</a> to
       know the mapping between ANSI and UNICODE.</div>
     <div class="wiki" style="display: block;">Now in <i>@HtmlText</i> or <i>@Stereotype("HTML_TEXT")</i>
