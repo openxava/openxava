@@ -45,6 +45,8 @@ public class DateCalendarTest extends WebDriverTestBase {
 		String expectedMessage = "Calendar changed";
 
 		assertEquals(expectedMessage, message);
+		goToListFromDetailView(driver, "Event");
+		acceptInDialogJS(driver);
 	}
 	
 

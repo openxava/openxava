@@ -215,10 +215,11 @@ public class CalendarTest extends WebDriverTestBase {
 		List<WebElement> events = driver.findElements(By.xpath("//div[contains(@class,'fc-daygrid-event-harness') and ancestor::td[@data-date='"
                 + dateString + "']]"));
 		assertTrue(!events.isEmpty());
-		events.get(0).click();
-		wait(driver);
-		deleteFromDetailView(driver, "Event");
-		goToListFromDetailView(driver, "Event");
+		
+		moveToListView(driver);
+		List<WebElement> elements = driver.findElements(By.xpath("//a[contains(@class, 'ox-image-link') and .//i[contains(@class, 'mdi-delete')]]"));
+		elements.get(1).click();
+		acceptInDialogJS(driver);
 	}
 	
 }

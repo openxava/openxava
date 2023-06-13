@@ -148,7 +148,6 @@ public class Calendar extends DWRBase {
 		calendar.set(java.util.Calendar.MINUTE, 0);
 		calendar.set(java.util.Calendar.SECOND, 0);
 		calendar.set(java.util.Calendar.MILLISECOND, 0);
-
 		calendar.add(java.util.Calendar.DAY_OF_MONTH, -6);
 		return calendar.getTime();
 	}
@@ -164,7 +163,6 @@ public class Calendar extends DWRBase {
 		calendar.set(java.util.Calendar.MINUTE, 59);
 		calendar.set(java.util.Calendar.SECOND, 59);
 		calendar.set(java.util.Calendar.MILLISECOND, 999);
-
 		calendar.add(java.util.Calendar.DAY_OF_MONTH, 6);
 		return calendar.getTime();
 	}
