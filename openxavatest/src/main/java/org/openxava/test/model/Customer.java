@@ -224,7 +224,7 @@ import org.openxava.test.actions.*;
 
 @View( name="PersonalInformation", members="name; passport, creditCard;")
 
-@View( name="OnlyAddress", members="address") // tmr
+@View( name="OnlyAddress", members="address") 
 
 @Tabs ({
 	@Tab(
@@ -301,7 +301,7 @@ public class Customer implements IWithName {
 	@Embedded
 	@ReferenceView(forViews="SimpleStateAsForm", value="StateAsForm")
 	@ReferenceView(forViews="Demo", value="Demo")
-	@ReferenceView(forViews="OnlyAddress", value="Demo") // tmr
+	@ReferenceView(forViews="OnlyAddress", value="Demo") 
 	private Address address;	
 	
 	@Transient @Column(length=50)

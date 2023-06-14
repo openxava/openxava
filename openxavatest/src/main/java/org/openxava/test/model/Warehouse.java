@@ -22,10 +22,8 @@ import org.openxava.test.actions.*;
 	@View (name="WithOnChangeZone"),
 	@View (name="Number", members="number"), 
 	@View (name="WithoutZone", members="number, name"),
-	// tmr ini
 	@View (name="InGroup", members="warehouse [zoneNumber, number, name]"),
 	@View (name="InSection", members="warehouse {zoneNumber, number, name}")
-	// tmr fin
 })
 public class Warehouse {
 	

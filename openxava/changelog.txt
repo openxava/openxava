@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Simple layout when flowLayout=true is not applied if view is inside a group, section or embedded. 
 - Fix: After clicking on calendar navigation icon the icon border is left displayed.
 - Fix: Mouse hover calendar days does not display any background color.
 - Fix: Day dividing lines in calendar are not seen well with Terra theme.

@@ -4892,7 +4892,7 @@ public class View implements java.io.Serializable {
 		}		
 	}
 
-	public List<MetaView> getSections() throws XavaException { // tmr <MetaView>	
+	public List<MetaView> getSections() throws XavaException { 
 		if (sections == null) {
 			sections = getMetaView().getSections();
 		}
@@ -5246,8 +5246,6 @@ public class View implements java.io.Serializable {
 	 * @since 5.7
 	 */
 	public boolean isSimple() {
-		// tmr if (hasSections()) return false;
-		// tmr ini
 		if (hasSections()) {
 			if (getMetaMembers().isEmpty() && getSections().size() == 1) return getSectionView(activeSection).isSimple();
 			return false;
@@ -5262,7 +5260,7 @@ public class View implements java.io.Serializable {
 				return getGroupView(uniqueMember.getName()).isSimple();
 			}			
 		}
-		// tmr fin
+
 		int c = 0; 
 		for (MetaMember member: getMetaMembers()) {
 			if (member instanceof PropertiesSeparator) continue;

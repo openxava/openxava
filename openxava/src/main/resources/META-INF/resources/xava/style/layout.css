@@ -29,17 +29,9 @@
 	min-width: 340px;
 }
 
-/* tmr
-.ox-simple-layout.ox-flow-layout > div { 
-	min-width: 100%;
-}
-*/
-
-/* tmr ini */
 .ox-simple-layout.ox-flow-layout > div, .ox-simple-layout .ox-flow-layout > div { 
 	min-width: 100%;
 }
-/* tmr fin */
 
 .ox-flow-layout > div.ox-frame {
 	margin-bottom: 10px;
