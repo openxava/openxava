@@ -4892,7 +4892,7 @@ public class View implements java.io.Serializable {
 		}		
 	}
 
-	public List getSections() throws XavaException {	
+	public List<MetaView> getSections() throws XavaException { // tmr <MetaView>	
 		if (sections == null) {
 			sections = getMetaView().getSections();
 		}
@@ -5246,28 +5246,23 @@ public class View implements java.io.Serializable {
 	 * @since 5.7
 	 */
 	public boolean isSimple() {
-		return true; // tmr ME QUEDÉ POR AQUÍ. NI SIQUIERA ESTO FUNCIONA.
-		/* tmr
 		// tmr if (hasSections()) return false;
 		// tmr ini
 		if (hasSections()) {
-			System.out.println("[View(" + getModelName() + ").isSimple] A"); // tmr
-			List<View> sections = getSections();
-			if (getMetaMembers().isEmpty() && sections.size() == 1) return sections.get(0).isSimple();
+			if (getMetaMembers().isEmpty() && getSections().size() == 1) return getSectionView(activeSection).isSimple();
 			return false;
 		}
 		
 		if (getMetaMembers().size() == 1) {
-			System.out.println("[View(" + getModelName() + ").isSimple] B"); // tmr
 			MetaMember uniqueMember = getMetaMembers().iterator().next();   
-			System.out.println("[View(" + getModelName() + ").isSimple] uniqueMember.getName()=" + uniqueMember.getName()); // tmr
-			if (uniqueMember instanceof MetaReference || uniqueMember instanceof MetaGroup) {
-				System.out.println("[View(" + getModelName() + ").isSimple] ENTRA"); // tmr
+			if (uniqueMember instanceof MetaReference) {
 				return getSubview(uniqueMember.getName()).isSimple();
 			}
+			if (uniqueMember instanceof MetaGroup) {
+				return getGroupView(uniqueMember.getName()).isSimple();
+			}			
 		}
 		// tmr fin
-		System.out.println("[View(" + getModelName() + ").isSimple] C"); // tmr
 		int c = 0; 
 		for (MetaMember member: getMetaMembers()) {
 			if (member instanceof PropertiesSeparator) continue;
@@ -5287,9 +5282,7 @@ public class View implements java.io.Serializable {
 			else return false;
 			if (c > 8) return false;
 		}
-		System.out.println("[View(" + getModelName() + ").isSimple] Z"); // tmr
 		return true;
-		*/
 	}
 	
 	public boolean isFlowLayout() { 
