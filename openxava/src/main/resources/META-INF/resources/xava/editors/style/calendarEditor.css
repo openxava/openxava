@@ -16,13 +16,33 @@
 }
 
 .fc .fc-button-primary {
- color: var(--action-color);
+ color: var(--calendar-button-color);
  background-color: transparent;
  border-color: transparent; 
 }
 
 .fc .fc-button-primary:hover {
- background-color: var(--action-hover-background);
- color: var(--action-hover-color);
+ background-color: var(--calendar-button-hover-background);
+ color: var(--calendar-button-hover-color);
  border-color: transparent; 
+}
+
+.fc-day:hover,
+.fc-day-today:hover {
+ background-color: var(--calendar-day-hover-background) !important;
+ cursor: pointer;
+}
+
+.fc-day-today {
+ background: var(--calendar-today-background) !important;
+}
+
+.fc-button {
+  box-shadow: none !important;
+}
+
+#xava_calendar table,
+#xava_calendar th,
+#xava_calendar td {
+  border-color: var(--calendar-cell-border-color);
 }

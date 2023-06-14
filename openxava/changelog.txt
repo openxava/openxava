@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: After clicking on calendar navigation icon the icon border is left displayed.
+- Fix: Mouse hover calendar days does not display any background color.
+- Fix: Day dividing lines in calendar are not seen well with Terra theme.
+- Fix: Background color of calendar current day is not theme dependent.
+- Fix: Color event icon in calendar is not theme dependent.
 - Fix: @OnChange on several date properties applies only to last date when using popup calendar.
 - Fix: Calendar list format doesn't take the first date property as the date for calendar sometimes.
 - Fix: Calendar list format problems when more than 2 date properties in the entity.

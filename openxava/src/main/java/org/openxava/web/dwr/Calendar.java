@@ -83,7 +83,7 @@ public class Calendar extends DWRBase {
 		if (!hasCondition && !hasFilter) {
 			setFilter(tab, monthYear);
 		}
-
+		
 		tab = setProperties(tab);
 		this.table = tab.getTableModel();
 		int tableSize = 0;
@@ -148,7 +148,6 @@ public class Calendar extends DWRBase {
 		calendar.set(java.util.Calendar.MINUTE, 0);
 		calendar.set(java.util.Calendar.SECOND, 0);
 		calendar.set(java.util.Calendar.MILLISECOND, 0);
-
 		calendar.add(java.util.Calendar.DAY_OF_MONTH, -6);
 		return calendar.getTime();
 	}
@@ -164,7 +163,6 @@ public class Calendar extends DWRBase {
 		calendar.set(java.util.Calendar.MINUTE, 59);
 		calendar.set(java.util.Calendar.SECOND, 59);
 		calendar.set(java.util.Calendar.MILLISECOND, 999);
-
 		calendar.add(java.util.Calendar.DAY_OF_MONTH, 6);
 		return calendar.getTime();
 	}
@@ -348,10 +346,11 @@ public class Calendar extends DWRBase {
 		}
 		newTabColumn.addAll(datesList);
 		newTabColumn.addAll(properties1List);
-
+		
 		if (properties1ListCount < maxLimit) {
 			int j = 0;
 			for (int i = properties1ListCount; i < maxLimit; i++) {
+				if (j+1 > properties2ListCount) break;
 				newTabColumn.add(properties2List.get(j));
 				j++;
 			}
@@ -359,7 +358,7 @@ public class Calendar extends DWRBase {
 		} else {
 			properties2ListSize = 0;
 		}
-
+		
 		keysListSize = keysList.size();
 		datesListSize = datesList.size();
 		properties1ListSize = properties1List.size();
