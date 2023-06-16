@@ -76,19 +76,21 @@ public class Calendar extends DWRBase {
 		String tabObject = "xava_tab";
 		tab2 = getTab(request, application, module, tabObject);
 		tab = tab2.clone();
-
+		System.out.println("1");
 		setDatesProperty();
 		hasCondition = tabHasCondition(tab);
 		hasFilter = tab.getFilter() != null ? true : false;
+		//setFilter(tab, monthYear);
 		if (!hasCondition && !hasFilter) {
 			setFilter(tab, monthYear);
 		}
-
+		System.out.println("2");
 		tab = setProperties(tab);
 		this.table = tab.getTableModel();
 		int tableSize = 0;
 		String json = null;
 		tableSize = tab.getTableModel().getTotalSize();
+		System.out.println("3");
 		if (tableSize > 0) {
 			for (int i = 0; i < tableSize; i++) {
 				event = new CalendarEvent();
@@ -113,6 +115,7 @@ public class Calendar extends DWRBase {
 		}
 		ObjectMapper objectMapper = new ObjectMapper();
 		json = objectMapper.writeValueAsString(calendarEvents);
+		System.out.println(json.toString());
 		return json.toString();
 	}
 
@@ -373,7 +376,7 @@ public class Calendar extends DWRBase {
 			tab.clearProperties();
 			tab.addProperties(newTabColumn);
 		}
-
+		
 		return tab;
 	}
 	
@@ -391,10 +394,21 @@ public class Calendar extends DWRBase {
 	}
 
 	private void setFilter(Tab tab, String monthYear) {
-		DateRangeFilter filter = new DateRangeFilter();
-		filter = setFilterForMonth(monthYear);
-		tab.setFilter(filter);
-		tab.setBaseCondition("${" + dateName + "} between ? and ?");
+//		if (hasFilter) {
+//			IFilter oldFilter = tab.getFilter();
+//			DateRangeFilter filter = new DateRangeFilter();
+//			filter = setFilterForMonth(monthYear);
+//			tab.setFilter(new CompositeFilter(oldFilter, filter));
+//			tab.setBaseCondition("${" + dateName + "} between ? and ?");
+//		} else if (!hasCondition){
+			DateRangeFilter filter = new DateRangeFilter();
+			filter = setFilterForMonth(monthYear);
+			tab.setFilter(filter);
+			tab.setBaseCondition("${" + dateName + "} between ? and ?");
+		//}
+
+		
+
 	}
 	
 	public String format(Object date, boolean withTime, boolean oldLib) {
