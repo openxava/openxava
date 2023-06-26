@@ -1,6 +1,30 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.1.2 (2023-6-23)
+--------------------------
+- New property trustedHostsForImages in xava.properties for exceptions in CSP for source of images. 
+- New property trustedHostsForScripts in xava.properties for exceptions in CSP for source of scripts.
+- New property trustedHostsForStyles in xava.properties for exceptions in CSP for source of CSS files.
+- New property trustedHostsForFrames in xava.properties for exceptions in CSP for frame and iframes.
+- HSQLDB updated to 2.7.2.
+- Lombok updated to 1.18.28.
+- Jersey media updated to 2.39.1.
+- Article in documentation to integrate Spring Boot with OpenXava.
+- Fix: @OnChange on several date properties applies only to the last date when using the popup calendar.
+- Fix: Simple layout when flowLayout=true is not applied if the view is inside a group, section or embedded. 
+- Fix: After clicking on the calendar navigation icon the icon border is left displayed.
+- Fix: Mouse hover calendar days does not display any background color.
+- Fix: Day dividing lines in calendar are not seen well with Terra theme.
+- Fix: Background color of calendar current day is not theme dependent.
+- Fix: Color event icon in calendar is not theme dependent.
+- Fix: Calendar list format doesn't take the first date property as the date for the calendar sometimes.
+- Fix: Calendar list format problems when more than 2 date properties in the entity.
+- Fix: Some mistypes in code keywords (nonce) in migrations instructions to 7.1.
+- Fix: IForwardAction for executing JavaScript no longer supported not included in migration doc to 7.1. 
+- Fix: Migration documentation from 6 to 7 misses some resources to copy and to exclude.
+- Fix: Customizing doc for Welcome and First Steps pages references master branch, sometimes not compatible. 
+
 OpenXava 7.1.1 (2023-6-2)
 -------------------------
 - It's possible to go to the page from a link in @HtmlText.
