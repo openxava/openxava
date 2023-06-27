@@ -1,6 +1,17 @@
 Change Log for OpenXava project
 ===============================
 
+Falta:
+
+- Border en hover sobre color texto.
+- Mirar otros hovers.
+- Colores botones.
+- ¿Colores fondo y texto?
+- Quitar estilos cke de base.css.  
+- Probar en todos los estilos
+- Probar no simple, con menú
+
+
 - Fix: CSS and JS files for editors not loaded with Weblogic. 
 
 OpenXava 7.1.2 (2023-6-23)

@@ -49,7 +49,10 @@
 	--button-bar-shadow: black; 
 	--shadow: black; 
 	
-	--cke-top-background: lightgray; 
+	--cke-top-background: lightgray;
+	/* tmr ini */
+	--html-text-button-hover: lightgray;
+	/* tmr fin */ 
 	
 	--autocomplete-scrollbar-background: lightgray; 
 	--ui-menu-item-state-focus-background: lightgray; 

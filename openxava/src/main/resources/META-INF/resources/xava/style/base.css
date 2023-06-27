@@ -117,6 +117,9 @@
 	--cke-button-on-background: var(--cke-button-off-background);
 	--cke-button-off-background: var(--action-hover-background);
 	--cke-top-background: var(--header-background);
+	/* tmr ini */
+	--html-text-button-hover: var(--header-background);
+	/* tmr fin */
 	
 	--card-subheader-color: var(--action-color);		
 	--card-content-b-color: var(--action-color);	
@@ -2519,6 +2522,17 @@ a.cke_button_disabled:hover, a.cke_button_disabled:focus, a.cke_button_disabled:
 	border: 1px solid transparent !important;
 	box-shadow: none !important;
 }
+
+/* tmr ini */
+.xava_editor .tox-tinymce {
+	border-style: none;	
+	border-radius: 2px;
+}
+
+.xava_editor .tox .tox-tbtn:hover {
+    background: var(--html-text-button-hover); 
+}
+/* tmr fin */
 
 .ox-list-title { 
 	padding: 0px 10px 0px 10px; 
