@@ -118,7 +118,7 @@
 	--cke-button-off-background: var(--action-hover-background);
 	--cke-top-background: var(--header-background);
 	/* tmr ini */
-	--html-text-button-hover: var(--header-background);
+	--html-text-button-hover: var(--frame-background);
 	/* tmr fin */
 	
 	--card-subheader-color: var(--action-color);		
@@ -2531,6 +2531,14 @@ a.cke_button_disabled:hover, a.cke_button_disabled:focus, a.cke_button_disabled:
 
 .xava_editor .tox .tox-tbtn:hover {
     background: var(--html-text-button-hover); 
+}
+
+.tox .tox-collection--list .tox-collection__item--active {
+    background: var(--html-text-button-hover) !important; 
+}
+
+.xava_editor .tox .tox-split-button:hover {
+	box-shadow: 0 0 0 1px var(--html-text-button-hover) inset;
 }
 /* tmr fin */
 
