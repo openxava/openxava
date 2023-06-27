@@ -114,12 +114,7 @@
 	--dialog-titlebar-button-hover-background: white;
 	--dialog-shadow: var(--shadow);
 	
-	--cke-button-on-background: var(--cke-button-off-background);
-	--cke-button-off-background: var(--action-hover-background);
-	--cke-top-background: var(--header-background);
-	/* tmr ini */
 	--html-text-button-hover: var(--frame-background);
-	/* tmr fin */
 	
 	--card-subheader-color: var(--action-color);		
 	--card-content-b-color: var(--action-color);	
@@ -788,7 +783,7 @@ select:not([multiple]) {
 	padding: 1px 12px 5px 0px; 
 }
 
-input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus, input[type="date"]:focus, input[type="datetime-local"]:focus, select:focus, textarea:focus, #module .cke_focus {   
+input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus, input[type="date"]:focus, input[type="datetime-local"]:focus, select:focus, textarea:focus {   
 	outline: 0;
 	border-color: var(--input-focus-border) !important; 
 }
@@ -1651,7 +1646,7 @@ input[type="button"] {
 	border-radius: 2px;
 }
 
-#sign_in_box, .ox-card, .ox-list, .ox-chart-data, .cke_chrome {  
+#sign_in_box, .ox-card, .ox-list, .ox-chart-data {  
 	box-shadow: 0px 0px 3px var(--shadow) !important; 
 }
 
@@ -2457,79 +2452,17 @@ span[id*="reference_editor"] + .ox-layout-detail {
 	background: transparent;
 }
 
-.cke_chrome {
-	border: none !important;
-}
-
-.ox-frame .cke_chrome {
-	box-shadow: none !important;
-	margin: 0px -10px -5px -10px;
-}
-
-.ox-active-section.ox-flow-layout .cke_chrome {
-	margin-left: 10px; 
-}
-
-.ox-active-section.ox-flow-layout .ox-frame .cke_chrome {
-	margin-left: -10px; 
-}
-
-.cke_top {
-	background: var(--cke-top-background) !important;
-	border: none !important;
-	box-shadow: none !important;
-}
-
-a.cke_button_off {
-	opacity: .65;
-}
-
-.cke_toolgroup {
-	border: none !important;
-	box-shadow: none !important;
-	background: transparent !important;
-}
-
-a.cke_button_off, a.cke_button_disabled, .cke_button_on {
-	padding: 6px 6px 6px 6px !important;
-
-}
-
-a.cke_button_off, a.cke_button_disabled {
-	border: 1px solid transparent !important;
-	border-radius: 5px !important;
-}
-
-a.cke_button_off:hover, a.cke_button_off:focus, a.cke_button_off:active {
-	opacity: .9;
-	background-color: var(--cke-button-off-background) !important;
-	background-image: none !important;
-	border: 1px solid transparent !important;
-	box-shadow: none !important;
-}
-
-a.cke_button_disabled:hover, a.cke_button_disabled:focus, a.cke_button_disabled:active {
-	background: transparent !important;
-	background-image: none !important;
-	box-shadow: none !important; 
-
-}
-
-.cke_button_on, .cke_button_on:hover {
-	background: var(--cke-button-on-background) !important; 
-	border-radius: 5px !important;
-	padding: 6px !important;
-	border: 1px solid transparent !important;
-	box-shadow: none !important;
-}
-
-/* tmr ini */
 .xava_editor .tox-tinymce {
 	border-style: none;	
 	border-radius: 2px;
 }
 
-.xava_editor .tox .tox-tbtn:hover {
+.xava_editor .tox .tox-tbtn:hover, 
+.xava_editor .tox .tox-mbtn--active,
+.xava_editor .tox .tox-mbtn:hover:not(:disabled):not(.tox-mbtn--active),
+.xava_editor .tox .tox-mbtn:focus:not(:disabled),
+.xava_editor .tox .tox-tbtn:focus
+{
     background: var(--html-text-button-hover); 
 }
 
@@ -2540,7 +2473,6 @@ a.cke_button_disabled:hover, a.cke_button_disabled:focus, a.cke_button_disabled:
 .xava_editor .tox .tox-split-button:hover {
 	box-shadow: 0 0 0 1px var(--html-text-button-hover) inset;
 }
-/* tmr fin */
 
 .ox-list-title { 
 	padding: 0px 10px 0px 10px; 

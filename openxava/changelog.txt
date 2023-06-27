@@ -1,16 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
-Falta:
-
-- Quitar estilos cke de base.css.  
-- Probar en todos los estilos
-- Probar no simple, con menú
-- Probar todos navegadores
-
-- ¿Bug nuevo para diálogo vínculo?
-
-
+- Fix: @HtmlUnit and @Discussion editors do not follow the style of current theme.
+- Fix: Lot of CSS rules related to the no longer existent CKEditor.
 - Fix: CSS and JS files for editors not loaded with Weblogic. 
 
 OpenXava 7.1.2 (2023-6-23)
