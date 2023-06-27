@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: CSS and JS files for editors not loaded with Weblogic. 
+
 OpenXava 7.1.2 (2023-6-23)
 --------------------------
 - New property trustedHostsForImages in xava.properties for exceptions in CSP for source of images. 
