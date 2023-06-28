@@ -41,7 +41,7 @@ public class JourneyTest extends ModuleTestBase {
 		assertListRowCount(1); 
 		execute("CRUD.new");
 		execute("Mode.list");
-		assertListRowCount(1);
+		assertListRowCount(1); 
 	}
 	
 	public void testNavigateInListWithALotOfObjects() throws Exception {   

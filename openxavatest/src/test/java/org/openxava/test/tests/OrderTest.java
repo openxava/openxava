@@ -22,6 +22,15 @@ public class OrderTest extends ModuleTestBase {
 		super(testName, "Order");		
 	}
 	
+	public void testGoodPerformanceWithCalculatedPropertiesEnteringInCalendar() throws Exception { // tmr
+		execute("ListFormat.select", "editor=Calendar");
+		long ini = System.currentTimeMillis();
+		resetModule();
+		long takes = System.currentTimeMillis() - ini;
+		System.out.println("[OrderTest.testGoodPerformanceWithCalculatedPropertiesEnteringInCalendar] resetModule()=" + takes); // tmr
+		assertTrue(takes < 4000); // With the fix it takes over 1200, without it it taken around 7000 (but never less 5600)
+	}
+	
 	public void testGoodPerformanceWithCalculatedPropertiesInList_actionsNotLostAfterOpenDialogTwiceFromCollectionElement() throws Exception { 
 		long ini = System.currentTimeMillis(); 
 		execute("List.filter");
@@ -37,11 +46,6 @@ public class OrderTest extends ModuleTestBase {
 		execute("ListFormat.select", "editor=List");
 		takes = System.currentTimeMillis() - ini; 
 		assertTrue(takes < 4000); // With the fix it takes 2500, without it it taken around 8000 (but never less 5600)
-		
-		// tmr ini
-		execute("ListFormat.select", "editor=Calendar");
-		// TMR ME QUEDÉ POR AQUÍ, HACIENDO EL TEST
-		// tmr fin
 		
 		setLocale("zh");
 		assertLabelInList(3,"客户编号");

@@ -120,7 +120,7 @@ public class ProductTest extends ModuleTestBase {
 		assertPopupPDFLinesCount(11); // There are 7 products, but now without the summation
 	}
 	
-	public void testCards() throws Exception { 
+	public void testCards() throws Exception {
 		execute("ListFormat.select", "editor=Cards");
 		assertListRowCount(7);
 		assertValueInList(2, "XAVA\n3\nUnit price: 0.00, Unit price in pesetas: 0"); 
@@ -151,7 +151,7 @@ public class ProductTest extends ModuleTestBase {
 		execute("List.filter");
 		assertListRowCount(0);
 		execute("ListFormat.select", "editor=Cards");
-		assertListRowCount(0);
+		assertListRowCount(0); 
 		assertTrue(getHtml().contains("There are no records"));
 		
 		execute("ListFormat.select", "editor=List");

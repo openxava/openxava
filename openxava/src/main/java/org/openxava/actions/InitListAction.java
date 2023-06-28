@@ -1,6 +1,7 @@
 package org.openxava.actions;
 
 import javax.inject.*;
+
 import org.openxava.tab.*;
 
 /**
@@ -14,8 +15,8 @@ public class InitListAction extends TabBaseAction {
 	public void execute() throws Exception {
 		setMainTab(getTab());
 		executeAction("ListFormat.select");
-		
-		if (getTab().getTableModel().getRowCount() == 0 || getTab().getTableModel().getColumnCount() == 0) { 
+		// tmr if (getTab().getTableModel().getRowCount() == 0 || getTab().getTableModel().getColumnCount() == 0) {
+		if (getTab().getTotalSize() == 0) { // tmr
 			String newAction = getQualifiedActionIfAvailable("new"); 
 			if (newAction != null) {
 				executeAction(newAction);

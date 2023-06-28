@@ -90,7 +90,7 @@ public class WarehouseTest extends ModuleTestBase {
 		String value9 = getValueInList(9, 2);
 		execute("List.goNextPage");
 				
-		assertChangeRowCount(10, 5);
+		assertChangeRowCount(10, 5); // TMR FALLA
 		assertValueInList(0, 2, value5);
 		assertValueInList(4, 2, value9);
 		
@@ -239,7 +239,7 @@ public class WarehouseTest extends ModuleTestBase {
 		assertAction("List.goPreviousPage"); 
 		execute("List.viewDetail", "row=10");
 		execute("Mode.list");
-		assertListRowCount(10);
+		assertListRowCount(10); // TMR FALLA
 		assertAction("List.goPreviousPage");
 	}
 	

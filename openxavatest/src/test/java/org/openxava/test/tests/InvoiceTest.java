@@ -845,7 +845,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("Sections.change", "activeSection=1");
 		assertCollectionRowCount("details", 10);
 		execute("List.goNextPage", "collection=details");
-		assertCollectionRowCount("details", 4);
+		assertCollectionRowCount("details", 4); // TMR FALLA
 		execute("List.goPreviousPage", "collection=details");
 		assertCollectionRowCount("details", 10);
 		execute("List.goPage", "page=2,collection=details");

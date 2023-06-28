@@ -162,7 +162,15 @@ public class TableModelBean implements IXTableModel, java.io.Serializable {
 	}
 	
 	public int getRowCount() {
+		if (rowCount == 1) updateRowCountIfTotalSizeIsZero(); // tmr
 		return rowCount;
+	}
+	
+	private void updateRowCountIfTotalSizeIsZero() { // tmr
+		try {
+			getTotalSize();
+		} catch (RemoteException e) {
+		}
 	}
 	
 	public Object getValueAt(int rowIndex, int columnIndex)
@@ -273,7 +281,10 @@ public class TableModelBean implements IXTableModel, java.io.Serializable {
 	
 	public int getTotalSize() throws RemoteException {
 		if (totalSize == STILL_NO_OBTAINED) {
-			totalSize = entityTab.getResultSize(); 
+			totalSize = entityTab.getResultSize();
+			// tmr ini
+			if (totalSize == 0) rowCount = 0;
+			// tmr fin
 		}
 		return totalSize; 
 	}

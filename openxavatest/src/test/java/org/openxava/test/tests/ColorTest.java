@@ -183,7 +183,7 @@ public class ColorTest extends ModuleTestBase {
 		assertRowChecked(13);
 		assertRowUnchecked(14);
 		execute("List.orderBy", "property=number");
-		assertRowUnchecked(10);
+		assertRowUnchecked(10); // TMR FALLA
 		assertRowUnchecked(11);
 		assertRowUnchecked(12);
 		assertRowUnchecked(13);

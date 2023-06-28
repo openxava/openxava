@@ -19,11 +19,11 @@ public class CalendarTest extends WebDriverTestBase {
 		forTestAddEventAndVerify();
 		forTestConditions();
 		forTestAnyNameAsDateProperty();
-		forTestMultipleDateAndFirstDateAsEventStart();
+		forTestMultipleDateAndFirstDateAsEventStart(); // TMR FALLA
 	}
 
 	public void tearDown() throws Exception {
-		driver.quit();
+		// tmr driver.quit();
 	}
 
 	private void nextOnCalendar() throws Exception {
@@ -203,6 +203,13 @@ public class CalendarTest extends WebDriverTestBase {
 		}
 		
 		List<WebElement> spanElements = driver.findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day ' and text()='2']"));
+		// tmr ini
+		// TMR ME QUEDÉ POR AQUÍ: FALLA DICIENDO QUE EL EMENENTO NO ES INTERACTUABLE
+		System.out.println("[CalendarTest.forTestMultipleDateAndFirstDateAsEventStart] spanElements.size()=" + spanElements.size()); // tmr
+		for (WebElement spanElement: spanElements) {
+			System.out.println("[CalendarTest.forTestMultipleDateAndFirstDateAsEventStart] spanElement.innerHTML=" + spanElement.getAttribute("innerHTML")); // tmr
+		}
+		// tmr fin
 		if (!spanElements.isEmpty()) {
 		    WebElement spanElement = spanElements.get(1);
 		    spanElement.click();
