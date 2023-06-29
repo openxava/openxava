@@ -296,10 +296,14 @@ public class JPATabProvider extends TabProviderBase {
 			Object [] key = getKey();
 			for (int i = 0; i < key.length; i++) {
 				query.setParameter("p" + i, key[i]);				
-			}			
-			return (Number) query.getSingleResult();
+			}
+			System.out.println("[JPATabProvider.executeNumberSelect] RollbackOnly> " + XPersistence.getManager().getTransaction().getRollbackOnly()); // tmr
+			Number result = (Number) query.getSingleResult();
+			System.out.println("[JPATabProvider.executeNumberSelect] RollbackOnly< " + XPersistence.getManager().getTransaction().getRollbackOnly()); // tmr
+			return result;
 		}
 		catch (Exception ex) {
+			System.out.println("[JPATabProvider.executeNumberSelect] RollbackOnly.ex< " + XPersistence.getManager().getTransaction().getRollbackOnly()); // tmr
 			log.error(ex.getMessage(), ex);
 			throw new XavaException(errorId);
 		}

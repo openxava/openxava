@@ -22,6 +22,7 @@ public class EmbeddedTest extends ModuleTestBase {
 	}
 
 	public void testSearch() throws Exception {
+		// TMR ME QUEDÉ POR AQUÍ. FALLA, POR NO TENER TABLA
 		execute("CRUD.new");
 		HtmlElement element = getSearchElement();
 		String keyProperty = extractKeyProperty(element); 
