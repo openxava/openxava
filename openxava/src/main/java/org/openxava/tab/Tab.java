@@ -780,7 +780,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 	
 	private IXTableModel createTableModel() throws Exception {
-		System.out.println("[Tab.createTableModel] "); // tmr
 		IXTableModel tableModel = null;
 		MetaTab metaTab = getMetaTab();
 		int chunkSize = optimizeChunkSize && metaTab.hasCalculatedProperties()?getPageRowCount():-1;

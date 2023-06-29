@@ -42,7 +42,7 @@ public class ProductExpensesTest extends ModuleTestBase {
 			{ "7", "SIETE" },
 			{ "3", "XAVA" }
 		};		
-		assertValidValuesInCollection("expenses", 0, "product.number", productValidValues); // TMR FALLA
+		assertValidValuesInCollection("expenses", 0, "product.number", productValidValues); 
 
 		String [][] carrierValidValues = {
 			{ "", "" },

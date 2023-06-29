@@ -30,7 +30,7 @@ public class ReallocationDetailsReadOnlyTest extends ModuleTestBase {
 		
 		assertValueInCollection("details", 2, "place", "CASA EN MICHIGAN");
 		assertValueInCollection("details", 2, "product.number", "3");
-		assertValueInCollection("details", 2, "product.description", "XAVA"); // TMR FALLA
+		assertValueInCollection("details", 2, "product.description", "XAVA"); 
 		assertValueInCollection("details", 2, "product.unitPrice", "0.00");
 		
 		assertNoEditableInCollection("details", 0, "place");

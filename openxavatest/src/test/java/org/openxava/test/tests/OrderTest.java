@@ -29,6 +29,8 @@ public class OrderTest extends ModuleTestBase {
 		long takes = System.currentTimeMillis() - ini;
 		System.out.println("[OrderTest.testGoodPerformanceWithCalculatedPropertiesEnteringInCalendar] resetModule()=" + takes); // tmr
 		assertTrue(takes < 4000); // With the fix it takes over 1200, without it it taken around 7000 (but never less 5600)
+		
+		// In the case of Charts we reduced the time at twice, but it still works slowly with calculated properties, something to improved
 	}
 	
 	public void testGoodPerformanceWithCalculatedPropertiesInList_actionsNotLostAfterOpenDialogTwiceFromCollectionElement() throws Exception { 
