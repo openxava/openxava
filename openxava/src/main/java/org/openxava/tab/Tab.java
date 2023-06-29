@@ -790,7 +790,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 		tableModel = tab.getTable();
 		
 		// To load data, thus it's possible go directly to other page than first
-		// tmr if (tableModel.getColumnCount() > 0) { // Maybe we have a table model without columns, rare but possible			
 		if (getPage() > 1 && tableModel.getColumnCount() > 0) { // Maybe we have a table model without columns, rare but possible
 			int limit = getPage() * getPageRowCount();
 			for (int row=0; row < limit; row += getPageRowCount() ) {

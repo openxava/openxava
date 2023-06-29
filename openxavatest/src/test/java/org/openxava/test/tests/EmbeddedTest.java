@@ -21,8 +21,9 @@ public class EmbeddedTest extends ModuleTestBase {
 		super(nameTest,"ClassA");
 	}
 
-	public void testSearch() throws Exception {
-		// TMR ME QUEDÉ POR AQUÍ. FALLA, POR NO TENER TABLA
+	public void testSearch_moduleWorksWithNonExistentTable() throws Exception {  
+		assertAction("CRUD.save"); // So it enters in detail 
+		assertNoErrors(); 
 		execute("CRUD.new");
 		HtmlElement element = getSearchElement();
 		String keyProperty = extractKeyProperty(element); 

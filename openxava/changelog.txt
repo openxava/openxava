@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Low performance entering in a list format other than list, like Calendar, with calculated properties.
 - Fix: @HtmlUnit and @Discussion editors do not follow the style of current theme.
 - Fix: Lot of CSS rules related to the no longer existent CKEditor.
 - Fix: CSS and JS files for editors not loaded with Weblogic. 

@@ -5,6 +5,7 @@ import javax.inject.*;
 import org.apache.commons.logging.*;
 import org.openxava.jpa.*;
 import org.openxava.tab.*;
+import org.openxava.util.*;
 
 /**
  * @author Javier Paniza
@@ -17,11 +18,9 @@ public class InitListAction extends TabBaseAction {
 	private Tab mainTab;
 
 	public void execute() throws Exception {
-		System.out.println("[InitListAction.execute] 11"); // tmp
 		setMainTab(getTab());
 		executeAction("ListFormat.select");
-		// tmr if (getTab().getTableModel().getRowCount() == 0 || getTab().getTableModel().getColumnCount() == 0) {
-		if (isListEmpty()) { // tmr
+		if (isListEmpty()) { 
 			String newAction = getQualifiedActionIfAvailable("new"); 
 			if (newAction != null) {
 				executeAction(newAction);
@@ -33,32 +32,17 @@ public class InitListAction extends TabBaseAction {
 	
 	private boolean isListEmpty() {
 		try {
-			System.out.println("[InitListAction.isListEmpty] 10"); // tmp
 			int rowCount = getTab().getTotalSize();
 			if (rowCount < 0) {
 				XPersistence.rollback();
-				return true;
+				return true; // We assume true, so the module works in detail mode even if there is database errors, like the table does not exist
 			}
 			return rowCount == 0;
 		}
-		catch (Throwable th) {
-			System.out.println("[InitListAction.isListEmpty] Z"); // tmp
-			System.out.println("[InitListAction.isListEmpty] th=" + th); // tmp
-			return true;
-		}
-		/* tmr
 		catch (Exception ex) {
-		// Impossible to obtain total size of tab
-		// Impossible to obtain the result size
-			System.out.println("[InitListAction.isListEmpty] Z"); // tmp
-			System.out.println("[InitListAction.isListEmpty] XPersistence.getManager().getTransaction().getRollbackOnly()> " + XPersistence.getManager().getTransaction().getRollbackOnly()); // tmp
-			XPersistence.rollback();
-			System.out.println("[InitListAction.isListEmpty] XPersistence.getManager().getTransaction().getRollbackOnly()< " + XPersistence.getManager().getTransaction().getRollbackOnly()); // tmp
-			// log.warn("determine_list_size_error", ex);
-			System.out.println("[InitListAction.isListEmpty] FALLO"); // tmp
+			log.warn(XavaResources.getString("tab_result_size_error"), ex);
 			return true; // We assume true, so the module works in detail mode even if there is database errors, like the table does not exist
 		}
-		*/
 	}
 
 	public Tab getMainTab() {
