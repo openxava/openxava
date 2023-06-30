@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: NullPointerException in log when adding sum to a collection from the user interface. 
+- Fix: When user add a sum to a collection column corresponding label is not shown.
 - Fix: Project does not start if workspace is in a path with special characters or accents.
 - Fix: Low performance entering in a list format other than list, like Calendar, with calculated properties.
 - Fix: @HtmlUnit and @Discussion editors do not follow the style of current theme.

@@ -755,6 +755,10 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertRowCollectionUnchecked("deliveries", 0);
 		execute("Sections.change", "activeSection=1");
 		assertRowCollectionUnchecked("details", 0);
+		
+		assertTotalInCollection("details", 0, 2, "");
+		execute("List.sumColumn", "property=quantity,collection=details");
+		assertTotalInCollection("details", 0, 2, "Sum of Quantity");
 	}
 	
 	public void testGenerateCustomPdfAndPrepareNewAfter() throws Exception { 
