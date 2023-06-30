@@ -2189,9 +2189,20 @@ public class View implements java.io.Serializable {
 	public String getCollectionTotalLabel(int row, int column) { 
 		assertRepresentsCollection("getCollectionTotalLabel()"); 
 		try {
+			System.out.println("[View.getCollectionTotalLabel] v3"); // tmr
 			MetaProperty columnProperty = getMetaPropertiesList().get(column);
-			String rawTotalProperty = getTotalProperties().get(columnProperty.getName()).get(row);
-			if (rawTotalProperty.startsWith("__SUM__")) {
+			System.out.println("[View.getCollectionTotalLabel] columnProperty=" + columnProperty); // tmr
+			System.out.println("[View.getCollectionTotalLabel] getTotalProperties()=" + getTotalProperties()); // tmr
+			// tmr String rawTotalProperty = getTotalProperties().get(columnProperty.getName()).get(row);
+			// tmr ini
+			List<String> totalProperties = getTotalProperties().get(columnProperty.getName());
+			String rawTotalProperty = totalProperties == null?null:totalProperties.get(row);
+			// tmr fin
+			System.out.println("[View.getCollectionTotalLabel] rawTotalProperty=" + rawTotalProperty); // tmr
+			// tmr if (rawTotalProperty.startsWith("__SUM__")) {
+			// TMR ME QUEDÉ POR AQUÍ: PARECE QUE ESTO LO ARREGLA, PERO SACA LA ETIQUETA, 
+			// TMR 	COMPROBAR SI ES LO QUE QUIERO. HACER TEST.
+			if (rawTotalProperty == null || rawTotalProperty.startsWith("__SUM__")) {
 				return XavaResources.getString("sum_of", columnProperty.getLabel());
 			}
 			else {
