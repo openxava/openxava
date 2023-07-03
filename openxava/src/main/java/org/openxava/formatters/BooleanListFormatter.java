@@ -4,6 +4,11 @@ import org.openxava.model.meta.MetaProperty;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ *  
+ * @since 4.8
+ * @author Javier Paniza
+ */
 
 public class BooleanListFormatter implements IMetaPropertyFormatter {
 
