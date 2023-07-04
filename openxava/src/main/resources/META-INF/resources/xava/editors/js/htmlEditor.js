@@ -28,10 +28,6 @@ openxava.addEditorInitFunction(function() {
 			$('.ox-button-bar-button').fadeOut(); 
     	});
 	});
-	/*
-	To get all buttons
-	 tinyMCE.activeEditor.ui.registry.getAll().buttons=" + tinyMCE.activeEditor.ui.registry.getAll().buttons); 
-	 */
 });
 
 openxava.addEditorPreRequestFunction(function() { 
@@ -42,4 +38,10 @@ openxava.addEditorPreRequestFunction(function() {
 openxava.addEditorDestroyFunction(function() {
 	if (openxava.browser.htmlUnit) return;
 	tinymce.remove();
+});
+
+$(document).on('focusin', function(e) {
+   	if ($(e.target).closest(".tox-tinymce, .tox-tinymce-aux, .moxman-window, .tam-assetmanager-root").length) {
+      	e.stopImmediatePropagation();
+   	}
 });
