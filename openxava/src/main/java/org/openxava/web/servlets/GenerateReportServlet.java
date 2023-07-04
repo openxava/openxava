@@ -166,7 +166,6 @@ public class GenerateReportServlet extends HttpServlet {
 	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("[GenerateReportServlet.doGet] request.getCharacterEncoding()=" + request.getCharacterEncoding()); // tmr
 		try {				
 			Tab tab = (Tab) request.getSession().getAttribute("xava_reportTab");
 			if (tab == null) { // If you change this pass the ZAP test again
@@ -253,8 +252,8 @@ public class GenerateReportServlet extends HttpServlet {
 
 	private void generateNoRowsPage(HttpServletResponse response) throws Exception { 
 		response.setContentType("text/html");
-		System.out.println("[GenerateReportServlet.generateNoRowsPage] XSystem.getEncoding()=" + XSystem.getEncoding()); // tmr
-		response.setCharacterEncoding(XSystem.getEncoding()); // tmr ME QUEDÉ POR AQUÍ: ESTO NO VA
+		
+		response.setCharacterEncoding(XSystem.getEncoding());  
 		response.getWriter().println("<html><head><title>");
 		response.getWriter().println(XavaResources.getString("no_rows_report_message_title")); 
 		response.getWriter().println("</title></head><body><font face='Tahoma,Arial,sans-serif'>");
