@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Text color in @HtmlText and @Discussion is ignored after saving and read the record again.
 - Fix: Insert link in a @HtmlUnit editr from inside a dialog does not work.
 - Fix: Top module menu shows ??? for module titles when server encoding does not match language encoding.
 - Fix: Page generating PDF with no records shows ??? when server encoding does not match language encoding.
