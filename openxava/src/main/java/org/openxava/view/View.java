@@ -3569,8 +3569,7 @@ public class View implements java.io.Serializable {
 				moveViewValuesToCollectionValues();
 			}
 
-			
-			if (hasToSearchOnChangeIfSubview && isSubview() && isRepresentsEntityReference() && !isGroup() && !displayAsDescriptionsList() && 
+			if (hasToSearchOnChangeIfSubview && !isFirstLevel() && isRepresentsEntityReference() && !isGroup() && !displayAsDescriptionsList() && 
 					( 	
 					(getLastPropertyKeyName().equals(changedProperty.getName()) && getMetaPropertiesIncludingGroups().contains(changedProperty)) || // Visible keys
 					(!hasKeyProperties() && changedProperty.isKey() && changedProperty.getMetaModel() == getMetaModel()) || // hidden keys or key inside a @DescriptionsList with showReferenceViw=true 

@@ -36,7 +36,7 @@ public class MotorVehicleDriverTest extends ModuleTestBase {
 		assertNoErrors();
 	}
 	
-	public void testNotCanAddVehicleNotRoadworthy() throws Exception {
+	public void testNotCanAddVehicleNotRoadworthy_onChangeOnFirstPropertyInCollectionViewOfOneToManyNoCascade() throws Exception { 
 		createVehicles(); 
 		execute("CRUD.new");
 		setValue("name", "MAGALI AVILA");
@@ -56,6 +56,11 @@ public class MotorVehicleDriverTest extends ModuleTestBase {
 		execute("Collection.removeSelected", "row=0,viewObject=xava_view_vehicles");
 		assertMessage("Association between Motor vehicle and Motor vehicle driver has been removed, " + 
 			"but Motor vehicle is still in database"); 
+		execute("Collection.new", "viewObject=xava_view_vehicles");
+		setValue("roadworthy", "true");
+		assertMessage("OnChangeVoidAction executed");
+		assertNoErrors();
+		closeDialog();
 		execute("Mode.list");
 		execute("CRUD.deleteRow", "row=0");
 		assertNoErrors();
