@@ -2,7 +2,7 @@ package org.openxava.test.tests;
 
 import org.openxava.tests.*;
 
-import com.gargoylesoftware.htmlunit.*;
+import org.htmlunit.*;
 
 import junit.framework.*;
 

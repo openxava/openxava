@@ -5,12 +5,11 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.htmlunit.html.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
-
-import com.gargoylesoftware.htmlunit.html.*;
 
 
 /**
@@ -357,7 +356,7 @@ public class DeliveryTest extends ModuleTestBase {
 		setValue("shortcut", "DY");
 		
 		assertValue("remarks", "Delayed");
-		assertFocusOn("remarks");		
+		assertFocusOn("remarks"); // TMR FALLA		
 	}
 	
 	public void testZeroValueOnChange_accedingDescriptionsListDescriptionUsingGetEntity() throws Exception { 

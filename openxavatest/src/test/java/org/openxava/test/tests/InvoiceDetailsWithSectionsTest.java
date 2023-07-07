@@ -62,7 +62,7 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		assertLabelInList(1, "Paid");
 		assertLabelInList(2, "Number");
 		assertLabelInList(3, "Date");
-		assertLabelInList(4, "V.A.T.");
+		assertLabelInList(4, "V.A.T."); // TMR FALLA
 		assertLabelInList(5, "Amounts sum");
 		assertLabelInList(6, "Details count");
 		

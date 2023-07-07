@@ -1,10 +1,9 @@
 package org.openxava.test.tests;
 
+import org.htmlunit.*;
+import org.htmlunit.html.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
-
-import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  *  
@@ -584,7 +583,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 			getElementById(elementId);
 			return true;
 		}
-		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {			
+		catch (org.htmlunit.ElementNotFoundException ex) {			
 			return false;
 		}		
 	}
@@ -594,7 +593,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 	
 	public void testCustomizeList() throws Exception { 
-		doTestCustomizeList_moveAndRemove();
+		doTestCustomizeList_moveAndRemove(); // TMR FALLA
 		resetModule(); 
 		doTestCustomizeList_generatePDF(); 
 		resetModule(); 

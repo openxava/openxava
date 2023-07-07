@@ -6,7 +6,7 @@ import java.util.prefs.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
 
-import com.gargoylesoftware.htmlunit.html.*;
+import org.htmlunit.html.*;
 
 /**
  * This test case verifies the @Collapsed annotation applied to 

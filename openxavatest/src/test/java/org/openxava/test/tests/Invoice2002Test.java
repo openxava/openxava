@@ -47,7 +47,7 @@ public class Invoice2002Test extends CustomizeListTestBase {
 	public void testCustomizeListWithFilterAndBaseCondition() throws Exception {
 		assertValueInList(0, 0, "2002"); 
 		moveColumn(0, 1);
-		assertValueInList(0, 1, "2002"); 	
+		assertValueInList(0, 1, "2002"); // TMR FALLA	
 		execute("List.filter");
 		assertValueInList(0, 1, "2002");
 		// Restoring

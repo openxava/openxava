@@ -43,6 +43,7 @@ public class Tab extends DWRBase {
 	 * @since 5.2
 	 */
 	public void moveProperty(HttpServletRequest request, HttpServletResponse response, String tableId, int from, int to) {
+		System.out.println("[Tab.moveProperty] from=" + from + ", to=" + to); // tmr
 		TableId id = new TableId(tableId, 0);
 		if (!id.isValid()) {
 			log.warn(XavaResources.getString("impossible_store_column_movement"));  

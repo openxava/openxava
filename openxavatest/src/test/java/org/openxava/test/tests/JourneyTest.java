@@ -2,11 +2,10 @@ package org.openxava.test.tests;
 
 import javax.persistence.*;
 
+import org.htmlunit.html.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
-
-import com.gargoylesoftware.htmlunit.html.*;
 
 
 /**
@@ -122,7 +121,7 @@ public class JourneyTest extends ModuleTestBase {
 		setValue("averageSpeed.driver.number", "1");
 		assertValue("averageSpeed.driver.name", "ALONSO");
 		
-		assertFocusOn("averageSpeed.vehicle.code");		
+		assertFocusOn("averageSpeed.vehicle.code");	// TMR FALLA	
 		setValue("averageSpeed.vehicle.code", "VLV40");
 		assertValue("averageSpeed.vehicle.model", "S40 T5");
 		

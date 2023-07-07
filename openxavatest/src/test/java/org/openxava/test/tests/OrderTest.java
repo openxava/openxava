@@ -9,7 +9,7 @@ import javax.persistence.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
 
-import com.gargoylesoftware.htmlunit.html.*;
+import org.htmlunit.html.*;
 
 
 /**
@@ -148,7 +148,7 @@ public class OrderTest extends ModuleTestBase {
 			try {
 				getHtmlPage().getHtmlElementById(decorateId("Collection.save"));
 			}
-			catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
+			catch (org.htmlunit.ElementNotFoundException ex) {
 				continue; // Because sometimes the action is executed very fast and 
 					// when the second click happens the dialog is already closed
 				    // This case cannot occurs in real life (because with no dialog 

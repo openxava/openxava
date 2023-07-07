@@ -7,12 +7,11 @@ import java.util.*;
 import javax.persistence.*;
 
 import org.apache.commons.lang.*;
+import org.htmlunit.*;
+import org.htmlunit.html.*;
 import org.openxava.controller.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
-
-import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  * 
@@ -149,9 +148,9 @@ public class ApplicantTest extends ModuleTestBase {
 		assertTrue(AbstractWall.class.isAnnotationPresent(MappedSuperclass.class)); // This should be the first one, but as it's MappedSupperclass in not shown
 		assertFirstModuleInMenu("Academic year"); // Not in i18n, to test a case 
 
-		HtmlElement searchBox = getHtmlPage().getHtmlElementById("search_modules_text");
+		HtmlInput searchBox = getHtmlPage().getHtmlElementById("search_modules_text");
 		searchBox.type("INVOICE");
-		assertEquals("INVOICE", searchBox.getAttribute("value"));		
+		assertEquals("INVOICE", searchBox.getValue()); 
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
 		assertModulesCount(30);
 		assertFirstModuleInMenu("Accounting invoices");  
@@ -163,7 +162,7 @@ public class ApplicantTest extends ModuleTestBase {
 		
 		
 		searchBox.type(" \b");
-		assertEquals("", searchBox.getAttribute("value"));
+		assertEquals("", searchBox.getValue()); 
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
 		assertModulesCount(30); 
 		

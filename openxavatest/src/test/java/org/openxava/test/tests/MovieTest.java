@@ -7,8 +7,8 @@ import org.openxava.tests.*;
 import org.openxava.util.*;
 import org.openxava.web.editors.*;
 
-import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.html.*;
+import org.htmlunit.*;
+import org.htmlunit.html.*;
 
 /** 
  * 

@@ -7,7 +7,7 @@ import java.util.regex.*;
 
 import org.openxava.tests.*;
 
-import com.gargoylesoftware.htmlunit.html.*;
+import org.htmlunit.html.*;
 
 
 /**

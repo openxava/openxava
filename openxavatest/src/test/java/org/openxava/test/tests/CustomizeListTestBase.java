@@ -4,7 +4,7 @@ import static org.openxava.tests.HtmlUnitUtils.getHrefAttribute;
 
 import org.openxava.tests.*;
 
-import com.gargoylesoftware.htmlunit.html.*;
+import org.htmlunit.html.*;
 
 /**
  * 

@@ -10,6 +10,11 @@ import java.util.logging.*;
 import org.apache.commons.logging.*;
 import org.apache.pdfbox.pdmodel.*;
 import org.apache.pdfbox.text.*;
+import org.htmlunit.*;
+import org.htmlunit.ElementNotFoundException;
+import org.htmlunit.html.*;
+import org.htmlunit.javascript.*;
+import org.htmlunit.javascript.host.event.*;
 import org.openxava.application.meta.*;
 import org.openxava.component.*;
 import org.openxava.controller.meta.*;
@@ -23,12 +28,6 @@ import org.openxava.view.meta.*;
 import org.openxava.web.*;
 import org.openxava.web.style.*;
 import org.xml.sax.*;
-
-import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
-import com.gargoylesoftware.htmlunit.html.*;
-import com.gargoylesoftware.htmlunit.javascript.*;
-import com.gargoylesoftware.htmlunit.javascript.host.event.*;
 
 import junit.framework.*;
 
@@ -187,8 +186,14 @@ abstract public class ModuleTestBase extends TestCase {
 		// throws the onchange events two times (when focus move, and when value changes)
 		// in this case, which it's worse.
 		try {
+			/* tmr
 			getElementById("xava_previous_focus").setAttribute("value", id);
 			getElementById("xava_current_focus").setAttribute("value", "");
+			*/
+			// tmr ini
+			getInputById("xava_previous_focus").setValue(id);
+			getInputById("xava_current_focus").setValue("");			
+			// tmr fin
 		}
 		catch (ElementNotFoundException ex) {
 			log.warn(XavaResources.getString("impossible_set_focus_properties")); 
@@ -210,12 +215,12 @@ abstract public class ModuleTestBase extends TestCase {
 				setRadioButtonsValue(id, value);
 			}
 			else if (input instanceof HtmlHiddenInput) {
-				input.setValueAttribute(value);
+				input.setValue(value);
 				DomElement previousElement = input.getPreviousElementSibling();
 				if (previousElement instanceof HtmlInput && previousElement.hasAttribute("data-values")) { // It's an autocomplete
 					HtmlInput autocomplete = (HtmlInput) previousElement;
-					autocomplete.setValueAttribute("Some things"); // A trick to avoid that JavaScript reset the real value
-					((HtmlInput) input.getNextElementSibling()).setValueAttribute("Some things"); // A trick to avoid that JavaScript reset the real value
+					autocomplete.setValue("Some things"); // A trick to avoid that JavaScript reset the real value
+					((HtmlInput) input.getNextElementSibling()).setValue("Some things"); // A trick to avoid that JavaScript reset the real value
 					String onchange = autocomplete.getOnChangeAttribute();
 					if (!Is.emptyString(onchange)) {
 						page.executeJavaScript(onchange);
@@ -224,14 +229,14 @@ abstract public class ModuleTestBase extends TestCase {
 				}				
 			}
 			else {
-				input.setValueAttribute(value);				
+				input.setValue(value);				
 			}
 			if (hasOnChange(input) || alwaysThrowChangedEvent) {
 				refreshNeeded = true;
 				input.fireEvent(Event.TYPE_CHANGE);
 			}
 		}
-		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
+		catch (org.htmlunit.ElementNotFoundException ex) {
 			try {							
 				HtmlSelect select = getSelectByName(id); 
 				assertNotDisable(name, select);
@@ -239,7 +244,7 @@ abstract public class ModuleTestBase extends TestCase {
 				select.blur(); 
 				refreshNeeded = !Is.emptyString(select.getOnChangeAttribute());
 			}
-			catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex2) {
+			catch (org.htmlunit.ElementNotFoundException ex2) {
 				HtmlTextArea textArea = getTextAreaByName(id); 
 				assertNotDisable(name, textArea);
 				String textAreaClass = textArea.getAttribute("class");
@@ -275,15 +280,17 @@ abstract public class ModuleTestBase extends TestCase {
 		return !"false".equalsIgnoreCase(value);		
 	}
 	
-	private void focus(HtmlElement element) throws Exception {
+	/* tmr
+	private void focus(HtmlElement element) throws Exception { // tmr ¿eliminar?
 		element.focus();		
 		Thread.sleep(20);				
 	}
+	*/
 
 	private void setRadioButtonsValue(String name, String value) {
 		for (Iterator it=getForm().getInputsByName(name).iterator(); it.hasNext(); ) {
 			HtmlRadioButtonInput radioButton = (HtmlRadioButtonInput) it.next();
-			if (radioButton.getValueAttribute().equals(value)) {
+			if (radioButton.getValue().equals(value)) {
 				radioButton.setChecked(true);
 				break;
 			}
@@ -294,7 +301,7 @@ abstract public class ModuleTestBase extends TestCase {
 		for (Iterator it=getForm().getInputsByName(name).iterator(); it.hasNext(); ) {
 			HtmlRadioButtonInput radioButton = (HtmlRadioButtonInput) it.next();
 			if (radioButton.isChecked()) {
-				return radioButton.getValueAttribute();
+				return radioButton.getValue();
 			}
 		}
 		return "";
@@ -315,15 +322,15 @@ abstract public class ModuleTestBase extends TestCase {
 				return Boolean.toString(input.isChecked());
 			}
 			else {				
-				return input.getValueAttribute();
+				return input.getValue();
 			}			
 		}
-		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
+		catch (org.htmlunit.ElementNotFoundException ex) {
 			try {				
 				HtmlSelect select = getSelectByName(id); 
 				return ((HtmlOption )select.getSelectedOptions().get(0)).getValueAttribute();
 			}
-			catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex2) {
+			catch (org.htmlunit.ElementNotFoundException ex2) {
 				return getTextAreaByName(id).getText(); 
 			}
 		}
@@ -339,7 +346,7 @@ abstract public class ModuleTestBase extends TestCase {
 			return (HtmlInput) el;
 		}
 		else {
-			throw new com.gargoylesoftware.htmlunit.ElementNotFoundException("input", "name", name);
+			throw new org.htmlunit.ElementNotFoundException("input", "name", name);
 		}
 	}
 	
@@ -353,7 +360,7 @@ abstract public class ModuleTestBase extends TestCase {
 			return (HtmlSelect) el;
 		}
 		else {
-			throw new com.gargoylesoftware.htmlunit.ElementNotFoundException("select", "name", name);
+			throw new org.htmlunit.ElementNotFoundException("select", "name", name);
 		}
 	}
 	
@@ -367,7 +374,7 @@ abstract public class ModuleTestBase extends TestCase {
 			return (HtmlTextArea) el;
 		}
 		else {
-			throw new com.gargoylesoftware.htmlunit.ElementNotFoundException("text area", "name", name);
+			throw new org.htmlunit.ElementNotFoundException("text area", "name", name);
 		}
 	}
 	
@@ -381,7 +388,8 @@ abstract public class ModuleTestBase extends TestCase {
 		Collection<String> values = new ArrayList<String>();
 		for (Iterator it = elements.iterator(); it.hasNext(); ) {
 			HtmlElement el = (HtmlElement) it.next();
-			if (el instanceof HtmlCheckBoxInput) { 
+			/* tmr
+			if (el instanceof HtmlCheckBoxInput) {
 				if (((HtmlCheckBoxInput) el).isChecked()) {
 					values.add(el.getAttribute("value"));
 				}
@@ -389,6 +397,22 @@ abstract public class ModuleTestBase extends TestCase {
 			else {
 				values.add(el.getAttribute("value"));
 			}
+			*/
+			// tmr ini
+			if (el instanceof HtmlCheckBoxInput) {
+				HtmlCheckBoxInput checkBox = (HtmlCheckBoxInput) el; 
+				if (checkBox.isChecked()) {
+					values.add(checkBox.getValue());
+				}
+			}
+			else if (el instanceof HtmlInput) {
+				HtmlInput input = (HtmlInput) el; 
+				values.add(input.getValue());
+			}
+			else {
+				values.add(el.getAttribute("value"));
+			}			
+			// tmr fin
 		}
 		return XCollections.toStringArray(values);
 	}
@@ -420,7 +444,7 @@ abstract public class ModuleTestBase extends TestCase {
 				Object element = it.next();
 				if (element instanceof HtmlCheckBoxInput) {
 					HtmlCheckBoxInput checkbox = (HtmlCheckBoxInput) element;
-					String value = checkbox.getValueAttribute();
+					String value = checkbox.getValue();
 					checkbox.setChecked(valuesCollection.contains(value));
 					if (!Is.emptyString(checkbox.getOnChangeAttribute())) {
 						refreshPage = true;
@@ -428,7 +452,7 @@ abstract public class ModuleTestBase extends TestCase {
 				}
 				else if (element instanceof HtmlInput) { 
 					HtmlInput input = (HtmlInput) element;
-					input.setValueAttribute(values[i]);
+					input.setValue(values[i]);
 					if (!Is.emptyString(input.getOnChangeAttribute())) {
 						refreshPage = true;
 					}
@@ -645,6 +669,10 @@ abstract public class ModuleTestBase extends TestCase {
 		return page.getHtmlElementById(decorateId(id));		
 	}
 	
+	private HtmlInput getInputById(String id) { // tmr
+		return (HtmlInput) getElementById(id);
+	}
+	
 	/**
 	 * Decorate the name to produced an unique identifier as the used by
 	 * OX for HTML elements.
@@ -784,7 +812,7 @@ abstract public class ModuleTestBase extends TestCase {
 			((HtmlPage) page).getHtmlElementById(Ids.decorate(application, module, "loaded_parts"));
 			return true;
 		}
-		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
+		catch (org.htmlunit.ElementNotFoundException ex) {
 			return false;
 		}
 	}
@@ -1121,7 +1149,7 @@ abstract public class ModuleTestBase extends TestCase {
 
 				setFormValue(id + "." + i, values[i]);  
 			}
-			catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
+			catch (org.htmlunit.ElementNotFoundException ex) {
 				break;
 			}
 		}
@@ -1176,7 +1204,8 @@ abstract public class ModuleTestBase extends TestCase {
 	protected void setValueNotNotify(String name, String value) throws Exception {
 		String qualifiedName = decorateId(name); 
 		HtmlInput input = getForm().getInputByName(qualifiedName);
-		input.setAttribute("value", value); // In this way onchange is not thrown 
+		// tmr input.setAttribute("value", value); // In this way onchange is not thrown
+		input.setValue(value); // tmr
 		lastNotNotifiedPropertyName = qualifiedName; 
 		lastNotNotifiedPropertyValue = value; 
 	}
@@ -1358,7 +1387,7 @@ abstract public class ModuleTestBase extends TestCase {
 		try {
 			return getElementById(id);
 		}
-		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
+		catch (org.htmlunit.ElementNotFoundException ex) {
 			fail(XavaResources.getString(errorId, id));
 			return null;
 		}		
@@ -1438,7 +1467,8 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	private String getViewMember() { 
-		return getElementById("view_member").getAttribute("value");
+		// tmr return getElementById("view_member").getAttribute("value");
+		return getInputById("view_member").getValue(); // tmr
 	}
 	
 	protected String getValueInCollection(String collection, int row, int column) throws Exception {
@@ -1728,8 +1758,9 @@ abstract public class ModuleTestBase extends TestCase {
 		int rowInTable = table.getRowCount() - getTotalsRowCount(table) + row;
 		column+=getColumnIncrement(table, column);
 		HtmlTableCell cell = table.getCellAt(rowInTable, column);
-		List<HtmlElement> inputs = cell.getElementsByAttribute("input", "type", "text");
-		String value = inputs.isEmpty()?cell.asNormalizedText().trim():inputs.get(0).getAttribute("value");
+		List<HtmlInput> inputs = cell.getElementsByAttribute("input", "type", "text");
+		// tmr String value = inputs.isEmpty()?cell.asNormalizedText().trim():inputs.get(0).getAttribute("value");
+		String value = inputs.isEmpty()?cell.asNormalizedText().trim():inputs.get(0).getValue(); // tmr
 		assertEquals(XavaResources.getString("total_not_match", new Integer(column)), total, value);
 	}		
 	
@@ -1869,7 +1900,7 @@ abstract public class ModuleTestBase extends TestCase {
 			waitUntilPageIsLoaded();
 			if (!input.isChecked()) input.setChecked(true); // Because input.click() fails with HtmlUnit 2.5/2.6/2.7 in some circumstances
 		}
-		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
+		catch (org.htmlunit.ElementNotFoundException ex) {
 			fail(XavaResources.getString("must_exist", id));
 		}
 	}
@@ -1995,7 +2026,7 @@ abstract public class ModuleTestBase extends TestCase {
 		try {
 			table = (HtmlTable) getElementById(tableId); 
 		}
-		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
+		catch (org.htmlunit.ElementNotFoundException ex) {
 			fail(XavaResources.getString(notFoundMessageId, message));
 			return;
 		}
@@ -2018,7 +2049,7 @@ abstract public class ModuleTestBase extends TestCase {
 		try {
 			table = (HtmlTable) getElementById("errors_table"); 
 		}
-		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
+		catch (org.htmlunit.ElementNotFoundException ex) {
 			if (expectedCount > 0) {
 				fail(XavaResources.getString("no_error_and_expected", new Integer(expectedCount)));
 			}
@@ -2032,7 +2063,7 @@ abstract public class ModuleTestBase extends TestCase {
 		try {
 			table = (HtmlTable) getElementById("messages_table");
 		}
-		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
+		catch (org.htmlunit.ElementNotFoundException ex) {
 			if (expectedCount > 0) {
 				fail(XavaResources.getString("no_message_and_expected", new Integer(expectedCount)));
 			}
@@ -2049,7 +2080,7 @@ abstract public class ModuleTestBase extends TestCase {
 		try {
 			table = (HtmlTable) getElementById("infos_table"); 
 		}
-		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
+		catch (org.htmlunit.ElementNotFoundException ex) {
 			if (expectedCount > 0) {
 				fail(XavaResources.getString("no_info_and_expected", new Integer(expectedCount))); 
 			}
@@ -2066,7 +2097,7 @@ abstract public class ModuleTestBase extends TestCase {
 		try {
 			table = (HtmlTable) getElementById("warnings_table");  
 		}
-		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
+		catch (org.htmlunit.ElementNotFoundException ex) {
 			if (expectedCount > 0) {
 				fail(XavaResources.getString("no_warning_and_expected", new Integer(expectedCount))); 
 			}
@@ -2104,7 +2135,7 @@ abstract public class ModuleTestBase extends TestCase {
 		try {
 			table = (HtmlTable) getElementById(id); 
 		}
-		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
+		catch (org.htmlunit.ElementNotFoundException ex) {
 			return;
 		}								
 		int rc = table.getRowCount();				
@@ -2122,7 +2153,7 @@ abstract public class ModuleTestBase extends TestCase {
 		try {
 			table = (HtmlTable) getElementById("messages_table"); 
 		}
-		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
+		catch (org.htmlunit.ElementNotFoundException ex) {
 			return "";
 		}
 		if (table.getRowCount() == 0) return "";
@@ -2160,7 +2191,7 @@ abstract public class ModuleTestBase extends TestCase {
 		try {
 			table = (HtmlTable) getElementById(id); 
 		}
-		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
+		catch (org.htmlunit.ElementNotFoundException ex) {
 			return;
 		}				
 		int rc = table.getRowCount();
@@ -2422,7 +2453,7 @@ abstract public class ModuleTestBase extends TestCase {
 		try {
 			element = (HtmlElement) page.getHtmlElementById("list-title");
 		}
-		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
+		catch (org.htmlunit.ElementNotFoundException ex) {
 			fail(XavaResources.getString("title_not_displayed"));
 			return;
 		}				
@@ -2434,7 +2465,7 @@ abstract public class ModuleTestBase extends TestCase {
 			page.getHtmlElementById("list-title");
 			fail(XavaResources.getString("title_displayed"));
 		}
-		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
+		catch (org.htmlunit.ElementNotFoundException ex) {
 		}				
 	}
 	
@@ -2568,7 +2599,7 @@ abstract public class ModuleTestBase extends TestCase {
 	private void setNewModuleIfChanged() throws Exception {		
 		HtmlInput lastModuleChangeInput = (HtmlInput) page.getElementById("xava_last_module_change"); 
 		if (lastModuleChangeInput == null) return;
-		String lastModuleChange = lastModuleChangeInput.getValueAttribute();
+		String lastModuleChange = lastModuleChangeInput.getValue();
 		if (Is.emptyString(lastModuleChange)) return;
 		String [] modules = lastModuleChange.split("::"); 
 		if (!module.equals(modules[0])) return;
@@ -2621,7 +2652,7 @@ abstract public class ModuleTestBase extends TestCase {
 			getElementById(elementId);
 			return true;
 		}
-		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {			
+		catch (org.htmlunit.ElementNotFoundException ex) {			
 			return false;
 		}		
 	}		
@@ -2631,7 +2662,7 @@ abstract public class ModuleTestBase extends TestCase {
 			form.getInputByName(inputName);
 			return true;
 		}
-		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
+		catch (org.htmlunit.ElementNotFoundException ex) {
 			return false;
 		}
 	}
@@ -2678,9 +2709,9 @@ abstract public class ModuleTestBase extends TestCase {
 		if (!(page instanceof HtmlPage)) return "";
 		try {
 			HtmlInput input = (HtmlInput) ((HtmlPage) page).getHtmlElementById(Ids.decorate(application, module, "loaded_parts"));
-			return input.getValueAttribute();
+			return input.getValue();
 		}
-		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
+		catch (org.htmlunit.ElementNotFoundException ex) {
 			return "";
 		}
 	}
@@ -3045,7 +3076,7 @@ abstract public class ModuleTestBase extends TestCase {
 			fileURL:System.getProperty("user.dir") + "/"+ fileURL; 
 		String decoratedProperty = decorateId(property);
 		HtmlFileInput input = (HtmlFileInput) getHtmlPage().getElementById(decoratedProperty);
-		input.setValueAttribute(imageAbsoluteURL);
+		input.setValue(imageAbsoluteURL);
 		assertEquals(XavaResources.getString("input_for_upload_not_name"), "", input.getNameAttribute()); // Having name makes that JUnit and real browser behaves different, 																								
 																						// and real browser would fail with element collection (try with Car module)
 		getHtmlPage().executeJavaScript(

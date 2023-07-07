@@ -139,7 +139,7 @@
 		<dependency>
 		    <groupId>org.apache.groovy</groupId>
 		    <artifactId>groovy</artifactId>
-		    <version>4.0.12</version>
+		    <version>4.0.13</version>
 		</dependency>		
 		<dependency>
 			<groupId>org.jsoup</groupId>
@@ -147,14 +147,14 @@
 			<version>1.15.4</version>
 		</dependency>
 		<dependency>
-			<groupId>net.sourceforge.htmlunit</groupId>
+			<groupId>org.htmlunit</groupId>
 			<artifactId>htmlunit</artifactId>
-			<version>2.70.0</version>
+			<version>3.3.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>pdfbox</artifactId>
-			<version>2.0.28</version>
+			<version>2.0.29</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.mail</groupId>
@@ -195,17 +195,17 @@
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-core</artifactId>
-			<version>9.0.75</version>
+			<version>9.0.76</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
-			<version>9.0.75</version>
+			<version>9.0.76</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-dbcp</artifactId>
-			<version>9.0.75</version>
+			<version>9.0.76</version>
 		</dependency>
 		<dependency>
 			<groupId>jakarta.json.bind</groupId>

@@ -1,6 +1,6 @@
 package org.openxava.test.tests;
 
-import com.gargoylesoftware.htmlunit.html.*;
+import org.htmlunit.html.*;
 
 /**
  * This test when there is an explicit @View.
@@ -23,7 +23,7 @@ public class WorkCostOrderedInvoicesTest extends WorkCostTestBase {
 		execute("CollectionCopyPaste.cut", "viewObject=xava_view_invoices");
 		assertWarning("No rows selected to cut");
 		
-		assertCollectionRowCount("invoices", 0); 
+		assertCollectionRowCount("invoices", 0); // TMR FALLA
 		execute("Collection.add", "viewObject=xava_view_invoices");
 		checkAll(); 
 		execute("AddToCollection.add");

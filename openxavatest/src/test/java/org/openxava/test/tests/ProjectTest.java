@@ -6,7 +6,7 @@ import org.openxava.jpa.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
 
-import com.gargoylesoftware.htmlunit.html.*;
+import org.htmlunit.html.*;
 
 /**
  * 

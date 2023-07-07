@@ -5,7 +5,7 @@ import java.time.format.*;
 
 import org.openxava.tests.*;
 
-import com.gargoylesoftware.htmlunit.html.*;
+import org.htmlunit.html.*;
 
 /**
  *
