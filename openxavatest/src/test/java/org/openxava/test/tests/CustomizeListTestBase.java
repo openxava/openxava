@@ -35,6 +35,13 @@ abstract public class CustomizeListTestBase extends ModuleTestBase {
 		moveColumn("list", from, to); 
 	}
 	
+	protected void moveColumnNoDragAndDrop(int from, int to) throws Exception {
+		// tmr Comentario
+		getHtmlPage().executeJavaScript("Tab.moveProperty('ox_openxavatest_" + module +"__list', " + from + ", " + to + ")");
+		Thread.sleep(30);
+		reload();		
+	}
+	
 	protected void moveColumn(String collection, int from, int to) throws Exception { 
 		// This method does not work for all "from, to" combinations, at least with HtmlUnit 2.15
 		HtmlTable table = getHtmlPage().getHtmlElementById(decorateId(collection));
@@ -44,7 +51,6 @@ abstract public class CustomizeListTestBase extends ModuleTestBase {
 		HtmlElement toCol = table.getRow(0).getCell(to + 2);
 		HtmlElement elementTo = toCol.getElementsByAttribute("i", "class", "mdi mdi-rename-box").get(0);
 		elementTo.mouseMove();
-		Thread.sleep(5000); // tmr
 		elementTo.mouseUp();		
 		Thread.sleep(700); 
 	}

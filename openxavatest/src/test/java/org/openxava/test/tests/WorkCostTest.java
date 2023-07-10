@@ -62,7 +62,7 @@ public class WorkCostTest extends WorkCostTestBase {
 	}
 	
 	public void testCalculationAndEditableTotalsInCollections() throws Exception { 
-		super.testCalculationAndEditableTotalsInCollections(); // TMR FALLA
+		super.testCalculationAndEditableTotalsInCollections(); 
 		execute("Navigation.first");
 		execute("CRUD.save"); 
 	}

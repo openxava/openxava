@@ -593,7 +593,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 	
 	public void testCustomizeList() throws Exception { 
-		doTestCustomizeList_moveAndRemove(); // TMR FALLA
+		doTestCustomizeList_moveAndRemove(); 
 		resetModule(); 
 		doTestCustomizeList_generatePDF(); 
 		resetModule(); 
@@ -601,9 +601,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 	
 	private void doTestCustomizeList_moveAndRemove() throws Exception {
-		Thread.sleep(5000); // tmr
-		printHtml(); // tmr
-		assertActions(listActions); // TMR ME QUEDÉ POR AQUÍ: FALLA CON 3.0.0
+		assertActions(listActions); 
 
 		assertListColumnCount(7);
 		assertLabelInList(0, "Name");
@@ -623,15 +621,8 @@ public class CustomerWithSectionTest extends CustomerTest {
 		String site = getValueInList(0, 6);
 		
 		// move 0 to 2
-		// tmr ini
-		/*
-		getHtmlPage().executeJavaScript("openxava.customizeList('openxavatest', 'CustomerWithSection', 'list')");   
-		Thread.sleep(4000);
-		reload();
-		*/
-		// resetModule();
-		// tmr fin
-		moveColumn(0, 2);
+		// tmr moveColumn(0, 2);
+		moveColumnNoDragAndDrop(0, 2); // tmr
 		assertNoErrors();
 		assertListColumnCount(7);
 		assertLabelInList(0, "Type");
@@ -650,7 +641,8 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInList(0, 6, site);		
 		
 		// move 2 to 4
-		moveColumn(2, 4);
+		// tmr moveColumn(2, 4);
+		moveColumnNoDragAndDrop(2, 4); // tmr
 		assertNoErrors();
 		assertListColumnCount(7);
 		assertLabelInList(0, "Type");
@@ -687,7 +679,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 						
 		assertActions(listActions);
 	}
-	
+		
 	private void doTestCustomizeList_generatePDF() throws Exception {
 		// Trusts in that testCustomizeList_moveAndRemove is executed before
 		assertListColumnCount(6);

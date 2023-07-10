@@ -356,7 +356,7 @@ public class DeliveryTest extends ModuleTestBase {
 		setValue("shortcut", "DY");
 		
 		assertValue("remarks", "Delayed");
-		assertFocusOn("remarks"); // TMR FALLA		
+		assertFocusOn("remarks"); 
 	}
 	
 	public void testZeroValueOnChange_accedingDescriptionsListDescriptionUsingGetEntity() throws Exception { 

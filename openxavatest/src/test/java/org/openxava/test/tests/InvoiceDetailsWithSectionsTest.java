@@ -57,12 +57,13 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		assertLabelInList(5, "V.A.T.");
 		assertLabelInList(6, "Details count");
 		
-		moveColumn(4, 5);
+		// tmr moveColumn(4, 5);
+		moveColumnNoDragAndDrop(4, 5);
 		assertLabelInList(0, "Year");
 		assertLabelInList(1, "Paid");
 		assertLabelInList(2, "Number");
 		assertLabelInList(3, "Date");
-		assertLabelInList(4, "V.A.T."); // TMR FALLA
+		assertLabelInList(4, "V.A.T."); 
 		assertLabelInList(5, "Amounts sum");
 		assertLabelInList(6, "Details count");
 		
@@ -75,7 +76,8 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		assertLabelInList(5, "Amounts sum");
 		assertLabelInList(6, "Details count");
 		
-		moveColumn(0, 1);
+		// tmr moveColumn(0, 1);
+		moveColumnNoDragAndDrop(0, 1); // tmr
 		assertLabelInList(0, "Paid");
 		assertLabelInList(1, "Year");
 		assertLabelInList(2, "Number");

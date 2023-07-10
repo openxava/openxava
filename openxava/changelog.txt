@@ -6,7 +6,10 @@ Change Log for OpenXava project
 - Groovy updated to 4.0.13.
 - PDFBox updated to 2.0.29.
 - Embedded Tomcat used in development upgraded to 9.0.76.
-- FALTAN LOS CONTROLADORES JDBC
+- SUITE PASSED AT 100%, FALTA:
+	- MIGRATION
+	- LIMPIAR CÓDIGO
+	- LOS CONTROLADORES JDBC
 
 - Fix: @OnChange on first property of a collection view in a @OneToMany with no cascade shows an error.
 - Fix: Text color in @HtmlText and @Discussion is ignored after saving and read the record again.

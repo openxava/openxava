@@ -121,7 +121,7 @@ public class JourneyTest extends ModuleTestBase {
 		setValue("averageSpeed.driver.number", "1");
 		assertValue("averageSpeed.driver.name", "ALONSO");
 		
-		assertFocusOn("averageSpeed.vehicle.code");	// TMR FALLA	
+		assertFocusOn("averageSpeed.vehicle.code");		
 		setValue("averageSpeed.vehicle.code", "VLV40");
 		assertValue("averageSpeed.vehicle.model", "S40 T5");
 		
