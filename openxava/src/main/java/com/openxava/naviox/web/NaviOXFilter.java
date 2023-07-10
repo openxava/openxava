@@ -86,7 +86,13 @@ public class NaviOXFilter implements Filter {
 				String originalParameters = secureRequest.getQueryString();
 				String parametersQuery = "";
 				if (!Is.emptyString(originalParameters)) {
-					if (organization != null) originalParameters = originalParameters.replace("organization=" + organization + "&", "");
+					// tmr if (organization != null) originalParameters = originalParameters.replace("organization=" + organization + "&", "");
+					// tmr ini
+					if (organization != null) {
+						originalParameters = originalParameters.replace("organization=" + organization + "&", "");
+						originalParameters = originalParameters.replace("organization=" + organization, "");
+					}
+					// tmr fin
 					originalParameters = originalParameters.replace("&", "__AMP__");
 					parametersQuery = "?originalParameters=" + originalParameters;
 				}
