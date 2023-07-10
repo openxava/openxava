@@ -26,7 +26,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertListConfigurationsDescriptionsLists(); 	
 		assertListConfigurationsOrdering();
 		assertListConfigurationsRanges();
-		assertListConfigurationsColumns(); // TMR FALLA
+		assertListConfigurationsColumns(); 
 		assertListConfigurationsChangeName();
 		assertListConfigurationsI18n(); 
 		assertListConfigurationsPersistence();
@@ -180,9 +180,8 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertValue("conditionComparator___3", "not_empty_comparator"); 
 		assertValue("conditionValue___8", "");
 		
-		System.out.println("[InvoiceListManyTypesTest.assertListConfigurationsColumns] Borrar el log...."); // tmr
-		Thread.sleep(10000); // tmr
-		moveColumn(2, 3); // TMR ME QUEDÉ POR AQUÍ, EN EL SERVIDOR HACE 2 TO 2, CUANDO TENDRÍA QUE HACER 2 TO 3
+		reload(); // Indeed since HtmlUnit 3.3.0 in order the next moveColumn() works. With a real browsers (and previous HtmlUnit) reloading page is not needed // tmr
+		moveColumn(2, 3); 
 		assertListRowCount(5);
 		assertListColumnCount(10);
 		assertLabelInList(0, "Year");

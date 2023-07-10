@@ -20,7 +20,7 @@ public class SoftwareProjectVersionTest extends ModuleTestBase {
 		
 		setValueInCollection("features", 0, "estimatedDays", "100");
 		assertTotalInCollection("features", 0, "estimatedDays", "100");
-		assertTotalInCollection("features", 1, "estimatedDays", "100"); // TMR FALLA
+		assertTotalInCollection("features", 1, "estimatedDays", "100"); 
 		setValueInCollection("features", 1, "estimatedDays", "200");
 		assertTotalInCollection("features", 0, "estimatedDays", "300"); 
 		assertTotalInCollection("features", 1, "estimatedDays", "300");

@@ -20,7 +20,7 @@ public class SeveralModulesTest extends ModuleTestBase {
 	public void testSeveralModulesInSamePage() throws Exception {
 		assertActions();  
 		assertOnChangeEvent();
-		assertFocusOn("relationWithSeller"); // TMR FALLA
+		assertFocusOn("relationWithSeller"); 
 		assertSections();		
 		assertCollections(); 
 		assertUploadFiles(); 	 				

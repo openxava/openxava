@@ -23,7 +23,7 @@ public class WorkCostOrderedInvoicesTest extends WorkCostTestBase {
 		execute("CollectionCopyPaste.cut", "viewObject=xava_view_invoices");
 		assertWarning("No rows selected to cut");
 		
-		assertCollectionRowCount("invoices", 0); // TMR FALLA
+		assertCollectionRowCount("invoices", 0); 
 		execute("Collection.add", "viewObject=xava_view_invoices");
 		checkAll(); 
 		execute("AddToCollection.add");

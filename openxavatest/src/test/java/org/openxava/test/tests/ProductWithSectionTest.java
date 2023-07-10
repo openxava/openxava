@@ -36,7 +36,7 @@ public class ProductWithSectionTest extends ProductTest {
 	public void testNextFocusToAndFromGroup() throws Exception {
 		execute("CRUD.new");
 		setValue("warehouseKey", "[.1.1.]");
-		assertFocusOn("unitPrice"); // TMR FALLA
+		assertFocusOn("unitPrice"); 
 		setValue("unitPrice", "33");
 		assertFocusOn("remarks");
 	}

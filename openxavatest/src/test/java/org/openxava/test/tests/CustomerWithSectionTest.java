@@ -601,7 +601,9 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 	
 	private void doTestCustomizeList_moveAndRemove() throws Exception {
-		assertActions(listActions);
+		Thread.sleep(5000); // tmr
+		printHtml(); // tmr
+		assertActions(listActions); // TMR ME QUEDÉ POR AQUÍ: FALLA CON 3.0.0
 
 		assertListColumnCount(7);
 		assertLabelInList(0, "Name");
@@ -621,6 +623,14 @@ public class CustomerWithSectionTest extends CustomerTest {
 		String site = getValueInList(0, 6);
 		
 		// move 0 to 2
+		// tmr ini
+		/*
+		getHtmlPage().executeJavaScript("openxava.customizeList('openxavatest', 'CustomerWithSection', 'list')");   
+		Thread.sleep(4000);
+		reload();
+		*/
+		// resetModule();
+		// tmr fin
 		moveColumn(0, 2);
 		assertNoErrors();
 		assertListColumnCount(7);

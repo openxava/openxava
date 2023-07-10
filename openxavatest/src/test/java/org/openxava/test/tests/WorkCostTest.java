@@ -41,7 +41,7 @@ public class WorkCostTest extends WorkCostTestBase {
 		setLocale("es");
 	
 		execute("List.viewDetail", "row=0");
-		assertTotals("0,00", "10", "0,00", "0,00"); // TMR FALLA
+		assertTotals("0,00", "10", "0,00", "0,00"); 
 		
 		execute("Collection.add", "viewObject=xava_view_invoices");
 		checkAll();

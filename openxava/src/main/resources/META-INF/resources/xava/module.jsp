@@ -158,6 +158,8 @@
 	<%
 	String browser = request.getHeader("user-agent"); 
 	boolean browserIsHtmlUnit = browser != null && browser.contains("HtmlUnit");
+	System.out.println("[module.jsp] browser=" + browser); // tmr
+	System.out.println("[module.jsp] browserIsHtmlUnit=" + browserIsHtmlUnit); // tmr
 	for (String editorJS: EditorsResources.listJSFiles(realPath)) {
 		if (browserIsHtmlUnit && editorJS.equals("js/tinymce.js")) continue; // Ad hoc, we should move this outside OpenXava core, in a file or following convention
         String encoding = editorJS.toLowerCase().endsWith("-utf8.js") ? "UTF-8" : "ISO-8859-1"; 

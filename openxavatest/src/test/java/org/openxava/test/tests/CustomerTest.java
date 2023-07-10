@@ -652,7 +652,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertNoEditable("seller.name");
 	}
 	
-	public void testFocus() throws Exception { // TMR FALLA
+	public void testFocus() throws Exception { 
 		// Focus in first active
 		execute("List.viewDetail", "row=0");
 		assertFocusOn("type");
