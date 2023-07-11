@@ -621,8 +621,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		String site = getValueInList(0, 6);
 		
 		// move 0 to 2
-		// tmr moveColumn(0, 2);
-		moveColumnNoDragAndDrop(0, 2); // tmr
+		moveColumnNoDragAndDrop(0, 2); 
 		assertNoErrors();
 		assertListColumnCount(7);
 		assertLabelInList(0, "Type");
@@ -641,8 +640,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInList(0, 6, site);		
 		
 		// move 2 to 4
-		// tmr moveColumn(2, 4);
-		moveColumnNoDragAndDrop(2, 4); // tmr
+		moveColumnNoDragAndDrop(2, 4); 
 		assertNoErrors();
 		assertListColumnCount(7);
 		assertLabelInList(0, "Type");

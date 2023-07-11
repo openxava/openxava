@@ -508,14 +508,10 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertFalse(closeFamilyListIcon.isDisplayed());	
 		
 		HtmlInput familyTextField = familyEditor.getOneHtmlElementByAttribute("input", "class", "xava_select editor ui-autocomplete-input");
-		// tmr assertEquals("HARDWARE", familyTextField.getAttribute("value"));
 		assertEquals("HARDWARE", familyTextField.getValue());
-		// tmr familyTextField.setAttribute("value", "");
-		familyTextField.setValue(""); // tmr
-		// tmr assertEquals("", familyTextField.getAttribute("value"));
-		assertEquals("", familyTextField.getValue()); // tmr
+		familyTextField.setValue(""); 
+		assertEquals("", familyTextField.getValue()); 
 		familyTextField.type("ware");
-		// tmr assertEquals("ware", familyTextField.getAttribute("value"));
 		assertEquals("ware", familyTextField.getValue());
 		Thread.sleep(700); 
 		assertTrue(familyList.isDisplayed()); 
@@ -538,8 +534,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		
 		((HtmlElement) subfamilyList.getFirstChild()).click(); // DESARROLLO
 		HtmlInput subfamilyTextField = subfamilyEditor.getOneHtmlElementByAttribute("input", "class", "xava_select editor ui-autocomplete-input");
-		// tmr assertEquals("DESARROLLO", subfamilyTextField.getAttribute("value"));
-		assertEquals("DESARROLLO", subfamilyTextField.getValue()); // tmr
+		assertEquals("DESARROLLO", subfamilyTextField.getValue()); 
 
 		setValue("number", "66");
 		setValue("description", "JUNIT PRODUCT");
@@ -559,34 +554,28 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertValue("family.number", "1");
 		assertDescriptionValue("family.number", "SOFTWARÉ"); 
 		familyTextField =  getDescriptionsListTextField("family");
-		// tmr assertEquals("SOFTWARÉ", familyTextField.getAttribute("value")); 
-		assertEquals("SOFTWARÉ", familyTextField.getValue()); // tmr
+		assertEquals("SOFTWARÉ", familyTextField.getValue()); 
 		assertValue("subfamily.number", "1");
 		assertDescriptionValue("subfamily.number", "DESARROLLO");
 		subfamilyTextField = getDescriptionsListTextField("subfamily");
-		// tmr assertEquals("DESARROLLO", subfamilyTextField.getAttribute("value"));		
-		assertEquals("DESARROLLO", subfamilyTextField.getValue()); // tmr
+		assertEquals("DESARROLLO", subfamilyTextField.getValue()); 
 		execute("CRUD.delete");
 		assertNoErrors();
 		
 		execute("CRUD.new");
 		familyTextField = getDescriptionsListTextField("family");
-		// tmr familyTextField.setAttribute("value", "");
-		familyTextField.setValue(""); // tmr
+		familyTextField.setValue(""); 
 		familyTextField.type("ware");
-		// tmr assertEquals("ware", familyTextField.getAttribute("value"));
-		assertEquals("ware", familyTextField.getValue()); // tmr
+		assertEquals("ware", familyTextField.getValue()); 
 		familyTextField.blur();
-		// tmr assertEquals("", familyTextField.getAttribute("value")); 
-		assertEquals("", familyTextField.getValue()); // tmr
+		assertEquals("", familyTextField.getValue()); 
 		
 		execute("CRUD.new");
 		familyList = getHtmlPage().getHtmlElementById("ui-id-27"); 
 		assertFalse(familyList.isDisplayed());
 		assertEquals(0, familyList.getChildElementCount());
 		familyTextField = getDescriptionsListTextField("family");
-		// tmr familyTextField.setAttribute("value", "");
-		familyTextField.setValue(""); // tmr
+		familyTextField.setValue(""); 
 		familyTextField.type(" \b");
 		Thread.sleep(700); 
 		assertTrue(familyList.isDisplayed()); 

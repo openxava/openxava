@@ -45,6 +45,19 @@
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">
+      <h2>Migration from OpenXava 7.1.2 to OpenXava 7.1.3</h2>
+      <div class="wiki" style="display: block;">
+        <h3>HtmlUnit upgraded from 2.70 to 3.3 (for JUnit tests)</h3>
+        <h3></h3>
+        <p>We have had to upgrade to the latest HtmlUnit version because of a
+          critical security vulnerability in 2.x versions. If you use the
+          methods of <i>ModuleTestBase</i> in your tests you don't need to
+          change anything. However, if you use the HtmlUnit API directly, using
+          <i>getHtmlPage()</i> or <i>getWebClient()</i> in your tests, you have
+          to do some migration adjustments.</p>
+        <p>Follow the <a href="https://www.htmlunit.org/migration.html">instructions
+            from HtmlUnit documentation to migrate from HtmlUnit 2.x.x to 3.x.x</a>.</p>
+      </div>
       <h2>Migration from OpenXava 7.1.1 to OpenXava 7.1.2</h2>
       No issues.
       <h2>Migration from OpenXava 7.1 to OpenXava 7.1.1</h2>

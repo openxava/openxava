@@ -186,14 +186,8 @@ abstract public class ModuleTestBase extends TestCase {
 		// throws the onchange events two times (when focus move, and when value changes)
 		// in this case, which it's worse.
 		try {
-			/* tmr
-			getElementById("xava_previous_focus").setAttribute("value", id);
-			getElementById("xava_current_focus").setAttribute("value", "");
-			*/
-			// tmr ini
 			getInputById("xava_previous_focus").setValue(id);
 			getInputById("xava_current_focus").setValue("");			
-			// tmr fin
 		}
 		catch (ElementNotFoundException ex) {
 			log.warn(XavaResources.getString("impossible_set_focus_properties")); 
@@ -280,13 +274,6 @@ abstract public class ModuleTestBase extends TestCase {
 		return !"false".equalsIgnoreCase(value);		
 	}
 	
-	/* tmr
-	private void focus(HtmlElement element) throws Exception { // tmr ¿eliminar?
-		element.focus();		
-		Thread.sleep(20);				
-	}
-	*/
-
 	private void setRadioButtonsValue(String name, String value) {
 		for (Iterator it=getForm().getInputsByName(name).iterator(); it.hasNext(); ) {
 			HtmlRadioButtonInput radioButton = (HtmlRadioButtonInput) it.next();
@@ -388,17 +375,6 @@ abstract public class ModuleTestBase extends TestCase {
 		Collection<String> values = new ArrayList<String>();
 		for (Iterator it = elements.iterator(); it.hasNext(); ) {
 			HtmlElement el = (HtmlElement) it.next();
-			/* tmr
-			if (el instanceof HtmlCheckBoxInput) {
-				if (((HtmlCheckBoxInput) el).isChecked()) {
-					values.add(el.getAttribute("value"));
-				}
-			}
-			else {
-				values.add(el.getAttribute("value"));
-			}
-			*/
-			// tmr ini
 			if (el instanceof HtmlCheckBoxInput) {
 				HtmlCheckBoxInput checkBox = (HtmlCheckBoxInput) el; 
 				if (checkBox.isChecked()) {
@@ -412,7 +388,6 @@ abstract public class ModuleTestBase extends TestCase {
 			else {
 				values.add(el.getAttribute("value"));
 			}			
-			// tmr fin
 		}
 		return XCollections.toStringArray(values);
 	}
@@ -669,7 +644,7 @@ abstract public class ModuleTestBase extends TestCase {
 		return page.getHtmlElementById(decorateId(id));		
 	}
 	
-	private HtmlInput getInputById(String id) { // tmr
+	private HtmlInput getInputById(String id) { 
 		return (HtmlInput) getElementById(id);
 	}
 	
@@ -1204,8 +1179,7 @@ abstract public class ModuleTestBase extends TestCase {
 	protected void setValueNotNotify(String name, String value) throws Exception {
 		String qualifiedName = decorateId(name); 
 		HtmlInput input = getForm().getInputByName(qualifiedName);
-		// tmr input.setAttribute("value", value); // In this way onchange is not thrown
-		input.setValue(value); // tmr
+		input.setValue(value); 
 		lastNotNotifiedPropertyName = qualifiedName; 
 		lastNotNotifiedPropertyValue = value; 
 	}
@@ -1467,8 +1441,7 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	private String getViewMember() { 
-		// tmr return getElementById("view_member").getAttribute("value");
-		return getInputById("view_member").getValue(); // tmr
+		return getInputById("view_member").getValue(); 
 	}
 	
 	protected String getValueInCollection(String collection, int row, int column) throws Exception {
@@ -1759,8 +1732,7 @@ abstract public class ModuleTestBase extends TestCase {
 		column+=getColumnIncrement(table, column);
 		HtmlTableCell cell = table.getCellAt(rowInTable, column);
 		List<HtmlInput> inputs = cell.getElementsByAttribute("input", "type", "text");
-		// tmr String value = inputs.isEmpty()?cell.asNormalizedText().trim():inputs.get(0).getAttribute("value");
-		String value = inputs.isEmpty()?cell.asNormalizedText().trim():inputs.get(0).getValue(); // tmr
+		String value = inputs.isEmpty()?cell.asNormalizedText().trim():inputs.get(0).getValue(); 
 		assertEquals(XavaResources.getString("total_not_match", new Integer(column)), total, value);
 	}		
 	

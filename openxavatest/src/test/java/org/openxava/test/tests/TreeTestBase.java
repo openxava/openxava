@@ -39,14 +39,8 @@ public abstract class TreeTestBase extends ModuleTestBase {
 	
 	
 	protected int getTreeViewTabRow(String collection, int row) {
-		/* tmr
-		HtmlElement element = getTreeViewXavaElement(collection, row);
-		String tabRow = element.getAttribute("value");
-		*/
-		// tmr ini
 		HtmlInput element = getTreeViewXavaElement(collection, row);
 		String tabRow = element.getValue();
-		// tmr fin
 		tabRow = tabRow.substring(tabRow.indexOf(":") + 1);
 		return Integer.parseInt(tabRow);
 	}
