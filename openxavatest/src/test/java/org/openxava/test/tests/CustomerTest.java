@@ -4,12 +4,11 @@ import java.io.*;
 
 import javax.persistence.*;
 
+import org.htmlunit.html.*;
 import org.openxava.model.meta.*;
 import org.openxava.test.model.*;
 import org.openxava.test.util.*;
 import org.openxava.util.*;
-
-import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  * 
@@ -653,7 +652,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertNoEditable("seller.name");
 	}
 	
-	public void testFocus() throws Exception {
+	public void testFocus() throws Exception { 
 		// Focus in first active
 		execute("List.viewDetail", "row=0");
 		assertFocusOn("type");

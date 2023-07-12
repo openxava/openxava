@@ -1,6 +1,6 @@
 package org.openxava.test.tests;
 
-import com.gargoylesoftware.htmlunit.html.*;
+import org.htmlunit.html.*;
 
 /**
  * This test when there is an explicit @View.

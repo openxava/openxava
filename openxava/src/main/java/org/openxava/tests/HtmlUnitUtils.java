@@ -2,11 +2,10 @@ package org.openxava.tests;
 
 import java.util.*;
 
+import org.htmlunit.*;
+import org.htmlunit.ElementNotFoundException;
+import org.htmlunit.html.*;
 import org.openxava.util.*;
-
-import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
-import com.gargoylesoftware.htmlunit.html.*;
 
 import junit.framework.*;
 

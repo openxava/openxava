@@ -2,11 +2,10 @@ package org.openxava.test.tests;
 
 import static org.openxava.tests.HtmlUnitUtils.getHrefAttribute;
 
+import org.htmlunit.html.*;
 import org.openxava.model.meta.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
-
-import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  * 
@@ -97,7 +96,7 @@ public class CarrierTest extends CarrierTestBase {
 		assertEquals("Montrer l" + 
 			// (char) 145 + // ANSI  
 			(char) 8216 + // UNICODE
-			"article coupé", showCutRowsButton.getValueAttribute());
+			"article coupé", showCutRowsButton.getValue());
 		
 		// Switzerland locale
 		execute("Mode.list"); 

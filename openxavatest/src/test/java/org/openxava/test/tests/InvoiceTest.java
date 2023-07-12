@@ -5,6 +5,8 @@ import java.rmi.*;
 import java.text.*;
 import java.util.*;
 
+import org.htmlunit.ElementNotFoundException;
+import org.htmlunit.html.*;
 import org.openxava.actions.*;
 import org.openxava.jpa.*;
 import org.openxava.test.calculators.*;
@@ -12,9 +14,6 @@ import org.openxava.test.model.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
-
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
-import com.gargoylesoftware.htmlunit.html.*;
 
 
 
@@ -1123,9 +1122,9 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValueInCollection("xavaPropertiesList", 19, 0, "Deliveries date as label"); 
 		assertAction("AddColumns.showMoreColumns");
 
-		HtmlElement searchBox = getHtmlPage().getHtmlElementById("xava_search_columns_text");
+		HtmlInput searchBox = getHtmlPage().getHtmlElementById("xava_search_columns_text");
 		searchBox.type("DISCOUNT");
-		assertEquals("DISCOUNT", searchBox.getAttribute("value"));		
+		assertEquals("DISCOUNT", searchBox.getValue()); 
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
 		assertCollectionRowCount("xavaPropertiesList", 4); 		
 		assertValueInCollection("xavaPropertiesList",  0, 0, "Customer discount");
@@ -1135,7 +1134,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertNoAction("AddColumns.showMoreColumns");		
 		
 		searchBox.type("\b\b\b\b\b\b\b\b");
-		assertEquals("", searchBox.getAttribute("value"));
+		assertEquals("", searchBox.getValue()); 
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
 		assertCollectionRowCount("xavaPropertiesList", 20); 		
 		assertValueInCollection("xavaPropertiesList",  0, 0, "Comment"); 
@@ -1146,7 +1145,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertCollectionRowCount("xavaPropertiesList", 116);  
 		searchBox = getHtmlPage().getHtmlElementById("xava_search_columns_text");
 		searchBox.type("DISCOUNT");
-		assertEquals("DISCOUNT", searchBox.getAttribute("value"));		
+		assertEquals("DISCOUNT", searchBox.getValue()); 
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
 		assertCollectionRowCount("xavaPropertiesList", 4); 		
 		assertValueInCollection("xavaPropertiesList",  0, 0, "Customer discount");

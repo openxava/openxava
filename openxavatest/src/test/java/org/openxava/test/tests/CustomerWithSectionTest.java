@@ -1,10 +1,9 @@
 package org.openxava.test.tests;
 
+import org.htmlunit.*;
+import org.htmlunit.html.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
-
-import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  *  
@@ -584,7 +583,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 			getElementById(elementId);
 			return true;
 		}
-		catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {			
+		catch (org.htmlunit.ElementNotFoundException ex) {			
 			return false;
 		}		
 	}
@@ -594,7 +593,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 	
 	public void testCustomizeList() throws Exception { 
-		doTestCustomizeList_moveAndRemove();
+		doTestCustomizeList_moveAndRemove(); 
 		resetModule(); 
 		doTestCustomizeList_generatePDF(); 
 		resetModule(); 
@@ -602,7 +601,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 	
 	private void doTestCustomizeList_moveAndRemove() throws Exception {
-		assertActions(listActions);
+		assertActions(listActions); 
 
 		assertListColumnCount(7);
 		assertLabelInList(0, "Name");
@@ -622,7 +621,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		String site = getValueInList(0, 6);
 		
 		// move 0 to 2
-		moveColumn(0, 2);
+		moveColumnNoDragAndDrop(0, 2); 
 		assertNoErrors();
 		assertListColumnCount(7);
 		assertLabelInList(0, "Type");
@@ -641,7 +640,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInList(0, 6, site);		
 		
 		// move 2 to 4
-		moveColumn(2, 4);
+		moveColumnNoDragAndDrop(2, 4); 
 		assertNoErrors();
 		assertListColumnCount(7);
 		assertLabelInList(0, "Type");
@@ -678,7 +677,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 						
 		assertActions(listActions);
 	}
-	
+		
 	private void doTestCustomizeList_generatePDF() throws Exception {
 		// Trusts in that testCustomizeList_moveAndRemove is executed before
 		assertListColumnCount(6);

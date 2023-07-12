@@ -2,8 +2,8 @@ package org.openxava.test.tests;
 
 import org.openxava.tests.*;
 
-import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.html.*;
+import org.htmlunit.*;
+import org.htmlunit.html.*;
 
 /**
  * 

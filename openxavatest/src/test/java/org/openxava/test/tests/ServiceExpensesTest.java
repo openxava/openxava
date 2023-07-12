@@ -1,8 +1,7 @@
 package org.openxava.test.tests;
 
+import org.htmlunit.html.*;
 import org.openxava.tests.*;
-
-import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  *  
@@ -106,7 +105,7 @@ public class ServiceExpensesTest extends ModuleTestBase {
 		setValueInCollection("expenses", 1, 0, "2016");
 		assertComboOpens(2, 7); 
 		
-		assertCollectionTotals();		
+		assertCollectionTotals(); 		
 		
 		execute("ServiceExpenses.removeColumnSum");
 		resetModule();

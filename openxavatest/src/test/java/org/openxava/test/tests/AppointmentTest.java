@@ -4,7 +4,7 @@ import java.util.*;
 
 import org.openxava.tests.*;
 
-import com.gargoylesoftware.htmlunit.html.*;
+import org.htmlunit.html.*;
 
 /**
  * 

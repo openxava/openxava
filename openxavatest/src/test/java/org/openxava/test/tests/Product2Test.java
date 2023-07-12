@@ -6,10 +6,9 @@ import javax.persistence.*;
 
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
+import org.htmlunit.html.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
-
-import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  * 
@@ -199,7 +198,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 	public void testFocusMoveToReferenceAsDescriptionsList() throws Exception { 
 		execute("CRUD.new");
 		setValue("family.number", "1");
-		assertFocusOn("subfamily.number");
+		assertFocusOn("subfamily.number"); 
 	}
 	
 	/*
@@ -508,13 +507,13 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertTrue(openFamilyListIcon.isDisplayed());
 		assertFalse(closeFamilyListIcon.isDisplayed());	
 		
-		HtmlElement familyTextField = familyEditor.getOneHtmlElementByAttribute("input", "class", "xava_select editor ui-autocomplete-input");
-		assertEquals("HARDWARE", familyTextField.getAttribute("value"));
-		familyTextField.setAttribute("value", "");
-		assertEquals("", familyTextField.getAttribute("value"));
+		HtmlInput familyTextField = familyEditor.getOneHtmlElementByAttribute("input", "class", "xava_select editor ui-autocomplete-input");
+		assertEquals("HARDWARE", familyTextField.getValue());
+		familyTextField.setValue(""); 
+		assertEquals("", familyTextField.getValue()); 
 		familyTextField.type("ware");
-		assertEquals("ware", familyTextField.getAttribute("value"));
-		Thread.sleep(700);
+		assertEquals("ware", familyTextField.getValue());
+		Thread.sleep(700); 
 		assertTrue(familyList.isDisplayed()); 
 		assertFalse(openFamilyListIcon.isDisplayed());
 		assertTrue(closeFamilyListIcon.isDisplayed());
@@ -534,8 +533,8 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertEquals("SISTEMA", subfamilyList.getLastChild().asNormalizedText());	
 		
 		((HtmlElement) subfamilyList.getFirstChild()).click(); // DESARROLLO
-		HtmlElement subfamilyTextField = subfamilyEditor.getOneHtmlElementByAttribute("input", "class", "xava_select editor ui-autocomplete-input");
-		assertEquals("DESARROLLO", subfamilyTextField.getAttribute("value"));
+		HtmlInput subfamilyTextField = subfamilyEditor.getOneHtmlElementByAttribute("input", "class", "xava_select editor ui-autocomplete-input");
+		assertEquals("DESARROLLO", subfamilyTextField.getValue()); 
 
 		setValue("number", "66");
 		setValue("description", "JUNIT PRODUCT");
@@ -555,28 +554,28 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertValue("family.number", "1");
 		assertDescriptionValue("family.number", "SOFTWARÉ"); 
 		familyTextField =  getDescriptionsListTextField("family");
-		assertEquals("SOFTWARÉ", familyTextField.getAttribute("value")); 
+		assertEquals("SOFTWARÉ", familyTextField.getValue()); 
 		assertValue("subfamily.number", "1");
 		assertDescriptionValue("subfamily.number", "DESARROLLO");
 		subfamilyTextField = getDescriptionsListTextField("subfamily");
-		assertEquals("DESARROLLO", subfamilyTextField.getAttribute("value"));		
+		assertEquals("DESARROLLO", subfamilyTextField.getValue()); 
 		execute("CRUD.delete");
 		assertNoErrors();
 		
 		execute("CRUD.new");
 		familyTextField = getDescriptionsListTextField("family");
-		familyTextField.setAttribute("value", "");
+		familyTextField.setValue(""); 
 		familyTextField.type("ware");
-		assertEquals("ware", familyTextField.getAttribute("value"));
+		assertEquals("ware", familyTextField.getValue()); 
 		familyTextField.blur();
-		assertEquals("", familyTextField.getAttribute("value")); 
+		assertEquals("", familyTextField.getValue()); 
 		
 		execute("CRUD.new");
 		familyList = getHtmlPage().getHtmlElementById("ui-id-27"); 
 		assertFalse(familyList.isDisplayed());
 		assertEquals(0, familyList.getChildElementCount());
 		familyTextField = getDescriptionsListTextField("family");
-		familyTextField.setAttribute("value", "");
+		familyTextField.setValue(""); 
 		familyTextField.type(" \b");
 		Thread.sleep(700); 
 		assertTrue(familyList.isDisplayed()); 
@@ -617,7 +616,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		XPersistence.getManager().remove(warehouse);
 	}
 
-	private HtmlElement getDescriptionsListTextField(String reference) {
+	private HtmlInput getDescriptionsListTextField(String reference) {
 		HtmlElement familyEditor = getHtmlPage().getHtmlElementById("ox_openxavatest_Product2__reference_editor_" + reference);
 		return  familyEditor.getOneHtmlElementByAttribute("input", "class", "xava_select editor ui-autocomplete-input");
 	}

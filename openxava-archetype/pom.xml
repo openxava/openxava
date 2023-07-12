@@ -58,8 +58,8 @@
 		<dependency>
 			<groupId>net.sf.jt400</groupId>
 			<artifactId>jt400</artifactId>
-			<version>11.2</version>
-			<classifier>jd400-jdk8</classifier>
+			<version>20.0.0</version>
+			<classifier>java8</classifier>
 		</dependency>
 		-->
 		
@@ -91,7 +91,7 @@
 		<dependency>
 			<groupId>org.firebirdsql.jdbc</groupId>
 			<artifactId>jaybird</artifactId>
-			<version>5.0.1.java8</version>
+			<version>5.0.2.java8</version>
 		</dependency>
 		-->
 		

@@ -1,8 +1,7 @@
 package org.openxava.test.tests;
 
+import org.htmlunit.html.*;
 import org.openxava.tests.*;
-
-import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  * @author Javier Paniza
@@ -33,7 +32,7 @@ public class CustomerReadOnlyTest extends ModuleTestBase {
 
 	private void assertTypeSize() throws Exception {
 		HtmlInput input = (HtmlInput) getHtmlPage().getElementByName("ox_openxavatest_CustomerReadOnly__type_DESCRIPTION_");
-		assertEquals("Normal", input.getValueAttribute());
+		assertEquals("Normal", input.getValue());
 		assertEquals("7", input.getSize()); // 7, that is the size of "Normal", 6, plus 1 to ensure is always visible, even with MMMMMM
 		
 	}
