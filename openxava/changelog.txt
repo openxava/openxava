@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Queries saved by user in list with the name of an existing one are stored repeated.
 - Fixed 1 critical security vulnerability in dependencies, now we have 0 vulnerabilities.
 - HtmlUnit upgrade to 3.3.0.
 - Groovy updated to 4.0.13.

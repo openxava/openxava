@@ -23,6 +23,7 @@ import org.openxava.model.meta.*;
 import org.openxava.tab.impl.*;
 import org.openxava.tab.meta.*;
 import org.openxava.util.*;
+import org.openxava.util.Messages.*;
 import org.openxava.view.*;
 import org.openxava.web.*;
 
@@ -489,6 +490,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	private boolean cancelSavingPreferences = false;
 	private String editor;   
 	private Messages errors;
+	private Messages messages; 
 	private String defaultCondition;
 	private transient Collection<MetaProperty> metaPropertiesBeforeGrouping;
 	private boolean optimizeChunkSize = false; 
@@ -1965,10 +1967,23 @@ public class Tab implements java.io.Serializable, Cloneable {
 	public void setConfigurationName(String newName) { 
 		if (configuration == null) return;
 		if (!configurations.containsKey(configuration.getId())) {
+			Configuration confWithSameName = findConfigurationByName(newName);
+			if (confWithSameName != null) {
+				configurations.remove(confWithSameName.getId());
+				removeConfigurationPreferences(confWithSameName.getId());
+				getMessages().add(Type.WARNING, "query_overwritten_warning", "'" + newName + "'");
+			}
 			configurations.put(configuration.getId(), configuration);
 		}
 		configuration.setName(newName);
 		saveConfigurationPreferences(true);
+	}
+	
+	private Configuration findConfigurationByName(String name) { 
+		for (Configuration conf: configurations.values()) {
+			if (conf.getName().trim().equalsIgnoreCase(name.trim())) return conf;
+		}
+		return null;
 	}
 	
 	/**
@@ -3105,6 +3120,14 @@ public class Tab implements java.io.Serializable, Cloneable {
 		if (this.optimizeChunkSize == optimizeChunkSize) return;
 		this.optimizeChunkSize = optimizeChunkSize;
 		if (getMetaTab().hasCalculatedProperties()) this.tableModel = null;
+	}
+
+	public Messages getMessages() {
+		return messages;
+	}
+
+	public void setMessages(Messages messages) {
+		this.messages = messages;
 	}
 
 }
