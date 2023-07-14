@@ -1,6 +1,28 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.1.3 (2023-7-14)
+--------------------------
+- HtmlUnit upgrade to 3.3.0.
+- Groovy updated to 4.0.13.
+- PDFBox updated to 2.0.29.
+- Embedded Tomcat used in development upgraded to 9.0.76.
+- Driver version in doc and new projects upgraded for AS/400 and Firebird.
+- Fixed 1 critical security vulnerability in dependencies, now we have 0 vulnerabilities.
+- Fix: Queries saved by the user in a list with the name of an existing one are stored repeatedly.
+- Fix: @OnChange on the first property of a collection view in a @OneToMany with no cascade shows an error.
+- Fix: Text color in @HtmlText and @Discussion is ignored after saving and reading the record again.
+- Fix: Insert link in a @HtmlUnit editor from inside a dialog does not work.
+- Fix: Top module menu shows ??? for module titles when server encoding does not match language encoding.
+- Fix: Page generating PDF with no records shows ??? when server encoding does not match language encoding.
+- Fix: NullPointerException in log when adding sum to a collection from the user interface. 
+- Fix: When a user adds a sum to a collection column, the corresponding label is not shown.
+- Fix: Project does not start if the workspace is in a path with special characters or accents.
+- Fix: Low performance entering in a list format other than list, like Calendar, with calculated properties.
+- Fix: @HtmlUnit and @Discussion editors do not follow the style of the current theme.
+- Fix: Lot of CSS rules related to the no longer existent CKEditor.
+- Fix: CSS and JS files for editors not loaded with Weblogic.
+
 OpenXava 7.1.2 (2023-6-23)
 --------------------------
 - New property trustedHostsForImages in xava.properties for exceptions in CSP for source of images. 
