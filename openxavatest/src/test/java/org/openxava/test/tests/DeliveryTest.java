@@ -146,7 +146,7 @@ public class DeliveryTest extends ModuleTestBase {
 		execute("Reference.modify", "model=DrivingLicence,keyProperty=drivingLicence__KEY__");
 		assertDialog();
 		assertExists("warehouse.name"); // We still are in the Carrier dialog
-		assertError("Impossible to modify an empty reference");
+		assertError("Impossible to modify an empty reference"); 
 		assertNoAction("CRUD.new");
 		assertAction("Modification.update");		
 	}

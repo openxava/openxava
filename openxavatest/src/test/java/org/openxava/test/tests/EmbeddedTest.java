@@ -5,9 +5,8 @@ package org.openxava.test.tests;
 
 import java.util.regex.*;
 
-import org.openxava.tests.*;
-
 import org.htmlunit.html.*;
+import org.openxava.tests.*;
 
 
 /**
@@ -28,7 +27,7 @@ public class EmbeddedTest extends ModuleTestBase {
 		HtmlElement element = getSearchElement();
 		String keyProperty = extractKeyProperty(element); 
 		execute("Reference.search", "keyProperty=" + keyProperty);
-		assertNoErrors();
+		assertNoErrors(); 
 		execute("ReferenceSearch.cancel");
 		execute("Sections.change", "activeSection=1,viewObject=xava_view_b");
 		element = getSearchElement();

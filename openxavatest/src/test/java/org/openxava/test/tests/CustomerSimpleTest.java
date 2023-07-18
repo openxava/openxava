@@ -16,7 +16,7 @@ public class CustomerSimpleTest extends ModuleTestBase {
 	public void testSearchReferenceInsideAggregate() throws Exception {
 		execute("CRUD.new");
 		execute("Reference.search", "keyProperty=xava.Customer.address.state.id"); 
-		assertNoErrors();
+		assertNoErrors(); 
 	}
 	
 	public void testFormatterUsedWhenEditorOnProperty() throws Exception {

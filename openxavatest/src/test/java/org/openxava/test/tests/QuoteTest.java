@@ -1,8 +1,7 @@
 package org.openxava.test.tests;
 
-import org.openxava.tests.*;
-
 import org.htmlunit.html.*;
+import org.openxava.tests.*;
 
 
 /**
@@ -50,7 +49,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		
 		execute("Reference.search", "keyProperty=details.1.product.number");
 		execute("ReferenceSearch.choose", "row=1");
-		assertValueInCollection("details", 1, "product.number", "2");
+		assertValueInCollection("details", 1, "product.number", "2"); 
 		assertValueInCollection("details", 1, "product.description", "IBM ESERVER ISERIES 270");
 		assertValueInCollection("details", 1, "unitPrice", "20.00");		
 		setValueInCollection("details", 1, "unitPrice", "7000");
@@ -220,7 +219,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		assertTotalInCollection("details", 3, "amount", "26.62");
 		
 		execute("Reference.search", "keyProperty=details.1.product.number");
-		execute("ReferenceSearch.choose", "row=1");
+		execute("ReferenceSearch.choose", "row=1"); 
 		assertValueInCollection("details", 1, "product.number", "2");
 		assertValueInCollection("details", 1, "unitPrice", "20.00");		
 		setValueInCollection("details", 1, "quantity", "3");
