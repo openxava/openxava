@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @File properties do not remove deleted content from OXFILES or file system.
 - Fix: Searching dialog for references shows data of incorrect entity if nested composite keys are used.
 
 OpenXava 7.1.3 (2023-7-14)

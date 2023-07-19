@@ -3,12 +3,12 @@ package org.openxava.test.tests;
 import java.util.*;
 import java.util.stream.*;
 
+import org.htmlunit.*;
+import org.htmlunit.html.*;
+import org.openxava.jpa.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
 import org.openxava.web.editors.*;
-
-import org.htmlunit.*;
-import org.htmlunit.html.*;
 
 /** 
  * 
@@ -45,12 +45,15 @@ public class MovieTest extends MovieBaseTest {
 	}
 		
 	public void testDeleteFile_accessTrackerFile() throws Exception {
+		long initialFilesCount = filesCount(); 
 		addFile();
+		assertEquals(initialFilesCount + 1, filesCount()); 
 		assertTrue("Trailer has no value", !Is.emptyString(getValue("trailer")) && !"null".equals(getValue("trailer")));
 		String entityId = getHtmlPage().getUrl().toString().split("=")[1]; 
 		String fileId = getValue("trailer"); 
 		removeFile("trailer");
 		saveAndReloadMovie("JUNIT");
+		assertEquals(initialFilesCount, filesCount()); 
 		assertTrue("Trailer has value", Is.emptyString(getValue("trailer")) || "null".equals(getValue("trailer")));
 		removeFile();
 		
@@ -65,6 +68,12 @@ public class MovieTest extends MovieBaseTest {
 			"REMOVED: user=admin, model=Movie, key={id=" + entityId + "}",
 			"CONSULTED: user=admin, model=Movie, key={id=ff80818150176f470150176ff2cb0000}" 
 		);
+	}
+	
+	public long filesCount() {
+		return (Long) XPersistence.getManager()
+			.createQuery("select count(*) from AttachedFile")
+			.getSingleResult();
 	}
 	
 	public void testFileset() throws Exception {
