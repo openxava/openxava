@@ -1,6 +1,7 @@
 package org.openxava.test.model;
 
 import javax.persistence.*;
+
 import org.openxava.annotations.*;
 
 /**
@@ -48,7 +49,8 @@ public class Address implements IWithCity {
 	@Required @Column(length=20)
 	@LabelFormat(LabelFormatType.NO_LABEL)
 	@LabelFormat(forViews="Demo", value=LabelFormatType.SMALL)
-	private String city;
+	// tmr private String city;
+	private String town; // tmr
 	
 	// ManyToOne inside an Embeddable is not supported by JPA 1.0 (see at 9.1.34),
 	// but Hibernate implementation supports it.
@@ -57,11 +59,13 @@ public class Address implements IWithCity {
 	private State state;
 
 	public String getCity() {
-		return city;
+		// tmr return city;
+		return town;
 	}
 
 	public void setCity(String city) {
-		this.city = city;
+		// tmr this.city = city;
+		this.town = town;
 	}
 
 	public String getStreet() {
