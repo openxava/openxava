@@ -523,18 +523,6 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	}
 	
 	public boolean hasCalculator() {		
-		// tmr ini
-		/*
-		if (getName().equals("city")) { // TMR NO SE PUEDE QUEDAR ASÍ
-			metaCalculator = new MetaCalculator();
-			metaCalculator.setClassName(ModelPropertyCalculator.class.getName());
-			MetaSet metaSet = new MetaSet();
-			metaSet.setPropertyName("property");
-			metaSet.setValue(getName());
-			metaCalculator.addMetaSet(metaSet);
-		}
-		*/
-		// tmr fin
 		return metaCalculator != null;
 	}
 	
@@ -648,10 +636,12 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		isKeySet = true;		
 	}
 	
-	public boolean isFilterCapable() { // tmr ¿Este nombre?
-		if (isCalculated()) return false;
-		if ("city".equals(getName())) return false; // TMR NO DEJAR ASÍ
-		return true;
+	public boolean isFilterCapable() {
+		return !isCalculated() && !isNotFieldBackedAndNotCalculated();
+	}
+	
+	public boolean isNotFieldBackedAndNotCalculated() { // tmr ¿Este nombre?
+		return "city".equals(getName()); // TMR NO DEJAR ASÍ
 	}
 	
 	public boolean isCalculated() {

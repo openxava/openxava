@@ -31,6 +31,7 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	private List<String> propertiesNamesWithKeyAndHidden;
 	private List<MetaProperty> metaProperties = null; 
 	private List metaPropertiesCalculated = null;
+	
 	private String properties; // separated by commas, like in xml file	
 	private String select;	
 	private Collection tableColumns;
@@ -178,14 +179,16 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 			Iterator it = getMetaProperties().iterator();
 			while (it.hasNext()) {
 				MetaProperty metaProperty = (MetaProperty) it.next();
-				if (metaProperty.isCalculated()) {					
+				// TMR ME QUEDÉ POR AQUÍ: YA VA EL MODO LISTA, SE VE BIEN EN DETALLE, PERO NO SE PUEDE MODIFICAR, SE PIERDE
+				// tmr if (metaProperty.isCalculated()) {					
+				if (metaProperty.isCalculated() || metaProperty.isNotFieldBackedAndNotCalculated()) { // tmr
 					metaPropertiesCalculated.add(metaProperty);
 				}
 			}
 		}
 		return metaPropertiesCalculated;
 	}
-
+	
 	/**
 	 * 
 	 * @return Not null, read only and of type <tt>MetaProperty</tt>.

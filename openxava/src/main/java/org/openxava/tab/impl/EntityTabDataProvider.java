@@ -130,7 +130,6 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 				if (calculator instanceof IJDBCCalculator) {
 					((IJDBCCalculator) calculator).setConnectionProvider(getConnectionProvider());
 				}
-				System.out.println("[EntityTabDataProvider.doCalculations] calculator=" + calculator); // tmr
 				row[tabCalculator.getIndex()] = calculator.calculate();
 			}
 			catch (Exception ex) {
