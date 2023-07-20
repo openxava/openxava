@@ -242,7 +242,7 @@ public class AnnotatedClassParser implements IComponentParser {
 			pMapping.setColumn(override.column().name());			
 		}
 		catch (ElementNotFoundException ex) {					
-			throw new XavaException("attribute_override_not_found", override.name(), mapping.getModelName()); 
+			// tmr throw new XavaException("attribute_override_not_found", override.name(), mapping.getModelName()); 
 			
 		}
 	}

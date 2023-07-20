@@ -32,7 +32,7 @@ public class JPATabProvider extends TabProviderBase {
 	}
 	
 	public String toQueryField(String propertyName) {
-		String prefix = StringUtils.countMatches(propertyName, '.') > 1?"e_":"e." ;
+		String prefix = StringUtils.countMatches(propertyName, '.') > 1?"e_":"e.";
 		return prefix + propertyName;
 	}
 
@@ -101,6 +101,7 @@ public class JPATabProvider extends TabProviderBase {
 	}
 
 	private String changePropertiesByJPAProperties(String source) { 
+		System.out.println("[JPATabProvider.changePropertiesByJPAProperties] source=" + source); // tmr
 		if (!source.contains("${")) return source;
 		StringBuffer r = new StringBuffer(source);		
 		int i = r.toString().indexOf("${");
@@ -110,10 +111,15 @@ public class JPATabProvider extends TabProviderBase {
 			if (f < 0) break;
 			String modelElement = r.substring(i + 2, f);
 			String jpaElement = "e." + modelElement; // The more common case
+			System.out.println("[JPATabProvider.changePropertiesByJPAProperties] getMetaModel().getMetaProperty(" + modelElement + ").isFilterCapable()=" + getMetaModel().getMetaProperty(modelElement).isFilterCapable()); // tmr
 			if (isPropertyFromCollection(modelElement)) {
 				jpaElement = "__COL__[" + modelElement + "]";
 			}
-			else if (getMetaModel().isCalculated(modelElement)) {
+			// TMR ME QUEDÉ POR AQUÍ. LO CONSEGUÍ CON isCalculated() PERO ENTONCES NO ES MODIFICABLE EN DETALLE
+			// TMR   AHORA ESTOY INTENTANDO USAR ALGO SOLO PARA MODO LISTA, EL NUEVO isFilterCapable()
+			// TMR   FALTA PONERLO EN LOS DEMÁS SITIO
+			// tmr else if (getMetaModel().isCalculated(modelElement)) {
+			else if (!getMetaModel().getMetaProperty(modelElement).isFilterCapable()) { // tmr
 				jpaElement = "0";
 			}
 			else if (modelElement.contains(".")) {				
@@ -142,6 +148,7 @@ public class JPATabProvider extends TabProviderBase {
 			r.replace(i, f + 1, jpaElement);
 			i = r.toString().indexOf("${");
 		}
+		System.out.println("[JPATabProvider.changePropertiesByJPAProperties] result=" + r); // tmr
 		return r.toString();
 	}
 	

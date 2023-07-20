@@ -24,6 +24,7 @@ public class TabCalculator implements java.io.Serializable {
 		this.index = propertyIndex;
 		this.propertyName = metaProperty.getQualifiedName();
 		this.metaCalculator = metaProperty.getMetaCalculator();
+		System.out.println("[TabCalculator.TabCalculator] metaCalculator=" + metaCalculator); // tmr
 		this.calculator = metaCalculator.createCalculator();
 		this.propertiesManager = new PropertiesManager(calculator);
 	}

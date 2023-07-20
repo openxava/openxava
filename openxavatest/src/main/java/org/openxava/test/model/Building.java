@@ -15,6 +15,7 @@ import org.openxava.test.actions.*;
 	@View(name="Simple", members="name")
 })
 // tmr @Tab( properties= "name, address.street, address.zipCode, address.city" )
+@Tab( properties= "name, address.street, address.zipCode, address.city" ) // tmr
 public class Building extends Nameable {
 	
 	@ManyToOne
@@ -29,7 +30,6 @@ public class Building extends Nameable {
 	@AttributeOverride(name="zipCode",
 		column=@Column(name="BZIPCODE"))
 	// tmr ini
-	// TMR ME QUEDÉ POR AQUÍ. CON ESTE CÓDIGO CONSIGO REPRODUCIRLO. ¿QUEDARMELO?
 	@AttributeOverride(name="town",
 		column=@Column(name="CITY"))
 	// tmr fin
