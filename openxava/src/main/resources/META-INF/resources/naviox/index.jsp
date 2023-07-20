@@ -32,7 +32,8 @@ private static Log log = LogFactory.getLog("index.jsp");
 <%
 String windowId = context.getWindowId(request);
 context.setCurrentWindowId(windowId);
-if ("true".equals(request.getParameter("init"))) {
+if ("true".equals(request.getParameter("init")) || "SignIn".equals(request.getParameter("module"))) { // If you change this condition try to restart 3 times xavaprotest in a Tomcat
+																									  //   only one, organization textfield or organzation combo shouuld be displayed  
 	context.resetModule(request);
 }
 String app = request.getParameter("application");
