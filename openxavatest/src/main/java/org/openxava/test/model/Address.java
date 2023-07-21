@@ -46,11 +46,20 @@ public class Address implements IWithCity {
 	private int zipCode;
 	
 	
+	// tmr ini
+	// The getter and setter a getCity() and setCity() to test two cases:
+	//   1. Accesing to a private field in @AttributeOverride, and
+	//   2. Using properties with not backed by a field 
+	@Column(length=20)
+	private String town; 
+	// tmr fin
+
+	/* tmr
 	@Required @Column(length=20)
 	@LabelFormat(LabelFormatType.NO_LABEL)
 	@LabelFormat(forViews="Demo", value=LabelFormatType.SMALL)
-	// tmr private String city;
-	private String town; // tmr
+	private String city;
+	*/
 	
 	// ManyToOne inside an Embeddable is not supported by JPA 1.0 (see at 9.1.34),
 	// but Hibernate implementation supports it.
@@ -58,6 +67,9 @@ public class Address implements IWithCity {
 	@ManyToOne(fetch=FetchType.LAZY, optional=false) @JoinColumn(name="STATE")	
 	private State state;
 
+	@Required @javax.validation.constraints.Size(max=20)
+	@LabelFormat(LabelFormatType.NO_LABEL)
+	@LabelFormat(forViews="Demo", value=LabelFormatType.SMALL)	
 	public String getCity() {
 		// tmr return city;
 		return town;
@@ -65,7 +77,7 @@ public class Address implements IWithCity {
 
 	public void setCity(String city) {
 		// tmr this.city = city;
-		this.town = town;
+		this.town = city;
 	}
 
 	public String getStreet() {

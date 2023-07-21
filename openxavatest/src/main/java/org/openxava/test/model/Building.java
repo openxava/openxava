@@ -14,8 +14,7 @@ import org.openxava.test.actions.*;
 	@View(members="building [name, function; address; mailingAddress]"), // All data in a group for a test 
 	@View(name="Simple", members="name")
 })
-// tmr @Tab( properties= "name, address.street, address.zipCode, address.city" )
-@Tab( properties= "name, address.street, address.zipCode, address.city" ) // tmr
+@Tab( properties= "name, address.street, address.zipCode, address.city" ) 
 public class Building extends Nameable {
 	
 	@ManyToOne
@@ -30,8 +29,8 @@ public class Building extends Nameable {
 	@AttributeOverride(name="zipCode",
 		column=@Column(name="BZIPCODE"))
 	// tmr ini
-	@AttributeOverride(name="town",
-		column=@Column(name="CITY"))
+	@AttributeOverride(name="town", // Needed to test a case, where attribute is private 
+		column=@Column(name="CITY")) // with no corresponding getter and setter
 	// tmr fin
 	private Address address;
 	

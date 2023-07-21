@@ -694,7 +694,12 @@ public class AnnotatedClassParser implements IComponentParser {
 			setCalculated(pd, property); 
 		}
 		
-		
+		// tmr ini
+		if (field == null && pd.getWriteMethod() != null) {
+			property.setNotFieldBackedAndNotCalculated(true);
+		}
+				
+		// tmr fin
 		
 		// The mapping part
 		if (mapping != null && field != null) { 

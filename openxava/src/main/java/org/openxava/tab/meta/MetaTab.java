@@ -179,9 +179,8 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 			Iterator it = getMetaProperties().iterator();
 			while (it.hasNext()) {
 				MetaProperty metaProperty = (MetaProperty) it.next();
-				// TMR ME QUEDÉ POR AQUÍ: YA VA EL MODO LISTA, SE VE BIEN EN DETALLE, PERO NO SE PUEDE MODIFICAR, SE PIERDE
 				// tmr if (metaProperty.isCalculated()) {					
-				if (metaProperty.isCalculated() || metaProperty.isNotFieldBackedAndNotCalculated()) { // tmr
+				if (metaProperty.isCalculated() || metaProperty.isNotFieldBackedAndNotCalculated()) { // tmr Un comentario
 					metaPropertiesCalculated.add(metaProperty);
 				}
 			}

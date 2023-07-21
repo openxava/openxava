@@ -217,8 +217,8 @@ int iConditionValues = -1;
 columnIndex = 0; 
 while (it.hasNext()) {
 	MetaProperty property = (MetaProperty) it.next();
-	System.out.println("[listEditor.jsp] " + property.getName() + ".isCalculated()=" + property.isCalculated()); // tmr
-	if (!property.isCalculated()) {
+	// tmr if (!property.isCalculated()) {
+	if (property.isFilterCapable()) { // tmr
 		iConditionValues++; 
 		boolean isValidValues = property.hasValidValues();
 		boolean isString = "java.lang.String".equals(property.getType().getName());

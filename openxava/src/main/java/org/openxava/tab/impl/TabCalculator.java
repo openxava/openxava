@@ -22,23 +22,27 @@ public class TabCalculator implements java.io.Serializable {
 
 	public TabCalculator(MetaProperty metaProperty, int propertyIndex)
 		throws XavaException {
-		System.out.println("[TabCalculator.TabCalculator] "); // tmr
 		this.index = propertyIndex;
 		this.propertyName = metaProperty.getQualifiedName();
 		// tmr this.metaCalculator = metaProperty.getMetaCalculator();
 		// tmr ini
 		if (metaProperty.isNotFieldBackedAndNotCalculated()) {
-			metaCalculator = new MetaCalculator();
-			metaCalculator.setClassName(ModelPropertyCalculator.class.getName());
-			MetaSet metaSet = new MetaSet();
-			metaSet.setPropertyName("property");
-			metaSet.setValue(metaProperty.getName());
-			metaCalculator.addMetaSet(metaSet);
+			this.metaCalculator = createModelPropertyMetaCalculator(metaProperty); 
 		}
 		else this.metaCalculator = metaProperty.getMetaCalculator();
 		// tmr fin
 		this.calculator = metaCalculator.createCalculator();
 		this.propertiesManager = new PropertiesManager(calculator);
+	}
+	
+	private MetaCalculator createModelPropertyMetaCalculator(MetaProperty metaProperty) { // tmr
+		MetaCalculator metaCalculator = new MetaCalculator();
+		metaCalculator.setClassName(ModelPropertyCalculator.class.getName());
+		MetaSet metaSet = new MetaSet();
+		metaSet.setPropertyName("property");
+		metaSet.setValue(metaProperty.getName());
+		metaCalculator.addMetaSet(metaSet);
+		return metaCalculator;
 	}
 
 	public ICalculator getCalculator() {
