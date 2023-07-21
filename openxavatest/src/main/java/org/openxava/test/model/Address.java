@@ -1,6 +1,7 @@
 package org.openxava.test.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import org.openxava.annotations.*;
 
@@ -40,44 +41,37 @@ public class Address implements IWithCity {
 	})
 	@Action(value="Customer.prefixStreet", alwaysEnabled=true)
 	private String street;
-	
+
+	/* tmr
 	@Required @Column(length=5) 
 	@LabelFormat(LabelFormatType.SMALL)	
 	private int zipCode;
-	
-	
+	*/
 	// tmr ini
 	// The getter and setter a getCity() and setCity() to test two cases:
 	//   1. Accesing to a private field in @AttributeOverride, and
-	//   2. Using properties with not backed by a field 
-	@Column(length=20)
-	private String town; 
+	//   2. Using properties with not backed by a field 	
+	@Column(length=5) 	
+	private int zip;	
 	// tmr fin
-
-	/* tmr
+	
 	@Required @Column(length=20)
 	@LabelFormat(LabelFormatType.NO_LABEL)
 	@LabelFormat(forViews="Demo", value=LabelFormatType.SMALL)
 	private String city;
-	*/
 	
 	// ManyToOne inside an Embeddable is not supported by JPA 1.0 (see at 9.1.34),
 	// but Hibernate implementation supports it.
 	@DescriptionsList(notForViews="StateAsForm") @LabelFormat(LabelFormatType.SMALL)
 	@ManyToOne(fetch=FetchType.LAZY, optional=false) @JoinColumn(name="STATE")	
 	private State state;
-
-	@Required @javax.validation.constraints.Size(max=20)
-	@LabelFormat(LabelFormatType.NO_LABEL)
-	@LabelFormat(forViews="Demo", value=LabelFormatType.SMALL)	
+	
 	public String getCity() {
-		// tmr return city;
-		return town;
+		return city;
 	}
 
 	public void setCity(String city) {
-		// tmr this.city = city;
-		this.town = city;
+		this.city = city;
 	}
 
 	public String getStreet() {
@@ -88,12 +82,18 @@ public class Address implements IWithCity {
 		this.street = street;
 	}
 
+	// tmr ini
+	@Required @Max(99999) 
+	@LabelFormat(LabelFormatType.SMALL)
+	// tmr fin
 	public int getZipCode() {
-		return zipCode;
+		// tmr return zipCode;
+		return zip; // tmr
 	}
 
 	public void setZipCode(int zipCode) {
-		this.zipCode = zipCode;
+		// tmr this.zipCode = zipCode;
+		this.zip = zipCode; // tmr
 	}
 	
 	@Depends("customer.number") 

@@ -25,27 +25,29 @@ public class Building extends Nameable {
 	private String function; 
 	
 	@AttributeOverride(name="street",
-		column=@Column(name="BSTREET")) 
+		column=@Column(name="BSTREET"))
+	/* tmr
 	@AttributeOverride(name="zipCode",
 		column=@Column(name="BZIPCODE"))
+	*/	
 	// tmr ini
-	@AttributeOverride(name="town", // Needed to test a case, where attribute is private 
-		column=@Column(name="CITY")) // with no corresponding getter and setter
+	@AttributeOverride(name="zip", // Needed to test a case, where attribute is private
+		column=@Column(name="BZIPCODE")) // with no corresponding getter and setter 
 	// tmr fin
 	private Address address;
 	
 	@AttributeOverride(name="street",
 		column=@Column(name="MAILING_STREET"))
+	/* tmr
 	@AttributeOverride(name="zipCode",
 		column=@Column(name="MAILING_ZIPCODE"))
-	/* tmr
+	*/
+	// tmr ini
+	@AttributeOverride(name="zip",
+		column=@Column(name="MAILING_ZIPCODE"))	
+	// tmr fin
 	@AttributeOverride(name="city",
 		column=@Column(name="MAILING_CITY"))
-	*/	
-	// tmr ini
-	@AttributeOverride(name="town",
-		column=@Column(name="MAILING_CITY"))
-	// tmr fin
 	@AssociationOverride(name = "state",
 		joinColumns = @JoinColumn(name = "MAILING_STATE"))
 	private Address mailingAddress;
