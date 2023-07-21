@@ -2391,7 +2391,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 			loadConfigurationsPreferences();
 		}
 		catch (Exception ex) {
-			log.warn(XavaResources.getString("warning_load_preferences_tab"),ex);
+			log.warn(XavaResources.getString("warning_load_preferences_tab") + ": " + ex.getMessage()); 
 		}
 	}
 		
@@ -2938,7 +2938,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 * @since 6.4
 	 */
 	public boolean isOrderCapable(MetaProperty p) {    
-		return !p.isCalculated() && !isFromCollection(p);
+		return p.isFilterCapable() && !isFromCollection(p); 
 	}	
 
 	/**

@@ -19,7 +19,7 @@ public class OfficeWithDescriptionsListsTest extends ModuleTestBase {
 		super(testName, moduleName);		
 	}
 	
-	public void testDescriptionsListDependsOnCompositeKeyReference() throws Exception {
+	public void testDescriptionsListDependsOnCompositeKeyReference() throws Exception { 
 		// execute("CRUD.new"); Not needed because there is no office
 		String [][] noEntries = {
 			{ "", "" }	

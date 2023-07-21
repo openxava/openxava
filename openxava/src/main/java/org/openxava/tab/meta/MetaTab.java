@@ -31,6 +31,7 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	private List<String> propertiesNamesWithKeyAndHidden;
 	private List<MetaProperty> metaProperties = null; 
 	private List metaPropertiesCalculated = null;
+	
 	private String properties; // separated by commas, like in xml file	
 	private String select;	
 	private Collection tableColumns;
@@ -177,15 +178,15 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 			metaPropertiesCalculated = new ArrayList();
 			Iterator it = getMetaProperties().iterator();
 			while (it.hasNext()) {
-				MetaProperty metaProperty = (MetaProperty) it.next();
-				if (metaProperty.isCalculated()) {					
+				MetaProperty metaProperty = (MetaProperty) it.next();					
+				if (metaProperty.isCalculated() || metaProperty.isNotFieldBackedAndNotCalculated()) { // For list properties with not backed by a field are considered as calculated 
 					metaPropertiesCalculated.add(metaProperty);
 				}
 			}
 		}
 		return metaPropertiesCalculated;
 	}
-
+	
 	/**
 	 * 
 	 * @return Not null, read only and of type <tt>MetaProperty</tt>.

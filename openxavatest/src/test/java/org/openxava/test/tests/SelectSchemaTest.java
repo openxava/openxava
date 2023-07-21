@@ -22,7 +22,7 @@ public class SelectSchemaTest extends ModuleTestBase {
 		// Color: access to detail mode
 		changeModule("Color");
 		execute("List.viewDetail", "row=0");
-		assertAction("Mode.list");
+		assertAction("Mode.list"); 
 		// IssueList: COMPANYA schema
 		changeModule("IssueList");
 		String [][] issueCOMPANYA = { 

@@ -30,7 +30,7 @@ public class JourneyTest extends ModuleTestBase {
 		execute("ListFormat.select", "editor=Cards");
 		resetModule();
 		selectGroupBy("Group by name");
-		assertListRowCount(120); // To verify that the cards are displayed
+		assertListRowCount(120); // To verify that the cards are displayed 
 	}
 	
 	public void testPage25InList() throws Exception {

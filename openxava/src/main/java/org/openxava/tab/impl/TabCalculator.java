@@ -5,6 +5,7 @@ package org.openxava.tab.impl;
 import org.openxava.calculators.*;
 import org.openxava.model.meta.*;
 import org.openxava.util.*;
+import org.openxava.util.meta.*;
 
 
 /**
@@ -23,9 +24,22 @@ public class TabCalculator implements java.io.Serializable {
 		throws XavaException {
 		this.index = propertyIndex;
 		this.propertyName = metaProperty.getQualifiedName();
-		this.metaCalculator = metaProperty.getMetaCalculator();
+		if (metaProperty.isNotFieldBackedAndNotCalculated()) {
+			this.metaCalculator = createModelPropertyMetaCalculator(metaProperty); 
+		}
+		else this.metaCalculator = metaProperty.getMetaCalculator();
 		this.calculator = metaCalculator.createCalculator();
 		this.propertiesManager = new PropertiesManager(calculator);
+	}
+	
+	private MetaCalculator createModelPropertyMetaCalculator(MetaProperty metaProperty) { 
+		MetaCalculator metaCalculator = new MetaCalculator();
+		metaCalculator.setClassName(ModelPropertyCalculator.class.getName());
+		MetaSet metaSet = new MetaSet();
+		metaSet.setPropertyName("property");
+		metaSet.setValue(metaProperty.getName());
+		metaCalculator.addMetaSet(metaSet);
+		return metaCalculator;
 	}
 
 	public ICalculator getCalculator() {

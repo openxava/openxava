@@ -325,13 +325,13 @@ public class InvoiceTest extends CustomizeListTestBase {
 			{ "customer.website", "Customer web site" },
 			{ "customer.remarks", "Customer remarks" },
 			{ "customer.address.street", "Customer address street" },
-			{ "customer.address.zipCode", "Customer address zip code" },
 			{ "customer.address.city", "Customer address city" },
 			{ "customer.address.state.id", "Customer address state id" },
 			{ "customer.address.state.name", "State" },
 			{ "customer.address.state.fullNameWithFormula", "Customer address state full name with formula" },
 			{ "customer.address.state.fullName", "Customer address state full name" },
 			{ "customer.address.asString", "Customer address as string" },
+			{ "customer.address.zipCode", "Customer address zip code" }, 
 			{ "customer.seller.number", "Customer seller number" },
 			{ "customer.seller.name", "Customer seller name" },
 			{ "customer.seller.level.id", "Customer seller level id" },
@@ -434,7 +434,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 			{ "yearDiscount", "Year discount" },
 			{ "considerable", "Considerable" }				
 		};		
-		assertValidValues("name", allColumnNames); 
+		assertValidValues("name", allColumnNames);  
 		
 		closeDialog();
 		
