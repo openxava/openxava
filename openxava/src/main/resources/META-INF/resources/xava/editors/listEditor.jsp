@@ -217,8 +217,7 @@ int iConditionValues = -1;
 columnIndex = 0; 
 while (it.hasNext()) {
 	MetaProperty property = (MetaProperty) it.next();
-	// tmr if (!property.isCalculated()) {
-	if (property.isFilterCapable()) { // tmr
+	if (property.isFilterCapable()) { 
 		iConditionValues++; 
 		boolean isValidValues = property.hasValidValues();
 		boolean isString = "java.lang.String".equals(property.getType().getName());

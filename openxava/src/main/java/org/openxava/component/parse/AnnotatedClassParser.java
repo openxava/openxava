@@ -241,9 +241,8 @@ public class AnnotatedClassParser implements IComponentParser {
 			PropertyMapping pMapping = mapping.getPropertyMapping(prefix + override.name());
 			pMapping.setColumn(override.column().name());			
 		}
-		catch (ElementNotFoundException ex) {					
-			// tmr throw new XavaException("attribute_override_not_found", override.name(), mapping.getModelName()); 
-			
+		catch (ElementNotFoundException ex) {
+			// Because we could get a property (with getter and setter) with not corresponding field or vice versa
 		}
 	}
 
@@ -694,12 +693,9 @@ public class AnnotatedClassParser implements IComponentParser {
 			setCalculated(pd, property); 
 		}
 		
-		// tmr ini
 		if (field == null && pd.getWriteMethod() != null) {
 			property.setNotFieldBackedAndNotCalculated(true);
 		}
-				
-		// tmr fin
 		
 		// The mapping part
 		if (mapping != null && field != null) { 

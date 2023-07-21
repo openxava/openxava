@@ -41,7 +41,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	private List validValues;
 	private boolean readOnly;
 	private boolean readOnlyCalculated = false;
-	private boolean notFieldBackedAndNotCalculated = false; // tmr
+	private boolean notFieldBackedAndNotCalculated = false; 
 	private MetaCalculator metaCalculator;	
 	private MetaCalculator metaCalculatorDefaultValue;		
 	private Collection dependentPropertiesNames;
@@ -637,15 +637,17 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		isKeySet = true;		
 	}
 	
+	/** @since 7.1.4 */
 	public boolean isFilterCapable() {
 		return !isCalculated() && !isNotFieldBackedAndNotCalculated();
 	}
 	
-	public boolean isNotFieldBackedAndNotCalculated() { // tmr 
+	/** @since 7.1.4 */
+	public boolean isNotFieldBackedAndNotCalculated() {  
 		return notFieldBackedAndNotCalculated; 
 	}
 	
-	public void setNotFieldBackedAndNotCalculated(boolean notFieldBackedAndNotCalculated) { // tmr 
+	public void setNotFieldBackedAndNotCalculated(boolean notFieldBackedAndNotCalculated) {  
 		this.notFieldBackedAndNotCalculated = notFieldBackedAndNotCalculated; 
 	}	
 	

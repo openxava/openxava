@@ -26,26 +26,14 @@ public class Building extends Nameable {
 	
 	@AttributeOverride(name="street",
 		column=@Column(name="BSTREET"))
-	/* tmr
-	@AttributeOverride(name="zipCode",
-		column=@Column(name="BZIPCODE"))
-	*/	
-	// tmr ini
 	@AttributeOverride(name="zip", // Needed to test a case, where attribute is private
 		column=@Column(name="BZIPCODE")) // with no corresponding getter and setter 
-	// tmr fin
 	private Address address;
 	
 	@AttributeOverride(name="street",
 		column=@Column(name="MAILING_STREET"))
-	/* tmr
-	@AttributeOverride(name="zipCode",
-		column=@Column(name="MAILING_ZIPCODE"))
-	*/
-	// tmr ini
 	@AttributeOverride(name="zip",
 		column=@Column(name="MAILING_ZIPCODE"))	
-	// tmr fin
 	@AttributeOverride(name="city",
 		column=@Column(name="MAILING_CITY"))
 	@AssociationOverride(name = "state",

@@ -99,6 +99,16 @@ public class JPATabProvider extends TabProviderBase {
 			return false;
 		}
 	}
+	
+	private boolean isFilterCapable(String property) { 
+		try {
+			return getMetaModel().getMetaProperty(property).isFilterCapable();
+		}
+		catch (ElementNotFoundException ex) {
+			// Because of possible non-existent properties like __GROUP_COUNT__
+			return true;
+		}
+	}
 
 	private String changePropertiesByJPAProperties(String source) { 
 		if (!source.contains("${")) return source;
@@ -113,8 +123,7 @@ public class JPATabProvider extends TabProviderBase {
 			if (isPropertyFromCollection(modelElement)) {
 				jpaElement = "__COL__[" + modelElement + "]";
 			}
-			// tmr else if (getMetaModel().isCalculated(modelElement)) {
-			else if (!getMetaModel().getMetaProperty(modelElement).isFilterCapable()) { // tmr
+			else if (!isFilterCapable(modelElement)) { 
 				jpaElement = "0";
 			}
 			else if (modelElement.contains(".")) {				

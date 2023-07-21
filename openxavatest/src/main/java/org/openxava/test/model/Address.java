@@ -42,18 +42,11 @@ public class Address implements IWithCity {
 	@Action(value="Customer.prefixStreet", alwaysEnabled=true)
 	private String street;
 
-	/* tmr
-	@Required @Column(length=5) 
-	@LabelFormat(LabelFormatType.SMALL)	
-	private int zipCode;
-	*/
-	// tmr ini
 	// The getter and setter a getCity() and setCity() to test two cases:
 	//   1. Accesing to a private field in @AttributeOverride, and
 	//   2. Using properties with not backed by a field 	
 	@Column(length=5) 	
 	private int zip;	
-	// tmr fin
 	
 	@Required @Column(length=20)
 	@LabelFormat(LabelFormatType.NO_LABEL)
@@ -82,18 +75,14 @@ public class Address implements IWithCity {
 		this.street = street;
 	}
 
-	// tmr ini
 	@Required @Max(99999) 
 	@LabelFormat(LabelFormatType.SMALL)
-	// tmr fin
 	public int getZipCode() {
-		// tmr return zipCode;
-		return zip; // tmr
+		return zip; 
 	}
 
 	public void setZipCode(int zipCode) {
-		// tmr this.zipCode = zipCode;
-		this.zip = zipCode; // tmr
+		this.zip = zipCode; 
 	}
 	
 	@Depends("customer.number") 

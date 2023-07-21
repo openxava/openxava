@@ -178,9 +178,8 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 			metaPropertiesCalculated = new ArrayList();
 			Iterator it = getMetaProperties().iterator();
 			while (it.hasNext()) {
-				MetaProperty metaProperty = (MetaProperty) it.next();
-				// tmr if (metaProperty.isCalculated()) {					
-				if (metaProperty.isCalculated() || metaProperty.isNotFieldBackedAndNotCalculated()) { // tmr Un comentario
+				MetaProperty metaProperty = (MetaProperty) it.next();					
+				if (metaProperty.isCalculated() || metaProperty.isNotFieldBackedAndNotCalculated()) { // For list properties with not backed by a field are considered as calculated 
 					metaPropertiesCalculated.add(metaProperty);
 				}
 			}

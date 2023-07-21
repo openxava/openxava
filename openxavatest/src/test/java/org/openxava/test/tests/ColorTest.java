@@ -4,11 +4,10 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.htmlunit.html.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
-
-import org.htmlunit.html.*;
 
 
 /**
