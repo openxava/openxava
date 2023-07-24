@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Moving columns to customize a list does not work if the application name contains underscores.
 - Fix: Error in log on server restart from time to time: Controller __MODIFIED_CONTROLLER__ not found. 
 - Fix: Property (a getter + a setter) not backed by a field with the same name produces error in list mode.
 - Fix: Private attributes cannot be mapped with @AttributeOverride.
