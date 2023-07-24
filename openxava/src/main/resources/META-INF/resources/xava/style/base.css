@@ -47,8 +47,8 @@
 	--button-bar-shadow: lightgray;
 	--subcontroller-select-background: var(--background);
 	--subscribed-color: var(--color);
-	--unsubscribed-color: var(--background);
-	--subscribed-hover-color: white;
+	--unsubscribed-color: var(--list-formats-color);
+	--subscribed-hover-color: var(--list-formats-hover-color);	
 	--selected-list-format-color: var(--color);
 	--selected-list-format-border: var(--color);
 	--selected-chart-type-icon-color: var(--color);

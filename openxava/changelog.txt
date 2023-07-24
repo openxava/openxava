@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Email subscription icon difficult to see with some themes.
 - Fix: @DisplaySize with a value greater than 50 ignored when used with @Column(length=255).
 - Fix: Moving columns to customize a list does not work if the application name contains underscores.
 - Fix: Error in log on server restart from time to time: Controller __MODIFIED_CONTROLLER__ not found. 
