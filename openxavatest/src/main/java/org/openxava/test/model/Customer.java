@@ -284,7 +284,9 @@ public class Customer implements IWithName {
 	@Telephone 
 	private String telephone;
 	
-	@Stereotype("EMAIL") @DisplaySize(30)
+	@Stereotype("EMAIL") // tmr @DisplaySize(30)
+	@DisplaySize(130) // tmr
+	@Column(length = 254)
 	private String email;
 	
 	@EmailList 

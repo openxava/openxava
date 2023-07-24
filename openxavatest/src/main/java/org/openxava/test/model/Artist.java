@@ -23,7 +23,8 @@ public class Artist extends Identifiable {
 	@ManyToOne
 	private Studio artistStudio; // Not the same name of parent entity, to test a case
 	
-	@Column(length=40) @Required
+	@Required
+	@Column(length=255) @DisplaySize(70) 
 	@OnChange(forViews="ConfirmName", value=OnChangeArtistNameAction.class)
 	@Colorful(color = "green") 
 	private String name;
