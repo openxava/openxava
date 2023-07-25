@@ -14,7 +14,7 @@ import org.openxava.util.*;
 abstract public class GenerateIdForPropertyBaseAction extends ViewBaseAction {
 	
  	protected String generateIdForProperty(String property) throws Exception { 
- 		synchronized (getView()) { // tmr
+ 		synchronized (getView()) { // When two or more files are uploaded at same time in a new record
 			String id = getView().getValueString(property);
 			if (Is.emptyString(id)) {
 				UUIDCalculator cal = new UUIDCalculator();

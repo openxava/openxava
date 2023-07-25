@@ -108,3 +108,13 @@ Element collections with @File: TravelExpenses
 - Remove an image from any row, then add a file on that row, the height should be correct.
 - Remove a file from any row, then add an image on that row, the height should be correct.
 - Go to list, delete row 0.
+
+Uploading several files at same time: Movie2 with Chrome
+- Click on New.
+- Write a title or the movie.
+- Click on Browse and select two files of 0 bytes at same time.
+- The two files are displayed in editor.
+- Save the movie, go to list mode and select that movie.
+- Verify that two files are displayed in editor.
+- Remove the files and delete the movie.
+

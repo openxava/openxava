@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: When uploading several files at same time on creating a new entity some of the files may get lost.
 - Fix: Email subscription icon difficult to see with some themes.
 - Fix: @DisplaySize with a value greater than 50 ignored when used with @Column(length=255).
 - Fix: Moving columns to customize a list does not work if the application name contains underscores.
