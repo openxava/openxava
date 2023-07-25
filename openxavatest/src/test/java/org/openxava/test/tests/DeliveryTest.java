@@ -341,7 +341,7 @@ public class DeliveryTest extends ModuleTestBase {
 			setValue("description", String.valueOf(x));
 			execute("Collection.saveAndStay");
 		}
-		assertError("More than 3 items in Details of Delivery are not allowed");
+		assertError("More than 3 items in Details of Delivery are not allowed"); 
 		execute("DeliveryDetail.hideDetail");
 		assertCollectionRowCount("details", 3);
 		checkAllCollection("details");

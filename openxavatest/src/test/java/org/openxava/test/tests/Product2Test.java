@@ -403,12 +403,20 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertMessage("Product deleted successfully");		
 	}
 					
-	public void testReferencesInListMode_generateRealExcel() throws Exception {				
+	public void testReferencesInListMode_orderBy3LevelProperty_generateRealExcel() throws Exception { 
 		assertValueInList(1, "number", "2");
 		assertValueInList(1, "family.description", "HARDWARE");
 		assertValueInList(1, "subfamily.description", "SERVIDORES");
-		
-		assertValueInList(0, 4, "11.00");
+		assertValueInList(1, "subfamily.family.description", "HARDWARE"); 
+
+		execute("List.orderBy", "property=subfamily.family.description");
+		assertListRowCount(7);
+		assertValueInList(0, "number", "2");
+		assertValueInList(0, "family.description", "HARDWARE");
+		assertValueInList(0, "subfamily.description", "SERVIDORES");
+		assertValueInList(0, "subfamily.family.description", "HARDWARE");
+
+		assertValueInList(0, 4, "20.00");
 		execute("TypicalRealExcel.generateExcel");
 		assertNoErrors(); 
 		assertContentTypeForPopup("application/vnd.ms-excel");
@@ -417,7 +425,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		Row row = sheet.getRow(1);
 		Cell cell = row.getCell(4);
 		assertEquals(CellType.NUMERIC, cell.getCellType()); 
-		assertEquals("11.0", cell.toString());
+		assertEquals("20.0", cell.toString()); 
 	}
 		
 	public void testCreateReferencesFromDescriptionsList() throws Exception {

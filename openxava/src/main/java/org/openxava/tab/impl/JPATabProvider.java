@@ -189,11 +189,14 @@ public class JPATabProvider extends TabProviderBase {
 		
 		return select;
 	}
-	
+
 	protected String toIncludeJoinsUsedInWhere(String select) { 
 		int whereIdx = select.indexOf("WHERE");
 		if (whereIdx < 0) return select;
-		String where = select.substring(whereIdx + 5);
+		int orderByIdx = select.indexOf(" order by ");
+		String where = orderByIdx<0?select.substring(whereIdx + 5):select.substring(whereIdx + 5, orderByIdx);
+		String orderBy = orderByIdx<0?"":select.substring(orderByIdx);		
+		
 		String [] tokens = where.split(" ");
 		Collection<String> neededJoins = new HashSet<>();
 		for (String token: tokens) {
@@ -213,10 +216,9 @@ public class JPATabProvider extends TabProviderBase {
 		}
 		
 		String selectBase = select.substring(0, whereIdx);
-		String finalSelect = selectBase + joins + " WHERE " + where;
+		String finalSelect = selectBase + joins + " WHERE " + where + orderBy; 
 		return finalSelect;
 	}
-	
 	
 	private String insertGroupBy(String select, String groupByColumns) { 
 		if (select.contains(" order by ")) {
