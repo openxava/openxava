@@ -49,13 +49,13 @@ public class SellerJSPTest extends ModuleTestBase {
 		assertEditable("level.id");
 		assertNoEditable("level.description");
 		
-		assertButtonTaglibWithArgv(); // tmr
+		assertButtonTaglibWithArgv(); 
 				
 		execute("CRUD.delete");
 		assertMessage("Seller deleted successfully");
 	}
 
-	private void assertButtonTaglibWithArgv() throws IOException, Exception { // tmr
+	private void assertButtonTaglibWithArgv() throws IOException, Exception {
 		HtmlElement myButtonDiv = getHtmlPage().getHtmlElementById("mybutton");
 		HtmlElement myButton = myButtonDiv.getOneHtmlElementByAttribute("input", "type", "button");
 		myButton.click();

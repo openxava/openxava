@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: xava:button tag to use in custom JSPs breaks the page if you use argv attribute.
 - Fix: Default label for the application in new projects starts with a lowercase letter.
 - Fix: Ordering a list or collection by a property of a reference of a reference (3 levels or more) fails.
 - Fix: When uploading several files at same time on creating a new entity some of the files may get lost.
