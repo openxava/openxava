@@ -12,7 +12,7 @@ public class CalendarTest extends WebDriverTestBase {
 	private WebDriver driver;
 
 	public void setUp() throws Exception {
-		driver = createWebDriver();
+		createWebDriver();
 	}
 
 	public void testNavigation() throws Exception {
@@ -23,7 +23,7 @@ public class CalendarTest extends WebDriverTestBase {
 	}
 
 	public void tearDown() throws Exception {
-		driver.quit();
+		// tmr driver.quit();
 	}
 
 	private void nextOnCalendar() throws Exception {
@@ -205,6 +205,7 @@ public class CalendarTest extends WebDriverTestBase {
 		List<WebElement> spanElements = driver.findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day ' and text()='2']"));
 		if (!spanElements.isEmpty()) {
 		    WebElement spanElement = spanElements.get(1);
+		    System.out.println("[CalendarTest.forTestMultipleDateAndFirstDateAsEventStart] spanElement=" + spanElement); // tmr
 		    spanElement.click(); // It fails in Windows 7
 		}
 		wait(driver);

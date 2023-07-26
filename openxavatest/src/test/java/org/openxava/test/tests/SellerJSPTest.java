@@ -1,5 +1,8 @@
 package org.openxava.test.tests;
 
+import java.io.*;
+
+import org.htmlunit.html.*;
 import org.openxava.tests.*;
 
 
@@ -45,9 +48,20 @@ public class SellerJSPTest extends ModuleTestBase {
 		assertEditable("name");
 		assertEditable("level.id");
 		assertNoEditable("level.description");
+		
+		assertButtonTaglibWithArgv(); // tmr
 				
 		execute("CRUD.delete");
 		assertMessage("Seller deleted successfully");
+	}
+
+	private void assertButtonTaglibWithArgv() throws IOException, Exception { // tmr
+		HtmlElement myButtonDiv = getHtmlPage().getHtmlElementById("mybutton");
+		HtmlElement myButton = myButtonDiv.getOneHtmlElementByAttribute("input", "type", "button");
+		myButton.click();
+		waitAJAX();
+		assertMessage("Seller modified successfully");
+		assertValue("name", "JUNIT"); // So argv in xava:button works
 	}
 	
 	public void testDisplaySizeOfReferenceMemberInHandmadeView() throws Exception { 
