@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Embedded Tomcat used in development upgraded to 9.0.78.
+- Driver version in doc and new projects upgraded for MySQL.
 - Fix: xava:button tag to use in custom JSPs breaks the page if you use argv attribute.
 - Fix: Default label for the application in new projects starts with a lowercase letter.
 - Fix: Ordering a list or collection by a property of a reference of a reference (3 levels or more) fails.
