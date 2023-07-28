@@ -1,15 +1,17 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.1.4 (2023-8-7)
+-------------------------
 - Embedded Tomcat used in development upgraded to 9.0.78.
 - Driver version in doc and new projects upgraded for MySQL.
 - Fix: xava:button tag to use in custom JSPs breaks the page if you use argv attribute.
-- Fix: Default label for the application in new projects starts with a lowercase letter.
 - Fix: Ordering a list or collection by a property of a reference of a reference (3 levels or more) fails.
 - Fix: When uploading several files at same time on creating a new entity some of the files may get lost.
 - Fix: Email subscription icon difficult to see with some themes.
 - Fix: @DisplaySize with a value greater than 50 ignored when used with @Column(length=255).
 - Fix: Moving columns to customize a list does not work if the application name contains underscores.
+- Fix: Default label for the application in new projects starts with a lowercase letter.
 - Fix: Error in log on server restart from time to time: Controller __MODIFIED_CONTROLLER__ not found. 
 - Fix: Property (a getter + a setter) not backed by a field with the same name produces error in list mode.
 - Fix: Private attributes cannot be mapped with @AttributeOverride.
