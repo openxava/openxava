@@ -1,9 +1,8 @@
 package org.openxava.test.tests;
 
+import org.htmlunit.html.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
-
-import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  * @author Javier Paniza
@@ -90,7 +89,7 @@ public class WarehouseTest extends ModuleTestBase {
 		String value9 = getValueInList(9, 2);
 		execute("List.goNextPage");
 				
-		assertChangeRowCount(10, 5);
+		assertChangeRowCount(10, 5); 
 		assertValueInList(0, 2, value5);
 		assertValueInList(4, 2, value9);
 		
@@ -239,7 +238,7 @@ public class WarehouseTest extends ModuleTestBase {
 		assertAction("List.goPreviousPage"); 
 		execute("List.viewDetail", "row=10");
 		execute("Mode.list");
-		assertListRowCount(10);
+		assertListRowCount(10); 
 		assertAction("List.goPreviousPage");
 	}
 	

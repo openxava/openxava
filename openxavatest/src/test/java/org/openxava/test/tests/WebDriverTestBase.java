@@ -34,6 +34,11 @@ abstract public class WebDriverTestBase extends TestCase {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("xava_loading"))); 
 	}
 	
+	protected void wait(WebDriver driver, By expectedElement) { 
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3)); 
+        wait.until(ExpectedConditions.visibilityOfElementLocated(expectedElement));		
+	}
+
 	protected void waitCalendarEvent(WebDriver driver) throws Exception {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(10000));
 		try {

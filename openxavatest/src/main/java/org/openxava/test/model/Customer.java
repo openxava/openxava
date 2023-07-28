@@ -224,6 +224,8 @@ import org.openxava.test.actions.*;
 
 @View( name="PersonalInformation", members="name; passport, creditCard;")
 
+@View( name="OnlyAddress", members="address") 
+
 @Tabs ({
 	@Tab(
 		rowStyles={
@@ -282,7 +284,9 @@ public class Customer implements IWithName {
 	@Telephone 
 	private String telephone;
 	
-	@Stereotype("EMAIL") @DisplaySize(30)
+	@Stereotype("EMAIL") // tmr @DisplaySize(30)
+	@DisplaySize(130) // tmr
+	@Column(length = 254)
 	private String email;
 	
 	@EmailList 
@@ -299,6 +303,7 @@ public class Customer implements IWithName {
 	@Embedded
 	@ReferenceView(forViews="SimpleStateAsForm", value="StateAsForm")
 	@ReferenceView(forViews="Demo", value="Demo")
+	@ReferenceView(forViews="OnlyAddress", value="Demo") 
 	private Address address;	
 	
 	@Transient @Column(length=50)

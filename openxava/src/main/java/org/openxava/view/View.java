@@ -2190,8 +2190,9 @@ public class View implements java.io.Serializable {
 		assertRepresentsCollection("getCollectionTotalLabel()"); 
 		try {
 			MetaProperty columnProperty = getMetaPropertiesList().get(column);
-			String rawTotalProperty = getTotalProperties().get(columnProperty.getName()).get(row);
-			if (rawTotalProperty.startsWith("__SUM__")) {
+			List<String> totalProperties = getTotalProperties().get(columnProperty.getName());
+			String rawTotalProperty = totalProperties == null?null:totalProperties.get(row);
+			if (rawTotalProperty == null || rawTotalProperty.startsWith("__SUM__")) {
 				return XavaResources.getString("sum_of", columnProperty.getLabel());
 			}
 			else {
@@ -3568,8 +3569,7 @@ public class View implements java.io.Serializable {
 				moveViewValuesToCollectionValues();
 			}
 
-			
-			if (hasToSearchOnChangeIfSubview && isSubview() && isRepresentsEntityReference() && !isGroup() && !displayAsDescriptionsList() && 
+			if (hasToSearchOnChangeIfSubview && !isFirstLevel() && isRepresentsEntityReference() && !isGroup() && !displayAsDescriptionsList() && 
 					( 	
 					(getLastPropertyKeyName().equals(changedProperty.getName()) && getMetaPropertiesIncludingGroups().contains(changedProperty)) || // Visible keys
 					(!hasKeyProperties() && changedProperty.isKey() && changedProperty.getMetaModel() == getMetaModel()) || // hidden keys or key inside a @DescriptionsList with showReferenceViw=true 
@@ -4892,7 +4892,7 @@ public class View implements java.io.Serializable {
 		}		
 	}
 
-	public List getSections() throws XavaException {	
+	public List<MetaView> getSections() throws XavaException { 
 		if (sections == null) {
 			sections = getMetaView().getSections();
 		}
@@ -5245,8 +5245,22 @@ public class View implements java.io.Serializable {
 	 * 
 	 * @since 5.7
 	 */
-	public boolean isSimple() {  
-		if (hasSections()) return false;
+	public boolean isSimple() {
+		if (hasSections()) {
+			if (getMetaMembers().isEmpty() && getSections().size() == 1) return getSectionView(activeSection).isSimple();
+			return false;
+		}
+		
+		if (getMetaMembers().size() == 1) {
+			MetaMember uniqueMember = getMetaMembers().iterator().next();   
+			if (uniqueMember instanceof MetaReference) {
+				return getSubview(uniqueMember.getName()).isSimple();
+			}
+			if (uniqueMember instanceof MetaGroup) {
+				return getGroupView(uniqueMember.getName()).isSimple();
+			}			
+		}
+
 		int c = 0; 
 		for (MetaMember member: getMetaMembers()) {
 			if (member instanceof PropertiesSeparator) continue;

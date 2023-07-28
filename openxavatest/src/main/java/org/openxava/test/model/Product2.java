@@ -110,7 +110,7 @@ import org.openxava.test.validators.*;
 		"subfamily;" 
 	)
 })
-@Tab(properties="number, description, family.description, subfamily.description, unitPrice, unitPriceWithTax") 
+@Tab(properties="number, description, family.description, subfamily.description, unitPrice, unitPriceWithTax, subfamily.family.description") 
 
 public class Product2 {
 	

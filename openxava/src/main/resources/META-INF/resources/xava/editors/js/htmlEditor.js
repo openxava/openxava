@@ -1,3 +1,5 @@
+if (htmlEditor == null) var htmlEditor = {}; 
+
 openxava.addEditorInitFunction(function() {
 	if (openxava.browser.htmlUnit) return;	
 	tinymce.init({
@@ -7,7 +9,8 @@ openxava.addEditorInitFunction(function() {
 	  base_url: openxava.contextPath + '/xava/editors/tinymce/',
 	  language: openxava.language,
 	  promotion: false,
-	  branding: false
+	  branding: false,
+	  init_instance_callback: htmlEditor.setInlineStyles
 	});
 	tinymce.init({
 	  selector: '.ox-simple-html-text',
@@ -17,7 +20,8 @@ openxava.addEditorInitFunction(function() {
 	  base_url: openxava.contextPath + '/xava/editors/tinymce/',
 	  language: openxava.language,
 	  promotion: false,
-	  branding: false
+	  branding: false,
+	  init_instance_callback: htmlEditor.setInlineStyles
 	});
 	$('.xava-new-comment').each( function () {
 		var editor = tinymce.get(this.id);
@@ -28,10 +32,6 @@ openxava.addEditorInitFunction(function() {
 			$('.ox-button-bar-button').fadeOut(); 
     	});
 	});
-	/*
-	To get all buttons
-	 tinyMCE.activeEditor.ui.registry.getAll().buttons=" + tinyMCE.activeEditor.ui.registry.getAll().buttons); 
-	 */
 });
 
 openxava.addEditorPreRequestFunction(function() { 
@@ -43,3 +43,17 @@ openxava.addEditorDestroyFunction(function() {
 	if (openxava.browser.htmlUnit) return;
 	tinymce.remove();
 });
+
+htmlEditor.setInlineStyles = function(input) {
+	$('#tinymce span[data-mce-style]', $('.tox-edit-area iframe').contents()).each(function() { 
+		$(this).prop('style', $(this).data('mce-style')) 
+	});
+}
+
+$(document).on('focusin', function(e) {
+   	if ($(e.target).closest(".tox-tinymce, .tox-tinymce-aux, .moxman-window, .tam-assetmanager-root").length) {
+      	e.stopImmediatePropagation();
+   	}
+});
+
+

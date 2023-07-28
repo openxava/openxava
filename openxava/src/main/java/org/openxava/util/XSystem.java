@@ -17,7 +17,6 @@ public class XSystem {
 	private static Log log = LogFactory.getLog(XSystem.class);
 	
 	private static boolean onServer = false;
-	private static String encoding = null; 
 	
 	/**
 	 * Does that {@link #onServer} returns <tt>true</tt>.
@@ -68,23 +67,9 @@ public class XSystem {
 	/**
 	 * To use for XML encoding and for web requests and responses encoding. <p>
 	 */
-	public static String getEncoding() { 
-		if (encoding == null) {		
-			if ("OS/400".equalsIgnoreCase(System.getProperty("os.name")) && 
-				System.getProperties().containsKey("was.install.root")) encoding = "ISO-8859-1";
-			else {
-				encoding = System.getProperty("ibm.system.encoding");
-				if (encoding == null) encoding = System.getProperty("file.encoding");
-				if (encoding == null) encoding = "UTF-8"; 
-				else if ("Cp1252".equalsIgnoreCase(encoding)) encoding = "ISO-8859-1";
-				else if ("Cp1250".equalsIgnoreCase(encoding)) encoding = "ISO-8859-2"; 
-				else if ("utf8".equalsIgnoreCase(encoding)) encoding = "UTF-8";
-				else if ("iso8859-1".equalsIgnoreCase(encoding)) encoding = "ISO-8859-1";
-				else if ("MS874".equalsIgnoreCase(encoding)) encoding = "ISO-8859-11";
-				else if ("MS950".equalsIgnoreCase(encoding)) encoding = "UTF-8";
-			}
-		}		
-		return encoding;				
+	public static String getEncoding() {
+		// Before v7.1.3 we had a intricate algorithm to decide the encoding to use 
+		return "UTF-8"; 
 	}
 	
 	/** @since 6.0 */

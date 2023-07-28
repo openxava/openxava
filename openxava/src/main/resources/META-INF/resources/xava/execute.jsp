@@ -63,6 +63,7 @@ for (Iterator it = previousViews.iterator(); it.hasNext(); ) {
 
 tab.setRequest(request);
 tab.setErrors(errors); 
+tab.setMessages(messages); 
 if (manager.isListMode()) {   
 	tab.setModelName(manager.getModelName());
 	if (tab.getTabName() == null) { 

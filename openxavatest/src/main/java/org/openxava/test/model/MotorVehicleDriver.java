@@ -26,6 +26,7 @@ public class MotorVehicleDriver extends Identifiable {
 	private boolean approvedDrivingTest;
 	
 	@OneToMany(mappedBy = "driver")	
+	@CollectionView("WithOnChangeRoadworthy") 
 	private Collection<MotorVehicle> vehicles = new ArrayList<MotorVehicle>();
 
 	public String getName() {

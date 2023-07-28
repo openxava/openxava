@@ -2,7 +2,7 @@
 
 <project name="OpenXavaDoc" default="createWar" basedir=".">
 
-	<property name="xava.version" value="7.1.1"/>
+	<property name="xava.version" value="7.1.4"/>
 	<property name="dist.dir" value="C:\cygwin\home\javi"/>
 	<!--
 	<property name="dist.dir" value="\\wsl$\Ubuntu\home\javi"/> 

@@ -9,7 +9,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<openxava.version>7.1.2-SNAPSHOT</openxava.version>
+		<openxava.version>7.1.4-SNAPSHOT</openxava.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- OpenXava applications work nicely with Java 1.8, 11 and 17 -->
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -32,9 +32,9 @@
 		
 		<!-- MySQL 
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>		
-    		<version>8.0.33</version>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>		
+    		<version>8.1.0</version>
 		</dependency>
 		-->
 		
@@ -58,8 +58,8 @@
 		<dependency>
 			<groupId>net.sf.jt400</groupId>
 			<artifactId>jt400</artifactId>
-			<version>11.2</version>
-			<classifier>jd400-jdk8</classifier>
+			<version>20.0.0</version>
+			<classifier>java8</classifier>
 		</dependency>
 		-->
 		
@@ -91,7 +91,7 @@
 		<dependency>
 			<groupId>org.firebirdsql.jdbc</groupId>
 			<artifactId>jaybird</artifactId>
-			<version>5.0.1.java8</version>
+			<version>5.0.2.java8</version>
 		</dependency>
 		-->
 		

@@ -2,11 +2,10 @@ package org.openxava.test.tests;
 
 import javax.persistence.*;
 
+import org.htmlunit.html.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
-
-import com.gargoylesoftware.htmlunit.html.*;
 
 
 /**
@@ -31,7 +30,7 @@ public class JourneyTest extends ModuleTestBase {
 		execute("ListFormat.select", "editor=Cards");
 		resetModule();
 		selectGroupBy("Group by name");
-		assertListRowCount(120); // To verify that the cards are displayed
+		assertListRowCount(120); // To verify that the cards are displayed 
 	}
 	
 	public void testPage25InList() throws Exception {
@@ -41,7 +40,7 @@ public class JourneyTest extends ModuleTestBase {
 		assertListRowCount(1); 
 		execute("CRUD.new");
 		execute("Mode.list");
-		assertListRowCount(1);
+		assertListRowCount(1); 
 	}
 	
 	public void testNavigateInListWithALotOfObjects() throws Exception {   

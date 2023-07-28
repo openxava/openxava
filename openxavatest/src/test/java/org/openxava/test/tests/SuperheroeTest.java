@@ -66,6 +66,15 @@ public class SuperheroeTest extends ModuleTestBase {
 		assertListSelectedConfiguration("Name contains es");
 		execute("Print.generatePdf");
 		assertPopupPDFLine(1, "Superheroe report");
+		
+		execute("List.saveConfiguration");
+		setValue("name", "Ordered by name descending"); // An already existing configuration
+		execute("SaveListConfiguration.save");
+		assertWarning("Warning! The already existing query named Ordered by name descending has been overwritten");
+		selectListConfiguration("All");
+		assertListAllConfigurations("All", "Ordered by name descending");
+		resetModule();
+		assertListAllConfigurations("All", "Ordered by name descending");
 	}
 	
 }

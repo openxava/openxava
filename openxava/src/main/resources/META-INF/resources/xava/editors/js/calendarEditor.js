@@ -62,6 +62,7 @@ openxava.addEditorInitFunction(function() {
                 events: calendarEditor.listEvents,
                 editable: true,
                 progressiveEventRendering: true,
+				eventColor: 'var(--color)',
                 headerToolbar: {
                     left: 'prev,next title',
                     center: '',

@@ -1,8 +1,7 @@
 package org.openxava.test.tests;
 
+import org.htmlunit.html.*;
 import org.openxava.tests.*;
-
-import com.gargoylesoftware.htmlunit.html.*;
 
 
 
@@ -83,7 +82,7 @@ public class ToDoListTest extends ModuleTestBase {
 		assertNoErrors(); 
 		filterListText = getHtmlPage().getHtmlElementById("ox_openxavatest_ToDoList__conditionValue___0");
 		filterListText.setText("LIST");
-		assertEquals("LIST", filterListText.getAttribute("value"));
+		assertEquals("LIST", filterListText.getValue()); 
 		filterListText.type('\r');
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);	
 		assertListRowCount(1);

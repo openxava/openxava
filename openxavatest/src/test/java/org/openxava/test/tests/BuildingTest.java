@@ -1,9 +1,8 @@
 package org.openxava.test.tests;
 
+import org.htmlunit.*;
+import org.htmlunit.html.*;
 import org.openxava.tests.*;
-
-import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  * 
@@ -30,13 +29,16 @@ public class BuildingTest extends ModuleTestBase {
 		super(testName, "Building");		
 	}
 
-	public void testAttributeOverridesOnEmbeddable_editorsMarkedAsErrorWithRepeatedEmbedded() throws Exception {		
+	public void testAttributeOverridesOnEmbeddable_editorsMarkedAsErrorWithRepeatedEmbedded_attributeOverrideOnPrivateField_propertyNotBackedByField() throws Exception { 		
 		assertValueInList(0, "name", "MY OFFICE");
 		assertValueInList(0, "address.street", "CUBA");
 		assertValueInList(0, "address.zipCode", "49003");
 		assertValueInList(0, "address.city", "VALENCIA");		
+		assertNotExists("conditionValue.3"); // We cannot filter by zipCode because has a no a corresponding 'zipCode' field 
+		assertNoAction("List.orderBy", "property=address.zipCode");
 		
 		execute("List.viewDetail", "row=0");
+		assertEditable("address.zipCode"); 
 		execute("Building.save");
 		HtmlElement addressStreet = getHtmlPage().getHtmlElementById("ox_openxavatest_Building__editor_address___street");
 		assertFalse(addressStreet.getAttribute("class").contains("ox-error-editor"));

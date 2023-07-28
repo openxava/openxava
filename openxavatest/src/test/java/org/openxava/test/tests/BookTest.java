@@ -3,7 +3,7 @@ package org.openxava.test.tests;
 import org.openxava.test.services.*;
 import org.openxava.tests.*;
 
-import com.gargoylesoftware.htmlunit.*;
+import org.htmlunit.*;
 
 /**
  * 

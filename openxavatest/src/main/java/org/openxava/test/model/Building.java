@@ -1,9 +1,9 @@
 package org.openxava.test.model;
 
-import org.openxava.test.actions.*;
-import org.openxava.annotations.*;
-
 import javax.persistence.*;
+
+import org.openxava.annotations.*;
+import org.openxava.test.actions.*;
 
 /**
  * 
@@ -14,7 +14,7 @@ import javax.persistence.*;
 	@View(members="building [name, function; address; mailingAddress]"), // All data in a group for a test 
 	@View(name="Simple", members="name")
 })
-@Tab( properties= "name, address.street, address.zipCode, address.city" )
+@Tab( properties= "name, address.street, address.zipCode, address.city" ) 
 public class Building extends Nameable {
 	
 	@ManyToOne
@@ -25,15 +25,15 @@ public class Building extends Nameable {
 	private String function; 
 	
 	@AttributeOverride(name="street",
-		column=@Column(name="BSTREET")) 
-	@AttributeOverride(name="zipCode",
-		column=@Column(name="BZIPCODE"))
+		column=@Column(name="BSTREET"))
+	@AttributeOverride(name="zip", // Needed to test a case, where attribute is private
+		column=@Column(name="BZIPCODE")) // with no corresponding getter and setter 
 	private Address address;
 	
 	@AttributeOverride(name="street",
 		column=@Column(name="MAILING_STREET"))
-	@AttributeOverride(name="zipCode",
-		column=@Column(name="MAILING_ZIPCODE"))
+	@AttributeOverride(name="zip",
+		column=@Column(name="MAILING_ZIPCODE"))	
 	@AttributeOverride(name="city",
 		column=@Column(name="MAILING_CITY"))
 	@AssociationOverride(name = "state",

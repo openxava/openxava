@@ -9,7 +9,7 @@ import javax.persistence.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
 
-import com.gargoylesoftware.htmlunit.html.*;
+import org.htmlunit.html.*;
 
 
 /**
@@ -20,6 +20,16 @@ public class OrderTest extends ModuleTestBase {
 	
 	public OrderTest(String testName) {
 		super(testName, "Order");		
+	}
+	
+	public void testGoodPerformanceWithCalculatedPropertiesEnteringInCalendar() throws Exception { 
+		execute("ListFormat.select", "editor=Calendar");
+		long ini = System.currentTimeMillis();
+		resetModule();
+		long takes = System.currentTimeMillis() - ini;
+		assertTrue(takes < 4000); // With the fix it takes over 1200, without it it taken around 7000 (but never less 5600)
+		
+		// In the case of Charts we reduced the time at twice, but it still works slowly with calculated properties, something to improved
 	}
 	
 	public void testGoodPerformanceWithCalculatedPropertiesInList_actionsNotLostAfterOpenDialogTwiceFromCollectionElement() throws Exception { 
@@ -138,7 +148,7 @@ public class OrderTest extends ModuleTestBase {
 			try {
 				getHtmlPage().getHtmlElementById(decorateId("Collection.save"));
 			}
-			catch (com.gargoylesoftware.htmlunit.ElementNotFoundException ex) {
+			catch (org.htmlunit.ElementNotFoundException ex) {
 				continue; // Because sometimes the action is executed very fast and 
 					// when the second click happens the dialog is already closed
 				    // This case cannot occurs in real life (because with no dialog 

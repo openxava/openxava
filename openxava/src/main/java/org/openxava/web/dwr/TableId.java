@@ -1,5 +1,7 @@
 package org.openxava.web.dwr;
 
+import org.openxava.application.meta.*;
+
 /**
  * To parse the id of a HTML table.
  * 
@@ -15,22 +17,24 @@ class TableId {
 	private boolean valid;
 	
 	public TableId(String tableId, int additionalTokens) {
-		String [] id = tableId.split("_+");
+		application = MetaApplications.getMainMetaApplication().getName();
+		String shortTableId = tableId.replace(application, "");
+		String [] id = shortTableId.split("_+");
 		if (!"ox".equals(id[0])) {
 			// Bad format. This method relies in the id format by Ids class
-			valid = false; 
+			valid = false;
 			return;
-		}
-		application = id[1];
-		module = id[2];
+		}		
+
+		module = id[1];
 		StringBuffer collectionSB = new StringBuffer();
-		for (int i=3; i<id.length-additionalTokens; i++) { // To work with collections inside @AsEmbedded references 
-			if (i>3) collectionSB.append("_");
-			collectionSB.append(id[i]);				 
+		for (int i=2; i<id.length-additionalTokens; i++) { // To work with collections inside @AsEmbedded references
+			if (i>2) collectionSB.append("_");
+			collectionSB.append(id[i]);
 		}
 		this.collection = collectionSB.toString();
-		tabObject = "list".equals(collection)?"xava_tab":"xava_collectionTab_" + collection;									
-		valid = true;
+		tabObject = "list".equals(collection)?"xava_tab":"xava_collectionTab_" + collection;
+		valid = true;		
 	}
 
 	public String getApplication() {

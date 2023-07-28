@@ -49,9 +49,14 @@
 	--button-bar-shadow: black; 
 	--shadow: black; 
 	
-	--cke-top-background: lightgray; 
+	--html-text-button-hover: lightgray;
 	
 	--autocomplete-scrollbar-background: lightgray; 
 	--ui-menu-item-state-focus-background: lightgray; 
 	--scrollbar-color: lightgray;  
+	
+	/* Calendar */
+	--calendar-cell-border-color: white;
+	--calendar-day-hover-background: hsla(0, 0%, 50%, 0.5);
+	--calendar-today-background: hsla(0, 0%, 70%, 0.7);
 }

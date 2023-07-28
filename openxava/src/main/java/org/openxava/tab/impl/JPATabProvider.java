@@ -32,7 +32,7 @@ public class JPATabProvider extends TabProviderBase {
 	}
 	
 	public String toQueryField(String propertyName) {
-		String prefix = StringUtils.countMatches(propertyName, '.') > 1?"e_":"e." ;
+		String prefix = StringUtils.countMatches(propertyName, '.') > 1?"e_":"e.";
 		return prefix + propertyName;
 	}
 
@@ -99,6 +99,16 @@ public class JPATabProvider extends TabProviderBase {
 			return false;
 		}
 	}
+	
+	private boolean isFilterCapable(String property) { 
+		try {
+			return getMetaModel().getMetaProperty(property).isFilterCapable();
+		}
+		catch (ElementNotFoundException ex) {
+			// Because of possible non-existent properties like __GROUP_COUNT__
+			return true;
+		}
+	}
 
 	private String changePropertiesByJPAProperties(String source) { 
 		if (!source.contains("${")) return source;
@@ -113,7 +123,7 @@ public class JPATabProvider extends TabProviderBase {
 			if (isPropertyFromCollection(modelElement)) {
 				jpaElement = "__COL__[" + modelElement + "]";
 			}
-			else if (getMetaModel().isCalculated(modelElement)) {
+			else if (!isFilterCapable(modelElement)) { 
 				jpaElement = "0";
 			}
 			else if (modelElement.contains(".")) {				
@@ -179,11 +189,14 @@ public class JPATabProvider extends TabProviderBase {
 		
 		return select;
 	}
-	
+
 	protected String toIncludeJoinsUsedInWhere(String select) { 
 		int whereIdx = select.indexOf("WHERE");
 		if (whereIdx < 0) return select;
-		String where = select.substring(whereIdx + 5);
+		int orderByIdx = select.indexOf(" order by ");
+		String where = orderByIdx<0?select.substring(whereIdx + 5):select.substring(whereIdx + 5, orderByIdx);
+		String orderBy = orderByIdx<0?"":select.substring(orderByIdx);		
+		
 		String [] tokens = where.split(" ");
 		Collection<String> neededJoins = new HashSet<>();
 		for (String token: tokens) {
@@ -203,10 +216,9 @@ public class JPATabProvider extends TabProviderBase {
 		}
 		
 		String selectBase = select.substring(0, whereIdx);
-		String finalSelect = selectBase + joins + " WHERE " + where;
+		String finalSelect = selectBase + joins + " WHERE " + where + orderBy; 
 		return finalSelect;
 	}
-	
 	
 	private String insertGroupBy(String select, String groupByColumns) { 
 		if (select.contains(" order by ")) {

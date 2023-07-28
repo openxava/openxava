@@ -96,9 +96,19 @@ abstract public class ParserBase extends XmlElementsNames {
 		documentBuilder.setEntityResolver(new XMLEntityResolver());
 		return documentBuilder;
 	}	
+	
+	private String encodeURL(String path) { 
+	    try {
+	        return new URI(null, null, path, null).toASCIIString().replace("%25", "%");
+	    } catch (URISyntaxException e) {
+	        log.warn(XavaResources.getString("encode_url_warning"));
+	    }
+	    return path;
+	}
 
 	private void _parse(String xmlFileCompleteURL) throws XavaException, URISyntaxException {
 		try {						
+			xmlFileCompleteURL = encodeURL(xmlFileCompleteURL); 
 			Document doc = getDocumentBuilder().parse(xmlFileCompleteURL);			
 			root = (Element) doc.getDocumentElement();
 			createObjects();

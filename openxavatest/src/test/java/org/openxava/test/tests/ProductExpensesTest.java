@@ -2,7 +2,7 @@ package org.openxava.test.tests;
 
 import org.openxava.tests.*;
 
-import com.gargoylesoftware.htmlunit.html.*;
+import org.htmlunit.html.*;
 
 /**
  *  
@@ -42,7 +42,7 @@ public class ProductExpensesTest extends ModuleTestBase {
 			{ "7", "SIETE" },
 			{ "3", "XAVA" }
 		};		
-		assertValidValuesInCollection("expenses", 0, "product.number", productValidValues);
+		assertValidValuesInCollection("expenses", 0, "product.number", productValidValues); 
 
 		String [][] carrierValidValues = {
 			{ "", "" },

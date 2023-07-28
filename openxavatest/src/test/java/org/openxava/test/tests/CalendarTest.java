@@ -19,7 +19,7 @@ public class CalendarTest extends WebDriverTestBase {
 		forTestAddEventAndVerify();
 		forTestConditions();
 		forTestAnyNameAsDateProperty();
-		forTestMultipleDateAndFirstDateAsEventStart();
+		forTestMultipleDateAndFirstDateAsEventStart(); 
 	}
 
 	public void tearDown() throws Exception {
@@ -205,7 +205,7 @@ public class CalendarTest extends WebDriverTestBase {
 		List<WebElement> spanElements = driver.findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day ' and text()='2']"));
 		if (!spanElements.isEmpty()) {
 		    WebElement spanElement = spanElements.get(1);
-		    spanElement.click();
+		    spanElement.click(); // It fails in Windows 7
 		}
 		wait(driver);
 		saveFromDetailView(driver, "Event");
@@ -215,10 +215,11 @@ public class CalendarTest extends WebDriverTestBase {
 		List<WebElement> events = driver.findElements(By.xpath("//div[contains(@class,'fc-daygrid-event-harness') and ancestor::td[@data-date='"
                 + dateString + "']]"));
 		assertTrue(!events.isEmpty());
-		events.get(0).click();
-		wait(driver);
-		deleteFromDetailView(driver, "Event");
-		goToListFromDetailView(driver, "Event");
+		
+		moveToListView(driver);
+		List<WebElement> elements = driver.findElements(By.xpath("//a[contains(@class, 'ox-image-link') and .//i[contains(@class, 'mdi-delete')]]"));
+		elements.get(1).click();
+		acceptInDialogJS(driver);
 	}
 	
 }

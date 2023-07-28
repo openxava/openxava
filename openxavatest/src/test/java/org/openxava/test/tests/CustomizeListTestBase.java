@@ -2,9 +2,8 @@ package org.openxava.test.tests;
 
 import static org.openxava.tests.HtmlUnitUtils.getHrefAttribute;
 
+import org.htmlunit.html.*;
 import org.openxava.tests.*;
-
-import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  * 
@@ -36,14 +35,23 @@ abstract public class CustomizeListTestBase extends ModuleTestBase {
 		moveColumn("list", from, to); 
 	}
 	
+	protected void moveColumnNoDragAndDrop(int from, int to) throws Exception {
+		// It's better to use moveColumn() if possible, because this is not an exact mirror of the real
+		//   behavior. It does not do drag & drop and it does a reload().
+		getHtmlPage().executeJavaScript("Tab.moveProperty('ox_openxavatest_" + module +"__list', " + from + ", " + to + ")");
+		Thread.sleep(30);
+		reload();		
+	}
+	
 	protected void moveColumn(String collection, int from, int to) throws Exception { 
 		// This method does not work for all "from, to" combinations, at least with HtmlUnit 2.15
+		//   when it does not work you can use moveColumnNoDragAndDrop instead
 		HtmlTable table = getHtmlPage().getHtmlElementById(decorateId(collection));
 		HtmlElement fromCol = table.getRow(0).getCell(from + 2);
 		HtmlElement handle = fromCol.getElementsByAttribute("i", "class", "xava_handle mdi mdi-cursor-move ui-sortable-handle").get(0); 
 		handle.mouseDown();
 		HtmlElement toCol = table.getRow(0).getCell(to + 2);
-		HtmlElement elementTo = toCol.getElementsByAttribute("i", "class", "mdi mdi-rename-box").get(0); 
+		HtmlElement elementTo = toCol.getElementsByAttribute("i", "class", "mdi mdi-rename-box").get(0);
 		elementTo.mouseMove();
 		elementTo.mouseUp();		
 		Thread.sleep(700); 

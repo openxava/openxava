@@ -45,7 +45,7 @@ public class EditorsResources {
 			Enumeration<URL> e = EditorsResources.class.getClassLoader().getResources("META-INF/resources/xava/editors/" + folder);
 			while (e.hasMoreElements()) {
 				URL url = e.nextElement();
-				if (url.getProtocol().equals("jar")) {
+				if (url.getProtocol().equals("jar") || url.getProtocol().equals("zip")) { // "zip" to work with Weblogic
 					String jarURL = url.getFile().replace("file:", "");
 					jarURL = Strings.noLastTokenWithoutLastDelim(jarURL, "!");
 					ZipFile zip = new ZipFile(jarURL.replaceAll("%20", " "));

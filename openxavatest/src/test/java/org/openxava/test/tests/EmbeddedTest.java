@@ -5,9 +5,8 @@ package org.openxava.test.tests;
 
 import java.util.regex.*;
 
+import org.htmlunit.html.*;
 import org.openxava.tests.*;
-
-import com.gargoylesoftware.htmlunit.html.*;
 
 
 /**
@@ -21,12 +20,14 @@ public class EmbeddedTest extends ModuleTestBase {
 		super(nameTest,"ClassA");
 	}
 
-	public void testSearch() throws Exception {
+	public void testSearch_moduleWorksWithNonExistentTable() throws Exception {  
+		assertAction("CRUD.save"); // So it enters in detail 
+		assertNoErrors(); 
 		execute("CRUD.new");
 		HtmlElement element = getSearchElement();
 		String keyProperty = extractKeyProperty(element); 
 		execute("Reference.search", "keyProperty=" + keyProperty);
-		assertNoErrors();
+		assertNoErrors(); 
 		execute("ReferenceSearch.cancel");
 		execute("Sections.change", "activeSection=1,viewObject=xava_view_b");
 		element = getSearchElement();

@@ -3,6 +3,7 @@ package org.openxava.test.model;
 import javax.persistence.*;
 
 import org.openxava.annotations.*;
+import org.openxava.test.actions.*;
 
 
 /**
@@ -12,12 +13,13 @@ import org.openxava.annotations.*;
  */
 
 @Entity
+@View(name="WithOnChangeRoadworthy", members="roadworthy; type; licensePlate") // roadworthy must be the first one to test a case
 public class MotorVehicle {
 	
 	@Hidden
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private int id;
-	
+		
 	@Required
 	@Column(length = 15)
 	private String type;
@@ -26,6 +28,7 @@ public class MotorVehicle {
 	@Column(length = 7)
 	private String licensePlate;
 	
+	@OnChange(forViews="WithOnChangeRoadworthy", value=OnChangeVoidAction.class) 
 	private boolean roadworthy;
 	
 	@ManyToOne

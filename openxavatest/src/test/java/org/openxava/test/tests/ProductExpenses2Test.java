@@ -1,8 +1,7 @@
 package org.openxava.test.tests;
 
+import org.htmlunit.html.*;
 import org.openxava.tests.*;
-
-import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  *  
@@ -56,9 +55,9 @@ public class ProductExpenses2Test extends ModuleTestBase {
 	private void assertComboDescription(String member, String expectedDescription) {
 		HtmlInput input = getHtmlPage().getHtmlElementById("ox_openxavatest_ProductExpenses2__expenses___0___" + member);
 		HtmlInput control = (HtmlInput) input.getPreviousElementSibling();
-		assertEquals(expectedDescription, control.getValueAttribute());
+		assertEquals(expectedDescription, control.getValue());
 		HtmlInput description = (HtmlInput) input.getNextElementSibling();
-		assertEquals(expectedDescription, description.getValueAttribute());
+		assertEquals(expectedDescription, description.getValue());
 	}
 	
 	private void assertOpenCombo(int row) throws Exception {

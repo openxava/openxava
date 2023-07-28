@@ -241,9 +241,8 @@ public class AnnotatedClassParser implements IComponentParser {
 			PropertyMapping pMapping = mapping.getPropertyMapping(prefix + override.name());
 			pMapping.setColumn(override.column().name());			
 		}
-		catch (ElementNotFoundException ex) {					
-			throw new XavaException("attribute_override_not_found", override.name(), mapping.getModelName()); 
-			
+		catch (ElementNotFoundException ex) {
+			// Because we could get a property (with getter and setter) with not corresponding field or vice versa
 		}
 	}
 
@@ -694,7 +693,9 @@ public class AnnotatedClassParser implements IComponentParser {
 			setCalculated(pd, property); 
 		}
 		
-		
+		if (field == null && pd.getWriteMethod() != null) {
+			property.setNotFieldBackedAndNotCalculated(true);
+		}
 		
 		// The mapping part
 		if (mapping != null && field != null) { 
@@ -873,6 +874,7 @@ public class AnnotatedClassParser implements IComponentParser {
 		}
 
 		// size
+		boolean defaultSize = false; 
 		if (element.isAnnotationPresent(javax.validation.constraints.Max.class)) {
 			javax.validation.constraints.Max max = element.getAnnotation(javax.validation.constraints.Max.class);
 			property.setSize((int) (Math.log10(max.value()) + 1));
@@ -892,6 +894,7 @@ public class AnnotatedClassParser implements IComponentParser {
 				// is omitted, then we put 0 in order to OX calculate its default size.
 				// This is can be a problem when the developer put 255 explicitly. 
 				property.setSize(0);
+				defaultSize = true; 
 				if (column.scale() > 0) {
 					property.setScale(column.scale());
 				}
@@ -1060,6 +1063,7 @@ public class AnnotatedClassParser implements IComponentParser {
 					propertyView.setDisplaySize(displaySize.value());
 					mustAddMetaView = true;				
 				}
+				if (defaultSize) property.setSize(255); // If you change this line change also the one for DisplaySizes below 	
 			}
 			if (element.isAnnotationPresent(DisplaySizes.class)) {
 				DisplaySize [] displaySizes = element.getAnnotation(DisplaySizes.class).value();				
@@ -1068,7 +1072,8 @@ public class AnnotatedClassParser implements IComponentParser {
 						propertyView.setDisplaySize(displaySize.value());
 						mustAddMetaView = true;				
 					}
-				}					
+				}
+				if (defaultSize) property.setSize(255); // If you change this line change also the one for DisplaySizes above
 			}			
 			
 			// LabelStyle

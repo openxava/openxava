@@ -4,11 +4,10 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.htmlunit.html.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
-
-import com.gargoylesoftware.htmlunit.html.*;
 
 
 /**
@@ -183,7 +182,7 @@ public class ColorTest extends ModuleTestBase {
 		assertRowChecked(13);
 		assertRowUnchecked(14);
 		execute("List.orderBy", "property=number");
-		assertRowUnchecked(10);
+		assertRowUnchecked(10); 
 		assertRowUnchecked(11);
 		assertRowUnchecked(12);
 		assertRowUnchecked(13);

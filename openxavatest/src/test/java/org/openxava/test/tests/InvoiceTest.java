@@ -5,6 +5,8 @@ import java.rmi.*;
 import java.text.*;
 import java.util.*;
 
+import org.htmlunit.ElementNotFoundException;
+import org.htmlunit.html.*;
 import org.openxava.actions.*;
 import org.openxava.jpa.*;
 import org.openxava.test.calculators.*;
@@ -12,9 +14,6 @@ import org.openxava.test.model.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
-
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
-import com.gargoylesoftware.htmlunit.html.*;
 
 
 
@@ -326,13 +325,13 @@ public class InvoiceTest extends CustomizeListTestBase {
 			{ "customer.website", "Customer web site" },
 			{ "customer.remarks", "Customer remarks" },
 			{ "customer.address.street", "Customer address street" },
-			{ "customer.address.zipCode", "Customer address zip code" },
 			{ "customer.address.city", "Customer address city" },
 			{ "customer.address.state.id", "Customer address state id" },
 			{ "customer.address.state.name", "State" },
 			{ "customer.address.state.fullNameWithFormula", "Customer address state full name with formula" },
 			{ "customer.address.state.fullName", "Customer address state full name" },
 			{ "customer.address.asString", "Customer address as string" },
+			{ "customer.address.zipCode", "Customer address zip code" }, 
 			{ "customer.seller.number", "Customer seller number" },
 			{ "customer.seller.name", "Customer seller name" },
 			{ "customer.seller.level.id", "Customer seller level id" },
@@ -435,7 +434,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 			{ "yearDiscount", "Year discount" },
 			{ "considerable", "Considerable" }				
 		};		
-		assertValidValues("name", allColumnNames); 
+		assertValidValues("name", allColumnNames);  
 		
 		closeDialog();
 		
@@ -755,6 +754,10 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertRowCollectionUnchecked("deliveries", 0);
 		execute("Sections.change", "activeSection=1");
 		assertRowCollectionUnchecked("details", 0);
+		
+		assertTotalInCollection("details", 0, 2, "");
+		execute("List.sumColumn", "property=quantity,collection=details");
+		assertTotalInCollection("details", 0, 2, "Sum of Quantity");
 	}
 	
 	public void testGenerateCustomPdfAndPrepareNewAfter() throws Exception { 
@@ -845,7 +848,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("Sections.change", "activeSection=1");
 		assertCollectionRowCount("details", 10);
 		execute("List.goNextPage", "collection=details");
-		assertCollectionRowCount("details", 4);
+		assertCollectionRowCount("details", 4); 
 		execute("List.goPreviousPage", "collection=details");
 		assertCollectionRowCount("details", 10);
 		execute("List.goPage", "page=2,collection=details");
@@ -1119,9 +1122,9 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValueInCollection("xavaPropertiesList", 19, 0, "Deliveries date as label"); 
 		assertAction("AddColumns.showMoreColumns");
 
-		HtmlElement searchBox = getHtmlPage().getHtmlElementById("xava_search_columns_text");
+		HtmlInput searchBox = getHtmlPage().getHtmlElementById("xava_search_columns_text");
 		searchBox.type("DISCOUNT");
-		assertEquals("DISCOUNT", searchBox.getAttribute("value"));		
+		assertEquals("DISCOUNT", searchBox.getValue()); 
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
 		assertCollectionRowCount("xavaPropertiesList", 4); 		
 		assertValueInCollection("xavaPropertiesList",  0, 0, "Customer discount");
@@ -1131,7 +1134,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertNoAction("AddColumns.showMoreColumns");		
 		
 		searchBox.type("\b\b\b\b\b\b\b\b");
-		assertEquals("", searchBox.getAttribute("value"));
+		assertEquals("", searchBox.getValue()); 
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
 		assertCollectionRowCount("xavaPropertiesList", 20); 		
 		assertValueInCollection("xavaPropertiesList",  0, 0, "Comment"); 
@@ -1142,7 +1145,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertCollectionRowCount("xavaPropertiesList", 116);  
 		searchBox = getHtmlPage().getHtmlElementById("xava_search_columns_text");
 		searchBox.type("DISCOUNT");
-		assertEquals("DISCOUNT", searchBox.getAttribute("value"));		
+		assertEquals("DISCOUNT", searchBox.getValue()); 
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
 		assertCollectionRowCount("xavaPropertiesList", 4); 		
 		assertValueInCollection("xavaPropertiesList",  0, 0, "Customer discount");

@@ -5,12 +5,11 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.htmlunit.html.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
-
-import com.gargoylesoftware.htmlunit.html.*;
 
 
 /**
@@ -147,7 +146,7 @@ public class DeliveryTest extends ModuleTestBase {
 		execute("Reference.modify", "model=DrivingLicence,keyProperty=drivingLicence__KEY__");
 		assertDialog();
 		assertExists("warehouse.name"); // We still are in the Carrier dialog
-		assertError("Impossible to modify an empty reference");
+		assertError("Impossible to modify an empty reference"); 
 		assertNoAction("CRUD.new");
 		assertAction("Modification.update");		
 	}
@@ -342,7 +341,7 @@ public class DeliveryTest extends ModuleTestBase {
 			setValue("description", String.valueOf(x));
 			execute("Collection.saveAndStay");
 		}
-		assertError("More than 3 items in Details of Delivery are not allowed");
+		assertError("More than 3 items in Details of Delivery are not allowed"); 
 		execute("DeliveryDetail.hideDetail");
 		assertCollectionRowCount("details", 3);
 		checkAllCollection("details");
@@ -357,7 +356,7 @@ public class DeliveryTest extends ModuleTestBase {
 		setValue("shortcut", "DY");
 		
 		assertValue("remarks", "Delayed");
-		assertFocusOn("remarks");		
+		assertFocusOn("remarks"); 
 	}
 	
 	public void testZeroValueOnChange_accedingDescriptionsListDescriptionUsingGetEntity() throws Exception { 

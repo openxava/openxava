@@ -23,6 +23,7 @@ import org.openxava.model.meta.*;
 import org.openxava.tab.impl.*;
 import org.openxava.tab.meta.*;
 import org.openxava.util.*;
+import org.openxava.util.Messages.*;
 import org.openxava.view.*;
 import org.openxava.web.*;
 
@@ -489,6 +490,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	private boolean cancelSavingPreferences = false;
 	private String editor;   
 	private Messages errors;
+	private Messages messages; 
 	private String defaultCondition;
 	private transient Collection<MetaProperty> metaPropertiesBeforeGrouping;
 	private boolean optimizeChunkSize = false; 
@@ -790,12 +792,13 @@ public class Tab implements java.io.Serializable, Cloneable {
 		tableModel = tab.getTable();
 		
 		// To load data, thus it's possible go directly to other page than first
-		if (tableModel.getColumnCount() > 0) { // Maybe we have a table model without columns, rare but possible			
+		if (getPage() > 1 && tableModel.getColumnCount() > 0) { // Maybe we have a table model without columns, rare but possible
 			int limit = getPage() * getPageRowCount();
 			for (int row=0; row < limit; row += getPageRowCount() ) {
 				tableModel.getValueAt(row,0);
 			}
 		}
+
 		return tableModel;
 	}
 	
@@ -1964,10 +1967,23 @@ public class Tab implements java.io.Serializable, Cloneable {
 	public void setConfigurationName(String newName) { 
 		if (configuration == null) return;
 		if (!configurations.containsKey(configuration.getId())) {
+			Configuration confWithSameName = findConfigurationByName(newName);
+			if (confWithSameName != null) {
+				configurations.remove(confWithSameName.getId());
+				removeConfigurationPreferences(confWithSameName.getId());
+				getMessages().add(Type.WARNING, "query_overwritten_warning", "'" + newName + "'");
+			}
 			configurations.put(configuration.getId(), configuration);
 		}
 		configuration.setName(newName);
 		saveConfigurationPreferences(true);
+	}
+	
+	private Configuration findConfigurationByName(String name) { 
+		for (Configuration conf: configurations.values()) {
+			if (conf.getName().trim().equalsIgnoreCase(name.trim())) return conf;
+		}
+		return null;
 	}
 	
 	/**
@@ -2375,7 +2391,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 			loadConfigurationsPreferences();
 		}
 		catch (Exception ex) {
-			log.warn(XavaResources.getString("warning_load_preferences_tab"),ex);
+			log.warn(XavaResources.getString("warning_load_preferences_tab") + ": " + ex.getMessage()); 
 		}
 	}
 		
@@ -2922,7 +2938,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 * @since 6.4
 	 */
 	public boolean isOrderCapable(MetaProperty p) {    
-		return !p.isCalculated() && !isFromCollection(p);
+		return p.isFilterCapable() && !isFromCollection(p); 
 	}	
 
 	/**
@@ -3104,6 +3120,14 @@ public class Tab implements java.io.Serializable, Cloneable {
 		if (this.optimizeChunkSize == optimizeChunkSize) return;
 		this.optimizeChunkSize = optimizeChunkSize;
 		if (getMetaTab().hasCalculatedProperties()) this.tableModel = null;
+	}
+
+	public Messages getMessages() {
+		return messages;
+	}
+
+	public void setMessages(Messages messages) {
+		this.messages = messages;
 	}
 
 }

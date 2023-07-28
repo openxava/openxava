@@ -23,6 +23,8 @@
 </tr>
 </table>
 
+<div id="mybutton"><xava:button action="CRUD.save" argv="resetAfter=false"/></div>
+
 <img id="oximage" src="https://openxava.org/images/demo1_es.png"/>
 
 <script type='text/javascript' src='https://openxava.org/test/sayHello.js'></script>

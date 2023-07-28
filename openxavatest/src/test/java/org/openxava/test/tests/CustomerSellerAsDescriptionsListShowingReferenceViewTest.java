@@ -2,9 +2,8 @@ package org.openxava.test.tests;
 
 import java.util.*;
 
+import org.htmlunit.html.*;
 import org.openxava.tests.*;
-
-import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  * 
@@ -44,7 +43,7 @@ public class CustomerSellerAsDescriptionsListShowingReferenceViewTest extends Mo
 				break;
 			}
 		}
-		assertEquals("2", sellerNumberTextInput.getValueAttribute()); 
+		assertEquals("2", sellerNumberTextInput.getValue()); 
 		assertValue("seller.name", "JUANVI LLAVADOR");
 		assertValue("seller.level.id", "A");
 		assertDescriptionValue("seller.level.id", "MANAGER");

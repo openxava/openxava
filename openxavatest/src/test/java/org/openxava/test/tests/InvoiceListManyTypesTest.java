@@ -180,7 +180,8 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertValue("conditionComparator___3", "not_empty_comparator"); 
 		assertValue("conditionValue___8", "");
 		
-		moveColumn(2, 3);
+		reload(); // Indeed since HtmlUnit 3.3.0 in order the next moveColumn() works. With a real browsers (and previous HtmlUnit) reloading page is not needed 
+		moveColumn(2, 3); 
 		assertListRowCount(5);
 		assertListColumnCount(10);
 		assertLabelInList(0, "Year");

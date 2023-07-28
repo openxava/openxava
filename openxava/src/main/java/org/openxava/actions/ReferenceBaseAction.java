@@ -67,6 +67,10 @@ public class ReferenceBaseAction extends ViewBaseAction {
 		}
 		String subviewName = memberName.substring(0, idx);
 		String nextMember = memberName.substring(idx + 1);		
+		View subview = view.getSubview(subviewName);
+		if (subview.isRepresentsEntityReference() && subview.getMetaModel().containsMetaReference(nextMember)) {
+			return new ViewInfo(subview, subviewName, view); 
+		}
 		return createSubview(view.getSubview(subviewName), nextMember);
 	}
 	

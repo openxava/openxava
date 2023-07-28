@@ -3,10 +3,9 @@ package org.openxava.test.tests;
 import java.util.*;
 
 import org.apache.commons.lang.*;
+import org.htmlunit.html.*;
 import org.openxava.tests.*;
 import org.openxava.web.*;
-
-import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  * For testing that only the needed parts are reload by AJAX. <p>
@@ -963,7 +962,7 @@ public class AJAXTest extends ModuleTestBase {
 	private String getLoadedParts() { 
 		HtmlPage page = getHtmlPage(); 
 		HtmlInput input = (HtmlInput) page.getHtmlElementById(decorateId("loaded_parts"));
-		return input.getValueAttribute();
+		return input.getValue();
 	}
 			
 }

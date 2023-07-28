@@ -24,3 +24,8 @@ With flowLayout=true in xava.properties:
 - Movie3WithSection: The @Files property is shown and fill all the section width.
 - Invoice: In Amounts section the fields are in one row (when enough space), nicely aligned.	
 - CarrierWithCollectionsTogether: Collections frames aligned with Header frame on right.
+- Warehouse: Simple, one field below other.
+- WarehouseInGroup: Simple, one field below other, inside the group frame.
+- WarehouseInSection: Simple, one field below other, inside the section.
+- CustomerAddress: Simple, one field below other, inside the embeddable frame. 
+

@@ -2,8 +2,8 @@ package org.openxava.test.tests;
 
 import org.openxava.tests.*;
 
-import com.gargoylesoftware.htmlunit.html.*;
-import com.gargoylesoftware.htmlunit.javascript.host.event.*;
+import org.htmlunit.html.*;
+import org.htmlunit.javascript.host.event.*;
 
 /**
  * Create on 27/02/2012 (10:56:25)

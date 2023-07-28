@@ -665,7 +665,7 @@ public class MetaView extends MetaElement implements Cloneable {
 		return (MetaReferenceView) metaViewsReferences.get(ref);
 	}		
 	
-	public List getSections() throws XavaException {
+	public List<MetaView> getSections() throws XavaException { 
 		if (metaModel != null) copyMembersFromExtendedView(); // We ask for metaModel because getSections() is used from setMetaModel()
 		return sections == null?Collections.EMPTY_LIST:sections;		
 	}

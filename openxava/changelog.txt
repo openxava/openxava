@@ -1,14 +1,48 @@
 Change Log for OpenXava project
 ===============================
 
-- Fix: @OnChange on several date properties applies only to last date when using popup calendar.
-- Fix: Calendar list format doesn't take the first date property as the date for calendar sometimes.
-- Fix: Calendar list format problems when more than 2 date properties in the entity.
-- Fix: Some mistypes in code keywords (nonce) in migrations instructions to 7.1.
-- Fix: IForwardAction for executing JavaScript no longer supported not included in migration doc to 7.1. 
-- Fix: Migration documentation from 6 to 7 misses some resources to copy and to exclude.
-- Fix: Customizing doc for Welcome and First Steps pages references master branch, sometimes not compatible. 
-- Article in documentation to integrate Spring Boot with OpenXava.
+OpenXava 7.1.4 (2023-8-7)
+-------------------------
+- Embedded Tomcat used in development upgraded to 9.0.78.
+- Driver version in doc and new projects upgraded for MySQL.
+- Fix: xava:button tag to use in custom JSPs breaks the page if you use argv attribute.
+- Fix: Ordering a list or collection by a property of a reference of a reference (3 levels or more) fails.
+- Fix: When uploading several files at same time on creating a new entity some of the files may get lost.
+- Fix: Email subscription icon difficult to see with some themes.
+- Fix: @DisplaySize with a value greater than 50 ignored when used with @Column(length=255).
+- Fix: Moving columns to customize a list does not work if the application name contains underscores.
+- Fix: Default label for the application in new projects starts with a lowercase letter.
+- Fix: Error in log on server restart from time to time: Controller __MODIFIED_CONTROLLER__ not found. 
+- Fix: Property (a getter + a setter) not backed by a field with the same name produces error in list mode.
+- Fix: Private attributes cannot be mapped with @AttributeOverride.
+- Fix: Alarming stacktrace in log when no longer existing properties are stored in list user preferences. 
+- Fix: @File properties do not remove deleted content from OXFILES or file system.
+- Fix: Searching dialog for references shows data of incorrect entity if nested composite keys are used.
+
+OpenXava 7.1.3 (2023-7-14)
+--------------------------
+- HtmlUnit upgrade to 3.3.0.
+- Groovy updated to 4.0.13.
+- PDFBox updated to 2.0.29.
+- Embedded Tomcat used in development upgraded to 9.0.76.
+- Driver version in doc and new projects upgraded for AS/400 and Firebird.
+- Fixed 1 critical security vulnerability in dependencies, now we have 0 vulnerabilities.
+- Fix: Queries saved by the user in a list with the name of an existing one are stored repeatedly.
+- Fix: @OnChange on the first property of a collection view in a @OneToMany with no cascade shows an error.
+- Fix: Text color in @HtmlText and @Discussion is ignored after saving and reading the record again.
+- Fix: Insert link in a @HtmlUnit editor from inside a dialog does not work.
+- Fix: Top module menu shows ??? for module titles when server encoding does not match language encoding.
+- Fix: Page generating PDF with no records shows ??? when server encoding does not match language encoding.
+- Fix: NullPointerException in log when adding sum to a collection from the user interface. 
+- Fix: When a user adds a sum to a collection column, the corresponding label is not shown.
+- Fix: Project does not start if the workspace is in a path with special characters or accents.
+- Fix: Low performance entering in a list format other than list, like Calendar, with calculated properties.
+- Fix: @HtmlUnit and @Discussion editors do not follow the style of the current theme.
+- Fix: Lot of CSS rules related to the no longer existent CKEditor.
+- Fix: CSS and JS files for editors not loaded with Weblogic.
+
+OpenXava 7.1.2 (2023-6-23)
+--------------------------
 - New property trustedHostsForImages in xava.properties for exceptions in CSP for source of images. 
 - New property trustedHostsForScripts in xava.properties for exceptions in CSP for source of scripts.
 - New property trustedHostsForStyles in xava.properties for exceptions in CSP for source of CSS files.
@@ -16,6 +50,20 @@ Change Log for OpenXava project
 - HSQLDB updated to 2.7.2.
 - Lombok updated to 1.18.28.
 - Jersey media updated to 2.39.1.
+- Article in documentation to integrate Spring Boot with OpenXava.
+- Fix: @OnChange on several date properties applies only to the last date when using the popup calendar.
+- Fix: Simple layout when flowLayout=true is not applied if the view is inside a group, section or embedded. 
+- Fix: After clicking on the calendar navigation icon the icon border is left displayed.
+- Fix: Mouse hover calendar days does not display any background color.
+- Fix: Day dividing lines in calendar are not seen well with Terra theme.
+- Fix: Background color of calendar current day is not theme dependent.
+- Fix: Color event icon in calendar is not theme dependent.
+- Fix: Calendar list format doesn't take the first date property as the date for the calendar sometimes.
+- Fix: Calendar list format problems when more than 2 date properties in the entity.
+- Fix: Some mistypes in code keywords (nonce) in migrations instructions to 7.1.
+- Fix: IForwardAction for executing JavaScript no longer supported not included in migration doc to 7.1. 
+- Fix: Migration documentation from 6 to 7 misses some resources to copy and to exclude.
+- Fix: Customizing doc for Welcome and First Steps pages references master branch, sometimes not compatible. 
 
 OpenXava 7.1.1 (2023-6-2)
 -------------------------

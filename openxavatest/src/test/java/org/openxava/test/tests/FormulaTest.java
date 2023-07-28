@@ -36,7 +36,7 @@ public class FormulaTest extends ModuleTestBase {
 		assertValue("selectedIngredientSize", "0");
 		
 		execute("List.goNextPage", ",collection=ingredients");
-		assertCollectionRowCount("ingredients", 3);
+		assertCollectionRowCount("ingredients", 3); 
 		checkRowCollection("ingredients", 10);
 		assertValue("selectedIngredientSize", "1");
 		checkRowCollection("ingredients", 11);
@@ -53,7 +53,7 @@ public class FormulaTest extends ModuleTestBase {
 		assertValueInCollection("ingredients", 0, 1, "AZUCAR"); 
 		assertValueInCollection("ingredients", 9, 1, "AZUCAR");
 		execute("List.goNextPage", "collection=ingredients");
-		assertValueInCollection("ingredients", 2, 1, "CAFE");
+		assertValueInCollection("ingredients", 2, 1, "CAFE"); 
 		execute("List.goPreviousPage", "collection=ingredients");
 		setConditionValues("ingredients", new String[] { "", "CAFE"}); 
 		execute("List.filter", "collection=ingredients");

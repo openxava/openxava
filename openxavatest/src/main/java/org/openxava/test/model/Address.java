@@ -1,6 +1,8 @@
 package org.openxava.test.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
+
 import org.openxava.annotations.*;
 
 /**
@@ -39,11 +41,12 @@ public class Address implements IWithCity {
 	})
 	@Action(value="Customer.prefixStreet", alwaysEnabled=true)
 	private String street;
-	
-	@Required @Column(length=5) 
-	@LabelFormat(LabelFormatType.SMALL)	
-	private int zipCode;
-	
+
+	// The getter and setter a getCity() and setCity() to test two cases:
+	//   1. Accesing to a private field in @AttributeOverride, and
+	//   2. Using properties with not backed by a field 	
+	@Column(length=5) 	
+	private int zip;	
 	
 	@Required @Column(length=20)
 	@LabelFormat(LabelFormatType.NO_LABEL)
@@ -55,7 +58,7 @@ public class Address implements IWithCity {
 	@DescriptionsList(notForViews="StateAsForm") @LabelFormat(LabelFormatType.SMALL)
 	@ManyToOne(fetch=FetchType.LAZY, optional=false) @JoinColumn(name="STATE")	
 	private State state;
-
+	
 	public String getCity() {
 		return city;
 	}
@@ -72,12 +75,14 @@ public class Address implements IWithCity {
 		this.street = street;
 	}
 
+	@Required @Max(99999) 
+	@LabelFormat(LabelFormatType.SMALL)
 	public int getZipCode() {
-		return zipCode;
+		return zip; 
 	}
 
 	public void setZipCode(int zipCode) {
-		this.zipCode = zipCode;
+		this.zip = zipCode; 
 	}
 	
 	@Depends("customer.number") 

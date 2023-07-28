@@ -1,9 +1,8 @@
 package org.openxava.test.tests;
 
+import org.htmlunit.*;
 import org.openxava.tab.*;
 import org.openxava.tests.*;
-
-import com.gargoylesoftware.htmlunit.*;
 
 
 /**

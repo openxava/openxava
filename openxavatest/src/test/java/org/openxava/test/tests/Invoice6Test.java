@@ -3,9 +3,8 @@ package org.openxava.test.tests;
 import java.time.*;
 import java.time.format.*;
 
+import org.htmlunit.html.*;
 import org.openxava.tests.*;
-
-import com.gargoylesoftware.htmlunit.html.*;
 
 /**
  *
@@ -156,7 +155,7 @@ public class Invoice6Test extends ModuleTestBase {
 		selectGroupBy("Group by date");
 		assertListRowCount(8); 
 		assertListColumnCount(3);
-		assertValuesInList(0,  "1/1/2002",  "2,500.00", "1");
+		assertValuesInList(0,  "1/1/2002",  "2,500.00", "1"); 
 		assertValuesInList(1,  "1/4/2004",  "4,407.00", "2");
 		assertValuesInList(2, "12/4/2004",  "1,189.00", "1");
 		assertValuesInList(3, "11/4/2006",      "0.00", "1");

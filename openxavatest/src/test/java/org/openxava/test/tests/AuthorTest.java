@@ -1,6 +1,6 @@
 package org.openxava.test.tests;
 
-import com.gargoylesoftware.htmlunit.html.*;
+import org.htmlunit.html.*;
 
 /**
  * 
@@ -59,7 +59,7 @@ public class AuthorTest extends CustomizeListTestBase {
 		
 		value = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__conditionValue___0");
 		value.focus();
-		value.setValueAttribute("javi");
+		value.setValue("javi");
 		comparator.setSelectedAttribute("contains_comparator", true);
 		waitAJAX();
 		assertListRowCount(1);
@@ -67,7 +67,7 @@ public class AuthorTest extends CustomizeListTestBase {
 		comparator = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__conditionComparator___0");
 		value = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__conditionValue___0");
 		value.focus();
-		value.setValueAttribute("");
+		value.setValue("");
 		comparator.setSelectedAttribute("empty_comparator", true);
 		waitAJAX();
 		assertListRowCount(0);
@@ -75,7 +75,7 @@ public class AuthorTest extends CustomizeListTestBase {
 		comparator = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__conditionComparator___0");
 		value = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__conditionValue___0");
 		assertFalse(value.isDisplayed());
-		assertEquals("", value.getValueAttribute());
+		assertEquals("", value.getValue());
 		comparator.setSelectedAttribute("not_empty_comparator", true);
 		waitAJAX();
 		assertListRowCount(2);
