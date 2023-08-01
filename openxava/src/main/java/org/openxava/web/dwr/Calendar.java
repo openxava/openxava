@@ -15,7 +15,6 @@ import org.openxava.filters.*;
 import org.openxava.formatters.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.Tab;
-import org.openxava.tab.meta.*;
 import org.openxava.util.*;
 import org.openxava.view.View;
 import org.openxava.web.*;
@@ -81,25 +80,27 @@ public class Calendar extends DWRBase {
 		String tabObject = "xava_tab";
 		tab2 = getTab(request, application, module, tabObject);
 		tab = tab2.clone();
-		System.out.println("1" + tab.getBaseCondition());
+
 		setDatesProperty();
-		hasCondition = tabHasCondition(tab);
-		if (hasCondition) tabGetCondition(tab);
+		if (tabHasCondition(tab)) {
+			hasCondition = true;
+			tabGetCondition(tab);
+		} else {
+			hasCondition = false;
+		}
 		hasFilter = tab.getFilter() != null ? true : false;
-		setFilter(tab, monthYear);
-//		if (!hasFilter) {
-//			// !hasCondition
-//			setFilter(tab, monthYear);
-//		}
-		System.out.println("2" + tab.getBaseCondition());
+		//si no hay condicion y no hay filtro por defecto, agrego el mensual
+		//si no hay condicion pero hay filtro por defecto, agrego el mensual tambien
+		//si hay condicion, traigo todo lo que hay en la condicion
+		if (!hasCondition) {
+			setFilter(tab, monthYear);
+		} 
+
 		tab = setProperties(tab);
-		System.out.println("2.1");
 		this.table = tab.getTableModel();
 		int tableSize = 0;
 		String json = null;
-		System.out.println("2.2");
 		tableSize = tab.getTableModel().getTotalSize();
-		System.out.println("3");
 		if (tableSize > 0) {
 			for (int i = 0; i < tableSize; i++) {
 				event = new CalendarEvent();
@@ -124,7 +125,6 @@ public class Calendar extends DWRBase {
 		}
 		ObjectMapper objectMapper = new ObjectMapper();
 		json = objectMapper.writeValueAsString(calendarEvents);
-		System.out.println(json.toString());
 		return json.toString();
 	}
 
@@ -374,23 +374,16 @@ public class Calendar extends DWRBase {
 		keysListSize = keysList.size();
 		datesListSize = datesList.size();
 		properties1ListSize = properties1List.size();
-		System.out.println("antes de hasCondition");
-		System.out.println(tab.getBaseCondition());
+
 		if (hasCondition) {
-			if (hasFilter) {
-				System.out.println(Arrays.toString(conditionValues));
-				System.out.println(Arrays.toString(conditionValuesTo));
-				System.out.println(Arrays.toString(conditionComparators));
-				MetaTab metaTab = tab.getMetaTab();
-				tab.addProperties(metaTab, newTabColumn, conditionValues, conditionValuesTo, conditionComparators);
-			} else {
-				tab.addProperties(newTabColumn, conditionValues, conditionValuesTo, conditionComparators);
-			}
+			String[] conditionValues = tab.getConditionValues();
+			String[] conditionValuesTo = tab.getConditionValuesTo();
+			String[] conditionComparators = tab.getConditionComparators();
+			tab.addProperties(newTabColumn, conditionValues, conditionValuesTo, conditionComparators);
 		} else {
 			tab.clearProperties();
 			tab.addProperties(newTabColumn);
 		}
-		
 		return tab;
 	}
 	
@@ -416,22 +409,17 @@ public class Calendar extends DWRBase {
 	
 	private void setFilter(Tab tab, String monthYear) {
 		if (hasFilter) {
-			System.out.println("tiene filtro");
 			IFilter oldFilter = tab.getFilter();
 			DateRangeFilter filter = new DateRangeFilter();
 			filter = setFilterForMonth(monthYear);
 			tab.setFilter(new CompositeFilter(oldFilter, filter));
 			tab.setBaseCondition("${" + dateName + "} between ? and ?");
 		} else {
-			System.out.println("no tiene filtro");
 			DateRangeFilter filter = new DateRangeFilter();
 			filter = setFilterForMonth(monthYear);
 			tab.setFilter(filter);
 			tab.setBaseCondition("${" + dateName + "} between ? and ?");
 		}
-
-		
-
 	}
 	
 	public String format(Object date, boolean withTime, boolean oldLib) {
