@@ -17,7 +17,7 @@ public class CalendarTest extends WebDriverTestBase {
 
 	public void testNavigation() throws Exception {
 		forTestAddEventAndVerify();
-		forTestConditions();
+		forTestConditionsAndFilter();
 		forTestAnyNameAsDateProperty();
 		forTestMultipleDateAndFirstDateAsEventStart(); 
 	}
@@ -166,7 +166,7 @@ public class CalendarTest extends WebDriverTestBase {
 		verifyPrevInvoiceEvent();
 	}
 	
-	private void forTestConditions() throws Exception {
+	private void forTestConditionsAndFilter() throws Exception {
 		driver.get("http://localhost:8080/openxavatest/m/InvoiceCalendar");
 		wait(driver);
 		moveToListView(driver);
