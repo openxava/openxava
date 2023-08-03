@@ -65,6 +65,7 @@ public class CSSServlet extends HttpServlet {
 			}
 			String contentType = getContentType(request.getPathInfo());
 			response.setContentType(contentType); // // If you change this pass the ZAP test again
+			response.setHeader("Cache-Control", "public, max-age=1209600"); 
 			StringWriter writer;
 			String data = "";
 			if (contentType == null) return;
