@@ -16,6 +16,7 @@ here that you want to override.
 
 	<env-var name="XAVA_SEARCH_ACTION" value="CRUD.searchByViewKey"/>
 	<env-var name="XAVA_LIST_ACTION" value="List.viewDetail"/>
+	<env-var name="XAVA_CALENDAR_VIEWEVENT_ACTION" value="Calendar.viewDetail"/>
 	
 	<object name="xava_view" class="org.openxava.view.View"/>	
 	<object name="xava_referenceSubview" class="org.openxava.view.View"/>	
@@ -304,6 +305,18 @@ here that you want to override.
 		<action name="initList" on-init="true"
 			class="org.openxava.actions.InitListAction"
 			hidden="true"/>			
+	</controller>
+	
+	<controller name="Calendar">
+		<action name="viewDetail"
+			class="org.openxava.actions.CalendarViewDetailAction"
+			hidden="true"
+			mode="list"
+			image="edit.gif"
+			icon="border-color">
+			<set property="nextAction" value="Mode.detail"/>
+		</action>	
+	
 	</controller>
 	
 		
