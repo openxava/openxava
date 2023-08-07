@@ -19,6 +19,9 @@ abstract public class WebDriverTestBase extends TestCase {
 		ChromeOptions options = new ChromeOptions();
 	    options.addArguments("--remote-allow-origins=*");
 	    options.addArguments("--accept-lang=en");
+	    //Sometime needs set path and update manually chromedriver when chrome just been updated
+	    //https://googlechromelabs.github.io/chrome-for-testing/
+	    //System.setProperty("webdriver.chrome.driver", "C:/Program Files/Google/Chrome/Application/chromedriver.exe");  
 	    
 		return new ChromeDriver(options);
 	}

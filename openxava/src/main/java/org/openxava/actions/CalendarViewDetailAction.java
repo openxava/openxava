@@ -11,11 +11,7 @@ import org.openxava.util.*;
  */
 public class CalendarViewDetailAction extends ViewDetailAction{
 	
-	private Map key;	
 	private String calendarKey;
-	private String model;
-	private boolean atListBegin;
-	private boolean noElementsInList;
 	
 	public void execute() throws XavaException, ParseException {
 		getView().setModelName(model);
@@ -34,18 +30,6 @@ public class CalendarViewDetailAction extends ViewDetailAction{
 			key.put(allKeyPropertiesNames.get(i).toString(), keyObject);
 		}
 		getView().setValues(key);
-	}
-	
-	private void setAtListBegin(boolean b) {
-		atListBegin = b;
-	}
-	
-	private void setNoElementsInList(boolean b) {
-		noElementsInList = b;
-	}
-	
-	public void setModel(String modelName) { 
-		this.model = modelName;		
 	}
 	
 	public String getCalendarKey() {

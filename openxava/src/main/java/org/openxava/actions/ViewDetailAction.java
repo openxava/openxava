@@ -18,12 +18,12 @@ public class ViewDetailAction extends TabBaseAction implements IChainAction, IMo
 	private int row = Integer.MIN_VALUE;
 	private boolean explicitRow = false;
 	private int increment;
-	private Map key;
+	protected Map key;
 	private boolean goFirst = false;
 	private String nextAction;
 	private boolean atListBegin;
 	private boolean noElementsInList;
-	private String model;
+	protected String model;
 	@Inject
 	private Tab mainTab;
 
@@ -147,11 +147,11 @@ public class ViewDetailAction extends TabBaseAction implements IChainAction, IMo
 		return atListBegin;
 	}
 
-	private void setNoElementsInList(boolean b) {
+	protected void setNoElementsInList(boolean b) {
 		noElementsInList = b;
 	}
 
-	private void setAtListBegin(boolean b) {
+	protected void setAtListBegin(boolean b) {
 		atListBegin = b;
 	}
 
