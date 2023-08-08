@@ -960,9 +960,20 @@ public class MetaView extends MetaElement implements Cloneable {
 		String modelName = getModelName();
 		String viewName = getName().length() > 1 ? " " + getName() + " " : " ";
 		String duplicated = "";
+        List<String> groupMembers = new ArrayList<>();
+        
+        for (MetaMember m : allMetaMembers) {
+			if (m instanceof MetaGroup) {
+				MetaGroup mg = getMetaGroup(m.getName());
+				String[] members = mg.getMembersNames().split("[,;]");
+		        Arrays.stream(members)
+		              .map(String::trim)
+		              .forEach(groupMembers::add);
+			}
+        }
 		for (MetaMember m : allMetaMembers) {
 			if ((m.getMetaModel() != null) && !(m.getName().equalsIgnoreCase(PropertiesSeparator.INSTANCE.getName()))) {
-				if (Collections.frequency(allMetaMembers, m) != 1 && !duplicated.contains(m.getName())) {
+				if (groupMembers.contains(m.getName()) || Collections.frequency(allMetaMembers, m) != 1 && !duplicated.contains(m.getName())) {
 					duplicated = duplicated == "" ? m.getName() : duplicated + ", " + m.getName();
 				}
 			}

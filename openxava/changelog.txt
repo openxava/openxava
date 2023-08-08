@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-OpenXava 7.1.4 (2023-8-7)
+OpenXava 7.1.4 (2023-8-5)
 -------------------------
 - Embedded Tomcat used in development upgraded to 9.0.78.
 - Driver version in doc and new projects upgraded for MySQL.
