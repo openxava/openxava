@@ -21,7 +21,7 @@ String contextPath = (String) request.getAttribute("xava.contextPath");
 if (contextPath == null) contextPath = request.getContextPath();
 String version = org.openxava.controller.ModuleManager.getVersion();
 String action = request.getParameter("rowAction");
-action=action==null?manager.getEnvironment().getValue("XAVA_LIST_ACTION"):action;
+action=action==null?manager.getEnvironment().getValue("XAVA_CALENDAR_VIEWEVENT_ACTION"):action;
 String dateFormat = Dates.dateFormatForJSCalendar();
 String actionNew = "";
 for (MetaAction ma: manager.getMetaActions()) {
@@ -30,6 +30,7 @@ for (MetaAction ma: manager.getMetaActions()) {
        break;
    }
 }
+
 if (dateFormat != null) {
     dateFormat = dateFormat.replace("n", "M")
                            .replace("m", "MM")
