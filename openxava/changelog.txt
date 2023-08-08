@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: CSS files are not cached by browser.
 - Fix: Calendar icon for a date property filtering in list shown when filter by year.
 
 OpenXava 7.1.4 (2023-8-5)
