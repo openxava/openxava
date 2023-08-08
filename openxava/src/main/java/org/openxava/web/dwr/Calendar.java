@@ -89,9 +89,6 @@ public class Calendar extends DWRBase {
 			hasCondition = false;
 		}
 		hasFilter = tab.getFilter() != null ? true : false;
-		//si no hay condicion y no hay filtro por defecto, agrego el mensual
-		//si no hay condicion pero hay filtro por defecto, agrego el mensual tambien
-		//si hay condicion, traigo todo lo que hay en la condicion
 		if (!hasCondition) {
 			setFilter(tab, monthYear);
 		} 
@@ -405,7 +402,6 @@ public class Calendar extends DWRBase {
 		conditionValuesTo = tab.getConditionValuesTo();
 		conditionComparators = tab.getConditionComparators();
 	}
-	
 	
 	private void setFilter(Tab tab, String monthYear) {
 		if (hasFilter) {
