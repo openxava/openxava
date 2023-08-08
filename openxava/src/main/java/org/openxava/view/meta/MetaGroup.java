@@ -39,6 +39,10 @@ public class MetaGroup extends MetaMember implements Cloneable {
 		this.membersNames = members;		
 	}
 
+	public String getMembersNames() {
+		return this.membersNames;		
+	}
+	
 	public boolean isAlignedByColumns() {
 		return alignedByColumns;
 	}
