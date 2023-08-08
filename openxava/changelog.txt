@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Calendar icon for a date property filtering in list shown when filter by year.
+
 OpenXava 7.1.4 (2023-8-5)
 -------------------------
 - Embedded Tomcat used in development upgraded to 9.0.78.
