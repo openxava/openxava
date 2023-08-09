@@ -961,7 +961,6 @@ public class MetaView extends MetaElement implements Cloneable {
 		String viewName = getName().length() > 1 ? " " + getName() + " " : " ";
 		String duplicated = "";
         List<String> groupMembers = new ArrayList<>();
-        
         for (MetaMember m : allMetaMembers) {
 			if (m instanceof MetaGroup) {
 				MetaGroup mg = getMetaGroup(m.getName());

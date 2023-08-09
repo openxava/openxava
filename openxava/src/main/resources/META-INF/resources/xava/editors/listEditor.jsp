@@ -288,8 +288,9 @@ while (it.hasNext()) {
 			classConditionValue="class='ox-date-calendar'";
 			dateDisabled = "xava_date_disabled";
 			styleCalendar = "ox-display-none"; 
+		} else {
+			classConditionValue="class='xava_date ox-date-calendar'";  
 		}
-		else classConditionValue="class='xava_date ox-date-calendar'";  
 	}
 	String attrConditionValue = isDate?"data-date-format='" + org.openxava.util.Dates.dateFormatForJSCalendar(isTimestamp) + "'":"";
 	if (isTimestamp) attrConditionValue += " data-enable-time='true'"; 
@@ -307,8 +308,10 @@ while (it.hasNext()) {
 <input id="<%=idConditionValue%>" name="<%=idConditionValue%>" class="<%=style.getEditor()%> <%=dateDisabled%> <%=styleConditionValue%>" type="text"
 	maxlength="<%=maxLength%>" size="<%=length%>" value="<%=value%>" placeholder="<%=labelFrom%>"
 	<%=isDate?"data-input":""%>/>
-	<% if (isDate) { %>
-		<a href="javascript:void(0)" data-toggle class="<%=styleConditionValue%> <%=styleCalendar%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
+	<% if (isDate) { 
+	String styleValue = styleCalendar != null ? styleCalendar : styleConditionValue;
+	%>
+		<a href="javascript:void(0)" data-toggle class="<%=styleValue%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
 	<% } %>
 </nobr>
 <br/>

@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- New environment variable XAVA_CALENDAR_VIEWEVENT_ACTION to define the action on click in a calendar event.
+- Fix: Duplicate member in @View inside a group does not shown the warning message and stacktrace.
+- Fix: CSS files are not cached by browser.
+- Fix: Calendar icon for a date property filtering in list shown when filter by year.
+
 OpenXava 7.1.4 (2023-8-5)
 -------------------------
 - Embedded Tomcat used in development upgraded to 9.0.78.
