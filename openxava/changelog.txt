@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Openxavatest selenium updated to 4.8.3
+- Driver version in doc and new projects upgraded for Microsoft SQL Server.
 - New environment variable XAVA_CALENDAR_VIEWEVENT_ACTION to define the action on click in a calendar event.
 - Fix: Duplicate member in @View inside a group does not shown the warning message and stacktrace.
 - Fix: CSS files are not cached by browser.
