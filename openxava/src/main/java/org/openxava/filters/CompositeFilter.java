@@ -3,9 +3,11 @@ package org.openxava.filters;
 import lombok.*;
 
 /**
- * Used in {@link org.openxava.web.dwr.Calendar} to nest filters. <p>
+ * To sum two IFilter. <p>
  * 
- * @since 7.1.2
+ * Used in {@link org.openxava.web.dwr.Calendar} to nest filters. 
+ * 
+ * @since 7.1.5
  * @author Chungyen Tsai
  *
  */

@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Low performance in calendar view with large datasets when the @Tab has an IFilter.
+- New CompositeFilter to sum two IFilter to set with Tab.setFilter() or as base for an IFilter for @Tab.
 - New environment variable XAVA_CALENDAR_VIEWEVENT_ACTION to define the action on click in a calendar event.
 - Fix: Duplicate member in @View inside a group does not shown the warning message and stacktrace.
 - Fix: CSS files are not cached by browser.
