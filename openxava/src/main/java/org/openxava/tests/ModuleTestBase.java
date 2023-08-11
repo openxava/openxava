@@ -1456,7 +1456,15 @@ abstract public class ModuleTestBase extends TestCase {
 		catch (IndexOutOfBoundsException ex) {
 			// Because sometimes is needed to explore collections not contained in the module model
 		}
-		return getTableCellInCollection(collection, row, column).asNormalizedText().trim();
+		return toString(getTableCellInCollection(collection, row, column)); 
+	}
+	
+	private String toString(HtmlTableCell cell) { 
+		String result = cell.asNormalizedText().trim();
+		if (result.length() > 0 && result.charAt(0) > 60000) { // Sometimes when we have characters from other encondings we can have an unrecognized character for a space 
+			result = result.substring(1);
+		}
+		return result;
 	}
 	
 	private HtmlTableCell getTableCellInCollection(String collection, int row, int column) throws Exception {		

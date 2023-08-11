@@ -93,6 +93,12 @@ abstract public class WebDriverTestBase extends TestCase {
 		//waitCalendarEvent(driver);
 	}
 	
+	protected void createFromListView(WebDriver driver, String modelName) throws Exception {
+		WebElement buttonNew = driver.findElement(By.id("ox_openxavatest_" + modelName + "__CRUD___new"));
+		buttonNew.click();
+		wait(driver);
+	}
+	
 	protected void saveFromDetailView(WebDriver driver, String modelName) throws Exception {
 		WebElement buttonSave = driver.findElement(By.id("ox_openxavatest_" + modelName + "__CRUD___save"));
 		buttonSave.click();
