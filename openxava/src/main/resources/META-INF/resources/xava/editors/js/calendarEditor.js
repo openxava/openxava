@@ -60,6 +60,7 @@ openxava.addEditorInitFunction(function() {
                 locale: navigator.language,
                 displayEventTime: false,
                 events: calendarEditor.listEvents,
+				dayMaxEventRows: true,
                 editable: true,
                 progressiveEventRendering: true,
 				eventColor: 'var(--color)',
