@@ -102,29 +102,10 @@ public class EditorTag extends TagSupport {
 			MetaEditor metaEditor = WebEditors.getMetaEditorFor(metaProperty, viewName);
 			String editorBaseURL = org.openxava.web.WebEditors.getUrl(metaProperty, viewName);
 			if (view.hasValidValues(property)) {
-				System.out.println(property + " tiene valid values");
-				System.out.println(metaEditor.getName().equalsIgnoreCase("textEditor.jsp"));
-			editorBaseURL = (!metaEditor.getName().equalsIgnoreCase("") && !metaEditor.getUrl().equalsIgnoreCase("textEditor.jsp")) ? 
+				editorBaseURL = (!metaEditor.getName().equalsIgnoreCase("") && !metaEditor.getUrl().equalsIgnoreCase("textEditor.jsp")) ? 
 							"editors/" + metaEditor.getUrl() :
 							"editors/dynamicValidValuesEditor.jsp";
-			//si tiene valid values, usa dynamic, sino, usa editorBaseURL
-          String editorBaseURL2 = view.hasValidValues(property)?"editors/dynamicValidValuesEditor.jsp":org.openxava.web.WebEditors.getUrl(metaProperty, viewName); // We could move editors/dynamicValidValuesEditor.jsp to default-editors.xml
-			if (view.hasValidValues(property)) {
-				String editorBaseURL3 = (!metaEditor.getName().equalsIgnoreCase("")) ? 
-								"editors/" + metaEditor.getUrl() :
-								"editors/dynamicValidValuesEditor.jsp";
-	            System.out.println("url original " + metaEditor.getUrl());
-				System.out.println("viejo " + editorBaseURL2);
-				System.out.println("7.1 " + editorBaseURL3);
-				System.out.println("nuevo " + editorBaseURL);
 			}
-			}
-
-//        if (view.hasValidValues(property)) {
-//            editorBaseURL = metaEditor.getName().equalsIgnoreCase("EditableValidValues") ?
-//                                                "editors/editableValidValuesEditor.jsp" :
-//                                                "editors/dynamicValidValuesEditor.jsp";
-//        }
 			StringBuffer editorURL = new StringBuffer(editorBaseURL);			
 			char nexus = editorURL.toString().indexOf('?') < 0?'?':'&';
 			String maxSize = "";
