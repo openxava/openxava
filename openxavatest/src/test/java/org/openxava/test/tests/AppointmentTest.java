@@ -78,7 +78,7 @@ public class AppointmentTest extends ModuleTestBase {
 		assertErrorsCount(1);
 		assertError("Empty file");
 		
-		assertImport("appointments.csv", ""); 
+		assertImport("appointments.csv", "");  // appointments.csv is in UTF-8 
 		assertImport("appointments.xlsx", "20"); // 20 because use date OX formatting to turn date from Excel to String 
 	}
 	
@@ -123,7 +123,7 @@ public class AppointmentTest extends ModuleTestBase {
 		assertValueInCollection("columns", 6, 0, "Level of type");
 		assertValueInCollection("columns", 6, 1, "Level of type"); 
 		assertValueInCollection("columns", 6, 2, "");  
-		assertValueInCollection("columns", 6, 3, "");				
+		assertValueInCollection("columns", 6, 3, "");
 		
 		String [][] availableProperties = {
 			{ "", "" },
@@ -165,7 +165,7 @@ public class AppointmentTest extends ModuleTestBase {
 		assertValueInList(5, 1, "DRIVING MY BMW");
 		assertValueInList(5, 2, "0");
 		assertValueInList(6, 0, "6/19/2020 8:15 PM");
-		assertValueInList(6, 1, "PLAYING FORTNITE");
+		assertValueInList(6, 1, "PLAYING FÓRTNITE"); // With accent to test importing from UTF-8 so the csvEncoding of xava.properties
 		assertValueInList(6, 2, "4");
 		assertValueInList(6, 3, "PERSONAL DISPENSABLE");
 		
