@@ -14,7 +14,7 @@ public class DeliveryWithSeleniumTest extends WebDriverTestBase {
 	}
 
 	public void testNavigation() throws Exception {
-		//forTestEditableValidValuesWorksWithCSP();
+		forTestEditableValidValuesWorksWithCSP();
 		forTestDynamicValidValuesShowingCombo();
 	}
 
