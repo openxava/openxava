@@ -14,7 +14,6 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-@View(members = " startDate; endDate; createDate; data {year, description}; extra {shortcut}")
 @Tab(name="DefaultYearEnv", 
 filter=DefaultYearEnvFilter.class,
 properties="startDate, endDate, createDate, year, description",
@@ -34,7 +33,5 @@ public class Event extends Identifiable{
 	int year;
 	
 	String description;
-	
-	String shortcut;
 	
 }

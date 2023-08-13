@@ -11,7 +11,8 @@ public class DeliveryWithSeleniumTest extends WebDriverTestBase {
 	}
 
 	public void testNavigation() throws Exception {
-		forTestEditableValidValuesWorksWithCSP();
+		//forTestEditableValidValuesWorksWithCSP();
+		forTestDynamicValidValuesShowingCombo();
 	}
 
 	public void tearDown() throws Exception {
@@ -21,5 +22,20 @@ public class DeliveryWithSeleniumTest extends WebDriverTestBase {
 	public void forTestEditableValidValuesWorksWithCSP() throws Exception {  
 		moveToListView(driver);
 	}
+	
+	public void forTestDynamicValidValuesShowingCombo() throws Exception {
+		driver.get("http://localhost:8080/openxavatest/m/Delivery");
+		wait(driver);
+		acceptInDialogJS(driver);
+		moveToListView(driver);
+		createFromListView(driver, "Delivery");
+		clickOnButtonWithId(driver, "ox_openxavatest_Delivery__Delivery___addShortcutOptions");
+		clickOnSectionWithChildSpanId(driver, "ox_openxavatest_Delivery__label_xava_view_section1_sectionName");
+		clickOnSectionWithChildSpanId(driver, "ox_openxavatest_Delivery__label_xava_view_section0_sectionName");
+        WebElement selectElement = driver.findElement(By.id("ox_openxavatest_Delivery__shortcut"));
+        Assert.assertNotNull("Shortcut not showing as combo", selectElement);
+        goToListFromDetailView(driver, "Delivery");
+	}
+	
 	
 }
