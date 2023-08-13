@@ -7,8 +7,7 @@ import java.util.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.*;
-
-import junit.framework.*;
+import org.openxava.util.*;
 
 public class CalendarTest extends WebDriverTestBase {
 
@@ -24,6 +23,7 @@ public class CalendarTest extends WebDriverTestBase {
 		forTestAnyNameAsDateProperty();
 		forTestMultipleDateAndFirstDateAsEventStart(); 
 		forTestFilterPerformance();
+		forTestDynamicValidValuesShowingCombo();
 	}
 
 	public void tearDown() throws Exception {
@@ -249,6 +249,20 @@ public class CalendarTest extends WebDriverTestBase {
 			*/
 			Assert.fail("If you don't change Calendar code in january, ignore this result");
 		}
+	}
+	
+	public void forTestDynamicValidValuesShowingCombo() throws Exception {
+		driver.get("http://localhost:8080/openxavatest/m/Delivery");
+		wait(driver);
+		acceptInDialogJS(driver);
+		moveToListView(driver);
+		createFromListView(driver, "Delivery");
+		clickOnButtonWithId(driver, "ox_openxavatest_Delivery__Delivery___addShortcutOptions");
+		clickOnSectionWithChildSpanId(driver, "ox_openxavatest_Delivery__label_xava_view_section1_sectionName");
+		clickOnSectionWithChildSpanId(driver, "ox_openxavatest_Delivery__label_xava_view_section0_sectionName");
+        WebElement selectElement = driver.findElement(By.id("ox_openxavatest_Delivery__shortcut"));
+        Assert.assertNotNull("Shortcut not showing as combo", selectElement);
+        goToListFromDetailView(driver, "Delivery");
 	}
 	
 }
