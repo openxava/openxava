@@ -50,7 +50,7 @@ if (editable) {
 	} else {
 %>
     <div class="ox-select-editable">
-    	<select tabindex="1" class=<%=style.getEditor()%> title="<%=p.getDescription(request)%>" <%=scriptSelect%> onchange="editableValidValuesEditor.handleSelectChange(this)">
+    	<select tabindex="1" class=<%=style.getEditor()%> title="<%=p.getDescription(request)%>" <%=scriptSelect%> onchange="handleSelectChange(this)">
 <% 
 		if (view.hasBlankValidValue(p.getName())) { 
 %>
@@ -66,7 +66,7 @@ if (editable) {
 %>      
         <option hidden><%=optionHidden%></option>
 		</select>
-		<input id="<%=propertyKey%>" name="<%=propertyKey%>" type="text"  <%=scriptInput%> onchange="editableValidValuesEditor.handleSelectInput(this)" maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=value%>"/>
+		<input id="<%=propertyKey%>" name="<%=propertyKey%>" type="text"  <%=scriptInput%> onchange="handleSelectInput(this)" maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=value%>"/>
 		<input type="hidden" name="<%=propertyKey%>__DESCRIPTION__" value="<%=description%>"/>
 	</div>
 <%		

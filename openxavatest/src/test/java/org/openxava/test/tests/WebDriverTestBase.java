@@ -88,7 +88,6 @@ abstract public class WebDriverTestBase extends TestCase {
 	protected void goToListFromDetailView(WebDriver driver, String modelName) throws Exception {
 		WebElement buttonList = driver.findElement(By.id("ox_openxavatest_" + modelName + "__Mode___list"));
 		buttonList.click();
-		acceptInDialogJS(driver);
 		wait(driver);
 		//if back to CalendarView, need add another wait after this method
 		//waitCalendarEvent(driver);
@@ -113,18 +112,5 @@ abstract public class WebDriverTestBase extends TestCase {
 		acceptInDialogJS(driver);
 		wait(driver);
 	}
-	
-	protected void clickOnButtonWithId(WebDriver driver, String id) throws Exception {
-		WebElement button = driver.findElement(By.id(id));
-		button.click();
-		wait(driver);
-	}
 
-	protected void clickOnSectionWithChildSpanId(WebDriver driver, String id) throws Exception {
-		WebElement span = driver.findElement(By.id(id));
-		WebElement a = span.findElement(By.xpath(".."));
-		a.click();
-		wait(driver);
-	}
-	
 }
