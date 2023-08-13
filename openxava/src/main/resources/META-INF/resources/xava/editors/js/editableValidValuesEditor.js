@@ -6,7 +6,7 @@ editableValidValuesEditor.handleSelectChange = function(selectElement) {
 	selectElement.options[0].innerHTML = selectElement.options[selectElement.selectedIndex].text;
 }
 
-editableValidValuesEditor.handleSelectInput = function(inputElement){
+editableValidValuesEditor.handleSelectInput = function(inputElement) {
 	inputElement.previousElementSibling.selectedIndex = 0;
 	inputElement.previousElementSibling.options[0].value = inputElement.value;
 	inputElement.previousElementSibling.options[0].innerHTML = inputElement.value;

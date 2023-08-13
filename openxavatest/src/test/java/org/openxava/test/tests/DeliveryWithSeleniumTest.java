@@ -1,6 +1,9 @@
 package org.openxava.test.tests;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.*;
+
+import junit.framework.*;
 
 public class DeliveryWithSeleniumTest extends WebDriverTestBase {
 	
@@ -20,7 +23,25 @@ public class DeliveryWithSeleniumTest extends WebDriverTestBase {
 	}
 	
 	public void forTestEditableValidValuesWorksWithCSP() throws Exception {  
+		driver.get("http://localhost:8080/openxavatest/m/DeliveryEditableValidValues");
+		wait(driver);
+		acceptInDialogJS(driver);
 		moveToListView(driver);
+		createFromListView(driver, "DeliveryEditableValidValues");
+		clickOnButtonWithId(driver, "ox_openxavatest_DeliveryEditableValidValues__DeliveryEditableValidValues___addShortcutOptions");
+		clickOnSectionWithChildSpanId(driver, "ox_openxavatest_DeliveryEditableValidValues__label_xava_view_section1_sectionName");
+		clickOnSectionWithChildSpanId(driver, "ox_openxavatest_DeliveryEditableValidValues__label_xava_view_section0_sectionName");
+		Select selectElement = new Select (driver.findElement(By.xpath("//div[@class='ox-select-editable']//select")));
+		selectElement.selectByValue("a");
+		WebElement input = driver.findElement(By.id("ox_openxavatest_DeliveryEditableValidValues__shortcut"));
+		input.click();
+		input.sendKeys("NR");
+		input.sendKeys(Keys.TAB);
+		wait(driver);
+		WebElement textArea = driver.findElement(By.id("ox_openxavatest_DeliveryEditableValidValues__remarks"));
+		String text = textArea.getAttribute("textContent");
+		Assert.assertEquals(text, "No remarks");
+		goToListFromDetailView(driver, "DeliveryEditableValidValues");
 	}
 	
 	public void forTestDynamicValidValuesShowingCombo() throws Exception {
@@ -36,6 +57,7 @@ public class DeliveryWithSeleniumTest extends WebDriverTestBase {
         Assert.assertNotNull("Shortcut not showing as combo", selectElement);
         goToListFromDetailView(driver, "Delivery");
 	}
+
 	
 	
 }
