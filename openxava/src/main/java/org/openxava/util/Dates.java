@@ -195,6 +195,21 @@ public class Dates {
 		return result;
 	}
 	
+	/**
+	 * Returns a clone but with 999 for milliseconds. <p>
+	 * 
+	 * @return The same date sent as argument (a new date is not created). If null
+	 * 			if sent a null is returned.
+	 */
+	public static java.sql.Timestamp cloneWith999(java.sql.Timestamp date) {
+		if (date == null) return null;
+	    Calendar cal = Calendar.getInstance();
+	    cal.setTime(date);
+	    cal.set(Calendar.MILLISECOND, 999);
+	    
+	    return new java.sql.Timestamp(cal.getTime().getTime());
+	}
+	
 		
 	/**
 	 * Creates a java.sql.Date from a java.util.Date. <p>
