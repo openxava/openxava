@@ -216,7 +216,15 @@ public class ShipmentTest extends ModuleTestBase {
 		setConditionComparators(new String [] { "=", "=", "year_comparator"}); 
 		execute("List.filter");
 		assertListRowCount(1);
-		assertValueInList(0, "description", "CINC");	
+		assertValueInList(0, "description", "CINC");	 
+		assertValueInList(0, "time", "12/25/2006 11:33 AM"); 
+		
+		setConditionComparators(new String [] { "=", "=", "range_comparator"}); 
+		setConditionValues( new String [] { "", "", "12/25/06 11:32 AM"} );
+		setConditionValuesTo("", "", "12/25/06 11:33 AM");
+		execute("List.filter");
+		assertListRowCount(1);
+		assertValueInList(0, "description", "CINC");	 
 		assertValueInList(0, "time", "12/25/2006 11:33 AM"); 
 		
 		setConditionValues( new String [] { "", "", "12/25/06 11:32 AM"} );
