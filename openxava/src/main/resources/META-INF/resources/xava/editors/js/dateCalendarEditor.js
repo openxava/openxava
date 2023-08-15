@@ -1,8 +1,7 @@
 // WARNING: IF YOU CHANGE THIS PASS DateCalendarTest.txt
-openxava.getScript(openxava.contextPath + "/xava/editors/flatpickr/" + openxava.language + ".js");
-
 
 openxava.addEditorInitFunction(function() {
+	openxava.getScript(openxava.contextPath + "/xava/editors/flatpickr/" + openxava.language + ".js");
     if (openxava.browser.htmlUnit) return;
     var readInput = false;
     var enterDate;
