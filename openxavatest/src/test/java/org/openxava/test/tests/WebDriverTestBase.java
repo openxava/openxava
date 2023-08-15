@@ -26,6 +26,14 @@ abstract public class WebDriverTestBase extends TestCase {
 		return new ChromeDriver(options);
 	}
 	
+	protected WebDriver createWebDriver(String lang) {
+		ChromeOptions options = new ChromeOptions();
+	    options.addArguments("--remote-allow-origins=*");
+	    options.addArguments("--accept-lang=" + lang);
+
+		return new ChromeDriver(options);
+	}
+	
 	protected void wait(WebDriver driver) throws Exception {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(100));
 		try {
