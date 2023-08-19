@@ -3,6 +3,7 @@ package org.openxava.web.servlets;
 import java.io.*;
 import java.math.*;
 import java.text.*;
+import java.time.*;
 import java.util.*;
 
 import javax.servlet.*;
@@ -111,17 +112,42 @@ public class GenerateReportServlet extends HttpServlet {
 					return p.getValidValueLabel(locale, original.getValueAt(row, column));
 				}
 			}
-			
-			if (r instanceof java.util.Date) {
+			if (r instanceof java.util.Date || r instanceof java.time.LocalDate || r instanceof java.sql.Timestamp) {
 				MetaProperty p = getMetaProperty(column); // In order to use the type declared by the developer 
 					// and not the one returned by JDBC or the JPA engine
-				return p.format(r, locale); 
-			}
+				int year = -1;
+				boolean isLocalDate = false;
+			    if (p.getType().toString().contains(".LocalDate")) {
+			    	isLocalDate = true;
+			        java.time.LocalDate localDate = (java.time.LocalDate) r;
+			        year = localDate.getYear();
+			    } else if (p.getType().toString().contains(".Date")) {
+			    	java.util.Date date = (java.util.Date) r;
+			    	year = date.getYear() + 1900;
+			    }
+			    
+			    String s = p.format(r, locale);
+			    
+			    if (year > 0 && !s.contains(Integer.toString(year))) {
+			        String sYear = Integer.toString(year);
+			        String sYearLast2 = sYear.substring(sYear.length() - 2);
+			        String[] split = s.split(" ");
+			        if (split[0].startsWith(sYearLast2) && split[0].endsWith(sYearLast2)) {
+			        	String supportString = "";
+			        	supportString = getSupportString(p, isLocalDate, locale);
+			        	s = supportString.startsWith("23") ? s.replaceFirst("\\b\\d{2}\\b", sYear) : s.substring(0, s.length() - 2) + sYear;
+			        } else if (split[0].startsWith(sYearLast2)) {
+			        	s = s.replaceFirst("\\b\\d{2}\\b", sYear);
+			        } else if (split[0].endsWith(sYearLast2)) {
+			        	s = s.substring(0, s.length() - 2) + sYear;
+			        }
+			    }
 
+				return s;
+			}
 			if (formatBigDecimal && r instanceof BigDecimal) {
 				return formatBigDecimal(r, locale); 
 			}
-			
 			return r;
 		}
 		
@@ -385,5 +411,17 @@ public class GenerateReportServlet extends HttpServlet {
 				throw new XavaException("fails_selected");
 			}
 		}
+	}
+	
+	private static String getSupportString(MetaProperty p, boolean isLocalDate, Locale locale ) {
+	    if (isLocalDate) {
+	        LocalDate supportDate = LocalDate.of(2023, 12, 27);
+	        return p.format(supportDate, locale);
+	    } else {
+	        Calendar calendar = Calendar.getInstance();
+	        calendar.set(2023, 12 - 1, 27);
+	        Date supportDate = calendar.getTime();
+	        return p.format(supportDate, locale);
+	    }
 	}
 }
