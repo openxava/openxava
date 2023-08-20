@@ -156,8 +156,30 @@ public class GenerateReportServlet extends HttpServlet {
 			MetaProperty metaProperty = getMetaProperty(column);
 			if (metaProperty.isCompatibleWith(byte[].class)) return r==null?null:new ByteArrayInputStream((byte [])r); 
 			String result = WebEditors.format(this.request, metaProperty, r, null, "", true);
+			System.out.println(result);
+			System.out.println("isHtml " + isHtml(result));
 			if (isHtml(result)){	// this avoids that the report shows html content
-				result = WebEditors.format(this.request, metaProperty, r, null, "", false);
+				System.out.println();
+				if (result.contains("ox-attached-file")) {
+			        String startTag = "<span class=\"ox-attached-file\">";
+			        String endTag = "</span>";
+
+			        int startIndex = result.indexOf(startTag);
+			        int endIndex = result.indexOf(endTag, startIndex);
+			        if (startIndex != -1 && endIndex != -1) {
+			            result = result.substring(startIndex + startTag.length(), endIndex);
+			            int lastDotIndex = result.lastIndexOf(".");
+			            if (lastDotIndex != -1) {
+			            	result = result.substring(0, lastDotIndex);
+			            }
+			        } else {
+			        	result = WebEditors.format(this.request, metaProperty, r, null, "", false);
+			        }
+				} else {
+					result = WebEditors.format(this.request, metaProperty, r, null, "", false);
+				}
+				
+				System.out.println(result);
 			}
 			else {
 				result = result.replaceAll("&lt;", "<").replaceAll("&gt;", ">").replaceAll("&quot;", "\"");
@@ -206,6 +228,7 @@ public class GenerateReportServlet extends HttpServlet {
 			setDefaultSchema(request);
 			String uri = request.getRequestURI();				
 			if (uri.endsWith(".pdf")) {
+				System.out.println("uri pdf");
 				InputStream is;
 				JRDataSource ds;
 				Map parameters = new HashMap();
@@ -215,7 +238,8 @@ public class GenerateReportServlet extends HttpServlet {
 					parameters.put("Title", title);
 					parameters.put("Organization", getOrganization(request)); 
 					parameters.put("Date", getCurrentDate());
-					for (String totalProperty: tab.getTotalPropertiesNames()) { 								
+					for (String totalProperty: tab.getTotalPropertiesNames()) { 
+						System.out.println("totalProperty " + totalProperty);
 						parameters.put(totalProperty + "__TOTAL__", getTotal(request, tab, totalProperty));
 					}
 					TableModel tableModel = getTableModel(request, tab, selectedRows, false, true, null);
@@ -342,6 +366,7 @@ public class GenerateReportServlet extends HttpServlet {
 			suri.append("&columnCountLimit="); 
 			suri.append(columnCountLimit);			
 		}
+		System.out.println(suri.toString());
 		response.setCharacterEncoding(XSystem.getEncoding());
 		return Servlets.getURIAsStream(request, response, suri.toString());
 	}
@@ -399,6 +424,7 @@ public class GenerateReportServlet extends HttpServlet {
 				int x = 0;
 				for (int i = 0; i < end; i++){
 					Map key = (Map)tab.getTableModel().getObjectAt(i);
+					System.out.println(key);
 					if (selectedKeys.contains(key)){
 						s[x] = i; 
 						x++;
