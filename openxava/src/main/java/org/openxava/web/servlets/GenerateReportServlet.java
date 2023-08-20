@@ -154,7 +154,7 @@ public class GenerateReportServlet extends HttpServlet {
 			if (metaProperty.isCompatibleWith(byte[].class)) return r==null?null:new ByteArrayInputStream((byte [])r); 
 			String result = WebEditors.format(this.request, metaProperty, r, null, "", true);
 			if (isHtml(result)){	// this avoids that the report shows html content
-				result = result.contains("ox-attached-file") ? extractFileName(result) : result.replaceAll("&lt;", "<").replaceAll("&gt;", ">").replaceAll("&quot;", "\"");
+				result = result.contains("ox-attached-file") ? extractFileName(result) : WebEditors.format(this.request, metaProperty, r, null, "", false);
 			}
 			else {
 				result = result.replaceAll("&lt;", "<").replaceAll("&gt;", ">").replaceAll("&quot;", "\"");
