@@ -125,9 +125,7 @@ public class GenerateReportServlet extends HttpServlet {
 			    	java.util.Date date = (java.util.Date) r;
 			    	year = date.getYear() + 1900;
 			    }
-			    
 			    String s = p.format(r, locale);
-			    
 			    if (year > 0 && !s.contains(Integer.toString(year))) {
 			        String sYear = Integer.toString(year);
 			        String sYearLast2 = sYear.substring(sYear.length() - 2);
@@ -142,7 +140,6 @@ public class GenerateReportServlet extends HttpServlet {
 			        	s = s.substring(0, s.length() - 2) + sYear;
 			        }
 			    }
-
 				return s;
 			}
 			if (formatBigDecimal && r instanceof BigDecimal) {
@@ -157,23 +154,7 @@ public class GenerateReportServlet extends HttpServlet {
 			if (metaProperty.isCompatibleWith(byte[].class)) return r==null?null:new ByteArrayInputStream((byte [])r); 
 			String result = WebEditors.format(this.request, metaProperty, r, null, "", true);
 			if (isHtml(result)){	// this avoids that the report shows html content
-				if (result.contains("ox-attached-file")) {
-			        String startTag = "<span class=\"ox-attached-file\">";
-			        String endTag = "</span>";
-			        int startIndex = result.indexOf(startTag);
-			        int endIndex = result.indexOf(endTag, startIndex);
-			        if (startIndex != -1 && endIndex != -1) {
-			            result = result.substring(startIndex + startTag.length(), endIndex);
-			            int lastDotIndex = result.lastIndexOf(".");
-			            if (lastDotIndex != -1) {
-			            	result = result.substring(0, lastDotIndex);
-			            }
-			        } else {
-			        	result = WebEditors.format(this.request, metaProperty, r, null, "", false);
-			        }
-				} else {
-					result = WebEditors.format(this.request, metaProperty, r, null, "", false);
-				}
+				result = result.contains("ox-attached-file") ? extractFileName(result) : result.replaceAll("&lt;", "<").replaceAll("&gt;", ">").replaceAll("&quot;", "\"");
 			}
 			else {
 				result = result.replaceAll("&lt;", "<").replaceAll("&gt;", ">").replaceAll("&quot;", "\"");
@@ -231,7 +212,7 @@ public class GenerateReportServlet extends HttpServlet {
 					parameters.put("Title", title);
 					parameters.put("Organization", getOrganization(request)); 
 					parameters.put("Date", getCurrentDate());
-					for (String totalProperty: tab.getTotalPropertiesNames()) { 
+					for (String totalProperty: tab.getTotalPropertiesNames()) {
 						parameters.put(totalProperty + "__TOTAL__", getTotal(request, tab, totalProperty));
 					}
 					TableModel tableModel = getTableModel(request, tab, selectedRows, false, true, null);
@@ -440,4 +421,16 @@ public class GenerateReportServlet extends HttpServlet {
 	        return p.format(supportDate, locale);
 	    }
 	}
+	
+	private static String extractFileName(String htmlContent) {
+			String result = "";
+	        String startTag = "<span class=\"ox-attached-file\">";
+	        String endTag = "</span>";
+	        int startIndex = htmlContent.indexOf(startTag);
+	        int endIndex = htmlContent.indexOf(endTag, startIndex);
+	        result = htmlContent.substring(startIndex + startTag.length(), endIndex);
+	        int lastDotIndex = result.lastIndexOf(".");
+	        return (lastDotIndex != -1) ? result.substring(0, lastDotIndex) : result;
+	}
+	
 }
