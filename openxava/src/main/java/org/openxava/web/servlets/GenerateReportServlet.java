@@ -133,12 +133,13 @@ public class GenerateReportServlet extends HttpServlet {
 			        if (split[0].startsWith(sYearLast2) && split[0].endsWith(sYearLast2)) {
 			        	String supportString = "";
 			        	supportString = getSupportString(p, isLocalDate, locale);
-			        	s = supportString.startsWith("23") ? s.replaceFirst("\\b\\d{2}\\b", sYear) : s.substring(0, s.length() - 2) + sYear;
+			        	s = supportString.startsWith("23") ? split[0].replaceFirst("\\b\\d{2}\\b", sYear) : split[0].substring(0, s.length() - 2) + sYear;
 			        } else if (split[0].startsWith(sYearLast2)) {
-			        	s = s.replaceFirst("\\b\\d{2}\\b", sYear);
+			        	s = split[0].replaceFirst("\\b\\d{2}\\b", sYear);
 			        } else if (split[0].endsWith(sYearLast2)) {
-			        	s = s.substring(0, s.length() - 2) + sYear;
+			        	s = split[0].substring(0, s.length() - 2) + sYear;
 			        }
+			        s = split.length > 1 ? s.concat(" " + split[1]) : s;
 			    }
 				return s;
 			}
