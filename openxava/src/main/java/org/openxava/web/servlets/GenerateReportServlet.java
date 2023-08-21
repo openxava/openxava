@@ -1,6 +1,7 @@
 package org.openxava.web.servlets;
 
 import java.io.*;
+import java.lang.annotation.Annotation;
 import java.math.*;
 import java.text.*;
 import java.time.*;
@@ -102,19 +103,21 @@ public class GenerateReportServlet extends HttpServlet {
 
 		private Object getValueWithoutWebEditorsFormat(int row, int column){
 			Object r = original.getValueAt(row, column);
+			MetaProperty p = getMetaProperty(column); // In order to use the type declared by the developer 
+			// and not the one returned by JDBC or the JPA engine
+			
 			if (r instanceof Boolean) {
 				if (((Boolean) r).booleanValue()) return XavaResources.getString(locale, "yes");
 				return XavaResources.getString(locale, "no");
 			}
+			
 			if (withValidValues) {
-				MetaProperty p = getMetaProperty(column);
 				if (p.hasValidValues()) {					
 					return p.getValidValueLabel(locale, original.getValueAt(row, column));
 				}
 			}
+			
 			if (r instanceof java.util.Date || r instanceof java.time.LocalDate || r instanceof java.sql.Timestamp) {
-				MetaProperty p = getMetaProperty(column); // In order to use the type declared by the developer 
-					// and not the one returned by JDBC or the JPA engine
 				int year = -1;
 				boolean isLocalDate = false;
 			    if (p.getType().toString().contains(".LocalDate")) {
@@ -143,9 +146,21 @@ public class GenerateReportServlet extends HttpServlet {
 			    }
 				return s;
 			}
+			
 			if (formatBigDecimal && r instanceof BigDecimal) {
 				return formatBigDecimal(r, locale); 
 			}
+			
+			if (p.getStereotype() != null && p.getStereotype().contains("FILE")) {
+				return getValueWithWebEditorsFormat(row, column);
+			}
+			Annotation[] annotation = (Annotation[]) p.getAnnotations();
+			for (Annotation an : annotation) {
+				if (an.toString().contains(".File")) {
+					return getValueWithWebEditorsFormat(row, column);
+				}
+			}
+
 			return r;
 		}
 		
