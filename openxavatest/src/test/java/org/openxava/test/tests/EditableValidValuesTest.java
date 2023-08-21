@@ -5,7 +5,12 @@ import org.openqa.selenium.support.ui.*;
 
 import junit.framework.*;
 
-public class DeliveryWithSeleniumTest extends WebDriverTestBase {
+/**
+ * To test EditableValidValues editor related issues with Selenium.
+ * 
+ * @author Chungyen Tsai
+ */
+public class EditableValidValuesTest extends WebDriverTestBase {
 	
 	private WebDriver driver;
 	
