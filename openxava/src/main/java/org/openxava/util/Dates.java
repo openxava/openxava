@@ -200,6 +200,7 @@ public class Dates {
 	 * 
 	 * @return The same date sent as argument (a new date is not created). If null
 	 * 			if sent a null is returned.
+	 * @since 7.1.5
 	 */
 	public static java.sql.Timestamp cloneWith999(java.sql.Timestamp date) {
 		if (date == null) return null;

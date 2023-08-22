@@ -39,7 +39,8 @@ public class EditableValidValuesTest extends WebDriverTestBase {
 		Select selectElement = new Select (driver.findElement(By.xpath("//div[@class='ox-select-editable']//select")));
 		selectElement.selectByValue("a");
 		WebElement input = driver.findElement(By.id("ox_openxavatest_DeliveryEditableValidValues__shortcut"));
-		input.click();
+		
+		input.clear(); 
 		input.sendKeys("NR");
 		input.sendKeys(Keys.TAB);
 		wait(driver);
