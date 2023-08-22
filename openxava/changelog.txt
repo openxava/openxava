@@ -1,7 +1,6 @@
 Change Log for OpenXava project
 ===============================
 
-
 - New method cloneWith999() in Dates utility class to remove milliseconds from a date.
 - Fix: Dynamic combos created adding valid values using View class stopped to work in 7.1.
 - Fix: Property csvEncoding of xava.properties has no effect when importing CSV files.

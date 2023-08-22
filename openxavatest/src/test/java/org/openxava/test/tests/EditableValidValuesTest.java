@@ -40,13 +40,14 @@ public class EditableValidValuesTest extends WebDriverTestBase {
 		selectElement.selectByValue("a");
 		WebElement input = driver.findElement(By.id("ox_openxavatest_DeliveryEditableValidValues__shortcut"));
 		
+		input.click();
 		input.clear(); 
 		input.sendKeys("NR");
 		input.sendKeys(Keys.TAB);
 		wait(driver);
 		WebElement textArea = driver.findElement(By.id("ox_openxavatest_DeliveryEditableValidValues__remarks"));
 		String text = textArea.getAttribute("textContent");
-		Assert.assertEquals(text, "No remarks");
+		assertEquals("No remarks", text);
 		goToListFromDetailView(driver, "DeliveryEditableValidValues");
 	}
 	
