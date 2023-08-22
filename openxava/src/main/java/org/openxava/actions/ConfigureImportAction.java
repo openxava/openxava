@@ -1,12 +1,10 @@
 package org.openxava.actions;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-
+import java.io.*;
 import java.text.*;
 import java.util.*;
+import java.util.stream.*;
 
-import org.apache.commons.fileupload.*;
 import org.apache.commons.lang.*;
 import org.apache.commons.logging.*;
 import org.apache.poi.hssf.usermodel.*;
@@ -43,6 +41,12 @@ public class ConfigureImportAction extends TabBaseAction
 		        	return;
 	        	}
 	        	else if (fileName.endsWith(".csv")) {
+	        		if (XavaPreferences.getInstance().getCSVEncoding() != null) {
+						BufferedReader in = new BufferedReader(
+								new InputStreamReader(inputStream, XavaPreferences.getInstance().getCSVEncoding()));
+						String str = in.lines().collect(Collectors.joining("\n"));
+						customFileItem.setString(str);
+					}
 		        	if (!configureImport(customFileItem.getString().trim())) cancel();
 		        	return;
 	        	} 	        	
