@@ -55,6 +55,8 @@ public class OrderTest extends ModuleTestBase {
 		takes = System.currentTimeMillis() - ini; 
 		assertTrue(takes < 4000); // With the fix it takes 2500, without it it taken around 8000 (but never less 5600)
 		
+		
+		
 		setLocale("zh");
 		assertLabelInList(3,"客户编号");
 		setLocale("en");
