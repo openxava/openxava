@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Configuration for MySQL - OpenXava</title>
+    <title>Configuration for MariaDB - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -10,12 +10,14 @@
   <body>
     <div class="wiki" style="display: block;">
       <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
-          / </span> Configuration for MariaDB </h1>
-      </div>
-    <div class="wiki" style="display: block;"> Configuring your OpenXava 
-      application to go against MariaDB is simple, basically you have to add
-      a dependency to the JDBC driver for MariaDB in your project and define
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
+            href="index_en.html">documentation</a> / </span> Configuration for
+        MariaDB </h1>
+    </div>
+    <div class="wiki" style="display: block;"> Configuring your OpenXava
+      application to go against MariaDB is simple, basically you have to add a
+      dependency to the JDBC driver for MariaDB in your project and define
       correctly the datasource. You don't need to touch any code of your
       application.</div>
     <div class="wiki" style="display: block;">We assume you have already
@@ -32,9 +34,9 @@
     <div class="wiki" style="display: block;"> </div>
     <div class="wiki" style="display: block;">
       <h2 id="toc1">Adjust your datasource definition</h2>
-      Edit <i>src/main/webapp/META-INF/context.xml</i> of your project 
-      and comment the HSQLDB section:</div>
-      <div class="wiki" style="display: block;">
+      Edit <i>src/main/webapp/META-INF/context.xml</i> of your project and
+      comment the HSQLDB section:</div>
+    <div class="wiki" style="display: block;">
       <pre><code class="xml">&lt;!-- HSQLDB
     &lt;Resource name="jdbc/testDS" auth="Container" type="javax.sql.DataSource"
           maxTotal="20" maxIdle="5" maxWaitMillis="10000"
@@ -43,7 +45,7 @@
           url="jdbc:hsqldb:hsql://localhost:1666"/&gt;
     --&gt;
 </code></pre> </div>
-      <div class="wiki" style="display: block;">when, to have add the datasource
+    <div class="wiki" style="display: block;">when, to have add the datasource
       to point to MariaDB, something like this:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="xml">&lt;Resource name="jdbc/myappDS" auth="Container"
@@ -56,10 +58,10 @@
     <div class="wiki" style="display: block;">The differences are the <i>driverClassName</i>
       and the <i>url</i>. Obviously, instead of <i>localhost</i> you should
       put the address of the server that hosts MariaDB and instead of <i>myappdb</i>
-      the name of your database. Also put the correct <i>username</i> and <i>password</i>. 
-      <b>Don't forget to comment or remove the datasource for HSQLDB</b>
-      (the default one when you create a new OpenXava project),
-      only one datasource (with the same name) should be active.</div>
+      the name of your database. Also put the correct <i>username</i> and <i>password</i>.
+      <b>Don't forget to comment or remove the datasource for HSQLDB</b> (the
+      default one when you create a new OpenXava project), only one datasource
+      (with the same name) should be active.</div>
     <div class="wiki" style="display: block;">
       <h2>Rebuild your project</h2>
       <p>After the changes you have to rebuild your project. In OpenXava Studio

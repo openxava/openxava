@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Documentation to configure MariaDB for OpenXava applications.
 - Fix: Using @SearchListCondition in a reference the columns customization done on the search list is lost.
 - Fix: @Editor("ValidValuesRadioButton") for an enum produces an IndexOutOfBoundsException in the log.
 - Fix: Popup calendar for date properties is not shown in the correct language sometimes after refreshing. 
