@@ -956,8 +956,13 @@ public class Tab implements java.io.Serializable, Cloneable {
 						else {
 							v = WebEditors.parse(getRequest(), p, value, errors, null);
 						} 
+
 						if ((v instanceof Timestamp || p.isCompatibleWith(Timestamp.class)) && EQ_COMPARATOR.equals(this.conditionComparators[i])) {  						 
-							if (Dates.hasTime((java.util.Date) v)) { 
+							if (v instanceof Timestamp && Dates.hasTime((java.util.Date) v)) {
+								valuesToWhere.add(v);
+								valuesToWhere.add(Dates.cloneWith999((java.sql.Timestamp) v));
+							} 
+							else if (Dates.hasTime((java.util.Date) v) ) { 
 								valuesToWhere.add(v);
 								valuesToWhere.add(v);
 							}
@@ -968,10 +973,13 @@ public class Tab implements java.io.Serializable, Cloneable {
 							comparatorsToWhere.add(this.conditionComparators[i]);
 							comparatorsToWhere.add(this.conditionComparators[i]);
 						}
-						else if (RANGE_COMPARATOR.equals(this.conditionComparators[i])){							
+						else if (RANGE_COMPARATOR.equals(this.conditionComparators[i])){
 							valuesToWhere.add(v);
 							String valueTo = convertStringArgument(this.conditionValuesTo[i].toString());
 							Object vTo = WebEditors.parse(getRequest(), p, valueTo, errors, null); 
+							if (vTo instanceof Timestamp ) {
+								vTo = Dates.cloneWith999((java.sql.Timestamp)vTo);
+							}
 							valuesToWhere.add(vTo);
 							comparatorsToWhere.add(this.conditionComparators[i]);
 							comparatorsToWhere.add(this.conditionComparators[i]);
