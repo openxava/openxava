@@ -960,7 +960,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 						if ((v instanceof Timestamp || p.isCompatibleWith(Timestamp.class)) && EQ_COMPARATOR.equals(this.conditionComparators[i])) {  						 
 							if (v instanceof Timestamp && Dates.hasTime((java.util.Date) v)) {
 								valuesToWhere.add(v);
-								valuesToWhere.add(Dates.cloneWith999((java.sql.Timestamp) v));
+								valuesToWhere.add(Dates.cloneWith59999((java.sql.Timestamp) v));
 							} 
 							else if (Dates.hasTime((java.util.Date) v) ) { 
 								valuesToWhere.add(v);
@@ -978,7 +978,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 							String valueTo = convertStringArgument(this.conditionValuesTo[i].toString());
 							Object vTo = WebEditors.parse(getRequest(), p, valueTo, errors, null); 
 							if (vTo instanceof Timestamp ) {
-								vTo = Dates.cloneWith999((java.sql.Timestamp)vTo);
+								vTo = Dates.cloneWith59999((java.sql.Timestamp)vTo);
 							}
 							valuesToWhere.add(vTo);
 							comparatorsToWhere.add(this.conditionComparators[i]);
