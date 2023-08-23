@@ -1,14 +1,11 @@
 package org.openxava.test.tests;
 
 import java.text.*;
-import java.time.*;
 import java.util.*;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.*;
-
-import junit.framework.*;
 
 public class CalendarTest extends WebDriverTestBase {
 
@@ -22,7 +19,7 @@ public class CalendarTest extends WebDriverTestBase {
 		forTestAddEventAndVerify();
 		forTestConditionsAndFilter();
 		forTestAnyNameAsDateProperty();
-		forTestMultipleDateAndFirstDateAsEventStart(); 
+		forTestMultipleDateAndFirstDateAsEventStart();
 		forTestFilterPerformance();
 	}
 
@@ -78,11 +75,11 @@ public class CalendarTest extends WebDriverTestBase {
 			createInvoice(i);
 		}
 	}
-	
+
 	private void createInvoice(int invoiceNUmber) throws Exception {
 		WebElement inputInvoiceNumber = driver.findElement(By.id("ox_openxavatest_Invoice__number"));
 		int invoiceNumber = (10 + invoiceNUmber);
-		inputInvoiceNumber.sendKeys(String.valueOf(invoiceNumber));			
+		inputInvoiceNumber.sendKeys(String.valueOf(invoiceNumber));
 		WebElement inputCustomerNumber = driver.findElement(By.id("ox_openxavatest_Invoice__customer___number"));
 		inputCustomerNumber.sendKeys("1");
 		WebElement section2Child = driver
@@ -111,41 +108,45 @@ public class CalendarTest extends WebDriverTestBase {
 		goToListFromDetailView(driver, "Invoice");
 		waitCalendarEvent(driver);
 	}
-	
-	
+
 	private void setInvoiceCondition(String module) throws InterruptedException {
 		WebElement inputInvoiceNumber = driver.findElement(By.id("ox_openxavatest_" + module + "__conditionValue___1"));
 		inputInvoiceNumber.sendKeys("12");
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].focus();", inputInvoiceNumber);
-		WebElement selectInvoiceNumberCondition = driver.findElement(By.id("ox_openxavatest_" + module + "__conditionComparator___1"));
+		WebElement selectInvoiceNumberCondition = driver
+				.findElement(By.id("ox_openxavatest_" + module + "__conditionComparator___1"));
 		Select select = new Select(selectInvoiceNumberCondition);
 		select.selectByVisibleText("=");
 		WebElement filterAction = driver.findElement(By.id("ox_openxavatest_" + module + "__List___filter"));
 		filterAction.click();
 	}
-	
+
 	private void verifyConditionEvents(String time, boolean isExist) {
 		WebElement currentMonthEvent = null;
 		try {
-		    currentMonthEvent = driver.findElement(By.cssSelector(
-		            "a.fc-event.fc-event-draggable.fc-event-resizable.fc-event-start.fc-event-end.fc-event-" + time + ".fc-daygrid-event.fc-daygrid-dot-event"));
-		} catch (NoSuchElementException e) {}	
+			currentMonthEvent = driver.findElement(By.cssSelector(
+					"a.fc-event.fc-event-draggable.fc-event-resizable.fc-event-start.fc-event-end.fc-event-" + time
+							+ ".fc-daygrid-event.fc-daygrid-dot-event"));
+		} catch (NoSuchElementException e) {
+		}
 		assert isExist ? currentMonthEvent != null : currentMonthEvent == null;
 
 	}
-	
+
 	private void deteleEvents() throws Exception {
-		WebElement clearFilterAction = driver.findElement(By.cssSelector("td.ox-list-subheader a:has(i.mdi.mdi-eraser)"));
+		WebElement clearFilterAction = driver
+				.findElement(By.cssSelector("td.ox-list-subheader a:has(i.mdi.mdi-eraser)"));
 		clearFilterAction.click();
 		wait(driver);
-		for (int i = 0; i < 3; i ++) {
-			WebElement element = driver.findElement(By.xpath("//a[contains(@class, 'ox-image-link') and .//i[contains(@class, 'mdi-delete')]]"));
+		for (int i = 0; i < 3; i++) {
+			WebElement element = driver.findElement(
+					By.xpath("//a[contains(@class, 'ox-image-link') and .//i[contains(@class, 'mdi-delete')]]"));
 			element.click();
 			acceptInDialogJS(driver);
 		}
 	}
-	
+
 	private void forTestAnyNameAsDateProperty() throws Exception {
 		driver.get("http://localhost:8080/openxavatest/m/UserWithBirthday");
 		wait(driver);
@@ -158,7 +159,7 @@ public class CalendarTest extends WebDriverTestBase {
 		moveToCalendarView(driver);
 		moveToListView(driver);
 	}
-	
+
 	private void forTestAddEventAndVerify() throws Exception {
 		driver.get("http://localhost:8080/openxavatest/m/Invoice");
 		wait(driver);
@@ -169,7 +170,7 @@ public class CalendarTest extends WebDriverTestBase {
 		prevOnCalendar();
 		verifyPrevInvoiceEvent();
 	}
-	
+
 	private void forTestConditionsAndFilter() throws Exception {
 		driver.get("http://localhost:8080/openxavatest/m/InvoiceCalendar");
 		wait(driver);
@@ -185,7 +186,7 @@ public class CalendarTest extends WebDriverTestBase {
 		moveToListView(driver);
 		deteleEvents();
 	}
-	
+
 	private void forTestMultipleDateAndFirstDateAsEventStart() throws Exception {
 		driver.get("http://localhost:8080/openxavatest/m/Event");
 		wait(driver);
@@ -194,61 +195,53 @@ public class CalendarTest extends WebDriverTestBase {
 		List<Date> dates = setDates();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String dateString = dateFormat.format(dates.get(1));
-		
-		WebElement day = driver
-				.findElement(By.xpath("//div[contains(@class,'fc-daygrid-day-frame') and ancestor::td[@data-date='"
-						+ dateString + "']]"));
+
+		WebElement day = driver.findElement(By.xpath(
+				"//div[contains(@class,'fc-daygrid-day-frame') and ancestor::td[@data-date='" + dateString + "']]"));
 		day.click();
 		wait(driver);
 		List<WebElement> iconElements = driver.findElements(By.cssSelector("i.mdi.mdi-calendar"));
 		if (!iconElements.isEmpty()) {
-		    WebElement firstIconElement = iconElements.get(1);
-		    firstIconElement.click();
+			WebElement firstIconElement = iconElements.get(1);
+			firstIconElement.click();
 		}
-		
-		List<WebElement> spanElements = driver.findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day ' and text()='2']"));
+
+		List<WebElement> spanElements = driver
+				.findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day ' and text()='2']"));
 		if (!spanElements.isEmpty()) {
-		    WebElement spanElement = spanElements.get(1);
-		    spanElement.click(); // It fails in Windows 7
+			WebElement spanElement = spanElements.get(1);
+			spanElement.click(); // It fails in Windows 7
 		}
 		wait(driver);
 		saveFromDetailView(driver, "Event");
 		goToListFromDetailView(driver, "Event");
 		waitCalendarEvent(driver);
-		
-		List<WebElement> events = driver.findElements(By.xpath("//div[contains(@class,'fc-daygrid-event-harness') and ancestor::td[@data-date='"
-                + dateString + "']]"));
+
+		List<WebElement> events = driver
+				.findElements(By.xpath("//div[contains(@class,'fc-daygrid-event-harness') and ancestor::td[@data-date='"
+						+ dateString + "']]"));
 		assertTrue(!events.isEmpty());
-		
+
 		moveToListView(driver);
-		List<WebElement> elements = driver.findElements(By.xpath("//a[contains(@class, 'ox-image-link') and .//i[contains(@class, 'mdi-delete')]]"));
+		List<WebElement> elements = driver.findElements(
+				By.xpath("//a[contains(@class, 'ox-image-link') and .//i[contains(@class, 'mdi-delete')]]"));
 		elements.get(1).click();
 		acceptInDialogJS(driver);
 	}
-	
+
 	private void forTestFilterPerformance() throws Exception {
-		Month month = LocalDate.now().getMonth();
-		if (!(month == Month.JANUARY)) {
-			driver.get("http://localhost:8080/openxavatest/m/EventWithFilter");
-			wait(driver);
-			acceptInDialogJS(driver);
-			moveToListView(driver);
-			long ini = System.currentTimeMillis(); 
-			moveToCalendarView(driver);
-			long takes = System.currentTimeMillis() - ini; 
-			//with CompositeFilter it takes no more than 1500, without it takes more than 4000
-			assertTrue(takes < 3000);
-			moveToListView(driver);
-		} else {
-			/*	
-			There are 1000 records loaded on January 15, 
-			so when you use Calendar View in January 
-			it will take several minutes to load the events.
-			You must manually check if changing the other months is fast, 
-			if so, it works.
-			*/
-			Assert.fail("If you don't change Calendar code in january, ignore this result");
-		}
+		//testing default filter defined by user and month filter defined by calendar
+		driver.get("http://localhost:8080/openxavatest/m/EventWithFilter");
+		wait(driver);
+		acceptInDialogJS(driver);
+		moveToListView(driver);
+		long ini = System.currentTimeMillis();
+		moveToCalendarView(driver);
+		long takes = System.currentTimeMillis() - ini;
+		// with CompositeFilter it takes no more than 1500, without it takes more than
+		// 4000
+		assertTrue(takes < 3000);
+		moveToListView(driver);
 	}
-	
+
 }
