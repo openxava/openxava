@@ -42,7 +42,6 @@ public class OrderTest extends ModuleTestBase {
 		StringTokenizer excel = new StringTokenizer(getPopupText(), "\n\r");
 		excel.nextToken();
 		String line1 = excel.nextToken();
-		System.out.println(line1);
 		assertEquals("2017;1;\"5/10/2017\";1;\"Javi\";\"\";\"No\";\"110.00\"", line1);
 		
 		execute("ListFormat.select", "editor=Cards");
@@ -54,8 +53,6 @@ public class OrderTest extends ModuleTestBase {
 		execute("ListFormat.select", "editor=List");
 		takes = System.currentTimeMillis() - ini; 
 		assertTrue(takes < 4000); // With the fix it takes 2500, without it it taken around 8000 (but never less 5600)
-		
-		
 		
 		setLocale("zh");
 		assertLabelInList(3,"客户编号");
