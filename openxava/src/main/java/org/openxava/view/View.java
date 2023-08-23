@@ -401,10 +401,16 @@ public class View implements java.io.Serializable {
 	}
 	
 	private void polish() { 
+		// TMR ME QUEDÉ POR AQUÍ FALLA: MIRANDO execute.jsp POR SI HE DE COGER xava_view OTRA VEZ AL INICIO
+		System.out.println("[View(" + this + ").polish] Entering. modelName=" + modelName); // tmr
+		System.out.println("[View(" + this + ").polish] request=" + request); // tmr
 		if (polisher == null) return;
+		System.out.println("[View(" + this + ").polish] Pass 1"); // tmr
 		if (polished) return;
+		System.out.println("[View(" + this + ").polish] Pass 2"); // tmr
 		
 		if (!isFirstLevel() && !(isGroup() || isSection())) return;
+		System.out.println("[View.polish] Pass 3. Polishing"); // tmr
 
 		try {
 			XObjects.execute(polisher, "refine", 
@@ -2982,11 +2988,14 @@ public class View implements java.io.Serializable {
 	}
 	
 	public void setModelName(String newModel) {
-		if (Is.equal(modelName, newModel)) return;		
+		System.out.println("[View(" + this + ").setModelName(" + newModel +")] Entering"); // tmr
+		if (Is.equal(modelName, newModel)) return;
+		System.out.println("[View(" + this + ").setModelName(" + newModel +")] Pasamos"); // tmr
 		modelName = newModel;
 		getFirstLevelView().reloadNeeded = true; // If the model of the view of a reference changes, the main view must be reloaded.
 		resetMembers();		
-		if (model != null && !model.getClass().getSimpleName().equals(modelName)) model = null; 
+		if (model != null && !model.getClass().getSimpleName().equals(modelName)) model = null;
+		System.out.println("[View(" + this + ").setModelName(" + newModel +")] Fin"); // tmr
 	}
 	
 	private void resetMembers() {
