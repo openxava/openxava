@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @Editor("ValidValuesRadioButton") for an enum produces an IndexOutOfBoundsException in the log.
 - Fix: Popup calendar for date properties is not shown in the correct language sometimes after refreshing. 
 - New method cloneWith999() in Dates utility class to remove milliseconds from a date.
 - Fix: Dynamic combos created adding valid values using View class stopped to work in 7.1.
