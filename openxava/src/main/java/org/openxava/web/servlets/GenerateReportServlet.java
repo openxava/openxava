@@ -4,7 +4,6 @@ import java.io.*;
 import java.lang.annotation.Annotation;
 import java.math.*;
 import java.text.*;
-import java.time.*;
 import java.util.*;
 
 import javax.servlet.*;
@@ -117,34 +116,8 @@ public class GenerateReportServlet extends HttpServlet {
 				}
 			}
 			
-			if (r instanceof java.util.Date || r instanceof java.time.LocalDate || r instanceof java.sql.Timestamp) {
-				int year = -1;
-				boolean isLocalDate = false;
-			    if (p.getType().toString().contains(".LocalDate")) {
-			    	isLocalDate = true;
-			        java.time.LocalDate localDate = (java.time.LocalDate) r;
-			        year = localDate.getYear();
-			    } else if (p.getType().toString().contains(".Date")) {
-			    	java.util.Date date = (java.util.Date) r;
-			    	year = date.getYear() + 1900;
-			    }
-			    String s = p.format(r, locale);
-			    if (year > 0 && !s.contains(Integer.toString(year))) {
-			        String sYear = Integer.toString(year);
-			        String sYearLast2 = sYear.substring(sYear.length() - 2);
-			        String[] split = s.split(" ");
-			        if (split[0].startsWith(sYearLast2) && split[0].endsWith(sYearLast2)) {
-			        	String supportString = "";
-			        	supportString = getSupportString(p, isLocalDate, locale);
-			        	s = supportString.startsWith("23") ? split[0].replaceFirst("\\b\\d{2}\\b", sYear) : split[0].substring(0, s.length() - 2) + sYear;
-			        } else if (split[0].startsWith(sYearLast2)) {
-			        	s = split[0].replaceFirst("\\b\\d{2}\\b", sYear);
-			        } else if (split[0].endsWith(sYearLast2)) {
-			        	s = split[0].substring(0, s.length() - 2) + sYear;
-			        }
-			        s = split.length > 1 ? s.concat(" " + split[1]) : s;
-			    }
-				return s;
+			if (r instanceof java.util.Date|| r instanceof java.time.LocalDate || r instanceof java.sql.Timestamp) {
+				return getValueWithWebEditorsFormat(row, column);
 			}
 			
 			if (formatBigDecimal && r instanceof BigDecimal) {
@@ -424,18 +397,6 @@ public class GenerateReportServlet extends HttpServlet {
 				throw new XavaException("fails_selected");
 			}
 		}
-	}
-	
-	private static String getSupportString(MetaProperty p, boolean isLocalDate, Locale locale ) {
-	    if (isLocalDate) {
-	        LocalDate supportDate = LocalDate.of(2023, 12, 27);
-	        return p.format(supportDate, locale);
-	    } else {
-	        Calendar calendar = Calendar.getInstance();
-	        calendar.set(2023, 12 - 1, 27);
-	        Date supportDate = calendar.getTime();
-	        return p.format(supportDate, locale);
-	    }
 	}
 	
 	private static String extractFileName(String htmlContent) {
