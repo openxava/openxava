@@ -110,6 +110,13 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		execute("List.viewDetail", "row=0");
 		execute("Invoice.editDetailWithSections", "row=0,viewObject=xava_view_details");
 		assertFocusOn("serviceType");
+		
+		// tmr ini
+		// tmr Cambiar nombre método
+		setValue("remarks", "A good product");
+		assertMessage("OnChangeVoidAction executed");
+		assertMessagesCount(1); // TMR ME QUEDÉ POR AQUÍ, FALLA, BIEN PORQUE YA TENGO LA PRUEBA
+		// tmr fin
 	}
 	
 	private void assertIndexOfOutBoundInList() throws Exception { 
