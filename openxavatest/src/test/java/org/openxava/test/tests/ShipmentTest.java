@@ -200,7 +200,7 @@ public class ShipmentTest extends ModuleTestBase {
 		assertTrue("Objet found in list", !found);				
 	}
 	
-	public void testFilterByTimestampWithSecondsAndMilliseconds() throws Exception { 
+	public void testFilterByTimestamp() throws Exception { 
 		assertListRowCount(3);
 		setConditionValues( new String [] { "", "", "12/25/06"} ); // 2006-12-25
 		execute("List.filter");
