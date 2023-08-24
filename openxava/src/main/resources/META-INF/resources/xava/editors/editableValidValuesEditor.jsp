@@ -1,3 +1,5 @@
+<%@ include file="../imports.jsp"%>
+
 <%@page import="java.util.Map"%>
 <%@page import="org.openxava.model.meta.MetaProperty"%>
 <%@page import="org.openxava.view.View"%>
@@ -10,6 +12,8 @@
 String viewObject = request.getParameter("viewObject");
 View view = (View) context.get(request, viewObject);
 String collectionName = request.getParameter("collectionName");
+String contextPath = (String) request.getAttribute("xava.contextPath");
+if (contextPath == null) contextPath = request.getContextPath();
 if (!org.openxava.util.Is.emptyString(collectionName)) {
 	view = view.getSubview(collectionName);
 }
@@ -19,8 +23,8 @@ String script = request.getParameter("script");
 String scriptSelect = script; 
 String scriptInput = script;
 if (script.contains("onchange=")){
-	String selectOnChange = "this.nextElementSibling.value=this.options[selectedIndex].text; ";
-    String inputOnChange= "this.previousElementSibling.selectedIndex=0; ";
+	String selectOnChange = "editableValidValuesEditor.handleSelectChange(this), ";
+    String inputOnChange= "editableValidValuesEditor.handleSelectInput(this), ";
     int i = script.indexOf("onchange=") + 10;
     scriptSelect = script.substring(0,i) + selectOnChange + script.substring(i);
     scriptInput = script.substring(0,i) + inputOnChange + script.substring(i);
@@ -46,7 +50,7 @@ if (editable) {
 	} else {
 %>
     <div class="ox-select-editable">
-    	<select tabindex="1" class=<%=style.getEditor()%> title="<%=p.getDescription(request)%>" <%=scriptSelect%> onchange="this.nextElementSibling.value=this.options[selectedIndex].text">
+    	<select tabindex="1" class=<%=style.getEditor()%> title="<%=p.getDescription(request)%>" <%=scriptSelect%> onchange="editableValidValuesEditor.handleSelectChange(this)">
 <% 
 		if (view.hasBlankValidValue(p.getName())) { 
 %>
@@ -62,7 +66,7 @@ if (editable) {
 %>      
         <option hidden><%=optionHidden%></option>
 		</select>
-		<input id="<%=propertyKey%>" name="<%=propertyKey%>" type="text"  <%=scriptInput%> onchange="this.previousElementSibling.selectedIndex=0" oninput="this.previousElementSibling.options[0].value=this.value; this.previousElementSibling.options[0].innerHTML=this.value"  maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=value%>"/>
+		<input id="<%=propertyKey%>" name="<%=propertyKey%>" type="text"  <%=scriptInput%> onchange="editableValidValuesEditor.handleSelectInput(this)" maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=value%>"/>
 		<input type="hidden" name="<%=propertyKey%>__DESCRIPTION__" value="<%=description%>"/>
 	</div>
 <%		
@@ -81,4 +85,5 @@ if (editable) {
 	<input type="hidden" name="<%=propertyKey%>" value="<%=value%>">	
 <% 
 } 
-%>			
+%>		
+<script type="text/javascript" <xava:nonce/> src="<%=contextPath%>/xava/editors/js/editableValidValuesEditor.js"></script>

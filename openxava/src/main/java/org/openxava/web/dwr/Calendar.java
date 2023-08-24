@@ -1,7 +1,6 @@
 package org.openxava.web.dwr;
 
 import java.math.*;
-import java.rmi.*;
 import java.text.*;
 import java.time.*;
 import java.time.format.*;
@@ -19,7 +18,6 @@ import org.openxava.util.*;
 import org.openxava.view.View;
 import org.openxava.web.*;
 
-import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 
 import lombok.*;
@@ -69,7 +67,7 @@ public class Calendar extends DWRBase {
 	private List<String> datesList = new ArrayList<>();
 
 	public String getEvents(HttpServletRequest request, HttpServletResponse response, String application, String module,
-			String monthYear) throws RemoteException, JsonProcessingException {
+			String monthYear) throws Exception {
 		this.application = application;
 		this.module = module;
 		this.response = response;
@@ -94,10 +92,11 @@ public class Calendar extends DWRBase {
 		} 
 
 		tab = setProperties(tab);
-		this.table = tab.getTableModel();
+		this.table = tab.getAllDataTableModel();
 		int tableSize = 0;
 		String json = null;
 		tableSize = tab.getTableModel().getTotalSize();
+
 		if (tableSize > 0) {
 			for (int i = 0; i < tableSize; i++) {
 				event = new CalendarEvent();

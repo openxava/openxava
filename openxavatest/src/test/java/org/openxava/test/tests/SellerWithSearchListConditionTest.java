@@ -1,26 +1,32 @@
 package org.openxava.test.tests;
 
-import org.openxava.tests.*;
-
-
 /**
  * 
  * @author Federico Alcantara
  */
 
-public class SellerWithSearchListConditionTest extends ModuleTestBase {
+public class SellerWithSearchListConditionTest extends CustomizeListTestBase {
 		
 	public SellerWithSearchListConditionTest(String testName) {
 		super(testName, "SellerSearchListCondition");		
 	}
 	
-	public void testSearchListCondition() throws Exception {
+	public void testSearchListCondition_moveColumns() throws Exception {
 		changeModule("SellerSearchListCondition");
 		execute("List.viewDetail", "row=0");
 		execute("Reference.search", "keyProperty=level.id");
 		assertListRowCount(2);
+		assertLabelInList(0, "Id");
+		assertLabelInList(1, "Description");
+		moveColumn(0, 1);
+		assertLabelInList(0, "Description");
+		assertLabelInList(1, "Id");
+		resetModule();
+		execute("List.viewDetail", "row=0");
+		execute("Reference.search", "keyProperty=level.id");
+		assertLabelInList(0, "Description");
+		assertLabelInList(1, "Id");
 		closeDialog();
-
 		execute("Collection.add", "viewObject=xava_view_customers");
 		assertListRowCount(4);
 	}

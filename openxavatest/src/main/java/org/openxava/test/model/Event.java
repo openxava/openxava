@@ -14,10 +14,10 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-@Tab(name="DefaultYearEnv", 
-filter=DefaultYearEnvFilter.class,
-properties="startDate, endDate, createDate, year, description",
-baseCondition="${year} = ?"
+@Tab(name="DefaultName", 
+filter=DefaultNameEnvFilter.class,
+properties="startDate, endDate, createDate, name, description",
+baseCondition="${name} = ?"
 )
 public class Event extends Identifiable{
 
@@ -30,7 +30,7 @@ public class Event extends Identifiable{
 	@OnChange(OnChangeVoidAction.class)
 	LocalDate createDate;
 	
-	int year;
+	String name;
 	
 	String description;
 	
