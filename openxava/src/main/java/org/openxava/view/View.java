@@ -5532,7 +5532,7 @@ public class View implements java.io.Serializable {
 			if (Labels.existsExact(id, Locales.getCurrent())) {
 				System.out.println("getLabelFor 3.3");
 				return Labels.get(id, Locales.getCurrent());
-			}
+			} 
 			id = getMemberName() + p.getId().substring(idx);
 			if (Labels.existsExact(id, Locales.getCurrent())) {
 				System.out.println("getLabelFor 3.4");
