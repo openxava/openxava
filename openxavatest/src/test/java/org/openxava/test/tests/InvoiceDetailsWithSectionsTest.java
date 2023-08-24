@@ -11,10 +11,10 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		super(testName, "InvoiceDetailsWithSections");		
 	}
 	
-	public void testFocusInDialogWithAllMembersInSections_indexOfOutBoundInList() throws Exception { 
+	public void testFocusInDialogWithAllMembersInSections_indexOfOutBoundInList_onChangeOnceWhenSectionWithGroupsInCollectionElementDialog() throws Exception {  
 		// In the next order to reproduce a bug in the second assert that only occurs if we execute the first assert before
 		assertIndexOfOutBoundInList(); 
-		assertFocusInDialogWithAllMembersInSections();
+		assertFocusInDialogWithAllMembersInSections_onChangeOnceWhenSectionWithGroupsInCollectionElementDialog();
 	}
 	
 	public void testMovingColumnsInListWithCalculatedProperties() throws Exception { 
@@ -106,17 +106,14 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		assertListRowCount(3);
 	}
 	
-	private void assertFocusInDialogWithAllMembersInSections() throws Exception {   
+	private void assertFocusInDialogWithAllMembersInSections_onChangeOnceWhenSectionWithGroupsInCollectionElementDialog() throws Exception {   
 		execute("List.viewDetail", "row=0");
 		execute("Invoice.editDetailWithSections", "row=0,viewObject=xava_view_details");
 		assertFocusOn("serviceType");
 		
-		// tmr ini
-		// tmr Cambiar nombre método
 		setValue("remarks", "A good product");
 		assertMessage("OnChangeVoidAction executed");
-		assertMessagesCount(1); // TMR ME QUEDÉ POR AQUÍ, FALLA, BIEN PORQUE YA TENGO LA PRUEBA
-		// tmr fin
+		assertMessagesCount(1); 
 	}
 	
 	private void assertIndexOfOutBoundInList() throws Exception { 

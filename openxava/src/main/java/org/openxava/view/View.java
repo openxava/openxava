@@ -3642,7 +3642,7 @@ public class View implements java.io.Serializable {
 	private void executeOnChangeAction(String changedPropertyQualifiedName, IOnChangePropertyAction action) 
 		throws XavaException 
 	{
-		if (!actionRegisteredAsExecuted(changedPropertyQualifiedName, action)) { 
+		if (!actionRegisteredAsExecuted(changedPropertyQualifiedName, action)) {
 			View viewOfAction = this;
 			while (viewOfAction.isGroup()) viewOfAction = viewOfAction.getParent();
 			action.setView(viewOfAction);
@@ -4935,7 +4935,8 @@ public class View implements java.io.Serializable {
 			v = new View();
 			v.setSection(true);
 			v.setParent(this);			
-			v.setModelName(getModelName());			
+			v.setModelName(getModelName());		
+			v.setMemberName(getMemberName()); 
 			v.setMetaView(metaView);
 			sectionsViews.put(metaView, v);
 		}		

@@ -35,16 +35,9 @@ import lombok.*;
 			"deliveryDate, soldBy;" +	
 			"remarks" + 				
 		"}" +
-		/* tmr	
-		"amounts { " +
-			"quantity, unitPrice, amount;" +
-		"}"
-		*/
-		// tmr ini
 		"amounts { " +
 			"quantity, unitPrice; total [ amount ]" + // Group inside a section to test a case
 		"}"
-		// tmr fin
 	)
 })
 @EntityValidator(value=InvoiceDetailValidator.class,
@@ -104,7 +97,7 @@ public class InvoiceDetail {
 	private Seller soldBy;
 	
 	@Stereotype("MEMO")
-	@OnChange(forViews="AllMembersInSections", value=OnChangeVoidAction.class) // tmr
+	@OnChange(forViews="AllMembersInSections", value=OnChangeVoidAction.class) 
 	private String remarks;
 	
 	@Stereotype("MONEY") @Depends("unitPrice, quantity")
