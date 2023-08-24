@@ -196,7 +196,7 @@ public class Dates {
 	}
 	
 	/**
-	 * Returns a clone but with 999 for milliseconds. <p>
+	 * Returns a clone but with 59 seconds and 999 milliseconds. <p>
 	 * 
 	 * @return The same date sent as argument (a new date is not created). If null
 	 * 			if sent a null is returned.
