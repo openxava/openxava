@@ -599,7 +599,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 		this.condition = null;
 		
 		if (getCollectionView() == null) {
+			MetaTab mt = metaTab;
 			reinitState();
+			metaTab = mt;
 			this.configuration = null;
 		}
 	}

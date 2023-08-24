@@ -84,6 +84,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 				return getValidValues().get(i-1);
 			}
 			else { // It's a Java 5 enum. Uses null as no value, and 0 as first value
+				if (i == -1) return "";
 				return getValidValues().get(i);
 			}
 		}
