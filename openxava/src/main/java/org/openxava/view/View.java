@@ -5506,12 +5506,10 @@ public class View implements java.io.Serializable {
 			return "";
 		}
 		if (getLabels() != null) {
-			System.out.println("getLabelFor 2");
 			String idLabel = (String) getLabels().get(p.getName());
-			System.out.println(idLabel);
+			System.out.println("getLabelFor 2, idLabel " + idLabel );
 			if (idLabel != null) { 
-				System.out.println("getLabelFor 2.1");
-				System.out.println(Labels.get(idLabel, Locales.getCurrent()));
+				System.out.println("getLabelFor 2.1 get " + Labels.get(idLabel, Locales.getCurrent()));
 				return Labels.get(idLabel, Locales.getCurrent());
 			}
 		}		
@@ -5550,53 +5548,56 @@ public class View implements java.io.Serializable {
 	 * @param id  Id of the label from i18n files
 	 */
 	public void setLabelId(String property, String id) {
-		System.out.println("property " + property);
+		System.out.println("setLabelId property " + property);
 		
 		if (property == null) return; 
 		int idx = property.indexOf('.');
 		if (idx >= 0) {
-			System.out.println("primer return");
+			System.out.println("setLabelId primer return");
 			String subviewName = property.substring(0, idx);
 			String member = property.substring(idx+1);								 				
 			getSubview(subviewName).setLabelId(member, id);
 			return;
 		}
 		 
-		System.out.println("getLabels() == null " + (getLabels() == null) + ", " + labels); 
+		System.out.println("setLabelId getLabels() == null " + (getLabels() == null) + ", " + labels); 
 		
 		if (getLabels() == null) {
 			setLabels(new HashMap());
 		}
 
 		String old = (String) getLabels().put(property, id);	
-		System.out.println("old " + old + ", id " + id + "  " + Is.equal(old, id));
-
+		System.out.println("setLabelId old " + old + ", id " + id + "  " + Is.equal(old, id));
+		//getLabelFor(property) ?
 		if (!Is.equal(old, id)) {
 			if (getRoot().changedLabels == null) getRoot().changedLabels = new HashMap();
 			int sectionIndex = getIndexOfSection(property);
 			if (sectionIndex >= 0) {
-				System.out.println("primer else");
+				System.out.println("setLabelId primer else");
 				String sectionId = getViewObject() + "_section" + sectionIndex + "_sectionName";
 				String label = Labels.get(id);
 				getSectionView(sectionIndex).setTitle(label);
 				getRoot().changedLabels.put(sectionId, label);
 			}
 			else if (getGroupsViews().containsKey(property)) {
-				System.out.println("segundo else");
+				System.out.println("setLabelId segundo else");
 				String label = Labels.get(id);
 				getGroupView(property).setTitle(label);
 				getRoot().changedLabels.put(property, label);
 			}
 			else {
-				System.out.println(getRoot().getViewName() + " tercer else " + getPropertyPrefix() + property + " --- " + getLabelFor(getMetaModel().getMetaMember(property)) );
+				System.out.println("setLabelId " 
+						+ getRoot().getViewName() + " tercer else " 
+						+ getPropertyPrefix() + property + " --- " 
+						+ getLabelFor(getMetaModel().getMetaMember(property)) );
 				getRoot().changedLabels.put(getPropertyPrefix() + property, getLabelFor(getMetaModel().getMetaMember(property)));
 				//getRoot().changedLabels.put(property, getLabelFor(getMetaModel().getMetaMember(property)));
 				
-				System.out.println(getRoot().getChangedLabels());
-				System.out.println("view Name " + getRoot().getViewName());
+				System.out.println("setLabelId getRoot().getChangedLabels() " + getRoot().getChangedLabels());
+				System.out.println("setLabelId view Name " + getRoot().getViewName());
 			}
 			
-			System.out.println("final");
+			System.out.println("setLabelId final");
 		} 
 	}
 	
