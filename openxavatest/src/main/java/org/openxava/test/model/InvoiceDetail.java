@@ -9,6 +9,7 @@ import org.hibernate.annotations.*;
 import org.hibernate.annotations.Parameter;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
+import org.openxava.test.actions.*;
 import org.openxava.test.validators.*;
 
 import lombok.*;
@@ -35,7 +36,7 @@ import lombok.*;
 			"remarks" + 				
 		"}" +
 		"amounts { " +
-			"quantity, unitPrice, amount;" +
+			"quantity, unitPrice; total [ amount ]" + // Group inside a section to test a case
 		"}"
 	)
 })
@@ -96,6 +97,7 @@ public class InvoiceDetail {
 	private Seller soldBy;
 	
 	@Stereotype("MEMO")
+	@OnChange(forViews="AllMembersInSections", value=OnChangeVoidAction.class) 
 	private String remarks;
 	
 	@Stereotype("MONEY") @Depends("unitPrice, quantity")

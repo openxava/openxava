@@ -96,5 +96,8 @@ if (!(loadingModulePage && manager.isCoreViaAJAX(request))) {
 if ("true".equals(request.getParameter("firstRequest")) && manager.isCoreViaAJAX(request)) { 
 	manager.executeBeforeLoadPage(request, errors, messages);
 }
-if (manager.isDetailMode()) view.setRequest(request);   
+if (manager.isDetailMode()) {
+	view = (View) context.get(request, "xava_view");
+	view.setRequest(request);
+}
 %>
