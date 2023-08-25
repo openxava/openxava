@@ -1342,17 +1342,14 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertContentTypeForPopup("text/x-csv");
 		assertExcel(
 			"Year;Number;Date;Amounts sum;V.A.T.;Details count;Paid;Importance",	
-			"2002;1;\"1/1/02\";\"2500.00\";\"400.00\";2;\"No\";\"Normal\""); // "2500.00" instead of "2,500.00"
+			"2002;1;\"1/1/2002\";\"2500.00\";\"400.00\";2;\"No\";\"Normal\""); // "2500.00" instead of "2,500.00"
 		
 		setLocale("es");
 		execute("Print.generateExcel");		
 		assertContentTypeForPopup("text/x-csv");
-		// The DateFormat is because Java 11 and 8 format Spanish dates in different way, 
-		// though we're not interested in testing date format here, just bigdecimals 
-		String date = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es")).format(Dates.create(1, 1, 2002));  		
 		assertExcel( 
 			"Año;Número;Fecha;Suma importes;I.V.A.;Cantidad líneas;Pagada;Importancia",	
-			"2002;1;\"" + date + "\";\"2500,00\";\"400,00\";2;\"No\";\"Normal\""); // "2500,00" instead of "2.500,00"		
+			"2002;1;\"01/01/2002\";\"2500,00\";\"400,00\";2;\"No\";\"Normal\""); // "2500,00" instead of "2.500,00"		
 	}
 	
 	private void assertExcel(String expectedHeader, String expectedLine) throws Exception { 

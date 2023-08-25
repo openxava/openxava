@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Id number instead of document name for @File properties when calling Generate PDF or generate Excel.
+- Fix: Generate Excel sometimes exports dates with 2 digits for year, so it's misinterpreted by Excel. 
 - Fix: Servlet request not updated on view just after showing a new view or a dialog.  
 - Fix: @OnChange action called twice in collection element dialog with groups inside a section. 
 - Documentation to configure MariaDB for OpenXava applications.
