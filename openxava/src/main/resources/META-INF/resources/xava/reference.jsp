@@ -42,7 +42,7 @@ boolean editable = view.isEditable(ref.getName());
 int labelFormat = view.getLabelFormatForReference(ref);
 String labelStyle = view.getLabelStyleForReference(ref);
 if (Is.empty(labelStyle)) labelStyle = XavaPreferences.getInstance().getDefaultLabelStyle();
-String label = ref.getLabel(request);
+String label = view.getLabelFor(ref);
 %>
 
 <% if (view.isFlowLayout()) { %>

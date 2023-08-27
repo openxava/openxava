@@ -6,7 +6,8 @@ public class GoChangeName extends ViewBaseAction {
 	
 	public void execute() throws Exception {
 		showDialog();
-		getView().setModelName("Name");		
+		getView().setModelName("Name");	
+		getView().setLabelId("name", "Change name to");
 		setControllers("ChangeName");		
 	}
 
