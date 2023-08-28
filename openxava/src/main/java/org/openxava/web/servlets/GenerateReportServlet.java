@@ -20,6 +20,7 @@ import org.openxava.tab.impl.*;
 import org.openxava.util.*;
 import org.openxava.util.jxls.*;
 import org.openxava.web.*;
+import org.openxava.web.editors.*;
 
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.*;
@@ -48,8 +49,10 @@ public class GenerateReportServlet extends HttpServlet {
 		private boolean format = false;	// format or no the values. If format = true, all values to the report are String
 		private Integer columnCountLimit;
 		private boolean formatBigDecimal = true; 
+		private boolean isImage = false;
+		private String type;
 
-		public TableModelDecorator(HttpServletRequest request, TableModel original, List metaProperties, Locale locale, boolean labelAsHeader, boolean format, Integer columnCountLimit, boolean formatBigDecimal) throws Exception { 
+		public TableModelDecorator(HttpServletRequest request, TableModel original, List metaProperties, Locale locale, boolean labelAsHeader, boolean format, Integer columnCountLimit, boolean formatBigDecimal, String type) throws Exception { 
 			this.request = request;
 			this.original = original;
 			this.metaProperties = metaProperties;
@@ -59,6 +62,7 @@ public class GenerateReportServlet extends HttpServlet {
 			this.format = format;
 			this.columnCountLimit = columnCountLimit;
 			this.formatBigDecimal = formatBigDecimal; 
+			this.type = type;
 		}
 
 
@@ -106,41 +110,75 @@ public class GenerateReportServlet extends HttpServlet {
 			// and not the one returned by JDBC or the JPA engine
 			
 			if (r instanceof Boolean) {
+				System.out.println("1 " + p.getName());
 				if (((Boolean) r).booleanValue()) return XavaResources.getString(locale, "yes");
 				return XavaResources.getString(locale, "no");
 			}
 			
 			if (withValidValues) {
+				System.out.println("2 " + p.getName());
 				if (p.hasValidValues()) {					
 					return p.getValidValueLabel(locale, original.getValueAt(row, column));
 				}
 			}
 			
 			if (r instanceof java.util.Date|| r instanceof java.time.LocalDate || r instanceof java.sql.Timestamp) {
+				System.out.println("3 " + p.getName());
 				return getValueWithWebEditorsFormat(row, column);
 			}
 			
 			if (formatBigDecimal && r instanceof BigDecimal) {
+				System.out.println("4 " + p.getName());
 				return formatBigDecimal(r, locale); 
 			}
 			
-			if (p.getStereotype() != null && p.getStereotype().contains("FILE")) {
+			isImage = checkIsImage(p);
+			
+			if (isImage) { 
+				//working with excel
+				Object result = getValueWithWebEditorsFormat(row, column);
+				if (result instanceof String) {
+					String re = (String) getValueWithWebEditorsFormat(row, column);
+					System.out.println(re);
+					if (isPossibleOID(re)) {
+						System.out.println(re + " puede ser un id");
+						AttachedFile file = new AttachedFile();
+						file = (AttachedFile) FilePersistorFactory.getInstance().find(re);
+						if (file.getName() != null) return deleteFileExtension(file.getName()); 
+					}
+				} else if (result instanceof ByteArrayInputStream) {
+					//se hace un toString del objeto array
+					System.out.println(result);
+				}
 				return getValueWithWebEditorsFormat(row, column);
 			}
-			Annotation[] annotation = (Annotation[]) p.getAnnotations();
-			for (Annotation an : annotation) {
-				if (an.toString().contains(".File")) {
-					return getValueWithWebEditorsFormat(row, column);
-				}
-			}
-
+			
 			return r;
 		}
 		
 		private Object getValueWithWebEditorsFormat(int row, int column){
 			Object r = original.getValueAt(row, column);
 			MetaProperty metaProperty = getMetaProperty(column);
-			if (metaProperty.isCompatibleWith(byte[].class)) return r==null?null:new ByteArrayInputStream((byte [])r); 
+			//System.out.println("getValueWithWebEditorsFormat " + metaProperty.getName());
+			isImage = checkIsImage(metaProperty);
+			if (type.equalsIgnoreCase("pdf")) {
+				if (isImage) {
+					//System.out.println(metaProperty.getName() + " es byte[]");
+					if (metaProperty.isCompatibleWith(byte[].class)) {
+						System.out.println("es un byte[]" + r);
+						return r==null?null:new ByteArrayInputStream((byte [])r); 
+					} else if (metaProperty.isCompatibleWith(String.class)) {
+						if (isPossibleOID(r.toString())) {
+							AttachedFile file = new AttachedFile();
+							file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
+							byte[] fileData = file.getData();
+							System.out.println(r  + " puede que sea un OID " + fileData);
+							return fileData==null ? null: new ByteArrayInputStream(fileData);
+						}
+						
+					}
+				}
+			}
 			String result = WebEditors.format(this.request, metaProperty, r, null, "", true);
 			if (isHtml(result)){	// this avoids that the report shows html content
 				result = result.contains("ox-attached-file") ? extractFileName(result) : WebEditors.format(this.request, metaProperty, r, null, "", false);
@@ -204,7 +242,7 @@ public class GenerateReportServlet extends HttpServlet {
 					for (String totalProperty: tab.getTotalPropertiesNames()) {
 						parameters.put(totalProperty + "__TOTAL__", getTotal(request, tab, totalProperty));
 					}
-					TableModel tableModel = getTableModel(request, tab, selectedRows, false, true, null);
+					TableModel tableModel = getTableModel(request, tab, selectedRows, false, true, null, "pdf");
 					tableModel.getValueAt(0, 0);
 					if (tableModel.getRowCount() == 0) {
 						generateNoRowsPage(response);
@@ -227,13 +265,13 @@ public class GenerateReportServlet extends HttpServlet {
 				response.setHeader("Content-Disposition", "inline; filename=\"" + getFileName(tab) + ".csv\""); 
 				synchronized (tab) {
 					tab.setRequest(request);
-					response.getWriter().print(TableModels.toCSV(getTableModel(request, tab, selectedRows, true, false, columnCountLimit)));
+					response.getWriter().print(TableModels.toCSV(getTableModel(request, tab, selectedRows, true, false, columnCountLimit, "csv")));
 				}
 			}
 			else if (uri.endsWith(".xls")) {    
                 synchronized (tab) {
                 	tab.setRequest(request);
-                    JxlsWorkbook wb = new JxlsWorkbook(getTableModel(request, tab, selectedRows, true, false, columnCountLimit, false), 
+                    JxlsWorkbook wb = new JxlsWorkbook(getTableModel(request, tab, selectedRows, true, false, columnCountLimit, false, "xls"), 
                             getFileName(tab));                	
                     JxlsSheet sheet = wb.getSheet(0);
                     int lastRow = sheet.getLastRowNumber();
@@ -346,7 +384,7 @@ public class GenerateReportServlet extends HttpServlet {
 		return widths;
 	}
 
-	private TableModel getTableModel(HttpServletRequest request, Tab tab, int [] selectedRows, boolean labelAsHeader, boolean format, Integer columnCountLimit, boolean formatBigDecimal) throws Exception {
+	private TableModel getTableModel(HttpServletRequest request, Tab tab, int [] selectedRows, boolean labelAsHeader, boolean format, Integer columnCountLimit, boolean formatBigDecimal, String type) throws Exception {
 		TableModel data = null;
 		if (selectedRows != null && selectedRows.length > 0) {
 			data = new SelectedRowsXTableModel(tab.getTableModel(), selectedRows);
@@ -354,11 +392,11 @@ public class GenerateReportServlet extends HttpServlet {
 		else {
 			data = tab.getAllDataTableModel();
 		}
-		return new TableModelDecorator(request, data, tab.getMetaProperties(), Locales.getCurrent(), labelAsHeader, format, columnCountLimit, formatBigDecimal);
+		return new TableModelDecorator(request, data, tab.getMetaProperties(), Locales.getCurrent(), labelAsHeader, format, columnCountLimit, formatBigDecimal, type);
 	}	
 	
-	private TableModel getTableModel(HttpServletRequest request, Tab tab, int [] selectedRows, boolean labelAsHeader, boolean format, Integer columnCountLimit) throws Exception {
-		return getTableModel(request, tab, selectedRows, labelAsHeader, format, columnCountLimit, true);
+	private TableModel getTableModel(HttpServletRequest request, Tab tab, int [] selectedRows, boolean labelAsHeader, boolean format, Integer columnCountLimit, String type) throws Exception {
+		return getTableModel(request, tab, selectedRows, labelAsHeader, format, columnCountLimit, true, type);
 	}
 	
 	private static Object formatBigDecimal(Object number, Locale locale) { 
@@ -406,8 +444,37 @@ public class GenerateReportServlet extends HttpServlet {
 	        int startIndex = htmlContent.indexOf(startTag);
 	        int endIndex = htmlContent.indexOf(endTag, startIndex);
 	        result = htmlContent.substring(startIndex + startTag.length(), endIndex);
-	        int lastDotIndex = result.lastIndexOf(".");
-	        return (lastDotIndex != -1) ? result.substring(0, lastDotIndex) : result;
+	        return deleteFileExtension(result);
+	}
+	
+	private static String deleteFileExtension(String fileName) {
+		int lastDotIndex = fileName.lastIndexOf(".");
+		return (lastDotIndex != -1) ? fileName.substring(0, lastDotIndex) : fileName;
+	}
+	
+	private static boolean isPossibleOID(String input) {
+	    if (input.length() != 32) {
+	        return false; 
+	    }
+	    for (char c : input.toCharArray()) {
+	        if (!Character.isDigit(c) && (c < 'A' || c > 'F')) {
+	            return false;
+	        }
+	    }
+	    return true;
+	}
+	
+	private static boolean checkIsImage(MetaProperty metaProperty) {
+		if (metaProperty.getStereotype() != null && (metaProperty.getStereotype().contains("FILE") || metaProperty.getStereotype().contains("IMAGE") || metaProperty.getStereotype().contains("PHOTO"))) {
+			return true;
+		}
+		Annotation[] annotation = (Annotation[]) metaProperty.getAnnotations();
+		for (Annotation an : annotation) {
+			if (an.toString().contains(".File")) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }
