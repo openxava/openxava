@@ -3043,7 +3043,6 @@ public class View implements java.io.Serializable {
 			sectionChanged = false; 
 			oldKeyEditable = keyEditable; 
 			oldEditable = editable;
-			System.out.println("se asigna changedLables null");
 			changedLabels = null;
 			refreshDescriptionsLists = false;
 			oldNotEditableMembersNames = notEditableMembersNames==null?null:new HashSet(notEditableMembersNames);
@@ -5501,45 +5500,31 @@ public class View implements java.io.Serializable {
 	}
 	
 	public String getLabelFor(MetaMember p) throws XavaException { 
-		System.out.println("getLabelFor " + p.getName());
-		if (getMetaView().getLabelFormatFor(p) == LabelFormatType.NO_LABEL.ordinal()) {
-			System.out.println("getLabelFor 1");
-			return "";
-		}
+		if (getMetaView().getLabelFormatFor(p) == LabelFormatType.NO_LABEL.ordinal()) return "";
 		if (getLabels() != null) {
 			String idLabel = (String) getLabels().get(p.getName());
-			System.out.println("getLabelFor 2, idLabel " + idLabel );
 			if (idLabel != null) { 
-				System.out.println("getLabelFor 2.1 get " + Labels.get(idLabel, Locales.getCurrent()));
 				return Labels.get(idLabel, Locales.getCurrent());
 			}
 		}		
 		if (!Is.emptyString(getMemberName())) {
-			System.out.println("getLabelFor 3");
 			int idx = p.getId().lastIndexOf('.');
-			if (idx < 0) {
-				System.out.println("getLabelFor 3.1");
-				idx = 0; 
-			}
+			if (idx < 0) idx = 0; 
 			String id = p.getId().substring(0, idx) + "." + getMemberName() + p.getId().substring(idx);
 			if (Labels.existsExact(id, Locales.getCurrent())) {
-				System.out.println("getLabelFor 3.2");
 				return Labels.get(id, Locales.getCurrent());
 			}
 			View parent = getParent();
 			if (parent == null) parent = getRoot();
 			id = parent.getModelName() + "." + getMemberName() + p.getId().substring(idx);
 			if (Labels.existsExact(id, Locales.getCurrent())) {
-				System.out.println("getLabelFor 3.3");
-				return Labels.get(id, Locales.getCurrent());
-			} 
-			id = getMemberName() + p.getId().substring(idx);
-			if (Labels.existsExact(id, Locales.getCurrent())) {
-				System.out.println("getLabelFor 3.4");
 				return Labels.get(id, Locales.getCurrent());
 			}
+			id = getMemberName() + p.getId().substring(idx);
+			if (Labels.existsExact(id, Locales.getCurrent())) {
+				return Labels.get(id, Locales.getCurrent());
+			}			
 		}
-		System.out.println("getLabelFor 4 " + p.getLabel(getRequest()));
 		return p.getLabel(getRequest());
 	}	
 
@@ -5549,57 +5534,35 @@ public class View implements java.io.Serializable {
 	 * @param id  Id of the label from i18n files
 	 */
 	public void setLabelId(String property, String id) {
-		System.out.println("setLabelId property " + property);
-		
 		if (property == null) return; 
 		int idx = property.indexOf('.');
 		if (idx >= 0) {
-			System.out.println("setLabelId primer return");
 			String subviewName = property.substring(0, idx);
 			String member = property.substring(idx+1);								 				
 			getSubview(subviewName).setLabelId(member, id);
 			return;
 		}
-		 
-		System.out.println("setLabelId getLabels() == null " + (getLabels() == null) + ", " + labels); 
-		
-		if (getLabels() == null) {
-			setLabels(new HashMap());
-		}
-
-		String old = (String) getLabels().put(property, id);	
-		System.out.println("setLabelId old " + old + ", id " + id + "  " + Is.equal(old, id));
-		//getLabelFor(property) ?
+		if (getLabels() == null) setLabels(new HashMap());
+		String old = (String) getLabels().put(property, id);		
 		if (!Is.equal(old, id)) {
 			if (getRoot().changedLabels == null) getRoot().changedLabels = new HashMap();
 			int sectionIndex = getIndexOfSection(property);
 			if (sectionIndex >= 0) {
-				System.out.println("setLabelId primer else");
 				String sectionId = getViewObject() + "_section" + sectionIndex + "_sectionName";
 				String label = Labels.get(id);
 				getSectionView(sectionIndex).setTitle(label);
 				getRoot().changedLabels.put(sectionId, label);
 			}
 			else if (getGroupsViews().containsKey(property)) {
-				System.out.println("setLabelId segundo else");
 				String label = Labels.get(id);
 				getGroupView(property).setTitle(label);
 				getRoot().changedLabels.put(property, label);
 			}
 			else {
-				System.out.println("setLabelId " 
-						+ getRoot().getViewName() + " tercer else " 
-						+ getPropertyPrefix() + property + " --- " 
-						+ getLabelFor(getMetaModel().getMetaMember(property)) );
-				getRoot().changedLabels.put(getPropertyPrefix() + property, getLabelFor(getMetaModel().getMetaMember(property)));
-				//getRoot().changedLabels.put(property, getLabelFor(getMetaModel().getMetaMember(property)));
-				
-				System.out.println("setLabelId getRoot().getChangedLabels() " + getRoot().getChangedLabels());
-				System.out.println("setLabelId view Name " + getRoot().getViewName());
+				getRoot().changedLabels.put(getPropertyPrefix() + property,
+					getLabelFor(getMetaModel().getMetaMember(property)));
 			}
-			
-			System.out.println("setLabelId final");
-		} 
+		}
 	}
 	
 	/**
@@ -5622,16 +5585,11 @@ public class View implements java.io.Serializable {
 	
 	private Map getLabels() {
 		View root = getRoot();
-		if (this == root) {
-			System.out.println("getLabels labels " + labels);
-			return labels;
-		}
-		System.out.println("getLabels root labels " + root.getLabels());
+		if (this == root) return labels;
 		return root.getLabels();
 	}
 	
 	private void setLabels(Map labels) {
-		System.out.println("setLabels " + labels);
 		View root = getRoot();
 		if (this == root) {
 			this.labels = labels;
