@@ -104,81 +104,85 @@ public class GenerateReportServlet extends HttpServlet {
 			else return getValueWithoutWebEditorsFormat(row, column);
 		}
 
-		private Object getValueWithoutWebEditorsFormat(int row, int column){
-			Object r = original.getValueAt(row, column);
-			MetaProperty p = getMetaProperty(column); // In order to use the type declared by the developer 
-			// and not the one returned by JDBC or the JPA engine
-			
-			if (r instanceof Boolean) {
-				System.out.println("1 " + p.getName());
-				if (((Boolean) r).booleanValue()) return XavaResources.getString(locale, "yes");
-				return XavaResources.getString(locale, "no");
-			}
-			
-			if (withValidValues) {
-				System.out.println("2 " + p.getName());
-				if (p.hasValidValues()) {					
-					return p.getValidValueLabel(locale, original.getValueAt(row, column));
-				}
-			}
-			
-			if (r instanceof java.util.Date|| r instanceof java.time.LocalDate || r instanceof java.sql.Timestamp) {
-				System.out.println("3 " + p.getName());
-				return getValueWithWebEditorsFormat(row, column);
-			}
-			
-			if (formatBigDecimal && r instanceof BigDecimal) {
-				System.out.println("4 " + p.getName());
-				return formatBigDecimal(r, locale); 
-			}
-			
-			isImage = checkIsImage(p);
-			
-			if (isImage) { 
-				//working with excel
-				Object result = getValueWithWebEditorsFormat(row, column);
-				if (result instanceof String) {
-					String re = (String) getValueWithWebEditorsFormat(row, column);
-					System.out.println(re);
-					if (isPossibleOID(re)) {
-						System.out.println(re + " puede ser un id");
-						AttachedFile file = new AttachedFile();
-						file = (AttachedFile) FilePersistorFactory.getInstance().find(re);
-						if (file.getName() != null) return deleteFileExtension(file.getName()); 
+	    private Object getValueWithoutWebEditorsFormat(int row, int column) {
+	        Object r = original.getValueAt(row, column);
+	        MetaProperty p = getMetaProperty(column); // In order to use the type declared by the developer 
+	        // and not the one returned by JDBC or the JPA engine
+
+	        if (r instanceof Boolean) {
+	            System.out.println("1 " + p.getName());
+	            if (((Boolean) r).booleanValue()) return XavaResources.getString(locale, "yes");
+	            return XavaResources.getString(locale, "no");
+	        }
+
+	        if (withValidValues) {
+	            System.out.println("2 " + p.getName());
+	            if (p.hasValidValues()) {
+	                return p.getValidValueLabel(locale, original.getValueAt(row, column));
+	            }
+	        }
+
+	        if (r instanceof java.util.Date || r instanceof java.time.LocalDate || r instanceof java.sql.Timestamp) {
+	            System.out.println("3 " + p.getName());
+	            return getValueWithWebEditorsFormat(row, column);
+	        }
+
+	        if (formatBigDecimal && r instanceof BigDecimal) {
+	            System.out.println("4 " + p.getName());
+	            return formatBigDecimal(r, locale);
+	        }
+
+	        //excel pasa por aca primero, definirlo aca directamente
+	        if (p.isImage(r)) {
+	        	// en caso que la propiedad sea un string
+	        	// ya se comprobo que es un oid, si no es un oid, retorno falso en el isImage, por lo que no pasa
+	            if (p.isCompatibleWith(String.class)) {
+	                AttachedFile file = new AttachedFile();
+	                file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
+	                if (file.getName() != null) return file.getNameWithoutExtension();
+	            } else if (p.isCompatibleWith(byte[].class)) {
+	                //se hace un toString del objeto array 
+	            	//hay que ver como obtener el nombre de la imagen apartir del byte
+	            	return r.toString();
+	            }
+	            return getValueWithWebEditorsFormat(row, column);
+	        }
+	        //en caso que no sea imagen y solo archivo
+	        Annotation[] annotations = p.getAnnotations();
+	        boolean isFile = false;
+	        for (Annotation an : annotations) {
+				if (an.annotationType().getSimpleName().equals("File")) {
+					isFile = true;
+					break;
 					}
-				} else if (result instanceof ByteArrayInputStream) {
-					//se hace un toString del objeto array
-					System.out.println(result);
-				}
-				return getValueWithWebEditorsFormat(row, column);
 			}
-			
-			return r;
-		}
+	        if ((p.getStereotype()!=null && p.getStereotype().contains("FILE"))|| isFile ) {
+                AttachedFile file = new AttachedFile();
+                file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
+                if (file.getName() != null) return file.getNameWithoutExtension();
+	        }
+
+	        return r;
+	    }
 		
 		private Object getValueWithWebEditorsFormat(int row, int column){
 			Object r = original.getValueAt(row, column);
 			MetaProperty metaProperty = getMetaProperty(column);
 			//System.out.println("getValueWithWebEditorsFormat " + metaProperty.getName());
 			isImage = checkIsImage(metaProperty);
-			if (type.equalsIgnoreCase("pdf")) {
-				if (isImage) {
-					//System.out.println(metaProperty.getName() + " es byte[]");
+			//excele suele o solia pasar por aca si no encuentra solucion arriba
+			
+				if (metaProperty.isImage(r)) {
 					if (metaProperty.isCompatibleWith(byte[].class)) {
-						System.out.println("es un byte[]" + r);
 						return r==null?null:new ByteArrayInputStream((byte [])r); 
 					} else if (metaProperty.isCompatibleWith(String.class)) {
-						if (isPossibleOID(r.toString())) {
-							AttachedFile file = new AttachedFile();
-							file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
-							byte[] fileData = file.getData();
-							System.out.println(r  + " puede que sea un OID " + fileData);
-							return fileData==null ? null: new ByteArrayInputStream(fileData);
-						}
-						
+						AttachedFile file = new AttachedFile();
+						file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
+						byte[] fileData = file.getData();
+						return fileData==null ? null: new ByteArrayInputStream(fileData);
 					}
 				}
-			}
+			
 			String result = WebEditors.format(this.request, metaProperty, r, null, "", true);
 			if (isHtml(result)){	// this avoids that the report shows html content
 				result = result.contains("ox-attached-file") ? extractFileName(result) : WebEditors.format(this.request, metaProperty, r, null, "", false);
@@ -444,12 +448,8 @@ public class GenerateReportServlet extends HttpServlet {
 	        int startIndex = htmlContent.indexOf(startTag);
 	        int endIndex = htmlContent.indexOf(endTag, startIndex);
 	        result = htmlContent.substring(startIndex + startTag.length(), endIndex);
-	        return deleteFileExtension(result);
-	}
-	
-	private static String deleteFileExtension(String fileName) {
-		int lastDotIndex = fileName.lastIndexOf(".");
-		return (lastDotIndex != -1) ? fileName.substring(0, lastDotIndex) : fileName;
+	        int lastDotIndex = result.lastIndexOf(".");
+	        return (lastDotIndex != -1) ? result.substring(0, lastDotIndex) : result;
 	}
 	
 	private static boolean isPossibleOID(String input) {

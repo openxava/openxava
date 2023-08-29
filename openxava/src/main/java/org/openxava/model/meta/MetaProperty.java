@@ -19,6 +19,7 @@ import org.openxava.util.*;
 import org.openxava.util.meta.*;
 import org.openxava.validators.*;
 import org.openxava.validators.meta.*;
+import org.openxava.web.editors.*;
 
 
 /**
@@ -1317,5 +1318,56 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	public boolean hasCalculation() { 
 		return !Is.emptyString(calculation);
 	}
+	
+	/*
+	 * @since 7.1.6
+	 */
+	public boolean isImage(Object object) {
+		if (getStereotype() != null) {
+			if (getStereotype().contains("IMAGE") || getStereotype().contains("PHOTO")) return true;
+			if (getStereotype().contains("FILE")) {
+			return verifyIsImage(object);
+			}
+		}
+		Annotation[] annotation = (Annotation[]) getAnnotations();
+		for (Annotation an : annotation) {
+			if (an.annotationType().getSimpleName().equals("File")) {
+				try {
+					//if object is an oid
+					//prepare for work in pdf and excel
+					//Example Stereotype using byte[]
+					//Annotation using String
+					System.out.println("isCompatibleWith(byte[].class)");
+					System.out.println(isCompatibleWith(byte[].class));
+					if (object instanceof String) {
+						return verifyIsImage(object);
+					} else if (isCompatibleWith(byte[].class)) {
+						System.out.println("isCompatibleWith(byte[].class)");
+						return true;
+					}
+				} catch(Exception e) {
+					return false;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private boolean verifyIsImage(Object object) {
+		String o = (String)object;
+		if (o.length() == 32 && o.chars().allMatch(c -> Character.isDigit(c) || (c >= 'A' && c <= 'F'))) {
+			AttachedFile file = new AttachedFile();
+			file = (AttachedFile) FilePersistorFactory.getInstance().find(o);
+			String fileExtension = file.getExtension();
+			String[] imageExtensions = {"jpg", "jpeg", "png", "webp", "bmp", "ico", "tif", "tiff", "gif"};
+		    for (String extension : imageExtensions) {
+		        if (fileExtension.equals(extension)) {
+		            return true;
+		        }
+		    }
+		}
+		return false;
+	}
+	 
 	
 }
