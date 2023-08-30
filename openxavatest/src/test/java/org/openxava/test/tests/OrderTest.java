@@ -6,10 +6,9 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.htmlunit.html.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
-
-import org.htmlunit.html.*;
 
 
 /**
@@ -37,6 +36,13 @@ public class OrderTest extends ModuleTestBase {
 		execute("List.filter");
 		long takes = System.currentTimeMillis() - ini; 
 		assertTrue(takes < 4000); // With the fix it takes over 2500, without it it taken around 8000 (but never less 5600)
+		
+		execute("Print.generateExcel");
+		assertContentTypeForPopup("text/x-csv");		
+		StringTokenizer excel = new StringTokenizer(getPopupText(), "\n\r");
+		excel.nextToken();
+		String line1 = excel.nextToken();
+		assertEquals("2017;1;\"5/10/2017\";1;\"Javi\";\"\";\"No\";\"110.00\"", line1);
 		
 		execute("ListFormat.select", "editor=Cards");
 		assertListRowCount(56);

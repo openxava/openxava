@@ -202,10 +202,27 @@ public class Dates {
 	 * 			if sent a null is returned.
 	 * @since 7.1.5
 	 */
-	public static java.sql.Timestamp cloneWith999(java.sql.Timestamp date) {
+	public static java.sql.Timestamp cloneWith999(java.sql.Timestamp date) { 
 		if (date == null) return null;
 	    Calendar cal = Calendar.getInstance();
 	    cal.setTime(date);
+	    cal.set(Calendar.MILLISECOND, 999);
+	    
+	    return new java.sql.Timestamp(cal.getTime().getTime());
+	}
+	
+	/**
+	 * Returns a clone but with 59 seconds and 999 milliseconds. <p>
+	 * 
+	 * @return The same date sent as argument (a new date is not created). If null
+	 * 			if sent a null is returned.
+	 * @since 7.1.6
+	 */
+	public static java.sql.Timestamp cloneWith59999(java.sql.Timestamp date) { 
+		if (date == null) return null;
+	    Calendar cal = Calendar.getInstance();
+	    cal.setTime(date);
+	    cal.set(Calendar.SECOND, 59);
 	    cal.set(Calendar.MILLISECOND, 999);
 	    
 	    return new java.sql.Timestamp(cal.getTime().getTime());

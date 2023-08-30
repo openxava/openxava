@@ -599,7 +599,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 		this.condition = null;
 		
 		if (getCollectionView() == null) {
+			MetaTab mt = metaTab;
 			reinitState();
+			metaTab = mt;
 			this.configuration = null;
 		}
 	}
@@ -958,7 +960,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 						if ((v instanceof Timestamp || p.isCompatibleWith(Timestamp.class)) && EQ_COMPARATOR.equals(this.conditionComparators[i])) {  						 
 							if (v instanceof Timestamp && Dates.hasTime((java.util.Date) v)) {
 								valuesToWhere.add(v);
-								valuesToWhere.add(Dates.cloneWith999((java.sql.Timestamp) v));
+								valuesToWhere.add(Dates.cloneWith59999((java.sql.Timestamp) v));
 							} 
 							else if (Dates.hasTime((java.util.Date) v) ) { 
 								valuesToWhere.add(v);
@@ -976,7 +978,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 							String valueTo = convertStringArgument(this.conditionValuesTo[i].toString());
 							Object vTo = WebEditors.parse(getRequest(), p, valueTo, errors, null); 
 							if (vTo instanceof Timestamp ) {
-								vTo = Dates.cloneWith999((java.sql.Timestamp)vTo);
+								vTo = Dates.cloneWith59999((java.sql.Timestamp)vTo);
 							}
 							valuesToWhere.add(vTo);
 							comparatorsToWhere.add(this.conditionComparators[i]);
@@ -2005,7 +2007,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 
 
 	private void applyConfiguration() {
-		if (configuration.getPropertiesNames() != null) {
+		if (configuration != null && configuration.getPropertiesNames() != null) { 
 			String propertiesNames = removeNonexistentProperties(configuration.getPropertiesNames()); // To remove the properties of old versions of the entities 
 			if (Is.emptyString(propertiesNames)) resetProperties();
 			else setPropertiesNames(propertiesNames);
@@ -2014,13 +2016,15 @@ public class Tab implements java.io.Serializable, Cloneable {
 			resetProperties();  
 		}	
 		refine(); 
-		setConditionValuesImpl(configuration.getConditionValues());
-		setConditionValuesToImpl(configuration.getConditionValuesTo()); 
-		setConditionComparatorsImpl(configuration.getConditionComparators());
-		orderBy = configuration.getOrderBy();
-		orderBy2 = configuration.getOrderBy2();
-		descendingOrder = configuration.isDescendingOrder();
-		descendingOrder2 = configuration.isDescendingOrder2();
+		if (configuration != null) { 
+			setConditionValuesImpl(configuration.getConditionValues());
+			setConditionValuesToImpl(configuration.getConditionValuesTo()); 
+			setConditionComparatorsImpl(configuration.getConditionComparators());
+			orderBy = configuration.getOrderBy();
+			orderBy2 = configuration.getOrderBy2();
+			descendingOrder = configuration.isDescendingOrder();
+			descendingOrder2 = configuration.isDescendingOrder2();
+		}
 		condition = null; 
 	}
 	
