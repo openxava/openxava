@@ -2007,7 +2007,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 
 
 	private void applyConfiguration() {
-		if (configuration.getPropertiesNames() != null) {
+		if (configuration != null && configuration.getPropertiesNames() != null) { 
 			String propertiesNames = removeNonexistentProperties(configuration.getPropertiesNames()); // To remove the properties of old versions of the entities 
 			if (Is.emptyString(propertiesNames)) resetProperties();
 			else setPropertiesNames(propertiesNames);
@@ -2016,13 +2016,15 @@ public class Tab implements java.io.Serializable, Cloneable {
 			resetProperties();  
 		}	
 		refine(); 
-		setConditionValuesImpl(configuration.getConditionValues());
-		setConditionValuesToImpl(configuration.getConditionValuesTo()); 
-		setConditionComparatorsImpl(configuration.getConditionComparators());
-		orderBy = configuration.getOrderBy();
-		orderBy2 = configuration.getOrderBy2();
-		descendingOrder = configuration.isDescendingOrder();
-		descendingOrder2 = configuration.isDescendingOrder2();
+		if (configuration != null) { 
+			setConditionValuesImpl(configuration.getConditionValues());
+			setConditionValuesToImpl(configuration.getConditionValuesTo()); 
+			setConditionComparatorsImpl(configuration.getConditionComparators());
+			orderBy = configuration.getOrderBy();
+			orderBy2 = configuration.getOrderBy2();
+			descendingOrder = configuration.isDescendingOrder();
+			descendingOrder2 = configuration.isDescendingOrder2();
+		}
 		condition = null; 
 	}
 	

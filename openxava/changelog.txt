@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Going back to "No grouping" in list fails if we have used setBaseCondition() on the Tab object.
 - Fix: Filtering by date and time in list does not found the record if it has seconds or milliseconds in db.
 - New method cloneWith59999 in the Dates utility class to set seconds to 59 and milliseconds 999.
 
