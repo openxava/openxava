@@ -110,25 +110,21 @@ public class GenerateReportServlet extends HttpServlet {
 	        // and not the one returned by JDBC or the JPA engine
 
 	        if (r instanceof Boolean) {
-	            System.out.println("1 " + p.getName());
 	            if (((Boolean) r).booleanValue()) return XavaResources.getString(locale, "yes");
 	            return XavaResources.getString(locale, "no");
 	        }
 
 	        if (withValidValues) {
-	            System.out.println("2 " + p.getName());
 	            if (p.hasValidValues()) {
 	                return p.getValidValueLabel(locale, original.getValueAt(row, column));
 	            }
 	        }
 
 	        if (r instanceof java.util.Date || r instanceof java.time.LocalDate || r instanceof java.sql.Timestamp) {
-	            System.out.println("3 " + p.getName());
 	            return getValueWithWebEditorsFormat(row, column);
 	        }
 
 	        if (formatBigDecimal && r instanceof BigDecimal) {
-	            System.out.println("4 " + p.getName());
 	            return formatBigDecimal(r, locale);
 	        }
 
@@ -168,20 +164,16 @@ public class GenerateReportServlet extends HttpServlet {
 		private Object getValueWithWebEditorsFormat(int row, int column){
 			Object r = original.getValueAt(row, column);
 			MetaProperty metaProperty = getMetaProperty(column);
-			//System.out.println("getValueWithWebEditorsFormat " + metaProperty.getName());
-			isImage = checkIsImage(metaProperty);
 			//excele suele o solia pasar por aca si no encuentra solucion arriba
-			
-				if (metaProperty.isImage(r)) {
-					if (metaProperty.isCompatibleWith(byte[].class)) {
-						return r==null?null:new ByteArrayInputStream((byte [])r); 
-					} else if (metaProperty.isCompatibleWith(String.class)) {
-						AttachedFile file = new AttachedFile();
-						file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
-						byte[] fileData = file.getData();
-						return fileData==null ? null: new ByteArrayInputStream(fileData);
-					}
+			if (metaProperty.isImage(r)) {
+				if (metaProperty.isCompatibleWith(byte[].class)) {
+					return r==null?null:new ByteArrayInputStream((byte [])r); 
+				} else if (metaProperty.isCompatibleWith(String.class)) {
+					AttachedFile file = new AttachedFile();
+					file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
+					return file.getData()==null ? null: new ByteArrayInputStream(file.getData());
 				}
+			}
 			
 			String result = WebEditors.format(this.request, metaProperty, r, null, "", true);
 			if (isHtml(result)){	// this avoids that the report shows html content
@@ -450,31 +442,6 @@ public class GenerateReportServlet extends HttpServlet {
 	        result = htmlContent.substring(startIndex + startTag.length(), endIndex);
 	        int lastDotIndex = result.lastIndexOf(".");
 	        return (lastDotIndex != -1) ? result.substring(0, lastDotIndex) : result;
-	}
-	
-	private static boolean isPossibleOID(String input) {
-	    if (input.length() != 32) {
-	        return false; 
-	    }
-	    for (char c : input.toCharArray()) {
-	        if (!Character.isDigit(c) && (c < 'A' || c > 'F')) {
-	            return false;
-	        }
-	    }
-	    return true;
-	}
-	
-	private static boolean checkIsImage(MetaProperty metaProperty) {
-		if (metaProperty.getStereotype() != null && (metaProperty.getStereotype().contains("FILE") || metaProperty.getStereotype().contains("IMAGE") || metaProperty.getStereotype().contains("PHOTO"))) {
-			return true;
-		}
-		Annotation[] annotation = (Annotation[]) metaProperty.getAnnotations();
-		for (Annotation an : annotation) {
-			if (an.toString().contains(".File")) {
-				return true;
-			}
-		}
-		return false;
 	}
 	
 }

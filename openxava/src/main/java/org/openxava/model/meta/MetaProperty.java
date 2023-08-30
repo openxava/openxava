@@ -1323,31 +1323,19 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	 * @since 7.1.6
 	 */
 	public boolean isImage(Object object) {
+		if (!(isCompatibleWith(byte[].class) || isCompatibleWith(String.class))) return false;
 		if (getStereotype() != null) {
-			if (getStereotype().contains("IMAGE") || getStereotype().contains("PHOTO")) return true;
-			if (getStereotype().contains("FILE")) {
+			String st = getStereotype();
+			if (("IMAGE").equals(st)|| ("PHOTO").equals(st)) return true;
+			if (("FILE").equals(st)) {
 			return verifyIsImage(object);
 			}
 		}
 		Annotation[] annotation = (Annotation[]) getAnnotations();
 		for (Annotation an : annotation) {
 			if (an.annotationType().getSimpleName().equals("File")) {
-				try {
-					//if object is an oid
-					//prepare for work in pdf and excel
-					//Example Stereotype using byte[]
-					//Annotation using String
-					System.out.println("isCompatibleWith(byte[].class)");
-					System.out.println(isCompatibleWith(byte[].class));
-					if (object instanceof String) {
-						return verifyIsImage(object);
-					} else if (isCompatibleWith(byte[].class)) {
-						System.out.println("isCompatibleWith(byte[].class)");
-						return true;
-					}
-				} catch(Exception e) {
-					return false;
-				}
+				if (object instanceof String) return verifyIsImage(object);
+				return true;
 			}
 		}
 		return false;

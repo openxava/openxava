@@ -469,7 +469,6 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 	MetaProperty p = (MetaProperty) it.next();	
 	int width=widths[i]*letterWidth + EXTRA_WIDTH;
 	if (propertyIsImage.get(i)) { 
-	System.out.println("p.isCompatibleWith(byte[].class) || hasAnnotationFile");
 	
 %>	
 				<image onErrorType="Blank">
