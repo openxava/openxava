@@ -1331,11 +1331,17 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			return verifyIsImage(object);
 			}
 		}
+
 		Annotation[] annotation = (Annotation[]) getAnnotations();
 		for (Annotation an : annotation) {
 			if (an.annotationType().getSimpleName().equals("File")) {
-				if (object instanceof String) return verifyIsImage(object);
-				return true;
+				if (object instanceof String) {
+					System.out.println("object instanceof String " + verifyIsImage(object));
+					return verifyIsImage(object);
+				} else if (isCompatibleWith(byte[].class)) {
+					System.out.println("isCompatibleWith(byte[].class)");
+					return true; 
+				}
 			}
 		}
 		return false;
@@ -1343,10 +1349,12 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	
 	private boolean verifyIsImage(Object object) {
 		String o = (String)object;
-		if (o.length() == 32 && o.chars().allMatch(c -> Character.isDigit(c) || (c >= 'A' && c <= 'F'))) {
+		System.out.println(o);
+		if (o.length() == 32 && o.chars().allMatch(c -> Character.isDigit(c) || (Character.toUpperCase(c) >= 'A' && Character.toUpperCase(c) <= 'F'))) {
 			AttachedFile file = new AttachedFile();
 			file = (AttachedFile) FilePersistorFactory.getInstance().find(o);
 			String fileExtension = file.getExtension();
+			System.out.println(file.getName());
 			String[] imageExtensions = {"jpg", "jpeg", "png", "webp", "bmp", "ico", "tif", "tiff", "gif"};
 		    for (String extension : imageExtensions) {
 		        if (fileExtension.equals(extension)) {
