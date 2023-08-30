@@ -815,6 +815,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 			condition =  condition.replace(" group by ", " and " + removeOrder(lastCondition) + " group by ");
 			key = ArrayUtils.addAll(key, lastKey);
 		}
+		System.out.println("[Tab.search] condition=" + condition); // tmr
+		System.out.println("[Tab.search] key=" + Arrays.toString(key)); // TMR ME QUEDÉ POR AQUÍ. ESTE ES EL PROBLEMA PONE DOS 2002
 		tab.search(condition, key);		
 	}
 	
@@ -1053,6 +1055,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 			this.conditionComparatorsToWhere = null;			
 		}
 
+		System.out.println("[Tab.createCondition] sb=" + sb); // tmr
 		return sb.toString();
 	}
 

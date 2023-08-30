@@ -72,6 +72,14 @@ public class Invoice2002Test extends CustomizeListTestBase {
 		for (int i = 0; i < count; i++) {
 			assertValueInList(i, "year", "2002"); 	
 		}		
+		
+		// tmr ini
+		// tmr Cambiar nombre test
+		execute("List.orderBy", "property=number");
+		selectGroupBy("Group by year");
+		assertValueInList(0, 0, "2002");
+		assertValueInList(0, 0, "1");
+		// tmr fin
 	}
 	
 	public void testCalculatedPropertiesInListMode() throws Exception {
