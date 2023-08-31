@@ -49,10 +49,8 @@ public class GenerateReportServlet extends HttpServlet {
 		private boolean format = false;	// format or no the values. If format = true, all values to the report are String
 		private Integer columnCountLimit;
 		private boolean formatBigDecimal = true; 
-		private boolean isImage = false;
-		private String type;
 
-		public TableModelDecorator(HttpServletRequest request, TableModel original, List metaProperties, Locale locale, boolean labelAsHeader, boolean format, Integer columnCountLimit, boolean formatBigDecimal, String type) throws Exception { 
+		public TableModelDecorator(HttpServletRequest request, TableModel original, List metaProperties, Locale locale, boolean labelAsHeader, boolean format, Integer columnCountLimit, boolean formatBigDecimal) throws Exception { 
 			this.request = request;
 			this.original = original;
 			this.metaProperties = metaProperties;
@@ -62,7 +60,6 @@ public class GenerateReportServlet extends HttpServlet {
 			this.format = format;
 			this.columnCountLimit = columnCountLimit;
 			this.formatBigDecimal = formatBigDecimal; 
-			this.type = type;
 		}
 
 
@@ -233,7 +230,7 @@ public class GenerateReportServlet extends HttpServlet {
 					for (String totalProperty: tab.getTotalPropertiesNames()) {
 						parameters.put(totalProperty + "__TOTAL__", getTotal(request, tab, totalProperty));
 					}
-					TableModel tableModel = getTableModel(request, tab, selectedRows, false, true, null, "pdf");
+					TableModel tableModel = getTableModel(request, tab, selectedRows, false, true, null);
 					tableModel.getValueAt(0, 0);
 					if (tableModel.getRowCount() == 0) {
 						generateNoRowsPage(response);
@@ -256,13 +253,13 @@ public class GenerateReportServlet extends HttpServlet {
 				response.setHeader("Content-Disposition", "inline; filename=\"" + getFileName(tab) + ".csv\""); 
 				synchronized (tab) {
 					tab.setRequest(request);
-					response.getWriter().print(TableModels.toCSV(getTableModel(request, tab, selectedRows, true, false, columnCountLimit, "csv")));
+					response.getWriter().print(TableModels.toCSV(getTableModel(request, tab, selectedRows, true, false, columnCountLimit)));
 				}
 			}
 			else if (uri.endsWith(".xls")) {    
                 synchronized (tab) {
                 	tab.setRequest(request);
-                    JxlsWorkbook wb = new JxlsWorkbook(getTableModel(request, tab, selectedRows, true, false, columnCountLimit, false, "xls"), 
+                    JxlsWorkbook wb = new JxlsWorkbook(getTableModel(request, tab, selectedRows, true, false, columnCountLimit, false), 
                             getFileName(tab));                	
                     JxlsSheet sheet = wb.getSheet(0);
                     int lastRow = sheet.getLastRowNumber();
@@ -375,7 +372,7 @@ public class GenerateReportServlet extends HttpServlet {
 		return widths;
 	}
 
-	private TableModel getTableModel(HttpServletRequest request, Tab tab, int [] selectedRows, boolean labelAsHeader, boolean format, Integer columnCountLimit, boolean formatBigDecimal, String type) throws Exception {
+	private TableModel getTableModel(HttpServletRequest request, Tab tab, int [] selectedRows, boolean labelAsHeader, boolean format, Integer columnCountLimit, boolean formatBigDecimal) throws Exception {
 		TableModel data = null;
 		if (selectedRows != null && selectedRows.length > 0) {
 			data = new SelectedRowsXTableModel(tab.getTableModel(), selectedRows);
@@ -383,11 +380,11 @@ public class GenerateReportServlet extends HttpServlet {
 		else {
 			data = tab.getAllDataTableModel();
 		}
-		return new TableModelDecorator(request, data, tab.getMetaProperties(), Locales.getCurrent(), labelAsHeader, format, columnCountLimit, formatBigDecimal, type);
+		return new TableModelDecorator(request, data, tab.getMetaProperties(), Locales.getCurrent(), labelAsHeader, format, columnCountLimit, formatBigDecimal);
 	}	
 	
-	private TableModel getTableModel(HttpServletRequest request, Tab tab, int [] selectedRows, boolean labelAsHeader, boolean format, Integer columnCountLimit, String type) throws Exception {
-		return getTableModel(request, tab, selectedRows, labelAsHeader, format, columnCountLimit, true, type);
+	private TableModel getTableModel(HttpServletRequest request, Tab tab, int [] selectedRows, boolean labelAsHeader, boolean format, Integer columnCountLimit) throws Exception {
+		return getTableModel(request, tab, selectedRows, labelAsHeader, format, columnCountLimit, true);
 	}
 	
 	private static Object formatBigDecimal(Object number, Locale locale) { 
