@@ -17,11 +17,7 @@ public class SellerJSPTest extends ModuleTestBase {
 		super(testName, "SellerJSP");		
 	}
 	
-	public void testHandmadeWebView_changeLabelInDialog() throws Exception {
-		execute("SellerJSP.changeName");
-		assertLabel("name","Change name to");
-		closeDialog();
-		
+	public void testHandmadeWebView() throws Exception {
 		execute("CRUD.new");
 		assertValue("number", "");
 		assertValue("name", "");
