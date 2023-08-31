@@ -14,6 +14,7 @@ public class ShowSellerAction extends ViewBaseAction {
 		getView().setModelName("Seller");
 		getView().setViewName("Complete");
 		getView().setValue("number", number);
+		getView().setLabelId("level", "The level");
 		setControllers("ModifySeller", "Dialog"); 
 		getView().refresh();		
 	}
