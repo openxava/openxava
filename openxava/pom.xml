@@ -139,7 +139,7 @@
 		<dependency>
 		    <groupId>org.apache.groovy</groupId>
 		    <artifactId>groovy</artifactId>
-		    <version>4.0.13</version>
+		    <version>4.0.14</version>
 		</dependency>		
 		<dependency>
 			<groupId>org.jsoup</groupId>
@@ -195,17 +195,17 @@
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-core</artifactId>
-			<version>9.0.78</version>
+			<version>9.0.80</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
-			<version>9.0.78</version>
+			<version>9.0.80</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-dbcp</artifactId>
-			<version>9.0.78</version>
+			<version>9.0.80</version>
 		</dependency>
 		<dependency>
 			<groupId>jakarta.json.bind</groupId>

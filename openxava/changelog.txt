@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Driver version in doc and new projects upgraded for AS/400.
+- Embedded Tomcat used in development upgraded to 9.0.80.
+- Groovy upgraded to 4.0.14
 - Fix: View.selLabelId() for references as @DescriptionsList fails from time to time.
 - Fix: Grouping after filtering or sorting the list fails if the @Tab has a baseCondition and an IFilter. 
 - Fix: Going back to "No grouping" in list fails if we have used setBaseCondition() on the Tab object.
