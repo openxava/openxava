@@ -65,13 +65,22 @@ public class Invoice2002Test extends CustomizeListTestBase {
 		assertNoErrors();
 	}	
 	
-	public void testOnInitAction_IRequestFilter_BaseContextFilter() throws Exception {
+	public void testOnInitAction_IRequestFilter_BaseContextFilter_groupingAfterFilteringWithBaseConditionWithParementerAndIFilter() throws Exception {
 		assertActions(listActions);
 		assertListTitle("Invoices report of year 2,002");
 		int count = getListRowCount();
 		for (int i = 0; i < count; i++) {
 			assertValueInList(i, "year", "2002"); 	
 		}		
+		
+		setConditionValues("", "1");
+		execute("List.filter");
+		assertListRowCount(1);
+		selectGroupBy("Group by year");
+		assertListRowCount(1);
+		assertListColumnCount(2);
+		assertValueInList(0, 0, "2002");
+		assertValueInList(0, 1, "1");
 	}
 	
 	public void testCalculatedPropertiesInListMode() throws Exception {

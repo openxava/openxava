@@ -813,9 +813,18 @@ public class Tab implements java.io.Serializable, Cloneable {
 		}
 		else if (!Is.emptyString(lastCondition)) {
 			condition =  condition.replace(" group by ", " and " + removeOrder(lastCondition) + " group by ");
-			key = ArrayUtils.addAll(key, lastKey);
+			key = addLastKey(key);
 		}
 		tab.search(condition, key);		
+	}
+	
+	private Object [] addLastKey(Object [] key) { 
+		Object [] result = ArrayUtils.addAll(key, lastKey);
+		int parameterInBaseCondition = StringUtils.countMatches(getMetaTab().getBaseCondition(), "?");
+		for (int i=0; i<parameterInBaseCondition; i++) {
+			result = ArrayUtils.remove(result, 0);
+		}
+		return result;
 	}
 	
 	/**
