@@ -1,6 +1,7 @@
 package org.openxava.web.servlets;
 
 import java.io.*;
+import java.lang.annotation.Annotation;
 import java.math.*;
 import java.text.*;
 import java.util.*;
@@ -101,27 +102,38 @@ public class GenerateReportServlet extends HttpServlet {
 
 		private Object getValueWithoutWebEditorsFormat(int row, int column){
 			Object r = original.getValueAt(row, column);
+			MetaProperty p = getMetaProperty(column); // In order to use the type declared by the developer 
+			// and not the one returned by JDBC or the JPA engine
+			
 			if (r instanceof Boolean) {
 				if (((Boolean) r).booleanValue()) return XavaResources.getString(locale, "yes");
 				return XavaResources.getString(locale, "no");
 			}
+			
 			if (withValidValues) {
-				MetaProperty p = getMetaProperty(column);
 				if (p.hasValidValues()) {					
 					return p.getValidValueLabel(locale, original.getValueAt(row, column));
 				}
 			}
 			
-			if (r instanceof java.util.Date) {
-				MetaProperty p = getMetaProperty(column); // In order to use the type declared by the developer 
-					// and not the one returned by JDBC or the JPA engine
-				return p.format(r, locale); 
+			if (r instanceof java.util.Date|| r instanceof java.time.LocalDate || r instanceof java.sql.Timestamp) {
+				return getValueWithWebEditorsFormat(row, column);
 			}
-
+			
 			if (formatBigDecimal && r instanceof BigDecimal) {
 				return formatBigDecimal(r, locale); 
 			}
 			
+			if (p.getStereotype() != null && p.getStereotype().contains("FILE")) {
+				return getValueWithWebEditorsFormat(row, column);
+			}
+			Annotation[] annotation = (Annotation[]) p.getAnnotations();
+			for (Annotation an : annotation) {
+				if (an.toString().contains(".File")) {
+					return getValueWithWebEditorsFormat(row, column);
+				}
+			}
+
 			return r;
 		}
 		
@@ -131,7 +143,7 @@ public class GenerateReportServlet extends HttpServlet {
 			if (metaProperty.isCompatibleWith(byte[].class)) return r==null?null:new ByteArrayInputStream((byte [])r); 
 			String result = WebEditors.format(this.request, metaProperty, r, null, "", true);
 			if (isHtml(result)){	// this avoids that the report shows html content
-				result = WebEditors.format(this.request, metaProperty, r, null, "", false);
+				result = result.contains("ox-attached-file") ? extractFileName(result) : WebEditors.format(this.request, metaProperty, r, null, "", false);
 			}
 			else {
 				result = result.replaceAll("&lt;", "<").replaceAll("&gt;", ">").replaceAll("&quot;", "\"");
@@ -189,7 +201,7 @@ public class GenerateReportServlet extends HttpServlet {
 					parameters.put("Title", title);
 					parameters.put("Organization", getOrganization(request)); 
 					parameters.put("Date", getCurrentDate());
-					for (String totalProperty: tab.getTotalPropertiesNames()) { 								
+					for (String totalProperty: tab.getTotalPropertiesNames()) {
 						parameters.put(totalProperty + "__TOTAL__", getTotal(request, tab, totalProperty));
 					}
 					TableModel tableModel = getTableModel(request, tab, selectedRows, false, true, null);
@@ -386,4 +398,16 @@ public class GenerateReportServlet extends HttpServlet {
 			}
 		}
 	}
+	
+	private static String extractFileName(String htmlContent) {
+			String result = "";
+	        String startTag = "<span class=\"ox-attached-file\">";
+	        String endTag = "</span>";
+	        int startIndex = htmlContent.indexOf(startTag);
+	        int endIndex = htmlContent.indexOf(endTag, startIndex);
+	        result = htmlContent.substring(startIndex + startTag.length(), endIndex);
+	        int lastDotIndex = result.lastIndexOf(".");
+	        return (lastDotIndex != -1) ? result.substring(0, lastDotIndex) : result;
+	}
+	
 }
