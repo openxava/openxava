@@ -14,21 +14,18 @@ public class Movie3Test extends MovieBaseTest {
 	
 	public void testShowImageForFileAnnotationWhenPrint() throws Exception {
 		execute("Print.generatePdf");
-		assertContentTypeForPopup("application/pdf");  
-		System.out.println(getPopupPDFLine(4));
-		//GATTACA 402881187bf356c6017bf36359cc0004
-		//assertPopupPDFLinesCount(6);
-		//assertPopupPDFLine(1, "Orphans of Orphanage: EL INTERNADO");
-		
+		assertContentTypeForPopup("application/pdf"); 
+		assertPopupPDFLine(3, "FORREST GUMP ROBERT ZEMECKIS ERIC ROTH Y WINSTON GROOM 7/6/1994 Forrest Gump Trailer");
+		assertPopupPDFLine(4, "GATTACA gattaca-trailer");
+
 		execute("Print.generateExcel");
 		assertContentTypeForPopup("text/x-csv");		
 		StringTokenizer excel = new StringTokenizer(getPopupText(), "\n\r");
 		excel.nextToken();
-		excel.nextToken();
 		String line1 = excel.nextToken();
-		System.out.println(line1);
-		//"GATTACA";"";"";;"402881187bf356c6017bf36359cc0004"
-		//assertEquals("2017;1;\"5/10/2017\";1;\"Javi\";\"\";\"No\";\"110.00\"", line1);
+		assertEquals("\"FORREST GUMP\";\"ROBERT ZEMECKIS\";\"ERIC ROTH Y WINSTON GROOM\";\"7/6/1994\";\"Forrest Gump Trailer\"", line1);
+		String line2 = excel.nextToken();
+		assertEquals("\"GATTACA\";\"\";\"\";;\"gattaca-trailer\"", line2);
 	}
 		
 }

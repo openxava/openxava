@@ -128,34 +128,30 @@ public class GenerateReportServlet extends HttpServlet {
 	            return formatBigDecimal(r, locale);
 	        }
 
-	        //excel pasa por aca primero, definirlo aca directamente
 	        if (p.isImage(r)) {
-	        	// en caso que la propiedad sea un string
-	        	// ya se comprobo que es un oid, si no es un oid, retorno falso en el isImage, por lo que no pasa
 	            if (p.isCompatibleWith(String.class)) {
 	                AttachedFile file = new AttachedFile();
 	                file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
-	                if (file.getName() != null) return file.getNameWithoutExtension();
+	                return (file.getName() != null) ? file.getNameWithoutExtension() : "";
 	            } else if (p.isCompatibleWith(byte[].class)) {
-	                //se hace un toString del objeto array 
-	            	//hay que ver como obtener el nombre de la imagen apartir del byte
 	            	return r.toString();
 	            }
-	            return getValueWithWebEditorsFormat(row, column);
 	        }
-	        //en caso que no sea imagen y solo archivo
-	        Annotation[] annotations = p.getAnnotations();
-	        boolean isFile = false;
-	        for (Annotation an : annotations) {
-				if (an.annotationType().getSimpleName().equals("File")) {
-					isFile = true;
-					break;
-					}
-			}
-	        if ((p.getStereotype()!=null && p.getStereotype().contains("FILE"))|| isFile ) {
-                AttachedFile file = new AttachedFile();
-                file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
-                if (file.getName() != null) return file.getNameWithoutExtension();
+	        // for use when r is not img but a file
+	        if (r != null) {
+		        Annotation[] annotations = p.getAnnotations();
+		        boolean isFile = false;
+		        for (Annotation an : annotations) {
+					if (an.annotationType().getSimpleName().equals("File")) {
+						isFile = true;
+						break;
+						}
+				}
+		        if ((p.getStereotype()!=null && ("FILE").equals(p.getStereotype()))|| isFile ) {
+	                AttachedFile file = new AttachedFile();
+	                file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
+	                return (file.getName() != null) ? file.getNameWithoutExtension() : "";
+		        }
 	        }
 
 	        return r;
@@ -164,14 +160,13 @@ public class GenerateReportServlet extends HttpServlet {
 		private Object getValueWithWebEditorsFormat(int row, int column){
 			Object r = original.getValueAt(row, column);
 			MetaProperty metaProperty = getMetaProperty(column);
-			//excele suele o solia pasar por aca si no encuentra solucion arriba
 			if (metaProperty.isImage(r)) {
 				if (metaProperty.isCompatibleWith(byte[].class)) {
 					return r==null?null:new ByteArrayInputStream((byte [])r); 
 				} else if (metaProperty.isCompatibleWith(String.class)) {
 					AttachedFile file = new AttachedFile();
 					file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
-					return file.getData()==null ? null: new ByteArrayInputStream(file.getData());
+					return file.getNameWithoutExtension();
 				}
 			}
 			

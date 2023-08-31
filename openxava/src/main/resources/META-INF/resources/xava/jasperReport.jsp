@@ -11,13 +11,11 @@ OpenXavaTest/src/org/openxava/test/tests/PrettyPrintingTest.txt
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 
 <%@ page import="java.util.List" %> 
-<%@ page import="java.util.ArrayList" %> 
 <%@ page import="java.util.Collection" %> 
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Locale" %>
-<%@ page import="java.lang.annotation.Annotation" %>
 <%@ page import="org.openxava.util.XavaResources" %>
 <%@ page import="org.openxava.util.Primitives" %>
 <%@ page import="org.openxava.util.Strings" %>
@@ -158,7 +156,6 @@ int pageWidth;
 int pageHeight;
 int columnWidth;
 String orientation = null;
-List<Boolean> propertyIsImage = new ArrayList<>();
 
 if (totalWidth > WIDE_CHARACTERS_PER_ROW) {
 	if (totalWidth > MAX_CHARACTERS_PER_ROW) tightenWidths(metaProperties, widths);
@@ -245,21 +242,10 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 		
 	<%		 
 	int detailHeight = lineHeight; 
-	int i = 0;
-	for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {	
-		MetaProperty p = (MetaProperty) it.next();	
-		boolean isImage = false;
-		if (p!=null) {
-			isImage = p.isImage(tab.getTableModel().getValueAt(0, i));
-		}
-		propertyIsImage.add(isImage);
-	}	
-	i = 0;
-	
-	for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
+	for (Iterator it = metaProperties.iterator(); it.hasNext();) {
 		MetaProperty p = (MetaProperty) it.next();
 		String type = "java.lang.String";
-		if (propertyIsImage.get(i)) {
+		if (p.isCompatibleWith(byte[].class)) {
 			type = "java.io.InputStream"; 
 			detailHeight = 32;
 		}
@@ -412,7 +398,7 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 				</line>
 <% 
 int x = 0;
-i = 0;
+int i = 0;
 for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {			
 	MetaProperty p = (MetaProperty) it.next();
 	int width=widths[i]*letterWidth + EXTRA_WIDTH; 		
@@ -468,8 +454,7 @@ i = 0;
 for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {			
 	MetaProperty p = (MetaProperty) it.next();	
 	int width=widths[i]*letterWidth + EXTRA_WIDTH;
-	if (propertyIsImage.get(i)) { 
-	
+	if (p.isCompatibleWith(byte[].class)) { 
 %>	
 				<image onErrorType="Blank">
     				<reportElement x="<%=x%>" y="2" width="<%=width%>" height="30"/>
