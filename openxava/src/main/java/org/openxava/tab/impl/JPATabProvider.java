@@ -280,7 +280,6 @@ public class JPATabProvider extends TabProviderBase {
 	private List<Object []> nextBlock() {		
 		if (keyHasNulls()) return Collections.EMPTY_LIST; // Because some databases (like Informix) have problems setting nulls
 				
-		System.out.println("[JPATabProvider.nextBlock] getSelect()=" + getSelect()); // tmr
 		Query query = XPersistence.getManager().createQuery(getSelect()); 
 		// Fill key values
 		StringBuffer message =
@@ -288,7 +287,6 @@ public class JPATabProvider extends TabProviderBase {
 		message.append(XavaResources.getString("executing_select", getSelect()));		
 		
 		Object [] key = getKey(); 
-		System.out.println("[JPATabProvider.nextBlock] key=" + Arrays.toString(key)); // tmr
 		for (int i = 0; i < key.length; i++) {
 			query.setParameter("p" + i, key[i]);
 			message.append(key[i]);
