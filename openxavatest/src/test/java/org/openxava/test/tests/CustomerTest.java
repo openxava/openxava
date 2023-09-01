@@ -617,14 +617,21 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertMessage("Customer deleted successfully");
 	}
 
-	public void testSetEditableOfReferences_notOnChangeActionsOfReferences_disableReferenceActions() throws Exception {  
-		execute("List.viewDetail", "row=0");		
+	public void testSetEditableOfReferences_notOnChangeActionsOfReferences_disableReferenceActions_validateUrlWithStereotypeWEBURL() throws Exception {  
+		execute("List.viewDetail", "row=1");	
+		assertValue("website", "http://localhost:8080/openxavatest");
+		execute("Customer.save");
+		assertNoErrors();
+		execute("Mode.list");
+		
+		execute("List.viewDetail", "row=0");	
 		assertNoMessage("OnChangeVoidAction executed"); 
 		assertEditable("address.street");
 		assertEditable("seller.number");
 		assertNoEditable("seller.name");
 		assertAction("Reference.search");
 		assertAction("Reference.createNew");
+		assertValue("website", "http://www.openxava.org");
 		
 		execute("EditableOnOff.setOff");
 		assertNoEditable("address.street");
