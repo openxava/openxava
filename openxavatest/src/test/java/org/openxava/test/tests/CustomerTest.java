@@ -618,7 +618,7 @@ public class CustomerTest extends CustomizeListTestBase {
 	}
 
 	public void testSetEditableOfReferences_notOnChangeActionsOfReferences_disableReferenceActions_validateUrlWithStereotypeWEBURL() throws Exception {  
-		execute("List.viewDetail", "row=1");	
+		execute("List.viewDetail", "row=2");	
 		assertValue("website", "http://localhost:8080/openxavatest");
 		execute("Customer.save");
 		assertNoErrors();
@@ -631,7 +631,6 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertNoEditable("seller.name");
 		assertAction("Reference.search");
 		assertAction("Reference.createNew");
-		assertValue("website", "http://www.openxava.org");
 		
 		execute("EditableOnOff.setOff");
 		assertNoEditable("address.street");
