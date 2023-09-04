@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: URLValidator for WEBURL stereotype falsely triggers for correct URLs.
 - Driver version in doc and new projects upgraded for AS/400.
 - Embedded Tomcat used in development upgraded to 9.0.80.
 - Groovy upgraded to 4.0.14
