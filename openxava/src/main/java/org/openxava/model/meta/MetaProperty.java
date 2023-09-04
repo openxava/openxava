@@ -19,7 +19,6 @@ import org.openxava.util.*;
 import org.openxava.util.meta.*;
 import org.openxava.validators.*;
 import org.openxava.validators.meta.*;
-import org.openxava.web.editors.*;
 
 
 /**
@@ -1322,43 +1321,20 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	/*
 	 * @since 7.1.6
 	 */
-	public boolean isImage(Object object) {
+	public boolean isFile(Object object) {
+		if (object == null) return false;
 		if (!(isCompatibleWith(byte[].class) || isCompatibleWith(String.class))) return false;
 		if (getStereotype() != null) {
 			String st = getStereotype();
-			if (("IMAGE").equals(st)|| ("PHOTO").equals(st)) return true;
-			if (("FILE").equals(st)) {
-			return verifyIsImage(object);
-			}
+			if (("IMAGE").equals(st) || ("PHOTO").equals(st) || ("FILE").equals(st)) return true;
 		}
 		Annotation[] annotation = (Annotation[]) getAnnotations();
 		for (Annotation an : annotation) {
 			if (an.annotationType().getSimpleName().equals("File")) {
-				if (object instanceof String) {
-					return verifyIsImage(object);
-				} else if (isCompatibleWith(byte[].class)) {
-					return true; 
-				}
+				return true;
 			}
 		}
 		return false;
 	}
-	
-	private boolean verifyIsImage(Object object) {
-		String o = (String)object;
-		if (o.length() == 32 && o.chars().allMatch(c -> Character.isDigit(c) || (Character.toUpperCase(c) >= 'A' && Character.toUpperCase(c) <= 'F'))) {
-			AttachedFile file = new AttachedFile();
-			file = (AttachedFile) FilePersistorFactory.getInstance().find(o);
-			String fileExtension = file.getExtension();
-			String[] imageExtensions = {"jpg", "jpeg", "png", "webp", "bmp", "ico", "tif", "tiff", "gif"};
-		    for (String extension : imageExtensions) {
-		        if (fileExtension.equals(extension)) {
-		            return true;
-		        }
-		    }
-		}
-		return false;
-	}
-	 
 	
 }

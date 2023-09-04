@@ -1,7 +1,6 @@
 package org.openxava.web.servlets;
 
 import java.io.*;
-import java.lang.annotation.Annotation;
 import java.math.*;
 import java.text.*;
 import java.util.*;
@@ -125,45 +124,28 @@ public class GenerateReportServlet extends HttpServlet {
 	            return formatBigDecimal(r, locale);
 	        }
 
-	        if (p.isImage(r)) {
+	        if (p.isFile(r)) {
 	            if (p.isCompatibleWith(String.class)) {
 	                AttachedFile file = new AttachedFile();
 	                file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
-	                return (file.getName() != null) ? file.getNameWithoutExtension() : "";
+	                return (file.getName() != null) ? file.getName() : "";
 	            } else if (p.isCompatibleWith(byte[].class)) {
 	            	return r.toString();
 	            }
 	        }
-	        // for use when r is not img but a file
-	        if (r != null) {
-		        Annotation[] annotations = p.getAnnotations();
-		        boolean isFile = false;
-		        for (Annotation an : annotations) {
-					if (an.annotationType().getSimpleName().equals("File")) {
-						isFile = true;
-						break;
-						}
-				}
-		        if ((p.getStereotype()!=null && ("FILE").equals(p.getStereotype()))|| isFile ) {
-	                AttachedFile file = new AttachedFile();
-	                file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
-	                return (file.getName() != null) ? file.getNameWithoutExtension() : "";
-		        }
-	        }
-
 	        return r;
 	    }
 		
 		private Object getValueWithWebEditorsFormat(int row, int column){
 			Object r = original.getValueAt(row, column);
 			MetaProperty metaProperty = getMetaProperty(column);
-			if (metaProperty.isImage(r)) {
+			if (metaProperty.isFile(r)) {
 				if (metaProperty.isCompatibleWith(byte[].class)) {
 					return r==null?null:new ByteArrayInputStream((byte [])r); 
 				} else if (metaProperty.isCompatibleWith(String.class)) {
 					AttachedFile file = new AttachedFile();
 					file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
-					return file.getNameWithoutExtension();
+					return file.getName();
 				}
 			}
 			
