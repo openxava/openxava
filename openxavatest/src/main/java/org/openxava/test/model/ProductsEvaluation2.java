@@ -25,7 +25,10 @@ public class ProductsEvaluation2 extends Identifiable {
 	Family2 family;
 	
 	@ElementCollection
-	@ListProperties("product, evaluation")
+	// tmr @ListProperties("product, evaluation")
+	// tmr @ListProperties("product.number, product.description, evaluation, product.color.name") // tmr ASÍ SIN @DescriptionsList DA ERROR, PERO NO RECUPERA EL COLOR
+	// TMR ME QUEDÉ POR AQUÍ, ASÍ FALLA
+	@ListProperties("product, evaluation, product.color.name")
 	Collection<ProductEvaluation2> evaluations;
 
 }
