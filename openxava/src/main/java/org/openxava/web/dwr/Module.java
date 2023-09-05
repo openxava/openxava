@@ -69,9 +69,9 @@ public class Module extends DWRBase {
 					result.setForwardURL(forwardURI);
 				}
 				else {
-					result.setForwardURL(request.getScheme() + "://" + 
-						request.getServerName() + ":" + request.getServerPort() + 
-						request.getContextPath() + forwardURI); 
+					result.setForwardURL(getScheme(request) + "://" + 
+						getServerName(request) + ":" + getServerPort(request) + 
+						request.getContextPath() + forwardURI);
 				}
 				result.setForwardInNewWindow("true".equals(request.getSession().getAttribute("xava_forward_inNewWindow")));
 				request.getSession().removeAttribute("xava_forward");
@@ -130,6 +130,21 @@ public class Module extends DWRBase {
 		}
 	}
 	
+	private Object getServerPort(HttpServletRequest request) { 
+		String port = request.getHeader("x-forwarded-port"); // In this way to work behind a proxy, you can test it clicking in Sign in action using Codespaces, for example
+		return Is.emptyString(port)?request.getServerPort():port;
+	}
+
+	private String getServerName(HttpServletRequest request) { 
+		String host = request.getHeader("x-forwarded-host"); // In this way to work behind a proxy, you can test it clicking in Sign in action using Codespaces, for example
+		return Is.emptyString(host)?request.getServerName():host;
+	}
+
+	private String getScheme(HttpServletRequest request) { 
+		String scheme = request.getHeader("x-forwarded-scheme"); // In this way to work behind a proxy, you can test it clicking in Sign in action using Codespaces, for example
+		return Is.emptyString(scheme)?request.getScheme():scheme;
+	}
+
 	/** @return null means no change in the URL, empty string means reset the URL parameters */
 	private String getUrlParam() { 
 		// If we change this we should execute the Permanlink Selenium test
