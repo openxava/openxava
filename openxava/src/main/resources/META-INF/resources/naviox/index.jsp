@@ -32,7 +32,9 @@ private static Log log = LogFactory.getLog("index.jsp");
 <%
 String windowId = context.getWindowId(request);
 context.setCurrentWindowId(windowId);
-if ("true".equals(request.getParameter("init")) || "SignIn".equals(request.getParameter("module"))) { // If you change this condition try to restart 3 times xavaprotest in a Tomcat
+// TMR ME QUEDÉ POR AQUÍ, PARA VER SI ES ESTO. PROBÉ LA SUITE 1 VEZ Y SALIO VERDE, PROBARLA MÁS
+// TMR   TAMBIÉN PUEDO PROBAR EL LOGOUT DE MODULETESTBASE
+if ("true".equals(request.getParameter("init")) /* tmr || "SignIn".equals(request.getParameter("module"))*/) { // If you change this condition try to restart 3 times xavaprotest in a Tomcat
 																									  //   only one, organization textfield or organzation combo shouuld be displayed  
 	context.resetModule(request);
 }
