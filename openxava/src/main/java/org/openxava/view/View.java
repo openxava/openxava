@@ -240,7 +240,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	private Collection createMetaMembers(boolean hiddenIncluded, boolean collectionTotalsIncluded) throws XavaException {   
-		if (getModelName() == null) return Collections.EMPTY_LIST; 		
+		if (getModelName() == null) return Collections.EMPTY_LIST;
 		Collection<MetaMember> metaMembers = new ArrayList<MetaMember>(getMetaView().getMetaMembers());
 		if (isRepresentsElementCollection()) {
 			removeNotInListProperties(metaMembers);
@@ -948,8 +948,8 @@ public class View implements java.io.Serializable {
 			String restSubviews = name.substring(idx+1);
 			return getSubview(firstSubview).getSubview(restSubviews);
 		}
-		createSubviews(); 
-		View subview = (View) getSubviews().get(name);		
+		createSubviews();
+		View subview = (View) getSubviews().get(name);
 		if (subview == null) {			
 			subview = findSubviewInSection(name);			
 			if (subview == null) {			
@@ -1043,10 +1043,16 @@ public class View implements java.io.Serializable {
 			newView.setModelName(ref.getReferencedModelName());
 			newView.setRepresentsEntityReference(true);
 		}
-		if (displayReferenceWithNotCompositeEditor(ref)) { 
+		// tmr if (displayReferenceWithNotCompositeEditor(ref)) { 
+		if (false) { // tmr
 			newView.setMetaView(getMetaView().getMetaViewOnlyKeys(ref));			
 		}
 		else {
+			// tmr ini
+			MetaView refView = getMetaView().getMetaView(ref);
+			System.out.println("[View(" + getModelName() + "::" + getMemberName() + ").createAndAddSubview] ref=" 
+					+ ref.getName() + ", refView.getMembersNames()=" + refView.getMembersNames()); // tmr
+			// tmr fin
 			newView.setMetaView(getMetaView().getMetaView(ref));			
 		}
 		newView.setMemberName(member.getName());		
@@ -2872,7 +2878,8 @@ public class View implements java.io.Serializable {
 				return isEditable(getMetaView().getMetaModel().getMetaReference(member));
 			}
 			catch (ElementNotFoundException ex2) {
-				throw new ElementNotFoundException("member_not_found_in_view", member, getViewName(), getModelName());
+				// tmr throw new ElementNotFoundException("member_not_found_in_view", member, getViewName(), getModelName());
+				return false; // tmr
 			}
 		}
 	}
@@ -3378,8 +3385,15 @@ public class View implements java.io.Serializable {
 				return (referencedModel instanceof MetaEntity) &&
 					referencedModel.isKey(member);
 			}			
-		}				
-		return throwsPropertyChanged(getMetaProperty(propertyName)); 
+		}		
+		try { // tmr
+			return throwsPropertyChanged(getMetaProperty(propertyName));
+		// tmr ini	
+		}
+		catch (ElementNotFoundException ex) {
+			return false;
+		}
+		// tmr fin
 	}	
 	
 	private boolean isLastKeyProperty(MetaProperty p) throws XavaException {		
@@ -4402,6 +4416,11 @@ public class View implements java.io.Serializable {
 		MetaDescriptionsList descriptionsList = getMetaDescriptionsList(ref);
 		if (descriptionsList == null) return false;
 		return !descriptionsList.isShowReferenceView(); 
+	}
+	
+	public boolean displayAsDescriptionsListInElementCollection(MetaReference ref) throws XavaException { // tmr ¿nombre?		
+		// tmr return getMetaDescriptionsList(ref) != null;
+		return displayAsDescriptionsList(ref); // tmr
 	}
 	
 	public boolean displayAsDescriptionsListAndReferenceView(MetaReference ref) throws XavaException { 
