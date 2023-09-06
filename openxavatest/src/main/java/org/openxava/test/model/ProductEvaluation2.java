@@ -3,6 +3,7 @@ package org.openxava.test.model;
 import javax.persistence.*;
 
 import org.openxava.annotations.*;
+import org.openxava.test.actions.*;
 
 import lombok.*;
 
@@ -21,6 +22,7 @@ public class ProductEvaluation2 {
 		 depends="family", 
 		 condition="${family.number} = ?" 
 	)
+	@OnChange(OnChangeProductAction.class) // tmr
 	Product2 product;
 
 	@Column(length=40) 

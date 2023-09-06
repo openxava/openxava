@@ -27,7 +27,7 @@ public class ProductsEvaluation2 extends Identifiable {
 	@ElementCollection
 	// tmr @ListProperties("product, evaluation")
 	// tmr @ListProperties("product.number, product.description, evaluation, product.color.name") // tmr ASÍ SIN @DescriptionsList DA ERROR, PERO NO RECUPERA EL COLOR
-	@ListProperties("product, evaluation, product.color.name")
+	@ListProperties("product, evaluation, product.color.name") // tmr Probar también una que sea descrptionsList, como product.family.name. Podría ser otro bug
 	Collection<ProductEvaluation2> evaluations;
 
 }
