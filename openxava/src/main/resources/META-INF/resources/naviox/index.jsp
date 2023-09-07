@@ -32,10 +32,7 @@ private static Log log = LogFactory.getLog("index.jsp");
 <%
 String windowId = context.getWindowId(request);
 context.setCurrentWindowId(windowId);
-// TMR PROBÉ LA SUITE 3 VECES SIN "SignIn".equals(request.getParameter("module")) Y SALIO VERDE 
-if ("true".equals(request.getParameter("init")) /* tmr || "SignIn".equals(request.getParameter("module"))*/) { // If you change this condition try to restart 3 times xavaprotest in a Tomcat
-																									  //   only one, organization textfield or organzation combo shouuld be displayed  
-	System.out.println("[index.jsp] resetModule"); // tmr
+if ("true".equals(request.getParameter("init"))) { 										
 	context.resetModule(request);
 }
 String app = request.getParameter("application");
@@ -57,12 +54,6 @@ org.openxava.controller.ModuleManager manager = (org.openxava.controller.ModuleM
 manager.setSession(session);
 manager.setApplicationName(request.getParameter("application"));
 manager.setModuleName(module); // In order to show the correct description in head
-// tmr ini
-if ("SignIn".equals(request.getParameter("module"))) { 
-	manager.reset();
-	manager.setControllers(org.openxava.actions.IChangeControllersAction.DEFAULT_CONTROLLERS);
-}
-// tmr fin
 %>
 
 <!DOCTYPE html>

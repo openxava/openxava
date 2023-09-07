@@ -148,7 +148,6 @@ abstract public class ModuleTestBase extends TestCase {
 			setValue("user", user); 
 		}
 		catch (ElementNotFoundException ex) {
-			System.out.println("[ModuleTestBase.login] RELOADING"); // tmr ESTO NO PASA
 			reload(); // Under high load sometime the page ajax loading takes some time, and this is the only way we found to solve the issue
 			setValue("user", user);
 		}
