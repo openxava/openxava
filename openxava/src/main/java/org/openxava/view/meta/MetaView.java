@@ -612,8 +612,6 @@ public class MetaView extends MetaElement implements Cloneable {
 			result.setFrame(metaReferenceView.isFrame());
 			MetaDescriptionsList metaDescriptionsList = getMetaDescriptionList(r);			
 			// tmr if (metaDescriptionsList != null && !metaDescriptionsList.isShowReferenceView()) {
-			// TMR ME QUEDÉ POR AQUÍ: CON ESTO Y ALGO EN VIEW SALE EL VALOR, PERO NO SE RELLENA
-			// TMR  PROBAR EL EJEMPLO DEL FORO, QUE NO TIENE @DescriptionsList
 			if (false) { // tmr 
 				result.removeMembers();
 				Iterator itKeys = metaModelReferenced.getKeyPropertiesNames().iterator();
