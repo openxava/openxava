@@ -124,6 +124,9 @@ public class ProductTest extends ModuleTestBase {
 		assertListRowCount(7);
 		assertValueInList(2, "XAVA\n3\nUnit price: 0.00, Unit price in pesetas: 0"); 
 		
+		execute("List.viewDetail", "row=2");
+		execute("Mode.list");
+		
 		assertFalse(getHtml().contains("There are no records"));
 		assertTrue(getHtmlPage().getElementById("xava_loading_more_elements") == null);
 		
@@ -136,8 +139,6 @@ public class ProductTest extends ModuleTestBase {
 		onClick = onClick.replace("if (!getSelection().toString()) ", "");	// so we remove it				 
 		getHtmlPage().executeJavaScript(onClick);
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		execute("Mode.list");
-		execute("List.viewDetail", "row=2");
 		assertAction("CRUD.save");
 		assertValue("number", "3");
 		assertValue("description", "XAVA");
