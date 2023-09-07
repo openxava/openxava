@@ -547,7 +547,8 @@ public class MetaView extends MetaElement implements Cloneable {
 				return;
 			}
 		}
-		throw new XavaException("description_property_required", r.getName());
+		
+		throw new XavaException("description_property_required", r.getReferencedModelName(), r.getName(), r.getMetaModel().getName());
 	}
 	
 	public MetaDescriptionsList createMetaDescriptionList(MetaReference r) throws XavaException {
