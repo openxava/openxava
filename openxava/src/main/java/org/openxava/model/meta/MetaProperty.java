@@ -1324,10 +1324,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	public boolean isFile(Object object) {
 		if (object == null) return false;
 		if (!(isCompatibleWith(byte[].class) || isCompatibleWith(String.class))) return false;
-		if (getStereotype() != null) {
-			String st = getStereotype();
-			if (("IMAGE").equals(st) || ("PHOTO").equals(st) || ("FILE").equals(st)) return true;
-		}
+		if (getStereotype() != null && ("FILE").equals(getStereotype())) return true;
 		Annotation[] annotation = (Annotation[]) getAnnotations();
 		for (Annotation an : annotation) {
 			if (an.annotationType().getSimpleName().equals("File")) {

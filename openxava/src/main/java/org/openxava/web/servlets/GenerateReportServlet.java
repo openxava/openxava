@@ -125,13 +125,9 @@ public class GenerateReportServlet extends HttpServlet {
 	        }
 
 	        if (p.isFile(r)) {
-	            if (p.isCompatibleWith(String.class)) {
-	                AttachedFile file = new AttachedFile();
-	                file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
-	                return (file.getName() != null) ? file.getName() : "";
-	            } else if (p.isCompatibleWith(byte[].class)) {
-	            	return r.toString();
-	            }
+	        	AttachedFile file = new AttachedFile();
+	            file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
+	            return (file.getName() != null) ? file.getName() : "";
 	        }
 	        return r;
 	    }
@@ -139,14 +135,12 @@ public class GenerateReportServlet extends HttpServlet {
 		private Object getValueWithWebEditorsFormat(int row, int column){
 			Object r = original.getValueAt(row, column);
 			MetaProperty metaProperty = getMetaProperty(column);
+			if (metaProperty.isCompatibleWith(byte[].class)) 
+				return r==null?null:new ByteArrayInputStream((byte [])r); 
 			if (metaProperty.isFile(r)) {
-				if (metaProperty.isCompatibleWith(byte[].class)) {
-					return r==null?null:new ByteArrayInputStream((byte [])r); 
-				} else if (metaProperty.isCompatibleWith(String.class)) {
-					AttachedFile file = new AttachedFile();
-					file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
-					return file.getName();
-				}
+				AttachedFile file = new AttachedFile();
+				file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
+				return file.getName();
 			}
 			
 			String result = WebEditors.format(this.request, metaProperty, r, null, "", true);

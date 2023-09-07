@@ -56,22 +56,4 @@ public class AttachedFile extends Identifiable {
 	public void setLibraryId(String libraryId) {
 		this.libraryId = libraryId;
 	}	
-	
-	/*
-	 * @since 7.1.6
-	 * @return file extension
-	 */
-	public String getExtension() {
-		int lastDotIndex = name.lastIndexOf(".");
-		return name.substring(lastDotIndex + 1);
-	}
-	
-	/*
-	 * @since 7.1.6
-	 * @return file name without extension
-	 */
-	public String getNameWithoutExtension() {
-		int lastDotIndex = name.lastIndexOf(".");
-		return (lastDotIndex != -1) ? name.substring(0, lastDotIndex) : name;
-	}
 }
