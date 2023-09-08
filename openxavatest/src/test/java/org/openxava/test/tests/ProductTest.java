@@ -125,6 +125,8 @@ public class ProductTest extends ModuleTestBase {
 		assertValueInList(2, "XAVA\n3\nUnit price: 0.00, Unit price in pesetas: 0"); 
 		
 		execute("List.viewDetail", "row=2");
+		assertValue("number", "3");
+		assertValue("description", "XAVA");
 		execute("Mode.list");
 		
 		assertFalse(getHtml().contains("There are no records"));
