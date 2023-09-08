@@ -12,7 +12,7 @@ public class GoShowSellerTest extends ModuleTestBase {
 		super(testName, "GoShowSeller");		
 	}
 	
-	public void testTwoLevelDialogFromJSPViewCalledFromAnotherModule() throws Exception { 
+	public void testTwoLevelDialogFromJSPViewCalledFromAnotherModule_changeLabelInDialogForReferenceWithDescriptionsList() throws Exception { 
 		assertNotExists("number"); 
 		assertNoAction("ShowSeller.show");
 		execute("ShowSeller.goShowSeller");
@@ -20,6 +20,7 @@ public class GoShowSellerTest extends ModuleTestBase {
 		setValue("number", "1");		
 		execute("ShowSeller.show");
 		assertDialog();
+		assertLabel("level","The level");
 		assertValue("number", "1"); 
 		assertValue("name", "MANUEL CHAVARRI");
 		assertAction("ModifySeller.modify"); 
