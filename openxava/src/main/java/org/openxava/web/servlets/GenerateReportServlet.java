@@ -1,7 +1,6 @@
 package org.openxava.web.servlets;
 
 import java.io.*;
-import java.lang.annotation.Annotation;
 import java.math.*;
 import java.text.*;
 import java.util.*;
@@ -20,6 +19,7 @@ import org.openxava.tab.impl.*;
 import org.openxava.util.*;
 import org.openxava.util.jxls.*;
 import org.openxava.web.*;
+import org.openxava.web.editors.*;
 
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.*;
@@ -100,47 +100,49 @@ public class GenerateReportServlet extends HttpServlet {
 			else return getValueWithoutWebEditorsFormat(row, column);
 		}
 
-		private Object getValueWithoutWebEditorsFormat(int row, int column){
-			Object r = original.getValueAt(row, column);
-			MetaProperty p = getMetaProperty(column); // In order to use the type declared by the developer 
-			// and not the one returned by JDBC or the JPA engine
-			
-			if (r instanceof Boolean) {
-				if (((Boolean) r).booleanValue()) return XavaResources.getString(locale, "yes");
-				return XavaResources.getString(locale, "no");
-			}
-			
-			if (withValidValues) {
-				if (p.hasValidValues()) {					
-					return p.getValidValueLabel(locale, original.getValueAt(row, column));
-				}
-			}
-			
-			if (r instanceof java.util.Date|| r instanceof java.time.LocalDate || r instanceof java.sql.Timestamp) {
-				return getValueWithWebEditorsFormat(row, column);
-			}
-			
-			if (formatBigDecimal && r instanceof BigDecimal) {
-				return formatBigDecimal(r, locale); 
-			}
-			
-			if (p.getStereotype() != null && p.getStereotype().contains("FILE")) {
-				return getValueWithWebEditorsFormat(row, column);
-			}
-			Annotation[] annotation = (Annotation[]) p.getAnnotations();
-			for (Annotation an : annotation) {
-				if (an.toString().contains(".File")) {
-					return getValueWithWebEditorsFormat(row, column);
-				}
-			}
+	    private Object getValueWithoutWebEditorsFormat(int row, int column) {
+	        Object r = original.getValueAt(row, column);
+	        MetaProperty p = getMetaProperty(column); // In order to use the type declared by the developer 
+	        // and not the one returned by JDBC or the JPA engine
 
-			return r;
-		}
+	        if (r instanceof Boolean) {
+	            if (((Boolean) r).booleanValue()) return XavaResources.getString(locale, "yes");
+	            return XavaResources.getString(locale, "no");
+	        }
+
+	        if (withValidValues) {
+	            if (p.hasValidValues()) {
+	                return p.getValidValueLabel(locale, original.getValueAt(row, column));
+	            }
+	        }
+
+	        if (r instanceof java.util.Date || r instanceof java.time.LocalDate || r instanceof java.sql.Timestamp) {
+	            return getValueWithWebEditorsFormat(row, column);
+	        }
+
+	        if (formatBigDecimal && r instanceof BigDecimal) {
+	            return formatBigDecimal(r, locale);
+	        }
+
+	        if (p.isFile(r)) {
+	        	AttachedFile file = new AttachedFile();
+	            file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
+	            return (file.getName() != null) ? file.getName() : "";
+	        }
+	        return r;
+	    }
 		
 		private Object getValueWithWebEditorsFormat(int row, int column){
 			Object r = original.getValueAt(row, column);
 			MetaProperty metaProperty = getMetaProperty(column);
-			if (metaProperty.isCompatibleWith(byte[].class)) return r==null?null:new ByteArrayInputStream((byte [])r); 
+			if (metaProperty.isCompatibleWith(byte[].class)) 
+				return r==null?null:new ByteArrayInputStream((byte [])r); 
+			if (metaProperty.isFile(r)) {
+				AttachedFile file = new AttachedFile();
+				file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
+				return file.getName();
+			}
+			
 			String result = WebEditors.format(this.request, metaProperty, r, null, "", true);
 			if (isHtml(result)){	// this avoids that the report shows html content
 				result = result.contains("ox-attached-file") ? extractFileName(result) : WebEditors.format(this.request, metaProperty, r, null, "", false);
