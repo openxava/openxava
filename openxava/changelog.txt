@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Doc about internationalization (i18n) improved.
+- Fix: IForwardAction does not work if the application is behind a proxy.
 - Fix: URLValidator for WEBURL stereotype falsely triggers for correct URLs.
 - Driver version in doc and new projects upgraded for AS/400.
 - Embedded Tomcat used in development upgraded to 9.0.80.
