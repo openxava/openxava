@@ -3542,7 +3542,8 @@ public class View implements java.io.Serializable {
 	}
 		
 	private void propertyChanged(MetaProperty changedProperty, String changedPropertyQualifiedName) { 
-		try {			
+		try {	
+			System.out.println("[View.propertyChanged] changedPropertyQualifiedName=" + changedPropertyQualifiedName); // tmr
 			tryPropertyChanged(changedProperty, changedPropertyQualifiedName);
 		}
 		catch (Exception ex) {
@@ -3579,7 +3580,22 @@ public class View implements java.io.Serializable {
 				}
 			}
 			
+			// tmr ini
+			System.out.println("[View.tryPropertyChanged] changedPropertyQualifiedName=" + changedPropertyQualifiedName); // tmr
+			System.out.println("[View.tryPropertyChanged] isRepresentsElementCollection()=" + isRepresentsElementCollection()); // tmr
+			if (changedPropertyQualifiedName.contains(".")) { // tmr Quizás podriamos evitar esta pregunta si cambiamos isDescriptionsListInElementCollectionThatFireSearch
+				String refName = org.openxava.util.Strings.noLastTokenWithoutLastDelim(changedPropertyQualifiedName, ".");
+				if (isDescriptionsListInElementCollectionThatFireSearch(refName)) {
+					// TMR ME QUEDÉ POR AQUÍ. YA PASA CUANDO TOCA, FALTA IMPLEMENTAR LA BÚSQUEDA
+					System.out.println("[View.tryPropertyChanged] BUSCANDO POR " + refName); // tmr
+				}
+			}
+			// tmr fin
+			
+			System.out.println("[View.tryPropertyChanged] calculationDone=" + calculationDone); // tmr
+			
 			if (calculationDone && isRepresentsElementCollection()) {
+				System.out.println("[View.tryPropertyChanged] A"); // tmr
 				moveViewValuesToCollectionValues();
 			}
 
@@ -3591,7 +3607,9 @@ public class View implements java.io.Serializable {
 					(hasSearchMemberKeys() && isLastPropertyMarkedAsSearch(changedPropertyQualifiedName))  // Explicit search key
 					)
 				) {
-				if (!searchingObject) { // To avoid recursive infinite loops	
+				System.out.println("[View.tryPropertyChanged] B"); // tmr
+				if (!searchingObject) { // To avoid recursive infinite loops
+					System.out.println("[View.tryPropertyChanged] BB"); // tmr
 					try {
 						searchingObject = true;												
 						IOnChangePropertyAction action = getParent().getMetaView().createOnChangeSearchAction(getMemberName());
@@ -3616,6 +3634,7 @@ public class View implements java.io.Serializable {
 			
 		} // of if (!isOnlyThrowsOnChange())
 		if (!isSection() && getMetaView().hasOnChangeAction(changedPropertyQualifiedName)) {
+			System.out.println("[View.tryPropertyChanged] C"); // tmr
 			IOnChangePropertyAction action = getMetaView().createOnChangeAction(changedPropertyQualifiedName);
 			executeOnChangeAction(changedPropertyQualifiedName, action);
 		}
@@ -4422,7 +4441,7 @@ public class View implements java.io.Serializable {
 		return getMetaDescriptionsList(ref) != null;
 		//return displayAsDescriptionsList(ref); // tmr
 	}
-	
+		
 	public boolean displayAsDescriptionsListAndReferenceView(MetaReference ref) throws XavaException { 
 		if (isRepresentsElementCollection()) return false; 
 		MetaDescriptionsList descriptionsList = getMetaDescriptionsList(ref);
@@ -4463,13 +4482,7 @@ public class View implements java.io.Serializable {
 		return subview.getMetaView(subview.getMetaReference(member));
 	}
 	
-	public boolean throwsReferenceChanged(MetaReference ref) throws XavaException { // tmr
-		boolean result = _throwsReferenceChanged(ref);
-		System.out.println("[View(" + getModelName() + ").throwsReferenceChanged(" + ref.getName() + ")] result=" + result); // tmr
-		return result;		
-	}
-	
-	public boolean _throwsReferenceChanged(MetaReference ref) throws XavaException { 
+	public boolean throwsReferenceChanged(MetaReference ref) throws XavaException { 
 		String refName = ref.getName(); 
 		int idx = refName.indexOf('.');
 		if (idx >= 0) {
@@ -4520,31 +4533,27 @@ public class View implements java.io.Serializable {
 			}
 		}
 		// tmr ini
-		if (isRepresentsElementCollection()) {
-			// TMR ME QUEDÉ POR AQUÍ: FALLTA TAMBIÉN product.unitPrice, SACANDO EL COMBO ¿ARREGLARLO?
-			// TMR  CUALQUIER PROPIEDAD QUE EMPIECE CON LA REFERENCIA DE DOS NIVELES, NO IMPORTA EL NOMBRE, ES UN COMBO
-			// TMR  PRODRIA USAR AQUÍ displayAsDescriptionsListInElementCollection() PARA SINCRONIZAR CON EL EDITOR
-			View subview = getSubview(refName);
-			if (subview.displayAsDescriptionsList()) {
-				System.out.println("[View._throwsReferenceChanged] refName=" + refName); // tmr
-				String prefix = refName + ".";
-				String properties = subview.getMetaDescriptionsList().getDescriptionPropertiesNames();
-				System.out.println("[View._throwsReferenceChanged] properties=" + properties); // tmr
-				for (MetaProperty p: getMetaPropertiesList()) {
-					// product es clave y sale como product.number
-					// product.number es clave y sale como product.number
-					// product.description no es clave y sale como product.description 
-					// product.color.number es clave
-					System.out.println("[View._throwsReferenceChanged] p.getName()=" + p.getName()); // tmr
-					//if (p.getName().startsWith(prefix))
-					System.out.println("[View._throwsReferenceChanged] p.isKey()=" + p.isKey()); // tmr
-				}
-				return true;
-			}
-		}
-		System.out.println("[View._throwsReferenceChanged] Sale: " + refName); // tmr
+		if (isDescriptionsListInElementCollectionThatFireSearch(refName)) return true;
 		// tmr fin
 		return displayAsDescriptionsListAndReferenceView(ref); 
+	}
+
+	private boolean isDescriptionsListInElementCollectionThatFireSearch(String refName) {
+		if (isRepresentsElementCollection()) {
+			View subview = getSubview(refName);
+			if (subview.displayAsDescriptionsList()) {
+				String prefix = refName + ".";
+				String properties = subview.getMetaDescriptionsList().getDescriptionPropertiesNames();
+				for (MetaProperty p: getMetaPropertiesList()) {
+					if (p.getName().startsWith(prefix)) {
+						if (StringUtils.countMatches(p.getName(), ".") > 1) { // tmr Frágil, solo para 2 nivel
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 		
 	private Collection getDepends() throws XavaException {
