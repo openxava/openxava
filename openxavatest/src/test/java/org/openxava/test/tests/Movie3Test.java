@@ -12,7 +12,7 @@ public class Movie3Test extends MovieBaseTest {
 		super(testName, "Movie3"); 
 	}
 	
-	public void testShowImageForFileAnnotationWhenPrint() throws Exception {
+	public void testShowFileNameForFileAnnotationWhenPrint() throws Exception {
 		execute("Print.generatePdf");
 		assertContentTypeForPopup("application/pdf"); 
 		assertPopupPDFLine(3, "FORREST GUMP ROBERT ZEMECKIS ERIC ROTH Y WINSTON GROOM 7/6/1994 Forrest Gump Trailer.webm");

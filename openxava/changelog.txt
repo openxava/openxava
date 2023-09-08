@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: When @File property stores an image still shows the id with Generate PDF or Generate Excel.
 - Fix: @DescriptionsList message if missing property doesn't indicates model, reference nor reference model.
 - Doc about internationalization (i18n) improved.
 - Fix: IForwardAction does not work if the application is behind a proxy.
