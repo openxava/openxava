@@ -12,6 +12,8 @@
 <%@ page import="org.openxava.mapping.PropertyMapping"%>
 <%@ page import="org.openxava.converters.IConverter"%>
 <%@ page import="java.util.Arrays"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.List"%>
 <%@ page import="org.openxava.web.Ids"%>
 
 <%
@@ -166,7 +168,6 @@ if (parameterValuesStereotypes != null || parameterValuesProperties != null) {
 else if (filter != null) {
 	calculator.setParameters(null, filter);
 }
-java.util.Collection descriptions = calculator.getDescriptions();
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 String title = "";  
 try {
@@ -186,6 +187,14 @@ try {
     title = "";
 }
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
+java.util.Collection descriptions = calculator.getDescriptions();
+if (calculator.getCondition() != null && !fvalue.isEmpty()) {
+	KeyAndDescription d = calculator.getSelectedKeyAndProperty(fvalue);
+	List<KeyAndDescription> list = new ArrayList<>(descriptions);
+	list.add(0,d);
+	descriptions = list;
+}
+
 boolean editable = "true".equals(request.getParameter("editable"));
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel() || "true".equalsIgnoreCase(request.getParameter("readOnlyAsLabel"));
 if (editable) {

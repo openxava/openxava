@@ -157,6 +157,19 @@ public class DescriptionsCalculator implements ICalculator {
 		getCache().put(getParameters(), result);				
 		return result;	
 	}
+	
+	public KeyAndDescription getSelectedKeyAndProperty(String fvalue) throws Exception {
+		setCondition(null);
+		Collection withOutCondition = (Collection) calculate();
+		java.util.Iterator it = withOutCondition.iterator();
+		while(it.hasNext()) {
+			KeyAndDescription cl = (KeyAndDescription) it.next();
+			if (Is.equalAsStringIgnoreCase(fvalue, cl.getKey())) {
+				return cl;
+			}
+		}
+		return null;	
+	}
 
 	private boolean conditionHasArguments() {
 		return this.condition != null && this.condition.indexOf('?') >= 0;		
