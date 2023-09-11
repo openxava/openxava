@@ -66,15 +66,13 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 	if (p.hasNotDependentDefaultValueCalculator() || ref != null && ref.hasNotDependentDefaultValueCalculator()) { 	
 		Object defaultValue = null; 
 		String propertyId = null;
-		// tmr if (ref != null && subview.displayAsDescriptionsList(ref) && ref.getMetaModelReferenced().getAllKeyPropertiesNames().size() > 1) {
-		if (ref != null && subview.displayAsDescriptionsListInElementCollection(ref) && ref.getMetaModelReferenced().getAllKeyPropertiesNames().size() > 1) { // tmr
+		if (ref != null && subview.displayAsDescriptionsList(ref) && ref.getMetaModelReferenced().getAllKeyPropertiesNames().size() > 1) {
 			java.util.Map refValues = subview.getSubview(ref.getName()).getValues();  
 			defaultValue = p.getMetaModel().toString(refValues);
 			propertyId = ref.getName() + DescriptionsLists.COMPOSITE_KEY_SUFFIX;
 		}
 		else {
-			// tmr if (ref != null && subview.displayAsDescriptionsList(ref) && !p.isKey()) {
-			if (ref != null && subview.displayAsDescriptionsListInElementCollection(ref) && !p.isKey()) { // tmr
+			if (ref != null && subview.displayAsDescriptionsList(ref) && !p.isKey()) {
 				MetaProperty key = (MetaProperty) p.getMetaModel().getMetaPropertiesKey().iterator().next();
 				p = key.cloneMetaProperty();
 				p.setName(ref.getName() + "." + key.getName());
@@ -166,8 +164,7 @@ for (int f=0; f < rowCount; f++) {
 		String searchAction = null;
 		if (p.getName().contains(".")) {
 			String refName = org.openxava.util.Strings.noLastTokenWithoutLastDelim(p.getName(), ".");
-			// tmr if (subview.displayAsDescriptionsList(subview.getMetaReference(refName))) {
-			if (subview.displayAsDescriptionsListInElementCollection(subview.getMetaReference(refName))) { // tmr
+			if (subview.displayAsDescriptionsList(subview.getMetaReference(refName))) {
 				referenceName = collectionName + "." + f + "." + refName;
 			}
 			else { 			

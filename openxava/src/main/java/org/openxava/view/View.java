@@ -1043,9 +1043,30 @@ public class View implements java.io.Serializable {
 			newView.setModelName(ref.getReferencedModelName());
 			newView.setRepresentsEntityReference(true);
 		}
-		// tmr if (displayReferenceWithNotCompositeEditor(ref)) { 
-		if (false) { // tmr
-			newView.setMetaView(getMetaView().getMetaViewOnlyKeys(ref));			
+		System.out.println("[View(" + getModelName() + ").createAndAddSubview] ref.getName()=" + ref.getName()); // tmr
+		if (displayReferenceWithNotCompositeEditor(ref)) { 
+			// tmr ini
+			// TMR ME QUEDÉ POR AQUÍ. LO DE ABAJO NO FALLA, PERO NO FUNCIONA. NO RECUPERA EL DATO AL CAMBIAR
+			boolean inElementCollectionThatFireSearch = false;
+			if (isRepresentsElementCollection()) {
+					String prefix = ref.getName() + ".";
+					for (MetaProperty p: getMetaPropertiesList()) {
+						if (p.getName().startsWith(prefix)) {
+							if (StringUtils.countMatches(p.getName(), ".") > 1) { // tmr Frágil, solo para 2 nivel
+								inElementCollectionThatFireSearch = true;
+							}
+						}
+					}
+			}
+			System.out.println("[View.createAndAddSubview] " + ref.getName() + ".inElementCollectionThatFireSearch=" + inElementCollectionThatFireSearch); // tmr
+			if (inElementCollectionThatFireSearch) {
+				newView.setMetaView(getMetaView().getMetaView(ref));			
+			}
+			else {
+				newView.setMetaView(getMetaView().getMetaViewOnlyKeys(ref));
+			}
+			// tmr fin
+			// tmr newView.setMetaView(getMetaView().getMetaViewOnlyKeys(ref));			
 		}
 		else {
 			newView.setMetaView(getMetaView().getMetaView(ref));			
@@ -3571,8 +3592,8 @@ public class View implements java.io.Serializable {
 				String refName = org.openxava.util.Strings.noLastTokenWithoutLastDelim(changedPropertyQualifiedName, ".");
 				if (isDescriptionsListInElementCollectionThatFireSearch(refName)) {
 					getSubview(refName).findObject();
+					refreshCollections();
 					moveViewValuesToCollectionValues();
-					getRoot().refreshCollections();
 				}
 			}
 			// tmr fin
@@ -4416,11 +4437,6 @@ public class View implements java.io.Serializable {
 		return !descriptionsList.isShowReferenceView(); 
 	}
 	
-	public boolean displayAsDescriptionsListInElementCollection(MetaReference ref) throws XavaException { // tmr ¿nombre?		
-		// tmr return getMetaDescriptionsList(ref) != null;
-		return displayAsDescriptionsList(ref); // tmr
-	}
-		
 	public boolean displayAsDescriptionsListAndReferenceView(MetaReference ref) throws XavaException { 
 		if (isRepresentsElementCollection()) return false; 
 		MetaDescriptionsList descriptionsList = getMetaDescriptionsList(ref);
@@ -4522,7 +4538,6 @@ public class View implements java.io.Serializable {
 			View subview = getSubview(refName);
 			if (subview.displayAsDescriptionsList()) {
 				String prefix = refName + ".";
-				String properties = subview.getMetaDescriptionsList().getDescriptionPropertiesNames();
 				for (MetaProperty p: getMetaPropertiesList()) {
 					if (p.getName().startsWith(prefix)) {
 						if (StringUtils.countMatches(p.getName(), ".") > 1) { // tmr Frágil, solo para 2 nivel
