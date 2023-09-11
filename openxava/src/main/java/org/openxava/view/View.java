@@ -1043,18 +1043,11 @@ public class View implements java.io.Serializable {
 			newView.setModelName(ref.getReferencedModelName());
 			newView.setRepresentsEntityReference(true);
 		}
-		// tmr if (displayReferenceWithNotCompositeEditor(ref)) { 
-		if (false) { // tmr
+		if (displayReferenceWithNotCompositeEditor(ref)) { 
+		// tmr if (false) { // tmr
 			newView.setMetaView(getMetaView().getMetaViewOnlyKeys(ref));			
 		}
 		else {
-			// tmr ini
-			/*
-			MetaView refView = getMetaView().getMetaView(ref);
-			System.out.println("[View(" + getModelName() + "::" + getMemberName() + ").createAndAddSubview] ref=" 
-					+ ref.getName() + ", refView.getMembersNames()=" + refView.getMembersNames()); // tmr
-			*/		
-			// tmr fin
 			newView.setMetaView(getMetaView().getMetaView(ref));			
 		}
 		newView.setMemberName(member.getName());		
@@ -3581,6 +3574,7 @@ public class View implements java.io.Serializable {
 			}
 			
 			// tmr ini
+			/*
 			System.out.println("[View.tryPropertyChanged] changedPropertyQualifiedName=" + changedPropertyQualifiedName); // tmr
 			System.out.println("[View.tryPropertyChanged] isRepresentsElementCollection()=" + isRepresentsElementCollection()); // tmr
 			if (changedPropertyQualifiedName.contains(".")) { // tmr Quizás podriamos evitar esta pregunta si cambiamos isDescriptionsListInElementCollectionThatFireSearch
@@ -3588,8 +3582,16 @@ public class View implements java.io.Serializable {
 				if (isDescriptionsListInElementCollectionThatFireSearch(refName)) {
 					// TMR ME QUEDÉ POR AQUÍ. YA PASA CUANDO TOCA, FALTA IMPLEMENTAR LA BÚSQUEDA
 					System.out.println("[View.tryPropertyChanged] BUSCANDO POR " + refName); // tmr
+					System.out.println("[View.tryPropertyChanged] getModelName()=" + getModelName()); // tmr
+					getSubview(refName).findObject();
+					System.out.println("[View.tryPropertyChanged] findObject() ejecutado"); // tmr
+					moveViewValuesToCollectionValues();
+					System.out.println("[View.tryPropertyChanged] moveViewValuesToCollectionValues() ejecutado"); // tmr
+					getRoot().refreshCollections();
+					System.out.println("[View.tryPropertyChanged] getRoot().refreshCollections() ejecutado"); // tmr
 				}
 			}
+			*/
 			// tmr fin
 			
 			System.out.println("[View.tryPropertyChanged] calculationDone=" + calculationDone); // tmr
@@ -4438,8 +4440,8 @@ public class View implements java.io.Serializable {
 	}
 	
 	public boolean displayAsDescriptionsListInElementCollection(MetaReference ref) throws XavaException { // tmr ¿nombre?		
-		return getMetaDescriptionsList(ref) != null;
-		//return displayAsDescriptionsList(ref); // tmr
+		// tmr return getMetaDescriptionsList(ref) != null;
+		return displayAsDescriptionsList(ref); // tmr
 	}
 		
 	public boolean displayAsDescriptionsListAndReferenceView(MetaReference ref) throws XavaException { 
@@ -4533,12 +4535,13 @@ public class View implements java.io.Serializable {
 			}
 		}
 		// tmr ini
-		if (isDescriptionsListInElementCollectionThatFireSearch(refName)) return true;
+		// tmr if (isDescriptionsListInElementCollectionThatFireSearch(refName)) return true;
 		// tmr fin
 		return displayAsDescriptionsListAndReferenceView(ref); 
 	}
 
-	private boolean isDescriptionsListInElementCollectionThatFireSearch(String refName) {
+	/*
+	private boolean isDescriptionsListInElementCollectionThatFireSearch(String refName) { tmr
 		if (isRepresentsElementCollection()) {
 			View subview = getSubview(refName);
 			if (subview.displayAsDescriptionsList()) {
@@ -4555,6 +4558,7 @@ public class View implements java.io.Serializable {
 		}
 		return false;
 	}
+	*/
 		
 	private Collection getDepends() throws XavaException {
 		if (depends == null) {
