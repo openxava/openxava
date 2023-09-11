@@ -1043,8 +1043,8 @@ public class View implements java.io.Serializable {
 			newView.setModelName(ref.getReferencedModelName());
 			newView.setRepresentsEntityReference(true);
 		}
-		if (displayReferenceWithNotCompositeEditor(ref)) { 
-		// tmr if (false) { // tmr
+		// tmr if (displayReferenceWithNotCompositeEditor(ref)) { 
+		if (false) { // tmr
 			newView.setMetaView(getMetaView().getMetaViewOnlyKeys(ref));			
 		}
 		else {
@@ -3343,14 +3343,8 @@ public class View implements java.io.Serializable {
 			}									
 		}
 	}
-	
-	public boolean throwsPropertyChanged(MetaProperty p) { // tmr
-		boolean result = _throwsPropertyChanged(p);
-		// System.out.println("[View(" + getModelName() + ").throwsPropertyChanged(" + p.getName() + ")] result=" + result); // tmr
-		return result;
-	}
-	
-	public boolean _throwsPropertyChanged(MetaProperty p) {
+		
+	public boolean throwsPropertyChanged(MetaProperty p) {
 		try {									
 			if (hasDependentsProperties(p) && 
 				!(isSubview() && isRepresentsEntityReference() && !displayAsDescriptionsList())) 
@@ -3536,7 +3530,6 @@ public class View implements java.io.Serializable {
 		
 	private void propertyChanged(MetaProperty changedProperty, String changedPropertyQualifiedName) { 
 		try {	
-			System.out.println("[View.propertyChanged] changedPropertyQualifiedName=" + changedPropertyQualifiedName); // tmr
 			tryPropertyChanged(changedProperty, changedPropertyQualifiedName);
 		}
 		catch (Exception ex) {
@@ -3574,30 +3567,17 @@ public class View implements java.io.Serializable {
 			}
 			
 			// tmr ini
-			/*
-			System.out.println("[View.tryPropertyChanged] changedPropertyQualifiedName=" + changedPropertyQualifiedName); // tmr
-			System.out.println("[View.tryPropertyChanged] isRepresentsElementCollection()=" + isRepresentsElementCollection()); // tmr
 			if (changedPropertyQualifiedName.contains(".")) { // tmr Quizás podriamos evitar esta pregunta si cambiamos isDescriptionsListInElementCollectionThatFireSearch
 				String refName = org.openxava.util.Strings.noLastTokenWithoutLastDelim(changedPropertyQualifiedName, ".");
 				if (isDescriptionsListInElementCollectionThatFireSearch(refName)) {
-					// TMR ME QUEDÉ POR AQUÍ. YA PASA CUANDO TOCA, FALTA IMPLEMENTAR LA BÚSQUEDA
-					System.out.println("[View.tryPropertyChanged] BUSCANDO POR " + refName); // tmr
-					System.out.println("[View.tryPropertyChanged] getModelName()=" + getModelName()); // tmr
 					getSubview(refName).findObject();
-					System.out.println("[View.tryPropertyChanged] findObject() ejecutado"); // tmr
 					moveViewValuesToCollectionValues();
-					System.out.println("[View.tryPropertyChanged] moveViewValuesToCollectionValues() ejecutado"); // tmr
 					getRoot().refreshCollections();
-					System.out.println("[View.tryPropertyChanged] getRoot().refreshCollections() ejecutado"); // tmr
 				}
 			}
-			*/
 			// tmr fin
 			
-			System.out.println("[View.tryPropertyChanged] calculationDone=" + calculationDone); // tmr
-			
 			if (calculationDone && isRepresentsElementCollection()) {
-				System.out.println("[View.tryPropertyChanged] A"); // tmr
 				moveViewValuesToCollectionValues();
 			}
 
@@ -3609,9 +3589,7 @@ public class View implements java.io.Serializable {
 					(hasSearchMemberKeys() && isLastPropertyMarkedAsSearch(changedPropertyQualifiedName))  // Explicit search key
 					)
 				) {
-				System.out.println("[View.tryPropertyChanged] B"); // tmr
 				if (!searchingObject) { // To avoid recursive infinite loops
-					System.out.println("[View.tryPropertyChanged] BB"); // tmr
 					try {
 						searchingObject = true;												
 						IOnChangePropertyAction action = getParent().getMetaView().createOnChangeSearchAction(getMemberName());
@@ -3636,7 +3614,6 @@ public class View implements java.io.Serializable {
 			
 		} // of if (!isOnlyThrowsOnChange())
 		if (!isSection() && getMetaView().hasOnChangeAction(changedPropertyQualifiedName)) {
-			System.out.println("[View.tryPropertyChanged] C"); // tmr
 			IOnChangePropertyAction action = getMetaView().createOnChangeAction(changedPropertyQualifiedName);
 			executeOnChangeAction(changedPropertyQualifiedName, action);
 		}
@@ -4535,13 +4512,12 @@ public class View implements java.io.Serializable {
 			}
 		}
 		// tmr ini
-		// tmr if (isDescriptionsListInElementCollectionThatFireSearch(refName)) return true;
+		if (isDescriptionsListInElementCollectionThatFireSearch(refName)) return true;
 		// tmr fin
 		return displayAsDescriptionsListAndReferenceView(ref); 
 	}
 
-	/*
-	private boolean isDescriptionsListInElementCollectionThatFireSearch(String refName) { tmr
+	private boolean isDescriptionsListInElementCollectionThatFireSearch(String refName) { // tmr
 		if (isRepresentsElementCollection()) {
 			View subview = getSubview(refName);
 			if (subview.displayAsDescriptionsList()) {
@@ -4558,7 +4534,6 @@ public class View implements java.io.Serializable {
 		}
 		return false;
 	}
-	*/
 		
 	private Collection getDepends() throws XavaException {
 		if (depends == null) {

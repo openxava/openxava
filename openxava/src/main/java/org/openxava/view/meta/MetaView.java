@@ -611,8 +611,8 @@ public class MetaView extends MetaElement implements Cloneable {
 			result.setMetaSearchAction(metaReferenceView.getMetaSearchAction());	
 			result.setFrame(metaReferenceView.isFrame());
 			MetaDescriptionsList metaDescriptionsList = getMetaDescriptionList(r);			
-			if (metaDescriptionsList != null && !metaDescriptionsList.isShowReferenceView()) {
-				// tmr if (false) { // tmr 
+			// tmr if (metaDescriptionsList != null && !metaDescriptionsList.isShowReferenceView()) {
+			if (false) { // tmr 
 				result.removeMembers();
 				Iterator itKeys = metaModelReferenced.getKeyPropertiesNames().iterator();
 				while (itKeys.hasNext()) {

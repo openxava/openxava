@@ -27,9 +27,9 @@ public class ProductsEvaluation2 extends Identifiable {
 	@ElementCollection
 	// tmr Probar también una que sea descrptionsList, como product.family.name. Podría ser otro bug
 	// tmr FALLA CON product.unitPrice, SACANDO EL COMBO DEL @DescriptionsList ¿ARREGLARLO?	
-	// tmr @ListProperties("product, evaluation")
+	@ListProperties("product, evaluation")
 	// tmr @ListProperties("product.number, product.description, evaluation, product.color.name") // tmr ASÍ SIN @DescriptionsList DA ERROR, PERO NO RECUPERA EL COLOR
-	@ListProperties("product, evaluation, product.color.name") 	
+	// tmr @ListProperties("product, evaluation, product.color.name") // tmr 	
 	Collection<ProductEvaluation2> evaluations;
 
 }

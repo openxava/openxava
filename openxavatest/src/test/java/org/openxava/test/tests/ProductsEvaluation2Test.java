@@ -65,8 +65,7 @@ public class ProductsEvaluation2Test extends ModuleTestBase {
 			{ "3", "XAVA" }
 		};		
 		assertValidValuesInCollection("evaluations", 0, "product.number", softwareValues);
-		printHtml(); // tmr
-		assertValidValuesInCollection("evaluations", 1, "product.number", softwareValues);
+		assertValidValuesInCollection("evaluations", 1, "product.number", softwareValues); // TMR ME QUEDÉ POR AQUÍ. FALLA. QUIZÁS UN BUG EXISTENTE PROBAR EL CÓDIGO DEL MASTER CON UN EVENTO EN EL COMBO
 	}
 	
 }
