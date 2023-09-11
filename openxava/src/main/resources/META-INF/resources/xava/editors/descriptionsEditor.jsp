@@ -189,10 +189,9 @@ try {
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
 java.util.Collection descriptions = calculator.getDescriptions();
 if (calculator.getCondition() != null && !fvalue.isEmpty()) {
-	KeyAndDescription d = calculator.getSelectedKeyAndProperty(fvalue);
-	List<KeyAndDescription> list = new ArrayList<>(descriptions);
-	list.add(0,d);
-	descriptions = list;
+	String condition = request.getParameter("condition");
+	descriptions = calculator.getDescriptionsWithSelected(fvalue);
+	calculator.setCondition(condition);
 }
 
 boolean editable = "true".equals(request.getParameter("editable"));

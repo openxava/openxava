@@ -158,17 +158,19 @@ public class DescriptionsCalculator implements ICalculator {
 		return result;	
 	}
 	
-	public KeyAndDescription getSelectedKeyAndProperty(String fvalue) throws Exception {
+	public Collection getDescriptionsWithSelected(String fvalue) throws Exception {
 		setCondition(null);
-		Collection withOutCondition = (Collection) calculate();
+		Collection withOutCondition  = (Collection) calculate();
+		List<KeyAndDescription> saved = new ArrayList<>((Collection)getCache().get(getParameters()));
 		java.util.Iterator it = withOutCondition.iterator();
 		while(it.hasNext()) {
-			KeyAndDescription cl = (KeyAndDescription) it.next();
-			if (Is.equalAsStringIgnoreCase(fvalue, cl.getKey())) {
-				return cl;
+			KeyAndDescription kd = (KeyAndDescription) it.next();
+			if (Is.equalAsStringIgnoreCase(fvalue, kd.getKey())) {
+				if (!saved.contains(kd)) saved.add(0, kd);
+				return saved;
 			}
 		}
-		return null;	
+		return saved;
 	}
 
 	private boolean conditionHasArguments() {
