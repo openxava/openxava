@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: ModuleTestBase.execute() does not work for row actions in Cards format.
 - Fix: Module is not well initialized after Tomcat restart sometimes (__MODIFIED_CONTROLLER__ not defined).
 - Fix: When @File property stores an image still shows the id with Generate PDF or Generate Excel.
 - Fix: @DescriptionsList message if missing property doesn't indicates model, reference nor reference model.
