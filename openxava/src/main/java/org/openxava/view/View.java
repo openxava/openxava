@@ -1043,21 +1043,9 @@ public class View implements java.io.Serializable {
 			newView.setModelName(ref.getReferencedModelName());
 			newView.setRepresentsEntityReference(true);
 		}
-		if (displayReferenceWithNotCompositeEditor(ref)) {
-			// tmr ini
-			// TMR ME QUEDÉ POR AQUÍ LO DE ABAJO NO FUNCION, PORQUE TODAVÍA COGE SOLO LAS CLAVES PARA COLOR
-			boolean inElementCollectionThatFireSearch = isDescriptionsListInsideElementCollectionThatFireSearch(ref.getName());
-						
-			if (inElementCollectionThatFireSearch) {
-				System.out.println("[View(" + this + ").createAndAddSubview] Complete for " + ref.getName()); // tmr
-				newView.setMetaView(getMetaView().getMetaView(ref));			
-			}
-			else {
-				System.out.println("[View(" + this + ").createAndAddSubview] Only keys for " + ref.getName()); // tmr
-				newView.setMetaView(getMetaView().getMetaViewOnlyKeys(ref));
-			}			
-			// tmr fin
-			// tmr newView.setMetaView(getMetaView().getMetaViewOnlyKeys(ref));			
+		// tmr if (displayReferenceWithNotCompositeEditor(ref)) {
+		if (displayReferenceWithNotCompositeEditor(ref) && !isReferenceDependsOnDescriptionsListInsideElementCollectionThatFireSearch(ref.getName())) {
+			newView.setMetaView(getMetaView().getMetaViewOnlyKeys(ref));			
 		}
 		else {
 			newView.setMetaView(getMetaView().getMetaView(ref));			
@@ -1630,6 +1618,14 @@ public class View implements java.io.Serializable {
 		if (parent == null) return null;
 		return parent.getContainerElementCollectionView();
 	}
+	
+	private String getQualifiedReferenceInElementCollection(String refName) { // tmr 
+		if (isRepresentsElementCollection()) return refName;
+		View parent = getParent();
+		if (parent == null) return null;
+		return parent.getQualifiedReferenceInElementCollection(getMemberName() + "." + refName);
+	}
+
 
 	public Map getMembersNames() throws XavaException {		
 		if (membersNames == null) {
@@ -4531,18 +4527,12 @@ public class View implements java.io.Serializable {
 		return displayAsDescriptionsListAndReferenceView(ref); 
 	}
 	
-	private boolean isDescriptionsListInsideElementCollectionThatFireSearch(String refName) { // tmr
+	private boolean isReferenceDependsOnDescriptionsListInsideElementCollectionThatFireSearch(String refName) { 
 		// tmr Está lógica está en 2 sitios debería refactorizar
 		View collectionView = getContainerElementCollectionView();
 		if (collectionView != null) {
-			String prefix = refName + ".";
-			for (MetaProperty p: collectionView.getMetaPropertiesList()) {
-				if (p.getName().startsWith(prefix)) {
-					if (StringUtils.countMatches(p.getName(), ".") > 1) { // tmr Frágil, solo para 2 nivel
-						return true;
-					}							
-				}
-			}
+			String qualifiedReferenceInCollection = getQualifiedReferenceInElementCollection(refName);
+			return collectionView.existsListPropertiesInElementCollectionThatDependOn(qualifiedReferenceInCollection + ".");
 		}		
 		return false;
 	}
@@ -4551,14 +4541,17 @@ public class View implements java.io.Serializable {
 		if (isRepresentsElementCollection()) {
 			View subview = getSubview(refName);
 			if (subview.displayAsDescriptionsList()) {
-				String prefix = refName + ".";
-				String properties = subview.getMetaDescriptionsList().getDescriptionPropertiesNames();
-				for (MetaProperty p: getMetaPropertiesList()) {
-					if (p.getName().startsWith(prefix)) {
-						if (StringUtils.countMatches(p.getName(), ".") > 1) { // tmr Frágil, solo para 2 nivel
-							return true;
-						}
-					}
+				return existsListPropertiesInElementCollectionThatDependOn(refName + ".");
+			}
+		}
+		return false;
+	}
+	
+	private boolean existsListPropertiesInElementCollectionThatDependOn(String prefix) { // tmr
+		for (MetaProperty p: getMetaPropertiesList()) {
+			if (p.getName().startsWith(prefix)) {
+				if (StringUtils.countMatches(p.getName(), ".") > 1) { // tmr Frágil, solo para 2 nivel
+					return true;
 				}
 			}
 		}
