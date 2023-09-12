@@ -32,8 +32,7 @@ private static Log log = LogFactory.getLog("index.jsp");
 <%
 String windowId = context.getWindowId(request);
 context.setCurrentWindowId(windowId);
-if ("true".equals(request.getParameter("init")) || "SignIn".equals(request.getParameter("module"))) { // If you change this condition try to restart 3 times xavaprotest in a Tomcat
-																									  //   only one, organization textfield or organzation combo shouuld be displayed  
+if ("true".equals(request.getParameter("init"))) { 										
 	context.resetModule(request);
 }
 String app = request.getParameter("application");
@@ -54,7 +53,7 @@ org.openxava.controller.ModuleManager manager = (org.openxava.controller.ModuleM
 		.get(app, module, "manager", "org.openxava.controller.ModuleManager");
 manager.setSession(session);
 manager.setApplicationName(request.getParameter("application"));
-manager.setModuleName(module); // In order to show the correct description in head 
+manager.setModuleName(module); // In order to show the correct description in head
 %>
 
 <!DOCTYPE html>

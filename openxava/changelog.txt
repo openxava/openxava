@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Module is not well initialized after Tomcat restart sometimes (__MODIFIED_CONTROLLER__ not defined).
+- Fix: When @File property stores an image still shows the id with Generate PDF or Generate Excel.
+- Fix: @DescriptionsList message if missing property doesn't indicates model, reference nor reference model.
+- Doc about internationalization (i18n) improved.
+- Fix: IForwardAction does not work if the application is behind a proxy.
 - Fix: URLValidator for WEBURL stereotype falsely triggers for correct URLs.
 - Driver version in doc and new projects upgraded for AS/400.
 - Embedded Tomcat used in development upgraded to 9.0.80.
