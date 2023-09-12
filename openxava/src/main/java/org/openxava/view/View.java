@@ -1043,30 +1043,9 @@ public class View implements java.io.Serializable {
 			newView.setModelName(ref.getReferencedModelName());
 			newView.setRepresentsEntityReference(true);
 		}
-		System.out.println("[View(" + getModelName() + ").createAndAddSubview] ref.getName()=" + ref.getName()); // tmr
-		if (displayReferenceWithNotCompositeEditor(ref)) { 
-			// tmr ini
-			// TMR ME QUEDÉ POR AQUÍ. LO DE ABAJO NO FALLA, PERO NO FUNCIONA. NO RECUPERA EL DATO AL CAMBIAR
-			boolean inElementCollectionThatFireSearch = false;
-			if (isRepresentsElementCollection()) {
-					String prefix = ref.getName() + ".";
-					for (MetaProperty p: getMetaPropertiesList()) {
-						if (p.getName().startsWith(prefix)) {
-							if (StringUtils.countMatches(p.getName(), ".") > 1) { // tmr Frágil, solo para 2 nivel
-								inElementCollectionThatFireSearch = true;
-							}
-						}
-					}
-			}
-			System.out.println("[View.createAndAddSubview] " + ref.getName() + ".inElementCollectionThatFireSearch=" + inElementCollectionThatFireSearch); // tmr
-			if (inElementCollectionThatFireSearch) {
-				newView.setMetaView(getMetaView().getMetaView(ref));			
-			}
-			else {
-				newView.setMetaView(getMetaView().getMetaViewOnlyKeys(ref));
-			}
-			// tmr fin
-			// tmr newView.setMetaView(getMetaView().getMetaViewOnlyKeys(ref));			
+		// tmr if (displayReferenceWithNotCompositeEditor(ref)) { 
+		if (false) { // tmr
+			newView.setMetaView(getMetaView().getMetaViewOnlyKeys(ref));			
 		}
 		else {
 			newView.setMetaView(getMetaView().getMetaView(ref));			
@@ -4538,6 +4517,7 @@ public class View implements java.io.Serializable {
 			View subview = getSubview(refName);
 			if (subview.displayAsDescriptionsList()) {
 				String prefix = refName + ".";
+				String properties = subview.getMetaDescriptionsList().getDescriptionPropertiesNames();
 				for (MetaProperty p: getMetaPropertiesList()) {
 					if (p.getName().startsWith(prefix)) {
 						if (StringUtils.countMatches(p.getName(), ".") > 1) { // tmr Frágil, solo para 2 nivel

@@ -591,7 +591,7 @@ public class MetaView extends MetaElement implements Cloneable {
 	 * 
 	 * @since 5.3.1
 	 */
-	public MetaView getMetaView(MetaReference r, MetaModel metaModelReferenced) throws XavaException {
+	public MetaView getMetaView(MetaReference r, MetaModel metaModelReferenced) throws XavaException { 
 		MetaView result = null;		
 		if (hasMetaReferenceViewFor(r)) {			
 			MetaReferenceView metaReferenceView = getMetaReferenceView(r);
@@ -610,8 +610,8 @@ public class MetaView extends MetaElement implements Cloneable {
 			}
 			result.setMetaSearchAction(metaReferenceView.getMetaSearchAction());	
 			result.setFrame(metaReferenceView.isFrame());
-			MetaDescriptionsList metaDescriptionsList = getMetaDescriptionList(r);
 			/* tmr
+			MetaDescriptionsList metaDescriptionsList = getMetaDescriptionList(r);			
 			if (metaDescriptionsList != null && !metaDescriptionsList.isShowReferenceView()) {
 				result.removeMembers();
 				Iterator itKeys = metaModelReferenced.getKeyPropertiesNames().iterator();
