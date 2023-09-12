@@ -13,6 +13,7 @@ public class DebtTest extends ModuleTestBase {
 	}
 	
 	public void testCheckBoxEditorWithNotBooleanValue() throws Exception {
+		execute("CRUD.new");
 		setValue("description", "AN IMPORTANT DEBT");
 		setValue("paid", "true");
 		setValue("important", "true"); // "true" instead of "IMPORTANT" because in tests the checkboxs only allow true/false to check and uncheck 	
@@ -23,17 +24,19 @@ public class DebtTest extends ModuleTestBase {
 		execute("CRUD.save");
 		
 		execute("Mode.list");
-		assertListRowCount(2);
-		assertValueInList(0, 0, "AN IMPORTANT DEBT");
+		assertListRowCount(3);
 		assertValueInList(0, 1, "Paid"); 
-		assertValueInList(0, 2, "IMPORTANT");
-		assertValueInList(0, 3, "IMPORTANT: TRUE");
-		assertValueInList(1, 0, "A NOT SO IMPORTANT DEBT");
-		assertValueInList(1, 1, ""); 
-		assertValueInList(1, 2, "");
-		assertValueInList(1, 3, "NULL: FALSE");
+		assertValueInList(0, 3, "NULL: TRUE");
+		assertValueInList(1, 0, "AN IMPORTANT DEBT");
+		assertValueInList(1, 1, "Paid"); 
+		assertValueInList(1, 2, "IMPORTANT");
+		assertValueInList(1, 3, "IMPORTANT: TRUE");
+		assertValueInList(2, 0, "A NOT SO IMPORTANT DEBT");
+		assertValueInList(2, 1, ""); 
+		assertValueInList(2, 2, "");
+		assertValueInList(2, 3, "NULL: FALSE");
 		
-		execute("List.viewDetail", "row=0");
+		execute("List.viewDetail", "row=1");
 		assertValue("description", "AN IMPORTANT DEBT");
 		assertValue("paid", "true");
 		assertValue("important", "true"); 
@@ -50,14 +53,18 @@ public class DebtTest extends ModuleTestBase {
 		setValue("important", "false");
 		execute("CRUD.save");
 		execute("Mode.list");
-		assertValueInList(0, 0, "AN IMPORTANT DEBT");
-		assertValueInList(0, 1, ""); 
-		assertValueInList(0, 2, "");
-		assertValueInList(0, 3, "NULL: FALSE");
+		assertValueInList(1, 0, "AN IMPORTANT DEBT");
+		assertValueInList(1, 1, ""); 
+		assertValueInList(1, 2, "");
+		assertValueInList(1, 3, "NULL: FALSE");
 		
-		checkAll();
+		checkRow(1);
+		checkRow(2);
 		execute("CRUD.deleteSelected");
-		assertListRowCount(0);
+		
+		//checkAll();
+		//execute("CRUD.deleteSelected");
+		assertListRowCount(1);
 	}
 			
 }

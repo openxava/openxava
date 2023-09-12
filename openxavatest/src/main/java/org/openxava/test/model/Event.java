@@ -14,11 +14,13 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
+@Tab(properties = "startDate, endDate, createDate, name, description")
 @Tab(name="DefaultName", 
 filter=DefaultNameEnvFilter.class,
 properties="startDate, endDate, createDate, name, description",
 baseCondition="${name} = ?"
 )
+@View(members = "startDate, endDate; createDate; name, description; debtAtDate")
 public class Event extends Identifiable{
 
 	@OnChange(OnChangeVoidCalendarAction.class)
@@ -33,5 +35,9 @@ public class Event extends Identifiable{
 	String name;
 	
 	String description;
+	
+	@ManyToOne(fetch=FetchType.LAZY, optional = true)
+	@DescriptionsList(condition="${paid} = false")
+	Debt debtAtDate;
 	
 }

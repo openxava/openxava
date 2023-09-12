@@ -158,6 +158,11 @@ public class DescriptionsCalculator implements ICalculator {
 		return result;	
 	}
 	
+	/*
+	 * @since 7.1.6 
+	 * 
+	 * It is used to display the item that was previously selected and no longer satisfies the condition.
+	 */
 	public Collection getDescriptionsWithSelected(String fvalue) throws Exception {
 		setCondition(null);
 		Collection withOutCondition  = (Collection) calculate();
