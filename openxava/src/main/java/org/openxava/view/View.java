@@ -1043,9 +1043,21 @@ public class View implements java.io.Serializable {
 			newView.setModelName(ref.getReferencedModelName());
 			newView.setRepresentsEntityReference(true);
 		}
-		// tmr if (displayReferenceWithNotCompositeEditor(ref)) { 
-		if (false) { // tmr
-			newView.setMetaView(getMetaView().getMetaViewOnlyKeys(ref));			
+		if (displayReferenceWithNotCompositeEditor(ref)) {
+			// tmr ini
+			// TMR ME QUEDÉ POR AQUÍ LO DE ABAJO NO FUNCION, PORQUE TODAVÍA COGE SOLO LAS CLAVES PARA COLOR
+			boolean inElementCollectionThatFireSearch = isDescriptionsListInsideElementCollectionThatFireSearch(ref.getName());
+						
+			if (inElementCollectionThatFireSearch) {
+				System.out.println("[View(" + this + ").createAndAddSubview] Complete for " + ref.getName()); // tmr
+				newView.setMetaView(getMetaView().getMetaView(ref));			
+			}
+			else {
+				System.out.println("[View(" + this + ").createAndAddSubview] Only keys for " + ref.getName()); // tmr
+				newView.setMetaView(getMetaView().getMetaViewOnlyKeys(ref));
+			}			
+			// tmr fin
+			// tmr newView.setMetaView(getMetaView().getMetaViewOnlyKeys(ref));			
 		}
 		else {
 			newView.setMetaView(getMetaView().getMetaView(ref));			
@@ -1611,6 +1623,13 @@ public class View implements java.io.Serializable {
 		if (parent.isRepresentsElementCollection()) return true; 
 		return parent.isInsideElementCollection();
 	}	
+	
+	public View getContainerElementCollectionView() { // tmr
+		if (isRepresentsElementCollection()) return this;
+		View parent = getParent();
+		if (parent == null) return null;
+		return parent.getContainerElementCollectionView();
+	}
 
 	public Map getMembersNames() throws XavaException {		
 		if (membersNames == null) {
@@ -4510,6 +4529,22 @@ public class View implements java.io.Serializable {
 		if (isDescriptionsListInElementCollectionThatFireSearch(refName)) return true;
 		// tmr fin
 		return displayAsDescriptionsListAndReferenceView(ref); 
+	}
+	
+	private boolean isDescriptionsListInsideElementCollectionThatFireSearch(String refName) { // tmr
+		// tmr Está lógica está en 2 sitios debería refactorizar
+		View collectionView = getContainerElementCollectionView();
+		if (collectionView != null) {
+			String prefix = refName + ".";
+			for (MetaProperty p: collectionView.getMetaPropertiesList()) {
+				if (p.getName().startsWith(prefix)) {
+					if (StringUtils.countMatches(p.getName(), ".") > 1) { // tmr Frágil, solo para 2 nivel
+						return true;
+					}							
+				}
+			}
+		}		
+		return false;
 	}
 
 	private boolean isDescriptionsListInElementCollectionThatFireSearch(String refName) { // tmr
