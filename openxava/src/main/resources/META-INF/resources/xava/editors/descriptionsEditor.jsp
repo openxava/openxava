@@ -12,8 +12,6 @@
 <%@ page import="org.openxava.mapping.PropertyMapping"%>
 <%@ page import="org.openxava.converters.IConverter"%>
 <%@ page import="java.util.Arrays"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="java.util.List"%>
 <%@ page import="org.openxava.web.Ids"%>
 
 <%

@@ -165,9 +165,9 @@ public class DescriptionsCalculator implements ICalculator {
 	 */
 	public Collection getDescriptionsWithSelected(String fvalue) throws Exception {
 		List<KeyAndDescription> saved = new ArrayList<>((Collection)getCache().get(getParameters()));
-		for (KeyAndDescription kp : saved) {
-		    if (kp.getKey().equals(fvalue)) {
-		        return saved;
+		for (KeyAndDescription kp : saved) { 
+		    if (kp.getKey().toString().equals(fvalue)) {
+		    	return saved;
 		    }
 		}
 		setCondition(null);
