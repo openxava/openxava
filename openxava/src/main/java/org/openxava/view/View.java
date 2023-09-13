@@ -4538,11 +4538,17 @@ public class View implements java.io.Serializable {
 
 	// To call this is needed isRepresentsElementCollection() == true
 	private boolean isDescriptionsListInElementCollectionThatFireSearch(String refName) { // tmr
-		View subview = getSubview(refName);
-		if (subview.displayAsDescriptionsList()) {
-			return existsListPropertiesInElementCollectionThatDependOn(refName + ".");
+		try {
+			View subview = getSubview(refName);
+			if (subview.displayAsDescriptionsList()) {
+				return existsListPropertiesInElementCollectionThatDependOn(refName + ".");
+			}
+			return false;
 		}
-		return false;
+		catch (ElementNotFoundException ex) {
+			// Maybe view not exist for reference, sometime a reference is search across several view/subview structures
+			return false;
+		}
 	}
 	
 	private boolean existsListPropertiesInElementCollectionThatDependOn(String prefix) { // tmr
