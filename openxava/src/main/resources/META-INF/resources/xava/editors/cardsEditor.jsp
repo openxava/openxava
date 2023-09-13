@@ -28,11 +28,11 @@ if (limit < chunkSize) limit = chunkSize;
 int i = 0;
 for (Card card: new CardIterator(tab, view, request, errors)) {
 %>	
-	<div class="<%=style.getCard()%>" onclick="if (!getSelection().toString()) openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', false, false, '<%=action%>', '<%="row=" + (i++)%>');">
+	<a class="<%=style.getCard()%>" onclick="if (!getSelection().toString()) openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', false, false, '<%=action%>', '<%="row=" + (i++)%>');">
 		<div class="<%=style.getCardHeader()%>"><%=card.getHeader()%></div>
 		<div class="<%=style.getCardSubheader()%>"><%=card.getSubheader()%></div>
 		<div class="<%=style.getCardContent()%>"><%=card.getContent()%></div>
-	</div>	
+	</a>	
 <%
 	if (i >= limit) {
 		loadMore = true;

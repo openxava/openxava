@@ -222,10 +222,16 @@ public class ModuleManager implements java.io.Serializable {
 				refine(metaControllerElements); 
 			} 
 		 	catch (Exception ex) {
+				if (ex instanceof ElementNotFoundException && Arrays.equals(this.controllersNames, MODIFIED_CONTROLLERS)) {
+					// If you change the above condition try to restart 3 times xavaprotest in a Tomcat
+					// only one, organization textfield or organzation combo shouuld be displayed
+					reset();
+					setupModuleControllers();
+					return getMetaControllerElements();
+				}
 				metaActions = null;
 				metaControllerElements = null; 
-				log.error(XavaResources.getString("controller_actions_error"), 
-						ex);
+				log.error(XavaResources.getString("controller_actions_error"), ex);
 				return new ArrayList();
 			}
 		 }
