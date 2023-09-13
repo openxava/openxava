@@ -21,7 +21,6 @@ public class ProductEvaluation2 {
 		 depends="family", 
 		 condition="${family.number} = ?" 
 	)
-	//@OnChange(OnChangeProductAction.class) // tmr
 	Product2 product;
 
 	@Column(length=40) 

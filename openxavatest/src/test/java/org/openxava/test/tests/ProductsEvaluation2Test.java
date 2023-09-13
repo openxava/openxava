@@ -13,22 +13,9 @@ public class ProductsEvaluation2Test extends ModuleTestBase {
 		super(testName, "ProductsEvaluation2");		
 	}
 		
-	public void testDescriptionsListInElementCollectionDependsOnMainEntityProperty() throws Exception { // tmr Cambiar nombre
-		// tmr ini
-		execute("List.viewDetail", "row=0");
-		assertValue("description", "THE EVALUATION");
-		assertValueInCollection("evaluations", 0, "product.number", "1");
-		assertValueInCollection("evaluations", 0, "product.color.name", "COLOR B2");
-		assertValueInCollection("evaluations", 1, "product.number", "");
-		assertValueInCollection("evaluations", 1, "product.color.name", "");
+	public void testDescriptionsListInElementCollectionDependsOnMainEntityProperty() throws Exception { 
+		execute("CRUD.new"); // tmr
 		
-		setValueInCollection("evaluations", 1, "product.number", "5");
-		assertValueInCollection("evaluations", 1, "product.color.name", "NEGRO");
-		
-		execute("CRUD.new");
-		// tmr fin
-		
-		// By now it has no records, so it enters in detail mode // tmr Quitar este comentario
 		String [][] familyValues = { 
 			{ "", "" },
 			{ "2", "HARDWARE" },
@@ -63,7 +50,7 @@ public class ProductsEvaluation2Test extends ModuleTestBase {
 			{ "3", "XAVA" }
 		};		
 		assertValidValuesInCollection("evaluations", 0, "product.number", softwareValues);
-		// tmr assertValidValuesInCollection("evaluations", 1, "product.number", softwareValues); // tmr Falla, pero es un bug que ya estaba, cuando el combo lanza un evento, como un @OnChange
+		assertValidValuesInCollection("evaluations", 1, "product.number", softwareValues); 
 	}
 	
 }

@@ -3582,7 +3582,7 @@ public class View implements java.io.Serializable {
 			}
 			
 			// tmr ini
-			if (changedPropertyQualifiedName.contains(".")) { // tmr Quizás podriamos evitar esta pregunta si cambiamos isDescriptionsListInElementCollectionThatFireSearch
+			if (isRepresentsElementCollection() && changedPropertyQualifiedName.contains(".")) { 
 				String refName = org.openxava.util.Strings.noLastTokenWithoutLastDelim(changedPropertyQualifiedName, ".");
 				if (isDescriptionsListInElementCollectionThatFireSearch(refName)) {
 					getSubview(refName).findObject();
@@ -4522,13 +4522,12 @@ public class View implements java.io.Serializable {
 			}
 		}
 		// tmr ini
-		if (isDescriptionsListInElementCollectionThatFireSearch(refName)) return true;
+		if (isRepresentsElementCollection() && isDescriptionsListInElementCollectionThatFireSearch(refName)) return true;
 		// tmr fin
 		return displayAsDescriptionsListAndReferenceView(ref); 
 	}
 	
-	private boolean isReferenceDependsOnDescriptionsListInsideElementCollectionThatFireSearch(String refName) { 
-		// tmr Está lógica está en 2 sitios debería refactorizar
+	private boolean isReferenceDependsOnDescriptionsListInsideElementCollectionThatFireSearch(String refName) { // tmr 
 		View collectionView = getContainerElementCollectionView();
 		if (collectionView != null) {
 			String qualifiedReferenceInCollection = getQualifiedReferenceInElementCollection(refName);
@@ -4537,12 +4536,11 @@ public class View implements java.io.Serializable {
 		return false;
 	}
 
+	// To call this is needed isRepresentsElementCollection() == true
 	private boolean isDescriptionsListInElementCollectionThatFireSearch(String refName) { // tmr
-		if (isRepresentsElementCollection()) {
-			View subview = getSubview(refName);
-			if (subview.displayAsDescriptionsList()) {
-				return existsListPropertiesInElementCollectionThatDependOn(refName + ".");
-			}
+		View subview = getSubview(refName);
+		if (subview.displayAsDescriptionsList()) {
+			return existsListPropertiesInElementCollectionThatDependOn(refName + ".");
 		}
 		return false;
 	}
@@ -4550,7 +4548,7 @@ public class View implements java.io.Serializable {
 	private boolean existsListPropertiesInElementCollectionThatDependOn(String prefix) { // tmr
 		for (MetaProperty p: getMetaPropertiesList()) {
 			if (p.getName().startsWith(prefix)) {
-				if (StringUtils.countMatches(p.getName(), ".") > 1) { // tmr Frágil, solo para 2 nivel
+				if (StringUtils.countMatches(p.getName(), ".") > 1) { // tmr Frágil, solo para 2 nivel, otra implementación vigilar para que el @DescriptionsList no lance evento
 					return true;
 				}
 			}
