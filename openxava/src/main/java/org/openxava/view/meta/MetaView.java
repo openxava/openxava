@@ -574,7 +574,8 @@ public class MetaView extends MetaElement implements Cloneable {
 		return metaDescriptionsLists;  
 	}
 	
-	public MetaView getMetaViewOnlyKeys(MetaReference r) throws XavaException { 
+	public MetaView getMetaViewOnlyKeys(MetaReference r) throws XavaException {
+		/* tmr
 		MetaView result = getMetaView(r);
 		result.removeMembers();
 		Iterator itKeys = r.getMetaModelReferenced().getKeyPropertiesNames().iterator();
@@ -582,6 +583,10 @@ public class MetaView extends MetaElement implements Cloneable {
 			result.addMemberName((String)itKeys.next());
 		}
 		return result;
+		*/
+		// tmr ini
+		return r.getMetaModelReferenced().getMetaViewOnlyKeys();
+		// tmr fin
 	}
 	
 	public MetaView getMetaView(MetaReference r) throws XavaException { 

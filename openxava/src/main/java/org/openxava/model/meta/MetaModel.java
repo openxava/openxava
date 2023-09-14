@@ -53,6 +53,7 @@ abstract public class MetaModel extends MetaElement {
 	private Collection<String> membersNames = new ArrayList<String>(); 
 	private Collection calculatedPropertiesNames;
 	private MetaView metaViewByDefault;
+	private MetaView metaViewOnlyKeys; // tmr
 	private boolean pojoGenerated;
 	private Collection keyReferencesNames; 
 	private Collection<String> keyPropertiesNames; 
@@ -1158,6 +1159,17 @@ abstract public class MetaModel extends MetaElement {
 			getMapMetaViews().put("", metaViewByDefault);  
 		}
 		return metaViewByDefault;
+	}
+	
+	public MetaView getMetaViewOnlyKeys() throws XavaException { // tmr 
+		if (metaViewOnlyKeys == null) {
+			metaViewOnlyKeys = new MetaView();			
+			metaViewOnlyKeys.setModelName(this.getName());
+			metaViewOnlyKeys.setMetaModel(this);
+			metaViewOnlyKeys.setMembersNames(Strings.toString(getKeyPropertiesNames()));
+			metaViewOnlyKeys.setLabel(getLabel());
+		}
+		return metaViewOnlyKeys;
 	}
 	
 	/**
