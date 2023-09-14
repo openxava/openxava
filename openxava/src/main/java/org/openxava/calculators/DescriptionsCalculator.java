@@ -157,6 +157,31 @@ public class DescriptionsCalculator implements ICalculator {
 		getCache().put(getParameters(), result);				
 		return result;	
 	}
+	
+	/*
+	 * @since 7.1.6 
+	 * 
+	 * It is used to display the item that was previously selected and no longer satisfies the condition.
+	 */
+	public Collection getDescriptionsWithSelected(String fvalue) throws Exception {
+		List<KeyAndDescription> saved = new ArrayList<>((Collection)getCache().get(getParameters()));
+		for (KeyAndDescription kp : saved) { 
+		    if (kp.getKey().toString().equals(fvalue)) {
+		    	return saved;
+		    }
+		}
+		setCondition(null);
+		Collection withOutCondition  = (Collection) calculate();
+		java.util.Iterator it = withOutCondition.iterator();
+		while(it.hasNext()) {
+			KeyAndDescription kd = (KeyAndDescription) it.next();
+			if (Is.equalAsStringIgnoreCase(fvalue, kd.getKey())) {
+				saved.add(0, kd);
+				return saved;
+			}
+		}
+		return saved;
+	}
 
 	private boolean conditionHasArguments() {
 		return this.condition != null && this.condition.indexOf('?') >= 0;		

@@ -166,7 +166,6 @@ if (parameterValuesStereotypes != null || parameterValuesProperties != null) {
 else if (filter != null) {
 	calculator.setParameters(null, filter);
 }
-java.util.Collection descriptions = calculator.getDescriptions();
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 String title = "";  
 try {
@@ -186,6 +185,13 @@ try {
     title = "";
 }
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
+java.util.Collection descriptions = calculator.getDescriptions();
+if (calculator.getCondition() != null && !fvalue.isEmpty()) {
+	String condition = request.getParameter("condition");
+	descriptions = calculator.getDescriptionsWithSelected(fvalue);
+	calculator.setCondition(condition);
+}
+
 boolean editable = "true".equals(request.getParameter("editable"));
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel() || "true".equalsIgnoreCase(request.getParameter("readOnlyAsLabel"));
 if (editable) {

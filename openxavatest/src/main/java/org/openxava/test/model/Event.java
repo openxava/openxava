@@ -34,4 +34,8 @@ public class Event extends Identifiable{
 	
 	String description;
 	
+	@ManyToOne(fetch=FetchType.LAZY, optional = true)
+	@DescriptionsList(condition="${paid} = false")
+	Debt debtAtDate;
+	
 }
