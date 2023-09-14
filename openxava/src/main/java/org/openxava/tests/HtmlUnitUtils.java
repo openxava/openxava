@@ -22,8 +22,8 @@ public class HtmlUnitUtils {
 	public static String getHrefAttribute(HtmlElement element) { 
 		HtmlAnchor anchor = (HtmlAnchor) element;
 		String originalHref = anchor.getHrefAttribute(); 
-		if (!originalHref.equals("javascript:void(0)")) return originalHref;
-		return anchor.getAttribute("onclicke");
+		if (!originalHref.equals("javascript:void(0)") && !originalHref.isEmpty()) return originalHref;
+		return anchor.getAttribute("onclick").isEmpty() ? anchor.getAttribute("onclicke") : anchor.getAttribute("onclick");
 	}
 	
 	public static HtmlElement getAnchor(HtmlPage page, String url) throws Exception { 

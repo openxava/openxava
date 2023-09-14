@@ -1,10 +1,9 @@
 package org.openxava.test.tests;
 
+import org.htmlunit.html.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
-
-import org.htmlunit.html.*;
 
 /**
  * 
@@ -125,6 +124,11 @@ public class ProductTest extends ModuleTestBase {
 		assertListRowCount(7);
 		assertValueInList(2, "XAVA\n3\nUnit price: 0.00, Unit price in pesetas: 0"); 
 		
+		execute("List.viewDetail", "row=2");
+		assertValue("number", "3");
+		assertValue("description", "XAVA");
+		execute("Mode.list");
+		
 		assertFalse(getHtml().contains("There are no records"));
 		assertTrue(getHtmlPage().getElementById("xava_loading_more_elements") == null);
 		
@@ -175,7 +179,7 @@ public class ProductTest extends ModuleTestBase {
 
 	private HtmlElement assertCard3Title(String expectedTitle) { 
 		HtmlElement body = (HtmlElement) getHtmlPage().getElementsByTagName("body").get(0);
-		HtmlElement card = body.getElementsByAttribute("div", "class", "ox-card").get(2);
+		HtmlElement card = body.getElementsByAttribute("a", "class", "ox-card").get(2);
 		assertEquals(expectedTitle + "\n3\nUnit price: 0.00, Unit price in pesetas: 0", card.asNormalizedText()); 
 		return card;
 	}
