@@ -16,7 +16,6 @@ public class ProductEvaluation2 {
 
 		
 	@ManyToOne(fetch=FetchType.LAZY)
-	// TMR @DescriptionsList // ESTO ESTABA PERO ES REBUZNANTE
 	@DescriptionsList(
 		 depends="family", 
 		 condition="${family.number} = ?" 

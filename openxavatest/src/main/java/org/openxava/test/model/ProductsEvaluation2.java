@@ -15,7 +15,7 @@ import lombok.*;
  */
 
 @Entity @Getter @Setter
-@View(name="ExtendedDetails") // tmr
+@View(name="ExtendedDetails") 
 public class ProductsEvaluation2 extends Identifiable {
 	
 	@Column(length=40) @Required
@@ -27,7 +27,7 @@ public class ProductsEvaluation2 extends Identifiable {
 	
 	@ElementCollection
 	@ListProperties("product, evaluation")
-	@ListProperties(forViews="ExtendedDetails", value="product, evaluation, product.color.name") // tmr 	
+	@ListProperties(forViews="ExtendedDetails", value="product, evaluation, product.color.name")  	
 	Collection<ProductEvaluation2> evaluations;
 
 }

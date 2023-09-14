@@ -14,7 +14,7 @@ public class ProductsEvaluation2Test extends ModuleTestBase {
 	}
 		
 	public void testDescriptionsListInElementCollectionDependsOnMainEntityProperty() throws Exception { 
-		execute("CRUD.new"); // tmr
+		execute("CRUD.new"); 
 		
 		String [][] familyValues = { 
 			{ "", "" },

@@ -1043,7 +1043,6 @@ public class View implements java.io.Serializable {
 			newView.setModelName(ref.getReferencedModelName());
 			newView.setRepresentsEntityReference(true);
 		}
-		// tmr if (displayReferenceWithNotCompositeEditor(ref)) {
 		if (displayReferenceWithNotCompositeEditor(ref) && !isReferenceDependsOnDescriptionsListInsideElementCollectionThatFireSearch(ref.getName())) {
 			newView.setMetaView(getMetaView().getMetaViewOnlyKeys(ref));			
 		}
@@ -1612,14 +1611,14 @@ public class View implements java.io.Serializable {
 		return parent.isInsideElementCollection();
 	}	
 	
-	public View getContainerElementCollectionView() { // tmr
+	private View getContainerElementCollectionView() { 
 		if (isRepresentsElementCollection()) return this;
 		View parent = getParent();
 		if (parent == null) return null;
 		return parent.getContainerElementCollectionView();
 	}
 	
-	private String getQualifiedReferenceInElementCollection(String refName) { // tmr 
+	private String getQualifiedReferenceInElementCollection(String refName) {  
 		if (isRepresentsElementCollection()) return refName;
 		View parent = getParent();
 		if (parent == null) return null;
@@ -3581,7 +3580,6 @@ public class View implements java.io.Serializable {
 				}
 			}
 			
-			// tmr ini
 			if (isRepresentsElementCollection() && changedPropertyQualifiedName.contains(".")) { 
 				String refName = org.openxava.util.Strings.noLastTokenWithoutLastDelim(changedPropertyQualifiedName, ".");
 				if (isDescriptionsListInElementCollectionThatFireSearch(refName)) {
@@ -3590,7 +3588,6 @@ public class View implements java.io.Serializable {
 					moveViewValuesToCollectionValues();
 				}
 			}
-			// tmr fin
 			
 			if (calculationDone && isRepresentsElementCollection()) {
 				moveViewValuesToCollectionValues();
@@ -4521,13 +4518,11 @@ public class View implements java.io.Serializable {
 				}
 			}
 		}
-		// tmr ini
 		if (isRepresentsElementCollection() && isDescriptionsListInElementCollectionThatFireSearch(refName)) return true;
-		// tmr fin
 		return displayAsDescriptionsListAndReferenceView(ref); 
 	}
 	
-	private boolean isReferenceDependsOnDescriptionsListInsideElementCollectionThatFireSearch(String refName) { // tmr 
+	private boolean isReferenceDependsOnDescriptionsListInsideElementCollectionThatFireSearch(String refName) {  
 		View collectionView = getContainerElementCollectionView();
 		if (collectionView != null) {
 			String qualifiedReferenceInCollection = getQualifiedReferenceInElementCollection(refName);
@@ -4537,7 +4532,7 @@ public class View implements java.io.Serializable {
 	}
 
 	// To call this is needed isRepresentsElementCollection() == true
-	private boolean isDescriptionsListInElementCollectionThatFireSearch(String refName) { // tmr
+	private boolean isDescriptionsListInElementCollectionThatFireSearch(String refName) { 
 		try {
 			View subview = getSubview(refName);
 			if (subview.displayAsDescriptionsList()) {
@@ -4551,10 +4546,12 @@ public class View implements java.io.Serializable {
 		}
 	}
 	
-	private boolean existsListPropertiesInElementCollectionThatDependOn(String prefix) { // tmr
+	private boolean existsListPropertiesInElementCollectionThatDependOn(String prefix) { 
 		for (MetaProperty p: getMetaPropertiesList()) {
 			if (p.getName().startsWith(prefix)) {
-				if (StringUtils.countMatches(p.getName(), ".") > 1) { // tmr Frágil, solo para 2 nivel, otra implementación vigilar para que el @DescriptionsList no lance evento
+				if (StringUtils.countMatches(p.getName(), ".") > 1) { // Fragile, only work for level 2 or deeper
+																	// If you change the implemetnation take care that 
+																	// the @DescriptionsList does not throw the change event
 					return true;
 				}
 			}

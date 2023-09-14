@@ -2,6 +2,10 @@ package org.openxava.test.tests;
 
 import org.openxava.tests.*;
 
+/**
+ * 
+ * @author Chungyen Tsai
+ */
 public class EventTest extends ModuleTestBase {
 
 	public EventTest(String testName) {

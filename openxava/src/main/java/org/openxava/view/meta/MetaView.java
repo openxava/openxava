@@ -575,18 +575,7 @@ public class MetaView extends MetaElement implements Cloneable {
 	}
 	
 	public MetaView getMetaViewOnlyKeys(MetaReference r) throws XavaException {
-		/* tmr
-		MetaView result = getMetaView(r);
-		result.removeMembers();
-		Iterator itKeys = r.getMetaModelReferenced().getKeyPropertiesNames().iterator();
-		while (itKeys.hasNext()) {
-			result.addMemberName((String)itKeys.next());
-		}
-		return result;
-		*/
-		// tmr ini
 		return r.getMetaModelReferenced().getMetaViewOnlyKeys();
-		// tmr fin
 	}
 	
 	public MetaView getMetaView(MetaReference r) throws XavaException { 
@@ -616,16 +605,6 @@ public class MetaView extends MetaElement implements Cloneable {
 			}
 			result.setMetaSearchAction(metaReferenceView.getMetaSearchAction());	
 			result.setFrame(metaReferenceView.isFrame());
-			/* tmr
-			MetaDescriptionsList metaDescriptionsList = getMetaDescriptionList(r);			
-			if (metaDescriptionsList != null && !metaDescriptionsList.isShowReferenceView()) {
-				result.removeMembers();
-				Iterator itKeys = metaModelReferenced.getKeyPropertiesNames().iterator();
-				while (itKeys.hasNext()) {
-					result.addMemberName((String)itKeys.next());
-				}
-			}
-			*/
 		}
 		else {
 			result = metaModelReferenced.getMetaViewByDefault();

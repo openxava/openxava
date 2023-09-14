@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: 3 level property in @ElementCollection fails if base reference is shown too and as @DescriptionsList.
 - Fix: @DescriptionsList with condition doesn't show value for existing data if the condition no longer met.
 - Fix: ModuleTestBase.execute() does not work for row actions in Cards format.
 - Fix: Module is not well initialized after Tomcat restart sometimes (__MODIFIED_CONTROLLER__ not defined).
