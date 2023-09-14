@@ -51,6 +51,12 @@ public class ProductsEvaluation2Test extends ModuleTestBase {
 		};		
 		assertValidValuesInCollection("evaluations", 0, "product.number", softwareValues);
 		assertValidValuesInCollection("evaluations", 1, "product.number", softwareValues); 
+		
+		// tmr ini
+		// TMR ME QUEDÉ POR AQUÍ, YA FUNCIONA. FALTA HACER EL TEST, LO DE ABAJO NO VA PORQUE EL ARREGLO ES POR CSS
+		assertNoAction("Reference.createNew", "model=Product2,keyProperty=evaluations.0.product.number");
+		
+		// tmr fin
 	}
 	
 }
