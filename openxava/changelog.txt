@@ -1,24 +1,24 @@
 Change Log for OpenXava project
 ===============================
 
+- New method cloneWith59999 in the Dates utility class to set seconds to 59 and milliseconds 999.
+- Embedded Tomcat used in development upgraded to 9.0.80.
+- Groovy upgraded to 4.0.14
+- Driver version in doc and new projects upgraded for AS/400.
+- Doc about internationalization (i18n) improved.
 - Fix: Actions for a @DescriptionsList inside an @ElementCollection are displayed in the next cell.
 - Fix: 3 level property in @ElementCollection fails if base reference is shown too and as @DescriptionsList.
 - Fix: @DescriptionsList with condition doesn't show value for existing data if the condition no longer met.
 - Fix: ModuleTestBase.execute() does not work for row actions in Cards format.
 - Fix: Module is not well initialized after Tomcat restart sometimes (__MODIFIED_CONTROLLER__ not defined).
 - Fix: When @File property stores an image still shows the id with Generate PDF or Generate Excel.
-- Fix: @DescriptionsList message if missing property doesn't indicates model, reference nor reference model.
-- Doc about internationalization (i18n) improved.
+- Fix: @DescriptionsList message if missing property doesn't indicate model, reference nor reference model.
 - Fix: IForwardAction does not work if the application is behind a proxy.
 - Fix: URLValidator for WEBURL stereotype falsely triggers for correct URLs.
-- Driver version in doc and new projects upgraded for AS/400.
-- Embedded Tomcat used in development upgraded to 9.0.80.
-- Groovy upgraded to 4.0.14
 - Fix: View.selLabelId() for references as @DescriptionsList fails from time to time.
 - Fix: Grouping after filtering or sorting the list fails if the @Tab has a baseCondition and an IFilter. 
 - Fix: Going back to "No grouping" in list fails if we have used setBaseCondition() on the Tab object.
 - Fix: Filtering by date and time in list does not found the record if it has seconds or milliseconds in db.
-- New method cloneWith59999 in the Dates utility class to set seconds to 59 and milliseconds 999.
 
 OpenXava 7.1.5 (2023-8-25)
 --------------------------
