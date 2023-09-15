@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.1.6 (2023-9-15)
+--------------------------
 - New method cloneWith59999 in the Dates utility class to set seconds to 59 and milliseconds 999.
 - Embedded Tomcat used in development upgraded to 9.0.80.
 - Groovy upgraded to 4.0.14
