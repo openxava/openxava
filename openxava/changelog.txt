@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Actions for a @DescriptionsList inside an @ElementCollection are displayed in the next cell.
 - Fix: 3 level property in @ElementCollection fails if base reference is shown too and as @DescriptionsList.
 - Fix: @DescriptionsList with condition doesn't show value for existing data if the condition no longer met.
 - Fix: ModuleTestBase.execute() does not work for row actions in Cards format.

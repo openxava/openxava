@@ -1531,17 +1531,9 @@ input[type="button"] {
 	border-bottom-style: hidden; 
 }
 
-
-/* tmr
-.ox-element-collection-data-cell .ox-image-link {
-	display: none;
-}
-*/
-/* tmr ini */
 .ox-element-collection .ox-list-data-cell .ox-image-link {
 	display: none;
 }
-/* tmr fin */
 
 .ox-element-collection-search-action-cell {
 	vertical-align: middle; 
@@ -1759,20 +1751,11 @@ input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
 	text-align: right;
 }
 
-/* tmr
-.ox-total-cell > div, .ox-total-capable-cell > div, 
-.ox-list-header > div, .ox-element-collection-data-cell > div,
-td.ox-list-subheader > div {
-	overflow: hidden; 
-}
-*/
-/* tmr ini */
 .ox-total-cell > div, .ox-total-capable-cell > div, 
 .ox-list-header > div, .ox-element-collection .ox-list-data-cell > div,
 td.ox-list-subheader > div {
 	overflow: hidden; 
 }
-/* tmr fin */
 
 .ox-total-row td { 
 	vertical-align: baseline; 

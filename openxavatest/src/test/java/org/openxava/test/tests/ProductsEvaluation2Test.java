@@ -1,5 +1,6 @@
 package org.openxava.test.tests;
 
+import org.htmlunit.html.*;
 import org.openxava.tests.*;
 
 /**
@@ -13,7 +14,10 @@ public class ProductsEvaluation2Test extends ModuleTestBase {
 		super(testName, "ProductsEvaluation2");		
 	}
 		
-	public void testDescriptionsListInElementCollectionDependsOnMainEntityProperty() throws Exception { 
+	public void testDescriptionsListInElementCollectionDependsOnMainEntityProperty() throws Exception {
+		getWebClient().getOptions().setCssEnabled(true); 
+		reload(); 
+		
 		execute("CRUD.new"); 
 		
 		String [][] familyValues = { 
@@ -52,11 +56,9 @@ public class ProductsEvaluation2Test extends ModuleTestBase {
 		assertValidValuesInCollection("evaluations", 0, "product.number", softwareValues);
 		assertValidValuesInCollection("evaluations", 1, "product.number", softwareValues); 
 		
-		// tmr ini
-		// TMR ME QUEDÉ POR AQUÍ, YA FUNCIONA. FALTA HACER EL TEST, LO DE ABAJO NO VA PORQUE EL ARREGLO ES POR CSS
-		assertNoAction("Reference.createNew", "model=Product2,keyProperty=evaluations.0.product.number");
-		
-		// tmr fin
+		HtmlElement productElement = getHtmlPage().getHtmlElementById("ox_openxavatest_ProductsEvaluation2__reference_editor_evaluations___0___product");
+		HtmlElement actionLink = productElement.getOneHtmlElementByAttribute("a", "class", "ox-image-link");
+		assertFalse(actionLink.isDisplayed());
 	}
 	
 }
