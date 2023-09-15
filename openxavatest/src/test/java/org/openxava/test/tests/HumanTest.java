@@ -1,10 +1,9 @@
 package org.openxava.test.tests;
 
 import org.apache.commons.logging.*;
+import org.htmlunit.html.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
-
-import org.htmlunit.html.*;
 
 /**
  * 
@@ -175,7 +174,7 @@ public class HumanTest extends ModuleTestBase {
 		HtmlElement c = getHtmlPage().getHtmlElementById("ox_openxavatest_Human__xava_clear_condition"); 
 		c.click();
 		// 
-		select = getHtmlPage().getElementByName("ox_openxavatest_Human__conditionValue___1");
+		select = getHtmlPage().getElementByName("ox_openxavatest_Human__conditionValue___1"); 
 		s = select.getAttribute("style");
 		assertFalse(s.contains("display: none") || s.contains("display:none")); 
 	}

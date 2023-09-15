@@ -3,7 +3,7 @@ package org.openxava.test.tests;
 import org.openxava.tests.*;
 
 /**
- * tmr
+ * 
  * @author Javier Paniza
  */
 
@@ -22,7 +22,7 @@ public class ProductsEvaluation2ExtendedDetailsTest extends ModuleTestBase {
 		assertValueInCollection("evaluations", 1, "product.color.name", "");
 		
 		setValueInCollection("evaluations", 1, "product.number", "5");
-		assertValueInCollection("evaluations", 1, "product.color.name", "NEGRO"); // TMR FALLA ME QUEDÉ POR AQUÍ, FALLA SOLO CUANDO SE LANZA LA SUITE
+		assertValueInCollection("evaluations", 1, "product.color.name", "NEGRO"); 
 	}
 	
 }
