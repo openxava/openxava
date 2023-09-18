@@ -6,7 +6,7 @@
 
 	<groupId>org.openxava</groupId>
 	<artifactId>openxava-archetype-spanish</artifactId>
-	<version>7.1.6</version>
+	<version>7.2-SNAPSHOT</version>
 	<packaging>maven-archetype</packaging>
 
   	<name>OpenXava Archetype in Spanish</name>
