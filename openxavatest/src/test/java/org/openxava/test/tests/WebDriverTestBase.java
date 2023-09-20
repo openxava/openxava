@@ -89,7 +89,6 @@ abstract public class WebDriverTestBase extends TestCase {
 			alert.accept();
 			wait(driver);
 		} catch(NoAlertPresentException e) {
-			System.out.println("No Alert Presented");
 		}
 	}
 	
