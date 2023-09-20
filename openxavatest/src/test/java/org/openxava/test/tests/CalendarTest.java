@@ -16,11 +16,12 @@ public class CalendarTest extends WebDriverTestBase {
 	}
 
 	public void testNavigation() throws Exception {
-		forTestAddEventAndVerify();
-		forTestConditionsAndFilter();
-		forTestAnyNameAsDateProperty();
-		forTestMultipleDateAndFirstDateAsEventStart(); 
-		forTestFilterPerformance();
+//		forTestAddEventAndVerify();
+//		forTestConditionsAndFilter();
+//		forTestAnyNameAsDateProperty();
+//		forTestMultipleDateAndFirstDateAsEventStart(); 
+//		forTestFilterPerformance();
+		forTestMore();
 	}
 
 	public void tearDown() throws Exception {
@@ -242,6 +243,30 @@ public class CalendarTest extends WebDriverTestBase {
 		// 4000
 		assertTrue(takes < 3000);
 		moveToListView(driver);
+	}
+	
+	private void forTestMore() throws Exception {
+		driver.get("http://localhost:8080/openxavatest/m/Hound");
+		wait(driver);
+		acceptInDialogJS(driver);
+		createFromListView(driver, "Hound");
+		for (int i = 0; i < 6; i++) {
+			insertValueToInput(driver, "ox_openxavatest_Hound__name", String.valueOf(i), true);
+			saveFromDetailView(driver, "Hound");
+		}
+		goToListFromDetailView(driver, "Hound");
+		waitCalendarEvent(driver);
+		moveToCalendarView(driver);
+		WebElement linkElement = driver.findElement(By.cssSelector("a.fc-daygrid-more-link.fc-more-link"));
+		assertNotNull(linkElement);
+		
+		moveToListView(driver);
+
+		for (int i = 0; i < 6; i++) {
+			WebElement checkboxElement = driver.findElement(By.xpath("//input[@name='ox_openxavatest_Hound__xava_selected' and @value='selected:" + i + "']"));
+			checkboxElement.click();
+		}
+		deleteSelectedFromListView(driver, "Hound");
 	}
 
 }

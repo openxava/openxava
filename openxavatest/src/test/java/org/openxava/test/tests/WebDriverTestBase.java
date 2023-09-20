@@ -89,7 +89,7 @@ abstract public class WebDriverTestBase extends TestCase {
 			alert.accept();
 			wait(driver);
 		} catch(NoAlertPresentException e) {
-			
+			System.out.println("No Alert Presented");
 		}
 	}
 	
@@ -114,10 +114,23 @@ abstract public class WebDriverTestBase extends TestCase {
 		wait(driver);
 	}
 	
+	protected void refreshFromDetailView(WebDriver driver, String modelName) throws Exception {
+		WebElement buttonSave = driver.findElement(By.id("ox_openxavatest_" + modelName + "__CRUD___refresh"));
+		buttonSave.click();
+		wait(driver);
+	}
+	
 	protected void deleteFromDetailView(WebDriver driver, String modelName) throws Exception {
 		WebElement buttonDelete = driver.findElement(By.id("ox_openxavatest_" + modelName + "__CRUD___delete"));
 		buttonDelete.click();
 		wait(driver);
+		acceptInDialogJS(driver);
+		wait(driver);
+	}
+	
+	protected void deleteSelectedFromListView(WebDriver driver, String modelName) throws Exception {
+		WebElement buttonDelete = driver.findElement(By.id("ox_openxavatest_" + modelName + "__CRUD___deleteSelected"));
+		buttonDelete.click();
 		acceptInDialogJS(driver);
 		wait(driver);
 	}
@@ -135,4 +148,9 @@ abstract public class WebDriverTestBase extends TestCase {
 		wait(driver);
 	}
 	
+	protected void insertValueToInput(WebDriver driver, String id, String value, boolean delete) {
+		WebElement inputElement = driver.findElement(By.id(id));
+		if (delete == true) inputElement.clear();
+        inputElement.sendKeys(value);
+	}
 }
