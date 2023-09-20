@@ -1,6 +1,17 @@
 Change Log for OpenXava project
 ===============================
 
+Actualizando JQuery: TMR ME QUEDÉ
+* Librerías JS y CSS actualizados.
+* Probado díalogos, mover filas y resizing.
+* Pasado ZAP
+- Probar borrar y mover columnas.
+- Test manuales.
+- Suite.
+ 
+
+ya está hecho, probado diálogos, mover filas y resizing.pasado el
+
 OpenXava 7.1.6 (2023-9-15)
 --------------------------
 - New method cloneWith59999 in the Dates utility class to set seconds to 59 and milliseconds 999.

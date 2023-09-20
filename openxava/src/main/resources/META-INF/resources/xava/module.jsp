@@ -111,15 +111,15 @@
 	<link href="<%=contextPath%>/xava/style/<%=style.getCssFile()%>?ox=<%=version%>" rel="stylesheet" type="text/css">
 <%
 	}
-
-	for (java.util.Iterator it = style.getAdditionalCssFiles()
-			.iterator(); it.hasNext();) {
-		String cssFile = (String) it.next();
-%> 
-	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%><%=cssFile%>?ox=<%=version%>"/>
-<%
-	}
 %>
+
+<%-- tmr ini --%>
+	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%>/xava/style/jquery-ui.css?ox=<%=version%>"/>
+	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%>/xava/style/jquery-ui.structure.css?ox=<%=version%>"/>
+	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%>/xava/style/smoothness/jquery-ui.css?ox=<%=version%>"/>
+	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%>/xava/style/yahoo-treeview/treeview.css?ox=<%=version%>"/>
+	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%>/xava/style/custom.css?ox=<%=version%>"/>
+<%-- tmr fin --%>	
 
 	<%
 	for (String styleEditor: EditorsResources.listCSSFiles(realPath)) {
