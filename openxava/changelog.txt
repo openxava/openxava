@@ -1,13 +1,27 @@
 Change Log for OpenXava project
 ===============================
 
-Actualizando JQuery: TMR ME QUEDÉ
+Actualizando JQuery: 
 * Librerías JS y CSS actualizados.
-* Probado díalogos, mover filas y resizing.
 * Pasado ZAP
-- Probar borrar y mover columnas.
+* Probar 
+	* Díalogos
+	* Mover filas 
+	* Resizing
+	* Borrar y mover columnas
+- Calendario: TMR ME QUEDÉ POR AQUÍ
+	No funciona porque no reconoce Calendar, Discussion falla también por lo mismo.
+	Parece que tiene que ver con la nueva forma de trabajar de html() de jQuery. 
+	Puedo probar:
+		- Hacer que el nonce sea el mismo. He comprobado que no coincide. Probar un nonce fijo para ver si es eso.
+		- Usar innerHtml
+		- Cargar el JavaScript con JavaScript.
+		- Cargarlos en module.jsp.
 - Test manuales.
 - Suite.
+
+Pendiente:
+- El calendario no funciona. Si quitamos en CSP sí que va. "Calendar is not defined"
  
 
 ya está hecho, probado diálogos, mover filas y resizing.pasado el
