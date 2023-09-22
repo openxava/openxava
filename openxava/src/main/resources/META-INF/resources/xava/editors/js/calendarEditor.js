@@ -177,8 +177,20 @@ openxava.addEditorInitFunction(function() {
             calendarElement.style.width = (window.innerHeight * 0.9)+ 'px';
             calendarElement.style.height = (window.innerHeight * 0.763)+ 'px';
         });
+		
+		const dayFrames = calendarElement.querySelectorAll(".fc-daygrid-day-frame.fc-scrollgrid-sync-inner");
+		const dayEvents = calendarElement.querySelectorAll(".fc-daygrid-day-events");
+		
+		dayEvents.forEach((dayEvent, index) => {
+			dayEvent.addEventListener("mouseenter", () => {
+				dayFrames[index].classList.add("fc-daygrid-day-events-hovered");
+			});
+
+			dayEvent.addEventListener("mouseleave", () => {
+				dayFrames[index].classList.remove("fc-daygrid-day-events-hovered");
+			});
+		});
+		
     }
-
-
 
 });

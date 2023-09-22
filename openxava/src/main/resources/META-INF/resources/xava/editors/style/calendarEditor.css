@@ -33,6 +33,20 @@
  cursor: pointer;
 }
 
+.fc-daygrid-day-frame:hover::before {
+  content: "\002B"; 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px; 
+  color: var(--calendar-day-icon-color); 
+}
+
+.fc-daygrid-day-frame.fc-daygrid-day-events-hovered:hover::before {
+	 opacity: 0;
+}
+
 .fc-day-today {
  background: var(--calendar-today-background) !important;
 }
@@ -45,4 +59,11 @@
 #xava_calendar th,
 #xava_calendar td {
   border-color: var(--calendar-cell-border-color);
+}
+
+.hoverEffect {
+    font-size: 29px;
+    position: absolute;
+    margin: 30px 55px;
+    cursor: pointer;
 }
