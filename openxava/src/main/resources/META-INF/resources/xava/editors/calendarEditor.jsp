@@ -47,10 +47,4 @@ if (dateFormat != null) {
 </div>
 <div id='xava_calendar' class='xava_calendar'></div>
 
-<%-- tmr
 <script type='text/javascript' <xava:nonce/> src='<%=contextPath%>/dwr/interface/Calendar.js?ox=<%=version%>'></script>
---%>
-<%-- tmr ini --%>
-<!-- <xava:nonce/> -->
-<script type='text/javascript' <xava:nonce/> src='<%=contextPath%>/dwr/interface/Calendar.js?ox=<%=version%>'></script>
-<%-- tmr fin --%>

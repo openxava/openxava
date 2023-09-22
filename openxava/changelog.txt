@@ -9,16 +9,10 @@ Actualizando JQuery:
 	* Mover filas 
 	* Resizing
 	* Borrar y mover columnas
-- Calendario: TMR ME QUEDÉ POR AQUÍ
-	No funciona porque no reconoce Calendar, Discussion falla también por lo mismo.
-	Parece que tiene que ver con la nueva forma de trabajar de html() de jQuery. 
-	Puedo probar:
-		- Hacer que el nonce sea el mismo. He comprobado que no coincide. Probar un nonce fijo para ver si es eso.
-		- Usar innerHtml
-		- Cargar el JavaScript con JavaScript.
-		- Cargarlos en module.jsp.
-- Test manuales.
+* Calendario.
+- Test manuales. TMR ME QUEDÉ POR AQUÍ. PROBÉ SOLO LOS GRÁFICOS Y FALLARON, PERO YA FALLABAN DESDE LA 7.1.3
 - Suite.
+- Migration. nonce
 
 Pendiente:
 - El calendario no funciona. Si quitamos en CSP sí que va. "Calendar is not defined"
