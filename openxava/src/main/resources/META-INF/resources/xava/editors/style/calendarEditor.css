@@ -33,18 +33,14 @@
  cursor: pointer;
 }
 
-.fc-daygrid-day-frame:hover::before {
-  content: "\002B"; 
+.fc-daygrid-day-frame::before {
+  font-family: 'Material Design Icons';
+  content: "\f334";
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 24px; 
-  color: var(--calendar-day-icon-color); 
-}
-
-.fc-daygrid-day-frame.fc-daygrid-day-events-hovered:hover::before {
-	 opacity: 0;
+  bottom: 5px;
+  right: 5px;
+  font-size: 24px;
+  color: var(--calendar-button-color);
 }
 
 .fc-day-today {
