@@ -37,9 +37,7 @@ calendarEditor.setEvents = function(calendarEvents) {
 
 
 openxava.addEditorInitFunction(function() {
-	console.log("[openxava.addEditorInitFunction] " + $("#xava_calendar").length); // tmr
     if ($("#xava_calendar").length) {
-    	console.log("[openxava.addEditorInitFunction] Entramos"); // tmr
         var application = $('#xava_calendar_application').val();
         var module = $('#xava_calendar_module').val();
         var dateFormat = $('#xava_calendar_dateFormat').val();
@@ -52,9 +50,8 @@ openxava.addEditorInitFunction(function() {
 
         calendarEditor.listEvents = [];
         calendarEditor.requesting = true;
-        console.log("[openxava.addEditorInitFunction] Llamando a getEvents()"); // tmr
         Calendar.getEvents(application, module, "", calendarEditor.setEvents);
-		console.log("[openxava.addEditorInitFunction] getEvents() llamado"); // tmr
+
         $("#xava_calendar").ready(function() {
             calendarEditor.calendarEl = $('#xava_calendar')[0];
             calendarEditor.calendar = new FullCalendar.Calendar(calendarEditor.calendarEl, {

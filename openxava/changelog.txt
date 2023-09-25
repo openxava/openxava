@@ -10,7 +10,9 @@ Actualizando JQuery:
 	* Resizing
 	* Borrar y mover columnas
 * Calendario.
-- Test manuales. TMR ME QUEDÉ POR AQUÍ. PROBÉ SOLO LOS GRÁFICOS Y FALLARON, PERO YA FALLABAN DESDE LA 7.1.3
+	* calendarEditor.calendar is undefined con Appointment cargando varias veces.
+	* Pasar Selenium tests.
+- Test manuales. TMR ME QUEDÉ POR AQUÍ: HICE DateCalendar
 - Suite.
 - Migration. nonce
 
