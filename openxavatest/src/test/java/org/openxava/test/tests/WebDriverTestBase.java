@@ -92,46 +92,16 @@ abstract public class WebDriverTestBase extends TestCase {
 		}
 	}
 	
-	protected void goToListFromDetailView(WebDriver driver, String modelName) throws Exception {
-		WebElement buttonList = driver.findElement(By.id("ox_openxavatest_" + modelName + "__Mode___list"));
+	
+	protected void execute(WebDriver driver, String action, String modelName) throws Exception {
+		String[] actionS = action.split("\\.");
+		WebElement buttonList = driver.findElement
+				(By.id("ox_openxavatest_" + modelName + "__" + actionS[0] + "___" + actionS[1]));
 		buttonList.click();
 		acceptInDialogJS(driver);
 		wait(driver);
 		//if back to CalendarView, need add another wait after this method
 		//waitCalendarEvent(driver);
-	}
-	
-	protected void createFromListView(WebDriver driver, String modelName) throws Exception {
-		WebElement buttonNew = driver.findElement(By.id("ox_openxavatest_" + modelName + "__CRUD___new"));
-		buttonNew.click();
-		wait(driver);
-	}
-	
-	protected void saveFromDetailView(WebDriver driver, String modelName) throws Exception {
-		WebElement buttonSave = driver.findElement(By.id("ox_openxavatest_" + modelName + "__CRUD___save"));
-		buttonSave.click();
-		wait(driver);
-	}
-	
-	protected void refreshFromDetailView(WebDriver driver, String modelName) throws Exception {
-		WebElement buttonSave = driver.findElement(By.id("ox_openxavatest_" + modelName + "__CRUD___refresh"));
-		buttonSave.click();
-		wait(driver);
-	}
-	
-	protected void deleteFromDetailView(WebDriver driver, String modelName) throws Exception {
-		WebElement buttonDelete = driver.findElement(By.id("ox_openxavatest_" + modelName + "__CRUD___delete"));
-		buttonDelete.click();
-		wait(driver);
-		acceptInDialogJS(driver);
-		wait(driver);
-	}
-	
-	protected void deleteSelectedFromListView(WebDriver driver, String modelName) throws Exception {
-		WebElement buttonDelete = driver.findElement(By.id("ox_openxavatest_" + modelName + "__CRUD___deleteSelected"));
-		buttonDelete.click();
-		acceptInDialogJS(driver);
-		wait(driver);
 	}
 	
 	protected void clickOnButtonWithId(WebDriver driver, String id) throws Exception {
