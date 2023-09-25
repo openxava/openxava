@@ -58,17 +58,28 @@ openxava.addEditorInitFunction(function() {
                 initialView: 'dayGridMonth',
                 editable: true,
                 locale: navigator.language,
-                displayEventTime: false,
+                displayEventTime: true,
                 events: calendarEditor.listEvents,
 				dayMaxEventRows: true,
                 editable: true,
                 progressiveEventRendering: true,
 				eventColor: 'var(--color)',
-                headerToolbar: {
-                    left: 'prev,next title',
-                    center: '',
-                    right: ''
-                },
+				viewClassNames: function(info){
+					if (info.view.type === 'dayGridWeek'){
+						calendarEditor.calendar.setOption('displayEventTime', true);
+						const h2 = calendarElement.querySelector(".fc-toolbar-title");
+						if (h2.textContent !== info.view.title) formatTitle(info.view.title);
+					} else if (info.view.type === 'dayGridMonth') {
+						calendarEditor.calendar.setOption('displayEventTime', false);
+						const h2 = calendarElement.querySelector(".fc-toolbar-title");
+						if (h2.textContent !== info.view.title) formatTitle(info.view.title);
+					}
+				},
+				headerToolbar: {
+					left: 'prev,next title',
+					center: '',
+					right: 'dayGridMonth,dayGridWeek'
+				},
                 customButtons: {
                     next: {
                         click: function() {
@@ -104,10 +115,10 @@ openxava.addEditorInitFunction(function() {
                     if (!getSelection().toString()) {
                         openxava.executeAction(application, module, false, false, newAction, value);
                     }
-                }
+                },
             });
             calendarEditor.calendar.render();
-            formatTitle();
+            formatTitle(null);
         });
 
         function reformatDate(date) {
@@ -127,11 +138,11 @@ openxava.addEditorInitFunction(function() {
             let currentYear = currentViewDate.getFullYear();
             cleanTitle();
             month === 'next' ? calendarEditor.calendar.next() : calendarEditor.calendar.prev();
-            formatTitle();
+            formatTitle(null);
             let newViewDate = calendarEditor.calendar.view.currentStart;
             let newMonth = newViewDate.getMonth();
             let newYear = newViewDate.getFullYear();
-            let monthYear = (currentYear != newYear || currentMonth != newMonth) ? newMonth + "_" + newYear : "";
+            let monthYear = (currentYear != newYear || currentMonth != newMonth || currentViewDate != newViewDate) ? newMonth + "_" + newYear : "";
             Calendar.getEvents(application, module, monthYear, calendarEditor.setEvents);
         }
 
@@ -156,8 +167,11 @@ openxava.addEditorInitFunction(function() {
             });
         }
         
-        function formatTitle(){
-            const h2 = calendarElement.querySelector(".fc-toolbar-title");
+        function formatTitle(title){
+			const h2 = calendarElement.querySelector(".fc-toolbar-title");
+			if (title !== null){
+				h2.textContent = title;
+			}
             const text = h2.textContent;
             const capitalizedTitle = text.charAt(0).toUpperCase() + text.slice(1);
             h2.textContent = capitalizedTitle;
