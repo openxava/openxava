@@ -93,10 +93,10 @@ abstract public class WebDriverTestBase extends TestCase {
 	}
 	
 	
-	protected void execute(WebDriver driver, String action, String modelName) throws Exception {
+	protected void execute(WebDriver driver, String moduleName, String action) throws Exception {
 		String[] actionS = action.split("\\.");
 		WebElement buttonList = driver.findElement
-				(By.id("ox_openxavatest_" + modelName + "__" + actionS[0] + "___" + actionS[1]));
+				(By.id("ox_openxavatest_" + moduleName + "__" + actionS[0] + "___" + actionS[1]));
 		buttonList.click();
 		acceptInDialogJS(driver);
 		wait(driver);

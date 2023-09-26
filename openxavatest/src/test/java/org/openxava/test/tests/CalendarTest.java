@@ -90,8 +90,8 @@ public class CalendarTest extends WebDriverTestBase {
 		wait(driver);
 		WebElement inputVAT = driver.findElement(By.id("ox_openxavatest_Invoice__vatPercentage"));
 		inputVAT.sendKeys("3");
-		execute(driver, "CRUD.save", "Invoice");
-		execute(driver, "Mode.list", "Invoice");
+		execute(driver, "Invoice", "CRUD.save");
+		execute(driver, "Invoice", "Mode.list");
 		waitCalendarEvent(driver);
 	}
 
@@ -106,7 +106,7 @@ public class CalendarTest extends WebDriverTestBase {
 		int year = now.get(Calendar.YEAR);
 		WebElement invoiceYear = driver.findElement(By.id("ox_openxavatest_Invoice__year"));
 		assertEquals(String.valueOf(year), invoiceYear.getAttribute("value"));
-		execute(driver, "Mode.list", "Invoice");
+		execute(driver, "Invoice", "Mode.list");
 		waitCalendarEvent(driver);
 	}
 
@@ -153,7 +153,7 @@ public class CalendarTest extends WebDriverTestBase {
 		wait(driver);
 		acceptInDialogJS(driver);
 		try {
-			execute(driver, "Mode.list", "UserWithBirthday");
+			execute(driver, "UserWithBirthday", "Mode.list");
 		} catch (NoSuchElementException e) {
 		}
 		moveToListView(driver);
@@ -214,8 +214,8 @@ public class CalendarTest extends WebDriverTestBase {
 			spanElement.click(); // It fails in Windows 7
 		}
 		wait(driver);
-		execute(driver, "CRUD.save", "Event");
-		execute(driver, "Mode.list", "Event");
+		execute(driver, "Event", "CRUD.save");
+		execute(driver, "Event", "Mode.list");
 		waitCalendarEvent(driver);
 
 		List<WebElement> events = driver
@@ -249,12 +249,12 @@ public class CalendarTest extends WebDriverTestBase {
 		driver.get("http://localhost:8080/openxavatest/m/Hound");
 		wait(driver);
 		acceptInDialogJS(driver);
-		execute(driver, "CRUD.new", "Hound");
+		execute(driver, "Hound", "CRUD.new");
 		for (int i = 0; i < 6; i++) {
 			insertValueToInput(driver, "ox_openxavatest_Hound__name", String.valueOf(i), true);
-			execute(driver, "CRUD.save", "Hound");
+			execute(driver, "Hound", "CRUD.save");
 		}
-		execute(driver, "Mode.list", "Hound");
+		execute(driver, "Hound", "Mode.list");
 		waitCalendarEvent(driver);
 		moveToCalendarView(driver);
 		WebElement linkElement = driver.findElement(By.cssSelector("a.fc-daygrid-more-link.fc-more-link"));
@@ -266,7 +266,7 @@ public class CalendarTest extends WebDriverTestBase {
 			WebElement checkboxElement = driver.findElement(By.xpath("//input[@name='ox_openxavatest_Hound__xava_selected' and @value='selected:" + i + "']"));
 			checkboxElement.click();
 		}
-		execute(driver, "CRUD.deleteSelected", "Hound");
+		execute(driver, "Hound", "CRUD.deleteSelected");
 	}
 
 }
