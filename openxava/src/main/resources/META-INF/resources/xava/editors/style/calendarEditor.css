@@ -33,14 +33,22 @@
  cursor: pointer;
 }
 
-.fc-daygrid-day-frame::before {
+.fc-daygrid-day-bg::before {
+  display: block;
   font-family: 'Material Design Icons';
-  content: "\f334";
+  content: "\F419";
+  padding: 7px 0px 0px 7px;
   position: absolute;
   bottom: 5px;
   right: 5px;
-  font-size: 24px;
+  font-size: 20px;
   color: var(--calendar-button-color);
+  opacity: 0.7;
+}
+
+.fc-daygrid-day-bg:hover::before {
+  content: "\F417";
+  opacity: 1;
 }
 
 .fc-day-today {
