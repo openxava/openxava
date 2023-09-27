@@ -22,6 +22,7 @@ String version = org.openxava.controller.ModuleManager.getVersion();
 <script type='text/javascript' src='<%=contextPath%>/dwr/interface/Discussion.js?ox=<%=version%>'></script>
 --%>
 <%-- tmr ini --%>
+<%-- tmr En migration --%>
 <script type='text/javascript' <xava:nonce/> src='<%=contextPath%>/dwr/interface/Discussion.js?ox=<%=version%>'></script>
 <%-- tmr fin --%>
 

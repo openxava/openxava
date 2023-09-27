@@ -1,27 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-Actualizando JQuery: 
-* Librerías JS y CSS actualizados.
-* Pasado ZAP
-* Probar 
-	* Díalogos
-	* Mover filas 
-	* Resizing
-	* Borrar y mover columnas
-* Calendario.
-	* calendarEditor.calendar is undefined con Appointment cargando varias veces.
-	* Pasar Selenium tests.
-* Test manuales. 
-* Crear un test manuel para Cards
-- Suite. Antes mezclar desde el master y poner db del master
-- Migration. nonce
-
-Pendiente:
-- El calendario no funciona. Si quitamos en CSP sí que va. "Calendar is not defined"
- 
-
-ya está hecho, probado diálogos, mover filas y resizing.pasado el
+- Explicit plus icon in each day in list calendar format to create a new record for a day.  
 
 OpenXava 7.1.6 (2023-9-15)
 --------------------------
