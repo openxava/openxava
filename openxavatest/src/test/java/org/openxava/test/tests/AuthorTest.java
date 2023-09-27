@@ -97,7 +97,7 @@ public class AuthorTest extends CustomizeListTestBase {
 		assertCollectionFilterDisplayed();
 		getHtmlPage().getHtmlElementById("ox_openxavatest_Author__hide_filter_humans").click();
 		Thread.sleep(1000);
-		assertCollectionFilterNotDisplayed();
+		assertCollectionFilterNotDisplayed(); // TMR FALLA
 	}
 	
 	private void assertCollectionFilterDisplayed() { 
@@ -139,7 +139,7 @@ public class AuthorTest extends CustomizeListTestBase {
 		assertLabelInList(0, "Author");
 		assertLabelInList(1, "Biography");
 		moveColumn(0, 1);
-		assertLabelInList(0, "Biography");
+		assertLabelInList(0, "Biography"); // TMR FALLA
 		assertLabelInList(1, "Author");
 		resetModule();
 		assertLabelInList(0, "Biography");
@@ -162,7 +162,7 @@ public class AuthorTest extends CustomizeListTestBase {
 		assertListRowCount(1);
 		removeColumn(1); 
 		assertListRowCount(1);
-		assertListColumnCount(1); 
+		assertListColumnCount(1); // TMR FALLA
 		execute("List.addColumns"); 
 		execute("AddColumns.restoreDefault"); 
 		assertListColumnCount(2);

@@ -570,7 +570,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		Thread.sleep(700); 
 		assertTrue(getElementById("show_filter_list").isDisplayed());
 		assertFalse(getElementById("hide_filter_list").isDisplayed());
-		assertFalse(getElementById("list_filter_list").isDisplayed()); 
+		assertFalse(getElementById("list_filter_list").isDisplayed()); // TMR FALLA
 		getElementById("show_filter_list").click();
 		Thread.sleep(700); 
 		assertFalse(getElementById("show_filter_list").isDisplayed()); 
@@ -593,7 +593,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 	
 	public void testCustomizeList() throws Exception { 
-		doTestCustomizeList_moveAndRemove(); 
+		doTestCustomizeList_moveAndRemove(); // TMR FALLA
 		resetModule(); 
 		doTestCustomizeList_generatePDF(); 
 		resetModule(); 
@@ -767,7 +767,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInList(0, 0, value);
 		
 		removeColumn(7); 
-		assertListColumnCount(7); 
+		assertListColumnCount(7); // TMR FALLA
 	}	
 	
 	public void testRowStyle() throws Exception {

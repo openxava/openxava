@@ -6,12 +6,11 @@ import static org.openxava.tests.EmailNotificationsUtils.removeAllEmailSubscript
 
 import java.rmi.*;
 
+import org.htmlunit.*;
+import org.htmlunit.html.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
-
-import org.htmlunit.*;
-import org.htmlunit.html.*;
 
 /**
  * 
@@ -471,7 +470,7 @@ public class SellerTest extends CustomizeListTestBase {
 		execute("CRUD.new");
 		assertCollectionColumnCount("customers", 7);
 		removeColumn("customers", 6); 
-		assertCollectionColumnCount("customers", 6); 
+		assertCollectionColumnCount("customers", 6); // TMR FALLA 
 		resetModule();
 		execute("CRUD.new");
 		assertCollectionColumnCount("customers", 6); 

@@ -198,7 +198,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 	public void testFocusMoveToReferenceAsDescriptionsList() throws Exception { 
 		execute("CRUD.new");
 		setValue("family.number", "1");
-		assertFocusOn("subfamily.number"); 
+		assertFocusOn("subfamily.number"); // TMR FALLA
 	}
 	
 	/*
@@ -537,7 +537,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		HtmlElement subfamilyList = getHtmlPage().getHtmlElementById("ui-id-9");
 		assertTrue(subfamilyList.isDisplayed());
 		assertEquals(3, subfamilyList.getChildElementCount());
-		assertEquals("DESARROLLO", subfamilyList.getFirstChild().asNormalizedText());
+		assertEquals("DESARROLLO", subfamilyList.getFirstChild().asNormalizedText()); // TMR FALLA
 		assertEquals("SISTEMA", subfamilyList.getLastChild().asNormalizedText());	
 		
 		((HtmlElement) subfamilyList.getFirstChild()).click(); // DESARROLLO

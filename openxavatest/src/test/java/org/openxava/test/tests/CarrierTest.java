@@ -148,7 +148,7 @@ public class CarrierTest extends CarrierTestBase {
 		assertCollectionColumnCount("fellowCarriers", 4);
 		assertLabelInCollection("fellowCarriers", 0, "Number");
 		assertLabelInCollection("fellowCarriers", 1, "Name");
-		assertLabelInCollection("fellowCarriers", 2, "Calculated");
+		assertLabelInCollection("fellowCarriers", 2, "Calculated"); // TMR FALLA
 		assertLabelInCollection("fellowCarriers", 3, "Remarks");		
 		
 		// The main list not modified

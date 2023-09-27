@@ -197,7 +197,7 @@ public class ApplicantTest extends ModuleTestBase {
 		HtmlElement cssHref = page.getAnchorByHref("?theme=pink.css");
 		page = cssHref.click();
 		assertCSSWellUploaded(page, false);
-		assertResorcesWellReaded(page);
+		assertResorcesWellReaded(page); // TMR FALLA
 	}
 	
 	private void assertLabels(String propertyLabel, String moduleLabel) throws Exception {
@@ -306,7 +306,7 @@ public class ApplicantTest extends ModuleTestBase {
 		hideButton.click();
 		Thread.sleep(500);
 		
-		assertFalse(modulesList.isDisplayed()); 
+		assertFalse(modulesList.isDisplayed()); // TMR FALLA 
 		assertTrue(menuButton.isDisplayed());
 		assertTrue(extendedTitle.isDisplayed());
 		assertFalse(hideButton.isDisplayed());

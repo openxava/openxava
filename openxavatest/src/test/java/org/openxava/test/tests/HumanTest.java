@@ -207,7 +207,7 @@ public class HumanTest extends ModuleTestBase {
 		assertTrue(removeColumn1.isDisplayed());		
 		customize.click();
 		Thread.sleep(3000); // It needs time to fade out 
-		assertFalse(addColumns.isDisplayed());
+		assertFalse(addColumns.isDisplayed()); // TMR FALLA
 		assertFalse(moveColumn0.isDisplayed());		
 		assertFalse(removeColumn0.isDisplayed());
 		assertFalse(moveColumn1.isDisplayed()); 

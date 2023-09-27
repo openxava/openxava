@@ -20,7 +20,7 @@ public class ServiceTest extends ModuleTestBase {
 	public void testFocusOnDescriptionsListInsideAggregate() throws Exception {
 		execute("CRUD.new");
 		setValue("family", "1");		
-		assertFocusOn("detail.subfamily"); 
+		assertFocusOn("detail.subfamily"); // TMR FALLA ME QUEDÉ POR AQUÍ, COMPROBADO QUE VA CON LA 7.1.6
 		setValue("detail.subfamily", "1");
 		assertFocusOn("detail.type"); 
 	}

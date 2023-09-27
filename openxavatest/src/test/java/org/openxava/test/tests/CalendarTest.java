@@ -19,7 +19,7 @@ public class CalendarTest extends WebDriverTestBase {
 		forTestAddEventAndVerify();
 		forTestConditionsAndFilter();
 		forTestAnyNameAsDateProperty();
-		forTestMultipleDateAndFirstDateAsEventStart(); 
+		forTestMultipleDateAndFirstDateAsEventStart(); // TMR FALLA
 		forTestFilterPerformance();
 	}
 
