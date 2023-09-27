@@ -12,7 +12,8 @@ Actualizando JQuery:
 * Calendario.
 	* calendarEditor.calendar is undefined con Appointment cargando varias veces.
 	* Pasar Selenium tests.
-- Test manuales. TMR ME QUEDÉ POR AQUÍ: HICE Layout
+* Test manuales. 
+* Crear un test manuel para Cards
 - Suite. Antes mezclar desde el master y poner db del master
 - Migration. nonce
 

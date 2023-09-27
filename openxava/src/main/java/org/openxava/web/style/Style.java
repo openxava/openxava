@@ -90,9 +90,11 @@ public class Style {
 		return XavaPreferences.getInstance().isUseIconsInsteadOfImages();
 	}
 			
+	/* tmr
 	protected String getJQueryCss() { // tmr Quitar
 		return "/xava/style/ui-lightness/jquery-ui.css"; // TMR Mover aquí la implementación de XavaStyle
 	}
+	*/
 	
 	/* tmr
 	protected Collection<String> createAdditionalCssFiles() { // tmr Mover a module.jsp
