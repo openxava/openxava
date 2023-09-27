@@ -78,7 +78,7 @@ public class Calendar extends DWRBase {
 		String tabObject = "xava_tab";
 		tab2 = getTab(request, application, module, tabObject);
 		tab = tab2.clone();
-		System.out.println("getEvents " + monthYear);
+
 		setDatesProperty();
 		if (tabHasCondition(tab)) {
 			hasCondition = true;
@@ -114,14 +114,13 @@ public class Calendar extends DWRBase {
 		} else {
 			event = new CalendarEvent();
 			List<String> d = obtainRowsDate(-1);
-			String f = d.get(0).split("_")[0];			
+			String f = d.get(0).split("_")[0];
 			String s = d.size() > 1 ? d.get(1).split("_")[0] : "";
 			event.startName = f.equals("")  && !s.equals("") ? s : f;
 			calendarEvents.add(event);
 		}
 		ObjectMapper objectMapper = new ObjectMapper();
 		json = objectMapper.writeValueAsString(calendarEvents);
-		System.out.println(json.toString());
 		return json.toString();
 	}
 

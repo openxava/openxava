@@ -65,7 +65,7 @@ openxava.addEditorInitFunction(function() {
                 progressiveEventRendering: true,
 				eventColor: 'var(--color)',
 				viewClassNames: function(info){
-					if (info.view.type === 'dayGridWeek'){
+					if (info.view.type === 'timeGridWeek'){
 						calendarEditor.calendar.setOption('displayEventTime', true);
 						const h2 = calendarElement.querySelector(".fc-toolbar-title");
 						if (h2.textContent !== info.view.title) formatTitle(info.view.title);
@@ -78,7 +78,7 @@ openxava.addEditorInitFunction(function() {
 				headerToolbar: {
 					left: 'prev,next title',
 					center: '',
-					right: 'dayGridMonth,dayGridWeek'
+					right: 'dayGridMonth,timeGridWeek'
 				},
                 customButtons: {
                     next: {
@@ -112,6 +112,7 @@ openxava.addEditorInitFunction(function() {
                     if (calendarEditor.requesting) return;
                     let selectedDate = reformatDate(e.dateStr);
                     let value = 'defaultValues=' + calendarEditor.startName + ':' + selectedDate;
+					console.log(value);
                     if (!getSelection().toString()) {
                         openxava.executeAction(application, module, false, false, newAction, value);
                     }
@@ -122,17 +123,21 @@ openxava.addEditorInitFunction(function() {
         });
 
         function reformatDate(date) {
+
+			//date = (date.toString().length > 20) ? 
             date = (date.toString().length < 11) ? date + 'T00:00:00' : date;
+			console.log(date);
+			console.log(dateFormat);
             let d = new Date(date);
             formattedDate = formatDate(d, dateFormat);
+			console.log(formattedDate);
             return formattedDate;
         }
 
         function getEvents(month) {
+			console.log("funcion getEvents");
+			console.log(calendarEditor.requesting);
             if (calendarEditor.requesting) return;
-            calendarEditor.requesting = true;
-            //if (openxava.isRequesting(application, module)) return;
-            //openxava.setRequesting(application, module);
             let currentViewDate = calendarEditor.calendar.view.currentStart;
             let currentMonth = currentViewDate.getMonth();
             let currentYear = currentViewDate.getFullYear();
@@ -142,27 +147,35 @@ openxava.addEditorInitFunction(function() {
             let newViewDate = calendarEditor.calendar.view.currentStart;
             let newMonth = newViewDate.getMonth();
             let newYear = newViewDate.getFullYear();
-            let monthYear = (currentYear != newYear || currentMonth != newMonth || currentViewDate != newViewDate) ? newMonth + "_" + newYear : "";
-            Calendar.getEvents(application, module, monthYear, calendarEditor.setEvents);
+            let monthYear = (currentYear != newYear || currentMonth != newMonth) ? newMonth + "_" + newYear : "";
+			
+            if (monthYear !== "")  { 
+				calendarEditor.requesting = true;
+				Calendar.getEvents(application, module, monthYear, calendarEditor.setEvents);
+			}
         }
 
         function formatDate(date, format) {
+			
             const map = {
                 M: date.getMonth() + 1,
                 MM: ('0' + (date.getMonth() + 1)).slice(-2),
                 d: date.getDate(),
                 dd: ('0' + date.getDate()).slice(-2),
-                h: date.getHours(),
-                hh: ('0' + date.getHours()).slice(-2),
+				H: date.getHours(), //24hs format
+				HH: ('0' + date.getHours()).slice(-2), //24hs format 2 digit
+				h: date.getHours() % 12 || 12, //12hs format
+				hh: date.getHours() === 0 ? '00' : ('0' + (date.getHours() % 12 || 12)).slice(-2), //12hs format 2 digit
                 m: date.getMinutes(),
                 mm: ('0' + date.getMinutes()).slice(-2),
                 s: date.getSeconds(),
                 ss: ('0' + date.getSeconds()).slice(-2),
+				K: date.getHours() >= 12 ? 'PM' : 'AM',
                 yyyy: date.getFullYear(),
                 yy: date.getFullYear().toString().slice(-2)
             };
             
-            return format.replace(/(M+|d+|h+|m+|s+|yyyy|yy)/gi, matched => {
+            return format.replace(/(M+|d+|h+|m+|s+|yyyy|yy|K)/gi, matched => {
                 return map[matched];
             });
         }
