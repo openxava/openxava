@@ -16,7 +16,6 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 		getView().setKeyEditable(true);
 		getView().setEditable(true);
 		getView().reset();
-		System.out.println(defaultValues);
 		if (!defaultValues.isEmpty()) setValueFromDefaultValues();
 		if (getView().hasSections()) getView().setActiveSection(0);
 	}
@@ -71,6 +70,7 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 		int firstColonIndex = defaultValues.indexOf(":");
 		String name = defaultValues.substring(0, firstColonIndex);
 		String dateStr = defaultValues.substring(firstColonIndex + 1).trim();
+		System.out.println(dateStr);
 		getView().setValue(name, dateStr);
 	}
 
