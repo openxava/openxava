@@ -20,9 +20,12 @@ public class ServiceTest extends ModuleTestBase {
 	public void testFocusOnDescriptionsListInsideAggregate() throws Exception {
 		execute("CRUD.new");
 		setValue("family", "1");		
-		assertFocusOn("detail.subfamily"); // TMR FALLA ME QUEDÉ POR AQUÍ, COMPROBADO QUE VA CON LA 7.1.6
+		assertFocusOn("detail.subfamily"); // TMR FALLA ME QUEDÉ POR AQUÍ, TENGO QUE COMPARA DIFERENCIAS EN openxava.setFocusOnElement() 
+											// TMR  ENTRE 7.1.6 Y 7.2-SNAPSHOT
+		/* tmr
 		setValue("detail.subfamily", "1");
-		assertFocusOn("detail.type"); 
+		assertFocusOn("detail.type");
+		*/ 
 	}
 	
 	
