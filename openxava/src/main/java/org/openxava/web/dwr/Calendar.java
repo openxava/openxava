@@ -306,7 +306,6 @@ public class Calendar extends DWRBase {
 		int mpCount = 0;
 		List<String> dateWithTimeList = Arrays.asList("java.util.Date", 
 											"java.time.LocalDateTime",
-											"java.time.ZonedDateTime", 
 											"java.sql.Timestamp");
 		List<String> acceptedDateTypes = Arrays.asList("java.time.LocalDate", 
 											"java.util.Date", 
