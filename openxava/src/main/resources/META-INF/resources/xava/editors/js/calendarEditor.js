@@ -64,8 +64,10 @@ openxava.addEditorInitFunction(function() {
                 editable: true,
                 progressiveEventRendering: true,
 				eventColor: 'var(--color)',
+				defaultTimedEventDuration: '00:30',
+				allDaySlot: false,
 				viewClassNames: function(info){
-					if (info.view.type === 'timeGridWeek'){
+					if (info.view.type === 'timeGridWeek' || info.view.type === 'timeGridDay'){
 						calendarEditor.calendar.setOption('displayEventTime', true);
 						const h2 = calendarElement.querySelector(".fc-toolbar-title");
 						if (h2.textContent !== info.view.title) formatTitle(info.view.title);
@@ -78,7 +80,7 @@ openxava.addEditorInitFunction(function() {
 				headerToolbar: {
 					left: 'prev,next title',
 					center: '',
-					right: 'dayGridMonth,timeGridWeek'
+					right: 'dayGridMonth,timeGridWeek,timeGridDay'
 				},
                 customButtons: {
                     next: {
