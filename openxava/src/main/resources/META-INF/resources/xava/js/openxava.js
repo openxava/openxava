@@ -991,27 +991,26 @@ openxava.setFocus = function(application, module) {
 }
 
 openxava.setFocusOnElement = function(form, name) { 
-	console.log("[openxava.setFocusOnElement] name=" + name); // tmr
 	var element = form.elements[name];
-	console.log("[openxava.setFocusOnElement] element=" + element); // tmr
 	if (element != null && typeof element.disabled != "undefined" && !element.disabled) {
-		console.log("[openxava.setFocusOnElement] Entramos"); // tmr		
+		// tmr ini
+		if (!$(element).is(':visible') || element.type == "hidden") {
+			return false;
+		} 		
+		// tmr fin
+		/* tmr
 		if (!$(element).is(':visible')) {
-			console.log("[openxava.setFocusOnElement] A"); // tmr
 			return false;
 		} 		
 		if (element.type != "hidden") {
-			console.log("[openxava.setFocusOnElement] B"); // tmr			
 			element.focus();
 		}
+		*/
 		if (typeof element.select != "undefined") {
-			console.log("[openxava.setFocusOnElement] C"); // tmr			
 			element.select();
 			return true; 
 		}
-		console.log("[openxava.setFocusOnElement] 9"); // tmr
 	}	
-	console.log("[openxava.setFocusOnElement] 99"); // tmr
 	return false;
 }
 

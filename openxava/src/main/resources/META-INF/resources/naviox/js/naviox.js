@@ -72,9 +72,12 @@ naviox.hideModulesList = function(application, module) {
 	$('#modules_list_hide').hide();
 	$('#module_header_menu_button').show();
 	$('#module_extended_title').show();
+	/* tmr
 	$('#modules_list').toggle("slide", function() { 
 		openxava.resetListsSize(application, module); 
 	});
+	*/
+	$('#modules_list').animate({width:'toggle'},200); // TMR Así funciona, falta refinar 	
 }
 
 naviox.showModulesList = function(application, module) {

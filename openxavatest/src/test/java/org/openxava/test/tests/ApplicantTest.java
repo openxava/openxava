@@ -306,7 +306,7 @@ public class ApplicantTest extends ModuleTestBase {
 		hideButton.click();
 		Thread.sleep(500);
 		
-		assertFalse(modulesList.isDisplayed()); // TMR FALLA 
+		assertFalse(modulesList.isDisplayed()); // TMR FALLA ME QUEDÉ POR AQUÍ. DEPURANDO EN naviox.js
 		assertTrue(menuButton.isDisplayed());
 		assertTrue(extendedTitle.isDisplayed());
 		assertFalse(hideButton.isDisplayed());
