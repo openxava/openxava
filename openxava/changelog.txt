@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Explicit plus icon in each day in list calendar format to create a new record for a day.  
+
 OpenXava 7.1.6 (2023-9-15)
 --------------------------
 - New method cloneWith59999 in the Dates utility class to set seconds to 59 and milliseconds 999.

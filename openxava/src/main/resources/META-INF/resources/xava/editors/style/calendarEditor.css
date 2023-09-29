@@ -33,6 +33,24 @@
  cursor: pointer;
 }
 
+.fc-daygrid-day-bg::before {
+  display: block;
+  font-family: 'Material Design Icons';
+  content: "\F419";
+  padding: 7px 0px 0px 7px;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 20px;
+  color: var(--calendar-button-color);
+  opacity: 0.7;
+}
+
+.fc-daygrid-day-bg:hover::before {
+  content: "\F417";
+  opacity: 1;
+}
+
 .fc-day-today {
  background: var(--calendar-today-background) !important;
 }
@@ -45,4 +63,11 @@
 #xava_calendar th,
 #xava_calendar td {
   border-color: var(--calendar-cell-border-color);
+}
+
+.hoverEffect {
+    font-size: 29px;
+    position: absolute;
+    margin: 30px 55px;
+    cursor: pointer;
 }
