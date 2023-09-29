@@ -80,6 +80,12 @@ abstract public class WebDriverTestBase extends TestCase {
 		waitCalendarEvent(driver);
 	}
 	
+	protected void moveToTimeGreedWeek(WebDriver driver) throws Exception {
+		WebElement weekButton = driver.findElement(By.cssSelector("button.fc-timeGridWeek-button"));
+		weekButton.click();
+		waitCalendarEvent(driver);
+	}
+	
 	protected void acceptInDialogJS(WebDriver driver) throws Exception {
 		//use it after verifying that the test works well. 
 		//it helps to avoid errors when starting the browser with the module.

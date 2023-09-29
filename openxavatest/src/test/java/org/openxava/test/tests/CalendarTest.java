@@ -275,17 +275,34 @@ public class CalendarTest extends WebDriverTestBase {
 		wait(driver);
 		acceptInDialogJS(driver);
 		moveToCalendarView(driver);
-		WebElement weekButton = driver.findElement(By.cssSelector("button.fc-timeGridWeek-button"));
-		weekButton.click();
+		moveToTimeGreedWeek(driver);
 		
-        WebElement elemento = driver.findElement(By.cssSelector("tr:nth-child(6) > .fc-timegrid-slot-lane"));
-
-        elemento.click();
+        WebElement dayTimeCell = driver.findElement(By.cssSelector("tr:nth-child(6) > .fc-timegrid-slot-lane"));
+        dayTimeCell.click();
         wait(driver);
-        WebElement elemento2 = driver.findElement(By.id("ox_openxavatest_Appointment__time"));
-        String valorDelInput = elemento2.getAttribute("value");
-        assertTrue(valorDelInput.contains("2:30"));
-        //insertValueAt
+        
+        WebElement dateTime = driver.findElement(By.id("ox_openxavatest_Appointment__time"));
+        String dateTimeInput = dateTime.getAttribute("value");
+        assertTrue(dateTimeInput.contains("2:30"));
+        insertValueToInput(driver, "ox_openxavatest_Appointment__description", "A", false);
+        execute(driver, "Appointment", "CRUD.save");
+        execute(driver, "Appointment", "Mode.list");
+        waitCalendarEvent(driver);
+        moveToTimeGreedWeek(driver);
+        WebElement event = driver.findElement(By.cssSelector(".fc-event.fc-event-draggable.fc-event-resizable.fc-event-start.fc-event-end"));
+        event.click();
+        wait(driver);
+        WebElement dateTime2 = driver.findElement(By.id("ox_openxavatest_Appointment__time"));
+        String dateTimeInput2 = dateTime2.getAttribute("value");
+        assertTrue(dateTimeInput2.contains("2:30"));
+        execute(driver, "Appointment", "CRUD.delete");
+        execute(driver, "Appointment", "Mode.list");
+        waitCalendarEvent(driver);
+		WebElement dayButton = driver.findElement(By.cssSelector("button.fc-timeGridDay-button"));
+		dayButton.click();
+		waitCalendarEvent(driver);
+		moveToListView(driver);
+		acceptInDialogJS(driver);
 	}
 
 }

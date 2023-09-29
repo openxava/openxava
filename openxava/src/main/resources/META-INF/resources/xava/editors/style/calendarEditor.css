@@ -71,3 +71,7 @@
     margin: 30px 55px;
     cursor: pointer;
 }
+
+.fc-timegrid-col-events {
+	max-width:80%;
+}
