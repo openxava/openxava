@@ -208,10 +208,11 @@ public class CalendarTest extends WebDriverTestBase {
 		}
 
 		List<WebElement> spanElements = driver
-				.findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day ' and text()='2']"));
+			// The selected to in class to work with Windows 7 and Linux, maybe it's for a performance problem	
+			.findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day selected' and text()='2']")); 	
 		if (!spanElements.isEmpty()) {
-			WebElement spanElement = spanElements.get(1);
-			spanElement.click(); // It fails in Windows 7
+			WebElement spanElement = spanElements.get(0); 
+			spanElement.click(); 
 		}
 		wait(driver);
 		execute(driver, "Event", "CRUD.save");
