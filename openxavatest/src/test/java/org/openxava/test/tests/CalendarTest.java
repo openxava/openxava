@@ -16,11 +16,11 @@ public class CalendarTest extends WebDriverTestBase {
 	}
 
 	public void testNavigation() throws Exception {
-//		forTestAddEventAndVerify();
-//		forTestConditionsAndFilter();
-//		forTestAnyNameAsDateProperty();
-//		forTestMultipleDateAndFirstDateAsEventStart(); 
-//		forTestFilterPerformance();
+		forTestAddEventAndVerify();
+		forTestConditionsAndFilter();
+		forTestAnyNameAsDateProperty();
+		forTestMultipleDateAndFirstDateAsEventStart(); 
+		forTestFilterPerformance();
 		forTestCreateDateWithTimeInWeekAndDailyView();
 	}
 

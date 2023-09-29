@@ -70,7 +70,6 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 		int firstColonIndex = defaultValues.indexOf(":");
 		String name = defaultValues.substring(0, firstColonIndex);
 		String dateStr = defaultValues.substring(firstColonIndex + 1).trim();
-		System.out.println(dateStr);
 		getView().setValue(name, dateStr);
 	}
 
