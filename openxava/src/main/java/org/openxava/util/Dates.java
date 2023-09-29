@@ -684,8 +684,6 @@ public class Dates {
 	 * @since 7.1
 	 */
 	public static boolean hasLocalDate(List<MetaProperty> listProperty) {
-		System.out.println("hasLocalDate");
-		System.out.println(listProperty);
 		List<String> dates = Arrays.asList(
 								"java.time.LocalDate", 
 								"java.util.Date", 

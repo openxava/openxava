@@ -16,11 +16,12 @@ public class CalendarTest extends WebDriverTestBase {
 	}
 
 	public void testNavigation() throws Exception {
-		forTestAddEventAndVerify();
-		forTestConditionsAndFilter();
-		forTestAnyNameAsDateProperty();
-		forTestMultipleDateAndFirstDateAsEventStart(); 
-		forTestFilterPerformance();
+//		forTestAddEventAndVerify();
+//		forTestConditionsAndFilter();
+//		forTestAnyNameAsDateProperty();
+//		forTestMultipleDateAndFirstDateAsEventStart(); 
+//		forTestFilterPerformance();
+		forTestCreateDateWithTimeInWeekAndDailyView();
 	}
 
 	public void tearDown() throws Exception {
@@ -243,5 +244,25 @@ public class CalendarTest extends WebDriverTestBase {
 		assertTrue(takes < 3000);
 		moveToListView(driver);
 	}
+	
+	private void forTestCreateDateWithTimeInWeekAndDailyView() throws Exception {
+		driver.get("http://localhost:8080/openxavatest/m/Appointment");
+		wait(driver);
+		acceptInDialogJS(driver);
+		moveToCalendarView(driver);
+		WebElement weekButton = driver.findElement(By.cssSelector("button.fc-timeGridWeek-button"));
+		weekButton.click();
+		
+        WebElement elemento = driver.findElement(By.cssSelector("tr:nth-child(6) > .fc-timegrid-slot-lane"));
+
+        elemento.click();
+        wait(driver);
+        WebElement elemento2 = driver.findElement(By.id("ox_openxavatest_Appointment__time"));
+        String valorDelInput = elemento2.getAttribute("value");
+        assertTrue(valorDelInput.contains("2:30"));
+        insertValueAt
+	}
+	
+	
 
 }

@@ -23,7 +23,6 @@ String version = org.openxava.controller.ModuleManager.getVersion();
 String action = request.getParameter("rowAction");
 action=action==null?manager.getEnvironment().getValue("XAVA_CALENDAR_VIEWEVENT_ACTION"):action;
 String dateFormat = Dates.dateFormatForJSCalendar(true);
-//String dateFormat2 = Dates.dateFormatForJSCalendar(true);
 String actionNew = "";
 for (MetaAction ma: manager.getMetaActions()) {
    if (ma.getName().equals("new")) {
@@ -33,7 +32,6 @@ for (MetaAction ma: manager.getMetaActions()) {
 }
 
 if (dateFormat != null) {
-	System.out.println(dateFormat);
     dateFormat = dateFormat.replace("n", "M")
                            .replace("m", "MM")
 			               .replace("d", "dd")
@@ -43,7 +41,6 @@ if (dateFormat != null) {
 						   .replace("G", "hh")
 						   .replace("i", "mm")
 				           .replace("Y", "yyyy");
-						   System.out.println(dateFormat);
 }
 %>
 <div>

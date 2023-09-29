@@ -315,8 +315,6 @@ public class Calendar extends DWRBase {
 		List<String> sortedProperties = tab.getMetaTab().getMetaModel().getPropertiesNames();
 		for (MetaProperty property : mp) {
 		        String propertyTypeName = property.getTypeName();
-		        System.out.println(property.getName() + " --- " + propertyTypeName);
-		        System.out.println(acceptedDateTypes.contains(propertyTypeName));
 		        if (mpCount < 2 && !calculatedProperties.contains(property.getName()) && acceptedDateTypes.contains(propertyTypeName)) {
 		        	datesList.add(property.getName());	
 					if (mpCount == 0 && !property.getName().contains(".")) dateName = property.getName();

@@ -114,7 +114,6 @@ openxava.addEditorInitFunction(function() {
                     if (calendarEditor.requesting) return;
                     let selectedDate = reformatDate(e.dateStr);
                     let value = 'defaultValues=' + calendarEditor.startName + ':' + selectedDate;
-					console.log(value);
                     if (!getSelection().toString()) {
                         openxava.executeAction(application, module, false, false, newAction, value);
                     }
@@ -125,20 +124,13 @@ openxava.addEditorInitFunction(function() {
         });
 
         function reformatDate(date) {
-
-			//date = (date.toString().length > 20) ? 
             date = (date.toString().length < 11) ? date + 'T00:00:00' : date;
-			console.log(date);
-			console.log(dateFormat);
             let d = new Date(date);
             formattedDate = formatDate(d, dateFormat);
-			console.log(formattedDate);
             return formattedDate;
         }
 
         function getEvents(month) {
-			console.log("funcion getEvents");
-			console.log(calendarEditor.requesting);
             if (calendarEditor.requesting) return;
             let currentViewDate = calendarEditor.calendar.view.currentStart;
             let currentMonth = currentViewDate.getMonth();
