@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Explicit plus icon in each day in list calendar format to create a new record for a day.  
+
 OpenXava 7.1.6 (2023-9-15)
 --------------------------
 - New method cloneWith59999 in the Dates utility class to set seconds to 59 and milliseconds 999.
@@ -24,6 +26,7 @@ OpenXava 7.1.6 (2023-9-15)
 
 OpenXava 7.1.5 (2023-8-25)
 --------------------------
+- If there are too many records in a day in calendar only a few ones are shown with a link to show the rest.
 - New CompositeFilter to sum two IFilter to set with Tab.setFilter() or as base for an IFilter for @Tab.
 - New environment variable XAVA_CALENDAR_VIEWEVENT_ACTION to define the action on click in a calendar event.
 - New method cloneWith999() in the Dates utility class to set milliseconds of a date to 999.

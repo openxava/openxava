@@ -90,8 +90,8 @@ public class CalendarTest extends WebDriverTestBase {
 		wait(driver);
 		WebElement inputVAT = driver.findElement(By.id("ox_openxavatest_Invoice__vatPercentage"));
 		inputVAT.sendKeys("3");
-		saveFromDetailView(driver, "Invoice");
-		goToListFromDetailView(driver, "Invoice");
+		execute(driver, "Invoice", "CRUD.save");
+		execute(driver, "Invoice", "Mode.list");
 		waitCalendarEvent(driver);
 	}
 
@@ -106,7 +106,7 @@ public class CalendarTest extends WebDriverTestBase {
 		int year = now.get(Calendar.YEAR);
 		WebElement invoiceYear = driver.findElement(By.id("ox_openxavatest_Invoice__year"));
 		assertEquals(String.valueOf(year), invoiceYear.getAttribute("value"));
-		goToListFromDetailView(driver, "Invoice");
+		execute(driver, "Invoice", "Mode.list");
 		waitCalendarEvent(driver);
 	}
 
@@ -153,7 +153,7 @@ public class CalendarTest extends WebDriverTestBase {
 		wait(driver);
 		acceptInDialogJS(driver);
 		try {
-			goToListFromDetailView(driver, "UserWithBirthday");
+			execute(driver, "UserWithBirthday", "Mode.list");
 		} catch (NoSuchElementException e) {
 		}
 		moveToListView(driver);
@@ -208,14 +208,15 @@ public class CalendarTest extends WebDriverTestBase {
 		}
 
 		List<WebElement> spanElements = driver
-				.findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day ' and text()='2']"));
+			// The selected to in class to work with Windows 7 and Linux, maybe it's for a performance problem	
+			.findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day selected' and text()='2']")); 	
 		if (!spanElements.isEmpty()) {
-			WebElement spanElement = spanElements.get(1);
-			spanElement.click(); // It fails in Windows 7
+			WebElement spanElement = spanElements.get(0); 
+			spanElement.click(); 
 		}
 		wait(driver);
-		saveFromDetailView(driver, "Event");
-		goToListFromDetailView(driver, "Event");
+		execute(driver, "Event", "CRUD.save");
+		execute(driver, "Event", "Mode.list");
 		waitCalendarEvent(driver);
 
 		List<WebElement> events = driver
@@ -245,6 +246,30 @@ public class CalendarTest extends WebDriverTestBase {
 		moveToListView(driver);
 	}
 	
+	private void forTestMore() throws Exception {
+		driver.get("http://localhost:8080/openxavatest/m/Hound");
+		wait(driver);
+		acceptInDialogJS(driver);
+		execute(driver, "Hound", "CRUD.new");
+		for (int i = 0; i < 6; i++) {
+			insertValueToInput(driver, "ox_openxavatest_Hound__name", String.valueOf(i), true);
+			execute(driver, "Hound", "CRUD.save");
+		}
+		execute(driver, "Hound", "Mode.list");
+		waitCalendarEvent(driver);
+		moveToCalendarView(driver);
+		WebElement linkElement = driver.findElement(By.cssSelector("a.fc-daygrid-more-link.fc-more-link"));
+		assertNotNull(linkElement);
+		
+		moveToListView(driver);
+
+		for (int i = 0; i < 6; i++) {
+			WebElement checkboxElement = driver.findElement(By.xpath("//input[@name='ox_openxavatest_Hound__xava_selected' and @value='selected:" + i + "']"));
+			checkboxElement.click();
+		}
+		execute(driver, "Hound", "CRUD.deleteSelected");
+	}
+
 	private void forTestCreateDateWithTimeInWeekAndDailyView() throws Exception {
 		driver.get("http://localhost:8080/openxavatest/m/Appointment");
 		wait(driver);
@@ -260,9 +285,7 @@ public class CalendarTest extends WebDriverTestBase {
         WebElement elemento2 = driver.findElement(By.id("ox_openxavatest_Appointment__time"));
         String valorDelInput = elemento2.getAttribute("value");
         assertTrue(valorDelInput.contains("2:30"));
-        insertValueAt
+        //insertValueAt
 	}
-	
-	
 
 }
