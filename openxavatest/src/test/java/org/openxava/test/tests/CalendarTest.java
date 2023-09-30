@@ -21,6 +21,7 @@ public class CalendarTest extends WebDriverTestBase {
 		forTestAnyNameAsDateProperty();
 		forTestMultipleDateAndFirstDateAsEventStart(); 
 		forTestFilterPerformance();
+		forTestMore();
 		forTestCreateDateWithTimeInWeekAndDailyView();
 	}
 
