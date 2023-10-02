@@ -24,6 +24,7 @@ String action = request.getParameter("rowAction");
 action=action==null?manager.getEnvironment().getValue("XAVA_CALENDAR_VIEWEVENT_ACTION"):action;
 String dateFormat = Dates.dateFormatForJSCalendar(true);
 String actionNew = "";
+boolean hasDateTime = view.getMetaModel().hasDateTimeProperty();
 for (MetaAction ma: manager.getMetaActions()) {
    if (ma.getName().equals("new")) {
        actionNew = ma.getQualifiedName();
@@ -48,6 +49,7 @@ if (dateFormat != null) {
     <input type="hidden" id="xava_calendar_application" value="<%=request.getParameter("application")%>">
     <input type="hidden" id="xava_calendar_action" value="<%=action%>,<%=actionNew%>">
     <input type="hidden" id="xava_calendar_dateFormat" value="<%=dateFormat%>">
+	<input type="hidden" id="xava_calendar_hasDateTime" value="<%=hasDateTime%>">
 </div>
 <div id='xava_calendar' class='xava_calendar'></div>
 

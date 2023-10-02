@@ -2,6 +2,7 @@ package org.openxava.model.meta;
 
 
 import java.beans.*;
+import java.lang.annotation.*;
 import java.rmi.*;
 import java.util.*;
 
@@ -1986,6 +1987,22 @@ abstract public class MetaModel extends MetaElement {
 	
 	public boolean hasVersionProperty() throws XavaException { 
 		return getVersionPropertyName() != null;
+	}
+	
+	public boolean hasDateTimeProperty() {
+		Collection<MetaProperty> mp = getMetaProperties();
+		for (MetaProperty p : mp) {
+			if (p.getTypeName().toString().equals("java.util.Date") && p.getAnnotations() != null) {
+				for (Annotation a : p.getAnnotations()) {
+					if (a.annotationType().getSimpleName().equals("DateTime")) return true;			
+				}
+			}
+			if (p.getTypeName().contains("LocalDateTime") || 
+					p.getTypeName().contains("Timestamp")) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**

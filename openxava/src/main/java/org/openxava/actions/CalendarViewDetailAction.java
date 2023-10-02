@@ -23,9 +23,10 @@ public class CalendarViewDetailAction extends ViewDetailAction{
 		MetaModel metaModel = getView().getMetaView().getMetaModel();
 		String[] calendarKeys = calendarKey.split("_");
 		List<String> allKeyPropertiesNames = new ArrayList<>(metaModel.getAllKeyPropertiesNames());
-		List<MetaProperty> metaPropertyKeys = metaModel.getAllMetaPropertiesKey();
+		List<MetaProperty> sortedMPKeys = orderBy(metaModel.getAllMetaPropertiesKey(), allKeyPropertiesNames);
+
 		for (int i = 0; i < calendarKeys.length; i++) {
-			MetaProperty property = metaPropertyKeys.get(i);
+			MetaProperty property = sortedMPKeys.get(i);
 			Object keyObject = property.parse(calendarKeys[i]);
 			key.put(allKeyPropertiesNames.get(i).toString(), keyObject);
 		}
@@ -38,5 +39,20 @@ public class CalendarViewDetailAction extends ViewDetailAction{
 
 	public void setCalendarKey(String calendarKey) {
 		this.calendarKey = calendarKey;
+	}
+	
+	private List<MetaProperty> orderBy (List<MetaProperty> metaProperties , List<String> keyPropertiesNames) {
+		List<MetaProperty> l = new ArrayList<>();
+		for (int i = 0; i < keyPropertiesNames.size(); i++) {
+			System.out.println(keyPropertiesNames.get(i));
+			for (int j = 0; j < metaProperties.size(); j++) {
+				System.out.println(metaProperties.get(j).getName());
+				if (metaProperties.get(j).getName().equals(keyPropertiesNames.get(i))) {
+					l.add(metaProperties.get(j));
+					break;
+				}
+			}
+		}
+		return l;
 	}
 }
