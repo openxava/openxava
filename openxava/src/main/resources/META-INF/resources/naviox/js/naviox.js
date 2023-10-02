@@ -77,16 +77,29 @@ naviox.hideModulesList = function(application, module) {
 		openxava.resetListsSize(application, module); 
 	});
 	*/
-	$('#modules_list').animate({width:'toggle'},200); // TMR Así funciona, falta refinar 	
+	// tmr ini
+	// tmr Revisar todos los toggle(), también en XavaPro (por el móvil)
+	$('#modules_list').animate({width:'toggle'}, 200, function() {
+		openxava.resetListsSize(application, module); 
+	});
+	// tmr ini  	
 }
 
 naviox.showModulesList = function(application, module) {
 	$('#module_header_menu_button').hide();
 	$('#module_extended_title').hide();
+	/* tmr 
 	$('#modules_list').toggle("slide", function() { 
 		$('#modules_list_hide').fadeIn();
 		openxava.resetListsSize(application, module);
 	});
+	*/
+	// tmr ini
+	$('#modules_list').animate({width:'toggle'}, 200, function() {
+		$('#modules_list_hide').fadeIn(); 
+		openxava.resetListsSize(application, module); 
+	});
+	// tmr fin
 }
 
 naviox.goFolder = function(folderOid) {
