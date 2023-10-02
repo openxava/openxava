@@ -43,7 +43,11 @@ openxava.addEditorInitFunction(function() {
         var dateFormat = $('#xava_calendar_dateFormat').val();
         var newAction = $("#xava_calendar_action").val().split(",")[1];
         var selectAction = $("#xava_calendar_action").val().split(",")[0];
+		var moduleHasDateTime = $('#xava_calendar_hasDateTime').val();
+		var calendarViews = moduleHasDateTime === 'true' ? 'dayGridMonth,timeGridWeek,timeGridDay' : 'dayGridMonth';
+		var displayTime = calendarViews === 'dayGridMonth,timeGridWeek,timeGridDay' ? 'true' : 'false'; 
         var formattedDate = "";
+		
         calendarEditor.outApplication = application;
         calendarEditor.outModule = module;
         var calendarElement = document.getElementById('xava_calendar');
@@ -72,7 +76,11 @@ openxava.addEditorInitFunction(function() {
 						const h2 = calendarElement.querySelector(".fc-toolbar-title");
 						if (h2.textContent !== info.view.title) formatTitle(info.view.title);
 					} else if (info.view.type === 'dayGridMonth') {
-						calendarEditor.calendar.setOption('displayEventTime', false);
+						if (displayTime === 'true') {
+							calendarEditor.calendar.setOption('displayEventTime', true);
+						} else {
+							calendarEditor.calendar.setOption('displayEventTime', false);
+						}
 						const h2 = calendarElement.querySelector(".fc-toolbar-title");
 						if (h2.textContent !== info.view.title) formatTitle(info.view.title);
 					}
@@ -80,7 +88,7 @@ openxava.addEditorInitFunction(function() {
 				headerToolbar: {
 					left: 'prev,next title',
 					center: '',
-					right: 'dayGridMonth,timeGridWeek,timeGridDay'
+					right: calendarViews
 				},
                 customButtons: {
                     next: {
@@ -107,6 +115,7 @@ openxava.addEditorInitFunction(function() {
                 eventClick: function(e) {
                     if (calendarEditor.requesting) return;
                     if (!getSelection().toString()) {
+						console.log(e.event.extendedProps.key);
                         openxava.executeAction(application, module, false, false, selectAction, 'calendarKey=' + e.event.extendedProps.key);
                     }
                 },
