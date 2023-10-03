@@ -89,37 +89,19 @@ abstract public class WebDriverTestBase extends TestCase {
 			alert.accept();
 			wait(driver);
 		} catch(NoAlertPresentException e) {
-			
 		}
 	}
 	
-	protected void goToListFromDetailView(WebDriver driver, String modelName) throws Exception {
-		WebElement buttonList = driver.findElement(By.id("ox_openxavatest_" + modelName + "__Mode___list"));
+	
+	protected void execute(WebDriver driver, String moduleName, String action) throws Exception {
+		String[] actionS = action.split("\\.");
+		WebElement buttonList = driver.findElement
+				(By.id("ox_openxavatest_" + moduleName + "__" + actionS[0] + "___" + actionS[1]));
 		buttonList.click();
 		acceptInDialogJS(driver);
 		wait(driver);
 		//if back to CalendarView, need add another wait after this method
 		//waitCalendarEvent(driver);
-	}
-	
-	protected void createFromListView(WebDriver driver, String modelName) throws Exception {
-		WebElement buttonNew = driver.findElement(By.id("ox_openxavatest_" + modelName + "__CRUD___new"));
-		buttonNew.click();
-		wait(driver);
-	}
-	
-	protected void saveFromDetailView(WebDriver driver, String modelName) throws Exception {
-		WebElement buttonSave = driver.findElement(By.id("ox_openxavatest_" + modelName + "__CRUD___save"));
-		buttonSave.click();
-		wait(driver);
-	}
-	
-	protected void deleteFromDetailView(WebDriver driver, String modelName) throws Exception {
-		WebElement buttonDelete = driver.findElement(By.id("ox_openxavatest_" + modelName + "__CRUD___delete"));
-		buttonDelete.click();
-		wait(driver);
-		acceptInDialogJS(driver);
-		wait(driver);
 	}
 	
 	protected void clickOnButtonWithId(WebDriver driver, String id) throws Exception {
@@ -135,4 +117,9 @@ abstract public class WebDriverTestBase extends TestCase {
 		wait(driver);
 	}
 	
+	protected void insertValueToInput(WebDriver driver, String id, String value, boolean delete) {
+		WebElement inputElement = driver.findElement(By.id(id));
+		if (delete == true) inputElement.clear();
+        inputElement.sendKeys(value);
+	}
 }

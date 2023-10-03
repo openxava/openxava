@@ -55,8 +55,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		List<WebElement> weekdaycontainerDivElement = driver.findElements(By.className("flatpickr-weekdaycontainer"));
         WebElement thirdSpanElement = weekdaycontainerDivElement.get(0).findElements(By.tagName("span")).get(2);
 		assertTrue("The translation of dateCalendar is not loaded correctly", !thirdSpanElement.getText().equals("Tue"));
-
-        goToListFromDetailView(driver, "Event");
+		execute(driver, "Event", "Mode.list");
 		acceptInDialogJS(driver);
 	}
 	
