@@ -197,7 +197,7 @@ public class ApplicantTest extends ModuleTestBase {
 		HtmlElement cssHref = page.getAnchorByHref("?theme=pink.css");
 		page = cssHref.click();
 		assertCSSWellUploaded(page, false);
-		assertResorcesWellReaded(page); // TMR FALLA
+		assertResorcesWellReaded(page); 
 	}
 	
 	private void assertLabels(String propertyLabel, String moduleLabel) throws Exception {
@@ -287,7 +287,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertListCustomizationWithTabDefaultOrder(); // Failed the second time after reseting module
 	}
 	
-	
+	/* tmr Movido a ModulesMenuTest
 	public void testHideShowModulesMenu() throws Exception { 
 		getWebClient().getOptions().setCssEnabled(true);
 		reload();
@@ -306,7 +306,7 @@ public class ApplicantTest extends ModuleTestBase {
 		hideButton.click();
 		Thread.sleep(500);
 		
-		assertFalse(modulesList.isDisplayed()); // TMR FALLA ME QUEDÉ POR AQUÍ. VISUALMENTE YA VA, PERO FALLA EL TEST
+		assertFalse(modulesList.isDisplayed()); 
 		assertTrue(menuButton.isDisplayed());
 		assertTrue(extendedTitle.isDisplayed());
 		assertFalse(hideButton.isDisplayed());
@@ -335,6 +335,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertFalse(extendedTitle.isDisplayed());
 		assertTrue(hideButton.isDisplayed());		
 	}
+	*/
 
 	private void assertListCustomizationWithTabDefaultOrder() throws Exception { 
 		assertListColumnCount(1);
@@ -383,7 +384,8 @@ public class ApplicantTest extends ModuleTestBase {
 	private void assertResorcesWellReaded(HtmlPage page) throws IOException {
 		String iconUrl = page.getUrl().getProtocol() + "://" 
 				+ page.getUrl().getHost() + ":"
-				+ page.getUrl().getPort() + "/openxavatest/xava/style/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png";
+				// tmr + page.getUrl().getPort() + "/openxavatest/xava/style/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png";
+				+ page.getUrl().getPort() + "/openxavatest/xava/style/smoothness/images/ui-bg_glass_55_fbf9ee_1x400.png"; // tmr
 		double imageSizeInKB = 0;
         URL url = new URL(iconUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();

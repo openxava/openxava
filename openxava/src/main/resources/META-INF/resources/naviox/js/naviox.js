@@ -80,8 +80,15 @@ naviox.hideModulesList = function(application, module) {
 	// tmr ini
 	// tmr Revisar todos los toggle(), también en XavaPro (por el móvil)
 	$('#modules_list').animate({width:'toggle'}, 200, function() {
-		openxava.resetListsSize(application, module); 
+		openxava.resetListsSize(application, module);
+		$('#modules_list').css("display", "none"); // tmr
+		console.log("[naviox.hideModulesList] NONE DONE"); // tmr
 	});
+	//setTimeout(function(){ $('#modules_list').hide() }, 300);	
+	
+	//$('#modules_list').hide(); // tmr
+	//$('#modules_list').css("display", "none"); // tmr
+	console.log("[naviox.hideModulesList] animate()"); // tmr
 	// tmr ini  	
 }
 
