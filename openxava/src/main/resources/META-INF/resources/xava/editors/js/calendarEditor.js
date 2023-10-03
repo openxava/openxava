@@ -115,7 +115,6 @@ openxava.addEditorInitFunction(function() {
                 eventClick: function(e) {
                     if (calendarEditor.requesting) return;
                     if (!getSelection().toString()) {
-						console.log(e.event.extendedProps.key);
                         openxava.executeAction(application, module, false, false, selectAction, 'calendarKey=' + e.event.extendedProps.key);
                     }
                 },

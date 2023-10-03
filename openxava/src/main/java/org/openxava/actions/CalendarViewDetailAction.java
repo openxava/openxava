@@ -44,9 +44,7 @@ public class CalendarViewDetailAction extends ViewDetailAction{
 	private List<MetaProperty> orderBy (List<MetaProperty> metaProperties , List<String> keyPropertiesNames) {
 		List<MetaProperty> l = new ArrayList<>();
 		for (int i = 0; i < keyPropertiesNames.size(); i++) {
-			System.out.println(keyPropertiesNames.get(i));
 			for (int j = 0; j < metaProperties.size(); j++) {
-				System.out.println(metaProperties.get(j).getName());
 				if (metaProperties.get(j).getName().equals(keyPropertiesNames.get(i))) {
 					l.add(metaProperties.get(j));
 					break;

@@ -27,8 +27,7 @@
  border-color: transparent; 
 }
 
-.fc-day:hover,
-.fc-day-today:hover {
+.fc-daygrid-day:hover {
  background-color: var(--calendar-day-hover-background) !important;
  cursor: pointer;
 }
