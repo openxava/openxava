@@ -16,13 +16,13 @@ public class CalendarTest extends WebDriverTestBase {
 	}
 
 	public void testNavigation() throws Exception {
-//		forTestAddEventAndVerify();
-//		forTestConditionsAndFilter();
-//		forTestAnyNameAsDateProperty();
+		forTestAddEventAndVerify();
+		forTestConditionsAndFilter();
+		forTestAnyNameAsDateProperty();
 		forTestMultipleDateAndFirstDateAsEventStart(); 
-//		forTestFilterPerformance();
-//		forTestMore();
-//		forTestCreateDateWithTimeInWeekAndDailyView();
+		forTestFilterPerformance();
+		forTestMore();
+		forTestCreateDateWithTimeInWeekAndDailyView();
 	}
 
 	public void tearDown() throws Exception {
@@ -197,29 +197,35 @@ public class CalendarTest extends WebDriverTestBase {
 		List<Date> dates = setDates();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String dateString = dateFormat.format(dates.get(1));
-		System.out.println(dateString);
 
 		WebElement day = driver.findElement(By.xpath(
 				"//div[contains(@class,'fc-daygrid-day-frame') and ancestor::td[@data-date='" + dateString + "']]"));
 		day.click();
 		wait(driver);
+		
+		WebElement startDate = driver.findElement(By.id("ox_openxavatest_Event__startDate"));
+		blur(driver, startDate);
+		Thread.sleep(3000);
 		List<WebElement> iconElements = driver.findElements(By.cssSelector("i.mdi.mdi-calendar"));
 		if (!iconElements.isEmpty()) {
 			WebElement firstIconElement = iconElements.get(1);
 			firstIconElement.click();
 		}
+		Thread.sleep(5000);
 		List<WebElement> spanElements = driver
 			// The selected to in class to work with Windows 7 and Linux, maybe it's for a performance problem	
-			.findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day selected' and text()='2']")); 	
+			.findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day ' and text()='2']"));
+
 		if (!spanElements.isEmpty()) {
-			WebElement spanElement = spanElements.get(0); 
+			WebElement spanElement = spanElements.get(1); 
 			spanElement.click(); 
 		}
+		Thread.sleep(5000);
 		wait(driver);
 		execute(driver, "Event", "CRUD.save");
 		execute(driver, "Event", "Mode.list");
 		waitCalendarEvent(driver);
-
+		Thread.sleep(5000);
 		List<WebElement> events = driver
 				.findElements(By.xpath("//div[contains(@class,'fc-daygrid-event-harness') and ancestor::td[@data-date='"
 						+ dateString + "']]"));
@@ -306,21 +312,4 @@ public class CalendarTest extends WebDriverTestBase {
 		acceptInDialogJS(driver);
 	}
 
-	
-//	private void clickInSomeDate(String date) {
-//		List<WebElement> iconElements = driver.findElements(By.cssSelector("i.mdi.mdi-calendar"));
-//		if (!iconElements.isEmpty()) {
-//			WebElement firstIconElement = iconElements.get(1);
-//			firstIconElement.click();
-//		}
-//		List<WebElement> spanElements = driver
-//			// The selected to in class to work with Windows 7 and Linux, maybe it's for a performance problem	
-//			.findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day selected' and text()='2']")); 	
-//		if (!spanElements.isEmpty()) {
-//			WebElement spanElement = spanElements.get(0); 
-//			spanElement.click(); 
-//		}
-//		
-//	}
-	
 }

@@ -128,4 +128,10 @@ abstract public class WebDriverTestBase extends TestCase {
 		if (delete == true) inputElement.clear();
         inputElement.sendKeys(value);
 	}
+	
+    public static void blur(WebDriver driver, WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].blur();", element);
+    }
+    
 }
