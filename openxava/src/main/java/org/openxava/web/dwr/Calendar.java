@@ -121,6 +121,7 @@ public class Calendar extends DWRBase {
 		}
 		ObjectMapper objectMapper = new ObjectMapper();
 		json = objectMapper.writeValueAsString(calendarEvents);
+		System.out.println(json.toString());
 		return json.toString();
 	}
 

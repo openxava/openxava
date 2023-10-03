@@ -80,7 +80,7 @@ abstract public class WebDriverTestBase extends TestCase {
 		waitCalendarEvent(driver);
 	}
 	
-	protected void moveToTimeGreedWeek(WebDriver driver) throws Exception {
+	protected void moveToTimeGridWeek(WebDriver driver) throws Exception {
 		WebElement weekButton = driver.findElement(By.cssSelector("button.fc-timeGridWeek-button"));
 		weekButton.click();
 		waitCalendarEvent(driver);
