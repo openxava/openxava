@@ -23,9 +23,11 @@ public class CollectionTest extends WebDriverTestBase {
 	public void testNoFilterInCollectionByDefault() throws Exception {
 		driver.get("http://localhost:8080/openxavatest/m/Author"); 
 		wait(driver);
-		/*
-		execute(driver, "CRUD.new");		
+
+		execute(driver, "Author", "CRUD.new");		
 		assertCollectionFilterNotDisplayed();
+		// TMR ME QUEDÉ POR AQUÍ, HACIENDO EL TEST
+		/* tmr
 		getHtmlPage().getHtmlElementById("ox_openxavatest_Author__show_filter_humans").click();
 		assertCollectionFilterDisplayed();
 		
@@ -42,7 +44,16 @@ public class CollectionTest extends WebDriverTestBase {
 		getHtmlPage().getHtmlElementById("ox_openxavatest_Author__hide_filter_humans").click();
 		Thread.sleep(1000);
 		assertCollectionFilterNotDisplayed();
-		*/ 
+		*/
 	}
+	
+	private void assertCollectionFilterDisplayed() { 
+		assertTrue(driver.findElement(By.id("ox_openxavatest_Author__xava_collectionTab_humans_conditionValue___0")).isDisplayed());
+	}
+	
+	private void assertCollectionFilterNotDisplayed() { 
+		assertFalse(driver.findElement(By.id("ox_openxavatest_Author__xava_collectionTab_humans_conditionValue___0")).isDisplayed());
+	}
+
 		
 }

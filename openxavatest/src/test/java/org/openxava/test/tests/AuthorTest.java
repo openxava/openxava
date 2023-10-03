@@ -102,6 +102,7 @@ public class AuthorTest extends CustomizeListTestBase {
 		*/
 	}
 	
+	/* tmr
 	private void assertCollectionFilterDisplayed() { 
 		assertTrue(getHtmlPage().getElementById("ox_openxavatest_Author__xava_collectionTab_humans_conditionValue___0").isDisplayed());
 	}
@@ -109,6 +110,7 @@ public class AuthorTest extends CustomizeListTestBase {
 	private void assertCollectionFilterNotDisplayed() { 
 		assertFalse(getHtmlPage().getElementById("ox_openxavatest_Author__xava_collectionTab_humans_conditionValue___0").isDisplayed());
 	}
+	*/
 	
 	public void testModuleFromMenuReinitModule() throws Exception { 
 		modulesLimit = false; 
