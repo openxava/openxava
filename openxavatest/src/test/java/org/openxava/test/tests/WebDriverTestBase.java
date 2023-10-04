@@ -95,13 +95,21 @@ abstract public class WebDriverTestBase extends TestCase {
 	
 	protected void execute(WebDriver driver, String moduleName, String action) throws Exception {
 		String[] actionS = action.split("\\.");
-		WebElement buttonList = driver.findElement
+		WebElement button = driver.findElement
 				(By.id("ox_openxavatest_" + moduleName + "__" + actionS[0] + "___" + actionS[1]));
-		buttonList.click();
+		button.click();
 		acceptInDialogJS(driver);
 		wait(driver);
 		//if back to CalendarView, need add another wait after this method
 		//waitCalendarEvent(driver);
+	}
+	
+	protected void execute(WebDriver driver, String moduleName, String action, String arguments) throws Exception { // tmr
+		WebElement button = driver.findElement(By.cssSelector(
+			"a[onclicke=\"javascript:openxava.executeAction('openxavatest', '" + moduleName + 
+			"', '', false, '" + action + "', '" + arguments + "')\"]"));
+		button.click();
+		wait(driver);
 	}
 	
 	protected void clickOnButtonWithId(WebDriver driver, String id) throws Exception {

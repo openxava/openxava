@@ -293,7 +293,8 @@ openxava.stylizeEditorsWithError = function(application, module, editorsWithErro
 
 openxava.initPlaceholder = function(){
 	$(".xava_editor[data-placeholder]").each(function() {
-		$(this).find("input:visible:first,textarea:visible:first").attr("placeholder", $(this).data("placeholder")); 
+		// tmr $(this).find("input:visible:first,textarea:visible:first").attr("placeholder", $(this).data("placeholder")); 
+		$(this).find("input[type!='hidden']:visible:first,textarea:visible:first").attr("placeholder", $(this).data("placeholder")); // tmr
 	});
 }
 
