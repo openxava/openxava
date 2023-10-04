@@ -167,6 +167,7 @@ public class CalendarTest extends WebDriverTestBase {
 		wait(driver);
 		acceptInDialogJS(driver);
 		moveToCalendarView(driver);
+		assertFalse(isMonthWeekDayViewPresent(driver));
 		prevOnCalendar();
 		createInvoiceEventPrevCurrentNextMonth();
 		prevOnCalendar();
@@ -205,27 +206,28 @@ public class CalendarTest extends WebDriverTestBase {
 		
 		WebElement startDate = driver.findElement(By.id("ox_openxavatest_Event__startDate"));
 		blur(driver, startDate);
-		Thread.sleep(3000);
+		//sleep needed after blur
+		Thread.sleep(500);
 		List<WebElement> iconElements = driver.findElements(By.cssSelector("i.mdi.mdi-calendar"));
 		if (!iconElements.isEmpty()) {
 			WebElement firstIconElement = iconElements.get(1);
 			firstIconElement.click();
 		}
-		Thread.sleep(5000);
+
 		List<WebElement> spanElements = driver
 			// The selected to in class to work with Windows 7 and Linux, maybe it's for a performance problem	
 			.findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day ' and text()='2']"));
-
+		
 		if (!spanElements.isEmpty()) {
 			WebElement spanElement = spanElements.get(1); 
 			spanElement.click(); 
 		}
-		Thread.sleep(5000);
+
 		wait(driver);
 		execute(driver, "Event", "CRUD.save");
 		execute(driver, "Event", "Mode.list");
 		waitCalendarEvent(driver);
-		Thread.sleep(5000);
+
 		List<WebElement> events = driver
 				.findElements(By.xpath("//div[contains(@class,'fc-daygrid-event-harness') and ancestor::td[@data-date='"
 						+ dateString + "']]"));
@@ -305,11 +307,21 @@ public class CalendarTest extends WebDriverTestBase {
         execute(driver, "Appointment", "CRUD.delete");
         execute(driver, "Appointment", "Mode.list");
         waitCalendarEvent(driver);
+        //
 		WebElement dayButton = driver.findElement(By.cssSelector("button.fc-timeGridDay-button"));
 		dayButton.click();
 		waitCalendarEvent(driver);
 		moveToListView(driver);
 		acceptInDialogJS(driver);
+	}
+	
+	private boolean isMonthWeekDayViewPresent(WebDriver driver) {
+		int monthButton = driver.findElements(By.className("fc-timeGridWeek-button")).size();
+        int weekButton = driver.findElements(By.className("fc-timeGridDay-button")).size();
+        int dayButton = driver.findElements(By.className("fc-dayGridMonth-button")).size();
+        boolean b = (monthButton == 1 && weekButton == 1 && dayButton == 1) ? true : false;
+        
+        return b;
 	}
 
 }

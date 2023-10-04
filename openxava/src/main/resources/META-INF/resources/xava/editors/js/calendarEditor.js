@@ -44,7 +44,7 @@ openxava.addEditorInitFunction(function() {
         var newAction = $("#xava_calendar_action").val().split(",")[1];
         var selectAction = $("#xava_calendar_action").val().split(",")[0];
 		var moduleHasDateTime = $('#xava_calendar_hasDateTime').val();
-		var calendarViews = moduleHasDateTime === 'true' ? 'dayGridMonth,timeGridWeek,timeGridDay' : 'dayGridMonth';
+		var calendarViews = moduleHasDateTime === 'true' ? 'dayGridMonth,timeGridWeek,timeGridDay' : '';
 		var displayTime = calendarViews === 'dayGridMonth,timeGridWeek,timeGridDay' ? 'true' : 'false'; 
         var formattedDate = "";
 		
@@ -70,6 +70,10 @@ openxava.addEditorInitFunction(function() {
 				eventColor: 'var(--color)',
 				defaultTimedEventDuration: '00:30',
 				allDaySlot: false,
+				eventTimeFormat: {
+					hour: 'numeric',
+					minute: '2-digit',
+				},
 				viewClassNames: function(info){
 					if (info.view.type === 'timeGridWeek' || info.view.type === 'timeGridDay'){
 						calendarEditor.calendar.setOption('displayEventTime', true);
