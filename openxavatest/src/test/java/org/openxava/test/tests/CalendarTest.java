@@ -307,7 +307,7 @@ public class CalendarTest extends WebDriverTestBase {
         execute(driver, "Appointment", "CRUD.delete");
         execute(driver, "Appointment", "Mode.list");
         waitCalendarEvent(driver);
-        //
+        // used to verify existence of daily view
 		WebElement dayButton = driver.findElement(By.cssSelector("button.fc-timeGridDay-button"));
 		dayButton.click();
 		waitCalendarEvent(driver);
