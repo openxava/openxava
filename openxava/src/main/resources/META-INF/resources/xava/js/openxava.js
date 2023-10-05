@@ -826,7 +826,9 @@ openxava.removeColumn = function(application, module, columnId, tabObject) {
   	$(table).find("td:nth-child(" + i + ")").fadeOut(400, function() {
 		$(this).remove();
   	});
+  	console.log("[openxava.removeColumn] Antes del fadeOut()"); // tmr
   	th.fadeOut(400, function() {
+  		console.log("[openxava.removeColumn] fadeOut() TERMINADO"); // tmr
 		th.remove();
 		openxava.renumberListColumns(table);
   	});

@@ -159,7 +159,7 @@ public class AuthorTest extends CustomizeListTestBase {
 		assertTrue("Put here the biography of the author".equals(textareaPlaceholder));
 	}
 
-	
+	/* tmr Movido a ListTest
 	public void testRemoveColumnAfterFiltering() throws Exception {
 		assertListRowCount(2);
 		assertListColumnCount(2);		
@@ -168,13 +168,13 @@ public class AuthorTest extends CustomizeListTestBase {
 		assertListRowCount(1);
 		removeColumn(1); 
 		assertListRowCount(1);
-		assertListColumnCount(1); // TMR FALLA ME QUEDÉ POR AQUÍ, PARA EMPEZAR A PROBAR ESTO
+		assertListColumnCount(1); 
 		execute("List.addColumns"); 
 		execute("AddColumns.restoreDefault"); 
 		assertListColumnCount(2);
 		assertListRowCount(1); 
 	}
-	
+	*/
 	
 	public void testAddRemoveActionsForProperty() throws Exception { 
 		execute("List.viewDetail", "row=0");
