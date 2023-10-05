@@ -16,36 +16,36 @@ import org.openqa.selenium.support.ui.*;
 public class ListTest extends WebDriverTestBase {
 	
 	private WebDriver driver;
+	private String module; 
 
 	public void setUp() throws Exception {
 	    driver = createWebDriver();
-		driver.get("http://localhost:8080/openxavatest/m/Author"); 
-		wait(driver);
 	}
 	
 	public void tearDown() throws Exception {
-		driver.quit();
+		// tmr driver.quit();
 	}
 	
 	public void testListAndCollection() throws Exception {
+		goModule("Author");
 		assertMoveColumns();
 		assertRemoveColumnAfterFiltering();
 		assertNoFilterInCollectionByDefault();
 	}
 	
 	public void assertNoFilterInCollectionByDefault() throws Exception {
-		execute(driver, "Author", "CRUD.new");		
+		execute("CRUD.new");		
 		assertCollectionFilterNotDisplayed();
 		driver.findElement(By.id("ox_openxavatest_Author__show_filter_humans")).click();
 		assertCollectionFilterDisplayed();
 		
-		execute(driver, "Author", "MyGoListMode.list");
-		execute(driver, "Author", "List.viewDetail", "row=1");
+		execute("MyGoListMode.list");
+		execute("List.viewDetail", "row=1");
 		assertCollectionFilterNotDisplayed();
 		driver.findElement(By.id("ox_openxavatest_Author__show_filter_humans")).click();
 		assertCollectionFilterDisplayed();
 		
-		execute(driver, "Author", "CRUD.new");
+		execute("CRUD.new");
 		assertCollectionFilterNotDisplayed();
 		driver.findElement(By.id("ox_openxavatest_Author__show_filter_humans")).click();
 		assertCollectionFilterDisplayed();
@@ -89,16 +89,18 @@ public class ListTest extends WebDriverTestBase {
 	}
 	
 	public void testCustomizeCollection() throws Exception {
-		// TMR ME QUEDÉ POR AQUÍ: TRADUCIR A SELENIUM. USA Carrier
-		/* tmr
+		goModule("Carrier");
+		
 		// Original status		
 		assertListColumnCount(3);
 		assertLabelInList(0, "Calculated");
 		assertLabelInList(1, "Number");
 		assertLabelInList(2, "Name");
 		execute("List.viewDetail", "row=0");
-				
-		assertCollectionColumnCount("fellowCarriers", 4); 
+		
+		assertCollectionColumnCount("fellowCarriers", 4);
+		// TMR ME QUEDÉ POR AQUÍ: TRADUCIENDO 
+		/* tmr
 		assertLabelInCollection("fellowCarriers", 0, "Number");
 		assertLabelInCollection("fellowCarriers", 1, "Name");		
 		assertLabelInCollection("fellowCarriers", 2, "Remarks");
@@ -111,7 +113,7 @@ public class ListTest extends WebDriverTestBase {
 		assertCollectionColumnCount("fellowCarriers", 4);
 		assertLabelInCollection("fellowCarriers", 0, "Number");
 		assertLabelInCollection("fellowCarriers", 1, "Name");
-		assertLabelInCollection("fellowCarriers", 2, "Calculated"); // TMR FALLA
+		assertLabelInCollection("fellowCarriers", 2, "Calculated"); 
 		assertLabelInCollection("fellowCarriers", 3, "Remarks");		
 		
 		// The main list not modified
@@ -204,13 +206,24 @@ public class ListTest extends WebDriverTestBase {
 		*/ 
 	}
 	
+
+	private void goModule(String module) throws Exception{
+		driver.get("http://localhost:8080/openxavatest/m/" + module);
+		this.module = module;
+		wait(driver);
+	}
+	
 	private void clearListCondition() throws Exception{
 		driver.findElement(By.id("ox_openxavatest_Author__xava_clear_condition")).click();
 		wait(driver);
 	}
 
 	private void execute(String action) throws Exception {
-		execute(driver, "Author", action);
+		execute(driver, module, action);
+	}
+	
+	private void execute(String action, String arguments) throws Exception {
+		execute(driver, module, action, arguments);
 	}
 
 	private void setConditionValues(String value) { // One argument by now, but we could evolution to String ... value 
@@ -218,8 +231,14 @@ public class ListTest extends WebDriverTestBase {
 	}
 
 	private void assertListColumnCount(int expectedColumnCount) {
-		int columnCount = getListTable().findElements(By.tagName("th")).size();
+		int columnCount = getListTable().findElement(By.tagName("tr")).findElements(By.tagName("th")).size();
 		assertEquals(expectedColumnCount, columnCount - 2);	
+	}
+	
+	private void assertCollectionColumnCount(String collection, int expectedColumnCount) {
+		// tmr ¿Refactorizar con assertListColumnCount()?
+		int columnCount = getCollectionTable(collection).findElement(By.tagName("tr")).findElements(By.tagName("th")).size();
+		assertEquals(expectedColumnCount, columnCount - 2);
 	}
 
 	private void assertListRowCount(int expectedRowCount) {
@@ -227,19 +246,23 @@ public class ListTest extends WebDriverTestBase {
 		assertEquals(expectedRowCount, rowCount - 3);
 	}
 	
+	private WebElement getCollectionTable(String collection) {
+		return driver.findElement(By.id("ox_openxavatest_" + module + "__" + collection));
+	}
+	
 	private WebElement getListTable() {
-		return driver.findElement(By.id("ox_openxavatest_Author__list"));
+		return driver.findElement(By.id("ox_openxavatest_" + module +"__list"));
 	}
 
 	private void resetModule() throws Exception {
 		driver.quit();
 		driver = createWebDriver();
-		driver.get("http://localhost:8080/openxavatest/m/Author"); 
+		driver.get("http://localhost:8080/openxavatest/m/" + module); 
 		wait(driver);
 	}
 
 	private void moveColumn(int sourceColumn, int targetColumn) throws Exception {
-		driver.findElement(By.id("ox_openxavatest_Author__customize_list")).click();
+		driver.findElement(By.id("ox_openxavatest_" + module + "__customize_list")).click();
 		WebElement handle = getListHeader(sourceColumn).findElement(By.className("xava_handle")); 
 		String classTargetPoint = sourceColumn > targetColumn?"xava_handle":"mdi-rename-box";
 		WebElement targetPoint = getListHeader(targetColumn).findElement(By.className(classTargetPoint));
@@ -248,14 +271,11 @@ public class ListTest extends WebDriverTestBase {
 	}
 	
 	private void removeColumn(int columnIndex) {
-		driver.findElement(By.id("ox_openxavatest_Author__customize_list")).click();
+		driver.findElement(By.id("ox_openxavatest_" + module + "__customize_list")).click();
 		WebElement removeButton = getListHeader(columnIndex).findElement(By.className("mdi-close-circle"));
 		removeButton.click();
-		long ini = System.currentTimeMillis(); // tmr
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(1000));
 		wait.until(ExpectedConditions.invisibilityOf(removeButton));
-		long cuesta = System.currentTimeMillis() - ini; // tmr
-		System.out.println("[ListTest.removeColumn] cuesta=" + cuesta); // tmr
 	}
 
 
@@ -265,7 +285,7 @@ public class ListTest extends WebDriverTestBase {
 	}
 	
 	private WebElement getListHeader(int column) {
-		 WebElement table = driver.findElement(By.id("ox_openxavatest_Author__list"));
+		 WebElement table = driver.findElement(By.id("ox_openxavatest_" + module + "__list"));
 		 WebElement headerRow = table.findElement(By.tagName("tr"));
 		 List<WebElement> headers = headerRow.findElements(By.tagName("th"));		
 		 return headers.get(column + 2);
