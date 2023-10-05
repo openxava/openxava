@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Clicking in a time in day or week calendar view creates a new record with the date and time preset. 
+- Week and day views in calendar list format enabled if the entity has some property with date and time.
 - Explicit plus icon in each day in list calendar format to create a new record for a day.  
 
 OpenXava 7.1.6 (2023-9-15)
