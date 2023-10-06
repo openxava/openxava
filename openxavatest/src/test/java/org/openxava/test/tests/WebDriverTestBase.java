@@ -105,11 +105,17 @@ abstract public class WebDriverTestBase extends TestCase {
 	}
 	
 	protected void execute(WebDriver driver, String moduleName, String action, String arguments) throws Exception { // tmr
-		WebElement button = driver.findElement(By.cssSelector(
-			"a[onclicke=\"javascript:openxava.executeAction('openxavatest', '" + moduleName + 
-			"', '', false, '" + action + "', '" + arguments + "')\"]"));
-		button.click();
-		wait(driver);
+		try { 
+			WebElement button = driver.findElement(By.cssSelector(
+				"a[onclicke=\"javascript:openxava.executeAction('openxavatest', '" + moduleName + 
+				"', '', false, '" + action + "', '" + arguments + "')\"]"));
+			button.click();
+			wait(driver);
+		}
+		catch (NoSuchElementException ex) {
+			if (arguments.startsWith(",")) throw ex;
+			execute(driver, moduleName, action, "," + arguments);
+		}
 	}
 	
 	protected void clickOnButtonWithId(WebDriver driver, String id) throws Exception {

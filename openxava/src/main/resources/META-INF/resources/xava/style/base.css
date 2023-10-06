@@ -1996,6 +1996,13 @@ div.ox-subcontroller table{
 	background: transparent;
 }
 
+/* tmr ini */
+/* tmr ¿Poner una clase específica? */
+.ox-list-header div span:last-of-type {
+	float: right;
+}
+/* tmr fin */
+
 .ox-list a {
 	text-decoration: none;
 }
