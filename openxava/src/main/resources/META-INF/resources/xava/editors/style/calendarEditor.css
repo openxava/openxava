@@ -85,7 +85,7 @@
 }
 .fc-event-tooltip div{
     padding:10px;
-    border-radius: 25px;
+    border-radius: 15px;
 }
 .fc-event-tooltip div:first-child{
     font-weight:bold;

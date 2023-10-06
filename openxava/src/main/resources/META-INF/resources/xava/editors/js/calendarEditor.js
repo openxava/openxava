@@ -143,9 +143,8 @@ openxava.addEditorInitFunction(function() {
 					document.body.appendChild(tooltip);
 				},
 				eventMouseLeave: function(info) {
-					console.log('eventMouseLeave');
-					//$(info.el).css('z-index', 8);
-					//$('.fc-event-tooltip').remove();
+					$(info.el).css('z-index', 8);
+					$('.fc-event-tooltip').remove();
 				}
             });
             calendarEditor.calendar.render();
