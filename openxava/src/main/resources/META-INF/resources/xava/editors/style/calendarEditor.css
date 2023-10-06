@@ -74,3 +74,43 @@
 .fc-timegrid-col-events {
 	max-width:80%;
 }
+
+.fc-event-tooltip{
+    width:125px;
+    position:absolute;
+    z-index:10001;
+    transform:translate3d(-50%,-100%,0);
+    font-size: 0.8rem;
+    line-height: 1rem;
+}
+.fc-event-tooltip div{
+    padding:10px;
+    border-radius: 25px;
+}
+.fc-event-tooltip div:first-child{
+    font-weight:bold;
+    color:White;
+    background-color:#888888;
+    border:solid 1px black;
+}
+.fc-event-tooltip div:last-child{
+    background-color:black;
+    position:relative;
+}
+.fc-event-tooltip div:last-child::after, .fc-event-tooltip div:last-child::before{
+    width:0;
+    height:0;
+    border:solid 5px transparent;
+    border-bottom:0;
+    border-top-color:whitesmoke;
+    position: absolute;
+    display: block;
+    content: "";
+    bottom:-4px;
+    left:50%;
+    transform:translateX(-50%);
+}
+.fc-event-tooltip div:last-child::before{
+    border-top-color:#888888;
+    bottom:-5px;
+}

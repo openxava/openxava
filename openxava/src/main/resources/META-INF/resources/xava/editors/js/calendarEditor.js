@@ -130,6 +130,23 @@ openxava.addEditorInitFunction(function() {
                         openxava.executeAction(application, module, false, false, newAction, value);
                     }
                 },
+				 eventMouseEnter: function(info) {
+					var tis=info.el;
+					var popup=info.event.title;
+					var tooltip = document.createElement('div');
+					tooltip.className = 'fc-event-tooltip';
+					tooltip.style.top = ($(tis).offset().top - 5) + 'px';
+					tooltip.style.left = ($(tis).offset().left + ($(tis).width()) / 2) + 'px';
+					var contentDiv = document.createElement('div');
+					contentDiv.textContent = popup;
+					tooltip.appendChild(contentDiv);
+					document.body.appendChild(tooltip);
+				},
+				eventMouseLeave: function(info) {
+					console.log('eventMouseLeave');
+					//$(info.el).css('z-index', 8);
+					//$('.fc-event-tooltip').remove();
+				}
             });
             calendarEditor.calendar.render();
             formatTitle(null);
