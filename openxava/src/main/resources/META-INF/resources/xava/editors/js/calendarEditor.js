@@ -65,7 +65,6 @@ openxava.addEditorInitFunction(function() {
                 displayEventTime: true,
                 events: calendarEditor.listEvents,
 				dayMaxEventRows: true,
-                editable: true,
                 progressiveEventRendering: true,
 				eventColor: 'var(--color)',
 				defaultTimedEventDuration: '00:30',
@@ -130,6 +129,9 @@ openxava.addEditorInitFunction(function() {
                         openxava.executeAction(application, module, false, false, newAction, value);
                     }
                 },
+				eventDrop: function(e) {
+					console.log("drag and drop");
+				}
             });
             calendarEditor.calendar.render();
             formatTitle(null);
@@ -205,11 +207,7 @@ openxava.addEditorInitFunction(function() {
             event.wheelDelta >= 0 ? getEvents('prev') : getEvents('next');
             event.preventDefault();
         });
-        
-        window.addEventListener('resize', function() {
-            calendarElement.style.width = (window.innerHeight * 0.9)+ 'px';
-            calendarElement.style.height = (window.innerHeight * 0.763)+ 'px';
-        });
+
     }
 
 
