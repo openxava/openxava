@@ -21,7 +21,13 @@ abstract public class WebDriverTestBase extends TestCase {
 	    options.addArguments("--accept-lang=en");
 	    //Sometime needs set path and update manually chromedriver when chrome just been updated
 	    //https://googlechromelabs.github.io/chrome-for-testing/
-	    //System.setProperty("webdriver.chrome.driver", "C:/Program Files/Google/Chrome/Application/chromedriver.exe");  
+	    //System.setProperty("webdriver.chrome.driver", "C:/Program Files/Google/Chrome/Application/chromedriver.exe");
+	    // tmr ini
+	    /* tmr Con de abajo es igual de rápido que HtmlUnit 
+	    options.addArguments("--headless"); // Habilita el modo headless
+	    options.addArguments("--disable-gpu"); // Desactiva la aceleración de GPU en Linux
+	    */
+	    // tmr fin
 	    
 		return new ChromeDriver(options);
 	}

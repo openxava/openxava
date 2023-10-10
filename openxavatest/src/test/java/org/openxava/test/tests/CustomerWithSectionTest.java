@@ -570,7 +570,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		Thread.sleep(700); 
 		assertTrue(getElementById("show_filter_list").isDisplayed());
 		assertFalse(getElementById("hide_filter_list").isDisplayed());
-		assertFalse(getElementById("list_filter_list").isDisplayed()); // TMR FALLA
+		assertFalse(getElementById("list_filter_list").isDisplayed()); // TMR FALLA ME QUEDÉ POR AQUÍ, PARA EMPEZAR A VERLO
 		getElementById("show_filter_list").click();
 		Thread.sleep(700); 
 		assertFalse(getElementById("show_filter_list").isDisplayed()); 

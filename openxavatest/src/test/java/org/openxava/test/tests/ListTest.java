@@ -26,7 +26,7 @@ public class ListTest extends WebDriverTestBase {
 	}
 	
 	public void tearDown() throws Exception {
-		// tmr driver.quit();
+		driver.quit();
 	}
 	
 	public void testListAndCollection() throws Exception {
@@ -168,6 +168,8 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInCollection("fellowCarriers", 3, "Warehouse"); // This is "Name of Warehouse" with label optimized
 		
 		// Changing column name
+		//Thread.sleep(1000); // tmr Para que funcione con Headless
+		//showCustomizeControls("fellowCarriers"); // tmr Para que funcione con Headless
 		execute("List.changeColumnName", "property=name,collection=fellowCarriers");
 		assertDialog();
 		assertValue("name", "Name");
@@ -176,7 +178,8 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInCollection("fellowCarriers", 1, "Carrier");
 		
 		// Adding clicking in row
-		execute("List.addColumns", "collection=fellowCarriers"); // TMR ME QUEDÉ POR AQUÍ: FALLA, CREO QUE ES PORQUE EL BOTÓN ESTÁ OCULTO, FALTA PULSAR LA RUEDA DENTADA
+		showCustomizeControls("fellowCarriers");
+		execute("List.addColumns", "collection=fellowCarriers"); 
 		execute("AddColumns.addColumn", "property=warehouse.number");
 		assertCollectionColumnCount("fellowCarriers", 5);
 		assertLabelInCollection("fellowCarriers", 0, "Number");
@@ -185,7 +188,8 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInCollection("fellowCarriers", 3, "Warehouse"); // This is "Name of Warehouse" with label optimized
 		assertLabelInCollection("fellowCarriers", 4, "Warehouse number");
 		
-		// Restoring		
+		// Restoring
+		showCustomizeControls("fellowCarriers");
 		execute("List.addColumns", "collection=fellowCarriers");
 		execute("AddColumns.restoreDefault");
 		assertCollectionColumnCount("fellowCarriers", 4);
@@ -194,6 +198,7 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInCollection("fellowCarriers", 2, "Remarks");
 		assertLabelInCollection("fellowCarriers", 3, "Calculated");
 		
+		showCustomizeControls("fellowCarriers");
 		execute("List.changeColumnName", "property=name,collection=fellowCarriers");
 		assertValue("name", "Carrier");
 		setValue("name", "Name");
@@ -201,9 +206,10 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInCollection("fellowCarriers", 1, "Name");		
 		
 		// Cancel in AddColumns returns to detail (not list mode)
+		showCustomizeControls("fellowCarriers");
 		execute("List.addColumns", "collection=fellowCarriers");
 		execute("AddColumns.cancel");
-		assertValue("name", "UNO"); // In detail mode		 
+		assertValue("name", "UNO"); // In detail mode
 	}
 
 	private void assertValue(String name, String value) {

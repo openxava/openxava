@@ -127,6 +127,7 @@ public class CarrierTest extends CarrierTestBase {
 		assertValueInCollection("fellowCarriersCalculated", 1, "name", "FOUR");	
 	}
 	
+	/* tmr Movido a ListTest
 	public void testCustomizeCollection() throws Exception {
 		// Original status		
 		assertListColumnCount(3);
@@ -148,7 +149,7 @@ public class CarrierTest extends CarrierTestBase {
 		assertCollectionColumnCount("fellowCarriers", 4);
 		assertLabelInCollection("fellowCarriers", 0, "Number");
 		assertLabelInCollection("fellowCarriers", 1, "Name");
-		assertLabelInCollection("fellowCarriers", 2, "Calculated"); // TMR FALLA
+		assertLabelInCollection("fellowCarriers", 2, "Calculated"); 
 		assertLabelInCollection("fellowCarriers", 3, "Remarks");		
 		
 		// The main list not modified
@@ -237,8 +238,9 @@ public class CarrierTest extends CarrierTestBase {
 		// Cancel in AddColumns returns to detail (not list mode)
 		execute("List.addColumns", "collection=fellowCarriers");
 		execute("AddColumns.cancel");
-		assertValue("name", "UNO"); // In detail mode 
+		assertValue("name", "UNO"); // In detail mode
 	}
+	*/
 		
 	public void testHideShowRows() throws Exception {		
 		assertListRowCount(5);
