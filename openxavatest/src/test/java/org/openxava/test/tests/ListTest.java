@@ -4,9 +4,11 @@ import java.time.*;
 import java.util.*;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.*;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 import org.openxava.util.*;
+import org.openxava.web.*;
 
 /**
  * tmr
@@ -132,16 +134,15 @@ public class ListTest extends WebDriverTestBase {
 		// Add columns
 		showCustomizeControls("fellowCarriers");
 		execute("List.addColumns", "collection=fellowCarriers");
-		assertNoAction("AddColumns.showMoreColumns"); // Because has not more than second level properties // TMR ME QUEDÉ POR AQUÍ, FALLA
-		/*
+		assertNoAction("AddColumns.showMoreColumns"); // Because has not more than second level properties
 		assertCollectionRowCount("xavaPropertiesList", 6);
 		assertValueInCollection("xavaPropertiesList",  0, 0, "Driving licence description"); 
 		assertValueInCollection("xavaPropertiesList",  1, 0, "Driving licence level");
 		assertValueInCollection("xavaPropertiesList",  2, 0, "Driving licence type");
 		assertValueInCollection("xavaPropertiesList",  3, 0, "Warehouse name");
 		assertValueInCollection("xavaPropertiesList",  4, 0, "Warehouse number");
-		assertValueInCollection("xavaPropertiesList",  5, 0, "Warehouse zone"); 
-		checkRow("selectedProperties", "warehouse.name");		
+		assertValueInCollection("xavaPropertiesList",  5, 0, "Warehouse zone");
+		checkRow("selectedProperties", "warehouse.name");
  		execute("AddColumns.addColumns");
 
 		assertCollectionColumnCount("fellowCarriers", 5);
@@ -158,8 +159,8 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInCollection("fellowCarriers", 2, "Calculated");
 		assertLabelInCollection("fellowCarriers", 3, "Warehouse"); // This is "Name of Warehouse" with label optimized
 		assertLabelInCollection("fellowCarriers", 4, "Remarks");
-						
-		removeColumn("fellowCarriers", 4); 
+ 
+		removeColumn("fellowCarriers", 4);
 		assertCollectionColumnCount("fellowCarriers", 4); 
 		assertLabelInCollection("fellowCarriers", 0, "Number");
 		assertLabelInCollection("fellowCarriers", 1, "Name");
@@ -175,7 +176,7 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInCollection("fellowCarriers", 1, "Carrier");
 		
 		// Adding clicking in row
-		execute("List.addColumns", "collection=fellowCarriers");
+		execute("List.addColumns", "collection=fellowCarriers"); // TMR ME QUEDÉ POR AQUÍ: FALLA, CREO QUE ES PORQUE EL BOTÓN ESTÁ OCULTO, FALTA PULSAR LA RUEDA DENTADA
 		execute("AddColumns.addColumn", "property=warehouse.number");
 		assertCollectionColumnCount("fellowCarriers", 5);
 		assertLabelInCollection("fellowCarriers", 0, "Number");
@@ -202,12 +203,26 @@ public class ListTest extends WebDriverTestBase {
 		// Cancel in AddColumns returns to detail (not list mode)
 		execute("List.addColumns", "collection=fellowCarriers");
 		execute("AddColumns.cancel");
-		assertValue("name", "UNO"); // In detail mode
-		*/ 
+		assertValue("name", "UNO"); // In detail mode		 
+	}
+
+	private void assertValue(String name, String value) {
+		assertEquals(XavaResources.getString("unexpected_value", name), value, getValue(name));		
+	}
+
+	private String getValue(String name) {
+		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
+		return input.getAttribute("value");
 	}
 	
+	private void setValue(String name, String value) {
+		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
+		input.clear();
+		input.sendKeys(value);	
+	}
+
 	private void assertNoAction(String qualifiedAction) {
-		String [] action = qualifiedAction.split(".");
+		String [] action = qualifiedAction.split("\\.");
 		String name = "ox_openxavatest_" + module + "__action___" + action[0] + "___" + action[1];
 		assertTrue(XavaResources.getString("action_found_in_ui", action), driver.findElements(By.name(name)).isEmpty());
 	}
@@ -250,9 +265,14 @@ public class ListTest extends WebDriverTestBase {
 	}
 
 	private void assertListRowCount(int expectedRowCount) {
-		int rowCount = getTable("list").findElements(By.tagName("tr")).size();
-		assertEquals(expectedRowCount, rowCount - 3);
+		assertCollectionRowCount("list", expectedRowCount + 2);
 	}
+	
+	private void assertCollectionRowCount(String collection, int expectedRowCount) {
+		int rowCount = getTable(collection).findElements(By.tagName("tr")).size();
+		assertEquals(expectedRowCount, rowCount - 1);
+	}
+
 	
 	private WebElement getTable(String collection) {
 		return driver.findElement(By.id("ox_openxavatest_" + module + "__" + collection));
@@ -279,18 +299,21 @@ public class ListTest extends WebDriverTestBase {
 		WebElement handle = getHeader(collection, sourceColumn).findElement(By.className("xava_handle")); 
 		String classTargetPoint = sourceColumn > targetColumn?"xava_handle":"mdi-rename-box";
 		WebElement targetPoint = getHeader(collection, targetColumn).findElement(By.className(classTargetPoint));
-		Actions actions = new Actions(driver);
+		Actions actions = new org.openqa.selenium.interactions.Actions(driver);
 		actions.dragAndDrop(handle, targetPoint).build().perform();
 	}
 	
-	private void removeColumn(int columnIndex) {
-		driver.findElement(By.id("ox_openxavatest_" + module + "__customize_list")).click();
-		WebElement removeButton = getHeader("list", columnIndex).findElement(By.className("mdi-close-circle"));
+	private void removeColumn(String collection, int columnIndex) {
+		driver.findElement(By.id("ox_openxavatest_" + module + "__customize_" + collection)).click();
+		WebElement removeButton = getHeader(collection, columnIndex).findElement(By.className("mdi-close-circle"));
 		removeButton.click();
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(1000));
 		wait.until(ExpectedConditions.invisibilityOf(removeButton));
 	}
 
+	private void removeColumn(int columnIndex) {
+		removeColumn("list", columnIndex);
+	}
 
 	private void assertLabelInList(int column, String expectedLabel) { 
 		assertLabelInCollection("list", column, expectedLabel);
@@ -300,11 +323,21 @@ public class ListTest extends WebDriverTestBase {
 		String label = getHeader(collection, column).getText().trim();
 		assertEquals(expectedLabel, label);
 	}
+	
+	private void assertValueInCollection(String collection, int row, int column, String expectedValue) {
+		String value = getCell(collection, row + 1, column).getText().trim();
+		assertEquals(expectedValue, value);				
+	}
 		
 	private WebElement getHeader(String collection, int column) {
-		WebElement headerRow = getTable(collection).findElement(By.tagName("tr"));
-		List<WebElement> headers = headerRow.findElements(By.tagName("th"));		
-		return headers.get(column + 2);
+		return getCell(collection, 0, column);
+	}
+	
+	private WebElement getCell(String collection, int row, int column) {
+		WebElement tableRow = getTable(collection).findElements(By.tagName("tr")).get(row);
+		String cellType = row == 0?"th":"td";
+		List<WebElement> cells = tableRow.findElements(By.tagName(cellType));		
+		return cells.get(column + 2);
 	}
 	
 	private void assertCollectionFilterDisplayed() { 
@@ -314,6 +347,29 @@ public class ListTest extends WebDriverTestBase {
 	private void assertCollectionFilterNotDisplayed() { 
 		assertFalse(driver.findElement(By.id("ox_openxavatest_Author__xava_collectionTab_humans_conditionValue___0")).isDisplayed());
 	}
-
+	
+	private void checkRow(String id, String value) throws Exception {
+		WebElement checkbox = driver.findElement(By.cssSelector("input[value='" + id + ":" + value + "']"));
+		checkbox.click();
+		wait(driver);
+	}
+	
+	private void assertDialog() throws Exception { 
+		assertTrue(XavaResources.getString("dialog_must_be_displayed"), getTopDialog() != null); 
+	}
+	
+	private String getTopDialog() throws Exception { 
+		int level = 0;
+		for (level = 10; level > 0; level--) {
+			try {
+				WebElement el = driver.findElement(By.id(Ids.decorate("openxavatest", module, "dialog" + level)));
+				if (el != null && !el.findElements(By.xpath("./*")).isEmpty()) break;
+			}
+			catch (NoSuchElementException ex) {
+			}			
+		}
+		if (level == 0) return null;
+		return "dialog" + level;		
+	}
 		
 }
