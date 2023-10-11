@@ -5,6 +5,7 @@ import java.util.*;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.interactions.*;
 import org.openqa.selenium.support.ui.*;
 
 public class CalendarTest extends WebDriverTestBase {
@@ -22,7 +23,7 @@ public class CalendarTest extends WebDriverTestBase {
 		forTestMultipleDateAndFirstDateAsEventStart(); 
 		forTestFilterPerformance();
 		forTestMore();
-		forTestCreateDateWithTimeInWeekAndDailyView();
+		forTestCreateDateWithTimeInWeekAndDailyView_tooltip();
 	}
 
 	public void tearDown() throws Exception {
@@ -279,7 +280,7 @@ public class CalendarTest extends WebDriverTestBase {
 		execute(driver, "Hound", "CRUD.deleteSelected");
 	}
 
-	private void forTestCreateDateWithTimeInWeekAndDailyView() throws Exception {
+	private void forTestCreateDateWithTimeInWeekAndDailyView_tooltip() throws Exception {
 		driver.get("http://localhost:8080/openxavatest/m/Appointment");
 		wait(driver);
 		acceptInDialogJS(driver);
@@ -297,6 +298,15 @@ public class CalendarTest extends WebDriverTestBase {
         execute(driver, "Appointment", "CRUD.save");
         execute(driver, "Appointment", "Mode.list");
         waitCalendarEvent(driver);
+
+        //tooltip
+		WebElement monthEvent = driver.findElement(By.cssSelector(".fc-event.fc-event-draggable.fc-event-resizable.fc-event-start.fc-event-end"));
+		Actions builder = new Actions(driver);
+        builder.moveToElement(monthEvent).perform();
+        Thread.sleep(500);
+		WebElement tooltip = driver.findElement(By.cssSelector(".fc-event-tooltip"));
+		assertEquals("A", tooltip.getText());
+        
         moveToTimeGridWeek(driver);
         WebElement event = driver.findElement(By.cssSelector(".fc-event.fc-event-draggable.fc-event-resizable.fc-event-start.fc-event-end"));
         event.click();
@@ -324,4 +334,5 @@ public class CalendarTest extends WebDriverTestBase {
         return b;
 	}
 
+	
 }
