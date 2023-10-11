@@ -698,6 +698,7 @@ public class ModuleManager implements java.io.Serializable {
 			if (metaAction != null && !metaAction.isAfterEachRequest()) {   
 				lastExecutedMetaAction = metaAction;
 			}
+			trackAction(metaAction); // tmr
 			if (!(metaAction == null && executingAction)) { // For avoiding
 															// commit on
 															// OnChange actions
@@ -711,6 +712,40 @@ public class ModuleManager implements java.io.Serializable {
 		}
 	}
 	
+	private void trackAction(MetaAction metaAction ) { // tmr
+		if (metaAction == null) return;
+		if (metaAction.isHidden()) return;
+		// tmr Mejor así que con un atributo en <action>, porque así no hacemos más compleja la API de OpenXava
+		String controllerName = metaAction.getMetaController().getName(); 
+		if (Is.anyEqual(controllerName,
+				"ListFormat", "NoCustomizeList", "AddColumns", "Reference",
+				"NewCreation", "Modification", "ReferenceSearch", "AddToCollection",
+				"Collection", "CollectionTotals", "CollectionCopyPaste",
+				"ElementCollection", "ManyToMany", "ManyToManyNewElement", "ManyToManyUpdateElement",
+				"Sections", "DefaultSchema", "PersistenceUnit", "UrlParameters",
+				"TreeView", "Icon", "EmailNotifications"
+			)) return;
+		controllerName = controllerName.toLowerCase();
+		if (controllerName.contains("typical")) return;
+		if (controllerName.contains("search")) return;
+		if (controllerName.contains("editor")) return;
+		
+		String actionName = metaAction.getName();
+		if (Is.anyEqual(actionName, "cancel", "return", "close", "new", "refresh")) return;
+		actionName = actionName.toLowerCase();
+		if (actionName.contains("save")) return;
+		if (actionName.contains("delete")) return;
+		if (actionName.contains("search")) return;
+		
+		// tmr Había pensado en un ActionTracker, pero esto podría producir problema de compatibilidad
+		// tmr   es decir al actualizar XavaPro la historioa no registraría acciones automáticamente
+		// tmr   al necesitar configurar algo nuevo en xava.properties
+		// tmr   Así que quizás ponderlo en AccessTracker como executed() sería más práctico
+		AccessTracker.consulted(metaAction.getQualifiedName(), getView().getKeyValues());	
+		
+		// TMR ME QUEDÉ POR AQUÍ FALTA PROBAR LO DE ARRIBA, CON LOS FILTROS
+	}
+
 	private void prepareAction(IAction action, MetaAction metaAction, Messages errors, Messages messages,
 			String propertyValues, HttpServletRequest request) throws Exception { 
 		action.setErrors(errors);
