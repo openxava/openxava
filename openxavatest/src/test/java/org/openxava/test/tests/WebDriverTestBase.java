@@ -15,20 +15,21 @@ import junit.framework.*;
  */
 abstract public class WebDriverTestBase extends TestCase {
 	
+	private boolean headless = false;
+	
 	protected WebDriver createWebDriver() {
 		ChromeOptions options = new ChromeOptions();
 	    options.addArguments("--remote-allow-origins=*");
-	    options.addArguments("--accept-lang=en");
+	    // tmr options.addArguments("--accept-lang=en");
+	    options.addArguments("--lang=en"); // tmr
+	    
 	    //Sometime needs set path and update manually chromedriver when chrome just been updated
 	    //https://googlechromelabs.github.io/chrome-for-testing/
 	    //System.setProperty("webdriver.chrome.driver", "C:/Program Files/Google/Chrome/Application/chromedriver.exe");
-	    // tmr ini
-	    /* tmr Con de abajo es igual de rápido que HtmlUnit 
-	    options.addArguments("--headless"); // Habilita el modo headless
-	    options.addArguments("--disable-gpu"); // Desactiva la aceleración de GPU en Linux
-	    */
-	    // tmr fin
-	    
+	    if (isHeadless()) {
+		    options.addArguments("--headless"); 
+		    options.addArguments("--disable-gpu"); 	    	
+	    }
 		return new ChromeDriver(options);
 	}
 	
@@ -39,7 +40,7 @@ abstract public class WebDriverTestBase extends TestCase {
 
 		return new ChromeDriver(options);
 	}
-	
+		
 	protected void wait(WebDriver driver) throws Exception {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(100));
 		try {
@@ -141,5 +142,15 @@ abstract public class WebDriverTestBase extends TestCase {
 		WebElement inputElement = driver.findElement(By.id(id));
 		if (delete == true) inputElement.clear();
         inputElement.sendKeys(value);
+	}
+
+
+	protected boolean isHeadless() {
+		return headless;
+	}
+
+
+	protected void setHeadless(boolean headless) {
+		this.headless = headless;
 	}
 }

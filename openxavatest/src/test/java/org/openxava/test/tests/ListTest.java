@@ -22,6 +22,7 @@ public class ListTest extends WebDriverTestBase {
 	private String module; 
 
 	public void setUp() throws Exception {
+		setHeadless(true);
 	    driver = createWebDriver();
 	}
 	
@@ -31,12 +32,16 @@ public class ListTest extends WebDriverTestBase {
 	
 	public void testListAndCollection() throws Exception {
 		goModule("Author");
+		assertShowHideFilterInList();
 		assertMoveColumns();
 		assertRemoveColumnAfterFiltering();
 		assertNoFilterInCollectionByDefault();
+		
+		goModule("Carrier");
+		assertCustomizeCollection();
 	}
 	
-	public void assertNoFilterInCollectionByDefault() throws Exception {
+	private void assertNoFilterInCollectionByDefault() throws Exception {
 		execute("CRUD.new");		
 		assertCollectionFilterNotDisplayed();
 		driver.findElement(By.id("ox_openxavatest_Author__show_filter_humans")).click();
@@ -62,6 +67,7 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInList(0, "Author");
 		assertLabelInList(1, "Biography");
 		
+		showCustomizeControls();
 		moveColumn(0, 1);
 		assertLabelInList(0, "Biography"); 
 		assertLabelInList(1, "Author");
@@ -70,6 +76,7 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInList(0, "Biography");
 		assertLabelInList(1, "Author");
 		
+		showCustomizeControls();
 		moveColumn(1, 0);
 		assertLabelInList(0, "Author");
 		assertLabelInList(1, "Biography");		
@@ -81,6 +88,7 @@ public class ListTest extends WebDriverTestBase {
 		setConditionValues("J");
 		execute("List.filter");
 		assertListRowCount(1);
+		showCustomizeControls();
 		removeColumn(1);
 		assertListRowCount(1);
 		assertListColumnCount(1); 
@@ -91,9 +99,29 @@ public class ListTest extends WebDriverTestBase {
 		clearListCondition();
 	}
 	
-	public void testCustomizeCollection() throws Exception {
+	private void assertShowHideFilterInList() throws Exception {
+		goModule("Author");
+		assertFalse(getElementById("show_filter_list").isDisplayed()); 
+		assertTrue(getElementById("hide_filter_list").isDisplayed()); 
+		assertTrue(getElementById("list_filter_list").isDisplayed());
+		getElementById("hide_filter_list").click();
+		Thread.sleep(700); 
+		assertTrue(getElementById("show_filter_list").isDisplayed());
+		assertFalse(getElementById("hide_filter_list").isDisplayed());
+		assertFalse(getElementById("list_filter_list").isDisplayed());  
+		getElementById("show_filter_list").click();
+		Thread.sleep(700); 
+		assertFalse(getElementById("show_filter_list").isDisplayed()); 
+		assertTrue(getElementById("hide_filter_list").isDisplayed());
+		assertTrue(getElementById("list_filter_list").isDisplayed());
+	}
+	
+	private WebElement getElementById(String id) {
+		return driver.findElement(By.id(Ids.decorate("openxavatest", module, id)));
+	}
+
+	private void assertCustomizeCollection() throws Exception {
 		goModule("Carrier");
-		
 		// Original status		
 		assertListColumnCount(3);
 		assertLabelInList(0, "Calculated");
@@ -108,6 +136,7 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInCollection("fellowCarriers", 3, "Calculated");
 
 		// Customize the collection
+		showCustomizeControls("fellowCarriers");
 		moveColumn("fellowCarriers", 2, 3);
 		assertNoErrors();
 		assertCollectionColumnCount("fellowCarriers", 4);
@@ -153,6 +182,7 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInCollection("fellowCarriers", 4, "Warehouse"); // This is "Name of Warehouse" with label optimized 
 		 		
 		// Other customizations
+		showCustomizeControls("fellowCarriers");
 		moveColumn("fellowCarriers", 3, 4); 
 		assertLabelInCollection("fellowCarriers", 0, "Number");
 		assertLabelInCollection("fellowCarriers", 1, "Name");
@@ -168,8 +198,6 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInCollection("fellowCarriers", 3, "Warehouse"); // This is "Name of Warehouse" with label optimized
 		
 		// Changing column name
-		//Thread.sleep(1000); // tmr Para que funcione con Headless
-		//showCustomizeControls("fellowCarriers"); // tmr Para que funcione con Headless
 		execute("List.changeColumnName", "property=name,collection=fellowCarriers");
 		assertDialog();
 		assertValue("name", "Name");
@@ -258,7 +286,7 @@ public class ListTest extends WebDriverTestBase {
 	}
 
 	private void setConditionValues(String value) { // One argument by now, but we could evolution to String ... value 
-		driver.findElement(By.id("ox_openxavatest_Author__conditionValue___0")).sendKeys(value); 		
+		driver.findElement(By.id("ox_openxavatest_" + module + "__conditionValue___0")).sendKeys(value); 		
 	}
 
 	private void assertListColumnCount(int expectedColumnCount) {
@@ -295,29 +323,32 @@ public class ListTest extends WebDriverTestBase {
 		moveColumn("list", sourceColumn, targetColumn);
 	}
 	
+	private void showCustomizeControls() {
+		showCustomizeControls("list");
+	}
+	
 	private void showCustomizeControls(String collection) {
 		driver.findElement(By.id("ox_openxavatest_" + module + "__customize_" + collection)).click();
 	}
 	
-	private void moveColumn(String collection, int sourceColumn, int targetColumn) {
-		showCustomizeControls(collection);
-		driver.findElement(By.id("ox_openxavatest_" + module + "__customize_" + collection)).click();
+	private void moveColumn(String collection, int sourceColumn, int targetColumn) throws Exception {
 		WebElement handle = getHeader(collection, sourceColumn).findElement(By.className("xava_handle")); 
 		String classTargetPoint = sourceColumn > targetColumn?"xava_handle":"mdi-rename-box";
 		WebElement targetPoint = getHeader(collection, targetColumn).findElement(By.className(classTargetPoint));
 		Actions actions = new org.openqa.selenium.interactions.Actions(driver);
 		actions.dragAndDrop(handle, targetPoint).build().perform();
+		wait(driver);
 	}
 	
-	private void removeColumn(String collection, int columnIndex) {
-		driver.findElement(By.id("ox_openxavatest_" + module + "__customize_" + collection)).click();
+	private void removeColumn(String collection, int columnIndex) throws Exception {
 		WebElement removeButton = getHeader(collection, columnIndex).findElement(By.className("mdi-close-circle"));
 		removeButton.click();
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(1000));
 		wait.until(ExpectedConditions.invisibilityOf(removeButton));
+		wait(driver);
 	}
 
-	private void removeColumn(int columnIndex) {
+	private void removeColumn(int columnIndex) throws Exception {
 		removeColumn("list", columnIndex);
 	}
 

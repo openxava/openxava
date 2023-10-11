@@ -65,7 +65,6 @@ abstract public class CustomizeListTestBase extends ModuleTestBase {
 		HtmlElement header = table.getRow(0).getCell(index + 2);
 		HtmlElement icon = header.getElementsByAttribute("i", "class", "mdi mdi-close-circle").get(0);
 		HtmlElement removeLink = icon.getEnclosingElement("a");
-		System.out.println("[CustomizeListTestBase.removeColumn] getHrefAttribute(removeLink)=" + getHrefAttribute(removeLink)); // tmr
 		getHtmlPage().executeJavaScript(getHrefAttribute(removeLink)); // Because removeLink.click() does not work with HtmlUnit 2.70
 		Thread.sleep(800); 
 	}

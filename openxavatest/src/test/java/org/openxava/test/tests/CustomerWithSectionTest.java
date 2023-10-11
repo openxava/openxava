@@ -560,6 +560,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertLabel("alternateSeller", "Secondary seller");
 	}
 	
+	/* tmr Movido a ListTest
 	public void testShowHideFilterInList() throws Exception { 
 		getWebClient().getOptions().setCssEnabled(true); 
 		reload(); 
@@ -570,13 +571,14 @@ public class CustomerWithSectionTest extends CustomerTest {
 		Thread.sleep(700); 
 		assertTrue(getElementById("show_filter_list").isDisplayed());
 		assertFalse(getElementById("hide_filter_list").isDisplayed());
-		assertFalse(getElementById("list_filter_list").isDisplayed()); // TMR FALLA ME QUEDÉ POR AQUÍ, PARA EMPEZAR A VERLO
+		assertFalse(getElementById("list_filter_list").isDisplayed());  
 		getElementById("show_filter_list").click();
 		Thread.sleep(700); 
 		assertFalse(getElementById("show_filter_list").isDisplayed()); 
 		assertTrue(getElementById("hide_filter_list").isDisplayed());
 		assertTrue(getElementById("list_filter_list").isDisplayed());
 	}
+	*/
 	
 	private boolean hasElementById(String elementId) { // Copied from ModuleTestBase because we don't want to promote the direct HTML manipulation  
 		try {
@@ -593,7 +595,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 	
 	public void testCustomizeList() throws Exception { 
-		doTestCustomizeList_moveAndRemove(); // TMR FALLA
+		doTestCustomizeList_moveAndRemove(); // TMR ME QUEDÉ POR AQUÍ, PARA EMPEZAR A PROBARLO
 		resetModule(); 
 		doTestCustomizeList_generatePDF(); 
 		resetModule(); 
