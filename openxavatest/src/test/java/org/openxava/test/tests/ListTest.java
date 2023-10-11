@@ -18,16 +18,18 @@ import org.openxava.web.*;
  */
 public class ListTest extends WebDriverTestBase {
 	
+	private final static String ACTION_PREFIX = "action";
+	
 	private WebDriver driver;
 	private String module; 
 
 	public void setUp() throws Exception {
-		setHeadless(true);
+		// tmr setHeadless(true);
 	    driver = createWebDriver();
 	}
 	
 	public void tearDown() throws Exception {
-		driver.quit();
+		// tmr driver.quit();
 	}
 	
 	public void testListAndCollection() throws Exception {
@@ -40,7 +42,7 @@ public class ListTest extends WebDriverTestBase {
 		goModule("Carrier");
 		assertCustomizeCollection();
 	}
-	
+		
 	private void assertNoFilterInCollectionByDefault() throws Exception {
 		execute("CRUD.new");		
 		assertCollectionFilterNotDisplayed();
@@ -239,6 +241,198 @@ public class ListTest extends WebDriverTestBase {
 		execute("AddColumns.cancel");
 		assertValue("name", "UNO"); // In detail mode
 	}
+	
+	public void testCustomizeList() throws Exception {
+		goModule("CustomerWithSection");
+		doTestCustomizeList_moveAndRemove(); 
+		/* tmr
+		resetModule(); 
+		doTestCustomizeList_generatePDF(); 
+		resetModule(); 
+		doTestRestoreColumns_addRemoveTabColumnsDynamically();
+		*/
+	}
+	
+	private void doTestCustomizeList_moveAndRemove() throws Exception {
+		String [] listActions = {
+			"Print.generatePdf",
+			"Print.generateExcel",
+			"ImportData.importData", 
+			"ExtendedPrint.myReports",
+			"CRUD.new",
+			"CRUD.deleteSelected",
+			"CRUD.deleteRow", 
+			"List.addColumns",
+			"List.filter",
+			"List.orderBy",
+			"List.viewDetail",
+			"List.hideRows",
+			"List.changeColumnName", 
+			"ListFormat.select",
+			"EmailNotifications.subscribe",
+			"Customer.hideSellerInList",
+			"Customer.showSellerInList",
+			"Customer.startRefisher",
+			"Customer.stopRefisher",	
+			"Customer.disableAddress",
+			"Customer.filterBySellerOne"
+		};
+		
+		assertActions(listActions); 
+		assertListColumnCount(7);
+		assertLabelInList(0, "Name");
+		assertLabelInList(1, "Type");
+		assertLabelInList(2, "Seller");
+		assertLabelInList(3, "Address city");
+		assertLabelInList(4, "Seller level");
+		assertLabelInList(5, "Address state");
+		assertLabelInList(6, "Web site");
+		/* TMR ME QUEDÉ POR AQUÍ, TRADUCIENDO
+		assertTrue("It is needed customers for execute this test", getListRowCount() > 1);
+		String name = getValueInList(0, 0);
+		String type = getValueInList(0, 1);
+		String seller = getValueInList(0, 2);
+		String city = getValueInList(0, 3);
+		String sellerLevel = getValueInList(0, 4);
+		String state = getValueInList(0, 5);
+		String site = getValueInList(0, 6);
+		
+		// move 0 to 2
+		moveColumnNoDragAndDrop(0, 2); 
+		assertNoErrors();
+		assertListColumnCount(7);
+		assertLabelInList(0, "Type");
+		assertLabelInList(1, "Seller");
+		assertLabelInList(2, "Name");
+		assertLabelInList(3, "Address city");
+		assertLabelInList(4, "Seller level");
+		assertLabelInList(5, "Address state");
+		assertLabelInList(6, "Web site");		
+		assertValueInList(0, 0, type);
+		assertValueInList(0, 1, seller);
+		assertValueInList(0, 2, name);
+		assertValueInList(0, 3, city);
+		assertValueInList(0, 4, sellerLevel);						
+		assertValueInList(0, 5, state);
+		assertValueInList(0, 6, site);		
+		
+		// move 2 to 4
+		moveColumnNoDragAndDrop(2, 4); 
+		assertNoErrors();
+		assertListColumnCount(7);
+		assertLabelInList(0, "Type");
+		assertLabelInList(1, "Seller");		
+		assertLabelInList(2, "Address city");
+		assertLabelInList(3, "Seller level");
+		assertLabelInList(4, "Name");
+		assertLabelInList(5, "Address state");
+		assertLabelInList(6, "Web site");
+		assertValueInList(0, 0, type);
+		assertValueInList(0, 1, seller);
+		assertValueInList(0, 2, city);
+		assertValueInList(0, 3, sellerLevel);
+		assertValueInList(0, 4, name);
+		assertValueInList(0, 5, state);		
+		assertValueInList(0, 6, site);		
+		
+		// remove column 3
+		removeColumn(3); 
+		assertNoErrors();
+		assertListColumnCount(6);
+		assertLabelInList(0, "Type");
+		assertLabelInList(1, "Seller");		
+		assertLabelInList(2, "Address city");		
+		assertLabelInList(3, "Name");
+		assertLabelInList(4, "Address state");
+		assertLabelInList(5, "Web site");
+		assertValueInList(0, 0, type);
+		assertValueInList(0, 1, seller);
+		assertValueInList(0, 2, city);
+		assertValueInList(0, 3, name);
+		assertValueInList(0, 4, state);
+		assertValueInList(0, 5, site);		
+						
+		assertActions(listActions);
+		*/
+	}
+	
+	private void doTestCustomizeList_generatePDF() throws Exception {
+		/* tmr
+		// Trusts in that testCustomizeList_moveAndRemove is executed before
+		assertListColumnCount(6);
+		assertLabelInList(0, "Type");
+		assertLabelInList(1, "Seller");		
+		assertLabelInList(2, "Address city");		
+		assertLabelInList(3, "Name");
+		assertLabelInList(4, "Address state");
+		assertLabelInList(5, "Web site");
+		removeColumn(3); 
+		assertNoErrors();
+		assertListColumnCount(5);		
+		execute("Print.generatePdf"); 
+		assertContentTypeForPopup("application/pdf");
+		*/		
+	}
+	
+	private void doTestRestoreColumns_addRemoveTabColumnsDynamically() throws Exception {
+		/* tmr
+		// Restoring initial tab setup
+		execute("List.addColumns");							
+		execute("AddColumns.restoreDefault");		
+		// End restoring
+		
+		assertListColumnCount(7);
+		assertLabelInList(0, "Name");
+		assertLabelInList(1, "Type");
+		assertLabelInList(2, "Seller");
+		assertLabelInList(3, "Address city");
+		assertLabelInList(4, "Seller level");
+		assertLabelInList(5, "Address state"); 
+		assertLabelInList(6, "Web site");
+		assertTrue("Must to have customers for run this test", getListRowCount() > 1);
+		String name = getValueInList(0, 0);
+		String type = getValueInList(0, 1);
+		String seller = getValueInList(0, 2);
+		String city = getValueInList(0, 3);
+		String sellerLevel = getValueInList(0, 4);
+		String state = getValueInList(0, 5); 
+		String site = getValueInList(0, 6);
+		
+		execute("Customer.hideSellerInList");
+		assertNoErrors();
+		assertListColumnCount(6);
+		assertLabelInList(0, "Name");
+		assertLabelInList(1, "Type");
+		assertLabelInList(2, "Address city");
+		assertLabelInList(3, "Seller level");
+		assertLabelInList(4, "Address state"); 
+		assertLabelInList(5, "Web site");
+		assertValueInList(0, 0, name);
+		assertValueInList(0, 1, type);
+		assertValueInList(0, 2, city);
+		assertValueInList(0, 3, sellerLevel);
+		assertValueInList(0, 4, state); 
+		assertValueInList(0, 5, site);
+		
+		execute("Customer.showSellerInList");
+		assertNoErrors();
+		assertListColumnCount(7);
+		assertLabelInList(0, "Name");
+		assertLabelInList(1, "Type");
+		assertLabelInList(2, "Seller");		
+		assertLabelInList(3, "Address city");
+		assertLabelInList(4, "Seller level");
+		assertLabelInList(5, "Address state"); 
+		assertLabelInList(6, "Web site");
+		assertValueInList(0, 0, name);
+		assertValueInList(0, 1, type);
+		assertValueInList(0, 2, seller);
+		assertValueInList(0, 3, city);
+		assertValueInList(0, 4, sellerLevel);
+		assertValueInList(0, 5, state); 
+		assertValueInList(0, 6, site);
+		*/
+	}
 
 	private void assertValue(String name, String value) {
 		assertEquals(XavaResources.getString("unexpected_value", name), value, getValue(name));		
@@ -294,8 +488,16 @@ public class ListTest extends WebDriverTestBase {
 	}
 	
 	private void assertCollectionColumnCount(String collection, int expectedColumnCount) {
+		assertEquals(expectedColumnCount, getCollectionColumnCount(collection));
+	}
+	
+	private int getListColumnCount() {
+		return getCollectionColumnCount("list");
+	}
+	
+	private int getCollectionColumnCount(String collection) {
 		int columnCount = getTable(collection).findElement(By.tagName("tr")).findElements(By.tagName("th")).size();
-		assertEquals(expectedColumnCount, columnCount - 2);
+		return columnCount - 2;
 	}
 
 	private void assertListRowCount(int expectedRowCount) {
@@ -408,5 +610,47 @@ public class ListTest extends WebDriverTestBase {
 		if (level == 0) return null;
 		return "dialog" + level;		
 	}
+	
+	protected void assertActions(String [] expectedActions) throws Exception {
+		Collection<String> actionsInForm = getActions();		
+		Collection<String> left = new ArrayList();		
+		for (int i = 0; i < expectedActions.length; i++) {
+			String expectedAction = expectedActions[i];
+			if (actionsInForm.contains(expectedAction)) {
+				actionsInForm.remove(expectedAction);
+			}
+			else {
+				left.add(expectedAction);
+			}
+		}			
+
+		if (!left.isEmpty()) {
+			fail(XavaResources.getString("actions_expected", left));
+		}
+		if (!actionsInForm.isEmpty()) {
+			fail(XavaResources.getString("actions_not_expected", actionsInForm));
+		}
+	} 
+	
+	private Collection<String> getActions() throws Exception { 
+		String dialog = getTopDialog();
+		if (dialog == null) return getActions(getElementById("core"));
+		return getActions(getElementById(dialog));		
+	}	
+	
+	private Collection<String> getActions(WebElement el) { 		
+		Collection<WebElement> hiddens = driver.findElements(By.cssSelector("input[type='hidden']"));
+		Set actions = new HashSet();		
+		for (WebElement input: hiddens) {
+			if (!input.getAttribute("name").startsWith(Ids.decorate("openxavatest", module, ACTION_PREFIX))) continue;
+			String actionName = removeActionPrefix(input.getAttribute("name"));
+			actions.add(removeActionPrefix(input.getAttribute("name")));
+		}	
+		return actions;				
+	}
 		
+	private String removeActionPrefix(String action) {
+		String bareAction = Ids.undecorate(action);
+		return bareAction.substring(ACTION_PREFIX.length() + 1);
+	}
 }

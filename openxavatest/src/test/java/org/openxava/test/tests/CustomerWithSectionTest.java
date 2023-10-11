@@ -54,7 +54,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		"List.filter",
 		"List.orderBy",
 		"List.viewDetail",
-		"List.customize", // It does not exist since 5.2, we put here to verify that ModuleTestBase ignore it 
+		"List.customize", // It does not exist since 5.2, we put here to verify that ModuleTestBase ignore it // TMR MOVER ESTO A OTRO TEST
 		"List.hideRows",
 		"List.changeColumnName", 
 		"ListFormat.select",
@@ -595,7 +595,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 	
 	public void testCustomizeList() throws Exception { 
-		doTestCustomizeList_moveAndRemove(); // TMR ME QUEDÉ POR AQUÍ, PARA EMPEZAR A PROBARLO
+		doTestCustomizeList_moveAndRemove(); // TMR FALLA
 		resetModule(); 
 		doTestCustomizeList_generatePDF(); 
 		resetModule(); 
