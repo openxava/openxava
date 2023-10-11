@@ -208,6 +208,4 @@ openxava.addEditorInitFunction(function() {
 
     }
 
-
-
 });
