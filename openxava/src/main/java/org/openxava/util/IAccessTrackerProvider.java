@@ -22,5 +22,8 @@ public interface IAccessTrackerProvider {
 	void modified(String modelName, Map key, Map<String, Object> oldChangedValues, Map<String, Object> newChangedValues);
 	
 	void removed(String modelName, Map key);
+	
+	default void executed(String modelName, Map key, String qualifiedActionName) { // tmr ¿Implementarlo en las de OpenXava?		
+	}
 
 }
