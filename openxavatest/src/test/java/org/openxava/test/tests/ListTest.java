@@ -44,6 +44,7 @@ public class ListTest extends WebDriverTestBase {
 		
 		goModule("CustomerWithSection");
 		assertCustomizeList();
+		assertCustomizeList_addAndResetModule();
 	}
 		
 	private void assertNoFilterInCollectionByDefault() throws Exception {
@@ -244,6 +245,25 @@ public class ListTest extends WebDriverTestBase {
 		execute("AddColumns.cancel");
 		assertValue("name", "UNO"); // In detail mode
 	}
+	
+	private void assertCustomizeList_addAndResetModule() throws Exception {
+		assertListColumnCount(7); 
+		String value = getValueInList(0, 0);
+		showCustomizeControls();
+		execute("List.addColumns");		
+		checkRow("selectedProperties", "number"); 		
+		execute("AddColumns.addColumns");
+		assertListColumnCount(8);
+		assertValueInList(0, 0, value);
+				
+		resetModule();
+		assertListColumnCount(8); 
+		assertValueInList(0, 0, value);
+		
+		showCustomizeControls();
+		removeColumn(7); 
+		assertListColumnCount(7); 
+	}	
 	
 	private void assertCustomizeList() throws Exception {
 		doTestCustomizeList_moveAndRemove(); 

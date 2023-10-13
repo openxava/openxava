@@ -758,6 +758,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 	*/
 	
+	/* tmr Movido a ListTest
 	public void testCustomizeList_addAndResetModule() throws Exception {   
 		assertListColumnCount(7); 
 		String value = getValueInList(0, 0);
@@ -772,8 +773,9 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInList(0, 0, value);
 		
 		removeColumn(7); 
-		assertListColumnCount(7); // TMR FALLA ME QUEDÉ POR AQUÍ, PARA EMPEZAR A PROBAR
+		assertListColumnCount(7); 
 	}	
+	*/
 	
 	public void testRowStyle() throws Exception {
 		int c = getListRowCount();
