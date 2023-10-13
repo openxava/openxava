@@ -216,7 +216,6 @@ public class CalendarTest extends WebDriverTestBase {
 		}
 
 		List<WebElement> spanElements = driver
-			// The selected to in class to work with Windows 7 and Linux, maybe it's for a performance problem	
 			.findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day ' and text()='2']"));
 		
 		if (!spanElements.isEmpty()) {
