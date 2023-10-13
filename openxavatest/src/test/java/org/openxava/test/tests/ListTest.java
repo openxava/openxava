@@ -29,7 +29,7 @@ public class ListTest extends WebDriverTestBase {
 	}
 	
 	public void tearDown() throws Exception {
-		// tmr driver.quit();
+		driver.quit();
 	}
 	
 	public void testListAndCollection() throws Exception {
@@ -41,6 +41,9 @@ public class ListTest extends WebDriverTestBase {
 		
 		goModule("Carrier");
 		assertCustomizeCollection();
+		
+		goModule("CustomerWithSection");
+		assertCustomizeList();
 	}
 		
 	private void assertNoFilterInCollectionByDefault() throws Exception {
@@ -242,15 +245,12 @@ public class ListTest extends WebDriverTestBase {
 		assertValue("name", "UNO"); // In detail mode
 	}
 	
-	public void testCustomizeList() throws Exception {
-		goModule("CustomerWithSection");
+	private void assertCustomizeList() throws Exception {
 		doTestCustomizeList_moveAndRemove(); 
-		/* tmr
 		resetModule(); 
-		doTestCustomizeList_generatePDF(); 
+		doTestCustomizeList_generatePDF();
 		resetModule(); 
 		doTestRestoreColumns_addRemoveTabColumnsDynamically();
-		*/
 	}
 	
 	private void doTestCustomizeList_moveAndRemove() throws Exception {
@@ -287,7 +287,7 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInList(4, "Seller level");
 		assertLabelInList(5, "Address state");
 		assertLabelInList(6, "Web site");
-		/* TMR ME QUEDÉ POR AQUÍ, TRADUCIENDO
+		 
 		assertTrue("It is needed customers for execute this test", getListRowCount() > 1);
 		String name = getValueInList(0, 0);
 		String type = getValueInList(0, 1);
@@ -298,7 +298,8 @@ public class ListTest extends WebDriverTestBase {
 		String site = getValueInList(0, 6);
 		
 		// move 0 to 2
-		moveColumnNoDragAndDrop(0, 2); 
+		showCustomizeControls();
+		moveColumn(0, 2);
 		assertNoErrors();
 		assertListColumnCount(7);
 		assertLabelInList(0, "Type");
@@ -317,7 +318,7 @@ public class ListTest extends WebDriverTestBase {
 		assertValueInList(0, 6, site);		
 		
 		// move 2 to 4
-		moveColumnNoDragAndDrop(2, 4); 
+		moveColumn(2, 4); 
 		assertNoErrors();
 		assertListColumnCount(7);
 		assertLabelInList(0, "Type");
@@ -353,11 +354,9 @@ public class ListTest extends WebDriverTestBase {
 		assertValueInList(0, 5, site);		
 						
 		assertActions(listActions);
-		*/
 	}
 	
 	private void doTestCustomizeList_generatePDF() throws Exception {
-		/* tmr
 		// Trusts in that testCustomizeList_moveAndRemove is executed before
 		assertListColumnCount(6);
 		assertLabelInList(0, "Type");
@@ -366,17 +365,17 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInList(3, "Name");
 		assertLabelInList(4, "Address state");
 		assertLabelInList(5, "Web site");
+		showCustomizeControls();
 		removeColumn(3); 
 		assertNoErrors();
 		assertListColumnCount(5);		
 		execute("Print.generatePdf"); 
 		assertContentTypeForPopup("application/pdf");
-		*/		
 	}
 	
 	private void doTestRestoreColumns_addRemoveTabColumnsDynamically() throws Exception {
-		/* tmr
 		// Restoring initial tab setup
+		showCustomizeControls();
 		execute("List.addColumns");							
 		execute("AddColumns.restoreDefault");		
 		// End restoring
@@ -431,7 +430,6 @@ public class ListTest extends WebDriverTestBase {
 		assertValueInList(0, 4, sellerLevel);
 		assertValueInList(0, 5, state); 
 		assertValueInList(0, 6, site);
-		*/
 	}
 
 	private void assertValue(String name, String value) {
@@ -491,24 +489,27 @@ public class ListTest extends WebDriverTestBase {
 		assertEquals(expectedColumnCount, getCollectionColumnCount(collection));
 	}
 	
-	private int getListColumnCount() {
-		return getCollectionColumnCount("list");
-	}
-	
 	private int getCollectionColumnCount(String collection) {
 		int columnCount = getTable(collection).findElement(By.tagName("tr")).findElements(By.tagName("th")).size();
 		return columnCount - 2;
 	}
 
 	private void assertListRowCount(int expectedRowCount) {
-		assertCollectionRowCount("list", expectedRowCount + 2);
+		assertEquals(expectedRowCount, getListRowCount());
 	}
 	
 	private void assertCollectionRowCount(String collection, int expectedRowCount) {
-		int rowCount = getTable(collection).findElements(By.tagName("tr")).size();
-		assertEquals(expectedRowCount, rowCount - 1);
+		assertEquals(expectedRowCount, getCollectionRowCount(collection));
+	}
+	
+	private int getListRowCount() {
+		return getCollectionRowCount("list") - 2;
 	}
 
+	private int getCollectionRowCount(String collection) {
+		int rowCount = getTable(collection).findElements(By.tagName("tr")).size();
+		return rowCount - 1;
+	}
 	
 	private WebElement getTable(String collection) {
 		return driver.findElement(By.id("ox_openxavatest_" + module + "__" + collection));
@@ -563,9 +564,20 @@ public class ListTest extends WebDriverTestBase {
 		assertEquals(expectedLabel, label);
 	}
 	
+	private void assertValueInList(int row, int column, String expectedValue) {
+		assertEquals(expectedValue, getValueInList(row, column));				
+	}
+	
 	private void assertValueInCollection(String collection, int row, int column, String expectedValue) {
-		String value = getCell(collection, row + 1, column).getText().trim();
-		assertEquals(expectedValue, value);				
+		assertEquals(expectedValue, getValueInCollection(collection, row, column));				
+	}
+	
+	private String getValueInList(int row, int column) {
+		return getValueInCollection("list", row + 1, column);
+	}
+	
+	private String getValueInCollection(String collection, int row, int column) {
+		return getCell(collection, row + 1, column).getText().trim();
 	}
 		
 	private WebElement getHeader(String collection, int column) {
@@ -653,4 +665,13 @@ public class ListTest extends WebDriverTestBase {
 		String bareAction = Ids.undecorate(action);
 		return bareAction.substring(ACTION_PREFIX.length() + 1);
 	}
+	
+	private void assertContentTypeForPopup(String expectedContentType) {
+		for (String windowHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(windowHandle);
+        }
+		String contentType = driver.findElement(By.tagName("embed")).getAttribute("type"); // This works for PDF with Chrome
+		assertEquals(expectedContentType, contentType);
+	}
+
 }

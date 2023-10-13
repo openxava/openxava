@@ -42,7 +42,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 
 	}
 
-
+	/* tmr No necesario porque usado en test movidos a ListTest
 	private String [] listActions = {
 		"Print.generatePdf",
 		"Print.generateExcel",
@@ -54,7 +54,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		"List.filter",
 		"List.orderBy",
 		"List.viewDetail",
-		"List.customize", // It does not exist since 5.2, we put here to verify that ModuleTestBase ignore it // TMR MOVER ESTO A OTRO TEST
+		"List.customize", // It does not exist since 5.2, we put here to verify that ModuleTestBase ignore it 
 		"List.hideRows",
 		"List.changeColumnName", 
 		"ListFormat.select",
@@ -65,6 +65,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		"Customer.disableAddress",
 		"Customer.filterBySellerOne" 
 	};
+	*/
 
 	public CustomerWithSectionTest(String testName) { 
 		super(testName, "CustomerWithSection", true);		
@@ -594,8 +595,9 @@ public class CustomerWithSectionTest extends CustomerTest {
 		return getHtmlPage().getHtmlElementById(decorateId(id));
 	}
 	
+	/* tmr Movido a ListTest
 	public void testCustomizeList() throws Exception { 
-		doTestCustomizeList_moveAndRemove(); // TMR FALLA
+		doTestCustomizeList_moveAndRemove(); 
 		resetModule(); 
 		doTestCustomizeList_generatePDF(); 
 		resetModule(); 
@@ -754,6 +756,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInList(0, 5, state); 
 		assertValueInList(0, 6, site);
 	}
+	*/
 	
 	public void testCustomizeList_addAndResetModule() throws Exception {   
 		assertListColumnCount(7); 
@@ -769,7 +772,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInList(0, 0, value);
 		
 		removeColumn(7); 
-		assertListColumnCount(7); // TMR FALLA
+		assertListColumnCount(7); // TMR FALLA ME QUEDÉ POR AQUÍ, PARA EMPEZAR A PROBAR
 	}	
 	
 	public void testRowStyle() throws Exception {
