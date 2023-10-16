@@ -183,6 +183,7 @@ public class HumanTest extends ModuleTestBase {
 		return (HtmlAnchor) HtmlUnitUtils.getAnchor(getHtmlPage(), href);
 	}
 	
+	/* tmr Movido a ListTest
 	public void testEnableDisableCustomizeList() throws Exception { 
 		getWebClient().getOptions().setCssEnabled(true);
 		reload(); 
@@ -207,11 +208,12 @@ public class HumanTest extends ModuleTestBase {
 		assertTrue(removeColumn1.isDisplayed());		
 		customize.click();
 		Thread.sleep(3000); // It needs time to fade out 
-		assertFalse(addColumns.isDisplayed()); // TMR FALLA ME QUEDÉ POR AQUÍ, PARA EMPEZAR A VERLO
+		assertFalse(addColumns.isDisplayed()); 
 		assertFalse(moveColumn0.isDisplayed());		
 		assertFalse(removeColumn0.isDisplayed());
 		assertFalse(moveColumn1.isDisplayed()); 
 		assertFalse(removeColumn1.isDisplayed());		
 	}
+	*/
 				
 }

@@ -20,7 +20,7 @@ abstract public class WebDriverTestBase extends TestCase {
 	protected WebDriver createWebDriver() {
 		ChromeOptions options = new ChromeOptions();
 	    options.addArguments("--remote-allow-origins=*");
-	    // tmr options.addArguments("--accept-lang=en");
+	    options.addArguments("--accept-lang=en");
 	    options.addArguments("--lang=en"); // tmr
 	    
 	    //Sometime needs set path and update manually chromedriver when chrome just been updated

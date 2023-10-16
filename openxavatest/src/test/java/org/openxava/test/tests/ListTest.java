@@ -40,6 +40,7 @@ public class ListTest extends WebDriverTestBase {
 		assertNoFilterInCollectionByDefault();
 		
 		goModule("Carrier");
+		assertEnableDisableCustomizeList();
 		assertCustomizeCollection();
 		
 		goModule("CustomerWithSection");
@@ -122,12 +123,40 @@ public class ListTest extends WebDriverTestBase {
 		assertTrue(getElementById("list_filter_list").isDisplayed());
 	}
 	
+	private void assertEnableDisableCustomizeList() throws Exception {
+		WebElement addColumns = driver.findElement(By.id("ox_openxavatest_Carrier__List___addColumns")); 
+		WebElement column0 = driver.findElement(By.id("ox_openxavatest_Carrier__list_col0"));		
+		WebElement moveColumn0 = column0.findElement(By.cssSelector("i[class='xava_handle mdi mdi-cursor-move ui-sortable-handle']"));
+		WebElement removeColumn0 = driver.findElement(By.cssSelector("a[onclicke=\"javascript:openxava.removeColumn('openxavatest', 'Carrier', 'ox_openxavatest_Carrier__list_col0', 'xava_tab')\"]"));
+		WebElement column1 = driver.findElement(By.id("ox_openxavatest_Carrier__list_col1"));
+		WebElement moveColumn1 = column1.findElement(By.cssSelector("i[class='xava_handle mdi mdi-cursor-move ui-sortable-handle']")); 
+		WebElement removeColumn1 = driver.findElement(By.cssSelector("a[onclicke=\"javascript:openxava.removeColumn('openxavatest', 'Carrier', 'ox_openxavatest_Carrier__list_col1', 'xava_tab')\"]"));
+		assertFalse(addColumns.isDisplayed());
+		assertFalse(moveColumn0.isDisplayed());		
+		assertFalse(removeColumn0.isDisplayed());
+		assertFalse(moveColumn1.isDisplayed());
+		assertFalse(removeColumn1.isDisplayed());		
+		WebElement customize = driver.findElement(By.id("ox_openxavatest_Carrier__customize_list")); 
+		customize.click();
+		assertTrue(addColumns.isDisplayed());
+		assertTrue(moveColumn0.isDisplayed());
+		assertTrue(removeColumn0.isDisplayed());
+		assertTrue(moveColumn1.isDisplayed());
+		assertTrue(removeColumn1.isDisplayed());		
+		customize.click();
+		Thread.sleep(3000); // It needs time to fade out 
+		assertFalse(addColumns.isDisplayed()); 
+		assertFalse(moveColumn0.isDisplayed());		
+		assertFalse(removeColumn0.isDisplayed());
+		assertFalse(moveColumn1.isDisplayed()); 
+		assertFalse(removeColumn1.isDisplayed());
+	}
+	
 	private WebElement getElementById(String id) {
 		return driver.findElement(By.id(Ids.decorate("openxavatest", module, id)));
 	}
 
 	private void assertCustomizeCollection() throws Exception {
-		goModule("Carrier");
 		// Original status		
 		assertListColumnCount(3);
 		assertLabelInList(0, "Calculated");
@@ -265,7 +294,7 @@ public class ListTest extends WebDriverTestBase {
 		assertListColumnCount(7); 
 	}	
 	
-	private void assertCustomizeList() throws Exception {
+	public void assertCustomizeList() throws Exception {
 		doTestCustomizeList_moveAndRemove(); 
 		resetModule(); 
 		doTestCustomizeList_generatePDF();
@@ -556,7 +585,7 @@ public class ListTest extends WebDriverTestBase {
 	
 	private void moveColumn(String collection, int sourceColumn, int targetColumn) throws Exception {
 		WebElement handle = getHeader(collection, sourceColumn).findElement(By.className("xava_handle")); 
-		String classTargetPoint = sourceColumn > targetColumn?"xava_handle":"mdi-rename-box";
+		String classTargetPoint = sourceColumn > targetColumn?"xava_handle":"mdi-close-circle"; 
 		WebElement targetPoint = getHeader(collection, targetColumn).findElement(By.className(classTargetPoint));
 		Actions actions = new org.openqa.selenium.interactions.Actions(driver);
 		actions.dragAndDrop(handle, targetPoint).build().perform();
@@ -690,6 +719,8 @@ public class ListTest extends WebDriverTestBase {
 		for (String windowHandle : driver.getWindowHandles()) {
             driver.switchTo().window(windowHandle);
         }
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(1000));
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("embed")));
 		String contentType = driver.findElement(By.tagName("embed")).getAttribute("type"); // This works for PDF with Chrome
 		assertEquals(expectedContentType, contentType);
 	}
