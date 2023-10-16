@@ -555,7 +555,7 @@ public class ModuleManager implements java.io.Serializable {
 			Messages errors, Messages messages, String propertyValues,
 			HttpServletRequest request) { 
 		try {
-			Object previousView = getContext().get(applicationName, moduleName,	"xava_view");
+			View previousView = (View) getContext().get(applicationName, moduleName,	"xava_view"); 
 			prepareAction(action, metaAction, errors, messages, propertyValues, request);
 			action.execute(); 
 			if (action instanceof IChangeModeAction) {
@@ -698,7 +698,7 @@ public class ModuleManager implements java.io.Serializable {
 			if (metaAction != null && !metaAction.isAfterEachRequest()) {   
 				lastExecutedMetaAction = metaAction;
 			}
-			trackAction(metaAction); // tmr
+			trackAction(metaAction, previousView); 
 			if (!(metaAction == null && executingAction)) { // For avoiding
 															// commit on
 															// OnChange actions
@@ -712,10 +712,12 @@ public class ModuleManager implements java.io.Serializable {
 		}
 	}
 	
-	private void trackAction(MetaAction metaAction ) { // tmr
+	private void trackAction(MetaAction metaAction, View view) { 
 		if (metaAction == null) return;
 		if (metaAction.isHidden()) return;
-		// tmr Mejor así que con un atributo en <action>, porque así no hacemos más compleja la API de OpenXava
+		// Better in this ad hoc way than using an attribute in <action>, because in this way
+		// we avoid to add more complexity to the OpenXava API, giving an automatic way to
+		// figure out the action to track. Until the ad hoc way will be not enough
 		String controllerName = metaAction.getMetaController().getName(); 
 		if (Is.anyEqual(controllerName,
 				"Navigation", "CRUD", "ConfigureImport", "SignIn",
@@ -741,7 +743,7 @@ public class ModuleManager implements java.io.Serializable {
 		if (actionName.contains("delete")) return;
 		if (actionName.contains("search")) return;
 		
-		AccessTracker.consulted(metaAction.getQualifiedName(), getView().getKeyValues());	
+		AccessTracker.executed(view.getModelName(), view.getKeyValues(), metaAction.getQualifiedName());	
 	}
 
 	private void prepareAction(IAction action, MetaAction metaAction, Messages errors, Messages messages,

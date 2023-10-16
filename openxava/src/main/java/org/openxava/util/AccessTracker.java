@@ -76,13 +76,13 @@ public class AccessTracker {
 	}
 	
 	/** @since 7.2 */
-	public static void executed(String modelName, Map key, String qualifiedActionName) { // tmr En changelog. Cambiar doc.
+	public static void executed(String modelName, Map key, String qualifiedActionName) { 
 		for (IAccessTrackerProvider tracker: getTrackers()) {
 			try {
 				tracker.executed(modelName, key, qualifiedActionName);
 			}
 			catch (Exception ex) {
-				log.warn(XavaResources.getString("access_tracker_failed", tracker.getClass(), "execution"), ex); // tmr ¿"execution" debe estar en i18n? 
+				log.warn(XavaResources.getString("access_tracker_failed", tracker.getClass(), "execution"), ex); 
 			}
 		}
 	}

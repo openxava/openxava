@@ -23,7 +23,8 @@ public interface IAccessTrackerProvider {
 	
 	void removed(String modelName, Map key);
 	
-	default void executed(String modelName, Map key, String qualifiedActionName) { // tmr ¿Implementarlo en las de OpenXava?		
+	/** @since 7.2 */
+	default void executed(String modelName, Map key, String qualifiedActionName) { 		
 	}
 
 }
