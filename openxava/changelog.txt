@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-- New method execute() in IAccessTrackerProvider so now action executions can be tracked too.
+- New method executed() in IAccessTrackerProvider so now action executions can be tracked too.
 - Tooltips for records shown in calendar list format.
 - Clicking in a time in day or week calendar view creates a new record with the date and time preset. 
 - Week and day views in calendar list format enabled if the entity has some property with date and time.
