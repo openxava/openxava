@@ -4,7 +4,7 @@ import org.htmlunit.html.*;
 import org.openxava.tests.*;
 
 /**
- * TMR FALLA
+ * 
  * @author Jeromy Altuna
  */
 public class HunterTest extends ModuleTestBase {
