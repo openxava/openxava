@@ -547,7 +547,7 @@ public class ListTest extends WebDriverTestBase {
 		return input.getAttribute("value");
 	}
 	
-	private void setValue(String name, String value) {
+	private void setValue(String name, String value) { // tmr Duplicada con DescriptionsListTest
 		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
 		input.clear();
 		input.sendKeys(value);	
@@ -559,7 +559,7 @@ public class ListTest extends WebDriverTestBase {
 		assertTrue(XavaResources.getString("action_found_in_ui", action), driver.findElements(By.name(name)).isEmpty());
 	}
 
-	private void assertNoErrors() {
+	private void assertNoErrors() { // tmr Duplicado con DescriptionsListTest
 		WebElement errors = driver.findElement(By.id("ox_openxavatest_" + module + "__errors"));
 		assertEquals(XavaResources.getString("unexpected_messages", "Errors"), "", errors.getText());
 	}
@@ -579,7 +579,7 @@ public class ListTest extends WebDriverTestBase {
 		execute(driver, module, action);
 	}
 	
-	private void execute(String action, String arguments) throws Exception {
+	private void execute(String action, String arguments) throws Exception { // tmr Duplicado con DescriptionsListTest
 		execute(driver, module, action, arguments);
 	}
 
@@ -670,7 +670,7 @@ public class ListTest extends WebDriverTestBase {
 		assertEquals(expectedLabel, label);
 	}
 	
-	private void assertValueInList(int row, int column, String expectedValue) {
+	private void assertValueInList(int row, int column, String expectedValue) { 
 		assertEquals(expectedValue, getValueInList(row, column));				
 	}
 	

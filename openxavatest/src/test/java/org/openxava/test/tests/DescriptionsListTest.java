@@ -1,6 +1,10 @@
 package org.openxava.test.tests;
 
+import java.util.*;
+
 import org.openqa.selenium.*;
+import org.openxava.util.*;
+import org.openxava.web.*;
 
 /**
  * To test @DescriptionsList related issue with Selenium.
@@ -52,34 +56,38 @@ public class DescriptionsListTest extends WebDriverTestBase {
 
 		WebElement familyTextField = familyEditor.findElement(By.className("ui-autocomplete-input"));
 		assertEquals("HARDWARE", familyTextField.getAttribute("value"));
-		familyTextField.clear(); 
-		assertEquals("", familyTextField.getAttribute("value")); 
-		familyTextField.sendKeys("ware"); // TMR ME QUEDÉ POR AQUÍ: PIERDE EL FOCO
-		/*
+		familyTextField.sendKeys(Keys.CONTROL + "a");
+		familyTextField.sendKeys("\b");
+		familyTextField.clear();		
+		assertEquals("", familyTextField.getAttribute("value"));
+		
+		familyTextField.sendKeys("ware"); 
 		assertEquals("ware", familyTextField.getAttribute("value"));
 		Thread.sleep(700); 
 		assertTrue(familyList.isDisplayed()); 
 		assertFalse(openFamilyListIcon.isDisplayed());
 		assertTrue(closeFamilyListIcon.isDisplayed());
-
+		
 		List<WebElement> familyListChildren = familyList.findElements(By.tagName("li")); 
 		assertEquals(2, familyListChildren.size()); 
 		assertEquals("SOFTWARÉ", familyListChildren.get(0).getText()); 
 		assertEquals("HARDWARE", familyListChildren.get(1).getText());
-		((HtmlElement) familyList.getFirstChild()).click(); // SOFTWARE
-		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		HtmlElement subfamilyEditor = getHtmlPage().getHtmlElementById("ox_openxavatest_Product2__reference_editor_subfamily");
-		HtmlElement openSubfamilyListIcon = subfamilyEditor.getOneHtmlElementByAttribute("i", "class", "mdi mdi-menu-down");
-		openSubfamilyListIcon.click();
-		HtmlElement subfamilyList = getHtmlPage().getHtmlElementById("ui-id-9");
-		assertTrue(subfamilyList.isDisplayed());
-		assertEquals(3, subfamilyList.getChildElementCount());
-		assertEquals("DESARROLLO", subfamilyList.getFirstChild().asNormalizedText()); // TMR FALLA
-		assertEquals("SISTEMA", subfamilyList.getLastChild().asNormalizedText());	
 		
-		((HtmlElement) subfamilyList.getFirstChild()).click(); // DESARROLLO
-		HtmlInput subfamilyTextField = subfamilyEditor.getOneHtmlElementByAttribute("input", "class", "xava_select editor ui-autocomplete-input");
-		assertEquals("DESARROLLO", subfamilyTextField.getValue()); 
+		familyListChildren.get(0).click(); // SOFTWARE
+		wait(driver);
+		WebElement subfamilyEditor = driver.findElement(By.id("ox_openxavatest_Product2__reference_editor_subfamily"));
+		WebElement openSubfamilyListIcon = subfamilyEditor.findElement(By.className("mdi-menu-down"));
+		openSubfamilyListIcon.click();
+		WebElement subfamilyList = driver.findElement(By.id("ui-id-9"));
+		assertTrue(subfamilyList.isDisplayed());
+		List<WebElement> subfamilyListChildren = subfamilyList.findElements(By.tagName("li")); 
+		assertEquals(3, subfamilyListChildren.size());
+		assertEquals("DESARROLLO", subfamilyListChildren.get(0).getText()); 
+		assertEquals("SISTEMA", subfamilyListChildren.get(2).getText());	
+		
+		subfamilyListChildren.get(0).click(); // DESARROLLO
+		WebElement subfamilyTextField = subfamilyEditor.findElement(By.className("ui-autocomplete-input"));
+		assertEquals("DESARROLLO", subfamilyTextField.getAttribute("value")); 
 
 		setValue("number", "66");
 		setValue("description", "JUNIT PRODUCT");
@@ -89,6 +97,8 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		execute("Mode.list");
 		execute("List.orderBy", "property=number");
 		execute("List.orderBy", "property=number");
+		// TMR ME QUEDÉ POR AQUÍ, TRADUCIENDO
+		/*
 		assertValueInList(0, "number", "66"); 
 		assertValueInList(0, "description", "JUNIT PRODUCT");
 		assertValueInList(0, "family.description", "SOFTWARÉ"); 
@@ -140,6 +150,22 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		// tmr setFamilyDescription(1, "SOFTWARE"); 
 		// tmr removeWarehouseWithQuote(); 
 		*/
+	}
+	
+	private void execute(String action, String arguments) throws Exception { // tmr Duplicado con DescriptionsListTest
+		execute(driver, module, action, arguments);
+	}
+	
+	private void assertNoErrors() { // tmr Duplicado con DescriptionsListTest
+		WebElement errors = driver.findElement(By.id("ox_openxavatest_" + module + "__errors"));
+		assertEquals(XavaResources.getString("unexpected_messages", "Errors"), "", errors.getText());
+	}
+
+	
+	private void setValue(String name, String value) { // tmr Duplicada con ListTest
+		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
+		input.clear();
+		input.sendKeys(value);	
 	}
 	
 	private void execute(String action) throws Exception { // tmr Duplicado con ListTest
