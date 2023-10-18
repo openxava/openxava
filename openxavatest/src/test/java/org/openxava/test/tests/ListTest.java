@@ -46,6 +46,9 @@ public class ListTest extends WebDriverTestBase {
 		goModule("CustomerWithSection");
 		assertCustomizeList();
 		assertCustomizeList_addAndResetModule();
+		
+		goModule("Invoice");
+		assertRemoveSeveralColumns();
 	}
 		
 	private void assertNoFilterInCollectionByDefault() throws Exception {
@@ -292,7 +295,61 @@ public class ListTest extends WebDriverTestBase {
 		showCustomizeControls();
 		removeColumn(7); 
 		assertListColumnCount(7); 
-	}	
+	}
+	
+	public void assertRemoveSeveralColumns() throws Exception {
+		assertListColumnCount(8); 
+		assertLabelInList(0, "Year");
+		assertLabelInList(1, "Number");
+		assertLabelInList(2, "Date");
+		assertLabelInList(3, "Amounts sum");
+		assertLabelInList(4, "V.A.T.");
+		assertLabelInList(5, "Details count");
+		assertLabelInList(6, "Paid");
+		assertLabelInList(7, "Importance");
+
+		showCustomizeControls();
+		removeColumn(2);
+		assertListColumnCount(7); 
+		assertLabelInList(0, "Year");
+		assertLabelInList(1, "Number");
+		assertLabelInList(2, "Amounts sum");
+		assertLabelInList(3, "V.A.T.");
+		assertLabelInList(4, "Details count");
+		assertLabelInList(5, "Paid");
+		assertLabelInList(6, "Importance");
+		
+		removeColumn(3); // VAT
+		assertListColumnCount(6);
+		assertLabelInList(0, "Year");
+		assertLabelInList(1, "Number");
+		assertLabelInList(2, "Amounts sum");
+		assertLabelInList(3, "Details count");
+		assertLabelInList(4, "Paid");
+		assertLabelInList(5, "Importance");
+		
+		execute("List.filter");
+		assertListColumnCount(6);
+		assertLabelInList(0, "Year");
+		assertLabelInList(1, "Number");
+		assertLabelInList(2, "Amounts sum");
+		assertLabelInList(3, "Details count");
+		assertLabelInList(4, "Paid");
+		assertLabelInList(5, "Importance");
+
+		showCustomizeControls();
+		execute("List.addColumns");
+		execute("AddColumns.restoreDefault");
+		assertListColumnCount(8);
+		assertLabelInList(0, "Year");
+		assertLabelInList(1, "Number");
+		assertLabelInList(2, "Date");
+		assertLabelInList(3, "Amounts sum");
+		assertLabelInList(4, "V.A.T.");
+		assertLabelInList(5, "Details count");
+		assertLabelInList(6, "Paid");
+		assertLabelInList(7, "Importance");		
+	}
 	
 	public void assertCustomizeList() throws Exception {
 		doTestCustomizeList_moveAndRemove(); 
@@ -507,7 +564,7 @@ public class ListTest extends WebDriverTestBase {
 		assertEquals(XavaResources.getString("unexpected_messages", "Errors"), "", errors.getText());
 	}
 
-	private void goModule(String module) throws Exception{
+	private void goModule(String module) throws Exception{ // tmr Duplicado con DescriptionsListTest
 		driver.get("http://localhost:8080/openxavatest/m/" + module);
 		this.module = module;
 		wait(driver);
@@ -518,7 +575,7 @@ public class ListTest extends WebDriverTestBase {
 		wait(driver);
 	}
 
-	private void execute(String action) throws Exception {
+	private void execute(String action) throws Exception { // tmr Duplicado con DescriptionsListTest
 		execute(driver, module, action);
 	}
 	

@@ -198,7 +198,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 	public void testFocusMoveToReferenceAsDescriptionsList() throws Exception { 
 		execute("CRUD.new");
 		setValue("family.number", "1");
-		assertFocusOn("subfamily.number"); // TMR FALLA
+		assertFocusOn("subfamily.number"); 
 	}
 	
 	/*
@@ -528,8 +528,10 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertEquals(2, familyList.getChildElementCount()); 
 		assertEquals("SOFTWARÉ", familyList.getFirstChild().asNormalizedText()); 
 		assertEquals("HARDWARE", familyList.getLastChild().asNormalizedText());
-		
-		((HtmlElement) familyList.getFirstChild()).click(); // SOFTWARE
+		// tmr ((HtmlElement) familyList.getFirstChild()).click(); // SOFTWARE
+		System.out.println("[Product2Test.testAutocompleteInDescriptionsList] familyList.firstChild.html=" + familyList.getFirstChild().asXml()); // tmr
+		((HtmlElement) familyList.getFirstChild().getFirstChild()).click(); // tmr
+		Thread.sleep(5000); // tmr
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
 		HtmlElement subfamilyEditor = getHtmlPage().getHtmlElementById("ox_openxavatest_Product2__reference_editor_subfamily");
 		HtmlElement openSubfamilyListIcon = subfamilyEditor.getOneHtmlElementByAttribute("i", "class", "mdi mdi-menu-down");
