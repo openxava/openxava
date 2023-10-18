@@ -1,7 +1,10 @@
 package org.openxava.model.meta;
 
+import java.lang.annotation.*;
+import java.lang.reflect.*;
 import java.util.*;
 
+import org.apache.commons.logging.*;
 import org.openxava.util.*;
 import org.openxava.util.meta.*;
 
@@ -11,6 +14,8 @@ import org.openxava.util.meta.*;
 @SuppressWarnings("serial")
 abstract public class MetaMember extends MetaElement implements Comparable<MetaMember> { 
 
+	private static Log log = LogFactory.getLog(MetaMember.class);
+	
 	private MetaModel metaModel;
 	private String labelId;
 	private String qualifiedName;
@@ -92,6 +97,59 @@ abstract public class MetaMember extends MetaElement implements Comparable<MetaM
 			}
 		}
 		return propertyNamesThatIDepend;				
+	}
+	
+	/** @since 7.1.2  Moved from MetaProperty */
+	public Annotation[] getAnnotations() { 
+		// We avoid to sum everything in a collection to save memory, 
+		//   because this method is called a lot of times, while most times
+		//   the annotation are in the field, not in the getter
+		
+		if (getMetaModel() == null) return null;
+		Annotation[] result = null;
+		try {
+			AnnotatedElement element = Classes.getField(getMetaModel().getPOJOClass(), getSimpleName()); 
+			result = element.getAnnotations();
+		} 
+		catch (NoSuchFieldException ex) {
+			// It could be a calculated property, without field
+		}
+				
+		try {
+			result = getAnnotationsFromGetter(result, "get");
+		} 
+		catch (NoSuchMethodException ex) {
+			// It's a boolean property, with "is"			
+			try {
+				result = getAnnotationsFromGetter(result, "is");
+			} 
+			catch (NoSuchMethodException ex2) {
+				log.warn(XavaResources.getString("field_getter_not_found", getName(), getMetaModel().getName()), ex2);
+			}
+		}
+
+		return result;
+	}
+	
+	/** @since 7.1.2  Moved from MetaProperty */
+	public Annotation[] getAnnotationsFromGetter(Annotation[] result, String prefix) throws NoSuchMethodException {  
+		AnnotatedElement element = getMetaModel().getPOJOClass().getMethod(prefix + Strings.firstUpper(getSimpleName()));
+		Annotation[] getterAnnotations = element.getAnnotations();
+		if (getterAnnotations.length > 0) {
+			Collection<Annotation> annotations = new ArrayList<>();
+			if (result != null) annotations.addAll(Arrays.asList(result));
+			annotations.addAll(Arrays.asList(getterAnnotations));
+			result = new Annotation[annotations.size()];
+			annotations.toArray(result);
+		}
+		return result;
+	}
+	
+	/** @since 7.1.2  Moved from MetaProperty */
+	public String getSimpleName() { 
+		String name = getName();
+		if (!name.contains(".")) return name;
+		return Strings.lastToken(name, ".");		
 	}
 
 	

@@ -1,7 +1,6 @@
 package org.openxava.model.meta;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.*;
 import java.math.*;
 import java.rmi.*;
 import java.sql.*;
@@ -58,12 +57,13 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	private String calculation; 
 	private Set<String> propertiesNamesUsedForCalculation; 
 	
-	/** @since 6.6 */
+	
+	/** @since 6.6 *//*
 	public String getSimpleName() { 
 		String name = getName();
 		if (!name.contains(".")) return name;
 		return Strings.lastToken(name, ".");		
-	}
+	}*/
 	
 	public void setLabel(String newLabel) {
 		super.setLabel(newLabel);
@@ -339,7 +339,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		}		
 		return size;
 	}
-	
+	/*
 	public Annotation[] getAnnotations() { 
 		// We avoid to sum everything in a collection to save memory, 
 		//   because this method is called a lot of times, while most times
@@ -383,7 +383,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		}
 		return result;
 	}
-
+*/
 	
 	
 	/**
