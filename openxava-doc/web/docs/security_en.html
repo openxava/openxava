@@ -45,7 +45,7 @@
         <div style="margin-left: 2em;"><a href="#custom-signin-page">Custom Sign
             In page (new in v7.1)</a></div>
         <div style="margin-left: 2em;"><a href="#sso">Single Sign-On (SSO) (new
-            in v7.1)</a><a href="#custom-signin-page"></a></div>
+            in v7.1)</a></div>
         <div style="margin-left: 2em;"><a href="#2fa">Two-Factor Authentication
             (2FA) (new in v7.1)</a><a href="#custom-signin-page"> </a></div>
       </div>
@@ -106,6 +106,22 @@
         only data</em> to allow the users to see the data but not to change it.<br>
       Restricting user access to properties, references or collections is only
       available in <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
+      <h2 id="toc3"><a name="hiding-a-module-in-the-menu-without-restricting-it"></a>Read
+        only module with one click <em>(new in v7.2)</em></h2>
+      If you want that a module will be not shown in the menu for <strong>users</strong>
+      of certain <strong>roles</strong> but that at the same time that module
+      would be accessible by those users, typing the URL in the browser, for
+      example. Go to the <em>Roles</em> module and choose that <strong>role</strong>
+      to edit in detail mode, once there click on the module you want to hide in
+      the menu, and a dialog like the next one will appear:<br>
+      <img src="files/hide-module-in-menu-for-role_en.png" alt="hide-module-in-menu-for-role_en.png"
+        title="hide-module-in-menu-for-role_en.png"><br>
+      Check the <i>Not in menu</i> option and click on <em>Save</em>. From now
+      on, all the users of that role will not see the module, <i>Customer</i>
+      in our example, in the left menu, however it will be still accessible, so
+      if the user goes to <i>http://yoursite.com/YourApp/m/Customer</i> with
+      his browser the module will work.<br>
+      Hiding modules in the menu is only available in <a href="http://www.openxava.org/xavapro">XavaPro</a>.
       <h2 id="toc3"><a name="hiding-a-module-in-the-menu-without-restricting-it"></a>Hiding
         a module in the menu without restricting it <em>(new in v6.5)</em></h2>
       If you want that a module will be not shown in the menu for <strong>users</strong>
