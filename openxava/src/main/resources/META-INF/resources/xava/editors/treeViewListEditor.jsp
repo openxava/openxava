@@ -1,20 +1,27 @@
 <%@ include file="../imports.jsp"%>
  
 <%@page import="org.openxava.view.View"%>
+<%@page import="org.openxava.view.meta.MetaView"%>
+<%@page import="org.openxava.view.meta.MetaCollectionView"%>
 <%@page import="org.openxava.model.MapFacade"%>
+<%@page import="org.openxava.model.meta.*"%>
 <%@page import="org.openxava.web.Actions"%>
 <%@page import="org.openxava.web.Ids" %>
 <%@page import="org.openxava.controller.meta.MetaAction"%>
 <%@page import="org.openxava.controller.meta.MetaControllers"%>
 <%@page import="org.openxava.tab.impl.IXTableModel" %>
+<%@page import="org.openxava.tab.Tab" %>
 <%@page import="org.openxava.web.editors.TreeView" %>
 <%@page import="org.openxava.web.editors.TreeViewActions" %>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.Arrays"%>
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.Collections"%>
+<%@page import="java.lang.annotation.Annotation"%>
 <%@page import="java.text.DateFormat"%>
+<%@page import="javax.swing.table.TableModel"%>
 <%@page import="org.openxava.util.Locales"%>
 <%@page import="org.openxava.util.Is"%>
 
@@ -52,6 +59,26 @@ String indexList = parseData[1];
 String module = request.getParameter("module");
 String tableId = Ids.decorate(request.getParameter("application"), module, collectionName);
 TreeViewActions metaTreeViewActions = new TreeViewActions(collectionView, treeParser.getMetaTreeView(tab.getModelName()));
+
+if (collectionName != null) {
+Tab tab2 = collectionView.getCollectionTab().clone();
+TableModel table = tab2.getAllDataTableModel();
+MetaCollection mc = collectionView.getMetaCollection();
+String order = mc.getOrder();
+String[] oSplit = order.replaceAll("\\$\\{|\\}", "").split(", ");
+int count = 0;
+		for (String element : oSplit) {
+			if (element.equals("treeOrder")){
+				tab2.addProperty(0, element);
+				count = count == 0 ? 0 : count++;
+			} else {
+				tab2.addProperty(count, element);
+				count++;
+			}
+        }
+}
+
+
 
 if(!Is.empty(key)){
 %>
@@ -98,6 +125,7 @@ if(!Is.empty(key)){
 
 	<script type="text/javascript" <xava:nonce/>>
 		$(document).ready(function(){
+			
 			var tree_<%=collectionName%> = {};
 			tree_<%=collectionName%>.tree = <%=javaScriptCode%>
 			tree_<%=collectionName%>.suppress = false; // this will prevent collapse/expand when clicking on label
