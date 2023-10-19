@@ -684,7 +684,12 @@ public class Dates {
 	 * @since 7.1
 	 */
 	public static boolean hasLocalDate(List<MetaProperty> listProperty) {
-		List<String> dates = Arrays.asList("java.time.LocalDate", "java.util.Date", "java.sql.Date");
+		List<String> dates = Arrays.asList(
+								"java.time.LocalDate", 
+								"java.util.Date", 
+								"java.sql.Date",
+								"java.sql.Timestamp",
+								"java.time.LocalDateTime");
 	    for (MetaProperty property : listProperty) {
 	        String propertyTypeName = property.getTypeName();
 	        if (dates.contains(propertyTypeName)) {

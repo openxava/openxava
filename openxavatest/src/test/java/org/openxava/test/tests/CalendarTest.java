@@ -5,6 +5,7 @@ import java.util.*;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.interactions.*;
 import org.openqa.selenium.support.ui.*;
 
 public class CalendarTest extends WebDriverTestBase {
@@ -22,6 +23,7 @@ public class CalendarTest extends WebDriverTestBase {
 		forTestMultipleDateAndFirstDateAsEventStart(); // TMR FALLA
 		forTestFilterPerformance();
 		forTestMore();
+		forTestCreateDateWithTimeInWeekAndDailyView_tooltip();
 	}
 
 	public void tearDown() throws Exception {
@@ -166,6 +168,7 @@ public class CalendarTest extends WebDriverTestBase {
 		wait(driver);
 		acceptInDialogJS(driver);
 		moveToCalendarView(driver);
+		assertFalse(isMonthWeekDayViewPresent(driver));
 		prevOnCalendar();
 		createInvoiceEventPrevCurrentNextMonth();
 		prevOnCalendar();
@@ -201,6 +204,11 @@ public class CalendarTest extends WebDriverTestBase {
 				"//div[contains(@class,'fc-daygrid-day-frame') and ancestor::td[@data-date='" + dateString + "']]"));
 		day.click();
 		wait(driver);
+		
+		WebElement startDate = driver.findElement(By.id("ox_openxavatest_Event__startDate"));
+		blur(driver, startDate);
+		//sleep needed after blur
+		Thread.sleep(500);
 		List<WebElement> iconElements = driver.findElements(By.cssSelector("i.mdi.mdi-calendar"));
 		if (!iconElements.isEmpty()) {
 			WebElement firstIconElement = iconElements.get(1);
@@ -208,12 +216,13 @@ public class CalendarTest extends WebDriverTestBase {
 		}
 
 		List<WebElement> spanElements = driver
-			// The selected to in class to work with Windows 7 and Linux, maybe it's for a performance problem	
-			.findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day selected' and text()='2']")); 	
+			.findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day ' and text()='2']"));
+		
 		if (!spanElements.isEmpty()) {
-			WebElement spanElement = spanElements.get(0); 
+			WebElement spanElement = spanElements.get(1); 
 			spanElement.click(); 
 		}
+
 		wait(driver);
 		execute(driver, "Event", "CRUD.save");
 		execute(driver, "Event", "Mode.list");
@@ -270,4 +279,59 @@ public class CalendarTest extends WebDriverTestBase {
 		execute(driver, "Hound", "CRUD.deleteSelected");
 	}
 
+	private void forTestCreateDateWithTimeInWeekAndDailyView_tooltip() throws Exception {
+		driver.get("http://localhost:8080/openxavatest/m/Appointment");
+		wait(driver);
+		acceptInDialogJS(driver);
+		moveToCalendarView(driver);
+		moveToTimeGridWeek(driver);
+		
+        WebElement dayTimeCell = driver.findElement(By.cssSelector("tr:nth-child(6) > .fc-timegrid-slot-lane"));
+        dayTimeCell.click();
+        wait(driver);
+        
+        WebElement dateTime = driver.findElement(By.id("ox_openxavatest_Appointment__time"));
+        String dateTimeInput = dateTime.getAttribute("value");
+        assertTrue(dateTimeInput.contains("2:30"));
+        insertValueToInput(driver, "ox_openxavatest_Appointment__description", "A", false);
+        execute(driver, "Appointment", "CRUD.save");
+        execute(driver, "Appointment", "Mode.list");
+        waitCalendarEvent(driver);
+
+        //tooltip
+		WebElement monthEvent = driver.findElement(By.cssSelector(".fc-event.fc-event-draggable.fc-event-resizable.fc-event-start.fc-event-end"));
+		Actions builder = new Actions(driver);
+        builder.moveToElement(monthEvent).perform();
+        Thread.sleep(500);
+		WebElement tooltip = driver.findElement(By.cssSelector(".fc-event-tooltip"));
+		assertEquals("A", tooltip.getText());
+        
+        moveToTimeGridWeek(driver);
+        WebElement event = driver.findElement(By.cssSelector(".fc-event.fc-event-draggable.fc-event-resizable.fc-event-start.fc-event-end"));
+        event.click();
+        wait(driver);
+        WebElement dateTime2 = driver.findElement(By.id("ox_openxavatest_Appointment__time"));
+        String dateTimeInput2 = dateTime2.getAttribute("value");
+        assertTrue(dateTimeInput2.contains("2:30"));
+        execute(driver, "Appointment", "CRUD.delete");
+        execute(driver, "Appointment", "Mode.list");
+        waitCalendarEvent(driver);
+        // used to verify existence of daily view
+		WebElement dayButton = driver.findElement(By.cssSelector("button.fc-timeGridDay-button"));
+		dayButton.click();
+		waitCalendarEvent(driver);
+		moveToListView(driver);
+		acceptInDialogJS(driver);
+	}
+	
+	private boolean isMonthWeekDayViewPresent(WebDriver driver) {
+		int monthButton = driver.findElements(By.className("fc-timeGridWeek-button")).size();
+        int weekButton = driver.findElements(By.className("fc-timeGridDay-button")).size();
+        int dayButton = driver.findElements(By.className("fc-dayGridMonth-button")).size();
+        boolean b = (monthButton == 1 && weekButton == 1 && dayButton == 1) ? true : false;
+        
+        return b;
+	}
+
+	
 }

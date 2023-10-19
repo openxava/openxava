@@ -114,7 +114,7 @@ public class Calendar extends DWRBase {
 		} else {
 			event = new CalendarEvent();
 			List<String> d = obtainRowsDate(-1);
-			String f = d.get(0).split("_")[0];			
+			String f = d.get(0).split("_")[0];
 			String s = d.size() > 1 ? d.get(1).split("_")[0] : "";
 			event.startName = f.equals("")  && !s.equals("") ? s : f;
 			calendarEvents.add(event);
@@ -304,9 +304,14 @@ public class Calendar extends DWRBase {
 		List<MetaProperty> mp = new ArrayList<>(tab.getMetaTab().getMetaModel().getMetaProperties());
 		List<String> calculatedProperties = new ArrayList<>(tab.getMetaTab().getMetaModel().getCalculatedPropertiesNames());
 		int mpCount = 0;
-		List<String> dateWithTimeList = Arrays.asList("java.util.Date", "java.time.LocalDateTime",
-				"java.time.ZonedDateTime");
-		List<String> acceptedDateTypes = Arrays.asList("java.time.LocalDate", "java.util.Date", "java.sql.Date");
+		List<String> dateWithTimeList = Arrays.asList("java.util.Date", 
+											"java.time.LocalDateTime",
+											"java.sql.Timestamp");
+		List<String> acceptedDateTypes = Arrays.asList("java.time.LocalDate", 
+											"java.util.Date", 
+											"java.sql.Date",
+											"java.time.LocalDateTime",
+											"java.sql.Timestamp");
 		List<String> sortedProperties = tab.getMetaTab().getMetaModel().getPropertiesNames();
 		for (MetaProperty property : mp) {
 		        String propertyTypeName = property.getTypeName();
@@ -317,7 +322,7 @@ public class Calendar extends DWRBase {
 
 					dateWithTime = dateWithTimeList.contains(property.getTypeName()) ? true : false;
 					String className = property.getTypeName();
-					if (className.startsWith("java.util.") || className.startsWith("java.sql.Date")) {
+					if (className.startsWith("java.util.") || className.startsWith("java.sql.")) {
 						oldLib = true;
 					} else if (className.startsWith("java.time.")) {
 						oldLib = false;

@@ -87,6 +87,12 @@ abstract public class WebDriverTestBase extends TestCase {
 		waitCalendarEvent(driver);
 	}
 	
+	protected void moveToTimeGridWeek(WebDriver driver) throws Exception {
+		WebElement weekButton = driver.findElement(By.cssSelector("button.fc-timeGridWeek-button"));
+		weekButton.click();
+		waitCalendarEvent(driver);
+	}
+	
 	protected void acceptInDialogJS(WebDriver driver) throws Exception {
 		//use it after verifying that the test works well. 
 		//it helps to avoid errors when starting the browser with the module.
@@ -144,7 +150,6 @@ abstract public class WebDriverTestBase extends TestCase {
         inputElement.sendKeys(value);
 	}
 
-
 	protected boolean isHeadless() {
 		return headless;
 	}
@@ -153,4 +158,9 @@ abstract public class WebDriverTestBase extends TestCase {
 	protected void setHeadless(boolean headless) {
 		this.headless = headless;
 	}
+    public static void blur(WebDriver driver, WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].blur();", element);
+    }
+    
 }
