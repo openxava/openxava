@@ -67,10 +67,37 @@ TreeViewActions metaTreeViewActions = new TreeViewActions(collectionView, treePa
 
 if (collectionName != null) {
 Tab tab2 = collectionView.getCollectionTab().clone();
+System.out.println(tab2.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
 String[] propertiesNow = tab2.getPropertiesNamesAsString().split(",");
 MetaCollection mc = collectionView.getMetaCollection();
 String order = mc.getOrder();
 String[] oSplit = order.replaceAll("\\$\\{|\\}", "").split(", ");
+List<String> keysList = new ArrayList<>(tab2.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
+
+View collectionView2 = tab2.getCollectionView();
+View parentView2 = collectionView2.getParent();
+MetaView metaView2 = parentView2.getMetaModel().getMetaView(parentView2.getViewName());
+MetaCollectionView metaCollectionView2 = metaView2.getMetaCollectionView(collectionName);
+
+/*
+String pathP = "";
+String pathS = "";
+String idP = "";
+
+if (metaCollectionView2.getPath() != null) {
+	
+	if (metaCollectionView2.getPath().pathProperty() != null){
+	 pathP = metaCollectionView2.getPath().pathProperty();
+	 System.out.println("pathP " + pathP);
+	}
+	
+ pathS = metaCollectionView2.getPath().pathSeparator();
+ System.out.println("pathS " + pathS);
+ idP = metaCollectionView2.getPath().idProperties() == null ? "" : metaCollectionView2.getPath().idProperties();
+ System.out.println("idP " + idP);
+ 
+}
+*/
 
 int count = 0;
 		for (String element : oSplit) {
@@ -83,6 +110,10 @@ int count = 0;
 				count++;
 			}
         }
+
+if (keysList.size() < 2 && !ArrayUtils.contains(propertiesNow, keysList.get(0).toString())) {
+	tab2.addProperty(0, keysList.get(0).toString());
+}
 		
 TableModel table = tab2.getAllDataTableModel();		
 int tableSize = tab2.getTableModel().getTotalSize();
@@ -93,7 +124,7 @@ ObjectMapper objectMapper = new ObjectMapper();
 //ArrayNode dataNode = json.putArray("data");
 List<Map<String, Object>> tableList = new ArrayList<>();
 
-
+System.out.println(tab2.getPropertiesNamesAsString());
 
 if (tableSize > 0) {
 	System.out.println(columns);
@@ -193,7 +224,47 @@ $('#container_<%=collectionName%>').jstree({
         'data': [{
             "text": "Root node",
             "children": [{
-                    "text": "Child node 1"
+					"id": "123123",[{
+  "path": "",
+  "children": [
+    {
+      "path": "/207464",
+      "children": [
+        {
+          "path": "/207464/207465",
+          "id": "207468",
+          "text": "SUBITEM 1 OF 1"
+        },
+        {
+          "path": "/207464/207465",
+          "id": "207469",
+          "text": "SUBITEM 2 OF 1"
+        }
+      ],
+      "id": "207465",
+      "text": "CHILD ITEM 1"
+    },
+    {
+      "path": "/207464",
+      "id": "207466",
+      "text": "CHILD ITEM 2"
+    },
+    {
+      "path": "/207464",
+      "children": [{
+        "path": "/207464/207467",
+        "id": "207470",
+        "text": "SUBITEM 1 OF 3"
+      }],
+      "id": "207467",
+      "text": "CHILD ITEM 3"
+    }
+  ],
+  "id": "207464",
+  "text": "ROOT ITEM 1"
+}]
+                    "text": "Child node 1",
+					"path": "The path"
                 },
                 {
                     "text": "Child node 2",
@@ -213,8 +284,15 @@ $('#container_<%=collectionName%>').jstree({
     },
     "plugins": ["checkbox", "dnd", "state"]
 });
+
+  $('#container_<%=collectionName%>').on("changed.jstree", function (e, data) {
+    console.log("The selected nodes are:");
+	console.log(e);
+	console.log(data);
+    console.log(data.selected);
+  });
 			
-			
+	
 			var tree_<%=collectionName%> = {};
 			tree_<%=collectionName%>.tree = <%=javaScriptCode%>
 			tree_<%=collectionName%>.suppress = false; // this will prevent collapse/expand when clicking on label
