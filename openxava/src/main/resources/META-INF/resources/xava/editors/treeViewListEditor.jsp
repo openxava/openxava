@@ -13,9 +13,11 @@
 <%@page import="org.openxava.tab.Tab" %>
 <%@page import="org.openxava.web.editors.TreeView" %>
 <%@page import="org.openxava.web.editors.TreeViewActions" %>
+<%@page import="java.util.*"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.Collections"%>
@@ -24,7 +26,10 @@
 <%@page import="javax.swing.table.TableModel"%>
 <%@page import="org.openxava.util.Locales"%>
 <%@page import="org.openxava.util.Is"%>
+<%@page import="com.fasterxml.jackson.databind.*"%>
 
+<%@page import="com.fasterxml.jackson.databind.node.*"%>
+<%@page import="org.apache.commons.lang3.ArrayUtils"%>
 <%@page import="org.apache.commons.beanutils.PropertyUtils"%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
@@ -62,12 +67,14 @@ TreeViewActions metaTreeViewActions = new TreeViewActions(collectionView, treePa
 
 if (collectionName != null) {
 Tab tab2 = collectionView.getCollectionTab().clone();
-TableModel table = tab2.getAllDataTableModel();
+String[] propertiesNow = tab2.getPropertiesNamesAsString().split(",");
 MetaCollection mc = collectionView.getMetaCollection();
 String order = mc.getOrder();
 String[] oSplit = order.replaceAll("\\$\\{|\\}", "").split(", ");
+
 int count = 0;
 		for (String element : oSplit) {
+			if (ArrayUtils.contains(propertiesNow, element)) continue;
 			if (element.equals("treeOrder")){
 				tab2.addProperty(0, element);
 				count = count == 0 ? 0 : count++;
@@ -76,6 +83,53 @@ int count = 0;
 				count++;
 			}
         }
+		
+TableModel table = tab2.getAllDataTableModel();		
+int tableSize = tab2.getTableModel().getTotalSize();
+int columns = table.getColumnCount();
+List<String> columnName = new ArrayList<>();
+ObjectMapper objectMapper = new ObjectMapper();
+//ObjectNode json = objectMapper.createObjectNode();
+//ArrayNode dataNode = json.putArray("data");
+List<Map<String, Object>> tableList = new ArrayList<>();
+
+
+
+if (tableSize > 0) {
+	System.out.println(columns);
+	for (int i = 0; i < columns; i++) {
+		//System.out.println(table.getColumnName(i));
+		columnName.add(table.getColumnName(i));
+	}
+	//System.out.println(columnName);
+	
+	for (int i = 0; i < tableSize; i++) {
+		Map<String, Object> row = new HashMap<>();
+		for (int j = 0; j < columnName.size(); j++){
+		Object value = table.getValueAt(i, j);
+		String propertyName = columnName.get(j);
+		row.put(propertyName, value);
+		}
+	tableList.add(row);
+	}
+	String json = objectMapper.writeValueAsString(tableList);
+	System.out.println(json);
+	
+	/*
+	JSONArray jsonArray = new JSONArray();
+	for (int i = 0; i < tableSize; i++) {
+		ObjectNode elementNode = JsonNodeFactory.instance.objectNode();
+		JSONObject jsonRow = new JSONObject();
+		for (int j = 0; j < columnName.size(); j++){
+
+			jsonRow.put(propertyName, value);
+		}
+		jsonArray.put(jsonRow);
+	}
+System.out.println(jsonArray.toString(););
+*/
+}
+		
 }
 
 
@@ -123,8 +177,43 @@ if(!Is.empty(key)){
 		</table>		
 	</div>
 
+	<div id="container_<%=collectionName%>"></div>
+
 	<script type="text/javascript" <xava:nonce/>>
+
 		$(document).ready(function(){
+			
+$('#container_<%=collectionName%>').jstree({
+    "core": { // core options go here
+        "check_callback": true,
+        "themes": {
+            "dots": true, // no connecting dots between dots
+            "icons": false
+        },
+        'data': [{
+            "text": "Root node",
+            "children": [{
+                    "text": "Child node 1"
+                },
+                {
+                    "text": "Child node 2",
+                    "children": [{
+                            "text": "Child node 21"
+                        },
+                        {
+                            "text": "Child node 22"
+                        }
+                    ]
+                }
+            ]
+        }]
+    },
+    "state": {
+        "key": "ox_tree_state"
+    },
+    "plugins": ["checkbox", "dnd", "state"]
+});
+			
 			
 			var tree_<%=collectionName%> = {};
 			tree_<%=collectionName%>.tree = <%=javaScriptCode%>
