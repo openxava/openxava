@@ -538,11 +538,11 @@ public class ListTest extends WebDriverTestBase {
 		assertValueInList(0, 6, site);
 	}
 
-	private void assertValue(String name, String value) {
+	private void assertValue(String name, String value) { // tmr Duplicated with DescriptionsListTest
 		assertEquals(XavaResources.getString("unexpected_value", name), value, getValue(name));		
 	}
 
-	private String getValue(String name) {
+	private String getValue(String name) { // tmr Duplicated with DescriptionsListTest
 		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
 		return input.getAttribute("value");
 	}
@@ -617,7 +617,7 @@ public class ListTest extends WebDriverTestBase {
 		return rowCount - 1;
 	}
 	
-	private WebElement getTable(String collection) {
+	private WebElement getTable(String collection) { // tmr Duplicado con DescriptionsListTest
 		return driver.findElement(By.id("ox_openxavatest_" + module + "__" + collection));
 	}
 	
@@ -670,7 +670,7 @@ public class ListTest extends WebDriverTestBase {
 		assertEquals(expectedLabel, label);
 	}
 	
-	private void assertValueInList(int row, int column, String expectedValue) { 
+	private void assertValueInList(int row, int column, String expectedValue) { // tmr Duplicado con DescriptionsListTest 
 		assertEquals(expectedValue, getValueInList(row, column));				
 	}
 	
@@ -678,11 +678,11 @@ public class ListTest extends WebDriverTestBase {
 		assertEquals(expectedValue, getValueInCollection(collection, row, column));				
 	}
 	
-	private String getValueInList(int row, int column) {
+	private String getValueInList(int row, int column) { // tmr Duplicado con DescriptionsListTest
 		return getValueInCollection("list", row + 1, column);
 	}
 	
-	private String getValueInCollection(String collection, int row, int column) {
+	private String getValueInCollection(String collection, int row, int column) { // tmr Duplicado con DescriptionsListTest
 		return getCell(collection, row + 1, column).getText().trim();
 	}
 		
@@ -690,7 +690,7 @@ public class ListTest extends WebDriverTestBase {
 		return getCell(collection, 0, column);
 	}
 	
-	private WebElement getCell(String collection, int row, int column) {
+	private WebElement getCell(String collection, int row, int column) { // tmr Duplicado con DescriptionsListTest
 		WebElement tableRow = getTable(collection).findElements(By.tagName("tr")).get(row);
 		String cellType = row == 0?"th":"td";
 		List<WebElement> cells = tableRow.findElements(By.tagName(cellType));		

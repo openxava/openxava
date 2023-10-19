@@ -2,11 +2,8 @@ package org.openxava.test.tests;
 
 import java.math.*;
 
-import javax.persistence.*;
-
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
-import org.htmlunit.html.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
 
@@ -485,6 +482,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertError("Value for Subfamily in Product is required");
 	}
 	
+	/* tmr Movido a DescriptionsListTest
 	public void testAutocompleteInDescriptionsList() throws Exception {
 		setFamilyDescription(1, "SOFTWARÉ"); // To test a bug with accents 
 		createWarehouseWithQuote(); // To test a bug with quotes
@@ -528,10 +526,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertEquals(2, familyList.getChildElementCount()); 
 		assertEquals("SOFTWARÉ", familyList.getFirstChild().asNormalizedText()); 
 		assertEquals("HARDWARE", familyList.getLastChild().asNormalizedText());
-		// tmr ((HtmlElement) familyList.getFirstChild()).click(); // SOFTWARE
-		System.out.println("[Product2Test.testAutocompleteInDescriptionsList] familyList.firstChild.html=" + familyList.getFirstChild().asXml()); // tmr
-		((HtmlElement) familyList.getFirstChild().getFirstChild()).click(); // tmr
-		Thread.sleep(5000); // tmr
+		((HtmlElement) familyList.getFirstChild()).click(); // SOFTWARE
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
 		HtmlElement subfamilyEditor = getHtmlPage().getHtmlElementById("ox_openxavatest_Product2__reference_editor_subfamily");
 		HtmlElement openSubfamilyListIcon = subfamilyEditor.getOneHtmlElementByAttribute("i", "class", "mdi mdi-menu-down");
@@ -539,7 +534,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		HtmlElement subfamilyList = getHtmlPage().getHtmlElementById("ui-id-9");
 		assertTrue(subfamilyList.isDisplayed());
 		assertEquals(3, subfamilyList.getChildElementCount());
-		assertEquals("DESARROLLO", subfamilyList.getFirstChild().asNormalizedText()); // TMR FALLA
+		assertEquals("DESARROLLO", subfamilyList.getFirstChild().asNormalizedText()); 
 		assertEquals("SISTEMA", subfamilyList.getLastChild().asNormalizedText());	
 		
 		((HtmlElement) subfamilyList.getFirstChild()).click(); // DESARROLLO
@@ -605,7 +600,9 @@ public class Product2Test extends EmailNotificationsTestBase {
 		setFamilyDescription(1, "SOFTWARE"); 
 		removeWarehouseWithQuote(); 
 	}
+	*/
 	
+	/* tmr
 	private void setFamilyDescription(int number, String newDescription) { 
 		Family2 software = XPersistence.getManager().find(Family2.class, number);
 		software.setDescription(newDescription);
@@ -625,11 +622,13 @@ public class Product2Test extends EmailNotificationsTestBase {
  		Warehouse warehouse = (Warehouse) query.getSingleResult();
 		XPersistence.getManager().remove(warehouse);
 	}
+	
 
 	private HtmlInput getDescriptionsListTextField(String reference) {
 		HtmlElement familyEditor = getHtmlPage().getHtmlElementById("ox_openxavatest_Product2__reference_editor_" + reference);
 		return  familyEditor.getOneHtmlElementByAttribute("input", "class", "xava_select editor ui-autocomplete-input");
 	}
+	*/
 	
 	private void createProduct(int number, String description, int zone) throws Exception {
 		Product2 p = new Product2();
