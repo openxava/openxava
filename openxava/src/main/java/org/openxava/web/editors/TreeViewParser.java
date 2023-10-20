@@ -6,6 +6,7 @@ import java.util.Collections;
 import javax.servlet.http.*;
 
 import org.apache.commons.logging.*;
+import org.json.*;
 import org.openxava.annotations.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.Tab;
@@ -299,5 +300,42 @@ public class TreeViewParser {
 		}
 		return metaTreeViews;
 	}
+	
+	public static JSONArray findChildrenOfNode(int parentId, JSONArray data) {
+        JSONArray children = new JSONArray();
+        //System.out.println(data);
+        for (int i = 0; i < data.length(); i++) {
+            JSONObject node = data.getJSONObject(i);
+            int id = node.getInt("Id");
+            String path = node.getString("Path");
+            String description = node.getString("Description");
+
+            if (path.equals("") && parentId == 0) {
+                // Nodo raíz
+            	System.out.println(description);
+                JSONObject rootNode = new JSONObject();
+                rootNode.put("id", String.valueOf(id));
+                rootNode.put("text", description);
+                rootNode.put("path", path);
+                JSONArray childNodes = findChildrenOfNode(id, data);
+                if (childNodes.length() > 0) {
+                    rootNode.put("children", childNodes);
+                }
+                children.put(rootNode);
+            } else if (path.endsWith("/" + parentId)) {
+            	System.out.println(description);
+                JSONObject childNode = new JSONObject();
+                childNode.put("id", String.valueOf(id));
+                childNode.put("text", description);
+                childNode.put("path", path);
+                JSONArray childNodes = findChildrenOfNode(id, data);
+                if (childNodes.length() > 0) {
+                    childNode.put("children", childNodes);
+                }
+                children.put(childNode);
+            }
+        }
+        return children;
+    }
 
 }

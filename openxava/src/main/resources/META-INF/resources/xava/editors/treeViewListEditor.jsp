@@ -1,5 +1,6 @@
 <%@ include file="../imports.jsp"%>
  
+<%@page import="org.openxava.annotations.Tree"%>
 <%@page import="org.openxava.view.View"%>
 <%@page import="org.openxava.view.meta.MetaView"%>
 <%@page import="org.openxava.view.meta.MetaCollectionView"%>
@@ -12,6 +13,7 @@
 <%@page import="org.openxava.tab.impl.IXTableModel" %>
 <%@page import="org.openxava.tab.Tab" %>
 <%@page import="org.openxava.web.editors.TreeView" %>
+<%@page import="org.openxava.web.editors.TreeViewParser" %>
 <%@page import="org.openxava.web.editors.TreeViewActions" %>
 <%@page import="java.util.*"%>
 <%@page import="java.util.Iterator"%>
@@ -27,6 +29,8 @@
 <%@page import="org.openxava.util.Locales"%>
 <%@page import="org.openxava.util.Is"%>
 <%@page import="com.fasterxml.jackson.databind.*"%>
+<%@page import="org.json.*"%>
+
 
 <%@page import="com.fasterxml.jackson.databind.node.*"%>
 <%@page import="org.apache.commons.lang3.ArrayUtils"%>
@@ -64,106 +68,75 @@ String indexList = parseData[1];
 String module = request.getParameter("module");
 String tableId = Ids.decorate(request.getParameter("application"), module, collectionName);
 TreeViewActions metaTreeViewActions = new TreeViewActions(collectionView, treeParser.getMetaTreeView(tab.getModelName()));
+JSONArray jsonArray = new JSONArray();
 
 if (collectionName != null) {
-Tab tab2 = collectionView.getCollectionTab().clone();
-System.out.println(tab2.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
-String[] propertiesNow = tab2.getPropertiesNamesAsString().split(",");
-MetaCollection mc = collectionView.getMetaCollection();
-String order = mc.getOrder();
-String[] oSplit = order.replaceAll("\\$\\{|\\}", "").split(", ");
-List<String> keysList = new ArrayList<>(tab2.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
+    Tab tab2 = collectionView.getCollectionTab().clone();
+    String[] propertiesNow = tab2.getPropertiesNamesAsString().split(",");
+    MetaCollection mc = collectionView.getMetaCollection();
+    String order = mc.getOrder();
+    String[] oSplit = order.replaceAll("\\$\\{|\\}", "").split(", ");
 
-View collectionView2 = tab2.getCollectionView();
-View parentView2 = collectionView2.getParent();
-MetaView metaView2 = parentView2.getMetaModel().getMetaView(parentView2.getViewName());
-MetaCollectionView metaCollectionView2 = metaView2.getMetaCollectionView(collectionName);
+    List < String > keysList = new ArrayList < > (tab2.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
+    View collectionView2 = tab2.getCollectionView();
+    View parentView2 = collectionView2.getParent();
+    MetaView metaView2 = parentView2.getMetaModel().getMetaView(parentView2.getViewName());
+    MetaCollectionView metaCollectionView2 = metaView2.getMetaCollectionView(collectionName);
 
-/*
-String pathP = "";
-String pathS = "";
-String idP = "";
+    Tree tree = metaCollectionView2.getPath();
+    String pathP = "";
+    String pathS = "";
+    String idP = "";
 
-if (metaCollectionView2.getPath() != null) {
-	
-	if (metaCollectionView2.getPath().pathProperty() != null){
-	 pathP = metaCollectionView2.getPath().pathProperty();
-	 System.out.println("pathP " + pathP);
-	}
-	
- pathS = metaCollectionView2.getPath().pathSeparator();
- System.out.println("pathS " + pathS);
- idP = metaCollectionView2.getPath().idProperties() == null ? "" : metaCollectionView2.getPath().idProperties();
- System.out.println("idP " + idP);
- 
-}
-*/
+    if (tree != null) {
+        pathP = tree.pathProperty() != null ? tree.pathProperty() : "";
+        pathS = tree.pathSeparator();
+        idP = tree.idProperties() != null ? tree.idProperties() : "";
+    }
 
-int count = 0;
-		for (String element : oSplit) {
-			if (ArrayUtils.contains(propertiesNow, element)) continue;
-			if (element.equals("treeOrder")){
-				tab2.addProperty(0, element);
-				count = count == 0 ? 0 : count++;
-			} else {
-				tab2.addProperty(count, element);
-				count++;
-			}
+    int count = 0;
+    for (String element: oSplit) {
+        if (ArrayUtils.contains(propertiesNow, element)) continue;
+        if (element.equals("treeOrder")) {
+            tab2.addProperty(0, element);
+            count = count == 0 ? 0 : count++;
+        } else {
+            tab2.addProperty(count, element);
+            count++;
+        }
+    }
+    if (keysList.size() < 2 && !ArrayUtils.contains(propertiesNow, keysList.get(0).toString())) {
+        tab2.addProperty(0, keysList.get(0).toString());
+    }
+
+    TableModel table = tab2.getAllDataTableModel();
+    int tableSize = tab2.getTableModel().getTotalSize();
+    int columns = table.getColumnCount();
+    List < String > columnName = new ArrayList < > ();
+    ObjectMapper objectMapper = new ObjectMapper();
+    List < Map < String, Object >> tableList = new ArrayList < > ();
+
+    if (tableSize > 0) {
+        for (int i = 0; i < columns; i++) {
+            columnName.add(table.getColumnName(i));
         }
 
-if (keysList.size() < 2 && !ArrayUtils.contains(propertiesNow, keysList.get(0).toString())) {
-	tab2.addProperty(0, keysList.get(0).toString());
+        
+        for (int i = 0; i < tableSize; i++) {
+            ObjectNode elementNode = JsonNodeFactory.instance.objectNode();
+            JSONObject jsonRow = new JSONObject();
+            for (int j = 0; j < columnName.size(); j++) {
+                Object value = table.getValueAt(i, j);
+                String propertyName = columnName.get(j);
+                jsonRow.put(propertyName, value);
+            }
+            jsonArray.put(jsonRow);
+        }
+        System.out.println(jsonArray.toString());
+    }
+	//need parse path and properties
+	jsonArray = TreeViewParser.findChildrenOfNode(0, jsonArray);
 }
-		
-TableModel table = tab2.getAllDataTableModel();		
-int tableSize = tab2.getTableModel().getTotalSize();
-int columns = table.getColumnCount();
-List<String> columnName = new ArrayList<>();
-ObjectMapper objectMapper = new ObjectMapper();
-//ObjectNode json = objectMapper.createObjectNode();
-//ArrayNode dataNode = json.putArray("data");
-List<Map<String, Object>> tableList = new ArrayList<>();
-
-System.out.println(tab2.getPropertiesNamesAsString());
-
-if (tableSize > 0) {
-	System.out.println(columns);
-	for (int i = 0; i < columns; i++) {
-		//System.out.println(table.getColumnName(i));
-		columnName.add(table.getColumnName(i));
-	}
-	//System.out.println(columnName);
-	
-	for (int i = 0; i < tableSize; i++) {
-		Map<String, Object> row = new HashMap<>();
-		for (int j = 0; j < columnName.size(); j++){
-		Object value = table.getValueAt(i, j);
-		String propertyName = columnName.get(j);
-		row.put(propertyName, value);
-		}
-	tableList.add(row);
-	}
-	String json = objectMapper.writeValueAsString(tableList);
-	System.out.println(json);
-	
-	/*
-	JSONArray jsonArray = new JSONArray();
-	for (int i = 0; i < tableSize; i++) {
-		ObjectNode elementNode = JsonNodeFactory.instance.objectNode();
-		JSONObject jsonRow = new JSONObject();
-		for (int j = 0; j < columnName.size(); j++){
-
-			jsonRow.put(propertyName, value);
-		}
-		jsonArray.put(jsonRow);
-	}
-System.out.println(jsonArray.toString(););
-*/
-}
-		
-}
-
-
 
 if(!Is.empty(key)){
 %>
@@ -221,78 +194,15 @@ $('#container_<%=collectionName%>').jstree({
             "dots": true, // no connecting dots between dots
             "icons": false
         },
-        'data': [{
-            "text": "Root node",
-            "children": [{
-					"id": "123123",[{
-  "path": "",
-  "children": [
-    {
-      "path": "/207464",
-      "children": [
-        {
-          "path": "/207464/207465",
-          "id": "207468",
-          "text": "SUBITEM 1 OF 1"
-        },
-        {
-          "path": "/207464/207465",
-          "id": "207469",
-          "text": "SUBITEM 2 OF 1"
-        }
-      ],
-      "id": "207465",
-      "text": "CHILD ITEM 1"
-    },
-    {
-      "path": "/207464",
-      "id": "207466",
-      "text": "CHILD ITEM 2"
-    },
-    {
-      "path": "/207464",
-      "children": [{
-        "path": "/207464/207467",
-        "id": "207470",
-        "text": "SUBITEM 1 OF 3"
-      }],
-      "id": "207467",
-      "text": "CHILD ITEM 3"
-    }
-  ],
-  "id": "207464",
-  "text": "ROOT ITEM 1"
-}]
-                    "text": "Child node 1",
-					"path": "The path"
-                },
-                {
-                    "text": "Child node 2",
-                    "children": [{
-                            "text": "Child node 21"
-                        },
-                        {
-                            "text": "Child node 22"
-                        }
-                    ]
-                }
-            ]
-        }]
+        'data': <%=jsonArray%>,
     },
     "state": {
         "key": "ox_tree_state"
     },
     "plugins": ["checkbox", "dnd", "state"]
 });
-
-  $('#container_<%=collectionName%>').on("changed.jstree", function (e, data) {
-    console.log("The selected nodes are:");
-	console.log(e);
-	console.log(data);
-    console.log(data.selected);
-  });
 			
-	
+			
 			var tree_<%=collectionName%> = {};
 			tree_<%=collectionName%>.tree = <%=javaScriptCode%>
 			tree_<%=collectionName%>.suppress = false; // this will prevent collapse/expand when clicking on label
