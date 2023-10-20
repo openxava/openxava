@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Remove and rename column icons when customizing list are aligned to right.
 - New method executed() in IAccessTrackerProvider so now action executions can be tracked too.
 - Tooltips for records shown in calendar list format.
 - Clicking in a time in day or week calendar view creates a new record with the date and time preset. 

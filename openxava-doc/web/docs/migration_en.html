@@ -45,6 +45,29 @@
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">
+      <h2>Migration from OpenXava 7.1.6 to OpenXava 7.2</h2>
+      <h2></h2>
+      <h3>Including JavaScript files in custom editors or views requires the
+        nonce attribute</h3>
+      <p>This is for security reasons. Normally, the JavaScript used in custom
+        editors or custom views is included in the <i>xava/editors/js</i>
+        folder, and in this case, no changes need to be made. However, on some
+        occasions, the file must be included in the editor or view directly. If
+        this is the case, you need to add a <i>nonce</i> attribute for it to
+        work.</p>
+      <p>In other words, if in the JSP code of your editor or view, you have
+        something like this:</p>
+      <p></p>
+      <pre><code class="html">&lt;script type='text/javascript' src='&lt;%=contextPath%&gt;/dwr/interface/Discussion.js?ox=&lt;%=version%&gt;'&gt;&lt;/script&gt;
+</code></pre>
+      <p></p>
+      <p>You should change it to:</p>
+      <p></p>
+      <pre><code class="html">&lt;script type='text/javascript' &lt;xava:nonce/&gt; src='&lt;%=contextPath%&gt;/dwr/interface/Discussion.js?ox=&lt;%=version%&gt;'&gt;&lt;/script&gt;
+</code></pre>
+      <p></p>
+      <p>Note the <i>&lt;xava:nonce/&gt;</i> we have added.</p>
+      <h2></h2>
       <h2>Migration from OpenXava 7.1.5 to OpenXava 7.1.6</h2>
       No issues.
       <h2>Migration from OpenXava 7.1.4 to OpenXava 7.1.5</h2>
@@ -286,7 +309,7 @@ reload(); // ...you have to add this line
       module, search for the <i>Admin</i> folder in the list, and select it. In
       the <i>Admin</i> detail, click to add a new module, search for SSO, and
       add it:</div>
-    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_en.png"
+    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_en.png"
         alt=""><br>
       <h2>Migration from OpenXava 7.0.5 to OpenXava 7.0.6</h2>
       <h3>@Column(length=x) with no scale is no longer scale=2 by default</h3>
@@ -381,7 +404,7 @@ assertValidValues("descriptionsListValue", validValues);
       <p>The easier way to migrate to Maven is creating a new project using
         OpenXava 7.0, and then copying the source code and resources from your
         current project to the new one. So, first create a new OpenXava project
-        using Openxava Studio 7, for that you can follow the instructions in <a
+        using Openxava Studio 7, for that you can follow the instructions in <a
           href="getting-started_en.html">Getting started guide</a>.</p>
       <p>The next step is to copy all your source code and resources from the
         old project to the corresponding folder in the new project, as
@@ -722,7 +745,7 @@ assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asNormalizedTex
         +"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
     deleteLink.getHrefAttribute());
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
+    <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
         href="http://www.alanwood.net/demos/ansi.html">Look at this table</a> to
       know the mapping between ANSI and UNICODE.</div>
     <div class="wiki" style="display: block;">Now in <i>@HtmlText</i> or <i>@Stereotype("HTML_TEXT")</i>

@@ -11,7 +11,12 @@ import org.openxava.util.*;
 import org.openxava.web.*;
 
 /**
- * tmr
+ * tmr 
+ * tmr Al refactorizar tener en cuenta:
+ * - testNavigation en dos tests
+ * - public static en un test
+ * - hacer que por defecto sean headless
+ * - Hacer que todos los tests corran con headless bien
  * To test lists and collections related issues with Selenium.
  * 
  * @author Javier Paniza

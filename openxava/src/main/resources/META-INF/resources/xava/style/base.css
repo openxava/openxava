@@ -1997,8 +1997,7 @@ div.ox-subcontroller table{
 }
 
 /* tmr ini */
-/* tmr ¿Poner una clase específica? */
-.ox-list-header div span:last-of-type {
+.ox-column-customize-controls-on-right {
 	float: right;
 }
 /* tmr fin */

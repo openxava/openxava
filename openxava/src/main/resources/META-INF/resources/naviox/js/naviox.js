@@ -78,7 +78,6 @@ naviox.hideModulesList = function(application, module) {
 	});
 	*/
 	// tmr ini
-	// tmr Revisar toggle() en XavaPro (por el móvil) // TMR ME QUEDÉ POR AQUÍ
 	$('#modules_list').animate({width:'toggle'}, 200, function() {
 		openxava.resetListsSize(application, module);
 	});

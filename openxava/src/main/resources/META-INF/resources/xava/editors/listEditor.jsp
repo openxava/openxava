@@ -177,7 +177,7 @@ String headerLabel=Strings.noLastToken(label) + " <nobr>" + Strings.lastToken(la
 		   
 		   if (tab.isCustomizeAllowed()) {
 	%>
-	<span class="<xava:id name='<%="customize_" + id%>'/> ox-display-none">
+	<span class="<xava:id name='<%="customize_" + id%>'/> ox-display-none ox-column-customize-controls-on-right">
 	<xava:action action="List.changeColumnName" argv='<%="property="+property.getQualifiedName() + collectionArgv%>'/>
 	<a href="javascript:openxava.removeColumn('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<xava:id name='<%=id%>'/>_col<%=columnIndex%>', '<%=tabObject%>')" title="<xava:message key='remove_column'/>">
 		<i class="mdi mdi-close-circle"></i>

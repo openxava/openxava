@@ -44,6 +44,27 @@
         instrucciones de abajo para adaptar tu código.</div>
       <div class="wiki" style="display: block;"><br>
       </div>
+      <h2>Para migrar de OpenXava 7.1.6 a OpenXava 7.2</h2>
+      <h3>Incluir archivos JavaScript en editores o vista personalizada requiere
+        atributo nonce</h3>
+      <p>Esto es por razones de seguridad. Normalmente los JS usados en editores
+        propios o vistas personalizadas se incluyen en la carpeta <i>xava/editors/js</i>,
+        cuando este es el caso no hay que hacer ningún cambio. Sin embargo, en
+        algunas ocasiones se ha de incluir el archivo en el editor o la vista
+        directamente, si este es el caso hay que añadir un atributo <i>nonce</i>,
+        para que funcione.</p>
+      <p>Es decir, si en el código JSP de tu editor o vista tienes algo así:</p>
+      <p></p>
+      <pre><code class="html">&lt;script type='text/javascript' src='&lt;%=contextPath%&gt;/dwr/interface/Discussion.js?ox=&lt;%=version%&gt;'&gt;&lt;/script&gt;
+</code></pre>
+      <p></p>
+      <p>Lo deberías cambiar por:</p>
+      <p></p>
+      <pre><code class="html">&lt;script type='text/javascript' &lt;xava:nonce/&gt; src='&lt;%=contextPath%&gt;/dwr/interface/Discussion.js?ox=&lt;%=version%&gt;'&gt;&lt;/script&gt;
+</code></pre>
+      <p></p>
+      <p>Fíjate en el <i>&lt;xava:nonce/&gt;</i> que hemos añadido.</p>
+      <h2></h2>
       <h2>Para migrar de OpenXava 7.1.5 a OpenXava 7.1.6</h2>
       No hay consideraciones.
       <h2>Para migrar de OpenXava 7.1.4 a OpenXava 7.1.5</h2>
@@ -290,7 +311,7 @@ reload(); // ...has de añadir esta línea
       carpeta <i>Admin</i>. Abre el módulo <i>Carpetas</i>, busca la carpeta <i>Admin</i>
       en la lista y escógelo. Dentro del detalle de <i>Admin</i> pulsa para
       añadir un nuevo módulo, busca SSO y añádelo:</div>
-    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_es.png"
+    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_es.png"
         alt=""><br>
       <h2>Para migrar de OpenXava 7.0.5 a OpenXava 7.0.6</h2>
       <h3>@Column(length=x) sin scale ya no es scale=2 por defecto</h3>
