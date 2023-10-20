@@ -20,7 +20,7 @@ public class CalendarTest extends WebDriverTestBase {
 		forTestAddEventAndVerify();
 		forTestConditionsAndFilter();
 		forTestAnyNameAsDateProperty();
-		forTestMultipleDateAndFirstDateAsEventStart(); // TMR FALLA ME QUEDÉ POR AQUÍ. YA HE MEZCLADO DESDE EL MASTRER, PROBAR SI VA AHORA. AUN QUEDA OTRO TMR FALLA
+		forTestMultipleDateAndFirstDateAsEventStart();  
 		forTestFilterPerformance();
 		forTestMore();
 		forTestCreateDateWithTimeInWeekAndDailyView_tooltip();

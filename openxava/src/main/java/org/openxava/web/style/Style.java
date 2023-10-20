@@ -92,12 +92,12 @@ public class Style {
 			
 	/* tmr
 	protected String getJQueryCss() { // tmr Quitar
-		return "/xava/style/ui-lightness/jquery-ui.css"; // TMR Mover aquí la implementación de XavaStyle
+		return "/xava/style/ui-lightness/jquery-ui.css"; 
 	}
 	*/
 	
 	/* tmr
-	protected Collection<String> createAdditionalCssFiles() { // tmr Mover a module.jsp
+	protected Collection<String> createAdditionalCssFiles() { // tmr Movido a module.jsp
 		return Arrays.asList( 
 			// tmr ini
 			"/xava/style/jquery-ui.css",

@@ -13,7 +13,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 	}
 
 	public void testNavigation() throws Exception {
-		forTestMultipleDateWithOnChange_localeTranslationWellLoaded(); // TMR FALLA 
+		forTestMultipleDateWithOnChange_localeTranslationWellLoaded();  
 	}
 
 	public void tearDown() throws Exception {

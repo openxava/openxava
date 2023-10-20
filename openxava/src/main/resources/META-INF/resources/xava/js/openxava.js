@@ -2,6 +2,7 @@ if (openxava == null) var openxava = {};
 if (openxava.browser == null) openxava.browser = {};
 
 openxava.deselected = [];
+openxava.loadedScripts = []; // tmr
 
 openxava.init = function(application, module, initUI) { 
 	openxava.initWindowId(); 
@@ -1362,11 +1363,19 @@ openxava.show = function(selector) {
 	$(selector).show();
 }
 
-// Instead of $.getScript() because of cache
 openxava.getScript = function( url ) {
+// tmr ini
+	if (openxava.loadedScripts.includes(url)) return;
+	var script = document.createElement('script');
+	script.src = url;
+	document.body.appendChild(script);
+	openxava.loadedScripts.push(url);
+// tmr fin	
+/* tmr
   return jQuery.ajax( {
     dataType: "script",
     cache: true,
     url: url
   });
+  */
 };
