@@ -23,6 +23,8 @@
             user access to actions</a></div>
         <div style="margin-left: 2em;"><a href="#Security%20and%20user%20management-Restricting%20user%20access%20to%20properties,%20references%20and%20collections%20%28new%20in%20v5.5%29">Restricting
             user access to properties, references and collections (new in v5.5)</a></div>
+        <div style="margin-left: 2em;"><a href="#readonly-module-for-role">Read
+            only module with one click (new in v7.2)</a></div>
         <div style="margin-left: 2em;"><a href="#hiding-a-module-in-the-menu-without-restricting-it">Hiding
             a module in the menu without restricting it (new in v6.5)</a></div>
         <div style="margin-left: 2em;"><a href="#Security%20and%20user%20management-User%20and%20password%20policies">User
@@ -106,22 +108,24 @@
         only data</em> to allow the users to see the data but not to change it.<br>
       Restricting user access to properties, references or collections is only
       available in <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
-      <h2 id="toc3"><a name="hiding-a-module-in-the-menu-without-restricting-it"></a>Read
-        only module with one click <em>(new in v7.2)</em></h2>
-      If you want that a module will be not shown in the menu for <strong>users</strong>
-      of certain <strong>roles</strong> but that at the same time that module
-      would be accessible by those users, typing the URL in the browser, for
-      example. Go to the <em>Roles</em> module and choose that <strong>role</strong>
-      to edit in detail mode, once there click on the module you want to hide in
-      the menu, and a dialog like the next one will appear:<br>
-      <img src="files/hide-module-in-menu-for-role_en.png" alt="hide-module-in-menu-for-role_en.png"
-        title="hide-module-in-menu-for-role_en.png"><br>
-      Check the <i>Not in menu</i> option and click on <em>Save</em>. From now
-      on, all the users of that role will not see the module, <i>Customer</i>
-      in our example, in the left menu, however it will be still accessible, so
-      if the user goes to <i>http://yoursite.com/YourApp/m/Customer</i> with
-      his browser the module will work.<br>
-      Hiding modules in the menu is only available in <a href="http://www.openxava.org/xavapro">XavaPro</a>.
+      <h2><a name="readonly-module-for-role"></a>Read only module with one click
+        <em>(new in v7.2)</em></h2>
+      Since version 5.5, you have the capability to designate specific data as
+      read-only for a particular role and control the actions available for that
+      role. With this feature, you can easily make a module read-only for a
+      specific role. However, this approach had its drawbacks, especially when
+      new fields were introduced to the entity, as it required constant
+      configuration adjustments.<br>
+      To address these challenges, starting from version 7.2, the module rights
+      configuration dialog for a role now includes a convenient checkbox labeled
+      <i>Read only</i>. This checkbox enables you to mark a module as read-only
+      for the selected role with a single click, simplifying the process
+      significantly:<br>
+      <img src="files/readonly-module-for-role_en.png" alt="readonly-module-for-role_en.png"
+        title="readonly-module-for-role_en.png"><br>
+      A read only module has all member not editable and only has navigation and
+      print actions.<br>
+      Read only modules are only available in <a href="http://www.openxava.org/xavapro">XavaPro</a>.
       <h2 id="toc3"><a name="hiding-a-module-in-the-menu-without-restricting-it"></a>Hiding
         a module in the menu without restricting it <em>(new in v6.5)</em></h2>
       If you want that a module will be not shown in the menu for <strong>users</strong>
