@@ -184,7 +184,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		
 		reload(); // Indeed since HtmlUnit 3.3.0 in order the next moveColumn() works. With a real browsers (and previous HtmlUnit) reloading page is not needed 
 		// tmr moveColumn(2, 3); 
-		moveColumnNoDragAndDrop(2, 3); // tmr
+		moveColumn(2, 3); // tmr
 		assertListRowCount(5);
 		assertListColumnCount(10);
 		assertLabelInList(0, "Year");

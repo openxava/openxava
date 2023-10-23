@@ -139,7 +139,7 @@ public class AuthorTest extends CustomizeListTestBase {
 		// HTML characters in list
 		assertValueInList(0, "biography", "aaaa \" bbbb > cccc");
 
-		/* tmr
+		/* tmr Movido a ListTest
 		// To test a specific bug moving columns
 		assertLabelInList(0, "Author");
 		assertLabelInList(1, "Biography");

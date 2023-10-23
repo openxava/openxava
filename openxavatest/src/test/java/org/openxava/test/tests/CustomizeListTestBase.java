@@ -23,19 +23,21 @@ abstract public class CustomizeListTestBase extends ModuleTestBase {
 		super.setUp();
 	}
 	
-	protected void removeColumn(int index) throws Exception {
+	protected void removeColumn(int index) throws Exception { // tmr Comentario de que necesita reload 
 		removeColumn("list", "xava_tab", index);
 	}
 	
-	protected void removeColumn(String collection, int index) throws Exception {
+	protected void removeColumn(String collection, int index) throws Exception { // tmr Comentario de que necesita reload
 		removeColumn(collection, "xava_collectionTab_" + collection, index);
 	}
-	
+
+	/* tmr
 	protected void moveColumn(int from, int to) throws Exception { 
 		moveColumn("list", from, to); 
 	}
-	
-	protected void moveColumnNoDragAndDrop(int from, int to) throws Exception {
+	*/
+		
+	protected void moveColumn(int from, int to) throws Exception { // tmr Comentario de que no es real
 		// It's better to use moveColumn() if possible, because this is not an exact mirror of the real
 		//   behavior. It does not do drag & drop and it does a reload().
 		getHtmlPage().executeJavaScript("Tab.moveProperty('ox_openxavatest_" + module +"__list', " + from + ", " + to + ")");
@@ -43,6 +45,7 @@ abstract public class CustomizeListTestBase extends ModuleTestBase {
 		reload();		
 	}
 	
+	/* tmr
 	protected void moveColumn(String collection, int from, int to) throws Exception { 
 		// This method does not work for all "from, to" combinations, at least with HtmlUnit 2.15
 		//   when it does not work you can use moveColumnNoDragAndDrop instead
@@ -57,7 +60,7 @@ abstract public class CustomizeListTestBase extends ModuleTestBase {
 		elementTo.mouseUp();		
 		Thread.sleep(700); 
 	}
-
+	*/
 	
 	private void removeColumn(String collection, String tabObject, int index) throws Exception {
 		getWebClient().getOptions().setCssEnabled(true); 
