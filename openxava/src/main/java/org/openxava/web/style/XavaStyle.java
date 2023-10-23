@@ -19,12 +19,6 @@ public class XavaStyle extends Style {
 	public XavaStyle() {
 	}
 	
-	/* tmr
-	protected String getJQueryCss() { // tmr Quitar
-		return "/xava/style/smoothness/jquery-ui.css";
-	}
-	*/
-	
 	public static String getBodyClass(HttpServletRequest request) {
 		String browser = request.getHeader("user-agent");
 		if (browser == null) return "";

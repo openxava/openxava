@@ -39,7 +39,7 @@ public class AuthorTest extends CustomizeListTestBase {
 		assertValueInList(0, 2, "Matching humans: 1");
 	}
 	
-	public void testComparatorsShownOnDemand/* tmr _noFilterInCollectionByDefault*/() throws Exception { 
+	public void testComparatorsShownOnDemand() throws Exception { 
 		getWebClient().getOptions().setCssEnabled(true);
 		reload(); 
 		
@@ -78,39 +78,8 @@ public class AuthorTest extends CustomizeListTestBase {
 		assertEquals("", value.getValue());
 		comparator.setSelectedAttribute("not_empty_comparator", true);
 		waitAJAX();
-		assertListRowCount(2);
-		
-		/* tmr Movido a CollectionTest
-		execute("CRUD.new");		
-		assertCollectionFilterNotDisplayed();
-		getHtmlPage().getHtmlElementById("ox_openxavatest_Author__show_filter_humans").click();
-		assertCollectionFilterDisplayed();
-		
-		execute("MyGoListMode.list");  
-		execute("List.viewDetail", "row=1");
-		assertCollectionFilterNotDisplayed();
-		getHtmlPage().getHtmlElementById("ox_openxavatest_Author__show_filter_humans").click();
-		assertCollectionFilterDisplayed();
-		
-		execute("CRUD.new");
-		assertCollectionFilterNotDisplayed();
-		getHtmlPage().getHtmlElementById("ox_openxavatest_Author__show_filter_humans").click();
-		assertCollectionFilterDisplayed();
-		getHtmlPage().getHtmlElementById("ox_openxavatest_Author__hide_filter_humans").click();
-		Thread.sleep(1000);
-		assertCollectionFilterNotDisplayed(); 
-		*/
+		assertListRowCount(2);		
 	}
-	
-	/* tmr
-	private void assertCollectionFilterDisplayed() { 
-		assertTrue(getHtmlPage().getElementById("ox_openxavatest_Author__xava_collectionTab_humans_conditionValue___0").isDisplayed());
-	}
-	
-	private void assertCollectionFilterNotDisplayed() { 
-		assertFalse(getHtmlPage().getElementById("ox_openxavatest_Author__xava_collectionTab_humans_conditionValue___0").isDisplayed());
-	}
-	*/
 	
 	public void testModuleFromMenuReinitModule() throws Exception { 
 		modulesLimit = false; 
@@ -135,22 +104,10 @@ public class AuthorTest extends CustomizeListTestBase {
 		assertListRowCount(2);
 	}
 	
-	public void testHTMLCharsInList_placeholder() throws Exception { //tmr _moveColumn_
+	public void testHTMLCharsInList_placeholder() throws Exception { 
 		// HTML characters in list
 		assertValueInList(0, "biography", "aaaa \" bbbb > cccc");
 
-		/* tmr Movido a ListTest
-		// To test a specific bug moving columns
-		assertLabelInList(0, "Author");
-		assertLabelInList(1, "Biography");
-		moveColumn(0, 1);
-		assertLabelInList(0, "Biography"); 
-		assertLabelInList(1, "Author");
-		resetModule();
-		assertLabelInList(0, "Biography");
-		assertLabelInList(1, "Author");
-		*/
-		
 		// Placeholder
 		execute("CRUD.new");
 		String inputPlaceholder = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__author").getAttribute("placeholder");
@@ -158,23 +115,6 @@ public class AuthorTest extends CustomizeListTestBase {
 		String textareaPlaceholder = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__biography").getAttribute("placeholder");
 		assertTrue("Put here the biography of the author".equals(textareaPlaceholder));
 	}
-
-	/* tmr Movido a ListTest
-	public void testRemoveColumnAfterFiltering() throws Exception {
-		assertListRowCount(2);
-		assertListColumnCount(2);		
-		setConditionValues("J");
-		execute("List.filter");
-		assertListRowCount(1);
-		removeColumn(1); 
-		assertListRowCount(1);
-		assertListColumnCount(1); 
-		execute("List.addColumns"); 
-		execute("AddColumns.restoreDefault"); 
-		assertListColumnCount(2);
-		assertListRowCount(1); 
-	}
-	*/
 	
 	public void testAddRemoveActionsForProperty() throws Exception { 
 		execute("List.viewDetail", "row=0");

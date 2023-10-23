@@ -1108,7 +1108,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 
 		// Restoring, for next time that test execute
 		removeColumn(8); 
-		reload(); // tmr
+		reload(); // Remove column does not work completely with HtmlUnit so a reload is needed()
 		assertListColumnCount(8); 
 
 		// Always starts with 20
@@ -1161,61 +1161,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertErrorsCount(1);
 		assertDialog();
 	}
-	
-	/* tmr Movido a ListTest
-	public void testRemoveSeveralColumns() throws Exception { 
-		assertListColumnCount(8); 
-		assertLabelInList(0, "Year");
-		assertLabelInList(1, "Number");
-		assertLabelInList(2, "Date");
-		assertLabelInList(3, "Amounts sum");
-		assertLabelInList(4, "V.A.T.");
-		assertLabelInList(5, "Details count");
-		assertLabelInList(6, "Paid");
-		assertLabelInList(7, "Importance");
-
-		removeColumn(2);
-		assertListColumnCount(7); 
-		assertLabelInList(0, "Year");
-		assertLabelInList(1, "Number");
-		assertLabelInList(2, "Amounts sum");
-		assertLabelInList(3, "V.A.T.");
-		assertLabelInList(4, "Details count");
-		assertLabelInList(5, "Paid");
-		assertLabelInList(6, "Importance");
 		
-		removeColumn(3); // VAT
-		assertListColumnCount(6);
-		assertLabelInList(0, "Year");
-		assertLabelInList(1, "Number");
-		assertLabelInList(2, "Amounts sum");
-		assertLabelInList(3, "Details count");
-		assertLabelInList(4, "Paid");
-		assertLabelInList(5, "Importance");
-		
-		execute("List.filter");
-		assertListColumnCount(6);
-		assertLabelInList(0, "Year");
-		assertLabelInList(1, "Number");
-		assertLabelInList(2, "Amounts sum");
-		assertLabelInList(3, "Details count");
-		assertLabelInList(4, "Paid");
-		assertLabelInList(5, "Importance");
-
-		execute("List.addColumns");
-		execute("AddColumns.restoreDefault");
-		assertListColumnCount(8);
-		assertLabelInList(0, "Year");
-		assertLabelInList(1, "Number");
-		assertLabelInList(2, "Date");
-		assertLabelInList(3, "Amounts sum");
-		assertLabelInList(4, "V.A.T.");
-		assertLabelInList(5, "Details count");
-		assertLabelInList(6, "Paid");
-		assertLabelInList(7, "Importance");		
-	}
-	*/
-	
 	public void testCustomizeList() throws Exception {
 		doTestCustomizeList_addColumns(); 
 		resetModule(); 

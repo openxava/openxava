@@ -192,60 +192,60 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		return input.getAttribute("value");
 	}
 	
-	private void assertValue(String name, String value) { // tmr Duplicated with ListTest
+	private void assertValue(String name, String value) { // Duplicated with ListTest, refactoring pending
 		assertEquals(XavaResources.getString("unexpected_value", name), value, getValue(name));		
 	}
 	
-	private String getValue(String name) { // tmr Duplicated with ListTest
+	private String getValue(String name) { // Duplicated with ListTest, refactoring pending
 		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
 		return input.getAttribute("value");
 	}
 	
-	private void assertValueInList(int row, int column, String expectedValue) { // tmr Duplicado con ListTest 
+	private void assertValueInList(int row, int column, String expectedValue) { // Duplicated with ListTest, refactoring pending 
 		assertEquals(expectedValue, getValueInList(row, column));				
 	}
 	
 	
-	private String getValueInList(int row, int column) { // tmr Duplicado con DescriptionsListTest
+	private String getValueInList(int row, int column) { // Duplicated with ListTest, refactoring pending
 		return getValueInCollection("list", row + 1, column);
 	}
 		
-	private String getValueInCollection(String collection, int row, int column) { // tmr Duplicado con ListTest
+	private String getValueInCollection(String collection, int row, int column) { // Duplicated with ListTest, refactoring pending
 		return getCell(collection, row + 1, column).getText().trim();
 	}
 	
-	private WebElement getCell(String collection, int row, int column) { // tmr Duplicado con ListTest
+	private WebElement getCell(String collection, int row, int column) { // Duplicated with ListTest, refactoring pending
 		WebElement tableRow = getTable(collection).findElements(By.tagName("tr")).get(row);
 		String cellType = row == 0?"th":"td";
 		List<WebElement> cells = tableRow.findElements(By.tagName(cellType));		
 		return cells.get(column + 2);
 	}
 	
-	private WebElement getTable(String collection) { // tmr Duplicado con ListTest
+	private WebElement getTable(String collection) { // Duplicated with ListTest, refactoring pending
 		return driver.findElement(By.id("ox_openxavatest_" + module + "__" + collection));
 	}
 	
-	private void execute(String action, String arguments) throws Exception { // tmr Duplicado con DescriptionsListTest
+	private void execute(String action, String arguments) throws Exception { // Duplicated with ListTest, refactoring pending
 		execute(driver, module, action, arguments);
 	}
 	
-	private void assertNoErrors() { // tmr Duplicado con DescriptionsListTest
+	private void assertNoErrors() { // Duplicated with ListTest, refactoring pending
 		WebElement errors = driver.findElement(By.id("ox_openxavatest_" + module + "__errors"));
 		assertEquals(XavaResources.getString("unexpected_messages", "Errors"), "", errors.getText());
 	}
 
 	
-	private void setValue(String name, String value) { // tmr Duplicada con ListTest
+	private void setValue(String name, String value) { // Duplicated with ListTest, refactoring pending
 		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
 		input.clear();
 		input.sendKeys(value);	
 	}
 	
-	private void execute(String action) throws Exception { // tmr Duplicado con ListTest
+	private void execute(String action) throws Exception { // Duplicated with ListTest, refactoring pending
 		execute(driver, module, action);
 	}
 	
-	private void goModule(String module) throws Exception{ // tmr Duplicado con ListTest
+	private void goModule(String module) throws Exception{ // Duplicated with ListTest, refactoring pending
 		driver.get("http://localhost:8080/openxavatest/m/" + module);
 		this.module = module;
 		wait(driver);

@@ -182,38 +182,5 @@ public class HumanTest extends ModuleTestBase {
 	private HtmlAnchor getAnchorByHref(String href) throws Exception { 
 		return (HtmlAnchor) HtmlUnitUtils.getAnchor(getHtmlPage(), href);
 	}
-	
-	/* tmr Movido a ListTest
-	public void testEnableDisableCustomizeList() throws Exception { 
-		getWebClient().getOptions().setCssEnabled(true);
-		reload(); 
-		HtmlAnchor addColumns = getHtmlPage().getHtmlElementById("ox_openxavatest_Human__List___addColumns"); 
-		HtmlElement column0 = getHtmlPage().getHtmlElementById("ox_openxavatest_Human__list_col0");
-		HtmlElement moveColumn0 = column0.getElementsByAttribute("i", "class", "xava_handle mdi mdi-cursor-move ui-sortable-handle").get(0); 		
-		HtmlAnchor removeColumn0 = getAnchorByHref("javascript:openxava.removeColumn('openxavatest', 'Human', 'ox_openxavatest_Human__list_col0', 'xava_tab')"); 
-		HtmlElement column1 = getHtmlPage().getHtmlElementById("ox_openxavatest_Human__list_col1");
-		HtmlElement moveColumn1 = column1.getElementsByAttribute("i", "class", "xava_handle mdi mdi-cursor-move ui-sortable-handle").get(0); 
-		HtmlAnchor removeColumn1 = getAnchorByHref("javascript:openxava.removeColumn('openxavatest', 'Human', 'ox_openxavatest_Human__list_col1', 'xava_tab')"); 
-		assertFalse(addColumns.isDisplayed());
-		assertFalse(moveColumn0.isDisplayed());		
-		assertFalse(removeColumn0.isDisplayed());
-		assertFalse(moveColumn1.isDisplayed());
-		assertFalse(removeColumn1.isDisplayed());		
-		HtmlAnchor customize = getHtmlPage().getHtmlElementById("ox_openxavatest_Human__customize_list"); 
-		customize.click();
-		assertTrue(addColumns.isDisplayed());
-		assertTrue(moveColumn0.isDisplayed());
-		assertTrue(removeColumn0.isDisplayed());
-		assertTrue(moveColumn1.isDisplayed());
-		assertTrue(removeColumn1.isDisplayed());		
-		customize.click();
-		Thread.sleep(3000); // It needs time to fade out 
-		assertFalse(addColumns.isDisplayed()); 
-		assertFalse(moveColumn0.isDisplayed());		
-		assertFalse(removeColumn0.isDisplayed());
-		assertFalse(moveColumn1.isDisplayed()); 
-		assertFalse(removeColumn1.isDisplayed());		
-	}
-	*/
-				
+					
 }

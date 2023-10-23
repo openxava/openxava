@@ -89,43 +89,7 @@ public class Style {
 	public boolean isUseIconsInsteadOfImages() {
 		return XavaPreferences.getInstance().isUseIconsInsteadOfImages();
 	}
-			
-	/* tmr
-	protected String getJQueryCss() { // tmr Quitar
-		return "/xava/style/ui-lightness/jquery-ui.css"; 
-	}
-	*/
-	
-	/* tmr
-	protected Collection<String> createAdditionalCssFiles() { // tmr Movido a module.jsp
-		return Arrays.asList( 
-			// tmr ini
-			"/xava/style/jquery-ui.css",
-			"/xava/style/jquery-ui.structure.css",
-			"/xava/style/smoothness/jquery-ui.css",	
-			// tmr fin
-			"/xava/style/yahoo-treeview/treeview.css",
-			"/xava/style/custom.css" // tmr , 
-			// tmr getJQueryCss()
-		);
-	}
-	*/
-
-	
-	/**
-	 * These css files will be always added. <p>
-	 * 
-	 * To refine it overwrite the {@link #createAdditionalCssFiles} method.<br>
-	 */
-	/* tmr
-	final public Collection<String> getAdditionalCssFiles() {
-		if (additionalCssFiles == null) {
-			additionalCssFiles = createAdditionalCssFiles();
-		}		
-		return additionalCssFiles;
-	}
-	*/
-
+				
 	/** 
 	 * The JavaScript function that assign the HTML token to a specific a element. 
 	 * 

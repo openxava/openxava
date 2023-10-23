@@ -21,7 +21,7 @@ abstract public class WebDriverTestBase extends TestCase {
 		ChromeOptions options = new ChromeOptions();
 	    options.addArguments("--remote-allow-origins=*");
 	    options.addArguments("--accept-lang=en");
-	    options.addArguments("--lang=en"); // tmr
+	    options.addArguments("--lang=en"); 
 	    
 	    //Sometime needs set path and update manually chromedriver when chrome just been updated
 	    //https://googlechromelabs.github.io/chrome-for-testing/
@@ -117,7 +117,7 @@ abstract public class WebDriverTestBase extends TestCase {
 		//waitCalendarEvent(driver);
 	}
 	
-	protected void execute(WebDriver driver, String moduleName, String action, String arguments) throws Exception { // tmr
+	protected void execute(WebDriver driver, String moduleName, String action, String arguments) throws Exception { 
 		try { 
 			WebElement button = driver.findElement(By.cssSelector(
 				"a[onclicke=\"javascript:openxava.executeAction('openxavatest', '" + moduleName + 

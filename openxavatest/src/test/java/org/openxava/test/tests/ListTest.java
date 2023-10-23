@@ -11,12 +11,6 @@ import org.openxava.util.*;
 import org.openxava.web.*;
 
 /**
- * tmr 
- * tmr Al refactorizar tener en cuenta:
- * - testNavigation en dos tests
- * - public static en un test
- * - hacer que por defecto sean headless
- * - Hacer que todos los tests corran con headless bien
  * To test lists and collections related issues with Selenium.
  * 
  * @author Javier Paniza
@@ -29,7 +23,7 @@ public class ListTest extends WebDriverTestBase {
 	private String module; 
 
 	public void setUp() throws Exception {
-		// tmr setHeadless(true);
+		// tmr setHeadless(true); // TMR ME QUEDÉ POR AQUÍ. INTENTANDO QUE SEA HEADLESS
 	    driver = createWebDriver();
 	}
 	
@@ -543,16 +537,16 @@ public class ListTest extends WebDriverTestBase {
 		assertValueInList(0, 6, site);
 	}
 
-	private void assertValue(String name, String value) { // tmr Duplicated with DescriptionsListTest
+	private void assertValue(String name, String value) { // Duplicated with DescriptionsListTest, refactoring pending
 		assertEquals(XavaResources.getString("unexpected_value", name), value, getValue(name));		
 	}
 
-	private String getValue(String name) { // tmr Duplicated with DescriptionsListTest
+	private String getValue(String name) { // Duplicated with DescriptionsListTest, refactoring pending
 		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
 		return input.getAttribute("value");
 	}
 	
-	private void setValue(String name, String value) { // tmr Duplicada con DescriptionsListTest
+	private void setValue(String name, String value) { // Duplicated with DescriptionsListTest, refactoring pending
 		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
 		input.clear();
 		input.sendKeys(value);	
@@ -564,12 +558,12 @@ public class ListTest extends WebDriverTestBase {
 		assertTrue(XavaResources.getString("action_found_in_ui", action), driver.findElements(By.name(name)).isEmpty());
 	}
 
-	private void assertNoErrors() { // tmr Duplicado con DescriptionsListTest
+	private void assertNoErrors() { // Duplicated with DescriptionsListTest, refactoring pending
 		WebElement errors = driver.findElement(By.id("ox_openxavatest_" + module + "__errors"));
 		assertEquals(XavaResources.getString("unexpected_messages", "Errors"), "", errors.getText());
 	}
 
-	private void goModule(String module) throws Exception{ // tmr Duplicado con DescriptionsListTest
+	private void goModule(String module) throws Exception{ // Duplicated with DescriptionsListTest, refactoring pending
 		driver.get("http://localhost:8080/openxavatest/m/" + module);
 		this.module = module;
 		wait(driver);
@@ -580,11 +574,11 @@ public class ListTest extends WebDriverTestBase {
 		wait(driver);
 	}
 
-	private void execute(String action) throws Exception { // tmr Duplicado con DescriptionsListTest
+	private void execute(String action) throws Exception { // Duplicated with DescriptionsListTest, refactoring pending
 		execute(driver, module, action);
 	}
 	
-	private void execute(String action, String arguments) throws Exception { // tmr Duplicado con DescriptionsListTest
+	private void execute(String action, String arguments) throws Exception { // Duplicated with DescriptionsListTest, refactoring pending
 		execute(driver, module, action, arguments);
 	}
 
@@ -622,7 +616,7 @@ public class ListTest extends WebDriverTestBase {
 		return rowCount - 1;
 	}
 	
-	private WebElement getTable(String collection) { // tmr Duplicado con DescriptionsListTest
+	private WebElement getTable(String collection) { // Duplicated with DescriptionsListTest, refactoring pending
 		return driver.findElement(By.id("ox_openxavatest_" + module + "__" + collection));
 	}
 	
@@ -675,7 +669,7 @@ public class ListTest extends WebDriverTestBase {
 		assertEquals(expectedLabel, label);
 	}
 	
-	private void assertValueInList(int row, int column, String expectedValue) { // tmr Duplicado con DescriptionsListTest 
+	private void assertValueInList(int row, int column, String expectedValue) { // Duplicated with DescriptionsListTest, refactoring pending 
 		assertEquals(expectedValue, getValueInList(row, column));				
 	}
 	
@@ -683,11 +677,11 @@ public class ListTest extends WebDriverTestBase {
 		assertEquals(expectedValue, getValueInCollection(collection, row, column));				
 	}
 	
-	private String getValueInList(int row, int column) { // tmr Duplicado con DescriptionsListTest
+	private String getValueInList(int row, int column) { // Duplicated with DescriptionsListTest, refactoring pending
 		return getValueInCollection("list", row + 1, column);
 	}
 	
-	private String getValueInCollection(String collection, int row, int column) { // tmr Duplicado con DescriptionsListTest
+	private String getValueInCollection(String collection, int row, int column) { // Duplicated with DescriptionsListTest, refactoring pending
 		return getCell(collection, row + 1, column).getText().trim();
 	}
 		
@@ -695,7 +689,7 @@ public class ListTest extends WebDriverTestBase {
 		return getCell(collection, 0, column);
 	}
 	
-	private WebElement getCell(String collection, int row, int column) { // tmr Duplicado con DescriptionsListTest
+	private WebElement getCell(String collection, int row, int column) { // Duplicated with DescriptionsListTest, refactoring pending
 		WebElement tableRow = getTable(collection).findElements(By.tagName("tr")).get(row);
 		String cellType = row == 0?"th":"td";
 		List<WebElement> cells = tableRow.findElements(By.tagName(cellType));		
@@ -736,7 +730,7 @@ public class ListTest extends WebDriverTestBase {
 	
 	protected void assertActions(String [] expectedActions) throws Exception {
 		Collection<String> actionsInForm = getActions();		
-		Collection<String> left = new ArrayList();		
+		Collection<String> left = new ArrayList<>();		
 		for (int i = 0; i < expectedActions.length; i++) {
 			String expectedAction = expectedActions[i];
 			if (actionsInForm.contains(expectedAction)) {
@@ -781,7 +775,7 @@ public class ListTest extends WebDriverTestBase {
 		for (String windowHandle : driver.getWindowHandles()) {
             driver.switchTo().window(windowHandle);
         }
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(1000));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(2000));
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("embed")));
 		String contentType = driver.findElement(By.tagName("embed")).getAttribute("type"); // This works for PDF with Chrome
 		assertEquals(expectedContentType, contentType);

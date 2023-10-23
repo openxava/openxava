@@ -113,13 +113,11 @@
 	}
 %>
 
-<%-- tmr ini --%>
 	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%>/xava/style/jquery-ui.css?ox=<%=version%>"/>
 	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%>/xava/style/jquery-ui.structure.css?ox=<%=version%>"/>
 	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%>/xava/style/smoothness/jquery-ui.css?ox=<%=version%>"/>
 	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%>/xava/style/yahoo-treeview/treeview.css?ox=<%=version%>"/>
 	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%>/xava/style/custom.css?ox=<%=version%>"/>
-<%-- tmr fin --%>	
 
 	<%
 	for (String styleEditor: EditorsResources.listCSSFiles(realPath)) {

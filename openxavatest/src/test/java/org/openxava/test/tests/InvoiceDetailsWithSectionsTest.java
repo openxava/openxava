@@ -92,7 +92,7 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		
 		clearCondition();
 		removeColumn(1);
-		reload(); // tmr Poner comentario
+		reload(); // Remove column does not work completely with HtmlUnit so a reload is needed()
 		assertLabelInList(0, "Paid");
 		assertLabelInList(1, "Number"); 
 		assertLabelInList(2, "Date");
@@ -121,8 +121,7 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		// A bug only reproducible following the next EXACT steps
 		
 		assertListColumnCount(8);
-		removeColumn(7); // With HtmlUnit the column is not removed from UI, but the AJAX call is done, so in next reload is removed, enough for this case 
-		// tmr assertListColumnCount(7);
+		removeColumn(7);  
 		execute("ListFormat.select", "editor=Charts");
 		execute("Chart.selectType", "chartType=PIE");
 		setValueInCollection("columns", 0, "name", "vatPercentage");

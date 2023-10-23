@@ -2,7 +2,7 @@ if (openxava == null) var openxava = {};
 if (openxava.browser == null) openxava.browser = {};
 
 openxava.deselected = [];
-openxava.loadedScripts = []; // tmr
+openxava.loadedScripts = []; 
 
 openxava.init = function(application, module, initUI) { 
 	openxava.initWindowId(); 
@@ -294,8 +294,7 @@ openxava.stylizeEditorsWithError = function(application, module, editorsWithErro
 
 openxava.initPlaceholder = function(){
 	$(".xava_editor[data-placeholder]").each(function() {
-		// tmr $(this).find("input:visible:first,textarea:visible:first").attr("placeholder", $(this).data("placeholder")); 
-		$(this).find("input[type!='hidden']:visible:first,textarea:visible:first").attr("placeholder", $(this).data("placeholder")); // tmr
+		$(this).find("input[type!='hidden']:visible:first,textarea:visible:first").attr("placeholder", $(this).data("placeholder")); 
 	});
 }
 
@@ -480,8 +479,7 @@ openxava.initLists = function(application, module) {
 			$("." + event.target.id).width(newWidth);
 		},
 		stop: function(event, ui) {			
-			Tab.setColumnWidth(event.target.id, $(event.target).closest("th").index() - 2, Math.round($(event.target).width())); // tmr
-			// tmr Tab.setColumnWidth(event.target.id, $(event.target).closest("th").index() - 2, $(event.target).width());
+			Tab.setColumnWidth(event.target.id, $(event.target).closest("th").index() - 2, Math.round($(event.target).width())); 
 		}
 	});				
 	openxava.resetListsSize(application, module); 
@@ -995,20 +993,10 @@ openxava.setFocus = function(application, module) {
 openxava.setFocusOnElement = function(form, name) { 
 	var element = form.elements[name];
 	if (element != null && typeof element.disabled != "undefined" && !element.disabled) {
-		// tmr ini
 		if (!$(element).is(':visible') || element.type == "hidden") {
 			return false;
 		} 	
 		element.focus();	
-		// tmr fin
-		/* tmr
-		if (!$(element).is(':visible')) {
-			return false;
-		} 		
-		if (element.type != "hidden") {
-			element.focus();
-		}
-		*/
 		if (typeof element.select != "undefined") {
 			element.select();
 			return true; 
@@ -1351,18 +1339,9 @@ openxava.show = function(selector) {
 }
 
 openxava.getScript = function( url ) {
-// tmr ini
 	if (openxava.loadedScripts.includes(url)) return;
 	var script = document.createElement('script');
 	script.src = url;
 	document.body.appendChild(script);
 	openxava.loadedScripts.push(url);
-// tmr fin	
-/* tmr
-  return jQuery.ajax( {
-    dataType: "script",
-    cache: true,
-    url: url
-  });
-  */
 };

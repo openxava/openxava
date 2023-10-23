@@ -106,7 +106,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertLabelInList(2, "Date"); 
 		assertLabelInList(8, "Customer seller"); 
 		removeColumn(0);
-		reload(); // tmr Poner comentario
+		reload(); // Remove column does not work completely with HtmlUnit so a reload is needed()
 		assertListColumnCount(8);
 		assertLabelInList(0, "Number");
 		assertLabelInList(1, "Date"); 
@@ -138,7 +138,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertLabelInList(5, "Paid");
 		assertLabelInList(8, "Customer seller"); 
 		removeColumn(3); // A calculated property, we filter by one on right
-		reload(); // tmr Poner comentario
+		reload(); // Remove column does not work completely with HtmlUnit so a reload is needed()
 		assertListRowCount(5);
 		assertListColumnCount(8);
 		assertLabelInList(0, "Year");
@@ -183,8 +183,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertValue("conditionValue___8", "");
 		
 		reload(); // Indeed since HtmlUnit 3.3.0 in order the next moveColumn() works. With a real browsers (and previous HtmlUnit) reloading page is not needed 
-		// tmr moveColumn(2, 3); 
-		moveColumn(2, 3); // tmr
+		moveColumn(2, 3); 
 		assertListRowCount(5);
 		assertListColumnCount(10);
 		assertLabelInList(0, "Year");
@@ -237,7 +236,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		
 		removeColumn(1);
 		removeColumn(0);
-		reload(); // tmr
+		reload(); // Remove column does not work completely with HtmlUnit so a reload is needed()
 		assertListRowCount(5);
 		assertListColumnCount(8);
 		assertLabelInList(0, "Customer email");
