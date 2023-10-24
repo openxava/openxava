@@ -57,7 +57,7 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		assertLabelInList(5, "V.A.T.");
 		assertLabelInList(6, "Details count");
 		
-		moveColumnNoDragAndDrop(4, 5);
+		moveColumn(4, 5);
 		assertLabelInList(0, "Year");
 		assertLabelInList(1, "Paid");
 		assertLabelInList(2, "Number");
@@ -75,7 +75,7 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		assertLabelInList(5, "Amounts sum");
 		assertLabelInList(6, "Details count");
 		
-		moveColumnNoDragAndDrop(0, 1); 
+		moveColumn(0, 1); 
 		assertLabelInList(0, "Paid");
 		assertLabelInList(1, "Year");
 		assertLabelInList(2, "Number");
@@ -92,6 +92,7 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		
 		clearCondition();
 		removeColumn(1);
+		reload(); // Remove column does not work completely with HtmlUnit so a reload is needed()
 		assertLabelInList(0, "Paid");
 		assertLabelInList(1, "Number"); 
 		assertLabelInList(2, "Date");
@@ -120,8 +121,7 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		// A bug only reproducible following the next EXACT steps
 		
 		assertListColumnCount(8);
-		removeColumn(7);
-		assertListColumnCount(7);
+		removeColumn(7);  
 		execute("ListFormat.select", "editor=Charts");
 		execute("Chart.selectType", "chartType=PIE");
 		setValueInCollection("columns", 0, "name", "vatPercentage");

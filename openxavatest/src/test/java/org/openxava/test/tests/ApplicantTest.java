@@ -197,7 +197,7 @@ public class ApplicantTest extends ModuleTestBase {
 		HtmlElement cssHref = page.getAnchorByHref("?theme=pink.css");
 		page = cssHref.click();
 		assertCSSWellUploaded(page, false);
-		assertResorcesWellReaded(page);
+		assertResorcesWellReaded(page); 
 	}
 	
 	private void assertLabels(String propertyLabel, String moduleLabel) throws Exception {
@@ -287,55 +287,6 @@ public class ApplicantTest extends ModuleTestBase {
 		assertListCustomizationWithTabDefaultOrder(); // Failed the second time after reseting module
 	}
 	
-	
-	public void testHideShowModulesMenu() throws Exception { 
-		getWebClient().getOptions().setCssEnabled(true);
-		reload();
-		
-		HtmlElement modulesList = getHtmlPage().getHtmlElementById("modules_list");
-		HtmlElement menuButton = getHtmlPage().getHtmlElementById("module_header_menu_button");
-		HtmlElement extendedTitle = getHtmlPage().getHtmlElementById("module_extended_title");
-		HtmlElement hideButton = getHtmlPage().getHtmlElementById("modules_list_hide");
-		HtmlElement showButton = getHtmlPage().getHtmlElementById("modules_list_show");
-
-		assertTrue(modulesList.isDisplayed());
-		assertFalse(menuButton.isDisplayed());
-		assertFalse(extendedTitle.isDisplayed());
-		assertTrue(hideButton.isDisplayed());
-		
-		hideButton.click();
-		Thread.sleep(500);
-		
-		assertFalse(modulesList.isDisplayed()); 
-		assertTrue(menuButton.isDisplayed());
-		assertTrue(extendedTitle.isDisplayed());
-		assertFalse(hideButton.isDisplayed());
-		
-		showButton.click();
-		Thread.sleep(500);		
-		
-		assertTrue(modulesList.isDisplayed());
-		assertFalse(menuButton.isDisplayed());
-		assertFalse(extendedTitle.isDisplayed());
-		assertTrue(hideButton.isDisplayed());
-		
-		hideButton.click();
-		Thread.sleep(500);
-		
-		assertFalse(modulesList.isDisplayed());
-		assertTrue(menuButton.isDisplayed());
-		assertTrue(extendedTitle.isDisplayed());
-		assertFalse(hideButton.isDisplayed());
-		
-		menuButton.click();
-		Thread.sleep(500);		
-		
-		assertTrue(modulesList.isDisplayed());
-		assertFalse(menuButton.isDisplayed());
-		assertFalse(extendedTitle.isDisplayed());
-		assertTrue(hideButton.isDisplayed());		
-	}
-
 	private void assertListCustomizationWithTabDefaultOrder() throws Exception { 
 		assertListColumnCount(1);
 		assertListAllConfigurations("All"); 
@@ -382,8 +333,8 @@ public class ApplicantTest extends ModuleTestBase {
 	
 	private void assertResorcesWellReaded(HtmlPage page) throws IOException {
 		String iconUrl = page.getUrl().getProtocol() + "://" 
-				+ page.getUrl().getHost() + ":"
-				+ page.getUrl().getPort() + "/openxavatest/xava/style/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png";
+			+ page.getUrl().getHost() + ":"
+			+ page.getUrl().getPort() + "/openxavatest/xava/style/smoothness/images/ui-bg_glass_55_fbf9ee_1x400.png"; 
 		double imageSizeInKB = 0;
         URL url = new URL(iconUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();

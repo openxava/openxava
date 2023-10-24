@@ -53,7 +53,6 @@ GalleryImage: Product2 with Chrome and Firefox
 
 AttachedFile and AttachedFiles: Movie with Chrome and Firefox
 - In list a row shows a link to download (a regular file) the trailer and other a little image preview (an image).
-- Change to Cards. The image is not shown at full size, but to a reasonable one.
 - Click on New.
 - Enter the title of a movie.
 - Upload in trailer a not-image file. It does not show the preview.

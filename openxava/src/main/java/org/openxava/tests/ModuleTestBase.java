@@ -894,7 +894,6 @@ abstract public class ModuleTestBase extends TestCase {
 		assertEquals(XavaResources.getString("content_type_not_match"), type, getPopupResponse(popup).getContentType());
 	}	
 	
-	
 	/**
 	 * Util for web applications, but using it makes the test web dependent. 
 	 * 

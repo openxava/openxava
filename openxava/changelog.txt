@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- jQuery upgraded to 3.7.1.
+- jQuery UI upgraded to 1.13.2.
+- Remove and rename column icons when customizing list are aligned to right.
+- New method executed() in IAccessTrackerProvider so now action executions can be tracked too.
+- Tooltips for records shown in calendar list format.
 - Clicking in a time in day or week calendar view creates a new record with the date and time preset. 
 - Week and day views in calendar list format enabled if the entity has some property with date and time.
 - Explicit plus icon in each day in list calendar format to create a new record for a day.  

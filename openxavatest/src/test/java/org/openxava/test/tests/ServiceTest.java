@@ -20,9 +20,9 @@ public class ServiceTest extends ModuleTestBase {
 	public void testFocusOnDescriptionsListInsideAggregate() throws Exception {
 		execute("CRUD.new");
 		setValue("family", "1");		
-		assertFocusOn("detail.subfamily"); 
+		assertFocusOn("detail.subfamily");  
 		setValue("detail.subfamily", "1");
-		assertFocusOn("detail.type"); 
+		assertFocusOn("detail.type");
 	}
 	
 	

@@ -15,14 +15,21 @@ import junit.framework.*;
  */
 abstract public class WebDriverTestBase extends TestCase {
 	
+	private boolean headless = false;
+	
 	protected WebDriver createWebDriver() {
 		ChromeOptions options = new ChromeOptions();
 	    options.addArguments("--remote-allow-origins=*");
 	    options.addArguments("--accept-lang=en");
+	    options.addArguments("--lang=en"); 
+	    
 	    //Sometime needs set path and update manually chromedriver when chrome just been updated
 	    //https://googlechromelabs.github.io/chrome-for-testing/
-	    //System.setProperty("webdriver.chrome.driver", "C:/Program Files/Google/Chrome/Application/chromedriver.exe");  
-	    
+	    //System.setProperty("webdriver.chrome.driver", "C:/Program Files/Google/Chrome/Application/chromedriver.exe");
+	    if (isHeadless()) {
+		    options.addArguments("--headless"); 
+		    options.addArguments("--disable-gpu"); 	    	
+	    }
 		return new ChromeDriver(options);
 	}
 	
@@ -33,7 +40,7 @@ abstract public class WebDriverTestBase extends TestCase {
 
 		return new ChromeDriver(options);
 	}
-	
+		
 	protected void wait(WebDriver driver) throws Exception {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(100));
 		try {
@@ -101,13 +108,27 @@ abstract public class WebDriverTestBase extends TestCase {
 	
 	protected void execute(WebDriver driver, String moduleName, String action) throws Exception {
 		String[] actionS = action.split("\\.");
-		WebElement buttonList = driver.findElement
+		WebElement button = driver.findElement
 				(By.id("ox_openxavatest_" + moduleName + "__" + actionS[0] + "___" + actionS[1]));
-		buttonList.click();
+		button.click();
 		acceptInDialogJS(driver);
 		wait(driver);
 		//if back to CalendarView, need add another wait after this method
 		//waitCalendarEvent(driver);
+	}
+	
+	protected void execute(WebDriver driver, String moduleName, String action, String arguments) throws Exception { 
+		try { 
+			WebElement button = driver.findElement(By.cssSelector(
+				"a[onclicke=\"javascript:openxava.executeAction('openxavatest', '" + moduleName + 
+				"', '', false, '" + action + "', '" + arguments + "')\"]"));
+			button.click();
+			wait(driver);
+		}
+		catch (NoSuchElementException ex) {
+			if (arguments.startsWith(",")) throw ex;
+			execute(driver, moduleName, action, "," + arguments);
+		}
 	}
 	
 	protected void clickOnButtonWithId(WebDriver driver, String id) throws Exception {
@@ -128,7 +149,15 @@ abstract public class WebDriverTestBase extends TestCase {
 		if (delete == true) inputElement.clear();
         inputElement.sendKeys(value);
 	}
-	
+
+	protected boolean isHeadless() {
+		return headless;
+	}
+
+
+	protected void setHeadless(boolean headless) {
+		this.headless = headless;
+	}
     public static void blur(WebDriver driver, WebElement element) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].blur();", element);

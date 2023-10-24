@@ -2,6 +2,7 @@ if (openxava == null) var openxava = {};
 if (openxava.browser == null) openxava.browser = {};
 
 openxava.deselected = [];
+openxava.loadedScripts = []; 
 
 openxava.init = function(application, module, initUI) { 
 	openxava.initWindowId(); 
@@ -293,7 +294,7 @@ openxava.stylizeEditorsWithError = function(application, module, editorsWithErro
 
 openxava.initPlaceholder = function(){
 	$(".xava_editor[data-placeholder]").each(function() {
-		$(this).find("input:visible:first,textarea:visible:first").attr("placeholder", $(this).data("placeholder")); 
+		$(this).find("input[type!='hidden']:visible:first,textarea:visible:first").attr("placeholder", $(this).data("placeholder")); 
 	});
 }
 
@@ -478,7 +479,7 @@ openxava.initLists = function(application, module) {
 			$("." + event.target.id).width(newWidth);
 		},
 		stop: function(event, ui) {			
-			Tab.setColumnWidth(event.target.id, $(event.target).closest("th").index() - 2, $(event.target).width());
+			Tab.setColumnWidth(event.target.id, $(event.target).closest("th").index() - 2, Math.round($(event.target).width())); 
 		}
 	});				
 	openxava.resetListsSize(application, module); 
@@ -976,7 +977,7 @@ openxava.parseFloat = function(value) {
 
 openxava.requestOnChange = function(application, module) {
 	if (document.throwPropertyChange)  {
-		openxava.ajaxRequest(application, module); 
+		openxava.ajaxRequest(application, module);
 	}			
 }
 
@@ -991,12 +992,12 @@ openxava.setFocus = function(application, module) {
 
 openxava.setFocusOnElement = function(form, name) { 
 	var element = form.elements[name];
-	if (element != null && typeof element.disabled != "undefined" && !element.disabled) {		
-		if (!$(element).is(':visible')) return false; 		
-		if (element.type != "hidden") {			
-			element.focus();
-		}
-		if (typeof element.select != "undefined") {			
+	if (element != null && typeof element.disabled != "undefined" && !element.disabled) {
+		if (!$(element).is(':visible') || element.type == "hidden") {
+			return false;
+		} 	
+		element.focus();	
+		if (typeof element.select != "undefined") {
 			element.select();
 			return true; 
 		}
@@ -1337,11 +1338,10 @@ openxava.show = function(selector) {
 	$(selector).show();
 }
 
-// Instead of $.getScript() because of cache
 openxava.getScript = function( url ) {
-  return jQuery.ajax( {
-    dataType: "script",
-    cache: true,
-    url: url
-  });
+	if (openxava.loadedScripts.includes(url)) return;
+	var script = document.createElement('script');
+	script.src = url;
+	document.body.appendChild(script);
+	openxava.loadedScripts.push(url);
 };

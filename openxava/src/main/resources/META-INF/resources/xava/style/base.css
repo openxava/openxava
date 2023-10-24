@@ -1996,6 +1996,10 @@ div.ox-subcontroller table{
 	background: transparent;
 }
 
+.ox-column-customize-controls-on-right {
+	float: right;
+}
+
 .ox-list a {
 	text-decoration: none;
 }

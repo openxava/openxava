@@ -3,6 +3,7 @@ package org.openxava.web;
 import java.util.*;
 
 import javax.servlet.*;
+import javax.servlet.http.*;
 
 /**
  * Utility class to generate nonce numbers for using in inline JavaScript.
@@ -13,10 +14,11 @@ import javax.servlet.*;
 public class Nonces {
 	
 	public static String get(ServletRequest request) {
-		String nonce = (String) request.getAttribute("xava.nonce");
+		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		String nonce = (String) httpRequest.getSession().getAttribute("xava.nonce"); 
 		if (nonce == null) {
 			nonce = UUID.randomUUID().toString();
-			request.setAttribute("xava.nonce", nonce);
+			httpRequest.getSession().setAttribute("xava.nonce", nonce); 
 		}
 		return nonce;
 	}

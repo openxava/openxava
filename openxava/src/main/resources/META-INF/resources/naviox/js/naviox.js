@@ -72,17 +72,17 @@ naviox.hideModulesList = function(application, module) {
 	$('#modules_list_hide').hide();
 	$('#module_header_menu_button').show();
 	$('#module_extended_title').show();
-	$('#modules_list').toggle("slide", function() { 
-		openxava.resetListsSize(application, module); 
+	$('#modules_list').animate({width:'toggle'}, 200, function() {
+		openxava.resetListsSize(application, module);
 	});
 }
 
 naviox.showModulesList = function(application, module) {
 	$('#module_header_menu_button').hide();
 	$('#module_extended_title').hide();
-	$('#modules_list').toggle("slide", function() { 
-		$('#modules_list_hide').fadeIn();
-		openxava.resetListsSize(application, module);
+	$('#modules_list').animate({width:'toggle'}, 200, function() {
+		$('#modules_list_hide').fadeIn(); 
+		openxava.resetListsSize(application, module); 
 	});
 }
 

@@ -18,8 +18,8 @@ public class SellerWithSearchListConditionTest extends CustomizeListTestBase {
 		assertListRowCount(2);
 		assertLabelInList(0, "Id");
 		assertLabelInList(1, "Description");
-		moveColumn(0, 1);
-		assertLabelInList(0, "Description");
+		moveColumn(0, 1); 
+		assertLabelInList(0, "Description"); 
 		assertLabelInList(1, "Id");
 		resetModule();
 		execute("List.viewDetail", "row=0");
