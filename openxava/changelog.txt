@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- jQuery upgraded to 3.7.1.
+- jQuery UI upgraded to 1.13.2.
 - Remove and rename column icons when customizing list are aligned to right.
 - New method executed() in IAccessTrackerProvider so now action executions can be tracked too.
 - Tooltips for records shown in calendar list format.

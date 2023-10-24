@@ -18,8 +18,7 @@ public class SellerWithSearchListConditionTest extends CustomizeListTestBase {
 		assertListRowCount(2);
 		assertLabelInList(0, "Id");
 		assertLabelInList(1, "Description");
-		// tmr moveColumn(0, 1);
-		moveColumn(0, 1); // tmr
+		moveColumn(0, 1); 
 		assertLabelInList(0, "Description"); 
 		assertLabelInList(1, "Id");
 		resetModule();

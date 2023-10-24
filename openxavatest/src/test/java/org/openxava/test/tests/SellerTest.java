@@ -470,7 +470,6 @@ public class SellerTest extends CustomizeListTestBase {
 		execute("CRUD.new");
 		assertCollectionColumnCount("customers", 7);
 		removeColumn("customers", 6); 
-		// tmr assertCollectionColumnCount("customers", 6); 
 		resetModule();
 		execute("CRUD.new");
 		assertCollectionColumnCount("customers", 6); 

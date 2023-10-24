@@ -23,7 +23,7 @@ public class ListTest extends WebDriverTestBase {
 	private String module; 
 
 	public void setUp() throws Exception {
-		// tmr setHeadless(true); // TMR ME QUEDÉ POR AQUÍ. INTENTANDO QUE SEA HEADLESS
+		setHeadless(true); 
 	    driver = createWebDriver();
 	}
 	
@@ -350,10 +350,12 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInList(7, "Importance");		
 	}
 	
-	public void assertCustomizeList() throws Exception {
+	private void assertCustomizeList() throws Exception {
 		doTestCustomizeList_moveAndRemove(); 
+		setHeadless(false); // Because we test PDF generation that in headless works different, saving the file in the file system instead of show a windows
 		resetModule(); 
 		doTestCustomizeList_generatePDF();
+		setHeadless(true); 
 		resetModule(); 
 		doTestRestoreColumns_addRemoveTabColumnsDynamically();
 	}

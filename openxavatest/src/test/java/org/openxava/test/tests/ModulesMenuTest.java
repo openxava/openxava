@@ -3,7 +3,6 @@ package org.openxava.test.tests;
 import org.openqa.selenium.*;
 
 /**
- * tmr
  * To test left modules list menu related issues with Selenium.
  * 
  * @author Javier Paniza
@@ -13,6 +12,7 @@ public class ModulesMenuTest extends WebDriverTestBase {
 	private WebDriver driver;
 
 	public void setUp() throws Exception {
+		setHeadless(true); 
 	    driver = createWebDriver();
 	}
 	

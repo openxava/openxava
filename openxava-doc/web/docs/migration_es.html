@@ -45,6 +45,15 @@
       <div class="wiki" style="display: block;"><br>
       </div>
       <h2>Para migrar de OpenXava 7.1.6 a OpenXava 7.2</h2>
+      <h3>Librerías JavaScript jQuery y jQuery UI actualizadas</h3>
+      <p>jQuery se ha actualizado a la versión 3.7.1 desde la 1.11.2 y jQuery UI
+        a la versión 1.13.2 desde la v1.11.2. Esta actualización se ha hecho por
+        motivos de seguridad. Si únicamente usas la interfaz de usuario generada
+        por OpenXava no tienes que hacer nada, sin embargo si tienes vistas
+        personalizadas o editores propios y en estos usas jQuery deberías echas
+        un vistazo a la <a href="https://jquery.com/upgrade-guide/3.0/">guía de
+          actualización para jQuery 3</a>, puede que necesites hacer algún
+        ajuste.</p>
       <h3>Incluir archivos JavaScript en editores o vista personalizada requiere
         atributo nonce</h3>
       <p>Esto es por razones de seguridad. Normalmente los JS usados en editores
@@ -311,7 +320,7 @@ reload(); // ...has de añadir esta línea
       carpeta <i>Admin</i>. Abre el módulo <i>Carpetas</i>, busca la carpeta <i>Admin</i>
       en la lista y escógelo. Dentro del detalle de <i>Admin</i> pulsa para
       añadir un nuevo módulo, busca SSO y añádelo:</div>
-    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_es.png"
+    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_es.png"
         alt=""><br>
       <h2>Para migrar de OpenXava 7.0.5 a OpenXava 7.0.6</h2>
       <h3>@Column(length=x) sin scale ya no es scale=2 por defecto</h3>
