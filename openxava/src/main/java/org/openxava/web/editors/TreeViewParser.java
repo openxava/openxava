@@ -301,34 +301,49 @@ public class TreeViewParser {
 		return metaTreeViews;
 	}
 	
-	public static JSONArray findChildrenOfNode(int parentId, JSONArray data) {
+	public static JSONArray findChildrenOfNode(String parentId, JSONArray data, Map<String, Object> map) {
         JSONArray children = new JSONArray();
-        //System.out.println(data);
+        String mapId = (String) map.get("id");
+        String mapPath = (String) map.get("path");
+        String mapSeparator = (String) map.get("separator");
+        String[] mapOrder = (String[]) map.get("order");
+        String[] mapTabProperties = (String[]) map.get("tabProperties");
+        
+        System.out.println("mapPath " + mapPath);
+        System.out.println("mapOrder " + Arrays.toString(mapOrder));
+        System.out.println("mapTabProperties " + Arrays.toString(mapTabProperties));
         for (int i = 0; i < data.length(); i++) {
             JSONObject node = data.getJSONObject(i);
-            int id = node.getInt("Id");
-            String path = node.getString("Path");
-            String description = node.getString("Description");
+            //System.out.println(node);
+            String id = node.get("id").toString();
+            String path = node.get(mapPath).toString();
+            String description = node.get("description").toString();
+            
+            
+            /// debo poner a tree order luego de path, asi el 1 es id, el 2 es path
+            
+            
+            String order = node.get("treeOder").toString();
 
-            if (path.equals("") && parentId == 0) {
+            if (path.equals("") && parentId.equals("0")) {
                 // Nodo raíz
-            	System.out.println(description);
                 JSONObject rootNode = new JSONObject();
-                rootNode.put("id", String.valueOf(id));
+                rootNode.put("id", id);
                 rootNode.put("text", description);
                 rootNode.put("path", path);
-                JSONArray childNodes = findChildrenOfNode(id, data);
+                rootNode.put("order", order);
+                JSONArray childNodes = findChildrenOfNode(id, data, map);
                 if (childNodes.length() > 0) {
                     rootNode.put("children", childNodes);
                 }
                 children.put(rootNode);
             } else if (path.endsWith("/" + parentId)) {
-            	System.out.println(description);
                 JSONObject childNode = new JSONObject();
-                childNode.put("id", String.valueOf(id));
+                childNode.put("id", id);
                 childNode.put("text", description);
                 childNode.put("path", path);
-                JSONArray childNodes = findChildrenOfNode(id, data);
+                childNode.put("order", order);
+                JSONArray childNodes = findChildrenOfNode(id, data, map);
                 if (childNodes.length() > 0) {
                     childNode.put("children", childNodes);
                 }

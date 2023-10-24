@@ -75,29 +75,33 @@ if (collectionName != null) {
     String[] propertiesNow = tab2.getPropertiesNamesAsString().split(",");
     MetaCollection mc = collectionView.getMetaCollection();
     String order = mc.getOrder();
-    String[] oSplit = order.replaceAll("\\$\\{|\\}", "").split(", ");
+	
+    String[] oSplit = !order.isEmpty() ? order.replaceAll("\\$\\{|\\}", "").split(", ") : new String[0];
 
-    List < String > keysList = new ArrayList < > (tab2.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
+    List <String> keysList = new ArrayList < > (tab2.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
     View collectionView2 = tab2.getCollectionView();
     View parentView2 = collectionView2.getParent();
     MetaView metaView2 = parentView2.getMetaModel().getMetaView(parentView2.getViewName());
     MetaCollectionView metaCollectionView2 = metaView2.getMetaCollectionView(collectionName);
-
+	List <String> propertiesList = new ArrayList<>();
+	Map<String, Object> propertiesMap= new HashMap<>();
+	String propertiesMC = metaCollectionView2.getPropertiesListNamesAsString();
+	
+	
     Tree tree = metaCollectionView2.getPath();
-    String pathP = "";
-    String pathS = "";
+    String pathP = "path";
+    String pathS = "/";
     String idP = "";
 
-    if (tree != null) {
-        pathP = tree.pathProperty() != null ? tree.pathProperty() : "";
-        pathS = tree.pathSeparator();
+    if (tree != null) { 
+        pathP = tree.pathProperty() != null ? tree.pathProperty() : "path";
+        pathS = tree.pathSeparator() != null ? tree.pathSeparator(): "/";
         idP = tree.idProperties() != null ? tree.idProperties() : "";
     }
-
     int count = 0;
     for (String element: oSplit) {
         if (ArrayUtils.contains(propertiesNow, element)) continue;
-        if (element.equals("treeOrder")) {
+        if (element.equals(pathP)) {
             tab2.addProperty(0, element);
             count = count == 0 ? 0 : count++;
         } else {
@@ -112,30 +116,36 @@ if (collectionName != null) {
     TableModel table = tab2.getAllDataTableModel();
     int tableSize = tab2.getTableModel().getTotalSize();
     int columns = table.getColumnCount();
-    List < String > columnName = new ArrayList < > ();
+    List<String> columnName = new ArrayList<>();
     ObjectMapper objectMapper = new ObjectMapper();
-    List < Map < String, Object >> tableList = new ArrayList < > ();
+    List<Map<String, Object>> tableList = new ArrayList<>();
+	propertiesNow = tab2.getPropertiesNamesAsString().split(",");
+	System.out.println("propertiesNow " + Arrays.toString(propertiesNow));
+	propertiesMap.put("path", pathP);
+	propertiesMap.put("separator", pathS);
+	propertiesMap.put("id", idP);
+	propertiesMap.put("order", oSplit);
+	propertiesMap.put("tabProperties", propertiesNow);
 
     if (tableSize > 0) {
         for (int i = 0; i < columns; i++) {
             columnName.add(table.getColumnName(i));
         }
-
-        
         for (int i = 0; i < tableSize; i++) {
             ObjectNode elementNode = JsonNodeFactory.instance.objectNode();
             JSONObject jsonRow = new JSONObject();
-            for (int j = 0; j < columnName.size(); j++) {
+            for (int j = 0; j < propertiesNow.length; j++) {
                 Object value = table.getValueAt(i, j);
-                String propertyName = columnName.get(j);
-                jsonRow.put(propertyName, value);
+                String propertyName = propertiesNow[j];
+                jsonRow.put(propertyName.toLowerCase(), value);
             }
             jsonArray.put(jsonRow);
         }
-        System.out.println(jsonArray.toString());
+        
     }
 	//need parse path and properties
-	jsonArray = TreeViewParser.findChildrenOfNode(0, jsonArray);
+	jsonArray = TreeViewParser.findChildrenOfNode("0", jsonArray, propertiesMap);
+	System.out.println(jsonArray.toString());
 }
 
 if(!Is.empty(key)){
@@ -191,7 +201,7 @@ $('#container_<%=collectionName%>').jstree({
     "core": { // core options go here
         "check_callback": true,
         "themes": {
-            "dots": true, // no connecting dots between dots
+            "dots": true,
             "icons": false
         },
         'data': <%=jsonArray%>,
