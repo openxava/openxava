@@ -73,22 +73,16 @@ JSONArray jsonArray = new JSONArray();
 if (collectionName != null) {
     Tab tab2 = collectionView.getCollectionTab().clone();
     String[] propertiesNow = tab2.getPropertiesNamesAsString().split(",");
-    MetaCollection mc = collectionView.getMetaCollection();
+	MetaCollection mc = collectionView.getMetaCollection();
     String order = mc.getOrder();
-	
-    String[] oSplit = !order.isEmpty() ? order.replaceAll("\\$\\{|\\}", "").split(", ") : new String[0];
-
+	String[] oSplit = !order.isEmpty() ? order.replaceAll("\\$\\{|\\}", "").split(", ") : new String[0];
     List <String> keysList = new ArrayList < > (tab2.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
-    View collectionView2 = tab2.getCollectionView();
-    View parentView2 = collectionView2.getParent();
-    MetaView metaView2 = parentView2.getMetaModel().getMetaView(parentView2.getViewName());
-    MetaCollectionView metaCollectionView2 = metaView2.getMetaCollectionView(collectionName);
-	List <String> propertiesList = new ArrayList<>();
 	Map<String, Object> propertiesMap= new HashMap<>();
-	String propertiesMC = metaCollectionView2.getPropertiesListNamesAsString();
-	
-	
-    Tree tree = metaCollectionView2.getPath();
+    View tabCollectionView = tab2.getCollectionView();
+    View parentView = tabCollectionView.getParent();
+    MetaView metaView = parentView.getMetaModel().getMetaView(parentView.getViewName());
+    MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
+    Tree tree = metaCollectionView.getPath();
     String pathP = "path";
     String pathS = "/";
     String idP = "";
@@ -98,7 +92,14 @@ if (collectionName != null) {
         pathS = tree.pathSeparator() != null ? tree.pathSeparator(): "/";
         idP = tree.idProperties() != null ? tree.idProperties() : "";
     }
-    int count = 0;
+    
+	propertiesMap.put("tabProperties", propertiesNow);
+	propertiesMap.put("path", pathP);
+	propertiesMap.put("separator", pathS);
+	propertiesMap.put("id", idP);
+	propertiesMap.put("order", oSplit);
+	int count = 0;
+	
     for (String element: oSplit) {
         if (ArrayUtils.contains(propertiesNow, element)) continue;
         if (element.equals(pathP)) {
@@ -120,12 +121,6 @@ if (collectionName != null) {
     ObjectMapper objectMapper = new ObjectMapper();
     List<Map<String, Object>> tableList = new ArrayList<>();
 	propertiesNow = tab2.getPropertiesNamesAsString().split(",");
-	System.out.println("propertiesNow " + Arrays.toString(propertiesNow));
-	propertiesMap.put("path", pathP);
-	propertiesMap.put("separator", pathS);
-	propertiesMap.put("id", idP);
-	propertiesMap.put("order", oSplit);
-	propertiesMap.put("tabProperties", propertiesNow);
 
     if (tableSize > 0) {
         for (int i = 0; i < columns; i++) {
@@ -139,6 +134,7 @@ if (collectionName != null) {
                 String propertyName = propertiesNow[j];
                 jsonRow.put(propertyName.toLowerCase(), value);
             }
+			jsonRow.put("row",i);
             jsonArray.put(jsonRow);
         }
         
@@ -197,6 +193,16 @@ if(!Is.empty(key)){
 
 		$(document).ready(function(){
 			
+			
+			var tree_<%=collectionName%> = {};
+			tree_<%=collectionName%>.tree = <%=javaScriptCode%>
+			tree_<%=collectionName%>.suppress = false; // this will prevent collapse/expand when clicking on label
+			tree_<%=collectionName%>.loading = true; // this will prevent collapse/expand when loading
+			tree_<%=collectionName%>.tree.render();
+			tree_<%=collectionName%>.loading = false;
+			
+			
+			
 $('#container_<%=collectionName%>').jstree({
     "core": { // core options go here
         "check_callback": true,
@@ -212,18 +218,24 @@ $('#container_<%=collectionName%>').jstree({
     "plugins": ["checkbox", "dnd", "state"]
 });
 			
+$('#container_<%=collectionName%>').on('dblclick', '.jstree-anchor', function () {
+  // Accede al nodo que se hizo doble clic
+  var clickedNodeId = $(this).parent().attr('id');
+  var clickedNode = $('#container_<%=collectionName%>').jstree(true).get_node(clickedNodeId);
+
+  // Realiza las acciones que deseas al hacer doble clic en el nodo
+  console.log(clickedNode);
+	var actionWithArgs = "row=" + (clickedNode.original.row)  + "<%=actionArgv%>";
+	openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', "", false, '<%=action%>', actionWithArgs);
+});
 			
-			var tree_<%=collectionName%> = {};
-			tree_<%=collectionName%>.tree = <%=javaScriptCode%>
-			tree_<%=collectionName%>.suppress = false; // this will prevent collapse/expand when clicking on label
-			tree_<%=collectionName%>.loading = true; // this will prevent collapse/expand when loading
-			tree_<%=collectionName%>.tree.render();
-			tree_<%=collectionName%>.loading = false;
+			
 
 			tree_<%=collectionName%>.tree.subscribe("clickEvent", function(args) {
 				tree_<%=collectionName%>.suppress=true;
 				tree_<%=collectionName%>.tree.onEventToggleHighlight(args);
 				node = args["node"];
+				console.log(node);
 				nodeIndex = node.data;
 				var actionWithArgs = "row=" + nodeIndex  + "<%=actionArgv%>";
 	
@@ -242,6 +254,7 @@ $('#container_<%=collectionName%>').jstree({
 				node = args["node"];
 				tree_<%=collectionName%>.suppress=true; 
 				var actionWithArgs = "row=" + (node.data)  + "<%=actionArgv%>";
+				console.log(actionWithArgs);
 				openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', "", false, '<%=action%>', actionWithArgs);
 			});
 	

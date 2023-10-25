@@ -309,6 +309,7 @@ public class TreeViewParser {
         String[] mapOrder = (String[]) map.get("order");
         String[] mapTabProperties = (String[]) map.get("tabProperties");
         
+        System.out.println(data);
         System.out.println("mapPath " + mapPath);
         System.out.println("mapOrder " + Arrays.toString(mapOrder));
         System.out.println("mapTabProperties " + Arrays.toString(mapTabProperties));
@@ -317,21 +318,25 @@ public class TreeViewParser {
             //System.out.println(node);
             String id = node.get("id").toString();
             String path = node.get(mapPath).toString();
+            String order = node.get("treeorder").toString();
             String description = node.get("description").toString();
-            
+            String row = node.get("row").toString();
             
             /// debo poner a tree order luego de path, asi el 1 es id, el 2 es path
+            //1 id
+            //2 path
+            //3 en adelante orden
+            //por ultimo las propiedades a mostrar
             
-            
-            String order = node.get("treeOder").toString();
 
             if (path.equals("") && parentId.equals("0")) {
                 // Nodo raíz
                 JSONObject rootNode = new JSONObject();
                 rootNode.put("id", id);
-                rootNode.put("text", description);
                 rootNode.put("path", path);
+                rootNode.put("text", description);
                 rootNode.put("order", order);
+                rootNode.put("row", row);
                 JSONArray childNodes = findChildrenOfNode(id, data, map);
                 if (childNodes.length() > 0) {
                     rootNode.put("children", childNodes);
@@ -343,6 +348,7 @@ public class TreeViewParser {
                 childNode.put("text", description);
                 childNode.put("path", path);
                 childNode.put("order", order);
+                childNode.put("row", row);
                 JSONArray childNodes = findChildrenOfNode(id, data, map);
                 if (childNodes.length() > 0) {
                     childNode.put("children", childNodes);
