@@ -71,7 +71,7 @@ TreeViewActions metaTreeViewActions = new TreeViewActions(collectionView, treePa
 JSONArray jsonArray = new JSONArray();
 
 if (collectionName != null) {
-    Tab tab2 = collectionView.getCollectionTab().clone();
+	Tab tab2 = collectionView.getCollectionTab().clone();
     String[] propertiesNow = tab2.getPropertiesNamesAsString().split(",");
 	MetaCollection mc = collectionView.getMetaCollection();
     String order = mc.getOrder();
@@ -140,7 +140,7 @@ if (collectionName != null) {
         
     }
 	//need parse path and properties
-	jsonArray = TreeViewParser.findChildrenOfNode("0", jsonArray, propertiesMap);
+	jsonArray = TreeViewParser.findChildrenOfNode("0", jsonArray, propertiesMap, false);
 	System.out.println(jsonArray.toString());
 }
 
@@ -152,7 +152,7 @@ if(!Is.empty(key)){
 	<xava:action action="<%=metaTreeViewActions.getRightAction()%>" argv="<%=actionArg%>" />
 	<div id = "tree_<%=collectionName%>" class="ygtv-checkbox" >
 	</div>
-
+	
 	<div id = "openxavaInput_<%=collectionName%>" class="ox-tree-collection">
 		<table id = "<%=tableId%>" name="treeTable_<%=collectionName%>">
 			<tbody id = "<%=tableId%>_body" >
@@ -224,11 +224,26 @@ $('#container_<%=collectionName%>').on('dblclick', '.jstree-anchor', function ()
   var clickedNode = $('#container_<%=collectionName%>').jstree(true).get_node(clickedNodeId);
 
   // Realiza las acciones que deseas al hacer doble clic en el nodo
-  console.log(clickedNode);
+  //console.log(clickedNode);
 	var actionWithArgs = "row=" + (clickedNode.original.row)  + "<%=actionArgv%>";
 	openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', "", false, '<%=action%>', actionWithArgs);
 });
-			
+
+$('#container_<%=collectionName%>').on("changed.jstree", function (e, data) {
+	if (data.hasOwnProperty('node')){
+		var actionWithArgs = "row=" + data.node.original.row  + "<%=actionArgv%>";
+		var htmlInput = document.getElementById("<%=xavaId%>" + data.node.original.row);
+		if (data.action === 'select_node'){ 
+			if (htmlInput != null){
+				htmlInput.checked = true;
+			}
+		} else if (data.action === 'deselect_node') {
+			if (htmlInput != null){
+				htmlInput.checked = false;
+			}
+		}
+	}
+  });
 			
 
 			tree_<%=collectionName%>.tree.subscribe("clickEvent", function(args) {
@@ -238,7 +253,7 @@ $('#container_<%=collectionName%>').on('dblclick', '.jstree-anchor', function ()
 				console.log(node);
 				nodeIndex = node.data;
 				var actionWithArgs = "row=" + nodeIndex  + "<%=actionArgv%>";
-	
+				console.log(actionWithArgs);
 				// syncronize state with openxava hidden input item
 				var htmlInput = document.getElementById("<%=xavaId%>" + node.data);
 				if (htmlInput != null) {
@@ -254,7 +269,6 @@ $('#container_<%=collectionName%>').on('dblclick', '.jstree-anchor', function ()
 				node = args["node"];
 				tree_<%=collectionName%>.suppress=true; 
 				var actionWithArgs = "row=" + (node.data)  + "<%=actionArgv%>";
-				console.log(actionWithArgs);
 				openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', "", false, '<%=action%>', actionWithArgs);
 			});
 	
@@ -279,6 +293,7 @@ $('#container_<%=collectionName%>').on('dblclick', '.jstree-anchor', function ()
 					openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', "", false, 'TreeView.collapse', actionWithArgs);
 				}
 			});
+			
 		})
 	</script>
 	
