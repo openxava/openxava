@@ -116,12 +116,23 @@ if (grouping) action = null;
 <th class="ox-list-header" width="5">
 	<%
 		if (!singleSelection){
+			/* tmr
 			String actionOnClickAll = Actions.getActionOnClickAll(
 			request.getParameter("application"), request.getParameter("module"), 
 			onSelectCollectionElementAction, viewObject, prefix,
 			"", "", tabObject);
+			*/
 	%>
+	<%-- tmr
 	<input type="checkbox" name="<xava:id name='xava_selected_all'/>" value="<%=prefix%>selected_all" <%=actionOnClickAll%> />
+	--%>
+	<%-- tmr ini --%>
+	<input type="checkbox" name="<xava:id name='xava_selected_all'/>" value="<%=prefix%>selected_all" 
+		data-on-select-collection-element-action="<%=onSelectCollectionElementAction%>"
+		data-view-object="<%=viewObject%>"
+		data-prefix="<%=prefix%>"
+		data-tab-object="<%=tabObject%>"/>
+	<%-- tmr fin --%>
 	<%
 		}
 	%>
@@ -203,9 +214,16 @@ String headerLabel=Strings.noLastToken(label) + " <nobr>" + Strings.lastToken(la
 </td> 
 <td class="ox-list-subheader" width="5"> 
 	<a title='<xava:message key="clear_condition_values"/>' href="javascript:void(0)">
+		<%-- tmr
 		<i class="mdi mdi-eraser" 
 			id="<xava:id name='<%=prefix + "xava_clear_condition"%>' />" 
-			onclick="openxava.clearCondition('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=prefix%>')"></i>		
+			onclick="openxava.clearCondition('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=prefix%>')"></i>
+		--%>
+		<%-- tmr ini --%>
+		<i class="xava_clear_condition mdi mdi-eraser" 
+			id="<xava:id name='<%=prefix + "xava_clear_condition"%>' />" 
+			data-prefix="<%=prefix%>"></i>		
+		<%-- tmr fin --%>			
 	</a>
 </td> 
 <%
@@ -394,16 +412,23 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 <%
 		}
 	}
+	/* tmr
 	String actionOnClick = Actions.getActionOnClick(
 		request.getParameter("application"), request.getParameter("module"), 
 		onSelectCollectionElementAction, f, viewObject, prefixIdRow + f,
 		"", "", 
 		onSelectCollectionElementMetaAction, tabObject);
+	*/	
 %>
 	</nobr> 
 	</td>
 	<td class="<%=cssCellClass%>">
+	<%-- tmr
 	<input type="<%=singleSelection?"radio":"checkbox"%>" name="<xava:id name='xava_selected'/>" value="<%=prefix + "selected"%>:<%=f%>" <%=checked%> <%=actionOnClick%>/>
+	--%>
+	<%-- tmr ini --%>
+	<input class="xava_selected" type="<%=singleSelection?"radio":"checkbox"%>" name="<xava:id name='xava_selected'/>" value="<%=prefix + "selected"%>:<%=f%>" <%=checked%>/>
+	<%-- tmr fin --%>
 	</td>	
 <%
 	for (int c=0; c<model.getColumnCount(); c++) {

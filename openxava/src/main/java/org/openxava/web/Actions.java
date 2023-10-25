@@ -35,6 +35,7 @@ public class Actions {
 			")\"";
 	}
 	
+	/* tmr
 	public static String getActionOnClickAll(String application, String module, 
 			String onSelectCollectionElementAction, String viewObject, String prefix,
 			String selectedRowStyle, String rowStyle, String tabObject){
@@ -51,6 +52,7 @@ public class Actions {
 			"'" + tabObject + "'" + 
 			")\"";
 	}
+	*/
 	
 	public static String getActionOnChangeComparator(String id,String idConditionValue,String idConditionValueTo) {
 		return "onChange=\"openxava.onChangeComparator(" +

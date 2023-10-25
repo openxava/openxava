@@ -520,6 +520,28 @@ openxava.initLists = function(application, module) {
 	$('.xava_filter input').focus(function() { // If changed to change event, revise ModuleTestBase.setCollectionCondition()
 		$(this).parent().parent().find(".xava_comparator").fadeIn();
 	});	
+	// tmr ini
+	$('.ox-list-header input[type=checkbox]').off('click').click(function() {
+		openxava.onSelectAll(application, module,
+			$(this).data('on-select-collection-element-action'),
+			"viewObject=" + $(this).data('view-object'), this.checked,
+			$(this).data('on-select-collection-element-action') != "",
+			$(this).data('prefix'), "", "",	$(this).data('tab-object'));
+	});	
+	$('.xava_clear_condition').off('click').click(function() {
+		openxava.clearCondition(application, module, $(this).data('prefix'));
+	});
+	$('.xava_selected').off('click').click(function() {
+		// TMR ME QUEDÉ POR AQUÍ, PARA EMPEZAR ESTO
+		/* CON EL ORIGINAL OBTENEMOS:
+		onSelectElement(openxavatest, Invoice, , row=1,viewObject=xava_view, true, ox_openxavatest_Invoice__1, false, , , , false, false, 1, xava_tab)
+
+		onSelectElement(openxavatest, Invoice, , row=1,viewObject=xava_view_section1_details, true, ox_openxavatest_Invoice__xava_collectionTab_details_1, false, , , , false, false, 1, xava_collectionTab_details)
+		*/
+	}
+	
+	
+	// tmr fin
 }
 
 openxava.renumberCollection = function(table) { 
@@ -1057,6 +1079,10 @@ openxava.clearConditionValuesTo = function(application, module, prefix) {
 }
 
 openxava.onSelectElement = function(application, module, action, argv, checkValue, idRow, hasOnSelectAction, selectedRowStyle, rowStyle, confirmMessage, takesLong, selectingAll, row, tabObject) {
+	console.log("[openxava.js] onSelectElement(" + application + ", " + module + ", " +
+		action + ", " + argv + ", " + checkValue + ", " + idRow + ", " + hasOnSelectAction + ", " +
+		selectedRowStyle + ", " + rowStyle + ", " + confirmMessage + ", " + takesLong + ", " +
+		selectingAll + ", " + row + ", " + tabObject + ")"); // tmr
 	openxava.onChangeCheckBox(checkValue,row,application,module,tabObject);
 	
 	var id = $("#" + idRow)[0];
