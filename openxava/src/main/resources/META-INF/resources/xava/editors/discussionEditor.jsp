@@ -50,12 +50,19 @@ for (DiscussionComment comment: comments) {
 <% if (editable) { %>
 <textarea id="xava_new_comment_<%=discussionId%>" class="ox-simple-html-text xava-new-comment" tabindex="1"></textarea>
 
+<%-- tmr
 <div id="xava_new_comment_<%=discussionId%>_buttons" class="ox-discussion-post-button">
 	<input type="button" tabindex="1" class="<%=style.getButton()%> ox-display-none" 
 		onclick="discussionEditor.postMessage('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=discussionId%>')" value="<xava:label key="addComment"/>"/>
 	<input type="button" tabindex="1" class="<%=style.getButton()%> ox-display-none" 
 		onclick="discussionEditor.cancel('<%=discussionId%>')" 
 		value="<xava:label key="cancel"/>"/>
+	--%>
+	<%-- tmr ini --%>
+<div id="xava_new_comment_<%=discussionId%>_buttons" class="ox-discussion-post-button" data-discussion-id="<%=discussionId%>">	
+	<input type="button" tabindex="1" class="ox-discussion-add-button ox-display-none" value="<xava:label key="addComment"/>"/>
+	<input type="button" tabindex="1" class="ox-discussion-cancel-button ox-display-none" value="<xava:label key="cancel"/>"/>	
+	<%-- tmr fin --%>	
 </div>
 <% } %>	
 

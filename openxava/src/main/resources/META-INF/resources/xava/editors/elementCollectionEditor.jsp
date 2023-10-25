@@ -140,6 +140,7 @@ for (int f=0; f < rowCount; f++) {
 	 </a>
 	<%} else { %>
 	 <a title='<xava:message key="remove_row"/>' href="javascript:void(0)" class='<%=style.getActionImage()%>'>
+	 	<%-- tmr
 	 	<% String onclick="elementCollectionEditor.removeRow('" + app + "', '" + module + "', this, " + f + ", " + hasTotals + ")"; %>
 	 	<% if (style.isUseIconsInsteadOfImages()) { %>
 		<i class="mdi mdi-delete" onclick="<%=onclick%>"></i>
@@ -148,6 +149,16 @@ for (int f=0; f < rowCount; f++) {
 			src='<%=request.getContextPath()%>/xava/images/delete.gif'
 			border='0' align='absmiddle' onclick="<%=onclick%>"/>
 		<% } %>
+		--%>
+		<%-- tmr ini --%>
+	 	<% if (style.isUseIconsInsteadOfImages()) { %>
+		<i class="ox-element-collection-remove-action mdi mdi-delete" data-row="<%=f%>" data-has-totals="<%=hasTotals%>"></i>
+		<% } else { %>
+		<img class="ox-element-collection-remove-action" 		 
+			src='<%=request.getContextPath()%>/xava/images/delete.gif'
+			border='0' align='absmiddle'/>
+		<% } %>		
+		<%-- tmr fin --%>
 	 </a>
 	<%} %>	
 	</nobr>

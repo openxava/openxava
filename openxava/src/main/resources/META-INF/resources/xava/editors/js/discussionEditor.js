@@ -1,5 +1,17 @@
 if (discussionEditor == null) var discussionEditor = {};
 
+// tmr ini
+// tmr Debería hacer la prueba manual
+openxava.addEditorInitFunction(function() {
+	$('.ox-discussion-add-button').off('click').click(function() {
+		discussionEditor.postMessage(openxava.lastApplication, openxava.lastModule, $(this).parent().data("discussion-id"))
+	});
+	$('.ox-discussion-cancel-button').off('click').click(function() {
+		discussionEditor.cancel($(this).parent().data("discussion-id"));
+	});	
+});
+// tmr fin
+
 discussionEditor.postMessage = function(application, module, discussionId) {
 	var newComment = tinymce.get('xava_new_comment_' + discussionId); 
 	var comments = $('#xava_comments_' + discussionId);

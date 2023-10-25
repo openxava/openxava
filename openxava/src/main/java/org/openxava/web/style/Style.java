@@ -329,44 +329,56 @@ public class Style {
 	/**
 	 * @since 5.7
 	 */
+	/* tmr
 	public String getCards() {
 		return "ox-cards";
 	}
+	*/
 
 	/**
 	 * @since 5.7
 	 */
+	/* tmr
 	public String getCard() {
 		return "ox-card";
 	}
+	*/
 	
 	/**
 	 * @since 5.7
 	 */
+	/* tmr
 	public String getCardHeader() {
 		return "ox-card-header";
 	}
+	*/
 
 	/**
 	 * @since 5.7
 	 */
+	/* tmr
 	public String getCardSubheader() {
 		return "ox-card-subheader";
 	}
+	*/
 	
 	/**
 	 * @since 5.7
 	 */
+	/* tmr
 	public String getCardContent() {
 		return "ox-card-content";
 	}
+	*/
 		
 	/**
 	 * @since 5.7
 	 */
+	/* tmr
 	public String getNoObjects() {
 		return "ox-no-objects";
 	}
+	*/
 			
 	public String getListCellSpacing() {
 		return ""; 
@@ -612,9 +624,11 @@ public class Style {
 	 * 
 	 * @since 5.5
 	 */
+	/* tmr
 	public String getIconsList() {  
 		return "ox-icons-list";
 	}
+	*/
 
 	/**
 	 * @since 5.5
@@ -663,7 +677,7 @@ public class Style {
 		return "ox-messages-wrapper";
 	}
 
-	public String getButton() {
+	public String getButton() { // tmr Probar quitarlo
 		return ""; 
 	}
 		

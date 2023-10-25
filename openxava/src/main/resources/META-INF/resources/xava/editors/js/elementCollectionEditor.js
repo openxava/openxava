@@ -10,6 +10,13 @@ openxava.addEditorInitFunction(function() {
 	    	elementCollectionEditor.renumber(row, 0);
 	    }	
 	});
+	// tmr ini
+	$('.ox-element-collection-remove-action').off('click').click(function() {
+	 	// TMR ME QUEDÉ POR AQUÍ: HACIENDO ESTO
+		elementCollectionEditor.removeRow(openxava.lastApplication, openxava.lastModule, this, " + f + ", " + hasTotals + ")"
+	});	
+	// <i class="ox-element-collection-remove-action mdi mdi-delete" data-row="<%=f%>" data-has-totals="<%=hasTotals%>"></i>
+	// tmr fin
 });
 
 elementCollectionEditor.onChangeRow = function(element, rowIndex) {

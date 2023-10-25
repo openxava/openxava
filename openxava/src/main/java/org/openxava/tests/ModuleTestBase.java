@@ -26,7 +26,6 @@ import org.openxava.tab.meta.*;
 import org.openxava.util.*;
 import org.openxava.view.meta.*;
 import org.openxava.web.*;
-import org.openxava.web.style.*;
 import org.xml.sax.*;
 
 import junit.framework.*;
@@ -1551,7 +1550,8 @@ abstract public class ModuleTestBase extends TestCase {
 	
 	private int getListDivRowCount(HtmlDivision div) { 
 		int elementCount = div.getChildElementCount();
-		if (elementCount == 1) return div.asXml().contains(Style.getInstance().getNoObjects())?0:1;
+		// tmr if (elementCount == 1) return div.asXml().contains(Style.getInstance().getNoObjects())?0:1;
+		if (elementCount == 1) return div.asXml().contains("ox-no-objects")?0:1; // tmr
 		if (elementCount > EntityTab.DEFAULT_CHUNK_SIZE && div.asXml().contains("xava_loading_more_elements")) return elementCount - 2; 
 		return elementCount;
 	}
