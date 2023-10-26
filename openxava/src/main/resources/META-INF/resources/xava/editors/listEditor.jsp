@@ -427,7 +427,14 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 	<input type="<%=singleSelection?"radio":"checkbox"%>" name="<xava:id name='xava_selected'/>" value="<%=prefix + "selected"%>:<%=f%>" <%=checked%> <%=actionOnClick%>/>
 	--%>
 	<%-- tmr ini --%>
-	<input class="xava_selected" type="<%=singleSelection?"radio":"checkbox"%>" name="<xava:id name='xava_selected'/>" value="<%=prefix + "selected"%>:<%=f%>" <%=checked%>/>
+	<input class="xava_selected" type="<%=singleSelection?"radio":"checkbox"%>" name="<xava:id name='xava_selected'/>" 
+		value="<%=prefix + "selected"%>:<%=f%>" <%=checked%>
+		data-on-select-collection-element-action="<%=onSelectCollectionElementAction%>"
+		data-row="<%=f%>"
+		data-view-object="<%=viewObject%>"
+		data-tab-object="<%=tabObject%>"
+		data-confirm-message="<%=Is.empty(onSelectCollectionElementMetaAction)?"":onSelectCollectionElementMetaAction.getConfirmMessage()%>"
+		data-takes-long="<%=Is.empty(onSelectCollectionElementMetaAction)?false:onSelectCollectionElementMetaAction.isTakesLong()%>"/>
 	<%-- tmr fin --%>
 	</td>	
 <%

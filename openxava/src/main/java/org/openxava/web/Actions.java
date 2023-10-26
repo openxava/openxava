@@ -12,8 +12,8 @@ import org.openxava.util.*;
  */
 public class Actions {
 	private static Log log = LogFactory.getLog(Actions.class);
-	
-	public static String getActionOnClick(String application, String module, 
+
+	public static String getActionOnClick(String application, String module, // tmr Quitar 
 			String onSelectCollectionElementAction, int row, String viewObject, String idRow,
 			String selectedRowStyle, String rowStyle,
 			MetaAction onSelectCollectionElementMetaAction, String tabObject){
@@ -35,8 +35,7 @@ public class Actions {
 			")\"";
 	}
 	
-	/* tmr
-	public static String getActionOnClickAll(String application, String module, 
+	public static String getActionOnClickAll(String application, String module, // tmr Quitar 
 			String onSelectCollectionElementAction, String viewObject, String prefix,
 			String selectedRowStyle, String rowStyle, String tabObject){
 		return  "onClick=\"openxava.onSelectAll(" +
@@ -52,7 +51,6 @@ public class Actions {
 			"'" + tabObject + "'" + 
 			")\"";
 	}
-	*/
 	
 	public static String getActionOnChangeComparator(String id,String idConditionValue,String idConditionValueTo) {
 		return "onChange=\"openxava.onChangeComparator(" +
