@@ -213,8 +213,11 @@ $('#container_<%=collectionName%>').jstree({
         'data': <%=jsonArray%>,
     },
     "state": {
-        "key": "ox_tree_state"
+        "key": "ox_tree_state_<%=collectionName%>"
     },
+	"checkbox": {
+		"three_state": false
+	},
     "plugins": ["checkbox", "dnd", "state"]
 });
 			
@@ -235,6 +238,7 @@ $('#container_<%=collectionName%>').on("changed.jstree", function (e, data) {
 		var htmlInput = document.getElementById("<%=xavaId%>" + data.node.original.row);
 		if (data.action === 'select_node'){ 
 			if (htmlInput != null){
+				console.log(data.node.original);
 				htmlInput.checked = true;
 			}
 		} else if (data.action === 'deselect_node') {
@@ -244,6 +248,19 @@ $('#container_<%=collectionName%>').on("changed.jstree", function (e, data) {
 		}
 	}
   });
+
+$('#container_<%=collectionName%>').on('select_node.jstree', function (e, data) {
+    // Desmarca los padres seleccionados (si los hay)
+	console.log(data);
+    data.node.parents.forEach(function (parentId) {
+        $('#container_<%=collectionName%>').jstree('deselect_node', parentId);
+    });
+
+    // Desmarca los hijos seleccionados (si los hay)
+    data.node.children.forEach(function (childId) {
+        $('#container_<%=collectionName%>').jstree('deselect_node', childId);
+    });
+});
 			
 
 			tree_<%=collectionName%>.tree.subscribe("clickEvent", function(args) {

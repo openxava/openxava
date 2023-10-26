@@ -311,25 +311,20 @@ public class TreeViewParser {
         String[] mapOrder = (String[]) map.get("order");
         String[] mapTabProperties = (String[]) map.get("tabProperties");
 
-        System.out.println(json);
-        System.out.println(rootNodeFound);
-        System.out.println(json.isEmpty());
+        //System.out.println(json);
+        //System.out.println(rootNodeFound);
+        //System.out.println(json.isEmpty());
         //System.out.println("mapPath " + mapPath);
         //System.out.println("mapOrder " + Arrays.toString(mapOrder));
         //System.out.println("mapTabProperties " + Arrays.toString(mapTabProperties));
         
         for (int i = 0; i < data.length(); i++) {
             JSONObject node = data.getJSONObject(i);
-            //System.out.println(node);
             String id = node.get("id").toString();
             String path = node.get(mapPath).toString();
             String order = node.get("treeorder").toString();
             String description = node.get("description").toString();
             String row = node.get("row").toString();
-
-            //System.out.println("path");
-            //System.out.println(path); 
-
             if (path.equals("") && parentId.equals("0")) {
                 JSONObject rootNode = new JSONObject();
                 rootNode.put("id", id);
