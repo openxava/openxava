@@ -30,6 +30,7 @@ boolean sortable = subview.isCollectionSortable();
 	%>	
 	<th class="ox-list-header" width="5">
 	<%
+		// TMR ME QUEDÉ POR AQUÍ, PARA EMPEZAR A QUITAR LOS ONCLICKS AQUÍ
 		String actionOnClickAll = Actions.getActionOnClickAll(
 		request.getParameter("application"), request.getParameter("module"), 
 		onSelectCollectionElementAction, idCollection, propertyPrefix, 

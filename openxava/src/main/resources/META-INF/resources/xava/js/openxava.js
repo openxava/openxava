@@ -259,12 +259,14 @@ openxava.initInlineEvents =  function() {
 
 openxava.initButtonBars = function(application, module) { // tmr
 	$('button[name="xava.DEFAULT_ACTION"]').off('click').click(function() {
-		// TMR ME QUEDÉ POR AQUÍ: HECHO, FALTA PROBARLO
-		openxava.executeAction(application, application, 
+		openxava.executeAction(application, module, 
 			$(this).data('confirm-message'),
 			$(this).data('is-confirm'),
 			$(this).data('default-action-qualified-name'));
-	}
+	});
+	$('.ox-list-formats i').off('click').click(function() {
+		openxava.onSelectListFormat($(this));
+	});
 }
 
 openxava.setEnterAsFocusKey = function() {
@@ -1125,8 +1127,10 @@ openxava.onSelectElement = function(application, module, action, argv, checkValu
 	}
 }
 
-openxava.onSelectListFormat = function(event) { 
-	var i = $(event.target);
+// tmr openxava.onSelectListFormat = function(event) { 
+openxava.onSelectListFormat = function(i) { // tmr
+	// tmr var i = $(event.target);
+	console.log("[openxava.onSelectListFormat] i.class=" + i.attr("class")); // tmr
 	i.parent().parent().find("a").removeClass(openxava.selectedListFormatClass);
 	i.parent().addClass(openxava.selectedListFormatClass);
 }
