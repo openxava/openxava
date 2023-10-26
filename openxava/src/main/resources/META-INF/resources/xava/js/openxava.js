@@ -209,7 +209,9 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initPlaceholder();
 	openxava.listenChanges(); 
 	openxava.initFocusKey();
+	openxava.initButtonBars(application, module); // tmr
 	openxava.initInlineEvents(); 
+	 
 	if (typeof currentRow != "undefined") {
 		openxava.initEditors(); 
 	}
@@ -253,6 +255,16 @@ openxava.initInlineEvents =  function() {
   			return false;
 		});
 	});
+}
+
+openxava.initButtonBars = function(application, module) { // tmr
+	$('button[name="xava.DEFAULT_ACTION"]').off('click').click(function() {
+		// TMR ME QUEDÉ POR AQUÍ: HECHO, FALTA PROBARLO
+		openxava.executeAction(application, application, 
+			$(this).data('confirm-message'),
+			$(this).data('is-confirm'),
+			$(this).data('default-action-qualified-name'));
+	}
 }
 
 openxava.setEnterAsFocusKey = function() {

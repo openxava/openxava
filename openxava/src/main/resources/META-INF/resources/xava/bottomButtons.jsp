@@ -39,11 +39,19 @@ if (manager.isBottomButtonsVisible()) {
 	<%  
 	MetaAction defaultMetaAction = manager.getDefaultMetaAction();
 	if (defaultMetaAction != null) {
-		// TMR ME QUEDÉ POR AQUÍ, PARA QUITAR EL onclick
 	%>
+	<%-- tmr 
 	<button name="xava.DEFAULT_ACTION" type="submit" 
 		onclick="openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=defaultMetaAction.getConfirmMessage(request)%>', <%=defaultMetaAction.isConfirm()%>, '<%=manager.getDefaultActionQualifiedName()%>')"
 	></button>
+	--%>
+	<%-- tmr ini --%> 
+	<button name="xava.DEFAULT_ACTION" type="submit"
+		data-confirm-message="<%=defaultMetaAction.getConfirmMessage(request)%>" 
+		data-is-confirm="<%=defaultMetaAction.isConfirm()%>" 
+		data-default-action-qualified-name="<%=manager.getDefaultActionQualifiedName()%>"
+	></button>
+	<%-- tmr fin --%>
 	<%
 	}
 	%>	
