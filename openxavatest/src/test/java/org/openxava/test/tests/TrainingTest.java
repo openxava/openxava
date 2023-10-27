@@ -2,9 +2,8 @@ package org.openxava.test.tests;
 
 import java.text.*;
 
-import org.openxava.tests.*;
-
 import org.htmlunit.html.*;
+import org.openxava.tests.*;
 
 
 
@@ -229,7 +228,7 @@ public class TrainingTest extends ModuleTestBase {
 		assertNoErrors(); 
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
-		assertCollectionRowCount("sessions", 1); 
+		assertCollectionRowCount("sessions", 1); // TMR FALLA
 		assertValueInCollection("sessions", 0, "description", "FIVE"); 
 		assertValueInCollection("sessions", 0, "kms", "15");		
 						

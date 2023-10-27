@@ -48,7 +48,7 @@ if (manager.isBottomButtonsVisible()) {
 	<%-- tmr ini --%> 
 	<button name="xava.DEFAULT_ACTION" type="submit"
 		data-confirm-message="<%=defaultMetaAction.getConfirmMessage(request)%>" 
-		data-is-confirm="<%=defaultMetaAction.isConfirm()%>" 
+		data-takes-long="<%=defaultMetaAction.isTakesLong()%>" <%-- tmr Era isConfirm() apuntar como bug en changelog --%> 
 		data-default-action-qualified-name="<%=manager.getDefaultActionQualifiedName()%>"
 	></button>
 	<%-- tmr fin --%>

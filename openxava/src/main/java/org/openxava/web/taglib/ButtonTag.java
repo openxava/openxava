@@ -43,9 +43,11 @@ public class ButtonTag extends ActionTagBase {
 			pageContext.getOut().print(" title='");  
 			pageContext.getOut().print(filterApostrophes(getTooltip(metaAction))); 
 			pageContext.getOut().print("'");
-			pageContext.getOut().print(" class='");
+			// tmr pageContext.getOut().print(" class='");
+			pageContext.getOut().print(" class='xava_button "); // tmr
 			Style style = (Style) request.getAttribute("style");
 			pageContext.getOut().print(style.getButton());
+			/*
 			if (metaAction.isLosesChangedData()) pageContext.getOut().print("'\tonclick='openxava.executeActionConfirmLosesChangedData(");
 			else pageContext.getOut().print("'\tonclick='openxava.executeAction(");
 			pageContext.getOut().print('"');				
@@ -78,8 +80,38 @@ public class ButtonTag extends ActionTagBase {
 				}
 			}
 			pageContext.getOut().print(")' value='");
+			*/
+			pageContext.getOut().print("' value='");
 			pageContext.getOut().print(filterApostrophes(metaAction.getLabel(request))); 
+			// tmr pageContext.getOut().println("'/>");
+			// tmr ini
+			pageContext.getOut().print("' data-confirm-message='");
+			pageContext.getOut().print(filterApostrophes(metaAction.getConfirmMessage(request)));
+			pageContext.getOut().print("' data-takes-long='");
+			pageContext.getOut().print(metaAction.isTakesLong());
+			pageContext.getOut().print("' data-action='");
+			pageContext.getOut().print(getAction());
 			pageContext.getOut().println("'/>");
+			// TMR ME QUEDÉ POR AQUÍ, FALTA:
+			/*
+ 			if (metaAction.isLosesChangedData()) pageContext.getOut().print("'\tonclick='openxava.executeActionConfirmLosesChangedData(");
+			else pageContext.getOut().print("'\tonclick='openxava.executeAction(");
+
+			if (!Is.emptyString(getArgv())) { 
+				pageContext.getOut().print(", \"");
+				pageContext.getOut().print(getArgv());
+				pageContext.getOut().print('"');
+			}
+			if (metaAction.inNewWindow()) {
+				if (Is.emptyString(getArgv())) {
+					pageContext.getOut().print(", undefined, undefined, undefined, true");
+				}
+				else {
+					pageContext.getOut().print(", undefined, undefined, true");
+				}
+			}
+			*/
+			// tmr fin		
 		}
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
