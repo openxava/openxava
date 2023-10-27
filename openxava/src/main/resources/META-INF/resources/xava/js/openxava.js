@@ -261,20 +261,23 @@ openxava.initInlineEvents =  function() {
 }
 
 openxava.initButtonBars = function(application, module) { // tmr
-	// tmr ini
-	// tmr Refactorizar con lo de abajo
 	$('.xava_button').off('click').click(function() {
 		openxava.executeAction(application, module, 
 			$(this).data('confirm-message'),
 			$(this).data('takes-long'),
-			$(this).data('action'));
+			$(this).data('action'),
+			$(this).data('argv'),
+			undefined, undefined,
+			$(this).data('in-new-window')); 
 	});
-	// tmr fin
-	$('button[name="xava.DEFAULT_ACTION"]').off('click').click(function() {
-		openxava.executeAction(application, module, 
+	$('.xava_button_loses_changed_data').off('click').click(function() {
+		openxava.executeActionConfirmLosesChangedData(application, module, 
 			$(this).data('confirm-message'),
 			$(this).data('takes-long'),
-			$(this).data('default-action-qualified-name'));
+			$(this).data('action'),
+			$(this).data('argv'),
+			undefined, undefined,
+			$(this).data('in-new-window'));
 	});
 	$('.ox-list-formats i').off('click').click(function() {
 		openxava.onSelectListFormat($(this));

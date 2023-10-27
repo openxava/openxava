@@ -60,6 +60,12 @@ elementCollectionEditor.setDefaultValues = function(table, rowIndex) {
 }
 
 elementCollectionEditor.removeRow = function(application, module, element, rowIndex, hasTotals) {
+	console.log("[elementCollectionEditor.removeRow] >"); // tmr
+	console.log("[elementCollectionEditor.removeRow] application=" + application); // tmr
+	console.log("[elementCollectionEditor.removeRow] module=" + module); // tmr
+	console.log("[elementCollectionEditor.removeRow] element=" + element); // tmr
+	console.log("[elementCollectionEditor.removeRow] rowIndex=" + rowIndex); // tmr
+	console.log("[elementCollectionEditor.removeRow] hasTotals=" + hasTotals); // tmr
 	var currentRow = $(element).parent().parent().parent().parent();
 	var nextRow = currentRow.next();
 	currentRow.remove();
@@ -69,6 +75,7 @@ elementCollectionEditor.removeRow = function(application, module, element, rowIn
 	}	
 	openxava.initEditors();
 	openxava.initInlineEvents();
+	console.log("[elementCollectionEditor.removeRow] <"); // tmr
 }
 
 elementCollectionEditor.renumber = function(row, rowIndex) { 

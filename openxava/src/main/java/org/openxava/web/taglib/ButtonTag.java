@@ -44,7 +44,10 @@ public class ButtonTag extends ActionTagBase {
 			pageContext.getOut().print(filterApostrophes(getTooltip(metaAction))); 
 			pageContext.getOut().print("'");
 			// tmr pageContext.getOut().print(" class='");
-			pageContext.getOut().print(" class='xava_button "); // tmr
+			// tmr ini
+			if (metaAction.isLosesChangedData()) pageContext.getOut().print(" class='xava_button_loses_changed_data ");
+			else pageContext.getOut().print(" class='xava_button ");
+			// tmr fin
 			Style style = (Style) request.getAttribute("style");
 			pageContext.getOut().print(style.getButton());
 			/*
@@ -91,26 +94,13 @@ public class ButtonTag extends ActionTagBase {
 			pageContext.getOut().print(metaAction.isTakesLong());
 			pageContext.getOut().print("' data-action='");
 			pageContext.getOut().print(getAction());
-			pageContext.getOut().println("'/>");
-			// TMR ME QUEDÉ POR AQUÍ, FALTA:
-			/*
- 			if (metaAction.isLosesChangedData()) pageContext.getOut().print("'\tonclick='openxava.executeActionConfirmLosesChangedData(");
-			else pageContext.getOut().print("'\tonclick='openxava.executeAction(");
-
 			if (!Is.emptyString(getArgv())) { 
-				pageContext.getOut().print(", \"");
+				pageContext.getOut().print("' data-argv='");
 				pageContext.getOut().print(getArgv());
-				pageContext.getOut().print('"');
-			}
-			if (metaAction.inNewWindow()) {
-				if (Is.emptyString(getArgv())) {
-					pageContext.getOut().print(", undefined, undefined, undefined, true");
-				}
-				else {
-					pageContext.getOut().print(", undefined, undefined, true");
-				}
-			}
-			*/
+			}			
+			pageContext.getOut().print("' data-in-new-window='");
+			pageContext.getOut().print(metaAction.inNewWindow());
+			pageContext.getOut().println("'/>");
 			// tmr fin		
 		}
 		catch (Exception ex) {
