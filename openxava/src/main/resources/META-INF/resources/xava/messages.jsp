@@ -14,7 +14,12 @@ if (messages.contains()) {
 %>
 <tr><td class=<%=style.getWarnings()%>>
 <div class='ox-message-box'>
+<%-- tmr
 <i class="mdi mdi-close" onclick="$(this).parent().fadeOut()"></i>
+--%>
+<%-- tmr ini --%>
+<i class="mdi mdi-close"></i>
+<%-- tmr fin --%>
 <%=it.next()%>
 </div>
 </td></tr>
@@ -27,7 +32,12 @@ if (messages.contains()) {
 %>
 <tr><td class=<%=style.getMessages()%>>
 <div class='ox-message-box'>
+<%-- tmr
 <i class="mdi mdi-close" onclick="$(this).parent().fadeOut()"></i>
+--%>
+<%-- tmr ini --%>
+<i class="mdi mdi-close"></i>
+<%-- tmr fin --%>
 <%=it.next()%>
 </div>
 </td></tr>
@@ -40,7 +50,12 @@ if (messages.contains()) {
 %>
 <tr><td class=<%=style.getInfos()%>>
 <div class='ox-message-box'>
+<%-- tmr
 <i class="mdi mdi-close" onclick="$(this).parent().fadeOut()"></i>
+--%>
+<%-- tmr ini --%>
+<i class="mdi mdi-close"></i>
+<%-- tmr fin --%>
 <%=it.next()%>
 </div>
 </td></tr>

@@ -1,7 +1,6 @@
 package org.openxava.web;
 
 import org.apache.commons.logging.*;
-import org.openxava.controller.meta.*;
 import org.openxava.util.*;
 
 /**
@@ -13,6 +12,7 @@ import org.openxava.util.*;
 public class Actions {
 	private static Log log = LogFactory.getLog(Actions.class);
 
+	/* tmr
 	public static String getActionOnClick(String application, String module, // tmr Quitar 
 			String onSelectCollectionElementAction, int row, String viewObject, String idRow,
 			String selectedRowStyle, String rowStyle,
@@ -34,7 +34,9 @@ public class Actions {
 			"'" + tabObject + "'" + 
 			")\"";
 	}
+	*/
 	
+	/* tmr
 	public static String getActionOnClickAll(String application, String module, // tmr Quitar 
 			String onSelectCollectionElementAction, String viewObject, String prefix,
 			String selectedRowStyle, String rowStyle, String tabObject){
@@ -51,6 +53,7 @@ public class Actions {
 			"'" + tabObject + "'" + 
 			")\"";
 	}
+	*/
 	
 	public static String getActionOnChangeComparator(String id,String idConditionValue,String idConditionValueTo) {
 		return "onChange=\"openxava.onChangeComparator(" +

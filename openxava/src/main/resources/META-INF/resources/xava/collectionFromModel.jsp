@@ -30,13 +30,23 @@ boolean sortable = subview.isCollectionSortable();
 	%>	
 	<th class="ox-list-header" width="5">
 	<%
-		// TMR ME QUEDÉ POR AQUÍ, PARA EMPEZAR A QUITAR LOS ONCLICKS AQUÍ
+		/* tmr
 		String actionOnClickAll = Actions.getActionOnClickAll(
 		request.getParameter("application"), request.getParameter("module"), 
 		onSelectCollectionElementAction, idCollection, propertyPrefix, 
 		"", "", tabObject);
+		*/
 	%>
+	<%-- tmr
 	<input type="checkbox" name="<xava:id name='xava_selected_all'/>" value="<%=propertyPrefix%>selected_all" <%=actionOnClickAll%> />
+	--%>
+	<%-- tmr ini --%>
+	<input type="checkbox" name="<xava:id name='xava_selected_all'/>" value="<%=propertyPrefix%>selected_all" 
+		data-on-select-collection-element-action="<%=onSelectCollectionElementAction%>"
+		data-view-object="<%=idCollection%>"
+		data-prefix="<%=propertyPrefix%>"
+		data-tab-object="<%=tabObject%>"/>
+	<%-- tmr fin --%>
 	</th>
 <%
 	// Heading
@@ -100,14 +110,28 @@ for (int f=0; itAggregates.hasNext(); f++) {
 </td>
 <%
 	} 
+	/* tmr
 	String actionOnClick = Actions.getActionOnClick(
 		request.getParameter("application"), request.getParameter("module"), 
 		onSelectCollectionElementAction, f, viewName, idRow,
 		"", "", 
 		onSelectCollectionElementMetaAction, tabObject);
+	*/	
 %>
 <td class="<%=cssCellClass%>" width="5">
+<%-- tmr
 <input type="checkbox" name="<xava:id name='xava_selected'/>" value="<%=propertyPrefix%>__SELECTED__:<%=f%>" <%=actionOnClick%>/>
+--%>
+<%-- tmr ini --%>
+<input class="xava_selected" type="checkbox" name="<xava:id name='xava_selected'/>" value="<%=propertyPrefix%>__SELECTED__:<%=f%>" 
+	data-on-select-collection-element-action="<%=onSelectCollectionElementAction%>"
+	data-row="<%=f%>"
+	data-view-object="<%=viewName%>"
+	data-tab-object="<%=tabObject%>"
+	data-confirm-message="<%=Is.empty(onSelectCollectionElementMetaAction)?"":onSelectCollectionElementMetaAction.getConfirmMessage()%>"
+	data-takes-long="<%=Is.empty(onSelectCollectionElementMetaAction)?false:onSelectCollectionElementMetaAction.isTakesLong()%>"
+/>
+<%-- tmr fin --%>
 </td>
 <%
 	it = subview.getMetaPropertiesList().iterator();	

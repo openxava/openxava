@@ -210,6 +210,7 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.listenChanges(); 
 	openxava.initFocusKey();
 	openxava.initButtonBars(application, module); // tmr
+	openxava.initMessages(); // tmr
 	openxava.initInlineEvents(); 
 	 
 	if (typeof currentRow != "undefined") {
@@ -221,11 +222,13 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 openxava.initFocusKey = function() { }
 
 openxava.initInlineEvents =  function() {
+	/* tmr
 	$('[onclick]').each(function() { // tmr Al quitar poner en migración, los onclick ya no van a funcionar en editores
   		$(this).off('click').click(function() {
   			eval($(this).attr('onclick'));
 		});
 	});
+	*/
 	$('a[href^="javascript:"]').each(function() {
 		if ($(this).attr('href') != "javascript:void(0)") {
 			$(this).attr("onclicke", $(this).attr('href'));
@@ -268,6 +271,13 @@ openxava.initButtonBars = function(application, module) { // tmr
 		openxava.onSelectListFormat($(this));
 	});
 }
+
+openxava.initMessages = function(application, module) { // tmr
+	$('.ox-message-box i').off('click').click(function() {
+		$(this).parent().fadeOut();
+	});
+}
+
 
 openxava.setEnterAsFocusKey = function() {
 	var focusables = $('input:focusable[tabindex="1"], select:focusable[tabindex="1"], textarea:focusable[tabindex="1"]');
@@ -1144,6 +1154,8 @@ openxava.log = function(message) {
 }
 
 openxava.onSelectAll = function(application, module, action, argv, checkValue, hasOnSelectAction, prefix, selectedRowStyle, rowStyle, tabObject){
+	console.log("[openxava.js] onSelectAll(" + application + ", " + module + ", " + action + ", " + argv + ", " + 
+		checkValue + ", " + hasOnSelectAction + ", " + prefix + ", " + selectedRowStyle + ", " + rowStyle + ", " + tabObject +")"); // tmr
 	// search its deselected
 	var name = openxava.decorateId(application, module, tabObject);
 	var index = -1;
