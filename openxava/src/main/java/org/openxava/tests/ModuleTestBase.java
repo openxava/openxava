@@ -686,7 +686,7 @@ abstract public class ModuleTestBase extends TestCase {
 		execute(action, arguments, true);
 	}
 	
-	private HtmlAnchor getAnchorForAction(String action, String arguments) {
+	private HtmlElement getElementForAction(String action, String arguments) {  
 		String moduleMarkForAnchor = "executeAction('" + application + "', '" + module + "'";
 		
 		for (Iterator it = page.getAnchors().iterator(); it.hasNext(); ) {			
@@ -710,12 +710,16 @@ abstract public class ModuleTestBase extends TestCase {
 		}		
 		
 		// For Cards
-		if (arguments.startsWith("row=")) {
+		if (arguments != null && arguments.startsWith("row=")) {
 			String row= arguments.substring(4);
 			for (HtmlElement el: page.getBody().getElementsByAttribute("a", "data-row", row)) {
-				if (action.equals(el.getAttribute("data-action"))) return (HtmlAnchor) el;
+				if (action.equals(el.getAttribute("data-action"))) return el;
 			}
 		}
+		
+		// Bottom buttons
+		List<HtmlElement> buttons = page.getBody().getElementsByAttribute("input", "data-action", action);
+		if (!buttons.isEmpty()) return buttons.get(0);
 		
 		return null;
 	}
@@ -726,7 +730,7 @@ abstract public class ModuleTestBase extends TestCase {
 	private void execute(String action, String arguments, boolean clicking) throws Exception {
 		throwChangeOfLastNotNotifiedProperty();
 		HtmlElement element = null;
-		element = getAnchorForAction(action, arguments);
+		element = getElementForAction(action, arguments);
 		if (arguments == null && element == null) { // We try if it is a button
 			String moduleMarkForButton = "executeAction(\"" + application + "\", \"" + module + "\"";
 			HtmlElement inputElement = page.getHtmlElementById(decorateId(action));
@@ -1267,7 +1271,7 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	protected void assertAction(String action, String arguments) throws Exception { 		
-		assertTrue(XavaResources.getString("action_with_arguments_not_found_in_ui", action, arguments), getAnchorForAction(action, arguments) != null); 
+		assertTrue(XavaResources.getString("action_with_arguments_not_found_in_ui", action, arguments), getElementForAction(action, arguments) != null); 
 	}
 	
 	protected void assertNoAction(String action) throws Exception {
@@ -1275,7 +1279,7 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	protected void assertNoAction(String action, String arguments) throws Exception { 		
-		assertTrue(XavaResources.getString("action_with_arguments_found_in_ui", action, arguments), getAnchorForAction(action, arguments) == null); 
+		assertTrue(XavaResources.getString("action_with_arguments_found_in_ui", action, arguments), getElementForAction(action, arguments) == null); 
 	}
 	
 	private Collection getActions() throws Exception { 

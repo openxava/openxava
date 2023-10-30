@@ -388,14 +388,14 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertMessage("OnChangeVoidAction executed");
 	}
 	
-	public void testSearchReferenceWithListAndOnChangeActionInSubview() throws Exception {
+	public void testSearchReferenceWithListAndOnChangeActionInSubview() throws Exception { 
 		execute("CRUD.new");		
 		assertValue("alternateSeller.number", "");
 		assertValue("alternateSeller.name", "");
 		// Choose using check boxes
 		execute("Reference.search", "keyProperty=xava.Customer.alternateSeller.number");
 		checkRow(0);
-		execute("ReferenceSearch.choose");
+		execute("ReferenceSearch.choose"); 
 		assertValue("alternateSeller.number", "1");
 		assertValue("alternateSeller.name", "DON MANUEL CHAVARRI");
 		assertMessage("OnChangeVoidAction executed");

@@ -24,12 +24,12 @@ public class DescriptionsListTest extends WebDriverTestBase {
 	public void setUp() throws Exception {
 		XPersistence.reset(); 
 		XPersistence.setPersistenceUnit("junit");
-		setHeadless(true);
+		// tmr setHeadless(true);
 	    driver = createWebDriver();
 	}
 	
 	public void tearDown() throws Exception {
-		driver.quit();
+		// tmr driver.quit();
 	}
 	
 	public void testAutocomplete() throws Exception {
@@ -147,10 +147,15 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		closeFamilyListIcon = familyEditor.findElement(By.className("mdi-menu-up"));		
 		closeFamilyListIcon.click();
 		openFamilyListIcon.click();
-		assertTrue(familyList.isDisplayed());
+		long ini = System.currentTimeMillis(); // tmr
+		wait(driver); // tmr
+		long cuesta = System.currentTimeMillis() - ini; // tmr
+		System.out.println("[DescriptionsListTest.testAutocomplete] cuesta=" + cuesta); // tmr
+		familyList = driver.findElement(By.id("ui-id-25"));
+		assertTrue(familyList.isDisplayed()); // TMR ME QUEDÉ POR AQUÍ: FALLA
 		subfamilyEditor = driver.findElement(By.id("ox_openxavatest_Product2__reference_editor_subfamily"));
 		openSubfamilyListIcon = subfamilyEditor.findElement(By.className("mdi-menu-down"));		
-		openSubfamilyListIcon.click();
+		openSubfamilyListIcon.click(); // TMR FALLA
 		assertFalse(familyList.isDisplayed());
 		
 		setFamilyDescription(1, "SOFTWARE"); 

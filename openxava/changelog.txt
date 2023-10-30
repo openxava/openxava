@@ -1,6 +1,30 @@
 Change Log for OpenXava project
 ===============================
 
+
+migración, los onclick ya no van a funcionar en editores
+
+
+	$('#more_modules').on( "click", function() {
+		$('#loading_more_modules').show(); 
+		$('#load_more_modules').hide();
+	});
+
+
+	<%-- tmr
+	<div id="more_modules" class="module-row" onclick="$('#loading_more_modules').show(); $('#load_more_modules').hide();">
+	--%>
+	<%-- tmr ini --%>
+	<div id="more_modules" class="module-row">
+	<%-- tmr fin --%>
+	
+	
+	
+changelog:
+- Fix: Acción on new windows no funciona en new window si pulsarmos ENTER	
+- Fix: Acción TAKES-LONG no funciona saca el diálogo si pulsarmos ENTER	
+
+
 - jQuery upgraded to 3.7.1.
 - jQuery UI upgraded to 1.13.2.
 - Remove and rename column icons when customizing list are aligned to right.
