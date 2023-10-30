@@ -46,6 +46,7 @@ String viewObject = request.getParameter("viewObject"); // Id to access to the v
 View collectionView = (View) context.get(request, viewObject); // We get the collection view by means of context
 View rootView = collectionView.getRoot(); // In this case we use the root view
 String collectionName = request.getParameter("collectionName");
+String modelName = collectionView.getMetaModel().getQualifiedName();
 Map key = rootView.getKeyValues();
 String action = request.getParameter("rowAction");
 String actionArgv = ",viewObject=" + viewObject;
@@ -69,8 +70,20 @@ String module = request.getParameter("module");
 String tableId = Ids.decorate(request.getParameter("application"), module, collectionName);
 TreeViewActions metaTreeViewActions = new TreeViewActions(collectionView, treeParser.getMetaTreeView(tab.getModelName()));
 JSONArray jsonArray = new JSONArray();
+String pathProperty = "path";
+String pathSeparator = "/";
+String idProperties = "";
+int orderIncrement = 2;
+
+
+String contextPath = (String) request.getAttribute("xava.contextPath");
+if (contextPath == null) contextPath = request.getContextPath();
+String version = org.openxava.controller.ModuleManager.getVersion();
 
 if (collectionName != null) {
+	System.out.println(tab.getPropertiesNamesAsString());
+// need clone table for not alterate original tab
+
 	Tab tab2 = collectionView.getCollectionTab().clone();
     String[] propertiesNow = tab2.getPropertiesNamesAsString().split(",");
 	MetaCollection mc = collectionView.getMetaCollection();
@@ -83,26 +96,30 @@ if (collectionName != null) {
     MetaView metaView = parentView.getMetaModel().getMetaView(parentView.getViewName());
     MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
     Tree tree = metaCollectionView.getPath();
-    String pathP = "path";
-    String pathS = "/";
-    String idP = "";
-
+	
+	boolean initialState = true;
     if (tree != null) { 
-        pathP = tree.pathProperty() != null ? tree.pathProperty() : "path";
-        pathS = tree.pathSeparator() != null ? tree.pathSeparator(): "/";
-        idP = tree.idProperties() != null ? tree.idProperties() : "";
+        pathProperty = tree.pathProperty() != null ? tree.pathProperty() : "path";
+        pathSeparator = tree.pathSeparator() != null ? tree.pathSeparator(): "/";
+        idProperties = tree.idProperties() != null ? tree.idProperties() : "";
+		System.out.println(tree.orderIncrement());
+		System.out.println(idProperties);
+		System.out.println(tree.initialExpandedState());
+		orderIncrement = tree.orderIncrement() != 2 ? tree.orderIncrement() : 2;
+		initialState = tree.initialExpandedState();
     }
     
 	propertiesMap.put("tabProperties", propertiesNow);
-	propertiesMap.put("path", pathP);
-	propertiesMap.put("separator", pathS);
-	propertiesMap.put("id", idP);
+	propertiesMap.put("path", pathProperty);
+	propertiesMap.put("separator", pathSeparator);
+	propertiesMap.put("id", idProperties);
+	propertiesMap.put("orderIncrement", orderIncrement);
 	propertiesMap.put("order", oSplit);
 	int count = 0;
 	
     for (String element: oSplit) {
         if (ArrayUtils.contains(propertiesNow, element)) continue;
-        if (element.equals(pathP)) {
+        if (element.equals(pathProperty)) {
             tab2.addProperty(0, element);
             count = count == 0 ? 0 : count++;
         } else {
@@ -205,7 +222,12 @@ if(!Is.empty(key)){
 			
 $('#container_<%=collectionName%>').jstree({
     "core": { // core options go here
-        "check_callback": true,
+        "check_callback": function(operation, node, parent, position, more) {
+            if (operation === "move_node") {
+                return true;
+            }
+            return false;
+        },
         "themes": {
             "dots": true,
             "icons": false
@@ -220,8 +242,10 @@ $('#container_<%=collectionName%>').jstree({
 	},
     "plugins": ["checkbox", "dnd", "state"]
 });
-			
+
+//accion de modificar el nodo con doble click
 $('#container_<%=collectionName%>').on('dblclick', '.jstree-anchor', function () {
+	console.log("dblclick");
   // Accede al nodo que se hizo doble clic
   var clickedNodeId = $(this).parent().attr('id');
   var clickedNode = $('#container_<%=collectionName%>').jstree(true).get_node(clickedNodeId);
@@ -232,13 +256,15 @@ $('#container_<%=collectionName%>').on('dblclick', '.jstree-anchor', function ()
 	openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', "", false, '<%=action%>', actionWithArgs);
 });
 
-$('#container_<%=collectionName%>').on("changed.jstree", function (e, data) {
+//selecciona en el input invisible, para accion de eliminar y agregar nuevo
+$('#container_<%=collectionName%>').on('changed.jstree', function (e, data) {
+	console.log("changed.jstree");
 	if (data.hasOwnProperty('node')){
 		var actionWithArgs = "row=" + data.node.original.row  + "<%=actionArgv%>";
+		console.log(actionWithArgs);
 		var htmlInput = document.getElementById("<%=xavaId%>" + data.node.original.row);
 		if (data.action === 'select_node'){ 
 			if (htmlInput != null){
-				console.log(data.node.original);
 				htmlInput.checked = true;
 			}
 		} else if (data.action === 'deselect_node') {
@@ -249,17 +275,36 @@ $('#container_<%=collectionName%>').on("changed.jstree", function (e, data) {
 	}
   });
 
-$('#container_<%=collectionName%>').on('select_node.jstree', function (e, data) {
-    // Desmarca los padres seleccionados (si los hay)
-	console.log(data);
-    data.node.parents.forEach(function (parentId) {
-        $('#container_<%=collectionName%>').jstree('deselect_node', parentId);
-    });
+//para drag and drop
+$(document).on('dnd_stop.vakata', function (e, data) {
+	console.log('dnd_stop.vakata');
+	ref = $('#container_<%=collectionName%>').jstree(true);
 
-    // Desmarca los hijos seleccionados (si los hay)
-    data.node.children.forEach(function (childId) {
-        $('#container_<%=collectionName%>').jstree('deselect_node', childId);
-    });
+	if ( ref.get_node(data.data.nodes[0]) != false) {
+	var application = "<%=request.getParameter("application")%>";
+	var modelName = "<%=modelName%>";
+	var pathProperty = "<%=pathProperty%>";
+	var nodosACambiar = [];
+	var nodoPadre;
+
+	//obtener el id de los nodos a mover
+	var nodeArray = data.data.nodes;
+	let parentId = "";
+	nodeArray.forEach(function(element) {
+		let node = ref.get_node(element);
+		parentId = parentId === "" ? node.parent : parentId;
+		nodosACambiar.push(node.original.id);
+	});
+
+	//obtener el id del padre
+	nodoPadre = ref.get_node(parentId);
+	pathAlPadre = nodoPadre.original.path + "/" + nodoPadre.original.id;
+	//pathAlPadre = encodeURIComponent(pathAlPadre);
+	console.log(pathAlPadre);
+	var nodoPadre2 = "";
+	//falta la parte por si tiene otro id distinto a id
+	Calendar.updateNode(application, modelName, pathProperty, nodosACambiar, pathAlPadre);
+	}
 });
 			
 
@@ -314,6 +359,7 @@ $('#container_<%=collectionName%>').on('select_node.jstree', function (e, data) 
 		})
 	</script>
 	
+	<script type='text/javascript' <xava:nonce/> src='<%=contextPath%>/dwr/interface/Calendar.js?ox=<%=version%>'></script>
 	<%
 }
 %>

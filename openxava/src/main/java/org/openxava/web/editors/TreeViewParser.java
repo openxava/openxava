@@ -310,14 +310,9 @@ public class TreeViewParser {
         String mapSeparator = (String) map.get("separator");
         String[] mapOrder = (String[]) map.get("order");
         String[] mapTabProperties = (String[]) map.get("tabProperties");
-
-        //System.out.println(json);
-        //System.out.println(rootNodeFound);
-        //System.out.println(json.isEmpty());
-        //System.out.println("mapPath " + mapPath);
-        //System.out.println("mapOrder " + Arrays.toString(mapOrder));
-        //System.out.println("mapTabProperties " + Arrays.toString(mapTabProperties));
         
+        //System.out.println(json);
+
         for (int i = 0; i < data.length(); i++) {
             JSONObject node = data.getJSONObject(i);
             String id = node.get("id").toString();
@@ -325,6 +320,8 @@ public class TreeViewParser {
             String order = node.get("treeorder").toString();
             String description = node.get("description").toString();
             String row = node.get("row").toString();
+            
+            // usar doble if, primero verificar rootNodeFound y luego si el path es vacio o no.. asi se puede combinar con el codigo de !rootNodeFound && json.isEmpty() 
             if (path.equals("") && parentId.equals("0")) {
                 JSONObject rootNode = new JSONObject();
                 rootNode.put("id", id);
@@ -370,10 +367,9 @@ public class TreeViewParser {
             JSONArray childNodes = findChildrenOfNode(id, data, map, true);
             if (childNodes.length() > 0) {
             	rootNode.put("children", childNodes);
-            } 
+            }
         	json.put(rootNode);
     	}
-    	
         return json;
     }
 
