@@ -78,7 +78,8 @@ elementCollectionEditor.renumber = function(row, rowIndex) {
 	});
 	var rowHtml = row.html()
 		.replace(token1, token2)
-		.replace(new RegExp("data-row=\"\\d+\"", "g"), "data-row=\"" + rowIndex + "\"") 
+		.replace(new RegExp("data-row=\"\\d+\"", "g"), "data-row=\"" + rowIndex + "\"")
+		.replace(new RegExp("this, \\d+", "g"), "this, " + rowIndex)  
 		.replace(new RegExp("keyProperty=(.*)\\.\\d+\\.", "g"), "keyProperty=$1." + rowIndex + ".");
 	row.html(rowHtml);
 	if (!$(row).hasClass("ox-display-none") && $(row).css("display") !== 'none') { // is:visible/hidden not work on mobile (removing one record removes all until end)

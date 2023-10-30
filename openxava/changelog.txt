@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+TMR ME QUEDÉ POR AQUÍ: SUITE PASADA AL 100%, FALTA LA DOC DE MIGRACIÓN
 
 migración, los onclick ya no van a funcionar en editores
 
