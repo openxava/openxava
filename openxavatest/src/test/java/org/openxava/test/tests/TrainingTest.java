@@ -218,21 +218,17 @@ public class TrainingTest extends ModuleTestBase {
 		assertValueInCollection("sessions", 1, "description", "FIVE"); 
 		assertValueInCollection("sessions", 1, "kms", "15");
 
-		System.out.println("[TrainingTest.testRemoveRowInElementCollection] >>>>"); // tmr
-		// TMR ME QUEDÉ POR AQUÍ. DEPURANDO, NO GRABA ESTE ÚLTIMO BORRADO
 		removeSessionsRow(0);
-		System.out.println("[TrainingTest.testRemoveRowInElementCollection] <<<<"); // tmr
 		
 		assertCollectionRowCount("sessions", 1);
 		assertValueInCollection("sessions", 0, "description", "FIVE"); 
 		assertValueInCollection("sessions", 0, "kms", "15");
 		
 		execute("CRUD.save");
-		/* tmr
 		assertNoErrors(); 
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
-		assertCollectionRowCount("sessions", 1); // TMR FALLA
+		assertCollectionRowCount("sessions", 1); 
 		assertValueInCollection("sessions", 0, "description", "FIVE"); 
 		assertValueInCollection("sessions", 0, "kms", "15");		
 						
@@ -256,7 +252,6 @@ public class TrainingTest extends ModuleTestBase {
 						
 		execute("CRUD.delete");
 		assertNoErrors();
-		*/
 	}
 	
 	private void removeSessionsRow(int rowIndex) throws Exception { 

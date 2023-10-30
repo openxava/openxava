@@ -1,6 +1,6 @@
 The automated tests in this project do not include some aspects of Cards list format.
 
-FILE: Movie 
+Module: Movie 
 - Change to Cards. 
 - The image is not shown at full size, but to a reasonable one.
 - The card with a link is not broken but has a correct layout.

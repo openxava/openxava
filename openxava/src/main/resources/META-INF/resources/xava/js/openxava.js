@@ -209,8 +209,8 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initPlaceholder();
 	openxava.listenChanges(); 
 	openxava.initFocusKey();
-	openxava.initButtonBars(application, module); // tmr
-	openxava.initMessages(); // tmr
+	openxava.initButtonBars(application, module); 
+	openxava.initMessages(); 
 	openxava.initInlineEvents(); 
 	 
 	if (typeof currentRow != "undefined") {
@@ -222,13 +222,6 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 openxava.initFocusKey = function() { }
 
 openxava.initInlineEvents =  function() {
-	/* tmr
-	$('[onclick]').each(function() { // tmr Al quitar poner en migración, los onclick ya no van a funcionar en editores
-  		$(this).off('click').click(function() {
-  			eval($(this).attr('onclick'));
-		});
-	});
-	*/
 	$('a[href^="javascript:"]').each(function() {
 		if ($(this).attr('href') != "javascript:void(0)") {
 			$(this).attr("onclicke", $(this).attr('href'));
@@ -260,7 +253,7 @@ openxava.initInlineEvents =  function() {
 	});
 }
 
-openxava.initButtonBars = function(application, module) { // tmr
+openxava.initButtonBars = function(application, module) { 
 	$('.xava_button').off('click').click(function() {
 		openxava.executeAction(application, module, 
 			$(this).data('confirm-message'),
@@ -284,7 +277,7 @@ openxava.initButtonBars = function(application, module) { // tmr
 	});
 }
 
-openxava.initMessages = function(application, module) { // tmr
+openxava.initMessages = function(application, module) { 
 	$('.ox-message-box i').off('click').click(function() {
 		$(this).parent().fadeOut();
 	});
@@ -556,7 +549,6 @@ openxava.initLists = function(application, module) {
 	$('.xava_filter input').focus(function() { // If changed to change event, revise ModuleTestBase.setCollectionCondition()
 		$(this).parent().parent().find(".xava_comparator").fadeIn();
 	});	
-	// tmr ini
 	$('.ox-list-header input[type=checkbox]').off('click').click(function() {
 		openxava.onSelectAll(application, module,
 			$(this).data('on-select-collection-element-action'),
@@ -581,7 +573,6 @@ openxava.initLists = function(application, module) {
 			$(this).data('row'),
 			$(this).data('tab-object'));
 	});
-	// tmr fin
 }
 
 openxava.renumberCollection = function(table) { 
@@ -1119,9 +1110,6 @@ openxava.clearConditionValuesTo = function(application, module, prefix) {
 }
 
 openxava.onSelectElement = function(application, module, action, argv, checkValue, idRow, hasOnSelectAction, selectedRowStyle, rowStyle, confirmMessage, takesLong, selectingAll, row, tabObject) {
-	console.log("[openxava.js] onSelectElement(" + application + ", " + module + ", " + action + ", " + argv + ", " + checkValue + ", " +
-		idRow + ", " + hasOnSelectAction + ", " + selectedRowStyle + ", " + rowStyle + ", " + confirmMessage + ", " +
-		takesLong + ", " + selectingAll + ", " + row + ", " + tabObject); // tmr
 	openxava.onChangeCheckBox(checkValue,row,application,module,tabObject);
 	
 	var id = $("#" + idRow)[0];
@@ -1149,10 +1137,7 @@ openxava.onSelectElement = function(application, module, action, argv, checkValu
 	}
 }
 
-// tmr openxava.onSelectListFormat = function(event) { 
-openxava.onSelectListFormat = function(i) { // tmr
-	// tmr var i = $(event.target);
-	console.log("[openxava.onSelectListFormat] i.class=" + i.attr("class")); // tmr
+openxava.onSelectListFormat = function(i) { 
 	i.parent().parent().find("a").removeClass(openxava.selectedListFormatClass);
 	i.parent().addClass(openxava.selectedListFormatClass);
 }
@@ -1166,8 +1151,6 @@ openxava.log = function(message) {
 }
 
 openxava.onSelectAll = function(application, module, action, argv, checkValue, hasOnSelectAction, prefix, selectedRowStyle, rowStyle, tabObject){
-	console.log("[openxava.js] onSelectAll(" + application + ", " + module + ", " + action + ", " + argv + ", " + 
-		checkValue + ", " + hasOnSelectAction + ", " + prefix + ", " + selectedRowStyle + ", " + rowStyle + ", " + tabObject +")"); // tmr
 	// search its deselected
 	var name = openxava.decorateId(application, module, tabObject);
 	var index = -1;

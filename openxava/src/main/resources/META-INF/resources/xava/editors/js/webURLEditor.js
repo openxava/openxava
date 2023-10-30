@@ -1,5 +1,3 @@
-// tmr
-
 openxava.addEditorInitFunction(function() {
 	$('.ox-web-url a').off('click').click(function() {
 		var url=$(this).parent().find("input").val();

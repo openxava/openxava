@@ -10,9 +10,6 @@
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
-<%-- tmr
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
---%>
 
 <div id="<xava:id name='list'/>" class="ox-cards"> 
 <%
@@ -30,12 +27,7 @@ if (limit < chunkSize) limit = chunkSize;
 int i = 0;
 for (Card card: new CardIterator(tab, view, request, errors)) {
 %>	
-	<%-- tmr
-	<a class="<%=style.getCard()%>" onclick="if (!getSelection().toString()) openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', false, false, '<%=action%>', '<%="row=" + (i++)%>');">
-	--%>
-	<%-- tmr ini --%>
 	<a class="ox-card" data-action="<%=action%>" data-row="<%=i++%>">
-	<%-- tmr fin --%>
 		<div class="ox-card-header"><%=card.getHeader()%></div>
 		<div class="ox-card-subheader"><%=card.getSubheader()%></div>
 		<div class="ox-card-content"><%=card.getContent()%></div>

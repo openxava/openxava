@@ -5012,11 +5012,6 @@ String module = request.getParameter("module");
 %>
 <div class="ox-icons-list">  
 <% for (String icon: icons) { %>
-	<%-- tmr
-	<i class="mdi mdi-<%=icon%>" title="<%=icon%>" onclick="openxava.executeAction('<%=app%>', '<%=module%>', '', false, 'Icon.choose', 'icon=<%=icon%>')"></i>
-	--%>
-	<%-- tmr ini --%>
 	<i class="mdi mdi-<%=icon%>" title="<%=icon%>"></i>
-	<%-- tmr fin --%>
 <% } %>
 </div>

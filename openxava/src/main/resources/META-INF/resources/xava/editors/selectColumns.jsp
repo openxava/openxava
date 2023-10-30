@@ -31,13 +31,6 @@ for (Iterator it=tab.getColumnsToAdd().iterator(); it.hasNext();) {
 	String cssCellClass=c%2==0?"ox-list-pair":"ox-list-odd";
 	String events=c%2==0?style.getListPairEvents():style.getListOddEvents();	
 	String rowId = Ids.decorate(request, "xavaPropertiesList") + f;
-	/* tmr
-	String actionOnClick = org.openxava.web.Actions.getActionOnClick(
-		request.getParameter("application"), request.getParameter("module"), 
-		null, f, null, rowId,
-		"", "", 
-		null, tabObject);
-	*/		
 	f++;
 	String propertyI18n = Labels.getQualified(property, currentLocale);
 	if (!Is.emptyString(searchWord) && !propertyI18n.toLowerCase().contains(searchWord)) continue;
@@ -49,10 +42,6 @@ for (Iterator it=tab.getColumnsToAdd().iterator(); it.hasNext();) {
 		<xava:action action='AddColumns.addColumn' argv='<%="property=" + property%>'/>
 	</td>		
 	<td class="<%=cssCellClass%>" width="5">
-		<%-- tmr
-		<input type="checkbox" name="<xava:id name='xava_selected'/>" value="selectedProperties:<%=property%>" <%=actionOnClick%>/>
-		--%>
-		<%-- tmr ini --%>
 		<input class="xava_selected" type="checkbox" name="<xava:id name='xava_selected'/>" value="selectedProperties:<%=property%>"
 			data-on-select-collection-element-action=""
 			data-row="<%=f-1%>"
@@ -60,7 +49,6 @@ for (Iterator it=tab.getColumnsToAdd().iterator(); it.hasNext();) {
 			data-tab-object="<%=tabObject%>"
 			data-confirm-message=""
 			data-takes-long=""/>
-		<%-- tmr fin --%>
 	</td>
 	<td class="<%=cssCellClass%>"> 
 		<xava:link action='AddColumns.addColumn' argv='<%="property=" + property%>'>

@@ -124,7 +124,7 @@ public class ProductTest extends ModuleTestBase {
 		assertListRowCount(7);
 		assertValueInList(2, "XAVA\n3\nUnit price: 0.00, Unit price in pesetas: 0"); 
 		
-		execute("List.viewDetail", "row=2"); // TMR FALLA
+		execute("List.viewDetail", "row=2"); 
 		assertValue("number", "3");
 		assertValue("description", "XAVA");
 		execute("Mode.list");
@@ -132,15 +132,8 @@ public class ProductTest extends ModuleTestBase {
 		assertFalse(getHtml().contains("There are no records"));
 		assertTrue(getHtmlPage().getElementById("xava_loading_more_elements") == null);
 		
-		// To test if the click works, specially that the javascript is well formed including the correct row an so,
-		// for a regular test using execute("List.viewDetail", "row=2") is the way to go
-		HtmlElement card = assertCard3Title("XAVA"); 
 		assertNoAction("CRUD.save");
-		String onClick = card.getOnClickAttribute();
-		assertTrue(onClick.startsWith("if (!getSelection().toString()) ")); // getSelection() does not work in HtmlUnit
-		onClick = onClick.replace("if (!getSelection().toString()) ", "");	// so we remove it				 
-		getHtmlPage().executeJavaScript(onClick);
-		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
+		execute("List.viewDetail", "row=2");
 		assertAction("CRUD.save");
 		assertValue("number", "3");
 		assertValue("description", "XAVA");

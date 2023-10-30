@@ -14,10 +14,9 @@ naviox.init = function() {
 	
 	$('#modules_list_core').css('height', 'calc(100vh - ' + $('#modules_list_top').height() + 'px)'); 
 	
-	naviox.initModulesLoading(); // tmr
+	naviox.initModulesLoading(); 
 }
 
-// tmr ini
 naviox.initModulesLoading = function() {
 	$('#modules_list_core .module-row').on( "click", function() {
   		$(this).find(".module-loading").show();
@@ -27,7 +26,6 @@ naviox.initModulesLoading = function() {
 		$('#load_more_modules').hide();
 	});
 }
-// tmr fin
 
 naviox.watchForIdleUser = function() {
 	clearTimeout(naviox.idleWatcher);

@@ -1,7 +1,5 @@
 if (discussionEditor == null) var discussionEditor = {};
 
-// tmr ini
-// tmr Debería hacer la prueba manual
 openxava.addEditorInitFunction(function() {
 	$('.ox-discussion-add-button').off('click').click(function() {
 		discussionEditor.postMessage(openxava.lastApplication, openxava.lastModule, $(this).parent().data("discussion-id"))
@@ -10,7 +8,6 @@ openxava.addEditorInitFunction(function() {
 		discussionEditor.cancel($(this).parent().data("discussion-id"));
 	});	
 });
-// tmr fin
 
 discussionEditor.postMessage = function(application, module, discussionId) {
 	var newComment = tinymce.get('xava_new_comment_' + discussionId); 

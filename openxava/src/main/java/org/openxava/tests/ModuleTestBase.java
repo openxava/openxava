@@ -708,6 +708,15 @@ abstract public class ModuleTestBase extends TestCase {
 				}				
 			}
 		}		
+		
+		// For Cards
+		if (arguments.startsWith("row=")) {
+			String row= arguments.substring(4);
+			for (HtmlElement el: page.getBody().getElementsByAttribute("a", "data-row", row)) {
+				if (action.equals(el.getAttribute("data-action"))) return (HtmlAnchor) el;
+			}
+		}
+		
 		return null;
 	}
 	
@@ -732,9 +741,10 @@ abstract public class ModuleTestBase extends TestCase {
 			}			
 		}
 		if (element != null) {
-			if (!clicking && element instanceof HtmlAnchor) { 
-				// Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.9/2.70 in some circumstances
-				page.executeJavaScript(getHrefAttribute(element)); 				
+			if (!clicking && element instanceof HtmlAnchor) {
+				String href = getHrefAttribute(element);
+				if (Is.emptyString(href)) element.click();
+				else page.executeJavaScript(href); // Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.9/2.70 in some circumstances
 			}
 			else {
 				element.click();
@@ -1550,8 +1560,7 @@ abstract public class ModuleTestBase extends TestCase {
 	
 	private int getListDivRowCount(HtmlDivision div) { 
 		int elementCount = div.getChildElementCount();
-		// tmr if (elementCount == 1) return div.asXml().contains(Style.getInstance().getNoObjects())?0:1;
-		if (elementCount == 1) return div.asXml().contains("ox-no-objects")?0:1; // tmr
+		if (elementCount == 1) return div.asXml().contains("ox-no-objects")?0:1; 
 		if (elementCount > EntityTab.DEFAULT_CHUNK_SIZE && div.asXml().contains("xava_loading_more_elements")) return elementCount - 2; 
 		return elementCount;
 	}
