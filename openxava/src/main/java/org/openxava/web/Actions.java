@@ -1,8 +1,7 @@
 package org.openxava.web;
 
-import org.openxava.util.*;
-
 /**
+ * tmr Quitar
  * Utility class to help in action code generated for JSPs.
  * 
  * Create on 30/10/2009 (16:32:16)
@@ -10,8 +9,8 @@ import org.openxava.util.*;
  */
 public class Actions {
 	
+	/* tmr
 	public static String getActionOnChangeComparator(String id,String idConditionValue,String idConditionValueTo) {
-		// TMR ME QUEDÉ POR AQUÍ: PARA QUITAR ESTE ONCHANGE
 		return "onChange=\"openxava.onChangeComparator(" +
 			"'" + id + "'," +
 			"'" + idConditionValue + "'," +
@@ -20,5 +19,6 @@ public class Actions {
 			"'" + XavaResources.getString("in_values") + "'" + 
 			")\"";
 	}
+	*/
 	
 }

@@ -1,10 +1,14 @@
 <%@ include file="../imports.jsp"%>
 
+<%-- tmr
 <%@page import="org.openxava.web.Actions"%>
+--%>
 <%@page import="org.openxava.web.Ids"%>
 <%@page import="org.openxava.model.meta.MetaProperty"%>
 <%@page import="org.openxava.tab.Tab"%>
 <%@page import="org.openxava.util.Is"%>
+<%@page import="org.openxava.util.XavaResources"%> <%-- tmr --%>
+
 
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
@@ -37,10 +41,11 @@ String idConditionValue = request.getParameter("idConditionValue");
 String idConditionValueTo = request.getParameter("idConditionValueTo");
 String propertyKey = request.getParameter("comparatorPropertyKey"); 
 String name = null;
-String script = null;
+String script = null; // tmr quitar
 if (propertyKey == null) {
 	int index = Integer.parseInt(request.getParameter("index"));
 	name = Ids.decorate(request, prefix + "conditionComparator." + index);
+	/* tmr
 	script = Actions.getActionOnChangeComparator(name,idConditionValue,idConditionValueTo);
 	
 	if (org.openxava.util.XavaPreferences.getInstance().isFilterOnChange()) {
@@ -57,13 +62,22 @@ if (propertyKey == null) {
 	 			    .append(collectionArgv).append("'); ")		
 				    .append("}\"").toString();
 	}
+	*/
 }
 else {
+	// tmr ¿Qué hacer con esto? 
 	name = propertyKey;
 	script = request.getParameter("script");
 }
 %>
+<%-- tmr
 <select id="<%=name%>" name="<%=name%>" class=<%=style.getEditor()%> <%=script%>>
+--%>
+<%-- tmr ini --%>
+<select id="<%=name%>" name="<%=name%>" class=<%=style.getEditor()%>
+	data-from="<%=XavaResources.getString("from")%>" 
+	data-in-values="<%=XavaResources.getString("in_values")%>">
+<%-- tmr fin --%>
 	<% 
 	if (!isEmpty) { 
 	%>

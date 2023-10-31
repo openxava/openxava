@@ -239,6 +239,7 @@ openxava.initInlineEvents =  function() {
 		});
 	});
 	*/
+	
     $('[onblur]').each(function() {
   		$(this).blur(function() { 
   			eval($(this).attr('onblur'));
@@ -260,6 +261,11 @@ openxava.initEditorsEvents = function(application, module) { // tmr
 	$('.xava_onchange .editor').off('change').change(function() {
   		openxava.throwPropertyChanged(application, module, $(this).attr('id'));
 	});
+	$('.xava_onchange_calculate .editor').off('change').change(function() {
+		var container = $(this).closest('.xava_onchange_calculate');
+  		openxava.calculate(application, module, container.data('calculated-property'), container.data('scale'));
+	});
+	
 }
 
 openxava.initButtonBars = function(application, module) { 
@@ -558,6 +564,22 @@ openxava.initLists = function(application, module) {
 	$('.xava_filter input').focus(function() { // If changed to change event, revise ModuleTestBase.setCollectionCondition()
 		$(this).parent().parent().find(".xava_comparator").fadeIn();
 	});	
+	// tmr ini
+	$('.xava_comparator select').off('change').change(function() {
+		var id = $(this).attr("id");
+  		openxava.onChangeComparator(id, id.replace("conditionComparator___", "conditionValue___"),
+  			id.replace("conditionComparator___", "conditionValueTo___"), 
+  			$(this).data("from"), $(this).data("in-values"));
+  			if (openxava.filterOnChange) {
+	  			var valueField = $(this).parent().next().find('input');
+	  			if (valueField == null || valueField.is(':hidden') || 
+	  				this.options[this.selectedIndex].value.indexOf('range') < 0 && valueField.val() !== '') 
+	  			{ 
+	  				openxava.executeAction(application, module, '', false, 'List.filter',''); 
+	  			}	
+  			}
+	});
+	// tmr fin
 	$('.ox-list-header input[type=checkbox]').off('click').click(function() {
 		openxava.onSelectAll(application, module,
 			$(this).data('on-select-collection-element-action'),

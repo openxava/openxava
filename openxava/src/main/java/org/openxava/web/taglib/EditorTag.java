@@ -90,12 +90,15 @@ public class EditorTag extends TagSupport {
 			:
 			"";
 			*/
-			String script = ""; // tmr
+			String script = ""; // tmr Comprobar si al final se sigue usando
 			
 			View rootView = view.getCollectionRootOrRoot();
+			
+			/* tmr
 			if (rootView.isPropertyUsedInCalculation(propertyPrefix + property)) {
 				script = EditorsJS.calculateScript(application, module, rootView, propertyPrefix + property); 
 			}
+			*/
 
 			script = script + scriptFocus;
 
@@ -161,7 +164,20 @@ public class EditorTag extends TagSupport {
 				pageContext.getOut().print(propertyKey);
 				pageContext.getOut().println("'/>");				
 			}		
-			if (throwsChanged) pageContext.getOut().print("<span class='xava_onchange'>"); // tmr
+			// tmr ini
+			boolean propertyUsedInCalculation = rootView.isPropertyUsedInCalculation(propertyPrefix + property); 
+			if (propertyUsedInCalculation) {
+				String calculatedProperty = rootView.getDependentCalculationPropertyNameFor(propertyPrefix + property);
+				String calculatedPropertyKey = org.openxava.web.Ids.decorate(application, module, calculatedProperty);
+				MetaProperty calculatedMetaProperty = rootView.getMetaProperty(calculatedProperty);
+				pageContext.getOut().print("<span class='xava_onchange_calculate' data-calculated-property='");
+				pageContext.getOut().print(calculatedPropertyKey);
+				pageContext.getOut().print("' data-scale='");
+				pageContext.getOut().print(calculatedMetaProperty.getScale());
+				pageContext.getOut().print("'>");
+			}
+			if (throwsChanged) pageContext.getOut().print("<span class='xava_onchange'>"); 
+			// tmr fin
 			String prefix = "/xava/";  
 			try {
 				pageContext.include(prefix + editorURL); 
@@ -175,7 +191,10 @@ public class EditorTag extends TagSupport {
 				log.error(ex.getMessage(), ex);
 				pageContext.include(prefix + "editors/notAvailableEditor.jsp"); 
 			}
-			if (throwsChanged) pageContext.getOut().print("</span>"); // tmr
+			// tmr ini
+			if (throwsChanged) pageContext.getOut().print("</span>"); 
+			if (propertyUsedInCalculation) pageContext.getOut().print("</span>"); 
+			// tmr fin
 		}
 		catch (Exception ex) {
 			throw new JspException(XavaResources.getString("editor_tag_error", property), ex); 
