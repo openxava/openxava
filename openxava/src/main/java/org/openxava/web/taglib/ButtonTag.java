@@ -42,8 +42,14 @@ public class ButtonTag extends ActionTagBase {
 			pageContext.getOut().print(" title='");  
 			pageContext.getOut().print(filterApostrophes(getTooltip(metaAction))); 
 			pageContext.getOut().print("'");
+			/* tmr
 			if (metaAction.isLosesChangedData()) pageContext.getOut().print(" class='xava_button_loses_changed_data ");
 			else pageContext.getOut().print(" class='xava_button ");
+			*/
+			// tmr ini
+			if (metaAction.isLosesChangedData()) pageContext.getOut().print(" class='xava_action_loses_changed_data ");
+			else pageContext.getOut().print(" class='xava_action ");			
+			// tmr fin
 
 			pageContext.getOut().print("' value='");
 			pageContext.getOut().print(filterApostrophes(metaAction.getLabel(request))); 

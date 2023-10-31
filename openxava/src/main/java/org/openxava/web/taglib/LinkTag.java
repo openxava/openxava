@@ -50,11 +50,13 @@ public class LinkTag extends ActionTagBase implements IActionTag {
 				pageContext.getOut().print(Ids.decorate(application, module, getAction())); 
 				pageContext.getOut().print("'");
 			}
+			/* tmr
 			if (!Is.emptyString(getCssClass())) {
 				pageContext.getOut().print(" class='");
 				pageContext.getOut().print(getCssClass());
 				pageContext.getOut().print("'");	
 			}
+			*/
 			if (!Is.emptyString(getCssStyle())) {
 				// We still add it but ignored because of CSP
 				pageContext.getOut().print(" style='");
@@ -64,7 +66,8 @@ public class LinkTag extends ActionTagBase implements IActionTag {
 			}
 			pageContext.getOut().print(" title='");
 			pageContext.getOut().print(filterApostrophes(getTooltip(metaAction))); 
-			pageContext.getOut().print("'");			
+			pageContext.getOut().print("'");		
+			/*
 			if (metaAction.isLosesChangedData()) pageContext.getOut().print(" href=\"javascript:openxava.executeActionConfirmLosesChangedData(");
 			else pageContext.getOut().print(" href=\"javascript:openxava.executeAction(");
 			pageContext.getOut().print("'");				
@@ -93,8 +96,32 @@ public class LinkTag extends ActionTagBase implements IActionTag {
 					pageContext.getOut().print(", undefined, undefined, true");
 				}
 			}
-
 			pageContext.getOut().print(")\">");
+			*/
+			// tmr ini
+			if (metaAction.isLosesChangedData()) pageContext.getOut().print(" class='xava_action_loses_changed_data ");
+			else pageContext.getOut().print(" class='xava_action ");
+			if (!Is.emptyString(getCssClass())) pageContext.getOut().print(getCssClass());
+
+			pageContext.getOut().print("' value='");
+			pageContext.getOut().print(filterApostrophes(metaAction.getLabel(request))); 
+			pageContext.getOut().print("' data-confirm-message='");
+			pageContext.getOut().print(filterApostrophes(metaAction.getConfirmMessage(request)));
+			pageContext.getOut().print("' data-takes-long='");
+			pageContext.getOut().print(metaAction.isTakesLong());
+			pageContext.getOut().print("' data-action='");
+			pageContext.getOut().print(getAction());
+			if (!Is.emptyString(getArgv())) { 
+				pageContext.getOut().print("' data-argv='");
+				pageContext.getOut().print(getArgv());
+			}			
+			pageContext.getOut().print("' data-in-new-window='");
+			pageContext.getOut().print(metaAction.inNewWindow());
+			
+			pageContext.getOut().print("'>");
+			// tmr fin
+
+			
 
 		}
 		catch (Exception ex) {

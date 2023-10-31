@@ -222,6 +222,7 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 openxava.initFocusKey = function() { }
 
 openxava.initInlineEvents =  function() {
+	/* tmr
 	$('a[href^="javascript:"]').each(function() {
 		if ($(this).attr('href') != "javascript:void(0)") {
 			$(this).attr("onclicke", $(this).attr('href'));
@@ -231,6 +232,8 @@ openxava.initInlineEvents =  function() {
   			eval($(this).attr('onclicke'));
 		});
 	});
+	*/
+	// TMR ME QUEDÉ POR AQUÍ, PARA HACER LO SIGUIENTE
     $('[onchange]').each(function() {	
   		$(this).off('change').change(function() {
   			eval($(this).attr('onchange'));
@@ -254,7 +257,7 @@ openxava.initInlineEvents =  function() {
 }
 
 openxava.initButtonBars = function(application, module) { 
-	$('.xava_button').off('click').click(function() {
+	$('.xava_action').off('click').click(function() { // tmr _button por _action
 		openxava.executeAction(application, module, 
 			$(this).data('confirm-message'),
 			$(this).data('takes-long'),
@@ -263,7 +266,7 @@ openxava.initButtonBars = function(application, module) {
 			undefined, undefined,
 			$(this).data('in-new-window')); 
 	});
-	$('.xava_button_loses_changed_data').off('click').click(function() {
+	$('.xava_action_loses_changed_data').off('click').click(function() { // tmr _button por _action
 		openxava.executeActionConfirmLosesChangedData(application, module, 
 			$(this).data('confirm-message'),
 			$(this).data('takes-long'),
