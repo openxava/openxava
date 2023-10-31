@@ -25,8 +25,8 @@ public class EditorTag extends TagSupport {
 	private String property;		
 	private boolean editable; 
 	private boolean explicitEditable = false; 
-	private boolean throwPropertyChanged; 
-	private boolean explicitThrowPropertyChanged; 
+	private boolean throwPropertyChanged; // tmr Quitar 
+	private boolean explicitThrowPropertyChanged; // tmr Quitar. Antes ver tld
 	private String viewObject;
 	private boolean viewObjectSet;
 	private String propertyPrefix;
@@ -80,6 +80,7 @@ public class EditorTag extends TagSupport {
 				"'" + propertyKey + "'" +
 				")\"";  
 			
+			/* tmr
 			String script = throwsChanged? 
 				" onchange=\"openxava.throwPropertyChanged(" +
 				"'" + application + "'," +
@@ -88,6 +89,8 @@ public class EditorTag extends TagSupport {
 				")\""  
 			:
 			"";
+			*/
+			String script = ""; // tmr
 			
 			View rootView = view.getCollectionRootOrRoot();
 			if (rootView.isPropertyUsedInCalculation(propertyPrefix + property)) {

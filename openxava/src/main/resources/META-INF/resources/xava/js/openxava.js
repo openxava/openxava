@@ -210,6 +210,7 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.listenChanges(); 
 	openxava.initFocusKey();
 	openxava.initButtonBars(application, module); 
+	openxava.initEditorsEvents(application, module); // tmr
 	openxava.initMessages(); 
 	openxava.initInlineEvents(); 
 	 
@@ -232,13 +233,12 @@ openxava.initInlineEvents =  function() {
   			eval($(this).attr('onclicke'));
 		});
 	});
-	*/
-	// TMR ME QUEDÉ POR AQUÍ, PARA HACER LO SIGUIENTE
     $('[onchange]').each(function() {	
   		$(this).off('change').change(function() {
   			eval($(this).attr('onchange'));
 		});
 	});
+	*/
     $('[onblur]').each(function() {
   		$(this).blur(function() { 
   			eval($(this).attr('onblur'));
@@ -253,6 +253,12 @@ openxava.initInlineEvents =  function() {
   		$(this).off('submit').submit(function() {
   			return false;
 		});
+	});
+}
+
+openxava.initEditorsEvents = function(application, module) { // tmr
+	$('.xava_onchange .editor').off('change').change(function() {
+  		openxava.throwPropertyChanged(application, module, $(this).attr('id'));
 	});
 }
 
