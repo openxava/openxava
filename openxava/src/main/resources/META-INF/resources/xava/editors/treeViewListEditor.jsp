@@ -46,6 +46,7 @@ String viewObject = request.getParameter("viewObject"); // Id to access to the v
 View collectionView = (View) context.get(request, viewObject); // We get the collection view by means of context
 View rootView = collectionView.getRoot(); // In this case we use the root view
 String collectionName = request.getParameter("collectionName");
+
 String modelName = collectionView.getMetaModel().getQualifiedName();
 Map key = rootView.getKeyValues();
 String action = request.getParameter("rowAction");
@@ -55,6 +56,7 @@ String actionWithArgs;
 String tabObject = org.openxava.tab.Tab.COLLECTION_PREFIX + collectionName.replace('.', '_');
 String prefix = tabObject + "_";
 org.openxava.tab.Tab tab = collectionView.getCollectionTab();
+
 tab.setRequest(request);
 Map[] keyValues;
 String prefixIdRow = Ids.decorate(request, prefix);
@@ -74,92 +76,11 @@ String pathProperty = "path";
 String pathSeparator = "/";
 String idProperties = "";
 int orderIncrement = 2;
-
+if (collectionName != null) System.out.println("module " + module + viewObject + "JSP " + tab.getModelName());
 
 String contextPath = (String) request.getAttribute("xava.contextPath");
 if (contextPath == null) contextPath = request.getContextPath();
 String version = org.openxava.controller.ModuleManager.getVersion();
-
-if (collectionName != null) {
-	System.out.println(tab.getPropertiesNamesAsString());
-// need clone table for not alterate original tab
-
-	Tab tab2 = collectionView.getCollectionTab().clone();
-    String[] propertiesNow = tab2.getPropertiesNamesAsString().split(",");
-	MetaCollection mc = collectionView.getMetaCollection();
-    String order = mc.getOrder();
-	String[] oSplit = !order.isEmpty() ? order.replaceAll("\\$\\{|\\}", "").split(", ") : new String[0];
-    List <String> keysList = new ArrayList < > (tab2.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
-	Map<String, Object> propertiesMap= new HashMap<>();
-    View tabCollectionView = tab2.getCollectionView();
-    View parentView = tabCollectionView.getParent();
-    MetaView metaView = parentView.getMetaModel().getMetaView(parentView.getViewName());
-    MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
-    Tree tree = metaCollectionView.getPath();
-	
-	boolean initialState = true;
-    if (tree != null) { 
-        pathProperty = tree.pathProperty() != null ? tree.pathProperty() : "path";
-        pathSeparator = tree.pathSeparator() != null ? tree.pathSeparator(): "/";
-        idProperties = tree.idProperties() != null ? tree.idProperties() : "";
-		System.out.println(tree.orderIncrement());
-		System.out.println(idProperties);
-		System.out.println(tree.initialExpandedState());
-		orderIncrement = tree.orderIncrement() != 2 ? tree.orderIncrement() : 2;
-		initialState = tree.initialExpandedState();
-    }
-    
-	propertiesMap.put("tabProperties", propertiesNow);
-	propertiesMap.put("path", pathProperty);
-	propertiesMap.put("separator", pathSeparator);
-	propertiesMap.put("id", idProperties);
-	propertiesMap.put("orderIncrement", orderIncrement);
-	propertiesMap.put("order", oSplit);
-	int count = 0;
-	
-    for (String element: oSplit) {
-        if (ArrayUtils.contains(propertiesNow, element)) continue;
-        if (element.equals(pathProperty)) {
-            tab2.addProperty(0, element);
-            count = count == 0 ? 0 : count++;
-        } else {
-            tab2.addProperty(count, element);
-            count++;
-        }
-    }
-    if (keysList.size() < 2 && !ArrayUtils.contains(propertiesNow, keysList.get(0).toString())) {
-        tab2.addProperty(0, keysList.get(0).toString());
-    }
-
-    TableModel table = tab2.getAllDataTableModel();
-    int tableSize = tab2.getTableModel().getTotalSize();
-    int columns = table.getColumnCount();
-    List<String> columnName = new ArrayList<>();
-    ObjectMapper objectMapper = new ObjectMapper();
-    List<Map<String, Object>> tableList = new ArrayList<>();
-	propertiesNow = tab2.getPropertiesNamesAsString().split(",");
-
-    if (tableSize > 0) {
-        for (int i = 0; i < columns; i++) {
-            columnName.add(table.getColumnName(i));
-        }
-        for (int i = 0; i < tableSize; i++) {
-            ObjectNode elementNode = JsonNodeFactory.instance.objectNode();
-            JSONObject jsonRow = new JSONObject();
-            for (int j = 0; j < propertiesNow.length; j++) {
-                Object value = table.getValueAt(i, j);
-                String propertyName = propertiesNow[j];
-                jsonRow.put(propertyName.toLowerCase(), value);
-            }
-			jsonRow.put("row",i);
-            jsonArray.put(jsonRow);
-        }
-        
-    }
-	//need parse path and properties
-	jsonArray = TreeViewParser.findChildrenOfNode("0", jsonArray, propertiesMap, false);
-	System.out.println(jsonArray.toString());
-}
 
 if(!Is.empty(key)){
 %>
@@ -167,8 +88,16 @@ if(!Is.empty(key)){
 	<xava:action action="<%=metaTreeViewActions.getDownAction()%>" argv="<%=actionArg%>" />
 	<xava:action action="<%=metaTreeViewActions.getLeftAction()%>" argv="<%=actionArg%>" />
 	<xava:action action="<%=metaTreeViewActions.getRightAction()%>" argv="<%=actionArg%>" />
-	<div id = "tree_<%=collectionName%>" class="ygtv-checkbox" >
-	</div>
+	
+<div>
+    <input type="hidden" id="xava_tree_module" value="<%=request.getParameter("module")%>">
+    <input type="hidden" id="xava_tree_application" value="<%=request.getParameter("application")%>">
+	<input type="hidden" id="xava_tree_collectionName" value="<%=collectionName%>">
+	<input type="hidden" id="xava_tree_<%=collectionName%>_actionArg" value="<%=actionArg%>">
+	<input type="hidden" id="xava_tree_<%=collectionName%>_action" value="<%=action%>">
+	<input type="hidden" id="xava_tree_<%=collectionName%>_modelName" value="<%=modelName%>">
+	<input type="hidden" id="xava_tree_<%=collectionName%>_pathProperty" value="<%=pathProperty%>">
+</div>
 	
 	<div id = "openxavaInput_<%=collectionName%>" class="ox-tree-collection">
 		<table id = "<%=tableId%>" name="treeTable_<%=collectionName%>">
@@ -204,110 +133,18 @@ if(!Is.empty(key)){
 		</table>		
 	</div>
 
-	<div id="container_<%=collectionName%>"></div>
+	<div id="ox_tree"></div>
 
 	<script type="text/javascript" <xava:nonce/>>
 
 		$(document).ready(function(){
-			
-			
+			/*
 			var tree_<%=collectionName%> = {};
 			tree_<%=collectionName%>.tree = <%=javaScriptCode%>
 			tree_<%=collectionName%>.suppress = false; // this will prevent collapse/expand when clicking on label
 			tree_<%=collectionName%>.loading = true; // this will prevent collapse/expand when loading
 			tree_<%=collectionName%>.tree.render();
 			tree_<%=collectionName%>.loading = false;
-			
-			
-			
-$('#container_<%=collectionName%>').jstree({
-    "core": { // core options go here
-        "check_callback": function(operation, node, parent, position, more) {
-            if (operation === "move_node") {
-                return true;
-            }
-            return false;
-        },
-        "themes": {
-            "dots": true,
-            "icons": false
-        },
-        'data': <%=jsonArray%>,
-    },
-    "state": {
-        "key": "ox_tree_state_<%=collectionName%>"
-    },
-	"checkbox": {
-		"three_state": false
-	},
-    "plugins": ["checkbox", "dnd", "state"]
-});
-
-//accion de modificar el nodo con doble click
-$('#container_<%=collectionName%>').on('dblclick', '.jstree-anchor', function () {
-	console.log("dblclick");
-  // Accede al nodo que se hizo doble clic
-  var clickedNodeId = $(this).parent().attr('id');
-  var clickedNode = $('#container_<%=collectionName%>').jstree(true).get_node(clickedNodeId);
-
-  // Realiza las acciones que deseas al hacer doble clic en el nodo
-  //console.log(clickedNode);
-	var actionWithArgs = "row=" + (clickedNode.original.row)  + "<%=actionArgv%>";
-	openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', "", false, '<%=action%>', actionWithArgs);
-});
-
-//selecciona en el input invisible, para accion de eliminar y agregar nuevo
-$('#container_<%=collectionName%>').on('changed.jstree', function (e, data) {
-	console.log("changed.jstree");
-	if (data.hasOwnProperty('node')){
-		var actionWithArgs = "row=" + data.node.original.row  + "<%=actionArgv%>";
-		console.log(actionWithArgs);
-		var htmlInput = document.getElementById("<%=xavaId%>" + data.node.original.row);
-		if (data.action === 'select_node'){ 
-			if (htmlInput != null){
-				htmlInput.checked = true;
-			}
-		} else if (data.action === 'deselect_node') {
-			if (htmlInput != null){
-				htmlInput.checked = false;
-			}
-		}
-	}
-  });
-
-//para drag and drop
-$(document).on('dnd_stop.vakata', function (e, data) {
-	console.log('dnd_stop.vakata');
-	ref = $('#container_<%=collectionName%>').jstree(true);
-
-	if ( ref.get_node(data.data.nodes[0]) != false) {
-	var application = "<%=request.getParameter("application")%>";
-	var modelName = "<%=modelName%>";
-	var pathProperty = "<%=pathProperty%>";
-	var nodosACambiar = [];
-	var nodoPadre;
-
-	//obtener el id de los nodos a mover
-	var nodeArray = data.data.nodes;
-	let parentId = "";
-	nodeArray.forEach(function(element) {
-		let node = ref.get_node(element);
-		parentId = parentId === "" ? node.parent : parentId;
-		nodosACambiar.push(node.original.id);
-	});
-
-	//obtener el id del padre
-	nodoPadre = ref.get_node(parentId);
-	pathAlPadre = nodoPadre.original.path + "/" + nodoPadre.original.id;
-	//pathAlPadre = encodeURIComponent(pathAlPadre);
-	console.log(pathAlPadre);
-	var nodoPadre2 = "";
-	//falta la parte por si tiene otro id distinto a id
-	Calendar.updateNode(application, modelName, pathProperty, nodosACambiar, pathAlPadre);
-	}
-});
-			
-
 			tree_<%=collectionName%>.tree.subscribe("clickEvent", function(args) {
 				tree_<%=collectionName%>.suppress=true;
 				tree_<%=collectionName%>.tree.onEventToggleHighlight(args);
@@ -355,11 +192,12 @@ $(document).on('dnd_stop.vakata', function (e, data) {
 					openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', "", false, 'TreeView.collapse', actionWithArgs);
 				}
 			});
-			
+			*/
 		})
 	</script>
 	
-	<script type='text/javascript' <xava:nonce/> src='<%=contextPath%>/dwr/interface/Calendar.js?ox=<%=version%>'></script>
+	<script type='text/javascript' <xava:nonce/> src='<%=contextPath%>/dwr/interface/Tree.js?ox=<%=version%>'>
+	</script>
 	<%
 }
 %>
