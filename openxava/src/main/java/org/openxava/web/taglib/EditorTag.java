@@ -25,8 +25,8 @@ public class EditorTag extends TagSupport {
 	private String property;		
 	private boolean editable; 
 	private boolean explicitEditable = false; 
-	private boolean throwPropertyChanged; // tmr Quitar 
-	private boolean explicitThrowPropertyChanged; // tmr Quitar. Antes ver tld
+	private boolean throwPropertyChanged;  
+	private boolean explicitThrowPropertyChanged; 
 	private String viewObject;
 	private boolean viewObjectSet;
 	private String propertyPrefix;
@@ -161,6 +161,7 @@ public class EditorTag extends TagSupport {
 				pageContext.getOut().print(propertyKey);
 				pageContext.getOut().println("'/>");				
 			}		
+			if (throwsChanged) pageContext.getOut().print("<span class='xava_onchange'>"); // tmr
 			String prefix = "/xava/";  
 			try {
 				pageContext.include(prefix + editorURL); 
@@ -174,6 +175,7 @@ public class EditorTag extends TagSupport {
 				log.error(ex.getMessage(), ex);
 				pageContext.include(prefix + "editors/notAvailableEditor.jsp"); 
 			}
+			if (throwsChanged) pageContext.getOut().print("</span>"); // tmr
 		}
 		catch (Exception ex) {
 			throw new JspException(XavaResources.getString("editor_tag_error", property), ex); 

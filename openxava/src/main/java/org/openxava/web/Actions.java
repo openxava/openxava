@@ -11,6 +11,7 @@ import org.openxava.util.*;
 public class Actions {
 	
 	public static String getActionOnChangeComparator(String id,String idConditionValue,String idConditionValueTo) {
+		// TMR ME QUEDÉ POR AQUÍ: PARA QUITAR ESTE ONCHANGE
 		return "onChange=\"openxava.onChangeComparator(" +
 			"'" + id + "'," +
 			"'" + idConditionValue + "'," +

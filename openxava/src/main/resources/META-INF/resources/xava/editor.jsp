@@ -20,8 +20,7 @@ String shasFrame = request.getParameter("hasFrame");
 boolean hasFrame="true".equals(shasFrame)?true:false;
 boolean editable = view.isEditable(p);
 boolean lastSearchKey = view.isLastSearchKey(p); 
-// tmr boolean throwPropertyChanged = view.throwsPropertyChanged(p);
-String onChangeClass = view.throwsPropertyChanged(p)?"xava_onchange":""; // tmr
+boolean throwPropertyChanged = view.throwsPropertyChanged(p);
 	
 
 int labelFormat = view.getLabelFormatForProperty(p);
@@ -60,16 +59,9 @@ if (labelFormat == MetaPropertyView.SMALL_LABEL) {
 String placeholder = !Is.empty(p.getPlaceholder()) ? "data-placeholder='" + p.getPlaceholder() + "'" : "";
 String required = view.isEditable() && p.isRequired() ? style.getRequiredEditor():""; 
 %>
-<%-- tmr
 <span id="<xava:id name='<%="editor_" + view.getPropertyPrefix() + p.getName()%>'/>" class="xava_editor <%=required%>" <%=placeholder%>>
 <xava:editor property="<%=p.getName()%>" editable="<%=editable%>" throwPropertyChanged="<%=throwPropertyChanged%>"/>
 </span>
---%>
-<%-- tmr ini --%>
-<span id="<xava:id name='<%="editor_" + view.getPropertyPrefix() + p.getName()%>'/>" class="xava_editor <%=onChangeClass%> <%=required%>" <%=placeholder%>>
-<xava:editor property="<%=p.getName()%>" editable="<%=editable%>"/>
-</span>
-<%-- tmr fin --%>
 
 <% if (!(lastSearchKey && view.displayWithFrame())) { %> 
 	<span id="<xava:id name='<%="property_actions_" + view.getPropertyPrefix() + p.getName()%>'/>">
