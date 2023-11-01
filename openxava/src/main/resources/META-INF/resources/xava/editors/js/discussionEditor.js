@@ -1,5 +1,14 @@
 if (discussionEditor == null) var discussionEditor = {};
 
+openxava.addEditorInitFunction(function() {
+	$('.ox-discussion-add-button').off('click').click(function() {
+		discussionEditor.postMessage(openxava.lastApplication, openxava.lastModule, $(this).parent().data("discussion-id"))
+	});
+	$('.ox-discussion-cancel-button').off('click').click(function() {
+		discussionEditor.cancel($(this).parent().data("discussion-id"));
+	});	
+});
+
 discussionEditor.postMessage = function(application, module, discussionId) {
 	var newComment = tinymce.get('xava_new_comment_' + discussionId); 
 	var comments = $('#xava_comments_' + discussionId);

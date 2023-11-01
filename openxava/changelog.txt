@@ -1,6 +1,13 @@
 Change Log for OpenXava project
 ===============================
 
+
+	
+- All onclick JavaScript events removed from OpenXava code.
+- Onclick inline events in JavaScript no longer work for custom view and editors.
+- Reduced the amount of CSP security errors in browser console.
+- Fix: Default action with takes-long=true does not show the takes long image if the user press ENTER.
+- Fix: IForwardAction with inNewWindow() not in new window when pressing ENTER and it's the default action. 
 - jQuery upgraded to 3.7.1.
 - jQuery UI upgraded to 1.13.2.
 - Remove and rename column icons when customizing list are aligned to right.

@@ -30,12 +30,12 @@ boolean sortable = subview.isCollectionSortable();
 	%>	
 	<th class="ox-list-header" width="5">
 	<%
-		String actionOnClickAll = Actions.getActionOnClickAll(
-		request.getParameter("application"), request.getParameter("module"), 
-		onSelectCollectionElementAction, idCollection, propertyPrefix, 
-		"", "", tabObject);
 	%>
-	<input type="checkbox" name="<xava:id name='xava_selected_all'/>" value="<%=propertyPrefix%>selected_all" <%=actionOnClickAll%> />
+	<input type="checkbox" name="<xava:id name='xava_selected_all'/>" value="<%=propertyPrefix%>selected_all" 
+		data-on-select-collection-element-action="<%=onSelectCollectionElementAction%>"
+		data-view-object="<%=idCollection%>"
+		data-prefix="<%=propertyPrefix%>"
+		data-tab-object="<%=tabObject%>"/>
 	</th>
 <%
 	// Heading
@@ -99,14 +99,16 @@ for (int f=0; itAggregates.hasNext(); f++) {
 </td>
 <%
 	} 
-	String actionOnClick = Actions.getActionOnClick(
-		request.getParameter("application"), request.getParameter("module"), 
-		onSelectCollectionElementAction, f, viewName, idRow,
-		"", "", 
-		onSelectCollectionElementMetaAction, tabObject);
 %>
 <td class="<%=cssCellClass%>" width="5">
-<input type="checkbox" name="<xava:id name='xava_selected'/>" value="<%=propertyPrefix%>__SELECTED__:<%=f%>" <%=actionOnClick%>/>
+<input class="xava_selected" type="checkbox" name="<xava:id name='xava_selected'/>" value="<%=propertyPrefix%>__SELECTED__:<%=f%>" 
+	data-on-select-collection-element-action="<%=onSelectCollectionElementAction%>"
+	data-row="<%=f%>"
+	data-view-object="<%=viewName%>"
+	data-tab-object="<%=tabObject%>"
+	data-confirm-message="<%=Is.empty(onSelectCollectionElementMetaAction)?"":onSelectCollectionElementMetaAction.getConfirmMessage()%>"
+	data-takes-long="<%=Is.empty(onSelectCollectionElementMetaAction)?false:onSelectCollectionElementMetaAction.isTakesLong()%>"
+/>
 </td>
 <%
 	it = subview.getMetaPropertiesList().iterator();	

@@ -474,7 +474,7 @@ public class ColorTest extends ModuleTestBase {
 	
 	private void assertInputTooltip(String action, String tooltip) { 
 		for (HtmlElement input: getHtmlPage().getBody().getElementsByTagName("input")) { 
-			if (input.getAttribute("onclick").contains("\"" + action + "\"")) {
+			if (input.getAttribute("data-action").equals(action)) { 
 				assertEquals(tooltip, input.getAttribute("title"));
 				return;
 			}

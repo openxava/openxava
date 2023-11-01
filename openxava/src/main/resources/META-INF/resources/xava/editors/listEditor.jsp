@@ -116,12 +116,12 @@ if (grouping) action = null;
 <th class="ox-list-header" width="5">
 	<%
 		if (!singleSelection){
-			String actionOnClickAll = Actions.getActionOnClickAll(
-			request.getParameter("application"), request.getParameter("module"), 
-			onSelectCollectionElementAction, viewObject, prefix,
-			"", "", tabObject);
 	%>
-	<input type="checkbox" name="<xava:id name='xava_selected_all'/>" value="<%=prefix%>selected_all" <%=actionOnClickAll%> />
+	<input type="checkbox" name="<xava:id name='xava_selected_all'/>" value="<%=prefix%>selected_all" 
+		data-on-select-collection-element-action="<%=onSelectCollectionElementAction%>"
+		data-view-object="<%=viewObject%>"
+		data-prefix="<%=prefix%>"
+		data-tab-object="<%=tabObject%>"/>
 	<%
 		}
 	%>
@@ -203,9 +203,9 @@ String headerLabel=Strings.noLastToken(label) + " <nobr>" + Strings.lastToken(la
 </td> 
 <td class="ox-list-subheader" width="5"> 
 	<a title='<xava:message key="clear_condition_values"/>' href="javascript:void(0)">
-		<i class="mdi mdi-eraser" 
+		<i class="xava_clear_condition mdi mdi-eraser" 
 			id="<xava:id name='<%=prefix + "xava_clear_condition"%>' />" 
-			onclick="openxava.clearCondition('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=prefix%>')"></i>		
+			data-prefix="<%=prefix%>"></i>		
 	</a>
 </td> 
 <%
@@ -394,16 +394,18 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 <%
 		}
 	}
-	String actionOnClick = Actions.getActionOnClick(
-		request.getParameter("application"), request.getParameter("module"), 
-		onSelectCollectionElementAction, f, viewObject, prefixIdRow + f,
-		"", "", 
-		onSelectCollectionElementMetaAction, tabObject);
 %>
 	</nobr> 
 	</td>
 	<td class="<%=cssCellClass%>">
-	<input type="<%=singleSelection?"radio":"checkbox"%>" name="<xava:id name='xava_selected'/>" value="<%=prefix + "selected"%>:<%=f%>" <%=checked%> <%=actionOnClick%>/>
+	<input class="xava_selected" type="<%=singleSelection?"radio":"checkbox"%>" name="<xava:id name='xava_selected'/>" 
+		value="<%=prefix + "selected"%>:<%=f%>" <%=checked%>
+		data-on-select-collection-element-action="<%=onSelectCollectionElementAction%>"
+		data-row="<%=f%>"
+		data-view-object="<%=viewObject%>"
+		data-tab-object="<%=tabObject%>"
+		data-confirm-message="<%=Is.empty(onSelectCollectionElementMetaAction)?"":onSelectCollectionElementMetaAction.getConfirmMessage()%>"
+		data-takes-long="<%=Is.empty(onSelectCollectionElementMetaAction)?false:onSelectCollectionElementMetaAction.isTakesLong()%>"/>
 	</td>	
 <%
 	for (int c=0; c<model.getColumnCount(); c++) {

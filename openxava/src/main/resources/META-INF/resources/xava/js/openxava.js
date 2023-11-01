@@ -209,7 +209,10 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initPlaceholder();
 	openxava.listenChanges(); 
 	openxava.initFocusKey();
+	openxava.initButtonBars(application, module); 
+	openxava.initMessages(); 
 	openxava.initInlineEvents(); 
+	 
 	if (typeof currentRow != "undefined") {
 		openxava.initEditors(); 
 	}
@@ -219,11 +222,6 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 openxava.initFocusKey = function() { }
 
 openxava.initInlineEvents =  function() {
-	$('[onclick]').each(function() {
-  		$(this).off('click').click(function() {
-  			eval($(this).attr('onclick'));
-		});
-	});
 	$('a[href^="javascript:"]').each(function() {
 		if ($(this).attr('href') != "javascript:void(0)") {
 			$(this).attr("onclicke", $(this).attr('href'));
@@ -254,6 +252,37 @@ openxava.initInlineEvents =  function() {
 		});
 	});
 }
+
+openxava.initButtonBars = function(application, module) { 
+	$('.xava_button').off('click').click(function() {
+		openxava.executeAction(application, module, 
+			$(this).data('confirm-message'),
+			$(this).data('takes-long'),
+			$(this).data('action'),
+			$(this).data('argv'),
+			undefined, undefined,
+			$(this).data('in-new-window')); 
+	});
+	$('.xava_button_loses_changed_data').off('click').click(function() {
+		openxava.executeActionConfirmLosesChangedData(application, module, 
+			$(this).data('confirm-message'),
+			$(this).data('takes-long'),
+			$(this).data('action'),
+			$(this).data('argv'),
+			undefined, undefined,
+			$(this).data('in-new-window'));
+	});
+	$('.ox-list-formats i').off('click').click(function() {
+		openxava.onSelectListFormat($(this));
+	});
+}
+
+openxava.initMessages = function(application, module) { 
+	$('.ox-message-box i').off('click').click(function() {
+		$(this).parent().fadeOut();
+	});
+}
+
 
 openxava.setEnterAsFocusKey = function() {
 	var focusables = $('input:focusable[tabindex="1"], select:focusable[tabindex="1"], textarea:focusable[tabindex="1"]');
@@ -520,6 +549,30 @@ openxava.initLists = function(application, module) {
 	$('.xava_filter input').focus(function() { // If changed to change event, revise ModuleTestBase.setCollectionCondition()
 		$(this).parent().parent().find(".xava_comparator").fadeIn();
 	});	
+	$('.ox-list-header input[type=checkbox]').off('click').click(function() {
+		openxava.onSelectAll(application, module,
+			$(this).data('on-select-collection-element-action'),
+			"viewObject=" + $(this).data('view-object'), this.checked,
+			$(this).data('on-select-collection-element-action') != "",
+			$(this).data('prefix'), "", "",	$(this).data('tab-object'));
+	});	
+	$('.xava_clear_condition').off('click').click(function() {
+		openxava.clearCondition(application, module, $(this).data('prefix'));
+	});
+	$('.xava_selected').off('click').click(function() {		
+		openxava.onSelectElement(application, module,
+			$(this).data('on-select-collection-element-action'),
+			"row=" + $(this).data('row') + ",viewObject=" + $(this).data('view-object'),
+			this.checked,
+			$(this).closest("tr").attr('id'),
+			$(this).data('on-select-collection-element-action') != "",
+			"", "",	
+			$(this).data('confirm-message'),
+			$(this).data('takes-long'),
+			false,
+			$(this).data('row'),
+			$(this).data('tab-object'));
+	});
 }
 
 openxava.renumberCollection = function(table) { 
@@ -1084,8 +1137,7 @@ openxava.onSelectElement = function(application, module, action, argv, checkValu
 	}
 }
 
-openxava.onSelectListFormat = function(event) { 
-	var i = $(event.target);
+openxava.onSelectListFormat = function(i) { 
 	i.parent().parent().find("a").removeClass(openxava.selectedListFormatClass);
 	i.parent().addClass(openxava.selectedListFormatClass);
 }

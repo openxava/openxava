@@ -7,7 +7,6 @@ import org.apache.commons.logging.*;
 import org.openxava.controller.meta.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
-import org.openxava.web.style.*;
 
 /**
  * @author Javier Paniza
@@ -43,42 +42,23 @@ public class ButtonTag extends ActionTagBase {
 			pageContext.getOut().print(" title='");  
 			pageContext.getOut().print(filterApostrophes(getTooltip(metaAction))); 
 			pageContext.getOut().print("'");
-			pageContext.getOut().print(" class='");
-			Style style = (Style) request.getAttribute("style");
-			pageContext.getOut().print(style.getButton());
-			if (metaAction.isLosesChangedData()) pageContext.getOut().print("'\tonclick='openxava.executeActionConfirmLosesChangedData(");
-			else pageContext.getOut().print("'\tonclick='openxava.executeAction(");
-			pageContext.getOut().print('"');				
-			pageContext.getOut().print(application);
-			pageContext.getOut().print('"');
-			pageContext.getOut().print(", ");
-			pageContext.getOut().print('"');				
-			pageContext.getOut().print(module);
-			pageContext.getOut().print('"');
-			pageContext.getOut().print(", ");			
-			pageContext.getOut().print('"');				
-			pageContext.getOut().print(filterApostrophes(metaAction.getConfirmMessage(request))); 
-			pageContext.getOut().print('"');
-			pageContext.getOut().print(", ");
-			pageContext.getOut().print(metaAction.isTakesLong());
-			pageContext.getOut().print(", \"");
-			pageContext.getOut().print(getAction());
-			pageContext.getOut().print('"');
-			if (!Is.emptyString(getArgv())) { 
-				pageContext.getOut().print(", \"");
-				pageContext.getOut().print(getArgv());
-				pageContext.getOut().print('"');
-			}
-			if (metaAction.inNewWindow()) {
-				if (Is.emptyString(getArgv())) {
-					pageContext.getOut().print(", undefined, undefined, undefined, true");
-				}
-				else {
-					pageContext.getOut().print(", undefined, undefined, true");
-				}
-			}
-			pageContext.getOut().print(")' value='");
+			if (metaAction.isLosesChangedData()) pageContext.getOut().print(" class='xava_button_loses_changed_data ");
+			else pageContext.getOut().print(" class='xava_button ");
+
+			pageContext.getOut().print("' value='");
 			pageContext.getOut().print(filterApostrophes(metaAction.getLabel(request))); 
+			pageContext.getOut().print("' data-confirm-message='");
+			pageContext.getOut().print(filterApostrophes(metaAction.getConfirmMessage(request)));
+			pageContext.getOut().print("' data-takes-long='");
+			pageContext.getOut().print(metaAction.isTakesLong());
+			pageContext.getOut().print("' data-action='");
+			pageContext.getOut().print(getAction());
+			if (!Is.emptyString(getArgv())) { 
+				pageContext.getOut().print("' data-argv='");
+				pageContext.getOut().print(getArgv());
+			}			
+			pageContext.getOut().print("' data-in-new-window='");
+			pageContext.getOut().print(metaAction.inNewWindow());
 			pageContext.getOut().println("'/>");
 		}
 		catch (Exception ex) {

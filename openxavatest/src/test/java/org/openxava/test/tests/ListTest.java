@@ -35,7 +35,7 @@ public class ListTest extends WebDriverTestBase {
 		goModule("Author");
 		assertShowHideFilterInList();
 		assertMoveColumns();
-		assertRemoveColumnAfterFiltering();
+		assertRemoveColumnAfterFiltering(); 
 		assertNoFilterInCollectionByDefault();
 		
 		goModule("Carrier");

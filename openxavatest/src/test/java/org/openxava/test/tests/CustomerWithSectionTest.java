@@ -392,7 +392,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	public void testChooseInReferenceWithoutSelecting() throws Exception {
 		execute("CRUD.new");
 		execute("Reference.search", "keyProperty=xava.Customer.alternateSeller.number");		
-		execute("ReferenceSearch.choose");
+		execute("ReferenceSearch.choose"); 
 		assertNoErrors();		
 		assertAction("ReferenceSearch.choose"); // Because no row is selected we keep in searching list
 	}
@@ -477,7 +477,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		execute("Sections.change", "activeSection=1");
 		assertCollectionRowCount("states", 0);
 		
-		assertAddingStates();
+		assertAddingStates(); 
 		
 		// Using Edit + Remove
 		/* To remove editing collections of entities not available since OX4m2

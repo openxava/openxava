@@ -47,6 +47,36 @@
     <div class="wiki" style="display: block;">
       <h2>Migration from OpenXava 7.1.6 to OpenXava 7.2</h2>
       <h2></h2>
+      <h3>Inline events are no longer supported in editors and custom views</h3>
+      <p>If you have to write your own custom editors or views and you're using
+        <i>onclick, onfocus, onblur,</i> etc., they will no longer work. This is
+        for security reasons. You need to remove the HTML events and move them
+        to a JavaScript file.</p>
+      <p>That is, if you have code like this in your editor:</p>
+      <pre><code class="html">&lt;a class="ox-card" onclick="openxava.executeAction('&lt;%=request.getParameter("application")%&gt;', '&lt;%=request.getParameter("module")%&gt;', false, false, '&lt;%=action%&gt;', '&lt;%="row=" + (i++)%&gt;');"&gt;
+</code></pre>
+      <p>Remove the <i>onclick</i> event, leaving it like this:</p>
+      <pre><code class="html">&lt;a class="ox-card" data-action="&lt;%=action%&gt;" data-row="&lt;%=i++%&gt;"&gt;
+</code></pre>
+      <p>Note that we've added <i>data-</i> attributes to store dynamic data
+        that used to be in inline JavaScript, so we can read these attributes
+        from our JavaScript code later.</p>
+      <p>Next, add a JS file, let's call it <i>cardEditor.js</i> (if the JSP
+        editor is named <i>cardEditor.jsp</i>), in the <i>src/main/webapp/xava/editors/js</i>
+        directory of your project (create the folder if it doesn't exist yet),
+        with the following content:</p>
+      <pre><code class="javascript">openxava.addEditorInitFunction(function() {
+	$('.ox-card').off('click').click(function() {
+		openxava.executeAction(openxava.lastApplication, openxava.lastModule, false, false, 
+			$(this).data('action'), "row=" + $(this).data('row'));
+	});
+});
+</code></pre>
+      <p>Notice how we use the class, <i>.ox-card</i> in this case, to add the
+        event using JavaScript code. We also use <i>data()</i> to retrieve the
+        values of the <i>data</i> attributes we've stored in the HTML element.
+        This code is secure because it is downloaded from the server hosting the
+        application.</p>
       <h3>Upgraded JavaScript libraries jQuery and jQuery UI</h3>
       <p>jQuery has been updated to version 3.7.1 from 1.11.2, and jQuery UI to
         version 1.13.2 from v1.11.2. This update has been made for security
@@ -170,10 +200,12 @@
           event with a <i>window.location</i> by a plain <i>&lt;a ref="" /&gt;</i>,
           if possible.</p>
         <h3>Inline events in HTML elements are no longer allowed</h3>
-        <p>If you have to write your own editors or custom views and you are
-          using <i> onclick, onfocus, onblur</i>, etc. They are not going to
-          work anymore. This is for security reasons.You have to remove the
-          events from the HTML and move them to a JS file. </p>
+        <p>Inline events still work in custom editors and views in v7.1;
+          however, if you have custom code outside a regular OpenXava module,
+          such as <i>welcome.jsp</i>, you may have inline events like <i>onclick,
+            onfocus, onblur,</i> etc., that will no longer work. This is for
+          security reasons. You need to remove the HTML events and move them to
+          a JS file.</p>
         <p>That is, if you have a code like this:</p>
         <pre><code class="html">&lt;input type="button" tabindex="1" onclick="window.location='m/SignIn'" value="&lt;xava:label key='SignIn'/&gt;"&gt;
 </code></pre>

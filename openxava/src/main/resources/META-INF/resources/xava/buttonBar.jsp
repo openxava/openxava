@@ -97,7 +97,7 @@ if (manager.isButtonBarVisible()) {
         
 	%>
 	<xava:link action="ListFormat.select" argv='<%="editor=" + editor%>' cssClass="<%=selected%>">
-		<i class="mdi mdi-<%=icon%>" onclick="openxava.onSelectListFormat(event)" title="<%=org.openxava.util.Labels.get(editor)%>"></i>
+		<i class="mdi mdi-<%=icon%>" title="<%=org.openxava.util.Labels.get(editor)%>"></i>
 	</xava:link>			
 	<%				
 		}

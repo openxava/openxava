@@ -2,9 +2,8 @@ package org.openxava.test.tests;
 
 import java.text.*;
 
-import org.openxava.tests.*;
-
 import org.htmlunit.html.*;
+import org.openxava.tests.*;
 
 
 

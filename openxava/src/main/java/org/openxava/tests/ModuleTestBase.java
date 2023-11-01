@@ -26,7 +26,6 @@ import org.openxava.tab.meta.*;
 import org.openxava.util.*;
 import org.openxava.view.meta.*;
 import org.openxava.web.*;
-import org.openxava.web.style.*;
 import org.xml.sax.*;
 
 import junit.framework.*;
@@ -687,7 +686,7 @@ abstract public class ModuleTestBase extends TestCase {
 		execute(action, arguments, true);
 	}
 	
-	private HtmlAnchor getAnchorForAction(String action, String arguments) {
+	private HtmlElement getElementForAction(String action, String arguments) {  
 		String moduleMarkForAnchor = "executeAction('" + application + "', '" + module + "'";
 		
 		for (Iterator it = page.getAnchors().iterator(); it.hasNext(); ) {			
@@ -709,6 +708,19 @@ abstract public class ModuleTestBase extends TestCase {
 				}				
 			}
 		}		
+		
+		// For Cards
+		if (arguments != null && arguments.startsWith("row=")) {
+			String row= arguments.substring(4);
+			for (HtmlElement el: page.getBody().getElementsByAttribute("a", "data-row", row)) {
+				if (action.equals(el.getAttribute("data-action"))) return el;
+			}
+		}
+		
+		// Bottom buttons
+		List<HtmlElement> buttons = page.getBody().getElementsByAttribute("input", "data-action", action);
+		if (!buttons.isEmpty()) return buttons.get(0);
+		
 		return null;
 	}
 	
@@ -718,7 +730,7 @@ abstract public class ModuleTestBase extends TestCase {
 	private void execute(String action, String arguments, boolean clicking) throws Exception {
 		throwChangeOfLastNotNotifiedProperty();
 		HtmlElement element = null;
-		element = getAnchorForAction(action, arguments);
+		element = getElementForAction(action, arguments);
 		if (arguments == null && element == null) { // We try if it is a button
 			String moduleMarkForButton = "executeAction(\"" + application + "\", \"" + module + "\"";
 			HtmlElement inputElement = page.getHtmlElementById(decorateId(action));
@@ -733,9 +745,10 @@ abstract public class ModuleTestBase extends TestCase {
 			}			
 		}
 		if (element != null) {
-			if (!clicking && element instanceof HtmlAnchor) { 
-				// Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.9/2.70 in some circumstances
-				page.executeJavaScript(getHrefAttribute(element)); 				
+			if (!clicking && element instanceof HtmlAnchor) {
+				String href = getHrefAttribute(element);
+				if (Is.emptyString(href)) element.click();
+				else page.executeJavaScript(href); // Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.9/2.70 in some circumstances
 			}
 			else {
 				element.click();
@@ -1258,7 +1271,7 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	protected void assertAction(String action, String arguments) throws Exception { 		
-		assertTrue(XavaResources.getString("action_with_arguments_not_found_in_ui", action, arguments), getAnchorForAction(action, arguments) != null); 
+		assertTrue(XavaResources.getString("action_with_arguments_not_found_in_ui", action, arguments), getElementForAction(action, arguments) != null); 
 	}
 	
 	protected void assertNoAction(String action) throws Exception {
@@ -1266,7 +1279,7 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	protected void assertNoAction(String action, String arguments) throws Exception { 		
-		assertTrue(XavaResources.getString("action_with_arguments_found_in_ui", action, arguments), getAnchorForAction(action, arguments) == null); 
+		assertTrue(XavaResources.getString("action_with_arguments_found_in_ui", action, arguments), getElementForAction(action, arguments) == null); 
 	}
 	
 	private Collection getActions() throws Exception { 
@@ -1551,7 +1564,7 @@ abstract public class ModuleTestBase extends TestCase {
 	
 	private int getListDivRowCount(HtmlDivision div) { 
 		int elementCount = div.getChildElementCount();
-		if (elementCount == 1) return div.asXml().contains(Style.getInstance().getNoObjects())?0:1;
+		if (elementCount == 1) return div.asXml().contains("ox-no-objects")?0:1; 
 		if (elementCount > EntityTab.DEFAULT_CHUNK_SIZE && div.asXml().contains("xava_loading_more_elements")) return elementCount - 2; 
 		return elementCount;
 	}

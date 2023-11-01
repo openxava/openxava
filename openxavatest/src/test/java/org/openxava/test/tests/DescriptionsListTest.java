@@ -146,11 +146,12 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		openFamilyListIcon = familyEditor.findElement(By.className("mdi-menu-down"));
 		closeFamilyListIcon = familyEditor.findElement(By.className("mdi-menu-up"));		
 		closeFamilyListIcon.click();
+		wait(driver); 
 		openFamilyListIcon.click();
-		assertTrue(familyList.isDisplayed());
+		assertTrue(familyList.isDisplayed()); 
 		subfamilyEditor = driver.findElement(By.id("ox_openxavatest_Product2__reference_editor_subfamily"));
 		openSubfamilyListIcon = subfamilyEditor.findElement(By.className("mdi-menu-down"));		
-		openSubfamilyListIcon.click();
+		openSubfamilyListIcon.click(); 
 		assertFalse(familyList.isDisplayed());
 		
 		setFamilyDescription(1, "SOFTWARE"); 

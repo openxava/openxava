@@ -40,8 +40,11 @@ if (manager.isBottomButtonsVisible()) {
 	MetaAction defaultMetaAction = manager.getDefaultMetaAction();
 	if (defaultMetaAction != null) {
 	%>
-	<button name="xava.DEFAULT_ACTION" type="submit" 
-		onclick="openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=defaultMetaAction.getConfirmMessage(request)%>', <%=defaultMetaAction.isConfirm()%>, '<%=manager.getDefaultActionQualifiedName()%>')"
+	<button class="xava_button" name="xava.DEFAULT_ACTION" type="submit"
+		data-confirm-message="<%=defaultMetaAction.getConfirmMessage(request)%>" 
+		data-takes-long="<%=defaultMetaAction.isTakesLong()%>"  
+		data-action="<%=manager.getDefaultActionQualifiedName()%>"
+		data-in-new-window="<%=defaultMetaAction.inNewWindow()%>" 
 	></button>
 	<%
 	}
