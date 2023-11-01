@@ -88,16 +88,9 @@ if(!Is.empty(key)){
 	<xava:action action="<%=metaTreeViewActions.getDownAction()%>" argv="<%=actionArg%>" />
 	<xava:action action="<%=metaTreeViewActions.getLeftAction()%>" argv="<%=actionArg%>" />
 	<xava:action action="<%=metaTreeViewActions.getRightAction()%>" argv="<%=actionArg%>" />
-	
-<div>
-    <input type="hidden" id="xava_tree_module" value="<%=request.getParameter("module")%>">
-    <input type="hidden" id="xava_tree_application" value="<%=request.getParameter("application")%>">
-	<input type="hidden" id="xava_tree_collectionName" value="<%=collectionName%>">
-	<input type="hidden" id="xava_tree_<%=collectionName%>_actionArg" value="<%=actionArg%>">
-	<input type="hidden" id="xava_tree_<%=collectionName%>_action" value="<%=action%>">
-	<input type="hidden" id="xava_tree_<%=collectionName%>_modelName" value="<%=modelName%>">
-	<input type="hidden" id="xava_tree_<%=collectionName%>_pathProperty" value="<%=pathProperty%>">
-</div>
+	<div id = "tree_<%=collectionName%>" class="ygtv-checkbox" >
+	</div>
+
 	
 	<div id = "openxavaInput_<%=collectionName%>" class="ox-tree-collection">
 		<table id = "<%=tableId%>" name="treeTable_<%=collectionName%>">
@@ -133,12 +126,20 @@ if(!Is.empty(key)){
 		</table>		
 	</div>
 
-	<div id="<%=collectionName%>" class="ox_tree"></div>
+	<div class="ox_tree" 
+	data-collection-name="<%=collectionName%>" 
+	data-application="<%=request.getParameter("application")%>" 
+	data-module="<%=request.getParameter("module")%>" 
+	data-action-argv="<%=actionArgv%>"
+	data-action-arg="<%=actionArg%>"
+	data-action="<%=action%>"
+	data-xava-id="<%=xavaId%>">
+	</div>
 
 	<script type="text/javascript" <xava:nonce/>>
 
 		$(document).ready(function(){
-			/*
+			
 			var tree_<%=collectionName%> = {};
 			tree_<%=collectionName%>.tree = <%=javaScriptCode%>
 			tree_<%=collectionName%>.suppress = false; // this will prevent collapse/expand when clicking on label
@@ -149,10 +150,8 @@ if(!Is.empty(key)){
 				tree_<%=collectionName%>.suppress=true;
 				tree_<%=collectionName%>.tree.onEventToggleHighlight(args);
 				node = args["node"];
-				console.log(node);
 				nodeIndex = node.data;
 				var actionWithArgs = "row=" + nodeIndex  + "<%=actionArgv%>";
-				console.log(actionWithArgs);
 				// syncronize state with openxava hidden input item
 				var htmlInput = document.getElementById("<%=xavaId%>" + node.data);
 				if (htmlInput != null) {
@@ -168,6 +167,9 @@ if(!Is.empty(key)){
 				node = args["node"];
 				tree_<%=collectionName%>.suppress=true; 
 				var actionWithArgs = "row=" + (node.data)  + "<%=actionArgv%>";
+				console.log("jsp");
+				console.log(node);
+				console.log(actionWithArgs);
 				openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', "", false, '<%=action%>', actionWithArgs);
 			});
 	
@@ -192,7 +194,7 @@ if(!Is.empty(key)){
 					openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', "", false, 'TreeView.collapse', actionWithArgs);
 				}
 			});
-			*/
+			
 		})
 	</script>
 	
