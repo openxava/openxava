@@ -1,8 +1,8 @@
 if (treeEditor == null) var treeEditor = {};
 
 treeEditor.initTree = function() {
-    if ($(".ox_tree").length) {
-        $(".ox_tree").each(function() {
+    if ($(".xava_tree").length) {
+        $(".xava_tree").each(function() {
             var oxTree = $(this);
             var application = oxTree.data("application");
             var module = oxTree.data("module");
@@ -40,31 +40,29 @@ openxava.addEditorInitFunction(function() {
         treeEditor.initTree();
 
         //accion de modificar el nodo con doble click
-        $('.ox_tree').on('dblclick', '.jstree-anchor', function() {
+        $('.xava_tree').on('dblclick', '.jstree-anchor', function() {
             console.log("dblclick");
-			oxTree = $(this).closest('.ox_tree');
+			oxTree = $(this).closest('.xava_tree');
             // Accede al nodo que se hizo doble clic
             var clickedNodeId = $(this).parent().attr('id');
             var clickedNode = $(this).jstree(true).get_node(clickedNodeId);
 
             // Realiza las acciones que deseas al hacer doble clic en el nodo
-            console.log(oxTree.data("actionArgv"));
-			console.log(oxTree.data("action-argv"));
-			console.log(oxTree.data("collection-name"));
             var actionWithArgs = "row=" + (clickedNode.original.row) + oxTree.data("actionArgv");
-			console.log("js");
-			console.log(clickedNode);
+			console.log(oxTree.data("application"));
+			console.log(oxTree.data("module"));
+			console.log(oxTree.data("action"));
 			console.log(actionWithArgs);
+			
             openxava.executeAction(oxTree.data("application"), oxTree.data("module"), "", false, oxTree.data("action"), actionWithArgs);
         });
 
         //selecciona en el input invisible, para accion de eliminar y agregar nuevo
-        $('.ox_tree').on('changed.jstree', function(e, data) {
+        $('.xava_tree').on('changed.jstree', function(e, data) {
             console.log("changed.jstree");
-			oxTree = $(this).closest('.ox_tree');
+			oxTree = $(this).closest('.xava_tree');
             if (data.hasOwnProperty('node')) {
                 var actionWithArgs = "row=" + data.node.original.row + oxTree.data("action-argv");
-                console.log(actionWithArgs);
                 var htmlInput = document.getElementById(oxTree.data("xava-id") + data.node.original.row);
                 if (data.action === 'select_node') {
                     if (htmlInput != null) {
@@ -81,7 +79,7 @@ openxava.addEditorInitFunction(function() {
         //para drag and drop
         $(document).on('dnd_stop.vakata', function(e, data) {
             console.log('dnd_stop.vakata');
-            ref = $('.ox_tree').jstree(true);
+            ref = $('.xava_tree').jstree(true);
 
             if (ref.get_node(data.data.nodes[0]) != false) {
                 var application = oxTree.data("application")

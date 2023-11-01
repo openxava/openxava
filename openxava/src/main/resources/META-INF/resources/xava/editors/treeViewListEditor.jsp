@@ -1,39 +1,32 @@
 <%@ include file="../imports.jsp"%>
  
-<%@page import="org.openxava.annotations.Tree"%>
+
 <%@page import="org.openxava.view.View"%>
-<%@page import="org.openxava.view.meta.MetaView"%>
-<%@page import="org.openxava.view.meta.MetaCollectionView"%>
+
 <%@page import="org.openxava.model.MapFacade"%>
-<%@page import="org.openxava.model.meta.*"%>
+
 <%@page import="org.openxava.web.Actions"%>
 <%@page import="org.openxava.web.Ids" %>
 <%@page import="org.openxava.controller.meta.MetaAction"%>
 <%@page import="org.openxava.controller.meta.MetaControllers"%>
 <%@page import="org.openxava.tab.impl.IXTableModel" %>
-<%@page import="org.openxava.tab.Tab" %>
+
 <%@page import="org.openxava.web.editors.TreeView" %>
-<%@page import="org.openxava.web.editors.TreeViewParser" %>
+
 <%@page import="org.openxava.web.editors.TreeViewActions" %>
-<%@page import="java.util.*"%>
+
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.Arrays"%>
+
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.Collections"%>
-<%@page import="java.lang.annotation.Annotation"%>
+
 <%@page import="java.text.DateFormat"%>
-<%@page import="javax.swing.table.TableModel"%>
+
 <%@page import="org.openxava.util.Locales"%>
 <%@page import="org.openxava.util.Is"%>
-<%@page import="com.fasterxml.jackson.databind.*"%>
-<%@page import="org.json.*"%>
 
-
-<%@page import="com.fasterxml.jackson.databind.node.*"%>
-<%@page import="org.apache.commons.lang3.ArrayUtils"%>
 <%@page import="org.apache.commons.beanutils.PropertyUtils"%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
@@ -46,7 +39,6 @@ String viewObject = request.getParameter("viewObject"); // Id to access to the v
 View collectionView = (View) context.get(request, viewObject); // We get the collection view by means of context
 View rootView = collectionView.getRoot(); // In this case we use the root view
 String collectionName = request.getParameter("collectionName");
-
 String modelName = collectionView.getMetaModel().getQualifiedName();
 Map key = rootView.getKeyValues();
 String action = request.getParameter("rowAction");
@@ -56,7 +48,6 @@ String actionWithArgs;
 String tabObject = org.openxava.tab.Tab.COLLECTION_PREFIX + collectionName.replace('.', '_');
 String prefix = tabObject + "_";
 org.openxava.tab.Tab tab = collectionView.getCollectionTab();
-
 tab.setRequest(request);
 Map[] keyValues;
 String prefixIdRow = Ids.decorate(request, prefix);
@@ -71,12 +62,6 @@ String indexList = parseData[1];
 String module = request.getParameter("module");
 String tableId = Ids.decorate(request.getParameter("application"), module, collectionName);
 TreeViewActions metaTreeViewActions = new TreeViewActions(collectionView, treeParser.getMetaTreeView(tab.getModelName()));
-JSONArray jsonArray = new JSONArray();
-String pathProperty = "path";
-String pathSeparator = "/";
-String idProperties = "";
-int orderIncrement = 2;
-if (collectionName != null) System.out.println("module " + module + viewObject + "JSP " + tab.getModelName());
 
 String contextPath = (String) request.getAttribute("xava.contextPath");
 if (contextPath == null) contextPath = request.getContextPath();
@@ -126,7 +111,7 @@ if(!Is.empty(key)){
 		</table>		
 	</div>
 
-	<div class="ox_tree" 
+	<div class="xava_tree" 
 	data-collection-name="<%=collectionName%>" 
 	data-application="<%=request.getParameter("application")%>" 
 	data-module="<%=request.getParameter("module")%>" 
@@ -137,21 +122,21 @@ if(!Is.empty(key)){
 	</div>
 
 	<script type="text/javascript" <xava:nonce/>>
-
 		$(document).ready(function(){
-			
 			var tree_<%=collectionName%> = {};
 			tree_<%=collectionName%>.tree = <%=javaScriptCode%>
 			tree_<%=collectionName%>.suppress = false; // this will prevent collapse/expand when clicking on label
 			tree_<%=collectionName%>.loading = true; // this will prevent collapse/expand when loading
 			tree_<%=collectionName%>.tree.render();
 			tree_<%=collectionName%>.loading = false;
+			
 			tree_<%=collectionName%>.tree.subscribe("clickEvent", function(args) {
 				tree_<%=collectionName%>.suppress=true;
 				tree_<%=collectionName%>.tree.onEventToggleHighlight(args);
 				node = args["node"];
 				nodeIndex = node.data;
 				var actionWithArgs = "row=" + nodeIndex  + "<%=actionArgv%>";
+				
 				// syncronize state with openxava hidden input item
 				var htmlInput = document.getElementById("<%=xavaId%>" + node.data);
 				if (htmlInput != null) {
@@ -168,7 +153,9 @@ if(!Is.empty(key)){
 				tree_<%=collectionName%>.suppress=true; 
 				var actionWithArgs = "row=" + (node.data)  + "<%=actionArgv%>";
 				console.log("jsp");
-				console.log(node);
+				console.log('<%=request.getParameter("application")%>');
+				console.log('<%=request.getParameter("module")%>');
+				console.log('<%=action%>');
 				console.log(actionWithArgs);
 				openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', "", false, '<%=action%>', actionWithArgs);
 			});

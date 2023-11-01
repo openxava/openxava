@@ -16,12 +16,14 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 	private int row;
 	
 	public void execute() throws Exception {
+		System.out.println("EditElementInCollectionAction");
 		getCollectionElementView().clear(); 
 		getCollectionElementView().setKeyEditable(false); 
 		getCollectionElementView().setCollectionDetailVisible(true);
 		Collection elements;
 		Map keys = null;
 		Map	values = null;
+		System.out.println("0"); 	
 		if (getCollectionElementView().isCollectionFromModel()) {		
 			elements = getCollectionElementView().getCollectionValues();
 			if (elements == null) return;
@@ -31,7 +33,7 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 		} else {
 			keys = (Map) getCollectionElementView().getCollectionTab().getTableModel().getObjectAt(row);
 		}
-				
+		System.out.println("1");	
 		if (keys != null) {
 			values = MapFacade.getValues(getCollectionElementView().getModelName(), keys, getCollectionElementView().getMembersNames());
 			getCollectionElementView().setValues(values);					
@@ -39,7 +41,8 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 		} else {
 			throw new XavaException("only_list_collection_for_aggregates");
 		}
-		showDialog(getCollectionElementView());		
+		showDialog(getCollectionElementView());	
+		System.out.println("2");
 		if (getCollectionElementView().isCollectionEditable() || 
 			getCollectionElementView().isCollectionMembersEditables()) 
 		{ 
@@ -48,10 +51,12 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 		if (getCollectionElementView().isCollectionEditable()) { 
 			addActions(getCollectionElementView().getRemoveCollectionElementAction());
 		} 	
+		System.out.println("3");
 		Iterator itDetailActions = getCollectionElementView().getActionsNamesDetail().iterator();
 		while (itDetailActions.hasNext()) {		
 			addActions(itDetailActions.next().toString());			
 		}
+		System.out.println("4");
 		addActions(getCollectionElementView().getHideCollectionElementAction());
 	}
 		
