@@ -60,7 +60,12 @@ for (Iterator it= modulesList.iterator(); it.hasNext();) {
 
 if (loadMore) {
 %>
+	<%-- tmr
 	<a  href="javascript:naviox.displayAllModulesList('<%=searchWord%>')">
+	--%>
+	<%-- tmr ini --%>
+	<a id="display_all_modules" data-search-word="<%=searchWord%>">
+	<%-- tmr fin --%>
 	<div id="more_modules" class="module-row">
 	<span id="loading_more_modules">
 	<xava:message key="loading"/>...

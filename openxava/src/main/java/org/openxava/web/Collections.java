@@ -3,7 +3,6 @@ package org.openxava.web;
 import javax.servlet.http.*;
 
 import org.openxava.util.*;
-import org.openxava.view.*;
 
 /**
  * Utilities used from JSP files for collections. 
@@ -33,8 +32,10 @@ public class Collections {
 	/**
 	 * @since 5.9
 	 */
+	/* tmr
 	public static String sumPropertyScript(HttpServletRequest request, View rootView, String sumProperty) { 
 		return EditorsJS.calculateScript(request.getParameter("application"), request.getParameter("module"), rootView, sumProperty); 
 	}
+	*/
 
 }

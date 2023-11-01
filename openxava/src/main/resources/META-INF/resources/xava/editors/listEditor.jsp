@@ -93,17 +93,37 @@ if (grouping) action = null;
 <th class="ox-list-header ox-text-align-center">
 <nobr>
 	<% if (tab.isCustomizeAllowed()) { %>
+	<%-- tmr
 	<a  id="<xava:id name='<%="customize_" + id%>'/>" href="javascript:openxava.customizeList('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=id%>')" title="<xava:message key='customize_list'/>" class="<%=style.getActionImage()%>">
+	--%>
+	<%-- tmr ini --%>
+	<a  id="<xava:id name='<%="customize_" + id%>'/>" class="xava_customize_list <%=style.getActionImage()%>" 
+		title="<xava:message key='customize_list'/>" data-id="<%=id%>">
+	<%-- tmr fin --%>
 		<i class="mdi mdi-settings"></i>
 	</a>
 	<% } %>
 	<% if (filter) { %> 
+	<%-- tmr
 	<a id="<xava:id name='<%="show_filter_" + id%>'/>" <%=tab.isFilterVisible()?"class='ox-display-none'":""%> href="javascript:openxava.setFilterVisible('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=id%>', '<%=tabObject%>', true)" title="<xava:message key='show_filters'/>">
 		<i id="<xava:id name='<%="filter_image_" + id%>'/>" class="mdi mdi-filter"></i>
 	</a>
 	<a id="<xava:id name='<%="hide_filter_" + id%>'/>" <%=tab.isFilterVisible()?"":"class='ox-display-none'"%> href="javascript:openxava.setFilterVisible('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=id%>', '<%=tabObject%>', false)" title="<xava:message key='hide_filters'/>">
 		<i id="<xava:id name='<%="filter_image_" + id%>'/>" class="mdi mdi-filter-remove"></i>  
 	</a>	
+	--%>
+	<%-- tmr ini --%>
+	<a id="<xava:id name='<%="show_filter_" + id%>'/>" class='<%=tab.isFilterVisible()?"xava_show_hide_filter ox-display-none":"xava_show_hide_filter"%>'  
+		title="<xava:message key='show_filters'/>"
+		data-id="<%=id%>" data-tab-object="<%=tabObject%>" data-visible="true">
+		<i id="<xava:id name='<%="filter_image_" + id%>'/>" class="mdi mdi-filter"></i>
+	</a>
+	<a id="<xava:id name='<%="hide_filter_" + id%>'/>" class='<%=tab.isFilterVisible()?"xava_show_hide_filter":"xava_show_hide_filter ox-display-none"%>' 
+		title="<xava:message key='hide_filters'/>"
+		data-id="<%=id%>" data-tab-object="<%=tabObject%>" data-visible="false">
+		<i id="<xava:id name='<%="filter_image_" + id%>'/>" class="mdi mdi-filter-remove"></i>  
+	</a>	
+	<%-- tmr fin --%>
 	<% } // if (filter) %>	
 	<%
 	if (tab.isCustomizeAllowed()) { 
@@ -182,7 +202,13 @@ String headerLabel=Strings.noLastToken(label) + " <nobr>" + Strings.lastToken(la
 	%>
 	<span class="<xava:id name='<%="customize_" + id%>'/> ox-display-none ox-column-customize-controls-on-right">
 	<xava:action action="List.changeColumnName" argv='<%="property="+property.getQualifiedName() + collectionArgv%>'/>
+	<%-- tmr
 	<a href="javascript:openxava.removeColumn('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<xava:id name='<%=id%>'/>_col<%=columnIndex%>', '<%=tabObject%>')" title="<xava:message key='remove_column'/>">
+	--%>
+	<%-- tmr ini --%>
+	<a class="xava_remove_column" title="<xava:message key='remove_column'/>"
+		data-column="<xava:id name='<%=id%>'/>_col<%=columnIndex%>" data-tab-object="<%=tabObject%>">	
+	<%-- tmr fin --%>
 		<i class="mdi mdi-close-circle"></i>
 	</a>
 	</span>
@@ -474,7 +500,7 @@ for (int c=0; c<model.getColumnCount(); c++) {
 					<input id="<xava:id name='<%=sumProperty%>'/>" type="hidden" value="<%=total%>" <%=script%>/>
 					--%>
 					<%-- tmr ini --%>
-					<input class="xava_onchange_calculate" id="<xava:id name='<%=sumProperty%>'/>" type="hidden" value="<%=total%>"
+					<input class="xava_onchange_calculate" id="<xava:id name='<%=sumProperty%>'/>" type="hidden" value="<%=ftotal%>"
 						<%=EditorsJS.onChangeCalculateDataAttributes(request.getParameter("application"), request.getParameter("module"), rootView, sumProperty)%>
 					/>
 		<%-- tmr fin --%>

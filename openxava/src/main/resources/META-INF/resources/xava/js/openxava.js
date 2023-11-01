@@ -212,6 +212,8 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initButtonBars(application, module); 
 	openxava.initEditorsEvents(application, module); // tmr
 	openxava.initMessages(); 
+	openxava.initFrames(); // tmr
+	openxava.initSubcontrollers(); // tmr
 	openxava.initInlineEvents(); 
 	 
 	if (typeof currentRow != "undefined") {
@@ -239,6 +241,7 @@ openxava.initInlineEvents =  function() {
 		});
 	});
 	*/
+	// tmr Debería buscar por href="javascript: antes de seguir con los onchange
 	
     $('[onblur]').each(function() {
   		$(this).blur(function() { 
@@ -266,6 +269,23 @@ openxava.initEditorsEvents = function(application, module) { // tmr
   		openxava.calculate(application, module, container.data('calculated-property'), container.data('scale'));
 	});
 	
+}
+
+openxava.initFrames = function() { // tmr 
+	$('.xava_hide_frame').off('click').click(function() { 
+		openxava.hideFrame($(this).data("frame"));
+	});
+	$('.xava_show_frame').off('click').click(function() { 
+		openxava.showFrame($(this).data("frame"));
+	});
+}
+
+openxava.initSubcontrollers = function() { // tmr 
+	// TMR ME QUEDÉ POR AQUÍ. LO HICE PERO NO FUNCIONA. PROBAR CON Invoice. DESPUÉS BUSCAR href='javascrip: con comilla simple 
+	$('.xava_subcontroller').off('click').click(function() { 
+		openxava.subcontroller($(this).data("id"), $(this).data("container"), $(this).data("button"),
+			$(this).data("image"), $(this).data("a"), $(this).data("span"));
+	});
 }
 
 openxava.initButtonBars = function(application, module) { 
@@ -604,6 +624,17 @@ openxava.initLists = function(application, module) {
 			$(this).data('row'),
 			$(this).data('tab-object'));
 	});
+	// tmr ini
+	$('.xava_customize_list').off('click').click(function() {
+		openxava.customizeList(application, module, $(this).data('id'));
+	});
+	$('.xava_show_hide_filter').off('click').click(function() {
+		openxava.setFilterVisible(application, module, $(this).data('id'), $(this).data('tab-object'), $(this).data('visible'));
+	});
+	$('.xava_remove_column').off('click').click(function() {
+		openxava.removeColumn(application, module, $(this).data('column'), $(this).data('tab-object'));
+	});
+	// tmr fin
 }
 
 openxava.renumberCollection = function(table) { 
@@ -1040,6 +1071,7 @@ openxava.throwPropertyChanged = function(application, module, property) {
 
 openxava.calculate = function(application, module, propertyId, scale) {
 	var calculation = $('#' + propertyId + "_CALCULATION_").val();
+	console.log("[openxava.calculate] calculation=" + calculation); // tmr
 	if (calculation == null) return;
 	var value = eval(calculation).toFixed(scale).replace(".", openxava.decimalSeparator);
 	$('#' + propertyId).val(value);

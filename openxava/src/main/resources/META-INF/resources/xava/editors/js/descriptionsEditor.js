@@ -54,7 +54,15 @@ openxava.addEditorInitFunction(function() {
 		}); 	
 		
 		$(this).attr("autocomplete", "nope");
-
+		
+		// tmr ini
+		$('.xava_descriptions_editor_open').off('click').click(function() {
+			descriptionsEditor.open($(this).data('property-key'));
+		});
+		$('.xava_descriptions_editor_close').off('click').click(function() {
+			descriptionsEditor.close($(this).data('property-key'));
+		});		
+		// tmr fin
 	});
 
 	

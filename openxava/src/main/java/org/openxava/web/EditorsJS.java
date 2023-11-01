@@ -11,9 +11,9 @@ import org.openxava.view.*;
  */
 
 public class EditorsJS { // tmr Renombrar como Editors
-	
+
+	/* tmr
 	public static String calculateScript(String application, String module, View rootView, String sumProperty) { // tmr Quitar
-		// TMR ME QUEDÉ POR AQUÍ. YA VAN LOS 3 CASOS. QUITAR ESTE MÉTODO Y EL DE COLLECTIONS.
 		String calculatedProperty = rootView.getDependentCalculationPropertyNameFor(sumProperty);
 		String calculatedPropertyKey = org.openxava.web.Ids.decorate(application, module, calculatedProperty);
 		MetaProperty calculatedMetaProperty = rootView.getMetaProperty(calculatedProperty);
@@ -24,8 +24,9 @@ public class EditorsJS { // tmr Renombrar como Editors
 			"'" + calculatedMetaProperty.getScale() + "'" + 
 			")\"";
 	}
+	*/
 	
-	public static String onChangeCalculateDataAttributes(String application, String module, View rootView, String changedProperty) { // tmr Quitar
+	public static String onChangeCalculateDataAttributes(String application, String module, View rootView, String changedProperty) { // tmr 
 		String calculatedProperty = rootView.getDependentCalculationPropertyNameFor(changedProperty);
 		String calculatedPropertyKey = org.openxava.web.Ids.decorate(application, module, calculatedProperty);
 		MetaProperty calculatedMetaProperty = rootView.getMetaProperty(calculatedProperty);

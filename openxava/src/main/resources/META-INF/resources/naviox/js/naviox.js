@@ -14,16 +14,38 @@ naviox.init = function() {
 	
 	$('#modules_list_core').css('height', 'calc(100vh - ' + $('#modules_list_top').height() + 'px)'); 
 	
-	naviox.initModulesLoading(); 
+	// tmr naviox.initModulesLoading();
+	// tmr ini 
+	naviox.initModulesList();
+	naviox.initBookmark();
+	// tmr fin 
 }
 
-naviox.initModulesLoading = function() {
+// tmr naviox.initModulesLoading = function() {
+naviox.initModulesList = function() { // tmr
 	$('#modules_list_core .module-row').on( "click", function() {
   		$(this).find(".module-loading").show();
 	});
 	$('#more_modules').on( "click", function() {
 		$('#loading_more_modules').show(); 
 		$('#load_more_modules').hide();
+	});
+	// tmr ini
+	$('#modules_list_hide').on( "click", function() {
+		naviox.hideModulesList(naviox.application, naviox.module);
+	});
+	$('#modules_list_show, #module_header_menu_button').on( "click", function() {
+		naviox.showModulesList(naviox.application, naviox.module);
+	});		
+	$('#display_all_modules').on( "click", function() {
+		naviox.displayAllModulesList($(this).data("search-word"));
+	});
+	// tmr fin
+}
+
+naviox.initBookmark = function() { // tmr
+	$('#bookmark').on( "click", function() {
+		naviox.bookmark();
 	});
 }
 
