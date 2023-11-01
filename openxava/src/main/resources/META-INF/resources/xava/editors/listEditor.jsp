@@ -16,7 +16,10 @@
 <%@ page import="org.openxava.web.Actions" %>
 <%@ page import="org.openxava.util.Users" %>
 <%@ page import="java.util.prefs.Preferences" %>
-<%@ page import="org.openxava.util.XavaResources" %> 
+<%@ page import="org.openxava.util.XavaResources" %>
+<%-- tmr ini --%>
+<%@page import="org.openxava.web.EditorsJS"%>
+<%-- tmr fin --%>   
 
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
@@ -465,9 +468,16 @@ for (int c=0; c<model.getColumnCount(); c++) {
 				org.openxava.view.View rootView = view.getParent().getCollectionRootOrRoot();
 				String sumProperty =  collection + "." + p.getName() + "_SUM_";
 				if (rootView.isPropertyUsedInCalculation(sumProperty)) {
-					String script = org.openxava.web.Collections.sumPropertyScript(request, rootView, sumProperty);
+					// tmr String script = org.openxava.web.Collections.sumPropertyScript(request, rootView, sumProperty);
 			%>
+					<%-- tmr
 					<input id="<xava:id name='<%=sumProperty%>'/>" type="hidden" value="<%=total%>" <%=script%>/>
+					--%>
+					<%-- tmr ini --%>
+					<input class="xava_onchange_calculate" id="<xava:id name='<%=sumProperty%>'/>" type="hidden" value="<%=total%>"
+						<%=EditorsJS.onChangeCalculateDataAttributes(request.getParameter("application"), request.getParameter("module"), rootView, sumProperty)%>
+					/>
+		<%-- tmr fin --%>
 			<%
 				}
 			}

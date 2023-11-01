@@ -167,14 +167,9 @@ public class EditorTag extends TagSupport {
 			// tmr ini
 			boolean propertyUsedInCalculation = rootView.isPropertyUsedInCalculation(propertyPrefix + property); 
 			if (propertyUsedInCalculation) {
-				String calculatedProperty = rootView.getDependentCalculationPropertyNameFor(propertyPrefix + property);
-				String calculatedPropertyKey = org.openxava.web.Ids.decorate(application, module, calculatedProperty);
-				MetaProperty calculatedMetaProperty = rootView.getMetaProperty(calculatedProperty);
-				pageContext.getOut().print("<span class='xava_onchange_calculate' data-calculated-property='");
-				pageContext.getOut().print(calculatedPropertyKey);
-				pageContext.getOut().print("' data-scale='");
-				pageContext.getOut().print(calculatedMetaProperty.getScale());
-				pageContext.getOut().print("'>");
+				pageContext.getOut().print("<span class='xava_onchange_calculate' ");
+				pageContext.getOut().print(EditorsJS.onChangeCalculateDataAttributes(application, module, rootView, propertyPrefix + property));
+				pageContext.getOut().print(">");
 			}
 			if (throwsChanged) pageContext.getOut().print("<span class='xava_onchange'>"); 
 			// tmr fin
