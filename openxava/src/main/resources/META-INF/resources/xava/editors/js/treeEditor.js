@@ -1,26 +1,97 @@
 if (treeEditor == null) var treeEditor = {};
 
-treeEditor.nodeArray;
+treeEditor.initTree = function() {
+    if ($(".ox_tree").length) {
+        $(".ox_tree").each(function() {
+            var $oxTree = $(this);
+            var application = $('#xava_tree_application').val();
+            var module = $('#xava_tree_module').val();
+            var collectionName = $oxTree.attr("id");
 
-treeEditor.setNodes = function(array) {
-    treeEditor.nodeArray = array;
-    console.log(treeEditor.nodeArray);
+            Tree.getNodes(application, module, collectionName, function(array) {
+                var nodes = JSON.parse(array);
+                $oxTree.jstree({
+                    "core": {
+                        "check_callback": function(operation, node, parent, position, more) {
+                            if (operation === "move_node") {
+                                return true;
+                            }
+                            return false;
+                        },
+                        "themes": {
+                            "dots": true,
+                            "icons": false
+                        },
+                        'data': nodes,
+                    },
+                    "checkbox": {
+                        "three_state": false
+                    },
+                    "plugins": ["checkbox", "dnd", "state"]
+                });
+            });
+        });
+    }
 }
 
 openxava.addEditorInitFunction(function() {
     $(document).ready(function() {
+        treeEditor.initTree();
 
 
-        if ($("#ox_tree").length) {
-            var identifier = window.treeIdentifier;
+/*if (treeEditor == null) var treeEditor = {};
+
+treeEditor.nodeArray;
+
+treeEditor.setNodes = function(array) {
+    treeEditor.nodeArray = JSON.parse(array);
+	console.log(array);
+	console.log(treeEditor.nodeArray);
+	treeEditor.initTree();
+}
+
+treeEditor.initTree = function() {
+	var nodeData 
+    if ($(".ox_tree").length) {
+		var nodes = treeEditor.nodeArray;
+        $('.ox_tree').jstree({
+            "core": {
+                "check_callback": function(operation, node, parent, position, more) {
+                    if (operation === "move_node") {
+                        return true;
+                    }
+                    return false;
+                },
+                "themes": {
+                    "dots": true,
+                    "icons": false
+                },
+                'data': nodes,
+            },
+            "checkbox": {
+                "three_state": false
+            },
+            "plugins": ["checkbox", "dnd", "state"]
+        });
+    }
+}
+
+openxava.addEditorInitFunction(function() {
+    $(document).ready(function() {
+        //var $oxTree = $(".ox_tree");
+        $(".ox_tree").each(function() {
             var application = $('#xava_tree_application').val();
             var module = $('#xava_tree_module').val();
-            var collectionName = $('#xava_tree_collectionName').val();
+            var collectionName = $(this).attr("id");
             console.log(application);
             console.log(module);
             console.log(collectionName);
+
             Tree.getNodes(application, module, collectionName, treeEditor.setNodes);
-			
+        });*/
+
+/*
+        if ($("#ox_tree").length) {		
             $("#ox_tree").ready(function() {
                 console.log("ox tree listo");
                 $('#ox_tree').jstree({
@@ -37,10 +108,6 @@ openxava.addEditorInitFunction(function() {
                         },
                         'data': treeEditor.nodeArray,
                     },
-                    /*
-                        "state": {
-                            "key": "ox_tree_state_' + collectionName +"
-                        },*/
                     "checkbox": {
                         "three_state": false
                     },
@@ -48,8 +115,8 @@ openxava.addEditorInitFunction(function() {
                 });
 
             });
-
-        }
+			*/
+			
 
         /*
                             //accion de modificar el nodo con doble click

@@ -133,7 +133,7 @@ if(!Is.empty(key)){
 		</table>		
 	</div>
 
-	<div id="ox_tree"></div>
+	<div id="<%=collectionName%>" class="ox_tree"></div>
 
 	<script type="text/javascript" <xava:nonce/>>
 
