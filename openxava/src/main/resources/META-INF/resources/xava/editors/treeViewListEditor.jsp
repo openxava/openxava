@@ -2,31 +2,22 @@
  
 
 <%@page import="org.openxava.view.View"%>
-
 <%@page import="org.openxava.model.MapFacade"%>
-
 <%@page import="org.openxava.web.Actions"%>
 <%@page import="org.openxava.web.Ids" %>
 <%@page import="org.openxava.controller.meta.MetaAction"%>
 <%@page import="org.openxava.controller.meta.MetaControllers"%>
 <%@page import="org.openxava.tab.impl.IXTableModel" %>
-
 <%@page import="org.openxava.web.editors.TreeView" %>
-
 <%@page import="org.openxava.web.editors.TreeViewActions" %>
-
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
-
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.Collections"%>
-
 <%@page import="java.text.DateFormat"%>
-
 <%@page import="org.openxava.util.Locales"%>
 <%@page import="org.openxava.util.Is"%>
-
 <%@page import="org.apache.commons.beanutils.PropertyUtils"%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
@@ -68,6 +59,7 @@ if (contextPath == null) contextPath = request.getContextPath();
 String version = org.openxava.controller.ModuleManager.getVersion();
 
 if(!Is.empty(key)){
+	
 %>
 	<xava:action action="<%=metaTreeViewActions.getUpAction()%>" argv="<%=actionArg%>" />
 	<xava:action action="<%=metaTreeViewActions.getDownAction()%>" argv="<%=actionArg%>" />
@@ -118,7 +110,8 @@ if(!Is.empty(key)){
 	data-action-argv="<%=actionArgv%>"
 	data-action-arg="<%=actionArg%>"
 	data-action="<%=action%>"
-	data-xava-id="<%=xavaId%>">
+	data-xava-id="<%=xavaId%>"
+	data-table-id="<%=tableId%>">
 	</div>
 
 	<script type="text/javascript" <xava:nonce/>>

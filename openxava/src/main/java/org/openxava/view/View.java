@@ -6896,28 +6896,16 @@ public class View implements java.io.Serializable {
 	} 
 	
 	private String getCollectionAction(String action, String defaultAction) {
-		System.out.println("4.1");
 		if (action == null && defaultAction == null) return null;
 		String key = action + "" + defaultAction;		
-		System.out.println(action + "---" + defaultAction);
 		if (refinedCollectionActions == null) refinedCollectionActions = new HashMap<>();
-		System.out.println(refinedCollectionActions);
-		
-		if (refinedCollectionActions.containsKey(key)) {
-			System.out.println("refinedCollectionActions contains");
-			System.out.println(key);
-			return refinedCollectionActions.get(key);
-		}
-		System.out.println("4.2");
+		if (refinedCollectionActions.containsKey(key)) return refinedCollectionActions.get(key);
 		List<String> result = new ArrayList<String>(1);
 		if (action != null) result.add(action);
 		else result.add(defaultAction);
 		refine(result);
-		System.out.println("4.3");
 		String refinedAction = result.isEmpty() ? "" : result.get(0);
 		refinedCollectionActions.put(key, refinedAction);
-		System.out.println(refinedCollectionActions);
-		System.out.println("return " + refinedAction);
 		return refinedAction;
 	}
 	
