@@ -241,7 +241,6 @@ openxava.initInlineEvents =  function() {
 		});
 	});
 	*/
-	// tmr Debería buscar por href="javascript: antes de seguir con los onchange
 	
     $('[onblur]').each(function() {
   		$(this).blur(function() { 
@@ -281,7 +280,6 @@ openxava.initFrames = function() { // tmr
 }
 
 openxava.initSubcontrollers = function() { // tmr 
-	// TMR ME QUEDÉ POR AQUÍ. LO HICE PERO NO FUNCIONA. PROBAR CON Invoice. DESPUÉS BUSCAR href='javascrip: con comilla simple 
 	$('.xava_subcontroller').off('click').click(function() { 
 		openxava.subcontroller($(this).data("id"), $(this).data("container"), $(this).data("button"),
 			$(this).data("image"), $(this).data("a"), $(this).data("span"));
@@ -590,14 +588,19 @@ openxava.initLists = function(application, module) {
   		openxava.onChangeComparator(id, id.replace("conditionComparator___", "conditionValue___"),
   			id.replace("conditionComparator___", "conditionValueTo___"), 
   			$(this).data("from"), $(this).data("in-values"));
-  			if (openxava.filterOnChange) {
-	  			var valueField = $(this).parent().next().find('input');
-	  			if (valueField == null || valueField.is(':hidden') || 
-	  				this.options[this.selectedIndex].value.indexOf('range') < 0 && valueField.val() !== '') 
-	  			{ 
-	  				openxava.executeAction(application, module, '', false, 'List.filter',''); 
-	  			}	
-  			}
+		if (openxava.filterOnChange) {
+  			var valueField = $(this).parent().next().find('input');
+  			if (valueField == null || valueField.is(':hidden') || 
+  				this.options[this.selectedIndex].value.indexOf('range') < 0 && valueField.val() !== '') 
+  			{ 
+  				openxava.executeAction(application, module, '', false, 'List.filter',''); 
+  			}	
+		}
+	});
+	$('.xava_combo_condition_value').off('change').change(function() {
+		if (openxava.filterOnChange) {
+			openxava.executeAction(application, module, '', false, 'List.filter', $(this).data('collection-argv')); 
+		}
 	});
 	// tmr fin
 	$('.ox-list-header input[type=checkbox]').off('click').click(function() {
@@ -634,6 +637,17 @@ openxava.initLists = function(application, module) {
 	$('.xava_remove_column').off('click').click(function() {
 		openxava.removeColumn(application, module, $(this).data('column'), $(this).data('tab-object'));
 	});
+	$('.xava_set_page_row_count').off('change').change(function() {
+		openxava.setPageRowCount(application, module, $(this).data('collection'), this);		
+	});
+	$('.xava_group_by').off('change').change(function() {
+		openxava.executeAction(application, module, '', false, 'List.groupBy','property=' + this.value);
+	});
+	$('.xava_list_configurations').off('change').change(function() {
+		openxava.executeAction(application, module, '', false, 'List.filter','configurationId=' + this.value);
+	});
+	
+	
 	// tmr fin
 }
 

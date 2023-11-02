@@ -116,7 +116,8 @@ for (int f=0; f < rowCount; f++) {
 	String idRow = Ids.decorate(request, propertyPrefix) + f;	
 	String events=f%2==0?style.getListPairEvents():style.getListOddEvents();
 	String newRowStyle = subview.isCollectionEditable() && f == rowCount - 1?"ox-display-none":"";
-	String lastRowEvent = subview.isCollectionEditable() && f >= rowCount - 2?"onchange='elementCollectionEditor.onChangeRow(this, "+  f + ")'":"";
+	// tmr String lastRowEvent = subview.isCollectionEditable() && f >= rowCount - 2?"onchange='elementCollectionEditor.onChangeRow(this, "+  f + ")'":"";
+	String lastRowClass = subview.isCollectionEditable() && f >= rowCount - 2?"xava_onchange_last_row":"";  // tmr
 	String actionsStyle = subview.isCollectionEditable() && f >= rowCount - 2?"class='ox-visibility-hidden'":"";
 	String app = request.getParameter("application");
 	String module = request.getParameter("module");
@@ -184,7 +185,13 @@ for (int f=0; f < rowCount; f++) {
 		<% if (labelOnEachCell) { %>
 			<span class="<%=style.getLabel()%>"><%=p.getQualifiedLabel(request)%></span>
 		<% } %>
+		<%-- tmr
 		<div class="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" <%=width%> <%=lastRowEvent%>>
+		--%>
+		<%-- tmr ini --%>
+		<div class="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%> <%=lastRowClass%>" <%=width%>
+			data-row="<%=f%>">
+		<%-- tmr fin --%>
 		<nobr> 
 		<% if (!subview.isCollectionMembersEditables()) {%>
 			<% if (referenceName == null) { %>

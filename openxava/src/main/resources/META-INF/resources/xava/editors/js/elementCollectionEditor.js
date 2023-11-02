@@ -13,6 +13,11 @@ openxava.addEditorInitFunction(function() {
 	$('.ox-element-collection-remove-action').off('click').click(function() {
 		elementCollectionEditor.removeRow(openxava.lastApplication, openxava.lastModule, this, $(this).data('row'), $(this).data('has-totals'));
 	});	
+	// tmr ini
+	$('.xava_onchange_last_row').off('change').change(function() {
+  		elementCollectionEditor.onChangeRow(this, $(this).data("row"));
+  	});
+	// tmr fin
 });
 
 elementCollectionEditor.onChangeRow = function(element, rowIndex) {

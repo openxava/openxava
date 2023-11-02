@@ -22,6 +22,7 @@ MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 String script = request.getParameter("script"); 
 String scriptSelect = script; 
 String scriptInput = script;
+// tmr Tengo que comprobar si el test actual para esto falla
 if (script.contains("onchange=")){
 	String selectOnChange = "editableValidValuesEditor.handleSelectChange(this), ";
     String inputOnChange= "editableValidValuesEditor.handleSelectInput(this), ";

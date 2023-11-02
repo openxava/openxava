@@ -42,7 +42,7 @@ String spanId = Ids.decorate(request, "sc-span-" + controllerName + "_" + mode);
 			>
 		--%>
 		<%-- tmr ini --%>
-		<a class"xava_subcontroller" id ='<%=aId%>'
+		<a class="xava_subcontroller" id ='<%=aId%>'
 			data-id='<%=id%>' data-container='<%=containerId%>' data-button='<%=buttonId%>'
 			data-image='<%=imageId%>' data-a='<%=aId%>' data-span='<%=spanId%>'>
 		<%-- tmr fin --%>	

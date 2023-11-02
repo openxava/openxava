@@ -340,7 +340,8 @@ public class Customer implements IWithName {
 	@ReferenceView("DecorateName") 
 	@NoCreate(forViews="DEFAULT")
 	@ReadOnly(forViews="SomeMembersReadOnly")
-	@DescriptionsList(forViews="SomeMembersReadOnly", descriptionProperties="level.description, name")
+	// tmr @DescriptionsList(forViews="SomeMembersReadOnly", descriptionProperties="level.description, name")
+	@DescriptionsList // tmr
 	private Seller alternateSeller;
 	
 	@ManyToOne(fetch=FetchType.LAZY)

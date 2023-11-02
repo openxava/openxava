@@ -12,7 +12,7 @@ String different = Tab.NE_COMPARATOR.equals(comparator)?"selected='selected'":""
 String prefix = request.getParameter("prefix");
 if (prefix == null) prefix = "";
 int index = Integer.parseInt(request.getParameter("index"));
-boolean filterOnChange = org.openxava.util.XavaPreferences.getInstance().isFilterOnChange();
+// tmr boolean filterOnChange = org.openxava.util.XavaPreferences.getInstance().isFilterOnChange();
 String collection = request.getParameter("collection"); 
 String collectionArgv = Is.emptyString(collection)?"":"collection="+collection;
 %>
@@ -23,11 +23,17 @@ String collectionArgv = Is.emptyString(collection)?"":"collection="+collection;
 	<%-- conditionValueTo: we need all indexes to implement the range filters --%>
 </div>
 
+<%-- tmr
 <select name="<xava:id name='<%=prefix + "conditionComparator."  + index%>'/>" class=<%=style.getEditor()%>
 <% if(filterOnChange) { %>
 	onchange="openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '', false, 'List.filter','<%=collectionArgv%>')"
 <% } %>
 >
+--%>
+<%-- tmr ini --%>
+<select name="<xava:id name='<%=prefix + "conditionComparator."  + index%>'/>" class="xava_combo_condition_value <%=style.getEditor()%>"
+	data-collection-argv="<%=collectionArgv%>">
+<%-- tmr fin --%>
 	<option value=""></option>
 	<option value="<%=Tab.EQ_COMPARATOR%>" <%=equal%>><xava:message key="yes"/></option>
 	<option value="<%=Tab.NE_COMPARATOR%>" <%=different%>><xava:message key="no"/></option>

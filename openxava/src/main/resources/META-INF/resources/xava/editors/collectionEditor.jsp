@@ -144,6 +144,7 @@ else {
 		request.setAttribute(valueKey, subview.getValue(p.getName()));		
 		String script = "";
 		if (it.hasNext()) {
+	// tmr Tengo que quitar el onchange y el onblur, pero no sé en que caso se utilizan
 	if (subview.throwsPropertyChanged(p)) {			
 		script = "onchange='openxava.throwPropertyChanged(\"" + 
 				app + "\", \"" + 

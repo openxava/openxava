@@ -691,8 +691,14 @@ else {
 %>
 <% if (style.isChangingPageRowCountAllowed()) { %>
 &nbsp;
+<%-- tmr
 <select id="<xava:id name='<%=id + "_rowCount"%>'/>" class=<%=style.getEditor()%>
 	onchange="openxava.setPageRowCount('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=collection==null?"":collection%>', this)">
+--%>
+<%-- tmr ini --%>
+<select id="<xava:id name='<%=id + "_rowCount"%>'/>" class="<%=style.getEditor()%> xava_set_page_row_count"
+	data-collection='<%=collection==null?"":collection%>'>
+<%-- tmr fin --%>	
 	<% 
 	int [] rowCounts = { 5, 10, 12, 15, 20, 50 }; // The peformance with more than 50 rows is poor for page reloading
 	for (int i=0; i<rowCounts.length; i++) {

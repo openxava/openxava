@@ -115,12 +115,18 @@ else {
 	keyProperties = sb.toString();
 }
 
+/* tmr
+// TMR ME QUEDÉ POR AQUÍ. PARA EMPEZAR A SUSTITUIRLO. SE PUEDES PROBAR EN Customer CON alteranteSeller
 boolean throwChanged=view.throwsReferenceChanged(ref);
 String script = throwChanged?
 	"onchange='openxava.throwPropertyChanged(\"" + 
 			request.getParameter("application") + "\", \"" + 
 			request.getParameter("module") + "\", \"" +			
 			propertyKey + "\")'":"";
+*/
+// tmr ini
+String script = ""; // tmr ¿Quitarlo?
+// tmr fin			
 %>
 
 <% if (!composite) { %>
