@@ -155,7 +155,19 @@ public class Tree extends DWRBase {
 		query.executeUpdate();
 		XPersistence.commit();
 		System.out.println("termiando");
-
+/*
+		Map values = null;
+		View view = getView()
+		Map keyValues = getView().getKeyValues();		
+		MapFacade.setValues(getModelName(), keyValues, getValuesToSave());
+		addMessage("entity_modified", getModelName());
+		if (!isResetAfterOnModify() && isRefreshAfter()) {
+			getView().clear(); 
+			values = MapFacade.getValues(getModelName(), keyValues, getView().getMembersNamesWithHidden());
+		}
+		return values;
+		
+		*/
 	}
 
 	public List<Integer> toIntegerList(List<String> stringList) {

@@ -46,9 +46,11 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 		if (getCollectionElementView().isCollectionEditable() || 
 			getCollectionElementView().isCollectionMembersEditables()) 
 		{ 
+			System.out.println("2.1");
 			addActions(getCollectionElementView().getSaveCollectionElementAction());
 		}
 		if (getCollectionElementView().isCollectionEditable()) { 
+			System.out.println("2.2");
 			addActions(getCollectionElementView().getRemoveCollectionElementAction());
 		} 	
 		System.out.println("3");

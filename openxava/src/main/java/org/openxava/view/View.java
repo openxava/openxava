@@ -6902,7 +6902,12 @@ public class View implements java.io.Serializable {
 		System.out.println(action + "---" + defaultAction);
 		if (refinedCollectionActions == null) refinedCollectionActions = new HashMap<>();
 		System.out.println(refinedCollectionActions);
-		if (refinedCollectionActions.containsKey(key)) return refinedCollectionActions.get(key);
+		
+		if (refinedCollectionActions.containsKey(key)) {
+			System.out.println("refinedCollectionActions contains");
+			System.out.println(key);
+			return refinedCollectionActions.get(key);
+		}
 		System.out.println("4.2");
 		List<String> result = new ArrayList<String>(1);
 		if (action != null) result.add(action);
@@ -6912,7 +6917,7 @@ public class View implements java.io.Serializable {
 		String refinedAction = result.isEmpty() ? "" : result.get(0);
 		refinedCollectionActions.put(key, refinedAction);
 		System.out.println(refinedCollectionActions);
-		System.out.println(refinedAction);
+		System.out.println("return " + refinedAction);
 		return refinedAction;
 	}
 	
