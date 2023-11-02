@@ -75,7 +75,7 @@ openxava.addEditorInitFunction(function() {
                 }
             }
         });
-/*
+
         //para drag and drop
         $(document).on('dnd_stop.vakata', function(e, data) {
             console.log('dnd_stop.vakata');
