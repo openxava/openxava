@@ -5,11 +5,10 @@ import java.util.prefs.*;
 
 import javax.persistence.*;
 
+import org.htmlunit.html.*;
 import org.openxava.jpa.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
-
-import org.htmlunit.html.*;
 
 /**
  * 
@@ -98,17 +97,27 @@ public class UserWithNicknameTest extends ModuleTestBase {
 	}
 	
 	private void closeFrame() throws Exception {
-		HtmlAnchor icon = getAnchorByHref("javascript:openxava.hideFrame('" + getFrameId() + "')");
+		// tmr HtmlAnchor icon = getAnchorByHref("javascript:openxava.hideFrame('" + getFrameId() + "')");
+		HtmlAnchor icon = getFrameAnchor(getFrameId(), "xava_hide_frame"); // tmr
 		icon.click();
 		waitView();
 	}
 	
+	/* tmr
 	private HtmlAnchor getAnchorByHref(String href) throws Exception { 
 		return (HtmlAnchor) HtmlUnitUtils.getAnchor(getHtmlPage(), href); 
 	}
+	*/
+	private HtmlAnchor getFrameAnchor(String frame, String cssClass) throws Exception {  // tmr
+		for (HtmlElement anchor: getHtmlPage().getBody().getElementsByAttribute("a", "data-frame", getFrameId())) {
+			if (cssClass.equals(anchor.getAttribute("class"))) return (HtmlAnchor) anchor; 
+		} 
+		throw new NoSuchElementException();
+	}
 	
 	private void openFrame() throws Exception {
-		HtmlAnchor icon = getAnchorByHref("javascript:openxava.showFrame('" + getFrameId() + "')");
+		// tmr HtmlAnchor icon = getAnchorByHref("javascript:openxava.showFrame('" + getFrameId() + "')");
+		HtmlAnchor icon = getFrameAnchor(getFrameId(), "xava_show_frame"); // tmr
 		icon.click();
 		waitView();
 	}

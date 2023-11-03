@@ -586,6 +586,7 @@ abstract public class ModuleTestBase extends TestCase {
 	 * Execute the action clicking in the link or button.
 	 */
 	protected void execute(String action) throws Exception {
+		System.out.println("[ModuleTestBase.execute] action=" + action); // tmr
 		waitUntilPageIsLoaded(); // Needed when a setValue() before throws an onchange action (not easily reproducible, depend on performance)
 		throwChangeOfLastNotNotifiedProperty();		
 		if (page.getElementsByName(Ids.decorate(application, module, ACTION_PREFIX + "." + action)).size() > 1) { // Action of list/collection
@@ -594,7 +595,8 @@ abstract public class ModuleTestBase extends TestCase {
 		}	
 
 		HtmlElement element  = getElementById(action);
-		
+
+		/* tmr
 		if (element instanceof HtmlAnchor) {
 			// Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.70 in some circumstances
 			page.executeJavaScript(getHrefAttribute(element)); 			
@@ -602,6 +604,10 @@ abstract public class ModuleTestBase extends TestCase {
 		else {
 			element.click();
 		}		
+		*/
+		// tmr ini
+		element.click();
+		// tmr fin
 		resetForm(); 		
 		restorePage(); 		
 	}
@@ -686,7 +692,8 @@ abstract public class ModuleTestBase extends TestCase {
 		execute(action, arguments, true);
 	}
 	
-	private HtmlElement getElementForAction(String action, String arguments) {  
+	private HtmlElement getElementForAction(String action, String arguments) {
+		/* tmr
 		String moduleMarkForAnchor = "executeAction('" + application + "', '" + module + "'";
 		
 		for (Iterator it = page.getAnchors().iterator(); it.hasNext(); ) {			
@@ -708,6 +715,16 @@ abstract public class ModuleTestBase extends TestCase {
 				}				
 			}
 		}		
+		*/
+		// tmr ini
+		for (Iterator it = page.getAnchors().iterator(); it.hasNext(); ) {			
+			HtmlAnchor anchor = (HtmlAnchor) it.next();
+			if (action.equals(anchor.getAttribute("data-action"))) {
+				if (arguments == null) return anchor; // 'ReferenceSearch.choose'
+				if (arguments.equals(anchor.getAttribute("data-argv"))) return anchor; // 'List.viewDetail', 'row=0'
+			}
+		}		
+		// tmr fin
 		
 		// For Cards
 		if (arguments != null && arguments.startsWith("row=")) {

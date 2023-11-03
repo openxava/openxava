@@ -364,7 +364,7 @@ public class Invoice2Test extends ModuleTestBase {
 		assertExists("productList");
 		assertValidValuesCount("productList", 1); 
 		setValue("familyList", "1");
-		assertValidValuesCount("productList", 7); 
+		assertValidValuesCount("productList", 7); // TMR ME QUEDÉ POR AQUÍ: FALLA. TAMBIÉN FALLAN OTRO TESTS DE ESTA PRUEBA 
 	}
 	
 	public void testTouchContainerFromCallback_calculatedPropertiesInGroupInCollectionDetail() throws Exception { 

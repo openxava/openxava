@@ -19,7 +19,7 @@ import junit.framework.*;
 public class HtmlUnitUtils {
 	
 	/** @since 7.1 */
-	public static String getHrefAttribute(HtmlElement element) { 
+	public static String getHrefAttribute(HtmlElement element) { // tmr ¿Eliminar?
 		HtmlAnchor anchor = (HtmlAnchor) element;
 		String originalHref = anchor.getHrefAttribute(); 
 		if (!originalHref.equals("javascript:void(0)") && !originalHref.isEmpty()) return originalHref;
