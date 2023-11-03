@@ -214,17 +214,19 @@ abstract public class ModuleTestBase extends TestCase {
 					HtmlInput autocomplete = (HtmlInput) previousElement;
 					autocomplete.setValue("Some things"); // A trick to avoid that JavaScript reset the real value
 					((HtmlInput) input.getNextElementSibling()).setValue("Some things"); // A trick to avoid that JavaScript reset the real value
-					String onchange = autocomplete.getOnChangeAttribute(); // tmr En teoría esto ya no puede pasar ¿Qué hacer?
+					/* tmr
+					String onchange = autocomplete.getOnChangeAttribute(); 
 					if (!Is.emptyString(onchange)) {
 						page.executeJavaScript(onchange);
 						refreshNeeded = true;
 					}
+					*/
 				}				
 			}
 			else {
 				input.setValue(value);				
 			}
-			if (hasOnChange(input) || alwaysThrowChangedEvent) { // tmr Ahora hasOnChange es siempre falso, ¿qué hacer?
+			if (hasOnChange(input) || alwaysThrowChangedEvent) {
 				refreshNeeded = true;
 				input.fireEvent(Event.TYPE_CHANGE);
 			}
@@ -253,11 +255,21 @@ abstract public class ModuleTestBase extends TestCase {
 			refreshPage();			
 		}
 	}
-	
-	private boolean hasOnChange(HtmlInput input) {  // tmr ¿Quitar?
+
+	/* tmr 
+	private boolean hasOnChange(HtmlInput input) {
 		if (!Is.emptyString(input.getOnChangeAttribute())) return true;
 		HtmlElement enclosingDiv = input.getEnclosingElement("div");
 		if (enclosingDiv != null && !Is.emptyString(enclosingDiv.getAttribute("onchange"))) return true; 
+		return false;
+	}
+	*/
+	
+	private boolean hasOnChange(HtmlElement el) { // tmr
+		String cssClass = el.getAttribute("class");
+		if (cssClass != null && cssClass.contains("xava_onchange")) return true;
+		DomNode parent = el.getParentNode();
+		if (parent instanceof HtmlElement) return hasOnChange((HtmlElement) parent);
 		return false;
 	}
 	
@@ -1774,6 +1786,7 @@ abstract public class ModuleTestBase extends TestCase {
 	}		
 	
 	private int getColumnIncrement(HtmlTable table, int originalColumn) {
+		System.out.println("[ModuleTestBase.getColumnIncrement] table.getCellAt(0, 0).asXml()=" + table.getCellAt(0, 0).asXml()); // tmr
 		int increment = table.getCellAt(0, 1).asXml().contains("type=\"checkbox\"")
 				|| table.getCellAt(0, 0).asXml().contains("javascript:openxava.customizeList(")?2:1;
 		if (isElementCollection(table)) {
