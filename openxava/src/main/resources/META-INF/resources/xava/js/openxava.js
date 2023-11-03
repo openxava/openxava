@@ -261,7 +261,8 @@ openxava.initInlineEvents =  function() {
 
 openxava.initEditorsEvents = function(application, module) { // tmr
 	$('.xava_onchange .editor').off('change').change(function() {
-  		openxava.throwPropertyChanged(application, module, $(this).attr('id'));
+		var container = $(this).closest('.xava_onchange');
+  		openxava.throwPropertyChanged(application, module, container.data('property'));
 	});
 	$('.xava_onchange_calculate .editor, input.xava_onchange_calculate').off('change').change(function() {
 		var container = $(this).closest('.xava_onchange_calculate');

@@ -214,7 +214,7 @@ abstract public class ModuleTestBase extends TestCase {
 					HtmlInput autocomplete = (HtmlInput) previousElement;
 					autocomplete.setValue("Some things"); // A trick to avoid that JavaScript reset the real value
 					((HtmlInput) input.getNextElementSibling()).setValue("Some things"); // A trick to avoid that JavaScript reset the real value
-					String onchange = autocomplete.getOnChangeAttribute();
+					String onchange = autocomplete.getOnChangeAttribute(); // tmr En teoría esto ya no puede pasar ¿Qué hacer?
 					if (!Is.emptyString(onchange)) {
 						page.executeJavaScript(onchange);
 						refreshNeeded = true;
@@ -224,7 +224,7 @@ abstract public class ModuleTestBase extends TestCase {
 			else {
 				input.setValue(value);				
 			}
-			if (hasOnChange(input) || alwaysThrowChangedEvent) {
+			if (hasOnChange(input) || alwaysThrowChangedEvent) { // tmr Ahora hasOnChange es siempre falso, ¿qué hacer?
 				refreshNeeded = true;
 				input.fireEvent(Event.TYPE_CHANGE);
 			}
@@ -235,7 +235,7 @@ abstract public class ModuleTestBase extends TestCase {
 				assertNotDisable(name, select);
 				select.setSelectedAttribute(value, true);
 				select.blur(); 
-				refreshNeeded = !Is.emptyString(select.getOnChangeAttribute());
+				refreshNeeded = !Is.emptyString(select.getOnChangeAttribute()); // tmr OnChange no tiene valor nunca
 			}
 			catch (org.htmlunit.ElementNotFoundException ex2) {
 				HtmlTextArea textArea = getTextAreaByName(id); 
@@ -246,7 +246,7 @@ abstract public class ModuleTestBase extends TestCase {
 				}
 				else textArea.setText(value);
 				
-				refreshNeeded = !Is.emptyString(textArea.getOnChangeAttribute());
+				refreshNeeded = !Is.emptyString(textArea.getOnChangeAttribute()); // tmr onchange no tiene valor nunca
 			}
 		}		
 		if (refreshIfNeeded && refreshNeeded) {			
@@ -254,7 +254,7 @@ abstract public class ModuleTestBase extends TestCase {
 		}
 	}
 	
-	private boolean hasOnChange(HtmlInput input) {  
+	private boolean hasOnChange(HtmlInput input) {  // tmr ¿Quitar?
 		if (!Is.emptyString(input.getOnChangeAttribute())) return true;
 		HtmlElement enclosingDiv = input.getEnclosingElement("div");
 		if (enclosingDiv != null && !Is.emptyString(enclosingDiv.getAttribute("onchange"))) return true; 
@@ -407,7 +407,7 @@ abstract public class ModuleTestBase extends TestCase {
 			for (int i = 0; i < values.length; i++) {
 				select.setSelectedAttribute(values[i], true);
 			}			
-			if (!Is.emptyString(select.getOnChangeAttribute())) {
+			if (!Is.emptyString(select.getOnChangeAttribute())) { // tmr No tiene valor nunca
 				refreshPage = true;
 			}			
 		}
@@ -420,21 +420,21 @@ abstract public class ModuleTestBase extends TestCase {
 					HtmlCheckBoxInput checkbox = (HtmlCheckBoxInput) element;
 					String value = checkbox.getValue();
 					checkbox.setChecked(valuesCollection.contains(value));
-					if (!Is.emptyString(checkbox.getOnChangeAttribute())) {
+					if (!Is.emptyString(checkbox.getOnChangeAttribute())) { // tmr No tiene valor nunca
 						refreshPage = true;
 					}
 				}
 				else if (element instanceof HtmlInput) { 
 					HtmlInput input = (HtmlInput) element;
 					input.setValue(values[i]);
-					if (!Is.emptyString(input.getOnChangeAttribute())) {
+					if (!Is.emptyString(input.getOnChangeAttribute())) { // tmr no tiene valor nunca
 						refreshPage = true;
 					}
 				}
 				else if (element instanceof HtmlSelect) { 				
 					HtmlSelect select = (HtmlSelect) element;		
 					select.setSelectedAttribute(values[i], true);			
-					if (!Is.emptyString(select.getOnChangeAttribute())) {
+					if (!Is.emptyString(select.getOnChangeAttribute())) { // no tiene valor nunca
 						refreshPage = true;
 					}
 				}

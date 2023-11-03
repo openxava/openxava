@@ -171,7 +171,11 @@ public class EditorTag extends TagSupport {
 				pageContext.getOut().print(EditorsJS.onChangeCalculateDataAttributes(application, module, rootView, propertyPrefix + property));
 				pageContext.getOut().print(">");
 			}
-			if (throwsChanged) pageContext.getOut().print("<span class='xava_onchange'>"); 
+			if (throwsChanged) {
+				pageContext.getOut().print("<span class='xava_onchange' data-property='");
+				pageContext.getOut().print(propertyKey);
+				pageContext.getOut().print("'>");
+			}
 			// tmr fin
 			String prefix = "/xava/";  
 			try {
