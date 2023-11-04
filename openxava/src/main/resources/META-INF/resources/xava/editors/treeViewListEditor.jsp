@@ -1,7 +1,9 @@
 <%@ include file="../imports.jsp"%>
  
-
+<%@page import="org.openxava.annotations.Tree"%>
 <%@page import="org.openxava.view.View"%>
+<%@page import="org.openxava.view.meta.MetaView"%>
+<%@page import="org.openxava.view.meta.MetaCollectionView"%>
 <%@page import="org.openxava.model.MapFacade"%>
 <%@page import="org.openxava.web.Actions"%>
 <%@page import="org.openxava.web.Ids" %>
@@ -57,6 +59,13 @@ TreeViewActions metaTreeViewActions = new TreeViewActions(collectionView, treePa
 String contextPath = (String) request.getAttribute("xava.contextPath");
 if (contextPath == null) contextPath = request.getContextPath();
 String version = org.openxava.controller.ModuleManager.getVersion();
+MetaView metaView = rootView.getMetaModel().getMetaView(rootView.getViewName());
+MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
+Tree tree = metaCollectionView.getPath();
+String pathProperty = "path";
+if (tree != null) {
+	pathProperty = tree.pathProperty() != null ? tree.pathProperty() : "path";
+}
 
 if(!Is.empty(key)){
 	
@@ -107,10 +116,12 @@ if(!Is.empty(key)){
 	data-collection-name="<%=collectionName%>" 
 	data-application="<%=request.getParameter("application")%>" 
 	data-module="<%=request.getParameter("module")%>" 
+	data-model-name="<%=modelName%>"
 	data-action-argv="<%=actionArgv%>"
 	data-action-arg="<%=actionArg%>"
 	data-action="<%=action%>"
 	data-xava-id="<%=xavaId%>"
+	data-path-property="<%=pathProperty%>"
 	data-table-id="<%=tableId%>">
 	</div>
 

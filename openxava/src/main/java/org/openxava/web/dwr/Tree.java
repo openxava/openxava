@@ -1,16 +1,17 @@
 package org.openxava.web.dwr;
 
+import java.rmi.*;
 import java.util.*;
 
-import javax.persistence.*;
+import javax.ejb.*;
 import javax.servlet.http.*;
 import javax.swing.table.*;
 
 import org.apache.commons.lang3.*;
 import org.json.*;
-import org.openxava.jpa.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.Tab;
+import org.openxava.util.*;
 import org.openxava.view.View;
 import org.openxava.view.meta.*;
 import org.openxava.web.editors.*;
@@ -137,13 +138,25 @@ public class Tree extends DWRBase {
 
 	
 
-	public void updateNode(HttpServletRequest request, HttpServletResponse response, String application,
-			String modelName, String pathProperty, List<String> nodoACambiar, String pathParent) {
+	public void updateNode(
+			HttpServletRequest request, 
+			HttpServletResponse response, 
+			String application, 
+			String module,
+			String modelName, 
+			String collectionName, 
+			String pathProperty, 
+			String newPath,
+			List<String> rows) throws NumberFormatException, XavaException, FinderException, RemoteException {
 		System.out.println("update");
-		System.out.println(pathProperty);
-		System.out.println(pathParent);
-		System.out.println(nodoACambiar);
 		System.out.println(application);
+		System.out.println(module);
+		System.out.println(modelName);
+		System.out.println(collectionName);
+		System.out.println(pathProperty);
+		System.out.println(newPath);
+		System.out.println(rows);
+		/*
 		List<Integer> nodosACambiar = toIntegerList(nodoACambiar);
 
 		Query query = XPersistence.getManager()
@@ -155,19 +168,28 @@ public class Tree extends DWRBase {
 		query.executeUpdate();
 		XPersistence.commit();
 		System.out.println("termiando");
-/*
-		Map values = null;
-		View view = getView()
-		Map keyValues = getView().getKeyValues();		
-		MapFacade.setValues(getModelName(), keyValues, getValuesToSave());
-		addMessage("entity_modified", getModelName());
-		if (!isResetAfterOnModify() && isRefreshAfter()) {
-			getView().clear(); 
-			values = MapFacade.getValues(getModelName(), keyValues, getView().getMembersNamesWithHidden());
-		}
-		return values;
-		
 		*/
+		View view = getView(request, application, module);
+		String tabObject = "xava_collectionTab_" + collectionName;
+		Tab tab = getTab(request, application, module, tabObject);
+		View collectionView = view.getSubview(collectionName);
+		
+		System.out.println("model name " + tab.getModelName());
+		System.out.println("col view model name " + tab.getCollectionView().getModelName());
+		
+		Map values = null;
+		Map keyValues = collectionView.getKeyValues();
+		System.out.println("keyValues");
+		System.out.println(keyValues);
+		
+		System.out.println("rows");
+		for (String row : rows) {
+			Map keys = (Map) collectionView .getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
+			System.out.println(keys);
+		}
+		
+		//MapFacade.setValues(modelName, keyValues, getValuesToSave());
+		
 	}
 
 	public List<Integer> toIntegerList(List<String> stringList) {

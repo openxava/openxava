@@ -1,6 +1,7 @@
 if (treeEditor == null) var treeEditor = {};
 
 treeEditor.dialogOpen = false;
+treeEditor.repeat = false;
 
 treeEditor.initTree = function() {
     console.log("init tree");
@@ -30,11 +31,18 @@ treeEditor.initTree = function() {
                     "checkbox": {
                         "three_state": false
                     },
+                    "state": {
+                        "key": "xava_tree_state_" + collectionName
+                    },
                     "plugins": ["checkbox", "dnd", "state"]
                 });
             });
         });
     }
+}
+
+treeEditor.finish = function() {
+    console.log("terminado");
 }
 
 openxava.addEditorInitFunction(function() {
@@ -43,7 +51,7 @@ openxava.addEditorInitFunction(function() {
         var oxTree;
         var tableElement;
         //para evitar reejecutar treeEditor al abrir un dialogo
-        if (treeEditor.dialogOpen) {
+        if (treeEditor.dialogOpen === true) {
             oxTree = $('.xava_tree').first();
             let tableId = "#" + oxTree.data("table-id") + "__DISABLED__";
             tableElement = $(tableId).first();
@@ -59,6 +67,8 @@ openxava.addEditorInitFunction(function() {
         //accion de modificar el nodo con doble click
         $('.xava_tree').on('dblclick', '.jstree-anchor', function() {
             oxTree = $(this).closest('.xava_tree');
+            console.log("dblclick");
+            console.log(oxTree);
             var clickedNodeId = $(this).parent().attr('id');
             var clickedNode = $(this).jstree(true).get_node(clickedNodeId);
             var actionWithArgs = "row=" + (clickedNode.original.row) + oxTree.data("action-argv");
@@ -69,6 +79,7 @@ openxava.addEditorInitFunction(function() {
 
         //selecciona en el input invisible, para accion de eliminar y agregar nuevo
         $('.xava_tree').on('changed.jstree', function(e, data) {
+            console.log($(this));
             oxTree = $(this).closest('.xava_tree');
             if (data.hasOwnProperty('node')) {
                 var actionWithArgs = "row=" + data.node.original.row + oxTree.data("action-argv");
@@ -91,38 +102,48 @@ openxava.addEditorInitFunction(function() {
                 treeEditor.dialogOpen = true;
             });
         });
-        /*
-                //para drag and drop
-                $(document).on('dnd_stop.vakata', function(e, data) {
-                    console.log('dnd_stop.vakata');
-                    ref = $('.xava_tree').jstree(true);
 
-                    if (ref.get_node(data.data.nodes[0]) != false) {
-                        var application = oxTree.data("application")
-                        var modelName = oxTree.data("model");
-                        var pathProperty = "<%=pathProperty%>";
-                        var nodosACambiar = [];
-                        var nodoPadre;
+        //para drag and drop
+        $(document).on('dnd_stop.vakata', function(e, data) {
+			treeEditor.repeat = treeEditor.repeat === true ? false : true; 
+			if (treeEditor.repeat === false) {
+            var treeElement = data.data.obj.prevObject[0];
+            var treeClass = treeElement.classList;
+            var ref;
 
-                        //obtener el id de los nodos a mover
-                        var nodeArray = data.data.nodes;
-                        let parentId = "";
-                        nodeArray.forEach(function(element) {
-                            let node = ref.get_node(element);
-                            parentId = parentId === "" ? node.parent : parentId;
-                            nodosACambiar.push(node.original.id);
-                        });
+            var xavaTrees = $('.xava_tree');
+            xavaTrees.each(function(index) {
+                let xavaTreeClass = this.classList;
+                if (xavaTreeClass === treeClass) {
+                    oxTree = $(this);
+                    ref = oxTree.jstree(true);
+                }
+            });
+            if (ref.get_node(data.data.nodes[0]) != false) {
+                var application = oxTree.data("application");
+                var module = oxTree.data("module");
+                var modelName = oxTree.data("model-name");
+                var collectionName = oxTree.data("collection-name");
+                var pathProperty = oxTree.data("path-property");
+                console.log(collectionName);
+                var rows = [];
 
-                        //obtener el id del padre
-                        nodoPadre = ref.get_node(parentId);
-                        pathAlPadre = nodoPadre.original.path + "/" + nodoPadre.original.id;
-                        //pathAlPadre = encodeURIComponent(pathAlPadre);
-                        console.log(pathAlPadre);
-                        var nodoPadre2 = "";
-                        //falta la parte por si tiene otro id distinto a id
-                        Calendar.updateNode(application, modelName, pathProperty, nodosACambiar, pathAlPadre);
-                    }
-                });*/
+                //obtener el row de los nodos a mover
+                var nodeArray = data.data.nodes;
+                let parentId = "";
+                nodeArray.forEach(function(element) {
+                    let node = ref.get_node(element);
+                    parentId = parentId === "" ? node.parent : parentId;
+                    rows.push(node.original.row);
+                });
+
+                //obtener el id del padre
+                var nodoPadre = ref.get_node(parentId);
+                newPath = nodoPadre.original.path + "/" + nodoPadre.original.id;
+                Tree.updateNode(application, module, modelName, collectionName, pathProperty, newPath, rows, treeEditor.finish);
+            }
+			}
+        });
 
     });
 
