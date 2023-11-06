@@ -287,7 +287,7 @@ openxava.initSubcontrollers = function() { // tmr
 	});
 }
 
-openxava.initButtonBars = function(application, module) { 
+openxava.initButtonBars = function(application, module) { // tmr ¿Este nombre?
 	$('.xava_action').off('click').click(function() { // tmr _button por _action
 		openxava.executeAction(application, module, 
 			$(this).data('confirm-message'),

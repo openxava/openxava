@@ -88,7 +88,8 @@ if(!Is.empty(key)){
 				    <a href = "<%=nodeRef%>">_</a>
 				    --%>
 				    <%-- tmr ini --%>
-				    <a>_</a>
+				    <%-- class, data-action and data-argv are not used by web code, are used only by ModuleTestBase --%>
+				    <a class="xava_action" data-action="<%=action%>" data-argv="<%=actionWithArgs%>">_</a>
 				    <%-- tmr fin --%>
 				  </td>
 				</tr>

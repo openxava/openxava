@@ -1,7 +1,5 @@
 package org.openxava.tests;
 
-import static org.openxava.tests.HtmlUnitUtils.getHrefAttribute;
-
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -733,9 +731,6 @@ abstract public class ModuleTestBase extends TestCase {
 			HtmlAnchor anchor = (HtmlAnchor) it.next();
 			if (action.equals(anchor.getAttribute("data-action"))) {
 				if (arguments == null) return anchor; // 'ReferenceSearch.choose'
-				System.out.println("[ModuleTestBase.getElementForAction] action=" + action); // tmr
-				System.out.println("[ModuleTestBase.getElementForAction] arguments=" + arguments); // tmr
-				System.out.println("[ModuleTestBase.getElementForAction] anchor.getAttribute(data-argv)=" + anchor.getAttribute("data-argv")); // tmr
 				if (arguments.equals(anchor.getAttribute("data-argv"))) return anchor; // 'List.viewDetail', 'row=0'
 			}
 		}		
@@ -759,9 +754,7 @@ abstract public class ModuleTestBase extends TestCase {
 	
 	
 	
-	private void execute(String action, String arguments, boolean clicking) throws Exception {
-		System.out.println("[ModuleTestBase.execute] action=" + action); // tmr
-		System.out.println("[ModuleTestBase.execute] arguments=" + arguments); // tmr
+	private void execute(String action, String arguments, boolean clicking) throws Exception { // tmr ¿Dejar clicking?
 		throwChangeOfLastNotNotifiedProperty();
 		HtmlElement element = null;
 		element = getElementForAction(action, arguments);
@@ -781,7 +774,8 @@ abstract public class ModuleTestBase extends TestCase {
 		}
 		*/
 		if (element != null) {
-			if (!clicking && element instanceof HtmlAnchor) { // tmr ¿Deja este código? ¿Dejar clicking?
+			/* tmr
+			if (!clicking && element instanceof HtmlAnchor) { 
 				String href = getHrefAttribute(element);
 				if (Is.emptyString(href)) element.click();
 				else page.executeJavaScript(href); // Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.9/2.70 in some circumstances
@@ -789,9 +783,13 @@ abstract public class ModuleTestBase extends TestCase {
 			else {
 				element.click();
 			}
+			*/
+			// tmr ini
+			element.click();
+			// tmr fin
 			resetForm(); 
 		}
-		else {
+		else { // tmr ¿Se pasa por esta parte?
 			if (isReferenceActionWithObsoleteStyle(action, arguments)) {		
 				log.warn(XavaResources.getString("keyProperty_obsolete_style")); 
 				execute(action, refineArgumentsForReferenceActionWithObsoleteStyle(arguments));
