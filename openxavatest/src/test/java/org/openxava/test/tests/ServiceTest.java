@@ -157,7 +157,7 @@ public class ServiceTest extends ModuleTestBase {
 		assertValue("invoice.description", "Second service");	
 		
 		execute("Reference.search", "keyProperty=xava.Service.invoice.number");
-		assertValueInList(0, 0, "2007"); // TMR ME QUEDÉ POR AQUÍ FALLA. DEPURANDO EN ModuleTestBase.getColumnIncrement() 
+		assertValueInList(0, 0, "2007");  
 		assertValueInList(0, 1, "1");
 		assertValueInList(0, 2, "Primer servicio");
 		execute("ReferenceSearch.choose", "row=0");

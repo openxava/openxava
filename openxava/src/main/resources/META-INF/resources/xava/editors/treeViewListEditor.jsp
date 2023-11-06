@@ -74,15 +74,22 @@ if(!Is.empty(key)){
 				String indexId = prefixIdRow + index;
 				String nodeId = xavaId + index;
 				String nodeValue = prefix + "selected:" + index;
+				/* tmr
 				String nodeRef = "openxava.executeAction('" +
 					request.getParameter("application") + "', '" + request.getParameter("module") +"', '', false, '" + action + "', '" +
 					actionWithArgs + "')";
+				*/	
 				%>
 				<tr id="<%=indexId%>">
 				  <td>
 				    <input type="checkbox" name="<%=xavaId%>" id="<%=nodeId%>"
 				        value = "<%=nodeValue%>"/>
+				    <%-- tmr    
 				    <a href = "<%=nodeRef%>">_</a>
+				    --%>
+				    <%-- tmr ini --%>
+				    <a>_</a>
+				    <%-- tmr fin --%>
 				  </td>
 				</tr>
 				<%

@@ -733,6 +733,9 @@ abstract public class ModuleTestBase extends TestCase {
 			HtmlAnchor anchor = (HtmlAnchor) it.next();
 			if (action.equals(anchor.getAttribute("data-action"))) {
 				if (arguments == null) return anchor; // 'ReferenceSearch.choose'
+				System.out.println("[ModuleTestBase.getElementForAction] action=" + action); // tmr
+				System.out.println("[ModuleTestBase.getElementForAction] arguments=" + arguments); // tmr
+				System.out.println("[ModuleTestBase.getElementForAction] anchor.getAttribute(data-argv)=" + anchor.getAttribute("data-argv")); // tmr
 				if (arguments.equals(anchor.getAttribute("data-argv"))) return anchor; // 'List.viewDetail', 'row=0'
 			}
 		}		
@@ -757,9 +760,12 @@ abstract public class ModuleTestBase extends TestCase {
 	
 	
 	private void execute(String action, String arguments, boolean clicking) throws Exception {
+		System.out.println("[ModuleTestBase.execute] action=" + action); // tmr
+		System.out.println("[ModuleTestBase.execute] arguments=" + arguments); // tmr
 		throwChangeOfLastNotNotifiedProperty();
 		HtmlElement element = null;
 		element = getElementForAction(action, arguments);
+		/* tmr
 		if (arguments == null && element == null) { // We try if it is a button
 			String moduleMarkForButton = "executeAction(\"" + application + "\", \"" + module + "\"";
 			HtmlElement inputElement = page.getHtmlElementById(decorateId(action));
@@ -773,8 +779,9 @@ abstract public class ModuleTestBase extends TestCase {
 				}				
 			}			
 		}
+		*/
 		if (element != null) {
-			if (!clicking && element instanceof HtmlAnchor) {
+			if (!clicking && element instanceof HtmlAnchor) { // tmr ¿Deja este código? ¿Dejar clicking?
 				String href = getHrefAttribute(element);
 				if (Is.emptyString(href)) element.click();
 				else page.executeJavaScript(href); // Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.9/2.70 in some circumstances
@@ -1786,9 +1793,9 @@ abstract public class ModuleTestBase extends TestCase {
 	}		
 	
 	private int getColumnIncrement(HtmlTable table, int originalColumn) {
-		System.out.println("[ModuleTestBase.getColumnIncrement] table.getCellAt(0, 0).asXml()=" + table.getCellAt(0, 0).asXml()); // tmr
 		int increment = table.getCellAt(0, 1).asXml().contains("type=\"checkbox\"")
-				|| table.getCellAt(0, 0).asXml().contains("javascript:openxava.customizeList(")?2:1;
+			// tmr || table.getCellAt(0, 0).asXml().contains("javascript:openxava.customizeList(")?2:1;
+				|| table.getCellAt(0, 0).asXml().contains("xava_customize_list")?2:1; // tmr	
 		if (isElementCollection(table)) {
 			int i=1;
 			HtmlTableCell cell = table.getCellAt(0, i++);
