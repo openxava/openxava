@@ -1,7 +1,9 @@
 if (treeEditor == null) var treeEditor = {};
 
 treeEditor.dialogOpen = false;
-treeEditor.repeat = false;
+treeEditor.mousePosition = { x: 0, y: 0 };
+treeEditor.parentId;
+//treeEditor.childArray;
 
 treeEditor.initTree = function() {
     if ($(".xava_tree").length) {
@@ -16,6 +18,9 @@ treeEditor.initTree = function() {
                     "core": {
                         "check_callback": function(operation, node, parent, position, more) {
                             if (operation === "move_node") {
+								treeEditor.parentId = parent.id;
+								
+								//treeEditor.childArray = node.children_d;
                                 return true;
                             }
                             return false;
@@ -42,7 +47,7 @@ treeEditor.initTree = function() {
 treeEditor.finish = function() { }
 	
  $(document).on('dnd_stop.vakata', function(e, data) {
-            var treeElement = data.data.obj.prevObject[0];
+            var treeElement = data.data.origin.element[0];
             var treeClass = treeElement.classList;
             var ref;
 			var oxTree;
@@ -55,32 +60,59 @@ treeEditor.finish = function() { }
                     ref = oxTree.jstree(true);
                 }
             });
-            if (ref.get_node(data.data.nodes[0]) != false) {
+			
                 var application = oxTree.data("application");
                 var module = oxTree.data("module");
                 var modelName = oxTree.data("model-name");
                 var collectionName = oxTree.data("collection-name");
                 var pathProperty = oxTree.data("path-property");
                 var rows = [];
+				var childRows = [];
+				var allChilds = [];
 
+				console.log("nodos supuestamente seleccionados");
+				console.log(data.data.nodes);
                 //obtener el row de los nodos a mover
                 var nodeArray = data.data.nodes;
                 let parentId = "";
                 nodeArray.forEach(function(element) {
                     let node = ref.get_node(element);
-                    parentId = parentId === "" ? node.parent : parentId;
-                    rows.push(node.original.row);
+					rows.push(node.original.row);
+					node.children_d.forEach(function(childNodeId){
+						console.log(childNodeId);
+						allChilds.push(childNodeId);
+					});
+                    
                 });
 
-                //obtener el id del padre
-                var nodoPadre = ref.get_node(parentId);
+				//obtener el id del padre
+                var nodoPadre = ref.get_node(treeEditor.parentId);
+				console.log(nodoPadre);
                 newPath = nodoPadre.original.path + "/" + nodoPadre.original.id;
-                Tree.updateNode(application, module, modelName, collectionName, pathProperty, newPath, rows, treeEditor.finish);
-            }
+				
+				//obtener row de los nodos hijos
+				if (allChilds.length > 0) {
+				    allChilds.forEach(function(element) {
+                    let node = ref.get_node(element);
+                    childRows.push(node.original.row);
+                });
+				
+				}
+				
+				
+                //Tree.updateNode(application, module, collectionName, pathProperty, newPath, rows, treeEditor.finish);
+				Tree.updateNode(application, module, collectionName, pathProperty, newPath, rows, childRows);
+            
 });
 	
 
 openxava.addEditorInitFunction(function() {
+	
+	document.addEventListener('mousemove', function(e) {
+    // Actualiza las coordenadas del mouse
+    treeEditor.mousePosition.x = e.clientX;
+    treeEditor.mousePosition.y = e.clientY;
+});
 
     $(document).ready(function() {
         var oxTree;
@@ -113,9 +145,15 @@ openxava.addEditorInitFunction(function() {
         //selecciona en el input invisible, para accion de eliminar y agregar nuevo
         $('.xava_tree').on('changed.jstree', function(e, data) {
             oxTree = $(this).closest('.xava_tree');
+			console.log(data);
             if (data.hasOwnProperty('node')) {
                 var actionWithArgs = "row=" + data.node.original.row + oxTree.data("action-argv");
-                var htmlInput = document.getElementById(oxTree.data("xava-id") + data.node.original.row);
+                //var htmlInput = document.getElementById(oxTree.data("xava-id") + data.node.original.row);
+				//var htmlInput = document.querySelector('#' + id + '[value="' + value + '"]');
+				var htmlInput = document.querySelector('#' + oxTree.data("xava-id") + data.node.original.row + '[value="' + oxTree.data("prefix") + "selected:" + data.node.original.row + '"]');
+				console.log(actionWithArgs);
+				console.log(oxTree.data("xava-id") + data.node.original.row);
+				console.log(htmlInput);
                 if (data.action === 'select_node') {
                     if (htmlInput != null) {
                         htmlInput.checked = true;

@@ -32,7 +32,6 @@ String viewObject = request.getParameter("viewObject"); // Id to access to the v
 View collectionView = (View) context.get(request, viewObject); // We get the collection view by means of context
 View rootView = collectionView.getRoot(); // In this case we use the root view
 String collectionName = request.getParameter("collectionName");
-String modelName = collectionView.getMetaModel().getQualifiedName();
 Map key = rootView.getKeyValues();
 String action = request.getParameter("rowAction");
 String actionArgv = ",viewObject=" + viewObject;
@@ -116,13 +115,13 @@ if(!Is.empty(key)){
 	data-collection-name="<%=collectionName%>" 
 	data-application="<%=request.getParameter("application")%>" 
 	data-module="<%=request.getParameter("module")%>" 
-	data-model-name="<%=modelName%>"
 	data-action-argv="<%=actionArgv%>"
 	data-action-arg="<%=actionArg%>"
 	data-action="<%=action%>"
 	data-xava-id="<%=xavaId%>"
 	data-path-property="<%=pathProperty%>"
-	data-table-id="<%=tableId%>">
+	data-table-id="<%=tableId%>"
+	data-prefix="<%=prefix%>">
 	</div>
 
 	<script type="text/javascript" <xava:nonce/>>

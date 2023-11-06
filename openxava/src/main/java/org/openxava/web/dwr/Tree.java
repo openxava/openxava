@@ -9,6 +9,7 @@ import javax.swing.table.*;
 
 import org.apache.commons.lang3.*;
 import org.json.*;
+import org.openxava.model.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.Tab;
 import org.openxava.util.*;
@@ -25,8 +26,8 @@ import lombok.*;
 @Setter
 public class Tree extends DWRBase {
 
-	public String getNodes(HttpServletRequest request, HttpServletResponse response,
-			String application, String module, String collectionName) throws Exception {
+	public String getNodes(HttpServletRequest request, HttpServletResponse response, String application, String module,
+			String collectionName) throws Exception {
 		String tabObject = "xava_collectionTab_" + collectionName;
 		Tab tab2 = getTab(request, application, module, tabObject);
 		Tab tab = tab2.clone();
@@ -45,18 +46,18 @@ public class Tree extends DWRBase {
 		int orderIncrement = 2;
 		// need clone table for not alterate original tab
 
-		//tab = collectionView.getCollectionTab().clone();
+		// tab = collectionView.getCollectionTab().clone();
 		String[] propertiesNow = tab.getPropertiesNamesAsString().split(",");
-		System.out.println("1"); 
+		System.out.println("1");
 		System.out.println(Arrays.toString(propertiesNow));
 		MetaCollection mc = collectionView.getMetaCollection();
 		String order = mc.getOrder();
-		//String order = "";
+		// String order = "";
 		String[] oSplit = !order.isEmpty() ? order.replaceAll("\\$\\{|\\}", "").split(", ") : new String[0];
 		List<String> keysList = new ArrayList<>(tab.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
 		System.out.println("1.1");
 		Map<String, Object> propertiesMap = new HashMap<>();
-		//View tabCollectionView = tab.getCollectionView();
+		// View tabCollectionView = tab.getCollectionView();
 		System.out.println("1.2 " + tabCollectionView.getModelName());
 		View parentView = tabCollectionView.getParent();
 		System.out.println("1.22 " + parentView.getModelName());
@@ -64,7 +65,7 @@ public class Tree extends DWRBase {
 		System.out.println("1.3");
 		MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
 		org.openxava.annotations.Tree tree = metaCollectionView.getPath();
-		
+
 		System.out.println("2");
 
 		boolean initialState = true;
@@ -128,68 +129,70 @@ public class Tree extends DWRBase {
 
 		}
 		System.out.println("5");
-		//System.out.println(propertiesMap);
-		//System.out.println(jsonArray);
+		// System.out.println(propertiesMap);
+		// System.out.println(jsonArray);
 		// need parse path and properties
 		jsonArray = TreeViewParser.findChildrenOfNode("0", jsonArray, propertiesMap, false);
 		System.out.println(jsonArray.toString());
 		return jsonArray.toString();
 	}
 
-	
-
-	public void updateNode(
-			HttpServletRequest request, 
-			HttpServletResponse response, 
-			String application, 
-			String module,
-			String modelName, 
-			String collectionName, 
-			String pathProperty, 
-			String newPath,
-			List<String> rows) throws NumberFormatException, XavaException, FinderException, RemoteException {
+	public void updateNode(HttpServletRequest request, HttpServletResponse response, String application, String module,
+			String collectionName, String pathProperty, String newPath, List<String> rows, List<String> childRows)
+			throws NumberFormatException, XavaException, FinderException, RemoteException {
 		System.out.println("update");
 		System.out.println(application);
 		System.out.println(module);
-		System.out.println(modelName);
 		System.out.println(collectionName);
 		System.out.println(pathProperty);
 		System.out.println(newPath);
 		System.out.println(rows);
-		/*
-		List<Integer> nodosACambiar = toIntegerList(nodoACambiar);
+		System.out.println(childRows);
+		try {
+			initRequest(request, response, application, module);
+			View view = getView(request, application, module);
+			// String tabObject = "xava_collectionTab_" + collectionName;
+			View collectionView = view.getSubview(collectionName);
+			String modelName = collectionView.getMetaModel().getQualifiedName();
 
-		Query query = XPersistence.getManager()
-				.createQuery("UPDATE " + modelName + " t SET t." + pathProperty + " = :newPath WHERE t.id IN (:id)");
+			Map<String, String> values = new HashMap<>();
+			values.put(pathProperty, newPath);
+			Map<String, String> pathMap = new HashMap<>();
+			pathMap.put(pathProperty, null);
+			Map<String, String> parentOldValue = new HashMap<>();
+			List<String> parentsValues = new ArrayList<>();
 
-		query.setParameter("newPath", pathParent);
-		query.setParameter("id", nodosACambiar);
+			for (String row : rows) {
+				// Map keys = (Map) tab.getTableModel().getObjectAt(Integer.valueOf(row));
+				// System.out.println(keys2);
+				Map keys = (Map) collectionView.getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
+				parentOldValue = MapFacade.getValues(modelName, keys, pathMap);
+				parentsValues.add(parentOldValue.get(pathProperty));
+				MapFacade.setValues(modelName, keys, values);
+			}
+			childRows.removeIf(rows::contains);
+			for (String row : childRows) {
+				Map keys = (Map) collectionView.getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
+				Map oldChildPathMap = MapFacade.getValues(modelName, keys, pathMap);
+				String childPathValue = (String) oldChildPathMap.get(pathProperty);
+				String newChildPath = "";
+		        for (String searchString : parentsValues) {
+		        	if (childPathValue.startsWith(searchString)) {
+		        		System.out.println(childPathValue);
+		        		childPathValue = childPathValue.replace(searchString, newPath);
+		        		break;
+		        	}
+		        }
+				Map<String, String> newValue = new HashMap<>();
+				newValue.put(pathProperty, childPathValue);
+				System.out.println(childPathValue);
+				MapFacade.setValues(modelName, keys, newValue);
+			}
 
-		query.executeUpdate();
-		XPersistence.commit();
-		System.out.println("termiando");
-		*/
-		View view = getView(request, application, module);
-		String tabObject = "xava_collectionTab_" + collectionName;
-		Tab tab = getTab(request, application, module, tabObject);
-		View collectionView = view.getSubview(collectionName);
-		
-		System.out.println("model name " + tab.getModelName());
-		System.out.println("col view model name " + tab.getCollectionView().getModelName());
-		
-		Map values = null;
-		Map keyValues = collectionView.getKeyValues();
-		System.out.println("keyValues");
-		System.out.println(keyValues);
-		
-		System.out.println("rows");
-		for (String row : rows) {
-			Map keys = (Map) collectionView .getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
-			System.out.println(keys);
+		} finally {
+			cleanRequest();
 		}
-		
-		//MapFacade.setValues(modelName, keyValues, getValuesToSave());
-		
+
 	}
 
 	public List<Integer> toIntegerList(List<String> stringList) {
@@ -220,11 +223,10 @@ public class Tree extends DWRBase {
 		view.setRequest(request);
 		return view;
 	}
-	
+
 //	public String getTreeView(HttpServletRequest request, HttpServletResponse response,
 //			String application, String module) {
 //		return getView(request, application, module).getMetaModel().getQualifiedName();
 //	}
-	
 
 }
