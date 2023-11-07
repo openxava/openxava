@@ -2,11 +2,10 @@ package org.openxava.test.tests;
 
 import java.io.*;
 
+import org.htmlunit.html.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
-
-import org.htmlunit.html.*;
 
 /**
  * 
@@ -157,7 +156,7 @@ public class ProjectTest extends ModuleTestBase {
 		link.click();
 		waitAJAX();
 		
-		assertValue("name", "PETER"); 
+		assertValue("name", "PETER"); // TMR FALLA 
 		closeDialog();
 		
 		moveRow("members", 1, 0);

@@ -140,7 +140,7 @@ public class MovieTest extends MovieBaseTest {
 		// Filter String
 		setConditionComparators("=", "=", "empty_comparator");
         // execute("List.filter");		
-		assertListRowCount(2);
+		assertListRowCount(2); // TMR FALLA 
 		assertValueInList(0, 0, "GATTACA");
 		assertValueInList(1, 0, "NOVECENTO");
 		assertTrue(isNotVisibleConditionValue(2)); 
@@ -176,7 +176,7 @@ public class MovieTest extends MovieBaseTest {
 		// Filter String
 		setConditionComparators("=", "=", "not_empty_comparator");
 		// execute("List.filter");
-		assertListRowCount(1);
+		assertListRowCount(1); // TMR FALLA 
 		assertValueInList(0, 0, "FORREST GUMP");
 		assertTrue(isNotVisibleConditionValue(2));		
 		

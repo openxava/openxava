@@ -89,7 +89,9 @@ if(!Is.empty(key)){
 				    --%>
 				    <%-- tmr ini --%>
 				    <%-- class, data-action and data-argv are not used by web code, are used only by ModuleTestBase --%>
-				    <a class="xava_action" data-action="<%=action%>" data-argv="<%=actionWithArgs%>">_</a>
+				    <a class="xava_action" 
+				    	data-application='<%=request.getParameter("application")%>' data-module='<%=request.getParameter("module")%>' 
+				    	data-action='<%=action%>' data-argv='<%=actionWithArgs%>'>_</a>
 				    <%-- tmr fin --%>
 				  </td>
 				</tr>

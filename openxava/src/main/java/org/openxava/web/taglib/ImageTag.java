@@ -100,6 +100,10 @@ public class ImageTag extends ActionTagBase {
 
 			pageContext.getOut().print("' value='");
 			pageContext.getOut().print(filterApostrophes(metaAction.getLabel(request))); 
+			pageContext.getOut().print("' data-application='");
+			pageContext.getOut().print(application);
+			pageContext.getOut().print("' data-module='");
+			pageContext.getOut().print(module);
 			pageContext.getOut().print("' data-confirm-message='");
 			pageContext.getOut().print(filterApostrophes(metaAction.getConfirmMessage(request)));
 			pageContext.getOut().print("' data-takes-long='");

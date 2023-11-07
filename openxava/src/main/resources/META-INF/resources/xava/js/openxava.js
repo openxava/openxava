@@ -287,9 +287,11 @@ openxava.initSubcontrollers = function() { // tmr
 	});
 }
 
-openxava.initButtonBars = function(application, module) { // tmr ¿Este nombre?
+openxava.initButtonBars = function(application, module) { // tmr ¿Este nombre? Ya no hace falta application, module
 	$('.xava_action').off('click').click(function() { // tmr _button por _action
-		openxava.executeAction(application, module, 
+		openxava.executeAction(
+			$(this).data('application'),
+			$(this).data('module'), 
 			$(this).data('confirm-message'),
 			$(this).data('takes-long'),
 			$(this).data('action'),
@@ -298,7 +300,9 @@ openxava.initButtonBars = function(application, module) { // tmr ¿Este nombre?
 			$(this).data('in-new-window')); 
 	});
 	$('.xava_action_loses_changed_data').off('click').click(function() { // tmr _button por _action
-		openxava.executeActionConfirmLosesChangedData(application, module, 
+		openxava.executeActionConfirmLosesChangedData(			
+			$(this).data('application'),
+			$(this).data('module'),  
 			$(this).data('confirm-message'),
 			$(this).data('takes-long'),
 			$(this).data('action'),

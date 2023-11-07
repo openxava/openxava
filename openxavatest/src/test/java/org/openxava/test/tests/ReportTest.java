@@ -29,7 +29,7 @@ public class ReportTest extends ModuleTestBase {
 		setValue("ranges.type", "1"); // NUMBERS
 		assertExists("ranges.numberFrom");
 		assertExists("ranges.numberTo");
-		assertNotExists("ranges.dateFrom"); // TMR FALLA ME QUEDÉ POR AQUÍ
+		assertNotExists("ranges.dateFrom"); 
 		assertNotExists("ranges.dateTo");
 
 		setValue("ranges.type", "2"); // DATES

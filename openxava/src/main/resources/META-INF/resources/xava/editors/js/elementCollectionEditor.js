@@ -35,6 +35,11 @@ elementCollectionEditor.onChangeRow = function(element, rowIndex) {
 	token1 = new RegExp(", this, " + (rowIndex + 1) + ", ", "g");
 	token2 = ", this, " + (rowIndex + 2) + ", ";
 	newRowHtml = newRowHtml.replace(token1, token2);
+	// tmr ini
+	token1 = new RegExp('data-row="' + (rowIndex + 1) + '"', "g");
+	token2 = 'data-row="' + (rowIndex + 2) + '"';
+	newRowHtml = newRowHtml.replace(token1, token2);
+	// tmr fin
 	newRow.html(newRowHtml);
 	newRow.addClass("ox-display-none"); 
 	var table = currentRow.parent().parent();	

@@ -222,6 +222,8 @@ abstract public class ModuleTestBase extends TestCase {
 				}				
 			}
 			else {
+				System.out.println("[ModuleTestBase.setFormValue] input.name=" + input.getAttribute("name")); // tmr
+				System.out.println("[ModuleTestBase.setFormValue] hasOnChange(input)=" + hasOnChange(input)); // tmr
 				input.setValue(value);				
 			}
 			if (hasOnChange(input) || alwaysThrowChangedEvent) {
@@ -230,12 +232,13 @@ abstract public class ModuleTestBase extends TestCase {
 			}
 		}
 		catch (org.htmlunit.ElementNotFoundException ex) {
-			try {							
-				HtmlSelect select = getSelectByName(id); 
+			try {	
+				HtmlSelect select = getSelectByName(id);
 				assertNotDisable(name, select);
 				select.setSelectedAttribute(value, true);
 				select.blur(); 
-				refreshNeeded = !Is.emptyString(select.getOnChangeAttribute()); // tmr OnChange no tiene valor nunca
+				// tmr refreshNeeded = !Is.emptyString(select.getOnChangeAttribute()); 
+				refreshNeeded = hasOnChange(select);
 			}
 			catch (org.htmlunit.ElementNotFoundException ex2) {
 				HtmlTextArea textArea = getTextAreaByName(id); 
@@ -246,10 +249,12 @@ abstract public class ModuleTestBase extends TestCase {
 				}
 				else textArea.setText(value);
 				
-				refreshNeeded = !Is.emptyString(textArea.getOnChangeAttribute()); // tmr onchange no tiene valor nunca
+				// tmr refreshNeeded = !Is.emptyString(textArea.getOnChangeAttribute()); // tmr 
+				refreshNeeded = hasOnChange(textArea); // tmr
 			}
 		}		
 		if (refreshIfNeeded && refreshNeeded) {			
+			System.out.println("[ModuleTestBase.setFormValue] Refreshing page"); // tmr
 			refreshPage();			
 		}
 	}
@@ -265,7 +270,10 @@ abstract public class ModuleTestBase extends TestCase {
 	
 	private boolean hasOnChange(HtmlElement el) { // tmr
 		String cssClass = el.getAttribute("class");
-		if (cssClass != null && cssClass.contains("xava_onchange")) return true;
+		if (cssClass != null) {
+			if (cssClass.contains("xava_onchange")) return true;
+			if (cssClass.contains("xava_combo_condition_value") && XavaPreferences.getInstance().isFilterOnChange()) return true;
+		}		
 		DomNode parent = el.getParentNode();
 		if (parent instanceof HtmlElement) return hasOnChange((HtmlElement) parent);
 		return false;
@@ -596,7 +604,6 @@ abstract public class ModuleTestBase extends TestCase {
 	 * Execute the action clicking in the link or button.
 	 */
 	protected void execute(String action) throws Exception {
-		System.out.println("[ModuleTestBase.execute] action=" + action); // tmr
 		waitUntilPageIsLoaded(); // Needed when a setValue() before throws an onchange action (not easily reproducible, depend on performance)
 		throwChangeOfLastNotNotifiedProperty();		
 		if (page.getElementsByName(Ids.decorate(application, module, ACTION_PREFIX + "." + action)).size() > 1) { // Action of list/collection
@@ -729,9 +736,12 @@ abstract public class ModuleTestBase extends TestCase {
 		// tmr ini
 		for (Iterator it = page.getAnchors().iterator(); it.hasNext(); ) {			
 			HtmlAnchor anchor = (HtmlAnchor) it.next();
+			if (!getMetaModule().getName().equals(anchor.getAttribute("data-module"))) continue;
 			if (action.equals(anchor.getAttribute("data-action"))) {
-				if (arguments == null) return anchor; // 'ReferenceSearch.choose'
+				if (arguments == null && Is.emptyString(anchor.getAttribute("data-argv"))) return anchor; // 'ReferenceSearch.choose'
+				if (arguments == null) continue;
 				if (arguments.equals(anchor.getAttribute("data-argv"))) return anchor; // 'List.viewDetail', 'row=0'
+				if (("," + arguments).equals(anchor.getAttribute("data-argv"))) return anchor; // 'List.filter', ',collection=deliveryPlaces'
 			}
 		}		
 		// tmr fin

@@ -52,7 +52,13 @@ public class ButtonTag extends ActionTagBase {
 			// tmr fin
 
 			pageContext.getOut().print("' value='");
-			pageContext.getOut().print(filterApostrophes(metaAction.getLabel(request))); 
+			pageContext.getOut().print(filterApostrophes(metaAction.getLabel(request)));
+			// tmr ini
+			pageContext.getOut().print("' data-application='");
+			pageContext.getOut().print(application);
+			pageContext.getOut().print("' data-module='");
+			pageContext.getOut().print(module);
+			// tmr fin
 			pageContext.getOut().print("' data-confirm-message='");
 			pageContext.getOut().print(filterApostrophes(metaAction.getConfirmMessage(request)));
 			pageContext.getOut().print("' data-takes-long='");
