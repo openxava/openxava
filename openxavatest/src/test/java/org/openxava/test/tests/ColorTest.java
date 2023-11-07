@@ -36,7 +36,7 @@ public class ColorTest extends ModuleTestBase {
 
 		assertNoAction("ColorSub.fourAction");
 		execute("ColorSub.firstAction");
-		assertDialog();
+		assertDialog(); // TMR FALLA
 		closeDialog();
 		execute("List.viewDetail", "row=0");
 		assertAction("ColorSub.fourAction");
@@ -212,7 +212,7 @@ public class ColorTest extends ModuleTestBase {
 	}
 	
 	public void testKeysWithZeroValue_actionsTooltips() throws Exception { 
-		assertLinkTooltip("Color.seeMessageSelected", "See message selected"); 
+		assertLinkTooltip("Color.seeMessageSelected", "See message selected"); // TMR FALLA
 		assertValueInList(0, "number", "0");
 		assertValueInList(0, "name", "ROJO");
 		execute("List.viewDetail", "row=0");
@@ -342,7 +342,7 @@ public class ColorTest extends ModuleTestBase {
 	public void testShowActionOnlyInEachRow() throws Exception{
 		// confirmMessage with row
 		String html = getHtml();
-		assertTrue(html.contains("Delete record on row 2: Are you sure?")); 
+		assertTrue(html.contains("Delete record on row 2: Are you sure?")); // TMR FALLA
 		
 		// action with mode=NONE: it display only in each row
 		assertAction("CRUD.deleteRow");

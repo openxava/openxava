@@ -158,7 +158,7 @@ abstract public class ModuleTestBase extends TestCase {
 		setFormValue(name, value, false);
 	}
 	
-	private void setFormValueAlwaysThrowChangedEvent(String name, String value) throws Exception { 
+	private void setFormValueAlwaysThrowChangedEvent(String name, String value) throws Exception { // tmr Quitar
 		setFormValue(name, value, true, true, true);
 	}	
 	
@@ -222,8 +222,6 @@ abstract public class ModuleTestBase extends TestCase {
 				}				
 			}
 			else {
-				System.out.println("[ModuleTestBase.setFormValue] input.name=" + input.getAttribute("name")); // tmr
-				System.out.println("[ModuleTestBase.setFormValue] hasOnChange(input)=" + hasOnChange(input)); // tmr
 				input.setValue(value);				
 			}
 			if (hasOnChange(input) || alwaysThrowChangedEvent) {
@@ -272,7 +270,9 @@ abstract public class ModuleTestBase extends TestCase {
 		String cssClass = el.getAttribute("class");
 		if (cssClass != null) {
 			if (cssClass.contains("xava_onchange")) return true;
-			if (cssClass.contains("xava_combo_condition_value") && XavaPreferences.getInstance().isFilterOnChange()) return true;
+			if (XavaPreferences.getInstance().isFilterOnChange()) {
+				if (cssClass.contains("xava_combo_condition_value") || cssClass.contains("xava_comparator")) return true;
+			}
 		}		
 		DomNode parent = el.getParentNode();
 		if (parent instanceof HtmlElement) return hasOnChange((HtmlElement) parent);
@@ -736,7 +736,7 @@ abstract public class ModuleTestBase extends TestCase {
 		// tmr ini
 		for (Iterator it = page.getAnchors().iterator(); it.hasNext(); ) {			
 			HtmlAnchor anchor = (HtmlAnchor) it.next();
-			if (!getMetaModule().getName().equals(anchor.getAttribute("data-module"))) continue;
+			if (!module.equals(anchor.getAttribute("data-module"))) continue;
 			if (action.equals(anchor.getAttribute("data-action"))) {
 				if (arguments == null && Is.emptyString(anchor.getAttribute("data-argv"))) return anchor; // 'ReferenceSearch.choose'
 				if (arguments == null) continue;
@@ -1173,11 +1173,12 @@ abstract public class ModuleTestBase extends TestCase {
 	private void setCollectionCondition(String id, String[] values) throws Exception {
 		for (int i=0; i<values.length; i++) {
 			try {
+				/* tmr Quitar este comentario
 				// A bit Ad Hoc, because we assume that filtering fields have always onchange events, 
 				// if that changes this will not be real, but we have no option
 				// since HtmlUnit 2.32 stopped to react to change events on inputs
 				// setFormValueAlwaysThrowChangedEvent(id + "." + i, values[i]); // Until 6.4.2, in 6.5 filtering fields no longer throw change events
-
+				*/
 				setFormValue(id + "." + i, values[i]);  
 			}
 			catch (org.htmlunit.ElementNotFoundException ex) {

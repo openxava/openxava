@@ -55,7 +55,7 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		execute("AddColumns.restoreDefault");
 		*/
 				
-		assertTotalUpdatedWhenDependsPropertyChanged(); 
+		assertTotalUpdatedWhenDependsPropertyChanged(); // TMR FALLA
 	}
 	
 	private void assertTotalUpdatedWhenDependsPropertyChanged() throws Exception {  
@@ -83,7 +83,7 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		execute("List.sumColumn", "property=quantity,collection=details");
 		assertTotalsInFrameOfCollection("details", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 400.00    Total: 2,900.00    Sum of Quantity: 150", false);          
 		execute("List.removeColumnSum", "property=quantity,collection=details");
-		assertTotalsInFrameOfCollection("calculatedDetails", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 400.00    Total: 2,900.00", true);  
+		assertTotalsInFrameOfCollection("calculatedDetails", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 400.00    Total: 2,900.00", true); // TMR FALLA  
 		
 		// Calling to a collection action does not show the header
 		HtmlElement header = getHtmlPage().getHtmlElementById("ox_openxavatest_InvoiceDetailsWithTotals__frame_detailsheader"); 

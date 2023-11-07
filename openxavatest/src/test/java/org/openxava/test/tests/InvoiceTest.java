@@ -1113,7 +1113,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 
 		// Always starts with 20
 		execute("List.addColumns");
-		assertCollectionRowCount("xavaPropertiesList", 20); 
+		assertCollectionRowCount("xavaPropertiesList", 20); // TMR FALLA
 	}
 	
 	public void testCustomizeListSearchColumns_customizeListPressEnterWithoutChoosingColumns() throws Exception {   
@@ -1143,7 +1143,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertAction("AddColumns.showMoreColumns");
 		
 		execute("AddColumns.showMoreColumns");		
-		assertCollectionRowCount("xavaPropertiesList", 116);  
+		assertCollectionRowCount("xavaPropertiesList", 116);  // TMR FALLA
 		searchBox = getHtmlPage().getHtmlElementById("xava_search_columns_text");
 		searchBox.type("DISCOUNT");
 		assertEquals("DISCOUNT", searchBox.getValue()); 
@@ -2178,7 +2178,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("ListFormat.select", "editor=Charts");
 		assertNoAction("CRUD.deleteSelected"); 
 		assertNoDialog(); 
-		assertChartTypeLink("BAR"); 
+		assertChartTypeLink("BAR"); // TMR FALLA
 		assertChartTypeLink("LINE");
 		assertChartTypeLink("PIE");
 		assertValue("xColumn", "year");

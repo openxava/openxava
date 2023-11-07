@@ -3,10 +3,9 @@ package org.openxava.test.tests;
 import java.util.*;
 import java.util.prefs.*;
 
+import org.htmlunit.html.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
-
-import org.htmlunit.html.*;
 
 /**
  * This test case verifies the @Collapsed annotation applied to 
@@ -58,7 +57,7 @@ public abstract class CollapsedMemberTestBase extends ModuleTestBase {
 		reload();
 	}
 	
-	public void testCollapsedMember() throws Exception { 
+	public void testCollapsedMember() throws Exception { // TMR FALLA
 		//step 1: ensures that a @Collapsed reference view is hidden 
 		//on module initialization for the first time.
 		waitForSafeSynchronization();
@@ -67,8 +66,15 @@ public abstract class CollapsedMemberTestBase extends ModuleTestBase {
 		
 		//step 2: checks that after clicking on expansion icon the frame
 		//changes to opened.
+		/* tmr
 		HtmlElement expansionIcon= HtmlUnitUtils.getAnchor(getHtmlPage(),  
 				"javascript:openxava.showFrame('" + getFrameId() + "')");
+		*/
+		// tmr ini
+		List<HtmlElement> expansionIcons = getHtmlPage().getBody().getElementsByAttribute("a", "class", "xava_show_frame");
+		assertEquals(1, expansionIcons.size());
+		HtmlElement expansionIcon = expansionIcons.get(0);
+		// tmr fin
 		expansionIcon.click();		
 		waitForSafeSynchronization();
 		assertFrameHtmlStatus(false);

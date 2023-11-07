@@ -328,7 +328,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		HtmlElement input = row1.getElementsByTagName("input").get(1);
 		assertEquals("ox_openxavatest_Quote__details___1___product___number", input.getAttribute("id"));
 		HtmlElement searchActionLink = row1.getElementsByTagName("a").get(1);
-		assertEquals("javascript:openxava.executeAction('openxavatest', 'Quote', '', false, 'Reference.search', 'keyProperty=details.1.product.number')", HtmlUnitUtils.getHrefAttribute(searchActionLink));  
+		assertEquals("javascript:openxava.executeAction('openxavatest', 'Quote', '', false, 'Reference.search', 'keyProperty=details.1.product.number')", HtmlUnitUtils.getHrefAttribute(searchActionLink)); // TMR FALLA  
 	}
 	
 	private void removeRow(int row) throws Exception { 

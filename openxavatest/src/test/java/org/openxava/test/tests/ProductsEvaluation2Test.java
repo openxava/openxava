@@ -57,7 +57,8 @@ public class ProductsEvaluation2Test extends ModuleTestBase {
 		assertValidValuesInCollection("evaluations", 1, "product.number", softwareValues); 
 		
 		HtmlElement productElement = getHtmlPage().getHtmlElementById("ox_openxavatest_ProductsEvaluation2__reference_editor_evaluations___0___product");
-		HtmlElement actionLink = productElement.getOneHtmlElementByAttribute("a", "class", "ox-image-link"); // TMR FALLA 
+		// tmr HtmlElement actionLink = productElement.getOneHtmlElementByAttribute("a", "class", "ox-image-link");  
+		HtmlElement actionLink = productElement.getOneHtmlElementByAttribute("a", "class", "xava_action ox-image-link"); // tmr
 		assertFalse(actionLink.isDisplayed());
 	}
 	

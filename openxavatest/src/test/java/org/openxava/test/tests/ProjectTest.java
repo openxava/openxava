@@ -156,7 +156,7 @@ public class ProjectTest extends ModuleTestBase {
 		link.click();
 		waitAJAX();
 		
-		assertValue("name", "PETER"); // TMR FALLA 
+		assertValue("name", "PETER"); 
 		closeDialog();
 		
 		moveRow("members", 1, 0);

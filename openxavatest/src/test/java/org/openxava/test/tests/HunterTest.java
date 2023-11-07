@@ -22,7 +22,7 @@ public class HunterTest extends ModuleTestBase {
 		assertListRowCount(1);
 		execute("List.viewDetail", "row=0");
 		assertValue("name", "DE ALFORJA");
-		assertCollectionRowCount("hounds", 1); 
+		assertCollectionRowCount("hounds", 1); // TMR FALLA
 		execute("Collection.removeSelected", 
 			"row=0,viewObject=xava_view_section0_hounds");
 		assertError("It's required at least 1 element in Hounds of Hunter");
@@ -38,7 +38,7 @@ public class HunterTest extends ModuleTestBase {
 		assertError("More than 2 items in Hounds of Hunter are not allowed");
 		uncheckAll();		
 		execute("AddToCollection.add", "row=1");
-		assertMessage("1 element(s) added to Hounds of Hunter"); 
+		assertMessage("1 element(s) added to Hounds of Hunter"); // TMR FALLA
 		execute("Collection.add", "viewObject=xava_view_section0_hounds");
 		execute("AddToCollection.add", "row=3");
 		assertError("More than 2 items in Hounds of Hunter are not allowed");
@@ -54,7 +54,7 @@ public class HunterTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		execute("Collection.add", "viewObject=xava_view_section0_hounds");
 		execute("AddToCollection.add", "row=1");
-		assertCollectionRowCount("hounds", 2);
+		assertCollectionRowCount("hounds", 2); // TMR FALLA
 		
 		assertFalse(isNotVisibleConditionValue(0)); 
 		assertFalse(isNotVisibleConditionValue(2));
@@ -92,7 +92,7 @@ public class HunterTest extends ModuleTestBase {
 		setConditionComparators("hounds", new String [] {"not_empty_comparator"});		
 		// execute("List.filter", "collection=hounds");
 		assertCollectionRowCount("hounds", 2);
-		assertTrue(isNotVisibleConditionValue(0));
+		assertTrue(isNotVisibleConditionValue(0)); // TMR FALLA
 		
 		// Filter Date
 		setConditionComparators("hounds", new String [] {"=", "=", "not_empty_comparator"});
@@ -112,7 +112,7 @@ public class HunterTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		execute("Collection.add", "viewObject=xava_view_section0_hounds");
 		execute("AddToCollection.add", "row=2");
-		assertErrorsCount(2); // If it fails maybe we have to adjust the bird date of OTTERHOUND 
+		assertErrorsCount(2); // If it fails maybe we have to adjust the bird date of OTTERHOUND // TMR FALLA
 		assertError("Untrained OTTERHOUND, less than 2 years old");
 		execute("AddToCollection.cancel");
 		assertCollectionRowCount("hounds", 1);
