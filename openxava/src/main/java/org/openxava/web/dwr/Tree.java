@@ -33,12 +33,7 @@ public class Tree extends DWRBase {
 		Tab tab = tab2.clone();
 		View view = getView(request, application, module);
 		View collectionView = view.getSubview(collectionName);
-		System.out.println(collectionView.getMetaModel().getQualifiedName());
-		System.out.println(collectionName);
-		View tabCollectionView2 = tab2.getCollectionView();
-		System.out.println("1.2 " + tabCollectionView2.getModelName());
 		View tabCollectionView = tab.getCollectionView();
-		System.out.println("1.2 " + tabCollectionView.getModelName());
 		JSONArray jsonArray = new JSONArray();
 		String pathProperty = "path";
 		String pathSeparator = "/";
@@ -48,34 +43,24 @@ public class Tree extends DWRBase {
 
 		// tab = collectionView.getCollectionTab().clone();
 		String[] propertiesNow = tab.getPropertiesNamesAsString().split(",");
-		System.out.println("1");
-		System.out.println(Arrays.toString(propertiesNow));
 		MetaCollection mc = collectionView.getMetaCollection();
 		String order = mc.getOrder();
 		// String order = "";
 		String[] oSplit = !order.isEmpty() ? order.replaceAll("\\$\\{|\\}", "").split(", ") : new String[0];
 		List<String> keysList = new ArrayList<>(tab.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
-		System.out.println("1.1");
 		Map<String, Object> propertiesMap = new HashMap<>();
 		// View tabCollectionView = tab.getCollectionView();
-		System.out.println("1.2 " + tabCollectionView.getModelName());
+
 		View parentView = tabCollectionView.getParent();
-		System.out.println("1.22 " + parentView.getModelName());
 		MetaView metaView = parentView.getMetaModel().getMetaView(parentView.getViewName());
-		System.out.println("1.3");
 		MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
 		org.openxava.annotations.Tree tree = metaCollectionView.getPath();
-
-		System.out.println("2");
-
 		boolean initialState = true;
+		
 		if (tree != null) {
 			pathProperty = tree.pathProperty() != null ? tree.pathProperty() : "path";
 			pathSeparator = tree.pathSeparator() != null ? tree.pathSeparator() : "/";
 			idProperties = tree.idProperties() != null ? tree.idProperties() : "";
-			System.out.println(tree.orderIncrement());
-			System.out.println(idProperties);
-			System.out.println(tree.initialExpandedState());
 			orderIncrement = tree.orderIncrement() != 2 ? tree.orderIncrement() : 2;
 			initialState = tree.initialExpandedState();
 		}
@@ -86,8 +71,8 @@ public class Tree extends DWRBase {
 		propertiesMap.put("id", idProperties);
 		propertiesMap.put("orderIncrement", orderIncrement);
 		propertiesMap.put("order", oSplit);
+		
 		int count = 0;
-		System.out.println("3");
 		for (String element : oSplit) {
 			if (ArrayUtils.contains(propertiesNow, element))
 				continue;
@@ -102,7 +87,6 @@ public class Tree extends DWRBase {
 		if (keysList.size() < 2 && !ArrayUtils.contains(propertiesNow, keysList.get(0).toString())) {
 			tab.addProperty(0, keysList.get(0).toString());
 		}
-		System.out.println("4");
 		TableModel table = tab.getAllDataTableModel();
 		int tableSize = tab.getTableModel().getTotalSize();
 		int columns = table.getColumnCount();
@@ -128,18 +112,14 @@ public class Tree extends DWRBase {
 			}
 
 		}
-		System.out.println("5");
-		// System.out.println(propertiesMap);
-		// System.out.println(jsonArray);
 		// need parse path and properties
 		jsonArray = TreeViewParser.findChildrenOfNode("0", jsonArray, propertiesMap, false);
-		System.out.println(jsonArray.toString());
 		return jsonArray.toString();
 	}
 
 	public void updateNode(HttpServletRequest request, HttpServletResponse response, String application, String module,
-			String collectionName, String pathProperty, String newPath, List<String> rows, List<String> childRows)
-			throws NumberFormatException, XavaException, FinderException, RemoteException {
+			String collectionName, String idProperties, String pathProperty, String newPath, List<String> rows,
+			List<String> childRows) throws NumberFormatException, XavaException, FinderException, RemoteException {
 		System.out.println("update");
 		System.out.println(application);
 		System.out.println(module);
@@ -148,10 +128,15 @@ public class Tree extends DWRBase {
 		System.out.println(newPath);
 		System.out.println(rows);
 		System.out.println(childRows);
+		
+		//hay que actualizar el json luego de un cambio, porque el js no se actualiza
+		
+		
 		try {
 			initRequest(request, response, application, module);
 			View view = getView(request, application, module);
-			// String tabObject = "xava_collectionTab_" + collectionName;
+			String tabObject = "xava_collectionTab_" + collectionName;
+			Tab tab = getTab(request, application, module, tabObject);
 			View collectionView = view.getSubview(collectionName);
 			String modelName = collectionView.getMetaModel().getQualifiedName();
 
@@ -162,34 +147,59 @@ public class Tree extends DWRBase {
 			Map<String, String> parentOldValue = new HashMap<>();
 			List<String> parentsValues = new ArrayList<>();
 
+			System.out.println(1);
 			for (String row : rows) {
-				// Map keys = (Map) tab.getTableModel().getObjectAt(Integer.valueOf(row));
-				// System.out.println(keys2);
 				Map keys = (Map) collectionView.getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
 				parentOldValue = MapFacade.getValues(modelName, keys, pathMap);
-				parentsValues.add(parentOldValue.get(pathProperty));
+				System.out.println(parentOldValue);
+				// parentsValues.add(parentOldValue.get(pathProperty));
+				if (parentOldValue.get(pathProperty).equals("")) {
+					// case node drop as root
+					if (idProperties.equals("")) {
+						parentsValues.add(keys.get("id").toString());
+					} else {
+						// for multiple ids
+					}
+				} else {
+					System.out.println("parentValues");
+					parentsValues.add(parentOldValue.get(pathProperty));
+				}
+				System.out.println("reemplazar " + parentOldValue + " por " + values);
 				MapFacade.setValues(modelName, keys, values);
 			}
 			childRows.removeIf(rows::contains);
+			
+			System.out.println(2);
 			for (String row : childRows) {
 				Map keys = (Map) collectionView.getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
 				Map oldChildPathMap = MapFacade.getValues(modelName, keys, pathMap);
 				String childPathValue = (String) oldChildPathMap.get(pathProperty);
-				String newChildPath = "";
-		        for (String searchString : parentsValues) {
-		        	if (childPathValue.startsWith(searchString)) {
-		        		System.out.println(childPathValue);
-		        		childPathValue = childPathValue.replace(searchString, newPath);
-		        		break;
-		        	}
-		        }
+				for (String searchString : parentsValues) {
+					System.out.println(searchString);
+					System.out.println(childPathValue);
+					searchString = searchString.startsWith("/") ? searchString : "/" + searchString;
+					if (childPathValue.startsWith(searchString)) {
+						System.out.println("empieza");
+						System.out.println(searchString);
+						System.out.println(childPathValue);
+						System.out.println(newPath);
+						//childPathValue = childPathValue.substring(childPathValue.indexOf(searchString)-1);
+						childPathValue = childPathValue.replace(searchString, newPath);
+					} else if (childPathValue.contains(searchString)) {
+						System.out.println(childPathValue + " contiene " + searchString);
+						childPathValue = childPathValue.substring(childPathValue.indexOf(searchString)-1);
+					}
+					break;
+				}
 				Map<String, String> newValue = new HashMap<>();
 				newValue.put(pathProperty, childPathValue);
 				System.out.println(childPathValue);
 				MapFacade.setValues(modelName, keys, newValue);
 			}
 
-		} finally {
+		} finally
+
+		{
 			cleanRequest();
 		}
 
@@ -223,10 +233,5 @@ public class Tree extends DWRBase {
 		view.setRequest(request);
 		return view;
 	}
-
-//	public String getTreeView(HttpServletRequest request, HttpServletResponse response,
-//			String application, String module) {
-//		return getView(request, application, module).getMetaModel().getQualifiedName();
-//	}
 
 }

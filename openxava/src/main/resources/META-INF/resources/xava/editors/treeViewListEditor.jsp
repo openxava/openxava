@@ -62,21 +62,15 @@ MetaView metaView = rootView.getMetaModel().getMetaView(rootView.getViewName());
 MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
 Tree tree = metaCollectionView.getPath();
 String pathProperty = "path";
+String idProperties = "";
 if (tree != null) {
-	pathProperty = tree.pathProperty() != null ? tree.pathProperty() : "path";
+	pathProperty = tree.pathProperty() != null ? tree.pathProperty() : "path"; 
+	idProperties = tree.idProperties() != null ? tree.idProperties() : "";
 }
 
 if(!Is.empty(key)){
-	
 %>
-	<xava:action action="<%=metaTreeViewActions.getUpAction()%>" argv="<%=actionArg%>" />
-	<xava:action action="<%=metaTreeViewActions.getDownAction()%>" argv="<%=actionArg%>" />
-	<xava:action action="<%=metaTreeViewActions.getLeftAction()%>" argv="<%=actionArg%>" />
-	<xava:action action="<%=metaTreeViewActions.getRightAction()%>" argv="<%=actionArg%>" />
-	<div id = "tree_<%=collectionName%>" class="ygtv-checkbox" >
-	</div>
 
-	
 	<div id = "openxavaInput_<%=collectionName%>" class="ox-tree-collection">
 		<table id = "<%=tableId%>" name="treeTable_<%=collectionName%>">
 			<tbody id = "<%=tableId%>_body" >
@@ -121,73 +115,10 @@ if(!Is.empty(key)){
 	data-xava-id="<%=xavaId%>"
 	data-path-property="<%=pathProperty%>"
 	data-table-id="<%=tableId%>"
-	data-prefix="<%=prefix%>">
+	data-prefix="<%=prefix%>"
+	data-id-properties="<%=idProperties%>"
 	</div>
 
-	<script type="text/javascript" <xava:nonce/>>
-		$(document).ready(function(){
-			var tree_<%=collectionName%> = {};
-			tree_<%=collectionName%>.tree = <%=javaScriptCode%>
-			tree_<%=collectionName%>.suppress = false; // this will prevent collapse/expand when clicking on label
-			tree_<%=collectionName%>.loading = true; // this will prevent collapse/expand when loading
-			tree_<%=collectionName%>.tree.render();
-			tree_<%=collectionName%>.loading = false;
-			
-			tree_<%=collectionName%>.tree.subscribe("clickEvent", function(args) {
-				tree_<%=collectionName%>.suppress=true;
-				tree_<%=collectionName%>.tree.onEventToggleHighlight(args);
-				node = args["node"];
-				nodeIndex = node.data;
-				var actionWithArgs = "row=" + nodeIndex  + "<%=actionArgv%>";
-				
-				// syncronize state with openxava hidden input item
-				var htmlInput = document.getElementById("<%=xavaId%>" + node.data);
-				if (htmlInput != null) {
-					if (node.highlightState == 1){
-						htmlInput.checked = true;
-					} else {
-						htmlInput.checked = false;
-					}
-				}
-			});
-			
-			tree_<%=collectionName%>.tree.subscribe("dblClickEvent", function(args) {
-				node = args["node"];
-				tree_<%=collectionName%>.suppress=true; 
-				var actionWithArgs = "row=" + (node.data)  + "<%=actionArgv%>";
-				console.log("jsp");
-				console.log('<%=request.getParameter("application")%>');
-				console.log('<%=request.getParameter("module")%>');
-				console.log('<%=action%>');
-				console.log(actionWithArgs);
-				openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', "", false, '<%=action%>', actionWithArgs);
-			});
-	
-			tree_<%=collectionName%>.tree.subscribe("expand", function(node) {
-				if (tree_<%=collectionName%>.suppress) {
-					tree_<%=collectionName%>.suppress = false;
-					return false;
-				}
-				if (!tree_<%=collectionName%>.loading) {
-					var actionWithArgs = "row=" + (node.data)  + "<%=actionArgv%>";
-					openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', "", false, 'TreeView.expand', actionWithArgs);
-				}
-			});
-	
-			tree_<%=collectionName%>.tree.subscribe("collapse", function(node) {
-				if (tree_<%=collectionName%>.suppress || tree_<%=collectionName%>.loading) {
-					tree_<%=collectionName%>.suppress = false;
-					return false;
-				}
-				if (!tree_<%=collectionName%>.loading) {
-					var actionWithArgs = "row=" + (node.data)  + "<%=actionArgv%>";
-					openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', "", false, 'TreeView.collapse', actionWithArgs);
-				}
-			});
-			
-		})
-	</script>
-	
 	<script type='text/javascript' <xava:nonce/> src='<%=contextPath%>/dwr/interface/Tree.js?ox=<%=version%>'>
 	</script>
 	<%
