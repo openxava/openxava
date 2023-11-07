@@ -103,8 +103,9 @@ console.log(data);
 			auxNode = ref.get_node(auxNode.parent);
 		}
 		newPath = "/" + parents.reverse().join('/');
+		
 	}
-	
+	console.log(newPath);
     Tree.updateNode(application, module, collectionName, idProperties, pathProperty, newPath, rows, childRows);
 });
 

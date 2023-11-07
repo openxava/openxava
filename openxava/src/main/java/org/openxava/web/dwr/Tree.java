@@ -18,7 +18,6 @@ import org.openxava.view.meta.*;
 import org.openxava.web.editors.*;
 
 import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.node.*;
 
 import lombok.*;
 
@@ -100,7 +99,7 @@ public class Tree extends DWRBase {
 				columnName.add(table.getColumnName(i));
 			}
 			for (int i = 0; i < tableSize; i++) {
-				ObjectNode elementNode = JsonNodeFactory.instance.objectNode();
+				//ObjectNode elementNode = JsonNodeFactory.instance.objectNode();
 				JSONObject jsonRow = new JSONObject();
 				for (int j = 0; j < propertiesNow.length; j++) {
 					Object value = table.getValueAt(i, j);
@@ -110,9 +109,7 @@ public class Tree extends DWRBase {
 				jsonRow.put("row", i);
 				jsonArray.put(jsonRow);
 			}
-
 		}
-		// need parse path and properties
 		jsonArray = TreeViewParser.findChildrenOfNode("0", jsonArray, propertiesMap, false);
 		return jsonArray.toString();
 	}
@@ -120,19 +117,10 @@ public class Tree extends DWRBase {
 	public void updateNode(HttpServletRequest request, HttpServletResponse response, String application, String module,
 			String collectionName, String idProperties, String pathProperty, String newPath, List<String> rows,
 			List<String> childRows) throws NumberFormatException, XavaException, FinderException, RemoteException {
-		System.out.println("update");
-		System.out.println(application);
-		System.out.println(module);
-		System.out.println(collectionName);
-		System.out.println(pathProperty);
-		System.out.println(newPath);
-		System.out.println(rows);
-		System.out.println(childRows);
-		
-		//hay que actualizar el json luego de un cambio, porque el js no se actualiza
-		
-		
 		try {
+			System.out.println(newPath);
+			System.out.println(rows);
+			System.out.println(childRows);
 			initRequest(request, response, application, module);
 			View view = getView(request, application, module);
 			String tabObject = "xava_collectionTab_" + collectionName;
@@ -147,59 +135,49 @@ public class Tree extends DWRBase {
 			Map<String, String> parentOldValue = new HashMap<>();
 			List<String> parentsValues = new ArrayList<>();
 
-			System.out.println(1);
 			for (String row : rows) {
 				Map keys = (Map) collectionView.getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
 				parentOldValue = MapFacade.getValues(modelName, keys, pathMap);
-				System.out.println(parentOldValue);
-				// parentsValues.add(parentOldValue.get(pathProperty));
+				System.out.println("parentOldValue");
+				System.out.println(parentOldValue); 
 				if (parentOldValue.get(pathProperty).equals("")) {
-					// case node drop as root
 					if (idProperties.equals("")) {
 						parentsValues.add(keys.get("id").toString());
 					} else {
 						// for multiple ids
 					}
 				} else {
-					System.out.println("parentValues");
 					parentsValues.add(parentOldValue.get(pathProperty));
 				}
-				System.out.println("reemplazar " + parentOldValue + " por " + values);
 				MapFacade.setValues(modelName, keys, values);
 			}
 			childRows.removeIf(rows::contains);
-			
-			System.out.println(2);
+			System.out.println("parentValues");
+			System.out.println(parentsValues); 
 			for (String row : childRows) {
 				Map keys = (Map) collectionView.getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
 				Map oldChildPathMap = MapFacade.getValues(modelName, keys, pathMap);
 				String childPathValue = (String) oldChildPathMap.get(pathProperty);
 				for (String searchString : parentsValues) {
-					System.out.println(searchString);
-					System.out.println(childPathValue);
 					searchString = searchString.startsWith("/") ? searchString : "/" + searchString;
+					System.out.println(childPathValue);
 					if (childPathValue.startsWith(searchString)) {
-						System.out.println("empieza");
-						System.out.println(searchString);
-						System.out.println(childPathValue);
-						System.out.println(newPath);
-						//childPathValue = childPathValue.substring(childPathValue.indexOf(searchString)-1);
-						childPathValue = childPathValue.replace(searchString, newPath);
+						if (!newPath.equals("")) {
+							childPathValue = newPath + childPathValue;
+						} else {
+							childPathValue = childPathValue.replace(searchString, newPath);
+						}
 					} else if (childPathValue.contains(searchString)) {
-						System.out.println(childPathValue + " contiene " + searchString);
+						System.out.println("contiene");
 						childPathValue = childPathValue.substring(childPathValue.indexOf(searchString)-1);
 					}
 					break;
 				}
 				Map<String, String> newValue = new HashMap<>();
 				newValue.put(pathProperty, childPathValue);
-				System.out.println(childPathValue);
 				MapFacade.setValues(modelName, keys, newValue);
 			}
-
-		} finally
-
-		{
+		} finally {
 			cleanRequest();
 		}
 
