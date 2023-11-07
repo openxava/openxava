@@ -85,22 +85,26 @@ console.log(data);
         });
     }
     var parentNode = ref.get_node(treeEditor.parentId);
-	var parents = parentNode.parents;
+	var parents = [];
 	console.log(parentNode);
 	var newPath = "";
+	var nextRoot = false;
+	var nodePathArray = [];
+
+
 	if (parentNode.id === "#") {
 		newPath = "";
 	} else {
-		if (parents.length > 0){
-			newPath = parents[0] === "#" ? parents.join('/') + ('/') + parentNode.id : parents.reverse().join('/') + ('/') + parentNode.id;
-		}else {
-			newPath = "/" + parentNode.id;
+		let auxNode = ref.get_node(parentNode.id);
+		while(!nextRoot){
+			nextRoot = (auxNode.parent === "#") ? true : false;
+			parents.push(auxNode.id);
+			console.log(auxNode.id);
+			auxNode = ref.get_node(auxNode.parent);
 		}
+		newPath = "/" + parents.reverse().join('/');
 	}
-	newPath = newPath.replace("#","");
 	
-	//var newPath = (parentNode.id === "#") ? "" : (parents.reverse().join('/') + parentNode.id).replace('#','');
-    //var newPath = (parentNode.id === "#") ? "" : parentNode.original.path + "/" + parentNode.original.id;
     Tree.updateNode(application, module, collectionName, idProperties, pathProperty, newPath, rows, childRows);
 });
 
