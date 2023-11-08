@@ -103,8 +103,6 @@ public class LinkTag extends ActionTagBase implements IActionTag {
 			else pageContext.getOut().print(" class='xava_action ");
 			if (!Is.emptyString(getCssClass())) pageContext.getOut().print(getCssClass());
 
-			pageContext.getOut().print("' value='");
-			pageContext.getOut().print(filterApostrophes(metaAction.getLabel(request)));
 			pageContext.getOut().print("' data-application='");
 			pageContext.getOut().print(application);
 			pageContext.getOut().print("' data-module='");

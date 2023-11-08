@@ -97,15 +97,13 @@ public class ImageTag extends ActionTagBase {
 			if (metaAction.isLosesChangedData()) pageContext.getOut().print(" class='xava_action_loses_changed_data ");
 			else pageContext.getOut().print(" class='xava_action ");			
 			if (!Is.emptyString(getCssClass()))	pageContext.getOut().print(getCssClass());
-
-			pageContext.getOut().print("' value='");
-			pageContext.getOut().print(filterApostrophes(metaAction.getLabel(request))); 
 			pageContext.getOut().print("' data-application='");
 			pageContext.getOut().print(application);
 			pageContext.getOut().print("' data-module='");
 			pageContext.getOut().print(module);
 			pageContext.getOut().print("' data-confirm-message='");
-			pageContext.getOut().print(filterApostrophes(metaAction.getConfirmMessage(request)));
+			if (!Is.empty(getArgv())) pageContext.getOut().print(filterApostrophes(metaAction.getConfirmMessage(request, getArgv())));	
+			else pageContext.getOut().print(filterApostrophes(metaAction.getConfirmMessage(request)));			
 			pageContext.getOut().print("' data-takes-long='");
 			pageContext.getOut().print(metaAction.isTakesLong());
 			pageContext.getOut().print("' data-action='");

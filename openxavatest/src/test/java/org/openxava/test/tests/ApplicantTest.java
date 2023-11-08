@@ -157,14 +157,9 @@ public class ApplicantTest extends ModuleTestBase {
 		
 		HtmlAnchor loadMoreModules = (HtmlAnchor) getHtmlPage().getHtmlElementById("more_modules").getParentNode();
 		
-		System.out.println("[ApplicantTest.testModulesMenu_help] >"); // tmr
 		loadMoreModules.click();
-		// TMR ME QUEDÉ POR AQUÍ. VA EN REAL PERO NO EL TEST. HE PROBADO ÚLTIMA VERSIÓN DE JUNIT Y USAR onclick()
-		// TMR   ¡OJO! HAY UN EVENTO EN naviox.js DESACTIVADO POR PRUEBAS
-		Thread.sleep(10000); // tmr
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		System.out.println("[ApplicantTest.testModulesMenu_help] <"); // tmr
-		assertModulesCount(61); // We have to adjust this when we add new modules that content "invoice" // TMR FALLA
+		assertModulesCount(61); // We have to adjust this when we add new modules that content "invoice" 
 		
 		
 		searchBox.type(" \b");
