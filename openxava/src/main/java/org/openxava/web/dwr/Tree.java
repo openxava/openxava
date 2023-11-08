@@ -8,9 +8,10 @@ import javax.servlet.http.*;
 import javax.swing.table.*;
 
 import org.apache.commons.lang3.*;
+import org.apache.commons.logging.*;
 import org.json.*;
+import org.openxava.jpa.*;
 import org.openxava.model.*;
-import org.openxava.model.meta.*;
 import org.openxava.tab.Tab;
 import org.openxava.util.*;
 import org.openxava.view.View;
@@ -23,72 +24,77 @@ import lombok.*;
 @Setter
 public class Tree extends DWRBase {
 
+	private static Log log = LogFactory.getLog(Tree.class);
+
 	public String getNodes(HttpServletRequest request, HttpServletResponse response, String application, String module,
 			String collectionName) throws Exception {
-		String tabObject = "xava_collectionTab_" + collectionName;
-		Tab tab2 = getTab(request, application, module, tabObject);
-		Tab tab = tab2.clone();
-		View view = getView(request, application, module);
-		View collectionView = view.getSubview(collectionName);
-		MetaView metaView = view.getMetaModel().getMetaView(view.getViewName());
-		MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
-		org.openxava.annotations.Tree tree = metaCollectionView.getPath();
-		String pathProperty = "path";
-		String pathSeparator = "/";
-		String idProperties = "";
-		 
-		if (tree != null) {
-			pathProperty = tree.pathProperty() != null ? tree.pathProperty() : "path";
-			pathSeparator = tree.pathSeparator() != null ? tree.pathSeparator() : "/";
-			idProperties = tree.idProperties() != null ? tree.idProperties() : "";
-		}
-		
-		String[] listProperties = metaCollectionView.getPropertiesListNamesAsString().split(",");
-		MetaCollection mc = collectionView.getMetaCollection();
-		String order = mc.getOrder();
-		String[] oSplit = !order.isEmpty() ? order.replaceAll("\\$\\{|\\}", "").split(", ") : new String[0];
-		List<String> keysList = new ArrayList<>(tab.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
-		Map<String, Object> propertiesMap = new HashMap<>();
+		try {
+			initRequest(request, response, application, module);
+			String tabObject = "xava_collectionTab_" + collectionName;
+			Tab tab2 = getTab(request, application, module, tabObject);
+			Tab tab = tab2.clone();
+			View view = getView(request, application, module);
+			View collectionView = view.getSubview(collectionName);
+			MetaView metaView = view.getMetaModel().getMetaView(view.getViewName());
+			MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
+			org.openxava.annotations.Tree tree = metaCollectionView.getPath();
+			String pathProperty = "path";
+			String pathSeparator = "/";
+			String idProperties = "";
 
-		propertiesMap.put("listProperties", listProperties);
-		propertiesMap.put("path", pathProperty);
-		propertiesMap.put("separator", pathSeparator);
-		propertiesMap.put("id", idProperties);
-
-		//alterando las propiedades del tab para traer los datos que necesito
-		tab.clearProperties();
-		//case multiple property
-		for (String element: listProperties) {
-			tab.addProperty(element);
-		}
-		//agregando id como orden 1 del tab
-		if (!ArrayUtils.contains(listProperties, pathProperty)) tab.addProperty(0, pathProperty);
-		
-		//agregando id como orden 0 del tab
-		if (keysList.size() < 2 && !ArrayUtils.contains(listProperties, keysList.get(0).toString())) {
-			tab.addProperty(0, keysList.get(0).toString());
-		}
-		
-		JSONArray jsonArray = new JSONArray();
-		TableModel table = tab.getAllDataTableModel();
-		int tableSize = tab.getTableModel().getTotalSize();
-		listProperties = tab.getPropertiesNamesAsString().split(",");
-
-		if (tableSize > 0) {
-			for (int i = 0; i < tableSize; i++) {
-				JSONObject jsonRow = new JSONObject();
-				for (int j = 0; j < listProperties.length; j++) {
-					Object value = table.getValueAt(i, j);
-					String propertyName = listProperties[j];
-					jsonRow.put(propertyName.toLowerCase(), value);
-				}
-				jsonRow.put("row", i);
-				jsonArray.put(jsonRow);
+			if (tree != null) {
+				pathProperty = tree.pathProperty() != null ? tree.pathProperty() : "path";
+				pathSeparator = tree.pathSeparator() != null ? tree.pathSeparator() : "/";
+				idProperties = tree.idProperties() != null ? tree.idProperties() : "";
 			}
-		}
 
-		jsonArray = TreeViewParser.findChildrenOfNode("0", jsonArray, propertiesMap, false);
-		return jsonArray.toString();
+			String[] listProperties = metaCollectionView.getPropertiesListNamesAsString().split(",");
+			String order = collectionView.getMetaCollection().getOrder();
+			String[] oSplit = !order.isEmpty() ? order.replaceAll("\\$\\{|\\}", "").split(", ") : new String[0];
+			List<String> keysList = new ArrayList<>(tab.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
+			Map<String, Object> propertiesMap = new HashMap<>();
+
+			propertiesMap.put("listProperties", listProperties);
+			propertiesMap.put("path", pathProperty);
+			propertiesMap.put("separator", pathSeparator);
+			propertiesMap.put("id", idProperties);
+
+			tab.clearProperties();
+			for (String element : listProperties) {
+				tab.addProperty(element);
+			}
+			if (!ArrayUtils.contains(listProperties, pathProperty))
+				tab.addProperty(0, pathProperty);
+			if (keysList.size() < 2 && !ArrayUtils.contains(listProperties, keysList.get(0).toString())) {
+				tab.addProperty(0, keysList.get(0).toString());
+			}
+
+			JSONArray jsonArray = new JSONArray();
+			TableModel table = tab.getAllDataTableModel();
+			int tableSize = tab.getTableModel().getTotalSize();
+			listProperties = tab.getPropertiesNamesAsString().split(",");
+
+			if (tableSize > 0) {
+				for (int i = 0; i < tableSize; i++) {
+					JSONObject jsonRow = new JSONObject();
+					for (int j = 0; j < listProperties.length; j++) {
+						Object value = table.getValueAt(i, j);
+						String propertyName = listProperties[j];
+						jsonRow.put(propertyName.toLowerCase(), value);
+					}
+					jsonRow.put("row", i);
+					jsonArray.put(jsonRow);
+				}
+			}
+
+			jsonArray = TreeViewParser.findChildrenOfNode("0", jsonArray, propertiesMap, false);
+			return jsonArray.toString();
+		} catch (Exception e) {
+			log.error(XavaResources.getString("cant_load_collection_as_tree", collectionName, module), e);
+			return "";
+		} finally {
+			cleanRequest();
+		}
 	}
 
 	public void updateNode(HttpServletRequest request, HttpServletResponse response, String application, String module,
@@ -132,12 +138,12 @@ public class Tree extends DWRBase {
 					pValue = pValue.startsWith("/") ? pValue : "/" + pValue;
 					if (childPathValue.startsWith(pValue)) {
 						if (!newPath.equals("")) {
-							childPathValue = newPath + childPathValue.replace(pValue,"");
+							childPathValue = newPath + childPathValue.substring(childPathValue.indexOf(pValue));
 						} else {
 							childPathValue = childPathValue.replace(pValue, newPath);
 						}
 					} else if (childPathValue.contains(pValue)) {
-						childPathValue = childPathValue.substring(childPathValue.indexOf(pValue)-1);
+						childPathValue = childPathValue.substring(childPathValue.indexOf(pValue) - 1);
 					}
 					break;
 				}
@@ -146,7 +152,11 @@ public class Tree extends DWRBase {
 				MapFacade.setValues(modelName, keys, pathValueMap);
 			}
 		} finally {
-			cleanRequest();
+			try {
+				XPersistence.commit();
+			} finally {
+				cleanRequest();
+			}
 		}
 
 	}

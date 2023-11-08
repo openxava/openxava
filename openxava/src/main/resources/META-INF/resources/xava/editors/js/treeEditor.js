@@ -11,7 +11,6 @@ treeEditor.initTree = function() {
             var module = oxTree.data("module");
             var collectionName = oxTree.data("collection-name");
 			var state = localStorage.getItem("xava_tree_state_" + collectionName);
-			
             Tree.getNodes(application, module, collectionName, function(array) {
                 var nodes = JSON.parse(array);
                 oxTree.jstree({
@@ -36,9 +35,7 @@ treeEditor.initTree = function() {
                         "key": "xava_tree_state_" + collectionName
                     },
                     "plugins": ["checkbox", "dnd", "state"]
-                }).on('loaded.jstree', function (){
-					if (state === null) $(this).jstree().open_all();
-				});
+                });
             });
         });
     }
@@ -49,7 +46,7 @@ $(document).on('dnd_stop.vakata', function(e, data) {
     var treeElement = data.data.origin.element[0];
     var ref;
     var oxTree;
-
+	
     var xavaTrees = $('.xava_tree');
     xavaTrees.each(function(index) {
         let xavaTreeClass = this.classList;
@@ -58,7 +55,9 @@ $(document).on('dnd_stop.vakata', function(e, data) {
             ref = oxTree.jstree(true);
         }
     });
-
+	
+	if (!oxTree[0].contains(data.event.target)) return;
+	
     var application = oxTree.data("application");
     var module = oxTree.data("module");
     var modelName = oxTree.data("model-name");
@@ -74,7 +73,6 @@ $(document).on('dnd_stop.vakata', function(e, data) {
         let node = ref.get_node(element);
         rows.push(node.original.row);
         node.children_d.forEach(function(childNodeId) {
-            console.log(childNodeId);
             allChilds.push(childNodeId);
         });
 
@@ -109,7 +107,6 @@ $(document).on('dnd_stop.vakata', function(e, data) {
 
 
 openxava.addEditorInitFunction(function() {
-    $(document).ready(function() {
         var oxTree;
         var tableElement;
         if (treeEditor.dialogOpen === true) {
@@ -150,6 +147,12 @@ openxava.addEditorInitFunction(function() {
                 }
             }
         });
+		
+		$('.xava_tree').on('loaded.jstree', function (){
+			var collectionName = $(this).data("collection-name");
+			var state = localStorage.getItem("xava_tree_state_" + collectionName);
+			if (state === null) $(this).jstree().open_all();
+		})
 
         const trElements = document.querySelectorAll('tr.ox-collection-list-actions a');
         trElements.forEach((aElement) => {
@@ -157,6 +160,4 @@ openxava.addEditorInitFunction(function() {
                 treeEditor.dialogOpen = true;
             });
         });
-
-    });
 });
