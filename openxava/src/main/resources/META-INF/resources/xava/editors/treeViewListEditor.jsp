@@ -63,9 +63,11 @@ MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectio
 Tree tree = metaCollectionView.getPath();
 String pathProperty = "path";
 String idProperties = "";
+boolean initialState = true;
 if (tree != null) {
 	pathProperty = tree.pathProperty() != null ? tree.pathProperty() : "path"; 
 	idProperties = tree.idProperties() != null ? tree.idProperties() : "";
+	initialState = tree.initialExpandedState();
 }
 
 if(!Is.empty(key)){
@@ -117,6 +119,7 @@ if(!Is.empty(key)){
 	data-table-id="<%=tableId%>"
 	data-prefix="<%=prefix%>"
 	data-id-properties="<%=idProperties%>"
+	data-initial-state="<%=initialState%>"
 	</div>
 
 	<script type='text/javascript' <xava:nonce/> src='<%=contextPath%>/dwr/interface/Tree.js?ox=<%=version%>'>

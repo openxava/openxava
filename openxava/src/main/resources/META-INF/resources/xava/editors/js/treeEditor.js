@@ -10,6 +10,8 @@ treeEditor.initTree = function() {
             var application = oxTree.data("application");
             var module = oxTree.data("module");
             var collectionName = oxTree.data("collection-name");
+			var state = localStorage.getItem("xava_tree_state_" + collectionName);
+			
             Tree.getNodes(application, module, collectionName, function(array) {
                 var nodes = JSON.parse(array);
                 oxTree.jstree({
@@ -17,7 +19,6 @@ treeEditor.initTree = function() {
                         "check_callback": function(operation, node, parent, position, more) {
                             if (operation === "move_node") {
                                 treeEditor.parentId = parent.id;
-								console.log(parent);
                                 return true;
                             }
                             return false;
@@ -35,7 +36,9 @@ treeEditor.initTree = function() {
                         "key": "xava_tree_state_" + collectionName
                     },
                     "plugins": ["checkbox", "dnd", "state"]
-                });
+                }).on('loaded.jstree', function (){
+					if (state === null) $(this).jstree().open_all();
+				});
             });
         });
     }
@@ -44,14 +47,13 @@ treeEditor.initTree = function() {
 $(document).on('dnd_stop.vakata', function(e, data) {
 	if (data.element === data.event.target) return;
     var treeElement = data.data.origin.element[0];
-    var treeClass = treeElement.classList;
     var ref;
     var oxTree;
-console.log(data);
+
     var xavaTrees = $('.xava_tree');
     xavaTrees.each(function(index) {
         let xavaTreeClass = this.classList;
-        if (xavaTreeClass === treeClass) {
+        if (xavaTreeClass === treeElement.classList) {
             oxTree = $(this);
             ref = oxTree.jstree(true);
         }
@@ -86,11 +88,10 @@ console.log(data);
     }
     var parentNode = ref.get_node(treeEditor.parentId);
 	var parents = [];
-	console.log(parentNode);
 	var newPath = "";
 	var nextRoot = false;
 	var nodePathArray = [];
-
+	var newPath2 = "";
 
 	if (parentNode.id === "#") {
 		newPath = "";
@@ -99,13 +100,10 @@ console.log(data);
 		while(!nextRoot){
 			nextRoot = (auxNode.parent === "#") ? true : false;
 			parents.push(auxNode.id);
-			console.log(auxNode.id);
+			newPath = "/" + auxNode.id + newPath; 
 			auxNode = ref.get_node(auxNode.parent);
 		}
-		newPath = "/" + parents.reverse().join('/');
-		
 	}
-	console.log(newPath);
     Tree.updateNode(application, module, collectionName, idProperties, pathProperty, newPath, rows, childRows);
 });
 
@@ -114,7 +112,6 @@ openxava.addEditorInitFunction(function() {
     $(document).ready(function() {
         var oxTree;
         var tableElement;
-
         if (treeEditor.dialogOpen === true) {
             oxTree = $('.xava_tree').first();
             let tableId = "#" + oxTree.data("table-id") + "__DISABLED__";

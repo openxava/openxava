@@ -17,8 +17,6 @@ import org.openxava.view.View;
 import org.openxava.view.meta.*;
 import org.openxava.web.editors.*;
 
-import com.fasterxml.jackson.databind.*;
-
 import lombok.*;
 
 @Getter
@@ -32,84 +30,63 @@ public class Tree extends DWRBase {
 		Tab tab = tab2.clone();
 		View view = getView(request, application, module);
 		View collectionView = view.getSubview(collectionName);
-		View tabCollectionView = tab.getCollectionView();
-		JSONArray jsonArray = new JSONArray();
+		MetaView metaView = view.getMetaModel().getMetaView(view.getViewName());
+		MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
+		org.openxava.annotations.Tree tree = metaCollectionView.getPath();
 		String pathProperty = "path";
 		String pathSeparator = "/";
 		String idProperties = "";
-		int orderIncrement = 2;
-		// need clone table for not alterate original tab
-
-		// tab = collectionView.getCollectionTab().clone();
-		String[] propertiesNow = tab.getPropertiesNamesAsString().split(",");
-		MetaCollection mc = collectionView.getMetaCollection();
-		String order = mc.getOrder();
-		// String order = "";
-		String[] oSplit = !order.isEmpty() ? order.replaceAll("\\$\\{|\\}", "").split(", ") : new String[0];
-		List<String> keysList = new ArrayList<>(tab.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
-		Map<String, Object> propertiesMap = new HashMap<>();
-		// View tabCollectionView = tab.getCollectionView();
-
-		View parentView = tabCollectionView.getParent();
-		MetaView metaView = parentView.getMetaModel().getMetaView(parentView.getViewName());
-		MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
-		org.openxava.annotations.Tree tree = metaCollectionView.getPath();
-		boolean initialState = true;
-		
+		 
 		if (tree != null) {
 			pathProperty = tree.pathProperty() != null ? tree.pathProperty() : "path";
 			pathSeparator = tree.pathSeparator() != null ? tree.pathSeparator() : "/";
 			idProperties = tree.idProperties() != null ? tree.idProperties() : "";
-			orderIncrement = tree.orderIncrement() != 2 ? tree.orderIncrement() : 2;
-			initialState = tree.initialExpandedState();
 		}
+		
+		String[] listProperties = metaCollectionView.getPropertiesListNamesAsString().split(",");
+		MetaCollection mc = collectionView.getMetaCollection();
+		String order = mc.getOrder();
+		String[] oSplit = !order.isEmpty() ? order.replaceAll("\\$\\{|\\}", "").split(", ") : new String[0];
+		List<String> keysList = new ArrayList<>(tab.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
+		Map<String, Object> propertiesMap = new HashMap<>();
 
-		propertiesMap.put("tabProperties", propertiesNow);
+		propertiesMap.put("listProperties", listProperties);
 		propertiesMap.put("path", pathProperty);
 		propertiesMap.put("separator", pathSeparator);
 		propertiesMap.put("id", idProperties);
-		propertiesMap.put("orderIncrement", orderIncrement);
-		propertiesMap.put("order", oSplit);
-		
-		int count = 0;
-		for (String element : oSplit) {
-			if (ArrayUtils.contains(propertiesNow, element))
-				continue;
-			if (element.equals(pathProperty)) {
-				tab.addProperty(0, element);
-				count = count == 0 ? 0 : count++;
-			} else {
-				tab.addProperty(count, element);
-				count++;
-			}
+
+		//alterando las propiedades del tab para traer los datos que necesito
+		tab.clearProperties();
+		//case multiple property
+		for (String element: listProperties) {
+			tab.addProperty(element);
 		}
-		if (keysList.size() < 2 && !ArrayUtils.contains(propertiesNow, keysList.get(0).toString())) {
+		//agregando id como orden 1 del tab
+		if (!ArrayUtils.contains(listProperties, pathProperty)) tab.addProperty(0, pathProperty);
+		
+		//agregando id como orden 0 del tab
+		if (keysList.size() < 2 && !ArrayUtils.contains(listProperties, keysList.get(0).toString())) {
 			tab.addProperty(0, keysList.get(0).toString());
 		}
+		
+		JSONArray jsonArray = new JSONArray();
 		TableModel table = tab.getAllDataTableModel();
 		int tableSize = tab.getTableModel().getTotalSize();
-		int columns = table.getColumnCount();
-		List<String> columnName = new ArrayList<>();
-		ObjectMapper objectMapper = new ObjectMapper();
-		List<Map<String, Object>> tableList = new ArrayList<>();
-		propertiesNow = tab.getPropertiesNamesAsString().split(",");
+		listProperties = tab.getPropertiesNamesAsString().split(",");
 
 		if (tableSize > 0) {
-			for (int i = 0; i < columns; i++) {
-				columnName.add(table.getColumnName(i));
-			}
 			for (int i = 0; i < tableSize; i++) {
-				//ObjectNode elementNode = JsonNodeFactory.instance.objectNode();
 				JSONObject jsonRow = new JSONObject();
-				for (int j = 0; j < propertiesNow.length; j++) {
+				for (int j = 0; j < listProperties.length; j++) {
 					Object value = table.getValueAt(i, j);
-					String propertyName = propertiesNow[j];
+					String propertyName = listProperties[j];
 					jsonRow.put(propertyName.toLowerCase(), value);
 				}
 				jsonRow.put("row", i);
 				jsonArray.put(jsonRow);
 			}
 		}
+
 		jsonArray = TreeViewParser.findChildrenOfNode("0", jsonArray, propertiesMap, false);
 		return jsonArray.toString();
 	}
@@ -118,64 +95,55 @@ public class Tree extends DWRBase {
 			String collectionName, String idProperties, String pathProperty, String newPath, List<String> rows,
 			List<String> childRows) throws NumberFormatException, XavaException, FinderException, RemoteException {
 		try {
-			System.out.println(newPath);
-			System.out.println(rows);
-			System.out.println(childRows);
 			initRequest(request, response, application, module);
 			View view = getView(request, application, module);
-			String tabObject = "xava_collectionTab_" + collectionName;
-			Tab tab = getTab(request, application, module, tabObject);
 			View collectionView = view.getSubview(collectionName);
 			String modelName = collectionView.getMetaModel().getQualifiedName();
 
-			Map<String, String> values = new HashMap<>();
-			values.put(pathProperty, newPath);
-			Map<String, String> pathMap = new HashMap<>();
-			pathMap.put(pathProperty, null);
-			Map<String, String> parentOldValue = new HashMap<>();
+			Map<String, String> pathIdMap = new HashMap<>();
+			pathIdMap.put(pathProperty, null);
+			Map<String, String> newPathValue = new HashMap<>();
+			newPathValue.put(pathProperty, newPath);
+
+			Map<String, String> pathValueMap = new HashMap<>();
 			List<String> parentsValues = new ArrayList<>();
 
 			for (String row : rows) {
 				Map keys = (Map) collectionView.getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
-				parentOldValue = MapFacade.getValues(modelName, keys, pathMap);
-				System.out.println("parentOldValue");
-				System.out.println(parentOldValue); 
-				if (parentOldValue.get(pathProperty).equals("")) {
+				pathValueMap = MapFacade.getValues(modelName, keys, pathIdMap);
+				if (pathValueMap.get(pathProperty).equals("")) {
 					if (idProperties.equals("")) {
 						parentsValues.add(keys.get("id").toString());
 					} else {
 						// for multiple ids
 					}
 				} else {
-					parentsValues.add(parentOldValue.get(pathProperty));
+					parentsValues.add(pathValueMap.get(pathProperty));
 				}
-				MapFacade.setValues(modelName, keys, values);
+				MapFacade.setValues(modelName, keys, newPathValue);
 			}
 			childRows.removeIf(rows::contains);
-			System.out.println("parentValues");
-			System.out.println(parentsValues); 
+
 			for (String row : childRows) {
 				Map keys = (Map) collectionView.getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
-				Map oldChildPathMap = MapFacade.getValues(modelName, keys, pathMap);
-				String childPathValue = (String) oldChildPathMap.get(pathProperty);
-				for (String searchString : parentsValues) {
-					searchString = searchString.startsWith("/") ? searchString : "/" + searchString;
-					System.out.println(childPathValue);
-					if (childPathValue.startsWith(searchString)) {
+				pathValueMap = MapFacade.getValues(modelName, keys, pathIdMap);
+				String childPathValue = (String) pathValueMap.get(pathProperty);
+				for (String pValue : parentsValues) {
+					pValue = pValue.startsWith("/") ? pValue : "/" + pValue;
+					if (childPathValue.startsWith(pValue)) {
 						if (!newPath.equals("")) {
-							childPathValue = newPath + childPathValue;
+							childPathValue = newPath + childPathValue.replace(pValue,"");
 						} else {
-							childPathValue = childPathValue.replace(searchString, newPath);
+							childPathValue = childPathValue.replace(pValue, newPath);
 						}
-					} else if (childPathValue.contains(searchString)) {
-						System.out.println("contiene");
-						childPathValue = childPathValue.substring(childPathValue.indexOf(searchString)-1);
+					} else if (childPathValue.contains(pValue)) {
+						childPathValue = childPathValue.substring(childPathValue.indexOf(pValue)-1);
 					}
 					break;
 				}
-				Map<String, String> newValue = new HashMap<>();
-				newValue.put(pathProperty, childPathValue);
-				MapFacade.setValues(modelName, keys, newValue);
+				pathValueMap.clear();
+				pathValueMap.put(pathProperty, childPathValue);
+				MapFacade.setValues(modelName, keys, pathValueMap);
 			}
 		} finally {
 			cleanRequest();
@@ -186,12 +154,8 @@ public class Tree extends DWRBase {
 	public List<Integer> toIntegerList(List<String> stringList) {
 		List<Integer> integerList = new ArrayList<>();
 		for (String str : stringList) {
-			try {
-				int num = Integer.parseInt(str);
-				integerList.add(num);
-			} catch (NumberFormatException e) {
-				System.err.println("Error al convertir: " + str);
-			}
+			int num = Integer.parseInt(str);
+			integerList.add(num);
 		}
 		return integerList;
 	}

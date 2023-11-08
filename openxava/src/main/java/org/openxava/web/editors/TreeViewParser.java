@@ -305,27 +305,32 @@ public class TreeViewParser {
         if (data.isEmpty()) return new JSONArray();
 		
 		JSONArray json = new JSONArray();
-        String mapId = (String) map.get("id");
+        String mapId = map.get("id").equals("") ? "id" : (String) map.get("id");
         String mapPath = (String) map.get("path");
-        String mapSeparator = (String) map.get("separator");
-        String[] mapOrder = (String[]) map.get("order");
-        String[] mapTabProperties = (String[]) map.get("tabProperties");
+        String[] listProperties = (String[]) map.get("listProperties");
 
         for (int i = 0; i < data.length(); i++) {
             JSONObject node = data.getJSONObject(i);
-            String id = node.get("id").toString();
+            String id = node.get(mapId).toString();
             String path = node.get(mapPath).toString();
-            String order = node.get("treeorder").toString();
-            String description = node.get("description").toString();
             String row = node.get("row").toString();
+            String description = "";
+            int c = 0;
+            for (String p : listProperties) {
+                String d = node.get(p).toString();
+                description += d;
+                if (c < listProperties.length - 1) {
+                    description += ", ";
+                }
+                c++;
+            }
             // usar doble if, primero verificar rootNodeFound y luego si el path es vacio o no.. asi se puede combinar con el codigo de !rootNodeFound && json.isEmpty() 
             if (path.equals("") && parentId.equals("0")) {
                 JSONObject rootNode = new JSONObject();
                 rootNode.put("id", id);
                 rootNode.put("path", path);
-                rootNode.put("text", description);
-                rootNode.put("order", order);
                 rootNode.put("row", row);
+                rootNode.put("text", description);
                 JSONArray childNodes = findChildrenOfNode(id, data, map, true);
                 if (childNodes.length() > 0) {
                     rootNode.put("children", childNodes);
@@ -335,10 +340,9 @@ public class TreeViewParser {
             } else if (path.endsWith("/" + parentId)) {
                 JSONObject childNode = new JSONObject();
                 childNode.put("id", id);
-                childNode.put("text", description);
                 childNode.put("path", path);
-                childNode.put("order", order);
                 childNode.put("row", row);
+                childNode.put("text", description);
                 JSONArray childNodes = findChildrenOfNode(id, data, map, rootNodeFound);
                 if (childNodes.length() > 0) {
                     childNode.put("children", childNodes);
@@ -350,16 +354,24 @@ public class TreeViewParser {
     	if (!rootNodeFound && json.isEmpty()) {
     		rootNodeFound = true;
     		JSONObject node = data.getJSONObject(0);
-            String id = node.get("id").toString();
+            String id = node.get(mapId).toString();
             String path = node.get(mapPath).toString();
-            String order = node.get("treeorder").toString();
-            String description = node.get("description").toString();
             String row = node.get("row").toString();
+            String description = "";
+            int c = 0;
+            for (String p : listProperties) {
+                String d = node.get(p).toString();
+                description += d;
+                if (c < listProperties.length - 1) {
+                    description += ", ";
+                }
+                c++;
+            }
+            
             JSONObject rootNode = new JSONObject();
             rootNode.put("id", id);
             rootNode.put("path", path);
             rootNode.put("text", description);
-            rootNode.put("order", order);
             rootNode.put("row", row);
             JSONArray childNodes = findChildrenOfNode(id, data, map, true);
             if (childNodes.length() > 0) {
