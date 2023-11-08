@@ -40,7 +40,8 @@ naviox.initModulesList = function() { // tmr
 	$('#modules_list_show, #module_header_menu_button').on( "click", function() {
 		naviox.showModulesList(naviox.application, naviox.module);
 	});		
-	$('#display_all_modules').on( "click", function() {
+	// tmr $('#display_all_modules').on( "click", function() {
+	$('#display_all_modules').off('click').click(function() { // tmr
 		console.log("[naviox.initModulesList] #display_all_modules"); // tmr
 		naviox.displayAllModulesList($(this).data("search-word"));
 	});

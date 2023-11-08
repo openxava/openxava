@@ -159,7 +159,7 @@ public class ApplicantTest extends ModuleTestBase {
 		
 		System.out.println("[ApplicantTest.testModulesMenu_help] >"); // tmr
 		loadMoreModules.click();
-		// TMR ME QUEDÉ POR AQUÍ. VA EN REAL PERO NO EL TEST. PROBAR CON ULTIMA VERSIN HTMLUNIT ANTES DE REESCRIBIR EL TEST
+		// TMR ME QUEDÉ POR AQUÍ. VA EN REAL PERO NO EL TEST. HE PROBADO ÚLTIMA VERSIÓN DE JUNIT Y USAR onclick()
 		// TMR   ¡OJO! HAY UN EVENTO EN naviox.js DESACTIVADO POR PRUEBAS
 		Thread.sleep(10000); // tmr
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
