@@ -26,10 +26,13 @@ naviox.initModulesList = function() { // tmr
 	$('#modules_list_core .module-row').on( "click", function() {
   		$(this).find(".module-loading").show();
 	});
+	/* tmr
 	$('#more_modules').on( "click", function() {
+		console.log("[naviox.initModulesList] #more_modules"); // tmr
 		$('#loading_more_modules').show(); 
 		$('#load_more_modules').hide();
 	});
+	*/
 	// tmr ini
 	$('#modules_list_hide').on( "click", function() {
 		naviox.hideModulesList(naviox.application, naviox.module);
@@ -38,6 +41,7 @@ naviox.initModulesList = function() { // tmr
 		naviox.showModulesList(naviox.application, naviox.module);
 	});		
 	$('#display_all_modules').on( "click", function() {
+		console.log("[naviox.initModulesList] #display_all_modules"); // tmr
 		naviox.displayAllModulesList($(this).data("search-word"));
 	});
 	// tmr fin

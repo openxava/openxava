@@ -156,8 +156,14 @@ public class ApplicantTest extends ModuleTestBase {
 		assertFirstModuleInMenu("Accounting invoices");  
 		
 		HtmlAnchor loadMoreModules = (HtmlAnchor) getHtmlPage().getHtmlElementById("more_modules").getParentNode();
+		
+		System.out.println("[ApplicantTest.testModulesMenu_help] >"); // tmr
 		loadMoreModules.click();
+		// TMR ME QUEDÉ POR AQUÍ. VA EN REAL PERO NO EL TEST. PROBAR CON ULTIMA VERSIN HTMLUNIT ANTES DE REESCRIBIR EL TEST
+		// TMR   ¡OJO! HAY UN EVENTO EN naviox.js DESACTIVADO POR PRUEBAS
+		Thread.sleep(10000); // tmr
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
+		System.out.println("[ApplicantTest.testModulesMenu_help] <"); // tmr
 		assertModulesCount(61); // We have to adjust this when we add new modules that content "invoice" // TMR FALLA
 		
 		
