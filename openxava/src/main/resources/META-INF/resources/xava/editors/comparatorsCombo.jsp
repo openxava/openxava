@@ -41,6 +41,8 @@ String idConditionValue = request.getParameter("idConditionValue");
 String idConditionValueTo = request.getParameter("idConditionValueTo");
 String propertyKey = request.getParameter("comparatorPropertyKey"); 
 String name = null;
+String collection = request.getParameter("collection"); // tmr
+String collectionArgv = Is.emptyString(collection)?"":"collection="+collection; // tmr
 String script = null; // tmr quitar
 if (propertyKey == null) {
 	int index = Integer.parseInt(request.getParameter("index"));
@@ -76,7 +78,8 @@ else {
 <%-- tmr ini --%>
 <select id="<%=name%>" name="<%=name%>" class=<%=style.getEditor()%>
 	data-from="<%=XavaResources.getString("from")%>" 
-	data-in-values="<%=XavaResources.getString("in_values")%>">
+	data-in-values="<%=XavaResources.getString("in_values")%>"
+	data-collection-argv="<%=collectionArgv%>">
 <%-- tmr fin --%>
 	<% 
 	if (!isEmpty) { 

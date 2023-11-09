@@ -261,7 +261,6 @@ openxava.initInlineEvents =  function() {
 
 openxava.initEditorsEvents = function(application, module) { // tmr
 	$('.xava_onchange .editor').off('change').change(function() {
-		console.log("[openxava.initEditorsEvents] "); // tmr
 		var container = $(this).closest('.xava_onchange');
   		openxava.throwPropertyChanged(application, module, container.data('property'));
 	});
@@ -598,7 +597,7 @@ openxava.initLists = function(application, module) {
   			if (valueField == null || valueField.is(':hidden') || 
   				this.options[this.selectedIndex].value.indexOf('range') < 0 && valueField.val() !== '') 
   			{ 
-  				openxava.executeAction(application, module, '', false, 'List.filter',''); 
+  				openxava.executeAction(application, module, '', false, 'List.filter', $(this).data("collection-argv")); 
   			}	
 		}
 	});
@@ -1099,7 +1098,6 @@ openxava.throwPropertyChanged = function(application, module, property) {
 
 openxava.calculate = function(application, module, propertyId, scale) {
 	var calculation = $('#' + propertyId + "_CALCULATION_").val();
-	console.log("[openxava.calculate] calculation=" + calculation); // tmr
 	if (calculation == null) return;
 	var value = eval(calculation).toFixed(scale).replace(".", openxava.decimalSeparator);
 	$('#' + propertyId).val(value);

@@ -77,7 +77,7 @@ if (editable) {
 		<input id="<%=propertyKey%>" name="<%=propertyKey%>" type="text"  <%=scriptInput%> onchange="editableValidValuesEditor.handleSelectInput(this)" maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=value%>"/>
 		--%>
 		<%-- tmr ini --%>
-		<input id="<%=propertyKey%>" name="<%=propertyKey%>" type="text" maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=value%>"/>		
+		<input id="<%=propertyKey%>" name="<%=propertyKey%>" type="text" class=<%=style.getEditor()%> maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=value%>"/>		
 		<%-- tmr fin --%>
 		<input type="hidden" name="<%=propertyKey%>__DESCRIPTION__" value="<%=description%>"/>
 	</div>

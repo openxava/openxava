@@ -2,12 +2,10 @@ if (editableValidValuesEditor == null) var editableValidValuesEditor = {};
 
 // tmr ini
 openxava.addEditorInitFunction(function() {
-	$('.ox-select-editable select').off('change').change(function() {
-		console.log("[editableValidValuesEditor.js] select changed"); // tmr
+	$('.ox-select-editable select').change(function() {
 		editableValidValuesEditor.handleSelectChange(this);
 	});
-	$('.ox-select-editable input[type="text"]').off('change').change(function() {
-		console.log("[editableValidValuesEditor.js] input changed"); // tmr
+	$('.ox-select-editable input[type="text"]').change(function() {
 		editableValidValuesEditor.handleSelectInput(this)
 	});
 });
