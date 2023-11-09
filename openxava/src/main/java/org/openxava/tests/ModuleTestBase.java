@@ -238,7 +238,6 @@ abstract public class ModuleTestBase extends TestCase {
 				select.blur(); 
 				// tmr refreshNeeded = !Is.emptyString(select.getOnChangeAttribute()); 
 				refreshNeeded = hasOnChange(select);
-				System.out.println("[ModuleTestBase.setFormValue] select.refreshNeeded=" + refreshNeeded); // tmr
 			}
 			catch (org.htmlunit.ElementNotFoundException ex2) {
 				HtmlTextArea textArea = getTextAreaByName(id); 
@@ -254,7 +253,6 @@ abstract public class ModuleTestBase extends TestCase {
 			}
 		}		
 		if (refreshIfNeeded && refreshNeeded) {			
-			System.out.println("[ModuleTestBase.setFormValue] Refreshing page"); // tmr
 			refreshPage();			
 		}
 	}
@@ -610,14 +608,11 @@ abstract public class ModuleTestBase extends TestCase {
 		waitUntilPageIsLoaded(); // Needed when a setValue() before throws an onchange action (not easily reproducible, depend on performance)
 		throwChangeOfLastNotNotifiedProperty();		
 		if (page.getElementsByName(Ids.decorate(application, module, ACTION_PREFIX + "." + action)).size() > 1) { // Action of list/collection
-			System.out.println("[ModuleTestBase.execute] A"); // tmr
 			execute(action, null);
 			return;
 		}	
-		System.out.println("[ModuleTestBase.execute] Z"); // tmr
 
 		HtmlElement element  = getElementById(action);
-		System.out.println("[ModuleTestBase.execute] element=" + element); // tmr
 
 		/* tmr
 		if (element instanceof HtmlAnchor) {
