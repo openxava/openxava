@@ -232,11 +232,13 @@ abstract public class ModuleTestBase extends TestCase {
 		catch (org.htmlunit.ElementNotFoundException ex) {
 			try {	
 				HtmlSelect select = getSelectByName(id);
+				
 				assertNotDisable(name, select);
 				select.setSelectedAttribute(value, true);
 				select.blur(); 
 				// tmr refreshNeeded = !Is.emptyString(select.getOnChangeAttribute()); 
 				refreshNeeded = hasOnChange(select);
+				System.out.println("[ModuleTestBase.setFormValue] select.refreshNeeded=" + refreshNeeded); // tmr
 			}
 			catch (org.htmlunit.ElementNotFoundException ex2) {
 				HtmlTextArea textArea = getTextAreaByName(id); 
@@ -274,6 +276,7 @@ abstract public class ModuleTestBase extends TestCase {
 				if (cssClass.contains("xava_combo_condition_value") || cssClass.contains("xava_comparator")) return true;
 			}
 		}		
+		if (el.hasEventHandlers("onchange")) return true; // tmr
 		DomNode parent = el.getParentNode();
 		if (parent instanceof HtmlElement) return hasOnChange((HtmlElement) parent);
 		return false;
@@ -607,11 +610,14 @@ abstract public class ModuleTestBase extends TestCase {
 		waitUntilPageIsLoaded(); // Needed when a setValue() before throws an onchange action (not easily reproducible, depend on performance)
 		throwChangeOfLastNotNotifiedProperty();		
 		if (page.getElementsByName(Ids.decorate(application, module, ACTION_PREFIX + "." + action)).size() > 1) { // Action of list/collection
+			System.out.println("[ModuleTestBase.execute] A"); // tmr
 			execute(action, null);
 			return;
 		}	
+		System.out.println("[ModuleTestBase.execute] Z"); // tmr
 
 		HtmlElement element  = getElementById(action);
+		System.out.println("[ModuleTestBase.execute] element=" + element); // tmr
 
 		/* tmr
 		if (element instanceof HtmlAnchor) {
@@ -623,12 +629,34 @@ abstract public class ModuleTestBase extends TestCase {
 		}		
 		*/
 		// tmr ini
+		openPopupIfActionInSubcontroler(element);
 		element.click();
 		// tmr fin
 		resetForm(); 		
 		restorePage(); 		
 	}
 	
+	private void openPopupIfActionInSubcontroler(HtmlElement actionElement) throws Exception { // tmr
+		HtmlElement subcontroller = getAncestorWithClass(actionElement, "ox-subcontroller");
+		if (subcontroller == null) return;
+		HtmlElement parent = (HtmlElement) subcontroller.getParentNode();
+		HtmlAnchor link = parent.getOneHtmlElementByAttribute("a", "class", "xava_subcontroller");
+		HtmlElement icon = link.getOneHtmlElementByAttribute("i", "class", "mdi mdi-menu-down");
+		icon.click();
+	}
+
+	private HtmlElement getAncestorWithClass(DomNode element, String cssClass) { // tmr
+		DomNode parent = element.getParentNode();
+		if (parent == null) return null;
+		if (parent instanceof HtmlElement) {
+			HtmlElement parentElement = (HtmlElement) parent;
+			if (cssClass.equals(parentElement.getAttribute("class"))) {
+				return parentElement;
+			}
+		}
+		return getAncestorWithClass(parent, cssClass);
+	}
+
 	/** 
 	 * Wait until the current AJAX request is done and update the page if needed. <p>
 	 * 

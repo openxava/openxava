@@ -19,10 +19,10 @@ if (!org.openxava.util.Is.emptyString(collectionName)) {
 }
 String propertyKey = request.getParameter("propertyKey");
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
-String script = request.getParameter("script"); 
+String script = request.getParameter("script");
+/* tmr 
 String scriptSelect = script; 
 String scriptInput = script;
-// tmr Tengo que comprobar si el test actual para esto falla
 if (script.contains("onchange=")){
 	String selectOnChange = "editableValidValuesEditor.handleSelectChange(this), ";
     String inputOnChange= "editableValidValuesEditor.handleSelectInput(this), ";
@@ -30,6 +30,7 @@ if (script.contains("onchange=")){
     scriptSelect = script.substring(0,i) + selectOnChange + script.substring(i);
     scriptInput = script.substring(0,i) + inputOnChange + script.substring(i);
 } 
+*/
 boolean editable = "true".equals(request.getParameter("editable")); 
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
 Object value = request.getAttribute(propertyKey + ".value") == null ? "" : request.getAttribute(propertyKey + ".value");
@@ -51,7 +52,12 @@ if (editable) {
 	} else {
 %>
     <div class="ox-select-editable">
+    	<%-- tmr
     	<select tabindex="1" class=<%=style.getEditor()%> title="<%=p.getDescription(request)%>" <%=scriptSelect%> onchange="editableValidValuesEditor.handleSelectChange(this)">
+    	--%>
+    	<%-- tmr ini --%>
+    	<select tabindex="1" class=<%=style.getEditor()%> title="<%=p.getDescription(request)%>">
+    	<%-- tmr fin --%>
 <% 
 		if (view.hasBlankValidValue(p.getName())) { 
 %>
@@ -67,7 +73,12 @@ if (editable) {
 %>      
         <option hidden><%=optionHidden%></option>
 		</select>
+		<%-- tmr 
 		<input id="<%=propertyKey%>" name="<%=propertyKey%>" type="text"  <%=scriptInput%> onchange="editableValidValuesEditor.handleSelectInput(this)" maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=value%>"/>
+		--%>
+		<%-- tmr ini --%>
+		<input id="<%=propertyKey%>" name="<%=propertyKey%>" type="text" maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=value%>"/>		
+		<%-- tmr fin --%>
 		<input type="hidden" name="<%=propertyKey%>__DESCRIPTION__" value="<%=description%>"/>
 	</div>
 <%		
@@ -86,5 +97,7 @@ if (editable) {
 	<input type="hidden" name="<%=propertyKey%>" value="<%=value%>">	
 <% 
 } 
-%>		
+%>
+<%-- tmr		
 <script type="text/javascript" <xava:nonce/> src="<%=contextPath%>/xava/editors/js/editableValidValuesEditor.js"></script>
+--%>

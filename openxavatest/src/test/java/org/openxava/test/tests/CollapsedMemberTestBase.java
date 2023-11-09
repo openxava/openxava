@@ -57,7 +57,7 @@ public abstract class CollapsedMemberTestBase extends ModuleTestBase {
 		reload();
 	}
 	
-	public void testCollapsedMember() throws Exception { // TMR FALLA
+	public void testCollapsedMember() throws Exception { 
 		//step 1: ensures that a @Collapsed reference view is hidden 
 		//on module initialization for the first time.
 		waitForSafeSynchronization();
@@ -71,7 +71,8 @@ public abstract class CollapsedMemberTestBase extends ModuleTestBase {
 				"javascript:openxava.showFrame('" + getFrameId() + "')");
 		*/
 		// tmr ini
-		List<HtmlElement> expansionIcons = getHtmlPage().getBody().getElementsByAttribute("a", "class", "xava_show_frame");
+		HtmlElement expansionIconWrapper = getHtmlPage().getHtmlElementById(getFrameId() + "show"); 
+		List<HtmlElement> expansionIcons = expansionIconWrapper.getElementsByAttribute("a", "class", "xava_show_frame");
 		assertEquals(1, expansionIcons.size());
 		HtmlElement expansionIcon = expansionIcons.get(0);
 		// tmr fin

@@ -1,5 +1,18 @@
 if (editableValidValuesEditor == null) var editableValidValuesEditor = {};
 
+// tmr ini
+openxava.addEditorInitFunction(function() {
+	$('.ox-select-editable select').off('change').change(function() {
+		console.log("[editableValidValuesEditor.js] select changed"); // tmr
+		editableValidValuesEditor.handleSelectChange(this);
+	});
+	$('.ox-select-editable input[type="text"]').off('change').change(function() {
+		console.log("[editableValidValuesEditor.js] input changed"); // tmr
+		editableValidValuesEditor.handleSelectInput(this)
+	});
+});
+// tmr fin
+
 editableValidValuesEditor.handleSelectChange = function(selectElement) {
 	selectElement.nextElementSibling.value = selectElement.options[selectElement.selectedIndex].text;
 	selectElement.options[0].value = selectElement.options[selectElement.selectedIndex].value;

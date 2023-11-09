@@ -36,7 +36,7 @@ public class ColorTest extends ModuleTestBase {
 
 		assertNoAction("ColorSub.fourAction");
 		execute("ColorSub.firstAction");
-		assertDialog(); // TMR FALLA
+		assertDialog(); 
 		closeDialog();
 		execute("List.viewDetail", "row=0");
 		assertAction("ColorSub.fourAction");
@@ -212,7 +212,7 @@ public class ColorTest extends ModuleTestBase {
 	}
 	
 	public void testKeysWithZeroValue_actionsTooltips() throws Exception { 
-		assertLinkTooltip("Color.seeMessageSelected", "See message selected"); // TMR FALLA
+		assertLinkTooltip("Color.seeMessageSelected", "See message selected"); 
 		assertValueInList(0, "number", "0");
 		assertValueInList(0, "name", "ROJO");
 		execute("List.viewDetail", "row=0");
@@ -342,7 +342,7 @@ public class ColorTest extends ModuleTestBase {
 	public void testShowActionOnlyInEachRow() throws Exception{
 		// confirmMessage with row
 		String html = getHtml();
-		assertTrue(html.contains("Delete record on row 2: Are you sure?")); // TMR FALLA
+		assertTrue(html.contains("Delete record on row 2: Are you sure?")); 
 		
 		// action with mode=NONE: it display only in each row
 		assertAction("CRUD.deleteRow");
@@ -464,7 +464,8 @@ public class ColorTest extends ModuleTestBase {
 	private void assertLinkTooltip(String action, String tooltip) { 
 		for (HtmlElement el: getHtmlPage().getBody().getElementsByTagName("a")) { 
 			HtmlAnchor link = (HtmlAnchor) el;
-			if (HtmlUnitUtils.getHrefAttribute(link).contains("'" + action + "'")) { 
+			// tmr if (HtmlUnitUtils.getHrefAttribute(link).contains("'" + action + "'")) { 
+			if (action.equals(link.getAttribute("data-action"))) { // tmr
 				assertEquals(tooltip, link.getAttribute("title"));
 				return;
 			}

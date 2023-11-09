@@ -19,12 +19,12 @@ public class EditableValidValuesTest extends WebDriverTestBase {
 	}
 
 	public void testNavigation() throws Exception {
-		forTestEditableValidValuesWorksWithCSP(); // TMR FALLA
+		forTestEditableValidValuesWorksWithCSP(); // TMR FALLA ME QUEDÉ POR AQUÍ
 		forTestDynamicValidValuesShowingCombo();
 	}
 
 	public void tearDown() throws Exception {
-		driver.quit();
+		// tmr driver.quit();
 	}
 	
 	public void forTestEditableValidValuesWorksWithCSP() throws Exception {  

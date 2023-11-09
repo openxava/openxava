@@ -180,7 +180,7 @@ openxava.refreshPage = function(result) {
 	}	
 	openxava.getElementById(result.application, result.module, "loaded_parts").value=changed;
 	openxava.getElementById(result.application, result.module, "loading").value=false;
-	openxava.getElementById(result.application, result.module, "view_member").value=result.viewMember; 
+	openxava.getElementById(result.application, result.module, "view_member").value=result.viewMember;
 	openxava.lastApplication=result.application;
 	openxava.lastModule=result.module;
 	openxava.hasOnSelectAll(result.application, result.module);
@@ -261,6 +261,7 @@ openxava.initInlineEvents =  function() {
 
 openxava.initEditorsEvents = function(application, module) { // tmr
 	$('.xava_onchange .editor').off('change').change(function() {
+		console.log("[openxava.initEditorsEvents] "); // tmr
 		var container = $(this).closest('.xava_onchange');
   		openxava.throwPropertyChanged(application, module, container.data('property'));
 	});
@@ -268,7 +269,6 @@ openxava.initEditorsEvents = function(application, module) { // tmr
 		var container = $(this).closest('.xava_onchange_calculate');
   		openxava.calculate(application, module, container.data('calculated-property'), container.data('scale'));
 	});
-	
 }
 
 openxava.initFrames = function() { // tmr 
