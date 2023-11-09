@@ -26,7 +26,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertListConfigurationsDescriptionsLists(); 	
 		assertListConfigurationsOrdering();
 		assertListConfigurationsRanges();
-		assertListConfigurationsColumns(); // TMR FALLA ME QUEDÉ POR AQUÍ Y POR CustomizeListTestBase ADEMÁS COMPROBAR SI HE CORREGIDO EL BUG DE QUITAR COLUMNA CALCULADA, CON 7.1.6
+		assertListConfigurationsColumns(); 
 		assertListConfigurationsChangeName();
 		assertListConfigurationsI18n(); 
 		assertListConfigurationsPersistence();
@@ -165,7 +165,9 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertLabelInList(4, "Paid");
 		assertLabelInList(7, "Customer seller"); 
 
+		System.out.println("[InvoiceListManyTypesTest.assertListConfigurationsColumns] >>>"); // tmr
 		execute("List.addColumns");
+		System.out.println("[InvoiceListManyTypesTest.assertListConfigurationsColumns] <<<"); // tmr
 		checkRow("selectedProperties", "customer.city"); // Read only to test a case
 		checkRow("selectedProperties", "comment" ); 
 		execute("AddColumns.addColumns");

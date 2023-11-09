@@ -625,12 +625,23 @@ abstract public class ModuleTestBase extends TestCase {
 		*/
 		// tmr ini
 		openPopupIfActionInSubcontroler(element);
+		showListCustomizationControlsIfElementHidden(element);
+		System.out.println("[ModuleTestBase.execute] >>"); // tmr
 		element.click();
+		System.out.println("[ModuleTestBase.execute] <<"); // tmr
 		// tmr fin
 		resetForm(); 		
 		restorePage(); 		
 	}
 	
+	private void showListCustomizationControlsIfElementHidden(HtmlElement element) throws Exception { // tmr
+		if (!element.isDisplayed()) {
+			for (HtmlElement showLink: getHtmlPage().getBody().getElementsByAttribute("a", "class", "xava_customize_list ox-image-link")) {
+				showLink.click();
+			}
+		}
+	}
+
 	private void openPopupIfActionInSubcontroler(HtmlElement actionElement) throws Exception { // tmr
 		HtmlElement subcontroller = getAncestorWithClass(actionElement, "ox-subcontroller");
 		if (subcontroller == null) return;
