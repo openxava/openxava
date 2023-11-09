@@ -50,7 +50,6 @@ public class Tree extends DWRBase {
 
 			String[] listProperties = metaCollectionView.getPropertiesListNamesAsString().split(",");
 			String order = collectionView.getMetaCollection().getOrder();
-			String[] oSplit = !order.isEmpty() ? order.replaceAll("\\$\\{|\\}", "").split(", ") : new String[0];
 			List<String> keysList = new ArrayList<>(tab.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
 			Map<String, Object> propertiesMap = new HashMap<>();
 
@@ -63,8 +62,7 @@ public class Tree extends DWRBase {
 			for (String element : listProperties) {
 				tab.addProperty(element);
 			}
-			if (!ArrayUtils.contains(listProperties, pathProperty))
-				tab.addProperty(0, pathProperty);
+			if (!ArrayUtils.contains(listProperties, pathProperty)) tab.addProperty(0, pathProperty);
 			if (keysList.size() < 2 && !ArrayUtils.contains(listProperties, keysList.get(0).toString())) {
 				tab.addProperty(0, keysList.get(0).toString());
 			}
@@ -137,11 +135,9 @@ public class Tree extends DWRBase {
 				for (String pValue : parentsValues) {
 					pValue = pValue.startsWith("/") ? pValue : "/" + pValue;
 					if (childPathValue.startsWith(pValue)) {
-						if (!newPath.equals("")) {
-							childPathValue = newPath + childPathValue.substring(childPathValue.indexOf(pValue));
-						} else {
-							childPathValue = childPathValue.replace(pValue, newPath);
-						}
+						childPathValue = newPath.equals("") 
+								? childPathValue.replace(pValue, newPath)
+								: newPath + childPathValue.substring(childPathValue.indexOf(pValue));
 					} else if (childPathValue.contains(pValue)) {
 						childPathValue = childPathValue.substring(childPathValue.indexOf(pValue) - 1);
 					}
@@ -151,12 +147,12 @@ public class Tree extends DWRBase {
 				pathValueMap.put(pathProperty, childPathValue);
 				MapFacade.setValues(modelName, keys, pathValueMap);
 			}
+			XPersistence.commit();
+		} catch (Exception e) {
+			log.error(XavaResources.getString("error_with_node_value", collectionName, module), e);
+			XPersistence.rollback();
 		} finally {
-			try {
-				XPersistence.commit();
-			} finally {
-				cleanRequest();
-			}
+			cleanRequest();
 		}
 
 	}

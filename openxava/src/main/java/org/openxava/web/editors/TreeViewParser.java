@@ -308,7 +308,9 @@ public class TreeViewParser {
         String mapId = map.get("id").equals("") ? "id" : (String) map.get("id");
         String mapPath = (String) map.get("path");
         String[] listProperties = (String[]) map.get("listProperties");
-
+        JSONObject tooltip = new JSONObject();
+        tooltip.put("title", XavaResources.getString("double_click_to_edit_view"));
+        
         for (int i = 0; i < data.length(); i++) {
             JSONObject node = data.getJSONObject(i);
             String id = node.get(mapId).toString();
@@ -330,6 +332,7 @@ public class TreeViewParser {
                 rootNode.put("id", id);
                 rootNode.put("path", path);
                 rootNode.put("row", row);
+                rootNode.put("a_attr", tooltip);
                 rootNode.put("text", description);
                 JSONArray childNodes = findChildrenOfNode(id, data, map, true);
                 if (childNodes.length() > 0) {
@@ -342,6 +345,7 @@ public class TreeViewParser {
                 childNode.put("id", id);
                 childNode.put("path", path);
                 childNode.put("row", row);
+                childNode.put("a_attr", tooltip);
                 childNode.put("text", description);
                 JSONArray childNodes = findChildrenOfNode(id, data, map, rootNodeFound);
                 if (childNodes.length() > 0) {
@@ -372,6 +376,7 @@ public class TreeViewParser {
             rootNode.put("id", id);
             rootNode.put("path", path);
             rootNode.put("text", description);
+            rootNode.put("a_attr", tooltip);
             rootNode.put("row", row);
             JSONArray childNodes = findChildrenOfNode(id, data, map, true);
             if (childNodes.length() > 0) {
