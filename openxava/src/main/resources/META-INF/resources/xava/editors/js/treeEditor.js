@@ -33,7 +33,7 @@ treeEditor.initTree = function() {
                     },
                     "state": {
                         "key": "xava_tree_state_" + collectionName
-                    },
+                    }, 
                     "plugins": ["checkbox", "dnd", "state"]
                 });
             });
