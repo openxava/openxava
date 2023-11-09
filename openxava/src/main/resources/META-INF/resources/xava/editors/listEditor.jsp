@@ -362,9 +362,16 @@ while (it.hasNext()) {
 	}
 	else {
 %>
+<%-- tmr
 <th class="ox-list-subheader">
 	<div class="<xava:id name='<%=id%>'/>_col<%=columnIndex%>"/>
 </th>
+--%>
+<%-- tmr ini --%>
+<td class="ox-list-subheader">
+	<div class="<xava:id name='<%=id%>'/>_col<%=columnIndex%>"/>
+</td>
+<%-- tmr fin --%>
 <%
 	}
 	columnIndex++; 

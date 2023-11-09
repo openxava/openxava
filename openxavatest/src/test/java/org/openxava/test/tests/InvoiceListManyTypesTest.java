@@ -26,7 +26,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertListConfigurationsDescriptionsLists(); 	
 		assertListConfigurationsOrdering();
 		assertListConfigurationsRanges();
-		assertListConfigurationsColumns(); // TMR FALLA
+		assertListConfigurationsColumns(); // TMR FALLA ME QUEDÉ POR AQUÍ Y POR CustomizeListTestBase ADEMÁS COMPROBAR SI HE CORREGIDO EL BUG DE QUITAR COLUMNA CALCULADA, CON 7.1.6
 		assertListConfigurationsChangeName();
 		assertListConfigurationsI18n(); 
 		assertListConfigurationsPersistence();

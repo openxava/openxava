@@ -47,7 +47,17 @@ abstract public class CustomizeListTestBase extends ModuleTestBase {
 		HtmlElement header = table.getRow(0).getCell(index + 2);
 		HtmlElement icon = header.getElementsByAttribute("i", "class", "mdi mdi-close-circle").get(0);
 		HtmlElement removeLink = icon.getEnclosingElement("a");
+		System.out.println("[CustomizeListTestBase.removeColumn] removeLink.isDisplayed()>" + removeLink.isDisplayed()); // tmr
+		// tmr ini
+		// TMR ME QUEDÉ POR AQUÍ, PARECE QUE FUNCIONA
+		if (!removeLink.isDisplayed()) {
+			table.getOneHtmlElementByAttribute("a", "class", "xava_customize_list ox-image-link").click();
+		}
+		System.out.println("[CustomizeListTestBase.removeColumn] removeLink.isDisplayed()<" + removeLink.isDisplayed()); // tmr
+		// tmr fin
+		System.out.println("[CustomizeListTestBase.removeColumn] >"); // tmr
 		removeLink.click(); // tmr
+		System.out.println("[CustomizeListTestBase.removeColumn] <"); // tmr
 		// tmr getHtmlPage().executeJavaScript(getHrefAttribute(removeLink)); // Because removeLink.click() does not work with HtmlUnit 2.70
 		Thread.sleep(800); 
 	}
