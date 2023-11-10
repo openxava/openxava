@@ -1430,7 +1430,7 @@ openxava.subcontroller = function(id,containerId,buttonId,imageId,aId,spanId){
 		return;
 	}
 	// display and position the menu 
-	$('#'+id).css('display','inline');
+	$('#'+id).css('display','inline');  
 	$('#'+id).css({ 
 		'top': $('#'+aId).position().top + $('#'+buttonId).outerHeight(true),
 		'left': $('#'+aId).position().left
@@ -1459,6 +1459,7 @@ openxava.filterColumns = function() {
 
 openxava.refreshColumnsList = function(columnsList) { 
 	$('#xava_add_columns').html(columnsList);
+	openxava.initButtonBars(); // tmr
 }
 
 openxava.markRowAsCut = function(collectionId, rowId) {

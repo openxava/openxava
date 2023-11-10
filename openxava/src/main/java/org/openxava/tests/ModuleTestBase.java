@@ -608,9 +608,11 @@ abstract public class ModuleTestBase extends TestCase {
 		waitUntilPageIsLoaded(); // Needed when a setValue() before throws an onchange action (not easily reproducible, depend on performance)
 		throwChangeOfLastNotNotifiedProperty();		
 		if (page.getElementsByName(Ids.decorate(application, module, ACTION_PREFIX + "." + action)).size() > 1) { // Action of list/collection
+			System.out.println("[ModuleTestBase.execute] A"); // tmr
 			execute(action, null);
 			return;
 		}	
+		System.out.println("[ModuleTestBase.execute] Z"); // tmr
 
 		HtmlElement element  = getElementById(action);
 
@@ -626,9 +628,7 @@ abstract public class ModuleTestBase extends TestCase {
 		// tmr ini
 		openPopupIfActionInSubcontroler(element);
 		showListCustomizationControlsIfElementHidden(element);
-		System.out.println("[ModuleTestBase.execute] >>"); // tmr
 		element.click();
-		System.out.println("[ModuleTestBase.execute] <<"); // tmr
 		// tmr fin
 		resetForm(); 		
 		restorePage(); 		
@@ -829,6 +829,7 @@ abstract public class ModuleTestBase extends TestCase {
 			}
 			*/
 			// tmr ini
+			openPopupIfActionInSubcontroler(element);
 			element.click();
 			// tmr fin
 			resetForm(); 
