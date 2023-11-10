@@ -158,10 +158,6 @@ abstract public class ModuleTestBase extends TestCase {
 		setFormValue(name, value, false);
 	}
 	
-	private void setFormValueAlwaysThrowChangedEvent(String name, String value) throws Exception { // tmr Quitar
-		setFormValue(name, value, true, true, true);
-	}	
-	
 	private void setFormValue(String name, String value) throws Exception {
 		setFormValue(name, value, true);
 	}
@@ -212,13 +208,6 @@ abstract public class ModuleTestBase extends TestCase {
 					HtmlInput autocomplete = (HtmlInput) previousElement;
 					autocomplete.setValue("Some things"); // A trick to avoid that JavaScript reset the real value
 					((HtmlInput) input.getNextElementSibling()).setValue("Some things"); // A trick to avoid that JavaScript reset the real value
-					/* tmr
-					String onchange = autocomplete.getOnChangeAttribute(); 
-					if (!Is.emptyString(onchange)) {
-						page.executeJavaScript(onchange);
-						refreshNeeded = true;
-					}
-					*/
 				}				
 			}
 			else {
@@ -236,7 +225,6 @@ abstract public class ModuleTestBase extends TestCase {
 				assertNotDisable(name, select);
 				select.setSelectedAttribute(value, true);
 				select.blur(); 
-				// tmr refreshNeeded = !Is.emptyString(select.getOnChangeAttribute()); 
 				refreshNeeded = hasOnChange(select);
 			}
 			catch (org.htmlunit.ElementNotFoundException ex2) {
@@ -248,25 +236,15 @@ abstract public class ModuleTestBase extends TestCase {
 				}
 				else textArea.setText(value);
 				
-				// tmr refreshNeeded = !Is.emptyString(textArea.getOnChangeAttribute()); // tmr 
-				refreshNeeded = hasOnChange(textArea); // tmr
+				refreshNeeded = hasOnChange(textArea); 
 			}
 		}		
 		if (refreshIfNeeded && refreshNeeded) {			
 			refreshPage();			
 		}
 	}
-
-	/* tmr 
-	private boolean hasOnChange(HtmlInput input) {
-		if (!Is.emptyString(input.getOnChangeAttribute())) return true;
-		HtmlElement enclosingDiv = input.getEnclosingElement("div");
-		if (enclosingDiv != null && !Is.emptyString(enclosingDiv.getAttribute("onchange"))) return true; 
-		return false;
-	}
-	*/
 	
-	private boolean hasOnChange(HtmlElement el) { // tmr
+	private boolean hasOnChange(HtmlElement el) { 
 		String cssClass = el.getAttribute("class");
 		if (cssClass != null) {
 			if (cssClass.contains("xava_onchange")) return true;
@@ -274,7 +252,7 @@ abstract public class ModuleTestBase extends TestCase {
 				if (cssClass.contains("xava_combo_condition_value") || cssClass.contains("xava_comparator")) return true;
 			}
 		}		
-		if (el.hasEventHandlers("onchange")) return true; // tmr
+		if (el.hasEventHandlers("onchange")) return true; 
 		DomNode parent = el.getParentNode();
 		if (parent instanceof HtmlElement) return hasOnChange((HtmlElement) parent);
 		return false;
@@ -426,7 +404,7 @@ abstract public class ModuleTestBase extends TestCase {
 			for (int i = 0; i < values.length; i++) {
 				select.setSelectedAttribute(values[i], true);
 			}			
-			if (!Is.emptyString(select.getOnChangeAttribute())) { // tmr No tiene valor nunca
+			if (hasOnChange(select)) { 
 				refreshPage = true;
 			}			
 		}
@@ -439,21 +417,21 @@ abstract public class ModuleTestBase extends TestCase {
 					HtmlCheckBoxInput checkbox = (HtmlCheckBoxInput) element;
 					String value = checkbox.getValue();
 					checkbox.setChecked(valuesCollection.contains(value));
-					if (!Is.emptyString(checkbox.getOnChangeAttribute())) { // tmr No tiene valor nunca
+					if (hasOnChange(checkbox)) { 
 						refreshPage = true;
 					}
 				}
 				else if (element instanceof HtmlInput) { 
 					HtmlInput input = (HtmlInput) element;
 					input.setValue(values[i]);
-					if (!Is.emptyString(input.getOnChangeAttribute())) { // tmr no tiene valor nunca
+					if (hasOnChange(input)) { 
 						refreshPage = true;
 					}
 				}
 				else if (element instanceof HtmlSelect) { 				
 					HtmlSelect select = (HtmlSelect) element;		
 					select.setSelectedAttribute(values[i], true);			
-					if (!Is.emptyString(select.getOnChangeAttribute())) { // no tiene valor nunca
+					if (hasOnChange(select)) {
 						refreshPage = true;
 					}
 				}
@@ -608,33 +586,19 @@ abstract public class ModuleTestBase extends TestCase {
 		waitUntilPageIsLoaded(); // Needed when a setValue() before throws an onchange action (not easily reproducible, depend on performance)
 		throwChangeOfLastNotNotifiedProperty();		
 		if (page.getElementsByName(Ids.decorate(application, module, ACTION_PREFIX + "." + action)).size() > 1) { // Action of list/collection
-			System.out.println("[ModuleTestBase.execute] A"); // tmr
 			execute(action, null);
 			return;
 		}	
-		System.out.println("[ModuleTestBase.execute] Z"); // tmr
 
 		HtmlElement element  = getElementById(action);
-
-		/* tmr
-		if (element instanceof HtmlAnchor) {
-			// Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.70 in some circumstances
-			page.executeJavaScript(getHrefAttribute(element)); 			
-		}
-		else {
-			element.click();
-		}		
-		*/
-		// tmr ini
 		openPopupIfActionInSubcontroler(element);
 		showListCustomizationControlsIfElementHidden(element);
 		element.click();
-		// tmr fin
 		resetForm(); 		
 		restorePage(); 		
 	}
 	
-	private void showListCustomizationControlsIfElementHidden(HtmlElement element) throws Exception { // tmr
+	private void showListCustomizationControlsIfElementHidden(HtmlElement element) throws Exception { 
 		if (!element.isDisplayed()) {
 			for (HtmlElement showLink: getHtmlPage().getBody().getElementsByAttribute("a", "class", "xava_customize_list ox-image-link")) {
 				showLink.click();
@@ -642,7 +606,7 @@ abstract public class ModuleTestBase extends TestCase {
 		}
 	}
 
-	private void openPopupIfActionInSubcontroler(HtmlElement actionElement) throws Exception { // tmr
+	private void openPopupIfActionInSubcontroler(HtmlElement actionElement) throws Exception { 
 		HtmlElement subcontroller = getAncestorWithClass(actionElement, "ox-subcontroller");
 		if (subcontroller == null) return;
 		HtmlElement parent = (HtmlElement) subcontroller.getParentNode();
@@ -651,7 +615,7 @@ abstract public class ModuleTestBase extends TestCase {
 		icon.click();
 	}
 
-	private HtmlElement getAncestorWithClass(DomNode element, String cssClass) { // tmr
+	private HtmlElement getAncestorWithClass(DomNode element, String cssClass) { 
 		DomNode parent = element.getParentNode();
 		if (parent == null) return null;
 		if (parent instanceof HtmlElement) {
@@ -723,51 +687,21 @@ abstract public class ModuleTestBase extends TestCase {
 		assertEquals(XavaResources.getString("focus_in_unexpected_place"), expectedFocusProperty, focusProperty);		
 	}
 	
-	protected void execute(String action, String arguments) throws Exception {
-		execute(action, arguments, false);
-	}
-
 	/**
 	 * Executes an action simulating a real click in the button or link. <p>
 	 * 
 	 * In addition to execute the action this method throws the corresponding 
 	 * events of clicking the real link, like the focus lost of the current
 	 * editor, for example.<br/>
-	 * Why does not the plain execute() method work in this way by default? 
-	 * Because simulating the click does not work in all cases, because a bug of HtmlUnit.
-	 * So you have to use execute() instead of executeClicking() for most case, and use
-	 * executeClicking() when the events produced by the button click would be important
-	 * for the test.  
+	 * 
+	 * @deprecated Since 7.2 the regular execute() uses clicking always, so you can use execute() instead
 	 */
+	@Deprecated
 	protected void executeClicking(String action, String arguments) throws Exception {
-		execute(action, arguments, true);
+		execute(action, arguments);
 	}
 	
 	private HtmlElement getElementForAction(String action, String arguments) {
-		/* tmr
-		String moduleMarkForAnchor = "executeAction('" + application + "', '" + module + "'";
-		
-		for (Iterator it = page.getAnchors().iterator(); it.hasNext(); ) {			
-			HtmlAnchor anchor = (HtmlAnchor) it.next();
-			if (arguments != null) { // 'List.viewDetail', 'row=0'				
-				if (
-					(
-						getHrefAttribute(anchor).contains("'" + action + "', '" + arguments + "'") ||  
-						getHrefAttribute(anchor).contains("'" + action + "', '," + arguments + "'")							
-					)
-					&& getHrefAttribute(anchor).indexOf(moduleMarkForAnchor) >= 0)  			
-				{				
-					return anchor;				
-				}
-			}
-			else { // 'ReferenceSearch.choose'				
-				if (getHrefAttribute(anchor).endsWith("'" + action + "')")) {				
-					return anchor;				
-				}				
-			}
-		}		
-		*/
-		// tmr ini
 		for (Iterator it = page.getAnchors().iterator(); it.hasNext(); ) {			
 			HtmlAnchor anchor = (HtmlAnchor) it.next();
 			if (!module.equals(anchor.getAttribute("data-module"))) continue;
@@ -778,7 +712,6 @@ abstract public class ModuleTestBase extends TestCase {
 				if (("," + arguments).equals(anchor.getAttribute("data-argv"))) return anchor; // 'List.filter', ',collection=deliveryPlaces'
 			}
 		}		
-		// tmr fin
 		
 		// For Cards
 		if (arguments != null && arguments.startsWith("row=")) {
@@ -795,46 +728,16 @@ abstract public class ModuleTestBase extends TestCase {
 		return null;
 	}
 	
-	
-	
-	
-	private void execute(String action, String arguments, boolean clicking) throws Exception { // tmr ¿Dejar clicking?
+	protected void execute(String action, String arguments) throws Exception { 
 		throwChangeOfLastNotNotifiedProperty();
 		HtmlElement element = null;
 		element = getElementForAction(action, arguments);
-		/* tmr
-		if (arguments == null && element == null) { // We try if it is a button
-			String moduleMarkForButton = "executeAction(\"" + application + "\", \"" + module + "\"";
-			HtmlElement inputElement = page.getHtmlElementById(decorateId(action));
-			if (inputElement instanceof HtmlInput) {
-				HtmlInput input = (HtmlInput) inputElement;
-				if ("button".equals(input.getTypeAttribute()) &&
-					input.getOnClickAttribute().endsWith("\"" + action + "\")") &&
-					input.getOnClickAttribute().indexOf(moduleMarkForButton) >= 0)
-				{				
-					element = input;				
-				}				
-			}			
-		}
-		*/
 		if (element != null) {
-			/* tmr
-			if (!clicking && element instanceof HtmlAnchor) { 
-				String href = getHrefAttribute(element);
-				if (Is.emptyString(href)) element.click();
-				else page.executeJavaScript(href); // Because input.click() fails with HtmlUnit 2.5/2.6/2.7/2.9/2.70 in some circumstances
-			}
-			else {
-				element.click();
-			}
-			*/
-			// tmr ini
 			openPopupIfActionInSubcontroler(element);
 			element.click();
-			// tmr fin
 			resetForm(); 
 		}
-		else { // tmr ¿Se pasa por esta parte?
+		else { 
 			if (isReferenceActionWithObsoleteStyle(action, arguments)) {		
 				log.warn(XavaResources.getString("keyProperty_obsolete_style")); 
 				execute(action, refineArgumentsForReferenceActionWithObsoleteStyle(arguments));
@@ -1208,12 +1111,6 @@ abstract public class ModuleTestBase extends TestCase {
 	private void setCollectionCondition(String id, String[] values) throws Exception {
 		for (int i=0; i<values.length; i++) {
 			try {
-				/* tmr Quitar este comentario
-				// A bit Ad Hoc, because we assume that filtering fields have always onchange events, 
-				// if that changes this will not be real, but we have no option
-				// since HtmlUnit 2.32 stopped to react to change events on inputs
-				// setFormValueAlwaysThrowChangedEvent(id + "." + i, values[i]); // Until 6.4.2, in 6.5 filtering fields no longer throw change events
-				*/
 				setFormValue(id + "." + i, values[i]);  
 			}
 			catch (org.htmlunit.ElementNotFoundException ex) {
@@ -1838,8 +1735,7 @@ abstract public class ModuleTestBase extends TestCase {
 	
 	private int getColumnIncrement(HtmlTable table, int originalColumn) {
 		int increment = table.getCellAt(0, 1).asXml().contains("type=\"checkbox\"")
-			// tmr || table.getCellAt(0, 0).asXml().contains("javascript:openxava.customizeList(")?2:1;
-				|| table.getCellAt(0, 0).asXml().contains("xava_customize_list")?2:1; // tmr	
+			|| table.getCellAt(0, 0).asXml().contains("xava_customize_list")?2:1; 	
 		if (isElementCollection(table)) {
 			int i=1;
 			HtmlTableCell cell = table.getCellAt(0, i++);

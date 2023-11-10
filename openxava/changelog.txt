@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Removed getHrefAttribute() method from HtmlUnitUtils.
 - Fix: When removing a column with a calculated property from a list a blank column is left on right.
 	
 - All onclick JavaScript events removed from OpenXava code.
