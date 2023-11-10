@@ -8,7 +8,6 @@
 <%@page import="org.openxava.controller.meta.MetaControllers"%>
 <%@page import="org.openxava.util.Is"%>
 <%@page import="org.openxava.util.Maps"%>
-<%@page import="org.openxava.web.Actions"%>
 <%@page import="org.openxava.util.XavaPreferences"%>
 <%@page import="org.openxava.view.View"%>
 <%@page import="org.openxava.model.meta.MetaProperty"%>

@@ -2,7 +2,6 @@
  
 <%@page import="org.openxava.view.View"%>
 <%@page import="org.openxava.model.MapFacade"%>
-<%@page import="org.openxava.web.Actions"%>
 <%@page import="org.openxava.web.Ids" %>
 <%@page import="org.openxava.controller.meta.MetaAction"%>
 <%@page import="org.openxava.controller.meta.MetaControllers"%>

@@ -147,7 +147,7 @@ public class EditorTag extends TagSupport {
 			boolean propertyUsedInCalculation = rootView.isPropertyUsedInCalculation(propertyPrefix + property); 
 			if (propertyUsedInCalculation) {
 				pageContext.getOut().print("<span class='xava_onchange_calculate' ");
-				pageContext.getOut().print(Editors.onChangeCalculateDataAttributes(application, module, rootView, propertyPrefix + property));
+				pageContext.getOut().print(EditorsEvents.onChangeCalculateDataAttributes(application, module, rootView, propertyPrefix + property));
 				pageContext.getOut().print(">");
 			}
 			if (throwsChanged) {

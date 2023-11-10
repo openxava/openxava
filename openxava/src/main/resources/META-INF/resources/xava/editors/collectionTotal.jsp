@@ -4,7 +4,7 @@
 <%@page import="org.openxava.model.meta.MetaProperty"%>
 <%@page import="org.openxava.view.View"%>
 <%@page import="org.openxava.util.XavaPreferences"%>
-<%@page import="org.openxava.web.Editors"%>
+<%@page import="org.openxava.web.EditorsEvents"%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
@@ -34,7 +34,7 @@ else {
 	if (rootView.isPropertyUsedInCalculation(sumProperty)) {
 %>
 		<input class="xava_onchange_calculate" id="<xava:id name='<%=sumProperty%>'/>" type="hidden" value="<%=ftotal%>"
-			<%=Editors.onChangeCalculateDataAttributes(request.getParameter("application"), request.getParameter("module"), rootView, sumProperty)%>
+			<%=EditorsEvents.onChangeCalculateDataAttributes(request.getParameter("application"), request.getParameter("module"), rootView, sumProperty)%>
 		/>
 <% 		
 	}

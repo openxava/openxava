@@ -13,11 +13,10 @@
 <%@ page import="org.openxava.web.Ids" %>
 <%@ page import="org.openxava.controller.meta.MetaAction" %>
 <%@ page import="org.openxava.controller.meta.MetaControllers" %>
-<%@ page import="org.openxava.web.Actions" %>
 <%@ page import="org.openxava.util.Users" %>
 <%@ page import="java.util.prefs.Preferences" %>
 <%@ page import="org.openxava.util.XavaResources" %>
-<%@page import="org.openxava.web.EditorsJS"%>
+<%@ page import="org.openxava.web.EditorsEvents"%>
 
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
@@ -474,7 +473,7 @@ for (int c=0; c<model.getColumnCount(); c++) {
 				if (rootView.isPropertyUsedInCalculation(sumProperty)) {
 			%>
 					<input class="xava_onchange_calculate" id="<xava:id name='<%=sumProperty%>'/>" type="hidden" value="<%=ftotal%>"
-						<%=EditorsJS.onChangeCalculateDataAttributes(request.getParameter("application"), request.getParameter("module"), rootView, sumProperty)%>
+						<%=EditorsEvents.onChangeCalculateDataAttributes(request.getParameter("application"), request.getParameter("module"), rootView, sumProperty)%>
 					/>
 			<%
 				}
