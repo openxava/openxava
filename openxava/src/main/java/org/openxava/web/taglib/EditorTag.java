@@ -68,6 +68,7 @@ public class EditorTag extends TagSupport {
 			Messages errors = (Messages) request.getAttribute("errors"); 	
 			boolean throwsChanged=explicitThrowPropertyChanged?this.throwPropertyChanged:view.throwsPropertyChanged(property);
 			
+			/* tmr
 			String script =  
 				" onblur=\"openxava.onBlur(" +
 				"'" + application + "'," +
@@ -78,7 +79,8 @@ public class EditorTag extends TagSupport {
 				"'" + application + "'," +
 				"'" + module + "'," +
 				"'" + propertyKey + "'" +
-				")\"";  
+				")\"";
+			*/	  
 			
 			View rootView = view.getCollectionRootOrRoot();
 
@@ -108,9 +110,12 @@ public class EditorTag extends TagSupport {
 
 			editorURL.append(nexus)
 				.append(maxSize)
+				/*
 				.append("script=")
 				.append(script)
 				.append("&editable=")
+				*/
+				.append("editable=") // tmr
 				.append(editable)
 				.append("&propertyKey=")
 				.append(propertyKey)

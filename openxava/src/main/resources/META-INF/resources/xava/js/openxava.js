@@ -224,7 +224,8 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 
 openxava.initFocusKey = function() { }
 
-openxava.initInlineEvents =  function() {	
+openxava.initInlineEvents =  function() {
+	/* tmr	
     $('[onblur]').each(function() {
   		$(this).blur(function() { 
   			eval($(this).attr('onblur'));
@@ -235,6 +236,9 @@ openxava.initInlineEvents =  function() {
   			eval($(this).attr('onfocus'));
 		});
 	});
+	*/
+	// TMR ME QUEDÉ POR AQUÍ. LOS FOCUS/BLUR EN LOS EDITORES YA ESTÁ HECHO. BUSCAR MÁS ONBLUR Y ONFOCUS
+	// TMR   RECORDAR PONER EN CHANGELOG QUE HAN DESAPARECIDO LOS ERRORES EN LA CONSOLA DEL BROWSER
 	$('form[onsubmit]').each(function() {	
   		$(this).off('submit').submit(function() {
   			return false;
@@ -251,6 +255,14 @@ openxava.initEditorsEvents = function(application, module) {
 		var container = $(this).closest('.xava_onchange_calculate');
   		openxava.calculate(application, module, container.data('calculated-property'), container.data('scale'));
 	});
+	// tmr ini
+	$('.xava_editor .editor').off('blur').blur(function() {
+  		openxava.onBlur(application, module, $(this).attr('id'));
+	});
+	$('.xava_editor .editor').off('focus').focus(function() {
+  		openxava.onFocus(application, module, $(this).attr('id'));
+	});	
+	// tmr fin
 }
 
 openxava.initFrames = function() {  
