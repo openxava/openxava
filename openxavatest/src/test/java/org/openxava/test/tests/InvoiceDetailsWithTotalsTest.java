@@ -132,15 +132,9 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		reload(); 
 		header = getHtmlPage().getHtmlElementById("ox_openxavatest_InvoiceDetailsWithTotals__frame_" + collection + "header"); 
 		assertEquals(totals, header.asNormalizedText());
-		/* tmr
-		if (addAction) assertTrue(header.asXml().contains("executeAction('openxavatest', 'InvoiceDetailsWithTotals', '', false, 'Collection.new', 'viewObject=xava_view_" + collection));
-		else assertTrue(!header.asXml().contains("executeAction('openxavatest', 'InvoiceDetailsWithTotals', '', false, 'Collection.new', 'viewObject=xava_view_" + collection));
-		*/
-		// tmr ini
 		String actionEvidence = "data-action=\"Collection.new\" data-argv=\"viewObject=xava_view_" + collection + "\"";
 		if (addAction) assertTrue(header.asXml().contains(actionEvidence));
 		else assertFalse(header.asXml().contains(actionEvidence));		
-		// tmr fin
 		showCollection(collection);
 	}
 	

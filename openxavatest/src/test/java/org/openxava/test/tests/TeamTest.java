@@ -23,7 +23,7 @@ public class TeamTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		assertCollectionRowCount("members", 2);
 		
-		assertAction("TeamMemberSub.viewNames"); // tmr Problema visual con el menú, probar con 7.1.6
+		assertAction("TeamMemberSub.viewNames"); 
 		execute("TeamMemberSub.viewRoles", "viewObject=xava_view_members");
 		assertInfo("CAP, DESARROLLO"); 
 		assertNoErrors();

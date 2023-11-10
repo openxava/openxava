@@ -13,13 +13,7 @@ tab.setRequest(request);
 String confName = tab.getConfigurationName();
 %>
 
-<%--tmr
-<select name='<xava:id name="listConfigurations"/>' title="<%=confName%>" 
-	onchange="openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '', false, 'List.filter','configurationId=' + this.value)">
---%>	
-<%-- tmr ini --%>
 <select class="xava_list_configurations" name='<xava:id name="listConfigurations"/>' title="<%=confName%>">
-<%-- tmr fin --%>	
 	<option value=""><%=confName%></option>
 	<% 
 	int count = 1; 

@@ -29,13 +29,4 @@ public class Collections {
 		return org.openxava.tab.Tab.COLLECTION_PREFIX + collectionId.replace('.', '_');
 	}
 	
-	/**
-	 * @since 5.9
-	 */
-	/* tmr
-	public static String sumPropertyScript(HttpServletRequest request, View rootView, String sumProperty) { 
-		return EditorsJS.calculateScript(request.getParameter("application"), request.getParameter("module"), rootView, sumProperty); 
-	}
-	*/
-
 }

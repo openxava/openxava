@@ -20,7 +20,6 @@ try {
 catch (Exception ex) {
 }
 int index = Integer.parseInt(request.getParameter("index"));
-// tmr boolean filterOnChange = org.openxava.util.XavaPreferences.getInstance().isFilterOnChange();
 String collection = request.getParameter("collection"); 
 String collectionArgv = Is.emptyString(collection)?"":"collection="+collection;
 %>
@@ -31,17 +30,8 @@ String collectionArgv = Is.emptyString(collection)?"":"collection="+collection;
 	<%-- conditionValueTo: we need all indexes to implement the range filters --%>
 </div>
 
-<%-- tmr
-<select name="<xava:id name='<%=prefix  + "conditionValue."  + index%>'/>" class=<%=style.getEditor()%>
-<% if(filterOnChange) { %>
-	onchange="openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '', false, 'List.filter','<%=collectionArgv%>')"
-<% } %>
->	
---%>
-<%-- tmr ini --%>
 <select name="<xava:id name='<%=prefix  + "conditionValue."  + index%>'/>" class="xava_combo_condition_value <%=style.getEditor()%>"
 	data-collection-argv="<%=collectionArgv%>">
-<%-- tmr fin --%>
 	<option value=""></option>
 <%
 	StringTokenizer st = new StringTokenizer(validValues, "|");

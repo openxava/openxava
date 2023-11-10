@@ -114,23 +114,9 @@ else {
 	}
 	keyProperties = sb.toString();
 }
-
-/* tmr
-boolean throwChanged=view.throwsReferenceChanged(ref);
-String script = throwChanged?
-	"onchange='openxava.throwPropertyChanged(\"" + 
-			request.getParameter("application") + "\", \"" + 
-			request.getParameter("module") + "\", \"" +			
-			propertyKey + "\")'":"";
-*/
 %>
 
 <% if (!composite) { %>
-<%-- tmr
-<% String required = view.isEditable() && ref.isRequired() ? "class='" + style.getRequiredEditor() + "'":""; %>
-<span id="<xava:id name='<%="reference_editor_" + view.getPropertyPrefix() + ref.getName()%>'/>" <%=required%>>
---%>
-<%-- tmr ini --%>
 <%
 	String wrapperClass = view.isEditable() && ref.isRequired()?style.getRequiredEditor():"";
 	wrapperClass = view.throwsReferenceChanged(ref)?wrapperClass + " xava_onchange":wrapperClass;
@@ -138,7 +124,6 @@ String script = throwChanged?
 %>	
 <span id="<xava:id name='<%="reference_editor_" + view.getPropertyPrefix() + ref.getName()%>'/>" <%=wrapperClass%>
 	data-property="<%=propertyKey%>">
-<%-- tmr fin --%>
 <% } %> 
 <% boolean notCompositeEditorClosed = false; %>
 <input type="hidden" name="<%=editableKey%>" value="<%=editable%>"/>
@@ -165,24 +150,6 @@ if (descriptionsList || descriptionsListAndReferenceView) {
 		}
 	}	
 %>
-	<%-- tmr
-	<jsp:include page="editors/descriptionsEditor.jsp">
-		<jsp:param name="script" value="<%=script%>"/> 
-		<jsp:param name="propertyKey" value="<%=propertyKey%>"/>
-		<jsp:param name="editable" value="<%=editable%>"/>
-		<jsp:param name="model" value="<%=ref.getReferencedModelName()%>"/>
-		<jsp:param name="keyProperty" value="<%=keyProperty%>"/>
-		<jsp:param name="keyProperties" value="<%=keyProperties%>"/>
-		<jsp:param name="descriptionProperty" value="<%=descriptionProperty%>"/>
-		<jsp:param name="descriptionProperties" value="<%=descriptionProperties%>"/>
-		<jsp:param name="parameterValuesProperties" value="<%=parameterValuesProperties%>"/>
-		<jsp:param name="condition" value="<%=condition%>"/>
-		<jsp:param name="orderByKey" value="<%=orderByKey%>"/>
-		<jsp:param name="order" value="<%=order%>"/>
-		<jsp:param name="filter" value="<%=filter%>"/>
-	</jsp:include>
-	--%>
-	<%-- tmr ini --%>
 	<jsp:include page="editors/descriptionsEditor.jsp">
 		<jsp:param name="propertyKey" value="<%=propertyKey%>"/>
 		<jsp:param name="editable" value="<%=editable%>"/>
@@ -197,7 +164,6 @@ if (descriptionsList || descriptionsListAndReferenceView) {
 		<jsp:param name="order" value="<%=order%>"/>
 		<jsp:param name="filter" value="<%=filter%>"/>
 	</jsp:include>	
-	<%-- tmr fin --%>	
 	<%
 	if (descriptionsListAndReferenceView) { 
 	%>
@@ -209,9 +175,7 @@ if (descriptionsList || descriptionsListAndReferenceView) {
 	
 	<% 
 	String editorURL = "editors/" + WebEditors.getMetaEditorFor(ref, view.getViewName()).getUrl()
-		// tmr + "?script=" + script
-		// tmr + "&propertyKey=" + propertyKey
-		+ "?propertyKey=" + propertyKey // tmr
+		+ "?propertyKey=" + propertyKey 
 		+ "&viewObject=" + refViewObject 
 		+ "&editable=false";
 	%>
@@ -223,9 +187,7 @@ if (descriptionsList || descriptionsListAndReferenceView) {
 }
 else {
 	String editorURL = "editors/" + WebEditors.getMetaEditorFor(ref, view.getViewName()).getUrl()
-		// tmr + "?script=" + script
-		// tmr + "&propertyKey=" + propertyKey
-		+ "?propertyKey=" + propertyKey // tmr
+		+ "?propertyKey=" + propertyKey 
 		+ "&viewObject=" + refViewObject 
 		+ "&editable=" + editable;
 %>

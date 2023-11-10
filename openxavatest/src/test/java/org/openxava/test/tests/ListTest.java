@@ -5,7 +5,7 @@ import java.util.*;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.*;
 import org.openqa.selenium.support.ui.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
@@ -129,16 +129,10 @@ public class ListTest extends WebDriverTestBase {
 		WebElement addColumns = driver.findElement(By.id("ox_openxavatest_Carrier__List___addColumns")); 
 		WebElement column0 = driver.findElement(By.id("ox_openxavatest_Carrier__list_col0"));		
 		WebElement moveColumn0 = column0.findElement(By.cssSelector("i[class='xava_handle mdi mdi-cursor-move ui-sortable-handle']"));		
-		// tmr WebElement removeColumn0 = driver.findElement(By.cssSelector("a[onclicke=\"javascript:openxava.removeColumn('openxavatest', 'Carrier', 'ox_openxavatest_Carrier__list_col0', 'xava_tab')\"]"));
-		// tmr ini
 		WebElement removeColumn0 = driver.findElement(By.cssSelector(".xava_remove_column[data-column='ox_openxavatest_Carrier__list_col0']"));
-		// tmr fin
 		WebElement column1 = driver.findElement(By.id("ox_openxavatest_Carrier__list_col1"));
 		WebElement moveColumn1 = column1.findElement(By.cssSelector("i[class='xava_handle mdi mdi-cursor-move ui-sortable-handle']")); 
-		// tmr WebElement removeColumn1 = driver.findElement(By.cssSelector("a[onclicke=\"javascript:openxava.removeColumn('openxavatest', 'Carrier', 'ox_openxavatest_Carrier__list_col1', 'xava_tab')\"]"));
-		// tmr ini
 		WebElement removeColumn1 = driver.findElement(By.cssSelector(".xava_remove_column[data-column='ox_openxavatest_Carrier__list_col1']"));
-		// tmr fin		
 		assertFalse(addColumns.isDisplayed());
 		assertFalse(moveColumn0.isDisplayed());		
 		assertFalse(removeColumn0.isDisplayed());

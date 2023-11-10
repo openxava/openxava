@@ -13,11 +13,9 @@ openxava.addEditorInitFunction(function() {
 	$('.ox-element-collection-remove-action').off('click').click(function() {
 		elementCollectionEditor.removeRow(openxava.lastApplication, openxava.lastModule, this, $(this).data('row'), $(this).data('has-totals'));
 	});	
-	// tmr ini
 	$('.xava_onchange_last_row').off('change').change(function() {
   		elementCollectionEditor.onChangeRow(this, $(this).data("row"));
   	});
-	// tmr fin
 });
 
 elementCollectionEditor.onChangeRow = function(element, rowIndex) {
@@ -35,11 +33,9 @@ elementCollectionEditor.onChangeRow = function(element, rowIndex) {
 	token1 = new RegExp(", this, " + (rowIndex + 1) + ", ", "g");
 	token2 = ", this, " + (rowIndex + 2) + ", ";
 	newRowHtml = newRowHtml.replace(token1, token2);
-	// tmr ini
 	token1 = new RegExp('data-row="' + (rowIndex + 1) + '"', "g");
 	token2 = 'data-row="' + (rowIndex + 2) + '"';
 	newRowHtml = newRowHtml.replace(token1, token2);
-	// tmr fin
 	newRow.html(newRowHtml);
 	newRow.addClass("ox-display-none"); 
 	var table = currentRow.parent().parent();	

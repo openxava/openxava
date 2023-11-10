@@ -88,11 +88,9 @@ public class ClerkTest extends ModuleTestBase {
 	}
 
 	public void testListFormatSelectedButtonStyle() throws Exception { 
-		// tmr HtmlElement listLink = HtmlUnitUtils.getAnchor(getHtmlPage(), "javascript:openxava.executeAction('openxavatest', 'Clerk', '', false, 'ListFormat.select', 'editor=List')");  
-		HtmlElement listLink = getHtmlPage().getBody().getOneHtmlElementByAttribute("a", "data-argv", "editor=List"); // tmr
+		HtmlElement listLink = getHtmlPage().getBody().getOneHtmlElementByAttribute("a", "data-argv", "editor=List"); 
 		assertTrue(listLink.getAttribute("class").contains("ox-selected-list-format"));
-		// tmr HtmlElement chartsLink = HtmlUnitUtils.getAnchor(getHtmlPage(), "javascript:openxava.executeAction('openxavatest', 'Clerk', '', false, 'ListFormat.select', 'editor=Charts')");
-		HtmlElement chartsLink = getHtmlPage().getBody().getOneHtmlElementByAttribute("a", "data-argv", "editor=Charts"); // tmr;
+		HtmlElement chartsLink = getHtmlPage().getBody().getOneHtmlElementByAttribute("a", "data-argv", "editor=Charts"); 
 		assertFalse(chartsLink.getAttribute("class").contains("ox-selected-list-format"));
 		
 		HtmlElement iCharts = chartsLink.getElementsByTagName("i").get(0); 

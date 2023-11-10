@@ -288,9 +288,7 @@ if (manager.isResetFormPostNeeded()) {
 		openxava.mapsAttribution = "<%=XavaPreferences.getInstance().getMapsAttribution().replace("\"", "'")%>";
 		openxava.mapsTileSize = <%=XavaPreferences.getInstance().getMapsTileSize()%>;
 		openxava.mapsZoomOffset = <%=XavaPreferences.getInstance().getMapsZoomOffset()%>;
-		// tmr ini
 		openxava.filterOnChange = <%=XavaPreferences.getInstance().isFilterOnChange()%>;
-		// tmr fin
 		<% java.text.DecimalFormatSymbols symbols = java.text.DecimalFormatSymbols.getInstance(Locales.getCurrent()); %>
 		openxava.decimalSeparator = "<%=symbols.getDecimalSeparator()%>";
 		openxava.groupingSeparator = "<%=symbols.getGroupingSeparator()%>";		

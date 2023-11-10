@@ -50,13 +50,6 @@ public class LinkTag extends ActionTagBase implements IActionTag {
 				pageContext.getOut().print(Ids.decorate(application, module, getAction())); 
 				pageContext.getOut().print("'");
 			}
-			/* tmr
-			if (!Is.emptyString(getCssClass())) {
-				pageContext.getOut().print(" class='");
-				pageContext.getOut().print(getCssClass());
-				pageContext.getOut().print("'");	
-			}
-			*/
 			if (!Is.emptyString(getCssStyle())) {
 				// We still add it but ignored because of CSP
 				pageContext.getOut().print(" style='");
@@ -67,38 +60,6 @@ public class LinkTag extends ActionTagBase implements IActionTag {
 			pageContext.getOut().print(" title='");
 			pageContext.getOut().print(filterApostrophes(getTooltip(metaAction))); 
 			pageContext.getOut().print("'");		
-			/*
-			if (metaAction.isLosesChangedData()) pageContext.getOut().print(" href=\"javascript:openxava.executeActionConfirmLosesChangedData(");
-			else pageContext.getOut().print(" href=\"javascript:openxava.executeAction(");
-			pageContext.getOut().print("'");				
-			pageContext.getOut().print(request.getParameter("application"));
-			pageContext.getOut().print("', '");
-			pageContext.getOut().print(request.getParameter("module"));
-			pageContext.getOut().print("', ");						
-			pageContext.getOut().print("'");
-			pageContext.getOut().print(filterApostrophes(metaAction.getConfirmMessage(request))); 
-			pageContext.getOut().print("'");
-			pageContext.getOut().print(", ");			
-			pageContext.getOut().print(metaAction.isTakesLong());
-			pageContext.getOut().print(", '");
-			pageContext.getOut().print(getAction());
-			pageContext.getOut().print("'");
-			if (!Is.emptyString(getArgv())) {
-				pageContext.getOut().print(", '");
-				pageContext.getOut().print(getArgv());
-				pageContext.getOut().print("'");
-			}
-			if (metaAction.inNewWindow()) {
-				if (Is.emptyString(getArgv())) {
-					pageContext.getOut().print(", undefined, undefined, undefined, true");
-				}
-				else {
-					pageContext.getOut().print(", undefined, undefined, true");
-				}
-			}
-			pageContext.getOut().print(")\">");
-			*/
-			// tmr ini
 			if (metaAction.isLosesChangedData()) pageContext.getOut().print(" class='xava_action_loses_changed_data ");
 			else pageContext.getOut().print(" class='xava_action ");
 			if (!Is.emptyString(getCssClass())) pageContext.getOut().print(getCssClass());
@@ -121,10 +82,6 @@ public class LinkTag extends ActionTagBase implements IActionTag {
 			pageContext.getOut().print(metaAction.inNewWindow());
 			
 			pageContext.getOut().print("'>");
-			// tmr fin
-
-			
-
 		}
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);

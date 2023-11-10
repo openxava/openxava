@@ -83,7 +83,6 @@ calculator.setDistinct(true);
 
 java.util.Collection descriptions = calculator.getDescriptions();
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
-// tmr boolean filterOnChange = org.openxava.util.XavaPreferences.getInstance().isFilterOnChange();
 String collection = request.getParameter("collection"); 
 String collectionArgv = Is.emptyString(collection)?"":"collection="+collection;
 %>
@@ -96,17 +95,8 @@ String collectionArgv = Is.emptyString(collection)?"":"collection="+collection;
 <% if (index < 0) { %>
 <select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=<%=style.getEditor()%>>
 <% } else {  %>
-<%-- tmr
-<select name="<xava:id name='<%=prefix + "conditionValue." + index%>'/>" class=<%=style.getEditor()%>
-<% if(filterOnChange) { %>
-	onchange="openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '', false, 'List.filter','<%=collectionArgv%>')"
-<% } %>
->
---%>
-<%-- tmr ini --%>
 <select name="<xava:id name='<%=prefix + "conditionValue." + index%>'/>" class="xava_combo_condition_value <%=style.getEditor()%>"
 	data-collection-argv="<%=collectionArgv%>">
-<%-- tmr fin --%>
 
 <% } %>
 	<option value=""></option>

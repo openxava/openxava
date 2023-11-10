@@ -228,14 +228,8 @@ if (editable) {
 		data-values='<%=values%>' value="<%=selectedDescription%>"/>
 	<input id="<%=propertyKey%>" type="hidden" name="<%=propertyKey%>" value="<%=selectedKey%>"/>
     <input type="hidden" name="<%=propertyKey%>__DESCRIPTION__" value="<%=selectedDescription%>"/>
-    <%-- tmr 
-	<a class="ox-layout-descriptions-editor-handler" href="javascript:descriptionsEditor.open('<%=propertyKey%>')"><i class="mdi mdi-menu-down"></i></a> 		
-	<a class="ox-layout-descriptions-editor-handler ox-display-none" href="javascript:descriptionsEditor.close('<%=propertyKey%>')"><i class="mdi mdi-menu-up"></i></a>
-	--%>
-	<%-- tmr ini --%>
 	<a class="xava_descriptions_editor_open ox-layout-descriptions-editor-handler" data-property-key='<%=propertyKey%>'><i class="mdi mdi-menu-down"></i></a> 		
 	<a class="xava_descriptions_editor_close ox-layout-descriptions-editor-handler ox-display-none" data-property-key='<%=propertyKey%>'><i class="mdi mdi-menu-up"></i></a>	
-	<%-- tmr fin --%>
 	</span>
 	<% 	
 } else { 

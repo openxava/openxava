@@ -144,17 +144,9 @@ else {
 		request.setAttribute(valueKey, subview.getValue(p.getName()));		
 		String script = "";
 		if (it.hasNext()) {
-	// tmr Tengo que quitar el onchange y el onblur, pero no sé en que caso se utilizan
-	if (subview.throwsPropertyChanged(p)) {			
-		script = "onchange='openxava.throwPropertyChanged(\"" + 
-				app + "\", \"" + 
-				module + "\", \"" +
-				propertyKey + "\")'";
+	if (!subview.throwsPropertyChanged(p)) {			
+		script = "onblur='openxava.executeAction(\"" + app + "\", \"" + module + "\", \"\", false, \"" + subview.getSaveCollectionElementAction() + "\", \"" + argv + "\")'";
 	}
-		}
-		else {
-	script = "onblur='openxava.executeAction(\"" + app + "\", \"" + module + "\", \"\", false, \"" + subview.getSaveCollectionElementAction() + "\", \"" + argv + "\")'";
-		}
 		Object value = request.getAttribute(propertyKey + ".value");
 		if (WebEditors.mustToFormat(p, view.getViewName())) {
 	String fvalue = WebEditors.format(request, p, value, errors, view.getViewName());

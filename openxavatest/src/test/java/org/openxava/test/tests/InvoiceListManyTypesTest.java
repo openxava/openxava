@@ -165,9 +165,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertLabelInList(4, "Paid");
 		assertLabelInList(7, "Customer seller"); 
 
-		System.out.println("[InvoiceListManyTypesTest.assertListConfigurationsColumns] >>>"); // tmr
 		execute("List.addColumns");
-		System.out.println("[InvoiceListManyTypesTest.assertListConfigurationsColumns] <<<"); // tmr
 		checkRow("selectedProperties", "customer.city"); // Read only to test a case
 		checkRow("selectedProperties", "comment" ); 
 		execute("AddColumns.addColumns");

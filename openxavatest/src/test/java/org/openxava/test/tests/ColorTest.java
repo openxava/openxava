@@ -464,8 +464,7 @@ public class ColorTest extends ModuleTestBase {
 	private void assertLinkTooltip(String action, String tooltip) { 
 		for (HtmlElement el: getHtmlPage().getBody().getElementsByTagName("a")) { 
 			HtmlAnchor link = (HtmlAnchor) el;
-			// tmr if (HtmlUnitUtils.getHrefAttribute(link).contains("'" + action + "'")) { 
-			if (action.equals(link.getAttribute("data-action"))) { // tmr
+			if (action.equals(link.getAttribute("data-action"))) { 
 				assertEquals(tooltip, link.getAttribute("title"));
 				return;
 			}

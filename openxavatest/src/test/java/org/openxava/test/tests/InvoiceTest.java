@@ -2272,8 +2272,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 
 	private void assertChartTypeSelected(String chartType) throws Exception { 
-		// tmr assertEquals("ox-selected-chart-type", getChartTypeLink(chartType).getAttribute("class"));
-		assertEquals("xava_action ox-selected-chart-type", getChartTypeLink(chartType).getAttribute("class")); // tmr
+		assertEquals("xava_action ox-selected-chart-type", getChartTypeLink(chartType).getAttribute("class")); 
 	}
 
 
@@ -2287,12 +2286,9 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	private HtmlElement getChartTypeLink(String chartType) throws Exception { 
-		// tmr return HtmlUnitUtils.getAnchor(getHtmlPage(), "javascript:openxava.executeAction('openxavatest', 'Invoice', '', false, 'Chart.selectType', 'chartType=" + chartType + "')");
-		// tmr ini
 		HtmlElement link = getHtmlPage().getBody().getOneHtmlElementByAttribute("a", "data-argv", "chartType=" + chartType);
 		assertEquals("Action for select chart type should be Chart.selectType", "Chart.selectType", link.getAttribute("data-action"));
 		return link;
-		// tmr fin
 	}
 	
 	private void assertChartDisplayed() throws Exception {

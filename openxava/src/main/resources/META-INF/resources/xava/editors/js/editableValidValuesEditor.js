@@ -1,6 +1,5 @@
 if (editableValidValuesEditor == null) var editableValidValuesEditor = {};
 
-// tmr ini
 openxava.addEditorInitFunction(function() {
 	$('.ox-select-editable select').change(function() {
 		editableValidValuesEditor.handleSelectChange(this);
@@ -9,7 +8,6 @@ openxava.addEditorInitFunction(function() {
 		editableValidValuesEditor.handleSelectInput(this)
 	});
 });
-// tmr fin
 
 editableValidValuesEditor.handleSelectChange = function(selectElement) {
 	selectElement.nextElementSibling.value = selectElement.options[selectElement.selectedIndex].text;

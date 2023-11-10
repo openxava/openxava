@@ -4,12 +4,7 @@
 <%@page import="org.openxava.model.meta.MetaProperty"%>
 <%@page import="org.openxava.view.View"%>
 <%@page import="org.openxava.util.XavaPreferences"%>
-<%-- tmr
-<%@page import="org.openxava.web.Collections"%>
---%>
-<%-- tmr ini --%>
-<%@page import="org.openxava.web.EditorsJS"%>
-<%-- tmr fin --%>  
+<%@page import="org.openxava.web.Editors"%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
@@ -37,16 +32,10 @@ else {
 	View rootView = view.getCollectionRootOrRoot();
 	String sumProperty = collectionName + "." + p.getName() + "_SUM_";
 	if (rootView.isPropertyUsedInCalculation(sumProperty)) {
-		// tmr String script = Collections.sumPropertyScript(request, rootView, sumProperty);
 %>
-		<%-- tmr
-		<input id="<xava:id name='<%=sumProperty%>'/>" type="hidden" value="<%=ftotal%>" <%=script%>/>
-		--%>
-		<%-- tmr ini --%>
 		<input class="xava_onchange_calculate" id="<xava:id name='<%=sumProperty%>'/>" type="hidden" value="<%=ftotal%>"
-			<%=EditorsJS.onChangeCalculateDataAttributes(request.getParameter("application"), request.getParameter("module"), rootView, sumProperty)%>
+			<%=Editors.onChangeCalculateDataAttributes(request.getParameter("application"), request.getParameter("module"), rootView, sumProperty)%>
 		/>
-		<%-- tmr fin --%>
 <% 		
 	}
 	else if (!subview.isCollectionFixedTotal(column) && XavaPreferences.getInstance().isSummationInList()) {

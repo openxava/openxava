@@ -41,8 +41,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		
 		driver.findElement(By.id("ox_openxavatest_Product2__reference_editor_warehouse")); // Warehouse combo must be to test the "quotes" bug
 
-		// tmr WebElement familyList = driver.findElement(By.id("ui-id-1"));
-		WebElement familyList = driver.findElement(By.id(getListId(0))); // tmr
+		WebElement familyList = driver.findElement(By.id(getListId(0))); 
 		assertFalse(familyList.isDisplayed());
 		assertEquals(0, familyList.findElements(By.tagName("li")).size());
 		WebElement familyEditor = driver.findElement(By.id("ox_openxavatest_Product2__reference_editor_family"));
@@ -84,8 +83,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		WebElement subfamilyEditor = driver.findElement(By.id("ox_openxavatest_Product2__reference_editor_subfamily"));
 		WebElement openSubfamilyListIcon = subfamilyEditor.findElement(By.className("mdi-menu-down"));
 		openSubfamilyListIcon.click();
-		// tmr WebElement subfamilyList = driver.findElement(By.id("ui-id-9"));
-		WebElement subfamilyList = driver.findElement(By.id(getListId(1))); // tmr
+		WebElement subfamilyList = driver.findElement(By.id(getListId(1))); 
 		assertTrue(subfamilyList.isDisplayed());
 		List<WebElement> subfamilyListChildren = subfamilyList.findElements(By.tagName("li")); 
 		assertEquals(3, subfamilyListChildren.size());
@@ -133,8 +131,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertEquals("", familyTextField.getAttribute("value")); 
 		
 		execute("CRUD.new");
-		// tmr familyList = driver.findElement(By.id("ui-id-25")); 
-		familyList = driver.findElement(By.id(getListId(0))); // tmr 
+		familyList = driver.findElement(By.id(getListId(0)));  
 		assertFalse(familyList.isDisplayed());
 		assertEquals(0, familyList.findElements(By.tagName("li")).size());
 		familyTextField = getDescriptionsListTextField("family");
@@ -161,7 +158,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		removeWarehouseWithQuote(); 
 	}
 	
-	private String getListId(int orderInUI) throws Exception { // tmr
+	private String getListId(int orderInUI) throws Exception { 
 		return driver.findElements(By.className("ui-menu")).get(orderInUI).getAttribute("id");
 	}
 	

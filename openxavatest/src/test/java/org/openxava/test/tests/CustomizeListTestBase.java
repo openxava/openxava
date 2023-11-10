@@ -47,13 +47,10 @@ abstract public class CustomizeListTestBase extends ModuleTestBase {
 		HtmlElement header = table.getRow(0).getCell(index + 2);
 		HtmlElement icon = header.getElementsByAttribute("i", "class", "mdi mdi-close-circle").get(0);
 		HtmlElement removeLink = icon.getEnclosingElement("a");
-		// tmr ini
 		if (!removeLink.isDisplayed()) {
 			table.getOneHtmlElementByAttribute("a", "class", "xava_customize_list ox-image-link").click();
 		}
 		removeLink.click(); 
-		// tmr fin
-		// tmr getHtmlPage().executeJavaScript(getHrefAttribute(removeLink)); // Because removeLink.click() does not work with HtmlUnit 2.70
 		Thread.sleep(800); 
 	}
 

@@ -64,12 +64,7 @@ if (tab.isTitleVisible()) {
 </span>
 <% } %>
 <% if (manager.getDialogLevel() == 0) { %>
-<%-- tmr
-<select onchange="openxava.executeAction('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '', false, 'List.groupBy','property=' + this.value)">
---%>
-<%-- tmr ini --%>
 <select class="xava_group_by">
-<%-- tmr fin --%>
 	<option value=""><%=grouping?XavaResources.getString("no_grouping"):XavaResources.getString("no_grouping")%></option>
 	<% 
 	for (MetaProperty property: tab.getMetaPropertiesGroupBy()) {

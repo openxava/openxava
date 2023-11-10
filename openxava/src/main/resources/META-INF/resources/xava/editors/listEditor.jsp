@@ -17,9 +17,7 @@
 <%@ page import="org.openxava.util.Users" %>
 <%@ page import="java.util.prefs.Preferences" %>
 <%@ page import="org.openxava.util.XavaResources" %>
-<%-- tmr ini --%>
 <%@page import="org.openxava.web.EditorsJS"%>
-<%-- tmr fin --%>   
 
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
@@ -93,26 +91,12 @@ if (grouping) action = null;
 <th class="ox-list-header ox-text-align-center">
 <nobr>
 	<% if (tab.isCustomizeAllowed()) { %>
-	<%-- tmr
-	<a  id="<xava:id name='<%="customize_" + id%>'/>" href="javascript:openxava.customizeList('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=id%>')" title="<xava:message key='customize_list'/>" class="<%=style.getActionImage()%>">
-	--%>
-	<%-- tmr ini --%>
 	<a  id="<xava:id name='<%="customize_" + id%>'/>" class="xava_customize_list <%=style.getActionImage()%>" 
 		title="<xava:message key='customize_list'/>" data-id="<%=id%>">
-	<%-- tmr fin --%>
 		<i class="mdi mdi-settings"></i>
 	</a>
 	<% } %>
 	<% if (filter) { %> 
-	<%-- tmr
-	<a id="<xava:id name='<%="show_filter_" + id%>'/>" <%=tab.isFilterVisible()?"class='ox-display-none'":""%> href="javascript:openxava.setFilterVisible('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=id%>', '<%=tabObject%>', true)" title="<xava:message key='show_filters'/>">
-		<i id="<xava:id name='<%="filter_image_" + id%>'/>" class="mdi mdi-filter"></i>
-	</a>
-	<a id="<xava:id name='<%="hide_filter_" + id%>'/>" <%=tab.isFilterVisible()?"":"class='ox-display-none'"%> href="javascript:openxava.setFilterVisible('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=id%>', '<%=tabObject%>', false)" title="<xava:message key='hide_filters'/>">
-		<i id="<xava:id name='<%="filter_image_" + id%>'/>" class="mdi mdi-filter-remove"></i>  
-	</a>	
-	--%>
-	<%-- tmr ini --%>
 	<a id="<xava:id name='<%="show_filter_" + id%>'/>" class='<%=tab.isFilterVisible()?"xava_show_hide_filter ox-display-none":"xava_show_hide_filter"%>'  
 		title="<xava:message key='show_filters'/>"
 		data-id="<%=id%>" data-tab-object="<%=tabObject%>" data-visible="true">
@@ -123,7 +107,6 @@ if (grouping) action = null;
 		data-id="<%=id%>" data-tab-object="<%=tabObject%>" data-visible="false">
 		<i id="<xava:id name='<%="filter_image_" + id%>'/>" class="mdi mdi-filter-remove"></i>  
 	</a>	
-	<%-- tmr fin --%>
 	<% } // if (filter) %>	
 	<%
 	if (tab.isCustomizeAllowed()) { 
@@ -202,13 +185,8 @@ String headerLabel=Strings.noLastToken(label) + " <nobr>" + Strings.lastToken(la
 	%>
 	<span class="<xava:id name='<%="customize_" + id%>'/> ox-display-none ox-column-customize-controls-on-right">
 	<xava:action action="List.changeColumnName" argv='<%="property="+property.getQualifiedName() + collectionArgv%>'/>
-	<%-- tmr
-	<a href="javascript:openxava.removeColumn('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<xava:id name='<%=id%>'/>_col<%=columnIndex%>', '<%=tabObject%>')" title="<xava:message key='remove_column'/>">
-	--%>
-	<%-- tmr ini --%>
 	<a class="xava_remove_column" title="<xava:message key='remove_column'/>"
 		data-column="<xava:id name='<%=id%>'/>_col<%=columnIndex%>" data-tab-object="<%=tabObject%>">	
-	<%-- tmr fin --%>
 		<i class="mdi mdi-close-circle"></i>
 	</a>
 	</span>
@@ -362,16 +340,9 @@ while (it.hasNext()) {
 	}
 	else {
 %>
-<%-- tmr
-<th class="ox-list-subheader">
-	<div class="<xava:id name='<%=id%>'/>_col<%=columnIndex%>"/>
-</th>
---%>
-<%-- tmr ini --%>
 <td class="ox-list-subheader">
 	<div class="<xava:id name='<%=id%>'/>_col<%=columnIndex%>"/>
 </td>
-<%-- tmr fin --%>
 <%
 	}
 	columnIndex++; 
@@ -501,16 +472,10 @@ for (int c=0; c<model.getColumnCount(); c++) {
 				org.openxava.view.View rootView = view.getParent().getCollectionRootOrRoot();
 				String sumProperty =  collection + "." + p.getName() + "_SUM_";
 				if (rootView.isPropertyUsedInCalculation(sumProperty)) {
-					// tmr String script = org.openxava.web.Collections.sumPropertyScript(request, rootView, sumProperty);
 			%>
-					<%-- tmr
-					<input id="<xava:id name='<%=sumProperty%>'/>" type="hidden" value="<%=total%>" <%=script%>/>
-					--%>
-					<%-- tmr ini --%>
 					<input class="xava_onchange_calculate" id="<xava:id name='<%=sumProperty%>'/>" type="hidden" value="<%=ftotal%>"
 						<%=EditorsJS.onChangeCalculateDataAttributes(request.getParameter("application"), request.getParameter("module"), rootView, sumProperty)%>
 					/>
-		<%-- tmr fin --%>
 			<%
 				}
 			}
@@ -698,14 +663,8 @@ else {
 %>
 <% if (style.isChangingPageRowCountAllowed()) { %>
 &nbsp;
-<%-- tmr
-<select id="<xava:id name='<%=id + "_rowCount"%>'/>" class=<%=style.getEditor()%>
-	onchange="openxava.setPageRowCount('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=collection==null?"":collection%>', this)">
---%>
-<%-- tmr ini --%>
 <select id="<xava:id name='<%=id + "_rowCount"%>'/>" class="<%=style.getEditor()%> xava_set_page_row_count"
 	data-collection='<%=collection==null?"":collection%>'>
-<%-- tmr fin --%>	
 	<% 
 	int [] rowCounts = { 5, 10, 12, 15, 20, 50 }; // The peformance with more than 50 rows is poor for page reloading
 	for (int i=0; i<rowCounts.length; i++) {

@@ -117,17 +117,9 @@ abstract public class WebDriverTestBase extends TestCase {
 		//waitCalendarEvent(driver);
 	}
 	
-	protected void execute(WebDriver driver, String moduleName, String action, String arguments) throws Exception { // tmr Quitar module name
+	protected void execute(WebDriver driver, String moduleName, String action, String arguments) throws Exception { 
 		try { 
-			/* tmr
-			WebElement button = driver.findElement(By.cssSelector(
-				"a[onclicke=\"javascript:openxava.executeAction('openxavatest', '" + moduleName + 
-				"', '', false, '" + action + "', '" + arguments + "')\"]"));
-			*/
-			// tmr ini
 			WebElement button = driver.findElement(By.cssSelector("a[data-action='" + action + "'][data-argv='" + arguments + "']"));
-			// tmr fin
-			
 			button.click();
 			wait(driver);
 		}
