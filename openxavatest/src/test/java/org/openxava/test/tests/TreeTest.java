@@ -26,7 +26,8 @@ public class TreeTest extends WebDriverTestBase{
 		execute(driver, "TreeContainer", "Mode.list");
 		execute(driver, "TreeContainer", "List.viewDetail", "row=0");
 		dragAndDrop(driver);
-		
+		execute(driver, "TreeContainer", "Mode.list");
+		execute(driver, "TreeContainer", "CRUD.deleteRow", "row=1");
 	}
 
 	public void tearDown() throws Exception {
@@ -118,6 +119,9 @@ public class TreeTest extends WebDriverTestBase{
 		assertTrue(isElementInside(driver, "208321", "208324_anchor"));
 		assertTrue(isElementInside(driver, "208324", "208325_anchor"));
 		assertTrue(isElementInside(driver, "208325", "208326_anchor"));
+		
+		executeDnd(driver, "208326_anchor", "208323_anchor");
+		executeDndBetween(driver, "208325_anchor", "208321");
 	}
 	
 	private void executeDnd(WebDriver driver, String sourceElementId, String targetElementId) throws InterruptedException {

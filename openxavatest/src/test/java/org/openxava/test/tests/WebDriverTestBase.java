@@ -121,6 +121,7 @@ abstract public class WebDriverTestBase extends TestCase {
 		try { 
 			WebElement button = driver.findElement(By.cssSelector("a[data-action='" + action + "'][data-argv='" + arguments + "']"));
 			button.click();
+			acceptInDialogJS(driver);
 			wait(driver);
 		}
 		catch (NoSuchElementException ex) {
