@@ -39,6 +39,14 @@ naviox.initModulesList = function() {
 	$('#display_all_modules').on( "click", function() {
 		naviox.displayAllModulesList($(this).data("search-word"));
 	});
+	// tmr ini
+	$('#back_folder').on( "click", function() {
+		naviox.goBack();
+	});
+	$('.folder-link').on( "click", function() {
+		naviox.goFolder($(this).data('folder-id'));
+	});		
+	// tmr fin
 }
 
 naviox.initBookmark = function() { 
@@ -166,7 +174,8 @@ naviox.refreshFolderModulesList = function(modulesList) {
     		$('#modules_list_content').children().first().remove();
     		box.css("left", "0");
     		naviox.watchSearch();
-    		$('.modules-list-header').css("width", "100%"); 
+    		$('.modules-list-header').css("width", "100%");
+    		naviox.initModulesList(); // tmr 
     	}
     );
 }
@@ -189,7 +198,8 @@ naviox.refreshFolderBackModulesList = function(modulesList) {
     	function() {
     		$('#modules_list_content').children().last().remove();
     		naviox.watchSearch(); 
-    		$('.modules-list-header').css("width", "100%"); 
+    		$('.modules-list-header').css("width", "100%");
+    		naviox.initModulesList(); // tmr 
     	}
     );
 }
