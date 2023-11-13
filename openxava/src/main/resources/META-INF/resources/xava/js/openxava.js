@@ -581,7 +581,7 @@ openxava.initLists = function(application, module) {
 	    	var tableId = table.attr("id");
 	    	View.moveCollectionElement(tableId, ui.item.startPos - 1, ui.item.index() - 1);
 	    	openxava.renumberCollection(table);
-	  		openxava.initInlineEvents(); 
+	  		// tmr openxava.initInlineEvents(); 
 	    }	
 	});
 	openxava.watchColumnsSearch();
