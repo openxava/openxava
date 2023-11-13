@@ -214,7 +214,8 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initMessages(); 
 	openxava.initFrames(); 
 	openxava.initSubcontrollers(); 
-	openxava.initInlineEvents(); 
+	openxava.initForms(); // tmr
+	// tmr openxava.initInlineEvents(); 
 	 
 	if (typeof currentRow != "undefined") {
 		openxava.initEditors(); 
@@ -224,8 +225,16 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 
 openxava.initFocusKey = function() { }
 
+openxava.initForms = function() { // tmr
+	$('.xava_form').each(function() {	
+  		$(this).off('submit').submit(function() {
+  			return false;
+		});
+	});
+}
+
+/* tmr
 openxava.initInlineEvents =  function() {
-	/* tmr	
     $('[onblur]').each(function() {
   		$(this).blur(function() { 
   			eval($(this).attr('onblur'));
@@ -236,15 +245,13 @@ openxava.initInlineEvents =  function() {
   			eval($(this).attr('onfocus'));
 		});
 	});
-	*/
-	// TMR ME QUEDÉ POR AQUÍ. LOS FOCUS/BLUR EN LOS EDITORES YA ESTÁ HECHO. BUSCAR MÁS ONBLUR Y ONFOCUS
-	// TMR   RECORDAR PONER EN CHANGELOG QUE HAN DESAPARECIDO LOS ERRORES EN LA CONSOLA DEL BROWSER
 	$('form[onsubmit]').each(function() {	
   		$(this).off('submit').submit(function() {
   			return false;
 		});
 	});
 }
+*/
 
 openxava.initEditorsEvents = function(application, module) { 
 	$('.xava_onchange .editor').off('change').change(function() {
