@@ -32,9 +32,9 @@ public class TreeTest extends WebDriverTestBase{
 	public void tearDown() throws Exception {
 		driver.quit();
 	}
-	
+
 	private void createNewNodeSelecting(WebDriver driver) throws Exception {
-		WebElement childItem2CheckBox = driver.findElement(By.xpath("//a[@id='208108_anchor']/i"));
+		WebElement childItem2CheckBox = driver.findElement(By.xpath("//a[@id='208322_anchor']/i"));
 		childItem2CheckBox.click();
 		execute(driver, "TreeContainer", "TreeView.new", "viewObject=xava_view_treeItems");
 		insertValueToInput(driver, "ox_openxavatest_TreeContainer__description", "A", false);
@@ -42,8 +42,8 @@ public class TreeTest extends WebDriverTestBase{
 		save.click();
 		wait(driver);
 
-		WebElement nuevoElemento = driver.findElement(By.xpath("//a[contains(@onclicke, 'TreeView.new') and contains(@onclicke, 'viewObject=xava_view_treeItems')]"));
-		((JavascriptExecutor) driver).executeScript("arguments[0].click();", nuevoElemento); // must clicked manually because the element is not interactable
+		WebElement createNewButtonElement = driver.findElement(By.xpath("//a[@data-application='openxavatest' and @data-module='TreeContainer' and @data-action='TreeView.new' and @data-argv='viewObject=xava_view_treeItems']"));
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();", createNewButtonElement); // must clicked manually because the element is not interactable
 		Thread.sleep(500); //sometimes need
 		Alert alert = driver.switchTo().alert();
 		//these alerts only occur in the selenium test, because we clicked on a non-interactable element
@@ -57,7 +57,7 @@ public class TreeTest extends WebDriverTestBase{
 	
 	private void editNodeWithDoubleClick(WebDriver driver) throws Exception {
 		Thread.sleep(500); //sometimes need
-		WebElement aElement = driver.findElement(By.id("208113_anchor"));
+		WebElement aElement = driver.findElement(By.id("208327_anchor"));
 		Actions actions = new Actions(driver);
 		actions.doubleClick(aElement).perform();
 		wait(driver);
@@ -67,17 +67,17 @@ public class TreeTest extends WebDriverTestBase{
 		save.click();
 		wait(driver);
 		
-		assertEquals("AA", driver.findElement(By.id("208113_anchor")).getText());
+		assertEquals("AA", driver.findElement(By.id("208327_anchor")).getText());
 	}
 	
 	private void verifyCreatedNodesAndCheck(WebDriver driver) throws InterruptedException {
-		WebElement childItem2CheckBox = driver.findElement(By.xpath("//a[@id='208108_anchor']/i"));
+		WebElement childItem2CheckBox = driver.findElement(By.xpath("//a[@id='208322_anchor']/i"));
 		childItem2CheckBox.click();
 		Thread.sleep(500); //sometimes need
-		expandNode(driver, "208108");
-		WebElement newNodeB = driver.findElement(By.xpath("//a[@id='208114_anchor']"));
+		expandNode(driver, "208322");
+		WebElement newNodeB = driver.findElement(By.xpath("//a[@id='208328_anchor']"));
 		assertEquals("B", newNodeB.getText());
-		WebElement newNodeACheckBox = driver.findElement(By.xpath("//a[@id='208113_anchor']/i"));
+		WebElement newNodeACheckBox = driver.findElement(By.xpath("//a[@id='208327_anchor']/i"));
 		newNodeACheckBox.click();
 	}
 	
@@ -94,30 +94,30 @@ public class TreeTest extends WebDriverTestBase{
 	}
 	
 	private void cutNode(WebDriver driver) throws Exception {
-		WebElement bCheckBox = driver.findElement(By.xpath("//a[@id='208114_anchor']/i"));
+		WebElement bCheckBox = driver.findElement(By.xpath("//a[@id='208328_anchor']/i"));
 		bCheckBox.click();
 		execute(driver, "TreeContainer", "CollectionCopyPaste.cut", "viewObject=xava_view_treeItems");
 		execute(driver, "TreeContainer", "Mode.list");
 		execute(driver, "TreeContainer", "CRUD.new");
 		insertValueToInput(driver, "ox_openxavatest_TreeContainer__description", "BB", false);
 		execute(driver, "TreeContainer", "CollectionCopyPaste.paste", "viewObject=xava_view_treeItems");
-		WebElement bElement = driver.findElement(By.id("208114_anchor"));
+		WebElement bElement = driver.findElement(By.id("208328_anchor"));
 		assertTrue(bElement.getText().equals("B"));
 	}
 	
 	private void dragAndDrop(WebDriver driver) throws Exception {
-		executeDnd(driver, "208111_anchor", "208110_anchor");
-		executeDndBetween(driver, "208107_anchor", "208106");
-		expandNode(driver, "208110");
-		executeDnd(driver, "208112_anchor", "208111_anchor");
-		expandNode(driver, "208111");
-		executeDnd(driver, "208107_anchor", "208106_anchor");
+		executeDnd(driver, "208325_anchor", "208324_anchor");
+		executeDndBetween(driver, "208321_anchor", "208320");
+		expandNode(driver, "208324");
+		executeDnd(driver, "208326_anchor", "208325_anchor");
+		expandNode(driver, "208325");
+		executeDnd(driver, "208321_anchor", "208320_anchor");
 		driver.navigate().refresh();
 		wait(driver);
-		assertTrue(isElementInside(driver, "208106", "208107_anchor"));
-		assertTrue(isElementInside(driver, "208107", "208110_anchor"));
-		assertTrue(isElementInside(driver, "208110", "208111_anchor"));
-		assertTrue(isElementInside(driver, "208111", "208112_anchor"));
+		assertTrue(isElementInside(driver, "208320", "208321_anchor"));
+		assertTrue(isElementInside(driver, "208321", "208324_anchor"));
+		assertTrue(isElementInside(driver, "208324", "208325_anchor"));
+		assertTrue(isElementInside(driver, "208325", "208326_anchor"));
 	}
 	
 	private void executeDnd(WebDriver driver, String sourceElementId, String targetElementId) throws InterruptedException {
