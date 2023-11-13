@@ -36,7 +36,7 @@ public class ColorTest extends ModuleTestBase {
 
 		assertNoAction("ColorSub.fourAction");
 		execute("ColorSub.firstAction");
-		assertDialog();
+		assertDialog(); 
 		closeDialog();
 		execute("List.viewDetail", "row=0");
 		assertAction("ColorSub.fourAction");
@@ -464,7 +464,7 @@ public class ColorTest extends ModuleTestBase {
 	private void assertLinkTooltip(String action, String tooltip) { 
 		for (HtmlElement el: getHtmlPage().getBody().getElementsByTagName("a")) { 
 			HtmlAnchor link = (HtmlAnchor) el;
-			if (HtmlUnitUtils.getHrefAttribute(link).contains("'" + action + "'")) { 
+			if (action.equals(link.getAttribute("data-action"))) { 
 				assertEquals(tooltip, link.getAttribute("title"));
 				return;
 			}

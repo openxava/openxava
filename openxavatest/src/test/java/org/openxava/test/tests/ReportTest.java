@@ -2,9 +2,8 @@ package org.openxava.test.tests;
 
 import java.nio.charset.*;
 
-import org.openxava.tests.*;
-
 import org.htmlunit.html.*;
+import org.openxava.tests.*;
 
 /**
  * @author Javier Paniza
@@ -30,7 +29,7 @@ public class ReportTest extends ModuleTestBase {
 		setValue("ranges.type", "1"); // NUMBERS
 		assertExists("ranges.numberFrom");
 		assertExists("ranges.numberTo");
-		assertNotExists("ranges.dateFrom");
+		assertNotExists("ranges.dateFrom"); 
 		assertNotExists("ranges.dateTo");
 
 		setValue("ranges.type", "2"); // DATES

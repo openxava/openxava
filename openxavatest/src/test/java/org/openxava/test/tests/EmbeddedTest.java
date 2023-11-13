@@ -14,7 +14,7 @@ import org.openxava.tests.*;
  *
  */
 public class EmbeddedTest extends ModuleTestBase {
-	private Pattern keyPropertyPattern =  Pattern.compile(".+'keyProperty=(.+)'.+");
+	private Pattern keyPropertyPattern =  Pattern.compile("keyProperty=(.+)"); 
 
 	public EmbeddedTest(String nameTest) {
 		super(nameTest,"ClassA");
@@ -43,7 +43,7 @@ public class EmbeddedTest extends ModuleTestBase {
 		DomNodeList list = getHtmlPage().getElementsByTagName("a");
 		for (int index = 0; index < list.getLength(); index++) {
 			HtmlElement element = (HtmlElement) list.get(index);
-			if (HtmlUnitUtils.getHrefAttribute(element).contains("Reference.search")) { 
+			if (element.getAttribute("data-action").equals("Reference.search")) { 
 				returnValue = element;
 				break;
 			}
@@ -53,7 +53,7 @@ public class EmbeddedTest extends ModuleTestBase {
 	}
 	
 	private String extractKeyProperty(HtmlElement element) {
-		String href = HtmlUnitUtils.getHrefAttribute(element); 
+		String href = element.getAttribute("data-argv"); 
 		Matcher matcher = keyPropertyPattern.matcher(href);
 		if (matcher.matches()) {
 			return matcher.group(1);

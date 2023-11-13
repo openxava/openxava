@@ -293,7 +293,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValue("seller.number", "");
 		assertValue("seller.name", "");
 		assertValue("alternateSeller.number", "");
-		assertValue("alternateSeller.name", "");
+		assertValue("alternateSeller.name", ""); 
 		setValue("name", "Pedro");
 		assertValue("seller.number", "2");
 		assertValue("seller.name", "JUANVI LLAVADOR");
@@ -391,7 +391,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	
 	public void testChooseInReferenceWithoutSelecting() throws Exception {
 		execute("CRUD.new");
-		execute("Reference.search", "keyProperty=xava.Customer.alternateSeller.number");		
+		execute("Reference.search", "keyProperty=xava.Customer.alternateSeller.number");	
 		execute("ReferenceSearch.choose"); 
 		assertNoErrors();		
 		assertAction("ReferenceSearch.choose"); // Because no row is selected we keep in searching list

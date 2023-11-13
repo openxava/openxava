@@ -422,8 +422,8 @@ public class CustomerTest extends CustomizeListTestBase {
 	public void testCustomSearchReferenceAction_searchDialogWhenNotFound() throws Exception { 
 		execute("CRUD.new");
 		String html = getHtml();		
-		assertTrue("Search of 'seller' should be 'MyReference.search'", html.indexOf("'MyReference.search', 'keyProperty=seller.number'") > 0);
-		assertTrue("Search 'alternateSeller' should be 'Reference.search'", html.indexOf("'Reference.search', 'keyProperty=alternateSeller.number'") > 0);
+		assertTrue("Search of 'seller' should be 'MyReference.search'", html.indexOf("data-action=\"MyReference.search\" data-argv=\"keyProperty=seller.number\"") > 0);
+		assertTrue("Search 'alternateSeller' should be 'Reference.search'", html.indexOf("data-action=\"Reference.search\" data-argv=\"keyProperty=alternateSeller.number\"") > 0);				
 		execute("MyReference.search", "keyProperty=seller.number");
 		assertListRowCount(2); // Because custome searh action filter
 		execute("ReferenceSearch.cancel");

@@ -70,7 +70,7 @@ abstract public class WebDriverTestBase extends TestCase {
 		WebElement tabList = driver.findElement(By.cssSelector(".mdi.mdi-table-large"));
 		WebElement tabListParent = tabList.findElement(By.xpath(".."));
 		String title = tabListParent.getAttribute("class");
-		if (!(title != null && title.equals("ox-selected-list-format"))) {
+		if (!(title != null && title.equals("xava_action ox-selected-list-format"))) {
 			tabList.click();
 		}
 		wait(driver);
@@ -119,9 +119,7 @@ abstract public class WebDriverTestBase extends TestCase {
 	
 	protected void execute(WebDriver driver, String moduleName, String action, String arguments) throws Exception { 
 		try { 
-			WebElement button = driver.findElement(By.cssSelector(
-				"a[onclicke=\"javascript:openxava.executeAction('openxavatest', '" + moduleName + 
-				"', '', false, '" + action + "', '" + arguments + "')\"]"));
+			WebElement button = driver.findElement(By.cssSelector("a[data-action='" + action + "'][data-argv='" + arguments + "']"));
 			button.click();
 			wait(driver);
 		}

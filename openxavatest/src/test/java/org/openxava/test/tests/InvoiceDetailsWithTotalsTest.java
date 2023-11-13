@@ -83,7 +83,7 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		execute("List.sumColumn", "property=quantity,collection=details");
 		assertTotalsInFrameOfCollection("details", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 400.00    Total: 2,900.00    Sum of Quantity: 150", false);          
 		execute("List.removeColumnSum", "property=quantity,collection=details");
-		assertTotalsInFrameOfCollection("calculatedDetails", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 400.00    Total: 2,900.00", true);  
+		assertTotalsInFrameOfCollection("calculatedDetails", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 400.00    Total: 2,900.00", true);   
 		
 		// Calling to a collection action does not show the header
 		HtmlElement header = getHtmlPage().getHtmlElementById("ox_openxavatest_InvoiceDetailsWithTotals__frame_detailsheader"); 
@@ -132,8 +132,9 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		reload(); 
 		header = getHtmlPage().getHtmlElementById("ox_openxavatest_InvoiceDetailsWithTotals__frame_" + collection + "header"); 
 		assertEquals(totals, header.asNormalizedText());
-		if (addAction) assertTrue(header.asXml().contains("executeAction('openxavatest', 'InvoiceDetailsWithTotals', '', false, 'Collection.new', 'viewObject=xava_view_" + collection));
-		else assertTrue(!header.asXml().contains("executeAction('openxavatest', 'InvoiceDetailsWithTotals', '', false, 'Collection.new', 'viewObject=xava_view_" + collection));
+		String actionEvidence = "data-action=\"Collection.new\" data-argv=\"viewObject=xava_view_" + collection + "\"";
+		if (addAction) assertTrue(header.asXml().contains(actionEvidence));
+		else assertFalse(header.asXml().contains(actionEvidence));		
 		showCollection(collection);
 	}
 	

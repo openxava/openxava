@@ -1,8 +1,7 @@
 package org.openxava.test.tests;
 
-import org.openxava.tests.*;
-
 import org.htmlunit.html.*;
+import org.openxava.tests.*;
 
 /**
  * 
@@ -24,9 +23,9 @@ public class TeamTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		assertCollectionRowCount("members", 2);
 		
-		assertAction("TeamMemberSub.viewNames");
+		assertAction("TeamMemberSub.viewNames"); 
 		execute("TeamMemberSub.viewRoles", "viewObject=xava_view_members");
-		assertInfo("CAP, DESARROLLO");
+		assertInfo("CAP, DESARROLLO"); 
 		assertNoErrors();
 
 		HtmlElement container = getHtmlPage().getHtmlElementById("ox_openxavatest_Team__sc-container-TeamMemberSub_detail"); 

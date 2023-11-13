@@ -1,7 +1,5 @@
 package org.openxava.test.tests;
 
-import static org.openxava.tests.HtmlUnitUtils.getHrefAttribute;
-
 import org.htmlunit.html.*;
 import org.openxava.model.meta.*;
 import org.openxava.test.model.*;
@@ -60,27 +58,21 @@ public class CarrierTest extends CarrierTestBase {
 		execute("List.viewDetail", "row=0");
 		HtmlAnchor deleteLink = getHtmlPage().getHtmlElementById("ox_openxavatest_Carrier__CRUD___delete");
 		// To ensure the question has an apostrophe
-		assertEquals("javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l" 
-			+ (char) 8216 
-			+"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
-			getHrefAttribute(deleteLink)); 
+		assertEquals("Effacer l" + (char) 8216 + "entité courante: Etes-vous sûr(e) ?", 
+			deleteLink.getAttribute("data-confirm-message"));
 		execute("CRUD.delete");
 		execute("Mode.list");
 		assertListRowCount(4);
 		
 		// Confirm row action with apostrophe and title in actions
 		// To ensure the title and question have apostrophe
-		String deleteRowLink = "<a class=\"ox-image-link\" "
-				+ "title=\"Effacer l"  
-				// (char) 145 // ANSI
-				+ (char) 8216 // UNICODE
-				+ "entité\" "
-				+ "href=\"javascript:void(0)\" "
-				+ "onclicke=\"javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l"
-				// + (char) 145 // ANSI
-				+ (char) 8216 // UNICODE
-				+ "entité la ligne 1: êtes-vous sûr ?', false, 'CRUD.deleteRow', 'row=0')\">";
-		
+		String deleteRowLink = "<a title=\"Effacer l" 
+			// (char) 145 // ANSI
+			+ (char) 8216 // UNICODE
+			+ "entité\" class=\"xava_action ox-image-link\" data-application=\"openxavatest\" data-module=\"Carrier\" data-confirm-message=\"Effacer l"
+			// (char) 145 // ANSI
+			+ (char) 8216 // UNICODE
+			+ "entité la ligne 1: êtes-vous sûr ?\"";
 		assertTrue(getHtml().contains(deleteRowLink));
 		execute("CRUD.deleteRow", "row=0");
 		assertListRowCount(3);

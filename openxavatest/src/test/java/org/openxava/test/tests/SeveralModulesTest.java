@@ -19,7 +19,7 @@ public class SeveralModulesTest extends ModuleTestBase {
 		
 	public void testSeveralModulesInSamePage() throws Exception {
 		assertActions();  
-		assertOnChangeEvent();
+		assertOnChangeEvent(); 
 		assertFocusOn("relationWithSeller"); 
 		assertSections();		
 		assertCollections(); 

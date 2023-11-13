@@ -25,7 +25,7 @@ public class EditorTag extends TagSupport {
 	private String property;		
 	private boolean editable; 
 	private boolean explicitEditable = false; 
-	private boolean throwPropertyChanged; 
+	private boolean throwPropertyChanged;  
 	private boolean explicitThrowPropertyChanged; 
 	private String viewObject;
 	private boolean viewObjectSet;
@@ -68,7 +68,7 @@ public class EditorTag extends TagSupport {
 			Messages errors = (Messages) request.getAttribute("errors"); 	
 			boolean throwsChanged=explicitThrowPropertyChanged?this.throwPropertyChanged:view.throwsPropertyChanged(property);
 			
-			String scriptFocus =  
+			String script =  
 				" onblur=\"openxava.onBlur(" +
 				"'" + application + "'," +
 				"'" + module + "'," +
@@ -80,21 +80,7 @@ public class EditorTag extends TagSupport {
 				"'" + propertyKey + "'" +
 				")\"";  
 			
-			String script = throwsChanged? 
-				" onchange=\"openxava.throwPropertyChanged(" +
-				"'" + application + "'," +
-				"'" + module + "'," +
-				"'" + propertyKey + "'" +
-				")\""  
-			:
-			"";
-			
 			View rootView = view.getCollectionRootOrRoot();
-			if (rootView.isPropertyUsedInCalculation(propertyPrefix + property)) {
-				script = EditorsJS.calculateScript(application, module, rootView, propertyPrefix + property); 
-			}
-
-			script = script + scriptFocus;
 
 			boolean editable = explicitEditable?this.editable:view.isEditable(property);  
 			boolean inElementCollection = property.contains(".");
@@ -158,6 +144,17 @@ public class EditorTag extends TagSupport {
 				pageContext.getOut().print(propertyKey);
 				pageContext.getOut().println("'/>");				
 			}		
+			boolean propertyUsedInCalculation = rootView.isPropertyUsedInCalculation(propertyPrefix + property); 
+			if (propertyUsedInCalculation) {
+				pageContext.getOut().print("<span class='xava_onchange_calculate' ");
+				pageContext.getOut().print(EditorsEvents.onChangeCalculateDataAttributes(application, module, rootView, propertyPrefix + property));
+				pageContext.getOut().print(">");
+			}
+			if (throwsChanged) {
+				pageContext.getOut().print("<span class='xava_onchange' data-property='");
+				pageContext.getOut().print(propertyKey);
+				pageContext.getOut().print("'>");
+			}
 			String prefix = "/xava/";  
 			try {
 				pageContext.include(prefix + editorURL); 
@@ -171,6 +168,8 @@ public class EditorTag extends TagSupport {
 				log.error(ex.getMessage(), ex);
 				pageContext.include(prefix + "editors/notAvailableEditor.jsp"); 
 			}
+			if (throwsChanged) pageContext.getOut().print("</span>"); 
+			if (propertyUsedInCalculation) pageContext.getOut().print("</span>"); 
 		}
 		catch (Exception ex) {
 			throw new JspException(XavaResources.getString("editor_tag_error", property), ex); 

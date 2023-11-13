@@ -180,7 +180,7 @@ openxava.refreshPage = function(result) {
 	}	
 	openxava.getElementById(result.application, result.module, "loaded_parts").value=changed;
 	openxava.getElementById(result.application, result.module, "loading").value=false;
-	openxava.getElementById(result.application, result.module, "view_member").value=result.viewMember; 
+	openxava.getElementById(result.application, result.module, "view_member").value=result.viewMember;
 	openxava.lastApplication=result.application;
 	openxava.lastModule=result.module;
 	openxava.hasOnSelectAll(result.application, result.module);
@@ -209,8 +209,11 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initPlaceholder();
 	openxava.listenChanges(); 
 	openxava.initFocusKey();
-	openxava.initButtonBars(application, module); 
+	openxava.initActions(); 
+	openxava.initEditorsEvents(application, module); 
 	openxava.initMessages(); 
+	openxava.initFrames(); 
+	openxava.initSubcontrollers(); 
 	openxava.initInlineEvents(); 
 	 
 	if (typeof currentRow != "undefined") {
@@ -221,21 +224,7 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 
 openxava.initFocusKey = function() { }
 
-openxava.initInlineEvents =  function() {
-	$('a[href^="javascript:"]').each(function() {
-		if ($(this).attr('href') != "javascript:void(0)") {
-			$(this).attr("onclicke", $(this).attr('href'));
-			$(this).attr("href", "javascript:void(0)");
-		}
-  		$(this).off('click').click(function() {
-  			eval($(this).attr('onclicke'));
-		});
-	});
-    $('[onchange]').each(function() {	
-  		$(this).off('change').change(function() {
-  			eval($(this).attr('onchange'));
-		});
-	});
+openxava.initInlineEvents =  function() {	
     $('[onblur]').each(function() {
   		$(this).blur(function() { 
   			eval($(this).attr('onblur'));
@@ -253,9 +242,38 @@ openxava.initInlineEvents =  function() {
 	});
 }
 
-openxava.initButtonBars = function(application, module) { 
-	$('.xava_button').off('click').click(function() {
-		openxava.executeAction(application, module, 
+openxava.initEditorsEvents = function(application, module) { 
+	$('.xava_onchange .editor').off('change').change(function() {
+		var container = $(this).closest('.xava_onchange');
+  		openxava.throwPropertyChanged(application, module, container.data('property'));
+	});
+	$('.xava_onchange_calculate .editor, input.xava_onchange_calculate').off('change').change(function() {
+		var container = $(this).closest('.xava_onchange_calculate');
+  		openxava.calculate(application, module, container.data('calculated-property'), container.data('scale'));
+	});
+}
+
+openxava.initFrames = function() {  
+	$('.xava_hide_frame').off('click').click(function() { 
+		openxava.hideFrame($(this).data("frame"));
+	});
+	$('.xava_show_frame').off('click').click(function() { 
+		openxava.showFrame($(this).data("frame"));
+	});
+}
+
+openxava.initSubcontrollers = function() {  
+	$('.xava_subcontroller').off('click').click(function() { 
+		openxava.subcontroller($(this).data("id"), $(this).data("container"), $(this).data("button"),
+			$(this).data("image"), $(this).data("a"), $(this).data("span"));
+	});
+}
+
+openxava.initActions = function() { 
+	$('.xava_action').off('click').click(function() { 
+		openxava.executeAction(
+			$(this).data('application'),
+			$(this).data('module'), 
 			$(this).data('confirm-message'),
 			$(this).data('takes-long'),
 			$(this).data('action'),
@@ -263,8 +281,10 @@ openxava.initButtonBars = function(application, module) {
 			undefined, undefined,
 			$(this).data('in-new-window')); 
 	});
-	$('.xava_button_loses_changed_data').off('click').click(function() {
-		openxava.executeActionConfirmLosesChangedData(application, module, 
+	$('.xava_action_loses_changed_data').off('click').click(function() { 
+		openxava.executeActionConfirmLosesChangedData(			
+			$(this).data('application'),
+			$(this).data('module'),  
 			$(this).data('confirm-message'),
 			$(this).data('takes-long'),
 			$(this).data('action'),
@@ -549,6 +569,25 @@ openxava.initLists = function(application, module) {
 	$('.xava_filter input').focus(function() { // If changed to change event, revise ModuleTestBase.setCollectionCondition()
 		$(this).parent().parent().find(".xava_comparator").fadeIn();
 	});	
+	$('.xava_comparator select').off('change').change(function() {
+		var id = $(this).attr("id");
+  		openxava.onChangeComparator(id, id.replace("conditionComparator___", "conditionValue___"),
+  			id.replace("conditionComparator___", "conditionValueTo___"), 
+  			$(this).data("from"), $(this).data("in-values"));
+		if (openxava.filterOnChange) {
+  			var valueField = $(this).parent().next().find('input');
+  			if (valueField == null || valueField.is(':hidden') || 
+  				this.options[this.selectedIndex].value.indexOf('range') < 0 && valueField.val() !== '') 
+  			{ 
+  				openxava.executeAction(application, module, '', false, 'List.filter', $(this).data("collection-argv")); 
+  			}	
+		}
+	});
+	$('.xava_combo_condition_value').off('change').change(function() {
+		if (openxava.filterOnChange) {
+			openxava.executeAction(application, module, '', false, 'List.filter', $(this).data('collection-argv')); 
+		}
+	});
 	$('.ox-list-header input[type=checkbox]').off('click').click(function() {
 		openxava.onSelectAll(application, module,
 			$(this).data('on-select-collection-element-action'),
@@ -573,14 +612,32 @@ openxava.initLists = function(application, module) {
 			$(this).data('row'),
 			$(this).data('tab-object'));
 	});
+	$('.xava_customize_list').off('click').click(function() {
+		openxava.customizeList(application, module, $(this).data('id'));
+	});
+	$('.xava_show_hide_filter').off('click').click(function() {
+		openxava.setFilterVisible(application, module, $(this).data('id'), $(this).data('tab-object'), $(this).data('visible'));
+	});
+	$('.xava_remove_column').off('click').click(function() {
+		openxava.removeColumn(application, module, $(this).data('column'), $(this).data('tab-object'));
+	});
+	$('.xava_set_page_row_count').off('change').change(function() {
+		openxava.setPageRowCount(application, module, $(this).data('collection'), this);		
+	});
+	$('.xava_group_by').off('change').change(function() {
+		openxava.executeAction(application, module, '', false, 'List.groupBy','property=' + this.value);
+	});
+	$('.xava_list_configurations').off('change').change(function() {
+		openxava.executeAction(application, module, '', false, 'List.filter','configurationId=' + this.value);
+	});
 }
 
-openxava.renumberCollection = function(table) { 
+openxava.renumberCollection = function(table) {
 	table.find("tr").each(function(rowIndex) {
 		$(this).find("a").each(function() {
-			var newHref = $(this).attr("onclicke")
-				.replace(new RegExp("'row=\\d+,viewObject=", "g"), "'row=" + (rowIndex - 1) + ",viewObject=");
-			$(this).attr("href", newHref);
+			var newHref = $(this).attr("data-argv")
+				.replace(new RegExp("row=\\d+,viewObject=", "g"), "row=" + (rowIndex - 1) + ",viewObject=");
+			$(this).attr("data-argv", newHref);
 		});
 	});
 }
@@ -1341,7 +1398,7 @@ openxava.subcontroller = function(id,containerId,buttonId,imageId,aId,spanId){
 		return;
 	}
 	// display and position the menu 
-	$('#'+id).css('display','inline');
+	$('#'+id).css('display','inline');  
 	$('#'+id).css({ 
 		'top': $('#'+aId).position().top + $('#'+buttonId).outerHeight(true),
 		'left': $('#'+aId).position().left
@@ -1370,6 +1427,7 @@ openxava.filterColumns = function() {
 
 openxava.refreshColumnsList = function(columnsList) { 
 	$('#xava_add_columns').html(columnsList);
+	openxava.initActions(); 
 }
 
 openxava.markRowAsCut = function(collectionId, rowId) {

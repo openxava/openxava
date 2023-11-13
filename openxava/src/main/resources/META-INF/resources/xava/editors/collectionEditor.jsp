@@ -143,16 +143,8 @@ else {
 		request.setAttribute(propertyKey, p);
 		request.setAttribute(valueKey, subview.getValue(p.getName()));		
 		String script = "";
-		if (it.hasNext()) {
-	if (subview.throwsPropertyChanged(p)) {			
-		script = "onchange='openxava.throwPropertyChanged(\"" + 
-				app + "\", \"" + 
-				module + "\", \"" +
-				propertyKey + "\")'";
-	}
-		}
-		else {
-	script = "onblur='openxava.executeAction(\"" + app + "\", \"" + module + "\", \"\", false, \"" + subview.getSaveCollectionElementAction() + "\", \"" + argv + "\")'";
+		if (!it.hasNext()) {
+			script = "onblur='openxava.executeAction(\"" + app + "\", \"" + module + "\", \"\", false, \"" + subview.getSaveCollectionElementAction() + "\", \"" + argv + "\")'";
 		}
 		Object value = request.getAttribute(propertyKey + ".value");
 		if (WebEditors.mustToFormat(p, view.getViewName())) {

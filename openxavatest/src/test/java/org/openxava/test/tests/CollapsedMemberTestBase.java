@@ -3,10 +3,9 @@ package org.openxava.test.tests;
 import java.util.*;
 import java.util.prefs.*;
 
+import org.htmlunit.html.*;
 import org.openxava.tests.*;
 import org.openxava.util.*;
-
-import org.htmlunit.html.*;
 
 /**
  * This test case verifies the @Collapsed annotation applied to 
@@ -67,8 +66,10 @@ public abstract class CollapsedMemberTestBase extends ModuleTestBase {
 		
 		//step 2: checks that after clicking on expansion icon the frame
 		//changes to opened.
-		HtmlElement expansionIcon= HtmlUnitUtils.getAnchor(getHtmlPage(),  
-				"javascript:openxava.showFrame('" + getFrameId() + "')");
+		HtmlElement expansionIconWrapper = getHtmlPage().getHtmlElementById(getFrameId() + "show"); 
+		List<HtmlElement> expansionIcons = expansionIconWrapper.getElementsByAttribute("a", "class", "xava_show_frame");
+		assertEquals(1, expansionIcons.size());
+		HtmlElement expansionIcon = expansionIcons.get(0);
 		expansionIcon.click();		
 		waitForSafeSynchronization();
 		assertFrameHtmlStatus(false);

@@ -11,7 +11,6 @@ import org.openxava.actions.*;
 import org.openxava.jpa.*;
 import org.openxava.test.calculators.*;
 import org.openxava.test.model.*;
-import org.openxava.tests.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
 
@@ -1143,7 +1142,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertAction("AddColumns.showMoreColumns");
 		
 		execute("AddColumns.showMoreColumns");		
-		assertCollectionRowCount("xavaPropertiesList", 116);  
+		assertCollectionRowCount("xavaPropertiesList", 116); 
 		searchBox = getHtmlPage().getHtmlElementById("xava_search_columns_text");
 		searchBox.type("DISCOUNT");
 		assertEquals("DISCOUNT", searchBox.getValue()); 
@@ -2273,11 +2272,11 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 
 	private void assertChartTypeSelected(String chartType) throws Exception { 
-		assertEquals("ox-selected-chart-type", getChartTypeLink(chartType).getAttribute("class"));
+		assertEquals("xava_action ox-selected-chart-type", getChartTypeLink(chartType).getAttribute("class")); 
 	}
 
 
-	private void assertChartTypeLink(String chartType) throws Exception { 
+	private void assertChartTypeLink(String chartType) throws Exception {
 		try {
 			getChartTypeLink(chartType); 
 		}
@@ -2287,7 +2286,9 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	private HtmlElement getChartTypeLink(String chartType) throws Exception { 
-		return HtmlUnitUtils.getAnchor(getHtmlPage(), "javascript:openxava.executeAction('openxavatest', 'Invoice', '', false, 'Chart.selectType', 'chartType=" + chartType + "')");
+		HtmlElement link = getHtmlPage().getBody().getOneHtmlElementByAttribute("a", "data-argv", "chartType=" + chartType);
+		assertEquals("Action for select chart type should be Chart.selectType", "Chart.selectType", link.getAttribute("data-action"));
+		return link;
 	}
 	
 	private void assertChartDisplayed() throws Exception {

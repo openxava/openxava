@@ -4,7 +4,6 @@
 <%@page import="org.openxava.web.Ids"%>
 <%@page import="org.openxava.controller.meta.MetaControllers"%>
 <%@page import="org.openxava.util.Is"%>
-<%@page import="org.openxava.web.Actions"%>
 <%@page import="org.openxava.util.XavaPreferences"%>
 
 <%

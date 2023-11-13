@@ -54,7 +54,7 @@ public class HunterTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		execute("Collection.add", "viewObject=xava_view_section0_hounds");
 		execute("AddToCollection.add", "row=1");
-		assertCollectionRowCount("hounds", 2);
+		assertCollectionRowCount("hounds", 2); 
 		
 		assertFalse(isNotVisibleConditionValue(0)); 
 		assertFalse(isNotVisibleConditionValue(2));
@@ -92,7 +92,7 @@ public class HunterTest extends ModuleTestBase {
 		setConditionComparators("hounds", new String [] {"not_empty_comparator"});		
 		// execute("List.filter", "collection=hounds");
 		assertCollectionRowCount("hounds", 2);
-		assertTrue(isNotVisibleConditionValue(0));
+		assertTrue(isNotVisibleConditionValue(0)); 
 		
 		// Filter Date
 		setConditionComparators("hounds", new String [] {"=", "=", "not_empty_comparator"});

@@ -184,7 +184,7 @@ public class AJAXTest extends ModuleTestBase {
 		changeModule("Seller");
 		execute("List.viewDetail", "row=0");
 		assertEquals(1, StringUtils.countMatches(getHtml(), "ox_openxavatest_Seller__collection_customers___"));
-		execute("List.filter", "collection=customers");
+		execute("List.filter", "collection=customers"); 
 		assertEquals(2, StringUtils.countMatches(getHtml(), "ox_openxavatest_Seller__collection_customers___")); 
 	}
 	

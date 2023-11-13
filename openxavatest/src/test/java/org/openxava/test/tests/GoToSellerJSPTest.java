@@ -15,7 +15,7 @@ public class GoToSellerJSPTest extends ModuleTestBase {
 	public void testDialogInAModuleWithCustomizedViewCalledFromAnotherModule() throws Exception {
 		assertValue("name", ""); 
 		execute("GoToSellerJSP.goSellerJSP");
-		execute("List.viewDetail", "row=0");
+		execute("List.viewDetail", "row=0"); 
 		assertValue("name", "MANUEL CHAVARRI"); 
 		assertNoDialog();
 		execute("SellerJSP.changeName");

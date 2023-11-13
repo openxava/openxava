@@ -5,7 +5,6 @@
 <%@page import="org.openxava.view.meta.MetaView"%>
 <%@page import="org.openxava.view.meta.MetaCollectionView"%>
 <%@page import="org.openxava.model.MapFacade"%>
-<%@page import="org.openxava.web.Actions"%>
 <%@page import="org.openxava.web.Ids" %>
 <%@page import="org.openxava.controller.meta.MetaAction"%>
 <%@page import="org.openxava.controller.meta.MetaControllers"%>
@@ -85,15 +84,15 @@ if(!Is.empty(key)){
 				String indexId = prefixIdRow + index;
 				String nodeId = xavaId + index;
 				String nodeValue = prefix + "selected:" + index;
-				String nodeRef = "openxava.executeAction('" +
-					request.getParameter("application") + "', '" + request.getParameter("module") +"', '', false, '" + action + "', '" +
-					actionWithArgs + "')";
 				%>
 				<tr id="<%=indexId%>">
 				  <td>
 				    <input type="checkbox" name="<%=xavaId%>" id="<%=nodeId%>"
 				        value = "<%=nodeValue%>"/>
-				    <a href = "<%=nodeRef%>">_</a>
+				    <%-- class, data-action and data-argv are not used by web code, are used only by ModuleTestBase --%>
+				    <a class="xava_action" 
+				    	data-application='<%=request.getParameter("application")%>' data-module='<%=request.getParameter("module")%>' 
+				    	data-action='<%=action%>' data-argv='<%=actionWithArgs%>'>_</a>
 				  </td>
 				</tr>
 				<%

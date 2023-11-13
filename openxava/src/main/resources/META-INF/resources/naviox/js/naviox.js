@@ -14,16 +14,36 @@ naviox.init = function() {
 	
 	$('#modules_list_core').css('height', 'calc(100vh - ' + $('#modules_list_top').height() + 'px)'); 
 	
-	naviox.initModulesLoading(); 
+	naviox.initLeftMenu(); 
+	naviox.initModulesList();
+	naviox.initBookmark();
 }
 
-naviox.initModulesLoading = function() {
+naviox.initLeftMenu = function() { 
+	$('#modules_list_hide').on( "click", function() {
+		naviox.hideModulesList(naviox.application, naviox.module);
+	});
+	$('#modules_list_show, #module_header_menu_button').on( "click", function() {
+		naviox.showModulesList(naviox.application, naviox.module);
+	});		
+}
+
+naviox.initModulesList = function() { 
 	$('#modules_list_core .module-row').on( "click", function() {
   		$(this).find(".module-loading").show();
 	});
 	$('#more_modules').on( "click", function() {
 		$('#loading_more_modules').show(); 
 		$('#load_more_modules').hide();
+	});
+	$('#display_all_modules').on( "click", function() {
+		naviox.displayAllModulesList($(this).data("search-word"));
+	});
+}
+
+naviox.initBookmark = function() { 
+	$('#bookmark').on( "click", function() {
+		naviox.bookmark();
 	});
 }
 
@@ -114,6 +134,7 @@ naviox.refreshModulesList = function(modulesList) {
 	$('#modules_list_core').html(modulesList);
 	$('#modules_list_header').show();
 	$('#modules_list_search_header').hide();
+	naviox.initModulesList(); 
 }
 
 naviox.refreshSearchModulesList = function(modulesList) { 
@@ -123,7 +144,8 @@ naviox.refreshSearchModulesList = function(modulesList) {
 	}
 	$('#modules_list_core').html(modulesList);
 	$('#modules_list_header').hide();
-	$('#modules_list_search_header').show();	
+	$('#modules_list_search_header').show();
+	naviox.initModulesList(); 	
 }
 
 naviox.refreshFolderModulesList = function(modulesList) {
