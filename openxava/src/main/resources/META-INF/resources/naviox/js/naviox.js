@@ -169,7 +169,6 @@ naviox.refreshFolderModulesList = function(modulesList) {
     		$('.modules-list-header').css("width", "100%"); 
     	}
     );
-    openxava.initInlineEvents(); 
 }
 
 naviox.refreshFolderBackModulesList = function(modulesList) {
@@ -193,5 +192,4 @@ naviox.refreshFolderBackModulesList = function(modulesList) {
     		$('.modules-list-header').css("width", "100%"); 
     	}
     );
-    openxava.initInlineEvents();     
 }
