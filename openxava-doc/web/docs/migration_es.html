@@ -48,10 +48,12 @@
       <h3>Ya no se soportan eventos en línea en editores y vistas personalizadas</h3>
       <p>Si tienes que escribir tus propios editores o vistas personalizadas y
         estás usando <i>onclick, onfocus, onblur,</i> etc., ya no van a
-        funcionar. Esto es por razones de seguridad. Tienes que eliminar los
-        eventos del HTML y moverlos a un archivo JS. </p>
+        funcionar. Tampoco funcionan los <i>href="javascript: "</i>. Esto es
+        por razones de seguridad. Tienes que eliminar los eventos del HTML y
+        moverlos a un archivo JS. </p>
       <p>Es decir, si tienes un código como este en tu editor:</p>
-      <pre><code class="html">&lt;a class="ox-card" onclick="openxava.executeAction('&lt;%=request.getParameter("application")%&gt;', '&lt;%=request.getParameter("module")%&gt;', false, false, '&lt;%=action%&gt;', '&lt;%="row=" + (i++)%&gt;');"&gt;
+      <pre><code class="html">&lt;a class="ox-card" 
+    onclick="openxava.executeAction('&lt;%=request.getParameter("application")%&gt;', '&lt;%=request.getParameter("module")%&gt;', false, false, '&lt;%=action%&gt;', '&lt;%="row=" + (i++)%&gt;');"&gt;
 </code></pre>
       <p>Quita el evento <i>onclick</i> dejándolo de esta manera:</p>
       <pre><code class="html">&lt;a class="ox-card" data-action="&lt;%=action%&gt;" data-row="&lt;%=i++%&gt;"&gt;
@@ -352,7 +354,7 @@ reload(); // ...has de añadir esta línea
       carpeta <i>Admin</i>. Abre el módulo <i>Carpetas</i>, busca la carpeta <i>Admin</i>
       en la lista y escógelo. Dentro del detalle de <i>Admin</i> pulsa para
       añadir un nuevo módulo, busca SSO y añádelo:</div>
-    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_es.png"
+    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_es.png"
         alt=""><br>
       <h2>Para migrar de OpenXava 7.0.5 a OpenXava 7.0.6</h2>
       <h3>@Column(length=x) sin scale ya no es scale=2 por defecto</h3>

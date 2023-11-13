@@ -142,12 +142,6 @@ else {
 		String valueKey = propertyKey + ".value";
 		request.setAttribute(propertyKey, p);
 		request.setAttribute(valueKey, subview.getValue(p.getName()));
-		/* tmr		
-		String script = "";
-		if (!it.hasNext()) {
-			script = "onblur='openxava.executeAction(\"" + app + "\", \"" + module + "\", \"\", false, \"" + subview.getSaveCollectionElementAction() + "\", \"" + argv + "\")'";
-		}
-		*/
 		Object value = request.getAttribute(propertyKey + ".value");
 		if (WebEditors.mustToFormat(p, view.getViewName())) {
 			String fvalue = WebEditors.format(request, p, value, errors, view.getViewName());
@@ -155,19 +149,10 @@ else {
 		}
 %>
 	<td>
-		<%-- tmr
-		<jsp:include page="<%=WebEditors.getUrl(p, view.getViewName())%>">
-			<jsp:param name="propertyKey" value="<%=propertyKey%>"/>
-			<jsp:param name="script" value="<%=script%>"/>
-			<jsp:param name="editable" value="true"/>
-		</jsp:include>
-		--%>
-		<%-- tmr ini --%>
 		<jsp:include page="<%=WebEditors.getUrl(p, view.getViewName())%>">
 			<jsp:param name="propertyKey" value="<%=propertyKey%>"/>
 			<jsp:param name="editable" value="true"/>
 		</jsp:include>		
-		<%-- tmr fin --%>
 	</td>
 	<%
 		}

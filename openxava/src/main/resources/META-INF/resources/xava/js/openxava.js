@@ -214,8 +214,7 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initMessages(); 
 	openxava.initFrames(); 
 	openxava.initSubcontrollers(); 
-	openxava.initForms(); // tmr
-	// tmr openxava.initInlineEvents(); 
+	openxava.initForms(); 
 	 
 	if (typeof currentRow != "undefined") {
 		openxava.initEditors(); 
@@ -225,33 +224,13 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 
 openxava.initFocusKey = function() { }
 
-openxava.initForms = function() { // tmr
+openxava.initForms = function() { 
 	$('.xava_form').each(function() {	
   		$(this).off('submit').submit(function() {
   			return false;
 		});
 	});
 }
-
-/* tmr
-openxava.initInlineEvents =  function() {
-    $('[onblur]').each(function() {
-  		$(this).blur(function() { 
-  			eval($(this).attr('onblur'));
-		});
-	});
-	$('[onfocus]').each(function() {	
-  		$(this).off('focus').focus(function() {
-  			eval($(this).attr('onfocus'));
-		});
-	});
-	$('form[onsubmit]').each(function() {	
-  		$(this).off('submit').submit(function() {
-  			return false;
-		});
-	});
-}
-*/
 
 openxava.initEditorsEvents = function(application, module) { 
 	$('.xava_onchange .editor').off('change').change(function() {
@@ -262,14 +241,12 @@ openxava.initEditorsEvents = function(application, module) {
 		var container = $(this).closest('.xava_onchange_calculate');
   		openxava.calculate(application, module, container.data('calculated-property'), container.data('scale'));
 	});
-	// tmr ini
 	$('.xava_editor .editor').off('blur').blur(function() {
   		openxava.onBlur(application, module, $(this).attr('id'));
 	});
 	$('.xava_editor .editor').off('focus').focus(function() {
   		openxava.onFocus(application, module, $(this).attr('id'));
 	});	
-	// tmr fin
 }
 
 openxava.initFrames = function() {  
@@ -581,7 +558,6 @@ openxava.initLists = function(application, module) {
 	    	var tableId = table.attr("id");
 	    	View.moveCollectionElement(tableId, ui.item.startPos - 1, ui.item.index() - 1);
 	    	openxava.renumberCollection(table);
-	  		// tmr openxava.initInlineEvents(); 
 	    }	
 	});
 	openxava.watchColumnsSearch();

@@ -46,7 +46,6 @@ elementCollectionEditor.onChangeRow = function(element, rowIndex) {
 	currentRow.children().first().find("nobr").css('visibility', 'visible');
 	currentRow.addClass("xava_sortable_element_row"); 
 	openxava.initEditors();
-	// tmr openxava.initInlineEvents();
 }
 
 elementCollectionEditor.setDefaultValues = function(table, rowIndex) {
@@ -72,7 +71,6 @@ elementCollectionEditor.removeRow = function(application, module, element, rowIn
 		openxava.executeAction(application, module, "", false, "ElementCollection.refreshTotals");
 	}	
 	openxava.initEditors();
-	// tmr openxava.initInlineEvents();
 }
 
 elementCollectionEditor.renumber = function(row, rowIndex) { 

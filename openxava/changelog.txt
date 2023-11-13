@@ -1,15 +1,14 @@
 Change Log for OpenXava project
 ===============================
 
-TMR PONER HAN DESAPARECIDO LOS ERRORES EN LA CONSOLA DEL BROWSER
 
 - Removed getHrefAttribute() method from HtmlUnitUtils.
 - Fix: When removing a column with a calculated property from a list a blank column is left on right.
 - Links with href="javascript:" removed from OpenXava code.
 - Links with href="javascript:" no longer work for custom view and editors.	
-- All onclick and onchange JavaScript events removed from OpenXava code.
-- Onclick inline events in JavaScript no longer work for custom view and editors.
-- Reduced the amount of CSP security errors in browser console.
+- All inline JavaScript events removed from OpenXava code.
+- Inline events in JavaScript no longer work for custom view and editors.
+- Removed Content Security Policy errors in browser console.
 - Fix: Default action with takes-long=true does not show the takes long image if the user press ENTER.
 - Fix: IForwardAction with inNewWindow() not in new window when pressing ENTER and it's the default action. 
 - jQuery upgraded to 3.7.1.
