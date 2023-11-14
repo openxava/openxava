@@ -37,7 +37,7 @@ public class AppointmentTest extends ModuleTestBase {
 		assertListRowCount(3); 
 		setConditionValues("5/26/15 10:15 AM");
 		execute("List.filter");
-		assertListRowCount(1); 
+		assertListRowCount(1); // TMR FALLA
 		assertValueInList(0, 0, "5/26/2015 10:15 AM");
 		assertValueInList(0, 1, "ALMUERZO");		
 		execute("Print.generateExcel"); 
@@ -52,7 +52,7 @@ public class AppointmentTest extends ModuleTestBase {
 	public void testImport() throws Exception {
 		execute("List.orderBy", "property=time");
 		assertListRowCount(4); 
-		assertValueInList(0, 0, "5/26/2015 8:15 AM"); 
+		assertValueInList(0, 0, "5/26/2015 8:15 AM"); // TMR FALLA
 		assertValueInList(0, 1, "DESAYUNO"); 
 		assertValueInList(1, 0, "5/26/2015 10:15 AM");
 		assertValueInList(1, 1, "ALMUERZO");

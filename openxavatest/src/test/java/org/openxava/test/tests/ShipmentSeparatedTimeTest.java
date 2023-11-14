@@ -24,7 +24,7 @@ public class ShipmentSeparatedTimeTest extends ModuleTestBase {
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
 		String [] expectedTime = { "5/27/2009", "11:59 AM" };
-		assertValues("time", expectedTime);  
+		assertValues("time", expectedTime); // TMR FALLA 
 		setValues("time", emptyTime);
 		execute("CRUD.save");
 		assertNoErrors();

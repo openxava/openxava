@@ -10,8 +10,14 @@
   <properties>
     <openxava.version>7.2-SNAPSHOT</openxava.version>
     <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+    <!-- tmr		
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    -->
+    <!-- tmr ini -->
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
+    <!-- tmr fin -->
   </properties>
 
   <dependencies>

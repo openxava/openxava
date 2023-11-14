@@ -76,7 +76,7 @@ public class DatesTest extends TestCase {
 	
 	public void testDateTimeFormatForJSCalendar() throws Exception { 
 		Locales.setCurrent(Locale.US);
-		assertEquals("n/j/Y h:i K", Dates.dateTimeFormatForJSCalendar()); // The Java 8 format for all Java versions 
+		assertEquals("n/j/Y h:i K", Dates.dateTimeFormatForJSCalendar()); // The Java 8 format for all Java versions // TMR FALLA ME QUEDÉ POR AQUÍ
 		Locales.setCurrent((Locale)null);
 	}
 
