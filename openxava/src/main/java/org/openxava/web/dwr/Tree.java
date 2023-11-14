@@ -91,6 +91,7 @@ public class Tree extends DWRBase {
 			log.error(XavaResources.getString("cant_load_collection_as_tree", collectionName, module), e);
 			return "";
 		} finally {
+			XPersistence.commit();
 			cleanRequest();
 		}
 	}
@@ -150,6 +151,8 @@ public class Tree extends DWRBase {
 			XPersistence.commit();
 		} catch (Exception e) {
 			log.error(XavaResources.getString("error_with_node_value", collectionName, module), e);
+			Messages errors = new Messages();
+			errors.add("error_with_node_value", collectionName, module);
 			XPersistence.rollback();
 		} finally {
 			cleanRequest();
