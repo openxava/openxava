@@ -54,7 +54,6 @@ public class Tree extends DWRBase {
 			Map<String, Object> propertiesMap = new HashMap<>();
 
 			propertiesMap.put("listProperties", listProperties);
-			propertiesMap.put("path", pathProperty);
 			propertiesMap.put("separator", pathSeparator);
 			propertiesMap.put("id", idProperties);
 
@@ -78,18 +77,19 @@ public class Tree extends DWRBase {
 					for (int j = 0; j < listProperties.length; j++) {
 						Object value = table.getValueAt(i, j);
 						String propertyName = listProperties[j];
+						propertyName = propertyName.equals(pathProperty) ? "path" : propertyName;
 						jsonRow.put(propertyName.toLowerCase(), value);
 					}
 					jsonRow.put("row", i);
 					jsonArray.put(jsonRow);
 				}
 			}
-
+			System.out.println(jsonArray);
 			jsonArray = TreeViewParser.findChildrenOfNode("0", jsonArray, propertiesMap, false);
 			return jsonArray.toString();
 		} catch (Exception e) {
 			log.error(XavaResources.getString("cant_load_collection_as_tree", collectionName, module), e);
-			return "";
+			throw e;
 		} finally {
 			XPersistence.commit();
 			cleanRequest();
@@ -151,9 +151,8 @@ public class Tree extends DWRBase {
 			XPersistence.commit();
 		} catch (Exception e) {
 			log.error(XavaResources.getString("error_with_node_value", collectionName, module), e);
-			Messages errors = new Messages();
-			errors.add("error_with_node_value", collectionName, module);
 			XPersistence.rollback();
+			throw e;
 		} finally {
 			cleanRequest();
 		}
