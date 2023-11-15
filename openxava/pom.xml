@@ -78,7 +78,7 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<!-- The version used by POI used by JasperReports -->
-			<version>2.11.0</version>
+			<version>2.15.0</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
@@ -119,22 +119,22 @@
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<!-- The version used by JasperReports -->
-			<version>5.1.0</version>
+			<version>5.2.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>5.1.0</version>
+			<version>5.2.4</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
-			<version>6.20.5</version>
+			<version>6.20.6</version>
 		</dependency>
 		<dependency>
 		    <groupId>net.sf.jasperreports</groupId>
 		    <artifactId>jasperreports-fonts</artifactId>
-		    <version>6.20.5</version>
+		    <version>6.20.6</version>
 		</dependency>		
 		<dependency>
 		    <groupId>org.apache.groovy</groupId>
