@@ -2,6 +2,8 @@ Change Log for OpenXava project
 ===============================
 
 
+- New property turnOffWebSecurity in xava.property to disable the use of CSP in web headers.
+- Minimized the use of eval() in JavaScript code.
 - All inline JavaScript events removed from OpenXava code.
 - Inline events in JavaScript no longer work for custom view and editors.
 - Removed Content Security Policy errors in browser console.

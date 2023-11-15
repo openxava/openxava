@@ -4198,6 +4198,15 @@ class="sy0">=</span><span class="st0">"nivel"</span><span class="sy0">/&gt;</spa
             </td>
           </tr>
           <tr>
+            <td>turnOffWebSecurity <i>(nuevo en v7.2)</i></td>
+            <td>Si es <i>true</i> las cabeceras de Content Security Policy no
+              se envían. Esto permitiría la ejecución de código malicioso en la
+              página web de la aplicación, por eso es aconsejable utilizar las
+              propiedades de arriba (las <i>trustedHostForXXXX</i>) antes de
+              poner <i>turnOffWebSecurity</i> a <i>true</i>.</td>
+            <td>false</td>
+          </tr>
+          <tr>
             <td colspan="3"><br>
             </td>
           </tr>
