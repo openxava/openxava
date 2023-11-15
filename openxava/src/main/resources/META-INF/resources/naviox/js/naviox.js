@@ -171,14 +171,35 @@ naviox.refreshFolderModulesList = function(modulesList) {
     		left: -box.outerWidth() / 2
     	},    	
     	function() {
+    		box.css("left", "0");
+    		naviox.postRefreshFolderModulesList(); // tmr
+    		/* tmr
     		$('#modules_list_content').children().first().remove();
     		box.css("left", "0");
     		naviox.watchSearch();
     		$('.modules-list-header').css("width", "100%");
-    		naviox.initModulesList(); // tmr 
+    		naviox.initModulesList(); // tmr
+    		*/ 
     	}
     );
 }
+
+naviox.postRefreshFolderModulesList = function() { // tmr
+	$('#modules_list_content').children().first().remove();
+	naviox.reinitModulesList();
+}
+
+naviox.postRefreshFolderBackModulesList = function() { // tmr
+	$('#modules_list_content').children().last().remove();
+	naviox.reinitModulesList();
+}
+
+naviox.reinitModulesList = function() { // tmr
+	naviox.watchSearch();
+	$('.modules-list-header').css("width", "100%");
+	naviox.initModulesList(); // tmr
+}
+
 
 naviox.refreshFolderBackModulesList = function(modulesList) {
 	if (modulesList == null) {
@@ -196,10 +217,13 @@ naviox.refreshFolderBackModulesList = function(modulesList) {
     		left: 0 
     	},    	
     	function() {
+    		naviox.postRefreshFolderBackModulesList(); // tmr
+    		/* tmr
     		$('#modules_list_content').children().last().remove();
     		naviox.watchSearch(); 
     		$('.modules-list-header').css("width", "100%");
-    		naviox.initModulesList(); // tmr 
+    		naviox.initModulesList(); // tmr
+    		*/ 
     	}
     );
 }
