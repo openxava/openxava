@@ -9,34 +9,25 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
-          / </span> Configuración para MySQL</h1>
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_es.html">documentación</a> / </span> Configuración para MySQL</h1>
       <i>Si estás usando una versión de OpenXava anterior a la 7.0 mira las <a
           href="mysql-ox6_es.html">instrucciones antiguas</a></i>
-      <div class="wiki" style="display: block;">Configurar tu aplicación
-        OpenXava contra MySQL es muy fácil, básicamente has de añadir una
-        dependencia al controlador JDBC para MySQL en tu proyecto y definir
-        correctamente la base de datos. No necesitas tocar el código de tu
-        aplicación.</div>
-      <div class="wiki" style="display: block;">Asumimos que ya tienes el MySQL
-        instalado y funcionando.<br>
+      <div class="wiki" style="display: block;">Configurar tu aplicación OpenXava contra MySQL es muy fácil, básicamente has de añadir una dependencia al controlador JDBC para MySQL en tu proyecto y definir correctamente la base de datos. No necesitas tocar el código de tu aplicación.</div>
+      <div class="wiki" style="display: block;">Asumimos que ya tienes el MySQL instalado y funcionando.<br>
         <h2 id="toc1">Añadir controlador JDBC para MySQL en el proyecto</h2>
-        <p>Edita el archivo <i>pom.xml</i> en la raíz de tu proyecto, allí
-          añade la siguiente dependencia dentro de la parte <i>&lt;dependencies&gt;</i>:</p>
+        <p>Edita el archivo <i>pom.xml</i> en la raíz de tu proyecto, allí añade la siguiente dependencia dentro de la parte <i>&lt;dependencies&gt;</i>:</p>
         <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;com.mysql&lt;/groupId&gt;
     &lt;artifactId&gt;mysql-connector-j&lt;/artifactId&gt;
-    &lt;version&gt;8.1.0&lt;/version&gt;
+    &lt;version&gt;8.2.0&lt;/version&gt;
 &lt;/dependency&gt;
-</code></pre>Quizás ya tengas este código en tu <i>pom.xml</i> pero comentado,
-        en ese caso simplemente descoméntalo.</div>
+</code></pre>Quizás ya tengas este código en tu <i>pom.xml</i> pero comentado, en ese caso simplemente descoméntalo.</div>
       <div class="wiki" style="display: block;"> </div>
       <div class="wiki" style="display: block;">
         <h2 id="toc1">Ajustar la definición de la fuente de datos</h2>
-        Edita <i>src/main/webapp/META-INF/context.xml</i> de tu proyecto y
-        ajusta la definición de tu fuente de datos para que apunte a MySQL, algo
-        así:</div>
+        Edita <i>src/main/webapp/META-INF/context.xml</i> de tu proyecto y ajusta la definición de tu fuente de datos para que apunte a MySQL, algo así:</div>
       <div class="wiki" style="display: block;">
         <pre><code class="xml">&lt;Resource name="jdbc/MiAplicacionDS" auth="Container"
     type="javax.sql.DataSource"
@@ -45,43 +36,19 @@
     driverClassName="com.mysql.cj.jdbc.Driver"
     url="jdbc:mysql://localhost:3306/miaplicaciondb"/&gt;
 </code></pre> </div>
-      <div class="wiki" style="display: block;">La diferencia está en <i>driverClassName</i>
-        y <i>url</i>. Obviamente, en lugar de <i>localhost</i> deberías poner
-        la dirección del servidor que alberga MySQL y en lugar de <i>miaplicaciondb</i>
-        el nombre de tu base de datos. También pon el <i>username</i> y <i>password</i>
-        correctos. Puede que el código de arriba ya esté en tu <i>context.xml</i>
-        pero comentado, en ese caso simplemente descoméntalo. No olvides
-        comentar o quitar la fuente de datos para HSQLDB (incluida por defecto
-        al crear un nuevo proyecto OpenXava), sólo una fuente de datos (con el
-        mismo nombre) debería estar activa.</div>
+      <div class="wiki" style="display: block;">La diferencia está en <i>driverClassName</i> y <i>url</i>. Obviamente, en lugar de <i>localhost</i> deberías poner la dirección del servidor que alberga MySQL y en lugar de <i>miaplicaciondb</i> el nombre de tu base de datos. También pon el <i>username</i> y <i>password</i> correctos. Puede que el código de arriba ya esté en tu <i>context.xml</i> pero comentado, en ese caso simplemente descoméntalo. No olvides comentar o quitar la fuente de datos para HSQLDB (incluida por defecto al crear un nuevo proyecto OpenXava), sólo una fuente de datos (con el mismo nombre) debería estar activa.</div>
       <div class="wiki" style="display: block;">
         <h2>Reconstruir proyecto</h2>
-        <p>Después de los cambios has de reconstruir (rebuild) tu proyecto. En
-          OpenXava Studio pulsa con el botón derecho del ratón en tu proyecto y
-          escoge <i>Run As &gt; Maven install</i>, así:</p>
+        <p>Después de los cambios has de reconstruir (rebuild) tu proyecto. En OpenXava Studio pulsa con el botón derecho del ratón en tu proyecto y escoge <i>Run As &gt; Maven install</i>, así:</p>
         <img src="files/run-as-maven-install.png" alt="">
-        <p>O si tienes Maven instalado en tu ordenador y prefieres usar la línea
-          de órdenes:</p>
+        <p>O si tienes Maven instalado en tu ordenador y prefieres usar la línea de órdenes:</p>
         <pre><code class="bash">$ cd miaplicacion
 $ mvn install
 </code></pre>
-        <p>Nota de optimización: En lugar de <i>mvn install</i>, que hace un <i>build</i>
-          de Maven completo, puedes usar <i>mvn war:exploded</i>, suficiente
-          para aplicar los cambios de arriba para desarrollo. Puedes llamar a <i>mvn
-            war:exploded</i> desde el OpenXava Studio con <i>Run As &gt; Maven
-            build...</i> y tecleando <i>war:exploded</i> para <i>goal</i>.</p>
+        <p>Nota de optimización: En lugar de <i>mvn install</i>, que hace un <i>build</i> de Maven completo, puedes usar <i>mvn war:exploded</i>, suficiente para aplicar los cambios de arriba para desarrollo. Puedes llamar a <i>mvn war:exploded</i> desde el OpenXava Studio con <i>Run As &gt; Maven build...</i> y tecleando <i>war:exploded</i> para <i>goal</i>.</p>
         <h2>Ejecutar aplicacion</h2>
-        <p>Ejecuta tu aplicación, debería funcionar bien contra tu base de datos
-          MySQL. Si fallara, verifica que tu base de datos está funcionando, que
-          el usuario y la contraseña son correctos, que la IP del servidor es
-          correcta. Verifica también que el usuario tiene privilegios para crear
-          bases de datos y tablas (si quieres usar la generación automática de
-          esquema de OpenXava, no necesario si las tablas ya existen).</p>
-        <p>Si sigue fallando pregúntanos en el <a href="https://sourceforge.net/p/openxava/discussion/437013/">foro
-            de ayuda de OpenXava</a>. Incluye el contenido de tu <i>persistence.xml</i>,
-          <i>context.xml</i> (quita las contraseñas) y sobre todo la traza
-          generada, puedes encontrar la traza en la pestaña <i>Console</i> del
-          OpenXava Studio.</p>
+        <p>Ejecuta tu aplicación, debería funcionar bien contra tu base de datos MySQL. Si fallara, verifica que tu base de datos está funcionando, que el usuario y la contraseña son correctos, que la IP del servidor es correcta. Verifica también que el usuario tiene privilegios para crear bases de datos y tablas (si quieres usar la generación automática de esquema de OpenXava, no necesario si las tablas ya existen).</p>
+        <p>Si sigue fallando pregúntanos en el <a href="https://sourceforge.net/p/openxava/discussion/437013/">foro de ayuda de OpenXava</a>. Incluye el contenido de tu <i>persistence.xml</i>, <i>context.xml</i> (quita las contraseñas) y sobre todo la traza generada, puedes encontrar la traza en la pestaña <i>Console</i> del OpenXava Studio.</p>
       </div>
     </div>
   </body>

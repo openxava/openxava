@@ -1,6 +1,19 @@
 Change Log for OpenXava project
 ===============================
 
+- Commons-io upgraded to 2.15.0
+- Poi and poi-ooxml upgraded to 5.2.4
+- Jasperreports and jasperreports-fonts upgraded to 6.20.6
+- Groovy upgraded to 4.0.15
+- Jsoup upgraded to 1.16.2
+- Htmlunit upgraded to 3.7.0
+- Pdfbox upgraded to 2.0.30
+- Jaxb-impl upgraded to 2.3.9
+- Lombok upgraded to 1.18.30
+- Embedded Tomcat used in development upgraded to 9.0.82.
+- Jersey-client, hk2, media upgraded to 2.41
+- Log4j-api and core upgraded to 2.21.1
+- Driver version in doc and new projects upgraded for MySQL, Oracle, AS/400, Microsoft SQL Server.
 - New JavaScript editor for @Tree collections with modern look & feel and drag & drop support.
 - Old Yahoo JavaScript libraries removed for security reasons.
 - New property turnOffWebSecurity in xava.property to disable the use of CSP in web headers.
