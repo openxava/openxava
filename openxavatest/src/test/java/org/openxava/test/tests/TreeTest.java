@@ -60,10 +60,7 @@ public class TreeTest extends WebDriverTestBase{
 		WebElement createNewButtonElement = driver.findElement(By.xpath("//a[@data-application='openxavatest' and @data-module='TreeContainer' and @data-action='TreeView.new' and @data-argv='viewObject=xava_view_treeItems']"));
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", createNewButtonElement); // must clicked manually because the element is not interactable
 		Thread.sleep(500); //sometimes need
-		Alert alert = driver.switchTo().alert();
-		//these alerts only occur in the selenium test, because we clicked on a non-interactable element
-	    alert.accept();
-	    alert.dismiss();
+		acceptInDialogJS(driver);
 		insertValueToInput(driver, "ox_openxavatest_TreeContainer__description","B", false);
 		save = driver.findElement(By.id("ox_openxavatest_TreeContainer__TreeView___save"));
 		save.click();
