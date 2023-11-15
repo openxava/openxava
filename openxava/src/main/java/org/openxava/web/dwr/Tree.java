@@ -84,7 +84,6 @@ public class Tree extends DWRBase {
 					jsonArray.put(jsonRow);
 				}
 			}
-			System.out.println(jsonArray);
 			jsonArray = TreeViewParser.findChildrenOfNode("0", jsonArray, propertiesMap, false);
 			return jsonArray.toString();
 		} catch (Exception e) {
