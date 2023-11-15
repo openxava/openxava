@@ -304,7 +304,8 @@ public class Dates {
 			String patternBeforeReFormat = ((SimpleDateFormat) df).toPattern();
 			String pattern = locale.toString().equalsIgnoreCase("sr")?patternBeforeReFormat.substring(0,10) + (patternBeforeReFormat.substring(10, patternBeforeReFormat.length())).replace(".", ":"):patternBeforeReFormat;
 			boolean java9 = XSystem.isJava9orBetter();
-			if (java9) pattern = pattern.replace(", ", " ");
+			// tmr if (java9) pattern = pattern.replace(", ", " "); // tmr;
+			if (java9) pattern = pattern.replace(", ", " ").replace((char) 8239, (char) 32); // tmr;
 			if (fourDigitsForYear && !pattern.contains("yyyy")) pattern = pattern.replace("yy", "yyyy");
 			SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 			if (java9) {

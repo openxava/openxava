@@ -22,7 +22,7 @@ public class HunterTest extends ModuleTestBase {
 		assertListRowCount(1);
 		execute("List.viewDetail", "row=0");
 		assertValue("name", "DE ALFORJA");
-		assertCollectionRowCount("hounds", 1); // TMR FALLA
+		assertCollectionRowCount("hounds", 1); // TMR FALLA ME QUEDÉ POR AQUÍ PARA EMPEZAR CON ESTE
 		execute("Collection.removeSelected", 
 			"row=0,viewObject=xava_view_section0_hounds");
 		assertError("It's required at least 1 element in Hounds of Hunter");

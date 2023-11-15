@@ -40,7 +40,7 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 			catch (ParseException ex) {
 			}
 		}
-		java.util.Date result = (java.util.Date) new DateFormatter().parse(request, string); 
+		java.util.Date result = (java.util.Date) new DateFormatter().parse(request, string);
 		return new java.sql.Timestamp( result.getTime() );
 	}
 

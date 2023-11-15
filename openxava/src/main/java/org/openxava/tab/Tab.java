@@ -966,7 +966,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 							v = WebEditors.parse(getRequest(), p, value, errors, null);
 						} 
 
-						if ((v instanceof Timestamp || p.isCompatibleWith(Timestamp.class)) && EQ_COMPARATOR.equals(this.conditionComparators[i])) {  						 
+						if ((v instanceof Timestamp || p.isCompatibleWith(Timestamp.class)) && EQ_COMPARATOR.equals(this.conditionComparators[i])) {
 							if (v instanceof Timestamp && Dates.hasTime((java.util.Date) v)) {
 								valuesToWhere.add(v);
 								valuesToWhere.add(Dates.cloneWith59999((java.sql.Timestamp) v));
