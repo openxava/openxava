@@ -37,7 +37,7 @@ public class AppointmentTest extends ModuleTestBase {
 		assertListRowCount(3); 
 		setConditionValues("5/26/15 10:15 AM");
 		execute("List.filter");
-		assertListRowCount(1); // TMR FALLA
+		assertListRowCount(1); // TMR FALLA ME QUEDÉ POR AQUÍ
 		assertValueInList(0, 0, "5/26/2015 10:15 AM");
 		assertValueInList(0, 1, "ALMUERZO");		
 		execute("Print.generateExcel"); 

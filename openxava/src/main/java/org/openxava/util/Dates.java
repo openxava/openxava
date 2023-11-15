@@ -568,7 +568,10 @@ public class Dates {
 				replaceAll("1971", "Y").	// year - 4 digit
 				replaceAll("71", always4InYear?"Y":"y"). 	// year - 2 digit 		
 				replaceAll("1", "j"). 	// day - single digit
-				replaceAll("2", "n")	// month - ??? seems only double digit is supported by calendar
+				replaceAll("2", "n").	// month - ??? seems only double digit is supported by calendar
+				
+				// Java 21 
+				replace((char) 8239, (char) 32) // tmr
 				;
 		
 		return result;
