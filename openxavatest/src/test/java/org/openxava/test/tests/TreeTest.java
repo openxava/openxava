@@ -15,19 +15,17 @@ public class TreeTest extends WebDriverTestBase{
 	}
 
 	public void testNavigation() throws Exception {
-
 		goTo(driver, "http://localhost:8080/openxavatest/m/TreeItem");
 		String rootIdValue = getValueInList(driver, "TreeItem", "0", "0");
 		addTreeIdValues(rootIdValue);
 		
 		goTo(driver, "http://localhost:8080/openxavatest/m/TreeContainer");
 		createNewNodeSelecting(driver);	
+
+		goTo(driver, "http://localhost:8080/openxavatest/m/TreeItem");
 		addNewNodeId(driver);
 		
-		goTo(driver, "http://localhost:8080/openxavatest/m/TreeItem");
-		wait(driver);
-		acceptInDialogJS(driver);
-		execute(driver, "TreeContainer", "List.viewDetail", "row=0");
+		goTo(driver, "http://localhost:8080/openxavatest/m/TreeContainer");
 		verifyCreatedNodesAndCheck(driver);
 		editNodeWithDoubleClick(driver);
 		deleteSelectedNode(driver);
@@ -90,7 +88,7 @@ public class TreeTest extends WebDriverTestBase{
 		expandNode(driver, nodesId.get("child2"));
 		WebElement newNodeB = driver.findElement(By.xpath("//a[@id='" + nodesId.get("b") + "_anchor']"));
 		assertEquals("B", newNodeB.getText());
-		WebElement newNodeACheckBox = driver.findElement(By.xpath("//a[@id=' " + nodesId.get("a") + "_anchor']/i"));
+		WebElement newNodeACheckBox = driver.findElement(By.xpath("//a[@id='" + nodesId.get("a") + "_anchor']/i"));
 		newNodeACheckBox.click();
 	}
 	
@@ -194,9 +192,6 @@ public class TreeTest extends WebDriverTestBase{
 	}
 	
 	private void addNewNodeId(WebDriver driver) throws Exception {
-		driver.get("http://localhost:8080/openxavatest/m/TreeItem");
-		wait(driver);
-		acceptInDialogJS(driver);
 		nodesId.put("a", getValueInList(driver, "TreeItem", "7", "0")) ;
 		nodesId.put("b", getValueInList(driver, "TreeItem", "8", "0")) ;
 	}
