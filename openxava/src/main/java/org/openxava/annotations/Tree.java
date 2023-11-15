@@ -104,6 +104,7 @@ public @interface Tree {
 	 * The default value is 2. The minimum is 2.
 	 * @return order increment.
 	 */
+	@Deprecated
 	int orderIncrement() default 2;
 	
 	/**
