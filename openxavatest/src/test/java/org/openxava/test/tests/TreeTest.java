@@ -41,9 +41,15 @@ public class TreeTest extends WebDriverTestBase{
 	public void tearDown() throws Exception {
 		driver.quit();
 	}
+	
+	// Wait until the element is available
+	private WebElement findElement(WebDriver driver, By by) { 
+		wait(driver, by);
+		return driver.findElement(by);		
+	}
 
 	private void createNewNodeSelecting(WebDriver driver) throws Exception {
-		WebElement childItem2CheckBox = driver.findElement(By.xpath("//a[@id='"+ nodesId.get("child2") +"_anchor']/i"));
+		WebElement childItem2CheckBox = findElement(driver, By.xpath("//a[@id='"+ nodesId.get("child2") +"_anchor']/i")); 
 		childItem2CheckBox.click();
 		execute(driver, "TreeContainer", "TreeView.new", "viewObject=xava_view_treeItems");
 		insertValueToInput(driver, "ox_openxavatest_TreeContainer__description", "A", false);
@@ -76,11 +82,11 @@ public class TreeTest extends WebDriverTestBase{
 		save.click();
 		wait(driver);
 		
-		assertEquals("AA", driver.findElement(By.id(nodesId.get("a") + "_anchor")).getText());
+		assertEquals("AA", findElement(driver, By.id(nodesId.get("a") + "_anchor")).getText()); 
 	}
 	
 	private void verifyCreatedNodesAndCheck(WebDriver driver) throws InterruptedException {
-		WebElement childItem2CheckBox = driver.findElement(By.xpath("//a[@id='"+ nodesId.get("child2") +"_anchor']/i"));
+		WebElement childItem2CheckBox = findElement(driver, By.xpath("//a[@id='"+ nodesId.get("child2") +"_anchor']/i")); 
 		childItem2CheckBox.click();
 		Thread.sleep(500); //sometimes need
 		expandNode(driver, nodesId.get("child2"));
@@ -110,7 +116,7 @@ public class TreeTest extends WebDriverTestBase{
 		execute(driver, "TreeContainer", "CRUD.new");
 		insertValueToInput(driver, "ox_openxavatest_TreeContainer__description", "BB", false);
 		execute(driver, "TreeContainer", "CollectionCopyPaste.paste", "viewObject=xava_view_treeItems");
-		WebElement bElement = driver.findElement(By.id(nodesId.get("b") + "_anchor"));
+		WebElement bElement = findElement(driver, By.id(nodesId.get("b") + "_anchor")); 
 		assertTrue(bElement.getText().equals("B"));
 	}
 	
@@ -133,8 +139,8 @@ public class TreeTest extends WebDriverTestBase{
 	}
 	
 	private void executeDnd(WebDriver driver, String sourceElementId, String targetElementId) throws InterruptedException {
-        WebElement sourceElement = driver.findElement(By.id(sourceElementId));
-        WebElement targetElement = driver.findElement(By.id(targetElementId));
+        WebElement sourceElement = findElement(driver, By.id(sourceElementId));
+        WebElement targetElement = findElement(driver, By.id(targetElementId));		
         Actions actions = new Actions(driver);
         actions.dragAndDrop(sourceElement, targetElement).build().perform();
         Thread.sleep(500);// wait animation and html
