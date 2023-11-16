@@ -1,11 +1,30 @@
 Change Log for OpenXava project
 ===============================
 
+- Week and day views in calendar list format enabled if the entity has some property with date and time.
+
+- New JavaScript editor for @Tree collections with modern look & feel and drag & drop support.
+
 - Java 21 support.
+
+- New property turnOffWebSecurity in xava.property to disable the use of CSP in web headers.
+- Removed Content Security Policy errors in browser console.
+- All inline JavaScript events removed from OpenXava code.
+- Links with href="javascript:" removed from OpenXava code.
+- Inline events in JavaScript no longer work for custom views and editors.
+- Links with href="javascript:" no longer work for custom views and editors.
+- Minimized the use of eval() in JavaScript code.
+- Old Yahoo JavaScript libraries removed for security reasons.
+- Removed or updated all vulnerable third party JavaScript libraries.
+
+- Clicking a time in day or week calendar view creates a new record with the date and time preset.
+- Tooltips for records shown in calendar list format.
+- Explicit plus icon in each day in list calendar format to create a new record for a day.
+
+- JasperReports and JasperReports Fonts upgraded to 6.20.6
 - JUnit upgraded to 4.13.2
 - Commons IO upgraded to 2.15.0
 - POI and POI OOXML upgraded to 5.2.4
-- JasperReports and JasperReports Fonts upgraded to 6.20.6
 - Groovy upgraded to 4.0.15
 - JSoup upgraded to 1.16.2
 - HtmlUnit upgraded to 3.7.0
@@ -15,28 +34,17 @@ Change Log for OpenXava project
 - Embedded Tomcat used in development upgraded to 9.0.82.
 - Jersey client, hk2, media upgraded to 2.41.
 - Log4j API and core upgraded to 2.21.1.
-- Driver version in doc and new projects upgraded for MySQL, Oracle, AS/400 and Microsoft SQL Server.
-- New JavaScript editor for @Tree collections with modern look & feel and drag & drop support.
-- Old Yahoo JavaScript libraries removed for security reasons.
-- New property turnOffWebSecurity in xava.property to disable the use of CSP in web headers.
-- Minimized the use of eval() in JavaScript code.
-- All inline JavaScript events removed from OpenXava code.
-- Inline events in JavaScript no longer work for custom view and editors.
-- Removed Content Security Policy errors in browser console.
-- Removed getHrefAttribute() method from HtmlUnitUtils.
-- Fix: When removing a column with a calculated property from a list a blank column is left on right.
-- Links with href="javascript:" removed from OpenXava code.
-- Links with href="javascript:" no longer work for custom view and editors.	
-- Fix: Default action with takes-long=true does not show the takes long image if the user press ENTER.
-- Fix: IForwardAction with inNewWindow() not in new window when pressing ENTER and it's the default action. 
 - jQuery upgraded to 3.7.1.
 - jQuery UI upgraded to 1.13.2.
-- Remove and rename column icons when customizing list are aligned to right.
+- Driver version in doc and new projects upgraded for MySQL, Oracle, AS/400 and Microsoft SQL Server.
+
+- Remove and rename column icons when customizing lists are aligned to the right.
 - New method executed() in IAccessTrackerProvider so now action executions can be tracked too.
-- Tooltips for records shown in calendar list format.
-- Clicking in a time in day or week calendar view creates a new record with the date and time preset. 
-- Week and day views in calendar list format enabled if the entity has some property with date and time.
-- Explicit plus icon in each day in list calendar format to create a new record for a day.  
+- Removed getHrefAttribute() method from HtmlUnitUtils.
+
+- Fix: When removing a column with a calculated property from a list a blank column is left on right.
+- Fix: Default action with takes-long=true does not show the takes long image if the user presses ENTER.
+- Fix: IForwardAction with inNewWindow() not in new window when pressing ENTER and it's the default action. 
 
 OpenXava 7.1.6 (2023-9-15)
 --------------------------
