@@ -1,9 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- Junit upgraded to 4.13.2
 - Commons-io upgraded to 2.15.0
 - Poi and poi-ooxml upgraded to 5.2.4
 - Jasperreports and jasperreports-fonts upgraded to 6.20.6
+- Jaxb-core and jaxb-impl upgraded to 4.0.4
 - Groovy upgraded to 4.0.15
 - Jsoup upgraded to 1.16.2
 - Htmlunit upgraded to 3.7.0

@@ -41,7 +41,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.2</version>
+			<version>4.13.2</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -169,12 +169,12 @@
 		<dependency>
 		    <groupId>com.sun.xml.bind</groupId>
 		    <artifactId>jaxb-core</artifactId>
-		    <version>2.3.0.1</version>
+		    <version>4.0.4</version>
 		</dependency>		
 		<dependency>
 		    <groupId>com.sun.xml.bind</groupId>
 		    <artifactId>jaxb-impl</artifactId>
-		    <version>2.3.9</version>
+		    <version>4.0.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.directwebremoting</groupId>
