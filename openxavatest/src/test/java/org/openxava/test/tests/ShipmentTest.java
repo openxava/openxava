@@ -160,7 +160,7 @@ public class ShipmentTest extends ModuleTestBase {
 		setValue("number", "66");
 		setValue("description", "JUNIT SHIPMENT");
 		execute("CRUD.save"); 		
-		assertNoErrors();
+		assertNoErrors(); 
 		
 		execute("Mode.list");
 				

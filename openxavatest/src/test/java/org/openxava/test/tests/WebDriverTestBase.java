@@ -100,8 +100,10 @@ abstract public class WebDriverTestBase extends TestCase {
 		try {
 			Alert alert = driver.switchTo().alert();
 			alert.accept();
-			wait(driver);
+			alert.dismiss();
 		} catch(NoAlertPresentException e) {
+		} finally {
+			wait(driver);
 		}
 	}
 	
@@ -121,6 +123,7 @@ abstract public class WebDriverTestBase extends TestCase {
 		try { 
 			WebElement button = driver.findElement(By.cssSelector("a[data-action='" + action + "'][data-argv='" + arguments + "']"));
 			button.click();
+			acceptInDialogJS(driver);
 			wait(driver);
 		}
 		catch (NoSuchElementException ex) {
