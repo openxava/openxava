@@ -598,7 +598,6 @@ openxava.initLists = function(application, module) {
 			$(this).data('on-select-collection-element-action'),
 			"row=" + $(this).data('row') + ",viewObject=" + $(this).data('view-object'),
 			this.checked,
-			// tmr $(this).closest("tr").attr('id'),
 			$(this).data('row-id'),
 			$(this).data('on-select-collection-element-action') != "",
 			"", "",	

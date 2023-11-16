@@ -102,9 +102,7 @@ for (int f=0; itAggregates.hasNext(); f++) {
 <td class="<%=cssCellClass%>" width="5">
 <input class="xava_selected" type="checkbox" name="<xava:id name='xava_selected'/>" value="<%=propertyPrefix%>__SELECTED__:<%=f%>" 
 	data-on-select-collection-element-action="<%=onSelectCollectionElementAction%>"
-	<%-- tmr ini --%>
 	data-row-id="<%=idRow%>"
-	<%-- tmr fin --%>
 	data-row="<%=f%>"
 	data-view-object="<%=viewName%>"
 	data-tab-object="<%=tabObject%>"

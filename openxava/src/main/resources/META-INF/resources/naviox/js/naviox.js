@@ -39,14 +39,12 @@ naviox.initModulesList = function() {
 	$('#display_all_modules').on( "click", function() {
 		naviox.displayAllModulesList($(this).data("search-word"));
 	});
-	// tmr ini
 	$('#back_folder').on( "click", function() {
 		naviox.goBack();
 	});
 	$('.folder-link').on( "click", function() {
 		naviox.goFolder($(this).data('folder-id'));
 	});		
-	// tmr fin
 }
 
 naviox.initBookmark = function() { 
@@ -172,34 +170,26 @@ naviox.refreshFolderModulesList = function(modulesList) {
     	},    	
     	function() {
     		box.css("left", "0");
-    		naviox.postRefreshFolderModulesList(); // tmr
-    		/* tmr
-    		$('#modules_list_content').children().first().remove();
-    		box.css("left", "0");
-    		naviox.watchSearch();
-    		$('.modules-list-header').css("width", "100%");
-    		naviox.initModulesList(); // tmr
-    		*/ 
+    		naviox.postRefreshFolderModulesList(); 
     	}
     );
 }
 
-naviox.postRefreshFolderModulesList = function() { // tmr
+naviox.postRefreshFolderModulesList = function() { 
 	$('#modules_list_content').children().first().remove();
 	naviox.reinitModulesList();
 }
 
-naviox.postRefreshFolderBackModulesList = function() { // tmr
+naviox.postRefreshFolderBackModulesList = function() { 
 	$('#modules_list_content').children().last().remove();
 	naviox.reinitModulesList();
 }
 
-naviox.reinitModulesList = function() { // tmr
+naviox.reinitModulesList = function() { 
 	naviox.watchSearch();
 	$('.modules-list-header').css("width", "100%");
-	naviox.initModulesList(); // tmr
+	naviox.initModulesList(); 
 }
-
 
 naviox.refreshFolderBackModulesList = function(modulesList) {
 	if (modulesList == null) {
@@ -217,13 +207,7 @@ naviox.refreshFolderBackModulesList = function(modulesList) {
     		left: 0 
     	},    	
     	function() {
-    		naviox.postRefreshFolderBackModulesList(); // tmr
-    		/* tmr
-    		$('#modules_list_content').children().last().remove();
-    		naviox.watchSearch(); 
-    		$('.modules-list-header').css("width", "100%");
-    		naviox.initModulesList(); // tmr
-    		*/ 
+    		naviox.postRefreshFolderBackModulesList(); 
     	}
     );
 }

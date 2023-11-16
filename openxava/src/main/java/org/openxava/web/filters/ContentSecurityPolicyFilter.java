@@ -18,7 +18,7 @@ import org.openxava.web.*;
 @WebFilter("/*") // If you change this pass the ZAP test again
 public class ContentSecurityPolicyFilter implements Filter {
 
-    private static String mapsTileProviderURL; 
+    private static String mapsTileProviderURL;
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     	// If you change this pass the ZAP test again
@@ -35,7 +35,7 @@ public class ContentSecurityPolicyFilter implements Filter {
         	getMapsTileProviderURL() + getTrustedHostsForImages() +
         	"; worker-src 'self' blob:; frame-src 'self' " +
         	getTrustedHostsForFrames() +
-        	"; frame-ancestors 'self'; form-action 'self'; font-src 'self' data:";        
+        	"; frame-ancestors 'self'; form-action 'self'; font-src 'self' data:";  
         httpResponse.setHeader("Content-Security-Policy", policy);
         httpResponse.setHeader("X-Content-Type-Options", "nosniff");
         chain.doFilter(request, response);

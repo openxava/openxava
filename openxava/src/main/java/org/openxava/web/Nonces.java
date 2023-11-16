@@ -15,11 +15,15 @@ public class Nonces {
 	
 	public static String get(ServletRequest request) {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		String nonce = (String) httpRequest.getSession().getAttribute("xava.nonce"); 
-		if (nonce == null) {
-			nonce = UUID.randomUUID().toString();
-			httpRequest.getSession().setAttribute("xava.nonce", nonce); 
+		String nonce = (String) httpRequest.getSession().getAttribute("xava.nonce");
+		if (nonce != null) {
+			request.setAttribute("xava.nonce", nonce);
+			return nonce;
 		}
+		nonce = (String) httpRequest.getAttribute("xava.nonce");
+		if (nonce != null) return nonce;
+		nonce = UUID.randomUUID().toString();
+		httpRequest.getSession().setAttribute("xava.nonce", nonce);		
 		return nonce;
 	}
 
