@@ -27,6 +27,7 @@ public class DateTimeSeparatedFormatter extends DateTimeBaseFormatter implements
 		result[1] = DateFormat.getTimeInstance(DateFormat.SHORT, Locales.getCurrent()).format(date);
 		//java 8 sr locale
 		result[1] = Locales.getCurrent().getLanguage().equalsIgnoreCase("sr")?result[1].replace(".", ":"):result[1];
+		result[1] = result[1].replace((char) 8239, (char) 32); // For Java 21 
 		return result;
 	}
 

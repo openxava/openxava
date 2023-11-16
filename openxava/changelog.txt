@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Java 21 support.
+- Lombok upgraded to 1.18.30.
 - New JavaScript editor for @Tree collections with modern look & feel and drag & drop support.
 - Old Yahoo JavaScript libraries removed for security reasons.
 - New property turnOffWebSecurity in xava.property to disable the use of CSP in web headers.

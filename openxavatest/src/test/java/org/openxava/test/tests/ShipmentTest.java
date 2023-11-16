@@ -124,7 +124,7 @@ public class ShipmentTest extends ModuleTestBase {
 		assertValue("mode", "1");
 		assertValue("number", "66");
 		assertValue("description", "JUNIT SHIPMENT");
-		assertValue("time", "10/22/2008 6:01 PM"); // TMR FALLA
+		assertValue("time", "10/22/2008 6:01 PM"); 
 				
 		// Modify
 		setValue("description", "JUNIT SHIPMENT MODIFIED");
@@ -160,7 +160,7 @@ public class ShipmentTest extends ModuleTestBase {
 		setValue("number", "66");
 		setValue("description", "JUNIT SHIPMENT");
 		execute("CRUD.save"); 		
-		assertNoErrors(); // TMR FALLA
+		assertNoErrors(); 
 		
 		execute("Mode.list");
 				
@@ -201,7 +201,7 @@ public class ShipmentTest extends ModuleTestBase {
 	}
 	
 	public void testFilterByTimestamp() throws Exception { 
-		assertListRowCount(3); // TMR FALLA
+		assertListRowCount(3);
 		setConditionValues( new String [] { "", "", "12/25/06"} ); // 2006-12-25
 		execute("List.filter");
 		assertListRowCount(1); 

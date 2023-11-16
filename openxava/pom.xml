@@ -190,12 +190,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<!-- tmr
-			<version>1.18.28</version>
-			-->
-			<!-- tmr ini -->
 			<version>1.18.30</version>
-			<!-- tmr fin -->
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
