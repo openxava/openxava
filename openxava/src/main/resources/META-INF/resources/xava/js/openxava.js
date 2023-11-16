@@ -267,7 +267,6 @@ openxava.initSubcontrollers = function() {
 
 openxava.initActions = function() { 
 	$('.xava_action').off('click').click(function() { 
-		console.log("[openxava.initActions] Executing action"); // tmr
 		openxava.executeAction(
 			$(this).data('application'),
 			$(this).data('module'), 
