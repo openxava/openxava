@@ -407,6 +407,9 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 	<input class="xava_selected" type="<%=singleSelection?"radio":"checkbox"%>" name="<xava:id name='xava_selected'/>" 
 		value="<%=prefix + "selected"%>:<%=f%>" <%=checked%>
 		data-on-select-collection-element-action="<%=onSelectCollectionElementAction%>"
+		<%-- tmr ini --%>
+		data-row-id="<%=prefixIdRow%><%=f%>"
+		<%-- tmr fin --%>
 		data-row="<%=f%>"
 		data-view-object="<%=viewObject%>"
 		data-tab-object="<%=tabObject%>"

@@ -26,11 +26,15 @@ window.location="<%=url%>";
 }
 else {
 	if (signInURL != null && session.getAttribute("naviox.originalURL") == null) {
-		session.setAttribute("naviox.originalURL", request.getContextPath()); 
+		session.setAttribute("naviox.originalURL", request.getContextPath());
+		System.out.println("[index.jsp] jsp:forward"); // tmr 
 		%>
+		<jsp:forward page="<%=signInURL%>"/>
+		<%-- tmr
 		<script type="text/javascript" <xava:nonce/>>
 		window.location="<%=request.getContextPath()%><%=signInURL%>";
 		</script>
+		--%>
 		<% 
 	}
 	else {

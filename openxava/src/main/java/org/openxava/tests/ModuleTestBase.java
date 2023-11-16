@@ -606,9 +606,10 @@ abstract public class ModuleTestBase extends TestCase {
 		}
 	}
 
-	private void openPopupIfActionInSubcontroler(HtmlElement actionElement) throws Exception { 
+	private void openPopupIfActionInSubcontroler(HtmlElement actionElement) throws Exception {
 		HtmlElement subcontroller = getAncestorWithClass(actionElement, "ox-subcontroller");
 		if (subcontroller == null) return;
+		if (subcontroller.isDisplayed()) return; // tmr
 		HtmlElement parent = (HtmlElement) subcontroller.getParentNode();
 		HtmlAnchor link = parent.getOneHtmlElementByAttribute("a", "class", "xava_subcontroller");
 		HtmlElement icon = link.getOneHtmlElementByAttribute("i", "class", "mdi mdi-menu-down");
