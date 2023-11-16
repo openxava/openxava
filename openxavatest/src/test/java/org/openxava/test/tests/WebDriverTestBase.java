@@ -100,8 +100,10 @@ abstract public class WebDriverTestBase extends TestCase {
 		try {
 			Alert alert = driver.switchTo().alert();
 			alert.accept();
-			wait(driver);
+			alert.dismiss();
 		} catch(NoAlertPresentException e) {
+		} finally {
+			wait(driver);
 		}
 	}
 	
