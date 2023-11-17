@@ -7,7 +7,7 @@ Change Log for OpenXava project
 
 - Java 21 support.
 
-- New property turnOffWebSecurity in xava.property to disable the use of CSP in web headers.
+- New property turnOffWebSecurity in xava.properties to disable the use of CSP in web headers.
 - Removed Content Security Policy errors in browser console.
 - All inline JavaScript events removed from OpenXava code.
 - Links with href="javascript:" removed from OpenXava code.
@@ -22,6 +22,8 @@ Change Log for OpenXava project
 - Explicit plus icon in each day in list calendar format to create a new record for a day.
 
 - JasperReports and JasperReports Fonts upgraded to 6.20.6
+- jQuery upgraded to 3.7.1.
+- jQuery UI upgraded to 1.13.2.
 - JUnit upgraded to 4.13.2
 - Commons IO upgraded to 2.15.0
 - POI and POI OOXML upgraded to 5.2.4
@@ -34,8 +36,6 @@ Change Log for OpenXava project
 - Embedded Tomcat used in development upgraded to 9.0.82.
 - Jersey client, hk2, media upgraded to 2.41.
 - Log4j API and core upgraded to 2.21.1.
-- jQuery upgraded to 3.7.1.
-- jQuery UI upgraded to 1.13.2.
 - Driver version in doc and new projects upgraded for MySQL, Oracle, AS/400 and Microsoft SQL Server.
 
 - Remove and rename column icons when customizing lists are aligned to the right.

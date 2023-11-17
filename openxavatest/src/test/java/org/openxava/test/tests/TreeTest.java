@@ -33,7 +33,7 @@ public class TreeTest extends WebDriverTestBase{
 		cutNode(driver);
 		execute(driver, "TreeContainer", "Mode.list");
 		execute(driver, "TreeContainer", "List.viewDetail", "row=0");
-		dragAndDrop(driver);
+		dragAndDrop(driver); 
 		execute(driver, "TreeContainer", "Mode.list");
 		execute(driver, "TreeContainer", "CRUD.deleteRow", "row=1");
 	}
