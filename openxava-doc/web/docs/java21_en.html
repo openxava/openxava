@@ -3,36 +3,82 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Java 21 - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
       <h1> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
           / </span> Java 21 </h1>
-      <p><i style="color: red;"><b>Since v6.1 OpenXava needs Java 8 or better</b></i></p>
-      By default, OpenXava is compiled with Java 6, so you can use OpenXava with
-      WebSphere 8 and WebLogic 10. However, the application server included in
-      the OpenXava distribution is Tomcat 9 (since OpenXava 6) that requires
-      Java 8. Therefore, you need to use Java 8 (or better) to follow the
-      introduction documentation to OpenXava.</div>
-    <div class="wiki" style="display: block;">NO HACER Maven &gt; Upgrade
-      Project ... Properties &gt; Java Build Path &gt; Libraries : Quitar JRE de
-      Java 18 y añadir la de Java 21 ( Con Add Library ...)</div>
-    <div class="wiki" style="display: block;">ffff</div>
-    <img src="files/eclipse-installed-jres-java21.png" alt="eclipse-installed-jres-java21.png"
-      title="eclipse-installed-jres-java21.png">
-    <div class="wiki" style="display: block;">ffff</div>
-    <img src="files/eclipse-maven-package-java21.png" alt="eclipse-maven-package-java21.png"
+      By default, OpenXava is compiled with Java 8, so you can use OpenXava with
+      Java 8, 11 or 17. Moroever, since v7.2 OpenXava supports Java 21,
+      therefore you can compile and run your OpenXava applications with Java 21
+      and enjoy their new features. </div>
+    <div class="wiki" style="display: block;">To use Java 21 in your application
+      you have to change the compile level in the <i>pom.xml</i> of your
+      project, thus:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;maven.compiler.source&gt;21&lt;/maven.compiler.source&gt;
+&lt;maven.compiler.target&gt;21&lt;/maven.compiler.target&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">The below instructions are for
+      configuring OpenXava Studio to use Java 21. Obviously, you should have JDK
+      21 installed on your computer. </div>
+    <div class="wiki" style="display: block;">
+      <h2>Add Java 21 to OpenXava Studio</h2>
+    </div>
+    <div class="wiki" style="display: block;">The first step is to indicate to
+      OpenXava Studio where the JDK 21 is installed. For that, go to <i>Window
+        &gt; Preferences &gt; Java &gt; Installed JREs</i>, and there add the
+      JDK 21 to the Installed JREs list:<img src="files/eclipse-installed-jres-java21.png"
+        alt="eclipse-installed-jres-java21.png" title="eclipse-installed-jres-java21.png">
+    </div>
+    <div class="wiki" style="display: block;">It's not needed that you mark it
+      as the defaul JRE.</div>
+    <div class="wiki" style="display: block;">
+      <h2>Configure to compile with Java 21</h2>
+    </div>
+    <div class="wiki" style="display: block;">You should define your own Maven
+      configuration to compile, package or install your application and indicate
+      in that configuration that you're going to use Java 21. Use that
+      configuration for compile or package your application. That is, do a right
+      mouse click on your project, and choose <i>Run As &gt; Maven build...</i>,
+      then in the dialog create a configuration to call the goal <i>package</i>
+      and named it <i>yourproject package21</i> (for example), in this way:</div>
+    <img src="files/eclipse-maven-package-java21.png" alt="eclipse-maven-package-java21.png"
       title="eclipse-maven-package-java21.png">
-    <div class="wiki" style="display: block;">fffff</div>
-    <img src="files/eclipse-maven-package-java21-set-jre.png" alt="eclipse-maven-package-java21-set-jre.png"
+    <div class="wiki" style="display: block;">The go to the JRE tab and in <i>Alternate
+        JRE</i> option, choose the JDK 21 as JRE, thus:</div>
+    <img src="files/eclipse-maven-package-java21-set-jre.png" alt="eclipse-maven-package-java21-set-jre.png"
       title="eclipse-maven-package-java21-set-jre.png">
-    <div class="wiki" style="display: block;">fffff</div>
-    <img src="files/eclipse-run-configurations.png" alt="eclipse-run-configurations.png"
+    <div class="wiki" style="display: block;">Now click on <i>Run</i> and your
+      application will be compiled and packaged using Java 21. From now on, you
+      can use the <i>compile21</i> configuration you have created to compile
+      with Java 21.</div>
+    <div class="wiki" style="display: block;">
+      <h2>Configure to run with Java 21</h2>
+    </div>
+    <div class="wiki" style="display: block;">You have to edit your run
+      configuration to use the JDK 21 to run your application. For that click on
+      the <i>Run Configuration...</i> menu entry:</div>
+    <img src="files/eclipse-run-configurations.png" alt="eclipse-run-configurations.png"
       title="eclipse-run-configurations.png">
-    <div class="wiki" style="display: block;">fffff</div>
-    <img src="files/eclipse-run-configuration-java21.png" alt="eclipse-run-configuration-java21.png"
+    <div class="wiki" style="display: block;">Choose your application on the
+      right, on the Java Application section. Then go to the JRE tab and in <i>Alternate
+        JRE</i> choose the JDK 21, like this:</div>
+    <img src="files/eclipse-run-configuration-java21.png" alt="eclipse-run-configuration-java21.png"
       title="eclipse-run-configuration-java21.png">
-    <div class="wiki" style="display: block;">fffff</div>
+    <div class="wiki" style="display: block;">Click on <i>Run</i>, and your
+      application will run using Java 21.</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">Note: Beware, because if you do a
+      <i>Maven &gt; Upgrade Project</i> on your project at any moment, your
+      project will be marked with errors. Don't panic, just do a right click on
+      your project, and choose <i>Properties &gt; Java Build Path &gt;
+        Libraries</i>. There remove the Java 18 JRE library and add the Java 21
+      library, with the <i>Add Library...</i> button.</div>
   </body>
 </html>
