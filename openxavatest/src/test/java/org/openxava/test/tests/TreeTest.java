@@ -197,10 +197,10 @@ public class TreeTest extends WebDriverTestBase{
 		nodesId.put("b", getValueInList(driver, "TreeItem", "8", "0"));
 	}
 	
-	private void goTo(WebDriver driver, String url) throws Exception {
-		driver.get(url);
-		wait(driver);
-		acceptInDialogJS(driver);
-	}
+//	private void goTo(WebDriver driver, String url) throws Exception {
+//		driver.get(url);
+//		wait(driver);
+//		acceptInDialogJS(driver);
+//	}
 	
 }

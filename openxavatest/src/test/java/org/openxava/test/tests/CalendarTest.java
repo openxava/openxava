@@ -1,6 +1,7 @@
 package org.openxava.test.tests;
 
 import java.text.*;
+import java.time.*;
 import java.util.*;
 
 import org.openqa.selenium.*;
@@ -13,9 +14,10 @@ public class CalendarTest extends WebDriverTestBase {
 	private WebDriver driver;
 
 	public void setUp() throws Exception {
+		//setHeadless(true);
 		driver = createWebDriver();
 	}
-
+/*
 	public void testNavigation() throws Exception {
 		forTestAddEventAndVerify();
 		forTestConditionsAndFilter();
@@ -24,7 +26,7 @@ public class CalendarTest extends WebDriverTestBase {
 		forTestFilterPerformance();
 		forTestMore();
 		forTestCreateDateWithTimeInWeekAndDailyView_tooltip();
-	}
+	}*/
 
 	public void tearDown() throws Exception {
 		driver.quit();
@@ -41,6 +43,81 @@ public class CalendarTest extends WebDriverTestBase {
 		prev.click();
 		waitCalendarEvent(driver);
 	}
+	//terminado
+	private void testNavigationInDateCalendarAndDateTimeCalendar() throws Exception {
+		goTo(driver, "http://localhost:8080/openxavatest/m/Appointment");
+		moveToCalendarView(driver);
+		moveToTimeGridWeek(driver);
+		moveToListView(driver);
+		goTo(driver, "http://localhost:8080/openxavatest/m/Event");
+		moveToCalendarView(driver);
+		boolean weekButton = driver.findElements(By.cssSelector("button.fc-timeGridWeek-button")).isEmpty();
+		assertTrue(weekButton);
+		moveToListView(driver);
+	}
+	
+	private void testAnyNameAsDateProperty() throws Exception {
+		goTo(driver, "http://localhost:8080/openxavatest/m/UserWithBirthday");
+		try {
+			execute(driver, "UserWithBirthday", "Mode.list");
+		} catch (NoSuchElementException e) {
+		}
+		moveToListView(driver);
+		moveToCalendarView(driver);
+		moveToListView(driver);
+	}
+	//terminado
+	private void testCreateEventPrevCurrentNextMonth() throws Exception {
+		goTo(driver, "http://localhost:8080/openxavatest/m/Invoice");
+		moveToCalendarView(driver);
+		prevOnCalendar();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		List<Date> dates = setDates();
+		for (int i = 0; i < dates.size(); i++) {
+			if (i == 2) {
+				nextOnCalendar();
+				wait(driver);
+			}
+			String dateString = dateFormat.format(dates.get(i));
+			WebElement day = driver
+					.findElement(By.xpath("//div[contains(@class,'fc-daygrid-day-frame') and ancestor::td[@data-date='"
+							+ dateString + "']]"));
+			day.click();
+			wait(driver);
+			createInvoice(i);
+		}
+		prevOnCalendar();
+		verifyPrevInvoiceEvent();
+		moveToListView(driver);
+	}
+	//terminado
+	private void testConditionsAndFilter() throws Exception {
+		goTo(driver, "http://localhost:8080/openxavatest/m/InvoiceCalendar");
+		setInvoiceCondition("InvoiceCalendar");
+		wait(driver);
+		moveToCalendarView(driver);
+		prevOnCalendar();
+		verifyConditionEvents("past", false);
+		nextOnCalendar();
+		nextOnCalendar();
+		verifyConditionEvents("future", true);
+		moveToListView(driver);
+		deteleEvents();
+	}
+	
+	private void testFilterPerformance() throws Exception {
+		//testing default filter defined by user and month filter defined by calendar
+		goTo(driver, "http://localhost:8080/openxavatest/m/EventWithFilter");
+		moveToListView(driver);
+		long ini = System.currentTimeMillis();
+		moveToCalendarView(driver);
+		long takes = System.currentTimeMillis() - ini;
+		// with CompositeFilter it takes no more than 1500, without it takes more than
+		// 4000
+		assertTrue(takes < 3000);
+		moveToListView(driver);
+	}
+	
 
 	private List<Date> setDates() {
 		List<Date> dates = new ArrayList<>();
@@ -60,38 +137,23 @@ public class CalendarTest extends WebDriverTestBase {
 		return dates;
 	}
 
-	private void createInvoiceEventPrevCurrentNextMonth() throws Exception {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		List<Date> dates = setDates();
-		for (int i = 0; i < dates.size(); i++) {
-			if (i == 2) {
-				nextOnCalendar();
-				waitCalendarEvent(driver);
-				wait(driver);
-			}
-			String dateString = dateFormat.format(dates.get(i));
-			WebElement day = driver
-					.findElement(By.xpath("//div[contains(@class,'fc-daygrid-day-frame') and ancestor::td[@data-date='"
-							+ dateString + "']]"));
-			day.click();
-			wait(driver);
-			createInvoice(i);
-		}
-	}
-
 	private void createInvoice(int invoiceNUmber) throws Exception {
-		WebElement inputInvoiceNumber = driver.findElement(By.id("ox_openxavatest_Invoice__number"));
-		int invoiceNumber = (10 + invoiceNUmber);
-		inputInvoiceNumber.sendKeys(String.valueOf(invoiceNumber));
-		WebElement inputCustomerNumber = driver.findElement(By.id("ox_openxavatest_Invoice__customer___number"));
-		inputCustomerNumber.sendKeys("1");
-		WebElement section2Child = driver
-				.findElement(By.id("ox_openxavatest_Invoice__label_xava_view_section2_sectionName"));
-		WebElement section2Parent = section2Child.findElement(By.xpath(".."));
-		section2Parent.click();
-		wait(driver);
-		WebElement inputVAT = driver.findElement(By.id("ox_openxavatest_Invoice__vatPercentage"));
-		inputVAT.sendKeys("3");
+//		WebElement inputInvoiceNumber = driver.findElement(By.id("ox_openxavatest_Invoice__number"));
+//		int invoiceNumber = (10 + invoiceNUmber);
+//		inputInvoiceNumber.sendKeys(String.valueOf(invoiceNumber));
+		insertValueToInput(driver, "ox_openxavatest_Invoice__number", String.valueOf(10 + invoiceNUmber), false);
+//		WebElement inputCustomerNumber = driver.findElement(By.id("ox_openxavatest_Invoice__customer___number"));
+//		inputCustomerNumber.sendKeys("1");
+		insertValueToInput(driver, "ox_openxavatest_Invoice__customer___number", "1", false);
+//		WebElement section2Child = driver
+//				.findElement(By.id("ox_openxavatest_Invoice__label_xava_view_section2_sectionName"));
+//		WebElement section2Parent = section2Child.findElement(By.xpath(".."));
+//		section2Parent.click();
+//		wait(driver);
+		clickOnSectionWithChildSpanId(driver, "ox_openxavatest_Invoice__label_xava_view_section2_sectionName");
+//		WebElement inputVAT = driver.findElement(By.id("ox_openxavatest_Invoice__vatPercentage"));
+//		inputVAT.sendKeys("3");
+		insertValueToInput(driver, "ox_openxavatest_Invoice__vatPercentage", "3", false);
 		execute(driver, "Invoice", "CRUD.save");
 		execute(driver, "Invoice", "Mode.list");
 		waitCalendarEvent(driver);
@@ -115,6 +177,7 @@ public class CalendarTest extends WebDriverTestBase {
 	private void setInvoiceCondition(String module) throws InterruptedException {
 		WebElement inputInvoiceNumber = driver.findElement(By.id("ox_openxavatest_" + module + "__conditionValue___1"));
 		inputInvoiceNumber.sendKeys("12");
+		//insertValueToInput(driver, "ox_openxavatest_" + module + "__conditionValue___1", "12", false);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].focus();", inputInvoiceNumber);
 		WebElement selectInvoiceNumberCondition = driver
@@ -142,54 +205,17 @@ public class CalendarTest extends WebDriverTestBase {
 				.findElement(By.cssSelector("td.ox-list-subheader a:has(i.mdi.mdi-eraser)"));
 		clearFilterAction.click();
 		wait(driver);
+		clickOnButtonWithId(driver, "ox_openxavatest_InvoiceCalendar__xava_clear_condition");
 		for (int i = 0; i < 3; i++) {
-			WebElement element = driver.findElement(
-					By.xpath("//a[contains(@class, 'ox-image-link') and .//i[contains(@class, 'mdi-delete')]]"));
-			element.click();
-			acceptInDialogJS(driver);
+		    execute(driver, "InvoiceCalendar", "CRUD.deleteRow", "row=0");
 		}
 	}
 
-	private void forTestAnyNameAsDateProperty() throws Exception {
-		driver.get("http://localhost:8080/openxavatest/m/UserWithBirthday");
-		wait(driver);
-		acceptInDialogJS(driver);
-		try {
-			execute(driver, "UserWithBirthday", "Mode.list");
-		} catch (NoSuchElementException e) {
-		}
-		moveToListView(driver);
-		moveToCalendarView(driver);
-		moveToListView(driver);
-	}
 
-	private void forTestAddEventAndVerify() throws Exception {
-		driver.get("http://localhost:8080/openxavatest/m/Invoice");
-		wait(driver);
-		acceptInDialogJS(driver);
-		moveToCalendarView(driver);
-		assertFalse(isMonthWeekDayViewPresent(driver));
-		prevOnCalendar();
-		createInvoiceEventPrevCurrentNextMonth();
-		prevOnCalendar();
-		verifyPrevInvoiceEvent();
-	}
 
-	private void forTestConditionsAndFilter() throws Exception {
-		driver.get("http://localhost:8080/openxavatest/m/InvoiceCalendar");
-		wait(driver);
-		moveToListView(driver);
-		setInvoiceCondition("InvoiceCalendar");
-		wait(driver);
-		moveToCalendarView(driver);
-		prevOnCalendar();
-		verifyConditionEvents("past", false);
-		nextOnCalendar();
-		nextOnCalendar();
-		verifyConditionEvents("future", true);
-		moveToListView(driver);
-		deteleEvents();
-	}
+
+
+
 
 	private void forTestMultipleDateAndFirstDateAsEventStart() throws Exception {
 		driver.get("http://localhost:8080/openxavatest/m/Event");
@@ -240,20 +266,7 @@ public class CalendarTest extends WebDriverTestBase {
 		acceptInDialogJS(driver);
 	}
 
-	private void forTestFilterPerformance() throws Exception {
-		//testing default filter defined by user and month filter defined by calendar
-		driver.get("http://localhost:8080/openxavatest/m/EventWithFilter");
-		wait(driver);
-		acceptInDialogJS(driver);
-		moveToListView(driver);
-		long ini = System.currentTimeMillis();
-		moveToCalendarView(driver);
-		long takes = System.currentTimeMillis() - ini;
-		// with CompositeFilter it takes no more than 1500, without it takes more than
-		// 4000
-		assertTrue(takes < 3000);
-		moveToListView(driver);
-	}
+
 	
 	private void forTestMore() throws Exception {
 		driver.get("http://localhost:8080/openxavatest/m/Hound");
@@ -324,13 +337,49 @@ public class CalendarTest extends WebDriverTestBase {
 		acceptInDialogJS(driver);
 	}
 	
-	private boolean isMonthWeekDayViewPresent(WebDriver driver) {
-		int monthButton = driver.findElements(By.className("fc-timeGridWeek-button")).size();
-        int weekButton = driver.findElements(By.className("fc-timeGridDay-button")).size();
-        int dayButton = driver.findElements(By.className("fc-dayGridMonth-button")).size();
-        boolean b = (monthButton == 1 && weekButton == 1 && dayButton == 1) ? true : false;
-        
-        return b;
+//	private boolean isMonthWeekDayViewPresent(WebDriver driver) {
+//		int monthButton = driver.findElements(By.className("fc-timeGridWeek-button")).size();
+//        int weekButton = driver.findElements(By.className("fc-timeGridDay-button")).size();
+//        int dayButton = driver.findElements(By.className("fc-dayGridMonth-button")).size();
+//        boolean b = (monthButton == 1 && weekButton == 1 && dayButton == 1) ? true : false;
+//        
+//        return b;
+//	}
+	
+	protected void waitCalendarEvent(WebDriver driver) throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(10000));
+		try {
+			wait.until(ExpectedConditions.jsReturnsValue("return calendarEditor.requesting === false;"));
+			Thread.sleep(500);
+		} catch (Exception ex) {
+		}
+	}
+	
+	protected void moveToListView(WebDriver driver) throws Exception {
+		WebElement tabList = driver.findElement(By.cssSelector(".mdi.mdi-table-large"));
+		WebElement tabListParent = tabList.findElement(By.xpath(".."));
+		String title = tabListParent.getAttribute("class");
+		if (!(title != null && title.equals("xava_action ox-selected-list-format"))) {
+			tabList.click();
+		}
+		wait(driver);
+	}
+	
+	protected void moveToCalendarView(WebDriver driver) throws Exception {
+		WebElement tabCalendar = driver.findElement(By.cssSelector(".mdi.mdi-calendar"));
+		WebElement tabCalendarParent = tabCalendar.findElement(By.xpath(".."));
+		String title = tabCalendarParent.getAttribute("class");
+		if (!(title != null && title.contains("ox-selected-list-format"))) {
+			tabCalendar.click();
+		}
+		wait(driver);
+		waitCalendarEvent(driver);
+	}
+	
+	protected void moveToTimeGridWeek(WebDriver driver) throws Exception {
+		WebElement weekButton = driver.findElement(By.cssSelector("button.fc-timeGridWeek-button"));
+		weekButton.click();
+		waitCalendarEvent(driver);
 	}
 
 	

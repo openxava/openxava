@@ -56,7 +56,7 @@ abstract public class WebDriverTestBase extends TestCase {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3)); 
         wait.until(ExpectedConditions.visibilityOfElementLocated(expectedElement));		
 	}
-
+/*
 	protected void waitCalendarEvent(WebDriver driver) throws Exception {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(10000));
 		try {
@@ -92,7 +92,7 @@ abstract public class WebDriverTestBase extends TestCase {
 		weekButton.click();
 		waitCalendarEvent(driver);
 	}
-	
+	*/
 	protected void acceptInDialogJS(WebDriver driver) throws Exception {
 		//use it after verifying that the test works well. 
 		//it helps to avoid errors when starting the browser with the module.
@@ -155,13 +155,19 @@ abstract public class WebDriverTestBase extends TestCase {
 		return headless;
 	}
 
-
 	protected void setHeadless(boolean headless) {
 		this.headless = headless;
 	}
-    public static void blur(WebDriver driver, WebElement element) {
+	
+	protected void blur(WebDriver driver, WebElement element) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].blur();", element);
     }
+	
+	protected void goTo(WebDriver driver, String url) throws Exception {
+		driver.get(url);
+		wait(driver);
+		acceptInDialogJS(driver);
+	}
     
 }

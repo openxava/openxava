@@ -24,7 +24,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		driver.get("http://localhost:8080/openxavatest/m/Event");
 		wait(driver);
 		acceptInDialogJS(driver);
-		moveToListView(driver);
+		//moveToListView(driver);
 		execute(driver, "Event", "List.viewDetail", "row=0"); 
 		List<WebElement> iconElements = driver.findElements(By.cssSelector("i.mdi.mdi-calendar"));
 		if (!iconElements.isEmpty()) {

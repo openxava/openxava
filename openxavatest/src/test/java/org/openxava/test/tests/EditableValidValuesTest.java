@@ -31,7 +31,7 @@ public class EditableValidValuesTest extends WebDriverTestBase {
 		driver.get("http://localhost:8080/openxavatest/m/DeliveryEditableValidValues");
 		wait(driver);
 		acceptInDialogJS(driver);
-		moveToListView(driver);
+		//moveToListView(driver);
 		execute(driver, "DeliveryEditableValidValues", "CRUD.new");
 		clickOnButtonWithId(driver, "ox_openxavatest_DeliveryEditableValidValues__DeliveryEditableValidValues___addShortcutOptions");
 		clickOnSectionWithChildSpanId(driver, "ox_openxavatest_DeliveryEditableValidValues__label_xava_view_section1_sectionName");
@@ -55,7 +55,7 @@ public class EditableValidValuesTest extends WebDriverTestBase {
 		driver.get("http://localhost:8080/openxavatest/m/Delivery");
 		wait(driver);
 		acceptInDialogJS(driver);
-		moveToListView(driver);
+		//moveToListView(driver);
 		execute(driver, "Delivery", "CRUD.new");
 		clickOnButtonWithId(driver, "ox_openxavatest_Delivery__Delivery___addShortcutOptions");
 		clickOnSectionWithChildSpanId(driver, "ox_openxavatest_Delivery__label_xava_view_section1_sectionName");
