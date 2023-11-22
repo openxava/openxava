@@ -12,7 +12,6 @@ import org.openqa.selenium.*;
 public class ChartsTest extends WebDriverTestBase {
 	
 	private WebDriver driver;
-	private String module; 
 
 	public void setUp() throws Exception {
 		setHeadless(true); 
@@ -31,10 +30,9 @@ public class ChartsTest extends WebDriverTestBase {
 		assertMax120Bars();
 	}
 
-	
 	private void assertOneBarByEachRow() throws Exception {
 		int rowCount = getListRowCount();
-		execute("ListFormat.select", "editor=Charts");
+		execute(driver, "ListFormat.select", "editor=Charts");
 		List<WebElement> rects = driver.findElements(By.cssSelector(".ox-chart-data svg .c3-chart rect")); 
 		assertEquals(rowCount, rects.size());
 	}
@@ -42,18 +40,13 @@ public class ChartsTest extends WebDriverTestBase {
 	private void assertMax120Bars() throws Exception {
 		String listInfo = driver.findElement(By.cssSelector("tr.ox-list-info-detail")).getText();
 		assertTrue(listInfo.contains("There are 2,120 records in list")); // No matter the exact count, but it should be more than 1000
-		execute("ListFormat.select", "editor=Charts");
+		execute(driver, "ListFormat.select", "editor=Charts");
 		WebElement selectColumn = driver.findElement(By.id("ox_openxavatest_Color__columns___0___name"));
 		selectColumn.click();
 		selectColumn.findElement(By.cssSelector("option[value='number']")).click();
 		wait(driver);
 		List<WebElement> rects = driver.findElements(By.cssSelector(".ox-chart-data svg .c3-chart rect"));
 		assertEquals(120, rects.size());		
-	}
-	
-	
-	private void execute(String action, String arguments) throws Exception { // Duplicated with ListTest, refactoring pending 
-		execute(driver, module, action, arguments);
 	}
 	
 	private int getListRowCount() { // Duplicated with ListTest, refactoring pending

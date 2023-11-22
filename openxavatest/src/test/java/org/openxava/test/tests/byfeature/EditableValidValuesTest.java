@@ -11,7 +11,6 @@ import org.openqa.selenium.support.ui.*;
 public class EditableValidValuesTest extends WebDriverTestBase {
 	
 	private WebDriver driver;
-	private String module;
 	
 	public void setUp() throws Exception {
 		driver = createWebDriver();
@@ -23,7 +22,7 @@ public class EditableValidValuesTest extends WebDriverTestBase {
 	
 	public void testEditableValidValuesWorksWithCSP() throws Exception {  
 		goModule(driver, "DeliveryEditableValidValues");
-		execute(driver, "DeliveryEditableValidValues", "CRUD.new");
+		execute(driver, "CRUD.new");
 		clickOnButtonWithId(driver, "ox_openxavatest_DeliveryEditableValidValues__DeliveryEditableValidValues___addShortcutOptions");
 		clickOnSectionWithChildSpanId(driver, "ox_openxavatest_DeliveryEditableValidValues__label_xava_view_section1_sectionName");
 		clickOnSectionWithChildSpanId(driver, "ox_openxavatest_DeliveryEditableValidValues__label_xava_view_section0_sectionName");
@@ -39,18 +38,18 @@ public class EditableValidValuesTest extends WebDriverTestBase {
 		WebElement textArea = driver.findElement(By.id("ox_openxavatest_DeliveryEditableValidValues__remarks"));
 		String text = textArea.getAttribute("textContent");
 		assertEquals("No remarks", text);
-		execute(driver, "DeliveryEditableValidValues", "Mode.list");
+		execute(driver, "Mode.list");
 	}
 	
 	public void testDynamicValidValuesShowingCombo() throws Exception {
 		goModule(driver, "Delivery");
-		execute(driver, "Delivery", "CRUD.new");
+		execute(driver, "CRUD.new");
 		clickOnButtonWithId(driver, "ox_openxavatest_Delivery__Delivery___addShortcutOptions");
 		clickOnSectionWithChildSpanId(driver, "ox_openxavatest_Delivery__label_xava_view_section1_sectionName");
 		clickOnSectionWithChildSpanId(driver, "ox_openxavatest_Delivery__label_xava_view_section0_sectionName");
         WebElement selectElement = driver.findElement(By.id("ox_openxavatest_Delivery__shortcut"));
         assertNotNull("Shortcut not showing as combo", selectElement);
-        execute(driver, "Delivery", "Mode.list");
+        execute(driver, "Mode.list");
 	}
 
 }

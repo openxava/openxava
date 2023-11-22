@@ -27,7 +27,7 @@ public class TreeTest extends WebDriverTestBase{
 		addTreeIdValues(rootIdValue);
 		
 		goModule(driver, "TreeContainer");
-		execute(driver, "TreeContainer", "List.viewDetail", "row=0");
+		execute(driver, "List.viewDetail", "row=0");
 		createNewNodeSelecting(driver);	
 
 		goModule(driver, "TreeItem");
@@ -38,11 +38,11 @@ public class TreeTest extends WebDriverTestBase{
 		editNodeWithDoubleClick(driver);
 		deleteSelectedNode(driver);
 		cutNode(driver);
-		execute(driver, "TreeContainer", "Mode.list");
-		execute(driver, "TreeContainer", "List.viewDetail", "row=0");
+		execute(driver, "Mode.list");
+		execute(driver, "List.viewDetail", "row=0");
 		dragAndDrop(driver); 
-		execute(driver, "TreeContainer", "Mode.list");
-		execute(driver, "TreeContainer", "CRUD.deleteRow", "row=1");
+		execute(driver, "Mode.list");
+		execute(driver, "CRUD.deleteRow", "row=1");
 	}
 
 	public void tearDown() throws Exception {
@@ -58,7 +58,7 @@ public class TreeTest extends WebDriverTestBase{
 	private void createNewNodeSelecting(WebDriver driver) throws Exception {
 		WebElement childItem2CheckBox = findElement(driver, By.xpath("//a[@id='"+ nodesId.get("child2") +"_anchor']/i")); 
 		childItem2CheckBox.click();
-		execute(driver, "TreeContainer", "TreeView.new", "viewObject=xava_view_treeItems");
+		execute(driver, "TreeView.new", "viewObject=xava_view_treeItems");
 		insertValueToInput(driver, "ox_openxavatest_TreeContainer__description", "A", false);
 		WebElement save = driver.findElement(By.id("ox_openxavatest_TreeContainer__TreeView___save"));
 		save.click();
@@ -115,11 +115,11 @@ public class TreeTest extends WebDriverTestBase{
 	private void cutNode(WebDriver driver) throws Exception {
 		WebElement bCheckBox = driver.findElement(By.xpath("//a[@id='" + nodesId.get("b") + "_anchor']/i"));
 		bCheckBox.click();
-		execute(driver, "TreeContainer", "CollectionCopyPaste.cut", "viewObject=xava_view_treeItems");
-		execute(driver, "TreeContainer", "Mode.list");
-		execute(driver, "TreeContainer", "CRUD.new");
+		execute(driver, "CollectionCopyPaste.cut", "viewObject=xava_view_treeItems");
+		execute(driver, "Mode.list");
+		execute(driver, "CRUD.new");
 		insertValueToInput(driver, "ox_openxavatest_TreeContainer__description", "BB", false);
-		execute(driver, "TreeContainer", "CollectionCopyPaste.paste", "viewObject=xava_view_treeItems");
+		execute(driver, "CollectionCopyPaste.paste", "viewObject=xava_view_treeItems");
 		WebElement bElement = findElement(driver, By.id(nodesId.get("b") + "_anchor")); 
 		assertTrue(bElement.getText().equals("B"));
 	}

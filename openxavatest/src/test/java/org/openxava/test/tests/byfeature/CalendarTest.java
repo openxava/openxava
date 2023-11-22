@@ -17,7 +17,6 @@ import org.openqa.selenium.support.ui.*;
 public class CalendarTest extends WebDriverTestBase {
 
 	private WebDriver driver;
-	private String module;
 
 	public void setUp() throws Exception {
 		setHeadless(true);
@@ -103,14 +102,14 @@ public class CalendarTest extends WebDriverTestBase {
 		moveToListView(driver);
 		clickOnButtonWithId(driver, "ox_openxavatest_InvoiceCalendar__xava_clear_condition");
 		for (int i = 0; i < 3; i++) {
-			execute(driver, "InvoiceCalendar", "CRUD.deleteRow", "row=0");
+			execute(driver, "CRUD.deleteRow", "row=0");
 		}
 	}
 
 	public void testAnyNameAsDateProperty() throws Exception {
 		goModule(driver, "UserWithBirthday");
 		try {
-			execute(driver, "UserWithBirthday", "Mode.list");
+			execute(driver, "Mode.list");
 		} catch (NoSuchElementException e) {
 		}
 		moveToListView(driver);
@@ -127,7 +126,7 @@ public class CalendarTest extends WebDriverTestBase {
 		moveToListView(driver);
 		setCondition("Event", "3", "TEST");
 		for (int i = 0; i < 6; i++) {
-			execute(driver, "Event", "CRUD.deleteRow", "row=0");
+			execute(driver, "CRUD.deleteRow", "row=0");
 		}
 		clickOnButtonWithId(driver, "ox_openxavatest_Event__xava_clear_condition");
 	}
@@ -145,8 +144,8 @@ public class CalendarTest extends WebDriverTestBase {
 		String dateTimeInput = dateTime.getAttribute("value");
 		assertTrue(dateTimeInput.contains("2:30"));
 		insertValueToInput(driver, "ox_openxavatest_Appointment__description", "A", false);
-		execute(driver, "Appointment", "CRUD.save");
-		execute(driver, "Appointment", "Mode.list");
+		execute(driver, "CRUD.save");
+		execute(driver, "Mode.list");
 		waitCalendarEvent(driver);
 
 		// tooltip
@@ -166,8 +165,8 @@ public class CalendarTest extends WebDriverTestBase {
 		WebElement dateTime2 = driver.findElement(By.id("ox_openxavatest_Appointment__time"));
 		String dateTimeInput2 = dateTime2.getAttribute("value");
 		assertTrue(dateTimeInput2.contains("2:30"));
-		execute(driver, "Appointment", "CRUD.delete");
-		execute(driver, "Appointment", "Mode.list");
+		execute(driver, "CRUD.delete");
+		execute(driver, "Mode.list");
 		waitCalendarEvent(driver);
 		moveToListView(driver);
 		acceptInDialogJS(driver);
@@ -196,8 +195,8 @@ public class CalendarTest extends WebDriverTestBase {
 		insertValueToInput(driver, "ox_openxavatest_Invoice__customer___number", "1", false);
 		clickOnSectionWithChildSpanId(driver, "ox_openxavatest_Invoice__label_xava_view_section2_sectionName");
 		insertValueToInput(driver, "ox_openxavatest_Invoice__vatPercentage", "3", false);
-		execute(driver, "Invoice", "CRUD.save");
-		execute(driver, "Invoice", "Mode.list");
+		execute(driver, "CRUD.save");
+		execute(driver, "Mode.list");
 		waitCalendarEvent(driver);
 	}
 
@@ -212,7 +211,7 @@ public class CalendarTest extends WebDriverTestBase {
 		int year = now.get(Calendar.YEAR);
 		WebElement invoiceYear = driver.findElement(By.id("ox_openxavatest_Invoice__year"));
 		assertEquals(String.valueOf(year), invoiceYear.getAttribute("value"));
-		execute(driver, "Invoice", "Mode.list");
+		execute(driver, "Mode.list");
 		waitCalendarEvent(driver);
 	}
 
@@ -269,8 +268,8 @@ public class CalendarTest extends WebDriverTestBase {
 		}
 		wait(driver);
 		insertValueToInput(driver, "ox_openxavatest_Event__name", "TEST", false);
-		execute(driver, "Event", "CRUD.save");
-		execute(driver, "Event", "Mode.list");
+		execute(driver, "CRUD.save");
+		execute(driver, "Mode.list");
 		waitCalendarEvent(driver);
 		if (i == 0) {
 			List<WebElement> events = driver.findElements(

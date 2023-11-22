@@ -20,7 +20,6 @@ public class ListTest extends WebDriverTestBase {
 	private final static String ACTION_PREFIX = "action";
 	
 	private WebDriver driver;
-	private String module; 
 
 	public void setUp() throws Exception {
 		setHeadless(true); 
@@ -51,18 +50,18 @@ public class ListTest extends WebDriverTestBase {
 	}
 		
 	private void assertNoFilterInCollectionByDefault() throws Exception {
-		execute("CRUD.new");		
+		execute(driver, "CRUD.new");		
 		assertCollectionFilterNotDisplayed();
 		driver.findElement(By.id("ox_openxavatest_Author__show_filter_humans")).click();
 		assertCollectionFilterDisplayed();
 		
-		execute("MyGoListMode.list");
-		execute("List.viewDetail", "row=1");
+		execute(driver, "MyGoListMode.list");
+		execute(driver, "List.viewDetail", "row=1");
 		assertCollectionFilterNotDisplayed();
 		driver.findElement(By.id("ox_openxavatest_Author__show_filter_humans")).click();
 		assertCollectionFilterDisplayed();
 		
-		execute("CRUD.new");
+		execute(driver, "CRUD.new");
 		assertCollectionFilterNotDisplayed();
 		driver.findElement(By.id("ox_openxavatest_Author__show_filter_humans")).click();
 		assertCollectionFilterDisplayed();
@@ -95,14 +94,14 @@ public class ListTest extends WebDriverTestBase {
 		assertListRowCount(2);
 		assertListColumnCount(2);
 		setConditionValues("J");
-		execute("List.filter");
+		execute(driver, "List.filter");
 		assertListRowCount(1);
 		showCustomizeControls();
 		removeColumn(1);
 		assertListRowCount(1);
 		assertListColumnCount(1); 
-		execute("List.addColumns"); 
-		execute("AddColumns.restoreDefault"); 
+		execute(driver, "List.addColumns"); 
+		execute(driver, "AddColumns.restoreDefault"); 
 		assertListColumnCount(2);
 		assertListRowCount(1);
 		clearListCondition();
@@ -164,7 +163,7 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInList(0, "Calculated");
 		assertLabelInList(1, "Number");
 		assertLabelInList(2, "Name");
-		execute("List.viewDetail", "row=0");
+		execute(driver, "List.viewDetail", "row=0");
 		
 		assertCollectionColumnCount("fellowCarriers", 4);
 		assertLabelInCollection("fellowCarriers", 0, "Number");
@@ -183,14 +182,14 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInCollection("fellowCarriers", 3, "Remarks");		
 		
 		// The main list not modified
-		execute("Mode.list");
+		execute(driver, "Mode.list");
 		assertListColumnCount(3);
 		assertLabelInList(0, "Calculated");
 		assertLabelInList(1, "Number");
 		assertLabelInList(2, "Name");
 
 		// The collection continues modified
-		execute("List.viewDetail", "row=0");
+		execute(driver, "List.viewDetail", "row=0");
 		assertCollectionColumnCount("fellowCarriers", 4);
 		assertLabelInCollection("fellowCarriers", 0, "Number");
 		assertLabelInCollection("fellowCarriers", 1, "Name");
@@ -199,7 +198,7 @@ public class ListTest extends WebDriverTestBase {
 
 		// Add columns
 		showCustomizeControls("fellowCarriers");
-		execute("List.addColumns", "collection=fellowCarriers");
+		execute(driver, "List.addColumns", "collection=fellowCarriers");
 		assertNoAction("AddColumns.showMoreColumns"); // Because has not more than second level properties
 		assertCollectionRowCount("xavaPropertiesList", 6);
 		assertValueInCollection("xavaPropertiesList",  0, 0, "Driving licence description"); 
@@ -209,7 +208,7 @@ public class ListTest extends WebDriverTestBase {
 		assertValueInCollection("xavaPropertiesList",  4, 0, "Warehouse number");
 		assertValueInCollection("xavaPropertiesList",  5, 0, "Warehouse zone");
 		checkRow("selectedProperties", "warehouse.name");
- 		execute("AddColumns.addColumns");
+ 		execute(driver, "AddColumns.addColumns");
 
 		assertCollectionColumnCount("fellowCarriers", 5);
 		assertLabelInCollection("fellowCarriers", 0, "Number");
@@ -235,17 +234,17 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInCollection("fellowCarriers", 3, "Warehouse"); // This is "Name of Warehouse" with label optimized
 		
 		// Changing column name
-		execute("List.changeColumnName", "property=name,collection=fellowCarriers");
+		execute(driver, "List.changeColumnName", "property=name,collection=fellowCarriers");
 		assertDialog();
 		assertValue("name", "Name");
 		setValue("name", "Carrier");
-		execute("ChangeColumnName.change");
+		execute(driver, "ChangeColumnName.change");
 		assertLabelInCollection("fellowCarriers", 1, "Carrier");
 		
 		// Adding clicking in row
 		showCustomizeControls("fellowCarriers");
-		execute("List.addColumns", "collection=fellowCarriers"); 
-		execute("AddColumns.addColumn", "property=warehouse.number");
+		execute(driver, "List.addColumns", "collection=fellowCarriers"); 
+		execute(driver, "AddColumns.addColumn", "property=warehouse.number");
 		assertCollectionColumnCount("fellowCarriers", 5);
 		assertLabelInCollection("fellowCarriers", 0, "Number");
 		assertLabelInCollection("fellowCarriers", 1, "Carrier"); 
@@ -255,8 +254,8 @@ public class ListTest extends WebDriverTestBase {
 		
 		// Restoring
 		showCustomizeControls("fellowCarriers");
-		execute("List.addColumns", "collection=fellowCarriers");
-		execute("AddColumns.restoreDefault");
+		execute(driver, "List.addColumns", "collection=fellowCarriers");
+		execute(driver, "AddColumns.restoreDefault");
 		assertCollectionColumnCount("fellowCarriers", 4);
 		assertLabelInCollection("fellowCarriers", 0, "Number");
 		assertLabelInCollection("fellowCarriers", 1, "Carrier"); 
@@ -264,16 +263,16 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInCollection("fellowCarriers", 3, "Calculated");
 		
 		showCustomizeControls("fellowCarriers");
-		execute("List.changeColumnName", "property=name,collection=fellowCarriers");
+		execute(driver, "List.changeColumnName", "property=name,collection=fellowCarriers");
 		assertValue("name", "Carrier");
 		setValue("name", "Name");
-		execute("ChangeColumnName.change");
+		execute(driver, "ChangeColumnName.change");
 		assertLabelInCollection("fellowCarriers", 1, "Name");		
 		
 		// Cancel in AddColumns returns to detail (not list mode)
 		showCustomizeControls("fellowCarriers");
-		execute("List.addColumns", "collection=fellowCarriers");
-		execute("AddColumns.cancel");
+		execute(driver, "List.addColumns", "collection=fellowCarriers");
+		execute(driver, "AddColumns.cancel");
 		assertValue("name", "UNO"); // In detail mode
 	}
 	
@@ -281,9 +280,9 @@ public class ListTest extends WebDriverTestBase {
 		assertListColumnCount(7); 
 		String value = getValueInList(0, 0);
 		showCustomizeControls();
-		execute("List.addColumns");		
+		execute(driver, "List.addColumns");		
 		checkRow("selectedProperties", "number"); 		
-		execute("AddColumns.addColumns");
+		execute(driver, "AddColumns.addColumns");
 		assertListColumnCount(8);
 		assertValueInList(0, 0, value);
 				
@@ -327,7 +326,7 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInList(4, "Paid");
 		assertLabelInList(5, "Importance");
 		
-		execute("List.filter");
+		execute(driver, "List.filter");
 		assertListColumnCount(6);
 		assertLabelInList(0, "Year");
 		assertLabelInList(1, "Number");
@@ -337,8 +336,8 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInList(5, "Importance");
 
 		showCustomizeControls();
-		execute("List.addColumns");
-		execute("AddColumns.restoreDefault");
+		execute(driver, "List.addColumns");
+		execute(driver, "AddColumns.restoreDefault");
 		assertListColumnCount(8);
 		assertLabelInList(0, "Year");
 		assertLabelInList(1, "Number");
@@ -476,15 +475,15 @@ public class ListTest extends WebDriverTestBase {
 		removeColumn(3); 
 		assertNoErrors();
 		assertListColumnCount(5);		
-		execute("Print.generatePdf"); 
+		execute(driver, "Print.generatePdf"); 
 		assertContentTypeForPopup("application/pdf");
 	}
 	
 	private void doTestRestoreColumns_addRemoveTabColumnsDynamically() throws Exception {
 		// Restoring initial tab setup
 		showCustomizeControls();
-		execute("List.addColumns");							
-		execute("AddColumns.restoreDefault");		
+		execute(driver, "List.addColumns");							
+		execute(driver, "AddColumns.restoreDefault");		
 		// End restoring
 		
 		assertListColumnCount(7);
@@ -504,7 +503,7 @@ public class ListTest extends WebDriverTestBase {
 		String state = getValueInList(0, 5); 
 		String site = getValueInList(0, 6);
 		
-		execute("Customer.hideSellerInList");
+		execute(driver, "Customer.hideSellerInList");
 		assertNoErrors();
 		assertListColumnCount(6);
 		assertLabelInList(0, "Name");
@@ -520,7 +519,7 @@ public class ListTest extends WebDriverTestBase {
 		assertValueInList(0, 4, state); 
 		assertValueInList(0, 5, site);
 		
-		execute("Customer.showSellerInList");
+		execute(driver, "Customer.showSellerInList");
 		assertNoErrors();
 		assertListColumnCount(7);
 		assertLabelInList(0, "Name");
@@ -565,19 +564,9 @@ public class ListTest extends WebDriverTestBase {
 		assertEquals(XavaResources.getString("unexpected_messages", "Errors"), "", errors.getText());
 	}
 
-
-	
 	private void clearListCondition() throws Exception{
 		driver.findElement(By.id("ox_openxavatest_Author__xava_clear_condition")).click();
 		wait(driver);
-	}
-
-	private void execute(String action) throws Exception { // Duplicated with DescriptionsListTest, refactoring pending
-		execute(driver, module, action);
-	}
-	
-	private void execute(String action, String arguments) throws Exception { // Duplicated with DescriptionsListTest, refactoring pending
-		execute(driver, module, action, arguments);
 	}
 
 	private void setConditionValues(String value) { // One argument by now, but we could evolution to String ... value 

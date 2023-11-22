@@ -7,7 +7,6 @@ import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.support.ui.*;
 
 import junit.framework.*;
-import lombok.*;
 
 /**
  * Base class to test using Selenium WebDriver
@@ -17,8 +16,7 @@ import lombok.*;
 abstract public class WebDriverTestBase extends TestCase {
 	
 	private boolean headless = false;
-	@Getter @Setter
-	private String module;
+	protected String module;
 	
 	protected WebDriver createWebDriver() {
 		ChromeOptions options = new ChromeOptions();
@@ -82,8 +80,15 @@ abstract public class WebDriverTestBase extends TestCase {
 		}
 	}
 	
+	protected void execute(WebDriver driver, String action) throws Exception {
+		executeWithoutArg(driver, this.module, action);
+	}
+    
+	protected void execute(WebDriver driver, String action, String arguments) throws Exception {
+		executeWithArg(driver, module, action, arguments);
+	}
 	
-	protected void execute(WebDriver driver, String moduleName, String action) throws Exception {
+	protected void executeWithoutArg(WebDriver driver, String moduleName, String action) throws Exception {
 		String[] actionS = action.split("\\.");
 		WebElement button = driver.findElement
 				(By.id("ox_openxavatest_" + moduleName + "__" + actionS[0] + "___" + actionS[1]));
@@ -94,7 +99,7 @@ abstract public class WebDriverTestBase extends TestCase {
 		//waitCalendarEvent(driver);
 	}
 	
-	protected void execute(WebDriver driver, String moduleName, String action, String arguments) throws Exception { 
+	protected void executeWithArg(WebDriver driver, String moduleName, String action, String arguments) throws Exception { 
 		try { 
 			WebElement button = driver.findElement(By.cssSelector("a[data-action='" + action + "'][data-argv='" + arguments + "']"));
 			button.click();
@@ -103,7 +108,7 @@ abstract public class WebDriverTestBase extends TestCase {
 		}
 		catch (NoSuchElementException ex) {
 			if (arguments.startsWith(",")) throw ex;
-			execute(driver, moduleName, action, "," + arguments);
+			executeWithArg(driver, moduleName, action, "," + arguments);
 		}
 	}
 	
@@ -146,8 +151,4 @@ abstract public class WebDriverTestBase extends TestCase {
 		this.module = module;
 	}
 	
-	protected void execute(WebDriver driver, String action) throws Exception {
-		execute(driver, this.module, action);
-	}
-    
 }

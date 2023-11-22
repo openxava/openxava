@@ -15,7 +15,6 @@ public class HtmlTextTest extends WebDriverTestBase {
 	private WebDriver driver;
 	
 	public void setUp() throws Exception {
-		//no era headless
 		setHeadless(true);
 		driver = createWebDriver();
 	}

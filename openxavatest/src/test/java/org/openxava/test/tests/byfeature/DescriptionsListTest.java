@@ -19,7 +19,6 @@ import org.openxava.web.*;
 public class DescriptionsListTest extends WebDriverTestBase {
 	
 	private WebDriver driver;
-	private String module; 
 
 	public void setUp() throws Exception {
 		XPersistence.reset(); 
@@ -37,7 +36,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		createWarehouseWithQuote(); // To test a bug with quotes
 
 		goModule(driver, "Product2");
-		execute("CRUD.new");
+		execute(driver, "CRUD.new");
 		
 		driver.findElement(By.id("ox_openxavatest_Product2__reference_editor_warehouse")); // Warehouse combo must be to test the "quotes" bug
 
@@ -97,17 +96,17 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		setValue("number", "66");
 		setValue("description", "JUNIT PRODUCT");
 		setValue("unitPrice", "66");
-		execute("CRUD.save");
+		execute(driver, "CRUD.save");
 		assertNoErrors(); 
-		execute("Mode.list");
-		execute("List.orderBy", "property=number");
-		execute("List.orderBy", "property=number");
+		execute(driver, "Mode.list");
+		execute(driver, "List.orderBy", "property=number");
+		execute(driver, "List.orderBy", "property=number");
 		assertValueInList(0, 0, "66"); 
 		assertValueInList(0, 1, "JUNIT PRODUCT");
 		assertValueInList(0, 2, "SOFTWARÉ"); 
 		assertValueInList(0, 3, "DESARROLLO");
 		
-		execute("List.viewDetail", "row=0");
+		execute(driver, "List.viewDetail", "row=0");
 		assertValue("number", "66");
 		assertValue("family.number", "1");
 		assertDescriptionValue("family.number", "SOFTWARÉ");
@@ -117,11 +116,11 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertDescriptionValue("subfamily.number", "DESARROLLO");
 		subfamilyTextField = getDescriptionsListTextField("subfamily");
 		assertEquals("DESARROLLO", subfamilyTextField.getAttribute("value")); 
-		execute("CRUD.delete");
+		execute(driver, "CRUD.delete");
 		assertNoErrors();
 
 		
-		execute("CRUD.new");
+		execute(driver, "CRUD.new");
 		familyTextField = getDescriptionsListTextField("family");
 		familyTextField.sendKeys(Keys.CONTROL + "a");
 		familyTextField.sendKeys("\b");		
@@ -130,7 +129,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		familyTextField.sendKeys(Keys.TAB);
 		assertEquals("", familyTextField.getAttribute("value")); 
 		
-		execute("CRUD.new");
+		execute(driver, "CRUD.new");
 		familyList = driver.findElement(By.id(getListId(0)));  
 		assertFalse(familyList.isDisplayed());
 		assertEquals(0, familyList.findElements(By.tagName("li")).size());
@@ -230,24 +229,15 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		return driver.findElement(By.id("ox_openxavatest_" + module + "__" + collection));
 	}
 	
-	private void execute(String action, String arguments) throws Exception { // Duplicated with ListTest, refactoring pending
-		execute(driver, module, action, arguments);
-	}
-	
 	private void assertNoErrors() { // Duplicated with ListTest, refactoring pending
 		WebElement errors = driver.findElement(By.id("ox_openxavatest_" + module + "__errors"));
 		assertEquals(XavaResources.getString("unexpected_messages", "Errors"), "", errors.getText());
 	}
-
 	
 	private void setValue(String name, String value) { // Duplicated with ListTest, refactoring pending
 		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
 		input.clear();
 		input.sendKeys(value);	
-	}
-	
-	private void execute(String action) throws Exception { // Duplicated with ListTest, refactoring pending
-		execute(driver, module, action);
 	}
 	
 }
