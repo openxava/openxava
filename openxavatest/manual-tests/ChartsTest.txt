@@ -25,9 +25,3 @@ Invoice2 module:
 - Group by year: A bar by year.
 - Change to Pie: Each piece of pie is a year. Years are not duplicate. Verify that summation is correct.
 - Select Record count for y: Each piece of pie is a year. Years are not duplicate. Verify that count is correct.
-
-Color module:
-- Verify that there are more than 1000 records in the list.
-- Choose Charts.
-- Choose Number in the left combo.
-- A charts with 120 bars must be displayed, instead of more than 1000 bars.
