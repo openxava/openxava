@@ -1,5 +1,6 @@
 package org.openxava.test.tests;
 
+
 import java.util.*;
 import org.openxava.util.*;
 import junit.framework.*;

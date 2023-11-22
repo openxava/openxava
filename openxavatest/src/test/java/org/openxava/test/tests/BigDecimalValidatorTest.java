@@ -1,5 +1,6 @@
 package org.openxava.test.tests;
 
+
 import java.math.BigDecimal;
 
 import org.openxava.util.Is;

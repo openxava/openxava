@@ -8,8 +8,12 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.*;
 import org.openqa.selenium.support.ui.*;
-import org.openxava.test.tests.*;
 
+/**
+ * To test calendar view with Selenium.
+ * 
+ * @author Chungyen Tsai
+ */
 public class CalendarTest extends WebDriverTestBase {
 
 	private WebDriver driver;
