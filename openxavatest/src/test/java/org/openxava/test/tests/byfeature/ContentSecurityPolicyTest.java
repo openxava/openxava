@@ -13,7 +13,6 @@ public class ContentSecurityPolicyTest extends WebDriverTestBase {
 	private WebDriver driver;
 	
 	public void setUp() throws Exception {
-		//no era headless
 		setHeadless(true);
 		driver = createWebDriver();
 	}
@@ -23,7 +22,7 @@ public class ContentSecurityPolicyTest extends WebDriverTestBase {
 	}
 	
 	public void testContentSecurityPolicyExceptions() throws Exception {
-		goTo(driver, "http://localhost:8080/openxavatest/m/SellerJSP?detail=1");
+		goModule(driver, "SellerJSP?detail=1");
 		
 		waitImageLoaded(driver);
 		WebElement img = driver.findElement(By.id("oximage"));

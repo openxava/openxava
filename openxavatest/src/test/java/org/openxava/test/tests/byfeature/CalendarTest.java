@@ -17,6 +17,7 @@ import org.openqa.selenium.support.ui.*;
 public class CalendarTest extends WebDriverTestBase {
 
 	private WebDriver driver;
+	private String module;
 
 	public void setUp() throws Exception {
 		setHeadless(true);
@@ -40,11 +41,11 @@ public class CalendarTest extends WebDriverTestBase {
 	}
 
 	public void testNavigationInDateCalendarAndDateTimeCalendar() throws Exception {
-		goTo(driver, "http://localhost:8080/openxavatest/m/Appointment");
+		goModule(driver, "Appointment");
 		moveToCalendarView(driver);
 		moveToTimeGridWeek(driver);
 		moveToListView(driver);
-		goTo(driver, "http://localhost:8080/openxavatest/m/Event");
+		goModule(driver, "Event");
 		moveToCalendarView(driver);
 		boolean weekButton = driver.findElements(By.cssSelector("button.fc-timeGridWeek-button")).isEmpty();
 		assertTrue(weekButton);
@@ -55,7 +56,7 @@ public class CalendarTest extends WebDriverTestBase {
 
 	public void testFilterPerformance() throws Exception {
 		// testing default filter defined by user and month filter defined by calendar
-		goTo(driver, "http://localhost:8080/openxavatest/m/EventWithFilter");
+		goModule(driver, "EventWithFilter");
 		moveToListView(driver);
 		long ini = System.currentTimeMillis();
 		moveToCalendarView(driver);
@@ -67,7 +68,7 @@ public class CalendarTest extends WebDriverTestBase {
 	}
 
 	public void testCreateEventPrevCurrentNextMonth_conditionsAndFilter() throws Exception {
-		goTo(driver, "http://localhost:8080/openxavatest/m/Invoice");
+		goModule(driver, "Invoice");
 		moveToCalendarView(driver);
 		prevOnCalendar();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -90,7 +91,7 @@ public class CalendarTest extends WebDriverTestBase {
 		moveToListView(driver);
 		
 		//conditions and filter
-		goTo(driver, "http://localhost:8080/openxavatest/m/InvoiceCalendar");
+		goModule(driver, "InvoiceCalendar");
 		setCondition("InvoiceCalendar", "1", "12");
 		wait(driver);
 		moveToCalendarView(driver);
@@ -107,7 +108,7 @@ public class CalendarTest extends WebDriverTestBase {
 	}
 
 	public void testAnyNameAsDateProperty() throws Exception {
-		goTo(driver, "http://localhost:8080/openxavatest/m/UserWithBirthday");
+		goModule(driver, "UserWithBirthday");
 		try {
 			execute(driver, "UserWithBirthday", "Mode.list");
 		} catch (NoSuchElementException e) {
@@ -118,7 +119,7 @@ public class CalendarTest extends WebDriverTestBase {
 	}
 
 	public void testMultipleDatesPropertiesAndFirstDateAsEventStart() throws Exception {
-		goTo(driver, "http://localhost:8080/openxavatest/m/Event");
+		goModule(driver, "Event");
 		moveToCalendarView(driver);
 		for (int i = 0; i < 6; i++) {
 			createEvents(driver, i);
@@ -132,7 +133,7 @@ public class CalendarTest extends WebDriverTestBase {
 	}
 
 	public void testCreateDateWithTimeInWeekAndDailyView_tooltip() throws Exception {
-		goTo(driver, "http://localhost:8080/openxavatest/m/Appointment");
+		goModule(driver, "Appointment");
 		moveToCalendarView(driver);
 		moveToTimeGridWeek(driver);
 

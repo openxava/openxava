@@ -12,6 +12,7 @@ import org.openqa.selenium.*;
 public class DateCalendarTest extends WebDriverTestBase {
 	
 	private WebDriver driver;
+	private String module;
 
 	public void setUp() throws Exception {
 		setHeadless(true);
@@ -23,7 +24,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 	}
 	
 	public void testMultipleDateWithOnChange_localeTranslationWellLoaded() throws Exception {
-		goTo(driver, "http://localhost:8080/openxavatest/m/Event");
+		goModule(driver, "Event");
 		execute(driver, "Event", "List.viewDetail", "row=0"); 
 		List<WebElement> iconElements = driver.findElements(By.cssSelector("i.mdi.mdi-calendar"));
 		if (!iconElements.isEmpty()) {

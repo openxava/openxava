@@ -32,21 +32,21 @@ public class ListTest extends WebDriverTestBase {
 	}
 	
 	public void testListAndCollection() throws Exception {
-		goModule("Author");
+		goModule(driver, "Author");
 		assertShowHideFilterInList();
 		assertMoveColumns();
 		assertRemoveColumnAfterFiltering(); 
 		assertNoFilterInCollectionByDefault();
 		
-		goModule("Carrier");
+		goModule(driver, "Carrier");
 		assertEnableDisableCustomizeList(); 
 		assertCustomizeCollection();
 		
-		goModule("CustomerWithSection");
+		goModule(driver, "CustomerWithSection");
 		assertCustomizeList();
 		assertCustomizeList_addAndResetModule();
 		
-		goModule("Invoice");
+		goModule(driver, "Invoice");
 		assertRemoveSeveralColumns();
 	}
 		
@@ -109,7 +109,7 @@ public class ListTest extends WebDriverTestBase {
 	}
 	
 	private void assertShowHideFilterInList() throws Exception {
-		goModule("Author");
+		goModule(driver, "Author");
 		assertFalse(getElementById("show_filter_list").isDisplayed()); 
 		assertTrue(getElementById("hide_filter_list").isDisplayed()); 
 		assertTrue(getElementById("list_filter_list").isDisplayed());
@@ -565,11 +565,7 @@ public class ListTest extends WebDriverTestBase {
 		assertEquals(XavaResources.getString("unexpected_messages", "Errors"), "", errors.getText());
 	}
 
-	private void goModule(String module) throws Exception{ // Duplicated with DescriptionsListTest, refactoring pending
-		driver.get("http://localhost:8080/openxavatest/m/" + module);
-		this.module = module;
-		wait(driver);
-	}
+
 	
 	private void clearListCondition() throws Exception{
 		driver.findElement(By.id("ox_openxavatest_Author__xava_clear_condition")).click();

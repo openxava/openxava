@@ -22,7 +22,7 @@ public class KeyboardTest extends WebDriverTestBase {
 	}
 	
 	public void testDefaultAction() throws Exception {
-		goTo(driver, "http://localhost:8080/openxavatest/m/Mammal"); // Mammal has no records so we enter in detail mode
+		goModule(driver, "Mammal"); // Mammal has no records so we enter in detail mode
 		WebElement nameField = driver.findElement(By.id("ox_openxavatest_Mammal__name"));
 		nameField.sendKeys(Keys.ENTER);
 		wait(driver);

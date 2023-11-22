@@ -24,10 +24,10 @@ public class ChartsTest extends WebDriverTestBase {
 	}
 	
 	public void testCharts() throws Exception {
-		goModule("Invoice");
+		goModule(driver, "Invoice");
 		assertOneBarByEachRow();
 		
-		goModule("Color");
+		goModule(driver, "Color");
 		assertMax120Bars();
 	}
 
@@ -54,13 +54,6 @@ public class ChartsTest extends WebDriverTestBase {
 	
 	private void execute(String action, String arguments) throws Exception { // Duplicated with ListTest, refactoring pending 
 		execute(driver, module, action, arguments);
-	}
-
-	
-	private void goModule(String module) throws Exception{ // Duplicated with ListTest, refactoring pending 
-		driver.get("http://localhost:8080/openxavatest/m/" + module);
-		this.module = module;
-		wait(driver);
 	}
 	
 	private int getListRowCount() { // Duplicated with ListTest, refactoring pending

@@ -36,7 +36,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		setFamilyDescription(1, "SOFTWARÉ"); // To test a bug with accents 
 		createWarehouseWithQuote(); // To test a bug with quotes
 
-		goModule("Product2");
+		goModule(driver, "Product2");
 		execute("CRUD.new");
 		
 		driver.findElement(By.id("ox_openxavatest_Product2__reference_editor_warehouse")); // Warehouse combo must be to test the "quotes" bug
@@ -248,12 +248,6 @@ public class DescriptionsListTest extends WebDriverTestBase {
 	
 	private void execute(String action) throws Exception { // Duplicated with ListTest, refactoring pending
 		execute(driver, module, action);
-	}
-	
-	private void goModule(String module) throws Exception{ // Duplicated with ListTest, refactoring pending
-		driver.get("http://localhost:8080/openxavatest/m/" + module);
-		this.module = module;
-		wait(driver);
 	}
 	
 }

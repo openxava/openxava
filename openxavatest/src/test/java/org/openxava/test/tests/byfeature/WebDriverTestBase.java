@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.support.ui.*;
 
 import junit.framework.*;
+import lombok.*;
 
 /**
  * Base class to test using Selenium WebDriver
@@ -16,6 +17,8 @@ import junit.framework.*;
 abstract public class WebDriverTestBase extends TestCase {
 	
 	private boolean headless = false;
+	@Getter @Setter
+	private String module;
 	
 	protected WebDriver createWebDriver() {
 		ChromeOptions options = new ChromeOptions();
@@ -136,11 +139,15 @@ abstract public class WebDriverTestBase extends TestCase {
         js.executeScript("arguments[0].blur();", element);
     }
 	
-	protected void goTo(WebDriver driver, String url) throws Exception {
-		driver.get(url);
-		//acceptInDialogJS(driver);
+	protected void goModule(WebDriver driver, String module) throws Exception {
+		driver.get("http://localhost:8080/openxavatest/m/" + module);
 		wait(driver);
 		acceptInDialogJS(driver);
+		this.module = module;
+	}
+	
+	protected void execute(WebDriver driver, String action) throws Exception {
+		execute(driver, this.module, action);
 	}
     
 }

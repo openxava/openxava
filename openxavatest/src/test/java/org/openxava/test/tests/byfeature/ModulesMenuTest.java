@@ -21,7 +21,7 @@ public class ModulesMenuTest extends WebDriverTestBase {
 	}
 	
 	public void testHideShowModulesMenu() throws Exception {
-		goTo(driver, "http://localhost:8080/openxavatest/m/Applicant"); // Whatever
+		goModule(driver, "Applicant"); // Whatever
 		showModulesList(driver);
 		
 		WebElement modulesList = driver.findElement(By.id("modules_list"));

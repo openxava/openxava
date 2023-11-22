@@ -22,18 +22,18 @@ public class TreeTest extends WebDriverTestBase{
 
 	public void testTreeLib() throws Exception {
 		//all the tests are under the same, because the order must be respected
-		goTo(driver, "http://localhost:8080/openxavatest/m/TreeItem");
+		goModule(driver, "TreeItem");
 		String rootIdValue = getValueInList(driver, "TreeItem", "0", "0");
 		addTreeIdValues(rootIdValue);
 		
-		goTo(driver, "http://localhost:8080/openxavatest/m/TreeContainer");
+		goModule(driver, "TreeContainer");
 		execute(driver, "TreeContainer", "List.viewDetail", "row=0");
 		createNewNodeSelecting(driver);	
 
-		goTo(driver, "http://localhost:8080/openxavatest/m/TreeItem");
+		goModule(driver, "TreeItem");
 		addNewNodeId(driver);
 		
-		goTo(driver, "http://localhost:8080/openxavatest/m/TreeContainer");
+		goModule(driver, "TreeContainer");
 		verifyCreatedNodesAndCheck(driver);
 		editNodeWithDoubleClick(driver);
 		deleteSelectedNode(driver);

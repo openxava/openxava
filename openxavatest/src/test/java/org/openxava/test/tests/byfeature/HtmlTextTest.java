@@ -25,7 +25,7 @@ public class HtmlTextTest extends WebDriverTestBase {
 	}
 	
 	public void testEditLinkFromDialog() throws Exception {
-		goTo(driver, "http://localhost:8080/openxavatest/m/IncidentActivity");
+		goModule(driver, "IncidentActivity");
 		WebElement createNewIncidentButton = driver.findElement(By.cssSelector(".ox-image-link .mdi-library-plus"));
 		createNewIncidentButton.click();
 		wait(driver);
@@ -41,7 +41,7 @@ public class HtmlTextTest extends WebDriverTestBase {
 	}
 	
 	public void testColor() throws Exception { 
-		goTo(driver, "http://localhost:8080/openxavatest/m/Doc");
+		goModule(driver, "Doc");
 		List<WebElement> editIcons = driver.findElements(By.cssSelector(".ox-image-link .mdi-border-color"));
 		editIcons.get(1).click();
 		wait(driver);
