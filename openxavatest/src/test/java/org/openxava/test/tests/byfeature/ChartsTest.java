@@ -1,4 +1,4 @@
-package org.openxava.test.tests;
+package org.openxava.test.tests.byfeature;
 
 import java.util.*;
 
