@@ -101,10 +101,10 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		execute(driver, "Mode.list");
 		execute(driver, "List.orderBy", "property=number");
 		execute(driver, "List.orderBy", "property=number");
-		assertValueInList(0, 0, "66"); 
-		assertValueInList(0, 1, "JUNIT PRODUCT");
-		assertValueInList(0, 2, "SOFTWARÉ"); 
-		assertValueInList(0, 3, "DESARROLLO");
+		assertValueInList(driver, 0, 0, "66"); 
+		assertValueInList(driver, 0, 1, "JUNIT PRODUCT");
+		assertValueInList(driver, 0, 2, "SOFTWARÉ"); 
+		assertValueInList(driver, 0, 3, "DESARROLLO");
 		
 		execute(driver, "List.viewDetail", "row=0");
 		assertValue("number", "66");
@@ -205,6 +205,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		return input.getAttribute("value");
 	}
 	
+	/*
 	private void assertValueInList(int row, int column, String expectedValue) { // Duplicated with ListTest, refactoring pending 
 		assertEquals(expectedValue, getValueInList(row, column));				
 	}
@@ -228,7 +229,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 	private WebElement getTable(String collection) { // Duplicated with ListTest, refactoring pending
 		return driver.findElement(By.id("ox_openxavatest_" + module + "__" + collection));
 	}
-	
+	*/
 	private void assertNoErrors() { // Duplicated with ListTest, refactoring pending
 		WebElement errors = driver.findElement(By.id("ox_openxavatest_" + module + "__errors"));
 		assertEquals(XavaResources.getString("unexpected_messages", "Errors"), "", errors.getText());

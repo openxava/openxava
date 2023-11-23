@@ -32,7 +32,7 @@ public class ChartsTest extends WebDriverTestBase {
 	}
 
 	private void assertOneBarByEachRow() throws Exception {
-		int rowCount = getListRowCount();
+		int rowCount = getListRowCount(driver);
 		execute(driver, "ListFormat.select", "editor=Charts");
 		List<WebElement> rects = driver.findElements(By.cssSelector(".ox-chart-data svg .c3-chart rect")); 
 		assertEquals(rowCount, rects.size());
@@ -51,17 +51,6 @@ public class ChartsTest extends WebDriverTestBase {
 		assertEquals(120, rects.size());		
 	}
 	
-	private int getListRowCount() { // Duplicated with ListTest, refactoring pending
-		return getCollectionRowCount("list") - 2;
-	}
 
-	private int getCollectionRowCount(String collection) { // Duplicated with ListTest, refactoring pending
-		int rowCount = getTable(collection).findElements(By.tagName("tr")).size();
-		return rowCount - 1;
-	}
-	
-	private WebElement getTable(String collection) { // Duplicated with ListTest, refactoring pending
-		return driver.findElement(By.id("ox_openxavatest_" + module + "__" + collection));
-	}
 		
 }

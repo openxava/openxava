@@ -23,7 +23,7 @@ public class TreeTest extends WebDriverTestBase{
 	public void testTreeLib() throws Exception {
 		//all the tests are under the same, because the order must be respected
 		goModule(driver, "TreeItem");
-		String rootIdValue = getValueInList(driver, "TreeItem", "0", "0");
+		String rootIdValue = getValueInList(driver, 0, 0);
 		addTreeIdValues(rootIdValue);
 		
 		goModule(driver, "TreeContainer");
@@ -181,11 +181,11 @@ public class TreeTest extends WebDriverTestBase{
 		WebElement childElement = parentElement.findElement(By.id(childElementId));
 		return (childElement != null);
 	}
-	
+	/*
 	private String getValueInList(WebDriver driver, String model, String row, String column) {
 		List<WebElement> elements = driver.findElements(By.cssSelector(".ox_openxavatest_" + model + "__tipable.ox_openxavatest_" + model + "__list_col" + column ));
 		return elements.get(Integer.valueOf(row)).getText();
-	}
+	}*/
 	
 	private void addTreeIdValues(String rootId) {
 		nodesId = new HashMap<>();
@@ -200,8 +200,10 @@ public class TreeTest extends WebDriverTestBase{
 	}
 	
 	private void addNewNodeId(WebDriver driver) throws Exception {
-		nodesId.put("a", getValueInList(driver, "TreeItem", "7", "0"));
-		nodesId.put("b", getValueInList(driver, "TreeItem", "8", "0"));
+//		nodesId.put("a", getValueInList(driver, "TreeItem", "7", "0"));
+//		nodesId.put("b", getValueInList(driver, "TreeItem", "8", "0"));
+		nodesId.put("a", getValueInList(driver, 7, 0));
+		nodesId.put("b", getValueInList(driver, 8, 0));
 	}
 	
 }
