@@ -324,8 +324,6 @@ public class CalendarTest extends WebDriverTestBase {
 			moveToListView(driver);
 			moveToCalendarView(driver);
 		}
-		
-		wait(driver);
 		waitCalendarEvent(driver);
 	}
 

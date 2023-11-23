@@ -14,7 +14,7 @@ public class ChartsTest extends WebDriverTestBase {
 	private WebDriver driver;
 
 	public void setUp() throws Exception {
-		setHeadless(true); 
+		//setHeadless(true); 
 	    driver = createWebDriver();
 	}
 	
@@ -24,6 +24,7 @@ public class ChartsTest extends WebDriverTestBase {
 	
 	public void testCharts() throws Exception {
 		goModule(driver, "Invoice");
+		//moveToListView(driver);
 		assertOneBarByEachRow();
 		
 		goModule(driver, "Color");
@@ -60,6 +61,16 @@ public class ChartsTest extends WebDriverTestBase {
 	
 	private WebElement getTable(String collection) { // Duplicated with ListTest, refactoring pending
 		return driver.findElement(By.id("ox_openxavatest_" + module + "__" + collection));
+	}
+	
+	private void moveToListView(WebDriver driver) throws Exception {
+		WebElement tabList = driver.findElement(By.cssSelector(".mdi.mdi-table-large"));
+		WebElement tabListParent = tabList.findElement(By.xpath(".."));
+		String title = tabListParent.getAttribute("class");
+		if (!(title != null && title.equals("xava_action ox-selected-list-format"))) {
+			tabList.click();
+		}
+		wait(driver);
 	}
 		
 }

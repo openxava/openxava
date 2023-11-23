@@ -13,6 +13,7 @@ public class EditableValidValuesTest extends WebDriverTestBase {
 	private WebDriver driver;
 	
 	public void setUp() throws Exception {
+		setHeadless(true); 
 		driver = createWebDriver();
 	}
 

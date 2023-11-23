@@ -33,17 +33,25 @@ public class ListTest extends WebDriverTestBase {
 	public void testListAndCollection() throws Exception {
 		goModule(driver, "Author");
 		assertShowHideFilterInList();
+		System.out.println(module);
 		assertMoveColumns();
+		System.out.println(module);
 		assertRemoveColumnAfterFiltering(); 
+		System.out.println(module);
 		assertNoFilterInCollectionByDefault();
-		
+		System.out.println(module);
+		System.out.println("----------");
 		goModule(driver, "Carrier");
 		assertEnableDisableCustomizeList(); 
+		System.out.println(module);
 		assertCustomizeCollection();
-		
+		System.out.println(module);
+		System.out.println("----------");
 		goModule(driver, "CustomerWithSection");
 		assertCustomizeList();
 		assertCustomizeList_addAndResetModule();
+		System.out.println(module);
+		System.out.println("----------");
 		
 		goModule(driver, "Invoice");
 		assertRemoveSeveralColumns();
@@ -352,7 +360,9 @@ public class ListTest extends WebDriverTestBase {
 	private void assertCustomizeList() throws Exception {
 		doTestCustomizeList_moveAndRemove(); 
 		setHeadless(false); // Because we test PDF generation that in headless works different, saving the file in the file system instead of show a windows
+		System.out.println("before reset " + module);
 		resetModule(); 
+		System.out.println("after reset " + module);
 		doTestCustomizeList_generatePDF();
 		setHeadless(true); 
 		resetModule(); 
@@ -385,7 +395,7 @@ public class ListTest extends WebDriverTestBase {
 		};
 		
 		assertActions(listActions); 
-		assertListColumnCount(7);
+		assertListColumnCount(7); // 7 before
 		assertLabelInList(0, "Name");
 		assertLabelInList(1, "Type");
 		assertLabelInList(2, "Seller");
@@ -611,6 +621,7 @@ public class ListTest extends WebDriverTestBase {
 		driver.quit();
 		driver = createWebDriver();
 		driver.get("http://localhost:8080/openxavatest/m/" + module); 
+		System.out.println("reset " + module);
 		wait(driver);
 	}
 
@@ -762,7 +773,7 @@ public class ListTest extends WebDriverTestBase {
 		for (String windowHandle : driver.getWindowHandles()) {
             driver.switchTo().window(windowHandle);
         }
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(2000));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(3000));
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("embed")));
 		String contentType = driver.findElement(By.tagName("embed")).getAttribute("type"); // This works for PDF with Chrome
 		assertEquals(expectedContentType, contentType);
