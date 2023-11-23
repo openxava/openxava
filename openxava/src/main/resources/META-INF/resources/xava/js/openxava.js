@@ -1394,11 +1394,11 @@ openxava.subcontroller = function(id,containerId,buttonId,imageId,aId,spanId){
 	}
 	// display and position the menu 
 	$('#'+id).css('display','inline');  
-	$('#'+id).css({ 
-		'top': $('#'+aId).position().top + $('#'+buttonId).outerHeight(true),
-		'left': $('#'+aId).position().left
-	});
-	//
+	var position = document.getElementById(aId).getBoundingClientRect(); // Because jquery position() does not work well
+	$('#'+id).css({
+		'top': position.top + $('#'+buttonId).outerHeight(true),
+		'left': position.left
+	});	
 	$('#'+imageId).fadeTo("fast",0.3);
 	$('#'+buttonId).addClass(openxava.subcontrollerSelectedClass);
 }
