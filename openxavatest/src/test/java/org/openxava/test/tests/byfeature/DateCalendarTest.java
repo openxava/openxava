@@ -24,7 +24,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 	
 	public void testMultipleDateWithOnChange_localeTranslationWellLoaded() throws Exception {
 		goModule(driver, "Event");
-		execute(driver, "List.viewDetail", "row=0"); 
+		execute("List.viewDetail", "row=0"); 
 		List<WebElement> iconElements = driver.findElements(By.cssSelector("i.mdi.mdi-calendar"));
 		if (!iconElements.isEmpty()) {
 		    WebElement firstIconElement = iconElements.get(0);
@@ -52,7 +52,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		List<WebElement> weekdaycontainerDivElement = driver.findElements(By.className("flatpickr-weekdaycontainer"));
         WebElement thirdSpanElement = weekdaycontainerDivElement.get(0).findElements(By.tagName("span")).get(2);
 		assertTrue("The translation of dateCalendar is not loaded correctly", !thirdSpanElement.getText().equals("Tue"));
-		execute(driver, "Mode.list");
+		execute("Mode.list");
 		acceptInDialogJS(driver);
 	}
 	

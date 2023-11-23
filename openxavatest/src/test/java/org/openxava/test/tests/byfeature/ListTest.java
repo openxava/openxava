@@ -49,18 +49,18 @@ public class ListTest extends WebDriverTestBase {
 	}
 		
 	private void assertNoFilterInCollectionByDefault() throws Exception {
-		execute(driver, "CRUD.new");		
+		execute("CRUD.new");		
 		assertCollectionFilterNotDisplayed();
 		driver.findElement(By.id("ox_openxavatest_Author__show_filter_humans")).click();
 		assertCollectionFilterDisplayed();
 		
-		execute(driver, "MyGoListMode.list");
-		execute(driver, "List.viewDetail", "row=1");
+		execute("MyGoListMode.list");
+		execute("List.viewDetail", "row=1");
 		assertCollectionFilterNotDisplayed();
 		driver.findElement(By.id("ox_openxavatest_Author__show_filter_humans")).click();
 		assertCollectionFilterDisplayed();
 		
-		execute(driver, "CRUD.new");
+		execute("CRUD.new");
 		assertCollectionFilterNotDisplayed();
 		driver.findElement(By.id("ox_openxavatest_Author__show_filter_humans")).click();
 		assertCollectionFilterDisplayed();
@@ -71,38 +71,38 @@ public class ListTest extends WebDriverTestBase {
 	
 	private void assertMoveColumns() throws Exception { 
 		// To test a specific bug moving columns
-		assertLabelInList(driver, 0, "Author");
-		assertLabelInList(driver, 1, "Biography");
+		assertLabelInList(0, "Author");
+		assertLabelInList(1, "Biography");
 		
 		showCustomizeControls();
-		moveColumn(driver, 0, 1);
-		assertLabelInList(driver, 0, "Biography"); 
-		assertLabelInList(driver, 1, "Author");
+		moveColumn(0, 1);
+		assertLabelInList(0, "Biography"); 
+		assertLabelInList(1, "Author");
 		
 		resetModule();
-		assertLabelInList(driver, 0, "Biography");
-		assertLabelInList(driver, 1, "Author");
+		assertLabelInList(0, "Biography");
+		assertLabelInList(1, "Author");
 		
 		showCustomizeControls();
-		moveColumn(driver, 1, 0);
-		assertLabelInList(driver, 0, "Author");
-		assertLabelInList(driver, 1, "Biography");		
+		moveColumn(1, 0);
+		assertLabelInList(0, "Author");
+		assertLabelInList(1, "Biography");		
 	}
 	
 	private void assertRemoveColumnAfterFiltering() throws Exception {
-		assertListRowCount(driver, 2);
-		assertListColumnCount(driver, 2);
+		assertListRowCount(2);
+		assertListColumnCount(2);
 		setConditionValues("J");
-		execute(driver, "List.filter");
-		assertListRowCount(driver, 1);
+		execute("List.filter");
+		assertListRowCount(1);
 		showCustomizeControls();
-		removeColumn(driver, 1);
-		assertListRowCount(driver, 1);
-		assertListColumnCount(driver, 1); 
-		execute(driver, "List.addColumns"); 
-		execute(driver, "AddColumns.restoreDefault"); 
-		assertListColumnCount(driver, 2);
-		assertListRowCount(driver, 1);
+		removeColumn(1);
+		assertListRowCount(1);
+		assertListColumnCount(1); 
+		execute("List.addColumns"); 
+		execute("AddColumns.restoreDefault"); 
+		assertListColumnCount(2);
+		assertListRowCount(1);
 		clearListCondition();
 	}
 	
@@ -158,194 +158,194 @@ public class ListTest extends WebDriverTestBase {
 
 	private void assertCustomizeCollection() throws Exception {
 		// Original status		
-		assertListColumnCount(driver, 3);
-		assertLabelInList(driver, 0, "Calculated");
-		assertLabelInList(driver, 1, "Number");
-		assertLabelInList(driver, 2, "Name");
-		execute(driver, "List.viewDetail", "row=0");
+		assertListColumnCount(3);
+		assertLabelInList(0, "Calculated");
+		assertLabelInList(1, "Number");
+		assertLabelInList(2, "Name");
+		execute("List.viewDetail", "row=0");
 		
-		assertCollectionColumnCount(driver, "fellowCarriers", 4);
-		assertLabelInCollection(driver, "fellowCarriers", 0, "Number");
-		assertLabelInCollection(driver, "fellowCarriers", 1, "Name");		
-		assertLabelInCollection(driver, "fellowCarriers", 2, "Remarks");
-		assertLabelInCollection(driver, "fellowCarriers", 3, "Calculated");
+		assertCollectionColumnCount("fellowCarriers", 4);
+		assertLabelInCollection("fellowCarriers", 0, "Number");
+		assertLabelInCollection("fellowCarriers", 1, "Name");		
+		assertLabelInCollection("fellowCarriers", 2, "Remarks");
+		assertLabelInCollection("fellowCarriers", 3, "Calculated");
 
 		// Customize the collection
 		showCustomizeControls("fellowCarriers");
-		moveColumn(driver, "fellowCarriers", 2, 3);
+		moveColumn("fellowCarriers", 2, 3);
 		assertNoErrors();
-		assertCollectionColumnCount(driver, "fellowCarriers", 4);
-		assertLabelInCollection(driver, "fellowCarriers", 0, "Number");
-		assertLabelInCollection(driver, "fellowCarriers", 1, "Name");
-		assertLabelInCollection(driver, "fellowCarriers", 2, "Calculated"); 
-		assertLabelInCollection(driver, "fellowCarriers", 3, "Remarks");		
+		assertCollectionColumnCount("fellowCarriers", 4);
+		assertLabelInCollection("fellowCarriers", 0, "Number");
+		assertLabelInCollection("fellowCarriers", 1, "Name");
+		assertLabelInCollection("fellowCarriers", 2, "Calculated"); 
+		assertLabelInCollection("fellowCarriers", 3, "Remarks");		
 		
 		// The main list not modified
-		execute(driver, "Mode.list");
-		assertListColumnCount(driver, 3);
-		assertLabelInList(driver, 0, "Calculated");
-		assertLabelInList(driver, 1, "Number");
-		assertLabelInList(driver, 2, "Name");
+		execute("Mode.list");
+		assertListColumnCount(3);
+		assertLabelInList(0, "Calculated");
+		assertLabelInList(1, "Number");
+		assertLabelInList(2, "Name");
 
 		// The collection continues modified
-		execute(driver, "List.viewDetail", "row=0");
-		assertCollectionColumnCount(driver, "fellowCarriers", 4);
-		assertLabelInCollection(driver, "fellowCarriers", 0, "Number");
-		assertLabelInCollection(driver, "fellowCarriers", 1, "Name");
-		assertLabelInCollection(driver, "fellowCarriers", 2, "Calculated");
-		assertLabelInCollection(driver, "fellowCarriers", 3, "Remarks");		
+		execute("List.viewDetail", "row=0");
+		assertCollectionColumnCount("fellowCarriers", 4);
+		assertLabelInCollection("fellowCarriers", 0, "Number");
+		assertLabelInCollection("fellowCarriers", 1, "Name");
+		assertLabelInCollection("fellowCarriers", 2, "Calculated");
+		assertLabelInCollection("fellowCarriers", 3, "Remarks");		
 
 		// Add columns
 		showCustomizeControls("fellowCarriers");
-		execute(driver, "List.addColumns", "collection=fellowCarriers");
+		execute("List.addColumns", "collection=fellowCarriers");
 		assertNoAction("AddColumns.showMoreColumns"); // Because has not more than second level properties
-		assertCollectionRowCount(driver, "xavaPropertiesList", 6);
-		assertValueInCollection(driver, "xavaPropertiesList",  0, 0, "Driving licence description"); 
-		assertValueInCollection(driver, "xavaPropertiesList",  1, 0, "Driving licence level");
-		assertValueInCollection(driver, "xavaPropertiesList",  2, 0, "Driving licence type");
-		assertValueInCollection(driver, "xavaPropertiesList",  3, 0, "Warehouse name");
-		assertValueInCollection(driver, "xavaPropertiesList",  4, 0, "Warehouse number");
-		assertValueInCollection(driver, "xavaPropertiesList",  5, 0, "Warehouse zone");
+		assertCollectionRowCount("xavaPropertiesList", 6);
+		assertValueInCollection("xavaPropertiesList",  0, 0, "Driving licence description"); 
+		assertValueInCollection("xavaPropertiesList",  1, 0, "Driving licence level");
+		assertValueInCollection("xavaPropertiesList",  2, 0, "Driving licence type");
+		assertValueInCollection("xavaPropertiesList",  3, 0, "Warehouse name");
+		assertValueInCollection("xavaPropertiesList",  4, 0, "Warehouse number");
+		assertValueInCollection("xavaPropertiesList",  5, 0, "Warehouse zone");
 		checkRow("selectedProperties", "warehouse.name");
- 		execute(driver, "AddColumns.addColumns");
+ 		execute("AddColumns.addColumns");
 
-		assertCollectionColumnCount(driver, "fellowCarriers", 5);
-		assertLabelInCollection(driver, "fellowCarriers", 0, "Number");
-		assertLabelInCollection(driver, "fellowCarriers", 1, "Name");
-		assertLabelInCollection(driver, "fellowCarriers", 2, "Calculated");
-		assertLabelInCollection(driver, "fellowCarriers", 3, "Remarks");				
-		assertLabelInCollection(driver, "fellowCarriers", 4, "Warehouse"); // This is "Name of Warehouse" with label optimized 
+		assertCollectionColumnCount("fellowCarriers", 5);
+		assertLabelInCollection("fellowCarriers", 0, "Number");
+		assertLabelInCollection("fellowCarriers", 1, "Name");
+		assertLabelInCollection("fellowCarriers", 2, "Calculated");
+		assertLabelInCollection("fellowCarriers", 3, "Remarks");				
+		assertLabelInCollection("fellowCarriers", 4, "Warehouse"); // This is "Name of Warehouse" with label optimized 
 		 		
 		// Other customizations
 		showCustomizeControls("fellowCarriers");
-		moveColumn(driver, "fellowCarriers", 3, 4); 
-		assertLabelInCollection(driver, "fellowCarriers", 0, "Number");
-		assertLabelInCollection(driver, "fellowCarriers", 1, "Name");
-		assertLabelInCollection(driver, "fellowCarriers", 2, "Calculated");
-		assertLabelInCollection(driver, "fellowCarriers", 3, "Warehouse"); // This is "Name of Warehouse" with label optimized
-		assertLabelInCollection(driver, "fellowCarriers", 4, "Remarks");
+		moveColumn("fellowCarriers", 3, 4); 
+		assertLabelInCollection("fellowCarriers", 0, "Number");
+		assertLabelInCollection("fellowCarriers", 1, "Name");
+		assertLabelInCollection("fellowCarriers", 2, "Calculated");
+		assertLabelInCollection("fellowCarriers", 3, "Warehouse"); // This is "Name of Warehouse" with label optimized
+		assertLabelInCollection("fellowCarriers", 4, "Remarks");
  
-		removeColumn(driver, "fellowCarriers", 4);
-		assertCollectionColumnCount(driver, "fellowCarriers", 4); 
-		assertLabelInCollection(driver, "fellowCarriers", 0, "Number");
-		assertLabelInCollection(driver, "fellowCarriers", 1, "Name");
-		assertLabelInCollection(driver, "fellowCarriers", 2, "Calculated");
-		assertLabelInCollection(driver, "fellowCarriers", 3, "Warehouse"); // This is "Name of Warehouse" with label optimized
+		removeColumn("fellowCarriers", 4);
+		assertCollectionColumnCount("fellowCarriers", 4); 
+		assertLabelInCollection("fellowCarriers", 0, "Number");
+		assertLabelInCollection("fellowCarriers", 1, "Name");
+		assertLabelInCollection("fellowCarriers", 2, "Calculated");
+		assertLabelInCollection("fellowCarriers", 3, "Warehouse"); // This is "Name of Warehouse" with label optimized
 		
 		// Changing column name
-		execute(driver, "List.changeColumnName", "property=name,collection=fellowCarriers");
+		execute("List.changeColumnName", "property=name,collection=fellowCarriers");
 		assertDialog();
 		assertValue("name", "Name");
 		setValue("name", "Carrier");
-		execute(driver, "ChangeColumnName.change");
-		assertLabelInCollection(driver, "fellowCarriers", 1, "Carrier");
+		execute("ChangeColumnName.change");
+		assertLabelInCollection("fellowCarriers", 1, "Carrier");
 		
 		// Adding clicking in row
 		showCustomizeControls("fellowCarriers");
-		execute(driver, "List.addColumns", "collection=fellowCarriers"); 
-		execute(driver, "AddColumns.addColumn", "property=warehouse.number");
-		assertCollectionColumnCount(driver, "fellowCarriers", 5);
-		assertLabelInCollection(driver, "fellowCarriers", 0, "Number");
-		assertLabelInCollection(driver, "fellowCarriers", 1, "Carrier"); 
-		assertLabelInCollection(driver, "fellowCarriers", 2, "Calculated");
-		assertLabelInCollection(driver, "fellowCarriers", 3, "Warehouse"); // This is "Name of Warehouse" with label optimized
-		assertLabelInCollection(driver, "fellowCarriers", 4, "Warehouse number");
+		execute("List.addColumns", "collection=fellowCarriers"); 
+		execute("AddColumns.addColumn", "property=warehouse.number");
+		assertCollectionColumnCount("fellowCarriers", 5);
+		assertLabelInCollection("fellowCarriers", 0, "Number");
+		assertLabelInCollection("fellowCarriers", 1, "Carrier"); 
+		assertLabelInCollection("fellowCarriers", 2, "Calculated");
+		assertLabelInCollection("fellowCarriers", 3, "Warehouse"); // This is "Name of Warehouse" with label optimized
+		assertLabelInCollection("fellowCarriers", 4, "Warehouse number");
 		
 		// Restoring
 		showCustomizeControls("fellowCarriers");
-		execute(driver, "List.addColumns", "collection=fellowCarriers");
-		execute(driver, "AddColumns.restoreDefault");
-		assertCollectionColumnCount(driver, "fellowCarriers", 4);
-		assertLabelInCollection(driver, "fellowCarriers", 0, "Number");
-		assertLabelInCollection(driver, "fellowCarriers", 1, "Carrier"); 
-		assertLabelInCollection(driver, "fellowCarriers", 2, "Remarks");
-		assertLabelInCollection(driver, "fellowCarriers", 3, "Calculated");
+		execute("List.addColumns", "collection=fellowCarriers");
+		execute("AddColumns.restoreDefault");
+		assertCollectionColumnCount("fellowCarriers", 4);
+		assertLabelInCollection("fellowCarriers", 0, "Number");
+		assertLabelInCollection("fellowCarriers", 1, "Carrier"); 
+		assertLabelInCollection("fellowCarriers", 2, "Remarks");
+		assertLabelInCollection("fellowCarriers", 3, "Calculated");
 		
 		showCustomizeControls("fellowCarriers");
-		execute(driver, "List.changeColumnName", "property=name,collection=fellowCarriers");
+		execute("List.changeColumnName", "property=name,collection=fellowCarriers");
 		assertValue("name", "Carrier");
 		setValue("name", "Name");
-		execute(driver, "ChangeColumnName.change");
-		assertLabelInCollection(driver, "fellowCarriers", 1, "Name");		
+		execute("ChangeColumnName.change");
+		assertLabelInCollection("fellowCarriers", 1, "Name");		
 		
 		// Cancel in AddColumns returns to detail (not list mode)
 		showCustomizeControls("fellowCarriers");
-		execute(driver, "List.addColumns", "collection=fellowCarriers");
-		execute(driver, "AddColumns.cancel");
+		execute("List.addColumns", "collection=fellowCarriers");
+		execute("AddColumns.cancel");
 		assertValue("name", "UNO"); // In detail mode
 	}
 	
 	private void assertCustomizeList_addAndResetModule() throws Exception {
-		assertListColumnCount(driver, 7); 
-		String value = getValueInList(driver, 0, 0);
+		assertListColumnCount(7); 
+		String value = getValueInList(0, 0);
 		showCustomizeControls();
-		execute(driver, "List.addColumns");		
+		execute("List.addColumns");		
 		checkRow("selectedProperties", "number"); 		
-		execute(driver, "AddColumns.addColumns");
-		assertListColumnCount(driver, 8);
-		assertValueInList(driver, 0, 0, value);
+		execute("AddColumns.addColumns");
+		assertListColumnCount(8);
+		assertValueInList(0, 0, value);
 				
 		resetModule();
-		assertListColumnCount(driver, 8); 
-		assertValueInList(driver, 0, 0, value);
+		assertListColumnCount(8); 
+		assertValueInList(0, 0, value);
 		
 		showCustomizeControls();
-		removeColumn(driver, 7); 
-		assertListColumnCount(driver, 7); 
+		removeColumn(7); 
+		assertListColumnCount(7); 
 	}
 	
 	private void assertRemoveSeveralColumns() throws Exception {
-		assertListColumnCount(driver, 8); 
-		assertLabelInList(driver, 0, "Year");
-		assertLabelInList(driver, 1, "Number");
-		assertLabelInList(driver, 2, "Date");
-		assertLabelInList(driver, 3, "Amounts sum");
-		assertLabelInList(driver, 4, "V.A.T.");
-		assertLabelInList(driver, 5, "Details count");
-		assertLabelInList(driver, 6, "Paid");
-		assertLabelInList(driver, 7, "Importance");
+		assertListColumnCount(8); 
+		assertLabelInList(0, "Year");
+		assertLabelInList(1, "Number");
+		assertLabelInList(2, "Date");
+		assertLabelInList(3, "Amounts sum");
+		assertLabelInList(4, "V.A.T.");
+		assertLabelInList(5, "Details count");
+		assertLabelInList(6, "Paid");
+		assertLabelInList(7, "Importance");
 
 		showCustomizeControls();
-		removeColumn(driver, 2);
-		assertListColumnCount(driver, 7); 
-		assertLabelInList(driver, 0, "Year");
-		assertLabelInList(driver, 1, "Number");
-		assertLabelInList(driver, 2, "Amounts sum");
-		assertLabelInList(driver, 3, "V.A.T.");
-		assertLabelInList(driver, 4, "Details count");
-		assertLabelInList(driver, 5, "Paid");
-		assertLabelInList(driver, 6, "Importance");
+		removeColumn(2);
+		assertListColumnCount(7); 
+		assertLabelInList(0, "Year");
+		assertLabelInList(1, "Number");
+		assertLabelInList(2, "Amounts sum");
+		assertLabelInList(3, "V.A.T.");
+		assertLabelInList(4, "Details count");
+		assertLabelInList(5, "Paid");
+		assertLabelInList(6, "Importance");
 		
-		removeColumn(driver, 3); // VAT
-		assertListColumnCount(driver, 6);
-		assertLabelInList(driver, 0, "Year");
-		assertLabelInList(driver, 1, "Number");
-		assertLabelInList(driver, 2, "Amounts sum");
-		assertLabelInList(driver, 3, "Details count");
-		assertLabelInList(driver, 4, "Paid");
-		assertLabelInList(driver, 5, "Importance");
+		removeColumn(3); // VAT
+		assertListColumnCount(6);
+		assertLabelInList(0, "Year");
+		assertLabelInList(1, "Number");
+		assertLabelInList(2, "Amounts sum");
+		assertLabelInList(3, "Details count");
+		assertLabelInList(4, "Paid");
+		assertLabelInList(5, "Importance");
 		
-		execute(driver, "List.filter");
-		assertListColumnCount(driver, 6);
-		assertLabelInList(driver, 0, "Year");
-		assertLabelInList(driver, 1, "Number");
-		assertLabelInList(driver, 2, "Amounts sum");
-		assertLabelInList(driver, 3, "Details count");
-		assertLabelInList(driver, 4, "Paid");
-		assertLabelInList(driver, 5, "Importance");
+		execute("List.filter");
+		assertListColumnCount(6);
+		assertLabelInList(0, "Year");
+		assertLabelInList(1, "Number");
+		assertLabelInList(2, "Amounts sum");
+		assertLabelInList(3, "Details count");
+		assertLabelInList(4, "Paid");
+		assertLabelInList(5, "Importance");
 
 		showCustomizeControls();
-		execute(driver, "List.addColumns");
-		execute(driver, "AddColumns.restoreDefault");
-		assertListColumnCount(driver, 8);
-		assertLabelInList(driver, 0, "Year");
-		assertLabelInList(driver, 1, "Number");
-		assertLabelInList(driver, 2, "Date");
-		assertLabelInList(driver, 3, "Amounts sum");
-		assertLabelInList(driver, 4, "V.A.T.");
-		assertLabelInList(driver, 5, "Details count");
-		assertLabelInList(driver, 6, "Paid");
-		assertLabelInList(driver, 7, "Importance");		
+		execute("List.addColumns");
+		execute("AddColumns.restoreDefault");
+		assertListColumnCount(8);
+		assertLabelInList(0, "Year");
+		assertLabelInList(1, "Number");
+		assertLabelInList(2, "Date");
+		assertLabelInList(3, "Amounts sum");
+		assertLabelInList(4, "V.A.T.");
+		assertLabelInList(5, "Details count");
+		assertLabelInList(6, "Paid");
+		assertLabelInList(7, "Importance");		
 		Thread.sleep(50000);
 	}
 	
@@ -385,183 +385,163 @@ public class ListTest extends WebDriverTestBase {
 		};
 		
 		assertActions(listActions); 
-		assertListColumnCount(driver, 7); // 7 before
-		assertLabelInList(driver, 0, "Name");
-		assertLabelInList(driver, 1, "Type");
-		assertLabelInList(driver, 2, "Seller");
-		assertLabelInList(driver, 3, "Address city");
-		assertLabelInList(driver, 4, "Seller level");
-		assertLabelInList(driver, 5, "Address state");
-		assertLabelInList(driver, 6, "Web site");
+		assertListColumnCount(7); // 7 before
+		assertLabelInList(0, "Name");
+		assertLabelInList(1, "Type");
+		assertLabelInList(2, "Seller");
+		assertLabelInList(3, "Address city");
+		assertLabelInList(4, "Seller level");
+		assertLabelInList(5, "Address state");
+		assertLabelInList(6, "Web site");
 		 
 		assertTrue("It is needed customers for execute this test", getListRowCount(driver) > 1);
-		String name = getValueInList(driver, 0, 0);
-		String type = getValueInList(driver, 0, 1);
-		String seller = getValueInList(driver, 0, 2);
-		String city = getValueInList(driver, 0, 3);
-		String sellerLevel = getValueInList(driver, 0, 4);
-		String state = getValueInList(driver, 0, 5);
-		String site = getValueInList(driver, 0, 6);
+		String name = getValueInList(0, 0);
+		String type = getValueInList(0, 1);
+		String seller = getValueInList(0, 2);
+		String city = getValueInList(0, 3);
+		String sellerLevel = getValueInList(0, 4);
+		String state = getValueInList(0, 5);
+		String site = getValueInList(0, 6);
 		
 		// move 0 to 2
 		showCustomizeControls();
-		moveColumn(driver, 0, 2);
+		moveColumn(0, 2);
 		assertNoErrors();
-		assertListColumnCount(driver, 7);
-		assertLabelInList(driver, 0, "Type");
-		assertLabelInList(driver, 1, "Seller");
-		assertLabelInList(driver, 2, "Name");
-		assertLabelInList(driver, 3, "Address city");
-		assertLabelInList(driver, 4, "Seller level");
-		assertLabelInList(driver, 5, "Address state");
-		assertLabelInList(driver, 6, "Web site");		
-		assertValueInList(driver, 0, 0, type);
-		assertValueInList(driver, 0, 1, seller);
-		assertValueInList(driver, 0, 2, name);
-		assertValueInList(driver, 0, 3, city);
-		assertValueInList(driver, 0, 4, sellerLevel);						
-		assertValueInList(driver, 0, 5, state);
-		assertValueInList(driver, 0, 6, site);		
+		assertListColumnCount(7);
+		assertLabelInList(0, "Type");
+		assertLabelInList(1, "Seller");
+		assertLabelInList(2, "Name");
+		assertLabelInList(3, "Address city");
+		assertLabelInList(4, "Seller level");
+		assertLabelInList(5, "Address state");
+		assertLabelInList(6, "Web site");		
+		assertValueInList(0, 0, type);
+		assertValueInList(0, 1, seller);
+		assertValueInList(0, 2, name);
+		assertValueInList(0, 3, city);
+		assertValueInList(0, 4, sellerLevel);						
+		assertValueInList(0, 5, state);
+		assertValueInList(0, 6, site);		
 		
 		// move 2 to 4
-		moveColumn(driver, 2, 4); 
+		moveColumn(2, 4); 
 		assertNoErrors();
-		assertListColumnCount(driver, 7);
-		assertLabelInList(driver, 0, "Type");
-		assertLabelInList(driver, 1, "Seller");		
-		assertLabelInList(driver, 2, "Address city");
-		assertLabelInList(driver, 3, "Seller level");
-		assertLabelInList(driver, 4, "Name");
-		assertLabelInList(driver, 5, "Address state");
-		assertLabelInList(driver, 6, "Web site");
-		assertValueInList(driver, 0, 0, type);
-		assertValueInList(driver, 0, 1, seller);
-		assertValueInList(driver, 0, 2, city);
-		assertValueInList(driver, 0, 3, sellerLevel);
-		assertValueInList(driver, 0, 4, name);
-		assertValueInList(driver, 0, 5, state);		
-		assertValueInList(driver, 0, 6, site);		
+		assertListColumnCount(7);
+		assertLabelInList(0, "Type");
+		assertLabelInList(1, "Seller");		
+		assertLabelInList(2, "Address city");
+		assertLabelInList(3, "Seller level");
+		assertLabelInList(4, "Name");
+		assertLabelInList(5, "Address state");
+		assertLabelInList(6, "Web site");
+		assertValueInList(0, 0, type);
+		assertValueInList(0, 1, seller);
+		assertValueInList(0, 2, city);
+		assertValueInList(0, 3, sellerLevel);
+		assertValueInList(0, 4, name);
+		assertValueInList(0, 5, state);		
+		assertValueInList(0, 6, site);		
 		
 		// remove column 3
-		removeColumn(driver, 3); 
+		removeColumn(3); 
 		assertNoErrors();
-		assertListColumnCount(driver, 6);
-		assertLabelInList(driver, 0, "Type");
-		assertLabelInList(driver, 1, "Seller");		
-		assertLabelInList(driver, 2, "Address city");		
-		assertLabelInList(driver, 3, "Name");
-		assertLabelInList(driver, 4, "Address state");
-		assertLabelInList(driver, 5, "Web site");
-		assertValueInList(driver, 0, 0, type);
-		assertValueInList(driver, 0, 1, seller);
-		assertValueInList(driver, 0, 2, city);
-		assertValueInList(driver, 0, 3, name);
-		assertValueInList(driver, 0, 4, state);
-		assertValueInList(driver, 0, 5, site);		
+		assertListColumnCount(6);
+		assertLabelInList(0, "Type");
+		assertLabelInList(1, "Seller");		
+		assertLabelInList(2, "Address city");		
+		assertLabelInList(3, "Name");
+		assertLabelInList(4, "Address state");
+		assertLabelInList(5, "Web site");
+		assertValueInList(0, 0, type);
+		assertValueInList(0, 1, seller);
+		assertValueInList(0, 2, city);
+		assertValueInList(0, 3, name);
+		assertValueInList(0, 4, state);
+		assertValueInList(0, 5, site);		
 						
 		assertActions(listActions);
 	}
 	
 	private void doTestCustomizeList_generatePDF() throws Exception {
 		// Trusts in that testCustomizeList_moveAndRemove is executed before
-		assertListColumnCount(driver, 6);
-		assertLabelInList(driver, 0, "Type");
-		assertLabelInList(driver, 1, "Seller");		
-		assertLabelInList(driver, 2, "Address city");		
-		assertLabelInList(driver, 3, "Name");
-		assertLabelInList(driver, 4, "Address state");
-		assertLabelInList(driver, 5, "Web site");
+		assertListColumnCount(6);
+		assertLabelInList(0, "Type");
+		assertLabelInList(1, "Seller");		
+		assertLabelInList(2, "Address city");		
+		assertLabelInList(3, "Name");
+		assertLabelInList(4, "Address state");
+		assertLabelInList(5, "Web site");
 		showCustomizeControls();
-		removeColumn(driver, 3); 
+		removeColumn(3); 
 		assertNoErrors();
-		assertListColumnCount(driver, 5);		
-		execute(driver, "Print.generatePdf"); 
+		assertListColumnCount(5);		
+		execute("Print.generatePdf"); 
 		assertContentTypeForPopup("application/pdf");
 	}
 	
 	private void doTestRestoreColumns_addRemoveTabColumnsDynamically() throws Exception {
 		// Restoring initial tab setup
 		showCustomizeControls();
-		execute(driver, "List.addColumns");							
-		execute(driver, "AddColumns.restoreDefault");		
+		execute("List.addColumns");							
+		execute("AddColumns.restoreDefault");		
 		// End restoring
 		
-		assertListColumnCount(driver, 7);
-		assertLabelInList(driver, 0, "Name");
-		assertLabelInList(driver, 1, "Type");
-		assertLabelInList(driver, 2, "Seller");
-		assertLabelInList(driver, 3, "Address city");
-		assertLabelInList(driver, 4, "Seller level");
-		assertLabelInList(driver, 5, "Address state"); 
-		assertLabelInList(driver, 6, "Web site");
+		assertListColumnCount(7);
+		assertLabelInList(0, "Name");
+		assertLabelInList(1, "Type");
+		assertLabelInList(2, "Seller");
+		assertLabelInList(3, "Address city");
+		assertLabelInList(4, "Seller level");
+		assertLabelInList(5, "Address state"); 
+		assertLabelInList(6, "Web site");
 		assertTrue("Must to have customers for run this test", getListRowCount(driver) > 1);
-		String name = getValueInList(driver, 0, 0);
-		String type = getValueInList(driver, 0, 1);
-		String seller = getValueInList(driver, 0, 2);
-		String city = getValueInList(driver, 0, 3);
-		String sellerLevel = getValueInList(driver, 0, 4);
-		String state = getValueInList(driver, 0, 5); 
-		String site = getValueInList(driver, 0, 6);
+		String name = getValueInList(0, 0);
+		String type = getValueInList(0, 1);
+		String seller = getValueInList(0, 2);
+		String city = getValueInList(0, 3);
+		String sellerLevel = getValueInList(0, 4);
+		String state = getValueInList(0, 5); 
+		String site = getValueInList(0, 6);
 		
-		execute(driver, "Customer.hideSellerInList");
+		execute("Customer.hideSellerInList");
 		assertNoErrors();
-		assertListColumnCount(driver, 6);
-		assertLabelInList(driver, 0, "Name");
-		assertLabelInList(driver, 1, "Type");
-		assertLabelInList(driver, 2, "Address city");
-		assertLabelInList(driver, 3, "Seller level");
-		assertLabelInList(driver, 4, "Address state"); 
-		assertLabelInList(driver, 5, "Web site");
-		assertValueInList(driver, 0, 0, name);
-		assertValueInList(driver, 0, 1, type);
-		assertValueInList(driver, 0, 2, city);
-		assertValueInList(driver, 0, 3, sellerLevel);
-		assertValueInList(driver, 0, 4, state); 
-		assertValueInList(driver, 0, 5, site);
+		assertListColumnCount(6);
+		assertLabelInList(0, "Name");
+		assertLabelInList(1, "Type");
+		assertLabelInList(2, "Address city");
+		assertLabelInList(3, "Seller level");
+		assertLabelInList(4, "Address state"); 
+		assertLabelInList(5, "Web site");
+		assertValueInList(0, 0, name);
+		assertValueInList(0, 1, type);
+		assertValueInList(0, 2, city);
+		assertValueInList(0, 3, sellerLevel);
+		assertValueInList(0, 4, state); 
+		assertValueInList(0, 5, site);
 		
-		execute(driver, "Customer.showSellerInList");
+		execute("Customer.showSellerInList");
 		assertNoErrors();
-		assertListColumnCount(driver, 7);
-		assertLabelInList(driver, 0, "Name");
-		assertLabelInList(driver, 1, "Type");
-		assertLabelInList(driver, 2, "Seller");		
-		assertLabelInList(driver, 3, "Address city");
-		assertLabelInList(driver, 4, "Seller level");
-		assertLabelInList(driver, 5, "Address state"); 
-		assertLabelInList(driver, 6, "Web site");
-		assertValueInList(driver, 0, 0, name);
-		assertValueInList(driver, 0, 1, type);
-		assertValueInList(driver, 0, 2, seller);
-		assertValueInList(driver, 0, 3, city);
-		assertValueInList(driver, 0, 4, sellerLevel);
-		assertValueInList(driver, 0, 5, state); 
-		assertValueInList(driver, 0, 6, site);
-	}
-
-	private void assertValue(String name, String value) { // Duplicated with DescriptionsListTest, refactoring pending
-		assertEquals(XavaResources.getString("unexpected_value", name), value, getValue(name));		
-	}
-
-	private String getValue(String name) { // Duplicated with DescriptionsListTest, refactoring pending
-		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
-		return input.getAttribute("value");
-	}
-	
-	private void setValue(String name, String value) { // Duplicated with DescriptionsListTest, refactoring pending
-		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
-		input.clear();
-		input.sendKeys(value);	
+		assertListColumnCount(7);
+		assertLabelInList(0, "Name");
+		assertLabelInList(1, "Type");
+		assertLabelInList(2, "Seller");		
+		assertLabelInList(3, "Address city");
+		assertLabelInList(4, "Seller level");
+		assertLabelInList(5, "Address state"); 
+		assertLabelInList(6, "Web site");
+		assertValueInList(0, 0, name);
+		assertValueInList(0, 1, type);
+		assertValueInList(0, 2, seller);
+		assertValueInList(0, 3, city);
+		assertValueInList(0, 4, sellerLevel);
+		assertValueInList(0, 5, state); 
+		assertValueInList(0, 6, site);
 	}
 
 	private void assertNoAction(String qualifiedAction) {
 		String [] action = qualifiedAction.split("\\.");
 		String name = "ox_openxavatest_" + module + "__action___" + action[0] + "___" + action[1];
 		assertTrue(XavaResources.getString("action_found_in_ui", action), driver.findElements(By.name(name)).isEmpty());
-	}
-
-	private void assertNoErrors() { // Duplicated with DescriptionsListTest, refactoring pending
-		WebElement errors = driver.findElement(By.id("ox_openxavatest_" + module + "__errors"));
-		assertEquals(XavaResources.getString("unexpected_messages", "Errors"), "", errors.getText());
 	}
 
 	private void clearListCondition() throws Exception{
@@ -576,8 +556,9 @@ public class ListTest extends WebDriverTestBase {
 	private void resetModule() throws Exception {
 		driver.quit();
 		driver = createWebDriver();
-		driver.get("http://localhost:8080/openxavatest/m/" + module); 
-		wait(driver);
+		goModule(driver, module);
+		//driver.get("http://localhost:8080/openxavatest/m/" + module); 
+		//wait(driver);
 	}
 
 

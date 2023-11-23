@@ -23,11 +23,11 @@ public class TreeTest extends WebDriverTestBase{
 	public void testTreeLib() throws Exception {
 		//all the tests are under the same, because the order must be respected
 		goModule(driver, "TreeItem");
-		String rootIdValue = getValueInList(driver, 0, 0);
+		String rootIdValue = getValueInList(0, 0);
 		addTreeIdValues(rootIdValue);
 		
 		goModule(driver, "TreeContainer");
-		execute(driver, "List.viewDetail", "row=0");
+		execute("List.viewDetail", "row=0");
 		createNewNodeSelecting(driver);	
 
 		goModule(driver, "TreeItem");
@@ -38,11 +38,11 @@ public class TreeTest extends WebDriverTestBase{
 		editNodeWithDoubleClick(driver);
 		deleteSelectedNode(driver);
 		cutNode(driver);
-		execute(driver, "Mode.list");
-		execute(driver, "List.viewDetail", "row=0");
+		execute("Mode.list");
+		execute("List.viewDetail", "row=0");
 		dragAndDrop(driver); 
-		execute(driver, "Mode.list");
-		execute(driver, "CRUD.deleteRow", "row=1");
+		execute("Mode.list");
+		execute("CRUD.deleteRow", "row=1");
 	}
 
 	public void tearDown() throws Exception {
@@ -58,8 +58,8 @@ public class TreeTest extends WebDriverTestBase{
 	private void createNewNodeSelecting(WebDriver driver) throws Exception {
 		WebElement childItem2CheckBox = findElement(driver, By.xpath("//a[@id='"+ nodesId.get("child2") +"_anchor']/i")); 
 		childItem2CheckBox.click();
-		execute(driver, "TreeView.new", "viewObject=xava_view_treeItems");
-		insertValueToInput(driver, "ox_openxavatest_TreeContainer__description", "A", false);
+		execute("TreeView.new", "viewObject=xava_view_treeItems");
+		insertValueToInput("ox_openxavatest_TreeContainer__description", "A", false);
 		WebElement save = driver.findElement(By.id("ox_openxavatest_TreeContainer__TreeView___save"));
 		save.click();
 		wait(driver);
@@ -68,7 +68,7 @@ public class TreeTest extends WebDriverTestBase{
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", createNewButtonElement); // must clicked manually because the element is not interactable
 		Thread.sleep(500); //sometimes need
 		acceptInDialogJS(driver);
-		insertValueToInput(driver, "ox_openxavatest_TreeContainer__description","B", false);
+		insertValueToInput("ox_openxavatest_TreeContainer__description","B", false);
 		save = driver.findElement(By.id("ox_openxavatest_TreeContainer__TreeView___save"));
 		save.click();
 		wait(driver);
@@ -81,7 +81,7 @@ public class TreeTest extends WebDriverTestBase{
 		actions.doubleClick(aElement).perform();
 		wait(driver);
 		
-		insertValueToInput(driver, "ox_openxavatest_TreeContainer__description", "AA", true);
+		insertValueToInput("ox_openxavatest_TreeContainer__description", "AA", true);
 		WebElement save = driver.findElement(By.id("ox_openxavatest_TreeContainer__TreeView___save"));
 		save.click();
 		wait(driver);
@@ -115,11 +115,11 @@ public class TreeTest extends WebDriverTestBase{
 	private void cutNode(WebDriver driver) throws Exception {
 		WebElement bCheckBox = driver.findElement(By.xpath("//a[@id='" + nodesId.get("b") + "_anchor']/i"));
 		bCheckBox.click();
-		execute(driver, "CollectionCopyPaste.cut", "viewObject=xava_view_treeItems");
-		execute(driver, "Mode.list");
-		execute(driver, "CRUD.new");
-		insertValueToInput(driver, "ox_openxavatest_TreeContainer__description", "BB", false);
-		execute(driver, "CollectionCopyPaste.paste", "viewObject=xava_view_treeItems");
+		execute("CollectionCopyPaste.cut", "viewObject=xava_view_treeItems");
+		execute("Mode.list");
+		execute("CRUD.new");
+		insertValueToInput("ox_openxavatest_TreeContainer__description", "BB", false);
+		execute("CollectionCopyPaste.paste", "viewObject=xava_view_treeItems");
 		WebElement bElement = findElement(driver, By.id(nodesId.get("b") + "_anchor")); 
 		assertTrue(bElement.getText().equals("B"));
 	}
@@ -202,8 +202,8 @@ public class TreeTest extends WebDriverTestBase{
 	private void addNewNodeId(WebDriver driver) throws Exception {
 //		nodesId.put("a", getValueInList(driver, "TreeItem", "7", "0"));
 //		nodesId.put("b", getValueInList(driver, "TreeItem", "8", "0"));
-		nodesId.put("a", getValueInList(driver, 7, 0));
-		nodesId.put("b", getValueInList(driver, 8, 0));
+		nodesId.put("a", getValueInList(7, 0));
+		nodesId.put("b", getValueInList(8, 0));
 	}
 	
 }

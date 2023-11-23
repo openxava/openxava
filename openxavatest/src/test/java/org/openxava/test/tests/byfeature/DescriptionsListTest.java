@@ -34,7 +34,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		createWarehouseWithQuote(); // To test a bug with quotes
 
 		goModule(driver, "Product2");
-		execute(driver, "CRUD.new");
+		execute("CRUD.new");
 		
 		driver.findElement(By.id("ox_openxavatest_Product2__reference_editor_warehouse")); // Warehouse combo must be to test the "quotes" bug
 
@@ -94,17 +94,17 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		setValue("number", "66");
 		setValue("description", "JUNIT PRODUCT");
 		setValue("unitPrice", "66");
-		execute(driver, "CRUD.save");
+		execute("CRUD.save");
 		assertNoErrors(); 
-		execute(driver, "Mode.list");
-		execute(driver, "List.orderBy", "property=number");
-		execute(driver, "List.orderBy", "property=number");
-		assertValueInList(driver, 0, 0, "66"); 
-		assertValueInList(driver, 0, 1, "JUNIT PRODUCT");
-		assertValueInList(driver, 0, 2, "SOFTWARÉ"); 
-		assertValueInList(driver, 0, 3, "DESARROLLO");
+		execute("Mode.list");
+		execute("List.orderBy", "property=number");
+		execute("List.orderBy", "property=number");
+		assertValueInList(0, 0, "66"); 
+		assertValueInList(0, 1, "JUNIT PRODUCT");
+		assertValueInList(0, 2, "SOFTWARÉ"); 
+		assertValueInList(0, 3, "DESARROLLO");
 		
-		execute(driver, "List.viewDetail", "row=0");
+		execute("List.viewDetail", "row=0");
 		assertValue("number", "66");
 		assertValue("family.number", "1");
 		assertDescriptionValue("family.number", "SOFTWARÉ");
@@ -114,11 +114,11 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertDescriptionValue("subfamily.number", "DESARROLLO");
 		subfamilyTextField = getDescriptionsListTextField("subfamily");
 		assertEquals("DESARROLLO", subfamilyTextField.getAttribute("value")); 
-		execute(driver, "CRUD.delete");
+		execute("CRUD.delete");
 		assertNoErrors();
 
 		
-		execute(driver, "CRUD.new");
+		execute("CRUD.new");
 		familyTextField = getDescriptionsListTextField("family");
 		familyTextField.sendKeys(Keys.CONTROL + "a");
 		familyTextField.sendKeys("\b");		
@@ -127,7 +127,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		familyTextField.sendKeys(Keys.TAB);
 		assertEquals("", familyTextField.getAttribute("value")); 
 		
-		execute(driver, "CRUD.new");
+		execute("CRUD.new");
 		familyList = driver.findElement(By.id(getListId(0)));  
 		assertFalse(familyList.isDisplayed());
 		assertEquals(0, familyList.findElements(By.tagName("li")).size());

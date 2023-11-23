@@ -25,7 +25,7 @@ public class ChartsTest extends WebDriverTestBase {
 	public void testCharts() throws Exception {
 		goModule(driver, "Invoice");
 		assertOneBarByEachRow();
-		moveToListView(driver);
+		moveToListView();
 		
 		goModule(driver, "Color");
 		assertMax120Bars();
@@ -33,7 +33,7 @@ public class ChartsTest extends WebDriverTestBase {
 
 	private void assertOneBarByEachRow() throws Exception {
 		int rowCount = getListRowCount(driver);
-		execute(driver, "ListFormat.select", "editor=Charts");
+		execute("ListFormat.select", "editor=Charts");
 		List<WebElement> rects = driver.findElements(By.cssSelector(".ox-chart-data svg .c3-chart rect")); 
 		assertEquals(rowCount, rects.size());
 	}
@@ -42,7 +42,7 @@ public class ChartsTest extends WebDriverTestBase {
 		String listInfo = driver.findElements(By.cssSelector("td.ox-list-info-detail")).get(1).getText();
 		listInfo = listInfo.replaceAll("\\D", "");
         assertTrue(Integer.parseInt(listInfo) > 1000); // No matter the exact count, but it should be more than 1000
-		execute(driver, "ListFormat.select", "editor=Charts");
+		execute("ListFormat.select", "editor=Charts");
 		WebElement selectColumn = driver.findElement(By.id("ox_openxavatest_Color__columns___0___name"));
 		selectColumn.click();
 		selectColumn.findElement(By.cssSelector("option[value='number']")).click();
