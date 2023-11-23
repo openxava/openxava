@@ -7,8 +7,6 @@ import javax.persistence.*;
 import org.openqa.selenium.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
-import org.openxava.util.*;
-import org.openxava.web.*;
 
 /**
  * To test @DescriptionsList related issue with Selenium.
@@ -187,58 +185,10 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		return referenceEditor.findElement(By.className("ui-autocomplete-input"));
 	}
 	
-	private void assertDescriptionValue(String name, String value) { 
-		assertEquals(XavaResources.getString("unexpected_value", name), value, getDescriptionValue(name));		
-	}
+
 	
-	private String getDescriptionValue(String name) {		
-		WebElement input = driver.findElement(By.name(Ids.decorate("openxavatest", module, name + "__DESCRIPTION__")));
-		return input.getAttribute("value");
-	}
+
 	
-	private void assertValue(String name, String value) { // Duplicated with ListTest, refactoring pending
-		assertEquals(XavaResources.getString("unexpected_value", name), value, getValue(name));		
-	}
-	
-	private String getValue(String name) { // Duplicated with ListTest, refactoring pending
-		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
-		return input.getAttribute("value");
-	}
-	
-	/*
-	private void assertValueInList(int row, int column, String expectedValue) { // Duplicated with ListTest, refactoring pending 
-		assertEquals(expectedValue, getValueInList(row, column));				
-	}
-	
-	
-	private String getValueInList(int row, int column) { // Duplicated with ListTest, refactoring pending
-		return getValueInCollection("list", row + 1, column);
-	}
-		
-	private String getValueInCollection(String collection, int row, int column) { // Duplicated with ListTest, refactoring pending
-		return getCell(collection, row + 1, column).getText().trim();
-	}
-	
-	private WebElement getCell(String collection, int row, int column) { // Duplicated with ListTest, refactoring pending
-		WebElement tableRow = getTable(collection).findElements(By.tagName("tr")).get(row);
-		String cellType = row == 0?"th":"td";
-		List<WebElement> cells = tableRow.findElements(By.tagName(cellType));		
-		return cells.get(column + 2);
-	}
-	
-	private WebElement getTable(String collection) { // Duplicated with ListTest, refactoring pending
-		return driver.findElement(By.id("ox_openxavatest_" + module + "__" + collection));
-	}
-	*/
-	private void assertNoErrors() { // Duplicated with ListTest, refactoring pending
-		WebElement errors = driver.findElement(By.id("ox_openxavatest_" + module + "__errors"));
-		assertEquals(XavaResources.getString("unexpected_messages", "Errors"), "", errors.getText());
-	}
-	
-	private void setValue(String name, String value) { // Duplicated with ListTest, refactoring pending
-		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
-		input.clear();
-		input.sendKeys(value);	
-	}
+
 	
 }

@@ -8,6 +8,8 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.interactions.*;
 import org.openqa.selenium.support.ui.*;
+import org.openxava.util.*;
+import org.openxava.web.*;
 
 import junit.framework.*;
 
@@ -20,6 +22,7 @@ abstract public class WebDriverTestBase extends TestCase {
 	
 	private boolean headless = false;
 	protected String module;
+	protected WebDriver driver;
 	
 	protected WebDriver createWebDriver() {
 		ChromeOptions options = new ChromeOptions();
@@ -152,6 +155,7 @@ abstract public class WebDriverTestBase extends TestCase {
 		wait(driver);
 		acceptInDialogJS(driver);
 		this.module = module;
+		this.driver = driver;
 	}
 	
 	protected void moveToListView(WebDriver driver) throws Exception {
@@ -197,16 +201,6 @@ abstract public class WebDriverTestBase extends TestCase {
 	private WebElement getTable(WebDriver driver, String collection) { 
 		return driver.findElement(By.id("ox_openxavatest_" + module + "__" + collection));
 	}
-	/*
-	protected String getValueInList(WebDriver driver, String module, String row, String column) {
-		List<WebElement> elements = driver.findElements(By.cssSelector(".ox_openxavatest_" + module + "__tipable.ox_openxavatest_" + module + "__list_col" + column ));
-		return elements.get(Integer.valueOf(row)).getText();
-	}
-	
-	protected String getValueInCollection(WebDriver driver, String module, String collection, String row, String column) {
-		List<WebElement> elements = driver.findElements(By.cssSelector(".ox_openxavatest_" + module + "__tipable.ox_openxavatest_" + module + "__" + collection + "_col" + column ));
-		return elements.get(Integer.valueOf(row)).getText();
-	}*/
 	
 	protected void assertValueInList(WebDriver driver, int row, int column, String expectedValue) { // Duplicated with DescriptionsListTest, refactoring pending 
 		assertEquals(expectedValue, getValueInList(driver, row, column));				
@@ -267,6 +261,35 @@ abstract public class WebDriverTestBase extends TestCase {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(1000));
 		wait.until(ExpectedConditions.invisibilityOf(removeButton));
 		wait(driver);
+	}
+	
+	protected void assertDescriptionValue(String name, String value) { 
+		assertEquals(XavaResources.getString("unexpected_value", name), value, getDescriptionValue(name));		
+	}
+	
+	protected String getDescriptionValue(String name) {		
+		WebElement input = driver.findElement(By.name(Ids.decorate("openxavatest", module, name + "__DESCRIPTION__")));
+		return input.getAttribute("value");
+	}
+	
+	protected void assertValue(String name, String value) {
+		assertEquals(XavaResources.getString("unexpected_value", name), value, getValue(name));		
+	}
+	
+	protected String getValue(String name) {
+		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
+		return input.getAttribute("value");
+	}
+	
+	protected void setValue(String name, String value) {
+		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
+		input.clear();
+		input.sendKeys(value);	
+	}
+	
+	protected void assertNoErrors() {
+		WebElement errors = driver.findElement(By.id("ox_openxavatest_" + module + "__errors"));
+		assertEquals(XavaResources.getString("unexpected_messages", "Errors"), "", errors.getText());
 	}
 	
 }
