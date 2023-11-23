@@ -14,7 +14,7 @@ public class ChartsTest extends WebDriverTestBase {
 	private WebDriver driver;
 
 	public void setUp() throws Exception {
-		//setHeadless(true); 
+		setHeadless(true); 
 	    driver = createWebDriver();
 	}
 	
@@ -24,8 +24,8 @@ public class ChartsTest extends WebDriverTestBase {
 	
 	public void testCharts() throws Exception {
 		goModule(driver, "Invoice");
-		//moveToListView(driver);
 		assertOneBarByEachRow();
+		moveToListView(driver);
 		
 		goModule(driver, "Color");
 		assertMax120Bars();
@@ -39,8 +39,9 @@ public class ChartsTest extends WebDriverTestBase {
 	}
 	
 	private void assertMax120Bars() throws Exception {
-		String listInfo = driver.findElement(By.cssSelector("tr.ox-list-info-detail")).getText();
-		assertTrue(listInfo.contains("There are 2,120 records in list")); // No matter the exact count, but it should be more than 1000
+		String listInfo = driver.findElements(By.cssSelector("td.ox-list-info-detail")).get(1).getText();
+		listInfo = listInfo.replaceAll("\\D", "");
+        assertTrue(Integer.parseInt(listInfo) > 1000); // No matter the exact count, but it should be more than 1000
 		execute(driver, "ListFormat.select", "editor=Charts");
 		WebElement selectColumn = driver.findElement(By.id("ox_openxavatest_Color__columns___0___name"));
 		selectColumn.click();
@@ -61,16 +62,6 @@ public class ChartsTest extends WebDriverTestBase {
 	
 	private WebElement getTable(String collection) { // Duplicated with ListTest, refactoring pending
 		return driver.findElement(By.id("ox_openxavatest_" + module + "__" + collection));
-	}
-	
-	private void moveToListView(WebDriver driver) throws Exception {
-		WebElement tabList = driver.findElement(By.cssSelector(".mdi.mdi-table-large"));
-		WebElement tabListParent = tabList.findElement(By.xpath(".."));
-		String title = tabListParent.getAttribute("class");
-		if (!(title != null && title.equals("xava_action ox-selected-list-format"))) {
-			tabList.click();
-		}
-		wait(driver);
 	}
 		
 }

@@ -151,4 +151,14 @@ abstract public class WebDriverTestBase extends TestCase {
 		this.module = module;
 	}
 	
+	protected void moveToListView(WebDriver driver) throws Exception {
+		WebElement tabList = driver.findElement(By.cssSelector(".mdi.mdi-table-large"));
+		WebElement tabListParent = tabList.findElement(By.xpath(".."));
+		String title = tabListParent.getAttribute("class");
+		if (!(title != null && title.equals("xava_action ox-selected-list-format"))) {
+			tabList.click();
+		}
+		wait(driver);
+	}
+	
 }

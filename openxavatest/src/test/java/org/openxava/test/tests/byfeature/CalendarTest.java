@@ -291,16 +291,6 @@ public class CalendarTest extends WebDriverTestBase {
 		}
 	}
 
-	private void moveToListView(WebDriver driver) throws Exception {
-		WebElement tabList = driver.findElement(By.cssSelector(".mdi.mdi-table-large"));
-		WebElement tabListParent = tabList.findElement(By.xpath(".."));
-		String title = tabListParent.getAttribute("class");
-		if (!(title != null && title.equals("xava_action ox-selected-list-format"))) {
-			tabList.click();
-		}
-		wait(driver);
-	}
-
 	private void moveToCalendarView(WebDriver driver) throws Exception {
 		WebElement tabCalendar = driver.findElement(By.cssSelector(".mdi.mdi-calendar"));
 		WebElement tabCalendarParent = tabCalendar.findElement(By.xpath(".."));
@@ -325,6 +315,7 @@ public class CalendarTest extends WebDriverTestBase {
 			moveToCalendarView(driver);
 		}
 		waitCalendarEvent(driver);
+		wait(driver);
 	}
 
 	private void moveToTimeGridWeek(WebDriver driver) throws Exception {

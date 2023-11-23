@@ -33,25 +33,17 @@ public class ListTest extends WebDriverTestBase {
 	public void testListAndCollection() throws Exception {
 		goModule(driver, "Author");
 		assertShowHideFilterInList();
-		System.out.println(module);
 		assertMoveColumns();
-		System.out.println(module);
 		assertRemoveColumnAfterFiltering(); 
-		System.out.println(module);
 		assertNoFilterInCollectionByDefault();
-		System.out.println(module);
-		System.out.println("----------");
+
 		goModule(driver, "Carrier");
 		assertEnableDisableCustomizeList(); 
-		System.out.println(module);
 		assertCustomizeCollection();
-		System.out.println(module);
-		System.out.println("----------");
+
 		goModule(driver, "CustomerWithSection");
 		assertCustomizeList();
 		assertCustomizeList_addAndResetModule();
-		System.out.println(module);
-		System.out.println("----------");
 		
 		goModule(driver, "Invoice");
 		assertRemoveSeveralColumns();
@@ -355,14 +347,13 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInList(5, "Details count");
 		assertLabelInList(6, "Paid");
 		assertLabelInList(7, "Importance");		
+		Thread.sleep(50000);
 	}
 	
 	private void assertCustomizeList() throws Exception {
 		doTestCustomizeList_moveAndRemove(); 
 		setHeadless(false); // Because we test PDF generation that in headless works different, saving the file in the file system instead of show a windows
-		System.out.println("before reset " + module);
 		resetModule(); 
-		System.out.println("after reset " + module);
 		doTestCustomizeList_generatePDF();
 		setHeadless(true); 
 		resetModule(); 
@@ -621,7 +612,6 @@ public class ListTest extends WebDriverTestBase {
 		driver.quit();
 		driver = createWebDriver();
 		driver.get("http://localhost:8080/openxavatest/m/" + module); 
-		System.out.println("reset " + module);
 		wait(driver);
 	}
 
