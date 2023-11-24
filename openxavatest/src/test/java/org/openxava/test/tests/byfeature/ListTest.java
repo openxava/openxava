@@ -42,7 +42,7 @@ public class ListTest extends WebDriverTestBase {
 
 		goModule(driver, "CustomerWithSection");
 		assertCustomizeList();
-		assertCustomizeList_addAndResetModule();
+		assertCustomizeList_addAndResetModule(); 
 		
 		goModule(driver, "Invoice");
 		assertRemoveSeveralColumns();
@@ -79,7 +79,7 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInList(0, "Biography"); 
 		assertLabelInList(1, "Author");
 		
-		resetModule();
+		driver = resetModule(driver); 
 		assertLabelInList(0, "Biography");
 		assertLabelInList(1, "Author");
 		
@@ -285,7 +285,7 @@ public class ListTest extends WebDriverTestBase {
 		assertListColumnCount(8);
 		assertValueInList(0, 0, value);
 				
-		resetModule();
+		driver = resetModule(driver); 
 		assertListColumnCount(8); 
 		assertValueInList(0, 0, value);
 		
@@ -352,10 +352,10 @@ public class ListTest extends WebDriverTestBase {
 	private void assertCustomizeList() throws Exception {
 		doTestCustomizeList_moveAndRemove(); 
 		setHeadless(false); // Because we test PDF generation that in headless works different, saving the file in the file system instead of show a windows
-		resetModule(); 
+		driver = resetModule(driver); 
 		doTestCustomizeList_generatePDF();
 		setHeadless(true); 
-		resetModule(); 
+		driver = resetModule(driver);
 		doTestRestoreColumns_addRemoveTabColumnsDynamically();
 	}
 	
@@ -536,12 +536,6 @@ public class ListTest extends WebDriverTestBase {
 		assertValueInList(0, 4, sellerLevel);
 		assertValueInList(0, 5, state); 
 		assertValueInList(0, 6, site);
-	}
-	
-	private void resetModule() throws Exception {
-		driver.quit();
-		driver = createWebDriver();
-		goModule(driver, module);
 	}
 
 	private void showCustomizeControls() {

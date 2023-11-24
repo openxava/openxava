@@ -25,22 +25,18 @@ abstract public class WebDriverTestBase extends TestCase {
 	protected WebDriver driver;
 	
 	protected WebDriver createWebDriver() {
-		ChromeOptions options = new ChromeOptions();
-	    options.addArguments("--remote-allow-origins=*");
-	    options.addArguments("--accept-lang=en");
-	    options.addArguments("--lang=en"); 
-	    if (isHeadless()) {
-		    options.addArguments("--headless"); 
-		    options.addArguments("--disable-gpu"); 	    	
-	    }
-		return new ChromeDriver(options);
+		return createWebDriver("en");
 	}
 	
 	protected WebDriver createWebDriver(String lang) {
 		ChromeOptions options = new ChromeOptions();
 	    options.addArguments("--remote-allow-origins=*");
 	    options.addArguments("--accept-lang=" + lang);
-
+	    options.addArguments("--lang=" + lang); 
+	    if (isHeadless()) {
+		    options.addArguments("--headless"); 
+		    options.addArguments("--disable-gpu"); 	    	
+	    }
 		return new ChromeDriver(options);
 	}
 		
@@ -152,7 +148,7 @@ abstract public class WebDriverTestBase extends TestCase {
 		WebElement tabList = driver.findElement(By.cssSelector(".mdi.mdi-table-large"));
 		WebElement tabListParent = tabList.findElement(By.xpath(".."));
 		String title = tabListParent.getAttribute("class");
-		if (!(title != null && title.equals("xava_action ox-selected-list-format"))) {
+		if (!(title != null && title.equals("xava_actio n ox-selected-list-format"))) {
 			tabList.click();
 		}
 		wait(driver);
@@ -303,6 +299,13 @@ abstract public class WebDriverTestBase extends TestCase {
 		select.selectByVisibleText(value);
 		wait(driver);
 		if (b) execute("List.filter");
+	}
+	
+	protected WebDriver resetModule(WebDriver driver) throws Exception {
+		driver.quit();
+		WebDriver newDriver = createWebDriver();
+		goModule(newDriver, module);
+		return newDriver;
 	}
 	
 }
