@@ -92,7 +92,7 @@ public class ListTest extends WebDriverTestBase {
 	private void assertRemoveColumnAfterFiltering() throws Exception {
 		assertListRowCount(2);
 		assertListColumnCount(2);
-		setConditionValues("J");
+		setConditionValue("J", 0);
 		execute("List.filter");
 		assertListRowCount(1);
 		showCustomizeControls();
@@ -537,21 +537,6 @@ public class ListTest extends WebDriverTestBase {
 		assertValueInList(0, 5, state); 
 		assertValueInList(0, 6, site);
 	}
-
-	private void assertNoAction(String qualifiedAction) {
-		String [] action = qualifiedAction.split("\\.");
-		String name = "ox_openxavatest_" + module + "__action___" + action[0] + "___" + action[1];
-		assertTrue(XavaResources.getString("action_found_in_ui", action), driver.findElements(By.name(name)).isEmpty());
-	}
-
-	private void clearListCondition() throws Exception{
-		driver.findElement(By.id("ox_openxavatest_Author__xava_clear_condition")).click();
-		wait(driver);
-	}
-
-	private void setConditionValues(String value) { // One argument by now, but we could evolution to String ... value 
-		driver.findElement(By.id("ox_openxavatest_" + module + "__conditionValue___0")).sendKeys(value); 		
-	}
 	
 	private void resetModule() throws Exception {
 		driver.quit();
@@ -567,13 +552,11 @@ public class ListTest extends WebDriverTestBase {
 		driver.findElement(By.id("ox_openxavatest_" + module + "__customize_" + collection)).click();
 	}
 	
-
-
-
-
-
-	
-
+	private void assertNoAction(String qualifiedAction) {
+		String [] action = qualifiedAction.split("\\.");
+		String name = "ox_openxavatest_" + module + "__action___" + action[0] + "___" + action[1];
+		assertTrue(XavaResources.getString("action_found_in_ui", action), driver.findElements(By.name(name)).isEmpty());
+	}
 	
 	private void assertCollectionFilterDisplayed() { 
 		assertTrue(driver.findElement(By.id("ox_openxavatest_Author__xava_collectionTab_humans_conditionValue___0")).isDisplayed());

@@ -60,17 +60,16 @@ public class TreeTest extends WebDriverTestBase{
 		childItem2CheckBox.click();
 		execute("TreeView.new", "viewObject=xava_view_treeItems");
 		setValue("description", "A");
-		WebElement save = driver.findElement(By.id("ox_openxavatest_TreeContainer__TreeView___save"));
-		save.click();
+		execute("TreeView.save");
 		wait(driver);
 
+		//need locate and click manually
 		WebElement createNewButtonElement = driver.findElement(By.xpath("//a[@data-application='openxavatest' and @data-module='TreeContainer' and @data-action='TreeView.new' and @data-argv='viewObject=xava_view_treeItems']"));
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", createNewButtonElement); // must clicked manually because the element is not interactable
 		Thread.sleep(500); //sometimes need
 		acceptInDialogJS(driver);
 		setValue("description","B");
-		save = driver.findElement(By.id("ox_openxavatest_TreeContainer__TreeView___save"));
-		save.click();
+		execute("TreeView.save");
 		wait(driver);
 	}
 	
@@ -82,8 +81,7 @@ public class TreeTest extends WebDriverTestBase{
 		wait(driver);
 		
 		setValue("description", "AA");
-		WebElement save = driver.findElement(By.id("ox_openxavatest_TreeContainer__TreeView___save"));
-		save.click();
+		execute("TreeView.save");
 		wait(driver);
 		
 		assertEquals("AA", findElement(driver, By.id(nodesId.get("a") + "_anchor")).getText()); 

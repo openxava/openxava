@@ -185,10 +185,4 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		return referenceEditor.findElement(By.className("ui-autocomplete-input"));
 	}
 	
-
-	
-
-	
-
-	
 }

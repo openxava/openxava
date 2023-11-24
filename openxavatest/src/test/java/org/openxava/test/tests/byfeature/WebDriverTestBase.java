@@ -29,10 +29,6 @@ abstract public class WebDriverTestBase extends TestCase {
 	    options.addArguments("--remote-allow-origins=*");
 	    options.addArguments("--accept-lang=en");
 	    options.addArguments("--lang=en"); 
-	    
-	    //Sometime needs set path and update manually chromedriver when chrome just been updated
-	    //https://googlechromelabs.github.io/chrome-for-testing/
-	    //System.setProperty("webdriver.chrome.driver", "C:/Program Files/Google/Chrome/Application/chromedriver.exe");
 	    if (isHeadless()) {
 		    options.addArguments("--headless"); 
 		    options.addArguments("--disable-gpu"); 	    	
@@ -275,16 +271,38 @@ abstract public class WebDriverTestBase extends TestCase {
 		return input.getAttribute("value");
 	}
 	
+	protected String getText(String name) {
+		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
+		return input.getText();
+	}
+	
 	protected void setValue(String name, String value) throws Exception {
 		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
 		input.clear();
 		input.sendKeys(value);	
-		//wait(driver);
 	}
 	
 	protected void assertNoErrors() {
 		WebElement errors = driver.findElement(By.id("ox_openxavatest_" + module + "__errors"));
 		assertEquals(XavaResources.getString("unexpected_messages", "Errors"), "", errors.getText());
+	}
+	
+	protected void clearListCondition() throws Exception{
+		driver.findElement(By.id("ox_openxavatest_" +  module + "__xava_clear_condition")).click();
+		wait(driver);
+	}
+
+	protected void setConditionValue(String value, int column) {
+		driver.findElement(By.id("ox_openxavatest_" + module + "__conditionValue___" + String.valueOf(column))).sendKeys(value); 		
+	}
+	
+	protected void setConditionComparator(String value, int column) throws Exception {
+		WebElement selectCondition = driver.findElement(By.id("ox_openxavatest_" + module + "__conditionComparator___" + String.valueOf(column)));
+		Select select = new Select(selectCondition);
+		boolean b = select.getFirstSelectedOption().getText().equals(value);
+		select.selectByVisibleText(value);
+		wait(driver);
+		if (b) execute("List.filter");
 	}
 	
 }
