@@ -148,7 +148,7 @@ abstract public class WebDriverTestBase extends TestCase {
 		WebElement tabList = driver.findElement(By.cssSelector(".mdi.mdi-table-large"));
 		WebElement tabListParent = tabList.findElement(By.xpath(".."));
 		String title = tabListParent.getAttribute("class");
-		if (!(title != null && title.equals("xava_actio n ox-selected-list-format"))) {
+		if (!(title != null && title.equals("xava_action ox-selected-list-format"))) {
 			tabList.click();
 		}
 		wait(driver);

@@ -150,7 +150,9 @@ public class CalendarTest extends WebDriverTestBase {
 		dayTimeCell.click();
 		wait(driver);
 
-		assertTrue(getValue("time").contains("2:30"));
+		WebElement dateTime = driver.findElement(By.id("ox_openxavatest_Appointment__time"));
+		String dateTimeInput = dateTime.getAttribute("value");
+		assertTrue(dateTimeInput.contains("2:30"));
 		setValue("description", "A");
 		execute("CRUD.save");
 		execute("Mode.list");
@@ -170,7 +172,9 @@ public class CalendarTest extends WebDriverTestBase {
 				By.cssSelector(".fc-event.fc-event-draggable.fc-event-resizable.fc-event-start.fc-event-end"));
 		event.click();
 		wait(driver);
-		assertTrue(getValue("time").contains("2:30"));
+		dateTime = driver.findElement(By.id("ox_openxavatest_Appointment__time"));
+		dateTimeInput = dateTime.getAttribute("value");
+		assertTrue(dateTimeInput.contains("2:30"));
 		execute("CRUD.delete");
 		execute("Mode.list");
 		waitCalendarEvent(driver);
@@ -235,13 +239,21 @@ public class CalendarTest extends WebDriverTestBase {
 		List<Date> dates = setDates();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String dateString = dateFormat.format(dates.get(1));
-		WebElement day = driver.findElement(By.xpath("//td[@data-date='" + dateString + "']//a[@class='fc-daygrid-day-number']"));
+		WebElement day;
+		day = driver.findElement(By.xpath("//td[@data-date='" + dateString + "']//a[@class='fc-daygrid-day-number']"));
 		day.click();
 		wait(driver);
-		
+		Thread.sleep(500);
 		List<WebElement> days = driver.findElements(By.xpath("//td[@data-date='" + dateString + "']//a[@class='fc-daygrid-day-number']"));
-		if (days.size() > 0) day.click(); wait(driver);
-		//sometimes test not work here
+		if (days.size() > 0) {
+			//sometimes test not work here
+			driver.navigate().refresh();
+			waitCalendarEvent(driver);
+			day = driver.findElement(By.xpath("//td[@data-date='" + dateString + "']//a[@class='fc-daygrid-day-number']"));
+			day.click();
+			wait(driver);
+		}
+		
 		WebElement startDate = driver.findElement(By.id("ox_openxavatest_Event__startDate"));
 		blur(startDate);
 		Thread.sleep(500); // sleep needed after blur
