@@ -1944,6 +1944,7 @@ td.ox-list-subheader > div {
 
 .ox-subcontroller {
 	display:none;
+	position: fixed; 
 }
 
 .ox-subcontroller-button img {
@@ -1953,7 +1954,6 @@ td.ox-list-subheader > div {
 .ox-subcontroller, .ui-autocomplete { 
 	padding: 10px 5px 10px 5px;
 	margin: 14px 0px 0px -4px;
-	position: absolute;   	 
 	background: var(--subcontroller-background);  
 	display: none;  
 	z-index: 999999;
@@ -1962,6 +1962,10 @@ td.ox-list-subheader > div {
 	border-bottom-right-radius: 2px;
 	border-top-left-radius: 2px;
 	border-top-right-radius: 2px;	
+}
+
+.ui-autocomplete { 
+	position: absolute; 
 }
 
 .ox-subcontroller .ox-button-bar-button a, .ox-subcontroller .ox-button-bar-button a:hover {

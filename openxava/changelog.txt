@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Incorrect placement of subcontroller popup in collections.
 - Fix: Charts do not show a bar for each row in list mode, but only shows a bar for the first row.
 
 OpenXava 7.2 (2023-11-17)
