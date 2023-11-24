@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Multiempresa/multimunicipio - OpenXava</title>
+    <title>Ingerienia inversa - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,15 +9,191 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Multiempresa/multimunicipio"></a> <span id="breadcrumbs"> <span
+      <h1 id="toc0"><a name="Ingenieria inversa"></a> <span id="breadcrumbs"> <span
             id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
-            href="index_es.html">documentación</a> / </span> Multiempresa/multimunicipio</h1>
+            href="index_es.html">documentación</a> / </span> Ingenieria inversa</h1>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
-        <div style="margin-left: 1em;"><a href="#Multiempresa/multimunicipio">Multiempresa/multimunicipio</a></div>
+        <div style="margin-left: 1em;"><a href="#Instalar%20software%20necesarios%20en%20Eclipse">Instalar software necesarios en Eclipse</a></div>
+        <div style="margin-left: 1em;"><a href="#Crear%20proyecto%20OpenXava%20vacio">Crear proyecto OpenXava vacio </a></div>
+        <div style="margin-left: 1em;"><a href="#Generar%20entidades%20a%20partir%20de%20tablas">Generar entidades a partir de tablas</a></div>
+        <div style="margin-left: 1em;"><a href="#Adaptar+c%C3%B3digo">Adaptar código<br>
+          </a></div>
         <br>
       </div>
-      La ingeniería inversa o retroingeniería es el proceso llevado a cabo con el objetivo de obtener información o un diseño a partir de un producto, en el caso de ingenieria inversa de un modelo desde una base de datos existente, nos referimos a obtener las entidades que mapean las tablas de la base de datos.</div>
-    <div class="wiki" style="display: block;">En este articulo, usaremos Dali de Eclipse para generar las entidades de una base de datos simple y adaptarlo para ser usado en OpenXava</div>
+      En este artículo vamos a ver como generar una aplicación OpenXava automáticamente a partir de una base de datos ya existente. Usaremos Dali de Eclipse para generar las entidades de una base de datos MySQL y adaptarlo para ser usado en OpenXava. Para esto debes tener , <a
+        href="https://dev.mysql.com/downloads/workbench/">MySQL</a>(debes tener al menos una base de datos en MySQL para el artículo), <a
+        href="https://openxava.org/">OpenXava Studio</a> y <a href="https://www.eclipse.org/downloads/packages/">Eclipse IDE for Enterprise Java and Web Developers</a>, para este artículo usamos la versión <a
+        href="https://www.eclipse.org/downloads/packages/release/2023-09/r">2023-09</a>.</div>
+    <div class="wiki" style="display: block;"><img src="files/reverse-engineering_10.jpg"
+        title="reverse-engineering_10.jpg" alt="reverse-engineering_10.jpg"><br>
+      <br>
+      <h2 id="toc1"><a name="Crear Proyecto JPA y conexión a base de datos"></a>Crear Proyecto JPA y conexión a base de datos</h2>
+    </div>
+    <div class="wiki" style="display: block;">Antes de todo, debes tener iniciado MySQL y tener al menos una base de datos</div>
+    <div class="wiki" style="display: block;"><img src="files/reverse-engineering_20.jpg"
+        title="reverse-engineering_20.jpg" alt="reverse-engineering_20.jpg"></div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">El paquete de Eclipse que instalamos tiene Dali y DTP instalado, en caso que no hayas instalado esa versión, deberás hacerlo manualmente. <br>
+      Procedemos a crear un proyecto JPA con File &gt; New &gt; JPA Project <br>
+      <img src="files/reverse-engineering_30.jpg" title="reverse-engineering_30.jpg"
+        alt="reverse-engineering_30.jpg"><br>
+      <br>
+      Ingresamos el nombre del proyecto, y luego en Target runtime seleccionamos alguna versión de Java 1.8 en adelante instalado, JPA version 2.2. <br>
+      <img src="files/reverse-engineering_40.jpg" title="reverse-engineering_40.jpg"
+        alt="reverse-engineering_40.jpg"><br>
+      <br>
+      Seleccionamos Next hasta ver la siguiente pantalla, aquí en JPA implementation deshabilitamos las configuraciones de libreria eligiendo Disable Library Configuration. Luego procedemos con crear la conexión a la base de datos con Add connection <br>
+      <img src="files/reverse-engineering_50.jpg" title="reverse-engineering_50.jpg"
+        alt="reverse-engineering_50.jpg"><br>
+      <br>
+      En la ventana que aparece debemos seleccionar la base de datos que tenemos, en nuestro caso sera MySQL, puedes nombrar el nombre de la conexión en Name <br>
+      <img src="files/reverse-engineering_60.jpg" title="reverse-engineering_60.jpg"
+        alt="reverse-engineering_60.jpg"><br>
+      <br>
+      Aqui es donde vamos a seleccionar el driver que usaremos para la conexión, procedemos a crear uno nuevo como esta en la imagen. <br>
+      <img src="files/reverse-engineering_70.jpg" title="reverse-engineering_70.jpg"
+        alt="reverse-engineering_70.jpg"><br>
+      <br>
+      Seleccionamos MySQL JDBC Driver 5.1 y en Driver name lo nombramos para identificarlo cada vez que lo usamos <br>
+      <img src="files/reverse-engineering_80.jpg" title="reverse-engineering_80.jpg"
+        alt="reverse-engineering_80.jpg"><br>
+      <br>
+      Aquí removemos el driver por defecto y añadimos el más nuevo que puedes descargarlo <a
+        href="https://dev.mysql.com/downloads/connector/j/?os=26">aquí</a>, recuerda descargar la opción ZIP, una vez descargado lo añades con Add Jar/Zip <br>
+      <img src="files/reverse-engineering_90.jpg" title="reverse-engineering_90.jpg"
+        alt="reverse-engineering_90.jpg"><br>
+      <br>
+      Debería quedar algo parecido a esto, le damos Ok. <br>
+      <img src="files/reverse-engineering_100.jpg" title="reverse-engineering_100.jpg"
+        alt="reverse-engineering_100.jpg"><br>
+      <br>
+      Nos llevara a la ventana anterior, donde ahora debemos rellenar los datos, en Database podemos usar cualquier nombre para diferenciarlo de otras conecciones, en URL debemos poner la conexión a la base de datos, recuerda cambiar database por el esquema, por último rellena usuario y contraseña que usas para conectarte a la base de datos. Una vez completo, tildamos Save password y apretamos en Finish. <br>
+      <img src="files/reverse-engineering_110.jpg" title="reverse-engineering_110.jpg"
+        alt="reverse-engineering_110.jpg"><br>
+      <br>
+      Ahora verás la primera ventana, alli tilda la opcion de Override default schema from connection y selecciona el equema de la conexión, luego presiona en Finish y ya tendrias el proyecto JPA creado y también la conexión a tu base de datos. <br>
+      <img src="files/reverse-engineering_120.jpg" title="reverse-engineering_120.jpg"
+        alt="reverse-engineering_120.jpg"><br>
+      <br>
+      Al apretar finish, en algunos casos te puede aparecer una ventana para abrir una perspectiva, en caso de que no hay puedes visualizar la conexión en el panel Data Source Explorer en Windows &gt; Show View &gt; Data Source Explorer <br>
+      <img src="files/reverse-engineering_130.jpg" title="reverse-engineering_130.jpg"
+        alt="reverse-engineering_130.jpg"><br>
+      <br>
+      Si no aparece en Show View, deberás agregarlo manualmente desde Other... ingresando data source en la ventana que te aparece <br>
+      <img src="files/reverse-engineering_140.jpg" title="reverse-engineering_140.jpg"
+        alt="reverse-engineering_140.jpg"><br>
+      <br>
+      Ahora si en el panel de Data Source Explorer, podrás ver la conexión a la base de datos. <br>
+      <img src="files/reverse-engineering_150.jpg" title="reverse-engineering_150.jpg"
+        alt="reverse-engineering_150.jpg"><br>
+      <br>
+      <h2 id="toc1"><a name="Crear proyecto OpenXava vacio"></a>Crear proyecto OpenXava vacio</h2>
+      Vamos a preparar nuestro proyecto de OpenXava, aquí pegaremos el código que generaremos automaticamente más tarde. En OpenXava &gt; New OpenXava Project ingresa el nombre y group.id del proyecto <br>
+      img <br>
+      Ahora debemos conectar el proyecto de OpenXava a nuestra base de datos MySQL, en el archivo pom.xml descomentamos la dependencia de MySQL <br>
+      img <br>
+      Agregamos el dialecto de hibernate en el archivo persistence.xml ubicado en la carpeta src/main/resources/META-INF <br>
+      img <br>
+      Y configuramos la conexión en el archivo context.xml en la carpeta src/main/webapp/META-INF, aca debemos comentar la conexión a HSQLDB y descomentar el de MySQL, luego cambiar el url, usuario y contraseña tal como lo hiciste en Eclipse. <br>
+      img <br>
+      Con esto alcanzaría, haz un maven install haciendo click derecho en la carpeta del proyecto Run As &gt; Maven install <br>
+      img <br>
+      <h2 id="toc1"><a name="Generar entidades a partir de tablas"></a>Generar entidades a partir de tablas</h2>
+      El objetivo final de este articulo, es generar las entidades para todas las tablas que necesitemos de la base de datos, ya tenemos la conexión hecha, ahora queda generarlas. Has clic derecho en el proyecto y presiona en JPA Tools &gt; Generate Entities from Tables... <br>
+      <img src="files/reverse-engineering_160.jpg" title="reverse-engineering_160.jpg"
+        alt="reverse-engineering_160.jpg"><br>
+      <br>
+      Aca debes seleccionar las tablas que quieras generarle una clase/entidad, vamos a seleccionar todos excepto images y oxdiscussioncomments que son generados automaticamente en OpenXava <br>
+      <img src="files/reverse-engineering_170.jpg" title="reverse-engineering_170.jpg"
+        alt="reverse-engineering_170.jpg"><br>
+      <br>
+      En esta vista te muestra todas las relaciones entre las tablas que ha encontrado, puedes añadir o bien, quitar relaciones que hay, recuerda que estas relaciones se convertiran en código de la clase generada. Luego aprieta Next <br>
+      <img src="files/reverse-engineering_180.jpg" title="reverse-engineering_180.jpg"
+        alt="reverse-engineering_180.jpg"><br>
+      <br>
+      En esta pantalla tienes varias opciones para elegir, nosotros dejaremos todo por defecto y solo cambiaremos en Collection properties type a java.util.List y marcamos la opción de Always generate optional JPA annotations and DDL parameters, más abajo en Package, debes poner tal como lo tienes en OpenXava, en nuestro caso sera com.yourcompany.invoicing.model, y ya podemos presionar en Next <br>
+      <img src="files/reverse-engineering_190.jpg" title="reverse-engineering_190.jpg"
+        alt="reverse-engineering_190.jpg"><br>
+      <br>
+      Aca podemos explorar tabla por tabla, y adaptar cada propiedad, por ejemplo OpenXava no trabaja con TINYINT, BLOB, GEOMETRY, entre otros. <br>
+      <img src="files/reverse-engineering_200.jpg" title="reverse-engineering_200.jpg"
+        alt="reverse-engineering_200.jpg"><br>
+      <br>
+      Al seleccionar una propiedad, nos permite cambiar el nombre del mismo, como tambien el tipo de la propiedad y si esa propiedad es id o no. Le damos clic en finish y esperamos a que generen todas las clases. <br>
+      <img src="files/reverse-engineering_210.jpg" title="reverse-engineering_210.jpg"
+        alt="reverse-engineering_210.jpg"><br>
+      <br>
+      Una vez con las clases generadas, debemos copiar todas y pegarlo en el paquete com.yourcompany.invoicing.model, deberia quedarte asi <br>
+      img <br>
+      <h2 id="toc1"><a name="Adaptar código"></a>Adaptar código</h2>
+      <div class="wiki" style="display: block;"> El código autogenerado es suficiente pero no esta adaptado para funcionar en una aplicación OpenXava, vamos a hacer algunas modificaciones, algunas son opcionales. En Author tenemos una relación de @OneToMany con Product, donde nos indica que cada autor puede tener muchos productos, es decir, nos interesa mostrar varios productos relacionados con el autor seleccionado, agregamos una anotación @ListProperties() con los parámetros "number, description, price" </div>
+      <pre><code class="java">@OneToMany(mappedBy="author")
+@ListProperties("number, description, price")
+private List&lt;Product&gt; products;
+</code></pre><br>
+      En Category vamos a hacer algo similar, agregar una anotacion @ListProperties en la relación con Product, @ListProperties("number, description") <br>
+      <pre><code class="java">@OneToMany(mappedBy="category")
+@ListProperties("number, description")
+private List&lt;Product&gt; products;
+</code></pre> <br>
+      En Customer, tenemos una relación con Invoice, le agregamos la anotación @ListProperties("number, date"), recuerda que estas propiedades deben llamarse igual en la clase referenciada. <br>
+      <pre><code class="java">@OneToMany(mappedBy="customer")
+@ListProperties("number, date")
+private List&lt;Invoice&gt; invoices;
+</code></pre> <br>
+      En Invoice tenemos dos relaciones, @ManyToOne con Customer y @OneToMany con InvoiceDetail. Vamos a dejar Customer como está y en InvoiceDetail eliminamos la anotación de @OneToMany, en su lugar agregaremos 2 anotaciones, @ElementCollection y @ListProperties("product.number, product.desciption, quantity") <br>
+      <pre><code class="java">@ManyToOne
+@JoinColumn(name="customer_number", nullable=false)
+private Customer customer;.
+
+@ElementCollection
+@ListProperties("product.number, product.description, quantity")
+private List&lt;InvoiceDetail&gt; invoiceDetails;
+</code></pre> <br>
+      En InvoiceDetail, vemos que esta clase no tiene ninguna propiedad @Id, ya que en su lógica, es una clase incrustada. Cambiamos @Entity por @Embeddable y eliminamos la relación con Invoice ya que no nos interesa. <br>
+      <code class="java"></code>
+      <pre><code class="java">@Embeddable
+@Table(name="invoice_details")
+@NamedQuery(name="InvoiceDetail.findAll", query="SELECT i FROM InvoiceDetail i")
+public class InvoiceDetail implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Column(nullable=false)
+	private int quantity;
+
+	//bi-directional many-to-one association to Product
+	@ManyToOne
+	@JoinColumn(name="product_number")
+	private Product product;
+
+	......
+}
+</code></pre> <br>
+      Por último nos queda adaptar Product, tenemso 3 relaciones, InvoiceDetail, Author y Category. No nos interesa su relación, pero si los otros dos, Agregamos una anotación @DescriptionsList en Author y Category .</div>
+    <div class="wiki" style="display: block;">Por último eliminamos la relación con InvoiceDetail, también debemos eliminar métodos en la misma clase.<br>
+      <pre><code class="java">//bi-directional many-to-one association to Author
+@ManyToOne
+@JoinColumn(name="author_oid")
+@DescriptionsList
+private Author author;
+
+//bi-directional many-to-one association to Category
+@ManyToOne
+@JoinColumn(name="category_oid")
+@DescriptionsList
+private Category category;
+</code></pre> <br>
+      Ahora podemos iniciar la aplicación<br>
+      img<br>
+      link<br>
+      <br>
+      En la izquierda está el panel de módulos, actualmente estamos en el módulo de Invoice donde primero se muestran las propiedades de Invoice, al medio se muestra la relación @ManyToOne con customer y por último esta la colección de invoiceDetails, verás que una de las características de OpenXava es poder brindar una forma distinta de visualizar la propiedad dependiendo de sus anotaciones, para más información puedes seguir el <a
+        href="https://openxava.org/OpenXavaDoc/docs/course_es.html">curso de OpenXava</a>.<br>
+      <img src="files/reverse-engineering_220.jpg" title="reverse-engineering_220.jpg"
+        alt="reverse-engineering_220.jpg"><br>
+      <br>
+    </div>
   </body>
 </html>
