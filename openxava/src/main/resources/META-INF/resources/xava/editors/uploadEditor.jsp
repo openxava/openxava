@@ -33,8 +33,10 @@ String dataMultiple = multiple?"data-multiple='true'":"";
 boolean preview = !"false".equals(request.getParameter("imagePreview"));
 String dataPreview = !preview?"data-preview='false'":"";
 String script = request.getParameter("script");
+/* tmr
 boolean throwsChanged = script != null && script.contains(".throwPropertyChanged(");
 String dataThrowsChanged = throwsChanged?"data-throws-changed='true'":"";
+*/
 String acceptFileTypes = request.getParameter("acceptFileTypes");
 if (!Is.emptyString(acceptFileTypes) && acceptFileTypes.toLowerCase().contains("text/csv")) {
 	acceptFileTypes += ",.csv";
@@ -53,7 +55,7 @@ String dataFileSizeInKb = Is.emptyString(maxFileSizeInKb) || "-1".equals(maxFile
 	<%=dataFiles%> 
 	<%=dataEmpty%>
 	<%=dataEditable%>
-	<%=dataThrowsChanged%>
+	<%-- tmr <%=dataThrowsChanged%> --%>
 	<%=dataFileSizeInKb%> 
 /> 
 
