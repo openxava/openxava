@@ -49,14 +49,14 @@ abstract public class WebDriverTestBase extends TestCase {
 	}
 		
 	protected void wait(WebDriver driver) throws Exception {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(100));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(300)); // 100 is too short, at least 300
 		try {
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("xava_loading")));
 		}
 		catch (Exception ex) {
 		}
 		wait = new WebDriverWait(driver, Duration.ofSeconds(10)); 
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("xava_loading"))); 
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("xava_loading"))); //sometimes this code cause error in calendar
 	}
 	
 	protected void wait(WebDriver driver, By expectedElement) { 
@@ -129,12 +129,6 @@ abstract public class WebDriverTestBase extends TestCase {
 		WebElement a = span.findElement(By.xpath(".."));
 		a.click();
 		wait(driver);
-	}
-	
-	protected void insertValueToInput(String id, String value, boolean delete) {
-		WebElement inputElement = driver.findElement(By.id(id));
-		if (delete == true) inputElement.clear();
-        inputElement.sendKeys(value);
 	}
 
 	protected boolean isHeadless() {
@@ -281,10 +275,11 @@ abstract public class WebDriverTestBase extends TestCase {
 		return input.getAttribute("value");
 	}
 	
-	protected void setValue(String name, String value) {
+	protected void setValue(String name, String value) throws Exception {
 		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
 		input.clear();
 		input.sendKeys(value);	
+		//wait(driver);
 	}
 	
 	protected void assertNoErrors() {

@@ -557,12 +557,8 @@ public class ListTest extends WebDriverTestBase {
 		driver.quit();
 		driver = createWebDriver();
 		goModule(driver, module);
-		//driver.get("http://localhost:8080/openxavatest/m/" + module); 
-		//wait(driver);
 	}
 
-
-	
 	private void showCustomizeControls() {
 		showCustomizeControls("list");
 	}

@@ -59,7 +59,7 @@ public class TreeTest extends WebDriverTestBase{
 		WebElement childItem2CheckBox = findElement(driver, By.xpath("//a[@id='"+ nodesId.get("child2") +"_anchor']/i")); 
 		childItem2CheckBox.click();
 		execute("TreeView.new", "viewObject=xava_view_treeItems");
-		insertValueToInput("ox_openxavatest_TreeContainer__description", "A", false);
+		setValue("description", "A");
 		WebElement save = driver.findElement(By.id("ox_openxavatest_TreeContainer__TreeView___save"));
 		save.click();
 		wait(driver);
@@ -68,7 +68,7 @@ public class TreeTest extends WebDriverTestBase{
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", createNewButtonElement); // must clicked manually because the element is not interactable
 		Thread.sleep(500); //sometimes need
 		acceptInDialogJS(driver);
-		insertValueToInput("ox_openxavatest_TreeContainer__description","B", false);
+		setValue("description","B");
 		save = driver.findElement(By.id("ox_openxavatest_TreeContainer__TreeView___save"));
 		save.click();
 		wait(driver);
@@ -81,7 +81,7 @@ public class TreeTest extends WebDriverTestBase{
 		actions.doubleClick(aElement).perform();
 		wait(driver);
 		
-		insertValueToInput("ox_openxavatest_TreeContainer__description", "AA", true);
+		setValue("description", "AA");
 		WebElement save = driver.findElement(By.id("ox_openxavatest_TreeContainer__TreeView___save"));
 		save.click();
 		wait(driver);
@@ -118,7 +118,7 @@ public class TreeTest extends WebDriverTestBase{
 		execute("CollectionCopyPaste.cut", "viewObject=xava_view_treeItems");
 		execute("Mode.list");
 		execute("CRUD.new");
-		insertValueToInput("ox_openxavatest_TreeContainer__description", "BB", false);
+		setValue("description", "BB");
 		execute("CollectionCopyPaste.paste", "viewObject=xava_view_treeItems");
 		WebElement bElement = findElement(driver, By.id(nodesId.get("b") + "_anchor")); 
 		assertTrue(bElement.getText().equals("B"));
@@ -181,11 +181,6 @@ public class TreeTest extends WebDriverTestBase{
 		WebElement childElement = parentElement.findElement(By.id(childElementId));
 		return (childElement != null);
 	}
-	/*
-	private String getValueInList(WebDriver driver, String model, String row, String column) {
-		List<WebElement> elements = driver.findElements(By.cssSelector(".ox_openxavatest_" + model + "__tipable.ox_openxavatest_" + model + "__list_col" + column ));
-		return elements.get(Integer.valueOf(row)).getText();
-	}*/
 	
 	private void addTreeIdValues(String rootId) {
 		nodesId = new HashMap<>();
@@ -200,8 +195,6 @@ public class TreeTest extends WebDriverTestBase{
 	}
 	
 	private void addNewNodeId(WebDriver driver) throws Exception {
-//		nodesId.put("a", getValueInList(driver, "TreeItem", "7", "0"));
-//		nodesId.put("b", getValueInList(driver, "TreeItem", "8", "0"));
 		nodesId.put("a", getValueInList(7, 0));
 		nodesId.put("b", getValueInList(8, 0));
 	}

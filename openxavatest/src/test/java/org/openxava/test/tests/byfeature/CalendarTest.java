@@ -19,7 +19,7 @@ public class CalendarTest extends WebDriverTestBase {
 	private WebDriver driver;
 
 	public void setUp() throws Exception {
-		setHeadless(true);
+		//setHeadless(true);
 		driver = createWebDriver();
 	}
 
@@ -28,15 +28,23 @@ public class CalendarTest extends WebDriverTestBase {
 	}
 
 	private void nextOnCalendar() throws Exception {
+		String s = driver.findElement(By.cssSelector(".fc-toolbar-title")).getText();
 		WebElement next = driver.findElement(By.cssSelector(".fc-icon.fc-icon-chevron-right"));
 		next.click();
 		waitCalendarEvent(driver);
+		if (s.equals(driver.findElement(By.cssSelector(".fc-toolbar-title")).getText())) {
+			nextOnCalendar();
+		}
 	}
 
 	private void prevOnCalendar() throws Exception {
+		String s = driver.findElement(By.cssSelector(".fc-toolbar-title")).getText();
 		WebElement prev = driver.findElement(By.cssSelector(".fc-icon.fc-icon-chevron-left"));
 		prev.click();
 		waitCalendarEvent(driver);
+		if (s.equals(driver.findElement(By.cssSelector(".fc-toolbar-title")).getText())) {
+			prevOnCalendar();
+		}
 	}
 
 	public void testNavigationInDateCalendarAndDateTimeCalendar() throws Exception {
@@ -143,7 +151,7 @@ public class CalendarTest extends WebDriverTestBase {
 		WebElement dateTime = driver.findElement(By.id("ox_openxavatest_Appointment__time"));
 		String dateTimeInput = dateTime.getAttribute("value");
 		assertTrue(dateTimeInput.contains("2:30"));
-		insertValueToInput("ox_openxavatest_Appointment__description", "A", false);
+		setValue("description", "A");
 		execute("CRUD.save");
 		execute("Mode.list");
 		waitCalendarEvent(driver);
@@ -191,10 +199,10 @@ public class CalendarTest extends WebDriverTestBase {
 	}
 
 	private void createInvoice(int invoiceNUmber) throws Exception {
-		insertValueToInput("ox_openxavatest_Invoice__number", String.valueOf(10 + invoiceNUmber), false);
-		insertValueToInput("ox_openxavatest_Invoice__customer___number", "1", false);
+		setValue("number", String.valueOf(10 + invoiceNUmber));
+		setValue("customer.number", "1");
 		clickOnSectionWithChildSpanId("ox_openxavatest_Invoice__label_xava_view_section2_sectionName");
-		insertValueToInput("ox_openxavatest_Invoice__vatPercentage", "3", false);
+		setValue("vatPercentage", "3");
 		execute("CRUD.save");
 		execute("Mode.list");
 		waitCalendarEvent(driver);
@@ -252,6 +260,7 @@ public class CalendarTest extends WebDriverTestBase {
 		WebElement day = driver.findElement(By.xpath("//td[@data-date='" + dateString + "']//a[@class='fc-daygrid-day-number']"));
 		day.click();
 		wait(driver);
+		wait(driver, By.id("ox_openxavatest_Event__startDate"));
 		WebElement startDate = driver.findElement(By.id("ox_openxavatest_Event__startDate"));
 		blur(startDate);
 		Thread.sleep(500); // sleep needed after blur
@@ -267,7 +276,7 @@ public class CalendarTest extends WebDriverTestBase {
 			spanElement.click();
 		}
 		wait(driver);
-		insertValueToInput("ox_openxavatest_Event__name", "TEST", false);
+		setValue("name", "TEST");
 		execute("CRUD.save");
 		execute("Mode.list");
 		waitCalendarEvent(driver);
