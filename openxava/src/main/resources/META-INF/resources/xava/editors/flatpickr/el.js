@@ -1,7 +1,7 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.gr = {}));
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.el = {}));
 }(this, (function (exports) { 'use strict';
 
   var fp = typeof window !== "undefined" && window.flatpickr !== undefined
@@ -62,11 +62,11 @@
       toggleTitle: "Κάντε κλικ για αλλαγή",
       amPM: ["ΠΜ", "ΜΜ"],
   };
-  fp.l10ns.gr = Greek;
-  var gr = fp.l10ns;
+  fp.l10ns.el = Greek;
+  var el = fp.l10ns;
 
   exports.Greek = Greek;
-  exports.default = gr;
+  exports.default = el;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
