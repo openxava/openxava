@@ -7,6 +7,7 @@ import org.apache.commons.logging.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 import org.openxava.util.*;
+import org.openxava.web.*;
 
 /**
  * tmr
@@ -31,23 +32,36 @@ public class UploadTest extends WebDriverTestBase {
 	}
 	
 	public void testOnChange() throws Exception {
+		// tmr Falta pasar los test manuales
+		// tmr Falta quitar lo que se testea aquí de los test manuales
+		// tmr Falta pasar la suites
 		goModule("CustomerFramesOnSameRow");
 		execute("List.viewDetail", "row=1");
 		uploadPhoto();		
-		assertMessage("Photo changed"); // tmr
+		assertMessage("Photo changed"); 
 		
 		execute("CRUD.save");
 		execute("Navigation.previous");
+		assertValue("name", "Javi");
 		execute("Navigation.next");
+		assertValue("name", "Juanillo");
 		
 		// Assert of there is a photo
 		assertFalse(driver.findElements(By.className("filepond--image-preview-wrapper")).isEmpty());
 		
-		// TMR ME QUEDÉ POR AQUÍ, EL TEST DE ARRIBA FUNCIONA. 
-		// TMR CONTINUARLO HASTA QUE SEA COMO EL DE UploadText.txt
-		// TMR HE DE PASAR MANUALMENTE UploadText.txt
-		// TMR HE DE QUITAR LO QUE SE TESETEA A QUÍ DE UploadText.txt
-		// TMR Y POR SUPUESTO PASAR LA SUITE
+		WebElement removeButton = driver.findElement(By.className("filepond--action-remove-item"));
+		removeButton.click();
+		wait(driver);
+		assertMessage("Photo changed"); // TMR ME QUEDÉ POR AQUÍ. FALLA. ESTABA HACIENDO EL CASO DE UploadTest.txt ENTERO
+	}
+	
+	private void assertValue(String name, String value) { // Duplicated with ListTest, refactoring pending // tmr Decir a Chungyen
+		assertEquals(XavaResources.getString("unexpected_value", name), value, getValue(name));		
+	}
+	
+	private String getValue(String name) { // Duplicated with ListTest, refactoring pending // tmr Decir a Chungyen
+		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
+		return input.getAttribute("value");
 	}
 
 	private void uploadPhoto() throws Exception {
