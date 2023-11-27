@@ -65,11 +65,9 @@ String pathProperty = "path";
 String idProperties = "";
 boolean initialState = true;
 List<String> keysList = new ArrayList<>(metaView.getMetaModel().getKeyPropertiesNames());
-String kValue = key.get(keysList.get(0)).toString();
-
+String kValue = key.isEmpty() ? "" : key.get(keysList.get(0)).toString();
 
 if (tree != null) {
-	System.out.println(kValue);
 	pathProperty = tree.pathProperty() != null ? tree.pathProperty() : "path"; 
 	idProperties = tree.idProperties() != null ? tree.idProperties() : "";
 	initialState = tree.initialExpandedState();
