@@ -12,46 +12,43 @@ import org.openqa.selenium.*;
 
 public class HtmlTextTest extends WebDriverTestBase {
 	
-	private WebDriver driver;
-	
-	public void setUp() throws Exception {
-		setHeadless(true);
-		driver = createWebDriver();
-	}
-	
-	public void tearDown() throws Exception {
-		driver.quit();
-	}
+//	public void setUp() throws Exception {
+//		driver = createWebDriver();
+//	}
+//	
+//	public void tearDown() throws Exception {
+//		driver.quit();
+//	}
 	
 	public void testEditLinkFromDialog() throws Exception {
-		goModule(driver, "IncidentActivity");
-		WebElement createNewIncidentButton = driver.findElement(By.cssSelector(".ox-image-link .mdi-library-plus"));
+		goModule(getDriver(), "IncidentActivity");
+		WebElement createNewIncidentButton = getDriver().findElement(By.cssSelector(".ox-image-link .mdi-library-plus"));
 		createNewIncidentButton.click();
-		wait(driver);
+		wait(getDriver());
 		
-		wait(driver, By.cssSelector("[title='Insert/edit link']")); 
-		WebElement editLinkButton = driver.findElement(By.cssSelector("[title='Insert/edit link']"));
+		wait(getDriver(), By.cssSelector("[title='Insert/edit link']")); 
+		WebElement editLinkButton = getDriver().findElement(By.cssSelector("[title='Insert/edit link']"));
 		editLinkButton.click();
-		wait(driver);
+		wait(getDriver());
 		
-		WebElement urlField = driver.findElement(By.cssSelector("input[type='url']"));
+		WebElement urlField = getDriver().findElement(By.cssSelector("input[type='url']"));
 		urlField.sendKeys("openxava.org");
 		assertEquals("openxava.org", urlField.getAttribute("value"));
 	}
 	
 	public void testColor() throws Exception { 
-		goModule(driver, "Doc");
-		List<WebElement> editIcons = driver.findElements(By.cssSelector(".ox-image-link .mdi-border-color"));
+		goModule(getDriver(), "Doc");
+		List<WebElement> editIcons = getDriver().findElements(By.cssSelector(".ox-image-link .mdi-border-color"));
 		editIcons.get(1).click();
-		wait(driver);
+		wait(getDriver());
 		
-		WebElement titleField = driver.findElement(By.id("ox_openxavatest_Doc__title"));
+		WebElement titleField = getDriver().findElement(By.id("ox_openxavatest_Doc__title"));
 		assertEquals("VERDE", titleField.getAttribute("value"));
 		
-        wait(driver, By.id("ox_openxavatest_Doc__content_ifr"));
-		driver.switchTo().frame("ox_openxavatest_Doc__content_ifr");
-		wait(driver, By.cssSelector("#tinymce p span"));
-		WebElement coloredText = driver.findElement(By.cssSelector("#tinymce p span"));
+        wait(getDriver(), By.id("ox_openxavatest_Doc__content_ifr"));
+        getDriver().switchTo().frame("ox_openxavatest_Doc__content_ifr");
+		wait(getDriver(), By.cssSelector("#tinymce p span"));
+		WebElement coloredText = getDriver().findElement(By.cssSelector("#tinymce p span"));
 		assertEquals("verde", coloredText.getText());
 		assertEquals("rgba(22, 145, 121, 1)", coloredText.getCssValue("color"));
 	}

@@ -10,33 +10,30 @@ import org.openqa.selenium.*;
 
 public class ContentSecurityPolicyTest extends WebDriverTestBase {
 	
-	private WebDriver driver;
-	
-	public void setUp() throws Exception {
-		setHeadless(true);
-		driver = createWebDriver();
-	}
-	
-	public void tearDown() throws Exception {
-		driver.quit();
-	}
+//	public void setUp() throws Exception {
+//		driver = createWebDriver();
+//	}
+//	
+//	public void tearDown() throws Exception {
+//		driver.quit();
+//	}
 	
 	public void testContentSecurityPolicyExceptions() throws Exception {
-		goModule(driver, "SellerJSP?detail=1");
+		goModule(getDriver(), "SellerJSP?detail=1");
 		
-		waitImageLoaded(driver);
-		WebElement img = driver.findElement(By.id("oximage"));
+		waitImageLoaded(getDriver());
+		WebElement img = getDriver().findElement(By.id("oximage"));
 		assertEquals(new Dimension(500, 290), img.getSize()); // So, the original image is displayed
 		
-		WebElement greeting = driver.findElement(By.id("greeting"));
+		WebElement greeting = getDriver().findElement(By.id("greeting"));
 		assertEquals("Hello from openxava.org", greeting.getText());
 		
-		WebElement hidden = driver.findElement(By.id("thehidden"));
+		WebElement hidden = getDriver().findElement(By.id("thehidden"));
 		assertFalse(hidden.isDisplayed());
 		
-		WebElement iframe = driver.findElement(By.id("bye"));
-		driver.switchTo().frame(iframe);
-		WebElement frameBody = driver.findElement(By.tagName("body"));
+		WebElement iframe = getDriver().findElement(By.id("bye"));
+		getDriver().switchTo().frame(iframe);
+		WebElement frameBody = getDriver().findElement(By.tagName("body"));
 		assertEquals("Bye from openxava.org", frameBody.getText());
 	}
 	

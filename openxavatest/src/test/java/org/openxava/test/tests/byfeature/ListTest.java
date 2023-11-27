@@ -17,54 +17,51 @@ import org.openxava.web.*;
 public class ListTest extends WebDriverTestBase {
 	
 	private final static String ACTION_PREFIX = "action";
-	
-	private WebDriver driver;
 
-	public void setUp() throws Exception {
-		setHeadless(true); 
-	    driver = createWebDriver();
-	}
-	
-	public void tearDown() throws Exception {
-		driver.quit();
-	}
+//	public void setUp() throws Exception {
+//	    driver = createWebDriver();
+//	}
+//	
+//	public void tearDown() throws Exception {
+//		driver.quit();
+//	}
 	
 	public void testListAndCollection() throws Exception {
-		goModule(driver, "Author");
+		goModule(getDriver(), "Author");
 		assertShowHideFilterInList();
 		assertMoveColumns();
 		assertRemoveColumnAfterFiltering(); 
 		assertNoFilterInCollectionByDefault();
 
-		goModule(driver, "Carrier");
+		goModule(getDriver(), "Carrier");
 		assertEnableDisableCustomizeList(); 
 		assertCustomizeCollection();
 
-		goModule(driver, "CustomerWithSection");
+		goModule(getDriver(), "CustomerWithSection");
 		assertCustomizeList();
 		assertCustomizeList_addAndResetModule(); 
 		
-		goModule(driver, "Invoice");
+		goModule(getDriver(), "Invoice");
 		assertRemoveSeveralColumns();
 	}
 		
 	private void assertNoFilterInCollectionByDefault() throws Exception {
 		execute("CRUD.new");		
 		assertCollectionFilterNotDisplayed();
-		driver.findElement(By.id("ox_openxavatest_Author__show_filter_humans")).click();
+		getDriver().findElement(By.id("ox_openxavatest_Author__show_filter_humans")).click();
 		assertCollectionFilterDisplayed();
 		
 		execute("MyGoListMode.list");
 		execute("List.viewDetail", "row=1");
 		assertCollectionFilterNotDisplayed();
-		driver.findElement(By.id("ox_openxavatest_Author__show_filter_humans")).click();
+		getDriver().findElement(By.id("ox_openxavatest_Author__show_filter_humans")).click();
 		assertCollectionFilterDisplayed();
 		
 		execute("CRUD.new");
 		assertCollectionFilterNotDisplayed();
-		driver.findElement(By.id("ox_openxavatest_Author__show_filter_humans")).click();
+		getDriver().findElement(By.id("ox_openxavatest_Author__show_filter_humans")).click();
 		assertCollectionFilterDisplayed();
-		driver.findElement(By.id("ox_openxavatest_Author__hide_filter_humans")).click();
+		getDriver().findElement(By.id("ox_openxavatest_Author__hide_filter_humans")).click();
 		Thread.sleep(1000);
 		assertCollectionFilterNotDisplayed();
 	}
@@ -79,7 +76,7 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInList(0, "Biography"); 
 		assertLabelInList(1, "Author");
 		
-		driver = resetModule(driver); 
+		resetModule(getDriver()); 
 		assertLabelInList(0, "Biography");
 		assertLabelInList(1, "Author");
 		
@@ -107,7 +104,7 @@ public class ListTest extends WebDriverTestBase {
 	}
 	
 	private void assertShowHideFilterInList() throws Exception {
-		goModule(driver, "Author");
+		goModule(getDriver(), "Author");
 		assertFalse(getElementById("show_filter_list").isDisplayed()); 
 		assertTrue(getElementById("hide_filter_list").isDisplayed()); 
 		assertTrue(getElementById("list_filter_list").isDisplayed());
@@ -124,19 +121,19 @@ public class ListTest extends WebDriverTestBase {
 	}
 	
 	private void assertEnableDisableCustomizeList() throws Exception {
-		WebElement addColumns = driver.findElement(By.id("ox_openxavatest_Carrier__List___addColumns")); 
-		WebElement column0 = driver.findElement(By.id("ox_openxavatest_Carrier__list_col0"));		
+		WebElement addColumns = getDriver().findElement(By.id("ox_openxavatest_Carrier__List___addColumns")); 
+		WebElement column0 = getDriver().findElement(By.id("ox_openxavatest_Carrier__list_col0"));		
 		WebElement moveColumn0 = column0.findElement(By.cssSelector("i[class='xava_handle mdi mdi-cursor-move ui-sortable-handle']"));		
-		WebElement removeColumn0 = driver.findElement(By.cssSelector(".xava_remove_column[data-column='ox_openxavatest_Carrier__list_col0']"));
-		WebElement column1 = driver.findElement(By.id("ox_openxavatest_Carrier__list_col1"));
+		WebElement removeColumn0 = getDriver().findElement(By.cssSelector(".xava_remove_column[data-column='ox_openxavatest_Carrier__list_col0']"));
+		WebElement column1 = getDriver().findElement(By.id("ox_openxavatest_Carrier__list_col1"));
 		WebElement moveColumn1 = column1.findElement(By.cssSelector("i[class='xava_handle mdi mdi-cursor-move ui-sortable-handle']")); 
-		WebElement removeColumn1 = driver.findElement(By.cssSelector(".xava_remove_column[data-column='ox_openxavatest_Carrier__list_col1']"));
+		WebElement removeColumn1 = getDriver().findElement(By.cssSelector(".xava_remove_column[data-column='ox_openxavatest_Carrier__list_col1']"));
 		assertFalse(addColumns.isDisplayed());
 		assertFalse(moveColumn0.isDisplayed());		
 		assertFalse(removeColumn0.isDisplayed());
 		assertFalse(moveColumn1.isDisplayed());
 		assertFalse(removeColumn1.isDisplayed());		
-		WebElement customize = driver.findElement(By.id("ox_openxavatest_Carrier__customize_list")); 
+		WebElement customize = getDriver().findElement(By.id("ox_openxavatest_Carrier__customize_list")); 
 		customize.click();
 		assertTrue(addColumns.isDisplayed());
 		assertTrue(moveColumn0.isDisplayed());
@@ -153,7 +150,7 @@ public class ListTest extends WebDriverTestBase {
 	}
 	
 	private WebElement getElementById(String id) {
-		return driver.findElement(By.id(Ids.decorate("openxavatest", module, id)));
+		return getDriver().findElement(By.id(Ids.decorate("openxavatest", module, id)));
 	}
 
 	private void assertCustomizeCollection() throws Exception {
@@ -285,7 +282,7 @@ public class ListTest extends WebDriverTestBase {
 		assertListColumnCount(8);
 		assertValueInList(0, 0, value);
 				
-		driver = resetModule(driver); 
+		resetModule(getDriver()); 
 		assertListColumnCount(8); 
 		assertValueInList(0, 0, value);
 		
@@ -346,16 +343,15 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInList(5, "Details count");
 		assertLabelInList(6, "Paid");
 		assertLabelInList(7, "Importance");		
-		Thread.sleep(50000);
 	}
 	
 	private void assertCustomizeList() throws Exception {
 		doTestCustomizeList_moveAndRemove(); 
 		setHeadless(false); // Because we test PDF generation that in headless works different, saving the file in the file system instead of show a windows
-		driver = resetModule(driver); 
+		resetModule(getDriver()); 
 		doTestCustomizeList_generatePDF();
 		setHeadless(true); 
-		driver = resetModule(driver);
+		resetModule(getDriver());
 		doTestRestoreColumns_addRemoveTabColumnsDynamically();
 	}
 	
@@ -394,7 +390,7 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInList(5, "Address state");
 		assertLabelInList(6, "Web site");
 		 
-		assertTrue("It is needed customers for execute this test", getListRowCount(driver) > 1);
+		assertTrue("It is needed customers for execute this test", getListRowCount(getDriver()) > 1);
 		String name = getValueInList(0, 0);
 		String type = getValueInList(0, 1);
 		String seller = getValueInList(0, 2);
@@ -494,7 +490,7 @@ public class ListTest extends WebDriverTestBase {
 		assertLabelInList(4, "Seller level");
 		assertLabelInList(5, "Address state"); 
 		assertLabelInList(6, "Web site");
-		assertTrue("Must to have customers for run this test", getListRowCount(driver) > 1);
+		assertTrue("Must to have customers for run this test", getListRowCount(getDriver()) > 1);
 		String name = getValueInList(0, 0);
 		String type = getValueInList(0, 1);
 		String seller = getValueInList(0, 2);
@@ -543,27 +539,27 @@ public class ListTest extends WebDriverTestBase {
 	}
 	
 	private void showCustomizeControls(String collection) {
-		driver.findElement(By.id("ox_openxavatest_" + module + "__customize_" + collection)).click();
+		getDriver().findElement(By.id("ox_openxavatest_" + module + "__customize_" + collection)).click();
 	}
 	
 	private void assertNoAction(String qualifiedAction) {
 		String [] action = qualifiedAction.split("\\.");
 		String name = "ox_openxavatest_" + module + "__action___" + action[0] + "___" + action[1];
-		assertTrue(XavaResources.getString("action_found_in_ui", action), driver.findElements(By.name(name)).isEmpty());
+		assertTrue(XavaResources.getString("action_found_in_ui", action), getDriver().findElements(By.name(name)).isEmpty());
 	}
 	
 	private void assertCollectionFilterDisplayed() { 
-		assertTrue(driver.findElement(By.id("ox_openxavatest_Author__xava_collectionTab_humans_conditionValue___0")).isDisplayed());
+		assertTrue(getDriver().findElement(By.id("ox_openxavatest_Author__xava_collectionTab_humans_conditionValue___0")).isDisplayed());
 	}
 	
 	private void assertCollectionFilterNotDisplayed() { 
-		assertFalse(driver.findElement(By.id("ox_openxavatest_Author__xava_collectionTab_humans_conditionValue___0")).isDisplayed());
+		assertFalse(getDriver().findElement(By.id("ox_openxavatest_Author__xava_collectionTab_humans_conditionValue___0")).isDisplayed());
 	}
 	
 	private void checkRow(String id, String value) throws Exception {
-		WebElement checkbox = driver.findElement(By.cssSelector("input[value='" + id + ":" + value + "']"));
+		WebElement checkbox = getDriver().findElement(By.cssSelector("input[value='" + id + ":" + value + "']"));
 		checkbox.click();
-		wait(driver);
+		wait(getDriver());
 	}
 	
 	private void assertDialog() throws Exception { 
@@ -574,7 +570,7 @@ public class ListTest extends WebDriverTestBase {
 		int level = 0;
 		for (level = 10; level > 0; level--) {
 			try {
-				WebElement el = driver.findElement(By.id(Ids.decorate("openxavatest", module, "dialog" + level)));
+				WebElement el = getDriver().findElement(By.id(Ids.decorate("openxavatest", module, "dialog" + level)));
 				if (el != null && !el.findElements(By.xpath("./*")).isEmpty()) break;
 			}
 			catch (NoSuchElementException ex) {
@@ -612,7 +608,7 @@ public class ListTest extends WebDriverTestBase {
 	}	
 	
 	private Collection<String> getActions(WebElement el) { 		
-		Collection<WebElement> hiddens = driver.findElements(By.cssSelector("input[type='hidden']"));
+		Collection<WebElement> hiddens = getDriver().findElements(By.cssSelector("input[type='hidden']"));
 		Set actions = new HashSet();		
 		for (WebElement input: hiddens) {
 			if (!input.getAttribute("name").startsWith(Ids.decorate("openxavatest", module, ACTION_PREFIX))) continue;
@@ -628,12 +624,12 @@ public class ListTest extends WebDriverTestBase {
 	}
 	
 	private void assertContentTypeForPopup(String expectedContentType) {
-		for (String windowHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(windowHandle);
+		for (String windowHandle : getDriver().getWindowHandles()) {
+			getDriver().switchTo().window(windowHandle);
         }
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(3000));
+		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofMillis(3000));
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("embed")));
-		String contentType = driver.findElement(By.tagName("embed")).getAttribute("type"); // This works for PDF with Chrome
+		String contentType = getDriver().findElement(By.tagName("embed")).getAttribute("type"); // This works for PDF with Chrome
 		assertEquals(expectedContentType, contentType);
 	}
 

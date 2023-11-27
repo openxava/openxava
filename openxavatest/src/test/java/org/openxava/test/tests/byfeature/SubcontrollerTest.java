@@ -8,32 +8,29 @@ import org.openqa.selenium.*;
  * @author Javier Paniza
  */
 public class SubcontrollerTest extends WebDriverTestBase {
-	
-	private WebDriver driver;
 
-	public void setUp() throws Exception {
-		setHeadless(true); 
-	    driver = createWebDriver();
-	}
-	
-	public void tearDown() throws Exception {
-		driver.quit();
-	}
+//	public void setUp() throws Exception {
+//	    driver = createWebDriver();
+//	}
+//	
+//	public void tearDown() throws Exception {
+//		driver.quit();
+//	}
 	
 	public void testCharts() throws Exception {
-		goModule(driver, "Invoice");
+		goModule(getDriver(), "Invoice");
 		assertInCorrectPlaceInButtonBar();
 		
-		goModule(driver, "Team");
+		goModule(getDriver(), "Team");
 		assertInCorrectPlaceInCollection();
 	}
 	
 	private void assertInCorrectPlace(String openIconId, String buttonId, String popupId) throws Exception {
 		execute("List.viewDetail", "row=0");
-		WebElement openIcon = driver.findElement(By.id(openIconId));
+		WebElement openIcon = getDriver().findElement(By.id(openIconId));
 		openIcon.click();
-		WebElement button = driver.findElement(By.id(buttonId));
-		WebElement popup = driver.findElement(By.id(popupId));
+		WebElement button = getDriver().findElement(By.id(buttonId));
+		WebElement popup = getDriver().findElement(By.id(popupId));
 		
 		// With some pixels of margin, not to test the exact position but that the popup is not in another part of the screen
 		assertTrue(popup.getLocation().getX() > button.getLocation().getX() - 5 && popup.getLocation().getX() < button.getLocation().getX() + 5);

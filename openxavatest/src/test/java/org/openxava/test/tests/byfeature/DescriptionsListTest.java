@@ -15,33 +15,30 @@ import org.openxava.test.model.*;
  */
 
 public class DescriptionsListTest extends WebDriverTestBase {
-	
-	private WebDriver driver;
 
-	public void setUp() throws Exception {
+	protected void setUp() throws Exception {
+		super.setUp();
 		XPersistence.reset(); 
 		XPersistence.setPersistenceUnit("junit");
-		setHeadless(true);
-	    driver = createWebDriver();
 	}
 	
-	public void tearDown() throws Exception {
-		driver.quit();
-	}
+//	public void tearDown() throws Exception {
+//		driver.quit();
+//	}
 	
 	public void testAutocomplete() throws Exception {
 		setFamilyDescription(1, "SOFTWARÉ"); // To test a bug with accents 
 		createWarehouseWithQuote(); // To test a bug with quotes
 
-		goModule(driver, "Product2");
+		goModule(getDriver(), "Product2");
 		execute("CRUD.new");
 		
-		driver.findElement(By.id("ox_openxavatest_Product2__reference_editor_warehouse")); // Warehouse combo must be to test the "quotes" bug
+		getDriver().findElement(By.id("ox_openxavatest_Product2__reference_editor_warehouse")); // Warehouse combo must be to test the "quotes" bug
 
-		WebElement familyList = driver.findElement(By.id(getListId(0))); 
+		WebElement familyList = getDriver().findElement(By.id(getListId(0))); 
 		assertFalse(familyList.isDisplayed());
 		assertEquals(0, familyList.findElements(By.tagName("li")).size());
-		WebElement familyEditor = driver.findElement(By.id("ox_openxavatest_Product2__reference_editor_family"));
+		WebElement familyEditor = getDriver().findElement(By.id("ox_openxavatest_Product2__reference_editor_family"));
 		WebElement openFamilyListIcon = familyEditor.findElement(By.className("mdi-menu-down"));
 		WebElement closeFamilyListIcon = familyEditor.findElement(By.className("mdi-menu-up"));
 		assertTrue(openFamilyListIcon.isDisplayed());
@@ -76,11 +73,11 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertEquals("HARDWARE", familyListChildren.get(1).getText());
 		
 		familyListChildren.get(0).click(); // SOFTWARE
-		wait(driver);
-		WebElement subfamilyEditor = driver.findElement(By.id("ox_openxavatest_Product2__reference_editor_subfamily"));
+		wait(getDriver());
+		WebElement subfamilyEditor = getDriver().findElement(By.id("ox_openxavatest_Product2__reference_editor_subfamily"));
 		WebElement openSubfamilyListIcon = subfamilyEditor.findElement(By.className("mdi-menu-down"));
 		openSubfamilyListIcon.click();
-		WebElement subfamilyList = driver.findElement(By.id(getListId(1))); 
+		WebElement subfamilyList = getDriver().findElement(By.id(getListId(1))); 
 		assertTrue(subfamilyList.isDisplayed());
 		List<WebElement> subfamilyListChildren = subfamilyList.findElements(By.tagName("li")); 
 		assertEquals(3, subfamilyListChildren.size());
@@ -128,7 +125,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertEquals("", familyTextField.getAttribute("value")); 
 		
 		execute("CRUD.new");
-		familyList = driver.findElement(By.id(getListId(0)));  
+		familyList = getDriver().findElement(By.id(getListId(0)));  
 		assertFalse(familyList.isDisplayed());
 		assertEquals(0, familyList.findElements(By.tagName("li")).size());
 		familyTextField = getDescriptionsListTextField("family");
@@ -139,14 +136,14 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertTrue(familyList.isDisplayed()); 
 		assertEquals(3, familyList.findElements(By.tagName("li")).size());
 				
-		familyEditor = driver.findElement(By.id("ox_openxavatest_Product2__reference_editor_family"));
+		familyEditor = getDriver().findElement(By.id("ox_openxavatest_Product2__reference_editor_family"));
 		openFamilyListIcon = familyEditor.findElement(By.className("mdi-menu-down"));
 		closeFamilyListIcon = familyEditor.findElement(By.className("mdi-menu-up"));		
 		closeFamilyListIcon.click();
-		wait(driver); 
+		wait(getDriver()); 
 		openFamilyListIcon.click();
 		assertTrue(familyList.isDisplayed()); 
-		subfamilyEditor = driver.findElement(By.id("ox_openxavatest_Product2__reference_editor_subfamily"));
+		subfamilyEditor = getDriver().findElement(By.id("ox_openxavatest_Product2__reference_editor_subfamily"));
 		openSubfamilyListIcon = subfamilyEditor.findElement(By.className("mdi-menu-down"));		
 		openSubfamilyListIcon.click(); 
 		assertFalse(familyList.isDisplayed());
@@ -156,7 +153,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 	}
 	
 	private String getListId(int orderInUI) throws Exception { 
-		return driver.findElements(By.className("ui-menu")).get(orderInUI).getAttribute("id");
+		return getDriver().findElements(By.className("ui-menu")).get(orderInUI).getAttribute("id");
 	}
 	
 	private void setFamilyDescription(int number, String newDescription) { 
@@ -181,7 +178,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 	}
 	
 	private WebElement getDescriptionsListTextField(String reference) {
-		WebElement referenceEditor = driver.findElement(By.id("ox_openxavatest_" + module + "__reference_editor_" + reference));
+		WebElement referenceEditor = getDriver().findElement(By.id("ox_openxavatest_" + module + "__reference_editor_" + reference));
 		return referenceEditor.findElement(By.className("ui-autocomplete-input"));
 	}
 	

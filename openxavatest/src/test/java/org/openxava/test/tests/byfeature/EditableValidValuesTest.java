@@ -10,43 +10,40 @@ import org.openqa.selenium.support.ui.*;
  */
 public class EditableValidValuesTest extends WebDriverTestBase {
 	
-	private WebDriver driver;
-	
-	public void setUp() throws Exception {
-		setHeadless(true); 
-		driver = createWebDriver();
-	}
-
-	public void tearDown() throws Exception {
-		driver.quit();
-	}
+//	public void setUp() throws Exception {
+//		driver = createWebDriver();
+//	}
+//
+//	public void tearDown() throws Exception {
+//		driver.quit();
+//	}
 	
 	public void testEditableValidValuesWorksWithCSP() throws Exception {  
-		goModule(driver, "DeliveryEditableValidValues");
+		goModule(getDriver(), "DeliveryEditableValidValues");
 		execute("CRUD.new");
 		execute("DeliveryEditableValidValues.addShortcutOptions");
 		execute("Sections.change", "activeSection=1");
 		execute("Sections.change", "activeSection=0");
-		Select selectElement = new Select (driver.findElement(By.xpath("//div[@class='ox-select-editable']//select")));
+		Select selectElement = new Select (getDriver().findElement(By.xpath("//div[@class='ox-select-editable']//select")));
 		selectElement.selectByValue("a");
-		WebElement input = driver.findElement(By.id("ox_openxavatest_DeliveryEditableValidValues__shortcut"));
+		WebElement input = getDriver().findElement(By.id("ox_openxavatest_DeliveryEditableValidValues__shortcut"));
 		input.click();
 		input.clear(); 
 		input.sendKeys("NR");
 		input.sendKeys(Keys.TAB);
-		wait(driver);
+		wait(getDriver());
 		String text = getText("remarks");
 		assertEquals("No remarks", text);
 		execute("Mode.list");
 	}
 	
 	public void testDynamicValidValuesShowingCombo() throws Exception {
-		goModule(driver, "Delivery");
+		goModule(getDriver(), "Delivery");
 		execute("CRUD.new");
 		execute("Delivery.addShortcutOptions");
 		execute("Sections.change", "activeSection=1");
 		execute("Sections.change", "activeSection=0");
-        WebElement selectElement = driver.findElement(By.id("ox_openxavatest_Delivery__shortcut"));
+        WebElement selectElement = getDriver().findElement(By.id("ox_openxavatest_Delivery__shortcut"));
         assertNotNull("Shortcut not showing as combo", selectElement);
         execute("Mode.list");
 	}

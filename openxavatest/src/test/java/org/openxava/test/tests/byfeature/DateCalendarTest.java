@@ -10,50 +10,48 @@ import org.openqa.selenium.*;
  * @author Chungyen Tsai
  */
 public class DateCalendarTest extends WebDriverTestBase {
-	
-	private WebDriver driver;
 
-	public void setUp() throws Exception {
-		setHeadless(true);
-	    driver = createWebDriver("ja");
+	protected void setUp() throws Exception {
+	    WebDriver driver = createWebDriver("ja");
+	    setDriver(driver);
 	}
 
-	public void tearDown() throws Exception {
-		driver.quit();
-	}
+//	public void tearDown() throws Exception {
+//		driver.quit();
+//	}
 	
 	public void testMultipleDateWithOnChange_localeTranslationWellLoaded() throws Exception {
-		goModule(driver, "Event");
+		goModule(getDriver(), "Event");
 		execute("List.viewDetail", "row=0"); 
-		List<WebElement> iconElements = driver.findElements(By.cssSelector("i.mdi.mdi-calendar"));
+		List<WebElement> iconElements = getDriver().findElements(By.cssSelector("i.mdi.mdi-calendar"));
 		if (!iconElements.isEmpty()) {
 		    WebElement firstIconElement = iconElements.get(0);
 		    firstIconElement.click();
 		}
 		Thread.sleep(500);
-		List<WebElement> spanElements = driver.findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day ' and text()='8']"));
+		List<WebElement> spanElements = getDriver().findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day ' and text()='8']"));
 		if (!spanElements.isEmpty()) {
 		    WebElement firstSpanElement = spanElements.get(0);
 		    firstSpanElement.click();
 		}
-		wait(driver);
-		WebElement divElement = driver.findElement(By.cssSelector("div.ox-message-box"));
+		wait(getDriver());
+		WebElement divElement = getDriver().findElement(By.cssSelector("div.ox-message-box"));
 		String message = divElement.getText();
 		String expectedMessage = "Calendar changed";
 		assertEquals(expectedMessage, message);
 		
-		driver.navigate().refresh();
-		wait(driver);
-		iconElements = driver.findElements(By.cssSelector("i.mdi.mdi-calendar"));
+		getDriver().navigate().refresh();
+		wait(getDriver());
+		iconElements = getDriver().findElements(By.cssSelector("i.mdi.mdi-calendar"));
 		if (!iconElements.isEmpty()) {
 		    WebElement firstIconElement = iconElements.get(0);
 		    firstIconElement.click();
 		}
-		List<WebElement> weekdaycontainerDivElement = driver.findElements(By.className("flatpickr-weekdaycontainer"));
+		List<WebElement> weekdaycontainerDivElement = getDriver().findElements(By.className("flatpickr-weekdaycontainer"));
         WebElement thirdSpanElement = weekdaycontainerDivElement.get(0).findElements(By.tagName("span")).get(2);
 		assertTrue("The translation of dateCalendar is not loaded correctly", !thirdSpanElement.getText().equals("Tue"));
 		execute("Mode.list");
-		acceptInDialogJS(driver);
+		acceptInDialogJS(getDriver());
 	}
 	
 }

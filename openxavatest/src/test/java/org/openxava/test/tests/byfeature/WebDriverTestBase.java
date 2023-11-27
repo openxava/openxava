@@ -22,7 +22,15 @@ abstract public class WebDriverTestBase extends TestCase {
 	
 	private boolean headless = false;
 	protected String module;
-	protected WebDriver driver;
+	private WebDriver driver;
+	
+	protected void setUp() throws Exception {
+		driver = createWebDriver();
+	}
+
+	protected void tearDown() throws Exception {
+		driver.quit();
+	}
 	
 	protected WebDriver createWebDriver() {
 		return createWebDriver("en");
@@ -39,7 +47,19 @@ abstract public class WebDriverTestBase extends TestCase {
 	    }
 		return new ChromeDriver(options);
 	}
+	
+	protected String getModule() {
+		return this.module;
+	}
+	
+	protected WebDriver getDriver() {
+		return this.driver;
+	}
 		
+	protected void setDriver(WebDriver driver) {
+		this.driver = driver;
+	}
+	
 	protected void wait(WebDriver driver) throws Exception {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(300)); // 100 is too short, at least 300
 		try {
@@ -48,7 +68,7 @@ abstract public class WebDriverTestBase extends TestCase {
 		catch (Exception ex) {
 		}
 		wait = new WebDriverWait(driver, Duration.ofSeconds(10)); 
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("xava_loading"))); //sometimes this code cause error in calendar
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("xava_loading"))); //sometimes this code cause error in calendar, reset db and run again test
 	}
 	
 	protected void wait(WebDriver driver, By expectedElement) { 
@@ -138,8 +158,8 @@ abstract public class WebDriverTestBase extends TestCase {
 	
 	protected void goModule(WebDriver driver, String module) throws Exception {
 		driver.get("http://localhost:8080/openxavatest/m/" + module);
-		wait(driver);
 		acceptInDialogJS(driver);
+		wait(driver);
 		this.module = module;
 		this.driver = driver;
 	}
@@ -301,11 +321,10 @@ abstract public class WebDriverTestBase extends TestCase {
 		if (b) execute("List.filter");
 	}
 	
-	protected WebDriver resetModule(WebDriver driver) throws Exception {
+	protected void resetModule(WebDriver driver) throws Exception {
 		driver.quit();
 		WebDriver newDriver = createWebDriver();
 		goModule(newDriver, module);
-		return newDriver;
 	}
 	
 }

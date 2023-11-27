@@ -8,11 +8,10 @@ import org.openqa.selenium.*;
  * @author Javier Paniza
  */
 public class ModulesMenuTest extends WebDriverTestBase {
-	
-	private WebDriver driver;
 
+	private WebDriver driver;
+	
 	public void setUp() throws Exception {
-		setHeadless(true); 
 	    driver = createWebDriver();
 	}
 	
@@ -66,6 +65,7 @@ public class ModulesMenuTest extends WebDriverTestBase {
 	
 	protected void showModulesList(WebDriver driver) throws Exception {
 		WebElement showListButton = driver.findElement(By.id("modules_list_show"));
+		//Thread.sleep(50000);
 		if (showListButton.isDisplayed()) {
 			showListButton.click();
 			wait(driver);

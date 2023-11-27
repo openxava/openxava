@@ -11,42 +11,40 @@ import org.openqa.selenium.interactions.*;
  * @author Chungyen Tsai
  */
 public class TreeTest extends WebDriverTestBase{
-	
-	private WebDriver driver;
+
 	private Map<String, String> nodesId;
 
-	public void setUp() throws Exception {
-		setHeadless(true);
-		driver = createWebDriver();
-	}
-
+//	public void setUp() throws Exception {
+//		driver = createWebDriver();
+//	}
+//	
+//	public void tearDown() throws Exception {
+//		driver.quit();
+//	}
+	
 	public void testTreeLib() throws Exception {
 		//all the tests are under the same, because the order must be respected
-		goModule(driver, "TreeItem");
+		goModule(getDriver(), "TreeItem");
 		String rootIdValue = getValueInList(0, 0);
 		addTreeIdValues(rootIdValue);
 		
-		goModule(driver, "TreeContainer");
+		goModule(getDriver(), "TreeContainer");
 		execute("List.viewDetail", "row=0");
-		createNewNodeSelecting(driver);	
+		createNewNodeSelecting(getDriver());	
 
-		goModule(driver, "TreeItem");
-		addNewNodeId(driver);
+		goModule(getDriver(), "TreeItem");
+		addNewNodeId(getDriver());
 		
-		goModule(driver, "TreeContainer");
-		verifyCreatedNodesAndCheck(driver);
-		editNodeWithDoubleClick(driver);
-		deleteSelectedNode(driver);
-		cutNode(driver);
+		goModule(getDriver(), "TreeContainer");
+		verifyCreatedNodesAndCheck(getDriver());
+		editNodeWithDoubleClick(getDriver());
+		deleteSelectedNode(getDriver());
+		cutNode(getDriver());
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
-		dragAndDrop(driver); 
+		dragAndDrop(getDriver()); 
 		execute("Mode.list");
 		execute("CRUD.deleteRow", "row=1");
-	}
-
-	public void tearDown() throws Exception {
-		driver.quit();
 	}
 	
 	// Wait until the element is available and return it
