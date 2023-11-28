@@ -51,8 +51,18 @@ public class UploadTest extends WebDriverTestBase {
 		
 		WebElement removeButton = driver.findElement(By.className("filepond--action-remove-item"));
 		removeButton.click();
+		acceptInDialogJS(driver);
 		wait(driver);
-		assertMessage("Photo changed"); // TMR ME QUEDÉ POR AQUÍ. FALLA. ESTABA HACIENDO EL CASO DE UploadTest.txt ENTERO
+		assertMessage("Photo changed");
+		
+		execute("CRUD.save");
+		execute("Navigation.previous");
+		assertValue("name", "Javi");
+		execute("Navigation.next");
+		assertValue("name", "Juanillo");
+		
+		// Assert of there is no photo
+		assertTrue(driver.findElements(By.className("filepond--image-preview-wrapper")).isEmpty());		
 	}
 	
 	private void assertValue(String name, String value) { // Duplicated with ListTest, refactoring pending // tmr Decir a Chungyen
