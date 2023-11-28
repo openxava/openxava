@@ -28,7 +28,7 @@ public class ChartsTest extends WebDriverTestBase {
 		assertOneBarByEachRow();
 		
 		goModule("Color");
-		assertMax120Bars();
+		assertMax120Bars(); 
 	}
 
 	
@@ -41,7 +41,7 @@ public class ChartsTest extends WebDriverTestBase {
 	
 	private void assertMax120Bars() throws Exception {
 		String listInfo = driver.findElement(By.cssSelector("tr.ox-list-info-detail")).getText();
-		assertTrue(listInfo.contains("There are 2,124 records in list")); // No matter the exact count, but it should be more than 1000
+		assertTrue(listInfo.contains("There are 2,122 records in list")); // No matter the exact count, but it should be more than 1000
 		execute("ListFormat.select", "editor=Charts");
 		WebElement selectColumn = driver.findElement(By.id("ox_openxavatest_Color__columns___0___name"));
 		selectColumn.click();

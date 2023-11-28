@@ -10,7 +10,7 @@ openxava.addEditorInitFunction(function() {
         var idSelector = "";
         var classSelector = "";
         const input = this;
-        const inputParent = input.parentElement; // tmr
+        const inputParent = input.parentElement; 
         
         if (FilePond.find(input) == null) {
             const pond = FilePond.create(input);
@@ -76,8 +76,7 @@ openxava.addEditorInitFunction(function() {
                 pond.allowBrowse = false;
                 pond.allowPaste = false;
             }             
-            // tmr if (input.dataset.throwsChanged === "true") {
-            if (inputParent.className === "xava_onchange") { // tmr
+            if (inputParent.className === "xava_onchange") { 
                 pond.onprocessfile = function(error, file) {
                     openxava.throwPropertyChanged(input.dataset.application, input.dataset.module, input.id);
                 }

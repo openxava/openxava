@@ -10,7 +10,6 @@ import org.openxava.util.*;
 import org.openxava.web.*;
 
 /**
- * tmr
  * To test upload editor related issues with Selenium.
  * 
  * @author Javier Paniza
@@ -23,18 +22,15 @@ public class UploadTest extends WebDriverTestBase {
 	private String module; 
 
 	public void setUp() throws Exception {
-		// tmr setHeadless(true); 
+		setHeadless(true); 
 	    driver = createWebDriver();
 	}
 	
 	public void tearDown() throws Exception {
-		// tmr driver.quit();
+		driver.quit();
 	}
 	
 	public void testOnChange() throws Exception {
-		// tmr Falta pasar los test manuales
-		// tmr Falta quitar lo que se testea aquí de los test manuales
-		// tmr Falta pasar la suites
 		goModule("CustomerFramesOnSameRow");
 		execute("List.viewDetail", "row=1");
 		uploadPhoto();		
@@ -65,11 +61,11 @@ public class UploadTest extends WebDriverTestBase {
 		assertTrue(driver.findElements(By.className("filepond--image-preview-wrapper")).isEmpty());		
 	}
 	
-	private void assertValue(String name, String value) { // Duplicated with ListTest, refactoring pending // tmr Decir a Chungyen
+	private void assertValue(String name, String value) { // Duplicated with ListTest, refactoring pending 
 		assertEquals(XavaResources.getString("unexpected_value", name), value, getValue(name));		
 	}
 	
-	private String getValue(String name) { // Duplicated with ListTest, refactoring pending // tmr Decir a Chungyen
+	private String getValue(String name) { // Duplicated with ListTest, refactoring pending 
 		WebElement input = driver.findElement(By.id(Ids.decorate("openxavatest", module, name)));
 		return input.getAttribute("value");
 	}
@@ -82,7 +78,7 @@ public class UploadTest extends WebDriverTestBase {
 		wait(driver);
 	}
 	
-	private void assertMessage(String expectedMessage) { // tmr Indicar a Chungyen que lo mueva arriba
+	private void assertMessage(String expectedMessage) { 
 		Collection<WebElement> messages = driver.findElements(By.cssSelector(".ox-messages .ox-message-box"));
 		StringBuffer producedMessages = new StringBuffer();
 		for (WebElement message: messages) {

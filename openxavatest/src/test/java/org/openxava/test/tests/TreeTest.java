@@ -27,7 +27,7 @@ public class TreeTest extends WebDriverTestBase{
 		addNewNodeId(driver);
 		
 		goTo(driver, "http://localhost:8080/openxavatest/m/TreeContainer");
-		verifyCreatedNodesAndCheck(driver);
+		verifyCreatedNodesAndCheck(driver); 
 		editNodeWithDoubleClick(driver);
 		deleteSelectedNode(driver);
 		cutNode(driver);
