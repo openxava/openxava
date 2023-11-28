@@ -3,6 +3,7 @@ package org.openxava.test.tests.byfeature;
 import java.time.*;
 import java.util.*;
 
+import org.apache.commons.logging.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.chrome.*;
@@ -328,4 +329,16 @@ abstract public class WebDriverTestBase extends TestCase {
 		goModule(module);
 	}
 	
+	protected void assertMessage(String expectedMessage, Log log) { 
+		Collection<WebElement> messages = getDriver().findElements(By.cssSelector(".ox-messages .ox-message-box"));
+		StringBuffer producedMessages = new StringBuffer();
+		for (WebElement message: messages) {
+			String messageText = message.getText().trim();
+			if (messageText.equals(expectedMessage)) return;
+			producedMessages.append(messageText);
+			producedMessages.append('\n');
+		}
+		log.error(XavaResources.getString("messages_produced", producedMessages));
+		fail(XavaResources.getString("message_not_found", expectedMessage)); 
+	}
 }
