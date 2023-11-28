@@ -49,7 +49,6 @@ public class Tree extends DWRBase {
 			}
 
 			String[] listProperties = metaCollectionView.getPropertiesListNamesAsString().split(",");
-			String order = collectionView.getMetaCollection().getOrder();
 			List<String> keysList = new ArrayList<>(tab.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
 			Map<String, Object> propertiesMap = new HashMap<>();
 
@@ -96,14 +95,31 @@ public class Tree extends DWRBase {
 	}
 
 	public void updateNode(HttpServletRequest request, HttpServletResponse response, String application, String module,
-			String collectionName, String idProperties, String pathProperty, String newPath, List<String> rows,
+			String collectionName, String newPath, List<String> rows,
 			List<String> childRows) throws NumberFormatException, XavaException, FinderException, RemoteException {
 		try {
 			initRequest(request, response, application, module);
 			View view = getView(request, application, module);
 			View collectionView = view.getSubview(collectionName);
 			String modelName = collectionView.getMetaModel().getQualifiedName();
+			
+			MetaView metaView = view.getMetaModel().getMetaView(view.getViewName());
+			MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
+			org.openxava.annotations.Tree tree = metaCollectionView.getPath();
+			String pathProperty = "path";
+			String pathSeparator = "/";
+			String idProperties = "";
 
+			if (tree != null) {
+				pathProperty = tree.pathProperty() != null ? tree.pathProperty() : "path";
+				pathSeparator = tree.pathSeparator() != null ? tree.pathSeparator() : "/";
+				idProperties = tree.idProperties() != null ? tree.idProperties() : "";
+			}
+
+			System.out.println(pathProperty);
+			System.out.println(pathSeparator);
+			System.out.println(idProperties);
+			
 			Map<String, String> pathIdMap = new HashMap<>();
 			pathIdMap.put(pathProperty, null);
 			Map<String, String> newPathValue = new HashMap<>();
