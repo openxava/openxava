@@ -18,6 +18,7 @@ public class ChartsTest extends WebDriverTestBase {
 		
 		goModule("Color");
 		assertMax120Bars();
+		moveToListView();
 	}
 
 	private void assertOneBarByEachRow() throws Exception {
