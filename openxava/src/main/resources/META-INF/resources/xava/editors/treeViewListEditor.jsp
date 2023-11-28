@@ -60,11 +60,9 @@ String version = org.openxava.controller.ModuleManager.getVersion();
 MetaView metaView = rootView.getMetaModel().getMetaView(rootView.getViewName());
 MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
 Tree tree = metaCollectionView.getPath();
-String pathProperty = "path";
 String idProperties = "";
 boolean initialState = true;
 if (tree != null) {
-	pathProperty = tree.pathProperty() != null ? tree.pathProperty() : "path"; 
 	idProperties = tree.idProperties() != null ? tree.idProperties() : "";
 	initialState = tree.initialExpandedState();
 }
@@ -114,7 +112,6 @@ if(!Is.empty(key)){
 	data-action-arg="<%=actionArg%>"
 	data-action="<%=action%>"
 	data-xava-id="<%=xavaId%>"
-	data-path-property="<%=pathProperty%>"
 	data-table-id="<%=tableId%>"
 	data-prefix="<%=prefix%>"
 	data-id-properties="<%=idProperties%>"
