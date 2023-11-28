@@ -40,7 +40,7 @@ public class Tree extends DWRBase {
 			org.openxava.annotations.Tree tree = metaCollectionView.getPath();
 			String pathProperty = "path";
 			String pathSeparator = "/";
-			String idProperties = "";
+			String idProperties = ""; 
 
 			if (tree != null) {
 				pathProperty = tree.pathProperty() != null ? tree.pathProperty() : "path";
@@ -116,9 +116,7 @@ public class Tree extends DWRBase {
 				idProperties = tree.idProperties() != null ? tree.idProperties() : "";
 			}
 
-			System.out.println(pathProperty);
-			System.out.println(pathSeparator);
-			System.out.println(idProperties);
+			newPath = newPath.replace("/", pathSeparator);
 			
 			Map<String, String> pathIdMap = new HashMap<>();
 			pathIdMap.put(pathProperty, null);
@@ -149,7 +147,7 @@ public class Tree extends DWRBase {
 				pathValueMap = MapFacade.getValues(modelName, keys, pathIdMap);
 				String childPathValue = (String) pathValueMap.get(pathProperty);
 				for (String pValue : parentsValues) {
-					pValue = pValue.startsWith("/") ? pValue : "/" + pValue;
+					pValue = pValue.startsWith(pathSeparator) ? pValue : pathSeparator + pValue;
 					if (childPathValue.startsWith(pValue)) {
 						childPathValue = newPath.equals("") 
 								? childPathValue.replace(pValue, newPath)

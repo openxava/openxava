@@ -307,6 +307,7 @@ public class TreeViewParser {
 		JSONArray json = new JSONArray();
         String mapId = map.get("id").equals("") ? "id" : (String) map.get("id");
         String[] listProperties = (String[]) map.get("listProperties");
+        String separator = (String) map.get("separator");
         JSONObject tooltip = new JSONObject();
         tooltip.put("title", XavaResources.getString("double_click_to_edit_view"));
         
@@ -339,7 +340,7 @@ public class TreeViewParser {
                 }
                 json.put(rootNode);
                 rootNodeFound = true;
-            } else if (path.endsWith("/" + parentId)) {
+            } else if (path.endsWith(separator + parentId)) {
                 JSONObject childNode = new JSONObject();
                 childNode.put("id", id);
                 childNode.put("path", path);
