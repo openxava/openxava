@@ -10,9 +10,9 @@ import org.openqa.selenium.*;
  * @author Chungyen Tsai
  */
 public class DateCalendarTest extends WebDriverTestBase {
-
+	
 	public void testGreek() throws Exception { 
-		setDriver(createWebDriver("el"));
+		changeLanguage("el");
 		goModule("Event");
 		WebElement calendarIcon = getDriver().findElement(By.cssSelector(".ox_openxavatest_Event__list_col0 .mdi-calendar"));
 		calendarIcon.click();
@@ -23,7 +23,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 	}
 	
 	public void testMultipleDateWithOnChange_localeTranslationWellLoaded() throws Exception {
-		setDriver(createWebDriver("ja"));
+		changeLanguage("ja");
 		goModule("Event");
 		execute("List.viewDetail", "row=0"); 
 		List<WebElement> iconElements = getDriver().findElements(By.cssSelector("i.mdi.mdi-calendar"));

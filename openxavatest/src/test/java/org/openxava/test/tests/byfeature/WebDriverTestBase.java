@@ -26,15 +26,11 @@ abstract public class WebDriverTestBase extends TestCase {
 	private WebDriver driver;
 	
 	protected void setUp() throws Exception {
-		driver = createWebDriver();
+		driver = createWebDriver("en");
 	}
 
 	protected void tearDown() throws Exception {
 		driver.quit();
-	}
-	
-	protected WebDriver createWebDriver() {
-		return createWebDriver("en");
 	}
 	
 	protected WebDriver createWebDriver(String lang) {
@@ -47,6 +43,11 @@ abstract public class WebDriverTestBase extends TestCase {
 		    options.addArguments("--disable-gpu"); 	    	
 	    }
 		return new ChromeDriver(options);
+	}
+	
+	protected void changeLanguage(String lang) throws Exception {
+		tearDown();
+		driver = createWebDriver(lang);
 	}
 	
 	protected String getModule() {
@@ -324,7 +325,7 @@ abstract public class WebDriverTestBase extends TestCase {
 	
 	protected void resetModule(WebDriver driver) throws Exception {
 		driver.quit();
-		WebDriver newDriver = createWebDriver();
+		WebDriver newDriver = createWebDriver("en");
 		this.driver = newDriver;
 		goModule(module);
 	}
