@@ -8,12 +8,21 @@ public class DateCalendarTest extends WebDriverTestBase {
 	
 	private WebDriver driver;
 
-	public void setUp() throws Exception {
-	    driver = createWebDriver("ja");
-	}
-
 	public void testNavigation() throws Exception {
+		driver = createWebDriver("ja"); 
 		forTestMultipleDateWithOnChange_localeTranslationWellLoaded();  
+	}
+	
+	public void testGreek() throws Exception { 
+		driver = createWebDriver("el"); 
+		driver.get("http://localhost:8080/openxavatest/m/Event");
+		wait(driver);
+		WebElement calendarIcon = driver.findElement(By.cssSelector(".ox_openxavatest_Event__list_col0 .mdi-calendar"));
+		calendarIcon.click();
+		WebElement days = driver.findElement(By.className("flatpickr-weekdaycontainer"));
+		String daysText = days.getText();
+		assertEquals(916, daysText.charAt(0));
+		assertEquals(949, daysText.charAt(1));
 	}
 
 	public void tearDown() throws Exception {
