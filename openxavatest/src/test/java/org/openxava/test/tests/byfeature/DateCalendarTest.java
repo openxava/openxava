@@ -11,10 +11,6 @@ import org.openqa.selenium.*;
  */
 public class DateCalendarTest extends WebDriverTestBase {
 
-//	protected WebDriver createWebDriver() {
-//		return createWebDriver("ja");
-//	}
-	
 	public void testGreek() throws Exception { 
 		setDriver(createWebDriver("el"));
 		goModule("Event");
