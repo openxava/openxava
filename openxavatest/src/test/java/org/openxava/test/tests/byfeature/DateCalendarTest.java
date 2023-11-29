@@ -11,11 +11,23 @@ import org.openqa.selenium.*;
  */
 public class DateCalendarTest extends WebDriverTestBase {
 
-	protected WebDriver createWebDriver() {
-		return createWebDriver("ja");
+//	protected WebDriver createWebDriver() {
+//		return createWebDriver("ja");
+//	}
+	
+	public void testGreek() throws Exception { 
+		setDriver(createWebDriver("el"));
+		goModule("Event");
+		WebElement calendarIcon = getDriver().findElement(By.cssSelector(".ox_openxavatest_Event__list_col0 .mdi-calendar"));
+		calendarIcon.click();
+		WebElement days = getDriver().findElement(By.className("flatpickr-weekdaycontainer"));
+		String daysText = days.getText();
+		assertEquals(916, daysText.charAt(0));
+		assertEquals(949, daysText.charAt(1));
 	}
 	
 	public void testMultipleDateWithOnChange_localeTranslationWellLoaded() throws Exception {
+		setDriver(createWebDriver("ja"));
 		goModule("Event");
 		execute("List.viewDetail", "row=0"); 
 		List<WebElement> iconElements = getDriver().findElements(By.cssSelector("i.mdi.mdi-calendar"));
