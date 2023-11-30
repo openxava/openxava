@@ -33,7 +33,7 @@
         href="https://www.eclipse.org/downloads/packages/release/2023-09/r">2023-09</a>.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc1"><a name="Descargar, instalar Eclipse for Enterprise Java and Web Developers e iniciar MySQL"></a>Descargar, instalar Eclipse for Enterprise Java and Web Developers e iniciar MySQL</h2>
-      Abre el <a href="https://www.eclipse.org/downloads/packages/">link</a>, selecciona alguna de las opciones de Windows, macOS, Linux que están marcados en la imagen debajo y en la pantalla que le sigue, presiona en <em>Download</em> para descargar el instalador de Eclipse o bien descargar el archivo .zip, descomprimir y ejecutar directamente eclipse.exe.<br>
+      Abre el <a href="https://www.eclipse.org/downloads/packages/">link</a>, selecciona alguna de las opciones de Windows, macOS, Linux que están marcados en la imagen debajo y en la pantalla que le sigue, presiona en <em>Download</em> para descargar el instalador de Eclipse o bien descargar el archivo .zip, descomprimir y ejecutar directamente <em>eclipse.exe</em>.<br>
       <img src="files/reverse-engineering_10.jpg" title="reverse-engineering_10.jpg"
         alt="reverse-engineering_10.jpg"> <br>
       Por último, debes iniciar MySQL y tener al menos una base de datos <br>
@@ -61,7 +61,7 @@
     username="root" password="r123456"
     driverClassName="com.mysql.cj.jdbc.Driver"
     url="jdbc:mysql://localhost:3306/invoicingdb"/&gt;</code></pre>
-      Este código ya se encuentra en el context.xml, comenta la fuente de datos que apunta a HSQLDB y descomenta el de MySQL, luego debes usar tu <em>url</em>, <em>username</em>, <em>password</em>.<br>
+      Este código ya se encuentra en el <em>context.xml</em>, comenta la fuente de datos que apunta a HSQLDB y descomenta el de MySQL, luego debes usar tu <em>url</em>, <em>username</em>, <em>password</em>.<br>
       Por último edita <em>src/main/resources/MEFA-INF/persistence.xml</em> y agrega la linea del dialecto <em>org.hibernate.dialect.MySQL8Dialect</em> como se muestra abajo<br>
       <pre><code class="xml">    &lt;persistence-unit name="default"&gt;
     	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
@@ -93,7 +93,7 @@
       <img src="files/reverse-engineering_30.jpg" title="reverse-engineering_30.jpg"
         alt="reverse-engineering_30.jpg"><br>
       <br>
-      Ingresamos el nombre del proyecto, y luego en <em>Target runtime</em> seleccionamos alguna versión de Java 1.8 en adelante instalado, <em>JPA version</em> 2.2. <br>
+      Ingresamos el nombre del proyecto, y luego en <em>Target runtime</em> seleccionamos alguna versión de <em>Java 1.8</em> en adelante instalado, <em>JPA version</em> 2.2. <br>
       <img src="files/reverse-engineering_40.jpg" title="reverse-engineering_40.jpg"
         alt="reverse-engineering_40.jpg"><br>
       <br>
@@ -130,7 +130,7 @@
       <img src="files/reverse-engineering_120.jpg" title="reverse-engineering_120.jpg"
         alt="reverse-engineering_120.jpg"><br>
       <br>
-      Al apretar Finish, en algunos casos te puede aparecer una ventana para abrir una perspectiva, en caso de que no lo haya puedes visualizar la conexión en el panel <em>Data Source Explorer</em> en <em>Windows &gt; Show View &gt; Data Source Explorer</em> <br>
+      Al apretar <em>Finish</em>, en algunos casos te puede aparecer una ventana para abrir una perspectiva, en caso de que no lo haya puedes visualizar la conexión en el panel <em>Data Source Explorer</em> en <em>Windows &gt; Show View &gt; Data Source Explorer</em> <br>
       <img src="files/reverse-engineering_130.jpg" title="reverse-engineering_130.jpg"
         alt="reverse-engineering_130.jpg"><br>
       <br>
@@ -167,39 +167,30 @@
       <img src="files/reverse-engineering_210.jpg" title="reverse-engineering_210.jpg"
         alt="reverse-engineering_210.jpg"><br>
       <br>
-      Las clases generadas están ubicadas en la carpeta src/main/java, dentro del paquete com.yourcompany.invoicing.model como lo hemos definido arriba, copiamos todas y las pegamos en el paquete <em>com.yourcompany.invoicing.model</em> que debes crear en el proyecto de OpenXava que creamos al inicio del artículo: <br>
+      Las clases generadas están ubicadas en la carpeta <em>src/main/java</em>, dentro del paquete <em>com.yourcompany.invoicing.model</em> como lo hemos definido arriba, copiamos todas y las pegamos en el paquete <em>com.yourcompany.invoicing.model</em> que debes crear en el proyecto de OpenXava que creamos al inicio del artículo: <br>
       <img src="files/reverse-engineering_215.jpg" title="reverse-engineering_215.jpg"
         alt="reverse-engineering_215.jpg"><br>
       <br>
       <h2 id="toc1"><a name="Adaptar código para OpenXava"></a>Adaptar código para OpenXava</h2>
       <div class="wiki" style="display: block;"> El código autogenerado es suficiente, pero no está adaptado para funcionar en una aplicación OpenXava, vamos a hacer algunas modificaciones, algunas son opcionales. En <em>Author </em>tenemos una relación de <em>@OneToMany</em> con <em>Product</em>, donde nos indica que cada autor puede tener muchos productos, es decir, nos interesa mostrar varios productos relacionados con el autor seleccionado, agregamos una anotación <em>@ListProperties()</em> con los parámetros <em>"number, description, price"</em> </div>
-      <pre><code class="java">@OneToMany(mappedBy="author")
+      <pre><code class="java">public class Author implements Serializable {
+
+...<br><br>@OneToMany(mappedBy="author")
 @ListProperties("number, description, price")
 private List&lt;Product&gt; products;
-</code></pre><br>
-      En <em>Category </em>vamos a hacer algo similar, agregar una anotación <em>@ListProperties</em> en la relación con <em>Product</em>, <em>@ListProperties("number, description") </em><br>
-      <pre><code class="java">@OneToMany(mappedBy="category")
-@ListProperties("number, description")
-private List&lt;Product&gt; products;
-</code></pre> <br>
-      En <em>Customer</em>, tenemos una relación con <em>Invoice</em>, le agregamos la anotación <em>@ListProperties("number, date")</em>, recuerda que estas propiedades deben llamarse igual en la clase referenciada. <br>
-      <pre><code class="java">@OneToMany(mappedBy="customer")
-@ListProperties("number, date")
-private List&lt;Invoice&gt; invoices;
-</code></pre> <br>
-      En <em>Invoice </em>tenemos dos relaciones, <em>@ManyToOne</em> con <em>Customer </em>y <em>@OneToMany</em> con <em>InvoiceDetail</em>. Vamos a dejar <em>Customer </em>como está y en <em>InvoiceDetail</em> eliminamos la anotación de <em>@OneToMany</em>, en su lugar agregaremos 2 anotaciones, <em>@ElementCollection</em> y <em>@ListProperties("product.number, product.desciption, quantity") </em><br>
-      <pre><code class="java">@ManyToOne
-@JoinColumn(name="customer_number", nullable=false)
-private Customer customer;.
+</code></pre><code class="java"></code> <br>
+      En <em>Invoice </em>tenemos dos relaciones, <em>@ManyToOne</em> con <em>Customer </em>y <em>@OneToMany</em> con <em>InvoiceDetail</em>. Vamos a dejar <em>Customer </em>como está y en <em>InvoiceDetail</em> eliminamos la anotación de <em>@OneToMany</em>, en su lugar agregaremos 2 anotaciones, <em>@ElementCollection</em> y <em>@ListProperties("product.number, product.description, quantity") </em><br>
+      <pre><code class="java">public class Invoice implements Serializable {
 
+...
+<br>//@OneToMany borramos esta anotación
 @ElementCollection
 @ListProperties("product.number, product.description, quantity")
 private List&lt;InvoiceDetail&gt; invoiceDetails;
 </code></pre> <br>
       En <em>InvoiceDetail</em>, vemos que esta clase no tiene ninguna propiedad <em>@Id</em>, ya que en su lógica, es una clase incrustada. Cambiamos <em>@Entity</em> por <em>@Embeddable</em> y eliminamos la relación con <em>Invoice </em>porque no nos interesa. <br>
       <code class="java"></code>
-      <pre><code class="java">@Embeddable
-@Table(name="invoice_details")
+      <pre><code class="java">@Embeddable<br>//@Entity eliminamos esta anotación<br>@Table(name="invoice_details")
 @NamedQuery(name="InvoiceDetail.findAll", query="SELECT i FROM InvoiceDetail i")
 public class InvoiceDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -219,7 +210,9 @@ public class InvoiceDetail implements Serializable {
 </code></pre> </div>
     <div class="wiki" style="display: block;">En <em>Invoice </em>eliminamos los métodos <em>addInvoiceDetail</em> y <em>removeInvoiceDetail</em></div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">	//public InvoiceDetail addInvoiceDetail(InvoiceDetail invoiceDetail) {
+      <pre><code class="java">public class Invoice implements Serializable {
+
+	...<br>	<br>	//public InvoiceDetail addInvoiceDetail(InvoiceDetail invoiceDetail) {
 	//	getInvoiceDetails().add(invoiceDetail);
 	//	invoiceDetail.setInvoice(this);
 	//	return invoiceDetail;
@@ -233,13 +226,12 @@ public class InvoiceDetail implements Serializable {
     <div class="wiki" style="display: block;"><br>
       Por último nos queda adaptar <em>Product</em>, tenemos 3 relaciones, <em>InvoiceDetail</em>, <em>Author </em>y <em>Category</em>. No nos interesa la relación con <em>InvoiceDetail</em>, pero si los otros dos, Agregamos una anotación <em>@DescriptionsList</em> en <em>Author </em>y <em>Category </em>.</div>
     <div class="wiki" style="display: block;">Por último eliminamos la relación con <em>InvoiceDetail</em>, también debemos eliminar algunos métodos de la misma clase como aparece debajo<br>
-      <pre><code class="java">//bi-directional many-to-one association to Author
+      <pre><code class="java">//añade la anotación @DescriptionsList a Author y Category
 @ManyToOne
 @JoinColumn(name="author_oid")
 @DescriptionsList
 private Author author;
 
-//bi-directional many-to-one association to Category
 @ManyToOne
 @JoinColumn(name="category_oid")
 @DescriptionsList
@@ -283,11 +275,15 @@ private Category category;<br><br>//Comentamos o eliminamos la relacion con Invo
       <div class="wiki" style="display: block;">Ahora, introduce admin/admin y pulsa en ENTRAR<em></em>:</div>
       <img src="files/getting-started_en165.png" alt="Sign In page"><br>
       <br>
-      En la izquierda está el panel de módulos, actualmente estamos en el módulo de invoice donde primero se muestran las propiedades de <em>Invoice</em>, al medio se muestra la relación <em>@ManyToOne</em> con c<em>ustomer </em>y por último está la colección de <em>invoiceDetails</em>, verás que una de las características de OpenXava es poder brindar una forma distinta de visualizar la propiedad dependiendo de sus anotaciones, para más información puedes seguir el <a
+      En la izquierda está el panel de módulos, actualmente estamos en el módulo de <em>invoice</em>s donde primero se muestran las propiedades de la entidad <em>Invoice</em>, al medio se muestra la relación <em>@ManyToOne</em> con c<em>ustomer </em>y por último está la colección de <em>invoiceDetails</em>, verás que una de las características de OpenXava es poder brindar una forma distinta de visualizar la propiedad dependiendo de sus anotaciones, para más información puedes seguir el <a
         href="https://openxava.org/OpenXavaDoc/docs/course_es.html">curso de OpenXava</a>.<br>
       <img src="files/reverse-engineering_220.jpg" title="reverse-engineering_220.jpg"
         alt="reverse-engineering_220.jpg"><br>
       <br>
+      <strong>¿Problemas con el tutorial? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien? <a
+          class="wiki_link" href="https://openxava.org/OpenXavaDoc/docs/index_es.html">Sigue el curso de OpenXava</a><br>
+      </strong><br>
     </div>
   </body>
 </html>
