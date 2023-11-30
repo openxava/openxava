@@ -29,11 +29,3 @@ CityReadOnly module:
 	- The coordinates are NOT updated in the text field.
 - You can scroll and zoom the map.	
 	
-CityMap module:	
-- Go to first city. A map with its corresponding mark is shown.
-- Click in any part of the map. 
-	- The 'Location' field is modified.
-	- The 'Map' calculated field is modified with the 'Location' values.
-- Click in any part of the map again. 
-	- The 'Location' field is modified.
-	- The 'Map' calculated field is modified with the 'Location' values.	
