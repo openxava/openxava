@@ -49,6 +49,9 @@ public class CalendarTest extends WebDriverTestBase {
 		goModule("Appointment");
 		moveToCalendarView(getDriver());
 		moveToTimeGridWeek(getDriver());
+		goModule("Appointment2");
+		moveToCalendarView(getDriver());
+		moveToTimeGridWeek(getDriver());
 		moveToListView();
 		goModule("Event");
 		moveToCalendarView(getDriver());
