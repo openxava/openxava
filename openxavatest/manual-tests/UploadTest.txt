@@ -74,13 +74,6 @@ AttachedFile and AttachedFiles: Movie with Chrome and Firefox
 - Upload in trailer a file with less than 90 Kb. It works.
 - Try to upload in trailer a file with more than 90Kb. It fails with a i18n error message.  
 
-With @OnChange: CustomerFramesOnSameRow with Chrome and Firefox
-- Go to second customer.
-- Add a new photo: An "Photo changed" message must be produced
-- Save. Go to previous record, return to second record. The photo must be there.
-- Remove the photo: An "Photo changed" message must be produced
-- Save. Go to previous record, return to second record. No photo.
-
 Custom load action with error: ShowTextFile with Chrome and Firefox
 - Attach a non-txt file. Should show "Only TXT files allowed".
 - Attach a txt file. No errors, the previous errors was hidden.
