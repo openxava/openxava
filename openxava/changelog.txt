@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Popup calendar for data fields is not in Greek when browser language is Greek.
+- Fix: @OnChange action in upload editor (@File, @Files, PHOTO, etc)  does not work.
 - Fix: Incorrect placement of subcontroller popup in collections.
 - Fix: Charts do not show a bar for each row in list mode, but only shows a bar for the first row.
 
