@@ -31,7 +31,7 @@ public class TreeTest extends WebDriverTestBase{
 		verifyCreatedNodesAndCheck(getDriver());
 		editNodeWithDoubleClick(getDriver());
 		deleteSelectedNode(getDriver());
-		cutNode(getDriver());
+		cutNode(getDriver()); 
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
 		dragAndDrop(getDriver()); 
