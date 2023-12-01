@@ -69,9 +69,11 @@
 		
 	<editor name="CustomerCardList" url="customerCardListEditor.jsp"/>
 		
+	<!-- tmr 	
 	<editor url="colorEditor.jsp">
 		<for-reference model="Color"/>
 	</editor>
+	-->
 	
 	<editor name="CarriersNames" url="carriersNamesEditor.jsp"/>
 	

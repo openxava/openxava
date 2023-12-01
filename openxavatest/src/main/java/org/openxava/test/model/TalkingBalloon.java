@@ -4,6 +4,9 @@ import java.math.*;
 
 import javax.persistence.*;
 
+import org.openxava.annotations.*;
+import org.openxava.test.actions.*;
+
 import lombok.*;
 
 /**
@@ -19,6 +22,7 @@ public class TalkingBalloon {
 	
     @Id
     @ManyToOne
+    @OnChange(OnChangeVoidAction.class) // tmr
     Balloon balloon;
 
     BigDecimal price;

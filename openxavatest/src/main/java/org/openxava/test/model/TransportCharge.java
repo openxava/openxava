@@ -4,8 +4,10 @@ import java.math.*;
 import java.util.*;
 
 import javax.persistence.*;
+
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;
+import org.openxava.test.actions.*;
 
 /**
  * Example of reference used as key that
@@ -49,6 +51,7 @@ public class TransportCharge {
 			condition="${invoice.year} = 2004",
 			showReferenceView=true) 
 	})
+	@OnChange(OnChangeVoidAction.class) // tmr
 	private Delivery delivery; // Only this reference as key, to test a case
 	
 	@Stereotype("MONEY") @Required
