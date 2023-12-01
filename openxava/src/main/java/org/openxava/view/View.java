@@ -808,7 +808,6 @@ public class View implements java.io.Serializable {
 	
 
 	private void notifying(Map values) throws XavaException {
-		System.out.println("[View(" + getModelName() + ").notifying] values=" + values); // tmr
 		Iterator it = Maps.treeToPlain(values).keySet().iterator(); 
 		String key = null;
 		String qualifier = null;
@@ -817,34 +816,26 @@ public class View implements java.io.Serializable {
 		}
 		while (it.hasNext()) {
 			String property = (String) it.next();
-			System.out.println("[View.notifying] property=" + property); // tmr
 			if (property.equals(getLastPropertyKeyName())) {
-				System.out.println("[View.notifying] A"); // tmr
 				key = property;
 			}
 			else if (Is.emptyString(getLastPropertyKeyName()) && getMetaModel().isKey(property)) {
-				System.out.println("[View.notifying] B"); // tmr
 				key = property;
 			}
 			else {
 				if (qualifier == null) {
-					System.out.println("[View.notifying] C1"); // tmr
 					propertyChanged(property);	
 				}
 				else {
-					System.out.println("[View.notifying] C2"); // tmr
 					getParent().propertyChanged(qualifier + property);
 				}				
 			}							
 		}
 		if (key != null) {				
-			System.out.println("[View.notifying] D"); // tmr
 			if (qualifier == null) {
-				System.out.println("[View.notifying] D1"); // tmr
 				propertyChanged(key);	
 			}
 			else {
-				System.out.println("[View.notifying] D2"); // tmr
 				getParent().propertyChanged(qualifier + key);
 			}							
 		}
@@ -3488,7 +3479,6 @@ public class View implements java.io.Serializable {
 	}
 	
 	private void propertyChanged(String propertyId) {
-		System.out.println("[View(" + getModelName() + ").propertyChanged] " + propertyId); // tmr
 		try {		
 			String name = Ids.undecorate(propertyId);
 			if (isRepresentsElementCollection()) {
@@ -3522,25 +3512,19 @@ public class View implements java.io.Serializable {
 				String subviewName = name.substring(0, idxDot);	
 				String propertyName = name.substring(idxDot + 1);
 				View subview = getSubview(subviewName);				
-				System.out.println("[View(" + getModelName() + ").propertyChanged] A> " + propertyName); // tmr
 				subview.propertyChanged(propertyName);
-				System.out.println("[View(" + getModelName() + ").propertyChanged] A< " + propertyName); // tmr
 			}
 			else {
 				MetaProperty changedProperty = getMetaProperty(name); 
-				System.out.println("[View(" + getModelName() + ").propertyChanged] B1> " + name); // tmr
 				propertyChanged(changedProperty, name);
-				System.out.println("[View(" + getModelName() + ").propertyChanged] B1< " + name); // tmr
 				if (getParent() != null) {					
-					System.out.println("[View(" + getModelName() + ").propertyChanged] B2> " + name); // tmr
-					/* tmr
+					/* tmr  
 					String qualifiedName = Is.emptyString(getMemberName())?name:(getMemberName() + "." + name);
 					getParent().propertyChanged(changedProperty, qualifiedName);
-					*/ 
+					*/
 					// tmr ini
-					propertyChangedFromParent(getParent(), changedProperty, name);
+					propertyChangedFromParent(changedProperty, name);
 					// tmr fin
-					System.out.println("[View(" + getModelName() + ").propertyChanged] B2< " + name); // tmr
 				}
 			}
 			
@@ -3563,13 +3547,11 @@ public class View implements java.io.Serializable {
 		}			
 	}
 		
-	private void propertyChangedFromParent(View parent, MetaProperty changedProperty, String name) { // tmr
-		// TMR ME QUEDÉ POR AQUÍ: NO LLEGA A FUNCIONAR, SACA color.color.number
-		System.out.println("[View(" + getModelName() + ").propertyChangedFromParent] name=" + name); // tmr
+	private void propertyChangedFromParent(MetaProperty changedProperty, String name) { // tmr
+		// tmr Refactorizar, creo que podría quitar parent
 		String qualifiedName = Is.emptyString(getMemberName())?name:(getMemberName() + "." + name);
-		System.out.println("[View(" + getModelName() + ").propertyChangedFromParent] qualifiedName=" + qualifiedName); // tmr
-		if (parent.getParent() == null) parent.propertyChanged(changedProperty, qualifiedName);
-		else propertyChangedFromParent(parent.getParent(), changedProperty, qualifiedName);
+		if (getParent().getParent() == null) getParent().propertyChanged(changedProperty, qualifiedName);
+		else getParent().propertyChangedFromParent(changedProperty, qualifiedName);
 	}
 
 	private void propertyChanged(MetaProperty changedProperty, String changedPropertyQualifiedName) { 
@@ -3633,8 +3615,6 @@ public class View implements java.io.Serializable {
 				) {
 				if (!searchingObject) { // To avoid recursive infinite loops
 					try {
-						System.out.println("[View(" + getModelName() + ").tryPropertyChanged] EXECUTING FOR " + changedPropertyQualifiedName); // tmr
-						System.out.println("[View(" + getModelName() + ").tryPropertyChanged] changedProperty.getName()=" + changedProperty.getName()); // tmr
 						searchingObject = true;												
 						IOnChangePropertyAction action = getParent().getMetaView().createOnChangeSearchAction(getMemberName());
 						executeOnChangeAction(changedPropertyQualifiedName, action);
@@ -3644,9 +3624,7 @@ public class View implements java.io.Serializable {
 						//   there are events attached to it.
 						if (!getMetaModel().isKey(changedPropertyQualifiedName)) {
 							String id = (String) getMetaModel().getKeyPropertiesNames().iterator().next();
-							System.out.println("[View(" + getModelName() + ").tryPropertyChanged] >>>> " + id); // tmr
 							propertyChanged(id);
-							System.out.println("[View(" + getModelName() + ").tryPropertyChanged] <<<< " + id); // tmr
 						}	
 						refreshCollections();
 						moveViewValuesToCollectionValues();
@@ -3659,10 +3637,8 @@ public class View implements java.io.Serializable {
 			
 			
 		} // of if (!isOnlyThrowsOnChange())
-		System.out.println("[View(" + getMetaModel() + ").tryPropertyChanged] getMetaView().hasOnChangeAction(" + changedPropertyQualifiedName + ")=" + getMetaView().hasOnChangeAction(changedPropertyQualifiedName)); // tmr
 		if (!isSection() && getMetaView().hasOnChangeAction(changedPropertyQualifiedName)) {
 			IOnChangePropertyAction action = getMetaView().createOnChangeAction(changedPropertyQualifiedName);
-			System.out.println("[View(" + getMetaModel() + ").tryPropertyChanged] Executing no in search with: " + changedPropertyQualifiedName); // tmr
 			executeOnChangeAction(changedPropertyQualifiedName, action);
 		}
 		if (hasGroups()) {
@@ -3702,9 +3678,7 @@ public class View implements java.io.Serializable {
 	private void executeOnChangeAction(String changedPropertyQualifiedName, IOnChangePropertyAction action) 
 		throws XavaException 
 	{
-		System.out.println("[View(" + getModelName() + ").executeOnChangeAction(" + changedPropertyQualifiedName + ")] Executing " + action.getClass()); // tmr
 		if (!actionRegisteredAsExecuted(changedPropertyQualifiedName, action)) {
-			System.out.println("[View.executeOnChangeAction] NO REGISTERED"); // tmr
 			View viewOfAction = this;
 			while (viewOfAction.isGroup()) viewOfAction = viewOfAction.getParent();
 			action.setView(viewOfAction);

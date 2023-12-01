@@ -713,7 +713,8 @@ abstract public class MetaModel extends MetaElement {
 	public Collection<String> getAllKeyPropertiesNames() throws XavaException {   
 		if (allKeyPropertiesNames==null) {
 			ArrayList result = new ArrayList();
-			Iterator itRef = getMetaMembersKey().iterator();
+			// tmr Iterator itRef = getMetaMembersKey().iterator();
+			Iterator itRef = getMetaMembersKeyOrderedAsInModel().iterator(); // tmr
 			while (itRef.hasNext()) {
 				MetaMember member = (MetaMember) itRef.next();
 				if (member instanceof MetaProperty) {
@@ -727,7 +728,7 @@ abstract public class MetaModel extends MetaElement {
 					}
 				}
 			}
-			Collections.sort(result); 
+			// tmr Collections.sort(result); 
 			allKeyPropertiesNames = Collections.unmodifiableCollection(result);						
 		}
 		return allKeyPropertiesNames;
@@ -783,6 +784,28 @@ abstract public class MetaModel extends MetaElement {
 	public Collection getMetaMembersKey() throws XavaException {
 		Iterator it = getMembersNames().iterator(); 		
 		SortedSet result = new TreeSet(); 
+		while (it.hasNext()) {
+			String name = (String) it.next();
+			if (containsMetaProperty(name)) { 			
+				MetaProperty p = (MetaProperty) getMetaProperty(name);
+				if (p.isKey()) {
+					result.add(p);
+				}
+			}
+			else if (containsMetaReference(name)) {
+				MetaReference r = (MetaReference) getMetaReference(name);
+				if (r.isKey()) {				
+					result.add(r);
+				}
+			}
+		}
+		return Collections.unmodifiableCollection(result);
+	}
+	
+	private Collection getMetaMembersKeyOrderedAsInModel() throws XavaException {
+		Iterator it = getMembersNames().iterator(); 		
+		// tmr SortedSet result = new TreeSet(); 
+		Collection result = new ArrayList(); // tmr
 		while (it.hasNext()) {
 			String name = (String) it.next();
 			if (containsMetaProperty(name)) { 			
@@ -1612,7 +1635,9 @@ abstract public class MetaModel extends MetaElement {
 		if (pojo == null) return null;
 		StringBuffer toStringValue = new StringBuffer("[.");
 		PropertiesManager pm = new PropertiesManager(pojo);
-		for (String propertyName: getAllKeyPropertiesNames()) {			
+		SortedSet<String> sortedtAllKeyPropertiesNames = new TreeSet<String>(getAllKeyPropertiesNames()); // tmr ¿Debería cachearlo?
+		// tmr for (String propertyName: getAllKeyPropertiesNames()) {			
+		for (String propertyName: sortedtAllKeyPropertiesNames) {
 			try {
 				if (isKey(propertyName)) {					
 					if (isReference(propertyName)) {
@@ -1631,6 +1656,7 @@ abstract public class MetaModel extends MetaElement {
 			}
 		}		
 		toStringValue.append(']');
+		System.out.println("[MetaModel.toString] " + toStringValue); // tmr
 		return toStringValue.toString();
 	}	
 	

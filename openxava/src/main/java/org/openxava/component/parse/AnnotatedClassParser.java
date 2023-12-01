@@ -1992,7 +1992,8 @@ public class AnnotatedClassParser implements IComponentParser {
 		if (element.isAnnotationPresent(OnChange.class)) {
 			OnChange onChange = element.getAnnotation(OnChange.class);
 			MetaPropertyView propertyView = new MetaPropertyView();			
-			String lastKeyProperty = (String) XCollections.last(ref.getMetaModelReferenced().getKeyPropertiesNames());			
+			// tmr String lastKeyProperty = (String) XCollections.last(ref.getMetaModelReferenced().getKeyPropertiesNames());			
+			String lastKeyProperty = (String) XCollections.last(ref.getMetaModelReferenced().getAllKeyPropertiesNames()); // tmr
 			propertyView.setPropertyName(ref.getName() + "." + lastKeyProperty);
 			propertyView.setOnChangeActionClassName(onChange.value().getName());
 			for (Object oview: ref.getMetaModel().getMetaViews()) {
