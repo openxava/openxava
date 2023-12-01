@@ -3522,14 +3522,25 @@ public class View implements java.io.Serializable {
 				String subviewName = name.substring(0, idxDot);	
 				String propertyName = name.substring(idxDot + 1);
 				View subview = getSubview(subviewName);				
+				System.out.println("[View(" + getModelName() + ").propertyChanged] A> " + propertyName); // tmr
 				subview.propertyChanged(propertyName);
+				System.out.println("[View(" + getModelName() + ").propertyChanged] A< " + propertyName); // tmr
 			}
 			else {
 				MetaProperty changedProperty = getMetaProperty(name); 
+				System.out.println("[View(" + getModelName() + ").propertyChanged] B1> " + name); // tmr
 				propertyChanged(changedProperty, name);
+				System.out.println("[View(" + getModelName() + ").propertyChanged] B1< " + name); // tmr
 				if (getParent() != null) {					
+					System.out.println("[View(" + getModelName() + ").propertyChanged] B2> " + name); // tmr
+					/* tmr
 					String qualifiedName = Is.emptyString(getMemberName())?name:(getMemberName() + "." + name);
-					getParent().propertyChanged(changedProperty, qualifiedName); 
+					getParent().propertyChanged(changedProperty, qualifiedName);
+					*/ 
+					// tmr ini
+					propertyChangedFromParent(getParent(), changedProperty, name);
+					// tmr fin
+					System.out.println("[View(" + getModelName() + ").propertyChanged] B2< " + name); // tmr
 				}
 			}
 			
@@ -3552,6 +3563,15 @@ public class View implements java.io.Serializable {
 		}			
 	}
 		
+	private void propertyChangedFromParent(View parent, MetaProperty changedProperty, String name) { // tmr
+		// TMR ME QUEDÉ POR AQUÍ: NO LLEGA A FUNCIONAR, SACA color.color.number
+		System.out.println("[View(" + getModelName() + ").propertyChangedFromParent] name=" + name); // tmr
+		String qualifiedName = Is.emptyString(getMemberName())?name:(getMemberName() + "." + name);
+		System.out.println("[View(" + getModelName() + ").propertyChangedFromParent] qualifiedName=" + qualifiedName); // tmr
+		if (parent.getParent() == null) parent.propertyChanged(changedProperty, qualifiedName);
+		else propertyChangedFromParent(parent.getParent(), changedProperty, qualifiedName);
+	}
+
 	private void propertyChanged(MetaProperty changedProperty, String changedPropertyQualifiedName) { 
 		try {	
 			tryPropertyChanged(changedProperty, changedPropertyQualifiedName);
