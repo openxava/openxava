@@ -305,11 +305,14 @@ public class TreeViewParser {
         if (data.isEmpty()) return new JSONArray();
 		
 		JSONArray json = new JSONArray();
-        String mapId = map.get("id").equals("") ? "id" : (String) map.get("id");
+        String mapId = map.get("id").toString();
+        String idSeparator = (String) map.get("idSeparator");
+       	String[] mapIdSplit = mapId.contains(idSeparator) ? mapId.split(idSeparator) : null;
         String[] listProperties = (String[]) map.get("listProperties");
+        
         JSONObject tooltip = new JSONObject();
         tooltip.put("title", XavaResources.getString("double_click_to_edit_view"));
-        
+        System.out.println(mapId);
         for (int i = 0; i < data.length(); i++) {
             JSONObject node = data.getJSONObject(i);
             String id = node.get(mapId).toString();

@@ -38,39 +38,39 @@ public class Tree extends DWRBase {
 			MetaView metaView = view.getMetaModel().getMetaView(view.getViewName());
 			MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
 			org.openxava.annotations.Tree tree = metaCollectionView.getPath();
-			String pathProperty = "path";
-			String pathSeparator = "/";
-			String idProperties = "";
-
-			if (tree != null) {
-				pathProperty = tree.pathProperty() != null ? tree.pathProperty() : "path";
-				pathSeparator = tree.pathSeparator() != null ? tree.pathSeparator() : "/";
-				idProperties = tree.idProperties() != null ? tree.idProperties() : "";
-			}
+			String pathProperty = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "path";
+			String pathSeparator = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "/";
+			String idProperties = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "";
+			String idSeparator = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : ",";
 
 			String[] listProperties = metaCollectionView.getPropertiesListNamesAsString().split(",");
-			String order = collectionView.getMetaCollection().getOrder();
 			List<String> keysList = new ArrayList<>(tab.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
 			Map<String, Object> propertiesMap = new HashMap<>();
 
 			propertiesMap.put("listProperties", listProperties);
-			propertiesMap.put("separator", pathSeparator);
-			propertiesMap.put("id", idProperties);
+			propertiesMap.put("pathSeparator", pathSeparator);
+			propertiesMap.put("idSeparator", idSeparator);
+			propertiesMap.put("id", idProperties.isEmpty() ? String.join(idSeparator, keysList) : idProperties);
 
 			tab.clearProperties();
+ 
+			System.out.println(tab.getPropertiesNamesAsString());
 			for (String element : listProperties) {
 				tab.addProperty(element);
 			}
 			if (!ArrayUtils.contains(listProperties, pathProperty)) tab.addProperty(0, pathProperty);
-			if (keysList.size() < 2 && !ArrayUtils.contains(listProperties, keysList.get(0).toString())) {
+			//need separator
+			System.out.println(idProperties.isEmpty());
+			if (!idProperties.isEmpty()) tab.addProperty(0, idProperties);
+			if (idProperties.isEmpty() && !ArrayUtils.contains(listProperties, keysList.get(0).toString())) {
 				tab.addProperty(0, keysList.get(0).toString());
 			}
-
+			
 			JSONArray jsonArray = new JSONArray();
 			TableModel table = tab.getAllDataTableModel();
 			int tableSize = tab.getTableModel().getTotalSize();
 			listProperties = tab.getPropertiesNamesAsString().split(",");
-
+			System.out.println(tab.getPropertiesNamesAsString());
 			if (tableSize > 0) {
 				for (int i = 0; i < tableSize; i++) {
 					JSONObject jsonRow = new JSONObject();
