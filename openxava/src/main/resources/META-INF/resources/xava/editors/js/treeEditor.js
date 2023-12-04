@@ -10,7 +10,8 @@ treeEditor.initTree = function() {
             var application = oxTree.data("application");
             var module = oxTree.data("module");
             var collectionName = oxTree.data("collection-name");
-			var state = localStorage.getItem("xava_tree_state_" + collectionName);
+			var kValue = oxTree.data("k-value");
+			var state = localStorage.getItem(module + "_" + collectionName + "_" + "xava_tree_state_" + kValue);
             Tree.getNodes(application, module, collectionName, function(array) {
                 var nodes = JSON.parse(array);
                 oxTree.jstree({
@@ -32,7 +33,7 @@ treeEditor.initTree = function() {
                         "three_state": false
                     },
                     "state": {
-                        "key": "xava_tree_state_" + collectionName
+                        "key": module + "_" + collectionName + "_" + "xava_tree_state_" + kValue
                     }, 
                     "plugins": ["checkbox", "dnd", "state"]
                 });
@@ -62,7 +63,6 @@ $(document).on('dnd_stop.vakata', function(e, data) {
     var module = oxTree.data("module");
     var modelName = oxTree.data("model-name");
     var collectionName = oxTree.data("collection-name");
-    var pathProperty = oxTree.data("path-property");
 	var idProperties = oxTree.data("id-properties");
     var rows = [];
     var childRows = [];
@@ -102,7 +102,7 @@ $(document).on('dnd_stop.vakata', function(e, data) {
 			auxNode = ref.get_node(auxNode.parent);
 		}
 	}
-    Tree.updateNode(application, module, collectionName, idProperties, pathProperty, newPath, rows, childRows);
+    Tree.updateNode(application, module, collectionName, newPath, rows, childRows);
 });
 
 

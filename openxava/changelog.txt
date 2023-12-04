@@ -1,6 +1,16 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Spanish screenshot in English @Tree reference documentation.
+- Fix: Attribute pathSeparator of @Tree annotation ignored.
+- Fix: @OnChange on @ManyToOne not work if referenced model has nested composite keys with only references.
+- Commons IO upgraded to 2.15.1 
+- POI and POI OOXML upgraded to 5.2.5
+- Groovy upgraded to 4.0.16
+- Embedded Tomcat used in development upgraded to 9.0.83
+- Driver version in doc and new projects upgraded for PostgreSQL, Db2 and Firebird.
+- Fix: Modules with dates annotated with DATETIME or FECHAHORA stereotypes do not show week and day view.
+- Fix: When navigating by records with tree editor the tree is collapse.
 - Fix: @OnChange action in @Coordinates does not work.
 - Fix: Vulnerable JavaScrit code using eval() in @Coordinate editor.
 - Fix: Popup calendar for data fields is not in Greek when browser language is Greek.

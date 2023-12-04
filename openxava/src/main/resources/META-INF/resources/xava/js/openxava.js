@@ -295,7 +295,7 @@ openxava.initActions = function() {
 
 openxava.initMessages = function(application, module) { 
 	$('.ox-message-box i').off('click').click(function() {
-		$(this).parent().fadeOut();
+		$(this).parent().parent().fadeOut(); 
 	});
 }
 

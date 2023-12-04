@@ -34,14 +34,14 @@ public class Tree extends DWRBase {
 			Tab tab2 = getTab(request, application, module, tabObject);
 			Tab tab = tab2.clone();
 			View view = getView(request, application, module);
-			View collectionView = view.getSubview(collectionName);
+			//View collectionView = view.getSubview(collectionName);
 			MetaView metaView = view.getMetaModel().getMetaView(view.getViewName());
 			MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
 			org.openxava.annotations.Tree tree = metaCollectionView.getPath();
+
 			String pathProperty = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "path";
 			String pathSeparator = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "/";
 			String idProperties = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "";
-			String idSeparator = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : ",";
 
 			String[] listProperties = metaCollectionView.getPropertiesListNamesAsString().split(",");
 			List<String> keysList = new ArrayList<>(tab.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
@@ -49,8 +49,7 @@ public class Tree extends DWRBase {
 
 			propertiesMap.put("listProperties", listProperties);
 			propertiesMap.put("pathSeparator", pathSeparator);
-			propertiesMap.put("idSeparator", idSeparator);
-			propertiesMap.put("id", idProperties.isEmpty() ? String.join(idSeparator, keysList) : idProperties);
+			propertiesMap.put("id", idProperties.isEmpty() ? String.join(",", keysList) : idProperties); //multiple ids not supported
 
 			tab.clearProperties();
  
@@ -96,14 +95,23 @@ public class Tree extends DWRBase {
 	}
 
 	public void updateNode(HttpServletRequest request, HttpServletResponse response, String application, String module,
-			String collectionName, String idProperties, String pathProperty, String newPath, List<String> rows,
+			String collectionName, String newPath, List<String> rows,
 			List<String> childRows) throws NumberFormatException, XavaException, FinderException, RemoteException {
 		try {
 			initRequest(request, response, application, module);
 			View view = getView(request, application, module);
 			View collectionView = view.getSubview(collectionName);
 			String modelName = collectionView.getMetaModel().getQualifiedName();
+			
+			MetaView metaView = view.getMetaModel().getMetaView(view.getViewName());
+			MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
+			org.openxava.annotations.Tree tree = metaCollectionView.getPath();
+			String pathProperty = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "path";
+			String pathSeparator = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "/";
+			String idProperties = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "";
 
+			newPath = newPath.replace("/", pathSeparator);
+			
 			Map<String, String> pathIdMap = new HashMap<>();
 			pathIdMap.put(pathProperty, null);
 			Map<String, String> newPathValue = new HashMap<>();
@@ -133,7 +141,7 @@ public class Tree extends DWRBase {
 				pathValueMap = MapFacade.getValues(modelName, keys, pathIdMap);
 				String childPathValue = (String) pathValueMap.get(pathProperty);
 				for (String pValue : parentsValues) {
-					pValue = pValue.startsWith("/") ? pValue : "/" + pValue;
+					pValue = pValue.startsWith(pathSeparator) ? pValue : pathSeparator + pValue;
 					if (childPathValue.startsWith(pValue)) {
 						childPathValue = newPath.equals("") 
 								? childPathValue.replace(pValue, newPath)

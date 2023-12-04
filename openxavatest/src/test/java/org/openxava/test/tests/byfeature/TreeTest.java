@@ -12,13 +12,18 @@ import org.openqa.selenium.interactions.*;
  */
 public class TreeTest extends WebDriverTestBase{
 
-	private Map<String, String> nodesId;
+	private Map<String, String> treeItemNodesId;
+	private Map<String, String> treeItemTwoNodesId;
 	
 	public void testTreeLib() throws Exception {
 		//all the tests are under the same, because the order must be respected
 		goModule("TreeItem");
 		String rootIdValue = getValueInList(0, 0);
-		addTreeIdValues(rootIdValue);
+		treeItemNodesId = addTreeIdValues(rootIdValue);
+		
+		goModule("TreeItemTwo");
+		rootIdValue = getValueInList(0, 0);
+		treeItemTwoNodesId = addTreeIdValues(rootIdValue);
 		
 		goModule("TreeContainer");
 		execute("List.viewDetail", "row=0");
@@ -31,12 +36,17 @@ public class TreeTest extends WebDriverTestBase{
 		verifyCreatedNodesAndCheck(getDriver());
 		editNodeWithDoubleClick(getDriver());
 		deleteSelectedNode(getDriver());
-		cutNode(getDriver()); 
+		cutNode_treeState(getDriver());
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
 		dragAndDrop(getDriver()); 
 		execute("Mode.list");
 		execute("CRUD.deleteRow", "row=1");
+		
+		resetModule(getDriver());
+		goModule("TreeContainer");
+		execute("List.viewDetail", "row=0");
+		createNodeWithPathSeparator_dnd(getDriver());
 	}
 	
 	// Wait until the element is available and return it
@@ -46,7 +56,7 @@ public class TreeTest extends WebDriverTestBase{
 	}
 
 	private void createNewNodeSelecting(WebDriver driver) throws Exception {
-		WebElement childItem2CheckBox = findElement(driver, By.xpath("//a[@id='"+ nodesId.get("child2") +"_anchor']/i")); 
+		WebElement childItem2CheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemNodesId.get("child2") +"_anchor']/i")); 
 		childItem2CheckBox.click();
 		execute("TreeView.new", "viewObject=xava_view_treeItems");
 		setValue("description", "A");
@@ -65,7 +75,7 @@ public class TreeTest extends WebDriverTestBase{
 	
 	private void editNodeWithDoubleClick(WebDriver driver) throws Exception {
 		Thread.sleep(500); //sometimes need
-		WebElement aElement = driver.findElement(By.id(nodesId.get("a") + "_anchor"));
+		WebElement aElement = driver.findElement(By.id(treeItemNodesId.get("a") + "_anchor"));
 		Actions actions = new Actions(driver);
 		actions.doubleClick(aElement).perform();
 		wait(driver);
@@ -74,17 +84,17 @@ public class TreeTest extends WebDriverTestBase{
 		execute("TreeView.save");
 		wait(driver);
 		
-		assertEquals("AA", findElement(driver, By.id(nodesId.get("a") + "_anchor")).getText()); 
+		assertEquals("AA", findElement(driver, By.id(treeItemNodesId.get("a") + "_anchor")).getText()); 
 	}
 	
 	private void verifyCreatedNodesAndCheck(WebDriver driver) throws InterruptedException {
-		WebElement childItem2CheckBox = findElement(driver, By.xpath("//a[@id='"+ nodesId.get("child2") +"_anchor']/i")); 
+		WebElement childItem2CheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemNodesId.get("child2") +"_anchor']/i")); 
 		childItem2CheckBox.click();
 		Thread.sleep(500); //sometimes need
-		expandNode(driver, nodesId.get("child2"));
-		WebElement newNodeB = driver.findElement(By.xpath("//a[@id='" + nodesId.get("b") + "_anchor']"));
+		expandNode(driver, treeItemNodesId.get("child2"));
+		WebElement newNodeB = driver.findElement(By.xpath("//a[@id='" + treeItemNodesId.get("b") + "_anchor']"));
 		assertEquals("B", newNodeB.getText());
-		WebElement newNodeACheckBox = driver.findElement(By.xpath("//a[@id='" + nodesId.get("a") + "_anchor']/i"));
+		WebElement newNodeACheckBox = driver.findElement(By.xpath("//a[@id='" + treeItemNodesId.get("a") + "_anchor']/i"));
 		newNodeACheckBox.click();
 	}
 	
@@ -100,34 +110,64 @@ public class TreeTest extends WebDriverTestBase{
 		assertTrue(showMessages);
 	}
 	
-	private void cutNode(WebDriver driver) throws Exception {
-		WebElement bCheckBox = driver.findElement(By.xpath("//a[@id='" + nodesId.get("b") + "_anchor']/i"));
+	private void cutNode_treeState(WebDriver driver) throws Exception {
+		WebElement bCheckBox = driver.findElement(By.xpath("//a[@id='" + treeItemNodesId.get("b") + "_anchor']/i"));
 		bCheckBox.click();
 		execute("CollectionCopyPaste.cut", "viewObject=xava_view_treeItems");
 		execute("Mode.list");
 		execute("CRUD.new");
 		setValue("description", "BB");
 		execute("CollectionCopyPaste.paste", "viewObject=xava_view_treeItems");
-		WebElement bElement = findElement(driver, By.id(nodesId.get("b") + "_anchor")); 
+		WebElement bElement = findElement(driver, By.id(treeItemNodesId.get("b") + "_anchor")); 
 		assertTrue(bElement.getText().equals("B"));
+		
+		WebElement bItemCheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemNodesId.get("b") +"_anchor']/i")); 
+		bItemCheckBox.click();
+		Thread.sleep(500); // sometimes need
+		execute("Navigation.first");
+
+		assertFalse(driver.findElements(By.id(treeItemNodesId.get("child1") + "_anchor")).isEmpty()); 
 	}
 	
 	private void dragAndDrop(WebDriver driver) throws Exception {
-		executeDnd(driver, nodesId.get("child1sub2") + "_anchor", nodesId.get("child1sub1") + "_anchor");
-		executeDndBetween(driver, nodesId.get("child1") + "_anchor", nodesId.get("root"));
-		expandNode(driver, nodesId.get("child1sub1"));
-		executeDnd(driver, nodesId.get("child3sub1") + "_anchor", nodesId.get("child1sub2") + "_anchor");
-		expandNode(driver, nodesId.get("child1sub2"));
-		executeDnd(driver, nodesId.get("child1") + "_anchor", nodesId.get("root") + "_anchor");
+		executeDnd(driver, treeItemNodesId.get("child1sub2") + "_anchor", treeItemNodesId.get("child1sub1") + "_anchor");
+		executeDndBetween(driver, treeItemNodesId.get("child1") + "_anchor", treeItemNodesId.get("root"));
+		expandNode(driver, treeItemNodesId.get("child1sub1"));
+		executeDnd(driver, treeItemNodesId.get("child3sub1") + "_anchor", treeItemNodesId.get("child1sub2") + "_anchor");
+		expandNode(driver, treeItemNodesId.get("child1sub2"));
+		executeDnd(driver, treeItemNodesId.get("child1") + "_anchor", treeItemNodesId.get("root") + "_anchor");
 		driver.navigate().refresh();
 		wait(driver);
-		assertTrue(isElementInside(driver, nodesId.get("root"), nodesId.get("child1") + "_anchor"));
-		assertTrue(isElementInside(driver, nodesId.get("child1"), nodesId.get("child1sub1") + "_anchor"));
-		assertTrue(isElementInside(driver, nodesId.get("child1sub1"), nodesId.get("child1sub2") + "_anchor"));
-		assertTrue(isElementInside(driver, nodesId.get("child1sub2"), nodesId.get("child3sub1") + "_anchor"));
+		assertTrue(isElementInside(driver, treeItemNodesId.get("root"), treeItemNodesId.get("child1") + "_anchor"));
+		assertTrue(isElementInside(driver, treeItemNodesId.get("child1"), treeItemNodesId.get("child1sub1") + "_anchor"));
+		assertTrue(isElementInside(driver, treeItemNodesId.get("child1sub1"), treeItemNodesId.get("child1sub2") + "_anchor"));
+		assertTrue(isElementInside(driver, treeItemNodesId.get("child1sub2"), treeItemNodesId.get("child3sub1") + "_anchor"));
 		
-		executeDnd(driver, nodesId.get("child3sub1") + "_anchor", nodesId.get("child3") + "_anchor");
-		executeDndBetween(driver, nodesId.get("child1sub2") + "_anchor", nodesId.get("child1"));
+		executeDnd(driver, treeItemNodesId.get("child3sub1") + "_anchor", treeItemNodesId.get("child3") + "_anchor");
+		executeDndBetween(driver, treeItemNodesId.get("child1sub2") + "_anchor", treeItemNodesId.get("child1"));
+	}
+	
+	private void createNodeWithPathSeparator_dnd(WebDriver driver) throws Exception {
+		WebElement childItem2CheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemTwoNodesId.get("child2") +"_anchor']/i")); 
+		childItem2CheckBox.click();
+		execute("TreeView.new", "viewObject=xava_view_treeItemTwos");
+		setValue("description", "A");
+		execute("TreeView.save");
+		wait(driver);
+		
+		expandNode(driver, treeItemTwoNodesId.get("child2"));
+		driver.navigate().refresh();
+		wait(driver);
+		
+		WebElement childElement = driver.findElement(By.id(treeItemTwoNodesId.get("child2"))).findElement(By.xpath(".//li"));
+		String childElementId = childElement.getAttribute("id");
+		assertEquals("A", childElement.getText());
+		
+		executeDnd(driver, childElementId + "_anchor", treeItemTwoNodesId.get("child3") + "_anchor");
+		driver.navigate().refresh();
+		wait(driver);
+		expandNode(driver, treeItemTwoNodesId.get("child3"));
+		assertTrue(isElementInside(driver, treeItemTwoNodesId.get("child3"), childElementId + "_anchor"));
 	}
 	
 	private void executeDnd(WebDriver driver, String sourceElementId, String targetElementId) throws InterruptedException {
@@ -170,21 +210,23 @@ public class TreeTest extends WebDriverTestBase{
 		return (childElement != null);
 	}
 	
-	private void addTreeIdValues(String rootId) {
-		nodesId = new HashMap<>();
+	private Map<String, String> addTreeIdValues(String rootId) {
+		Map<String, String> map = new HashMap<>();
 		int root = Integer.valueOf(rootId);
-		nodesId.put("root", rootId);
-		nodesId.put("child1", String.valueOf(root+1));
-		nodesId.put("child2", String.valueOf(root+2));
-		nodesId.put("child3", String.valueOf(root+3));
-		nodesId.put("child1sub1", String.valueOf(root+4));
-		nodesId.put("child1sub2", String.valueOf(root+5));
-		nodesId.put("child3sub1", String.valueOf(root+6));
+		map.put("root", rootId);
+		map.put("child1", String.valueOf(root+1));
+		map.put("child2", String.valueOf(root+2));
+		map.put("child3", String.valueOf(root+3));
+		map.put("child1sub1", String.valueOf(root+4));
+		map.put("child1sub2", String.valueOf(root+5));
+		map.put("child3sub1", String.valueOf(root+6));
+		
+		return map;
 	}
 	
 	private void addNewNodeId(WebDriver driver) throws Exception {
-		nodesId.put("a", getValueInList(7, 0));
-		nodesId.put("b", getValueInList(8, 0));
+		treeItemNodesId.put("a", getValueInList(7, 0));
+		treeItemNodesId.put("b", getValueInList(8, 0));
 	}
 	
 }

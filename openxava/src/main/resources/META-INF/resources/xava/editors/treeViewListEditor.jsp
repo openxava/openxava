@@ -14,6 +14,7 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.Collections"%>
 <%@page import="java.text.DateFormat"%>
@@ -60,11 +61,12 @@ String version = org.openxava.controller.ModuleManager.getVersion();
 MetaView metaView = rootView.getMetaModel().getMetaView(rootView.getViewName());
 MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
 Tree tree = metaCollectionView.getPath();
-String pathProperty = "path";
 String idProperties = "";
 boolean initialState = true;
+List<String> keysList = new ArrayList<>(metaView.getMetaModel().getKeyPropertiesNames());
+String kValue = key.isEmpty() ? "" : key.get(keysList.get(0)).toString();
+
 if (tree != null) {
-	pathProperty = tree.pathProperty() != null ? tree.pathProperty() : "path"; 
 	idProperties = tree.idProperties() != null ? tree.idProperties() : "";
 	initialState = tree.initialExpandedState();
 }
@@ -114,11 +116,11 @@ if(!Is.empty(key)){
 	data-action-arg="<%=actionArg%>"
 	data-action="<%=action%>"
 	data-xava-id="<%=xavaId%>"
-	data-path-property="<%=pathProperty%>"
 	data-table-id="<%=tableId%>"
 	data-prefix="<%=prefix%>"
 	data-id-properties="<%=idProperties%>"
 	data-initial-state="<%=initialState%>"
+	data-k-value="<%=kValue%>"
 	</div>
 
 	<script type='text/javascript' <xava:nonce/> src='<%=contextPath%>/dwr/interface/Tree.js?ox=<%=version%>'>
