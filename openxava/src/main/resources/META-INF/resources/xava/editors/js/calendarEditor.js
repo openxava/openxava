@@ -13,6 +13,14 @@ calendarEditor.setEvents = function(calendarEvents) {
     events.forEach(function(event) {
         event.remove();
     });
+	var eventsJson = JSON.parse(calendarEvents)
+	for (let e of eventsJson){
+		calendarEditor.calendar.addEvent(e);
+	}
+	
+	calendarEditor.startName = eventsJson[0].startName;	
+	
+	/*
     calendarEditor.listEvents = JSON.parse(calendarEvents);
     for (let e of calendarEditor.listEvents) {
         calendarEditor.calendar.addEvent({
@@ -26,12 +34,14 @@ calendarEditor.setEvents = function(calendarEvents) {
         calendarEditor.listEvents = [];
         calendarEditor.startName = e.startName;
     }
+	*/
     let result = {
         "result": {
             "application": calendarEditor.outApplication,
             "module": calendarEditor.outModule
         }
     };
+	
     calendarEditor.requesting = false;
 }
 
