@@ -26,7 +26,6 @@ public class TreeTest extends WebDriverTestBase{
 		treeItemTwoNodesId = addTreeIdValues(rootIdValue);
 		
 		goModule("TreeContainer");
-		/*
 		execute("List.viewDetail", "row=0");
 		createNewNodeSelecting(getDriver());	
 
@@ -37,13 +36,13 @@ public class TreeTest extends WebDriverTestBase{
 		verifyCreatedNodesAndCheck(getDriver());
 		editNodeWithDoubleClick(getDriver());
 		deleteSelectedNode(getDriver());
-		cutNode(getDriver()); 
+		cutNode_treeState(getDriver());
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
 		dragAndDrop(getDriver()); 
 		execute("Mode.list");
 		execute("CRUD.deleteRow", "row=1");
-		*/
+		
 		execute("List.viewDetail", "row=0");
 		createNodeWithPathSeparator_dnd(getDriver());
 		
@@ -110,7 +109,7 @@ public class TreeTest extends WebDriverTestBase{
 		assertTrue(showMessages);
 	}
 	
-	private void cutNode(WebDriver driver) throws Exception {
+	private void cutNode_treeState(WebDriver driver) throws Exception {
 		WebElement bCheckBox = driver.findElement(By.xpath("//a[@id='" + treeItemNodesId.get("b") + "_anchor']/i"));
 		bCheckBox.click();
 		execute("CollectionCopyPaste.cut", "viewObject=xava_view_treeItems");
@@ -120,6 +119,13 @@ public class TreeTest extends WebDriverTestBase{
 		execute("CollectionCopyPaste.paste", "viewObject=xava_view_treeItems");
 		WebElement bElement = findElement(driver, By.id(treeItemNodesId.get("b") + "_anchor")); 
 		assertTrue(bElement.getText().equals("B"));
+		
+		WebElement bItemCheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemNodesId.get("b") +"_anchor']/i")); 
+		bItemCheckBox.click();
+		Thread.sleep(500); // sometimes need
+		execute("Navigation.first");
+
+		assertFalse(driver.findElements(By.id(treeItemNodesId.get("child1") + "_anchor")).isEmpty()); 
 	}
 	
 	private void dragAndDrop(WebDriver driver) throws Exception {

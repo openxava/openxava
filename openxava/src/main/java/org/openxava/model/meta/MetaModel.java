@@ -1997,8 +1997,12 @@ abstract public class MetaModel extends MetaElement {
 					if (a.annotationType().getSimpleName().equals("DateTime")) return true;			
 				}
 			}
+			
 			if (p.getTypeName().contains("LocalDateTime") || 
-					p.getTypeName().contains("Timestamp")) {
+					p.getTypeName().contains("Timestamp") || 
+					(p.getStereotype()!=null && (
+					p.getStereotype().equals("DATETIME") || 
+					p.getStereotype().equals("FECHAHORA")))) {
 				return true;
 			}
 		}

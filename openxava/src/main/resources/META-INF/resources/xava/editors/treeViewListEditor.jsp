@@ -14,6 +14,7 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.Collections"%>
 <%@page import="java.text.DateFormat"%>
@@ -62,6 +63,9 @@ MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectio
 Tree tree = metaCollectionView.getPath();
 String idProperties = "";
 boolean initialState = true;
+List<String> keysList = new ArrayList<>(metaView.getMetaModel().getKeyPropertiesNames());
+String kValue = key.isEmpty() ? "" : key.get(keysList.get(0)).toString();
+
 if (tree != null) {
 	idProperties = tree.idProperties() != null ? tree.idProperties() : "";
 	initialState = tree.initialExpandedState();
@@ -116,6 +120,7 @@ if(!Is.empty(key)){
 	data-prefix="<%=prefix%>"
 	data-id-properties="<%=idProperties%>"
 	data-initial-state="<%=initialState%>"
+	data-k-value="<%=kValue%>"
 	</div>
 
 	<script type='text/javascript' <xava:nonce/> src='<%=contextPath%>/dwr/interface/Tree.js?ox=<%=version%>'>
