@@ -3517,9 +3517,8 @@ public class View implements java.io.Serializable {
 			else {
 				MetaProperty changedProperty = getMetaProperty(name); 
 				propertyChanged(changedProperty, name);
-				if (getParent() != null) {					
-					String qualifiedName = Is.emptyString(getMemberName())?name:(getMemberName() + "." + name);
-					getParent().propertyChanged(changedProperty, qualifiedName); 
+				if (getParent() != null) {
+					propertyChangedFromParent(changedProperty, name);
 				}
 			}
 			
@@ -3542,6 +3541,14 @@ public class View implements java.io.Serializable {
 		}			
 	}
 		
+	private void propertyChangedFromParent(MetaProperty changedProperty, String name) {
+		String qualifiedName = Is.emptyString(getMemberName())?name:(getMemberName() + "." + name);
+		getParent().propertyChanged(changedProperty, qualifiedName);
+		if (getParent().getParent() != null && !getParent().isRepresentsElementCollection() && !getParent().isFirstLevel()) {
+			getParent().propertyChangedFromParent(changedProperty, qualifiedName);
+		}
+	}
+
 	private void propertyChanged(MetaProperty changedProperty, String changedPropertyQualifiedName) { 
 		try {	
 			tryPropertyChanged(changedProperty, changedPropertyQualifiedName);

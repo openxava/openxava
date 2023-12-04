@@ -163,7 +163,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertNotExists("remarks");
 	}
 	
-	public void testOnChangePropertyOfReferenceWithMultipleKeyAsListDescriptionInAggregateOfCollection() throws Exception {
+	public void testOnChangePropertyOfReferenceWithMultipleKeyAsListDescriptionInAggregateOfCollection() throws Exception { 
 		execute("List.viewDetail", "row=0"); 
 		execute("Collection.new", "viewObject=xava_view" + getSection() + "_deliveryPlaces");		
 		assertValue("remarks", "");
@@ -172,7 +172,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		warehouse.setZoneNumber(1);
 		String warehouseKey = MetaModel.getForPOJO(warehouse).toString(warehouse);
 		setValue("preferredWarehouse.KEY", warehouseKey);
-		assertValue("remarks", "PREFERRED WAREHOUSE IS 1");
+		assertValue("remarks", "PREFERRED WAREHOUSE IS 1"); 
 	}
 		
 	public void testDisableEmbedded_ViewGetValueInGroup() throws Exception { 

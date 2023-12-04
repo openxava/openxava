@@ -22,7 +22,7 @@ public class VehicleTest extends ModuleTestBase {
 		setValue("state.id", "AZ"); 
 		setValue("city.KEY", "[.1.AZ.]"); 
 		execute("CRUD.save");
-		assertMessage("Vehicle modified successfully");
+		assertMessage("Vehicle modified successfully"); 
 		assertNoErrors();
 		
 		execute("Mode.list");
