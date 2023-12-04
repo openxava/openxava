@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Attribute pathSeparator of @Tree annotation ignored.
 - Fix: @OnChange on @ManyToOne not work if referenced model has nested composite keys with only references.
 - Fix: Modules with dates annotated with DATETIME or FECHAHORA stereotypes do not show week and day view.
 - Fix: When navigating by records with tree editor the tree is collapse.
