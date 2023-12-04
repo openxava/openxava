@@ -172,7 +172,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		warehouse.setZoneNumber(1);
 		String warehouseKey = MetaModel.getForPOJO(warehouse).toString(warehouse);
 		setValue("preferredWarehouse.KEY", warehouseKey);
-		assertValue("remarks", "PREFERRED WAREHOUSE IS 1"); // TMR FALLA
+		assertValue("remarks", "PREFERRED WAREHOUSE IS 1"); // TMR FALLA ME QUEDÉ POR AQUÍ
 	}
 		
 	public void testDisableEmbedded_ViewGetValueInGroup() throws Exception { 

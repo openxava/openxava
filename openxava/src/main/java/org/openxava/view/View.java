@@ -3518,8 +3518,11 @@ public class View implements java.io.Serializable {
 				MetaProperty changedProperty = getMetaProperty(name); 
 				propertyChanged(changedProperty, name);
 				if (getParent() != null) {					
-					/* tmr  
+					/* tmr
 					String qualifiedName = Is.emptyString(getMemberName())?name:(getMemberName() + "." + name);
+					System.out.println("[View.propertyChanged] qualifiedName=" + qualifiedName); // tmr
+					System.out.println("[View.propertyChanged] changedProperty.getName()=" + changedProperty.getName()); // tmr
+					System.out.println("[View.propertyChanged] getParent().getModelName()=" + getParent().getModelName()); // tmr
 					getParent().propertyChanged(changedProperty, qualifiedName);
 					*/
 					// tmr ini
@@ -3549,7 +3552,12 @@ public class View implements java.io.Serializable {
 		
 	private void propertyChangedFromParent(MetaProperty changedProperty, String name) { // tmr
 		String qualifiedName = Is.emptyString(getMemberName())?name:(getMemberName() + "." + name);
-		if (getParent().getParent() == null) getParent().propertyChanged(changedProperty, qualifiedName);
+		if (getParent().getParent() == null || getParent().isRepresentsElementCollection()) {
+			System.out.println("[View.propertyChangedFromParent] qualifiedName=" + qualifiedName); // tmr
+			System.out.println("[View.propertyChangedFromParent] changedProperty.getName()=" + changedProperty.getName()); // tmr
+			System.out.println("[View.propertyChangedFromParent] getParent().getModelName()=" + getParent().getModelName()); // tmr
+			getParent().propertyChanged(changedProperty, qualifiedName);
+		}
 		else getParent().propertyChangedFromParent(changedProperty, qualifiedName);
 	}
 

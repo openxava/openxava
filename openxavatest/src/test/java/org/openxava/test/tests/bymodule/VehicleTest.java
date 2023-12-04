@@ -22,7 +22,7 @@ public class VehicleTest extends ModuleTestBase {
 		setValue("state.id", "AZ"); 
 		setValue("city.KEY", "[.1.AZ.]"); 
 		execute("CRUD.save");
-		assertMessage("Vehicle modified successfully"); // TMR ME QUEDÉ POR AQUÍ, PERO TAMBIÉN FALLA EL PROGRAMA REAL
+		assertMessage("Vehicle modified successfully"); // tmr fallaba
 		assertNoErrors();
 		
 		execute("Mode.list");
