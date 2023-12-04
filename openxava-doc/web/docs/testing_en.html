@@ -118,7 +118,7 @@ import org.openxava.tests.*;
 public class CustomerTest extends ModuleTestBase { // Must extend from ModuleTestBase
  
     public CustomerTest(String testName) {
-        super(testName, "Invoicing", // We indicate the application name (Invoicing)
+        super(testName, "invoicing", // We indicate the application name (invoicing)
                 "Customer"); // and the module name (Customer)
     }
  
@@ -236,7 +236,7 @@ public class ProductTest extends ModuleTestBase {
     private Product product2; // and to be removed at the end of each test
  
     public ProductTest(String testName) {
-        super(testName, "Invoicing", "Product");
+        super(testName, "invoicing", "Product");
     }
  
     protected void setUp() throws Exception { // setUp() is always executed
@@ -396,7 +396,7 @@ import org.openxava.tests.*;
  
 public class AuthorTest extends ModuleTestBase {
     public AuthorTest(String testName) {
-        super(testName, "Invoicing", "Author");
+        super(testName, "invoicing", "Author");
     }
  
     public void testReadAuthor() throws Exception {
@@ -425,7 +425,7 @@ import org.openxava.tests.*;
 public class CategoryTest extends ModuleTestBase {
  
     public CategoryTest(String testName) {
-        super(testName, "Invoicing", "Category");
+        super(testName, "invoicing", "Category");
     }
  
     public void testCategoriesInList() throws Exception {
@@ -456,7 +456,7 @@ public class InvoiceTest extends ModuleTestBase {
     private String number; // To store the number of the tested invoice
  
     public InvoiceTest(String testName) {
-        super(testName, "Invoicing", "Invoice");
+        super(testName, "invoicing", "Invoice");
     }
  
     public void testCreate() throws Exception { // The test method
@@ -654,7 +654,7 @@ import static org.openxava.jpa.XPersistence.*;<br><br>abstract public class Comm
         String testName,
         String moduleName) // moduleName added as constructor argument
     {
-        super(testName, "Invoicing", moduleName); // Send moduleName
+        super(testName, "invoicing", moduleName); // Send moduleName
     }
  
     public void testCreate() throws Exception { ... } // As original
@@ -760,7 +760,7 @@ public void testAddOrders() throws Exception {
       <img src="files/inheritance_en110.png" alt="inheritance_en110.png"
         title="inheritance_en110.png"><br>
       Note that the base test <em>CommercialDocumentTest</em> is not shown because it is abstract. And the <em>testCreate()</em> method of <em>CommercialDocumentTest</em> is executed for both <em>InvoiceTest</em> and <em>OrderTest</em>.<br>
-      Not only have you adapted your testing code to the improved code for <em>Invoicing</em>, but you have also learned how to use inheritance in the test code as well. </div>
+      Not only have you adapted your testing code to the improved code for <em>invoicing</em>, but you have also learned how to use inheritance in the test code as well. </div>
     <div class="wiki" style="display: block;">
       <h2 id="Lesson%205:%20Basic%20business%20logic-JUnit%20tests">Testing basic business logic</h2>
       <b><span style="color: green;">The source code below is to write on top of code from section <i>Basic business logic</i>, until new notice.</span></b></div>
@@ -801,7 +801,7 @@ private String getNumber() {
       <pre><code class="java">private String model; // The model name to use in the query. Can be “Invoice” or “Order”
  
 public CommercialDocumentTest(String testName, String moduleName) {
-    super(testName, "Invoicing", moduleName);
+    super(testName, "invoicing", moduleName);
     this.model = moduleName; // In this case module name matches model
 }
 </code></pre> In this case module name, <i>Invoice</i> or <i>Order</i>, coincides with model name, <i>Invoice</i> or <i>Order</i>, so the easiest way to get the model name is from the module name.<br>
@@ -1034,7 +1034,7 @@ public CommercialDocumentTest(String testName, String moduleName) {
           href="http://www.extremeprogramming.org/rules/testfirst.html"
           rel="nofollow">you write your JUnit test before the application code</a>, you can use it as you proceed. This is more efficient than repeating the test procedures by hand using the browser over and over again.<br>
         Note that if you use <i>@ISBN(search=false)</i> this test will not work because it checks the result of the REST service. So, you have to use the <em>@ISBN</em> annotation of the <i>isbn </i>property without the search attribute in order to run this test successfully.<br>
-        Now execute all the tests for your <i>Invoicing</i> application to verify that everything works as expected.</div>
+        Now execute all the tests for your <i>invoicing</i> application to verify that everything works as expected.</div>
       <div class="wiki" style="display: block;">
         <h2 id="Lesson%207:%20Refining%20the%20standard%20behavior-JUnit%20tests">Testing of refining the standard behavior</h2>
         <b><span style="color: green;">The source code below is to write on top of code from section <i>Refining the standard behavior</i>, until new notice.</span></b></div>
@@ -1190,7 +1190,7 @@ private int getDocumentRowInList(String year, String number)
     return -1;
 }
 </code></pre> You can see in <em>getDocumentRowInList()</em> how to create a loop for searching after a specific value in a list.<br>
-        Now you can run all the tests for your <i>Invoicing</i> application. Everything should be green.</div>
+        Now you can run all the tests for your <i>invoicing</i> application. Everything should be green.</div>
       <div class="wiki" style="display: block;">
         <h2 id="testing-behavior-business-logic">Testing behavior &amp; business logic</h2>
       </div>
@@ -1688,7 +1688,7 @@ protected void assertValueInAllRows(int column, String value) throws Exception {
         <div class="wiki" style="display: block;">Normally to execute a button, we use "controller.action", for example to save we use <i>"CRUD.save"</i>, but in this case, the button that removes the row is a JavaScript function, so we cannot execute it this way. To achieve this we must use HtmlUnit library.<br>
           To know the number of rows in the table <i>details</i>, we access the html code with <i>getHtmlPage()</i> and filter the elements of the page by id with <i>getElementById()</i> passing the id of the table as a parameter: <i>"ox_invoicing_Invoice__details"</i> (1 ), <i>getChildElements()</i> will give us the child element, that is the body of the table, each row of the table is represented as an element in the body, so we use <i>getChildElementCount()</i> to know how many elements it has and subtract 7 which are the rows that are always present (2).<br>
           Now we are going to delete all the rows of the table, if you do it manually you will notice that when you delete a row, the bottom one goes up, keep this in mind.<br>
-          We are going to iterate as many times as necessary using the counter, but this time we will pass as a parameter the id of the first row <i>"ox_invoicing_Invoicing__details___0"</i> (3), <i>0 </i>is the numbering of the row but as we just said, when deleting a row, the one below goes up, so it is enough to always deleting the first row. Then we will arrive at the element where the button function has (4) and that is where we stop and click on it (5).</div>
+          We are going to iterate as many times as necessary using the counter, but this time we will pass as a parameter the id of the first row <i>"ox_invoicing_Invoice__details___0"</i> (3), <i>0 </i>is the numbering of the row but as we just said, when deleting a row, the one below goes up, so it is enough to always deleting the first row. Then we will arrive at the element where the button function has (4) and that is where we stop and click on it (5).</div>
         <div class="wiki" style="display: block;">The <i>testAddOrders()</i> method is finished. This is its definitive code:
           <pre><code class="java">public void testAddOrders() throws Exception {
     login("admin", "admin");
