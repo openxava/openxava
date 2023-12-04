@@ -3548,7 +3548,6 @@ public class View implements java.io.Serializable {
 	}
 		
 	private void propertyChangedFromParent(MetaProperty changedProperty, String name) { // tmr
-		// tmr Refactorizar, creo que podría quitar parent
 		String qualifiedName = Is.emptyString(getMemberName())?name:(getMemberName() + "." + name);
 		if (getParent().getParent() == null) getParent().propertyChanged(changedProperty, qualifiedName);
 		else getParent().propertyChangedFromParent(changedProperty, qualifiedName);
