@@ -20,7 +20,7 @@ public class OrderProductInDetailAsDescriptionsListTest extends ModuleTestBase {
 		assertValue("quantity", "10");
 		assertValue("amount", "110.00");
 		setValue("product.number", "2");
-		assertValue("amount", "200.00"); // TMR FALLA
+		assertValue("amount", "200.00"); 
 	}
 					
 }

@@ -22,7 +22,7 @@ public class ProductsEvaluation2ExtendedDetailsTest extends ModuleTestBase {
 		assertValueInCollection("evaluations", 1, "product.color.name", "");
 		
 		setValueInCollection("evaluations", 1, "product.number", "5");
-		assertValueInCollection("evaluations", 1, "product.color.name", "NEGRO"); // TMR FALLA
+		assertValueInCollection("evaluations", 1, "product.color.name", "NEGRO"); 
 	}
 	
 }

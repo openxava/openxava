@@ -16,7 +16,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		goModule("Event");
 		WebElement calendarIcon = getDriver().findElement(By.cssSelector(".ox_openxavatest_Event__list_col0 .mdi-calendar"));
 		calendarIcon.click();
-		//Thread.sleep(100); // tmr
+		Thread.sleep(100); 
 		WebElement days = getDriver().findElement(By.className("flatpickr-weekdaycontainer"));
 		String daysText = days.getText();
 		assertEquals(916, daysText.charAt(0)); 

@@ -31,9 +31,8 @@ abstract public class MetaModel extends MetaElement {
 	private static boolean someModelHasPostLoadCalculator = false;
 	private Class pojoClass;
 	private Class pojoKeyClass;
-	// tmr private Collection allKeyPropertiesNames;
-	private Collection<String> allKeyPropertiesNames; // tmr
-	private Collection<String> allKeyPropertiesNamesOrderedAsInModel; // tmr
+	private Collection<String> allKeyPropertiesNames; 
+	private Collection<String> allKeyPropertiesNamesOrderedAsInModel; 
 	private List metaCalculatorsPostCreate;
 	private List metaCalculatorsPostLoad;
 	private List metaCalculatorsPostModify;
@@ -713,34 +712,10 @@ abstract public class MetaModel extends MetaElement {
 	 * @return Collection of <tt>String</tt>, not null and read only 
 	 */
 	public Collection<String> getAllKeyPropertiesNames() throws XavaException {   
-		/* tmr
-		if (allKeyPropertiesNames==null) {
-			ArrayList result = new ArrayList();
-			Iterator itRef = getMetaMembersKey().iterator();
-			while (itRef.hasNext()) {
-				MetaMember member = (MetaMember) itRef.next();
-				if (member instanceof MetaProperty) {
-					result.add(member.getName());
-				}
-				else { // must be MetaReference
-					MetaReference ref = (MetaReference) member; 
-					Iterator itProperties = ref.getMetaModelReferenced().getAllKeyPropertiesNames().iterator();
-					while (itProperties.hasNext()) {
-						result.add(ref.getName() + "." + itProperties.next());
-					}
-				}
-			}
-			Collections.sort(result); 
-			allKeyPropertiesNames = Collections.unmodifiableCollection(result);						
-		}
-		return allKeyPropertiesNames;
-		*/
-		// tmr ini
 		if (allKeyPropertiesNames==null) {
 			allKeyPropertiesNames = Collections.unmodifiableCollection(new TreeSet<String>(getAllKeyPropertiesNamesOrderedAsInModel()));
 		}
 		return allKeyPropertiesNames;		
-		// tmr fin
 	}
 	
 	/**
@@ -749,7 +724,7 @@ abstract public class MetaModel extends MetaElement {
 	 * @since 7.2.1 
 	 * @return Collection of <tt>String</tt>, not null and read only 
 	 */
-	public Collection<String> getAllKeyPropertiesNamesOrderedAsInModel() throws XavaException { // tmr   
+	public Collection<String> getAllKeyPropertiesNamesOrderedAsInModel() throws XavaException {    
 		if (allKeyPropertiesNamesOrderedAsInModel==null) {
 			ArrayList result = new ArrayList();
 			Iterator itRef = getMetaMembersKey().iterator();
@@ -820,8 +795,7 @@ abstract public class MetaModel extends MetaElement {
 	 */
 	public Collection getMetaMembersKey() throws XavaException {
 		Iterator it = getMembersNames().iterator(); 		
-		// tmr SortedSet result = new TreeSet(); 
-		Collection result = new ArrayList(); // tmr
+		Collection result = new ArrayList(); 
 		while (it.hasNext()) {
 			String name = (String) it.next();
 			if (containsMetaProperty(name)) { 			

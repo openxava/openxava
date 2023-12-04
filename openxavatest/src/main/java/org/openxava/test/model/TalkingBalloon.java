@@ -22,7 +22,7 @@ public class TalkingBalloon {
 	
     @Id
     @ManyToOne
-    @OnChange(OnChangeVoidAction.class) // tmr
+    @OnChange(OnChangeVoidAction.class) 
     Balloon balloon;
 
     BigDecimal price;

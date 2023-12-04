@@ -1099,7 +1099,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertValue("driverType", "DRIVERX");	
 	}
 
-	public void testOnChangeWithQualifiedProperty() throws Exception {  // tmr fallaba
+	public void testOnChangeWithQualifiedProperty() throws Exception { 
 		execute("CRUD.new");		
 		// Left from field
 		assertValue("remarks", "No remarks");

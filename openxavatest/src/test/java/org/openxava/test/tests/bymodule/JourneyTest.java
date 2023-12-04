@@ -125,7 +125,7 @@ public class JourneyTest extends ModuleTestBase {
 		setValue("averageSpeed.vehicle.code", "VLV40");
 		assertValue("averageSpeed.vehicle.model", "S40 T5");
 		
-		assertValue("averageSpeed.speed", "240"); // TMR FALLA
+		assertValue("averageSpeed.speed", "240"); 
 		assertFocusOn("description");
 	}
 	

@@ -3517,17 +3517,8 @@ public class View implements java.io.Serializable {
 			else {
 				MetaProperty changedProperty = getMetaProperty(name); 
 				propertyChanged(changedProperty, name);
-				if (getParent() != null) {					
-					/* tmr
-					String qualifiedName = Is.emptyString(getMemberName())?name:(getMemberName() + "." + name);
-					System.out.println("[View.propertyChanged] qualifiedName=" + qualifiedName); // tmr
-					System.out.println("[View.propertyChanged] changedProperty.getName()=" + changedProperty.getName()); // tmr
-					System.out.println("[View.propertyChanged] getParent().getModelName()=" + getParent().getModelName()); // tmr
-					getParent().propertyChanged(changedProperty, qualifiedName);
-					*/
-					// tmr ini
+				if (getParent() != null) {
 					propertyChangedFromParent(changedProperty, name);
-					// tmr fin
 				}
 			}
 			
@@ -3550,15 +3541,12 @@ public class View implements java.io.Serializable {
 		}			
 	}
 		
-	private void propertyChangedFromParent(MetaProperty changedProperty, String name) { // tmr
+	private void propertyChangedFromParent(MetaProperty changedProperty, String name) {
 		String qualifiedName = Is.emptyString(getMemberName())?name:(getMemberName() + "." + name);
-		if (getParent().getParent() == null || getParent().isRepresentsElementCollection()) {
-			System.out.println("[View.propertyChangedFromParent] qualifiedName=" + qualifiedName); // tmr
-			System.out.println("[View.propertyChangedFromParent] changedProperty.getName()=" + changedProperty.getName()); // tmr
-			System.out.println("[View.propertyChangedFromParent] getParent().getModelName()=" + getParent().getModelName()); // tmr
-			getParent().propertyChanged(changedProperty, qualifiedName);
+		getParent().propertyChanged(changedProperty, qualifiedName);
+		if (getParent().getParent() != null && !getParent().isRepresentsElementCollection() && !getParent().isFirstLevel()) {
+			getParent().propertyChangedFromParent(changedProperty, qualifiedName);
 		}
-		else getParent().propertyChangedFromParent(changedProperty, qualifiedName);
 	}
 
 	private void propertyChanged(MetaProperty changedProperty, String changedPropertyQualifiedName) { 

@@ -203,7 +203,6 @@ public class ApplicantTest extends ModuleTestBase {
 	
 	private void assertLabels(String propertyLabel, String moduleLabel) throws Exception {
 		assertLabelInList(0, propertyLabel);
-		// tmr assertModuleInMenu(18, moduleLabel); // Adapt the index if you add more modules on top of Author 
 		assertModuleInMenu(19, moduleLabel); // Adapt the index if you add more modules on top of Author
 		
 		HtmlElement searchBox = getHtmlPage().getHtmlElementById("search_modules_text");
