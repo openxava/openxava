@@ -43,9 +43,10 @@ public class TreeTest extends WebDriverTestBase{
 		execute("Mode.list");
 		execute("CRUD.deleteRow", "row=1");
 		
+		resetModule(getDriver());
+		goModule("TreeContainer");
 		execute("List.viewDetail", "row=0");
 		createNodeWithPathSeparator_dnd(getDriver());
-		
 	}
 	
 	// Wait until the element is available and return it
