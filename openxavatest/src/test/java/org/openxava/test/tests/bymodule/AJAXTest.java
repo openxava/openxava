@@ -89,7 +89,7 @@ public class AJAXTest extends ModuleTestBase {
 		// WARNING! Don't change the order of the below code, because the last case only fails with this order 
 		changeModule("Quote");
 		execute("List.viewDetail", "row=0");
-		assertValue("year", "2014"); // This one ... 
+		assertValue("year", "2014"); // This one ... // TMR FALLA
 		assertValue("number", "1");  // ... has 3 details
 		setValueInCollection("details", 0, "quantity", "61");		
 		assertLoadedParts( 
@@ -174,7 +174,7 @@ public class AJAXTest extends ModuleTestBase {
 		changeModule("Route");
 		execute("CRUD.new");
 		setValueInCollection("visits", 0, "customer.number", "1");
-		assertLoadedParts( 
+		assertLoadedParts( // TMR FALLA
 			"editor_visits.0.customer.name," + 
 			"editor_visits.0.description," +
 			"errors, messages");

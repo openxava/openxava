@@ -18,7 +18,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		calendarIcon.click();
 		WebElement days = getDriver().findElement(By.className("flatpickr-weekdaycontainer"));
 		String daysText = days.getText();
-		assertEquals(916, daysText.charAt(0));
+		assertEquals(916, daysText.charAt(0)); // TMR FALLA
 		assertEquals(949, daysText.charAt(1));
 	}
 	

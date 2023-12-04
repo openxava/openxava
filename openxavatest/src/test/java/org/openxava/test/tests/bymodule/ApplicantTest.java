@@ -184,7 +184,7 @@ public class ApplicantTest extends ModuleTestBase {
 	public void testChangeLocaleAffectsMenu_assertCSSInLatestVersionAndIcons() throws Exception {  
 		modulesLimit = false;
 		resetModule();
-		assertLabels("Name", "Author"); 
+		assertLabels("Name", "Author"); // TMR FALLA
 		
 		execute("Applicant.changeToSpanish");
 		reload();

@@ -34,7 +34,7 @@ public class RouteTest extends ModuleTestBase {
 		
 		setValueInCollection("visits", 1, "customer.number", "1");
 		assertValueInCollection("visits", 1, "customer.name", "Javi");
-		assertValueInCollection("visits", 1, "description", "KM: 12, CUSTOMER: 1 JAVI");
+		assertValueInCollection("visits", 1, "description", "KM: 12, CUSTOMER: 1 JAVI"); // TMR FALLA
 		execute("Reference.search", "keyProperty=visits.0.customer.number");
 		execute("ReferenceSearch.choose", "row=1"); 
 		assertValueInCollection("visits", 0, "customer.name", "Juanillo"); 
