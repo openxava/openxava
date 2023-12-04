@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: When navigating by records with tree editor the tree is collapse.
 - Fix: @OnChange action in @Coordinates does not work.
 - Fix: Vulnerable JavaScrit code using eval() in @Coordinate editor.
 - Fix: Popup calendar for data fields is not in Greek when browser language is Greek.
