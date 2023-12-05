@@ -119,7 +119,7 @@ import org.openxava.tests.*;
 public class PruebaCliente extends ModuleTestBase { // Ha de extender de ModuleTestBase
  
     public PruebaCliente(String nombrePrueba) {
-        super(nombrePrueba, "Facturacion", // Indicamos el nombre de aplicación (Facturacion)
+        super(nombrePrueba, "facturacion", // Indicamos el nombre de aplicación (facturacion)
                 "Cliente"); // y nombre de módulo (Cliente)
     }
  
@@ -223,7 +223,7 @@ public class PruebaProducto extends ModuleTestBase {
     private Producto producto2; // y puedan ser borradas al final de cada prueba
  
     public PruebaProducto(String testName) {
-        super(testName, "Facturacion", "Producto");
+        super(testName, "facturacion", "Producto");
     }
  
     protected void setUp() throws Exception { // setUp() se ejecuta siempre antes de cada prueba
@@ -382,7 +382,7 @@ import org.openxava.tests.*;
 public class PruebaAutor extends ModuleTestBase {
  
     public PruebaAutor(String nombrePrueba) {
-        super(nombrePrueba, "Facturacion", "Autor");
+        super(nombrePrueba, "facturacion", "Autor");
     }
  
     public void testReadAuthor() throws Exception {
@@ -411,7 +411,7 @@ import org.openxava.tests.*;
 public class PruebaCategoria extends ModuleTestBase {
  
     public PruebaCategoria(String nombrePrueba) {
-        super(nombrePrueba, "Facturacion", "Categoria");
+        super(nombrePrueba, "facturacion", "Categoria");
     }
  
     public void testCategoriasEnLista() throws Exception {
@@ -443,7 +443,7 @@ public class PruebaFactura extends ModuleTestBase {
     private String numero; // Para almacenar el número de la factura que probamos
  
     public PruebaFactura(String nombrePrueba) {
-        super(nombrePrueba, "Facturacion", "Factura");
+        super(nombrePrueba, "facturacion", "Factura");
     }
  
     public void testCrear() throws Exception { // El método de prueba
@@ -643,7 +643,7 @@ abstract public class PruebaDocumentoComercial // Añade abstract a la definici�
         String nombrePrueba,
         String nombreModulo) // nombreModulo añadido como argumento en el constructor
     {
-        super(nombrePrueba, "Facturacion", nombreModulo); // nombreModulo en vez de "Factura"
+        super(nombrePrueba, "facturacion", nombreModulo); // nombreModulo en vez de "Factura"
     }
  
     public void testCrear() throws Exception { … } // Como el original
@@ -748,7 +748,7 @@ public void testAnyadirPedidos() throws Exception {
       <img src="files/inheritance_es110.png" alt="inheritance_es110.png"
         title="inheritance_es110.png"><br>
       Fíjate que la prueba base <em>PruebaDocumentoComercial</em> no se muestra porque es abstracta. Y <em>testCrear()</em> de <em>PruebaDocumentoComercial</em> se ejecuta para <em>PruebaFactura</em> y <em>PruebaPedido</em>.<br>
-      No solo has adaptado tu código de pruebas al nuevo código de <em>Facturacion</em>, sino que también has aprendido como usar herencia en el mismo código de pruebas.</div>
+      No solo has adaptado tu código de pruebas al nuevo código de <em>facturacion</em>, sino que también has aprendido como usar herencia en el mismo código de pruebas.</div>
     <div class="wiki" style="display: block;">
       <h2 id="probar-logica-de-negocio-basica">Probar lógica de negocio básica</h2>
       <b><span style="color: green;">El código fuente a partir de aquí es para ponerlo encima del código de la sección <i>Lógica de negocio básica</i>, hasta nuevo aviso.</span></b></div>
@@ -790,7 +790,7 @@ private String getNumero() {
       <pre><code class="java">private String modelo; // Nombre del modelo para la condición. Puede ser 'Factura' o 'Pedido'
  
 public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
-    super(nombrePrueba, "Facturacion", nombreModulo);
+    super(nombrePrueba, "facturacion", nombreModulo);
     this.modelo = nombreModulo; // El nombre del módulo coincide con el del modelo
 }
 </code></pre> En este caso el nombre de módulo, <i>Factura</i> o <i>Pedido</i>, coincide con el nombre de modelo, <em>Factura</em> o <em>Pedido</em>, así que la forma más fácil de obtener el nombre de modelo es desde el nombre de módulo.<br>
@@ -1181,7 +1181,7 @@ private int getFilaDocumentoEnLista(String anyo, String numero)
     return -1;
 }
 </code></pre> Puedes ver en <em>getFilaDocumentoEnLista()</em> como se hace un bucle para buscar valores concretos en una lista.<br>
-        Ahora puedes ejecutar todas las pruebas de tu aplicación <em>Facturacion</em>. Todo tiene que salir en color verde.</div>
+        Ahora puedes ejecutar todas las pruebas de tu aplicación <em>facturacion</em>. Todo tiene que salir en color verde.</div>
       <div class="wiki" style="display: block;">
         <h2><a name="probar-comportamiento-y-logica-de-negocio"></a>Probar comportamiento y lógica de negocio</h2>
         <b><span style="color: green;">El código fuente a partir de aquí es para ponerlo encima del código de la sección <i>Comportamiento y lógica de negocio</i>, hasta nuevo aviso.</span></b></div>

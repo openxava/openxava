@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Remote Code Execution (RCE) vulnerability via XSTL from dependencies.
+- HtmlUnit upgraded to 3.9.0.
+- Fix: Application name in automated testing doc starts with uppercase, so tests do not work with v7.
 - Fix: Spanish screenshot in English @Tree reference documentation.
 - Fix: Attribute pathSeparator of @Tree annotation ignored.
 - Fix: @OnChange on @ManyToOne not work if referenced model has nested composite keys with only references.
