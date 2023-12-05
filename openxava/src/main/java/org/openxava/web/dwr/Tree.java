@@ -34,7 +34,6 @@ public class Tree extends DWRBase {
 			Tab tab2 = getTab(request, application, module, tabObject);
 			Tab tab = tab2.clone();
 			View view = getView(request, application, module);
-			//View collectionView = view.getSubview(collectionName);
 			MetaView metaView = view.getMetaModel().getMetaView(view.getViewName());
 			MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
 			org.openxava.annotations.Tree tree = metaCollectionView.getPath();
@@ -98,14 +97,12 @@ public class Tree extends DWRBase {
 			View view = getView(request, application, module);
 			View collectionView = view.getSubview(collectionName);
 			String modelName = collectionView.getMetaModel().getQualifiedName();
-			
 			MetaView metaView = view.getMetaModel().getMetaView(view.getViewName());
 			MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
 			org.openxava.annotations.Tree tree = metaCollectionView.getPath();
 			String pathProperty = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "path";
 			String pathSeparator = tree != null && tree.pathSeparator() !=null ? tree.pathSeparator() : "/";
 			String idProperties = tree != null && tree.idProperties() !=null ? tree.idProperties() : "";
-
 			newPath = newPath.replace("/", pathSeparator);
 			
 			Map<String, String> pathIdMap = new HashMap<>();
@@ -159,7 +156,6 @@ public class Tree extends DWRBase {
 		} finally {
 			cleanRequest();
 		}
-
 	}
 
 	public List<Integer> toIntegerList(List<String> stringList) {
