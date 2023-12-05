@@ -38,28 +38,24 @@ public class Tree extends DWRBase {
 			MetaView metaView = view.getMetaModel().getMetaView(view.getViewName());
 			MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
 			org.openxava.annotations.Tree tree = metaCollectionView.getPath();
-
 			String pathProperty = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "path";
-			String pathSeparator = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "/";
-			String idProperties = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "";
+			String pathSeparator = tree != null && tree.pathSeparator() !=null ? tree.pathSeparator() : "/";
+			String idProperties = tree != null && tree.idProperties() !=null ? tree.idProperties() : "";
 
 			String[] listProperties = metaCollectionView.getPropertiesListNamesAsString().split(",");
 			List<String> keysList = new ArrayList<>(tab.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
 			Map<String, Object> propertiesMap = new HashMap<>();
-
 			propertiesMap.put("listProperties", listProperties);
 			propertiesMap.put("pathSeparator", pathSeparator);
 			propertiesMap.put("id", idProperties.isEmpty() ? String.join(",", keysList) : idProperties); //multiple ids not supported
 
 			tab.clearProperties();
  
-			System.out.println(tab.getPropertiesNamesAsString());
 			for (String element : listProperties) {
 				tab.addProperty(element);
 			}
 			if (!ArrayUtils.contains(listProperties, pathProperty)) tab.addProperty(0, pathProperty);
 			//need separator
-			System.out.println(idProperties.isEmpty());
 			if (!idProperties.isEmpty()) tab.addProperty(0, idProperties);
 			if (idProperties.isEmpty() && !ArrayUtils.contains(listProperties, keysList.get(0).toString())) {
 				tab.addProperty(0, keysList.get(0).toString());
@@ -69,7 +65,7 @@ public class Tree extends DWRBase {
 			TableModel table = tab.getAllDataTableModel();
 			int tableSize = tab.getTableModel().getTotalSize();
 			listProperties = tab.getPropertiesNamesAsString().split(",");
-			System.out.println(tab.getPropertiesNamesAsString());
+
 			if (tableSize > 0) {
 				for (int i = 0; i < tableSize; i++) {
 					JSONObject jsonRow = new JSONObject();
@@ -107,8 +103,8 @@ public class Tree extends DWRBase {
 			MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
 			org.openxava.annotations.Tree tree = metaCollectionView.getPath();
 			String pathProperty = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "path";
-			String pathSeparator = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "/";
-			String idProperties = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "";
+			String pathSeparator = tree != null && tree.pathSeparator() !=null ? tree.pathSeparator() : "/";
+			String idProperties = tree != null && tree.idProperties() !=null ? tree.idProperties() : "";
 
 			newPath = newPath.replace("/", pathSeparator);
 			

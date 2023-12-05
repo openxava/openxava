@@ -44,7 +44,7 @@ public class TreeTest extends WebDriverTestBase{
 		execute("CRUD.deleteRow", "row=1");
 		
 		resetModule(getDriver());
-		goModule("TreeContainer");
+		//goModule("TreeContainer");
 		execute("List.viewDetail", "row=0");
 		createNodeWithPathSeparator_dnd(getDriver());
 	}
@@ -159,6 +159,7 @@ public class TreeTest extends WebDriverTestBase{
 		driver.navigate().refresh();
 		wait(driver);
 		
+		expandNode(driver, treeItemTwoNodesId.get("child2"));
 		WebElement childElement = driver.findElement(By.id(treeItemTwoNodesId.get("child2"))).findElement(By.xpath(".//li"));
 		String childElementId = childElement.getAttribute("id");
 		assertEquals("A", childElement.getText());
@@ -168,6 +169,10 @@ public class TreeTest extends WebDriverTestBase{
 		wait(driver);
 		expandNode(driver, treeItemTwoNodesId.get("child3"));
 		assertTrue(isElementInside(driver, treeItemTwoNodesId.get("child3"), childElementId + "_anchor"));
+		
+		WebElement aCheckBox = findElement(driver, By.xpath("//a[@id='"+ childElementId +"_anchor']/i")); 
+		aCheckBox.click();
+		execute("TreeView.removeSelected", "viewObject=xava_view_treeItemTwos");
 	}
 	
 	private void executeDnd(WebDriver driver, String sourceElementId, String targetElementId) throws InterruptedException {

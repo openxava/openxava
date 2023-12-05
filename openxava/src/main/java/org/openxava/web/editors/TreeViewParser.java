@@ -303,7 +303,7 @@ public class TreeViewParser {
 	
 	public static JSONArray findChildrenOfNode(String parentId, JSONArray data, Map<String, Object> map, boolean rootNodeFound) {
         if (data.isEmpty()) return new JSONArray();
-		
+
 		JSONArray json = new JSONArray();
         String mapId = map.get("id").toString();
         String[] listProperties = (String[]) map.get("listProperties");
@@ -311,7 +311,6 @@ public class TreeViewParser {
 
         JSONObject tooltip = new JSONObject();
         tooltip.put("title", XavaResources.getString("double_click_to_edit_view"));
-        System.out.println(mapId);
         for (int i = 0; i < data.length(); i++) {
             JSONObject node = data.getJSONObject(i);
             String id = node.get(mapId).toString();

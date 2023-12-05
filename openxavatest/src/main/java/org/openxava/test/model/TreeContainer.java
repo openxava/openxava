@@ -37,7 +37,7 @@ public class TreeContainer {
 	@Editor("TreeView")
 	@ListProperties("description")
 	@OrderBy("folder, treeOrder")
-	@Tree(pathProperty="folder", pathSeparator="-")
+	@Tree(pathProperty="folder", pathSeparator="-", idProperties="id")
 	private Collection<TreeItemTwo> treeItemTwos;
 
 	public Integer getId() {
