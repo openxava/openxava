@@ -10,7 +10,6 @@
 <%@page import="org.openxava.controller.meta.MetaControllers"%>
 <%@page import="org.openxava.tab.impl.IXTableModel" %>
 <%@page import="org.openxava.web.editors.TreeView" %>
-<%@page import="org.openxava.web.editors.TreeViewActions" %>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
@@ -48,12 +47,12 @@ tab.reset();
 context.put(request, tabObject, tab);
 context.put(request, org.openxava.web.editors.TreeViewParser.XAVA_TREE_VIEW_PARSER, treeParser);
 treeParser.createMetaTreeView(tab, viewObject, collectionName, style, errors);
-String []parseData = treeParser.parse(tab.getModelName());
+String[] parseData = treeParser.parse(tab.getModelName());
 String javaScriptCode = parseData[0];
 String indexList = parseData[1];
 String module = request.getParameter("module");
 String tableId = Ids.decorate(request.getParameter("application"), module, collectionName);
-TreeViewActions metaTreeViewActions = new TreeViewActions(collectionView, treeParser.getMetaTreeView(tab.getModelName()));
+//TreeViewActions metaTreeViewActions = new TreeViewActions(collectionView, treeParser.getMetaTreeView(tab.getModelName()));
 
 String contextPath = (String) request.getAttribute("xava.contextPath");
 if (contextPath == null) contextPath = request.getContextPath();

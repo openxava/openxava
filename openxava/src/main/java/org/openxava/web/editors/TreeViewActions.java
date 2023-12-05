@@ -1,17 +1,12 @@
 package org.openxava.web.editors;
 
-import org.openxava.model.MapFacade;
-import org.openxava.tab.impl.IXTableModel;
-import org.openxava.util.Is;
-import org.openxava.view.View;
-
 /**
  * 
  * @author Federico Alcántara 
  */
 
 public class TreeViewActions {
-	
+	/*
 	private static final String UP_ACTION = "TreeView.up";
 	private static final String DOWN_ACTION = "TreeView.down";
 	private static final String LEFT_ACTION = "TreeView.left";
@@ -86,61 +81,61 @@ public class TreeViewActions {
 			}
 		}
 		return returnValue;
-	}
+	}*/
 	/**
 	 * @return the upAction
-	 */
+	 
 	public String getUpAction() {
 		return upAction;
 	}
-
+*/
 	/**
 	 * @param upAction the upAction to set
-	 */
+	 
 	public void setUpAction(String upAction) {
 		this.upAction = upAction;
 	}
-
+*/
 	/**
 	 * @return the downAction
-	 */
+	 
 	public String getDownAction() {
 		return downAction;
 	}
-
+*/
 	/**
 	 * @param downAction the downAction to set
-	 */
+	 
 	public void setDownAction(String downAction) {
 		this.downAction = downAction;
 	}
-
+*/
 	/**
 	 * @return the leftAction
-	 */
+	 
 	public String getLeftAction() {
 		return leftAction;
 	}
-
+*/
 	/**
 	 * @param leftAction the leftAction to set
-	 */
+	 
 	public void setLeftAction(String leftAction) {
 		this.leftAction = leftAction;
 	}
-
+*/
 	/**
 	 * @return the rightAction
-	 */
+	 
 	public String getRightAction() {
 		return rightAction;
 	}
-
+*/
 	/**
 	 * @param rightAction the rightAction to set
-	 */
+	 
 	public void setRightAction(String rightAction) {
 		this.rightAction = rightAction;
 	}
-	
+	*/
 }

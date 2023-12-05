@@ -1,9 +1,6 @@
 package org.openxava.web.editors;
 
 import java.util.*;
-import java.util.Collections;
-
-import javax.servlet.http.*;
 
 import org.apache.commons.logging.*;
 import org.json.*;
@@ -13,7 +10,6 @@ import org.openxava.tab.Tab;
 import org.openxava.util.*;
 import org.openxava.view.View;
 import org.openxava.view.meta.*;
-import org.openxava.web.*;
 import org.openxava.web.style.*;
 
 /**
@@ -122,18 +118,24 @@ public class TreeViewParser {
 		metaTreeView = getMetaTreeView(modelName);
 		if (metaTreeView != null) {
 			parseGroups();
+			
 			for (String path : groups.keySet()) {
+				parseTreeNode(path);
+				/*
 				if (!Is.empty(lastParse)) {
 					lastParse.append(",");
 				}
-				lastParse.append(parseTreeNode(path));
+				System.out.println(path);
+				lastParse.append(parseTreeNode(path));*/
 			}
 			
 			
-			lastParse.insert(0, "new YAHOO.widget.TreeView('tree_" + collectionName +
-					"',[");
-			lastParse.append("]);");
+//			lastParse.insert(0, "new YAHOO.widget.TreeView('tree_" + collectionName +
+//					"',[");
+//			lastParse.append("]);");
 		}
+		System.out.println("indexList.toString()");
+		System.out.println(indexList.toString());
 		return new String[] {lastParse.toString(), indexList.toString()};
 	}
 	
@@ -186,15 +188,16 @@ public class TreeViewParser {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private StringBuilder parseTreeNode(String path) throws Exception {
 		StringBuilder returnValue = new StringBuilder("");
-		Object treeNode;
-		boolean expandedState;
-		String expanded="";
-		StringBuilder html = new StringBuilder("");
-		StringBuilder parsedChildren;
-		String styleListCellSpacing = "border=\"1\" cellspacing=\"10\" cellpadding=\"10\"";
+		//Object treeNode;
+		//boolean expandedState;
+		//String expanded="";
+		//StringBuilder html = new StringBuilder("");
+		//StringBuilder parsedChildren;
+		//String styleListCellSpacing = "border=\"1\" cellspacing=\"10\" cellpadding=\"10\"";
 		List<TreeNodeHolder> nodesHolder;
-		String tooltip = XavaResources.getString("double_click_to_edit_view");
+		//String tooltip = XavaResources.getString("double_click_to_edit_view");
 		nodesHolder = groups.get(path);
+		
 		if (nodesHolder == null) {
 			return new StringBuilder("");
 		}
@@ -211,12 +214,13 @@ public class TreeViewParser {
 		for (TreeNodeHolder nodeHolder : nodesHolder) {
 			if (!nodeHolder.rendered) {
 				nodeHolder.rendered = true;
-				ITreeViewReader reader = metaTreeView.getTreeViewReaderImpl();
+				//ITreeViewReader reader = metaTreeView.getTreeViewReaderImpl();
 				int index = nodeHolder.index;
 				if (indexList.length() > 0) {
 					indexList.append(",");
 				}
 				indexList.append(index);
+				/*
 				HttpServletRequest request = tab.getRequest();
 				treeNode = nodeHolder.treeNode;
 				html = new StringBuilder("");
@@ -280,7 +284,7 @@ public class TreeViewParser {
 				returnValue.append("'");
 				returnValue.append(expanded);
 				returnValue.append(parsedChildren);
-				returnValue.append("}");
+				returnValue.append("}");*/
 			} else {
 				break; // if the first one has been rendered, the rest had been too.
 			}
