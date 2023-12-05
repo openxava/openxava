@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Attribute idProperties of @Tree annotation ignored.
 - Fix: Remote Code Execution (RCE) vulnerability via XSTL from dependencies.
 - HtmlUnit upgraded to 3.9.0.
 - Fix: Application name in automated testing doc starts with uppercase, so tests do not work with v7.
