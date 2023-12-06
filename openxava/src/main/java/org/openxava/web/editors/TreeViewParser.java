@@ -118,21 +118,9 @@ public class TreeViewParser {
 		metaTreeView = getMetaTreeView(modelName);
 		if (metaTreeView != null) {
 			parseGroups();
-			
 			for (String path : groups.keySet()) {
 				parseTreeNode(path);
-				/*
-				if (!Is.empty(lastParse)) {
-					lastParse.append(",");
-				}
-				System.out.println(path);
-				lastParse.append(parseTreeNode(path));*/
 			}
-			
-			
-//			lastParse.insert(0, "new YAHOO.widget.TreeView('tree_" + collectionName +
-//					"',[");
-//			lastParse.append("]);");
 		}
 		System.out.println("indexList.toString()");
 		System.out.println(indexList.toString());
@@ -162,6 +150,7 @@ public class TreeViewParser {
 		Map[] allKeys = tab.getAllKeys();
 		
 		// Initialize the reader
+		/*
 		reader.initialize(tab.getCollectionView().getParent().getModelName(),
 				tab.getCollectionView().getParent().getKeyValues(), tab.getModelName(),  
 				allKeys, columnNames);
@@ -176,7 +165,7 @@ public class TreeViewParser {
 				groups.put(nodePath, nodesHolder);
 			}
 			nodesHolder.add(new TreeNodeHolder(treeNode, index));
-		}
+		}*/
 	}
 	
 	/**
@@ -188,103 +177,28 @@ public class TreeViewParser {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private StringBuilder parseTreeNode(String path) throws Exception {
 		StringBuilder returnValue = new StringBuilder("");
-		//Object treeNode;
-		//boolean expandedState;
-		//String expanded="";
-		//StringBuilder html = new StringBuilder("");
-		//StringBuilder parsedChildren;
-		//String styleListCellSpacing = "border=\"1\" cellspacing=\"10\" cellpadding=\"10\"";
 		List<TreeNodeHolder> nodesHolder;
-		//String tooltip = XavaResources.getString("double_click_to_edit_view");
 		nodesHolder = groups.get(path);
-		
 		if (nodesHolder == null) {
 			return new StringBuilder("");
 		}
 		if (metaTreeView.isEntityObject()) {
+			//when use order
 			Collections.sort(nodesHolder, new Comparator(){
-	
 				public int compare(Object object1, Object object2) {
 					Integer ord1 = metaTreeView.getNodeOrder(((TreeNodeHolder)object1).treeNode);
 					Integer ord2 = metaTreeView.getNodeOrder(((TreeNodeHolder)object2).treeNode);
 					return ord1.compareTo(ord2);
 				}});
 		}
-		
 		for (TreeNodeHolder nodeHolder : nodesHolder) {
 			if (!nodeHolder.rendered) {
 				nodeHolder.rendered = true;
-				//ITreeViewReader reader = metaTreeView.getTreeViewReaderImpl();
 				int index = nodeHolder.index;
 				if (indexList.length() > 0) {
 					indexList.append(",");
 				}
 				indexList.append(index);
-				/*
-				HttpServletRequest request = tab.getRequest();
-				treeNode = nodeHolder.treeNode;
-				html = new StringBuilder("");
-				if (tab.getTableModel().getColumnCount() > 1) {
-					html.append("<table class=\"ox-list\" ");
-					html.append("width=\"100%\" ");
-					html.append(styleListCellSpacing);
-					html.append(" title=\"");
-					html.append(tooltip);
-					html.append("\"> <tr>");
-					for (int c = 0; c < tab.getTableModel().getColumnCount(); c++) {
-						MetaProperty p = tab.getMetaProperty(c);
-						String align =p.isNumber() && !p.hasValidValues()?" ox-text-align-right":"";
-						String fvalue = null;
-						if (p.hasValidValues()) {
-							fvalue = p.getValidValueLabel(reader.getValueAt(index, c));
-						}
-						else {
-							fvalue = WebEditors.format(request, p, reader.getValueAt(index, c), errors, viewObject, true);
-						}
-						html.append("<td class=\"");
-						html.append((c%2==0?"ox-list-pair":"ox-list-odd"));
-						html.append(" ox-list-data-cell");
-						html.append(align);
-						html.append("\">");
-						html.append(fvalue);
-						html.append("</td"); 
-					}
-					html.append("</tr></table>");
-				} else {
-					if (tab.getTableModel().getColumnCount() == 1) {
-						MetaProperty p = tab.getMetaProperty(0);
-						String fvalue = null;
-						if (p.hasValidValues()) {
-							fvalue = p.getValidValueLabel(reader.getValueAt(index, 0));
-						}
-						else {
-							fvalue = WebEditors.format(request, p, reader.getValueAt(index, 0), errors, viewObject, true);
-						}
-						html.append("&nbsp;<span title=\"");
-						html.append(tooltip);
-						html.append("\">");
-						html.append(fvalue);
-						html.append("</span>");
-					}
-				}
-				expandedState = metaTreeView.getNodeExpandedState(treeNode);
-				expanded = expandedState?",expanded:true":"";
-				parsedChildren = parseTreeNode(metaTreeView.getNodeFullPath(treeNode));
-				if (!Is.empty(parsedChildren)) {
-					parsedChildren.insert(0, ",children:[");
-					parsedChildren.append("]");
-				}
-				if (!Is.empty(returnValue)) {
-					returnValue.append(",");
-				}
-				returnValue.append("{type:'html',editable:true, data:\"");
-				returnValue.append(index);
-				returnValue.append("\", html:'");
-				returnValue.append(html);
-				returnValue.append("'");
-				returnValue.append(expanded);
-				returnValue.append(parsedChildren);
-				returnValue.append("}");*/
 			} else {
 				break; // if the first one has been rendered, the rest had been too.
 			}
