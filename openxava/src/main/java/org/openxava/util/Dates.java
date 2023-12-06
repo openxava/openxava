@@ -304,7 +304,7 @@ public class Dates {
 			String patternBeforeReFormat = ((SimpleDateFormat) df).toPattern();
 			String pattern = locale.toString().equalsIgnoreCase("sr")?patternBeforeReFormat.substring(0,10) + (patternBeforeReFormat.substring(10, patternBeforeReFormat.length())).replace(".", ":"):patternBeforeReFormat;
 			boolean java9 = XSystem.isJava9orBetter();
-			if (java9) pattern = pattern.replace(", ", " ");
+			if (java9) pattern = pattern.replace(", ", " ").replace((char) 8239, (char) 32);
 			if (fourDigitsForYear && !pattern.contains("yyyy")) pattern = pattern.replace("yy", "yyyy");
 			SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 			if (java9) {
@@ -568,7 +568,10 @@ public class Dates {
 				replaceAll("1971", "Y").	// year - 4 digit
 				replaceAll("71", always4InYear?"Y":"y"). 	// year - 2 digit 		
 				replaceAll("1", "j"). 	// day - single digit
-				replaceAll("2", "n")	// month - ??? seems only double digit is supported by calendar
+				replaceAll("2", "n").	// month - ??? seems only double digit is supported by calendar
+				
+				// Java 21 
+				replace((char) 8239, (char) 32) 
 				;
 		
 		return result;
@@ -684,7 +687,12 @@ public class Dates {
 	 * @since 7.1
 	 */
 	public static boolean hasLocalDate(List<MetaProperty> listProperty) {
-		List<String> dates = Arrays.asList("java.time.LocalDate", "java.util.Date", "java.sql.Date");
+		List<String> dates = Arrays.asList(
+								"java.time.LocalDate", 
+								"java.util.Date", 
+								"java.sql.Date",
+								"java.sql.Timestamp",
+								"java.time.LocalDateTime");
 	    for (MetaProperty property : listProperty) {
 	        String propertyTypeName = property.getTypeName();
 	        if (dates.contains(propertyTypeName)) {

@@ -13,10 +13,10 @@
 <%@ page import="org.openxava.web.Ids" %>
 <%@ page import="org.openxava.controller.meta.MetaAction" %>
 <%@ page import="org.openxava.controller.meta.MetaControllers" %>
-<%@ page import="org.openxava.web.Actions" %>
 <%@ page import="org.openxava.util.Users" %>
 <%@ page import="java.util.prefs.Preferences" %>
-<%@ page import="org.openxava.util.XavaResources" %> 
+<%@ page import="org.openxava.util.XavaResources" %>
+<%@ page import="org.openxava.web.EditorsEvents"%>
 
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
@@ -90,15 +90,20 @@ if (grouping) action = null;
 <th class="ox-list-header ox-text-align-center">
 <nobr>
 	<% if (tab.isCustomizeAllowed()) { %>
-	<a  id="<xava:id name='<%="customize_" + id%>'/>" href="javascript:openxava.customizeList('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=id%>')" title="<xava:message key='customize_list'/>" class="<%=style.getActionImage()%>">
+	<a  id="<xava:id name='<%="customize_" + id%>'/>" class="xava_customize_list <%=style.getActionImage()%>" 
+		title="<xava:message key='customize_list'/>" data-id="<%=id%>">
 		<i class="mdi mdi-settings"></i>
 	</a>
 	<% } %>
 	<% if (filter) { %> 
-	<a id="<xava:id name='<%="show_filter_" + id%>'/>" <%=tab.isFilterVisible()?"class='ox-display-none'":""%> href="javascript:openxava.setFilterVisible('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=id%>', '<%=tabObject%>', true)" title="<xava:message key='show_filters'/>">
+	<a id="<xava:id name='<%="show_filter_" + id%>'/>" class='<%=tab.isFilterVisible()?"xava_show_hide_filter ox-display-none":"xava_show_hide_filter"%>'  
+		title="<xava:message key='show_filters'/>"
+		data-id="<%=id%>" data-tab-object="<%=tabObject%>" data-visible="true">
 		<i id="<xava:id name='<%="filter_image_" + id%>'/>" class="mdi mdi-filter"></i>
 	</a>
-	<a id="<xava:id name='<%="hide_filter_" + id%>'/>" <%=tab.isFilterVisible()?"":"class='ox-display-none'"%> href="javascript:openxava.setFilterVisible('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=id%>', '<%=tabObject%>', false)" title="<xava:message key='hide_filters'/>">
+	<a id="<xava:id name='<%="hide_filter_" + id%>'/>" class='<%=tab.isFilterVisible()?"xava_show_hide_filter":"xava_show_hide_filter ox-display-none"%>' 
+		title="<xava:message key='hide_filters'/>"
+		data-id="<%=id%>" data-tab-object="<%=tabObject%>" data-visible="false">
 		<i id="<xava:id name='<%="filter_image_" + id%>'/>" class="mdi mdi-filter-remove"></i>  
 	</a>	
 	<% } // if (filter) %>	
@@ -116,12 +121,12 @@ if (grouping) action = null;
 <th class="ox-list-header" width="5">
 	<%
 		if (!singleSelection){
-			String actionOnClickAll = Actions.getActionOnClickAll(
-			request.getParameter("application"), request.getParameter("module"), 
-			onSelectCollectionElementAction, viewObject, prefix,
-			"", "", tabObject);
 	%>
-	<input type="checkbox" name="<xava:id name='xava_selected_all'/>" value="<%=prefix%>selected_all" <%=actionOnClickAll%> />
+	<input type="checkbox" name="<xava:id name='xava_selected_all'/>" value="<%=prefix%>selected_all" 
+		data-on-select-collection-element-action="<%=onSelectCollectionElementAction%>"
+		data-view-object="<%=viewObject%>"
+		data-prefix="<%=prefix%>"
+		data-tab-object="<%=tabObject%>"/>
 	<%
 		}
 	%>
@@ -177,9 +182,10 @@ String headerLabel=Strings.noLastToken(label) + " <nobr>" + Strings.lastToken(la
 		   
 		   if (tab.isCustomizeAllowed()) {
 	%>
-	<span class="<xava:id name='<%="customize_" + id%>'/> ox-display-none">
+	<span class="<xava:id name='<%="customize_" + id%>'/> ox-display-none ox-column-customize-controls-on-right">
 	<xava:action action="List.changeColumnName" argv='<%="property="+property.getQualifiedName() + collectionArgv%>'/>
-	<a href="javascript:openxava.removeColumn('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<xava:id name='<%=id%>'/>_col<%=columnIndex%>', '<%=tabObject%>')" title="<xava:message key='remove_column'/>">
+	<a class="xava_remove_column" title="<xava:message key='remove_column'/>"
+		data-column="<xava:id name='<%=id%>'/>_col<%=columnIndex%>" data-tab-object="<%=tabObject%>">	
 		<i class="mdi mdi-close-circle"></i>
 	</a>
 	</span>
@@ -203,9 +209,9 @@ String headerLabel=Strings.noLastToken(label) + " <nobr>" + Strings.lastToken(la
 </td> 
 <td class="ox-list-subheader" width="5"> 
 	<a title='<xava:message key="clear_condition_values"/>' href="javascript:void(0)">
-		<i class="mdi mdi-eraser" 
+		<i class="xava_clear_condition mdi mdi-eraser" 
 			id="<xava:id name='<%=prefix + "xava_clear_condition"%>' />" 
-			onclick="openxava.clearCondition('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=prefix%>')"></i>		
+			data-prefix="<%=prefix%>"></i>		
 	</a>
 </td> 
 <%
@@ -333,9 +339,9 @@ while (it.hasNext()) {
 	}
 	else {
 %>
-<th class="ox-list-subheader">
+<td class="ox-list-subheader">
 	<div class="<xava:id name='<%=id%>'/>_col<%=columnIndex%>"/>
-</th>
+</td>
 <%
 	}
 	columnIndex++; 
@@ -394,16 +400,19 @@ for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) 
 <%
 		}
 	}
-	String actionOnClick = Actions.getActionOnClick(
-		request.getParameter("application"), request.getParameter("module"), 
-		onSelectCollectionElementAction, f, viewObject, prefixIdRow + f,
-		"", "", 
-		onSelectCollectionElementMetaAction, tabObject);
 %>
 	</nobr> 
 	</td>
 	<td class="<%=cssCellClass%>">
-	<input type="<%=singleSelection?"radio":"checkbox"%>" name="<xava:id name='xava_selected'/>" value="<%=prefix + "selected"%>:<%=f%>" <%=checked%> <%=actionOnClick%>/>
+	<input class="xava_selected" type="<%=singleSelection?"radio":"checkbox"%>" name="<xava:id name='xava_selected'/>" 
+		value="<%=prefix + "selected"%>:<%=f%>" <%=checked%>
+		data-on-select-collection-element-action="<%=onSelectCollectionElementAction%>"
+		data-row-id="<%=prefixIdRow%><%=f%>"
+		data-row="<%=f%>"
+		data-view-object="<%=viewObject%>"
+		data-tab-object="<%=tabObject%>"
+		data-confirm-message="<%=Is.empty(onSelectCollectionElementMetaAction)?"":onSelectCollectionElementMetaAction.getConfirmMessage()%>"
+		data-takes-long="<%=Is.empty(onSelectCollectionElementMetaAction)?false:onSelectCollectionElementMetaAction.isTakesLong()%>"/>
 	</td>	
 <%
 	for (int c=0; c<model.getColumnCount(); c++) {
@@ -463,9 +472,10 @@ for (int c=0; c<model.getColumnCount(); c++) {
 				org.openxava.view.View rootView = view.getParent().getCollectionRootOrRoot();
 				String sumProperty =  collection + "." + p.getName() + "_SUM_";
 				if (rootView.isPropertyUsedInCalculation(sumProperty)) {
-					String script = org.openxava.web.Collections.sumPropertyScript(request, rootView, sumProperty);
 			%>
-					<input id="<xava:id name='<%=sumProperty%>'/>" type="hidden" value="<%=total%>" <%=script%>/>
+					<input class="xava_onchange_calculate" id="<xava:id name='<%=sumProperty%>'/>" type="hidden" value="<%=ftotal%>"
+						<%=EditorsEvents.onChangeCalculateDataAttributes(request.getParameter("application"), request.getParameter("module"), rootView, sumProperty)%>
+					/>
 			<%
 				}
 			}
@@ -653,8 +663,8 @@ else {
 %>
 <% if (style.isChangingPageRowCountAllowed()) { %>
 &nbsp;
-<select id="<xava:id name='<%=id + "_rowCount"%>'/>" class=<%=style.getEditor()%>
-	onchange="openxava.setPageRowCount('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=collection==null?"":collection%>', this)">
+<select id="<xava:id name='<%=id + "_rowCount"%>'/>" class="<%=style.getEditor()%> xava_set_page_row_count"
+	data-collection='<%=collection==null?"":collection%>'>
 	<% 
 	int [] rowCounts = { 5, 10, 12, 15, 20, 50 }; // The peformance with more than 50 rows is poor for page reloading
 	for (int i=0; i<rowCounts.length; i++) {

@@ -15,6 +15,9 @@ public abstract class MetaControllerElement extends MetaElement{
 	private String icon;
 	private String mode;
 	
+	/** @since 7.2 */
+	abstract public MetaController getMetaController();
+	
 	public boolean appliesToMode(String mode) {
 		if ("NONE".equals(getMode())) return false;
 		return Is.emptyString(getMode()) || getMode().equals(mode);

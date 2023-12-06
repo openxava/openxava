@@ -18,7 +18,7 @@ String contextPath = (String) request.getAttribute("xava.contextPath");
 if (contextPath == null) contextPath = request.getContextPath();
 String version = org.openxava.controller.ModuleManager.getVersion();
 %>	
-<script type='text/javascript' src='<%=contextPath%>/dwr/interface/Discussion.js?ox=<%=version%>'></script>	
+<script type='text/javascript' <xava:nonce/> src='<%=contextPath%>/dwr/interface/Discussion.js?ox=<%=version%>'></script>
 
 <%
 String propertyKey = request.getParameter("propertyKey");
@@ -50,12 +50,9 @@ for (DiscussionComment comment: comments) {
 <% if (editable) { %>
 <textarea id="xava_new_comment_<%=discussionId%>" class="ox-simple-html-text xava-new-comment" tabindex="1"></textarea>
 
-<div id="xava_new_comment_<%=discussionId%>_buttons" class="ox-discussion-post-button">
-	<input type="button" tabindex="1" class="<%=style.getButton()%> ox-display-none" 
-		onclick="discussionEditor.postMessage('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>', '<%=discussionId%>')" value="<xava:label key="addComment"/>"/>
-	<input type="button" tabindex="1" class="<%=style.getButton()%> ox-display-none" 
-		onclick="discussionEditor.cancel('<%=discussionId%>')" 
-		value="<xava:label key="cancel"/>"/>
+<div id="xava_new_comment_<%=discussionId%>_buttons" class="ox-discussion-post-button" data-discussion-id="<%=discussionId%>">	
+	<input type="button" tabindex="1" class="ox-discussion-add-button ox-display-none" value="<xava:label key="addComment"/>"/>
+	<input type="button" tabindex="1" class="ox-discussion-cancel-button ox-display-none" value="<xava:label key="cancel"/>"/>	
 </div>
 <% } %>	
 

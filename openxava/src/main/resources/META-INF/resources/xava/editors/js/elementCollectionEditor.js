@@ -10,6 +10,12 @@ openxava.addEditorInitFunction(function() {
 	    	elementCollectionEditor.renumber(row, 0);
 	    }	
 	});
+	$('.ox-element-collection-remove-action').off('click').click(function() {
+		elementCollectionEditor.removeRow(openxava.lastApplication, openxava.lastModule, this, $(this).data('row'), $(this).data('has-totals'));
+	});	
+	$('.xava_onchange_last_row').off('change').change(function() {
+  		elementCollectionEditor.onChangeRow(this, $(this).data("row"));
+  	});
 });
 
 elementCollectionEditor.onChangeRow = function(element, rowIndex) {
@@ -27,6 +33,9 @@ elementCollectionEditor.onChangeRow = function(element, rowIndex) {
 	token1 = new RegExp(", this, " + (rowIndex + 1) + ", ", "g");
 	token2 = ", this, " + (rowIndex + 2) + ", ";
 	newRowHtml = newRowHtml.replace(token1, token2);
+	token1 = new RegExp('data-row="' + (rowIndex + 1) + '"', "g");
+	token2 = 'data-row="' + (rowIndex + 2) + '"';
+	newRowHtml = newRowHtml.replace(token1, token2);
 	newRow.html(newRowHtml);
 	newRow.addClass("ox-display-none"); 
 	var table = currentRow.parent().parent();	
@@ -37,7 +46,6 @@ elementCollectionEditor.onChangeRow = function(element, rowIndex) {
 	currentRow.children().first().find("nobr").css('visibility', 'visible');
 	currentRow.addClass("xava_sortable_element_row"); 
 	openxava.initEditors();
-	openxava.initInlineEvents();
 }
 
 elementCollectionEditor.setDefaultValues = function(table, rowIndex) {
@@ -63,7 +71,6 @@ elementCollectionEditor.removeRow = function(application, module, element, rowIn
 		openxava.executeAction(application, module, "", false, "ElementCollection.refreshTotals");
 	}	
 	openxava.initEditors();
-	openxava.initInlineEvents();
 }
 
 elementCollectionEditor.renumber = function(row, rowIndex) { 
@@ -75,7 +82,8 @@ elementCollectionEditor.renumber = function(row, rowIndex) {
 	});
 	var rowHtml = row.html()
 		.replace(token1, token2)
-		.replace(new RegExp("this, \\d+", "g"), "this, " + rowIndex)
+		.replace(new RegExp("data-row=\"\\d+\"", "g"), "data-row=\"" + rowIndex + "\"")
+		.replace(new RegExp("this, \\d+", "g"), "this, " + rowIndex)  
 		.replace(new RegExp("keyProperty=(.*)\\.\\d+\\.", "g"), "keyProperty=$1." + rowIndex + ".");
 	row.html(rowHtml);
 	if (!$(row).hasClass("ox-display-none") && $(row).css("display") !== 'none') { // is:visible/hidden not work on mobile (removing one record removes all until end)

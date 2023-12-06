@@ -8,7 +8,6 @@
 <%@page import="org.openxava.controller.meta.MetaControllers"%>
 <%@page import="org.openxava.util.Is"%>
 <%@page import="org.openxava.util.Maps"%>
-<%@page import="org.openxava.web.Actions"%>
 <%@page import="org.openxava.util.XavaPreferences"%>
 <%@page import="org.openxava.view.View"%>
 <%@page import="org.openxava.model.meta.MetaProperty"%>
@@ -116,7 +115,7 @@ for (int f=0; f < rowCount; f++) {
 	String idRow = Ids.decorate(request, propertyPrefix) + f;	
 	String events=f%2==0?style.getListPairEvents():style.getListOddEvents();
 	String newRowStyle = subview.isCollectionEditable() && f == rowCount - 1?"ox-display-none":"";
-	String lastRowEvent = subview.isCollectionEditable() && f >= rowCount - 2?"onchange='elementCollectionEditor.onChangeRow(this, "+  f + ")'":"";
+	String lastRowClass = subview.isCollectionEditable() && f >= rowCount - 2?"xava_onchange_last_row":"";  
 	String actionsStyle = subview.isCollectionEditable() && f >= rowCount - 2?"class='ox-visibility-hidden'":"";
 	String app = request.getParameter("application");
 	String module = request.getParameter("module");
@@ -140,14 +139,14 @@ for (int f=0; f < rowCount; f++) {
 	 </a>
 	<%} else { %>
 	 <a title='<xava:message key="remove_row"/>' href="javascript:void(0)" class='<%=style.getActionImage()%>'>
-	 	<% String onclick="elementCollectionEditor.removeRow('" + app + "', '" + module + "', this, " + f + ", " + hasTotals + ")"; %>
 	 	<% if (style.isUseIconsInsteadOfImages()) { %>
-		<i class="mdi mdi-delete" onclick="<%=onclick%>"></i>
+		<i class="ox-element-collection-remove-action mdi mdi-delete" data-row="<%=f%>" data-has-totals="<%=hasTotals%>"></i>
 		<% } else { %>
-		<img 		 
+		<img class="ox-element-collection-remove-action" 		 
 			src='<%=request.getContextPath()%>/xava/images/delete.gif'
-			border='0' align='absmiddle' onclick="<%=onclick%>"/>
-		<% } %>
+			border='0' align='absmiddle'
+			data-row="<%=f%>" data-has-totals="<%=hasTotals%>"/>
+		<% } %>		
 	 </a>
 	<%} %>	
 	</nobr>
@@ -184,7 +183,8 @@ for (int f=0; f < rowCount; f++) {
 		<% if (labelOnEachCell) { %>
 			<span class="<%=style.getLabel()%>"><%=p.getQualifiedLabel(request)%></span>
 		<% } %>
-		<div class="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" <%=width%> <%=lastRowEvent%>>
+		<div class="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%> <%=lastRowClass%>" <%=width%>
+			data-row="<%=f%>">
 		<nobr> 
 		<% if (!subview.isCollectionMembersEditables()) {%>
 			<% if (referenceName == null) { %>

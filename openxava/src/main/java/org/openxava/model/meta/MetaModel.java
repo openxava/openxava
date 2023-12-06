@@ -2,6 +2,7 @@ package org.openxava.model.meta;
 
 
 import java.beans.*;
+import java.lang.annotation.*;
 import java.rmi.*;
 import java.util.*;
 
@@ -30,7 +31,8 @@ abstract public class MetaModel extends MetaElement {
 	private static boolean someModelHasPostLoadCalculator = false;
 	private Class pojoClass;
 	private Class pojoKeyClass;
-	private Collection allKeyPropertiesNames;
+	private Collection<String> allKeyPropertiesNames; 
+	private Collection<String> allKeyPropertiesNamesOrderedAsInModel; 
 	private List metaCalculatorsPostCreate;
 	private List metaCalculatorsPostLoad;
 	private List metaCalculatorsPostModify;
@@ -705,12 +707,25 @@ abstract public class MetaModel extends MetaElement {
 	
 	
 	/**
-	 * Includes qualified properties in case of key references. <p>
+	 * Includes qualified properties in case of key references, ordered alphabetically. <p>
 	 * 
 	 * @return Collection of <tt>String</tt>, not null and read only 
 	 */
 	public Collection<String> getAllKeyPropertiesNames() throws XavaException {   
 		if (allKeyPropertiesNames==null) {
+			allKeyPropertiesNames = Collections.unmodifiableCollection(new TreeSet<String>(getAllKeyPropertiesNamesOrderedAsInModel()));
+		}
+		return allKeyPropertiesNames;		
+	}
+	
+	/**
+	 * Includes qualified properties in case of key references, ordered as in model. <p>
+	 * 
+	 * @since 7.2.1 
+	 * @return Collection of <tt>String</tt>, not null and read only 
+	 */
+	public Collection<String> getAllKeyPropertiesNamesOrderedAsInModel() throws XavaException {    
+		if (allKeyPropertiesNamesOrderedAsInModel==null) {
 			ArrayList result = new ArrayList();
 			Iterator itRef = getMetaMembersKey().iterator();
 			while (itRef.hasNext()) {
@@ -720,16 +735,15 @@ abstract public class MetaModel extends MetaElement {
 				}
 				else { // must be MetaReference
 					MetaReference ref = (MetaReference) member; 
-					Iterator itProperties = ref.getMetaModelReferenced().getAllKeyPropertiesNames().iterator();
+					Iterator itProperties = ref.getMetaModelReferenced().getAllKeyPropertiesNamesOrderedAsInModel().iterator();
 					while (itProperties.hasNext()) {
 						result.add(ref.getName() + "." + itProperties.next());
 					}
 				}
 			}
-			Collections.sort(result); 
-			allKeyPropertiesNames = Collections.unmodifiableCollection(result);						
+			allKeyPropertiesNamesOrderedAsInModel = Collections.unmodifiableCollection(result);						
 		}
-		return allKeyPropertiesNames;
+		return allKeyPropertiesNamesOrderedAsInModel;		
 	}
 	
 	
@@ -781,7 +795,7 @@ abstract public class MetaModel extends MetaElement {
 	 */
 	public Collection getMetaMembersKey() throws XavaException {
 		Iterator it = getMembersNames().iterator(); 		
-		SortedSet result = new TreeSet(); 
+		Collection result = new ArrayList(); 
 		while (it.hasNext()) {
 			String name = (String) it.next();
 			if (containsMetaProperty(name)) { 			
@@ -1986,6 +2000,26 @@ abstract public class MetaModel extends MetaElement {
 	
 	public boolean hasVersionProperty() throws XavaException { 
 		return getVersionPropertyName() != null;
+	}
+	
+	public boolean hasDateTimeProperty() {
+		Collection<MetaProperty> mp = getMetaProperties();
+		for (MetaProperty p : mp) {
+			if (p.getTypeName().toString().equals("java.util.Date") && p.getAnnotations() != null) {
+				for (Annotation a : p.getAnnotations()) {
+					if (a.annotationType().getSimpleName().equals("DateTime")) return true;			
+				}
+			}
+			
+			if (p.getTypeName().contains("LocalDateTime") || 
+					p.getTypeName().contains("Timestamp") || 
+					(p.getStereotype()!=null && (
+					p.getStereotype().equals("DATETIME") || 
+					p.getStereotype().equals("FECHAHORA")))) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**

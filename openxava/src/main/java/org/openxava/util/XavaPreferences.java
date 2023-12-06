@@ -396,6 +396,11 @@ public class XavaPreferences {
 		return getProperties().getProperty("defaultModeController", null);
 	}
 	
+	/** @since 7.2 */
+	public boolean isTurnOffWebSecurity() { 
+		return "true".equalsIgnoreCase(getProperties().getProperty("turnOffWebSecurity", "false").trim());
+	}
+	
 	/**
 	 * 
 	 * @since 5.4

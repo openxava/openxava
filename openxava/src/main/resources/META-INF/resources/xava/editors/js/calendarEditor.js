@@ -43,7 +43,11 @@ openxava.addEditorInitFunction(function() {
         var dateFormat = $('#xava_calendar_dateFormat').val();
         var newAction = $("#xava_calendar_action").val().split(",")[1];
         var selectAction = $("#xava_calendar_action").val().split(",")[0];
+		var moduleHasDateTime = $('#xava_calendar_hasDateTime').val();
+		var calendarViews = moduleHasDateTime === 'true' ? 'dayGridMonth,timeGridWeek,timeGridDay' : '';
+		var displayTime = calendarViews === 'dayGridMonth,timeGridWeek,timeGridDay' ? 'true' : 'false'; 
         var formattedDate = "";
+		
         calendarEditor.outApplication = application;
         calendarEditor.outModule = module;
         var calendarElement = document.getElementById('xava_calendar');
@@ -58,17 +62,38 @@ openxava.addEditorInitFunction(function() {
                 initialView: 'dayGridMonth',
                 editable: true,
                 locale: navigator.language,
-                displayEventTime: false,
+                displayEventTime: true,
                 events: calendarEditor.listEvents,
 				dayMaxEventRows: true,
                 editable: true,
                 progressiveEventRendering: true,
 				eventColor: 'var(--color)',
-                headerToolbar: {
-                    left: 'prev,next title',
-                    center: '',
-                    right: ''
-                },
+				defaultTimedEventDuration: '00:30',
+				allDaySlot: false,
+				eventTimeFormat: {
+					hour: 'numeric',
+					minute: '2-digit',
+				},
+				viewClassNames: function(info){
+					if (info.view.type === 'timeGridWeek' || info.view.type === 'timeGridDay'){
+						calendarEditor.calendar.setOption('displayEventTime', true);
+						const h2 = calendarElement.querySelector(".fc-toolbar-title");
+						if (h2.textContent !== info.view.title) formatTitle(info.view.title);
+					} else if (info.view.type === 'dayGridMonth') {
+						if (displayTime === 'true') {
+							calendarEditor.calendar.setOption('displayEventTime', true);
+						} else {
+							calendarEditor.calendar.setOption('displayEventTime', false);
+						}
+						const h2 = calendarElement.querySelector(".fc-toolbar-title");
+						if (h2.textContent !== info.view.title) formatTitle(info.view.title);
+					}
+				},
+				headerToolbar: {
+					left: 'prev,next title',
+					center: '',
+					right: calendarViews
+				},
                 customButtons: {
                     next: {
                         click: function() {
@@ -94,6 +119,8 @@ openxava.addEditorInitFunction(function() {
                 eventClick: function(e) {
                     if (calendarEditor.requesting) return;
                     if (!getSelection().toString()) {
+						$(e.el).css('z-index', 8);
+						$('.fc-event-tooltip').remove();
                         openxava.executeAction(application, module, false, false, selectAction, 'calendarKey=' + e.event.extendedProps.key);
                     }
                 },
@@ -104,10 +131,26 @@ openxava.addEditorInitFunction(function() {
                     if (!getSelection().toString()) {
                         openxava.executeAction(application, module, false, false, newAction, value);
                     }
-                }
+                },
+				 eventMouseEnter: function(info) {
+					var tis=info.el;
+					var popup=info.event.title;
+					var tooltip = document.createElement('div');
+					tooltip.className = 'fc-event-tooltip';
+					tooltip.style.top = ($(tis).offset().top - 5) + 'px';
+					tooltip.style.left = ($(tis).offset().left + ($(tis).width()) / 2) + 'px';
+					var contentDiv = document.createElement('div');
+					contentDiv.textContent = popup;
+					tooltip.appendChild(contentDiv);
+					document.body.appendChild(tooltip);
+				},
+				eventMouseLeave: function(info) {
+					$(info.el).css('z-index', 8);
+					$('.fc-event-tooltip').remove();
+				}
             });
             calendarEditor.calendar.render();
-            formatTitle();
+            formatTitle(null);
         });
 
         function reformatDate(date) {
@@ -119,45 +162,53 @@ openxava.addEditorInitFunction(function() {
 
         function getEvents(month) {
             if (calendarEditor.requesting) return;
-            calendarEditor.requesting = true;
-            //if (openxava.isRequesting(application, module)) return;
-            //openxava.setRequesting(application, module);
             let currentViewDate = calendarEditor.calendar.view.currentStart;
             let currentMonth = currentViewDate.getMonth();
             let currentYear = currentViewDate.getFullYear();
             cleanTitle();
             month === 'next' ? calendarEditor.calendar.next() : calendarEditor.calendar.prev();
-            formatTitle();
+            formatTitle(null);
             let newViewDate = calendarEditor.calendar.view.currentStart;
             let newMonth = newViewDate.getMonth();
             let newYear = newViewDate.getFullYear();
             let monthYear = (currentYear != newYear || currentMonth != newMonth) ? newMonth + "_" + newYear : "";
-            Calendar.getEvents(application, module, monthYear, calendarEditor.setEvents);
+			
+            if (monthYear !== "")  { 
+				calendarEditor.requesting = true;
+				Calendar.getEvents(application, module, monthYear, calendarEditor.setEvents);
+			}
         }
 
         function formatDate(date, format) {
+			
             const map = {
                 M: date.getMonth() + 1,
                 MM: ('0' + (date.getMonth() + 1)).slice(-2),
                 d: date.getDate(),
                 dd: ('0' + date.getDate()).slice(-2),
-                h: date.getHours(),
-                hh: ('0' + date.getHours()).slice(-2),
+				H: date.getHours(), //24hs format
+				HH: ('0' + date.getHours()).slice(-2), //24hs format 2 digit
+				h: date.getHours() % 12 || 12, //12hs format
+				hh: date.getHours() === 0 ? '00' : ('0' + (date.getHours() % 12 || 12)).slice(-2), //12hs format 2 digit
                 m: date.getMinutes(),
                 mm: ('0' + date.getMinutes()).slice(-2),
                 s: date.getSeconds(),
                 ss: ('0' + date.getSeconds()).slice(-2),
+				K: date.getHours() >= 12 ? 'PM' : 'AM',
                 yyyy: date.getFullYear(),
                 yy: date.getFullYear().toString().slice(-2)
             };
             
-            return format.replace(/(M+|d+|h+|m+|s+|yyyy|yy)/gi, matched => {
+            return format.replace(/(M+|d+|h+|m+|s+|yyyy|yy|K)/gi, matched => {
                 return map[matched];
             });
         }
         
-        function formatTitle(){
-            const h2 = calendarElement.querySelector(".fc-toolbar-title");
+        function formatTitle(title){
+			const h2 = calendarElement.querySelector(".fc-toolbar-title");
+			if (title !== null){
+				h2.textContent = title;
+			}
             const text = h2.textContent;
             const capitalizedTitle = text.charAt(0).toUpperCase() + text.slice(1);
             h2.textContent = capitalizedTitle;

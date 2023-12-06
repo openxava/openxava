@@ -97,11 +97,14 @@ public @interface Tree {
 	boolean initialExpandedState() default true;
 
 	/**
+	 * @deprecated since OpenXava 7.2
+	 * 
 	 * Optional.
 	 * Defines the increment used for the keys when orderBy is used
 	 * The default value is 2. The minimum is 2.
 	 * @return order increment.
 	 */
+	@Deprecated
 	int orderIncrement() default 2;
 	
 	/**
