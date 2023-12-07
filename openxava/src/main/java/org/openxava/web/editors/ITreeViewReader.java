@@ -3,7 +3,7 @@
  */
 package org.openxava.web.editors;
 
-import java.util.Map;
+import java.util.*;
 
 /**
  * Defines the contract for tree view readers.
@@ -22,7 +22,7 @@ public interface ITreeViewReader {
 	 * @throws Exception
 	 */
 	@SuppressWarnings("rawtypes")
-	void initialize(String parentModelName, Map parentKey, String collectionModelName, Map[] allKeys, String[] columnNames) throws Exception;
+	void initialize(String parentModelName, Map parentKey, String collectionModelName, Map[] allKeys) throws Exception;
 	
 	/**
 	 * Ends the process of reading
@@ -43,5 +43,6 @@ public interface ITreeViewReader {
 	 * @param column to be read
 	 * @return the object 
 	 */
-	Object getValueAt(int rowIndex, int columnIndex) throws Exception;
+	/*
+	Object getValueAt(int rowIndex, int columnIndex) throws Exception;*/
 }

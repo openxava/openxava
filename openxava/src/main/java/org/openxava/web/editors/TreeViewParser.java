@@ -5,7 +5,6 @@ import java.util.*;
 import org.apache.commons.logging.*;
 import org.json.*;
 import org.openxava.annotations.*;
-import org.openxava.model.meta.*;
 import org.openxava.tab.Tab;
 import org.openxava.util.*;
 import org.openxava.view.View;
@@ -88,7 +87,6 @@ public class TreeViewParser {
 				if (metaCollectionView != null) {
 					treePath = metaCollectionView.getPath();
 				}
-		
 				metaTreeView = new TreeView(
 						treePath, treeNodeClass, this.parentObject, collectionName, tab.getRequest().getParameter("reader"));
 				getMetaTreeViews().put(tab.getModelName(), metaTreeView);
@@ -122,8 +120,6 @@ public class TreeViewParser {
 				parseTreeNode(path);
 			}
 		}
-		System.out.println("indexList.toString()");
-		System.out.println(indexList.toString());
 		return new String[] {lastParse.toString(), indexList.toString()};
 	}
 	
@@ -139,21 +135,11 @@ public class TreeViewParser {
 		groups = new TreeMap<String, List<TreeNodeHolder>>();
 		List<TreeNodeHolder> nodesHolder;
 		ITreeViewReader reader = metaTreeView.getTreeViewReaderImpl();
-		String[] columnNames = new String[tab.getTableModel().getColumnCount()];
-
-		// Gather columnNames
-		for (int columnIndex = 0; columnIndex < tab.getTableModel().getColumnCount(); columnIndex++) {
-			MetaProperty metaProperty = tab.getMetaProperty(columnIndex);
-			columnNames[columnIndex] = metaProperty.getQualifiedName();
-		}
-		
 		Map[] allKeys = tab.getAllKeys();
-		
-		// Initialize the reader
-		/*
+		// Initialize the reader 
 		reader.initialize(tab.getCollectionView().getParent().getModelName(),
 				tab.getCollectionView().getParent().getKeyValues(), tab.getModelName(),  
-				allKeys, columnNames);
+				allKeys);
 		int totalSize = allKeys.length;
 
 		for (int index = 0; index < totalSize; index++) {
@@ -165,7 +151,7 @@ public class TreeViewParser {
 				groups.put(nodePath, nodesHolder);
 			}
 			nodesHolder.add(new TreeNodeHolder(treeNode, index));
-		}*/
+		}
 	}
 	
 	/**

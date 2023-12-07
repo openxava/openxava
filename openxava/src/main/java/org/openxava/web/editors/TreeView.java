@@ -1,24 +1,14 @@
 package org.openxava.web.editors;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.*;
+import java.util.*;
 
-import javax.persistence.Id;
-import javax.persistence.OrderBy;
+import javax.persistence.*;
 
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.openxava.annotations.Tree;
-import org.openxava.util.Is;
-import org.openxava.util.Strings;
-import org.openxava.util.XavaException;
-import org.openxava.util.XavaResources;
+import org.apache.commons.beanutils.*;
+import org.apache.commons.logging.*;
+import org.openxava.annotations.*;
+import org.openxava.util.*;
 
 /**
  * 
@@ -406,6 +396,7 @@ public class TreeView {
 	 * @param object Object to be modified.
 	 * @param value New state.
 	 */
+	@Deprecated
 	public void setNodeExpandedState(Object object, boolean value) {
 		Boolean currentState = null;
 		if (object !=null) {

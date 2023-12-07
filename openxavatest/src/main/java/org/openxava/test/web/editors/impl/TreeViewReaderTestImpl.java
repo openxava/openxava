@@ -3,11 +3,11 @@
  */
 package org.openxava.test.web.editors.impl;
 
-import java.util.Map;
+import java.util.*;
 
-import org.apache.commons.beanutils.PropertyUtils;
-import org.openxava.model.MapFacade;
-import org.openxava.web.editors.ITreeViewReader;
+import org.apache.commons.beanutils.*;
+import org.openxava.model.*;
+import org.openxava.web.editors.*;
 
 /**
  * @author Federico Alcantara
@@ -30,10 +30,9 @@ public class TreeViewReaderTestImpl implements ITreeViewReader {
 	 * @see org.openxava.web.editors.ITreeViewReader#initialize(java.lang.String, java.lang.String[], java.util.Map, java.util.Map[])
 	 */
 	@SuppressWarnings("rawtypes")
-	public void initialize(String parentModelName, Map parentKey, String collectionModelName,  Map[] allKeys, String[] columnNames) {
+	public void initialize(String parentModelName, Map parentKey, String collectionModelName,  Map[] allKeys) {
 		this.collectionModelName = collectionModelName;
 		this.allKeys = allKeys;
-		this.columnNames = columnNames;
 	}
 
 	/**
@@ -41,7 +40,6 @@ public class TreeViewReaderTestImpl implements ITreeViewReader {
 	 */
 	public void close() throws Exception {
 	}
-
 
 	/**
 	 * @see org.openxava.web.editors.ITreeViewReader#getRowObject()
