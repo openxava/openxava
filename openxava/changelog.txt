@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.2.1 (2023-12-7)
+--------------------------
 - HtmlUnit upgraded to 3.9.0.
 - Commons IO upgraded to 2.15.1. 
 - POI and POI OOXML upgraded to 5.2.5.
