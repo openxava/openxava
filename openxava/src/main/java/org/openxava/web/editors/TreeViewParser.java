@@ -110,7 +110,7 @@ public class TreeViewParser {
 	 * @return Script for creating the treeview.
 	 * @throws Exception
 	 */
-	public String[] parse(String modelName) throws Exception {
+	public String parse(String modelName) throws Exception {
 		lastParse = new StringBuilder("");
 		indexList = new StringBuilder("");
 		metaTreeView = getMetaTreeView(modelName);
@@ -120,7 +120,7 @@ public class TreeViewParser {
 				parseTreeNode(path);
 			}
 		}
-		return new String[] {lastParse.toString(), indexList.toString()};
+		return indexList.toString();
 	}
 	
 	/**
