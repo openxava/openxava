@@ -9,7 +9,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<openxava.version>7.2.1-SNAPSHOT</openxava.version>
+		<openxava.version>7.2.1</openxava.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- OpenXava applications work nicely with Java 1.8, 11, 17 and 21 -->
 		<maven.compiler.source>1.8</maven.compiler.source>
