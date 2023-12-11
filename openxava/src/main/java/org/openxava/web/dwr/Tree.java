@@ -34,38 +34,32 @@ public class Tree extends DWRBase {
 			Tab tab2 = getTab(request, application, module, tabObject);
 			Tab tab = tab2.clone();
 			View view = getView(request, application, module);
-			View collectionView = view.getSubview(collectionName);
 			MetaView metaView = view.getMetaModel().getMetaView(view.getViewName());
 			MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
 			org.openxava.annotations.Tree tree = metaCollectionView.getPath();
-			String pathProperty = "path";
-			String pathSeparator = "/";
-			String idProperties = "";
-
-			if (tree != null) {
-				pathProperty = tree.pathProperty() != null ? tree.pathProperty() : "path";
-				pathSeparator = tree.pathSeparator() != null ? tree.pathSeparator() : "/";
-				idProperties = tree.idProperties() != null ? tree.idProperties() : "";
-			}
+			String pathProperty = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "path";
+			String pathSeparator = tree != null && tree.pathSeparator() !=null ? tree.pathSeparator() : "/";
+			String idProperties = tree != null && tree.idProperties() !=null ? tree.idProperties() : "";
 
 			String[] listProperties = metaCollectionView.getPropertiesListNamesAsString().split(",");
-			String order = collectionView.getMetaCollection().getOrder();
 			List<String> keysList = new ArrayList<>(tab.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
 			Map<String, Object> propertiesMap = new HashMap<>();
-
 			propertiesMap.put("listProperties", listProperties);
-			propertiesMap.put("separator", pathSeparator);
-			propertiesMap.put("id", idProperties);
+			propertiesMap.put("pathSeparator", pathSeparator);
+			propertiesMap.put("id", idProperties.isEmpty() ? String.join(",", keysList) : idProperties); //multiple ids not supported
 
 			tab.clearProperties();
+ 
 			for (String element : listProperties) {
 				tab.addProperty(element);
 			}
 			if (!ArrayUtils.contains(listProperties, pathProperty)) tab.addProperty(0, pathProperty);
-			if (keysList.size() < 2 && !ArrayUtils.contains(listProperties, keysList.get(0).toString())) {
+			//need separator
+			if (!idProperties.isEmpty()) tab.addProperty(0, idProperties);
+			if (idProperties.isEmpty() && !ArrayUtils.contains(listProperties, keysList.get(0).toString())) {
 				tab.addProperty(0, keysList.get(0).toString());
 			}
-
+			
 			JSONArray jsonArray = new JSONArray();
 			TableModel table = tab.getAllDataTableModel();
 			int tableSize = tab.getTableModel().getTotalSize();
@@ -96,14 +90,21 @@ public class Tree extends DWRBase {
 	}
 
 	public void updateNode(HttpServletRequest request, HttpServletResponse response, String application, String module,
-			String collectionName, String idProperties, String pathProperty, String newPath, List<String> rows,
+			String collectionName, String newPath, List<String> rows,
 			List<String> childRows) throws NumberFormatException, XavaException, FinderException, RemoteException {
 		try {
 			initRequest(request, response, application, module);
 			View view = getView(request, application, module);
 			View collectionView = view.getSubview(collectionName);
 			String modelName = collectionView.getMetaModel().getQualifiedName();
-
+			MetaView metaView = view.getMetaModel().getMetaView(view.getViewName());
+			MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
+			org.openxava.annotations.Tree tree = metaCollectionView.getPath();
+			String pathProperty = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "path";
+			String pathSeparator = tree != null && tree.pathSeparator() !=null ? tree.pathSeparator() : "/";
+			String idProperties = tree != null && tree.idProperties() !=null ? tree.idProperties() : "";
+			newPath = newPath.replace("/", pathSeparator);
+			
 			Map<String, String> pathIdMap = new HashMap<>();
 			pathIdMap.put(pathProperty, null);
 			Map<String, String> newPathValue = new HashMap<>();
@@ -133,7 +134,7 @@ public class Tree extends DWRBase {
 				pathValueMap = MapFacade.getValues(modelName, keys, pathIdMap);
 				String childPathValue = (String) pathValueMap.get(pathProperty);
 				for (String pValue : parentsValues) {
-					pValue = pValue.startsWith("/") ? pValue : "/" + pValue;
+					pValue = pValue.startsWith(pathSeparator) ? pValue : pathSeparator + pValue;
 					if (childPathValue.startsWith(pValue)) {
 						childPathValue = newPath.equals("") 
 								? childPathValue.replace(pValue, newPath)
@@ -155,7 +156,6 @@ public class Tree extends DWRBase {
 		} finally {
 			cleanRequest();
 		}
-
 	}
 
 	public List<Integer> toIntegerList(List<String> stringList) {
