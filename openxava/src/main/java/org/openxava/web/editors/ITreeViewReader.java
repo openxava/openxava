@@ -37,12 +37,4 @@ public interface ITreeViewReader {
 	 */
 	Object getObjectAt(int rowIndex) throws Exception;
 	
-	/**
-	 * Retrieves the object value found at row / column
-	 * @param row row to be assessed
-	 * @param column to be read
-	 * @return the object 
-	 */
-	/*
-	Object getValueAt(int rowIndex, int columnIndex) throws Exception;*/
 }

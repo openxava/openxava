@@ -5,7 +5,6 @@ package org.openxava.test.web.editors.impl;
 
 import java.util.*;
 
-import org.apache.commons.beanutils.*;
 import org.openxava.model.*;
 import org.openxava.web.editors.*;
 
@@ -19,8 +18,6 @@ public class TreeViewReaderTestImpl implements ITreeViewReader {
 	
 	@SuppressWarnings("rawtypes")
 	private Map[] allKeys;
-	
-	private String[] columnNames;
 	
 	private int lastReadRow = -1;
 	
@@ -50,18 +47,6 @@ public class TreeViewReaderTestImpl implements ITreeViewReader {
 			lastReadRow = rowIndex;
 		}
 		return lastReadObject;
-	}
-
-	/**
-	 * @see org.openxava.web.editors.ITreeViewReader#getValueAt(int, int)
-	 */
-	public Object getValueAt(int rowIndex, int columnIndex) throws Exception {
-		Object rowObject = getObjectAt(rowIndex);
-		Object returnValue = PropertyUtils.getProperty(rowObject, columnNames[columnIndex]);
-		if (columnNames[columnIndex].equalsIgnoreCase("description")) {
-			returnValue = rowIndex + ". " + returnValue.toString();
-		}
-		return returnValue;
 	}
 
 }

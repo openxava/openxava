@@ -21,7 +21,6 @@ public class TreeView {
 	private String pathProperty;
 	private String idProperties;
 	private String orderProperty;
-	private boolean initialExpandedState;
 	private int keyIncrement;
 	private String pathSeparator;
 	private List<String>idPropertiesList;
@@ -39,7 +38,6 @@ public class TreeView {
 	@SuppressWarnings("rawtypes")
 	private Class parentClass;
 	private String collectionName;
-	private Map<String, Boolean> expandedStates;
 	
 	private String treeViewReaderName;
 	private ITreeViewReader treeViewReader;
@@ -74,7 +72,6 @@ public class TreeView {
 		this.idSeparator = treeAnnotation.idSeparator();
 		parseNodeProperty();
 		this.orderProperty = null;
-		this.initialExpandedState = treeAnnotation.initialExpandedState();
 		this.keyIncrement = treeAnnotation.orderIncrement();
 		if (this.keyIncrement < 2) {
 			this.keyIncrement = 2;
@@ -310,26 +307,6 @@ public class TreeView {
 	}
 	
 	/**
-	 * Returns the expanded state of the object. If the expanded state is not
-	 * persisted, then it returns the appropriate value according to the 
-	 * definition of the expandedState property of @TreeView annotation.
-	 * @param object Object to be inspected.
-	 * @return State of the object.
-	 */
-	public boolean getNodeExpandedState(Object object) {
-		Boolean returnValue = null;
-		if (object != null) {
-			returnValue =
-				getExpandedStates().get(getNodeName(object));
-		}
-		if (returnValue == null) {
-			returnValue = getInitialExpandedState();
-			getExpandedStates().put(getNodeName(object), returnValue);
-		}
-		return returnValue;
-	}
-	
-	/**
 	 * Returns the complete path of the node including the node name.
 	 * @param object Object to be inspected.
 	 * @return Complete path.
@@ -390,22 +367,6 @@ public class TreeView {
 			}
 		}
 	}
-	
-	/**
-	 * Sets a new expanded state for the object. If expandedProperty is not defined it is ignored. 
-	 * @param object Object to be modified.
-	 * @param value New state.
-	 */
-	@Deprecated
-	public void setNodeExpandedState(Object object, boolean value) {
-		Boolean currentState = null;
-		if (object !=null) {
-			getExpandedStates().get(getNodeName(object));
-			if (currentState == null) {
-				getExpandedStates().put(getNodeName(object), value);
-			}
-		}
-	}
 
 	/**
 	 * @return the pathProperty
@@ -445,21 +406,7 @@ public class TreeView {
 	protected void setOrderProperty(String orderProperty) {
 		this.orderProperty = orderProperty;
 	}
-
-	/**
-	 * @return the initialExpandedState
-	 */
-	public boolean getInitialExpandedState() {
-		return initialExpandedState;
-	}
-
-	/**
-	 * @param initialExpandedState the initialExpandedState to set
-	 */
-	protected void setInitialExpandedState(boolean initialExpandedState) {
-		this.initialExpandedState = initialExpandedState;
-	}
-
+	
 	/**
 	 * @return the keyIncrement
 	 */
@@ -519,23 +466,6 @@ public class TreeView {
 		return idSeparator;
 	}
 
-	/**
-	 * @param expandedStates the expandedStates to set
-	 */
-	public void setExpandedStates(Map<String, Boolean> expandedStates) {
-		this.expandedStates = expandedStates;
-	}
-
-	/**
-	 * @return the expandedStates
-	 */
-	public Map<String, Boolean> getExpandedStates() {
-		if (expandedStates == null) {
-			expandedStates = new HashMap<String, Boolean>();
-		}
-		return expandedStates;
-	}
-	
 	/**
 	 * Creates the implementation of TreeView reader
 	 * @return Object implementing the ITreeViewReader
