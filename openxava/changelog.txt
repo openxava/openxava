@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: The module freezes when there are many dates for a month in calendar format. 
+
 OpenXava 7.2.1 (2023-12-7)
 --------------------------
 - HtmlUnit upgraded to 3.9.0.
