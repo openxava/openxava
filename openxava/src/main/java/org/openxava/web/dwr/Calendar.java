@@ -10,6 +10,7 @@ import javax.servlet.http.*;
 import javax.swing.table.*;
 
 import org.apache.commons.logging.*;
+import org.json.*;
 import org.openxava.filters.*;
 import org.openxava.formatters.*;
 import org.openxava.model.meta.*;
@@ -17,8 +18,6 @@ import org.openxava.tab.Tab;
 import org.openxava.util.*;
 import org.openxava.view.View;
 import org.openxava.web.*;
-
-import com.fasterxml.jackson.databind.*;
 
 import lombok.*;
 
@@ -53,6 +52,7 @@ public class Calendar extends DWRBase {
 	private BooleanFormatter booleanFormatter;
 	private CalendarEvent event;
 	private String dateName;
+	private List<String> dateNameList;
 	private String[] tabConditionValues;
 	private String[] tabConditionComparators;
 	
@@ -94,34 +94,32 @@ public class Calendar extends DWRBase {
 		tab = setProperties(tab);
 		this.table = tab.getAllDataTableModel();
 		int tableSize = 0;
-		String json = null;
+		JSONArray jsonArray = new JSONArray();
 		tableSize = tab.getTableModel().getTotalSize();
-
+		
 		if (tableSize > 0) {
 			for (int i = 0; i < tableSize; i++) {
-				event = new CalendarEvent();
-				event.key = obtainRowsKey(i);
+				JSONObject jsonRow = new JSONObject();
 				List<String> d = obtainRowsDate(i);
 				String[] startDate = d.get(0).split("_");
-				event.start = startDate[1];
-				event.startName = startDate[0];
-				event.end = "";
-				// for date range
-				// event.end = (d.size() > 1) ? d.get(1).split("_")[1] : "";
-				event.title = obtainRowsTitle(i);
-				calendarEvents.add(event);
+				jsonRow.put("start", startDate[1]);
+				jsonRow.put("startName", startDate[0]);
+				jsonRow.put("title", obtainRowsTitle(i));
+				JSONObject ep = new JSONObject();
+				ep.put("key", obtainRowsKey(i));
+				jsonRow.put("extendedProps", ep);
+				jsonArray.put(jsonRow);
 			}
 		} else {
-			event = new CalendarEvent();
+			JSONObject nullJson = new JSONObject();
 			List<String> d = obtainRowsDate(-1);
 			String f = d.get(0).split("_")[0];
 			String s = d.size() > 1 ? d.get(1).split("_")[0] : "";
-			event.startName = f.equals("")  && !s.equals("") ? s : f;
-			calendarEvents.add(event);
+			String startName = f.equals("")  && !s.equals("") ? s : f;
+			nullJson.put("startName", startName);
+			jsonArray.put(nullJson);
 		}
-		ObjectMapper objectMapper = new ObjectMapper();
-		json = objectMapper.writeValueAsString(calendarEvents);
-		return json.toString();
+		return jsonArray.toString();
 	}
 
 	private DateRangeFilter setFilterForMonth(String monthYear) {
@@ -330,7 +328,7 @@ public class Calendar extends DWRBase {
 		        }
 		}
 		datesList.sort(Comparator.comparingInt(sortedProperties::indexOf));
-	}
+	} 
 
 	private Tab setProperties(Tab tab) {
 		List<String> newTabColumn = new ArrayList<>();

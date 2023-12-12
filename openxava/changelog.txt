@@ -1,11 +1,15 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: The module freezes when there are many dates for a month in calendar format. 
+
+OpenXava 7.2.1 (2023-12-7)
+--------------------------
 - HtmlUnit upgraded to 3.9.0.
-- Commons IO upgraded to 2.15.1 
-- POI and POI OOXML upgraded to 5.2.5
-- Groovy upgraded to 4.0.16
-- Embedded Tomcat used in development upgraded to 9.0.83
+- Commons IO upgraded to 2.15.1. 
+- POI and POI OOXML upgraded to 5.2.5.
+- Groovy upgraded to 4.0.16.
+- Embedded Tomcat used in development upgraded to 9.0.83.
 - Driver version in doc and new projects upgraded for PostgreSQL, Db2 and Firebird.
 - Fix: @OnChange on @ManyToOne not work if referenced model has nested composite keys with only references.
 - Fix: Remote Code Execution (RCE) vulnerability via XSTL from dependencies.
@@ -66,7 +70,7 @@ OpenXava 7.1.6 (2023-9-15)
 --------------------------
 - New method cloneWith59999 in the Dates utility class to set seconds to 59 and milliseconds 999.
 - Embedded Tomcat used in development upgraded to 9.0.80.
-- Groovy upgraded to 4.0.14
+- Groovy upgraded to 4.0.14.
 - Driver version in doc and new projects upgraded for AS/400.
 - Doc about internationalization (i18n) improved.
 - Fix: Actions for a @DescriptionsList inside an @ElementCollection are displayed in the next cell.

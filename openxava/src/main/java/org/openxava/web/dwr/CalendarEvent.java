@@ -16,12 +16,28 @@ public class CalendarEvent {
 	String start;
 	String end;
 	String title;
-	String key;
+	ExtendedProps extendedProps;
 	String startName;
 	String endName;
 
     @Override
     public String toString() {
-        return "Event [start=" + start + ", end=" + end + ", key=" + key + "]";
+    	return "{" +
+    			"extendedProps: {key: \"" 
+    			+ extendedProps + "\"" +
+                '}' +
+                ", start: \"" + start + '\"' +
+                ", title: \"" + title + '\"' +
+                ", startName: \"" + startName + '\"' +
+                '}';
+    }
+    
+    public static class ExtendedProps {
+        private String key;
+
+        @Override
+        public String toString() {
+            return key;
+        }
     }
 }
