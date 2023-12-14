@@ -58,4 +58,16 @@ public class DateCalendarTest extends WebDriverTestBase {
 		acceptInDialogJS(getDriver());
 	}
 	
+	public void testChineseDateTime() throws Exception {
+		changeLanguage("zh-TW");
+		goModule("Appointment");
+		execute("List.viewDetail", "row=2");
+		assertValue("time", "2015/5/26 PM 1:34");
+		WebElement calendarPopUp = getDriver().findElement(By.cssSelector("i.mdi.mdi-calendar-clock"));
+		calendarPopUp.click();
+		calendarPopUp.click();
+		WebElement description = getDriver().findElement(By.id("ox_openxavatest_Appointment__description"));
+		description.click();
+		assertValue("time", "2015/5/26 PM 1:34");
+	}
 }
