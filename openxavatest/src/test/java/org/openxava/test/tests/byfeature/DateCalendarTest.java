@@ -65,9 +65,8 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertValue("time", "2015/5/26 PM 1:34");
 		WebElement calendarPopUp = getDriver().findElement(By.cssSelector("i.mdi.mdi-calendar-clock"));
 		calendarPopUp.click();
-		calendarPopUp.click();
-		WebElement description = getDriver().findElement(By.id("ox_openxavatest_Appointment__description"));
-		description.click();
+		WebElement label = getDriver().findElement(By.id("ox_openxavatest_Appointment__label_time"));
+		label.click();
 		assertValue("time", "2015/5/26 PM 1:34");
 	}
 }
