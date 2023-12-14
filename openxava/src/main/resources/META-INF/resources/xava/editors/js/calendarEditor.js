@@ -9,29 +9,9 @@ calendarEditor.outModule;
 calendarEditor.requesting = false;
 
 calendarEditor.setEvents = function(calendarEvents) {
-    var events = calendarEditor.calendar.getEvents();
-    events.forEach(function(event) {
-        event.remove();
-    });
-    calendarEditor.listEvents = JSON.parse(calendarEvents);
-    for (let e of calendarEditor.listEvents) {
-        calendarEditor.calendar.addEvent({
-            title: e.title,
-            start: e.start,
-            end: e.end,
-            "extendedProps": {
-                "key": e.key
-            }
-        });
-        calendarEditor.listEvents = [];
-        calendarEditor.startName = e.startName;
-    }
-    let result = {
-        "result": {
-            "application": calendarEditor.outApplication,
-            "module": calendarEditor.outModule
-        }
-    };
+	var arr = eval('(' + calendarEvents + ')');
+	calendarEditor.startName = arr[0].startName;
+	calendarEditor.calendar.addEventSource(arr);
     calendarEditor.requesting = false;
 }
 
@@ -175,6 +155,9 @@ openxava.addEditorInitFunction(function() {
 			
             if (monthYear !== "")  { 
 				calendarEditor.requesting = true;
+				calendarEditor.calendar.getEventSources().forEach(function (source) {
+					source.remove();
+				});
 				Calendar.getEvents(application, module, monthYear, calendarEditor.setEvents);
 			}
         }

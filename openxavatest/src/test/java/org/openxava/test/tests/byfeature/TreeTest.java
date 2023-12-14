@@ -159,6 +159,8 @@ public class TreeTest extends WebDriverTestBase{
 		driver.navigate().refresh();
 		wait(driver);
 		
+		childItem2CheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemTwoNodesId.get("child2") +"_anchor']/i")); 
+		childItem2CheckBox.click();
 		expandNode(driver, treeItemTwoNodesId.get("child2"));
 		WebElement childElement = driver.findElement(By.id(treeItemTwoNodesId.get("child2"))).findElement(By.xpath(".//li"));
 		String childElementId = childElement.getAttribute("id");
