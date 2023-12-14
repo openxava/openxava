@@ -27,16 +27,10 @@ openxava.addEditorInitFunction(function() {
     });
     
     $('.xava_date > input').change(function() {
-		console.log("change");
-		if (isZh) {
-			isZh = false;
-			$('.xava_date > input').val(initialValue); 
-		}
         var dateFormat = $(this).parent().data("dateFormat");
         var date = readInput?enterDate:$(this).val(); 
         if (date === "") return;
         date = date.trim();
-		console.log(date);
         if (date.length < 6 && date.includes(":")) return;
         var separator = dateFormat.substr(1, 1);
         var idx = date.lastIndexOf(separator);
@@ -89,14 +83,11 @@ openxava.addEditorInitFunction(function() {
         locale: openxava.language,
         onOpen: function(selectedDates, dateStr, instance) {
             onOpenDateTime = dateStr;
-			console.log(dateStr);
+			if (isZh && dateStr.includes('PM') && instance.amPM.innerHTML === 'AM'){
+					instance.amPM.innerHTML = 'PM';
+			} 
         },
         onChange: function(selectedDates, dateStr, instance) {
-			console.log("change2");
-			if (isZh) {
-				isZh = false;
-				dateStr = initialValue;
-			}
             dateStr = invalid?invalidDate:dateStr;
             if (onOpenDateTime != null) {
                 if (onOpenDateTime.length > 10) {
@@ -137,7 +128,7 @@ openxava.addEditorInitFunction(function() {
 		onReady: function(selectedDates, dateStr, instance) {
 			if (openxava.language === 'zh' && $('.xava_date > input').val() !== initialValue){
 				isZh = true;
-				$('.xava_date > input').val(initialValue); 
+				instance.input.value = initialValue;
 			}
 		}
     });
