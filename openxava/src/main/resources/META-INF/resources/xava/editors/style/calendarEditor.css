@@ -116,3 +116,12 @@
 .fc-event-tooltip div:last-child::before{
     bottom:-5px;
 }
+
+.fc-popover {
+	background-color: var(--calendar-button-color);
+	border-color: var(--calendar-cell-border-color);
+}
+
+.fc-popover .fc-event-title-container {
+	background-color: var(--calendar-today-background);
+}
