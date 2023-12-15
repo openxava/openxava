@@ -14,12 +14,17 @@ import org.openxava.model.*;
 
 @Entity
 @Table(name="APPOINTMENT")
-@Tab(properties="time, description, amountOfPeople, type.description")
+@Tab(properties="time, dateTime, description, amountOfPeople, type.description")
+@View(members="time; dateTime; description; amountOfPeople; type")
 public class Appointment2 extends Identifiable {
 	
 	@Stereotype("DATETIME")
 	@Required
 	private Date time;
+	
+	@DateTime
+	@Required
+	private Date dateTime;
 	
 	@Column(length=60) @Required
 	private String description;
@@ -36,6 +41,14 @@ public class Appointment2 extends Identifiable {
 
 	public void setTime(Date time) {
 		this.time = time;
+	}
+	
+	public Date getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(Date dateTime) {
+		this.dateTime = dateTime;
 	}
 
 	public String getDescription() {
