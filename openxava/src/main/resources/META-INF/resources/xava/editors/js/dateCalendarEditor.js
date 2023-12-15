@@ -11,7 +11,13 @@ openxava.addEditorInitFunction(function() {
     var onChangeChecked = false;
 	var calendarClosed = false;
 	
-	var initialValue = $('.xava_date > input').val();
+	//for fix chinese trad timedate
+	var inputElementList = $('.xava_date > input').toArray();
+	var inputValueList = [];
+	$('.xava_date > input').each(function() {
+		var inputValue = $(this).val();
+		inputValueList.push(inputValue);
+	});
 	var isZh = false;
 	
     $('.xava_date > input').keydown(function(event) {
@@ -126,9 +132,11 @@ openxava.addEditorInitFunction(function() {
             }
         },
 		onReady: function(selectedDates, dateStr, instance) {
-			if (openxava.language === 'zh' && $('.xava_date > input').val() !== initialValue){
+			if (openxava.language === 'zh'){
 				isZh = true;
-				instance.input.value = initialValue;
+				for (var i = 0; i < inputElementList.length; i++) {
+					if (instance.input === inputElementList[i]) instance.input.value = inputValueList[i];
+				}
 			}
 		}
     });
