@@ -2824,7 +2824,7 @@ public class View implements java.io.Serializable {
 			if (metaPropertyView != null) {
 				if (isKeyEditable() && metaPropertyView.isReadOnly() && !metaPropertyView.isReadOnlyOnCreate()) return true;
 			}
-			if (metaProperty.isReadOnly()) return false; 
+			if (metaProperty.isReadOnly() && !isRepresentsEntityReference()) return false; 
 			if (metaProperty.isKey() || (metaProperty.isSearchKey() && isRepresentsEntityReference())) return isKeyEditable();
 			if (!isEditable()) return false;			
 			return isMarkedAsEditable(metaProperty.getName());
