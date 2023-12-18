@@ -2818,20 +2818,15 @@ public class View implements java.io.Serializable {
 	/**
 	 * If at this moment is editable.
 	 */
-	private boolean isEditableImpl(MetaProperty metaProperty) { 	
+	private boolean isEditableImpl(MetaProperty metaProperty) { 
 		try {
 			MetaPropertyView metaPropertyView = getMetaView().getMetaPropertyViewFor(metaProperty.getName());
 			if (metaPropertyView != null) {
-				if (isKeyEditable() && metaPropertyView.isReadOnly() && !metaPropertyView.isReadOnlyOnCreate())	return true;
-			}
-			if (metaProperty.isKey() || 
-				(metaProperty.isSearchKey() && isRepresentsEntityReference())) 
-			{
-				return isKeyEditable();
+				if (isKeyEditable() && metaPropertyView.isReadOnly() && !metaPropertyView.isReadOnlyOnCreate()) return true;
 			}
 			if (metaProperty.isReadOnly()) return false; 
+			if (metaProperty.isKey() || (metaProperty.isSearchKey() && isRepresentsEntityReference())) return isKeyEditable();
 			if (!isEditable()) return false;			
-			
 			return isMarkedAsEditable(metaProperty.getName());
 		}
 		catch (Exception ex) {
