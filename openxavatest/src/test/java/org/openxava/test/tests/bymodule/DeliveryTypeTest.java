@@ -173,6 +173,9 @@ public class DeliveryTypeTest extends ModuleTestBase {
 	
 	public void testRemoveValidator_postcreateCalculator_postmodifyCalculator() throws Exception {
 		execute("CRUD.new");
+		
+		assertNoEditable("number");
+		
 		setValue("number", "66");
 		setValue("description", "JUNIT");
 		execute("CRUD.save");
@@ -219,7 +222,7 @@ public class DeliveryTypeTest extends ModuleTestBase {
 		
 		execute("CRUD.delete");		
 		assertNoErrors();
-		assertMessage("Delivery type deleted successfully");		
+		assertMessage("Delivery type deleted successfully");
 	}
 	
 	static void setDeliveryAdvice(Delivery delivery, String advice) throws Exception  { 
