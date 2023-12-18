@@ -233,6 +233,7 @@
 	--reverse-label-background: black;
 	
 	--calendar-selected-day: var(--modules-list-background);
+	--calendar-event-background : var(--color);
 		
 	--message-box-color: white;
 	--message-box-a-color: white;

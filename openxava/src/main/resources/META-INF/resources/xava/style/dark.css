@@ -59,4 +59,5 @@
 	--calendar-cell-border-color: white;
 	--calendar-day-hover-background: hsla(0, 0%, 50%, 0.5);
 	--calendar-today-background: hsla(0, 0%, 70%, 0.7);
+	--calendar-event-background : var(--acqua-profonda);
 }
