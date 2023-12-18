@@ -19,7 +19,7 @@ public class DeliveryWithTypeAsViewTest extends ModuleTestBase {
 		resetModule();
 		execute("CRUD.new");
 		assertAction("Reference.search", "keyProperty=type.number");
-		assertNoEditable("type.number");
+		assertEditable("type.number");
 	}
 
 }
