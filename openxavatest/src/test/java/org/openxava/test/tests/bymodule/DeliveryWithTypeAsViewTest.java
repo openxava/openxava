@@ -16,11 +16,10 @@ public class DeliveryWithTypeAsViewTest extends ModuleTestBase {
 	public void testCompositeKeyWithReferencesWithReadOnlyInIdOfReferencedEntity() throws Exception {
 		execute("List.viewDetail", "row=0");
 		assertNoAction("Reference.search", "keyProperty=type.number");
+		resetModule();
 		execute("CRUD.new");
-		printHtml();
-		//issue
 		assertAction("Reference.search", "keyProperty=type.number");
-		assertEditable("type.number");
+		assertNoEditable("type.number");
 	}
 
 }
