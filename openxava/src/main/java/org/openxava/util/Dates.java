@@ -299,6 +299,7 @@ public class Dates {
 	
 	private static DateFormat getDateTimeFormat(Locale locale, boolean fourDigitsForYear) { 
 		// To use the Java 8 (and previous) format for Java 9 and better
+		System.out.println("getDateTimeFormat " + fourDigitsForYear);
 		DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale);
 		if (df instanceof SimpleDateFormat) {
 			String patternBeforeReFormat = ((SimpleDateFormat) df).toPattern();
@@ -306,6 +307,11 @@ public class Dates {
 			boolean java9 = XSystem.isJava9orBetter();
 			if (java9) pattern = pattern.replace(", ", " ").replace((char) 8239, (char) 32);
 			if (fourDigitsForYear && !pattern.contains("yyyy")) pattern = pattern.replace("yy", "yyyy");
+			if (!pattern.contains("yyyy")) {
+				pattern = pattern.replace("-", "/");
+				pattern = pattern.replace("yy", "yyyy");
+			}
+			
 			SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 			if (java9) {
 				DateFormatSymbols symbols = new DateFormatSymbols(locale);

@@ -29,26 +29,33 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 
 	public Object parse(HttpServletRequest request, String string) throws ParseException {
 		if (Is.emptyString(string)) return null;
-		if (string.indexOf('-') >= 0 && !isDashFormat()) { // SimpleDateFormat does not work well with -
+		if (string.indexOf('-') >= 0) { 
+		//if (string.indexOf('-') >= 0 && !isDashFormat()) { // SimpleDateFormat does not work well with -
 			string = Strings.change(string, "-", "/");
 		}
 		DateFormat [] dateFormats = getDateTimeFormats();
 		for (int i=0; i<dateFormats.length; i++) {
+			System.out.println(((SimpleDateFormat) dateFormats[i]).toPattern());
 			try {
+				System.out.println(1);
+				System.out.println(string);
 				java.util.Date result = (java.util.Date) dateFormats[i].parseObject(string);
 				return new java.sql.Timestamp( result.getTime() );
 			}
 			catch (ParseException ex) {
 			}
 		}
+		System.out.println(2);
 		java.util.Date result = (java.util.Date) new DateFormatter().parse(request, string);
 		return new java.sql.Timestamp( result.getTime() );
 	}
 
 	private DateFormat getDateTimeFormat(boolean forParsing) { 
+		 
+		//System.out.println(((SimpleDateFormat)Dates.getDateTimeFormatForParsing(Locales.getCurrent())).toPattern());
 		if (isExtendedFormat()) return extendedDateTimeFormat;
 		if (isDotFormat()) return dotDateFormat; 
-		if (isDashFormat()) return dashDateTimeFormat;
+		//if (isDashFormat()) return dashDateTimeFormat;
 		return forParsing?Dates.getDateTimeFormatForParsing(Locales.getCurrent()):Dates.getDateTimeFormat();  
 	}
 	
