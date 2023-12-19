@@ -1,6 +1,7 @@
 package org.openxava.formatters;
 
 import java.text.*;
+
 import org.openxava.util.*;
 
 /**
@@ -32,6 +33,10 @@ abstract public class DateTimeBaseFormatter {
 			"ca".equals(Locales.getCurrent().getLanguage()) || 
 			"pl".equals(Locales.getCurrent().getLanguage()) ||
 			"fr".equals(Locales.getCurrent().getLanguage());
+	}
+	
+	protected boolean isDashFormat() {
+		return "nl".equals(Locales.getCurrent().getLanguage());
 	}
 	
 	protected boolean isDotFormat() { 

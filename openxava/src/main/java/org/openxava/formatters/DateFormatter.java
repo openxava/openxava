@@ -40,7 +40,7 @@ public class DateFormatter implements IFormatter {
 			if (string.indexOf('-') >= 0) { // SimpleDateFormat does not work well with -
 				string = Strings.change(string, "-", "/");
 			}		
-		}
+		} 
 		DateFormat [] dateFormats = getDateFormats(); 
 		for (int i=0; i<dateFormats.length; i++) {
 			try {
