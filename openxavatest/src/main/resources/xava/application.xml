@@ -250,7 +250,7 @@
 		<model name="DeliveryType"/>
 		<web-view url="custom-jsp/deliveryType.jsp"/>
 		<controller name="Typical"/>
-	</module>		<module name="DeliveryTypeWithDeliveries" folder="invoicing/variations">		<model name="DeliveryType"/>		<view name="WithDeliveries"/>		<controller name="Typical"/>	</module>		<module name="FamilyProductsReport" folder="warehousing">		<model name="FilterBySubfamily"/>		<view name="WithSubfamilyForm"/>
+	</module>		<module name="DeliveryTypeWithDeliveries" folder="invoicing/variations">		<model name="DeliveryType"/>		<view name="WithDeliveries"/>		<controller name="Typical"/>	</module>		<module name="DeliveryTypeReadOnlyNumber" folder="invoicing/variations">		<model name="DeliveryType"/>		<view name="ReadOnlyNumber"/>		<controller name="Typical"/>	</module>		<module name="FamilyProductsReport" folder="warehousing">		<model name="FilterBySubfamily"/>		<view name="WithSubfamilyForm"/>
 		<mode-controller name="Void"/>	</module>
 	
 	<module name="FamilyRangeProductsReport" folder="warehousing">		<model name="FilterBySubfamily"/>		<view name="Range"/>		<mode-controller name="Void"/>	</module>		

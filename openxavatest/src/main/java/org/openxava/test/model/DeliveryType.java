@@ -21,7 +21,7 @@ import org.openxava.test.validators.*;
 public class DeliveryType {
 	
 	@Id @Column(length=4)
-	@ReadOnly(forViews="DEFAULT, ReadOnlyNumber") 
+	@ReadOnly(forViews="ReadOnlyNumber") 
 	private int number;
 	
 	@Required
