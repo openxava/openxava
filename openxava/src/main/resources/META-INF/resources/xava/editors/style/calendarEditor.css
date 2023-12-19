@@ -125,3 +125,7 @@
 .fc-event-main {
 	background-color: var(--calendar-event-background);
 }
+
+.fc-event {
+	background-color: var(--calendar-event-time-background);
+}
