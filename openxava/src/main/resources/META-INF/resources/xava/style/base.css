@@ -235,7 +235,9 @@
 	--calendar-selected-day: var(--modules-list-background);
 	--calendar-event-background : var(--color);
 	--calendar-event-time-background: transparent;
-		
+	--calendar-popup-background: var(--fc-natural-bg-color);
+	--calendar-popup-title-color: var(--color);
+	
 	--message-box-color: white;
 	--message-box-a-color: white;
 	--message-box-close-hover-color: white;	
@@ -2903,3 +2905,4 @@ div[id$="_Index__view"] .ox-list-title {
 	width: calc(100% - 10px); 
 	text-align: center;
 }
+

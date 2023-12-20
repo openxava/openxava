@@ -61,4 +61,6 @@
 	--calendar-today-background: hsla(0, 0%, 70%, 0.7);
 	--calendar-event-background : var(--acqua-profonda);
 	--calendar-event-time-background:  var(--acqua-profonda);
+	--calendar-popup-background: lightgray;
+	--calendar-popup-title-color: var(--acqua-profonda);
 }

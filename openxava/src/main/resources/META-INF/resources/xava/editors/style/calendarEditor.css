@@ -129,3 +129,13 @@
 .fc-event {
 	background-color: var(--calendar-event-time-background);
 }
+
+.fc-popover-header {
+	background-color: var(--calendar-popup-background)!important;
+	color: var(--calendar-popup-title-color);
+}
+
+.fc-popover-body  {
+	background-color: var(--calendar-popup-background);
+}
+
