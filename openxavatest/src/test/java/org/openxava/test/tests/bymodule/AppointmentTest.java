@@ -56,7 +56,7 @@ public class AppointmentTest extends ModuleTestBase {
 		assertValueInList(0, 1, "DESAYUNO"); 
 		assertValueInList(1, 0, "5/26/2015 10:15 AM");
 		assertValueInList(1, 1, "ALMUERZO");
-		assertValueInList(2, 0, "5/26/2015 12:34 PM");
+		assertValueInList(2, 0, "5/26/2015 1:34 PM");
 		assertValueInList(2, 1, "PAUSA CAFE");
 		assertValueInList(3, 0, "6/1/2015 7:25 PM");
 		assertValueInList(3, 1, "IR A LA PISCINA");
@@ -154,7 +154,7 @@ public class AppointmentTest extends ModuleTestBase {
 		assertValueInList(0, 1, "DESAYUNO");
 		assertValueInList(1, 0, "5/26/2015 10:15 AM");
 		assertValueInList(1, 1, "ALMUERZO");
-		assertValueInList(2, 0, "5/26/2015 12:34 PM");
+		assertValueInList(2, 0, "5/26/2015 1:34 PM");
 		assertValueInList(2, 1, "PAUSA CAFE");
 		assertValueInList(3, 0, "6/1/2015 7:25 PM");
 		assertValueInList(3, 1, "IR A LA PISCINA");
