@@ -39,6 +39,9 @@ discussionEditor.cancel = function(discussionId) {
 
 discussionEditor.clear = function(discussionId) {
 	$("#xava_new_comment_" + discussionId + "_buttons input").fadeOut();
+	$('.ox-button-bar-button').css("visibility", "visible"); // TMR ME QUEDÉ POR AQUÍ: NO VA. ESTO PARA QUE VUELVAN A APARECER LOS BOTONES
+															// TMR DESPUÉS TENDRÍA QUE HACER EL TEST Y HACER QUE ARREGLO SOLO SE APLICARA
+															// TMR EN DIÁLOGOS CON FIREFOX
 	$('.ox-button-bar-button').fadeIn(); 
 	$('.ox-bottom-buttons').children().fadeIn(); 
 	tinymce.get('xava_new_comment_' + discussionId).resetContent(); 

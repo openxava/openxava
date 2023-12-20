@@ -25,6 +25,7 @@
 	font-weight: bold;
 }
 
+/* tmr
 .ox-discussion-post-button {
 	position: relative;
 	top: -42px;
@@ -32,6 +33,16 @@
 	float: right;
 	height: 7px;
 }
+*/
+
+/* tmr ini */
+.ox-discussion-post-button {
+	position: fixed;
+	bottom: 45px;
+	right: 25px;
+	height: 7px;
+}
+/* tmr fin */
 
 .ox-discussion .ox-frame { 
 	float: none;
