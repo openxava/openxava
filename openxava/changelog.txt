@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Filter in list fails with a date with @DateTime in Dutch.
 - Fix: Date/time fields in Chinese change the value of AM/PM when viewing a record in detail mode.
 - Fix: @ReadOnly properties are always editable on create.
 - Article in documentation about automatically generating all Java entity code from an existing database.
