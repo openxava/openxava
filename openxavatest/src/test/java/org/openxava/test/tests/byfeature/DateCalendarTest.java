@@ -58,10 +58,16 @@ public class DateCalendarTest extends WebDriverTestBase {
 		acceptInDialogJS(getDriver());
 	}
 	
-	public void testDutch() throws Exception { 
+	public void testDutch_zhCN() throws Exception { 
 		changeLanguage("nl");
 		goModule("Appointment");
 		setConditionValue("26-5-2015 8:15", 0);
+		execute("List.filter");
+		assertNoErrors(); 
+		
+		changeLanguage("zh-CN");
+		goModule("Appointment");
+		setConditionValue("2015-5-26 AM8:15", 0);
 		execute("List.filter");
 		assertNoErrors(); 
 	}
