@@ -10,7 +10,16 @@ openxava.addEditorInitFunction(function() {
     var invalidDate;
     var onChangeChecked = false;
 	var calendarClosed = false;
-
+	
+	//for fix chinese trad timedate
+	var inputElementList = $('.xava_date > input').toArray();
+	var inputValueList = [];
+	$('.xava_date > input').each(function() {
+		var inputValue = $(this).val();
+		inputValueList.push(inputValue);
+	});
+	var isZh = false;
+	
     $('.xava_date > input').keydown(function(event) {
         var keycode = event.keyCode || event.which;
         if (keycode == 13) {
@@ -80,6 +89,9 @@ openxava.addEditorInitFunction(function() {
         locale: openxava.language,
         onOpen: function(selectedDates, dateStr, instance) {
             onOpenDateTime = dateStr;
+			if (isZh && dateStr.includes('PM') && instance.amPM.innerHTML === 'AM'){
+					instance.amPM.innerHTML = 'PM';
+			} 
         },
         onChange: function(selectedDates, dateStr, instance) {
             dateStr = invalid?invalidDate:dateStr;
@@ -119,6 +131,14 @@ openxava.addEditorInitFunction(function() {
 				calendarClosed = true;
             }
         },
+		onReady: function(selectedDates, dateStr, instance) {
+			if (openxava.language === 'zh'){
+				isZh = true;
+				for (var i = 0; i < inputElementList.length; i++) {
+					if (instance.input === inputElementList[i]) instance.input.value = inputValueList[i];
+				}
+			}
+		}
     });
 
     function validInputOnlyDate(date) {
