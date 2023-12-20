@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @ReadOnly properties are always editable on create.
 - Article in documentation about automatically generating all Java entity code from an existing database.
 - Fix: The module freezes when there are many dates for a month in calendar format. 
 
