@@ -63,7 +63,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		goModule("Appointment");
 		setConditionValue("26-5-2015 8:15", 0);
 		execute("List.filter");
-		execute("List.viewDetail", "row=0"); 
+		assertNoErrors(); 
 	}
 
 	public void testChineseDateTime() throws Exception {
