@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Date/time fields in chinese produce a parsing error on saving.
+- Some new common use labels to be used in applications.
 - Fix: Popup windows for showing more events in calendar day is transparent with Dark theme.
 - Fix: Filter in list fails with a date with @DateTime in Dutch.
 - Fix: Date/time fields in Chinese change the value of AM/PM when viewing a record in detail mode.
