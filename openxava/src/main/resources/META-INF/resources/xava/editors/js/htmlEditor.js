@@ -31,6 +31,7 @@ openxava.addEditorInitFunction(function() {
 			$(id + " input").fadeIn();
 			*/
 			// tmr ini
+			// tmr Esto debería ser solo para firefox dentro del diálogo
 			var id = this.id + "_buttons";
 			var position = document.getElementById(id).parentElement.getBoundingClientRect(); // Because jquery position() does not work well
 			$('#'+id).css({
