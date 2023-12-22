@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Embedded Tomcat used in development upgraded to 9.0.84.
+- Driver version in doc and new projects upgraded for PostgreSQL and Informix.
 - Fix: Date/time fields in chinese produce a parsing error on saving.
 - Some new common use labels to be used in applications.
 - Fix: Popup windows for showing more events in calendar day is transparent with Dark theme.
