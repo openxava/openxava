@@ -28,8 +28,8 @@ import lombok.*;
  * @author Chungyen Tsai
  */
 
-@Getter
-@Setter
+@Getter // We should remove the @Getter and @Setter and use it
+@Setter // at field level if need, so we don't expose the inner state.
 public class Calendar extends DWRBase {
 
 	private static Log log = LogFactory.getLog(Calendar.class);
@@ -122,7 +122,7 @@ public class Calendar extends DWRBase {
 				jsonArray.put(nullJson);
 			}
 			return jsonArray.toString();
-		} catch (Exception e) {
+		} catch (Exception e) { // This catch code is redundant, we should remove it
 			throw e;
 		} finally {
 			XPersistence.commit();
@@ -433,7 +433,7 @@ public class Calendar extends DWRBase {
 		}
 	}
 
-	public String format(Object date, boolean withTime, boolean oldLib) {
+	public String format(Object date, boolean withTime, boolean oldLib) { // It should be private instead of public
 		String format;
 		if (date == null)
 			return "";

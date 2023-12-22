@@ -1,7 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
-- Fix: Date/time fields in chinese produce a parsing error on saving.
+- Fix: Database connection leaks produced when using calendar list format.
+- Fix: JavaScript dialog error in calendar list format from time to time.
+- Fix: Date/time fields in Chinese produce a parsing error on saving.
 - Some new common use labels to be used in applications.
 - Fix: Popup windows for showing more events in calendar day is transparent with Dark theme.
 - Fix: Filter in list fails with a date with @DateTime in Dutch.
