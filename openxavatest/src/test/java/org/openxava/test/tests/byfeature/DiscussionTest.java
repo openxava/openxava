@@ -4,7 +4,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.*;
 
 /**
- * tmr
  * To test @Discussion related issue with Selenium.
  *
  * @author Javier Paniza

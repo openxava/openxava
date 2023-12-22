@@ -25,7 +25,6 @@
 	font-weight: bold;
 }
 
-/* tmr */
 .ox-discussion-post-button {
 	position: relative;
 	top: -42px;
@@ -34,16 +33,12 @@
 	height: 7px;
 }
 
-
-/* tmr ini */
 .firefox .ui-dialog .ox-discussion-post-button {
 	position: fixed;
 	bottom: 45px;
 	right: 25px;
-	/* tmr height: 7px; */
 	z-index: 9;
 }
-/* tmr fin */
 
 .ox-discussion .ox-frame { 
 	float: none;

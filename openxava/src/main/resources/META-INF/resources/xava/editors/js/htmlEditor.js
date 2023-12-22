@@ -26,12 +26,6 @@ openxava.addEditorInitFunction(function() {
 	$('.xava-new-comment').each( function () {
 		var editor = tinymce.get(this.id);
 		editor.on('focus', (e) => {
-			/* tmr
-			var id = "#" + this.id + "_buttons";
-			$(id + " input").fadeIn();
-			*/
-			// tmr ini
-			// tmr Esto debería ser solo para firefox dentro del diálogo
 			var id = this.id + "_buttons";
 			if (openxava.browser.ff && openxava.dialogLevel > 0) {
 				var position = document.getElementById(id).parentElement.getBoundingClientRect(); // Because jquery position() does not work well
@@ -42,8 +36,6 @@ openxava.addEditorInitFunction(function() {
 			}
 			$("#" + id + " input").fadeIn();
 			$('.ox-bottom-buttons').css("visibility", "hidden");
-			// tmr fin
-			// tmr $('.ox-bottom-buttons').children().fadeOut(); 
 			$('.ox-button-bar-button').fadeOut(); 
     	});
 	});
