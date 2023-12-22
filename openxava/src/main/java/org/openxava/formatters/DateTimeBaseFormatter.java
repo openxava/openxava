@@ -36,7 +36,8 @@ abstract public class DateTimeBaseFormatter {
 	}
 	
 	protected boolean isDashFormat() {
-		return "nl".equals(Locales.getCurrent().getLanguage());
+		return "nl".equals(Locales.getCurrent().getLanguage()) ||
+				"zh_CN".equals(Locales.getCurrent().toString());
 	}
 	
 	protected boolean isDotFormat() { 
