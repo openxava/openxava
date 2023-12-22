@@ -4,6 +4,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.*;
 
 /**
+ * tmr
  * To test @Discussion related issue with Selenium.
  *
  * @author Javier Paniza
@@ -12,21 +13,32 @@ import org.openqa.selenium.firefox.*;
 public class DiscussionTest extends WebDriverTestBase {
 
 	
-	protected void tearDown() throws Exception { // tmr
-	}
-	
 	protected WebDriver createWebDriver(String lang) {
-		return new FirefoxDriver();
+		FirefoxOptions options = new FirefoxOptions();
+		options.addArguments("--headless");
+		return new FirefoxDriver(options);
 	}
 	
 	public void testCommentButtonsNotRespondAfterFocusOnCommentAsFirstActionInDialog() throws Exception {
 		goModule("IncidentActivity");
 		execute("Reference.createNew", "model=Incident,keyProperty=incident.id");
-		wait(getDriver(), By.className("tox-edit-area")); // tmr Quitar el getDriver() del wait
+		wait(getDriver(), By.className("tox-edit-area")); 
 		scrollToBottom();
+		
+		WebElement createButton = getDriver().findElement(By.id("ox_openxavatest_IncidentActivity__NewCreation___saveNew"));
+		WebElement cancelCommentButton = getDriver().findElement(By.className("ox-discussion-cancel-button"));
+		assertTrue(createButton.isDisplayed());
+		assertFalse(cancelCommentButton.isDisplayed());
+		
 		WebElement commentArea = getDriver().findElements(By.className("tox-edit-area")).get(1);
 		commentArea.click();
-		// TMR ME QUEDÉ POR AQUÍ. LO DE ARRIBA FUNCIONA, FALTA COMPROBAR QUE LOS BOTONES APARECE/DESAPARECEN Y EL CANCEL VA
+		assertFalse(createButton.isDisplayed());
+		assertTrue(cancelCommentButton.isDisplayed());		
+		 
+		cancelCommentButton.click();
+		Thread.sleep(200); 
+		assertTrue(createButton.isDisplayed());
+		assertFalse(cancelCommentButton.isDisplayed());		
 	}	
 	
 	private void scrollToBottom() {
