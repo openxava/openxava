@@ -51,7 +51,7 @@ public class Tree extends DWRBase {
 			tab.clearProperties();
  
 			for (String element : listProperties) {
-				tab.addProperty(element);
+				tab.addProperty(element.trim());
 			}
 			if (!ArrayUtils.contains(listProperties, pathProperty)) tab.addProperty(0, pathProperty);
 			//need separator

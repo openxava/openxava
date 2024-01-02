@@ -212,7 +212,6 @@ public class TreeViewParser {
         String mapId = map.get("id").toString();
         String[] listProperties = (String[]) map.get("listProperties");
         String separator = (String) map.get("pathSeparator");
-
         JSONObject tooltip = new JSONObject();
         tooltip.put("title", XavaResources.getString("double_click_to_edit_view"));
         for (int i = 0; i < data.length(); i++) {
@@ -223,7 +222,7 @@ public class TreeViewParser {
             String description = "";
             int c = 0;
             for (String p : listProperties) {
-                String d = node.get(p.toLowerCase()).toString();
+                String d = node.get(p.toLowerCase().trim()).toString();
                 description += d;
                 if (c < listProperties.length - 1) {
                     description += ", ";
