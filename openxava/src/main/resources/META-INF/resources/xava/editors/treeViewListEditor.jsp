@@ -59,10 +59,13 @@ Tree tree = metaCollectionView.getPath();
 String idProperties = "";
 boolean initialState = true;
 List<String> keysList = new ArrayList<>(metaView.getMetaModel().getKeyPropertiesNames());
-String kValue = key.isEmpty() ? "" : key.get(keysList.get(0)).toString();
+String kValue = "";
+if (!key.isEmpty()){
+	boolean containNull = key.values().stream().anyMatch(value -> value == null);
+	if (!containNull) kValue = key.get(keysList.get(0)).toString();
+}
 
 if (tree != null) {
-	idProperties = tree.idProperties() != null ? tree.idProperties() : "";
 	initialState = tree.initialExpandedState();
 }
 
@@ -113,7 +116,6 @@ if(!Is.empty(key)){
 	data-xava-id="<%=xavaId%>"
 	data-table-id="<%=tableId%>"
 	data-prefix="<%=prefix%>"
-	data-id-properties="<%=idProperties%>"
 	data-initial-state="<%=initialState%>"
 	data-k-value="<%=kValue%>"
 	</div>

@@ -63,7 +63,6 @@ $(document).on('dnd_stop.vakata', function(e, data) {
     var module = oxTree.data("module");
     var modelName = oxTree.data("model-name");
     var collectionName = oxTree.data("collection-name");
-	var idProperties = oxTree.data("id-properties");
     var rows = [];
     var childRows = [];
     var allChilds = [];
@@ -149,8 +148,10 @@ openxava.addEditorInitFunction(function() {
         });
 		
 		$('.xava_tree').on('loaded.jstree', function (){
-			var collectionName = $(this).data("collection-name");
-			var state = localStorage.getItem("xava_tree_state_" + collectionName);
+			var module = $(this).data("module");
+            var collectionName = $(this).data("collection-name");
+			var kValue = $(this).data("k-value");
+			var state = localStorage.getItem(module + "_" + collectionName + "_" + "xava_tree_state_" + kValue);
 			if (state === null) $(this).jstree().open_all();
 		})
 
