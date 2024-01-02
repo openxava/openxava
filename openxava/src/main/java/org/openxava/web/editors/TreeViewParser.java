@@ -223,7 +223,7 @@ public class TreeViewParser {
             String description = "";
             int c = 0;
             for (String p : listProperties) {
-                String d = node.get(p).toString();
+                String d = node.get(p.toLowerCase()).toString();
                 description += d;
                 if (c < listProperties.length - 1) {
                     description += ", ";
