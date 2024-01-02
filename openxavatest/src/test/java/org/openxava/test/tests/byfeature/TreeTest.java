@@ -164,7 +164,7 @@ public class TreeTest extends WebDriverTestBase{
 		expandNode(driver, treeItemTwoNodesId.get("child2"));
 		WebElement childElement = driver.findElement(By.id(treeItemTwoNodesId.get("child2"))).findElement(By.xpath(".//li"));
 		String childElementId = childElement.getAttribute("id");
-		assertEquals("A", childElement.getText());
+		assertEquals("A, D", childElement.getText());
 		
 		executeDnd(driver, childElementId + "_anchor", treeItemTwoNodesId.get("child3") + "_anchor");
 		driver.navigate().refresh();
