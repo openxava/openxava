@@ -2568,6 +2568,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 * @return A string with the CSS style suitable to use in a 'class' attribute in HTML. 
 	 */
 	public String getStyle(int row) { 
+		System.out.println("2getStyle " + row);
 		try {
 			if (styles != null && !styles.isEmpty()) {
 				System.out.println(1);
@@ -2575,14 +2576,15 @@ public class Tab implements java.io.Serializable, Cloneable {
 				if (result != null) return result;
 			}
 			if (!getMetaTab().hasRowStyles()) return null;
+			String result = "";
 			for (Iterator it = getMetaTab().getMetaRowStyles().iterator(); it.hasNext();) {
-				System.out.println(2);
 				MetaRowStyle rowStyle = (MetaRowStyle) it.next();
-				System.out.println("row " + row);
-				System.out.println(rowStyle.getValue());
-				String result = getStyle(rowStyle, row);
-				if (result != null) return result;
+				String style = getStyle(rowStyle, row);
+				if (style != null) {
+				    result = String.join((result.isEmpty() ? "" : " "), result, style);
+				}
 			}
+			if (!result.isEmpty()) return result;
 			return null;
 		}
 		catch (Exception ex) {
@@ -2611,11 +2613,14 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 	
 	private String getStyle(MetaRowStyle rowStyle, int row) {
+		System.out.println("getStyle " + row + " " + rowStyle.getStyle() + " " + rowStyle.getValue());
 		try {
 			int column = getMetaTab().getPropertiesNames().indexOf(rowStyle.getProperty());
-			if (column < 0) return null;			
+			if (column < 0) return null;
+			System.out.println("column "  + column);
 			Object value = getTableModel().getValueAt(row, column);			
 			if (Is.equalAsStringIgnoreCase(value, rowStyle.getValue())) {
+				System.out.println("equal");
 				return rowStyle.getStyle();
 			}
 			return null;
