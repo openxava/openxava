@@ -2568,10 +2568,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 * @return A string with the CSS style suitable to use in a 'class' attribute in HTML. 
 	 */
 	public String getStyle(int row) { 
-		System.out.println("2getStyle " + row);
 		try {
 			if (styles != null && !styles.isEmpty()) {
-				System.out.println(1);
 				String result = (String) styles.get(new Integer(row));
 				if (result != null) return result;
 			}
@@ -2613,14 +2611,11 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 	
 	private String getStyle(MetaRowStyle rowStyle, int row) {
-		System.out.println("getStyle " + row + " " + rowStyle.getStyle() + " " + rowStyle.getValue());
 		try {
 			int column = getMetaTab().getPropertiesNames().indexOf(rowStyle.getProperty());
 			if (column < 0) return null;
-			System.out.println("column "  + column);
 			Object value = getTableModel().getValueAt(row, column);			
 			if (Is.equalAsStringIgnoreCase(value, rowStyle.getValue())) {
-				System.out.println("equal");
 				return rowStyle.getStyle();
 			}
 			return null;
