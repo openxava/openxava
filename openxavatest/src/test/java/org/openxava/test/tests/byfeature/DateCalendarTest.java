@@ -72,7 +72,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertNoErrors(); 
 	}
 
-	public void testChineseDateTime() throws Exception {
+	public void testChineseDateTime() throws Exception { // Fails with Java 11
 		changeLanguage("zh-TW");
 		goModule("Appointment2");
 		execute("List.viewDetail", "row=2");

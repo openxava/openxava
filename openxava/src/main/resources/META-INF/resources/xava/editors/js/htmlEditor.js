@@ -26,9 +26,16 @@ openxava.addEditorInitFunction(function() {
 	$('.xava-new-comment').each( function () {
 		var editor = tinymce.get(this.id);
 		editor.on('focus', (e) => {
-			var id = "#" + this.id + "_buttons";
-			$(id + " input").fadeIn();
-			$('.ox-bottom-buttons').children().fadeOut(); 
+			var id = this.id + "_buttons";
+			if (openxava.browser.ff && openxava.dialogLevel > 0) {
+				var position = document.getElementById(id).parentElement.getBoundingClientRect(); // Because jquery position() does not work well
+				$('#'+id).css({
+					'top': position.bottom - 42,
+					'left': position.right - 290
+				});	
+			}
+			$("#" + id + " input").fadeIn();
+			$('.ox-bottom-buttons').css("visibility", "hidden");
 			$('.ox-button-bar-button').fadeOut(); 
     	});
 	});

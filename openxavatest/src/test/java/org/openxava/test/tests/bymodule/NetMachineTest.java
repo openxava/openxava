@@ -44,7 +44,7 @@ public class NetMachineTest extends ModuleTestBase {
 		assertContentTypeForPopup("text/x-csv");
 		StringTokenizer excel = new StringTokenizer(getPopupText(), "\n\r");
 		String header = excel.nextToken(); 
-		assertEquals("header", "Name;MAC", header);
+		assertEquals("header", "Name;MAC", header); 
 		String line1 = excel.nextToken();
 		assertEquals("line1", "\"WITH NULL MAC\";", line1);
 		assertTrue("Only one line must have generated", !excel.hasMoreTokens());
