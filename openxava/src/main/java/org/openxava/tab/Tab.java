@@ -2570,12 +2570,16 @@ public class Tab implements java.io.Serializable, Cloneable {
 	public String getStyle(int row) { 
 		try {
 			if (styles != null && !styles.isEmpty()) {
+				System.out.println(1);
 				String result = (String) styles.get(new Integer(row));
 				if (result != null) return result;
 			}
 			if (!getMetaTab().hasRowStyles()) return null;
 			for (Iterator it = getMetaTab().getMetaRowStyles().iterator(); it.hasNext();) {
+				System.out.println(2);
 				MetaRowStyle rowStyle = (MetaRowStyle) it.next();
+				System.out.println("row " + row);
+				System.out.println(rowStyle.getValue());
 				String result = getStyle(rowStyle, row);
 				if (result != null) return result;
 			}

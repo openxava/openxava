@@ -365,10 +365,14 @@ totalSize = totalSize < 0?tab.getTotalSize():totalSize;
 if (totalSize > 0 || !Is.emptyString(collection)) { 
 int finalIndex = simple?Integer.MAX_VALUE:tab.getFinalIndex();
 for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) {
+	
 	String checked=tab.isSelected(f)?"checked='true'":"";	
 	String cssClass=f%2==0?"ox-list-pair":"ox-list-odd";	
 	String cssCellClass=f%2==0?"ox-list-pair":"ox-list-odd"; 
 	String cssStyle = tab.getStyle(f);
+	System.out.println("listEditor");
+	System.out.println("cssClass " + cssClass);
+	System.out.println("cssStyle " + cssStyle);
 	if (cssStyle != null) {
 		cssClass = cssClass + " " + cssStyle; 
 		if (style.isApplySelectedStyleToCellInList()) cssCellClass = cssCellClass + " " + cssStyle; 
