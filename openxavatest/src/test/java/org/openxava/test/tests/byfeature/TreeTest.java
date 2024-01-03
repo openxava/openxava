@@ -27,8 +27,8 @@ public class TreeTest extends WebDriverTestBase{
 		
 		goModule("TreeContainer");
 		execute("List.viewDetail", "row=0");
-		createNewNodeSelecting(getDriver());	
-
+		createNewNodeSelecting_state(getDriver());	
+		
 		goModule("TreeItem");
 		addNewNodeId(getDriver());
 		
@@ -55,14 +55,20 @@ public class TreeTest extends WebDriverTestBase{
 		return driver.findElement(by);		
 	}
 
-	private void createNewNodeSelecting(WebDriver driver) throws Exception {
+	private void createNewNodeSelecting_state(WebDriver driver) throws Exception {
 		WebElement childItem2CheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemNodesId.get("child2") +"_anchor']/i")); 
 		childItem2CheckBox.click();
 		execute("TreeView.new", "viewObject=xava_view_treeItems");
 		setValue("description", "A");
 		execute("TreeView.save");
 		wait(driver);
-
+		
+		execute("Mode.list");
+		execute("List.viewDetail", "row=0");
+		WebElement childItem2Element = findElement(driver, By.id(treeItemNodesId.get("child2")));
+		List<WebElement> ulElements = childItem2Element.findElements(By.tagName("ul"));
+		assertTrue(ulElements.isEmpty());
+		
 		//need locate and click manually
 		WebElement createNewButtonElement = driver.findElement(By.xpath("//a[@data-application='openxavatest' and @data-module='TreeContainer' and @data-action='TreeView.new' and @data-argv='viewObject=xava_view_treeItems']"));
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", createNewButtonElement); // must clicked manually because the element is not interactable
