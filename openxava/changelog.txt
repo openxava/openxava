@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Harmless Error 404 in log executing ModulTestBase tests. 
 - Fix: The state of the tree (open or closed) is not remembered on some occasions.
 - Fix: @ListProperties does not support several properties when used with @Tree or @Editor("TreeView").
 - Fix: @ListProperties used with @Tree or @Editor("TreeView") does not support camel case property names.

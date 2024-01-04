@@ -461,6 +461,7 @@ abstract public class ModuleTestBase extends TestCase {
 	protected void resetModule() throws Exception {
 		client = new WebClient(getBrowserVersion()); 
 		client.getOptions().setThrowExceptionOnFailingStatusCode(false);
+		client.getOptions().setPrintContentOnFailingStatusCode(false); 
 		client.getOptions().setThrowExceptionOnScriptError(false);
 		client.getOptions().setCssEnabled(false);
 		client.setJavaScriptErrorListener(new SilentJavaScriptErrorListener());
