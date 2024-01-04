@@ -36,8 +36,11 @@ abstract public class DateTimeBaseFormatter {
 	}
 	
 	protected boolean isDashFormat() {
-		return "nl".equals(Locales.getCurrent().getLanguage()) ||
-				"zh_CN".equals(Locales.getCurrent().toString());
+		return "nl".equals(Locales.getCurrent().getLanguage());
+	}
+	
+	protected boolean isZhFormatAndJavaLessThan9() {
+		return ("zh_CN".equals(Locales.getCurrent().toString()) || "zh_TW".equals(Locales.getCurrent().toString())) && !XSystem.isJava9orBetter();
 	}
 	
 	protected boolean isDotFormat() { 

@@ -18,7 +18,7 @@ import org.openxava.util.*;
 public class DateFormatter implements IFormatter {
 	
 	private static DateFormat extendedDateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Only for some locales like "es" and "pl"
-	
+
 	private static DateFormat [] extendedDateFormats = { // Only for some locales like "es", "fr", "ca" and "pl"
 		new SimpleDateFormat("dd/MM/yy"), 
 		new SimpleDateFormat("ddMMyy"),
@@ -26,6 +26,10 @@ public class DateFormatter implements IFormatter {
 	};
 
 	private static DateFormat dotDateFormat = new SimpleDateFormat("dd.MM.yyyy"); // Only for some locales like "hr"
+	private static DateFormat zhDateFormat = new SimpleDateFormat("yyyy/M/d"); // For zh_CN in Java 8
+	private static DateFormat [] zhDateFormats = { // For zh_CN in Java 8
+			new SimpleDateFormat("yyyy/M/d")		
+		};
 	
 	public String format(HttpServletRequest request, Object date) {
 		if (date == null) return "";
@@ -64,14 +68,20 @@ public class DateFormatter implements IFormatter {
 		return "hr".equals(Locales.getCurrent().getLanguage());
 	}	
 	
+	private boolean isZhFormatAndJavaLessThan9() {
+		return "zh_CN".equals(Locales.getCurrent().toString()) && !XSystem.isJava9orBetter();
+	}
+	
 	private DateFormat getDateFormat() {
 		if (isExtendedFormat()) return extendedDateFormat;
 		if (isDotFormat()) return dotDateFormat; 	
+		if (isZhFormatAndJavaLessThan9()) return zhDateFormat;
 		return new SimpleDateFormat(Dates.getLocalizedDatePattern(Locales.getCurrent())); 
 	}
 	
 	private DateFormat[] getDateFormats() {
 		if (isExtendedFormat() || isDotFormat()) return extendedDateFormats; 
+		if (isZhFormatAndJavaLessThan9()) return zhDateFormats;
 		return new DateFormat [] { DateFormat.getDateInstance(DateFormat.SHORT, Locales.getCurrent()) };  
 	}
 		

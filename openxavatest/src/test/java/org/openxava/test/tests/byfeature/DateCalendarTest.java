@@ -67,7 +67,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		
 		changeLanguage("zh-CN");
 		goModule("Appointment");
-		setConditionValue("2015-5-26 AM8:15", 0);
+		setConditionValue("2015/5/26 AM8:15", 0);
 		execute("List.filter");
 		assertNoErrors(); 
 	}
@@ -76,16 +76,16 @@ public class DateCalendarTest extends WebDriverTestBase {
 		changeLanguage("zh-TW");
 		goModule("Appointment2");
 		execute("List.viewDetail", "row=2");
-		assertValue("time", "2015/5/26 PM 1:34");
-		assertValue("dateTime", "2015/5/26 PM 2:34");
+		assertValue("time", "2015/5/26 PM1:34");
+		assertValue("dateTime", "2015/5/26 PM2:34");
 		List<WebElement> calendarPopUp = getDriver().findElements(By.cssSelector("i.mdi.mdi-calendar-clock"));
 		calendarPopUp.get(1).click();
 		WebElement label = getDriver().findElement(By.id("ox_openxavatest_Appointment2__label_time"));
 		label.click();
 		calendarPopUp.get(1).click();
 		label.click();
-		assertValue("time", "2015/5/26 PM 1:34");
-		assertValue("dateTime", "2015/5/26 PM 2:34");
+		assertValue("time", "2015/5/26 PM1:34");
+		assertValue("dateTime", "2015/5/26 PM2:34");
 	}
 
 }

@@ -18,6 +18,7 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 
 	private static DateFormat extendedDateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 	private static DateFormat dotDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm"); // Only for some locales like "hr"
+	private static DateFormat zhDateFormat = new SimpleDateFormat("yyyy/M/d ah:mm");
 	
 	public String format(HttpServletRequest request, Object date) {
 		if (date == null) return "";
@@ -47,11 +48,12 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 	private DateFormat getDateTimeFormat(boolean forParsing) { 
 		if (isExtendedFormat()) return extendedDateTimeFormat;
 		if (isDotFormat()) return dotDateFormat; 
+		if (isZhFormatAndJavaLessThan9()) return zhDateFormat;
 		return forParsing?Dates.getDateTimeFormatForParsing(Locales.getCurrent()):Dates.getDateTimeFormat();  
 	}
 	
 	private DateFormat[] getDateTimeFormats() {
-		if (isExtendedFormat() || isDotFormat()) return getExtendedDateTimeFormats(); 
+		if (isExtendedFormat() || isDotFormat()) return getExtendedDateTimeFormats();
 		return new DateFormat [] { getDateTimeFormat(true) }; 
 	}
 	
