@@ -39,7 +39,8 @@ discussionEditor.cancel = function(discussionId) {
 
 discussionEditor.clear = function(discussionId) {
 	$("#xava_new_comment_" + discussionId + "_buttons input").fadeOut();
-	$('.ox-button-bar-button').fadeIn(); 
+	$('.ox-button-bar-button').fadeIn();
+	$('.ox-bottom-buttons').css("visibility", "visible");  
 	$('.ox-bottom-buttons').children().fadeIn(); 
 	tinymce.get('xava_new_comment_' + discussionId).resetContent(); 
 }

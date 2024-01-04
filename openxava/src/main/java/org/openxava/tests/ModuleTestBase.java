@@ -1490,10 +1490,7 @@ abstract public class ModuleTestBase extends TestCase {
 	private void assertRowStyle(String tableId, int row, String expectedStyle) throws Exception {
 		HtmlTableRow tableRow = getTableRow(tableId, row);
 		String style = tableRow.getAttribute("class");
-		int countTokens = new StringTokenizer(style).countTokens();
-		int defaultStyleCountTokens = new StringTokenizer(getDefaultRowStyle(row)).countTokens(); 
-		style = countTokens <= defaultStyleCountTokens?"":Strings.lastToken(style); 
-		assertEquals(XavaResources.getString("row_style_not_excepted"), expectedStyle, style);		
+		assertTrue(style.contains(expectedStyle));
 	}
 	
 	protected void assertNoRowStyleInList(int row) throws Exception {

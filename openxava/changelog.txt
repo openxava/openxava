@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: When multiple @RowStyle applies to the same row only one is considered.
+- Fix: Buttons in @Discussion editor do not react when in a dialog with Firefox in some circumstances.
+- Embedded Tomcat used in development upgraded to 9.0.84.
+- Driver version in doc and new projects upgraded for PostgreSQL and Informix.
 - Fix: Database connection leaks produced when using calendar list format.
 - Fix: JavaScript dialog error in calendar list format from time to time.
 - Fix: Date/time fields in Chinese produce a parsing error on saving.
@@ -74,6 +78,7 @@ OpenXava 7.2 (2023-11-17)
 - Fix: When removing a column with a calculated property from a list a blank column is left on right.
 - Fix: Default action with takes-long=true does not show the takes long image if the user presses ENTER.
 - Fix: IForwardAction with inNewWindow() not in new window when pressing ENTER and it's the default action. 
+- Fix: Clicking 'Add' in the row in the dialog to adding custom columns to list does not work if we filter.
 
 OpenXava 7.1.6 (2023-9-15)
 --------------------------

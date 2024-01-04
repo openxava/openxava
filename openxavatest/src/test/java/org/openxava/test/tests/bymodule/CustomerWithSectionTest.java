@@ -558,7 +558,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		for (int i=0; i<c; i++) {
 			String type = getValueInList(i, "type");
 			if ("Steady".equals(type)) {				
-				assertRowStyleInList(i, "row-highlight"); 				
+				assertRowStyleInList(i, "row-highlight italic-label"); 				
 				found = true;
 			}
 			else if ("Special".equals(type)) {
