@@ -72,8 +72,17 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertNoErrors(); 
 	}
 
-	public void testChineseDateTime() throws Exception { // Fails with Java 11
+	public void testChineseDateTimeInJava8AndAmIssue() throws Exception { // Fails with Java 11
 		changeLanguage("zh-TW");
+		appointment2();
+		quarter();
+		
+		changeLanguage("zh-CN");
+		appointment2();
+		quarter();
+	}
+	
+	private void appointment2() throws Exception {
 		goModule("Appointment2");
 		execute("List.viewDetail", "row=2");
 		assertValue("time", "2015/5/26 PM1:34");
@@ -86,6 +95,16 @@ public class DateCalendarTest extends WebDriverTestBase {
 		label.click();
 		assertValue("time", "2015/5/26 PM1:34");
 		assertValue("dateTime", "2015/5/26 PM2:34");
+		execute("Mode.list");
+	}
+	
+	private void quarter() throws Exception {
+		goModule("Quarter");
+		execute("List.viewDetail", "row=0");
+		assertValue("initDate", "2009/8/11");
+		execute("CRUD.save");
+		assertNoErrors();
+		execute("Mode.list");
 	}
 
 }
