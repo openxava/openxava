@@ -76,7 +76,6 @@ public class DateCalendarTest extends WebDriverTestBase {
 		changeLanguage("zh-TW");
 		appointment2();
 		quarter();
-		
 		changeLanguage("zh-CN");
 		appointment2();
 		quarter();
