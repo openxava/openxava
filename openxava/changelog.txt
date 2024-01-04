@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: The state of the tree (open or closed) is not remembered on some occasions.
+- Fix: @ListProperties does not support several properties when used with @Tree or @Editor("TreeView").
+- Fix: @ListProperties used with @Tree or @Editor("TreeView") does not support camel case property names.
 - Fix: When multiple @RowStyle applies to the same row only one is considered.
 - Fix: Buttons in @Discussion editor do not react when in a dialog with Firefox in some circumstances.
 - Embedded Tomcat used in development upgraded to 9.0.84.
