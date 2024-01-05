@@ -1,23 +1,25 @@
 Change Log for OpenXava project
 ===============================
 
-- Fix: Harmless Error 404 in log executing ModulTestBase tests. 
+OpenXava 7.2.2 (2024-1-5)
+-------------------------
+- Some new common use labels to be used in applications.
+- Embedded Tomcat used in development upgraded to 9.0.84.
+- Driver version in doc and new projects upgraded for PostgreSQL and Informix.
+- Article in documentation about automatically generating all Java entity code from an existing database.
+- Fix: When multiple @RowStyle applies to the same row only one is considered.
 - Fix: The state of the tree (open or closed) is not remembered on some occasions.
 - Fix: @ListProperties does not support several properties when used with @Tree or @Editor("TreeView").
 - Fix: @ListProperties used with @Tree or @Editor("TreeView") does not support camel case property names.
-- Fix: When multiple @RowStyle applies to the same row only one is considered.
+- Fix: Harmless Error 404 in log executing ModulTestBase tests. 
 - Fix: Buttons in @Discussion editor do not react when in a dialog with Firefox in some circumstances.
-- Embedded Tomcat used in development upgraded to 9.0.84.
-- Driver version in doc and new projects upgraded for PostgreSQL and Informix.
 - Fix: Database connection leaks produced when using calendar list format.
 - Fix: JavaScript dialog error in calendar list format from time to time.
 - Fix: Date/time fields in Chinese produce a parsing error on saving.
-- Some new common use labels to be used in applications.
 - Fix: Popup windows for showing more events in calendar day is transparent with Dark theme.
 - Fix: Filter in list fails with a date with @DateTime in Dutch.
 - Fix: Date/time fields in Chinese change the value of AM/PM when viewing a record in detail mode.
-- Fix: @ReadOnly properties are always editable on create.
-- Article in documentation about automatically generating all Java entity code from an existing database.
+- Fix: @ReadOnly properties are always editable on creation.
 - Fix: The module freezes when there are many dates for a month in calendar format. 
 
 OpenXava 7.2.1 (2023-12-7)

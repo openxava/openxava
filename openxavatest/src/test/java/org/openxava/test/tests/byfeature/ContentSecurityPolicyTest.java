@@ -10,6 +10,10 @@ import org.openqa.selenium.*;
 
 public class ContentSecurityPolicyTest extends WebDriverTestBase {
 	
+	protected boolean isHeadless() { // In order to work with Windows 7, because of timing issues
+		return false;
+	}
+		
 	public void testContentSecurityPolicyExceptions() throws Exception {
 		goModule("SellerJSP?detail=1");
 		
@@ -33,7 +37,7 @@ public class ContentSecurityPolicyTest extends WebDriverTestBase {
 		Thread.sleep(500); 
 		WebElement img = driver.findElement(By.id("oximage"));
 		Dimension zero = new Dimension(0, 0);
-		for (int c=0; c<10 && img.getSize().equals(zero); c++) {
+		for (int c=0; c<20 && img.getSize().equals(zero); c++) { 
 			Thread.sleep(500);
 		}
 	}
