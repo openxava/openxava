@@ -3,7 +3,6 @@ package org.openxava.test.tests.bymodule;
 import java.time.*;
 import java.time.format.*;
 
-import org.htmlunit.html.*;
 import org.openxava.tests.*;
 
 /**
@@ -21,7 +20,6 @@ public class Invoice6Test extends ModuleTestBase {
 	
 	public void testLocalDate_showCalendarEditorWithLocalDate() throws Exception {
 		execute("ListFormat.select", "editor=Cards");
-		HtmlElement div = (HtmlElement) getHtmlPage().getElementById("xava_calendar");
 		assertNoErrors();
 		execute("ListFormat.select", "editor=List");
 		
@@ -107,7 +105,7 @@ public class Invoice6Test extends ModuleTestBase {
 		assertListRowCount(3);
 		assertValueInList(0, 0, "2002");
 		assertValueInList(0, 1, "1");
-		assertValueInList(0, 2, "1/1/2002");				
+		assertValueInList(0, 2, "1/1/2002"); 	
 		assertValueInList(1, 0, "2004");
 		assertValueInList(1, 1, "2");
 		assertValueInList(1, 2, "1/4/2004");
