@@ -5,7 +5,6 @@ import java.util.*;
 import org.openqa.selenium.*;
 
 /**
- * TMR ME QUEDÉ POR AQUÍ: NO FUNCIONA CON JAVA 8: ERROR 500
  * To test pop up calendar with Selenium.
  * 
  * @author Chungyen Tsai
@@ -73,7 +72,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertNoErrors(); 
 	}
 
-	public void testChineseDateTimeInJava8AndAmIssue() throws Exception { // Fails with Java 11
+	public void testChineseDateTimeInJava8AndAmIssue() throws Exception { 
 		changeLanguage("zh-TW");
 		appointment2();
 		quarter();
