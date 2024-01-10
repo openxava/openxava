@@ -47,12 +47,7 @@ public class ModuleManager implements java.io.Serializable {
 		Logger.getLogger("org.directwebremoting").setLevel(Level.SEVERE); 
 		setVersionInfo();
 		log.info(getProduct() + " " + getVersion() + " (" + getVersionDate() + ")");
-		// tmr ini
-		long ini = System.currentTimeMillis(); // tmr
 		verifyLatestVersion();
-		long cuesta = System.currentTimeMillis() - ini; // tmr
-		System.out.println("[ModuleManager.static] cuesta=" + cuesta); // tmr
-		// tmr fin
 	}
 	
 	static private String product;
@@ -89,20 +84,19 @@ public class ModuleManager implements java.io.Serializable {
 		}
 	}
 	
-	static private void verifyLatestVersion() {
-		// TMR ME QUEDÉ POR AQUÍ: YA FUNCIONA, FALTA I18 Y PROBARLO UN POCO MÁS
+	static private void verifyLatestVersion() { 
         new Thread(() -> {
     		String lastVersion = getLastVersion();
     		if (!"UNKNOW".equals(lastVersion)) {
     			if (!lastVersion.equals(version)) {
-    				System.out.println("[ModuleManager.verifyLatestVersion] ACTUALIZATE: Estas usando versión " + version + " cuand la última es " + lastVersion); // tmr
+    				log.warn(XavaResources.getString("not_latest_openxava_version", version, lastVersion));
     			}
     		}
         }).start();
 	}
 
 	
-	static private String getLastVersion() { // tmr 
+	static private String getLastVersion() {  
 		try {
 			URL url = new URL("https://api.github.com/repos/openxava/openxava/tags");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
@@ -114,7 +108,7 @@ public class ModuleManager implements java.io.Serializable {
 			}			
 		}
 		catch (Exception ex) {
-			log.warn(XavaResources.getString("last_openxava_version_problems"), ex); // tmr
+			log.warn(XavaResources.getString("last_openxava_version_problems", ex.getMessage())); 
 		}
 		return "UNKNOW";
 	}

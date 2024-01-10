@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Warning message in log when an old version of OpenXava is being used.
 - Fix: Format for date with @DateTime or Timestamp in Chinese is different for Java 8 and 11+.
 - Fix: UnsupportedClassVersionError: com/sun/istack/Pool with latest versions of Java 8.
 - Removed dependencies to JAXB core and JAXB impl.
