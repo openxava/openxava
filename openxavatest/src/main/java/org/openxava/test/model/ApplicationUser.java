@@ -40,6 +40,9 @@ public class ApplicationUser extends Identifiable {
 	@Column(length=40, table="APPLICATIONUSER_INFO")
 	private Date birthdate;
 	
+	@Column(length=40)
+	private String application; // tmr Comentario
+	
 	@Column(table="APPLICATIONUSER_INFO")
 	@Enumerated(EnumType.STRING)
 	private Sex sex;
@@ -86,6 +89,14 @@ public class ApplicationUser extends Identifiable {
 
 	public void setNicknames(Collection<Nickname> nicknames) {
 		this.nicknames = nicknames;
+	}
+
+	public String getApplication() {
+		return application;
+	}
+
+	public void setApplication(String application) {
+		this.application = application;
 	}
 	
 }

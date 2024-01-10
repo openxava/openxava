@@ -707,6 +707,7 @@ public class Module extends DWRBase {
 		addValuesQueryString(result, values, multipleValues, selected, deselected);
 		if (!Is.emptyString(additionalParameters)) result.append(additionalParameters);
 		if (firstRequest) result.append("&firstRequest=true");
+		System.out.println("[Module.getURI] result=" + result); // tmr
 		return result.toString();
 	}
 
