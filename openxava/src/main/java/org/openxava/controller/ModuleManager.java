@@ -1,6 +1,8 @@
 package org.openxava.controller;
 
+import java.io.*;
 import java.lang.reflect.*;
+import java.net.*;
 import java.util.*;
 import java.util.Collections;
 import java.util.logging.*;
@@ -45,6 +47,7 @@ public class ModuleManager implements java.io.Serializable {
 		Logger.getLogger("org.directwebremoting").setLevel(Level.SEVERE); 
 		setVersionInfo();
 		log.info(getProduct() + " " + getVersion() + " (" + getVersionDate() + ")");
+		verifyLatestVersion();
 	}
 	
 	static private String product;
@@ -52,6 +55,7 @@ public class ModuleManager implements java.io.Serializable {
 	final static public String getProduct() {
 		return product;
 	}	
+
 
 	static private String version;
 
@@ -78,6 +82,35 @@ public class ModuleManager implements java.io.Serializable {
 			version = "UNKNOW";
 			versionDate = "UNKNOW";
 		}
+	}
+	
+	static private void verifyLatestVersion() { 
+        new Thread(() -> {
+    		String lastVersion = getLastVersion();
+    		if (!"UNKNOW".equals(lastVersion)) {
+    			if (!lastVersion.equals(version)) {
+    				log.warn(XavaResources.getString("not_latest_openxava_version", version, lastVersion));
+    			}
+    		}
+        }).start();
+	}
+
+	
+	static private String getLastVersion() {  
+		try {
+			URL url = new URL("https://api.github.com/repos/openxava/openxava/tags");
+			BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+			String json = reader.readLine().substring(0, 50);
+			StringTokenizer st = new StringTokenizer(json, "[]{}\": ");
+			while (st.hasMoreTokens()) {
+				String token = st.nextToken();
+				if (token.equals("name")) return st.nextToken();
+			}			
+		}
+		catch (Exception ex) {
+			log.warn(XavaResources.getString("last_openxava_version_problems", ex.getMessage())); 
+		}
+		return "UNKNOW";
 	}
 
 	private static String DEFAULT_MODE = IChangeModeAction.LIST;

@@ -67,25 +67,43 @@ public class DateCalendarTest extends WebDriverTestBase {
 		
 		changeLanguage("zh-CN");
 		goModule("Appointment");
-		setConditionValue("2015-5-26 AM8:15", 0);
+		setConditionValue("2015/5/26 AM8:15", 0);
 		execute("List.filter");
 		assertNoErrors(); 
 	}
 
-	public void testChineseDateTime() throws Exception { // Fails with Java 11
+	public void testChineseDateTimeInJava8AndAmIssue() throws Exception { 
 		changeLanguage("zh-TW");
+		appointment2();
+		quarter();
+		changeLanguage("zh-CN");
+		appointment2();
+		quarter();
+	}
+	
+	private void appointment2() throws Exception {
 		goModule("Appointment2");
 		execute("List.viewDetail", "row=2");
-		assertValue("time", "2015/5/26 PM 1:34");
-		assertValue("dateTime", "2015/5/26 PM 2:34");
+		assertValue("time", "2015/5/26 PM1:34");
+		assertValue("dateTime", "2015/5/26 PM2:34");
 		List<WebElement> calendarPopUp = getDriver().findElements(By.cssSelector("i.mdi.mdi-calendar-clock"));
 		calendarPopUp.get(1).click();
 		WebElement label = getDriver().findElement(By.id("ox_openxavatest_Appointment2__label_time"));
 		label.click();
 		calendarPopUp.get(1).click();
 		label.click();
-		assertValue("time", "2015/5/26 PM 1:34");
-		assertValue("dateTime", "2015/5/26 PM 2:34");
+		assertValue("time", "2015/5/26 PM1:34");
+		assertValue("dateTime", "2015/5/26 PM2:34");
+		execute("Mode.list");
+	}
+	
+	private void quarter() throws Exception {
+		goModule("Quarter");
+		execute("List.viewDetail", "row=0");
+		assertValue("initDate", "2009/8/11");
+		execute("CRUD.save");
+		assertNoErrors();
+		execute("Mode.list");
 	}
 
 }
