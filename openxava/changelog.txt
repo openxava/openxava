@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Value not saved correctly if the property name is 'application' or 'module'.
 - Fix: Popup calendar for date fields when opened from a dialog hides behind the dialog sometimes.
 - Warning message in log when an old version of OpenXava is being used.
 - Fix: Format for date with @DateTime or Timestamp in Chinese is different for Java 8 and 11+.

@@ -29,7 +29,7 @@ public class ApplicationUserTest extends ModuleTestBase {
 		removeEntities();		
 	}
 	
-	public void testUniqueConstraintsMessages() throws Exception { // tmr Cambiar nombre
+	public void testUniqueConstraintsMessages_applicationAndModuleAsPropertyNames() throws Exception { 
 		execute("Mode.list"); 
 		assertListRowCount(1);
 		execute("CRUD.new");
@@ -45,8 +45,8 @@ public class ApplicationUserTest extends ModuleTestBase {
 		setValue("name", "ANATOLY KARPOV");
 		setValue("birthdate", "5/23/1951");
 		setValue("sex", "0");
-		setValue("application", "CHESS TOURNAMENT"); // tmr
-		setValue("module", "ROUND ONE"); // tmr
+		setValue("application", "CHESS TOURNAMENT"); 
+		setValue("module", "ROUND ONE"); 
 		execute("CRUD.save");
 		assertNoErrors();
 		execute("Mode.list");
@@ -54,8 +54,8 @@ public class ApplicationUserTest extends ModuleTestBase {
 		execute("List.orderBy", "property=name");
 		execute("List.viewDetail", "row=0");
 		assertValue("name", "ANATOLY KARPOV");
-		assertValue("application", "CHESS TOURNAMENT"); // tmr
-		assertValue("module", "ROUND ONE"); // tmr
+		assertValue("application", "CHESS TOURNAMENT"); 
+		assertValue("module", "ROUND ONE"); 
 		execute("Collection.new", "viewObject=xava_view_nicknames");
 		setValue("nickname", "POSITIONALGAMER");
 		execute("Collection.saveAndStay");

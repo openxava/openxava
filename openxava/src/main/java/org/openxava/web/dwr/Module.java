@@ -767,14 +767,8 @@ public class Module extends DWRBase {
 	private String filterKey(Object key) {
 		String skey = (String) key;
 		int idx = skey.indexOf("::");
-		/* tmr
-		if (idx < 0) return Ids.undecorate(skey);
-		return Ids.undecorate(skey.substring(0, idx));
-		*/
-		// tmr ini
 		String undecorated = idx < 0?Ids.undecorate(skey):Ids.undecorate(skey.substring(0, idx));
-		return Is.anyEqual(undecorated, "application", "module")?undecorated + "_VALUE_":undecorated;
-		// tmr fin
+		return Is.anyEqual(undecorated, "application", "module")?undecorated + "_VALUE_":undecorated; // This _VALUE_ is used in View class
 	}
 
 	private String addMultipleValuesQueryString(StringBuffer sb, Object key, Object value) {		

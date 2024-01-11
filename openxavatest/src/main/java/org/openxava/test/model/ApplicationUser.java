@@ -41,10 +41,10 @@ public class ApplicationUser extends Identifiable {
 	private Date birthdate;
 	
 	@Column(length=40)
-	private String application; // tmr Comentario
+	private String application; // Just 'application' to test a case
 	
 	@Column(length=40)
-	private String module; // tmr Comentario
+	private String module; // Just 'module' to test a case
 	
 	@Column(table="APPLICATIONUSER_INFO")
 	@Enumerated(EnumType.STRING)
