@@ -43,6 +43,9 @@ public class ApplicationUser extends Identifiable {
 	@Column(length=40)
 	private String application; // tmr Comentario
 	
+	@Column(length=40)
+	private String module; // tmr Comentario
+	
 	@Column(table="APPLICATIONUSER_INFO")
 	@Enumerated(EnumType.STRING)
 	private Sex sex;
@@ -97,6 +100,14 @@ public class ApplicationUser extends Identifiable {
 
 	public void setApplication(String application) {
 		this.application = application;
+	}
+
+	public String getModule() {
+		return module;
+	}
+
+	public void setModule(String module) {
+		this.module = module;
 	}
 	
 }

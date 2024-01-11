@@ -46,6 +46,7 @@ public class ApplicationUserTest extends ModuleTestBase {
 		setValue("birthdate", "5/23/1951");
 		setValue("sex", "0");
 		setValue("application", "CHESS TOURNAMENT"); // tmr
+		setValue("module", "ROUND ONE"); // tmr
 		execute("CRUD.save");
 		assertNoErrors();
 		execute("Mode.list");
@@ -54,6 +55,7 @@ public class ApplicationUserTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		assertValue("name", "ANATOLY KARPOV");
 		assertValue("application", "CHESS TOURNAMENT"); // tmr
+		assertValue("module", "ROUND ONE"); // tmr
 		execute("Collection.new", "viewObject=xava_view_nicknames");
 		setValue("nickname", "POSITIONALGAMER");
 		execute("Collection.saveAndStay");
