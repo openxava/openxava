@@ -66,8 +66,24 @@ public class JPATabProvider extends TabProviderBase {
 					// In the case of reference to entity in aggregate only we will take the last reference name
 					reference = reference.substring(idx + 1);
 				}								 			
-				entityAndJoins.append(" left join e");
+				//entityAndJoins.append(" left join e");  
+				
+				//entityAndJoins.append(" left join e");
+				//System.out.println(getMetaModel().getMetaReference(reference));
 				String nestedReference = (String) getEntityReferencesReferenceNames().get(referenceMapping);
+				System.out.println(referenceMapping.getReference());
+				System.out.println(referenceMapping.getReferencedTable());
+				//entityAndJoins.append(" left join e");
+				getMetaModel().getMetaReference(reference).isAggregate()
+	            if(Is.emptyString(nestedReference) && getMetaModel().getMetaReference(reference).isRequired()) {
+	                entityAndJoins.append(" join e");   
+	            } 
+	            else {
+	                entityAndJoins.append(" left join e");
+	            }
+				
+				//String nestedReference = (String) getEntityReferencesReferenceNames().get(referenceMapping);
+				System.out.println("nestedReference " + nestedReference);
 				if (!Is.emptyString(nestedReference)) {					
 					entityAndJoins.append(isAggregate(nestedReference)?".":"_");
 					entityAndJoins.append(nestedReference);
@@ -87,6 +103,7 @@ public class JPATabProvider extends TabProviderBase {
 		
 		StringBuffer result = new StringBuffer(select);
 		result.replace(i, f + 2, entityAndJoins.toString());
+		System.out.println(result);
 		return result.toString();
 	}	
 	
