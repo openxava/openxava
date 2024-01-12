@@ -18,7 +18,6 @@ String contextPath = (String) request.getAttribute("xava.contextPath");
 if (contextPath == null) contextPath = request.getContextPath();
 String version = org.openxava.controller.ModuleManager.getVersion();
 %>	
-<script type='text/javascript' <xava:nonce/> src='<%=contextPath%>/dwr/interface/Discussion.js?ox=<%=version%>'></script>
 
 <%
 String propertyKey = request.getParameter("propertyKey");

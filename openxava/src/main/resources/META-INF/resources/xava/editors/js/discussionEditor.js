@@ -1,5 +1,7 @@
 if (discussionEditor == null) var discussionEditor = {};
 
+openxava.getScript(openxava.contextPath + "/dwr/interface/Discussion.js"); 
+
 openxava.addEditorInitFunction(function() {
 	$('.ox-discussion-add-button').off('click').click(function() {
 		discussionEditor.postMessage(openxava.lastApplication, openxava.lastModule, $(this).parent().data("discussion-id"))
@@ -10,6 +12,10 @@ openxava.addEditorInitFunction(function() {
 });
 
 discussionEditor.postMessage = function(application, module, discussionId) {
+	if (typeof Discussion === 'undefined') {
+		alert("Error: Discussion comment not added");
+		return;
+	}
 	var newComment = tinymce.get('xava_new_comment_' + discussionId); 
 	var comments = $('#xava_comments_' + discussionId);
 	var lastComment = comments.children().last(); 
