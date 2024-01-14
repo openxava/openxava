@@ -71,19 +71,30 @@ public class JPATabProvider extends TabProviderBase {
 				//entityAndJoins.append(" left join e");
 				//System.out.println(getMetaModel().getMetaReference(reference));
 				String nestedReference = (String) getEntityReferencesReferenceNames().get(referenceMapping);
-				System.out.println(referenceMapping.getReference());
-				System.out.println(referenceMapping.getReferencedTable());
-				//entityAndJoins.append(" left join e");
-				getMetaModel().getMetaReference(reference).isAggregate()
-	            if(Is.emptyString(nestedReference) && getMetaModel().getMetaReference(reference).isRequired()) {
-	                entityAndJoins.append(" join e");   
-	            } 
-	            else {
-	                entityAndJoins.append(" left join e");
-	            }
-				
-				//String nestedReference = (String) getEntityReferencesReferenceNames().get(referenceMapping);
 				System.out.println("nestedReference " + nestedReference);
+				System.out.println(referenceMapping.getReference());
+				///entityAndJoins.append(" left join e");
+				
+				MetaReference mr = getMetaModel().getMetaReference(reference);
+			
+				System.out.println("1"+mr.getMetaModelReferenced().getMetaPropertiesKey());
+				System.out.println("2"+mr.getKeyProperties());
+				System.out.println("3"+mr.getId());
+				System.out.println("4"+mr.getReferencedModelName());
+				System.out.println("5"+mr.getMetaModel());
+				System.out.println("6"+mr.getMetaModelReferenced());
+				//no debe ser referencia de referencia 
+				//no debe tener referencias como id
+				
+				addJoin(entityAndJoins, reference, nestedReference);
+//	            if(Is.emptyString(nestedReference) && getMetaModel().getMetaReference(reference).isRequired() && getMetaModel().getMetaReference(reference)) {
+//	                entityAndJoins.append(" join e");   
+//	            } 
+//	            else {
+//	                entityAndJoins.append(" left join e");
+//	            }
+//				
+				//String nestedReference = (String) getEntityReferencesReferenceNames().get(referenceMapping);
 				if (!Is.emptyString(nestedReference)) {					
 					entityAndJoins.append(isAggregate(nestedReference)?".":"_");
 					entityAndJoins.append(nestedReference);
@@ -355,4 +366,19 @@ public class JPATabProvider extends TabProviderBase {
 		entityReferencesMappings.add(referenceMapping);
 	}
 	
+	private StringBuffer addJoin(StringBuffer entityAndJoins, String reference, String nestedReference) {
+		MetaReference mr = getMetaModel().getMetaReference(reference);
+		//String result = entityAndJoins;
+        if(Is.emptyString(nestedReference) && mr.isRequired()) {
+        	String referenceKeyProperties = mr.getKeyProperties();
+        	if (!referenceKeyProperties.isEmpty() && Arrays.stream(referenceKeyProperties.split(",")).noneMatch(subS -> subS.contains("."))) {
+        		entityAndJoins.append(" join e");   
+        	}
+        	entityAndJoins.append(" left join e");
+        } else {
+        	entityAndJoins.append(" left join e");
+        }
+		
+		return entityAndJoins;
+	}
 }
