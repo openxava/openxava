@@ -1,9 +1,10 @@
 package org.openxava.test.tests.bymodule;
 
+import static org.openxava.jpa.XPersistence.commit;
+import static org.openxava.jpa.XPersistence.getManager;
+
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
-
-import static org.openxava.jpa.XPersistence.*;
 
 /**
  *  
@@ -28,7 +29,7 @@ public class ApplicationUserTest extends ModuleTestBase {
 		removeEntities();		
 	}
 	
-	public void testUniqueConstraintsMessages() throws Exception {
+	public void testUniqueConstraintsMessages_applicationAndModuleAsPropertyNames() throws Exception { 
 		execute("Mode.list"); 
 		assertListRowCount(1);
 		execute("CRUD.new");
@@ -44,6 +45,8 @@ public class ApplicationUserTest extends ModuleTestBase {
 		setValue("name", "ANATOLY KARPOV");
 		setValue("birthdate", "5/23/1951");
 		setValue("sex", "0");
+		setValue("application", "CHESS TOURNAMENT"); 
+		setValue("module", "ROUND ONE"); 
 		execute("CRUD.save");
 		assertNoErrors();
 		execute("Mode.list");
@@ -51,6 +54,8 @@ public class ApplicationUserTest extends ModuleTestBase {
 		execute("List.orderBy", "property=name");
 		execute("List.viewDetail", "row=0");
 		assertValue("name", "ANATOLY KARPOV");
+		assertValue("application", "CHESS TOURNAMENT"); 
+		assertValue("module", "ROUND ONE"); 
 		execute("Collection.new", "viewObject=xava_view_nicknames");
 		setValue("nickname", "POSITIONALGAMER");
 		execute("Collection.saveAndStay");

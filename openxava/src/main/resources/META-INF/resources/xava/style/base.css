@@ -731,6 +731,10 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 	border-color: transparent !important;
 }
 
+.flatpickr-calendar.open{
+	z-index:2147483699;
+}
+
 .ie .ox-date-calendar input {
 	padding-right: 20px; /* Perfect for Edge, some extra space for IE */ 
 }

@@ -71,9 +71,14 @@ public class Modules implements Serializable {
 		fixedModules = null; 
 		regularModules = null; 
 		current = null; 		
+		clearCurrent(); 
+	}
+	
+	/** @since 7.2.3 */
+	public static void clearCurrent() { 
 		if (!NaviOXPreferences.getInstance().isStartInLastVisitedModule()) {
 			try {
-				getPreferences().remove("current");
+				getPreferences().remove("current"); 
 			}
 			catch (BackingStoreException ex) {
 				log.warn(XavaResources.getString("current_module_problem"), ex);
@@ -147,7 +152,7 @@ public class Modules implements Serializable {
 	public String getCurrent(HttpServletRequest request) { 
 		try {
 			String current = ModulesHelper.getCurrent(request);
-			return current == null?getPreferences().get("current", NaviOXPreferences.getInstance().getInitialModule()):current; 
+			return current == null?getPreferences().get("current", NaviOXPreferences.getInstance().getInitialModule()):current;
 		}
 		catch (Exception ex) {
 			log.warn(XavaResources.getString("current_module_problem"), ex); 
@@ -364,7 +369,7 @@ public class Modules implements Serializable {
 
 
 
-	private Preferences getPreferences() throws BackingStoreException { 
+	private static Preferences getPreferences() throws BackingStoreException { 
 		return Users.getCurrentPreferences().node(getPreferencesNodeName());
 	}
 	

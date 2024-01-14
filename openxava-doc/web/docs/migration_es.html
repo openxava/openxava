@@ -90,15 +90,29 @@
         un vistazo a la <a href="https://jquery.com/upgrade-guide/3.0/">guía de
           actualización para jQuery 3</a>, puede que necesites hacer algún
         ajuste.</p>
-      <h3>Incluir archivos JavaScript en editores o vista personalizada requiere
-        atributo nonce</h3>
+      <h3>Incluir archivos JavaScript en JSP de editores o vista personalizada
+        ya no funciona</h3>
       <p>Esto es por razones de seguridad. Normalmente los JS usados en editores
         propios o vistas personalizadas se incluyen en la carpeta <i>xava/editors/js</i>,
         cuando este es el caso no hay que hacer ningún cambio. Sin embargo, en
-        algunas ocasiones se ha de incluir el archivo en el editor o la vista
-        directamente, si este es el caso hay que añadir un atributo <i>nonce</i>,
-        para que funcione.</p>
-      <p>Es decir, si en el código JSP de tu editor o vista tienes algo así:</p>
+        algunas ocasiones el archivo JavaScript se ha incluido en el editor o la
+        vista directamente, si este es el caso tenemos varias opciones.</p>
+      <p>La mejor alternativa es quitar el <i>&lt;script&gt;</i> del JSP y
+        copiar tu archivo JS a la carpeta <i>xava/editors/js</i>.</p>
+      <p>Si esto no es posible, porque por ejemplo el JS es generado
+        dinámicamente por un servlet, la solución es quitar el <i>&lt;script&gt;</i>
+        del JSP y añadir un
+        <i> openxava.getString()</i> en el archivo JS de tu editor. Por ejemplo,
+        para el editor <i>Discussion</i> tenemos un <i>discussion.js</i> que
+        está en <i>xava/editors/js</i> donde tenemos el código: </p>
+      <pre><code class="javascript">openxava.getScript(openxava.contextPath + "/dwr/interface/Discussion.js");
+</code></pre>
+      <p>Si tu editor o vista personalizada aún no tiene un archivo JS,
+        simplemente créalo y colócalo en <i>xava/editors/js</i>, sin importar
+        que, por ahora, su única función sea cargar otro JS.</p>
+      <p>La última opción es mantener la etiqueta <i>&lt;script&gt;</i> en el
+        JSP y agregarle un atributo de nonce. En otras palabras, si en el código
+        JSP de tu editor o vista tienes algo como esto:</p>
       <p></p>
       <pre><code class="html">&lt;script type='text/javascript' src='&lt;%=contextPath%&gt;/dwr/interface/Discussion.js?ox=&lt;%=version%&gt;'&gt;&lt;/script&gt;
 </code></pre>
@@ -108,7 +122,9 @@
       <pre><code class="html">&lt;script type='text/javascript' &lt;xava:nonce/&gt; src='&lt;%=contextPath%&gt;/dwr/interface/Discussion.js?ox=&lt;%=version%&gt;'&gt;&lt;/script&gt;
 </code></pre>
       <p></p>
-      <p>Fíjate en el <i>&lt;xava:nonce/&gt;</i> que hemos añadido.</p>
+      <p>Fíjate en el <i>&lt;xava:nonce/&gt;</i> que hemos añadido. Aunque esta
+        opción es la más rápida de implementar, las dos formas de JavaScript
+        mencionadas anteriormente funcionan mejor.</p>
       <h2></h2>
       <h2>Para migrar de OpenXava 7.1.5 a OpenXava 7.1.6</h2>
       No hay consideraciones.
