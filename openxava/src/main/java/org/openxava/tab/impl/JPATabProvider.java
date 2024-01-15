@@ -66,28 +66,8 @@ public class JPATabProvider extends TabProviderBase {
 					// In the case of reference to entity in aggregate only we will take the last reference name
 					reference = reference.substring(idx + 1);
 				}								 			
-				//entityAndJoins.append(" left join e");  
-				
-				//entityAndJoins.append(" left join e");
-				//System.out.println(getMetaModel().getMetaReference(reference));
 				String nestedReference = (String) getEntityReferencesReferenceNames().get(referenceMapping);
-				System.out.println("nestedReference " + nestedReference);
-				System.out.println(referenceMapping.getReference());
-				///entityAndJoins.append(" left join e");
-				
-
-				//no debe ser referencia de referencia 
-				//no debe tener referencias como id
-				
 				addJoin(entityAndJoins, reference, nestedReference);
-//	            if(Is.emptyString(nestedReference) && getMetaModel().getMetaReference(reference).isRequired() && getMetaModel().getMetaReference(reference)) {
-//	                entityAndJoins.append(" join e");   
-//	            } 
-//	            else {
-//	                entityAndJoins.append(" left join e");
-//	            }
-//				
-				//String nestedReference = (String) getEntityReferencesReferenceNames().get(referenceMapping);
 				if (!Is.emptyString(nestedReference)) {					
 					entityAndJoins.append(isAggregate(nestedReference)?".":"_");
 					entityAndJoins.append(nestedReference);
@@ -107,7 +87,6 @@ public class JPATabProvider extends TabProviderBase {
 		
 		StringBuffer result = new StringBuffer(select);
 		result.replace(i, f + 2, entityAndJoins.toString());
-		System.out.println(result);
 		return result.toString();
 	}	
 	
@@ -360,29 +339,17 @@ public class JPATabProvider extends TabProviderBase {
 	}
 	
 	private StringBuffer addJoin(StringBuffer entityAndJoins, String reference, String nestedReference) {
-    	if (!getMetaModel().getMetaReference(reference).isHidden()) {
-        	MetaReference mr = getMetaModel().getMetaReference(reference);
-    		System.out.println("1"+mr.getMetaModelReferenced().getMetaPropertiesKey());
-    		System.out.println("2"+mr.getKeyProperties());
-    		System.out.println("3"+mr.getId());
-    		System.out.println("4"+mr.getReferencedModelName());
-    		System.out.println("5"+mr.getMetaModel());
-    		System.out.println("6"+mr.getMetaModelReferenced());
-    	}
-    	
-        if (!Is.emptyString(nestedReference)) {
-        	System.out.println("first left join e");
-        	return entityAndJoins.append(" left join e");
-        }
-        
+        if (!Is.emptyString(nestedReference)) return entityAndJoins.append(" left join e");
         if (getMetaModel().getMetaReference(reference).isRequired()) {
-    	    String referenceKeyProperties = getMetaModel().getMetaReference(reference).getKeyProperties();
-    	    System.out.println(1);
-    	    return (!referenceKeyProperties.isEmpty() && Arrays.stream(referenceKeyProperties.split(",")).noneMatch(subS -> subS.contains("."))) 
-    	    		? entityAndJoins.append(" join e")
-    	    		: entityAndJoins.append(" left join e");
+        	String referenceKeyProperties = getMetaModel().getMetaReference(reference).getKeyProperties();
+        	ModelMapping modelMapping = getMetaModel().getMapping();
+    	    if (!referenceKeyProperties.isEmpty() 
+    	    		&& Arrays.stream(referenceKeyProperties.split(",")).noneMatch(subS -> subS.contains(".")) 
+    	    		&& !modelMapping.isReferenceOverlappingWithSomeProperty(reference)) {
+    	    	return entityAndJoins.append(" join e");
+    	    }
         }
-        System.out.println("final left join e");
         return entityAndJoins.append(" left join e");
 	}
+	
 }
