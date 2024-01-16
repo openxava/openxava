@@ -27,11 +27,11 @@ if (limit < chunkSize) limit = chunkSize;
 int i = 0;
 for (Card card: new CardIterator(tab, view, request, errors)) {
 %>	
-	<a class="ox-card" data-action="<%=action%>" data-row="<%=i++%>">
+	<div class="ox-card" data-action="<%=action%>" data-row="<%=i++%>">
 		<div class="ox-card-header"><%=card.getHeader()%></div>
 		<div class="ox-card-subheader"><%=card.getSubheader()%></div>
 		<div class="ox-card-content"><%=card.getContent()%></div>
-	</a>	
+	</div>	
 <%
 	if (i >= limit) {
 		loadMore = true;

@@ -718,7 +718,7 @@ abstract public class ModuleTestBase extends TestCase {
 		// For Cards
 		if (arguments != null && arguments.startsWith("row=")) {
 			String row= arguments.substring(4);
-			for (HtmlElement el: page.getBody().getElementsByAttribute("a", "data-row", row)) {
+			for (HtmlElement el: page.getBody().getElementsByAttribute("div", "data-row", row)) { 
 				if (action.equals(el.getAttribute("data-action"))) return el;
 			}
 		}

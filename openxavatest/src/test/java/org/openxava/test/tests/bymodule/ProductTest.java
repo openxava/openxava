@@ -172,7 +172,7 @@ public class ProductTest extends ModuleTestBase {
 
 	private HtmlElement assertCard3Title(String expectedTitle) { 
 		HtmlElement body = (HtmlElement) getHtmlPage().getElementsByTagName("body").get(0);
-		HtmlElement card = body.getElementsByAttribute("a", "class", "ox-card").get(2);
+		HtmlElement card = body.getElementsByAttribute("div", "class", "ox-card").get(2); 
 		assertEquals(expectedTitle + "\n3\nUnit price: 0.00, Unit price in pesetas: 0", card.asNormalizedText()); 
 		return card;
 	}
