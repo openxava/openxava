@@ -339,6 +339,7 @@ public class JPATabProvider extends TabProviderBase {
 	}
 	
 	private StringBuffer addJoin(StringBuffer entityAndJoins, String reference, String nestedReference) {
+		// LEFT JOIN works for all cases, but a plain JOIN is far faster with large tables in some databases
         if (!Is.emptyString(nestedReference)) return entityAndJoins.append(" left join e");
         if (getMetaModel().getMetaReference(reference).isRequired()) {
         	String referenceKeyProperties = getMetaModel().getMetaReference(reference).getKeyProperties();
