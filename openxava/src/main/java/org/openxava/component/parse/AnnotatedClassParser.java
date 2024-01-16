@@ -1304,7 +1304,7 @@ public class AnnotatedClassParser implements IComponentParser {
 			}
 			if (element.isAnnotationPresent(Condition.class)) {
 				String[] elementName = element.toString().split(" ");
-				log.warn(XavaResources.getString("annotation_not_applicable", Condition.class.getSimpleName(), elementName[elementName.length-1] + " with @ManyToMany", "@OneToMany"));
+				log.warn(XavaResources.getString("annotation_not_applicable", Condition.class.getSimpleName(), elementName[elementName.length-1], "@OneToMany"));
 			}
 			// For the rest ManyToMany collections are processed as calculated one
 		}
