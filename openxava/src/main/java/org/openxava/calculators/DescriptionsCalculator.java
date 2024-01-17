@@ -401,6 +401,7 @@ public class DescriptionsCalculator implements ICalculator {
 	}
 
 	public void setDescriptionProperties(String string) {
+		if (string.contains("\t")) throw new XavaException("invalid_special_char");
 		descriptionProperties = string;
 		metaTab = null;
 	}
