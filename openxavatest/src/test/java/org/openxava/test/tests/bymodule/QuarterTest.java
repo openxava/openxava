@@ -16,7 +16,7 @@ public class QuarterTest extends ModuleTestBase {
 	
 	public void testNestedCollectionsWithCompositeKeyWithReference() throws Exception {		
 		execute("List.viewDetail", "row=0");
-		assertCollectionRowCount("subjects", 1); 
+		assertCollectionRowCount("subjects", 1); // TMR FALLA
 		execute("Collection.edit", "row=0,viewObject=xava_view_subjects");
 		assertCollectionRowCount("groups", 1);
 		assertValueInCollection("groups", 0, 0, "CODE"); 

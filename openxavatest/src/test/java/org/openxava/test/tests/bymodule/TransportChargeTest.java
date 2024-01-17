@@ -107,7 +107,7 @@ public class TransportChargeTest extends TransportChargeTestBase {
 		assertMessage("Transport charge deleted successfully");
 	}
 	
-	public void testKeyNestedReferencesInList() throws Exception {
+	public void testKeyNestedReferencesInList_numericValueFromNestedReferenceInList() throws Exception { // tmr numericValueFromNestedReferenceInList
 		deleteAll();
 		createSome();
 		resetModule(); 
@@ -119,11 +119,13 @@ public class TransportChargeTest extends TransportChargeTestBase {
 		assertValueInList(0, 1, String.valueOf(getCharge1().getDelivery().getInvoice().getNumber()));
 		assertValueInList(0, 2, String.valueOf(getCharge1().getDelivery().getNumber()));
 		assertValueInList(0, 3, "100.00");
+		assertValueInList(0, 4, String.valueOf(getCharge1().getDelivery().getInvoice().getVatPercentage())); // tmr
 
 		assertValueInList(1, 0, String.valueOf(getCharge2().getDelivery().getInvoice().getYear()));
 		assertValueInList(1, 1, String.valueOf(getCharge2().getDelivery().getInvoice().getNumber()));
 		assertValueInList(1, 2, String.valueOf(getCharge2().getDelivery().getNumber()));
 		assertValueInList(1, 3, "200.00");
+		assertValueInList(1, 4, String.valueOf(getCharge2().getDelivery().getInvoice().getVatPercentage())); // tmr
 
 		String [] condition = {
 				String.valueOf(getCharge2().getDelivery().getInvoice().getYear()),
@@ -138,7 +140,19 @@ public class TransportChargeTest extends TransportChargeTestBase {
 		assertValueInList(0, 0, String.valueOf(getCharge2().getDelivery().getInvoice().getYear()));
 		assertValueInList(0, 1, String.valueOf(getCharge2().getDelivery().getInvoice().getNumber()));
 		assertValueInList(0, 2, String.valueOf(getCharge2().getDelivery().getNumber()));
-		assertValueInList(0, 3, "200.00");		
+		assertValueInList(0, 3, "200.00");
+		assertValueInList(0, 4, String.valueOf(getCharge2().getDelivery().getInvoice().getVatPercentage())); // tmr
+		
+		// tmr ini
+		// We have to test a third level numeric property, for a bug only with numeric values
+		String vatPercentage = String.valueOf(getCharge1().getDelivery().getInvoice().getVatPercentage());
+		System.out.println("[TransportChargeTest.testKeyNestedReferencesInList] vatPercentage=" + vatPercentage); // tmr
+		setConditionValues("", "", "", "", vatPercentage);
+		execute("List.filter");
+		assertListRowCount(1);
+		assertValueInList(0, 3, "100.00");
+		assertValueInList(0, 4, vatPercentage);
+		// tmr fin
 	}
 	
 	private int getRowOf(String v0, String v1, String v2, String v4) throws Exception {
