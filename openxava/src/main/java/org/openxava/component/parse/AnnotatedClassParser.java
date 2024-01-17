@@ -2429,6 +2429,7 @@ public class AnnotatedClassParser implements IComponentParser {
 
 	private MetaDescriptionsList createMetaDescriptionsList(DescriptionsList descriptionsList) {
 		MetaDescriptionsList metaDescriptionList = new MetaDescriptionsList();
+		if (descriptionsList.descriptionProperties().contains("\t")) throw new XavaException("invalid_special_char");
 		metaDescriptionList.setDescriptionPropertiesNames(descriptionsList.descriptionProperties());
 		metaDescriptionList.setDepends(descriptionsList.depends());
 		metaDescriptionList.setCondition(descriptionsList.condition());
