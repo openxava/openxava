@@ -211,7 +211,7 @@ public class JPATabProvider extends TabProviderBase {
 		String selectBase = select.substring(0, whereIdx); // tmr
 		StringBuffer joins = new StringBuffer();
 		for (String join: neededJoins) {
-			if (selectBase.contains(" " + join)) continue; // tmr
+			if (selectBase.contains(" " + join + " ") || selectBase.endsWith(" " + join)) continue; // tmr 
 			joins.append(" left join ");
 			joins.append(join.replace("e_", "e."));
 			joins.append(" ");
