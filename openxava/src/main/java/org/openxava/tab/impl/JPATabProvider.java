@@ -190,7 +190,7 @@ public class JPATabProvider extends TabProviderBase {
 		return select;
 	}
 
-	protected String toIncludeJoinsUsedInWhere(String select) { 
+	protected String toIncludeJoinsUsedInWhere(String select) {
 		int whereIdx = select.indexOf("WHERE");
 		if (whereIdx < 0) return select;
 		int orderByIdx = select.indexOf(" order by ");
@@ -207,17 +207,17 @@ public class JPATabProvider extends TabProviderBase {
 		}
 		if (neededJoins.isEmpty()) return select;
 		
+		String selectBase = select.substring(0, whereIdx); 
 		StringBuffer joins = new StringBuffer();
 		for (String join: neededJoins) {
+			if (selectBase.contains(" " + join + " ") || selectBase.endsWith(" " + join)) continue;  
 			joins.append(" left join ");
 			joins.append(join.replace("e_", "e."));
 			joins.append(" ");
 			joins.append(join);
 		}
 		
-		String selectBase = select.substring(0, whereIdx);
-		String finalSelect = selectBase + joins + " WHERE " + where + orderBy; 
-		return finalSelect;
+		return selectBase + joins + " WHERE " + where + orderBy; 
 	}
 	
 	private String insertGroupBy(String select, String groupByColumns) { 
