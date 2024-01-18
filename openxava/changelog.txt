@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: No trace with the root cause of the problem when the logic in a getter of an entity fails. 
 - Reference documentation for references in model article improved. 
 - Warning in the log or exception thrown if failOnAnnotationMisuse=true if using @Condition for @ManyToMany. 
 - Groovy upgraded to 4.0.17.
