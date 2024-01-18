@@ -204,6 +204,7 @@ if (editable) {
 			KeyAndDescription cl = (KeyAndDescription) it.next();	
 			String selected = "";
 			String description = formatter==null?cl.getDescription().toString():formatter.format(request, cl.getDescription());
+			description = description.replace("\\","\\\\");
 			if (description.length() > maxDescriptionLength) maxDescriptionLength = description.length();
 			if (Is.equalAsStringIgnoreCase(fvalue, cl.getKey())) {
 				selected = "selected"; 
