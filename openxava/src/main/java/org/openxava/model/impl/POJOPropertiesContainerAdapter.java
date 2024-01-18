@@ -24,6 +24,7 @@ public class POJOPropertiesContainerAdapter implements IPropertiesContainer {
 			return propertiesManager.executeGets(properties);	
 		}
 		catch (Exception ex) {
+			log.error(ex.getMessage(), ex);  
 			throw new PropertiesContainerException("get_properties_error", ex.getLocalizedMessage());
 		}
 	}
