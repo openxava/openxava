@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- Groovy upgraded to 4.0.17.
+- Embedded Tomcat used in development upgraded to 9.0.85.
+- Driver version in doc and new projects upgraded for MySQL.
+- Fix: Poor performance in list using required references with big tables because of left joins.
 - Fix: Card broken in list cards format if it contains a file with a link.
 - Fix: Discussion does not add messages from a dialog from time to time, without warning the user. 
 - Fix: Value not saved correctly if the property name is 'application' or 'module'.
