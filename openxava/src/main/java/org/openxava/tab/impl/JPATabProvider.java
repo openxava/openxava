@@ -197,7 +197,6 @@ public class JPATabProvider extends TabProviderBase {
 		String where = orderByIdx<0?select.substring(whereIdx + 5):select.substring(whereIdx + 5, orderByIdx);
 		String orderBy = orderByIdx<0?"":select.substring(orderByIdx);		
 		
-		System.out.println("[JPATabProvider.toIncludeJoinsUsedInWhere] where=" + where); // tmr
 		String [] tokens = where.split(" ");
 		Collection<String> neededJoins = new HashSet<>();
 		for (String token: tokens) {
@@ -208,19 +207,17 @@ public class JPATabProvider extends TabProviderBase {
 		}
 		if (neededJoins.isEmpty()) return select;
 		
-		String selectBase = select.substring(0, whereIdx); // tmr
+		String selectBase = select.substring(0, whereIdx); 
 		StringBuffer joins = new StringBuffer();
 		for (String join: neededJoins) {
-			if (selectBase.contains(" " + join + " ") || selectBase.endsWith(" " + join)) continue; // tmr 
+			if (selectBase.contains(" " + join + " ") || selectBase.endsWith(" " + join)) continue;  
 			joins.append(" left join ");
 			joins.append(join.replace("e_", "e."));
 			joins.append(" ");
 			joins.append(join);
 		}
 		
-		// tmr String selectBase = select.substring(0, whereIdx);
-		String finalSelect = selectBase + joins + " WHERE " + where + orderBy; 
-		return finalSelect;
+		return selectBase + joins + " WHERE " + where + orderBy; 
 	}
 	
 	private String insertGroupBy(String select, String groupByColumns) { 

@@ -23,8 +23,7 @@ import org.openxava.jpa.*;
 	@View(name="WithoutDelivery", members="amount") 
 })
 @Tabs({
-	// tmr @Tab(properties="delivery.invoice.year, delivery.invoice.number, delivery.number, amount"),
-	@Tab(properties="delivery.invoice.year, delivery.invoice.number, delivery.number, amount, delivery.invoice.vatPercentage"), // tmr
+	@Tab(properties="delivery.invoice.year, delivery.invoice.number, delivery.number, amount, delivery.invoice.vatPercentage"), 
 	@Tab(name="WithDistance", properties="delivery.invoice.year, delivery.invoice.number, delivery.number, delivery.distance, amount")
 })
 public class TransportCharge {

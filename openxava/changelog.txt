@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Filtering in the list by a numeric property of a reference of a reference (3 levels or more) fails.
+- Some new common use labels to be used in applications. 
+- Fix: Some incorrect translations for Spanish labels.
 - Fix: No trace with the root cause of the problem when the logic in a getter of an entity fails. 
 - Reference documentation for references in model article improved. 
 - Warning in the log or exception thrown if failOnAnnotationMisuse=true if using @Condition for @ManyToMany. 
