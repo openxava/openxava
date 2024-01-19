@@ -18,7 +18,7 @@ import org.apache.commons.logging.*;
 import org.openxava.util.*;
 import org.openxava.validators.*;
 
-import com.openxava.naviox.Modules;
+import com.openxava.naviox.*;
 import com.openxava.naviox.impl.*;
 import com.openxava.phone.impl.*;
 
@@ -266,4 +266,10 @@ public class NaviOXPreferences {
 	public String getSignInJSP() {
 		return getProperties().getProperty("signInJSP", "signIn.jsp").trim();
 	}
+	
+	// Tendriamos que poner en arquetipos con ejemplo
+	public String getLicense() { // tmr ¿Este nombre? licenseReference, subscription, orderReference, susbcripcionLicense
+		return getProperties().getProperty("license", "").trim();
+	}
+
 }
