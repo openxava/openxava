@@ -1,8 +1,8 @@
 package org.openxava.test.model;
 
 import javax.persistence.*;
+
 import org.openxava.annotations.*;
-import org.openxava.test.actions.*;
 
 /**
  * WARNING! DON'T ADD ANY @OnChange, @Depends, @DefaultValueCalculator WITH "from" PROPERTIES @DescriptionList WITH depends. 
@@ -12,6 +12,7 @@ import org.openxava.test.actions.*;
 
 @Entity
 @Table(name="PRODUCT")
+@Tab(properties = "description", baseCondition = "${subfamily.number}  = 1 and ${subfamily.family.number} = 1") 
 public class Product6 {
 	
 	// WARNING! DON'T ADD ANY @OnChange, @Depends, @DefaultValueCalculator WITH "from" PROPERTIES @DescriptionList WITH depends.
