@@ -225,7 +225,7 @@ public class CarrierTest extends CarrierTestBase {
 		assertValueInList(0, "name", "Cinco");
 	}
 	
-	public void testPropertyDependsDescriptionsListReference_multipleKeyWithSpaces_descriptionsListLabels_modifyDialog_jdbcCalculatorWithFromProperties_descriptionsListValuesWithBackSlash() throws Exception {
+	public void testPropertyDependsDescriptionsListReference_multipleKeyWithSpaces_descriptionsListLabels_modifyDialog_jdbcCalculatorWithFromProperties() throws Exception {
 		execute("CRUD.new");
 		assertLabel("drivingLicence", "Driving licence"); 
 		assertValue("remarks","");
