@@ -13,7 +13,7 @@ public class ChartsTest extends WebDriverTestBase {
 	
 	public void testCharts() throws Exception {
 		goModule("Invoice");
-		assertOneBarByEachRow();
+		assertOneBarByEachRow(); // TMR FALLA
 		moveToListView();
 		
 		goModule("Color");

@@ -21,7 +21,7 @@ public class Invoice2Test extends ModuleTestBase {
 		// Preserve the order of filtering, selecting configuration, resetModules for List and Cards format, it's in that way for a bug 
 		assertListSelectedConfiguration("All");
 		assertListAllConfigurations("All");
-		assertListRowCount(9); 
+		assertListRowCount(9); // TMR FALLA
 		
 		setConditionValues("2002"); 
 		execute("List.filter");
@@ -143,7 +143,7 @@ public class Invoice2Test extends ModuleTestBase {
 		assertAction("CRUD.deleteSelected");
 		assertAction("List.viewDetail");
 		assertAction("CRUD.deleteRow");		
-		assertTrue(getHtml().contains("There are 9 records in list")); 
+		assertTrue(getHtml().contains("There are 9 records in list")); // TMR FALLA
 		assertListRowCount(9);
 		assertValuesInList(0, "2002",  "1",  "1/1/2002", "16.0",  "2,500.00", "1", "Javi"); 
 		assertValuesInList(1, "2004",  "2",  "1/4/2004", "42.0",     "11.00", "2", "Juanillo");
