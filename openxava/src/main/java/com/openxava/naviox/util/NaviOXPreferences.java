@@ -18,7 +18,7 @@ import org.apache.commons.logging.*;
 import org.openxava.util.*;
 import org.openxava.validators.*;
 
-import com.openxava.naviox.*;
+import com.openxava.naviox.Modules;
 import com.openxava.naviox.impl.*;
 import com.openxava.phone.impl.*;
 
@@ -268,7 +268,7 @@ public class NaviOXPreferences {
 	}
 	
 	/** @since 7.2.3 */
-	public String getXavaProSubscriptionLicenseKey() { // tmr
+	public String getXavaProSubscriptionLicenseKey() { 
 		return getProperties().getProperty("xavaProSubscriptionLicenseKey", "").trim();
 	}
 
