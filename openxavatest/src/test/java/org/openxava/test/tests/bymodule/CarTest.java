@@ -58,7 +58,6 @@ public class CarTest extends ModuleTestBase {
 		
 		execute("CRUD.delete");
 		assertNoErrors();
-		execute("CRUD.new");
 	}
 		
 }
