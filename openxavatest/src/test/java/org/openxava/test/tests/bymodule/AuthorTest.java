@@ -49,7 +49,7 @@ public class AuthorTest extends CustomizeListTestBase {
 		assertFalse(comparator.isDisplayed()); 
 		HtmlInput value = getHtmlPage().getHtmlElementById("ox_openxavatest_Author__conditionValue___0");
 		value.focus();
-		assertTrue(comparator.isDisplayed());
+		assertTrue(comparator.isDisplayed()); 
 		
 		comparator.setSelectedAttribute("starts_comparator", true);
 		waitAJAX();

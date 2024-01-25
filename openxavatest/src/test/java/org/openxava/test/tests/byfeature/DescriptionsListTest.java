@@ -22,6 +22,15 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		XPersistence.setPersistenceUnit("junit");
 	}
 	
+	public void testDropDownWhenValuesHasBackSlash() throws Exception {
+		goModule("Carrier");
+		execute("CRUD.new");
+		WebElement drivingLicense = getDriver().findElement(By.cssSelector("i.mdi.mdi-menu-down"));
+		drivingLicense.click();
+		WebElement dropDown = getDriver().findElement(By.cssSelector("ul.ui-menu.ui-widget.ui-widget-content.ui-autocomplete.ui-front"));
+		assertFalse(dropDown.getAttribute("style").contains("display: none;"));
+	}
+	
 	public void testAutocomplete() throws Exception {
 		setFamilyDescription(1, "SOFTWARÉ"); // To test a bug with accents 
 		createWarehouseWithQuote(); // To test a bug with quotes

@@ -13,7 +13,7 @@ public class CarTest extends ModuleTestBase {
 		super(testName, "Car");		
 	}
 	
-	public void testImageInElementCollection_listFormattersForEnums() throws Exception {
+	public void testImageInElementCollection_listFormattersForEnums_changeElementCollectionLabel() throws Exception {
 		assertValueInList(0, "color", ": Red"); 
 		
 		execute("CRUD.new");		
@@ -52,7 +52,9 @@ public class CarTest extends ModuleTestBase {
 		assertValueInCollection("photos", 0, "description", "FRONT");
 		assertValueInCollection("photos", 1, "description", "");
 		assertNoFile("photos.0.photo");
-		assertFile("photos.1.photo");		
+		assertFile("photos.1.photo");	
+		execute("Car.changeNameLabel");
+		assertLabelInCollection("photos", 0, "The photo");
 		
 		execute("CRUD.delete");
 		assertNoErrors();

@@ -211,16 +211,16 @@ if (editable) {
 				selectedKey = cl.getKey().toString();
 			} 		
 			values.append("{\"label\":\""); 
-			values.append(description.replaceAll("'", "&apos;").replaceAll("\"", "&Prime;")); 
+			values.append(description.replace("\\","\\\\").replaceAll("'", "&apos;").replaceAll("\"", "&Prime;")); 
 			values.append("\",\"value\":\""); 
-			values.append(cl.getKey().toString().replaceAll("'", "&apos;").replaceAll("\"", "&Prime;")); 
+			values.append(cl.getKey().toString().replace("\\","\\\\").replaceAll("'", "&apos;").replaceAll("\"", "&Prime;")); 
 			values.append("\"}");
 			if (it.hasNext()) values.append(",");
 		} 
 		values.append("]");
 		String browser = request.getHeader("user-agent");
 		maxDescriptionLength += 5;
-		selectedDescription = selectedDescription.replaceAll("\"", "&quot;"); 
+		selectedDescription = selectedDescription.replaceAll("\"", "&quot;").replace("\\\\", "\\\\\\\\"); 
 	%>
 	<span class="<%=style.getDescriptionsList()%> <%=style.getEditor()%>">
 	<%-- The JavaScript code depends on the order of the next elements --%>

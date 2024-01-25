@@ -208,7 +208,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		execute("CRUD.new");		
 
 		setValueInCollection("details", 0, "product.number", "1");
-		assertValueInCollection("details", 0, "unitPrice", "11.00");		
+		assertValueInCollection("details", 0, "unitPrice", "11.00");
 		setValueInCollection("details", 0, "quantity", "2");
 		assertValueInCollection("details", 0, "amount", "22.00"); 
 		

@@ -4256,7 +4256,16 @@ public class View implements java.io.Serializable {
 				}
 			}
 			setLabelsIdForMetaPropertiesList();
-		} 
+		} else {
+			if (getLabels() != null) {
+				for(MetaProperty mp : metaPropertiesList) {
+					if (getLabels().containsKey(mp.getName())) {
+						String newLabel = (String) getLabels().get(mp.getName());
+						if (!mp.getLabel().equals(newLabel)) mp.setLabel(newLabel);
+					}
+				}
+			}
+		}
 		return metaPropertiesList;
 	}
 	
@@ -4270,7 +4279,7 @@ public class View implements java.io.Serializable {
 			MetaProperty p = ((MetaProperty) it.next()).cloneMetaProperty();
 			String prefix = Is.empty(getParent().getMetaModel().getName()) ? 
 				getMetaModel().getMetaComponent().getName() :
-				getParent().getMetaModel().getName();				
+				getParent().getMetaModel().getName();	
 			p.setLabelId(prefix + "." + getMemberName() + "." + p.getName());
 			newList.add(p);
 		}
