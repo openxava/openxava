@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Focus not in the correct place after searching a reference in an @ElementCollection.
+- Fix: @DescriptionsList combos do not open if a \ is in one of the values.
 - Fix: Qualified properties in baseCondition of @Tab fails if those properties are not in the list.
 - Fix: Filtering in the list by a numeric property of a reference of a reference (3 levels or more) fails.
 - Some new common use labels to be used in applications. 

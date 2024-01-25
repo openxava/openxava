@@ -242,7 +242,7 @@ public class CarrierTest extends CarrierTestBase {
 		execute("Reference.modify", "model=DrivingLicence,keyProperty=drivingLicence__KEY__"); 
 		assertNoErrors();
 		assertDialog();
-		assertValue("description", "CAMIONES GRANDES");
+		assertValue("description", "CAMIONES GRANDES \\ DE CARGA");
 	}
 	
 	

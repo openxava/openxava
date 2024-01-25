@@ -195,7 +195,7 @@ for (int f=0; f < rowCount; f++) {
 		<% } else if (referenceName != null) { %>
 		<xava:descriptionsList reference="<%=referenceName%>"/>
 		<% } else { %>
-		<span id="<xava:id name='<%="editor_" + view.getPropertyPrefix() + propertyName%>'/>">
+		<span id="<xava:id name='<%="editor_" + view.getPropertyPrefix() + propertyName%>'/>" class="xava_editor">
 		<xava:editor property="<%=propertyName%>" throwPropertyChanged="<%=throwPropertyChanged%>"/>
 		</span>
 		<% } %>	
