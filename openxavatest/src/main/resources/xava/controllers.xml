@@ -1028,6 +1028,15 @@
 		</action>							
 	</controller>
 	
+	<controller name="Car">
+		<extends controller="Typical"/>
+		<action name="changeNameLabel" mode="detail" class="org.openxava.test.actions.ChangeSubViewPropertyLabelAction">				
+			<set property="subView" value="photos"/>
+			<set property="property" value="photo"/>
+			<set property="label" value="The photo"/>
+		</action>	
+	</controller>
+	
 	<controller name="Carrier">
 	
 		<action name="translateName" hidden="true"
