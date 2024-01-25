@@ -11,7 +11,6 @@ public class ChangeSubViewPropertyLabelAction extends ViewBaseAction {
 	public void execute() throws Exception {
 		getView().getSubview(subView).setLabelId(property, label);
 		getView().getSubview(subView).reloadMetaModel();
-		System.out.println("---");
 	}
 
 	public String getLabel() {
