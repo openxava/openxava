@@ -267,10 +267,9 @@ public class NaviOXPreferences {
 		return getProperties().getProperty("signInJSP", "signIn.jsp").trim();
 	}
 	
-	// tmr Tendriamos que poner en arquetipos con ejemplo
-	// TMR ME QUEDÉ POR AQUÍ: ANTES DE CONFIRMAR ESTO DEBERÍA COMPROBAR COMO VA LAS LICENCIAS DE FASTSPRING
-	public String getXavaProSubscriptionOrderID() { // tmr
-		return getProperties().getProperty("xavaProSubscriptionOrderID", "").trim();
+	/** @since 7.2.3 */
+	public String getXavaProSubscriptionLicenseKey() { // tmr
+		return getProperties().getProperty("xavaProSubscriptionLicenseKey", "").trim();
 	}
 
 }
