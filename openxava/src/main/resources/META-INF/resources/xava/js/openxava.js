@@ -241,23 +241,12 @@ openxava.initEditorsEvents = function(application, module) {
 		var container = $(this).closest('.xava_onchange_calculate');
   		openxava.calculate(application, module, container.data('calculated-property'), container.data('scale'));
 	});
-	/* tmr 
 	$('.xava_editor .editor').off('blur').blur(function() {
   		openxava.onBlur(application, module, $(this).attr('id'));
 	});
 	$('.xava_editor .editor').off('focus').focus(function() {
   		openxava.onFocus(application, module, $(this).attr('id'));
 	});	
-	*/
-	// tmr ini
-	/* tmr */
-	$('.editor').off('blur').blur(function() {
-  		openxava.onBlur(application, module, $(this).attr('id'));
-	});
-	$('.editor').off('focus').focus(function() {
-  		openxava.onFocus(application, module, $(this).attr('id'));
-	});		
-	// tmr fin
 }
 
 openxava.initFrames = function() {  

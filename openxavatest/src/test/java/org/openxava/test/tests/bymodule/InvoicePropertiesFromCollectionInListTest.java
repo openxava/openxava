@@ -13,8 +13,8 @@ public class InvoicePropertiesFromCollectionInListTest extends CustomizeListTest
 	}
 	
 	public void testPropertiesFromCollectionInList() throws Exception { 
-		assertListRowCount(9); // TMR FALLA
-		//correccion
+		assertListRowCount(9); 
+		//Correction
 		//assertLabelInList(9, "Unit price of product of details");
 		assertLabelInList(9, "Details product unit price");
 		assertLabelInList(10, "Deliveries");

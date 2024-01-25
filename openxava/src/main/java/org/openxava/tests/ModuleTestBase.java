@@ -682,13 +682,10 @@ abstract public class ModuleTestBase extends TestCase {
 	protected void assertFocusOn(String name) throws Exception {
 		String expectedFocusProperty = decorateId(name);			
 		DomElement element = page.getFocusedElement(); 
-		System.out.println("[ModuleTestBase.assertFocusOn] element=" + element); // tmr
 		String focusProperty = element==null?null:element.getAttribute("name");
-		System.out.println("[ModuleTestBase.assertFocusOn] focusProperty.1=" + focusProperty); // tmr
 		if (focusProperty != null && focusProperty.endsWith("__CONTROL__")) { 
 			focusProperty = focusProperty.replaceFirst("__CONTROL__$", "");
 		}
-		System.out.println("[ModuleTestBase.assertFocusOn] focusProperty.2=" + focusProperty); // tmr
 		assertEquals(XavaResources.getString("focus_in_unexpected_place"), expectedFocusProperty, focusProperty);		
 	}
 	
