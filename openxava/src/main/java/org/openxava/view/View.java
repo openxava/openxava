@@ -4244,69 +4244,49 @@ public class View implements java.io.Serializable {
 		return metaMembersIncludingGroups;
 	}
 			
-	public List<MetaProperty> getMetaPropertiesList() throws XavaException {	
-		System.out.println("getMetaPropertiesList");
+	public List<MetaProperty> getMetaPropertiesList() throws XavaException {		
 		if (metaPropertiesList == null) {
-			System.out.println("getMetaPropertiesList 1");
 			metaPropertiesList = new ArrayList<MetaProperty>();
 			Iterator it = getMetaModel().getPropertiesNames().iterator();
 			while (it.hasNext()) {
-				System.out.println("getMetaPropertiesList 2");
 				MetaProperty pr= getMetaModel().getMetaProperty((String) it.next());
 				if (!pr.isHidden()) {
 					MetaProperty prList = pr.cloneMetaProperty();					
 					metaPropertiesList.add(prList);
 				}
 			}
-			System.out.println("getMetaPropertiesList 3");
 			setLabelsIdForMetaPropertiesList();
 		} else {
-			System.out.println("getMetaPropertiesList no es null");
-			System.out.println(metaPropertiesList);
 			if (getLabels() != null) {
-				System.out.println("getLabels no es null"); 
+				System.out.println(1);
 				System.out.println(getLabels());
 				for(MetaProperty mp : metaPropertiesList) {
-					System.out.println(mp.getName() + " -- ");
+					System.out.println(mp.getName());
 					if (getLabels().containsKey(mp.getName())) {
 						System.out.println("contiene");
-						String nL = (String) getLabels().get(mp.getName());
-						System.out.println(nL);
-						mp.setLabel(nL);
-						break;
+						String newLabel = (String) getLabels().get(mp.getName());
+						System.out.println(newLabel); 
+						mp.setLabel(newLabel);
 					}
 				}
 			}
-			//setLabelsIdForMetaPropertiesList();
 		}
-		System.out.println("getMetaPropertiesList 4");
 		return metaPropertiesList;
 	}
 	
 	
 	private void setLabelsIdForMetaPropertiesList() throws XavaException {
-		System.out.println("setLabelsIdForMetaPropertiesList");
 		if (getMemberName() == null || metaPropertiesList == null) return;
-		System.out.println("1s");  
+		
 		List<MetaProperty> newList = new ArrayList();
 		Iterator it = metaPropertiesList.iterator();
 		while (it.hasNext()) {
 			MetaProperty p = ((MetaProperty) it.next()).cloneMetaProperty();
-			System.out.println(p.getName());
 			String prefix = Is.empty(getParent().getMetaModel().getName()) ? 
 				getMetaModel().getMetaComponent().getName() :
-				getParent().getMetaModel().getName();
-			//System.out.println(prefix);   
+				getParent().getMetaModel().getName();				
 			p.setLabelId(prefix + "." + getMemberName() + "." + p.getName());
 			newList.add(p);
-			System.out.println("!= null");
-			System.out.println(getLabels()!= null);
-			if (getLabels() != null) {
-				System.out.println(getLabels());
-			}
-			//p.setLabelId("AggiornaListini2.AggiornaListiniArticolo." + p.getName()); 
-			//System.out.println(prefix + "." + getMemberName() + "." + p.getName()); 
-			//newList.add(p);
 		}
 		metaPropertiesList = newList;
 	}
@@ -5633,26 +5613,19 @@ public class View implements java.io.Serializable {
 	 * @param id  Id of the label from i18n files
 	 */
 	public void setLabelId(String property, String id) {
-		System.out.println("setLabelId " + property + " " + id);
 		if (property == null) return; 
 		int idx = property.indexOf('.');
-		System.out.println("setLabelId idx >= 0");
 		if (idx >= 0) {
 			String subviewName = property.substring(0, idx);
 			String member = property.substring(idx+1);								 				
 			getSubview(subviewName).setLabelId(member, id);
 			return;
 		}
-		System.out.println("setLabelId getLabels() == null");
 		if (getLabels() == null) setLabels(new HashMap());
-		String old = (String) getLabels().put(property, id);
-		System.out.println(this.getRoot().getViewName());
-		System.out.println(this.getMetaModel().getName());   
-		System.out.println("-");
+		String old = (String) getLabels().put(property, id);		
 		if (!Is.equal(old, id)) {
 			if (getRoot().changedLabels == null) getRoot().changedLabels = new HashMap();
 			int sectionIndex = getIndexOfSection(property);
-			System.out.println("setLabelId !Is.equal(old, id)" + sectionIndex); 
 			if (sectionIndex >= 0) {
 				String sectionId = getViewObject() + "_section" + sectionIndex + "_sectionName";
 				String label = Labels.get(id);
