@@ -1,6 +1,31 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.2.3 (2024-1-26)
+--------------------------
+- Some new common use labels to be used in applications.
+- Warning in the log or exception thrown if failOnAnnotationMisuse=true if using @Condition for @ManyToMany.
+- Warning message in log when an old version of OpenXava is being used.
+- Groovy upgraded to 4.0.17.
+- Embedded Tomcat used in development upgraded to 9.0.85.
+- Driver version in doc and new projects upgraded for MySQL.
+- Removed dependencies to JAXB core and JAXB impl.  
+- Reference documentation for references in the model article improved.
+- Fix: View.setLabelId() does not work for @ElementCollection header labels.
+- Fix: Focus not in the correct place after searching a reference in an @ElementCollection.
+- Fix: @DescriptionsList combos do not open if a \ is in one of the values.
+- Fix: Qualified properties in baseCondition of @Tab fails if those properties are not in the list.
+- Fix: Filtering in the list by a numeric property of a reference of a reference (3 levels or more) fails.
+- Fix: Some incorrect translations for Spanish labels.
+- Fix: No trace with the root cause of the problem when the logic in a getter of an entity fails. 
+- Fix: Poor performance in list using required references with big tables because of left joins.
+- Fix: Card broken in list cards format if it contains a file with a link.
+- Fix: Discussion does not add messages from a dialog from time to time, without warning the user. 
+- Fix: Value not saved correctly if the property name is 'application' or 'module'.
+- Fix: Popup calendar for date fields when opened from a dialog hides behind the dialog sometimes.
+- Fix: Format for date with @DateTime or Timestamp in Chinese is different for Java 8 and 11+.
+- Fix: UnsupportedClassVersionError: com/sun/istack/Pool with latest versions of Java 8.
+
 OpenXava 7.2.2 (2024-1-5)
 -------------------------
 - Some new common use labels to be used in applications.
