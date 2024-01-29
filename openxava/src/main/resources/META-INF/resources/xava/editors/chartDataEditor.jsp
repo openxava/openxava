@@ -30,8 +30,9 @@
 <%!
 private Map[] getLoadChunk(Tab tab) {
 	Collection allKeys = new ArrayList();
+	try { tab.getTableModel().getObjectAt(0); } catch (Exception ex) {} // To load the first chunk, so the getRowCount() would be more than 1
 	int end = tab.getTableModel().getRowCount() > tab.getTableModel().getChunkSize() ? 
-			tab.getTableModel().getChunkSize() : tab.getTableModel().getRowCount();  
+			tab.getTableModel().getChunkSize() : tab.getTableModel().getRowCount();
 	for (int i = 0; i < end; i++) { 					
 		try {
 			allKeys.add(tab.getTableModel().getObjectAt(i)); 				

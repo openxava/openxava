@@ -12,9 +12,8 @@ boolean buttonBar = !"false".equalsIgnoreCase(request.getParameter("buttonBar"))
 String focusPropertyId = manager.isListMode()?org.openxava.web.Lists.FOCUS_PROPERTY_ID:view.getFocusPropertyId();
 %>
 <form id="<xava:id name='form'/>" name="<xava:id name='form'/>"
-	method='POST' <%=manager.getEnctype()%> 
-	<%=manager.getFormAction(request)%> 
-	onsubmit="return false">
+	class="xava_form" method='POST' <%=manager.getEnctype()%> 
+	<%=manager.getFormAction(request)%>>
 	
 <%-- Here, and not at bottom of form, because if there are some erroneous
 markup inside the view, then maybe these hidden fields are not found by javascript. 

@@ -141,31 +141,18 @@ else {
 		String propertyKey= propertyPrefix + p.getName();
 		String valueKey = propertyKey + ".value";
 		request.setAttribute(propertyKey, p);
-		request.setAttribute(valueKey, subview.getValue(p.getName()));		
-		String script = "";
-		if (it.hasNext()) {
-	if (subview.throwsPropertyChanged(p)) {			
-		script = "onchange='openxava.throwPropertyChanged(\"" + 
-				app + "\", \"" + 
-				module + "\", \"" +
-				propertyKey + "\")'";
-	}
-		}
-		else {
-	script = "onblur='openxava.executeAction(\"" + app + "\", \"" + module + "\", \"\", false, \"" + subview.getSaveCollectionElementAction() + "\", \"" + argv + "\")'";
-		}
+		request.setAttribute(valueKey, subview.getValue(p.getName()));
 		Object value = request.getAttribute(propertyKey + ".value");
 		if (WebEditors.mustToFormat(p, view.getViewName())) {
-	String fvalue = WebEditors.format(request, p, value, errors, view.getViewName());
-	request.setAttribute(propertyKey + ".fvalue", fvalue);
+			String fvalue = WebEditors.format(request, p, value, errors, view.getViewName());
+			request.setAttribute(propertyKey + ".fvalue", fvalue);
 		}
 %>
 	<td>
 		<jsp:include page="<%=WebEditors.getUrl(p, view.getViewName())%>">
 			<jsp:param name="propertyKey" value="<%=propertyKey%>"/>
-			<jsp:param name="script" value="<%=script%>"/>
 			<jsp:param name="editable" value="true"/>
-		</jsp:include>
+		</jsp:include>		
 	</td>
 	<%
 		}

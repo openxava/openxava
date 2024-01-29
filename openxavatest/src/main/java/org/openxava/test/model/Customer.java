@@ -230,6 +230,7 @@ import org.openxava.test.actions.*;
 	@Tab(
 		rowStyles={
 			@RowStyle(style="row-highlight", property="type", value="steady"),
+			@RowStyle(style="italic-label", property="type", value="steady"),
 			@RowStyle(style="row-red", property="type", value="special")	// 'row-red' defined in file 'custom.css'
 		},
 		properties="name, type, seller.name, address.city, seller.level.description, address.state.name, website" 

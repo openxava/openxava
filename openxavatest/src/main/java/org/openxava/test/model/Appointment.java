@@ -14,6 +14,7 @@ import org.openxava.model.*;
 
 @Entity
 @Tab(properties="time, description, amountOfPeople, type.description")
+@View(members="time; description; amountOfPeople; type")
 public class Appointment extends Identifiable {
 	
 	@DateTime 

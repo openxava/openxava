@@ -35,10 +35,9 @@ String spanId = Ids.decorate(request, "sc-span-" + controllerName + "_" + mode);
 %>
 <span id='<%=containerId%>'>
 	<span id='<%=buttonId%>' class="ox-button-bar-button ox-subcontroller-button">
-		<a 
-			id ='<%=aId%>'
-			href="javascript:openxava.subcontroller('<%=id%>','<%=containerId%>','<%=buttonId%>','<%=imageId%>','<%=aId%>','<%=spanId%>')" 
-			>
+		<a class="xava_subcontroller" id ='<%=aId%>'
+			data-id='<%=id%>' data-container='<%=containerId%>' data-button='<%=buttonId%>'
+			data-image='<%=imageId%>' data-a='<%=aId%>' data-span='<%=spanId%>'>
 			<nobr> 
 			<% if (!Is.emptyString(icon) && (style.isUseIconsInsteadOfImages() || Is.emptyString(image))) { %>
 			<i class="mdi mdi-<%=icon%>"></i>

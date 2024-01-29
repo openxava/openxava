@@ -33,6 +33,13 @@
 	height: 7px;
 }
 
+.firefox .ui-dialog .ox-discussion-post-button {
+	position: fixed;
+	bottom: 45px;
+	right: 25px;
+	z-index: 9;
+}
+
 .ox-discussion .ox-frame { 
 	float: none;
 }

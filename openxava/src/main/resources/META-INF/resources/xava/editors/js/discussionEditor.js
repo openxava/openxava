@@ -1,6 +1,21 @@
 if (discussionEditor == null) var discussionEditor = {};
 
+openxava.getScript(openxava.contextPath + "/dwr/interface/Discussion.js"); 
+
+openxava.addEditorInitFunction(function() {
+	$('.ox-discussion-add-button').off('click').click(function() {
+		discussionEditor.postMessage(openxava.lastApplication, openxava.lastModule, $(this).parent().data("discussion-id"))
+	});
+	$('.ox-discussion-cancel-button').off('click').click(function() {
+		discussionEditor.cancel($(this).parent().data("discussion-id"));
+	});	
+});
+
 discussionEditor.postMessage = function(application, module, discussionId) {
+	if (typeof Discussion === 'undefined') {
+		alert("Error: Discussion comment not added");
+		return;
+	}
 	var newComment = tinymce.get('xava_new_comment_' + discussionId); 
 	var comments = $('#xava_comments_' + discussionId);
 	var lastComment = comments.children().last(); 
@@ -30,7 +45,8 @@ discussionEditor.cancel = function(discussionId) {
 
 discussionEditor.clear = function(discussionId) {
 	$("#xava_new_comment_" + discussionId + "_buttons input").fadeOut();
-	$('.ox-button-bar-button').fadeIn(); 
+	$('.ox-button-bar-button').fadeIn();
+	$('.ox-bottom-buttons').css("visibility", "visible");  
 	$('.ox-bottom-buttons').children().fadeIn(); 
 	tinymce.get('xava_new_comment_' + discussionId).resetContent(); 
 }

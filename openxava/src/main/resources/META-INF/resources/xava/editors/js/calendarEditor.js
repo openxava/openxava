@@ -9,29 +9,9 @@ calendarEditor.outModule;
 calendarEditor.requesting = false;
 
 calendarEditor.setEvents = function(calendarEvents) {
-    var events = calendarEditor.calendar.getEvents();
-    events.forEach(function(event) {
-        event.remove();
-    });
-    calendarEditor.listEvents = JSON.parse(calendarEvents);
-    for (let e of calendarEditor.listEvents) {
-        calendarEditor.calendar.addEvent({
-            title: e.title,
-            start: e.start,
-            end: e.end,
-            "extendedProps": {
-                "key": e.key
-            }
-        });
-        calendarEditor.listEvents = [];
-        calendarEditor.startName = e.startName;
-    }
-    let result = {
-        "result": {
-            "application": calendarEditor.outApplication,
-            "module": calendarEditor.outModule
-        }
-    };
+	var arr = eval('(' + calendarEvents + ')');
+	calendarEditor.startName = arr[0].startName;
+	calendarEditor.calendar.addEventSource(arr);
     calendarEditor.requesting = false;
 }
 
@@ -65,6 +45,7 @@ openxava.addEditorInitFunction(function() {
                 displayEventTime: true,
                 events: calendarEditor.listEvents,
 				dayMaxEventRows: true,
+                editable: true,
                 progressiveEventRendering: true,
 				eventColor: 'var(--color)',
 				defaultTimedEventDuration: '00:30',
@@ -118,6 +99,8 @@ openxava.addEditorInitFunction(function() {
                 eventClick: function(e) {
                     if (calendarEditor.requesting) return;
                     if (!getSelection().toString()) {
+						$(e.el).css('z-index', 8);
+						$('.fc-event-tooltip').remove();
                         openxava.executeAction(application, module, false, false, selectAction, 'calendarKey=' + e.event.extendedProps.key);
                     }
                 },
@@ -129,8 +112,21 @@ openxava.addEditorInitFunction(function() {
                         openxava.executeAction(application, module, false, false, newAction, value);
                     }
                 },
-				eventDrop: function(e) {
-					console.log("drag and drop");
+				 eventMouseEnter: function(info) {
+					var tis=info.el;
+					var popup=info.event.title;
+					var tooltip = document.createElement('div');
+					tooltip.className = 'fc-event-tooltip';
+					tooltip.style.top = ($(tis).offset().top - 5) + 'px';
+					tooltip.style.left = ($(tis).offset().left + ($(tis).width()) / 2) + 'px';
+					var contentDiv = document.createElement('div');
+					contentDiv.textContent = popup;
+					tooltip.appendChild(contentDiv);
+					document.body.appendChild(tooltip);
+				},
+				eventMouseLeave: function(info) {
+					$(info.el).css('z-index', 8);
+					$('.fc-event-tooltip').remove();
 				}
             });
             calendarEditor.calendar.render();
@@ -159,6 +155,9 @@ openxava.addEditorInitFunction(function() {
 			
             if (monthYear !== "")  { 
 				calendarEditor.requesting = true;
+				calendarEditor.calendar.getEventSources().forEach(function (source) {
+					source.remove();
+				});
 				Calendar.getEvents(application, module, monthYear, calendarEditor.setEvents);
 			}
         }
@@ -207,7 +206,11 @@ openxava.addEditorInitFunction(function() {
             event.wheelDelta >= 0 ? getEvents('prev') : getEvents('next');
             event.preventDefault();
         });
-
+        
+        window.addEventListener('resize', function() {
+            calendarElement.style.width = (window.innerHeight * 0.9)+ 'px';
+            calendarElement.style.height = (window.innerHeight * 0.763)+ 'px';
+        });
     }
 
 

@@ -1302,6 +1302,7 @@ public class AnnotatedClassParser implements IComponentParser {
 			if (isCascade(manyToMany.cascade())) {
 				addAggregateForCollection(collection.getMetaModel(), getClassNameFor(collection.getMetaReference().getReferencedModelName()), manyToMany.mappedBy());
 			}
+			if (element.isAnnotationPresent(Condition.class)) notApply(((Field)element).getName(), Condition.class, "@OneToMany");
 			// For the rest ManyToMany collections are processed as calculated one
 		}
 		else if (element.isAnnotationPresent(ElementCollection.class)) {
@@ -1992,7 +1993,7 @@ public class AnnotatedClassParser implements IComponentParser {
 		if (element.isAnnotationPresent(OnChange.class)) {
 			OnChange onChange = element.getAnnotation(OnChange.class);
 			MetaPropertyView propertyView = new MetaPropertyView();			
-			String lastKeyProperty = (String) XCollections.last(ref.getMetaModelReferenced().getKeyPropertiesNames());			
+			String lastKeyProperty = (String) XCollections.last(ref.getMetaModelReferenced().getAllKeyPropertiesNamesOrderedAsInModel()); 
 			propertyView.setPropertyName(ref.getName() + "." + lastKeyProperty);
 			propertyView.setOnChangeActionClassName(onChange.value().getName());
 			for (Object oview: ref.getMetaModel().getMetaViews()) {

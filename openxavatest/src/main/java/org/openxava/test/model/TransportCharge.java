@@ -4,6 +4,7 @@ import java.math.*;
 import java.util.*;
 
 import javax.persistence.*;
+
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;
 
@@ -22,7 +23,7 @@ import org.openxava.jpa.*;
 	@View(name="WithoutDelivery", members="amount") 
 })
 @Tabs({
-	@Tab(properties="delivery.invoice.year, delivery.invoice.number, delivery.number, amount"),
+	@Tab(properties="delivery.invoice.year, delivery.invoice.number, delivery.number, amount, delivery.invoice.vatPercentage"), 
 	@Tab(name="WithDistance", properties="delivery.invoice.year, delivery.invoice.number, delivery.number, delivery.distance, amount")
 })
 public class TransportCharge {

@@ -74,12 +74,12 @@ String display = isFirstSteps?"class='ox-display-block-important'":"";
 	
 </div>
 
-<% if (!isFirstSteps) { %> 
-	<a id="modules_list_hide" href="javascript:naviox.hideModulesList('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>')">
+<% if (!isFirstSteps) { %>
+	<a id="modules_list_hide">
 		<i class="mdi mdi-chevron-left"></i>
 	</a>
 	
-	<a id="modules_list_show" href="javascript:naviox.showModulesList('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>')">
+	<a id="modules_list_show">
 		<i class="mdi mdi-chevron-right"></i>
 	</a>
 <% } %>

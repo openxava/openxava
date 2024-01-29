@@ -44,7 +44,7 @@ for (Iterator it= modulesList.iterator(); it.hasNext();) {
 	counter++;
 %>
 	<a href="<%=modules.getModuleURI(request, module)%>?init=true" title="<%=description%>"> <%-- href with the URL in order right mouse button works to add in another tab --%>
-	<div id="<%=module.getName()%>_module" class="module-row <%=selected%>" onclick="$('#<%=module.getName()%>_loading').show()">	
+	<div id="<%=module.getName()%>_module" class="module-row <%=selected%>">
 		<div class="module-name">
 			<%=label%>
 			<% if (bookmarkModules) { %>
@@ -60,8 +60,8 @@ for (Iterator it= modulesList.iterator(); it.hasNext();) {
 
 if (loadMore) {
 %>
-	<a  href="javascript:naviox.displayAllModulesList('<%=searchWord%>')">
-	<div id="more_modules" class="module-row" onclick="$('#loading_more_modules').show(); $('#load_more_modules').hide();">
+	<a id="display_all_modules" data-search-word="<%=searchWord%>">
+	<div id="more_modules" class="module-row">
 	<span id="loading_more_modules">
 	<xava:message key="loading"/>...
 	<i class="mdi mdi-autorenew module-loading spin"></i>

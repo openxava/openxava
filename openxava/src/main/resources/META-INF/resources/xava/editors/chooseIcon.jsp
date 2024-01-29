@@ -5010,8 +5010,8 @@ String app = request.getParameter("application");
 String module = request.getParameter("module");
 // We don't user <xava:link /> because of performance, 1ms each call for 1000 calls = 1 second, too much.		
 %>
-<div class="<%=style.getIconsList()%>">  
+<div class="ox-icons-list">  
 <% for (String icon: icons) { %>
-	<i class="mdi mdi-<%=icon%>" title="<%=icon%>" onclick="openxava.executeAction('<%=app%>', '<%=module%>', '', false, 'Icon.choose', 'icon=<%=icon%>')"></i>
+	<i class="mdi mdi-<%=icon%>" title="<%=icon%>"></i>
 <% } %>
 </div>

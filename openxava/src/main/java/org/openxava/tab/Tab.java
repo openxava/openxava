@@ -966,7 +966,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 							v = WebEditors.parse(getRequest(), p, value, errors, null);
 						} 
 
-						if ((v instanceof Timestamp || p.isCompatibleWith(Timestamp.class)) && EQ_COMPARATOR.equals(this.conditionComparators[i])) {  						 
+						if ((v instanceof Timestamp || p.isCompatibleWith(Timestamp.class)) && EQ_COMPARATOR.equals(this.conditionComparators[i])) {
 							if (v instanceof Timestamp && Dates.hasTime((java.util.Date) v)) {
 								valuesToWhere.add(v);
 								valuesToWhere.add(Dates.cloneWith59999((java.sql.Timestamp) v));
@@ -2574,11 +2574,15 @@ public class Tab implements java.io.Serializable, Cloneable {
 				if (result != null) return result;
 			}
 			if (!getMetaTab().hasRowStyles()) return null;
+			String result = "";
 			for (Iterator it = getMetaTab().getMetaRowStyles().iterator(); it.hasNext();) {
 				MetaRowStyle rowStyle = (MetaRowStyle) it.next();
-				String result = getStyle(rowStyle, row);
-				if (result != null) return result;
+				String style = getStyle(rowStyle, row);
+				if (style != null) {
+				    result = String.join((result.isEmpty() ? "" : " "), result, style);
+				}
 			}
+			if (!result.isEmpty()) return result;
 			return null;
 		}
 		catch (Exception ex) {
@@ -2609,7 +2613,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	private String getStyle(MetaRowStyle rowStyle, int row) {
 		try {
 			int column = getMetaTab().getPropertiesNames().indexOf(rowStyle.getProperty());
-			if (column < 0) return null;			
+			if (column < 0) return null;
 			Object value = getTableModel().getValueAt(row, column);			
 			if (Is.equalAsStringIgnoreCase(value, rowStyle.getValue())) {
 				return rowStyle.getStyle();

@@ -16,7 +16,7 @@ if (style.getRestoreImage() != null) restoreImage=!style.getRestoreImage().start
 %> 		
 
 <span id="<%=frameHideId%>" <%=hideClass%>>
-	<a href="javascript:openxava.hideFrame('<%=frameId%>')">
+	<a class="xava_hide_frame" data-frame="<%=frameId%>">
 		<% if (minimizeImage == null) { %>
 		<i class="mdi mdi-menu-down"></i>
 		<% } else { %>
@@ -25,7 +25,7 @@ if (style.getRestoreImage() != null) restoreImage=!style.getRestoreImage().start
 	</a>
 </span> 
 <span id="<%=frameShowId%>" <%=showClass%>>
-	<a href="javascript:openxava.showFrame('<%=frameId%>')">
+	<a class="xava_show_frame" data-frame="<%=frameId%>">
 		<% if (restoreImage == null) { %>
 		<i class="mdi mdi-menu-right"></i>
 		<% } else { %>

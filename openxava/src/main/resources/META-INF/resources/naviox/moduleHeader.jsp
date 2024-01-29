@@ -28,7 +28,7 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 
 <div id="module_header_left"> 			
 	<% if (!isFirstSteps) { %>
-		<a id="module_header_menu_button" href="javascript:naviox.showModulesList('<%=request.getParameter("application")%>', '<%=request.getParameter("module")%>')">
+		<a id="module_header_menu_button">
 			<i class="mdi mdi-menu"></i></a>
 	<% } %>				
 	<%
@@ -68,7 +68,7 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 </div>
 				
 <div id="module_header_right">
-	<a id="bookmark" href="javascript:naviox.bookmark()" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>"> 
+	<a id="bookmark" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>">
 		<i class='mdi mdi-star<%=modules.isCurrentBookmarked(request)?"":"-outline"%>'></i> 
 	</a> 				
 	<span id="sign_in_out"> 

@@ -40,6 +40,12 @@ public class ApplicationUser extends Identifiable {
 	@Column(length=40, table="APPLICATIONUSER_INFO")
 	private Date birthdate;
 	
+	@Column(length=40)
+	private String application; // Just 'application' to test a case
+	
+	@Column(length=40)
+	private String module; // Just 'module' to test a case
+	
 	@Column(table="APPLICATIONUSER_INFO")
 	@Enumerated(EnumType.STRING)
 	private Sex sex;
@@ -86,6 +92,22 @@ public class ApplicationUser extends Identifiable {
 
 	public void setNicknames(Collection<Nickname> nicknames) {
 		this.nicknames = nicknames;
+	}
+
+	public String getApplication() {
+		return application;
+	}
+
+	public void setApplication(String application) {
+		this.application = application;
+	}
+
+	public String getModule() {
+		return module;
+	}
+
+	public void setModule(String module) {
+		this.module = module;
 	}
 	
 }
