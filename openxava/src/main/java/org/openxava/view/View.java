@@ -2818,20 +2818,15 @@ public class View implements java.io.Serializable {
 	/**
 	 * If at this moment is editable.
 	 */
-	private boolean isEditableImpl(MetaProperty metaProperty) { 	
+	private boolean isEditableImpl(MetaProperty metaProperty) { 
 		try {
 			MetaPropertyView metaPropertyView = getMetaView().getMetaPropertyViewFor(metaProperty.getName());
 			if (metaPropertyView != null) {
-				if (isKeyEditable() && metaPropertyView.isReadOnly() && !metaPropertyView.isReadOnlyOnCreate())	return true;
+				if (isKeyEditable() && metaPropertyView.isReadOnly() && !metaPropertyView.isReadOnlyOnCreate()) return true;
 			}
-			if (metaProperty.isKey() || 
-				(metaProperty.isSearchKey() && isRepresentsEntityReference())) 
-			{
-				return isKeyEditable();
-			}
-			if (metaProperty.isReadOnly()) return false; 
+			if (metaProperty.isReadOnly() && !isRepresentsEntityReference()) return false; 
+			if (metaProperty.isKey() || (metaProperty.isSearchKey() && isRepresentsEntityReference())) return isKeyEditable();
 			if (!isEditable()) return false;			
-			
 			return isMarkedAsEditable(metaProperty.getName());
 		}
 		catch (Exception ex) {
@@ -3117,7 +3112,8 @@ public class View implements java.io.Serializable {
 				boolean mustToFormat = WebEditors.mustToFormat(p, getViewName()); 
 				if (!mustToFormat) continue;
 				String propertyKey= qualifier + p.getName();
-				String valueKey = propertyKey + ".value";
+				String valueKey = propertyKey + ".value"; 
+				if (Is.anyEqual(propertyKey, "application", "module")) propertyKey += "_VALUE_"; // This _VALUE_ is set in dwr.Module class
 				String [] results = getRequest().getParameterValues(propertyKey);				
 				Object value = WebEditors.parse(getRequest(), p, results, getErrors(), getViewName());
 				boolean isHiddenKeyWithoutValue = p.isHidden() && (results == null); // for not reset hidden values					
@@ -3517,9 +3513,8 @@ public class View implements java.io.Serializable {
 			else {
 				MetaProperty changedProperty = getMetaProperty(name); 
 				propertyChanged(changedProperty, name);
-				if (getParent() != null) {					
-					String qualifiedName = Is.emptyString(getMemberName())?name:(getMemberName() + "." + name);
-					getParent().propertyChanged(changedProperty, qualifiedName); 
+				if (getParent() != null) {
+					propertyChangedFromParent(changedProperty, name);
 				}
 			}
 			
@@ -3542,6 +3537,14 @@ public class View implements java.io.Serializable {
 		}			
 	}
 		
+	private void propertyChangedFromParent(MetaProperty changedProperty, String name) {
+		String qualifiedName = Is.emptyString(getMemberName())?name:(getMemberName() + "." + name);
+		getParent().propertyChanged(changedProperty, qualifiedName);
+		if (getParent().getParent() != null && !getParent().isRepresentsElementCollection() && !getParent().isFirstLevel()) {
+			getParent().propertyChangedFromParent(changedProperty, qualifiedName);
+		}
+	}
+
 	private void propertyChanged(MetaProperty changedProperty, String changedPropertyQualifiedName) { 
 		try {	
 			tryPropertyChanged(changedProperty, changedPropertyQualifiedName);
@@ -4253,7 +4256,16 @@ public class View implements java.io.Serializable {
 				}
 			}
 			setLabelsIdForMetaPropertiesList();
-		} 
+		} else {
+			if (getLabels() != null) {
+				for(MetaProperty mp : metaPropertiesList) {
+					if (getLabels().containsKey(mp.getName())) {
+						String newLabel = (String) getLabels().get(mp.getName());
+						if (!mp.getLabel().equals(newLabel)) mp.setLabel(newLabel);
+					}
+				}
+			}
+		}
 		return metaPropertiesList;
 	}
 	
@@ -4267,7 +4279,7 @@ public class View implements java.io.Serializable {
 			MetaProperty p = ((MetaProperty) it.next()).cloneMetaProperty();
 			String prefix = Is.empty(getParent().getMetaModel().getName()) ? 
 				getMetaModel().getMetaComponent().getName() :
-				getParent().getMetaModel().getName();				
+				getParent().getMetaModel().getName();	
 			p.setLabelId(prefix + "." + getMemberName() + "." + p.getName());
 			newList.add(p);
 		}

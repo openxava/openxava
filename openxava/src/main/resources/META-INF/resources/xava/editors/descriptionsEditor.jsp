@@ -211,16 +211,16 @@ if (editable) {
 				selectedKey = cl.getKey().toString();
 			} 		
 			values.append("{\"label\":\""); 
-			values.append(description.replaceAll("'", "&apos;").replaceAll("\"", "&Prime;")); 
+			values.append(description.replace("\\","\\\\").replaceAll("'", "&apos;").replaceAll("\"", "&Prime;")); 
 			values.append("\",\"value\":\""); 
-			values.append(cl.getKey().toString().replaceAll("'", "&apos;").replaceAll("\"", "&Prime;")); 
+			values.append(cl.getKey().toString().replace("\\","\\\\").replaceAll("'", "&apos;").replaceAll("\"", "&Prime;")); 
 			values.append("\"}");
 			if (it.hasNext()) values.append(",");
 		} 
 		values.append("]");
 		String browser = request.getHeader("user-agent");
 		maxDescriptionLength += 5;
-		selectedDescription = selectedDescription.replaceAll("\"", "&quot;"); 
+		selectedDescription = selectedDescription.replaceAll("\"", "&quot;").replace("\\\\", "\\\\\\\\"); 
 	%>
 	<span class="<%=style.getDescriptionsList()%> <%=style.getEditor()%>">
 	<%-- The JavaScript code depends on the order of the next elements --%>
@@ -228,8 +228,8 @@ if (editable) {
 		data-values='<%=values%>' value="<%=selectedDescription%>"/>
 	<input id="<%=propertyKey%>" type="hidden" name="<%=propertyKey%>" value="<%=selectedKey%>"/>
     <input type="hidden" name="<%=propertyKey%>__DESCRIPTION__" value="<%=selectedDescription%>"/>
-	<a class="ox-layout-descriptions-editor-handler" href="javascript:descriptionsEditor.open('<%=propertyKey%>')"><i class="mdi mdi-menu-down"></i></a> 		
-	<a class="ox-layout-descriptions-editor-handler ox-display-none" href="javascript:descriptionsEditor.close('<%=propertyKey%>')"><i class="mdi mdi-menu-up"></i></a>
+	<a class="xava_descriptions_editor_open ox-layout-descriptions-editor-handler" data-property-key='<%=propertyKey%>'><i class="mdi mdi-menu-down"></i></a> 		
+	<a class="xava_descriptions_editor_close ox-layout-descriptions-editor-handler ox-display-none" data-property-key='<%=propertyKey%>'><i class="mdi mdi-menu-up"></i></a>	
 	</span>
 	<% 	
 } else { 

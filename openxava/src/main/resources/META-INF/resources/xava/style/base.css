@@ -233,7 +233,11 @@
 	--reverse-label-background: black;
 	
 	--calendar-selected-day: var(--modules-list-background);
-		
+	--calendar-event-background : var(--color);
+	--calendar-event-time-background: transparent;
+	--calendar-popup-background: var(--fc-natural-bg-color);
+	--calendar-popup-title-color: var(--color);
+	
 	--message-box-color: white;
 	--message-box-a-color: white;
 	--message-box-close-hover-color: white;	
@@ -725,6 +729,10 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 .flatpickr-day.selected {
 	background: var(--calendar-selected-day) !important;
 	border-color: transparent !important;
+}
+
+.flatpickr-calendar.open{
+	z-index:2147483699;
 }
 
 .ie .ox-date-calendar input {
@@ -1944,6 +1952,7 @@ td.ox-list-subheader > div {
 
 .ox-subcontroller {
 	display:none;
+	position: fixed; 
 }
 
 .ox-subcontroller-button img {
@@ -1953,7 +1962,6 @@ td.ox-list-subheader > div {
 .ox-subcontroller, .ui-autocomplete { 
 	padding: 10px 5px 10px 5px;
 	margin: 14px 0px 0px -4px;
-	position: absolute;   	 
 	background: var(--subcontroller-background);  
 	display: none;  
 	z-index: 999999;
@@ -1962,6 +1970,10 @@ td.ox-list-subheader > div {
 	border-bottom-right-radius: 2px;
 	border-top-left-radius: 2px;
 	border-top-right-radius: 2px;	
+}
+
+.ui-autocomplete { 
+	position: absolute; 
 }
 
 .ox-subcontroller .ox-button-bar-button a, .ox-subcontroller .ox-button-bar-button a:hover {
@@ -1994,6 +2006,10 @@ div.ox-subcontroller table{
 
 .ox-list-header .ox-image-link:hover, .ox-list-subheader .ox-image-link:hover {
 	background: transparent;
+}
+
+.ox-column-customize-controls-on-right {
+	float: right;
 }
 
 .ox-list a {
@@ -2893,3 +2909,4 @@ div[id$="_Index__view"] .ox-list-title {
 	width: calc(100% - 10px); 
 	text-align: center;
 }
+

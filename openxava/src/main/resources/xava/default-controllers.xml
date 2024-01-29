@@ -792,8 +792,6 @@ here that you want to override.
 			icon="library-plus"
 			class="org.openxava.actions.NewTreeViewItemAction">
 		</action>
-		<action name="remove" class="org.openxava.actions.RemoveTreeViewNodeAction">
-		</action>
 		<action name="save" class="org.openxava.actions.SaveElementInTreeViewAction" 
 			mode="detail">
 		</action>
@@ -801,33 +799,7 @@ here that you want to override.
 			image="delete.gif" icon="delete"
 			class="org.openxava.actions.RemoveSelectedTreeViewNodeAction">
 		</action>
-		<action name="up" mode="list" 
-			image="level-up.gif" icon="menu-up"
-			class="org.openxava.actions.TreeViewMoveNodeAction">
-			<set property="actionType" value="UP" />
-		</action>
-		<action name="down" mode="list" 
-			image="level-down.gif" icon="menu-down"
-			class="org.openxava.actions.TreeViewMoveNodeAction">
-			<set property="actionType" value="DOWN" />
-		</action>
-		<action name="left" mode="list" 
-			image="level-left.gif" icon="menu-left"
-			class="org.openxava.actions.TreeViewMoveNodeAction">
-			<set property="actionType" value="LEFT" />
-		</action>
-		<action name="right" mode="list" 
-			image="level-right.gif" icon="menu-right"
-			class="org.openxava.actions.TreeViewMoveNodeAction">
-			<set property="actionType" value="RIGHT" />
-		</action>
-		<action name="expand"
-			class="org.openxava.actions.TreeViewExpandCollapseAction" mode="ALL">
-			<set value="true" property="expanded" />
-		</action>
-		<action name="collapse"
-			class="org.openxava.actions.TreeViewExpandCollapseAction" mode="ALL">
-			<set value="false" property="expanded" />
+				<action name="remove" class="org.openxava.actions.RemoveTreeViewNodeAction">
 		</action>
 	</controller>
 	

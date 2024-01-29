@@ -1292,7 +1292,7 @@
         toggleTitle: "Κάντε κλικ για αλλαγή",
         amPM: ["ΠΜ", "ΜΜ"],
     };
-    fp$j.l10ns.gr = Greek;
+    fp$j.l10ns.el = Greek;
     fp$j.l10ns;
 
     var fp$k = typeof window !== "undefined" && window.flatpickr !== undefined
@@ -3549,7 +3549,7 @@
         fi: Finnish,
         fo: Faroese,
         fr: French,
-        gr: Greek,
+        el: Greek,
         he: Hebrew,
         hi: Hindi,
         hr: Croatian,

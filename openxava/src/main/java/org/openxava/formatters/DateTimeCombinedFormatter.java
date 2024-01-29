@@ -18,6 +18,7 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 
 	private static DateFormat extendedDateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 	private static DateFormat dotDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm"); // Only for some locales like "hr"
+	private static DateFormat zhDateFormat = new SimpleDateFormat("yyyy/M/d ah:mm");
 	
 	public String format(HttpServletRequest request, Object date) {
 		if (date == null) return "";
@@ -28,7 +29,7 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 
 	public Object parse(HttpServletRequest request, String string) throws ParseException {
 		if (Is.emptyString(string)) return null;
-		if (string.indexOf('-') >= 0) { // SimpleDateFormat does not work well with -
+		if (string.indexOf('-') >= 0 && !isDashFormat()) { // SimpleDateFormat does not work well with -
 			string = Strings.change(string, "-", "/");
 		}
 		DateFormat [] dateFormats = getDateTimeFormats();
@@ -38,20 +39,21 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 				return new java.sql.Timestamp( result.getTime() );
 			}
 			catch (ParseException ex) {
-			}
+			} 
 		}
-		java.util.Date result = (java.util.Date) new DateFormatter().parse(request, string); 
+		java.util.Date result = (java.util.Date) new DateFormatter().parse(request, string);
 		return new java.sql.Timestamp( result.getTime() );
 	}
 
 	private DateFormat getDateTimeFormat(boolean forParsing) { 
 		if (isExtendedFormat()) return extendedDateTimeFormat;
 		if (isDotFormat()) return dotDateFormat; 
+		if (isZhFormatAndJavaLessThan9()) return zhDateFormat;
 		return forParsing?Dates.getDateTimeFormatForParsing(Locales.getCurrent()):Dates.getDateTimeFormat();  
 	}
 	
 	private DateFormat[] getDateTimeFormats() {
-		if (isExtendedFormat() || isDotFormat()) return getExtendedDateTimeFormats(); 
+		if (isExtendedFormat() || isDotFormat()) return getExtendedDateTimeFormats();
 		return new DateFormat [] { getDateTimeFormat(true) }; 
 	}
 	

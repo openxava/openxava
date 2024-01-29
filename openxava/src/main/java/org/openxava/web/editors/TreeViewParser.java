@@ -1,18 +1,14 @@
 package org.openxava.web.editors;
 
 import java.util.*;
-import java.util.Collections;
-
-import javax.servlet.http.*;
 
 import org.apache.commons.logging.*;
+import org.json.*;
 import org.openxava.annotations.*;
-import org.openxava.model.meta.*;
 import org.openxava.tab.Tab;
 import org.openxava.util.*;
 import org.openxava.view.View;
 import org.openxava.view.meta.*;
-import org.openxava.web.*;
 import org.openxava.web.style.*;
 
 /**
@@ -91,7 +87,6 @@ public class TreeViewParser {
 				if (metaCollectionView != null) {
 					treePath = metaCollectionView.getPath();
 				}
-		
 				metaTreeView = new TreeView(
 						treePath, treeNodeClass, this.parentObject, collectionName, tab.getRequest().getParameter("reader"));
 				getMetaTreeViews().put(tab.getModelName(), metaTreeView);
@@ -115,25 +110,17 @@ public class TreeViewParser {
 	 * @return Script for creating the treeview.
 	 * @throws Exception
 	 */
-	public String[] parse(String modelName) throws Exception {
+	public String parse(String modelName) throws Exception {
 		lastParse = new StringBuilder("");
 		indexList = new StringBuilder("");
 		metaTreeView = getMetaTreeView(modelName);
 		if (metaTreeView != null) {
 			parseGroups();
 			for (String path : groups.keySet()) {
-				if (!Is.empty(lastParse)) {
-					lastParse.append(",");
-				}
-				lastParse.append(parseTreeNode(path));
+				parseTreeNode(path);
 			}
-			
-			
-			lastParse.insert(0, "new YAHOO.widget.TreeView('tree_" + collectionName +
-					"',[");
-			lastParse.append("]);");
 		}
-		return new String[] {lastParse.toString(), indexList.toString()};
+		return indexList.toString();
 	}
 	
 	/**
@@ -148,20 +135,11 @@ public class TreeViewParser {
 		groups = new TreeMap<String, List<TreeNodeHolder>>();
 		List<TreeNodeHolder> nodesHolder;
 		ITreeViewReader reader = metaTreeView.getTreeViewReaderImpl();
-		String[] columnNames = new String[tab.getTableModel().getColumnCount()];
-
-		// Gather columnNames
-		for (int columnIndex = 0; columnIndex < tab.getTableModel().getColumnCount(); columnIndex++) {
-			MetaProperty metaProperty = tab.getMetaProperty(columnIndex);
-			columnNames[columnIndex] = metaProperty.getQualifiedName();
-		}
-		
 		Map[] allKeys = tab.getAllKeys();
-		
-		// Initialize the reader
+		// Initialize the reader 
 		reader.initialize(tab.getCollectionView().getParent().getModelName(),
 				tab.getCollectionView().getParent().getKeyValues(), tab.getModelName(),  
-				allKeys, columnNames);
+				allKeys);
 		int totalSize = allKeys.length;
 
 		for (int index = 0; index < totalSize; index++) {
@@ -185,101 +163,28 @@ public class TreeViewParser {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private StringBuilder parseTreeNode(String path) throws Exception {
 		StringBuilder returnValue = new StringBuilder("");
-		Object treeNode;
-		boolean expandedState;
-		String expanded="";
-		StringBuilder html = new StringBuilder("");
-		StringBuilder parsedChildren;
-		String styleListCellSpacing = "border=\"1\" cellspacing=\"10\" cellpadding=\"10\"";
 		List<TreeNodeHolder> nodesHolder;
-		String tooltip = XavaResources.getString("double_click_to_edit_view");
 		nodesHolder = groups.get(path);
 		if (nodesHolder == null) {
 			return new StringBuilder("");
 		}
 		if (metaTreeView.isEntityObject()) {
+			//when use order
 			Collections.sort(nodesHolder, new Comparator(){
-	
 				public int compare(Object object1, Object object2) {
 					Integer ord1 = metaTreeView.getNodeOrder(((TreeNodeHolder)object1).treeNode);
 					Integer ord2 = metaTreeView.getNodeOrder(((TreeNodeHolder)object2).treeNode);
 					return ord1.compareTo(ord2);
 				}});
 		}
-		
 		for (TreeNodeHolder nodeHolder : nodesHolder) {
 			if (!nodeHolder.rendered) {
 				nodeHolder.rendered = true;
-				ITreeViewReader reader = metaTreeView.getTreeViewReaderImpl();
 				int index = nodeHolder.index;
 				if (indexList.length() > 0) {
 					indexList.append(",");
 				}
 				indexList.append(index);
-				HttpServletRequest request = tab.getRequest();
-				treeNode = nodeHolder.treeNode;
-				html = new StringBuilder("");
-				if (tab.getTableModel().getColumnCount() > 1) {
-					html.append("<table class=\"ox-list\" ");
-					html.append("width=\"100%\" ");
-					html.append(styleListCellSpacing);
-					html.append(" title=\"");
-					html.append(tooltip);
-					html.append("\"> <tr>");
-					for (int c = 0; c < tab.getTableModel().getColumnCount(); c++) {
-						MetaProperty p = tab.getMetaProperty(c);
-						String align =p.isNumber() && !p.hasValidValues()?" ox-text-align-right":"";
-						String fvalue = null;
-						if (p.hasValidValues()) {
-							fvalue = p.getValidValueLabel(reader.getValueAt(index, c));
-						}
-						else {
-							fvalue = WebEditors.format(request, p, reader.getValueAt(index, c), errors, viewObject, true);
-						}
-						html.append("<td class=\"");
-						html.append((c%2==0?"ox-list-pair":"ox-list-odd"));
-						html.append(" ox-list-data-cell");
-						html.append(align);
-						html.append("\">");
-						html.append(fvalue);
-						html.append("</td"); 
-					}
-					html.append("</tr></table>");
-				} else {
-					if (tab.getTableModel().getColumnCount() == 1) {
-						MetaProperty p = tab.getMetaProperty(0);
-						String fvalue = null;
-						if (p.hasValidValues()) {
-							fvalue = p.getValidValueLabel(reader.getValueAt(index, 0));
-						}
-						else {
-							fvalue = WebEditors.format(request, p, reader.getValueAt(index, 0), errors, viewObject, true);
-						}
-						html.append("&nbsp;<span title=\"");
-						html.append(tooltip);
-						html.append("\">");
-						html.append(fvalue);
-						html.append("</span>");
-					}
-				}
-				expandedState = metaTreeView.getNodeExpandedState(treeNode);
-				expanded = expandedState?",expanded:true":"";
-				parsedChildren = parseTreeNode(metaTreeView.getNodeFullPath(treeNode));
-				if (!Is.empty(parsedChildren)) {
-					parsedChildren.insert(0, ",children:[");
-					parsedChildren.append("]");
-				}
-				if (!Is.empty(returnValue)) {
-					returnValue.append(",");
-				}
-				returnValue.append("{type:'html',editable:true, data:\"");
-				returnValue.append(index);
-				returnValue.append("\", html:'");
-				returnValue.append(html);
-				returnValue.append("'");
-				returnValue.append(expanded);
-				returnValue.append(parsedChildren);
-				returnValue.append("}");
 			} else {
 				break; // if the first one has been rendered, the rest had been too.
 			}
@@ -299,5 +204,90 @@ public class TreeViewParser {
 		}
 		return metaTreeViews;
 	}
+	
+	public static JSONArray findChildrenOfNode(String parentId, JSONArray data, Map<String, Object> map, boolean rootNodeFound) {
+        if (data.isEmpty()) return new JSONArray();
+
+		JSONArray json = new JSONArray();
+        String mapId = map.get("id").toString();
+        String[] listProperties = (String[]) map.get("listProperties");
+        String separator = (String) map.get("pathSeparator");
+        JSONObject tooltip = new JSONObject();
+        tooltip.put("title", XavaResources.getString("double_click_to_edit_view"));
+        for (int i = 0; i < data.length(); i++) {
+            JSONObject node = data.getJSONObject(i);
+            String id = node.get(mapId).toString();
+            String path = node.get("path").toString();
+            String row = node.get("row").toString();
+            String description = "";
+            int c = 0;
+            for (String p : listProperties) {
+                String d = node.get(p.toLowerCase().trim()).toString();
+                description += d;
+                if (c < listProperties.length - 1) {
+                    description += ", ";
+                }
+                c++;
+            }
+            // usar doble if, primero verificar rootNodeFound y luego si el path es vacio o no.. asi se puede combinar con el codigo de !rootNodeFound && json.isEmpty() 
+            if (path.equals("") && parentId.equals("0")) {
+                JSONObject rootNode = new JSONObject();
+                rootNode.put("id", id);
+                rootNode.put("path", path);
+                rootNode.put("row", row);
+                rootNode.put("a_attr", tooltip);
+                rootNode.put("text", description);
+                JSONArray childNodes = findChildrenOfNode(id, data, map, true);
+                if (childNodes.length() > 0) {
+                    rootNode.put("children", childNodes);
+                }
+                json.put(rootNode);
+                rootNodeFound = true;
+            } else if (path.endsWith(separator + parentId)) {
+                JSONObject childNode = new JSONObject();
+                childNode.put("id", id);
+                childNode.put("path", path);
+                childNode.put("row", row);
+                childNode.put("a_attr", tooltip);
+                childNode.put("text", description);
+                JSONArray childNodes = findChildrenOfNode(id, data, map, rootNodeFound);
+                if (childNodes.length() > 0) {
+                    childNode.put("children", childNodes);
+                }
+                json.put(childNode);
+            }
+
+        }
+    	if (!rootNodeFound && json.isEmpty()) {
+    		rootNodeFound = true;
+    		JSONObject node = data.getJSONObject(0);
+            String id = node.get(mapId).toString();
+            String path = node.get("path").toString();
+            String row = node.get("row").toString();
+            String description = "";
+            int c = 0;
+            for (String p : listProperties) {
+                String d = node.get(p).toString();
+                description += d;
+                if (c < listProperties.length - 1) {
+                    description += ", ";
+                }
+                c++;
+            }
+            
+            JSONObject rootNode = new JSONObject();
+            rootNode.put("id", id);
+            rootNode.put("path", path);
+            rootNode.put("text", description);
+            rootNode.put("a_attr", tooltip);
+            rootNode.put("row", row);
+            JSONArray childNodes = findChildrenOfNode(id, data, map, true);
+            if (childNodes.length() > 0) {
+            	rootNode.put("children", childNodes);
+            }
+        	json.put(rootNode);
+    	}
+        return json;
+    }
 
 }

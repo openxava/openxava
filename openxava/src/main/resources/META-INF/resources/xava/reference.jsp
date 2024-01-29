@@ -114,18 +114,16 @@ else {
 	}
 	keyProperties = sb.toString();
 }
-
-boolean throwChanged=view.throwsReferenceChanged(ref);
-String script = throwChanged?
-	"onchange='openxava.throwPropertyChanged(\"" + 
-			request.getParameter("application") + "\", \"" + 
-			request.getParameter("module") + "\", \"" +			
-			propertyKey + "\")'":"";
 %>
 
 <% if (!composite) { %>
-<% String required = view.isEditable() && ref.isRequired() ? "class='" + style.getRequiredEditor() + "'":""; %>
-<span id="<xava:id name='<%="reference_editor_" + view.getPropertyPrefix() + ref.getName()%>'/>" <%=required%>>
+<%
+	String wrapperClass = view.isEditable() && ref.isRequired()?style.getRequiredEditor():"";
+	wrapperClass = view.throwsReferenceChanged(ref)?wrapperClass + " xava_onchange":wrapperClass;
+	wrapperClass = Is.emptyString(wrapperClass)?"":"class='" + wrapperClass + "'";
+%>	
+<span id="<xava:id name='<%="reference_editor_" + view.getPropertyPrefix() + ref.getName()%>'/>" <%=wrapperClass%>
+	data-property="<%=propertyKey%>">
 <% } %> 
 <% boolean notCompositeEditorClosed = false; %>
 <input type="hidden" name="<%=editableKey%>" value="<%=editable%>"/>
@@ -153,7 +151,6 @@ if (descriptionsList || descriptionsListAndReferenceView) {
 	}	
 %>
 	<jsp:include page="editors/descriptionsEditor.jsp">
-		<jsp:param name="script" value="<%=script%>"/>
 		<jsp:param name="propertyKey" value="<%=propertyKey%>"/>
 		<jsp:param name="editable" value="<%=editable%>"/>
 		<jsp:param name="model" value="<%=ref.getReferencedModelName()%>"/>
@@ -178,8 +175,7 @@ if (descriptionsList || descriptionsListAndReferenceView) {
 	
 	<% 
 	String editorURL = "editors/" + WebEditors.getMetaEditorFor(ref, view.getViewName()).getUrl()
-		+ "?script=" + script
-		+ "&propertyKey=" + propertyKey
+		+ "?propertyKey=" + propertyKey 
 		+ "&viewObject=" + refViewObject 
 		+ "&editable=false";
 	%>
@@ -191,8 +187,7 @@ if (descriptionsList || descriptionsListAndReferenceView) {
 }
 else {
 	String editorURL = "editors/" + WebEditors.getMetaEditorFor(ref, view.getViewName()).getUrl()
-		+ "?script=" + script
-		+ "&propertyKey=" + propertyKey
+		+ "?propertyKey=" + propertyKey 
 		+ "&viewObject=" + refViewObject 
 		+ "&editable=" + editable;
 %>

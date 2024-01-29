@@ -15,7 +15,7 @@ if (errors.contains()) {
 %>
 <tr><td class='ox-errors'>
 <div class='ox-message-box'>
-<i class="mdi mdi-close" onclick="$(this).parent().fadeOut()"></i>
+<i class="mdi mdi-close"></i>
 <%=it.next()%>
 </div>
 </td></tr>

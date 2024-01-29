@@ -1,23 +1,10 @@
 package org.openxava.test.model;
 
-import java.util.Collection;
+import java.util.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
+import javax.persistence.*;
 
-import org.openxava.annotations.Editor;
-import org.openxava.annotations.Editors;
-import org.openxava.annotations.Hidden;
-import org.openxava.annotations.ListProperties;
-import org.openxava.annotations.Tree;
-import org.openxava.annotations.View;
-import org.openxava.annotations.Views;
+import org.openxava.annotations.*;
 
 /**
  * 
@@ -48,9 +35,9 @@ public class TreeContainer {
 	
 	@OneToMany(mappedBy="parentContainer", cascade = CascadeType.REMOVE)
 	@Editor("TreeView")
-	@ListProperties("description")
+	@ListProperties("description, descriptionItem")
 	@OrderBy("folder, treeOrder")
-	@Tree(pathProperty="folder")
+	@Tree(pathProperty="folder", pathSeparator="-", idProperties="id")
 	private Collection<TreeItemTwo> treeItemTwos;
 
 	public Integer getId() {

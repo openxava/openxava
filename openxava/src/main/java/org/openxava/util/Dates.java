@@ -303,8 +303,9 @@ public class Dates {
 		if (df instanceof SimpleDateFormat) {
 			String patternBeforeReFormat = ((SimpleDateFormat) df).toPattern();
 			String pattern = locale.toString().equalsIgnoreCase("sr")?patternBeforeReFormat.substring(0,10) + (patternBeforeReFormat.substring(10, patternBeforeReFormat.length())).replace(".", ":"):patternBeforeReFormat;
+			if (locale.toString().equalsIgnoreCase("zh_CN") || locale.toString().equalsIgnoreCase("nl")) fourDigitsForYear = true;
 			boolean java9 = XSystem.isJava9orBetter();
-			if (java9) pattern = pattern.replace(", ", " ");
+			if (java9) pattern = pattern.replace(", ", " ").replace((char) 8239, (char) 32);
 			if (fourDigitsForYear && !pattern.contains("yyyy")) pattern = pattern.replace("yy", "yyyy");
 			SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 			if (java9) {
@@ -568,7 +569,10 @@ public class Dates {
 				replaceAll("1971", "Y").	// year - 4 digit
 				replaceAll("71", always4InYear?"Y":"y"). 	// year - 2 digit 		
 				replaceAll("1", "j"). 	// day - single digit
-				replaceAll("2", "n")	// month - ??? seems only double digit is supported by calendar
+				replaceAll("2", "n").	// month - ??? seems only double digit is supported by calendar
+				
+				// Java 21 
+				replace((char) 8239, (char) 32) 
 				;
 		
 		return result;

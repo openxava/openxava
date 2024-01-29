@@ -458,12 +458,12 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 			select.append(baseCondition); 
 		}
 		else {
-			select.append(" from ${");
+			select.append(" from ${"); // The 'from' must be lowercase
 			select.append(getModelName()); 
 			select.append('}');
 			select.append(' ');
 			if (hasBaseCondition()) {
-				select.append(" where ");
+				select.append(" WHERE "); // The WHERE must be uppercase 
 				select.append(getBaseCondition());
 			}	
 		}

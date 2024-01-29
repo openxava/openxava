@@ -266,4 +266,10 @@ public class NaviOXPreferences {
 	public String getSignInJSP() {
 		return getProperties().getProperty("signInJSP", "signIn.jsp").trim();
 	}
+	
+	/** @since 7.2.3 */
+	public String getXavaProSubscriptionLicenseKey() { 
+		return getProperties().getProperty("xavaProSubscriptionLicenseKey", "").trim();
+	}
+
 }

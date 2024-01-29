@@ -10,13 +10,14 @@ String condition = tab.getBaseCondition()==null?"":tab.getBaseCondition();
 String all = condition.equals("")?"selected":"";
 String low = condition.contains("<=")?"selected":"";
 String high = condition.contains(">")?"selected":"";
-String app = request.getParameter("application");
-String action="openxava.executeAction('" + app + "', 'CorporationEmployee'," + 
-	"false, false, 'CorporationEmployee.filter', 'segment='+this.value)";
 %>
-
-<select name="<xava:id name='chooseSegment'/>" class='corporation-employee-list-select' onchange=
-	"<%=action%>">							
+<%-- 
+Using data-application and data-module instead of openxava.lastApplication and openxava.lastModule in JavaScrip
+allows using the several modules in the same HTML page.
+--%>
+<select name="<xava:id name='chooseSegment'/>" class='corporation-employee-list-select' 
+	data-application="<%=request.getParameter("application")%>"
+	data-module="<%=request.getParameter("module")%>">
 	<option value="all" <%=all%>>All employees</option>
 	<option value="low" <%=low%>>Low salary employees</option>
 	<option value="high" <%=high%>>High salary employees</option>

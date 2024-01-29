@@ -10,15 +10,15 @@ import javax.servlet.http.*;
 import javax.swing.table.*;
 
 import org.apache.commons.logging.*;
+import org.json.*;
 import org.openxava.filters.*;
 import org.openxava.formatters.*;
+import org.openxava.jpa.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.Tab;
 import org.openxava.util.*;
 import org.openxava.view.View;
 import org.openxava.web.*;
-
-import com.fasterxml.jackson.databind.*;
 
 import lombok.*;
 
@@ -28,12 +28,12 @@ import lombok.*;
  * @author Chungyen Tsai
  */
 
-@Getter
-@Setter
+@Getter // We should remove the @Getter and @Setter and use it
+@Setter // at field level if need, so we don't expose the inner state.
 public class Calendar extends DWRBase {
-	
+
 	private static Log log = LogFactory.getLog(Calendar.class);
-	
+
 	transient private HttpServletRequest request;
 	transient private HttpServletResponse response;
 	private String application;
@@ -53,9 +53,10 @@ public class Calendar extends DWRBase {
 	private BooleanFormatter booleanFormatter;
 	private CalendarEvent event;
 	private String dateName;
+	private List<String> dateNameList;
 	private String[] tabConditionValues;
 	private String[] tabConditionComparators;
-	
+
 	private String[] conditionValues;
 	private String[] conditionValuesTo;
 	private String[] conditionComparators;
@@ -68,66 +69,72 @@ public class Calendar extends DWRBase {
 
 	public String getEvents(HttpServletRequest request, HttpServletResponse response, String application, String module,
 			String monthYear) throws Exception {
-		this.application = application;
-		this.module = module;
-		this.response = response;
-		view = getView(request, application, module);
-		errors = new Messages();
+		try {
+			initRequest(request, response, application, module);
+			this.application = application;
+			this.module = module;
+			this.response = response;
+			view = getView(request, application, module);
+			errors = new Messages();
 
-		List<CalendarEvent> calendarEvents = new ArrayList<>();
-		String tabObject = "xava_tab";
-		tab2 = getTab(request, application, module, tabObject);
-		tab = tab2.clone();
+			String tabObject = "xava_tab";
+			tab2 = getTab(request, application, module, tabObject);
+			tab = tab2.clone();
 
-		setDatesProperty();
-		if (tabHasCondition(tab)) {
-			hasCondition = true;
-			tabGetCondition(tab);
-		} else {
-			hasCondition = false;
-		}
-		hasFilter = tab.getFilter() != null ? true : false;
-		if (!hasCondition) {
-			setFilter(tab, monthYear);
-		} 
-
-		tab = setProperties(tab);
-		this.table = tab.getAllDataTableModel();
-		int tableSize = 0;
-		String json = null;
-		tableSize = tab.getTableModel().getTotalSize();
-
-		if (tableSize > 0) {
-			for (int i = 0; i < tableSize; i++) {
-				event = new CalendarEvent();
-				event.key = obtainRowsKey(i);
-				List<String> d = obtainRowsDate(i);
-				String[] startDate = d.get(0).split("_");
-				event.start = startDate[1];
-				event.startName = startDate[0];
-				event.end = "";
-				// for date range
-				// event.end = (d.size() > 1) ? d.get(1).split("_")[1] : "";
-				event.title = obtainRowsTitle(i);
-				calendarEvents.add(event);
+			setDatesProperty();
+			if (tabHasCondition(tab)) {
+				hasCondition = true;
+				tabGetCondition(tab);
+			} else {
+				hasCondition = false;
 			}
-		} else {
-			event = new CalendarEvent();
-			List<String> d = obtainRowsDate(-1);
-			String f = d.get(0).split("_")[0];
-			String s = d.size() > 1 ? d.get(1).split("_")[0] : "";
-			event.startName = f.equals("")  && !s.equals("") ? s : f;
-			calendarEvents.add(event);
+			hasFilter = tab.getFilter() != null ? true : false;
+			if (!hasCondition) {
+				setFilter(tab, monthYear);
+			}
+
+			tab = setProperties(tab);
+			this.table = tab.getAllDataTableModel();
+			int tableSize = 0;
+			JSONArray jsonArray = new JSONArray();
+			tableSize = tab.getTableModel().getTotalSize();
+
+			if (tableSize > 0) {
+				for (int i = 0; i < tableSize; i++) {
+					JSONObject jsonRow = new JSONObject();
+					List<String> d = obtainRowsDate(i);
+					String[] startDate = d.get(0).split("_");
+					jsonRow.put("start", startDate[1]);
+					jsonRow.put("startName", startDate[0]);
+					jsonRow.put("title", obtainRowsTitle(i));
+					JSONObject ep = new JSONObject();
+					ep.put("key", obtainRowsKey(i));
+					jsonRow.put("extendedProps", ep);
+					jsonArray.put(jsonRow);
+				}
+			} else {
+				JSONObject nullJson = new JSONObject();
+				List<String> d = obtainRowsDate(-1);
+				String f = d.get(0).split("_")[0];
+				String s = d.size() > 1 ? d.get(1).split("_")[0] : "";
+				String startName = f.equals("") && !s.equals("") ? s : f;
+				nullJson.put("startName", startName);
+				jsonArray.put(nullJson);
+			}
+			return jsonArray.toString();
+		} catch (Exception e) { // This catch code is redundant, we should remove it
+			throw e;
+		} finally {
+			XPersistence.commit();
+			cleanRequest();
 		}
-		ObjectMapper objectMapper = new ObjectMapper();
-		json = objectMapper.writeValueAsString(calendarEvents);
-		return json.toString();
+
 	}
 
 	private DateRangeFilter setFilterForMonth(String monthYear) {
 		DateRangeFilter df = new DateRangeFilter();
-		String month = !monthYear.isEmpty() ? monthYear.split("_")[0] : "" ;
-		String year = !monthYear.isEmpty() ? monthYear.split("_")[1] : "" ;
+		String month = !monthYear.isEmpty() ? monthYear.split("_")[0] : "";
+		String year = !monthYear.isEmpty() ? monthYear.split("_")[1] : "";
 
 		Date firstDayOfMonth = getFirstDayOfMonth(month, year);
 		Date lastDayOfMonth = getLastDayOfMonth(month, year);
@@ -195,7 +202,8 @@ public class Calendar extends DWRBase {
 		List<String> result = new ArrayList<>();
 		StringBuffer dateWithName = new StringBuffer();
 		int i = keysListSize;
-		if (datesListSize == 0) return result;
+		if (datesListSize == 0)
+			return result;
 		if (row == -1) {
 			dateWithName.append(tab.getMetaProperty(i).getQualifiedName());
 			dateWithName.append("_");
@@ -226,7 +234,7 @@ public class Calendar extends DWRBase {
 				}
 			}
 		}
-		
+
 		return result;
 	}
 
@@ -242,7 +250,8 @@ public class Calendar extends DWRBase {
 			currentColumn = iColumn + k;
 			value = table.getValueAt(row, currentColumn);
 			if (verifyValue(value)) {
-				if (result.length() > 0) result.append(" / ");
+				if (result.length() > 0)
+					result.append(" / ");
 				result.append(format(currentColumn, value));
 			}
 		}
@@ -250,7 +259,8 @@ public class Calendar extends DWRBase {
 			currentColumn = jColumn + k;
 			value = table.getValueAt(row, currentColumn);
 			if (verifyValue(value)) {
-				if (result.length() > 0) result.append(" / ");
+				if (result.length() > 0)
+					result.append(" / ");
 				result.append(format(currentColumn, value));
 			}
 		}
@@ -302,39 +312,39 @@ public class Calendar extends DWRBase {
 
 	private void setDatesProperty() {
 		List<MetaProperty> mp = new ArrayList<>(tab.getMetaTab().getMetaModel().getMetaProperties());
-		List<String> calculatedProperties = new ArrayList<>(tab.getMetaTab().getMetaModel().getCalculatedPropertiesNames());
+		List<String> calculatedProperties = new ArrayList<>(
+				tab.getMetaTab().getMetaModel().getCalculatedPropertiesNames());
 		int mpCount = 0;
-		List<String> dateWithTimeList = Arrays.asList("java.util.Date", 
-											"java.time.LocalDateTime",
-											"java.sql.Timestamp");
-		List<String> acceptedDateTypes = Arrays.asList("java.time.LocalDate", 
-											"java.util.Date", 
-											"java.sql.Date",
-											"java.time.LocalDateTime",
-											"java.sql.Timestamp");
+		List<String> dateWithTimeList = Arrays.asList("java.util.Date", "java.time.LocalDateTime",
+				"java.sql.Timestamp");
+		List<String> acceptedDateTypes = Arrays.asList("java.time.LocalDate", "java.util.Date", "java.sql.Date",
+				"java.time.LocalDateTime", "java.sql.Timestamp");
 		List<String> sortedProperties = tab.getMetaTab().getMetaModel().getPropertiesNames();
 		for (MetaProperty property : mp) {
-		        String propertyTypeName = property.getTypeName();
-		        if (mpCount < 2 && !calculatedProperties.contains(property.getName()) && acceptedDateTypes.contains(propertyTypeName)) {
-		        	datesList.add(property.getName());	
-					if (mpCount == 0 && !property.getName().contains(".")) dateName = property.getName();
-					mpCount++;
+			String propertyTypeName = property.getTypeName();
+			if (mpCount < 2 && !calculatedProperties.contains(property.getName())
+					&& acceptedDateTypes.contains(propertyTypeName)) {
+				datesList.add(property.getName());
+				if (mpCount == 0 && !property.getName().contains("."))
+					dateName = property.getName();
+				mpCount++;
 
-					dateWithTime = dateWithTimeList.contains(property.getTypeName()) ? true : false;
-					String className = property.getTypeName();
-					if (className.startsWith("java.util.") || className.startsWith("java.sql.")) {
-						oldLib = true;
-					} else if (className.startsWith("java.time.")) {
-						oldLib = false;
-					} 
-		        }
+				dateWithTime = dateWithTimeList.contains(property.getTypeName()) ? true : false;
+				String className = property.getTypeName();
+				if (className.startsWith("java.util.") || className.startsWith("java.sql.")) {
+					oldLib = true;
+				} else if (className.startsWith("java.time.")) {
+					oldLib = false;
+				}
+			}
 		}
 		datesList.sort(Comparator.comparingInt(sortedProperties::indexOf));
 	}
 
 	private Tab setProperties(Tab tab) {
 		List<String> newTabColumn = new ArrayList<>();
-		List<String> expectedNames = Arrays.asList("anyo", "year", "number", "numero", "name", "nombre", "title", "titulo", "description", "descripcion");
+		List<String> expectedNames = Arrays.asList("anyo", "year", "number", "numero", "name", "nombre", "title",
+				"titulo", "description", "descripcion");
 		List<String> keysList = new ArrayList<>(tab.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
 		List<String> properties1List = new ArrayList<>();
 		List<String> properties2List = new ArrayList<>();
@@ -343,7 +353,7 @@ public class Calendar extends DWRBase {
 
 		newTabColumn.addAll(keysList);
 		List<MetaProperty> mp = tab.getMetaPropertiesNotCalculated();
-		int maxLimit = mp.size()>2 ? 2 : 1;
+		int maxLimit = mp.size() > 2 ? 2 : 1;
 		for (MetaProperty metaProperty : mp) {
 			if (properties1ListCount < maxLimit && expectedNames.contains(metaProperty.getQualifiedName())) {
 				properties1List.add(metaProperty.getQualifiedName());
@@ -359,11 +369,12 @@ public class Calendar extends DWRBase {
 		}
 		newTabColumn.addAll(datesList);
 		newTabColumn.addAll(properties1List);
-		
+
 		if (properties1ListCount < maxLimit) {
 			int j = 0;
 			for (int i = properties1ListCount; i < maxLimit; i++) {
-				if (j+1 > properties2ListCount) break;
+				if (j + 1 > properties2ListCount)
+					break;
 				newTabColumn.add(properties2List.get(j));
 				j++;
 			}
@@ -371,7 +382,7 @@ public class Calendar extends DWRBase {
 		} else {
 			properties2ListSize = 0;
 		}
-		
+
 		keysListSize = keysList.size();
 		datesListSize = datesList.size();
 		properties1ListSize = properties1List.size();
@@ -387,12 +398,12 @@ public class Calendar extends DWRBase {
 		}
 		return tab;
 	}
-	
+
 	private boolean tabHasCondition(Tab tab) {
 		boolean b = false;
 		if (tab.getConditionValues() != null) {
 			for (String condition : tab.getConditionValues()) {
-				if (condition!=null && !condition.equals("")) {
+				if (condition != null && !condition.equals("")) {
 					b = true;
 					break;
 				}
@@ -406,7 +417,7 @@ public class Calendar extends DWRBase {
 		conditionValuesTo = tab.getConditionValuesTo();
 		conditionComparators = tab.getConditionComparators();
 	}
-	
+
 	private void setFilter(Tab tab, String monthYear) {
 		if (hasFilter) {
 			IFilter oldFilter = tab.getFilter();
@@ -421,18 +432,21 @@ public class Calendar extends DWRBase {
 			tab.setBaseCondition("${" + dateName + "} between ? and ?");
 		}
 	}
-	
-	public String format(Object date, boolean withTime, boolean oldLib) {
+
+	public String format(Object date, boolean withTime, boolean oldLib) { // It should be private instead of public
 		String format;
-		if (date == null) return "";
-		if (date instanceof String || date instanceof Number) return date.toString();
+		if (date == null)
+			return "";
+		if (date instanceof String || date instanceof Number)
+			return date.toString();
 		if (oldLib) {
 			format = withTime ? "yyyy-MM-dd HH:mm:ss" : "yyyy-MM-dd";
 			DateFormat df = new SimpleDateFormat(format);
 			return df.format(date);
 		} else {
-			DateTimeFormatter formatter = withTime ? DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss") : DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			return withTime ? ((LocalDateTime)date).format(formatter) : ((LocalDate) date).format(formatter);
+			DateTimeFormatter formatter = withTime ? DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+					: DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			return withTime ? ((LocalDateTime) date).format(formatter) : ((LocalDate) date).format(formatter);
 		}
 	}
 

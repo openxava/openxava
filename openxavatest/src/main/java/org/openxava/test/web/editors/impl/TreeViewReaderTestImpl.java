@@ -3,11 +3,10 @@
  */
 package org.openxava.test.web.editors.impl;
 
-import java.util.Map;
+import java.util.*;
 
-import org.apache.commons.beanutils.PropertyUtils;
-import org.openxava.model.MapFacade;
-import org.openxava.web.editors.ITreeViewReader;
+import org.openxava.model.*;
+import org.openxava.web.editors.*;
 
 /**
  * @author Federico Alcantara
@@ -20,8 +19,6 @@ public class TreeViewReaderTestImpl implements ITreeViewReader {
 	@SuppressWarnings("rawtypes")
 	private Map[] allKeys;
 	
-	private String[] columnNames;
-	
 	private int lastReadRow = -1;
 	
 	private Object lastReadObject = null;
@@ -30,10 +27,9 @@ public class TreeViewReaderTestImpl implements ITreeViewReader {
 	 * @see org.openxava.web.editors.ITreeViewReader#initialize(java.lang.String, java.lang.String[], java.util.Map, java.util.Map[])
 	 */
 	@SuppressWarnings("rawtypes")
-	public void initialize(String parentModelName, Map parentKey, String collectionModelName,  Map[] allKeys, String[] columnNames) {
+	public void initialize(String parentModelName, Map parentKey, String collectionModelName,  Map[] allKeys) {
 		this.collectionModelName = collectionModelName;
 		this.allKeys = allKeys;
-		this.columnNames = columnNames;
 	}
 
 	/**
@@ -41,7 +37,6 @@ public class TreeViewReaderTestImpl implements ITreeViewReader {
 	 */
 	public void close() throws Exception {
 	}
-
 
 	/**
 	 * @see org.openxava.web.editors.ITreeViewReader#getRowObject()
@@ -52,18 +47,6 @@ public class TreeViewReaderTestImpl implements ITreeViewReader {
 			lastReadRow = rowIndex;
 		}
 		return lastReadObject;
-	}
-
-	/**
-	 * @see org.openxava.web.editors.ITreeViewReader#getValueAt(int, int)
-	 */
-	public Object getValueAt(int rowIndex, int columnIndex) throws Exception {
-		Object rowObject = getObjectAt(rowIndex);
-		Object returnValue = PropertyUtils.getProperty(rowObject, columnNames[columnIndex]);
-		if (columnNames[columnIndex].equalsIgnoreCase("description")) {
-			returnValue = rowIndex + ". " + returnValue.toString();
-		}
-		return returnValue;
 	}
 
 }

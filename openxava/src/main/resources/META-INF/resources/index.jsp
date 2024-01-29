@@ -26,7 +26,7 @@ window.location="<%=url%>";
 }
 else {
 	if (signInURL != null && session.getAttribute("naviox.originalURL") == null) {
-		session.setAttribute("naviox.originalURL", request.getContextPath()); 
+		session.setAttribute("naviox.originalURL", request.getContextPath());
 		%>
 		<script type="text/javascript" <xava:nonce/>>
 		window.location="<%=request.getContextPath()%><%=signInURL%>";

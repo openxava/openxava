@@ -1,10 +1,11 @@
 <%@ include file="../imports.jsp"%>
 
-<%@page import="org.openxava.web.Actions"%>
 <%@page import="org.openxava.web.Ids"%>
 <%@page import="org.openxava.model.meta.MetaProperty"%>
 <%@page import="org.openxava.tab.Tab"%>
 <%@page import="org.openxava.util.Is"%>
+<%@page import="org.openxava.util.XavaResources"%> 
+
 
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
@@ -37,33 +38,20 @@ String idConditionValue = request.getParameter("idConditionValue");
 String idConditionValueTo = request.getParameter("idConditionValueTo");
 String propertyKey = request.getParameter("comparatorPropertyKey"); 
 String name = null;
-String script = null;
+String collection = request.getParameter("collection"); 
+String collectionArgv = Is.emptyString(collection)?"":"collection="+collection; 
 if (propertyKey == null) {
 	int index = Integer.parseInt(request.getParameter("index"));
 	name = Ids.decorate(request, prefix + "conditionComparator." + index);
-	script = Actions.getActionOnChangeComparator(name,idConditionValue,idConditionValueTo);
-	
-	if (org.openxava.util.XavaPreferences.getInstance().isFilterOnChange()) {
-		String collection = request.getParameter("collection"); 
-		String collectionArgv = Is.emptyString(collection)?"":"collection="+collection;
-		script = new StringBuilder(script.replace(")\"", "); "))
-				    .append("var valueField = $(this).parent().next().find('input');")
-				    .append("if (valueField == null || valueField.is(':hidden') || this.options[this.selectedIndex].value.indexOf('range') < 0 && valueField.val() !== '') { ")
-				    .append("openxava.executeAction('")
-				    .append(request.getParameter("application"))	
-	 			    .append("', '")
-	 			    .append(request.getParameter("module"))
-	 			    .append("', '', false, 'List.filter','")
-	 			    .append(collectionArgv).append("'); ")		
-				    .append("}\"").toString();
-	}
 }
 else {
 	name = propertyKey;
-	script = request.getParameter("script");
 }
 %>
-<select id="<%=name%>" name="<%=name%>" class=<%=style.getEditor()%> <%=script%>>
+<select id="<%=name%>" name="<%=name%>" class=<%=style.getEditor()%>
+	data-from="<%=XavaResources.getString("from")%>" 
+	data-in-values="<%=XavaResources.getString("in_values")%>"
+	data-collection-argv="<%=collectionArgv%>">
 	<% 
 	if (!isEmpty) { 
 	%>

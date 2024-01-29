@@ -66,8 +66,8 @@ public class JPATabProvider extends TabProviderBase {
 					// In the case of reference to entity in aggregate only we will take the last reference name
 					reference = reference.substring(idx + 1);
 				}								 			
-				entityAndJoins.append(" left join e");
 				String nestedReference = (String) getEntityReferencesReferenceNames().get(referenceMapping);
+				addJoin(entityAndJoins, reference, nestedReference);
 				if (!Is.emptyString(nestedReference)) {					
 					entityAndJoins.append(isAggregate(nestedReference)?".":"_");
 					entityAndJoins.append(nestedReference);
@@ -190,7 +190,7 @@ public class JPATabProvider extends TabProviderBase {
 		return select;
 	}
 
-	protected String toIncludeJoinsUsedInWhere(String select) { 
+	protected String toIncludeJoinsUsedInWhere(String select) {
 		int whereIdx = select.indexOf("WHERE");
 		if (whereIdx < 0) return select;
 		int orderByIdx = select.indexOf(" order by ");
@@ -207,17 +207,17 @@ public class JPATabProvider extends TabProviderBase {
 		}
 		if (neededJoins.isEmpty()) return select;
 		
+		String selectBase = select.substring(0, whereIdx); 
 		StringBuffer joins = new StringBuffer();
 		for (String join: neededJoins) {
+			if (selectBase.contains(" " + join + " ") || selectBase.endsWith(" " + join)) continue;  
 			joins.append(" left join ");
 			joins.append(join.replace("e_", "e."));
 			joins.append(" ");
 			joins.append(join);
 		}
 		
-		String selectBase = select.substring(0, whereIdx);
-		String finalSelect = selectBase + joins + " WHERE " + where + orderBy; 
-		return finalSelect;
+		return selectBase + joins + " WHERE " + where + orderBy; 
 	}
 	
 	private String insertGroupBy(String select, String groupByColumns) { 
@@ -336,6 +336,21 @@ public class JPATabProvider extends TabProviderBase {
 		if (entityReferencesMappings.contains(referenceMapping)) referenceMapping = referenceMapping.clone();  
 		entityReferencesReferenceNames.put(referenceMapping, parentReference); 
 		entityReferencesMappings.add(referenceMapping);
+	}
+	
+	private StringBuffer addJoin(StringBuffer entityAndJoins, String reference, String nestedReference) {
+		// LEFT JOIN works for all cases, but a plain JOIN is far faster with large tables in some databases
+        if (!Is.emptyString(nestedReference)) return entityAndJoins.append(" left join e");
+        if (getMetaModel().getMetaReference(reference).isRequired()) {
+        	String referenceKeyProperties = getMetaModel().getMetaReference(reference).getKeyProperties();
+        	ModelMapping modelMapping = getMetaModel().getMapping();
+    	    if (!referenceKeyProperties.isEmpty() 
+    	    		&& Arrays.stream(referenceKeyProperties.split(",")).noneMatch(subS -> subS.contains(".")) 
+    	    		&& !modelMapping.isReferenceOverlappingWithSomeProperty(reference)) {
+    	    	return entityAndJoins.append(" join e");
+    	    }
+        }
+        return entityAndJoins.append(" left join e");
 	}
 	
 }
