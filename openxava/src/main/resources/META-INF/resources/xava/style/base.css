@@ -2851,6 +2851,7 @@ div[id$="_Index__view"] .ox-list-title {
 	background: var(--module-list-hide-show-background);	
     border-radius: 100px;
     padding: 3px;
+    z-index: 1; 
 }
 
 #modules_list_hide {
