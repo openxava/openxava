@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Removed the use of eval() in @DescriptionsList editor.
 - The width of the calendar in list mode dynamically adjusts to occupy the entire available space.
 
 OpenXava 7.2.3 (2024-1-26)

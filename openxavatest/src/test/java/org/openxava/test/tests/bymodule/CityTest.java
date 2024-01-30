@@ -38,20 +38,15 @@ public class CityTest extends ModuleTestBase{
 		assertValue("name", "Tucson");
 	}
 	
-	public void testChangeDescriptionsListCondition() throws Exception{ // TMR ME QUEDÉ POR AQUÍ, SE QUEDA ENGANCHADO
-		System.out.println("[CityTest.testChangeDescriptionsListCondition] 10"); // tmr
+	public void testChangeDescriptionsListCondition() throws Exception{ 
 		execute("CRUD.new");
 		assertValidValuesCount("state.id", 50);	// 49 + void
-		System.out.println("[CityTest.testChangeDescriptionsListCondition] 20"); // tmr
 		setValue("stateCondition", "lor");
 		assertValidValuesCount("state.id", 3);	// 2 + void
-		System.out.println("[CityTest.testChangeDescriptionsListCondition] 30"); // tmr
 		setValue("stateCondition", "ar");
 		assertValidValuesCount("state.id", 7);	// 6 + void
-		System.out.println("[CityTest.testChangeDescriptionsListCondition] 40"); // tmr
 		setValue("stateCondition", "");
 		assertValidValuesCount("state.id", 50);	// 49 + void
-		System.out.println("[CityTest.testChangeDescriptionsListCondition] 999"); // tmr
 	}
 	
 	public void testCoordinatesValidator() throws Exception { 

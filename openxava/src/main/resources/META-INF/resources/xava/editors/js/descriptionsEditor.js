@@ -4,8 +4,7 @@ openxava.addEditorInitFunction(function() {
 	
 	$(".xava_select").each(function() { 
 		$(this).autocomplete({
-			source: eval($(this).data("values")), 
-			// tmr source: $(this).data("values"),
+			source: $(this).data("values"), 
 			minLength: 0,
 			select: function( event, ui ) {
 				$(event.target).val(ui.item.label);
@@ -80,11 +79,6 @@ descriptionsEditor.close = function(id) {
 
 descriptionsEditor.executeOnChange = function(element) {
 	$(element).parent().trigger("change"); 
-	/* tmr */
-	var onchange = element.attr("onchange");
-	if (typeof onchange == 'undefined') return;
-	eval(onchange);
-	
 }
 
 descriptionsEditor.removeAccents = function(str) { 
