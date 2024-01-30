@@ -127,6 +127,13 @@ openxava.addEditorInitFunction(function() {
 				eventMouseLeave: function(info) {
 					$(info.el).css('z-index', 8);
 					$('.fc-event-tooltip').remove();
+				},
+				eventDrop: function(e) {
+					console.log("drag and drop");
+					console.log(e);
+					console.log(e.event.startStr);
+					console.log(e.event.extendedProps.key);
+					openxava.executeAction(application, module, calendarEditor.startName + '=' + e.event.extendedProps.key, e.event.startStr);
 				}
             });
             calendarEditor.calendar.render();

@@ -121,6 +121,7 @@ public class Calendar extends DWRBase {
 				nullJson.put("startName", startName);
 				jsonArray.put(nullJson);
 			}
+			System.out.println(jsonArray.toString());
 			return jsonArray.toString();
 		} catch (Exception e) { // This catch code is redundant, we should remove it
 			throw e;
@@ -131,6 +132,35 @@ public class Calendar extends DWRBase {
 
 	}
 
+	private void dragAndDrop(HttpServletRequest request, HttpServletResponse response, String application, String module,
+			String calendarKey, String dropDate) {
+		try {
+			initRequest(request, response, application, module);
+			System.out.println(calendarKey);
+			System.out.println(dropDate);
+			View view = getView(request, application, module);
+			MetaModel metaModel = view.getMetaModel();
+			
+			List<String> allKeyPropertiesNames = new ArrayList<>(metaModel.getAllKeyPropertiesNames());
+			List<MetaProperty> sortedMPKeys = orderBy(metaModel.getAllMetaPropertiesKey(), allKeyPropertiesNames);
+			System.out.println(allKeyPropertiesNames);
+			System.out.println(sortedMPKeys);
+//			for (int i = 0; i < calendarKeys.length; i++) {
+//				MetaProperty property = sortedMPKeys.get(i);
+//				Object keyObject = property.parse(calendarKeys[i]);
+//				key.put(allKeyPropertiesNames.get(i).toString(), keyObject);
+//			}
+			
+			//view.gestMetaModel();
+			//MapFacade
+		}catch(Exception e) {
+			
+		}finally {
+			
+		}
+		
+	}
+	
 	private DateRangeFilter setFilterForMonth(String monthYear) {
 		DateRangeFilter df = new DateRangeFilter();
 		String month = !monthYear.isEmpty() ? monthYear.split("_")[0] : "";
@@ -448,6 +478,19 @@ public class Calendar extends DWRBase {
 					: DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			return withTime ? ((LocalDateTime) date).format(formatter) : ((LocalDate) date).format(formatter);
 		}
+	}
+	
+	private List<MetaProperty> orderBy (List<MetaProperty> metaProperties , List<String> keyPropertiesNames) {
+		List<MetaProperty> l = new ArrayList<>();
+		for (int i = 0; i < keyPropertiesNames.size(); i++) {
+			for (int j = 0; j < metaProperties.size(); j++) {
+				if (metaProperties.get(j).getName().equals(keyPropertiesNames.get(i))) {
+					l.add(metaProperties.get(j));
+					break;
+				}
+			}
+		}
+		return l;
 	}
 
 }
