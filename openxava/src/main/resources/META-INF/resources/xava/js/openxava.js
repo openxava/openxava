@@ -2,7 +2,8 @@ if (openxava == null) var openxava = {};
 if (openxava.browser == null) openxava.browser = {};
 
 openxava.deselected = [];
-openxava.loadedScripts = []; 
+openxava.loadedScripts = [];
+openxava.calculations = {}; // tmr 
 
 openxava.init = function(application, module, initUI) { 
 	openxava.initWindowId(); 

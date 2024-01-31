@@ -122,6 +122,14 @@ public class EditorTag extends TagSupport {
 				pageContext.getOut().print("' value=\"");
 				pageContext.getOut().print(toJavaScriptExpression(metaProperty, collectionPrefix));
 				pageContext.getOut().println("\"/>");
+				// tmr ini
+				// TMR ME QUEDÉ POR AQUÍ. ESTA OPCIÓN PARECE PROMETEDORA, PORQUE FUNCIONA Y EL CAMBIO NO ES TRAUMÁTICO
+				pageContext.getOut().print("<script type='text/javascript' nonce='"); 
+				pageContext.getOut().print(Nonces.get(request));
+				pageContext.getOut().print("'>");
+				pageContext.getOut().print("openxava.calculations.saludar = function() { alert('Hola gramola'); }");
+			    pageContext.getOut().print("</script>");
+				// tmr fin
 			}			
 			if (org.openxava.web.WebEditors.hasMultipleValuesFormatter(metaProperty, viewName)) { 
 				pageContext.getOut().print("<input type='hidden' name='");
