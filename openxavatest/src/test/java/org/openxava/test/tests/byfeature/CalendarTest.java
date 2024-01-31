@@ -17,10 +17,11 @@ import org.openqa.selenium.support.ui.*;
 public class CalendarTest extends WebDriverTestBase {
 	
     public void testCalendar() throws Exception {
-        assertCreateEventPrevCurrentNextMonth_conditionsAndFilter(); 
+        
+    	assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate(); 
         assertMultipleDatesPropertiesAndFirstDateAsEventStart();
         assertFilterPerformance();
-        assertCreateDateWithTimeInWeekAndDailyView_tooltip();
+    	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime();
         assertAnyNameAsDateProperty();
         assertNavigationInDateCalendarAndDateTimeCalendar();
     }    
@@ -75,7 +76,7 @@ public class CalendarTest extends WebDriverTestBase {
 		moveToListView();
 	}
 
-	private void assertCreateEventPrevCurrentNextMonth_conditionsAndFilter() throws Exception {
+	private void assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate() throws Exception {
 		goModule("Invoice");
 		moveToCalendarView(getDriver());
 		prevOnCalendar();
@@ -109,6 +110,9 @@ public class CalendarTest extends WebDriverTestBase {
 		nextOnCalendar();
 		nextOnCalendar();
 		verifyConditionEvents("future", true);
+
+		dragAndDrop(dates.get(2), dateFormat);
+		
 		moveToListView();
 		clearListCondition();
 		for (int i = 0; i < 3; i++) {
@@ -143,7 +147,7 @@ public class CalendarTest extends WebDriverTestBase {
 		clearListCondition();
 	}
 
-	private void assertCreateDateWithTimeInWeekAndDailyView_tooltip() throws Exception {
+	private void assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime() throws Exception {
 		goModule("Appointment");
 		moveToCalendarView(getDriver());
 		moveToTimeGridWeek(getDriver());
@@ -183,9 +187,16 @@ public class CalendarTest extends WebDriverTestBase {
 		event = getDriver().findElement(By.cssSelector(".fc-event-time"));
 		event.click();
 		wait(getDriver());
-		dateTime = getDriver().findElement(By.id("ox_openxavatest_Appointment__time"));
-		dateTimeInput = dateTime.getAttribute("value");
-		assertTrue(dateTimeInput.contains("2:30"));
+		execute("Mode.list");
+		//drag and drop
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dragAndDrop(calendar.getTime(), dateFormat);
+		event = getDriver().findElement(By.cssSelector(".fc-event-time"));
+		assertTrue(event.getText().contains("2:30"));
+		event.click();
+		wait(getDriver());
+		
 		execute("CRUD.delete");
 		execute("Mode.list");
 		waitCalendarEvent(getDriver());
@@ -223,7 +234,7 @@ public class CalendarTest extends WebDriverTestBase {
 
 	private void verifyPrevInvoiceEvent() throws Exception {
 		WebElement currentMonthEvent = getDriver().findElement(By.cssSelector(
-				"a.fc-event.fc-event-draggable.fc-event-resizable.fc-event-start.fc-event-end.fc-event-past.fc-daygrid-event.fc-daygrid-dot-event"));
+				"a.fc-event.fc-event-draggable.fc-event-start.fc-event-end.fc-event-past.fc-daygrid-event.fc-daygrid-dot-event"));
 		currentMonthEvent.click();
 		wait(getDriver());
 		assertEquals("10", getValue("number"));
@@ -238,7 +249,7 @@ public class CalendarTest extends WebDriverTestBase {
 		WebElement currentMonthEvent = null;
 		try {
 			currentMonthEvent = getDriver().findElement(By.cssSelector(
-					"a.fc-event.fc-event-draggable.fc-event-resizable.fc-event-start.fc-event-end.fc-event-" + time
+					"a.fc-event.fc-event-draggable.fc-event-start.fc-event-end.fc-event-" + time
 							+ ".fc-daygrid-event.fc-daygrid-dot-event"));
 		} catch (NoSuchElementException e) {
 		}
@@ -292,6 +303,29 @@ public class CalendarTest extends WebDriverTestBase {
 			assertNotNull(linkElement);
 		}
 	}
+	
+	private void dragAndDrop(Date date, SimpleDateFormat format) throws Exception {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		if (calendar.get(Calendar.DAY_OF_MONTH) == calendar.getActualMaximum(Calendar.DAY_OF_MONTH)) {
+			calendar.add(Calendar.DAY_OF_MONTH, -1);
+		} else {
+			calendar.add(Calendar.DAY_OF_MONTH, 1);
+		}
+		date = calendar.getTime();
+		WebElement dragItem = getDriver().findElement(By.cssSelector(".fc-event.fc-event-draggable"));
+		WebElement dropCell = getDriver().findElement(By.cssSelector("td[data-date='" + format.format(date) + "']"));
+		Actions actions = new Actions(getDriver());
+		actions.dragAndDrop(dragItem, dropCell).build().perform();
+		Thread.sleep(300);
+		getDriver().navigate().refresh();
+		wait(getDriver());
+		waitCalendarEvent(getDriver());
+		
+		dragItem = getDriver().findElement(By.cssSelector(".fc-event.fc-event-draggable"));
+		dropCell = getDriver().findElement(By.cssSelector("td[data-date='" + format.format(date) + "']"));
+		dropCell.findElement(By.xpath(".//descendant::*[contains(@class, '" + dragItem.getAttribute("class") + "')]"));
+	}
 
 	private void waitCalendarEvent(WebDriver driver) throws Exception {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(10000));
@@ -340,5 +374,11 @@ public class CalendarTest extends WebDriverTestBase {
 		driver.navigate().refresh();
 		acceptInDialogJS(driver);
 		waitCalendarEvent(driver);
+	}
+	
+	private boolean isElementInside(WebDriver driver, String parentElementId, String childElementId) {
+		WebElement parentElement = driver.findElement(By.id(parentElementId));
+		WebElement childElement = parentElement.findElement(By.id(childElementId));
+		return (childElement != null);
 	}
 }

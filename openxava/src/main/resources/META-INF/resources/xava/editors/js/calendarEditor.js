@@ -128,10 +128,6 @@ openxava.addEditorInitFunction(function() {
 					$('.fc-event-tooltip').remove();
 				},
 				eventDrop: function(e) {
-					console.log("drag and drop");
-					console.log(e);
-					console.log(reformatDate(e.event.startStr));
-					console.log(e.event.extendedProps.key);
 					Calendar.dragAndDrop(application, module, e.event.extendedProps.key, reformatDate(e.event.startStr), e.event.extendedProps.startName);
 				}
             });
@@ -140,12 +136,9 @@ openxava.addEditorInitFunction(function() {
         });
 
         function reformatDate(date) {
-			console.log(reformatDate);
-			console.log(date);
             date = (date.toString().length < 11) ? date + 'T00:00:00' : date;
             let d = new Date(date);
             formattedDate = formatDate(d, dateFormat);
-			console.log(formattedDate);
             return formattedDate;
         }
 

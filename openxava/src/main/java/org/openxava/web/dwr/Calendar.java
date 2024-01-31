@@ -128,24 +128,17 @@ public class Calendar extends DWRBase {
 				nullJson.put("startName", startName);
 				jsonArray.put(nullJson);
 			}
-			System.out.println(jsonArray.toString());
 			return jsonArray.toString();
 		} finally {
 			XPersistence.commit();
 			cleanRequest();
 		}
-
 	}
 
 	public void dragAndDrop(HttpServletRequest request, HttpServletResponse response, String application, String module,
 			String calendarKey, String dropDate, String dropDateString) throws ObjectNotFoundException, ValidationException, XavaException, SystemException, FinderException, ParseException {
 		try {
 			initRequest(request, response, application, module);
-			
-			System.out.println(calendarKey);
-			System.out.println(dropDate);
-			System.out.println(dropDateString);
-			
 			View view = getView(request, application, module);
 			MetaModel metaModel = view.getMetaModel();
 			String[] calendarKeys = calendarKey.split("_");
@@ -161,11 +154,9 @@ public class Calendar extends DWRBase {
 			MetaProperty metaProperty = metaModel.getMetaProperty(dropDateString); //for more than 1 date, have to loop
 			if (isDateWithTime(metaProperty)) {
 				DateTimeCombinedFormatter dtf = new DateTimeCombinedFormatter();
-				System.out.println(dtf.parse(request, dropDate));
 				newDate.put(dropDateString, dtf.parse(request, dropDate)); 
 			} else {
 				DateFormatter df = new DateFormatter();
-				System.out.println(df.parse(request, dropDate));
 				newDate.put(dropDateString, df.parse(request, dropDate)); 
 			}
 			MapFacade.setValues(view.getModelName(), key, newDate);
@@ -369,7 +360,6 @@ public class Calendar extends DWRBase {
 					dateName = property.getName();
 				mpCount++;
 				dateWithTime = isDateWithTime(property);
-//				dateWithTime = dateWithTimeList.contains(property.getTypeName()) ? true : false;
 				String className = property.getTypeName();
 				if (className.startsWith("java.util.") || className.startsWith("java.sql.")) {
 					oldLib = true;
@@ -507,16 +497,5 @@ public class Calendar extends DWRBase {
 		dateWithTime = dateWithTimeList.contains(property.getTypeName()) ? true : false;
 		return dateWithTime;
 	}
-	
-//	private boolean isOldLib(MetaProperty property) {
-//		String className = property.getTypeName();
-//		boolean oldLib;
-//		if (className.startsWith("java.util.") || className.startsWith("java.sql.")) {
-//			return true;
-//		} else if (className.startsWith("java.time.")) {
-//			return false;
-//		}
-//		return true; 
-//	}
 
 }
