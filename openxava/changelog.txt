@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- AS/400 connection documentation improved to cover performance problems in Windows Server.
+- Removed the use of eval() in @DescriptionsList editor.
+- The width of the calendar in list mode dynamically adjusts to occupy the entire available space.
+
 OpenXava 7.2.3 (2024-1-26)
 --------------------------
 - Some new common use labels to be used in applications.

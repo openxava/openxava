@@ -1,9 +1,8 @@
 package org.openxava.test.tests.bymodule;
 
-import org.openxava.tests.*;
-
 import org.htmlunit.html.*;
 import org.htmlunit.javascript.host.event.*;
+import org.openxava.tests.*;
 
 /**
  * Create on 27/02/2012 (10:56:25)
@@ -39,7 +38,7 @@ public class CityTest extends ModuleTestBase{
 		assertValue("name", "Tucson");
 	}
 	
-	public void testChangeDescriptionsListCondition() throws Exception{
+	public void testChangeDescriptionsListCondition() throws Exception{ 
 		execute("CRUD.new");
 		assertValidValuesCount("state.id", 50);	// 49 + void
 		setValue("stateCondition", "lor");
