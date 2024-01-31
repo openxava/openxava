@@ -5,10 +5,8 @@
 }
 
 #xava_calendar {
- margin-left: 30px;
- width: 90vh; 
+ padding: 0px 10px 0px 10px;
  height: 76.3vh;
- 
 }
 
 .fc .fc-daygrid-body-unbalanced .fc-daygrid-day {

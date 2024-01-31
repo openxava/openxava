@@ -206,13 +206,7 @@ openxava.addEditorInitFunction(function() {
             event.wheelDelta >= 0 ? getEvents('prev') : getEvents('next');
             event.preventDefault();
         });
-        
-        window.addEventListener('resize', function() {
-            calendarElement.style.width = (window.innerHeight * 0.9)+ 'px';
-            calendarElement.style.height = (window.innerHeight * 0.763)+ 'px';
-        });
+
     }
-
-
 
 });
