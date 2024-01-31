@@ -234,7 +234,6 @@ public class Calendar extends DWRBase {
 				}
 			}
 		}
-
 		return result;
 	}
 
