@@ -115,19 +115,24 @@ public class EditorTag extends TagSupport {
 			pageContext.getOut().print(editable);
 			pageContext.getOut().println("'/>");
 			if (metaProperty.hasCalculation()) { 
-				String calculationKey = propertyKey + "_CALCULATION_";
-				String collectionPrefix = inElementCollection?getCollectionPrefix():""; 
+				// tmr String calculationKey = propertyKey + "_CALCULATION_";
+				String collectionPrefix = inElementCollection?getCollectionPrefix():"";
+				/* tmr
 				pageContext.getOut().print("<input type='hidden' id='"); 
 				pageContext.getOut().print(calculationKey);
 				pageContext.getOut().print("' value=\"");
 				pageContext.getOut().print(toJavaScriptExpression(metaProperty, collectionPrefix));
 				pageContext.getOut().println("\"/>");
+				*/
 				// tmr ini
-				// TMR ME QUEDÉ POR AQUÍ. ESTA OPCIÓN PARECE PROMETEDORA, PORQUE FUNCIONA Y EL CAMBIO NO ES TRAUMÁTICO
 				pageContext.getOut().print("<script type='text/javascript' nonce='"); 
 				pageContext.getOut().print(Nonces.get(request));
 				pageContext.getOut().print("'>");
-				pageContext.getOut().print("openxava.calculations.saludar = function() { alert('Hola gramola'); }");
+				pageContext.getOut().print("openxava.calculations.");
+				pageContext.getOut().print(propertyKey);
+				pageContext.getOut().print("=function(application, module) {");
+				pageContext.getOut().print(toJavaScriptExpression(metaProperty, collectionPrefix));
+				pageContext.getOut().print("}");
 			    pageContext.getOut().print("</script>");
 				// tmr fin
 			}			
@@ -186,6 +191,7 @@ public class EditorTag extends TagSupport {
     		expression.append(collectionPrefix + property); 
     		expression.append("');");
 	    }
+	    expression.append("return "); // tmr
 	    expression.append(
 	    	metaProperty.getCalculation() 
     		.replaceAll("[Ss][Uu][Mm]\\((.*)\\)", "$1_SUM_")
