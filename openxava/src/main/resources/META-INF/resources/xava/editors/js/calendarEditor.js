@@ -9,7 +9,7 @@ calendarEditor.outModule;
 calendarEditor.requesting = false;
 
 calendarEditor.setEvents = function(calendarEvents) {
-	var arr = eval('(' + calendarEvents + ')');
+	var arr = JSON.parse(calendarEvents);
 	calendarEditor.startName = arr[0].startName;
 	calendarEditor.calendar.addEventSource(arr);
     calendarEditor.requesting = false;
