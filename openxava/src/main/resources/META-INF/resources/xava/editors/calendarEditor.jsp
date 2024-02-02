@@ -6,7 +6,8 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.Arrays"%>
 <%@ page import="org.openxava.web.dwr.Calendar"%>
-    
+<%@ page import="java.util.prefs.Preferences" %>
+<%@ page import="org.openxava.util.Users" %>
 <%@ page import="org.openxava.view.View"%>
 <%@ page import="org.openxava.controller.ModuleManager" %>
 <%@ page import="org.openxava.controller.meta.MetaControllers"%>
@@ -18,11 +19,12 @@
 <% 
 ModuleManager manager = (ModuleManager) context.get(request, "manager", "org.openxava.controller.ModuleManager");
 View view = (View) context.get(request, "xava_view");
+Preferences preferences = Users.getCurrentPreferences();
+String datePref = preferences.get("fecha","");
 List<MetaProperty> metaPropertiesList = new ArrayList<>(view.getMetaPropertiesList());
 List<String> datesProperties = Arrays.asList(
             "java.util.Date", "java.time.LocalDateTime", "java.sql.Timestamp", "java.time.LocalDate", 
 			"java.util.Date", "java.sql.Date", "java.time.LocalDateTime", "java.sql.Timestamp");
-String choosedDate = "";
 String contextPath = (String) request.getAttribute("xava.contextPath");
 if (contextPath == null) contextPath = request.getContextPath();
 String version = org.openxava.controller.ModuleManager.getVersion();
@@ -51,8 +53,8 @@ if (dateFormat != null) {
 }
 %>
 
-<select class="xava_list_date" name='<xava:id name="listConfigurations"/>' title="<%=choosedDate%>">
-	<option value=""><%=choosedDate%></option>
+<select class="xava_list_date" name='<xava:id name="listConfigurations"/>' title="<%=datePref%>">
+	<option value=""><%=datePref%></option>
 	<% 
 	for (MetaProperty mp : metaPropertiesList){
 		if (datesProperties.contains(mp.getTypeName())) {

@@ -206,6 +206,12 @@ openxava.addEditorInitFunction(function() {
             event.wheelDelta >= 0 ? getEvents('prev') : getEvents('next');
             event.preventDefault();
         });
+		
+		$('.xava_list_date').on('change', function() {
+			var selectedValue = $(this).val();
+			console.log('Se seleccionó:', selectedValue);
+			Calendar.changeDateProperty(application, module, selectedValue);
+    });
 
     }
 

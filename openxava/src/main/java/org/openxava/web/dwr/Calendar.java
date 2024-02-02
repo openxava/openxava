@@ -5,6 +5,7 @@ import java.text.*;
 import java.time.*;
 import java.time.format.*;
 import java.util.*;
+import java.util.prefs.*;
 
 import javax.servlet.http.*;
 import javax.swing.table.*;
@@ -130,7 +131,24 @@ public class Calendar extends DWRBase {
 		}
 
 	}
-
+	
+	public void changeDateProperty(HttpServletRequest request, HttpServletResponse response, String application, String module,
+			String dateName) throws BackingStoreException {
+		try {
+			initRequest(request, response, application, module);
+			view = getView(request, application, module);
+			MetaProperty metaProperty = view.getMetaModel().getMetaProperty(dateName);
+			Preferences preferences = Users.getCurrentPreferences();
+			System.out.println(metaProperty.getLabel());
+			preferences.put("fecha", metaProperty.getLabel());
+			Tab tab = getTab(request, application, module, "xava_tab").getPreferencesNodeName(dateName);
+			
+		} finally {
+			XPersistence.commit();
+			cleanRequest();
+		}
+	}
+	
 	private DateRangeFilter setFilterForMonth(String monthYear) {
 		DateRangeFilter df = new DateRangeFilter();
 		String month = !monthYear.isEmpty() ? monthYear.split("_")[0] : "";
