@@ -9,41 +9,38 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="从数据库生成应用程序"></a> <span id="breadcrumbs"> <span id="openxava">
-            <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
-              </a> </span> / <a href="index_zh.html">文档</a> / </span>从数据库生成应用
-        程序</h1>
+      <h1 id="toc0"><a name="从数据库生成应用程序"></a> <span id="breadcrumbs"> <span
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_zh.html">文档</a> / </span>从数据库生成应用 程序</h1>
       <div id="toc">
         <h1 class="nopad">目录</h1>
-        <div style="margin-left: 1em;"><a href="#Download,%20install%20Eclipse%20for%20Enterprise%20Java%20and%20Web%20Developers%20and%20start%20MySQL">下
-            载、安装 Eclipse for Enterprise Java and Web Developers 并启动 MySQL<br>
+        <div style="margin-left: 1em;"><a href="#Download,%20install%20Eclipse%20for%20Enterprise%20Java%20and%20Web%20Developers%20and%20start%20MySQL">下 载、安装 Eclipse for Enterprise Java and Web Developers 并启动 MySQL<br>
           </a></div>
-        <div style="margin-left: 1em;"><a href="#Create%20OpenXava%20project">创建
-            OpenXava 项目<br>
+        <div style="margin-left: 1em;"><a href="#Create%20OpenXava%20project">创建 OpenXava 项目<br>
           </a></div>
-        <div style="margin-left: 1em;"><a href="#Create%20JPA%20project%20and%20connect%20to%20the%20database">创
-            建 JPA 项目并连接到数据库<br>
+        <div style="margin-left: 1em;"><a href="#Create%20JPA%20project%20and%20connect%20to%20the%20database">创 建 JPA 项目并连接到数据库<br>
           </a></div>
-        <div style="margin-left: 1em;"><a href="#Generate%20entities%20from%20tables%20in%20Eclipse">在
-            Eclipse 里从数据库的表生成实体<br>
+        <div style="margin-left: 1em;"><a href="#Generate%20entities%20from%20tables%20in%20Eclipse">在 Eclipse 里从数据库的表生成实体<br>
           </a></div>
-        <div style="margin-left: 1em;"><a href="#Adapt%20code%20for%20OpenXava">调
-            整代码以在 OpenXava 使用<br>
+        <div style="margin-left: 1em;"><a href="#Adapt%20code%20for%20OpenXava">调 整代码以在 OpenXava 使用<br>
           </a></div>
         <div style="margin-left: 1em;"><a href="#Run%20the%20application">运行应用程序<br>
           </a></div>
       </div>
-      在这篇文章中，我们将看如何由数据库自动生成OpenXava应用程序。我们将使用Eclipse的Dali来生成MySQL数据库的实体，并调整它以在
-      OpenXava中使用。为此，您需要至少一個数据库，在本文我們會使用 <a href="https://dev.mysql.com/downloads/workbench/">MySQL</a>
-      但您也可以使用其它的, <a href="https://openxava.org/">OpenXava Studio</a> 和 <a href="https://www.eclipse.org/downloads/packages/">Eclipse
-        IDE for Enterprise Java and Web Developers</a>, 在本文我们使用的是 <a href="https://www.eclipse.org/downloads/packages/release/2023-09/r">2023-09</a>
-      版本。</div>
+      在这篇文章中，我们将看如何由数据库自动生成OpenXava应用程序。我们将使用Eclipse的Dali来生成MySQL数据库的实体，并调整它以在 OpenXava中使用。为此，您需要至少一個数据库，在本文我們會使用 <a
+        href="https://dev.mysql.com/downloads/workbench/">MySQL</a> 但您也可以使用其它的, <a
+        href="https://openxava.org/">OpenXava Studio</a> 和 <a href="https://www.eclipse.org/downloads/packages/">Eclipse IDE for Enterprise Java and Web Developers</a>, 在本文我们使用的是 <a
+        href="https://www.eclipse.org/downloads/packages/release/2023-09/r">2023-09</a> 版本。</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">您可以观看以下视频或是直接阅读文档：<a href="https://youtu.be/BHx3o6npIUI"
+        target="_blank"><em><img src="files/reverse_engineering_en.png"
+            title="Watch this video" alt="Watch this video"></em></a>&nbsp;</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
     <div class="wiki" style="display: block;">
-      <h2 id="toc1"><a name="Download, install Eclipse for Enterprise Java and Web Developers and start MySQL"></a>下
-        载、安装 Eclipse for Enterprise Java and Web Developers 并启动 MySQL</h2>
-      打开<a href="https://www.eclipse.org/downloads/packages/">链接</a>，依以下图片的标记选择您
-      所使用的系统并点击，然后在随后的屏幕上，点击“Download”下载 Eclipse 的安装程序并安装，或者下载.zip 文件、解压缩并直接运行
-      eclipse.exe 。<br>
+      <h2 id="toc1"><a name="Download, install Eclipse for Enterprise Java and Web Developers and start MySQL"></a>下 载、安装 Eclipse for Enterprise Java and Web Developers 并启动 MySQL</h2>
+      打开<a href="https://www.eclipse.org/downloads/packages/">链接</a>，依以下图片的标记选择您 所使用的系统并点击，然后在随后的屏幕上，点击“Download”下载 Eclipse 的安装程序并安装，或者下载.zip 文件、解压缩并直接运行 eclipse.exe 。<br>
       <img src="files/reverse-engineering_10.jpg" title="reverse-engineering_10.jpg"
         alt="reverse-engineering_10.jpg"> <br>
       最后，启动 MySQL 并至少拥有一个数据库。<br>
@@ -51,33 +48,27 @@
         alt="reverse-engineering_20.jpg"><br>
       <br>
       <h2 id="toc1"><a name="Create OpenXava Project"></a>创建 OpenXava 项目</h2>
-      首先启动 OpenXava Studio，并创建一个新的 OpenXava 项目，然后添加我们将通过反向工程生成的代码。在 OpenXava
-      &gt; New OpenXava Project 中输入 invoicing，选择语言，在我们的示例中使用英语。<br>
+      首先启动 OpenXava Studio，并创建一个新的 OpenXava 项目，然后添加我们将通过反向工程生成的代码。在 OpenXava &gt; New OpenXava Project 中输入 invoicing，选择语言，在我们的示例中使用英语。<br>
       <img src="files/getting-started_zh020.png" alt="getting-started_en020.png"
         title="getting-started_en020.png"></div>
     <div class="wiki" style="display: block;"><img src="files/getting-started_zh030.png"
         alt="getting-started_en030.png" title="getting-started_en030.png"></div>
     <br>
-    <div class="wiki" style="display: block;">编辑项目根目录下的 pom.xml 文件，在
-      &lt;dependencies&gt; 加上 MySQL 的依赖：
+    <div class="wiki" style="display: block;">编辑项目根目录下的 pom.xml 文件，在 &lt;dependencies&gt; 加上 MySQL 的依赖：
       <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;com.mysql&lt;/groupId&gt;
     &lt;artifactId&gt;mysql-connector-j&lt;/artifactId&gt;
     &lt;version&gt;8.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
-      <code class="xml"></code>编辑项目的 src/main/webapp/META-INF/context.xml
-      文件，并调整数据源定义以指向 MySQL，如下：
+      <code class="xml"></code>编辑项目的 src/main/webapp/META-INF/context.xml 文件，并调整数据源定义以指向 MySQL，如下：
       <pre><code class="xml">&lt;Resource name="jdbc/invoicingDB" auth="Container"
     type="javax.sql.DataSource"
     maxTotal="100" maxIdle="20" maxWaitMillis="10000"
     username="root" password="r123456"
     driverClassName="com.mysql.cj.jdbc.Driver"
     url="jdbc:mysql://localhost:3306/invoicingdb"/&gt;</code></pre>
-      以上代码已经在 context.xml 中，可以直接取消注释并修改，使用您自己的 url、用户名和密码。最后记得得注释目前指向 HSQLDB
-      的数据源。<br>
-      最后，编辑 <em>src/main/resources/MEFA-INF/persistence.xml</em> 文件，並在
-      &lt;properties&gt; 添加 MySQL8 dialect “<em>org.hibernate.dialect.MySQL8Dialect</em>”
-      如下:<br>
+      以上代码已经在 context.xml 中，可以直接取消注释并修改，使用您自己的 url、用户名和密码。最后记得得注释目前指向 HSQLDB 的数据源。<br>
+      最后，编辑 <em>src/main/resources/MEFA-INF/persistence.xml</em> 文件，並在 &lt;properties&gt; 添加 MySQL8 dialect “<em>org.hibernate.dialect.MySQL8Dialect</em>” 如下:<br>
       <pre><code class="xml">    &lt;persistence-unit name="default"&gt;
     	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
     	&lt;non-jta-data-source&gt;java://comp/env/jdbc/invoicingDS&lt;/non-jta-data-source&gt;
@@ -97,16 +88,13 @@
             &lt;property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" /&gt;
         &lt;/properties&gt;
     &lt;/persistence-unit&gt;
-</code></pre>在进行这些更改后，重新构建（rebuild）项目。在OpenXava Studio中，右键点击项目，选择Run As &gt;
-      Maven install。<br>
+</code></pre>在进行这些更改后，重新构建（rebuild）项目。在OpenXava Studio中，右键点击项目，选择Run As &gt; Maven install。<br>
       <img src="files/run-as-maven-install.png" alt=""><br>
       第一阶段已经好了，现在我们需要在 Eclipse 中创建 JPA 项目。<br>
       <br>
-      <h2 id="toc1"><a name="Create JPA Project and Connect to the Database"></a>创
-        建 JPA 项目并连接到数据库</h2>
+      <h2 id="toc1"><a name="Create JPA Project and Connect to the Database"></a>创 建 JPA 项目并连接到数据库</h2>
     </div>
-    <div class="wiki" style="display: block;">剛剛安装的 Eclipse 包含了 Dali 和 DTP（Data
-      Tools Platform）。如果您沒有安裝該安裝包，可能得手動安裝 Dali 跟 DTP。<br>
+    <div class="wiki" style="display: block;">剛剛安装的 Eclipse 包含了 Dali 和 DTP（Data Tools Platform）。如果您沒有安裝該安裝包，可能得手動安裝 Dali 跟 DTP。<br>
       打开 Eclipse 并创建一个 JPA 项目，选择 File &gt; New &gt; JPA Project。<em></em> <br>
       <img src="files/reverse-engineering_30.jpg" title="reverse-engineering_30.jpg"
         alt="reverse-engineering_30.jpg"><br>
@@ -115,8 +103,7 @@
       <img src="files/reverse-engineering_40.jpg" title="reverse-engineering_40.jpg"
         alt="reverse-engineering_40.jpg"><br>
       <br>
-      点击 Next 两次，直到看到以下视窗。在 JPA implementation 中，不启用库配置，点击 Disable Library
-      Configuration。然后，点击 Add connection 创建与数据库的连接。<em></em> <br>
+      点击 Next 两次，直到看到以下视窗。在 JPA implementation 中，不启用库配置，点击 Disable Library Configuration。然后，点击 Add connection 创建与数据库的连接。<em></em> <br>
       <img src="files/reverse-engineering_50.jpg" title="reverse-engineering_50.jpg"
         alt="reverse-engineering_50.jpg"><br>
       <br>
@@ -132,9 +119,8 @@
       <img src="files/reverse-engineering_80.jpg" title="reverse-engineering_80.jpg"
         alt="reverse-engineering_80.jpg"><br>
       <br>
-      现在得删除默认的 mysql-connector-java-5.1.0-bin.jar，选择它再点击 Remove JAR/Zip 然后通过点击
-      Add Jar/Zip 添加 <a href="https://dev.mysql.com/downloads/connector/j/?os=26">新
-        下载的驱动程序</a>。下载时得选 ZIP 格式，最后再点击 Ok。<em></em><br>
+      现在得删除默认的 mysql-connector-java-5.1.0-bin.jar，选择它再点击 Remove JAR/Zip 然后通过点击 Add Jar/Zip 添加 <a
+        href="https://dev.mysql.com/downloads/connector/j/?os=26">新 下载的驱动程序</a>。下载时得选 ZIP 格式，最后再点击 Ok。<em></em><br>
       <img src="files/reverse-engineering_90.jpg" title="reverse-engineering_90.jpg"
         alt="reverse-engineering_90.jpg"><br>
       <br>
@@ -142,19 +128,15 @@
       <img src="files/reverse-engineering_100.jpg" title="reverse-engineering_100.jpg"
         alt="reverse-engineering_100.jpg"><br>
       <br>
-      您会回到之前的窗口，在此处填写所需的数据。在 Database 中，可以使用任何名称来区分它与其他的连接，URL
-      中需要放入数据库的连接信息，最后填写数据库的用户名和密码。完成后，你可以通过 Test Connection 测试连接是否正确，然后勾选 Save
-      password 并点击 Finish。<br>
+      您会回到之前的窗口，在此处填写所需的数据。在 Database 中，可以使用任何名称来区分它与其他的连接，URL 中需要放入数据库的连接信息，最后填写数据库的用户名和密码。完成后，你可以通过 Test Connection 测试连接是否正确，然后勾选 Save password 并点击 Finish。<br>
       <img src="files/reverse-engineering_110.jpg" title="reverse-engineering_110.jpg"
         alt="reverse-engineering_110.jpg"><br>
       <br>
-      现在您会看到开始时的第一个窗口，在那里勾选Override default schema from connection 并选择连接的模式，然后点击
-      Finish。现在，JPA 项目和数据库的连接已创建。<br>
+      现在您会看到开始时的第一个窗口，在那里勾选Override default schema from connection 并选择连接的模式，然后点击 Finish。现在，JPA 项目和数据库的连接已创建。<br>
       <img src="files/reverse-engineering_120.jpg" title="reverse-engineering_120.jpg"
         alt="reverse-engineering_120.jpg"><br>
       <br>
-      点击 Finish 后，有可能会弹出一个打开 Data Source 的窗口。如果没有，你可以在Windows &gt; Show View
-      &gt; Data Source Explorer 中打开。<em></em> <br>
+      点击 Finish 后，有可能会弹出一个打开 Data Source 的窗口。如果没有，你可以在Windows &gt; Show View &gt; Data Source Explorer 中打开。<em></em> <br>
       <img src="files/reverse-engineering_130.jpg" title="reverse-engineering_130.jpg"
         alt="reverse-engineering_130.jpg"><br>
       <br>
@@ -166,15 +148,12 @@
       <img src="files/reverse-engineering_150.jpg" title="reverse-engineering_150.jpg"
         alt="reverse-engineering_150.jpg"><br>
       <br>
-      <h2 id="toc1"><a name="Generate Entities from Tables in Eclipse"></a>在
-        Eclipse 里从数据库的表生成实体</h2>
-      本文的最终目标是从数据库的表生成实体。现在我们已经建立了连接，接下来是生成。右键点击项目，选择 JPA Tools &gt; Generate
-      Entities from Tables...<em></em> <br>
+      <h2 id="toc1"><a name="Generate Entities from Tables in Eclipse"></a>在 Eclipse 里从数据库的表生成实体</h2>
+      本文的最终目标是从数据库的表生成实体。现在我们已经建立了连接，接下来是生成。右键点击项目，选择 JPA Tools &gt; Generate Entities from Tables...<em></em> <br>
       <img src="files/reverse-engineering_160.jpg" title="reverse-engineering_160.jpg"
         alt="reverse-engineering_160.jpg"><br>
       <br>
-      在这里，您需要选择要为其生成类/实体的表。我们将选择除了OpenXava自动生成的images和oxdiscussioncomments以外所有的
-      表。<br>
+      在这里，您需要选择要为其生成类/实体的表。我们将选择除了OpenXava自动生成的images和oxdiscussioncomments以外所有的 表。<br>
       <img src="files/reverse-engineering_170.jpg" title="reverse-engineering_170.jpg"
         alt="reverse-engineering_170.jpg"><br>
       <br>
@@ -182,10 +161,7 @@
       <img src="files/reverse-engineering_180.jpg" title="reverse-engineering_180.jpg"
         alt="reverse-engineering_180.jpg"><br>
       <br>
-      在此视窗，有多个选项可供选择。我们将保留所有默认设置，仅在 Collection properties type 中更改为
-      java.util.List，并勾选 Always generate optional JPA annotations and DDL
-      parameters 选项。在 Package 必须输入与 OpenXava 相同的，我们的示例中为
-      com.yourcompany.invoicing.model，然后点击 Next。<em></em><br>
+      在此视窗，有多个选项可供选择。我们将保留所有默认设置，仅在 Collection properties type 中更改为 java.util.List，并勾选 Always generate optional JPA annotations and DDL parameters 选项。在 Package 必须输入与 OpenXava 相同的，我们的示例中为 com.yourcompany.invoicing.model，然后点击 Next。<em></em><br>
       <img src="files/reverse-engineering_190.jpg" title="reverse-engineering_190.jpg"
         alt="reverse-engineering_190.jpg"><br>
       <br>
@@ -197,28 +173,20 @@
       <img src="files/reverse-engineering_210.jpg" title="reverse-engineering_210.jpg"
         alt="reverse-engineering_210.jpg"><br>
       <br>
-      生成的类位于 src/main/java 文件夹中，包名为我们之前定义的
-      com.yourcompany.invoicing.model。将这些生成的类复制并粘贴到一开始创建的 OpenXava 项目中的
-      com.yourcompany.invoicing.model 包中（您得创建此包）。<br>
+      生成的类位于 src/main/java 文件夹中，包名为我们之前定义的 com.yourcompany.invoicing.model。将这些生成的类复制并粘贴到一开始创建的 OpenXava 项目中的 com.yourcompany.invoicing.model 包中（您得创建此包）。<br>
       <img src="files/reverse-engineering_215.jpg" title="reverse-engineering_215.jpg"
         alt="reverse-engineering_215.jpg"><br>
       <br>
       <h2 id="toc1"><a name="Adapt Code for OpenXava"></a>调整代码以在 OpenXava 使用</h2>
-      <div class="wiki" style="display: block;">虽然自动生成的代码已经足够了，但尚无法完全在 OpenXava
-        应用程序中运行。我们将进行一些修改，其中一些是可以选择不改的。<br>
-        在 Author 类中，我们有一个与 Product 的@OneToMany
-        关系，它指示每个作者可以拥有许多产品。换句话说，我们希望显示与所选作者相关的多个产品。因此我们添加了一个 @ListProperties()
-        注解，参数为 "number, description, price"。<em></em> </div>
+      <div class="wiki" style="display: block;">虽然自动生成的代码已经足够了，但尚无法完全在 OpenXava 应用程序中运行。我们将进行一些修改，其中一些是可以选择不改的。<br>
+        在 Author 类中，我们有一个与 Product 的@OneToMany 关系，它指示每个作者可以拥有许多产品。换句话说，我们希望显示与所选作者相关的多个产品。因此我们添加了一个 @ListProperties() 注解，参数为 "number, description, price"。<em></em> </div>
       <pre><code class="java">public class Author implements Serializable {
 
 ...<br><br>@OneToMany(mappedBy="author")
 @ListProperties("number, description, price")
 private List&lt;Product&gt; products;
 </code></pre><code class="java"></code> <br>
-      在 Invoice 类中，我们有两个关系，一个是与 Customer 的 @ManyToOne，另一个是与 InvoiceDetail 的
-      @OneToMany。我们将保留 Customer 不变，但在 InvoiceDetail 中删除 @OneToMany 注解，然后添加两个注解，
-      @ElementCollection 和 @ListProperties("product.number, product.description,
-      quantity")。<em></em><em></em><br>
+      在 Invoice 类中，我们有两个关系，一个是与 Customer 的 @ManyToOne，另一个是与 InvoiceDetail 的 @OneToMany。我们将保留 Customer 不变，但在 InvoiceDetail 中删除 @OneToMany 注解，然后添加两个注解， @ElementCollection 和 @ListProperties("product.number, product.description, quantity")。<em></em><em></em><br>
       <pre><code class="java">public class Invoice implements Serializable {
 
 ...
@@ -227,8 +195,7 @@ private List&lt;Product&gt; products;
 @ListProperties("product.number, product.description, quantity")
 private List&lt;InvoiceDetail&gt; invoiceDetails;
 </code></pre> <br>
-      在 InvoiceDetail 中，注意这个类没有任何 @Id 属性，因为在它的逻辑中，它是一个嵌入的类。所以将 @Entity 更改为
-      @Embeddable，并删除与 Invoice 的关系，因为我们对此不感兴趣。<em></em><br>
+      在 InvoiceDetail 中，注意这个类没有任何 @Id 属性，因为在它的逻辑中，它是一个嵌入的类。所以将 @Entity 更改为 @Embeddable，并删除与 Invoice 的关系，因为我们对此不感兴趣。<em></em><br>
       <code class="java"></code>
       <pre><code class="java">@Embeddable<br>//@Entity remove this annotation<br>@Table(name="invoice_details")
 @NamedQuery(name="InvoiceDetail.findAll", query="SELECT i FROM InvoiceDetail i")
@@ -248,8 +215,7 @@ public class InvoiceDetail implements Serializable {
 	//	this.invoice = invoice;
 	//}<br><br>&nbsp;}
 </code></pre> </div>
-    <div class="wiki" style="display: block;">在 Invoice 类中删除 addInvoiceDetail 和
-      removeInvoiceDetail 方法。<em></em></div>
+    <div class="wiki" style="display: block;">在 Invoice 类中删除 addInvoiceDetail 和 removeInvoiceDetail 方法。<em></em></div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">public class Invoice implements Serializable {
 
@@ -265,9 +231,7 @@ public class InvoiceDetail implements Serializable {
 	//}<br></code></pre>
     </div>
     <div class="wiki" style="display: block;"><br>
-      最后，我们需要调整 Product。它有 3 个关系： InvoiceDetail、Author 和 Category。我们对
-      InvoiceDetail 的关系不感兴趣，但对其他两个感兴趣。在 Author 和 Category 上添加一个
-      @DescriptionsList 注解。最后，删除与 InvoiceDetail 的关系及方法。<br>
+      最后，我们需要调整 Product。它有 3 个关系： InvoiceDetail、Author 和 Category。我们对 InvoiceDetail 的关系不感兴趣，但对其他两个感兴趣。在 Author 和 Category 上添加一个 @DescriptionsList 注解。最后，删除与 InvoiceDetail 的关系及方法。<br>
       <pre><code class="java">//add @DescriptionsList to Author and Category
 @ManyToOne
 @JoinColumn(name="author_oid")
@@ -306,33 +270,27 @@ private Category category;<br><br>//删除此关系和其方法<br>//@OneToMany(
           alt="getting-started_en155.png" title="getting-started_en155.png"></div>
       <div class="wiki" style="display: block;"><br>
       </div>
-      <div class="wiki" style="display: block;">现在您的应用程序已经在运行。请开启您的浏览器（Chrome,
-        Firefox, Internet Explorer 11, Edge o Safari）并输入以下连结：<span style="color: black;"><span
-            style="font-family: sans-serif;"></span></span></div>
+      <div class="wiki" style="display: block;">现在您的应用程序已经在运行。请开启您的浏览器（Chrome, Firefox, Internet Explorer 11, Edge o Safari）并输入以下连结：<span
+          style="color: black;"><span style="font-family: sans-serif;"></span></span></div>
       <div class="wiki" style="display: block;"> <code><i>&nbsp;&nbsp;&nbsp; </i></code><code><i><a
-              href="http://localhost:8080/invoicing" target="_blank">http://localhost:8080/invoicing</a></i></code>
-      </div>
+              href="http://localhost:8080/invoicing" target="_blank">http://localhost:8080/invoicing</a></i></code> </div>
       <div class="wiki" style="display: block;"><br>
       </div>
-      <div class="wiki" style="display: block;">这是您第一次运行此应用程序，请点击登录按钮并在用户/密码中输入
-        admin/admin 再点击登录</div>
+      <div class="wiki" style="display: block;">这是您第一次运行此应用程序，请点击登录按钮并在用户/密码中输入 admin/admin 再点击登录</div>
       <div class="wiki" style="display: block;"><br>
       </div>
       <div class="wiki" style="display: block;"> <img src="files/getting-started_zh160.png"
           alt="getting-started_zh160.png" title="getting-started_zh160.png"></div>
       <img src="files/getting-started_zh165.png" alt="Página de identificación"><br>
       <br>
-      在左侧是模块面板，当前我们位于 invoices 模块，在那里首先显示实体 Invoice 的属性，中间显示与 customer 的
-      @ManyToOne 关系，最后是 invoiceDetails 的集合。请注意，OpenXava
-      的一个特性是根据它的注解，会以不同的方式显示属性，有关更多信息，你可以参考 <a href="https://openxava.org/OpenXavaDoc/docs/course_en.html">OpenXava
-        的课程</a>。<br>
+      在左侧是模块面板，当前我们位于 invoices 模块，在那里首先显示实体 Invoice 的属性，中间显示与 customer 的 @ManyToOne 关系，最后是 invoiceDetails 的集合。请注意，OpenXava 的一个特性是根据它的注解，会以不同的方式显示属性，有关更多信息，你可以参考 <a
+        href="https://openxava.org/OpenXavaDoc/docs/course_en.html">OpenXava 的课程</a>。<br>
       <img src="files/reverse-engineering_220.jpg" title="reverse-engineering_220.jpg"
         alt="reverse-engineering_220.jpg"><br>
       <br>
       <strong>对教程有任何疑问吗？ <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
           rel="nofollow">请在论坛中提问</a></strong> <strong>一切顺利吗？</strong><strong> <a
-          class="wiki_link" href="https://openxava.org/OpenXavaDoc/docs/index_zh.html">继
-          续 OpenXava 的课程</a><br>
+          class="wiki_link" href="https://openxava.org/OpenXavaDoc/docs/index_zh.html">继 续 OpenXava 的课程</a><br>
       </strong><br>
     </div>
   </body>

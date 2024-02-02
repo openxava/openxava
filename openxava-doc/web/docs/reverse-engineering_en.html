@@ -9,10 +9,8 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Generate application from database"></a> <span
-
-          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
-
+      <h1 id="toc0"><a name="Generate application from database"></a> <span
+          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
             href="index_en.html">documentation</a> / </span>Generate application from database</h1>
       <div id="toc">
         <h1 class="nopad">Table of Contents</h1>
@@ -29,32 +27,32 @@
         <div style="margin-left: 1em;"><a href="#Run%20the%20application">Run the application<br>
           </a></div>
       </div>
-      In this article, we will see how to automatically generate an OpenXava application from an existing database. We will use Eclipse's Dali to generate entities from a MySQL database and adapt it for use in OpenXava. For this, you need <a
-
-        href="https://dev.mysql.com/downloads/workbench/">MySQL</a>(you must have at least one database in MySQL for the article), <a
-
-        href="https://openxava.org/">OpenXava Studio</a> and <a href="https://www.eclipse.org/downloads/packages/">Eclipse IDE for Enterprise Java and Web Developers</a>, for this article, we use version <a
-
+    </div>
+    <div class="wiki" style="display: block;">In this article, we will see how to automatically generate an OpenXava application from an existing database. We will use Eclipse's Dali to generate entities from a MySQL database and adapt it for use in OpenXava. For this, you need <a
+        href="https://dev.mysql.com/downloads/workbench/">MySQL</a>(you must have at least one database in MySQL for the article), <a
+        href="https://openxava.org/">OpenXava Studio</a> and <a href="https://www.eclipse.org/downloads/packages/">Eclipse IDE for Enterprise Java and Web Developers</a>, for this article, we use version <a
         href="https://www.eclipse.org/downloads/packages/release/2023-09/r">2023-09</a>.</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">Follow the next video to generate an application from database: <a
+        href="https://youtu.be/BHx3o6npIUI" target="_blank"><em><img src="files/reverse_engineering_en.png"
+            title="Watch this video" alt="Watch this video"></em></a> <br>
+      Or if you don't like videos follow the instructions below.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc1"><a name="Download, install Eclipse for Enterprise Java and Web Developers and start MySQL"></a>Download, install Eclipse for Enterprise Java and Web Developers and start MySQL</h2>
       Open the <a href="https://www.eclipse.org/downloads/packages/">link</a>, select one of the Windows, macOS, Linux options marked in the image below, and on the following screen, click <em>Download</em> to download the Eclipse installer or download the .zip file, unzip then run <em>eclipse.exe</em> directly.<br>
-      <img src="files/reverse-engineering_10.jpg" title="reverse-engineering_10.jpg"
-
+      <img src="files/reverse-engineering_10.jpg" title="reverse-engineering_10.jpg"
         alt="reverse-engineering_10.jpg"> <br>
       Finally, you need to start MySQL and have at least one database.<br>
-      <img src="files/reverse-engineering_20.jpg" title="reverse-engineering_20.jpg"
-
+      <img src="files/reverse-engineering_20.jpg" title="reverse-engineering_20.jpg"
         alt="reverse-engineering_20.jpg"><br>
       <br>
       <h2 id="toc1"><a name="Create OpenXava Project"></a>Create OpenXava Project</h2>
       First, start OpenXava Studio and create a new OpenXava project to later add code that we will generate through reverse engineering.<br>
       In <em>OpenXava &gt; New OpenXava Project</em>, enter "<em>invoicing</em>" and select the language<br>
-      <img src="files/getting-started_en020.png" alt="getting-started_en020.png"
-
+      <img src="files/getting-started_en020.png" alt="getting-started_en020.png"
         title="getting-started_en020.png"></div>
-    <div class="wiki" style="display: block;"><img src="files/getting-started_en030.png"
-
+    <div class="wiki" style="display: block;"><img src="files/getting-started_en030.png"
         alt="getting-started_en030.png" title="getting-started_en030.png"></div>
     <br>
     <div class="wiki" style="display: block;">Edit the <i>pom.xml</i> file in the root of your project, there add the next dependency inside the <i>&lt;dependencies&gt;</i> part:
@@ -99,106 +97,85 @@
     </div>
     <div class="wiki" style="display: block;">The Eclipse package that we installed includes <em>Dali </em>and <em>DTP (Data Tools Platform)</em> software. In case you haven't installed that software, you will need to do it manually.<br>
       Open the recently installed Eclipse and proceed to create a JPA project with <em>File &gt; New &gt; JPA Project</em>.<em></em> <br>
-      <img src="files/reverse-engineering_30.jpg" title="reverse-engineering_30.jpg"
-
+      <img src="files/reverse-engineering_30.jpg" title="reverse-engineering_30.jpg"
         alt="reverse-engineering_30.jpg"><br>
       <br>
       Enter the project name, and then in <em>Target runtime</em>, select any version of <em>Java 1.8</em> or later installed, <em>JPA version 2.2</em>.<br>
-      <img src="files/reverse-engineering_40.jpg" title="reverse-engineering_40.jpg"
-
+      <img src="files/reverse-engineering_40.jpg" title="reverse-engineering_40.jpg"
         alt="reverse-engineering_40.jpg"><br>
       <br>
       Select <em>Next </em>twice until you see the next screen. Here, in <em>JPA implementation</em>, disable library configurations by choosing <em>Disable Library Configuration</em>. Then proceed to create the database connection with <em>Add Connection</em>.<em></em> <br>
-      <img src="files/reverse-engineering_50.jpg" title="reverse-engineering_50.jpg"
-
+      <img src="files/reverse-engineering_50.jpg" title="reverse-engineering_50.jpg"
         alt="reverse-engineering_50.jpg"><br>
       <br>
       In the window that appears, select the database you have. In our case, it will be MySQL. You can name the connection in the <em>Name </em>field.<em></em><br>
-      <img src="files/reverse-engineering_60.jpg" title="reverse-engineering_60.jpg"
-
+      <img src="files/reverse-engineering_60.jpg" title="reverse-engineering_60.jpg"
         alt="reverse-engineering_60.jpg"><br>
       <br>
       Here is where we choose the driver for the connection. Proceed to create a new one as shown in the image.<br>
-      <img src="files/reverse-engineering_70.jpg" title="reverse-engineering_70.jpg"
-
+      <img src="files/reverse-engineering_70.jpg" title="reverse-engineering_70.jpg"
         alt="reverse-engineering_70.jpg"><br>
       <br>
       Select <em>MySQL JDBC Driver 5.1</em>, name it for identificate<br>
-      <img src="files/reverse-engineering_80.jpg" title="reverse-engineering_80.jpg"
-
+      <img src="files/reverse-engineering_80.jpg" title="reverse-engineering_80.jpg"
         alt="reverse-engineering_80.jpg"><br>
       <br>
-      Now we have to remove the default driver by selecting <em>mysql-connector-java-5.1.0-bin.jar</em> and clicking <em>Remove JAR/Zip</em>. Now, add the newer one that you can download <a
-
+      Now we have to remove the default driver by selecting <em>mysql-connector-java-5.1.0-bin.jar</em> and clicking <em>Remove JAR/Zip</em>. Now, add the newer one that you can download <a
         href="https://dev.mysql.com/downloads/connector/j/?os=26">here</a>. Remember to download the ZIP option, and once downloaded, add it with <em>Add Jar/Zip</em>.<em></em><br>
-      <img src="files/reverse-engineering_90.jpg" title="reverse-engineering_90.jpg"
-
+      <img src="files/reverse-engineering_90.jpg" title="reverse-engineering_90.jpg"
         alt="reverse-engineering_90.jpg"><br>
       <br>
       It should look something like this; click <em>Ok</em>.<br>
-      <img src="files/reverse-engineering_100.jpg" title="reverse-engineering_100.jpg"
-
+      <img src="files/reverse-engineering_100.jpg" title="reverse-engineering_100.jpg"
         alt="reverse-engineering_100.jpg"><br>
       <br>
       It will take you back to the previous window, where you now need to fill in the details. In Database, you can use any name to differentiate it from other connections. In <em>URL</em>, put the database connection, and finally, fill in the database user and password. Once complete, you can test if the connection is correct with <em>Test Connection</em>. Then, check <em>Save password</em> and press <em>Finish</em>.<br>
-      <img src="files/reverse-engineering_110.jpg" title="reverse-engineering_110.jpg"
-
+      <img src="files/reverse-engineering_110.jpg" title="reverse-engineering_110.jpg"
         alt="reverse-engineering_110.jpg"><br>
       <br>
       Now, you will see the first window. Check the option <em>Override default schema from connection</em> and select the schema of the connection. Then press <em>Finish</em>. You now have the JPA project and the connection to your database created.<br>
-      <img src="files/reverse-engineering_120.jpg" title="reverse-engineering_120.jpg"
-
+      <img src="files/reverse-engineering_120.jpg" title="reverse-engineering_120.jpg"
         alt="reverse-engineering_120.jpg"><br>
       <br>
       Pressing <em>Finish </em>may prompt you to open a perspective. If not, you can view the connection in the <em>Data Source Explorer panel</em> under <em>Windows &gt; Show View &gt; Data Source Explorer</em>.<em></em> <br>
-      <img src="files/reverse-engineering_130.jpg" title="reverse-engineering_130.jpg"
-
+      <img src="files/reverse-engineering_130.jpg" title="reverse-engineering_130.jpg"
         alt="reverse-engineering_130.jpg"><br>
       <br>
       If it doesn't appear in <em>Show View</em>, you will need to add it manually from <em> Other</em>... by entering data source in the window that appears.<br>
-      <img src="files/reverse-engineering_140.jpg" title="reverse-engineering_140.jpg"
-
+      <img src="files/reverse-engineering_140.jpg" title="reverse-engineering_140.jpg"
         alt="reverse-engineering_140.jpg"><br>
       <br>
       Now, in the <em>Data Source Explorer</em> panel, you can see the connection to the database.<br>
-      <img src="files/reverse-engineering_150.jpg" title="reverse-engineering_150.jpg"
-
+      <img src="files/reverse-engineering_150.jpg" title="reverse-engineering_150.jpg"
         alt="reverse-engineering_150.jpg"><br>
       <br>
       <h2 id="toc1"><a name="Generate Entities from Tables in Eclipse"></a>Generate Entities from Tables in Eclipse</h2>
       The ultimate goal of this article is to generate entities from the tables of the database. Now that we have the connection, let's proceed with the generation. Right-click on the project and press <em>JPA Tools &gt; Generate Entities from Tables...</em> <br>
-      <img src="files/reverse-engineering_160.jpg" title="reverse-engineering_160.jpg"
-
+      <img src="files/reverse-engineering_160.jpg" title="reverse-engineering_160.jpg"
         alt="reverse-engineering_160.jpg"><br>
       <br>
       Here, you should select the tables for which you want to generate a class/entity. Let's select all except "<em>images</em>" and "<em>oxdiscussioncomments</em>," which are tables generated automatically by OpenXava.<br>
-      <img src="files/reverse-engineering_170.jpg" title="reverse-engineering_170.jpg"
-
+      <img src="files/reverse-engineering_170.jpg" title="reverse-engineering_170.jpg"
         alt="reverse-engineering_170.jpg"><br>
       <br>
       In this view, you see all the relationships between the tables it found. You can add or remove relationships as needed since these relationships will be converted into code for the generated class. Then, click <em>Next</em>.<em></em><br>
-      <img src="files/reverse-engineering_180.jpg" title="reverse-engineering_180.jpg"
-
+      <img src="files/reverse-engineering_180.jpg" title="reverse-engineering_180.jpg"
         alt="reverse-engineering_180.jpg"><br>
       <br>
       On this screen, you have various options to choose from. We'll leave everything as default and only change the <em>Collection properties type</em> to <em>java.util.List</em> and check the option <em>Always generate optional JPA annotations and DDL parameters</em>. Below in the <em>Package </em>field, you should enter it exactly as in OpenXava. In our case, it will be <em>com.yourcompany.invoicing.model</em>. Now, you can press <em>Next</em>.<em></em><br>
-      <img src="files/reverse-engineering_190.jpg" title="reverse-engineering_190.jpg"
-
+      <img src="files/reverse-engineering_190.jpg" title="reverse-engineering_190.jpg"
         alt="reverse-engineering_190.jpg"><br>
       <br>
       Here, you can explore table by table and adapt each property. For example, OpenXava doesn't work with TINYINT, BLOB, GEOMETRY, among others.<br>
-      <img src="files/reverse-engineering_200.jpg" title="reverse-engineering_200.jpg"
-
+      <img src="files/reverse-engineering_200.jpg" title="reverse-engineering_200.jpg"
         alt="reverse-engineering_200.jpg"><br>
       <br>
       When selecting a property, it allows you to change its name and type, as well as whether it is an id or not. Click <em>Finish </em>and wait for all the classes to be generated.<br>
-      <img src="files/reverse-engineering_210.jpg" title="reverse-engineering_210.jpg"
-
+      <img src="files/reverse-engineering_210.jpg" title="reverse-engineering_210.jpg"
         alt="reverse-engineering_210.jpg"><br>
       <br>
       The generated classes are located in the <em>src/main/java</em> folder, inside the <em>com.yourcompany.invoicing.model</em> package, as we defined above. Copy all of them and paste them into the <em>com.yourcompany.invoicing.model</em> package that you must create in the OpenXava project we created at the beginning of the article.<br>
-      <img src="files/reverse-engineering_215.jpg" title="reverse-engineering_215.jpg"
-
+      <img src="files/reverse-engineering_215.jpg" title="reverse-engineering_215.jpg"
         alt="reverse-engineering_215.jpg"><br>
       <br>
       <h2 id="toc1"><a name="Adapt Code for OpenXava"></a>Adapt Code for OpenXava</h2>
@@ -285,40 +262,32 @@ private Category category;<br><br>//comment or remove the relationship with Invo
       <br>
       <h2 id="toc1"><a name="Run the Application"></a>Run the Application</h2>
       Click on the <i>Run</i> button: <br>
-      <img src="files/getting-started_en150.png" alt="getting-started_en150.png"
-
+      <img src="files/getting-started_en150.png" alt="getting-started_en150.png"
         title="getting-started_en150.png">
       <div class="wiki" style="display: block;">Wait until the console shows a message saying "Application started", like this:</div>
-      <div class="wiki" style="display: block;"><img src="files/getting-started_en155.png"
-
+      <div class="wiki" style="display: block;"><img src="files/getting-started_en155.png"
           alt="getting-started_en155.png" title="getting-started_en155.png"> </div>
       <div class="wiki" style="display: block;">Then your application is already running. To check this, open your favorite browser (Chrome, Firefox, Edge or Safari) and go to the next URL:</div>
       <div class="wiki" style="display: block;"><br>
         <code><i> </i></code></div>
-      <div class="wiki" style="display: block;"><code><i>&nbsp;&nbsp;&nbsp; <a
-
+      <div class="wiki" style="display: block;"><code><i>&nbsp;&nbsp;&nbsp; <a
               href="http://localhost:8080/invoicing" target="_blank">http://localhost:8080/invoicing</a></i></code><br>
       </div>
       <div class="wiki" style="display: block;"><br>
       </div>
       <div class="wiki" style="display: block;">You get your application running for the first time. To start click on SIGN IN button<br>
-        <img src="files/getting-started_en160.png" alt="getting-started_en160.png"
-
+        <img src="files/getting-started_en160.png" alt="getting-started_en160.png"
           title="getting-started_en160.png"></div>
       <div class="wiki" style="display: block;">Now, enter admin/admin and click on SIGN IN:</div>
       <img src="files/getting-started_en165.png" alt="Sign In page"><br>
       <br>
-      On the left is the module panel; currently, we are in the <em>invoices </em>module where the properties of the <em>Invoice </em>entity are displayed first. In the middle, the <em>@ManyToOne</em> relationship with <em>customer </em>is displayed, and finally, there is the collection of <em>invoiceDetails</em>. You will notice that one of the features of OpenXava is being able to provide a different way of visualizing the property depending on its annotations. For more information, you can follow the <a
-
+      On the left is the module panel; currently, we are in the <em>invoices </em>module where the properties of the <em>Invoice </em>entity are displayed first. In the middle, the <em>@ManyToOne</em> relationship with <em>customer </em>is displayed, and finally, there is the collection of <em>invoiceDetails</em>. You will notice that one of the features of OpenXava is being able to provide a different way of visualizing the property depending on its annotations. For more information, you can follow the <a
         href="https://openxava.org/OpenXavaDoc/docs/course_en.html">OpenXava course</a>.<br>
-      <img src="files/reverse-engineering_220.jpg" title="reverse-engineering_220.jpg"
-
+      <img src="files/reverse-engineering_220.jpg" title="reverse-engineering_220.jpg"
         alt="reverse-engineering_220.jpg"><br>
       <br>
-      <strong>Any problem with the tutorial? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-
-          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?</strong><strong> <a
-
+      <strong>Any problem with the tutorial? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine?</strong><strong> <a
           class="wiki_link" href="https://openxava.org/OpenXavaDoc/docs/index_en.html">Continue with OpenXava course</a><br>
       </strong><br>
     </div>
