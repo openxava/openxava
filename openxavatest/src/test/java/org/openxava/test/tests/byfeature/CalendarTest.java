@@ -375,9 +375,4 @@ public class CalendarTest extends WebDriverTestBase {
 		waitCalendarEvent(driver);
 	}
 	
-	private boolean isElementInside(WebDriver driver, String parentElementId, String childElementId) {
-		WebElement parentElement = driver.findElement(By.id(parentElementId));
-		WebElement childElement = parentElement.findElement(By.id(childElementId));
-		return (childElement != null);
-	}
 }
