@@ -283,7 +283,7 @@ public class CalendarTest extends WebDriverTestBase {
 			WebElement firstIconElement = iconElements.get(1);
 			firstIconElement.click();
 		}
-		List<WebElement> spanElements = getDriver().findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day ' and text()='2']"));
+		List<WebElement> spanElements = getDriver().findElements(By.xpath("//div[@class='dayContainer']//span[contains(@class, 'flatpickr-day') and not(contains(@class, 'nextMonthDay')) and text()='2']"));
 		if (!spanElements.isEmpty()) {
 			WebElement spanElement = spanElements.get(1);
 			spanElement.click();
