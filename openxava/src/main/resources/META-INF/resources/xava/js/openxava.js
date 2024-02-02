@@ -2,7 +2,8 @@ if (openxava == null) var openxava = {};
 if (openxava.browser == null) openxava.browser = {};
 
 openxava.deselected = [];
-openxava.loadedScripts = []; 
+openxava.loadedScripts = [];
+openxava.calculations = {};  
 
 openxava.init = function(application, module, initUI) { 
 	openxava.initWindowId(); 
@@ -190,8 +191,8 @@ openxava.refreshPage = function(result) {
 	openxava.dataChanged = result.dataChanged; 
 	$('#xava_loading').hide();
 	$('#xava_loading2').hide();
-	if (result.postJS != null) {
-		eval(result.postJS);
+	if (result.hasPostJS) {
+		openxava.postJS();
 	}
 	document.body.style.cursor='auto';
 	if (openxava.postRefreshPage != null) openxava.postRefreshPage(); 
@@ -1060,9 +1061,8 @@ openxava.throwPropertyChanged = function(application, module, property) {
 }
 
 openxava.calculate = function(application, module, propertyId, scale) {
-	var calculation = $('#' + propertyId + "_CALCULATION_").val();
-	if (calculation == null) return;
-	var value = eval(calculation).toFixed(scale).replace(".", openxava.decimalSeparator);
+	var value = openxava.calculations[propertyId](application, module);
+	value = value.toFixed(scale).replace(".", openxava.decimalSeparator);
 	$('#' + propertyId).val(value);
 	$('#' + propertyId).blur(); 	
 	$('#' + propertyId).change(); 

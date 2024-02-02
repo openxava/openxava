@@ -285,7 +285,7 @@ public class Module extends DWRBase {
 	private void fillResult(Result result, Map values, Map multipleValues, String[] selected, String[] deselected, String additionalParameters) throws Exception {
 		Map changedParts = result.getChangedParts();
 		View view = getView();
-		result.setPostJS((String) request.getAttribute("xava.postjs")); 
+		setPostJS(result); 
 		view.resetCollectionsCache();
 
 		if (manager.isShowDialog() || manager.isHideDialog() || firstRequest) {
@@ -332,6 +332,22 @@ public class Module extends DWRBase {
 		if (result.isHideDialog()) result.setFocusPropertyId(null); // To avoid scrolling to the beginning of the page on closing a dialog, something ugly in long pages working on the bottom part.
 	}
 
+
+	private void setPostJS(Result result) { 
+		String postJS = (String) request.getAttribute("xava.postjs");
+		if (Is.emptyString(postJS)) return;
+		Map changedParts = result.getChangedParts();
+		StringBuffer script = new StringBuffer();
+		script.append("<script type='text/javascript' nonce='"); 
+		script.append(Nonces.get(request));
+		script.append("'>");
+		script.append("openxava.postJS=function(application, module) {");
+		script.append(postJS);
+		script.append("}");
+		script.append("</script>");
+		result.setHasPostJS(true); 
+		changedParts.put(decorateId("postjs"), script.toString());
+	}
 
 	private void fillPropertiesUsedInCalculationsFromSumCollectionProperties(Collection<String> propertiesUsedInCalculations, Map<String, View> changedCollectionsTotals) { 
 		if (manager.isFormUpload()) return;  
