@@ -311,6 +311,7 @@ public class Calendar extends DWRBase {
 
 	private void setDatesProperty() {
 		List<MetaProperty> mp = new ArrayList<>(tab.getMetaTab().getMetaModel().getMetaProperties());
+		System.out.println(mp);
 		List<String> calculatedProperties = new ArrayList<>(
 				tab.getMetaTab().getMetaModel().getCalculatedPropertiesNames());
 		int mpCount = 0;

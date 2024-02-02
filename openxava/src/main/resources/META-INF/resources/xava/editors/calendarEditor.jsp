@@ -4,6 +4,7 @@
 <%@ page import="java.util.Collection"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.Arrays"%>
 <%@ page import="org.openxava.web.dwr.Calendar"%>
     
 <%@ page import="org.openxava.view.View"%>
@@ -17,6 +18,11 @@
 <% 
 ModuleManager manager = (ModuleManager) context.get(request, "manager", "org.openxava.controller.ModuleManager");
 View view = (View) context.get(request, "xava_view");
+List<MetaProperty> metaPropertiesList = new ArrayList<>(view.getMetaPropertiesList());
+List<String> datesProperties = Arrays.asList(
+            "java.util.Date", "java.time.LocalDateTime", "java.sql.Timestamp", "java.time.LocalDate", 
+			"java.util.Date", "java.sql.Date", "java.time.LocalDateTime", "java.sql.Timestamp");
+String choosedDate = "";
 String contextPath = (String) request.getAttribute("xava.contextPath");
 if (contextPath == null) contextPath = request.getContextPath();
 String version = org.openxava.controller.ModuleManager.getVersion();
@@ -44,6 +50,20 @@ if (dateFormat != null) {
 				           .replace("Y", "yyyy");
 }
 %>
+
+<select class="xava_list_date" name='<xava:id name="listConfigurations"/>' title="<%=choosedDate%>">
+	<option value=""><%=choosedDate%></option>
+	<% 
+	for (MetaProperty mp : metaPropertiesList){
+		if (datesProperties.contains(mp.getTypeName())) {
+		%>
+			<option value="<%=mp.getQualifiedName()%>"><%=mp.getLabel()%></option>
+		<% 
+		}
+	}
+	%>
+</select>
+
 <div>
     <input type="hidden" id="xava_calendar_module" value="<%=request.getParameter("module")%>">
     <input type="hidden" id="xava_calendar_application" value="<%=request.getParameter("application")%>">
