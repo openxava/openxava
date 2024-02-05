@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Drag & drop support for calendar list format.
 - Removed the use of eval() completely from OpenXava JavaScript code.
 - AS/400 connection documentation improved to cover performance problems in Windows Server.
 - The width of the calendar in list mode dynamically adjusts to occupy the entire available space.
