@@ -2,10 +2,9 @@ Change Log for OpenXava project
 ===============================
 
 - Reverse engineering documentation includes video.
-- Removed the use of eval() from @Calculation implementation.
-- Removed the use of eval() in calendar list format.
+- Drag & drop support for calendar list format.
+- Removed the use of eval() completely from OpenXava JavaScript code.
 - AS/400 connection documentation improved to cover performance problems in Windows Server.
-- Removed the use of eval() in @DescriptionsList editor.
 - The width of the calendar in list mode dynamically adjusts to occupy the entire available space.
 
 OpenXava 7.2.3 (2024-1-26)

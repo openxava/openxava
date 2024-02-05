@@ -2,8 +2,6 @@ package org.openxava.web.dwr;
 
 import java.util.*;
 
-import org.apache.commons.lang.*;
-
 /**
  * 
  * @author Javier Paniza
@@ -34,7 +32,7 @@ public class Result {
 	private String urlParam;  
 	private String [] propertiesUsedInCalculations;
 	private boolean viewSimple; 
-	private String postJS;
+	private boolean hasPostJS = false; 
 	private String [] editorsWithError; 
 	private String [] editorsWithoutError; 
 	private boolean dataChanged;  
@@ -222,14 +220,6 @@ public class Result {
 		this.viewSimple = viewSimple;
 	}
 
-	public String getPostJS() {
-		return postJS;
-	}
-
-	public void setPostJS(String postJS) {
-		this.postJS = postJS;
-	}
-
 	public String [] getEditorsWithError() {
 		return editorsWithError;
 	}
@@ -254,6 +244,14 @@ public class Result {
 	/** @since 6.3 */
 	public void setDataChanged(boolean changed) {
 		this.dataChanged = changed;
+	}
+
+	public boolean isHasPostJS() {
+		return hasPostJS;
+	}
+
+	public void setHasPostJS(boolean hasPostJS) {
+		this.hasPostJS = hasPostJS;
 	}
 	
 }

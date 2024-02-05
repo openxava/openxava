@@ -191,8 +191,8 @@ openxava.refreshPage = function(result) {
 	openxava.dataChanged = result.dataChanged; 
 	$('#xava_loading').hide();
 	$('#xava_loading2').hide();
-	if (result.postJS != null) {
-		eval(result.postJS);
+	if (result.hasPostJS) {
+		openxava.postJS();
 	}
 	document.body.style.cursor='auto';
 	if (openxava.postRefreshPage != null) openxava.postRefreshPage(); 
