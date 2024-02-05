@@ -5,7 +5,6 @@ import java.text.*;
 import java.time.*;
 import java.time.format.*;
 import java.util.*;
-import java.util.prefs.*;
 
 import javax.servlet.http.*;
 import javax.swing.table.*;
@@ -69,7 +68,7 @@ public class Calendar extends DWRBase {
 	private List<String> datesList = new ArrayList<>();
 
 	public String getEvents(HttpServletRequest request, HttpServletResponse response, String application, String module,
-			String monthYear) throws Exception {
+			String monthYear, String dateName) throws Exception {
 		try {
 			initRequest(request, response, application, module);
 			this.application = application;
@@ -132,17 +131,17 @@ public class Calendar extends DWRBase {
 
 	}
 	
-	public void changeDateProperty(HttpServletRequest request, HttpServletResponse response, String application, String module,
-			String dateName) throws BackingStoreException {
+	public String changeDateProperty(HttpServletRequest request, HttpServletResponse response, String application, String module,
+			String dateName, String dateLabel) throws Exception {
 		try {
 			initRequest(request, response, application, module);
-			view = getView(request, application, module);
-			MetaProperty metaProperty = view.getMetaModel().getMetaProperty(dateName);
-			Preferences preferences = Users.getCurrentPreferences();
-			System.out.println(metaProperty.getLabel());
-			preferences.put("fecha", metaProperty.getLabel());
-			Tab tab = getTab(request, application, module, "xava_tab").getPreferencesNodeName(dateName);
-			
+			System.out.println(1);
+			Tab tab = getTab(request, application, module, "xava_tab");
+			String prefNodeName = tab.getPreferencesNodeName("datePref.");
+			System.out.println(prefNodeName);
+			String result = getEvents(request, response, application, module,
+					"", dateName);
+			return result;
 		} finally {
 			XPersistence.commit();
 			cleanRequest();
@@ -252,6 +251,8 @@ public class Calendar extends DWRBase {
 				}
 			}
 		}
+		System.out.println("obtainRowsDate");
+		System.out.println(result);
 		return result;
 	}
 
@@ -329,7 +330,6 @@ public class Calendar extends DWRBase {
 
 	private void setDatesProperty() {
 		List<MetaProperty> mp = new ArrayList<>(tab.getMetaTab().getMetaModel().getMetaProperties());
-		System.out.println(mp);
 		List<String> calculatedProperties = new ArrayList<>(
 				tab.getMetaTab().getMetaModel().getCalculatedPropertiesNames());
 		int mpCount = 0;

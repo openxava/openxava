@@ -9,6 +9,7 @@
 <%@ page import="java.util.prefs.Preferences" %>
 <%@ page import="org.openxava.util.Users" %>
 <%@ page import="org.openxava.view.View"%>
+<%@ page import="org.openxava.tab.Tab" %>
 <%@ page import="org.openxava.controller.ModuleManager" %>
 <%@ page import="org.openxava.controller.meta.MetaControllers"%>
 <%@ page import="org.openxava.controller.meta.MetaAction"%>
@@ -19,8 +20,11 @@
 <% 
 ModuleManager manager = (ModuleManager) context.get(request, "manager", "org.openxava.controller.ModuleManager");
 View view = (View) context.get(request, "xava_view");
+if (view != null) System.out.println(view.getMetaProperties());
+Tab tab = (Tab) context.get(request, "xava_tab");
+String prefNodeName = tab.getPreferencesNodeName("datePref.");
 Preferences preferences = Users.getCurrentPreferences();
-String datePref = preferences.get("fecha","");
+String datePref = preferences.get(prefNodeName,"");
 List<MetaProperty> metaPropertiesList = new ArrayList<>(view.getMetaPropertiesList());
 List<String> datesProperties = Arrays.asList(
             "java.util.Date", "java.time.LocalDateTime", "java.sql.Timestamp", "java.time.LocalDate", 
