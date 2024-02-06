@@ -34,7 +34,9 @@ openxava.addEditorInitFunction(function() {
 
         calendarEditor.listEvents = [];
         calendarEditor.requesting = true;
-        Calendar.getEvents(application, module, "", "", calendarEditor.setEvents);
+		var selectedOption = $('.xava_list_date').find('option:selected');
+		var selectedValue = selectedOption.val();
+        Calendar.getEvents(application, module, "", selectedValue, calendarEditor.setEvents);
 
         $("#xava_calendar").ready(function() {
             calendarEditor.calendarEl = $('#xava_calendar')[0];

@@ -29,6 +29,14 @@ List<String> datesProperties = Arrays.asList(
             "java.util.Date", "java.time.LocalDateTime", "java.sql.Timestamp", "java.time.LocalDate", 
 			"java.util.Date", "java.sql.Date", "java.time.LocalDateTime", "java.sql.Timestamp");
 List<String> calculatedProperties = new ArrayList<>(tab.getMetaTab().getMetaModel().getCalculatedPropertiesNames());
+List<MetaProperty> datePropertyList = new ArrayList<>();
+for (MetaProperty mp : metaPropertiesList) {
+    if (datesProperties.contains(mp.getTypeName()) 
+        && !calculatedProperties.contains(mp.getName()) 
+        && !mp.getLabel().equals(datePref)) {
+        datePropertyList.add(mp);
+    }
+}
 String contextPath = (String) request.getAttribute("xava.contextPath");
 if (contextPath == null) contextPath = request.getContextPath();
 String version = org.openxava.controller.ModuleManager.getVersion();
@@ -60,9 +68,10 @@ if (dateFormat != null) {
 <div class="ox-layout-detail ox-layout-calendar">
 	<div class="ox-layout-aligned-cell ox-label">Filtrar por</div>
     <select class="xava_list_date" id="listConfigurations" name="listConfigurations" title="<%=datePref%>">
-        <option value=""><%=datePref%></option>
+        <option value="<%= datePref.isEmpty() ? datePropertyList.get(0).getSimpleName() : "" %>"><%= datePref.isEmpty() ? datePropertyList.get(0).getLabel() : datePref %></option>
         <% 
-        for (MetaProperty mp : metaPropertiesList){
+        for (int i = datePref.isEmpty() ? 1 : 0; i < datePropertyList.size(); i++) {
+			MetaProperty mp = datePropertyList.get(i);
             if (datesProperties.contains(mp.getTypeName()) && !calculatedProperties.contains(mp.getName()) && !mp.getLabel().equals(datePref)) {
         %>
             <option value="<%=mp.getSimpleName()%>"><%=mp.getLabel()%></option>

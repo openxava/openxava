@@ -366,7 +366,8 @@ public class Calendar extends DWRBase {
 	    if (!dateSimpleName.isEmpty()) {
 	        setDatesPropertyFromSimpleName(dateSimpleName);
 	    } else {
-	        setDatesPropertyFromMetaProperties();
+	    	System.out.println("ELSE");
+	        //setDatesPropertyFromMetaProperties();
 	    }
 	}
 /*
@@ -544,7 +545,7 @@ public class Calendar extends DWRBase {
 	    dateName = metaProperty.getName();
 	    processDateProperty(metaProperty);
 	}
-
+/*
 	private void setDatesPropertyFromMetaProperties() {
 		System.out.println("setDatesPropertyFromMetaProperties1");
 	    List<MetaProperty> metaProperties = new ArrayList<>(tab.getMetaTab().getMetaModel().getMetaProperties());
@@ -566,7 +567,7 @@ public class Calendar extends DWRBase {
 	    }
 	    System.out.println(4);
 	    datesList.sort(Comparator.comparingInt(sortedProperties::indexOf));
-	}
+	}*/
 	
 	private void processDateProperty(MetaProperty metaProperty) {
 		System.out.println("processDateProperty");
