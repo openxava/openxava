@@ -56,8 +56,8 @@ if (dateFormat != null) {
 }
 %>
 
-<div>
-    Filtrar por:
+<div class="ox-layout-detail ox-layout-calendar">
+	<div class="ox-layout-aligned-cell ox-label">Filtrar por</div>
     <select class="xava_list_date" id="listConfigurations" name="listConfigurations" title="<%=datePref%>">
         <option value=""><%=datePref%></option>
         <% 
