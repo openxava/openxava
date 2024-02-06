@@ -115,13 +115,16 @@ public class EditorTag extends TagSupport {
 			pageContext.getOut().print(editable);
 			pageContext.getOut().println("'/>");
 			if (metaProperty.hasCalculation()) { 
-				String calculationKey = propertyKey + "_CALCULATION_";
-				String collectionPrefix = inElementCollection?getCollectionPrefix():""; 
-				pageContext.getOut().print("<input type='hidden' id='"); 
-				pageContext.getOut().print(calculationKey);
-				pageContext.getOut().print("' value=\"");
+				String collectionPrefix = inElementCollection?getCollectionPrefix():"";
+				pageContext.getOut().print("<script type='text/javascript' nonce='"); 
+				pageContext.getOut().print(Nonces.get(request));
+				pageContext.getOut().print("'>");
+				pageContext.getOut().print("openxava.calculations.");
+				pageContext.getOut().print(propertyKey);
+				pageContext.getOut().print("=function(application, module) {");
 				pageContext.getOut().print(toJavaScriptExpression(metaProperty, collectionPrefix));
-				pageContext.getOut().println("\"/>");
+				pageContext.getOut().print("}");
+			    pageContext.getOut().print("</script>");
 			}			
 			if (org.openxava.web.WebEditors.hasMultipleValuesFormatter(metaProperty, viewName)) { 
 				pageContext.getOut().print("<input type='hidden' name='");
@@ -178,6 +181,7 @@ public class EditorTag extends TagSupport {
     		expression.append(collectionPrefix + property); 
     		expression.append("');");
 	    }
+	    expression.append("return "); 
 	    expression.append(
 	    	metaProperty.getCalculation() 
     		.replaceAll("[Ss][Uu][Mm]\\((.*)\\)", "$1_SUM_")

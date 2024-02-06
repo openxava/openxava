@@ -40,12 +40,11 @@ openxava.addEditorInitFunction(function() {
             calendarEditor.calendarEl = $('#xava_calendar')[0];
             calendarEditor.calendar = new FullCalendar.Calendar(calendarEditor.calendarEl, {
                 initialView: 'dayGridMonth',
-                editable: true,
+                eventStartEditable: true,
                 locale: navigator.language,
                 displayEventTime: true,
                 events: calendarEditor.listEvents,
 				dayMaxEventRows: true,
-                editable: true,
                 progressiveEventRendering: true,
 				eventColor: 'var(--color)',
 				defaultTimedEventDuration: '00:30',
@@ -127,6 +126,9 @@ openxava.addEditorInitFunction(function() {
 				eventMouseLeave: function(info) {
 					$(info.el).css('z-index', 8);
 					$('.fc-event-tooltip').remove();
+				},
+				eventDrop: function(e) {
+					Calendar.dragAndDrop(application, module, e.event.extendedProps.key, reformatDate(e.event.startStr), e.event.extendedProps.startName);
 				}
             });
             calendarEditor.calendar.render();

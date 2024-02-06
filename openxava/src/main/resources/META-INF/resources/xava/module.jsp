@@ -256,6 +256,9 @@ if (manager.isResetFormPostNeeded()) {
 <% } else  { 		
 %>
 
+<span id='<xava:id name="postjs"/>'>
+</span>
+
 <script type="text/javascript" <xava:nonce/>> 
 <%String prefix = Strings.change(manager.getApplicationName(), "-",
 					"_")

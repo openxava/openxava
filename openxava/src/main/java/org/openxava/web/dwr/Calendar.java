@@ -7,6 +7,7 @@ import java.time.format.*;
 import java.util.*;
 import java.util.prefs.*;
 
+import javax.ejb.*;
 import javax.servlet.http.*;
 import javax.swing.table.*;
 
@@ -15,13 +16,13 @@ import org.json.*;
 import org.openxava.filters.*;
 import org.openxava.formatters.*;
 import org.openxava.jpa.*;
+import org.openxava.model.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.Tab;
 import org.openxava.util.*;
+import org.openxava.validators.*;
 import org.openxava.view.View;
 import org.openxava.web.*;
-
-import lombok.*;
 
 /**
  * 
@@ -29,8 +30,6 @@ import lombok.*;
  * @author Chungyen Tsai
  */
 
-@Getter // We should remove the @Getter and @Setter and use it
-@Setter // at field level if need, so we don't expose the inner state.
 public class Calendar extends DWRBase {
 
 	private static Log log = LogFactory.getLog(Calendar.class);
@@ -67,6 +66,10 @@ public class Calendar extends DWRBase {
 	private int properties1ListSize = 0;
 	private int properties2ListSize = 0;
 	private List<String> datesList = new ArrayList<>();
+	private List<String> dateWithTimeList = Arrays.asList("java.util.Date", "java.time.LocalDateTime",
+			"java.sql.Timestamp");
+	private List<String> acceptedDateTypes = Arrays.asList("java.time.LocalDate", "java.util.Date", "java.sql.Date",
+			"java.time.LocalDateTime", "java.sql.Timestamp");
 
 	public String getEvents(HttpServletRequest request, HttpServletResponse response, String application, String module,
 			String monthYear, String dateSimpleName) throws Exception {
@@ -123,13 +126,10 @@ public class Calendar extends DWRBase {
 				jsonArray.put(nullJson);
 			}
 			return jsonArray.toString();
-		} catch (Exception e) { // This catch code is redundant, we should remove it
-			throw e;
 		} finally {
 			XPersistence.commit();
 			cleanRequest();
 		}
-
 	}
 	
 	public String changeDateProperty(HttpServletRequest request, HttpServletResponse response, String application, String module,
@@ -145,6 +145,37 @@ public class Calendar extends DWRBase {
 			String result = getEvents(request, response, application, module,
 					monthYear, dateSimpleName);
 			return result;
+		} finally {
+			XPersistence.commit();
+			cleanRequest();
+		}
+	}
+
+	public void dragAndDrop(HttpServletRequest request, HttpServletResponse response, String application, String module,
+			String calendarKey, String dropDate, String dropDateString) throws ObjectNotFoundException, ValidationException, XavaException, SystemException, FinderException, ParseException {
+		try {
+			initRequest(request, response, application, module);
+			View view = getView(request, application, module);
+			MetaModel metaModel = view.getMetaModel();
+			String[] calendarKeys = calendarKey.split("_");
+			Map key = new HashMap<>();
+			Map newDate = new HashMap<>();
+			List<String> allKeyPropertiesNames = new ArrayList<>(metaModel.getAllKeyPropertiesNames());
+			List<MetaProperty> sortedMPKeys = orderBy(metaModel.getAllMetaPropertiesKey(), allKeyPropertiesNames);
+			for (int i = 0; i < calendarKeys.length; i++) {
+				MetaProperty property = sortedMPKeys.get(i);
+				Object keyObject = property.parse(calendarKeys[i]);
+				key.put(allKeyPropertiesNames.get(i).toString(), keyObject);
+			}
+			MetaProperty metaProperty = metaModel.getMetaProperty(dropDateString); //for more than 1 date, have to loop
+			if (isDateWithTime(metaProperty)) {
+				DateTimeCombinedFormatter dtf = new DateTimeCombinedFormatter();
+				newDate.put(dropDateString, dtf.parse(request, dropDate)); 
+			} else {
+				DateFormatter df = new DateFormatter();
+				newDate.put(dropDateString, df.parse(request, dropDate)); 
+			}
+			MapFacade.setValues(view.getModelName(), key, newDate);
 		} finally {
 			XPersistence.commit();
 			cleanRequest();
@@ -336,10 +367,6 @@ public class Calendar extends DWRBase {
 		List<String> calculatedProperties = new ArrayList<>(
 				tab.getMetaTab().getMetaModel().getCalculatedPropertiesNames());
 		int mpCount = 0;
-		List<String> dateWithTimeList = Arrays.asList("java.util.Date", "java.time.LocalDateTime",
-				"java.sql.Timestamp");
-		List<String> acceptedDateTypes = Arrays.asList("java.time.LocalDate", "java.util.Date", "java.sql.Date",
-				"java.time.LocalDateTime", "java.sql.Timestamp");
 		List<String> sortedProperties = tab.getMetaTab().getMetaModel().getPropertiesNames();
 		MetaProperty metaProperty = new MetaProperty();
 		if (!dateSimpleName.isEmpty()) {
@@ -479,6 +506,24 @@ public class Calendar extends DWRBase {
 					: DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			return withTime ? ((LocalDateTime) date).format(formatter) : ((LocalDate) date).format(formatter);
 		}
+	}
+	
+	private List<MetaProperty> orderBy (List<MetaProperty> metaProperties , List<String> keyPropertiesNames) {
+		List<MetaProperty> l = new ArrayList<>();
+		for (int i = 0; i < keyPropertiesNames.size(); i++) {
+			for (int j = 0; j < metaProperties.size(); j++) {
+				if (metaProperties.get(j).getName().equals(keyPropertiesNames.get(i))) {
+					l.add(metaProperties.get(j));
+					break;
+				}
+			}
+		}
+		return l;
+	}
+	
+	private boolean isDateWithTime(MetaProperty property) {
+		dateWithTime = dateWithTimeList.contains(property.getTypeName()) ? true : false;
+		return dateWithTime;
 	}
 
 }
