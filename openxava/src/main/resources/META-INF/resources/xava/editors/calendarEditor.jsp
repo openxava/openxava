@@ -20,7 +20,6 @@
 <% 
 ModuleManager manager = (ModuleManager) context.get(request, "manager", "org.openxava.controller.ModuleManager");
 View view = (View) context.get(request, "xava_view");
-if (view != null) System.out.println(view.getMetaProperties());
 Tab tab = (Tab) context.get(request, "xava_tab");
 String prefNodeName = tab.getPreferencesNodeName("datePref.");
 Preferences preferences = Users.getCurrentPreferences();
@@ -57,18 +56,21 @@ if (dateFormat != null) {
 }
 %>
 
-<select class="xava_list_date" name='<xava:id name="listConfigurations"/>' title="<%=datePref%>">
-	<option value=""><%=datePref%></option>
-	<% 
-	for (MetaProperty mp : metaPropertiesList){
-		if (datesProperties.contains(mp.getTypeName())) {
-		%>
-			<option value="<%=mp.getQualifiedName()%>"><%=mp.getLabel()%></option>
-		<% 
-		}
-	}
-	%>
-</select>
+<div>
+    Filtrar por:
+    <select class="xava_list_date" id="listConfigurations" name="listConfigurations" title="<%=datePref%>">
+        <option value=""><%=datePref%></option>
+        <% 
+        for (MetaProperty mp : metaPropertiesList){
+            if (datesProperties.contains(mp.getTypeName()) && !mp.getLabel().equals(datePref)) {
+        %>
+            <option value="<%=mp.getSimpleName()%>"><%=mp.getLabel()%></option>
+        <% 
+            }
+        }
+        %>
+    </select>
+</div>
 
 <div>
     <input type="hidden" id="xava_calendar_module" value="<%=request.getParameter("module")%>">
