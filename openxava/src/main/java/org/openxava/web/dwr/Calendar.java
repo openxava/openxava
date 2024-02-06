@@ -101,6 +101,7 @@ public class Calendar extends DWRBase {
 			this.table = tab.getAllDataTableModel();
 			int tableSize = 0;
 			JSONArray jsonArray = new JSONArray();
+			System.out.println(tab.getPropertiesNamesAsString()); 
 			tableSize = tab.getTableModel().getTotalSize();
 
 			if (tableSize > 0) {
@@ -141,7 +142,7 @@ public class Calendar extends DWRBase {
 			String prefNodeName = tab.getPreferencesNodeName("datePref.");
 			System.out.println(prefNodeName);
 			Preferences preferences = Users.getCurrentPreferences();
-			preferences.put(prefNodeName,"");
+			preferences.put(prefNodeName, dateLabel);
 			String result = getEvents(request, response, application, module,
 					monthYear, dateSimpleName);
 			return result;
@@ -385,6 +386,13 @@ public class Calendar extends DWRBase {
 						dateName = metaProperty.getName();
 					mpCount++;
 				}
+//				dateWithTime = dateWithTimeList.contains(metaProperty.getTypeName()) ? true : false;
+//				String className = metaProperty.getTypeName();
+//				if (className.startsWith("java.util.") || className.startsWith("java.sql.")) {
+//					oldLib = true;
+//				} else if (className.startsWith("java.time.")) {
+//					oldLib = false;
+//				}
 			}
 		}
 		dateWithTime = dateWithTimeList.contains(metaProperty.getTypeName()) ? true : false;
@@ -454,6 +462,8 @@ public class Calendar extends DWRBase {
 			tab.clearProperties();
 			tab.addProperties(newTabColumn);
 		}
+		System.out.println(tab.getPropertiesNamesAsString());
+		System.out.println("---");
 		return tab;
 	}
 
