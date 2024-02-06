@@ -28,6 +28,7 @@ List<MetaProperty> metaPropertiesList = new ArrayList<>(view.getMetaPropertiesLi
 List<String> datesProperties = Arrays.asList(
             "java.util.Date", "java.time.LocalDateTime", "java.sql.Timestamp", "java.time.LocalDate", 
 			"java.util.Date", "java.sql.Date", "java.time.LocalDateTime", "java.sql.Timestamp");
+List<String> calculatedProperties = new ArrayList<>(tab.getMetaTab().getMetaModel().getCalculatedPropertiesNames());
 String contextPath = (String) request.getAttribute("xava.contextPath");
 if (contextPath == null) contextPath = request.getContextPath();
 String version = org.openxava.controller.ModuleManager.getVersion();
@@ -62,7 +63,7 @@ if (dateFormat != null) {
         <option value=""><%=datePref%></option>
         <% 
         for (MetaProperty mp : metaPropertiesList){
-            if (datesProperties.contains(mp.getTypeName()) && !mp.getLabel().equals(datePref)) {
+            if (datesProperties.contains(mp.getTypeName()) && !calculatedProperties.contains(mp.getName()) && !mp.getLabel().equals(datePref)) {
         %>
             <option value="<%=mp.getSimpleName()%>"><%=mp.getLabel()%></option>
         <% 

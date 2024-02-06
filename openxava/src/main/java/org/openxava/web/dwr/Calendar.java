@@ -30,6 +30,7 @@ import org.openxava.web.*;
  * @author Chungyen Tsai
  */
 
+ // at field level if need, so we don't expose the inner state.
 public class Calendar extends DWRBase {
 
 	private static Log log = LogFactory.getLog(Calendar.class);
@@ -101,7 +102,6 @@ public class Calendar extends DWRBase {
 			this.table = tab.getAllDataTableModel();
 			int tableSize = 0;
 			JSONArray jsonArray = new JSONArray();
-			System.out.println(tab.getPropertiesNamesAsString()); 
 			tableSize = tab.getTableModel().getTotalSize();
 
 			if (tableSize > 0) {
@@ -286,8 +286,6 @@ public class Calendar extends DWRBase {
 				}
 			}
 		}
-		System.out.println("obtainRowsDate");
-		System.out.println(result);
 		return result;
 	}
 
@@ -362,51 +360,56 @@ public class Calendar extends DWRBase {
 		}
 		return booleanFormatter;
 	}
-
+	
 	private void setDatesProperty(String dateSimpleName) {
+		System.out.println("setDatesProperty");
+	    if (!dateSimpleName.isEmpty()) {
+	        setDatesPropertyFromSimpleName(dateSimpleName);
+	    } else {
+	        setDatesPropertyFromMetaProperties();
+	    }
+	}
+/*
+	private void setDatesProperty(String dateSimpleName) {
+		MetaProperty metaProperty = new MetaProperty();
+		if (!dateSimpleName.isEmpty()) {
+			System.out.println(calculatedProperties);  
+			System.out.println("no empty" + dateSimpleName);
+			metaProperty = tab.getMetaTab().getMetaModel().getMetaProperty(dateSimpleName);
+			datesList.add(metaProperty.getName());
+			dateName = metaProperty.getName();
+			dateWithTime = isDateWithTime(metaProperty);
+			String className = metaProperty.getTypeName();
+			if (className.startsWith("java.util.") || className.startsWith("java.sql.")) {
+				oldLib = true;
+			} else if (className.startsWith("java.time.")) {
+				oldLib = false;
+			}
+		} else {
 		List<MetaProperty> mp = new ArrayList<>(tab.getMetaTab().getMetaModel().getMetaProperties());
 		List<String> calculatedProperties = new ArrayList<>(
 				tab.getMetaTab().getMetaModel().getCalculatedPropertiesNames());
 		int mpCount = 0;
 		List<String> sortedProperties = tab.getMetaTab().getMetaModel().getPropertiesNames();
-		MetaProperty metaProperty = new MetaProperty();
-		if (!dateSimpleName.isEmpty()) {
-			System.out.println("no empty" + dateSimpleName);
-			metaProperty = tab.getMetaTab().getMetaModel().getMetaProperty(dateSimpleName);
-			datesList.add(metaProperty.getName());
-			dateName = metaProperty.getName();
-		} else {
-			for (MetaProperty p : mp) {
-				metaProperty = p;
-				String propertyTypeName = metaProperty.getTypeName();
-				if (mpCount < 2 && !calculatedProperties.contains(metaProperty.getName())
-						&& acceptedDateTypes.contains(propertyTypeName)) {
-					datesList.add(metaProperty.getName());
-					if (mpCount == 0 && !metaProperty.getName().contains("."))
-						dateName = metaProperty.getName();
-					mpCount++;
+		for (MetaProperty property : mp) {
+			String propertyTypeName = property.getTypeName();
+			if (mpCount < 2 && !calculatedProperties.contains(property.getName()) && acceptedDateTypes.contains(propertyTypeName)) {
+				datesList.add(property.getName());
+				if (mpCount == 0 && !property.getName().contains(".")) dateName = property.getName();
+				mpCount++;
+				dateWithTime = isDateWithTime(property);
+				String className = property.getTypeName();
+				if (className.startsWith("java.util.") || className.startsWith("java.sql.")) {
+					oldLib = true;
+				} else if (className.startsWith("java.time.")) {
+					oldLib = false;
 				}
-//				dateWithTime = dateWithTimeList.contains(metaProperty.getTypeName()) ? true : false;
-//				String className = metaProperty.getTypeName();
-//				if (className.startsWith("java.util.") || className.startsWith("java.sql.")) {
-//					oldLib = true;
-//				} else if (className.startsWith("java.time.")) {
-//					oldLib = false;
-//				}
 			}
 		}
-		dateWithTime = dateWithTimeList.contains(metaProperty.getTypeName()) ? true : false;
-		String className = metaProperty.getTypeName();
-		if (className.startsWith("java.util.") || className.startsWith("java.sql.")) {
-			oldLib = true;
-		} else if (className.startsWith("java.time.")) {
-			oldLib = false;
-		}
-		System.out.println(datesList);
 		datesList.sort(Comparator.comparingInt(sortedProperties::indexOf));
-		System.out.println(datesList);
+		}
 	}
-
+*/
 	private Tab setProperties(Tab tab) {
 		List<String> newTabColumn = new ArrayList<>();
 		List<String> expectedNames = Arrays.asList("anyo", "year", "number", "numero", "name", "nombre", "title",
@@ -462,8 +465,6 @@ public class Calendar extends DWRBase {
 			tab.clearProperties();
 			tab.addProperties(newTabColumn);
 		}
-		System.out.println(tab.getPropertiesNamesAsString());
-		System.out.println("---");
 		return tab;
 	}
 
@@ -534,6 +535,48 @@ public class Calendar extends DWRBase {
 	private boolean isDateWithTime(MetaProperty property) {
 		dateWithTime = dateWithTimeList.contains(property.getTypeName()) ? true : false;
 		return dateWithTime;
+	}
+	
+	private void setDatesPropertyFromSimpleName(String dateSimpleName) {
+		System.out.println("setDatesPropertyFromSimpleName");
+	    MetaProperty metaProperty = tab.getMetaTab().getMetaModel().getMetaProperty(dateSimpleName);
+	    datesList.add(metaProperty.getName());
+	    dateName = metaProperty.getName();
+	    processDateProperty(metaProperty);
+	}
+
+	private void setDatesPropertyFromMetaProperties() {
+		System.out.println("setDatesPropertyFromMetaProperties1");
+	    List<MetaProperty> metaProperties = new ArrayList<>(tab.getMetaTab().getMetaModel().getMetaProperties());
+	    List<String> calculatedProperties = new ArrayList<>(tab.getMetaTab().getMetaModel().getCalculatedPropertiesNames());
+	    List<String> sortedProperties = tab.getMetaTab().getMetaModel().getPropertiesNames();
+	    int mpCount = 0;
+	    System.out.println(1);
+	    for (MetaProperty property : metaProperties) {
+	    	System.out.println(2);
+	        if (mpCount < 2 && !calculatedProperties.contains(property.getName()) && acceptedDateTypes.contains(property.getTypeName())) {
+	        	System.out.println(property.getName());
+	    	    datesList.add(property.getName());
+	    	    if (mpCount == 0 && !property.getName().contains(".")) {
+	    	    	dateName = property.getName();
+	    	    }
+	            mpCount++;
+	            processDateProperty(property);
+	        }
+	    }
+	    System.out.println(4);
+	    datesList.sort(Comparator.comparingInt(sortedProperties::indexOf));
+	}
+	
+	private void processDateProperty(MetaProperty metaProperty) {
+		System.out.println("processDateProperty");
+	    dateWithTime = isDateWithTime(metaProperty);
+	    String className = metaProperty.getTypeName();
+	    if (className.startsWith("java.util.") || className.startsWith("java.sql.")) {
+	        oldLib = true;
+	    } else if (className.startsWith("java.time.")) {
+	        oldLib = false;
+	    }
 	}
 
 }
