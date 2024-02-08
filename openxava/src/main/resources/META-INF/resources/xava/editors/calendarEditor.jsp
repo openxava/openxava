@@ -67,7 +67,7 @@ if (dateFormat != null) {
 %>
 
 <div class="ox-layout-detail ox-layout-calendar">
-	<div class="ox-layout-aligned-cell ox-label">Filtrar por</div>
+	<div class="ox-layout-aligned-cell ox-label" ><xava:label key="filterBy"/></div>
     <select class="xava_calendar_date_preferences" id="xava_calendar_date_preferences">
         <option value="<%= dateNamePref.isEmpty() ? datePropertyList.get(0).getSimpleName() : dateNamePref %>"><%= datePref.isEmpty() ? datePropertyList.get(0).getLabel() : datePref %></option>
         <% 
