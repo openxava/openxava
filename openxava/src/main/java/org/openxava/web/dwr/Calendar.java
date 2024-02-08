@@ -107,8 +107,8 @@ public class Calendar extends DWRBase {
 			if (tableSize > 0) {
 				for (int i = 0; i < tableSize; i++) {
 					JSONObject jsonRow = new JSONObject();
-					List<String> d = obtainRowsDate(i);
-					String[] startDate = d.get(0).split("_");
+					String d = obtainRowsDate(i);
+					String[] startDate = d.split("_");
 					jsonRow.put("start", startDate[1]);
 					jsonRow.put("startName", startDate[0]);
 					jsonRow.put("title", obtainRowsTitle(i));
@@ -119,10 +119,7 @@ public class Calendar extends DWRBase {
 				}
 			} else {
 				JSONObject nullJson = new JSONObject();
-				List<String> d = obtainRowsDate(-1);
-				String f = d.get(0).split("_")[0];
-				String s = d.size() > 1 ? d.get(1).split("_")[0] : "";
-				String startName = f.equals("") && !s.equals("") ? s : f;
+				String startName = obtainRowsDate(-1).split("_")[0];
 				nullJson.put("startName", startName);
 				jsonArray.put(nullJson);
 			}
@@ -137,12 +134,11 @@ public class Calendar extends DWRBase {
 			String dateSimpleName, String dateLabel, String monthYear) throws Exception {
 		try {
 			initRequest(request, response, application, module);
-			System.out.println(1);
 			Tab tab = getTab(request, application, module, "xava_tab");
 			String prefNodeName = tab.getPreferencesNodeName("datePref.");
-			System.out.println(prefNodeName);
 			Preferences preferences = Users.getCurrentPreferences();
 			preferences.put(prefNodeName, dateLabel);
+			preferences.put(prefNodeName + "_SimpleName", dateSimpleName);
 			String result = getEvents(request, response, application, module,
 					monthYear, dateSimpleName);
 			return result;
@@ -250,8 +246,9 @@ public class Calendar extends DWRBase {
 		return view;
 	}
 
-	private List<String> obtainRowsDate(int row) {
-		List<String> result = new ArrayList<>();
+	private String obtainRowsDate(int row) {
+		//List<String> result = new ArrayList<>();
+		String result ="";
 		StringBuffer dateWithName = new StringBuffer();
 		int i = keysListSize;
 		if (datesListSize == 0)
@@ -259,31 +256,14 @@ public class Calendar extends DWRBase {
 		if (row == -1) {
 			dateWithName.append(tab.getMetaProperty(i).getQualifiedName());
 			dateWithName.append("_");
-			result.add(dateWithName.toString());
-			if (datesListSize == 2) {
-				dateWithName = new StringBuffer();
-				dateWithName.append(tab.getMetaProperty((i + 1)).getQualifiedName());
-				dateWithName.append("_");
-				dateWithName.append("");
-				result.add(dateWithName.toString());
-			}
+			result = dateWithName.toString();
 		} else {
 			Object value = table.getValueAt(row, i);
-			Object value2 = table.getValueAt(row, (i + 1));
 			if (verifyValue(value)) {
 				dateWithName.append(tab.getMetaProperty(i).getQualifiedName());
 				dateWithName.append("_");
 				dateWithName.append(format(value, dateWithTime, oldLib));
-				result.add(dateWithName.toString());
-			}
-			if (datesListSize > 1) {
-				if (verifyValue(value2)) {
-					dateWithName = new StringBuffer();
-					dateWithName.append(tab.getMetaProperty((i + 1)).getQualifiedName());
-					dateWithName.append("_");
-					dateWithName.append(format(value2, dateWithTime, oldLib));
-					result.add(dateWithName.toString());
-				}
+				result = dateWithName.toString();
 			}
 		}
 		return result;

@@ -24,6 +24,7 @@ Tab tab = (Tab) context.get(request, "xava_tab");
 String prefNodeName = tab.getPreferencesNodeName("datePref.");
 Preferences preferences = Users.getCurrentPreferences();
 String datePref = preferences.get(prefNodeName,"");
+String dateNamePref = preferences.get(prefNodeName + "_SimpleName","");
 List<MetaProperty> metaPropertiesList = new ArrayList<>(view.getMetaPropertiesList());
 List<String> datesProperties = Arrays.asList(
             "java.util.Date", "java.time.LocalDateTime", "java.sql.Timestamp", "java.time.LocalDate", 
@@ -67,8 +68,8 @@ if (dateFormat != null) {
 
 <div class="ox-layout-detail ox-layout-calendar">
 	<div class="ox-layout-aligned-cell ox-label">Filtrar por</div>
-    <select class="xava_list_date" id="listConfigurations" name="listConfigurations" title="<%=datePref%>">
-        <option value="<%= datePref.isEmpty() ? datePropertyList.get(0).getSimpleName() : "" %>"><%= datePref.isEmpty() ? datePropertyList.get(0).getLabel() : datePref %></option>
+    <select class="xava_calendar_date_preferences" id="xava_calendar_date_preferences">
+        <option value="<%= dateNamePref.isEmpty() ? datePropertyList.get(0).getSimpleName() : dateNamePref %>"><%= datePref.isEmpty() ? datePropertyList.get(0).getLabel() : datePref %></option>
         <% 
         for (int i = datePref.isEmpty() ? 1 : 0; i < datePropertyList.size(); i++) {
 			MetaProperty mp = datePropertyList.get(i);

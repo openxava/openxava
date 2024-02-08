@@ -34,7 +34,7 @@ openxava.addEditorInitFunction(function() {
 
         calendarEditor.listEvents = [];
         calendarEditor.requesting = true;
-		var selectedOption = $('.xava_list_date').find('option:selected');
+		var selectedOption = $('.xava_calendar_date_preferences').find('option:selected');
 		var selectedValue = selectedOption.val();
         Calendar.getEvents(application, module, "", selectedValue, calendarEditor.setEvents);
 
@@ -162,7 +162,7 @@ openxava.addEditorInitFunction(function() {
 				calendarEditor.calendar.getEventSources().forEach(function (source) {
 					source.remove();
 				});
-				var selectedOption = $('.xava_list_date').find('option:selected');
+				var selectedOption = $('.xava_calendar_date_preferences').find('option:selected');
 				var selectedValue = selectedOption.val();
 				Calendar.getEvents(application, module, monthYear, selectedValue, calendarEditor.setEvents);
 			}
@@ -213,7 +213,7 @@ openxava.addEditorInitFunction(function() {
             event.preventDefault();
         });
 		
-		$('.xava_list_date').on('change', function() {
+		$('.xava_calendar_date_preferences').on('change', function() {
 			var selectedOption = $(this).find('option:selected');
 			var selectedValue = selectedOption.val();
 			var selectedText = selectedOption.text();
