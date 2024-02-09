@@ -97,6 +97,7 @@ public class CalendarTest extends WebDriverTestBase {
 	private void assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate() throws Exception {
 		goModule("Invoice");
 		moveToCalendarView(getDriver());
+		prevOnCalendar();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		List<Date> dates = setDates();
 		for (int i = 0; i < dates.size(); i++) {
