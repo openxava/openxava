@@ -69,7 +69,7 @@ openxava.addEditorInitFunction(function() {
 					}
 				},
 				headerToolbar: {
-					left: 'prev,next title',
+					left: 'prevYear,prev,next,nextYear title',
 					center: '',
 					right: calendarViews
 				},
@@ -82,6 +82,16 @@ openxava.addEditorInitFunction(function() {
                     prev: {
                         click: function() {
                             getEvents("prev");
+                        }
+                    },
+                    nextYear: {
+                        click: function() {
+                            getEvents("nextYear");
+                        }
+                    },
+					prevYear: {
+                        click: function() {
+                            getEvents("prevYear");
                         }
                     },
                     today: {
@@ -148,7 +158,11 @@ openxava.addEditorInitFunction(function() {
             let currentMonth = currentViewDate.getMonth();
             let currentYear = currentViewDate.getFullYear();
             cleanTitle();
-            month === 'next' ? calendarEditor.calendar.next() : calendarEditor.calendar.prev();
+			if (month.length > 4) {
+			month === 'nextYear' ? calendarEditor.calendar.nextYear() : calendarEditor.calendar.prevYear();
+			} else {
+			month === 'next' ? calendarEditor.calendar.next() : calendarEditor.calendar.prev();
+			}
             formatTitle(null);
             let newViewDate = calendarEditor.calendar.view.currentStart;
             let newMonth = newViewDate.getMonth();

@@ -22,7 +22,7 @@ public class CalendarTest extends WebDriverTestBase {
         assertFilterPerformance();
     	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime();
         assertAnyNameAsDateProperty();
-        assertNavigationInDateCalendarAndDateTimeCalendar();
+    	assertNavigationInDateCalendarAndDateTimeCalendar_prevYear();
     }    
 
 	private void nextOnCalendar() throws Exception {
@@ -44,8 +44,20 @@ public class CalendarTest extends WebDriverTestBase {
 			prevOnCalendar();
 		}
 	}
+	
+	private void prevYearOnCalendar() throws Exception {
+		WebElement prevYearButton = getDriver().findElement(By.cssSelector("button.fc-prevYear-button.fc-button.fc-button-primary"));
+		prevYearButton.click();
+		waitCalendarEvent(getDriver());
+	}
+	
+	private void nextYearOnCalendar() throws Exception {
+		WebElement nextYearButton = getDriver().findElement(By.cssSelector("button.fc-nextYear-button.fc-button.fc-button-primary"));
+		nextYearButton.click();
+		waitCalendarEvent(getDriver());
+	}
 
-	private void assertNavigationInDateCalendarAndDateTimeCalendar() throws Exception {
+	private void assertNavigationInDateCalendarAndDateTimeCalendar_prevYear() throws Exception {
 		goModule("Appointment");
 		moveToCalendarView(getDriver());
 		moveToTimeGridWeek(getDriver());
@@ -59,6 +71,13 @@ public class CalendarTest extends WebDriverTestBase {
 		assertTrue(weekButton);
 		boolean dayButton = getDriver().findElements(By.cssSelector("button.fc-timeGridDay-button")).isEmpty();
 		assertTrue(dayButton);
+		prevYearOnCalendar();
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.YEAR, -1);
+		Date prevYear = calendar.getTime();
+		String date = new SimpleDateFormat("yyyy-MM-dd").format(prevYear);
+		List<WebElement> datesElement = getDriver().findElements(By.cssSelector("td[data-date='" + date + "']"));
+		assertFalse(datesElement.isEmpty());
 		moveToListView();
 	}
 
@@ -78,7 +97,6 @@ public class CalendarTest extends WebDriverTestBase {
 	private void assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate() throws Exception {
 		goModule("Invoice");
 		moveToCalendarView(getDriver());
-		prevOnCalendar();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		List<Date> dates = setDates();
 		for (int i = 0; i < dates.size(); i++) {
