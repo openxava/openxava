@@ -1,6 +1,15 @@
 Change Log for OpenXava project
 ===============================
 
+Pediente:
+- Comprobar rendimiento.
+- Probar Java 8. Solo que funcione.
+- Quitar los otros evals.
+- Quitar anulación de try ... catch
+- Suite.
+- Comentar versión de DWR en pom.xml.
+
+
 - Reverse engineering documentation includes video.
 - Drag & drop support for calendar list format.
 - Removed the use of eval() completely from OpenXava JavaScript code.

@@ -885,7 +885,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	public void testI18nOfLabelOfAConcreteView_alwaysEnabledActions() throws Exception {
-		execute("CRUD.new");
+		execute("CRUD.new"); // TMR ME QUEDÉ POR AQUÍ: NO FUNCIONA POR CULPA DEL REPLACEALL
 		assertLabel("customer.number", "Little code");
 		assertAction("Customer.changeNameLabel");
 		assertAction("Customer.prefixStreet");

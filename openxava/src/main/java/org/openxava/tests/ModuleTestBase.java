@@ -11,7 +11,6 @@ import org.apache.pdfbox.text.*;
 import org.htmlunit.*;
 import org.htmlunit.ElementNotFoundException;
 import org.htmlunit.html.*;
-import org.htmlunit.javascript.*;
 import org.htmlunit.javascript.host.event.*;
 import org.openxava.application.meta.*;
 import org.openxava.component.*;
@@ -461,10 +460,10 @@ abstract public class ModuleTestBase extends TestCase {
 	protected void resetModule() throws Exception {
 		client = new WebClient(getBrowserVersion()); 
 		client.getOptions().setThrowExceptionOnFailingStatusCode(false);
-		client.getOptions().setPrintContentOnFailingStatusCode(false); 
+		// tmr client.getOptions().setPrintContentOnFailingStatusCode(false); 
 		client.getOptions().setThrowExceptionOnScriptError(false);
 		client.getOptions().setCssEnabled(false);
-		client.setJavaScriptErrorListener(new SilentJavaScriptErrorListener());
+		// tmr client.setJavaScriptErrorListener(new SilentJavaScriptErrorListener());
 	    client.setCssErrorHandler(new SilentCssErrorHandler());
 	    client.setIncorrectnessListener((message, origin) -> {});
 		
