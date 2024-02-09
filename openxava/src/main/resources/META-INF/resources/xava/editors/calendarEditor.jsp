@@ -64,12 +64,12 @@ if (dateFormat != null) {
 						   .replace("i", "mm")
 				           .replace("Y", "yyyy");
 }
-%>
 
+if (datePropertyList.size() > 1) {
+%>
 <div class="ox-layout-detail ox-layout-calendar">
-	<div class="ox-layout-aligned-cell ox-label" ><xava:label key="filterBy"/></div>
-    <select class="xava_calendar_date_preferences" id="xava_calendar_date_preferences">
-        <option value="<%= dateNamePref.isEmpty() ? datePropertyList.get(0).getSimpleName() : dateNamePref %>"><%= datePref.isEmpty() ? datePropertyList.get(0).getLabel() : datePref %></option>
+    <select class="xava_calendar_date_preferences">
+        <option id="xava_calendar_date_preferences" value="<%= dateNamePref.isEmpty() ? datePropertyList.get(0).getSimpleName() : dateNamePref %>"><%= datePref.isEmpty() ? datePropertyList.get(0).getLabel() : datePref %></option>
         <% 
         for (int i = datePref.isEmpty() ? 1 : 0; i < datePropertyList.size(); i++) {
 			MetaProperty mp = datePropertyList.get(i);
@@ -82,7 +82,9 @@ if (dateFormat != null) {
         %>
     </select>
 </div>
-
+<% } else { %>
+	<input type="hidden" id="xava_calendar_date_preferences" value="<%=datePropertyList.get(0).getSimpleName()%>">
+<% } %>
 <div>
     <input type="hidden" id="xava_calendar_module" value="<%=request.getParameter("module")%>">
     <input type="hidden" id="xava_calendar_application" value="<%=request.getParameter("application")%>">

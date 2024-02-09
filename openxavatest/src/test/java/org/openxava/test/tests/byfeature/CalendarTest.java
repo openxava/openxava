@@ -22,7 +22,7 @@ public class CalendarTest extends WebDriverTestBase {
         assertFilterPerformance();
     	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime();
         assertAnyNameAsDateProperty();
-        assertNavigationInDateCalendarAndDateTimeCalendar();
+        assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref();
     }    
 
 	private void nextOnCalendar() throws Exception {
@@ -45,9 +45,11 @@ public class CalendarTest extends WebDriverTestBase {
 		}
 	}
 
-	private void assertNavigationInDateCalendarAndDateTimeCalendar() throws Exception {
+	private void assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref() throws Exception {
 		goModule("Appointment");
 		moveToCalendarView(getDriver());
+		WebElement hiddenInputElement = getDriver().findElement(By.id("xava_calendar_date_preferences"));
+		assertEquals("time", hiddenInputElement.getAttribute("value"));
 		moveToTimeGridWeek(getDriver());
 		goModule("Appointment2");
 		moveToCalendarView(getDriver());
@@ -381,7 +383,7 @@ public class CalendarTest extends WebDriverTestBase {
 	}
 	
 	private void verifyShowDatesOfPreferDateProperty() throws Exception {
-		WebElement selectElement = getDriver().findElement(By.id("xava_calendar_date_preferences"));
+		WebElement selectElement = getDriver().findElement(By.className("xava_calendar_date_preferences"));
 		String selectedOption = selectElement.getAttribute("value");
 		assertEquals("startDate",selectedOption);
 		List<String> dates = getFirstThreeDaysOfMonth();
