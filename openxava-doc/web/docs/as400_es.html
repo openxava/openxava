@@ -9,34 +9,26 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
-          / </span> Configuración para AS/400</h1>
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_es.html">documentación</a> / </span> Configuración para AS/400</h1>
       <i>Si estás usando una versión de OpenXava anterior a la 7.0 mira las <a
           href="as400-ox6_es.html">instrucciones antiguas</a></i>
-      <div class="wiki" style="display: block;">Configurar tu aplicación
-        OpenXava contra la DB2 de un AS/400 es muy fácil, básicamente has de
-        añadir una dependencia al controlador JDBC para AS/400 en tu proyecto y
-        definir correctamente la base de datos. No necesitas tocar el código de
-        tu aplicación.</div>
+      <div class="wiki" style="display: block;">Configurar tu aplicación OpenXava contra la DB2 de un AS/400 es muy fácil, básicamente has de añadir una dependencia al controlador JDBC para AS/400 en tu proyecto y definir correctamente la base de datos. No necesitas tocar el código de tu aplicación.</div>
       <div class="wiki" style="display: block;">
         <h2 id="toc1">Añadir controlador JDBC para AS/400 en el proyecto</h2>
-        <p>Edita el archivo <i>pom.xml</i> en la raíz de tu proyecto, allí
-          añade la siguiente dependencia dentro de la parte <i>&lt;dependencies&gt;</i>:</p>
+        <p>Edita el archivo <i>pom.xml</i> en la raíz de tu proyecto, allí añade la siguiente dependencia dentro de la parte <i>&lt;dependencies&gt;</i>:</p>
         <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;net.sf.jt400&lt;/groupId&gt;
     &lt;artifactId&gt;jt400&lt;/artifactId&gt;
     &lt;version&gt;20.0.6&lt;/version&gt;
     &lt;classifier&gt;java8&lt;/classifier&gt;
 &lt;/dependency&gt;
-</code></pre>Quizás ya tengas este código en tu <i>pom.xml</i> pero comentado,
-        en ese caso simplemente descoméntalo.</div>
+</code></pre>Quizás ya tengas este código en tu <i>pom.xml</i> pero comentado, en ese caso simplemente descoméntalo.</div>
       <div class="wiki" style="display: block;"> </div>
       <div class="wiki" style="display: block;">
         <h2 id="toc1">Ajustar la definición de la fuente de datos</h2>
-        Edita <i>src/main/webapp/META-INF/context.xml</i> de tu proyecto y
-        ajusta la definición de tu fuente de datos para que apunte al AS/400,
-        algo así:</div>
+        Edita <i>src/main/webapp/META-INF/context.xml</i> de tu proyecto y ajusta la definición de tu fuente de datos para que apunte al AS/400, algo así:</div>
       <div class="wiki" style="display: block;">
         <pre><code class="xml">&lt;Resource name="jdbc/MiAplicacionDS" auth="Container"
     type="javax.sql.DataSource"
@@ -45,85 +37,49 @@
     driverClassName="com.ibm.as400.access.AS400JDBCDriver"
     url="jdbc:as400:192.168.1.8/mibiblioteca"/&gt;
 </code></pre> </div>
-      <div class="wiki" style="display: block;">La diferencia está en <i>driverClassName</i>
-        y <i>url</i>. Obviamente, en lugar de 192.168.1.8 deberías poner la IP
-        de tu AS/400 y en lugar de <i>mibiblioteca</i> pon la biblioteca del
-        AS/400 donde estén las tablas de la aplicación. También pon el <i>username</i>
-        y <i>password</i> correctos. Puede que el código de arriba ya esté en
-        tu <i>context.xml</i> pero comentado, en ese caso simplemente
-        descoméntalo. No olvides comentar o quitar la fuente de datos para
-        HSQLDB (incluida por defecto al crear un nuevo proyecto OpenXava), sólo
-        una fuente de datos (con el mismo nombre) debería estar activa.</div>
+      <div class="wiki" style="display: block;">La diferencia está en <i>driverClassName</i> y <i>url</i>. Obviamente, en lugar de 192.168.1.8 deberías poner la IP de tu AS/400 y en lugar de <i>mibiblioteca</i> pon la biblioteca del AS/400 donde estén las tablas de la aplicación. También pon el <i>username</i> y <i>password</i> correctos. Puede que el código de arriba ya esté en tu <i>context.xml</i> pero comentado, en ese caso simplemente descoméntalo. No olvides comentar o quitar la fuente de datos para HSQLDB (incluida por defecto al crear un nuevo proyecto OpenXava), sólo una fuente de datos (con el mismo nombre) debería estar activa.</div>
+      <div class="wiki" style="display: block;">
+        <h2 id="toc1">Crear manualmente la base de datos</h2>
+        <div class="wiki" style="display: block;">La versión 5.6 de hibernate tiene un bug que no crea ya automáticamente el esquema, por lo que las tablas tampoco. La solución es crear manualmente el esquema en la base de datos ejecutando la sentencia:</div>
+        <div class="wiki" style="display: block;">
+          <pre><code class="sql">CREATE SCHEMA mibiblioteca;<br></code></pre>
+        </div>
+        <div class="wiki" style="display: block;">Así las tablas se crearán una vez que se inicie la aplicación.</div>
+      </div>
       <div class="wiki" style="display: block;">
         <h2 id="toc1">Actualizar persistence.xml</h2>
-        No necesitas tocar la unidad de persistencia <i>default</i> de <i>persistence.xml</i>
-        (en <i>src/main/resources/META-INF</i>), a no ser que uses la propiedad
-        <i>hibernate.dialect</i> en cuyo caso lo más fácil es quitar la
-        propiedad <i>hibernate.dialect</i>. Además, deberías especificar la
-        propiedad <i>hibernate.default_schema</i> para todas las unidades de
-        persistencia, para indicar en que biblioteca de tu AS/400 están las
-        tablas de tu aplicación (a no ser que uses <i>@Table(schema=)</i> en
-        cada entidad).</div>
+        No necesitas tocar la unidad de persistencia <i>default</i> de <i>persistence.xml</i> (en <i>src/main/resources/META-INF</i>), a no ser que uses la propiedad <i>hibernate.dialect</i> en cuyo caso lo más fácil es quitar la propiedad <i>hibernate.dialect</i>. Además, deberías especificar la propiedad <i>hibernate.default_schema</i> para todas las unidades de persistencia, para indicar en que biblioteca de tu AS/400 están las tablas de tu aplicación (a no ser que uses <i>@Table(schema=)</i> en cada entidad).</div>
       <div class="wiki" style="display: block;">
         <h2 id="toc1">Arrancar el diario </h2>
-        Para que tu aplicación OpenXava funcione con AS/400 tus tablas tienen
-        que soportar transacciones. La forma más fácil de conseguirlo es creando
-        la biblioteca para tus tablas desde SQL usando "CREATE COLLECTION
-        MILIB". Desafortunadamente, la mayoría de las veces que trabajas con
-        AS/400 has de hacerlo con tablas preexistentes. En este caso has de
-        crear un diario (journal) para tu biblioteca, de esta manera:
+        Para que tu aplicación OpenXava funcione con AS/400 tus tablas tienen que soportar transacciones. La forma más fácil de conseguirlo es creando la biblioteca para tus tablas desde SQL usando "CREATE COLLECTION MILIB". Desafortunadamente, la mayoría de las veces que trabajas con AS/400 has de hacerlo con tablas preexistentes. En este caso has de crear un diario (journal) para tu biblioteca, de esta manera:
         <div class="wiki" style="display: block;">
           <pre><code class="shell">CRTJRNRCV JRNRCV(MILIB/MIRCV) THRESHOLD(5000)
 CRTJRN JRN(MILIB/MIJRN) JRNRCV(MILIB/MIRCV) MNGRCV(*SYSTEM)
 CHGJRN JRN(MILIB/MIJRN) JRNRCV(*GEN) DLTRCV(*YES)
 </code></pre></div>
-        En vez de MILIB usa el nombre de tu biblioteca. Después, tienes que
-        registrar todas las tabla por diario, así:<br>
+        En vez de MILIB usa el nombre de tu biblioteca. Después, tienes que registrar todas las tabla por diario, así:<br>
         <div class="wiki" style="display: block;">
           <pre><code class="shell">STRJRNPF FILE(MILIB/*ALL) JRN(MILIB/MIJRN) IMAGES(*BOTH) OMTJRNE(*OPNCLO)
 </code></pre></div>
-        Cuando en el futuro crees una nueva tabla para ser usada desde OpenXava
-        has de registrarla por diario:
+        Cuando en el futuro crees una nueva tabla para ser usada desde OpenXava has de registrarla por diario:
         <div class="wiki" style="display: block;">
           <pre><code class="shell">STRJRNPF FILE(MILIB/MITABLA) JRN(MILIB/MIJRN)
 </code></pre></div>
-        Si no estás familiarizado con la interfaz del AS/400 busca ayuda de
-        algún gurú del AS/400 de tu empresa para esta tarea. </div>
+        Si no estás familiarizado con la interfaz del AS/400 busca ayuda de algún gurú del AS/400 de tu empresa para esta tarea. </div>
       <div class="wiki" style="display: block;">
         <h2>Reconstruir proyecto</h2>
-        <p>Después de los cambios has de reconstruir (rebuild) tu proyecto. En
-          OpenXava Studio pulsa con el botón derecho del ratón en tu proyecto y
-          escoge <i>Run As &gt; Maven install</i>, así:</p>
+        <p>Después de los cambios has de reconstruir (rebuild) tu proyecto. En OpenXava Studio pulsa con el botón derecho del ratón en tu proyecto y escoge <i>Run As &gt; Maven install</i>, así:</p>
         <img src="files/run-as-maven-install.png" alt="">
-        <p>O si tienes Maven instalado en tu ordenador y prefieres usar la línea
-          de órdenes:</p>
+        <p>O si tienes Maven instalado en tu ordenador y prefieres usar la línea de órdenes:</p>
         <pre><code class="bash">$ cd miaplicacion
 $ mvn install
 </code></pre>
-        <p>Nota de optimización: En lugar de <i>mvn install</i>, que hace un <i>build</i>
-          de Maven completo, puedes usar <i>mvn war:exploded</i>, suficiente
-          para aplicar los cambios de arriba para desarrollo. Puedes llamar a <i>mvn
-            war:exploded</i> desde el OpenXava Studio con <i>Run As &gt; Maven
-            build...</i> y tecleando <i>war:exploded</i> para <i>goal</i>.</p>
+        <p>Nota de optimización: En lugar de <i>mvn install</i>, que hace un <i>build</i> de Maven completo, puedes usar <i>mvn war:exploded</i>, suficiente para aplicar los cambios de arriba para desarrollo. Puedes llamar a <i>mvn war:exploded</i> desde el OpenXava Studio con <i>Run As &gt; Maven build...</i> y tecleando <i>war:exploded</i> para <i>goal</i>.</p>
         <h2>Ejecutar aplicacion</h2>
-        <p>Ejecuta tu aplicación, debería funcionar bien contra tu IBM i. Si
-          fallara, verifica que el usuario y la contraseña son correctos, que la
-          IP del AS/400 es correcta. Verifica también que el diario está
-          activado para la biblioteca y las tablas añadidas al diario, como se
-          ha visto arriba.</p>
-        <p>Si sigue fallando pregúntanos en el <a href="https://sourceforge.net/p/openxava/discussion/437013/">foro
-            de ayuda de OpenXava</a>. Incluye el contenido de tu <i>persistence.xml</i>,
-          <i>context.xml</i> (quita las contraseñas) y sobre todo la traza
-          generada, puedes encontrar la traza en la pestaña <i>Console</i> del
-          OpenXava Studio.</p>
+        <p>Ejecuta tu aplicación, debería funcionar bien contra tu IBM i. Si fallara, verifica que el usuario y la contraseña son correctos, que la IP del AS/400 es correcta. Verifica también que el diario está activado para la biblioteca y las tablas añadidas al diario, como se ha visto arriba.</p>
+        <p>Si sigue fallando pregúntanos en el <a href="https://sourceforge.net/p/openxava/discussion/437013/">foro de ayuda de OpenXava</a>. Incluye el contenido de tu <i>persistence.xml</i>, <i>context.xml</i> (quita las contraseñas) y sobre todo la traza generada, puedes encontrar la traza en la pestaña <i>Console</i> del OpenXava Studio.</p>
         <h2>Problemas de rendimiento con Windows Server</h2>
-        <p>Si tu aplicación Java se está ejecutando en un Windows Server y te
-          encuentras con problemas de rendimiento, posiblemente no sea un
-          problema del AS/400 sino un problema de configuración de red en el
-          Windows Server. No te preocupes, el problema es fácil de solucionar,
-          simplemente añade el parametro <i>tcp no delay=true</i> a la URL de
-          conexión a la base de datos. Es decir, la definición de la fuente de
-          datos en el <i>context.xml</i> podría ser:</p>
+        <p>Si tu aplicación Java se está ejecutando en un Windows Server y te encuentras con problemas de rendimiento, posiblemente no sea un problema del AS/400 sino un problema de configuración de red en el Windows Server. No te preocupes, el problema es fácil de solucionar, simplemente añade el parametro <i>tcp no delay=true</i> a la URL de conexión a la base de datos. Es decir, la definición de la fuente de datos en el <i>context.xml</i> podría ser:</p>
         <pre><code class="xml">&lt;Resource name="jdbc/MiAplicacionDS" auth="Container"
     type="javax.sql.DataSource"
     maxTotal="100" maxIdle="20" maxWaitMillis="10000"
