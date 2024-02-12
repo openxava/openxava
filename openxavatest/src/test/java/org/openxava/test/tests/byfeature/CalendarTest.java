@@ -50,13 +50,6 @@ public class CalendarTest extends WebDriverTestBase {
 		prevYearButton.click();
 		waitCalendarEvent(getDriver());
 	}
-	
-	private void nextYearOnCalendar() throws Exception {
-		WebElement nextYearButton = getDriver().findElement(By.cssSelector("button.fc-nextYear-button.fc-button.fc-button-primary"));
-		nextYearButton.click();
-		waitCalendarEvent(getDriver());
-	}
-
 
 	private void assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear() throws Exception {
 		goModule("Appointment");
@@ -204,11 +197,9 @@ public class CalendarTest extends WebDriverTestBase {
 		// tooltip
 		refreshCalendarView(getDriver());
 		WebElement event = getDriver().findElement(By.cssSelector(".fc-event-time"));
-		Actions builder = new Actions(getDriver());
-		builder.moveToElement(event).perform();
-		Thread.sleep(500);
-		WebElement tooltip = getDriver().findElement(By.cssSelector(".fc-event-tooltip"));
-		assertEquals("A", tooltip.getText());
+		verifyTooltipText(event, "A");
+		WebElement nextYearButton = getDriver().findElement(By.className("fc-nextYear-button"));
+		verifyTooltipText(nextYearButton, "Next year");
 
 		moveToTimeGridWeek(getDriver());
 		event = getDriver().findElement(By.cssSelector(".fc-event-time"));
@@ -439,6 +430,14 @@ public class CalendarTest extends WebDriverTestBase {
 	    WebElement titleElement = dateElement.findElement(By.cssSelector(".fc-event-title-container"));
 	    String text = titleElement.getText();
 	    assertEquals(expectedText, text);
+	}
+	
+	private void verifyTooltipText(WebElement element, String expectedText) throws InterruptedException {
+	    Actions builder = new Actions(getDriver());
+	    builder.moveToElement(element).perform();
+	    Thread.sleep(500);
+	    WebElement tooltip = getDriver().findElement(By.cssSelector(".fc-event-tooltip"));
+	    assertEquals(expectedText, tooltip.getText());
 	}
 	
 }

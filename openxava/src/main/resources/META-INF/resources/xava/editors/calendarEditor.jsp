@@ -91,6 +91,8 @@ if (datePropertyList.size() > 1) {
     <input type="hidden" id="xava_calendar_action" value="<%=action%>,<%=actionNew%>">
     <input type="hidden" id="xava_calendar_dateFormat" value="<%=dateFormat%>">
 	<input type="hidden" id="xava_calendar_hasDateTime" value="<%=hasDateTime%>">
+	<input type="hidden" id="xava_calendar_nextYear" value="<xava:label key="nextYear"/>">
+	<input type="hidden" id="xava_calendar_prevYear" value="<xava:label key="prevYear"/>">
 </div>
 <div id='xava_calendar' class='xava_calendar'></div>
 
