@@ -145,10 +145,11 @@ public class CalendarTest extends WebDriverTestBase {
 		for (int i = 0; i < 5; i++) {
 			execute("CRUD.deleteRow", "row=0");
 		}
-		//execute("List.viewDetail", "row=0");
 		moveToCalendarView(getDriver());
 		verifyShowDatesOfPreferDateProperty();
 		moveToListView();
+		setConditionValue("TEST", 3);
+		setConditionComparator("=", 3);
 		execute("CRUD.deleteRow", "row=0");
 		clearListCondition();
 	}
@@ -392,8 +393,13 @@ public class CalendarTest extends WebDriverTestBase {
 		select.selectByIndex(1);
 		waitCalendarEvent(getDriver());
 		verifyDateIsDisplayed(dates.get(1), "TEST");
-		refreshCalendarView(getDriver());
+		resetModule(getDriver());
+		waitCalendarEvent(getDriver());
+		//refreshCalendarView(getDriver());
 		verifyDateIsDisplayed(dates.get(1), "TEST");
+		selectElement = getDriver().findElement(By.className("xava_calendar_date_preferences"));
+		select = new Select(selectElement);
+		select.selectByIndex(1);
 	}
 	
 	private List<String> getFirstThreeDaysOfMonth() {
