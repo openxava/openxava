@@ -38,12 +38,12 @@
 </code></pre> </div>
     <div class="wiki" style="display: block;">The differences are the <i>driverClassName</i> and the <i>url</i>. Obviously, instead of <i>localhost</i> you should put the address of the server that hosts MySQL and instead of <i>myappdb</i> the name of your database.. Also put the correct <i>username</i> and <i>password</i>. Maybe the above code is already in your <i>context.xml</i> but commented, in that case just uncomment it. Don't forget to comment or remove the datasource for HSQLDB (the default one when you create a new OpenXava project), only one datasource (with the same name) should be active.</div>
     <div class="wiki" style="display: block;">
-      <h2 id="toc1">Manually create database</h2>
-      <div class="wiki" style="display: block;">La versión 5.6 de hibernate tiene un bug que no crea ya automáticamente el esquema, por lo que las tablas tampoco. La solución es crear manualmente el esquema en la base de datos ejecutando la sentencia:</div>
+      <h2 id="toc1">Create schema manually</h2>
+      <div class="wiki" style="display: block;">Hibernate version 5.6 has a bug that no longer creates schema automatically, thus neither the tables. If you encounter this error, the solution is create manually the schema in the database by executing the statement:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="sql">CREATE database miaplicaciondb;<br></code></pre>
+        <pre><code class="sql">CREATE DATABASE myappdb;<br></code></pre>
       </div>
-      <div class="wiki" style="display: block;">Así las tablas se crearán una vez que se inicie la aplicación.</div>
+      <div class="wiki" style="display: block;">This way, the tables will be created once the application is started.</div>
     </div>
     <div class="wiki" style="display: block;">
       <h2>Rebuild your project</h2>

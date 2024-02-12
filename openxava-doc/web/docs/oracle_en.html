@@ -43,6 +43,14 @@
 </code></pre> </div>
       <div class="wiki" style="display: block;">The differences are the <i>driverClassName</i> and the <i>url</i>. The final part of the url, <i>mysid</i> in this example, is the sid of your Oracle database. Obviously, instead of <i>localhost</i> you should put the address of the server that hosts Oracle. Also put the correct <i>username</i> and <i>password</i>. Maybe the above code is already in your <i>context.xml</i> but commented, in that case just uncomment it. Don't forget to comment or remove the datasource for HSQLDB (the default one when you create a new OpenXava project), only one datasource (with the same name) should be active.</div>
       <div class="wiki" style="display: block;">
+        <h2 id="toc1">Create schema manually</h2>
+        <div class="wiki" style="display: block;">Hibernate version 5.6 has a bug that no longer creates schema automatically, thus neither the tables. If you encounter this error, the solution is create manually the schema in the database by executing the statement:</div>
+        <div class="wiki" style="display: block;">
+          <pre><code class="sql">CREATE USER root IDENTIFIED BY ao49fmsk;<br></code></pre>
+        </div>
+        <div class="wiki" style="display: block;">This way, the tables will be created once the application is started.</div>
+      </div>
+      <div class="wiki" style="display: block;">
         <h2 id="toc1">Update persistence.xml</h2>
         You need to touch the <i>default</i> persistence unit of <i>persistence.xml</i> (in <i>src/main/resources/META-INF</i>), to add the <i>hibernate.dialect</i> property with the correct value for your Oracle version:
         <div class="wiki" style="display: block;">
