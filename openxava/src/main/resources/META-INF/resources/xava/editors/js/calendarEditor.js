@@ -110,8 +110,7 @@ openxava.addEditorInitFunction(function() {
                 eventClick: function(e) {
                     if (calendarEditor.requesting) return;
                     if (!getSelection().toString()) {
-                        $(e.el).css('z-index', 8);
-                        $('.fc-event-tooltip').remove();
+                        hideTooltip();
                         openxava.executeAction(application, module, false, false, selectAction, 'calendarKey=' + e.event.extendedProps.key);
                     }
                 },
