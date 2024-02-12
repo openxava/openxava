@@ -745,7 +745,9 @@ return null;
 	var param3 = null;
 	if (jsonIndex > 0) {
 		var endIndex = script.indexOf('})();', jsonIndex);
-		var json = script.substring(jsonIndex, endIndex - 4);
+		endIndex = script.indexOf(');', endIndex - 5);
+		if (script[jsonIndex - 1] == '[') jsonIndex -= 2;
+		var json = script.substring(jsonIndex, endIndex); 
 		json = json.replace(/([{,])(\s*)([a-zA-Z0-9_\-]+?)\s*:/g, '$1"$3":');
 		param3 = JSON.parse(json);
 	}

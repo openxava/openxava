@@ -2,12 +2,20 @@ Change Log for OpenXava project
 ===============================
 
 Pediente:
+- Que funcionen test HtmlUnit. (InvoiceTest)
 - Comprobar rendimiento.
 - Probar Java 8. Solo que funcione.
+- CalendarTest.
+- Discussion.
+- Buscar otras funcionalidades DWR para testear.
+- Mismo código en Linux y Windows.
 - Quitar los otros evals.
 - Quitar anulación de try ... catch
 - Suite.
+- Quitar tmrs del código. Comentar cambios en dwr-engine.js.
 - Comentar versión de DWR en pom.xml.
+- Mezclar con último master.
+- Suite
 
 
 - Reverse engineering documentation includes video.
