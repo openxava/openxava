@@ -395,7 +395,6 @@ public class CalendarTest extends WebDriverTestBase {
 		verifyDateIsDisplayed(dates.get(1), "TEST");
 		resetModule(getDriver());
 		waitCalendarEvent(getDriver());
-		//refreshCalendarView(getDriver());
 		verifyDateIsDisplayed(dates.get(1), "TEST");
 		selectElement = getDriver().findElement(By.className("xava_calendar_date_preferences"));
 		select = new Select(selectElement);
