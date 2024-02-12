@@ -18,11 +18,11 @@ public class CalendarTest extends WebDriverTestBase {
 	
     public void testCalendar() throws Exception {
     	assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate(); 
-        assertMultipleDatesPropertiesAndFirstDateAsEventStart();
+        assertMultipleDatesPropertiesAndSelectDateToShow();
         assertFilterPerformance();
     	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime();
         assertAnyNameAsDateProperty();
-    	assertNavigationInDateCalendarAndDateTimeCalendar_prevYear();
+        assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear();
     }    
 
 	private void nextOnCalendar() throws Exception {
@@ -57,9 +57,12 @@ public class CalendarTest extends WebDriverTestBase {
 		waitCalendarEvent(getDriver());
 	}
 
-	private void assertNavigationInDateCalendarAndDateTimeCalendar_prevYear() throws Exception {
+
+	private void assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear() throws Exception {
 		goModule("Appointment");
 		moveToCalendarView(getDriver());
+		WebElement hiddenInputElement = getDriver().findElement(By.id("xava_calendar_date_preferences"));
+		assertEquals("time", hiddenInputElement.getAttribute("value"));
 		moveToTimeGridWeek(getDriver());
 		goModule("Appointment2");
 		moveToCalendarView(getDriver());
@@ -150,7 +153,7 @@ public class CalendarTest extends WebDriverTestBase {
 		moveToListView();
 	}
 
-	private void assertMultipleDatesPropertiesAndFirstDateAsEventStart() throws Exception {
+	private void assertMultipleDatesPropertiesAndSelectDateToShow() throws Exception {
 		goModule("Event");
 		moveToCalendarView(getDriver());
 		for (int i = 0; i < 6; i++) {
@@ -159,9 +162,15 @@ public class CalendarTest extends WebDriverTestBase {
 		moveToListView();
 		setConditionValue("TEST", 3);
 		setConditionComparator("=", 3);
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 5; i++) {
 			execute("CRUD.deleteRow", "row=0");
 		}
+		moveToCalendarView(getDriver());
+		verifyShowDatesOfPreferDateProperty();
+		moveToListView();
+		setConditionValue("TEST", 3);
+		setConditionComparator("=", 3);
+		execute("CRUD.deleteRow", "row=0");
 		clearListCondition();
 	}
 
@@ -392,6 +401,44 @@ public class CalendarTest extends WebDriverTestBase {
 		driver.navigate().refresh();
 		acceptInDialogJS(driver);
 		waitCalendarEvent(driver);
+	}
+	
+	private void verifyShowDatesOfPreferDateProperty() throws Exception {
+		WebElement selectElement = getDriver().findElement(By.className("xava_calendar_date_preferences"));
+		String selectedOption = selectElement.getAttribute("value");
+		assertEquals("startDate",selectedOption);
+		List<String> dates = getFirstThreeDaysOfMonth();
+		verifyDateIsDisplayed(dates.get(0), "TEST");
+		Select select = new Select(selectElement);
+		select.selectByIndex(1);
+		waitCalendarEvent(getDriver());
+		verifyDateIsDisplayed(dates.get(1), "TEST");
+		resetModule(getDriver());
+		waitCalendarEvent(getDriver());
+		verifyDateIsDisplayed(dates.get(1), "TEST");
+		selectElement = getDriver().findElement(By.className("xava_calendar_date_preferences"));
+		select = new Select(selectElement);
+		select.selectByIndex(1);
+	}
+	
+	private List<String> getFirstThreeDaysOfMonth() {
+		List<String> result = new ArrayList<>();
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.DAY_OF_MONTH, 1);
+		Date dayOne = calendar.getTime();
+		calendar.set(Calendar.DAY_OF_MONTH, 2);
+		Date dayTwo = calendar.getTime();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		result.add(dateFormat.format(dayOne));
+		result.add(dateFormat.format(dayTwo));
+		return result;
+	}
+	
+	private void verifyDateIsDisplayed(String date, String expectedText) {
+	    WebElement dateElement = getDriver().findElement(By.cssSelector("td[data-date='" + date + "']"));
+	    WebElement titleElement = dateElement.findElement(By.cssSelector(".fc-event-title-container"));
+	    String text = titleElement.getText();
+	    assertEquals(expectedText, text);
 	}
 	
 }

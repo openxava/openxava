@@ -34,7 +34,8 @@ openxava.addEditorInitFunction(function() {
 
         calendarEditor.listEvents = [];
         calendarEditor.requesting = true;
-        Calendar.getEvents(application, module, "", calendarEditor.setEvents);
+		var selectedValue = $('#xava_calendar_date_preferences').val();
+        Calendar.getEvents(application, module, "", selectedValue, calendarEditor.setEvents);
 
         $("#xava_calendar").ready(function() {
             calendarEditor.calendarEl = $('#xava_calendar')[0];
@@ -101,7 +102,7 @@ openxava.addEditorInitFunction(function() {
                             let currentDate = new Date();
                             let currentMonth = currentDate.getMonth();
                             calendarEditor.calendar.today();
-                            Calendar.getEvents(application, module, currentMonth, calendarEditor.setEvents);
+                            Calendar.getEvents(application, module, currentMonth, "", calendarEditor.setEvents);
                         }
                     }
                 },
@@ -174,7 +175,8 @@ openxava.addEditorInitFunction(function() {
 				calendarEditor.calendar.getEventSources().forEach(function (source) {
 					source.remove();
 				});
-				Calendar.getEvents(application, module, monthYear, calendarEditor.setEvents);
+				var selectedValue = $('#xava_calendar_date_preferences').val();
+				Calendar.getEvents(application, module, monthYear, selectedValue, calendarEditor.setEvents);
 			}
         }
 
@@ -222,6 +224,20 @@ openxava.addEditorInitFunction(function() {
             event.wheelDelta >= 0 ? getEvents('prev') : getEvents('next');
             event.preventDefault();
         });
+		
+		$('.xava_calendar_date_preferences').on('change', function() {
+			var selectedOption = $(this).find('option:selected');
+			var selectedValue = selectedOption.val();
+			var selectedText = selectedOption.text();
+			calendarEditor.calendar.getEventSources().forEach(function (source) {
+				source.remove();
+			});
+			let currentViewDate = calendarEditor.calendar.view.currentStart;
+            let currentMonth = currentViewDate.getMonth();
+            let currentYear = currentViewDate.getFullYear();
+			let monthYear = currentMonth + "_" + currentYear;
+			Calendar.changeDateProperty(application, module, selectedValue, selectedText, monthYear, calendarEditor.setEvents);
+    });
 
     }
 

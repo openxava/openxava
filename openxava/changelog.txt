@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- When several dates in an entity the user can choose which to use in calendar list format with a combo.
 - Reverse engineering documentation includes video.
 - Drag & drop support for calendar list format.
 - Removed the use of eval() completely from OpenXava JavaScript code.
