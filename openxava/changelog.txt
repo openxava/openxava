@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Year navigation buttons added to calendar list format for fast year navigation to distant dates.
 - When several dates in an entity the user can choose which to use in calendar list format with a combo.
 - Reverse engineering documentation includes video.
 - Drag & drop support for calendar list format.
