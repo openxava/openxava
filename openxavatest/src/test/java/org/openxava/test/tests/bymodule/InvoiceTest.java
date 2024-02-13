@@ -885,7 +885,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	public void testI18nOfLabelOfAConcreteView_alwaysEnabledActions() throws Exception {
-		execute("CRUD.new"); // TMR ME QUEDÉ POR AQUÍ: NO FUNCIONA POR CULPA DEL REPLACEALL
+		execute("CRUD.new"); 
 		assertLabel("customer.number", "Little code");
 		assertAction("Customer.changeNameLabel");
 		assertAction("Customer.prefixStreet");
@@ -1126,7 +1126,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		searchBox.type("DISCOUNT");
 		assertEquals("DISCOUNT", searchBox.getValue()); 
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		assertCollectionRowCount("xavaPropertiesList", 4); 		
+		assertCollectionRowCount("xavaPropertiesList", 4); // TMR ME QUEDÉ POR AQUÍ FALLA, REVISANDO dwr-engine.js		
 		assertValueInCollection("xavaPropertiesList",  0, 0, "Customer discount");
 		assertValueInCollection("xavaPropertiesList",  1, 0, "Customer type discount");
 		assertValueInCollection("xavaPropertiesList", 2, 0, "Seller discount");

@@ -9,6 +9,7 @@ Pediente:
 - Discussion.
 - Buscar otras funcionalidades DWR para testear.
 - Mismo código en Linux y Windows.
+- En todos navegadores.
 - Quitar los otros evals.
 - Quitar anulación de try ... catch
 - Suite.

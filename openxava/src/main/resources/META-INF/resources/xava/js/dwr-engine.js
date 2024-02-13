@@ -735,13 +735,29 @@ return null;
 
 // tmr (new Function("dwr", script))(dwr);
 // tmr ini
+	console.log("[executeScript] script=" + script); // tmr
 	var functionCallIndex = script.indexOf(".handleCallback(");
 	var jsonIndex = script.indexOf('{', functionCallIndex + 10);
 	var paramsEndIndex = jsonIndex > 0?jsonIndex:9999;
 	var paramsString = script.substring(functionCallIndex + 10, paramsEndIndex);
+	// tmr ini
+	// TMR ME QUEDÉ POR AQUÍ: INTENTANDO HACER UNA PARSE MÁS GENERICO. DEBE FUNCIONAR CON BUSCAR EN addColumns
+	var paramsBeginIndex = functionCallIndex + 16;
+	var paramsEndIndex = script.indexOf('})();', paramsBeginIndex);
+	var paramsString = script.substr(paramsBeginIndex, paramsEndIndex);
+	console.log("[executeScript] paramsString=" + paramsString); // tmr
+	var splitted = paramsString.split(",", 2);
+	console.log("[executeScript] splitted[0]=" + splitted[0]); // tmr
+	console.log("[executeScript] splitted[1]=" + splitted[1]); // tmr
+	var thirdIndex = paramsString.indexOf(",", paramsString.indexOf(",") + 1);
+	var thirdParam = paramsString.substring(thirdIndex);
+	console.log("[executeScript] thirdParam=" + thirdParam); // tmr 
+	// tmr fin
 	var params = paramsString.match(/"([^"]*)"/g);
-	var param1 = params[0].replaceAll('"', '');
-	var param2 = params[1].replaceAll('"', '');
+	var param1 = params[0].substr(1, params[0].length - 2);
+	console.log("[executeScript] param1=" + param1); // tmr 
+	var param2 = params[1].substr(1, params[1].length - 2);
+	console.log("[executeScript] param2=" + param2); // tmr
 	var param3 = null;
 	if (jsonIndex > 0) {
 		var endIndex = script.indexOf('})();', jsonIndex);
@@ -750,9 +766,11 @@ return null;
 		var json = script.substring(jsonIndex, endIndex); 
 		json = json.replace(/([{,])(\s*)([a-zA-Z0-9_\-]+?)\s*:/g, '$1"$3":');
 		param3 = JSON.parse(json);
+		console.log("[executeScript] A: param3=" + param3); // tmr
 	}
 	else {
-		param3 = params[2].replaceAll('"', '');
+		param3 = params[2].substr(1, params[2].length - 2); // tmr
+		console.log("[executeScript] B: param3=" + param3); // tmr
 	}
 	dwr.engine.remote.handleCallback(param1,param2,param3);
 // tmr fin
