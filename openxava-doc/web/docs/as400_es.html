@@ -39,14 +39,6 @@
 </code></pre> </div>
       <div class="wiki" style="display: block;">La diferencia está en <i>driverClassName</i> y <i>url</i>. Obviamente, en lugar de 192.168.1.8 deberías poner la IP de tu AS/400 y en lugar de <i>mibiblioteca</i> pon la biblioteca del AS/400 donde estén las tablas de la aplicación. También pon el <i>username</i> y <i>password</i> correctos. Puede que el código de arriba ya esté en tu <i>context.xml</i> pero comentado, en ese caso simplemente descoméntalo. No olvides comentar o quitar la fuente de datos para HSQLDB (incluida por defecto al crear un nuevo proyecto OpenXava), sólo una fuente de datos (con el mismo nombre) debería estar activa.</div>
       <div class="wiki" style="display: block;">
-        <h2 id="toc1">Crear manualmente el esquema</h2>
-        <div class="wiki" style="display: block;">La versión 5.6 de Hibernate tiene un bug que no crea ya automáticamente el esquema, por lo que las tablas tampoco. Si te encuentras con este error, la solución es crear manualmente el esquema en la base de datos ejecutando la sentencia:</div>
-        <div class="wiki" style="display: block;">
-          <pre><code class="sql">CRTLIB mibiblioteca;<br></code></pre>
-        </div>
-        <div class="wiki" style="display: block;">Así las tablas se crearán una vez que se inicie la aplicación.</div>
-      </div>
-      <div class="wiki" style="display: block;">
         <h2 id="toc1">Actualizar persistence.xml</h2>
         No necesitas tocar la unidad de persistencia <i>default</i> de <i>persistence.xml</i> (en <i>src/main/resources/META-INF</i>), a no ser que uses la propiedad <i>hibernate.dialect</i> en cuyo caso lo más fácil es quitar la propiedad <i>hibernate.dialect</i>. Además, deberías especificar la propiedad <i>hibernate.default_schema</i> para todas las unidades de persistencia, para indicar en que biblioteca de tu AS/400 están las tablas de tu aplicación (a no ser que uses <i>@Table(schema=)</i> en cada entidad).</div>
       <div class="wiki" style="display: block;">
