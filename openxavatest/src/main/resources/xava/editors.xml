@@ -6,6 +6,15 @@
 
 <editors>
 
+	<editor name="Empty" url="empty.jsp" 
+        icon="calendar" 
+        selectable-items="false"> 
+        <for-tabs>
+            <has-type type="java.util.Date" />
+            <has-type type="java.time.LocalDate" />
+        </for-tabs>
+    </editor>
+
 	<editor url="regionsEditor.jsp">
 		<property name="regionsCount" value="3" />
 		<formatter
