@@ -64,6 +64,7 @@ public class EditorsParser extends ParserBase {
 		editor.setFormatterClassName(getFormatterClass(el, editor));
 		editor.setFormatterFromType(getFormatterFromType(el));
 		editor.setListFormatterClassName(getListFormatterClassName(el, editor));
+		editor.setType(getPropertyType(el, editor));
 		
 		if (editor.isFormatterFromType() && !Is.emptyString(editor.getFormatterClassName())) {
 			throw new XavaException("formatter_class_and_from_type_not_compatible");
@@ -143,6 +144,25 @@ public class EditorsParser extends ParserBase {
 		Element el = (Element) l.item(0);					
 		return getAttributeBoolean(el, xfrom_type[lang]);						
 	}
+	
+	private String getPropertyType(Element n, MetaEditor container) throws XavaException {
+		System.out.println("getPropertyType " + n.getNodeName() + " " + container.getName());
+		NodeList l = n.getElementsByTagName(xfor_tabs[lang]);
+		Element el = (Element) l.item(0);
+		NodeList set = el.getElementsByTagName(xhas_type[lang]);
+		int x = set.getLength();
+		System.out.println("x length " + x);
+		for (int i = 0; i < x; i++) {
+			Element el2 = (Element) set.item(i);	
+			System.out.println(el2);
+			System.out.println(el2.getAttribute(xtype[lang]));
+			container._addTypeMetaSet(createSet(set.item(i)));
+		}	
+		//en teoria no deberia retornar?
+		return ((Element)set.item(0)).getAttribute(xtype[lang]);
+	}
+	
+	
 		
 	private void fillProperties(MetaEditor editor, Element n) {
 		NodeList l = n.getElementsByTagName(xproperty[lang]);
@@ -230,6 +250,9 @@ public class EditorsParser extends ParserBase {
 	
 	private void addEditorsForTabs(MetaEditor editor, Element n) throws XavaException {   		
 		NodeList l = n.getElementsByTagName(xfor_tabs[lang]);
+		if (editor.getName().equals("Empty")) {
+			System.out.println("addEditorsForTabs EditorsParser" + editor.getName());
+		}
 		if (l.getLength() > 0) { 
 			MetaWebEditors.addMetaEditorForTabs(editor);
 		}		

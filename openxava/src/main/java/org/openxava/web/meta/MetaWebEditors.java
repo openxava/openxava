@@ -339,18 +339,25 @@ public class MetaWebEditors {
 	
 	public static Collection<MetaEditor> getMetaEditorsFor(MetaTab tab) throws ElementNotFoundException, XavaException {
 		System.out.println("getMetaEditorsFor" + tab.getName());
+		System.out.println(1);
 		MetaEditor customEditor = (MetaEditor) getMetaEditorForTabModel(tab.getModelName());
 		if (customEditor == null) {
 			System.out.println("customEditor null");
 			return editorsForTabs;
 		}
 		else {
+			System.out.println("2a");
 			Collection<MetaEditor> result = new ArrayList<MetaEditor>();
 			result.add(customEditor);
 			System.out.println(customEditor.getName());
 			for (MetaEditor editor: editorsForTabs) {
-				if (!"List".equals(editor.getName())) result.add(editor); 
+				if (!"List".equals(editor.getName())) {
+					System.out.println("se aniade" + editor.getName());
+					result.add(editor); 
+				}
 			}
+			System.out.println("result");
+			System.out.println(result); 
 			return result;
 		}
 	}	
