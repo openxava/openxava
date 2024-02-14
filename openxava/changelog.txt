@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Documentation for database configuration improved to include schema/database creation.
 - Reverse engineering documentation includes video.
 - Drag & drop support for calendar list format.
 - Removed the use of eval() completely from OpenXava JavaScript code.
