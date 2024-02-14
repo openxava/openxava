@@ -744,13 +744,14 @@ return null;
 	// TMR ME QUEDÉ POR AQUÍ: INTENTANDO HACER UNA PARSE MÁS GENERICO. DEBE FUNCIONAR CON BUSCAR EN addColumns
 	var paramsBeginIndex = functionCallIndex + 16;
 	var paramsEndIndex = script.indexOf('})();', paramsBeginIndex);
-	var paramsString = script.substr(paramsBeginIndex, paramsEndIndex);
+	var paramsString = script.substring(paramsBeginIndex, paramsEndIndex);
 	console.log("[executeScript] paramsString=" + paramsString); // tmr
 	var splitted = paramsString.split(",", 2);
 	console.log("[executeScript] splitted[0]=" + splitted[0]); // tmr
 	console.log("[executeScript] splitted[1]=" + splitted[1]); // tmr
-	var thirdIndex = paramsString.indexOf(",", paramsString.indexOf(",") + 1);
-	var thirdParam = paramsString.substring(thirdIndex);
+	var thirdIndex = paramsString.indexOf(",", paramsString.indexOf(",") + 1) + 1;
+	var thirdEndIndex = paramsString.lastIndexOf(');');
+	var thirdParam = paramsString.substring(thirdIndex, thirdEndIndex);
 	console.log("[executeScript] thirdParam=" + thirdParam); // tmr 
 	// tmr fin
 	var params = paramsString.match(/"([^"]*)"/g);
@@ -769,8 +770,33 @@ return null;
 		console.log("[executeScript] A: param3=" + param3); // tmr
 	}
 	else {
-		param3 = params[2].substr(1, params[2].length - 2); // tmr
+		// tmr param3 = params[2].substr(1, params[2].length - 2); // tmr
+		param3 = thirdParam.substring(1, thirdParam.length - 1);; // tmr
 		console.log("[executeScript] B: param3=" + param3); // tmr
+		if (param3.includes("\\")) {
+			//param3 = "<table><tr><th>Saludo 1</th><th>Saludo 2</th></tr><tr><td>Hola</td><td>Adios</td></tr>";
+			param3 = JSON.stringify(param3);
+			paramX = "\n\n\n\n\n\n \n \n \n \n\n\n\n\n\n\n<table id=\"ox_openxavatest_Invoice__xavaPropertiesList\" class='ox-list ox-select-columns-list' width=\"100%\" >\n<tr class=\"ox-list-pair\"\/> \n\n\n\n\n<\/table>\n";
+			console.log("[executeScript] param3 == paramX:> " + (param3 == paramX));
+ 			// TMR ME QUEDÉ POR AQUÍ: INTENTANDO QUE SE PARSEE EL TROZO DE HTML
+			var longitud = Math.max(cadena1.length, cadena2.length);
+
+			var diferencias = [];
+
+		    for (var i = 0; i < longitud; i++) {
+		        if (cadena1[i] !== cadena2[i]) {
+					
+		            diferencias.push({ 
+		                indice: i, 
+		                cadena1: cadena1[i], 
+		                cadena2: cadena2[i] 
+		            });
+		        }
+		    }
+
+			console.log("[executeScript] diferencias=" + diferencias);
+		}
+		
 	}
 	dwr.engine.remote.handleCallback(param1,param2,param3);
 // tmr fin

@@ -13,6 +13,7 @@ Pediente:
 - Quitar los otros evals.
 - Quitar anulación de try ... catch
 - Suite.
+- Pruebas manuales.
 - Quitar tmrs del código. Comentar cambios en dwr-engine.js.
 - Comentar versión de DWR en pom.xml.
 - Mezclar con último master.
