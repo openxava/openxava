@@ -69,11 +69,10 @@ public class MetaWebEditors {
 		if (editorsByTabModel == null) {
 			throw new XavaException("only_from_parse", "MetaWebEditors.addMetaEditorForTabModel");
 		}
+		System.out.println("addMetaEditorForTabModel");
 		editorsByTabModel.put(model, editor);		
 	}
 	
-	
-		
 	public static void addMetaEditorForStereotype(String stereotype, MetaEditor editor) throws XavaException {		
 		if (editorsByStereotype == null) {
 			throw new XavaException("only_from_parse", "MetaWebEditors.addMetaEditorForStereotype");
@@ -327,7 +326,9 @@ public class MetaWebEditors {
 	}
 	
 	public static MetaEditor getMetaEditorFor(MetaTab tab) throws ElementNotFoundException, XavaException {
-		MetaEditor r = (MetaEditor) getMetaEditorForTabModel(tab.getModelName()); 		
+		System.out.println("getMetaEditorFor");
+		MetaEditor r = (MetaEditor) getMetaEditorForTabModel(tab.getModelName());
+		System.out.println(r.getName());
 		if (r != null) return r;	
 		Collection<MetaEditor> editors = getMetaEditorsFor(tab);
 		if (editors.isEmpty()) {
@@ -337,11 +338,16 @@ public class MetaWebEditors {
 	}
 	
 	public static Collection<MetaEditor> getMetaEditorsFor(MetaTab tab) throws ElementNotFoundException, XavaException {
+		System.out.println("getMetaEditorsFor" + tab.getName());
 		MetaEditor customEditor = (MetaEditor) getMetaEditorForTabModel(tab.getModelName());
-		if (customEditor == null) return editorsForTabs;
+		if (customEditor == null) {
+			System.out.println("customEditor null");
+			return editorsForTabs;
+		}
 		else {
 			Collection<MetaEditor> result = new ArrayList<MetaEditor>();
 			result.add(customEditor);
+			System.out.println(customEditor.getName());
 			for (MetaEditor editor: editorsForTabs) {
 				if (!"List".equals(editor.getName())) result.add(editor); 
 			}
@@ -372,6 +378,8 @@ public class MetaWebEditors {
 		if (editorsForTabs == null) {
 			throw new XavaException("only_from_parse", "MetaWebEditors.addMetaEditorForTabs");
 		}
+		System.out.println("addMetaEditorForTabs");
+		System.out.println(editor.hasType());
 		if (Is.emptyString(editor.getName())) editorsForTabs.add(editor);
 		else {
 			BeanPropertyValueEqualsPredicate predicate =
