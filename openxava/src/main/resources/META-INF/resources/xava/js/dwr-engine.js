@@ -735,66 +735,25 @@ return null;
 
 // tmr (new Function("dwr", script))(dwr);
 // tmr ini
-	console.log("[executeScript] script=" + script); // tmr
-	var functionCallIndex = script.indexOf(".handleCallback(");
-	/* tmr
-	var jsonIndex = script.indexOf('{', functionCallIndex + 10);
-	var paramsEndIndex = jsonIndex > 0?jsonIndex:9999;
-	var paramsString = script.substring(functionCallIndex + 10, paramsEndIndex);
-	*/
-	// tmr ini
-	var paramsStartIndex = functionCallIndex + 16;
+	var paramsStartIndex = script.indexOf(".handleCallback(") + 16;
 	var paramsEndIndex = script.indexOf('})();', paramsStartIndex);
 	var params = script.substring(paramsStartIndex, paramsEndIndex);
-	console.log("[executeScript] params=" + params); // tmr
 	var paramsTokens = params.split(",", 2);
 	var param1 = paramsTokens[0].substr(1, paramsTokens[0].length - 2);
-	console.log("[executeScript] param1=" + param1); // tmr
 	var param2 = paramsTokens[1].substr(1, paramsTokens[1].length - 2);
-	console.log("[executeScript] param2=" + param2); // tmr	
 	var param3StartIndex = params.indexOf(",", params.indexOf(",") + 1) + 1;
 	var param3EndIndex = params.lastIndexOf(');');
 	var param3 = params.substring(param3StartIndex, param3EndIndex);
-	console.log("[executeScript] param3>" + param3); // tmr
 	if (param3.startsWith('"') && !param3.startsWith('"[')) {
 		param3 = param3.substr(1, param3.length - 2);
 	}
-	console.log("[executeScript] param3<" + param3); // tmr
 	if (param3.startsWith('{') || param3.startsWith('"[')) {
 		var json = param3.replace(/([{,])(\s*)([a-zA-Z0-9_\-]+?)\s*:/g, '$1"$3":');
 		param3 = JSON.parse(json);
-		console.log("[executeScript] A: param3=" + param3); // tmr
 	}
 	else if (param3.includes("\\")) { 
 		param3 = JSON.parse(`"${param3}"`);
-		console.log("[executeScript] B: param3=" + param3); // tmr
 	}
-	// tmr fin
-	/* tmr
-	var params = paramsString.match(/"([^"]*)"/g);
-	var param1 = params[0].substr(1, params[0].length - 2);
-	console.log("[executeScript] param1=" + param1); // tmr 
-	var param2 = params[1].substr(1, params[1].length - 2);
-	console.log("[executeScript] param2=" + param2); // tmr
-	var param3 = null;
-	if (jsonIndex > 0) {
-		var endIndex = script.indexOf('})();', jsonIndex);
-		endIndex = script.indexOf(');', endIndex - 5);
-		if (script[jsonIndex - 1] == '[') jsonIndex -= 2;
-		var json = script.substring(jsonIndex, endIndex); 
-		json = json.replace(/([{,])(\s*)([a-zA-Z0-9_\-]+?)\s*:/g, '$1"$3":');
-		param3 = JSON.parse(json);
-		console.log("[executeScript] A: param3=" + param3); // tmr
-	}
-	else {
-		// tmr param3 = params[2].substr(1, params[2].length - 2); // tmr
-		param3 = thirdParam.substring(1, thirdParam.length - 1);; // tmr
-		console.log("[executeScript] B: param3=" + param3); // tmr
-		if (param3.includes("\\")) {
-			param3 = JSON.parse(`"${param3}"`);
-		}		
-	}
-	*/
 	dwr.engine.remote.handleCallback(param1,param2,param3);
 	// tmr fin
 };
