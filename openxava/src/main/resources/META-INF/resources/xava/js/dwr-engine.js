@@ -737,23 +737,40 @@ return null;
 // tmr ini
 	console.log("[executeScript] script=" + script); // tmr
 	var functionCallIndex = script.indexOf(".handleCallback(");
+	/* tmr
 	var jsonIndex = script.indexOf('{', functionCallIndex + 10);
 	var paramsEndIndex = jsonIndex > 0?jsonIndex:9999;
 	var paramsString = script.substring(functionCallIndex + 10, paramsEndIndex);
+	*/
 	// tmr ini
-	// TMR ME QUEDÉ POR AQUÍ: INTENTANDO HACER UNA PARSE MÁS GENERICO. DEBE FUNCIONAR CON BUSCAR EN addColumns
-	var paramsBeginIndex = functionCallIndex + 16;
-	var paramsEndIndex = script.indexOf('})();', paramsBeginIndex);
-	var paramsString = script.substring(paramsBeginIndex, paramsEndIndex);
-	console.log("[executeScript] paramsString=" + paramsString); // tmr
-	var splitted = paramsString.split(",", 2);
-	console.log("[executeScript] splitted[0]=" + splitted[0]); // tmr
-	console.log("[executeScript] splitted[1]=" + splitted[1]); // tmr
-	var thirdIndex = paramsString.indexOf(",", paramsString.indexOf(",") + 1) + 1;
-	var thirdEndIndex = paramsString.lastIndexOf(');');
-	var thirdParam = paramsString.substring(thirdIndex, thirdEndIndex);
-	console.log("[executeScript] thirdParam=" + thirdParam); // tmr 
+	var paramsStartIndex = functionCallIndex + 16;
+	var paramsEndIndex = script.indexOf('})();', paramsStartIndex);
+	var params = script.substring(paramsStartIndex, paramsEndIndex);
+	console.log("[executeScript] params=" + params); // tmr
+	var paramsTokens = params.split(",", 2);
+	var param1 = paramsTokens[0].substr(1, paramsTokens[0].length - 2);
+	console.log("[executeScript] param1=" + param1); // tmr
+	var param2 = paramsTokens[1].substr(1, paramsTokens[1].length - 2);
+	console.log("[executeScript] param2=" + param2); // tmr	
+	var param3StartIndex = params.indexOf(",", params.indexOf(",") + 1) + 1;
+	var param3EndIndex = params.lastIndexOf(');');
+	var param3 = params.substring(param3StartIndex, param3EndIndex);
+	console.log("[executeScript] param3>" + param3); // tmr
+	if (param3.startsWith('"') && !param3.startsWith('"[')) {
+		param3 = param3.substr(1, param3.length - 2);
+	}
+	console.log("[executeScript] param3<" + param3); // tmr
+	if (param3.startsWith('{') || param3.startsWith('"[')) {
+		var json = param3.replace(/([{,])(\s*)([a-zA-Z0-9_\-]+?)\s*:/g, '$1"$3":');
+		param3 = JSON.parse(json);
+		console.log("[executeScript] A: param3=" + param3); // tmr
+	}
+	else if (param3.includes("\\")) { 
+		param3 = JSON.parse(`"${param3}"`);
+		console.log("[executeScript] B: param3=" + param3); // tmr
+	}
 	// tmr fin
+	/* tmr
 	var params = paramsString.match(/"([^"]*)"/g);
 	var param1 = params[0].substr(1, params[0].length - 2);
 	console.log("[executeScript] param1=" + param1); // tmr 
@@ -774,32 +791,12 @@ return null;
 		param3 = thirdParam.substring(1, thirdParam.length - 1);; // tmr
 		console.log("[executeScript] B: param3=" + param3); // tmr
 		if (param3.includes("\\")) {
-			//param3 = "<table><tr><th>Saludo 1</th><th>Saludo 2</th></tr><tr><td>Hola</td><td>Adios</td></tr>";
-			param3 = JSON.stringify(param3);
-			paramX = "\n\n\n\n\n\n \n \n \n \n\n\n\n\n\n\n<table id=\"ox_openxavatest_Invoice__xavaPropertiesList\" class='ox-list ox-select-columns-list' width=\"100%\" >\n<tr class=\"ox-list-pair\"\/> \n\n\n\n\n<\/table>\n";
-			console.log("[executeScript] param3 == paramX:> " + (param3 == paramX));
- 			// TMR ME QUEDÉ POR AQUÍ: INTENTANDO QUE SE PARSEE EL TROZO DE HTML
-			var longitud = Math.max(cadena1.length, cadena2.length);
-
-			var diferencias = [];
-
-		    for (var i = 0; i < longitud; i++) {
-		        if (cadena1[i] !== cadena2[i]) {
-					
-		            diferencias.push({ 
-		                indice: i, 
-		                cadena1: cadena1[i], 
-		                cadena2: cadena2[i] 
-		            });
-		        }
-		    }
-
-			console.log("[executeScript] diferencias=" + diferencias);
-		}
-		
+			param3 = JSON.parse(`"${param3}"`);
+		}		
 	}
+	*/
 	dwr.engine.remote.handleCallback(param1,param2,param3);
-// tmr fin
+	// tmr fin
 };
 
 
