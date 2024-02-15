@@ -1126,7 +1126,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		searchBox.type("DISCOUNT");
 		assertEquals("DISCOUNT", searchBox.getValue()); 
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		assertCollectionRowCount("xavaPropertiesList", 4); // TMR ME QUEDÉ POR AQUÍ FALLA, REVISANDO dwr-engine.js		
+		assertCollectionRowCount("xavaPropertiesList", 4); 		
 		assertValueInCollection("xavaPropertiesList",  0, 0, "Customer discount");
 		assertValueInCollection("xavaPropertiesList",  1, 0, "Customer type discount");
 		assertValueInCollection("xavaPropertiesList", 2, 0, "Seller discount");
@@ -2491,7 +2491,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertTrue(Is.empty(getValue("year")));
 		setValue("date", "1/2/2004");
 		execute("CRUD.refresh");
-		assertError("Object of type Invoice does not exists with key Date:1/2/2004, Paid:No");		
+		assertError("Object of type Invoice does not exists with key Date:1/2/2004, Paid:No"); // TMR ME QUEDÉ POR AQUÍ FALLA. QUIZSAR CAMBIAR : POR UNA ENTIDAD LO ARREGLARÍS O PROBAR JSON.stringfy		
 		// with reference
 		setValue("customer.number", "43");
 		assertValue("customer.name", "Gonzalo Gonzalez");
