@@ -38,8 +38,7 @@ public class MetaEditor implements Cloneable {
 	private String initAction; 
 	private String releaseAction; 
 	private boolean selectableItems; 
-	private Collection typeMetaSets;
-	private String type;
+	private Set<String> propertyType;
 
 	public void _addListFormatterMetaSet(MetaSet metaSet) {
 		if (listFormatterMetaSet == null) listFormatterMetaSet = new ArrayList();
@@ -49,11 +48,6 @@ public class MetaEditor implements Cloneable {
 	public void _addFormatterMetaSet(MetaSet metaSet) {
 		if (formatterMetaSets == null) formatterMetaSets = new ArrayList();
 		formatterMetaSets.add(metaSet);
-	}
-	
-	public void _addTypeMetaSet(MetaSet metaSet) {
-		if (typeMetaSets == null) typeMetaSets = new ArrayList();
-		typeMetaSets.add(metaSet);
 	}
 	
 	public java.lang.String getUrl() {
@@ -146,10 +140,6 @@ public class MetaEditor implements Cloneable {
 	public boolean hasFormatter() throws XavaException {				
 		return !Is.emptyString(formatterClassName); 
 	}
-	
-	public boolean hasType() throws XavaException {				
-		return !Is.emptyString(type); 
-	}
 		
 	public boolean hasMultipleValuesFormatter() throws XavaException { 
 		return !Is.emptyString(formatterClassName) && getFormatterObject(formatterClassName, formatterMetaSets) instanceof IMultipleValuesFormatter;
@@ -226,13 +216,18 @@ public class MetaEditor implements Cloneable {
 		formatterClassName = string;
 	}
 
-	public String getType() {
-		return type;
+	public Set<String> getPropertyType() {
+		return (propertyType == null) ? new HashSet<>() : propertyType;
 	}
 	
-	public void setType(String type) {
-		this.type = type;
+	public void addPropertyType(String newPropertyType) {
+		if (propertyType == null) propertyType = new HashSet<>();
+        propertyType.add(newPropertyType);
 	}
+	
+    public boolean hasPropertyType(String propertyTypeToCheck) {
+        return propertyType.contains(propertyTypeToCheck);
+    }
 	
 	public boolean isFormat() {
 		return format;

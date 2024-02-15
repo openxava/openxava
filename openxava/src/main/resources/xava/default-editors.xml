@@ -23,19 +23,25 @@
 		icon="chart-line" 
 		init-action="Chart.init" 
 		release-action="Chart.release"> 
-		<for-tabs/>
+		<for-tabs>
+			<has-type type="java.lang.String" />
+		</for-tabs>
 	</editor>	
 	
 	<editor name="Cards" url="cardsEditor.jsp" 
 		icon="view-module" 
 		selectable-items="false"> 
-		<for-tabs/>
+		<for-tabs>
+			<has-type type="java.lang.String" />
+		</for-tabs>
 	</editor>	
 	
 	<editor name="Calendar" url="calendarEditor.jsp" 
 		icon="calendar" 
 		selectable-items="false"> 
-		<for-tabs/>
+		<for-tabs>
+			<has-type type="java.lang.String" />
+		</for-tabs>
 	</editor>
 		
 	<editor name="Reference" url="referenceEditor.jsp" frame="true" composite="true">

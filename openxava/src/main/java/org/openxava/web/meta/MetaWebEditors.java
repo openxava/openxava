@@ -328,8 +328,8 @@ public class MetaWebEditors {
 	public static MetaEditor getMetaEditorFor(MetaTab tab) throws ElementNotFoundException, XavaException {
 		System.out.println("getMetaEditorFor");
 		MetaEditor r = (MetaEditor) getMetaEditorForTabModel(tab.getModelName());
-		System.out.println(r.getName());
-		if (r != null) return r;	
+		
+		if (r != null) return r;
 		Collection<MetaEditor> editors = getMetaEditorsFor(tab);
 		if (editors.isEmpty()) {
 			throw new ElementNotFoundException("editor_for_tabs_required");
@@ -339,25 +339,42 @@ public class MetaWebEditors {
 	
 	public static Collection<MetaEditor> getMetaEditorsFor(MetaTab tab) throws ElementNotFoundException, XavaException {
 		System.out.println("getMetaEditorsFor" + tab.getName());
-		System.out.println(1);
 		MetaEditor customEditor = (MetaEditor) getMetaEditorForTabModel(tab.getModelName());
 		if (customEditor == null) {
-			System.out.println("customEditor null");
-			return editorsForTabs;
-		}
-		else {
-			System.out.println("2a");
-			Collection<MetaEditor> result = new ArrayList<MetaEditor>();
-			result.add(customEditor);
-			System.out.println(customEditor.getName());
+			List<MetaEditor> editorToDelete = new ArrayList<>();
+			boolean containsType = false;
 			for (MetaEditor editor: editorsForTabs) {
 				if (!"List".equals(editor.getName())) {
-					System.out.println("se aniade" + editor.getName());
+					System.out.println(editor.getName());
+					List<String> mpTypeList = tab.getMetaPropertiesType();
+					System.out.println(mpTypeList);
+					System.out.println(editor.getPropertyType());
+					for (String s : editor.getPropertyType()) {
+						if (mpTypeList.contains(s)) {
+							System.out.println("la lista contiene " + s);
+							containsType = true;
+							continue;
+						}
+					}
+					if (!containsType) {
+						editorToDelete.add(editor);
+					} else {
+						containsType = false;
+					}
+				}
+			}
+			Collection<MetaEditor> copia = new ArrayList<>(editorsForTabs);
+			copia.removeAll(editorToDelete);
+			return copia;
+		}
+		else {
+			Collection<MetaEditor> result = new ArrayList<MetaEditor>();
+			result.add(customEditor);
+			for (MetaEditor editor: editorsForTabs) {
+				if (!"List".equals(editor.getName())) {
 					result.add(editor); 
 				}
 			}
-			System.out.println("result");
-			System.out.println(result); 
 			return result;
 		}
 	}	
@@ -386,7 +403,7 @@ public class MetaWebEditors {
 			throw new XavaException("only_from_parse", "MetaWebEditors.addMetaEditorForTabs");
 		}
 		System.out.println("addMetaEditorForTabs");
-		System.out.println(editor.hasType());
+		//System.out.println(editor.hasType());
 		if (Is.emptyString(editor.getName())) editorsForTabs.add(editor);
 		else {
 			BeanPropertyValueEqualsPredicate predicate =

@@ -93,6 +93,14 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		return tab;
 	}
 
+	public List<String> getMetaPropertiesType(){
+		List<String> propertiesType = new ArrayList<>();
+		for (MetaProperty mp : getMetaProperties()) {
+			propertiesType.add(mp.getTypeName());
+		}
+		return propertiesType;
+	}
+	
 	/**
 	 * @return Not null, read only and of type <tt>MetaProperty</tt>.
 	 */
