@@ -2491,7 +2491,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertTrue(Is.empty(getValue("year")));
 		setValue("date", "1/2/2004");
 		execute("CRUD.refresh");
-		assertError("Object of type Invoice does not exists with key Date:1/2/2004, Paid:No"); // TMR ME QUEDÉ POR AQUÍ FALLA. QUIZSAR CAMBIAR : POR UNA ENTIDAD LO ARREGLARÍS O PROBAR JSON.stringfy		
+		assertError("Object of type Invoice does not exists with key Date:1/2/2004, Paid:No"); 		
 		// with reference
 		setValue("customer.number", "43");
 		assertValue("customer.name", "Gonzalo Gonzalez");
