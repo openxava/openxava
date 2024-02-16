@@ -2,21 +2,17 @@ Change Log for OpenXava project
 ===============================
 
 Pediente:
-- Que funcionen test HtmlUnit. (InvoiceTest)
-- Comprobar rendimiento.
-- Probar Java 8. Solo que funcione.
-- CalendarTest.
-- Discussion.
-- Buscar otras funcionalidades DWR para testear.
 - Mismo código en Linux y Windows.
-- En todos navegadores.
 - Quitar los otros evals.
 - Quitar anulación de try ... catch
 - Suite.
+- En todos navegadores.
 - Pruebas manuales.
 - Quitar tmrs del código. Comentar cambios en dwr-engine.js.
 - Comentar versión de DWR en pom.xml.
 - Mezclar con último master.
+- Probar CalendarTest. Puede que tengamos que quitar el headless y hacer que Chungyen lo revise.
+- Restaurar CSP.
 - Suite
 
 
