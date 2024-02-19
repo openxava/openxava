@@ -341,7 +341,7 @@ public class MetaWebEditors {
 			boolean contains = false;
 			for (MetaEditor editor: editorsForTabs) {
 				if (editor.hasHasSet()) {
-					List<MetaProperty> mpList = tab.getMetaProperties();
+					List<MetaProperty> mpList = new ArrayList<>(tab.getMetaModel().getMetaProperties());
 					for (MetaProperty mp : mpList) {
 						if (editor.matchStereotype(mp) ||
 								editor.matchAnnotation(editor, mp) ||
@@ -360,8 +360,7 @@ public class MetaWebEditors {
 			Collection<MetaEditor> newEditorsForTabs = new ArrayList<>(editorsForTabs);
 			newEditorsForTabs.removeAll(editorToDelete);
 			return newEditorsForTabs;
-		}
-		else {
+		} else {
 			Collection<MetaEditor> result = new ArrayList<MetaEditor>();
 			result.add(customEditor);
 			for (MetaEditor editor: editorsForTabs) {
