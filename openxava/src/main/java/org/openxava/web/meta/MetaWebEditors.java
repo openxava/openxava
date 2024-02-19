@@ -362,7 +362,6 @@ public class MetaWebEditors {
 			return newEditorsForTabs;
 		}
 		else {
-			System.out.println("customEditor not null");
 			Collection<MetaEditor> result = new ArrayList<MetaEditor>();
 			result.add(customEditor);
 			for (MetaEditor editor: editorsForTabs) {
