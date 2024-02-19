@@ -117,9 +117,26 @@ public class WebEditors {
 	 * @return If has a multiple converter return a array of string else return a string
 	 */
 	public static Object formatToStringOrArray(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException {
-		return formatToStringOrArrayImpl(request, p, object, errors, viewName, fromList);
+		// return formatToStringOrArrayImpl(request, p, object, errors, viewName, fromList);
+		// tmr ini
+		Object result = formatToStringOrArrayImpl(request, p, object, errors, viewName, fromList);
+		
+		if (result instanceof String) {
+			return changeSpecialCharacters((String) result);
+		}
+		Object [] results = (Object []) result;
+		for (int i=0; i<results.length; i++) {
+			results[i] = changeSpecialCharacters((String) result);
+		}
+		return result;
+		// tmr fin
 	}
 	
+	private static Object changeSpecialCharacters(String formattedString) { // tmr 
+		if (hasMarkup(formattedString)) return formattedString;
+		return 	formattedString.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;");
+	}
+
 	public static Object formatTitle(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException { 
 		Object result = formatToStringOrArrayImpl(request, p, object, errors, viewName, fromList);
 		if (result != null && hasMarkup(result)) {

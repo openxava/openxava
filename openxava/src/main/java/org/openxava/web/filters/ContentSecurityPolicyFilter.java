@@ -39,8 +39,7 @@ public class ContentSecurityPolicyFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         String policy = "default-src 'self'; script-src 'self' 'nonce-" + 
         	Nonces.get(request) + 
-        	// tmr "' 'unsafe-eval' " + 
-        	"' " + // tmr
+        	"' 'unsafe-eval' " + 
         	trustedHostsForScripts + 
         	"; style-src 'self' 'nonce-" + 
         	Nonces.get(request) +

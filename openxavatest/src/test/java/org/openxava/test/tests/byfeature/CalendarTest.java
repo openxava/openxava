@@ -16,9 +16,13 @@ import org.openqa.selenium.support.ui.*;
  */
 public class CalendarTest extends WebDriverTestBase {
 	
+	protected boolean isHeadless() { // tmr
+		return false;
+	}
+	
     public void testCalendar() throws Exception {
     	assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate(); 
-        assertMultipleDatesPropertiesAndFirstDateAsEventStart();
+        assertMultipleDatesPropertiesAndFirstDateAsEventStart(); // TMR FALLA
         assertFilterPerformance();
     	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime();
         assertAnyNameAsDateProperty();

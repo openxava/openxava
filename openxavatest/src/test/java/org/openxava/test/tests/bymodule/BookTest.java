@@ -1,12 +1,11 @@
 package org.openxava.test.tests.bymodule;
 
+import org.htmlunit.*;
 import org.openxava.test.services.*;
 import org.openxava.tests.*;
 
-import org.htmlunit.*;
-
 /**
- * 
+ * // TMR FALLA
  * @author Javier Paniza
  */
 
@@ -53,7 +52,7 @@ public class BookTest extends ModuleTestBase {
 	}
 	
 	public void testReferenceNameMatchesIdOfReferencedEntityName_callRESTService_showCustomActionInReferenceSearchAction() throws Exception { 
-		execute("CRUD.new");
+		execute("CRUD.new"); 
 		execute("Book.addAction", "keyProperty=author.author");	
 		assertListNotEmpty();
 		assertAction("Book.doNothing");

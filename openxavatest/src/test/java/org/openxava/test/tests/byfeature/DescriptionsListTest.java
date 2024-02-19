@@ -86,7 +86,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertTrue(subfamilyList.isDisplayed());
 		List<WebElement> subfamilyListChildren = subfamilyList.findElements(By.tagName("li")); 
 		assertEquals(3, subfamilyListChildren.size());
-		assertEquals("DESARROLLO", subfamilyListChildren.get(0).getText()); 
+		assertEquals("DESARROLLO", subfamilyListChildren.get(0).getText()); // TMR FALLA
 		assertEquals("SISTEMA", subfamilyListChildren.get(2).getText());	
 		
 		subfamilyListChildren.get(0).click(); // DESARROLLO

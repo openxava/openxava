@@ -39,7 +39,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		    firstSpanElement.click();
 		}
 		wait(getDriver());
-		WebElement divElement = getDriver().findElement(By.cssSelector("div.ox-message-box"));
+		WebElement divElement = getDriver().findElement(By.cssSelector("div.ox-message-box")); // TMR FALLA
 		String message = divElement.getText();
 		String expectedMessage = "Calendar changed";
 		assertEquals(expectedMessage, message);

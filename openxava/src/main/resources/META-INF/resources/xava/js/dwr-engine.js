@@ -201,7 +201,8 @@ dwr.engine._isNotifyServerOnPageUnload = notify;
 dwr.engine.setNotifyServerOnPageLoad = function(notify) {
 dwr.engine._isNotifyServerOnPageLoad = notify;
 if (notify && !dwr.engine._initializing && !dwr.engine._isNotifyServerOnPageLoadSent) {
-eval("dwr.engine._execute(dwr.engine._pathToDwrServlet, '__System', 'pageLoaded', [ function() { dwr.engine._ordered = false; }]);");
+// tmr eval("dwr.engine._execute(dwr.engine._pathToDwrServlet, '__System', 'pageLoaded', [ function() { dwr.engine._ordered = false; }]);");
+dwr.engine._execute(dwr.engine._pathToDwrServlet, '__System', 'pageLoaded', [ function() { dwr.engine._ordered = false; }]); // tmr
 dwr.engine._isNotifyServerOnPageLoadSent = true;
 }
 };
@@ -657,7 +658,8 @@ dwr.engine._initializer.loadDwrConfig();
 dwr.engine._initializing = false;
 
 if (dwr.engine._isNotifyServerOnPageLoad) {
-eval("dwr.engine._execute(dwr.engine._pathToDwrServlet, '__System', 'pageLoaded', [ function() { dwr.engine._ordered = false; }]);");
+// tmr eval("dwr.engine._execute(dwr.engine._pathToDwrServlet, '__System', 'pageLoaded', [ function() { dwr.engine._ordered = false; }]);");
+dwr.engine._execute(dwr.engine._pathToDwrServlet, '__System', 'pageLoaded', [ function() { dwr.engine._ordered = false; }]); // tmr
 dwr.engine._isNotifyServerOnPageLoadSent = true;
 }
 if (dwr.engine._activeReverseAjax) {
@@ -735,6 +737,7 @@ return null;
 
 // tmr (new Function("dwr", script))(dwr);
 // tmr ini
+	console.log("script=" + script); // tmr
 	var paramsStartIndex = script.indexOf(".handleCallback(") + 16;
 	var paramsEndIndex = script.indexOf('})();', paramsStartIndex);
 	var params = script.substring(paramsStartIndex, paramsEndIndex);
@@ -744,15 +747,20 @@ return null;
 	var param3StartIndex = params.indexOf(",", params.indexOf(",") + 1) + 1;
 	var param3EndIndex = params.lastIndexOf(');');
 	var param3 = params.substring(param3StartIndex, param3EndIndex);
+	console.log("param3=" + param3); // tmr
 	if (param3.startsWith('"') && !param3.startsWith('"[')) {
 		param3 = param3.substr(1, param3.length - 2);
+		console.log("param3.A=" + param3); // tmr
 	}
 	if (param3.startsWith('{') || param3.startsWith('"[')) {
-		var json = param3.replace(/([{,])(\s*)([a-zA-Z0-9_\-]+?)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$3":'); 
+		var json = param3.replace(/([{,])(\s*)([a-zA-Z0-9_\-]+?)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$3":');
+		console.log("json=" + json); // tmr 
 		param3 = JSON.parse(json);
+		console.log("param3.B=" + param3); // tmr
 	}
 	else if (param3.includes("\\")) { 
 		param3 = JSON.parse(`"${param3}"`);
+		console.log("param3.C=" + param3); // tmr
 	}
 	dwr.engine.remote.handleCallback(param1,param2,param3);
 	// tmr fin
@@ -1825,7 +1833,6 @@ dwr.engine._handleError(batch, { name:"dwr.engine.http." + status, message:statu
 if (toEval != null) toEval = toEval.replace(dwr.engine._scriptTagProtection, "");
 dwr.engine._executeScript(toEval);
 dwr.engine.transport.complete(batch);
-
 /* tmr
 } catch (ex2) {
 dwr.engine._handleError(batch, ex2);

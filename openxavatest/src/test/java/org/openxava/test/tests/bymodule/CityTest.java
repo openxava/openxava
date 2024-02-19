@@ -31,7 +31,7 @@ public class CityTest extends ModuleTestBase{
 		HtmlPage newTabPage = (HtmlPage) getWebClient().getCurrentWindow().getEnclosedPage();
 		waitAJAX(); 
 		String tabText = newTabPage.asNormalizedText();
-		assertTrue(tabText.contains("New Delete Generate PDF Generate Excel")); // In list mode 
+		assertTrue(tabText.contains("New Delete Generate PDF Generate Excel")); // In list mode // TMR FALLA
 		assertFalse(tabText.contains("New Save Delete Search Refresh")); // Not in detail mode
 		
 		execute("Navigation.next");

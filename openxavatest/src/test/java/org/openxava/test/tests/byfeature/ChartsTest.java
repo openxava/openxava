@@ -17,7 +17,7 @@ public class ChartsTest extends WebDriverTestBase {
 		moveToListView();
 		
 		goModule("Color");
-		assertMax120Bars();
+		assertMax120Bars(); // TMR FALLA
 		moveToListView();
 	}
 

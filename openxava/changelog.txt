@@ -2,17 +2,14 @@ Change Log for OpenXava project
 ===============================
 
 Pediente:
-- Mismo código en Linux y Windows.
-- Quitar los otros evals.
-- Quitar anulación de try ... catch
 - Suite.
+- Quitar anulación de try ... catch ¿Dejarlo anulado? Con try catch anulado es efecto es el mismo de cara al usuario, pero la traza indica la línea real
 - En todos navegadores.
 - Pruebas manuales.
 - Quitar tmrs del código. Comentar cambios en dwr-engine.js.
 - Comentar versión de DWR en pom.xml.
 - Mezclar con último master.
 - Probar CalendarTest. Puede que tengamos que quitar el headless y hacer que Chungyen lo revise.
-- Restaurar CSP.
 - Suite
 
 

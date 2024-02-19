@@ -19,7 +19,7 @@ public class ListTest extends WebDriverTestBase {
 	private final static String ACTION_PREFIX = "action";
 	
 	public void testListAndCollection() throws Exception {
-		goModule("Author");
+		goModule("Author"); // TMR FALLA
 		assertShowHideFilterInList();
 		assertMoveColumns();
 		assertRemoveColumnAfterFiltering(); 
