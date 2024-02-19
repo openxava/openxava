@@ -337,28 +337,8 @@ public class MetaWebEditors {
 	public static Collection<MetaEditor> getMetaEditorsFor(MetaTab tab) throws ElementNotFoundException, XavaException {
 		MetaEditor customEditor = (MetaEditor) getMetaEditorForTabModel(tab.getModelName());
 		if (customEditor == null) {
-			List<MetaEditor> editorToDelete = new ArrayList<>();
-			boolean contains = false;
-			for (MetaEditor editor: editorsForTabs) {
-				if (editor.hasHasSet()) {
-					List<MetaProperty> mpList = new ArrayList<>(tab.getMetaModel().getMetaProperties());
-					for (MetaProperty mp : mpList) {
-						if (editor.matchStereotype(mp) ||
-								editor.matchAnnotation(editor, mp) ||
-								editor.matchPropertyType(mp)) {
-							contains = true;
-							break;
-						}
-					}
-					if (!contains) {
-						editorToDelete.add(editor);
-					} else {
-						contains = false;
-					}
-				}
-			}
 			Collection<MetaEditor> newEditorsForTabs = new ArrayList<>(editorsForTabs);
-			newEditorsForTabs.removeAll(editorToDelete);
+			newEditorsForTabs.removeAll(getEditorsAfterFilt(tab));
 			return newEditorsForTabs;
 		} else {
 			Collection<MetaEditor> result = new ArrayList<MetaEditor>();
@@ -366,9 +346,34 @@ public class MetaWebEditors {
 			for (MetaEditor editor: editorsForTabs) {
 				if (!"List".equals(editor.getName())) result.add(editor); 
 			}
+			result.removeAll(getEditorsAfterFilt(tab));
 			return result;
 		}
 	}	
+	
+	private static Collection<MetaEditor> getEditorsAfterFilt(MetaTab tab) {
+		List<MetaEditor> editorToDelete = new ArrayList<>();
+		boolean contains = false;
+		for (MetaEditor editor: editorsForTabs) {
+			if (editor.hasHasSet() && !"List".equals(editor.getName())) {
+				List<MetaProperty> mpList = new ArrayList<>(tab.getMetaModel().getMetaProperties());
+				for (MetaProperty mp : mpList) {
+					if (editor.matchStereotype(mp) ||
+							editor.matchAnnotation(editor, mp) ||
+							editor.matchPropertyType(mp)) {
+						contains = true;
+						break;
+					}
+				}
+				if (!contains) {
+					editorToDelete.add(editor);
+				} else {
+					contains = false;
+				}
+			}
+		}
+		return editorToDelete;
+	}
 		
 	public static MetaEditor getMetaEditorFor(MetaMember member) throws ElementNotFoundException, XavaException { 
 		if (member instanceof MetaProperty) return getMetaEditorFor((MetaProperty) member);
