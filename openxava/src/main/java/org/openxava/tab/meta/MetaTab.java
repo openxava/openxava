@@ -92,7 +92,7 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		tab.setMetaModel(metaModel);	
 		return tab;
 	}
-	
+
 	/**
 	 * @return Not null, read only and of type <tt>MetaProperty</tt>.
 	 */

@@ -384,6 +384,10 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		return result;
 	}
 	
+	/**
+	 * 
+	 * @return list of property's annotation names
+	 */
 	public List<String> getAnnotationName(){
 		List<String> result = new ArrayList<>();
 		if (getAnnotations()!= null) {
