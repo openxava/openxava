@@ -38,7 +38,9 @@ public class MetaEditor implements Cloneable {
 	private String initAction; 
 	private String releaseAction; 
 	private boolean selectableItems; 
-	private Set<String> propertyType;
+	private Set<String> propertyTypeSet;
+	private Set<String> annotationSet;
+	private Set<String> stereotypeSet;
 
 	public void _addListFormatterMetaSet(MetaSet metaSet) {
 		if (listFormatterMetaSet == null) listFormatterMetaSet = new ArrayList();
@@ -215,20 +217,74 @@ public class MetaEditor implements Cloneable {
 	public void setFormatterClassName(String string) {
 		formatterClassName = string;
 	}
+	
+	public boolean hasHasSet() {
+		if (getPropertyTypeSet().size() == 0 &&
+				getAnnotationSet().size() == 0 &&
+				getStereotypeSet().size() == 0) {
+			return false;
+		}
+		return true;
+	}
+	
+	public Set<String> getPropertyTypeSet() {
+		if (propertyTypeSet == null) propertyTypeSet = new HashSet<>();
+		return propertyTypeSet;
+	}
 
-	public Set<String> getPropertyType() {
-		return (propertyType == null) ? new HashSet<>() : propertyType;
+	public Set<String> getAnnotationSet() {
+		if (annotationSet == null) annotationSet = new HashSet<>();
+		return annotationSet;
+	}
+	
+	public Set<String> getStereotypeSet() {
+		if (stereotypeSet == null) stereotypeSet = new HashSet<>();
+		return stereotypeSet;
 	}
 	
 	public void addPropertyType(String newPropertyType) {
-		if (propertyType == null) propertyType = new HashSet<>();
-        propertyType.add(newPropertyType);
+		getPropertyTypeSet().add(newPropertyType);
 	}
 	
-    public boolean hasPropertyType(String propertyTypeToCheck) {
-        return propertyType.contains(propertyTypeToCheck);
+	public void addAnnotation(String newAnnotation) {
+		getAnnotationSet().add(newAnnotation);
+	}
+	
+	public void addStereotype(String newStereotype) {
+		getStereotypeSet().add(newStereotype);
+	}
+	
+	private boolean hasPropertyType(String propertyTypeToCheck) {
+        return getPropertyTypeSet().contains(propertyTypeToCheck);
     }
 	
+    private boolean hasAnnotation(String annotationToCheck) {
+        return getAnnotationSet().contains(annotationToCheck);
+    }
+    
+    private boolean hasStereotype(String stereotypeToCheck) {
+        return getStereotypeSet().contains(stereotypeToCheck);
+    }
+    
+    public boolean matchPropertyType(MetaProperty mp) {
+        return hasPropertyType(mp.getTypeName());
+    }
+
+    public boolean matchAnnotation(MetaEditor editor, MetaProperty mp) {
+        if (mp.getAnnotations() != null) {
+            for (String s : mp.getAnnotationName()) {
+                if (hasAnnotation(s)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean matchStereotype(MetaProperty mp) {
+        return mp.getStereotype() != null && hasStereotype(mp.getStereotype());
+    }
+    
 	public boolean isFormat() {
 		return format;
 	}

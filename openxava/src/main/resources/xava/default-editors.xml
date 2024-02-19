@@ -23,24 +23,27 @@
 		icon="chart-line" 
 		init-action="Chart.init" 
 		release-action="Chart.release"> 
-		<for-tabs>
-			<has-type type="java.lang.String" />
-		</for-tabs>
+		<for-tabs/>
 	</editor>	
 	
 	<editor name="Cards" url="cardsEditor.jsp" 
 		icon="view-module" 
 		selectable-items="false"> 
-		<for-tabs>
-			<has-type type="java.lang.String" />
-		</for-tabs>
+		<for-tabs/>
 	</editor>	
 	
 	<editor name="Calendar" url="calendarEditor.jsp" 
 		icon="calendar" 
 		selectable-items="false"> 
 		<for-tabs>
-			<has-type type="java.lang.String" />
+			<has-type type="java.time.LocalDate" />
+			<has-type type="java.util.Date" />
+			<has-type type="java.sql.Date" />
+			<has-type type="java.sql.Timestamp" />
+			<has-type type="java.time.LocalDateTime" />
+			<has-annotation annotation="DateTime"/>
+			<has-stereotype stereotype="DATETIME"/>
+			<has-stereotype stereotype="FECHAHORA"/>
 		</for-tabs>
 	</editor>
 		

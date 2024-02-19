@@ -6,12 +6,12 @@
 
 <editors>
 
-	<editor name="Empty" url="empty.jsp" 
-        icon="calendar" 
+	<editor name="Pluggable" url="forTestPlugabble.jsp" 
+        icon="puzzle" 
         selectable-items="false"> 
         <for-tabs>
-            <has-type type="java.util.Date" />
-            <has-type type="java.time.LocalDate" />
+        	<has-annotation annotation="ZerosFilled"/>
+			<has-stereotype stereotype="CITY_NAME"/>
         </for-tabs>
     </editor>
 

@@ -64,7 +64,7 @@ public class EditorsParser extends ParserBase {
 		editor.setFormatterClassName(getFormatterClass(el, editor));
 		editor.setFormatterFromType(getFormatterFromType(el));
 		editor.setListFormatterClassName(getListFormatterClassName(el, editor));
-		setPropertyType(el, editor);
+		setForTabs(el, editor);
 		
 		if (editor.isFormatterFromType() && !Is.emptyString(editor.getFormatterClassName())) {
 			throw new XavaException("formatter_class_and_from_type_not_compatible");
@@ -145,18 +145,25 @@ public class EditorsParser extends ParserBase {
 		return getAttributeBoolean(el, xfrom_type[lang]);						
 	}
 	
-	private void setPropertyType(Element n, MetaEditor container) throws XavaException {
-		System.out.println("setPropertyType " + n.getNodeName() + " " + container.getName());
+	private void setForTabs(Element n, MetaEditor container) throws XavaException {
 		NodeList l = n.getElementsByTagName(xfor_tabs[lang]);
 		if (l.getLength() < 1) return;
 		Element el = (Element) l.item(0);
-		NodeList set = el.getElementsByTagName(xhas_type[lang]);
-		int x = set.getLength();
-		System.out.println("x length " + x);
-		for (int i = 0; i < x; i++) {
-			Element el2 = (Element) set.item(i);	
+		NodeList hasType = el.getElementsByTagName(xhas_type[lang]);
+		NodeList hasAnnotation = el.getElementsByTagName(xhas_annotation[lang]);
+		NodeList hasStereotype = el.getElementsByTagName(xhas_stereotype[lang]);
+		for (int i = 0; i < hasType.getLength(); i++) {
+			Element el2 = (Element) hasType.item(i);	
 			container.addPropertyType(el2.getAttribute(xtype[lang]));
+		}
+		for (int i = 0; i < hasAnnotation.getLength(); i++) {
+			Element el2 = (Element) hasAnnotation.item(i);	
+			container.addAnnotation(el2.getAttribute(xannotation[lang]));
 		}	
+		for (int i = 0; i < hasStereotype.getLength(); i++) {
+			Element el2 = (Element) hasStereotype.item(i);	
+			container.addStereotype(el2.getAttribute(xstereotype[lang]));
+		}
 	}
 	
 	
@@ -247,9 +254,6 @@ public class EditorsParser extends ParserBase {
 	
 	private void addEditorsForTabs(MetaEditor editor, Element n) throws XavaException {   		
 		NodeList l = n.getElementsByTagName(xfor_tabs[lang]);
-		if (editor.getName().equals("Empty")) {
-			System.out.println("addEditorsForTabs EditorsParser" + editor.getName());
-		}
 		if (l.getLength() > 0) { 
 			MetaWebEditors.addMetaEditorForTabs(editor);
 		}		
