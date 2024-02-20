@@ -1,5 +1,6 @@
 package org.openxava.web.meta;
 
+import java.lang.annotation.*;
 import java.util.*;
 
 import org.apache.commons.logging.*;
@@ -38,7 +39,7 @@ public class MetaEditor implements Cloneable {
 	private String initAction; 
 	private String releaseAction; 
 	private boolean selectableItems; 
-	private Set<String> propertyTypeSet;
+	private Set<String> typeSet;
 	private Set<String> annotationSet;
 	private Set<String> stereotypeSet;
 
@@ -219,7 +220,7 @@ public class MetaEditor implements Cloneable {
 	}
 	
 	public boolean hasHasSet() {
-		if (getPropertyTypeSet().size() == 0 &&
+		if (getTypeSet().size() == 0 &&
 				getAnnotationSet().size() == 0 &&
 				getStereotypeSet().size() == 0) {
 			return false;
@@ -227,9 +228,9 @@ public class MetaEditor implements Cloneable {
 		return true;
 	}
 	
-	public Set<String> getPropertyTypeSet() {
-		if (propertyTypeSet == null) propertyTypeSet = new HashSet<>();
-		return propertyTypeSet;
+	public Set<String> getTypeSet() {
+		if (typeSet == null) typeSet = new HashSet<>();
+		return typeSet;
 	}
 
 	public Set<String> getAnnotationSet() {
@@ -242,8 +243,8 @@ public class MetaEditor implements Cloneable {
 		return stereotypeSet;
 	}
 	
-	public void addPropertyType(String newPropertyType) {
-		getPropertyTypeSet().add(newPropertyType);
+	public void addType(String newPropertyType) {
+		getTypeSet().add(newPropertyType);
 	}
 	
 	public void addAnnotation(String newAnnotation) {
@@ -254,35 +255,34 @@ public class MetaEditor implements Cloneable {
 		getStereotypeSet().add(newStereotype);
 	}
 	
-	private boolean hasPropertyType(String propertyTypeToCheck) {
-        return getPropertyTypeSet().contains(propertyTypeToCheck);
+	private boolean hasTypeForTabs(String propertyTypeToCheck) {
+        return getTypeSet().contains(propertyTypeToCheck);
     }
 	
-    private boolean hasAnnotation(String annotationToCheck) {
+    private boolean hasAnnotationForTabs(String annotationToCheck) {
         return getAnnotationSet().contains(annotationToCheck);
     }
     
-    private boolean hasStereotype(String stereotypeToCheck) {
+    private boolean hasStereotypeForTabs(String stereotypeToCheck) {
         return getStereotypeSet().contains(stereotypeToCheck);
     }
     
-    public boolean matchPropertyType(MetaProperty mp) {
-        return hasPropertyType(mp.getTypeName());
+    public boolean typeMatches(MetaProperty mp) {
+        return hasTypeForTabs(mp.getTypeName());
     }
 
-    public boolean matchAnnotation(MetaEditor editor, MetaProperty mp) {
-        if (mp.getAnnotations() != null) {
-            for (String s : mp.getAnnotationName()) {
-                if (hasAnnotation(s)) {
-                    return true;
-                }
-            }
+    public boolean annotationMatches(MetaEditor editor, MetaProperty mp) {
+    	Annotation[] annotations = mp.getAnnotations();
+        if (annotations != null) {
+    		for (Annotation a : annotations) {
+    			if (hasAnnotationForTabs(a.annotationType().getSimpleName())) return true;
+    		}
         }
         return false;
     }
 
-    public boolean matchStereotype(MetaProperty mp) {
-        return mp.getStereotype() != null && hasStereotype(mp.getStereotype());
+    public boolean stereotypeMatches(MetaProperty mp) {
+        return mp.getStereotype() != null && hasStereotypeForTabs(mp.getStereotype());
     }
     
 	public boolean isFormat() {

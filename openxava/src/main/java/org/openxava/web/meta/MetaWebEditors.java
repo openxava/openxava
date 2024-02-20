@@ -338,7 +338,7 @@ public class MetaWebEditors {
 		MetaEditor customEditor = (MetaEditor) getMetaEditorForTabModel(tab.getModelName());
 		if (customEditor == null) {
 			Collection<MetaEditor> newEditorsForTabs = new ArrayList<>(editorsForTabs);
-			newEditorsForTabs.removeAll(getEditorsAfterFilt(tab));
+			newEditorsForTabs.removeAll(getEditorsForTabToRemove(tab));
 			return newEditorsForTabs;
 		} else {
 			Collection<MetaEditor> result = new ArrayList<MetaEditor>();
@@ -346,21 +346,21 @@ public class MetaWebEditors {
 			for (MetaEditor editor: editorsForTabs) {
 				if (!"List".equals(editor.getName())) result.add(editor); 
 			}
-			result.removeAll(getEditorsAfterFilt(tab));
+			result.removeAll(getEditorsForTabToRemove(tab));
 			return result;
 		}
 	}	
 	
-	private static Collection<MetaEditor> getEditorsAfterFilt(MetaTab tab) {
+	private static Collection<MetaEditor> getEditorsForTabToRemove(MetaTab tab) {
 		List<MetaEditor> editorToDelete = new ArrayList<>();
 		boolean contains = false;
 		for (MetaEditor editor: editorsForTabs) {
 			if (editor.hasHasSet() && !"List".equals(editor.getName())) {
 				List<MetaProperty> mpList = new ArrayList<>(tab.getMetaModel().getMetaProperties());
 				for (MetaProperty mp : mpList) {
-					if (editor.matchStereotype(mp) ||
-							editor.matchAnnotation(editor, mp) ||
-							editor.matchPropertyType(mp)) {
+					if (editor.stereotypeMatches(mp) ||
+							editor.annotationMatches(editor, mp) ||
+							editor.typeMatches(mp)) {
 						contains = true;
 						break;
 					}

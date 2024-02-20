@@ -36,6 +36,14 @@ public class ListTest extends WebDriverTestBase {
 		goModule("Invoice");
 		assertRemoveSeveralColumns();
 	}
+	
+	public void testListFormatIsSelectable() throws Exception {
+		//has-type tested with CalendarTest
+		goModule("City");
+		assertTrue(hasPluggableIcon());
+		goModule("Subfamily");
+		assertTrue(hasPluggableIcon());
+	}
 		
 	private void assertNoFilterInCollectionByDefault() throws Exception {
 		execute("CRUD.new");		
@@ -623,6 +631,11 @@ public class ListTest extends WebDriverTestBase {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("embed")));
 		String contentType = getDriver().findElement(By.tagName("embed")).getAttribute("type"); // This works for PDF with Chrome
 		assertEquals(expectedContentType, contentType);
+	}
+	
+	private boolean hasPluggableIcon() {
+		List<WebElement> iconElements = getDriver().findElements(By.cssSelector("i.mdi.mdi-puzzle"));
+		return !iconElements.isEmpty();
 	}
 
 }

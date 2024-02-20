@@ -154,7 +154,7 @@ public class EditorsParser extends ParserBase {
 		NodeList hasStereotype = el.getElementsByTagName(xhas_stereotype[lang]);
 		for (int i = 0; i < hasType.getLength(); i++) {
 			Element el2 = (Element) hasType.item(i);	
-			container.addPropertyType(el2.getAttribute(xtype[lang]));
+			container.addType(el2.getAttribute(xtype[lang]));
 		}
 		for (int i = 0; i < hasAnnotation.getLength(); i++) {
 			Element el2 = (Element) hasAnnotation.item(i);	
