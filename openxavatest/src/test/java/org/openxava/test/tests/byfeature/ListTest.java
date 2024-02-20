@@ -40,9 +40,9 @@ public class ListTest extends WebDriverTestBase {
 	public void testListFormatIsSelectable() throws Exception {
 		//has-type tested with CalendarTest
 		goModule("City");
-		assertTrue(hasPluggableIcon());
+		assertTrue(hasClockIcon());
 		goModule("Subfamily");
-		assertTrue(hasPluggableIcon());
+		assertTrue(hasClockIcon());
 	}
 		
 	private void assertNoFilterInCollectionByDefault() throws Exception {
@@ -633,8 +633,8 @@ public class ListTest extends WebDriverTestBase {
 		assertEquals(expectedContentType, contentType);
 	}
 	
-	private boolean hasPluggableIcon() {
-		List<WebElement> iconElements = getDriver().findElements(By.cssSelector("i.mdi.mdi-puzzle"));
+	private boolean hasClockIcon() {
+		List<WebElement> iconElements = getDriver().findElements(By.cssSelector("i.mdi.mdi-clock"));
 		return !iconElements.isEmpty();
 	}
 

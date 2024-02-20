@@ -384,6 +384,8 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		return result;
 	}
 
+	
+	
 	/**
 	 * 
 	 * @return scale param
