@@ -25,7 +25,7 @@ public class EditableValidValuesTest extends WebDriverTestBase {
 		input.sendKeys(Keys.TAB);
 		wait(getDriver());
 		String text = getText("remarks");
-		assertEquals("No remarks", text); // TMR FALLA
+		assertEquals("No remarks", text);
 		execute("Mode.list");
 	}
 	
