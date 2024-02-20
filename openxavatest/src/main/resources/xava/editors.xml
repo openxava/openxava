@@ -6,8 +6,8 @@
 
 <editors>
 
-	<editor name="Pluggable" url="forTestPlugabble.jsp" 
-        icon="puzzle" 
+	<editor name="System time" url="currentTimeMillisEditor.jsp" 
+        icon="clock" 
         selectable-items="false"> 
         <for-tabs>
         	<has-annotation annotation="ZerosFilled"/>
