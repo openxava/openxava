@@ -46,7 +46,9 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 			addActions(getCollectionElementView().getSaveCollectionElementAction());
 		}
 		if (getCollectionElementView().isCollectionEditable()) { 
+			System.out.println("adding next");
 			addActions(getCollectionElementView().getRemoveCollectionElementAction());
+			addActions(getCollectionElementView().getNextElementAction());
 		} 	
 		Iterator itDetailActions = getCollectionElementView().getActionsNamesDetail().iterator();
 		while (itDetailActions.hasNext()) {		

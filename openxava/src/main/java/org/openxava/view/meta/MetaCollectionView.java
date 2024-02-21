@@ -21,6 +21,7 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 	private String hideActionName;
 	private String removeActionName;
 	private String removeSelectedActionName;
+	private String nextActionName;
 	private Collection actionsDetailNames;
 	private Collection actionsListNames;
 	private Collection subcontrollersListNames;
@@ -276,12 +277,21 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 	public Tree getPath() {
 		return path;
 	}
+	
 	public String getAddActionName() {
 		return addActionName;
 	}
 
 	public void setAddActionName(String addActionName) {
 		this.addActionName = addActionName;
+	}
+	
+	public String getNextActionName() {
+		return nextActionName;
+	}
+
+	public void setNextActionName(String nextActionName) {
+		this.nextActionName = nextActionName;
 	}
 
 }

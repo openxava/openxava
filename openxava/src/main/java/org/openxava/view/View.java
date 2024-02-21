@@ -62,6 +62,7 @@ public class View implements java.io.Serializable {
 	private String editCollectionElementAction;
 	private String viewCollectionElementAction;
 	private String addCollectionElementAction;  
+	private String nextElementAction;  
 	private String newCollectionElementAction;
 	private String saveCollectionElementAction;
 	private String hideCollectionElementAction;
@@ -1082,10 +1083,12 @@ public class View implements java.io.Serializable {
 				if (!metaCollectionView.isCreateReference()) { 
 					newView.setNewCollectionElementAction("");
 					newView.setAddCollectionElementAction("");
+					newView.setNextElementAction("");
 				}
 				else {
 					newView.setNewCollectionElementAction(metaCollectionView.getNewActionName());
-					newView.setAddCollectionElementAction(metaCollectionView.getAddActionName()); 
+					newView.setAddCollectionElementAction(metaCollectionView.getAddActionName());
+					newView.setNextElementAction(metaCollectionView.getNextActionName());
 				}
 				newView.setSaveCollectionElementAction(metaCollectionView.getSaveActionName());
 				newView.setHideCollectionElementAction(metaCollectionView.getHideActionName());
@@ -5759,6 +5762,10 @@ public class View implements java.io.Serializable {
 	public String getAddCollectionElementAction() {
 		return getCollectionAction(addCollectionElementAction, "Collection.add");		
 	}
+	
+	public String getNextElementAction() {
+		return getCollectionAction(nextElementAction, "Navigation.next");		
+	}
 
 	public String getNewCollectionElementAction() {
 		return getCollectionAction(newCollectionElementAction, getMetaCollection().getInverseCollection() == null?"Collection.new":"ManyToMany.new"); 
@@ -6874,6 +6881,10 @@ public class View implements java.io.Serializable {
 
 	public void setAddCollectionElementAction(String addCollectionElementAction) {
 		this.addCollectionElementAction = addCollectionElementAction;
+	}
+	
+	public void setNextElementAction(String nextElementAction) {
+		this.nextElementAction = nextElementAction;
 	}
 	
 	public boolean isPropertyUsedInCalculation(String qualifiedName) {  
