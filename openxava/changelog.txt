@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- has-type/has-annotation/has-stereotype in for-tabs of editors.xml to discriminate list formats by entity.
 - MySQL configuration documentation includes video.
 - Documentation for database configuration improved to include schema/database creation.
 - Year navigation buttons added to calendar list format for fast year navigation to distant dates.

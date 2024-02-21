@@ -6,7 +6,7 @@
 
 <editors>
 
-	<editor name="System time" url="currentTimeMillisEditor.jsp" 
+	<editor name="SystemTime" url="currentTimeMillisEditor.jsp" 
         icon="clock" 
         selectable-items="false"> 
         <for-tabs>
