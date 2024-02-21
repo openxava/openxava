@@ -51,6 +51,9 @@ public class WebEditors {
 
 	public static Object parse(HttpServletRequest request, MetaProperty p, String [] strings, Messages errors, String viewName) throws XavaException { 
 		try {
+			System.out.println("[WebEditors.parse] strings> " + Arrays.toString(strings)); // tmr
+			changebackSpecialCharacters(strings); // tmr
+			System.out.println("[WebEditors.parse] strings< " + Arrays.toString(strings)); // tmr
 			if (!(p.isKey() && p.isHidden())) {
 				MetaEditor ed = getMetaEditorFor(p, viewName);
 				if (ed.hasFormatter()) { 				
@@ -119,8 +122,7 @@ public class WebEditors {
 	public static Object formatToStringOrArray(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException {
 		// return formatToStringOrArrayImpl(request, p, object, errors, viewName, fromList);
 		// tmr ini
-		Object result = formatToStringOrArrayImpl(request, p, object, errors, viewName, fromList);
-		
+		Object result = formatToStringOrArrayImpl(request, p, object, errors, viewName, fromList);		
 		if (result instanceof String) {
 			return changeSpecialCharacters((String) result);
 		}
@@ -128,13 +130,22 @@ public class WebEditors {
 		for (int i=0; i<results.length; i++) {
 			results[i] = changeSpecialCharacters((String) result);
 		}
-		return result;
+		return results;
 		// tmr fin
 	}
 	
 	private static Object changeSpecialCharacters(String formattedString) { // tmr 
 		if (hasMarkup(formattedString)) return formattedString;
-		return 	formattedString.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;");
+		return formattedString.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;").replaceAll(",", "&#44;");
+	}
+	
+	private static void changebackSpecialCharacters(String [] stringsToParse) { // tmr
+		if (stringsToParse == null) return; 
+		for (int i=0; i<stringsToParse.length; i++) {
+			if (stringsToParse[i] == null) continue;
+			if (hasMarkup(stringsToParse[i])) continue;
+			stringsToParse[i] = stringsToParse[i].replaceAll("&lt;", "<").replaceAll("&gt;", ">").replaceAll("&quot;", "\"").replaceAll("&#44;", ",");
+		}
 	}
 
 	public static Object formatTitle(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException { 

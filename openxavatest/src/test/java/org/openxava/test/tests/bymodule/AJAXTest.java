@@ -174,7 +174,7 @@ public class AJAXTest extends ModuleTestBase {
 		changeModule("Route");
 		execute("CRUD.new");
 		setValueInCollection("visits", 0, "customer.number", "1");
-		assertLoadedParts( // TMR FALLA
+		assertLoadedParts( 
 			"editor_visits.0.customer.name," + 
 			"editor_visits.0.description," +
 			"errors, messages");
@@ -319,7 +319,7 @@ public class AJAXTest extends ModuleTestBase {
 	
 	public void testAddRemoveActionsForProperty() throws Exception { 
 		changeModule("Author");
-		execute("List.viewDetail", "row=0"); // TMR FALLA
+		execute("List.viewDetail", "row=0"); // TMR FALLA ME QUEDÉ POR AQUÍ. DEPURANDO EN View Y WebEditors
 		assertNoAction("Author.addSuffix");
 		execute("Author.showAddSuffix");		
 		assertAction("Author.addSuffix");

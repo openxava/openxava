@@ -20,7 +20,7 @@ public class CoordinatesTest extends WebDriverTestBase {
 		String originalValue = assertCalculatedMatches();
 		clickOnMap(50, 50);
 		wait(getDriver());
-		String changedValue = assertCalculatedMatches(); // TMR FALLA
+		String changedValue = assertCalculatedMatches();
 		assertNotEquals(changedValue, originalValue);
 		
 		clickOnMap(40, 40); 

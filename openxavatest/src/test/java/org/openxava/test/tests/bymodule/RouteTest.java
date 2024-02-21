@@ -33,7 +33,7 @@ public class RouteTest extends ModuleTestBase {
 		assertValue("description", "ROUTE KM 13");
 		
 		setValueInCollection("visits", 1, "customer.number", "1");
-		assertValueInCollection("visits", 1, "customer.name", "Javi"); // TMR FALLA ME QUEDÉ POR AQUÍ
+		assertValueInCollection("visits", 1, "customer.name", "Javi");
 		assertValueInCollection("visits", 1, "description", "KM: 12, CUSTOMER: 1 JAVI");
 		execute("Reference.search", "keyProperty=visits.0.customer.number");
 		execute("ReferenceSearch.choose", "row=1"); 
@@ -66,7 +66,7 @@ public class RouteTest extends ModuleTestBase {
 		// In the exact below order to reproduce the bug 
 		execute("CRUD.new");
 		setValueInCollection("visits", 0, "customer.number", "1");
-		assertValueInCollection("visits", 0, "customer.name", "Javi"); // TMR FALLA
+		assertValueInCollection("visits", 0, "customer.name", "Javi");
 		setValueInCollection("visits", 0, "product.number", "3");
 		
 		execute("Reference.search", "keyProperty=visits.1.customer.number");

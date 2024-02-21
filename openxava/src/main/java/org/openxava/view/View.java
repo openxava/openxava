@@ -3114,8 +3114,10 @@ public class View implements java.io.Serializable {
 				String propertyKey= qualifier + p.getName();
 				String valueKey = propertyKey + ".value"; 
 				if (Is.anyEqual(propertyKey, "application", "module")) propertyKey += "_VALUE_"; // This _VALUE_ is set in dwr.Module class
-				String [] results = getRequest().getParameterValues(propertyKey);				
+				String [] results = getRequest().getParameterValues(propertyKey);	
+				System.out.println("[View.assignValuesToMembers] results=" + Arrays.toString(results)); // tmr
 				Object value = WebEditors.parse(getRequest(), p, results, getErrors(), getViewName());
+				System.out.println("[View.assignValuesToMembers] value=" + value); // tmr
 				boolean isHiddenKeyWithoutValue = p.isHidden() && (results == null); // for not reset hidden values					
 				if (!isHiddenKeyWithoutValue && mustToFormat) { 
 					getRequest().setAttribute(valueKey, value);
@@ -6575,6 +6577,8 @@ public class View implements java.io.Serializable {
 	}
 	
 	private boolean equals(Object a, Object b) { 
+		System.out.println("[View.equals] a=>" + a + "<"); // tmr
+		System.out.println("[View.equals] b=>" + b + "<"); // tmr
 		if ("".equals(a)) a = null;
 		if ("".equals(b)) b = null;
 		if (a instanceof Map && ((Map) a).isEmpty()) a = null;
