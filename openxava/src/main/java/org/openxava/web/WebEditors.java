@@ -51,9 +51,7 @@ public class WebEditors {
 
 	public static Object parse(HttpServletRequest request, MetaProperty p, String [] strings, Messages errors, String viewName) throws XavaException { 
 		try {
-			System.out.println("[WebEditors.parse] strings> " + Arrays.toString(strings)); // tmr
 			changebackSpecialCharacters(strings); // tmr
-			System.out.println("[WebEditors.parse] strings< " + Arrays.toString(strings)); // tmr
 			if (!(p.isKey() && p.isHidden())) {
 				MetaEditor ed = getMetaEditorFor(p, viewName);
 				if (ed.hasFormatter()) { 				
@@ -93,6 +91,12 @@ public class WebEditors {
 		String [] strings = string == null?null:new String [] { string };
 		return parse(request, p, strings, errors, viewName); 
 	}
+	
+	public static String formatNoFilterSpecialCharacters(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName) throws XavaException { // tmr
+		Object result = formatToStringOrArrayImpl(request, p, object, errors, viewName, false);
+		if (result instanceof String []) return arrayToString((String []) result);		
+		return (String) result;
+	}
 		
 	public static String format(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName) throws XavaException {
 		Object result = formatToStringOrArray(request, p, object, errors, viewName, false);
@@ -120,7 +124,7 @@ public class WebEditors {
 	 * @return If has a multiple converter return a array of string else return a string
 	 */
 	public static Object formatToStringOrArray(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException {
-		// return formatToStringOrArrayImpl(request, p, object, errors, viewName, fromList);
+		// tmr return formatToStringOrArrayImpl(request, p, object, errors, viewName, fromList);
 		// tmr ini
 		Object result = formatToStringOrArrayImpl(request, p, object, errors, viewName, fromList);		
 		if (result instanceof String) {
@@ -133,19 +137,21 @@ public class WebEditors {
 		return results;
 		// tmr fin
 	}
-	
+		
 	private static Object changeSpecialCharacters(String formattedString) { // tmr 
 		if (hasMarkup(formattedString)) return formattedString;
 		return formattedString.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;").replaceAll(",", "&#44;");
 	}
 	
 	private static void changebackSpecialCharacters(String [] stringsToParse) { // tmr
+		/* tmr
 		if (stringsToParse == null) return; 
 		for (int i=0; i<stringsToParse.length; i++) {
 			if (stringsToParse[i] == null) continue;
 			if (hasMarkup(stringsToParse[i])) continue;
 			stringsToParse[i] = stringsToParse[i].replaceAll("&lt;", "<").replaceAll("&gt;", ">").replaceAll("&quot;", "\"").replaceAll("&#44;", ",");
 		}
+		*/
 	}
 
 	public static Object formatTitle(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException { 

@@ -319,7 +319,7 @@ public class AJAXTest extends ModuleTestBase {
 	
 	public void testAddRemoveActionsForProperty() throws Exception { 
 		changeModule("Author");
-		execute("List.viewDetail", "row=0"); // TMR FALLA ME QUEDÉ POR AQUÍ. DEPURANDO EN View Y WebEditors
+		execute("List.viewDetail", "row=0");
 		assertNoAction("Author.addSuffix");
 		execute("Author.showAddSuffix");		
 		assertAction("Author.addSuffix");

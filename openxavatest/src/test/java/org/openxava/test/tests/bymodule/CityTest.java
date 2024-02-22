@@ -30,7 +30,16 @@ public class CityTest extends ModuleTestBase{
 		getHtmlPage().executeJavaScript("window.open(window.location, '_blank')");
 		HtmlPage newTabPage = (HtmlPage) getWebClient().getCurrentWindow().getEnclosedPage();
 		waitAJAX(); 
+		System.out.println(
+				"[CityTest.testStateFullNameWithFormulaFromAReference_listFormatter_isolateModuleSessionForEachBrowserTab] Antes del refresh"); // tmr
+		newTabPage.refresh(); // tmr
+		Thread.sleep(5000); // tmr
+		// TMR ME QUEDÉ POR AQUÍ: FALLA
 		String tabText = newTabPage.asNormalizedText();
+		System.out.println(
+				"[CityTest.testStateFullNameWithFormulaFromAReference_listFormatter_isolateModuleSessionForEachBrowserTab] newTabPage.asXml()=" + newTabPage.asXml()); // tmr
+		System.out.println(
+				"[CityTest.testStateFullNameWithFormulaFromAReference_listFormatter_isolateModuleSessionForEachBrowserTab] tabText=" + tabText); // tmr
 		assertTrue(tabText.contains("New Delete Generate PDF Generate Excel")); // In list mode // TMR FALLA
 		assertFalse(tabText.contains("New Save Delete Search Refresh")); // Not in detail mode
 		

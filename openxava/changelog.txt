@@ -2,6 +2,7 @@ Change Log for OpenXava project
 ===============================
 
 Pediente:
+- Quitar changebackSpecialCharacters de WebEditors.
 - Suite.
 - Quitar anulación de try ... catch ¿Dejarlo anulado? Con try catch anulado es efecto es el mismo de cara al usuario, pero la traza indica la línea real
 - En todos navegadores.

@@ -3042,8 +3042,10 @@ public class View implements java.io.Serializable {
 			setFocusCurrentId(getRequest().getParameter("xava_current_focus")); 
 			if (isRepresentsCollection()) fillCollectionInfo(qualifier);			
 			if (firstLevel) changedProperty = Ids.undecorate(getRequest().getParameter("xava_changed_property"));
-			if (firstLevel || !isRepresentsCollection()) { 
-				assignValuesToMembers(qualifier, isSubview()?getMetaMembersIncludingHiddenKey():getMetaMembersIncludingCollectionTotals());  
+			if (firstLevel || !isRepresentsCollection()) {
+				System.out.println("[View.assignValuesToWebView] values> " + values); // tmr
+				assignValuesToMembers(qualifier, isSubview()?getMetaMembersIncludingHiddenKey():getMetaMembersIncludingCollectionTotals());
+				System.out.println("[View.assignValuesToWebView] values< " + values); // tmr				
 			}
 			oldValues = values==null?null:new HashMap(values);
 			mustRefreshCollection = false;
@@ -3115,15 +3117,14 @@ public class View implements java.io.Serializable {
 				String valueKey = propertyKey + ".value"; 
 				if (Is.anyEqual(propertyKey, "application", "module")) propertyKey += "_VALUE_"; // This _VALUE_ is set in dwr.Module class
 				String [] results = getRequest().getParameterValues(propertyKey);	
-				System.out.println("[View.assignValuesToMembers] results=" + Arrays.toString(results)); // tmr
 				Object value = WebEditors.parse(getRequest(), p, results, getErrors(), getViewName());
-				System.out.println("[View.assignValuesToMembers] value=" + value); // tmr
 				boolean isHiddenKeyWithoutValue = p.isHidden() && (results == null); // for not reset hidden values					
 				if (!isHiddenKeyWithoutValue && mustToFormat) { 
 					getRequest().setAttribute(valueKey, value);
 					trySetValue(p.getName(), value);
 					if (isNeededToVerifyHasBeenFormatted(p)) {
-						String formattedValue = WebEditors.format(getRequest(), p, value, getErrors(), getViewName());
+						// tmr String formattedValue = WebEditors.format(getRequest(), p, value, getErrors(), getViewName());
+						String formattedValue = WebEditors.formatNoFilterSpecialCharacters(getRequest(), p, value, getErrors(), getViewName()); // tmr
 						if (results != null && !equals(formattedValue, results[0])) {
 							if (formattedProperties == null) formattedProperties = new HashSet();
 							formattedProperties.add(p.getName()); 
@@ -6577,8 +6578,6 @@ public class View implements java.io.Serializable {
 	}
 	
 	private boolean equals(Object a, Object b) { 
-		System.out.println("[View.equals] a=>" + a + "<"); // tmr
-		System.out.println("[View.equals] b=>" + b + "<"); // tmr
 		if ("".equals(a)) a = null;
 		if ("".equals(b)) b = null;
 		if (a instanceof Map && ((Map) a).isEmpty()) a = null;
