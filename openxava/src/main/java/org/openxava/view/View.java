@@ -3043,9 +3043,7 @@ public class View implements java.io.Serializable {
 			if (isRepresentsCollection()) fillCollectionInfo(qualifier);			
 			if (firstLevel) changedProperty = Ids.undecorate(getRequest().getParameter("xava_changed_property"));
 			if (firstLevel || !isRepresentsCollection()) {
-				System.out.println("[View.assignValuesToWebView] values> " + values); // tmr
 				assignValuesToMembers(qualifier, isSubview()?getMetaMembersIncludingHiddenKey():getMetaMembersIncludingCollectionTotals());
-				System.out.println("[View.assignValuesToWebView] values< " + values); // tmr				
 			}
 			oldValues = values==null?null:new HashMap(values);
 			mustRefreshCollection = false;

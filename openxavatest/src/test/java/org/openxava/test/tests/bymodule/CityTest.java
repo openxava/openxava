@@ -15,7 +15,7 @@ public class CityTest extends ModuleTestBase{
 		super(testName, "City");
 	}
 	
-	public void testStateFullNameWithFormulaFromAReference_listFormatter_isolateModuleSessionForEachBrowserTab() throws Exception {		
+	public void testStateFullNameWithFormulaFromAReference_listFormatter_isolateModuleSessionForEachBrowserTab() throws Exception {
 		assertValueInList(0, 0, "1"); 
 		assertValueInList(0, 1, "PHOENIX CITY"); 
 		assertLabelInList(2, "State full name with formula"); 
@@ -27,20 +27,19 @@ public class CityTest extends ModuleTestBase{
 		reload();
 		assertValue("name", "Phoenix");
 		
+		
+		/* tmr
 		getHtmlPage().executeJavaScript("window.open(window.location, '_blank')");
 		HtmlPage newTabPage = (HtmlPage) getWebClient().getCurrentWindow().getEnclosedPage();
+		*/
+		// tmr ini
+		HtmlPage newTabPage = (HtmlPage) getWebClient()
+			.openWindow(getWebClient().getCurrentWindow().getEnclosedPage().getUrl(), "_blank")
+			.getEnclosedPage();
+		// tmr fin
 		waitAJAX(); 
-		System.out.println(
-				"[CityTest.testStateFullNameWithFormulaFromAReference_listFormatter_isolateModuleSessionForEachBrowserTab] Antes del refresh"); // tmr
-		newTabPage.refresh(); // tmr
-		Thread.sleep(5000); // tmr
-		// TMR ME QUEDÉ POR AQUÍ: FALLA
 		String tabText = newTabPage.asNormalizedText();
-		System.out.println(
-				"[CityTest.testStateFullNameWithFormulaFromAReference_listFormatter_isolateModuleSessionForEachBrowserTab] newTabPage.asXml()=" + newTabPage.asXml()); // tmr
-		System.out.println(
-				"[CityTest.testStateFullNameWithFormulaFromAReference_listFormatter_isolateModuleSessionForEachBrowserTab] tabText=" + tabText); // tmr
-		assertTrue(tabText.contains("New Delete Generate PDF Generate Excel")); // In list mode // TMR FALLA
+		assertTrue(tabText.contains("New Delete Generate PDF Generate Excel")); // In list mode 
 		assertFalse(tabText.contains("New Save Delete Search Refresh")); // Not in detail mode
 		
 		execute("Navigation.next");
