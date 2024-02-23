@@ -1790,7 +1790,7 @@ dwr.engine._debug("Ignoring reply from server as page is unloading.");
 return;
 }
 
-// tmr try {
+// tmr try { // Dejarlo anulado
 var reply = req.responseText;
 reply = dwr.engine._replyRewriteHandler(reply);
 var contentType = req.getResponseHeader("Content-Type");
