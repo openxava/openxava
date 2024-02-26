@@ -54,12 +54,18 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 		String selected = isSelected?"selected":"unselected";
 		if (isSelected) {
 	%>		
+	<div class="module_header_button">
 		<span class="selected"><%=metaModule.getLabel(request.getLocale())%></span>
+		<span class="mdi mdi-close close-icon"></span>
+		</div>
 	<%
 		}
 		else {
 	%>
+	<div class="module_header_button">
 		<a href="<%=modules.getModuleURI(request, metaModule)%>?retainOrder=true" class="unselected"><%=metaModule.getLabel(request.getLocale())%></a>
+		<span class="mdi mdi-close close-icon"></span>
+	</div>
 	<%
 		}	
 	}
