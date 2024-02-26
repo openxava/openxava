@@ -62,9 +62,10 @@ public class View implements java.io.Serializable {
 	private String editCollectionElementAction;
 	private String viewCollectionElementAction;
 	private String addCollectionElementAction;  
-	private String nextElementAction;  
 	private String newCollectionElementAction;
 	private String saveCollectionElementAction;
+	private String nextCollectionElementAction;
+	private String previousCollectionElementAction;
 	private String hideCollectionElementAction;
 	private String removeCollectionElementAction;
 	private String removeSelectedCollectionElementsAction;
@@ -1080,17 +1081,17 @@ public class View implements java.io.Serializable {
 				}
 				newView.setViewCollectionElementAction(metaCollectionView.getViewActionName());
 				
-				if (!metaCollectionView.isCreateReference()) { 
+				if (!metaCollectionView.isCreateReference()) {
 					newView.setNewCollectionElementAction("");
 					newView.setAddCollectionElementAction("");
-					newView.setNextElementAction("");
 				}
 				else {
 					newView.setNewCollectionElementAction(metaCollectionView.getNewActionName());
 					newView.setAddCollectionElementAction(metaCollectionView.getAddActionName());
-					newView.setNextElementAction(metaCollectionView.getNextActionName());
 				}
 				newView.setSaveCollectionElementAction(metaCollectionView.getSaveActionName());
+				newView.setNextCollectionElementAction(metaCollectionView.getNextActionName());
+				newView.setPreviousCollectionElementAction(metaCollectionView.getPreviousActionName());;
 				newView.setHideCollectionElementAction(metaCollectionView.getHideActionName());
 				newView.setRemoveCollectionElementAction(metaCollectionView.getRemoveActionName());
 				newView.setRemoveSelectedCollectionElementsAction(metaCollectionView.getRemoveSelectedActionName());
@@ -5041,11 +5042,13 @@ public class View implements java.io.Serializable {
 		activeSection = i;		
 	}
 
-	public int getCollectionEditingRow() {		
+	public int getCollectionEditingRow() {
+		System.out.println("getCollectionEditingRow");
 		return collectionEditingRow;
 	}
 
-	public void setCollectionEditingRow(int i) { 		
+	public void setCollectionEditingRow(int i) {
+		System.out.println("setCollectionEditingRow " + i + " " + getModelName() + " " +getViewObject() );
 		collectionEditingRow = i;
 	}
 
@@ -5762,10 +5765,6 @@ public class View implements java.io.Serializable {
 	public String getAddCollectionElementAction() {
 		return getCollectionAction(addCollectionElementAction, "Collection.add");		
 	}
-	
-	public String getNextElementAction() {
-		return getCollectionAction(nextElementAction, "Navigation.next");		
-	}
 
 	public String getNewCollectionElementAction() {
 		return getCollectionAction(newCollectionElementAction, getMetaCollection().getInverseCollection() == null?"Collection.new":"ManyToMany.new"); 
@@ -5800,6 +5799,22 @@ public class View implements java.io.Serializable {
 
 	public void setSaveCollectionElementAction(String saveCollectionElementAction) {
 		this.saveCollectionElementAction = saveCollectionElementAction;
+	}
+	
+	public String getPreviousCollectionElementAction() {
+		return getCollectionAction(previousCollectionElementAction, "Collection.previousElement");
+	}
+
+	public void setPreviousCollectionElementAction(String previousCollectionElementAction) {
+		this.previousCollectionElementAction = previousCollectionElementAction;
+	}
+	
+	public String getNextCollectionElementAction() {
+		return getCollectionAction(nextCollectionElementAction, "Collection.nextElement");
+	}
+
+	public void setNextCollectionElementAction(String nextCollectionElementAction) {
+		this.nextCollectionElementAction = nextCollectionElementAction;
 	}
 	
 	/** @since 5.7 */
@@ -6881,10 +6896,6 @@ public class View implements java.io.Serializable {
 
 	public void setAddCollectionElementAction(String addCollectionElementAction) {
 		this.addCollectionElementAction = addCollectionElementAction;
-	}
-	
-	public void setNextElementAction(String nextElementAction) {
-		this.nextElementAction = nextElementAction;
 	}
 	
 	public boolean isPropertyUsedInCalculation(String qualifiedName) {  

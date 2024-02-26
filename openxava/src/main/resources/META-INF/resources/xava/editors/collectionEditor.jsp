@@ -90,13 +90,13 @@ if (view.displayDetailInCollection(collectionName)) {
 	<jsp:param name="action" value="<%=subview.getAddCollectionElementAction()%>"/>
 	<jsp:param name="argv" value='<%="viewObject="+viewName%>'/>
 </jsp:include>
-<jsp:include page="../barButton.jsp">
-	<jsp:param name="action" value="<%=subview.getNextElementAction()%>"/>
-	<jsp:param name="argv" value='<%="viewObject="+viewName%>'/>
-</jsp:include>
 <% } %>
 <jsp:include page="../barButton.jsp">
 	<jsp:param name="action" value="<%=subview.getNewCollectionElementAction()%>"/>
+	<jsp:param name="argv" value='<%="viewObject="+viewName%>'/>
+</jsp:include>
+<jsp:include page="../barButton.jsp">
+	<jsp:param name="action" value="<%=subview.getRemoveSelectedCollectionElementsAction()%>"/>
 	<jsp:param name="argv" value='<%="viewObject="+viewName%>'/>
 </jsp:include>
 
@@ -149,7 +149,6 @@ else {
 		}
 %>
 	<td>
-	AAA
 		<jsp:include page="<%=WebEditors.getUrl(p, view.getViewName())%>">
 			<jsp:param name="propertyKey" value="<%=propertyKey%>"/>
 			<jsp:param name="editable" value="true"/>

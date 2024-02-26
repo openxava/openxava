@@ -2,6 +2,8 @@ package org.openxava.actions;
 
 import java.util.*;
 
+import javax.inject.*;
+
 import org.openxava.model.*;
 import org.openxava.util.*;
 
@@ -13,7 +15,10 @@ import org.openxava.util.*;
 
 public class EditElementInCollectionAction extends CollectionElementViewBaseAction  {
 	
+	@Inject
 	private int row;
+	private int nextValue;
+	private boolean openDialog = true;
 	
 	public void execute() throws Exception {
 		getCollectionElementView().clear(); 
@@ -22,13 +27,27 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 		Collection elements;
 		Map keys = null;
 		Map	values = null;
-		if (getCollectionElementView().isCollectionFromModel()) {		
+		if (getCollectionElementView().isCollectionFromModel()) {
+			System.out.println("getCollectionElementView().isCollectionFromModel()");
 			elements = getCollectionElementView().getCollectionValues();
 			if (elements == null) return;
 			if (elements instanceof List) {
 				keys = (Map) ((List) elements).get(getRow());			
 			}
 		} else {
+			if (nextValue != 0) {
+				System.out.println("current Editing row " + getCollectionElementView().getCollectionEditingRow());
+				System.out.println("row " + row + " next value " + nextValue);
+				row += nextValue;
+				//setRow(row);
+				if (row == -1) {
+					addError("at_list_begin");
+					row = 0;
+					//return;
+				}
+				getCollectionElementView().setCollectionEditingRow(row);
+			}
+			System.out.println("new row value " + row + getCollectionElementView().getCollectionEditingRow());
 			keys = (Map) getCollectionElementView().getCollectionTab().getTableModel().getObjectAt(row);
 		}
 				
@@ -39,22 +58,26 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 		} else {
 			throw new XavaException("only_list_collection_for_aggregates");
 		}
-		showDialog(getCollectionElementView());		
+		if (openDialog) showDialog(getCollectionElementView());	
 		if (getCollectionElementView().isCollectionEditable() || 
 			getCollectionElementView().isCollectionMembersEditables()) 
 		{ 
 			addActions(getCollectionElementView().getSaveCollectionElementAction());
 		}
 		if (getCollectionElementView().isCollectionEditable()) { 
-			System.out.println("adding next");
 			addActions(getCollectionElementView().getRemoveCollectionElementAction());
-			addActions(getCollectionElementView().getNextElementAction());
 		} 	
 		Iterator itDetailActions = getCollectionElementView().getActionsNamesDetail().iterator();
 		while (itDetailActions.hasNext()) {		
 			addActions(itDetailActions.next().toString());			
 		}
 		addActions(getCollectionElementView().getHideCollectionElementAction());
+		System.out.println("adding previous and next"); 
+		addActions(getCollectionElementView().getPreviousCollectionElementAction());
+		addActions(getCollectionElementView().getNextCollectionElementAction());
+		System.out.println("row " + row);
+		System.out.println("current Editing row " + getCollectionElementView().getViewObject());
+		
 	}
 		
 	public int getRow() {
@@ -63,6 +86,22 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 
 	public void setRow(int i) {
 		row = i;
+	}
+
+	public int getNextValue() {
+		return nextValue;
+	}
+
+	public void setNextValue(int nextValue) {
+		this.nextValue = nextValue;
+	}
+
+	public boolean isOpenDialog() {
+		return openDialog;
+	}
+
+	public void setOpenDialog(boolean openDialog) {
+		this.openDialog = openDialog;
 	}
 
 }
