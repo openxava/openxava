@@ -43,11 +43,6 @@ Incident module with Chrome and Firefox:
 	- Buttons on editor.
 - Scroll the page.
 	- The buttons should keep the place on bottom of editor.
-Incident module with Chrome and Firefox:
-- Click on discussion editor to have focus.
-	- Buttons on editor.
-- Scroll the page.
-	- The buttons should keep the place on bottom of editor.	
 	
 IncidentActivity with Chrome (it does not work with Firefox)
 - Click on Add new incidente, a dialog is shown. 
