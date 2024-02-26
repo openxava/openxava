@@ -2,8 +2,6 @@ package org.openxava.actions;
 
 import java.util.*;
 
-import javax.inject.*;
-
 import org.openxava.model.*;
 import org.openxava.util.*;
 
@@ -15,7 +13,6 @@ import org.openxava.util.*;
 
 public class EditElementInCollectionAction extends CollectionElementViewBaseAction  {
 	
-	@Inject
 	private int row;
 	private int nextValue;
 	private boolean openDialog = true;
@@ -35,11 +32,12 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 			}
 		} else {
 			if (nextValue != 0) {
-				row += nextValue;
+				row = getCollectionElementView().getCollectionEditingRow() + nextValue;
 				if (row == -1) {
 					addError("at_list_begin");
 					row = 0;
-				} else if (row == getCollectionElementView().getCollectionSize()) {
+				}
+				if (row == getCollectionElementView().getCollectionSize()) {
 					addError("no_list_elements");
 					row = getCollectionElementView().getCollectionSize()-1;
 				}
@@ -71,7 +69,6 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 		addActions(getCollectionElementView().getHideCollectionElementAction());
 		addActions(getCollectionElementView().getPreviousCollectionElementAction());
 		addActions(getCollectionElementView().getNextCollectionElementAction());
-		
 	}
 		
 	public int getRow() {
