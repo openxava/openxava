@@ -2,7 +2,7 @@ package org.openxava.actions;
 
 import org.openxava.model.meta.*;
 import org.openxava.util.*;
-import org.openxava.validators.*;
+import org.openxava.validators.ValidationException;
 import org.openxava.view.*;
 import org.openxava.view.meta.*;
 
@@ -44,11 +44,8 @@ abstract public class CollectionElementViewBaseAction extends ViewBaseAction {
 	
 	protected View getCollectionElementView() throws XavaException {
 		if (collectionElementView == null) {
-			System.out.println(viewObject);
-			System.out.println(dialogOpened);
 			if (viewObject == null || dialogOpened) collectionElementView = super.getView(); // In a dialog
 			else {
-				System.out.println("else");
 				collectionElementView = (View) getContext().get(getRequest(), viewObject);
 			}
 			if (mustRefreshCollection()) collectionElementView.refreshCollections(); 			

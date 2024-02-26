@@ -5043,12 +5043,10 @@ public class View implements java.io.Serializable {
 	}
 
 	public int getCollectionEditingRow() {
-		System.out.println("getCollectionEditingRow");
 		return collectionEditingRow;
 	}
 
 	public void setCollectionEditingRow(int i) {
-		System.out.println("setCollectionEditingRow " + i + " " + getModelName() + " " +getViewObject() );
 		collectionEditingRow = i;
 	}
 

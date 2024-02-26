@@ -28,7 +28,6 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 		Map keys = null;
 		Map	values = null;
 		if (getCollectionElementView().isCollectionFromModel()) {
-			System.out.println("getCollectionElementView().isCollectionFromModel()");
 			elements = getCollectionElementView().getCollectionValues();
 			if (elements == null) return;
 			if (elements instanceof List) {
@@ -36,18 +35,16 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 			}
 		} else {
 			if (nextValue != 0) {
-				System.out.println("current Editing row " + getCollectionElementView().getCollectionEditingRow());
-				System.out.println("row " + row + " next value " + nextValue);
 				row += nextValue;
-				//setRow(row);
 				if (row == -1) {
 					addError("at_list_begin");
 					row = 0;
-					//return;
+				} else if (row == getCollectionElementView().getCollectionSize()) {
+					addError("no_list_elements");
+					row = getCollectionElementView().getCollectionSize()-1;
 				}
 				getCollectionElementView().setCollectionEditingRow(row);
 			}
-			System.out.println("new row value " + row + getCollectionElementView().getCollectionEditingRow());
 			keys = (Map) getCollectionElementView().getCollectionTab().getTableModel().getObjectAt(row);
 		}
 				
@@ -72,11 +69,8 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 			addActions(itDetailActions.next().toString());			
 		}
 		addActions(getCollectionElementView().getHideCollectionElementAction());
-		System.out.println("adding previous and next"); 
 		addActions(getCollectionElementView().getPreviousCollectionElementAction());
 		addActions(getCollectionElementView().getNextCollectionElementAction());
-		System.out.println("row " + row);
-		System.out.println("current Editing row " + getCollectionElementView().getViewObject());
 		
 	}
 		
