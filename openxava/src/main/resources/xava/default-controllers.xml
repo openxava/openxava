@@ -660,14 +660,16 @@ here that you want to override.
 			icon="pencil"
 			class="org.openxava.actions.EditElementInCollectionAction"/>
 			
-		<action name="nextElement" image="edit.gif"
+		<action name="next"
+			image="next.gif"
 			icon="skip-next"
 			class="org.openxava.actions.EditElementInCollectionAction">
 			<set property="openDialog" value="false"/> 
 			<set property="nextValue" value="1"/> 
 		</action>	
 			
-		<action name="previousElement" image="edit.gif"
+		<action name="previous"
+			image="previous.gif"
 			icon="skip-previous"
 			class="org.openxava.actions.EditElementInCollectionAction">
 			<set property="openDialog" value="false"/> 

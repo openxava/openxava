@@ -19,6 +19,7 @@ public class CorporationTest extends ModuleTestBase {
 		assertMainDeleteHiddenWhenElementCollectionSelected(); 
 		execute("Collection.new", "viewObject=xava_view_section0_employees");
 		assertNoErrors();
+		assertValue("salary", "2400");
 		closeDialog();
 		execute("Corporation.report");
 		assertNoErrors();
@@ -86,11 +87,11 @@ public class CorporationTest extends ModuleTestBase {
 		assertFalse(getHtml().contains("<i class=\"mdi mdi-alarm-check\"")); 
 		execute("List.viewDetail", "row=0");
 		execute("Collection.edit", "row=0,viewObject=xava_view_section0_employees");
-		execute("Collection.previousElement");
+		execute("Collection.previous");
 		assertError("We already are at the beginning of the list");
-		execute("Collection.nextElement");
+		execute("Collection.next");
 		assertValue("salary", "2400");
-		execute("Collection.nextElement");
+		execute("Collection.next");
 		assertValue("salary", "2000");
 	}
 

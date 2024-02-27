@@ -2,6 +2,7 @@ package org.openxava.actions;
 
 import java.util.*;
 
+import org.apache.commons.logging.*;
 import org.openxava.model.*;
 import org.openxava.util.*;
 
@@ -12,6 +13,8 @@ import org.openxava.util.*;
  */
 
 public class EditElementInCollectionAction extends CollectionElementViewBaseAction  {
+	
+	private static Log log = LogFactory.getLog(EditElementInCollectionAction.class);
 	
 	private int row;
 	private int nextValue;
@@ -67,8 +70,13 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 			addActions(itDetailActions.next().toString());			
 		}
 		addActions(getCollectionElementView().getHideCollectionElementAction());
-		addActions(getCollectionElementView().getPreviousCollectionElementAction());
-		addActions(getCollectionElementView().getNextCollectionElementAction());
+		try {
+			addActions(getCollectionElementView().getPreviousCollectionElementAction());
+			addActions(getCollectionElementView().getNextCollectionElementAction());
+		} catch (ElementNotFoundException e) {
+			log.error(XavaResources.getString("next_previous_action_not_added"));
+			e.printStackTrace();
+		}
 	}
 		
 	public int getRow() {
