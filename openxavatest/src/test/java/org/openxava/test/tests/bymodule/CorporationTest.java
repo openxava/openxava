@@ -20,12 +20,6 @@ public class CorporationTest extends ModuleTestBase {
 		execute("Collection.new", "viewObject=xava_view_section0_employees");
 		assertNoErrors();
 		closeDialog();
-		execute("Collection.edit", "row=0,viewObject=xava_view_section0_employees");
-		assertValue("salary", "3000");
-		execute("Collection.nextElement");
-		assertValue("salary", "2400");
-		execute("Collection.nextElement");
-		assertValue("salary", "2000");
 		execute("Corporation.report");
 		assertNoErrors();
 		assertTrue(getPopupText().contains("<tr><td>Name:</td><td>RANONE</td></tr>"));
@@ -61,7 +55,7 @@ public class CorporationTest extends ModuleTestBase {
 		assertFalse(getHtmlPage().getHtmlElementById("ox_openxavatest_Corporation__CRUD___delete").isDisplayed());
 	}
 
-	public void testIconEditor() throws Exception { 
+	public void testIconEditor_nextAndPreviousElementInCollection() throws Exception { 
 		getWebClient().getOptions().setCssEnabled(true);
 		reload(); 
 		execute("List.viewDetail", "row=0");
@@ -90,6 +84,14 @@ public class CorporationTest extends ModuleTestBase {
 		execute("CRUD.save");
 		execute("Mode.list");
 		assertFalse(getHtml().contains("<i class=\"mdi mdi-alarm-check\"")); 
+		execute("List.viewDetail", "row=0");
+		execute("Collection.edit", "row=0,viewObject=xava_view_section0_employees");
+		execute("Collection.previousElement");
+		assertError("We already are at the beginning of the list");
+		execute("Collection.nextElement");
+		assertValue("salary", "2400");
+		execute("Collection.nextElement");
+		assertValue("salary", "2000");
 	}
 
 	private void executeIconChoose(String icon) throws Exception {

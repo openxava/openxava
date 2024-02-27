@@ -65,7 +65,9 @@ public class OnlyReadDetailsInvoiceTest extends ModuleTestBase {
 		execute("Collection.view", "row=0,viewObject=xava_view_details");
 		
 		String [] aggregateDetailActions = {
-			"Collection.hideDetail"
+			"Collection.hideDetail",
+			"Collection.nextElement",
+			"Collection.previousElement",
 		};		
 		assertActions(aggregateDetailActions);
 		
