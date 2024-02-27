@@ -1,8 +1,7 @@
 package org.openxava.test.tests.bymodule;
 
-import org.openxava.tests.*;
-
 import org.htmlunit.html.*;
+import org.openxava.tests.*;
 
 /**
  * @author Javier Paniza
@@ -20,8 +19,13 @@ public class CorporationTest extends ModuleTestBase {
 		assertMainDeleteHiddenWhenElementCollectionSelected(); 
 		execute("Collection.new", "viewObject=xava_view_section0_employees");
 		assertNoErrors();
-		assertValue("salary", "2400");
 		closeDialog();
+		execute("Collection.edit", "row=0,viewObject=xava_view_section0_employees");
+		assertValue("salary", "3000");
+		execute("Collection.nextElement");
+		assertValue("salary", "2400");
+		execute("Collection.nextElement");
+		assertValue("salary", "2000");
 		execute("Corporation.report");
 		assertNoErrors();
 		assertTrue(getPopupText().contains("<tr><td>Name:</td><td>RANONE</td></tr>"));
