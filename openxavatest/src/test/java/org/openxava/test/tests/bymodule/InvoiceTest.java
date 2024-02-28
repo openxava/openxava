@@ -2035,8 +2035,8 @@ public class InvoiceTest extends CustomizeListTestBase {
 			"Collection.save",
 			"Collection.remove",
 			"Collection.hideDetail",
-			"Collection.nextElement",
-			"Collection.previousElement",
+			"Collection.next",
+			"Collection.previous",
 			"Invoice.viewProduct"
 		};				
 		assertActions(aggregateDetailActions);

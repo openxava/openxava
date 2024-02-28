@@ -66,8 +66,8 @@ public class OnlyReadDetailsInvoiceTest extends ModuleTestBase {
 		
 		String [] aggregateDetailActions = {
 			"Collection.hideDetail",
-			"Collection.nextElement",
-			"Collection.previousElement",
+			"Collection.next",
+			"Collection.previous",
 		};		
 		assertActions(aggregateDetailActions);
 		

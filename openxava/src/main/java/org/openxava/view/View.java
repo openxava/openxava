@@ -1090,8 +1090,6 @@ public class View implements java.io.Serializable {
 					newView.setAddCollectionElementAction(metaCollectionView.getAddActionName());
 				}
 				newView.setSaveCollectionElementAction(metaCollectionView.getSaveActionName());
-				newView.setNextCollectionElementAction(metaCollectionView.getNextActionName());
-				newView.setPreviousCollectionElementAction(metaCollectionView.getPreviousActionName());;
 				newView.setHideCollectionElementAction(metaCollectionView.getHideActionName());
 				newView.setRemoveCollectionElementAction(metaCollectionView.getRemoveActionName());
 				newView.setRemoveSelectedCollectionElementsAction(metaCollectionView.getRemoveSelectedActionName());

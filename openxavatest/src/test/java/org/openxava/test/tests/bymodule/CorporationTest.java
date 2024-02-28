@@ -19,7 +19,7 @@ public class CorporationTest extends ModuleTestBase {
 		assertMainDeleteHiddenWhenElementCollectionSelected(); 
 		execute("Collection.new", "viewObject=xava_view_section0_employees");
 		assertNoErrors();
-		assertValue("salary", "2400");
+		assertValue("salary", "2000");
 		closeDialog();
 		execute("Corporation.report");
 		assertNoErrors();
@@ -90,11 +90,11 @@ public class CorporationTest extends ModuleTestBase {
 		execute("Collection.previous");
 		assertError("We already are at the beginning of the list");
 		execute("Collection.next");
-		assertValue("salary", "3000");
-		execute("Collection.next");
 		assertValue("salary", "2400");
 		execute("Collection.next");
-		assertValue("salary", "2400");
+		assertValue("salary", "2000");
+		execute("Collection.next");
+		assertValue("salary", "2000");
 	}
 
 	private void executeIconChoose(String icon) throws Exception {
