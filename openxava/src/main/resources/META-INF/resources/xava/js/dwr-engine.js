@@ -15,7 +15,7 @@
  */
  
 
-
+/* Tuned for OpenXava to work with no eval(). Look for "OpenXava" in above code. */
 
 
 
@@ -201,8 +201,8 @@ dwr.engine._isNotifyServerOnPageUnload = notify;
 dwr.engine.setNotifyServerOnPageLoad = function(notify) {
 dwr.engine._isNotifyServerOnPageLoad = notify;
 if (notify && !dwr.engine._initializing && !dwr.engine._isNotifyServerOnPageLoadSent) {
-// tmr eval("dwr.engine._execute(dwr.engine._pathToDwrServlet, '__System', 'pageLoaded', [ function() { dwr.engine._ordered = false; }]);");
-dwr.engine._execute(dwr.engine._pathToDwrServlet, '__System', 'pageLoaded', [ function() { dwr.engine._ordered = false; }]); // tmr
+// Original: eval("dwr.engine._execute(dwr.engine._pathToDwrServlet, '__System', 'pageLoaded', [ function() { dwr.engine._ordered = false; }]);");
+dwr.engine._execute(dwr.engine._pathToDwrServlet, '__System', 'pageLoaded', [ function() { dwr.engine._ordered = false; }]); // For OpenXava
 dwr.engine._isNotifyServerOnPageLoadSent = true;
 }
 };
@@ -658,8 +658,8 @@ dwr.engine._initializer.loadDwrConfig();
 dwr.engine._initializing = false;
 
 if (dwr.engine._isNotifyServerOnPageLoad) {
-// tmr eval("dwr.engine._execute(dwr.engine._pathToDwrServlet, '__System', 'pageLoaded', [ function() { dwr.engine._ordered = false; }]);");
-dwr.engine._execute(dwr.engine._pathToDwrServlet, '__System', 'pageLoaded', [ function() { dwr.engine._ordered = false; }]); // tmr
+// Original: eval("dwr.engine._execute(dwr.engine._pathToDwrServlet, '__System', 'pageLoaded', [ function() { dwr.engine._ordered = false; }]);");
+dwr.engine._execute(dwr.engine._pathToDwrServlet, '__System', 'pageLoaded', [ function() { dwr.engine._ordered = false; }]); // For OpenXava
 dwr.engine._isNotifyServerOnPageLoadSent = true;
 }
 if (dwr.engine._activeReverseAjax) {
@@ -735,8 +735,8 @@ dwr.engine._debug("Warning: blank script", true);
 return null;
 }
 
-// tmr (new Function("dwr", script))(dwr);
-// tmr ini
+// Original: (new Function("dwr", script))(dwr);
+// Start for OpenXava:
 	var paramsStartIndex = script.indexOf(".handleCallback(") + 16;
 	var paramsEndIndex = script.indexOf('})();', paramsStartIndex);
 	var params = script.substring(paramsStartIndex, paramsEndIndex);
@@ -757,7 +757,7 @@ return null;
 		param3 = JSON.parse(`"${param3}"`);
 	}
 	dwr.engine.remote.handleCallback(param1,param2,param3);
-	// tmr fin
+// End for OpenXava
 };
 
 
@@ -1790,7 +1790,7 @@ dwr.engine._debug("Ignoring reply from server as page is unloading.");
 return;
 }
 
-// tmr try { // Dejarlo anulado
+// Removed in OpenXava: try { 
 var reply = req.responseText;
 reply = dwr.engine._replyRewriteHandler(reply);
 var contentType = req.getResponseHeader("Content-Type");
@@ -1827,7 +1827,7 @@ dwr.engine._handleError(batch, { name:"dwr.engine.http." + status, message:statu
 if (toEval != null) toEval = toEval.replace(dwr.engine._scriptTagProtection, "");
 dwr.engine._executeScript(toEval);
 dwr.engine.transport.complete(batch);
-/* tmr
+/* Removed in OpenXava
 } catch (ex2) {
 dwr.engine._handleError(batch, ex2);
 }

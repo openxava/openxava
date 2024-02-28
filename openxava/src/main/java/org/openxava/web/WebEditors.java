@@ -91,7 +91,8 @@ public class WebEditors {
 		return parse(request, p, strings, errors, viewName); 
 	}
 	
-	public static String formatNoFilterSpecialCharacters(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName) throws XavaException { // tmr
+	/** @since 7.3 */
+	public static String formatNoFilterSpecialCharacters(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName) throws XavaException { 
 		Object result = formatToStringOrArrayImpl(request, p, object, errors, viewName, false);
 		if (result instanceof String []) return arrayToString((String []) result);		
 		return (String) result;
@@ -123,8 +124,6 @@ public class WebEditors {
 	 * @return If has a multiple converter return a array of string else return a string
 	 */
 	public static Object formatToStringOrArray(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException {
-		// tmr return formatToStringOrArrayImpl(request, p, object, errors, viewName, fromList);
-		// tmr ini
 		Object result = formatToStringOrArrayImpl(request, p, object, errors, viewName, fromList);	
 		if (result == null) return null;
 		if (result instanceof String) {
@@ -135,10 +134,9 @@ public class WebEditors {
 			results[i] = changeSpecialCharacters((String) results[i]);
 		}
 		return results;
-		// tmr fin
 	}
 		
-	private static Object changeSpecialCharacters(String formattedString) { // tmr 
+	private static Object changeSpecialCharacters(String formattedString) {  
 		if (hasMarkup(formattedString)) return formattedString;
 		return formattedString.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;").replaceAll(",", "&#44;");
 	}

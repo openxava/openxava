@@ -161,20 +161,15 @@
 			<artifactId>jakarta.mail</artifactId>
 			<version>1.6.7</version>
 		</dependency>
-		<!-- tmr
 		<dependency>
-			<groupId>org.directwebremoting</groupId>
-			<artifactId>dwr</artifactId>
-			<version>2.0.11-RELEASE</version>
-		</dependency>
-		-->
-		<!-- tmr ini -->
-		<dependency>
+			<!-- 
+			If you upgrade DWR you have to adapt the custom dwr-engine.js in 
+			src/main/resources/META-INF/resources/xava/js/dwr-engine.js
+			-->
 			<groupId>org.directwebremoting</groupId>
 			<artifactId>dwr</artifactId>
 			<version>3.0.2-RELEASE</version>
 		</dependency>		
-		<!-- tmr fin -->
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>

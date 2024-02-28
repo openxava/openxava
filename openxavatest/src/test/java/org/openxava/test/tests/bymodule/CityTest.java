@@ -27,16 +27,9 @@ public class CityTest extends ModuleTestBase{
 		reload();
 		assertValue("name", "Phoenix");
 		
-		
-		/* tmr
-		getHtmlPage().executeJavaScript("window.open(window.location, '_blank')");
-		HtmlPage newTabPage = (HtmlPage) getWebClient().getCurrentWindow().getEnclosedPage();
-		*/
-		// tmr ini
 		HtmlPage newTabPage = (HtmlPage) getWebClient()
 			.openWindow(getWebClient().getCurrentWindow().getEnclosedPage().getUrl(), "_blank")
 			.getEnclosedPage();
-		// tmr fin
 		waitAJAX(); 
 		String tabText = newTabPage.asNormalizedText();
 		assertTrue(tabText.contains("New Delete Generate PDF Generate Excel")); // In list mode 

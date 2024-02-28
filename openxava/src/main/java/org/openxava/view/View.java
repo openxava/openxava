@@ -3121,8 +3121,7 @@ public class View implements java.io.Serializable {
 					getRequest().setAttribute(valueKey, value);
 					trySetValue(p.getName(), value);
 					if (isNeededToVerifyHasBeenFormatted(p)) {
-						// tmr String formattedValue = WebEditors.format(getRequest(), p, value, getErrors(), getViewName());
-						String formattedValue = WebEditors.formatNoFilterSpecialCharacters(getRequest(), p, value, getErrors(), getViewName()); // tmr
+						String formattedValue = WebEditors.formatNoFilterSpecialCharacters(getRequest(), p, value, getErrors(), getViewName()); 
 						if (results != null && !equals(formattedValue, results[0])) {
 							if (formattedProperties == null) formattedProperties = new HashSet();
 							formattedProperties.add(p.getName()); 
