@@ -30,13 +30,10 @@ if (manager.isBottomButtonsVisible()) {
 		if (action.getQualifiedName().equals(defaultAction)) continue;
 		if (action.appliesToMode(mode) && (!buttonBar || !(action.hasImage() || action.hasIcon()))) { 	
 			if (action.hasIcon() && action.getLabel().isEmpty()){
-					%>
-		<xava:image action='<%=action.getQualifiedName()%>'/>
-		<%
-			} else {
-				
 		%>
-		<xava:button action="<%=action.getQualifiedName()%>"/>
+			<xava:image action='<%=action.getQualifiedName()%>'/>
+		<% } else { %>
+			<xava:button action="<%=action.getQualifiedName()%>"/>
 		<%
 			}
 		}
