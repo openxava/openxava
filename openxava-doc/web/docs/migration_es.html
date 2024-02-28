@@ -9,8 +9,10 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Migración"></a> <span id="breadcrumbs"> <span
-            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1 id="toc0"><a name="Migración"></a> <span id="breadcrumbs"> <span
+
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
             href="index_es.html">documentación</a> / </span> Migración</h1>
       <h2>¿Cómo actualizar tu proyecto a la última versión de OpenXava?</h2>
       <p>Edita el archivo <i>pom.xml</i> de tu proyecto y cambia el valor de la propiedad <i>openxava.version</i> para que apunte a la última versión de OpenXava, así: </p>
@@ -30,7 +32,8 @@
       </ul>
       <div class="wiki" style="display: block;"><br>
       </div>
-      <div class="wiki" style="display: block;">Si tu versión actual es la 6.x deberías seguir las instrucciones de la sección <a
+      <div class="wiki" style="display: block;">Si tu versión actual es la 6.x deberías seguir las instrucciones de la sección <a
+
           href="#de-6.6.3-a-7.0">Para migrar de OpenXava 6.6.3 a OpenXava 7.0</a> primero.</div>
       <div class="wiki" style="display: block;"><br>
       </div>
@@ -41,7 +44,7 @@
         <h2>Para migrar de OpenXava 7.2.3 a OpenXava 7.3</h2>
         <h3>Nuevas acciones en controlador Collection</h3>
         <p>Si no has sobrescrito el controlador <i>Collection</i> puedes saltear este paso. De lo contrario debes agregar manualmente las acciones <i>previous</i> y <i>next</i> en el controlador:</p>
-        <pre>	<code class="xml"></code>&lt;action name="next"
+        <pre>	<code class="xml">&lt;action name="next"
 	image="next.gif"
 	icon="skip-next"
 	class="org.openxava.actions.EditElementInCollectionAction"&gt;
@@ -55,7 +58,7 @@
 	class="org.openxava.actions.EditElementInCollectionAction"&gt;
 	&lt;set property="openDialog" value="false"/&gt; 
 	&lt;set property="nextValue" value="-1"/&gt; 
-&lt;/action&gt;		</pre>
+&lt;/action&gt;	</code>	</pre>
         <h3>Nuevas acciones en diálogos de colecciones (para pruebas JUnit)</h3>
         <p>Ahora los diálogos de las colecciones tienen dos nuevas acciones, <i>Collection.previous</i> y <i>Collection.next</i>, por lo que si comprueban todas las acciones presentes en las pruebas JUnit, hace falta modificarlas y agregar las nuevas acciones. Por ejemplo: </p>
         <pre><code class="java">String [] bottomActions= {
@@ -93,7 +96,8 @@ assertActions(bottomActions);
 </code></pre>
       <p>Observa cómo utilizamos la clase, <i>.ox-card</i> en este caso, para añadir el evento usando código JavaScript. También usamos <i>data()</i> para obtener los valores de los atributos <i>data</i> que hemos guardado en el elemento HTML. Este código es seguro porque es descargado desde el servidor que aloja la aplicación.</p>
       <h3>Librerías JavaScript jQuery y jQuery UI actualizadas</h3>
-      <p>jQuery se ha actualizado a la versión 3.7.1 desde la 1.11.2 y jQuery UI a la versión 1.13.2 desde la v1.11.2. Esta actualización se ha hecho por motivos de seguridad. Si únicamente usas la interfaz de usuario generada por OpenXava no tienes que hacer nada, sin embargo si tienes vistas personalizadas o editores propios y en estos usas jQuery deberías echas un vistazo a la <a
+      <p>jQuery se ha actualizado a la versión 3.7.1 desde la 1.11.2 y jQuery UI a la versión 1.13.2 desde la v1.11.2. Esta actualización se ha hecho por motivos de seguridad. Si únicamente usas la interfaz de usuario generada por OpenXava no tienes que hacer nada, sin embargo si tienes vistas personalizadas o editores propios y en estos usas jQuery deberías echas un vistazo a la <a
+
           href="https://jquery.com/upgrade-guide/3.0/">guía de actualización para jQuery 3</a>, puede que necesites hacer algún ajuste.</p>
       <h3>Incluir archivos JavaScript en JSP de editores o vista personalizada ya no funciona</h3>
       <p>Esto es por razones de seguridad. Normalmente los JS usados en editores propios o vistas personalizadas se incluyen en la carpeta <i>xava/editors/js</i>, cuando este es el caso no hay que hacer ningún cambio. Sin embargo, en algunas ocasiones el archivo JavaScript se ha incluido en el editor o la vista directamente, si este es el caso tenemos varias opciones.</p>
@@ -286,7 +290,8 @@ reload(); // ...has de añadir esta línea
     <div class="wiki" style="display: block;">Primero añade el módulo SSO al rol <i>admin</i>. Abre el módulo <i>Roles</i>, busca el rol <i>admin</i> en la lista y escógelo. Dentro del detalle de <i>admin</i> pulsa para añadir un nuevo módulo, busca SSO y añádelo:</div>
     <img src="files/add-sso-to-admin-role_es.png" alt="">
     <div class="wiki" style="display: block;">Después añade el módulo SSO a la carpeta <i>Admin</i>. Abre el módulo <i>Carpetas</i>, busca la carpeta <i>Admin</i> en la lista y escógelo. Dentro del detalle de <i>Admin</i> pulsa para añadir un nuevo módulo, busca SSO y añádelo:</div>
-    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_es.png"
+    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_es.png"
+
         alt=""><br>
       <h2>Para migrar de OpenXava 7.0.5 a OpenXava 7.0.6</h2>
       <h3>@Column(length=x) sin scale ya no es scale=2 por defecto</h3>
@@ -358,9 +363,11 @@ assertValidValues("conditionValue___3", valoresValidos);
       No hay consideraciones.
       <h2 id="de-6.6.3-a-7.0">Para migrar de OpenXava 6.6.3 a OpenXava 7.0</h2>
       <h3>Convertir tu proyecto a estructura Maven</h3>
-      OpenXava 7 es compatible con Maven, por lo que la estructura clásica de un proyecto OpenXava ya no se reconoce. Has de convertir tu proyecto en un proyecto estándar de Maven. Por suerte, todo tu código actual es válido, sólo que tiene que estar colocado en carpetas diferentes. Si no estás familiarizado con Maven, mira la <a
+      OpenXava 7 es compatible con Maven, por lo que la estructura clásica de un proyecto OpenXava ya no se reconoce. Has de convertir tu proyecto en un proyecto estándar de Maven. Por suerte, todo tu código actual es válido, sólo que tiene que estar colocado en carpetas diferentes. Si no estás familiarizado con Maven, mira la <a
+
         href="https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html">disposición estándar de directorios en un proyecto Maven</a>.
-      <p>La forma más fácil de migrar a Maven es crear un nuevo proyecto usando OpenXava 7.0 y después copiar el código fuente y los recursos desde tu proyecto actual al nuevo. Es decir, lo primero es crear un nuevo proyecto OpenXava usando Openxava Studio 7, para ello sigue las instrucciones de la <a
+      <p>La forma más fácil de migrar a Maven es crear un nuevo proyecto usando OpenXava 7.0 y después copiar el código fuente y los recursos desde tu proyecto actual al nuevo. Es decir, lo primero es crear un nuevo proyecto OpenXava usando Openxava Studio 7, para ello sigue las instrucciones de la <a
+
           href="getting-started_es.html">guía de primeros pasos</a>.</p>
       <p>El siguiente paso es copiar todo el código fuente y los recursos desde el viejo proyecto a la carpeta correspondiente en el nuevo proyecto, como sigue:</p>
       <ul>
@@ -391,7 +398,8 @@ assertValidValues("conditionValue___3", valoresValidos);
         <li>Si has modificado algún JSP de OpenXava, puedes copiarlo desde <i>web/xava</i> a <i>src/main/webapp/xava</i> y desde <i>web/naviox</i> a <i>src/main/webapp/naviox</i>. No te preocupes si no ves ningún JSP allí, ahora el código JSP de OpenXava está dentro del jar de OpenXava y no se incluye en tu proyecto, pero si pones algún JSP en la carpeta <i>xava</i> éste sobrescribe el de OpenXava.</li>
       </ul>
       <p>Los archivos <i>servlets.xml</i>, <i>filters.xml</i> y <i>listeners.xml</i> ya no se soportan. Puedes copiar su contenido a <i>web.xml</i>, que ahora está vacío y listo para tus propias cosas, en <i>src/main/webapp/WEB-INF</i>. Si usas las anotaciones <i>@WebServlet</i>, <i>@WebFilter</i> y <i>@WebListener</i> no tienes que hacer ningún cambio.</p>
-      <p>Si usas una librería de terceros extra en tu aplicación has de añadir una dependencia en el archivo <i>pom.xml</i> en la raíz de tu proyecto. Ya no vas a copiar jars en <i>web/WEB/lib</i>. Si no estás familiarizado con Maven lee sobre el <a
+      <p>Si usas una librería de terceros extra en tu aplicación has de añadir una dependencia en el archivo <i>pom.xml</i> en la raíz de tu proyecto. Ya no vas a copiar jars en <i>web/WEB/lib</i>. Si no estás familiarizado con Maven lee sobre el <a
+
           href="https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html">mecanismo de depencia de Maven</a>.</p>
       <p>Si usas una base de datos que no sea HSQLDB has de añadir la dependencía para tu controlador JDBC. Por ejemplo, si usas MySQL añade la siguiente entrada a tu <i>pom.xml</i>:</p>
       <pre><code class="xml">&lt;dependency&gt;
@@ -521,7 +529,8 @@ session.save(factura);
       <p>Por:</p>
       <pre><code class="java">Session session = (Session) XPersistence.getManager().getDelegate();
 session.save(factura);
-</code></pre>Es decir, puedes obtener un objeto <i>Session</i> de Hibernate desde el manager de JPA. Otra alternativa sería <a
+</code></pre>Es decir, puedes obtener un objeto <i>Session</i> de Hibernate desde el manager de JPA. Otra alternativa sería <a
+
         href="https://docs.jboss.org/hibernate/orm/5.6/quickstart/html_single/#hibernate-gsg-tutorial-basic-test">obtener la sesión de Hibernate directamente a la manera de Hibernate</a>, aunque en este caso has de encargarte tú de crear la <i>SessionFactory</i> y ser responsable de cerrar la transacción y la sesión.
       <h3></h3>
       <h3></h3>
@@ -581,7 +590,8 @@ assertEquals("Precio unitario: 0.00, Precio unitario en pesetas: 0"), tarjeta.as
         +"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
     deleteLink.getHrefAttribute());
 </code></pre> </div>
-        <div class="wiki" style="display: block;">Fíjate que hemos cambiado 145 por 8216. <a
+        <div class="wiki" style="display: block;">Fíjate que hemos cambiado 145 por 8216. <a
+
             href="http://www.alanwood.net/demos/ansi.html">Mira en esta tabla</a> para saber el mapeo entre ANSI y UNICODE.</div>
         <div class="wiki" style="display: block;">Ahora en las propiedades de tipo <i>@HtmlText</i> o <i>@Stereotype("TEXTO_HTML")</i> obtienes el contenido real, incluyendo las etiquetas de HTML, seguramente por causa de un mejor soporte de JavaScript en HtmlUnit. Por lo tanto, si tienes una propiedad <i>@HtmlText</i> llamada <i>descripcion</i>, cambia:</div>
         <div class="wiki" style="display: block;">

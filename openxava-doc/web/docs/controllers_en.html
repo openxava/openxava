@@ -5100,7 +5100,7 @@ class="sy0">;</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
+</style><pre><code class="xml"><span class="sc3"><span class="re1">&lt;controller</span> <span
 class="re0">name</span>=<span class="st0">"Collection"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
 class="st0">"new"</span></span>
@@ -5141,8 +5141,21 @@ class="re2">&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;use-object</span> <span
 class="re0">name</span>=<span class="st0">"xava_view"</span><span class="re2">/&gt;</span></span>  <span
 class="sc-1">&lt;!-- Not needed since 4m2 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span></pre>
+    <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;<br>    &lt;action name="next"
+	image="next.gif"
+	icon="skip-next"
+	class="org.openxava.actions.EditElementInCollectionAction"&gt;
+	&lt;set property="openDialog" value="false"/&gt; 
+	&lt;set property="nextValue" value="1"/&gt; 
+    &lt;/action&gt;	
+    &lt;action name="previous"
+	image="previous.gif"
+	icon="skip-previous"
+	class="org.openxava.actions.EditElementInCollectionAction"&gt;
+	&lt;set property="openDialog" value="false"/&gt; 
+	&lt;set property="nextValue" value="-1"/&gt; 
+    &lt;/action&gt;	<br></span></span></span>&nbsp;<span class="sc3"><span
+class="re1">&lt;/controller<span class="re2">&gt;</span></span></span></code></pre>
       In this case we only override the behavior of <em>hideDetail</em> (1) action. But we must declare all actions of the original controller, because OpenXava rely on all these actions for working; we cannot remove or rename actions.<br>
       <h2 id="toc19"><a name="Controllers-Showing a modal dialog (new in v4m2)"></a>Showing a modal dialog <em>(new in v4m2)</em></h2>
       You can show a dialog calling to <em>showDialog()</em> method of <em><a

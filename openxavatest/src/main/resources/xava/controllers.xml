@@ -259,7 +259,7 @@
 			icon="pencil"
 			class="org.openxava.actions.EditElementInCollectionAction"/>					
 
-		<action name="next"
+		<action name="next" 
 			image="next.gif"
 			icon="skip-next"
 			class="org.openxava.actions.EditElementInCollectionAction">
@@ -267,7 +267,7 @@
 			<set property="nextValue" value="1"/> 
 		</action>	
 			
-		<action name="previous"
+		<action name="previous" 
 			image="previous.gif"
 			icon="skip-previous"
 			class="org.openxava.actions.EditElementInCollectionAction">
