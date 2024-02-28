@@ -1,12 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
-Pediente:
-- Mezclar con último master.
-- Probar CalendarTest. Puede que tengamos que quitar el headless y hacer que Chungyen lo revise.
-- Suite
-
-
+- has-type/has-annotation/has-stereotype in for-tabs of editors.xml to discriminate list formats by entity.
+- MySQL configuration documentation includes video.
+- Documentation for database configuration improved to include schema/database creation.
+- Year navigation buttons added to calendar list format for fast year navigation to distant dates.
+- When several dates in an entity the user can choose which to use in calendar list format with a combo.
 - Reverse engineering documentation includes video.
 - Drag & drop support for calendar list format.
 - Removed the use of eval() completely from OpenXava JavaScript code.
