@@ -23,8 +23,6 @@ Image: Customer module with Chrome and Firefox
 - Remove and Browse link should be hidden.
 - Try to drop a new photo, should not work. 
 
-TMR ME QUEDÉ POR AQUÍ
-
 GalleryImage: Product2 with Chrome and Firefox
 - Go to first product: No images.
 - Add two images, one with drag & drop and another browsing.
