@@ -41,7 +41,7 @@
     <div class="wiki" style="display: block;">
       <h2>Migration from OpenXava 7.2.3 to OpenXava 7.3</h2>
       <h3>New Actions in Collection Controller</h3>
-      <p>If you haven't overridden the Collection controller, you can skip this step. Otherwise, you must manually add the previous and next actions to the controller:</p>
+      <p>If you haven't overridden the <em>Collection</em> controller, you can skip this step. Otherwise, you must manually add <em>previous</em> and <em>next</em> actions to the controller:</p>
       <pre>	<code class="xml"></code>&lt;action name="next"
 	image="next.gif"
 	icon="skip-next"
@@ -59,7 +59,7 @@
 &lt;/action&gt;		</pre>
       <p></p>
       <h3>New Actions in Collection Dialogs (for JUnit tests)</h3>
-      <p>Now the dialogs from collections have two new actions, Collection.previous and Collection.next. So if you test for all present actions in your JUnit tests, you have to modify it and add the new ones. For example:</p>
+      <p>Now the dialogs from collections have two new actions, <em>Collection.previous</em> and <em>Collection.next</em>. So if you test for all present actions in your JUnit tests, you have to modify it and add the new ones. For example:</p>
       <pre><code class="java">String [] bottomActions= {
 			"Collection.save",
 			"Collection.hideDetail",

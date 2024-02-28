@@ -40,7 +40,7 @@
       <div class="wiki" style="display: block;">
         <h2>Para migrar de OpenXava 7.2.3 a OpenXava 7.3</h2>
         <h3>Nuevas acciones en controlador Collection</h3>
-        <p>Si no has sobrescrito el controlador Collection puedes saltear este paso. De lo contrario debes agregar manualmente las acciones previous y next en el controlador:</p>
+        <p>Si no has sobrescrito el controlador <i>Collection</i> puedes saltear este paso. De lo contrario debes agregar manualmente las acciones <i>previous</i> y <i>next</i> en el controlador:</p>
         <pre>	<code class="xml"></code>&lt;action name="next"
 	image="next.gif"
 	icon="skip-next"
@@ -57,7 +57,7 @@
 	&lt;set property="nextValue" value="-1"/&gt; 
 &lt;/action&gt;		</pre>
         <h3>Nuevas acciones en diálogos de colecciones (para pruebas JUnit)</h3>
-        <p>Ahora los diálogos de las colecciones tienen dos nuevas acciones, Collection.previous y Collection.next, por lo que si comprueban todas las acciones presentes en las pruebas JUnit, hace falta modificarlas y agregar las nuevas acciones. Por ejemplo: </p>
+        <p>Ahora los diálogos de las colecciones tienen dos nuevas acciones, <i>Collection.previous</i> y <i>Collection.next</i>, por lo que si comprueban todas las acciones presentes en las pruebas JUnit, hace falta modificarlas y agregar las nuevas acciones. Por ejemplo: </p>
         <pre><code class="java">String [] bottomActions= {
 			"Collection.save",
 			"Collection.hideDetail",

@@ -84,15 +84,17 @@ public class CorporationTest extends ModuleTestBase {
 		
 		execute("CRUD.save");
 		execute("Mode.list");
-		assertFalse(getHtml().contains("<i class=\"mdi mdi-alarm-check\"")); 
+		assertFalse(getHtml().contains("<i class=\"mdi mdi-alarm-check\""));
 		execute("List.viewDetail", "row=0");
 		execute("Collection.edit", "row=0,viewObject=xava_view_section0_employees");
 		execute("Collection.previous");
 		assertError("We already are at the beginning of the list");
 		execute("Collection.next");
+		assertValue("salary", "3000");
+		execute("Collection.next");
 		assertValue("salary", "2400");
 		execute("Collection.next");
-		assertValue("salary", "2000");
+		assertValue("salary", "2400");
 	}
 
 	private void executeIconChoose(String icon) throws Exception {

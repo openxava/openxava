@@ -5800,7 +5800,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	public String getPreviousCollectionElementAction() {
-		return getCollectionAction(previousCollectionElementAction, "Collection.previousElement");
+		return getCollectionAction(previousCollectionElementAction, "Collection.previous");
 	}
 
 	public void setPreviousCollectionElementAction(String previousCollectionElementAction) {
@@ -5808,7 +5808,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	public String getNextCollectionElementAction() {
-		return getCollectionAction(nextCollectionElementAction, "Collection.nextElement");
+		return getCollectionAction(nextCollectionElementAction, "Collection.next");
 	}
 
 	public void setNextCollectionElementAction(String nextCollectionElementAction) {
