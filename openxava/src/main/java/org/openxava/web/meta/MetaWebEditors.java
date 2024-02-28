@@ -72,8 +72,6 @@ public class MetaWebEditors {
 		editorsByTabModel.put(model, editor);		
 	}
 	
-	
-		
 	public static void addMetaEditorForStereotype(String stereotype, MetaEditor editor) throws XavaException {		
 		if (editorsByStereotype == null) {
 			throw new XavaException("only_from_parse", "MetaWebEditors.addMetaEditorForStereotype");
@@ -327,8 +325,8 @@ public class MetaWebEditors {
 	}
 	
 	public static MetaEditor getMetaEditorFor(MetaTab tab) throws ElementNotFoundException, XavaException {
-		MetaEditor r = (MetaEditor) getMetaEditorForTabModel(tab.getModelName()); 		
-		if (r != null) return r;	
+		MetaEditor r = (MetaEditor) getMetaEditorForTabModel(tab.getModelName());		
+		if (r != null) return r;
 		Collection<MetaEditor> editors = getMetaEditorsFor(tab);
 		if (editors.isEmpty()) {
 			throw new ElementNotFoundException("editor_for_tabs_required");
@@ -338,16 +336,44 @@ public class MetaWebEditors {
 	
 	public static Collection<MetaEditor> getMetaEditorsFor(MetaTab tab) throws ElementNotFoundException, XavaException {
 		MetaEditor customEditor = (MetaEditor) getMetaEditorForTabModel(tab.getModelName());
-		if (customEditor == null) return editorsForTabs;
-		else {
+		if (customEditor == null) {
+			Collection<MetaEditor> newEditorsForTabs = new ArrayList<>(editorsForTabs);
+			newEditorsForTabs.removeAll(getEditorsForTabToRemove(tab));
+			return newEditorsForTabs;
+		} else {
 			Collection<MetaEditor> result = new ArrayList<MetaEditor>();
 			result.add(customEditor);
 			for (MetaEditor editor: editorsForTabs) {
 				if (!"List".equals(editor.getName())) result.add(editor); 
 			}
+			result.removeAll(getEditorsForTabToRemove(tab));
 			return result;
 		}
 	}	
+	
+	private static Collection<MetaEditor> getEditorsForTabToRemove(MetaTab tab) {
+		List<MetaEditor> editorToDelete = new ArrayList<>();
+		boolean contains = false;
+		for (MetaEditor editor: editorsForTabs) {
+			if (editor.hasHasSet() && !"List".equals(editor.getName())) {
+				List<MetaProperty> mpList = new ArrayList<>(tab.getMetaModel().getMetaProperties());
+				for (MetaProperty mp : mpList) {
+					if (editor.stereotypeMatches(mp) ||
+							editor.annotationMatches(editor, mp) ||
+							editor.typeMatches(mp)) {
+						contains = true;
+						break;
+					}
+				}
+				if (!contains) {
+					editorToDelete.add(editor);
+				} else {
+					contains = false;
+				}
+			}
+		}
+		return editorToDelete;
+	}
 		
 	public static MetaEditor getMetaEditorFor(MetaMember member) throws ElementNotFoundException, XavaException { 
 		if (member instanceof MetaProperty) return getMetaEditorFor((MetaProperty) member);

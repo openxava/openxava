@@ -15,7 +15,12 @@
       <i>Si estás usando una versión de OpenXava anterior a la 7.0 mira las <a
           href="mysql-ox6_es.html">instrucciones antiguas</a></i>
       <div class="wiki" style="display: block;">Configurar tu aplicación OpenXava contra MySQL es muy fácil, básicamente has de añadir una dependencia al controlador JDBC para MySQL en tu proyecto y definir correctamente la base de datos. No necesitas tocar el código de tu aplicación.</div>
-      <div class="wiki" style="display: block;">Asumimos que ya tienes el MySQL instalado y funcionando.<br>
+      <div class="wiki" style="display: block;">Asumimos que ya tienes el MySQL instalado y funcionando.</div>
+      <div class="wiki" style="display: block;">Sigue este video para configurar MySQL en OpenXava:</div>
+      <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=QTHT5nFk2yk"
+          target="_blank"><em><img src="files/mysql_es00.png" title="Sigue este video"
+              alt="Sigue este video"></em></a></div>
+      <div class="wiki" style="display: block;">Si no te gustan los videos, sigue las instrucciones a continuación.<br>
         <h2 id="toc1">Añadir controlador JDBC para MySQL en el proyecto</h2>
         <p>Edita el archivo <i>pom.xml</i> en la raíz de tu proyecto, allí añade la siguiente dependencia dentro de la parte <i>&lt;dependencies&gt;</i>:</p>
         <pre><code class="xml">&lt;dependency&gt;
@@ -37,6 +42,12 @@
     url="jdbc:mysql://localhost:3306/miaplicaciondb"/&gt;
 </code></pre> </div>
       <div class="wiki" style="display: block;">La diferencia está en <i>driverClassName</i> y <i>url</i>. Obviamente, en lugar de <i>localhost</i> deberías poner la dirección del servidor que alberga MySQL y en lugar de <i>miaplicaciondb</i> el nombre de tu base de datos. También pon el <i>username</i> y <i>password</i> correctos. Puede que el código de arriba ya esté en tu <i>context.xml</i> pero comentado, en ese caso simplemente descoméntalo. No olvides comentar o quitar la fuente de datos para HSQLDB (incluida por defecto al crear un nuevo proyecto OpenXava), sólo una fuente de datos (con el mismo nombre) debería estar activa.</div>
+      <h2 id="toc1">Crear manualmente el esquema</h2>
+      <div class="wiki" style="display: block;">La versión 5.6 de Hibernate tiene un bug que no crea ya automáticamente el esquema, por lo que las tablas tampoco. Si te encuentras con este error, la solución es crear manualmente el esquema en la base de datos ejecutando la sentencia:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="sql">CREATE database miaplicaciondb;<br></code></pre>
+      </div>
+      <div class="wiki" style="display: block;">Así las tablas se crearán una vez que se inicie la aplicación.</div>
       <div class="wiki" style="display: block;">
         <h2>Reconstruir proyecto</h2>
         <p>Después de los cambios has de reconstruir (rebuild) tu proyecto. En OpenXava Studio pulsa con el botón derecho del ratón en tu proyecto y escoge <i>Run As &gt; Maven install</i>, así:</p>

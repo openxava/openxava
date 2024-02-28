@@ -5,6 +5,7 @@ import java.text.*;
 import java.time.*;
 import java.time.format.*;
 import java.util.*;
+import java.util.prefs.*;
 
 import javax.ejb.*;
 import javax.servlet.http.*;
@@ -23,16 +24,13 @@ import org.openxava.validators.*;
 import org.openxava.view.View;
 import org.openxava.web.*;
 
-import lombok.*;
-
 /**
  * 
  * @since 7.1
  * @author Chungyen Tsai
  */
 
-@Getter // We should remove the @Getter and @Setter and use it
-@Setter // at field level if need, so we don't expose the inner state.
+ // at field level if need, so we don't expose the inner state.
 public class Calendar extends DWRBase {
 
 	private static Log log = LogFactory.getLog(Calendar.class);
@@ -75,7 +73,7 @@ public class Calendar extends DWRBase {
 			"java.time.LocalDateTime", "java.sql.Timestamp");
 
 	public String getEvents(HttpServletRequest request, HttpServletResponse response, String application, String module,
-			String monthYear) throws Exception {
+			String monthYear, String dateSimpleName) throws Exception {
 		try {
 			initRequest(request, response, application, module);
 			this.application = application;
@@ -88,7 +86,7 @@ public class Calendar extends DWRBase {
 			tab2 = getTab(request, application, module, tabObject);
 			tab = tab2.clone();
 
-			setDatesProperty();
+			setDatesProperty(dateSimpleName);
 			if (tabHasCondition(tab)) {
 				hasCondition = true;
 				tabGetCondition(tab);
@@ -109,8 +107,8 @@ public class Calendar extends DWRBase {
 			if (tableSize > 0) {
 				for (int i = 0; i < tableSize; i++) {
 					JSONObject jsonRow = new JSONObject();
-					List<String> d = obtainRowsDate(i);
-					String[] startDate = d.get(0).split("_");
+					String d = obtainRowsDate(i);
+					String[] startDate = d.split("_");
 					jsonRow.put("start", startDate[1]);
 					jsonRow.put("startName", startDate[0]);
 					jsonRow.put("title", obtainRowsTitle(i));
@@ -121,14 +119,29 @@ public class Calendar extends DWRBase {
 				}
 			} else {
 				JSONObject nullJson = new JSONObject();
-				List<String> d = obtainRowsDate(-1);
-				String f = d.get(0).split("_")[0];
-				String s = d.size() > 1 ? d.get(1).split("_")[0] : "";
-				String startName = f.equals("") && !s.equals("") ? s : f;
+				String startName = obtainRowsDate(-1).split("_")[0];
 				nullJson.put("startName", startName);
 				jsonArray.put(nullJson);
 			}
 			return jsonArray.toString();
+		} finally {
+			XPersistence.commit();
+			cleanRequest();
+		}
+	}
+	
+	public String changeDateProperty(HttpServletRequest request, HttpServletResponse response, String application, String module,
+			String dateSimpleName, String dateLabel, String monthYear) throws Exception {
+		try {
+			initRequest(request, response, application, module);
+			Tab tab = getTab(request, application, module, "xava_tab");
+			String prefNodeName = tab.getPreferencesNodeName("datePref.");
+			Preferences preferences = Users.getCurrentPreferences();
+			preferences.put(prefNodeName, dateLabel);
+			preferences.put(prefNodeName + "_SimpleName", dateSimpleName);
+			String result = getEvents(request, response, application, module,
+					monthYear, dateSimpleName);
+			return result;
 		} finally {
 			XPersistence.commit();
 			cleanRequest();
@@ -233,8 +246,9 @@ public class Calendar extends DWRBase {
 		return view;
 	}
 
-	private List<String> obtainRowsDate(int row) {
-		List<String> result = new ArrayList<>();
+	private String obtainRowsDate(int row) {
+		//List<String> result = new ArrayList<>();
+		String result ="";
 		StringBuffer dateWithName = new StringBuffer();
 		int i = keysListSize;
 		if (datesListSize == 0)
@@ -242,31 +256,14 @@ public class Calendar extends DWRBase {
 		if (row == -1) {
 			dateWithName.append(tab.getMetaProperty(i).getQualifiedName());
 			dateWithName.append("_");
-			result.add(dateWithName.toString());
-			if (datesListSize == 2) {
-				dateWithName = new StringBuffer();
-				dateWithName.append(tab.getMetaProperty((i + 1)).getQualifiedName());
-				dateWithName.append("_");
-				dateWithName.append("");
-				result.add(dateWithName.toString());
-			}
+			result = dateWithName.toString();
 		} else {
 			Object value = table.getValueAt(row, i);
-			Object value2 = table.getValueAt(row, (i + 1));
 			if (verifyValue(value)) {
 				dateWithName.append(tab.getMetaProperty(i).getQualifiedName());
 				dateWithName.append("_");
 				dateWithName.append(format(value, dateWithTime, oldLib));
-				result.add(dateWithName.toString());
-			}
-			if (datesListSize > 1) {
-				if (verifyValue(value2)) {
-					dateWithName = new StringBuffer();
-					dateWithName.append(tab.getMetaProperty((i + 1)).getQualifiedName());
-					dateWithName.append("_");
-					dateWithName.append(format(value2, dateWithTime, oldLib));
-					result.add(dateWithName.toString());
-				}
+				result = dateWithName.toString();
 			}
 		}
 		return result;
@@ -343,31 +340,9 @@ public class Calendar extends DWRBase {
 		}
 		return booleanFormatter;
 	}
-
-	private void setDatesProperty() {
-		List<MetaProperty> mp = new ArrayList<>(tab.getMetaTab().getMetaModel().getMetaProperties());
-		List<String> calculatedProperties = new ArrayList<>(
-				tab.getMetaTab().getMetaModel().getCalculatedPropertiesNames());
-		int mpCount = 0;
-		List<String> sortedProperties = tab.getMetaTab().getMetaModel().getPropertiesNames();
-		for (MetaProperty property : mp) {
-			String propertyTypeName = property.getTypeName();
-			if (mpCount < 2 && !calculatedProperties.contains(property.getName())
-					&& acceptedDateTypes.contains(propertyTypeName)) {
-				datesList.add(property.getName());
-				if (mpCount == 0 && !property.getName().contains("."))
-					dateName = property.getName();
-				mpCount++;
-				dateWithTime = isDateWithTime(property);
-				String className = property.getTypeName();
-				if (className.startsWith("java.util.") || className.startsWith("java.sql.")) {
-					oldLib = true;
-				} else if (className.startsWith("java.time.")) {
-					oldLib = false;
-				}
-			}
-		}
-		datesList.sort(Comparator.comparingInt(sortedProperties::indexOf));
+	
+	private void setDatesProperty(String dateSimpleName) {
+		setDatesPropertyFromSimpleName(dateSimpleName);
 	}
 
 	private Tab setProperties(Tab tab) {
@@ -495,6 +470,23 @@ public class Calendar extends DWRBase {
 	private boolean isDateWithTime(MetaProperty property) {
 		dateWithTime = dateWithTimeList.contains(property.getTypeName()) ? true : false;
 		return dateWithTime;
+	}
+	
+	private void setDatesPropertyFromSimpleName(String dateSimpleName) {
+	    MetaProperty metaProperty = tab.getMetaTab().getMetaModel().getMetaProperty(dateSimpleName);
+	    datesList.add(metaProperty.getName());
+	    dateName = metaProperty.getName();
+	    processDateProperty(metaProperty);
+	}
+	
+	private void processDateProperty(MetaProperty metaProperty) {
+	    dateWithTime = isDateWithTime(metaProperty);
+	    String className = metaProperty.getTypeName();
+	    if (className.startsWith("java.util.") || className.startsWith("java.sql.")) {
+	        oldLib = true;
+	    } else if (className.startsWith("java.time.")) {
+	        oldLib = false;
+	    }
 	}
 
 }

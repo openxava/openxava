@@ -83,11 +83,6 @@ if (manager.isButtonBarVisible()) {
 		tabObject = (tabObject == null || tabObject.equals(""))?"xava_tab":tabObject;
 		org.openxava.tab.Tab tab = (org.openxava.tab.Tab) context.get(request, tabObject);
 		Collection<String> editors = org.openxava.web.WebEditors.getEditors(tab.getMetaTab());
-        List<MetaProperty> listProperty = tab.getMetaProperties();
-        List<MetaProperty> listProperty2 = new ArrayList<> (tab.getMetaTab().getMetaModel().getMetaProperties());
-        
-        hasLocalDate = Dates.hasLocalDate(listProperty) || Dates.hasLocalDate(listProperty2);
-        if (!hasLocalDate) editors.remove("Calendar");
 
 		if (editors.size() > 1) for (String editor: editors) {
 			String icon = org.openxava.web.WebEditors.getIcon(editor);

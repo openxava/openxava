@@ -137,3 +137,9 @@
 	background-color: var(--calendar-popup-background);
 }
 
+.ox-center-calendar {
+	position: absolute;
+	left: 50%;
+	transform: translateX(25%);
+	z-index: 1;
+}

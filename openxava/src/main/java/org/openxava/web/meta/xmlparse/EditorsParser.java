@@ -64,6 +64,7 @@ public class EditorsParser extends ParserBase {
 		editor.setFormatterClassName(getFormatterClass(el, editor));
 		editor.setFormatterFromType(getFormatterFromType(el));
 		editor.setListFormatterClassName(getListFormatterClassName(el, editor));
+		setForTabs(el, editor);
 		
 		if (editor.isFormatterFromType() && !Is.emptyString(editor.getFormatterClassName())) {
 			throw new XavaException("formatter_class_and_from_type_not_compatible");
@@ -143,6 +144,29 @@ public class EditorsParser extends ParserBase {
 		Element el = (Element) l.item(0);					
 		return getAttributeBoolean(el, xfrom_type[lang]);						
 	}
+	
+	private void setForTabs(Element n, MetaEditor container) throws XavaException {
+		NodeList l = n.getElementsByTagName(xfor_tabs[lang]);
+		if (l.getLength() < 1) return;
+		Element el = (Element) l.item(0);
+		NodeList hasType = el.getElementsByTagName(xhas_type[lang]);
+		NodeList hasAnnotation = el.getElementsByTagName(xhas_annotation[lang]);
+		NodeList hasStereotype = el.getElementsByTagName(xhas_stereotype[lang]);
+		for (int i = 0; i < hasType.getLength(); i++) {
+			Element el2 = (Element) hasType.item(i);	
+			container.addType(el2.getAttribute(xtype[lang]));
+		}
+		for (int i = 0; i < hasAnnotation.getLength(); i++) {
+			Element el2 = (Element) hasAnnotation.item(i);	
+			container.addAnnotation(el2.getAttribute(xannotation[lang]));
+		}	
+		for (int i = 0; i < hasStereotype.getLength(); i++) {
+			Element el2 = (Element) hasStereotype.item(i);	
+			container.addStereotype(el2.getAttribute(xstereotype[lang]));
+		}
+	}
+	
+	
 		
 	private void fillProperties(MetaEditor editor, Element n) {
 		NodeList l = n.getElementsByTagName(xproperty[lang]);
