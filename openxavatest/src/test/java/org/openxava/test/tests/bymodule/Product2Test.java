@@ -273,7 +273,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		};
 		
 		assertValue("family.number", "2"); // 2 is the default value		
-		assertValidValues("family.number", familyValues); 
+		assertValidValues("family.number", familyValues); // TMR FALLA
 		setValue("family.number", "");
 		
 		String [][] voidValues = {
@@ -436,7 +436,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 			{ "2", "HARDWARE" },
 			{ "3", "SERVICIOS" }	
 		};
-		assertValidValues("family.number", familyValues); 
+		assertValidValues("family.number", familyValues); // TMR FALLA
 		
 		execute("Reference.createNew", "model=Family2,keyProperty=xava.Product2.family.number");
 		assertAction("NewCreation.saveNew");

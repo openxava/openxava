@@ -18,7 +18,7 @@ public class CalendarTest extends WebDriverTestBase {
 	
     public void testCalendar() throws Exception {
     	assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate(); 
-        assertMultipleDatesPropertiesAndSelectDateToShow();
+        assertMultipleDatesPropertiesAndSelectDateToShow(); // TMR FALLA
         assertFilterPerformance();
     	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime();
         assertAnyNameAsDateProperty();

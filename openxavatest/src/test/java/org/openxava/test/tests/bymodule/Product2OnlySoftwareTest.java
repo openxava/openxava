@@ -20,7 +20,7 @@ public class Product2OnlySoftwareTest extends ModuleTestBase {
 			{ "GESTION", "GESTION"},						  
 			{ "SISTEMA", "SISTEMA"}			
 		};		
-		assertValidValues("conditionValue___3", softwareValuesInListFilter); 
+		assertValidValues("conditionValue___3", softwareValuesInListFilter); // TMR FALLA
 		execute("CRUD.new");
 		String [][] softwareValues = {
 			{ "", ""},

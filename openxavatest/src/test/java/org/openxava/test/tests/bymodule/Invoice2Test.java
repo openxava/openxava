@@ -459,7 +459,7 @@ public class Invoice2Test extends ModuleTestBase {
 		
 		execute("Collection.edit", "row=0,viewObject=xava_view_details");
 		assertValue("product.description", "XAVA");
-		assertValue("product.family.description", "SOFTWARE"); 
+		assertValue("product.family.description", "SOFTWARE"); // TMR FALLA
 		closeDialog();
 		
 		execute("Collection.edit", "row=1,viewObject=xava_view_details");

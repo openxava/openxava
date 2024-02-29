@@ -396,7 +396,7 @@ class="sy0">:</span><span class="st0">"disabled"</span><span class="sy0">;</span
 class="co1">// 5</span>
 String script <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
 class="br0">(</span><span class="st0">"script"</span><span class="br0">)</span><span
-class="sy0">;</span> <span class="co1">// 6</span>
+class="sy0">;</span> <span class="co1">// 6</span>  Ignored since v7.2, so no longer needed
 boolean label <span class="sy0">=</span> org<span class="sy0">.</span>openxava<span
 class="sy0">.</span>util<span class="sy0">.</span>XavaPreferences<span class="sy0">.</span>getInstance<span
 class="br0">(</span><span class="br0">)</span><span class="sy0">.</span>isReadOnlyAsLabel<span
@@ -418,7 +418,7 @@ class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>"
 class="br0">)</span><span class="sy1">%&gt;</span>"
  value="<span class="sy1">&lt;%=</span>fvalue<span class="sy1">%&gt;</span>" &lt;!-- 3 --&gt;
  <span class="sy1">&lt;%=</span>disabled<span class="sy1">%&gt;</span> &lt;!-- 5 --&gt;
- <span class="sy1">&lt;%=</span>script<span class="sy1">%&gt;</span> &lt;!-- 6 --&gt;
+ <span class="sy1">&lt;%=</span>script<span class="sy1">%&gt;</span> &lt;!-- 6  Ignored since v7.2 --&gt;
  /&gt;
 <span class="sy1">&lt;%</span>
 <span class="br0">}</span> <span class="kw1">else</span> <span class="br0">{</span>
@@ -441,7 +441,8 @@ class="sy1">&lt;%=</span>fvalue<span class="sy1">%&gt;</span>"&gt;
       information of the property to edit). The <em>fvalue</em> (3) attribute
       contains the value already formated and ready to be displayed. <em>Align</em>
       (4) and <em>editable</em> (5) are obtained too. Also you need to obtain a
-      JavaScript (6) fragment to put in the HTML editor. You have to specify <em>tabindex="1"</em>
+      JavaScript (6) fragment to put in the HTML editor (since v7.2 you don't
+      need to specify script, it is ignored). You have to specify <em>tabindex="1"</em>
       (7) in order that the editors would be in the correct tab order <em>(new
         in v4.5.1)</em>.<br>
     </div>
@@ -1062,7 +1063,7 @@ String disabled<span class="sy0">=</span>editable?<span class="st0">""</span><sp
 class="sy0">:</span><span class="st0">"disabled"</span><span class="sy0">;</span>
 String script <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
 class="br0">(</span><span class="st0">"script"</span><span class="br0">)</span><span
-class="sy0">;</span>
+class="sy0">;</span> // Ignored since v7.2, no longer needed
 boolean label <span class="sy0">=</span> org<span class="sy0">.</span>openxava<span
 class="sy0">.</span>util<span class="sy0">.</span>XavaPreferences<span class="sy0">.</span>getInstance<span
 class="br0">(</span><span class="br0">)</span><span class="sy0">.</span>isReadOnlyAsLabel<span
@@ -1086,7 +1087,7 @@ class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" multiple="mu
  class=<span class="sy1">&lt;%=</span>style<span class="sy0">.</span>getEditor<span
 class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>
  <span class="sy1">&lt;%=</span>disabled<span class="sy1">%&gt;</span>
- <span class="sy1">&lt;%=</span>script<span class="sy1">%&gt;</span>&gt;
+ <span class="sy1">&lt;%=</span>script<span class="sy1">%&gt;</span>&gt; &lt;%-- Not used since v7.2 --%&gt;
  <span class="sy1">&lt;%</span>
  <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
 class="nu0">1</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>regionsCount<span
@@ -1213,7 +1214,7 @@ String disabled<span class="sy0">=</span>editable?<span class="st0">""</span><sp
 class="sy0">:</span><span class="st0">"disabled"</span><span class="sy0">;</span>
 String script <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
 class="br0">(</span><span class="st0">"script"</span><span class="br0">)</span><span
-class="sy0">;</span>
+class="sy0">;</span> // Ignored since v7.2, no longer needed
 boolean label <span class="sy0">=</span> org<span class="sy0">.</span>openxava<span
 class="sy0">.</span>util<span class="sy0">.</span>XavaPreferences<span class="sy0">.</span>getInstance<span
 class="br0">(</span><span class="br0">)</span><span class="sy0">.</span>isReadOnlyAsLabel<span
@@ -1247,7 +1248,7 @@ class="br0">)</span><span class="sy1">%&gt;</span>"
                 value="<span class="sy1">&lt;%=</span>i<span class="sy1">%&gt;</span>"
                 <span class="sy1">&lt;%=</span>checked<span class="sy1">%&gt;</span>
                 <span class="sy1">&lt;%=</span>disabled<span class="sy1">%&gt;</span>
-                <span class="sy1">&lt;%=</span>script<span class="sy1">%&gt;</span>
+                <span class="sy1">&lt;%=</span>script<span class="sy1">%&gt;</span> &lt;%-- Not used since v7.2 --%&gt;
         /&gt;
         <span class="sy1">&lt;%=</span>Labels<span class="sy0">.</span>get<span
 class="br0">(</span><span class="st0">"regions."</span> <span class="sy0">+</span> i<span

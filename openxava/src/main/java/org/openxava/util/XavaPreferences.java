@@ -401,6 +401,13 @@ public class XavaPreferences {
 		return "true".equalsIgnoreCase(getProperties().getProperty("turnOffWebSecurity", "false").trim());
 	}
 	
+	/** @since 7.2 */
+	public boolean isUnsafeEvalInScripts() { 
+		return "true".equalsIgnoreCase(getProperties().getProperty("unsafeEvalInScripts", "false").trim());
+	}
+	
+	
+	
 	/**
 	 * 
 	 * @since 5.4
