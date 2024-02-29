@@ -10,7 +10,6 @@ String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
 String checked=Boolean.TRUE.equals(value)?"checked='true'":"";
 boolean editable="true".equals(request.getParameter("editable"));
 String disabled=editable?"":"disabled";
-String script = request.getParameter("script");
 %>
 <INPUT id="<%=propertyKey%>" type="checkbox" name="<%=propertyKey%>" class=<%=style.getEditor()%>
 	tabindex="1" 
@@ -18,7 +17,6 @@ String script = request.getParameter("script");
 	title="<%=p.getDescription(request)%>"	
 	<%=checked%>
 	<%=disabled%>
-	<%=script%>
 />
 <% if (!editable) { %>
 	<input type="hidden" name="<%=propertyKey%>" value="<%=value%>">

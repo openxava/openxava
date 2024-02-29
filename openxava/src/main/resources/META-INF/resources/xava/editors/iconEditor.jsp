@@ -11,7 +11,6 @@ String propertyKey = request.getParameter("propertyKey");
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
 boolean editable="true".equals(request.getParameter("editable"));
-String script = request.getParameter("script");
 %>
 <span class="<%=style.getIcon()%>">
 <i class="mdi mdi-crop-free"></i>

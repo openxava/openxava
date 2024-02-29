@@ -32,7 +32,6 @@ boolean multiple = "true".equals(request.getParameter("multipleFiles"));
 String dataMultiple = multiple?"data-multiple='true'":"";
 boolean preview = !"false".equals(request.getParameter("imagePreview"));
 String dataPreview = !preview?"data-preview='false'":"";
-String script = request.getParameter("script");
 String acceptFileTypes = request.getParameter("acceptFileTypes");
 if (!Is.emptyString(acceptFileTypes) && acceptFileTypes.toLowerCase().contains("text/csv")) {
 	acceptFileTypes += ",.csv";
