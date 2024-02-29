@@ -2921,8 +2921,8 @@ a[data-action="Collection.next"] {
 }
 
 a[data-action="Collection.previous"] {
-	position: absolute;
+  position: absolute;
   right: 0;
-  margin-right: 20px;
+  margin-right: 35px;
 }
 
