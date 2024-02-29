@@ -10,7 +10,6 @@ String propertyKey = request.getParameter("propertyKey");
 String [] fvalues = (String []) request.getAttribute(propertyKey + ".fvalue");
 boolean editable="true".equals(request.getParameter("editable"));
 String disabled=editable?"":"disabled";
-String script = request.getParameter("script");
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
 if (editable || !label) {
 	String sregionsCount = request.getParameter("regionsCount");
@@ -24,7 +23,6 @@ if (editable || !label) {
 				value="<%=i%>" 
 				<%=checked%>
 				<%=disabled%>
-				<%=script%>
 		/>
 		<%=Labels.get("regions." + i, request.getLocale())%>
 	<%

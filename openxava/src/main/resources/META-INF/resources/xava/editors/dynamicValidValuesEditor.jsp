@@ -14,7 +14,6 @@ if (!org.openxava.util.Is.emptyString(collectionName)) {
 }
 String propertyKey = request.getParameter("propertyKey");
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
-String script = request.getParameter("script"); 
 boolean editable = "true".equals(request.getParameter("editable")); 
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
 Object value = request.getAttribute(propertyKey + ".value");
@@ -25,7 +24,7 @@ Object description = validValues.get(value);
 <%
 if (editable) { 
 %>
-<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=<%=style.getEditor()%> <%=script%> title="<%=p.getDescription(request)%>">
+<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=<%=style.getEditor()%> title="<%=p.getDescription(request)%>">
 	<% if (view.hasBlankValidValue(p.getName())) { %>
     <option value=""></option>
     <% } %>

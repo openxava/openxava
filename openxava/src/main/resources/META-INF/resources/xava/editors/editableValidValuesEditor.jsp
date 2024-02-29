@@ -19,7 +19,6 @@ if (!org.openxava.util.Is.emptyString(collectionName)) {
 }
 String propertyKey = request.getParameter("propertyKey");
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
-String script = request.getParameter("script");
 boolean editable = "true".equals(request.getParameter("editable")); 
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
 Object value = request.getAttribute(propertyKey + ".value") == null ? "" : request.getAttribute(propertyKey + ".value");
@@ -36,7 +35,7 @@ if (value != null && !validValues.isEmpty() && !validValues.containsValue(value)
 if (editable) { 
    	if (validValues.isEmpty()) {
 %>
-	<input id="<%=propertyKey%>" name="<%=propertyKey%>" class=<%=style.getEditor()%> type="text" tabindex="1" maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=value%>" <%=script%> title="<%=p.getDescription(request)%>"/>
+	<input id="<%=propertyKey%>" name="<%=propertyKey%>" class=<%=style.getEditor()%> type="text" tabindex="1" maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=value%>" title="<%=p.getDescription(request)%>"/>
 <%
 	} else {
 %>

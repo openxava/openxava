@@ -11,10 +11,8 @@ if ("0".equals(fvalue)) fvalue = "";
 String align = p.isNumber()?"right":"left";
 boolean editable="true".equals(request.getParameter("editable"));
 String disabled=editable?"":"disabled";
-String script = request.getParameter("script");
 int rows = p.getSize() / 80 + 1;
 if (rows > 25) rows = 25; 
-script = script + " onkeyup='return openxava.limitLength(event, " + p.getSize() + ")' ";
 boolean rich = Is.equalAsStringIgnoreCase("true", request.getParameter("rich"));
 String cssClass = request.getParameter("cssClass");
 if (cssClass == null) cssClass = style.getEditor();
@@ -24,8 +22,7 @@ if (cssClass == null) cssClass = style.getEditor();
 	tabindex="1" 
 	rows="<%=rows%>" cols="80"
 	title="<%=p.getDescription(request)%>"	
-	<%=disabled%>
-	<%=script%>><%=fvalue%></textarea>	
+	<%=disabled%>><%=fvalue%></textarea>	
 <% if (!editable) { %>
 	<input type="hidden" name="<%=propertyKey%>" value="<%=fvalue%>">
 <% } %>			
