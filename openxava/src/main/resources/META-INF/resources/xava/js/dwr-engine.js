@@ -13,1317 +13,2751 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 
 
-/**
- * Declare an object to which we can add real functions.
- */
-if (dwr == null) var dwr = {};
-if (dwr.engine == null) dwr.engine = {};
-if (DWREngine == null) var DWREngine = dwr.engine;
+/* Tuned for OpenXava to work with no eval(). Look for "OpenXava" in above code. */
 
-/**
- * Set an alternative error handler from the default alert box.
- * @see getahead.org/dwr/browser/engine/errors
- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if (typeof dwr == 'undefined') dwr = {};
+
+(function() {
+if (!dwr.engine) dwr.engine = {};
+
+
+
+
+
 dwr.engine.setErrorHandler = function(handler) {
-  dwr.engine._errorHandler = handler;
+dwr.engine._errorHandler = handler;
 };
 
-/**
- * Set an alternative warning handler from the default alert box.
- * @see getahead.org/dwr/browser/engine/errors
- */
+
+
+
+
 dwr.engine.setWarningHandler = function(handler) {
-  dwr.engine._warningHandler = handler;
+dwr.engine._warningHandler = handler;
 };
 
-/**
- * Setter for the text/html handler - what happens if a DWR request gets an HTML
- * reply rather than the expected Javascript. Often due to login timeout
- */
+
+
+
+
+
+
+
+
 dwr.engine.setTextHtmlHandler = function(handler) {
-  dwr.engine._textHtmlHandler = handler;
+dwr.engine._textHtmlHandler = handler;
 };
 
-/**
- * Set a default timeout value for all calls. 0 (the default) turns timeouts off.
- * @see getahead.org/dwr/browser/engine/errors
- */
+dwr.engine.setPollStatusHandler = function(handler) {
+dwr.engine._pollStatusHandler = handler;
+};
+
+
+
+
+
 dwr.engine.setTimeout = function(timeout) {
-  dwr.engine._timeout = timeout;
+dwr.engine._timeout = timeout;
 };
 
-/**
- * The Pre-Hook is called before any DWR remoting is done.
- * @see getahead.org/dwr/browser/engine/hooks
- */
+
+
+
+dwr.engine.setPollTimeout = function(timeout) {
+dwr.engine._pollTimeout = timeout;
+};
+
+
+
+
+
 dwr.engine.setPreHook = function(handler) {
-  dwr.engine._preHook = handler;
+dwr.engine._preHook = handler;
 };
 
-/**
- * The Post-Hook is called after any DWR remoting is done.
- * @see getahead.org/dwr/browser/engine/hooks
- */
+
+
+
+
 dwr.engine.setPostHook = function(handler) {
-  dwr.engine._postHook = handler;
+dwr.engine._postHook = handler;
 };
 
-/**
- * Custom headers for all DWR calls
- * @see getahead.org/dwr/????
- */
+
+
+
+
+dwr.engine.setOverridePath = function(path) {
+dwr.engine._overridePath = path;
+};
+
+
+
+
+
+dwr.engine.setOverrideContextPath = function(path) {
+dwr.engine._overrideContextPath = path;
+};
+
+
+
+
+
+dwr.engine.setCookieAttributes = function(attributeString) {
+dwr.engine._cookieAttributes = attributeString;
+};
+
+
+
+
+
 dwr.engine.setHeaders = function(headers) {
-  dwr.engine._headers = headers;
+dwr.engine._headers = headers;
 };
 
-/**
- * Custom parameters for all DWR calls
- * @see getahead.org/dwr/????
- */
-dwr.engine.setParameters = function(parameters) {
-  dwr.engine._parameters = parameters;
+
+
+
+
+dwr.engine.setAttributes = function(attributes) {
+dwr.engine._attributes = attributes;
 };
 
-/** XHR remoting type constant. See dwr.engine.set[Rpc|Poll]Type() */
-dwr.engine.XMLHttpRequest = 1;
 
-/** XHR remoting type constant. See dwr.engine.set[Rpc|Poll]Type() */
-dwr.engine.IFrame = 2;
 
-/** XHR remoting type constant. See dwr.engine.setRpcType() */
-dwr.engine.ScriptTag = 3;
 
-/**
- * Set the preferred remoting type.
- * @param newType One of dwr.engine.XMLHttpRequest or dwr.engine.IFrame or dwr.engine.ScriptTag
- * @see getahead.org/dwr/browser/engine/options
- */
-dwr.engine.setRpcType = function(newType) {
-  if (newType != dwr.engine.XMLHttpRequest && newType != dwr.engine.IFrame && newType != dwr.engine.ScriptTag) {
-    dwr.engine._handleError(null, { name:"dwr.engine.invalidRpcType", message:"RpcType must be one of dwr.engine.XMLHttpRequest or dwr.engine.IFrame or dwr.engine.ScriptTag" });
-    return;
-  }
-  dwr.engine._rpcType = newType;
-};
 
-/**
- * Which HTTP method do we use to send results? Must be one of "GET" or "POST".
- * @see getahead.org/dwr/browser/engine/options
- */
-dwr.engine.setHttpMethod = function(httpMethod) {
-  if (httpMethod != "GET" && httpMethod != "POST") {
-    dwr.engine._handleError(null, { name:"dwr.engine.invalidHttpMethod", message:"Remoting method must be one of GET or POST" });
-    return;
-  }
-  dwr.engine._httpMethod = httpMethod;
-};
-
-/**
- * Ensure that remote calls happen in the order in which they were sent? (Default: false)
- * @see getahead.org/dwr/browser/engine/ordering
- */
 dwr.engine.setOrdered = function(ordered) {
-  dwr.engine._ordered = ordered;
+dwr.engine._ordered = ordered;
 };
 
-/**
- * Do we ask the XHR object to be asynchronous? (Default: true)
- * @see getahead.org/dwr/browser/engine/options
- */
+
+
+
+
+
+
 dwr.engine.setAsync = function(async) {
-  dwr.engine._async = async;
+dwr.engine._async = async;
 };
 
-/**
- * Does DWR poll the server for updates? (Default: false)
- * @see getahead.org/dwr/browser/engine/options
- */
+
+
+
+
 dwr.engine.setActiveReverseAjax = function(activeReverseAjax) {
-  if (activeReverseAjax) {
-    // Bail if we are already started
-    if (dwr.engine._activeReverseAjax) return;
-    dwr.engine._activeReverseAjax = true;
-    dwr.engine._poll();
-  }
-  else {
-    // Can we cancel an existing request?
-    if (dwr.engine._activeReverseAjax && dwr.engine._pollReq) dwr.engine._pollReq.abort();
-    dwr.engine._activeReverseAjax = false;
-  }
-  // TODO: in iframe mode, if we start, stop, start then the second start may
-  // well kick off a second iframe while the first is still about to return
-  // we should cope with this but we don't
+if (activeReverseAjax) {
+
+if (dwr.engine._activeReverseAjax) return;
+
+if (!dwr.engine._retryIntervals || dwr.engine._retryIntervals.length === 0) { dwr.engine._retryIntervals = dwr.engine._defaultRetryIntervals; }
+dwr.engine._activeReverseAjax = true;
+if (dwr.engine._initializing) return;
+dwr.engine._poll();
+}
+else {
+
+if (dwr.engine._activeReverseAjax && dwr.engine._pollBatch) {
+dwr.engine.transport.abort(dwr.engine._pollBatch);
+}
+dwr.engine._activeReverseAjax = false;
+}
+
+
+
 };
 
-/**
- * The default message handler.
- * @see getahead.org/dwr/browser/engine/errors
- */
+
+
+
+
+dwr.engine.setNotifyServerOnPageUnload = function(notify, asyncUnload) {
+dwr.engine._asyncUnload = (asyncUnload !== undefined) ? asyncUnload : false;
+dwr.engine._isNotifyServerOnPageUnload = notify;
+};
+
+
+
+
+
+dwr.engine.setNotifyServerOnPageLoad = function(notify) {
+dwr.engine._isNotifyServerOnPageLoad = notify;
+if (notify && !dwr.engine._initializing && !dwr.engine._isNotifyServerOnPageLoadSent) {
+// Original: eval("dwr.engine._execute(dwr.engine._pathToDwrServlet, '__System', 'pageLoaded', [ function() { dwr.engine._ordered = false; }]);");
+dwr.engine._execute(dwr.engine._pathToDwrServlet, '__System', 'pageLoaded', [ function() { dwr.engine._ordered = false; }]); // For OpenXava
+dwr.engine._isNotifyServerOnPageLoadSent = true;
+}
+};
+
+
+
+
+
+dwr.engine.setMaxRetries = function(maxRetries) {
+dwr.engine._maxRetries = maxRetries;
+};
+
+
+
+
+
+dwr.engine.setRetryIntervals = function(intervalsArray) {
+dwr.engine._retryIntervals = intervalsArray;
+};
+
+
+
+
+
+
 dwr.engine.defaultErrorHandler = function(message, ex) {
-  dwr.engine._debug("Error: " + ex.name + ", " + ex.message, true);
-  if (message == null || message == "") alert("A server error has occured.");
-  // Ignore NS_ERROR_NOT_AVAILABLE if Mozilla is being narky
-  else if (message.indexOf("0x80040111") != -1) dwr.engine._debug(message);
-  else alert(message);
+dwr.engine._debug("Error: " + ex.name + ", " + ex.message, true);
+if (!message) message = "A server error has occurred.";
+
+if (message.indexOf("0x80040111") != -1) return;
+if ("false" == "true") alert(message);
 };
 
-/**
- * The default warning handler.
- * @see getahead.org/dwr/browser/engine/errors
- */
+
+
+
+
+
 dwr.engine.defaultWarningHandler = function(message, ex) {
-  dwr.engine._debug(message);
+dwr.engine._debug(message);
 };
 
-/**
- * For reduced latency you can group several remote calls together using a batch.
- * @see getahead.org/dwr/browser/engine/batch
- */
+
+
+
+
+
+dwr.engine.defaultPollStatusHandler = function(newStatus, ex) {
+dwr.engine.util.logHandlerEx(function() {
+if (newStatus === false && dwr.engine._errorHandler) dwr.engine._errorHandler(ex.message, ex);
+});
+};
+
+
+
+
 dwr.engine.beginBatch = function() {
-  if (dwr.engine._batch) {
-    dwr.engine._handleError(null, { name:"dwr.engine.batchBegun", message:"Batch already begun" });
-    return;
-  }
-  dwr.engine._batch = dwr.engine._createBatch();
+if (dwr.engine._batch) {
+dwr.engine._handleError(null, { name:"dwr.engine.batchBegun", message:"Batch already begun" });
+return;
+}
+dwr.engine._batch = dwr.engine.batch.create();
 };
 
-/**
- * Finished grouping a set of remote calls together. Go and execute them all.
- * @see getahead.org/dwr/browser/engine/batch
- */
+
+
+
+
 dwr.engine.endBatch = function(options) {
-  var batch = dwr.engine._batch;
-  if (batch == null) {
-    dwr.engine._handleError(null, { name:"dwr.engine.batchNotBegun", message:"No batch in progress" });
-    return;
-  }
-  dwr.engine._batch = null;
-  if (batch.map.callCount == 0) return;
+var batch = dwr.engine._batch;
+if (batch == null) {
+dwr.engine._handleError(null, { name:"dwr.engine.batchNotBegun", message:"No batch in progress" });
+return;
+}
+dwr.engine._batch = null;
+if (batch.map.callCount === 0) {
+return;
+}
 
-  // The hooks need to be merged carefully to preserve ordering
-  if (options) dwr.engine._mergeBatch(batch, options);
 
-  // In ordered mode, we don't send unless the list of sent items is empty
-  if (dwr.engine._ordered && dwr.engine._batchesLength != 0) {
-    dwr.engine._batchQueue[dwr.engine._batchQueue.length] = batch;
-  }
-  else {
-    dwr.engine._sendData(batch);
-  }
+if (options) {
+dwr.engine.batch.merge(batch, options);
+}
+
+
+
+if (batch.async && (dwr.engine._ordered || dwr.engine._internalOrdered) && dwr.engine._batchesLength !== 0) {
+dwr.engine._batchQueue[dwr.engine._batchQueue.length] = batch;
+}
+else {
+return dwr.engine.transport.send(batch);
+}
 };
 
-/** @deprecated */
-dwr.engine.setPollMethod = function(type) { dwr.engine.setPollType(type); };
-dwr.engine.setMethod = function(type) { dwr.engine.setRpcType(type); };
-dwr.engine.setVerb = function(verb) { dwr.engine.setHttpMethod(verb); };
-dwr.engine.setPollType = function() { dwr.engine._debug("Manually setting the Poll Type is not supported"); };
 
-//==============================================================================
-// Only private stuff below here
-//==============================================================================
 
-/** The original page id sent from the server */
-dwr.engine._origScriptSessionId = "DD5A51C586EBD1183D599DE69691B392";
 
-/** The session cookie name */
-dwr.engine._sessionCookieName = "JSESSIONID"; // JSESSIONID
 
-/** Is GET enabled for the benefit of Safari? */
-dwr.engine._allowGetForSafariButMakeForgeryEasier = "false";
 
-/** The script prefix to strip in the case of scriptTagProtection. */
+dwr.engine.openInDownload = function(data) {
+var div = document.createElement("div");
+document.body.appendChild(div);
+div.innerHTML = "<iframe width='0' height='0' scrolling='no' frameborder='0' src='" + data + "'></iframe>";
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+dwr.version = {
+
+
+
+major:parseInt("3", 10),
+
+
+
+
+minor:parseInt("0", 10),
+
+
+
+
+revision:parseInt("3", 10),
+
+
+
+
+build:parseInt("-1", 10),
+
+
+
+
+
+title:"dev",
+
+
+
+
+label:"3.0.3-dev"
+};
+
+
+
+
+
+
+dwr.engine._initializing = true;
+
+
+dwr.engine._allowGetButMakeForgeryEasier = "false";
+
+
 dwr.engine._scriptTagProtection = "throw 'allowScriptTagRemoting is false.';";
 
-/** The default path to the DWR servlet */
-dwr.engine._defaultPath = "/OpenXavaTest/dwr";
 
-/** Do we use XHR for reverse ajax because we are not streaming? */
-dwr.engine._pollWithXhr = "false";
+dwr.engine._pathToDwrServlet = "/openxavatest/dwr";
 
-/** The read page id that we calculate */
-dwr.engine._scriptSessionId = null;
 
-/** The function that we use to fetch/calculate a session id */
-dwr.engine._getScriptSessionId = function() {
-  if (dwr.engine._scriptSessionId == null) {
-    dwr.engine._scriptSessionId = dwr.engine._origScriptSessionId + Math.floor(Math.random() * 1000);
-  }
-  return dwr.engine._scriptSessionId;
+dwr.engine._overridePath = "";
+if (typeof pathToDwrServlet != "undefined") {
+dwr.engine._overridePath = pathToDwrServlet;
+}
+
+dwr.engine._effectivePath = function() {
+return dwr.engine._overridePath || dwr.engine._pathToDwrServlet;
 };
 
-/** A function to call if something fails. */
-dwr.engine._errorHandler = dwr.engine.defaultErrorHandler;
 
-/** For debugging when something unexplained happens. */
-dwr.engine._warningHandler = dwr.engine.defaultWarningHandler;
+dwr.engine._contextPath = "/openxavatest";
 
-/** A function to be called before requests are marshalled. Can be null. */
+
+dwr.engine._overrideContextPath = "";
+
+dwr.engine._effectiveContextPath = function() {
+return dwr.engine._overrideContextPath || dwr.engine._contextPath;
+};
+
+
+dwr.engine._cookieAttributes = "";
+
+
+dwr.engine._useStreamingPoll = "true";
+
+dwr.engine._pollOnline = true;
+
+
+dwr.engine._ModePlainCall = "/call/plaincall/";
+dwr.engine._ModePlainPoll = "/call/plainpoll/";
+dwr.engine._ModeHtmlCall = "/call/htmlcall/";
+dwr.engine._ModeHtmlPoll = "/call/htmlpoll/";
+
+
+dwr.engine._async = Boolean("true");
+
+
+dwr.engine._pageId = null;
+
+
+dwr.engine._dwrSessionId = null;
+
+
+dwr.engine._scriptSessionId = "";
+
+
 dwr.engine._preHook = null;
 
-/** A function to be called after replies are received. Can be null. */
+
 dwr.engine._postHook = null;
 
-/** An map of the batches that we have sent and are awaiting a reply on. */
+
 dwr.engine._batches = {};
 
-/** A count of the number of outstanding batches. Should be == to _batches.length unless prototype has messed things up */
+
 dwr.engine._batchesLength = 0;
 
-/** In ordered mode, the array of batches waiting to be sent */
+
 dwr.engine._batchQueue = [];
 
-/** What is the default rpc type */
-dwr.engine._rpcType = dwr.engine.XMLHttpRequest;
 
-/** What is the default remoting method (ie GET or POST) */
-dwr.engine._httpMethod = "POST";
-
-/** Do we attempt to ensure that calls happen in the order in which they were sent? */
 dwr.engine._ordered = false;
 
-/** Do we make the calls async? */
-dwr.engine._async = true;
 
-/** The current batch (if we are in batch mode) */
+dwr.engine._internalOrdered = false;
+
+
 dwr.engine._batch = null;
 
-/** The global timeout */
+
 dwr.engine._timeout = 0;
 
-/** ActiveX objects to use when we want to convert an xml string into a DOM object. */
-dwr.engine._DOMDocument = ["Msxml2.DOMDocument.6.0", "Msxml2.DOMDocument.5.0", "Msxml2.DOMDocument.4.0", "Msxml2.DOMDocument.3.0", "MSXML2.DOMDocument", "MSXML.DOMDocument", "Microsoft.XMLDOM"];
 
-/** The ActiveX objects to use when we want to do an XMLHttpRequest call. */
-dwr.engine._XMLHTTP = ["Msxml2.XMLHTTP.6.0", "Msxml2.XMLHTTP.5.0", "Msxml2.XMLHTTP.4.0", "MSXML2.XMLHTTP.3.0", "MSXML2.XMLHTTP", "Microsoft.XMLHTTP"];
-
-/** Are we doing comet or polling? */
 dwr.engine._activeReverseAjax = false;
 
-/** The iframe that we are using to poll */
-dwr.engine._outstandingIFrames = [];
 
-/** The xhr object that we are using to poll */
-dwr.engine._pollReq = null;
+dwr.engine._nextReverseAjaxIndex = 0;
 
-/** How many milliseconds between internal comet polls */
+
+dwr.engine._reverseAjaxQueue = {};
+
+
+dwr.engine._pollBatch = null;
+
+
+dwr.engine._pollTimeout = 0;
+
+
 dwr.engine._pollCometInterval = 200;
 
-/** How many times have we re-tried to poll? */
-dwr.engine._pollRetries = 0;
-dwr.engine._maxPollRetries = 0;
 
-/** Do we do a document.reload if we get a text/html reply? */
+dwr.engine._retries = 1;
+dwr.engine._maxRetries = -1;
+
+
+dwr.engine._retryIntervals = [];
+
+
+
+
+
+dwr.engine._defaultRetryIntervals = [ 1, 3, 3 ];
+
 dwr.engine._textHtmlHandler = null;
 
-/** If you wish to send custom headers with every request */
+
 dwr.engine._headers = null;
 
-/** If you wish to send extra custom request parameters with each request */
-dwr.engine._parameters = null;
 
-/** Undocumented interceptors - do not use */
+if (typeof attributes != "undefined") {
+dwr.engine._attributes = attributes;
+}
+else {
+dwr.engine._attributes = null;
+}
+
+
+dwr.engine._nextBatchId = 0;
+
+
+dwr.engine._instanceId = -1;
+
+
+dwr.engine._propnames = [ "async", "timeout", "errorHandler", "warningHandler", "textHtmlHandler" ];
+
+
+dwr.engine._partialResponseNo = 0;
+dwr.engine._partialResponseYes = 1;
+
+
+dwr.engine._isNotifyServerOnPageUnload = false;
+
+
+dwr.engine._isNotifyServerOnPageLoad = false;
+dwr.engine._isNotifyServerOnPageLoadSent = false;
+
+
+dwr.engine._asyncUnload = false;
+
+
+
+
+
+dwr.engine._mappedClasses = {};
+
+
+dwr.engine._errorHandler = dwr.engine.defaultErrorHandler;
+
+
+dwr.engine._warningHandler = dwr.engine.defaultWarningHandler;
+
+dwr.engine._pollStatusHandler = dwr.engine.defaultPollStatusHandler;
+
+
 dwr.engine._postSeperator = "\n";
 dwr.engine._defaultInterceptor = function(data) { return data; };
 dwr.engine._urlRewriteHandler = dwr.engine._defaultInterceptor;
 dwr.engine._contentRewriteHandler = dwr.engine._defaultInterceptor;
 dwr.engine._replyRewriteHandler = dwr.engine._defaultInterceptor;
 
-/** Batch ids allow us to know which batch the server is answering */
-dwr.engine._nextBatchId = 0;
 
-/** A list of the properties that need merging from calls to a batch */
-dwr.engine._propnames = [ "rpcType", "httpMethod", "async", "timeout", "errorHandler", "warningHandler", "textHtmlHandler" ];
+dwr.engine._excludeObjectAttributes = {
+"$dwrClassName": true,
+"$dwrByRef": true,
+"$_dwrConversionRef": true
+};
 
-/** Do we stream, or can be hacked to do so? */
-dwr.engine._partialResponseNo = 0;
-dwr.engine._partialResponseYes = 1;
-dwr.engine._partialResponseFlush = 2;
+dwr.engine._ieConditions = {};
 
-/** Is this page in the process of unloading? */
+
+dwr.engine._beforeUnloading = false;
+
+
+dwr.engine._queuedBatchException = null;
+
+
+
+dwr.engine._beforeUnloader = function() {
+dwr.engine._beforeUnloading = true;
+
+
+
+setTimeout(function() {
+
+
+
+setTimeout(function() {
+dwr.engine._beforeUnloading = false;
+}, 1000);
+}, 1);
+};
+
+
 dwr.engine._unloading = false;
 
-/**
- * @private Send a request. Called by the Javascript interface stub
- * @param path part of URL after the host and before the exec bit without leading or trailing /s
- * @param scriptName The class to execute
- * @param methodName The method on said class to execute
- * @param func The callback function to which any returned data should be passed
- *       if this is null, any returned data will be ignored
- * @param vararg_params The parameters to pass to the above class
- */
-dwr.engine._execute = function(path, scriptName, methodName, vararg_params) {
-  var singleShot = false;
-  if (dwr.engine._batch == null) {
-    dwr.engine.beginBatch();
-    singleShot = true;
-  }
-  var batch = dwr.engine._batch;
-  // To make them easy to manipulate we copy the arguments into an args array
-  var args = [];
-  for (var i = 0; i < arguments.length - 3; i++) {
-    args[i] = arguments[i + 3];
-  }
-  // All the paths MUST be to the same servlet
-  if (batch.path == null) {
-    batch.path = path;
-  }
-  else {
-    if (batch.path != path) {
-      dwr.engine._handleError(batch, { name:"dwr.engine.multipleServlets", message:"Can't batch requests to multiple DWR Servlets." });
-      return;
-    }
-  }
-  // From the other params, work out which is the function (or object with
-  // call meta-data) and which is the call parameters
-  var callData;
-  var lastArg = args[args.length - 1];
-  if (typeof lastArg == "function" || lastArg == null) callData = { callback:args.pop() };
-  else callData = args.pop();
 
-  // Merge from the callData into the batch
-  dwr.engine._mergeBatch(batch, callData);
-  batch.handlers[batch.map.callCount] = {
-    exceptionHandler:callData.exceptionHandler,
-    callback:callData.callback
-  };
-
-  // Copy to the map the things that need serializing
-  var prefix = "c" + batch.map.callCount + "-";
-  batch.map[prefix + "scriptName"] = scriptName;
-  batch.map[prefix + "methodName"] = methodName;
-  batch.map[prefix + "id"] = batch.map.callCount;
-  var refctx = [];
-  for (i = 0; i < args.length; i++) {
-    dwr.engine._serializeAll(batch, refctx, args[i], prefix + "param" + i);
-  }
-
-  // Now we have finished remembering the call, we incr the call count
-  batch.map.callCount++;
-  if (singleShot) dwr.engine.endBatch();
-};
-
-/** @private Poll the server to see if there is any data waiting */
-dwr.engine._poll = function() {
-  if (!dwr.engine._activeReverseAjax) return;
-
-  var batch = dwr.engine._createBatch();
-  batch.map.id = 0; // TODO: Do we need this??
-  batch.map.callCount = 1;
-  batch.isPoll = true;
-  if (dwr.engine._pollWithXhr == "true") {
-    batch.rpcType = dwr.engine.XMLHttpRequest;
-    batch.map.partialResponse = dwr.engine._partialResponseNo;
-  }
-  else {
-    if (navigator.userAgent.indexOf("Gecko/") != -1) {
-      batch.rpcType = dwr.engine.XMLHttpRequest;
-      batch.map.partialResponse = dwr.engine._partialResponseYes;
-    }
-    else {
-      batch.rpcType = dwr.engine.XMLHttpRequest;
-      batch.map.partialResponse = dwr.engine._partialResponseNo;
-    }
-  }
-  batch.httpMethod = "POST";
-  batch.async = true;
-  batch.timeout = 0;
-  batch.path = dwr.engine._defaultPath;
-  batch.preHooks = [];
-  batch.postHooks = [];
-  batch.errorHandler = dwr.engine._pollErrorHandler;
-  batch.warningHandler = dwr.engine._pollErrorHandler;
-  batch.handlers[0] = {
-    callback:function(pause) {
-      dwr.engine._pollRetries = 0;
-      setTimeout(dwr.engine._poll, pause);
-    }
-  };
-
-  // Send the data
-  dwr.engine._sendData(batch);
-  if (batch.rpcType == dwr.engine.XMLHttpRequest && batch.map.partialResponse == dwr.engine._partialResponseYes) {
-    dwr.engine._checkCometPoll();
-  }
-};
-
-/** Try to recover from polling errors */
-dwr.engine._pollErrorHandler = function(msg, ex) {
-  // if anything goes wrong then just silently try again (up to 3x) after 10s
-  dwr.engine._pollRetries++;
-  dwr.engine._debug("Reverse Ajax poll failed (pollRetries=" + dwr.engine._pollRetries + "): " + ex.name + " : " + ex.message);
-  if (dwr.engine._pollRetries < dwr.engine._maxPollRetries) {
-    setTimeout(dwr.engine._poll, 10000);
-  }
-  else {
-    dwr.engine._activeReverseAjax = false;
-    dwr.engine._debug("Giving up.");
-  }
-};
-
-/** @private Generate a new standard batch */
-dwr.engine._createBatch = function() {
-  var batch = {
-    map:{
-      callCount:0,
-      page:window.location.pathname + window.location.search,
-      httpSessionId:dwr.engine._getJSessionId(),
-      scriptSessionId:dwr.engine._getScriptSessionId()
-    },
-    charsProcessed:0, paramCount:0,
-    parameters:{}, headers:{},
-    isPoll:false, handlers:{}, preHooks:[], postHooks:[],
-    rpcType:dwr.engine._rpcType,
-    httpMethod:dwr.engine._httpMethod,
-    async:dwr.engine._async,
-    timeout:dwr.engine._timeout,
-    errorHandler:dwr.engine._errorHandler,
-    warningHandler:dwr.engine._warningHandler,
-    textHtmlHandler:dwr.engine._textHtmlHandler
-  };
-  if (dwr.engine._preHook) batch.preHooks.push(dwr.engine._preHook);
-  if (dwr.engine._postHook) batch.postHooks.push(dwr.engine._postHook);
-  var propname, data;
-  if (dwr.engine._headers) {
-    for (propname in dwr.engine._headers) {
-      data = dwr.engine._headers[propname];
-      if (typeof data != "function") batch.headers[propname] = data;
-    }
-  }
-  if (dwr.engine._parameters) {
-    for (propname in dwr.engine._parameters) {
-      data = dwr.engine._parameters[propname];
-      if (typeof data != "function") batch.parameters[propname] = data;
-    }
-  }
-  return batch;
-};
-
-/** @private Take further options and merge them into */
-dwr.engine._mergeBatch = function(batch, overrides) {
-  var propname, data;
-  for (var i = 0; i < dwr.engine._propnames.length; i++) {
-    propname = dwr.engine._propnames[i];
-    if (overrides[propname] != null) batch[propname] = overrides[propname];
-  }
-  if (overrides.preHook != null) batch.preHooks.unshift(overrides.preHook);
-  if (overrides.postHook != null) batch.postHooks.push(overrides.postHook);
-  if (overrides.headers) {
-    for (propname in overrides.headers) {
-      data = overrides.headers[propname];
-      if (typeof data != "function") batch.headers[propname] = data;
-    }
-  }
-  if (overrides.parameters) {
-    for (propname in overrides.parameters) {
-      data = overrides.parameters[propname];
-      if (typeof data != "function") batch.map["p-" + propname] = "" + data;
-    }
-  }
-};
-
-/** @private What is our session id? */
-dwr.engine._getJSessionId =  function() {
-  var cookies = document.cookie.split(';');
-  for (var i = 0; i < cookies.length; i++) {
-    var cookie = cookies[i];
-    while (cookie.charAt(0) == ' ') cookie = cookie.substring(1, cookie.length);
-    if (cookie.indexOf(dwr.engine._sessionCookieName + "=") == 0) {
-      return cookie.substring(dwr.engine._sessionCookieName.length + 1, cookie.length);
-    }
-  }
-  return "";
-};
-
-/** @private Check for reverse Ajax activity */
-dwr.engine._checkCometPoll = function() {
-  for (var i = 0; i < dwr.engine._outstandingIFrames.length; i++) {
-    var text = "";
-    var iframe = dwr.engine._outstandingIFrames[i];
-    try {
-      text = dwr.engine._getTextFromCometIFrame(iframe);
-    }
-    catch (ex) {
-      dwr.engine._handleWarning(iframe.batch, ex);
-    }
-    if (text != "") dwr.engine._processCometResponse(text, iframe.batch);
-  }
-  if (dwr.engine._pollReq) {
-    var req = dwr.engine._pollReq;
-    var text = req.responseText;
-    if (text != null) dwr.engine._processCometResponse(text, req.batch);
-  }
-
-  // If the poll resources are still there, come back again
-  if (dwr.engine._outstandingIFrames.length > 0 || dwr.engine._pollReq) {
-    setTimeout(dwr.engine._checkCometPoll, dwr.engine._pollCometInterval);
-  }
-};
-
-/** @private Extract the whole (executed an all) text from the current iframe */
-dwr.engine._getTextFromCometIFrame = function(frameEle) {
-  var body = frameEle.contentWindow.document.body;
-  if (body == null) return "";
-  var text = body.innerHTML;
-  // We need to prevent IE from stripping line feeds
-  if (text.indexOf("<PRE>") == 0 || text.indexOf("<pre>") == 0) {
-    text = text.substring(5, text.length - 7);
-  }
-  return text;
-};
-
-/** @private Some more text might have come in, test and execute the new stuff */
-dwr.engine._processCometResponse = function(response, batch) {
-  if (batch.charsProcessed == response.length) return;
-  if (response.length == 0) {
-    batch.charsProcessed = 0;
-    return;
-  }
-
-  var firstStartTag = response.indexOf("//#DWR-START#", batch.charsProcessed);
-  if (firstStartTag == -1) {
-    // dwr.engine._debug("No start tag (search from " + batch.charsProcessed + "). skipping '" + response.substring(batch.charsProcessed) + "'");
-    batch.charsProcessed = response.length;
-    return;
-  }
-  // if (firstStartTag > 0) {
-  //   dwr.engine._debug("Start tag not at start (search from " + batch.charsProcessed + "). skipping '" + response.substring(batch.charsProcessed, firstStartTag) + "'");
-  // }
-
-  var lastEndTag = response.lastIndexOf("//#DWR-END#");
-  if (lastEndTag == -1) {
-    // dwr.engine._debug("No end tag. unchanged charsProcessed=" + batch.charsProcessed);
-    return;
-  }
-
-  // Skip the end tag too for next time, remembering CR and LF
-  if (response.charCodeAt(lastEndTag + 11) == 13 && response.charCodeAt(lastEndTag + 12) == 10) {
-    batch.charsProcessed = lastEndTag + 13;
-  }
-  else {
-    batch.charsProcessed = lastEndTag + 11;
-  }
-
-  var exec = response.substring(firstStartTag + 13, lastEndTag);
-
-  dwr.engine._receivedBatch = batch;
-  dwr.engine._eval(exec);
-  dwr.engine._receivedBatch = null;
-};
-
-/** @private Actually send the block of data in the batch object. */
-dwr.engine._sendData = function(batch) {
-  batch.map.batchId = dwr.engine._nextBatchId;
-  dwr.engine._nextBatchId++;
-  dwr.engine._batches[batch.map.batchId] = batch;
-  dwr.engine._batchesLength++;
-  batch.completed = false;
-
-  for (var i = 0; i < batch.preHooks.length; i++) {
-    batch.preHooks[i]();
-  }
-  batch.preHooks = null;
-  // Set a timeout
-  if (batch.timeout && batch.timeout != 0) {
-    batch.timeoutId = setTimeout(function() { dwr.engine._abortRequest(batch); }, batch.timeout);
-  }
-  // Get setup for XMLHttpRequest if possible
-  if (batch.rpcType == dwr.engine.XMLHttpRequest) {
-    if (window.XMLHttpRequest) {
-      batch.req = new XMLHttpRequest();
-    }
-    // IE5 for the mac claims to support window.ActiveXObject, but throws an error when it's used
-    else if (window.ActiveXObject && !(navigator.userAgent.indexOf("Mac") >= 0 && navigator.userAgent.indexOf("MSIE") >= 0)) {
-      batch.req = dwr.engine._newActiveXObject(dwr.engine._XMLHTTP);
-    }
-  }
-
-  var prop, request;
-  if (batch.req) {
-    // Proceed using XMLHttpRequest
-    if (batch.async) {
-      batch.req.onreadystatechange = function() {
-        if (typeof dwr != 'undefined') dwr.engine._stateChange(batch);
-      };
-    }
-    // If we're polling, record this for monitoring
-    if (batch.isPoll) {
-      dwr.engine._pollReq = batch.req;
-      // In IE XHR is an ActiveX control so you can't augment it like this
-      if (!(document.all && !window.opera)) batch.req.batch = batch;
-    }
-    // Workaround for Safari 1.x POST bug
-    var indexSafari = navigator.userAgent.indexOf("Safari/");
-    if (indexSafari >= 0) {
-      var version = navigator.userAgent.substring(indexSafari + 7);
-      if (parseInt(version, 10) < 400) {
-        if (dwr.engine._allowGetForSafariButMakeForgeryEasier == "true") batch.httpMethod = "GET";
-        else dwr.engine._handleWarning(batch, { name:"dwr.engine.oldSafari", message:"Safari GET support disabled. See getahead.org/dwr/server/servlet and allowGetForSafariButMakeForgeryEasier." });
-      }
-    }
-    batch.mode = batch.isPoll ? dwr.engine._ModePlainPoll : dwr.engine._ModePlainCall;
-    request = dwr.engine._constructRequest(batch);
-    try {
-      batch.req.open(batch.httpMethod, request.url, batch.async);
-      try {
-        for (prop in batch.headers) {
-          var value = batch.headers[prop];
-          if (typeof value == "string") batch.req.setRequestHeader(prop, value);
-        }
-        if (!batch.headers["Content-Type"]) batch.req.setRequestHeader("Content-Type", "text/plain");
-      }
-      catch (ex) {
-        dwr.engine._handleWarning(batch, ex);
-      }
-      batch.req.send(request.body);
-      if (!batch.async) dwr.engine._stateChange(batch);
-    }
-    catch (ex) {
-      dwr.engine._handleError(batch, ex);
-    }
-  }
-  else if (batch.rpcType != dwr.engine.ScriptTag) {
-    var idname = batch.isPoll ? "dwr-if-poll-" + batch.map.batchId : "dwr-if-" + batch.map.batchId;
-    // Removed htmlfile implementation. Don't expect it to return before v3
-    batch.div = document.createElement("div");
-    // Add the div to the document first, otherwise IE 6 will ignore onload handler.
-    document.body.appendChild(batch.div);
-    batch.div.innerHTML = "<iframe src='javascript:void(0)' frameborder='0' style='width:0px;height:0px;border:0;' id='" + idname + "' name='" + idname + "' onload='dwr.engine._iframeLoadingComplete (" + batch.map.batchId + ");'></iframe>";
-    batch.document = document;
-    batch.iframe = batch.document.getElementById(idname);
-    batch.iframe.batch = batch;
-    batch.mode = batch.isPoll ? dwr.engine._ModeHtmlPoll : dwr.engine._ModeHtmlCall;
-    if (batch.isPoll) dwr.engine._outstandingIFrames.push(batch.iframe);
-    request = dwr.engine._constructRequest(batch);
-    if (batch.httpMethod == "GET") {
-      batch.iframe.setAttribute("src", request.url);
-    }
-    else {
-      batch.form = batch.document.createElement("form");
-      batch.form.setAttribute("id", "dwr-form");
-      batch.form.setAttribute("action", request.url);
-      batch.form.setAttribute("style", "display:none;");
-      batch.form.setAttribute("target", idname);
-      batch.form.target = idname;
-      batch.form.setAttribute("method", batch.httpMethod);
-      for (prop in batch.map) {
-        var value = batch.map[prop];
-        if (typeof value != "function") {
-          var formInput = batch.document.createElement("input");
-          formInput.setAttribute("type", "hidden");
-          formInput.setAttribute("name", prop);
-          formInput.setAttribute("value", value);
-          batch.form.appendChild(formInput);
-        }
-      }
-      batch.document.body.appendChild(batch.form);
-      batch.form.submit();
-    }
-  }
-  else {
-    batch.httpMethod = "GET"; // There's no such thing as ScriptTag using POST
-    batch.mode = batch.isPoll ? dwr.engine._ModePlainPoll : dwr.engine._ModePlainCall;
-    request = dwr.engine._constructRequest(batch);
-    batch.script = document.createElement("script");
-    batch.script.id = "dwr-st-" + batch.map["c0-id"];
-    batch.script.src = request.url;
-    document.body.appendChild(batch.script);
-  }
-};
-
-dwr.engine._ModePlainCall = "/call/plaincall/";
-dwr.engine._ModeHtmlCall = "/call/htmlcall/";
-dwr.engine._ModePlainPoll = "/call/plainpoll/";
-dwr.engine._ModeHtmlPoll = "/call/htmlpoll/";
-
-/** @private Work out what the URL should look like */
-dwr.engine._constructRequest = function(batch) {
-  // A quick string to help people that use web log analysers
-  var request = { url:batch.path + batch.mode, body:null };
-  if (batch.isPoll == true) {
-    request.url += "ReverseAjax.dwr";
-  }
-  else if (batch.map.callCount == 1) {
-    request.url += batch.map["c0-scriptName"] + "." + batch.map["c0-methodName"] + ".dwr";
-  }
-  else {
-    request.url += "Multiple." + batch.map.callCount + ".dwr";
-  }
-  // Play nice with url re-writing
-  var sessionMatch = location.href.match(/jsessionid=([^?]+)/);
-  if (sessionMatch != null) {
-    request.url += ";jsessionid=" + sessionMatch[1];
-  }
-
-  var prop;
-  if (batch.httpMethod == "GET") {
-    // Some browsers (Opera/Safari2) seem to fail to convert the callCount value
-    // to a string in the loop below so we do it manually here.
-    batch.map.callCount = "" + batch.map.callCount;
-    request.url += "?";
-    for (prop in batch.map) {
-      if (typeof batch.map[prop] != "function") {
-        request.url += encodeURIComponent(prop) + "=" + encodeURIComponent(batch.map[prop]) + "&";
-      }
-    }
-    request.url = request.url.substring(0, request.url.length - 1);
-  }
-  else {
-    // PERFORMANCE: for iframe mode this is thrown away.
-    request.body = "";
-    if (document.all && !window.opera) {
-      // Use array joining on IE (fastest)
-      var buf = [];
-      for (prop in batch.map) {
-        if (typeof batch.map[prop] != "function") {
-          buf.push(prop + "=" + batch.map[prop] + dwr.engine._postSeperator);
-        }
-      }
-      request.body = buf.join("");
-    }
-    else {
-      // Use string concat on other browsers (fastest)
-      for (prop in batch.map) {
-        if (typeof batch.map[prop] != "function") {
-          request.body += prop + "=" + batch.map[prop] + dwr.engine._postSeperator;
-        }
-      }
-    }
-    request.body = dwr.engine._contentRewriteHandler(request.body);
-  }
-  request.url = dwr.engine._urlRewriteHandler(request.url);
-  return request;
-};
-
-/** @private Called by XMLHttpRequest to indicate that something has happened */
-dwr.engine._stateChange = function(batch) {
-  var toEval;
-
-  if (batch.completed) {
-    dwr.engine._debug("Error: _stateChange() with batch.completed");
-    return;
-  }
-
-  var req = batch.req;
-  try {
-    if (req.readyState != 4) return;
-  }
-  catch (ex) {
-    dwr.engine._handleWarning(batch, ex);
-    // It's broken - clear up and forget this call
-    dwr.engine._clearUp(batch);
-    return;
-  }
-
-  if (dwr.engine._unloading) {
-    dwr.engine._debug("Ignoring reply from server as page is unloading.");
-    return;
-  }
-  
-  try {
-    var reply = req.responseText;
-    reply = dwr.engine._replyRewriteHandler(reply);
-    var status = req.status; // causes Mozilla to except on page moves
-
-    if (reply == null || reply == "") {
-      dwr.engine._handleWarning(batch, { name:"dwr.engine.missingData", message:"No data received from server" });
-    }
-    else if (status != 200) {
-      dwr.engine._handleError(batch, { name:"dwr.engine.http." + status, message:req.statusText });
-    }
-    else {
-      var contentType = req.getResponseHeader("Content-Type");
-      if (!contentType.match(/^text\/plain/) && !contentType.match(/^text\/javascript/)) {
-        if (contentType.match(/^text\/html/) && typeof batch.textHtmlHandler == "function") {
-          batch.textHtmlHandler({ status:status, responseText:reply, contentType:contentType });
-        }
-        else {
-          dwr.engine._handleWarning(batch, { name:"dwr.engine.invalidMimeType", message:"Invalid content type: '" + contentType + "'" });
-        }
-      }
-      else {
-        // Comet replies might have already partially executed
-        if (batch.isPoll && batch.map.partialResponse == dwr.engine._partialResponseYes) {
-          dwr.engine._processCometResponse(reply, batch);
-        }
-        else {
-          if (reply.search("//#DWR") == -1) {
-            dwr.engine._handleWarning(batch, { name:"dwr.engine.invalidReply", message:"Invalid reply from server" });
-          }
-          else {
-            toEval = reply;
-          }
-        }
-      }
-    }
-  }
-  catch (ex) {
-    dwr.engine._handleWarning(batch, ex);
-  }
-
-  dwr.engine._callPostHooks(batch);
-
-  // Outside of the try/catch so errors propogate normally:
-  dwr.engine._receivedBatch = batch;
-  if (toEval != null) toEval = toEval.replace(dwr.engine._scriptTagProtection, "");
-  dwr.engine._eval(toEval);
-  dwr.engine._receivedBatch = null;
-  dwr.engine._validateBatch(batch);
-  if (!batch.completed) dwr.engine._clearUp(batch);
-};
-
-/**
- * @private This function is invoked when a batch reply is received.
- * It checks that there is a response for every call in the batch. Otherwise,
- * an error will be signaled (a call without a response indicates that the 
- * server failed to send complete batch response). 
- */
-dwr.engine._validateBatch = function(batch) {
-  // If some call left unreplied, report an error.
-  if (!batch.completed) {
-    for (var i = 0; i < batch.map.callCount; i++) {
-      if (batch.handlers[i] != null) {
-        dwr.engine._handleWarning(batch, { name:"dwr.engine.incompleteReply", message:"Incomplete reply from server" });
-        break;
-      }
-    }
-  }
-}
-
-/** @private Called from iframe onload, check batch using batch-id */
-dwr.engine._iframeLoadingComplete = function(batchId) {
-  // dwr.engine._checkCometPoll();
-  var batch = dwr.engine._batches[batchId];
-  if (batch) dwr.engine._validateBatch(batch);
-}
-
-/** @private Called by the server: Execute a callback */
-dwr.engine._remoteHandleCallback = function(batchId, callId, reply) {
-  var batch = dwr.engine._batches[batchId];
-  if (batch == null) {
-    dwr.engine._debug("Warning: batch == null in remoteHandleCallback for batchId=" + batchId, true);
-    return;
-  }
-  // Error handlers inside here indicate an error that is nothing to do
-  // with DWR so we handle them differently.
-  try {
-    var handlers = batch.handlers[callId];
-    batch.handlers[callId] = null;
-    if (!handlers) {
-      dwr.engine._debug("Warning: Missing handlers. callId=" + callId, true);
-    }
-    else if (typeof handlers.callback == "function") handlers.callback(reply);
-  }
-  catch (ex) {
-    dwr.engine._handleError(batch, ex);
-  }
-};
-
-/** @private Called by the server: Handle an exception for a call */
-dwr.engine._remoteHandleException = function(batchId, callId, ex) {
-  var batch = dwr.engine._batches[batchId];
-  if (batch == null) { dwr.engine._debug("Warning: null batch in remoteHandleException", true); return; }
-  var handlers = batch.handlers[callId];
-  batch.handlers[callId] = null;
-  if (handlers == null) { dwr.engine._debug("Warning: null handlers in remoteHandleException", true); return; }
-  if (ex.message == undefined) ex.message = "";
-  if (typeof handlers.exceptionHandler == "function") handlers.exceptionHandler(ex.message, ex);
-  else if (typeof batch.errorHandler == "function") batch.errorHandler(ex.message, ex);
-};
-
-/** @private Called by the server: The whole batch is broken */
-dwr.engine._remoteHandleBatchException = function(ex, batchId) {
-  var searchBatch = (dwr.engine._receivedBatch == null && batchId != null);
-  if (searchBatch) {
-    dwr.engine._receivedBatch = dwr.engine._batches[batchId];
-  }
-  if (ex.message == undefined) ex.message = "";
-  dwr.engine._handleError(dwr.engine._receivedBatch, ex);
-  if (searchBatch) {
-    dwr.engine._receivedBatch = null;
-    dwr.engine._clearUp(dwr.engine._batches[batchId]);
-  }
-};
-
-/** @private Called by the server: Reverse ajax should not be used */
-dwr.engine._remotePollCometDisabled = function(ex, batchId) {
-  dwr.engine.setActiveReverseAjax(false);
-  var searchBatch = (dwr.engine._receivedBatch == null && batchId != null);
-  if (searchBatch) {
-    dwr.engine._receivedBatch = dwr.engine._batches[batchId];
-  }
-  if (ex.message == undefined) ex.message = "";
-  dwr.engine._handleError(dwr.engine._receivedBatch, ex);
-  if (searchBatch) {
-    dwr.engine._receivedBatch = null;
-    dwr.engine._clearUp(dwr.engine._batches[batchId]);
-  }
-};
-
-/** @private Called by the server: An IFrame reply is about to start */
-dwr.engine._remoteBeginIFrameResponse = function(iframe, batchId) {
-  if (iframe != null) dwr.engine._receivedBatch = iframe.batch;
-  dwr.engine._callPostHooks(dwr.engine._receivedBatch);
-};
-
-/** @private Called by the server: An IFrame reply is just completing */
-dwr.engine._remoteEndIFrameResponse = function(batchId) {
-  dwr.engine._clearUp(dwr.engine._receivedBatch);
-  dwr.engine._receivedBatch = null;
-};
-
-/** @private This is a hack to make the context be this window */
-dwr.engine._eval = function(script) {
-  if (script == null) return null;
-  if (script == "") { dwr.engine._debug("Warning: blank script", true); return null; }
-  // dwr.engine._debug("Exec: [" + script + "]", true);
-  return eval(script);
-};
-
-/** @private Called as a result of a request timeout */
-dwr.engine._abortRequest = function(batch) {
-  if (batch && !batch.completed) {
-    dwr.engine._clearUp(batch);
-    if (batch.req) batch.req.abort();
-    dwr.engine._handleError(batch, { name:"dwr.engine.timeout", message:"Timeout" });
-  }
-};
-
-/** @private call all the post hooks for a batch */
-dwr.engine._callPostHooks = function(batch) {
-  if (batch.postHooks) {
-    for (var i = 0; i < batch.postHooks.length; i++) {
-      batch.postHooks[i]();
-    }
-    batch.postHooks = null;
-  }
-};
-
-/** @private A call has finished by whatever means and we need to shut it all down. */
-dwr.engine._clearUp = function(batch) {
-  if (!batch) { dwr.engine._debug("Warning: null batch in dwr.engine._clearUp()", true); return; }
-  if (batch.completed) { dwr.engine._debug("Warning: Double complete", true); return; }
-
-  // IFrame tidyup
-  if (batch.div) batch.div.parentNode.removeChild(batch.div);
-  if (batch.iframe) {
-    // If this is a poll frame then stop comet polling
-    for (var i = 0; i < dwr.engine._outstandingIFrames.length; i++) {
-      if (dwr.engine._outstandingIFrames[i] == batch.iframe) {
-        dwr.engine._outstandingIFrames.splice(i, 1);
-      }
-    }
-    batch.iframe.parentNode.removeChild(batch.iframe);
-  }
-  if (batch.form) batch.form.parentNode.removeChild(batch.form);
-
-  // XHR tidyup: avoid IE handles increase
-  if (batch.req) {
-    // If this is a poll frame then stop comet polling
-    if (batch.req == dwr.engine._pollReq) dwr.engine._pollReq = null;
-    delete batch.req;
-  }
-
-  // Timeout tidyup
-  if (batch.timeoutId != null) {
-    clearTimeout(batch.timeoutId);
-    delete batch.timeoutId;
-  }
-
-  if (batch.map && (batch.map.batchId || batch.map.batchId == 0)) {
-    delete dwr.engine._batches[batch.map.batchId];
-    dwr.engine._batchesLength--;
-  }
-
-  batch.completed = true;
-
-  // If there is anything on the queue waiting to go out, then send it.
-  // We don't need to check for ordered mode, here because when ordered mode
-  // gets turned off, we still process *waiting* batches in an ordered way.
-  if (dwr.engine._batchQueue.length != 0) {
-    var sendbatch = dwr.engine._batchQueue.shift();
-    dwr.engine._sendData(sendbatch);
-  }
-};
-
-/** @private Abort any XHRs in progress at page unload (solves zombie socket problems in IE). */
 dwr.engine._unloader = function() {
-  dwr.engine._unloading = true;
+dwr.engine._unloading = true;
 
-  // Empty queue of waiting ordered requests
-  dwr.engine._batchQueue.length = 0;
 
-  // Abort any ongoing XHRs and clear their batches
-  for (var batchId in dwr.engine._batches) {
-    var batch = dwr.engine._batches[batchId];
-    // Only process objects that look like batches (avoid prototype additions!)
-    if (batch && batch.map) {
-      if (batch.req) {
-        batch.req.abort();
-      }
-      dwr.engine._clearUp(batch);
-    }
-  }
+dwr.engine._batchQueue.length = 0;
+
+
+var batch;
+for (var batchId in dwr.engine._batches) {
+batch = dwr.engine._batches[batchId];
+if (batch.transport && batch.transport.abort) {
+batch.transport.abort(batch);
+}
+}
+
+
+if (dwr.engine._isNotifyServerOnPageUnload) {
+dwr.engine._debug("calling unloader for: " + dwr.engine._scriptSessionId);
+batch = {
+map:{
+callCount:1,
+'c0-scriptName':'__System',
+'c0-methodName':'pageUnloaded',
+'c0-id':0
+},
+paramCount:0, isPoll:false, async:dwr.engine._asyncUnload,
+headers:{}, preHooks:[], postHooks:[],
+timeout:dwr.engine._timeout,
+errorHandler:null, globalErrorHandler:dwr.engine._errorHandler, warningHandler:null, textHtmlHandler:null, globalTextHtmlHandler:null,
+handlers:[{ exceptionHandler:null, callback:null }]
 };
-// Now register the unload handler
-if (window.addEventListener) window.addEventListener('unload', dwr.engine._unloader, false);
-else if (window.attachEvent) window.attachEvent('onunload', dwr.engine._unloader);
+dwr.engine.transport.send(batch);
+dwr.engine._isNotifyServerOnPageUnload = false;
+}
+};
 
-/** @private Generic error handling routing to save having null checks everywhere */
+function ignoreIfUnloading(batch, f) {
+
+if (dwr.engine._unloading) return;
+
+if (dwr.engine._beforeUnloading && (batch == null || batch.async)) {
+setTimeout(function() {
+ignoreIfUnloading(batch, f);
+}, 100);
+}
+
+else {
+return f();
+}
+}
+
+dwr.engine._initializer = {
+
+
+
+preInit: function() {
+
+dwr.engine._pageId = dwr.engine.util.tokenify(new Date().getTime()) + "-" + dwr.engine.util.tokenify(Math.random() * 1E16);
+
+
+dwr.engine.transport.updateDwrSessionFromCookie();
+
+
+dwr.engine.util.addEventListener(window, 'beforeunload', dwr.engine._beforeUnloader);
+dwr.engine.util.addEventListener(window, 'unload', dwr.engine._unloader);
+
+
+var g = dwr.engine._global;
+if (!g.dwr) g.dwr = {};
+if (!g.dwr._) g.dwr._ = [];
+dwr.engine._instanceId = g.dwr._.length;
+g.dwr._[dwr.engine._instanceId] = dwr;
+},
+
+loadDwrConfig: function() {
+if (typeof dwrConfig != "undefined") {
+for(p in dwrConfig) {
+var methodName = "set" + p.charAt(0).toUpperCase() + p.substring(1);
+var setter = dwr.engine[methodName];
+if (setter) setter(dwrConfig[p]);
+}
+}
+},
+
+init: function() {
+dwr.engine._initializer.preInit();
+dwr.engine._initializer.loadDwrConfig();
+dwr.engine._initializing = false;
+
+if (dwr.engine._isNotifyServerOnPageLoad) {
+// Original: eval("dwr.engine._execute(dwr.engine._pathToDwrServlet, '__System', 'pageLoaded', [ function() { dwr.engine._ordered = false; }]);");
+dwr.engine._execute(dwr.engine._pathToDwrServlet, '__System', 'pageLoaded', [ function() { dwr.engine._ordered = false; }]); // For OpenXava
+dwr.engine._isNotifyServerOnPageLoadSent = true;
+}
+if (dwr.engine._activeReverseAjax) {
+dwr.engine._poll();
+}
+}
+};
+
+
+
+
+
+
+
+
+
+
+
+dwr.engine._execute = function(overridePath, scriptName, methodName, args) {
+var path = overridePath || dwr.engine._effectivePath();
+dwr.engine._singleShot = false;
+if (dwr.engine._batch == null) {
+dwr.engine.beginBatch();
+dwr.engine._singleShot = true;
+}
+
+var batch = dwr.engine._batch;
+
+
+if (batch.path == null) {
+batch.path = path;
+}
+else {
+if (batch.path != path) {
+dwr.engine._handleError(batch, { name:"dwr.engine.multipleServlets", message:"Can't batch requests to multiple DWR Servlets." });
+return;
+}
+}
+
+dwr.engine.batch.addCall(batch, scriptName, methodName, args);
+
+if (dwr.engine._isHeartbeatBatch(batch)) {
+
+batch.timeout = 750;
+}
+
+
+batch.map.callCount++;
+if (dwr.engine._singleShot) {
+return dwr.engine.endBatch();
+}
+};
+
+
+
+
+
+dwr.engine._poll = function() {
+if (!dwr.engine._activeReverseAjax) {
+return;
+}
+dwr.engine._pollBatch = dwr.engine.batch.createPoll();
+dwr.engine.transport.send(dwr.engine._pollBatch);
+};
+
+
+dwr.engine._executeScript = function(script) {
+if (script == null) {
+return null;
+}
+if (script === "") {
+dwr.engine._debug("Warning: blank script", true);
+return null;
+}
+
+// Original: (new Function("dwr", script))(dwr);
+// Start for OpenXava:
+	var paramsStartIndex = script.indexOf(".handleCallback(") + 16;
+	var paramsEndIndex = script.indexOf('})();', paramsStartIndex);
+	var params = script.substring(paramsStartIndex, paramsEndIndex);
+	var paramsTokens = params.split(",", 2);
+	var param1 = paramsTokens[0].substr(1, paramsTokens[0].length - 2);
+	var param2 = paramsTokens[1].substr(1, paramsTokens[1].length - 2);
+	var param3StartIndex = params.indexOf(",", params.indexOf(",") + 1) + 1;
+	var param3EndIndex = params.lastIndexOf(');');
+	var param3 = params.substring(param3StartIndex, param3EndIndex);
+	if (param3.startsWith('"') && !param3.startsWith('"[')) {
+		param3 = param3.substr(1, param3.length - 2);
+	}
+	if (param3.startsWith('{') || param3.startsWith('"[')) {
+		var json = param3.replace(/([{,])(\s*)([a-zA-Z0-9_\-]+?)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$3":');
+		param3 = JSON.parse(json);
+	}
+	else if (param3.includes("\\")) { 
+		param3 = JSON.parse(`"${param3}"`);
+	}
+	dwr.engine.remote.handleCallback(param1,param2,param3);
+// End for OpenXava
+};
+
+
+dwr.engine._callPostHooks = function(batch) {
+if (batch.postHooks) {
+for (var i = 0; i < batch.postHooks.length; i++) {
+batch.postHooks[i]();
+}
+batch.postHooks = null;
+}
+};
+
+
+
+
+
+
+
+dwr.engine._isHeartbeatBatch = function(batch) {
+return (batch.map && batch.map['c0-methodName'] === 'checkHeartbeat' && batch.map['c0-scriptName'] === '__System');
+};
+
+
+
+
+
+
+
 dwr.engine._handleError = function(batch, ex) {
-  if (typeof ex == "string") ex = { name:"unknown", message:ex };
-  if (ex.message == null) ex.message = "";
-  if (ex.name == null) ex.name = "unknown";
-  if (batch && typeof batch.errorHandler == "function") batch.errorHandler(ex.message, ex);
-  else if (dwr.engine._errorHandler) dwr.engine._errorHandler(ex.message, ex);
-  if (batch) dwr.engine._clearUp(batch);
+if (batch && dwr.engine._isHeartbeatBatch(batch)) {
+return;
+}
+var errorHandlers = [];
+var anyCallWithoutErrorHandler = false;
+if (batch && batch.isPoll) {
+dwr.engine._handlePollRetry(batch, ex);
+} else {
+
+if (batch) {
+for (var i = 0; i < batch.map.callCount; i++) {
+var handlers = batch.handlers[i];
+if (!handlers.completed) {
+if (typeof handlers.errorHandler == "function")
+errorHandlers.push(handlers.errorHandler);
+else
+anyCallWithoutErrorHandler = true;
+handlers.completed = true;
+}
+}
+}
+
+ignoreIfUnloading(batch, function() {
+if (batch) {
+var textHtmlHandler = batch.textHtmlHandler || batch.globalTextHtmlHandler;
+if (ex.name === "dwr.engine.textHtmlReply" && textHtmlHandler) {
+dwr.engine.util.logHandlerEx(function() {
+textHtmlHandler(ex);
+});
+return;
+}
+}
+dwr.engine._prepareException(ex);
+var errorHandler;
+while(errorHandlers.length > 0) {
+errorHandler = errorHandlers.shift();
+dwr.engine.util.logHandlerEx(function() {
+errorHandler(ex.message, ex);
+});
+}
+if (batch) {
+dwr.engine.util.logHandlerEx(function() {
+if (typeof batch.errorHandler == "function") batch.errorHandler(ex.message, ex);
+else if (anyCallWithoutErrorHandler) {
+if (typeof batch.globalErrorHandler == "function") batch.globalErrorHandler(ex.message, ex);
+}
+});
+dwr.engine.batch.remove(batch);
+}
+});
+}
 };
 
-/** @private Generic error handling routing to save having null checks everywhere */
+
+
+
+
+
+
+dwr.engine._handlePollRetry = function(batch, ex) {
+var retryInterval = dwr.engine._getRetryInterval();
+
+if (dwr.engine._retries === dwr.engine._retryIntervals.length - 1) {
+dwr.engine._debug("poll retry - going offline: " + retryInterval/1000 + " seconds");
+dwr.engine._handlePollStatusChange(false, ex, batch);
+
+var heartbeatInterval = setInterval(function() {
+if (dwr.engine._maxRetries === -1 || dwr.engine._retries < dwr.engine._maxRetries) {
+dwr.engine._execute(null, '__System', 'checkHeartbeat', [ function() {
+
+clearInterval(heartbeatInterval);
+dwr.engine._poll();
+}]);
+dwr.engine._retries++;
+dwr.engine._debug("DWR Offline - poll retry - interval: " + retryInterval/1000 + " seconds");
+} else {
+
+clearInterval(heartbeatInterval);
+dwr.engine._debug("max retries reached, stop polling for server status.");
+dwr.engine._handlePollStatusChange(false, ex, batch);
+}
+}, retryInterval);
+} else {
+dwr.engine._retries++;
+dwr.engine.batch.remove(batch);
+dwr.engine._debug("DWR Online - poll retry - interval: " + retryInterval/1000 + " seconds");
+setTimeout(dwr.engine._poll, retryInterval);
+}
+};
+
+dwr.engine._getRetryInterval = function() {
+var retryInterval;
+if (dwr.engine._retries < dwr.engine._retryIntervals.length) {
+retryInterval = dwr.engine._retryIntervals[dwr.engine._retries] * 1000;
+} else {
+
+retryInterval = dwr.engine._retryIntervals[dwr.engine._retryIntervals.length - 1] * 1000;
+}
+return retryInterval;
+};
+
+
+
+
+
+
+dwr.engine._handlePollStatusChange = function(newStatus, ex, batch) {
+if (batch.isPoll || dwr.engine._isHeartbeatBatch(batch)) {
+var changed = dwr.engine._pollOnline !== newStatus;
+var maxRetriesReached = dwr.engine._maxRetries === dwr.engine._retries;
+dwr.engine._pollOnline = newStatus;
+if ((changed || maxRetriesReached) && typeof dwr.engine._pollStatusHandler === "function")
+dwr.engine.util.logHandlerEx(function() {
+dwr.engine._pollStatusHandler(newStatus, ex, maxRetriesReached);
+});
+if (newStatus) {
+dwr.engine._retries = 1;
+}
+}
+};
+
+
+
+
+
+
+
 dwr.engine._handleWarning = function(batch, ex) {
-  if (typeof ex == "string") ex = { name:"unknown", message:ex };
-  if (ex.message == null) ex.message = "";
-  if (ex.name == null) ex.name = "unknown";
-  if (batch && typeof batch.warningHandler == "function") batch.warningHandler(ex.message, ex);
-  else if (dwr.engine._warningHandler) dwr.engine._warningHandler(ex.message, ex);
-  if (batch) dwr.engine._clearUp(batch);
+if (batch && dwr.engine._isHeartbeatBatch(batch)) {
+return;
+}
+ignoreIfUnloading(batch, function() {
+
+dwr.engine._prepareException(ex);
+dwr.engine.util.logHandlerEx(function() {
+if (batch && typeof batch.warningHandler == "function") batch.warningHandler(ex.message, ex);
+else if (dwr.engine._warningHandler) dwr.engine._warningHandler(ex.message, ex);
+});
+if (batch) dwr.engine.batch.remove(batch);
+});
 };
 
-/**
- * @private Marshall a data item
- * @param batch A map of variables to how they have been marshalled
- * @param referto An array of already marshalled variables to prevent recurrsion
- * @param data The data to be marshalled
- * @param name The name of the data being marshalled
- */
-dwr.engine._serializeAll = function(batch, referto, data, name) {
-  if (data == null) {
-    batch.map[name] = "null:null";
-    return;
-  }
 
-  switch (typeof data) {
-  case "boolean":
-    batch.map[name] = "boolean:" + data;
-    break;
-  case "number":
-    batch.map[name] = "number:" + data;
-    break;
-  case "string":
-    batch.map[name] = "string:" + encodeURIComponent(data);
-    break;
-  case "object":
-    var objstr = Object.prototype.toString.call(data);
-    if (objstr == "[object String]") batch.map[name] = "String:" + encodeURIComponent(data);
-    else if (objstr == "[object Boolean]") batch.map[name] = "Boolean:" + data;
-    else if (objstr == "[object Number]") batch.map[name] = "Number:" + data;
-    else if (objstr == "[object Date]") batch.map[name] = "Date:" + data.getTime();
-    else if (objstr == "[object Array]") batch.map[name] = dwr.engine._serializeArray(batch, referto, data, name);
-    else batch.map[name] = dwr.engine._serializeObject(batch, referto, data, name);
-    break;
-  case "function":
-    // We just ignore functions.
-    break;
-  default:
-    dwr.engine._handleWarning(null, { name:"dwr.engine.unexpectedType", message:"Unexpected type: " + typeof data + ", attempting default converter." });
-    batch.map[name] = "default:" + data;
-    break;
-  }
+
+
+
+
+dwr.engine._prepareException = function(ex) {
+if (typeof ex == "string") ex = { name:"unknown", message:ex };
+if (ex.message == null) ex.message = "";
+if (ex.name == null) ex.name = "unknown";
 };
 
-/** @private Have we already converted this object? */
-dwr.engine._lookup = function(referto, data, name) {
-  var lookup;
-  // Can't use a map: getahead.org/ajax/javascript-gotchas
-  for (var i = 0; i < referto.length; i++) {
-    if (referto[i].data == data) {
-      lookup = referto[i];
-      break;
-    }
-  }
-  if (lookup) return "reference:" + lookup.name;
-  referto.push({ data:data, name:name });
-  return null;
+
+
+
+
+dwr.engine._delegate = (function() {
+function F(){}
+return (function(obj){
+F.prototype = obj;
+return new F();
+});
+})();
+
+
+
+
+
+dwr.engine._createFromMap = function(map) {
+var obj = new this();
+for(prop in map) if (map.hasOwnProperty(prop)) obj[prop] = map[prop];
+return obj;
 };
 
-/** @private Marshall an object */
-dwr.engine._serializeObject = function(batch, referto, data, name) {
-  var ref = dwr.engine._lookup(referto, data, name);
-  if (ref) return ref;
 
-  // This check for an HTML is not complete, but is there a better way?
-  // Maybe we should add: data.hasChildNodes typeof "function" == true
-  if (data.nodeName && data.nodeType) {
-    return dwr.engine._serializeXml(batch, referto, data, name);
-  }
 
-  // treat objects as an associative arrays
-  var reply = "Object_" + dwr.engine._getObjectClassName(data) + ":{";
-  var element;
-  for (element in data) {
-    if (typeof data[element] != "function") {
-      batch.paramCount++;
-      var childName = "c" + dwr.engine._batch.map.callCount + "-e" + batch.paramCount;
-      dwr.engine._serializeAll(batch, referto, data[element], childName);
 
-      reply += encodeURIComponent(element) + ":reference:" + childName + ", ";
-    }
-  }
+dwr.engine._global = (function(){return this;}).call(null);
 
-  if (reply.substring(reply.length - 2) == ", ") {
-    reply = reply.substring(0, reply.length - 2);
-  }
-  reply += "}";
 
-  return reply;
+
+
+
+
+
+dwr.engine._getObject = function(prop) {
+var parts = prop.split(".");
+var value = undefined;
+var scope = dwr.engine._global;
+while(parts.length > 0) {
+var currprop = parts.shift();
+if (!scope) return undefined;
+value = scope[currprop];
+if (value && value.tagName && document.getElementById(currprop) == value) return undefined;
+scope = value;
+}
+return value;
 };
 
-/** @private Returns the classname of supplied argument obj */
-dwr.engine._errorClasses = { "Error":Error, "EvalError":EvalError, "RangeError":RangeError, "ReferenceError":ReferenceError, "SyntaxError":SyntaxError, "TypeError":TypeError, "URIError":URIError };
-dwr.engine._getObjectClassName = function(obj) {
-  // Try to find the classname by stringifying the object's constructor
-  // and extract <class> from "function <class>".
-  if (obj && obj.constructor && obj.constructor.toString)
-  {
-    var str = obj.constructor.toString();
-    var regexpmatch = str.match(/function\s+(\w+)/);
-    if (regexpmatch && regexpmatch.length == 2) {
-      return regexpmatch[1];
-    }
-  }
 
-  // Now manually test against the core Error classes, as these in some 
-  // browsers successfully match to the wrong class in the 
-  // Object.toString() test we will do later
-  if (obj && obj.constructor) {
-    for (var errorname in dwr.engine._errorClasses) {
-      if (obj.constructor == dwr.engine._errorClasses[errorname]) return errorname;
-    }
-  }
 
-  // Try to find the classname by calling Object.toString() on the object
-  // and extracting <class> from "[object <class>]"
-  if (obj) {
-    var str = Object.prototype.toString.call(obj);
-    var regexpmatch = str.match(/\[object\s+(\w+)/);
-    if (regexpmatch && regexpmatch.length==2) {
-      return regexpmatch[1];
-    }
-  }
 
-  // Supplied argument was probably not an object, but what is better?
-  return "Object";
+
+
+dwr.engine._setObject = function(prop, obj) {
+var parts = prop.split(".");
+var level;
+var scope = dwr.engine._global;
+while(parts.length > 0) {
+var currprop = parts.shift();
+if (parts.length === 0) {
+scope[currprop] = obj;
+}
+else {
+level = scope[currprop];
+if (level == null || level.tagName && document.getElementById(currprop) == level) {
+scope[currprop] = level = {};
+}
+scope = level;
+}
+}
 };
 
-/** @private Marshall an object */
-dwr.engine._serializeXml = function(batch, referto, data, name) {
-  var ref = dwr.engine._lookup(referto, data, name);
-  if (ref) return ref;
 
-  var output;
-  if (window.XMLSerializer) output = new XMLSerializer().serializeToString(data);
-  else if (data.toXml) output = data.toXml;
-  else output = data.innerHTML;
 
-  return "XML:" + encodeURIComponent(output);
-};
 
-/** @private Marshall an array */
-dwr.engine._serializeArray = function(batch, referto, data, name) {
-  var ref = dwr.engine._lookup(referto, data, name);
-  if (ref) return ref;
 
-  if (document.all && !window.opera) {
-    // Use array joining on IE (fastest)
-    var buf = ["Array:["];
-    for (var i = 0; i < data.length; i++) {
-      if (i != 0) buf.push(",");
-      batch.paramCount++;
-      var childName = "c" + dwr.engine._batch.map.callCount + "-e" + batch.paramCount;
-      dwr.engine._serializeAll(batch, referto, data[i], childName);
-      buf.push("reference:");
-      buf.push(childName);
-    }
-    buf.push("]");
-    reply = buf.join("");
-  }
-  else {
-    // Use string concat on other browsers (fastest)
-    var reply = "Array:[";
-    for (var i = 0; i < data.length; i++) {
-      if (i != 0) reply += ",";
-      batch.paramCount++;
-      var childName = "c" + dwr.engine._batch.map.callCount + "-e" + batch.paramCount;
-      dwr.engine._serializeAll(batch, referto, data[i], childName);
-      reply += "reference:";
-      reply += childName;
-    }
-    reply += "]";
-  }
 
-  return reply;
-};
 
-/** @private Convert an XML string into a DOM object. */
-dwr.engine._unserializeDocument = function(xml) {
-  var dom;
-  if (window.DOMParser) {
-    var parser = new DOMParser();
-    dom = parser.parseFromString(xml, "text/xml");
-    if (!dom.documentElement || dom.documentElement.tagName == "parsererror") {
-      var message = dom.documentElement.firstChild.data;
-      message += "\n" + dom.documentElement.firstChild.nextSibling.firstChild.data;
-      throw message;
-    }
-    return dom;
-  }
-  else if (window.ActiveXObject) {
-    dom = dwr.engine._newActiveXObject(dwr.engine._DOMDocument);
-    dom.loadXML(xml); // What happens on parse fail with IE?
-    return dom;
-  }
-  else {
-    var div = document.createElement("div");
-    div.innerHTML = xml;
-    return div;
-  }
-};
-
-/** @param axarray An array of strings to attempt to create ActiveX objects from */
-dwr.engine._newActiveXObject = function(axarray) {
-  var returnValue;  
-  for (var i = 0; i < axarray.length; i++) {
-    try {
-      returnValue = new ActiveXObject(axarray[i]);
-      break;
-    }
-    catch (ex) { /* ignore */ }
-  }
-  return returnValue;
-};
-
-/** @private Used internally when some message needs to get to the programmer */
 dwr.engine._debug = function(message, stacktrace) {
-  var written = false;
-  try {
-    if (window.console) {
-      if (stacktrace && window.console.trace) window.console.trace();
-      window.console.log(message);
-      written = true;
-    }
-    else if (window.opera && window.opera.postError) {
-      window.opera.postError(message);
-      written = true;
-    }
-  }
-  catch (ex) { /* ignore */ }
+var written = false;
+try {
+if (window.console) {
+if (stacktrace && window.console.trace) window.console.trace();
+if (window.console.log) window.console.log(message);
+written = true;
+}
+else if (window.opera && window.opera.postError) {
+window.opera.postError(message);
+written = true;
+}
+}
+catch (ex) {   }
 
-  if (!written) {
-    var debug = document.getElementById("dwr-debug");
-    if (debug) {
-      var contents = message + "<br/>" + debug.innerHTML;
-      if (contents.length > 2048) contents = contents.substring(0, 2048);
-      debug.innerHTML = contents;
-    }
-  }
+if (!written) {
+var debug = document.getElementById("dwr-debug");
+if (debug) {
+var contents = message + "<br/>" + debug.innerHTML;
+if (contents.length > 2048) contents = contents.substring(0, 2048);
+debug.innerHTML = contents;
+}
+}
 };
+
+
+
+
+dwr.engine.remote = {
+
+
+
+
+
+
+
+handleCallback:function(batchId, callId, reply) {
+var batch = dwr.engine._batches[batchId];
+if (!batch) return;
+
+batch.reply = reply;
+
+try {
+var handlers = batch.handlers[callId];
+if (!handlers) {
+dwr.engine._debug("Warning: Missing handlers. callId=" + callId, true);
+}
+else {
+batch.handlers[callId].completed = true;
+if (typeof handlers.callback == "function") {
+dwr.engine.util.logHandlerEx(function() {
+if(handlers.callbackArg !== undefined)
+handlers.callback.call(handlers.callbackScope, reply, handlers.callbackArg);
+else
+handlers.callback.call(handlers.callbackScope, reply);
+});
+}
+}
+}
+catch (ex) {
+dwr.engine._handleError(batch, ex);
+}
+},
+
+
+
+
+
+
+handleFunctionCall:function(id, args) {
+var func = dwr.engine.serialize.remoteFunctions[id];
+func.apply(window, args);
+},
+
+
+
+
+
+
+handleObjectCall:function(id, methodName, args) {
+var obj = dwr.engine.serialize.remoteFunctions[id];
+obj[methodName].apply(obj, args);
+},
+
+
+
+
+
+
+handleSetCall:function(id, propertyName, data) {
+var obj = dwr.engine.serialize.remoteFunctions[id];
+obj[propertyName] = data;
+},
+
+
+
+
+
+handleFunctionClose:function(id) {
+delete dwr.engine.serialize.remoteFunctions[id];
+},
+
+
+
+
+
+
+
+
+handleException:function(batchId, callId, ex) {
+var batch = dwr.engine._batches[batchId];
+if (!batch) return;
+
+var handlers = batch.handlers[callId];
+batch.handlers[callId].completed = true;
+if (handlers == null) {
+dwr.engine._debug("Warning: null handlers in remoteHandleException", true);
+return;
+}
+
+if (ex.message === undefined) {
+ex.message = "";
+}
+
+dwr.engine.util.logHandlerEx(function() {
+if (typeof handlers.exceptionHandler == "function") {
+if (handlers.exceptionArg !== undefined)
+handlers.exceptionHandler.call(handlers.exceptionScope, ex.message, ex, handlers.exceptionArg);
+else
+handlers.exceptionHandler.call(handlers.exceptionScope, ex.message, ex);
+}
+else if (typeof handlers.errorHandler == "function") {
+handlers.errorHandler(ex.message, ex);
+}
+else if (typeof batch.errorHandler == "function") {
+batch.errorHandler(ex.message, ex);
+}
+else if (typeof batch.globalErrorHandler == "function") {
+batch.globalErrorHandler(ex.message, ex);
+}
+});
+},
+
+
+
+
+handleReverseAjax:function(reverseAjaxIndex, reverseAjaxFunc) {
+if (reverseAjaxIndex < dwr.engine._nextReverseAjaxIndex) return;
+dwr.engine._reverseAjaxQueue[reverseAjaxIndex] = reverseAjaxFunc;
+while(true) {
+var nextFunc = dwr.engine._reverseAjaxQueue[dwr.engine._nextReverseAjaxIndex];
+if (!nextFunc) return;
+dwr.engine.util.logHandlerEx(function() {
+nextFunc();
+});
+delete dwr.engine._reverseAjaxQueue[dwr.engine._nextReverseAjaxIndex];
+dwr.engine._nextReverseAjaxIndex++;
+}
+},
+
+
+
+
+
+
+
+handleBatchException:function(ex, batchId) {
+var batch = dwr.engine._batches[batchId];
+if (ex.message === undefined) ex.message = "";
+if (batch) {
+dwr.engine._handleError(batch, ex);
+} else {
+dwr.engine._queuedBatchException = ex;
+}
+},
+
+
+
+
+
+
+
+pollCometDisabled:function(ex, batchId){
+dwr.engine.setActiveReverseAjax(false);
+var batch = dwr.engine._batches[batchId];
+if (ex.message === undefined) {
+ex.message = "";
+}
+dwr.engine._handleError(batch, ex);
+},
+
+
+
+
+
+
+
+newObject:function(dwrClassName, memberMap){
+var classfunc = dwr.engine._mappedClasses[dwrClassName];
+if (classfunc && classfunc.createFromMap) {
+return classfunc.createFromMap(memberMap);
+}
+else {
+memberMap.$dwrClassName = dwrClassName;
+return memberMap;
+}
+}
+};
+
+
+
+
+dwr.engine.serialize = {
+
+
+
+domDocument:[
+"Msxml2.DOMDocument.6.0",
+"Msxml2.DOMDocument.5.0",
+"Msxml2.DOMDocument.4.0",
+"Msxml2.DOMDocument.3.0",
+"MSXML2.DOMDocument",
+"MSXML.DOMDocument",
+"Microsoft.XMLDOM"
+],
+
+
+
+
+remoteFunctions:{},
+
+
+
+
+funcId:0,
+
+
+
+
+
+toDomElement:function(xml) {
+return dwr.engine.serialize.toDomDocument(xml).documentElement;
+},
+
+
+
+
+
+toDomDocument:function(xml) {
+var dom;
+if (window.DOMParser) {
+var parser = new DOMParser();
+dom = parser.parseFromString(xml, "text/xml");
+if (!dom.documentElement || dom.documentElement.tagName == "parsererror") {
+var message = dom.documentElement.firstChild.data;
+message += "\n" + dom.documentElement.firstChild.nextSibling.firstChild.data;
+throw message;
+}
+return dom;
+}
+else if (window.ActiveXObject) {
+dom = dwr.engine.util.newActiveXObject(dwr.engine.serialize.domDocument);
+dom.loadXML(xml);
+return dom;
+}
+else {
+var div = document.createElement("div");
+div.innerHTML = xml;
+return div;
+}
+},
+
+
+
+
+
+
+
+
+
+
+convert:function(batch, directrefmap, otherrefmap, data, name, depth) {
+if (data == null) {
+batch.map[name] = "null:null";
+return;
+}
+
+switch (typeof data) {
+case "boolean":
+batch.map[name] = "boolean:" + data;
+break;
+case "number":
+batch.map[name] = "number:" + data;
+break;
+case "string":
+batch.map[name] = "string:" + encodeURIComponent(data);
+break;
+case "object":
+var ref = dwr.engine.serialize.lookup(directrefmap, otherrefmap, data, name);
+var objstr = Object.prototype.toString.call(data);
+if (data.$dwrByRef) batch.map[name] = dwr.engine.serialize.convertByReference(batch, directrefmap, otherrefmap, data, name, depth + 1);
+else if (ref != null) batch.map[name] = ref;
+else if (objstr == "[object String]") batch.map[name] = "string:" + encodeURIComponent(data);
+else if (objstr == "[object Boolean]") batch.map[name] = "boolean:" + data;
+else if (objstr == "[object Number]") batch.map[name] = "number:" + data;
+else if (objstr == "[object Date]") batch.map[name] = "date:" + data.getTime();
+else if (objstr == "[object Array]") batch.map[name] = dwr.engine.serialize.convertArray(batch, directrefmap, otherrefmap, data, name, depth + 1);
+else if (data && data.tagName && data.tagName.toLowerCase() == "input" && data.type && data.type.toLowerCase() == "file") {
+batch.fileUpload = true;
+batch.map[name] = data;
+}
+else {
+
+
+if (data.nodeName && data.nodeType) {
+batch.map[name] = dwr.engine.serialize.convertDom(data);
+}
+else {
+batch.map[name] = dwr.engine.serialize.convertObject(batch, directrefmap, otherrefmap, data, name, depth + 1);
+}
+}
+break;
+case "function":
+
+if (depth === 0) {
+batch.map[name] = dwr.engine.serialize.convertByReference(batch, directrefmap, otherrefmap, data, name, depth + 1);
+}
+break;
+default:
+dwr.engine._handleWarning(null, { name:"dwr.engine.unexpectedType", message:"Unexpected type: " + typeof data + ", attempting default converter." });
+batch.map[name] = "default:" + data;
+break;
+}
+},
+
+
+
+
+
+
+convertByReference:function(batch, directrefmap, otherrefmap, data, name, depth) {
+var funcId = "f" + dwr.engine.serialize.funcId;
+dwr.engine.serialize.remoteFunctions[funcId] = data;
+dwr.engine.serialize.funcId++;
+return "byref:" + funcId;
+},
+
+
+
+
+
+
+convertArray:function(batch, directrefmap, otherrefmap, data, name, depth) {
+var childName, i;
+if (dwr.engine.util.ieCondition("if lte IE 7")) {
+
+var buf = ["array:["];
+for (i = 0; i < data.length; i++) {
+if (i !== 0) buf.push(",");
+batch.paramCount++;
+childName = "c" + dwr.engine._batch.map.callCount + "-e" + batch.paramCount;
+dwr.engine.serialize.convert(batch, directrefmap, otherrefmap, data[i], childName, depth + 1);
+buf.push("reference:");
+buf.push(childName);
+}
+buf.push("]");
+reply = buf.join("");
+}
+else {
+
+var reply = "array:[";
+for (i = 0; i < data.length; i++) {
+if (i !== 0) reply += ",";
+batch.paramCount++;
+childName = "c" + dwr.engine._batch.map.callCount + "-e" + batch.paramCount;
+dwr.engine.serialize.convert(batch, directrefmap, otherrefmap, data[i], childName, depth + 1);
+reply += "reference:";
+reply += childName;
+}
+reply += "]";
+}
+
+return reply;
+},
+
+
+
+
+
+
+convertObject:function(batch, directrefmap, otherrefmap, data, name, depth) {
+
+var reply = "Object_" + dwr.engine.serialize.getObjectClassName(data).replace(/:/g, "?") + ":{";
+var elementset = (data.constructor && data.constructor.$dwrClassMembers ? data.constructor.$dwrClassMembers : data);
+var element;
+for (element in elementset) {
+if (typeof data[element] != "function" && !dwr.engine._excludeObjectAttributes[element]) {
+batch.paramCount++;
+var childName = "c" + dwr.engine._batch.map.callCount + "-e" + batch.paramCount;
+dwr.engine.serialize.convert(batch, directrefmap, otherrefmap, data[element], childName, depth + 1);
+reply += encodeURIComponent(element) + ":reference:" + childName + ", ";
+}
+}
+
+if (reply.substring(reply.length - 2) == ", ") {
+reply = reply.substring(0, reply.length - 2);
+}
+reply += "}";
+
+return reply;
+},
+
+
+
+
+
+
+convertDom:function(data) {
+return "xml:" + encodeURIComponent(dwr.engine.serialize.serializeDom(data));
+},
+serializeDom:function(data) {
+var output;
+if (window.XMLSerializer) output = new XMLSerializer().serializeToString(data);
+else if (data.xml) output = data.xml;
+else throw new Error("The browser doesn't support XML serialization of: " + data);
+return output;
+},
+
+
+
+
+
+
+lookup:function(directrefmap, otherrefmap, data, name) {
+
+var ref;
+if ("$_dwrConversionRef" in data) {
+ref = data.$_dwrConversionRef;
+if (ref && directrefmap[ref] != data) ref = null;
+}
+if (ref == null) {
+for(r in otherrefmap) {
+if (otherrefmap[r] == data) {
+ref = r;
+break;
+}
+}
+}
+if (ref != null) return "reference:" + ref;
+
+try {
+data.$_dwrConversionRef = name;
+directrefmap[name] = data;
+}
+catch(err) {
+otherrefmap[name] = data;
+}
+return null;
+},
+
+
+
+
+
+cleanup:function(directrefmap) {
+for(var refName in directrefmap) {
+var data = directrefmap[refName];
+try {
+delete data.$_dwrConversionRef;
+}
+catch(err) {
+data.$_dwrConversionRef = undefined;
+}
+}
+},
+
+
+
+
+
+
+
+
+
+getObjectClassName:function(obj) {
+
+if (obj.$dwrClassName)
+return obj.$dwrClassName;
+else if (obj.constructor && obj.constructor.$dwrClassName)
+return obj.constructor.$dwrClassName;
+else
+return "Object";
+}
+};
+
+
+
+
+dwr.engine.transport = {
+
+
+
+
+
+send:function(batch) {
+if (batch.path == null) {
+batch.path = dwr.engine._effectivePath();
+}
+dwr.engine.transport.updateDwrSessionFromCookie();
+if (!dwr.engine._dwrSessionId) {
+dwr.engine._internalOrdered = true;
+var retval;
+var idbatch = {
+map:{
+callCount:1,
+'c0-scriptName':'__System',
+'c0-methodName':'generateId',
+'c0-id':0
+},
+paramCount:0, isPoll:false, async:batch.async,
+headers:{}, preHooks:[],
+postHooks:[function() {
+dwr.engine._internalOrdered = false;
+}],
+timeout:dwr.engine._timeout,
+errorHandler:batch.errorHandler, globalErrorHandler:batch.globalErrorHandler, warningHandler:batch.warningHandler, textHtmlHandler:batch.textHtmlHandler, globalTextHtmlHandler:batch.globalTextHtmlHandler,
+path:batch.path,
+handlers:[{
+exceptionHandler:null,
+callback:function(id) {
+dwr.engine.transport.updateDwrSessionFromCookie();
+if (!dwr.engine._dwrSessionId) {
+dwr.engine.transport.setDwrSession(id);
+}
+retval = dwr.engine.transport.send2(batch);
+}
+}]
+};
+dwr.engine.transport.send2(idbatch);
+return retval;
+}
+else {
+return dwr.engine.transport.send2(batch);
+}
+},
+
+
+
+
+
+
+send2:function(batch) {
+dwr.engine.batch.prepareToSend(batch);
+
+
+var isCrossDomain = false;
+if (batch.path.indexOf("http://") === 0 || batch.path.indexOf("https://") === 0) {
+var dwrShortPath = batch.path.split("/", 3).join("/");
+var hrefShortPath = window.location.href.split("/", 3).join("/");
+isCrossDomain = (dwrShortPath != hrefShortPath);
+}
+
+if (batch.fileUpload) {
+if (isCrossDomain) {
+throw new Error("Cross domain file uploads are not possible with this release of DWR");
+}
+batch.transport = dwr.engine.transport.iframe;
+}
+else if (isCrossDomain) {
+batch.transport = dwr.engine.transport.scriptTag;
+}
+else if (batch.isPoll && dwr.engine._useStreamingPoll == "true" && dwr.engine.util.ieCondition("if (IE 8)|(IE 9)")) {
+batch.transport = dwr.engine.transport.iframe;
+}
+else {
+batch.transport = dwr.engine.transport.xhr;
+}
+
+return batch.transport.send(batch);
+},
+
+
+
+
+complete:function(batch) {
+dwr.engine.batch.validate(batch);
+dwr.engine.transport.remove(batch);
+},
+
+
+
+
+
+
+abort:function(batch) {
+var transport = batch.transport;
+if (transport.abort) {
+transport.abort(batch);
+}
+dwr.engine.transport.remove(batch);
+},
+
+
+
+
+
+remove:function(batch) {
+if (batch.transport) {
+dwr.engine._callPostHooks(batch);
+batch.transport.remove(batch);
+batch.transport = null;
+}
+dwr.engine.batch.remove(batch);
+},
+
+setDwrSession:function(dwrsess) {
+dwr.engine._dwrSessionId = dwrsess;
+var attrs = "";
+if (!dwr.engine._cookieAttributes.match(/^path=/i)) {
+attrs = "; path=" + (dwr.engine._effectiveContextPath() || "/");
+}
+if (dwr.engine._cookieAttributes) {
+attrs += "; " + dwr.engine._cookieAttributes;
+}
+document.cookie = "DWRSESSIONID=" + dwrsess + attrs;
+dwr.engine._scriptSessionId = dwrsess + "/" + dwr.engine._pageId;
+},
+
+updateDwrSessionFromCookie:function() {
+if (!dwr.engine._dwrSessionId) {
+var match = document.cookie.match(/(?:^|; )DWRSESSIONID=([^;]+)/);
+if (match) {
+dwr.engine.transport.setDwrSession(match[1]);
+}
+}
+},
+
+
+
+
+xhr:{
+
+
+
+httpMethod:"POST",
+
+
+
+
+
+
+XMLHTTP:["Msxml2.XMLHTTP.6.0", "Msxml2.XMLHTTP.5.0", "Msxml2.XMLHTTP.4.0", "MSXML2.XMLHTTP.3.0", "MSXML2.XMLHTTP", "Microsoft.XMLHTTP"],
+
+
+
+
+
+send:function(batch) {
+if (batch.isPoll) {
+batch.map.partialResponse = dwr.engine._partialResponseYes;
+}
+
+
+if (batch.isPoll && dwr.engine._useStreamingPoll == "false") {
+batch.map.partialResponse = dwr.engine._partialResponseNo;
+}
+if (batch.isPoll && dwr.engine.util.ieCondition("if lte IE 9")) {
+batch.map.partialResponse = dwr.engine._partialResponseNo;
+}
+
+if (window.XMLHttpRequest) {
+batch.req = new XMLHttpRequest();
+}
+else if (window.ActiveXObject) {
+batch.req = dwr.engine.util.newActiveXObject(dwr.engine.transport.xhr.XMLHTTP);
+}
+
+
+if (batch.async === true) {
+batch.req.onreadystatechange = function() {
+if (typeof dwr != 'undefined') {
+dwr.engine.transport.xhr.stateChange(batch);
+}
+};
+}
+
+httpMethod = dwr.engine.transport.xhr.httpMethod;
+
+batch.mode = batch.isPoll ? dwr.engine._ModePlainPoll : dwr.engine._ModePlainCall;
+var request = dwr.engine.batch.constructRequest(batch, httpMethod);
+
+try {
+batch.req.open(httpMethod, request.url, batch.async);
+try {
+for (var prop in batch.headers) {
+var value = batch.headers[prop];
+if (typeof value == "string") {
+batch.req.setRequestHeader(prop, value);
+}
+}
+if (!batch.headers["Content-Type"]) {
+batch.req.setRequestHeader("Content-Type", "text/plain");
+}
+}
+catch (ex) {
+dwr.engine._handleWarning(batch, ex);
+}
+
+batch.req.send(request.body);
+if (batch.async === false) {
+dwr.engine.transport.xhr.stateChange(batch);
+}
+}
+catch (ex2) {
+dwr.engine._handleError(batch, ex2);
+}
+
+if (batch.isPoll && batch.map.partialResponse == dwr.engine._partialResponseYes) {
+dwr.engine.transport.xhr.checkCometPoll();
+}
+
+
+return batch.reply;
+},
+
+
+
+
+
+
+stateChange:function(batch) {
+var toEval;
+
+if (batch.aborted) return;
+if (batch.completed) {
+if (batch.transport) dwr.engine._debug("Error: _stateChange() with batch.completed");
+return;
+}
+
+
+var req = batch.req;
+var status = 0;
+try {
+if (req.readyState >= 2) {
+status = req.status;
+}
+}
+catch(ignore) {}
+
+
+
+if (status === 0 && req.readyState < 4) {
+return;
+}
+
+
+
+
+
+if (status === 200) {
+dwr.engine._handlePollStatusChange(true, null, batch);
+}
+
+
+if (req.readyState != 4) {
+return;
+}
+
+if (dwr.engine._unloading) {
+dwr.engine._debug("Ignoring reply from server as page is unloading.");
+return;
+}
+
+// Removed in OpenXava: try { 
+var reply = req.responseText;
+reply = dwr.engine._replyRewriteHandler(reply);
+var contentType = req.getResponseHeader("Content-Type");
+if (status >= 200 && status < 300) {
+if (contentType.indexOf("text/plain") < 0 && contentType.indexOf("text/javascript") < 0) {
+if (contentType.indexOf("text/html") == 0) {
+dwr.engine._handleError(batch, { name:"dwr.engine.textHtmlReply", message:"HTML reply from the server.", responseText:reply||"" });
+} else {
+dwr.engine._handleError(batch, { name:"dwr.engine.invalidMimeType", message:"Invalid content type: '" + contentType + "'" });
+}
+} else if (reply == null || reply === "") {
+dwr.engine._handleError(batch, { name:"dwr.engine.missingData", message:"No data received from server" });
+} else {
+if (batch.isPoll && batch.map.partialResponse == dwr.engine._partialResponseYes) {
+dwr.engine.transport.xhr.processCometResponse(reply, batch);
+} else {
+if (reply.search("//#DWR") === -1) {
+dwr.engine._handleError(batch, { name:"dwr.engine.invalidReply", message:"Invalid reply from server" });
+} else {
+toEval = reply;
+}
+}
+}
+} else if (status >= 400) {
+var statusText = "statusText could not be read.";
+try {
+statusText = req.statusText;
+} catch (ex) {
+
+}
+dwr.engine._handleError(batch, { name:"dwr.engine.http." + status, message:statusText });
+}
+
+if (toEval != null) toEval = toEval.replace(dwr.engine._scriptTagProtection, "");
+dwr.engine._executeScript(toEval);
+dwr.engine.transport.complete(batch);
+/* Removed in OpenXava
+} catch (ex2) {
+dwr.engine._handleError(batch, ex2);
+}
+*/
+},
+
+
+
+
+
+checkCometPoll:function() {
+var req = dwr.engine._pollBatch && dwr.engine._pollBatch.req;
+if (req) {
+var text = req.responseText;
+if (text != null) {
+dwr.engine.transport.xhr.processCometResponse(text, dwr.engine._pollBatch);
+}
+}
+
+if (dwr.engine._pollBatch) {
+setTimeout(dwr.engine.transport.xhr.checkCometPoll, dwr.engine._pollCometInterval);
+}
+},
+
+
+
+
+
+
+
+
+processCometResponse:function(response, batch) {
+if (batch.charsProcessed == response.length) return;
+if (response.length === 0) {
+batch.charsProcessed = 0;
+return;
+}
+
+var firstStartTag = response.indexOf("//#DWR-START#", batch.charsProcessed);
+if (firstStartTag == -1) {
+
+return;
+}
+
+
+
+
+var lastEndTag = response.lastIndexOf("//#DWR-END#");
+if (lastEndTag == -1) {
+
+return;
+}
+
+
+if (response.charCodeAt(lastEndTag + 11) == 13 && response.charCodeAt(lastEndTag + 12) == 10) {
+batch.charsProcessed = lastEndTag + 13;
+}
+else {
+batch.charsProcessed = lastEndTag + 11;
+}
+
+var exec = response.substring(firstStartTag + 13, lastEndTag);
+
+try {
+dwr.engine._executeScript(exec);
+}
+catch (ex) {
+
+
+if (dwr != null) {
+dwr.engine._handleError(batch, ex);
+}
+}
+},
+
+
+
+
+abort:function(batch) {
+if (batch.req) {
+batch.aborted = true;
+batch.req.abort();
+}
+},
+
+
+
+
+
+remove:function(batch) {
+
+if (batch.req) {
+delete batch.req;
+}
+}
+},
+
+
+
+
+iframe:{
+
+
+
+httpMethod:"POST",
+
+
+
+
+
+send:function(batch) {
+if (document.body == null) {
+setTimeout(function(){dwr.engine.transport.iframe.send(batch);}, 100);
+return;
+}
+batch.httpMethod = dwr.engine.transport.iframe.httpMethod;
+if (batch.fileUpload) {
+batch.httpMethod = "POST";
+batch.encType = "multipart/form-data";
+}
+batch.loadingStarted = false;
+if (window.location.hostname != document.domain) batch.map.documentDomain = document.domain;
+var idname = dwr.engine.transport.iframe.getId(batch);
+batch.div1 = document.createElement("div");
+batch.div1.innerHTML = "<iframe frameborder='0' style='width:0px;height:0px;border:0;display:none;' id='" + idname + "' name='" + idname + "'></iframe>";
+batch.iframe = batch.div1.firstChild;
+batch.document = document;
+batch.iframe.batch = batch;
+batch.fileInputs = [];
+dwr.engine.util.addEventListener(batch.iframe, "load", function(ev) {
+
+if (!batch.loadingStarted) return;
+
+while(batch.fileInputs.length > 0) {
+var entry = batch.fileInputs.pop();
+entry.original.setAttribute("id", entry.clone.getAttribute("id"));
+entry.original.setAttribute("name", entry.clone.getAttribute("name"));
+entry.original.style.display = entry.clone.style.display;
+entry.clone.parentNode.replaceChild(entry.original, entry.clone);
+}
+
+if (batch.completed) return;
+
+if (dwr.engine._queuedBatchException) {
+dwr.engine._handleError(batch, dwr.engine._queuedBatchException);
+dwr.engine._queuedBatchException = null;
+return;
+}
+
+try {
+var contentDoc = batch.iframe.contentDocument || batch.iframe.contentWindow.document;
+} catch(ex) {
+var contentEx = ex;
+}
+if (typeof dwr != "undefined") {
+var htmlResponse = contentDoc && contentDoc.documentElement ? contentDoc.documentElement.outerHTML : "(Could not extract HTML response: " + contentEx.message + ")";
+dwr.engine._handleError(batch, {name:"dwr.engine.textHtmlReply", message:"HTML reply from the server.", responseText:htmlResponse});
+}
+});
+
+// http://stackoverflow.com/questions/18414964/load-event-for-iframe-does-not-fire-in-ie
+document.body.appendChild(batch.div1);
+dwr.engine.transport.iframe.beginLoader(batch, idname);
+},
+
+
+
+
+
+
+getId:function(batch) {
+return batch.isPoll ? "dwr-if-poll-" + dwr.engine._instanceId + "-" + batch.map.batchId : "dwr-if-" + dwr.engine._instanceId + "-" + batch.map.batchId;
+},
+
+
+
+
+
+beginLoader:function(batch, idname) {
+if (batch.isPoll) {
+batch.map.partialResponse = dwr.engine._partialResponseYes;
+}
+batch.mode = batch.isPoll ? dwr.engine._ModeHtmlPoll : dwr.engine._ModeHtmlCall;
+var request = dwr.engine.batch.constructRequest(batch, batch.httpMethod);
+if (batch.httpMethod === "GET") {
+batch.iframe.setAttribute("src", request.url);
+}
+else {
+
+// See http://soakedandsoaped.com/articles/read/firefox-3-native-ajax-file-upload
+
+batch.div2 = document.createElement("div");
+document.body.appendChild(batch.div2);
+batch.div2.innerHTML = "<form" + (batch.encType ? " encType='" + batch.encType + "' encoding='" + batch.encType + "'" : "") + "></form>";
+batch.form = batch.div2.firstChild;
+batch.form.setAttribute("action", request.url);
+batch.form.setAttribute("target", idname);
+batch.form.setAttribute("style", "display:none");
+batch.form.setAttribute("method", batch.httpMethod);
+for (var prop in batch.map) {
+var value = batch.map[prop];
+if (typeof value != "function") {
+if (value && value.tagName && value.tagName.toLowerCase() == "input" && value.type && value.type.toLowerCase() == "file") {
+
+
+
+if (value.parentNode) {
+var clone = value.cloneNode(true);
+value.parentNode.replaceChild(clone, value);
+batch.fileInputs.push({original:value, clone:clone});
+}
+value.removeAttribute("id");
+value.setAttribute("name", prop);
+value.style.display = "none";
+batch.form.appendChild(value);
+} else {
+var formInput = batch.document.createElement("input");
+formInput.setAttribute("type", "hidden");
+formInput.setAttribute("name", prop);
+formInput.setAttribute("value", value);
+batch.form.appendChild(formInput);
+}
+}
+}
+batch.loadingStarted = true;
+batch.form.submit();
+}
+},
+
+
+
+
+remote:{
+
+
+
+
+
+
+beginIFrameResponse:function(iframe, batchId) {
+},
+
+
+
+
+
+
+endChunk:function(iframeWindow) {
+setTimeout(function() {
+
+var scriptTags = iframeWindow.document.body.getElementsByTagName("script");
+if (scriptTags.length > 0) {
+var s = scriptTags[0];
+s.parentNode.removeChild(s);
+}
+}, 0);
+},
+
+
+
+
+
+
+endIFrameResponse:function(batchId) {
+var batch = dwr.engine._batches[batchId];
+if (batch) dwr.engine.transport.complete(batch);
+}
+},
+
+remove:function(batch) {
+
+
+setTimeout(function(){
+if (batch.iframe && batch.iframe.parentNode) {
+batch.iframe.parentNode.removeChild(batch.iframe);
+batch.iframe = null;
+}
+if (batch.div1 && batch.div1.parentNode) {
+batch.div1.parentNode.removeChild(batch.div1);
+batch.div1 = null;
+}
+if (batch.form && batch.form.parentNode) {
+batch.form.parentNode.removeChild(batch.form);
+batch.form = null;
+}
+if (batch.div2 && batch.div2.parentNode) {
+batch.div2.parentNode.removeChild(batch.div2);
+batch.div2 = null;
+}
+}, 100);
+}
+},
+
+
+
+
+scriptTag:{
+
+
+
+
+send:function(batch) {
+if (batch.isPoll) {
+batch.map.partialResponse = dwr.engine._partialResponseNo;
+}
+batch.mode = batch.isPoll ? dwr.engine._ModePlainPoll : dwr.engine._ModePlainCall;
+var request = dwr.engine.batch.constructRequest(batch, "GET");
+
+batch.script = document.createElement("script");
+batch.script.id = "dwr-st-" + batch.map.batchId;
+batch.script.src = request.url;
+batch.script.type = "text/javascript";
+batch.script.async = true;
+dwr.engine.util.addEventListener(batch.script, "load", function(ev) {
+if (typeof dwr != "undefined") dwr.engine.transport.scriptTag.complete(batch);
+});
+dwr.engine.util.addEventListener(batch.script, "error", function(ev) {
+if (typeof dwr != "undefined") dwr.engine.transport.scriptTag.complete(batch);
+});
+dwr.engine.util.addEventListener(batch.script, "readystatechange", function(ev) {
+if (typeof dwr != "undefined") {
+if (batch.completed) return;
+if (batch.script.readyState == "complete" || batch.script.readyState == "loaded") {
+dwr.engine.transport.scriptTag.complete(batch);
+}
+}
+});
+document.getElementsByTagName("head")[0].appendChild(batch.script);
+},
+
+
+
+
+complete:function(batch) {
+dwr.engine.transport.complete(batch);
+},
+
+
+
+
+remove:function(batch) {
+
+if (!batch.script) return;
+
+
+batch.script.parentNode.removeChild(batch.script);
+batch.script = null;
+}
+}
+};
+
+
+
+
+
+dwr.engine.batch = {
+
+
+
+
+create:function() {
+var batch = {
+async:dwr.engine._async,
+charsProcessed:0,
+handlers:[],
+isPoll:false,
+map:{ callCount:0 },
+paramCount:0,
+preHooks:[],
+postHooks:[],
+timeout:dwr.engine._timeout,
+errorHandler:null,
+globalErrorHandler:dwr.engine._errorHandler,
+warningHandler:dwr.engine._warningHandler,
+textHtmlHandler:null,
+globalTextHtmlHandler:dwr.engine._textHtmlHandler
+};
+if (!dwr.engine._activeReverseAjax) batch.map.nextReverseAjaxIndex = dwr.engine._nextReverseAjaxIndex;
+
+if (dwr.engine._preHook) {
+batch.preHooks.push(dwr.engine._preHook);
+}
+if (dwr.engine._postHook) {
+batch.postHooks.push(dwr.engine._postHook);
+}
+
+dwr.engine.batch.populateHeadersAndAttributes(batch);
+return batch;
+},
+
+
+
+
+
+
+createPoll:function() {
+var batch = {
+async:true,
+charsProcessed:0,
+handlers:[{
+callback:function(pause) {
+dwr.engine._pollBatch = null;
+setTimeout(dwr.engine._poll, pause);
+}
+}],
+isPoll:true,
+map:{ callCount:1, nextReverseAjaxIndex:dwr.engine._nextReverseAjaxIndex},
+paramCount:0,
+preHooks:[],
+postHooks:[],
+timeout:dwr.engine._pollTimeout
+};
+dwr.engine.batch.populateHeadersAndAttributes(batch);
+return batch;
+},
+
+
+
+
+
+
+populateHeadersAndAttributes:function(batch) {
+var propname, data;
+batch.headers = {};
+if (dwr.engine._headers) {
+for (propname in dwr.engine._headers) {
+data = dwr.engine._headers[propname];
+if (typeof data != "function") batch.headers[propname] = data;
+}
+}
+batch.attributes = {};
+if (dwr.engine._attributes) {
+for (propname in dwr.engine._attributes) {
+data = dwr.engine._attributes[propname];
+if (typeof data != "function") batch.attributes[propname] = data;
+}
+}
+},
+
+
+
+
+
+addCall:function(batch, scriptName, methodName, args) {
+
+
+var callData, stopAt;
+var lastArg = args[args.length - 1];
+if (lastArg == null || typeof lastArg == "function") {
+callData = { callback:lastArg };
+stopAt = args.length - 1;
+}
+else if (dwr.engine.util.isCallOptionArgument(lastArg)) {
+callData = lastArg;
+stopAt = args.length - 1;
+}
+else {
+callData = {};
+stopAt = args.length;
+}
+
+
+if (dwr.engine._singleShot) dwr.engine.batch.merge(batch, callData);
+batch.handlers[batch.map.callCount] = {
+callback:callData.callbackHandler || callData.callback,
+callbackArg:callData.callbackArg || callData.arg,
+callbackScope:callData.callbackScope || callData.scope || window,
+exceptionHandler:callData.exceptionHandler,
+exceptionArg:callData.exceptionArg || callData.arg,
+exceptionScope:callData.exceptionScope || callData.scope || window,
+errorHandler:callData.errorHandler
+};
+
+
+var prefix = "c" + batch.map.callCount + "-";
+batch.map[prefix + "scriptName"] = scriptName;
+batch.map[prefix + "methodName"] = methodName;
+batch.map[prefix + "id"] = batch.map.callCount;
+var directrefmap = {}, otherrefmap = {};
+for (var i = 0; i < stopAt; i++) {
+dwr.engine.serialize.convert(batch, directrefmap, otherrefmap, args[i], prefix + "param" + i, 0);
+}
+dwr.engine.serialize.cleanup(directrefmap);
+},
+
+
+
+
+
+
+
+merge:function(batch, overrides) {
+var propname, data;
+for (var i = 0; i < dwr.engine._propnames.length; i++) {
+propname = dwr.engine._propnames[i];
+if (dwr.engine._singleShot && propname == "errorHandler") continue;
+if (overrides[propname] != null) batch[propname] = overrides[propname];
+}
+if (overrides.preHook != null) batch.preHooks.unshift(overrides.preHook);
+if (overrides.postHook != null) batch.postHooks.push(overrides.postHook);
+if (overrides.headers) {
+for (propname in overrides.headers) {
+data = overrides.headers[propname];
+if (typeof data != "function") batch.headers[propname] = data;
+}
+}
+var attrs = null;
+if (overrides.attributes) attrs = overrides.attributes;
+if (attrs) {
+for (propname in attrs) {
+data = attrs[propname];
+if (typeof data != "function") batch.attributes[propname] = data;
+}
+}
+},
+
+
+
+
+
+
+prepareToSend:function(batch) {
+batch.map.batchId = dwr.engine._nextBatchId;
+dwr.engine._nextBatchId++;
+dwr.engine._batches[batch.map.batchId] = batch;
+dwr.engine._batchesLength++;
+batch.completed = false;
+batch.map.instanceId = dwr.engine._instanceId;
+
+
+batch.map.page = encodeURIComponent(window.location.pathname + window.location.search);
+batch.map.scriptSessionId = dwr.engine._scriptSessionId;
+
+for (var i = 0; i < batch.preHooks.length; i++) {
+batch.preHooks[i]();
+}
+batch.preHooks = null;
+
+if (batch.timeout && batch.timeout !== 0) {
+batch.timeoutId = setTimeout(function() {
+dwr.engine.transport.abort(batch);
+dwr.engine._handleError(batch, { name:"dwr.engine.timeout", message:"Timeout" });
+}, batch.timeout);
+}
+},
+
+
+
+
+
+
+
+constructRequest:function(batch, httpMethod) {
+
+var urlBuffer = [];
+urlBuffer.push(batch.path);
+urlBuffer.push(batch.mode);
+if (batch.isPoll) {
+urlBuffer.push("ReverseAjax.dwr");
+}
+else if (batch.map.callCount == 1) {
+urlBuffer.push(batch.map["c0-scriptName"]);
+urlBuffer.push(".");
+urlBuffer.push(batch.map["c0-methodName"]);
+urlBuffer.push(".dwr");
+}
+else {
+urlBuffer.push("Multiple.");
+urlBuffer.push(batch.map.callCount);
+urlBuffer.push(".dwr");
+}
+
+var sessionMatchExpr = new RegExp(
+"^" +
+"[^;\\?#]+" +
+"(;[^\\?#]+)");
+var sessionMatch = location.href.match(sessionMatchExpr);
+if (sessionMatch != null) {
+urlBuffer.push(sessionMatch[1]);
+}
+
+
+if (batch.attributes) {
+for (var attrname in batch.attributes) {
+var data = batch.attributes[attrname];
+if (typeof data != "function") batch.map["a-" + attrname] = "" + data;
+}
+}
+
+var request = {};
+var prop;
+if (httpMethod == "GET") {
+
+
+batch.map.callCount = "" + batch.map.callCount;
+urlBuffer.push("?");
+for (prop in batch.map) {
+if (typeof batch.map[prop] != "function") {
+urlBuffer.push(encodeURIComponent(prop));
+urlBuffer.push("=");
+urlBuffer.push(encodeURIComponent(batch.map[prop]));
+urlBuffer.push("&");
+}
+}
+urlBuffer.pop();
+request.body = null;
+}
+else {
+
+request.body = "";
+if (dwr.engine.util.ieCondition("if lte IE 7")) {
+
+var buf = [];
+for (prop in batch.map) {
+if (typeof batch.map[prop] != "function") {
+buf.push(prop + "=" + batch.map[prop] + dwr.engine._postSeperator);
+}
+}
+request.body = buf.join("");
+}
+else {
+
+for (prop in batch.map) {
+if (typeof batch.map[prop] != "function") {
+request.body += prop + "=" + batch.map[prop] + dwr.engine._postSeperator;
+}
+}
+}
+request.body = dwr.engine._contentRewriteHandler(request.body);
+}
+request.url = dwr.engine._urlRewriteHandler(urlBuffer.join(""));
+return request;
+},
+
+
+
+
+
+
+
+validate:function(batch) {
+if (!batch.completed) {
+var repliesReceived = 0;
+for (var i = 0; i < batch.map.callCount; i++) {
+if (batch.handlers[i].completed === true) {
+repliesReceived++;
+}
+}
+if (repliesReceived == 0 && dwr.engine._queuedBatchException) {
+dwr.engine._handleError(batch, dwr.engine._queuedBatchException);
+dwr.engine._queuedBatchException = null;
+} else if (repliesReceived < batch.map.callCount) {
+dwr.engine._handleError(batch, { name:"dwr.engine.incompleteReply", message:"Incomplete reply from server" });
+}
+}
+},
+
+
+
+
+
+
+remove:function(batch) {
+if (!batch) {
+dwr.engine._debug("Warning: null batch in dwr.engine.batch.remove()", true);
+return;
+}
+
+if (batch.completed) {
+return;
+}
+batch.completed = true;
+
+
+dwr.engine.transport.remove(batch);
+
+
+if (batch.timeoutId != null) {
+clearTimeout(batch.timeoutId);
+delete batch.timeoutId;
+}
+
+
+if (batch.map && (batch.map.batchId != null)) {
+delete dwr.engine._batches[batch.map.batchId];
+dwr.engine._batchesLength--;
+}
+if (batch == dwr.engine._batch) dwr.engine._batch = null;
+if (batch == dwr.engine._pollBatch) dwr.engine._pollBatch = null;
+
+
+
+
+if (dwr.engine._batchQueue.length !== 0) {
+var sendbatch = dwr.engine._batchQueue.shift();
+dwr.engine.transport.send(sendbatch);
+}
+}
+};
+
+
+
+
+
+dwr.engine.util = {
+
+
+
+
+newActiveXObject:function(axarray) {
+var returnValue;
+for (var i = 0; i < axarray.length; i++) {
+try {
+returnValue = new ActiveXObject(axarray[i]);
+break;
+}
+catch (ex) {   }
+}
+return returnValue;
+},
+
+ieCondition:function(cond) {
+if (!(cond in dwr.engine._ieConditions)) {
+var div = document.createElement("div");
+div.innerHTML = "<!--[" + cond + "]><p><![endif]-->";
+dwr.engine._ieConditions[cond] = !!(div.getElementsByTagName("p").length);
+}
+return dwr.engine._ieConditions[cond];
+},
+
+
+
+
+tokenify: function(number) {
+var tokenbuf = [];
+var charmap = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ*$";
+var remainder = number;
+while (remainder > 0)
+{
+tokenbuf.push(charmap.charAt(remainder & 0x3F));
+remainder = Math.floor(remainder / 64);
+}
+return tokenbuf.join("");
+},
+
+addEventListener: function(elem, name, func) {
+if (elem.addEventListener)
+elem.addEventListener(name, func, false);
+else
+elem.attachEvent("on" + name, func);
+},
+
+isCallOptionArgument: function(lastArg) {
+return (typeof lastArg === "object" && (typeof lastArg.callback === "function" ||
+typeof lastArg.exceptionHandler === "function" || typeof lastArg.callbackHandler === "function" ||
+typeof lastArg.errorHandler === "function" || typeof lastArg.warningHandler === "function" || lastArg.hasOwnProperty("async")));
+},
+
+logHandlerEx: function(func) {
+try {
+func();
+} catch(ex) {
+dwr.engine._debug("Exception occured in user-specified handler:");
+dwr.engine._debug(ex);
+}
+}
+};
+
+
+dwr.engine._initializer.init();
+
+
+
+
+dwr.hub = {
+
+
+
+
+
+publish:function(topicName, data) {
+dwr.engine._execute(null, '__System', 'publish', topicName, data, {});
+},
+
+
+
+
+
+
+
+
+
+subscribe:function(topicName, callback, scope, subscriberData) {
+var subscription = "" + dwr.hub._subscriptionId;
+dwr.hub._subscriptionId++;
+dwr.hub._subscriptions[subscription] = {
+callback:callback,
+scope:scope,
+subscriberData:subscriberData
+};
+dwr.engine._execute(null, '__System', 'subscribe', topicName, subscription, {});
+return subscription;
+},
+
+
+
+
+
+
+
+_remotePublish:function(subscriptionId, publishData) {
+var subscriptionData = dwr.hub._subscriptions[subscriptionId];
+if (!subscriptionData) return;
+subscriptionData.callback.call(subscriptionData.scope, publishData, subscriptionData.subscriberData);
+},
+
+
+
+
+_subscriptionId:0,
+
+
+
+
+_subscriptions:{}
+};
+
+
+
+
+
+dwr.data = {
+
+
+
+
+
+StoreChangeListener:{
+
+
+
+
+
+itemRemoved:function(source, itemId) { },
+
+
+
+
+
+
+itemAdded:function(source, item) { },
+
+
+
+
+
+
+
+
+itemChanged:function(source, item, changedAttributes) { }
+},
+
+
+
+
+
+
+
+
+Cache:function(storeId, listener) {
+this.storeId = storeId;
+this.listener = listener;
+}
+};
+
+
+
+
+
+
+
+
+
+
+
+
+dwr.data.Cache.prototype.viewRegion = function(region, callbackObj) {
+if (!region) region = { };
+if (!region.start) region.start = 0;
+if (!region.count) region.count = -1;
+if (!region.sort) region.sort = [];
+else {
+for (var index = 0; index < region.sort.length; index++) {
+if (typeof region.sort[index].descending == "undefined") {
+region.sort[index].descending = false;
+}
+}
+}
+if (!region.query) region.query = {};
+
+return dwr.engine._execute(null, '__Data', 'viewRegion', [ this.storeId, region, this.listener, callbackObj ]);
+};
+
+
+
+
+
+
+dwr.data.Cache.prototype.viewItem = function(itemId, callbackObj) {
+return dwr.engine._execute(null, '__Data', 'viewItem', [ this.storeId, itemId, this.listener, callbackObj ]);
+};
+
+
+
+
+
+dwr.data.Cache.prototype.unsubscribe = function(callbackObj) {
+if (this.listener) {
+return dwr.engine._execute(null, '__Data', 'unsubscribe', [ this.storeId, this.listener, callbackObj ]);
+}
+};
+
+
+
+
+
+
+dwr.data.Cache.prototype.update = function(items, callbackObj) {
+return dwr.engine._execute(null, '__Data', 'update', [ this.storeId, items, callbackObj ]);
+};
+
+})();
+

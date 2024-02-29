@@ -885,7 +885,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	public void testI18nOfLabelOfAConcreteView_alwaysEnabledActions() throws Exception {
-		execute("CRUD.new");
+		execute("CRUD.new"); 
 		assertLabel("customer.number", "Little code");
 		assertAction("Customer.changeNameLabel");
 		assertAction("Customer.prefixStreet");
@@ -2493,7 +2493,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertTrue(Is.empty(getValue("year")));
 		setValue("date", "1/2/2004");
 		execute("CRUD.refresh");
-		assertError("Object of type Invoice does not exists with key Date:1/2/2004, Paid:No");		
+		assertError("Object of type Invoice does not exists with key Date:1/2/2004, Paid:No"); 		
 		// with reference
 		setValue("customer.number", "43");
 		assertValue("customer.name", "Gonzalo Gonzalez");

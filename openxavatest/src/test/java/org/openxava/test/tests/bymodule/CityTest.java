@@ -15,7 +15,7 @@ public class CityTest extends ModuleTestBase{
 		super(testName, "City");
 	}
 	
-	public void testStateFullNameWithFormulaFromAReference_listFormatter_isolateModuleSessionForEachBrowserTab() throws Exception {		
+	public void testStateFullNameWithFormulaFromAReference_listFormatter_isolateModuleSessionForEachBrowserTab() throws Exception {
 		assertValueInList(0, 0, "1"); 
 		assertValueInList(0, 1, "PHOENIX CITY"); 
 		assertLabelInList(2, "State full name with formula"); 
@@ -27,8 +27,9 @@ public class CityTest extends ModuleTestBase{
 		reload();
 		assertValue("name", "Phoenix");
 		
-		getHtmlPage().executeJavaScript("window.open(window.location, '_blank')");
-		HtmlPage newTabPage = (HtmlPage) getWebClient().getCurrentWindow().getEnclosedPage();
+		HtmlPage newTabPage = (HtmlPage) getWebClient()
+			.openWindow(getWebClient().getCurrentWindow().getEnclosedPage().getUrl(), "_blank")
+			.getEnclosedPage();
 		waitAJAX(); 
 		String tabText = newTabPage.asNormalizedText();
 		assertTrue(tabText.contains("New Delete Generate PDF Generate Excel")); // In list mode 

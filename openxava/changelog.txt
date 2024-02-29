@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- DWR engine tuned to remove the use of eval() in its JavaScript code.
+- DWR upgraded to 3.0.2.
 - has-type/has-annotation/has-stereotype in for-tabs of editors.xml to discriminate list formats by entity.
 - MySQL configuration documentation includes video.
 - Documentation for database configuration improved to include schema/database creation.
