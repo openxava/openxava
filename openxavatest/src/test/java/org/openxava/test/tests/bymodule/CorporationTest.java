@@ -90,11 +90,11 @@ public class CorporationTest extends ModuleTestBase {
 		execute("Collection.previous");
 		assertError("We already are at the beginning of the list");
 		execute("Collection.next");
+		assertValue("salary", "3000");
+		execute("Collection.next");
 		assertValue("salary", "2400");
 		execute("Collection.next");
-		assertValue("salary", "2000");
-		execute("Collection.next");
-		assertValue("salary", "2000");
+		assertValue("salary", "2400");
 	}
 
 	private void executeIconChoose(String icon) throws Exception {
