@@ -74,8 +74,7 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 			addActions(getCollectionElementView().getPreviousCollectionElementAction());
 			addActions(getCollectionElementView().getNextCollectionElementAction());
 		} catch (ElementNotFoundException e) {
-			log.error(XavaResources.getString("next_previous_action_not_added"));
-			e.printStackTrace();
+			log.error(XavaResources.getString("next_previous_action_not_added"), e);
 		}
 	}
 		
