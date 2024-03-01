@@ -1056,7 +1056,9 @@ openxava.throwPropertyChanged = function(application, module, property) {
 		form[openxava.decorateId(application, module, "xava_focus_forward")].value = "true";	
 		form[openxava.decorateId(application, module, "xava_previous_focus")].value=property;
 		form[openxava.decorateId(application, module, "xava_changed_property")].value=property;
-		setTimeout ('openxava.requestOnChange("' + application + '", "' + module + '")', 100);
+		setTimeout(function() {
+    		openxava.requestOnChange(application, module);
+		}, 100);
 	}
 }
 

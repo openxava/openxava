@@ -19,7 +19,7 @@ public class UploadTest extends WebDriverTestBase {
 		goModule("CustomerFramesOnSameRow");
 		execute("List.viewDetail", "row=1");
 		uploadPhoto();		
-		assertMessage("Photo changed", log); // TMR FALLA ME QUEDÉ POR AQUÍ
+		assertMessage("Photo changed", log); 
 		
 		execute("CRUD.save");
 		execute("Navigation.previous");

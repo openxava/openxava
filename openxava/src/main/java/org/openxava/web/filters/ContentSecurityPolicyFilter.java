@@ -27,7 +27,7 @@ public class ContentSecurityPolicyFilter implements Filter {
 	private String trustedHostsForStyles;
 	private String trustedHostsForFrames;
 	private String mapsTileProviderURL;
-	private String unsafeEvalInScripts; // tmr
+	private String unsafeEvalInScripts; 
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     	// If you change this pass the ZAP test again
@@ -40,8 +40,7 @@ public class ContentSecurityPolicyFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         String policy = "default-src 'self'; script-src 'self' 'nonce-" + 
         	Nonces.get(request) + 
-        	// tmr "' 'unsafe-eval' " + 
-        	"' " +  unsafeEvalInScripts + // tmr
+        	"' " +  unsafeEvalInScripts + 
         	trustedHostsForScripts + 
         	"; style-src 'self' 'nonce-" + 
         	Nonces.get(request) +
@@ -68,17 +67,13 @@ public class ContentSecurityPolicyFilter implements Filter {
 			trustedHostsForStyles = XavaPreferences.getInstance().getTrustedHostsForStyles().replace(",", " ");
 			trustedHostsForFrames = XavaPreferences.getInstance().getTrustedHostsForFrames().replace(",", " ");
 			mapsTileProviderURL = getBaseURL(XavaPreferences.getInstance().getMapsTileProvider()) + " ";
-			// tmr ini
 			if (XavaPreferences.getInstance().isUnsafeEvalInScripts()) {
-				System.out.println("[ContentSecurityPolicyFilter.init] A"); // tmr
-				log.warn(XavaResources.getString("unsafe_eval_enabled")); // tmr i18n
+				log.warn(XavaResources.getString("unsafe_eval_enabled")); 
 				unsafeEvalInScripts = "'unsafe-eval' ";
 			}
 			else {
-				System.out.println("[ContentSecurityPolicyFilter.init] B"); // tmr
 				unsafeEvalInScripts = "";
 			}
-			// tmr fin
 		}
 	}
 	

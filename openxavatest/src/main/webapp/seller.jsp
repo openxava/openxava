@@ -33,4 +33,10 @@
 <link rel="stylesheet" type="text/css" media="all" href="https://openxava.org/test/hidden.css"/>
 <div id="thehidden">You shouldn't be watching this</div>
 
+<div id="farewell">Chao</div>
+<script type='text/javascript' <xava:nonce/>>
+eval("$('#farewell').text('Badbye')");
+</script>
+
 <iframe id="bye" src="https://openxava.org/test/bye.html"/>
+
