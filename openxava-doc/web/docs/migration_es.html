@@ -37,11 +37,10 @@
       <div class="wiki" style="display: block;">Para finalizar, revisa las instrucciones de abajo para adaptar tu código.</div>
       <div class="wiki" style="display: block;"><br>
       </div>
-      <div class="wiki" style="display: block;">
-        <h2>Para migrar de OpenXava 7.2.3 a OpenXava 7.3</h2>
-        <h3>Nuevas acciones en controlador Collection</h3>
-        <p>Si no has sobrescrito el controlador <i>Collection</i> puedes saltear este paso. De lo contrario debes agregar manualmente las acciones <i>previous</i> y <i>next</i> en el controlador:</p>
-        <pre>	<code class="xml">&lt;action name="next"
+      <h2>Para migrar de OpenXava 7.2.3 a OpenXava 7.3</h2>
+      <h3>Nuevas acciones en controlador Collection</h3>
+      <p>Si no has sobrescrito el controlador <i>Collection</i> puedes saltear este paso. De lo contrario debes agregar manualmente las acciones <i>previous</i> y <i>next</i> en el controlador:</p>
+      <pre><code class="xml">&lt;action name="next"
 	image="next.gif"
 	icon="skip-next"
 	class="org.openxava.actions.EditElementInCollectionAction"&gt;
@@ -55,16 +54,20 @@
 	class="org.openxava.actions.EditElementInCollectionAction"&gt;
 	&lt;set property="openDialog" value="false"/&gt; 
 	&lt;set property="nextValue" value="-1"/&gt; 
-&lt;/action&gt;	</code>	</pre>
-        <h3>Nuevas acciones en diálogos de colecciones (para pruebas JUnit)</h3>
-        <p>Ahora los diálogos de las colecciones tienen dos nuevas acciones, <i>Collection.previous</i> y <i>Collection.next</i>, por lo que si comprueban todas las acciones presentes en las pruebas JUnit, hace falta modificarlas y agregar las nuevas acciones. Por ejemplo: </p>
-        <pre><code class="java">String [] bottomActions= { "Collection.save",
+&lt;/action&gt;</code></pre>
+      <h3>Nuevas acciones en diálogos de colecciones (para pruebas JUnit)</h3>
+      <p>Ahora los diálogos de las colecciones tienen dos nuevas acciones, <i>Collection.previous</i> y <i>Collection.next</i>, por lo que si comprueban todas las acciones presentes en las pruebas JUnit, hace falta modificarlas y agregar las nuevas acciones. Por ejemplo: </p>
+      <pre><code class="java">String [] bottomActions= { "Collection.save",
 			   "Collection.hideDetail",
 			   "Collection.next", // AÑADE ESTA ENTRADA
 			   "Collection.previous" // AÑADE ESTA ENTRADA
 			  };		
-assertActions(bottomActions);
-</code></pre> </div>
+assertActions(bottomActions);</code></pre>
+      <p></p>
+      <h3>Ya no se soportan el uso de eval() en JavaScript</h3>
+      <p>Si tienes tus propios editores o vistas personalizadas y estás utilizando tu propio código JavaScript, ten en cuenta que <i>eval()</i> ya no es compatible por razones de seguridad. Debes reescribir tu código JavaScript para no utilizar <i>eval()</i>. </p>
+      <p>Si estás utilizando una biblioteca de terceros o si la cantidad de código que debes reescribir es considerable, y tu aplicación no requiere altos estándares de seguridad, puedes habilitar el soporte de <i>eval()</i> para tu aplicación OpenXava agregando la siguiente entrada a tu archivo <i>xava.properties</i>:</p>
+      <pre><code class="properties">unsafeEvalInScripts=true</code></pre>
       <h2>Para migrar de OpenXava 7.2.2 a OpenXava 7.2.3</h2>
       No hay consideraciones.
       <h2>Para migrar de OpenXava 7.2.1 a OpenXava 7.2.2</h2>

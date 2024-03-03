@@ -27,6 +27,9 @@ public class ContentSecurityPolicyTest extends WebDriverTestBase {
 		WebElement hidden = getDriver().findElement(By.id("thehidden"));
 		assertFalse(hidden.isDisplayed());
 		
+		WebElement farewell = getDriver().findElement(By.id("farewell"));
+		assertEquals("Chao", farewell.getText());		
+		
 		WebElement iframe = getDriver().findElement(By.id("bye"));
 		getDriver().switchTo().frame(iframe);
 		WebElement frameBody = getDriver().findElement(By.tagName("body"));

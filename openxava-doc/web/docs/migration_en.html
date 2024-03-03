@@ -42,7 +42,7 @@
       <h2>Migration from OpenXava 7.2.3 to OpenXava 7.3</h2>
       <h3>New actions in Collection controller</h3>
       <p>If you haven't overridden the <em>Collection</em> controller, you can skip this step. Otherwise, you must manually add <em>previous</em> and <em>next</em> actions to the controller:</p>
-      <pre>	<code class="xml">&lt;action name="next"
+      <pre><code class="xml">&lt;action name="next"
 	image="next.gif"
 	icon="skip-next"
 	class="org.openxava.actions.EditElementInCollectionAction"&gt;
@@ -56,8 +56,7 @@
 	class="org.openxava.actions.EditElementInCollectionAction"&gt;
 	&lt;set property="openDialog" value="false"/&gt; 
 	&lt;set property="nextValue" value="-1"/&gt; 
-&lt;/action&gt;	</code>	</pre>
-      <p></p>
+&lt;/action&gt;</code></pre>
       <h3>New actions in Collection dialogs (for JUnit tests)</h3>
       <p>Now the dialogs from collections have two new actions, <em>Collection.previous</em> and <em>Collection.next</em>. So if you test for all present actions in your JUnit tests, you have to modify it and add the new ones. For example:</p>
       <pre><code class="java">String [] bottomActions= { "Collection.save",
@@ -66,6 +65,12 @@
 			   "Collection.previous" // ADD THIS ENTRY
          		  };		
 assertActions(bottomActions);</code></pre>
+      <p></p>
+      <h2></h2>
+      <h3>JavaScript eval() no longer supported in JavaScript</h3>
+      <p>If you have to write your own custom editors or views and you're using you own JavaScript code, keep in mind the <i>eval()</i> is not longer supported for security reasons. You have to rewrite your JavaScript code to not use <i>eval()</i>.</p>
+      <p>Anyways, if you're using a third party library or the amount of code to rewrite is huge and your application does not required high security standards, you can enable the support of <i>eval()</i> for your OpenXava application adding the next entry to your <i>xava.properties</i> file:</p>
+      <pre><code class="properties">unsafeEvalInScripts=true</code></pre>
       <h2>Migration from OpenXava 7.2.2 to OpenXava 7.2.3</h2>
       No issues.
       <h2>Migration from OpenXava 7.2.1 to OpenXava 7.2.2</h2>
