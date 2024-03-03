@@ -44,6 +44,18 @@
         instrucciones de abajo para adaptar tu código.</div>
       <div class="wiki" style="display: block;"><br>
       </div>
+      <h2>Para migrar de OpenXava 7.2.3 a OpenXava 7.3</h2>
+      <h3>Ya no se soportan el uso de eval() en JavaScript</h3>
+      <p>Si tienes tus propios editores o vistas personalizadas y estás
+        utilizando tu propio código JavaScript, ten en cuenta que <i>eval()</i>
+        ya no es compatible por razones de seguridad. Debes reescribir tu código
+        JavaScript para no utilizar <i>eval()</i>. </p>
+      <p>Si estás utilizando una biblioteca de terceros o si la cantidad de
+        código que debes reescribir es considerable, y tu aplicación no requiere
+        altos estándares de seguridad, puedes habilitar el soporte de <i>eval()</i>
+        para tu aplicación OpenXava agregando la siguiente entrada a tu archivo
+        <i>xava.properties</i>:</p>
+      <pre><code class="properties">unsafeEvalInScripts=true</code></pre>
       <h2>Para migrar de OpenXava 7.2.2 a OpenXava 7.2.3</h2>
       No hay consideraciones.
       <h2>Para migrar de OpenXava 7.2.1 a OpenXava 7.2.2</h2>
@@ -375,7 +387,7 @@ reload(); // ...has de añadir esta línea
       carpeta <i>Admin</i>. Abre el módulo <i>Carpetas</i>, busca la carpeta <i>Admin</i>
       en la lista y escógelo. Dentro del detalle de <i>Admin</i> pulsa para
       añadir un nuevo módulo, busca SSO y añádelo:</div>
-    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_es.png"
+    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_es.png"
         alt=""><br>
       <h2>Para migrar de OpenXava 7.0.5 a OpenXava 7.0.6</h2>
       <h3>@Column(length=x) sin scale ya no es scale=2 por defecto</h3>

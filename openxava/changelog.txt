@@ -1,6 +1,12 @@
 Change Log for OpenXava project
 ===============================
 
+- Content Security Policy does not allows the use of eval() in JavaScript code by default.
+- New property unsafeEvalInScripts in xava.property to enable the use of eval() in JavaScript.
+- Fix: Inoffensive string "null" in the HTML code for editors.
+- Customization documentation adapted to no script inclusion in HTML editor code.  
+- DWR engine tuned to remove the use of eval() in its JavaScript code.
+- DWR upgraded to 3.0.2.
 - has-type/has-annotation/has-stereotype in for-tabs of editors.xml to discriminate list formats by entity.
 - MySQL configuration documentation includes video.
 - Documentation for database configuration improved to include schema/database creation.
@@ -8,7 +14,7 @@ Change Log for OpenXava project
 - When several dates in an entity the user can choose which to use in calendar list format with a combo.
 - Reverse engineering documentation includes video.
 - Drag & drop support for calendar list format.
-- Removed the use of eval() completely from OpenXava JavaScript code.
+- Removed the use of eval() and equivalents completely from OpenXava JavaScript code.
 - AS/400 connection documentation improved to cover performance problems in Windows Server.
 - The width of the calendar in list mode dynamically adjusts to occupy the entire available space.
 

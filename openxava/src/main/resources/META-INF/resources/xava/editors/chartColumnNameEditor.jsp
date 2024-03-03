@@ -25,7 +25,6 @@ chartObject = (chartObject == null || chartObject.equals(""))?"xava_chart":chart
 org.openxava.session.Chart chart = (org.openxava.session.Chart) context.get(request, chartObject);
 
 String propertyKey = request.getParameter("propertyKey");
-String script = request.getParameter("script");
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 String title = (p == null)?"":p.getDescription(request);
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
@@ -45,7 +44,7 @@ java.util.Collection columns = showAllColumns?
 boolean editable = columns.size() > 1;
 if (editable) {
 %>
-<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=<%=style.getEditor()%> <%=script%> title="<%=title%>">	
+<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=<%=style.getEditor()%> title="<%=title%>">	
 <%
 		
 	%>
@@ -99,7 +98,6 @@ if (editable) {
 } else {
 %>	
 <jsp:include page="textEditor.jsp">
-	<jsp:param name="script" value=""/>
 	<jsp:param name="editable" value="false" />
 </jsp:include> 
 <% 

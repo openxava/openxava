@@ -19,7 +19,6 @@ String viewObject = request.getParameter("viewObject");
 viewObject = (viewObject == null || viewObject.equals(""))?"xava_view":viewObject;
 org.openxava.view.View view = (org.openxava.view.View) context.get(request, viewObject);
 String propertyKey = request.getParameter("propertyKey");
-String script = request.getParameter("script");
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 String title = (p == null)?"":p.getDescription(request);
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
@@ -32,7 +31,7 @@ String[] currentUserDescription = report.getAllNamesCurrentUser();
 String suffix = Labels.get("sharedReportSuffix");
 if (!editable) {
 %>
-<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=<%=style.getEditor()%> <%=script%> title="<%=title%>">	
+<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=<%=style.getEditor()%> title="<%=title%>">	
 <%	
 	// current user
 	for (int i=0; i<currentUserDescription.length; i++) {
@@ -64,9 +63,7 @@ if (!editable) {
 <% 
 } else {
 %>	
-<jsp:include page="textEditor.jsp">
-	<jsp:param name="script" value=""/>
-</jsp:include> 
+<jsp:include page="textEditor.jsp"/>
 <% 
 } 
 %>			

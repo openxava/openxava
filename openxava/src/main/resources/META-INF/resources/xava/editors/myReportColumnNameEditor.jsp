@@ -19,7 +19,6 @@ if (!editable) {
 String propertyKey = request.getParameter("propertyKey");
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
-String script = request.getParameter("script");
 
 String viewObject = request.getParameter("viewObject");
 viewObject = (viewObject == null || viewObject.equals(""))?"xava_view":viewObject;
@@ -44,7 +43,7 @@ if (!showAllColumns &&
 }
 %>
 
-<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=<%=style.getEditor()%> <%=script%> title="<%=p.getDescription(request)%>">
+<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=<%=style.getEditor()%> title="<%=p.getDescription(request)%>">
 	<option value=""></option>
 	<% 
 	for (java.util.Iterator it = columns.iterator(); it.hasNext(); ) {

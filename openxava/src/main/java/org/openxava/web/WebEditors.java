@@ -90,6 +90,13 @@ public class WebEditors {
 		String [] strings = string == null?null:new String [] { string };
 		return parse(request, p, strings, errors, viewName); 
 	}
+	
+	/** @since 7.3 */
+	public static String formatNoFilterSpecialCharacters(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName) throws XavaException { 
+		Object result = formatToStringOrArrayImpl(request, p, object, errors, viewName, false);
+		if (result instanceof String []) return arrayToString((String []) result);		
+		return (String) result;
+	}
 		
 	public static String format(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName) throws XavaException {
 		Object result = formatToStringOrArray(request, p, object, errors, viewName, false);
@@ -117,7 +124,21 @@ public class WebEditors {
 	 * @return If has a multiple converter return a array of string else return a string
 	 */
 	public static Object formatToStringOrArray(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException {
-		return formatToStringOrArrayImpl(request, p, object, errors, viewName, fromList);
+		Object result = formatToStringOrArrayImpl(request, p, object, errors, viewName, fromList);	
+		if (result == null) return null;
+		if (result instanceof String) {
+			return changeSpecialCharacters((String) result);
+		}
+		Object [] results = (Object []) result;
+		for (int i=0; i<results.length; i++) {
+			results[i] = changeSpecialCharacters((String) results[i]);
+		}
+		return results;
+	}
+		
+	private static Object changeSpecialCharacters(String formattedString) {  
+		if (hasMarkup(formattedString)) return formattedString;
+		return formattedString.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;").replaceAll(",", "&#44;");
 	}
 	
 	public static Object formatTitle(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException { 

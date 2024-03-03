@@ -19,7 +19,7 @@ String selected = value == i ?"checked":"";
 String disabled = editable?"":"disabled";
 %> 
 <label>
-<input type="radio" name="<%=propertyKey%>" tabindex="1" <%=disabled%> value="<%=i%>" <%=script%> <%=selected%>> 
+<input type="radio" name="<%=propertyKey%>" tabindex="1" <%=disabled%> value="<%=i%>" <%=selected%>> 
 <span id="<%=propertyKey %><%=i%>"><%=it.next()%></span> &nbsp;&nbsp;
 </label>
 <%

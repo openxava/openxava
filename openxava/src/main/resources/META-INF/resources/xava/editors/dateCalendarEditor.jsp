@@ -11,7 +11,6 @@ String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
 String align = p.isNumber()?"right":"left";
 boolean editable="true".equals(request.getParameter("editable"));
 String disabled=editable?"":"disabled";
-String script = request.getParameter("script");
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
 String browser = request.getHeader("user-agent");
 int sizeIncrement = browser.contains("Chrome")?0:2; 
@@ -25,7 +24,7 @@ if (editable || !label) {
 	maxlength="<%=p.getSize()%>"
 	data-input
 	size="<%=p.getSize() + sizeIncrement%>" 
-	value="<%=fvalue%>" <%=disabled%> <%=script%>><%if (editable) {%><a data-toggle><i class="mdi mdi-calendar"></i></a><%} %>
+	value="<%=fvalue%>" <%=disabled%>><%if (editable) {%><a data-toggle><i class="mdi mdi-calendar"></i></a><%} %>
 </span> 
 <%
 } else {

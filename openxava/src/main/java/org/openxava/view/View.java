@@ -3042,8 +3042,8 @@ public class View implements java.io.Serializable {
 			setFocusCurrentId(getRequest().getParameter("xava_current_focus")); 
 			if (isRepresentsCollection()) fillCollectionInfo(qualifier);			
 			if (firstLevel) changedProperty = Ids.undecorate(getRequest().getParameter("xava_changed_property"));
-			if (firstLevel || !isRepresentsCollection()) { 
-				assignValuesToMembers(qualifier, isSubview()?getMetaMembersIncludingHiddenKey():getMetaMembersIncludingCollectionTotals());  
+			if (firstLevel || !isRepresentsCollection()) {
+				assignValuesToMembers(qualifier, isSubview()?getMetaMembersIncludingHiddenKey():getMetaMembersIncludingCollectionTotals());
 			}
 			oldValues = values==null?null:new HashMap(values);
 			mustRefreshCollection = false;
@@ -3114,14 +3114,14 @@ public class View implements java.io.Serializable {
 				String propertyKey= qualifier + p.getName();
 				String valueKey = propertyKey + ".value"; 
 				if (Is.anyEqual(propertyKey, "application", "module")) propertyKey += "_VALUE_"; // This _VALUE_ is set in dwr.Module class
-				String [] results = getRequest().getParameterValues(propertyKey);				
+				String [] results = getRequest().getParameterValues(propertyKey);	
 				Object value = WebEditors.parse(getRequest(), p, results, getErrors(), getViewName());
 				boolean isHiddenKeyWithoutValue = p.isHidden() && (results == null); // for not reset hidden values					
 				if (!isHiddenKeyWithoutValue && mustToFormat) { 
 					getRequest().setAttribute(valueKey, value);
 					trySetValue(p.getName(), value);
 					if (isNeededToVerifyHasBeenFormatted(p)) {
-						String formattedValue = WebEditors.format(getRequest(), p, value, getErrors(), getViewName());
+						String formattedValue = WebEditors.formatNoFilterSpecialCharacters(getRequest(), p, value, getErrors(), getViewName()); 
 						if (results != null && !equals(formattedValue, results[0])) {
 							if (formattedProperties == null) formattedProperties = new HashSet();
 							formattedProperties.add(p.getName()); 

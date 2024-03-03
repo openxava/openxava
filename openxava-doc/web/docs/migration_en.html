@@ -45,6 +45,19 @@
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">
+      <h2>Migration from OpenXava 7.2.3 to OpenXava 7.3</h2>
+      <h2></h2>
+      <h3>JavaScript eval() no longer supported in JavaScript</h3>
+      <p>If you have to write your own custom editors or views and you're using
+        you own JavaScript code, keep in mind the <i>eval()</i> is not longer
+        supported for security reasons. You have to rewrite your JavaScript code
+        to not use <i>eval()</i>.</p>
+      <p>Anyways, if you're using a third party library or the amount of code to
+        rewrite is huge and your application does not required high security
+        standards, you can enable the support of <i>eval()</i> for your
+        OpenXava application adding the next entry to your <i>xava.properties</i>
+        file:</p>
+      <pre><code class="properties">unsafeEvalInScripts=true</code></pre>
       <h2>Migration from OpenXava 7.2.2 to OpenXava 7.2.3</h2>
       No issues.
       <h2>Migration from OpenXava 7.2.1 to OpenXava 7.2.2</h2>
@@ -373,7 +386,7 @@ reload(); // ...you have to add this line
       module, search for the <i>Admin</i> folder in the list, and select it. In
       the <i>Admin</i> detail, click to add a new module, search for SSO, and
       add it:</div>
-    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_en.png"
+    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_en.png"
         alt=""><br>
       <h2>Migration from OpenXava 7.0.5 to OpenXava 7.0.6</h2>
       <h3>@Column(length=x) with no scale is no longer scale=2 by default</h3>
@@ -468,7 +481,7 @@ assertValidValues("descriptionsListValue", validValues);
       <p>The easier way to migrate to Maven is creating a new project using
         OpenXava 7.0, and then copying the source code and resources from your
         current project to the new one. So, first create a new OpenXava project
-        using Openxava Studio 7, for that you can follow the instructions in <a
+        using Openxava Studio 7, for that you can follow the instructions in <a
           href="getting-started_en.html">Getting started guide</a>.</p>
       <p>The next step is to copy all your source code and resources from the
         old project to the corresponding folder in the new project, as
@@ -809,7 +822,7 @@ assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asNormalizedTex
         +"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
     deleteLink.getHrefAttribute());
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
+    <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
         href="http://www.alanwood.net/demos/ansi.html">Look at this table</a> to
       know the mapping between ANSI and UNICODE.</div>
     <div class="wiki" style="display: block;">Now in <i>@HtmlText</i> or <i>@Stereotype("HTML_TEXT")</i>

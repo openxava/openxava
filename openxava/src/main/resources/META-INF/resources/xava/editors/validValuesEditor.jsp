@@ -4,7 +4,7 @@
 <%
 if (editable) { 
 %>
-<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=<%=style.getEditor()%> <%=script%> title="<%=p.getDescription(request)%>">
+<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=<%=style.getEditor()%> title="<%=p.getDescription(request)%>">
 <% 
 	boolean isInElementCollection = request.getParameter("collectionName") != null;
 	if (isInElementCollection || !required) {

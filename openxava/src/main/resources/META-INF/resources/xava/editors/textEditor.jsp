@@ -18,7 +18,6 @@ String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
 String align = p.isNumber()?"ox-text-align-right":"";
 boolean editable="true".equals(request.getParameter("editable"));
 String disabled=editable?"":"disabled";
-String script = request.getParameter("script");
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
 String inputType = request.getParameter("inputType");
 if (inputType == null) inputType = "text"; 
@@ -68,8 +67,7 @@ if (editable || !label) {
 	size="<%=size%>"
 	<%=numericAlt%> 
 	value="<%=Strings.change(fvalue, "\"", "&quot;")%>"	
-	<%=disabled%>
-	<%=script%>	
+	<%=disabled%>	
     <%=im%>
 	/>
 <%

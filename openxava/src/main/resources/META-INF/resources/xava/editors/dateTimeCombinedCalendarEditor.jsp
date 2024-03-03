@@ -11,7 +11,6 @@ String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
 String align = p.isNumber()?"right":"left";
 boolean editable="true".equals(request.getParameter("editable"));
 String disabled=editable?"":"disabled";
-String script = request.getParameter("script");
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
 if (editable || !label) {
 	String dateClass = editable?"xava_date":""; 
@@ -25,7 +24,7 @@ if (editable || !label) {
 		maxlength="19"
 		data-input
 		size="19" 
-		value="<%=fvalue%>" <%=disabled%> <%=script%>><%if (editable) {%><a href="javascript:void(0)" data-toggle><i class="mdi mdi-calendar-clock"></i></a><%} %>	
+		value="<%=fvalue%>" <%=disabled%>><%if (editable) {%><a href="javascript:void(0)" data-toggle><i class="mdi mdi-calendar-clock"></i></a><%} %>	
 </span>
 
 <%

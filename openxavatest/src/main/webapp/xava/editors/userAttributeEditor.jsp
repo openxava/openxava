@@ -18,7 +18,6 @@ String fvalue = (String) request.getSession().getAttribute("xava.user");
 String align = "";
 boolean editable="true".equals(request.getParameter("editable"));
 String disabled=editable?"":"disabled";
-String script = request.getParameter("script");
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
 String smaxSize = request.getParameter("maxSize");
 int maxSize = 0;
@@ -45,9 +44,7 @@ if (editable || !label) {
 	size="<%=size%>"
 	<%=numericAlt%> 
 	value="<%=Strings.change(fvalue, "\"", "&quot;")%>"	
-	<%=disabled%>
-	<%=script%>
-	/>
+	<%=disabled%>/>
 <%
 } else {
 %>
