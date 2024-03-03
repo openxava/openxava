@@ -24,6 +24,9 @@ See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl
 String module = context.getCurrentModule(request);
 boolean hasModules = modules.hasModules(request);
 boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
+String version = org.openxava.controller.ModuleManager.getVersion();
+String contextPath = (String) request.getAttribute("xava.contextPath");
+if (contextPath == null) contextPath = request.getContextPath();
 %>
 
 <div id="module_header_left"> 			
@@ -102,5 +105,4 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 		%>
 	</span>				
 </div>
-
 	

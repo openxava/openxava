@@ -17,6 +17,7 @@ naviox.init = function() {
 	naviox.initLeftMenu(); 
 	naviox.initModulesList();
 	naviox.initBookmark();
+	naviox.initModuleHeader();
 }
 
 naviox.initLeftMenu = function() { 
@@ -51,6 +52,30 @@ naviox.initBookmark = function() {
 	$('#bookmark').on( "click", function() {
 		naviox.bookmark();
 	});
+}
+
+naviox.initModuleHeader = function(){
+	var closeIcons = document.querySelectorAll('.module_header_button .close-icon');
+	console.log("enter");
+	console.log(closeIcons);
+	closeIcons.forEach(function(icon) {
+		icon.addEventListener('click', function() {
+			console.log("click");
+			var parentModule = icon.closest('.module_header_button');
+			if (parentModule) {
+				var selectedSibling = parentModule.querySelector('.selected');
+				if (selectedSibling) {
+					console.log("Hermano seleccionado encontrado!");
+					parentModule.hidden = true;
+					//dwr y actualizar pagina
+				} else {
+					parentModule.hidden = true;
+					//dwr
+				}
+			}
+		});
+	});
+
 }
 
 naviox.watchForIdleUser = function() {
