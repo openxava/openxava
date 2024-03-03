@@ -5,19 +5,24 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 import java.util.Collections;
+import java.util.prefs.*;
 
 import javax.servlet.http.*;
 import javax.swing.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.actions.*;
+import org.openxava.application.meta.*;
 import org.openxava.controller.*;
 import org.openxava.controller.meta.*;
+import org.openxava.jpa.*;
 import org.openxava.model.meta.*;
 import org.openxava.util.*;
 import org.openxava.view.View;
 import org.openxava.web.*;
 import org.openxava.web.servlets.*;
+
+import com.openxava.naviox.*;
 
 /**
  * For accessing to module execution from DWR. <p>
@@ -818,6 +823,43 @@ public class Module extends DWRBase {
 			charsetName = XSystem.getEncoding();
 		} 
 		return URLEncoder.encode(value.toString(), charsetName);
+	}
+	
+	public void closeModule(HttpServletRequest request, HttpServletResponse response, String application, String module, boolean isOpen, int i) throws BackingStoreException {
+		try {
+			initRequest(request, response, application, module);
+			HttpSession session = ((HttpServletRequest) request).getSession();
+			Modules modules = (Modules) session.getAttribute("modules");
+			System.out.println(isOpen);
+			System.out.println(modules.getCurrent(request));
+			System.out.println(modules.getTopModules());
+			if (isOpen) {
+				modules.clearCurrent();
+			} else {
+				String preferencesNodeName = "";
+				Collection<MetaApplication> apps = MetaApplications.getMetaApplications();
+				for (MetaApplication app: apps) {
+					preferencesNodeName = "naviox." + app.getName();
+					break;
+				}
+				System.out.println(preferencesNodeName);
+				Preferences pref = Users.getCurrentPreferences().node(preferencesNodeName);
+				String applicationName = pref.get("" + "application." + i, null);
+				String moduleName = pref.get("" + "module." + i, null);
+				System.out.println("key " + "" + "application." + i + " obtain " + applicationName);
+				System.out.println("key " + "" + "module." + i + " obtain " + moduleName);
+				pref.remove("" + "application." + i);
+				pref.remove("" + "module." + i);
+				System.out.println(pref.get("" + "module." + i, null));
+				//pref.get(prefix + "module." + i, module.getName())
+				System.out.println(modules.getTopModules());
+				pref.flush();
+			}
+			
+		} finally {
+			XPersistence.commit();
+			cleanRequest();
+		}
 	}
 			
 }

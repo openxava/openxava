@@ -263,11 +263,16 @@ public class Modules implements Serializable {
 	private void loadModulesFromPreferences(HttpServletRequest request, List<MetaModule> modules, String prefix, int limit) {  
 		try {
 			Preferences preferences = getPreferences();
+			System.out.println("loadModulesFromPreferences " + prefix);
 			for (int i = 0; i < limit; i++) { 
+				System.out.println(prefix + "application." + i);
 				String applicationName = preferences.get(prefix + "application." + i, null);
 				if (applicationName == null) break;
+				System.out.println(prefix + "module." + i);
 				String moduleName = preferences.get(prefix + "module." + i, null);
-				if (moduleName == null) break;				
+				if (moduleName == null) break;
+				System.out.println("no null " + moduleName);
+				System.out.println(modules);
 				loadModule(request, modules, moduleName); 
 			}		
 		}
