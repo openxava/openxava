@@ -20,7 +20,6 @@ import javax.servlet.http.*;
 import org.apache.commons.logging.*;
 import org.openxava.application.meta.*;
 import org.openxava.util.*;
-import org.openxava.view.*;
 
 import com.openxava.naviox.impl.*;
 import com.openxava.naviox.util.*;
@@ -99,8 +98,7 @@ public class Modules implements Serializable {
 	}
 
 
-	public void setCurrent(HttpServletRequest request, String application, String module) {
-		System.out.println("setCurrent" + application + module);
+	public void setCurrent(HttpServletRequest request, String application, String module) { 
 		this.current = MetaModuleFactory.create(application, module);
 		if (topModules == null) loadTopModules(request);	
 		int idx = indexOf(topModules, current);
@@ -265,16 +263,11 @@ public class Modules implements Serializable {
 	private void loadModulesFromPreferences(HttpServletRequest request, List<MetaModule> modules, String prefix, int limit) {  
 		try {
 			Preferences preferences = getPreferences();
-			System.out.println("loadModulesFromPreferences " + prefix);
 			for (int i = 0; i < limit; i++) { 
-				System.out.println(prefix + "application." + i);
 				String applicationName = preferences.get(prefix + "application." + i, null);
 				if (applicationName == null) break;
-				System.out.println(prefix + "module." + i);
 				String moduleName = preferences.get(prefix + "module." + i, null);
-				if (moduleName == null) break;
-				System.out.println("no null " + moduleName);
-				System.out.println(modules);
+				if (moduleName == null) break;				
 				loadModule(request, modules, moduleName); 
 			}		
 		}
@@ -461,21 +454,7 @@ public class Modules implements Serializable {
 		
 	}
 	
-	public void removeCurrentModule(int index, HttpServletRequest request, String application, View view) {
-		topModules.remove(index);
-		System.out.println("current");
-		System.out.println(getCurrent(request)); 
-		//this.current = MetaModuleFactory.create(application, topModules.get(0).getModelName());
-		setCurrent(request, application, topModules.get(0).getModelName());
-		storeTopModules();
-		view.setModel(topModules.get(index).getModelName());
-	}
-	
 	public void removeModule(int index) {
-		System.out.println(topModules.get(index).getDescription());
-		System.out.println(topModules.get(index).getName());
-		System.out.println(topModules.get(index).getModelName());
-		System.out.println(topModules.get(index).getViewName());
 		topModules.remove(index);
 		storeTopModules();
 	}

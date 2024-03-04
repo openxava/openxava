@@ -823,25 +823,12 @@ public class Module extends DWRBase {
 		return URLEncoder.encode(value.toString(), charsetName);
 	}
 	
-	public void closeModule(HttpServletRequest request, HttpServletResponse response, String application, String module, boolean isOpen, int i) {
-		View view = getView(); // da problemas
+	public void closeModule(HttpServletRequest request, HttpServletResponse response, String application, String module, int i) {
 		try {
 			initRequest(request, response, application, module);
 			HttpSession session = ((HttpServletRequest) request).getSession();
 			Modules modules = (Modules) session.getAttribute("modules");
-			System.out.println(isOpen);
-			System.out.println(modules.getCurrent(request));
-			System.out.println(modules.getTopModules());
-			if (isOpen) {
-				System.out.println("isOpen");
-				//View view = getView();
-				System.out.println(view.getModelName());
-				modules.removeCurrentModule(i, request, application, view);
-			} else {
-				modules.removeModule(i);
-				System.out.println(modules.getTopModules());
-			}
-			
+			modules.removeModule(i);
 		} finally {
 			XPersistence.commit();
 			cleanRequest();

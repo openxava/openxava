@@ -54,34 +54,31 @@ naviox.initBookmark = function() {
 	});
 }
 
-naviox.initModuleHeader = function(){
+naviox.initModuleHeader = function() {
 	var closeIcons = document.querySelectorAll('.module_header_button .close-icon');
-	console.log("enter");
-	console.log(closeIcons);
-	closeIcons.forEach(function(icon, index) {
+	closeIcons.forEach(function(icon) {
 		icon.addEventListener('click', function() {
-			console.log("click");
-			var parentModule = icon.closest('.module_header_button');
-			if (parentModule) {
-				var selectedSibling = parentModule.querySelector('.selected');
-				if (selectedSibling) {
-					console.log("Hermano seleccionado encontrado!");
-					parentModule.hidden = true;
-					console.log(naviox.application);
-					console.log(naviox.module);
-					Module.closeModule(naviox.application, naviox.module, true, index);
-					//dwr y actualizar pagina
-				} else {
-					parentModule.hidden = true;
-					console.log(naviox.application);
-					console.log(naviox.module);
-					Module.closeModule(naviox.application, naviox.module, false, index);
-					//dwr
+			var closeIconsList = document.querySelectorAll('.module_header_button .close-icon');
+			if (closeIconsList.length !== 1) {
+				var module = icon.closest('.module_header_button');
+				var index = Array.prototype.indexOf.call(closeIconsList, icon);
+				if (module) {
+					var selectedSibling = module.querySelector('.selected');
+					Module.closeModule(naviox.application, naviox.module, index);
+					if (selectedSibling) {
+						var nextElement = module.nextElementSibling || module.previousElementSibling;
+						if (nextElement) {
+							var link = nextElement.querySelector('a');
+							if (link) {
+								link.click();
+							}
+						}
+					}
+					module.remove();
 				}
 			}
 		});
 	});
-
 }
 
 naviox.watchForIdleUser = function() {
