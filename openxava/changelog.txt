@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Navigation in collections with buttons to see the next or previous record from the dialog.
 - Content Security Policy does not allows the use of eval() in JavaScript code by default.
 - New property unsafeEvalInScripts in xava.property to enable the use of eval() in JavaScript.
 - Fix: Inoffensive string "null" in the HTML code for editors.

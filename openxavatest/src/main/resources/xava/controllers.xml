@@ -258,7 +258,23 @@
 		<action name="edit" image="edit.gif"
 			icon="pencil"
 			class="org.openxava.actions.EditElementInCollectionAction"/>					
-						 						
+
+		<action name="next" 
+			image="next.gif"
+			icon="skip-next"
+			class="org.openxava.actions.EditElementInCollectionAction">
+			<set property="openDialog" value="false"/> 
+			<set property="nextValue" value="1"/> 
+		</action>	
+			
+		<action name="previous" 
+			image="previous.gif"
+			icon="skip-previous"
+			class="org.openxava.actions.EditElementInCollectionAction">
+			<set property="openDialog" value="false"/> 
+			<set property="nextValue" value="-1"/> 
+		</action>
+						 								
 		<action name="view" image="view.gif"
 			icon="eye"
 			class="org.openxava.actions.ViewElementInCollectionAction"/>

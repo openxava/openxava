@@ -5136,49 +5136,42 @@ class="sy0">;</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controlador</span> <span
-class="re0">nombre</span>=<span class="st0">"Collection"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;accion</span> <span class="re0">nombre</span>=<span
-class="st0">"new"</span></span>
-<span class="sc3">        <span class="re0">clase</span>=<span class="st0">"org.openxava.actions.CreateNewElementInCollectionAction"</span><span
-class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;accion</span> <span class="re0">nombre</span>=<span
-class="st0">"hideDetail"</span>                                           &lt;!-- 1 --<span
-class="re2">&gt;</span></span>
+</style><pre><code class="xml">&lt;controlador nombre="Collection"&gt;
+    &lt;accion nombre="new"
+        clase="org.openxava.actions.CreateNewElementInCollectionAction"/&gt;
+    &lt;accion nombre="hideDetail"                                           &lt;!-- 1 --&gt;
         clase="org.openxava.test.acciones.MiOcultarDetalle"/&gt;
-    <span class="sc3"><span class="re1">&lt;accion</span> <span class="re0">nombre</span>=<span
-class="st0">"save"</span></span>
-<span class="sc3">        <span class="re0">clase</span>=<span class="st0">"org.openxava.actions.SaveElementInCollectionAction"</span><span
-class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;usa-objeto</span> <span
-class="re0">nombre</span>=<span class="st0">"xava_view"</span><span class="re2">/&gt;</span></span>  <span
-class="sc-1">&lt;!-- No obligatorio desde v4m2 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;/accion<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;accion</span> <span class="re0">nombre</span>=<span
-class="st0">"remove"</span></span>
-<span class="sc3">        <span class="re0">clase</span>=<span class="st0">"org.openxava.actions.RemoveElementFromCollectionAction"</span><span
-class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;usa-objeto</span> <span
-class="re0">nombre</span>=<span class="st0">"xava_view"</span><span class="re2">/&gt;</span></span>  <span
-class="sc-1">&lt;!-- No obligatorio desde v4m2 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;/accion<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;accion</span> <span class="re0">nombre</span>=<span
-class="st0">"edit"</span></span>
-<span class="sc3">        <span class="re0">clase</span>=<span class="st0">"org.openxava.actions.EditElementInCollectionAction"</span><span
-class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;usa-objeto</span> <span
-class="re0">nombre</span>=<span class="st0">"xava_view"</span><span class="re2">/&gt;</span></span>  <span
-class="sc-1">&lt;!-- No obligatorio desde v4m2 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;/accion<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;accion</span> <span class="re0">nombre</span>=<span
-class="st0">"view"</span></span>
-<span class="sc3">        <span class="re0">clase</span>=<span class="st0">"org.openxava.actions.EditElementInCollectionAction"</span><span
-class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;usa-objeto</span> <span
-class="re0">nombre</span>=<span class="st0">"xava_view"</span><span class="re2">/&gt;</span></span>  <span
-class="sc-1">&lt;!-- No obligatorio desde v4m2 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;/accion<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/controlador<span class="re2">&gt;</span></span></span></pre>
+    &lt;accion nombre="save"
+        clase="org.openxava.actions.SaveElementInCollectionAction"&gt;
+        &lt;usa-objeto nombre="xava_view"/&gt;  &lt;!-- No obligatorio desde v4m2 --&gt;
+    &lt;/accion&gt;
+    &lt;accion nombre="remove"
+        clase="org.openxava.actions.RemoveElementFromCollectionAction"&gt;
+        &lt;usa-objeto nombre="xava_view"/&gt;  &lt;!-- No obligatorio desde v4m2 --&gt;
+    &lt;/accion&gt;
+    &lt;accion nombre="edit"
+        clase="org.openxava.actions.EditElementInCollectionAction"&gt;
+        &lt;usa-objeto nombre="xava_view"/&gt;  &lt;!-- No obligatorio desde v4m2 --&gt;
+    &lt;/accion&gt;
+    &lt;accion nombre="view"
+        clase="org.openxava.actions.EditElementInCollectionAction"&gt;
+        &lt;usa-objeto nombre="xava_view"/&gt;  &lt;!-- No obligatorio desde v4m2 --&gt;
+    &lt;/accion&gt;
+    &lt;accion nombre="next" &lt;!-- Nuevo desde v7.3 --&gt; 
+	imagen="next.gif" 
+	icono="skip-next"
+        clase="org.openxava.actions.EditElementInCollectionAction"&gt;
+        &lt;poner propiedad="openDialog" valor="false"/&gt;  
+	&lt;poner propiedad="nextValue" valor="1"/&gt;  
+    &lt;/accion&gt; 
+    &lt;accion nombre="previous" &lt;!-- Nuevo desde v7.3 --&gt;
+	imagen="previous.gif" 
+	icono="skip-previous"
+        clase="org.openxava.actions.EditElementInCollectionAction"&gt;
+        &lt;poner propiedad="openDialog" valor="false"/&gt;  
+	&lt;poner propiedad="nextValue" valor="-1"/&gt;  
+    &lt;/accion&gt; 
+&lt;/controlador&gt;</code></pre>
         En este case solo sobreescribimos el comportamiento de la accion <em>hideDetail</em> (1). Pero tenemos que declarar todas las acciones del controlador original, porque OpenXava confia en todas estas acciones para funcionar; no podemos borrar o renombrar acciones.<br>
         <h2 id="toc19"><a name="Controladores-Mostrar+un+dialogo+modal+(nuevo+en+v4m2)"></a>Mostrar un diálogo modal <em>(nuevo en v4m2)</em></h2>
         Puedes mostrar un diálogo llamando al método <em>showDialog()</em> de <em><a

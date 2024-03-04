@@ -28,10 +28,14 @@ if (manager.isBottomButtonsVisible()) {
 		MetaAction action = (MetaAction) it.next();
 		if (!manager.actionApplies(action)) continue; 
 		if (action.getQualifiedName().equals(defaultAction)) continue;
-		if (action.appliesToMode(mode) && (!buttonBar || !(action.hasImage() ||  action.hasIcon()))) { 	
+		if (action.appliesToMode(mode) && (!buttonBar || !(action.hasImage() || action.hasIcon()))) { 	
+			if (action.hasIcon() && action.getLabel().isEmpty()){
 		%>
-		<xava:button action="<%=action.getQualifiedName()%>"/>
+			<xava:action action='<%=action.getQualifiedName()%>'/>
+		<% } else { %>
+			<xava:button action="<%=action.getQualifiedName()%>"/>
 		<%
+			}
 		}
 	}
 	%>

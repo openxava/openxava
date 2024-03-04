@@ -71,6 +71,8 @@ public class OnlyEditDetailsInvoiceTest extends ModuleTestBase {
 			"Reference.clear",
 			"Collection.save",
 			"Collection.hideDetail",
+			"Collection.next",
+			"Collection.previous",
 		};		
 		assertActions(aggregateDetailActions);
 		

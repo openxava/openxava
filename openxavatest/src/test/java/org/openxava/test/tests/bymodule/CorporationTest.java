@@ -1,8 +1,7 @@
 package org.openxava.test.tests.bymodule;
 
-import org.openxava.tests.*;
-
 import org.htmlunit.html.*;
+import org.openxava.tests.*;
 
 /**
  * @author Javier Paniza
@@ -20,7 +19,7 @@ public class CorporationTest extends ModuleTestBase {
 		assertMainDeleteHiddenWhenElementCollectionSelected(); 
 		execute("Collection.new", "viewObject=xava_view_section0_employees");
 		assertNoErrors();
-		assertValue("salary", "2400");
+		assertValue("salary", "2000");
 		closeDialog();
 		execute("Corporation.report");
 		assertNoErrors();
@@ -57,7 +56,7 @@ public class CorporationTest extends ModuleTestBase {
 		assertFalse(getHtmlPage().getHtmlElementById("ox_openxavatest_Corporation__CRUD___delete").isDisplayed());
 	}
 
-	public void testIconEditor() throws Exception { 
+	public void testIconEditor_nextAndPreviousElementInCollection() throws Exception { 
 		getWebClient().getOptions().setCssEnabled(true);
 		reload(); 
 		execute("List.viewDetail", "row=0");
@@ -85,7 +84,17 @@ public class CorporationTest extends ModuleTestBase {
 		
 		execute("CRUD.save");
 		execute("Mode.list");
-		assertFalse(getHtml().contains("<i class=\"mdi mdi-alarm-check\"")); 
+		assertFalse(getHtml().contains("<i class=\"mdi mdi-alarm-check\""));
+		execute("List.viewDetail", "row=0");
+		execute("Collection.edit", "row=0,viewObject=xava_view_section0_employees");
+		execute("Collection.previous");
+		assertError("We already are at the beginning of the list");
+		execute("Collection.next");
+		assertValue("salary", "3000");
+		execute("Collection.next");
+		assertValue("salary", "2400");
+		execute("Collection.next");
+		assertValue("salary", "2400");
 	}
 
 	private void executeIconChoose(String icon) throws Exception {

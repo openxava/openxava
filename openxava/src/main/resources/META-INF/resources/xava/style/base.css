@@ -1792,6 +1792,10 @@ td.ox-list-subheader > div {
 .ox-bottom-buttons {
 	padding-left: 11px;
 	margin-right: 17px;
+	display: flex;
+  	justify-content: flex-start;
+  	align-items: center;
+  	position: relative;
 }
 
 .ui-dialog .ox-bottom-buttons {
@@ -2929,3 +2933,15 @@ div[id$="_Index__view"] .ox-list-title {
 .module_header_button {
     position: relative;
 }
+
+a[data-action="Collection.next"] {
+  position: absolute;
+  right: 0;
+}
+
+a[data-action="Collection.previous"] {
+  position: absolute;
+  right: 0;
+  margin-right: 35px;
+}
+

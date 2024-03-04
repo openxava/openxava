@@ -64,6 +64,8 @@ public class View implements java.io.Serializable {
 	private String addCollectionElementAction;  
 	private String newCollectionElementAction;
 	private String saveCollectionElementAction;
+	private String nextCollectionElementAction;
+	private String previousCollectionElementAction;
 	private String hideCollectionElementAction;
 	private String removeCollectionElementAction;
 	private String removeSelectedCollectionElementsAction;
@@ -1079,13 +1081,13 @@ public class View implements java.io.Serializable {
 				}
 				newView.setViewCollectionElementAction(metaCollectionView.getViewActionName());
 				
-				if (!metaCollectionView.isCreateReference()) { 
+				if (!metaCollectionView.isCreateReference()) {
 					newView.setNewCollectionElementAction("");
 					newView.setAddCollectionElementAction("");
 				}
 				else {
 					newView.setNewCollectionElementAction(metaCollectionView.getNewActionName());
-					newView.setAddCollectionElementAction(metaCollectionView.getAddActionName()); 
+					newView.setAddCollectionElementAction(metaCollectionView.getAddActionName());
 				}
 				newView.setSaveCollectionElementAction(metaCollectionView.getSaveActionName());
 				newView.setHideCollectionElementAction(metaCollectionView.getHideActionName());
@@ -5038,11 +5040,11 @@ public class View implements java.io.Serializable {
 		activeSection = i;		
 	}
 
-	public int getCollectionEditingRow() {		
+	public int getCollectionEditingRow() {
 		return collectionEditingRow;
 	}
 
-	public void setCollectionEditingRow(int i) { 		
+	public void setCollectionEditingRow(int i) {
 		collectionEditingRow = i;
 	}
 
@@ -5793,6 +5795,22 @@ public class View implements java.io.Serializable {
 
 	public void setSaveCollectionElementAction(String saveCollectionElementAction) {
 		this.saveCollectionElementAction = saveCollectionElementAction;
+	}
+	
+	public String getPreviousCollectionElementAction() {
+		return getCollectionAction(previousCollectionElementAction, "Collection.previous");
+	}
+
+	public void setPreviousCollectionElementAction(String previousCollectionElementAction) {
+		this.previousCollectionElementAction = previousCollectionElementAction;
+	}
+	
+	public String getNextCollectionElementAction() {
+		return getCollectionAction(nextCollectionElementAction, "Collection.next");
+	}
+
+	public void setNextCollectionElementAction(String nextCollectionElementAction) {
+		this.nextCollectionElementAction = nextCollectionElementAction;
 	}
 	
 	/** @since 5.7 */

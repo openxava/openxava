@@ -21,10 +21,10 @@ public class CorporationEmployeeTest extends ModuleTestBase {
 	
 	public void testTabEditorForModel() throws Exception {
 		assertNoErrors(); // To test a bug on init
-		assertListRowCount(2); 
+		assertListRowCount(3); 
 		setValue("chooseSegment", "low");
-		assertListRowCount(1); 
-		assertValueInList(0, 1, "MIGUEL"); 
+		assertListRowCount(2); 
+		assertValueInList(0, 1, "MARTIN"); 
 		setValue("chooseSegment", "high");
 		assertListRowCount(1);
 		assertValueInList(0, 1, "ANA"); 

@@ -46,6 +46,38 @@
     </div>
     <div class="wiki" style="display: block;">
       <h2>Migration from OpenXava 7.2.3 to OpenXava 7.3</h2>
+      <h3>New actions in Collection controller</h3>
+      <p>If you haven't overridden the <em>Collection</em> controller, you can
+        skip this step. Otherwise, you must manually add <em>previous</em> and
+        <em>next</em> actions to the controller:</p>
+      <pre><code class="xml">&lt;action name="next"
+	image="next.gif"
+	icon="skip-next"
+	class="org.openxava.actions.EditElementInCollectionAction"&gt;
+	&lt;set property="openDialog" value="false"/&gt; 
+	&lt;set property="nextValue" value="1"/&gt; 
+&lt;/action&gt;	
+			
+&lt;action name="previous"
+	image="previous.gif"
+	icon="skip-previous"
+	class="org.openxava.actions.EditElementInCollectionAction"&gt;
+	&lt;set property="openDialog" value="false"/&gt; 
+	&lt;set property="nextValue" value="-1"/&gt; 
+&lt;/action&gt;</code></pre>
+      <h3>New actions in Collection dialogs (for JUnit tests)</h3>
+      <p>Now the dialogs from collections have two new actions, <em>Collection.previous</em>
+        and <em>Collection.next</em>. So if you test for all present actions in
+        your JUnit tests, you have to modify it and add the new ones. For
+        example:</p>
+      <pre><code class="java">String [] bottomActions = { 
+    "Collection.save",
+    "Collection.hideDetail",
+    "Collection.next", // ADD THIS ENTRY
+    "Collection.previous" // ADD THIS ENTRY
+};		
+assertActions(bottomActions);</code></pre>
+      <p></p>
       <h2></h2>
       <h3>JavaScript eval() no longer supported in JavaScript</h3>
       <p>If you have to write your own custom editors or views and you're using
