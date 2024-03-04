@@ -58,7 +58,7 @@ naviox.initModuleHeader = function(){
 	var closeIcons = document.querySelectorAll('.module_header_button .close-icon');
 	console.log("enter");
 	console.log(closeIcons);
-	closeIcons.forEach(function(icon) {
+	closeIcons.forEach(function(icon, index) {
 		icon.addEventListener('click', function() {
 			console.log("click");
 			var parentModule = icon.closest('.module_header_button');
@@ -67,9 +67,15 @@ naviox.initModuleHeader = function(){
 				if (selectedSibling) {
 					console.log("Hermano seleccionado encontrado!");
 					parentModule.hidden = true;
+					console.log(naviox.application);
+					console.log(naviox.module);
+					Module.closeModule(naviox.application, naviox.module, true, index);
 					//dwr y actualizar pagina
 				} else {
 					parentModule.hidden = true;
+					console.log(naviox.application);
+					console.log(naviox.module);
+					Module.closeModule(naviox.application, naviox.module, false, index);
 					//dwr
 				}
 			}

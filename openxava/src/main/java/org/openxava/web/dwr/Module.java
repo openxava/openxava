@@ -5,14 +5,12 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 import java.util.Collections;
-import java.util.prefs.*;
 
 import javax.servlet.http.*;
 import javax.swing.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.actions.*;
-import org.openxava.application.meta.*;
 import org.openxava.controller.*;
 import org.openxava.controller.meta.*;
 import org.openxava.jpa.*;
@@ -825,7 +823,8 @@ public class Module extends DWRBase {
 		return URLEncoder.encode(value.toString(), charsetName);
 	}
 	
-	public void closeModule(HttpServletRequest request, HttpServletResponse response, String application, String module, boolean isOpen, int i) throws BackingStoreException {
+	public void closeModule(HttpServletRequest request, HttpServletResponse response, String application, String module, boolean isOpen, int i) {
+		View view = getView(); // da problemas
 		try {
 			initRequest(request, response, application, module);
 			HttpSession session = ((HttpServletRequest) request).getSession();
@@ -834,26 +833,13 @@ public class Module extends DWRBase {
 			System.out.println(modules.getCurrent(request));
 			System.out.println(modules.getTopModules());
 			if (isOpen) {
-				modules.clearCurrent();
+				System.out.println("isOpen");
+				//View view = getView();
+				System.out.println(view.getModelName());
+				modules.removeCurrentModule(i, request, application, view);
 			} else {
-				String preferencesNodeName = "";
-				Collection<MetaApplication> apps = MetaApplications.getMetaApplications();
-				for (MetaApplication app: apps) {
-					preferencesNodeName = "naviox." + app.getName();
-					break;
-				}
-				System.out.println(preferencesNodeName);
-				Preferences pref = Users.getCurrentPreferences().node(preferencesNodeName);
-				String applicationName = pref.get("" + "application." + i, null);
-				String moduleName = pref.get("" + "module." + i, null);
-				System.out.println("key " + "" + "application." + i + " obtain " + applicationName);
-				System.out.println("key " + "" + "module." + i + " obtain " + moduleName);
-				pref.remove("" + "application." + i);
-				pref.remove("" + "module." + i);
-				System.out.println(pref.get("" + "module." + i, null));
-				//pref.get(prefix + "module." + i, module.getName())
+				modules.removeModule(i);
 				System.out.println(modules.getTopModules());
-				pref.flush();
 			}
 			
 		} finally {
