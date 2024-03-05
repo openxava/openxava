@@ -9,7 +9,7 @@ Change Log for OpenXava project
 - DWR engine tuned to remove the use of eval() in its JavaScript code.
 - DWR upgraded to 3.0.2.
 - has-type/has-annotation/has-stereotype in for-tabs of editors.xml to discriminate list formats by entity.
-- MySQL configuration documentation includes video.
+- MySQL and MS SQL Server configuration documentation includes video.
 - Documentation for database configuration improved to include schema/database creation.
 - Year navigation buttons added to calendar list format for fast year navigation to distant dates.
 - When several dates in an entity the user can choose which to use in calendar list format with a combo.
