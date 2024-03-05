@@ -76,7 +76,10 @@ public class ModulesMenuTest extends WebDriverTestBase {
 		}
 		//select second as current
 		boolean hasSelectedChild = !modulesList.get(1).findElements(By.className("selected")).isEmpty();
-		if (!hasSelectedChild) modulesList.get(1).findElement(By.tagName("a")).click();
+		if (!hasSelectedChild) {
+			modulesList.get(1).findElement(By.tagName("a")).click();
+			wait(getDriver());
+		}
 		modulesList = getDriver().findElements(By.className("module_header_button"));
 		String fourth = modulesList.get(3).findElement(By.tagName("a")).getText();
 		
