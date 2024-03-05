@@ -63,9 +63,9 @@ naviox.initModuleHeader = function() {
 				var module = icon.closest('.module_header_button');
 				var index = Array.prototype.indexOf.call(closeIconsList, icon);
 				if (module) {
-					var selectedSibling = module.querySelector('.selected');
+					var selected = module.querySelector('.selected');
 					Module.closeModule(naviox.application, naviox.module, index);
-					if (selectedSibling) {
+					if (selected) {
 						var nextElement = module.nextElementSibling || module.previousElementSibling;
 						if (nextElement) {
 							var link = nextElement.querySelector('a');
