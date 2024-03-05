@@ -98,7 +98,7 @@ public class ApplicantTest extends ModuleTestBase {
 		}
 	}
 	
-	public void testModulesOnTop_closeModulesOnTop() throws Exception {
+	public void testModulesOnTop() throws Exception {
 		modulesLimit = false;
 		resetModule();		
 		
