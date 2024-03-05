@@ -30,9 +30,6 @@
 
 
 
-
-
-
 if (typeof dwr == 'undefined') dwr = {};
 
 (function() {
@@ -368,8 +365,7 @@ dwr.engine._allowGetButMakeForgeryEasier = "false";
 
 dwr.engine._scriptTagProtection = "throw 'allowScriptTagRemoting is false.';";
 
-
-dwr.engine._pathToDwrServlet = "/openxavatest/dwr";
+dwr.engine._pathToDwrServlet = dwr.engine._contextPath + "/dwr"; 
 
 
 dwr.engine._overridePath = "";
@@ -381,8 +377,6 @@ dwr.engine._effectivePath = function() {
 return dwr.engine._overridePath || dwr.engine._pathToDwrServlet;
 };
 
-
-dwr.engine._contextPath = "/openxavatest";
 
 
 dwr.engine._overrideContextPath = "";
