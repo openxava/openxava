@@ -111,17 +111,41 @@ public class ModulesMenuTest extends WebDriverTestBase {
 	    
 	    //close all except 1,2
 	    modulesList = getDriver().findElements(By.className("module-header-tab"));
+	    System.out.println("antes");
+		if (modulesList.size() != 1) {
+		    for (WebElement module : modulesList) {
+		        System.out.println(module.getAttribute("outerHTML"));
+		    }
+		}
 	    for (int i =  modulesList.size(); i > 2; i--) {
+	    	System.out.println("se trat de eliminar");
+	    	System.out.println(modulesList.get(i-1).getAttribute("outerHTML"));
 	    	modulesList.get(i-1).findElement(By.className("close-icon")).click();
 	    }
-
-	    //close 2
+	    
+	    
+	  //force close to keep with two modules, close 2
 	    modulesList = getDriver().findElements(By.className("module-header-tab"));
+		if (modulesList.size() != 1) {
+			waitAndRefresh();
+			int i = getDriver().findElements(By.className("module-header-tab")).size();
+		    while (i > 2) {
+		    	modulesList.get(i-1).findElement(By.className("close-icon")).click();
+		    	i = getDriver().findElements(By.className("module-header-tab")).size();
+		    }
+		}
+	    
+		modulesList = getDriver().findElements(By.className("module-header-tab"));
 	    modulesList.get(1).findElement(By.className("close-icon")).click();
 	    waitAndRefresh();
 		
 		//close last one
 		modulesList = getDriver().findElements(By.className("module-header-tab"));
+		if (modulesList.size() != 1) {
+		    for (WebElement module : modulesList) {
+		        System.out.println(module.getAttribute("outerHTML"));
+		    }
+		}
 		assertTrue(modulesList.size() == 1);
 		modulesList.get(0).findElement(By.className("close-icon")).click();
 		waitAndRefresh();
