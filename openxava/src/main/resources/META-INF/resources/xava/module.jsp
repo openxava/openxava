@@ -127,7 +127,14 @@
 	}
 	%>	
 
-	<script type='text/javascript' src='<%=contextPath%>/xava/js/dwr-engine.js?ox=<%=version%>'></script>
+	<% if (request.getAttribute("xava.dwr.loaded") == null) { %>
+	<script type='text/javascript' <xava:nonce/>> 
+		if (typeof dwr == 'undefined') dwr = {};
+		if (!dwr.engine) dwr.engine = {};
+		dwr.engine._contextPath = "<%=contextPath%>";
+	</script>
+	<script type='text/javascript' src='<%=contextPath%>/xava/js/dwr-engine.js?ox=<%=version%>'></script>	
+	<% } %>
 	<script type='text/javascript' src='<%=contextPath%>/dwr/util.js?ox=<%=version%>'></script>
 	<script type='text/javascript' src='<%=contextPath%>/dwr/interface/Module.js?ox=<%=version%>'></script>
 	<script type='text/javascript' src='<%=contextPath%>/dwr/interface/Tab.js?ox=<%=version%>'></script>
