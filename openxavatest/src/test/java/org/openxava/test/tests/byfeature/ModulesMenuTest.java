@@ -109,22 +109,11 @@ public class ModulesMenuTest extends WebDriverTestBase {
 	    modulesList = getDriver().findElements(By.className("module-header-tab"));
 	    assertEquals(newThird , modulesList.get(1).findElement(By.tagName("span")).getText());
 	    
-	    //close all except 1,2
+	    //close all except 1,2 and force close
 	    modulesList = getDriver().findElements(By.className("module-header-tab"));
-	    System.out.println("antes");
-		if (modulesList.size() != 1) {
-		    for (WebElement module : modulesList) {
-		        System.out.println(module.getAttribute("outerHTML"));
-		    }
-		}
 	    for (int i =  modulesList.size(); i > 2; i--) {
-	    	System.out.println("se trat de eliminar");
-	    	System.out.println(modulesList.get(i-1).getAttribute("outerHTML"));
 	    	modulesList.get(i-1).findElement(By.className("close-icon")).click();
-	    }
-	    
-	    
-	  //force close to keep with two modules, close 2
+	    } 
 	    modulesList = getDriver().findElements(By.className("module-header-tab"));
 		if (modulesList.size() != 1) {
 			waitAndRefresh();
@@ -135,6 +124,7 @@ public class ModulesMenuTest extends WebDriverTestBase {
 		    }
 		}
 	    
+		//close 2
 		modulesList = getDriver().findElements(By.className("module-header-tab"));
 	    modulesList.get(1).findElement(By.className("close-icon")).click();
 	    waitAndRefresh();
