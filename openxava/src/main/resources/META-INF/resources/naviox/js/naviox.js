@@ -93,7 +93,7 @@ naviox.initModuleHeader = function() {
 				var module = $(icon).closest('.module-header-tab'); 
 				if (module.length) {
 					var selected = module.find('.selected');
-					Modules.closeModule(naviox.application, naviox.module, index);
+					Module.closeModule(naviox.application, naviox.module, index);
 					if (selected.length) {
 						console.log("selected");
 						var nextElement = module.next().length ? module.next() : module.prev();
