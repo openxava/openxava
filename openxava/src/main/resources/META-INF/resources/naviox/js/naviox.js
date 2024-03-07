@@ -55,12 +55,12 @@ naviox.initBookmark = function() {
 }
 
 naviox.initModuleHeader = function() {
-	var closeIcons = document.querySelectorAll('.module_header_button .close-icon');
+	var closeIcons = document.querySelectorAll('.module-header-tab .close-icon');
 	closeIcons.forEach(function(icon) {
 		icon.addEventListener('click', function() {
-			var closeIconsList = document.querySelectorAll('.module_header_button .close-icon');
+			var closeIconsList = document.querySelectorAll('.module-header-tab .close-icon');
 			if (closeIconsList.length !== 1) {
-				var module = icon.closest('.module_header_button');
+				var module = icon.closest('.module-header-tab');
 				var index = Array.prototype.indexOf.call(closeIconsList, icon);
 				if (module) {
 					var selected = module.querySelector('.selected');
@@ -74,7 +74,10 @@ naviox.initModuleHeader = function() {
 							}
 						}
 					}
-					module.remove();
+					module.classList.add('hidden');
+                    setTimeout(function() {
+                        module.remove();
+                    }, 500);
 				}
 			}
 		});
