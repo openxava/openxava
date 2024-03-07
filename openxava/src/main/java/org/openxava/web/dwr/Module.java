@@ -13,7 +13,6 @@ import org.apache.commons.logging.*;
 import org.openxava.actions.*;
 import org.openxava.controller.*;
 import org.openxava.controller.meta.*;
-import org.openxava.jpa.*;
 import org.openxava.model.meta.*;
 import org.openxava.util.*;
 import org.openxava.view.View;
@@ -820,7 +819,7 @@ public class Module extends DWRBase {
 		} 
 		return URLEncoder.encode(value.toString(), charsetName);
 	}
-	
+	/*
 	public void closeModule(HttpServletRequest request, HttpServletResponse response, String application, String module, int i) {
 		try {
 			initRequest(request, response, application, module);
@@ -832,6 +831,6 @@ public class Module extends DWRBase {
 			cleanRequest();
 			//ModuleManager.commit();
 		}
-	}
+	}*/
 			
 }

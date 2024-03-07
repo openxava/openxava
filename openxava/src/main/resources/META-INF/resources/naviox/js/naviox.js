@@ -96,14 +96,11 @@ naviox.initModuleHeader = function() {
 					var selected = module.find('.selected');
 					Module.closeModule(naviox.application, naviox.module, index);
 					if (selected.length) {
-						console.log("selected");
 						var nextElement = module.next().length ? module.next() : module.prev();
-						console.log(nextElement);
 						if (nextElement.length) {
-							var link = nextElement.find('a');
-							console.log(link);
-							if (link.length) {
-								link.get(0).click();
+							var aElement = nextElement.find('a');
+							if (aElement.length) {
+								aElement.get(0).click();
 							}
 						}
 					}
