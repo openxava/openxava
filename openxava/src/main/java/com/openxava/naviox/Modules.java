@@ -111,8 +111,13 @@ public class Modules implements Serializable {
 			System.out.println(topModules.size() >= MODULES_ON_TOP);
 			if (topModules.size() >= MODULES_ON_TOP) {
 				topModules.remove(topModules.size() - 1); 
-			}				
-			topModules.add(fixedModulesCount, current); 
+			}
+			if (fixedModulesCount > topModules.size()) {
+				topModules.add(current); 
+			} else { 
+				topModules.add(fixedModulesCount, current);  
+			}
+
 		}		
 		else if (!retainOrder && idx >= fixedModulesCount) { 
 			System.out.println("no retain order and idx  >= fixedModulesCount");

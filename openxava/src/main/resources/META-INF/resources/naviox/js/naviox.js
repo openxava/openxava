@@ -94,7 +94,7 @@ naviox.initModuleHeader = function() {
 				var index = closeIconsList.index(icon);
 				if (module.length) {
 					var selected = module.find('.selected');
-					Module.closeModule(naviox.application, naviox.module, index);
+					Modules.closeModule(naviox.application, naviox.module, index);
 					if (selected.length) {
 						var nextElement = module.next().length ? module.next() : module.prev();
 						if (nextElement.length) {
