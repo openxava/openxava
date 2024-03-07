@@ -462,8 +462,12 @@ public class Modules implements Serializable {
 	
 	/* @since 7.3 */
 	public void removeModule(int index) {
+		System.out.println(topModules);
 		topModules.remove(index);
+		System.out.println("delete " + topModules.get(index).getDescription());
+		System.out.println(topModules);
 		storeTopModules();
+		System.out.println("end");
 	}
 
 }
