@@ -127,6 +127,14 @@ public class ModulesMenuTest extends WebDriverTestBase {
 		waitAndRefresh();
 		modulesList = getDriver().findElements(By.className("module-header-tab"));
 		assertTrue(modulesList.size() == 1);
+		
+		//open new module
+		WebElement animal = getDriver().findElement(By.id("Animal_module"));
+		JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+        executor.executeScript("arguments[0].click();", animal);
+		waitAndRefresh();
+		modulesList = getDriver().findElements(By.className("module-header-tab"));
+		assertTrue(modulesList.size() == 2);
 	}
 	
 	private void waitAndRefresh() throws Exception {
