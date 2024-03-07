@@ -53,7 +53,7 @@ naviox.initBookmark = function() {
 		naviox.bookmark();
 	});
 }
-
+/*
 naviox.initModuleHeader = function() {
 	var closeIcons = document.querySelectorAll('.module-header-tab .close-icon');
 	closeIcons.forEach(function(icon) {
@@ -64,7 +64,7 @@ naviox.initModuleHeader = function() {
 				var index = Array.prototype.indexOf.call(closeIconsList, icon);
 				if (module) {
 					var selected = module.querySelector('.selected');
-					Module.closeModule(naviox.application, naviox.module, index);
+					Modules.closeModule(naviox.application, naviox.module, index);
 					if (selected) {
 						var nextElement = module.nextElementSibling || module.previousElementSibling;
 						if (nextElement) {
@@ -77,6 +77,38 @@ naviox.initModuleHeader = function() {
 					module.classList.add('hidden');
                     setTimeout(function() {
                         module.remove();
+                    }, 500);
+				}
+			}
+		});
+	});
+}*/
+
+naviox.initModuleHeader = function() {
+	var closeIcons = $('.module-header-tab .close-icon'); 
+	closeIcons.each(function(index, icon) { 
+		$(icon).on('click', function() { 
+			var closeIconsList = $('.module-header-tab .close-icon'); 
+			if (closeIconsList.length !== 1) {
+				var module = $(icon).closest('.module-header-tab'); 
+				if (module.length) {
+					var selected = module.find('.selected');
+					Modules.closeModule(naviox.application, naviox.module, index);
+					if (selected.length) {
+						console.log("selected");
+						var nextElement = module.next().length ? module.next() : module.prev();
+						console.log(nextElement);
+						if (nextElement.length) {
+							var link = nextElement.find('a');
+							console.log(link);
+							if (link.length) {
+								link.get(0).click();
+							}
+						}
+					}
+					module.addClass('hidden');
+                    setTimeout(function() {
+                        module.get(0).remove();
                     }, 500);
 				}
 			}

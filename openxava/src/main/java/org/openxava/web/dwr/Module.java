@@ -13,14 +13,11 @@ import org.apache.commons.logging.*;
 import org.openxava.actions.*;
 import org.openxava.controller.*;
 import org.openxava.controller.meta.*;
-import org.openxava.jpa.*;
 import org.openxava.model.meta.*;
 import org.openxava.util.*;
 import org.openxava.view.View;
 import org.openxava.web.*;
 import org.openxava.web.servlets.*;
-
-import com.openxava.naviox.*;
 
 /**
  * For accessing to module execution from DWR. <p>
@@ -821,18 +818,6 @@ public class Module extends DWRBase {
 			charsetName = XSystem.getEncoding();
 		} 
 		return URLEncoder.encode(value.toString(), charsetName);
-	}
-	
-	public void closeModule(HttpServletRequest request, HttpServletResponse response, String application, String module, int i) {
-		try {
-			initRequest(request, response, application, module);
-			HttpSession session = ((HttpServletRequest) request).getSession();
-			Modules modules = (Modules) session.getAttribute("modules");
-			modules.removeModule(i);
-		} finally {
-			XPersistence.commit();
-			cleanRequest();
-		}
 	}
 			
 }

@@ -65,14 +65,14 @@ public class ModulesMenuTest extends WebDriverTestBase {
 	
 	public void testCloseModule() throws Exception {
 		goModule("Invoice");
-		List<WebElement> modulesList = getDriver().findElements(By.className("module_header_button"));
+		List<WebElement> modulesList = getDriver().findElements(By.className("module-header-tab"));
 		//5 modules at least
 		if (modulesList.size() < 5) {
 			goModule("Order");
 			goModule("Appointment");
 			goModule("Artist");
 			goModule("Article");
-			modulesList = getDriver().findElements(By.className("module_header_button"));
+			modulesList = getDriver().findElements(By.className("module-header-tab"));
 		}
 		//select second as current
 		boolean hasSelectedChild = !modulesList.get(1).findElements(By.className("selected")).isEmpty();
@@ -80,7 +80,7 @@ public class ModulesMenuTest extends WebDriverTestBase {
 			modulesList.get(1).findElement(By.tagName("a")).click();
 			wait(getDriver());
 		}
-		modulesList = getDriver().findElements(By.className("module_header_button"));
+		modulesList = getDriver().findElements(By.className("module-header-tab"));
 		String fourth = modulesList.get(3).findElement(By.tagName("a")).getText();
 		
 		//close third
@@ -90,42 +90,42 @@ public class ModulesMenuTest extends WebDriverTestBase {
 		wait(getDriver());
 		
 		//close fourth
-		modulesList = getDriver().findElements(By.className("module_header_button"));
+		modulesList = getDriver().findElements(By.className("module-header-tab"));
 		assertTrue(modulesList.get(2).findElement(By.tagName("a")).getText().equals(fourth));
 		modulesList.get(2).findElement(By.className("close-icon")).click();
 		getDriver().navigate().refresh();
 		wait(getDriver());
 		
 		//assert new third(five). close second, new second is five
-		modulesList = getDriver().findElements(By.className("module_header_button"));
+		modulesList = getDriver().findElements(By.className("module-header-tab"));
 		assertFalse(modulesList.get(2).findElement(By.tagName("a")).getText().equals(fourth));
 		String newThird = modulesList.get(2).findElement(By.tagName("a")).getText();
 		modulesList.get(1).findElement(By.className("close-icon")).click();
 		waitAndRefresh();
 		
-		modulesList = getDriver().findElements(By.className("module_header_button"));
+		modulesList = getDriver().findElements(By.className("module-header-tab"));
 		hasSelectedChild = !modulesList.get(1).findElements(By.className("selected")).isEmpty();
 	    assertTrue(hasSelectedChild);
-	    modulesList = getDriver().findElements(By.className("module_header_button"));
+	    modulesList = getDriver().findElements(By.className("module-header-tab"));
 	    assertEquals(newThird , modulesList.get(1).findElement(By.tagName("span")).getText());
 	    
 	    //close all except 1,2
-	    modulesList = getDriver().findElements(By.className("module_header_button"));
+	    modulesList = getDriver().findElements(By.className("module-header-tab"));
 	    for (int i =  modulesList.size(); i > 2; i--) {
 	    	modulesList.get(i-1).findElement(By.className("close-icon")).click();
 	    }
 
 	    //close 2
-	    modulesList = getDriver().findElements(By.className("module_header_button"));
+	    modulesList = getDriver().findElements(By.className("module-header-tab"));
 	    modulesList.get(1).findElement(By.className("close-icon")).click();
 	    waitAndRefresh();
 		
 		//close last one
-		modulesList = getDriver().findElements(By.className("module_header_button"));
+		modulesList = getDriver().findElements(By.className("module-header-tab"));
 		assertTrue(modulesList.size() == 1);
 		modulesList.get(0).findElement(By.className("close-icon")).click();
 		waitAndRefresh();
-		modulesList = getDriver().findElements(By.className("module_header_button"));
+		modulesList = getDriver().findElements(By.className("module-header-tab"));
 		assertTrue(modulesList.size() == 1);
 	}
 	
