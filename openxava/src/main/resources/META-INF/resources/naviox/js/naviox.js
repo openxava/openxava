@@ -87,10 +87,11 @@ naviox.initModuleHeader = function() {
 naviox.initModuleHeader = function() {
 	var closeIcons = $('.module-header-tab .close-icon'); 
 	closeIcons.each(function(index, icon) { 
-		$(icon).on('click', function() { 
+		$(icon).on('click', function() {
 			var closeIconsList = $('.module-header-tab .close-icon'); 
-			if (closeIconsList.length !== 1) {
+			if (closeIconsList.length !== 1) {	
 				var module = $(icon).closest('.module-header-tab'); 
+				var index = closeIconsList.index(icon);
 				if (module.length) {
 					var selected = module.find('.selected');
 					Module.closeModule(naviox.application, naviox.module, index);
