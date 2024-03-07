@@ -99,16 +99,11 @@ public class Modules implements Serializable {
 
 
 	public void setCurrent(HttpServletRequest request, String application, String module) { 
-		System.out.println(module);
 		this.current = MetaModuleFactory.create(application, module);
 		if (topModules == null) loadTopModules(request);	
-		System.out.println(topModules);
 		int idx = indexOf(topModules, current);
 		boolean retainOrder = "true".equals(request.getParameter("retainOrder")); 
-		System.out.println(retainOrder);
-		System.out.println(idx);
 		if (idx < 0) {
-			System.out.println(topModules.size() >= MODULES_ON_TOP);
 			if (topModules.size() >= MODULES_ON_TOP) {
 				topModules.remove(topModules.size() - 1); 
 			}
@@ -120,7 +115,6 @@ public class Modules implements Serializable {
 
 		}		
 		else if (!retainOrder && idx >= fixedModulesCount) { 
-			System.out.println("no retain order and idx  >= fixedModulesCount");
 			topModules.remove(idx);
 			topModules.add(fixedModulesCount, current); 
 		}
