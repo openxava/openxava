@@ -1,0 +1,108 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>OpenXava - SSO con Azure AD</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span>Seguridad web (OWASP)</h1>
+      <em></em></div>
+    <div class="wiki" style="display: block;">Desde OpenXava 7.3 tus
+      aplicaciones pueden cumplir con <a href="https://owasp.org/www-project-top-ten/">OWASP
+        Top Ten</a>, lo que significa contar con los máximos estándares de
+      seguridad para aplicaciones web. De hecho, OpenXava pasa la prueba de
+      seguridad web <a href="https://www.zaproxy.org/">ZAP</a> de OWASP al
+      100%, sin ninguna alerta de nivel crítico, medio o bajo. </div>
+    <div class="wiki" style="display: block;">Esto no significa que las
+      aplicaciones hechas con OpenXava sean automáticamente seguras o cumplan
+      automáticamente con el OWASP Top Ten, porque tu propio código podría ser
+      vulnerable, podrías usar librerías propias vulnerables, podrías no
+      configurar correctamente tu servidor de aplicaciones o desactivar alguna
+      característica de seguridad de OpenXava. Por eso, es importante que pases
+      tu mismo la prueba ZAP sobre tu aplicación, o incluso contrates a un
+      auditor de seguridad para que verifique la seguridad de tu aplicación y el
+      cumplimientos de los estándares requeridos.<br>
+      <h2>Configuración del Tomcat</h2>
+      Cuando ejecutas tu aplicación en desarrollo, OpenXava usa un Tomcat
+      embebido configurado para cumplir con todos los requisitos de seguridad
+      necesarios para pasar el ZAP. Sin embargo, cuando generas un WAR y lo
+      despliegas en tu Tomcat de producción, puede que tu aplicación no sea
+      completamente segura, ni pase el ZAP, por causa de la configuración del
+      Tomcat. </div>
+    <div class="wiki" style="display: block;">Para que tu aplicación sea segura
+      en producción tienes que configurar tu Tomcat para tener en cuenta:</div>
+    <div class="wiki" style="display: block;">
+      <ul>
+        <li>Configuración de la cookies: Same Site Cookies debería ser Strict.</li>
+        <li>Las páginas de error 404 y 500 deberían ser simples, sin mostrar la
+          traza de error ni que se está usando Tomcat ni su versión.</li>
+        <li>La aplicación ROOT debería de devolver NOT FOUND para /robots.txt,
+          /sitemap.xml, /favicon.ico y /naviox/*.</li>
+      </ul>
+    </div>
+    <div class="wiki" style="display: block;">Para eso...</div>
+    <div class="wiki" style="display: block;">Finalmente deberías descargar el <a
+        href="https://www.zaproxy.org/">ZAP</a> y pasarlo sobre tu aplicación
+      desplegada en tu Tomcat.</div>
+    <div class="wiki" style="display: block;">
+      <h2>Desactivar la seguridad web<br>
+      </h2>
+      No es buena idea desactivar la seguridad, pero si tu aplicación no
+      requiere cumplir una normativa de seguridad estricta y va a ser ejecutada
+      en un entorno seguro, puede haber ocasiones en que sea conveninente
+      desactivar la seguridad web total o parcialmente. Esto puede ser necesario
+      si tenemos mucho código web propio antiguo que no sigue las buenas
+      prácticas de seguridad o si usamos librerías de tercero que tampoco la
+      cumplen.</div>
+    <div class="wiki" style="display: block;">En concreto OpenXava, desde la
+      versión 7.3, tiene una Content Security Policy (CSP) estricta. Esto quiere
+      decir que se le instruye al navegador para que no haga cosas que pueden
+      ser peligrosas, en potencia. Lo cual a su vez restringe las cosas que se
+      pueden usar.</div>
+    <div class="wiki" style="display: block;">Por ejemplo, solo se pueden
+      descargar imágenes, scripts, CSSs o abrir frames provenientes de&nbsp; la
+      misma dirección desde donde se ha descargado la aplicación. Si necesitamos
+      descargar recursos desde otro sitio, se puede hacer añadiendo las
+      propiedades <i>trustedHostsForImages, trustedHostsForScripts,
+        trustedHostsForStyles</i> y <i>trustedHostsForFrames</i> en el archivo
+      <i>xava.properties</i> de nuestro proyecto, como en este ejemplo:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="properties">trustedHostsForImages=https://openxava.org/
+trustedHostsForScripts=https://openxava.org/
+trustedHostsForStyles=https://openxava.org/
+trustedHostsForFrames=https://openxava.org/
+</code></pre> </div>
+    <div class="wiki" style="display: block;">En este ejemplo está permitido
+      descar imagenes, JavaScript, CSSs y abrir iframes desde openxava.org. Usar
+      estas propiedades no es peligroso si la direcciones que ponemos son de
+      confianza. Podemos poner varias separadas por comas.</div>
+    <div class="wiki" style="display: block;">Por otra parte, por defecto la CSP
+      está configurada para no permitir el uso de <i>eval()</i> en JavaScript,
+      si tenemos código propio que usa <i>eval()</i> o una librería de terceros
+      que lo necesite, podemos habilitar el uso de <i>eval()</i> con la
+      siguiente línea en <i>xava.properties</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="properties">unsafeEvalInScripts=true</code></pre>
+    </div>
+    <div class="wiki" style="display: block;">Habilitar el uso de eval() es
+      peligroso siempre, por eso esto debería ser una medida temporal y tendrías
+      que ir pensando en reescribir tu código para no usar <i>eval()</i> o
+      actualizar la librería de JavaScript correspondiente.</div>
+    <div class="wiki" style="display: block;">Además, la cabecera de Content
+      Security Policy (CSP) se puede desactivar completamente. Añade a <i>xava.properties</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="properties">turnOffWebSecurity=true</code></pre>
+    </div>
+    <div class="wiki" style="display: block;">Hacer esto es una forma rápida de
+      ver tu aplicación funcionando si has actualizado a la versión 7.3+ desde
+      una version antigua de OpenXava, pero constituye un riesgo de seguridad
+      importante, porque la CSP estricta es lo que permite inhibir la mayor
+      parte de los riesgos de seguridad.</div>
+  </body>
+</html>
