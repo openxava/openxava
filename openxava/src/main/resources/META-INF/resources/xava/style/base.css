@@ -2920,21 +2920,21 @@ a[data-action="Collection.previous"] {
 }
 
 .module-header-tab .close-icon.unselected-module {
-  position: relative;
-  cursor: pointer;
   right: 5px;
 }
 
 .module-header-tab .close-icon {
   cursor: pointer;
+  top: 1px;
+  position: relative;
 }
 
 .close-icon:hover::after {
   content: '';
   position: absolute;
-  transform: translate(-100%, 0%);
-  width: 100%; 
-  height: 100%; 
+  transform: translate(-95%, -5%);
+  width: 110%; 
+  height: 110%; 
   border-radius: 50%; 
   background-color: rgba(128, 128, 128, 0.5); 
   transition: background-color 0.3s ease; 
