@@ -4,6 +4,8 @@ import java.util.*;
 
 import org.openqa.selenium.*;
 
+import com.openxava.naviox.util.*;
+
 /**
  * To test left modules list menu related issues with Selenium.
  * 
@@ -100,14 +102,15 @@ public class ModulesMenuTest extends WebDriverTestBase {
 		
 		//assert new fourth(five), close it
 		modulesList = getDriver().findElements(By.className("module-header-tab"));
+		String href = modulesList.get(1).findElement(By.tagName("a")).getAttribute("href");
+		String second = href.substring(href.indexOf("/m/")+3, href.indexOf("?"));
 		assertTrue(modulesList.get(2).findElement(By.tagName("span")).getText().equals(fifth));
 		modulesList.get(2).findElement(By.className("close-icon")).click();
 		waitAndRefresh();
 		
 		//assert fixModules can't close
 		modulesList = getDriver().findElements(By.className("module-header-tab"));
-		hasSelectedChild = !modulesList.get(1).findElements(By.className("selected")).isEmpty();
-	    assertTrue(hasSelectedChild);
+		assertTrue(NaviOXPreferences.getInstance().getFixModulesOnTopMenu().contains(second));
 	    assertTrue(modulesList.get(1).findElements(By.className("close-icon")).isEmpty());
 	}
 	
