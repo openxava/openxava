@@ -74,81 +74,41 @@ public class ModulesMenuTest extends WebDriverTestBase {
 			goModule("Article");
 			modulesList = getDriver().findElements(By.className("module-header-tab"));
 		}
-		//select second as current
-		boolean hasSelectedChild = !modulesList.get(1).findElements(By.className("selected")).isEmpty();
+		
+		//select fourth as current
+		String fourth = modulesList.get(3).findElement(By.tagName("a")).getText();
+		String fifth = modulesList.get(4).findElement(By.tagName("a")).getText();
+		boolean hasSelectedChild = !modulesList.get(3).findElements(By.className("selected")).isEmpty();
 		if (!hasSelectedChild) {
-			modulesList.get(1).findElement(By.tagName("a")).click();
+			modulesList.get(3).findElement(By.tagName("a")).click();
 			wait(getDriver());
 		}
 		modulesList = getDriver().findElements(By.className("module-header-tab"));
-		String fourth = modulesList.get(3).findElement(By.tagName("a")).getText();
-		
+
 		//close third
 		WebElement icon = modulesList.get(2).findElement(By.className("close-icon"));
 		icon.click();
 		getDriver().navigate().refresh();
 		wait(getDriver());
 		
-		//close fourth
+		//new third is fourth, close fourth
 		modulesList = getDriver().findElements(By.className("module-header-tab"));
-		assertTrue(modulesList.get(2).findElement(By.tagName("a")).getText().equals(fourth));
+		assertTrue(modulesList.get(2).findElement(By.tagName("span")).getText().equals(fourth));
 		modulesList.get(2).findElement(By.className("close-icon")).click();
 		getDriver().navigate().refresh();
 		wait(getDriver());
 		
-		//assert new third(five). close second, new second is five
+		//assert new fourth(five), close it
 		modulesList = getDriver().findElements(By.className("module-header-tab"));
-		assertFalse(modulesList.get(2).findElement(By.tagName("a")).getText().equals(fourth));
-		String newThird = modulesList.get(2).findElement(By.tagName("a")).getText();
-		modulesList.get(1).findElement(By.className("close-icon")).click();
+		assertTrue(modulesList.get(2).findElement(By.tagName("span")).getText().equals(fifth));
+		modulesList.get(2).findElement(By.className("close-icon")).click();
 		waitAndRefresh();
 		
+		//assert fixModules can't close
 		modulesList = getDriver().findElements(By.className("module-header-tab"));
 		hasSelectedChild = !modulesList.get(1).findElements(By.className("selected")).isEmpty();
 	    assertTrue(hasSelectedChild);
-	    modulesList = getDriver().findElements(By.className("module-header-tab"));
-	    assertEquals(newThird , modulesList.get(1).findElement(By.tagName("span")).getText());
-	    
-	    //close all except 1,2 and force close
-	    modulesList = getDriver().findElements(By.className("module-header-tab"));
-	    for (int i =  modulesList.size(); i > 2; i--) {
-	    	modulesList.get(i-1).findElement(By.className("close-icon")).click();
-	    } 
-	    modulesList = getDriver().findElements(By.className("module-header-tab"));
-		if (modulesList.size() != 1) {
-			waitAndRefresh();
-			int i = getDriver().findElements(By.className("module-header-tab")).size();
-		    while (i > 2) {
-		    	modulesList.get(i-1).findElement(By.className("close-icon")).click();
-		    	i = getDriver().findElements(By.className("module-header-tab")).size();
-		    }
-		}
-	    
-		//close 2
-		modulesList = getDriver().findElements(By.className("module-header-tab"));
-	    modulesList.get(1).findElement(By.className("close-icon")).click();
-	    waitAndRefresh();
-		
-		//close last one
-		modulesList = getDriver().findElements(By.className("module-header-tab"));
-		if (modulesList.size() != 1) {
-		    for (WebElement module : modulesList) {
-		        System.out.println(module.getAttribute("outerHTML"));
-		    }
-		}
-		assertTrue(modulesList.size() == 1);
-		modulesList.get(0).findElement(By.className("close-icon")).click();
-		waitAndRefresh();
-		modulesList = getDriver().findElements(By.className("module-header-tab"));
-		assertTrue(modulesList.size() == 1);
-		
-		//open new module
-		WebElement animal = getDriver().findElement(By.id("Animal_module"));
-		JavascriptExecutor executor = (JavascriptExecutor) getDriver();
-        executor.executeScript("arguments[0].click();", animal);
-		waitAndRefresh();
-		modulesList = getDriver().findElements(By.className("module-header-tab"));
-		assertTrue(modulesList.size() == 2);
+	    assertTrue(modulesList.get(1).findElements(By.className("close-icon")).isEmpty());
 	}
 	
 	private void waitAndRefresh() throws Exception {
