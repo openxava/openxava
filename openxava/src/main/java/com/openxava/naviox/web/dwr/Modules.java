@@ -94,6 +94,7 @@ public class Modules {
 		}		
 	}
 	
+	/* @since 7.3 */
 	public void closeModule(HttpServletRequest request, HttpServletResponse response, String application, String module, int i) {
 		try {
 			HttpSession session = ((HttpServletRequest) request).getSession();
