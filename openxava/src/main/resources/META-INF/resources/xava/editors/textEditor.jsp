@@ -60,16 +60,7 @@ if (im.length() > 1) {
 
 boolean email = "true".equals(request.getParameter("email"));
 if (email) {
-	im = "data-inputmask=\"'mask': '*{1,50}@*{1,50}.*{1,10}'\"";
-}
-
-if (editable) {
-	Enumeration<String> parameterNames = request.getParameterNames();
-	while(parameterNames.hasMoreElements()) {
-            String paramName = parameterNames.nextElement();
-            String paramValue = request.getParameter(paramName);
-            out.println(paramName + " = " + paramValue + "<br>");
-        }
+	im = "data-inputmask=\"'mask': '*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{1,10}][.*{1,2}]'\"";
 }
     
 if (editable || !label) { 
