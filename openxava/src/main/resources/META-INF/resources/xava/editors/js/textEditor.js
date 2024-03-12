@@ -20,7 +20,11 @@ openxava.addEditorInitFunction(function() {
         },
         '#': {
             validator: "[0-9 +-]"
-        }
+        },
+		'*': {
+			validator: "[0-9A-Za-z!#$%&'*+/=?^_`{|}~\-]",
+			casing: "lower"
+		}
     });
 
 });
