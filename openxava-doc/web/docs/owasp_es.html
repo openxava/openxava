@@ -47,7 +47,65 @@
       </ul>
     </div>
     <div class="wiki" style="display: block;">Para eso...</div>
-    <div class="wiki" style="display: block;">Finalmente deberías descargar el <a
+    <div class="wiki" style="display: block;">En aplicación, en web.xml añadir:
+      No hace falta si creado después de v3. <b>TENGO QUE PONERLO EN ARQUETIPOS</b>.</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;error-page&gt;
+    &lt;error-code&gt;404&lt;/error-code&gt;
+    &lt;location&gt;/WEB-INF/error404.html&lt;/location&gt;
+&lt;/error-page&gt;
+&lt;error-page&gt;
+    &lt;error-code&gt;500&lt;/error-code&gt;
+    &lt;location&gt;/WEB-INF/error500.html&lt;/location&gt;
+&lt;/error-page&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">No hace falta crear error404.html
+      ni error500.html, porque están en openxava.org. </div>
+    <div class="wiki" style="display: block;">En aplicación,en context.xml,
+      añadir: No hace falta si creado después de v3. <b>TENGO QUE PONERLO EN
+        ARQUETIPOS</b>.</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;Context&gt;
+    &lt;JarScanner scanClassPath="false" /&gt;
+    &lt;CookieProcessor sameSiteCookies="lax" /&gt; &lt;!-- AÑADIR ESTA LÍNEA --&gt;
+  
+    ...
+</code></pre> </div>
+    <div class="wiki" style="display: block;">En la aplicación ROOT:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">import java.io.*;
+import javax.servlet.*;
+import javax.servlet.annotation.*;
+import javax.servlet.http.*;
+
+@WebFilter("/*") 
+public class ContentSecurityPolicyFilter implements Filter {
+	
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        httpResponse.setHeader("Content-Security-Policy", "default-src 'self'; frame-ancestors 'self'; form-action 'self';");
+        httpResponse.setHeader("X-Content-Type-Options", "nosniff");
+        chain.doFilter(request, response);
+    }
+	
+    public void init(FilterConfig cfg) throws ServletException { // For Tomcat 8.x
+    }
+	
+    public void destroy() { // For Tomcat 8.x
+    }
+	
+}
+</code></pre> </div>
+    <div class="wiki" style="display: block;">FFFPara que reconozca el filtro en
+      web.xml de ROOT:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;web-app 
+    ...
+    metadata-complete="false"&gt;
+    
+    ...
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Finalmente deberías descargar el <a
         href="https://www.zaproxy.org/">ZAP</a> y pasarlo sobre tu aplicación
       desplegada en tu Tomcat.</div>
     <div class="wiki" style="display: block;">
