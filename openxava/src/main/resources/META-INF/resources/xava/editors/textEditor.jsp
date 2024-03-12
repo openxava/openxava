@@ -9,6 +9,8 @@
 <%@ page import="org.apache.commons.logging.LogFactory" %>
 <%@ page import="org.apache.commons.logging.Log" %>
 
+<%@ page import="java.util.Enumeration" %>
+
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
@@ -54,6 +56,20 @@ if (im.length() > 1) {
     size = im.length();
     maxLength= im.length();
     im = "data-inputmask=\"'mask': '" + im + "'\"";
+}
+
+boolean email = "true".equals(request.getParameter("email"));
+if (email) {
+	im = "data-inputmask=\"'mask': '*{1,50}@*{1,50}.*{1,10}'\"";
+}
+
+if (editable) {
+	Enumeration<String> parameterNames = request.getParameterNames();
+	while(parameterNames.hasMoreElements()) {
+            String paramName = parameterNames.nextElement();
+            String paramValue = request.getParameter(paramName);
+            out.println(paramName + " = " + paramValue + "<br>");
+        }
 }
     
 if (editable || !label) { 
