@@ -148,7 +148,7 @@
 	</editor>
 	
 	<editor name="Email" url="textEditor.jsp">
-		<property name="email" value="true" />
+		<property name="email" value="true"/>
         <for-stereotype stereotype="EMAIL"/>
         <for-stereotype stereotype="EMAIL_LIST"/>
         <for-annotation annotation="javax.validation.constraints.Email"/> 

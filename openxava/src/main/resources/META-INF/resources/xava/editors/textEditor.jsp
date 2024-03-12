@@ -9,8 +9,6 @@
 <%@ page import="org.apache.commons.logging.LogFactory" %>
 <%@ page import="org.apache.commons.logging.Log" %>
 
-<%@ page import="java.util.Enumeration" %>
-
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
