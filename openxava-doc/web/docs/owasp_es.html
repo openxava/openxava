@@ -23,32 +23,31 @@
       aplicaciones hechas con OpenXava sean automáticamente seguras o cumplan
       automáticamente con el OWASP Top Ten, porque tu propio código podría ser
       vulnerable, podrías usar librerías propias vulnerables, podrías no
-      configurar correctamente tu servidor de aplicaciones o desactivar alguna
-      característica de seguridad de OpenXava. Por eso, es importante que pases
-      tu mismo la prueba ZAP sobre tu aplicación, o incluso contrates a un
-      auditor de seguridad para que verifique la seguridad de tu aplicación y el
-      cumplimientos de los estándares requeridos.<br>
-      <h2>Configuración del Tomcat</h2>
+      configurar correctamente tu aplicación, no configurar correctamente tu
+      servidor de aplicaciones o desactivar alguna característica de seguridad
+      de OpenXava. Por eso, es importante que pases tu mismo la prueba ZAP sobre
+      tu aplicación, o incluso contrates a un auditor de seguridad para que
+      verifique la seguridad de tu aplicación y el cumplimientos de los
+      estándares requeridos.<br>
+      <h2>Configurar tu aplicación</h2>
       Cuando ejecutas tu aplicación en desarrollo, OpenXava usa un Tomcat
       embebido configurado para cumplir con todos los requisitos de seguridad
       necesarios para pasar el ZAP. Sin embargo, cuando generas un WAR y lo
       despliegas en tu Tomcat de producción, puede que tu aplicación no sea
-      completamente segura, ni pase el ZAP, por causa de la configuración del
-      Tomcat. </div>
-    <div class="wiki" style="display: block;">Para que tu aplicación sea segura
-      en producción tienes que configurar tu Tomcat para tener en cuenta:</div>
+      completamente segura, ni pase el ZAP, tienes que configurar algunos
+      detalles. </div>
     <div class="wiki" style="display: block;">
-      <ul>
-        <li>Configuración de la cookies: Same Site Cookies debería ser Strict.</li>
-        <li>Las páginas de error 404 y 500 deberían ser simples, sin mostrar la
-          traza de error ni que se está usando Tomcat ni su versión.</li>
-        <li>La aplicación ROOT debería de devolver NOT FOUND para /robots.txt,
-          /sitemap.xml, /favicon.ico y /naviox/*.</li>
-      </ul>
+      <h3>Páginas de error</h3>
     </div>
-    <div class="wiki" style="display: block;">Para eso...</div>
-    <div class="wiki" style="display: block;">En aplicación, en web.xml añadir:
-      No hace falta si creado después de v3. <b>TENGO QUE PONERLO EN ARQUETIPOS</b>.</div>
+    <div class="wiki" style="display: block;">Para pasar el ZAP las páginas de
+      error no pueden ofrecer información sobre el servidor que se está usando y
+      menos aún visualizar una traza de error. Cuando arrancas la aplicación
+      desde el Tomcat embebido para desarrollo ya está configurada para ofrecer
+      páginas de error seguros. También si tu aplicación fue creada con OpenXava
+      7.3 o superior, las páginas de error ya vienen bienconfiguradas. Pero si
+      tu aplicación la creates con un OpenXava anterior a v7.3 y estás
+      desplegando un WAR en un Tomcat, tendrás que añadir lo siguiente en el <i>web.xml</i>
+      de tu aplicación, que está situado en <i>src/main/webapp/WEB-INF</i>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="xml">&lt;error-page&gt;
     &lt;error-code&gt;404&lt;/error-code&gt;
@@ -59,11 +58,17 @@
     &lt;location&gt;/WEB-INF/error500.html&lt;/location&gt;
 &lt;/error-page&gt;
 </code></pre> </div>
-    <div class="wiki" style="display: block;">No hace falta crear error404.html
-      ni error500.html, porque están en openxava.org. </div>
-    <div class="wiki" style="display: block;">En aplicación,en context.xml,
-      añadir: No hace falta si creado después de v3. <b>TENGO QUE PONERLO EN
-        ARQUETIPOS</b>.</div>
+    <div class="wiki" style="display: block;">No hace falta crear <i>error404.html</i>
+      ni <i>error500.html</i>, porque están incluidos en openxava.jar.</div>
+    <div class="wiki" style="display: block;">
+      <h3>Same site cookies</h3>
+    </div>
+    <div class="wiki" style="display: block;">Lo mismo ocurre con la
+      configuración de las cookies. Si usas el Tomcat embebido o tu aplicación
+      fue creada con v7.3+ no hay problema, pero en caso contrario has de de
+      definir Same Site Cookies como Lax en el context.xml, situado en
+      src/main/webapp/META-INF. Añade la entrada <i>&lt;CookieProcessor
+        sameSiteCookies="lax" /&gt;</i>, como ves aquí:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="xml">&lt;Context&gt;
     &lt;JarScanner scanClassPath="false" /&gt;
@@ -71,7 +76,21 @@
   
     ...
 </code></pre> </div>
-    <div class="wiki" style="display: block;">En la aplicación ROOT:</div>
+    <div class="wiki" style="display: block;">
+      <h2>Configurar aplicación ROOT</h2>
+      El test ZAP además de analizar la URL la aplicación que le indicas,
+      también hace algunas comprobaciones en el contexto raíz de donde está
+      desplegada tu aplicación. El contexto raíz en el Tomcat lo define la
+      aplicación ROOT, si no tienes control sobre la aplicación ROOT o no te
+      importa ignorar las indicaciones que te haga el ZAP sobre el contexto
+      raíz, no hace falta que hagas nada. Ahora bien, si quieres pasar el ZAP al
+      100% con tu WAR desplegado en el Tomcat tendrás que asegurarte de que
+      aplicación raíz genere cabeceras CSP y la cabecera X-Content-Type-Options.
+    </div>
+    <div class="wiki" style="display: block;">Por desgracia, no hay una forma
+      rápida de configurar el Tomcat para esto. Tendrás que escribir el código
+      de un filtro que genere esas cabeceras. El siguiente código te puede
+      servir:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">import java.io.*;
 import javax.servlet.*;
@@ -96,8 +115,15 @@ public class ContentSecurityPolicyFilter implements Filter {
 	
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">FFFPara que reconozca el filtro en
-      web.xml de ROOT:</div>
+    <div class="wiki" style="display: block;">Compila la clase y déjala dentro
+      de <i>webapps/ROOT/WEB-INF/classes</i> de tu Tomcat, en la misma
+      estructura de carpeta del paquete en que hayas escrito la clase. Es decir,
+      si la clase están en el paquete <i>com.tuempresa.raiz.filtros</i> el <i>ContentSecurityPolicyFilter.class</i>
+      deberías dejarlo en la carpeta <i>webapps/ROOT/WEB-INF/classes/com/tuempresa/raiz/filtros</i>
+      de tu Tomcat.</div>
+    <div class="wiki" style="display: block;">Para que reconozca el filtro
+      tienes que asegurarte de que <i>metadata-complete</i> sea false en <i>web.xml</i>
+      de ROOT:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="xml">&lt;web-app 
     ...
@@ -105,7 +131,9 @@ public class ContentSecurityPolicyFilter implements Filter {
     
     ...
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Finalmente deberías descargar el <a
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">Finalmente deberías descargar el <a
         href="https://www.zaproxy.org/">ZAP</a> y pasarlo sobre tu aplicación
       desplegada en tu Tomcat.</div>
     <div class="wiki" style="display: block;">
