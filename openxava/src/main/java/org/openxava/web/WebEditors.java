@@ -138,8 +138,8 @@ public class WebEditors {
 		
 	private static Object changeSpecialCharacters(String formattedString) {  
 		if (hasMarkup(formattedString)) return formattedString;
-		// tmr return formattedString.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;").replaceAll(",", "&#44;");
-		return formattedString.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;"); // tmr
+		// tmr return formattedString.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;").replaceAll(",", "&#44;"); 
+		return formattedString.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;"); // tmr 
 	}
 	
 	public static Object formatTitle(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException { 

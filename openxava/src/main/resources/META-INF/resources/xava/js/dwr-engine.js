@@ -744,9 +744,7 @@ return null;
 		param3 = param3.substr(1, param3.length - 2);
 	}
 	if (param3.startsWith('{') || param3.startsWith('"[')) {
-		console.log("param3=" + param3); // tmr
 		var json = param3.replace(/([{,])(\s*)([a-zA-Z0-9_\-]+?)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$3":');
-		console.log("json=" + json); // tmr
 		param3 = JSON.parse(json);
 	}
 	else if (param3.includes("\\")) { 
