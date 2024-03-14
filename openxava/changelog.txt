@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- A X button in each tab to close the latest visited modules on top. 
 - TinyMCE JavaScript library upgraded to 6.8.3.
 - ZAP web security scanner from OWASP passed at 100%. 
 - Fixed 2 critical security vulnerabilities in third party JavaScript libraries.
