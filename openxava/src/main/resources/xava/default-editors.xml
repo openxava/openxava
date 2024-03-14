@@ -147,8 +147,7 @@
 		<for-annotation annotation="org.openxava.annotations.Money"/> 
 	</editor>
 	
-	<editor name="Email" url="textEditor.jsp">
-		<property name="email" value="true"/>
+	<editor name="Email" url="textEditor.jsp" mask="*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{1,10}][.*{1,2}]">
         <for-stereotype stereotype="EMAIL"/>
         <for-stereotype stereotype="EMAIL_LIST"/>
         <for-annotation annotation="javax.validation.constraints.Email"/> 
