@@ -9,6 +9,7 @@
 <%@ page import="org.apache.commons.logging.LogFactory" %>
 <%@ page import="org.apache.commons.logging.Log" %>
 
+<%@ page import="java.util.*" %>
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
@@ -56,9 +57,9 @@ if (im.length() > 1) {
     im = "data-inputmask=\"'mask': '" + im + "'\"";
 }
 
-boolean email = "true".equals(request.getParameter("email"));
-if (email) {
-	im = "data-inputmask=\"'mask': '*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{1,10}][.*{1,2}]'\"";
+String maskValue = request.getParameter("mask") != null ? request.getParameter("mask") : "";
+if (!maskValue.isEmpty()) {
+	im = "data-inputmask=\"'mask': '" + maskValue + "'\"";
 }
     
 if (editable || !label) { 
