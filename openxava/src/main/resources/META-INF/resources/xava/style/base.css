@@ -1805,7 +1805,7 @@ td.ox-list-subheader > div {
 	overflow-x: hidden; /* To avoid scrollbar in list inside dialog  */
 	padding-right: 7px; 
 	overflow-y: auto;
-	max-height: 80vh;
+	max-height: 75vh;
 	margin-right: 2px; 
 	margin-bottom: 0.5em;
 }
