@@ -17,18 +17,16 @@ import org.openxava.util.*;
 @WebListener
 public class RequestReseterListener implements ServletRequestListener {
 	
-	private static Log log = LogFactory.getLog(RequestReseterListener.class); // tmr
+	private static Log log = LogFactory.getLog(RequestReseterListener.class); 
 	
 	public void requestDestroyed(ServletRequestEvent sre) {
 		try {
 			Users.setCurrent((String) null);
 			XPersistence.reset();
-		// tmr ini	
 		}
 		catch (Exception ex) {
 			log.error(XavaResources.getString("destroying_request_problems"), ex);			
 		}
-		// tmr fin
 	}
 	
 	public void requestInitialized(ServletRequestEvent sre) {
