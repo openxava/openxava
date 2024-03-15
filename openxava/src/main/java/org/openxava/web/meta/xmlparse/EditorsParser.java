@@ -53,8 +53,7 @@ public class EditorsParser extends ParserBase {
 		editor.setIcon(el.getAttribute(xicon[lang])); 
 		editor.setInitAction(el.getAttribute(xinit_action[lang])); 
 		editor.setReleaseAction(el.getAttribute(xrelease_action[lang])); 
-		editor.setSelectableItems(getAttributeBoolean(el, xselectable_items[lang]));
-		editor.setMask(el.getAttribute(xmask[lang]));
+		editor.setSelectableItems(getAttributeBoolean(el, xselectable_items[lang])); 
 		if (Is.emptyString(editor.getName()) && !Is.emptyString(editor.getInitAction())) {
 			throw new XavaException("init_action_not_for_noname_editor"); 
 		}

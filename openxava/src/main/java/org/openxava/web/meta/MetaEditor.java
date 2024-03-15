@@ -42,7 +42,6 @@ public class MetaEditor implements Cloneable {
 	private Set<String> typeSet;
 	private Set<String> annotationSet;
 	private Set<String> stereotypeSet;
-	private String mask;
 
 	public void _addListFormatterMetaSet(MetaSet metaSet) {
 		if (listFormatterMetaSet == null) listFormatterMetaSet = new ArrayList();
@@ -382,13 +381,4 @@ public class MetaEditor implements Cloneable {
 		this.selectableItems = selectableItems;
 	}
 
-	public String getMask() {
-		return mask;
-	}
-
-	public void setMask(String mask) {
-		this.mask = mask;
-	}
-	
-	
 }
