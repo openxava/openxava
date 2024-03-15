@@ -4,6 +4,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
+import org.apache.commons.logging.*;
 import org.openxava.jpa.*;
 import org.openxava.util.*;
 
@@ -16,6 +17,8 @@ import org.openxava.util.*;
 @WebListener
 public class RequestReseterListener implements ServletRequestListener {
 	
+	private static Log log = LogFactory.getLog(RequestReseterListener.class); // tmr
+	
 	public void requestDestroyed(ServletRequestEvent sre) {
 		try {
 			Users.setCurrent((String) null);
@@ -23,9 +26,7 @@ public class RequestReseterListener implements ServletRequestListener {
 		// tmr ini	
 		}
 		catch (Exception ex) {
-			System.out.println("[RequestReseterListener.requestDestroyed] Falla al cerrar XPersistence"); // tmr
-			ex.printStackTrace();
-			
+			log.error(XavaResources.getString("destroying_request_problems"), ex);			
 		}
 		// tmr fin
 	}
