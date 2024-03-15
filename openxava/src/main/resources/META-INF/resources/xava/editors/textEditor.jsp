@@ -9,7 +9,6 @@
 <%@ page import="org.apache.commons.logging.LogFactory" %>
 <%@ page import="org.apache.commons.logging.Log" %>
 
-<%@ page import="java.util.*" %>
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
@@ -50,16 +49,16 @@ if (fillWithZeros && fvalue.length() > 0) {
 	fvalue = Strings.fix(fvalue, size, Align.RIGHT, '0');
 }
     
-String im = (request.getParameter("value") != null) && (request.getParameter("value").toString().matches("[-AL0!@#$%^&*()_+={}';:\"<>.,?/` \\~]+")) ? request.getParameter("value") : "";
-if (im.length() > 1) {
-    size = im.length();
-    maxLength= im.length();
-    im = "data-inputmask=\"'mask': '" + im + "'\"";
+String im = "";
+if ((request.getParameter("value") != null) && (request.getParameter("value").toString().matches("[-AL0!@#$%^&*()_+={}';:\"<>.,?/` \\~]+"))) {
+    im = request.getParameter("value");
+} else if (request.getParameter("mask") != null && !request.getParameter("mask").isEmpty()) {
+    im = request.getParameter("mask");
 }
-
-String maskValue = request.getParameter("mask") != null ? request.getParameter("mask") : "";
-if (!maskValue.isEmpty()) {
-	im = "data-inputmask=\"'mask': '" + maskValue + "'\"";
+if (!im.isEmpty()) {
+	size = im.length();
+    maxLength = im.length();
+    im = "data-inputmask=\"'mask': '" + im + "'\"";
 }
     
 if (editable || !label) { 

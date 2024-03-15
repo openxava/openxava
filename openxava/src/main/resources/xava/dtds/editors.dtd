@@ -16,7 +16,6 @@
  init-action CDATA #IMPLIED
  release-action CDATA #IMPLIED
  selectable-items (true|false) "true"
- mask CDATA #IMPLIED
 >
 
 <!ELEMENT property EMPTY>
