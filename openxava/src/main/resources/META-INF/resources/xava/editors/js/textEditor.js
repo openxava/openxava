@@ -1,5 +1,5 @@
 openxava.addEditorInitFunction(function() {
-
+	
     $('input.xava_numeric').autoNumeric();
 
     $("input[data-inputmask]").inputmask();
@@ -22,7 +22,7 @@ openxava.addEditorInitFunction(function() {
             validator: "[0-9 +-]"
         },
 		'*': {
-			validator: "[0-9A-Za-z!#$%&'*+/=?^_`{|}~\-]",
+			validator: "[0-9A-Za-z!#$%&'*+/=?^_`{|}~.\-]",
 			casing: "lower"
 		}
     });

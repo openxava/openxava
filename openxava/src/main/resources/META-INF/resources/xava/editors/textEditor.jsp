@@ -44,15 +44,6 @@ if (p.isNumber()) {
 	numericAlt = getNumericAlt(p.getSize(), p.getScale()); 
 	numericClass = "xava_numeric"; 
 }	
-   
-if (editable) {
-	Enumeration<String> parameterNames = request.getParameterNames();
-	while(parameterNames.hasMoreElements()) {
-            String paramName = parameterNames.nextElement();
-            String paramValue = request.getParameter(paramName);
-            out.println(paramName + " = " + paramValue + "<br>");
-        }
-}
 
 boolean fillWithZeros = "true".equals(request.getParameter("fillWithZeros"));
 if (fillWithZeros && fvalue.length() > 0) {	
