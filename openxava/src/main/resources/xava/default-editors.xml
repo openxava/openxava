@@ -150,9 +150,14 @@
 	<editor name="Email" url="textEditor.jsp">
 		<property name="mask" value="*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{1,10}][.*{1,2}]" />
         <for-stereotype stereotype="EMAIL"/>
-        <for-stereotype stereotype="EMAIL_LIST"/>
         <for-annotation annotation="javax.validation.constraints.Email"/> 
-        <for-annotation annotation="org.hibernate.validator.constraints.Email"/> 
+        <for-annotation annotation="org.hibernate.validator.constraints.Email"/>     
+    </editor>
+    
+    <editor name="EmailList" url="textEditor.jsp">
+		<property name="mask" value="*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{1,10}][.*{1,2}][, ][*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{1,10}][.*{1,2}][, ][*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{1,10}][.*{1,2}][, ][*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{1,10}][.*{1,2}][, ][*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{1,10}][.*{1,2}][, ][*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{1,10}][.*{1,2}][, ]]]]]]" />
+        <for-stereotype stereotype="EMAIL_LIST"/>
+        <for-stereotype stereotype="LISTA_EMAIL"/>
         <for-annotation annotation="org.openxava.annotations.EmailList"/>      
     </editor>
     
