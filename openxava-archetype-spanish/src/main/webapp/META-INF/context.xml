@@ -3,6 +3,7 @@
 <Context>
 
 	<JarScanner scanClassPath="false" />
+	<CookieProcessor sameSiteCookies="lax" /> <!-- Para cumplir con OWASP -->
 	
 	<!-- 
 	Para definir el acceso a tu base de datos descomenta una de las

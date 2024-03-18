@@ -52,14 +52,27 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 		if (metaModule.getName().equals("SignIn")) continue;
 		boolean isSelected = metaModule.getName().equals(request.getParameter("module")); 
 		String selected = isSelected?"selected":"unselected";
+		String topMenuModules = NaviOXPreferences.getInstance().getFixModulesOnTopMenu();
 		if (isSelected) {
 	%>		
-		<span class="selected"><%=metaModule.getLabel(request.getLocale())%></span>
+	<div class="module-header-tab">
+		<span class="selected"><%=metaModule.getLabel(request.getLocale())%>
+		<% if (!topMenuModules.contains(metaModule.getName())) { %>
+			<span class="mdi mdi-close close-icon"></span>
+		<% } %>
+		</span>
+		
+	</div>
 	<%
 		}
 		else {
 	%>
+	<div class="module-header-tab">
 		<a href="<%=modules.getModuleURI(request, metaModule)%>?retainOrder=true" class="unselected"><%=metaModule.getLabel(request.getLocale())%></a>
+		<% if (!topMenuModules.contains(metaModule.getName())){ %>
+			<span class="mdi mdi-close close-icon unselected-module"></span>
+		<% } %>
+	</div>
 	<%
 		}	
 	}
@@ -96,5 +109,4 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 		%>
 	</span>				
 </div>
-
 	
