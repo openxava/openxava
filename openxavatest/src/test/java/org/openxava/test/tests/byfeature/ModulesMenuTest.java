@@ -1,6 +1,10 @@
 package org.openxava.test.tests.byfeature;
 
+import java.util.*;
+
 import org.openqa.selenium.*;
+
+import com.openxava.naviox.util.*;
 
 /**
  * To test left modules list menu related issues with Selenium.
@@ -60,5 +64,61 @@ public class ModulesMenuTest extends WebDriverTestBase {
 			wait(getDriver());
 		}
 	}
+	
+	public void testCloseModule() throws Exception {
+		goModule("Invoice");
+		List<WebElement> modulesList = getDriver().findElements(By.className("module-header-tab"));
+		//5 modules at least
+		if (modulesList.size() < 5) {
+			goModule("Order");
+			goModule("Appointment");
+			goModule("Artist");
+			goModule("Article");
+			modulesList = getDriver().findElements(By.className("module-header-tab"));
+		}
+		
+		//select fourth as current
+		String fourth = modulesList.get(3).findElement(By.tagName("a")).getText();
+		String fifth = modulesList.get(4).findElement(By.tagName("a")).getText();
+		boolean hasSelectedChild = !modulesList.get(3).findElements(By.className("selected")).isEmpty();
+		if (!hasSelectedChild) {
+			modulesList.get(3).findElement(By.tagName("a")).click();
+			wait(getDriver());
+		}
+		modulesList = getDriver().findElements(By.className("module-header-tab"));
+
+		//close third
+		WebElement icon = modulesList.get(2).findElement(By.className("close-icon"));
+		icon.click();
+		getDriver().navigate().refresh();
+		wait(getDriver());
+		
+		//new third is fourth, close fourth
+		modulesList = getDriver().findElements(By.className("module-header-tab"));
+		assertTrue(modulesList.get(2).findElement(By.tagName("span")).getText().equals(fourth));
+		modulesList.get(2).findElement(By.className("close-icon")).click();
+		getDriver().navigate().refresh();
+		wait(getDriver());
+		
+		//assert new fourth(five), close it
+		modulesList = getDriver().findElements(By.className("module-header-tab"));
+		String href = modulesList.get(1).findElement(By.tagName("a")).getAttribute("href");
+		String second = href.substring(href.indexOf("/m/")+3, href.indexOf("?"));
+		assertTrue(modulesList.get(2).findElement(By.tagName("span")).getText().equals(fifth));
+		modulesList.get(2).findElement(By.className("close-icon")).click();
+		waitAndRefresh();
+		
+		//assert fixModules can't close
+		modulesList = getDriver().findElements(By.className("module-header-tab"));
+		assertTrue(NaviOXPreferences.getInstance().getFixModulesOnTopMenu().contains(second));
+	    assertTrue(modulesList.get(1).findElements(By.className("close-icon")).isEmpty());
+	}
+	
+	private void waitAndRefresh() throws Exception {
+		wait(getDriver()); // if success or necessary
+		getDriver().navigate().refresh();
+		wait(getDriver());
+	}
+	
 	
 }

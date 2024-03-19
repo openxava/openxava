@@ -4,6 +4,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
+import org.apache.commons.logging.*;
 import org.openxava.jpa.*;
 import org.openxava.util.*;
 
@@ -16,9 +17,16 @@ import org.openxava.util.*;
 @WebListener
 public class RequestReseterListener implements ServletRequestListener {
 	
+	private static Log log = LogFactory.getLog(RequestReseterListener.class); 
+	
 	public void requestDestroyed(ServletRequestEvent sre) {
-		Users.setCurrent((String) null);
-		XPersistence.reset();
+		try {
+			Users.setCurrent((String) null);
+			XPersistence.reset();
+		}
+		catch (Exception ex) {
+			log.error(XavaResources.getString("destroying_request_problems"), ex);			
+		}
 	}
 	
 	public void requestInitialized(ServletRequestEvent sre) {

@@ -93,5 +93,16 @@ public class Modules {
 			log.warn(XavaResources.getString("unbookmark_module_problem"), ex);  
 		}		
 	}
+	
+	/* @since 7.3 */
+	public void closeModule(HttpServletRequest request, HttpServletResponse response, String application, String module, int i) {
+		try {
+			HttpSession session = ((HttpServletRequest) request).getSession();
+			com.openxava.naviox.Modules modules = (com.openxava.naviox.Modules) session.getAttribute("modules");
+			modules.removeModule(i);
+		} finally {
+			ModuleManager.commit();
+		}
+	}
 
 }
