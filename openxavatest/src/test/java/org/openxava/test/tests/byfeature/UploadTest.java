@@ -31,7 +31,9 @@ public class UploadTest extends WebDriverTestBase {
 		assertFalse(getDriver().findElements(By.className("filepond--image-preview-wrapper")).isEmpty()); 
 		
 		WebElement removeButton = getDriver().findElement(By.className("filepond--action-remove-item"));
-		removeButton.click();
+		//removeButton.click();
+		JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+		executor.executeScript("arguments[0].click();", removeButton);
 		acceptInDialogJS(getDriver());
 		wait(getDriver());
 		assertMessage("Photo changed", log);
