@@ -9,7 +9,6 @@
 <%@ page import="org.apache.commons.logging.LogFactory" %>
 <%@ page import="org.apache.commons.logging.Log" %>
 
-<%@ page import="java.util.*" %>
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
@@ -57,7 +56,6 @@ if ((request.getParameter("value") != null) && (request.getParameter("value").to
     im = request.getParameter("mask");
 }
 if (!im.isEmpty()) {
-	System.out.println(p.getSize() + p.getName());
 	maxLength = im.length();
 	size = im.length()> maxSize ? maxSize : im.length();
     im = "data-inputmask=\"'mask': '" + im + "'\"";
