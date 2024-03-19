@@ -53,14 +53,13 @@ if (fillWithZeros && fvalue.length() > 0) {
 String im = "";
 if ((request.getParameter("value") != null) && (request.getParameter("value").toString().matches("[-AL0!@#$%^&*()_+={}';:\"<>.,?/` \\~]+"))) {
     im = request.getParameter("value");
-	size = im.length();
-    maxLength = im.length();
 } else if (request.getParameter("mask") != null) {
     im = request.getParameter("mask");
-	maxLength = im.length();
-	size = im.length()> maxSize ? maxSize : im.length();
 }
 if (!im.isEmpty()) {
+	System.out.println(p.getSize() + p.getName());
+	maxLength = im.length();
+	size = im.length()> maxSize ? maxSize : im.length();
     im = "data-inputmask=\"'mask': '" + im + "'\"";
 }
     

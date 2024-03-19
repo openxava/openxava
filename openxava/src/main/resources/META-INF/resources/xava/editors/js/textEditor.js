@@ -1,8 +1,12 @@
 openxava.addEditorInitFunction(function() {
+	var defaultValues = [];
+	$("input[data-inputmask]").each(function() {
+		defaultValues.push($(this).val());
+	});
 	
     $('input.xava_numeric').autoNumeric();
-
     $("input[data-inputmask]").inputmask();
+	
     Inputmask.extendDefaults({
         'placeholder': ""
     });
@@ -22,9 +26,12 @@ openxava.addEditorInitFunction(function() {
             validator: "[0-9 +-]"
         },
 		'*': {
-			validator: "[0-9A-Za-z!#$%&'*+/=?^_`{|}~.\-]",
+			validator: "[0-9A-Za-z!#$%&'*+/=?^_`{|}~\-]",
 			casing: "lower"
 		}
     });
-
+	
+	$("input[data-inputmask]").each(function(index) {
+		$(this).val(defaultValues[index]);
+	});
 });
