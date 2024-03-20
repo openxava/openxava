@@ -4,15 +4,24 @@ import org.openqa.selenium.*;
 
 public class MaskTest extends WebDriverTestBase {
 
-	public void testMask_maskAsPropertyInEditorXml() throws Exception {
-		goModule("Task");
-		WebElement element = getDriver().findElement(By.id("ox_openxavatest_Task__userEMail"));
-		assertTrue(element.getAttribute("data-inputmask") != null);
-		element.sendKeys("pedro.matias.g.f@gmail.com.ar");
-		String textInInput = element.getAttribute("value");
+	public void testMaskAsPropertyInEditorXml() throws Exception {
+		goModule("CustomerWithSection");
+		execute("CRUD.new");
+		WebElement email = getDriver().findElement(By.id("ox_openxavatest_CustomerWithSection__email"));
+		assertTrue(email.getAttribute("data-inputmask") != null);
+		email.sendKeys("pedro.matias.g.f@gmail.com.ar");
+		String textInInput = email.getAttribute("value");
 		assertEquals("pedro.matias.g.f@gmail.com.ar", textInInput);
-		element.sendKeys("ab");
+		email.sendKeys("ab");
 		assertEquals("pedro.matias.g.f@gmail.com.ar", textInInput);
+		
+		WebElement emailList = getDriver().findElement(By.id("ox_openxavatest_CustomerWithSection__additionalEmails"));
+		assertTrue(emailList.getAttribute("data-inputmask") != null);
+		emailList.sendKeys("pedro@gmail.com, pedro2@gmail.com");
+		textInInput = emailList.getAttribute("value");
+		assertEquals("pedro@gmail.com, pedro2@gmail.com", textInInput);
+		emailList.sendKeys("@");
+		assertEquals("pedro@gmail.com, pedro2@gmail.com", textInInput);
 	}
 	
 }
