@@ -33,7 +33,7 @@ openxava.addEditorInitFunction(function() {
     });
     
     $('.xava_date > input').change(function() {
-		if ($(this).val().length < 3) {
+		if ($(this).val().length > 0 && $(this).val().length < 3) {
 			$(this).val(formatTwoDigitDate($('.xava_date').data('date-format'), $(this).val()));
 		}
         var dateFormat = $(this).parent().data("dateFormat");
@@ -192,11 +192,11 @@ openxava.addEditorInitFunction(function() {
 		var month = today.getMonth();
 		var date = new Date(year, month, number);
 		var formattedDate = dateFormat
-        .replace('d', ('0' + date.getDate()).slice(-2))  // Día con cero inicial si es necesario
-        .replace('j', date.getDate())  // Día sin cero inicial
-        .replace('M', ('0' + (date.getMonth() + 1)).slice(-2))  // Mes con cero inicial si es necesario
-        .replace('n', date.getMonth() + 1)  // Mes sin cero inicial
-        .replace('Y', date.getFullYear());  // Año
+			.replace('d', ('0' + date.getDate()).slice(-2))
+			.replace('j', date.getDate())
+			.replace('M', ('0' + (date.getMonth() + 1)).slice(-2))
+			.replace('n', date.getMonth() + 1)
+			.replace('Y', date.getFullYear());
 		return formattedDate;
     }
     

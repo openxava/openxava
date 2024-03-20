@@ -72,7 +72,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertNoErrors(); 
 	}
 
-	public void testChineseDateTimeInJava8AndAmIssue_formatDateWithTwoDigits() throws Exception { 
+	public void testChineseDateTimeInJava8AndAmIssue_formatDateUsingTwoDigitsDay() throws Exception { 
 		changeLanguage("zh-TW");
 		appointment2();
 		quarter();
