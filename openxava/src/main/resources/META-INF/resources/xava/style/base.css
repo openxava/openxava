@@ -1784,10 +1784,7 @@ td.ox-list-subheader > div {
 .ox-bottom-buttons {
 	padding-left: 11px;
 	margin-right: 17px;
-	display: flex;
-  	justify-content: flex-start;
-  	align-items: center;
-  	position: relative;
+	position: relative;
 }
 
 .ui-dialog .ox-bottom-buttons {
