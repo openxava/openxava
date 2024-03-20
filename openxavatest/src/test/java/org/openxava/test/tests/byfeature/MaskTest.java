@@ -2,6 +2,11 @@ package org.openxava.test.tests.byfeature;
 
 import org.openqa.selenium.*;
 
+/**
+ * 
+ * @author Chungyen Tsai
+ *
+ */
 public class MaskTest extends WebDriverTestBase {
 
 	public void testMaskAsPropertyInEditorXml() throws Exception {
@@ -22,6 +27,8 @@ public class MaskTest extends WebDriverTestBase {
 		assertEquals("pedro@gmail.com, pedro2@gmail.com", textInInput);
 		emailList.sendKeys("@");
 		assertEquals("pedro@gmail.com, pedro2@gmail.com", textInInput);
+		emailList.sendKeys(".ar");
+		assertEquals("pedro@gmail.com, pedro2@gmail.com.ar", textInInput);
 	}
 	
 }
