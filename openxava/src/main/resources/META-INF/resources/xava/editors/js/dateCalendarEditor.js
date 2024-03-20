@@ -10,7 +10,7 @@ openxava.addEditorInitFunction(function() {
     var invalidDate;
     var onChangeChecked = false;
 	var calendarClosed = false;
-	
+	 
 	//for fix chinese trad timedate
 	var inputElementList = $('.xava_date > input').toArray();
 	var inputValueList = [];
@@ -33,6 +33,9 @@ openxava.addEditorInitFunction(function() {
     });
     
     $('.xava_date > input').change(function() {
+		if ($(this).val().length < 3) {
+			$(this).val(formatTwoDigitDate($('.xava_date').data('date-format'), $(this).val()));
+		}
         var dateFormat = $(this).parent().data("dateFormat");
         var date = readInput?enterDate:$(this).val(); 
         if (date === "") return;
@@ -181,6 +184,20 @@ openxava.addEditorInitFunction(function() {
                 }
             }
         }
+    }
+	
+	function formatTwoDigitDate(dateFormat, number) {
+		var today = new Date();
+		var year = today.getFullYear();
+		var month = today.getMonth();
+		var date = new Date(year, month, number);
+		var formattedDate = dateFormat
+        .replace('d', ('0' + date.getDate()).slice(-2))  // Día con cero inicial si es necesario
+        .replace('j', date.getDate())  // Día sin cero inicial
+        .replace('M', ('0' + (date.getMonth() + 1)).slice(-2))  // Mes con cero inicial si es necesario
+        .replace('n', date.getMonth() + 1)  // Mes sin cero inicial
+        .replace('Y', date.getFullYear());  // Año
+		return formattedDate;
     }
     
 });

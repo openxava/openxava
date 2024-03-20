@@ -72,13 +72,24 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertNoErrors(); 
 	}
 
-	public void testChineseDateTimeInJava8AndAmIssue() throws Exception { 
+	public void testChineseDateTimeInJava8AndAmIssue_formatDateWithTwoDigits() throws Exception { 
 		changeLanguage("zh-TW");
 		appointment2();
 		quarter();
 		changeLanguage("zh-CN");
 		appointment2();
 		quarter();
+		
+		execute("CRUD.new");
+		Calendar calendar = Calendar.getInstance();
+		int day = calendar.get(Calendar.DAY_OF_MONTH);
+		int month = calendar.get(Calendar.MONTH) + 1;
+		int year = calendar.get(Calendar.YEAR);
+		setValue("initDate", String.valueOf(day));
+		WebElement input = getDriver().findElement(By.id("ox_openxavatest_Quarter__initDate"));
+		input.sendKeys(Keys.TAB);
+		String date = getValue("initDate");
+		assertTrue(date.contains(String.valueOf(day)) && date.contains(String.valueOf(month)) && date.contains(String.valueOf(year)));
 	}
 	
 	private void appointment2() throws Exception {
