@@ -747,9 +747,14 @@ return null;
 		var json = param3.replace(/([{,])(\s*)([a-zA-Z0-9_\-]+?)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$3":');
 		param3 = JSON.parse(json);
 	}
-	else if (param3.includes("\\")) { 
+	else if (param3.includes("\\")) {
 		param3 = JSON.parse(`"${param3}"`);
 	}
+	// tmr ini
+	else if (param3 == "null") {
+		param3 = null;
+	}
+	// tmr fin
 	dwr.engine.remote.handleCallback(param1,param2,param3);
 // End for OpenXava
 };
