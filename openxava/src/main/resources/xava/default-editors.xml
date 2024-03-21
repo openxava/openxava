@@ -99,6 +99,11 @@
 	<editor name="LocalDateCalendar" url="dateCalendarEditor.jsp">
 		<formatter class="org.openxava.formatters.LocalDateFormatter" />
 		<for-type type="java.time.LocalDate" />
+	</editor>
+	
+	<editor name="LocalTimeCalendar" url="timeCalendarEditor.jsp">
+		<formatter class="org.openxava.formatters.LocalTimeFormatter" />
+		<for-type type="java.time.LocalTime" />
 	</editor>	
 
 	<editor name="ValidValuesCombo" url="validValuesEditor.jsp">
