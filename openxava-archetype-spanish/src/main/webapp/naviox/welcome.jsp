@@ -1,6 +1,6 @@
 <%Servlets.setCharacterEncoding(request, response);%>
 
-<%-- Welcome page. Feel free to modify at your taste --%>
+<%-- Página de bienvenida. Siéntete libre de modificarla a tu gusto --%>
 
 <%@include file="../xava/imports.jsp"%>
 
@@ -12,13 +12,13 @@
 <%@page import="org.openxava.util.XavaPreferences"%>
 <%@page import="org.openxava.web.Browsers"%> 
 
-<%-- To put your own text add entries in the i18n messages files of your project 
-In yourapp-labels_en.properties:
-yourapp=My application
-yourapp[description]=My application does this and that
+<%-- Para poner tu propio texto añade entradas a los archivos de mensajes i18n de tu proyecto 
+En tuaplicacion-labels_es.properties:
+tuaplicacion=Tu aplicación
+tuaplicacion[description]=Tu aplicación hace esto y lo otro
 
-In yourapp-messages_en.properties:
-welcome_point1=This is a additional explanatory line
+En tuaplicacion-messages_en.properties:
+welcome_point1=Esto una línea de explicación adicional
 --%>
 
 <%

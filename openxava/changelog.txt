@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-tmr ME QUEDÉ POR: YA FUNCIONA EN INGLÉS EL WELCOME Y LOS EDITORES. FALTA EN ESPAÑOL.
+tmr ME QUEDÉ POR: LOS ARQUETIPOS ESTÁN HECHO Y PROBADOS. FALTA ACTUALIZAR DOCUMENTACIÓN.
 
 - New section in documentation to configure your application to be OWASP compliant.
 - Fix: Error page in browser when some problem destroying a servlet request.
