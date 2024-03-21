@@ -80,6 +80,13 @@ public class DateCalendarTest extends WebDriverTestBase {
 		appointment2();
 		quarter();
 		
+		quarterFormatDateUsingTwoDigits("zh-CN");
+		changeLanguage("es-ES");
+		goModule("Quarter");
+		quarterFormatDateUsingTwoDigits("es-ES");
+	}
+	
+	private void quarterFormatDateUsingTwoDigits(String format) throws Exception {
 		execute("CRUD.new");
 		Calendar calendar = Calendar.getInstance();
 		int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -88,8 +95,12 @@ public class DateCalendarTest extends WebDriverTestBase {
 		setValue("initDate", String.valueOf(day));
 		WebElement input = getDriver().findElement(By.id("ox_openxavatest_Quarter__initDate"));
 		input.sendKeys(Keys.TAB);
-		String date = getValue("initDate");
-		assertTrue(date.contains(String.valueOf(day)) && date.contains(String.valueOf(month)) && date.contains(String.valueOf(year)));
+		if (format.equals("zh-CN")) {
+			assertEquals(getValue("initDate"), year + "/" + month + "/" + day);
+		} else {
+			String m = month < 10 ? "0"+ String.valueOf(month) : String.valueOf(month);
+			assertEquals(getValue("initDate"), day + "/" + m + "/" + year);
+		}
 	}
 	
 	private void appointment2() throws Exception {

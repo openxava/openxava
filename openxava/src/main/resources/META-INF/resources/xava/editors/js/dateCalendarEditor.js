@@ -194,7 +194,7 @@ openxava.addEditorInitFunction(function() {
 		var formattedDate = dateFormat
 			.replace('d', ('0' + date.getDate()).slice(-2))
 			.replace('j', date.getDate())
-			.replace('M', ('0' + (date.getMonth() + 1)).slice(-2))
+			.replace('m', ('0' + (date.getMonth() + 1)).slice(-2))
 			.replace('n', date.getMonth() + 1)
 			.replace('Y', date.getFullYear());
 		return formattedDate;
