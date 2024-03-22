@@ -1,8 +1,6 @@
 Change Log for OpenXava project
 ===============================
 
-tmr ME QUEDÉ POR: LOS ARQUETIPOS ESTÁN HECHO Y PROBADOS. FALTA ACTUALIZAR DOCUMENTACIÓN.
-
 - New section in documentation to configure your application to be OWASP compliant.
 - Fix: Error page in browser when some problem destroying a servlet request.
 - Archetypes for creating new projects has error pages and cookies configuration compatible with OWASP.
