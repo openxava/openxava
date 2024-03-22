@@ -277,17 +277,11 @@ public class Module extends DWRBase {
 	
 	private String getURIAsString(String jspFile, Map values, Map multipleValues, String[] selected, String[] deselected, String additionalParameters) throws Exception {
 		if (jspFile == null) return "";
-		/* tmr
-		if (jspFile.startsWith("html:")) return jspFile.substring(5); // Using html: prefix the content is returned as is
-		return Servlets.getURIAsString(request, response, getURI(jspFile, values, multipleValues, selected, deselected, additionalParameters));
-		*/
-		// tmr ini
 		if (jspFile.startsWith("html:")) return filterHTML(jspFile.substring(5)); // Using html: prefix the content is returned as is
 		return filterHTML(Servlets.getURIAsString(request, response, getURI(jspFile, values, multipleValues, selected, deselected, additionalParameters)));		
-		// tmr fin
 	}
 	
-	private String filterHTML(String html) { // tmr
+	private String filterHTML(String html) { 
 		return html.replaceAll(",", "&#44;");
 	}
 

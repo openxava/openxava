@@ -750,11 +750,9 @@ return null;
 	else if (param3.includes("\\")) {
 		param3 = JSON.parse(`"${param3}"`);
 	}
-	// tmr ini
 	else if (param3 == "null") {
 		param3 = null;
 	}
-	// tmr fin
 	dwr.engine.remote.handleCallback(param1,param2,param3);
 // End for OpenXava
 };
