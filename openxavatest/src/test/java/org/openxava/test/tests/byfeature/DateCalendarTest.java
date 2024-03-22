@@ -106,7 +106,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 	}
 	
 	private void formatDateTimeUsingTwoDigits() throws Exception {
-		execute("CRUD.new");
+		execute("CRUD.new"); 
 		Calendar calendar = Calendar.getInstance();
 		int day = calendar.get(Calendar.DAY_OF_MONTH);
 		int month = calendar.get(Calendar.MONTH) + 1;
