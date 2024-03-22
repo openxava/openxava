@@ -1,4 +1,5 @@
 // WARNING: IF YOU CHANGE THIS PASS DateCalendarTest.txt
+if (dateCalendarEditor == null) var dateCalendarEditor = {};
 
 openxava.addEditorInitFunction(function() {
 	openxava.getScript(openxava.contextPath + "/xava/editors/flatpickr/" + openxava.language + ".js");
@@ -23,18 +24,18 @@ openxava.addEditorInitFunction(function() {
     $('.xava_date > input').keydown(function(event) {
         var keycode = event.keyCode || event.which;
         if (keycode == 13) {
-            enterDate = validInputOnlyDate($(this).val());
+            enterDate = dateCalendarEditor.validInputOnlyDate($(this).val());
             readInput = ((enterDate.includes("/") || enterDate.includes(".") || enterDate.includes("-")) && enterDate.length > 9)?false:true;
         }
     });
     
     $('.xava_date > input').on('blur', function() {
-        enterDate = validInputOnlyDate($(this).val());
+        enterDate = dateCalendarEditor.validInputOnlyDate($(this).val());
     });
     
     $('.xava_date > input').change(function() {
 		if ($(this).val().length > 0 && $(this).val().length < 3) {
-			$(this).val(formatTwoDigitDate($('.xava_date').data('date-format'), $(this).val()));
+			$(this).val(dateCalendarEditor.formatTwoDigitDate($('.xava_date').data('date-format'), $(this).val()));
 		}
         var dateFormat = $(this).parent().data("dateFormat");
         var date = readInput?enterDate:$(this).val(); 
@@ -52,7 +53,7 @@ openxava.addEditorInitFunction(function() {
             date = first + separator + middle + separator + last;
             date = date.trim();
         }
-        validDate(date, dateFormat, separator);
+        dateCalendarEditor.validDate(date, dateFormat, separator);
         idx = date.lastIndexOf(separator);
         var idxSpace = date.indexOf(' ');
         var pureDate = date;
@@ -144,7 +145,7 @@ openxava.addEditorInitFunction(function() {
 		}
     });
 
-    function validInputOnlyDate(date) {
+    dateCalendarEditor.validInputOnlyDate = function(date) {
         var pattern = /[^.\-:\/\d\s]/g;
         if (pattern.test(date)) {
             invalidDate = date;
@@ -153,7 +154,7 @@ openxava.addEditorInitFunction(function() {
         return date;
     }
 
-    function validDate(date, format, separator) {
+    dateCalendarEditor.validDate = function(date, format, separator) {
         if (date.length > 11){
             var dateWithTime = date.split(" ");
             date = dateWithTime[0];
@@ -186,7 +187,7 @@ openxava.addEditorInitFunction(function() {
         }
     }
 	
-	function formatTwoDigitDate(dateFormat, number) {
+	dateCalendarEditor.formatTwoDigitDate = function(dateFormat, number) {
 		var today = new Date();
 		var year = today.getFullYear();
 		var month = today.getMonth();
@@ -196,7 +197,11 @@ openxava.addEditorInitFunction(function() {
 			.replace('j', date.getDate())
 			.replace('m', ('0' + (date.getMonth() + 1)).slice(-2))
 			.replace('n', date.getMonth() + 1)
-			.replace('Y', date.getFullYear());
+			.replace('Y', date.getFullYear())
+			.replace('H', ('0' + date.getHours()).slice(-2))
+			.replace('h', ('0' + (date.getHours() % 12 || 12)).slice(-2))
+			.replace('G', date.getHours())
+			.replace('i', ('0' + date.getMinutes()).slice(-2));
 		return formattedDate;
     }
     
