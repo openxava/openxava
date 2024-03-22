@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Archetypes for creating new projects include the welcome.jsp page and a sample custom editor.
 - Dialogs fit in the screen, so dialog bottom buttons are always visible without scrolling.
 - @Email and @EmailList editors use a mask to ensure in real time that the emails are correctly typed.
 - New section in documentation to configure your application to be OWASP compliant.
