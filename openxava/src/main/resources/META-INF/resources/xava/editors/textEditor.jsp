@@ -43,16 +43,21 @@ if (p.isNumber()) {
 	numericAlt = getNumericAlt(p.getSize(), p.getScale()); 
 	numericClass = "xava_numeric"; 
 }	
-    
+
 boolean fillWithZeros = "true".equals(request.getParameter("fillWithZeros"));
 if (fillWithZeros && fvalue.length() > 0) {	
 	fvalue = Strings.fix(fvalue, size, Align.RIGHT, '0');
 }
     
-String im = (request.getParameter("value") != null) && (request.getParameter("value").toString().matches("[-AL0!@#$%^&*()_+={}';:\"<>.,?/` \\~]+")) ? request.getParameter("value") : "";
-if (im.length() > 1) {
-    size = im.length();
-    maxLength= im.length();
+String im = "";
+if ((request.getParameter("value") != null) && (request.getParameter("value").toString().matches("[-AL0!@#$%^&*()_+={}';:\"<>.,?/` \\~]+"))) {
+    im = request.getParameter("value");
+} else if (request.getParameter("mask") != null) {
+    im = request.getParameter("mask");
+}
+if (!im.isEmpty()) {
+	maxLength = im.length();
+	size = im.length()> maxSize ? maxSize : im.length();
     im = "data-inputmask=\"'mask': '" + im + "'\"";
 }
     

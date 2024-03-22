@@ -106,8 +106,13 @@ public class Modules implements Serializable {
 		if (idx < 0) {
 			if (topModules.size() >= MODULES_ON_TOP) {
 				topModules.remove(topModules.size() - 1); 
-			}				
-			topModules.add(fixedModulesCount, current); 
+			}
+			if (fixedModulesCount > topModules.size()) {
+				topModules.add(current); 
+			} else { 
+				topModules.add(fixedModulesCount, current);  
+			}
+
 		}		
 		else if (!retainOrder && idx >= fixedModulesCount) { 
 			topModules.remove(idx);
@@ -452,6 +457,12 @@ public class Modules implements Serializable {
 			return a.getName().compareTo(b.getName());
 		}
 		
+	}
+	
+	/* @since 7.3 */
+	public void removeModule(int index) {
+		topModules.remove(index);
+		storeTopModules();
 	}
 
 }

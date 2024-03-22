@@ -1,0 +1,212 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>OpenXava - Seguridad web (OWASP)</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <div class="wiki" style="display: block;">
+        <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+                <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+            / </span>Seguridad web (OWASP)</h1>
+        <em></em></div>
+      <div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#toc0">Seguridad web (OWASP)</a></div>
+        <div style="margin-left: 2em;"><a href="#configurar-aplicacion">Configurar
+            tu aplicación</a></div>
+        <div style="margin-left: 3em;"><a href="#paginas-error">Páginas de error</a></div>
+        <div style="margin-left: 3em;"><a href="#same-site-cookies">Same site
+            cookies</a></div>
+        <div style="margin-left: 2em;"><a href="#configurar-root">Configurar
+            aplicación ROOT</a></div>
+        <div style="margin-left: 2em;"><a href="#desactivar-seguridad">Desactivar
+            la seguridad web</a><a href="#custom-signin-page"> </a></div>
+      </div>
+      <div class="wiki" style="display: block;">A partir de OpenXava 7.3 tus
+        aplicaciones pueden cumplir con <a href="https://owasp.org/www-project-top-ten/">OWASP
+          Top Ten</a>, lo que significa contar con los máximos estándares de
+        seguridad para aplicaciones web. De hecho, OpenXava pasa la prueba de
+        seguridad web <a href="https://www.zaproxy.org/">ZAP</a> de OWASP al
+        100%, sin ninguna alerta de nivel crítico, medio o bajo. </div>
+      <div class="wiki" style="display: block;">Esto no significa que las
+        aplicaciones hechas con OpenXava sean automáticamente seguras o cumplan
+        automáticamente con el OWASP Top Ten, porque tu propio código podría ser
+        vulnerable, podrías usar librerías propias vulnerables, podrías no
+        configurar correctamente tu aplicación, no configurar correctamente tu
+        servidor de aplicaciones o desactivar alguna característica de seguridad
+        de OpenXava. Por eso, es importante que pases tu mismo la prueba ZAP
+        sobre tu aplicación, o incluso contrates a un auditor de seguridad para
+        que verifique la seguridad de tu aplicación y el cumplimientos de los
+        estándares requeridos.<br>
+        <h2 id="configurar-aplicacion">Configurar tu aplicación</h2>
+        Cuando ejecutas tu aplicación en desarrollo, OpenXava usa un Tomcat
+        embebido configurado para cumplir con todos los requisitos de seguridad
+        necesarios para pasar el ZAP. Sin embargo, cuando generas un WAR y lo
+        despliegas en tu Tomcat de producción, puede que tu aplicación no sea
+        completamente segura, ni pase el ZAP. Tienes que configurar algunos
+        detalles. </div>
+      <div class="wiki" style="display: block;">
+        <h3 id="paginas-error">Páginas de error</h3>
+      </div>
+      <div class="wiki" style="display: block;">Para pasar el ZAP las páginas de
+        error no pueden ofrecer información sobre el servidor que se está usando
+        y menos aún visualizar una traza de error. Cuando arrancas la aplicación
+        desde el Tomcat embebido para desarrollo ya está configurada para
+        ofrecer páginas de error seguras. También si tu aplicación fue creada
+        con OpenXava 7.3 o superior, las páginas de error ya vienen bien
+        configuradas. Pero si tu aplicación la creaste con un OpenXava anterior
+        a v7.3 y estás desplegando un WAR en un Tomcat, tendrás que añadir lo
+        siguiente en el <i>web.xml</i> de tu aplicación, que está situado en <i>src/main/webapp/WEB-INF
+          </i>de tu proyecto:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="xml">&lt;error-page&gt;
+    &lt;error-code&gt;404&lt;/error-code&gt;
+    &lt;location&gt;/WEB-INF/error404.html&lt;/location&gt;
+&lt;/error-page&gt;
+&lt;error-page&gt;
+    &lt;error-code&gt;500&lt;/error-code&gt;
+    &lt;location&gt;/WEB-INF/error500.html&lt;/location&gt;
+&lt;/error-page&gt;
+</code></pre> </div>
+      <div class="wiki" style="display: block;">No hace falta crear <i>error404.html</i>
+        ni <i>error500.html</i>, porque están incluidos en <i>openxava.jar</i>.</div>
+      <div class="wiki" style="display: block;">
+        <h3 id="same-site-cookies">Same site cookies</h3>
+      </div>
+      <div class="wiki" style="display: block;">Lo mismo ocurre con la
+        configuración de las cookies. Si usas el Tomcat embebido o tu aplicación
+        fue creada con v7.3+ no hay problema, pero en caso contrario has de de
+        definir <i>Same Site Cookies</i> como <i>Lax</i> en el <i>context.xml</i>,
+        situado en <i>src/main/webapp/META-INF</i>. Añade la entrada <i>&lt;CookieProcessor
+          sameSiteCookies="lax" /&gt;</i>, como ves aquí:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="xml">&lt;Context&gt;
+    &lt;JarScanner scanClassPath="false" /&gt;
+    &lt;CookieProcessor sameSiteCookies="lax" /&gt; &lt;!-- AÑADIR ESTA LÍNEA --&gt;
+  
+    ...
+</code></pre> </div>
+      <div class="wiki" style="display: block;">
+        <h2 id="configurar-root">Configurar aplicación ROOT</h2>
+        El test ZAP además de analizar la URL de la aplicación que le indicas,
+        también hace algunas comprobaciones en el contexto raíz de donde está
+        desplegada tu aplicación. El contexto raíz en el Tomcat lo define la
+        aplicación ROOT, si no tienes control sobre la aplicación ROOT o no te
+        importa ignorar las indicaciones que te haga el ZAP sobre el contexto
+        raíz, no hace falta que hagas nada. Ahora bien, si quieres pasar el ZAP
+        al 100% con tu WAR desplegado en el Tomcat tendrás que asegurarte de que
+        aplicación raíz genere cabeceras CSP y la cabecera <i>X-Content-Type-Options</i>.
+      </div>
+      <div class="wiki" style="display: block;">Por desgracia, no hay una forma
+        rápida de configurar el Tomcat para esto. Tendrás que escribir el código
+        de un filtro que genere esas cabeceras. El siguiente código te puede
+        servir:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">import java.io.*;
+import javax.servlet.*;
+import javax.servlet.annotation.*;
+import javax.servlet.http.*;
+
+@WebFilter("/*") 
+public class ContentSecurityPolicyFilter implements Filter {
+	
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        httpResponse.setHeader("Content-Security-Policy", "default-src 'self'; frame-ancestors 'self'; form-action 'self';");
+        httpResponse.setHeader("X-Content-Type-Options", "nosniff");
+        chain.doFilter(request, response);
+    }
+	
+    public void init(FilterConfig cfg) throws ServletException { // Para Tomcat 8.x
+    }
+	
+    public void destroy() { // Para Tomcat 8.x
+    }
+	
+}
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Compila la clase y déjala dentro
+        de <i>webapps/ROOT/WEB-INF/classes</i> de tu Tomcat, en la misma
+        estructura de carpeta del paquete en que hayas escrito la clase. Es
+        decir, si la clase están en el paquete <i>com.tuempresa.raiz.filtros</i>
+        el <i>ContentSecurityPolicyFilter.class</i> deberías dejarlo en la
+        carpeta <i>webapps/ROOT/WEB-INF/classes/com/tuempresa/raiz/filtros</i>
+        de tu Tomcat.</div>
+      <div class="wiki" style="display: block;">Para que reconozca el filtro
+        tienes que asegurarte de que <i>metadata-complete</i> sea false en <i>web.xml</i>
+        de ROOT:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="xml">&lt;web-app 
+    ...
+    metadata-complete="false"&gt;
+    
+    ...
+</code></pre> </div>
+      <div class="wiki" style="display: block;"><br>
+      </div>
+      <div class="wiki" style="display: block;">Finalmente deberías descargar el
+        <a href="https://www.zaproxy.org/">ZAP</a> y pasarlo sobre tu aplicación
+        desplegada en tu Tomcat.</div>
+      <div class="wiki" style="display: block;">
+        <h2 id="desactivar-seguridad">Desactivar la seguridad web<br>
+        </h2>
+        No es buena idea desactivar la seguridad, pero si tu aplicación no
+        requiere cumplir una normativa de seguridad estricta y va a ser
+        ejecutada en un entorno seguro, puede haber ocasiones en que sea
+        conveninente desactivar la seguridad web total o parcialmente. Esto
+        puede ser necesario si tenemos mucho código web propio antiguo que no
+        sigue las buenas prácticas de seguridad o si usamos librerías de tercero
+        que tampoco la cumplen.</div>
+      <div class="wiki" style="display: block;">En concreto OpenXava, desde la
+        versión 7.3, tiene una <i>Content Security Policy</i> (CSP) estricta.
+        Esto quiere decir que se le instruye al navegador para que no haga cosas
+        que pueden ser peligrosas, en potencia. Lo cual a su vez restringe las
+        cosas que se pueden usar.</div>
+      <div class="wiki" style="display: block;">Por ejemplo, solo se pueden
+        descargar imágenes, scripts, CSSs o abrir frames provenientes de&nbsp;
+        la misma dirección desde donde se ha descargado la aplicación. Si
+        necesitamos descargar recursos desde otro sitio, se puede hacer
+        añadiendo las propiedades <i>trustedHostsForImages,
+          trustedHostsForScripts, trustedHostsForStyles</i> y <i>trustedHostsForFrames</i>
+        en el archivo <i>xava.properties</i> de nuestro proyecto, como en este
+        ejemplo:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="properties">trustedHostsForImages=https://openxava.org/
+trustedHostsForScripts=https://openxava.org/
+trustedHostsForStyles=https://openxava.org/
+trustedHostsForFrames=https://openxava.org/
+</code></pre> </div>
+      <div class="wiki" style="display: block;">En este ejemplo está permitido
+        descar imagenes, JavaScript, CSSs y abrir iframes desde <i>openxava.org</i>.
+        Usar estas propiedades no es peligroso si la direcciones que ponemos son
+        de confianza. Podemos poner varias separadas por comas.</div>
+      <div class="wiki" style="display: block;">Por otra parte, por defecto la
+        CSP está configurada para no permitir el uso de <i>eval()</i> en
+        JavaScript, si tenemos código propio que usa <i>eval()</i> o una
+        librería de terceros que lo necesite, podemos habilitar el uso de <i>eval()</i>
+        con la siguiente línea en <i>xava.properties</i>:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="properties">unsafeEvalInScripts=true</code></pre>
+      </div>
+      <div class="wiki" style="display: block;">Habilitar el uso de <i>eval()</i>
+        es peligroso siempre, por eso esto debería ser una medida temporal y
+        tendrías que ir pensando en reescribir tu código para no usar <i>eval()</i>
+        o actualizar la librería de JavaScript correspondiente.</div>
+      <div class="wiki" style="display: block;">Además, la cabecera de Content
+        Security Policy (CSP) se puede desactivar completamente. Añade a <i>xava.properties</i>:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="properties">turnOffWebSecurity=true</code></pre>
+      </div>
+      <div class="wiki" style="display: block;">Hacer esto es una forma rápida
+        de ver tu aplicación funcionando si has actualizado a la versión 7.3+
+        desde una version antigua de OpenXava, pero constituye un riesgo de
+        seguridad importante, porque la CSP estricta es lo que permite inhibir
+        la mayor parte de los riesgos de seguridad.</div>
+    </div>
+  </body>
+</html>

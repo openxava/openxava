@@ -17,6 +17,7 @@ naviox.init = function() {
 	naviox.initLeftMenu(); 
 	naviox.initModulesList();
 	naviox.initBookmark();
+	naviox.initModuleHeader();
 }
 
 naviox.initLeftMenu = function() { 
@@ -51,6 +52,35 @@ naviox.initBookmark = function() {
 	$('#bookmark').on( "click", function() {
 		naviox.bookmark();
 	});
+}
+
+naviox.initModuleHeader = function() {
+    var closeIcons = $('.module-header-tab .close-icon');
+    closeIcons.each(function(index, icon) {
+        $(icon).on('click', function() {
+            var module = $(icon).closest('.module-header-tab');
+            var moduleList = $('.module-header-tab');
+            var index = moduleList.index(module);
+            if (module.length) {
+                var selected = module.find('.selected');
+                Modules.closeModule(naviox.application, naviox.module, index);
+                if (selected.length) {
+                    var nextElement = module.next().length ? module.next() : module.prev();
+                    if (nextElement.length) {
+                        var aElement = nextElement.find('a');
+                        if (aElement.length) {
+                            aElement.get(0).click();
+                        }
+                    }
+                }
+                module.addClass('hidden');
+                setTimeout(function() {
+                    module.get(0).remove();
+                }, 500);
+            }
+
+        });
+    });
 }
 
 naviox.watchForIdleUser = function() {

@@ -9,12 +9,12 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Personalizacion"></a> <span id="breadcrumbs"> <span
+      <h1 id="toc0"><a name="Personalizacion"></a> <span id="breadcrumbs"> <span
             id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
         Personalización</h1>
       <strong>Guía de referencia</strong>: <a class="wiki_link" href="model_es.html">Modelo</a>
-      | <a class="wiki_link" href="view_es.html">Vista</a> | <a class="wiki_link"
+      | <a class="wiki_link" href="view_es.html">Vista</a> | <a class="wiki_link"
         href="tab_es.html">Datos tabulares</a> | <a class="wiki_link" href="mapping_es.html">Mapeo
         objeto/relacional</a> | <a class="wiki_link" href="controllers_es.html">Controladores</a>
       | <a class="wiki_link" href="application_es.html">Aplicación</a> | <strong>Personalización</strong>
@@ -72,7 +72,7 @@
       La interfaz de usuario generada por OpenXava es buena para la mayoría de
       los casos, pero a veces puede que necesitemos personalizar alguna parte de
       la interfaz de usuario (creando nuestros propios <a class="wiki_link" href="#Personalizacion-Editores">editores</a>)
-      o crear nuestra interfaz de usuario íntegramente a mano (usando <a class="wiki_link"
+      o crear nuestra interfaz de usuario íntegramente a mano (usando <a class="wiki_link"
         href="#Personalizacion-Vistas+JSP+propias+y+taglibs+de+OpenXava">vistas
         personalizadas con JSP</a>).<br>
       Por otra parte, si simplemente quieres definir la apariencia visual de tu
@@ -113,7 +113,7 @@
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
 class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
 &nbsp;
 <span class="sc0">&lt;!DOCTYPE editores SYSTEM "dtds/editores.dtd"&gt;</span>
@@ -146,7 +146,7 @@ class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span c
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span></span>
-<span class="sc3">    <span class="re0">nombre</span>=<span class="st0">"nombre"</span>                         &lt;!--  1  Nuevo en v2.1.3 --<span
+<span class="sc3">    <span class="re0">nombre</span>=<span class="st0">"nombre"</span>                         &lt;!--  1  Nuevo en v2.1.3 --<span
 class="re2">&gt;</span></span>
     url="url"                               <span class="sc-1">&lt;!--  2 --&gt;</span>
     formatear="true|false"                  <span class="sc-1">&lt;!--  3 --&gt;</span>
@@ -160,34 +160,34 @@ class="re2">&gt;</span></span>
     accion-liberar="Controlador.accion"     <span class="sc-1">&lt;!-- 11  Nuevo en v5.7 --&gt;</span>
     elementos-seleccionables="true|false"   <span class="sc-1">&lt;!-- 12  Nuevo en v5.7 --&gt;</span>
 &gt;
-   <span class="sc3"><span class="re1">&lt;propiedad</span> ... <span class="re2">/&gt;</span></span> ...                    <span
+   <span class="sc3"><span class="re1">&lt;propiedad</span> ... <span class="re2">/&gt;</span></span> ...                    <span
 class="sc-1">&lt;!-- 13 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;formateador</span> ... <span class="re2">/&gt;</span></span>                      <span
+   <span class="sc3"><span class="re1">&lt;formateador</span> ... <span class="re2">/&gt;</span></span>                      <span
 class="sc-1">&lt;!-- 14 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;formateador-lista</span> ... <span class="re2">/&gt;</span></span>                <span
+   <span class="sc3"><span class="re1">&lt;formateador-lista</span> ... <span class="re2">/&gt;</span></span>                <span
 class="sc-1">&lt;!-- 15  Nuevo en v3.1.4 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;para-estereotipo</span> ... <span class="re2">/&gt;</span></span> ...             <span
-class="sc-1">&lt;!-- 16 --&gt;</span><br>   <span class="sc3"><span class="re1">&lt;para-anotacion</span> ... <span
-class="re2">/&gt;</span></span> ...             <span class="sc-1">  &lt;!-- 17  Nuevo en v6.6 --&gt;</span><br>  &nbsp;<span
-class="sc3"><span class="re1">&lt;para-tipo</span> ... <span class="re2">/&gt;</span></span> ...                    <span
+   <span class="sc3"><span class="re1">&lt;para-estereotipo</span> ... <span class="re2">/&gt;</span></span> ...             <span
+class="sc-1">&lt;!-- 16 --&gt;</span><br>   <span class="sc3"><span class="re1">&lt;para-anotacion</span> ... <span
+class="re2">/&gt;</span></span> ...             <span class="sc-1">  &lt;!-- 17  Nuevo en v6.6 --&gt;</span><br>  &nbsp;<span
+class="sc3"><span class="re1">&lt;para-tipo</span> ... <span class="re2">/&gt;</span></span> ...                    <span
 class="sc-1">&lt;!-- 18 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;para-propiedad-modelo</span> ... <span
+   <span class="sc3"><span class="re1">&lt;para-propiedad-modelo</span> ... <span
 class="re2">/&gt;</span></span> ...        <span class="sc-1">&lt;!-- 19 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;para-referencia</span> ... <span class="re2">/&gt;</span></span> ...              <span
+   <span class="sc3"><span class="re1">&lt;para-referencia</span> ... <span class="re2">/&gt;</span></span> ...              <span
 class="sc-1">&lt;!-- 20  Nuevo en v3.1.3 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;para-coleccion</span> ... <span class="re2">/&gt;</span></span> ...               <span
+   <span class="sc3"><span class="re1">&lt;para-coleccion</span> ... <span class="re2">/&gt;</span></span> ...               <span
 class="sc-1">&lt;!-- 21  Nuevo en v3.1.3 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;para-tab</span> ... <span class="re2">/&gt;</span></span> ...                     <span
+   <span class="sc3"><span class="re1">&lt;para-tab</span> ... <span class="re2">/&gt;</span></span> ...                     <span
 class="sc-1">&lt;!-- 22  Nuevo en v4.6 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;para-valores-posibles</span> <span class="re2">/&gt;</span></span>                <span
+   <span class="sc3"><span class="re1">&lt;para-valores-posibles</span> <span class="re2">/&gt;</span></span>                <span
 class="sc-1">&lt;!-- 23  Nuevo en v2.1.2 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;para-referencias</span> <span class="re2">/&gt;</span></span>                     <span
+   <span class="sc3"><span class="re1">&lt;para-referencias</span> <span class="re2">/&gt;</span></span>                     <span
 class="sc-1">&lt;!-- 24  Nuevo en v3.1.3 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;para-colecciones</span> <span class="re2">/&gt;</span></span>                     <span
+   <span class="sc3"><span class="re1">&lt;para-colecciones</span> <span class="re2">/&gt;</span></span>                     <span
 class="sc-1">&lt;!-- 25  Nuevo en v3.1.3 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;para-colecciones-elementos</span> <span
+   <span class="sc3"><span class="re1">&lt;para-colecciones-elementos</span> <span
 class="re2">/&gt;</span></span>           <span class="sc-1">&lt;!-- 26  Nuevo en v5.0 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;para-tabs</span> <span class="re2">/&gt;</span></span>                            <span
+   <span class="sc3"><span class="re1">&lt;para-tabs</span> <span class="re2">/&gt;</span></span>                            <span
 class="sc-1">&lt;!-- 27  Nuevo en v4.6 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
       <ol>
@@ -203,7 +203,7 @@ class="sc-1">&lt;!-- 27  Nuevo en v4.6 --&gt;</span>
           OpenXava el que tiene la responsabilidad de formatear los datos desde
           HTML hasta Java y viceversa, si vale <em>false</em> tiene que hacerlo
           el propio editor (generalmente recogiendo información del <em>request</em>
-          y asignandolo a <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html"
+          y asignandolo a <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html"
               rel="nofollow">org.openxava.view.View</a></em> y viceversa). Por
           defecto vale <em>true</em>.</li>
         <li><strong>depende-de-estereotipos</strong> (opcional): Lista de
@@ -226,11 +226,11 @@ class="sc-1">&lt;!-- 27  Nuevo en v4.6 --&gt;</span>
           vale <em>false</em>.</li>
         <li><strong>compuesto</strong> (opcional): <em>(Nuevo en v3.1.3)</em>
           Una editor compuesto está formado por otros editores; recibe un objeto
-          <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html"
+          <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html"
               rel="nofollow">View</a></em> que reepresenta una subvista. Por
           defecto vale <em>false</em>.</li>
         <li><strong>icono</strong> (opcional): <em>(Nuevo en v5.7)</em> Id de
-          un icono de <a class="wiki_link_ext" href="https://materialdesignicons.com/"
+          un icono de <a class="wiki_link_ext" href="https://materialdesignicons.com/"
             rel="nofollow">Material Design Icons</a>. Por ejemplo, si escribes <em>icono="bell"</em>
           un campana se usará como icono para permitir al usuario escoger el
           editor. Actualmente escoger un editor sólo está disponible en modo
@@ -319,19 +319,19 @@ class="sc-1">&lt;!-- 27  Nuevo en v4.6 --&gt;</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
 class="re0">url</span>=<span class="st0">"textEditor.jsp"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
 class="st0">"java.lang.String"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
 class="st0">"java.math.BigDecimal"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
 class="st0">"int"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
 class="st0">"java.lang.Integer"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
 class="st0">"long"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
+ <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
 class="st0">"java.lang.Long"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
       Aquí asignamos a un grupo de tipos básicos el editor <em>textEditor.jsp</em>
@@ -376,53 +376,53 @@ class="st0">"java.lang.Long"</span><span class="re2">/&gt;</span></span>
 .php span.xtra { display:block; }
 
 -->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span
-class="sy0">=</span><span class="st0">"org.openxava.model.meta.MetaProperty"</span> <span
+</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span
+class="sy0">=</span><span class="st0">"org.openxava.model.meta.MetaProperty"</span> <span
 class="sy1">%&gt;</span>
 &nbsp;
 <span class="sy1">&lt;%</span>
-String propertyKey <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-class="br0">(</span><span class="st0">"propertyKey"</span><span class="br0">)</span><span
+String propertyKey <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
+class="br0">(</span><span class="st0">"propertyKey"</span><span class="br0">)</span><span
 class="sy0">;</span> <span class="co1">// 1</span>
-MetaProperty p <span class="sy0">=</span> <span class="br0">(</span>MetaProperty<span
-class="br0">)</span> request<span class="sy0">.</span>getAttribute<span class="br0">(</span>propertyKey<span
+MetaProperty p <span class="sy0">=</span> <span class="br0">(</span>MetaProperty<span
+class="br0">)</span> request<span class="sy0">.</span>getAttribute<span class="br0">(</span>propertyKey<span
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// 2</span>
-String fvalue <span class="sy0">=</span> <span class="br0">(</span>String<span class="br0">)</span> request<span
-class="sy0">.</span>getAttribute<span class="br0">(</span>propertyKey <span class="sy0">+</span> <span
-class="st0">".fvalue"</span><span class="br0">)</span><span class="sy0">;</span> <span
+String fvalue <span class="sy0">=</span> <span class="br0">(</span>String<span class="br0">)</span> request<span
+class="sy0">.</span>getAttribute<span class="br0">(</span>propertyKey <span class="sy0">+</span> <span
+class="st0">".fvalue"</span><span class="br0">)</span><span class="sy0">;</span> <span
 class="co1">// 3</span>
-String align <span class="sy0">=</span> p<span class="sy0">.</span>isNumber<span
-class="br0">(</span><span class="br0">)</span>?<span class="st0">"right"</span><span
-class="sy0">:</span><span class="st0">"left"</span><span class="sy0">;</span> <span
+String align <span class="sy0">=</span> p<span class="sy0">.</span>isNumber<span
+class="br0">(</span><span class="br0">)</span>?<span class="st0">"right"</span><span
+class="sy0">:</span><span class="st0">"left"</span><span class="sy0">;</span> <span
 class="co1">// 4</span>
-boolean editable<span class="sy0">=</span><span class="st0">"true"</span><span class="sy0">.</span>equals<span
-class="br0">(</span>request<span class="sy0">.</span>getParameter<span class="br0">(</span><span
-class="st0">"editable"</span><span class="br0">)</span><span class="br0">)</span><span
+boolean editable<span class="sy0">=</span><span class="st0">"true"</span><span class="sy0">.</span>equals<span
+class="br0">(</span>request<span class="sy0">.</span>getParameter<span class="br0">(</span><span
+class="st0">"editable"</span><span class="br0">)</span><span class="br0">)</span><span
 class="sy0">;</span> <span class="co1">// 5</span>
-String disabled<span class="sy0">=</span>editable?<span class="st0">""</span><span
-class="sy0">:</span><span class="st0">"disabled"</span><span class="sy0">;</span> <span
+String disabled<span class="sy0">=</span>editable?<span class="st0">""</span><span
+class="sy0">:</span><span class="st0">"disabled"</span><span class="sy0">;</span> <span
 class="co1">// 5</span>
-String script <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-class="br0">(</span><span class="st0">"script"</span><span class="br0">)</span><span
+String script <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
+class="br0">(</span><span class="st0">"script"</span><span class="br0">)</span><span
 class="sy0">;</span> <span class="co1">// 6</span>  Ignorado desde v7.2, por lo que ya no es necesario
-boolean label <span class="sy0">=</span> org<span class="sy0">.</span>openxava<span
-class="sy0">.</span>util<span class="sy0">.</span>XavaPreferences<span class="sy0">.</span>getInstance<span
-class="br0">(</span><span class="br0">)</span><span class="sy0">.</span>isReadOnlyAsLabel<span
+boolean label <span class="sy0">=</span> org<span class="sy0">.</span>openxava<span
+class="sy0">.</span>util<span class="sy0">.</span>XavaPreferences<span class="sy0">.</span>getInstance<span
+class="br0">(</span><span class="br0">)</span><span class="sy0">.</span>isReadOnlyAsLabel<span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="kw1">if</span> <span class="br0">(</span>editable <span class="sy0">||</span> <span
-class="sy0">!</span>label<span class="br0">)</span> <span class="br0">{</span> <span
+<span class="kw1">if</span> <span class="br0">(</span>editable <span class="sy0">||</span> <span
+class="sy0">!</span>label<span class="br0">)</span> <span class="br0">{</span> <span
 class="co1">// 5</span>
 <span class="sy1">%&gt;</span>
-&lt;input id="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" name="<span
+&lt;input id="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" name="<span
 class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" class=editor &lt;!-- 1 --&gt;
  type="text"
  tabindex="1" &lt;!-- 7 --&gt;
- title="<span class="sy1">&lt;%=</span>p<span class="sy0">.</span>getDescription<span
+ title="<span class="sy1">&lt;%=</span>p<span class="sy0">.</span>getDescription<span
 class="br0">(</span>request<span class="br0">)</span><span class="sy1">%&gt;</span>"
  align='<span class="sy1">&lt;%=</span>align<span class="sy1">%&gt;</span>' &lt;!-- 4 --&gt;
- maxlength="<span class="sy1">&lt;%=</span>p<span class="sy0">.</span>getSize<span
+ maxlength="<span class="sy1">&lt;%=</span>p<span class="sy0">.</span>getSize<span
 class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>"
- size="<span class="sy1">&lt;%=</span>p<span class="sy0">.</span>getSize<span class="br0">(</span><span
+ size="<span class="sy1">&lt;%=</span>p<span class="sy0">.</span>getSize<span class="br0">(</span><span
 class="br0">)</span><span class="sy1">%&gt;</span>"
  value="<span class="sy1">&lt;%=</span>fvalue<span class="sy1">%&gt;</span>" &lt;!-- 3 --&gt;
  <span class="sy1">&lt;%=</span>disabled<span class="sy1">%&gt;</span> &lt;!-- 5 --&gt;
@@ -435,17 +435,17 @@ class="br0">)</span><span class="sy1">%&gt;</span>"
 <span class="sy1">&lt;%</span>
 <span class="br0">}</span>
 <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span> <span class="kw1">if</span> <span class="br0">(</span><span
-class="sy0">!</span>editable<span class="br0">)</span> <span class="br0">{</span> <span
+<span class="sy1">&lt;%</span> <span class="kw1">if</span> <span class="br0">(</span><span
+class="sy0">!</span>editable<span class="br0">)</span> <span class="br0">{</span> <span
 class="sy1">%&gt;</span>
- &lt;input type="hidden" name="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" value="<span
+ &lt;input type="hidden" name="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" value="<span
 class="sy1">&lt;%=</span>fvalue<span class="sy1">%&gt;</span>"&gt;
 <span class="sy1">&lt;%</span> <span class="br0">}</span> <span class="sy1">%&gt;</span></pre>
       Un editor JSP recibe un conjunto de parámetros y tiene accesos a atributos
       que le permiten configurarse adecuadamente para encajar bien en una vista
       OpenXava. En primer lugar vemos como cogemos <em>propertyKey</em> (1) que
-      después usaremos como id HTML. A partir de ese id podemos acceder a la <em><a
-          class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/model/meta/MetaProperty.html"
+      después usaremos como id HTML. A partir de ese id podemos acceder a la <em><a
+          class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/model/meta/MetaProperty.html"
           rel="nofollow">MetaProperty</a></em> (2) (que contiene toda la meta
       información de la propiedad a editar). El atributo <em>fvalue</em>(3)
       contiene el valor ya formateado y listo para visualizar. Averiguamos
@@ -485,11 +485,11 @@ class="sy1">&lt;%=</span>fvalue<span class="sy1">%&gt;</span>"&gt;
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
 class="re0">url</span>=<span class="st0">"textEditor.jsp"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;formatedor</span> <span class="re0">clase</span>=<span
+ <span class="sc3"><span class="re1">&lt;formatedor</span> <span class="re0">clase</span>=<span
 class="st0">"org.openxava.formatters.UpperCaseFormatter"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;para-tipo</span> <span class="re0">tipo</span>=<span
+ <span class="sc3"><span class="re1">&lt;para-tipo</span> <span class="re0">tipo</span>=<span
 class="st0">"java.lang.String"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
       Estaremos sobreescribiendo el comportamiento de OpenXava para las
@@ -683,44 +683,44 @@ class="st0">"java.lang.String"</span><span class="re2">/&gt;</span></span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.formatters</span><span
+</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.formatters</span><span
 class="sy0">;</span>
 &nbsp;
-<span class="kw2">import</span> <span class="co2">javax.servlet.http.*</span><span
+<span class="kw2">import</span> <span class="co2">javax.servlet.http.*</span><span
 class="sy0">;</span>
 &nbsp;
 <span class="co3">/**
  * @author Javier Paniza
  */</span>
 &nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> UpperCaseFormatter <span
+<span class="kw2">public</span> <span class="kw2">class</span> UpperCaseFormatter <span
 class="kw2">implements</span> IFormatter <span class="br0">{</span> <span class="co1">// 1</span>
 &nbsp;
- <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> format<span class="br0">(</span>HttpServletRequest request, <a
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a> string<span class="br0">)</span> <span class="br0">{</span> <span
+ <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> format<span class="br0">(</span>HttpServletRequest request, <a
+href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> string<span class="br0">)</span> <span class="br0">{</span> <span
 class="co1">// 2</span>
- <span class="kw2">return</span> string==<span class="kw4">null</span><span class="sy0">?</span><span
-class="st0">""</span>:string.<span class="me1">toString</span><span class="br0">(</span><span
-class="br0">)</span>.<span class="me1">toUpperCase</span><span class="br0">(</span><span
+ <span class="kw2">return</span> string==<span class="kw4">null</span><span class="sy0">?</span><span
+class="st0">""</span>:string.<span class="me1">toString</span><span class="br0">(</span><span
+class="br0">)</span>.<span class="me1">toUpperCase</span><span class="br0">(</span><span
 class="br0">)</span><span class="sy0">;</span>
  <span class="br0">}</span>
 &nbsp;
- <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-class="kw166">Object</span></a> parse<span class="br0">(</span>HttpServletRequest request, <a
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> string<span
+ <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+class="kw166">Object</span></a> parse<span class="br0">(</span>HttpServletRequest request, <a
+href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> string<span
 class="br0">)</span> <span class="br0">{</span> <span class="co1">// 3</span>
- <span class="kw2">return</span> string==<span class="kw4">null</span><span class="sy0">?</span><span
-class="st0">""</span>:string.<span class="me1">toString</span><span class="br0">(</span><span
-class="br0">)</span>.<span class="me1">toUpperCase</span><span class="br0">(</span><span
+ <span class="kw2">return</span> string==<span class="kw4">null</span><span class="sy0">?</span><span
+class="st0">""</span>:string.<span class="me1">toString</span><span class="br0">(</span><span
+class="br0">)</span>.<span class="me1">toUpperCase</span><span class="br0">(</span><span
 class="br0">)</span><span class="sy0">;</span>
  <span class="br0">}</span>
 &nbsp;
 <span class="br0">}</span></pre>
-      Un formateador ha de implementar <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IFormatter.html"
-          rel="nofollow">IFormatter</a></em> (1) o <em><a class="wiki_link_ext"
-          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IMetaPropertyFormatter.html"
+      Un formateador ha de implementar <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IFormatter.html"
+          rel="nofollow">IFormatter</a></em> (1) o <em><a class="wiki_link_ext"
+          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IMetaPropertyFormatter.html"
           rel="nofollow">IMetaPropertyFormatter</a> (nuevo en v5.9)</em> lo que
       lo obliga a tener un método <em>format()</em> (2) que convierte el valor
       de la propiedad que puede ser un objeto Java cualquiera en una cadena para
@@ -731,7 +731,7 @@ class="br0">)</span><span class="sy0">;</span>
         en v3.1.4)</em>, para esto disponemos de <em>formateador-lista.</em> El
       formateador asignado a este atributo nos indicará la forma en la cual se
       visualizará la información en el modo lista sin afectar al modo detalle.
-      Este formateador implementará <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IFormatter.html"
+      Este formateador implementará <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IFormatter.html"
           rel="nofollow">IFormatter</a></em> pero a diferencia del anterior solo
       será necesario implementar <em>format()</em>. Si no se especifica <em>formateador-lista</em>
       los datos de la lista son formateados con <em>formateador</em>.<br>
@@ -929,10 +929,10 @@ class="br0">)</span><span class="sy0">;</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@Stereotype<span class="br0">(</span><span class="st0">"REGIONES"</span><span
+</style><pre class="java5">@Stereotype<span class="br0">(</span><span class="st0">"REGIONES"</span><span
 class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> regiones<span
+<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> regiones<span
 class="sy0">;</span></pre>
       Entonces podemos añadir una entrada en el archivo <em>tipo-estereotipo-defecto.xml</em>
       como sigue:<br>
@@ -958,8 +958,8 @@ class="sy0">;</span></pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;para</span> <span
-class="re0">estereotipo</span>=<span class="st0">"REGIONES"</span> <span class="re0">tipo</span>=<span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;para</span> <span
+class="re0">estereotipo</span>=<span class="st0">"REGIONES"</span> <span class="re0">tipo</span>=<span
 class="st0">"String []"</span><span class="re2">/&gt;</span></span></pre>
       Y definir nuestro editor en el <em>editores.xml</em> de nuestro proyecto:<br>
       <style type="text/css"><!--
@@ -984,24 +984,24 @@ class="st0">"String []"</span><span class="re2">/&gt;</span></span></pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-class="re0">url</span>=<span class="st0">"editorRegiones.jsp"</span><span class="re2">&gt;</span></span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+class="re0">url</span>=<span class="st0">"editorRegiones.jsp"</span><span class="re2">&gt;</span></span> <span
 class="sc-1">&lt;!-- 1 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-class="st0">"cantidadRegiones"</span> <span class="re0">valor</span>=<span class="st0">"3"</span><span
+ <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
+class="st0">"cantidadRegiones"</span> <span class="re0">valor</span>=<span class="st0">"3"</span><span
 class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 2 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;formateador</span> <span class="re0">clase</span>=<span
-class="st0">"org.openxava.formatters.MultipleValuesByPassFormatter"</span><span
+ <span class="sc3"><span class="re1">&lt;formateador</span> <span class="re0">clase</span>=<span
+class="st0">"org.openxava.formatters.MultipleValuesByPassFormatter"</span><span
 class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 3 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;para-estereotipo</span> <span class="re0">estereotipo</span>=<span
+ <span class="sc3"><span class="re1">&lt;para-estereotipo</span> <span class="re0">estereotipo</span>=<span
 class="st0">"REGIONES"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
       <em>editorRegiones.jsp</em> (1) es el archivo JSP que dibuja nuestro
       editor. Podemos definir propiedades que serán enviada al JSP como
       parámetros del <em>request</em> (2). El formateador tiene que implementar
-      <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IMultipleValuesFormatter.html"
-          rel="nofollow">IMultipleValuesFormatter</a></em>, que es similar a <em><a
-          class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IFormatter.html"
+      <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IMultipleValuesFormatter.html"
+          rel="nofollow">IMultipleValuesFormatter</a></em>, que es similar a <em><a
+          class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IFormatter.html"
           rel="nofollow">IFormatter</a></em> pero usa <em>String []</em> en vez
       de <em>String</em>. En este caso usamos un formateador genérico que
       simplemente deja pasar el dato.<br>
@@ -1046,75 +1046,75 @@ class="st0">"REGIONES"</span><span class="re2">/&gt;</span></span>
 .php span.xtra { display:block; }
 
 -->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span
+</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span
 class="sy0">=</span><span class="st0">"java.util.Collection"</span> <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
+<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
 class="st0">"java.util.Collections"</span> <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
+<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
 class="st0">"java.util.Arrays"</span> <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
+<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
 class="st0">"org.openxava.util.Labels"</span> <span class="sy1">%&gt;</span>
 &nbsp;
 &lt;jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/&gt;
 &nbsp;
 <span class="sy1">&lt;%</span>
-String propertyKey <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-class="br0">(</span><span class="st0">"propertyKey"</span><span class="br0">)</span><span
+String propertyKey <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
+class="br0">(</span><span class="st0">"propertyKey"</span><span class="br0">)</span><span
 class="sy0">;</span>
-String <span class="br0">[</span><span class="br0">]</span> fvalues <span class="sy0">=</span> <span
-class="br0">(</span>String <span class="br0">[</span><span class="br0">]</span><span
-class="br0">)</span> request<span class="sy0">.</span>getAttribute<span class="br0">(</span>propertyKey <span
-class="sy0">+</span> <span class="st0">".fvalue"</span><span class="br0">)</span><span
+String <span class="br0">[</span><span class="br0">]</span> fvalues <span class="sy0">=</span> <span
+class="br0">(</span>String <span class="br0">[</span><span class="br0">]</span><span
+class="br0">)</span> request<span class="sy0">.</span>getAttribute<span class="br0">(</span>propertyKey <span
+class="sy0">+</span> <span class="st0">".fvalue"</span><span class="br0">)</span><span
 class="sy0">;</span> <span class="co1">// (1)</span>
-boolean editable<span class="sy0">=</span><span class="st0">"true"</span><span class="sy0">.</span>equals<span
-class="br0">(</span>request<span class="sy0">.</span>getParameter<span class="br0">(</span><span
-class="st0">"editable"</span><span class="br0">)</span><span class="br0">)</span><span
+boolean editable<span class="sy0">=</span><span class="st0">"true"</span><span class="sy0">.</span>equals<span
+class="br0">(</span>request<span class="sy0">.</span>getParameter<span class="br0">(</span><span
+class="st0">"editable"</span><span class="br0">)</span><span class="br0">)</span><span
 class="sy0">;</span>
-String disabled<span class="sy0">=</span>editable?<span class="st0">""</span><span
+String disabled<span class="sy0">=</span>editable?<span class="st0">""</span><span
 class="sy0">:</span><span class="st0">"disabled"</span><span class="sy0">;</span>
-String script <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-class="br0">(</span><span class="st0">"script"</span><span class="br0">)</span><span
+String script <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
+class="br0">(</span><span class="st0">"script"</span><span class="br0">)</span><span
 class="sy0">;</span> // Ignorado desde v7.2, ya no es necesario 
-boolean label <span class="sy0">=</span> org<span class="sy0">.</span>openxava<span
-class="sy0">.</span>util<span class="sy0">.</span>XavaPreferences<span class="sy0">.</span>getInstance<span
-class="br0">(</span><span class="br0">)</span><span class="sy0">.</span>isReadOnlyAsLabel<span
+boolean label <span class="sy0">=</span> org<span class="sy0">.</span>openxava<span
+class="sy0">.</span>util<span class="sy0">.</span>XavaPreferences<span class="sy0">.</span>getInstance<span
+class="br0">(</span><span class="br0">)</span><span class="sy0">.</span>isReadOnlyAsLabel<span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="kw1">if</span> <span class="br0">(</span>editable <span class="sy0">||</span> <span
+<span class="kw1">if</span> <span class="br0">(</span>editable <span class="sy0">||</span> <span
 class="sy0">!</span>label<span class="br0">)</span> <span class="br0">{</span>
- String sregionsCount <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-class="br0">(</span><span class="st0">"cantidadRegiones"</span><span class="br0">)</span><span
+ String sregionsCount <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
+class="br0">(</span><span class="st0">"cantidadRegiones"</span><span class="br0">)</span><span
 class="sy0">;</span>
- int regionsCount <span class="sy0">=</span> sregionsCount <span class="sy0">==</span> <span
-class="kw4">null</span>?<span class="nu0">5</span><span class="sy0">:</span>Integer<span
-class="sy0">.</span>parseInt<span class="br0">(</span>sregionsCount<span class="br0">)</span><span
+ int regionsCount <span class="sy0">=</span> sregionsCount <span class="sy0">==</span> <span
+class="kw4">null</span>?<span class="nu0">5</span><span class="sy0">:</span>Integer<span
+class="sy0">.</span>parseInt<span class="br0">(</span>sregionsCount<span class="br0">)</span><span
 class="sy0">;</span>
- Collection regions <span class="sy0">=</span> fvalues<span class="sy0">==</span><span
-class="kw4">null</span>?Collections<span class="sy0">.</span>EMPTY_LIST<span class="sy0">:</span>Arrays<span
-class="sy0">.</span>asList<span class="br0">(</span>fvalues<span class="br0">)</span><span
+ Collection regions <span class="sy0">=</span> fvalues<span class="sy0">==</span><span
+class="kw4">null</span>?Collections<span class="sy0">.</span>EMPTY_LIST<span class="sy0">:</span>Arrays<span
+class="sy0">.</span>asList<span class="br0">(</span>fvalues<span class="br0">)</span><span
 class="sy0">;</span>
 <span class="sy1">%&gt;</span>
-&lt;select id="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" name="<span
+&lt;select id="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" name="<span
 class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" multiple="multiple"
- class=<span class="sy1">&lt;%=</span>style<span class="sy0">.</span>getEditor<span
+ class=<span class="sy1">&lt;%=</span>style<span class="sy0">.</span>getEditor<span
 class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>
  <span class="sy1">&lt;%=</span>disabled<span class="sy1">%&gt;</span>
  <span class="sy1">&lt;%=</span>script<span class="sy1">%&gt;</span>&gt; &lt;!-- No se usa desde v7.2 --&gt;
  <span class="sy1">&lt;%</span>
- <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
-class="nu0">1</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>regionsCount<span
-class="sy0">+</span><span class="nu0">1</span><span class="sy0">;</span> i<span
+ <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
+class="nu0">1</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>regionsCount<span
+class="sy0">+</span><span class="nu0">1</span><span class="sy0">;</span> i<span
 class="sy0">++</span><span class="br0">)</span> <span class="br0">{</span>
- String selected <span class="sy0">=</span> regions<span class="sy0">.</span>contains<span
-class="br0">(</span>Integer<span class="sy0">.</span>toString<span class="br0">(</span>i<span
-class="br0">)</span><span class="br0">)</span>?<span class="st0">"selected"</span><span
+ String selected <span class="sy0">=</span> regions<span class="sy0">.</span>contains<span
+class="br0">(</span>Integer<span class="sy0">.</span>toString<span class="br0">(</span>i<span
+class="br0">)</span><span class="br0">)</span>?<span class="st0">"selected"</span><span
 class="sy0">:</span><span class="st0">""</span><span class="sy0">;</span>
  <span class="sy1">%&gt;</span>
  &lt;option
- value="<span class="sy1">&lt;%=</span>i<span class="sy1">%&gt;</span>" <span class="sy1">&lt;%=</span>selected<span
+ value="<span class="sy1">&lt;%=</span>i<span class="sy1">%&gt;</span>" <span class="sy1">&lt;%=</span>selected<span
 class="sy1">%&gt;</span>&gt;
- <span class="sy1">&lt;%=</span>Labels<span class="sy0">.</span>get<span class="br0">(</span><span
-class="st0">"regions."</span> <span class="sy0">+</span> i<span class="sy0">,</span> request<span
-class="sy0">.</span>getLocale<span class="br0">(</span><span class="br0">)</span><span
+ <span class="sy1">&lt;%=</span>Labels<span class="sy0">.</span>get<span class="br0">(</span><span
+class="st0">"regions."</span> <span class="sy0">+</span> i<span class="sy0">,</span> request<span
+class="sy0">.</span>getLocale<span class="br0">(</span><span class="br0">)</span><span
 class="br0">)</span><span class="sy1">%&gt;</span>
  &lt;/option&gt;
  <span class="sy1">&lt;%</span>
@@ -1124,14 +1124,14 @@ class="br0">)</span><span class="sy1">%&gt;</span>
 <span class="sy1">&lt;%</span>
 <span class="br0">}</span>
 <span class="kw1">else</span> <span class="br0">{</span>
- <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
-class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>fvalues<span
-class="sy0">.</span>length<span class="sy0">;</span> i<span class="sy0">++</span><span
+ <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
+class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>fvalues<span
+class="sy0">.</span>length<span class="sy0">;</span> i<span class="sy0">++</span><span
 class="br0">)</span> <span class="br0">{</span>
 <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%=</span>Labels<span class="sy0">.</span>get<span class="br0">(</span><span
-class="st0">"regions."</span> <span class="sy0">+</span> fvalues<span class="br0">[</span>i<span
-class="br0">]</span><span class="sy0">,</span> request<span class="sy0">.</span>getLocale<span
+<span class="sy1">&lt;%=</span>Labels<span class="sy0">.</span>get<span class="br0">(</span><span
+class="st0">"regions."</span> <span class="sy0">+</span> fvalues<span class="br0">[</span>i<span
+class="br0">]</span><span class="sy0">,</span> request<span class="sy0">.</span>getLocale<span
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy1">%&gt;</span>
 <span class="sy1">&lt;%</span>
  <span class="br0">}</span>
@@ -1139,15 +1139,15 @@ class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span cl
 <span class="sy1">%&gt;</span>
 &nbsp;
 <span class="sy1">&lt;%</span>
-<span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>editable<span
+<span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>editable<span
 class="br0">)</span> <span class="br0">{</span>
- <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
-class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>fvalues<span
-class="sy0">.</span>length<span class="sy0">;</span> i<span class="sy0">++</span><span
+ <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
+class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>fvalues<span
+class="sy0">.</span>length<span class="sy0">;</span> i<span class="sy0">++</span><span
 class="br0">)</span> <span class="br0">{</span>
 <span class="sy1">%&gt;</span>
- &lt;input type="hidden" name="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" value="<span
-class="sy1">&lt;%=</span>fvalues<span class="br0">[</span>i<span class="br0">]</span><span
+ &lt;input type="hidden" name="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" value="<span
+class="sy1">&lt;%=</span>fvalues<span class="br0">[</span>i<span class="br0">]</span><span
 class="sy1">%&gt;</span>"&gt;
 <span class="sy1">&lt;%</span>
  <span class="br0">}</span>
@@ -1197,63 +1197,63 @@ class="sy1">%&gt;</span>"&gt;
 .php span.xtra { display:block; }
 
 -->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span
+</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span
 class="sy0">=</span><span class="st0">"java.util.Collection"</span> <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
+<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
 class="st0">"java.util.Collections"</span> <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
+<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
 class="st0">"java.util.Arrays"</span> <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
+<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
 class="st0">"org.openxava.util.Labels"</span> <span class="sy1">%&gt;</span>
 &nbsp;
 &lt;jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/&gt;
 &nbsp;
 <span class="sy1">&lt;%</span>
-String propertyKey <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-class="br0">(</span><span class="st0">"propertyKey"</span><span class="br0">)</span><span
+String propertyKey <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
+class="br0">(</span><span class="st0">"propertyKey"</span><span class="br0">)</span><span
 class="sy0">;</span>
-String <span class="br0">[</span><span class="br0">]</span> fvalues <span class="sy0">=</span> <span
-class="br0">(</span>String <span class="br0">[</span><span class="br0">]</span><span
-class="br0">)</span> request<span class="sy0">.</span>getAttribute<span class="br0">(</span>propertyKey <span
-class="sy0">+</span> <span class="st0">".fvalue"</span><span class="br0">)</span><span
+String <span class="br0">[</span><span class="br0">]</span> fvalues <span class="sy0">=</span> <span
+class="br0">(</span>String <span class="br0">[</span><span class="br0">]</span><span
+class="br0">)</span> request<span class="sy0">.</span>getAttribute<span class="br0">(</span>propertyKey <span
+class="sy0">+</span> <span class="st0">".fvalue"</span><span class="br0">)</span><span
 class="sy0">;</span>
-boolean editable<span class="sy0">=</span><span class="st0">"true"</span><span class="sy0">.</span>equals<span
-class="br0">(</span>request<span class="sy0">.</span>getParameter<span class="br0">(</span><span
-class="st0">"editable"</span><span class="br0">)</span><span class="br0">)</span><span
+boolean editable<span class="sy0">=</span><span class="st0">"true"</span><span class="sy0">.</span>equals<span
+class="br0">(</span>request<span class="sy0">.</span>getParameter<span class="br0">(</span><span
+class="st0">"editable"</span><span class="br0">)</span><span class="br0">)</span><span
 class="sy0">;</span>
-String disabled<span class="sy0">=</span>editable?<span class="st0">""</span><span
+String disabled<span class="sy0">=</span>editable?<span class="st0">""</span><span
 class="sy0">:</span><span class="st0">"disabled"</span><span class="sy0">;</span>
-String script <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-class="br0">(</span><span class="st0">"script"</span><span class="br0">)</span><span
+String script <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
+class="br0">(</span><span class="st0">"script"</span><span class="br0">)</span><span
 class="sy0">;</span> // Ignorado desde v7.2, ya no es necesario 
-boolean label <span class="sy0">=</span> org<span class="sy0">.</span>openxava<span
-class="sy0">.</span>util<span class="sy0">.</span>XavaPreferences<span class="sy0">.</span>getInstance<span
-class="br0">(</span><span class="br0">)</span><span class="sy0">.</span>isReadOnlyAsLabel<span
+boolean label <span class="sy0">=</span> org<span class="sy0">.</span>openxava<span
+class="sy0">.</span>util<span class="sy0">.</span>XavaPreferences<span class="sy0">.</span>getInstance<span
+class="br0">(</span><span class="br0">)</span><span class="sy0">.</span>isReadOnlyAsLabel<span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="kw1">if</span> <span class="br0">(</span>editable <span class="sy0">||</span> <span
+<span class="kw1">if</span> <span class="br0">(</span>editable <span class="sy0">||</span> <span
 class="sy0">!</span>label<span class="br0">)</span> <span class="br0">{</span>
-    String sregionsCount <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-class="br0">(</span><span class="st0">"cantidadRegiones"</span><span class="br0">)</span><span
+    String sregionsCount <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
+class="br0">(</span><span class="st0">"cantidadRegiones"</span><span class="br0">)</span><span
 class="sy0">;</span>
-    int regionsCount <span class="sy0">=</span> sregionsCount <span class="sy0">==</span> <span
-class="kw4">null</span>?<span class="nu0">5</span><span class="sy0">:</span>Integer<span
-class="sy0">.</span>parseInt<span class="br0">(</span>sregionsCount<span class="br0">)</span><span
+    int regionsCount <span class="sy0">=</span> sregionsCount <span class="sy0">==</span> <span
+class="kw4">null</span>?<span class="nu0">5</span><span class="sy0">:</span>Integer<span
+class="sy0">.</span>parseInt<span class="br0">(</span>sregionsCount<span class="br0">)</span><span
 class="sy0">;</span>
-    Collection regions <span class="sy0">=</span> fvalues<span class="sy0">==</span><span
-class="kw4">null</span>?Collections<span class="sy0">.</span>EMPTY_LIST<span class="sy0">:</span>Arrays<span
-class="sy0">.</span>asList<span class="br0">(</span>fvalues<span class="br0">)</span><span
+    Collection regions <span class="sy0">=</span> fvalues<span class="sy0">==</span><span
+class="kw4">null</span>?Collections<span class="sy0">.</span>EMPTY_LIST<span class="sy0">:</span>Arrays<span
+class="sy0">.</span>asList<span class="br0">(</span>fvalues<span class="br0">)</span><span
 class="sy0">;</span>
-    <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
-class="nu0">1</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>regionsCount<span
-class="sy0">+</span><span class="nu0">1</span><span class="sy0">;</span> i<span
+    <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
+class="nu0">1</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>regionsCount<span
+class="sy0">+</span><span class="nu0">1</span><span class="sy0">;</span> i<span
 class="sy0">++</span><span class="br0">)</span> <span class="br0">{</span>
-        String checked <span class="sy0">=</span> regions<span class="sy0">.</span>contains<span
-class="br0">(</span>Integer<span class="sy0">.</span>toString<span class="br0">(</span>i<span
-class="br0">)</span><span class="br0">)</span>?<span class="st0">"checked"</span><span
+        String checked <span class="sy0">=</span> regions<span class="sy0">.</span>contains<span
+class="br0">(</span>Integer<span class="sy0">.</span>toString<span class="br0">(</span>i<span
+class="br0">)</span><span class="br0">)</span>?<span class="st0">"checked"</span><span
 class="sy0">:</span><span class="st0">""</span><span class="sy0">;</span>
     <span class="sy1">%&gt;</span>
-        &lt;input name="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" type="checkbox" class="<span
-class="sy1">&lt;%=</span>style<span class="sy0">.</span>getEditor<span class="br0">(</span><span
+        &lt;input name="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" type="checkbox" class="<span
+class="sy1">&lt;%=</span>style<span class="sy0">.</span>getEditor<span class="br0">(</span><span
 class="br0">)</span><span class="sy1">%&gt;</span>"
                 tabindex="1"
                 value="<span class="sy1">&lt;%=</span>i<span class="sy1">%&gt;</span>"
@@ -1261,22 +1261,22 @@ class="br0">)</span><span class="sy1">%&gt;</span>"
                 <span class="sy1">&lt;%=</span>disabled<span class="sy1">%&gt;</span>
                 <span class="sy1">&lt;%=</span>script<span class="sy1">%&gt;</span> &lt;!-- No se usa desde v7.2 --&gt;
         /&gt;
-        <span class="sy1">&lt;%=</span>Labels<span class="sy0">.</span>get<span
-class="br0">(</span><span class="st0">"regions."</span> <span class="sy0">+</span> i<span
-class="sy0">,</span> request<span class="sy0">.</span>getLocale<span class="br0">(</span><span
+        <span class="sy1">&lt;%=</span>Labels<span class="sy0">.</span>get<span
+class="br0">(</span><span class="st0">"regions."</span> <span class="sy0">+</span> i<span
+class="sy0">,</span> request<span class="sy0">.</span>getLocale<span class="br0">(</span><span
 class="br0">)</span><span class="br0">)</span><span class="sy1">%&gt;</span>
     <span class="sy1">&lt;%</span>
     <span class="br0">}</span>
 <span class="br0">}</span>
 <span class="kw1">else</span> <span class="br0">{</span>
-    <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
-class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>fvalues<span
-class="sy0">.</span>length<span class="sy0">;</span> i<span class="sy0">++</span><span
+    <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
+class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>fvalues<span
+class="sy0">.</span>length<span class="sy0">;</span> i<span class="sy0">++</span><span
 class="br0">)</span> <span class="br0">{</span>
 <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%=</span>Labels<span class="sy0">.</span>get<span class="br0">(</span><span
-class="st0">"regions."</span> <span class="sy0">+</span> fvalues<span class="br0">[</span>i<span
-class="br0">]</span><span class="sy0">,</span> request<span class="sy0">.</span>getLocale<span
+<span class="sy1">&lt;%=</span>Labels<span class="sy0">.</span>get<span class="br0">(</span><span
+class="st0">"regions."</span> <span class="sy0">+</span> fvalues<span class="br0">[</span>i<span
+class="br0">]</span><span class="sy0">,</span> request<span class="sy0">.</span>getLocale<span
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy1">%&gt;</span>
 <span class="sy1">&lt;%</span>
     <span class="br0">}</span>
@@ -1284,15 +1284,15 @@ class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span cl
 <span class="sy1">%&gt;</span>
 &nbsp;
 <span class="sy1">&lt;%</span>
-<span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>editable<span
+<span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>editable<span
 class="br0">)</span> <span class="br0">{</span>
-    <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
-class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>fvalues<span
-class="sy0">.</span>length<span class="sy0">;</span> i<span class="sy0">++</span><span
+    <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
+class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>fvalues<span
+class="sy0">.</span>length<span class="sy0">;</span> i<span class="sy0">++</span><span
 class="br0">)</span> <span class="br0">{</span>
 <span class="sy1">%&gt;</span>
-        &lt;input type="hidden" name="<span class="sy1">&lt;%=</span>propertyKey<span
-class="sy1">%&gt;</span>" value="<span class="sy1">&lt;%=</span>fvalues<span class="br0">[</span>i<span
+        &lt;input type="hidden" name="<span class="sy1">&lt;%=</span>propertyKey<span
+class="sy1">%&gt;</span>" value="<span class="sy1">&lt;%=</span>fvalues<span class="br0">[</span>i<span
 class="br0">]</span><span class="sy1">%&gt;</span>"&gt;
 <span class="sy1">&lt;%</span>
     <span class="br0">}</span>
@@ -1326,9 +1326,9 @@ class="br0">]</span><span class="sy1">%&gt;</span>"&gt;
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
 class="re0">url</span>=<span class="st0">"colorEditor.jsp"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;para-referencia</span> <span class="re0">modelo</span>=<span
+ <span class="sc3"><span class="re1">&lt;para-referencia</span> <span class="re0">modelo</span>=<span
 class="st0">"Color"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span>
 &nbsp;</pre>
@@ -1407,10 +1407,10 @@ for (int c=0; it.hasNext() &amp;&amp; c &lt; 3; c++) {
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-class="re0">nombre</span>=<span class="st0">"MiReferencia"</span> <span class="re0">url</span>=<span
-class="st0">"miReferenciaEditor.jsp"</span> <span class="re0">enmarcable</span>=<span
-class="st0">"true"</span> <span class="re0">compuesto</span>=<span class="st0">"true"</span><span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+class="re0">nombre</span>=<span class="st0">"MiReferencia"</span> <span class="re0">url</span>=<span
+class="st0">"miReferenciaEditor.jsp"</span> <span class="re0">enmarcable</span>=<span
+class="st0">"true"</span> <span class="re0">compuesto</span>=<span class="st0">"true"</span><span
 class="re2">&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;para-referencias</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
@@ -1447,16 +1447,16 @@ class="re2">&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-class="re0">url</span>=<span class="st0">"comentariosBlogEditor.jsp"</span><span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+class="re0">url</span>=<span class="st0">"comentariosBlogEditor.jsp"</span><span
 class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;para-coleccion</span> <span class="re0">modelo</span>=<span
+ <span class="sc3"><span class="re1">&lt;para-coleccion</span> <span class="re0">modelo</span>=<span
 class="st0">"ComentarioBlog"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
       Con el código de arriba estamos diciendo que cualquier colección de
       entidades <em>ComentarioBlog</em> tiene que ser visualizada y editada
       usando <em>comentariosBlogEditor.jsp</em> (para usar un editor solo para
-      una colección concreta en una entidad concreta ver la sección <a class="wiki_link"
+      una colección concreta en una entidad concreta ver la sección <a class="wiki_link"
         href="view_es.html#Vista-Personalizacion+de+coleccion-Escoger+un+editor+%28colecciones,+nuevo+in+v3.1.3%29">Escoger
         un editor</a> en el <a class="wiki_link" href="view_es.html">capítulo
         sobre Vista</a>).<br>
@@ -1502,11 +1502,11 @@ class="st0">"ComentarioBlog"</span><span class="re2">/&gt;</span></span>
 .php span.xtra { display:block; }
 
 -->
-</style><pre class="php"><span class="sy0">&lt;</span>jsp<span class="sy0">:</span><span
-class="kw1">include</span> page<span class="sy0">=</span><span class="st0">"collectionEditor.jsp"</span><span
+</style><pre class="php"><span class="sy0">&lt;</span>jsp<span class="sy0">:</span><span
+class="kw1">include</span> page<span class="sy0">=</span><span class="st0">"collectionEditor.jsp"</span><span
 class="sy0">&gt;</span>
- <span class="sy0">&lt;</span>jsp<span class="sy0">:</span>param name<span class="sy0">=</span><span
-class="st0">"listEditor"</span> value<span class="sy0">=</span><span class="st0">"comentariosBlogListEditor.jsp"</span><span
+ <span class="sy0">&lt;</span>jsp<span class="sy0">:</span>param name<span class="sy0">=</span><span
+class="st0">"listEditor"</span> value<span class="sy0">=</span><span class="st0">"comentariosBlogListEditor.jsp"</span><span
 class="sy0">/&gt;</span>
 <span class="sy0">&lt;/</span>jsp<span class="sy0">:</span>include<span class="sy0">&gt;</span></pre>
       Esta es una forma habitual de crear un editor para colecciones. Aquí
@@ -1556,88 +1556,88 @@ class="sy0">/&gt;</span>
 .php span.xtra { display:block; }
 
 -->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
-class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
+</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
+class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
 class="st0">"../imports.jsp"</span><span class="sy1">%&gt;</span>
 &nbsp;
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
+<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
 class="st0">"org.openxava.view.View"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
+<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
 class="st0">"org.openxava.model.MapFacade"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
+<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
 class="st0">"org.openxava.test.model.Blog"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
+<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
 class="st0">"org.openxava.test.model.BlogComment"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
+<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
 class="st0">"java.util.Iterator"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
+<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
 class="st0">"java.util.Map"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
+<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
 class="st0">"java.text.DateFormat"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
+<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
 class="st0">"org.openxava.util.Locales"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
+<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
 class="st0">"org.openxava.util.Is"</span><span class="sy1">%&gt;</span>
 &nbsp;
 &lt;jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/&gt;
 &nbsp;
 <span class="sy1">&lt;%</span>
-String viewObject <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-class="br0">(</span><span class="st0">"viewObject"</span><span class="br0">)</span><span
+String viewObject <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
+class="br0">(</span><span class="st0">"viewObject"</span><span class="br0">)</span><span
 class="sy0">;</span> <span class="co1">// Id para acceder al objeto view de la colección</span>
-View collectionView <span class="sy0">=</span> <span class="br0">(</span>View<span
-class="br0">)</span> context<span class="sy0">.</span>get<span class="br0">(</span>request<span
-class="sy0">,</span> viewObject<span class="br0">)</span><span class="sy0">;</span> <span
+View collectionView <span class="sy0">=</span> <span class="br0">(</span>View<span
+class="br0">)</span> context<span class="sy0">.</span>get<span class="br0">(</span>request<span
+class="sy0">,</span> viewObject<span class="br0">)</span><span class="sy0">;</span> <span
 class="co1">// Obtenemos el objeto view de la colección mediante context</span>
-View rootView <span class="sy0">=</span> collectionView<span class="sy0">.</span>getRoot<span
+View rootView <span class="sy0">=</span> collectionView<span class="sy0">.</span>getRoot<span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// En este caso usamos la vista raiz, la vista de Blog</span>
-Map <span class="kw3">key</span> <span class="sy0">=</span> rootView<span class="sy0">.</span>getKeyValues<span
+Map <span class="kw3">key</span> <span class="sy0">=</span> rootView<span class="sy0">.</span>getKeyValues<span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="kw1">if</span> <span class="br0">(</span>Is<span class="sy0">.</span><span
-class="kw3">empty</span><span class="br0">(</span><span class="kw3">key</span><span
+<span class="kw1">if</span> <span class="br0">(</span>Is<span class="sy0">.</span><span
+class="kw3">empty</span><span class="br0">(</span><span class="kw3">key</span><span
 class="br0">)</span><span class="br0">)</span> <span class="br0">{</span>
 <span class="sy1">%&gt;</span>
 No hay comentarios
 <span class="sy1">&lt;%</span>
-<span class="br0">}</span> <span class="kw1">else</span> <span class="br0">{</span> <span
+<span class="br0">}</span> <span class="kw1">else</span> <span class="br0">{</span> <span
 class="co1">// Si la clave tiene valor dibujamos la colección de comentarios</span>
 &nbsp;
-Blog blog <span class="sy0">=</span> <span class="br0">(</span>Blog<span class="br0">)</span> MapFacade<span
-class="sy0">.</span>findEntity<span class="br0">(</span><span class="st0">"Blog"</span><span
-class="sy0">,</span> <span class="kw3">key</span><span class="br0">)</span><span
+Blog blog <span class="sy0">=</span> <span class="br0">(</span>Blog<span class="br0">)</span> MapFacade<span
+class="sy0">.</span>findEntity<span class="br0">(</span><span class="st0">"Blog"</span><span
+class="sy0">,</span> <span class="kw3">key</span><span class="br0">)</span><span
 class="sy0">;</span>
-String action <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-class="br0">(</span><span class="st0">"rowAction"</span><span class="br0">)</span><span
+String action <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
+class="br0">(</span><span class="st0">"rowAction"</span><span class="br0">)</span><span
 class="sy0">;</span> <span class="co1">// rowAction es la acción para editar o visualizar cada elemento</span>
-String actionArgv <span class="sy0">=</span> <span class="st0">",viewObject="</span> <span
+String actionArgv <span class="sy0">=</span> <span class="st0">",viewObject="</span> <span
 class="sy0">+</span> viewObject<span class="sy0">;</span>
 <span class="sy1">%&gt;</span>
 &nbsp;
 Estos son los comentarios&lt;br/&gt;
 <span class="sy1">&lt;%</span>
-DateFormat df <span class="sy0">=</span> DateFormat<span class="sy0">.</span>getDateInstance<span
-class="br0">(</span>DateFormat<span class="sy0">.</span>SHORT<span class="sy0">,</span> Locales<span
-class="sy0">.</span>getCurrent<span class="br0">(</span><span class="br0">)</span><span
+DateFormat df <span class="sy0">=</span> DateFormat<span class="sy0">.</span>getDateInstance<span
+class="br0">(</span>DateFormat<span class="sy0">.</span>SHORT<span class="sy0">,</span> Locales<span
+class="sy0">.</span>getCurrent<span class="br0">(</span><span class="br0">)</span><span
 class="br0">)</span><span class="sy0">;</span>
 int f<span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span>
-<span class="kw1">for</span> <span class="br0">(</span>Iterator it <span class="sy0">=</span> blog<span
-class="sy0">.</span>getComentarios<span class="br0">(</span><span class="br0">)</span><span
-class="sy0">.</span>iterator<span class="br0">(</span><span class="br0">)</span><span
-class="sy0">;</span> it<span class="sy0">.</span>hasNext<span class="br0">(</span><span
-class="br0">)</span><span class="sy0">;</span> f<span class="sy0">++</span><span
+<span class="kw1">for</span> <span class="br0">(</span>Iterator it <span class="sy0">=</span> blog<span
+class="sy0">.</span>getComentarios<span class="br0">(</span><span class="br0">)</span><span
+class="sy0">.</span>iterator<span class="br0">(</span><span class="br0">)</span><span
+class="sy0">;</span> it<span class="sy0">.</span>hasNext<span class="br0">(</span><span
+class="br0">)</span><span class="sy0">;</span> f<span class="sy0">++</span><span
 class="br0">)</span> <span class="br0">{</span>
- ComentarioBlog comentario <span class="sy0">=</span> <span class="br0">(</span>ComentarioBlog<span
-class="br0">)</span> it<span class="sy0">.</span><span class="kw3">next</span><span
+ ComentarioBlog comentario <span class="sy0">=</span> <span class="br0">(</span>ComentarioBlog<span
+class="br0">)</span> it<span class="sy0">.</span><span class="kw3">next</span><span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 <span class="sy1">%&gt;</span>
-&lt;i&gt;&lt;b&gt;&lt;big&gt;Comentario del <span class="sy1">&lt;%=</span>df<span
-class="sy0">.</span>format<span class="br0">(</span>comentario<span class="sy0">.</span>getFecha<span
+&lt;i&gt;&lt;b&gt;&lt;big&gt;Comentario del <span class="sy1">&lt;%=</span>df<span
+class="sy0">.</span>format<span class="br0">(</span>comentario<span class="sy0">.</span>getFecha<span
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy1">%&gt;</span>&lt;/big&gt;&lt;/b&gt;&lt;/i&gt;
-&lt;xava:action action='<span class="sy1">&lt;%=</span>action<span class="sy1">%&gt;</span>' argv='<span
-class="sy1">&lt;%=</span><span class="st0">"row="</span> <span class="sy0">+</span> f <span
+&lt;xava:action action='<span class="sy1">&lt;%=</span>action<span class="sy1">%&gt;</span>' argv='<span
+class="sy1">&lt;%=</span><span class="st0">"row="</span> <span class="sy0">+</span> f <span
 class="sy0">+</span> actionArgv<span class="sy1">%&gt;</span>'/&gt;
 &lt;p&gt;
-&lt;i&gt;<span class="sy1">&lt;%=</span>comentario<span class="sy0">.</span>getCuerpo<span
+&lt;i&gt;<span class="sy1">&lt;%=</span>comentario<span class="sy0">.</span>getCuerpo<span
 class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>&lt;/i&gt;
 &lt;/p&gt;
 &lt;hr/&gt;
@@ -1700,44 +1700,44 @@ class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>&lt;
 .php span.xtra { display:block; }
 
 -->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span
+</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span
 class="sy0">=</span><span class="st0">"org.openxava.view.View"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
+<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
 class="st0">"org.openxava.model.MapFacade"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
+<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
 class="st0">"org.openxava.test.model.Carrier"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
+<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
 class="st0">"java.util.Iterator"</span><span class="sy1">%&gt;</span>
 &nbsp;
 &lt;jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/&gt;
 &nbsp;
 <span class="sy1">&lt;%</span>
-String viewObject <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-class="br0">(</span><span class="st0">"viewObject"</span><span class="br0">)</span><span
+String viewObject <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
+class="br0">(</span><span class="st0">"viewObject"</span><span class="br0">)</span><span
 class="sy0">;</span> <span class="co1">// viewObject es el id del objeto view del padre</span>
-View view <span class="sy0">=</span> <span class="br0">(</span>View<span class="br0">)</span> context<span
-class="sy0">.</span>get<span class="br0">(</span>request<span class="sy0">,</span> viewObject<span
+View view <span class="sy0">=</span> <span class="br0">(</span>View<span class="br0">)</span> context<span
+class="sy0">.</span>get<span class="br0">(</span>request<span class="sy0">,</span> viewObject<span
 class="br0">)</span><span class="sy0">;</span> <span class="co1">// view es el objeto view de Transportista, el padre de la colección</span>
-Transportista transportista <span class="sy0">=</span> <span class="br0">(</span>Transportista<span
-class="br0">)</span> MapFacade<span class="sy0">.</span>findEntity<span class="br0">(</span><span
-class="st0">"Transportista"</span><span class="sy0">,</span> view<span class="sy0">.</span>getKeyValues<span
+Transportista transportista <span class="sy0">=</span> <span class="br0">(</span>Transportista<span
+class="br0">)</span> MapFacade<span class="sy0">.</span>findEntity<span class="br0">(</span><span
+class="st0">"Transportista"</span><span class="sy0">,</span> view<span class="sy0">.</span>getKeyValues<span
 class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
 <span class="sy1">%&gt;</span>
-Los compañeros de <span class="sy1">&lt;%=</span>transportista<span class="sy0">.</span>getNombre<span
+Los compañeros de <span class="sy1">&lt;%=</span>transportista<span class="sy0">.</span>getNombre<span
 class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span> son:&lt;br&gt;
 &lt;ul&gt;
 <span class="sy1">&lt;%</span>
-<span class="kw1">for</span> <span class="br0">(</span>Iterator it <span class="sy0">=</span> transportista<span
-class="sy0">.</span>getCompaneros<span class="br0">(</span><span class="br0">)</span><span
-class="sy0">.</span>iterator<span class="br0">(</span><span class="br0">)</span><span
-class="sy0">;</span> it<span class="sy0">.</span>hasNext<span class="br0">(</span><span
-class="br0">)</span><span class="sy0">;</span> <span class="br0">)</span> <span
+<span class="kw1">for</span> <span class="br0">(</span>Iterator it <span class="sy0">=</span> transportista<span
+class="sy0">.</span>getCompaneros<span class="br0">(</span><span class="br0">)</span><span
+class="sy0">.</span>iterator<span class="br0">(</span><span class="br0">)</span><span
+class="sy0">;</span> it<span class="sy0">.</span>hasNext<span class="br0">(</span><span
+class="br0">)</span><span class="sy0">;</span> <span class="br0">)</span> <span
 class="br0">{</span>
- Transportista companero <span class="sy0">=</span> <span class="br0">(</span>Transportista<span
-class="br0">)</span> it<span class="sy0">.</span><span class="kw3">next</span><span
+ Transportista companero <span class="sy0">=</span> <span class="br0">(</span>Transportista<span
+class="br0">)</span> it<span class="sy0">.</span><span class="kw3">next</span><span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 <span class="sy1">%&gt;</span>
-&lt;li&gt;<span class="sy1">&lt;%=</span>companero<span class="sy0">.</span>getNombre<span
+&lt;li&gt;<span class="sy1">&lt;%=</span>companero<span class="sy0">.</span>getNombre<span
 class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>&lt;/li&gt;
 <span class="sy1">&lt;%</span>
 <span class="br0">}</span>
@@ -1782,16 +1782,16 @@ class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>&lt;
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-class="re0">nombre</span>=<span class="st0">"MiColeccion"</span> <span class="re0">url</span>=<span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+class="re0">nombre</span>=<span class="st0">"MiColeccion"</span> <span class="re0">url</span>=<span
 class="st0">"miColeccionEditor.jsp"</span><span class="re2">&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;para-colecciones</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span>
 &nbsp;
-<span class="sc3"><span class="re1">&lt;editor</span> <span class="re0">nombre</span>=<span
-class="st0">"MiColeccionElementos"</span> <span class="re0">url</span>=<span class="st0">"miColeccionElementosEditor.jsp"</span><span
+<span class="sc3"><span class="re1">&lt;editor</span> <span class="re0">nombre</span>=<span
+class="st0">"MiColeccionElementos"</span> <span class="re0">url</span>=<span class="st0">"miColeccionElementosEditor.jsp"</span><span
 class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;para-colecciones-elementos</span><span
+ <span class="sc3"><span class="re1">&lt;para-colecciones-elementos</span><span
 class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- Nuevo en v5.0 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
       Ahora todas las colecciones <em>@OneToMany/@ManyToMany</em> en nuestra
@@ -1825,10 +1825,10 @@ class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- Nuevo en v5.0 --&gt;<
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-class="re0">url</span>=<span class="st0">"empleadoCorporativoListEditor.jsp"</span><span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+class="re0">url</span>=<span class="st0">"empleadoCorporativoListEditor.jsp"</span><span
 class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;para-tab</span> <span class="re0">modelo</span>=<span
+  <span class="sc3"><span class="re1">&lt;para-tab</span> <span class="re0">modelo</span>=<span
 class="st0">"EmpleadoCorporativo"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
       Con el código de arriba estamos diciendo que todos los tabs (es decir
@@ -1879,44 +1879,44 @@ class="st0">"EmpleadoCorporativo"</span><span class="re2">/&gt;</span></span>
 .php span.xtra { display:block; }
 
 -->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
-class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
+</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
+class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
 class="st0">"../imports.jsp"</span><span class="sy1">%&gt;</span>
 &nbsp;
 &lt;jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/&gt;
 &nbsp;
 <span class="sy1">&lt;%</span>
-String tabObject <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-class="br0">(</span><span class="st0">"tabObject"</span><span class="br0">)</span><span
+String tabObject <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
+class="br0">(</span><span class="st0">"tabObject"</span><span class="br0">)</span><span
 class="sy0">;</span>
-tabObject <span class="sy0">=</span> <span class="br0">(</span>tabObject <span class="sy0">==</span> <span
-class="kw4">null</span> <span class="sy0">||</span> tabObject<span class="sy0">.</span>equals<span
-class="br0">(</span><span class="st0">""</span><span class="br0">)</span><span class="br0">)</span>?<span
+tabObject <span class="sy0">=</span> <span class="br0">(</span>tabObject <span class="sy0">==</span> <span
+class="kw4">null</span> <span class="sy0">||</span> tabObject<span class="sy0">.</span>equals<span
+class="br0">(</span><span class="st0">""</span><span class="br0">)</span><span class="br0">)</span>?<span
 class="st0">"xava_tab"</span><span class="sy0">:</span>tabObject<span class="sy0">;</span>
-org<span class="sy0">.</span>openxava<span class="sy0">.</span>tab<span class="sy0">.</span>Tab tab <span
-class="sy0">=</span> <span class="br0">(</span>org<span class="sy0">.</span>openxava<span
-class="sy0">.</span>tab<span class="sy0">.</span>Tab<span class="br0">)</span> context<span
-class="sy0">.</span>get<span class="br0">(</span>request<span class="sy0">,</span> tabObject<span
+org<span class="sy0">.</span>openxava<span class="sy0">.</span>tab<span class="sy0">.</span>Tab tab <span
+class="sy0">=</span> <span class="br0">(</span>org<span class="sy0">.</span>openxava<span
+class="sy0">.</span>tab<span class="sy0">.</span>Tab<span class="br0">)</span> context<span
+class="sy0">.</span>get<span class="br0">(</span>request<span class="sy0">,</span> tabObject<span
 class="br0">)</span><span class="sy0">;</span>
-String condition <span class="sy0">=</span> tab<span class="sy0">.</span>getBaseCondition<span
-class="br0">(</span><span class="br0">)</span><span class="sy0">==</span><span class="kw4">null</span>?<span
-class="st0">""</span><span class="sy0">:</span>tab<span class="sy0">.</span>getBaseCondition<span
+String condition <span class="sy0">=</span> tab<span class="sy0">.</span>getBaseCondition<span
+class="br0">(</span><span class="br0">)</span><span class="sy0">==</span><span class="kw4">null</span>?<span
+class="st0">""</span><span class="sy0">:</span>tab<span class="sy0">.</span>getBaseCondition<span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-String all <span class="sy0">=</span> condition<span class="sy0">.</span>equals<span
-class="br0">(</span><span class="st0">""</span><span class="br0">)</span>?<span
-class="st0">"selected"</span><span class="sy0">:</span><span class="st0">""</span><span
+String all <span class="sy0">=</span> condition<span class="sy0">.</span>equals<span
+class="br0">(</span><span class="st0">""</span><span class="br0">)</span>?<span
+class="st0">"selected"</span><span class="sy0">:</span><span class="st0">""</span><span
 class="sy0">;</span>
-String low <span class="sy0">=</span> condition<span class="sy0">.</span>contains<span
-class="br0">(</span><span class="st0">"&lt;="</span><span class="br0">)</span>?<span
-class="st0">"selected"</span><span class="sy0">:</span><span class="st0">""</span><span
+String low <span class="sy0">=</span> condition<span class="sy0">.</span>contains<span
+class="br0">(</span><span class="st0">"&lt;="</span><span class="br0">)</span>?<span
+class="st0">"selected"</span><span class="sy0">:</span><span class="st0">""</span><span
 class="sy0">;</span>
-String high <span class="sy0">=</span> condition<span class="sy0">.</span>contains<span
-class="br0">(</span><span class="st0">"&gt;"</span><span class="br0">)</span>?<span
-class="st0">"selected"</span><span class="sy0">:</span><span class="st0">""</span><span
+String high <span class="sy0">=</span> condition<span class="sy0">.</span>contains<span
+class="br0">(</span><span class="st0">"&gt;"</span><span class="br0">)</span>?<span
+class="st0">"selected"</span><span class="sy0">:</span><span class="st0">""</span><span
 class="sy0">;</span>
-String action<span class="sy0">=</span><span class="st0">"openxava.executeAction('OpenXavaTest', 'EmpleadoCorporativo',"</span> <span
+String action<span class="sy0">=</span><span class="st0">"openxava.executeAction('OpenXavaTest', 'EmpleadoCorporativo',"</span> <span
 class="sy0">+</span>
-    <span class="st0">"false, false, 'EmpleadoCorporativo.filtrar', 'segmento='+this.value)"</span><span
+    <span class="st0">"false, false, 'EmpleadoCorporativo.filtrar', 'segmento='+this.value)"</span><span
 class="sy0">;</span>
 <span class="sy1">%&gt;</span>
 &nbsp;
@@ -1974,66 +1974,66 @@ class="sy0">;</span>
 .php span.xtra { display:block; }
 
 -->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
-class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
+</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
+class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
 class="st0">"../imports.jsp"</span><span class="sy1">%&gt;</span>
 &nbsp;
 &lt;jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/&gt;
 &nbsp;
 <span class="sy1">&lt;%</span>
-String collection <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-class="br0">(</span><span class="st0">"collection"</span><span class="br0">)</span><span
+String collection <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
+class="br0">(</span><span class="st0">"collection"</span><span class="br0">)</span><span
 class="sy0">;</span>
 String id <span class="sy0">=</span> <span class="st0">"list"</span><span class="sy0">;</span>
-String collectionArgv <span class="sy0">=</span> <span class="st0">""</span><span
+String collectionArgv <span class="sy0">=</span> <span class="st0">""</span><span
 class="sy0">;</span>
 String prefix <span class="sy0">=</span> <span class="st0">""</span><span class="sy0">;</span>
-String tabObject <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-class="br0">(</span><span class="st0">"tabObject"</span><span class="br0">)</span><span
+String tabObject <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
+class="br0">(</span><span class="st0">"tabObject"</span><span class="br0">)</span><span
 class="sy0">;</span>
-tabObject <span class="sy0">=</span> <span class="br0">(</span>tabObject <span class="sy0">==</span> <span
-class="kw4">null</span> <span class="sy0">||</span> tabObject<span class="sy0">.</span>equals<span
-class="br0">(</span><span class="st0">""</span><span class="br0">)</span><span class="br0">)</span>?<span
+tabObject <span class="sy0">=</span> <span class="br0">(</span>tabObject <span class="sy0">==</span> <span
+class="kw4">null</span> <span class="sy0">||</span> tabObject<span class="sy0">.</span>equals<span
+class="br0">(</span><span class="st0">""</span><span class="br0">)</span><span class="br0">)</span>?<span
 class="st0">"xava_tab"</span><span class="sy0">:</span>tabObject<span class="sy0">;</span>
-<span class="kw1">if</span> <span class="br0">(</span>collection <span class="sy0">!=</span> <span
-class="kw4">null</span> <span class="sy0">&amp;&amp;</span> <span class="sy0">!</span>collection<span
-class="sy0">.</span>equals<span class="br0">(</span><span class="st0">""</span><span
+<span class="kw1">if</span> <span class="br0">(</span>collection <span class="sy0">!=</span> <span
+class="kw4">null</span> <span class="sy0">&amp;&amp;</span> <span class="sy0">!</span>collection<span
+class="sy0">.</span>equals<span class="br0">(</span><span class="st0">""</span><span
 class="br0">)</span><span class="br0">)</span> <span class="br0">{</span>
     id <span class="sy0">=</span> collection<span class="sy0">;</span>
-    collectionArgv<span class="sy0">=</span><span class="st0">",collection="</span><span
+    collectionArgv<span class="sy0">=</span><span class="st0">",collection="</span><span
 class="sy0">+</span>collection<span class="sy0">;</span>
-    prefix <span class="sy0">=</span> tabObject <span class="sy0">+</span> <span
+    prefix <span class="sy0">=</span> tabObject <span class="sy0">+</span> <span
 class="st0">"_"</span><span class="sy0">;</span>
 <span class="br0">}</span>
-org<span class="sy0">.</span>openxava<span class="sy0">.</span>tab<span class="sy0">.</span>Tab tab <span
-class="sy0">=</span> <span class="br0">(</span>org<span class="sy0">.</span>openxava<span
-class="sy0">.</span>tab<span class="sy0">.</span>Tab<span class="br0">)</span> context<span
-class="sy0">.</span>get<span class="br0">(</span>request<span class="sy0">,</span> tabObject<span
+org<span class="sy0">.</span>openxava<span class="sy0">.</span>tab<span class="sy0">.</span>Tab tab <span
+class="sy0">=</span> <span class="br0">(</span>org<span class="sy0">.</span>openxava<span
+class="sy0">.</span>tab<span class="sy0">.</span>Tab<span class="br0">)</span> context<span
+class="sy0">.</span>get<span class="br0">(</span>request<span class="sy0">,</span> tabObject<span
 class="br0">)</span><span class="sy0">;</span>
-org<span class="sy0">.</span>openxava<span class="sy0">.</span>tab<span class="sy0">.</span>impl<span
-class="sy0">.</span>IXTableModel model <span class="sy0">=</span> tab<span class="sy0">.</span>getTableModel<span
+org<span class="sy0">.</span>openxava<span class="sy0">.</span>tab<span class="sy0">.</span>impl<span
+class="sy0">.</span>IXTableModel model <span class="sy0">=</span> tab<span class="sy0">.</span>getTableModel<span
 class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="kw1">for</span> <span class="br0">(</span>int r<span class="sy0">=</span>tab<span
-class="sy0">.</span>getInitialIndex<span class="br0">(</span><span class="br0">)</span><span
-class="sy0">;</span> r<span class="sy0">&lt;</span>model<span class="sy0">.</span>getRowCount<span
-class="br0">(</span><span class="br0">)</span> <span class="sy0">&amp;&amp;</span> r <span
-class="sy0">&lt;</span> tab<span class="sy0">.</span>getFinalIndex<span class="br0">(</span><span
-class="br0">)</span><span class="sy0">;</span> r<span class="sy0">++</span><span
+<span class="kw1">for</span> <span class="br0">(</span>int r<span class="sy0">=</span>tab<span
+class="sy0">.</span>getInitialIndex<span class="br0">(</span><span class="br0">)</span><span
+class="sy0">;</span> r<span class="sy0">&lt;</span>model<span class="sy0">.</span>getRowCount<span
+class="br0">(</span><span class="br0">)</span> <span class="sy0">&amp;&amp;</span> r <span
+class="sy0">&lt;</span> tab<span class="sy0">.</span>getFinalIndex<span class="br0">(</span><span
+class="br0">)</span><span class="sy0">;</span> r<span class="sy0">++</span><span
 class="br0">)</span> <span class="br0">{</span>
 <span class="sy1">%&gt;</span>
     &lt;xava:link action="List.viewDetail"&gt;&lt;div class="ficha-cliente"&gt;
-    &lt;h4&gt;<span class="sy1">&lt;%=</span>model<span class="sy0">.</span>getValueAt<span
-class="br0">(</span>r<span class="sy0">,</span> <span class="nu0">1</span><span
-class="br0">)</span><span class="sy1">%&gt;</span>(<span class="sy1">&lt;%=</span>model<span
-class="sy0">.</span>getValueAt<span class="br0">(</span>r<span class="sy0">,</span> <span
+    &lt;h4&gt;<span class="sy1">&lt;%=</span>model<span class="sy0">.</span>getValueAt<span
+class="br0">(</span>r<span class="sy0">,</span> <span class="nu0">1</span><span
+class="br0">)</span><span class="sy1">%&gt;</span>(<span class="sy1">&lt;%=</span>model<span
+class="sy0">.</span>getValueAt<span class="br0">(</span>r<span class="sy0">,</span> <span
 class="nu0">0</span><span class="br0">)</span><span class="sy1">%&gt;</span>)&lt;/h4&gt;
-    <span class="sy1">&lt;%=</span>model<span class="sy0">.</span>getValueAt<span
-class="br0">(</span>r<span class="sy0">,</span> <span class="nu0">2</span><span
+    <span class="sy1">&lt;%=</span>model<span class="sy0">.</span>getValueAt<span
+class="br0">(</span>r<span class="sy0">,</span> <span class="nu0">2</span><span
 class="br0">)</span><span class="sy1">%&gt;</span>&lt;br/&gt;
-    <span class="sy1">&lt;%=</span>model<span class="sy0">.</span>getValueAt<span
-class="br0">(</span>r<span class="sy0">,</span> <span class="nu0">3</span><span
-class="br0">)</span><span class="sy1">%&gt;</span> (<span class="sy1">&lt;%=</span>model<span
-class="sy0">.</span>getValueAt<span class="br0">(</span>r<span class="sy0">,</span> <span
+    <span class="sy1">&lt;%=</span>model<span class="sy0">.</span>getValueAt<span
+class="br0">(</span>r<span class="sy0">,</span> <span class="nu0">3</span><span
+class="br0">)</span><span class="sy1">%&gt;</span> (<span class="sy1">&lt;%=</span>model<span
+class="sy0">.</span>getValueAt<span class="br0">(</span>r<span class="sy0">,</span> <span
 class="nu0">4</span><span class="br0">)</span><span class="sy1">%&gt;</span>)
     &lt;/div&gt;&lt;/xava:link&gt;
 <span class="sy1">&lt;%</span>
@@ -2053,7 +2053,7 @@ class="nu0">4</span><span class="br0">)</span><span class="sy1">%&gt;</span>)
 }
 </code></pre></div>
       <div class="wiki" style="display: block;">
-        <h3 id="toc8"><a name="Customizing-Editors-JavaScript in editors"></a><span
+        <h3 id="toc8"><a name="Customizing-Editors-JavaScript in editors"></a><span
             style="font-size: 1.1em;"><strong></strong></span></h3>
       </div>
       Además, podemos definir la forma en que las listas se visualizan por
@@ -2081,8 +2081,8 @@ class="nu0">4</span><span class="br0">)</span><span class="sy1">%&gt;</span>)
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-class="re0">nombre</span>=<span class="st0">"MiLista"</span> <span class="re0">url</span>=<span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+class="re0">nombre</span>=<span class="st0">"MiLista"</span> <span class="re0">url</span>=<span
 class="st0">"miListaEditor.jsp"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;para-tabs</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
@@ -2119,19 +2119,19 @@ class="st0">"miListaEditor.jsp"</span><span class="re2">&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-class="re0">name</span>=<span class="st0">"List"</span> <span class="re0">url</span>=<span
-class="st0">"listEditor.jsp"</span> <span class="re0">icon</span>=<span class="st0">"table-large"</span><span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+class="re0">name</span>=<span class="st0">"List"</span> <span class="re0">url</span>=<span
+class="st0">"listEditor.jsp"</span> <span class="re0">icon</span>=<span class="st0">"table-large"</span><span
 class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;for-tabs</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span>
 &nbsp;
-<span class="sc3"><span class="re1">&lt;editor</span> <span class="re0">name</span>=<span
+<span class="sc3"><span class="re1">&lt;editor</span> <span class="re0">name</span>=<span
 class="st0">"Charts"</span> <span class="re0">url</span>=<span class="st0">"chartsEditor.jsp"</span></span>
 <span class="sc3">    <span class="re0">selectable-items</span>=<span class="st0">"false"</span></span>
 <span class="sc3">    <span class="re0">icon</span>=<span class="st0">"chart-line"</span></span>
 <span class="sc3">    <span class="re0">init-action</span>=<span class="st0">"Chart.init"</span></span>
-<span class="sc3">    <span class="re0">release-action</span>=<span class="st0">"Chart.release"</span><span
+<span class="sc3">    <span class="re0">release-action</span>=<span class="st0">"Chart.release"</span><span
 class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;for-tabs</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
@@ -2158,9 +2158,9 @@ class="re2">&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-class="re0">nombre</span>=<span class="st0">"MiFicha"</span> <span class="re0">url</span>=<span
-class="st0">"miFichaEditor.jsp"</span> <span class="re0">icono</span>=<span class="st0">"view-module"</span><span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+class="re0">nombre</span>=<span class="st0">"MiFicha"</span> <span class="re0">url</span>=<span
+class="st0">"miFichaEditor.jsp"</span> <span class="re0">icono</span>=<span class="st0">"view-module"</span><span
 class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;para-tabs</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
@@ -2170,21 +2170,21 @@ class="re2">&gt;</span></span>
       acumula. Fíjate en el atributo <em>icono</em> en <em>&lt;editor/&gt;</em>,
       usado como icono para el botón de formato.<br>
       Si quieres restringir los formatos disponibles sin tener que tocar <i>openxava/src/main/resources/xava/default-editors.xml</i>
-      (<em>OpenXava/xava/default-editors.xml</em> antes de v7) <a class="wiki_link"
+      (<em>OpenXava/xava/default-editors.xml</em> antes de v7) <a class="wiki_link"
         href="tab_es.html#quitar-formato-lista">usa valores-defecto-tabs.xml</a>
       de tu proyecto.<br>
       Lo explicado aquí es para hacer cambios a nivel global, para cambiar los
-      formatos para una lista concreta puedes usar el atributo <a class="wiki_link"
+      formatos para una lista concreta puedes usar el atributo <a class="wiki_link"
         href="tab_es.html#varios-formatos-presentaci%C3%B3n-editores">editors de
         la anotación @Tab</a> en tu entidad. <br>
       <h3><a name="Personalizacion-Editores-Editores para formatos de lista en entidades especificas"></a>Editores
         para formatos de lista en entidades específicas <em>(nuevo en v7.3)</em></h3>
       A partir de v7.3, en los editores marcados con <em>&lt;for-tabs/&gt; </em>y
       <em>&lt;para-tabs/&gt;</em>, se podrán agregar condiciones: <br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> nombre=<span
-class="st0">"MiEditor"</span> <span class="re0">url</span>=<span class="st0">"miEditor.jsp"</span></span><span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> nombre=<span
+class="st0">"MiEditor"</span> <span class="re0">url</span>=<span class="st0">"miEditor.jsp"</span></span><span
 class="sc3"></span>
-<span class="sc3">    <span class="re0">icon</span>o=<span class="st0">"puzzle"</span></span><span
+<span class="sc3">    <span class="re0">icon</span>o=<span class="st0">"puzzle"</span></span><span
 class="sc3"><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;para-tabs</span><span class="re2">&gt; <br>        &lt;tiene-tipo tipo="java.util.Date"&gt;<br>	&lt;tiene-tipo tipo="java.time.LocalDate"&gt;<br>	&lt;tiene-anotacion anotacion="DateTime"&gt;<br>	&lt;tiene-estereotipo estereotipo="FECHAHORA"&gt;<br>    &lt;/para-tabs&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
@@ -2297,7 +2297,7 @@ String color = request.getParameter("color");
 .colorido-fondo-gray input{ background: gray; }
 </code></pre></div>
         <div class="wiki" style="display: block;">
-          <h3 id="toc8"><a name="Customizing-Editors-JavaScript in editors"></a><span
+          <h3 id="toc8"><a name="Customizing-Editors-JavaScript in editors"></a><span
               style="font-size: 1.1em;"><strong></strong></span></h3>
         </div>
       </div>
@@ -2336,8 +2336,8 @@ String color = request.getParameter("color");
 .html4strict span.xtra { display:block; }
 
 -->
-</style><pre class="html4strict"><span class="sc2">&lt;<span class="kw2">input</span> ... <span
-class="kw3">onclick</span><span class="sy0">=</span><span class="st0">"f()"</span><span
+</style><pre class="html4strict"><span class="sc2">&lt;<span class="kw2">input</span> ... <span
+class="kw3">onclick</span><span class="sy0">=</span><span class="st0">"f()"</span><span
 class="sy0">/</span>&gt; &lt;!-- NO PERMITIDO DESDE V7.1--&gt;</span></pre>
       En su lugar has de asociar los eventos desde el código en tus archivos JS.
       Para tu código JavaScript crea un archivo llamado <em>miEditor.js</em> (o
@@ -2372,8 +2372,8 @@ class="sy0">/</span>&gt; &lt;!-- NO PERMITIDO DESDE V7.1--&gt;</span></pre>
 .javascript span.xtra { display:block; }
 
 -->
-</style><pre class="javascript">openxava.<span class="me1">addEditorInitFunction</span><span
-class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
+</style><pre class="javascript">openxava.<span class="me1">addEditorInitFunction</span><span
+class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span>
  <span class="coMULTI">/*
  Aquí tu código de inicialización para tu editor.
@@ -2411,8 +2411,8 @@ class="br0">)</span> <span class="br0">{</span>
 .javascript span.xtra { display:block; }
 
 -->
-</style><pre class="javascript">openxava.<span class="me1">addEditorDestroyFunction</span><span
-class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
+</style><pre class="javascript">openxava.<span class="me1">addEditorDestroyFunction</span><span
+class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span> <span class="co1">// Nuevo en v4.8.1</span>
 <span class="coMULTI">/*
 Aquí el código de destrucción de tu editor.
@@ -2446,9 +2446,9 @@ Esto es para liberar los recursos obtenidos por el editor.
 .javascript span.xtra { display:block; }
 
 -->
-</style><pre class="javascript">openxava.<span class="me1">addEditorPreRequestFunction</span><span
-class="br0"></span><span class="br0">(</span><span class="kw2">function</span><span
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span> <span
+</style><pre class="javascript">openxava.<span class="me1">addEditorPreRequestFunction</span><span
+class="br0"></span><span class="br0">(</span><span class="kw2">function</span><span
+class="br0">(</span><span class="br0">)</span> <span class="br0">{</span> <span
 class="co1">// Nuevo en v7.1</span>
 <span class="coMULTI">/*
 Aquí el código a ejecutar para tu editor
@@ -2696,13 +2696,13 @@ antes de cada llamada AJAX de OpenXava.
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@Stereotype<span class="br0">(</span><span class="st0">"FAMILY"</span><span
+</style><pre class="java5">@Stereotype<span class="br0">(</span><span class="st0">"FAMILY"</span><span
 class="br0">)</span>
-<span class="kw2">private</span> <span class="kw3">int</span> familyNumber<span
+<span class="kw2">private</span> <span class="kw3">int</span> familyNumber<span
 class="sy0">;</span>
 &nbsp;
 @Stereotype<span class="br0">(</span><span class="st0">"SUBFAMILY"</span><span class="br0">)</span>
-<span class="kw2">private</span> <span class="kw3">int</span> subfamilyNumber<span
+<span class="kw2">private</span> <span class="kw3">int</span> subfamilyNumber<span
 class="sy0">;</span></pre>
       Y en nuestro <em>editores.xml</em> ponemos:<br>
       <style type="text/css"><!--
@@ -2727,58 +2727,58 @@ class="sy0">;</span></pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-class="re0">url</span>=<span class="st0">"descriptionsEditor.jsp"</span><span class="re2">&gt;</span></span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+class="re0">url</span>=<span class="st0">"descriptionsEditor.jsp"</span><span class="re2">&gt;</span></span> <span
 class="sc-1">&lt;!-- 10 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-class="st0">"modelo"</span> <span class="re0">valor</span>=<span class="st0">"Familia"</span><span
+ <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
+class="st0">"modelo"</span> <span class="re0">valor</span>=<span class="st0">"Familia"</span><span
 class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 1 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-class="st0">"propiedadClave"</span> <span class="re0">valor</span>=<span class="st0">"codigo"</span><span
+ <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
+class="st0">"propiedadClave"</span> <span class="re0">valor</span>=<span class="st0">"codigo"</span><span
 class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 2 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-class="st0">"propiedadDescripcion"</span> <span class="re0">valor</span>=<span class="st0">"descripcion"</span><span
+ <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
+class="st0">"propiedadDescripcion"</span> <span class="re0">valor</span>=<span class="st0">"descripcion"</span><span
 class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 3 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-class="st0">"ordenadoPorClave"</span> <span class="re0">valor</span>=<span class="st0">"true"</span><span
+ <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
+class="st0">"ordenadoPorClave"</span> <span class="re0">valor</span>=<span class="st0">"true"</span><span
 class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 4 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-class="st0">"readOnlyAsLabel"</span> <span class="re0">valor</span>=<span class="st0">"true"</span><span
+ <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
+class="st0">"readOnlyAsLabel"</span> <span class="re0">valor</span>=<span class="st0">"true"</span><span
 class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 5 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;para-estereotipo</span> <span class="re0">estereotipo</span>=<span
+ <span class="sc3"><span class="re1">&lt;para-estereotipo</span> <span class="re0">estereotipo</span>=<span
 class="st0">"FAMILIA"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 11 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span>
 &nbsp;
 <span class="sc-1">&lt;!-- Es posible especificar dependencias de estereotipos o propiedades --&gt;</span>
-<span class="sc3"><span class="re1">&lt;editor</span> <span class="re0">url</span>=<span
+<span class="sc3"><span class="re1">&lt;editor</span> <span class="re0">url</span>=<span
 class="st0">"descriptionsEditor.jsp"</span> &lt;!-- 10 --<span class="re2">&gt;</span></span>
  depende-de-estereotipos="FAMILIA"&gt; <span class="sc-1">&lt;!-- 12 --&gt;</span>
 <span class="sc-1">&lt;!--</span>
 <span class="sc-1">&lt;editor url="descriptionsEditor.jsp" depende-de-propiedades="codigoFamilia"&gt; &lt;!-- 13 --&gt;</span>
 --&gt;
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-class="st0">"modelo"</span> <span class="re0">valor</span>=<span class="st0">"Subfamilia"</span><span
+ <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
+class="st0">"modelo"</span> <span class="re0">valor</span>=<span class="st0">"Subfamilia"</span><span
 class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 1 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-class="st0">"propiedadClave"</span> <span class="re0">valor</span>=<span class="st0">"codigo"</span><span
+ <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
+class="st0">"propiedadClave"</span> <span class="re0">valor</span>=<span class="st0">"codigo"</span><span
 class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 2 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-class="st0">"propiedadesDescripcion"</span> <span class="re0">valor</span>=<span
-class="st0">"codigo, descripcion"</span><span class="re2">/&gt;</span></span> <span
+ <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
+class="st0">"propiedadesDescripcion"</span> <span class="re0">valor</span>=<span
+class="st0">"codigo, descripcion"</span><span class="re2">/&gt;</span></span> <span
 class="sc-1">&lt;!-- 3 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-class="st0">"condicion"</span> <span class="re0">value</span>=<span class="st0">"${codigoFamilia} = ?"</span><span
+ <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
+class="st0">"condicion"</span> <span class="re0">value</span>=<span class="st0">"${codigoFamilia} = ?"</span><span
 class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 6 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-class="st0">"estereotiposValoresParametros"</span> <span class="re0">valor</span>=<span
+ <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
+class="st0">"estereotiposValoresParametros"</span> <span class="re0">valor</span>=<span
 class="st0">"FAMILIA"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 7 --&gt;</span>
  <span class="sc-1">&lt;!--</span>
 <span class="sc-1"> &lt;propiedad nombre="propiedadesValoresParametros" valor="codigoFamilia"/&gt; &lt;!-- 8 --&gt;</span>
  --&gt;
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
+ <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
 class="st0">"formateadorDescripciones"</span> &lt;!-- 9 --<span class="re2">&gt;</span></span>
  valor="org.openxava.test.formatters.FormateadorDescripcionesFamilia"/&gt;
- <span class="sc3"><span class="re1">&lt;para-estereotipo</span> <span class="re0">estereotipo</span>=<span
+ <span class="sc3"><span class="re1">&lt;para-estereotipo</span> <span class="re0">estereotipo</span>=<span
 class="st0">"SUBFAMILIA"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 11 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
       Al visualizar una vista con estas dos propiedades <em>codigoFamilia</em>
@@ -2820,8 +2820,8 @@ class="st0">"SUBFAMILIA"</span><span class="re2">/&gt;</span></span> <span class
           condición y deben coincidir con el atributo <em>depende-de-propiedades</em>.
           (13)</li>
         <li><strong>formateadorDescripciones</strong>: Formateador para las
-          descripciones visualizadas en el combo. Ha de implementar <em><a class="wiki_link_ext"
-              href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IFormatter.html"
+          descripciones visualizadas en el combo. Ha de implementar <em><a class="wiki_link_ext"
+              href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IFormatter.html"
               rel="nofollow">IFormatter</a></em>.</li>
       </ol>
       Siguiendo este ejemplo podemos hacer fácilmente nuestro propios
@@ -2863,17 +2863,17 @@ class="st0">"SUBFAMILIA"</span><span class="re2">/&gt;</span></span> <span class
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
-class="re0">nombre</span>=<span class="st0">"ComercialJSP"</span> <span class="re0">carpeta</span>=<span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
+class="re0">nombre</span>=<span class="st0">"ComercialJSP"</span> <span class="re0">carpeta</span>=<span
 class="st0">"facturacion.variaciones"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
+ <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
 class="st0">"Comercial"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;vista</span> <span class="re0">nombre</span>=<span
+ <span class="sc3"><span class="re1">&lt;vista</span> <span class="re0">nombre</span>=<span
 class="st0">"ParaJSPPropio"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 1 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;vista-web</span> <span class="re0">url</span>=<span
-class="st0">"jsp-propios/comercial.jsp"</span><span class="re2">/&gt;</span></span> <span
+ <span class="sc3"><span class="re1">&lt;vista-web</span> <span class="re0">url</span>=<span
+class="st0">"jsp-propios/comercial.jsp"</span><span class="re2">/&gt;</span></span> <span
 class="sc-1">&lt;!-- 2 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
+ <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
       Si usamos <em>vista-web</em> (2) al definir el módulo, OpenXava usa
@@ -2926,8 +2926,8 @@ class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
 .php span.xtra { display:block; }
 
 -->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
-class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
+</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
+class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
 class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
 &nbsp;
 &lt;table&gt;
@@ -2957,7 +2957,7 @@ class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
       esto dibuja un editor apto para la propiedad indicada, además añade el
       JavaScript necesario para lanzar los eventos. Si usamos <em>&lt;xava:editor/&gt;</em>,
       podemos manejar la información visualizada usando el objeto <em>xava_view</em>
-      (del tipo <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html"
+      (del tipo <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html"
           rel="nofollow">org.openxava.view.View</a></em>), por lo tanto todos
       los controladores estándar de OpenXava (<em>CRUD</em> incluido) funcionan.<br>
       Podemos observar como las propiedades cualificadas están soportadas (como
@@ -2994,7 +2994,7 @@ class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:editor</span></span>
-<span class="sc3"> <span class="re0">property</span>=<span class="st0">"nombrePropiedad"</span> &lt;!-- 1 --<span
+<span class="sc3"> <span class="re0">property</span>=<span class="st0">"nombrePropiedad"</span> &lt;!-- 1 --<span
 class="re2">&gt;</span></span>
  editable="true|false" <span class="sc-1">&lt;!-- 2 Nuevo en v2.0.1 --&gt;</span>
  throwPropertyChanged="true|false" <span class="sc-1">&lt;!-- 3 Nuevo en v2.0.1 --&gt;</span>
@@ -3038,8 +3038,8 @@ class="re2">&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
-class="re0">action</span>=<span class="st0">"controlador.accion"</span> <span class="re0">argv</span>=<span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
+class="re0">action</span>=<span class="st0">"controlador.accion"</span> <span class="re0">argv</span>=<span
 class="st0">"argv"</span><span class="re2">/&gt;</span></span></pre>
       El atributo action indica la acción a ejecutar, y el atributo <em>argv</em>
       (opcional) nos permite establecer valores a algunas propiedades de la
@@ -3066,8 +3066,8 @@ class="st0">"argv"</span><span class="re2">/&gt;</span></span></pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
-class="re0">action</span>=<span class="st0">"CRUD.save"</span> <span class="re0">argv</span>=<span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
+class="re0">action</span>=<span class="st0">"CRUD.save"</span> <span class="re0">argv</span>=<span
 class="st0">"resetAfter=true"</span><span class="re2">/&gt;</span></span></pre>
       Cuando el usuario pulse en la acción se ejecutará <em>CRUD.save</em>,
       antes pone a true la propiedad <em>resetAfter</em> de la acción.<br>
@@ -3099,7 +3099,7 @@ class="st0">"resetAfter=true"</span><span class="re2">/&gt;</span></span></pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
 class="re0">action</span>=<span class="st0">""</span><span class="re2">/&gt;</span></span></pre>
       En este caso la marca (tag) no tiene efecto y no se produce error. Esta
       característica puede ser útil cuando el nombre de la acción lo obtenemos
@@ -3131,9 +3131,9 @@ class="re0">action</span>=<span class="st0">""</span><span class="re2">/&gt;</sp
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
-class="re0">key</span>=<span class="st0">"clave_mensaje"</span> <span class="re0">param</span>=<span
-class="st0">"parametroMensaje"</span> <span class="re0">intParam</span>=<span class="st0">"paramMensaje"</span><span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
+class="re0">key</span>=<span class="st0">"clave_mensaje"</span> <span class="re0">param</span>=<span
+class="st0">"parametroMensaje"</span> <span class="re0">intParam</span>=<span class="st0">"paramMensaje"</span><span
 class="re2">/&gt;</span></span></pre>
       El mensaje es buscado primero en los archivos de recursos de nuestro
       proyecto (<em><em>miproyecto/src/main/resources/i18n/</em></em><em><em><em><em>miproyecto</em></em>-messages_es.properties</em></em>
@@ -3172,8 +3172,8 @@ class="re2">/&gt;</span></span></pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
-class="re0">key</span>=<span class="st0">"cantidad_lista"</span> <span class="re0">intParam</span>=<span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
+class="re0">key</span>=<span class="st0">"cantidad_lista"</span> <span class="re0">intParam</span>=<span
 class="st0">"&lt;%=cantidadTotal%&gt;</span></span>"/&gt;</pre>
       <h3 id="toc19"><a name="Personalizacion-Vistas+JSP+propias+y+taglibs+de+OpenXava-xava:label+(nuevo+en+v5.5)"></a>xava:label
         (nuevo en v5.5)</h3>
@@ -3201,7 +3201,7 @@ class="st0">"&lt;%=cantidadTotal%&gt;</span></span>"/&gt;</pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:label</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:label</span> <span
 class="re0">key</span>=<span class="st0">"nombreMiembro"</span><span class="re2">/&gt;</span></span></pre>
       El mensaje es buscado primero en los archivos de etiquetas de nuestro
       proyecto (<em><em>miproyecto/src/main/resources/i18n/</em></em><em><em><em><em>miproyecto</em></em>-labels_es.properties</em></em>
@@ -3253,9 +3253,9 @@ class="re0">key</span>=<span class="st0">"nombreMiembro"</span><span class="re2"
 
 -->
 </style><pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
-    <span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Number<span class="sy0">:</span> <span
+    <span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Number<span class="sy0">:</span> <span
 class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;</span>td<span class="sy0">&gt;</span>
-    <span class="sy0">&lt;</span>xava<span class="sy0">:</span>editor property<span
+    <span class="sy0">&lt;</span>xava<span class="sy0">:</span>editor property<span
 class="sy0">=</span><span class="st0">"number"</span><span class="sy0">/&gt;</span>
     <span class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
 <span class="sy0">&lt;/</span>tr<span class="sy0">&gt;</span></pre>
@@ -3300,11 +3300,11 @@ class="sy0">=</span><span class="st0">"number"</span><span class="sy0">/&gt;</sp
 
 -->
 </style><pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
-    <span class="sy0">&lt;</span>td<span class="sy0">&gt;&lt;</span>xava<span class="sy0">:</span>label <span
-class="kw3">key</span><span class="sy0">=</span><span class="st0">"number"</span><span
-class="sy0">/&gt;:</span> <span class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;</span>td<span
+    <span class="sy0">&lt;</span>td<span class="sy0">&gt;&lt;</span>xava<span class="sy0">:</span>label <span
+class="kw3">key</span><span class="sy0">=</span><span class="st0">"number"</span><span
+class="sy0">/&gt;:</span> <span class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;</span>td<span
 class="sy0">&gt;</span>
-    <span class="sy0">&lt;</span>xava<span class="sy0">:</span>editor property<span
+    <span class="sy0">&lt;</span>xava<span class="sy0">:</span>editor property<span
 class="sy0">=</span><span class="st0">"number"</span><span class="sy0">/&gt;</span>
     <span class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
 <span class="sy0">&lt;/</span>tr<span class="sy0">&gt;</span></pre>
@@ -3337,7 +3337,7 @@ class="sy0">=</span><span class="st0">"number"</span><span class="sy0">/&gt;</sp
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:descriptionsList</span></span>
-<span class="sc3"> <span class="re0">reference</span>=<span class="st0">"nombreReferencia"</span>  &lt;!-- 1 --<span
+<span class="sc3"> <span class="re0">reference</span>=<span class="st0">"nombreReferencia"</span>  &lt;!-- 1 --<span
 class="re2">&gt;<br></span></span> readOnlyAsLabel="true|false" <span class="sc-1"> &lt;!-- 2 Nuevo en v6.0.1 --&gt;</span><br>/&gt;</pre>
       <ol>
         <li><strong>reference</strong> (obligado): Una referencia del modelo
@@ -3389,10 +3389,10 @@ class="re2">&gt;<br></span></span> readOnlyAsLabel="true|false" <span class="sc-
 
 -->
 </style><pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
- <span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Nivel<span class="sy0">:</span> <span
+ <span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Nivel<span class="sy0">:</span> <span
 class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
  <span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>
- <span class="sy0">&lt;</span>xava<span class="sy0">:</span>descriptionsList reference<span
+ <span class="sy0">&lt;</span>xava<span class="sy0">:</span>descriptionsList reference<span
 class="sy0">=</span><span class="st0">"nivel"</span><span class="sy0">/&gt;</span>
  <span class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
 <span class="sy0">&lt;/</span>tr<span class="sy0">&gt;</span></pre>
@@ -3426,7 +3426,7 @@ class="sy0">=</span><span class="st0">"nivel"</span><span class="sy0">/&gt;</spa
         </ul>
       </div>
       <div class="wiki" style="display: block;">De todos modos, si decides
-        modificar las JSP de OpenXava. Esta es la forma. Primero mira los JPSs
+        modificar las JSP de OpenXava. Esta es la forma. Primero mira los JSPs
         disponibles en código OpenXava en GitHub, aquí:</div>
       <div class="wiki" style="display: block;"><i>https://github.com/openxava/openxava/tree/<b>7.1.1</b>/openxava/src/main/resources/META-INF/resources
           </i>(cambia 7.1.1 por la versión de OpenXava que estés usando)</div>
@@ -3453,11 +3453,15 @@ class="sy0">=</span><span class="st0">"nivel"</span><span class="sy0">/&gt;</spa
         el caso, tienes que aplicar esos cambios a tu propio <i>buttonBar.jsp</i>.</div>
       <div class="wiki" style="display: block;">Generalmente no necesitas
         modificar ninguna JSP de OpenXava, pero tenemos dos excepciones, la
-        página de Bienvenida (<i>naviox/welcome.jsp</i>) y la página de Primeros
-        Pasos (<i>naviox/firstSteps.jsp</i>). La página <i>welcome.jsp</i> es
-        la página a la que va el usuario cuando entra en la raíz de tu
-        aplicación, mientras que <i> firstSteps.jsp</i> es la página a la que
-        va después de iniciar sesión en la aplicación por primera vez.</div>
+        página de Bienvenida, <i>naviox/welcome.jsp</i> (a partir de v7.3 está
+        incluida en los nuevos proyectos para no tener que copiarla desde el
+        GitHub), y la página de Primeros Pasos, <i>naviox/firstSteps.jsp</i>
+        (aunque es preferible usar <i>initialModule</i> en <i>naviox.properties</i>
+        como se explica <a href="navigation_es.html#toc4">aquí</a>). La página
+        <i>welcome.jsp</i> es la página a la que va el usuario cuando entra en
+        la raíz de tu aplicación, mientras que <i> firstSteps.jsp</i> es la
+        página a la que va después de iniciar sesión en la aplicación por
+        primera vez.</div>
       <div class="wiki" style="display: block;">Para usar JavaScript en las
         páginas del núcleo de OpenXava, coloca el JavaScript en archivos JS
         externos e inclúyelos en tus JSPs. No se recomienda usar JavaScript en

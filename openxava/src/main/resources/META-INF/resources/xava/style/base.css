@@ -835,14 +835,6 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	filter: none;
 }
 
-#module_header .selected {
-	background: var(--module-header-selected-background);
-	color: var(--module-header-selected-color);
-	border-top-left-radius: 15px;
-	border-top-right-radius: 15px;
-	padding: 10px 10px 11px 10px; 
-}
-
 #module_header .selected:hover {
 	color: var(--module-header-selected-color);
 }
@@ -851,6 +843,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	width: 10px;
 	float: left;	
 	white-space: nowrap;
+	display: flex;
 }
 
 #module_header_right {
@@ -1791,10 +1784,7 @@ td.ox-list-subheader > div {
 .ox-bottom-buttons {
 	padding-left: 11px;
 	margin-right: 17px;
-	display: flex;
-  	justify-content: flex-start;
-  	align-items: center;
-  	position: relative;
+	position: relative;
 }
 
 .ui-dialog .ox-bottom-buttons {
@@ -1804,10 +1794,10 @@ td.ox-list-subheader > div {
 .ui-dialog .ox-view {
 	overflow-x: hidden; /* To avoid scrollbar in list inside dialog  */
 	padding-right: 7px; 
-}
-
-.ui-dialog .ox-view { 	
+	overflow-y: auto;
+	max-height: calc(100vh - 180px);
 	margin-right: 2px; 
+	margin-bottom: 0.5em;
 }
 
 .ox-list-info {  
@@ -2926,3 +2916,40 @@ a[data-action="Collection.previous"] {
   margin-right: 35px;
 }
 
+.module-header-tab .close-icon.unselected-module {
+  right: 5px;
+}
+
+.module-header-tab .close-icon {
+  cursor: pointer;
+  top: 1px;
+  position: relative;
+}
+
+.close-icon:hover::after {
+  content: '';
+  position: absolute;
+  transform: translate(-95%, -5%);
+  width: 110%; 
+  height: 110%; 
+  border-radius: 50%; 
+  background-color: rgba(128, 128, 128, 0.5); 
+  transition: background-color 0.3s ease; 
+}
+
+.module-header-tab {
+    transition: opacity 0.5s ease; 
+    opacity: 1; 
+}
+
+.module-header-tab.hidden {
+    opacity: 0; 
+}
+
+.module-header-tab .selected{
+	background: var(--module-header-selected-background);
+	color: var(--module-header-selected-color);
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	padding: 10px 10px 11px 10px; 
+}
