@@ -5,6 +5,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 import java.util.Collections;
+import java.util.regex.*;
 
 import javax.servlet.http.*;
 import javax.swing.*;
@@ -281,8 +282,20 @@ public class Module extends DWRBase {
 		return filterHTML(Servlets.getURIAsString(request, response, getURI(jspFile, values, multipleValues, selected, deselected, additionalParameters)));		
 	}
 	
-	private String filterHTML(String html) { 
-		return html.replaceAll(",", "&#44;");
+	private String filterHTML(String html) { 		
+		System.out.println("[Module.filterHTML] html=" + html); // tmr
+		// TMR ME QUEDÉ POR AQUÍ, PARA PROBAR ESTO
+		// tmr return html.replaceAll(",", "&#44;");
+		StringBuffer sb = new StringBuffer();
+        Matcher m = Pattern.compile("<script[^>]*>(.*?)</script>").matcher(html);
+        int lastEnd = 0;
+        while (m.find()) {
+            String beforeScript = html.substring(lastEnd, m.start()).replace(",", "#44;");
+            sb.append(beforeScript).append(m.group());
+            lastEnd = m.end();
+        }
+        sb.append(html.substring(lastEnd).replace(",", "#44;"));
+        return sb.toString();
 	}
 
 	private void fillResult(Result result, Map values, Map multipleValues, String[] selected, String[] deselected, String additionalParameters) throws Exception {
