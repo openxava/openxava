@@ -102,7 +102,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		} else {
 			String m = month < 10 ? "0"+ String.valueOf(month) : String.valueOf(month);
 			assertEquals(getValue("initDate"), day + "/" + m + "/" + year);
-		}
+		} 
 	}
 	
 	private void formatDateTimeUsingTwoDigits() throws Exception {
