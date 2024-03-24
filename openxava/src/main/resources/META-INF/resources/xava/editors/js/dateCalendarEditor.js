@@ -198,10 +198,11 @@ openxava.addEditorInitFunction(function() {
 			.replace('m', ('0' + (date.getMonth() + 1)).slice(-2))
 			.replace('n', date.getMonth() + 1)
 			.replace('Y', date.getFullYear())
-			.replace('H', ('0' + date.getHours()).slice(-2))
-			.replace('h', ('0' + (date.getHours() % 12 || 12)).slice(-2))
-			.replace('G', date.getHours())
-			.replace('i', ('0' + date.getMinutes()).slice(-2));
+			.replace('H', "")
+			.replace('h', "")
+			.replace('G', "")
+			.replace('i', "")
+			.replace('K', "");
 		return formattedDate;
     }
     
