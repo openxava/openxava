@@ -47,6 +47,7 @@ public class DateTimeSeparatedFormatter extends DateTimeBaseFormatter implements
 		for (int i=0; i < dateFormats.length; i++) {
 			try {			
 				java.util.Date result =  (java.util.Date) dateFormats[i].parseObject(dateTime);
+				System.out.println(new java.sql.Timestamp( result.getTime() ));
 				return new java.sql.Timestamp( result.getTime() );
 			}
 			catch (ParseException ex) {				

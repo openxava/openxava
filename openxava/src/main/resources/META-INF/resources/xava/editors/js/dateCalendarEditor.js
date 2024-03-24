@@ -140,6 +140,68 @@ openxava.addEditorInitFunction(function() {
 			}
 		}
     });
+	
+	    $('.xava_time').flatpickr({
+        allowInput: true,
+        clickOpens: false,
+        wrap: true,
+        locale: openxava.language,
+		enableTime: true,
+		noCalendar: true,
+		/*
+        onOpen: function(selectedDates, dateStr, instance) {
+            onOpenDateTime = dateStr;
+			if (isZh && dateStr.includes('PM') && instance.amPM.innerHTML === 'AM'){
+					instance.amPM.innerHTML = 'PM';
+			} 
+        },
+        onChange: function(selectedDates, dateStr, instance) {
+            dateStr = invalid?invalidDate:dateStr;
+            if (onOpenDateTime != null) {
+                if (onOpenDateTime.length > 10) {
+                    $(instance.input).data("changedCancelled", true);
+					onOpenDateTime = calendarClosed ? undefined : onOpenDateTime;
+                } else {
+                    if (onOpenDateTime == dateStr) {
+                        $(instance.input).data("changedCancelled", true);
+                    } else {
+						$(instance.input).removeData("changedCancelled");
+                        $(instance.input).attr('value', dateStr);
+                    }
+					onOpenDateTime = undefined;
+                }
+            } else {
+                if (dateStr === $(instance.input).attr('value')) {
+                    $(instance.input).data("changedCancelled", true);
+                    onChangeChecked = invalid?true:false;
+                } else {	
+					$(instance.input).removeData("changedCancelled");
+                    $(instance.input).attr('value', dateStr);
+                    onChangeChecked = invalid?true:false;
+                }
+            }
+        },
+        onClose: function(selectedDates, dateStr, instance) {
+            if (onOpenDateTime != null) {
+                if (onOpenDateTime == dateStr) {
+                    $(instance.input).data("changedCancelled", true);
+                } else {
+					$(instance.input).removeData("changedCancelled");
+                    $(instance.input).attr('value', dateStr);
+                    $('.xava_date > input').change();
+                }
+				calendarClosed = true;
+            }
+        },
+		onReady: function(selectedDates, dateStr, instance) {
+			if (openxava.language === 'zh'){
+				isZh = true;
+				for (var i = 0; i < inputElementList.length; i++) {
+					if (instance.input === inputElementList[i]) instance.input.value = inputValueList[i];
+				}
+			}
+		}*/
+    });
 
     function validInputOnlyDate(date) {
         var pattern = /[^.\-:\/\d\s]/g;

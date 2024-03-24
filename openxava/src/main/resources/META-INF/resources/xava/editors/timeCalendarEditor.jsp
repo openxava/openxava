@@ -15,16 +15,17 @@ boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabe
 String browser = request.getHeader("user-agent");
 int sizeIncrement = browser.contains("Chrome")?0:2; 
 if (editable || !label) {
-	String dateClass = editable?"xava_date":""; 
+	String dateClass = editable?"xava_time":""; 
 %>
-<span class="<%=dateClass%> ox-date-calendar" data-date-format="<%=org.openxava.util.Dates.dateFormatForJSCalendar()%>">
+<span class="<%=dateClass%> ox-date-calendar" data-date-format="<%=org.openxava.util.Dates.timeFormatForJSCalendar()%>">
 <input type="text" name="<%=propertyKey%>" id="<%=propertyKey%>" class="<%=style.getEditor()%>" title="<%=p.getDescription(request)%>"
 	tabindex="1" 
 	align='<%=align%>'
-	maxlength="<%=p.getSize()%>"
+	maxlength="8"
 	data-input
-	size="<%=p.getSize() + sizeIncrement%>" 
-	value="<%=fvalue%>" <%=disabled%>><%if (editable) {%><a data-toggle><i class="mdi mdi-calendar"></i></a><%} %>
+	size="8" 
+	value="<%=fvalue%>" <%=disabled%>>
+	<%if (editable) {%><a data-toggle><i class="mdi mdi-clock-outline"></i></a><%} %>
 </span> 
 <%
 } else {

@@ -544,6 +544,16 @@ public class Dates {
 			replaceAll("1", "j").
 			replaceAll("2", "n");		
 	}	
+	
+	public static String timeFormatForJSCalendar() { 
+	    String dateTimeFormat = dateTimeFormatForJSCalendar();
+	    int indexOfSpace = dateTimeFormat.indexOf(' ');
+	    if (indexOfSpace != -1) {
+	        return dateTimeFormat.substring(indexOfSpace + 1); // Devuelve todo después del espacio (el formato de hora)
+	    } else {
+	        return ""; // No se encontró un espacio, devuelve una cadena vacía
+	    }
+	}	
 
 	/**
 	 * @param locale  Removed in 6.5
