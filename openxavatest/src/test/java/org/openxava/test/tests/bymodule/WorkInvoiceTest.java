@@ -29,7 +29,7 @@ public class WorkInvoiceTest extends ModuleTestBase {
 		assertValue("vatPercentage", "16");
 		
 		setValue("hours", "250");
-		assertValue("total", "0" + decimalSeparator + "00"); // TMR FALLA
+		assertValue("total", "0" + decimalSeparator + "00");
 		
 		setValue("worker.nickName", "john");
 		assertValue("worker.hourPrice", "20" + decimalSeparator + "00");
@@ -87,7 +87,7 @@ public class WorkInvoiceTest extends ModuleTestBase {
 		changeModule("WorkCost");
 		execute("List.viewDetail", "row=0");
 		assertValue("description", "CAR SERVICE");
-		assertCollectionRowCount("invoices", 1);
+		assertCollectionRowCount("invoices", 1); 
 		assertValueInCollection("invoices", 0, 0, "66");
 		assertValueInCollection("invoices", 0, 1, "JUNIT WORK INVOICE");
 		

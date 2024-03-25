@@ -121,7 +121,7 @@ openxava.refreshPage = function(result) {
 		for (var id in changedParts) {			
 			changed = changed + id + ", ";  			
 			try {
-				openxava.setHtml(id, changedParts[id]);
+				openxava.setHtml(id, changedParts[id].replace(/_#C#_/g, ",")); 
 			}
 			catch (ex) {
 				changed = changed + " ERROR";

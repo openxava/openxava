@@ -33,7 +33,7 @@ public class WorkCostOrderedInvoicesTest extends WorkCostTestBase {
 
 		assertNoAction("CollectionCopyPaste.paste");
 		assertNoCutRowStyle(0);
-		execute("CollectionCopyPaste.cut", "row=0,viewObject=xava_view_invoices");
+		execute("CollectionCopyPaste.cut", "row=0,viewObject=xava_view_invoices"); 
 		assertCutRowStyle(0);
 		assertNoAction("CollectionCopyPaste.paste");
 		assertMessage("1 row cut from Invoices");
