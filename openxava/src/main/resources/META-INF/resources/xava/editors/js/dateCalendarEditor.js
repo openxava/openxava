@@ -13,12 +13,20 @@ openxava.addEditorInitFunction(function() {
 	
 	//for fix chinese trad timedate
 	var inputElementList = $('.xava_date > input').toArray();
+	var inputElementList2 = $('.xava_time > input').toArray();
 	var inputValueList = [];
 	$('.xava_date > input').each(function() {
 		var inputValue = $(this).val();
 		inputValueList.push(inputValue);
 	});
 	var isZh = false;
+	
+	var inputValueList2 = [];
+	$('.xava_date > input').each(function() {
+		var inputValue = $(this).val();
+		inputValueList2.push(inputValue);
+	});
+	var isZh2 = false;
 	
     $('.xava_date > input').keydown(function(event) {
         var keycode = event.keyCode || event.which;
@@ -141,20 +149,29 @@ openxava.addEditorInitFunction(function() {
 		}
     });
 	
-	    $('.xava_time').flatpickr({
+	$('.xava_time').flatpickr({
         allowInput: true,
         clickOpens: false,
         wrap: true,
         locale: openxava.language,
 		enableTime: true,
 		noCalendar: true,
-		/*
+		
         onOpen: function(selectedDates, dateStr, instance) {
             onOpenDateTime = dateStr;
-			if (isZh && dateStr.includes('PM') && instance.amPM.innerHTML === 'AM'){
+			if (isZh2 && dateStr.includes('PM') && instance.amPM.innerHTML === 'AM'){
 					instance.amPM.innerHTML = 'PM';
 			} 
         },
+		onReady: function(selectedDates, dateStr, instance) {
+			if (openxava.language === 'zh'){
+				isZh2 = true;
+				for (var i = 0; i < inputElementList.length; i++) {
+					if (instance.input === inputElementList[i]) instance.input.value = inputValueList[i];
+				}
+			}
+		}
+		/*
         onChange: function(selectedDates, dateStr, instance) {
             dateStr = invalid?invalidDate:dateStr;
             if (onOpenDateTime != null) {
@@ -193,14 +210,7 @@ openxava.addEditorInitFunction(function() {
 				calendarClosed = true;
             }
         },
-		onReady: function(selectedDates, dateStr, instance) {
-			if (openxava.language === 'zh'){
-				isZh = true;
-				for (var i = 0; i < inputElementList.length; i++) {
-					if (instance.input === inputElementList[i]) instance.input.value = inputValueList[i];
-				}
-			}
-		}*/
+		*/
     });
 
     function validInputOnlyDate(date) {

@@ -17,6 +17,7 @@ public class DateTimeSeparatedFormatter extends DateTimeBaseFormatter implements
 	
 	private static DateFormat extendedDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	private static DateFormat dotDateFormat = new SimpleDateFormat("dd.MM.yyyy"); // Only for some locales like "hr"
+	private static DateFormat zhDateFormat = new SimpleDateFormat("yyyy/M/d ah:mm");
 	
 	public String [] format(HttpServletRequest request, Object date) throws Exception {	
         String[] result = new String[2];
@@ -31,21 +32,22 @@ public class DateTimeSeparatedFormatter extends DateTimeBaseFormatter implements
 		return result;
 	}
 
-	public Object parse(HttpServletRequest request, String [] strings) throws Exception {		
+	public Object parse(HttpServletRequest request, String [] strings) throws Exception {
+		System.out.println("DateTimeSeparated parse");
 		if( strings == null || strings.length < 2 ) return null;
 		if( Is.emptyString(strings[0])) return null;
 		String fDate = strings[0];
 		String fTime = strings[1];
-		String dateTime = fDate + " " + fTime;
-		
-        // SimpleDateFormat does not work well with -
-		if (dateTime.indexOf('-') >= 0) { 
+		if (isZhFormatAndJavaLessThan9()) fTime = fTime.replace("\u4E0A\u5348", "AM").replace("\u4E0B\u5348", "PM"); //for zh in dateTimeSeparated editor
+		String dateTime = fDate + " " + fTime; 
+		if (dateTime.indexOf('-') >= 0 && !"zh_CN".equals(Locales.getCurrent().toString())) {
 			dateTime = Strings.change(dateTime, "-", "/");
 		}
-		
+		System.out.println("DateTimeSeparated ftime "+ Locales.getCurrent() + " " + dateTime);
 		DateFormat [] dateFormats = getDateTimeFormats();
 		for (int i=0; i < dateFormats.length; i++) {
-			try {			
+			System.out.println(i + ((SimpleDateFormat) dateFormats[i]).toPattern());
+			try {
 				java.util.Date result =  (java.util.Date) dateFormats[i].parseObject(dateTime);
 				System.out.println(new java.sql.Timestamp( result.getTime() ));
 				return new java.sql.Timestamp( result.getTime() );
@@ -64,7 +66,7 @@ public class DateTimeSeparatedFormatter extends DateTimeBaseFormatter implements
 	
 	private DateFormat[] getDateTimeFormats() {
 		if (isExtendedFormat() || isDotFormat()) return getExtendedDateTimeFormats(); 
-		return new DateFormat [] { Dates.getDateTimeFormatForParsing(Locales.getCurrent()) }; 
+		return new DateFormat [] { Dates.getDateTimeFormatForParsing(Locales.getCurrent())}; 
 	}
 		
 }
