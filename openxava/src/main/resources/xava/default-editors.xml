@@ -102,7 +102,7 @@
 	</editor>
 	
 	<editor name="LocalTimeCalendar" url="timeCalendarEditor.jsp">
-		<formatter class="org.openxava.formatters.TimeBaseFormatter"/>
+		<formatter class="org.openxava.formatters.TimeFormatter"/>
 		<for-type type="java.time.LocalTime" />
 	</editor>	
 
