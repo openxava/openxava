@@ -85,7 +85,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		goModule("Quarter");
 		formatDateUsingTwoDigits("es-ES");
 		goModule("Shipment");
-		formatDateTimeUsingTwoDigits();
+		formatDateTimeUsingTwoDigits(); 
 	}
 	
 	private void formatDateUsingTwoDigits(String format) throws Exception {
