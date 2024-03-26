@@ -4,33 +4,33 @@ if (dateCalendarEditor == null) var dateCalendarEditor = {};
 openxava.addEditorInitFunction(function() {
     openxava.getScript(openxava.contextPath + "/xava/editors/flatpickr/" + openxava.language + ".js");
     if (openxava.browser.htmlUnit) return;
-    var readInput = false;
-    var enterDate;
-    var onOpenDateTime;
-    var invalid = false;
-    var invalidDate;
-    var onChangeChecked = false;
-    var calendarClosed = false;
+    dateCalendarEditor.readInput = false;
+    dateCalendarEditor.enterDate;
+    dateCalendarEditor.onOpenDateTime;
+    dateCalendarEditor.invalid = false;
+    dateCalendarEditor.invalidDate;
+    dateCalendarEditor.onChangeChecked = false;
+    dateCalendarEditor.calendarClosed = false;
 
     //for fix chinese trad timedate
-    var inputElementList = $('.xava_date > input').toArray();
-    var inputValueList = [];
+    dateCalendarEditor.inputElementList = $('.xava_date > input').toArray();
+    dateCalendarEditor.inputValueList = [];
     $('.xava_date > input').each(function() {
         var inputValue = $(this).val();
-        inputValueList.push(inputValue);
+        dateCalendarEditor.inputValueList.push(inputValue);
     });
-    var isZh = false;
+    dateCalendarEditor.isZh = false;
 
     $('.xava_date > input').keydown(function(event) {
         var keycode = event.keyCode || event.which;
         if (keycode == 13) {
-            enterDate = dateCalendarEditor.validInputOnlyDate($(this).val());
-            readInput = ((enterDate.includes("/") || enterDate.includes(".") || enterDate.includes("-")) && enterDate.length > 9) ? false : true;
+            dateCalendarEditor.enterDate = dateCalendarEditor.validInputOnlyDate($(this).val());
+            dateCalendarEditor.readInput = ((dateCalendarEditor.enterDate.includes("/") || dateCalendarEditor.enterDate.includes(".") || dateCalendarEditor.enterDate.includes("-")) && dateCalendarEditor.enterDate.length > 9) ? false : true;
         }
     });
 
     $('.xava_date > input').on('blur', function() {
-        enterDate = dateCalendarEditor.validInputOnlyDate($(this).val());
+        dateCalendarEditor.enterDate = dateCalendarEditor.validInputOnlyDate($(this).val());
     });
 
     $('.xava_date > input').change(function() {
@@ -38,7 +38,7 @@ openxava.addEditorInitFunction(function() {
             $(this).val(dateCalendarEditor.formatTwoDigitDate($('.xava_date').data('date-format'), $(this).val()));
         }
         var dateFormat = $(this).parent().data("dateFormat");
-        var date = readInput ? enterDate : $(this).val();
+        var date = dateCalendarEditor.readInput ? dateCalendarEditor.enterDate : $(this).val();
         if (date === "") return;
         date = date.trim();
         if (date.length < 6 && date.includes(":")) return;
@@ -75,14 +75,14 @@ openxava.addEditorInitFunction(function() {
             date = dateNoYear + separator + prefix + year + suffix + time;
         }
         date = date.includes(".20 ") ? date.replace(".20 ", " ") : date;
-        date = invalid ? invalidDate : date;
+        date = dateCalendarEditor.invalid ? dateCalendarEditor.invalidDate : date;
         $(this).val(date);
-        enterDate = undefined;
-        readInput = false;
-        if (onChangeChecked == true && invalid == true) {
-            onChangeChecked = false;
-            invalid = false;
-            invalidDate = undefined;
+        dateCalendarEditor.enterDate = undefined;
+        dateCalendarEditor.readInput = false;
+        if (dateCalendarEditor.onChangeChecked == true && dateCalendarEditor.invalid == true) {
+            dateCalendarEditor.onChangeChecked = false;
+            dateCalendarEditor.invalid = false;
+            dateCalendarEditor.invalidDate = undefined;
         }
     });
     $('.flatpickr-calendar').remove();
@@ -92,54 +92,54 @@ openxava.addEditorInitFunction(function() {
         wrap: true,
         locale: openxava.language,
         onOpen: function(selectedDates, dateStr, instance) {
-            onOpenDateTime = dateStr;
-            if (isZh && dateStr.includes('PM') && instance.amPM.innerHTML === 'AM') {
+            dateCalendarEditor.onOpenDateTime = dateStr;
+            if (dateCalendarEditor.isZh && dateStr.includes('PM') && instance.amPM.innerHTML === 'AM') {
                 instance.amPM.innerHTML = 'PM';
             }
         },
         onChange: function(selectedDates, dateStr, instance) {
-            dateStr = invalid ? invalidDate : dateStr;
-            if (onOpenDateTime != null) {
-                if (onOpenDateTime.length > 10) {
+            dateStr = dateCalendarEditor.invalid ? dateCalendarEditor.invalidDate : dateStr;
+            if (dateCalendarEditor.onOpenDateTime != null) {
+                if (dateCalendarEditor.onOpenDateTime.length > 10) {
                     $(instance.input).data("changedCancelled", true);
-                    onOpenDateTime = calendarClosed ? undefined : onOpenDateTime;
+                    dateCalendarEditor.onOpenDateTime = dateCalendarEditor.calendarClosed ? undefined : dateCalendarEditor.onOpenDateTime;
                 } else {
-                    if (onOpenDateTime == dateStr) {
+                    if (dateCalendarEditor.onOpenDateTime == dateStr) {
                         $(instance.input).data("changedCancelled", true);
                     } else {
                         $(instance.input).removeData("changedCancelled");
                         $(instance.input).attr('value', dateStr);
                     }
-                    onOpenDateTime = undefined;
+                    dateCalendarEditor.onOpenDateTime = undefined;
                 }
             } else {
                 if (dateStr === $(instance.input).attr('value')) {
                     $(instance.input).data("changedCancelled", true);
-                    onChangeChecked = invalid ? true : false;
+                    dateCalendarEditor.onChangeChecked = dateCalendarEditor.invalid ? true : false;
                 } else {
                     $(instance.input).removeData("changedCancelled");
                     $(instance.input).attr('value', dateStr);
-                    onChangeChecked = invalid ? true : false;
+                    dateCalendarEditor.onChangeChecked = dateCalendarEditor.invalid ? true : false;
                 }
             }
         },
         onClose: function(selectedDates, dateStr, instance) {
-            if (onOpenDateTime != null) {
-                if (onOpenDateTime == dateStr) {
+            if (dateCalendarEditor.onOpenDateTime != null) {
+                if (dateCalendarEditor.onOpenDateTime == dateStr) {
                     $(instance.input).data("changedCancelled", true);
                 } else {
                     $(instance.input).removeData("changedCancelled");
                     $(instance.input).attr('value', dateStr);
                     $('.xava_date > input').change();
                 }
-                calendarClosed = true;
+                dateCalendarEditor.calendarClosed = true;
             }
         },
         onReady: function(selectedDates, dateStr, instance) {
             if (openxava.language === 'zh') {
-                isZh = true;
-                for (var i = 0; i < inputElementList.length; i++) {
-                    if (instance.input === inputElementList[i]) instance.input.value = inputValueList[i];
+                dateCalendarEditor.isZh = true;
+                for (var i = 0; i < dateCalendarEditor.inputElementList.length; i++) {
+                    if (instance.input === dateCalendarEditor.inputElementList[i]) instance.input.value = dateCalendarEditor.inputValueList[i];
                 }
             }
         }
@@ -148,8 +148,8 @@ openxava.addEditorInitFunction(function() {
     dateCalendarEditor.validInputOnlyDate = function(date) {
         var pattern = /[^.\-:\/\d\s]/g;
         if (pattern.test(date)) {
-            invalidDate = date;
-            invalid = true;
+            dateCalendarEditor.invalidDate = date;
+            dateCalendarEditor.invalid = true;
         }
         return date;
     }
@@ -163,25 +163,25 @@ openxava.addEditorInitFunction(function() {
         if (format.substr(0, 1) === 'Y') {
             if (format.substr(2, 3) === 'd' || format.substr(2, 3) === 'j') {
                 if (parseInt(splittedDate[1]) > 31 || parseInt(splittedDate[2]) > 12) {
-                    invalid = true;
-                    invalidDate = date;
+                    dateCalendarEditor.invalid = true;
+                    dateCalendarEditor.invalidDate = date;
                 }
             } else {
                 if (parseInt(splittedDate[1]) > 12 || parseInt(splittedDate[2]) > 31) {
-                    invalid = true;
-                    invalidDate = date;
+                    dateCalendarEditor.invalid = true;
+                    dateCalendarEditor.invalidDate = date;
                 }
             }
         } else {
             if (format.substr(0, 1) === 'd' || format.substr(0, 1) === 'j') {
                 if (parseInt(splittedDate[0]) > 31 || parseInt(splittedDate[1]) > 12) {
-                    invalid = true;
-                    invalidDate = date;
+                    dateCalendarEditor.invalid = true;
+                    dateCalendarEditor.invalidDate = date;
                 }
             } else {
                 if (parseInt(splittedDate[0]) > 12 || parseInt(splittedDate[1]) > 31) {
-                    invalid = true;
-                    invalidDate = date;
+                    dateCalendarEditor.invalid = true;
+                    dateCalendarEditor.invalidDate = date;
                 }
             }
         }
