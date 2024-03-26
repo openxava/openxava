@@ -18,7 +18,7 @@ openxava.addEditorInitFunction(function() {
 	});
 	timeCalendarEditor.isZh = false;
 
-    $('.flatpickr-calendar').remove();
+    //$('.flatpickr-calendar').remove();
 	
 	$('.xava_time').flatpickr({
         allowInput: true,

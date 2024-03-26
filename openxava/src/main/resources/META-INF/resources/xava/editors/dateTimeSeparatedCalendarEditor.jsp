@@ -27,7 +27,15 @@ if (editable || !label) {
 	maxlength="10"
 	data-input
 	size="<%=size%>" 
-	value="<%=fDate%>" <%=disabled%>><%if (editable) {%><a href="javascript:void(0)" data-toggle><i class="mdi mdi-calendar"></i></a><%} %> <input name="<%=propertyKey%>" class=<%=style.getEditor()%>	
+	value="<%=fDate%>" <%=disabled%>>
+	<%if (editable) {%>
+	<a href="javascript:void(0)" data-toggle>
+	<i class="mdi mdi-calendar"></i>
+	</a>
+	<%} %>
+	
+	<!--
+	<input name="<%=propertyKey%>" class=<%=style.getEditor()%>	
 	type="text" 
 	title="<%=p.getDescription(request)%>"
 	tabindex="1"
@@ -35,8 +43,15 @@ if (editable || !label) {
 	maxlength="8" 
 	size="8" 
 	value="<%=fTime%>"
-	<%=disabled%>/>	
+	<%=disabled%>/>	-->
 </span>
+<jsp:include page="timeCalendarEditor.jsp">
+		<jsp:param name="timeCalendarName" value="<%=propertyKey%>" />
+		<jsp:param name="timeCalendarTitle" value="<%=p.getDescription(request)%>" />
+		<jsp:param name="timeCalendarAlign" value="<%=align%>" />
+		<jsp:param name="timeCalendarFTime" value="<%=fTime%>" />
+		<jsp:param name="timeCalendarDisabled" value="<%=disabled%>" />
+	</jsp:include>
 <%
 } else {
 %>

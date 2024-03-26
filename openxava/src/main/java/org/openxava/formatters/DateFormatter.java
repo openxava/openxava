@@ -32,29 +32,23 @@ public class DateFormatter implements IFormatter {
 		};
 	
 	public String format(HttpServletRequest request, Object date) {
-		System.out.println("format " + date + " " + date.getClass().getName() );
 		if (date == null) return "";
 		if (date instanceof String || date instanceof Number) return date.toString(); 
-		System.out.println();
 		if (Dates.getYear((java.util.Date)date) < 2) return "";
-		System.out.println(getDateFormat().format(date));
 		return getDateFormat().format(date);
 	}
 	
 	public Object parse(HttpServletRequest request, String string) throws ParseException {
-		System.out.println("parse " + string);
 		if (Is.emptyString(string)) return null;				
 		if (isExtendedFormat()) { 
 			if (string.indexOf('-') >= 0) { // SimpleDateFormat does not work well with -
 				string = Strings.change(string, "-", "/");
 			}		
 		} 
-		System.out.println("parse2 " + string);
 		DateFormat [] dateFormats = getDateFormats(); 
 		for (int i=0; i<dateFormats.length; i++) {
 			try {
 				dateFormats[i].setLenient(false);
-				System.out.println("parse3 " + dateFormats[i].parseObject(string));
 				return dateFormats[i].parseObject(string);
 			}
 			catch (ParseException ex) {

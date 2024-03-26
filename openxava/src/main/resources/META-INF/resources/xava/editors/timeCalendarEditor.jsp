@@ -5,12 +5,22 @@
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
   
 <%
-String propertyKey = request.getParameter("propertyKey");
+String propertyKey = request.getParameter("timeCalendarName") != null ? request.getParameter("timeCalendarName") : request.getParameter("propertyKey");
+
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
-String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
-String align = p.isNumber()?"right":"left";
 boolean editable="true".equals(request.getParameter("editable"));
-String disabled=editable?"":"disabled";
+
+String title =  request.getParameter("timeCalendarTitle") != null ? request.getParameter("timeCalendarTitle") : "";
+String align = request.getParameter("timeCalendarAlign") != null ? request.getParameter("timeCalendarAlign") : p.isNumber()?"right":"left";
+String fvalue = request.getParameter("timeCalendarFTime") != null ? request.getParameter("timeCalendarFTime") : (String) request.getAttribute(propertyKey + ".fvalue");
+String disabled= request.getParameter("timeCalendarDisabled") != null ? request.getParameter("timeCalendarDisabled") : editable?"":"disabled";
+
+//String propertyKey = request.getParameter("propertyKey");
+//MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
+//String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
+//String align = p.isNumber()?"right":"left";
+//boolean editable="true".equals(request.getParameter("editable"));
+//String disabled=editable?"":"disabled";
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
 String browser = request.getHeader("user-agent");
 int sizeIncrement = browser.contains("Chrome")?0:2; 
