@@ -17,7 +17,6 @@ public class DateTimeSeparatedFormatter extends DateTimeBaseFormatter implements
 	
 	private static DateFormat extendedDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	private static DateFormat dotDateFormat = new SimpleDateFormat("dd.MM.yyyy"); // Only for some locales like "hr"
-	private static DateFormat zhDateFormat = new SimpleDateFormat("yyyy/M/d ah:mm");
 	
 	public String [] format(HttpServletRequest request, Object date) throws Exception {	
         String[] result = new String[2];

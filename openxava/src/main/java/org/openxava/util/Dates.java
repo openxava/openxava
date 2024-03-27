@@ -545,13 +545,16 @@ public class Dates {
 			replaceAll("2", "n");		
 	}	
 	
+	/*
+	 * @since 7.3
+	 */
 	public static String timeFormatForJSCalendar() { 
 	    String dateTimeFormat = dateTimeFormatForJSCalendar();
 	    int indexOfSpace = dateTimeFormat.indexOf(' ');
 	    if (indexOfSpace != -1) {
-	        return dateTimeFormat.substring(indexOfSpace + 1); // Devuelve todo después del espacio (el formato de hora)
+	        return dateTimeFormat.substring(indexOfSpace + 1);
 	    } else {
-	        return ""; // No se encontró un espacio, devuelve una cadena vacía
+	        return "";
 	    }
 	}	
 

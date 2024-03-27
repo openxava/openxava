@@ -37,7 +37,6 @@ openxava.addEditorInitFunction(function() {
             if (timeCalendarEditor.isZh && dateStr.includes('PM') && instance.amPM.innerHTML === 'AM') {
                 instance.amPM.innerHTML = 'PM';
             }
-
         },
         onChange: function(selectedDates, dateStr, instance) {
             if (timeCalendarEditor.calendarOpen === true) {
@@ -55,10 +54,10 @@ openxava.addEditorInitFunction(function() {
             if (timeCalendarEditor.onOpenDateTime != dateStr) {
                 $(instance.input).removeData("changedCancelled");
                 $(instance.input).change();
-                timeCalendarEditor.calendarOpen = false;
             } else {
                 $(instance.input).data("changedCancelled", true);
             }
+			 timeCalendarEditor.calendarOpen = false;
         },
         onReady: function(selectedDates, dateStr, instance) {
             if (openxava.language === 'zh') {

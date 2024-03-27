@@ -33,21 +33,9 @@ if (editable || !label) {
 	<i class="mdi mdi-calendar"></i>
 	</a>
 	<%} %>
-	
-	<!--
-	<input name="<%=propertyKey%>" class=<%=style.getEditor()%>	
-	type="text" 
-	title="<%=p.getDescription(request)%>"
-	tabindex="1"
-	align='<%=align%>'
-	maxlength="8" 
-	size="8" 
-	value="<%=fTime%>"
-	<%=disabled%>/>	-->
 </span>
 <jsp:include page="timeCalendarEditor.jsp">
 		<jsp:param name="timeCalendarName" value="<%=propertyKey%>" />
-		<jsp:param name="timeCalendarTitle" value="<%=p.getDescription(request)%>" />
 		<jsp:param name="timeCalendarAlign" value="<%=align%>" />
 		<jsp:param name="timeCalendarFTime" value="<%=fTime%>" />
 		<jsp:param name="timeCalendarDisabled" value="<%=disabled%>" />
