@@ -7,24 +7,26 @@
 
 :root {
 	--my-dark: #3c3f41;
-	--abisso: #031634;
-	--abisso: #4e5254;
-	--abisso: #2d2f30; /* TMR ME QUEDÉ POR AQUÍ */
-	--my-green: #1db954;
-	--my-black: #191414;
+	--my-lightdark: #4e5254;
+	--my-darker: #2d2f30; /* tmr Todavía sin usar */
+	--my-blue: #365880;
+	--my-silver: #bbbbbb;
 	 
 	/* Modules left menu */
-	--modules-list-color: lightgray;
+	--modules-list-color: var(--my-silver);
 	--modules-list-background: var(--my-dark);
-	--modules-list-selected-color: white;
-	 
+	--modules-list-selected-color: var(--my-silver);
+	--modules-list-selected-background: var(--my-blue);
+	--modules-list-selected-border-right: var(--my-blue);
+	/* TMR ME QUEDÉ POR AQUÍ: FALTA EL COLOR CUANDO EL RATÓN PASA POR ENCIMA*/	 
+
 	/* Module header */ 
 	--module-header-color: white;
 	--module-header-background: var(--my-dark);		
 
 	
 	/* Button bar */	 
-	--button-bar-background: var(--abisso);
+	--button-bar-background: var(--my-lightdark);
 	--list-formats-color: lightgray;
 	--list-formats-hover-color: white;
 	
@@ -33,13 +35,13 @@
 	--color: white;
 	
 	/* Frames */	
-	--frame-background: var(--abisso);
+	--frame-background: var(--my-lightdark);
 	
 	/* Actions */
 	--action-color: lightgray;	
 	--action-hover-color: white;
 	--action-hover-background: transparent;
-	--default-action-button-background: var(--my-green);
+	--default-action-button-background: var(--my-blue);
 	--default-action-button-color: white; 
 	--default-action-button-shadow: none;
 	--default-action-button-hover-shadow: none;
@@ -49,7 +51,7 @@
 	
 	/* Editors */
 	--required-editor-border: green;
-	--input-focus-border: var(--my-green); 
+	--input-focus-border: var(--my-blue); 
 
 	--button-bar-shadow: black; 
 	--shadow: black; 
