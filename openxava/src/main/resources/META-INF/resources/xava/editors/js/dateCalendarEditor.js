@@ -92,14 +92,12 @@ openxava.addEditorInitFunction(function() {
         wrap: true,
         locale: openxava.language,
         onOpen: function(selectedDates, dateStr, instance) {
-			console.log("dateCalendar onOpen");
             dateCalendarEditor.onOpenDateTime = dateStr;
             if (dateCalendarEditor.isZh && dateStr.includes('PM') && instance.amPM.innerHTML === 'AM') {
                 instance.amPM.innerHTML = 'PM';
             }
         },
         onChange: function(selectedDates, dateStr, instance) {
-			console.log("dateCalendar onChange");
             dateStr = dateCalendarEditor.invalid ? dateCalendarEditor.invalidDate : dateStr;
             if (dateCalendarEditor.onOpenDateTime != null) {
                 if (dateCalendarEditor.onOpenDateTime.length > 10) {
@@ -126,7 +124,6 @@ openxava.addEditorInitFunction(function() {
             }
         },
         onClose: function(selectedDates, dateStr, instance) {
-			console.log("dateCalendar onClose");
             if (dateCalendarEditor.onOpenDateTime != null) {
                 if (dateCalendarEditor.onOpenDateTime == dateStr) {
                     $(instance.input).data("changedCancelled", true);
@@ -139,7 +136,6 @@ openxava.addEditorInitFunction(function() {
             }
         },
         onReady: function(selectedDates, dateStr, instance) {
-			console.log("dateCalendar onReady");
             if (openxava.language === 'zh') {
                 dateCalendarEditor.isZh = true;
                 for (var i = 0; i < dateCalendarEditor.inputElementList.length; i++) {

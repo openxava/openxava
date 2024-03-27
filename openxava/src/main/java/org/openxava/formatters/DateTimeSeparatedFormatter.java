@@ -33,7 +33,6 @@ public class DateTimeSeparatedFormatter extends DateTimeBaseFormatter implements
 	}
 
 	public Object parse(HttpServletRequest request, String [] strings) throws Exception {
-		System.out.println("DateTimeSeparated parse");
 		if( strings == null || strings.length < 2 ) return null;
 		if( Is.emptyString(strings[0])) return null;
 		String fDate = strings[0];
@@ -43,13 +42,10 @@ public class DateTimeSeparatedFormatter extends DateTimeBaseFormatter implements
 		if (dateTime.indexOf('-') >= 0 && !"zh_CN".equals(Locales.getCurrent().toString())) {
 			dateTime = Strings.change(dateTime, "-", "/");
 		}
-		System.out.println("DateTimeSeparated ftime "+ Locales.getCurrent() + " " + dateTime);
 		DateFormat [] dateFormats = getDateTimeFormats();
 		for (int i=0; i < dateFormats.length; i++) {
-			System.out.println(i + ((SimpleDateFormat) dateFormats[i]).toPattern());
 			try {
 				java.util.Date result =  (java.util.Date) dateFormats[i].parseObject(dateTime);
-				System.out.println(new java.sql.Timestamp( result.getTime() ));
 				return new java.sql.Timestamp( result.getTime() );
 			}
 			catch (ParseException ex) {				

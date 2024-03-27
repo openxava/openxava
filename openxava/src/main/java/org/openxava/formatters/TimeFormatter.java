@@ -10,20 +10,24 @@ import javax.servlet.http.*;
 
 import org.openxava.util.*;
 
+/**
+ * Time formatter with multilocale support. <p> 
+ * 
+ * @author Chungyen Tsai
+ */
+
+
 public class TimeFormatter implements IFormatter {
 	
 	private static DateTimeFormatter zhTimeFormat = DateTimeFormatter.ofPattern("ah:mm");
 
 	public String format(HttpServletRequest request, Object time) {
-		//System.out.println("time " + time);
 		if (time == null) return "";
 		if (time instanceof String || time instanceof Number) return time.toString(); 
-		//System.out.println(getTimeFormat().format((LocalTime) time));
 		return getTimeFormat().format((LocalTime) time);
 	}
 	
 	public Object parse(HttpServletRequest request, String string) throws ParseException {
-		//System.out.println("tiem parse " + string);
 		if (Is.emptyString(string)) return null;
 		DateTimeFormatter timeFormat = getTimeFormat();
 		try {
