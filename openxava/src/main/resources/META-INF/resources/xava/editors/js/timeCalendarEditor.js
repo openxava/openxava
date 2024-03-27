@@ -7,7 +7,8 @@ openxava.addEditorInitFunction(function() {
 
     timeCalendarEditor.onOpenDateTime;
     timeCalendarEditor.onChangeChecked = false;
-    timeCalendarEditor.calendarClosed = false;
+    timeCalendarEditor.calendarOpen = false;
+	timeCalendarEditor.valueOnFocus;
 	
 	//for fix chinese trad timedate
 	timeCalendarEditor.inputElementList = $('.xava_time > input').toArray();
@@ -17,7 +18,15 @@ openxava.addEditorInitFunction(function() {
 		timeCalendarEditor.inputValueList.push(inputValue);
 	});
 	timeCalendarEditor.isZh = false;
-
+	
+	$('.xava_time > input').on('focus click', function() {
+		timeCalendarEditor.valueOnFocus = $(this).val();
+		console.log(timeCalendarEditor.valueOnFocus);
+	});
+	
+	$('.xava_time > input').change(function() {
+		console.log("changeee");
+	});
     //$('.flatpickr-calendar').remove();
 	
 	$('.xava_time').flatpickr({
@@ -29,13 +38,23 @@ openxava.addEditorInitFunction(function() {
 		noCalendar: true,
 		
         onOpen: function(selectedDates, dateStr, instance) {
+			console.log("onOpen " + dateStr);
+			timeCalendarEditor.calendarOpen = true;
             timeCalendarEditor.onOpenDateTime = dateStr;
 			if (timeCalendarEditor.isZh && dateStr.includes('PM') && instance.amPM.innerHTML === 'AM'){
 					instance.amPM.innerHTML = 'PM';
-			} 
+			}
+			
         },
 		onChange: function(selectedDates, dateStr, instance) {
-            if (timeCalendarEditor.onOpenDateTime != null) {
+			console.log("onChange " + dateStr);
+			
+			if (timeCalendarEditor.calendarOpen === true){
+				$(instance.input).data("changedCancelled", true);
+			} else {
+				console.log("no hacer nada");
+				/*
+				if (timeCalendarEditor.onOpenDateTime != null) {
                 if (timeCalendarEditor.onOpenDateTime == dateStr) {
                     $(instance.input).data("changedCancelled", true);
                 } else {
@@ -50,9 +69,17 @@ openxava.addEditorInitFunction(function() {
                     $(instance.input).removeData("changedCancelled");
                     $(instance.input).attr('value', dateStr);
                 }
-            }
+            }*//*
+			if (timeCalendarEditor.valueOnFocus != null && timeCalendarEditor.valueOnFocus == dateStr) {
+				$(instance.input).data("changedCancelled", true);
+			} else if (timeCalendarEditor.valueOnFocus != dateStr) {
+				//$('.xava_time > input').change();
+			}*/
+			}
         },
 		onClose: function(selectedDates, dateStr, instance) {
+			console.log("onClose " + dateStr);
+			/*
             if (timeCalendarEditor.onOpenDateTime != null) {
                 if (timeCalendarEditor.onOpenDateTime == dateStr) {
                     $(instance.input).data("changedCancelled", true);
@@ -61,10 +88,17 @@ openxava.addEditorInitFunction(function() {
                     $(instance.input).attr('value', dateStr);
                     $('.xava_time > input').change();
                 }
-                //dateCalendarEditor.calendarClosed = true;
-            }
+                timeCalendarEditor.calendarOpen = false;
+            }*/
+			$(instance.input).removeData("changedCancelled");
+			$(instance.input).change();
+			$(instance.input).focus();
+			//$('.xava_time > input').change();
+			timeCalendarEditor.calendarOpen = false;
+			
         },
 		onReady: function(selectedDates, dateStr, instance) {
+			console.log("onReady " + dateStr);
 			if (openxava.language === 'zh'){
 				timeCalendarEditor.isZh = true;
 				for (var i = 0; i < timeCalendarEditor.inputElementList.length; i++) {
