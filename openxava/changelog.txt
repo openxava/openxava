@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- New method createWebClient() in ModuleTestBase.
 - Single number typed in a date editor is assumed as day, with current month/year auto-completed.
 - Archetypes for creating new projects include the welcome.jsp page and a sample custom editor.
 - Dialogs fit in the screen, so dialog bottom buttons are always visible without scrolling.
