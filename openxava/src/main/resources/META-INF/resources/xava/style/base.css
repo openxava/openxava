@@ -594,6 +594,14 @@ i.folder-icon {
 	border-bottom: 2px solid var(--modules-list-header-border-bottom);
 }
 
+/* tmr ini */
+#modules_list_header i {
+	font-size: 20px; 
+	color: var(--modules-list-header-color);
+	float: left;
+}
+/* tmr fin */
+
 #modules_list_search_header { 
 	display: none; 
 }
