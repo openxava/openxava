@@ -88,6 +88,31 @@ public class DateCalendarTest extends WebDriverTestBase {
 		formatDateTimeUsingTwoDigits(); 
 	}
 	
+	public void testTime_dateTimeSeparatedUseTimeEditor_separatedTimePartOnChange() throws Exception {
+		goModule("Event");
+		execute("List.viewDetail", "row=0");
+		assertValue("endTime", "1:00 PM");
+		List<WebElement> iconElements = getDriver().findElements(By.cssSelector("i.mdi.mdi-clock-outline"));
+		assertTrue(iconElements.size() == 2);
+		if (!iconElements.isEmpty()) {
+		    WebElement firstIconElement = iconElements.get(0);
+		    firstIconElement.click();
+		}
+		List<WebElement> spanElements = getDriver().findElements(By.cssSelector("span.flatpickr-am-pm"));
+		if (!spanElements.isEmpty()) {
+		    WebElement firstSpanElement = spanElements.get(0);
+		    firstSpanElement.click();
+		}
+		WebElement label = getDriver().findElement(By.id("ox_openxavatest_Event__label_name"));
+		label.click();
+		assertValue("endTime", "1:00 AM");
+		List<WebElement> createDateTime = getDriver().findElements(By.id("ox_openxavatest_Event__createDate"));
+		WebElement timePart = createDateTime.get(1);
+		timePart.sendKeys(Keys.TAB);
+		List<WebElement> messages = getDriver().findElements(By.cssSelector(".ox-messages .ox-message-box"));
+		assertTrue(messages.isEmpty());
+	}
+	
 	private void formatDateUsingTwoDigits(String format) throws Exception {
 		execute("CRUD.new");
 		Calendar calendar = Calendar.getInstance();

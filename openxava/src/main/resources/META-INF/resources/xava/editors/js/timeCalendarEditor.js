@@ -41,11 +41,21 @@ openxava.addEditorInitFunction(function() {
             if (timeCalendarEditor.calendarOpen === true) {
                 $(instance.input).data("changedCancelled", true);
             } else {
+				var dateTimeSeparated = document.querySelectorAll('#' + instance.input.id);
                 if (timeCalendarEditor.focusTimeValue != dateStr) {
-                    $(instance.input).removeData("changedCancelled");
-                    $(instance.input).change();
+					if (dateTimeSeparated.length > 1) {
+						$(dateTimeSeparated[0]).removeData("changedCancelled");
+						$(dateTimeSeparated[0]).change();
+					} else {
+						$(instance.input).removeData("changedCancelled");
+						$(instance.input).change();
+					}
                 } else {
-                    $(instance.input).data("changedCancelled", true);
+					if (dateTimeSeparated.length > 1) {
+						$(dateTimeSeparated[0]).data("changedCancelled", true);
+					} else {
+						$(instance.input).data("changedCancelled", true);
+					}
                 }
             }
         },
