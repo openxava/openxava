@@ -36,7 +36,7 @@ public class DateTimeSeparatedFormatter extends DateTimeBaseFormatter implements
 		if( Is.emptyString(strings[0])) return null;
 		String fDate = strings[0];
 		String fTime = strings[1];
-		if (isZhFormatAndJavaLessThan9()) fTime = fTime.replace("\u4E0A\u5348", "AM").replace("\u4E0B\u5348", "PM"); //for zh in dateTimeSeparated editor
+		if (isZhFormatAndJavaLessThan9()) fTime = fTime.replace("\u4E0A\u5348", "AM").replace("\u4E0B\u5348", "PM"); //for zh in dateTime editor
 		String dateTime = fDate + " " + fTime; 
 		if (dateTime.indexOf('-') >= 0 && !"zh_CN".equals(Locales.getCurrent().toString())) {
 			dateTime = Strings.change(dateTime, "-", "/");
