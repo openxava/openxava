@@ -27,5 +27,10 @@ public class FoldersProvider implements IFoldersProvider {
 	public String goBack(HttpServletRequest request, HttpServletResponse response) {
 		return null;
 	}
+	
+	/** @since 7.3 */
+	public String goHome(HttpServletRequest request, HttpServletResponse response) { 
+		return null;
+	}
 
 }

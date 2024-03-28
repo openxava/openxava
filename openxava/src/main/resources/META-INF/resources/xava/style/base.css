@@ -527,21 +527,26 @@ i.folder-icon {
     font-weight: bold;
 }
 
-#back_folder { 
+#back_folder, #home_folder i {    
 	padding-top: 1px;
-	padding-left: 5px;
 	font-size: 12px;
-	float: left;
 	color: var(--back-folder-color); 
+	margin-bottom: 6px; 
 }
 
-#back_folder:hover {
+#back_folder:hover, #back_folder:hover i, #home_folder i:hover { 
 	color: var(--back-folder-hover-color);
 }
 
-#back_folder_counterweight {
-	float: right; 
-	width: 60px;
+#back_folder i, #home_folder i {
+	font-size: 140%; 
+	margin-left: -2px;
+	color: var(--back-folder-color); 
+}
+
+#back_folder i {
+	font-weight: bold;
+	padding-left: 7px;
 }
 
 #search_modules {  
@@ -584,23 +589,14 @@ i.folder-icon {
 }
 
 #modules_list_header, #modules_list_search_header { 
-	padding: 5px 5px 5px 0px;	
+	padding: 5px 5px 5px 10px; 	
 	font-weight: bold;
 	font-size: 14px; 
-	text-align: center; 
 	margin-left: -1px;
 	margin-right: -1px;
 	color: var(--modules-list-header-color);
 	border-bottom: 2px solid var(--modules-list-header-border-bottom);
 }
-
-/* tmr ini */
-#modules_list_header i {
-	font-size: 20px; 
-	color: var(--modules-list-header-color);
-	float: left;
-}
-/* tmr fin */
 
 #modules_list_search_header { 
 	display: none; 
