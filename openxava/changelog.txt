@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- New method createWebClient() in ModuleTestBase.
+- Single number typed in a date editor is assumed as day, with current month/year auto-completed.
+- Archetypes for creating new projects include the welcome.jsp page and a sample custom editor.
+- Dialogs fit in the screen, so dialog bottom buttons are always visible without scrolling.
+- @Email and @EmailList editors use a mask to ensure in real time that the emails are correctly typed.
 - New section in documentation to configure your application to be OWASP compliant.
 - Fix: Error page in browser when some problem destroying a servlet request.
 - Archetypes for creating new projects has error pages and cookies configuration compatible with OWASP.

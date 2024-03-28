@@ -1794,10 +1794,10 @@ td.ox-list-subheader > div {
 .ui-dialog .ox-view {
 	overflow-x: hidden; /* To avoid scrollbar in list inside dialog  */
 	padding-right: 7px; 
-}
-
-.ui-dialog .ox-view { 	
+	overflow-y: auto;
+	max-height: calc(100vh - 180px);
 	margin-right: 2px; 
+	margin-bottom: 0.5em;
 }
 
 .ox-list-info {  

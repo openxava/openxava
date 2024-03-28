@@ -459,14 +459,7 @@ abstract public class ModuleTestBase extends TestCase {
 	 * Like close navigator, open again, and reexecute the module.
 	 */
 	protected void resetModule() throws Exception {
-		client = new WebClient(getBrowserVersion()); 
-		client.getOptions().setThrowExceptionOnFailingStatusCode(false);
-		client.getOptions().setPrintContentOnFailingStatusCode(false); 
-		client.getOptions().setThrowExceptionOnScriptError(false);
-		client.getOptions().setCssEnabled(false);
-		client.setJavaScriptErrorListener(new SilentJavaScriptErrorListener());
-	    client.setCssErrorHandler(new SilentCssErrorHandler());
-	    client.setIncorrectnessListener((message, origin) -> {});
+		client = createWebClient(); 
 		
 		if (getLocale() != null) {
 			client.addRequestHeader("Accept-Language", getLocale());			
@@ -2651,6 +2644,40 @@ abstract public class ModuleTestBase extends TestCase {
 	protected WebClient getWebClient() {
 		return client;
 	}
+	
+	/**
+	 * It creates and returns a new WebClient each time you call it. <p>
+	 * 
+	 * Also, it's the method used to create the WebClient used for the test, so
+	 * you can overwrite it to refine the WebClient used for your test.<br>
+	 * 
+	 * This allows you testing using HtmlUnit APIs directly.<br>
+	 * 
+	 * The use of <b>this method is discoraged</b> because binds your test
+	 * to a HTML implementation.
+	 * Before to use this method look for another more abstract method
+	 * in this class.<br>
+	 * By default CSS is disabled for performance, 
+	 * if you need that CSS works for your test, write this line:
+	 * <pre>
+	 * WebClient webClient = createWebClient();
+	 * webClient.setCssEnabled(true);
+	 * </pre>
+	 * 
+	 * @since 7.3
+	 */	
+	protected WebClient createWebClient() throws Exception {  
+		WebClient newClient = new WebClient(getBrowserVersion()); 
+		newClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+		newClient.getOptions().setPrintContentOnFailingStatusCode(false); 
+		newClient.getOptions().setThrowExceptionOnScriptError(false);
+		newClient.getOptions().setCssEnabled(false);
+		newClient.setJavaScriptErrorListener(new SilentJavaScriptErrorListener());
+	    newClient.setCssErrorHandler(new SilentCssErrorHandler());
+	    newClient.setIncorrectnessListener((message, origin) -> {});
+	    return newClient;
+	}
+
 
 	protected String getLocale() { 
 		return locale == null?getDefaultLocale():locale;

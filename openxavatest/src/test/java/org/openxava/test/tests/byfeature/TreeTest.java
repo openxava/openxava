@@ -34,7 +34,7 @@ public class TreeTest extends WebDriverTestBase{
 		
 		goModule("TreeContainer");
 		verifyCreatedNodesAndCheck(getDriver());
-		editNodeWithDoubleClick(getDriver());
+		editNodeWithDoubleClick(getDriver()); 
 		deleteSelectedNode(getDriver());
 		cutNode_treeState(getDriver());
 		execute("Mode.list");

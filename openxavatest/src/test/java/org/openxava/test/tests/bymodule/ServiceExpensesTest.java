@@ -99,7 +99,7 @@ public class ServiceExpensesTest extends ModuleTestBase {
 	public void testAdding3RowsWithDescriptionsListAndTextFieldInElementCollection_calculationPropertyDependsOnSummationInElementCollection_sumUsedInCalculationAlwaysIncluded() throws Exception {  
 		getWebClient().getOptions().setCssEnabled(true);
 		execute("CRUD.new");
-		assertComboOpens(0, 1);
+		assertComboOpens(0, 1); 
 		setValueInCollection("expenses", 0, 0, "2016");
 		assertComboOpens(1, 2); 
 		setValueInCollection("expenses", 1, 0, "2016");

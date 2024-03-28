@@ -32,7 +32,7 @@ public class OrderTest extends ModuleTestBase {
 	}
 	
 	public void testGoodPerformanceWithCalculatedPropertiesInList_actionsNotLostAfterOpenDialogTwiceFromCollectionElement() throws Exception { 
-		long ini = System.currentTimeMillis(); 
+		long ini = System.currentTimeMillis();
 		execute("List.filter");
 		long takes = System.currentTimeMillis() - ini; 
 		assertTrue(takes < 4000); // With the fix it takes over 2500, without it it taken around 8000 (but never less 5600)
@@ -55,7 +55,7 @@ public class OrderTest extends ModuleTestBase {
 		assertTrue(takes < 4000); // With the fix it takes 2500, without it it taken around 8000 (but never less 5600)
 		
 		setLocale("zh");
-		assertLabelInList(3,"客户编号");
+		assertLabelInList(3,"客户编号"); 
 		setLocale("en");
 		
 		execute("List.viewDetail", "row=0"); 

@@ -53,7 +53,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		}
 		List<WebElement> weekdaycontainerDivElement = getDriver().findElements(By.className("flatpickr-weekdaycontainer"));
         WebElement thirdSpanElement = weekdaycontainerDivElement.get(0).findElements(By.tagName("span")).get(2);
-		assertTrue("The translation of dateCalendar is not loaded correctly", !thirdSpanElement.getText().equals("Tue"));
+		assertTrue("The translation of dateCalendar is not loaded correctly", !thirdSpanElement.getText().equals("Tue")); 
 		execute("Mode.list");
 		acceptInDialogJS(getDriver());
 	}
@@ -72,14 +72,52 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertNoErrors(); 
 	}
 
-	public void testChineseDateTimeInJava8AndAmIssue() throws Exception { 
+	public void testChineseDateTimeInJava8AndAmIssue_formatDateAndDateTimeUsingTwoDigits() throws Exception { 
 		changeLanguage("zh-TW");
 		appointment2();
 		quarter();
 		changeLanguage("zh-CN");
 		appointment2();
 		quarter();
+		
+		formatDateUsingTwoDigits("zh-CN");
+		changeLanguage("es-ES");
+		goModule("Quarter");
+		formatDateUsingTwoDigits("es-ES");
+		goModule("Shipment");
+		formatDateTimeUsingTwoDigits(); 
 	}
+	
+	private void formatDateUsingTwoDigits(String format) throws Exception {
+		execute("CRUD.new");
+		Calendar calendar = Calendar.getInstance();
+		int day = calendar.get(Calendar.DAY_OF_MONTH);
+		int month = calendar.get(Calendar.MONTH) + 1;
+		int year = calendar.get(Calendar.YEAR);
+		setValue("initDate", String.valueOf(day));
+		WebElement input = getDriver().findElement(By.id("ox_openxavatest_Quarter__initDate"));
+		input.sendKeys(Keys.TAB);
+		if (format.equals("zh-CN")) {
+			assertEquals(getValue("initDate"), year + "/" + month + "/" + day);
+		} else {
+			String m = month < 10 ? "0"+ String.valueOf(month) : String.valueOf(month);
+			assertEquals(getValue("initDate"), day + "/" + m + "/" + year);
+		} 
+	}
+	
+	private void formatDateTimeUsingTwoDigits() throws Exception {
+		execute("CRUD.new"); 
+		Calendar calendar = Calendar.getInstance();
+		int day = calendar.get(Calendar.DAY_OF_MONTH);
+		int month = calendar.get(Calendar.MONTH) + 1;
+		int year = calendar.get(Calendar.YEAR);
+		setValue("time", String.valueOf(day));
+		WebElement input = getDriver().findElement(By.id("ox_openxavatest_Shipment__time"));
+		input.sendKeys(Keys.TAB);
+		String m = month < 10 ? "0"+ String.valueOf(month) : String.valueOf(month);
+		assertEquals(getValue("time"), day + "/" + m + "/" + year + " 00:00");
+	}
+	
 	
 	private void appointment2() throws Exception {
 		goModule("Appointment2");
