@@ -8,10 +8,9 @@ openxava.addEditorInitFunction(function() {
     timeCalendarEditor.onOpenDateTime;
     timeCalendarEditor.onChangeChecked = false;
     timeCalendarEditor.calendarOpen = false;
-    timeCalendarEditor.valueOnFocus;
-    timeCalendarEditor.stopChange;
+    timeCalendarEditor.focusTimeValue;
 
-    //for fix chinese trad timedate
+    //for fix chinese pop up AM/PM issue
     timeCalendarEditor.inputElementList = $('.xava_time > input').toArray();
     timeCalendarEditor.inputValueList = [];
     $('.xava_time > input').each(function() {
@@ -19,25 +18,9 @@ openxava.addEditorInitFunction(function() {
         timeCalendarEditor.inputValueList.push(inputValue);
     });
     timeCalendarEditor.isZh = false;
-    timeCalendarEditor.lastValue;
 
-    $('.xava_time > input').on('focus click', function() {
-        timeCalendarEditor.valueOnFocus = $(this).val();
-    });
-
-    $('.xava_time > input').change(function() {
-        console.log("change");
-        if (timeCalendarEditor.stopChange) {
-            $(this).val(timeCalendarEditor.valueOnFocus);
-        }
-    });
-
-    $('.xava_time > input').on('blur', function() {
-        console.log("blur");
-        $(this).val(timeCalendarEditor.valueOnFocus);
-        if (timeCalendarEditor.isZh) {
-            timeCalendarEditor.stopChange = true;
-        }
+    $('.xava_time > input').on('focus', function() {
+        timeCalendarEditor.focusTimeValue = $(this).val();
     });
 
     $('.xava_time').flatpickr({
@@ -47,36 +30,23 @@ openxava.addEditorInitFunction(function() {
         locale: openxava.language,
         enableTime: true,
         noCalendar: true,
-
         onOpen: function(selectedDates, dateStr, instance) {
             timeCalendarEditor.calendarOpen = true;
             timeCalendarEditor.onOpenDateTime = dateStr;
-            timeCalendarEditor.stopChange = false;
             if (timeCalendarEditor.isZh && dateStr.includes('PM') && instance.amPM.innerHTML === 'AM') {
                 instance.amPM.innerHTML = 'PM';
             }
         },
         onChange: function(selectedDates, dateStr, instance) {
-            console.log("onchange");
             if (timeCalendarEditor.calendarOpen === true) {
                 $(instance.input).data("changedCancelled", true);
             } else {
-                console.log(timeCalendarEditor.valueOnFocus);
-                console.log(instance.input.id);
-                console.log(dateStr);
-                if (timeCalendarEditor.valueOnFocus != null && timeCalendarEditor.valueOnFocus == dateStr) {
+                if (timeCalendarEditor.focusTimeValue != dateStr) {
+                    $(instance.input).removeData("changedCancelled");
+                    $(instance.input).change();
+                } else {
                     $(instance.input).data("changedCancelled", true);
-                } else if (timeCalendarEditor.valueOnFocus != dateStr) {
-                    if (timeCalendarEditor.isZh && $('#' + instance.input.id).attr('value') != timeCalendarEditor.valueOnFocus) {
-                        $(instance.input).removeData("changedCancelled");
-                        $(instance.input).change();
-                    } else {
-                        $(instance.input).data("changedCancelled", true);
-                    }
                 }
-            }
-            if (timeCalendarEditor.stopChange) {
-                instance.input.value = timeCalendarEditor.valueOnFocus;
             }
         },
         onClose: function(selectedDates, dateStr, instance) {
