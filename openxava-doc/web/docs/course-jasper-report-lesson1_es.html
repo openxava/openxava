@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Curso generación de informes - Lección 1</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_es.html">documentación</a> / </span>Curso generación de informes - Lección 1</h1>
+      <div class="wiki" style="display: block;">
+        <h2>Video</h2>
+        <p><br>
+        </p>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h2>Transcripción</h2>
+        Hola, soy Mónica; en este curso vamos a ver cómo usar JasperSoft Studio para crear reportes pdf personalizados y generarlos en una aplicación OpenXava. En esta primera lección vamos a crear un reporte básico con JasperSoft Studio, y en OpenXava vamos a definir un controlador con una acción que al ejecutarlo, genere el reporte.<br>
+        Primero vamos a ingresar al link que tenemos en la descripción del video para descargar JasperSoft Studio; vemos que al apretar el botón, nos pide crear una cuenta o loguearnos para descargar. Podemos crear una cuenta desde este botón, Join the community. Una vez que ya iniciemos la sesión, el botón ya dirá descargar, lo apretamos y seleccionamos la opción de acuerdo a nuestro sistema operativo. Ya descargado, lo ejecutamos para instalar JasperSoft Studio.</div>
+      <div class="wiki" style="display: block;">En JasperSoft Studio creamos un nuevo proyecto haciendo clic en create project; seleccionamos JasperReport Project y apretamos next. Le asignamos un nombre, por ejemplo MyReports. Cliqueamos en Finish. Para nuestro primer reporte vamos a mostrar únicamente un texto estático. Clic derecho en el proyecto, New, Jasper Report. Seleccionamos el reporte en blanco y apretamos Next. Ponemos my custom report como nombre, y apretamos Finish. A la derecha tenemos el panel de Basic Elements. Arrastramos Static text y lo ubicamos en la zona de Title del reporte. Haciéndole doble clic podemos editar el texto. Ponemos My custom report y guardamos.</div>
+      <div class="wiki" style="display: block;">Vamos a OpenXava Studio y creamos un nuevo proyecto desde OpenXava, New OpenXava Project. Le asignamos un nombre al proyecto, por ejemplo report. Cliqueamos finish. Esperamos un rato. OpenXava ya tiene las librerías necesarias para generar un reporte, así que no hace falta agregar ninguna. Listo. Por defecto, OpenXava genera la entidad YourFirstEntity, así que lo vamos a aprovechar. Iniciamos la aplicación. Copiamos el link y lo pegamos en el navegador. Iniciamos sesión con admin, admin. Vamos al modo lista del módulo YourFirstEntity. Nuestro objetivo es tener un botón en modo lista, que cuando lo apretamos nos muestre el reporte que creamos recién. Para esto necesitamos tener una acción que haga eso. Vamos al archivo controllers.xml ubicado en la carpeta source main resources xava. Aquí se declaran los controladores y sus acciones. Copiamos este código y lo pegamos debajo. En controller name ponemos YourFirstEntity, este debe tener el mismo nombre que el módulo donde va a ser usado. Dejamos que extienda del controlador Typical para mantener las acciones que ya existían. En action es donde tenemos que definir nuestra acción que en este caso es un botón para generar un pdf. En name asignamos un nombre que se va a mostrar en el botón. En icon ponemos printer. No vamos a usar atajos de teclado. Ponemos una nueva propiedad mode con valor list, que significa que se verá en modo lista. Class es la clase donde contiene la lógica de la acción.</div>
+      <div class="wiki" style="display: block;">Vamos a crear la acción. Hacemos clic derecho en source main java, New, package para crear un nuevo paquete. Lo llamaremos com.yourcompany.report.actions. Y creamos una nueva clase haciendo clic derecho en el paquete, New, Class. Lo vamos a llamar PrintMyCustomReportAction. Una vez creado, extendemos nuestra acción de la clase JasperReportBaseAction. Y guardamos para que se importe. Vemos que nos pide añadir métodos necesarios. Lo hacemos. Aquí nos añade 3 métodos. getDataSource, no lo usaremos en esta lección, pero es un método donde nunca podemos retornar nulo, ya que un reporte puede tener un data source vacío pero no nulo. getJRXML, aquí debemos definir el nombre de nuestro archivo jrxml que va a usar para generar el reporte. getParameters, aquí podemos enviarle parámetros al reporte para que los use. Habíamos dicho que no podemos retornar nulo en getDataSource, así que enviaremos un new JREmptyDataSource(). El nombre del reporte debe ser el mismo que vamos a usar, en nuestro caso, MyCustomReport.jrxml. Guardamos. Volvemos a controllers.xml y apuntamos a la clase de la acción. com.yourcompany.report.actions.PrintMyCustomReportAction. Guardamos. La acción está lista, lo único que nos falta es copiar el reporte en el proyecto de OpenXava. En Jasper studio copiamos nuestro reporte. Y en OpenXava creamos una nueva carpeta llamada reports en source main resources. Pegamos el reporte dentro de la carpeta y listo. Iniciamos nuevamente la aplicación.</div>
+      <div class="wiki" style="display: block;">Vamos al modo lista de YourFirstEntity y vemos que la acción se muestra aquí. Le damos clic y saldrá otra ventana con el reporte que creamos.</div>
+      <div class="wiki" style="display: block;">Fue bastante simple tener el botón para generar un reporte. Espero que el video te haya servido de guía. Si tienes alguna duda sobre esta lección, puedes preguntarnos por el foro, también puedes descargar el código de esta lección por el link del repositorio, ambos enlaces se encuentran en la descripción del video. Nos vemos en la próxima lección donde vamos a aprender cómo pasar parámetros del OpenXava al reporte y utilizarlos allí. Chao.</div>
+    </div>
+  </body>
+</html>
