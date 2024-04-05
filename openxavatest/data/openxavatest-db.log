@@ -1,3 +1,2 @@
-/*C4*/SET SCHEMA PUBLIC
-alter table xavatest.event add ENDTIME TIME
+/*C3*/SET SCHEMA PUBLIC
 DISCONNECT
