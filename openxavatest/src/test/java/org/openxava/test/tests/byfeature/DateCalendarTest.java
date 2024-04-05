@@ -126,7 +126,8 @@ public class DateCalendarTest extends WebDriverTestBase {
 			assertEquals(getValue("initDate"), year + "/" + month + "/" + day);
 		} else {
 			String m = month < 10 ? "0"+ String.valueOf(month) : String.valueOf(month);
-			assertEquals(getValue("initDate"), day + "/" + m + "/" + year);
+			String d = day < 10 ? "0"+ String.valueOf(day) : String.valueOf(day);
+			assertEquals(getValue("initDate"), d + "/" + m + "/" + year);
 		} 
 	}
 	
@@ -140,7 +141,8 @@ public class DateCalendarTest extends WebDriverTestBase {
 		WebElement input = getDriver().findElement(By.id("ox_openxavatest_Shipment__time"));
 		input.sendKeys(Keys.TAB);
 		String m = month < 10 ? "0"+ String.valueOf(month) : String.valueOf(month);
-		assertEquals(getValue("time"), day + "/" + m + "/" + year + " 00:00");
+		String d = day < 10 ? "0"+ String.valueOf(day) : String.valueOf(day);
+		assertEquals(getValue("time"), d + "/" + m + "/" + year + " 00:00");
 	}
 	
 	

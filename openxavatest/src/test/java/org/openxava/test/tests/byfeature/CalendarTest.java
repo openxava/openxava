@@ -18,11 +18,11 @@ public class CalendarTest extends WebDriverTestBase {
 	
     public void testCalendar() throws Exception {
     	assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate(); 
-        assertMultipleDatesPropertiesAndSelectDateToShow();
-        assertFilterPerformance();
+    	assertMultipleDatesPropertiesAndSelectDateToShow();
+    	assertFilterPerformance();
     	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime();
-        assertAnyNameAsDateProperty();
-        assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear();
+    	assertAnyNameAsDateProperty();
+    	assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear();
     }    
 
 	private void nextOnCalendar() throws Exception {
@@ -61,7 +61,7 @@ public class CalendarTest extends WebDriverTestBase {
 		moveToCalendarView(getDriver());
 		moveToTimeGridWeek(getDriver());
 		moveToListView();
-		goModule("Event");
+		goModule("Invoice");
 		moveToCalendarView(getDriver());
 		boolean weekButton = getDriver().findElements(By.cssSelector("button.fc-timeGridWeek-button")).isEmpty();
 		assertTrue(weekButton);
@@ -153,16 +153,16 @@ public class CalendarTest extends WebDriverTestBase {
 			createEvents(i);
 		}
 		moveToListView();
-		setConditionValue("TEST", 3);
-		setConditionComparator("=", 3);
+		setConditionValue("TEST", 4);
+		setConditionComparator("=", 4);
 		for (int i = 0; i < 5; i++) {
 			execute("CRUD.deleteRow", "row=0");
 		}
 		moveToCalendarView(getDriver());
 		verifyShowDatesOfPreferDateProperty();
 		moveToListView();
-		setConditionValue("TEST", 3);
-		setConditionComparator("=", 3);
+		setConditionValue("TEST", 4);
+		setConditionComparator("=", 4);
 		execute("CRUD.deleteRow", "row=0");
 		clearListCondition();
 	}
