@@ -843,7 +843,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	width: 10px;
 	float: left;	
 	white-space: nowrap;
-	display: flex;
+	display: ruby;
 }
 
 #module_header_right {
