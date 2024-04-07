@@ -10,6 +10,10 @@ Change Log for OpenXava project
 - Jersey upgraded to 2.42.
 - Log4j upgraded to 2.23.1.
 - Json upgraded to 20240303.
+- Commons-io upgraded to 2.16.0.
+- JasperReports and font upgraded to 6.21.2.
+- HtmlUnit upgraded to 4.0.0.
+- PdfBox upgraded to 2.0.31.
 - Driver version in doc and new projects upgraded for PostgreSQL, AS/400, Microsoft SQL Server, Firebird.
 
 - New method createWebClient() in ModuleTestBase.
