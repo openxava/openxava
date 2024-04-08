@@ -2,6 +2,7 @@ package org.openxava.test.tests.byfeature;
 
 import java.util.*;
 
+import org.apache.commons.logging.*;
 import org.openqa.selenium.*;
 
 /**
@@ -10,7 +11,8 @@ import org.openqa.selenium.*;
  * @author Chungyen Tsai
  */
 public class DateCalendarTest extends WebDriverTestBase {
-		
+	private static Log log = LogFactory.getLog(DateCalendarTest.class);
+		/*
 	public void testGreek() throws Exception { 
 		changeLanguage("el");
 		goModule("Event");
@@ -87,6 +89,47 @@ public class DateCalendarTest extends WebDriverTestBase {
 		goModule("Shipment");
 		formatDateTimeUsingTwoDigits(); 
 	}
+	*/
+	public void testDataChangedMessage_tabBlurWorkProperly_onChange() throws Exception {
+		goModule("Order");
+		WebElement date;
+		execute("List.viewDetail", "row=0");
+		date = getDriver().findElement(By.id("ox_openxavatest_Order__date"));
+		date.sendKeys(Keys.TAB);
+		execute("Mode.list");
+		execute("List.viewDetail", "row=0");
+		openCalendar(0);
+		chooseDate(0, "today");
+		execute("Mode.list");
+		execute("List.viewDetail", "row=0");
+		selectNextDay(0);
+		WebElement modeList = getDriver().findElement(By.id("ox_openxavatest_Order__Mode___list"));
+		modeList.click();
+		Thread.sleep(500);
+		Alert alert = getDriver().switchTo().alert();
+		alert.accept();
+		wait(getDriver());
+		execute("List.viewDetail", "row=0");
+		execute("Navigation.previous");
+		assertMessage("We already are at the beginning of the list");
+		date = getDriver().findElement(By.id("ox_openxavatest_Order__date"));
+		date.sendKeys(Keys.TAB);
+		modeList = getDriver().findElement(By.id("ox_openxavatest_Order__Mode___list"));
+		modeList.click();
+		
+		execute("List.viewDetail", "row=0");
+		selectNextDay(0);
+		date = getDriver().findElement(By.id("ox_openxavatest_Order__date"));
+		date.sendKeys(Keys.TAB);
+		assertEquals("5/11/2017",date.getAttribute("value"));
+		selectNextDay(0);
+		WebElement dateLabel = getDriver().findElement(By.id("ox_openxavatest_Order__label_date"));
+		dateLabel.click();
+		assertEquals("5/12/2017",date.getAttribute("value"));
+		execute("Mode.List");
+		
+		
+	}
 	
 	private void formatDateUsingTwoDigits(String format) throws Exception {
 		execute("CRUD.new");
@@ -142,6 +185,40 @@ public class DateCalendarTest extends WebDriverTestBase {
 		execute("CRUD.save");
 		assertNoErrors();
 		execute("Mode.list");
+	}
+	
+	private void openCalendar(int i) throws InterruptedException {
+		//i for more than one calendar in same view, 0 for unique calendar
+		List<WebElement> iconElements = getDriver().findElements(By.cssSelector("i.mdi.mdi-calendar"));
+		if (!iconElements.isEmpty()) {
+		    WebElement calendarIcon = iconElements.get(i);
+		    calendarIcon.click();
+		}
+		Thread.sleep(500);
+	}
+	
+	private void chooseDate(int i, String day) throws InterruptedException {
+		//day for choose today or another
+		//i for more than one calendar in same view, 0 for unique calendar
+		List<WebElement> spanElements;
+		if (day.equals("today")) {
+			spanElements = getDriver().findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day selected']"));
+		} else {
+			int dayNumber = Integer.valueOf(day);
+			spanElements = getDriver().findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day ' and text()='" + dayNumber + "']"));
+		}
+		if (!spanElements.isEmpty()) {
+		    WebElement spanElement = spanElements.get(i);
+		    spanElement.click();
+		}
+		Thread.sleep(300);
+	}
+	
+	private void selectNextDay(int i) throws InterruptedException {
+		//i for more than one calendar in same view, 0 for unique calendar
+		openCalendar(i);
+		int daySelected = Integer.valueOf(getDriver().findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day selected']")).get(i).getText());
+		chooseDate(i, String.valueOf(daySelected+1));
 	}
 
 }
