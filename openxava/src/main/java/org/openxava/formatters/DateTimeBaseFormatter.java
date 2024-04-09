@@ -21,7 +21,7 @@ abstract public class DateTimeBaseFormatter {
 		new SimpleDateFormat("dd.MM.yy HH:mm:ss"),		
 		new SimpleDateFormat("dd/MM/yy"),		
 		new SimpleDateFormat("ddMMyy"),		
-		new SimpleDateFormat("dd.MM.yy")		
+		new SimpleDateFormat("dd.MM.yy")
 	};	
 	
 	protected DateFormat [] getExtendedDateTimeFormats() {

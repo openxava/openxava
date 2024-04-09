@@ -111,6 +111,14 @@ public class DateCalendarTest extends WebDriverTestBase {
 		timePart.sendKeys(Keys.TAB);
 		List<WebElement> messages = getDriver().findElements(By.cssSelector(".ox-messages .ox-message-box"));
 		assertTrue(messages.isEmpty());
+		setValue("endTime", "1:00 PM");
+		execute("CRUD.save");
+		messages = getDriver().findElements(By.cssSelector(".ox-messages .ox-message-box"));
+		assertTrue(messages.isEmpty());
+		
+		changeLanguage("zh-CN");
+		goModule("Event");
+		execute("List.viewDetail", "row=0");
 	}
 	
 	private void formatDateUsingTwoDigits(String format) throws Exception {
