@@ -161,11 +161,10 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertValue("date", "5/13/2017");
 	}
 	*/
-	public void testDateTime_onChange_twoDigitYear() throws Exception {
+	public void testDateTime_onChange_twoDigitYear_dateTimeSeparated_srDateTime() throws Exception {
 		goModule("ShipmentWithOnChange");
 		WebElement dateTime;
 		WebElement timeLabel;
-		/*
 		execute("List.viewDetail", "row=2");
 		dateTime = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__time"));
 		openCalendarDateTime(0);
@@ -173,9 +172,8 @@ public class DateCalendarTest extends WebDriverTestBase {
 		timeLabel = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__label_time"));
 		timeLabel.click();
 		assertNoMessage();
-		Thread.sleep(5000);
 		execute("Mode.list");
-		*/
+		
 		execute("List.viewDetail", "row=2");
 		openCalendarDateTime(0);
 		WebElement upArrow = getDriver().findElements(By.className("arrowUp")).get(2);
@@ -189,23 +187,149 @@ public class DateCalendarTest extends WebDriverTestBase {
 		Thread.sleep(100);
 		timeLabel = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__label_time"));
 		timeLabel.click();
-		Thread.sleep(500);
+		Thread.sleep(100);
 		assertMessage("OnChangeVoidAction executed");
 		execute("Mode.list");
 		
-		changeLanguage("es-ES");
+		execute("List.viewDetail", "row=2");
+		dateTime = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__time"));
+		setValue("time","12/25/07 11:33 AM");
+		timeLabel = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__label_time"));
+		timeLabel.click();
+		Thread.sleep(100);
+		assertValue("time", "12/25/2007 11:33 AM");
+		setValue("time"," 12/25/08 11:33 AM");
+		timeLabel.click();
+		Thread.sleep(100);
+		assertValue("time", "12/25/2008 11:33 AM");
+		
+		changeLanguage("es");
 		goModule("ShipmentWithOnChange");
 		execute("List.viewDetail", "row=2");
 		dateTime = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__time"));
 		dateTime.clear();
 		dateTime.sendKeys(Keys.TAB);
-		assertTrue(dateTime.getAttribute("value").equals(""));
-		setValue("time","12/25/06 11:33 AM");
+		assertValue("time", "");
+		setValue("time","25/12/06 11:33");
 		timeLabel = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__label_time"));
 		timeLabel.click();
+		Thread.sleep(100);
+		assertValue("time", "25/12/2006 11:33");
 		
+		goModule("ShipmentSeparatedTime");
+		execute("List.viewDetail", "row=0");
+		List<WebElement> dateTimeInput = getDriver().findElements(By.cssSelector("input[name='ox_openxavatest_ShipmentSeparatedTime__time']"));
+		WebElement dateInput = dateTimeInput.get(0);
+		WebElement timeInput = dateTimeInput.get(1);
+		selectNextDay(0);
+		dateInput.sendKeys(Keys.TAB);
+		assertValue("time", "");
+		dateInput.sendKeys("10/04/24");
+		dateInput.sendKeys(Keys.ENTER);
+		
+		
+		
+		changeLanguage("sr");
 		goModule("Shipment");
+		execute("List.viewDetail", "row=2");
+		setValue("time", "25.12.26. 11:33");
+		timeLabel = getDriver().findElement(By.id("ox_openxavatest_Shipment__time"));
+		timeLabel.click();
+		Thread.sleep(100);
+		assertValue("time", "25.12.2026. 11:33");
+		setValue("time", "25.12.18 05:05");
+		timeLabel = getDriver().findElement(By.id("ox_openxavatest_Shipment__time"));
+		timeLabel.click();
+		Thread.sleep(100);
+		assertValue("time", "25.12.2018. 05:05");
+	}
+	
+	public void testDate_addSeparators() throws Exception {
+		goModule("Quarter");
+		WebElement endDate;
+		WebElement endDateLabel;
+		execute("List.viewDetail", "row=0");
+		endDate = getDriver().findElement(By.id("ox_openxavatest_Quarter__endDate"));
+		endDateLabel = getDriver().findElement(By.id("ox_openxavatest_Quarter__label_endDate"));
+		setValue("endDate", "32402");
+		endDateLabel.click();
+		Thread.sleep(100);
+		assertValue("endDate", "3/24/2002");
+		assertValue("initDate", "8/11/2009");
 		
+		setValue("endDate", "3+402");
+		endDateLabel.click();
+		Thread.sleep(100);
+		assertValue("endDate", "3/+4/2002");
+		setValue("endDate", "3442002");
+		endDateLabel.click();
+		Thread.sleep(100);
+		assertValue("endDate", "3/44/2002");
+		execute("CRUD.save");
+		assertMessage("End date in Quarter is not of expected type");
+		
+		changeLanguage("es");
+		goModule("Quarter");
+		execute("List.viewDetail", "row=0");
+		endDate = getDriver().findElement(By.id("ox_openxavatest_Quarter__endDate"));
+		endDateLabel = getDriver().findElement(By.id("ox_openxavatest_Quarter__label_endDate"));
+		setValue("endDate", "51106");
+		endDate.sendKeys(Keys.TAB);
+		Thread.sleep(100);
+		assertValue("endDate", "05/11/2006");
+		setValue("endDate", "051196");
+		endDateLabel.click();
+		Thread.sleep(100);
+		assertValue("endDate", "05/11/1996");
+		setValue("endDate", "24022019");
+		endDate.sendKeys(Keys.ENTER);
+		Thread.sleep(100);
+		assertValue("endDate", "24/02/2019");
+		setValue("endDate", "7111999");
+		endDateLabel.click();
+		Thread.sleep(100);
+		assertValue("endDate", "07/11/1999");
+		assertValue("initDate", "11/08/2009");
+		
+		changeLanguage("en-ZA");
+		goModule("Quarter");
+		execute("List.viewDetail", "row=0");
+		endDate = getDriver().findElement(By.id("ox_openxavatest_Quarter__endDate"));
+		assertValue("endDate", "2010/06/03");
+		setValue("endDate", "20170617");
+		endDate.sendKeys(Keys.TAB);
+		Thread.sleep(100);
+		assertValue("endDate", "2017/06/17");
+		
+		changeLanguage("sr");
+		goModule("Quarter");
+		execute("List.viewDetail", "row=0");
+		endDateLabel = getDriver().findElement(By.id("ox_openxavatest_Quarter__label_endDate"));
+		assertValue("endDate", "3.6.2010.");
+		setValue("endDate", "5.2.2017.");
+		endDateLabel.click();
+		Thread.sleep(100);
+		assertValue("endDate", "5.2.2017.");
+		setValue("endDate", "5.2.2018");
+		endDateLabel.click();
+		Thread.sleep(100);
+		assertValue("endDate", "5.2.2018.");
+		setValue("endDate", "5.2.19.");
+		endDateLabel.click();
+		Thread.sleep(100);
+		assertValue("endDate", "5.2.2019.");
+		setValue("endDate", "5.2.17");
+		endDateLabel.click();
+		Thread.sleep(100);
+		assertValue("endDate", "5.2.2017.");
+		setValue("endDate", "05022018");
+		endDateLabel.click();
+		Thread.sleep(100);
+		assertValue("endDate", "5.2.2018.");
+		setValue("endDate", "050219");
+		endDateLabel.click();
+		Thread.sleep(100);
+		assertValue("endDate", "5.2.2019.");
 	}
 	
 	private void formatDateUsingTwoDigits(String format) throws Exception {
@@ -307,5 +431,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		int daySelected = Integer.valueOf(getDriver().findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day selected']")).get(i).getText());
 		selectDate(i, String.valueOf(daySelected+1));
 	}
+	
+	
 
 }
