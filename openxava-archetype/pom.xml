@@ -42,7 +42,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
     		<artifactId>postgresql</artifactId>
-    		<version>42.7.1</version>
+    		<version>42.7.3</version>
 		</dependency>
 		-->
 		
@@ -58,7 +58,7 @@
 		<dependency>
 			<groupId>net.sf.jt400</groupId>
 			<artifactId>jt400</artifactId>
-			<version>20.0.6</version>
+			<version>20.0.7</version>
 			<classifier>java8</classifier>
 		</dependency>
 		-->
@@ -67,7 +67,7 @@
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
-    		<version>12.4.2.jre8</version>
+    		<version>12.6.1.jre8</version>
 		</dependency>
 		-->
 		
@@ -91,7 +91,7 @@
 		<dependency>
 			<groupId>org.firebirdsql.jdbc</groupId>
 			<artifactId>jaybird</artifactId>
-			<version>5.0.3.java8</version>
+			<version>5.0.4.java8</version>
 		</dependency>
 		-->
 		
