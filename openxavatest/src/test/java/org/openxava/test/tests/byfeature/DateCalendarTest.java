@@ -89,21 +89,23 @@ public class DateCalendarTest extends WebDriverTestBase {
 		goModule("Shipment");
 		formatDateTimeUsingTwoDigits(); 
 	}
-	*/
-	public void testDataChangedMessage_tabBlurWorkProperly_onChange() throws Exception {
+	
+	public void testDate_DataChangedMessage_tabBlurWorkProperly_onChange() throws Exception {
 		goModule("Order");
 		WebElement date;
+		WebElement dateLabel;
+		WebElement modeList;
 		execute("List.viewDetail", "row=0");
 		date = getDriver().findElement(By.id("ox_openxavatest_Order__date"));
 		date.sendKeys(Keys.TAB);
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
 		openCalendar(0);
-		chooseDate(0, "today");
+		selectDate(0, "today");
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
 		selectNextDay(0);
-		WebElement modeList = getDriver().findElement(By.id("ox_openxavatest_Order__Mode___list"));
+		modeList = getDriver().findElement(By.id("ox_openxavatest_Order__Mode___list"));
 		modeList.click();
 		Thread.sleep(500);
 		Alert alert = getDriver().switchTo().alert();
@@ -116,6 +118,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		date.sendKeys(Keys.TAB);
 		modeList = getDriver().findElement(By.id("ox_openxavatest_Order__Mode___list"));
 		modeList.click();
+		wait(getDriver());
 		
 		execute("List.viewDetail", "row=0");
 		selectNextDay(0);
@@ -123,11 +126,85 @@ public class DateCalendarTest extends WebDriverTestBase {
 		date.sendKeys(Keys.TAB);
 		assertEquals("5/11/2017",date.getAttribute("value"));
 		selectNextDay(0);
-		WebElement dateLabel = getDriver().findElement(By.id("ox_openxavatest_Order__label_date"));
+		dateLabel = getDriver().findElement(By.id("ox_openxavatest_Order__label_date"));
 		dateLabel.click();
-		assertEquals("5/12/2017",date.getAttribute("value"));
+		assertValue("date", "5/12/2017");
 		execute("Mode.List");
 		
+		goModule("OrderProductInDetailAsDescriptionsList");
+		execute("List.viewDetail", "row=0");
+		date = getDriver().findElement(By.id("ox_openxavatest_OrderProductInDetailAsDescriptionsList__date"));
+		date.sendKeys(Keys.TAB);
+		assertNoMessage();
+		modeList = getDriver().findElement(By.id("ox_openxavatest_OrderProductInDetailAsDescriptionsList__Mode___list"));
+		modeList.click();
+		wait(getDriver());
+		execute("List.viewDetail", "row=0");
+		openCalendar(0);
+		selectDate(0, "today");
+		assertNoMessage();
+		modeList = getDriver().findElement(By.id("ox_openxavatest_OrderProductInDetailAsDescriptionsList__Mode___list"));
+		modeList.click();
+		wait(getDriver());
+		execute("List.viewDetail", "row=0");
+		selectNextDay(0);
+		assertMessage("OnChangeVoidAction executed");
+		selectNextDay(0);
+		List<WebElement> messages = getDriver().findElements(By.className("ox-message-box"));
+		assertTrue(messages.size() == 1);
+		date = getDriver().findElement(By.id("ox_openxavatest_OrderProductInDetailAsDescriptionsList__date"));
+		date.sendKeys(Keys.TAB);
+		assertValue("date", "5/12/2017");
+		selectNextDay(0);
+		dateLabel = getDriver().findElement(By.id("ox_openxavatest_OrderProductInDetailAsDescriptionsList__label_date"));
+		dateLabel.click();
+		assertValue("date", "5/13/2017");
+	}
+	*/
+	public void testDateTime_onChange_twoDigitYear() throws Exception {
+		goModule("ShipmentWithOnChange");
+		WebElement dateTime;
+		WebElement timeLabel;
+		/*
+		execute("List.viewDetail", "row=2");
+		dateTime = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__time"));
+		openCalendarDateTime(0);
+		selectDate(0, "today");
+		timeLabel = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__label_time"));
+		timeLabel.click();
+		assertNoMessage();
+		Thread.sleep(5000);
+		execute("Mode.list");
+		*/
+		execute("List.viewDetail", "row=2");
+		openCalendarDateTime(0);
+		WebElement upArrow = getDriver().findElements(By.className("arrowUp")).get(2);
+		upArrow.click();
+		Thread.sleep(100);
+		assertNoMessage();
+		upArrow.click();
+		Thread.sleep(100);
+		assertNoMessage();
+		upArrow.click();
+		Thread.sleep(100);
+		timeLabel = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__label_time"));
+		timeLabel.click();
+		Thread.sleep(500);
+		assertMessage("OnChangeVoidAction executed");
+		execute("Mode.list");
+		
+		changeLanguage("es-ES");
+		goModule("ShipmentWithOnChange");
+		execute("List.viewDetail", "row=2");
+		dateTime = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__time"));
+		dateTime.clear();
+		dateTime.sendKeys(Keys.TAB);
+		assertTrue(dateTime.getAttribute("value").equals(""));
+		setValue("time","12/25/06 11:33 AM");
+		timeLabel = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__label_time"));
+		timeLabel.click();
+		
+		goModule("Shipment");
 		
 	}
 	
@@ -197,7 +274,17 @@ public class DateCalendarTest extends WebDriverTestBase {
 		Thread.sleep(500);
 	}
 	
-	private void chooseDate(int i, String day) throws InterruptedException {
+	private void openCalendarDateTime(int i) throws InterruptedException {
+		//i for more than one calendar in same view, 0 for unique calendar
+		List<WebElement> iconElements = getDriver().findElements(By.cssSelector("i.mdi.mdi-calendar-clock"));
+		if (!iconElements.isEmpty()) {
+		    WebElement calendarIcon = iconElements.get(i);
+		    calendarIcon.click();
+		}
+		Thread.sleep(500);
+	}
+	
+	private void selectDate(int i, String day) throws InterruptedException {
 		//day for choose today or another
 		//i for more than one calendar in same view, 0 for unique calendar
 		List<WebElement> spanElements;
@@ -218,7 +305,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		//i for more than one calendar in same view, 0 for unique calendar
 		openCalendar(i);
 		int daySelected = Integer.valueOf(getDriver().findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day selected']")).get(i).getText());
-		chooseDate(i, String.valueOf(daySelected+1));
+		selectDate(i, String.valueOf(daySelected+1));
 	}
 
 }
