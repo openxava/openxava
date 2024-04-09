@@ -1,21 +1,20 @@
 Change Log for OpenXava project
 ===============================
 
-- Commons-logging upgraded to 1.3.1.
-- Commons-validator upgraded to 1.8.0.
+- Commons Logging upgraded to 1.3.1.
+- Commons Validator upgraded to 1.8.0.
 - Groovy upgraded to 4.0.20.
-- Jsoup upgraded to 1.17.2.
+- JSoup upgraded to 1.17.2.
 - Lombok upgraded to 1.18.32.
 - Embedded Tomcat used in development upgraded to 9.0.87.
 - Jersey upgraded to 2.42.
 - Log4j upgraded to 2.23.1.
 - Json upgraded to 20240303.
-- Commons-io upgraded to 2.16.0.
+- Commons IO upgraded to 2.16.0.
 - JasperReports and font upgraded to 6.21.2.
 - HtmlUnit upgraded to 4.0.0.
 - PdfBox upgraded to 2.0.31.
 - Driver version in doc and new projects upgraded for PostgreSQL, AS/400, Microsoft SQL Server, Firebird.
-
 - New method createWebClient() in ModuleTestBase.
 - Single number typed in a date editor is assumed as day, with current month/year auto-completed.
 - Archetypes for creating new projects include the welcome.jsp page and a sample custom editor.
