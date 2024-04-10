@@ -10,6 +10,8 @@
 	--my-lightdark: #4e5254;
 	--my-darker: #2d2f30; /* tmr Todavía sin usar */
 	--my-blue: #365880;
+	--my-blue: #4b6eaf; /* TMR ME QUEDÉ POR AQUÍ PROBANDO AZULES PARA LAS ACCIONES */
+	--my-blue: #529cbd;	
 	--my-silver: #bbbbbb;
 	 
 	/* Modules left menu */
@@ -18,21 +20,19 @@
 	--modules-list-selected-color: var(--my-silver);
 	--modules-list-selected-background: var(--my-blue);
 	--modules-list-selected-border-right: var(--my-blue);
-	/* TMR ME QUEDÉ POR AQUÍ: FALTA EL COLOR CUANDO EL RATÓN PASA POR ENCIMA*/	 
 
 	/* Module header */ 
-	--module-header-color: white;
+	--module-header-color: var(--my-silver);
 	--module-header-background: var(--my-dark);		
 
 	
 	/* Button bar */	 
 	--button-bar-background: var(--my-lightdark);
-	--list-formats-color: lightgray;
 	--list-formats-hover-color: white;
 	
 	/* Backgrounds & labels */
 	--background: var(--my-dark);
-	--color: white;
+	--color: var(--my-silver);
 	
 	/* Frames */	
 	--frame-background: var(--my-lightdark);
