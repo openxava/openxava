@@ -869,6 +869,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 
 #module_extended_title {
 	font-weight: bold;
+	padding-right: 4px!important;
 }
 
 #application_title { 
@@ -2869,6 +2870,7 @@ div[id$="_Index__view"] .ox-list-title {
 
 #module_header_menu_button {
 	padding-right: 4px;
+	padding-top: 0px!important;
 }
 
 .xava_coordinates {
