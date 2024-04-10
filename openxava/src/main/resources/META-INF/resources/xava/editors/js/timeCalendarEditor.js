@@ -25,11 +25,11 @@ openxava.addEditorInitFunction(function() {
 	
 	$('.xava_time > input').on('blur', function() {
         var inputValue = $(this).val();
-		if (inputValue.indexOf(':') === -1) {
-			if (/\d{3,4}/.test(inputValue)) {
-				var formattedValue = inputValue.replace(/(\d{2})(\d{2})$/, '$1:$2');
-				$(this).val(formattedValue);
-			}
+		var match = inputValue.match(/\d{3,4}/);
+		if (match) {
+			var position = match.index + match[0].length - 2;
+			var formattedValue = inputValue.slice(0, position) + ':' + inputValue.slice(position);
+			$(this).val(formattedValue);
 		}
 	});
 

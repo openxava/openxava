@@ -88,7 +88,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		formatDateTimeUsingTwoDigits(); 
 	}
 	
-	public void testTime_dateTimeSeparatedUseTimeEditor_separatedTimePartOnChange() throws Exception {
+	public void testTime_dateTimeSeparatedUseTimeEditor_separatedTimePartOnChange_autoFillColon() throws Exception {
 		goModule("Event");
 		execute("List.viewDetail", "row=0");
 		assertValue("endTime", "1:00 PM");
@@ -111,7 +111,12 @@ public class DateCalendarTest extends WebDriverTestBase {
 		timePart.sendKeys(Keys.TAB);
 		List<WebElement> messages = getDriver().findElements(By.cssSelector(".ox-messages .ox-message-box"));
 		assertTrue(messages.isEmpty());
-		setValue("endTime", "1:00 PM");
+		setValue("endTime", "111 PM");
+		WebElement endTime = getDriver().findElement(By.id("ox_openxavatest_Event__endTime"));
+		endTime.sendKeys(Keys.TAB);
+		assertValue("endTime","1:11 PM");
+		setValue("endTime", "100 PM");
+		endTime.sendKeys(Keys.TAB);
 		messages = getDriver().findElements(By.cssSelector(".ox-messages .ox-message-box"));
 		assertTrue(messages.isEmpty());
 		execute("CRUD.save");
@@ -119,7 +124,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		changeLanguage("zh-CN");
 		goModule("Event");
 		execute("List.viewDetail", "row=0");
-		WebElement endTime = getDriver().findElement(By.id("ox_openxavatest_Event__endTime"));
+		endTime = getDriver().findElement(By.id("ox_openxavatest_Event__endTime"));
 		endTime.sendKeys(Keys.TAB);
 		assertValue("endTime", "AM1:00");
 		openTimeCalendar(0);
