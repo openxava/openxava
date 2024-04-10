@@ -112,13 +112,20 @@ public class DateCalendarTest extends WebDriverTestBase {
 		List<WebElement> messages = getDriver().findElements(By.cssSelector(".ox-messages .ox-message-box"));
 		assertTrue(messages.isEmpty());
 		setValue("endTime", "1:00 PM");
-		execute("CRUD.save");
 		messages = getDriver().findElements(By.cssSelector(".ox-messages .ox-message-box"));
 		assertTrue(messages.isEmpty());
+		execute("CRUD.save");
 		
 		changeLanguage("zh-CN");
 		goModule("Event");
 		execute("List.viewDetail", "row=0");
+		WebElement endTime = getDriver().findElement(By.id("ox_openxavatest_Event__endTime"));
+		endTime.sendKeys(Keys.TAB);
+		assertValue("endTime", "AM1:00");
+		openTimeCalendar(0);
+		changeAmPm(0);
+		assertValue("endTime", "PM1:00");
+		execute("CRUD.save");
 	}
 	
 	private void formatDateUsingTwoDigits(String format) throws Exception {
@@ -177,6 +184,24 @@ public class DateCalendarTest extends WebDriverTestBase {
 		execute("CRUD.save");
 		assertNoErrors();
 		execute("Mode.list");
+	}
+	
+	private void openTimeCalendar(int i) throws InterruptedException {
+		List<WebElement> iconElements = getDriver().findElements(By.cssSelector("i.mdi.mdi-clock-outline"));
+		if (!iconElements.isEmpty()) {
+		    WebElement timeIcon = iconElements.get(i);
+		    timeIcon.click();
+		}
+		Thread.sleep(500);
+	}
+	
+	private void changeAmPm(int i ) throws InterruptedException {
+		List<WebElement> iconElements = getDriver().findElements(By.className("flatpickr-am-pm"));
+		if (!iconElements.isEmpty()) {
+		    WebElement timeIcon = iconElements.get(i);
+		    timeIcon.click();
+		}
+		Thread.sleep(500);
 	}
 
 }

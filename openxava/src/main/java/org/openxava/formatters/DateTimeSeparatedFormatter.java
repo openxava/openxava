@@ -20,10 +20,11 @@ public class DateTimeSeparatedFormatter extends DateTimeBaseFormatter implements
 	private static DateFormat zhDateFormat = new SimpleDateFormat("yyyy/M/d");
 	
 	private static DateFormat [] zhDateFormats = {
-			new SimpleDateFormat("yyyy/M/d aHH:mm")
+			new SimpleDateFormat("yyyy/M/d ah:mm"),
+			new SimpleDateFormat("yyyy/M/d a h:mm")
 	};
 	
-	public String [] format(HttpServletRequest request, Object date) throws Exception {	
+	public String [] format(HttpServletRequest request, Object date) throws Exception {
         String[] result = new String[2];
         result[0] = "";
         result[1] = "";
@@ -32,7 +33,8 @@ public class DateTimeSeparatedFormatter extends DateTimeBaseFormatter implements
 		result[1] = DateFormat.getTimeInstance(DateFormat.SHORT, Locales.getCurrent()).format(date);
 		//java 8 sr locale
 		result[1] = Locales.getCurrent().getLanguage().equalsIgnoreCase("sr")?result[1].replace(".", ":"):result[1];
-		result[1] = result[1].replace((char) 8239, (char) 32); // For Java 21 
+		result[1] = result[1].replace((char) 8239, (char) 32); // For Java 21
+		if (isZhFormatAndJavaLessThan9()) result[1] = result[1].replace("\u4E0A\u5348", "AM").replace("\u4E0B\u5348", "PM");
 		return result;
 	}
 
@@ -41,14 +43,11 @@ public class DateTimeSeparatedFormatter extends DateTimeBaseFormatter implements
 		if( Is.emptyString(strings[0])) return null;
 		String fDate = strings[0];
 		String fTime = strings[1];
-		System.out.println(fDate + " " + fTime);
-		System.out.println(Locales.getCurrent().toString());
 		if (isZhFormatAndJavaLessThan9()) fTime = fTime.replace("\u4E0A\u5348", "AM").replace("\u4E0B\u5348", "PM"); //for zh in dateTime editor
 		String dateTime = fDate + " " + fTime; 
 		if (dateTime.indexOf('-') >= 0) {
 			dateTime = Strings.change(dateTime, "-", "/");
 		}
-		System.out.println(dateTime);
 		DateFormat [] dateFormats = getDateTimeFormats();
 		for (int i=0; i < dateFormats.length; i++) {
 			try {
@@ -61,21 +60,16 @@ public class DateTimeSeparatedFormatter extends DateTimeBaseFormatter implements
 		throw new ParseException(XavaResources.getString("bad_date_format",dateTime),-1);
 	}
 	
-	private boolean isZhCnFormatAndJavaLessThan9() {
-		return ("zh_CN".equals(Locales.getCurrent().toString())) && !XSystem.isJava9orBetter();
-	}
-	
 	private DateFormat getDateFormat() {
 		if (isExtendedFormat())	return extendedDateFormat;		
 		if (isDotFormat()) return dotDateFormat; 
-		if (isZhCnFormatAndJavaLessThan9()) return zhDateFormat;
+		if (isZhFormatAndJavaLessThan9()) return zhDateFormat;
 		return new SimpleDateFormat(Dates.getLocalizedDatePattern(Locales.getCurrent())); 
 	}
 	
 	private DateFormat[] getDateTimeFormats() {
 		if (isExtendedFormat() || isDotFormat()) return getExtendedDateTimeFormats();
-		if (isZhCnFormatAndJavaLessThan9()) return zhDateFormats;
+		if (isZhFormatAndJavaLessThan9()) return zhDateFormats;
 		return new DateFormat [] { Dates.getDateTimeFormatForParsing(Locales.getCurrent())}; 
 	}
-		
 }
