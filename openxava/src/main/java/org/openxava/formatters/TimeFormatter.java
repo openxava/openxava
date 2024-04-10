@@ -37,12 +37,12 @@ public class TimeFormatter implements IFormatter {
 		throw new ParseException(XavaResources.getString("bad_time_format",string),-1);
 	}
 	
-	private boolean isZhFormatAndJavaLessThan9() {
-		return "zh_CN".equals(Locales.getCurrent().toString()) || "zh_TW".equals(Locales.getCurrent().toString()) && !XSystem.isJava9orBetter();
+	private boolean isZhFormat() {
+		return "zh_CN".equals(Locales.getCurrent().toString()) || "zh_TW".equals(Locales.getCurrent().toString());
 	}
 	
 	private DateTimeFormatter getTimeFormat() {
-		if (isZhFormatAndJavaLessThan9()) return zhTimeFormat;
+		if (isZhFormat()) return zhTimeFormat;
 		return DateTimeFormatter.ofPattern(getTimePattern(Locales.getCurrent()));
 	}
 	

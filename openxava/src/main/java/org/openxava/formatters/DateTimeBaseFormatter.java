@@ -40,7 +40,11 @@ abstract public class DateTimeBaseFormatter {
 	}
 	
 	protected boolean isZhFormatAndJavaLessThan9() {
-		return ("zh_CN".equals(Locales.getCurrent().toString()) || "zh_TW".equals(Locales.getCurrent().toString())) && !XSystem.isJava9orBetter();
+		return isZhFormat() && !XSystem.isJava9orBetter();
+	}
+	
+	protected boolean isZhFormat() {
+		return ("zh_CN".equals(Locales.getCurrent().toString()) || "zh_TW".equals(Locales.getCurrent().toString()));
 	}
 	
 	protected boolean isDotFormat() { 
