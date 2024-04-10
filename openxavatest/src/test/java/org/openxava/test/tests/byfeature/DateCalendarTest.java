@@ -130,7 +130,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		openTimeCalendar(0);
 		changeAmPm(0);
 		assertValue("endTime", "PM1:00");
-		execute("CRUD.save");
+		execute("CRUD.save"); 
 	}
 	
 	private void formatDateUsingTwoDigits(String format) throws Exception {
