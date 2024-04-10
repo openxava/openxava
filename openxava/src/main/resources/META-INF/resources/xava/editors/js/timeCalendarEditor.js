@@ -22,6 +22,16 @@ openxava.addEditorInitFunction(function() {
     $('.xava_time > input').on('focus', function() {
         timeCalendarEditor.focusTimeValue = $(this).val();
     });
+	
+	$('.xava_time > input').on('blur', function() {
+        var inputValue = $(this).val();
+		if (inputValue.indexOf(':') === -1) {
+			if (/\d{3,4}/.test(inputValue)) {
+				var formattedValue = inputValue.replace(/(\d{2})(\d{2})$/, '$1:$2');
+				$(this).val(formattedValue);
+			}
+		}
+	});
 
     $('.xava_time').flatpickr({
         allowInput: true,
