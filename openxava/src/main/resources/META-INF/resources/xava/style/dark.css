@@ -1,66 +1,108 @@
 @import 'base.css';
 
 :root {
-	--light-terra: #E8DDCB;
-	--acqua-profonda: #033649;
-	--abisso: #031634;
-	--my-green: #1db954;
-	--my-black: #191414;
+	--my-dark: #2b2d30;
+	--my-darker: #1e1f22;	
+	--my-lightdark: #43454a;
+	--my-blue: #3574f0;
+	--my-darkblue: #365880;
+	--my-lightblue: #548AF7;	
+	--my-silver: #bbbbbb;
 	 
 	/* Modules left menu */
-	--modules-list-color: lightgray;
-	--modules-list-background: var(--acqua-profonda);
-	--modules-list-selected-color: white;
-	 
+	--modules-list-color: var(--my-silver);
+	--modules-list-background: var(--my-dark);
+	--modules-list-selected-color: var(--my-silver);
+	--modules-list-selected-background: var(--my-darkblue);
+	--modules-list-selected-border-right: var(--my-darkblue);
+
 	/* Module header */ 
-	--module-header-color: white;
-	--module-header-background: var(--acqua-profonda);		
+	--module-header-color: var(--my-silver);
+	--module-header-background: var(--my-dark);		
+	--module-header-selected-color: white;
+	--module-header-link-hover-color: white;
+	
 
 	
 	/* Button bar */	 
-	--button-bar-background: var(--abisso);
-	--list-formats-color: lightgray;
+	--button-bar-background: var(--my-lightdark);
 	--list-formats-hover-color: white;
 	
 	/* Backgrounds & labels */
-	--background: var(--acqua-profonda);
-	--color: var(--light-terra);
-	--color: white;
+	--background: var(--my-dark);
+	--color: var(--my-silver);
 	
 	/* Frames */	
-	--frame-background: var(--abisso);
+	--frame-background: var(--my-lightdark);
 	
 	/* Actions */
-	--action-color: lightgray;	
+	--action-color: var(--my-silver);  	
+	--action-link-color: var(--my-lightblue);  
 	--action-hover-color: white;
 	--action-hover-background: transparent;
-	--default-action-button-background: var(--my-green);
+	--default-action-button-background: var(--my-blue);
 	--default-action-button-color: white; 
 	--default-action-button-shadow: none;
 	--default-action-button-hover-shadow: none;
-	--list-row-action-color: gray; 
-	--list-row-action-hover-color: var(--acqua-profonda);
-	--reference-search-icon-color: var(--acqua-profonda); 
+	--list-row-action-color: var(--my-silver);
+	--list-row-action-hover-color: var(--my-dark);
+	--reference-search-icon-color: var(--my-dark); 
 	
 	/* Editors */
-	--required-editor-border: green;
-	--input-focus-border: var(--my-green); 
+	--required-editor-border: var(--my-silver);
+	--input-focus-border: var(--my-blue); 
+	--input-color: var(--my-silver); 
+	--input-border: gray;
+	--input-background: transparent; 
+	--disabled-input-background: var(--my-lightdark);
 
-	--button-bar-shadow: black; 
-	--shadow: black; 
+	--button-bar-shadow: transparent; 
+	--shadow: transparent;
 	
 	--html-text-button-hover: lightgray;
 	
 	--autocomplete-scrollbar-background: lightgray; 
 	--ui-menu-item-state-focus-background: lightgray; 
-	--scrollbar-color: lightgray;  
+	--scrollbar-color: lightgray;
+	
+	--tooltip-background: var(--my-darker);
+	
+	/* List */
+	--list-background: var(--my-dark);
+	--list-column2-background: transparent;
+	--list-even-column-background: transparent;
+	--list-row-bottom-color: transparent;
+	--list-row-a-color: inherit;
+	--total-cell-color: inherit;
+	--icon-check-color: inherit;
+	--icon-in-list: inherit;
+	--list-row-action-hover-color: inherit;
 	
 	/* Calendar */
 	--calendar-cell-border-color: white;
 	--calendar-day-hover-background: hsla(0, 0%, 50%, 0.5);
 	--calendar-today-background: hsla(0, 0%, 70%, 0.7);
-	--calendar-event-background : var(--acqua-profonda);
-	--calendar-event-time-background:  var(--acqua-profonda);
+	--calendar-event-background : var(--my-dark);
+	--calendar-event-time-background:  var(--my-dark);
 	--calendar-popup-background: lightgray;
-	--calendar-popup-title-color: var(--acqua-profonda);
+	--calendar-popup-title-color: var(--my-dark);
+}
+
+.ox-action-link:hover {
+	text-decoration: underline;
+	color: var(--action-link-color);	
+}
+
+.ox-list {	
+	border: 2px solid var(--my-lightdark)
+}
+
+.ui-widget-content {
+	color: var(--color) !important;
+	background: var(--background) !important;
+}
+
+..ui-tooltip {
+	background: var(--tooltip-background) !important;  
+	box-shadow: none !important;  
 }
