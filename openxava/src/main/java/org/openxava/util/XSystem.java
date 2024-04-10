@@ -88,4 +88,19 @@ public class XSystem {
 		}
 	}
 	
+	/** @since 7.3 */
+	public static boolean isJava17orBetter() {
+		try {
+			String version = System.getProperty("java.specification.version");
+			return Integer.parseInt(version) >= 17;
+		}
+		catch (NumberFormatException ex) {
+			// Because because 1.6, 1.7 and 1.8 as value
+			return false;
+		}
+		catch (Exception ex) {
+			log.warn(XavaResources.getString("determine_is_java9_problem"), ex);
+			return false;
+		}
+	}
 }
