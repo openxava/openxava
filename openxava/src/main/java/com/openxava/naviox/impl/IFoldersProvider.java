@@ -23,5 +23,8 @@ public interface IFoldersProvider {
 	String goFolder(HttpServletRequest request, HttpServletResponse response, String folderOid);
 	
 	String goBack(HttpServletRequest request, HttpServletResponse response);
+	
+	/** @since 7.3 */
+	String goHome(HttpServletRequest request, HttpServletResponse response);
 
 }
