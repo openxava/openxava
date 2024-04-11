@@ -27,10 +27,12 @@ public class LocalDateFormatter implements IFormatter {
 		DateTimeFormatter.ofPattern("ddMMyy").withResolverStyle(ResolverStyle.SMART),
 		DateTimeFormatter.ofPattern("ddMMyyyy").withResolverStyle(ResolverStyle.SMART),
 		DateTimeFormatter.ofPattern("d.M.yy").withResolverStyle(ResolverStyle.SMART),
-		DateTimeFormatter.ofPattern("d.M.yyyy").withResolverStyle(ResolverStyle.SMART)
+		DateTimeFormatter.ofPattern("d.M.yyyy").withResolverStyle(ResolverStyle.SMART),
+		DateTimeFormatter.ofPattern("yyyy/M/d").withResolverStyle(ResolverStyle.SMART)
 	};
 	
 	private static DateTimeFormatter dotFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy"); // Only for some locales like "hr"
+	private static DateTimeFormatter zhFormatter = DateTimeFormatter.ofPattern("yyyy/M/d");
 	
 	public String format(HttpServletRequest request, Object date) {
 		if (date == null) return "";
@@ -40,7 +42,7 @@ public class LocalDateFormatter implements IFormatter {
 	}
 		
 	public Object parse(HttpServletRequest request, String string) throws java.text.ParseException {
-		if (Is.emptyString(string)) return null;				
+		if (Is.emptyString(string)) return null;
 		if (isExtendedFormat()) { 
 			if (string.indexOf('-') >= 0) { 
 				string = Strings.change(string, "-", "/");
@@ -66,16 +68,21 @@ public class LocalDateFormatter implements IFormatter {
 	
 	private boolean isDotFormat() { 
 		return "hr".equals(Locales.getCurrent().getLanguage());
-	}	
+	}
+	
+	private boolean isZhFormatAndJavaLessThan9() {
+		return "zh_CN".equals(Locales.getCurrent().toString()) && !XSystem.isJava9orBetter();
+	}
 	
 	private DateTimeFormatter getFormatter() {
 		if (isExtendedFormat()) return extendedFormatter;
-		if (isDotFormat()) return dotFormatter; 
+		if (isDotFormat()) return dotFormatter;
+		if (isZhFormatAndJavaLessThan9()) return zhFormatter;
 		return getStandardFormatter(); 	
 	}
 	
 	private DateTimeFormatter[] getFormatters() {
-		if (isExtendedFormat() || isDotFormat()) return extendedFormatters; 
+		if (isExtendedFormat() || isDotFormat() || isZhFormatAndJavaLessThan9()) return extendedFormatters; 
 		return new DateTimeFormatter [] { 
 			DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locales.getCurrent()),
 			getStandardFormatter()

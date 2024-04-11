@@ -1,3 +1,4 @@
+
 openxava.addEditorInitFunction(function() {
 	var defaultValues = [];
 	$("input[data-inputmask]").each(function() {

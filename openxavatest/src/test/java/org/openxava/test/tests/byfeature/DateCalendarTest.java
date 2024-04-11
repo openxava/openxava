@@ -12,7 +12,7 @@ import org.openqa.selenium.*;
  */
 public class DateCalendarTest extends WebDriverTestBase {
 	private static Log log = LogFactory.getLog(DateCalendarTest.class);
-		/*
+		
 	public void testGreek() throws Exception { 
 		changeLanguage("el");
 		goModule("Event");
@@ -160,7 +160,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		dateLabel.click();
 		assertValue("date", "5/13/2017");
 	}
-	*/
+	
 	public void testDateTime_onChange_twoDigitYear_dateTimeSeparated_srDateTime() throws Exception {
 		goModule("ShipmentWithOnChange");
 		WebElement dateTime;
@@ -336,6 +336,51 @@ public class DateCalendarTest extends WebDriverTestBase {
 		execute("List.viewDetail", "row=0");
 		assertValue("endDate","2010/6/3");
 	}
+
+	public void testTime_dateTimeSeparatedUseTimeEditor_separatedTimePartOnChange_autoFillColon() throws Exception {
+		goModule("Event");
+		execute("List.viewDetail", "row=0");
+		assertValue("endTime", "1:00 PM");
+		List<WebElement> iconElements = getDriver().findElements(By.cssSelector("i.mdi.mdi-clock-outline"));
+		assertTrue(iconElements.size() == 2);
+		if (!iconElements.isEmpty()) {
+		    WebElement firstIconElement = iconElements.get(0);
+		    firstIconElement.click();
+		}
+		List<WebElement> spanElements = getDriver().findElements(By.cssSelector("span.flatpickr-am-pm"));
+		if (!spanElements.isEmpty()) {
+		    WebElement firstSpanElement = spanElements.get(0);
+		    firstSpanElement.click();
+		}
+		WebElement label = getDriver().findElement(By.id("ox_openxavatest_Event__label_name"));
+		label.click();
+		assertValue("endTime", "1:00 AM");
+		List<WebElement> createDateTime = getDriver().findElements(By.id("ox_openxavatest_Event__createDate"));
+		WebElement timePart = createDateTime.get(1);
+		timePart.sendKeys(Keys.TAB);
+		List<WebElement> messages = getDriver().findElements(By.cssSelector(".ox-messages .ox-message-box"));
+		assertTrue(messages.isEmpty());
+		setValue("endTime", "111 PM");
+		WebElement endTime = getDriver().findElement(By.id("ox_openxavatest_Event__endTime"));
+		endTime.sendKeys(Keys.TAB);
+		assertValue("endTime","1:11 PM");
+		setValue("endTime", "100 PM");
+		endTime.sendKeys(Keys.TAB);
+		messages = getDriver().findElements(By.cssSelector(".ox-messages .ox-message-box"));
+		assertTrue(messages.isEmpty());
+		execute("CRUD.save");
+		
+		changeLanguage("zh-CN");
+		goModule("Event");
+		execute("List.viewDetail", "row=0");
+		endTime = getDriver().findElement(By.id("ox_openxavatest_Event__endTime"));
+		endTime.sendKeys(Keys.TAB);
+		assertValue("endTime", "AM1:00");
+		openTimeCalendar(0);
+		changeAmPm(0);
+		assertValue("endTime", "PM1:00");
+		execute("CRUD.save"); 
+	}
 	
 	private void formatDateUsingTwoDigits(String format) throws Exception {
 		execute("CRUD.new");
@@ -350,7 +395,8 @@ public class DateCalendarTest extends WebDriverTestBase {
 			assertEquals(getValue("initDate"), year + "/" + month + "/" + day);
 		} else {
 			String m = month < 10 ? "0"+ String.valueOf(month) : String.valueOf(month);
-			assertEquals(getValue("initDate"), day + "/" + m + "/" + year);
+			String d = day < 10 ? "0"+ String.valueOf(day) : String.valueOf(day);
+			assertEquals(getValue("initDate"), d + "/" + m + "/" + year);
 		} 
 	}
 	
@@ -364,7 +410,8 @@ public class DateCalendarTest extends WebDriverTestBase {
 		WebElement input = getDriver().findElement(By.id("ox_openxavatest_Shipment__time"));
 		input.sendKeys(Keys.TAB);
 		String m = month < 10 ? "0"+ String.valueOf(month) : String.valueOf(month);
-		assertEquals(getValue("time"), day + "/" + m + "/" + year + " 00:00");
+		String d = day < 10 ? "0"+ String.valueOf(day) : String.valueOf(day);
+		assertEquals(getValue("time"), d + "/" + m + "/" + year + " 00:00");
 	}
 	
 	
@@ -437,6 +484,22 @@ public class DateCalendarTest extends WebDriverTestBase {
 		selectDate(i, String.valueOf(daySelected+1));
 	}
 	
+	private void openTimeCalendar(int i) throws InterruptedException {
+		List<WebElement> iconElements = getDriver().findElements(By.cssSelector("i.mdi.mdi-clock-outline"));
+		if (!iconElements.isEmpty()) {
+		    WebElement timeIcon = iconElements.get(i);
+		    timeIcon.click();
+		}
+		Thread.sleep(500);
+	}
 	
+	private void changeAmPm(int i ) throws InterruptedException {
+		List<WebElement> iconElements = getDriver().findElements(By.className("flatpickr-am-pm"));
+		if (!iconElements.isEmpty()) {
+		    WebElement timeIcon = iconElements.get(i);
+		    timeIcon.click();
+		}
+		Thread.sleep(500);
+	}
 
 }
