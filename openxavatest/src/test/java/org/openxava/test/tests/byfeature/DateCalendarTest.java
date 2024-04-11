@@ -226,7 +226,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertValue("time", "");
 		dateInput.sendKeys("10/04/24");
 		dateInput.sendKeys(Keys.ENTER);
-		
+		assertValue("time","10/04/2024");
 		
 		
 		changeLanguage("sr");
@@ -330,6 +330,11 @@ public class DateCalendarTest extends WebDriverTestBase {
 		endDateLabel.click();
 		Thread.sleep(100);
 		assertValue("endDate", "5.2.2019.");
+		
+		changeLanguage("zh-CN");
+		goModule("Quarter");
+		execute("List.viewDetail", "row=0");
+		assertValue("endDate","2010/6/3");
 	}
 	
 	private void formatDateUsingTwoDigits(String format) throws Exception {
