@@ -260,7 +260,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		dateTime.clear();
 		dateTime.sendKeys(" 12/25/08 11:33 AM");
 		dateTime.sendKeys(Keys.TAB);
-		Thread.sleep(200);
+		Thread.sleep(300);
 		assertValue("time", "12/25/2008 11:33 AM");
 		
 		changeLanguage("es");
