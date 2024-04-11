@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.apache.commons.logging.*;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.*;
 
 /**
  * To test pop up calendar with Selenium.
@@ -90,6 +91,65 @@ public class DateCalendarTest extends WebDriverTestBase {
 		formatDateTimeUsingTwoDigits(); 
 	}
 	
+	public void testCalendarIconChangeInFilter() throws Exception {
+		goModule("Order");
+		WebElement dateComparator;
+		WebElement dateCondition;
+		Select select;
+
+		dateComparator = getDriver().findElement(By.id("ox_openxavatest_Order__conditionComparator___2"));
+		dateCondition = getDriver().findElement(By.id("ox_openxavatest_Order__conditionValue___2"));
+		dateCondition.click();
+		assertTrue(isCalendarIconPresent());
+		select = new Select(dateComparator);
+		select.selectByValue("year_comparator");
+		assertFalse(isCalendarIconPresent());
+		dateCondition.sendKeys("2020");
+		dateCondition.sendKeys(Keys.TAB);
+		Thread.sleep(100);
+		assertEquals("2020", dateCondition.getAttribute("value"));
+		select.selectByValue("eq_comparator");
+		WebElement outside = getDriver().findElement(By.className("rows-per-page"));
+		outside.click();
+		openCalendar(1);
+		selectDate(0, String.valueOf(1));
+		Thread.sleep(100);
+		select.selectByValue("year_comparator");
+		assertEquals("", dateCondition.getAttribute("value"));
+		dateCondition.sendKeys("2020");
+		dateCondition.sendKeys(Keys.TAB);
+		Thread.sleep(100);
+		assertEquals("2020", dateCondition.getAttribute("value"));
+		select.selectByValue("eq_comparator");
+		assertEquals("", dateCondition.getAttribute("value"));
+		assertTrue(isCalendarIconPresent());
+		dateCondition.sendKeys("4112024");
+		select.selectByValue("gt_comparator");
+		wait(getDriver());
+		dateCondition = getDriver().findElement(By.id("ox_openxavatest_Order__conditionValue___2"));
+		assertEquals("4/11/2024", dateCondition.getAttribute("value"));
+		assertTrue(isCalendarIconPresent());
+		
+		dateComparator = getDriver().findElement(By.id("ox_openxavatest_Order__conditionComparator___2"));
+		select = new Select(dateComparator);
+		select.selectByValue("year_comparator");
+		dateCondition.clear();
+		dateCondition.sendKeys("2004");
+		dateCondition.sendKeys(Keys.TAB);
+		assertFalse(isCalendarIconPresent());
+		execute("List.filter");
+		assertFalse(isCalendarIconPresent());
+		dateCondition = getDriver().findElement(By.id("ox_openxavatest_Order__conditionValue___2"));
+		dateCondition.clear();
+		dateCondition.sendKeys("2002");
+		dateCondition.sendKeys(Keys.TAB);
+		assertEquals("2002", dateCondition.getAttribute("value"));
+		dateComparator = getDriver().findElement(By.id("ox_openxavatest_Order__conditionComparator___2"));
+		select = new Select(dateComparator);
+		select.selectByValue("eq_comparator");
+		assertTrue(getDriver().findElements(By.cssSelector(".ox-date-calendar.xava_date")).size() == 1); // only one left
+	}
+	
 	public void testDate_DataChangedMessage_tabBlurWorkProperly_onChange() throws Exception {
 		goModule("Order");
 		WebElement date;
@@ -129,7 +189,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		dateLabel = getDriver().findElement(By.id("ox_openxavatest_Order__label_date"));
 		dateLabel.click();
 		assertValue("date", "5/12/2017");
-		execute("Mode.List");
+		execute("Mode.list");
 		
 		goModule("OrderProductInDetailAsDescriptionsList");
 		execute("List.viewDetail", "row=0");
@@ -194,13 +254,13 @@ public class DateCalendarTest extends WebDriverTestBase {
 		execute("List.viewDetail", "row=2");
 		dateTime = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__time"));
 		setValue("time","12/25/07 11:33 AM");
-		timeLabel = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__label_time"));
-		timeLabel.click();
+		dateTime.sendKeys(Keys.TAB);
 		Thread.sleep(100);
 		assertValue("time", "12/25/2007 11:33 AM");
-		setValue("time"," 12/25/08 11:33 AM");
-		timeLabel.click();
-		Thread.sleep(100);
+		dateTime.clear();
+		dateTime.sendKeys(" 12/25/08 11:33 AM");
+		dateTime.sendKeys(Keys.TAB);
+		Thread.sleep(200);
 		assertValue("time", "12/25/2008 11:33 AM");
 		
 		changeLanguage("es");
@@ -211,35 +271,56 @@ public class DateCalendarTest extends WebDriverTestBase {
 		dateTime.sendKeys(Keys.TAB);
 		assertValue("time", "");
 		setValue("time","25/12/06 11:33");
-		timeLabel = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__label_time"));
-		timeLabel.click();
+		dateTime.sendKeys(Keys.TAB);
 		Thread.sleep(100);
 		assertValue("time", "25/12/2006 11:33");
 		
+		List<WebElement> dateTimeInput;
+		WebElement dateInput;
+		WebElement timeInput;
 		goModule("ShipmentSeparatedTime");
 		execute("List.viewDetail", "row=0");
-		List<WebElement> dateTimeInput = getDriver().findElements(By.cssSelector("input[name='ox_openxavatest_ShipmentSeparatedTime__time']"));
-		WebElement dateInput = dateTimeInput.get(0);
-		WebElement timeInput = dateTimeInput.get(1);
-		selectNextDay(0);
+		dateTimeInput = getDriver().findElements(By.id("ox_openxavatest_ShipmentSeparatedTime__time"));
+		dateInput = dateTimeInput.get(0);
+		timeInput = dateTimeInput.get(1);
+		selectToday(0);
 		dateInput.sendKeys(Keys.TAB);
 		assertValue("time", "");
-		dateInput.sendKeys("10/04/24");
+		dateInput.sendKeys("04/10/24");
 		dateInput.sendKeys(Keys.ENTER);
-		assertValue("time","10/04/2024");
-		
-		
+		assertValue("time","04/10/2024");
+		timeInput.sendKeys("1212");
+		timeInput.sendKeys(Keys.TAB);
+		assertEquals("04/10/2024", dateInput.getAttribute("value"));
+		assertEquals("12:12", timeInput.getAttribute("value"));
+		execute("CRUD.save");
+
+		changeLanguage("sr");
+		goModule("ShipmentSeparatedTime");
+		execute("List.viewDetail", "row=0");
+		dateTimeInput = getDriver().findElements(By.id("ox_openxavatest_ShipmentSeparatedTime__time"));
+		dateInput = dateTimeInput.get(0);
+		timeInput = dateTimeInput.get(1);
+		assertEquals("4.10.2024.", dateInput.getAttribute("value"));
+		assertEquals("12:12", timeInput.getAttribute("value"));
+		timeInput.clear();
+		timeInput.sendKeys("1111");
+		timeInput.sendKeys(Keys.TAB);
+		assertEquals("11:11", timeInput.getAttribute("value"));
+		dateInput.clear();
+		timeInput.clear();
+		execute("CRUD.save");
+
 		changeLanguage("sr");
 		goModule("Shipment");
 		execute("List.viewDetail", "row=2");
+		dateTime = getDriver().findElement(By.id("ox_openxavatest_Shipment__time"));
 		setValue("time", "25.12.26. 11:33");
-		timeLabel = getDriver().findElement(By.id("ox_openxavatest_Shipment__time"));
-		timeLabel.click();
+		dateTime.sendKeys(Keys.TAB);
 		Thread.sleep(100);
 		assertValue("time", "25.12.2026. 11:33");
 		setValue("time", "25.12.18 05:05");
-		timeLabel = getDriver().findElement(By.id("ox_openxavatest_Shipment__time"));
-		timeLabel.click();
+		dateTime.sendKeys(Keys.TAB);
 		Thread.sleep(100);
 		assertValue("time", "25.12.2018. 05:05");
 	}
@@ -474,7 +555,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		    WebElement spanElement = spanElements.get(i);
 		    spanElement.click();
 		}
-		Thread.sleep(300);
+		Thread.sleep(100);
 	}
 	
 	private void selectNextDay(int i) throws InterruptedException {
@@ -482,6 +563,12 @@ public class DateCalendarTest extends WebDriverTestBase {
 		openCalendar(i);
 		int daySelected = Integer.valueOf(getDriver().findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day selected']")).get(i).getText());
 		selectDate(i, String.valueOf(daySelected+1));
+	}
+	
+	private void selectToday(int i) throws InterruptedException {
+		openCalendar(i);
+		int daySelected = Integer.valueOf(getDriver().findElements(By.xpath("//div[@class='dayContainer']//span[@class='flatpickr-day today']")).get(i).getText());
+		selectDate(i, String.valueOf(daySelected));
 	}
 	
 	private void openTimeCalendar(int i) throws InterruptedException {
@@ -500,6 +587,10 @@ public class DateCalendarTest extends WebDriverTestBase {
 		    timeIcon.click();
 		}
 		Thread.sleep(500);
+	}
+	
+	private boolean isCalendarIconPresent() {
+		return getDriver().findElements(By.cssSelector(".ox-date-calendar.xava_date")).size() == 2;
 	}
 
 }
