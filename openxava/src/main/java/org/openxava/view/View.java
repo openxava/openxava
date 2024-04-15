@@ -194,6 +194,7 @@ public class View implements java.io.Serializable {
 	private StringBuffer defaultSumProperties;
 	private int collectionSize = -1;
 	private boolean dataChanged;  
+	private Map metaPropertiesLabels;
 	
 	public static void setRefiner(Object newRefiner) {
 		refiner = newRefiner;
@@ -4246,7 +4247,7 @@ public class View implements java.io.Serializable {
 		return metaMembersIncludingGroups;
 	}
 			
-	public List<MetaProperty> getMetaPropertiesList() throws XavaException {		
+	public List<MetaProperty> getMetaPropertiesList() throws XavaException {
 		if (metaPropertiesList == null) {
 			metaPropertiesList = new ArrayList<MetaProperty>();
 			Iterator it = getMetaModel().getPropertiesNames().iterator();
@@ -4260,17 +4261,19 @@ public class View implements java.io.Serializable {
 			setLabelsIdForMetaPropertiesList();
 		} else {
 			if (getLabels() != null) {
-				for(MetaProperty mp : metaPropertiesList) {
-					if (getLabels().containsKey(mp.getName())) {
-						String newLabel = (String) getLabels().get(mp.getName());
-						if (!mp.getLabel().equals(newLabel)) mp.setLabel(newLabel);
+				if (metaPropertiesLabels == null || !metaPropertiesLabels.equals(getLabels())) {
+					for(MetaProperty mp : metaPropertiesList) {
+						if (getLabels().containsKey(mp.getName())) {
+							String newLabel = (String) getLabels().get(mp.getName());
+							if (!mp.getLabel().equals(newLabel)) mp.setLabel(newLabel);
+						}
 					}
 				}
+				metaPropertiesLabels = getLabels(); 
 			}
 		}
 		return metaPropertiesList;
 	}
-	
 	
 	private void setLabelsIdForMetaPropertiesList() throws XavaException {
 		if (getMemberName() == null || metaPropertiesList == null) return;
