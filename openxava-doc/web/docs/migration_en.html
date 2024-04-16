@@ -18,7 +18,7 @@
         the <i>openxava.version</i> property to point to the latest OpenXava
         version, thus:</p>
       <pre><code class="xml">&lt;properties&gt;
-    &lt;openxava.version&gt;7.2.3&lt;/openxava.version&gt;
+    &lt;openxava.version&gt;7.3&lt;/openxava.version&gt;
     ...
 &lt;/properties&gt;
 </code></pre>
@@ -418,7 +418,7 @@ reload(); // ...you have to add this line
       module, search for the <i>Admin</i> folder in the list, and select it. In
       the <i>Admin</i> detail, click to add a new module, search for SSO, and
       add it:</div>
-    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_en.png"
+    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_en.png"
         alt=""><br>
       <h2>Migration from OpenXava 7.0.5 to OpenXava 7.0.6</h2>
       <h3>@Column(length=x) with no scale is no longer scale=2 by default</h3>
@@ -513,7 +513,7 @@ assertValidValues("descriptionsListValue", validValues);
       <p>The easier way to migrate to Maven is creating a new project using
         OpenXava 7.0, and then copying the source code and resources from your
         current project to the new one. So, first create a new OpenXava project
-        using Openxava Studio 7, for that you can follow the instructions in <a
+        using Openxava Studio 7, for that you can follow the instructions in <a
           href="getting-started_en.html">Getting started guide</a>.</p>
       <p>The next step is to copy all your source code and resources from the
         old project to the corresponding folder in the new project, as
@@ -854,7 +854,7 @@ assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asNormalizedTex
         +"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
     deleteLink.getHrefAttribute());
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
+    <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
         href="http://www.alanwood.net/demos/ansi.html">Look at this table</a> to
       know the mapping between ANSI and UNICODE.</div>
     <div class="wiki" style="display: block;">Now in <i>@HtmlText</i> or <i>@Stereotype("HTML_TEXT")</i>

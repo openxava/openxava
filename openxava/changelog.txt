@@ -1,7 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
-
+OpenXava 7.3 (2024-4-12)
+------------------------
 - ZAP web security scanner from OWASP passed at 100%.
 - New section in documentation to configure your application to be OWASP compliant.
 - Removed the use of eval() and equivalents completely from OpenXava JavaScript code.
