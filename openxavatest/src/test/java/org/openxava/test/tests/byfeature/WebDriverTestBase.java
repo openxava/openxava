@@ -348,7 +348,7 @@ abstract public class WebDriverTestBase extends TestCase {
 		assertEquals(expectedMessage, messages.get(messages.size()-1).getText());
 	}
 	
-	protected void assertNoMessage() {
+	protected void assertNoMessages() {
 		List<WebElement> messages = getDriver().findElements(By.className("ox-message-box"));
 		assertTrue(messages.isEmpty());
 	}

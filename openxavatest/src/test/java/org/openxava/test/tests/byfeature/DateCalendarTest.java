@@ -2,7 +2,6 @@ package org.openxava.test.tests.byfeature;
 
 import java.util.*;
 
-import org.apache.commons.logging.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
@@ -12,7 +11,6 @@ import org.openqa.selenium.support.ui.*;
  * @author Chungyen Tsai
  */
 public class DateCalendarTest extends WebDriverTestBase {
-	private static Log log = LogFactory.getLog(DateCalendarTest.class);
 		
 	public void testGreek() throws Exception { 
 		changeLanguage("el");
@@ -195,14 +193,14 @@ public class DateCalendarTest extends WebDriverTestBase {
 		execute("List.viewDetail", "row=0");
 		date = getDriver().findElement(By.id("ox_openxavatest_OrderProductInDetailAsDescriptionsList__date"));
 		date.sendKeys(Keys.TAB);
-		assertNoMessage();
+		assertNoMessages();
 		modeList = getDriver().findElement(By.id("ox_openxavatest_OrderProductInDetailAsDescriptionsList__Mode___list"));
 		modeList.click();
 		wait(getDriver());
 		execute("List.viewDetail", "row=0");
 		openCalendar(0);
 		selectDate(0, "today");
-		assertNoMessage();
+		assertNoMessages();
 		modeList = getDriver().findElement(By.id("ox_openxavatest_OrderProductInDetailAsDescriptionsList__Mode___list"));
 		modeList.click();
 		wait(getDriver());
@@ -231,7 +229,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		selectDate(0, "today");
 		timeLabel = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__label_time"));
 		timeLabel.click();
-		assertNoMessage();
+		assertNoMessages();
 		execute("Mode.list");
 		
 		execute("List.viewDetail", "row=2");
@@ -239,10 +237,10 @@ public class DateCalendarTest extends WebDriverTestBase {
 		WebElement upArrow = getDriver().findElements(By.className("arrowUp")).get(2);
 		upArrow.click();
 		Thread.sleep(100);
-		assertNoMessage();
+		assertNoMessages();
 		upArrow.click();
 		Thread.sleep(100);
-		assertNoMessage();
+		assertNoMessages();
 		upArrow.click();
 		Thread.sleep(100);
 		timeLabel = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__label_time"));
