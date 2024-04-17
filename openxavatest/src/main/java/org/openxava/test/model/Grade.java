@@ -8,12 +8,13 @@ import org.openxava.annotations.*;
 
 import lombok.*;
 
-@Entity @Getter @Setter
+@Getter @Setter
+@View(members="califications")
 public class Grade {
 
 	@ElementCollection
 	@EditOnly
-	@ListProperties("oralTestQ1, paperTestQ1, midtermExamQ1, oralTestQ2, paperTestQ2, midtermExamQ2, oralTestQ3, paperTestQ3, midtermExamQ3, anualAverage, finalExam")
+	@ListProperties("oralTestQ1, paperTestQ1, midtermExamQ1, averageQ1, oralTestQ2, paperTestQ2, midtermExamQ2, averageQ2, oralTestQ3, paperTestQ3, midtermExamQ3, averageQ3, anualAverage, finalExam")
 	Collection<Calification> califications;
 	
 }
