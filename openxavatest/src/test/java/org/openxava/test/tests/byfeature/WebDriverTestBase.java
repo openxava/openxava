@@ -342,4 +342,14 @@ abstract public class WebDriverTestBase extends TestCase {
 		log.error(XavaResources.getString("messages_produced", producedMessages));
 		fail(XavaResources.getString("message_not_found", expectedMessage)); 
 	}
+	
+	protected void assertMessage(String expectedMessage) {
+		List<WebElement> messages = getDriver().findElements(By.className("ox-message-box"));
+		assertEquals(expectedMessage, messages.get(messages.size()-1).getText());
+	}
+	
+	protected void assertNoMessages() {
+		List<WebElement> messages = getDriver().findElements(By.className("ox-message-box"));
+		assertTrue(messages.isEmpty());
+	}
 }

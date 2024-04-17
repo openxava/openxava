@@ -28,13 +28,13 @@ public class Order extends Identifiable {
 	@SearchKey 
 	private int year;
 	
-	
 	@Column(length=6)
 	@SearchKey @ReadOnly 
 	private int number;
 	
 	@Required
 	@DefaultValueCalculator(CurrentDateCalculator.class)
+	@OnChange(forViews="ProductInDetailAsDescriptionsList", value=OnChangeVoidAction.class)
 	private Date date;	
 		
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)

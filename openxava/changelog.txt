@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Added automated tests for date, datetime and popup calendar related issues.
+
 OpenXava 7.3 (2024-4-12)
 ------------------------
 - ZAP web security scanner from OWASP passed at 100%.
