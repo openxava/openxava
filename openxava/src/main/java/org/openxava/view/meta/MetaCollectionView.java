@@ -112,13 +112,16 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 		return propertiesListNamesAsString;
 	}
 
-	public void setPropertiesList(String listProperties) {				 		
+	public void setPropertiesList(String listProperties) {	
+		System.out.println("[MetaCollectionView.setPropertiesList] getViewName()=" + getViewName()); // tmr
+		System.out.println("[MetaCollectionView.setPropertiesList] listProperties=" + listProperties); // tmr
 		if (!Is.emptyString(listProperties)) {
 			propertiesListNamesAsString = listProperties;
 			propertiesListNames = new ArrayList();
 			StringTokenizer st = new StringTokenizer(listProperties, ",;"); 
 			while (st.hasMoreTokens()) {
 				String name = st.nextToken().trim();
+				System.out.println("[MetaCollectionView.setPropertiesList] name.1=" + name); // tmr
 				if (name.contains("[")) {
 					int idx = name.indexOf('[');
 					String totalProperty = name.substring(idx).trim();
@@ -131,11 +134,12 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 					} 	
 					
 					if (totalProperties == null) totalProperties = new HashMap<String, List<String>>();
+					System.out.println("[MetaCollectionView.setPropertiesList] name.2=" + name); // tmr
 					totalProperties.put(name.replace("+", ""), Collections.unmodifiableList(totalPropertiesForName)); 
 				}			
 				propertiesListNames.add(name); 
 			}
-			totalProperties = totalProperties == null?null:Collections.unmodifiableMap(totalProperties); 
+			// tmr totalProperties = totalProperties == null?null:Collections.unmodifiableMap(totalProperties); // TMR Bug propio en changelog, poner comentario en Quote para no cambiar @ListProperties o que haya una sin forViews
 		} 
 	}
 		
