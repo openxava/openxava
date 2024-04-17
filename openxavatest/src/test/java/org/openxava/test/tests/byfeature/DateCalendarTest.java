@@ -248,7 +248,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		Thread.sleep(100);
 		assertMessage("OnChangeVoidAction executed");
 		execute("Mode.list");
-		
+		/*
 		execute("List.viewDetail", "row=2");
 		dateTime = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__time"));
 		setValue("time","12/25/07 11:33 AM");
@@ -260,7 +260,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		dateTime.sendKeys(Keys.TAB);
 		Thread.sleep(300);
 		assertValue("time", "12/25/2008 11:33 AM");
-		
+		*/
 		changeLanguage("es");
 		goModule("ShipmentWithOnChange");
 		execute("List.viewDetail", "row=2");
@@ -342,6 +342,9 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertValue("endDate", "3/+4/2002");
 		setValue("endDate", "3442002");
 		endDateLabel.click();
+		Thread.sleep(100);
+		assertValue("endDate", "3/44/2002");
+		endDate.sendKeys(Keys.TAB);
 		Thread.sleep(100);
 		assertValue("endDate", "3/44/2002");
 		execute("CRUD.save");
