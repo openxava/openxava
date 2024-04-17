@@ -22,5 +22,13 @@ public class ElementCollectionTest extends WebDriverTestBase {
 	private void setValueInCollection(String collection, int row, String property, String value) throws Exception {
 		setValue(collection + "." + row + "." + property, value);
 	}
+	
+	public void testElementCollectionPerformance() throws Exception {
+		goModule("Grade");
+		long ini = System.currentTimeMillis();
+		execute("Grade.addCalifications");
+		long fn = System.currentTimeMillis();
+		assertTrue((fn-ini) < 3000); //usually 500~1500
+	}
 
 }

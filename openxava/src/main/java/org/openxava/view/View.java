@@ -194,7 +194,7 @@ public class View implements java.io.Serializable {
 	private StringBuffer defaultSumProperties;
 	private int collectionSize = -1;
 	private boolean dataChanged;  
-	private Map metaPropertiesLabels;
+	private boolean labelSetted;
 	
 	public static void setRefiner(Object newRefiner) {
 		refiner = newRefiner;
@@ -4246,7 +4246,7 @@ public class View implements java.io.Serializable {
 		}
 		return metaMembersIncludingGroups;
 	}
-			
+
 	public List<MetaProperty> getMetaPropertiesList() throws XavaException {
 		if (metaPropertiesList == null) {
 			metaPropertiesList = new ArrayList<MetaProperty>();
@@ -4260,16 +4260,15 @@ public class View implements java.io.Serializable {
 			}
 			setLabelsIdForMetaPropertiesList();
 		} else {
-			if (getLabels() != null) {
-				if (metaPropertiesLabels == null || !metaPropertiesLabels.equals(getLabels())) {
+			if (getLabels() != null && labelSetted) {
+				Map labels = getLabels();
+				labelSetted = false;
 					for(MetaProperty mp : metaPropertiesList) {
-						if (getLabels().containsKey(mp.getName())) {
-							String newLabel = (String) getLabels().get(mp.getName());
+						if (labels.containsKey(mp.getName())) {
+							String newLabel = (String) labels.get(mp.getName());
 							if (!mp.getLabel().equals(newLabel)) mp.setLabel(newLabel);
 						}
 					}
-				}
-				metaPropertiesLabels = getLabels(); 
 			}
 		}
 		return metaPropertiesList;
@@ -5669,6 +5668,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	private void setLabels(Map labels) {
+		labelSetted = true;
 		View root = getRoot();
 		if (this == root) {
 			this.labels = labels;
