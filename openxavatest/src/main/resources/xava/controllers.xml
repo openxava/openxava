@@ -1573,4 +1573,9 @@
 			class="org.openxava.test.actions.ShowSellerDialogAction"/>
 	</controller>
 	
+	<controller name="Grade">
+		<action name="addCalifications" mode="detail"
+			class="org.openxava.test.actions.ChangeLabelAndAddCalifications"/>
+	</controller>
+	
 </controllers>
