@@ -344,6 +344,9 @@ public class DateCalendarTest extends WebDriverTestBase {
 		endDateLabel.click();
 		Thread.sleep(100);
 		assertValue("endDate", "3/44/2002");
+		endDate.sendKeys(Keys.TAB);
+		Thread.sleep(100);
+		assertValue("endDate", "3/44/2002");
 		execute("CRUD.save");
 		assertMessage("End date in Quarter is not of expected type");
 		

@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Incorrect date changed automatically to a correct but different one when focus lost twice.
 - Added automated tests for date, datetime and popup calendar related issues.
 
 OpenXava 7.3 (2024-4-12)
