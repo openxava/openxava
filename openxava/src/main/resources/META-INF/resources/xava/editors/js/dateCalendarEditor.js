@@ -30,6 +30,9 @@ openxava.addEditorInitFunction(function() {
     });
 
     $('.xava_date > input').on('blur', function() {
+		var dateFormat = $(this).parent().data("dateFormat");
+		var separator = dateFormat.substr(1, 1);
+		dateCalendarEditor.validDate($(this).val(), dateFormat, separator);
         dateCalendarEditor.enterDate = dateCalendarEditor.validInputOnlyDate($(this).val());
     });
 
@@ -53,7 +56,6 @@ openxava.addEditorInitFunction(function() {
             date = first + separator + middle + separator + last;
             date = date.trim();
         }
-        dateCalendarEditor.validDate(date, dateFormat, separator);
         idx = date.lastIndexOf(separator);
         var idxSpace = date.indexOf(' ');
         var pureDate = date;
