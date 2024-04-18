@@ -2105,6 +2105,9 @@ public class View implements java.io.Serializable {
 					}
 				}
 			}
+			// TMR ME QUEDÉ POR AQUÍ: EL PROBLEMA QUE TENGO ES QUE SI AL PERSONALIZAR SE QUITA EL SUMATORIO, DESPUÉS NO SALE
+			// TMR   AUNQUE HAYA +. PUEDE QUE HAYA QUE AÑADIR __SUM__ CUANDO HAYA + O ALGO ASÍ
+			System.out.println("[View.getTotalProperties] totalProperties=" + totalProperties); // tmr
 		}
 		return totalProperties;
 	}
@@ -2196,6 +2199,11 @@ public class View implements java.io.Serializable {
 	
 	public boolean isCollectionFixedTotal(int column) {
 		assertRepresentsCollection("isCollectionFixedTotal()"); 
+		System.out.println("[View.isCollectionFixedTotal] getSumProperties()=" + getSumProperties()); // tmr
+		System.out.println("[View.isCollectionFixedTotal] getMetaPropertiesList().get(" + column + ").getName()=" + getMetaPropertiesList().get(column).getName()); // tmr
+		System.out.println("[View.isCollectionFixedTotal] hasCollectionTotal(0, " + column + ")=" + hasCollectionTotal(0, column)); // tmr
+		System.out.println("[View.isCollectionFixedTotal] hasCollectionTotal(1, " + column + ")=" + hasCollectionTotal(1, column)); // tmr
+		if (hasCollectionTotal(1, column)) return true;
 		return !getSumProperties().contains(getMetaPropertiesList().get(column).getName());
 	}
 

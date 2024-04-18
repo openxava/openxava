@@ -118,7 +118,8 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 		if (!Is.emptyString(listProperties)) {
 			propertiesListNamesAsString = listProperties;
 			propertiesListNames = new ArrayList();
-			StringTokenizer st = new StringTokenizer(listProperties, ",;"); 
+			StringTokenizer st = new StringTokenizer(listProperties, ",;");
+			//totalProperties = null; // TMR Bug propio en changelog, poner comentario en Quote para no cambiar @ListProperties o que haya una sin forViews
 			while (st.hasMoreTokens()) {
 				String name = st.nextToken().trim();
 				System.out.println("[MetaCollectionView.setPropertiesList] name.1=" + name); // tmr
@@ -139,7 +140,8 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 				}			
 				propertiesListNames.add(name); 
 			}
-			// tmr totalProperties = totalProperties == null?null:Collections.unmodifiableMap(totalProperties); // TMR Bug propio en changelog, poner comentario en Quote para no cambiar @ListProperties o que haya una sin forViews
+			// tmr totalProperties = totalProperties == null?null:Collections.unmodifiableMap(totalProperties);
+			System.out.println("[MetaCollectionView.setPropertiesList] totalProperties=" + totalProperties); // tmr
 		} 
 	}
 		

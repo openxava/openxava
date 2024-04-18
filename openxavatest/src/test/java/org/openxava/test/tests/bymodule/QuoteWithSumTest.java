@@ -21,7 +21,7 @@ public class QuoteWithSumTest extends EmailNotificationsTestBase {
 		assertTotalInCollection("details", 2, "amount",  "34.02");
 		assertTotalInCollection("details", 3, "amount", "196.02");
 		
-		assertNoAction("CollectionTotals.removeColumnSum"); // TMR ME QUEDÉ POR AQUÍ. TEST HECHO, FALTA CORREGIR EL BUG
+		assertNoAction("CollectionTotals.removeColumnSum"); 
 	}
 						
 }

@@ -52,6 +52,7 @@ public class Quote extends Identifiable {
 	@ListProperties("product.number, product.description, unitPrice, quantity, amount[quote.amountsSum, quote.taxesRate, quote.taxes, quote.total]")
 	// tmr ini
 	@ListProperties(forViews="WithSum", value="product.number, product.description, unitPrice, quantity, amount+[quote.taxesRate, quote.taxes, quote.total]") // tmr
+	
 	// tmr fin
 	Collection<QuoteDetail> details;
 
