@@ -1575,7 +1575,7 @@
 	
 	<controller name="Grade">
 		<action name="addCalifications" mode="detail"
-			class="org.openxava.test.actions.ChangeLabelAndAddCalifications"/>
+			class="org.openxava.test.actions.ChangeLabelAndAddCalificationsAction"/>
 	</controller>
 	
 </controllers>

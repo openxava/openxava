@@ -194,7 +194,7 @@ public class View implements java.io.Serializable {
 	private StringBuffer defaultSumProperties;
 	private int collectionSize = -1;
 	private boolean dataChanged;  
-	private boolean labelSetted;
+	private boolean labelsChanged;
 	
 	public static void setRefiner(Object newRefiner) {
 		refiner = newRefiner;
@@ -4260,15 +4260,15 @@ public class View implements java.io.Serializable {
 			}
 			setLabelsIdForMetaPropertiesList();
 		} else {
-			if (getLabels() != null && labelSetted) {
+			if (getLabels() != null && labelsChanged) {
 				Map labels = getLabels();
-				labelSetted = false;
-					for(MetaProperty mp : metaPropertiesList) {
-						if (labels.containsKey(mp.getName())) {
-							String newLabel = (String) labels.get(mp.getName());
-							if (!mp.getLabel().equals(newLabel)) mp.setLabel(newLabel);
-						}
+				labelsChanged = false;
+				for(MetaProperty mp : metaPropertiesList) {
+					if (labels.containsKey(mp.getName())) {
+						String newLabel = (String) labels.get(mp.getName());
+						if (!mp.getLabel().equals(newLabel)) mp.setLabel(newLabel);
 					}
+				}
 			}
 		}
 		return metaPropertiesList;
@@ -5668,7 +5668,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	private void setLabels(Map labels) {
-		labelSetted = true;
+		labelsChanged = true;
 		View root = getRoot();
 		if (this == root) {
 			this.labels = labels;

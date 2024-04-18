@@ -6,6 +6,9 @@ import javax.persistence.*;
 
 import lombok.*;
 
+/*
+ * @author Chungyen Tsai
+ */
 @Embeddable @Getter @Setter
 public class Calification {
 	

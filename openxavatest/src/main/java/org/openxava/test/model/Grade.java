@@ -7,7 +7,9 @@ import javax.persistence.*;
 import org.openxava.annotations.*;
 
 import lombok.*;
-
+/*
+ * @author Chungyen Tsai
+ */
 @Getter @Setter
 @View(members="califications")
 public class Grade {

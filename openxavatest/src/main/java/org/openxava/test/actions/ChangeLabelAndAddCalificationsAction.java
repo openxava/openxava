@@ -4,7 +4,10 @@ import java.math.*;
 
 import org.openxava.actions.*;
 
-public class ChangeLabelAndAddCalifications extends ViewBaseAction {
+/*
+ * @author Chungyen Tsai
+ */
+public class ChangeLabelAndAddCalificationsAction extends ViewBaseAction {
 
 	@Override
 	public void execute() throws Exception {

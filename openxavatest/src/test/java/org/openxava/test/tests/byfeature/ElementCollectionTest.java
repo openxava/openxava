@@ -23,7 +23,7 @@ public class ElementCollectionTest extends WebDriverTestBase {
 		setValue(collection + "." + row + "." + property, value);
 	}
 	
-	public void testElementCollectionPerformance() throws Exception {
+	public void testSetLabelIdPerformance() throws Exception {
 		goModule("Grade");
 		long ini = System.currentTimeMillis();
 		execute("Grade.addCalifications");
