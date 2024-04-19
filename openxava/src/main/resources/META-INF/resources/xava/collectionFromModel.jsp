@@ -59,45 +59,46 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 
 <%
 	// Values
-Collection aggregates = subview.getCollectionValues();
-if (aggregates == null) aggregates = java.util.Collections.EMPTY_LIST;
-Iterator itAggregates = aggregates.iterator();
-for (int f=0; itAggregates.hasNext(); f++) {
-	Map row = (Map) itAggregates.next();
-	String cssClass=f%2==0?"ox-list-pair":"ox-list-odd";
-	String cssCellClass=f%2==0?"ox-list-pair":"ox-list-odd";
-	String selectedClass = "";
-	if (f == subview.getCollectionEditingRow()) { 
-		selectedClass = f%2==0?style.getListPairSelected():style.getListOddSelected();
-		cssClass = cssClass + " " + selectedClass;		
-		if (style.isApplySelectedStyleToCellInList()) cssCellClass = cssCellClass + " " + selectedClass; 
-	}		
-	String idRow = Ids.decorate(request, propertyPrefix) + f;	
-	String events=f%2==0?style.getListPairEvents():style.getListOddEvents(); 
+if (!view.isKeyEditable()) {
+	Collection aggregates = subview.getCollectionValues();
+	if (aggregates == null) aggregates = java.util.Collections.EMPTY_LIST;
+	Iterator itAggregates = aggregates.iterator();
+	for (int f=0; itAggregates.hasNext(); f++) {
+		Map row = (Map) itAggregates.next();
+		String cssClass=f%2==0?"ox-list-pair":"ox-list-odd";
+		String cssCellClass=f%2==0?"ox-list-pair":"ox-list-odd";
+		String selectedClass = "";
+		if (f == subview.getCollectionEditingRow()) { 
+			selectedClass = f%2==0?style.getListPairSelected():style.getListOddSelected();
+			cssClass = cssClass + " " + selectedClass;		
+			if (style.isApplySelectedStyleToCellInList()) cssCellClass = cssCellClass + " " + selectedClass; 
+		}		
+		String idRow = Ids.decorate(request, propertyPrefix) + f;	
+		String events=f%2==0?style.getListPairEvents():style.getListOddEvents(); 
 %>
 <tr id="<%=idRow%>" class="<%=cssClass%>" <%=events%>>
 <%
-	if (lineAction != null) {
+		if (lineAction != null) {
 %>
 <td class="<%=cssCellClass%> ox-list-action-cell">
 <nobr>
-	<%if (sortable) { %>
+	<%	if (sortable) { %>
 	<i class="xava_handle mdi mdi-swap-vertical"></i>	
-	<%}%>	
+	<%  } %>	
 <xava:action action="<%=lineAction%>" argv='<%="row="+f + ",viewObject="+viewName%>'/>
 <% 
-	if (style.isSeveralActionsPerRow())
-	for (java.util.Iterator itRowActions = subview.getRowActionsNames().iterator(); itRowActions.hasNext(); ) { 	
-		String rowAction = (String) itRowActions.next();		
+		if (style.isSeveralActionsPerRow())
+		for (java.util.Iterator itRowActions = subview.getRowActionsNames().iterator(); itRowActions.hasNext(); ) { 	
+			String rowAction = (String) itRowActions.next();		
 %>
 <xava:action action='<%=rowAction%>' argv='<%="row=" + f + ",viewObject="+viewName%>'/>
 <%
-	}
+		}
 %>
 </nobr>
 </td>
 <%
-	} 
+		} 
 %>
 <td class="<%=cssCellClass%>" width="5">
 <input class="xava_selected" type="checkbox" name="<xava:id name='xava_selected'/>" value="<%=propertyPrefix%>__SELECTED__:<%=f%>" 
@@ -111,18 +112,18 @@ for (int f=0; itAggregates.hasNext(); f++) {
 />
 </td>
 <%
-	it = subview.getMetaPropertiesList().iterator();	
-	for (int columnIndex = 0; it.hasNext(); columnIndex++) { 
-		MetaProperty p = (MetaProperty) it.next();
-		String align =p.isNumber() && !p.hasValidValues()?"ox-text-align-right":"";
-		int columnWidth = subview.getCollectionColumnWidth(columnIndex);
-		String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth; 
-		String fvalue = null;
-		Object value = null;
-		String propertyName = p.getName();
-		value = Maps.getValueFromQualifiedName(row, propertyName);
-		fvalue = WebEditors.format(request, p, value, errors, view.getViewName(), true);	
-		Object title = WebEditors.formatTitle(request, p, value, errors, view.getViewName(), true); 
+		it = subview.getMetaPropertiesList().iterator();	
+		for (int columnIndex = 0; it.hasNext(); columnIndex++) { 
+			MetaProperty p = (MetaProperty) it.next();
+			String align =p.isNumber() && !p.hasValidValues()?"ox-text-align-right":"";
+			int columnWidth = subview.getCollectionColumnWidth(columnIndex);
+			String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth; 
+			String fvalue = null;
+			Object value = null;
+			String propertyName = p.getName();
+			value = Maps.getValueFromQualifiedName(row, propertyName);
+			fvalue = WebEditors.format(request, p, value, errors, view.getViewName(), true);	
+			Object title = WebEditors.formatTitle(request, p, value, errors, view.getViewName(), true); 
 %>
 	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell">
 	<xava:link action="<%=lineAction%>" argv='<%="row="+f + ",viewObject="+viewName%>'>
@@ -135,8 +136,8 @@ for (int f=0; itAggregates.hasNext(); f++) {
 	</td>
 		
 <%
+		}
 	}
-}
 %>
 </tr>
 <jsp:include page="collectionTotals.jsp" />
@@ -144,5 +145,6 @@ for (int f=0; itAggregates.hasNext(); f++) {
 </table>
 <% if (resizeColumns) { %>
 </div>
-<% } %>
+<% } 
+} %>
  
