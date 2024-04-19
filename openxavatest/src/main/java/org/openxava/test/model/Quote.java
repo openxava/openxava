@@ -22,7 +22,10 @@ import lombok.*;
 @Views({
 	@View(members="year, number, date; customer; details; estimatedProfit"), 
 	@View(name="QuoteWithRemoveElementCollection", members="year, number, date; data { customer; details }"),
-	@View(name="WithSum", extendsView = "DEFAULT") // tmr
+	// tmr ini
+	@View(name="WithSum", extendsView = "DEFAULT"),
+	@View(name="NoTotals", extendsView = "DEFAULT")
+	// tmr fin
 })
 @Tab(defaultOrder="${year} desc") 
 public class Quote extends Identifiable {
@@ -51,8 +54,8 @@ public class Quote extends Identifiable {
 	@ElementCollection
 	@ListProperties("product.number, product.description, unitPrice, quantity, amount[quote.amountsSum, quote.taxesRate, quote.taxes, quote.total]")
 	// tmr ini
-	@ListProperties(forViews="WithSum", value="product.number, product.description, unitPrice, quantity, amount+[quote.taxesRate, quote.taxes, quote.total]") // tmr
-	
+	@ListProperties(forViews="WithSum", value="product.number, product.description, unitPrice, quantity, amount+[quote.taxesRate, quote.taxes, quote.total]") 
+	@ListProperties(forViews="NoTotals", value="product.number, product.description, unitPrice, quantity, amount") 
 	// tmr fin
 	Collection<QuoteDetail> details;
 

@@ -2043,8 +2043,21 @@ public class View implements java.io.Serializable {
 		assertRepresentsCollection("hasCollectionTotal()");
 		if (column >= getMetaPropertiesList().size()) return false;
 		MetaProperty p = getMetaPropertiesList().get(column);
+		/* tmr
 		if (getTotalProperties().containsKey(p.getName())) {		
 			return row < getTotalProperties().get(p.getName()).size(); 
+		}		
+		return false;
+		*/
+		// tmr ini
+		return hasCollectionTotal(row, p.getName());
+		// tmr fin
+	}
+	
+	private boolean hasCollectionTotal(int row, String property) { // tmr 
+		assertRepresentsCollection("hasCollectionTotal()");
+		if (getTotalProperties().containsKey(property)) {		
+			return row < getTotalProperties().get(property).size(); 
 		}		
 		return false;
 	}
@@ -2105,9 +2118,6 @@ public class View implements java.io.Serializable {
 					}
 				}
 			}
-			// TMR ME QUEDÉ POR AQUÍ: EL PROBLEMA QUE TENGO ES QUE SI AL PERSONALIZAR SE QUITA EL SUMATORIO, DESPUÉS NO SALE
-			// TMR   AUNQUE HAYA +. PUEDE QUE HAYA QUE AÑADIR __SUM__ CUANDO HAYA + O ALGO ASÍ
-			System.out.println("[View.getTotalProperties] totalProperties=" + totalProperties); // tmr
 		}
 		return totalProperties;
 	}
@@ -2159,7 +2169,8 @@ public class View implements java.io.Serializable {
 				View rootView = getParent().getCollectionRootOrRoot();
 				for (String property: defaultSumProperties.toString().split(",")) {
 					String sumProperty = getMemberName() + "." + property.trim() + "_SUM_";
-					if (rootView.isPropertyUsedInCalculation(sumProperty)) {
+					// tmr if (rootView.isPropertyUsedInCalculation(sumProperty)) {
+					if (rootView.isPropertyUsedInCalculation(sumProperty) || hasCollectionTotal(1, property)) {
 						if (!Is.emptyString(properties)) properties+= ",";
 						properties += property; 						
 					}
@@ -2199,11 +2210,7 @@ public class View implements java.io.Serializable {
 	
 	public boolean isCollectionFixedTotal(int column) {
 		assertRepresentsCollection("isCollectionFixedTotal()"); 
-		System.out.println("[View.isCollectionFixedTotal] getSumProperties()=" + getSumProperties()); // tmr
-		System.out.println("[View.isCollectionFixedTotal] getMetaPropertiesList().get(" + column + ").getName()=" + getMetaPropertiesList().get(column).getName()); // tmr
-		System.out.println("[View.isCollectionFixedTotal] hasCollectionTotal(0, " + column + ")=" + hasCollectionTotal(0, column)); // tmr
-		System.out.println("[View.isCollectionFixedTotal] hasCollectionTotal(1, " + column + ")=" + hasCollectionTotal(1, column)); // tmr
-		if (hasCollectionTotal(1, column)) return true;
+		if (hasCollectionTotal(1, column)) return true; // tmr 
 		return !getSumProperties().contains(getMetaPropertiesList().get(column).getName());
 	}
 
