@@ -2043,18 +2043,10 @@ public class View implements java.io.Serializable {
 		assertRepresentsCollection("hasCollectionTotal()");
 		if (column >= getMetaPropertiesList().size()) return false;
 		MetaProperty p = getMetaPropertiesList().get(column);
-		/* tmr
-		if (getTotalProperties().containsKey(p.getName())) {		
-			return row < getTotalProperties().get(p.getName()).size(); 
-		}		
-		return false;
-		*/
-		// tmr ini
 		return hasCollectionTotal(row, p.getName());
-		// tmr fin
 	}
 	
-	private boolean hasCollectionTotal(int row, String property) { // tmr 
+	private boolean hasCollectionTotal(int row, String property) {  
 		assertRepresentsCollection("hasCollectionTotal()");
 		if (getTotalProperties().containsKey(property)) {		
 			return row < getTotalProperties().get(property).size(); 
@@ -2169,7 +2161,6 @@ public class View implements java.io.Serializable {
 				View rootView = getParent().getCollectionRootOrRoot();
 				for (String property: defaultSumProperties.toString().split(",")) {
 					String sumProperty = getMemberName() + "." + property.trim() + "_SUM_";
-					// tmr if (rootView.isPropertyUsedInCalculation(sumProperty)) {
 					if (rootView.isPropertyUsedInCalculation(sumProperty) || hasCollectionTotal(1, property)) {
 						if (!Is.emptyString(properties)) properties+= ",";
 						properties += property; 						
@@ -2210,7 +2201,7 @@ public class View implements java.io.Serializable {
 	
 	public boolean isCollectionFixedTotal(int column) {
 		assertRepresentsCollection("isCollectionFixedTotal()"); 
-		if (hasCollectionTotal(1, column)) return true; // tmr 
+		if (hasCollectionTotal(1, column)) return true;  
 		return !getSumProperties().contains(getMetaPropertiesList().get(column).getName());
 	}
 

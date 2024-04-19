@@ -373,15 +373,17 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertValue("endDate", "07/11/1999");
 		assertValue("initDate", "11/08/2009");
 		
+		if (isWindows7()) setHeadless(false); // In Windows 7 with headless the language is not changed to "en-ZA" maybe because a bug of Chrome version in Windows 7
 		changeLanguage("en-ZA");
 		goModule("Quarter");
 		execute("List.viewDetail", "row=0");
 		endDate = getDriver().findElement(By.id("ox_openxavatest_Quarter__endDate"));
-		assertValue("endDate", "2010/06/03");
+		assertValue("endDate", "2010/06/03"); 
 		setValue("endDate", "20170617");
 		endDate.sendKeys(Keys.TAB);
 		Thread.sleep(100);
 		assertValue("endDate", "2017/06/17");
+		if (isWindows7()) setHeadless(true); 
 		
 		changeLanguage("sr");
 		goModule("Quarter");
@@ -592,6 +594,10 @@ public class DateCalendarTest extends WebDriverTestBase {
 	
 	private boolean isCalendarIconPresent() {
 		return getDriver().findElements(By.cssSelector(".ox-date-calendar.xava_date")).size() == 2;
+	}
+	
+	private boolean isWindows7() { 
+		return System.getProperty("os.name").toLowerCase().contains("windows 7");
 	}
 
 }

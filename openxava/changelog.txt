@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Sum property in the column of a collection with total properties can be removed by the user.
+- Fix: Total properties in a @ListProperties with no forViews overwrite the ones of other @ListProperties.
 - Fix: Incorrect date changed automatically to a correct but different one when focus lost twice.
 - Added automated tests for date, datetime and popup calendar related issues.
 

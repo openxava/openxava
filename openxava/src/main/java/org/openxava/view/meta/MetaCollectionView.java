@@ -117,7 +117,7 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 			propertiesListNamesAsString = listProperties;
 			propertiesListNames = new ArrayList();
 			StringTokenizer st = new StringTokenizer(listProperties, ",;");
-			totalProperties = null; // TMR Bug propio en changelog, poner comentario en Quote para no cambiar @ListProperties o que haya una sin forViews
+			totalProperties = null; 
 			while (st.hasMoreTokens()) {
 				String name = st.nextToken().trim();
 				if (name.contains("[")) {
