@@ -10,7 +10,6 @@ if (selectedRow >= 0) {
 	tab.setStyle(selectedRow, cssClass);
 }
 context.put(request, tabObject, tab);
-
 // The list
 %>
 <jsp:include page="../list.jsp">
@@ -18,4 +17,5 @@ context.put(request, tabObject, tab);
 	<jsp:param name="rowAction" value="<%=lineAction%>"/>
 	<jsp:param name="tabObject" value="<%=tabObject%>"/>
 	<jsp:param name="viewObject" value="<%=viewName%>"/>
+	<jsp:param name="viewKeyEditable" value="<%=view.isKeyEditable()%>"/>
 </jsp:include>
