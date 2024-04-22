@@ -59,9 +59,9 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 
 <%
 	// Values
-if (!view.isKeyEditable()) {
+//if (!view.isKeyEditable()) {
 	Collection aggregates = subview.getCollectionValues();
-	if (aggregates == null) aggregates = java.util.Collections.EMPTY_LIST;
+	if (aggregates == null || view.isKeyEditable()) aggregates = java.util.Collections.EMPTY_LIST;
 	Iterator itAggregates = aggregates.iterator();
 	for (int f=0; itAggregates.hasNext(); f++) {
 		Map row = (Map) itAggregates.next();
@@ -146,5 +146,6 @@ if (!view.isKeyEditable()) {
 <% if (resizeColumns) { %>
 </div>
 <% } 
-} %>
+//}
+ %>
  

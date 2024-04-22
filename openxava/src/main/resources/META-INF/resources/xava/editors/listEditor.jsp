@@ -362,10 +362,15 @@ if (tab.isRowsHidden()) {
 	}
 else {
 IXTableModel model = tab.getTableModel(); 
+System.out.println(editable);
+System.out.println(tab.getTotalSize());
+System.out.println(totalSize);
+System.out.println(tab.getInitialIndex());
+System.out.println(model.getRowCount());
 totalSize = totalSize < 0 ? tab.getTotalSize() : totalSize;
-totalSize = editable ? 0 : totalSize;
-System.out.println(!editable);
-//if (!editable) totalSize = 0;
+//totalSize = editable ? 0 : totalSize;
+
+//if (editable) f< (editable ? 0 : model.getRowCount()) 
 if (totalSize > 0 || !Is.emptyString(collection)) { 
 int finalIndex = simple?Integer.MAX_VALUE:tab.getFinalIndex();
 for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) {
