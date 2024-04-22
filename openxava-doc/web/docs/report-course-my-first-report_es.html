@@ -20,8 +20,40 @@
       </div>
       <div class="wiki" style="display: block;">
         <h2>Código</h2>
-        <p>Puedes descargar el proyecto <a href="https://github.com/openxava/report-generation-course/tree/lesson_1">aquí</a> o si quieres seguir el video, puedes copiar el código desde aquí:</p>
-        <script src="https://gist.github.com/chungyentsai/dae24b3d4a80e0c88cbf736ea5a614ff.js"></script>
+        <p>Puedes <strong>descargar el proyecto de esta lección:</strong> <a
+            href="https://github.com/openxava/report-generation-course/tree/lesson_1">https://github.com/openxava/report-generation-course/tree/lesson_1</a>, también puedes copiar el código que se usa en el video por aquí:</p>
+        En el archivo <em>controllers.xml</em>:
+        <pre><code class="xml">&lt;controller name="YourFirstEntity"&gt;
+    &lt;extends controller="Typical"/&gt;
+    &lt;action name="printCustomReport" icon="printer" mode="list" 
+        class="com.yourcompany.report.actions.PrintMyCustomReportAction"&gt;
+    &lt;/action&gt;
+&lt;/controller&gt;
+</code></pre> En el archivo <em>PrintMyCustomReportAction.java</em>:<br>
+        <pre><code class="java">public class PrintMyCustomReportAction extends JasperReportBaseAction {
+
+	@Override
+	protected JRDataSource getDataSource() throws Exception {
+		return new JREmptyDataSource();
+	}
+
+	@Override
+	protected String getJRXML() throws Exception {
+		return "MyCustomReport.jrxml";
+	}
+
+	@Override
+	protected Map getParameters() throws Exception {
+		return null;
+	}
+
+}
+</code></pre>
+        <p><strong>¿Problemas con la lección? <a class="wiki_link_ext"
+              href="http://sourceforge.net/p/openxava/discussion/437013/"
+              rel="nofollow">Pregunta en el foro</a></strong></p>
+        <h2><br>
+        </h2>
         <h2>Transcripción</h2>
         Hola, soy Mónica; en este curso vamos a ver cómo usar JasperSoft Studio para crear reportes pdf personalizados y generarlos en una aplicación OpenXava. En esta primera lección vamos a crear un reporte básico con JasperSoft Studio, y en OpenXava vamos a definir un controlador con una acción que al ejecutarlo, genere el reporte.<br>
         Primero vamos a ingresar al link que tenemos en la descripción del video para descargar JasperSoft Studio; vemos que al apretar el botón, nos pide crear una cuenta o loguearnos para descargar. Podemos crear una cuenta desde este botón, Join the community. Una vez que ya iniciemos la sesión, el botón ya dirá descargar, lo apretamos y seleccionamos la opción de acuerdo a nuestro sistema operativo. Ya descargado, lo ejecutamos para instalar JasperSoft Studio.</div>
