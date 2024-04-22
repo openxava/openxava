@@ -4260,8 +4260,8 @@ public class View implements java.io.Serializable {
 			}
 			setLabelsIdForMetaPropertiesList();
 		} else {
-			if (getLabels() != null && labelsChanged) {
-				Map labels = getLabels();
+			Map labels = getLabels();
+			if (labels != null && labelsChanged) {
 				labelsChanged = false;
 				for(MetaProperty mp : metaPropertiesList) {
 					if (labels.containsKey(mp.getName())) {
