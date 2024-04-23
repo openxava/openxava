@@ -1058,7 +1058,7 @@ openxava.throwPropertyChanged = function(application, module, property) {
 		form[openxava.decorateId(application, module, "xava_changed_property")].value=property;
 		setTimeout(function() {
     		openxava.requestOnChange(application, module);
-		}, 100);
+		}, 130);		
 	}
 }
 

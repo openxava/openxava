@@ -112,11 +112,12 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 		return propertiesListNamesAsString;
 	}
 
-	public void setPropertiesList(String listProperties) {				 		
+	public void setPropertiesList(String listProperties) {	
 		if (!Is.emptyString(listProperties)) {
 			propertiesListNamesAsString = listProperties;
 			propertiesListNames = new ArrayList();
-			StringTokenizer st = new StringTokenizer(listProperties, ",;"); 
+			StringTokenizer st = new StringTokenizer(listProperties, ",;");
+			totalProperties = null; 
 			while (st.hasMoreTokens()) {
 				String name = st.nextToken().trim();
 				if (name.contains("[")) {
@@ -135,7 +136,7 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 				}			
 				propertiesListNames.add(name); 
 			}
-			totalProperties = totalProperties == null?null:Collections.unmodifiableMap(totalProperties); 
+			totalProperties = totalProperties == null?null:Collections.unmodifiableMap(totalProperties);
 		} 
 	}
 		

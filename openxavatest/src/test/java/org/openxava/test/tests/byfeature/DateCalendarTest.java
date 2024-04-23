@@ -206,6 +206,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		wait(getDriver());
 		execute("List.viewDetail", "row=0");
 		selectNextDay(0);
+		Thread.sleep(150); 
 		assertMessage("OnChangeVoidAction executed");
 		selectNextDay(0);
 		List<WebElement> messages = getDriver().findElements(By.className("ox-message-box"));
@@ -218,7 +219,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		dateLabel.click();
 		assertValue("date", "5/13/2017");
 	}
-	
+		
 	public void testDateTime_onChange_twoDigitYear_dateTimeSeparated_srDateTime() throws Exception {
 		goModule("ShipmentWithOnChange");
 		WebElement dateTime;
@@ -245,21 +246,26 @@ public class DateCalendarTest extends WebDriverTestBase {
 		Thread.sleep(100);
 		timeLabel = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__label_time"));
 		timeLabel.click();
-		Thread.sleep(100);
+		Thread.sleep(200); 
 		assertMessage("OnChangeVoidAction executed");
 		execute("Mode.list");
 		
 		execute("List.viewDetail", "row=2");
 		dateTime = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__time"));
-		setValue("time","12/25/07 11:33 AM");
-		dateTime.sendKeys(Keys.TAB);
+		dateTime.clear();
+		dateTime.sendKeys("12/25/07 11:33 AM");
+		WebElement dateTimeLabel = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__label_time"));
+		dateTimeLabel.click();
 		Thread.sleep(100);
 		assertValue("time", "12/25/2007 11:33 AM");
+		dateTime = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__time")); // sometime has element not found error
 		dateTime.clear();
-		dateTime.sendKeys(" 12/25/08 11:33 AM");
 		dateTime.sendKeys(Keys.TAB);
-		Thread.sleep(300);
-		assertValue("time", "12/25/2008 11:33 AM");
+		dateTime.sendKeys(" 12/25/08 12:33 AM");
+		dateTime = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__time"));
+		dateTimeLabel.click();
+		Thread.sleep(200); 
+		assertValue("time", "12/25/2008 12:33 AM");
 		
 		changeLanguage("es");
 		goModule("ShipmentWithOnChange");
@@ -373,15 +379,17 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertValue("endDate", "07/11/1999");
 		assertValue("initDate", "11/08/2009");
 		
+		if (isWindows7()) setHeadless(false); // In Windows 7 with headless the language is not changed to "en-ZA" maybe because a bug of Chrome version in Windows 7
 		changeLanguage("en-ZA");
 		goModule("Quarter");
 		execute("List.viewDetail", "row=0");
 		endDate = getDriver().findElement(By.id("ox_openxavatest_Quarter__endDate"));
-		assertValue("endDate", "2010/06/03");
+		assertValue("endDate", "2010/06/03"); 
 		setValue("endDate", "20170617");
 		endDate.sendKeys(Keys.TAB);
 		Thread.sleep(100);
 		assertValue("endDate", "2017/06/17");
+		if (isWindows7()) setHeadless(true); 
 		
 		changeLanguage("sr");
 		goModule("Quarter");
@@ -592,6 +600,10 @@ public class DateCalendarTest extends WebDriverTestBase {
 	
 	private boolean isCalendarIconPresent() {
 		return getDriver().findElements(By.cssSelector(".ox-date-calendar.xava_date")).size() == 2;
+	}
+	
+	private boolean isWindows7() { 
+		return System.getProperty("os.name").toLowerCase().contains("windows 7");
 	}
 
 }
