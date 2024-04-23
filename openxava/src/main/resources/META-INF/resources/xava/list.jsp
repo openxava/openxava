@@ -102,9 +102,7 @@ if (tab.isTitleVisible()) {
 </td></tr>
 </table>
 <%
-}
+} 
 %>
 
-<jsp:include page='<%=WebEditors.getUrl(tab.getEditor(), tab.getMetaTab())%>'>
-	<jsp:param name="viewKeyEditable" value='<%=request.getParameter("viewKeyEditable")%>'/>
-</jsp:include>
+<jsp:include page='<%=WebEditors.getUrl(tab.getEditor(), tab.getMetaTab())%>'/>

@@ -78,7 +78,6 @@ if (simple) filter = false;
 String groupBy = tab.getGroupBy();
 boolean grouping = !Is.emptyString(groupBy);
 if (grouping) action = null;
-boolean editable = ("true").equals(request.getParameter("viewKeyEditable"));
 %>
 
 <input type="hidden" name="xava_list<%=tab.getTabName()%>_filter_visible"/>
@@ -362,15 +361,7 @@ if (tab.isRowsHidden()) {
 	}
 else {
 IXTableModel model = tab.getTableModel(); 
-System.out.println(editable);
-System.out.println(tab.getTotalSize());
-System.out.println(totalSize);
-System.out.println(tab.getInitialIndex());
-System.out.println(model.getRowCount());
-totalSize = totalSize < 0 ? tab.getTotalSize() : totalSize;
-//totalSize = editable ? 0 : totalSize;
-
-//if (editable) f< (editable ? 0 : model.getRowCount()) 
+totalSize = totalSize < 0?tab.getTotalSize():totalSize; 
 if (totalSize > 0 || !Is.emptyString(collection)) { 
 int finalIndex = simple?Integer.MAX_VALUE:tab.getFinalIndex();
 for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) {
