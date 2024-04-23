@@ -13,6 +13,7 @@ String onSelectCollectionElementAction = subview.getOnSelectCollectionElementAct
 MetaAction onSelectCollectionElementMetaAction = Is.empty(onSelectCollectionElementAction) ? null : MetaControllers.getMetaAction(onSelectCollectionElementAction);
 boolean resizeColumns = style.allowsResizeColumns() && XavaPreferences.getInstance().isResizeColumns();
 boolean sortable = subview.isCollectionSortable();
+System.out.println("collectionFromModel");
 %>
 <% if (resizeColumns) { %> 
 <div class="<xava:id name='collection_scroll'/> ox-overflow-auto">
@@ -61,7 +62,23 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 	// Values
 //if (!view.isKeyEditable()) {
 	Collection aggregates = subview.getCollectionValues();
-	if (aggregates == null || view.isKeyEditable()) aggregates = java.util.Collections.EMPTY_LIST;
+	String colRootViewName = view.getViewName();
+	boolean hasViewName = true;
+	System.out.println(11);
+	System.out.println(view.getModelName()); //MyReport,modelName
+	System.out.println(22);
+	System.out.println(viewName);
+	System.out.println(view.getViewName()); //null, null
+	if (colRootViewName != null) hasViewName = (!colRootViewName.isEmpty());
+	System.out.println(33);
+	System.out.println(view.getRoot().hasSections()); //false
+	System.out.println(44);
+	System.out.println(view.getModel()!=null);
+	System.out.println(55);
+	System.out.println(view.isKeyEditable()); //true
+	System.out.println("-----");
+	
+	if (aggregates == null || (view.isKeyEditable() && view.getRoot().hasSections() && hasViewName)) aggregates = java.util.Collections.EMPTY_LIST;
 	Iterator itAggregates = aggregates.iterator();
 	for (int f=0; itAggregates.hasNext(); f++) {
 		Map row = (Map) itAggregates.next();
