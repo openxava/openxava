@@ -13,7 +13,6 @@ String onSelectCollectionElementAction = subview.getOnSelectCollectionElementAct
 MetaAction onSelectCollectionElementMetaAction = Is.empty(onSelectCollectionElementAction) ? null : MetaControllers.getMetaAction(onSelectCollectionElementAction);
 boolean resizeColumns = style.allowsResizeColumns() && XavaPreferences.getInstance().isResizeColumns();
 boolean sortable = subview.isCollectionSortable();
-System.out.println("collectionFromModel");
 %>
 <% if (resizeColumns) { %> 
 <div class="<xava:id name='collection_scroll'/> ox-overflow-auto">
@@ -60,42 +59,28 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 
 <%
 	// Values
-//if (!view.isKeyEditable()) {
-	Collection aggregates = subview.getCollectionValues();
-	String colRootViewName = view.getViewName();
-	boolean hasViewName = true;
-	System.out.println(11);
-	System.out.println(view.getModelName()); //MyReport,modelName
-	System.out.println(22);
-	System.out.println(viewName);
-	System.out.println(view.getViewName()); //null, null
-	if (colRootViewName != null) hasViewName = (!colRootViewName.isEmpty());
-	System.out.println(33);
-	System.out.println(view.getRoot().hasSections()); //false
-	System.out.println(44);
-	System.out.println(view.getModel()!=null);
-	System.out.println(55);
-	System.out.println(view.isKeyEditable()); //true
-	System.out.println("-----");
-	
-	if (aggregates == null || (view.isKeyEditable() && view.getRoot().hasSections() && hasViewName)) aggregates = java.util.Collections.EMPTY_LIST;
-	Iterator itAggregates = aggregates.iterator();
-	for (int f=0; itAggregates.hasNext(); f++) {
-		Map row = (Map) itAggregates.next();
-		String cssClass=f%2==0?"ox-list-pair":"ox-list-odd";
-		String cssCellClass=f%2==0?"ox-list-pair":"ox-list-odd";
-		String selectedClass = "";
-		if (f == subview.getCollectionEditingRow()) { 
-			selectedClass = f%2==0?style.getListPairSelected():style.getListOddSelected();
-			cssClass = cssClass + " " + selectedClass;		
-			if (style.isApplySelectedStyleToCellInList()) cssCellClass = cssCellClass + " " + selectedClass; 
-		}		
-		String idRow = Ids.decorate(request, propertyPrefix) + f;	
-		String events=f%2==0?style.getListPairEvents():style.getListOddEvents(); 
+Collection aggregates = subview.getCollectionValues();
+String actualViewName = view.getViewName();
+boolean hasViewName = true;
+if (actualViewName != null) hasViewName = (!actualViewName.isEmpty());
+if (aggregates == null || (view.isKeyEditable() && view.getRoot().hasSections() && hasViewName)) aggregates = java.util.Collections.EMPTY_LIST;
+Iterator itAggregates = aggregates.iterator();
+for (int f=0; itAggregates.hasNext(); f++) {
+	Map row = (Map) itAggregates.next();
+	String cssClass=f%2==0?"ox-list-pair":"ox-list-odd";
+	String cssCellClass=f%2==0?"ox-list-pair":"ox-list-odd";
+	String selectedClass = "";
+	if (f == subview.getCollectionEditingRow()) { 
+		selectedClass = f%2==0?style.getListPairSelected():style.getListOddSelected();
+		cssClass = cssClass + " " + selectedClass;		
+		if (style.isApplySelectedStyleToCellInList()) cssCellClass = cssCellClass + " " + selectedClass; 
+	}		
+	String idRow = Ids.decorate(request, propertyPrefix) + f;	
+	String events=f%2==0?style.getListPairEvents():style.getListOddEvents(); 
 %>
 <tr id="<%=idRow%>" class="<%=cssClass%>" <%=events%>>
 <%
-		if (lineAction != null) {
+	if (lineAction != null) {
 %>
 <td class="<%=cssCellClass%> ox-list-action-cell">
 <nobr>
@@ -105,8 +90,8 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 <xava:action action="<%=lineAction%>" argv='<%="row="+f + ",viewObject="+viewName%>'/>
 <% 
 		if (style.isSeveralActionsPerRow())
-		for (java.util.Iterator itRowActions = subview.getRowActionsNames().iterator(); itRowActions.hasNext(); ) { 	
-			String rowAction = (String) itRowActions.next();		
+			for (java.util.Iterator itRowActions = subview.getRowActionsNames().iterator(); itRowActions.hasNext(); ) { 	
+				String rowAction = (String) itRowActions.next();		
 %>
 <xava:action action='<%=rowAction%>' argv='<%="row=" + f + ",viewObject="+viewName%>'/>
 <%
@@ -115,7 +100,7 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 </nobr>
 </td>
 <%
-		} 
+	} 
 %>
 <td class="<%=cssCellClass%>" width="5">
 <input class="xava_selected" type="checkbox" name="<xava:id name='xava_selected'/>" value="<%=propertyPrefix%>__SELECTED__:<%=f%>" 
@@ -129,18 +114,18 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 />
 </td>
 <%
-		it = subview.getMetaPropertiesList().iterator();	
-		for (int columnIndex = 0; it.hasNext(); columnIndex++) { 
-			MetaProperty p = (MetaProperty) it.next();
-			String align =p.isNumber() && !p.hasValidValues()?"ox-text-align-right":"";
-			int columnWidth = subview.getCollectionColumnWidth(columnIndex);
-			String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth; 
-			String fvalue = null;
-			Object value = null;
-			String propertyName = p.getName();
-			value = Maps.getValueFromQualifiedName(row, propertyName);
-			fvalue = WebEditors.format(request, p, value, errors, view.getViewName(), true);	
-			Object title = WebEditors.formatTitle(request, p, value, errors, view.getViewName(), true); 
+	it = subview.getMetaPropertiesList().iterator();	
+	for (int columnIndex = 0; it.hasNext(); columnIndex++) { 
+		MetaProperty p = (MetaProperty) it.next();
+		String align =p.isNumber() && !p.hasValidValues()?"ox-text-align-right":"";
+		int columnWidth = subview.getCollectionColumnWidth(columnIndex);
+		String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth; 
+		String fvalue = null;
+		Object value = null;
+		String propertyName = p.getName();
+		value = Maps.getValueFromQualifiedName(row, propertyName);
+		fvalue = WebEditors.format(request, p, value, errors, view.getViewName(), true);	
+		Object title = WebEditors.formatTitle(request, p, value, errors, view.getViewName(), true); 
 %>
 	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell">
 	<xava:link action="<%=lineAction%>" argv='<%="row="+f + ",viewObject="+viewName%>'>
@@ -153,8 +138,8 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 	</td>
 		
 <%
-		}
 	}
+}
 %>
 </tr>
 <jsp:include page="collectionTotals.jsp" />
@@ -162,7 +147,5 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 </table>
 <% if (resizeColumns) { %>
 </div>
-<% } 
-//}
- %>
+<% } %>
  
