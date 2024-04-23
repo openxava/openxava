@@ -13,7 +13,7 @@ public class CollectionTest extends WebDriverTestBase {
 		execute("CRUD.refresh");
 		assertCollectionRowCount("states", 1);
 		
-		goModule("Office");
+		goModule("Office"); 
 		execute("CRUD.new");
 		setValue("defaultCarrier.number","1");
 		WebElement label = getDriver().findElement(By.id("ox_openxavatest_Office__label_defaultCarrier___number"));
