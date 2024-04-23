@@ -206,6 +206,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		wait(getDriver());
 		execute("List.viewDetail", "row=0");
 		selectNextDay(0);
+		Thread.sleep(150); 
 		assertMessage("OnChangeVoidAction executed");
 		selectNextDay(0);
 		List<WebElement> messages = getDriver().findElements(By.className("ox-message-box"));
@@ -218,7 +219,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		dateLabel.click();
 		assertValue("date", "5/13/2017");
 	}
-	
+		
 	public void testDateTime_onChange_twoDigitYear_dateTimeSeparated_srDateTime() throws Exception {
 		goModule("ShipmentWithOnChange");
 		WebElement dateTime;
@@ -245,7 +246,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		Thread.sleep(100);
 		timeLabel = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__label_time"));
 		timeLabel.click();
-		Thread.sleep(100);
+		Thread.sleep(200); 
 		assertMessage("OnChangeVoidAction executed");
 		execute("Mode.list");
 		
@@ -263,7 +264,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		dateTime.sendKeys(" 12/25/08 12:33 AM");
 		dateTime = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__time"));
 		dateTimeLabel.click();
-		Thread.sleep(100);
+		Thread.sleep(200); 
 		assertValue("time", "12/25/2008 12:33 AM");
 		
 		changeLanguage("es");
