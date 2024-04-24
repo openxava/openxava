@@ -99,7 +99,23 @@ public class XSystem {
 			return false;
 		}
 		catch (Exception ex) {
-			log.warn(XavaResources.getString("determine_is_java9_problem"), ex);
+			log.warn(XavaResources.getString("determine_is_java_version_problem", "17"), ex);
+			return false;
+		}
+	}
+	
+	/** @since 6.0 */
+	public static boolean isJava21orBetter() {
+		try {
+			String version = System.getProperty("java.specification.version");
+			return Integer.parseInt(version) >= 21;
+		}
+		catch (NumberFormatException ex) {
+			// Because because 1.6, 1.7 and 1.8 as value
+			return false;
+		}
+		catch (Exception ex) {
+			log.warn(XavaResources.getString("determine_is_java_version_problem", "21"), ex);
 			return false;
 		}
 	}
