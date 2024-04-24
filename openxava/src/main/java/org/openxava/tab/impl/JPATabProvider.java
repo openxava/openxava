@@ -344,12 +344,13 @@ public class JPATabProvider extends TabProviderBase {
         if (getMetaModel().getMetaReference(reference).isRequired()) {
         	String referenceKeyProperties = getMetaModel().getMetaReference(reference).getKeyProperties();
         	ModelMapping modelMapping = getMetaModel().getMapping();
-    	    if (!referenceKeyProperties.isEmpty() 
-    	    		&& Arrays.stream(referenceKeyProperties.split(",")).noneMatch(subS -> subS.contains(".")) 
+    	    if (Arrays.stream(referenceKeyProperties.split(",")).noneMatch(subS -> subS.contains(".")) 
     	    		&& !modelMapping.isReferenceOverlappingWithSomeProperty(reference)) {
+    	    	System.out.println("add join");
     	    	return entityAndJoins.append(" join e");
     	    }
         }
+        System.out.println("add left join");
         return entityAndJoins.append(" left join e");
 	}
 	
