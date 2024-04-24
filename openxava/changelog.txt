@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- Commons-io upgraded to 2.16.1.
+- JasperReports upgraded to 6.21.3.
+- Groovy upgraded to 4.0.21.
+- Embedded Tomcat used in development upgraded to 9.0.88.
 - Fix: Low performance with large @ElementCollection after calling View.setLabelId().
 - Fix: Date and date/time fields with @OnChange restore original date values sometimes in slow computers.
 - Documentation for working with IntelliJ improved.
