@@ -24,6 +24,7 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 		if (date == null) return "";
 		if (date instanceof String || date instanceof Number) return date.toString();
 		if (Dates.getYear((java.util.Date)date) < 2) return "";
+		if (isZhFormatAndJavaIs21orBetter()) return getDateTimeFormat(false).format(date).replace("p. m.", "PM").replace("a. m.", "AM"); //use java 17 blank space \u00a0
 		return getDateTimeFormat(false).format(date); 
 	}
 
@@ -32,6 +33,7 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 		if (string.indexOf('-') >= 0 && !isDashFormat()) { // SimpleDateFormat does not work well with -
 			string = Strings.change(string, "-", "/");
 		}
+		if (isZhFormatAndJavaIs21orBetter()) string = string.replace("PM", "p. m.").replace("AM", "a. m.");
 		DateFormat [] dateFormats = getDateTimeFormats();
 		for (int i=0; i<dateFormats.length; i++) {
 			try {
@@ -48,12 +50,13 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 	private DateFormat getDateTimeFormat(boolean forParsing) { 
 		if (isExtendedFormat()) return extendedDateTimeFormat;
 		if (isDotFormat()) return dotDateFormat; 
+		if (isZhFormatAndJavaIs21orBetter()) return zhDateFormat;
 		if (isZhFormatAndJavaLessThan9()) return zhDateFormat;
 		return forParsing?Dates.getDateTimeFormatForParsing(Locales.getCurrent()):Dates.getDateTimeFormat();  
 	}
 	
 	private DateFormat[] getDateTimeFormats() {
-		if (isExtendedFormat() || isDotFormat()) return getExtendedDateTimeFormats();
+		if (isExtendedFormat() || isDotFormat() || isZhFormatAndJavaIs21orBetter()) return getExtendedDateTimeFormats();
 		return new DateFormat [] { getDateTimeFormat(true) }; 
 	}
 	
