@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Using 'join' instead of 'left join' for more cases to improve performance in list.
 - Fix: Formatting problems for dates in Chinese and Greek with Java 21.
 - New method isJava21orBetter() in XSystem utility class.
 - Fix: Low performance with large @ElementCollection after calling View.setLabelId().
