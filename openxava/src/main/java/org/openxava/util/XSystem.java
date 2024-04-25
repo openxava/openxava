@@ -104,7 +104,7 @@ public class XSystem {
 		}
 	}
 	
-	/** @since 6.0 */
+	/** @since 7.3.1 */
 	public static boolean isJava21orBetter() {
 		try {
 			String version = System.getProperty("java.specification.version");
