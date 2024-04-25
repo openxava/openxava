@@ -29,10 +29,8 @@ public class PhoneList {
 	private static Log log = LogFactory.getLog(PhoneList.class);
 	private static IPhoneListProvider provider;
 	
-	// tmr public String filter(HttpServletRequest request, HttpServletResponse response, String application, String module, String searchWord) {
-	public String filter(HttpServletRequest request, HttpServletResponse response, String application, String module, String searchWord, String rowAction) { // tmr
-		// tmr return getProvider().filter(request, response, application, module, searchWord);
-		return getProvider().filter(request, response, application, module, searchWord, rowAction); // tmr
+	public String filter(HttpServletRequest request, HttpServletResponse response, String application, String module, String searchWord, String rowAction) { 
+		return getProvider().filter(request, response, application, module, searchWord, rowAction); 
 	}
 	
 	private static IPhoneListProvider getProvider() {
