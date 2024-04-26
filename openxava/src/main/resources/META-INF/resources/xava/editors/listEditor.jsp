@@ -10,6 +10,7 @@
 <%@ page import="org.openxava.model.meta.MetaProperty" %>
 <%@ page import="org.openxava.web.WebEditors" %>
 <%@ page import="org.openxava.util.Is" %>
+<%@ page import="org.openxava.view.View" %>
 <%@ page import="org.openxava.web.Ids" %>
 <%@ page import="org.openxava.controller.meta.MetaAction" %>
 <%@ page import="org.openxava.controller.meta.MetaControllers" %>
@@ -78,6 +79,7 @@ if (simple) filter = false;
 String groupBy = tab.getGroupBy();
 boolean grouping = !Is.emptyString(groupBy);
 if (grouping) action = null;
+boolean editable = ("true").equals(request.getParameter("viewKeyEditable"));
 %>
 
 <input type="hidden" name="xava_list<%=tab.getTabName()%>_filter_visible"/>
@@ -362,9 +364,27 @@ if (tab.isRowsHidden()) {
 else {
 IXTableModel model = tab.getTableModel(); 
 totalSize = totalSize < 0?tab.getTotalSize():totalSize; 
+
+System.out.println("listEditor");
+System.out.println(editable); // false -- true
+System.out.println(view.getModelName()); // EntityA - EntityA
+System.out.println(view.isKeyEditable()); // false -- false
+System.out.println(view.getKeyValues());
+System.out.println(view.getRoot().getModelName());
+System.out.println(view.getRoot().isKeyEditable());
+System.out.println(view.getRoot().getKeyValues());
+System.out.println("-----");
+System.out.println("***");
+System.out.println(view.getRoot().hasSections()); // true -- 
+System.out.println("###");
+if (view.getParent() != null) System.out.println(view.getParent().hasSections()); // true -- 
+
+boolean parentHasSections = false;
+View parent = view.getParent();
+if (parent != null) parentHasSections = parent.hasSections();
 if (totalSize > 0 || !Is.emptyString(collection)) { 
 int finalIndex = simple?Integer.MAX_VALUE:tab.getFinalIndex();
-for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) {
+for (int f=tab.getInitialIndex(); f< (editable && parentHasSections ? 0 : model.getRowCount()) && f < finalIndex; f++) {
 	String checked=tab.isSelected(f)?"checked='true'":"";	
 	String cssClass=f%2==0?"ox-list-pair":"ox-list-odd";	
 	String cssCellClass=f%2==0?"ox-list-pair":"ox-list-odd"; 
