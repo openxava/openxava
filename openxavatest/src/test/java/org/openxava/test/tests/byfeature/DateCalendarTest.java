@@ -275,7 +275,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		dateTime.sendKeys(Keys.TAB);
 		assertValue("time", "");
 		setValue("time","25/12/06 11:33");
-		dateTime.sendKeys(Keys.TAB);
+		dateTime.sendKeys(Keys.TAB); // TMR FALLA
 		Thread.sleep(100);
 		assertValue("time", "25/12/2006 11:33");
 		

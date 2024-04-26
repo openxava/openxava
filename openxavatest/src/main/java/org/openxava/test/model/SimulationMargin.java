@@ -1,6 +1,5 @@
 package org.openxava.test.model;
 
-import java.math.*;
 import java.util.*;
 
 import javax.persistence.*;
@@ -19,8 +18,6 @@ import lombok.*;
 @Getter @Setter
 public class SimulationMargin {
 	
-	public static final BigDecimal PESO_PADRE = new BigDecimal(100); // tmr ¿Quitar?
-	
 	@Required
 	@ManyToOne(fetch = FetchType.LAZY)
 	@ReferenceView(value = "NoDetails")
@@ -36,6 +33,7 @@ public class SimulationMargin {
 	private Collection<SimulationMarginDetail> details;
 	
 	public void fillDetails() {
+		// Don't change the algorithm
 		Collection<SimulationMarginDetail> newDetails = new ArrayList<SimulationMarginDetail>();
 		for (SimulationDetail simulationDetail : simulation.getDetails()) {
 			SimulationMarginDetail simulationMarginDetail = new SimulationMarginDetail();

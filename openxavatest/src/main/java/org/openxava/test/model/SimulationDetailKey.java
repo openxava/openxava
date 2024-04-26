@@ -16,11 +16,11 @@ import lombok.*;
 public class SimulationDetailKey implements Serializable {
 	
 	@Id
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY) // FetchType.LAZY needed to test a case 
 	Simulation simulation;
 	
 	@Id
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY) // FetchType.LAZY needed to test a case
 	Product product;
 
 }

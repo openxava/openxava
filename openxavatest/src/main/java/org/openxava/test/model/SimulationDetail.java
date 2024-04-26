@@ -24,13 +24,13 @@ import lombok.*;
 public class SimulationDetail {
 	
 	@Id
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY) // FetchType.LAZY needed to test a case
 	@ReferenceView(value = "NoDetails")
 	@NoFrame
 	private Simulation simulation;
 	
 	@Id
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY) // FetchType.LAZY needed to test a case
 	@NoCreate
 	@NoModify
 	@ReferenceView("Simple")
@@ -41,46 +41,11 @@ public class SimulationDetail {
 	private BigDecimal weightPercentage;
 	
 	public BigDecimal calculateProfit(BigDecimal sellingPrice) {
-		/* tmr
-		if(weightPercentage == null || sellingPrice == null) {
-			return BigDecimal.ZERO; 
-		} else {
-			return weightPercentage.multiply(sellingPrice);
-		}
-		*/
-		// tmr ini
 		if(sellingPrice == null) {
 			return BigDecimal.ZERO; 
 		} else {
 			return new BigDecimal(2).multiply(sellingPrice);
 		}		
-		// tmr fin
 	}
-
-		
-	/* tmr
-	@Hidden
-	@Column(precision = 2, scale = 0)
-    private BigDecimal ordineFiglio;
-	
-	public BigDecimal calcolaRicavoFiglio(BigDecimal prezzoVendita) {
-		if(getPercentualePeso() == null || prezzoVendita == null) {
-			return BigDecimal.ZERO; 
-		} else {
-			return getPercentualePeso().multiply(prezzoVendita);
-		}
-	}
-	
-	public static Collection findDistinctPadreByListaFigliAndNotPadre(Collection<Articolo> listaFigli, Simulation padre)
-	{
-		Query query = XPersistence.getManager().createQuery("SELECT DISTINCT tb.padre FROM PadreFiglio tb WHERE tb.padre IN (SELECT e.padre "
-                + "FROM PadreFiglio e "
-                + "WHERE e.figlio IN (:listaFigli) AND e.padre != :padre "
-                + "ORDER BY e.padre.padre.ug.ug, e.padre.padre.raggruppamento.raggruppamento, e.padre.padre.famiglia.famiglia)");
-		query.setParameter("listaFigli", listaFigli);
-		query.setParameter("padre", padre);
-		return query.getResultList();
-	}
-	*/
 	
 }

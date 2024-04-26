@@ -25,11 +25,9 @@ public class OnChangeSimulationMarginDetailSellingPriceAction extends OnChangePr
 		
 		Map values = MapFacade.getValues(getView().getParent().getModelName(), simulationMargin, getView().getParent().getMembersNames());
 		
-		System.out.println("[OnChangeSimulationMarginDetailSellingPriceAction.execute] values=" + values); // tmr
-		
 		getView().getParent().setValues(values); // Here was the error
 		
-		addMessage("Data reloaded"); // tmr i18n
+		addMessage("simulation_data_reloaded"); 
 		
 	}
 	
