@@ -18,7 +18,8 @@ abstract public class DateTimeBaseFormatter {
 		new SimpleDateFormat("ddMMyy HH:mm"),
 		new SimpleDateFormat("ddMMyy HH:mm:ss"),
 		new SimpleDateFormat("dd.MM.yy HH:mm"),		
-		new SimpleDateFormat("dd.MM.yy HH:mm:ss"),		
+		new SimpleDateFormat("dd.MM.yy HH:mm:ss"),
+		new SimpleDateFormat("yyyy/M/d ah:mm"),
 		new SimpleDateFormat("dd/MM/yy"),		
 		new SimpleDateFormat("ddMMyy"),		
 		new SimpleDateFormat("dd.MM.yy")
@@ -41,6 +42,10 @@ abstract public class DateTimeBaseFormatter {
 	
 	protected boolean isZhFormatAndJavaLessThan9() {
 		return isZhFormat() && !XSystem.isJava9orBetter();
+	}
+	
+	protected boolean isZhFormatAndJavaIs21orBetter() {
+		return isZhFormat() && XSystem.isJava21orBetter();
 	}
 	
 	protected boolean isZhFormat() {

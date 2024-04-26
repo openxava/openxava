@@ -1,6 +1,13 @@
 Change Log for OpenXava project
 ===============================
 
+- Commons-io upgraded to 2.16.1.
+- JasperReports and fonts upgraded to 6.21.3.
+- Groovy upgraded to 4.0.21.
+- Embedded Tomcat used in development upgraded to 9.0.88.
+- Fix: Using 'join' instead of 'left join' for more cases to improve performance in list.
+- Fix: Formatting problems for dates in Chinese and Greek with Java 21.
+- New method isJava21orBetter() in XSystem utility class.
 - Fix: Low performance with large @ElementCollection after calling View.setLabelId().
 - Fix: Date and date/time fields with @OnChange restore original date values sometimes in slow computers.
 - Documentation for working with IntelliJ improved.
