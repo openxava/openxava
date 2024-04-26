@@ -368,23 +368,27 @@ totalSize = totalSize < 0?tab.getTotalSize():totalSize;
 System.out.println("listEditor");
 System.out.println(editable); // false -- true
 System.out.println(view.getModelName()); // EntityA - EntityA
-System.out.println(view.isKeyEditable()); // false -- false
-System.out.println(view.getKeyValues());
-System.out.println(view.getRoot().getModelName());
-System.out.println(view.getRoot().isKeyEditable());
-System.out.println(view.getRoot().getKeyValues());
+System.out.println(view.hasKeyProperties());
+System.out.println(view.getRoot().hasKeyProperties());
 System.out.println("-----");
+System.out.println(view.isRepresentsEntityReference());
+if (view.getParent() != null) System.out.println(view.getParent().isRepresentsEntityReference()); // 
 System.out.println("***");
 System.out.println(view.getRoot().hasSections()); // true -- 
 System.out.println("###");
 if (view.getParent() != null) System.out.println(view.getParent().hasSections()); // true -- 
 
 boolean parentHasSections = false;
+boolean parentIsEntityReference = true;
 View parent = view.getParent();
-if (parent != null) parentHasSections = parent.hasSections();
+if (parent != null) {
+	parentHasSections = parent.hasSections();
+	parentIsEntityReference = view.getParent().isRepresentsEntityReference();
+}
+editable = editable && view.getRoot().hasKeyProperties();
 if (totalSize > 0 || !Is.emptyString(collection)) { 
 int finalIndex = simple?Integer.MAX_VALUE:tab.getFinalIndex();
-for (int f=tab.getInitialIndex(); f< (editable && parentHasSections ? 0 : model.getRowCount()) && f < finalIndex; f++) {
+for (int f=tab.getInitialIndex(); f< (editable && parentHasSections && !parentIsEntityReference ? 0 : model.getRowCount()) && f < finalIndex; f++) {
 	String checked=tab.isSelected(f)?"checked='true'":"";	
 	String cssClass=f%2==0?"ox-list-pair":"ox-list-odd";	
 	String cssCellClass=f%2==0?"ox-list-pair":"ox-list-odd"; 
