@@ -30,21 +30,17 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 		if (getCollectionElementView().isCollectionFromModel()) {
 			elements = getCollectionElementView().getCollectionValues();
 			if (elements == null) return;
+			int rowValue = getCollectionElementView().getCollectionEditingRow();
+			row = (rowValue > 0) ? rowValue : getRow();
 			if (elements instanceof List) {
-				keys = (Map) ((List) elements).get(getRow());			
+				if (nextValue != 0) {
+					validRowAndUpdate(row, elements.size());
+				}
+				keys = (Map) ((List) elements).get(row);		
 			}
 		} else {
 			if (nextValue != 0) {
-				row = getCollectionElementView().getCollectionEditingRow() + nextValue;
-				if (row == -1) {
-					addError("at_list_begin");
-					row = 0;
-				}
-				if (row == getCollectionElementView().getCollectionSize()) {
-					addError("no_list_elements");
-					row = getCollectionElementView().getCollectionSize()-1;
-				}
-				getCollectionElementView().setCollectionEditingRow(row);
+				validRowAndUpdate(getCollectionElementView().getCollectionEditingRow(), getCollectionElementView().getCollectionSize());
 			}
 			keys = (Map) getCollectionElementView().getCollectionTab().getTableModel().getObjectAt(row);
 		}
@@ -102,4 +98,16 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 		this.openDialog = openDialog;
 	}
 
+	private void validRowAndUpdate(int actualRow, int size) {
+		row = actualRow + nextValue;
+		if (row == -1) {
+			addError("at_list_begin");
+			row = 0;
+		}
+		if (row == size) {
+			addError("no_list_elements");
+			row = size-1;
+		}
+		getCollectionElementView().setCollectionEditingRow(row);
+	}
 }
