@@ -60,10 +60,34 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 <%
 	// Values
 Collection aggregates = subview.getCollectionValues();
-String actualViewName = view.getViewName();
-boolean hasViewName = true;
-if (actualViewName != null) hasViewName = (!actualViewName.isEmpty());
-if (aggregates == null || (view.isKeyEditable() && view.getRoot().hasSections() && hasViewName)) aggregates = java.util.Collections.EMPTY_LIST;
+//tengo que ver si hay alguna manera de distinguir entre office y customerwithsection
+View parent = view.getParent();
+
+System.out.println(1);
+System.out.println(view.getModelName());
+System.out.println(view.isKeyEditable()); // t
+System.out.println(view.isOnlyThrowsOnChange()); // f
+System.out.println(view.isCreateNew()); // f - t
+System.out.println(view.hasKeyProperties());
+System.out.println("---");
+System.out.println(view.isRepresentsAggregate()); // f
+System.out.println(view.isRepresentsCollection()); // f
+System.out.println(view.isRepresentsElementCollection()); // f
+System.out.println(view.isRepresentsEntityReference());  // f - t
+System.out.println(2);
+if (parent != null){
+	System.out.println(parent.getModelName());
+	System.out.println(parent.hasSections()); // true
+	System.out.println(parent.isRepresentsAggregate()); // f
+	System.out.println(parent.isRepresentsCollection()); // f
+	System.out.println(parent.isRepresentsElementCollection()); // f
+	System.out.println(parent.isRepresentsEntityReference()); // f
+}
+System.out.println(3);
+boolean parentHasSections = parent != null && parent.hasSections();
+//boolean parentIsEntityReference = parent != null && parent.isRepresentsEntityReference();
+boolean condition = view.isKeyEditable() && parentHasSections;
+if (aggregates == null || condition) aggregates = java.util.Collections.EMPTY_LIST;
 Iterator itAggregates = aggregates.iterator();
 for (int f=0; itAggregates.hasNext(); f++) {
 	Map row = (Map) itAggregates.next();

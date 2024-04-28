@@ -5,6 +5,15 @@ import org.openqa.selenium.*;
 public class CollectionTest extends WebDriverTestBase {
 	
 	public void testChangeSectionNotLoadCollection() throws Exception {
+		goModule("Invoice");
+		execute("CRUD.new");
+		setValue("year", "2002");
+		setValue("number", "1");
+		execute("Sections.change", "activeSection=1");
+		assertCollectionRowCount("details", (0+2));
+		execute("CRUD.refresh");
+		assertCollectionRowCount("details", (2+2));
+		
 		goModule("CustomerWithSection");
 		execute("CRUD.new");
 		setValue("number", "43");
