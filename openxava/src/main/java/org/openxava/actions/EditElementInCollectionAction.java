@@ -33,15 +33,11 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 			int rowValue = getCollectionElementView().getCollectionEditingRow();
 			row = (rowValue > 0) ? rowValue : getRow();
 			if (elements instanceof List) {
-				if (nextValue != 0) {
-					validRowAndUpdate(row, elements.size());
-				}
+				if (nextValue != 0) validRowAndUpdate(row, elements.size());
 				keys = (Map) ((List) elements).get(row);		
 			}
 		} else {
-			if (nextValue != 0) {
-				validRowAndUpdate(getCollectionElementView().getCollectionEditingRow(), getCollectionElementView().getCollectionSize());
-			}
+			if (nextValue != 0) validRowAndUpdate(getCollectionElementView().getCollectionEditingRow(), getCollectionElementView().getCollectionSize());
 			keys = (Map) getCollectionElementView().getCollectionTab().getTableModel().getObjectAt(row);
 		}
 				
