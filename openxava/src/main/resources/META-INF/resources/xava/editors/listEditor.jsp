@@ -10,6 +10,7 @@
 <%@ page import="org.openxava.model.meta.MetaProperty" %>
 <%@ page import="org.openxava.web.WebEditors" %>
 <%@ page import="org.openxava.util.Is" %>
+<%@ page import="org.openxava.view.View" %>
 <%@ page import="org.openxava.web.Ids" %>
 <%@ page import="org.openxava.controller.meta.MetaAction" %>
 <%@ page import="org.openxava.controller.meta.MetaControllers" %>
@@ -362,9 +363,14 @@ if (tab.isRowsHidden()) {
 else {
 IXTableModel model = tab.getTableModel(); 
 totalSize = totalSize < 0?tab.getTotalSize():totalSize; 
+View parent = view.getParent();
+boolean hasKeyAndEditable = ("true").equals(request.getParameter("viewKeyEditable")) && view.getRoot().hasKeyProperties();
+boolean parentHasSections = parent != null && parent.hasSections();
+boolean parentIsEntityReference = parent != null && !parent.isRepresentsEntityReference();
 if (totalSize > 0 || !Is.emptyString(collection)) { 
 int finalIndex = simple?Integer.MAX_VALUE:tab.getFinalIndex();
-for (int f=tab.getInitialIndex(); f<model.getRowCount() && f < finalIndex; f++) {
+boolean condition = hasKeyAndEditable && parentHasSections && parentIsEntityReference;
+for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f < finalIndex; f++) {
 	String checked=tab.isSelected(f)?"checked='true'":"";	
 	String cssClass=f%2==0?"ox-list-pair":"ox-list-odd";	
 	String cssCellClass=f%2==0?"ox-list-pair":"ox-list-odd"; 

@@ -18,8 +18,20 @@ public class ProjectTest extends ModuleTestBase {
 		super(testName, "Project");		
 	}
 	
-	public void testWebURLEditor() throws Exception { 
+	public void testWebURLEditor_nextAndPreviousElementInCollection() throws Exception { 
 		execute("List.viewDetail", "row=0");
+		
+		execute("Collection.edit", "row=0,viewObject=xava_view_members");
+		execute("Collection.previous");
+		assertError("We already are at the beginning of the list");
+		execute("Collection.next");
+		assertValue("name", "JUAN");
+		execute("Collection.next");
+		assertValue("name", "PETER");
+		execute("Collection.next");
+		assertValue("name", "PETER");
+		execute("Collection.hideDetail");
+		
 		setValueInCollection("notes", 0, 2, "www.openxava.org");
 		setValueInCollection("notes", 1, 2, "http://www.wikipedia.org/"); 
 		assertLinkOnNote(0, "The best time-to-market for Java");
