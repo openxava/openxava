@@ -95,8 +95,7 @@ public class TransientPersistenceProvider implements IPersistenceProvider {
 
 	public String getModelName(Object modelObject) {
 		if (modelObject == null) return null;
-		// tmr return modelObject.getClass().getSimpleName();
-		return Hibernate.getClass(modelObject).getSimpleName(); // tmr
+		return Hibernate.getClass(modelObject).getSimpleName(); // Because sometime some reference in a transient object could be not so transient
 	}
 
 }

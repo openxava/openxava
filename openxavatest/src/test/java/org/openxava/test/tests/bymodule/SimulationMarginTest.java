@@ -3,7 +3,7 @@ package org.openxava.test.tests.bymodule;
 import org.openxava.tests.*;
 
 /**
- * tmr
+ * 
  * @author Javier Paniza
  */
 public class SimulationMarginTest extends ModuleTestBase {

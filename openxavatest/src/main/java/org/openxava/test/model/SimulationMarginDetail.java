@@ -10,7 +10,7 @@ import org.openxava.test.actions.*;
 import lombok.*;
 
 /**
- * tmr SimulazioneMargineFiglio
+ * 
  * @author Javier Paniza
  */
 

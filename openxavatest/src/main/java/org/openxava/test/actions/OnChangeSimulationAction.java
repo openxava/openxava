@@ -5,7 +5,6 @@ import org.openxava.model.*;
 import org.openxava.test.model.*;
 
 /**
- * tmr
  * 
  * @author Javier Paniza
  */

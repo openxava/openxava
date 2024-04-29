@@ -9,7 +9,6 @@ import org.openxava.annotations.*;
 import lombok.*;
 
 /**
- * tmr PadreFiglio 
  * 
  * @author Javier Paniza
  */
