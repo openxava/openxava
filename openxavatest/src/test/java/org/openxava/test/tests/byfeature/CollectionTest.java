@@ -2,6 +2,14 @@ package org.openxava.test.tests.byfeature;
 
 import org.openqa.selenium.*;
 
+/**
+ * To test collections related issues with Selenium. <p>
+ * 
+ * List features present in @OneToMany collections, like sorting,
+ * customizing, filtering, paging, etc. are tested in ListTest.   
+ * 
+ * @author Chungyen Tsai
+ */
 public class CollectionTest extends WebDriverTestBase {
 	
 	public void testChangeSectionNotLoadCollection() throws Exception {

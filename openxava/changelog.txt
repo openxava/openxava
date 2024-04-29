@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Collection data inside sections is populated on typing an existing key creating a new record.
 - Fix: Collection navigation does not work for @OrderColumn lists. 
 - Commons-io upgraded to 2.16.1.
 - JasperReports and fonts upgraded to 6.21.3.
