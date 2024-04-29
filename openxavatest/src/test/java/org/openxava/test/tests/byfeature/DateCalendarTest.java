@@ -261,7 +261,8 @@ public class DateCalendarTest extends WebDriverTestBase {
 		dateTime = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__time")); // sometime has element not found error
 		dateTime.clear();
 		dateTime.sendKeys(" 12/25/08 12:33 AM");
-		dateTime.sendKeys(Keys.TAB);
+		dateTimeLabel = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__label_time"));
+		dateTimeLabel.click();
 		dateTime = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__time"));
 		dateTimeLabel.click();
 		Thread.sleep(200); 
@@ -275,7 +276,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		dateTime.sendKeys(Keys.TAB);
 		assertValue("time", "");
 		setValue("time","25/12/06 11:33");
-		dateTime.sendKeys(Keys.TAB); // TMR FALLA
+		dateTime.sendKeys(Keys.TAB);
 		Thread.sleep(100);
 		assertValue("time", "25/12/2006 11:33");
 		
