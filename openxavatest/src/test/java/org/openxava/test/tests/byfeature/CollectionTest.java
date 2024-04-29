@@ -19,7 +19,7 @@ public class CollectionTest extends WebDriverTestBase {
 		setValue("number", "43");
 		execute("Sections.change", "activeSection=1");
 		assertCollectionRowCount("states", 0);
-		execute("CRUD.refresh");
+		execute("CRUD.refresh"); 
 		assertCollectionRowCount("states", 1);
 		
 		goModule("Office"); 
