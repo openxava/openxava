@@ -552,7 +552,11 @@ public class Module extends DWRBase {
 			Map.Entry en = (Map.Entry) it.next();
 			String qualifiedName = (String) en.getKey();
 			String name = qualifiedName.substring(qualifiedName.lastIndexOf('.') + 1);
+			// TMR ME QUEDÉ POR AQUI, DEPURANDO. YA ESTÁ LA PRUEBA JUNIT HECHA
+			System.out.println("[Module.fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor] qualifiedName=" + qualifiedName); // tmr
+			System.out.println("[Module.fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor] name=" + name); // tmr
 			View containerView = (View) en.getValue();
+			System.out.println("[Module.fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor] containerView.getModelName()=" + containerView.getModelName()); // tmr
 			String referenceAsDescriptionsListParam = "";
 			if (containerView.displayAsDescriptionsListAndReferenceView() && !qualifiedName.contains(".")) {
 				containerView = containerView.getParent(); 
@@ -574,6 +578,7 @@ public class Module extends DWRBase {
 				}
 			}
 			if (isReference) { 
+				System.out.println("[Module.fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor] A"); // tmr
 				String referenceKey = decorateId(qualifiedName); 
 				MetaReference metaReference = containerView.getMetaReference(name);
 				if (isInsideElementCollection) {
@@ -587,6 +592,7 @@ public class Module extends DWRBase {
 					"&onlyEditor=true&viewObject=" + containerView.getViewObject());
 			}
 			else {
+				System.out.println("[Module.fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor] B"); // tmr
 				put(result, "editor_" + qualifiedName, 
 					"editorWrapper.jsp?propertyName=" + name + 
 					"&editable=" + containerView.isEditable(name) +
