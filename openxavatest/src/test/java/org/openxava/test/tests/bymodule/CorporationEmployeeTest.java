@@ -48,7 +48,7 @@ public class CorporationEmployeeTest extends ModuleTestBase {
 		setValue("lastName", "SMITH");
 		setValue("email", "juansmith@gmail.com");
 		execute("CRUD.save");
-		assertNoErrors(); // Here fails, because email is required
+		assertNoErrors();
 		
 		execute("Mode.list");
 		execute("List.viewDetail", "row=1");
