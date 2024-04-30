@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Save not reset with a @ReadOnly(onCreate=false) reference with nested reference keys fails.
 - Fix: 'Group by' using the right combo in list does not work if the list is not in the first page.
 - Fix: $HibernateProxy in __MODEL_NAME__ when using MapFacade sometimes.
 - Fix: Collection data inside sections is populated on typing an existing key creating a new record.

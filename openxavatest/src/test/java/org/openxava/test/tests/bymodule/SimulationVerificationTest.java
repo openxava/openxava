@@ -3,7 +3,7 @@ package org.openxava.test.tests.bymodule;
 import org.openxava.tests.*;
 
 /**
- * tmr
+ * 
  * @author Javier Paniza
  */
 public class SimulationVerificationTest extends ModuleTestBase {
@@ -12,7 +12,7 @@ public class SimulationVerificationTest extends ModuleTestBase {
 		super(testName, "SimulationVerification");		
 	}
 
-	public void testSaveNotResetWithReferenceWithNestedReferenceKeys() throws Exception {
+	public void testSaveNotResetWithReferenceReadOnlyOnCreateFalseWithNestedReferenceKeys() throws Exception {
 		execute("CRUD.new");
 		assertValue("simulation.product.description", "");
 		setValue("simulation.product.number", "3");

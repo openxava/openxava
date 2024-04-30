@@ -8,7 +8,6 @@ import org.openxava.model.*;
 import lombok.*;
 
 /**
- * tmr
  * 
  * @author Javier Paniza
  */
@@ -20,7 +19,7 @@ public class SimulationVerification extends Identifiable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@ReferenceView(value = "NoDetails")
 	@NoFrame
-	@ReadOnly(onCreate=false)
+	@ReadOnly(onCreate=false) // Needed to test a case
 	private Simulation simulation;
 	
 }
