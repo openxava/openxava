@@ -5908,8 +5908,13 @@ public class View implements java.io.Serializable {
 					else {
 						View subview = getSubview(ref.getName());
 						subview.oldKeyEditable = !subview.keyEditable; // So subview.hasKeyEditableChanged() is true and the actions are refreshed 
+						
 						for (String key: ref.getMetaModelReferenced().getAllKeyPropertiesNames()) {
-							result.put(ref.getName() + "." + key, subview);
+							if (key.contains(".")) {
+								String refName = key.substring(0, key.indexOf('.'));
+								result.put(key, subview.getSubview(refName));
+							}
+							else result.put(ref.getName() + "." + key, subview);
 						}
 					}
 				}
@@ -6100,7 +6105,7 @@ public class View implements java.io.Serializable {
 
 	private void addChangedPropertyOrReferenceWithSingleEditor(Map result, String name) { 
 		if (!isHidden(name)) {
-			if (displayReferenceWithNotCompositeEditor()) { 				
+			if (displayReferenceWithNotCompositeEditor()) { 		
 				result.put(getPropertyPrefix(), getParent().getViewForChangedProperty());
 			}
 			else if ((
@@ -6109,9 +6114,9 @@ public class View implements java.io.Serializable {
 				) &&				
 				getMembersNamesWithoutSections().contains(name) && 
 				!getMembersNamesInGroup().contains(name)) 
-			{				
+			{	
 				result.put(getPropertyPrefix() + name, getViewForChangedProperty());
-				if (displayAsDescriptionsListAndReferenceView()) { 
+				if (displayAsDescriptionsListAndReferenceView()) {
 					result.put(propertyPrefix.substring(0, propertyPrefix.length() - 1), getViewForChangedProperty());
 				}
 			}
