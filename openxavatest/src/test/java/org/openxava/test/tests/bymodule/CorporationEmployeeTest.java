@@ -41,5 +41,24 @@ public class CorporationEmployeeTest extends ModuleTestBase {
 		assertAction("List.filter");	
 		assertExists("chooseSegment");
 	}
+	
+	public void testSaveEmailFromHtmlUnit() throws Exception { // tmr
+		execute("CRUD.new");
+		setValue("firstName", "JUAN");
+		setValue("lastName", "SMITH");
+		setValue("email", "juansmith@gmail.com");
+		execute("CRUD.save");
+		assertNoErrors(); // Here fails, because email is required
+		
+		execute("Mode.list");
+		execute("List.viewDetail", "row=1");
+		assertValue("firstName", "JUAN");
+		assertValue("lastName", "SMITH");
+		assertValue("email", "juansmith@gmail.com"); 
+		
+		execute("CRUD.delete");
+		assertNoErrors();
+	}
 			
 }
+

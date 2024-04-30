@@ -1,5 +1,7 @@
-
+//if (openxava.browser.htmlUnit) return;
 openxava.addEditorInitFunction(function() {
+	$('input.xava_numeric').autoNumeric();
+	if (openxava.browser.htmlUnit) return;
 	var defaultValues = [];
 	$("input[data-inputmask]").each(function() {
 		defaultValues.push($(this).val());
