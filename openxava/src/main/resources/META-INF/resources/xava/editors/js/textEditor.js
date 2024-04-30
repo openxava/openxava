@@ -1,4 +1,3 @@
-//if (openxava.browser.htmlUnit) return;
 openxava.addEditorInitFunction(function() {
 	$('input.xava_numeric').autoNumeric();
 	if (openxava.browser.htmlUnit) return;
