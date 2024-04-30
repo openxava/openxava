@@ -5,8 +5,6 @@ openxava.addEditorInitFunction(function() {
 	$("input[data-inputmask]").each(function() {
 		defaultValues.push($(this).val());
 	});
-	
-    $('input.xava_numeric').autoNumeric();
     $("input[data-inputmask]").inputmask();
 	
     Inputmask.extendDefaults({
