@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: ModuleTestBase.setValue() does not work for properties annotated with @Email or @Stereotype("EMAIL").
 - Fix: Save not reset with a @ReadOnly(onCreate=false) reference with nested reference keys fails.
 - Fix: 'Group by' using the right combo in list does not work if the list is not in the first page.
 - Fix: $HibernateProxy in __MODEL_NAME__ when using MapFacade sometimes.
