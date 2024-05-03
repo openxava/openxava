@@ -1,30 +1,28 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.3.1 (2024-5-3)
+-------------------------
 - New method isJava21orBetter() in XSystem utility class.
 - Added automated tests for date, datetime and popup calendar related issues.
-
-- Commons-io upgraded to 2.16.1.
+- Commons IO upgraded to 2.16.1.
 - JasperReports and fonts upgraded to 6.21.3.
 - Groovy upgraded to 4.0.21.
 - Embedded Tomcat used in development upgraded to 9.0.88.
-
 - Documentation for working with IntelliJ improved.
-
 - Fix: ModuleTestBase.setValue() does not work for properties annotated with @Email or @Stereotype("EMAIL").
 - Fix: Save not reset with a @ReadOnly(onCreate=false) reference with nested reference keys fails.
 - Fix: 'Group by' using the right combo in the list does not work if the list is not in the first page.
 - Fix: $HibernateProxy in __MODEL_NAME__ when using MapFacade sometimes.
 - Fix: Collection data inside sections is populated on typing an existing key creating a new record.
 - Fix: Collection navigation does not work for @OrderColumn lists. 
-- Fix: Using 'join' instead of 'left join' for more cases to improve performance in list.
+- Fix: Using 'join' instead of 'left join' to improve performance in list is not used for common cases.
 - Fix: Formatting problems for dates in Chinese and Greek with Java 21.
 - Fix: Low performance with large @ElementCollection after calling View.setLabelId().
 - Fix: Date and date/time fields with @OnChange restore original date values sometimes in slow computers.
 - Fix: Sum property in the column of a collection with total properties can be removed by the user.
 - Fix: Total properties in a @ListProperties with no forViews overwrite the ones of other @ListProperties.
 - Fix: Incorrect date changed automatically to a correct but different one when focus lost twice.
-
 
 OpenXava 7.3 (2024-4-12)
 ------------------------
