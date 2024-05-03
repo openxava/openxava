@@ -16,7 +16,7 @@ public class CorporationEmployeeTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		execute("CorporationEmployee.report");
 		assertNoErrors();
-		assertTrue(getPopupText().contains("<tr><td>Corporation:</td><td>RANONE</td></tr>")); 
+		assertTrue(getPopupText().contains("<tr><td>Corporation:</td><td>RANONE</td></tr>"));  
 	}
 	
 	public void testTabEditorForModel() throws Exception {
@@ -42,7 +42,7 @@ public class CorporationEmployeeTest extends ModuleTestBase {
 		assertExists("chooseSegment");
 	}
 	
-	public void testSaveEmailFromHtmlUnit() throws Exception { // tmr
+	public void testSaveEmailFromHtmlUnit() throws Exception { 
 		execute("CRUD.new");
 		setValue("firstName", "JUAN");
 		setValue("lastName", "SMITH");
@@ -51,8 +51,9 @@ public class CorporationEmployeeTest extends ModuleTestBase {
 		assertNoErrors();
 		
 		execute("Mode.list");
-		execute("List.viewDetail", "row=1");
-		assertValue("firstName", "JUAN");
+		execute("List.orderBy", "property=corporation.name"); 
+		execute("List.viewDetail", "row=0");
+		assertValue("firstName", "JUAN"); 
 		assertValue("lastName", "SMITH");
 		assertValue("email", "juansmith@gmail.com"); 
 		
