@@ -131,6 +131,7 @@ openxava.refreshPage = function(result) {
 			}			
 		}
 		if (result.showDialog){
+			openxava.hideMessages();
 			openxava.initBeforeShowDialog(); 
 			dialog.attr("application", result.application);
 			dialog.attr("module", result.module);
@@ -426,6 +427,10 @@ openxava.showMessages = function(result) {
 
 openxava.hideErrors = function(application, module) {  
 	$("#"+openxava.decorateId(application, module, "errors")).fadeOut();
+}
+
+openxava.hideMessages = function() {  
+	$("td.ox-messages").fadeOut();
 }
 
 openxava.initSelectedRows = function() { 
