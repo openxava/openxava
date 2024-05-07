@@ -131,7 +131,9 @@ openxava.refreshPage = function(result) {
 			}			
 		}
 		if (result.showDialog){
-			openxava.hideMessages();
+			//$("#"+openxava.decorateId(result.application, result.module, "errors")+"_table__DISABLED__").fadeOut();
+			//$("#"+openxava.decorateId(result.application, result.module, "messages")+"_table__DISABLED__").fadeOut();
+			openxava.hideMessagesAndErrors();
 			openxava.initBeforeShowDialog(); 
 			dialog.attr("application", result.application);
 			dialog.attr("module", result.module);
@@ -427,10 +429,11 @@ openxava.showMessages = function(result) {
 
 openxava.hideErrors = function(application, module) {  
 	$("#"+openxava.decorateId(application, module, "errors")).fadeOut();
+	
 }
 
-openxava.hideMessages = function() {  
-	$("td.ox-messages").fadeOut();
+openxava.hideMessagesAndErrors = function() {  
+	$("td.ox-messages, td.ox-errors").fadeOut();
 }
 
 openxava.initSelectedRows = function() { 
