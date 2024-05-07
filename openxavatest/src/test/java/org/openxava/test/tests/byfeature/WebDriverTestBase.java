@@ -123,9 +123,9 @@ abstract public class WebDriverTestBase extends TestCase {
 		try { 
 			WebElement button = driver.findElement(By.cssSelector("a[data-action='" + action + "'][data-argv='" + arguments + "']"));
 			try {
-			button.click();
-			acceptInDialogJS(driver);
-			wait(driver);
+				button.click();
+				acceptInDialogJS(driver);
+				wait(driver);
 			} catch (ElementNotInteractableException ex) {
 				JavascriptExecutor executor = (JavascriptExecutor) driver;
 	            executor.executeScript("arguments[0].click();", button);
