@@ -1,6 +1,7 @@
 package org.openxava.web;
 
 import java.util.*;
+import java.util.regex.*;
 
 import javax.servlet.http.*;
 
@@ -137,8 +138,24 @@ public class WebEditors {
 	}
 		
 	private static Object changeSpecialCharacters(String formattedString) {  
-		if (hasMarkup(formattedString)) return formattedString;
+		// tmr if (hasMarkup(formattedString)) return formattedString;
+		if (hasMarkup(formattedString)) return refineFormattedString(formattedString);
 		return formattedString.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;"); 
+	}
+	
+	private static String refineFormattedString(String original) { // tmr
+		// TMR ME QUEDÉ POR AQUÍ. CREO QUE SÉ POR QUE NO VA, ES PORQUE HAY UN title QUE CONTIENE HTML
+		// TMR  AL SER ANIDADO, NO LO DETECTA EL PARSER
+		System.out.println("[WebEditors.refineFormattedString] original=" + original); // tmr
+        Pattern pattern = Pattern.compile("(?<=>)[^<]*\"[^<]*(?=<)"); // tmr Cronometrar
+        Matcher matcher = pattern.matcher(original);
+        StringBuffer sb = new StringBuffer();
+        while(matcher.find()) {
+            matcher.appendReplacement(sb, matcher.group().replace("\"", "&quot;"));
+        }
+        matcher.appendTail(sb);
+        System.out.println("[WebEditors.refineFormattedString] result=" + sb); // tmr
+        return sb.toString();	
 	}
 	
 	public static Object formatTitle(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException { 

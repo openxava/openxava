@@ -46,8 +46,10 @@ public class Formula {
 	@ListProperties("image, ingredient.name") 
 	private Collection<FormulaIngredient> ingredients;	
 	
-	@Stereotype("HTML_TEXT")	
-	@ReadOnly 
+	// tmr @Stereotype("HTML_TEXT")	
+	// tmr @ReadOnly
+	@Stereotype("MY_TEXT_AREA") // tmr 
+
 	private String recipe;
 	
 	public static Formula findByName(java.lang.String name) throws NoResultException {
