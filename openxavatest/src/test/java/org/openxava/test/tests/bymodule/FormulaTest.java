@@ -2,6 +2,7 @@ package org.openxava.test.tests.bymodule;
 
 import javax.persistence.*;
 
+import org.apache.commons.lang3.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
@@ -244,12 +245,22 @@ public class FormulaTest extends ModuleTestBase {
 		assertTrue("Expected HTML token not found", getHtml().indexOf("Y largo</strong>,<span style=\"background-color: rgb(153, 204, 0);\"> verde </span>") >= 0);
 	}
 	
-	public void testSingleQuotationMarkAsHtmlValue() throws Exception {
+	public void testSingleQuotationMarkAsHtmlValue_doubleQuoteInLongHtmlTextInList_doubleQuoteInTextArea() throws Exception {
+		assertListRowCount(3); // So list is displayed and includes "GREAT FORMULA" 
+
 		execute("CRUD.new");
 		setValue("name", "L'AJUNTAMENT");
 		execute("CRUD.refresh");
 		execute("Sections.change", "activeSection=1");
 		assertValue("recipe", "L'Ajuntament");
+		
+		execute("CRUD.new");
+		setValue("name", "GREAT FORMULA");
+		execute("CRUD.refresh");
+		execute("Sections.change", "activeSection=2");
+		String sourceCode = getValue("sourceCode");
+		assertTrue(sourceCode.length() > 200); // It's a bug with big texts
+		assertTrue(StringUtils.countMatches(sourceCode, '"') == 1); // It failed with just one " inside HTML 
 	}
 			
 }
