@@ -122,9 +122,14 @@ abstract public class WebDriverTestBase extends TestCase {
 	protected void executeWithArg(String moduleName, String action, String arguments) throws Exception { 
 		try { 
 			WebElement button = driver.findElement(By.cssSelector("a[data-action='" + action + "'][data-argv='" + arguments + "']"));
-			button.click();
-			acceptInDialogJS(driver);
-			wait(driver);
+			try {
+				button.click();
+				acceptInDialogJS(driver);
+				wait(driver);
+			} catch (ElementNotInteractableException ex) {
+				JavascriptExecutor executor = (JavascriptExecutor) driver;
+	            executor.executeScript("arguments[0].click();", button);
+			}
 		}
 		catch (NoSuchElementException ex) {
 			if (arguments.startsWith(",")) throw ex;
