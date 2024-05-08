@@ -246,16 +246,14 @@ public class FormulaTest extends ModuleTestBase {
 	}
 	
 	public void testSingleQuotationMarkAsHtmlValue_doubleQuoteInLongHtmlTextInList_doubleQuoteInTextArea() throws Exception {
-		// tmr ini
 		assertListRowCount(3); // So list is displayed and includes "GREAT FORMULA" 
-		// tmr fin
+
 		execute("CRUD.new");
 		setValue("name", "L'AJUNTAMENT");
 		execute("CRUD.refresh");
 		execute("Sections.change", "activeSection=1");
 		assertValue("recipe", "L'Ajuntament");
 		
-		// tmr ini
 		execute("CRUD.new");
 		setValue("name", "GREAT FORMULA");
 		execute("CRUD.refresh");
@@ -263,7 +261,6 @@ public class FormulaTest extends ModuleTestBase {
 		String sourceCode = getValue("sourceCode");
 		assertTrue(sourceCode.length() > 200); // It's a bug with big texts
 		assertTrue(StringUtils.countMatches(sourceCode, '"') == 1); // It failed with just one " inside HTML 
-		// tmr fin
 	}
 			
 }
