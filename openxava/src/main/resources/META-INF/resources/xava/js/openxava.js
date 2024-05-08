@@ -427,7 +427,6 @@ openxava.showMessages = function(result) {
 
 openxava.hideErrors = function(application, module) {  
 	$("#"+openxava.decorateId(application, module, "errors")).fadeOut();
-	
 }
 
 openxava.hideAllTypeOfMessages = function(application, module) {  
