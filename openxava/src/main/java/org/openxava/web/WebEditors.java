@@ -138,12 +138,11 @@ public class WebEditors {
 	}
 		
 	private static Object changeSpecialCharacters(String formattedString) {  
-		// tmr if (hasMarkup(formattedString)) return formattedString;
 		if (hasMarkup(formattedString)) return refineFormattedString(formattedString);
 		return formattedString.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;"); 
 	}
 	
-	private static String refineFormattedString(String original) { // tmr
+	private static String refineFormattedString(String original) { 
         Pattern pattern = Pattern.compile("(?<=>)[^<]*\"[^<]*(?=<)"); 
         Matcher matcher = pattern.matcher(original);
         StringBuffer sb = new StringBuffer();

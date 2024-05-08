@@ -34,8 +34,7 @@ public class HtmlTextListFormatter implements IFormatter {
 	}
 	
 	private String replaceChar(String text) {
-		// tmr return text.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("'", "&#39;");
-		return text.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("'", "&#39;").replaceAll("\"", "&quot;"); // tmr
+		return text.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("'", "&#39;").replaceAll("\"", "&quot;"); 
 	}
 
 }
