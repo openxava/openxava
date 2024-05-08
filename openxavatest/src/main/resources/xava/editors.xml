@@ -232,13 +232,5 @@
 		<property name="suffix" value="one_not_deletable"/>
 		<for-model-property model="UserWithNickname" property="name" />
 	</editor>
-	
-	<!-- tmr ini -->
-	
-	<editor url="textAreaEditor.jsp" frame="true">
-		<list-formatter class="org.openxava.formatters.HtmlTextListFormatter"/>
-		<for-stereotype stereotype="MY_TEXT_AREA" />
-	</editor>
-	<!-- tmr fin -->
 		
 </editors>
