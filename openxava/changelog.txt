@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Error/success messages fail to fade out if the next action opens a dialog.
 - Fix: Infinite "Loading..." in list with @HtmlUnit properties with long text that contains double quotes.
 - Fix: Error "Expected property name or '}' in JSON" with @TextArea with HTML code with double quotes. 
 - Some new common use labels to be used in applications.
