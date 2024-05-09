@@ -19,7 +19,7 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		
 		execute("List.viewDetail", "row=0");		
 		
-		assertTotalsInCollection("details");   		
+		assertTotalsInCollection("details"); // TMR ME QUEDÉ  POR AQUÍ, FALLA LA ETIQUETA. AUNQUE CREO QUE EL BUG YA ESTÁ ARREGLADO  		
 		assertTotalsInCollection("calculatedDetails");		
 		
 		assertNoAction("List.removeColumnSum");
@@ -39,9 +39,11 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		assertTotalInCollection("details", 2, "amount", "15.62");
 		
 		execute("Navigation.previous");
+		// tmr ini
 		/* The below code failt because of reload(). Uncomment after fix this: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff8080818af0785c018b5c34c8c30050
+		*/
 		removeColumn("details", 2);  
-		reload(); 
+		reload(); // Needed to test it works after page reloading 
 		assertTotalInCollection("details", 1, 3,   "400.00"); 
 		assertTotalInCollection("details", 2, 3, "2,900.00");
 		
@@ -53,7 +55,8 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		
 		execute("List.addColumns", "collection=details");
 		execute("AddColumns.restoreDefault");
-		*/
+		
+		// tmr fin
 				
 		assertTotalUpdatedWhenDependsPropertyChanged(); 
 	}

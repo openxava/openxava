@@ -1916,7 +1916,10 @@ public class View implements java.io.Serializable {
 	 * @since 4.3
 	 */
 	public Object getCollectionTotal(int row, int column) {
-		return getCollectionTotal(getMetaPropertiesList().get(column).getName(), row);
+		System.out.println("[View.getCollectionTotal] getMetaPropertiesList()=" + getMetaPropertiesList()); // tmr
+		Object result = getCollectionTotal(getMetaPropertiesList().get(column).getName(), row);
+		System.out.println("[View.getCollectionTotal(" + row + ", " + column + ")] " + result); // tmr
+		return result;
 	}	
 		
 	/**
@@ -1924,7 +1927,9 @@ public class View implements java.io.Serializable {
 	 */	
 	public Object getCollectionTotal(String qualifiedPropertyName, int index) {
 		assertRepresentsCollection("getCollectionTotal()");
-		return getCollectionTotalImpl(getCollectionTotals(), qualifiedPropertyName, index);
+		Object result = getCollectionTotalImpl(getCollectionTotals(), qualifiedPropertyName, index);
+		System.out.println("[View.getCollectionTotal(" + qualifiedPropertyName + ", " + index + ")] " + result); // tmr
+		return result;
 	}
 	
 	private Object getCollectionTotalOldValue(int row, int column) { 
@@ -2081,6 +2086,7 @@ public class View implements java.io.Serializable {
 	 */
 	public int getCollectionTotalsCount() { 
 		assertRepresentsCollection("getCollectionTotalsCount()");
+		System.out.println("[View.getCollectionTotalsCount] getTotalProperties()=" + getTotalProperties()); // tmr
 		if (collectionTotalsCount < 0) {
 			collectionTotalsCount = 0;
 			for (List list: getTotalProperties().values()) {
@@ -2088,6 +2094,7 @@ public class View implements java.io.Serializable {
 			}
 			if (collectionTotalsCount == 0) collectionTotalsCount = isAnyCollectionPropertyTotalCapable()?1:0; 
 		}
+		System.out.println("[View.getCollectionTotalsCount] collectionTotalsCount=" + collectionTotalsCount); // tmr
 		return collectionTotalsCount;
 	}
 	
@@ -4297,7 +4304,8 @@ public class View implements java.io.Serializable {
 	}
 	
 		
-	private void setMetaPropertiesList(List<MetaProperty> metaProperties) throws XavaException {  
+	public void setMetaPropertiesList(List<MetaProperty> metaProperties) throws XavaException {
+	// tmr private void setMetaPropertiesList(List<MetaProperty> metaProperties) throws XavaException {  
 		this.metaPropertiesList = metaProperties;
 		setLabelsIdForMetaPropertiesList();
 	}
