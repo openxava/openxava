@@ -14,10 +14,10 @@ public class MaskTest extends WebDriverTestBase {
 		execute("CRUD.new");
 		WebElement email = getDriver().findElement(By.id("ox_openxavatest_CustomerWithSection__email"));
 		assertTrue(email.getAttribute("data-inputmask") != null);
-		email.sendKeys("pedro.matias.g.f@gmail.com.ar");
-		assertValue("email","pedro.matias.g.f@gmail.com.ar");
+		email.sendKeys("ingenierocivilpedromatias.guerrero@gmail.com.ar");
+		assertValue("email","ingenierocivilpedromatias.guerrero@gmail.com.ar");
 		email.sendKeys("ab");
-		assertValue("email","pedro.matias.g.f@gmail.com.ar");
+		assertValue("email","ingenierocivilpedromatias.guerrero@gmail.com.ar");
 		
 		WebElement emailList = getDriver().findElement(By.id("ox_openxavatest_CustomerWithSection__additionalEmails"));
 		assertTrue(emailList.getAttribute("data-inputmask") != null);
