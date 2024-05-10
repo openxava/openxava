@@ -21,7 +21,7 @@ public class InvoiceActiveYearTest extends ModuleTestBase {
 		}		
 		
 		changeModule("ChangeActiveYear");
-		setValue("year", "2002");
+		setValue("year", "2002"); 
 		execute("ChangeActiveYear.changeActiveYear");
 		assertMessage("Active year set to 2,002");
 		

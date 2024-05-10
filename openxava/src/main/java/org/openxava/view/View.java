@@ -1252,13 +1252,9 @@ public class View implements java.io.Serializable {
 				qualifiedName = name;
 				name = name + "." + keyProperty;
 			}
-			// tmr MetaProperty metaProperty = view.getMetaModel().getMetaProperty(name);
-			// tmr ini
 			MetaProperty metaProperty = view.getMetaModel().getMetaProperty(name).cloneMetaProperty(); 
 			metaProperty.setQualifiedName(name);
-			// tmr fin
 			if (name.indexOf('.') >= 0) { 
-				// tmr metaProperty = metaProperty.cloneMetaProperty();
 				metaProperty.setName(name);		
 				if (qualifiedName != null) {
 					metaProperty.setQualifiedName(qualifiedName); // The qualifiedName is used to obtain the label in collections 
@@ -4264,7 +4260,8 @@ public class View implements java.io.Serializable {
 			while (it.hasNext()) {
 				MetaProperty pr= getMetaModel().getMetaProperty((String) it.next());
 				if (!pr.isHidden()) {
-					MetaProperty prList = pr.cloneMetaProperty();					
+					MetaProperty prList = pr.cloneMetaProperty();	
+					prList.setQualifiedName(pr.getName()); 
 					metaPropertiesList.add(prList);
 				}
 			}
@@ -4291,11 +4288,9 @@ public class View implements java.io.Serializable {
 		Iterator it = metaPropertiesList.iterator();
 		while (it.hasNext()) {
 			MetaProperty p = ((MetaProperty) it.next()).cloneMetaProperty();
-			// tmr
 			if (p.getQualifiedName().contains(".") && !p.getName().contains(".")) {
 				p.setName(p.getQualifiedName());
 			}
-			// tmr fin
 			String prefix = Is.empty(getParent().getMetaModel().getName()) ? 
 				getMetaModel().getMetaComponent().getName() :
 				getParent().getMetaModel().getName();	
@@ -4304,16 +4299,14 @@ public class View implements java.io.Serializable {
 		}
 		metaPropertiesList = newList;
 	}
-	
 		
 	public void setMetaPropertiesList(List<MetaProperty> metaProperties) throws XavaException {
-	// tmr private void setMetaPropertiesList(List<MetaProperty> metaProperties) throws XavaException {  
 		if (hasSameQualifiedNames(this.metaPropertiesList, metaProperties)) return;
 		this.metaPropertiesList = metaProperties;
 		setLabelsIdForMetaPropertiesList();
 	}
 
-	private boolean hasSameQualifiedNames(List<MetaProperty> metaProperties1, List<MetaProperty> metaProperties2) { // tmr
+	private boolean hasSameQualifiedNames(List<MetaProperty> metaProperties1, List<MetaProperty> metaProperties2) { 
 		if (metaProperties1 == metaProperties2) return true;
 		if (metaProperties1 == null || metaProperties2 == null)	return false;
 		if (metaProperties1.size() != metaProperties2.size()) return false;
