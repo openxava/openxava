@@ -1252,9 +1252,13 @@ public class View implements java.io.Serializable {
 				qualifiedName = name;
 				name = name + "." + keyProperty;
 			}
-			MetaProperty metaProperty = view.getMetaModel().getMetaProperty(name);
+			// tmr MetaProperty metaProperty = view.getMetaModel().getMetaProperty(name);
+			// tmr ini
+			MetaProperty metaProperty = view.getMetaModel().getMetaProperty(name).cloneMetaProperty(); 
+			metaProperty.setQualifiedName(name);
+			// tmr fin
 			if (name.indexOf('.') >= 0) { 
-				metaProperty = metaProperty.cloneMetaProperty();
+				// tmr metaProperty = metaProperty.cloneMetaProperty();
 				metaProperty.setName(name);		
 				if (qualifiedName != null) {
 					metaProperty.setQualifiedName(qualifiedName); // The qualifiedName is used to obtain the label in collections 
@@ -1916,10 +1920,7 @@ public class View implements java.io.Serializable {
 	 * @since 4.3
 	 */
 	public Object getCollectionTotal(int row, int column) {
-		System.out.println("[View.getCollectionTotal] getMetaPropertiesList()=" + getMetaPropertiesList()); // tmr
-		Object result = getCollectionTotal(getMetaPropertiesList().get(column).getName(), row);
-		System.out.println("[View.getCollectionTotal(" + row + ", " + column + ")] " + result); // tmr
-		return result;
+		return getCollectionTotal(getMetaPropertiesList().get(column).getName(), row);
 	}	
 		
 	/**
@@ -1927,9 +1928,7 @@ public class View implements java.io.Serializable {
 	 */	
 	public Object getCollectionTotal(String qualifiedPropertyName, int index) {
 		assertRepresentsCollection("getCollectionTotal()");
-		Object result = getCollectionTotalImpl(getCollectionTotals(), qualifiedPropertyName, index);
-		System.out.println("[View.getCollectionTotal(" + qualifiedPropertyName + ", " + index + ")] " + result); // tmr
-		return result;
+		return getCollectionTotalImpl(getCollectionTotals(), qualifiedPropertyName, index);
 	}
 	
 	private Object getCollectionTotalOldValue(int row, int column) { 
@@ -2086,7 +2085,6 @@ public class View implements java.io.Serializable {
 	 */
 	public int getCollectionTotalsCount() { 
 		assertRepresentsCollection("getCollectionTotalsCount()");
-		System.out.println("[View.getCollectionTotalsCount] getTotalProperties()=" + getTotalProperties()); // tmr
 		if (collectionTotalsCount < 0) {
 			collectionTotalsCount = 0;
 			for (List list: getTotalProperties().values()) {
@@ -2094,7 +2092,6 @@ public class View implements java.io.Serializable {
 			}
 			if (collectionTotalsCount == 0) collectionTotalsCount = isAnyCollectionPropertyTotalCapable()?1:0; 
 		}
-		System.out.println("[View.getCollectionTotalsCount] collectionTotalsCount=" + collectionTotalsCount); // tmr
 		return collectionTotalsCount;
 	}
 	
@@ -4294,6 +4291,11 @@ public class View implements java.io.Serializable {
 		Iterator it = metaPropertiesList.iterator();
 		while (it.hasNext()) {
 			MetaProperty p = ((MetaProperty) it.next()).cloneMetaProperty();
+			// tmr
+			if (p.getQualifiedName().contains(".") && !p.getName().contains(".")) {
+				p.setName(p.getQualifiedName());
+			}
+			// tmr fin
 			String prefix = Is.empty(getParent().getMetaModel().getName()) ? 
 				getMetaModel().getMetaComponent().getName() :
 				getParent().getMetaModel().getName();	
@@ -4306,8 +4308,23 @@ public class View implements java.io.Serializable {
 		
 	public void setMetaPropertiesList(List<MetaProperty> metaProperties) throws XavaException {
 	// tmr private void setMetaPropertiesList(List<MetaProperty> metaProperties) throws XavaException {  
+		if (hasSameQualifiedNames(this.metaPropertiesList, metaProperties)) return;
 		this.metaPropertiesList = metaProperties;
 		setLabelsIdForMetaPropertiesList();
+	}
+
+	private boolean hasSameQualifiedNames(List<MetaProperty> metaProperties1, List<MetaProperty> metaProperties2) { // tmr
+		if (metaProperties1 == metaProperties2) return true;
+		if (metaProperties1 == null || metaProperties2 == null)	return false;
+		if (metaProperties1.size() != metaProperties2.size()) return false;
+		int size = metaProperties1.size();
+		for (int i=0; i<size; i++) {
+			MetaProperty p1 = metaProperties1.get(i);
+			MetaProperty p2 = metaProperties2.get(i);
+			if (!p1.getQualifiedName().equals(p2.getQualifiedName())) return false;
+			
+		}
+		return true;
 	}
 
 	private Map getMapStereotypesProperties() {

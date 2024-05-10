@@ -19,7 +19,7 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		
 		execute("List.viewDetail", "row=0");		
 		
-		assertTotalsInCollection("details"); // TMR ME QUEDÉ  POR AQUÍ, FALLA LA ETIQUETA. AUNQUE CREO QUE EL BUG YA ESTÁ ARREGLADO  		
+		assertTotalsInCollection("details");   		
 		assertTotalsInCollection("calculatedDetails");		
 		
 		assertNoAction("List.removeColumnSum");
