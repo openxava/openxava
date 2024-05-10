@@ -194,6 +194,7 @@ public class View implements java.io.Serializable {
 	private StringBuffer defaultSumProperties;
 	private int collectionSize = -1;
 	private boolean dataChanged;  
+	private boolean labelsChanged;
 	
 	public static void setRefiner(Object newRefiner) {
 		refiner = newRefiner;
@@ -1251,9 +1252,9 @@ public class View implements java.io.Serializable {
 				qualifiedName = name;
 				name = name + "." + keyProperty;
 			}
-			MetaProperty metaProperty = view.getMetaModel().getMetaProperty(name);
+			MetaProperty metaProperty = view.getMetaModel().getMetaProperty(name).cloneMetaProperty(); 
+			metaProperty.setQualifiedName(name);
 			if (name.indexOf('.') >= 0) { 
-				metaProperty = metaProperty.cloneMetaProperty();
 				metaProperty.setName(name);		
 				if (qualifiedName != null) {
 					metaProperty.setQualifiedName(qualifiedName); // The qualifiedName is used to obtain the label in collections 
@@ -2043,8 +2044,13 @@ public class View implements java.io.Serializable {
 		assertRepresentsCollection("hasCollectionTotal()");
 		if (column >= getMetaPropertiesList().size()) return false;
 		MetaProperty p = getMetaPropertiesList().get(column);
-		if (getTotalProperties().containsKey(p.getName())) {		
-			return row < getTotalProperties().get(p.getName()).size(); 
+		return hasCollectionTotal(row, p.getName());
+	}
+	
+	private boolean hasCollectionTotal(int row, String property) {  
+		assertRepresentsCollection("hasCollectionTotal()");
+		if (getTotalProperties().containsKey(property)) {		
+			return row < getTotalProperties().get(property).size(); 
 		}		
 		return false;
 	}
@@ -2156,7 +2162,7 @@ public class View implements java.io.Serializable {
 				View rootView = getParent().getCollectionRootOrRoot();
 				for (String property: defaultSumProperties.toString().split(",")) {
 					String sumProperty = getMemberName() + "." + property.trim() + "_SUM_";
-					if (rootView.isPropertyUsedInCalculation(sumProperty)) {
+					if (rootView.isPropertyUsedInCalculation(sumProperty) || hasCollectionTotal(1, property)) {
 						if (!Is.emptyString(properties)) properties+= ",";
 						properties += property; 						
 					}
@@ -2196,6 +2202,7 @@ public class View implements java.io.Serializable {
 	
 	public boolean isCollectionFixedTotal(int column) {
 		assertRepresentsCollection("isCollectionFixedTotal()"); 
+		if (hasCollectionTotal(1, column)) return true;  
 		return !getSumProperties().contains(getMetaPropertiesList().get(column).getName());
 	}
 
@@ -4245,24 +4252,27 @@ public class View implements java.io.Serializable {
 		}
 		return metaMembersIncludingGroups;
 	}
-			
-	public List<MetaProperty> getMetaPropertiesList() throws XavaException {		
+
+	public List<MetaProperty> getMetaPropertiesList() throws XavaException {
 		if (metaPropertiesList == null) {
 			metaPropertiesList = new ArrayList<MetaProperty>();
 			Iterator it = getMetaModel().getPropertiesNames().iterator();
 			while (it.hasNext()) {
 				MetaProperty pr= getMetaModel().getMetaProperty((String) it.next());
 				if (!pr.isHidden()) {
-					MetaProperty prList = pr.cloneMetaProperty();					
+					MetaProperty prList = pr.cloneMetaProperty();	
+					prList.setQualifiedName(pr.getName()); 
 					metaPropertiesList.add(prList);
 				}
 			}
 			setLabelsIdForMetaPropertiesList();
 		} else {
-			if (getLabels() != null) {
+			Map labels = getLabels();
+			if (labels != null && labelsChanged) {
+				labelsChanged = false;
 				for(MetaProperty mp : metaPropertiesList) {
-					if (getLabels().containsKey(mp.getName())) {
-						String newLabel = (String) getLabels().get(mp.getName());
+					if (labels.containsKey(mp.getName())) {
+						String newLabel = (String) labels.get(mp.getName());
 						if (!mp.getLabel().equals(newLabel)) mp.setLabel(newLabel);
 					}
 				}
@@ -4271,7 +4281,6 @@ public class View implements java.io.Serializable {
 		return metaPropertiesList;
 	}
 	
-	
 	private void setLabelsIdForMetaPropertiesList() throws XavaException {
 		if (getMemberName() == null || metaPropertiesList == null) return;
 		
@@ -4279,6 +4288,9 @@ public class View implements java.io.Serializable {
 		Iterator it = metaPropertiesList.iterator();
 		while (it.hasNext()) {
 			MetaProperty p = ((MetaProperty) it.next()).cloneMetaProperty();
+			if (p.getQualifiedName().contains(".") && !p.getName().contains(".")) {
+				p.setName(p.getQualifiedName());
+			}
 			String prefix = Is.empty(getParent().getMetaModel().getName()) ? 
 				getMetaModel().getMetaComponent().getName() :
 				getParent().getMetaModel().getName();	
@@ -4287,11 +4299,25 @@ public class View implements java.io.Serializable {
 		}
 		metaPropertiesList = newList;
 	}
-	
 		
-	private void setMetaPropertiesList(List<MetaProperty> metaProperties) throws XavaException {  
+	public void setMetaPropertiesList(List<MetaProperty> metaProperties) throws XavaException {
+		if (hasSameQualifiedNames(this.metaPropertiesList, metaProperties)) return;
 		this.metaPropertiesList = metaProperties;
 		setLabelsIdForMetaPropertiesList();
+	}
+
+	private boolean hasSameQualifiedNames(List<MetaProperty> metaProperties1, List<MetaProperty> metaProperties2) { 
+		if (metaProperties1 == metaProperties2) return true;
+		if (metaProperties1 == null || metaProperties2 == null)	return false;
+		if (metaProperties1.size() != metaProperties2.size()) return false;
+		int size = metaProperties1.size();
+		for (int i=0; i<size; i++) {
+			MetaProperty p1 = metaProperties1.get(i);
+			MetaProperty p2 = metaProperties2.get(i);
+			if (!p1.getQualifiedName().equals(p2.getQualifiedName())) return false;
+			
+		}
+		return true;
 	}
 
 	private Map getMapStereotypesProperties() {
@@ -5666,6 +5692,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	private void setLabels(Map labels) {
+		labelsChanged = true;
 		View root = getRoot();
 		if (this == root) {
 			this.labels = labels;
@@ -5899,8 +5926,13 @@ public class View implements java.io.Serializable {
 					else {
 						View subview = getSubview(ref.getName());
 						subview.oldKeyEditable = !subview.keyEditable; // So subview.hasKeyEditableChanged() is true and the actions are refreshed 
+						
 						for (String key: ref.getMetaModelReferenced().getAllKeyPropertiesNames()) {
-							result.put(ref.getName() + "." + key, subview);
+							if (key.contains(".")) {
+								String refName = key.substring(0, key.indexOf('.'));
+								result.put(key, subview.getSubview(refName));
+							}
+							else result.put(ref.getName() + "." + key, subview);
 						}
 					}
 				}
@@ -6091,7 +6123,7 @@ public class View implements java.io.Serializable {
 
 	private void addChangedPropertyOrReferenceWithSingleEditor(Map result, String name) { 
 		if (!isHidden(name)) {
-			if (displayReferenceWithNotCompositeEditor()) { 				
+			if (displayReferenceWithNotCompositeEditor()) { 		
 				result.put(getPropertyPrefix(), getParent().getViewForChangedProperty());
 			}
 			else if ((
@@ -6100,9 +6132,9 @@ public class View implements java.io.Serializable {
 				) &&				
 				getMembersNamesWithoutSections().contains(name) && 
 				!getMembersNamesInGroup().contains(name)) 
-			{				
+			{	
 				result.put(getPropertyPrefix() + name, getViewForChangedProperty());
-				if (displayAsDescriptionsListAndReferenceView()) { 
+				if (displayAsDescriptionsListAndReferenceView()) {
 					result.put(propertyPrefix.substring(0, propertyPrefix.length() - 1), getViewForChangedProperty());
 				}
 			}

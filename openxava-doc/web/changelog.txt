@@ -1,6 +1,79 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.3.1 (2024-5-3)
+-------------------------
+- New method isJava21orBetter() in XSystem utility class.
+- Added automated tests for date, datetime and popup calendar related issues.
+- Commons IO upgraded to 2.16.1.
+- JasperReports and fonts upgraded to 6.21.3.
+- Groovy upgraded to 4.0.21.
+- Embedded Tomcat used in development upgraded to 9.0.88.
+- Documentation for working with IntelliJ improved.
+- Fix: ModuleTestBase.setValue() does not work for properties annotated with @Email or @Stereotype("EMAIL").
+- Fix: Save not reset with a @ReadOnly(onCreate=false) reference with nested reference keys fails.
+- Fix: 'Group by' using the right combo in the list does not work if the list is not in the first page.
+- Fix: $HibernateProxy in __MODEL_NAME__ when using MapFacade sometimes.
+- Fix: Collection data inside sections is populated on typing an existing key creating a new record.
+- Fix: Collection navigation does not work for @OrderColumn lists. 
+- Fix: Using 'join' instead of 'left join' to improve performance in list is not used for common cases.
+- Fix: Formatting problems for dates in Chinese and Greek with Java 21.
+- Fix: Low performance with large @ElementCollection after calling View.setLabelId().
+- Fix: Date and date/time fields with @OnChange restore original date values sometimes in slow computers.
+- Fix: Sum property in the column of a collection with total properties can be removed by the user.
+- Fix: Total properties in a @ListProperties with no forViews overwrite the ones of other @ListProperties.
+- Fix: Incorrect date changed automatically to a correct but different one when focus lost twice.
+
+OpenXava 7.3 (2024-4-12)
+------------------------
+- ZAP web security scanner from OWASP passed at 100%.
+- New section in documentation to configure your application to be OWASP compliant.
+- Removed the use of eval() and equivalents completely from OpenXava JavaScript code.
+- Content Security Policy does not allow the use of eval() in JavaScript code by default.
+- New property unsafeEvalInScripts in xava.property to enable the use of eval() in JavaScript.
+- Archetypes for creating new projects have error pages and cookies configuration compatible with OWASP.
+- DWR engine tuned to remove the use of eval() in its JavaScript code.
+- Fixed 1 critical security vulnerability in dependencies, now we have 0 vulnerabilities.
+- Fixed 2 critical security vulnerabilities in third party JavaScript libraries.
+- A X button in each tab to close the latest visited modules on top.
+- Navigation in collections with buttons to see the next or previous record from the dialog.
+- Dialogs fit in the screen, so dialog bottom buttons are always visible without scrolling.
+- Single number typed in a date editor is assumed as day, with current month/year auto-completed.
+- @Email and @EmailList editors use a mask to ensure in real time that the emails are correctly typed.
+- New and modern Dark theme.
+- The width of the calendar in list mode dynamically adjusts to occupy the entire available space.
+- Year navigation buttons added to calendar list format for fast year navigation to distant dates.
+- When several dates in an entity the user can choose which to use in calendar list format with a combo.
+- Drag & drop support for calendar list format.
+- Support for java.time.LocalTime as a type for properties, with a special editor for time.
+- Improved editor for the time part of DateTimeSeparatedCalendar including a popup to change the time.
+- has-type/has-annotation/has-stereotype in for-tabs of editors.xml to discriminate list formats by entity.
+- Archetypes for creating new projects include the welcome.jsp page and a sample custom editor.
+- New method createWebClient() in ModuleTestBase.
+- DWR upgraded to 3.0.2.
+- Commons Logging upgraded to 1.3.1.
+- Commons Validator upgraded to 1.8.0.
+- Groovy upgraded to 4.0.20.
+- JSoup upgraded to 1.17.2.
+- Lombok upgraded to 1.18.32.
+- Embedded Tomcat used in development upgraded to 9.0.87.
+- Jersey upgraded to 2.42.
+- Log4j upgraded to 2.23.1.
+- Json upgraded to 20240303.
+- Commons IO upgraded to 2.16.0.
+- JasperReports and font upgraded to 6.21.2.
+- HtmlUnit upgraded to 4.0.0.
+- PdfBox upgraded to 2.0.31.
+- TinyMCE JavaScript library upgraded to 6.8.3.
+- Driver version in doc and new projects upgraded for PostgreSQL, AS/400, Microsoft SQL Server, Firebird.
+- MySQL and MS SQL Server configuration documentation includes video.
+- Reverse engineering documentation includes video.
+- AS/400 connection documentation improved to cover performance problems in Windows Server.
+- Customization documentation adapted to no script inclusion in HTML editor code.  
+- Documentation for database configuration improved to include schema/database creation.
+- Fix: Error page in browser when some problem destroys a servlet request.
+- Fix: Inoffensive string "null" in the HTML code for editors.
+
 OpenXava 7.2.3 (2024-1-26)
 --------------------------
 - Some new common use labels to be used in applications.

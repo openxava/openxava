@@ -99,6 +99,11 @@
 	<editor name="LocalDateCalendar" url="dateCalendarEditor.jsp">
 		<formatter class="org.openxava.formatters.LocalDateFormatter" />
 		<for-type type="java.time.LocalDate" />
+	</editor>
+	
+	<editor name="LocalTimeCalendar" url="timeCalendarEditor.jsp">
+		<formatter class="org.openxava.formatters.TimeFormatter"/>
+		<for-type type="java.time.LocalTime" />
 	</editor>	
 
 	<editor name="ValidValuesCombo" url="validValuesEditor.jsp">
@@ -148,14 +153,14 @@
 	</editor>
 	
 	<editor name="Email" url="textEditor.jsp">
-		<property name="mask" value="*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{1,10}][.*{1,2}]" />
+		<property name="mask" value="*{1,50}[.*{1,50}][.*{1,50}][.*{1,50}][.*{1,50}]@*{1,30}[.*{1,12}][.*{1,2}]" />
         <for-stereotype stereotype="EMAIL"/>
         <for-annotation annotation="javax.validation.constraints.Email"/> 
         <for-annotation annotation="org.hibernate.validator.constraints.Email"/>     
     </editor>
     
     <editor name="EmailList" url="textEditor.jsp">
-		<property name="mask" value="*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{1,10}][.*{1,2}][, *{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{1,10}][.*{1,2}][, *{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{1,10}][.*{1,2}][, *{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{1,10}][.*{1,2}][, *{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{1,10}][.*{1,2}][, *{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{1,10}][.*{1,2}]]]]]]" />
+		<property name="mask" value="*{1,50}[.*{1,50}][.*{1,50}][.*{1,50}][.*{1,50}]@*{1,30}[.*{1,12}][.*{1,2}][, *{1,50}[.*{1,50}][.*{1,50}][.*{1,50}][.*{1,50}]@*{1,30}[.*{1,12}][.*{1,2}][, *{1,50}[.*{1,50}][.*{1,50}][.*{1,50}][.*{1,50}]@*{1,30}[.*{1,12}][.*{1,2}][, *{1,50}[.*{1,50}][.*{1,50}][.*{1,50}][.*{1,50}]@*{1,30}[.*{1,12}][.*{1,2}][, *{1,50}[.*{1,50}][.*{1,50}][.*{1,50}][.*{1,50}]@*{1,30}[.*{1,12}][.*{1,2}][, *{1,50}[.*{1,50}][.*{1,50}][.*{1,50}][.*{1,50}]@*{1,30}[.*{1,12}][.*{1,2}]]]]]]" />
         <for-stereotype stereotype="EMAIL_LIST"/>
         <for-stereotype stereotype="LISTA_EMAIL"/>
         <for-annotation annotation="org.openxava.annotations.EmailList"/>      

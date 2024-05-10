@@ -36,6 +36,10 @@ public class Folders {
 		return getProvider().goBack(request, response);
 	}
 	
+	public String goHome(HttpServletRequest request, HttpServletResponse response) {
+		return getProvider().goHome(request, response);
+	}
+	
 	private static IFoldersProvider getProvider() {
 		if (provider == null) {
 			try {

@@ -13,12 +13,13 @@ public class DiscussionTest extends WebDriverTestBase {
 
 	
 	protected WebDriver createWebDriver(String lang) {
+		// If fails try to add -Dwebdriver.gecko.driver=/snap/bin/geckodriver 
 		FirefoxOptions options = new FirefoxOptions();
 		options.addArguments("--headless");
 		return new FirefoxDriver(options);
 	}
 	
-	public void testCommentButtonsNotRespondAfterFocusOnCommentAsFirstActionInDialog() throws Exception {
+	public void testCommentButtonsNotRespondAfterFocusOnCommentAsFirstActionInDialog() throws Exception { 
 		goModule("IncidentActivity");
 		execute("Reference.createNew", "model=Incident,keyProperty=incident.id");
 		wait(getDriver(), By.className("tox-edit-area")); 

@@ -28,7 +28,7 @@ public class UploadTest extends WebDriverTestBase {
 		assertValue("name", "Juanillo");
 		
 		// Assert of there is a photo
-		assertFalse(getDriver().findElements(By.className("filepond--image-preview-wrapper")).isEmpty()); 
+		assertFalse(getDriver().findElements(By.className("filepond--image-preview-wrapper")).isEmpty());
 		
 		WebElement removeButton = getDriver().findElement(By.className("filepond--action-remove-item"));
 		//removeButton.click(); // It works when testing with Selenium with headless=false, and by hand

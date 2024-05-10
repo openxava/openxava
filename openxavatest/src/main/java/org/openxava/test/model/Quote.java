@@ -21,7 +21,9 @@ import lombok.*;
 @Getter @Setter  
 @Views({
 	@View(members="year, number, date; customer; details; estimatedProfit"), 
-	@View(name="QuoteWithRemoveElementCollection", members="year, number, date; data { customer; details }") 
+	@View(name="QuoteWithRemoveElementCollection", members="year, number, date; data { customer; details }"),
+	@View(name="WithSum", extendsView = "DEFAULT"),
+	@View(name="NoTotals", extendsView = "DEFAULT")
 })
 @Tab(defaultOrder="${year} desc") 
 public class Quote extends Identifiable {
@@ -48,7 +50,12 @@ public class Quote extends Identifiable {
 	@RemoveSelectedAction(forViews="QuoteWithRemoveElementCollection", value="Quote.removeDetail") 
 	@javax.validation.constraints.Size(min=1, max=3)  
 	@ElementCollection
-	@ListProperties("product.number, product.description, unitPrice, quantity, amount[quote.amountsSum, quote.taxesRate, quote.taxes, quote.total]") 
+	
+	// The first below @ListProperties with no forViews or notForViews to test a case
+	@ListProperties("product.number, product.description, unitPrice, quantity, amount[quote.amountsSum, quote.taxesRate, quote.taxes, quote.total]")  
+
+	@ListProperties(forViews="WithSum", value="product.number, product.description, unitPrice, quantity, amount+[quote.taxesRate, quote.taxes, quote.total]") 
+	@ListProperties(forViews="NoTotals", value="product.number, product.description, unitPrice, quantity, amount") 
 	Collection<QuoteDetail> details;
 
 	@PrePersist

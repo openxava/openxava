@@ -131,6 +131,7 @@ openxava.refreshPage = function(result) {
 			}			
 		}
 		if (result.showDialog){
+			openxava.hideAllTypeOfMessages(result.application, result.module);
 			openxava.initBeforeShowDialog(); 
 			dialog.attr("application", result.application);
 			dialog.attr("module", result.module);
@@ -426,6 +427,13 @@ openxava.showMessages = function(result) {
 
 openxava.hideErrors = function(application, module) {  
 	$("#"+openxava.decorateId(application, module, "errors")).fadeOut();
+}
+
+openxava.hideAllTypeOfMessages = function(application, module) {  
+	$("#"+openxava.decorateId(application, module, "messages")+"_table__DISABLED__").fadeOut();
+	$("#"+openxava.decorateId(application, module, "errors")+"_table__DISABLED__").fadeOut();
+	$("#"+openxava.decorateId(application, module, "warnings")+"_table__DISABLED__").fadeOut();
+	$("#"+openxava.decorateId(application, module, "infos")+"_table__DISABLED__").fadeOut();
 }
 
 openxava.initSelectedRows = function() { 
@@ -1058,7 +1066,7 @@ openxava.throwPropertyChanged = function(application, module, property) {
 		form[openxava.decorateId(application, module, "xava_changed_property")].value=property;
 		setTimeout(function() {
     		openxava.requestOnChange(application, module);
-		}, 100);
+		}, 130);		
 	}
 }
 

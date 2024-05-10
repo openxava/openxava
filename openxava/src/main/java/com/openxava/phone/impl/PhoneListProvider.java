@@ -20,7 +20,7 @@ import javax.servlet.http.*;
  */
 public class PhoneListProvider implements IPhoneListProvider {
 
-	public String filter(HttpServletRequest request, HttpServletResponse response, String application, String module, String searchWord) {
+	public String filter(HttpServletRequest request, HttpServletResponse response, String application, String module, String searchWord, String rowAction) { 
 		return null;
 	}
 

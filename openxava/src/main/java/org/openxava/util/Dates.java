@@ -544,6 +544,19 @@ public class Dates {
 			replaceAll("1", "j").
 			replaceAll("2", "n");		
 	}	
+	
+	/*
+	 * @since 7.3
+	 */
+	public static String timeFormatForJSCalendar() { 
+	    String dateTimeFormat = dateTimeFormatForJSCalendar();
+	    int indexOfSpace = dateTimeFormat.indexOf(' ');
+	    if (indexOfSpace != -1) {
+	        return dateTimeFormat.substring(indexOfSpace + 1);
+	    } else {
+	        return "";
+	    }
+	}	
 
 	/**
 	 * @param locale  Removed in 6.5

@@ -1,5 +1,6 @@
 package org.openxava.test.model;
 
+import java.sql.*;
 import java.time.*;
 
 import javax.persistence.*;
@@ -27,8 +28,11 @@ public class Event extends Identifiable{
 	@OnChange(OnChangeVoidAction.class)
 	LocalDate endDate;
 	
+	LocalTime endTime;
+	
 	@OnChange(OnChangeVoidAction.class)
-	LocalDate createDate;
+	@Editor("DateTimeSeparatedCalendar")
+	Timestamp createDate;
 	
 	String name;
 	

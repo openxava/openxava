@@ -20,6 +20,6 @@ import javax.servlet.http.*;
  */
 public interface IPhoneListProvider {
 	
-	String filter(HttpServletRequest request, HttpServletResponse response, String application, String module, String searchWord);
+	String filter(HttpServletRequest request, HttpServletResponse response, String application, String module, String searchWord, String rowAction); 
 
 }

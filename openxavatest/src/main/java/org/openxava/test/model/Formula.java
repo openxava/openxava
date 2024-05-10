@@ -20,10 +20,12 @@ import org.openxava.annotations.*;
 		"name;" +
 		"selectedIngredientSize, selectedIngredientNames;" +
 		"ingredients { ingredients }" +		
-		"recipe { recipe }"
+		"recipe { recipe }" +
+		"sourceCode { sourceCode }" 
 	),
 	@View(name="Simple", members="name")
 })
+@Tab(properties="name, recipe") 
 public class Formula {
 	
 	@Id @Hidden
@@ -47,8 +49,17 @@ public class Formula {
 	private Collection<FormulaIngredient> ingredients;	
 	
 	@Stereotype("HTML_TEXT")	
-	@ReadOnly 
+	@ReadOnly // If you remove it, rewrite setRecipe()
 	private String recipe;
+	
+	@TextArea
+	public String getSourceCode() { 
+		return recipe;
+	}
+
+	public void setSourceCode(String sourceCode) {
+		this.recipe = sourceCode;
+	}		
 	
 	public static Formula findByName(java.lang.String name) throws NoResultException {
 		javax.persistence.Query query = org.openxava.jpa.XPersistence.getManager().createQuery("from Formula as o where o.name = :name"); 
@@ -85,7 +96,7 @@ public class Formula {
 	}
 
 	public void setRecipe(String recipe) {
-		this.recipe = recipe;
+		// Given recipe is read only, so it allows setSourceCode() works
 	}
 	
 	public Integer getSelectedIngredientSize() {
@@ -102,6 +113,7 @@ public class Formula {
 
 	public void setSelectedIngredientNames(String selectedIngredientNames) {
 		this.selectedIngredientNames = selectedIngredientNames;
-	}	
+	}
+
 
 }

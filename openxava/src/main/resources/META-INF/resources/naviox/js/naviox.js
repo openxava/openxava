@@ -43,6 +43,9 @@ naviox.initModulesList = function() {
 	$('#back_folder').on( "click", function() {
 		naviox.goBack();
 	});
+	$('#home_folder').on( "click", function() {
+		naviox.goHome();
+	});	
 	$('.folder-link').on( "click", function() {
 		naviox.goFolder($(this).data('folder-id'));
 	});		
@@ -158,8 +161,12 @@ naviox.goFolder = function(folderOid) {
 	Folders.goFolder(folderOid, naviox.refreshFolderModulesList);
 }
 
-naviox.goBack = function(folderOid) {
+naviox.goBack = function() { 
 	Folders.goBack(naviox.refreshFolderBackModulesList);
+}
+
+naviox.goHome = function() { 
+	Folders.goHome(naviox.refreshFolderBackModulesList);
 }
 
 naviox.refreshModulesList = function(modulesList) { 
