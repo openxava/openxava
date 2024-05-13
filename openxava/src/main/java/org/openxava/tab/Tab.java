@@ -2360,6 +2360,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		conditionComparators = null;
 		additionalTotalsCount = -1; 
 		totalPropertiesNames = null;
+		if (getCollectionView() != null) getCollectionView().setMetaPropertiesList(getMetaProperties()); 
 	}
 	
 	/** @since 4m5 */

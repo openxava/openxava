@@ -138,7 +138,7 @@ public class DeliveryTest extends ModuleTestBase {
 		setValue("deliveredBy", "1");
 		setValue("carrier.number", "1");
 		execute("Reference.modify", "model=Carrier,keyProperty=carrier.number");
-		assertDialog();
+		assertDialog(); 
 		assertValue("drivingLicence.KEY", "");
 		assertExists("warehouse.name"); // We are in the Carrier dialog 
 		assertNoAction("CRUD.new");

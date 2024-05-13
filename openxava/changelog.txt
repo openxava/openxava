@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- First lesson of the new reporting course with JasperReports available in documentation with video.
+- Fix: Total properties disappear from collection when adding or removing columns.
+- Fix: Not allowed long email addresses for @Email, @Stereotype("EMAIL") and @Stereotype("EMAIL_LIST").
 - Fix: Error/success messages fail to fade out if the next action opens a dialog.
 - Fix: Infinite "Loading..." in list with @HtmlUnit properties with long text that contains double quotes.
 - Fix: Error "Expected property name or '}' in JSON" with @TextArea with HTML code with double quotes. 
