@@ -64,6 +64,7 @@ public class WebEditors {
 					}
 				}
 			}
+			////if (p.getType().equals("double") && strings.length == 0) return p.parse(null);
 			return p.parse(strings == null?null:strings[0], Locales.getCurrent());
 		}
 		catch (Exception ex) {

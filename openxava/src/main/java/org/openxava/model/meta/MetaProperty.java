@@ -999,8 +999,14 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			}
 			
 			if (Double.class.isAssignableFrom(type) || double.class.isAssignableFrom(type)) {
-				if (emptyString) 
-					return type.isPrimitive() ? new Double(0) : null;
+				System.out.println("double " + value + "-");
+				
+				if (emptyString) {
+					System.out.println("isEmptyString");
+					return null;
+					//return type.isPrimitive() ? new Double(0) : null;
+				}
+					
 				value = Strings.change(value, " ", ""); // In order to work with Polish					
 				Number n = NumberFormat.getNumberInstance(locale).parse(value);
 				return new Double(n.doubleValue());
