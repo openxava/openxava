@@ -18299,206 +18299,10 @@ class="sy0">&gt;</span> elementos<span class="sy0">;</span></pre>
       en el caso de las colecciones persistentes.<br>
       A partir de v5.9 las propiedades de total pueden ser persistente, por lo
       tanto editables, no sólo calculadas (con sólo un getter). También desde
-      5.9 puedes anotar una propiedad de total con <em>@Calculation</em>. Por
-      tanto puedes definir <em>@ListProperties</em> de esta forma:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.java5  {font-family:monospace;}
-.java5 .imp {font-weight: bold; color: red;}
-.java5 .kw1 {color: #000000;  font-weight: bold;}
-.java5 .kw2 {color: #000000; font-weight: bold;}
-.java5 .kw3 {color: #006600; font-weight: bold;}
-.java5 .kw4 {color: #006600; font-weight: bold;}
-.java5 .kw5 {color: #003399; font-weight: bold;}
-.java5 .kw6 {color: #003399; font-weight: bold;}
-.java5 .kw7 {color: #003399; font-weight: bold;}
-.java5 .kw8 {color: #003399; font-weight: bold;}
-.java5 .kw9 {color: #003399; font-weight: bold;}
-.java5 .kw10 {color: #003399; font-weight: bold;}
-.java5 .kw11 {color: #003399; font-weight: bold;}
-.java5 .kw12 {color: #003399; font-weight: bold;}
-.java5 .kw13 {color: #003399; font-weight: bold;}
-.java5 .kw14 {color: #003399; font-weight: bold;}
-.java5 .kw15 {color: #003399; font-weight: bold;}
-.java5 .kw16 {color: #003399; font-weight: bold;}
-.java5 .kw17 {color: #003399; font-weight: bold;}
-.java5 .kw18 {color: #003399; font-weight: bold;}
-.java5 .kw19 {color: #003399; font-weight: bold;}
-.java5 .kw20 {color: #003399; font-weight: bold;}
-.java5 .kw21 {color: #003399; font-weight: bold;}
-.java5 .kw22 {color: #003399; font-weight: bold;}
-.java5 .kw23 {color: #003399; font-weight: bold;}
-.java5 .kw24 {color: #003399; font-weight: bold;}
-.java5 .kw25 {color: #003399; font-weight: bold;}
-.java5 .kw26 {color: #003399; font-weight: bold;}
-.java5 .kw27 {color: #003399; font-weight: bold;}
-.java5 .kw28 {color: #003399; font-weight: bold;}
-.java5 .kw29 {color: #003399; font-weight: bold;}
-.java5 .kw30 {color: #003399; font-weight: bold;}
-.java5 .kw31 {color: #003399; font-weight: bold;}
-.java5 .kw32 {color: #003399; font-weight: bold;}
-.java5 .kw33 {color: #003399; font-weight: bold;}
-.java5 .kw34 {color: #003399; font-weight: bold;}
-.java5 .kw35 {color: #003399; font-weight: bold;}
-.java5 .kw36 {color: #003399; font-weight: bold;}
-.java5 .kw37 {color: #003399; font-weight: bold;}
-.java5 .kw38 {color: #003399; font-weight: bold;}
-.java5 .kw39 {color: #003399; font-weight: bold;}
-.java5 .kw40 {color: #003399; font-weight: bold;}
-.java5 .kw41 {color: #003399; font-weight: bold;}
-.java5 .kw42 {color: #003399; font-weight: bold;}
-.java5 .kw43 {color: #003399; font-weight: bold;}
-.java5 .kw44 {color: #003399; font-weight: bold;}
-.java5 .kw45 {color: #003399; font-weight: bold;}
-.java5 .kw46 {color: #003399; font-weight: bold;}
-.java5 .kw47 {color: #003399; font-weight: bold;}
-.java5 .kw48 {color: #003399; font-weight: bold;}
-.java5 .kw49 {color: #003399; font-weight: bold;}
-.java5 .kw50 {color: #003399; font-weight: bold;}
-.java5 .kw51 {color: #003399; font-weight: bold;}
-.java5 .kw52 {color: #003399; font-weight: bold;}
-.java5 .kw53 {color: #003399; font-weight: bold;}
-.java5 .kw54 {color: #003399; font-weight: bold;}
-.java5 .kw55 {color: #003399; font-weight: bold;}
-.java5 .kw56 {color: #003399; font-weight: bold;}
-.java5 .kw57 {color: #003399; font-weight: bold;}
-.java5 .kw58 {color: #003399; font-weight: bold;}
-.java5 .kw59 {color: #003399; font-weight: bold;}
-.java5 .kw60 {color: #003399; font-weight: bold;}
-.java5 .kw61 {color: #003399; font-weight: bold;}
-.java5 .kw62 {color: #003399; font-weight: bold;}
-.java5 .kw63 {color: #003399; font-weight: bold;}
-.java5 .kw64 {color: #003399; font-weight: bold;}
-.java5 .kw65 {color: #003399; font-weight: bold;}
-.java5 .kw66 {color: #003399; font-weight: bold;}
-.java5 .kw67 {color: #003399; font-weight: bold;}
-.java5 .kw68 {color: #003399; font-weight: bold;}
-.java5 .kw69 {color: #003399; font-weight: bold;}
-.java5 .kw70 {color: #003399; font-weight: bold;}
-.java5 .kw71 {color: #003399; font-weight: bold;}
-.java5 .kw72 {color: #003399; font-weight: bold;}
-.java5 .kw73 {color: #003399; font-weight: bold;}
-.java5 .kw74 {color: #003399; font-weight: bold;}
-.java5 .kw75 {color: #003399; font-weight: bold;}
-.java5 .kw76 {color: #003399; font-weight: bold;}
-.java5 .kw77 {color: #003399; font-weight: bold;}
-.java5 .kw78 {color: #003399; font-weight: bold;}
-.java5 .kw79 {color: #003399; font-weight: bold;}
-.java5 .kw80 {color: #003399; font-weight: bold;}
-.java5 .kw81 {color: #003399; font-weight: bold;}
-.java5 .kw82 {color: #003399; font-weight: bold;}
-.java5 .kw83 {color: #003399; font-weight: bold;}
-.java5 .kw84 {color: #003399; font-weight: bold;}
-.java5 .kw85 {color: #003399; font-weight: bold;}
-.java5 .kw86 {color: #003399; font-weight: bold;}
-.java5 .kw87 {color: #003399; font-weight: bold;}
-.java5 .kw88 {color: #003399; font-weight: bold;}
-.java5 .kw89 {color: #003399; font-weight: bold;}
-.java5 .kw90 {color: #003399; font-weight: bold;}
-.java5 .kw91 {color: #003399; font-weight: bold;}
-.java5 .kw92 {color: #003399; font-weight: bold;}
-.java5 .kw93 {color: #003399; font-weight: bold;}
-.java5 .kw94 {color: #003399; font-weight: bold;}
-.java5 .kw95 {color: #003399; font-weight: bold;}
-.java5 .kw96 {color: #003399; font-weight: bold;}
-.java5 .kw97 {color: #003399; font-weight: bold;}
-.java5 .kw98 {color: #003399; font-weight: bold;}
-.java5 .kw99 {color: #003399; font-weight: bold;}
-.java5 .kw100 {color: #003399; font-weight: bold;}
-.java5 .kw101 {color: #003399; font-weight: bold;}
-.java5 .kw102 {color: #003399; font-weight: bold;}
-.java5 .kw103 {color: #003399; font-weight: bold;}
-.java5 .kw104 {color: #003399; font-weight: bold;}
-.java5 .kw105 {color: #003399; font-weight: bold;}
-.java5 .kw106 {color: #003399; font-weight: bold;}
-.java5 .kw107 {color: #003399; font-weight: bold;}
-.java5 .kw108 {color: #003399; font-weight: bold;}
-.java5 .kw109 {color: #003399; font-weight: bold;}
-.java5 .kw110 {color: #003399; font-weight: bold;}
-.java5 .kw111 {color: #003399; font-weight: bold;}
-.java5 .kw112 {color: #003399; font-weight: bold;}
-.java5 .kw113 {color: #003399; font-weight: bold;}
-.java5 .kw114 {color: #003399; font-weight: bold;}
-.java5 .kw115 {color: #003399; font-weight: bold;}
-.java5 .kw116 {color: #003399; font-weight: bold;}
-.java5 .kw117 {color: #003399; font-weight: bold;}
-.java5 .kw118 {color: #003399; font-weight: bold;}
-.java5 .kw119 {color: #003399; font-weight: bold;}
-.java5 .kw120 {color: #003399; font-weight: bold;}
-.java5 .kw121 {color: #003399; font-weight: bold;}
-.java5 .kw122 {color: #003399; font-weight: bold;}
-.java5 .kw123 {color: #003399; font-weight: bold;}
-.java5 .kw124 {color: #003399; font-weight: bold;}
-.java5 .kw125 {color: #003399; font-weight: bold;}
-.java5 .kw126 {color: #003399; font-weight: bold;}
-.java5 .kw127 {color: #003399; font-weight: bold;}
-.java5 .kw128 {color: #003399; font-weight: bold;}
-.java5 .kw129 {color: #003399; font-weight: bold;}
-.java5 .kw130 {color: #003399; font-weight: bold;}
-.java5 .kw131 {color: #003399; font-weight: bold;}
-.java5 .kw132 {color: #003399; font-weight: bold;}
-.java5 .kw133 {color: #003399; font-weight: bold;}
-.java5 .kw134 {color: #003399; font-weight: bold;}
-.java5 .kw135 {color: #003399; font-weight: bold;}
-.java5 .kw136 {color: #003399; font-weight: bold;}
-.java5 .kw137 {color: #003399; font-weight: bold;}
-.java5 .kw138 {color: #003399; font-weight: bold;}
-.java5 .kw139 {color: #003399; font-weight: bold;}
-.java5 .kw140 {color: #003399; font-weight: bold;}
-.java5 .kw141 {color: #003399; font-weight: bold;}
-.java5 .kw142 {color: #003399; font-weight: bold;}
-.java5 .kw143 {color: #003399; font-weight: bold;}
-.java5 .kw144 {color: #003399; font-weight: bold;}
-.java5 .kw145 {color: #003399; font-weight: bold;}
-.java5 .kw146 {color: #003399; font-weight: bold;}
-.java5 .kw147 {color: #003399; font-weight: bold;}
-.java5 .kw148 {color: #003399; font-weight: bold;}
-.java5 .kw149 {color: #003399; font-weight: bold;}
-.java5 .kw150 {color: #003399; font-weight: bold;}
-.java5 .kw151 {color: #003399; font-weight: bold;}
-.java5 .kw152 {color: #003399; font-weight: bold;}
-.java5 .kw153 {color: #003399; font-weight: bold;}
-.java5 .kw154 {color: #003399; font-weight: bold;}
-.java5 .kw155 {color: #003399; font-weight: bold;}
-.java5 .kw156 {color: #003399; font-weight: bold;}
-.java5 .kw157 {color: #003399; font-weight: bold;}
-.java5 .kw158 {color: #003399; font-weight: bold;}
-.java5 .kw159 {color: #003399; font-weight: bold;}
-.java5 .kw160 {color: #003399; font-weight: bold;}
-.java5 .kw161 {color: #003399; font-weight: bold;}
-.java5 .kw162 {color: #003399; font-weight: bold;}
-.java5 .kw163 {color: #003399; font-weight: bold;}
-.java5 .kw164 {color: #003399; font-weight: bold;}
-.java5 .kw165 {color: #003399; font-weight: bold;}
-.java5 .kw166 {color: #003399; font-weight: bold;}
-.java5 .co1 {color: #666666; font-style: italic;}
-.java5 .co2 {color: #006699;}
-.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
-.java5 .coMULTI {color: #666666; font-style: italic;}
-.java5 .es0 {color: #000099; font-weight: bold;}
-.java5 .br0 {color: #009900;}
-.java5 .sy0 {color: #339933;}
-.java5 .st0 {color: #0000ff;}
-.java5 .nu0 {color: #cc66cc;}
-.java5 .me1 {color: #006633;}
-.java5 .me2 {color: #006633;}
-.java5 span.xtra { display:block; }
-
--->
-</style><pre class="java5">@ListProperties<span class="br0">(</span><span class="st0">"cantidad, importe[factura.sumaImportes, factura.porcentajeIVA, factura.iva, factura.total]"</span><span
-class="br0">)</span></pre>
-      Donde <em>porcentajeIVA</em> es una propiedad persistente. Esta propiedad
-      se mostrará en totales, será editable y funcionará como una propiedad
-      normal en cualquier otro sitio. Además, iva y total también son
-      propiedades persistentes, pero anotadas con <em>@ReadOnly</em> y <em>@Calculation</em>.
-      El resultado sería:<br>
-      <img src="files/view_es230.png" alt="view_es230.png" title="view_es230.png"><br>
-      A partir de v5.9 es posible combinar el sumatorio de las columnas (el + en
-      la propiedad) con las propiedades de total, lo que te permite escribir una
-      <em>@ListProperties</em> como esta:<br>
+      5.9 puedes anotar una propiedad de total con <em>@Calculation</em>.
+      Además, a partir de v5.9 es posible combinar el sumatorio de las columnas
+      (el + en la propiedad) con las propiedades de total. Todo est te permite
+      escribir una <em>@ListProperties</em> como esta:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -18689,7 +18493,35 @@ class="br0">)</span></pre>
 </style><pre class="java5">@ListProperties<span class="br0">(</span><span class="st0">"porcentajeIVA, total+[costeTrabajo.porcentajeBeneficio, costeTrabajo.beneficio, costeTrabajo.total]"</span><span
 class="br0">)</span></pre>
       Fíjate en el + después de <em>total</em> y a continuación las propiedades
-      de total entre corchetes. Esto produce el siguiente efecto:<br>
+      de total entre corchetes. En este caso <i>porcentajeBeneficio</i> es una
+      propiedad persistente, por tanto editable. El <i>beneficio</i> y el <i>total</i>
+      también son persistente pero con <i>@Calculation</i> y <i>@ReadOnly</i>
+      (no editable). Este es el código completo:</div>
+    <div class="wiki" style="display: block;"><pre><code class="java">public class CosteTrabajo  {
+
+    ...
+    
+    @OneToMany (mappedBy="costeTrabajo")
+    @ListProperties("numero, porcentajeIVA, total+[costeTrabajo.porcentajeBeneficio, costeTrabajo.beneficio, costeTrabajo.total]")
+    private Collection&lt;FacturaTrabajo&gt; facturas;	    
+
+    @DefaultValueCalculator(value=IntegerCalculator.class,
+        properties=@PropertyValue(name="value", value="13") 
+    )
+    private int porcentajeBeneficio; // Persistente con getter y setters, editable
+	
+    @Calculation("sum(facturas.total) * porcentajeBeneficio / 100")
+    @ReadOnly
+    private BigDecimal beneficio; // Persistente con getter y setters, no editable por el @ReadOnly
+	
+    @Calculation("sum(facturas.total) + beneficio")
+    @ReadOnly
+    private BigDecimal total; // Persistente con getter y setters, no editable por el @ReadOnly
+	
+}
+</code></pre>
+    </div>
+    <div class="wiki" style="display: block;">Esto produce el siguiente efecto:<br>
       <img src="files/view_es240.png" alt="view_es240.png" title="view_es240.png"><br>
       Donde el 131,08 es el sumatorio de la columna, por causa del <em>total+.</em>
       Debajo tienes <em>porcentajeBeneficio</em>, <em>beneficio</em> y <em>total</em>,
