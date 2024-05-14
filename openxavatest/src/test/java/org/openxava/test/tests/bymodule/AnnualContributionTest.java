@@ -19,6 +19,7 @@ public class AnnualContributionTest extends ModuleTestBase {
 	public void testCalculationInElementCollection_doubleNotAddExtraRow() throws Exception {
 		// By now we have no records, so we enter directly in detail mode
 		setValue("year", "2024");
+		setValueInCollection("contributions", 0, "description", "description");
 		setValueInCollection("contributions", 0, "amount", "100");
 		setValueInCollection("contributions", 0, "pieces", "2");
 		assertValueInCollection("contributions", 0, "total", "200.00");

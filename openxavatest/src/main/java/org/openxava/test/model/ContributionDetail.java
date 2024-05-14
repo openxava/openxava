@@ -14,7 +14,6 @@ public class ContributionDetail {
 	@Column(length = 40) @Required
 	String description;
 	
-	//@Money
 	double amount; // double for test 
 	
 	int pieces;
