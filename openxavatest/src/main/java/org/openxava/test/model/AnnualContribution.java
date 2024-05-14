@@ -4,8 +4,6 @@ import java.util.*;
 
 import javax.persistence.*;
 
-import org.openxava.annotations.*;
-
 import lombok.*;
 
 /**
@@ -21,7 +19,6 @@ public class AnnualContribution {
 	int year;
 	
 	@ElementCollection
-	@ListProperties("description, pieces, amount, total")
 	Collection<ContributionDetail> contributions;
 
 }
