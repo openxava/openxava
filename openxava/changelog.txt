@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- New article in documentation that links to an example in GitHub to create a desktop standalone app. 
 - Documentation about total properties in view section of reference guide improved with more examples.
 - First lesson of the new reporting course with JasperReports available in documentation with video.
 - Fix: Total properties disappear from collection when adding or removing columns.
