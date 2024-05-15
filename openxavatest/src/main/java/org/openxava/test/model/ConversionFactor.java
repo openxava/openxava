@@ -22,10 +22,12 @@ public class ConversionFactor implements Serializable {
 	@Column(length = 30)
 	private String toUnit;
 	
-	@Column(scale = 6)
+	// tmr @Column(scale = 6)
+	@Column(scale = 4, length= 7) // tmr
 	private BigDecimal factor;
 	
-	@Digits(integer=10, fraction=6) 
+	// tmr @Digits(integer=10, fraction=6) 
+	@Digits(fraction = 4, integer = 3) // tmr
 	private BigDecimal reverseFactor;
 	
 	// With no @Column, for a test

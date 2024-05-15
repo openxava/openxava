@@ -915,7 +915,8 @@ public class AnnotatedClassParser implements IComponentParser {
 		}
 		else if (element.isAnnotationPresent(javax.validation.constraints.Digits.class)) {
 			javax.validation.constraints.Digits digits = element.getAnnotation(javax.validation.constraints.Digits.class);
-			property.setSize(digits.integer() + 1 + digits.fraction());
+			// tmr property.setSize(digits.integer() + 1 + digits.fraction());
+			property.setSize(digits.integer() + digits.fraction()); // tmr
 			property.setScale(digits.fraction());
 		}		
 				

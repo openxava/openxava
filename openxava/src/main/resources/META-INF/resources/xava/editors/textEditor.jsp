@@ -30,18 +30,26 @@ else {
 	maxSize = org.openxava.util.XavaPreferences.getInstance().getMaxSizeForTextEditor();
 }
 int size = p.getSize() > maxSize?maxSize:p.getSize();
+System.out.println("[textEditor.jsp(" + p.getName() + ")] original: size=" + size); // tmr
 int maxLength = p.getSize();
 String numericAlt = ""; 
 String numericClass = ""; 
 if (p.isNumber()) {
 	if (p.getScale() > 0) {
-		int sizeIncrement = (size - 1) / 3 + 2; // The points/commas for thousands + point/comma for decimal + minus sign
+		// tmr int sizeIncrement = (size - 1) / 3 + 2; // The points/commas for thousands + point/comma for decimal + minus sign
+		// tmr ini
+		int integerSize = size - p.getScale();
+		int sizeIncrement = (integerSize - 1) / 3 + 2; // The points/commas for thousands + point/comma for decimal + minus sign
+		// tmr fin 
 		size += sizeIncrement;
 		maxLength += sizeIncrement;
 	}
 	String integer = p.getScale() == 0?"true":"false";
+	System.out.println("[textEditor.jsp(" + p.getName() + ")] number: size=" + size); // tmr
 	numericAlt = getNumericAlt(p.getSize(), p.getScale()); 
-	numericClass = "xava_numeric"; 
+	System.out.println("[textEditor.jsp(" + p.getName() + ")] numericAlt=" + numericAlt); // tmr
+	numericClass = "xava_numeric";
+	 
 }	
 
 boolean fillWithZeros = "true".equals(request.getParameter("fillWithZeros"));
@@ -91,6 +99,7 @@ if (editable || !label) {
 private static Log log = LogFactory.getLog("textEditor.jsp");
 
 private String getNumericAlt(int size, int scale) {
+	System.out.println("[textEditor.jsp] getNumericAlt( " + size + ", " + scale + ")"); // tmr
 	try {		
 		DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(Locales.getCurrent());
 		DecimalFormatSymbols symbols = df.getDecimalFormatSymbols();
