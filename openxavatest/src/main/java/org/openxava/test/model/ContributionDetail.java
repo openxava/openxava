@@ -18,10 +18,10 @@ public class ContributionDetail {
 	
 	int pieces;
 	
-	float tax;
+	float tax; // float for test
 	
 	@Money @ReadOnly
-	@Calculation("(amount * pieces) - tax")
-	BigDecimal total; // float for test
+	@Calculation("amount * pieces - tax")
+	BigDecimal total; 
 
 }

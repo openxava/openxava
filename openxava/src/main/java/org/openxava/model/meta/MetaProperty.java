@@ -234,7 +234,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			validatorClass = vr.getValidatorClass();
 			IPropertyValidator validator = (IPropertyValidator) Class.forName(validatorClass).newInstance();
 			if (validator instanceof IWithMessage) {
-				((IWithMessage) validator).setMessage(requiredMessage); 
+				((IWithMessage) validator).setMessage(requiredMessage);
 			}
 			return validator;
 		} catch (ClassCastException ex) {
@@ -991,8 +991,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			}
 			
 			if (Float.class.isAssignableFrom(type) || float.class.isAssignableFrom(type)) {
-				if (emptyString) 
-					return type.isPrimitive() ? new Float(0) : null;
+				if (emptyString) return null;
 				value = Strings.change(value, " ", ""); // In order to work with Polish
 				Number n = NumberFormat.getNumberInstance(locale).parse(value);
 				return new Float(n.floatValue());
