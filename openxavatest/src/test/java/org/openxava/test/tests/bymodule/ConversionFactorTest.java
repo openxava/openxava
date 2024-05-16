@@ -21,14 +21,12 @@ public class ConversionFactorTest extends ModuleTestBase {
 	public void testDigits_columnScale() throws Exception {
 		execute("CRUD.new");
 		// tmr ini
-		// TMR ME QUEDÉ POR AQUÍ:
-		// TMR   THIS TEST WORKS WELL AND IT SEEMS THE BUG IS FIXED, BUT WITH EXAMPLES OF THE ISSUE IT DOES NOT WORK
-		// TMR   IT FAILS ON LEAVE THE FOCUS. MOREOVER, IT SEEMS THAT WORKS THE SAME WITH AND WITHOUT THE FIX
+		// @Digits(integer=10, fraction=6) does not allow more than 17 (16 + negative sign)
 		HtmlInput reverseFactorField = getHtmlPage().getHtmlElementById("ox_openxavatest_ConversionFactor__reverseFactor");
 		reverseFactorField.type("-91,234,567,890.123456");
 		assertEquals("-91,234,567,890.12345", reverseFactorField.getValue());
 		// tmr fin
-		/* tmr
+		
 		setValue("id", "1");
 		setValue("fromUnit", "GALLONS");
 		setValue("toUnit", "CUBIC FEET");
@@ -47,6 +45,5 @@ public class ConversionFactorTest extends ModuleTestBase {
 		assertValue("shortFactor", "0.13");
 		assertValue("factorIndex", "133,681");
 		assertValue("factorGrade", "133,681");
-		*/
 	}
 }
