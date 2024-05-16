@@ -40,6 +40,7 @@ public class ConversionFactorTest extends ModuleTestBase {
 		assertValue("toUnit", "CUBIC FEET");
 		assertValue("factor", "0.133681");
 		assertValue("reverseFactor", "7.480519");
+		assertValue("mirrorFactor", "0.133681"); 
 		assertValue("shortFactor", "0.13");
 		assertValue("factorIndex", "133,681");
 		assertValue("factorGrade", "133,681");

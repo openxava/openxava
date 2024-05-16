@@ -139,7 +139,7 @@ public class Invoice6Test extends ModuleTestBase {
 			"Group by amounts sum"
 		);
 		
-		assertListRowCount(9); 
+		assertListRowCount(9);  
 		assertValuesInList(0, "2002",  "1",  "1/1/2002",  "2,500.00"); 
 		assertValuesInList(1, "2004",  "2",  "1/4/2004",     "11.00");
 		assertValuesInList(2, "2004",  "9",  "1/4/2004",  "4,396.00");
