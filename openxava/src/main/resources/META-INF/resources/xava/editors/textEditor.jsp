@@ -35,11 +35,8 @@ String numericAlt = "";
 String numericClass = ""; 
 if (p.isNumber()) {
 	if (p.getScale() > 0) {
-		// tmr int sizeIncrement = (size - 1) / 3 + 2; // The points/commas for thousands + point/comma for decimal + minus sign
-		// tmr ini
 		int integerSize = size - p.getScale();
 		int sizeIncrement = (integerSize - 1) / 3 + 2; // The points/commas for thousands + point/comma for decimal + minus sign
-		// tmr fin 
 		size += sizeIncrement;
 		maxLength += sizeIncrement;
 	}

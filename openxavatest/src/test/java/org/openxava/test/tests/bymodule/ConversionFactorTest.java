@@ -20,12 +20,11 @@ public class ConversionFactorTest extends ModuleTestBase {
 	
 	public void testDigits_columnScale() throws Exception {
 		execute("CRUD.new");
-		// tmr ini
+
 		// @Digits(integer=10, fraction=6) does not allow more than 17 (16 + negative sign)
 		HtmlInput reverseFactorField = getHtmlPage().getHtmlElementById("ox_openxavatest_ConversionFactor__reverseFactor");
 		reverseFactorField.type("-91,234,567,890.123456");
 		assertEquals("-91,234,567,890.12345", reverseFactorField.getValue());
-		// tmr fin
 		
 		setValue("id", "1");
 		setValue("fromUnit", "GALLONS");
@@ -33,14 +32,13 @@ public class ConversionFactorTest extends ModuleTestBase {
 		setValue("factor", "0.133681");
 		setValue("reverseFactor", "7.480519");
 		execute("CRUD.save");
-		assertNoErrors(); // tmr
+		assertNoErrors(); 
 		execute("CRUD.new");
 		setValue("id", "1");
 		execute("CRUD.refresh");
 		assertValue("fromUnit", "GALLONS"); 
 		assertValue("toUnit", "CUBIC FEET");
 		assertValue("factor", "0.133681");
-		System.out.println("[ConversionFactorTest.testDigits_columnScale] reverseFactor=" + getValue("reverseFactor")); // tmr
 		assertValue("reverseFactor", "7.480519");
 		assertValue("shortFactor", "0.13");
 		assertValue("factorIndex", "133,681");
