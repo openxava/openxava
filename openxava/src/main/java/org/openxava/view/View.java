@@ -5419,11 +5419,14 @@ public class View implements java.io.Serializable {
 	}
 	
 	public String getFocusPropertyId() {
+		System.out.println("getFocusPropertyId " + focusPropertyId);
 		try {			
 			if (!Is.emptyString(focusCurrentId)) {
+				System.out.println("!Is.emptyString(focusCurrentId)");
 				return focusCurrentId;
 			}
 			if (!Is.emptyString(focusPropertyId) && !focusForward) {
+				System.out.println("(!Is.emptyString(focusPropertyId) && !focusForward)");
 				return focusPropertyId;
 			}
 			return calculateFocusPropertyId();
@@ -5439,20 +5442,26 @@ public class View implements java.io.Serializable {
 	}
 	
 	private String calculateFocusPropertyId() throws XavaException { 
+		System.out.println("calculateFocusPropertyId()");
 		String prefix = getPropertyPrefix(); 
+		System.out.println(prefix);
 		if (prefix == null) prefix = "";
 		
-		if (Is.emptyString(focusPropertyId)) {			
+		if (Is.emptyString(focusPropertyId)) {
+			System.out.println("Is.emptyString(focusPropertyId)");
 			return getFirsEditablePropertyId(prefix);
 		}
-		else {		
+		else {
+			System.out.println("1 else");
 			String focusPropertyName = focusPropertyId.startsWith(prefix)?focusPropertyId.substring(prefix.length()):focusPropertyId; 
 			int idx = focusPropertyName.indexOf('.'); 
-			if (idx < 0) {							
+			if (idx < 0) {
+				System.out.println("idx < 0");
 				String name = getNextFocusPropertyName(focusPropertyName);				
 				return name==null?getFirsEditablePropertyId(prefix):prefix + name;
 			}
-			else {				
+			else {
+				System.out.println("2 else");
 				String subviewName = focusPropertyName.substring(0, idx);
 				String member = focusPropertyName.substring(idx + 1);
 				View subview = getSubview(subviewName);				
@@ -5465,21 +5474,28 @@ public class View implements java.io.Serializable {
 	}
 	
 	private String getFirsEditablePropertyId(String prefix) throws XavaException {
+		System.out.println("getFirsEditablePropertyId" + prefix);
 		Iterator it = getMetaMembers().iterator();
 		while (it.hasNext()) {
-			MetaMember m = (MetaMember) it.next();			
-			if (m instanceof MetaProperty) {			
+			MetaMember m = (MetaMember) it.next();		
+			System.out.println(m.getName());
+			if (m instanceof MetaProperty) {
+				System.out.println("m instanceof MetaProperty");
 				if (PropertiesSeparator.INSTANCE.equals(m)) continue; 
 				if (isEditableImpl((MetaProperty) m) || isLastSearchKey((MetaProperty) m)) { 
 					return prefix + m.getName();
 				}
 			}
 			else if (m instanceof MetaGroup) {
+				System.out.println("m instanceof MetaGroup");
 				String result = getGroupView(m.getName()).getFirsEditablePropertyId(prefix);
 				if (result != null) return result;
 			}
-			else if (m instanceof MetaReference) {				
+			else if (m instanceof MetaReference) {
+				System.out.println("m instanceof MetaReference " + prefix + m.getName() + ".");
 				String result = getSubview(m.getName()).getFirsEditablePropertyId(prefix + m.getName() + ".");
+				//String result2 = getSubview(m.getName())
+				System.out.println("m instanceof MetaReference " + result);
 				if (result != null) return result;
 			}
 			
