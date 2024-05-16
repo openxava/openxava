@@ -14,13 +14,14 @@ public class ContributionDetail {
 	@Column(length = 40) @Required
 	String description;
 	
-	@Money
-	BigDecimal amount;
+	double amount; // double for test 
 	
 	int pieces;
 	
+	float tax; // float for test
+	
 	@Money @ReadOnly
-	@Calculation("amount * pieces")
-	BigDecimal total;
+	@Calculation("amount * pieces - tax")
+	BigDecimal total; 
 
 }
