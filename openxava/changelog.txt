@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Extra elements added to @ElementCollection when using float or double as property type.
 - New article in documentation that links to an example in GitHub to create a desktop standalone app. 
 - Documentation about total properties in view section of reference guide improved with more examples.
 - First lesson of the new reporting course with JasperReports available in documentation with video.
