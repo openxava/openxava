@@ -1405,8 +1405,14 @@ openxava.subcontroller = function(id,containerId,buttonId,imageId,aId,spanId){
 	// display and position the menu 
 	$('#'+id).css('display','inline');  
 	var position = document.getElementById(aId).getBoundingClientRect(); // Because jquery position() does not work well
+	// If change below code verify that subcontrollers in mobile are shown inside screen when on bottom
+	var positionPopup = document.getElementById(id).getBoundingClientRect();
+	var buttonHeight = $('#'+buttonId).outerHeight(true);
+	var popupBottom = position.top + buttonHeight + positionPopup.height;
+	var top = popupBottom > window.innerHeight?
+		position.top - $('#'+id).outerHeight(true):position.top + buttonHeight;	
 	$('#'+id).css({
-		'top': position.top + $('#'+buttonId).outerHeight(true),
+		'top': top, 
 		'left': position.left
 	});	
 	$('#'+imageId).fadeTo("fast",0.3);
