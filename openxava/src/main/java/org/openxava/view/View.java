@@ -5481,7 +5481,7 @@ public class View implements java.io.Serializable {
 			else if (m instanceof MetaReference) {
 				boolean isDescriptionsList = displayAsDescriptionsListAndReferenceView((MetaReference)m) || displayAsDescriptionsList((MetaReference)m);
 				boolean hasMultipleKey = getSubview(m.getName()).getMetaModel().getAllKeyPropertiesNames().size() > 1;
-				String result = isDescriptionsList && hasMultipleKey ? m.getName() + "__KEY____CONTROL__" : getSubview(m.getName()).getFirsEditablePropertyId(prefix + m.getName() + ".");
+				String result = isDescriptionsList && hasMultipleKey ? m.getName() + DescriptionsLists.COMPOSITE_KEY_SUFFIX: getSubview(m.getName()).getFirsEditablePropertyId(prefix + m.getName() + ".");
 				if (result != null) return result;
 			}
 			

@@ -10,7 +10,7 @@ public class TransportChargeWithDescriptionsListShowingReferenceViewTest extends
 		super(testName, "TransportChargeWithDescriptionsListShowingReferenceView");		
 	}
 	
-	public void testCompositeKeyDescriptionsListWithShowReferenceView() throws Exception { 
+	public void testCompositeKeyDescriptionsListWithShowReferenceView_assertFocusDescriptionsListComposityKey() throws Exception { 
 		deleteAll();
 		createSome();
 		resetModule(); // For refresh 
@@ -30,6 +30,9 @@ public class TransportChargeWithDescriptionsListShowingReferenceViewTest extends
 		assertValue("delivery.date", "2/22/2004");
 		
 		execute("CRUD.new");
+		
+		assertFocusOn("delivery__KEY__");
+		
 		assertAction("Reference.createNew", "model=Delivery,keyProperty=delivery__KEY__");
 		assertAction("Reference.modify", "model=Delivery,keyProperty=delivery__KEY__");
 		assertEditable("delivery");
