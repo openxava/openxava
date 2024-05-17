@@ -9,16 +9,16 @@ You need Java and Maven installed
 From command line prompt type:
 
 	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourapp -DinteractiveMode=false
+ 	cd yourapp
+  	mvn package
 
 ## Run your application
 In Windows:
 
-	cd yourapp
 	java -cp "target/yourapp/WEB-INF/classes;target/yourapp/WEB-INF/lib/*" com.yourcompany.yourapp.run.yourapp
 	
 In Linux/Mac:
 
-	cd yourapp
 	java -cp "target/yourapp/WEB-INF/classes:target/yourapp/WEB-INF/lib/*" com.yourcompany.yourapp.run.yourapp
 
 Open your browser and go to http://localhost:8080/yourapp
