@@ -9,9 +9,14 @@ You need Java and Maven installed
 From command line prompt type:
 
 	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourapp -DinteractiveMode=false
+
+ Then change to the folder where the project has been created:
+ 
  	cd yourapp
+
+And build the project:
+  
   	mvn package
-   	
 
 ## Run your application
 In Windows:
