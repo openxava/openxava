@@ -11,6 +11,7 @@ From command line prompt type:
 	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourapp -DinteractiveMode=false
  	cd yourapp
   	mvn package
+   	
 
 ## Run your application
 In Windows:
