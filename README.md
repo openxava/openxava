@@ -40,4 +40,4 @@ When code is ready compile:
 And start the application again.	
 
 ## Learn more
-To learn more go to the official openxava documentation here: [openxava.org/doc](https://openxava.org/doc)
+To learn more go to the official OpenXava documentation here: [openxava.org/doc](https://openxava.org/doc)
