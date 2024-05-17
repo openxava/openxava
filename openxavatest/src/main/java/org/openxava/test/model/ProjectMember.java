@@ -38,5 +38,5 @@ public class ProjectMember extends Nameable {
 	public void setTeam(ProjectTeam team) {
 		this.team = team;
 	}
-
+	
 }

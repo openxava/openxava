@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Sometimes there are blank rows in @OrderColumn lists.
+- Fix: Element is not shown in @OrderColumn list if added modifying directly the element entity reference.   
 - Fix: Bad size and scale in user interface when using @DecimalMax with a value with a decimal a part.
 - Fix: Incorrect length for BigDecimal in the view when using 'scale' in @Column or 'fraction' in @Digits.
 - Fix: Extra elements added to @ElementCollection when using float or double as property type.
