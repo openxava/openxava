@@ -30,12 +30,13 @@ In Linux/Mac:
 Open your browser and go to http://localhost:8080/yourapp
 
 ## Modify the code
-Using your favorite editor edit YourFirstEntity.java in yourapp/src/main/java/com/yourcompany/yourapp/model.
-Have a look at the code, and modify it, add a new property, for example. Then compile the code:
+Stop your application with Ctrl-C in the prompt. Then use your favorite editor to edit YourFirstEntity.java in yourapp/src/main/java/com/yourcompany/yourapp/model.
+Have a look at the code, and modify it, add a new property, for example. 
+When code is ready compile:
 
 	mvn compile
 	
-And stop and start the application again.	
+And start the application again.	
 
 ## Learn more
 To learn more go to official openxava documentation here: [openxava.org/doc](https://openxava.org/doc)
