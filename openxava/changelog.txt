@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Driver version in doc and new projects upgraded for MySQL, Oracle.
 - Fix: Sometimes there are blank rows in @OrderColumn lists.
 - Fix: Element is not shown in @OrderColumn list if added modifying directly the element entity reference.   
 - Fix: Bad size and scale in user interface when using @DecimalMax with a value with a decimal a part.
