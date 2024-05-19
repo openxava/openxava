@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Embedded Tomcat used in development upgraded to 9.0.89.
+- Commons Logging upgraded to 1.3.2.
 - Driver version in doc and new projects upgraded for MySQL, Oracle.
 - Fix: Sometimes there are blank rows in @OrderColumn lists.
 - Fix: Element is not shown in @OrderColumn list if added modifying directly the element entity reference.   
