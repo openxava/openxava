@@ -17,7 +17,15 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		super(testName, "CarrierWithSections");
 	}
 	
+	public void testMsg() throws Exception {
+		execute("ShowModuleName.showModule");
+		assertMessage("You are in CarrierWithSections from Carrier");
+	}
+	
 	public void testInComparator() throws Exception {
+		execute("ShowModuleName.showModule");
+		assertMessage("You are in CarrierWithSections from Carrier");
+		
 		assertListRowCount(5);
 		
 		setConditionComparators("in_comparator");

@@ -62,9 +62,11 @@ public class MetaModuleFactory {
 	
 	private static void addMetaModule(MetaApplication app, List<MetaModule> metaModules, String name) {
 		MetaModule module = new MetaModule();
-		module.setMetaApplication(app);		
-		module.setName(name);			
-		module.setModelName(app.getMetaModule(name).getModelName());
+		module.setMetaApplication(app);
+		module.setName(name);
+		module.setModelName(name);
+		System.out.println(module.getName() + " " + module.getModelName());
+		//module.setModelName(app.getMetaModule(name).getModelName());
 		metaModules.add(module);
 	}
 
