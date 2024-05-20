@@ -1578,9 +1578,4 @@
 			class="org.openxava.test.actions.ChangeLabelAndAddCalificationsAction"/>
 	</controller>
 	
-	<controller name="ShowModuleName">
-		<action name="showModule" mode="list"
-			class="org.openxava.test.actions.ShowModuleNameAction"/>
-	</controller>
-	
 </controllers>
