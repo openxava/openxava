@@ -956,7 +956,7 @@ public class MapFacadeBean {
 				XavaResources.getString("no_create_exists", metaModel.getName()));	
 		} catch (CreateException ex) {
 			log.error(ex.getMessage(), ex);
-			throw new CreateException(XavaResources.getString("create_error", metaModel.getName()));		
+			throw new CreateException(XavaResources.getString("create_error", metaModel.getName()));
 		} catch (RemoteException ex) {
 			log.error(ex.getMessage(), ex);
 			rollback(metaModel); 
@@ -981,7 +981,9 @@ public class MapFacadeBean {
 				collection = new ArrayList();				
 				containerPM.executeSet(collectionName, collection);
 			}
-			if (!collectionContains(collection, newAggregate)) collection.add(newAggregate); 
+			if (!collectionContains(collection, newAggregate)) {
+				collection.add(newAggregate); 
+			}
 		}
 		catch (Exception ex) { 
 			log.error(ex.getMessage(), ex);
@@ -1040,7 +1042,7 @@ public class MapFacadeBean {
 						}
 					}
 				}
-			}			
+			}
 		}	
 	}
 	
@@ -1339,7 +1341,8 @@ public class MapFacadeBean {
 		Map memberNames) throws XavaException, RemoteException {
 		try {
 			MetaCollection c = metaModel.getMetaCollection(memberName);
-			Object object = getReferencedObject(metaModel, modelObject, memberName); 
+			Object object = getReferencedObject(metaModel, modelObject, memberName);
+			if (c.isSortable() && object instanceof Collection) ((Collection) object).removeIf(item -> item == null); 
 			return getCollectionValues( 
 					c.getMetaReference().getMetaModelReferenced(),
 					c.isAggregate(),	object, memberNames);
@@ -1610,7 +1613,7 @@ public class MapFacadeBean {
 	private void setValues(MetaModel metaModel, Map keyValues, Map values, boolean validate, boolean tracking, boolean updateSortableCollections)  
 		throws FinderException, ValidationException, XavaException 
 	{ 		
-		try {								
+		try {				
 			Object entity = findEntity(metaModel, keyValues);
 			updateReferencedEntities(metaModel, values);			
 			removeKeyFields(metaModel, values);			
@@ -1622,6 +1625,7 @@ public class MapFacadeBean {
 				Map oldValues = getValues(metaModel, entity, toMembersNames(metaModel, values), false, false); 					
 				trackModification(metaModel, keyValues, oldValues, values);
 			}
+			if (updateSortableCollections) updateSortableCollections(metaModel, keyValues, values); 
 			IPersistenceProvider provider = (IPersistenceProvider) getPersistenceProvider(metaModel);
 			if (provider instanceof IExplicitModifyPersistenceProvider) {
 				((IExplicitModifyPersistenceProvider) provider).modify(metaModel, keyValues, values);
@@ -1631,7 +1635,6 @@ public class MapFacadeBean {
 				Map objects = convertSubmapsInObject(metaModel, values);
 				r.executeSets(objects);
 			}
-			if (updateSortableCollections) updateSortableCollections(metaModel, keyValues, values); 
 			// Collections are not managed			
 		} 
 		catch (FinderException ex) { 
