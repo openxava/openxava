@@ -60,11 +60,11 @@ public class MetaModuleFactory {
 		}
 	}
 	
-	private static void addMetaModule(MetaApplication app, List<MetaModule> metaModules, String name) { 
+	private static void addMetaModule(MetaApplication app, List<MetaModule> metaModules, String name) {
 		MetaModule module = new MetaModule();
-		module.setMetaApplication(app);
+		module.setMetaApplication(app);		
 		module.setName(name);			
-		module.setModelName(name);
+		module.setModelName(app.getMetaModule(name).getModelName());
 		metaModules.add(module);
 	}
 
