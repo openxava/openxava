@@ -3,7 +3,8 @@ Change Log for OpenXava project
 
 - Embedded Tomcat used in development upgraded to 9.0.89.
 - Commons Logging upgraded to 1.3.2.
-- Driver version in doc and new projects upgraded for MySQL, Oracle.
+- Driver version in doc and new projects upgraded for MySQL and Oracle.
+- Fix: Focus not in @DescriptionsList(showReferenceView=true) if it's the first element with composite key.
 - Fix: Sometimes there are blank rows in @OrderColumn lists.
 - Fix: Element is not shown in @OrderColumn list if added modifying directly the element entity reference.   
 - Fix: Bad size and scale in user interface when using @DecimalMax with a value with a decimal a part.

@@ -5442,17 +5442,17 @@ public class View implements java.io.Serializable {
 		String prefix = getPropertyPrefix(); 
 		if (prefix == null) prefix = "";
 		
-		if (Is.emptyString(focusPropertyId)) {			
+		if (Is.emptyString(focusPropertyId)) {
 			return getFirsEditablePropertyId(prefix);
 		}
-		else {		
+		else {
 			String focusPropertyName = focusPropertyId.startsWith(prefix)?focusPropertyId.substring(prefix.length()):focusPropertyId; 
 			int idx = focusPropertyName.indexOf('.'); 
-			if (idx < 0) {							
+			if (idx < 0) {
 				String name = getNextFocusPropertyName(focusPropertyName);				
 				return name==null?getFirsEditablePropertyId(prefix):prefix + name;
 			}
-			else {				
+			else {
 				String subviewName = focusPropertyName.substring(0, idx);
 				String member = focusPropertyName.substring(idx + 1);
 				View subview = getSubview(subviewName);				
@@ -5467,8 +5467,8 @@ public class View implements java.io.Serializable {
 	private String getFirsEditablePropertyId(String prefix) throws XavaException {
 		Iterator it = getMetaMembers().iterator();
 		while (it.hasNext()) {
-			MetaMember m = (MetaMember) it.next();			
-			if (m instanceof MetaProperty) {			
+			MetaMember m = (MetaMember) it.next();		
+			if (m instanceof MetaProperty) {
 				if (PropertiesSeparator.INSTANCE.equals(m)) continue; 
 				if (isEditableImpl((MetaProperty) m) || isLastSearchKey((MetaProperty) m)) { 
 					return prefix + m.getName();
@@ -5478,8 +5478,10 @@ public class View implements java.io.Serializable {
 				String result = getGroupView(m.getName()).getFirsEditablePropertyId(prefix);
 				if (result != null) return result;
 			}
-			else if (m instanceof MetaReference) {				
-				String result = getSubview(m.getName()).getFirsEditablePropertyId(prefix + m.getName() + ".");
+			else if (m instanceof MetaReference) {
+				boolean isDescriptionsList = displayAsDescriptionsListAndReferenceView((MetaReference)m) || displayAsDescriptionsList((MetaReference)m);
+				boolean hasMultipleKey = getSubview(m.getName()).getMetaModel().getAllKeyPropertiesNames().size() > 1;
+				String result = isDescriptionsList && hasMultipleKey ? m.getName() + DescriptionsLists.COMPOSITE_KEY_SUFFIX: getSubview(m.getName()).getFirsEditablePropertyId(prefix + m.getName() + ".");
 				if (result != null) return result;
 			}
 			
