@@ -112,7 +112,6 @@ public class ControllersParser extends ParserBase {
 		result.setAfterEachRequest(getAttributeBoolean(el, xafter_each_request[lang]));
 		result.setOnEachRequest(getAttributeBoolean(el, xon_each_request[lang]));
 		result.setBeforeEachRequest(getAttributeBoolean(el, xbefore_each_request[lang]));
-		System.out.println(el.getAttribute(xname[lang]));
 		result.setByDefault(toByDefault(el.getAttribute(xby_default[lang])));
 		result.setTakesLong(getAttributeBoolean(el, xtakes_long[lang]));
 		result.setConfirm(getAttributeBoolean(el, xconfirm[lang]));
