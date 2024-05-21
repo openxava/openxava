@@ -43,6 +43,9 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValue("year", "2004");
 		assertValue("number", "12");
 		
+		execute("CRUD.delete");
+		assertError("Cannot be deleted because it has a linked key with table DELIVERY");
+		
 		execute("Sections.change", "activeSection=1");
 		assertCollectionRowCount("details", 2);
 		assertValueInCollection("details", 0, 1, "MULTAS DE TRAFICO");
