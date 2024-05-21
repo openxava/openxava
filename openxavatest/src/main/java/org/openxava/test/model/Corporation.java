@@ -27,6 +27,7 @@ public class Corporation extends Identifiable {
 	private String icon; 
 	
 	@OneToMany(mappedBy="corporation", cascade=CascadeType.ALL)
+	@Editor("EmployeesChart") // tmr
 	private Collection<CorporationEmployee> employees;
 	
 	public void setName(String name) {
