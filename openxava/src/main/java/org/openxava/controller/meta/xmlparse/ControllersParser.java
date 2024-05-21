@@ -112,6 +112,7 @@ public class ControllersParser extends ParserBase {
 		result.setAfterEachRequest(getAttributeBoolean(el, xafter_each_request[lang]));
 		result.setOnEachRequest(getAttributeBoolean(el, xon_each_request[lang]));
 		result.setBeforeEachRequest(getAttributeBoolean(el, xbefore_each_request[lang]));
+		System.out.println(el.getAttribute(xname[lang]));
 		result.setByDefault(toByDefault(el.getAttribute(xby_default[lang])));
 		result.setTakesLong(getAttributeBoolean(el, xtakes_long[lang]));
 		result.setConfirm(getAttributeBoolean(el, xconfirm[lang]));
@@ -130,7 +131,7 @@ public class ControllersParser extends ParserBase {
 		if (xif_possible[lang].equals(byDefault)) return MetaAction.IF_POSSIBLE;
 		if (xalmost_always[lang].equals(byDefault)) return MetaAction.ALMOST_ALWAYS;
 		if (xalways[lang].equals(byDefault)) return MetaAction.ALWAYS;
-		return MetaAction.NEVER;
+		return MetaAction.ALMOST_NEVER;
 	}
 
 	private void fillSet(Element el, MetaAction container)
