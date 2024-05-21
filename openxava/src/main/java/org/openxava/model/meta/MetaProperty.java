@@ -703,8 +703,13 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	/** @since 6.2.1 */
 	public void validate(Messages errors, Object object, boolean creating, String container) throws RemoteException { 
 		try {
-			validate(errors, object, getValidators(), container);
-			if (creating) validate(errors, object, getOnlyOnCreateValidators(), container);
+			System.out.println("validate since 6.2.1 " + getValidators());
+			validate(errors, object, getValidators(), container); // aca
+			System.out.println("validate since 6.2.1 after");
+			if (creating) {
+				System.out.println("creating " + getOnlyOnCreateValidators());
+				validate(errors, object, getOnlyOnCreateValidators(), container);
+			}
 		} 
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
@@ -715,10 +720,14 @@ public class MetaProperty extends MetaMember implements Cloneable {
 
 			
 	private void validate(Messages errors, Object object, Collection validators, String container) throws Exception {
-		if (validators == null) return;
+		if (validators == null) {
+			System.out.println("validators null");
+			return;
+		}
 		Iterator it = validators.iterator();			
 		while (it.hasNext()) {
 			IPropertyValidator v = (IPropertyValidator) it.next();
+			System.out.println(v.getClass());
 			if (container == null) container = getMetaModel().getName(); 
 			v.validate(errors, object, getName(), container);
 		}
