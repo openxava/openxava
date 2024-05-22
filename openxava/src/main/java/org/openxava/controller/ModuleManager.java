@@ -905,8 +905,7 @@ public class ModuleManager implements java.io.Serializable {
 	private void manageHibernateConstraintViolationlException(
 			MetaAction metaAction, Messages errors, Messages messages,
 			org.hibernate.exception.ConstraintViolationException ex) {
-		String constraintName = ex.getConstraintName().toLowerCase();
-		errors.add(constraintName);
+		errors.add(ex.getCause().getMessage());
 		messages.removeAll();
 	}
 

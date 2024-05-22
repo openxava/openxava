@@ -1,14 +1,12 @@
 package org.openxava.actions;
 
 import java.util.*;
-import java.util.regex.*;
-
-import javax.persistence.*;
 
 import org.apache.commons.logging.*;
-import org.hibernate.exception.*;
 import org.openxava.model.*;
+import org.openxava.tab.impl.*;
 import org.openxava.util.*;
+import org.openxava.validators.*;
 
 /**
  * @author Javier Paniza
@@ -22,51 +20,41 @@ public class DeleteAction extends ViewDetailAction {
 	}
 	
 	public void execute() throws Exception {
-	    try {
-	        if (getView().isKeyEditable()) {
-	            addError("no_delete_not_exists");
-	            return;
-	        }
-	        Map keyValues = getView().getKeyValues();
-	        MapFacade.remove(getModelName(), keyValues);
-	        commit(); // If we change this, we should run all test suite using READ COMMITED (with hsqldb 2 for example)
-	        resetDescriptionsCache();
-	        addMessage("object_deleted", getModelName());
-	        getView().clear();
-	        boolean selected = false;
-	        if (getTab().hasSelected()) {
-	            Map k = calculateNextKey(keyValues);
-	            if (k == null) setDeleteAllSelected(true);
-	            else setNextKey(k);
-	            removeSelected(keyValues);
-	            selected = true;
-	        } else getTab().cutOutRow(keyValues);
-	        super.execute();
-	        if (isNoElementsInList()) {
-	            if (
-	                (!selected && getTab().getTotalSize() > 0) ||
-	                (selected && getTab().getSelectedKeys().length > 0)
-	            ) {
-	                setIncrement(-1);
-	                getErrors().remove("no_list_elements");
-	                super.execute();
-	            } else {
-	                getView().setKeyEditable(false);
-	                getView().setEditable(false);
-	            }
-	        }
-	        getErrors().clearAndClose(); // If removal is done, any additional error message may be confused
-	    } catch (PersistenceException ex) {
-	        if (ex.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
-	            ConstraintViolationException cvex = (ConstraintViolationException) ex.getCause();
-	            String message = cvex.getCause().getMessage();
-	            Pattern pattern = Pattern.compile("table: (\\w+)");
-	            Matcher matcher = pattern.matcher(message);
-	            if (matcher.find()) {
-	                addError("non_deletable_foreign_key", matcher.group(1));
-	            }
-	        }
-	    }
+		if (getView().isKeyEditable()) {
+			addError("no_delete_not_exists");
+			return;
+		}
+		Map keyValues = getView().getKeyValues();
+		MapFacade.remove(getModelName(), keyValues);
+		commit(); // If we change this, we should run all test suite using READ COMMITED (with hsqldb 2 for example)
+		resetDescriptionsCache();
+		addMessage("object_deleted", getModelName());
+		getView().clear();
+		boolean selected = false;
+		if (getTab().hasSelected()) {
+			Map k = calculateNextKey(keyValues);
+			if (k == null) setDeleteAllSelected(true);
+			else setNextKey(k);
+			removeSelected(keyValues);
+			selected = true;
+		}
+		else getTab().cutOutRow(keyValues); 
+		super.execute(); 
+		if (isNoElementsInList()) {
+			if (
+				(!selected && getTab().getTotalSize() > 0) ||
+				(selected && getTab().getSelectedKeys().length > 0)
+			) {				
+				setIncrement(-1);
+				getErrors().remove("no_list_elements");								
+				super.execute();													
+			}
+			else {							
+				getView().setKeyEditable(false);
+				getView().setEditable(false);
+			}
+		}
+		getErrors().clearAndClose(); // If removal is done, any additional error message may be confused
 	}
 	
 	private void removeSelected(Map keyValues) throws XavaException {
