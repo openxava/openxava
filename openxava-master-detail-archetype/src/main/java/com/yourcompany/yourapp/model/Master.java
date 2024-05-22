@@ -11,15 +11,22 @@ import org.openxava.model.*;
 
 import lombok.*;
 
+// RENAME THIS CLASS AS Invoice, PurchaseOrder, WorkOrder, Delivery, Account, Shipment, etc.
+
+// YOU CAN RENAME THE MEMBERS BELOW AT YOUR CONVENIENCE, 
+// FOR EXAMPLE Person person BY Customer customer,
+// BUT CHANGE ALL REFERENCES IN ALL CODE USING SEARCH AND REPLACE FOR THE PROJECT. 
+// DON'T USE REFACTOR > RENAME FOR MEMBERS BECAUSE IT DOESN'T CHANGE THE ANNOTATIONS CONTENT.
+
 @Entity @Getter @Setter
 @View(members=
 	"year, number, date;" +
-	"customer;" +
+	"person;" +
 	"details { details };" +
 	"remarks { remarks }"
 )
-@Tab(properties="year, number, date, customer.name, remarks")
-public class Invoice extends Identifiable {
+@Tab(properties="year, number, date, person.name, remarks")
+public class Master extends Identifiable {
 	
 	@DefaultValueCalculator(CurrentYearCalculator.class)
 	@Column(length=4) @Required
@@ -33,35 +40,35 @@ public class Invoice extends Identifiable {
 	
 	@Column(length=2) @Required
 	@DefaultValueCalculator(value=IntegerCalculator.class, properties=@PropertyValue(name="value", value="21"))
-	int vatPercentage;
+	int taxPercentage;
 	
 	@ReferenceView("Simple") 
 	@ManyToOne(optional=false, fetch=FetchType.LAZY)
-	Customer customer;
+	Person person;
 	
 	@ElementCollection @OrderColumn
-	@ListProperties("product.number, product.description, unitPrice, quantity, amount[invoice.sum, invoice.vatPercentage, invoice.vat, invoice.total]")
-	List<InvoiceDetail> details;
+	@ListProperties("item.number, item.description, unitPrice, quantity, amount[master.sum, master.taxPercentage, master.tax, master.total]")
+	List<Detail> details;
 	
-	@Stereotype("HTML_TEXT")
+	@HtmlText
 	String remarks;
 	
 	public BigDecimal getSum() {
 		BigDecimal sum = BigDecimal.ZERO;
-		for (InvoiceDetail detail: details) {
+		for (Detail detail: details) {
 			sum = sum.add(detail.getAmount());
 		}
 		return sum;
 	}
 	
-	@Depends("sum, vatPercentage")
-	public BigDecimal getVat() {
-		return getSum().multiply(new BigDecimal(getVatPercentage()).divide(new BigDecimal(100))).setScale(2, RoundingMode.UP);
+	@Depends("sum, taxPercentage")
+	public BigDecimal getTax() {
+		return getSum().multiply(new BigDecimal(getTaxPercentage()).divide(new BigDecimal(100))).setScale(2, RoundingMode.UP);
 	}
 	
-	@Depends("sum, vat")
+	@Depends("sum, tax")
 	public BigDecimal getTotal() {
-		return getSum().add(getVat()).setScale(2, RoundingMode.UP);
+		return getSum().add(getTax()).setScale(2, RoundingMode.UP);
 	}
 	
 }
