@@ -1,4 +1,4 @@
-package com.yourcompany.yourapp.model;
+package com.tuempresa.tuaplicacion.modelo;
 
 import java.math.*;
 import java.time.*;
@@ -21,55 +21,55 @@ import lombok.*;
 
 @Entity @Getter @Setter
 @View(members=
-	"year, number, date;" +
-	"person;" +
-	"details { details };" +
-	"remarks { remarks }"
+	"anyo, numero, fecha;" +
+	"persona;" +
+	"detalles { detalles };" +
+	"observaciones { observaciones }"
 )
-@Tab(properties="year, number, date, person.name, remarks")
-public class Master extends Identifiable {
+@Tab(properties="anyo, numero, fecha, persona.nombre, observaciones")
+public class Maestro extends Identifiable {
 	
 	@DefaultValueCalculator(CurrentYearCalculator.class)
 	@Column(length=4) @Required
-	int year;
+	int anyo;
 	
 	@Column(length=6) @Required
-	int number;
+	int numero;
 	
 	@Required @DefaultValueCalculator(CurrentLocalDateCalculator.class) 
-	LocalDate date;
+	LocalDate fecha;
 	
 	@Column(length=2) @Required
 	@DefaultValueCalculator(value=IntegerCalculator.class, properties=@PropertyValue(name="value", value="21"))
-	int taxPercentage;
+	int porcentajeIVA;
 	
 	@ReferenceView("Simple") 
 	@ManyToOne(optional=false, fetch=FetchType.LAZY)
-	Person person;
+	Persona persona;
 	
 	@ElementCollection @OrderColumn
-	@ListProperties("item.number, item.description, unitPrice, quantity, amount[master.sum, master.taxPercentage, master.tax, master.total]")
-	List<Detail> details;
+	@ListProperties("item.codigo, item.descripcion, precioUnitario, cantidad, importe[maestro.suma, maestro.porcentajeIVA, maestro.iva, maestro.total]")
+	List<Detalle> detalles;
 	
 	@HtmlText
-	String remarks;
+	String observaciones;
 	
-	public BigDecimal getSum() {
+	public BigDecimal getSuma() {
 		BigDecimal sum = BigDecimal.ZERO;
-		for (Detail detail: details) {
-			sum = sum.add(detail.getAmount());
+		for (Detalle detalle: detalles) {
+			sum = sum.add(detalle.getImporte());
 		}
 		return sum;
 	}
 	
 	@Depends("sum, taxPercentage")
-	public BigDecimal getTax() {
-		return getSum().multiply(new BigDecimal(getTaxPercentage()).divide(new BigDecimal(100))).setScale(2, RoundingMode.UP);
+	public BigDecimal getIva() {
+		return getSuma().multiply(new BigDecimal(getPorcentajeIVA()).divide(new BigDecimal(100))).setScale(2, RoundingMode.UP);
 	}
 	
 	@Depends("sum, tax")
 	public BigDecimal getTotal() {
-		return getSum().add(getTax()).setScale(2, RoundingMode.UP);
+		return getSuma().add(getIva()).setScale(2, RoundingMode.UP);
 	}
 	
 }
