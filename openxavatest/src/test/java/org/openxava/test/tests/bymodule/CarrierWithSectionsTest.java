@@ -20,7 +20,7 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 	public void testInComparator_customModuleModelName() throws Exception {
 		execute("ModuleAndModelName.showNames");
 		assertMessage("You are in CarrierWithSections from Carrier");
-		
+
 		assertListRowCount(5);
 		
 		setConditionComparators("in_comparator");

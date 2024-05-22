@@ -1582,5 +1582,5 @@
 		<action name="showNames" mode="list"
 			class="org.openxava.test.actions.ShowModuleAndModelNameAction"/>
 	</controller>
-	
+
 </controllers>

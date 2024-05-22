@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Incorrect default value for by-default in actions when DOCTYPE is not specified in controllers.xml.
 - Embedded Tomcat used in development upgraded to 9.0.89.
 - Commons Logging upgraded to 1.3.2.
 - Driver version in doc and new projects upgraded for MySQL and Oracle.
