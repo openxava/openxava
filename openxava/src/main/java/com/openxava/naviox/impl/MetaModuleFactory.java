@@ -64,9 +64,7 @@ public class MetaModuleFactory {
 		MetaModule module = new MetaModule();
 		module.setMetaApplication(app);
 		module.setName(name);
-		module.setModelName(name);
-		System.out.println(module.getName() + " " + module.getModelName());
-		//module.setModelName(app.getMetaModule(name).getModelName());
+		module.setModelName(app.getMetaModule(name).getModelName());
 		metaModules.add(module);
 	}
 
