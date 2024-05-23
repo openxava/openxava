@@ -688,7 +688,8 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 			"CarrierWithSections.setTypicalController",
 			"CarrierWithSections.setPrintController",
 			"CarrierWithSections.setDefaultControllers",
-			"CarrierWithSections.returnToPreviousControllers"
+			"CarrierWithSections.returnToPreviousControllers",
+			"ModuleAndModelName.showNames"
 		};
 		String [] printActions = {
 			"List.hideRows",
