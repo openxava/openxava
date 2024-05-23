@@ -1,11 +1,28 @@
-<%-- tmr 
-TMR: ME QUEDÉ POR AQUÍ, HACIENDO UN GRÁFICO A PIÑON FIJO
-http://localhost:8080/openxavatest/m/Corporation?detail=ff808082334005ef01334006ebe50000
---%>
+<%-- tmr --%>
 
-Esto es un gráfico de los trabajadores: v1<br>
-<div id="employeesChart" data-datos='[
-    {"nombre": "Enero", "data1": 30, "data2": 50},
-    {"nombre": "Febrero", "data1": 200, "data2": 20},
-    {"nombre": "Marzo", "data1": 100, "data2": 10}
-]'></div>
+<%@page import="org.openxava.view.View"%>
+<%@page import="org.openxava.model.MapFacade"%>
+<%@page import="org.openxava.test.model.Corporation"%>
+<%@page import="org.openxava.test.model.CorporationEmployee"%>
+
+<jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
+
+<% 
+String viewObject = request.getParameter("viewObject");
+View view = (View) context.get(request, viewObject);
+Corporation corporation = (Corporation) MapFacade.findEntity("Corporation", view.getKeyValues());
+StringBuffer datos = new StringBuffer("[");
+for (CorporationEmployee employee: corporation.getEmployees()) {
+	if (datos.length() > 1) datos.append(",");
+	datos.append("{\"nombre\":\"");
+	datos.append(employee.getFirstName());
+	datos.append("\",\"data1\":");
+	datos.append(employee.getSalary());
+	datos.append("}"); 
+}
+datos.append("]");
+System.out.println("[employeesChartEditor.jsp] datos=" + datos); // tmr
+%>
+
+
+<div id="employeesChart" data-datos='<%=datos%>'></div>

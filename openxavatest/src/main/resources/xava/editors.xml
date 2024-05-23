@@ -235,6 +235,12 @@
 	
 	<!-- tmr ini -->
 	<editor name="EmployeesChart" url="employeesChartEditor.jsp"/>
+	
+	<!-- TMR ME QUEDÉ POR AQUÍ, LA ANOTACIÓN YA ESTA HECHA FALTA EL JSP -->
+	<editor name="CollectionChart" url="collectionChartEditor.jsp">
+	    <property name="background" value="yellow"/> 
+	    <for-annotation annotation="org.openxava.test.annotations.Chart"/>
+	</editor>	
 	<!-- tmr fin -->
 		
 </editors>
