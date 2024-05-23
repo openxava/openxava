@@ -6,14 +6,16 @@ import javax.persistence.*;
 
 import org.openxava.annotations.*;
 
+import com.tuempresa.tuaplicacion.calculadores.*;
+
 import lombok.*;
 
-// RENAME THIS CLASS AS InvoiceDetail, PurchaseOrderDetail, WorkOrderDetail, DeliveryDetail, AcountTransaction, ShipmentDetail, etc.
+// RENOMBRA ESTA CLASE COMO DetalleFactura, DetalleCompra, DetalleTrabajo, LineaAlbaran, MovimientoCuenta, DetalleEnvio, etc.
 
-// YOU CAN RENAME THE MEMBERS BELOW AT YOUR CONVENIENCE, 
-// FOR EXAMPLE unitPrice BY hourPrice,
-// BUT CHANGE ALL REFERENCES IN ALL CODE USING SEARCH AND REPLACE FOR THE PROJECT. 
-// DON'T USE REFACTOR > RENAME FOR MEMBERS BECAUSE IT DOESN'T CHANGE THE ANNOTATIONS CONTENT.
+// PUEDES RENOMBRAR LOS MIEMBROS ABAJO A TU CONVENIENCIA, 
+// POR EJEMPLO precioUnitario POR precioHora, 
+// PERO CAMBIA TODAS LAS REFERENCIAS EN EL CÓDIGO USANDO BUSCAR Y REEMPLAZAR PARA EL PROYECTO. 
+// NO USES REFACTOR > RENAME PARA LOS MIEMBROS PORQUE NO CAMBIA EL CONTENIDO EN LAS ANOTACIONES.
 
 @Embeddable @Getter @Setter
 public class Detalle {
@@ -21,16 +23,13 @@ public class Detalle {
 	@ManyToOne(optional=false, fetch=FetchType.LAZY)
 	Item item;
 
-	// TMR ME QUEDÉ POR AQUÍ: ACABÉ DE TRADUCIR LA CLSAE, FALTA AÑADIR EL CALCULADOR
 	@Required 
-	/* tmr FALTA ESTO
 	@DefaultValueCalculator(  
-		value=UnitPriceCalculator.class,
+		value=CalculadorPrecioUnitario.class,
 		properties=@PropertyValue(
 			name="codigo",
 			from="item.codigo")
 	)
-	*/
 	BigDecimal precioUnitario;
 		
 	@Required
