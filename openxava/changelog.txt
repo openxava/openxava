@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: MetaModule.getModelName() returns module name instead of model name in some circumstances.
 - Fix: Incorrect default value for by-default in actions when DOCTYPE is not specified in controllers.xml.
 - Embedded Tomcat used in development upgraded to 9.0.89.
 - Commons Logging upgraded to 1.3.2.
