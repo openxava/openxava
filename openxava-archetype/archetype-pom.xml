@@ -6,7 +6,7 @@
 
 	<groupId>org.openxava</groupId>
 	<artifactId>openxava-archetype</artifactId>
-	<version>7.3.2-SNAPSHOT</version>
+	<version>7.3.2</version>
 	<packaging>maven-archetype</packaging>
 
   	<name>OpenXava Archetype</name>
