@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+
+	<JarScanner scanClassPath="false" />
+	<CookieProcessor sameSiteCookies="lax" /> <!-- To be compliant with OWASP -->
+	
+	<!-- 
+	To define the access to your database uncomment the corresponding one
+	from the below configurations. If you don't find yours, look in internet 
+	for the URL for your database and define your own Resource entry.
+	
+	You have to adapt the URL to match your server, and maybe the port.
+	You have to define the correct user name and password for your database.
+	
+	Moreover, you have to add the dependency for the corresponding JDBC 
+	driver to the pom.xml of your project.
+	-->
+	 
+	<!-- HSQLDB -->   	
+    <Resource name="jdbc/yourappDS" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="sa" password="" 
+	      driverClassName="org.hsqldb.jdbc.JDBCDriver"
+	      url="jdbc:hsqldb:hsql://localhost:1666"/>
+	      
+	<!-- MySQL       
+    <Resource name="jdbc/yourappDS" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="root" password="" 
+	      driverClassName="com.mysql.cj.jdbc.Driver"
+	      url="jdbc:mysql://localhost:3306/yourappdb"/>	      
+	-->      
+	
+	<!-- PostgreSQL 
+	<Resource name="jdbc/yourappDS" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="postgres" password=""
+	      driverClassName="org.postgresql.Driver" 
+	      url="jdbc:postgresql://localhost/yourappdb"/>
+	-->
+	
+	<!-- Oracle 
+	<Resource name="jdbc/yourappDS" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="user" password=""
+	      driverClassName="oracle.jdbc.OracleDriver" 
+	      url="jdbc:oracle:thin:@localhost:1521:yourappdb"/>
+	-->	
+	
+	<!-- AS/400 
+	<Resource name="jdbc/yourappDS" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="user" password=""
+	      driverClassName="com.ibm.as400.access.AS400JDBCDriver" 
+	      url="jdbc:as400:localhost/yourapplib"/>
+	-->
+	
+	<!-- Microsoft SQL Server
+	<Resource name="jdbc/yourappDS" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="user" password=""
+	      driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" 
+	      url="jdbc:sqlserver://localhost:1433;databaseName=yourappdb"/>
+	-->
+	
+	<!-- Informix
+	<Resource name="jdbc/yourappDS" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="user" password=""
+	      driverClassName="com.informix.jdbc.IfxDriver" 
+	      url="jdbc:informix-sqli://localhost:1533/yourappdb:INFORMIXSERVER=yourserver"/>
+	-->            
+	
+	<!-- Db2
+	<Resource name="jdbc/yourappDS" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="user" password=""
+	      driverClassName="com.ibm.db2.jcc.DB2Driver" 
+	      url="jdbc:db2://localhost:50000/yourappdb"/>
+	-->
+	
+	<!-- Firebird
+	<Resource name="jdbc/yourappDS" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="user" password=""
+	      driverClassName="org.firebirdsql.jdbc.FBDriver" 
+	      url="jdbc:firebirdsql://localhost:3050/c:/db/yourapp.fdb"/>
+	-->
+	      	      
+</Context>
