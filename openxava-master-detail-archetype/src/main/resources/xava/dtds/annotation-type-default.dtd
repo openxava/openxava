@@ -1,0 +1,9 @@
+<!ELEMENT annotation-type-default (for*)>
+
+<!ELEMENT for EMPTY>
+<!ATTLIST for
+ annotation CDATA #REQUIRED
+ type CDATA #REQUIRED
+>
+
+

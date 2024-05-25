@@ -130,7 +130,7 @@ public class ControllersParser extends ParserBase {
 		if (xif_possible[lang].equals(byDefault)) return MetaAction.IF_POSSIBLE;
 		if (xalmost_always[lang].equals(byDefault)) return MetaAction.ALMOST_ALWAYS;
 		if (xalways[lang].equals(byDefault)) return MetaAction.ALWAYS;
-		return MetaAction.NEVER;
+		return MetaAction.ALMOST_NEVER;
 	}
 
 	private void fillSet(Element el, MetaAction container)

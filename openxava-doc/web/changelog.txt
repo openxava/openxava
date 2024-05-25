@@ -1,6 +1,30 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.3.2 (2024-5-24)
+--------------------------
+- New Maven archetypes "openxava-master-detail-archetype" in English and Spanish (-spanish).
+- Some new common use labels to be used in applications.
+- Commons Logging upgraded to 1.3.2.
+- Embedded Tomcat used in development upgraded to 9.0.89.
+- Driver version in doc and new projects upgraded for MySQL and Oracle.
+- First lesson of the new reporting course with JasperReports available in documentation with video.
+- Documentation about total properties in view section of the reference guide improved with more examples.
+- New article in documentation that links to an example in GitHub to create a desktop standalone app. 
+- Fix: Infinite "Loading..." in list with @HtmlText properties with long text that contains double quotes.
+- Fix: Not allowed long email addresses for @Email, @Stereotype("EMAIL") and @Stereotype("EMAIL_LIST").
+- Fix: MetaModule.getModelName() returns module name instead of model name in some circumstances.
+- Fix: Incorrect default value for by-default in actions when DOCTYPE is not specified in controllers.xml.
+- Fix: Focus not in @DescriptionsList(showReferenceView=true) if it's the first element with composite key.
+- Fix: Sometimes there are blank rows in @OrderColumn lists.
+- Fix: Element is not shown in @OrderColumn list if added modifying directly the element entity reference.   
+- Fix: Bad size and scale in user interface when using @DecimalMax with a value with a decimal part.
+- Fix: Incorrect length for BigDecimal in the view when using 'scale' in @Column or 'fraction' in @Digits.
+- Fix: Extra elements added to @ElementCollection when using float or double as property type.
+- Fix: Total properties disappear from collection when adding or removing columns.
+- Fix: Error/success messages fail to fade out if the next action opens a dialog.
+- Fix: Error "Expected property name or '}' in JSON" with @TextArea with HTML code with double quotes. 
+
 OpenXava 7.3.1 (2024-5-3)
 -------------------------
 - New method isJava21orBetter() in XSystem utility class.
@@ -87,6 +111,7 @@ OpenXava 7.2.3 (2024-1-26)
 - Fix: View.setLabelId() does not work for @ElementCollection header labels.
 - Fix: Focus not in the correct place after searching a reference in an @ElementCollection.
 - Fix: @DescriptionsList combos do not open if a \ is in one of the values.
+- Fix: Grouping by a three level property in list fails. 
 - Fix: Qualified properties in baseCondition of @Tab fails if those properties are not in the list.
 - Fix: Filtering in the list by a numeric property of a reference of a reference (3 levels or more) fails.
 - Fix: Some incorrect translations for Spanish labels.
