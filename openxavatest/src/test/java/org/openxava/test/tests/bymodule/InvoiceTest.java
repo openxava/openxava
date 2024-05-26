@@ -44,7 +44,11 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValue("number", "12");
 		
 		execute("CRUD.delete");
-		assertError("Cannot be deleted because it has a linked key with table DELIVERY");
+		if (Locale.getDefault().equals("en")) { // msg change if use -Duser.language=es -Duser.country=ES in VM Arguments
+			assertError("integrity constraint violation: foreign key no action ; FKB2B28E2D92A73ADC table: DELIVERY");
+		} else if (Locale.getDefault().equals("es")) {
+			assertError("violación del restricción de integridad: sin acción para la clave foránea ; FKB2B28E2D92A73ADC table: DELIVERY");
+		}
 		
 		execute("Sections.change", "activeSection=1");
 		assertCollectionRowCount("details", 2);
