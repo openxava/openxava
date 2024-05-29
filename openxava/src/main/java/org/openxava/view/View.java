@@ -3747,7 +3747,7 @@ public class View implements java.io.Serializable {
 			else {							
 				// Searching by key, the normal case
 				clear();
-				if (!Maps.isEmptyOrZero(key)) {				
+				if (!Maps.isEmpty(key)) {				
 					setValues(MapFacade.getValues(getModelName(), key, getMembersNamesForFindObject())); 
 				}
 			}
