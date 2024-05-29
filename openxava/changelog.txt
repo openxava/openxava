@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Original error messages from database constraints or triggers are not shown to the user. 
+
 OpenXava 7.3.2 (2024-5-24)
 --------------------------
 - New Maven archetypes "openxava-master-detail-archetype" in English and Spanish (-spanish).
