@@ -888,6 +888,8 @@ public class ModuleManager implements java.io.Serializable {
 						messages,
 						(org.hibernate.exception.ConstraintViolationException) ex
 								.getCause());
+			} else if (ex.getCause() instanceof org.hibernate.exception.GenericJDBCException) {
+				manageSQLException(metaAction, errors, messages, (javax.persistence.PersistenceException)ex);
 			} else {
 				manageRegularException(metaAction, errors, messages, ex);
 			}
@@ -895,7 +897,7 @@ public class ModuleManager implements java.io.Serializable {
 		} else if (ex instanceof javax.validation.ValidationException) {
 			errors.add(ex.getMessage());
 			messages.removeAll();
-			doRollback();			
+			doRollback();	
 		} else {
 			manageRegularException(metaAction, errors, messages, ex);
 			doRollback();
@@ -906,7 +908,11 @@ public class ModuleManager implements java.io.Serializable {
 			MetaAction metaAction, Messages errors, Messages messages,
 			org.hibernate.exception.ConstraintViolationException ex) {
 		String constraintName = ex.getConstraintName().toLowerCase();
-		errors.add(constraintName);
+		if (ex.getCause().getMessage().contains("foreign")) {
+			errors.add(ex.getCause().getMessage());
+		} else {
+			errors.add(constraintName);
+		}
 		messages.removeAll();
 	}
 
@@ -980,6 +986,26 @@ public class ModuleManager implements java.io.Serializable {
 					+ "'");
 		}
 		messages.removeAll();
+	}
+	
+	private void manageSQLException(MetaAction metaAction, Messages errors,
+			Messages messages, javax.persistence.PersistenceException ex) {
+		boolean foundSQLException = false;
+		Throwable cause = ex;
+		while (cause != null) {
+		    if (cause instanceof java.sql.SQLException) {
+		    	foundSQLException = true;
+		        break;
+		    }
+		    cause = cause.getCause();
+		}
+		if (foundSQLException && !cause.getMessage().isEmpty()) {
+			log.error(ex.getMessage(), ex);
+			errors.add(cause.getMessage()); //triggers
+			messages.removeAll();
+		} else {
+			manageRegularException(metaAction, errors, messages, ex);
+		}
 	}
 
 	private void memorizePreviousMode() {
