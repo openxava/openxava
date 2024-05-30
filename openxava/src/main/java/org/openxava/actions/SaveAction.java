@@ -24,12 +24,10 @@ public class SaveAction extends TabBaseAction {
 	public void execute() throws Exception {
 		try {
 			if (getView().isKeyEditable()) {
-				System.out.println("create");
 				Map values = create();
 				updateView(values, isResetAfterOnCreate());
 			}
 			else {
-				System.out.println("modify");
 				Map values = modify();
 				updateView(values, isResetAfterOnModify());
 			}
@@ -74,32 +72,26 @@ public class SaveAction extends TabBaseAction {
 	protected Map create() throws Exception {
 		Map values = null;
 		if (isResetAfterOnCreate() || (!isRefreshAfter() && !getView().getMetaModel().hasHiddenKey())) {
-			System.out.println("1 if");
 			Collection<String> possibleGeneratedProperties = getPropertiesToShowInEntityCreatedMessage();
 			if (possibleGeneratedProperties == null) {
-				System.out.println("11 if "  + getValuesToSave()); 
 				MapFacade.create(getModelName(), getValuesToSave());
 				addMessage("entity_created", getModelName());
 			}
 			else {
-				System.out.println("12 else");
 				Map keyValues = MapFacade.createReturningKey(getModelName(), getValuesToSave());
 				String idValues = readPropertiesAsString(keyValues, possibleGeneratedProperties);
 				String modelName = Labels.get(getModelName());
 				addMessage("'" + XavaResources.getString("entity_created", modelName) + ": " + idValues + "'");
 			}
 		}
-		else {
-			System.out.println("2 else");
+		else {								
 			Map keyValues = MapFacade.createReturningKey(getModelName(), getValuesToSave());					
 			addMessage("entity_created", getModelName());
-			if (isRefreshAfter()) {
-				System.out.println("2 else");
+			if (isRefreshAfter()) {  
 				getView().clear(); 
 				values = MapFacade.getValues(getModelName(), keyValues, getView().getMembersNamesWithHidden());
 			}
 			else {
-				System.out.println("2 else");
 				getView().addValues(keyValues);
 			}
 		}

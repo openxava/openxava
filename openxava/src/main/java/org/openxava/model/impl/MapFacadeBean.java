@@ -40,7 +40,6 @@ public class MapFacadeBean {
 		throws CreateException, XavaException, ValidationException, RemoteException {
 		Users.setCurrentUserInfo(userInfo);
 		values = Maps.recursiveClone(values);
-		System.out.println(values);
 		MetaModel metaModel = getMetaModel(modelName); 
 		try {
 			beginTransaction(metaModel); 		
@@ -912,23 +911,15 @@ public class MapFacadeBean {
 			removeReadOnlyWithFormulaFields(metaModel, values); 			
 			removeCalculatedFields(metaModel, values); 						
 			Messages validationErrors = new Messages();	
-			validateExistRequired(validationErrors, metaModel, values, metaModelContainer != null, null);
-			System.out.println("ERROR");
-			System.out.println(validationErrors);
-			validate(validationErrors, metaModel, values, null, container, true); // parece bien
-			System.out.println("ERROR");
-			System.out.println(validationErrors);
+			validateExistRequired(validationErrors, metaModel, values, metaModelContainer != null, null); 
+			validate(validationErrors, metaModel, values, null, container, true);
 			if (validateCollections) validateCollections(validationErrors, metaModel);
-			removeViewProperties(metaModel, values); 	
-			System.out.println(1);
+			removeViewProperties(metaModel, values); 			
 			if (validationErrors.contains()) {
-				System.out.println("contiene errores");
 				throw new ValidationException(validationErrors);			
 			}		
-			updateReferencedEntities(metaModel, values);	
-			System.out.println(2);
+			updateReferencedEntities(metaModel, values);			
 			Map convertedValues = convertSubmapsInObject(metaModel, values);
-			System.out.println(convertedValues);
 			if (!validateCollections) {
 				setCollectionsWithMinimumToNull(metaModel, convertedValues);
 			}			
@@ -1524,7 +1515,6 @@ public class MapFacadeBean {
 		throws XavaException {
 		Iterator toRemove = metaModel.getOnlyReadWithFormulaPropertiesNames().iterator();
 		while (toRemove.hasNext()) {
-			System.out.println(toRemove.toString());
 			values.remove(toRemove.next());
 		}
 	}
@@ -1541,7 +1531,6 @@ public class MapFacadeBean {
 		throws XavaException {
 		Iterator toRemove = metaModel.getCalculatedPropertiesNames().iterator();
 		while (toRemove.hasNext()) {
-			System.out.println(toRemove.toString());
 			values.remove(toRemove.next());
 		}
 	}
@@ -1550,7 +1539,6 @@ public class MapFacadeBean {
 		throws XavaException {		
 		Iterator toRemove = metaModel.getViewPropertiesNames().iterator();
 		while (toRemove.hasNext()) {
-			System.out.println("removeViewProperties " + toRemove.toString());
 			values.remove(toRemove.next());
 		}
 	}	
@@ -1750,14 +1738,12 @@ public class MapFacadeBean {
 		) throws XavaException, RemoteException {			
 		try {			
 			if (metaModel.containsMetaProperty(memberName)) {
-				System.out.println("inside validate if " + values);
 				metaModel.getMetaProperty(memberName).validate(errors, values, creating, containerMember); 
 			} 
 			else if (metaModel.containsMetaReference(memberName)) {
 				MetaReference ref = metaModel.getMetaReference(memberName); 
 				MetaModel referencedModel = ref.getMetaModelReferenced();
-				Map mapValues = (Map) values;
-				System.out.println("inside validate else " + values);
+				Map mapValues = (Map) values;		
 				if (referenceHasValue(mapValues)) {
 					if (ref.isAggregate()) validate(errors, referencedModel, mapValues, mapValues, null, creating, memberName); 
 				} 
@@ -1818,12 +1804,10 @@ public class MapFacadeBean {
 		while (it.hasNext()) {
 			Map.Entry en = (Map.Entry) it.next();
 			String name = (String) en.getKey();
-			System.out.println("validate2 " + name);
 			Object value = en.getValue();
 			validate(errors, metaModel, name, value, creating, containerMember); 
 		}
 		if (metaModel.containsValidadors()) {
-			System.out.println("metaModel.containsValidadors()");
 			validateWithModelValidator(errors, metaModel, values, keyValues, container, creating);			
 		}
 	}
@@ -1912,10 +1896,8 @@ public class MapFacadeBean {
 		if (metaModel.getContainerReference() != null) containerReference = metaModel.getContainerReference(); 
 		while (it.hasNext()) {
 			String name = (String) it.next(); 
-			System.out.println("validateExistRequired " + name);
 			if (excludeContainerReference && name.equals(containerReference)) continue; 
-			if (!values.containsKey(name)) {	
-				System.out.println("!values.containsKey(name)");
+			if (!values.containsKey(name)) {				
 				errors.add("required", name, metaModel.getName());
 			}
 		}
@@ -2039,8 +2021,7 @@ public class MapFacadeBean {
 		}				
 	}
 	
-	private Map convertSubmapsInObject(MetaModel metaModel, Map values) throws ValidationException, XavaException, RemoteException {
-		System.out.println("convertSubmapsInObject");
+	private Map convertSubmapsInObject(MetaModel metaModel, Map values) throws ValidationException, XavaException, RemoteException { 
 		Map result = new HashMap();
 		Iterator it = values.entrySet().iterator();
 		while (it.hasNext()) {
