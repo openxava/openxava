@@ -5,12 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.openxava</groupId>
-	<artifactId>openxava-crm-archetype</artifactId>
+	<artifactId>openxava-crm-archetype-spanish</artifactId>
 	<version>7.3.3-SNAPSHOT</version>
 	<packaging>maven-archetype</packaging>
 
-  	<name>OpenXava CRM Archetype</name>
-	<description>Archetype for creating a simple CRM application based on OpenXava</description>
+  	<name>OpenXava CRM Archetype in Spanish</name>
+	<description>Archetype for creating a simple CRM application based on OpenXava in Spanish</description>
 	<url>https://www.openxava.org</url>
 	
 	<licenses>
@@ -121,4 +121,5 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+
 </project>
