@@ -4,6 +4,7 @@ import java.time.*;
 import java.util.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import org.openxava.annotations.*;
 import org.openxava.annotations.Files;
@@ -33,6 +34,7 @@ public class Lead extends Identifiable {
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	LeadStatus status;
 	
+	@Email
 	@Column(length=80) @DisplaySize(40) 
 	String email;
 	
@@ -40,11 +42,13 @@ public class Lead extends Identifiable {
 	LocalDate lastTouch; 
 	
 	@HtmlText(simple = true) 
-	@Column(columnDefinition="MEDIUMTEXT")
+	// @Column(columnDefinition="MEDIUMTEXT") // MySQL
+	@Column(columnDefinition="LONGVARCHAR") // HSQLDB
 	String description;
 
 	@HtmlText(simple = true) 
-	@Column(columnDefinition="MEDIUMTEXT")
+	// @Column(columnDefinition="MEDIUMTEXT") // MySQL
+	@Column(columnDefinition="LONGVARCHAR") // HSQLDB
 	String remarks;
 	
 	@ElementCollection @OrderBy("date")
