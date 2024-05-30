@@ -10,14 +10,14 @@ import org.openxava.calculators.*;
 import lombok.*;
 
 @Embeddable @Getter @Setter
-public class Activity {
+public class Actividad {
 		
 	@Required
 	@Column(length=120)
-	String description;
+	String descripcion;
 	
 	@Required
 	@DefaultValueCalculator(CurrentLocalDateCalculator.class)
-	LocalDate date;
+	LocalDate fecha;
 
 }

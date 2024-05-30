@@ -8,11 +8,11 @@ import org.openxava.model.*;
 import lombok.*;
 
 @Entity @Getter @Setter
-public class LeadStatus extends Identifiable {
+public class EstadoProspecto extends Identifiable {
 	
 	@Column(length=40) @Required
-	String description;
+	String descripcion;
 	
-	boolean finished;
+	boolean terminado;
 
 }
