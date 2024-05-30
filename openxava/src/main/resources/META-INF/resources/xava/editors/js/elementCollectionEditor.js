@@ -36,6 +36,8 @@ elementCollectionEditor.onChangeRow = function(element, rowIndex) {
 	token1 = new RegExp('data-row="' + (rowIndex + 1) + '"', "g");
 	token2 = 'data-row="' + (rowIndex + 2) + '"';
 	newRowHtml = newRowHtml.replace(token1, token2);
+	token1 = new RegExp('data-argv="([^\\.]+\\.)(\\d+)(\\.[^"]*)"', "g");
+    newRowHtml = newRowHtml.replace(token1, 'data-argv="$1' + (rowIndex + 2) + '$3"');
 	newRow.html(newRowHtml);
 	newRow.addClass("ox-display-none"); 
 	var table = currentRow.parent().parent();	
@@ -74,6 +76,8 @@ elementCollectionEditor.removeRow = function(application, module, element, rowIn
 }
 
 elementCollectionEditor.renumber = function(row, rowIndex) { 
+console.log("renumber row " + row);
+	console.log("index" + rowIndex);
 	var token1 = new RegExp("__\\d+", "g");
 	var token2 = "__" + rowIndex;
 	row.attr("id", row.attr("id").replace(token1, token2));
