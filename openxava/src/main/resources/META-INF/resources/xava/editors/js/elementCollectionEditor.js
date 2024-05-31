@@ -76,8 +76,6 @@ elementCollectionEditor.removeRow = function(application, module, element, rowIn
 }
 
 elementCollectionEditor.renumber = function(row, rowIndex) { 
-console.log("renumber row " + row);
-	console.log("index" + rowIndex);
 	var token1 = new RegExp("__\\d+", "g");
 	var token2 = "__" + rowIndex;
 	row.attr("id", row.attr("id").replace(token1, token2));
