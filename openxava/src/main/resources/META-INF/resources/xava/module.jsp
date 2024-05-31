@@ -116,11 +116,7 @@
 	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%>/xava/style/jquery-ui.css?ox=<%=version%>"/>
 	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%>/xava/style/jquery-ui.structure.css?ox=<%=version%>"/>
 	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%>/xava/style/smoothness/jquery-ui.css?ox=<%=version%>"/>
-	<%-- tmr Probar quitar el treeview.css--%>
-	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%>/xava/style/yahoo-treeview/treeview.css?ox=<%=version%>"/>
-	<%-- tmr ini --%>
 	<link href="<%=contextPath%>/xava/style/<%=Themes.getCSS(request)%>?ox=<%=version%>" rel="stylesheet" type="text/css">
-	<%-- tmr fin --%>
 	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%>/xava/style/custom.css?ox=<%=version%>"/>
 
 	<%
