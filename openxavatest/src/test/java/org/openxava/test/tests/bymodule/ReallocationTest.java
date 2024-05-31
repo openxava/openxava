@@ -76,4 +76,18 @@ public class ReallocationTest extends ModuleTestBase {
 		execute("CRUD.save");
 	}
 	
+	public void testElementCollectionAddRowsProperly() throws Exception {
+		execute("CRUD.new");
+		setValueInCollection("details", 0, "product.number", "1");
+		setValueInCollection("details", 1, "product.number", "2");
+		assertCollectionRowCount("details", 2);
+		execute("Reference.search", "keyProperty=details.2.product.number");
+		execute("ReferenceSearch.choose", "row=3");
+		assertCollectionRowCount("details", 3);
+		setValueInCollection("details", 3, "product.number", "3");
+		execute("Reference.search", "keyProperty=details.4.product.number");
+		execute("ReferenceSearch.choose", "row=4");
+		assertCollectionRowCount("details", 5);
+	}
+	
 }

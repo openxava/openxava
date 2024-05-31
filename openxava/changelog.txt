@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Icon in date fields and @DescriptionsList not visible on hover inside dialog in Dark theme.
+- Fix: List data inside dialog not readable in Dark theme. 
+- Fix: The color for the list data in the dialog is not the same as without the dialog.
+- Fix: Unused CSS from old Yahoo TreeView JS component loaded.
+- Fix: Reference search with dialog in the last line of an @ElementCollection alters previous row reference.
 - Fix: Cannot assign value to a reference with 0 as key because the reference is cleaned from the view.
 - Fix: Original error messages from database constraints or triggers are not shown to the user. 
 
