@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Reference search with dialog in the last line of an @ElementCollection alters previous row reference.
 - Fix: Cannot assign value to a reference with 0 as key because the reference is cleaned from the view.
 - Fix: Original error messages from database constraints or triggers are not shown to the user. 
 
