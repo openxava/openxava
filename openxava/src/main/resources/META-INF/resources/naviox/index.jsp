@@ -60,12 +60,6 @@ manager.setModuleName(module); // In order to show the correct description in he
 
 <head>
 	<title><%=title%></title>
-	<%-- tmr fin --%>
-	<%-- tmr ME QUEDÉ POR AQUÍ: PROBÉ ESTO PERO NO LO ARREGLA. LO DEL COLOR DE LAS LINEAS EN COLECCIÓN ES PARA TODOS LOS ESTILOS --%>
-	<link rel="stylesheet" type="text/css" media="all" href="<%=request.getContextPath()%>/xava/style/jquery-ui.css?ox=<%=oxVersion%>"/>
-	<link rel="stylesheet" type="text/css" media="all" href="<%=request.getContextPath()%>/xava/style/jquery-ui.structure.css?ox=<%=oxVersion%>"/>
-	<link rel="stylesheet" type="text/css" media="all" href="<%=request.getContextPath()%>/xava/style/smoothness/jquery-ui.css?ox=<%=oxVersion%>"/>
-	<%-- tmr fin --%>
 	<link href="<%=request.getContextPath()%>/xava/style/layout.css?ox=<%=oxVersion%>" rel="stylesheet" type="text/css">
     <link href="<%=request.getContextPath()%>/xava/style/<%=Themes.getCSS(request)%>?ox=<%=oxVersion%>" rel="stylesheet" type="text/css"> 
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/xava/style/materialdesignicons.css?ox=<%=oxVersion%>">
