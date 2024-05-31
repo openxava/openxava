@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- New Maven archetypes "openxava-crm-archetype" in English and Spanish (-spanish).
+- Some new common use labels to be used in applications.
 - Fix: Icon in date fields and @DescriptionsList not visible on hover inside dialog in Dark theme.
 - Fix: List data inside dialog not readable in Dark theme. 
 - Fix: The color for the list data in the dialog is not the same as without the dialog.
