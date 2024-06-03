@@ -147,7 +147,7 @@ public class WebEditors {
         Matcher matcher = pattern.matcher(original);
         StringBuffer sb = new StringBuffer();
         while(matcher.find()) {
-            matcher.appendReplacement(sb, matcher.group().replace("\"", "&quot;"));
+        	matcher.appendReplacement(sb, matcher.group().replace("\"", "&quot;").replace("$", "&dollar;")); 
         }
         matcher.appendTail(sb);
         return sb.toString();

@@ -45,7 +45,7 @@
 	--default-action-button-shadow: none;
 	--default-action-button-hover-shadow: none;
 	--list-row-action-color: var(--my-silver);
-	--list-row-action-hover-color: var(--my-dark);
+	--list-row-action-hover-color: var(--action-hover-color); 
 	--reference-search-icon-color: var(--my-dark); 
 	
 	/* Editors */
@@ -76,7 +76,6 @@
 	--total-cell-color: inherit;
 	--icon-check-color: inherit;
 	--icon-in-list: inherit;
-	--list-row-action-hover-color: inherit;
 	
 	/* Calendar */
 	--calendar-cell-border-color: white;
@@ -102,7 +101,7 @@
 	background: var(--background) !important;
 }
 
-..ui-tooltip {
+.ui-tooltip {
 	background: var(--tooltip-background) !important;  
 	box-shadow: none !important;  
 }

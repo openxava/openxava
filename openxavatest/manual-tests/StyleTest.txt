@@ -14,4 +14,8 @@ with Terra and Light theme at least the next cases:
 		(Here we tolerate the street label slightly to up)
 	- The editors for city (no label) and state (small label) must be well aligned.
 	- The label of photo must be well aligned (top or middle but not ugly).
+- ProjectMember with Dark:	
+	- Go to first detail.
+	- Click to edit the project, so a dialog is shown.
+	- Dialog data is readable, white over black, instead of black over black.
 

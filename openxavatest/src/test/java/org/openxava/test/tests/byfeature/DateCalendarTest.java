@@ -263,7 +263,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		dateTime.sendKeys(" 12/25/08 12:33 AM");
 		dateTimeLabel = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__label_time"));
 		dateTimeLabel.click();
-		Thread.sleep(200); 
+		Thread.sleep(300); 
 		assertValue("time", "12/25/2008 12:33 AM");
 		
 		changeLanguage("es");

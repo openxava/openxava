@@ -716,7 +716,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			
 	private void validate(Messages errors, Object object, Collection validators, String container) throws Exception {
 		if (validators == null) return;
-		Iterator it = validators.iterator();			
+		Iterator it = validators.iterator();
 		while (it.hasNext()) {
 			IPropertyValidator v = (IPropertyValidator) it.next();
 			if (container == null) container = getMetaModel().getName(); 
