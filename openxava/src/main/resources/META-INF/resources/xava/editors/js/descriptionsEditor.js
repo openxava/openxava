@@ -22,7 +22,7 @@ openxava.addEditorInitFunction(function() {
 					$(event.target).next().val("");
 					$(event.target).next().next().val("");
 					descriptionsEditor.executeOnChange($(event.target));
-				} else if ($(event.target).val() !== "" && $(event.target).next().next().val() === "") {
+				} else if ($(event.target).val() !== $(event.target).next().next().val()){
 					var dataValues = $(event.target).data("values");
 					var matchingItem = dataValues.find(item => item.value === $(event.target).val());
 					if (matchingItem) {
@@ -30,11 +30,10 @@ openxava.addEditorInitFunction(function() {
 						$(event.target).next().val(matchingItem.value);
 						$(event.target).next().next().val(matchingItem.label);
 						descriptionsEditor.executeOnChange($(event.target));
-					}
-					if ($(event.target).val() !== $(event.target).next().next().val()){
-					$(event.target).val("");
-					$(event.target).next().val("");
-					$(event.target).next().next().val("");
+					} else {
+						$(event.target).val("");
+						$(event.target).next().val("");
+						$(event.target).next().next().val("");
 					}
 				}
 			},
@@ -63,6 +62,10 @@ openxava.addEditorInitFunction(function() {
 		}); 	
 		
 		$(this).attr("autocomplete", "nope");
+		/*
+		$(this).on('blur', function(event) {
+			$(this).trigger('change');
+		});*/
 		
 		$('.xava_descriptions_editor_open').off('click').click(function() {
 			descriptionsEditor.open($(this).data('property-key'));

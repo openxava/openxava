@@ -31,6 +31,19 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertFalse(dropDown.getAttribute("style").contains("display: none;"));
 	}
 	
+	public void testInputValueGetLabel() throws Exception {
+		goModule("ProductExpenses2");
+		WebElement input0 = getDriver().findElement(By.name("ox_openxavatest_ProductExpenses2__expenses___0___carrier___number__CONTROL__"));
+		input0.sendKeys("1");
+		input0.sendKeys(Keys.TAB);
+		Thread.sleep(300);
+		assertEquals(input0.getAttribute("value"),"UNO");
+		input0.clear();
+		input0.sendKeys("3");
+		input0.sendKeys(Keys.TAB);
+		assertEquals(input0.getAttribute("value"),"TRES");
+	}
+	
 	public void testAutocomplete() throws Exception {
 		setFamilyDescription(1, "SOFTWARÉ"); // To test a bug with accents 
 		createWarehouseWithQuote(); // To test a bug with quotes
@@ -119,7 +132,6 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		execute("CRUD.delete");
 		assertNoErrors();
 
-		
 		execute("CRUD.new");
 		familyTextField = getDescriptionsListTextField("family");
 		familyTextField.sendKeys(Keys.CONTROL + "a");
