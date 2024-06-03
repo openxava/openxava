@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Module broken when field content has dollar followed by curly brackets.
 - New Maven archetypes "openxava-crm-archetype" in English and Spanish (-spanish).
 - Some new common use labels to be used in applications.
 - Fix: Icon in date fields and @DescriptionsList not visible on hover inside dialog in Dark theme.

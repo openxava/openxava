@@ -245,8 +245,10 @@ public class FormulaTest extends ModuleTestBase {
 		assertTrue("Expected HTML token not found", getHtml().indexOf("Y largo</strong>,<span style=\"background-color: rgb(153, 204, 0);\"> verde </span>") >= 0);
 	}
 	
-	public void testSingleQuotationMarkAsHtmlValue_doubleQuoteInLongHtmlTextInList_doubleQuoteInTextArea() throws Exception {
-		assertListRowCount(3); // So list is displayed and includes "GREAT FORMULA" 
+	public void testSingleQuotationMarkAsHtmlValue_doubleQuoteInLongHtmlTextInList_doubleQuoteInTextArea_dollarWithCurlyBracketFieldContent() throws Exception {
+		execute("List.orderBy", "property=name");
+		assertListRowCount(4);
+		assertValueInList(0, 0, "GREAT FORMULA");
 
 		execute("CRUD.new");
 		setValue("name", "L'AJUNTAMENT");
@@ -261,6 +263,13 @@ public class FormulaTest extends ModuleTestBase {
 		String sourceCode = getValue("sourceCode");
 		assertTrue(sourceCode.length() > 200); // It's a bug with big texts
 		assertTrue(StringUtils.countMatches(sourceCode, '"') == 1); // It failed with just one " inside HTML 
+		
+		execute("CRUD.new");
+		setValue("name", "JAVA RECIPE");
+		execute("CRUD.refresh");
+		execute("Sections.change", "activeSection=2");
+		sourceCode = getValue("sourceCode");
+		assertTrue(sourceCode.contains("resourceSubType")); // Just to know that it is displayed		
 	}
 			
 }
