@@ -3229,8 +3229,9 @@ public class View implements java.io.Serializable {
 					}
 				}		
 				if (results == null && (p.getType().equals(boolean.class) || p.getType().equals(Boolean.class))) {
-					if (falseBooleans == null) falseBooleans = new HashSet();
-					falseBooleans.add(p.getName());
+					continue;
+					//if (falseBooleans == null) falseBooleans = new HashSet();
+					//falseBooleans.add(p.getName());
 				}
 				if (results == null || !WebEditors.mustToFormat(p, getViewName())) { 
 					if (oldCollectionValues != null && i < oldCollectionValues.size()) {
