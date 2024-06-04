@@ -18,4 +18,12 @@ with Terra and Light theme at least the next cases:
 	- Go to first detail.
 	- Click to edit the project, so a dialog is shown.
 	- Dialog data is readable, white over black, instead of black over black.
+- Invoice: With Dark.
+	- Go to first detail.
+	- Edit first detail line.
+	- On hover in date icon and descriptions list open icon is readable.
+	- Open the descriptions list combo, the background is black.
+- Product2:
+	- Open a descriptions list combo, the background is white.	
+		
 
