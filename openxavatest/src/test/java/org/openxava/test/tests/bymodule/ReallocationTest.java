@@ -97,7 +97,7 @@ public class ReallocationTest extends ModuleTestBase {
 		String place = getValueInCollection("details", 2, "place");
 		HtmlElement row = getHtmlPage().getHtmlElementById("ox_openxavatest_Reallocation__details___2"); 
 		HtmlElement removeIcon = row.getElementsByTagName("a").get(0).getElementsByTagName("i").get(0);
-		removeIcon.click();
+		removeIcon.click(); 
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
 		execute("CRUD.save");
 		assertNoErrors();
