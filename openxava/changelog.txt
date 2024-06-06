@@ -1,7 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
-- Maven install and package now skips tests by default in new created projects and openxavatest.
+- Fix: Editors for annotations do not work for references and collections. 
+- Maven install and package now skip tests by default in new created projects and openxavatest.
 - Fix: Module broken when field content has dollar followed by curly brackets.
 - New Maven archetypes "openxava-crm-archetype" in English and Spanish (-spanish).
 - Some new common use labels to be used in applications.

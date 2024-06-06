@@ -31,6 +31,7 @@ public class MetaReference extends MetaMember implements Cloneable {
 	private ICalculator defaultValueCalculator;
 	private boolean explicitAggregate; 
 	private boolean aggregate;
+	private boolean usedForCollection;  
 	
 	public MetaCollection getMetaCollectionFromReferencedModel() throws XavaException { 				
 		Iterator it = getMetaModelReferenced().getMetaCollections().iterator();
@@ -313,6 +314,14 @@ public class MetaReference extends MetaMember implements Cloneable {
 
 	public void setReferencedModelCorrespondingCollection(String referencedModelCorrespondingCollection) {
 		this.referencedModelCorrespondingCollection = referencedModelCorrespondingCollection;
+	}
+
+	public boolean isUsedForCollection() {
+		return usedForCollection;
+	}
+
+	public void setUsedForCollection(boolean usedForCollection) {
+		this.usedForCollection = usedForCollection;
 	}
 	
 }

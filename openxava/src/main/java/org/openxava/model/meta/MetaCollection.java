@@ -3,8 +3,6 @@ package org.openxava.model.meta;
 import java.rmi.*;
 import java.util.*;
 
-
-
 import org.openxava.util.*;
 import org.openxava.validators.*;
 
@@ -64,6 +62,7 @@ public class MetaCollection extends MetaMember implements IPropertyValidator {
 		this.metaReference = reference;
 		if (getMetaModel() != null && this.metaReference != null) {
 			this.metaReference.setMetaModel(getMetaModel());
+			this.metaReference.setUsedForCollection(true); 
 		}
 	}
 
@@ -75,8 +74,10 @@ public class MetaCollection extends MetaMember implements IPropertyValidator {
 		super.setMetaModel(newContainer);
 		if (metaReference != null) {
 			metaReference.setMetaModel(newContainer);
+			metaReference.setUsedForCollection(true); 
 		}
 	}
+	
 	/**
 	 * @param errors  Object that accumulate the list of validation errors.
 	 * @param object Collection to validate. Has to be of type Collection. If null empty collection is assumed.
