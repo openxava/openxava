@@ -1,5 +1,6 @@
 package org.openxava.test.tests.bymodule;
 
+import org.htmlunit.html.*;
 import org.openxava.tests.*;
 
 
@@ -88,6 +89,27 @@ public class ReallocationTest extends ModuleTestBase {
 		execute("Reference.search", "keyProperty=details.4.product.number");
 		execute("ReferenceSearch.choose", "row=4");
 		assertCollectionRowCount("details", 5);
+	}
+	
+	public void testBooleanInElementCollection() throws Exception {
+		execute("List.viewDetail", "row=0");
+		assertCollectionRowCount("details", 3);
+		String place = getValueInCollection("details", 2, "place");
+		HtmlElement row = getHtmlPage().getHtmlElementById("ox_openxavatest_Reallocation__details___2"); 
+		HtmlElement removeIcon = row.getElementsByTagName("a").get(0).getElementsByTagName("i").get(0);
+		removeIcon.click();
+		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
+		execute("CRUD.save");
+		assertNoErrors();
+		execute("Mode.list");
+		execute("List.viewDetail", "row=0");
+		assertCollectionRowCount("details", 2);
+		setValueInCollection("details", 2, "product.number", "3");
+		setValueInCollection("details", 2, "place", place);
+		execute("CRUD.save");
+		execute("Mode.list");
+		execute("List.viewDetail", "row=0");
+		assertCollectionRowCount("details", 3);
 	}
 	
 }
