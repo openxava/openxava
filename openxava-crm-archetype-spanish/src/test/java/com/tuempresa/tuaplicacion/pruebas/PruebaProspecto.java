@@ -65,7 +65,7 @@ public class PruebaProspecto extends ModuleTestBase {
 	}
 	
 	private String getFechaActual() {
-		return LocalDate.now().format(DateTimeFormatter.ofPattern("d/MM/yyyy")); 
+		return LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")); 
 	}
 
 }

@@ -35,7 +35,7 @@ public class MetaWebEditors {
 	private static MetaEditor editorForCollections;
 	private static MetaEditor editorForElementCollections; 
 	private static Collection<MetaEditor> editorsForTabs;
-	private static Map<String, MetaEditor> editorsByProperty; 
+	private static Map<String, MetaEditor> editorsByMember;  
 	
 	public static void addMetaEditorForType(String type, MetaEditor editor) throws XavaException {
 		if (editorsByType == null) {
@@ -141,14 +141,14 @@ public class MetaWebEditors {
 		return r;
 	}
 	
-	public static MetaEditor getMetaEditorForAnnotation(MetaProperty p)	throws XavaException { 
-		if (p.getMetaModel() == null) return null;
-		if (!p.getMetaModel().isPOJOAvailable()) return null;
-		String propertyId = p.getMetaModel().getName() + "." + p.getSimpleName();
-		if (editorsByProperty != null && editorsByProperty.containsKey(propertyId)) {
-			return editorsByProperty.get(propertyId);
+	public static MetaEditor getMetaEditorForAnnotation(MetaMember member)	throws XavaException {
+		if (member.getMetaModel() == null) return null;
+		if (!member.getMetaModel().isPOJOAvailable()) return null;
+		String memberId = member.getMetaModel().getName() + "." + member.getSimpleName();
+		if (editorsByMember != null && editorsByMember.containsKey(memberId)) {
+			return editorsByMember.get(memberId);
 		}		 
-		Annotation[] annotations = p.getAnnotations(); 
+		Annotation[] annotations = member.getAnnotations(); 
 		if (annotations != null) for (Annotation a: annotations) {
 			MetaEditor editor = getEditorsByAnnotation().get(a.annotationType().getName());
 			if (editor != null) {
@@ -165,9 +165,9 @@ public class MetaWebEditors {
 					if (clonedEditor == null) clonedEditor = editor.cloneMetaEditor();
 					clonedEditor.addProperty(m.getName(), value.toString());
 				}
-				if (editorsByProperty == null) editorsByProperty = new HashMap<>();
+				if (editorsByMember == null) editorsByMember = new HashMap<>();
 				if (clonedEditor != null) editor = clonedEditor;
-				editorsByProperty.put(propertyId, editor);
+				editorsByMember.put(memberId, editor);
 				return editor;
 			}
 		}
@@ -303,7 +303,8 @@ public class MetaWebEditors {
 	}
 	
 	public static MetaEditor getMetaEditorFor(MetaReference ref) throws ElementNotFoundException, XavaException {							
-		MetaEditor r = (MetaEditor) getMetaEditorForReferenceModel(ref.getReferencedModelName());		
+		MetaEditor r = (MetaEditor) getMetaEditorForReferenceModel(ref.getReferencedModelName());	
+		if (r == null && !ref.isUsedForCollection()) r = (MetaEditor) getMetaEditorForAnnotation(ref);
 		if (r == null) {
 			if (editorForReferences == null) {
 				throw new ElementNotFoundException("editor_for_references_required");
@@ -314,7 +315,8 @@ public class MetaWebEditors {
 	}
 	
 	public static MetaEditor getMetaEditorFor(MetaCollection col) throws ElementNotFoundException, XavaException {
-		MetaEditor r = (MetaEditor) getMetaEditorForCollectionModel(col.getMetaReference().getReferencedModelName());		
+		MetaEditor r = (MetaEditor) getMetaEditorForCollectionModel(col.getMetaReference().getReferencedModelName());	
+		if (r == null) r = (MetaEditor) getMetaEditorForAnnotation(col);
 		if (r == null) {
 			r = col.isElementCollection()?editorForElementCollections:editorForCollections;
 			if (r == null) {

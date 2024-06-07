@@ -82,7 +82,13 @@
 		<for-reference model="Color"/>
 	</editor>
 	
-	<editor name="CarriersNames" url="carriersNamesEditor.jsp"/>
+	<editor name="CarriersNames" url="carriersNamesEditor.jsp">
+		<for-annotation annotation="org.openxava.test.annotations.CarriersNames"/>
+	</editor>
+	
+	<editor url="customWarehouseEditor.jsp">
+		<for-annotation annotation="org.openxava.test.annotations.CustomWarehouse"/>
+	</editor>	
 	
 	<editor url="blogCommentsEditor.jsp">
 		<for-collection model="BlogComment"/>

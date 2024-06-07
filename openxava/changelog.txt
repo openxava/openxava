@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Removing a row from an @ElementCollection not persisted if the row contains a boolean.
+- Fix: Editors for annotations do not work for references and collections. 
+- Maven install and package now skip tests by default in new created projects and openxavatest.
 - Fix: Module broken when field content has dollar followed by curly brackets.
 - New Maven archetypes "openxava-crm-archetype" in English and Spanish (-spanish).
 - Some new common use labels to be used in applications.

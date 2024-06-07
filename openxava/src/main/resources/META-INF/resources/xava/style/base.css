@@ -227,7 +227,8 @@
 			rgba(0, 0, 0, 0.3),
 			rgba(0, 0, 0, 0.3)
 		) var(--autocomplete-scrollbar-background);
-	--autocomplete-border: lightgray;		
+	--autocomplete-border: lightgray;
+	--autocomplete-background: var(--input-background); 		
 	
 	--reverse-label-color: white;
 	--reverse-label-background: black;
@@ -1949,11 +1950,6 @@ td.ox-list-subheader > div {
 	margin-right: -5px !important;
 }
 
-.ox-subcontroller {
-	display:none;
-	position: fixed; 
-}
-
 .ox-subcontroller-button img {
 	padding-right: 4px;
 }
@@ -1961,7 +1957,6 @@ td.ox-list-subheader > div {
 .ox-subcontroller, .ui-autocomplete { 
 	padding: 10px 5px 10px 5px;
 	margin: 14px 0px 0px -4px;
-	background: var(--subcontroller-background);  
 	display: none;  
 	z-index: 999999;
 	box-shadow: 4px 4px 18px var(--subcontroller-shadow);
@@ -1971,8 +1966,14 @@ td.ox-list-subheader > div {
 	border-top-right-radius: 2px;	
 }
 
+.ox-subcontroller {
+	position: fixed;
+	background: var(--subcontroller-background); 
+}
+
 .ui-autocomplete { 
 	position: absolute; 
+	background: var(--autocomplete-background);
 }
 
 .ox-subcontroller .ox-button-bar-button a, .ox-subcontroller .ox-button-bar-button a:hover {
