@@ -1803,6 +1803,14 @@ public class View implements java.io.Serializable {
 		assertRepresentsCollection("getMetaCollection()");
 		return getParentIfSectionOrGroup().getParent().getMetaModel().getMetaCollection(getMemberName()); 
 	}
+	
+	public Collection<String> getCollectionChartLabels() { // tmr
+		return List.of("Juan", "Antonio"); // tmr No dejar
+	}
+	
+	public Collection<Number> getCollectionChartValues() { // tmr ¿Values o Data?
+		return List.of(new BigDecimal("1200"), new BigDecimal("1700")); // tmr No dejar
+	}
 
 
 	/**
