@@ -697,6 +697,10 @@ public class SellerTest extends CustomizeListTestBase {
 		assertValue("name", "ELISEO FERNANDEZ");
 	
 		execute("Navigation.next");
+		assertValue("number", "4");
+		assertValue("name", "GALILEO GALILEI");
+		
+		execute("Navigation.next");
 		assertValue("number", "66");
 		assertValue("name", "SELLER JUNIT 66");
 
