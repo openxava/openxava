@@ -19,10 +19,15 @@ public class SellerWithDescriptionsListJSPTest extends ModuleTestBase {
 			{ "", "" },
 			{ "C", "JUNIOR" },
 			{ "A", "MANAGER" },
-			{ "B", "SENIOR" }	
+			{ "b", "SEMI SENIOR" },
+			{ "B", "SENIOR" }
 		};			
 		assertValue("level.id", "A");
 		assertValidValues("level.id", levelValues);
+		
+		execute("Mode.list");
+		execute("List.viewDetail", "row=3");
+		assertValue("level.id", "b");
 	}	
 			
 }

@@ -666,7 +666,7 @@ public class SellerTest extends CustomizeListTestBase {
 	}
 	
 	public void testOnChangeListDescriptionReferenceWithStringSingleKey_justCreatedObjectPresentWhenNavigating() throws Exception { 
-		assertListRowCount(3); 
+		assertListRowCount(4); 
 		assertOnChangeListDescriptionReferenceWithStringSingleKey();
 		assertJustCreatedObjectPresentWhenNavigating();
 	}
