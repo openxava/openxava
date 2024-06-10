@@ -3198,9 +3198,18 @@ public class View implements java.io.Serializable {
 		}		
 		String lastLineKeySuffix = "." + lastLineScannedProperty + "_EDITABLE_";
 		int lastLineKeyIncrement = isCollectionEditable()?1:0;
+		int collectionNewSize = 0;
+		boolean hasBoolean = false;
+		for (int i=0; ; i++) {
+			String lastLineKey = qualifier + (i + lastLineKeyIncrement) + lastLineKeySuffix;
+			if (getRequest().getParameterValues(lastLineKey) == null) break;
+			collectionNewSize++;
+		}
+		if (collectionNewSize > 1) collectionNewSize--; 
 		for (int i=0; ;i++) {
 			String lastLineKey = qualifier + (i + lastLineKeyIncrement) + lastLineKeySuffix;
-			if (getRequest().getParameterValues(lastLineKey) == null) break;			
+			if (getRequest().getParameterValues(lastLineKey) == null) break;
+			if (i >= collectionNewSize && hasBoolean) break; 
 			boolean containsReferences = false;
 			Set<String> falseBooleans = null; 
 			Map element = new HashMap();
@@ -3231,6 +3240,7 @@ public class View implements java.io.Serializable {
 				if (results == null && (p.getType().equals(boolean.class) || p.getType().equals(Boolean.class))) {
 					if (falseBooleans == null) falseBooleans = new HashSet();
 					falseBooleans.add(p.getName());
+					if (!hasBoolean) hasBoolean = true;
 				}
 				if (results == null || !WebEditors.mustToFormat(p, getViewName())) { 
 					if (oldCollectionValues != null && i < oldCollectionValues.size()) {
@@ -3254,7 +3264,7 @@ public class View implements java.io.Serializable {
 			}
 			if (containsReferences) element = Maps.plainToTree(element);
 			collectionValues.add(element);
-		}			
+		}
 		setCollectionEditionRowFromChangedProperty();
 		oldCollectionTotals = collectionTotals; 
 		moveCollectionValuesToViewValues();
