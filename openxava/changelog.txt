@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Commons validator upgraded to 1.9.0.
+- HSQLDB embedded database upgraded to 2.7.3.
 - Fix: Removing a row from an @ElementCollection not persisted if the row contains a boolean.
 - Fix: Editors for annotations do not work for references and collections. 
 - Maven install and package now skip tests by default in new created projects and openxavatest.
