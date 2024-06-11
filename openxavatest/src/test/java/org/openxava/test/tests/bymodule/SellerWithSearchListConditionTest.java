@@ -35,7 +35,7 @@ public class SellerWithSearchListConditionTest extends CustomizeListTestBase {
 		changeModule("SellerSearchListConditionOff");
 		execute("List.viewDetail", "row=0");
 		execute("Reference.search", "keyProperty=level.id");
-		assertListRowCount(3);
+		assertListRowCount(4);
 		closeDialog();
 
 		execute("Collection.add", "viewObject=xava_view_customers");
@@ -46,7 +46,7 @@ public class SellerWithSearchListConditionTest extends CustomizeListTestBase {
 		changeModule("SellerSearchListConditionBlank");
 		execute("List.viewDetail", "row=0");
 		execute("Reference.search", "keyProperty=level.id");
-		assertListRowCount(3);
+		assertListRowCount(4);
 		closeDialog();
 
 		execute("Collection.add", "viewObject=xava_view_customers");
