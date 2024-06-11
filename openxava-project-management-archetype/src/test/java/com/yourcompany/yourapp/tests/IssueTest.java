@@ -8,7 +8,7 @@ import org.openxava.tests.*;
 public class IssueTest extends ModuleTestBase {
 
 	public IssueTest(String nameTest) {
-		super(nameTest, "xavaprojects", "Issue");
+		super(nameTest, "yourapp", "Issue");
 	}
 	
 	public void testCreateNewIssue() throws Exception {
@@ -16,11 +16,11 @@ public class IssueTest extends ModuleTestBase {
 		setValue("title", "JUnit Incident");
 		String [][] types = {
 			{ "", "" },
-			{ "4028808d7eea19fe017eea61bec90024", "Bug" },
-			{ "4028808d7eea19fe017eea61d4f20025", "Feature" }
+			{ "2c94f081900875e801900896f25b0008", "Bug" },
+			{ "2c94f081900875e80190089701170009", "Feature" }
 		};
 		assertValidValues("type.id", types);
-		setValue("type.id", "4028808d7eea19fe017eea61bec90024"); // Bug 
+		setValue("type.id", "2c94f081900875e801900896f25b0008"); // Bug 
 		setValue("description", "This is a JUnit Incident");
 		assertValidValuesCount("project.id", 2);
 		assertDescriptionValue("project.id", "OpenXava"); 		
@@ -30,9 +30,9 @@ public class IssueTest extends ModuleTestBase {
 
 		String [][] priorities = {
 			{ "", "" },
-			{ "7", "7 High" },
-			{ "5", "5 Normal" },
-			{ "3", "3 Low" }
+			{ "7", "High" },
+			{ "5", "Normal" },
+			{ "3", "Low" }
 		};
 		assertValidValues("priority.level", priorities);
 		assertValue("priority.level", "5");
@@ -40,39 +40,39 @@ public class IssueTest extends ModuleTestBase {
 
 		String [][] versions = {
 			{ "", "" },
-			{ "4028808d7eea19fe017eea5074130012", "2.0" },
-			{ "4028808d7eea19fe017eea5057f30011", "1.0" }
+			{ "2c94f081900856030190085ec7cc0002", "2.0" },
+			{ "2c94f081900856030190085eb1610001", "1.0" }
 		};
 		assertValidValues("version.id", versions);
-		setValue("version.id", "4028808d7eea19fe017eea5057f30011"); // 1.0 
+		setValue("version.id", "2c94f081900856030190085eb1610001"); // 1.0 
 			
 		String [][] plans = {
 			{ "", "" },	
-			{ "4028808d7eea19fe017eea5b5534001e", "Javi 2019.10" },
-			{ "4028808d7eea19fe017eea5b675b001f", "Javi 2019.11" }
+			{ "2c94f081900875e80190089c0080000a", "Javi 2024.10" },
+			{ "2c94f081900875e80190089c1211000b", "Javi 2024.11" }
 		};
 		assertValidValues("assignedTo.id", plans);
-		setValue("assignedTo.id", "4028808d7eea19fe017eea5b675b001f"); // 2019.11 
+		setValue("assignedTo.id", "2c94f081900875e80190089c1211000b"); // Javi 2024.11 
 		
 		String [][] status = {
 			{ "", "" },	
-			{ "4028808d7eea19fe017eea2160df0002", "Done" },
-			{ "4028808d7eea19fe017eea2272ae0003", "Not reproducible" },
-			{ "4028808d7eea19fe017eea1e4ffb0001", "Pending" },
-			{ "4028808d7eea19fe017eea2380970004", "Rejected" }
+			{ "2c94f081900875e80190088afdc30001", "Done" },
+			{ "2c94f081900875e80190088ce9d30002", "Not reproducible" },
+			{ "2c94f081900875e80190088a559a0000", "Pending" },
+			{ "2c94f081900875e80190088d8fb90003", "Rejected" }
 		};
 		
 		assertValidValues("status.id", status);
-		assertValue("status.id", "4028808d7eea19fe017eea1e4ffb0001"); // Pending 
+		assertValue("status.id", "2c94f081900875e80190088a559a0000"); // Pending 
 		
 		String [][] customers = {
 			{ "", "" },	
-			{ "4028808d7ef9b160017ef9b24a960001", "Banco Santander" },
-			{ "4028808d7ef9b160017ef9b28a510002", "Oracle Corporation" }			
+			{ "2c94f081900875e8019008a7349e0010", "Europe Software Corporation" },
+			{ "2c94f081900875e8019008a637e8000f", "Ministry of Industry" }			
 		};
 		
 		assertValidValues("customer.id", customers);
-		setValue("customer.id", "4028808d7ef9b160017ef9b24a960001"); // Banco Santander 
+		setValue("customer.id", "2c94f081900875e8019008a637e8000f"); // Ministry of Industry 
 
 		assertValue("hours", "");
 		setValue("minutes", "90");
@@ -100,16 +100,16 @@ public class IssueTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		
 		assertValue("title", "JUnit Incident");
-		assertValue("type.id", "4028808d7eea19fe017eea61bec90024"); // Bug  
+		assertValue("type.id", "2c94f081900875e801900896f25b0008"); // Bug  
 		assertValue("description", "<p>This is a JUnit Incident</p>");
 		assertDescriptionValue("project.id", "OpenXava"); 
 		assertValue("createdBy", "admin");
 		assertValue("createdOn", getCurrentDate()); // If fails revise the serverTimezone in MySQL url
 		assertValue("priority.level", "7"); 
-		assertValue("version.id", "4028808d7eea19fe017eea5057f30011"); // 1.0 
-		assertValue("assignedTo.id", "4028808d7eea19fe017eea5b675b001f"); // 2019.11
-		assertValue("status.id", "4028808d7eea19fe017eea1e4ffb0001"); // Pending  
-		assertValue("customer.id", "4028808d7ef9b160017ef9b24a960001"); // Banco Santander
+		assertValue("version.id", "2c94f081900856030190085eb1610001"); // 1.0 
+		assertValue("assignedTo.id", "2c94f081900875e80190089c1211000b"); // Javi 2024.11
+		assertValue("status.id", "2c94f081900875e80190088a559a0000"); // Pending  
+		assertValue("customer.id", "2c94f081900875e8019008a637e8000f"); // Ministry of Industry
 		assertValue("minutes", "90");
 		assertValue("hours", "1.50");		
 		
@@ -126,11 +126,11 @@ public class IssueTest extends ModuleTestBase {
 		setValue("title", "JUnit Simple Incident");
 		String [][] types = {
 			{ "", "" },
-			{ "4028808d7eea19fe017eea61bec90024", "Bug" },
-			{ "4028808d7eea19fe017eea61d4f20025", "Feature" }
+			{ "2c94f081900875e801900896f25b0008", "Bug" },
+			{ "2c94f081900875e80190089701170009", "Feature" }
 		};
 		assertValidValues("type.id", types);
-		setValue("type.id", "4028808d7eea19fe017eea61bec90024"); // Bug
+		setValue("type.id", "2c94f081900875e801900896f25b0008"); // Bug
 		setValue("description", "This is a JUnit Incident");
 		
 		execute("CRUD.save");
@@ -141,7 +141,7 @@ public class IssueTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		
 		assertValue("title", "JUnit Simple Incident");
-		assertValue("type.id", "4028808d7eea19fe017eea61bec90024"); 
+		assertValue("type.id", "2c94f081900875e801900896f25b0008"); 
 		assertValue("description", "<p>This is a JUnit Incident</p>");
 		assertValue("createdBy", "admin");
 		assertValue("createdOn", getCurrentDate());

@@ -8,6 +8,7 @@
 <%@page import="org.openxava.util.XavaResources"%>
 
 <%
+// TMR FALTA REFINAR
 String applicationName = request.getContextPath().substring(1);
 MetaApplication metaApplication = MetaApplications.getMetaApplication(applicationName);
 Locales.setCurrent(request);
@@ -35,7 +36,7 @@ else title = title + " - XavaProjects";
 
 
 <div id="logo">
-<div>xava<span>projects</span></div>
+<div><%=metaApplication.getLabel()%></div>
 </div>
 
 <p><%=welcomePoint1%></p> 
@@ -43,18 +44,14 @@ else title = title + " - XavaProjects";
 
 <div class="ox-bottom-buttons">
 	<input type="hidden">
-	<input type="button" tabindex="1" onclick="window.location='https://github.com/openxava/xavaprojects'" value="<xava:message key='download_from_github'/>">
-	<br>
-	<a href="<%=request.getContextPath()%>/m/SignIn"><xava:label key='SignIn'/></a>   
-</div>
-
-<div id="home_screenshot">
-<img src="<%=request.getContextPath()%>/images/home-screenshot_<%=language%>.png"/>
+	<a href="m/SignIn">
+	<input type="button" tabindex="1" value="<xava:label key='SignIn'/>">
+	</a>
 </div>
 
 <div class="group">
 
-	<% for (int i=1; i<=5; i++) { %>
+	<% for (int i=1; i<=4; i++) { %>
 		<div class='block'>
 			<%
 			String featureHeader = XavaResources.getString(request, "feature_header" + i);
@@ -65,11 +62,6 @@ else title = title + " - XavaProjects";
 		</div>
 	<% } %>
 
-</div>
-
-<div class="ox-bottom-buttons">
-	<input type="hidden">
-	<input type="button" tabindex="1" onclick="window.location='https://github.com/openxava/xavaprojects'" value="<xava:message key='download_from_github'/>">
 </div>
 
 </body>

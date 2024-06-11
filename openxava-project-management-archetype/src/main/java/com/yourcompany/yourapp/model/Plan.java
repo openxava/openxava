@@ -15,7 +15,7 @@ public class Plan extends Identifiable {
 	
 	@DescriptionsList
 	@ManyToOne(optional=false)
-	Worker worker;
+	Worker worker; 
 	
 	@DescriptionsList
 	@ManyToOne(optional=false)

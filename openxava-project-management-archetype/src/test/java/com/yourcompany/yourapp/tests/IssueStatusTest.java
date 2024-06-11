@@ -5,7 +5,7 @@ import org.openxava.tests.*;
 public class IssueStatusTest extends ModuleTestBase {
 
 	public IssueStatusTest(String nameTest) {
-		super(nameTest, "xavaprojects", "IssueStatus");
+		super(nameTest, "yourapp", "IssueStatus");
 	}
 	
 	public void testUseAsDefaultValue() throws Exception {

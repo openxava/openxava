@@ -25,7 +25,9 @@ public class Issue extends Identifiable {
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	IssueType type;
 		
-	@Stereotype("SIMPLE_HTML_TEXT") @Column(columnDefinition="MEDIUMTEXT")
+	@HtmlText(simple = true) 
+	// @Column(columnDefinition="MEDIUMTEXT") // MySQL
+	@Column(columnDefinition="LONGVARCHAR") // HSQLDB
 	String description;
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=true)
@@ -72,10 +74,10 @@ public class Issue extends Identifiable {
 	@Column(length=6, scale=2)
 	BigDecimal hours; 
 	
-	@Stereotype("FILES") @Column(length=32)
+	@Files @Column(length=32)
 	String attachments;
 	
-	@Stereotype("DISCUSSION")
+	@Discussion
 	@Column(length=32)
 	private String discussion;
 	

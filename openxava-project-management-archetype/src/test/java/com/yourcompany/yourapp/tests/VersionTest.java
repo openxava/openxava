@@ -8,7 +8,7 @@ import com.yourcompany.yourapp.model.*;
 public class VersionTest extends ModuleTestBase {
 
 	public VersionTest(String nameTest) {
-		super(nameTest, "xavaprojects", "Version");
+		super(nameTest, "yourapp", "Version");
 	}
 	
 	public void testVersionsDependsOnProjectInIssue_projectDefaultValueOnCreateIssueFromVersion() throws Exception {
@@ -17,12 +17,12 @@ public class VersionTest extends ModuleTestBase {
 		execute("Reference.createNew", "model=Project,keyProperty=project.id");
 		setValue("name", "XavaProjects");
 		execute("NewCreation.saveNew");
-		setValue("name", "2019.12");
+		setValue("name", "2024.12");
 		execute("CRUD.save");
 
 		Project newProject = Project.findByName("XavaProjects"); 
 		setValue("project.id", newProject.getId());
-		setValue("name", "2020.01");
+		setValue("name", "2025.01");
 
 		assertNoAction("Collection.new");
 		execute("VersionIssues.new", "viewObject=xava_view_issues");
@@ -33,8 +33,8 @@ public class VersionTest extends ModuleTestBase {
 		execute("CRUD.save");
 		
 		XPersistence.commit();
-		Version newVersion1 = Version.findByName("2019.12").get(0);
-		Version newVersion2 = Version.findByName("2020.01").get(0);
+		Version newVersion1 = Version.findByName("2024.12").get(0);
+		Version newVersion2 = Version.findByName("2025.01").get(0);
 
 		changeModule("Issue");
 		execute("CRUD.new");
@@ -57,8 +57,8 @@ public class VersionTest extends ModuleTestBase {
 		setValue("project.id", oldProject.getId());
 		String [][] oldProjectVersions = {
 			{ "", "" },
-			{ "4028808d7eea19fe017eea5074130012", "2.0" },
-			{ "4028808d7eea19fe017eea5057f30011", "1.0" }
+			{ "2c94f081900856030190085ec7cc0002", "2.0" },
+			{ "2c94f081900856030190085eb1610001", "1.0" }
 		};
 		assertValidValues("version.id", oldProjectVersions);
 		

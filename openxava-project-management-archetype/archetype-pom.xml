@@ -5,12 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.openxava</groupId>
-	<artifactId>openxava-archetype</artifactId>
+	<artifactId>openxava-project-management-archetype</artifactId>
 	<version>7.3.3-SNAPSHOT</version>
 	<packaging>maven-archetype</packaging>
 
   	<name>OpenXava Archetype</name>
-	<description>Archetype for creating a new OpenXava project</description>
+	<description>Archetype for creating a project management application based on OpenXava</description>
 	<url>https://www.openxava.org</url>
 	
 	<licenses>
