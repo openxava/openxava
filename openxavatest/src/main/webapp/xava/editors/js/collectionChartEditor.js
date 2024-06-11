@@ -2,16 +2,13 @@
 
 openxava.addEditorInitFunction(function() {
 	// tmr Ha de funcionar con más de uno
-	// tmr Debería usar jquery en vez de nativo
 	$('.xava_collection_chart').each( function () {
-		// TMR ME QUEDÉ POR AQUÍ, NO FUNCIONA EL PARSE
-		var labels = JSON.parse($(this).data("labels"));
+		var labels = $(this).data("labels");
 		console.log("labels=" + labels); // tmr
-		var values = JSON.parse($(this).data("values"));
-		console.log("values=" + values); // tmr
+		console.log("labels[0]=" + labels[0]); // tmr		
+		var values = $(this).data("values");
+		values.unshift('data0');
 		var parentId = $(this).parent().attr("id");
-		console.log("parentId=" + parentId); // tmr		
-	
 		c3.generate({
 		    bindto: '#' + parentId + " .xava_collection_chart", 
 	 		data: {
