@@ -1507,7 +1507,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 	
 	public int getLastPage() {		
-		return (tableModel.getRowCount() - 1) / getPageRowCount() + 1;
+		return (getTableModel().getRowCount() - 1) / getPageRowCount() + 1;
 	}
 		
 	public void pageBack() {
@@ -1739,7 +1739,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 		notResetNextTime = false;		 	 			
 		tableModel  = null;
 		metaTab = null;
-		metaTabCloned = false; 
+		metaTabCloned = false;
+		goPage(1); 
 	}
 	
 	/**
