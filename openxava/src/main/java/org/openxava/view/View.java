@@ -1805,11 +1805,11 @@ public class View implements java.io.Serializable {
 	}
 	
 	public Collection<String> getCollectionChartLabels() { // tmr
-		return List.of("Juan", "Antonio"); // tmr No dejar
+		return Arrays.asList("Juan", "Antonio");
 	}
 	
-	public Collection<Number> getCollectionChartValues() { // tmr ¿Values o Data?
-		return List.of(new BigDecimal("1200"), new BigDecimal("1700")); // tmr No dejar
+	public Collection getCollectionChartValues() { // tmr ¿Values o Data?
+		return Arrays.asList("Salary", new BigDecimal("1200"), new BigDecimal("1700"));
 	}
 
 

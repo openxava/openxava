@@ -7,12 +7,13 @@ openxava.addEditorInitFunction(function() {
 		console.log("labels=" + labels); // tmr
 		console.log("labels[0]=" + labels[0]); // tmr		
 		var values = $(this).data("values");
-		values.unshift('data0');
+		console.log("values=" + values); // tmr
+		console.log("values[0]=" + values[0]); // tmr		
 		var parentId = $(this).parent().attr("id");
 		c3.generate({
 		    bindto: '#' + parentId + " .xava_collection_chart", 
 	 		data: {
-		        columns: [ values ],
+		        columns: [[ values ], ["B", 100, 200]], // TMR ME QUEDÉ POR AQUÍ, INTENTANDO QUE FUNCIONEN 2 BARRAS
 		        type: 'bar'
 		    },
 		    axis: {

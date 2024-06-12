@@ -14,9 +14,7 @@ String viewObject = request.getParameter("viewObject");
 View view = (View) context.get(request, viewObject);
 View subview = view.getSubview(collectionName);
 JSONArray labels = new JSONArray(subview.getCollectionChartLabels());
-Collection<Number> values = subview.getCollectionChartValues();
-// TMR ME QUEDÉ POR AQUÍ, ME ACABÓ DE FUNCIONAR. FATLA LA ETIQUETA DE LOS VALORES (data0). 
-// TMR   TAMBIÉN DEBERÍA PROBAR CON DOS VALORES, PORQUE REQUERIRÁ RECODIFICAR
+JSONArray values = new JSONArray(subview.getCollectionChartValues());
 System.out.println("[collectionChartEditor.jsp] labels=" + labels); // tmr
 System.out.println("[collectionChartEditor.jsp] values=" + values); // tmr
 %>
