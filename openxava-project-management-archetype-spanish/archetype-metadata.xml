@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor xsi:schemaLocation="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0 http://maven.apache.org/xsd/archetype-descriptor-1.1.0.xsd" name="tuaplicacion"
+    xmlns="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <fileSets>
+    <fileSet filtered="true" packaged="true" encoding="ISO-8859-1">
+      <directory>src/main/java</directory>
+      <includes>
+        <include>**/*.java</include>
+      </includes>
+    </fileSet>
+    <fileSet packaged="true" encoding="ISO-8859-1">
+      <directory>src/main/java</directory>
+      <includes>
+        <include>**/*.algo</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="ISO-8859-1">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>**/*.xml</include>
+        <include>**/*.properties</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="ISO-8859-1">
+      <directory>src/main/webapp</directory>
+      <includes>
+        <include>**/*.xml</include>
+      </includes>
+    </fileSet>
+    <fileSet encoding="ISO-8859-1">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>**/*.dtd</include>
+      </includes>
+    </fileSet>
+    <fileSet encoding="ISO-8859-1">
+      <directory>src/main/webapp</directory>
+      <includes>
+        <include>**/*.css</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="ISO-8859-1">
+      <directory>src/test/resources</directory>
+      <includes>
+        <include>**/*.properties</include>
+      </includes>
+    </fileSet>
+    <fileSet encoding="ISO-8859-1">
+      <directory>.settings</directory>
+      <includes>
+        <include>**/*.prefs</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="ISO-8859-1">
+      <directory></directory>
+      <includes>
+        <include>.classpath</include>
+        <include>.project</include>
+      </includes>
+    </fileSet>
+    <fileSet encoding="ISO-8859-1">
+      <directory></directory>
+      <includes>
+        <include>.gitignore</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+</archetype-descriptor>
