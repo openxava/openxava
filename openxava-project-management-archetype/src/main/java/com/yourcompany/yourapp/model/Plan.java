@@ -10,6 +10,7 @@ import org.openxava.model.*;
 import lombok.*;
 
 @Entity @Getter @Setter
+@View(members="worker, period; issues")
 @Tab(defaultOrder="${period.name} desc, ${worker.name} asc") 
 public class Plan extends Identifiable {
 	

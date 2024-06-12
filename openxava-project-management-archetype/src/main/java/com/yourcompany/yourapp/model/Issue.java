@@ -16,6 +16,19 @@ import com.yourcompany.yourapp.calculators.*;
 import lombok.*;
 
 @Entity @Getter @Setter
+@View(members=
+	"title, type;" +
+	"description;" +
+	"details [#" +
+		"project, createdBy;" +
+		"createdOn, priority;" +
+		"version, assignedTo;" +
+		"status, customer;" +
+		"minutes, hours;" +
+	"];" +
+	"attachments;" +
+	"discussion"
+)
 public class Issue extends Identifiable {
 
 	@Column(length=100) @Required

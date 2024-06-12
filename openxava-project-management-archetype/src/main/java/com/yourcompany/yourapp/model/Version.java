@@ -11,6 +11,7 @@ import org.openxava.model.*;
 import lombok.*;
 
 @Entity @Getter @Setter
+@View(members="project, name; issues")
 @Tab(defaultOrder="${name} desc") 
 public class Version extends Identifiable {
 	

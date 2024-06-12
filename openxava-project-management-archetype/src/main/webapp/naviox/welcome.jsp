@@ -8,19 +8,13 @@
 <%@page import="org.openxava.util.XavaResources"%>
 
 <%
-// TMR FALTA REFINAR
-String applicationName = request.getContextPath().substring(1);
-MetaApplication metaApplication = MetaApplications.getMetaApplication(applicationName);
+MetaApplication metaApplication = MetaApplications.getMainMetaApplication(); 
 Locales.setCurrent(request);
 String oxVersion = org.openxava.controller.ModuleManager.getVersion();
-String language = "es".equals(Locales.getCurrent().getLanguage()) || "ca".equals(Locales.getCurrent().getLanguage())?"es":"en";
-String welcomePoint1 = (String) request.getAttribute("description1");
-if (welcomePoint1 == null) welcomePoint1 = XavaResources.getString(request, "welcome_point1");
-String welcomePoint2 = (String) request.getAttribute("description2");
-if (welcomePoint2 == null) welcomePoint2 = XavaResources.getString(request, "welcome_point2");
-String title = (String) request.getAttribute("pageTitle");
-if (title == null) title =  "XavaProjects: " + XavaResources.getString(request, "page_title");
-else title = title + " - XavaProjects";
+String title = (String) request.getAttribute("naviox.pageTitle");
+if (title == null) title = metaApplication.getLabel();
+String welcomePoint1 = XavaResources.getString(request, "welcome_point1");
+String welcomePoint2 = XavaResources.getString(request, "welcome_point2");
 %>
 
 <!DOCTYPE html>
@@ -65,4 +59,3 @@ else title = title + " - XavaProjects";
 </div>
 
 </body>
-
