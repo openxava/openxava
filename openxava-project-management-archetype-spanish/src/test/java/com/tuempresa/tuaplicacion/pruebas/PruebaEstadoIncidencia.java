@@ -5,7 +5,7 @@ import org.openxava.tests.*;
 public class PruebaEstadoIncidencia extends ModuleTestBase {
 
 	public PruebaEstadoIncidencia(String nameTest) {
-		super(nameTest, "proyecto1", "EstadoIncidencia");
+		super(nameTest, "tuaplicacion", "EstadoIncidencia");
 	}
 	
 	public void testUsarComoValorPorDefecto() throws Exception {

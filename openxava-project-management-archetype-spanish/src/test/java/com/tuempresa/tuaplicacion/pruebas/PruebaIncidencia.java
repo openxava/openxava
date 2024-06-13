@@ -8,7 +8,7 @@ import org.openxava.tests.*;
 public class PruebaIncidencia extends ModuleTestBase {
 
 	public PruebaIncidencia(String nameTest) {
-		super(nameTest, "proyecto1", "Incidencia");
+		super(nameTest, "tuaplicacion", "Incidencia");
 	}
 	
 	public void testCrearNuevaIncidencia() throws Exception {

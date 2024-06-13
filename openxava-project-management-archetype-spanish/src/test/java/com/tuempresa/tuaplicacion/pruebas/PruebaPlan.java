@@ -5,7 +5,7 @@ import org.openxava.tests.*;
 public class PruebaPlan extends ModuleTestBase {
 
 	public PruebaPlan(String nameTest) {
-		super(nameTest, "proyecto1", "Plan");
+		super(nameTest, "tuaplicacion", "Plan");
 	}
 	
 	public void testCrearNuevoPlan() throws Exception {

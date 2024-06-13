@@ -8,7 +8,7 @@ import com.tuempresa.tuaplicacion.modelo.*;
 public class PruebaVersion extends ModuleTestBase {
 
 	public PruebaVersion(String nameTest) {
-		super(nameTest, "proyecto1", "Version");
+		super(nameTest, "tuaplicacion", "Version");
 	}
 	
 	public void testVersionesDependeDeProyectoEnIncidencia_valorPorDefectoParaProyectoAlCrearIncidenciaDesdeVersion() throws Exception {
