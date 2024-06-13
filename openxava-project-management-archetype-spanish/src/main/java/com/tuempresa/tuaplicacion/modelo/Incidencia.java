@@ -62,7 +62,7 @@ public class Incidencia extends Identifiable {
 		properties = @PropertyValue(name="value", value="5") )
 	Prioridad prioridad; 
 		
-	@DescriptionsList(condition="project.id = ?", depends="this.project", order="${name} desc") 
+	@DescriptionsList(condition="proyecto.id = ?", depends="this.proyecto", order="${name} desc") 
 	@ManyToOne(fetch=FetchType.LAZY, optional=true)
 	Version version;
 	

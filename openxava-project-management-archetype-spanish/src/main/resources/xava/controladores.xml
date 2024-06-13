@@ -21,4 +21,10 @@
     </controlador>
     -->
     
+    <controlador nombre="IncidenciasVersion">
+    	<accion nombre="new" oculta="true"
+			icono="library-plus"
+			clase="com.tuempresa.tuaplicacion.acciones.CrearNuevaIncidenciaEnVersion"/>
+	</controlador>
+    
 </controladores>
