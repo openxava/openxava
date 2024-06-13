@@ -1507,7 +1507,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 	
 	public int getLastPage() {		
-		return (getTableModel().getRowCount() - 1) / getPageRowCount() + 1;
+		return (tableModel.getRowCount() - 1) / getPageRowCount() + 1;
 	}
 		
 	public void pageBack() {
