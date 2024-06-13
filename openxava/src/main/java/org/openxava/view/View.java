@@ -1804,14 +1804,28 @@ public class View implements java.io.Serializable {
 		return getParentIfSectionOrGroup().getParent().getMetaModel().getMetaCollection(getMemberName()); 
 	}
 	
-	public Collection<String> getCollectionChartLabels() { // tmr
-		return Arrays.asList("Juan", "Antonio");
+	public Collection getCollectionChartLabels() { // tmr
+		// TMR ME QUEDÉ POR AQUÍ, FALTA COGER firstName DESDE MetaChart QUE TODAVÍA NO EXIST
+		return getCollectionValues().stream()
+	        .map(item -> item.get("firstName")) // tmr No podemos dejar "firstName" 
+	        .collect(Collectors.toList());
 	}
 	
-	public Collection getCollectionChartValues() { // tmr ¿Values o Data?
-		return Arrays.asList("Salary", new BigDecimal("1200"), new BigDecimal("1700"));
+	public Collection<Collection> getCollectionChartValues() { // tmr ¿Values o Data?
+		return Arrays.asList(			
+			getCollectionChartValuesFor("salary"), // tmr No podemos dejar "firstName"
+			getCollectionChartValuesFor("bonus") // tmr No podemos dejar "firstName"
+		);
 	}
-
+	
+	private Collection getCollectionChartValuesFor(String propertyName) { // tmr ¿Values o Data?
+		Collection result = new ArrayList();
+        result.add(propertyName); // tmr Aquí debería ser la etiqueta
+        result.addAll(getCollectionValues().stream()
+            .map(item -> item.get(propertyName))
+            .collect(Collectors.toList()));
+        return result;
+	}
 
 	/**
 	 * A list of all collection element when each element is a map 

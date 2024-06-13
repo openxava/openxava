@@ -13,7 +13,7 @@ openxava.addEditorInitFunction(function() {
 		c3.generate({
 		    bindto: '#' + parentId + " .xava_collection_chart", 
 	 		data: {
-		        columns: [[ values ], ["B", 100, 200]], // TMR ME QUEDÉ POR AQUÍ, INTENTANDO QUE FUNCIONEN 2 BARRAS
+		        columns: values, 
 		        type: 'bar'
 		    },
 		    axis: {

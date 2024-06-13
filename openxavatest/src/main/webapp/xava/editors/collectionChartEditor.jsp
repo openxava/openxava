@@ -15,10 +15,6 @@ View view = (View) context.get(request, viewObject);
 View subview = view.getSubview(collectionName);
 JSONArray labels = new JSONArray(subview.getCollectionChartLabels());
 JSONArray values = new JSONArray(subview.getCollectionChartValues());
-System.out.println("[collectionChartEditor.jsp] labels=" + labels); // tmr
-System.out.println("[collectionChartEditor.jsp] values=" + values); // tmr
 %>
-
-Esto es un chart para la colección <%=collectionName%>:<br>
 
 <div class="xava_collection_chart" data-labels='<%=labels%>' data-values='<%=values%>'></div>

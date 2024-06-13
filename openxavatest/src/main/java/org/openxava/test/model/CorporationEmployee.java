@@ -1,5 +1,7 @@
 package org.openxava.test.model;
 
+import java.math.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -31,6 +33,10 @@ public class CorporationEmployee extends Identifiable {
 
 	@DefaultValueCalculator(MinimumCorporationEmployeeSalaryCalculator.class) 
 	private int salary;
+	
+	public BigDecimal getBonus() { // tmr
+		return new BigDecimal(salary).divide(new BigDecimal(6), 2, RoundingMode.HALF_UP);
+	}
 	
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
