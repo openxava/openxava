@@ -8,7 +8,7 @@ import org.openxava.tests.*;
 public class PruebaIncidencia extends ModuleTestBase {
 
 	public PruebaIncidencia(String nameTest) {
-		super(nameTest, "tuaplicacion", "Incidencia");
+		super(nameTest, "proyecto1", "Incidencia");
 	}
 	
 	public void testCrearNuevaIncidencia() throws Exception {
@@ -16,11 +16,11 @@ public class PruebaIncidencia extends ModuleTestBase {
 		setValue("titulo", "Incidencia JUnit");
 		String [][] tipos = {
 			{ "", "" },
-			{ "2c94f081900875e801900896f25b0008", "Fallo" },
-			{ "2c94f081900875e80190089701170009", "Característica" }
+			{ "2c976081901309200190130d3e560006", "Característica" },
+			{ "2c976081901309200190130d0b150005", "Fallo" }
 		};
 		assertValidValues("tipo.id", tipos);
-		setValue("tipo.id", "2c94f081900875e801900896f25b0008"); // Bug 
+		setValue("tipo.id", "2c976081901309200190130d0b150005"); // Fallo 
 		setValue("descripcion", "Esto es una incidencia JUnit");
 		assertValidValuesCount("proyecto.id", 2);
 		assertDescriptionValue("proyecto.id", "OpenXava"); 		
@@ -40,43 +40,41 @@ public class PruebaIncidencia extends ModuleTestBase {
 
 		String [][] versiones = {
 			{ "", "" },
-			{ "2c94f081900856030190085ec7cc0002", "2.0" },
-			{ "2c94f081900856030190085eb1610001", "1.0" }
+			{ "2c97608190130fc2019013108e390001", "2.0" },
+			{ "2c97608190130fc2019013106fd10000", "1.0" }
 		};
 		assertValidValues("version.id", versiones);
-		setValue("version.id", "2c94f081900856030190085eb1610001"); // 1.0 
+		setValue("version.id", "2c97608190130fc2019013106fd10000"); // 1.0 
 			
 		String [][] planes = {
 			{ "", "" },	
-			{ "2c94f081900875e80190089c0080000a", "Javi 2024.10" },
-			{ "2c94f081900875e80190089c1211000b", "Javi 2024.11" }
+			{ "2c976081901309200190130a54570002", "Javi 2024.10" },
+			{ "2c976081901309200190130a69590003", "Javi 2024.11" }
 		};
 		assertValidValues("asignadoA.id", planes);
-		setValue("asignadoA.id", "2c94f081900875e80190089c1211000b"); // Javi 2024.11 
+		setValue("asignadoA.id", "2c976081901309200190130a69590003"); // Javi 2024.11 
 		
 		String [][] estados = {
 			{ "", "" },	
-			{ "2c94f081900875e80190088afdc30001", "Hecho" },
-			{ "2c94f081900875e80190088ce9d30002", "No reproducible" },
-			{ "2c94f081900875e80190088a559a0000", "Pendiente" },
-			{ "2c94f081900875e80190088d8fb90003", "Rechazada" }
+			{ "2c97608190130fc20190131e9c820003", "Hecho" },
+			{ "2c97608190130fc20190131f26ad0004", "No reproducible" },
+			{ "2c97608190130fc20190131e45000002", "Pendiente" },
+			{ "2c97608190130fc20190131f91480005", "Rechazado" }
 		};
-		
 		assertValidValues("estado.id", estados);
-		assertValue("estado.id", "2c94f081900875e80190088a559a0000"); // Pendiente 
+		assertValue("estado.id", "2c97608190130fc20190131e45000002"); // Pendiente 
 		
 		String [][] clientes = {
 			{ "", "" },	
-			{ "2c94f081900875e8019008a7349e0010", "Corporación Americana de Software" },
-			{ "2c94f081900875e8019008a637e8000f", "Ministerio de industria" }			
-		};
-		
+			{ "4028808d9012a3ef019012a72cd40000", "Corporación Americana de Software" },
+			{ "4028808d9012a3ef019012a759910001", "Ministerio de industria" }			
+		};		
 		assertValidValues("cliente.id", clientes);
-		setValue("cliente.id", "2c94f081900875e8019008a637e8000f"); // Ministerio de industria 
+		setValue("cliente.id", "4028808d9012a3ef019012a759910001"); // Ministerio de industria 
 
 		assertValue("horas", "");
 		setValue("minutos", "90");
-		assertValue("horas", "1.50");
+		assertValue("horas", "1,50");
 		assertNoEditable("horas");
 		
 		uploadFile("adjuntos", "test-files/notas.txt");
@@ -100,18 +98,18 @@ public class PruebaIncidencia extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		
 		assertValue("titulo", "Incidencia JUnit");
-		assertValue("tipo.id", "2c94f081900875e801900896f25b0008"); // Bug  
+		assertValue("tipo.id", "2c976081901309200190130d0b150005"); // Fallo  
 		assertValue("descripcion", "<p>Esto es una incidencia JUnit</p>");
 		assertDescriptionValue("proyecto.id", "OpenXava"); 
 		assertValue("creadoPor", "admin");
 		assertValue("creadoEl", getFechaActual()); // Si falla revisa serverTimezone en la URL de MySQL
 		assertValue("prioridad.nivel", "7"); 
-		assertValue("version.id", "2c94f081900856030190085eb1610001"); // 1.0 
-		assertValue("asignadoA.id", "2c94f081900875e80190089c1211000b"); // Javi 2024.11
-		assertValue("estado.id", "2c94f081900875e80190088a559a0000"); // Pendiente  
-		assertValue("cliente.id", "2c94f081900875e8019008a637e8000f"); // Ministerio de industria
+		assertValue("version.id", "2c97608190130fc2019013106fd10000"); // 1.0 
+		assertValue("asignadoA.id", "2c976081901309200190130a69590003"); // Javi 2024.11
+		assertValue("estado.id", "2c97608190130fc20190131e45000002"); // Pendiente  
+		assertValue("cliente.id", "4028808d9012a3ef019012a759910001"); // Ministerio de industria
 		assertValue("minutos", "90");
-		assertValue("horas", "1.50");		
+		assertValue("horas", "1,50");		
 		
 		assertFile("adjuntos", 0, "text/plain");
 		assertDiscussionCommentsCount("discusion", 1);
@@ -124,13 +122,13 @@ public class PruebaIncidencia extends ModuleTestBase {
 	public void testIncidenciaMinima() throws Exception {
 		login("admin", "admin"); 
 		setValue("titulo", "Incidencia simple JUnit");
-		String [][] types = {
+		String [][] tipos = {
 			{ "", "" },
-			{ "2c94f081900875e801900896f25b0008", "Fallo" },
-			{ "2c94f081900875e80190089701170009", "Característica" }
+			{ "2c976081901309200190130d3e560006", "Característica" },
+			{ "2c976081901309200190130d0b150005", "Fallo" }
 		};
-		assertValidValues("tipo.id", types);
-		setValue("tipo.id", "2c94f081900875e801900896f25b0008"); // Fallo
+		assertValidValues("tipo.id", tipos);
+		setValue("tipo.id", "2c976081901309200190130d0b150005"); // Fallo
 		setValue("descripcion", "Esto una incidencia JUnit");
 		
 		execute("CRUD.save");
@@ -141,10 +139,10 @@ public class PruebaIncidencia extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		
 		assertValue("titulo", "Incidencia simple JUnit");
-		assertValue("tipo.id", "2c94f081900875e801900896f25b0008"); 
+		assertValue("tipo.id", "2c976081901309200190130d0b150005"); 
 		assertValue("descripcion", "<p>Esto una incidencia JUnit</p>");
 		assertValue("creadoPor", "admin");
-		assertValue("creadoEn", getFechaActual());
+		assertValue("creadoEl", getFechaActual());
 
 		execute("CRUD.delete");
 		assertNoErrors();		

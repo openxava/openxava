@@ -57,17 +57,17 @@ public class Incidencia extends Identifiable {
 	LocalDate creadoEl;
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=true)
-	@DescriptionsList(order="${level} desc")
+	@DescriptionsList(order="${nivel} desc")
 	@DefaultValueCalculator(value=IntegerCalculator.class, 
 		properties = @PropertyValue(name="value", value="5") )
 	Prioridad prioridad; 
 		
-	@DescriptionsList(condition="proyecto.id = ?", depends="this.proyecto", order="${name} desc") 
+	@DescriptionsList(condition="proyecto.id = ?", depends="this.proyecto", order="${nombre} desc") 
 	@ManyToOne(fetch=FetchType.LAZY, optional=true)
 	Version version;
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=true)
-	@DescriptionsList(descriptionProperties="worker.name, period.name")
+	@DescriptionsList(descriptionProperties="trabajador.nombre, periodo.nombre")
 	Plan asignadoA;
 	
 	@DescriptionsList
@@ -83,7 +83,7 @@ public class Incidencia extends Identifiable {
 	int minutos; 
 	
 	@ReadOnly
-	@Calculation("minutes / 60")
+	@Calculation("minutos / 60")
 	@Column(length=6, scale=2)
 	BigDecimal horas; 
 	

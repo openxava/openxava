@@ -18,7 +18,7 @@ public class Version extends Identifiable {
 	public static List<Version> findByNombre(String nombre) { 
 		return XPersistence.getManager()
 			.createQuery("from Version v where v.nombre = :nombre")
-			.setParameter("name", nombre)
+			.setParameter("nombre", nombre)
 			.getResultList();
 	}
 
@@ -29,7 +29,7 @@ public class Version extends Identifiable {
 	@Column(length=20)
 	String nombre; 
 	
-	@ListProperties("estado.icono, titulo, tipo.icono, creadoPor, assignadoA.trababajador.nombre") 
+	@ListProperties("estado.icono, titulo, tipo.icono, creadoPor, asignadoA.trabajador.nombre") 
 	@OneToMany(mappedBy="version")
 	@OrderColumn
 	@NewAction("IncidenciasVersion.new")

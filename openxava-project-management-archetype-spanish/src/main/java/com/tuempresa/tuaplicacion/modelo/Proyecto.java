@@ -12,8 +12,8 @@ import lombok.*;
 public class Proyecto extends Nombrable {
 	
 	public static Proyecto findUnico() {
-		List<Proyecto> projects = XPersistence.getManager().createQuery("from Project").getResultList();
-		if (projects.size() == 1) return projects.get(0);
+		List<Proyecto> proyectos = XPersistence.getManager().createQuery("from Proyecto").getResultList();
+		if (proyectos.size() == 1) return proyectos.get(0);
 		return null;
 	}
 	

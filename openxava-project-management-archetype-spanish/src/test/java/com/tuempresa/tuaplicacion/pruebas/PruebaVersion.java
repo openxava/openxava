@@ -8,21 +8,21 @@ import com.tuempresa.tuaplicacion.modelo.*;
 public class PruebaVersion extends ModuleTestBase {
 
 	public PruebaVersion(String nameTest) {
-		super(nameTest, "tuaplicacion", "Version");
+		super(nameTest, "proyecto1", "Version");
 	}
 	
 	public void testVersionesDependeDeProyectoEnIncidencia_valorPorDefectoParaProyectoAlCrearIncidenciaDesdeVersion() throws Exception {
 		login("admin", "admin");
 		execute("CRUD.new");
-		execute("Reference.createNew", "model=Project,keyProperty=project.id");
-		setValue("name", "XavaProjects");
+		execute("Reference.createNew", "model=Proyecto,keyProperty=proyecto.id");
+		setValue("nombre", "XavaProjects");
 		execute("NewCreation.saveNew");
-		setValue("name", "2024.12");
+		setValue("nombre", "2024.12");
 		execute("CRUD.save");
 
 		Proyecto nuevoProyecto = Proyecto.findByNombre("XavaProjects"); 
 		setValue("proyecto.id", nuevoProyecto.getId());
-		setValue("name", "2025.01");
+		setValue("nombre", "2025.01");
 
 		assertNoAction("Collection.new");
 		execute("IncidenciasVersion.new", "viewObject=xava_view_incidencias");
@@ -57,8 +57,8 @@ public class PruebaVersion extends ModuleTestBase {
 		setValue("proyecto.id", viejoProyecto.getId());
 		String [][] viejasVersionesProyectos = {
 			{ "", "" },
-			{ "2c94f081900856030190085ec7cc0002", "2.0" },
-			{ "2c94f081900856030190085eb1610001", "1.0" }
+			{ "2c97608190130fc2019013108e390001", "2.0" },
+			{ "2c97608190130fc2019013106fd10000", "1.0" }
 		};
 		assertValidValues("version.id", viejasVersionesProyectos);
 		
