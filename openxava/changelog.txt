@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Calling to Tab.setTabName() or Tab.setBaseCondition() does not go to first page automatically.
 - Fix: Style of the just unselected row not restored in single selection lists, those with radio buttons. 
 - Commons Validator upgraded to 1.9.0.
 - HSQLDB embedded database upgraded to 2.7.3.
