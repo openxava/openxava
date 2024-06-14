@@ -41,6 +41,7 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 	private String onSelectElementActionName;
 	private Tree path;
 	private Map<String, List<String>> totalProperties;
+	private MetaChart metaChart; // tmr
 	
 	public void addActionDetailName(String actionName) {
 		if (actionsDetailNames == null) actionsDetailNames = new ArrayList();
@@ -302,6 +303,14 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 
 	public void setPreviousActionName(String previousActionName) {
 		this.previousActionName = previousActionName;
+	}
+
+	public MetaChart getMetaChart() {
+		return metaChart;
+	}
+
+	public void setMetaChart(MetaChart metaChart) {
+		this.metaChart = metaChart;
 	}
 	
 	

@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.model.*;
-import org.openxava.test.annotations.*;
 
 /**
  * 
@@ -32,7 +31,7 @@ public class Corporation extends Identifiable {
 	
 	@OneToMany(mappedBy="corporation", cascade=CascadeType.ALL)
 	// tmr @Editor(forViews="EmployeesChart", value="EmployeesChart") // tmr
-	@Chart
+	@Chart(labelProperties = "lastName") // tmr
 	private Collection<CorporationEmployee> employees;
 	
 	public void setName(String name) {

@@ -1,4 +1,4 @@
-package org.openxava.test.annotations;
+package org.openxava.annotations;
 
 import java.lang.annotation.*;
 

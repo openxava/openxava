@@ -23,7 +23,6 @@ import org.openxava.filters.*;
 import org.openxava.mapping.*;
 import org.openxava.model.*;
 import org.openxava.model.meta.*;
-import org.openxava.session.*;
 import org.openxava.tab.Tab;
 import org.openxava.util.*;
 import org.openxava.util.meta.*;
@@ -195,6 +194,7 @@ public class View implements java.io.Serializable {
 	private int collectionSize = -1;
 	private boolean dataChanged;  
 	private boolean labelsChanged;
+	private Collection<String> collectionChartDataProperties; // tmr 
 	
 	public static void setRefiner(Object newRefiner) {
 		refiner = newRefiner;
@@ -1133,6 +1133,12 @@ public class View implements java.io.Serializable {
 					String frameId= getFrameId(member.getName());
 					if (!isFrameStatusStored(frameId)) setCollapsed(member.getName(), true);
 				}
+				// tmr ini
+				MetaChart metaChart = metaCollectionView.getMetaChart();
+				if (metaChart != null) {
+					newView.setCollectionChartDataProperties(Strings.toCollection(metaChart.getDataPropertiesNames()));
+				}				
+				// tmr fin
 			}
 			else {
 				newView.setCollectionEditable(isEditable()); 				
@@ -1158,7 +1164,6 @@ public class View implements java.io.Serializable {
 		newView.initDefaultValues(); 
 		subviews.put(member.getName(), newView);
 	} 
-
 
 	private Collection getDefaultListActionsForCollections() {
 		try {
@@ -1805,10 +1810,11 @@ public class View implements java.io.Serializable {
 	}
 	
 	public Collection getCollectionChartLabels() { // tmr
-		// TMR ME QUEDÉ POR AQUÍ, FALTA COGER firstName DESDE MetaChart QUE TODAVÍA NO EXIST
+		// TMR ME QUEDÉ POR AQUÍ. LO DE ABAJO, PARA USAR LA PROPIEDAD DE LA ANOTACION, FALLA
+		String property = getCollectionChartDataProperties().iterator().next(); // tmr ¿y si no hay? ¿y si hay dos?
 		return getCollectionValues().stream()
-	        .map(item -> item.get("firstName")) // tmr No podemos dejar "firstName" 
-	        .collect(Collectors.toList());
+	        .map(item -> item.get(property))  
+	        .collect(Collectors.toList()); 
 	}
 	
 	public Collection<Collection> getCollectionChartValues() { // tmr ¿Values o Data?
@@ -7218,6 +7224,14 @@ public class View implements java.io.Serializable {
 		MetaDescriptionsList descriptionsList = getMetaView().getMetaDescriptionList(metaReference);
 		if (descriptionsList == null) return "";
 		return descriptionsList.getCondition();
+	}
+
+	private Collection<String> getCollectionChartDataProperties() { // tmr
+		return collectionChartDataProperties;
+	}
+
+	private void setCollectionChartDataProperties(Collection<String> collectionChartDataProperties) { // tmr
+		this.collectionChartDataProperties = collectionChartDataProperties;
 	}
 
 }

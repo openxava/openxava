@@ -242,8 +242,9 @@
 	<!-- tmr ini -->
 	<editor name="EmployeesChart" url="employeesChartEditor.jsp"/>
 	
+	<!-- tmr Mover a openxava -->
 	<editor name="CollectionChart" url="collectionChartEditor.jsp">
-	    <for-annotation annotation="org.openxava.test.annotations.Chart"/>
+	    <for-annotation annotation="org.openxava.annotations.Chart"/>
 	</editor>	
 	<!-- tmr fin -->
 		

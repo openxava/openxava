@@ -1,8 +1,6 @@
-package org.openxava.test.annotations;
+package org.openxava.annotations;
 
 import java.lang.annotation.*;
-
-import org.openxava.annotations.*;
 
 /**
  * tmr Rehacer doc. Mover a openxava
