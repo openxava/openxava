@@ -310,24 +310,28 @@ public class ApplicantTest extends ModuleTestBase {
 		HtmlElement head = (HtmlElement) page.getHead();
 		DomElement linkCSS = head.getChildElements().iterator().next()
 								 .getNextElementSibling()
+								 .getNextElementSibling()
+								 .getNextElementSibling()
+								 .getNextElementSibling()
 								 .getNextElementSibling();
 
 		String urlCSS = page.getUrl().getProtocol() + "://" 
 						+ page.getUrl().getHost() + ":"
 						+ page.getUrl().getPort() 
 						+ linkCSS.getAttribute("href");
+		
 		URL url;
 		BufferedReader in;
 		if (custom) {
 			urlCSS = urlCSS.replace("terra", "custom");
 			url = new URL(urlCSS);
 			in = new BufferedReader(new InputStreamReader(url.openStream()));
-			assertEquals(".corporation-employee-list-select {", in.readLine());
+			assertEquals(".corporation-employee-list-select {", in.readLine()); 
 			in.close();
 		} else {
 			url = new URL(urlCSS);
 			in = new BufferedReader(new InputStreamReader(url.openStream()));
-			assertEquals("@import 'base.css?ox=" + ModuleManager.getVersion() + "';", in.readLine());
+			assertEquals("@import 'base.css?ox=" + ModuleManager.getVersion() + "';", in.readLine()); 
 			in.close();
 		}
 	}

@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Calling to Tab.setTabName() or Tab.setBaseCondition() does not go to first page automatically.
+- Fix: Style of the just unselected row not restored in single selection lists, those with radio buttons. 
+- Commons Validator upgraded to 1.9.0.
+- HSQLDB embedded database upgraded to 2.7.3.
+- Fix: @DescriptionsList shows incorrect data if there are keys with the same value in lower and uppercase. 
 - Fix: Removing a row from an @ElementCollection not persisted if the row contains a boolean.
 - Fix: Editors for annotations do not work for references and collections. 
 - Maven install and package now skip tests by default in new created projects and openxavatest.

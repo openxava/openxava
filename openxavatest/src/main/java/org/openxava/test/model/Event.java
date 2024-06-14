@@ -15,11 +15,17 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-@Tab(name="DefaultName", 
-filter=DefaultNameEnvFilter.class,
-properties="startDate, endDate, createDate, name, description",
-baseCondition="${name} = ?"
-)
+@Tabs({
+	@Tab(name="DefaultName", 
+			filter=DefaultNameEnvFilter.class,
+			properties="startDate, endDate, createDate, name, description",
+			baseCondition="${name} = ?"
+			),
+	@Tab(name="OnlyName",
+			properties="name",
+			baseCondition="${name} = 'DEBT'"),
+})
+
 public class Event extends Identifiable{
 
 	@OnChange(OnChangeVoidCalendarAction.class)

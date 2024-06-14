@@ -204,7 +204,7 @@ if (editable) {
 			String selected = "";
 			String description = formatter==null?cl.getDescription().toString():formatter.format(request, cl.getDescription());
 			if (description.length() > maxDescriptionLength) maxDescriptionLength = description.length();
-			if (Is.equalAsStringIgnoreCase(fvalue, cl.getKey())) {
+			if (Is.equalAsString(fvalue, cl.getKey())) {
 				selected = "selected"; 
 				selectedDescription = description;
 				selectedKey = cl.getKey().toString();

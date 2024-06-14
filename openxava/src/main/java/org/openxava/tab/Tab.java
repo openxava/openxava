@@ -1739,7 +1739,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 		notResetNextTime = false;		 	 			
 		tableModel  = null;
 		metaTab = null;
-		metaTabCloned = false; 
+		metaTabCloned = false;
+		goPage(1); 
 	}
 	
 	/**

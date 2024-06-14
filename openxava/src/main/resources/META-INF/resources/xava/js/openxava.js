@@ -1176,6 +1176,11 @@ openxava.onSelectElement = function(application, module, action, argv, checkValu
 	
 	var id = $("#" + idRow)[0];
 	if (checkValue) {
+		var isSingleSelection = $(id).find('input[type="radio"].xava_selected')[0];
+		if (isSingleSelection) {
+			var parent = $(id).parent();
+			parent.children().removeClass("_XAVA_SELECTED_ROW_ " + openxava.selectedRowClass);
+		}
 		$(id).addClass("_XAVA_SELECTED_ROW_").addClass(openxava.selectedRowClass);
 		id.style.cssText = rowStyle + selectedRowStyle;
 	}
