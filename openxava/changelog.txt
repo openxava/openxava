@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- New Maven archetypes "openxava-project-management-archetype" in English and Spanish (-spanish).
 - Fix: Calling to Tab.setTabName() or Tab.setBaseCondition() does not go to first page automatically.
 - Fix: Style of the just unselected row not restored in single selection lists, those with radio buttons. 
 - Commons Validator upgraded to 1.9.0.
