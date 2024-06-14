@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.openxava</groupId>
 	<artifactId>openxava</artifactId>
-	<version>7.3.3-SNAPSHOT</version>
+	<version>7.3.3</version>
 	<name>OpenXava</name>
 	<description>Java framework for fast time-to-market of business applications</description>
 	<url>https://www.openxava.org</url>
@@ -238,7 +238,7 @@
     	</dependency>
 	</dependencies>	
 	
-	<!-- Uncomment to deploy on Maven Central        
+	<!-- Uncomment to deploy on Maven Central -->        
 	<distributionManagement>
 		<snapshotRepository>
 			<id>ossrh</id>
@@ -309,6 +309,6 @@
 			</plugin>
 		</plugins>
 	</build>
-	-->		
+			
 	
 </project>
