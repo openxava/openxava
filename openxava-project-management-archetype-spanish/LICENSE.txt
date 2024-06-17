@@ -1,6 +1,6 @@
- OpenXava Maven Spanish Archetype  -  To create a new OpenXava Maven project in Spanish 
+ OpenXava Project Management Maven Spanish Archetype  -  To create a project management application based on OpenXava in Spanish 
  
- Copyright 2022 Javier Paniza Lucas
+ Copyright 2024 Javier Paniza Lucas
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.

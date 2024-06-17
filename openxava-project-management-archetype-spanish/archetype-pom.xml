@@ -6,11 +6,11 @@
 
 	<groupId>org.openxava</groupId>
 	<artifactId>openxava-project-management-archetype-spanish</artifactId>
-	<version>7.3.3</version>
+	<version>7.4-SNAPSHOT</version>
 	<packaging>maven-archetype</packaging>
 
   	<name>OpenXava Archetype in Spanish</name>
-	<description>Archetype for creating a new OpenXava project in Spanish</description>
+	<description>Archetype for creating a project management application based on OpenXava in Spanish</description>
 	<url>https://www.openxava.org</url>
 	
 	<licenses>

@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Incorrect description for project in license and pom.xml for Project Management archetypes.
+
 OpenXava 7.3.3 (2024-6-14)
 --------------------------
 - New Maven archetypes "openxava-project-management-archetype" in English and Spanish (-spanish).
