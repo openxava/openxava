@@ -194,7 +194,8 @@ public class View implements java.io.Serializable {
 	private int collectionSize = -1;
 	private boolean dataChanged;  
 	private boolean labelsChanged;
-	private Collection<String> collectionChartDataProperties; // tmr 
+	private Collection<String> collectionChartDataProperties; // tmr
+	private Collection<String> collectionChartLabelProperties; // tmr  
 	
 	public static void setRefiner(Object newRefiner) {
 		refiner = newRefiner;
@@ -1136,6 +1137,7 @@ public class View implements java.io.Serializable {
 				// tmr ini
 				MetaChart metaChart = metaCollectionView.getMetaChart();
 				if (metaChart != null) {
+					newView.setCollectionChartLabelProperties(Strings.toCollection(metaChart.getLabelPropertiesNames()));
 					newView.setCollectionChartDataProperties(Strings.toCollection(metaChart.getDataPropertiesNames()));
 				}				
 				// tmr fin
@@ -1810,19 +1812,31 @@ public class View implements java.io.Serializable {
 	}
 	
 	public Collection getCollectionChartLabels() { // tmr
-		// TMR ME QUEDÉ POR AQUÍ. LO DE ABAJO, PARA USAR LA PROPIEDAD DE LA ANOTACION, FALLA
-		String property = getCollectionChartDataProperties().iterator().next(); // tmr ¿y si no hay? ¿y si hay dos?
+		// tmr Faltan valores por defecto
 		return getCollectionValues().stream()
-	        .map(item -> item.get(property))  
+	        .map(item -> getCollectionChartLabelFor(item))  
 	        .collect(Collectors.toList()); 
 	}
 	
+
+	
 	public Collection<Collection> getCollectionChartValues() { // tmr ¿Values o Data?
-		return Arrays.asList(			
-			getCollectionChartValuesFor("salary"), // tmr No podemos dejar "firstName"
-			getCollectionChartValuesFor("bonus") // tmr No podemos dejar "firstName"
-		);
+		// tmr Faltan valores por defecto
+		Collection<Collection> result = new ArrayList<>();
+		for (String property: getCollectionChartDataProperties()) {
+			result.add(getCollectionChartValuesFor(property));
+		}
+		return result;
 	}
+	
+	private String getCollectionChartLabelFor(Map<String, Object> item) { // tmr
+		StringBuffer result = new StringBuffer();
+		for (String property: getCollectionChartLabelProperties()) {
+			if (result.length() > 0) result.append(" "); 
+			result.append(item.get(property));
+		}
+		return result.toString();
+	}	
 	
 	private Collection getCollectionChartValuesFor(String propertyName) { // tmr ¿Values o Data?
 		Collection result = new ArrayList();
@@ -7231,7 +7245,27 @@ public class View implements java.io.Serializable {
 	}
 
 	private void setCollectionChartDataProperties(Collection<String> collectionChartDataProperties) { // tmr
-		this.collectionChartDataProperties = collectionChartDataProperties;
+		this.collectionChartDataProperties = 
+			collectionChartDataProperties.isEmpty()?createDefaultCollectionChartDataProperties():collectionChartDataProperties;
+	}
+
+	private Collection<String> createDefaultCollectionChartDataProperties() { // tmr
+		Collection<String> result = new ArrayList<>();
+		for (MetaProperty property: getMetaPropertiesList()) {
+			if (property.isNumber() && !StringUtils.containsAnyIgnoreCase(property.getName(), "year", "anyo", "anio", "number", "numero", "code", "codigo")) {
+				result.add(property.getName());
+			}
+		}
+		return result;
+	}
+
+	private Collection<String> getCollectionChartLabelProperties() { // tmr
+		return collectionChartLabelProperties;
+	}
+
+	private void setCollectionChartLabelProperties(Collection<String> collectionChartLabelProperties) { // tmr
+		// TMR ME QUEDÉ POR AQUÍ, PARA QUE FUNCIONEN TAMBIÉN LOS VALORES POR DEFECTO
+		this.collectionChartLabelProperties = collectionChartLabelProperties;
 	}
 
 }

@@ -1,0 +1,19 @@
+Pendiente Chart
+- Valores por defecto.
+- Etiquetas.
+- forViews.
+- Revisar nomenclatura.
+- Borrar editor de pruebas.
+- Mover editor a openxava.
+
+Test
+- Varias labels.
+- Valores por defecto.
+- forViews.
+
+Documentación
+
+Diferido
+- Sacar lista (quitar atributo de @Chart)
+- Tarta ¿v7.5?
+- ¿Actualizar D3?

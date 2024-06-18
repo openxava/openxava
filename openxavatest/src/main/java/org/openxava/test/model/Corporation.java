@@ -31,7 +31,8 @@ public class Corporation extends Identifiable {
 	
 	@OneToMany(mappedBy="corporation", cascade=CascadeType.ALL)
 	// tmr @Editor(forViews="EmployeesChart", value="EmployeesChart") // tmr
-	@Chart(labelProperties = "lastName") // tmr
+	// tmr @Chart(labelProperties = "firstName, lastName", dataProperties = "salary, bonus") // tmr
+	@Chart(labelProperties = "firstName, lastName") // tmr
 	private Collection<CorporationEmployee> employees;
 	
 	public void setName(String name) {
