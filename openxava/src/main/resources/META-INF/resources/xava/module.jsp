@@ -112,11 +112,6 @@
 <%
 	}
 %>
-
-	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%>/xava/style/jquery-ui.css?ox=<%=version%>"/>
-	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%>/xava/style/jquery-ui.structure.css?ox=<%=version%>"/>
-	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%>/xava/style/smoothness/jquery-ui.css?ox=<%=version%>"/>
-	<link href="<%=contextPath%>/xava/style/<%=Themes.getCSS(request)%>?ox=<%=version%>" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%>/xava/style/custom.css?ox=<%=version%>"/>
 
 	<%

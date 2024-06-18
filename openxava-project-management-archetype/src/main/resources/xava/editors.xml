@@ -1,0 +1,19 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+ 
+<!DOCTYPE editors SYSTEM "dtds/editors.dtd">
+
+<!-- 
+Learn how to define your own editor at: 
+https://www.openxava.org/OpenXavaDoc/docs/customizing_en.html 
+-->
+ 
+<editors>
+
+	<!--  
+	To try YourEditor uncomment the code below 
+	and annotate your property with @Editor("YourEditor")
+	
+ 	<editor name="YourEditor" url="yourEditor.jsp"/>
+ 	-->
+ 	
+</editors>

@@ -1,12 +1,22 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Incorrect description for project in license and pom.xml for Project Management archetypes.
+
+OpenXava 7.3.3 (2024-6-14)
+--------------------------
+- New Maven archetypes "openxava-project-management-archetype" in English and Spanish (-spanish).
+- New Maven archetypes "openxava-crm-archetype" in English and Spanish (-spanish).
+- Maven install and package now skip tests by default in new created projects and openxavatest.
+- Some new common use labels to be used in applications.
+- Commons Validator upgraded to 1.9.0.
+- HSQLDB embedded database upgraded to 2.7.3.
+- Fix: Module broken when field content has dollar followed by curly brackets.
+- Fix: Calling to Tab.setTabName() or Tab.setBaseCondition() does not go to the first page automatically.
+- Fix: Style of the just unselected row not restored in single selection lists, those with radio buttons. 
+- Fix: @DescriptionsList shows incorrect data if there are keys with the same value in lower and uppercase. 
 - Fix: Removing a row from an @ElementCollection not persisted if the row contains a boolean.
 - Fix: Editors for annotations do not work for references and collections. 
-- Maven install and package now skip tests by default in new created projects and openxavatest.
-- Fix: Module broken when field content has dollar followed by curly brackets.
-- New Maven archetypes "openxava-crm-archetype" in English and Spanish (-spanish).
-- Some new common use labels to be used in applications.
 - Fix: Icon in date fields and @DescriptionsList not visible on hover inside dialog in Dark theme.
 - Fix: List data inside dialog not readable in Dark theme. 
 - Fix: The color for the list data in the dialog is not the same as without the dialog.

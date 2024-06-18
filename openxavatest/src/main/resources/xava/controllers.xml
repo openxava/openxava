@@ -1582,5 +1582,11 @@
 		<action name="showNames" mode="list"
 			class="org.openxava.test.actions.ShowModuleAndModelNameAction"/>
 	</controller>
+	
+	<controller name="Event">
+		<extends controller="Typical"/>
+		<action name="changeTab" mode="list"
+			class="org.openxava.test.actions.ChangeTabNameAction"/>
+	</controller>
 
 </controllers>
