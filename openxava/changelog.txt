@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Some new common use labels to be used in applications.
 - Fix: Incorrect description for project in license and pom.xml for Project Management archetypes.
 
 OpenXava 7.3.3 (2024-6-14)

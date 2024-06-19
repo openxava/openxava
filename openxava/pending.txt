@@ -1,14 +1,14 @@
 Pendiente Chart
-- Valores por defecto.
-- Etiquetas.
 - forViews.
 - Revisar nomenclatura.
 - Borrar editor de pruebas.
 - Mover editor a openxava.
+- Revisar notas en el código.
 
 Test
 - Varias labels.
-- Valores por defecto.
+- Etiquetas traducidas. ¿Lo puedo testear? ¿Merece la pena hacer una prueba manual?
+- Valores por defecto. ¿Todos?
 - forViews.
 
 Documentación
