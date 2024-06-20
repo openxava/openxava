@@ -31,9 +31,9 @@ public class Corporation extends Identifiable {
 	
 	@OneToMany(mappedBy="corporation", cascade=CascadeType.ALL)
 	// tmr @Editor(forViews="EmployeesChart", value="EmployeesChart") // tmr
-	// tmr @Chart(labelProperties = "firstName, lastName", dataProperties = "salary, bonus") // tmr
-	@Chart(forViews="EmployeesChart") // TMR ME QUEDÉ POR AQUÍ. HACER QUE forViews FUNCIONE. ELEGIR ENTRE DAR SOPORTE A forViews EN
-										// TMR   ANOTACION O USAR EL SISTEMA ACTUAL (MIRAR CUAL ES), QUIZÁS DEMASIADO A PIÑON
+	//@Chart(labelProperties = "firstName, lastName", dataProperties = "salary, bonus") // tmr
+	@Chart
+	// tmr @Chart(forViews="EmployeesChart") 
 	private Collection<CorporationEmployee> employees;
 	
 	public void setName(String name) {
