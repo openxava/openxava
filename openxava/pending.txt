@@ -1,13 +1,8 @@
 Pendiente Chart
-- Refactorizar:
-	Para:
-	- No tocar clases troncales de OpenXava como View, AnnotatedClassParser o lo MetaXXXX. (Esto permitiría sacar el editor fuera de OpenXava)
-	- No user la anotación @Chart en el código del editor, ni JSP ni Java. (Esto permitiría usar un modelo no hecho con JPA)  
-	Debería:
-	- Poner todas las clases troncales en la versión del master.
-	- Probar con y sin valores por defecto
 - forViews.
 - Revisar nomenclatura.
+	- Los atributos de @Char
+	- @Chart mismo podría dar conflictos con código de cliente, pero: Ya tengo nombres genéricos como @ReadOnly y @Required.
 - Borrar editor de pruebas.
 - Mover editor a openxava.
 - Revisar notas en el código.

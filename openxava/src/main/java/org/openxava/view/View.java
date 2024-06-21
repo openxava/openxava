@@ -194,8 +194,6 @@ public class View implements java.io.Serializable {
 	private int collectionSize = -1;
 	private boolean dataChanged;  
 	private boolean labelsChanged;
-	private Collection<String> collectionChartDataProperties; // tmr
-	private Collection<String> collectionChartLabelProperties; // tmr  
 	
 	public static void setRefiner(Object newRefiner) {
 		refiner = newRefiner;
@@ -1134,13 +1132,6 @@ public class View implements java.io.Serializable {
 					String frameId= getFrameId(member.getName());
 					if (!isFrameStatusStored(frameId)) setCollapsed(member.getName(), true);
 				}
-				// tmr ini
-				MetaChart metaChart = metaCollectionView.getMetaChart();
-				if (metaChart != null) {
-					newView.setCollectionChartLabelProperties(Strings.toCollection(metaChart.getLabelPropertiesNames()));
-					newView.setCollectionChartDataProperties(Strings.toCollection(metaChart.getDataPropertiesNames()));
-				}				
-				// tmr fin
 			}
 			else {
 				newView.setCollectionEditable(isEditable()); 				
@@ -1166,6 +1157,7 @@ public class View implements java.io.Serializable {
 		newView.initDefaultValues(); 
 		subviews.put(member.getName(), newView);
 	} 
+
 
 	private Collection getDefaultListActionsForCollections() {
 		try {
@@ -1810,40 +1802,7 @@ public class View implements java.io.Serializable {
 		assertRepresentsCollection("getMetaCollection()");
 		return getParentIfSectionOrGroup().getParent().getMetaModel().getMetaCollection(getMemberName()); 
 	}
-	
-	public Collection getCollectionChartLabels() { // tmr
-		return getCollectionValues().stream()
-	        .map(item -> getCollectionChartLabelFor(item))  
-	        .collect(Collectors.toList()); 
-	}
-	
 
-	
-	public Collection<Collection> getCollectionChartValues() { // tmr ¿Values o Data?
-		Collection<Collection> result = new ArrayList<>();
-		for (String property: getCollectionChartDataProperties()) {
-			result.add(getCollectionChartValuesFor(property));
-		}
-		return result;
-	}
-	
-	private String getCollectionChartLabelFor(Map<String, Object> item) { // tmr
-		StringBuffer result = new StringBuffer();
-		for (String property: getCollectionChartLabelProperties()) {
-			if (result.length() > 0) result.append(" "); 
-			result.append(item.get(property));
-		}
-		return result.toString();
-	}	
-	
-	private Collection getCollectionChartValuesFor(String propertyName) { // tmr ¿Values o Data?
-		Collection result = new ArrayList();
-        result.add(getLabelFor(getMetaProperty(propertyName))); 
-        result.addAll(getCollectionValues().stream()
-            .map(item -> item.get(propertyName))
-            .collect(Collectors.toList()));
-        return result;
-	}
 
 	/**
 	 * A list of all collection element when each element is a map 
@@ -5438,7 +5397,7 @@ public class View implements java.io.Serializable {
 	
 	public boolean isFlowLayout() { 
 		if ("SignIn".equals(getModelName()) || "ProSignIn".equals(getModelName())) return false; // A little ad hoc, but was the simplest way at the moment 
-		if (Chart.class.getSimpleName().equals(getModelName())) return false; // A little ad hoc, but was the simplest way at the moment
+		if (org.openxava.session.Chart.class.getSimpleName().equals(getModelName())) return false; // A little ad hoc, but was the simplest way at the moment
 		return XavaPreferences.getInstance().isFlowLayout(); 
 	}
 	
@@ -7236,54 +7195,6 @@ public class View implements java.io.Serializable {
 		MetaDescriptionsList descriptionsList = getMetaView().getMetaDescriptionList(metaReference);
 		if (descriptionsList == null) return "";
 		return descriptionsList.getCondition();
-	}
-
-	private Collection<String> getCollectionChartDataProperties() { // tmr
-		return collectionChartDataProperties==null?Collections.EMPTY_LIST:collectionChartDataProperties;
-	}
-
-	private void setCollectionChartDataProperties(Collection<String> collectionChartDataProperties) { // tmr
-		this.collectionChartDataProperties = 
-			collectionChartDataProperties.isEmpty()?createDefaultCollectionChartDataProperties():collectionChartDataProperties;
-	}
-	
-	private Collection<String> getCollectionChartLabelProperties() { // tmr
-		return collectionChartLabelProperties==null?Collections.EMPTY_LIST:collectionChartLabelProperties;
-	}
-	
-	private void setCollectionChartLabelProperties(Collection<String> collectionChartLabelProperties) { // tmr
-		this.collectionChartLabelProperties = 
-			collectionChartLabelProperties.isEmpty()?createDefaultCollectionChartLabelProperties():collectionChartLabelProperties;
-	}	
-
-	private Collection<String> createDefaultCollectionChartDataProperties() { // tmr
-		Collection<String> result = createDefaultCollectionChartProperties(5, property -> 
-			property.isNumber() &&
-			!StringUtils.containsAnyIgnoreCase(property.getName(), "year", "anyo", "anio", "number", "numero", "code", "codigo", "id"));
-		if (result.isEmpty()) {
-			result = createDefaultCollectionChartProperties(5, property -> property.isNumber());
-		}
-		return result;		
-	}
-		
-	private Collection<String> createDefaultCollectionChartLabelProperties() { // tmr
-		Collection<String> result = createDefaultCollectionChartProperties(2, property -> 
-			property.isNumber() &&
-			StringUtils.containsAnyIgnoreCase(property.getName(), "year", "anyo", "anio", "number", "numero", "code", "codigo", "id"));
-		if (result.size() == 2) return result; 
-		result.addAll(createDefaultCollectionChartProperties(2 - result.size(), property -> 
-			StringUtils.containsAnyIgnoreCase(property.getName(), XavaPreferences.getInstance().getDefaultDescriptionPropertiesValueForDescriptionsList()))); 
-		if (result.size() == 2) return result;
-		result.addAll(createDefaultCollectionChartProperties(2 - result.size(), property -> true));
-		return result;
-	}	
-	
-	private Collection<String> createDefaultCollectionChartProperties(int limit, java.util.function.Predicate<MetaProperty> filter) { // tmr
-		return getMetaPropertiesList().stream()
-	        .filter(filter)
-	        .map(MetaProperty::getName)
-	        .limit(limit)
-	        .collect(Collectors.toList());
 	}
 
 }

@@ -1683,29 +1683,6 @@ public class AnnotatedClassParser implements IComponentParser {
 				}				
 			}
 			
-			// tmr ini
-			if (element.isAnnotationPresent(Chart.class)) {
-				Chart chart = element.getAnnotation(Chart.class);
-				if (isForView(metaView, chart.forViews(), chart.notForViews())) {
-					collectionView.setMetaChart(createMetaChart(chart));
-					mustAddMetaView = true;				
-				}
-			}
-			if (element.isAnnotationPresent(Charts.class)) {
-				Chart [] charts = element.getAnnotation(Charts.class).value();
-				for (Chart chart: charts) {				
-					if (isForView(metaView, chart.forViews(), chart.notForViews())) {
-						if (collectionView.getMetaChart() == null) {
-							collectionView.setMetaChart(createMetaChart(chart));
-							mustAddMetaView = true;				
-						}
-						else {
-							duplicateAnnotationForView(collection.getName(), Chart.class, metaView.getName());
-						}
-					}
-				}				
-			}			
-			// tmr fin
 												
 			// EditOnly
 			if (element.isAnnotationPresent(EditOnly.class)) {
@@ -1925,14 +1902,6 @@ public class AnnotatedClassParser implements IComponentParser {
 		}
 	}
 
-
-	private MetaChart createMetaChart(Chart chart) { // tmr
-		MetaChart metaChart = new MetaChart();
-		metaChart.setDataPropertiesNames(chart.dataProperties());
-		metaChart.setLabelPropertiesNames(chart.labelProperties());
-		metaChart.setShowList(chart.showList());
-		return metaChart;
-	}
 
 	private void notApply(AnnotatedElement element, String name, Class[] annotations, String validMemberTypes) { 
 		for (Class annotation: annotations) {
