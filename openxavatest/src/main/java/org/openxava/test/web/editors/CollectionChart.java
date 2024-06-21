@@ -93,7 +93,6 @@ public class CollectionChart {
 	}
 
 	public void setLabelProperties(String labelProperties) {
-		// tmr ¿Caché de esto? ME QUEDÉ POR AQUÍ. YA FUNCIONA. DECIDIR SI HACER CACHÉ
 		this.labelProperties = Is.emptyString(labelProperties)?
 			createDefaultLabelProperties():
 			Strings.toCollection(labelProperties);
@@ -104,7 +103,6 @@ public class CollectionChart {
 	}
 
 	public void setDataProperties(String dataProperties) {
-		// tmr ¿Caché de esto?
 		this.dataProperties = Is.emptyString(dataProperties)?
 			createDefaultDataProperties():	
 			Strings.toCollection(dataProperties);
