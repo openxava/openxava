@@ -131,6 +131,7 @@ openxava.refreshPage = function(result) {
 			}			
 		}
 		if (result.showDialog){
+			openxava.hideAllTypeOfMessages(result.application, result.module);
 			openxava.initBeforeShowDialog(); 
 			dialog.attr("application", result.application);
 			dialog.attr("module", result.module);
@@ -426,6 +427,13 @@ openxava.showMessages = function(result) {
 
 openxava.hideErrors = function(application, module) {  
 	$("#"+openxava.decorateId(application, module, "errors")).fadeOut();
+}
+
+openxava.hideAllTypeOfMessages = function(application, module) {  
+	$("#"+openxava.decorateId(application, module, "messages")+"_table__DISABLED__").fadeOut();
+	$("#"+openxava.decorateId(application, module, "errors")+"_table__DISABLED__").fadeOut();
+	$("#"+openxava.decorateId(application, module, "warnings")+"_table__DISABLED__").fadeOut();
+	$("#"+openxava.decorateId(application, module, "infos")+"_table__DISABLED__").fadeOut();
 }
 
 openxava.initSelectedRows = function() { 
@@ -1058,7 +1066,7 @@ openxava.throwPropertyChanged = function(application, module, property) {
 		form[openxava.decorateId(application, module, "xava_changed_property")].value=property;
 		setTimeout(function() {
     		openxava.requestOnChange(application, module);
-		}, 100);
+		}, 130);		
 	}
 }
 
@@ -1168,6 +1176,11 @@ openxava.onSelectElement = function(application, module, action, argv, checkValu
 	
 	var id = $("#" + idRow)[0];
 	if (checkValue) {
+		var isSingleSelection = $(id).find('input[type="radio"].xava_selected')[0];
+		if (isSingleSelection) {
+			var parent = $(id).parent();
+			parent.children().removeClass("_XAVA_SELECTED_ROW_ " + openxava.selectedRowClass);
+		}
 		$(id).addClass("_XAVA_SELECTED_ROW_").addClass(openxava.selectedRowClass);
 		id.style.cssText = rowStyle + selectedRowStyle;
 	}
@@ -1397,8 +1410,14 @@ openxava.subcontroller = function(id,containerId,buttonId,imageId,aId,spanId){
 	// display and position the menu 
 	$('#'+id).css('display','inline');  
 	var position = document.getElementById(aId).getBoundingClientRect(); // Because jquery position() does not work well
+	// If change below code verify that subcontrollers in mobile are shown inside screen when on bottom
+	var positionPopup = document.getElementById(id).getBoundingClientRect();
+	var buttonHeight = $('#'+buttonId).outerHeight(true);
+	var popupBottom = position.top + buttonHeight + positionPopup.height;
+	var top = popupBottom > window.innerHeight?
+		position.top - $('#'+id).outerHeight(true):position.top + buttonHeight;	
 	$('#'+id).css({
-		'top': position.top + $('#'+buttonId).outerHeight(true),
+		'top': top, 
 		'left': position.left
 	});	
 	$('#'+imageId).fadeTo("fast",0.3);

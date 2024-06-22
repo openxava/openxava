@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import org.hibernate.annotations.Parameter;
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;
+import org.openxava.test.actions.*;
 
 /**
  * Example of enum with converter (Hibernate Type) used as key. <p>
@@ -20,6 +21,7 @@ import org.openxava.jpa.*;
 @IdClass(ShipmentKey.class)
 @Tab(properties="number, description, time")
 @View(name="SeparatedTime") 
+@View(name="WithOnChange", extendsView = "DEFAULT") 
 public class Shipment {
 	
 	@Id @Required
@@ -53,6 +55,7 @@ public class Shipment {
 	private String description;
 	
 	@Editor(forViews="SeparatedTime", value="DateTimeSeparatedCalendar")
+	@OnChange(forViews="WithOnChange", value=OnChangeVoidAction.class)
 	private Timestamp time;
 	
 	@ManyToOne(fetch=FetchType.LAZY)

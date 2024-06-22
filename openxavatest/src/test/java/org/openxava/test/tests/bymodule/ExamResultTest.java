@@ -16,7 +16,7 @@ public class ExamResultTest extends ModuleTestBase {
 	
 	public void testBooleanOnlyElementCollection() throws Exception {
 		execute("List.viewDetail", "row=0");
-		assertValue("name", "FIRST EXAM");
+		assertValue("name", "FIRST EXAM"); 
 		assertCollectionRowCount("questionResults", 3);
 		assertValueInCollection("questionResults", 0, "passed", "true");
 		assertValueInCollection("questionResults", 1, "passed", "false");

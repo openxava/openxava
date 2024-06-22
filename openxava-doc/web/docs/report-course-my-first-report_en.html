@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Report generation - Lesson 1: My first report</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_en.html">documentation</a> / </span>Report generation - Lesson 1: My first report</h1>
+      <div class="wiki" style="display: block;">
+        <h2>Video</h2>
+        <p>In this video we will see how to create our first report, define the controller and the action to generate the report in an OpenXava application.</p>
+        <p><a href="https://youtu.be/WI1HK5lmSeA" target="_blank"><img src="files/report-course_en010.png"
+              title="report-generation-010"></a> </p>
+        <p><strong>Any problem with this lesson? <a class="wiki_link_ext"
+              href="http://sourceforge.net/p/openxava/discussion/419690/"
+              rel="nofollow">Ask in the forum</a></strong> </p>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h2>Code</h2>
+        <p>You can <strong><a href="https://github.com/openxava/report-generation-course/tree/lesson_1">download the project for this lesson</a></strong>. You can also copy the code used in the video here:</p>
+        In <em>controllers.xml</em> file:
+        <pre><code class="xml">&lt;controller name="YourFirstEntity"&gt;
+    &lt;extends controller="Typical"/&gt;
+    &lt;action name="printCustomReport" icon="printer" mode="list" 
+        class="com.yourcompany.report.actions.PrintMyCustomReportAction"&gt;
+    &lt;/action&gt;
+&lt;/controller&gt;
+</code></pre> In <em>PrintMyCustomReportAction.java</em> file:<br>
+        <pre><code class="java">public class PrintMyCustomReportAction extends JasperReportBaseAction {
+
+	@Override
+	protected JRDataSource getDataSource() throws Exception {
+		return new JREmptyDataSource();
+	}
+
+	@Override
+	protected String getJRXML() throws Exception {
+		return "MyCustomReport.jrxml";
+	}
+
+	@Override
+	protected Map getParameters() throws Exception {
+		return null;
+	}
+
+}</code></pre>
+        <p><strong><a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+              rel="nofollow"></a></strong><br>
+          <strong></strong></p>
+        <h2>Transcription</h2>
+        Hello, I'm Monica. In this course, we are going to see how to use JasperSoft Studio to create customized pdf reports and generate them in an OpenXava application. In this first lesson, we are going to create a basic report with JasperSoft Studio, and in OpenXava, we are going to define a controller with an action that, when executed, generates the report.<br>
+        First, we are going to enter the link that we have in the video description to download JasperSoft Studio. We can see that when pressing the button, it asks us to create an account or log in to download. We can create an account from this button, Join the community. Once started the session, the button will already say download, press it and select the option according to your operating system. Once downloaded, we run it to install JasperSoft Studio.<br>
+        In JasperSoft Studio, create a new project by clicking on create project. Select JasperReport Project. Press next. And assign a name, for example, MyReports. Click on Finish. For our first report, we are only going to show static text. Right-click on the project. New. Jasper Report. Select the blank report and press Next. Put my custom report as the name and press Finish. On the right, we have the Basic Elements panel. Drag Static text and place it in the Title area of the report. By double-clicking we can edit the text. Put My custom report and save.<br>
+        We go to OpenXava Studio and create a new project from OpenXava, New OpenXava Project. Assign a name to the project, for example, report. Click finish. Wait a while. OpenXava already has the necessary libraries to generate a report, so there is no need to add any. Ok, it's ready. By default, OpenXava generates the YourFirstEntity entity, so we are going to take advantage of it. Start the application. Copy the link and paste it into the browser. And log in with admin, admin. Go to the list mode of the YourFirstEntity module. Our goal is to have a button in list mode, which when pressed shows us the report that we just created. For this, we need to have an action that does that. Go to the controllers.xml file located in the source main resources xava folder. Here, the controllers and their actions are declared. Copy this code and paste it below. In controller name, put YourFirstEntity, this must have the same name as the module where it will be used. We let it extend from the Typical controller to maintain the actions that already existed. In action is where we have to define our action which in this case is a button to generate a pdf. In name, assign a name that will be shown on the button. In icon, put printer. We are not going to use keyboard shortcuts. And set a new mode property with list as value, which means that it will be seen in list mode. Class is the class where it contains the logic of the action.<br>
+        Now we are going to create the action. Right-click on source main java folder, New, package to create a new package. We will call it com.yourcompany.report.actions. And create a new class by right-clicking on the package, New, Class. Name it PrintMyCustomReportAction. Once created, extend our action from the JasperReportBaseAction class. And save for import packages. It wants us to add necessary methods. Do it. Here it adds 3 methods. getDataSource, we will not use it in this lesson, but it is a method where we can never return null, since a report can have an empty data source but not null. getJRXML, here we must define the name of our jrxml file that it will use to generate the report. getParameters, here we can send parameters to the report for it to use. We had said that cannot return null in getDataSource, so we will send a new JREmptyDataSource() The name of the report must be the same as we are going to use, in our case, MyCustomReport.jrxml Save. <br>
+        We return to controllers.xml and point the class of the action. com.yourcompany.report.actions.PrintMyCustomReportAction. Save. The action is ready, the only thing we need is copy the report into OpenXava project. In Jasper studio, copy our report. And in OpenXava, create a new folder called reports in source main resources. Paste the report inside the folder. and start the application again.<br>
+        Go to the list mode of YourFirstEntity and we can see that the action is shown here. Click on it and another window will open with the report that we created.<br>
+        It was quite simple to have the button to generate a report. I hope the video has served as a guide. If you have any questions about this lesson, you can ask us through the forum, you can also download the code for this lesson through the repository link, both links are found in the video description. See you in the next lesson where we are going to learn how to pass parameters from OpenXava to the report and use them there. Bye.</div>
+    </div>
+  </body>
+</html>

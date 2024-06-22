@@ -70,7 +70,7 @@ public class Invoice6Test extends ModuleTestBase {
 		assertNoErrors();	
 		
 		execute("Mode.list");
-		assertListRowCount(9);
+		assertListRowCount(9); 
 		setConditionValues("", "", "4/1/2004"); // With this format to verify that uses the formatter from editor
 		execute("List.filter");
 		assertListRowCount(2);
@@ -139,7 +139,7 @@ public class Invoice6Test extends ModuleTestBase {
 			"Group by amounts sum"
 		);
 		
-		assertListRowCount(9);
+		assertListRowCount(9);  
 		assertValuesInList(0, "2002",  "1",  "1/1/2002",  "2,500.00"); 
 		assertValuesInList(1, "2004",  "2",  "1/4/2004",     "11.00");
 		assertValuesInList(2, "2004",  "9",  "1/4/2004",  "4,396.00");

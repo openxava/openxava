@@ -10,7 +10,7 @@ import org.openxava.util.*;
 import org.openxava.web.*;
 
 /**
- * To test lists and collections related issues with Selenium.
+ * To test lists and list features in collections with Selenium.
  * 
  * @author Javier Paniza
  */

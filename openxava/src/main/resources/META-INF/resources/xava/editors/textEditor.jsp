@@ -35,13 +35,14 @@ String numericAlt = "";
 String numericClass = ""; 
 if (p.isNumber()) {
 	if (p.getScale() > 0) {
-		int sizeIncrement = (size - 1) / 3 + 2; // The points/commas for thousands + point/comma for decimal + minus sign
+		int integerSize = size - p.getScale();
+		int sizeIncrement = (integerSize - 1) / 3 + 2; // The points/commas for thousands + point/comma for decimal + minus sign
 		size += sizeIncrement;
 		maxLength += sizeIncrement;
 	}
 	String integer = p.getScale() == 0?"true":"false";
 	numericAlt = getNumericAlt(p.getSize(), p.getScale()); 
-	numericClass = "xava_numeric"; 
+	numericClass = "xava_numeric";	 
 }	
 
 boolean fillWithZeros = "true".equals(request.getParameter("fillWithZeros"));

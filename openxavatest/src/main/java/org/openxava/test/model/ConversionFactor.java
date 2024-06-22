@@ -25,8 +25,15 @@ public class ConversionFactor implements Serializable {
 	@Column(scale = 6)
 	private BigDecimal factor;
 	
+	
 	@Digits(integer=10, fraction=6) 
 	private BigDecimal reverseFactor;
+	
+	@Column(scale = 6) 
+	@DecimalMax("0.999999")
+	public BigDecimal getMirrorFactor() {
+		return factor;
+	}
 	
 	// With no @Column, for a test
 	public BigDecimal getShortFactor() { 
@@ -42,6 +49,7 @@ public class ConversionFactor implements Serializable {
 	public BigDecimal getFactorGrade() { 
 		return factor.multiply(new BigDecimal("1000000"));
 	}
+	
 	
 	public Long getId() {
 		return id;

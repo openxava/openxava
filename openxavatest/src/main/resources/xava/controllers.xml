@@ -1573,4 +1573,20 @@
 			class="org.openxava.test.actions.ShowSellerDialogAction"/>
 	</controller>
 	
+	<controller name="Grade">
+		<action name="addCalifications" mode="detail"
+			class="org.openxava.test.actions.ChangeLabelAndAddCalificationsAction"/>
+	</controller>
+	
+	<controller name="ModuleAndModelName">
+		<action name="showNames" mode="list"
+			class="org.openxava.test.actions.ShowModuleAndModelNameAction"/>
+	</controller>
+	
+	<controller name="Event">
+		<extends controller="Typical"/>
+		<action name="changeTab" mode="list"
+			class="org.openxava.test.actions.ChangeTabNameAction"/>
+	</controller>
+
 </controllers>

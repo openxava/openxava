@@ -60,7 +60,10 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 <%
 	// Values
 Collection aggregates = subview.getCollectionValues();
-if (aggregates == null) aggregates = java.util.Collections.EMPTY_LIST;
+View parent = view.getParent();
+boolean parentHasSections = parent != null && parent.hasSections();
+boolean condition = (view.isKeyEditable() && parentHasSections && !view.isRepresentsEntityReference()); 
+if (aggregates == null || condition) aggregates = java.util.Collections.EMPTY_LIST;
 Iterator itAggregates = aggregates.iterator();
 for (int f=0; itAggregates.hasNext(); f++) {
 	Map row = (Map) itAggregates.next();
@@ -81,18 +84,18 @@ for (int f=0; itAggregates.hasNext(); f++) {
 %>
 <td class="<%=cssCellClass%> ox-list-action-cell">
 <nobr>
-	<%if (sortable) { %>
+	<%	if (sortable) { %>
 	<i class="xava_handle mdi mdi-swap-vertical"></i>	
-	<%}%>	
+	<%  } %>	
 <xava:action action="<%=lineAction%>" argv='<%="row="+f + ",viewObject="+viewName%>'/>
 <% 
-	if (style.isSeveralActionsPerRow())
-	for (java.util.Iterator itRowActions = subview.getRowActionsNames().iterator(); itRowActions.hasNext(); ) { 	
-		String rowAction = (String) itRowActions.next();		
+		if (style.isSeveralActionsPerRow())
+			for (java.util.Iterator itRowActions = subview.getRowActionsNames().iterator(); itRowActions.hasNext(); ) { 	
+				String rowAction = (String) itRowActions.next();		
 %>
 <xava:action action='<%=rowAction%>' argv='<%="row=" + f + ",viewObject="+viewName%>'/>
 <%
-	}
+		}
 %>
 </nobr>
 </td>

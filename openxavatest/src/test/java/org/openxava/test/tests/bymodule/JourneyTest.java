@@ -33,13 +33,16 @@ public class JourneyTest extends ModuleTestBase {
 		assertListRowCount(120); // To verify that the cards are displayed 
 	}
 	
-	public void testPage25InList() throws Exception {
+	public void testPage25InList_groupByFromPageMaiorThanFirst() throws Exception {
 		assertNoAction("List.goPage", "page=25");
 		execute("List.goPage", "page=13");
 		execute("List.goPage", "page=25");
 		assertListRowCount(1); 
 		execute("CRUD.new");
 		execute("Mode.list");
+		assertListRowCount(1);
+		
+		selectGroupBy("Group by average speed speed");
 		assertListRowCount(1); 
 	}
 	

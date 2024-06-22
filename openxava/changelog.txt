@@ -1,35 +1,126 @@
 Change Log for OpenXava project
 ===============================
 
-- New method createWebClient() in ModuleTestBase.
-- Single number typed in a date editor is assumed as day, with current month/year auto-completed.
-- Archetypes for creating new projects include the welcome.jsp page and a sample custom editor.
-- Dialogs fit in the screen, so dialog bottom buttons are always visible without scrolling.
-- @Email and @EmailList editors use a mask to ensure in real time that the emails are correctly typed.
+- Fix: Incorrect description for project in license and pom.xml for Project Management archetypes.
+
+OpenXava 7.3.3 (2024-6-14)
+--------------------------
+- New Maven archetypes "openxava-project-management-archetype" in English and Spanish (-spanish).
+- New Maven archetypes "openxava-crm-archetype" in English and Spanish (-spanish).
+- Maven install and package now skip tests by default in new created projects and openxavatest.
+- Some new common use labels to be used in applications.
+- Commons Validator upgraded to 1.9.0.
+- HSQLDB embedded database upgraded to 2.7.3.
+- Fix: Module broken when field content has dollar followed by curly brackets.
+- Fix: Calling to Tab.setTabName() or Tab.setBaseCondition() does not go to the first page automatically.
+- Fix: Style of the just unselected row not restored in single selection lists, those with radio buttons. 
+- Fix: @DescriptionsList shows incorrect data if there are keys with the same value in lower and uppercase. 
+- Fix: Removing a row from an @ElementCollection not persisted if the row contains a boolean.
+- Fix: Editors for annotations do not work for references and collections. 
+- Fix: Icon in date fields and @DescriptionsList not visible on hover inside dialog in Dark theme.
+- Fix: List data inside dialog not readable in Dark theme. 
+- Fix: The color for the list data in the dialog is not the same as without the dialog.
+- Fix: Unused CSS from old Yahoo TreeView JS component loaded.
+- Fix: Reference search with dialog in the last line of an @ElementCollection alters previous row reference.
+- Fix: Cannot assign value to a reference with 0 as key because the reference is cleaned from the view.
+- Fix: Original error messages from database constraints or triggers are not shown to the user. 
+
+OpenXava 7.3.2 (2024-5-24)
+--------------------------
+- New Maven archetypes "openxava-master-detail-archetype" in English and Spanish (-spanish).
+- Some new common use labels to be used in applications.
+- Commons Logging upgraded to 1.3.2.
+- Embedded Tomcat used in development upgraded to 9.0.89.
+- Driver version in doc and new projects upgraded for MySQL and Oracle.
+- First lesson of the new reporting course with JasperReports available in documentation with video.
+- Documentation about total properties in view section of the reference guide improved with more examples.
+- New article in documentation that links to an example in GitHub to create a desktop standalone app. 
+- Fix: Infinite "Loading..." in list with @HtmlText properties with long text that contains double quotes.
+- Fix: Not allowed long email addresses for @Email, @Stereotype("EMAIL") and @Stereotype("EMAIL_LIST").
+- Fix: MetaModule.getModelName() returns module name instead of model name in some circumstances.
+- Fix: Incorrect default value for by-default in actions when DOCTYPE is not specified in controllers.xml.
+- Fix: Focus not in @DescriptionsList(showReferenceView=true) if it's the first element with composite key.
+- Fix: Sometimes there are blank rows in @OrderColumn lists.
+- Fix: Element is not shown in @OrderColumn list if added modifying directly the element entity reference.   
+- Fix: Bad size and scale in user interface when using @DecimalMax with a value with a decimal part.
+- Fix: Incorrect length for BigDecimal in the view when using 'scale' in @Column or 'fraction' in @Digits.
+- Fix: Extra elements added to @ElementCollection when using float or double as property type.
+- Fix: Total properties disappear from collection when adding or removing columns.
+- Fix: Error/success messages fail to fade out if the next action opens a dialog.
+- Fix: Error "Expected property name or '}' in JSON" with @TextArea with HTML code with double quotes. 
+
+OpenXava 7.3.1 (2024-5-3)
+-------------------------
+- New method isJava21orBetter() in XSystem utility class.
+- Added automated tests for date, datetime and popup calendar related issues.
+- Commons IO upgraded to 2.16.1.
+- JasperReports and fonts upgraded to 6.21.3.
+- Groovy upgraded to 4.0.21.
+- Embedded Tomcat used in development upgraded to 9.0.88.
+- Documentation for working with IntelliJ improved.
+- Fix: ModuleTestBase.setValue() does not work for properties annotated with @Email or @Stereotype("EMAIL").
+- Fix: Save not reset with a @ReadOnly(onCreate=false) reference with nested reference keys fails.
+- Fix: 'Group by' using the right combo in the list does not work if the list is not in the first page.
+- Fix: $HibernateProxy in __MODEL_NAME__ when using MapFacade sometimes.
+- Fix: Collection data inside sections is populated on typing an existing key creating a new record.
+- Fix: Collection navigation does not work for @OrderColumn lists. 
+- Fix: Using 'join' instead of 'left join' to improve performance in list is not used for common cases.
+- Fix: Formatting problems for dates in Chinese and Greek with Java 21.
+- Fix: Low performance with large @ElementCollection after calling View.setLabelId().
+- Fix: Date and date/time fields with @OnChange restore original date values sometimes in slow computers.
+- Fix: Sum property in the column of a collection with total properties can be removed by the user.
+- Fix: Total properties in a @ListProperties with no forViews overwrite the ones of other @ListProperties.
+- Fix: Incorrect date changed automatically to a correct but different one when focus lost twice.
+
+OpenXava 7.3 (2024-4-12)
+------------------------
+- ZAP web security scanner from OWASP passed at 100%.
 - New section in documentation to configure your application to be OWASP compliant.
-- Fix: Error page in browser when some problem destroying a servlet request.
-- Archetypes for creating new projects has error pages and cookies configuration compatible with OWASP.
-- A X button in each tab to close the latest visited modules on top. 
-- TinyMCE JavaScript library upgraded to 6.8.3.
-- ZAP web security scanner from OWASP passed at 100%. 
-- Fixed 2 critical security vulnerabilities in third party JavaScript libraries.
-- Navigation in collections with buttons to see the next or previous record from the dialog.
-- Content Security Policy does not allows the use of eval() in JavaScript code by default.
+- Removed the use of eval() and equivalents completely from OpenXava JavaScript code.
+- Content Security Policy does not allow the use of eval() in JavaScript code by default.
 - New property unsafeEvalInScripts in xava.property to enable the use of eval() in JavaScript.
-- Fix: Inoffensive string "null" in the HTML code for editors.
-- Customization documentation adapted to no script inclusion in HTML editor code.  
+- Archetypes for creating new projects have error pages and cookies configuration compatible with OWASP.
 - DWR engine tuned to remove the use of eval() in its JavaScript code.
-- DWR upgraded to 3.0.2.
-- has-type/has-annotation/has-stereotype in for-tabs of editors.xml to discriminate list formats by entity.
-- MySQL and MS SQL Server configuration documentation includes video.
-- Documentation for database configuration improved to include schema/database creation.
+- Fixed 1 critical security vulnerability in dependencies, now we have 0 vulnerabilities.
+- Fixed 2 critical security vulnerabilities in third party JavaScript libraries.
+- A X button in each tab to close the latest visited modules on top.
+- Navigation in collections with buttons to see the next or previous record from the dialog.
+- Dialogs fit in the screen, so dialog bottom buttons are always visible without scrolling.
+- Single number typed in a date editor is assumed as day, with current month/year auto-completed.
+- @Email and @EmailList editors use a mask to ensure in real time that the emails are correctly typed.
+- New and modern Dark theme.
+- The width of the calendar in list mode dynamically adjusts to occupy the entire available space.
 - Year navigation buttons added to calendar list format for fast year navigation to distant dates.
 - When several dates in an entity the user can choose which to use in calendar list format with a combo.
-- Reverse engineering documentation includes video.
 - Drag & drop support for calendar list format.
-- Removed the use of eval() and equivalents completely from OpenXava JavaScript code.
+- Support for java.time.LocalTime as a type for properties, with a special editor for time.
+- Improved editor for the time part of DateTimeSeparatedCalendar including a popup to change the time.
+- has-type/has-annotation/has-stereotype in for-tabs of editors.xml to discriminate list formats by entity.
+- Archetypes for creating new projects include the welcome.jsp page and a sample custom editor.
+- New method createWebClient() in ModuleTestBase.
+- DWR upgraded to 3.0.2.
+- Commons Logging upgraded to 1.3.1.
+- Commons Validator upgraded to 1.8.0.
+- Groovy upgraded to 4.0.20.
+- JSoup upgraded to 1.17.2.
+- Lombok upgraded to 1.18.32.
+- Embedded Tomcat used in development upgraded to 9.0.87.
+- Jersey upgraded to 2.42.
+- Log4j upgraded to 2.23.1.
+- Json upgraded to 20240303.
+- Commons IO upgraded to 2.16.0.
+- JasperReports and font upgraded to 6.21.2.
+- HtmlUnit upgraded to 4.0.0.
+- PdfBox upgraded to 2.0.31.
+- TinyMCE JavaScript library upgraded to 6.8.3.
+- Driver version in doc and new projects upgraded for PostgreSQL, AS/400, Microsoft SQL Server, Firebird.
+- MySQL and MS SQL Server configuration documentation includes video.
+- Reverse engineering documentation includes video.
 - AS/400 connection documentation improved to cover performance problems in Windows Server.
-- The width of the calendar in list mode dynamically adjusts to occupy the entire available space.
+- Customization documentation adapted to no script inclusion in HTML editor code.  
+- Documentation for database configuration improved to include schema/database creation.
+- Fix: Error page in browser when some problem destroys a servlet request.
+- Fix: Inoffensive string "null" in the HTML code for editors.
 
 OpenXava 7.2.3 (2024-1-26)
 --------------------------
@@ -44,6 +135,7 @@ OpenXava 7.2.3 (2024-1-26)
 - Fix: View.setLabelId() does not work for @ElementCollection header labels.
 - Fix: Focus not in the correct place after searching a reference in an @ElementCollection.
 - Fix: @DescriptionsList combos do not open if a \ is in one of the values.
+- Fix: Grouping by a three level property in list fails. 
 - Fix: Qualified properties in baseCondition of @Tab fails if those properties are not in the list.
 - Fix: Filtering in the list by a numeric property of a reference of a reference (3 levels or more) fails.
 - Fix: Some incorrect translations for Spanish labels.

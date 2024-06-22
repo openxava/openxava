@@ -6,6 +6,7 @@ import java.util.*;
 import javax.ejb.*;
 import javax.ejb.ObjectNotFoundException;
 
+import org.hibernate.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.impl.*;
 import org.openxava.util.*;
@@ -94,7 +95,7 @@ public class TransientPersistenceProvider implements IPersistenceProvider {
 
 	public String getModelName(Object modelObject) {
 		if (modelObject == null) return null;
-		return modelObject.getClass().getSimpleName();
+		return Hibernate.getClass(modelObject).getSimpleName(); // Because sometime some reference in a transient object could be not so transient
 	}
 
 }

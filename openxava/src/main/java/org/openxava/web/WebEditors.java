@@ -1,6 +1,7 @@
 package org.openxava.web;
 
 import java.util.*;
+import java.util.regex.*;
 
 import javax.servlet.http.*;
 
@@ -137,8 +138,19 @@ public class WebEditors {
 	}
 		
 	private static Object changeSpecialCharacters(String formattedString) {  
-		if (hasMarkup(formattedString)) return formattedString;
+		if (hasMarkup(formattedString)) return refineFormattedString(formattedString);
 		return formattedString.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;"); 
+	}
+	
+	private static String refineFormattedString(String original) { 
+        Pattern pattern = Pattern.compile("(?<=>)[^<]*\"[^<]*(?=<)"); 
+        Matcher matcher = pattern.matcher(original);
+        StringBuffer sb = new StringBuffer();
+        while(matcher.find()) {
+        	matcher.appendReplacement(sb, matcher.group().replace("\"", "&quot;").replace("$", "&dollar;")); 
+        }
+        matcher.appendTail(sb);
+        return sb.toString();
 	}
 	
 	public static Object formatTitle(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException { 

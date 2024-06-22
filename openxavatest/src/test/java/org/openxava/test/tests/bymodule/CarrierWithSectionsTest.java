@@ -17,7 +17,10 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		super(testName, "CarrierWithSections");
 	}
 	
-	public void testInComparator() throws Exception {
+	public void testInComparator_customModuleModelName() throws Exception {
+		execute("ModuleAndModelName.showNames");
+		assertMessage("You are in CarrierWithSections from Carrier");
+
 		assertListRowCount(5);
 		
 		setConditionComparators("in_comparator");
@@ -685,7 +688,8 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 			"CarrierWithSections.setTypicalController",
 			"CarrierWithSections.setPrintController",
 			"CarrierWithSections.setDefaultControllers",
-			"CarrierWithSections.returnToPreviousControllers"
+			"CarrierWithSections.returnToPreviousControllers",
+			"ModuleAndModelName.showNames"
 		};
 		String [] printActions = {
 			"List.hideRows",

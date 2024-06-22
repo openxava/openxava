@@ -5,7 +5,6 @@ import java.io.File;
 import java.lang.annotation.*;
 import java.lang.reflect.*;
 import java.lang.reflect.ParameterizedType;
-import java.math.*;
 import java.net.*;
 import java.util.*;
 import java.util.stream.*;
@@ -880,8 +879,15 @@ public class AnnotatedClassParser implements IComponentParser {
 			property.setSize((int) (Math.log10(max.value()) + 1));
 		}
 		else if (element.isAnnotationPresent(javax.validation.constraints.DecimalMax.class)) {
-			javax.validation.constraints.DecimalMax max = element.getAnnotation(javax.validation.constraints.DecimalMax.class);			
-			property.setSize((int) (Math.log10(new BigDecimal(max.value()).doubleValue()) + 1));
+			javax.validation.constraints.DecimalMax max = element.getAnnotation(javax.validation.constraints.DecimalMax.class);
+			int size = max.value().length();
+			int idx = max.value().indexOf('.'); 
+			if (idx >= 0) {
+				String decimalPart = max.value().substring(idx + 1);
+				property.setScale(decimalPart.length());	
+				size--;
+			}
+			property.setSize(size);
 		}		
 		else if (element.isAnnotationPresent(javax.validation.constraints.Size.class)) {
 			javax.validation.constraints.Size size = element.getAnnotation(javax.validation.constraints.Size.class);			
@@ -915,7 +921,7 @@ public class AnnotatedClassParser implements IComponentParser {
 		}
 		else if (element.isAnnotationPresent(javax.validation.constraints.Digits.class)) {
 			javax.validation.constraints.Digits digits = element.getAnnotation(javax.validation.constraints.Digits.class);
-			property.setSize(digits.integer() + 1 + digits.fraction());
+			property.setSize(digits.integer() + digits.fraction()); 
 			property.setScale(digits.fraction());
 		}		
 				

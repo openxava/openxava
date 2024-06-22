@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!ELEMENT tabs-default-values (tab*)>
+
+<!ELEMENT tab
+   (filter?, row-style*, properties?, base-condition?, default-order?, (for-model* | except-for-model* | for-all-models) )
+>
+<!ATTLIST tab
+ editors CDATA #IMPLIED
+>
+
+<!ELEMENT base-condition
+   (#PCDATA)
+>
+
+<!ELEMENT default-order
+   (#PCDATA)
+>
+
+<!ELEMENT properties
+   (#PCDATA)
+>
+
+<!ELEMENT set EMPTY>
+<!ATTLIST set
+ property CDATA #REQUIRED
+ from CDATA #IMPLIED
+ value CDATA #IMPLIED 
+>
+
+<!ELEMENT row-style EMPTY>
+<!ATTLIST row-style
+ style CDATA #REQUIRED
+ property CDATA #REQUIRED
+ value CDATA #REQUIRED
+>
+
+<!ELEMENT filter (set*)>
+<!ATTLIST filter
+ class CDATA #REQUIRED
+>
+
+<!ELEMENT for-model EMPTY>
+<!ATTLIST for-model
+ model CDATA #REQUIRED
+>
+
+<!ELEMENT except-for-model EMPTY>
+<!ATTLIST except-for-model
+ model CDATA #REQUIRED
+>
+
+<!ELEMENT for-all-models EMPTY>
+
+

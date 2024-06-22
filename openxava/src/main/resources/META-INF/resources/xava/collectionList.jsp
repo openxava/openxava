@@ -18,4 +18,5 @@ context.put(request, tabObject, tab);
 	<jsp:param name="rowAction" value="<%=lineAction%>"/>
 	<jsp:param name="tabObject" value="<%=tabObject%>"/>
 	<jsp:param name="viewObject" value="<%=viewName%>"/>
+	<jsp:param name="viewKeyEditable" value="<%=view.isKeyEditable()%>"/>
 </jsp:include>
