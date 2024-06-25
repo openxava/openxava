@@ -47,9 +47,11 @@ public class ListTest extends WebDriverTestBase {
 	
 	public void testActionInPopUpMenu() throws Exception {
 		goModule("Invoice");
+		List<WebElement> menuIcons = getDriver().findElements(By.id("xava_popup_menu_icon"));
+		assertTrue(menuIcons.isEmpty());
 		execute("List.viewDetail", "row=0");
 		execute("Sections.change", "activeSection=1");
-		List<WebElement> menuIcons = getDriver().findElements(By.id("xava_popup_menu_icon"));
+		menuIcons = getDriver().findElements(By.id("xava_popup_menu_icon"));
 		List<WebElement> menu = getDriver().findElements(By.id("xava_popup_menu"));
 		assertTrue(!menuIcons.isEmpty());
 		assertTrue(menu.get(0).getAttribute("class").contains("ox-display-none"));
@@ -61,7 +63,6 @@ public class ListTest extends WebDriverTestBase {
 		execute("CollectionCopyPaste.cut", "row=0,viewObject=xava_view_section1_details");
 		Thread.sleep(100);
 		assertTrue(menu.get(0).getAttribute("class").contains("ox-display-none"));
-		
 	}
 		
 	private void assertNoFilterInCollectionByDefault() throws Exception {
