@@ -406,7 +406,7 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 			<xava:action action='<%=rowAction%>' argv='<%="row=" + f + actionArgv%>'/>
 <%
 		}
-	} else {
+	} else if (!(rowActionsNumber < 2)){
 %>
 <a id="xava_popup_menu_icon" class="ox-image-link xava_popup_menu_icon">
 	<i class="mdi mdi-dots-horizontal"></i>
