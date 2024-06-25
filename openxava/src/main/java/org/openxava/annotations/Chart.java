@@ -51,7 +51,7 @@ public @interface Chart {
 	
 	/**
 	 * tmr Redoc. 
-	 * tmr Valores por defecto
+	 * tmr Documentar valores por defecto
 	 * The property (or properties) to show in the list. <p>
 	 *  
 	 * If not specified, the property named description, descripcion, 
@@ -64,7 +64,7 @@ public @interface Chart {
 	
 	/**
 	 * tmr Redoc. 
-	 * tmr Valores por defecto
+	 * tmr Documentar valores por defecto
 	 * The property (or properties) to show in the list. <p>
 	 *  
 	 * If not specified, the property named description, descripcion, 
