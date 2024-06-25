@@ -2960,3 +2960,42 @@ a[data-action="Collection.previous"] {
 	border-top-right-radius: 15px;
 	padding: 10px 10px 11px 10px; 
 }
+
+
+
+
+
+
+.ox-popup-menu {
+    position: absolute;
+    background-color: var(--list-background);
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    list-style: none;
+    padding: 0px!important;
+    margin: 0;
+    z-index: 1000;
+    width: 50px;
+}
+
+.ox-popup-menu li {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--list-row-bottom-color);
+}
+
+.ox-popup-menu li:last-child {
+    border-bottom: none;
+}
+
+.ox-popup-menu li a {
+    display: block;
+}
+
+.ox-popup-menu li:hover {
+    background-color: var(--list-row-hover-background);
+}
+
+.ox-popup-menu .ox-image-link {
+   padding: 0px 0px 0px 0px;
+}

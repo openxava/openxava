@@ -54,6 +54,7 @@ if (sonlyOneActionPerRow == null || !Boolean.parseBoolean(sonlyOneActionPerRow))
 else {
 	rowActions = java.util.Collections.EMPTY_SET;
 }
+int rowActionsNumber = rowActions.size();
 String sfilter = request.getParameter("filter");
 boolean filter = !"false".equals(sfilter);
 String lastRow = request.getParameter("lastRow");
@@ -398,13 +399,29 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 <xava:action action='<%=action%>' argv='<%="row=" + f + actionArgv%>'/>
 <%
 	}
-	if (style.isSeveralActionsPerRow() && !grouping) {
+	if (style.isSeveralActionsPerRow() && !grouping && rowActionsNumber < 2) {
 		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext(); ) { 	
-			String rowAction = (String) itRowActions.next();		
+			String rowAction = (String) itRowActions.next();	
 %>
 			<xava:action action='<%=rowAction%>' argv='<%="row=" + f + actionArgv%>'/>
 <%
 		}
+	} else {
+%>
+<a id="xava_popup_menu_icon" class="ox-image-link xava_popup_menu_icon">
+	<i class="mdi mdi-dots-horizontal"></i>
+</a>
+<ul id="xava_popup_menu" class="ox-popup-menu ox-image-link ox-display-none">
+<%	
+		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext(); ) { 	
+			String rowAction = (String) itRowActions.next();		
+%>
+			<li><xava:action action='<%=rowAction%>' argv='<%="row=" + f + actionArgv%>'/></li>
+<%
+		}
+%>
+</ul>	
+<%
 	}
 %>
 	</nobr> 
