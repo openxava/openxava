@@ -33,7 +33,7 @@ public class Corporation extends Identifiable {
 	// tmr @Editor(forViews="EmployeesChart", value="EmployeesChart") // tmr
 	// tmr @Chart(labelProperties = "firstName, lastName", dataProperties = "salary, bonus") // tmr
 	// tmr @Chart
-	@Chart(forViews="EmployeesChart") // TMR ME QUEDÉ PARA EMPEZAR CON ESTO, EL SOPORTE DE forViews 
+	@Chart(forViews="EmployeesChart")  
 	private Collection<CorporationEmployee> employees;
 	
 	public void setName(String name) {

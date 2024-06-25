@@ -1,5 +1,4 @@
 Pendiente Chart
-- forViews.
 - Revisar nomenclatura.
 	- Los atributos de @Char
 	- @Chart mismo podría dar conflictos con código de cliente, pero: Ya tengo nombres genéricos como @ReadOnly y @Required.
@@ -14,6 +13,7 @@ Test
 - forViews.
 
 Documentación
+- forViews y notForViews para anotaciones propias. Característica separada.
 
 Diferido
 - Sacar lista (quitar atributo de @Chart)
