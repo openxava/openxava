@@ -2961,11 +2961,6 @@ a[data-action="Collection.previous"] {
 	padding: 10px 10px 11px 10px; 
 }
 
-
-
-
-
-
 .ox-popup-menu {
     position: absolute;
     background-color: var(--list-background);
@@ -2976,7 +2971,7 @@ a[data-action="Collection.previous"] {
     padding: 0px!important;
     margin: 0;
     z-index: 1000;
-    width: 50px;
+    width: auto;
 }
 
 .ox-popup-menu .ox-image-link {
@@ -2986,6 +2981,9 @@ a[data-action="Collection.previous"] {
 .ox-popup-menu li {
     padding: 8px 12px;
     border-bottom: 1px solid var(--list-row-bottom-color);
+    align-items: center;
+    display: flex;
+    font-weight: bold;
     pointer-events: none;
 }
 
@@ -3000,9 +2998,17 @@ a[data-action="Collection.previous"] {
 
 .ox-popup-menu li:hover > a {
     background-color: white;
+    border-radius: 2px;
 }
 
 .ox-popup-menu li a {
-    display: block;
-    pointer-events: auto;
+	pointer-events: auto;
+    display: flex;
+    align-items: center;
+}
+
+.ox-popup-action-label {
+    color: var(--link-color);
+    white-space: nowrap;
+    padding-right: 4px;
 }
