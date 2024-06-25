@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: New article and video with a list of sample applications and instructions to get them up and running. 
 - Fix: Incorrect description for project in license and pom.xml for Project Management archetypes.
 
 OpenXava 7.3.3 (2024-6-14)
