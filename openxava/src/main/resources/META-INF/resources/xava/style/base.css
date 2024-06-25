@@ -2963,7 +2963,7 @@ a[data-action="Collection.previous"] {
 
 .ox-popup-menu {
     position: absolute;
-    background-color: var(--list-background);
+    background-color: var(--list-background)!important;
     border: 1px solid gray;
     box-shadow: 0 2px 10px var(--shadow);
     border-radius: 2px;
@@ -2997,7 +2997,7 @@ a[data-action="Collection.previous"] {
 }
 
 .ox-popup-menu li:hover > a {
-    background-color: white;
+    background-color: var(--input-background);
     border-radius: 2px;
 }
 
