@@ -238,14 +238,5 @@
 		<property name="suffix" value="one_not_deletable"/>
 		<for-model-property model="UserWithNickname" property="name" />
 	</editor>
-	
-	<!-- tmr ini -->
-	<editor name="EmployeesChart" url="employeesChartEditor.jsp"/>
-	
-	<!-- tmr Mover a openxava -->
-	<editor name="CollectionChart" url="collectionChartEditor.jsp">
-	    <for-annotation annotation="org.openxava.annotations.Chart"/>
-	</editor>	
-	<!-- tmr fin -->
 		
 </editors>

@@ -30,7 +30,6 @@ public class Corporation extends Identifiable {
 	private String icon; 
 	
 	@OneToMany(mappedBy="corporation", cascade=CascadeType.ALL)
-	// tmr @Editor(forViews="EmployeesChart", value="EmployeesChart") // tmr
 	// tmr @Chart(labelProperties = "firstName, lastName", dataProperties = "salary, bonus") // tmr
 	// tmr @Chart
 	@Chart(forViews="EmployeesChart")  

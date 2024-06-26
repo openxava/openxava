@@ -1,6 +1,4 @@
 Pendiente Chart
-- Borrar editor de pruebas.
-- Mover editor a openxava.
 - Revisar notas en el código.
 
 Test
