@@ -89,7 +89,6 @@ for (int f=0; itAggregates.hasNext(); f++) {
 	<%  } %>	
 <xava:action action="<%=lineAction%>" argv='<%="row="+f + ",viewObject="+viewName%>'/>
 <% 		
-System.out.println(subview.getRowActionsNames());
 		if (style.isSeveralActionsPerRow()) {
 			if (subview.getRowActionsNames().size() < 2) {
 				for (java.util.Iterator itRowActions = subview.getRowActionsNames().iterator(); itRowActions.hasNext(); ) { 	
@@ -106,18 +105,18 @@ System.out.println(subview.getRowActionsNames());
 
 <ul id="xava_popup_menu" class="ox-popup-menu ox-image-link ox-display-none">
 <%	
-		for (java.util.Iterator itRowActions = subview.getRowActionsNames().iterator(); itRowActions.hasNext(); ) { 	
-			String rowActionString = (String) itRowActions.next();
+				for (java.util.Iterator itRowActions = subview.getRowActionsNames().iterator(); itRowActions.hasNext(); ) { 	
+					String rowActionString = (String) itRowActions.next();
 %>
-		<li>
-			<jsp:include page="../barButton.jsp">
-				<jsp:param name="action" value="<%=rowActionString%>"/>
-				<jsp:param name="addSpaceWithoutImage" value="false"/>
-				<jsp:param name="argv" value='<%="row=" + f + ",viewObject="+viewName%>'/>
-			</jsp:include>
-		</li>
+	<li>
+		<jsp:include page="../barButton.jsp">
+			<jsp:param name="action" value="<%=rowActionString%>"/>
+			<jsp:param name="addSpaceWithoutImage" value="false"/>
+			<jsp:param name="argv" value='<%="row=" + f + ",viewObject="+viewName%>'/>
+		</jsp:include>
+	</li>
 <%
-		}
+				}
 %>
 </ul>
 <%

@@ -400,7 +400,6 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 <%
 	}
 	if (style.isSeveralActionsPerRow() && !grouping && rowActionsNumber < 2) {
-		System.out.println("0 menor a 2");
 		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext(); ) { 	
 			String rowAction = (String) itRowActions.next();	
 %>
@@ -417,15 +416,14 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 <%	
 		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext(); ) { 	
 			String rowActionString = (String) itRowActions.next();
-			System.out.println("1 " + rowActionString + " in action");
 %>
-		<li>
-			<jsp:include page="../barButton.jsp">
-				<jsp:param name="action" value="<%=rowActionString%>"/>
-				<jsp:param name="addSpaceWithoutImage" value="false"/>
-				<jsp:param name="argv" value='<%="row=" + f + actionArgv%>'/>
-			</jsp:include>
-		</li>
+	<li>
+		<jsp:include page="../barButton.jsp">
+			<jsp:param name="action" value="<%=rowActionString%>"/>
+			<jsp:param name="addSpaceWithoutImage" value="false"/>
+			<jsp:param name="argv" value='<%="row=" + f + actionArgv%>'/>
+		</jsp:include>
+	</li>
 <%
 		}
 %>
