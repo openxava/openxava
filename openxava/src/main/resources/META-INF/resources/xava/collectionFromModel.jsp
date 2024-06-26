@@ -88,19 +88,47 @@ for (int f=0; itAggregates.hasNext(); f++) {
 	<i class="xava_handle mdi mdi-swap-vertical"></i>	
 	<%  } %>	
 <xava:action action="<%=lineAction%>" argv='<%="row="+f + ",viewObject="+viewName%>'/>
-<% 
-		if (style.isSeveralActionsPerRow())
-			for (java.util.Iterator itRowActions = subview.getRowActionsNames().iterator(); itRowActions.hasNext(); ) { 	
-				String rowAction = (String) itRowActions.next();		
+<% 		
+System.out.println(subview.getRowActionsNames());
+		if (style.isSeveralActionsPerRow()) {
+			if (subview.getRowActionsNames().size() < 2) {
+				for (java.util.Iterator itRowActions = subview.getRowActionsNames().iterator(); itRowActions.hasNext(); ) { 	
+					String rowAction = (String) itRowActions.next();		
 %>
 <xava:action action='<%=rowAction%>' argv='<%="row=" + f + ",viewObject="+viewName%>'/>
 <%
+				}
+			} else {
+%>
+<a id="xava_popup_menu_icon" class="ox-image-link xava_popup_menu_icon">
+	<i class="mdi mdi-dots-vertical"></i>
+</a>
+
+<ul id="xava_popup_menu" class="ox-popup-menu ox-image-link ox-display-none">
+<%	
+		for (java.util.Iterator itRowActions = subview.getRowActionsNames().iterator(); itRowActions.hasNext(); ) { 	
+			String rowActionString = (String) itRowActions.next();
+%>
+		<li>
+			<jsp:include page="../barButton.jsp">
+				<jsp:param name="action" value="<%=rowActionString%>"/>
+				<jsp:param name="addSpaceWithoutImage" value="false"/>
+				<jsp:param name="argv" value='<%="row=" + f + ",viewObject="+viewName%>'/>
+			</jsp:include>
+		</li>
+<%
 		}
+%>
+</ul>
+<%
+			}
+		} 
 %>
 </nobr>
 </td>
 <%
-	} 
+	}
+	
 %>
 <td class="<%=cssCellClass%>" width="5">
 <input class="xava_selected" type="checkbox" name="<xava:id name='xava_selected'/>" value="<%=propertyPrefix%>__SELECTED__:<%=f%>" 

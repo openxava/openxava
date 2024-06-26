@@ -418,15 +418,10 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext(); ) { 	
 			String rowActionString = (String) itRowActions.next();
 			System.out.println("1 " + rowActionString + " in action");
-			MetaAction rowAction = MetaControllers.getMetaAction(rowActionString);
-			System.out.println("2 " + rowAction.getQualifiedName());
-			System.out.println("3 " + rowAction.getIcon());
-			System.out.println("4 " + rowAction.getLabel());
-			
 %>
 		<li>
 			<jsp:include page="../barButton.jsp">
-				<jsp:param name="action" value="<%=rowAction.getQualifiedName()%>"/>
+				<jsp:param name="action" value="<%=rowActionString%>"/>
 				<jsp:param name="addSpaceWithoutImage" value="false"/>
 				<jsp:param name="argv" value='<%="row=" + f + actionArgv%>'/>
 			</jsp:include>
