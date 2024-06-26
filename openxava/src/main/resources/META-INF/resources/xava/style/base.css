@@ -2953,7 +2953,7 @@ a[data-action="Collection.previous"] {
     opacity: 0; 
 }
 
-.module-header-tab .selected{
+.module-header-tab .selected {
 	background: var(--module-header-selected-background);
 	color: var(--module-header-selected-color);
 	border-top-left-radius: 15px;
@@ -2963,52 +2963,38 @@ a[data-action="Collection.previous"] {
 
 .ox-popup-menu {
     position: absolute;
-    background-color: var(--list-background)!important;
-    border: 1px solid gray;
-    box-shadow: 0 2px 10px var(--shadow);
+    background-color: var(--list-even-column-background);
+    box-shadow: 0 0px 3px var(--shadow);
     border-radius: 2px;
     list-style: none;
-    padding: 0px!important;
+    padding: 0px;
     margin: 0;
     z-index: 1000;
     width: auto;
 }
 
-.ox-popup-menu .ox-image-link {
-   padding: 0px 0px 0px 0px;
+.ox-popup-menu:hover {
+    background-color: var(--list-even-column-background);
 }
 
 .ox-popup-menu li {
-    padding: 8px 12px;
-    border-bottom: 1px solid var(--list-row-bottom-color);
-    align-items: center;
-    display: flex;
+    padding: 10px 5px 10px 5px;
     font-weight: bold;
-    pointer-events: none;
 }
 
-.ox-popup-menu li:last-child {
-    border-bottom: none;
-}
-
-.ox-popup-menu li:hover {
-   background-color:  var(--list-row-bottom-color);
-   border-radius: 2px;
-}
-
-.ox-popup-menu li:hover > a {
-    background-color: var(--input-background);
-    border-radius: 2px;
+.ox-popup-menu.ox-image-link {
+	padding: 0px 0px 0px 0px;
 }
 
 .ox-popup-menu li a {
-	pointer-events: auto;
+	color: var(--link-color);
     display: flex;
     align-items: center;
+    padding-right: 8px;
 }
 
-.ox-popup-action-label {
-    color: var(--link-color);
-    white-space: nowrap;
-    padding-right: 4px;
+.ox-popup-menu li a:hover {
+	color: var(--button-bar-button-hover-color);
+    background: var(--button-bar-button-hover-background);
+    border-color: var(--button-bar-button-hover-border);
 }

@@ -400,6 +400,7 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 <%
 	}
 	if (style.isSeveralActionsPerRow() && !grouping && rowActionsNumber < 2) {
+		System.out.println("0 menor a 2");
 		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext(); ) { 	
 			String rowAction = (String) itRowActions.next();	
 %>
@@ -409,19 +410,26 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 	} else if (!(rowActionsNumber < 2)){
 %>
 <a id="xava_popup_menu_icon" class="ox-image-link xava_popup_menu_icon">
-	<i class="mdi mdi-dots-horizontal"></i>
+	<i class="mdi mdi-dots-vertical"></i>
 </a>
 
 <ul id="xava_popup_menu" class="ox-popup-menu ox-image-link ox-display-none">
 <%	
 		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext(); ) { 	
-			MetaAction rowAction = MetaControllers.getMetaAction((String) itRowActions.next());
+			String rowActionString = (String) itRowActions.next();
+			System.out.println("1 " + rowActionString + " in action");
+			MetaAction rowAction = MetaControllers.getMetaAction(rowActionString);
+			System.out.println("2 " + rowAction.getQualifiedName());
+			System.out.println("3 " + rowAction.getIcon());
+			System.out.println("4 " + rowAction.getLabel());
+			
 %>
 		<li>
-			<xava:link action='<%=rowAction.getQualifiedName()%>' argv='<%="row=" + f + actionArgv%>'>
-				<i class="mdi mdi-<%=rowAction.getIcon()%>"></i>
-				<span class="<%=style.getActionLabel()%> ox-popup-action-label"><%=rowAction.getLabel()%></span>
-			</xava:link>
+			<jsp:include page="../barButton.jsp">
+				<jsp:param name="action" value="<%=rowAction.getQualifiedName()%>"/>
+				<jsp:param name="addSpaceWithoutImage" value="false"/>
+				<jsp:param name="argv" value='<%="row=" + f + actionArgv%>'/>
+			</jsp:include>
 		</li>
 <%
 		}
