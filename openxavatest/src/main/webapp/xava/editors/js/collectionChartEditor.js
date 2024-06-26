@@ -4,16 +4,12 @@ openxava.addEditorInitFunction(function() {
 	// tmr Ha de funcionar con más de uno
 	$('.xava_collection_chart').each( function () {
 		var labels = $(this).data("labels");
-		console.log("labels=" + labels); // tmr
-		console.log("labels[0]=" + labels[0]); // tmr		
-		var values = $(this).data("values");
-		console.log("values=" + values); // tmr
-		console.log("values[0]=" + values[0]); // tmr		
+		var data = $(this).data("data");
 		var parentId = $(this).parent().attr("id");
 		c3.generate({
 		    bindto: '#' + parentId + " .xava_collection_chart", 
 	 		data: {
-		        columns: values, 
+		        columns: data, 
 		        type: 'bar'
 		    },
 		    axis: {

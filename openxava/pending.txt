@@ -1,7 +1,4 @@
 Pendiente Chart
-- Revisar nomenclatura.
-	- Los atributos de @Char
-	- @Chart mismo podría dar conflictos con código de cliente, pero: Ya tengo nombres genéricos como @ReadOnly y @Required.
 - Borrar editor de pruebas.
 - Mover editor a openxava.
 - Revisar notas en el código.

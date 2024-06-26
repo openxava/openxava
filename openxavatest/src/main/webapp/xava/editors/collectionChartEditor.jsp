@@ -18,7 +18,7 @@ CollectionChart collectionChart = new CollectionChart(subview);
 collectionChart.setLabelProperties(request.getParameter("labelProperties"));  
 collectionChart.setDataProperties(request.getParameter("dataProperties"));
 JSONArray labels = new JSONArray(collectionChart.getLabels());
-JSONArray values = new JSONArray(collectionChart.getValues());
+JSONArray data = new JSONArray(collectionChart.getData());
 %>
 
-<div class="xava_collection_chart" data-labels='<%=labels%>' data-values='<%=values%>'></div>
+<div class="xava_collection_chart" data-labels='<%=labels%>' data-data='<%=data%>'></div>

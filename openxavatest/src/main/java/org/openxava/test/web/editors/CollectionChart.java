@@ -31,10 +31,10 @@ public class CollectionChart {
 	        .collect(Collectors.toList()); 
 	}
 	
-	public Collection<Collection> getValues() { // tmr ¿Values o Data? TMR ME QUEDÉ POR AQUÍ. YA DECIDÍ QUEDARME CON label Y data EN @Chart
+	public Collection<Collection> getData() { 
 		Collection<Collection> result = new ArrayList<>();
 		for (String property: getDataProperties()) { // tmr ¿Llamar a Strings.toCollection() es eficiente?
-			result.add(getValuesFor(property));
+			result.add(getDataFor(property));
 		}
 		return result;
 	}
@@ -48,7 +48,7 @@ public class CollectionChart {
 		return result.toString();
 	}
 	
-	private Collection getValuesFor(String propertyName) { // tmr ¿Values o Data?
+	private Collection getDataFor(String propertyName) { 
 		Collection result = new ArrayList();
         result.add(view.getLabelFor(view.getMetaProperty(propertyName))); 
         result.addAll(view.getCollectionValues().stream()
