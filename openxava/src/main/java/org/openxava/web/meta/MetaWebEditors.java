@@ -21,7 +21,7 @@ import org.openxava.web.meta.xmlparse.*;
 
 public class MetaWebEditors {
 	
-	private static Log log = LogFactory.getLog(MetaEditor.class);
+	public static Log log = LogFactory.getLog(MetaEditor.class);
 		
 	private static Map editorsByName; 
 	private static Map editorsByType;
@@ -430,27 +430,15 @@ public class MetaWebEditors {
 	}
 	
 	private static boolean isForViews(String viewName, Annotation annotation) { // tmr
-		String forViews = getAnnotationAttributeValue(annotation, "forViews");
-		String notForViews = getAnnotationAttributeValue(annotation, "notForViews");
+		String forViews = Classes.getAnnotationAttributeValue(annotation, "forViews");
+		String notForViews = Classes.getAnnotationAttributeValue(annotation, "notForViews");
 		return isForView(viewName, forViews, notForViews);
-	}
-	
-	private static String getAnnotationAttributeValue(Annotation annotation, String attribute) { // tmr Refactor, ¿Uso en otro sitio? Al menos en esta clase sí
-		Object value = null;
-		try {
-			value = XObjects.execute(annotation, attribute);
-		}
-		catch (NoSuchMethodException ex) {			
-		} 
-		catch (Exception ex) {
-			log.warn(XavaResources.getString("impossible_get_value_annotation_attribute", attribute, annotation.annotationType().getName()), ex);			
-		}		
-		return value==null?null:value.toString();
 	}
 	
 	private static boolean isForView(String view, String forViews, String notForViews) { // tmr 
 		// tmr Refactor con AnnotatedClassParser.isForView()
-		// tmr 		¿Aquí como estático? ¿Mover a MetaModel? ¿En MetaView? ¿Cómo estático en MetaView? ¿A una clase de utilidad?
+		// tmr 		¿Cómo estático en MetaView? TMR ME QUEDÉ POR AQUÍ. NO ME GUSTA MUCHO, PERO NO ENCUENTRO UNA OPCIÓN MEJOR, 
+		// TMR						A LO MEJOR EN AnnotatedClassParser NO ESTARÍA MAL, AL SER ALGO EXCLUSIVO DE LAS ANOTACIONES
 		if (Is.emptyStringAll(forViews, notForViews)) return true;
 		if (!Is.emptyString(forViews) && !Is.emptyString(notForViews)) {
 			log.warn(XavaResources.getString("forViews_and_notForViews_not_compatible")); 

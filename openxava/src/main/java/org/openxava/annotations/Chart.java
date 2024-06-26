@@ -3,7 +3,7 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * tmr Rehacer doc. Mover a openxava..
+ * tmr Rehacer doc. 
  * With <code>@DescriptionsList</code> you can instruct OpenXava to visualize references 
  * as a descriptions list (actually a combo). <p>
  * 

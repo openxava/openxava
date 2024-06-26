@@ -4,6 +4,8 @@ import java.lang.annotation.*;
 import java.lang.reflect.*;
 import java.util.*;
 
+import org.openxava.web.meta.*;
+
 /**
  * Utility class to work with classes. <p>
  * 
@@ -83,5 +85,18 @@ public class Classes {
 			if (method.isAnnotationPresent(annotation)) result.add(method);
 		}
 		fillMethodsAnnotatedWith(result, theClass.getSuperclass(), annotation);
+	}
+
+	public static String getAnnotationAttributeValue(Annotation annotation, String attribute) { // tmr Poner en changelog
+		Object value = null;
+		try {
+			value = XObjects.execute(annotation, attribute);
+		}
+		catch (NoSuchMethodException ex) {			
+		} 
+		catch (Exception ex) {
+			MetaWebEditors.log.warn(XavaResources.getString("impossible_get_value_annotation_attribute", attribute, annotation.annotationType().getName()), ex);			
+		}		
+		return value==null?null:value.toString();
 	}
 }

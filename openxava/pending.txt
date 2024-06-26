@@ -8,6 +8,8 @@ Test
 - forViews.
 
 Documentación
+- JavaDoc para @Chart y @Charts
+- Reference guide
 - forViews y notForViews para anotaciones propias. Característica separada.
 
 Diferido
