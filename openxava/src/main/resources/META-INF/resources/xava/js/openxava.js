@@ -639,9 +639,12 @@ openxava.initLists = function(application, module) {
 openxava.renumberCollection = function(table) {
 	table.find("tr").each(function(rowIndex) {
 		$(this).find("a").each(function() {
-			var newHref = $(this).attr("data-argv")
-				.replace(new RegExp("row=\\d+,viewObject=", "g"), "row=" + (rowIndex - 1) + ",viewObject=");
-			$(this).attr("data-argv", newHref);
+			var dataArgv = $(this).attr("data-argv");
+			if (dataArgv) {
+				var newHref = $(this).attr("data-argv")
+					.replace(new RegExp("row=\\d+,viewObject=", "g"), "row=" + (rowIndex - 1) + ",viewObject=");
+				$(this).attr("data-argv", newHref);
+			}
 		});
 	});
 }
