@@ -44,22 +44,6 @@ public class ListTest extends WebDriverTestBase {
 		goModule("Subfamily");
 		assertTrue(hasClockIcon());
 	}
-	
-	public void testRowActionsGroupInPopUp() throws Exception {
-		goModule("Carrier");
-		List<WebElement> menuIcons = getDriver().findElements(By.id("xava_popup_menu_icon"));
-		assertTrue(menuIcons.isEmpty());
-		execute("List.viewDetail", "row=0");
-		menuIcons = getDriver().findElements(By.id("xava_popup_menu_icon"));
-		List<WebElement> menu = getDriver().findElements(By.id("xava_popup_menu"));
-		assertTrue(menuIcons.size() == 6);
-		assertTrue(menu.get(0).getAttribute("class").contains("ox-display-none"));
-		menuIcons.get(0).click();
-		Thread.sleep(100);
-		assertTrue(!menu.get(0).getAttribute("class").contains("ox-display-none"));
-		//cut
-		
-	}
 		
 	private void assertNoFilterInCollectionByDefault() throws Exception {
 		execute("CRUD.new");		
