@@ -399,14 +399,15 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 <xava:action action='<%=action%>' argv='<%="row=" + f + actionArgv%>'/>
 <%
 	}
-	if (style.isSeveralActionsPerRow() && !grouping && rowActionsNumber < 2) {
-		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext(); ) { 	
-			String rowAction = (String) itRowActions.next();	
+	if (style.isSeveralActionsPerRow() && !grouping) {
+		if (rowActionsNumber < 2) {
+			for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext(); ) { 	
+				String rowAction = (String) itRowActions.next();
 %>
 			<xava:action action='<%=rowAction%>' argv='<%="row=" + f + actionArgv%>'/>
 <%
-		}
-	} else if (!(rowActionsNumber < 2)){
+			}
+		} else {
 %>
 <a id="xava_popup_menu_icon" class="ox-image-link xava_popup_menu_icon">
 	<i class="mdi mdi-dots-vertical"></i>
@@ -414,8 +415,8 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 
 <ul id="xava_popup_menu" class="ox-popup-menu ox-image-link ox-display-none">
 <%	
-		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext(); ) { 	
-			String rowActionString = (String) itRowActions.next();
+			for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext(); ) { 	
+				String rowActionString = (String) itRowActions.next();
 %>
 	<li>
 		<jsp:include page="../barButton.jsp">
@@ -425,11 +426,12 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 		</jsp:include>
 	</li>
 <%
-		}
+			}
 %>
 </ul>
 
 <%
+		}
 	}
 %>
 	</nobr> 

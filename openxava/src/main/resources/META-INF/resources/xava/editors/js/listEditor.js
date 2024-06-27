@@ -6,6 +6,13 @@ openxava.addEditorInitFunction(function() {
         var popUpMenu = popUpMenuIcon.next('#xava_popup_menu');
 
         popUpMenuIcon.on('click', function(event) {
+			popUpMenu.find('li').each(function() {
+                var span = $(this).find('span.ox-button-bar-button');
+                if (span.length > 0 && span.children().length === 0) {
+                    $(this).remove();
+                }
+            });
+			
             popUpMenu.removeClass("ox-display-none");
             var buttonOffset = popUpMenuIcon.offset();
             popUpMenu.css({
@@ -28,4 +35,7 @@ openxava.addEditorInitFunction(function() {
             }
         });
     });
+	
+	
+	
 });
