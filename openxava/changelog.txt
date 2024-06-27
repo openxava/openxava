@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Chinese translations removed from all OpenXava official documentation. 
 - Fix: New article and video with a list of sample applications and instructions to get them up and running. 
 - Fix: Incorrect description for project in license and pom.xml for Project Management archetypes.
 
