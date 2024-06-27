@@ -7,6 +7,7 @@ import java.util.*;
 import org.apache.commons.beanutils.*;
 import org.apache.commons.collections.*;
 import org.apache.commons.logging.*;
+import org.openxava.component.parse.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.meta.*;
 import org.openxava.util.*;
@@ -432,35 +433,7 @@ public class MetaWebEditors {
 	private static boolean isForViews(String viewName, Annotation annotation) { // tmr
 		String forViews = Classes.getAnnotationAttributeValue(annotation, "forViews");
 		String notForViews = Classes.getAnnotationAttributeValue(annotation, "notForViews");
-		return isForView(viewName, forViews, notForViews);
-	}
-	
-	private static boolean isForView(String view, String forViews, String notForViews) { // tmr 
-		// tmr Refactor con AnnotatedClassParser.isForView()
-		// tmr 		¿Cómo estático en MetaView? TMR ME QUEDÉ POR AQUÍ. NO ME GUSTA MUCHO, PERO NO ENCUENTRO UNA OPCIÓN MEJOR, 
-		// TMR						A LO MEJOR EN AnnotatedClassParser NO ESTARÍA MAL, AL SER ALGO EXCLUSIVO DE LAS ANOTACIONES
-		if (Is.emptyStringAll(forViews, notForViews)) return true;
-		if (!Is.emptyString(forViews) && !Is.emptyString(notForViews)) {
-			log.warn(XavaResources.getString("forViews_and_notForViews_not_compatible")); 
-		}
-		if (!Is.emptyString(forViews)) {
-			StringTokenizer st = new StringTokenizer(forViews, ",");
-			while (st.hasMoreTokens()) {
-				String viewName = st.nextToken().trim();
-				if (viewName.equals(view)) return true;
-				if (Is.emptyString(view) && "DEFAULT".equals(viewName)) return true;
-			}
-			return false;
-		}
-		else {
-			StringTokenizer st = new StringTokenizer(notForViews, ",");
-			while (st.hasMoreTokens()) {
-				String viewName = st.nextToken().trim();
-				if (viewName.equals(view)) return false;
-				if (Is.emptyString(view) && "DEFAULT".equals(viewName)) return false;
-			}	
-			return true;
-		}				
+		return AnnotatedClassParser.isForView(viewName, forViews, notForViews);
 	}
 		
 }

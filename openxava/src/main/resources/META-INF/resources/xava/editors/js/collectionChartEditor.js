@@ -1,7 +1,5 @@
-/* tmr Mover a openxava*/
-
+// tmr
 openxava.addEditorInitFunction(function() {
-	// tmr Ha de funcionar con más de uno
 	$('.xava_collection_chart').each( function () {
 		var labels = $(this).data("labels");
 		var data = $(this).data("data");
@@ -20,7 +18,7 @@ openxava.addEditorInitFunction(function() {
 		    },	    
 		    bar: {
 		        width: {
-		            ratio: 0.5 // tmr ¿Quitar? ¿Ajustar?
+		            ratio: 0.5 
 		        }
 		    }
 		});	

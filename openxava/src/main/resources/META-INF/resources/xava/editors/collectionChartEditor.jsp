@@ -1,15 +1,13 @@
-<%-- tmr Move a OpenXava --%>
-
 <%@ page import="org.openxava.model.meta.MetaCollection" %>
 <%@ page import="org.openxava.view.View" %>
-<%@ page import="org.openxava.test.web.editors.CollectionChart" %>
+<%@ page import="org.openxava.web.editors.CollectionChart" %>
 <%@ page import="org.json.JSONArray" %>
 <%@ page import="java.util.Collection" %>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 
 <%
-// tmr Comprobar que lo del AJAX funciona
+// tmr 
 String collectionName = request.getParameter("collectionName");
 String viewObject = request.getParameter("viewObject");
 View view = (View) context.get(request, viewObject);

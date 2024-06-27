@@ -2752,6 +2752,7 @@ public class AnnotatedClassParser implements IComponentParser {
 		return false;
 	}
 	
+	/* tmr
 	private boolean isForView(MetaView view, String forViews, String notForViews) {
 		if (Is.emptyStringAll(forViews, notForViews)) return true;
 		if (!Is.emptyString(forViews) && !Is.emptyString(notForViews)) {
@@ -2776,6 +2777,37 @@ public class AnnotatedClassParser implements IComponentParser {
 			return true;
 		}				
 	}
+	*/
+	
+	private boolean isForView(MetaView view, String forViews, String notForViews) { // tmr 
+		return isForView(view.getName(), forViews, notForViews);
+	}
+	
+	public static boolean isForView(String view, String forViews, String notForViews) { // tmr 
+		if (Is.emptyStringAll(forViews, notForViews)) return true;
+		if (!Is.emptyString(forViews) && !Is.emptyString(notForViews)) {
+			log.warn(XavaResources.getString("forViews_and_notForViews_not_compatible")); 
+		}
+		if (!Is.emptyString(forViews)) {
+			StringTokenizer st = new StringTokenizer(forViews, ",");
+			while (st.hasMoreTokens()) {
+				String viewName = st.nextToken().trim();
+				if (viewName.equals(view)) return true;
+				if (Is.emptyString(view) && "DEFAULT".equals(viewName)) return true;
+			}
+			return false;
+		}
+		else {
+			StringTokenizer st = new StringTokenizer(notForViews, ",");
+			while (st.hasMoreTokens()) {
+				String viewName = st.nextToken().trim();
+				if (viewName.equals(view)) return false;
+				if (Is.emptyString(view) && "DEFAULT".equals(viewName)) return false;
+			}	
+			return true;
+		}				
+	}
+
 	
 		
 }

@@ -1,4 +1,4 @@
-package org.openxava.test.web.editors;
+package org.openxava.web.editors;
 
 import java.util.*;
 import java.util.stream.*;
@@ -10,7 +10,6 @@ import org.openxava.view.*;
 
 /**
  * tmr Poner algún comentario significativo
- * tmr Mover a OpenXava
  * 
  * @author Javier Paniza
  */
@@ -33,15 +32,15 @@ public class CollectionChart {
 	
 	public Collection<Collection> getData() { 
 		Collection<Collection> result = new ArrayList<>();
-		for (String property: getDataProperties()) { // tmr ¿Llamar a Strings.toCollection() es eficiente?
+		for (String property: getDataProperties()) { 
 			result.add(getDataFor(property));
 		}
 		return result;
 	}
 	
-	private String getLabelFor(Map<String, Object> item) { // tmr
+	private String getLabelFor(Map<String, Object> item) { 
 		StringBuffer result = new StringBuffer();
-		for (String property: getLabelProperties()) { // tmr ¿Llamar a Strings.toCollection() es eficiente? 
+		for (String property: getLabelProperties()) {  
 			if (result.length() > 0) result.append(" "); 
 			result.append(item.get(property));
 		}
@@ -71,11 +70,12 @@ public class CollectionChart {
 		Collection<String> result = createDefaultProperties(2, property -> 
 			property.isNumber() &&
 			StringUtils.containsAnyIgnoreCase(property.getName(), "year", "anyo", "anio", "number", "numero", "code", "codigo", "id"));
-		if (result.size() == 2) return result; 
-		result.addAll(createDefaultProperties(2 - result.size(), property -> 
-			StringUtils.containsAnyIgnoreCase(property.getName(), XavaPreferences.getInstance().getDefaultDescriptionPropertiesValueForDescriptionsList()))); 
 		if (result.size() == 2) return result;
-		result.addAll(createDefaultProperties(2 - result.size(), property -> true));
+		Collection<String> descriptions = createDefaultProperties(1, property -> 
+		StringUtils.containsAnyIgnoreCase(property.getName(), XavaPreferences.getInstance().getDefaultDescriptionPropertiesValueForDescriptionsList())); 
+		result.addAll(descriptions); 
+		if (!descriptions.isEmpty()) return result;
+		result.addAll(createDefaultProperties(1, property -> true));
 		return result;
 	}	
 	

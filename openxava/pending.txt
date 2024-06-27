@@ -1,6 +1,3 @@
-Pendiente Chart
-- Revisar notas en el código.
-
 Test
 - Varias labels.
 - Etiquetas traducidas. ¿Lo puedo testear? ¿Merece la pena hacer una prueba manual?
@@ -13,6 +10,6 @@ Documentación
 - forViews y notForViews para anotaciones propias. Característica separada.
 
 Diferido
-- Sacar lista (quitar atributo de @Chart)
+- Sacar lista (añadir atributo showList() a @Chart)
 - Tarta ¿v7.5?
 - ¿Actualizar D3?
