@@ -7,6 +7,12 @@
 <%@page import="org.openxava.util.XavaPreferences"%>
 
 <%
+org.openxava.util.Messages messages = (org.openxava.util.Messages) request.getAttribute("messages");
+if (messages == null) {
+    messages = new org.openxava.util.Messages();
+    request.setAttribute("messages", messages);
+}
+org.openxava.controller.ModuleManager manager = (org.openxava.controller.ModuleManager) context.get(request, "manager", "org.openxava.controller.ModuleManager");
 String tabObject = request.getParameter("tabObject"); 
 tabObject = (tabObject == null || tabObject.equals(""))?"xava_tab":tabObject;
 String onSelectCollectionElementAction = subview.getOnSelectCollectionElementAction();
@@ -90,8 +96,22 @@ for (int f=0; itAggregates.hasNext(); f++) {
 <xava:action action="<%=lineAction%>" argv='<%="row="+f + ",viewObject="+viewName%>'/>
 <% 		
 		if (style.isSeveralActionsPerRow()) {
-			if (subview.getRowActionsNames().size() < 2) {
-				for (java.util.Iterator itRowActions = subview.getRowActionsNames().iterator(); itRowActions.hasNext(); ) { 	
+			boolean hasIconOrImage = false;
+			int unavailableActions = 0;
+			Collection rowActionNames = subview.getRowActionsNames();
+			
+			for (java.util.Iterator itRowActions = rowActionNames.iterator(); itRowActions.hasNext();) {
+				MetaAction rowAction = MetaControllers.getMetaAction((String) itRowActions.next());
+				if (rowAction.hasIcon() || rowAction.hasImage()) {
+					hasIconOrImage = true;
+				}
+				if (!manager.isActionAvailable(rowAction, errors, messages, "row=" + f + ",viewObject="+viewName, request)) {
+					unavailableActions++;
+				}
+			}
+
+			if (rowActionNames.size() - unavailableActions < 2) {
+				for (java.util.Iterator itRowActions = rowActionNames.iterator(); itRowActions.hasNext(); ) { 	
 					String rowAction = (String) itRowActions.next();		
 %>
 <xava:action action='<%=rowAction%>' argv='<%="row=" + f + ",viewObject="+viewName%>'/>
@@ -104,14 +124,14 @@ for (int f=0; itAggregates.hasNext(); f++) {
 </a>
 
 <ul id="xava_popup_menu" class="ox-popup-menu ox-image-link ox-display-none">
-<%	
-				for (java.util.Iterator itRowActions = subview.getRowActionsNames().iterator(); itRowActions.hasNext(); ) { 	
-					String rowActionString = (String) itRowActions.next();
+<%		
+				for (java.util.Iterator itRowActions = rowActionNames.iterator(); itRowActions.hasNext(); ) { 	
+					String rowActionString = (String) itRowActions.next();			
 %>
 	<li>
 		<jsp:include page="../barButton.jsp">
 			<jsp:param name="action" value="<%=rowActionString%>"/>
-			<jsp:param name="addSpaceWithoutImage" value="false"/>
+			<jsp:param name="addSpaceWithoutImage" value="<%=hasIconOrImage%>"/>
 			<jsp:param name="argv" value='<%="row=" + f + ",viewObject="+viewName%>'/>
 		</jsp:include>
 	</li>
@@ -127,7 +147,6 @@ for (int f=0; itAggregates.hasNext(); f++) {
 </td>
 <%
 	}
-	
 %>
 <td class="<%=cssCellClass%>" width="5">
 <input class="xava_selected" type="checkbox" name="<xava:id name='xava_selected'/>" value="<%=propertyPrefix%>__SELECTED__:<%=f%>" 

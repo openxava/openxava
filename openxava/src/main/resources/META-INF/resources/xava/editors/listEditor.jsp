@@ -11,6 +11,8 @@
 <%@ page import="org.openxava.web.WebEditors" %>
 <%@ page import="org.openxava.util.Is" %>
 <%@ page import="org.openxava.view.View" %>
+<%@ page import="org.openxava.view.meta.MetaCollectionView" %>
+<%@ page import="org.openxava.view.meta.MetaView" %>
 <%@ page import="org.openxava.web.Ids" %>
 <%@ page import="org.openxava.controller.meta.MetaAction" %>
 <%@ page import="org.openxava.controller.meta.MetaControllers" %>
@@ -24,6 +26,11 @@
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
+org.openxava.util.Messages messages = (org.openxava.util.Messages) request.getAttribute("messages");
+if (messages == null) {
+    messages = new org.openxava.util.Messages();
+    request.setAttribute("messages", messages);
+}
 org.openxava.controller.ModuleManager manager = (org.openxava.controller.ModuleManager) context.get(request, "manager", "org.openxava.controller.ModuleManager");
 String collection = request.getParameter("collection"); 
 String id = "list";
@@ -400,7 +407,20 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 <%
 	}
 	if (style.isSeveralActionsPerRow() && !grouping) {
-		if (rowActionsNumber < 2) {
+		boolean hasIconOrImage = false;
+		int unavailableActions = 0;
+		
+		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext();) {
+			MetaAction rowAction = MetaControllers.getMetaAction((String) itRowActions.next());
+			if (rowAction.hasIcon() || rowAction.hasImage()) {
+				hasIconOrImage = true;
+			}
+			if (!manager.isActionAvailable(rowAction, errors, messages, "row=" + f + actionArgv, request)) {
+				unavailableActions++;
+			}
+		}
+		
+		if (rowActionsNumber - unavailableActions < 2) {
 			for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext(); ) { 	
 				String rowAction = (String) itRowActions.next();
 %>
@@ -408,20 +428,21 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 <%
 			}
 		} else {
+			
 %>
 <a id="xava_popup_menu_icon" class="ox-image-link xava_popup_menu_icon">
 	<i class="mdi mdi-dots-vertical"></i>
 </a>
 
 <ul id="xava_popup_menu" class="ox-popup-menu ox-image-link ox-display-none">
-<%	
+<%		
 			for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext(); ) { 	
-				String rowActionString = (String) itRowActions.next();
+				String rowActionString = (String) itRowActions.next();			
 %>
 	<li>
 		<jsp:include page="../barButton.jsp">
 			<jsp:param name="action" value="<%=rowActionString%>"/>
-			<jsp:param name="addSpaceWithoutImage" value="false"/>
+			<jsp:param name="addSpaceWithoutImage" value="<%=hasIconOrImage%>"/>
 			<jsp:param name="argv" value='<%="row=" + f + actionArgv%>'/>
 		</jsp:include>
 	</li>
@@ -429,7 +450,6 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 			}
 %>
 </ul>
-
 <%
 		}
 	}
