@@ -2963,8 +2963,8 @@ a[data-action="Collection.previous"] {
 
 .ox-popup-menu {
     position: absolute;
-    background-color: var(--list-even-column-background);
-    box-shadow: 0 0px 3px var(--shadow);
+    background: var(--list-row-hover-background);
+    box-shadow: 4px 4px 18px var(--subcontroller-shadow);
     border-radius: 2px;
     list-style: none;
     padding: 0px;
@@ -2974,16 +2974,16 @@ a[data-action="Collection.previous"] {
 }
 
 .ox-popup-menu:hover {
-    background-color: var(--list-even-column-background);
+    background: var(--list-row-hover-background);
 }
 
 .ox-popup-menu li {
-    padding: 10px 5px 10px 5px;
+    padding: 5px 5px 5px 5px;
     font-weight: bold;
 }
 
 .ox-popup-menu.ox-image-link {
-	padding: 0px 0px 0px 0px;
+	padding: 10px 5px 10px 5px;
 }
 
 .ox-popup-menu li a {
@@ -2997,4 +2997,5 @@ a[data-action="Collection.previous"] {
 	color: var(--button-bar-button-hover-color);
     background: var(--button-bar-button-hover-background);
     border-color: var(--button-bar-button-hover-border);
+    border-radius: 5px;
 }
