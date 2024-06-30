@@ -61,7 +61,6 @@ if (sonlyOneActionPerRow == null || !Boolean.parseBoolean(sonlyOneActionPerRow))
 else {
 	rowActions = java.util.Collections.EMPTY_SET;
 }
-int rowActionsNumber = rowActions.size();
 String sfilter = request.getParameter("filter");
 boolean filter = !"false".equals(sfilter);
 String lastRow = request.getParameter("lastRow");
@@ -408,19 +407,17 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 	}
 	if (style.isSeveralActionsPerRow() && !grouping) {
 		boolean hasIconOrImage = false;
-		int unavailableActions = 0;
-		
 		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext();) {
 			MetaAction rowAction = MetaControllers.getMetaAction((String) itRowActions.next());
 			if (rowAction.hasIcon() || rowAction.hasImage()) {
 				hasIconOrImage = true;
 			}
 			if (!manager.isActionAvailable(rowAction, errors, messages, "row=" + f + actionArgv, request)) {
-				unavailableActions++;
+				itRowActions.remove();
 			}
 		}
 		
-		if (rowActionsNumber - unavailableActions < 2) {
+		if (rowActions.size() < 2) {
 			for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext(); ) { 	
 				String rowAction = (String) itRowActions.next();
 %>

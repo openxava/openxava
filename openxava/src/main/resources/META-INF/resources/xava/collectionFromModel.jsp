@@ -97,20 +97,18 @@ for (int f=0; itAggregates.hasNext(); f++) {
 <% 		
 		if (style.isSeveralActionsPerRow()) {
 			boolean hasIconOrImage = false;
-			int unavailableActions = 0;
 			Collection rowActionNames = subview.getRowActionsNames();
-			
 			for (java.util.Iterator itRowActions = rowActionNames.iterator(); itRowActions.hasNext();) {
 				MetaAction rowAction = MetaControllers.getMetaAction((String) itRowActions.next());
 				if (rowAction.hasIcon() || rowAction.hasImage()) {
 					hasIconOrImage = true;
 				}
 				if (!manager.isActionAvailable(rowAction, errors, messages, "row=" + f + ",viewObject="+viewName, request)) {
-					unavailableActions++;
+					itRowActions.remove();
 				}
 			}
 
-			if (rowActionNames.size() - unavailableActions < 2) {
+			if (rowActionNames.size() < 2) {
 				for (java.util.Iterator itRowActions = rowActionNames.iterator(); itRowActions.hasNext(); ) { 	
 					String rowAction = (String) itRowActions.next();		
 %>
