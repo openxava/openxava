@@ -96,18 +96,9 @@ for (int f=0; itAggregates.hasNext(); f++) {
 <xava:action action="<%=lineAction%>" argv='<%="row="+f + ",viewObject="+viewName%>'/>
 <% 		
 		if (style.isSeveralActionsPerRow()) {
-			boolean hasIconOrImage = false;
-			Collection rowActionNames = subview.getRowActionsNames();
-			for (java.util.Iterator itRowActions = rowActionNames.iterator(); itRowActions.hasNext();) {
-				MetaAction rowAction = MetaControllers.getMetaAction((String) itRowActions.next());
-				if (rowAction.hasIcon() || rowAction.hasImage()) {
-					hasIconOrImage = true;
-				}
-				if (!manager.isActionAvailable(rowAction, errors, messages, "row=" + f + ",viewObject="+viewName, request)) {
-					itRowActions.remove();
-				}
-			}
-
+			Collection rowActionNames;
+			rowActionNames = view.removeUnavailableActionFromRow(subview.getRowActionsNames(), (",viewObject="+viewName));
+			boolean hasIconOrImage = view.isRowActionHaveIcon(rowActionNames);
 			if (rowActionNames.size() < 2) {
 				for (java.util.Iterator itRowActions = rowActionNames.iterator(); itRowActions.hasNext(); ) { 	
 					String rowAction = (String) itRowActions.next();		

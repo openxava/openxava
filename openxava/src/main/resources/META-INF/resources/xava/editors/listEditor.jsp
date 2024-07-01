@@ -404,17 +404,8 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 <%
 	}
 	if (style.isSeveralActionsPerRow() && !grouping) {
-		boolean hasIconOrImage = false;
-		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext();) {
-			MetaAction rowAction = MetaControllers.getMetaAction((String) itRowActions.next());
-			if (rowAction.hasIcon() || rowAction.hasImage()) {
-				hasIconOrImage = true;
-			}
-			if (!manager.isActionAvailable(rowAction, errors, messages, "row=" + f + actionArgv, request)) {
-				itRowActions.remove();
-			}
-		}
-		
+		rowActions = view.removeUnavailableActionFromRow(rowActions, actionArgv);
+		boolean hasIconOrImage = view.isRowActionHaveIcon(rowActions);
 		if (rowActions.size() < 2) {
 			for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext(); ) { 	
 				String rowAction = (String) itRowActions.next();

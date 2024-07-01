@@ -2999,3 +2999,7 @@ a[data-action="Collection.previous"] {
     border-color: var(--button-bar-button-hover-border);
     border-radius: 5px;
 }
+
+.ox-icon-transparent {
+	color: transparent!important;
+}
