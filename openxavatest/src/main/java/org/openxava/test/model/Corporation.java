@@ -32,10 +32,11 @@ public class Corporation extends Identifiable {
 	
 	@OneToMany(mappedBy="corporation", cascade=CascadeType.ALL)
 	// tmr ini
-	//@Chart(forViews="EmployeesChart")
+	@Chart(forViews="EmployeesChart")
 	@Chart(forViews="EmployeesRefinedChart", labelProperties = "firstName, lastName", dataProperties = "salary")
 	// tmr fin
 	private Collection<CorporationEmployee> employees;
+	
 	
 	public void setName(String name) {
 		this.name = name;

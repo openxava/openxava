@@ -99,4 +99,28 @@ public class Classes {
 		}		
 		return value==null?null:value.toString();
 	}
+	
+	public static Annotation[] getAnnotationsWithRepeatables(AnnotatedElement element) { // tmr En changelog
+	    List<Annotation> allAnnotations = new ArrayList<>();
+	    Annotation[] annotations = element.getAnnotations();
+	    for (Annotation annotation : annotations) {
+	        Method valueMethod;
+	        try {
+	            valueMethod = annotation.annotationType().getMethod("value");
+	            Class<?> returnType = valueMethod.getReturnType();
+	            if (returnType.isArray() && Annotation.class.isAssignableFrom(returnType.getComponentType())) {
+	                Annotation[] repeatableAnnotations = (Annotation[]) valueMethod.invoke(annotation);
+	                for (Annotation repeatableAnnotation : repeatableAnnotations) {
+	                    allAnnotations.add(repeatableAnnotation);
+	                }
+	            } else {
+	                allAnnotations.add(annotation);
+	            }
+	        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+	            allAnnotations.add(annotation);
+	        }
+	    }
+	    return allAnnotations.toArray(new Annotation[0]);
+	}
+	
 }

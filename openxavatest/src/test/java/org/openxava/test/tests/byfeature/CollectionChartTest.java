@@ -24,6 +24,8 @@ public class CollectionChartTest extends WebDriverTestBase {
 	public void testCollectionChart() throws Exception {
 		goModule("CorporationEmployeesChart");
 		assertCollectionBar(2, "MARTIN", "ANA", "MIGUEL");
+		
+		// TMR ME QUEDÉ POR AQUÍ: HACER EL DE LA OTRA ANOTACIÓN
 	}
 
 	private void assertCollectionBar(int barCount, String label1, String label2, String label3) throws Exception {

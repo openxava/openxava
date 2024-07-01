@@ -154,10 +154,6 @@ public class MetaWebEditors {
 		Annotation[] annotations = member.getAnnotations(); 
 		if (annotations != null) for (Annotation a: annotations) {
 			MetaEditor editor = getEditorsByAnnotation().get(a.annotationType().getName());
-			System.out.println("[MetaWebEditors.getMetaEditorForAnnotation] member.getName()=" + member.getName()); // tmr
-			System.out.println("[MetaWebEditors.getMetaEditorForAnnotation] a.annotationType()=" + a.annotationType()); // tmr
-			System.out.println("[MetaWebEditors.getMetaEditorForAnnotation] editor=" + editor); // tmr
-			// TMR ME QUEDÉ POR AQUÍ. CUANDO HAY DOS @Chart NO FUNCIONA. DESPUÉS SEGUIR CON JUNIT
 			if (editor != null) {
 				if (!isForViews(viewName, a)) continue; // tmr
 				MetaEditor clonedEditor = null;				 
