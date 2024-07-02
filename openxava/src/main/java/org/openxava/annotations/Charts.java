@@ -3,23 +3,24 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * tmr Rehacer doc. Mover a openxava
- * A group of <code>@{@link DescriptionsList}</code> associated to the same member. <p>
+ * A group of <code>@{@link Chart}</code> associated to the same member. <p>
  * 
- * Applies to references.<p>
+ * Applies to collections.<p>
  * 
- * It allows to define a value different for <code>@{@link DescriptionsList}</code> in each view.<br>
+ * It allows to define a value different for <code>@{@link Chart}</code> in each view.<br>
  * Example:
  * <pre>
- * &nbsp;@DescriptionsLists({
- * &nbsp;&nbsp;&nbsp;@DescriptionsList(forViews="DEFAULT", ... ),
- * &nbsp;&nbsp;&nbsp;@DescriptionsList(forViews="Simple, VerySimple", ... ),
- * &nbsp;&nbsp;&nbsp;@DescriptionsList(forViews="Complete", ... )
+ * &nbsp;@Charts({
+ * &nbsp;&nbsp;&nbsp;@Chart(forViews="DEFAULT", ... ),
+ * &nbsp;&nbsp;&nbsp;@Chart(forViews="Simple, VerySimple", ... ),
+ * &nbsp;&nbsp;&nbsp;@Chart(forViews="Complete", ... )
  * &nbsp;})
  * </pre>
  * 
- * Since 6.1 @DescriptionsLists is repeatable, so you don't need to use @DescriptionsList any more.
+ * @Chart is repeatable, so you don't need to use @Charts explicitly, 
+ * just put several @Chart annotating the same collection.
  *  
+ * @version 7.4 
  * @author Javier Paniza
  */
 
