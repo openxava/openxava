@@ -1,7 +1,3 @@
-Test
-- Mezclar desde master
-- Suite
-
 Documentación
 - JavaDoc para @Chart y @Charts
 - Reference guide
