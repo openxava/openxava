@@ -11,21 +11,20 @@ import org.openqa.selenium.*;
  * @author Javier Paniza
  */
 public class CollectionChartTest extends WebDriverTestBase {
-	
-	@Override
-	protected boolean isHeadless() { // tmr Quitar
-		return false;
-	}
-	
-	@Override
-	protected void tearDown() throws Exception { // tmr Quitar
+		
+	protected String getLang() { 
+		return "es"; // So we can test that translations work
 	}
 	
 	public void testCollectionChart() throws Exception {
 		goModule("CorporationEmployeesChart");
 		assertCollectionBar(2, "MARTIN", "ANA", "MIGUEL");
 		
-		// TMR ME QUEDÉ POR AQUÍ: HACER EL DE LA OTRA ANOTACIÓN
+		goModule("CorporationEmployeesRefinedChart");
+		assertCollectionBar(1, "MARTIN FIERRO", "ANA LOPEZ", "MIGUEL SMITH HERRERO");
+		
+		WebElement salaryLegend = getDriver().findElement(By.cssSelector(".xava_collection_chart .c3-legend-item-Salario"));
+		assertEquals("Salario", salaryLegend.getText());
 	}
 
 	private void assertCollectionBar(int barCount, String label1, String label2, String label3) throws Exception {

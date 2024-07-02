@@ -1,7 +1,7 @@
 Test
-- Varias labels.
-- Etiquetas traducidas. ¿Lo puedo testear? ¿Merece la pena hacer una prueba manual?
-- Valores por defecto. De momento no testear el algoritmo, solo que haya
+- Revisar tmr
+- Mezclar desde master
+- Suite
 
 Documentación
 - JavaDoc para @Chart y @Charts
