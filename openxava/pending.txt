@@ -1,5 +1,4 @@
 Test
-- Revisar tmr
 - Mezclar desde master
 - Suite
 
