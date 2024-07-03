@@ -12,11 +12,25 @@ public class EditCollectionElementFromNewTabAction extends CollectionElementView
 		Collection elements;
 		Map keys = null;
 		Map values = null;
-		if (getCollectionElementView().isCollectionFromModel()) {
+		/*
+		 		if (getCollectionElementView().isCollectionFromModel()) {
 			elements = getCollectionElementView().getCollectionValues();
-			if (elements == null)
-				return;
-			row = getCollectionElementView().getCollectionEditingRow();
+			if (elements == null) return;
+			int rowValue = getCollectionElementView().getCollectionEditingRow();
+			row = (rowValue > 0) ? rowValue : getRow();
+			if (elements instanceof List) {
+				if (nextValue != 0) validRowAndUpdate(row, elements.size());
+				keys = (Map) ((List) elements).get(row);		
+			}
+		} 
+		 
+		 */
+		if (getCollectionElementView().isCollectionFromModel()) {
+			System.out.println("coll from model");
+			elements = getCollectionElementView().getCollectionValues();
+			if (elements == null) return;
+			int rowValue = getCollectionElementView().getCollectionEditingRow();
+			row = (rowValue > 0) ? rowValue : getRow();
 			if (elements instanceof List) {
 				keys = (Map) ((List) elements).get(row);
 			}
@@ -32,6 +46,7 @@ public class EditCollectionElementFromNewTabAction extends CollectionElementView
 
 	@Override
 	public String getForwardURI() {
+		//return "https://www.google.com";
 		return nextURI;
 	}
 
