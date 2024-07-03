@@ -7,6 +7,12 @@
 <%@page import="org.openxava.util.XavaPreferences"%>
 
 <%
+org.openxava.util.Messages messages = (org.openxava.util.Messages) request.getAttribute("messages");
+if (messages == null) {
+    messages = new org.openxava.util.Messages();
+    request.setAttribute("messages", messages);
+}
+org.openxava.controller.ModuleManager manager = (org.openxava.controller.ModuleManager) context.get(request, "manager", "org.openxava.controller.ModuleManager");
 String tabObject = request.getParameter("tabObject"); 
 tabObject = (tabObject == null || tabObject.equals(""))?"xava_tab":tabObject;
 String onSelectCollectionElementAction = subview.getOnSelectCollectionElementAction();
@@ -88,19 +94,48 @@ for (int f=0; itAggregates.hasNext(); f++) {
 	<i class="xava_handle mdi mdi-swap-vertical"></i>	
 	<%  } %>	
 <xava:action action="<%=lineAction%>" argv='<%="row="+f + ",viewObject="+viewName%>'/>
-<% 
-		if (style.isSeveralActionsPerRow())
-			for (java.util.Iterator itRowActions = subview.getRowActionsNames().iterator(); itRowActions.hasNext(); ) { 	
-				String rowAction = (String) itRowActions.next();		
+<% 		
+		if (style.isSeveralActionsPerRow()) {
+			Collection rowActionNames;
+			rowActionNames = view.removeUnavailableActionFromRow(subview.getRowActionsNames(), (",viewObject="+viewName));
+			boolean hasIconOrImage = view.isRowActionHaveIcon(rowActionNames);
+			if (rowActionNames.size() < 2) {
+				for (java.util.Iterator itRowActions = rowActionNames.iterator(); itRowActions.hasNext(); ) { 	
+					String rowAction = (String) itRowActions.next();		
 %>
 <xava:action action='<%=rowAction%>' argv='<%="row=" + f + ",viewObject="+viewName%>'/>
 <%
-		}
+				}
+			} else {
+%>
+<a id="xava_popup_menu_icon" class="ox-image-link xava_popup_menu_icon">
+	<i class="mdi mdi-dots-vertical"></i>
+</a>
+
+<ul id="xava_popup_menu" class="ox-popup-menu ox-image-link ox-display-none">
+<%		
+				for (java.util.Iterator itRowActions = rowActionNames.iterator(); itRowActions.hasNext(); ) { 	
+					String rowActionString = (String) itRowActions.next();			
+%>
+	<li>
+		<jsp:include page="../barButton.jsp">
+			<jsp:param name="action" value="<%=rowActionString%>"/>
+			<jsp:param name="addSpaceWithoutImage" value="<%=hasIconOrImage%>"/>
+			<jsp:param name="argv" value='<%="row=" + f + ",viewObject="+viewName%>'/>
+		</jsp:include>
+	</li>
+<%
+				}
+%>
+</ul>
+<%
+			}
+		} 
 %>
 </nobr>
 </td>
 <%
-	} 
+	}
 %>
 <td class="<%=cssCellClass%>" width="5">
 <input class="xava_selected" type="checkbox" name="<xava:id name='xava_selected'/>" value="<%=propertyPrefix%>__SELECTED__:<%=f%>" 

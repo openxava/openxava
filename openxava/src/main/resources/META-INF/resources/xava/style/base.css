@@ -2953,10 +2953,53 @@ a[data-action="Collection.previous"] {
     opacity: 0; 
 }
 
-.module-header-tab .selected{
+.module-header-tab .selected {
 	background: var(--module-header-selected-background);
 	color: var(--module-header-selected-color);
 	border-top-left-radius: 15px;
 	border-top-right-radius: 15px;
 	padding: 10px 10px 11px 10px; 
+}
+
+.ox-popup-menu {
+    position: absolute;
+    background: var(--list-row-hover-background);
+    box-shadow: 4px 4px 18px var(--subcontroller-shadow);
+    border-radius: 2px;
+    list-style: none;
+    padding: 0px;
+    margin: 0;
+    z-index: 1000;
+    width: auto;
+}
+
+.ox-popup-menu:hover {
+    background: var(--list-row-hover-background);
+}
+
+.ox-popup-menu li {
+    padding: 5px 5px 5px 5px;
+    font-weight: bold;
+}
+
+.ox-popup-menu.ox-image-link {
+	padding: 10px 5px 10px 5px;
+}
+
+.ox-popup-menu li a {
+	color: var(--link-color);
+    display: flex;
+    align-items: center;
+    padding-right: 8px;
+}
+
+.ox-popup-menu li a:hover {
+	color: var(--button-bar-button-hover-color);
+    background: var(--button-bar-button-hover-background);
+    border-color: var(--button-bar-button-hover-border);
+    border-radius: 5px;
+}
+
+.ox-icon-transparent {
+	color: transparent!important;
 }
