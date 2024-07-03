@@ -35,9 +35,10 @@ public class EditCollectionElementFromNewTabAction extends CollectionElementView
 				keys = (Map) ((List) elements).get(row);
 			}
 		} else {
+			System.out.println("normal col");
 			keys = (Map) getCollectionElementView().getCollectionTab().getTableModel().getObjectAt(row);
 		}
-
+		System.out.println(keys);
 		if (keys != null) {
 			nextURI = "/m/" + getReferencedModel() + "?detail=" + getReferencedId(keys);
 		}
@@ -46,12 +47,11 @@ public class EditCollectionElementFromNewTabAction extends CollectionElementView
 
 	@Override
 	public String getForwardURI() {
-		//return "https://www.google.com";
 		return nextURI;
 	}
 
 	private String getReferencedModel() {
-		return getCollectionElementView().getModelName();
+		return getCollectionElementView().getMetaModel().getName();
 	}
 
 	private String getReferencedId(Map map) {

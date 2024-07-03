@@ -727,12 +727,11 @@ here that you want to override.
 	</controller>	
 	
 	<controller name="Open">
-		
 		<action name="editInNewTab" 
 			icon="open-in-new" 
 			in-each-row="true"
+			hidden="true"
 			class="org.openxava.actions.EditCollectionElementFromNewTabAction"/>
-		
 	</controller>
 	
 	<!-- 

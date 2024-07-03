@@ -5274,11 +5274,19 @@ public class View implements java.io.Serializable {
 		ModuleManager moduleManager = getModuleManager(getRequest());
 		Collection rowActions = collection;
 		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext();) {
-			MetaAction rowAction = MetaControllers.getMetaAction((String) itRowActions.next());
+			String action = (String) itRowActions.next();
+			MetaAction rowAction = MetaControllers.getMetaAction(action);
 			if (!moduleManager.isActionAvailable(rowAction, errors, messages, "row=" + 0 + actionArgv, getRequest())) {
+				itRowActions.remove();
+				continue;
+			}
+			System.out.println(getMetaModel().getAllKeyPropertiesNames());
+			if (action.toString().equals("Open.editInNewTab") && getMetaModel().getAllKeyPropertiesNames().size() > 1) {
+				System.out.println("equals"); 
 				itRowActions.remove();
 			}
 		}
+		System.out.println(rowActions);
 		return rowActions;
 	}
 		
