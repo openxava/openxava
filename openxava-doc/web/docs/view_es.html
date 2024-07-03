@@ -19138,6 +19138,34 @@ class="st0">"message"</span><span class="sy0">&gt;</span>
 class="st0">"roles"</span>/<span class="sy0">&gt;</span>
     <span class="sy0">&lt;</span>/accion<span class="sy0">&gt;</span>
 <span class="sy0">&lt;</span>/controlador<span class="sy0">&gt;</span></pre>
+      <h3 id="toc38"><a name="Vista-Personalizacion+de+coleccion-Propiedades+de+total+(nuevo+en+v4.3)"></a>Gráfico
+        a partir de una colección <em>(nuevo en v7.4)</em></h3>
+      <em>Aplica a colecciones @OneToMany/@ManyToMany y @ElementCollection</em><br>
+      Se puede hacer que para visualizar una colección se use un gráfico, para
+      ellos hay que anotar la colección con @Chart, de esta manera:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@OneToMany(mappedBy="empresa")
+@Chart
+Collection&lt;Empleado&gt; empleados;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Por ejemplo, en este caso en lugar
+      de la típica lista se visualizaría un gráfico usando los datos de los
+      elementos de la colección, así:</div>
+    <div class="wiki" style="display: block;">TMR ME QUEDÉ POR AQUÍ</div>
+    <div class="wiki" style="display: block;">Habría un grupo de barras por cada
+      elemento de la colección, en este caso, si hay 3 empleados en la colección
+      aparecen 3 grupos de barras.</div>
+    <div class="wiki" style="display: block;">OpenXava determina por defecto que
+      propiedades usar para la etiqueta que aparece en cada grupo de barras y
+      que propiedades usar para obtener los valores de las barras. Mira la
+      JavaDoc de @Chart para aprender más sobre los valores por defecto. Sin
+      embargo, el programador siempre tiene la opción de definir sus propias
+      propiedades usando los atributos labelProperties y dataProperties de
+      @Char, de esta forma:</div>
+    <div class="wiki" style="display: block;">Lo que generaría un gráfico como
+      este:</div>
+    <div class="wiki" style="display: block;">Además, los atributos <em>forViews</em>
+      y <em>notForViews</em> están disponibles en @Chart.<br>
       <h2 id="toc40"><a name="Vista-Propiedades+transitorias+para+controles+graficos"></a>Propiedades
         transitorias para controles gráficos</h2>
       <br>

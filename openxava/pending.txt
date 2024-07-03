@@ -1,6 +1,5 @@
 Documentación
-- XXX
-- Reference guide: ME QUEDÉ POR AQUÍ, YA LO HE AÑADIDO A A LISTA DE ANOTACIONES, FALTA SECCIÓN PRINCIPAL
+- Reference guide: ME QUEDÉ HACIENDO LA SECCIÓN EN view_es
 - forViews y notForViews para anotaciones propias. Característica separada.
 
 Diferido
