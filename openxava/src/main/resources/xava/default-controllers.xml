@@ -684,6 +684,10 @@ here that you want to override.
 			icon="delete" 
 			image="delete.gif" in-each-row="true"
 			class="org.openxava.actions.RemoveSelectedInCollectionAction"/>
+				
+				
+				
+				
 													
 	</controller>
 	
@@ -726,11 +730,10 @@ here that you want to override.
 			class="org.openxava.actions.EmptyAction"/>	
 	</controller>	
 	
-	<controller name="Open">
-		<action name="editInNewTab" 
+	<controller name="EditCollectionElement">
+		<action name="inNewTab" 
 			icon="open-in-new" 
 			in-each-row="true"
-			hidden="true"
 			class="org.openxava.actions.EditCollectionElementFromNewTabAction"/>
 	</controller>
 	
@@ -764,10 +767,10 @@ here that you want to override.
 	<controller name="DefaultListActionsForCollections">
 		<extends controller="CollectionCopyPaste"/>  
 		<extends controller="Print"/>
-		<extends controller="Open"/>
 	</controller>
 	
 	<controller name="DefaultRowActionsForCollections">
+		<extends controller="EditCollectionElement"/>
 	</controller>	
 	
 	<controller name="Sections">

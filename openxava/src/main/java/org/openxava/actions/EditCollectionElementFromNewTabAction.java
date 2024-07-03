@@ -2,7 +2,7 @@ package org.openxava.actions;
 
 import java.util.*;
 
-public class EditCollectionElementFromNewTabAction extends CollectionElementViewBaseAction implements IForwardAction {
+public class EditCollectionElementFromNewTabAction extends CollectionElementViewBaseAction implements IForwardAction, IAvailableAction {
 
 	private String nextURI = "";
 	private int row;
@@ -44,6 +44,11 @@ public class EditCollectionElementFromNewTabAction extends CollectionElementView
 		}
 
 	}
+	
+	@Override
+	public boolean isAvailable() {
+		return !(getCollectionElementView().getMetaModel().getAllKeyPropertiesNames().size() > 1);
+	}
 
 	@Override
 	public String getForwardURI() {
@@ -55,7 +60,6 @@ public class EditCollectionElementFromNewTabAction extends CollectionElementView
 	}
 
 	private String getReferencedId(Map map) {
-		System.out.println(map);
 		String firstValue = map.values().iterator().next().toString();
 		return firstValue;
 	}
