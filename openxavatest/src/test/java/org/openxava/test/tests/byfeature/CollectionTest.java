@@ -89,7 +89,7 @@ public class CollectionTest extends WebDriverTestBase {
 		}
 		getDriver().switchTo().window(newWindow);
 		assertEquals("http://localhost:8080/openxavatest/m/InvoiceDetail?detail=2002:1:0", getDriver().getCurrentUrl());
-		
+		wait(getDriver());
 		WebElement number = getDriver().findElement(By.id("ox_openxavatest_InvoiceDetail__product___number"));
 		assertEquals("2", number.getAttribute("value"));
 		

@@ -5278,11 +5278,6 @@ public class View implements java.io.Serializable {
 			MetaAction rowAction = MetaControllers.getMetaAction(action);
 			if (!moduleManager.isActionAvailable(rowAction, errors, messages, "row=" + 0 + actionArgv, getRequest())) {
 				itRowActions.remove();
-				continue;
-			}
-			if (action.toString().equals("Open.editInNewTab") && getMetaModel().getAllKeyPropertiesNames().size() > 1) {
-				System.out.println("equals"); 
-				itRowActions.remove();
 			}
 		}
 		return rowActions;
