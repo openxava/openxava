@@ -1,5 +1,6 @@
 Documentación
 - forViews y notForViews para anotaciones propias. Característica separada.
+	TMR ME QUEDÉ HACIENDO ESTO. YA HE HECHO LA DE ESPAÑOL.
 
 Diferido
 - Sacar lista (añadir atributo showList() a @Chart)
