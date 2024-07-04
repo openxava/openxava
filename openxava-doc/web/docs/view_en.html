@@ -98,6 +98,8 @@
             properties (new in v4.3)</a></div>
         <div style="margin-left: 3em;"><a href="#View-Collection%20customization-Subcontroller%20in%20a%20collection%20%28new%20in%20v5.7%29">Subcontroller
             in a collection (new in v5.7)</a></div>
+        <div style="margin-left: 2em;"><a href="#transient-properties-ui-controls">Transient
+            properties for UI controls</a></div>
         <div style="margin-left: 2em;"><a href="#View-View%20actions">View
             actions</a></div>
         <div style="margin-left: 2em;"><a href="#View-Transient%20class:%20Only%20for%20creating%20views">Transient
@@ -19078,8 +19080,54 @@ class="st0">"message"</span><span class="sy0">&gt;</span>
 class="st0">"roles"</span>/<span class="sy0">&gt;</span>
      <span class="sy0">&lt;</span>/action<span class="sy0">&gt;</span>
 <span class="sy0">&lt;</span>/controller<span class="sy0">&gt;</span></pre>
-      <strong><span style="font-size: 17px;">Transient properties for UI
-          controls</span></strong><br>
+      <h3 id="toc38"><a name="Vista-Personalizacion+de+coleccion-Propiedades+de+total+(nuevo+en+v4.3)"></a>Gráfico
+        a partir de una colección <em>(nuevo en v7.4) TMR ME QUEDÉ POR AQUÍ:
+          TRADUCIR<br>
+        </em></h3>
+      <em>Aplica a colecciones @OneToMany/@ManyToMany y @ElementCollection</em><br>
+      Se puede hacer que para visualizar una colección se use un gráfico, para
+      ellos hay que anotar la colección con <i>@Chart</i>, de esta manera:
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">@OneToMany(mappedBy="empresa")
+@Chart
+Collection&lt;Empleado&gt; empleados;
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Por ejemplo, en este caso en
+        lugar de la típica lista se visualizaría un gráfico usando los datos de
+        los elementos de la colección, así:</div>
+      <img src="files/view_es250.png" alt="view_es250.png" title="view_es250.png">
+      <div class="wiki" style="display: block;">Habría un grupo de barras por
+        cada elemento de la colección, en este caso, si hay 3 empleados en la
+        colección aparecen 3 grupos de barras.</div>
+      <div class="wiki" style="display: block;">OpenXava determina por defecto
+        que propiedades usar para la etiqueta que aparece en cada grupo de
+        barras y que propiedades usar para obtener los valores de las barras.
+        Mira la <a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Chart.html">JavaDoc
+          de <i>@Chart</i></a> para aprender más sobre los valores por defecto.
+        Sin embargo, el programador siempre tiene la opción de definir sus
+        propias propiedades usando los atributos <i>labelProperties</i> y <i>dataProperties</i>
+        de <i>@Chart</i>, de esta forma:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">@OneToMany(mappedBy="empresa")
+@Chart(labelProperties="nombre, apellidos", dataProperties="salario")
+Collection&lt;Empleado&gt; empleados;
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Lo que generaría un gráfico como
+        este:</div>
+      <img src="files/view_es260.png" alt="view_es260.png" title="view_es260.png">
+      <div class="wiki" style="display: block;">Dado que hemos puesto <i>labelProperties="nombre,
+          apellidos"</i> la etiqueta usada en cada columna del gráfico es la
+        concatenación del nombre y los apellidos del empleado, como MIGUEL SMITH
+        HERRERO por ejemplo. Fíjate también en que sólo sale una columna por
+        empleado, con el valor del salario, porque hemos puesto <i>dataProperties="salario"</i>.
+        Por supuesto, se pueden poner más propiedades en <i>dataProperties</i>
+        separadas por comas.</div>
+      <div class="wiki" style="display: block;">Además, los atributos <em>forViews</em>
+        y <em>notForViews</em> están disponibles en <i>@Chart</i>.<br>
+        <h2 id="toc40"><a name="Vista-Propiedades+transitorias+para+controles+graficos"></a></h2>
+      </div>
+      <h2 id="transient-properties-ui-controls"></h2>
+      <h2>Transient properties for UI controls</h2>
       With <em><a class="wiki_link_ext" href="http://java.sun.com/javaee/5/docs/api/javax/persistence/Transient.html"
           rel="nofollow">@Transient (JPA)</a></em> you define a property that is
       not stored in database but you want to show to the user. You can use it to
