@@ -2,7 +2,13 @@ package org.openxava.actions;
 
 import java.util.*;
 
-public class EditCollectionElementFromNewTabAction extends CollectionElementViewBaseAction implements IForwardAction, IAvailableAction {
+import com.openxava.naviox.util.*;
+
+/*
+ * @since 7.4
+ * @author Chungyen Tsai
+ */
+public class OpenCollectionElementInNewTabAction extends CollectionElementViewBaseAction implements IForwardAction, IAvailableAction {
 
 	private String nextURI = "";
 	private int row;
@@ -23,7 +29,7 @@ public class EditCollectionElementFromNewTabAction extends CollectionElementView
 			keys = (Map) getCollectionElementView().getCollectionTab().getTableModel().getObjectAt(row);
 		}
 		if (keys != null) {
-			nextURI = "/m/" + getReferencedModel() + "?detail=" + getReferencedId(keys);
+			nextURI = getOrganization() + "/m/" + getReferencedModel() + "?detail=" + getReferencedId(keys);
 		}
 
 	}
@@ -47,6 +53,11 @@ public class EditCollectionElementFromNewTabAction extends CollectionElementView
 		return firstValue;
 	}
 
+	private String getOrganization() {
+		if (OrganizationsCurrent.get(getRequest()) != null) return "/o/{organization}";
+		return "";
+	}
+	
 	@Override
 	public boolean inNewWindow() {
 		return true;

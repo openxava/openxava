@@ -2029,7 +2029,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 			"Invoice.showCustomer",
 			"Invoice.hideAmounts",
 			"Invoice.showAmounts",
-			"EditCollectionElement.inNewTab"
+			"CollectionOpenInNewTab.openInNewTab"
 		};		
 		assertActions(aggregateListActions); 
 		

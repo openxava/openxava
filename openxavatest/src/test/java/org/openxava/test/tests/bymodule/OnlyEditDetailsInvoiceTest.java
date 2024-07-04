@@ -58,8 +58,8 @@ public class OnlyEditDetailsInvoiceTest extends ModuleTestBase {
 			"List.sumColumn",
 			"List.changeColumnName", 
 			"Print.generatePdf", // the DefaultListActionsForCollections (as ListActions) 
-			"Print.generateExcel", // are alwasy present	
-			"EditCollectionElement.inNewTab"
+			"Print.generateExcel", // are always present	
+			"CollectionOpenInNewTab.openInNewTab"
 		};		
 		assertActions(aggregateListActions);
 		

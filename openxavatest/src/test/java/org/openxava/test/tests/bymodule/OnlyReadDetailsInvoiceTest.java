@@ -59,7 +59,7 @@ public class OnlyReadDetailsInvoiceTest extends ModuleTestBase {
 			"List.changeColumnName", 
 			"Print.generatePdf", // the DefaultListActionsForCollections (as ListActions) 
 			"Print.generateExcel", // are always present	
-			"EditCollectionElement.inNewTab"
+			"CollectionOpenInNewTab.openInNewTab"
 								
 		};		
 		assertActions(aggregatListActions);
