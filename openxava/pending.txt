@@ -1,5 +1,4 @@
 Documentación
-- Reference guide. FALTA TRADUCIR SECCIÓN EN INGLÉS Y PONER LOS PUNTOS DE MENÚ EN INGLÉS Y ESPAÑOL
 - forViews y notForViews para anotaciones propias. Característica separada.
 
 Diferido
