@@ -43,35 +43,58 @@ public class CollectionTest extends WebDriverTestBase {
 	}
 	
 	
-	public void testRowActionsGroupInPopUp() throws Exception {
+	public void testRowActionsGroupInPopUp_openRecordInNewWindow() throws Exception {
 		goModule("Carrier");
 		List<WebElement> menuIcons;
 		List<WebElement> menu;
 		execute("List.viewDetail", "row=0");
 		menuIcons = getDriver().findElements(By.id("xava_popup_menu_icon"));
-		assertTrue(menuIcons.size() == 3);
+		assertTrue(menuIcons.size() == 6);
 		menu = getDriver().findElements(By.id("xava_popup_menu"));
-		assertTrue(menu.get(0).getAttribute("class").contains("ox-display-none"));
-		menuIcons.get(0).click();
+		assertTrue(menu.get(3).getAttribute("class").contains("ox-display-none"));
+		menuIcons.get(3).click();
 		Thread.sleep(100);
-		assertTrue(menu.get(0).findElements(By.tagName("li")).size() == 3);
-		assertTrue(!menu.get(0).getAttribute("class").contains("ox-display-none"));
-		menu.get(0).findElements(By.tagName("a")).get(1).click();
+		assertTrue(menu.get(3).findElements(By.tagName("li")).size() == 4);
+		assertTrue(!menu.get(3).getAttribute("class").contains("ox-display-none"));
+		menu.get(3).findElements(By.tagName("a")).get(2).click();
 		wait(getDriver());
 		assertEquals("TWO ", getDriver().findElements(By.cssSelector(".ox_openxavatest_Carrier__tipable.ox_openxavatest_Carrier__fellowCarriersCalculated_col1")).get(0).getText());
 		menuIcons = getDriver().findElements(By.id("xava_popup_menu_icon"));
-		menuIcons.get(0).click();
+		menuIcons.get(3).click();
 		menu = getDriver().findElements(By.id("xava_popup_menu"));
-		menu.get(0).findElements(By.tagName("a")).get(1).click();
+		menu.get(3).findElements(By.tagName("a")).get(2).click();
 		
 		goModule("Invoice");
 		menuIcons = getDriver().findElements(By.id("xava_popup_menu_icon"));
 		assertTrue(menuIcons.isEmpty());
 		execute("List.viewDetail", "row=0");
+		execute("Sections.change", "activeSection=3");
+		menuIcons = getDriver().findElements(By.id("xava_popup_menu_icon"));
+		assertTrue(menuIcons.isEmpty());
 		execute("Sections.change", "activeSection=1");
 		menuIcons = getDriver().findElements(By.id("xava_popup_menu_icon"));
+		menuIcons.get(0).click();
 		menu = getDriver().findElements(By.id("xava_popup_menu"));
-		assertTrue(menu.get(0).findElements(By.tagName("li")).size() == 2);
+		assertTrue(menu.get(0).findElements(By.tagName("li")).size() == 3);
+		
+		String mainWindow = getDriver().getWindowHandle();
+		menu.get(0).findElements(By.tagName("a")).get(1).click();
+		Set<String> allWindows = getDriver().getWindowHandles();
+		String newWindow = null;
+		for (String handle : allWindows) {
+		    if (!handle.equals(mainWindow)) {
+		        newWindow = handle;
+		        break;
+		    }
+		}
+		getDriver().switchTo().window(newWindow);
+		assertEquals("http://localhost:8080/openxavatest/m/InvoiceDetail?detail=2002:1:0", getDriver().getCurrentUrl());
+		
+		WebElement number = getDriver().findElement(By.id("ox_openxavatest_InvoiceDetail__product___number"));
+		assertEquals("2", number.getAttribute("value"));
+		
+		getDriver().close();
+		getDriver().switchTo().window(mainWindow);
 	}
 
 }

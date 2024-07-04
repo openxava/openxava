@@ -2028,7 +2028,8 @@ public class InvoiceTest extends CustomizeListTestBase {
 			"Invoice.hideCustomer",
 			"Invoice.showCustomer",
 			"Invoice.hideAmounts",
-			"Invoice.showAmounts"  			
+			"Invoice.showAmounts",
+			"EditCollectionElement.inNewTab"
 		};		
 		assertActions(aggregateListActions); 
 		

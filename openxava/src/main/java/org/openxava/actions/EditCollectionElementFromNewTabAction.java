@@ -11,22 +11,7 @@ public class EditCollectionElementFromNewTabAction extends CollectionElementView
 	public void execute() throws Exception {
 		Collection elements;
 		Map keys = null;
-		Map values = null;
-		/*
-		 		if (getCollectionElementView().isCollectionFromModel()) {
-			elements = getCollectionElementView().getCollectionValues();
-			if (elements == null) return;
-			int rowValue = getCollectionElementView().getCollectionEditingRow();
-			row = (rowValue > 0) ? rowValue : getRow();
-			if (elements instanceof List) {
-				if (nextValue != 0) validRowAndUpdate(row, elements.size());
-				keys = (Map) ((List) elements).get(row);		
-			}
-		} 
-		 
-		 */
 		if (getCollectionElementView().isCollectionFromModel()) {
-			System.out.println("coll from model");
 			elements = getCollectionElementView().getCollectionValues();
 			if (elements == null) return;
 			int rowValue = getCollectionElementView().getCollectionEditingRow();
@@ -35,10 +20,8 @@ public class EditCollectionElementFromNewTabAction extends CollectionElementView
 				keys = (Map) ((List) elements).get(row);
 			}
 		} else {
-			System.out.println("normal col");
 			keys = (Map) getCollectionElementView().getCollectionTab().getTableModel().getObjectAt(row);
 		}
-		System.out.println(keys);
 		if (keys != null) {
 			nextURI = "/m/" + getReferencedModel() + "?detail=" + getReferencedId(keys);
 		}

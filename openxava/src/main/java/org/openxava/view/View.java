@@ -5280,13 +5280,11 @@ public class View implements java.io.Serializable {
 				itRowActions.remove();
 				continue;
 			}
-			System.out.println(getMetaModel().getAllKeyPropertiesNames());
 			if (action.toString().equals("Open.editInNewTab") && getMetaModel().getAllKeyPropertiesNames().size() > 1) {
 				System.out.println("equals"); 
 				itRowActions.remove();
 			}
 		}
-		System.out.println(rowActions);
 		return rowActions;
 	}
 		
