@@ -724,7 +724,14 @@ here that you want to override.
 	<controller name="ElementCollection">	
 		<action name="refreshTotals" hidden="true"
 			class="org.openxava.actions.EmptyAction"/>	
-	</controller>						
+	</controller>	
+	
+	<controller name="CollectionOpenInNewTab">
+		<action name="openInNewTab" 
+			icon="open-in-new" 
+			in-each-row="true"
+			class="org.openxava.actions.OpenCollectionElementInNewTabAction"/>
+	</controller>
 	
 	<!-- 
 	These actions are optional to use with ManyToMany collection, they are
@@ -759,6 +766,7 @@ here that you want to override.
 	</controller>
 	
 	<controller name="DefaultRowActionsForCollections">
+		<extends controller="CollectionOpenInNewTab"/>
 	</controller>	
 	
 	<controller name="Sections">

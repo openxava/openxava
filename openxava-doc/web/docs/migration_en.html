@@ -45,6 +45,18 @@
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">
+      <h2>Migration from OpenXava 7.3.3 to OpenXava 7.4</h2>
+      <h3>New row action in collections (for JUnit tests)</h3>
+      <p>Now each row in the collection has a new action, <em>CollectionOpenInNewTab.openInNewTab</em>.
+        So if you test for all present actions in your JUnit tests, you have to
+        modify it and add the new action. For example:</p>
+      <pre><code class="java">String [] actions = { 
+    "Collection.edit",
+    "CollectionOpenInNewTab.openInNewTab" // ADD THIS ENTRY
+};		
+assertActions(actions);</code></pre>
+    </div>
+    <div class="wiki" style="display: block;">
       <h2>Migration from OpenXava 7.3.2 to OpenXava 7.3.3</h2>
       No issues.
       <h2></h2>

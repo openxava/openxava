@@ -105,3 +105,11 @@
 	background: var(--tooltip-background) !important;  
 	box-shadow: none !important;  
 }
+
+.ox-popup-menu {
+    background-color: var(--my-dark);
+}
+
+.ox-popup-menu:hover {
+    background-color: var(--my-dark);
+}

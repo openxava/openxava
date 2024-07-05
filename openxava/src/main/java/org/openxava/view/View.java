@@ -5251,6 +5251,36 @@ public class View implements java.io.Serializable {
 		if (Is.emptyString((String) qualifiedAction)) return false;
 		return MetaControllers.getMetaAction((String) qualifiedAction).isInEachRow();
 	}
+	
+	/*
+	 * @since 7.4
+	 */
+	public boolean isRowActionHaveIcon(Collection rowActions) {
+		boolean hasIconOrImage = false;
+		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext();) {
+			MetaAction rowAction = MetaControllers.getMetaAction((String) itRowActions.next());
+			if (rowAction.hasIcon() || rowAction.hasImage()) {
+				hasIconOrImage = true;
+			}
+		}
+		return hasIconOrImage;
+	}
+	
+	/*
+	 * @since 7.4
+	 */
+	public Collection removeUnavailableActionFromRow(Collection collection, String actionArgv) {
+		ModuleManager moduleManager = getModuleManager(getRequest());
+		Collection rowActions = collection;
+		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext();) {
+			String action = (String) itRowActions.next();
+			MetaAction rowAction = MetaControllers.getMetaAction(action);
+			if (!moduleManager.isActionAvailable(rowAction, errors, messages, "row=" + 0 + actionArgv, getRequest())) {
+				itRowActions.remove();
+			}
+		}
+		return rowActions;
+	}
 		
 	public Collection getActionsNamesList() {
 		if (actionsNamesList == null) actionsNamesList = new ArrayList(getDefaultListActionsForCollections());
