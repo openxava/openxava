@@ -2,9 +2,11 @@ package org.openxava.actions;
 
 import java.util.*;
 
+import org.openxava.util.*;
+
 import com.openxava.naviox.util.*;
 
-/*
+/**
  * @since 7.4
  * @author Chungyen Tsai
  */
@@ -29,7 +31,7 @@ public class OpenCollectionElementInNewTabAction extends CollectionElementViewBa
 			keys = (Map) getCollectionElementView().getCollectionTab().getTableModel().getObjectAt(row);
 		}
 		if (keys != null) {
-			nextURI = getOrganization() + "/m/" + getReferencedModel() + "?detail=" + getReferencedId(keys);
+			nextURI = getOrganizationPrefix() + "/m/" + getReferencedModel() + "?detail=" + getReferencedId(keys);
 		}
 
 	}
@@ -53,9 +55,9 @@ public class OpenCollectionElementInNewTabAction extends CollectionElementViewBa
 		return firstValue;
 	}
 
-	private String getOrganization() {
-		if (OrganizationsCurrent.get(getRequest()) != null) return "/o/{organization}";
-		return "";
+	private String getOrganizationPrefix() {
+		String organization = OrganizationsCurrent.get(getRequest());
+		return Is.emptyString(organization)?"":"/o/" + organization;
 	}
 	
 	@Override

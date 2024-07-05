@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- New 'Open in new tab' row action by default in collections. 
 - Popup menu for row actions in list and collections when there are more than two actions.
 - Chinese translations removed from all OpenXava official documentation. 
 - Fix: New article and video with a list of sample applications and instructions to get them up and running. 
