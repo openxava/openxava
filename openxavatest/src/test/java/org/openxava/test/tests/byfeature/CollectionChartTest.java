@@ -5,7 +5,6 @@ import java.util.*;
 import org.openqa.selenium.*;
 
 /**
- * tmr
  * To test CollectionChart editor related issues with Selenium.
  * 
  * @author Javier Paniza

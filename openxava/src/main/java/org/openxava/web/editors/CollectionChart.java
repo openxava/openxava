@@ -9,8 +9,9 @@ import org.openxava.util.*;
 import org.openxava.view.*;
 
 /**
- * tmr Poner algún comentario significativo
+ * Helper class to be used from CollectionChart editor JSP code. 
  * 
+ * @since 7.4
  * @author Javier Paniza
  */
 

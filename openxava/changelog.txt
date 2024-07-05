@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- @Chart annotation for collections to display the collection as a chart from its data. 
+- As @DescriptionsList defaults 'name' takes preferences over 'description', and 'title' is recognized.
+- New methods getAnnotationAttributeValue() and getAnnotationsWithRepeatables() in Classes utity class.
 - Attributes forViews y notForViews recognized for custom annotations.
 - Some new common use labels to be used in applications.
 - Fix: Missing a entry in navigation of view section of reference guide in English. 

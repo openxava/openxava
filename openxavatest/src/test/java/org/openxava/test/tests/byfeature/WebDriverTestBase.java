@@ -25,13 +25,12 @@ abstract public class WebDriverTestBase extends TestCase {
 	private String module;
 	private WebDriver driver;
 	
-	protected String getLang() { // tmr
+	protected String getLang() { 
 		return "en";
 	}
 	
 	protected void setUp() throws Exception {
-		// tmr driver = createWebDriver("en");
-		driver = createWebDriver(getLang()); // tmr
+		driver = createWebDriver(getLang()); 
 	}
 
 	protected void tearDown() throws Exception {

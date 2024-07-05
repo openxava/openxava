@@ -7,7 +7,6 @@
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 
 <%
-// tmr 
 String collectionName = request.getParameter("collectionName");
 String viewObject = request.getParameter("viewObject");
 View view = (View) context.get(request, viewObject);

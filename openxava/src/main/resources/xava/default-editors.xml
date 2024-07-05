@@ -59,11 +59,9 @@
 		<for-element-collections/>
 	</editor>
 	
-	<!-- tmr ini -->
 	<editor name="CollectionChart" url="collectionChartEditor.jsp">
 	    <for-annotation annotation="org.openxava.annotations.Chart"/>
 	</editor>	
-	<!-- tmr fin -->
 		
 	<editor name="TextField" url="textEditor.jsp">
 		<list-formatter class="org.openxava.formatters.HTMLFilterListFormatter" />

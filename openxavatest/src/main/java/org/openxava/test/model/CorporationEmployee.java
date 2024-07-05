@@ -34,7 +34,7 @@ public class CorporationEmployee extends Identifiable {
 	@DefaultValueCalculator(MinimumCorporationEmployeeSalaryCalculator.class) 
 	private int salary;
 	
-	public BigDecimal getBonus() { // tmr
+	public BigDecimal getBonus() { 
 		return new BigDecimal(salary).divide(new BigDecimal(6), 2, RoundingMode.HALF_UP);
 	}
 	

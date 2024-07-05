@@ -87,7 +87,8 @@ public class Classes {
 		fillMethodsAnnotatedWith(result, theClass.getSuperclass(), annotation);
 	}
 
-	public static String getAnnotationAttributeValue(Annotation annotation, String attribute) { // tmr Poner en changelog
+	/** @since 7.4 */
+	public static String getAnnotationAttributeValue(Annotation annotation, String attribute) { 
 		Object value = null;
 		try {
 			value = XObjects.execute(annotation, attribute);
@@ -100,7 +101,8 @@ public class Classes {
 		return value==null?null:value.toString();
 	}
 	
-	public static Annotation[] getAnnotationsWithRepeatables(AnnotatedElement element) { // tmr En changelog
+	/** @since 7.4 */
+	public static Annotation[] getAnnotationsWithRepeatables(AnnotatedElement element) { 
 	    List<Annotation> allAnnotations = new ArrayList<>();
 	    Annotation[] annotations = element.getAnnotations();
 	    for (Annotation annotation : annotations) {
