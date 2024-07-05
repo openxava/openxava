@@ -1,4 +1,3 @@
-// tmr
 openxava.addEditorInitFunction(function() {
 	$('.xava_collection_chart').each( function () {
 		var labels = $(this).data("labels");

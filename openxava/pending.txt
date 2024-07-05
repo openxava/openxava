@@ -1,6 +1,8 @@
-Documentación
-- forViews y notForViews para anotaciones propias. Característica separada.
-	TMR ME QUEDÉ HACIENDO ESTO. YA HE HECHO LA DE ESPAÑOL.
+Finalización
+- Limpiar código.
+- Mezclar desde master.
+- Suite.
+- Mezclar view doc.
 
 Diferido
 - Sacar lista (añadir atributo showList() a @Chart)
