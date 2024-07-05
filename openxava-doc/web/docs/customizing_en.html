@@ -2210,7 +2210,7 @@ public @interface Colorful {
       your entity with your annotation, in this way:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@Column(length=40) @Required
-@Colorful(color = "green") 
+@Colorful(color="green") 
 String name;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Now you want that the <i>name</i>
@@ -2270,57 +2270,56 @@ String color = request.getParameter("color"); // Read the attribute from the @Co
 .colorful-color-pink input{ color: pink; }
 .colorful-background-pink input{ background: pink; }
 </code></pre>
-      <div class="wiki" style="display: block;">TMR ME QUEDÉ POR AQUÍ FALTA
-        TRADUCIR. Desde v7.4 tus anotaciones pueden contener los atributos <i>forViews</i>
-        y <i>notForViews</i>, lo que te permite aplicar la anotación sólo a
-        unas vistas concretas. Por ejemplo, la anotación <i>@Colorido</i>, se
-        podría escribir así:</div>
+      <div class="wiki" style="display: block;">Since v7.4, your annotations can
+        contain the attributes <i>forViews</i> and <i>notForViews</i>,
+        allowing you to apply the annotation only to specific views. For
+        example, the annotation <i>@Colorful</i> could be written like this:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">package com.tuempresa.facturacion.anotaciones;
+        <pre><code class="java">package com.yourcompany.invoicing.annotations;
 
 import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.FIELD, ElementType.METHOD })
-public @interface Colorido {
+public @interface Colorful {
 
     /**
-     * Lista de nombres de vistas separados por comas donde se aplica esta anotación. &lt;p&gt;
+     * List of comma separated view names where this annotation applies. &lt;p&gt;
      * 
-     * Exclusivo con notForViews.&lt;br&gt;
-     * Si se omiten tanto forViews como notForViews, entonces esta anotación se aplica 
-     * a todas las vistas.&lt;br&gt;
-     * Puedes usar la cadena "DEFAULT" para hacer referencia a la vista 
-     * predeterminada (la vista sin nombre).
+     * Exclusive with notForViews.&lt;br&gt;
+     * If both forViews and notForViews are omitted then this annotation
+     * apply to all views.&lt;br&gt;
+     * You can use the string "DEFAULT" for referencing to the default
+     * view (the view with no name).
      */	
     String forViews() default "";
 	
     /**
-     * Lista de nombres de vistas separados por comas donde esta anotación no se aplica. &lt;p&gt;
+     * List of comma separated view names where this annotation does not apply. &lt;p&gt;
      * 
-     * Exclusivo con forViews.&lt;br&gt;
-     * Si se omiten tanto forViews como notForViews, entonces esta anotación se aplica 
-     * a todas las vistas.&lt;br&gt;
-     * Puedes usar la cadena "DEFAULT" para hacer referencia a la vista 
-     * predeterminada (la vista sin nombre).
+     * Exclusive with forViews.&lt;br&gt;
+     * If both forViews and notForViews are omitted then this annotation
+     * apply to all views.&lt;br&gt;
+     * You can use the string "DEFAULT" for referencing to the default
+     * view (the view with no name).
      */ 	
     String notForViews() default "";
-	
+
 
     String color() default "black";
 
 }
-</code></pre></div>
-      <div class="wiki" style="display: block;">Después en tu entidad podrías
-        usarla de esta forma:</div>
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Then in your entity, you could
+        use it like this:</div>
       <div class="wiki" style="display: block;">
         <pre><code class="java">@Column(length=40) @Required
-@Colorido(forViews="Completa, Colorida", color = "green") 
-String nombre;
+@Colorful(forViews="Complete, Simple", color="green") 
+String name;
 </code></pre> </div>
-      <div class="wiki" style="display: block;">Lo que haría que tu editor
-        personalizado para <i>@Colorido</i> solo apareciera en las vistas
-        llamadas <i> Completa</i> y <i>Colorida</i>.</div>
+      <div class="wiki" style="display: block;">Which would make your custom
+        editor for <i>@Colorful</i> appear only in the views called <i>Complete</i>
+        and <i>Simple</i>.</div>
     </div>
     <div class="wiki" style="display: block;">
       <h3 id="toc8"><a name="javascript-in-editors"></a><span style="font-size: 1.1em;"><strong>JavaScript
