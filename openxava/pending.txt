@@ -1,6 +1,4 @@
 Finalización
-- Mezclar desde master.
-- Suite.
 - Mezclar view doc.
 
 Diferido
