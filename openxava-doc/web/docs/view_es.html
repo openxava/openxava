@@ -15681,10 +15681,54 @@ class="re2">&gt;</span></span>
           href="#Vista-Personalizacion+de+coleccion-Acciones+de+lista+y+fila+propias">acciones
           de lista propias</a></em>) pero aplica a todas las colecciones a la
       vez.<br>
-      Si queremos definir lista de fila por defecto (<em><a class="wiki_link_ext"
-          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/RowAction.html"
-          rel="nofollow">@RowAction</a></em>) podemos definir el controlador <em>DefaultRowActionsForCollections
-        (nuevo en v4.6)</em>.<br>
+      Si queremos añadir alguna acciones a todas las filas de las colecciones de
+      nuestra aplicación hemos de crear un controlador llamado <em>DefaultRowActionsForCollections</em>
+      <i>(nuevo en v4.6)</i> en nuestro propio <em>controladores.xml</em> en <i>src/main/resources/xava</i>
+      (o <i>xava</i> para v6 o anterior) como sigue:<br>
+      <div class="wiki">
+        <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;controlador</span> <span
+class="re0">nombre</span>=<span class="st0">"DefaultRowActionsForCollections"</span><span
+class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;hereda-de</span> <span class="re0">controlador</span>=<span
+class="st0">"CollectionOpenInNewTab"</span><span class="re2">/&gt;</span></span> <span
+class="sc-1">&lt;!-- Nuevo en v7.4 --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;accion</span> <span class="re0">nombre</span>=<span
+class="st0">"abrirComoPDF"</span></span>
+<span class="sc3">        <span class="re0">clase</span>=<span class="st0">"org.openxava.test.acciones.AbrirComoPDF"</span><span
+class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/accion<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/controlador<span class="re2">&gt;</span></span></span></pre>
+      </div>
+      De esta forma, las acciones del controlador <em>CollectionOpenInNewTab</em>
+      (Nuevo en v7.4) y nuestra propia acción <em>AbrirComoPDF</em> estarán
+      presentes en cada fila de las colecciones. Este tiene el mismo efecto que
+      el elemento <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/RowAction.html"
+          rel="nofollow">@RowAction </a></em>(ver la sección <em><a class="wiki_link"
+          href="#Vista-Personalizacion+de+coleccion-Acciones+de+lista+y+fila+propias">acciones
+          de lista y fila propias</a></em>)&nbsp; pero se aplica a todas las
+      colecciones a la vez.<br>
       A partir de v5.9 esta característica aplica tanto a las colecciones
       calculadas como a las persistentes. Antes las propiedades calculadas no
       soportaban acciones por defecto para lista y fila.<br>
