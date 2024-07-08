@@ -1,9 +1,0 @@
-Finalización
-- Mezclar view doc.
-
-Diferido
-- Sacar lista (añadir atributo showList() a @Chart)
-- Tarta ¿v7.5?
-- ¿Actualizar D3?
-
-Borrar este archivo
