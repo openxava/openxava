@@ -1,0 +1,8 @@
+- @LargeFormat
+- Probarlo en Invoice2NoModifyDetails
+- icono
+- símbolo (%$)
+	- prefix/suffix
+	- symbol
+	- Automático, según si es @Money o @Percentage
+- Diferente color para negativo.
