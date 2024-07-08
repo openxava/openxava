@@ -1,4 +1,4 @@
-- @LargeFormat
+* @LargeFormat
 - Probarlo en Invoice2NoModifyDetails
 - icono
 - símbolo (%$)

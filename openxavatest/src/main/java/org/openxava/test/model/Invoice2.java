@@ -5,10 +5,11 @@ import java.util.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
- 
+
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.jpa.*;
+import org.openxava.test.annotations.*;
 
 /**
  * 
@@ -27,7 +28,9 @@ import org.openxava.jpa.*;
 	),
 	@View( name="NoModifyDetails", members =
 		"year, number, date;" + 
-		"details;"
+		"details;" +
+		// "vatPercentage, amountsSum;"  // tmr
+		"amountsSum;"  // tmr
 	)
 })
 @Tab(defaultOrder="year, number") // Don't remove, for verify that grouping work with defaultOrder with columns not in the resultset. Tested in Invoice2Test.testGroupBy
@@ -49,9 +52,12 @@ public class Invoice2 {
 	
 	@Digits(integer=2, fraction=1) 
 	@Required
+	// tmr @LargeFormat(forViews="NoModifyDetails") // tmr
 	private BigDecimal vatPercentage;
 	
-	@Stereotype("MONEY") @ReadOnly
+	//@Stereotype("MONEY") // tmr @ReadOnly
+	@Money // tmr ME QUEDÉ POR AQUÍ, CON ESTO O CON EL STEREOTYPE NO VA
+	@LargeFormat(forViews="NoModifyDetails") // tmr
 	private BigDecimal amountsSum; 
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)

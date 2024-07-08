@@ -238,5 +238,12 @@
 		<property name="suffix" value="one_not_deletable"/>
 		<for-model-property model="UserWithNickname" property="name" />
 	</editor>
+	
+	<!-- tmr ini -->
+	<!-- tmr Mover a openxava -->
+	<editor name="LargeFormat" url="largeFormatEditor.jsp" frame="true">
+		<for-annotation annotation="org.openxava.test.annotations.LargeFormat"/>
+	</editor>
+	<!-- tmr fin -->
 		
 </editors>
