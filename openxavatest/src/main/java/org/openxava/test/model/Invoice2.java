@@ -52,12 +52,12 @@ public class Invoice2 {
 	@Digits(integer=2, fraction=1) 
 	@Required
 	@LabelFormat(forViews="NoModifyDetails", value=LabelFormatType.SMALL) // tmr
-	@LargeFormat(forViews="NoModifyDetails") // tmr
+	@LargeFormat(forViews="NoModifyDetails", symbol = "%") // tmr
 	private BigDecimal vatPercentage;
 	
 	@Stereotype("MONEY") @ReadOnly
 	@LabelFormat(forViews="NoModifyDetails", value=LabelFormatType.SMALL) // tmr
-	@LargeFormat(forViews="NoModifyDetails") // tmr
+	@LargeFormat(forViews="NoModifyDetails", symbol = "$") // tmr
 	private BigDecimal amountsSum;
 	
 	@Money @LargeFormat @LabelFormat(LabelFormatType.SMALL) // tmr
