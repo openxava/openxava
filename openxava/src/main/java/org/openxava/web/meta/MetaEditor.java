@@ -18,6 +18,9 @@ public class MetaEditor implements Cloneable {
 	
 	private static Log log = LogFactory.getLog(MetaEditor.class);
 	
+	private static int creationOrder = 0; // tmr 
+	
+	private int priority = creationOrder++; // tmr
 	private boolean formatterFromType;
 	private Object formatter; 
 	private String propertiesURL;
@@ -379,6 +382,10 @@ public class MetaEditor implements Cloneable {
 
 	public void setSelectableItems(boolean selectableItems) {
 		this.selectableItems = selectableItems;
+	}
+
+	public int getPriority() {
+		return priority;
 	}
 
 }

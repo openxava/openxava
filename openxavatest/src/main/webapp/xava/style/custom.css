@@ -1,3 +1,14 @@
 .corporation-employee-list-select {
 	margin-bottom: 6px;	
 }
+
+/* tmr ini */
+/* tmr Mover a base.css en openxava */
+.ox-large-format {
+	font-size: xxx-large;
+	color: var(--link-color); /* tmr Crear un --large-format-color */
+	padding: 20px;
+	margin-top: -25px;
+	margin-left: -5px;
+}
+/* tmr fin */

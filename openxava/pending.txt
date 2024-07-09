@@ -1,8 +1,11 @@
-* @LargeFormat
-- Probarlo en Invoice2NoModifyDetails
-- icono
 - símbolo (%$)
 	- prefix/suffix
 	- symbol
 	- Automático, según si es @Money o @Percentage
+- icono
 - Diferente color para negativo.
+- LabelFormat dependiente de esteroetipo.
+- Mover a openxava. Probar con proyecto independiente.
+- Prueba automática.
+- Revisar código.
+- Documentar. ¿Vista o Modelo?

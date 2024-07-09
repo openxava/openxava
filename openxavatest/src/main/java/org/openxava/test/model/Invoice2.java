@@ -29,8 +29,7 @@ import org.openxava.test.annotations.*;
 	@View( name="NoModifyDetails", members =
 		"year, number, date;" + 
 		"details;" +
-		// "vatPercentage, amountsSum;"  // tmr
-		"amountsSum;"  // tmr
+		"amountsSum, vatPercentage, total"  // tmr
 	)
 })
 @Tab(defaultOrder="year, number") // Don't remove, for verify that grouping work with defaultOrder with columns not in the resultset. Tested in Invoice2Test.testGroupBy
@@ -52,13 +51,19 @@ public class Invoice2 {
 	
 	@Digits(integer=2, fraction=1) 
 	@Required
-	// tmr @LargeFormat(forViews="NoModifyDetails") // tmr
+	@LabelFormat(forViews="NoModifyDetails", value=LabelFormatType.SMALL) // tmr
+	@LargeFormat(forViews="NoModifyDetails") // tmr
 	private BigDecimal vatPercentage;
 	
-	//@Stereotype("MONEY") // tmr @ReadOnly
-	@Money // tmr ME QUEDÉ POR AQUÍ, CON ESTO O CON EL STEREOTYPE NO VA
+	@Stereotype("MONEY") @ReadOnly
+	@LabelFormat(forViews="NoModifyDetails", value=LabelFormatType.SMALL) // tmr
 	@LargeFormat(forViews="NoModifyDetails") // tmr
-	private BigDecimal amountsSum; 
+	private BigDecimal amountsSum;
+	
+	@Money @LargeFormat @LabelFormat(LabelFormatType.SMALL) // tmr
+	public BigDecimal getTotal() { // tmr
+		return amountsSum == null?BigDecimal.ZERO:amountsSum.multiply(vatPercentage).divide(new BigDecimal("100"));
+	}
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@ReferenceView("Simplest")

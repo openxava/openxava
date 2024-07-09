@@ -3,6 +3,7 @@ package org.openxava.test.annotations;
 import java.lang.annotation.*;
 
 /**
+ * tmr Se parece mucho a @LabelFormat, ¿buscar otro nombre?
  * tmr Mover a openxava
  * tmr redoc
  * To display a chart using the values from a collection. <p>
