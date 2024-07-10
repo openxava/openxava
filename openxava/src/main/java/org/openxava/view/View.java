@@ -68,6 +68,8 @@ public class View implements java.io.Serializable {
 	private String hideCollectionElementAction;
 	private String removeCollectionElementAction;
 	private String removeSelectedCollectionElementsAction;
+	private String deleteCollectionElementAction;
+	private String deleteSelectedCollectionElementsAction;
 	private String onSelectCollectionElementAction; 
 	private Collection subcontrollersNamesList; 
 	private boolean focusForward;
@@ -1093,6 +1095,8 @@ public class View implements java.io.Serializable {
 				newView.setHideCollectionElementAction(metaCollectionView.getHideActionName());
 				newView.setRemoveCollectionElementAction(metaCollectionView.getRemoveActionName());
 				newView.setRemoveSelectedCollectionElementsAction(metaCollectionView.getRemoveSelectedActionName());
+				newView.setDeleteCollectionElementAction(metaCollectionView.getDeleteActionName());
+				newView.setDeleteSelectedCollectionElementsAction(metaCollectionView.getDeleteSelectedActionName());
 				newView.setOnSelectCollectionElementAction(metaCollectionView.getOnSelectElementActionName());
 				boolean editable = false;
 				if (!metaCollectionView.isReadOnly()) {
@@ -5235,9 +5239,10 @@ public class View implements java.io.Serializable {
 	
 	public Collection getRowActionsNames() { 
 		Collection rowActionsNames = new ArrayList();
-		if (isCollectionEditable() && isRowAction(getRemoveSelectedCollectionElementsAction())) {
-			rowActionsNames.add(getRemoveSelectedCollectionElementsAction());
-		}		
+		if (isCollectionEditable()) {
+			if (isRowAction(getRemoveSelectedCollectionElementsAction())) rowActionsNames.add(getRemoveSelectedCollectionElementsAction());
+			if (isRowAction(getDeleteSelectedCollectionElementsAction())) rowActionsNames.add(getDeleteSelectedCollectionElementsAction());
+		}
 		rowActionsNames.addAll(getActionsNamesRow());
 		for (Object action: getActionsNamesList()) {
 			if (isRowAction(action)) {
@@ -5855,6 +5860,23 @@ public class View implements java.io.Serializable {
 	public void setRemoveSelectedCollectionElementsAction(
 			String removeSelectedCollectionElementAction) {		
 		this.removeSelectedCollectionElementsAction = removeSelectedCollectionElementAction;
+	}
+	
+	public String getDeleteCollectionElementAction() {
+		return getCollectionAction(deleteCollectionElementAction, "Collection.delete");
+	}
+
+	public void setDeleteCollectionElementAction(String deleteCollectionElementAction) {
+		this.deleteCollectionElementAction = deleteCollectionElementAction;
+	}
+	
+	public String getDeleteSelectedCollectionElementsAction() {
+		return getCollectionAction(deleteSelectedCollectionElementsAction, 
+                isRepresentsElementCollection()?deleteSelectedCollectionElementsAction:"Collection.deleteSelected");
+	}
+
+	public void setDeleteSelectedCollectionElementsAction(String deleteSelectedCollectionElementsAction) {
+		this.deleteSelectedCollectionElementsAction = deleteSelectedCollectionElementsAction;
 	}
 	
 	public String getSaveCollectionElementAction() {

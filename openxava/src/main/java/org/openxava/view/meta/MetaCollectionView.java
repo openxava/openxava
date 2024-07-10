@@ -21,6 +21,8 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 	private String hideActionName;
 	private String removeActionName;
 	private String removeSelectedActionName;
+	private String deleteActionName;
+	private String deleteSelectedActionName;
 	private String nextActionName;
 	private String previousActionName;
 	private Collection actionsDetailNames;
@@ -231,6 +233,14 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 	public void setRemoveActionName(String removeActionName) {
 		this.removeActionName = removeActionName;
 	}
+	
+	public String getDeleteActionName() {
+		return deleteActionName;
+	}
+
+	public void setDeleteActionName(String deleteActionName) {
+		this.deleteActionName = deleteActionName;
+	}
 
 	public String getSaveActionName() {
 		return saveActionName;
@@ -262,6 +272,14 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 
 	public void setRemoveSelectedActionName(String removeSelectedActionName) {
 		this.removeSelectedActionName = removeSelectedActionName;
+	}
+	
+	public String getDeleteSelectedActionName() {
+		return deleteSelectedActionName;
+	}
+
+	public void setDeleteSelectedActionName(String deleteSelectedActionName) {
+		this.deleteSelectedActionName = deleteSelectedActionName;
 	}
 
 	public String getOnSelectElementActionName() {

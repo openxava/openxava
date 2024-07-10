@@ -37,7 +37,6 @@ public class DeleteSelectedInCollectionAction extends CollectionBaseAction imple
 
 	@Override
 	public boolean isAvailable() {
-		System.out.println(isEntityReferencesCollection());
 		return isEntityReferencesCollection();
 	}
 		
