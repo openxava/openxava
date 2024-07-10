@@ -5,6 +5,7 @@ import java.util.*;
 
 /**
  * tmr doc
+ * tmr En changelog
  * 
  * @since 7.4
  * @author Javier Paniza
@@ -12,11 +13,27 @@ import java.util.*;
 public class Moneys {
 	
 	public static boolean isCurrencySymbolAtStart(Locale locale) {
-		// TMR ME QUEDÉ POR AQUI: FALTA PROBAR ESTO. DESPUÉS DEBERÍA SEGUIR PARA QUE EL prefix/suffix EN EL EDITOR SEA AUTOMATICO PARA DINERO
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
         String formattedCurrency = currencyFormat.format(1);
         String currencySymbol = currencyFormat.getCurrency().getSymbol(locale);
         return !formattedCurrency.endsWith(currencySymbol);
+	}
+	
+	public static boolean isCurrencySymbolAtStart() {
+        return isCurrencySymbolAtStart(Locale.getDefault()); // Locale from server, not from browser
+	}	
+
+	public static String getCurrencySymbol(Locale locale) { 
+		try {
+			return Currency.getInstance(locale).getSymbol(locale); 
+		}
+		catch (Exception ex) { // Because locale may not contain the country
+			return "?";
+		}
+	}
+	
+	public static String getCurrencySymbol() { // tmr Refactorizar moneyEditor.jsp para usar este método
+		return getCurrencySymbol(Locale.getDefault()); // Locale from server, not from browser
 	}
 
 }
