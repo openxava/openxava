@@ -1,11 +1,10 @@
-- símbolo (%$)
-	- prefix/suffix
-	- symbol
-	- Automático, según si es @Money o @Percentage
+
+- Prefijo/sufijo automático para dinero.
 - icono
 - Diferente color para negativo.
 - LabelFormat dependiente de esteroetipo.
 - Mover a openxava. Probar con proyecto independiente.
 - Prueba automática.
+	- Símbolo correcto.
 - Revisar código.
 - Documentar. ¿Vista o Modelo?

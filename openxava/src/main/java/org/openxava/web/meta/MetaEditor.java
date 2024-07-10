@@ -1,6 +1,8 @@
 package org.openxava.web.meta;
 
+import java.io.*;
 import java.lang.annotation.*;
+import java.net.*;
 import java.util.*;
 
 import org.apache.commons.logging.*;
@@ -100,13 +102,24 @@ public class MetaEditor implements Cloneable {
 					Map.Entry e = (Map.Entry) it.next();
 					sb.append(e.getKey());
 					sb.append("=");
-					sb.append(e.getValue());
+					// tmr sb.append(e.getValue());
+					// tmr ini
+					sb.append(filterPropertyValue(e.getValue())); // tmr En changelog para soportar símbolo euro y % como valor anotaciones y propieddes editores 
+					// tmr fin
 					if (it.hasNext()) sb.append("&");
 				}
 				propertiesURL = sb.toString();
 			}
 		}		
 		return propertiesURL; 
+	}
+	
+	private String filterPropertyValue(Object originalValue) { // tmr
+		try {
+			return URLEncoder.encode(originalValue.toString(), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			return originalValue.toString().replace("&", "%26").replace(";", "%3B");
+		}
 	}
 	
 	public void setDependsStereotypes(String stereotypes) {

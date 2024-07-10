@@ -58,6 +58,8 @@ public @interface LargeFormat {
 	 */ 	
 	String notForViews() default "";
 	
-	String symbol() default "";
+	String prefix() default "";
+	
+	String suffix() default "";
 	
 }

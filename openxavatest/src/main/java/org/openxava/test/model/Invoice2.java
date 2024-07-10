@@ -52,15 +52,15 @@ public class Invoice2 {
 	@Digits(integer=2, fraction=1) 
 	@Required
 	@LabelFormat(forViews="NoModifyDetails", value=LabelFormatType.SMALL) // tmr
-	@LargeFormat(forViews="NoModifyDetails", symbol = "%") // tmr
+	@LargeFormat(forViews="NoModifyDetails", suffix = "%") // tmr
 	private BigDecimal vatPercentage;
 	
 	@Stereotype("MONEY") @ReadOnly
 	@LabelFormat(forViews="NoModifyDetails", value=LabelFormatType.SMALL) // tmr
-	@LargeFormat(forViews="NoModifyDetails", symbol = "$") // tmr
+	@LargeFormat(forViews="NoModifyDetails", prefix = "$") // tmr
 	private BigDecimal amountsSum;
 	
-	@Money @LargeFormat @LabelFormat(LabelFormatType.SMALL) // tmr
+	@Money @LargeFormat(suffix="€") @LabelFormat(LabelFormatType.SMALL) 
 	public BigDecimal getTotal() { // tmr
 		return amountsSum == null?BigDecimal.ZERO:amountsSum.multiply(vatPercentage).divide(new BigDecimal("100"));
 	}

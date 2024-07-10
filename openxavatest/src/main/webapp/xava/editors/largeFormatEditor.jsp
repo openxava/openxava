@@ -3,6 +3,7 @@
 <%
 String propertyKey = request.getParameter("propertyKey");
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
-String symbol = request.getParameter("symbol"); // TMR ME QUEDÉ POR AQUÍ, HACIENDO LO DEL SYMBOL
+String prefix = request.getParameter("prefix");
+String suffix = request.getParameter("suffix"); 
 %>
-<div class="ox-large-format ox-frame"><%=fvalue%><span class="ox-large-format-symbol"><%=symbol%></span></div>
+<div class="ox-large-format ox-frame"><span class="ox-large-format-prefix"><%=prefix%></span><%=fvalue%><span class="ox-large-format-suffix"><%=suffix%></span></div>
