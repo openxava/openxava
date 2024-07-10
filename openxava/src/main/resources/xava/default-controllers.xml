@@ -715,7 +715,7 @@ here that you want to override.
 			class="org.openxava.actions.CutElementsFromCollectionAction"/>		
 			
 		<action name="paste" 
-			icon="content-paste" 
+			icon="content-paste"  
 			image="paste.gif" 
 			class="org.openxava.actions.PasteElementsIntoCollectionAction"/>
 						
@@ -731,6 +731,19 @@ here that you want to override.
 			icon="open-in-new" 
 			in-each-row="true"
 			class="org.openxava.actions.OpenCollectionElementInNewTabAction"/>
+	</controller>
+	
+	<controller name="CollectionDeleteSelected">
+			<action name="deleteSelected" 
+			confirm="true"
+			icon="delete-forever" 
+			in-each-row="true"
+			class="org.openxava.actions.DeleteSelectedInCollectionAction"/>
+	</controller>
+	<controller name="CollectionDelete">
+		<action name="delete" 
+			confirm="true"
+			class="org.openxava.actions.DeleteElementFromCollectionAction"/>	 
 	</controller>
 	
 	<!-- 
@@ -763,10 +776,12 @@ here that you want to override.
 	<controller name="DefaultListActionsForCollections">
 		<extends controller="CollectionCopyPaste"/>  
 		<extends controller="Print"/>
+		<extends controller="CollectionDelete"/>
 	</controller>
 	
 	<controller name="DefaultRowActionsForCollections">
 		<extends controller="CollectionOpenInNewTab"/>
+		<extends controller="CollectionDeleteSelected"/>
 	</controller>	
 	
 	<controller name="Sections">
