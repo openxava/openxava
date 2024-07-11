@@ -280,10 +280,17 @@
 			class="org.openxava.actions.ViewElementInCollectionAction"/>
 					 		
 		<action name="removeSelected" confirm="true"
-			icon="delete" 
-			image="delete.gif" in-each-row="true"
+			icon="table-row-remove" 
+			in-each-row="true"
 			class="org.openxava.actions.RemoveSelectedInCollectionAction"/>
 			
+		<action name="deleteSelected" 
+			confirm="true"
+			icon="delete" 
+			image="delete.gif" 
+			in-each-row="true"
+			class="org.openxava.actions.DeleteSelectedInCollectionAction"/>	
+				
 	</controller>
 							
 	<controller name="ChangeActiveYear">

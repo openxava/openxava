@@ -5,7 +5,7 @@ import java.util.*;
 import org.openxava.model.*;
 import org.openxava.validators.*;
 
-public class DeleteSelectedInCollectionAction extends CollectionBaseAction implements IAvailableAction {
+public class DeleteSelectedInCollectionAction extends CollectionBaseAction {
 	
 	public void execute() throws Exception {
 		try{
@@ -33,11 +33,6 @@ public class DeleteSelectedInCollectionAction extends CollectionBaseAction imple
 	 */
 	protected void removeElement(Map values) throws Exception {
 		MapFacade.remove(getCollectionElementView().getModelName(), values);
-	}
-
-	@Override
-	public boolean isAvailable() {
-		return isEntityReferencesCollection();
 	}
 		
 }

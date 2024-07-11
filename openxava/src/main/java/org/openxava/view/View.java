@@ -1095,7 +1095,6 @@ public class View implements java.io.Serializable {
 				newView.setHideCollectionElementAction(metaCollectionView.getHideActionName());
 				newView.setRemoveCollectionElementAction(metaCollectionView.getRemoveActionName());
 				newView.setRemoveSelectedCollectionElementsAction(metaCollectionView.getRemoveSelectedActionName());
-				newView.setDeleteCollectionElementAction(metaCollectionView.getDeleteActionName());
 				newView.setDeleteSelectedCollectionElementsAction(metaCollectionView.getDeleteSelectedActionName());
 				newView.setOnSelectCollectionElementAction(metaCollectionView.getOnSelectElementActionName());
 				boolean editable = false;
@@ -1806,7 +1805,6 @@ public class View implements java.io.Serializable {
 		assertRepresentsCollection("getMetaCollection()");
 		return getParentIfSectionOrGroup().getParent().getMetaModel().getMetaCollection(getMemberName()); 
 	}
-
 
 	/**
 	 * A list of all collection element when each element is a map 
@@ -5240,8 +5238,10 @@ public class View implements java.io.Serializable {
 	public Collection getRowActionsNames() { 
 		Collection rowActionsNames = new ArrayList();
 		if (isCollectionEditable()) {
-			if (isRowAction(getRemoveSelectedCollectionElementsAction())) rowActionsNames.add(getRemoveSelectedCollectionElementsAction());
-			if (isRowAction(getDeleteSelectedCollectionElementsAction())) rowActionsNames.add(getDeleteSelectedCollectionElementsAction());
+			if (isCollectionEntityReferencesCollection() && isRowAction(getRemoveSelectedCollectionElementsAction())) 
+				rowActionsNames.add(getRemoveSelectedCollectionElementsAction());
+			if (isRowAction(getDeleteSelectedCollectionElementsAction())) 
+				rowActionsNames.add(getDeleteSelectedCollectionElementsAction());
 		}
 		rowActionsNames.addAll(getActionsNamesRow());
 		for (Object action: getActionsNamesList()) {
@@ -5848,7 +5848,7 @@ public class View implements java.io.Serializable {
 	}
 
 	public void setRemoveCollectionElementAction(
-			String removeCollectionElementAction) {		
+			String removeCollectionElementAction) {
 		this.removeCollectionElementAction = removeCollectionElementAction;
 	}
 	
@@ -5860,14 +5860,6 @@ public class View implements java.io.Serializable {
 	public void setRemoveSelectedCollectionElementsAction(
 			String removeSelectedCollectionElementAction) {		
 		this.removeSelectedCollectionElementsAction = removeSelectedCollectionElementAction;
-	}
-	
-	public String getDeleteCollectionElementAction() {
-		return getCollectionAction(deleteCollectionElementAction, "Collection.delete");
-	}
-
-	public void setDeleteCollectionElementAction(String deleteCollectionElementAction) {
-		this.deleteCollectionElementAction = deleteCollectionElementAction;
 	}
 	
 	public String getDeleteSelectedCollectionElementsAction() {
@@ -7247,6 +7239,16 @@ public class View implements java.io.Serializable {
 		MetaDescriptionsList descriptionsList = getMetaView().getMetaDescriptionList(metaReference);
 		if (descriptionsList == null) return "";
 		return descriptionsList.getCondition();
+	}
+	
+	/**
+	 * @since 7.4
+	 */
+	public boolean isCollectionEntityReferencesCollection() throws XavaException {
+		if (!isRepresentsCollection()) return false;
+		MetaCollectionView metaCollectionView = getMetaView().getMetaCollectionView(getMetaCollection().getName());
+		if (metaCollectionView != null) return !metaCollectionView.isAsAggregate();
+		return getMetaModel() instanceof MetaEntity; 		
 	}
 
 }

@@ -13,6 +13,8 @@
 <%@ page import="org.openxava.view.View" %>
 <%@ page import="org.openxava.model.meta.MetaProperty" %>
 <%@ page import="org.openxava.model.meta.MetaReference" %>
+<%@ page import="org.openxava.model.meta.MetaEntity" %>
+<%@ page import="org.openxava.model.meta.MetaCollection" %>
 <%@ page import="org.openxava.web.WebEditors" %>
 <%@ page import="org.openxava.controller.meta.MetaController"%>
 
@@ -95,11 +97,16 @@ if (view.displayDetailInCollection(collectionName)) {
 	<jsp:param name="action" value="<%=subview.getNewCollectionElementAction()%>"/>
 	<jsp:param name="argv" value='<%="viewObject="+viewName%>'/>
 </jsp:include>
+<% if (subview.isCollectionEntityReferencesCollection()) { %>
 <jsp:include page="../barButton.jsp">
 	<jsp:param name="action" value="<%=subview.getRemoveSelectedCollectionElementsAction()%>"/>
 	<jsp:param name="argv" value='<%="viewObject="+viewName%>'/>
 </jsp:include>
-
+<% } %>
+<jsp:include page="../barButton.jsp">
+	<jsp:param name="action" value="<%=subview.getDeleteSelectedCollectionElementsAction()%>"/>
+	<jsp:param name="argv" value='<%="viewObject="+viewName%>'/>
+</jsp:include>
 <%
 	}
 %>
