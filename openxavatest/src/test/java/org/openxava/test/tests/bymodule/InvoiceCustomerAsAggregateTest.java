@@ -23,7 +23,7 @@ public class InvoiceCustomerAsAggregateTest extends ModuleTestBase {
 		assertNoErrors(); 
 		assertCollectionRowCount("customer.deliveryPlaces", 1);		
 		checkRowCollection("customer.deliveryPlaces", 0);
-		execute("Collection.removeSelected", "viewObject=xava_view_customer_deliveryPlaces");
+		execute("Collection.deleteSelected", "viewObject=xava_view_customer_deliveryPlaces");
 		assertNoErrors();
 		assertCollectionRowCount("customer.deliveryPlaces", 0);		
 	}
