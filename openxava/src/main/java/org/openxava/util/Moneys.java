@@ -3,6 +3,9 @@ package org.openxava.util;
 import java.text.*;
 import java.util.*;
 
+import org.openxava.annotations.*;
+import org.openxava.model.meta.*;
+
 /**
  * tmr doc
  * tmr En changelog
@@ -34,6 +37,12 @@ public class Moneys {
 	
 	public static String getCurrencySymbol() { // tmr Refactorizar moneyEditor.jsp para usar este método
 		return getCurrencySymbol(Locale.getDefault()); // Locale from server, not from browser
+	}
+	
+	public static boolean isMoneyProperty(MetaProperty property) {
+		if ("MONEY".equals(property.getStereotype())) return true;
+		if ("DINERO".equals(property.getStereotype())) return true;
+		return Arrays.stream(property.getAnnotations()).anyMatch(annotation -> annotation instanceof Money);
 	}
 
 }

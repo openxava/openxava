@@ -55,12 +55,15 @@ public class Invoice2 {
 	@LargeFormat(forViews="NoModifyDetails", suffix = "%") // tmr
 	private BigDecimal vatPercentage;
 	
-	@Stereotype("MONEY") @ReadOnly
+	@Stereotype("MONEY") // In this way, not with @Money, to test a case 
+	@ReadOnly 
 	@LabelFormat(forViews="NoModifyDetails", value=LabelFormatType.SMALL) // tmr
-	@LargeFormat(forViews="NoModifyDetails", prefix = "$") // tmr
+	@LargeFormat(forViews="NoModifyDetails", prefix = "€") // Euro symbol at start to try prefix and euro symbol processing // tmr
 	private BigDecimal amountsSum;
 	
-	@Money @LargeFormat(suffix="€") @LabelFormat(LabelFormatType.SMALL) 
+	@Money // In this way, not with @Stereotype("MONEY"), to test a case
+	@LargeFormat // Without prefix or suffix, to try a case 
+	@LabelFormat(LabelFormatType.SMALL) 
 	public BigDecimal getTotal() { // tmr
 		return amountsSum == null?BigDecimal.ZERO:amountsSum.multiply(vatPercentage).divide(new BigDecimal("100"));
 	}

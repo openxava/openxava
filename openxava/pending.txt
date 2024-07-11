@@ -1,5 +1,4 @@
 
-- Prefijo/sufijo automático para dinero.
 - Falla el forViews
 - icono
 - Diferente color para negativo.
