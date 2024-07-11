@@ -1,5 +1,4 @@
 
-- Falla el forViews
 - icono
 - Diferente color para negativo.
 - LabelFormat dependiente de esteroetipo.
