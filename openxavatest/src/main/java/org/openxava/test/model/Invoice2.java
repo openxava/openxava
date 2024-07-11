@@ -29,7 +29,7 @@ import org.openxava.test.annotations.*;
 	@View( name="NoModifyDetails", members =
 		"year, number, date;" + 
 		"details;" +
-		"amountsSum, vatPercentage, total"  // tmr
+		"amountsSum, vatPercentage, discount, total"  // tmr
 	)
 })
 @Tab(defaultOrder="year, number") // Don't remove, for verify that grouping work with defaultOrder with columns not in the resultset. Tested in Invoice2Test.testGroupBy
@@ -61,11 +61,19 @@ public class Invoice2 {
 	@LargeFormat(forViews="NoModifyDetails", prefix = "€") // Euro symbol at start to try prefix and euro symbol processing // tmr
 	private BigDecimal amountsSum;
 	
+	@Money @LargeFormat @LabelFormat(LabelFormatType.SMALL)
+	public BigDecimal getDiscount() { // tmr
+		if (amountsSum == null) return BigDecimal.ZERO;
+		return amountsSum.multiply(new BigDecimal("0.1")).negate();
+	}
+	
 	@Money // In this way, not with @Stereotype("MONEY"), to test a case
 	@LargeFormat // Without prefix or suffix, to try a case 
 	@LabelFormat(LabelFormatType.SMALL) 
 	public BigDecimal getTotal() { // tmr
-		return amountsSum == null?BigDecimal.ZERO:amountsSum.multiply(vatPercentage).divide(new BigDecimal("100"));
+		if (amountsSum == null) return BigDecimal.ZERO; 
+		BigDecimal vat = amountsSum.multiply(vatPercentage).divide(new BigDecimal("100")); 
+		return amountsSum.add(vat).add(getDiscount());
 	}
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
