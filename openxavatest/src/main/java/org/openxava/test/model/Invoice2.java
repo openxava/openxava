@@ -52,7 +52,7 @@ public class Invoice2 {
 	@Digits(integer=2, fraction=1) 
 	@Required
 	@LabelFormat(forViews="NoModifyDetails", value=LabelFormatType.SMALL) // tmr
-	@LargeFormat(forViews="NoModifyDetails", suffix = "%") // tmr
+	@LargeFormat(forViews="NoModifyDetails", suffix = "%", icon="label-percent-outline") // tmr
 	private BigDecimal vatPercentage;
 	
 	@Stereotype("MONEY") // In this way, not with @Money, to test a case 

@@ -62,4 +62,6 @@ public @interface LargeFormat {
 	
 	String suffix() default "";
 	
+	String icon() default "";
+	
 }

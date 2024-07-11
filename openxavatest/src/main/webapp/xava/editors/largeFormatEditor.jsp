@@ -17,5 +17,7 @@ if (Is.emptyStringAll(prefix, suffix)) {
 		else suffix = symbol;
 	}
 }
+String icon = request.getParameter("icon");
+String iconHTML = Is.emptyString(icon)?"":"<i class='mdi mdi-" + icon + "'></i>"; 
 %>
-<div class="ox-large-format ox-frame"><span class="ox-large-format-prefix"><%=prefix%></span><%=fvalue%><span class="ox-large-format-suffix"><%=suffix%></span></div>
+<div class="ox-large-format ox-frame"><%=iconHTML%><span class="ox-large-format-prefix"><%=prefix%></span><%=fvalue%><span class="ox-large-format-suffix"><%=suffix%></span></div>

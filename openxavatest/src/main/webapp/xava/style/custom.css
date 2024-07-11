@@ -15,4 +15,9 @@
 .ox-large-format-suffix {
 	font-size: x-large;
 }
+
+.ox-large-format i { 
+	color: var(--color); /* tmr Crear un --large-format-icon-color */
+	vertical-align: top;
+}
 /* tmr fin */

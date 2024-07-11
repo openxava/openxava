@@ -1,9 +1,9 @@
-
-- icono
 - Diferente color para negativo.
 - LabelFormat dependiente de esteroetipo.
 - Mover a openxava. Probar con proyecto independiente.
 - Prueba automática.
 	- Símbolo correcto.
+	- Prefijos y sufijos.
+	- Icono
 - Revisar código.
 - Documentar. ¿Vista o Modelo?
