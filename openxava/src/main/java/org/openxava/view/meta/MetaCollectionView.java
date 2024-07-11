@@ -21,7 +21,6 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 	private String hideActionName;
 	private String removeActionName;
 	private String removeSelectedActionName;
-	private String deleteActionName;
 	private String deleteSelectedActionName;
 	private String nextActionName;
 	private String previousActionName;

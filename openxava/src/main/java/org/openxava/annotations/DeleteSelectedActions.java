@@ -2,19 +2,10 @@ package org.openxava.annotations;
 
 import java.lang.annotation.*;
 
-/**
- * 
- * @author Chungyen, Tsai
- *
- */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.FIELD, ElementType.METHOD })
-public @interface DeleteAction {
-
-	String forViews() default "";
+public @interface DeleteSelectedActions {
 	
-	String notForViews() default "";
-	
-	String value();
+	DeleteSelectedAction [] value();
 	
 }

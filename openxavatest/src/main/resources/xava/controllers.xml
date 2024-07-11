@@ -456,8 +456,8 @@
 		</action>			
 		<action name="remove" 
 			class="org.openxava.test.actions.RemoveDeliveryDetailAction"/>			
-		<action name="removeSelected" confirm="true" image="delete.gif"
-			class="org.openxava.test.actions.RemoveSelectedDeliveryDetailsAction"/>
+		<action name="deleteSelected" confirm="true" image="delete.gif"
+			class="org.openxava.test.actions.DeleteSelectedDeliveryDetailsAction"/>
 	</controller>	
 	
 	<controller name="Product">	
