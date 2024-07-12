@@ -39,6 +39,22 @@
       </div>
       <div class="wiki" style="display: block;">
         <h2>Para migrar de OpenXava 7.3.3 a OpenXava 7.4</h2>
+        <h3>Nueva acción en colecciones (para pruebas JUnit y acciones personalizadas)</h3>
+        <p>Ahora las colecciones tendrán una nueva acción tanto en lista como en cada fila, <i>Collection.deleteSelected</i>, por lo que si comprueban las acciones presentes en las pruebas JUnit, es necesario hacer algunos cambios, agregando la nueva acción y en algunos casos quitando <i>Collection.removeSelected</i> si la colección tiene <em>(cascade=CascadeTYPE.REMOVE)</em>. Por ejemplo: </p>
+        <pre><code class="java">String [] actions = { <br>    "Collection.new",
+    "Collection.edit",<br>    "Collection.removeSelected", // QUITA ESTA ENTRADA SI LA COLECCIÓN TIENE ELIMINAR EN CASCADA
+    "Collection.deleteSelected" // AÑADE ESTA ENTRADA
+};		
+assertActions(actions);</code></pre>
+        <p>Esto también afecta si tienes una colección con <em>(cascade=CascadeType.REMOVE)</em> y <em>@RemoveSelectedAction</em> personalizando la acción de Quitar. <br>
+          En este caso deberás cambiar la anotación de <em>@RemoveSelectedAction</em> por <em>@DeleteSelectedAction</em> y el extends de la clase de la acción <em>RemoveSelectedInCollectionAction</em> por <em>DeleteSelectedInCollectionAction</em>. <br>
+          Esto se debe que al tener eliminar en cascada, la acción <em>Collection.removeSelected</em> actúa de la misma forma que <em>Collection.deleteSelected</em> y por lo tanto el primero no aparecerá en la vista.</p>
+        <pre><code class="java">@OneToMany (mappedBy="delivery", cascade=CascadeType.REMOVE)
+@RemoveSelectedAction(forViews="DEFAULT, MoreSections", value="Detail.removeSelected") // QUITAR<br>@DeleteSelectedAction(forViews="DEFAULT, MoreSections", value="Detail.deleteSelected") // CAMBIAR POR @DeleteSelectedAction, <br>										       // EL NOMBRE DE LA ACCIÓN EN EL CONTROLADOR NO ES OBLIGATORIO CAMBIARLO
+private Collection&lt;Detail&gt; details;	<br></code></pre>
+        <pre><code class="java">public class DeleteSelectedDeliveryDetailsAction 
+	extends RemoveSelectedInCollectionAction { // QUITAR
+	extends DeleteSelectedInCollectionAction { // CAMBIAR POR<br></code></pre>
         <h3>Nueva acción en fila de colecciones (para pruebas JUnit)</h3>
         <p>Ahora cada fila de la colección tiene una nueva acción, <i>CollectionOpenInNewTab.openInNewTab</i>, por lo que si comprueban las acciones presentes en las pruebas JUnit, es necesario modificarlas y agregar la nueva acción. Por ejemplo: </p>
         <pre><code class="java">String [] actions = { 
