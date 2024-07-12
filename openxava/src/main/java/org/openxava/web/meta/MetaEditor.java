@@ -43,7 +43,8 @@ public class MetaEditor implements Cloneable {
 	private String icon; 
 	private String initAction; 
 	private String releaseAction; 
-	private boolean selectableItems; 
+	private boolean selectableItems;
+	private Integer defaultLabelFormat; // tmr javadoc en getter . Añadir a changelog. Añadir a reference guide. 
 	private Set<String> typeSet;
 	private Set<String> annotationSet;
 	private Set<String> stereotypeSet;
@@ -399,6 +400,14 @@ public class MetaEditor implements Cloneable {
 
 	public int getPriority() {
 		return priority;
+	}
+
+	public Integer getDefaultLabelFormat() {
+		return defaultLabelFormat;
+	}
+
+	public void setDefaultLabelFormat(Integer defaultLabelFormat) {
+		this.defaultLabelFormat = defaultLabelFormat;
 	}
 
 }

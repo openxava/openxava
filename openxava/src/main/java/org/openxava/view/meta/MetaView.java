@@ -829,17 +829,34 @@ public class MetaView extends MetaElement implements Cloneable {
 		return editable?metaReferenceView.getActionsNames():metaReferenceView.getAlwaysEnabledActionsNames();
 	}
 	
-
-	public int getLabelFormatForProperty(MetaProperty p) {
+	// tmr public int getLabelFormatForProperty(MetaProperty p) {
+	public Integer getLabelFormatForProperty(MetaProperty p) {
 		MetaPropertyView metaPropertyView = getMetaPropertyViewFor(p.getName());
+		// tmr ini
+		// TMR ME QUEDÉ INVESTIGANDO ESTO:
+		// TMR FUNCIONA. PERO SOSPECHO QUE NO DEBERÍA HACERLO SI EL metaPropertyView 
+		// TMR SE DEVUELVE POR OTRO ATRIBUTO. ME QUEDÉ PROBANDO CON @DisplaySize 
+		if (metaPropertyView == null) return null; 
+		return metaPropertyView.getLabelFormat();
+		// tmr fin
+		/* tmr
 		if (metaPropertyView == null) return XavaPreferences.getInstance().getDefaultLabelFormat(); 
 		return metaPropertyView.getLabelFormat();
+		*/
 	}
 	
 	/** @since 5.7 */
-	public int getLabelFormatFor(MetaMember m) { 
+	public int getLabelFormatFor(MetaMember m) {
+		/* tmr
 		if (m instanceof MetaProperty) return getLabelFormatForProperty((MetaProperty) m);
 		if (m instanceof MetaReference) return getLabelFormatForReference((MetaReference) m);
+		*/
+		// tmr ini
+		Integer labelFormat = null;
+		if (m instanceof MetaProperty) labelFormat = getLabelFormatForProperty((MetaProperty) m);
+		else if (m instanceof MetaReference) labelFormat = getLabelFormatForReference((MetaReference) m);
+		if (labelFormat != null) return labelFormat;
+		// tmr fin
 		return XavaPreferences.getInstance().getDefaultLabelFormat();
 	}	
 	

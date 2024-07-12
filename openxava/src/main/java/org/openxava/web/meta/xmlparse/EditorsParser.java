@@ -7,6 +7,7 @@ import org.apache.commons.logging.*;
 import org.openxava.util.*;
 import org.openxava.util.meta.*;
 import org.openxava.util.xmlparse.*;
+import org.openxava.view.meta.*;
 import org.openxava.web.meta.*;
 import org.w3c.dom.*;
 
@@ -41,6 +42,9 @@ public class EditorsParser extends ParserBase {
 		editor.setFrame(getAttributeBoolean(el, xwithframe[lang]));	
 		editor.setAlwaysReload(getAttributeBoolean(el, xalways_reload[lang])); 
 		editor.setComposite(getAttributeBoolean(el, xcomposite[lang])); 
+		// tmr ini
+		editor.setDefaultLabelFormat(getDefaultLabelFormat(el));
+		// tmr fin
 		String dependsStereotypes = el.getAttribute(xdepends_stereotypes[lang]);
 		String dependsProperties = el.getAttribute(xdepends_properties[lang]);
 		if (
@@ -85,6 +89,15 @@ public class EditorsParser extends ParserBase {
 		addEditorsForTabModel(editor, el);
 	}	
 	
+	private Integer getDefaultLabelFormat(Element el) { // tmr
+		String labelFormat = el.getAttribute(xdefault_label_format[lang]);
+		if (Is.emptyString(labelFormat)) return null;
+		if (xnormal[lang].equals(labelFormat)) return MetaPropertyView.NORMAL_LABEL;
+		if (xsmall[lang].equals(labelFormat)) return MetaPropertyView.SMALL_LABEL;
+		if (xno_label[lang].equals(labelFormat)) return MetaPropertyView.NO_LABEL;
+		throw new XavaException("invalid_label_format", labelFormat);
+	}
+
 	private MetaSet createSet(Node n) throws XavaException {
 		Element el = (Element) n;
 		MetaSet a = new MetaSet();		

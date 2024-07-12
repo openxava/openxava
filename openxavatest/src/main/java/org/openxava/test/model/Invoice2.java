@@ -57,8 +57,9 @@ public class Invoice2 {
 	
 	@Stereotype("MONEY") // In this way, not with @Money, to test a case 
 	@ReadOnly 
-	@LabelFormat(forViews="NoModifyDetails", value=LabelFormatType.SMALL) // tmr
+	// tmr @LabelFormat(forViews="NoModifyDetails", value=LabelFormatType.SMALL) // tmr
 	@LargeFormat(forViews="NoModifyDetails", prefix = "€") // Euro symbol at start to try prefix and euro symbol processing // tmr
+	@DisplaySize(forViews="NoModifyDetails", value=10) // tmr
 	private BigDecimal amountsSum;
 	
 	@Money @LargeFormat @LabelFormat(LabelFormatType.SMALL)
@@ -68,8 +69,9 @@ public class Invoice2 {
 	}
 	
 	@Money // In this way, not with @Stereotype("MONEY"), to test a case
-	@LargeFormat // Without prefix or suffix, to try a case 
-	@LabelFormat(LabelFormatType.SMALL) 
+	@LargeFormat // Without prefix or suffix, to try a case
+	@DisplaySize(10) // tmr
+	//@LabelFormat(LabelFormatType.SMALL) 
 	public BigDecimal getTotal() { // tmr
 		if (amountsSum == null) return BigDecimal.ZERO; 
 		BigDecimal vat = amountsSum.multiply(vatPercentage).divide(new BigDecimal("100")); 

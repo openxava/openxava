@@ -5373,8 +5373,15 @@ public class View implements java.io.Serializable {
 	
 	
 	public int getLabelFormatForProperty(MetaProperty p) throws XavaException {
-		if (isFlowLayout()) return LabelFormatType.SMALL.ordinal(); 
-		return getMetaView().getLabelFormatForProperty(p);
+		if (isFlowLayout()) return LabelFormatType.SMALL.ordinal();
+		// tmr ini
+		Integer labelFormat = getMetaView().getLabelFormatForProperty(p);
+		if (labelFormat != null) return labelFormat;
+		MetaEditor editor = WebEditors.getMetaEditorFor(p, getViewName());
+		if (editor.getDefaultLabelFormat() != null) return editor.getDefaultLabelFormat();
+		return XavaPreferences.getInstance().getDefaultLabelFormat();
+		// tmr fin	
+		// tmr return getMetaView().getLabelFormatForProperty(p);
 	}
 	
 	public int getLabelFormatForReference(MetaReference ref) throws XavaException {

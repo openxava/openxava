@@ -241,7 +241,7 @@
 	
 	<!-- tmr ini -->
 	<!-- tmr Mover a openxava -->
-	<editor name="LargeFormat" url="largeFormatEditor.jsp">
+	<editor name="LargeFormat" url="largeFormatEditor.jsp" default-label-format="small">
 		<for-annotation annotation="org.openxava.test.annotations.LargeFormat"/>
 	</editor>
 	<!-- tmr fin -->

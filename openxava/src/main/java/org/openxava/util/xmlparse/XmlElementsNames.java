@@ -143,9 +143,11 @@ public class XmlElementsNames {
 	protected final static String [] xparameter = { "parameter", "parametro" };
 	protected final static String [] xentity_mapping = { "entity-mapping", "mapeo-entidad" };
 	protected final static String [] xpackage = { "package", "paquete" };
+	/* tmr
 	protected final static String [] XNORMAL = { "NORMAL", "NORMAL" };
 	protected final static String [] XSMALL = { "SMALL", "PEQUENA" };
 	protected final static String [] XNO_LABEL = { "NO_LABEL", "SIN_ETIQUETA" };
+	*/
 	protected final static String [] xstyle = { "style", "estilo" };
 	protected final static String [] xrow_style = { "row-style", "estilo-fila" };
 	protected final static String [] xfrom_type = { "from-type", "del-tipo" };
@@ -222,5 +224,11 @@ public class XmlElementsNames {
 	protected final static String [] xloses_changed_data = { "loses-changed-data", "pierde-datos-cambiados" }; 
 	protected final static String [] xfor_annotation = { "for-annotation", "para-anotacion" }; 
 	protected final static String [] xannotation = { "annotation", "anotacion" }; 
+	// tmr ini
+	protected final static String [] xdefault_label_format = { "default-label-format", "formato-etiqueta-defecto" };
+	protected final static String [] xnormal = { "normal", "normal" };
+	protected final static String [] xsmall = { "small", "pequena" };
+	protected final static String [] xno_label = { "no-label", "sin-etiqueta" };
+	// tmr fin
 	
 }
