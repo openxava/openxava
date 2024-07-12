@@ -20,7 +20,8 @@ public class MetaPropertyView extends MetaMemberView implements java.io.Serializ
 	private String label;
 	private boolean readOnly;
 	private String onChangeActionClassName;	
-	private int labelFormat = XavaPreferences.getInstance().getDefaultLabelFormat();
+	// tmr private int labelFormat = XavaPreferences.getInstance().getDefaultLabelFormat();
+	private Integer labelFormat; // tmr
 	private int displaySize;
 	private String labelStyle;
 	
@@ -78,10 +79,10 @@ public class MetaPropertyView extends MetaMemberView implements java.io.Serializ
 		onChangeActionClassName = string;
 	}
 
-	public int getLabelFormat() {
+	public Integer getLabelFormat() {
 		return labelFormat;
 	}
-	public void setLabelFormat(int labelFormat) {
+	public void setLabelFormat(Integer labelFormat) {
 		this.labelFormat = labelFormat;
 	}
 

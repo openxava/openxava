@@ -833,9 +833,13 @@ public class MetaView extends MetaElement implements Cloneable {
 	public Integer getLabelFormatForProperty(MetaProperty p) {
 		MetaPropertyView metaPropertyView = getMetaPropertyViewFor(p.getName());
 		// tmr ini
-		// TMR ME QUEDÉ INVESTIGANDO ESTO:
-		// TMR FUNCIONA. PERO SOSPECHO QUE NO DEBERÍA HACERLO SI EL metaPropertyView 
-		// TMR SE DEVUELVE POR OTRO ATRIBUTO. ME QUEDÉ PROBANDO CON @DisplaySize 
+		// TMR ME QUEDÉ POR AQUÍ. ME FUNCIONO BIEN COMBINANDO @ReadOnly y @DisplaySize CON @LargeFormat FALTA:
+		// TMR   - PROBARLO BIEN
+		// TMR   - QUITAR @DisplaySize
+		// TMR   - QUE FUNCIONE CON REFERENCIAS
+		// TMR   - REVISAR CÓDIGO
+		// TMR   - PROBAR DEFAULT EN xava.properties
+		System.out.println("[MetaView.getLabelFormatForProperty] " + p.getName() + ".metaPropertyView=" + metaPropertyView); // tmr
 		if (metaPropertyView == null) return null; 
 		return metaPropertyView.getLabelFormat();
 		// tmr fin

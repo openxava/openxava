@@ -1,4 +1,5 @@
 - LabelFormat dependiente de esteroetipo.
+	- Probar defaultLabelFormat en xava.properties 
 - Mover a openxava. Probar con proyecto independiente.
 - Prueba automática.
 	- Símbolo correcto.
