@@ -4,6 +4,11 @@ import java.util.*;
 
 import org.openxava.validators.*;
 
+/**
+ * 
+ * @author Chungyen Tsai
+ *
+ */
 public abstract class DeleteSelectedInCollectionBaseAction extends CollectionBaseAction {
 	
 	public void execute() throws Exception {
