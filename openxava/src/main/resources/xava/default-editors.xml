@@ -411,8 +411,8 @@
 	</editor>
 	
 	<!-- tmr ini -->
-	<editor name="LargeFormat" url="largeFormatEditor.jsp" default-label-format="small">
-		<for-annotation annotation="org.openxava.annotations.LargeFormat"/>
+	<editor name="LargeDisplay" url="largeDisplayEditor.jsp" default-label-format="small">
+		<for-annotation annotation="org.openxava.annotations.LargeDisplay"/>
 	</editor>
 	<!-- tmr fin -->	
 		

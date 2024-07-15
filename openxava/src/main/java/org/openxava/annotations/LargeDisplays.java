@@ -27,8 +27,8 @@ import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.FIELD, ElementType.METHOD })
-public @interface LargeFormats {
+public @interface LargeDisplays {
 	
-	LargeFormat [] value();
+	LargeDisplay [] value();
 	
 }

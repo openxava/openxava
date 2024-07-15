@@ -21,7 +21,7 @@ Object value = request.getAttribute(propertyKey + ".value");
 String negativeClass = "";
 if (value instanceof Number) {
 	Number number = (Number) value;
-	if (number.longValue() < 0) negativeClass = "ox-large-format-negative"; 
+	if (number.longValue() < 0) negativeClass = "ox-large-display-negative"; 
 }
 %>
-<div class="ox-large-format ox-frame <%=negativeClass%>"><%=iconHTML%><span class="ox-large-format-prefix"><%=prefix%></span><span class="ox-large-format-value"><%=fvalue%></span><span class="ox-large-format-suffix"><%=suffix%></span></div>
+<div class="ox-large-display ox-frame <%=negativeClass%>"><%=iconHTML%><span class="ox-large-display-prefix"><%=prefix%></span><span class="ox-large-display-value"><%=fvalue%></span><span class="ox-large-display-suffix"><%=suffix%></span></div>

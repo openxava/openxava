@@ -3,7 +3,6 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * tmr Se parece mucho a @LabelFormat, ¿buscar otro nombre?
  * tmr redoc
  * To display a chart using the values from a collection. <p>
  * 
@@ -30,10 +29,10 @@ import java.lang.annotation.*;
  * @author Javier Paniza
  */
 
-@Repeatable(LargeFormats.class)
+@Repeatable(LargeDisplays.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.FIELD, ElementType.METHOD }) 
-public @interface LargeFormat {
+public @interface LargeDisplay {
 	
 	/**
 	 * List of comma separated view names where this annotation applies. <p>

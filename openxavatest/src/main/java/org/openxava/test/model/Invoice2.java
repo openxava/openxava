@@ -9,7 +9,6 @@ import javax.validation.constraints.*;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.jpa.*;
-import org.openxava.test.annotations.*;
 
 /**
  * 
@@ -51,22 +50,22 @@ public class Invoice2 {
 	
 	@Digits(integer=2, fraction=1) 
 	@Required
-	@LargeFormat(forViews="NoModifyDetails", suffix = "%", icon="label-percent-outline") // tmr
+	@LargeDisplay(forViews="NoModifyDetails", suffix = "%", icon="label-percent-outline") // tmr
 	private BigDecimal vatPercentage;
 	
 	@Stereotype("MONEY") // In this way, not with @Money, to test a case 
-	@ReadOnly // Don't remove, to test a case combining @LargeFormat with some other property view attribute
-	@LargeFormat(forViews="NoModifyDetails", prefix = "€") // Euro symbol at start to try prefix and euro symbol processing // tmr
+	@ReadOnly // Don't remove, to test a case combining @LargeDisplay with some other property view attribute
+	@LargeDisplay(forViews="NoModifyDetails", prefix = "€") // Euro symbol at start to try prefix and euro symbol processing // tmr
 	private BigDecimal amountsSum;
 	
-	@Money @LargeFormat 
+	@Money @LargeDisplay 
 	public BigDecimal getDiscount() { // tmr
 		if (amountsSum == null) return BigDecimal.ZERO;
 		return amountsSum.multiply(new BigDecimal("0.1")).negate();
 	}
 	
 	@Money // In this way, not with @Stereotype("MONEY"), to test a case
-	@LargeFormat // Without prefix or suffix, to try a case 
+	@LargeDisplay // Without prefix or suffix, to try a case 
 	public BigDecimal getTotal() { // tmr
 		if (amountsSum == null) return BigDecimal.ZERO; 
 		BigDecimal vat = amountsSum.multiply(vatPercentage).divide(new BigDecimal("100")); 
