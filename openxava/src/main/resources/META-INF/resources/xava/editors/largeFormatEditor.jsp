@@ -1,5 +1,3 @@
-<%-- tmr Mover a openxava --%>
-
 <%@ page import="org.openxava.model.meta.MetaProperty" %>
 <%@ page import="org.openxava.util.Is" %>
 <%@ page import="org.openxava.util.Moneys" %>

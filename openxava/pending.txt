@@ -1,4 +1,3 @@
-- Mover a openxava. Probar con proyecto independiente.
 - Prueba automática.
 	- Símbolo correcto.
 	- Prefijos y sufijos.

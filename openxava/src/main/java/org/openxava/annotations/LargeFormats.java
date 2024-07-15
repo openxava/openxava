@@ -1,9 +1,8 @@
-package org.openxava.test.annotations;
+package org.openxava.annotations;
 
 import java.lang.annotation.*;
 
 /**
- * tmr Mover a openxava. 
  * tmr redoc
  * A group of <code>@{@link Chart}</code> associated to the same member. <p>
  * 

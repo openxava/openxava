@@ -409,5 +409,11 @@
 	<editor name="Mask" url="textEditor.jsp"> 
 		<for-annotation annotation="org.openxava.annotations.Mask"/> 
 	</editor>
+	
+	<!-- tmr ini -->
+	<editor name="LargeFormat" url="largeFormatEditor.jsp" default-label-format="small">
+		<for-annotation annotation="org.openxava.annotations.LargeFormat"/>
+	</editor>
+	<!-- tmr fin -->	
 		
 </editors>

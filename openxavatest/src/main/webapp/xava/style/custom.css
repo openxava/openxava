@@ -1,27 +1,3 @@
 .corporation-employee-list-select {
 	margin-bottom: 6px;	
 }
-
-/* tmr ini */
-/* tmr Mover a base.css en openxava */
-.ox-large-format {
-	font-size: xxx-large;
-	color: var(--link-color); /* tmr Crear un --large-format-color */
-	padding: 20px;
-	margin-top: -25px;
-	margin-left: -5px;
-}
-
-.ox-large-format-suffix {
-	font-size: x-large;
-}
-
-.ox-large-format-negative .ox-large-format-value {
-	color: red; /* tmr Crear un --large-format-negative-color */
-}
-
-.ox-large-format i { 
-	color: var(--color); /* tmr Crear un --large-format-icon-color */
-	vertical-align: top;
-}
-/* tmr fin */
