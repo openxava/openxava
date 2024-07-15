@@ -33,6 +33,10 @@ public class Invoice2NoModifyDetailsTest extends ModuleTestBase {
 
 	private void assertLargeDisplay() { 
 		assertSmallLabels(); // It also tests default-label-format for editor in editors.xml
+		HtmlElement amountsSumEditor = getHtmlPage().getHtmlElementById("ox_openxavatest_Invoice2NoModifyDetails__editor_amountsSum");
+		// TMR ME QUEDÉ POR AQUÍ
+		System.out.println("[Invoice2NoModifyDetailsTest.assertLargeDisplay] amountsSumEditor.asXml()=" + amountsSumEditor.asXml()); // tmr
+		System.out.println("[Invoice2NoModifyDetailsTest.assertLargeDisplay] amountsSumEditor.asNormalizedText()=" + amountsSumEditor.asNormalizedText());
 	}
 
 	private void assertSmallLabels() {
