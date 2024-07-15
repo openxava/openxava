@@ -50,7 +50,7 @@ assertActions(actions);</code></pre>
           En este caso deberás cambiar la anotación de <em>@RemoveSelectedAction</em> por <em>@DeleteSelectedAction</em> y el extends de la clase de la acción <em>RemoveSelectedInCollectionAction</em> por <em>DeleteSelectedInCollectionAction</em>. <br>
           Esto se debe que al tener eliminar en cascada, la acción <em>Collection.removeSelected</em> actúa de la misma forma que <em>Collection.deleteSelected</em> y por lo tanto el primero no aparecerá en la vista.</p>
         <pre><code class="java">@OneToMany (mappedBy="delivery", cascade=CascadeType.REMOVE)
-@RemoveSelectedAction(forViews="DEFAULT, MoreSections", value="Detail.removeSelected") // QUITAR<br>@DeleteSelectedAction(forViews="DEFAULT, MoreSections", value="Detail.deleteSelected") // CAMBIAR POR @DeleteSelectedAction, <br>										       // EL NOMBRE DE LA ACCIÓN EN EL CONTROLADOR NO ES OBLIGATORIO CAMBIARLO
+@RemoveSelectedAction(forViews="DEFAULT, MoreSections", value="DeliveryDetail.removeSelected") // QUITAR<br>@DeleteSelectedAction(forViews="DEFAULT, MoreSections", value="DeliveryDetail.deleteSelected") // CAMBIAR POR @DeleteSelectedAction, <br>										       // EL NOMBRE DE LA ACCIÓN EN EL CONTROLADOR NO ES OBLIGATORIO CAMBIARLO
 private Collection&lt;Detail&gt; details;	<br></code></pre>
         <pre><code class="java">public class DeleteSelectedDeliveryDetailsAction 
 	extends RemoveSelectedInCollectionAction { // QUITAR

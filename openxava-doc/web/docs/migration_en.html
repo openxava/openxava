@@ -50,7 +50,7 @@ assertActions(actions);</code></pre>
       <p>This also affects if you have a collection with <em>(cascade=CascadeType.REMOVE)</em> and <em>@RemoveSelectedAction</em> customizing the Remove action.<br>
         In this case, you should change the <em>@RemoveSelectedAction</em> annotation to <em>@DeleteSelectedAction</em> and also change the extends of the action's class from <em>RemoveSelectedInCollectionAction </em>to <em>DeleteSelectedInCollectionAction</em>. This is because with cascade remove, the <em>Collection.removeSelected</em> action behaves the same as <em>Collection.deleteSelected</em> and therefore the former will not appear in the view.</p>
       <pre><code class="java">@OneToMany (mappedBy="delivery", cascade=CascadeType.REMOVE)
-@RemoveSelectedAction(forViews="DEFAULT, MoreSections", value="Detail.removeSelected") // REMOVE<br>@DeleteSelectedAction(forViews="DEFAULT, MoreSections", value="Detail.deleteSelected") // CHANGE FOR @DeleteSelectedAction, <br>										       // ACTION'S NAME IN CONTROLLER DOES NOT NEED TO BE CHANGED
+@RemoveSelectedAction(forViews="DEFAULT, MoreSections", value="DeliveryDetail.removeSelected") // REMOVE<br>@DeleteSelectedAction(forViews="DEFAULT, MoreSections", value="DeliveryDetail.deleteSelected") // CHANGE FOR @DeleteSelectedAction, <br>										       // ACTION'S NAME IN CONTROLLER DOES NOT NEED TO BE CHANGED
 private Collection&lt;Detail&gt; details;	<br></code></pre>
       <pre><code class="java">public class DeleteSelectedDeliveryDetailsAction 
 	extends RemoveSelectedInCollectionAction { // REMOVE
