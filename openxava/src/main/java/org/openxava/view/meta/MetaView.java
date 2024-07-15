@@ -830,27 +830,27 @@ public class MetaView extends MetaElement implements Cloneable {
 	}
 	
 	// tmr public int getLabelFormatForProperty(MetaProperty p) {
-	public Integer getLabelFormatForProperty(MetaProperty p) {
+	public Integer getLabelFormatForProperty(MetaProperty p) { // tmr doc
 		MetaPropertyView metaPropertyView = getMetaPropertyViewFor(p.getName());
-		// tmr ini
-		// TMR ME QUEDÉ POR AQUÍ. ME FUNCIONO BIEN COMBINANDO @ReadOnly y @DisplaySize CON @LargeFormat FALTA:
-		// TMR   - PROBARLO BIEN
-		// TMR   - QUITAR @DisplaySize
-		// TMR   - QUE FUNCIONE CON REFERENCIAS
-		// TMR   - REVISAR CÓDIGO
-		// TMR   - PROBAR DEFAULT EN xava.properties
-		System.out.println("[MetaView.getLabelFormatForProperty] " + p.getName() + ".metaPropertyView=" + metaPropertyView); // tmr
-		if (metaPropertyView == null) return null; 
+		if (metaPropertyView == null) return null; // tmr 
+		// tmr if (metaPropertyView == null) return XavaPreferences.getInstance().getDefaultLabelFormat();
 		return metaPropertyView.getLabelFormat();
-		// tmr fin
-		/* tmr
-		if (metaPropertyView == null) return XavaPreferences.getInstance().getDefaultLabelFormat(); 
-		return metaPropertyView.getLabelFormat();
-		*/
 	}
 	
+	// tmr public int getLabelFormatForReference(MetaReference ref) {
+	public Integer getLabelFormatForReference(MetaReference ref) { // tmr
+		MetaReferenceView metaReferenceView = getMetaReferenceViewFor(ref.getName());
+		// tmr if (metaReferenceView == null) return XavaPreferences.getInstance().getDefaultLabelFormat(); 
+		if (metaReferenceView == null) return null; // tmr
+		MetaDescriptionsList descriptionsList = metaReferenceView.getMetaDescriptionsList(); 
+		// tmr if (descriptionsList == null) return XavaPreferences.getInstance().getDefaultLabelFormat();  
+		if (descriptionsList == null) return null; // tmr
+		return descriptionsList.getLabelFormat();		
+	}
+
+	
 	/** @since 5.7 */
-	public int getLabelFormatFor(MetaMember m) {
+	public int getLabelFormatFor(MetaMember m) { // tmr doc
 		/* tmr
 		if (m instanceof MetaProperty) return getLabelFormatForProperty((MetaProperty) m);
 		if (m instanceof MetaReference) return getLabelFormatForReference((MetaReference) m);
@@ -881,16 +881,7 @@ public class MetaView extends MetaElement implements Cloneable {
 		MetaMemberView metaMemberView = getMetaMemberViewFor(m.getName()); 
 		if (metaMemberView == null) return "";
 		return metaMemberView.getEditor();
-	}	
-	
-	public int getLabelFormatForReference(MetaReference ref) {
-		MetaReferenceView metaReferenceView = getMetaReferenceViewFor(ref.getName());
-		if (metaReferenceView == null) return XavaPreferences.getInstance().getDefaultLabelFormat(); 
-		MetaDescriptionsList descriptionsList = metaReferenceView.getMetaDescriptionsList(); 
-		if (descriptionsList == null) return XavaPreferences.getInstance().getDefaultLabelFormat();  
-		return descriptionsList.getLabelFormat();		
-	}
-	
+	}		
 
 	private boolean isSection() {
 		return section;

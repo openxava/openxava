@@ -1,11 +1,10 @@
-- LabelFormat dependiente de esteroetipo.
-	- Probar defaultLabelFormat en xava.properties 
 - Mover a openxava. Probar con proyecto independiente.
 - Prueba automática.
 	- Símbolo correcto.
 	- Prefijos y sufijos.
 	- Icono
 	- Color
+	- default-label-format
 - Revisar código.
 - Documentar. ¿Vista o Modelo?
 	- CSS y color negativo. O puede que con indicar que el color negativo sale en rojo, o que salga en el pantallazo sobra.

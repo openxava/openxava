@@ -5376,22 +5376,27 @@ public class View implements java.io.Serializable {
 		if (isFlowLayout()) return LabelFormatType.SMALL.ordinal();
 		// tmr ini
 		Integer labelFormat = getMetaView().getLabelFormatForProperty(p);
-		System.out.println("[View.getLabelFormatForProperty(" + p.getName()+ ")] labelFormat=" + labelFormat); // tmr
 		if (labelFormat != null) return labelFormat;
-		MetaEditor editor = WebEditors.getMetaEditorFor(p, getViewName());
-		System.out.println("[View.getLabelFormatForProperty(" + p.getName()+ ")] editor=" + editor); // tmr
-		System.out.println("[View.getLabelFormatForProperty(" + p.getName()+ ")] editor.getDefaultLabelFormat()=" + editor.getDefaultLabelFormat()); // tmr
-		if (editor.getDefaultLabelFormat() != null) return editor.getDefaultLabelFormat();
-		System.out.println("[View.getLabelFormatForProperty(" + p.getName()+ ")] DEFAULT"); // tmr
-		return XavaPreferences.getInstance().getDefaultLabelFormat();
+		return getDefaultLabelFormatFor(p);
 		// tmr fin	
 		// tmr return getMetaView().getLabelFormatForProperty(p);
 	}
-	
+
 	public int getLabelFormatForReference(MetaReference ref) throws XavaException {
-		if (isFlowLayout()) return LabelFormatType.SMALL.ordinal(); 
-		return getMetaView().getLabelFormatForReference(ref);
+		if (isFlowLayout()) return LabelFormatType.SMALL.ordinal();
+		// tmr ini
+		Integer labelFormat = getMetaView().getLabelFormatForReference(ref);
+		if (labelFormat != null) return labelFormat;
+		return getDefaultLabelFormatFor(ref);
+		// tmr fin		
+		// tmr return getMetaView().getLabelFormatForReference(ref);
 	}
+	
+	private int getDefaultLabelFormatFor(MetaMember member) { // tmr
+		MetaEditor editor = WebEditors.getMetaEditorFor(member, getViewName());
+		if (editor.getDefaultLabelFormat() != null) return editor.getDefaultLabelFormat();
+		return XavaPreferences.getInstance().getDefaultLabelFormat();
+	}	
 	
 	/**
 	 * To determine what type of layout to do with flowLayout activated.
