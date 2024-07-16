@@ -39,5 +39,19 @@ When code is ready compile:
 	
 And start the application again.	
 
+## New project from other archetypes
+Apart from the basic archetype there are other OpenXava archetypes so you don't have to start from scratch your application.
+For a project with an initial Master-Detail structure use openxava-master-detail-archetype, in this way:
+
+	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-master-detail-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourmasterdetail -DinteractiveMode=false
+	
+For a basic CRM use openxava-crm-archetype, thus:
+
+	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-crm-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourcrm -DinteractiveMode=false
+	
+For a project management application use openxava-project-management-archetype:
+
+	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-project-management-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourtracker -DinteractiveMode=false
+
 ## Learn more
 To learn more go to the official OpenXava documentation here: [openxava.org/doc](https://openxava.org/doc)
