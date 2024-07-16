@@ -97,7 +97,7 @@ if (view.displayDetailInCollection(collectionName)) {
 	<jsp:param name="action" value="<%=subview.getNewCollectionElementAction()%>"/>
 	<jsp:param name="argv" value='<%="viewObject="+viewName%>'/>
 </jsp:include>
-<% if (subview.isCollectionEntityReferencesCollection()) { %>
+<% if (subview.isRepresentsEntityCollection()) { %>
 <jsp:include page="../barButton.jsp">
 	<jsp:param name="action" value="<%=subview.getRemoveSelectedCollectionElementsAction()%>"/>
 	<jsp:param name="argv" value='<%="viewObject="+viewName%>'/>

@@ -4,7 +4,7 @@ import java.lang.annotation.*;
 
 /**
  * Allows to define your a custom action to delete the selected elements 
- * from the collection and data base. <p>
+ * from the collection and database. <p>
  *  
  * Applies to @OneToMany/@ManyToMany collections. <p>
  * 
@@ -16,7 +16,7 @@ import java.lang.annotation.*;
  * &nbsp;@DeleteSelectedAction("DeliveryDetails.deleteSelected")
  * &nbsp;private Collection<DeliveryDetail> details;	
  * </pre>
- * @author Chungyen, Tsai
+ * @author Chungyen Tsai
  *
  */
 @Repeatable(DeleteSelectedActions.class)

@@ -12486,7 +12486,7 @@ class="re2">/&gt;</span></span></pre>
 @HideDetailAction       <span class="co1">// 14</span>
 @RemoveAction           <span class="co1">// 15</span>
 @RemoveSelectedAction   <span class="co1">// 16</span><br>@DeleteSelectedAction   <span
-class="co1">// 1<span style="color: #505050;">7</span></span>
+class="co1">// 1<span style="color: #505050;">7 New in v7.4</span></span>
 @ListAction             <span class="co1">// 18</span>
 @RowAction              <span class="co1">// 19 New in v4.6</span>
 @DetailAction           <span class="co1">// 20</span>
@@ -12744,8 +12744,7 @@ class="kw46">Collection</span></a> collectionName<span class="sy0">;</span></pre
             rel="nofollow">OX</a>): Allows you to define your custom action to remove the selected elements from the collection. This is the action executed when a user selects some rows and then click in 'Remove selected' button, or clicks directly on the remove icon in a row. Only one <em>@RemoveSelectedAction</em> per view is allowed.</li>
         <li><strong><a class="wiki_link" href="#View-Collection%20customization-Refining%20collection%20view%20default%20behavior">@DeleteSelectedAction</a></strong> (<a
             class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/DeleteSelectedAction.html"
-            rel="nofollow">OX</a>): Allows you to define your custom action to
-          delete the selected elements from the collection and data base. This is the action executed when a user selects some rows and then click in 'Delete selected' button, or clicks directly on the remove icon in a row. Only one <em>@DeleteSelectedAction</em> per view is allowed.</li>
+            rel="nofollow">OX</a>): Allows you to define your custom action to delete the selected elements from the collection and data base. This is the action executed when a user selects some rows and then click in 'Delete selected' button, or clicks directly on the remove icon in a row. Only one <em>@DeleteSelectedAction</em> per view is allowed.</li>
         <li><strong><a class="wiki_link" href="view_en.html#Chapter%204:%20View-Collection%20customization-Custom%20list%20and%20row%20actions">@ListAction</a></strong> (<a
             class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/ListAction.html"
             rel="nofollow">OX</a>): To add actions in list mode; usually actions which scope is the entire collection. It's possible to define several <em>@ListAction</em> for each view.</li>
@@ -15730,7 +15729,7 @@ class="kw46">Map</span></a> map<span class="br0">)</span> <span class="br0">{</s
           href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/RemoveSelectedAction.html"
           rel="nofollow">@RemoveSelectedAction</a></em> and <em><a class="wiki_link_ext"
           href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/DeleteSelectedAction.html"
-          rel="nofollow">@DeleteSelectedAction</a></em> you can refine the default behavior of collection view. For example if you want to refine the behavior of save a detail action you can define your view in this way:<br>
+          rel="nofollow">@DeleteSelectedAction</a></em><em>(new in v7.4)</em> you can refine the default behavior of collection view. For example if you want to refine the behavior of save a detail action you can define your view in this way:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann

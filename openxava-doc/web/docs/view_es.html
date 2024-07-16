@@ -12462,7 +12462,7 @@ class="re2">/&gt;</span></span></pre>
 @HideDetailAction       <span class="co1">// 14</span>
 @RemoveAction           <span class="co1">// 15</span>
 @RemoveSelectedAction   <span class="co1">// 16</span><br>@DeleteSelectedAction   <span
-class="co1">// 17</span>
+class="co1">// 17 Nuevo en v7.4</span>
 @ListAction             <span class="co1">// 18</span>
 @RowAction              <span class="co1">// 19 Nuevo en v4.6</span>
 @DetailAction           <span class="co1">// 20</span>
@@ -12721,8 +12721,7 @@ class="kw46">Collection</span></a> nombreColleccion<span class="sy0">;</span></p
             rel="nofollow">OX</a>): Permite definir nuestra propia acción para quitar los elementos seleccionados de la colección. Ésta es la acción que se ejecuta al seleccionar algunas filas y pulsar en el botón 'Quitar seleccionados', o pulsar directamente el icono de quitar en la fila deseada. Solo una <em>@RemoveSelectedAction</em> por vista está permitida.</li>
         <li><strong><a class="wiki_link" href="#Vista-Personalizacion+de+coleccion-Refinar+comportamiento+por+defecto+para+la+vista+de+coleccion">@DeleteSelectedAction</a></strong> (<a
             class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/DeleteSelectedAction.html"
-            rel="nofollow">OX</a>): Permite definir nuestra propia acción para
-          eliminar los elementos seleccionados de la colección y de la base de datos. Ésta es la acción que se ejecuta al seleccionar algunas filas y pulsar en el botón 'Eliminar seleccionados', o pulsar directamente el icono de eliminar en la fila deseada. Solo una <em>@DeleteSelectedAction</em> por vista está permitida.</li>
+            rel="nofollow">OX</a>): Permite definir nuestra propia acción para eliminar los elementos seleccionados de la colección y de la base de datos. Ésta es la acción que se ejecuta al seleccionar algunas filas y pulsar en el botón 'Eliminar seleccionados', o pulsar directamente el icono de eliminar en la fila deseada. Solo una <em>@DeleteSelectedAction</em> por vista está permitida.</li>
         <li><strong><a class="wiki_link" href="#Vista-Personalizacion+de+coleccion-Acciones+de+lista+y+fila+propias">@ListAction</a></strong> (<a
             class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/ListAction.html"
             rel="nofollow">OX</a>): Para poder añadir acciones en el modo lista; normalmente acciones cuyo alcance es la colección entera. Es posible definir varias <em>@ListAction</em> por cada vista.</li>
@@ -15709,7 +15708,7 @@ class="kw46">Map</span></a> map<span class="br0">)</span> <span class="br0">{</s
           href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/RemoveSelectedAction.html"
           rel="nofollow">@RemoveSelectedAction</a></em> y <em><a class="wiki_link_ext"
           href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/DeleteSelectedAction.html"
-          rel="nofollow">@DeleteSelectedAction</a></em>(nuevo en v7.4) podemos refinar el comportamiento por defecto para una vista de colección. Por ejemplo, si queremos refinar el comportamiento de la acción de grabar un detalle podemos definir nuestra vista de esta forma:<br>
+          rel="nofollow">@DeleteSelectedAction</a>(nuevo en v7.4)</em> podemos refinar el comportamiento por defecto para una vista de colección. Por ejemplo, si queremos refinar el comportamiento de la acción de grabar un detalle podemos definir nuestra vista de esta forma:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann

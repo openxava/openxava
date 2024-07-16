@@ -68,7 +68,6 @@ public class View implements java.io.Serializable {
 	private String hideCollectionElementAction;
 	private String removeCollectionElementAction;
 	private String removeSelectedCollectionElementsAction;
-	private String deleteCollectionElementAction;
 	private String deleteSelectedCollectionElementsAction;
 	private String onSelectCollectionElementAction; 
 	private Collection subcontrollersNamesList; 
@@ -5238,7 +5237,7 @@ public class View implements java.io.Serializable {
 	public Collection getRowActionsNames() { 
 		Collection rowActionsNames = new ArrayList();
 		if (isCollectionEditable()) {
-			if (isCollectionEntityReferencesCollection() && isRowAction(getRemoveSelectedCollectionElementsAction())) 
+			if (isRepresentsEntityCollection() && isRowAction(getRemoveSelectedCollectionElementsAction())) 
 				rowActionsNames.add(getRemoveSelectedCollectionElementsAction());
 			if (isRowAction(getDeleteSelectedCollectionElementsAction())) 
 				rowActionsNames.add(getDeleteSelectedCollectionElementsAction());
@@ -7244,7 +7243,7 @@ public class View implements java.io.Serializable {
 	/**
 	 * @since 7.4
 	 */
-	public boolean isCollectionEntityReferencesCollection() throws XavaException {
+	public boolean isRepresentsEntityCollection() throws XavaException {
 		if (!isRepresentsCollection()) return false;
 		MetaCollectionView metaCollectionView = getMetaView().getMetaCollectionView(getMetaCollection().getName());
 		if (metaCollectionView != null) return !metaCollectionView.isAsAggregate();
