@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Getting started guide adapted to OpenXava Studio 7 R3. 
 - @Chart annotation for collections to display the collection as a chart from its data. 
 - As @DescriptionsList defaults 'name' takes preferences over 'description', and 'title' is recognized.
 - New methods getAnnotationAttributeValue() and getAnnotationsWithRepeatables() in Classes utity class.
