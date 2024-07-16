@@ -679,7 +679,7 @@ here that you want to override.
 		<action name="view" image="view.gif"
 			icon="eye"
 			class="org.openxava.actions.ViewElementInCollectionAction"/>
-			<!-- server-remove -->
+
 		<action name="removeSelected" confirm="true"
 			icon="table-row-remove" 
 			in-each-row="true"
