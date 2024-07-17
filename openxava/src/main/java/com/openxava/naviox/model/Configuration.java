@@ -58,7 +58,12 @@ public class Configuration implements java.io.Serializable {
 	
 	@Max(999)
 	@Column(name="inactiveDaysBeforeDisUser") 
-	private int inactiveDaysBeforeDisablingUser;  
+	private int inactiveDaysBeforeDisablingUser;
+	
+	/** @since 7.4 */
+	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
+	@Column(columnDefinition="varchar(1) default 'N' not null")	
+	private boolean allowSeveralSessionsPerUser; // tmr Cambiar schema-update.sql. Actualizar pantallazo doc. i18n 	
 	
 	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
 	@Column(columnDefinition="varchar(1) default 'Y' not null")
@@ -79,11 +84,13 @@ public class Configuration implements java.io.Serializable {
 	/** @since 6.6 */
 	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
 	@Column(columnDefinition="varchar(1) default 'N' not null")	
-	private boolean caseSensitiveUserName; 
-
+	private boolean caseSensitiveUserName;
+	
 	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
 	@Column(columnDefinition="varchar(1) default 'N' not null")
 	private boolean privacyPolicyOnSignUp; 
+	
+	
 
 	@Hidden
 	public int getLockSessionMilliseconds() {  
@@ -243,6 +250,16 @@ public class Configuration implements java.io.Serializable {
 
 	public void setCaseSensitiveUserName(boolean caseSensitiveUserName) {
 		this.caseSensitiveUserName = caseSensitiveUserName;
+	}
+
+
+	public boolean isAllowSeveralSessionsPerUser() {
+		return allowSeveralSessionsPerUser;
+	}
+
+
+	public void setAllowSeveralSessionsPerUser(boolean allowSeveralSessionsPerUser) {
+		this.allowSeveralSessionsPerUser = allowSeveralSessionsPerUser;
 	}
 
 }
