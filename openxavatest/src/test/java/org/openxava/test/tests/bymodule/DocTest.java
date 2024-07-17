@@ -1,9 +1,8 @@
 package org.openxava.test.tests.bymodule;
 
 import org.apache.commons.lang3.*;
-import org.openxava.tests.*;
-
 import org.htmlunit.html.*;
+import org.openxava.tests.*;
 
 /**
  *  
