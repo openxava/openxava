@@ -830,6 +830,7 @@ public class MetaView extends MetaElement implements Cloneable {
 	}
 	
 	// tmr public int getLabelFormatForProperty(MetaProperty p) {
+	/** If not label format specified for the property returns null. */
 	public Integer getLabelFormatForProperty(MetaProperty p) { // tmr doc
 		MetaPropertyView metaPropertyView = getMetaPropertyViewFor(p.getName());
 		if (metaPropertyView == null) return null; // tmr 
@@ -838,6 +839,7 @@ public class MetaView extends MetaElement implements Cloneable {
 	}
 	
 	// tmr public int getLabelFormatForReference(MetaReference ref) {
+	/** If not label format specified for the reference returns null. */
 	public Integer getLabelFormatForReference(MetaReference ref) { // tmr
 		MetaReferenceView metaReferenceView = getMetaReferenceViewFor(ref.getName());
 		// tmr if (metaReferenceView == null) return XavaPreferences.getInstance().getDefaultLabelFormat(); 
@@ -849,7 +851,10 @@ public class MetaView extends MetaElement implements Cloneable {
 	}
 
 	
-	/** @since 5.7 */
+	/**
+	 * If not label format specified for the member returns the defaultLabelFormat from XavaPreferences.  
+	 * @since 5.7 
+	 */
 	public int getLabelFormatFor(MetaMember m) { // tmr doc
 		/* tmr
 		if (m instanceof MetaProperty) return getLabelFormatForProperty((MetaProperty) m);

@@ -3,23 +3,23 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * tmr redoc
- * A group of <code>@{@link Chart}</code> associated to the same member. <p>
+ * tmr 
+ * A group of <code>@{@link LargeDisplay}</code> associated to the same member. <p>
  * 
- * Applies to collections.<p>
+ * Applies to properties.<p>
  * 
- * It allows to define a value different for <code>@{@link Chart}</code> in each view.<br>
+ * It allows to define a value different for <code>@{@link LargeDisplay}</code> in each view.<br>
  * Example:
  * <pre>
- * &nbsp;@Charts({
- * &nbsp;&nbsp;&nbsp;@Chart(forViews="DEFAULT", ... ),
- * &nbsp;&nbsp;&nbsp;@Chart(forViews="Simple, VerySimple", ... ),
- * &nbsp;&nbsp;&nbsp;@Chart(forViews="Complete", ... )
+ * &nbsp;@LargeDisplays({
+ * &nbsp;&nbsp;&nbsp;@LargeDisplay(forViews="DEFAULT", ... ),
+ * &nbsp;&nbsp;&nbsp;@LargeDisplay(forViews="Simple, VerySimple", ... ),
+ * &nbsp;&nbsp;&nbsp;@LargeDisplay(forViews="Complete", ... )
  * &nbsp;})
  * </pre>
  * 
- * @Chart is repeatable, so you don't need to use @Charts explicitly, 
- * just put several @Chart annotating the same collection.
+ * @LargeDisplays is repeatable, so you don't need to use @LargeDisplays explicitly, 
+ * just put several @LargeDisplay annotating the same property.
  *  
  * @version 7.4 
  * @author Javier Paniza

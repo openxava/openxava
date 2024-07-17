@@ -44,7 +44,7 @@ public class MetaEditor implements Cloneable {
 	private String initAction; 
 	private String releaseAction; 
 	private boolean selectableItems;
-	private Integer defaultLabelFormat; // tmr javadoc en getter . Añadir a changelog. Añadir a reference guide. 
+	private Integer defaultLabelFormat; // tmr Añadir a changelog. Añadir a reference guide. 
 	private Set<String> typeSet;
 	private Set<String> annotationSet;
 	private Set<String> stereotypeSet;
@@ -402,6 +402,15 @@ public class MetaEditor implements Cloneable {
 		return priority;
 	}
 
+	/**
+	 * Default label format for the editor. <p>
+	 * 
+	 * The possible values are NORMAL_LABEL, SMALL_LABEL and NO_LABEL
+	 * from MetaPropertyView.<br>
+	 * If not specified the value will be null.
+	 * 
+	 * @since 7.4
+	 */
 	public Integer getDefaultLabelFormat() {
 		return defaultLabelFormat;
 	}

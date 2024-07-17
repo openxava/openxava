@@ -7,8 +7,8 @@ import org.openxava.annotations.*;
 import org.openxava.model.meta.*;
 
 /**
- * tmr doc
  * tmr En changelog
+ * Utility class to work with money values and properties. 
  * 
  * @since 7.4
  * @author Javier Paniza
@@ -35,7 +35,8 @@ public class Moneys {
 		}
 	}
 	
-	public static String getCurrencySymbol() { // tmr Refactorizar moneyEditor.jsp para usar este método
+	/** From the JVM locale, not from browser. */
+	public static String getCurrencySymbol() { 
 		return getCurrencySymbol(Locale.getDefault()); // Locale from server, not from browser
 	}
 	

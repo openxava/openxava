@@ -265,6 +265,12 @@
 	--calendar-button-hover-color: var(--action-hover-color);
 	--calendar-button-hover-background: var(--action-hover-background);
 	--calendar-cell-border-color: var(--action-hover-background);
+	
+	/* tmr ini */
+	--large-display-color: var(--link-color); 
+	--large-display-negative-color: red; 
+	--large-display-icon-color: var(--color); 
+	/* tmr fin */
 }
 
 @font-face {
@@ -3007,7 +3013,7 @@ a[data-action="Collection.previous"] {
 /* tmr ini */
 .ox-large-display {
 	font-size: xxx-large;
-	color: var(--link-color); /* tmr Crear un --large-display-color */
+	color: var(--large-display-color);
 	padding: 20px;
 	margin-top: -25px;
 	margin-left: -5px;
@@ -3018,11 +3024,11 @@ a[data-action="Collection.previous"] {
 }
 
 .ox-large-display-negative .ox-large-display-value {
-	color: red; /* tmr Crear un --large-display-negative-color */
+	color: var(--large-display-negative-color); 
 }
 
 .ox-large-display i { 
-	color: var(--color); /* tmr Crear un --large-display-icon-color */
+	color: var(--large-display-icon-color); 
 	vertical-align: top;
 }
 /* tmr fin */
