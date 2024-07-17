@@ -251,6 +251,14 @@ public class Dates {
 		return DateFormat.getDateInstance(DateFormat.SHORT, Locales.getCurrent()).format(date);			
 	}
 	
+	public static DateTimeFormatter getLocalDateTimeFormat() {
+		return getLocalDateTimeFormat(Locales.getCurrent(), true);
+	}
+	
+	public static DateTimeFormatter getLocalDateTimeFormatForParsing() { 
+		return getLocalDateTimeFormat(Locales.getCurrent(), false);
+	}
+	
 	/**
 	 * DateFormat for date + time consistently among all Java versions, according current <i>locale</i>. <p>
 	 * 
@@ -295,13 +303,15 @@ public class Dates {
 	 */	
 	public static DateFormat getDateTimeFormatForParsing(Locale locale) { 
 		return getDateTimeFormat(locale, false);
-	}	
+	}
 	
 	private static DateFormat getDateTimeFormat(Locale locale, boolean fourDigitsForYear) { 
 		// To use the Java 8 (and previous) format for Java 9 and better
 		DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale);
+		System.out.println("getDateTimeFormat");
 		if (df instanceof SimpleDateFormat) {
 			String patternBeforeReFormat = ((SimpleDateFormat) df).toPattern();
+			System.out.println(patternBeforeReFormat);
 			String pattern = locale.toString().equalsIgnoreCase("sr")?patternBeforeReFormat.substring(0,10) + (patternBeforeReFormat.substring(10, patternBeforeReFormat.length())).replace(".", ":"):patternBeforeReFormat;
 			if (locale.toString().equalsIgnoreCase("zh_CN") || locale.toString().equalsIgnoreCase("nl")) fourDigitsForYear = true;
 			boolean java9 = XSystem.isJava9orBetter();
@@ -316,6 +326,16 @@ public class Dates {
 			df = sdf;
 		}
 		return df;
+	}
+	
+	private static DateTimeFormatter getLocalDateTimeFormat(Locale locale, boolean fourDigitsForYear) {
+		DateFormat df = getDateTimeFormat(locale, fourDigitsForYear);
+		String pattern = "";
+		if (df instanceof SimpleDateFormat) {
+	        pattern = ((SimpleDateFormat) df).toPattern();
+	    }
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern, locale);
+		return formatter;
 	}
 
 	/**

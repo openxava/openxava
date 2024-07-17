@@ -12,26 +12,38 @@ import org.openxava.util.*;
 public class LocalDateTimeFormatter extends DateTimeBaseFormatter implements IFormatter {
 	
 	private static DateTimeFormatter extendedFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"); // Only for some locales like "es" and "pl"
-	
-	private static DateTimeFormatter [] extendedFormatters = { // Only for some locales like "es", "fr", "ca" and "pl"
-			DateTimeFormatter.ofPattern("d/M/yyyy HH:mm").withResolverStyle(ResolverStyle.SMART),
-			DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").withResolverStyle(ResolverStyle.SMART),
-			DateTimeFormatter.ofPattern("dd/MM/yy HH:mm").withResolverStyle(ResolverStyle.SMART),
-			DateTimeFormatter.ofPattern("d/M/yy HH:mm").withResolverStyle(ResolverStyle.SMART),
-	        DateTimeFormatter.ofPattern("ddMMyy HH:mm").withResolverStyle(ResolverStyle.SMART),
-	        DateTimeFormatter.ofPattern("ddMMyyyy HH:mm").withResolverStyle(ResolverStyle.SMART),
-	        DateTimeFormatter.ofPattern("dd.MM.yy HH:mm").withResolverStyle(ResolverStyle.SMART),
-	        DateTimeFormatter.ofPattern("d.M.yy HH:mm").withResolverStyle(ResolverStyle.SMART),
-	        DateTimeFormatter.ofPattern("d.M.yyyy HH:mm").withResolverStyle(ResolverStyle.SMART),
-	        DateTimeFormatter.ofPattern("yyyy/M/d HH:mm").withResolverStyle(ResolverStyle.SMART),
-	        DateTimeFormatter.ofPattern("yyyy/M/d ah:mm").withResolverStyle(ResolverStyle.SMART),
-	        //DateTimeFormatter.ofPattern("yyyy/M/d ah:mm:ss").withResolverStyle(ResolverStyle.SMART),
-	};
-	
 	private static DateTimeFormatter dotFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"); // Only for some locales like "hr"
 	private static DateTimeFormatter zhFormatter = DateTimeFormatter.ofPattern("yyyy/M/d ah:mm");
 	
-	
+	private static DateTimeFormatter [] extendedFormatters = { // Only for some locales like "es", "fr", "ca" and "pl"
+			DateTimeFormatter.ofPattern("dd/MM/yy HH:mm:ss").withResolverStyle(ResolverStyle.SMART),
+			DateTimeFormatter.ofPattern("dd/MM/yy HH:mm").withResolverStyle(ResolverStyle.SMART),
+			DateTimeFormatter.ofPattern("ddMMyy HH:mm").withResolverStyle(ResolverStyle.SMART),
+			DateTimeFormatter.ofPattern("ddMMyy HH:mm:ss").withResolverStyle(ResolverStyle.SMART),
+			DateTimeFormatter.ofPattern("dd.MM.yy HH:mm").withResolverStyle(ResolverStyle.SMART),
+			DateTimeFormatter.ofPattern("dd.MM.yy HH:mm:ss").withResolverStyle(ResolverStyle.SMART),
+			DateTimeFormatter.ofPattern("yyyy/M/d ah:mm").withResolverStyle(ResolverStyle.SMART),
+			DateTimeFormatter.ofPattern("dd/MM/yy").withResolverStyle(ResolverStyle.SMART),
+			DateTimeFormatter.ofPattern("ddMMyy").withResolverStyle(ResolverStyle.SMART),
+			DateTimeFormatter.ofPattern("dd.MM.yy").withResolverStyle(ResolverStyle.SMART),
+			/*
+			DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").withResolverStyle(ResolverStyle.SMART),
+			DateTimeFormatter.ofPattern("dd/MM/yy HH:mm").withResolverStyle(ResolverStyle.SMART),
+			DateTimeFormatter.ofPattern("d/M/yyyy HH:mm").withResolverStyle(ResolverStyle.SMART),
+			DateTimeFormatter.ofPattern("d/M/yy HH:mm").withResolverStyle(ResolverStyle.SMART),
+			DateTimeFormatter.ofPattern("ddMMyyyy HH:mm").withResolverStyle(ResolverStyle.SMART),
+			DateTimeFormatter.ofPattern("ddMMyy HH:mm").withResolverStyle(ResolverStyle.SMART),
+			DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm").withResolverStyle(ResolverStyle.SMART),
+			DateTimeFormatter.ofPattern("dd.MM.yy HH:mm").withResolverStyle(ResolverStyle.SMART),
+			DateTimeFormatter.ofPattern("d.M.yyyy HH:mm").withResolverStyle(ResolverStyle.SMART),
+			DateTimeFormatter.ofPattern("d.M.yy HH:mm").withResolverStyle(ResolverStyle.SMART),
+	        */
+	        /*
+			DateTimeFormatter.ofPattern("yyyy/M/d HH:mm").withResolverStyle(ResolverStyle.SMART),
+	        DateTimeFormatter.ofPattern("yyyy/M/d ah:mm").withResolverStyle(ResolverStyle.SMART),*/
+			
+
+	};
 	
 	public String format(HttpServletRequest request, Object date) {
 		if (date == null) return "";
@@ -67,16 +79,25 @@ public class LocalDateTimeFormatter extends DateTimeBaseFormatter implements IFo
 			catch (DateTimeParseException ex) {
 			} 
 		}
-		System.out.println("parse final");
-		LocalDateTime result = LocalDateTime.parse(string, getDateTimeFormatter(true));
+		System.out.println("parse final"); 
+		java.util.Date date = (java.util.Date) new DateFormatter().parse(request, string);
+		System.out.println(date);
+		System.out.println(new java.sql.Timestamp(date.getTime()));
+		LocalDateTime localDateTime = date.toInstant()
+	            .atZone(ZoneId.systemDefault())
+	            .toLocalDateTime();
+		//System.out.println(LocalDateTime localDateTime = date.toInstant());
+		//String pattern = ((SimpleDateFormat) df).toPattern();
+		LocalDateTime result = (LocalDateTime) new DateFormatter().parse(request, string);
+		//LocalDateTime result = LocalDateTime.parse(string, getDateTimeFormatter(true));
 		return result; 
 	}
 
-	private DateTimeFormatter getDateTimeFormatter(boolean b) { 
+	private DateTimeFormatter getDateTimeFormatter(boolean forParsing) { 
 		if (isExtendedFormat()) return extendedFormatter;
 		if (isDotFormat()) return dotFormatter; 
 		if (isZhFormat()) return zhFormatter;
-		return DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(Locales.getCurrent());    
+		return forParsing ? Dates.getLocalDateTimeFormatForParsing() : Dates.getLocalDateTimeFormat();    
 	}
 	
 	private DateTimeFormatter[] getDateTimeFormats() {
