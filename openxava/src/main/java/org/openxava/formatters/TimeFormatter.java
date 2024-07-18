@@ -32,14 +32,14 @@ public class TimeFormatter implements IFormatter {
 	
 	public Object parse(HttpServletRequest request, String string) throws ParseException {
 		if (Is.emptyString(string)) return null;
-		if (XSystem.isJava17orBetter()) {
-			string = string.replace("PM", "p. m.").replace("AM", "a. m.");
-		} else if (XSystem.isJava9orBetter()) {
-			string = string.replace("PM", "p. m.").replace("AM", "a. m.");
+		if (XSystem.isJava17orBetter() && isZhFormat()) {
+			string = string.replace("p. m.", "PM").replace("a. m.", "AM"); 
+		} else if (XSystem.isJava9orBetter() && isZhFormat()) {
+			string = string.replace("p. m.", "PM").replace("a. m.", "AM");
 		}
 		DateTimeFormatter timeFormat = getTimeFormat();
 		try {
-		return LocalTime.parse(string, timeFormat);
+			return LocalTime.parse(string, timeFormat);
 		} catch (Exception ex) {
 		}
 		throw new ParseException(XavaResources.getString("bad_time_format",string),-1);
