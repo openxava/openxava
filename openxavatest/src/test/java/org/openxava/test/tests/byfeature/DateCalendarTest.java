@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.*;
 public class DateCalendarTest extends WebDriverTestBase {
 	
 	public void testLocalDateTime() throws Exception {
-		goModule("Event");
+		goModule("Event"); 
 		assertValueInList(0, 4, "9/30/2023 3:21 PM");
 		execute("List.viewDetail", "row=0");
 		execute("CRUD.save");
