@@ -1215,6 +1215,12 @@ public class AnnotatedClassParser implements IComponentParser {
 		if (element.isAnnotationPresent(RemoveSelectedActions.class)) {
 			notApply(property.getName(), RemoveSelectedActions.class, "collections");
 		}
+		if (element.isAnnotationPresent(DeleteSelectedAction.class)) {
+			notApply(property.getName(), DeleteSelectedAction.class, "collections");
+		}								
+		if (element.isAnnotationPresent(DeleteSelectedActions.class)) {
+			notApply(property.getName(), DeleteSelectedActions.class, "collections");
+		}
 		if (element.isAnnotationPresent(SaveAction.class)) {
 			notApply(property.getName(), SaveAction.class, "collections");
 		}
@@ -1632,6 +1638,29 @@ public class AnnotatedClassParser implements IComponentParser {
 						}
 						else {
 							duplicateAnnotationForView(collection.getName(), RemoveSelectedAction.class, metaView.getName());
+						}
+					}
+				}				
+			}
+			
+			// DeleteSelectedAction
+			if (element.isAnnotationPresent(DeleteSelectedAction.class)) {
+				DeleteSelectedAction action = element.getAnnotation(DeleteSelectedAction.class);
+				if (isForView(metaView, action.forViews(), action.notForViews())) {
+					collectionView.setDeleteSelectedActionName(action.value());
+					mustAddMetaView = true;				
+				}
+			}
+			if (element.isAnnotationPresent(DeleteSelectedActions.class)) {
+				DeleteSelectedAction [] actions = element.getAnnotation(DeleteSelectedActions.class).value();
+				for (DeleteSelectedAction action: actions) {				
+					if (isForView(metaView, action.forViews(), action.notForViews())) {
+						if (Is.emptyString(collectionView.getDeleteSelectedActionName())) {
+							collectionView.setDeleteSelectedActionName(action.value());
+							mustAddMetaView = true;				
+						}
+						else {
+							duplicateAnnotationForView(collection.getName(), DeleteSelectedAction.class, metaView.getName());
 						}
 					}
 				}				
@@ -2354,6 +2383,12 @@ public class AnnotatedClassParser implements IComponentParser {
 		}						
 		if (element.isAnnotationPresent(RemoveSelectedActions.class)) {
 			notApply(ref.getName(), RemoveSelectedActions.class, "collections");
+		}
+		if (element.isAnnotationPresent(DeleteSelectedAction.class)) {
+			notApply(ref.getName(), DeleteSelectedAction.class, "collections");
+		}						
+		if (element.isAnnotationPresent(DeleteSelectedActions.class)) {
+			notApply(ref.getName(), DeleteSelectedActions.class, "collections");
 		}
 		if (element.isAnnotationPresent(SaveAction.class)) {
 			notApply(ref.getName(), SaveAction.class, "collections");

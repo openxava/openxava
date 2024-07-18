@@ -100,7 +100,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		execute("Collection.save");
 		assertCollectionRowCount("receptionists", 3); 
 		checkRowCollection("receptionists", 2);
-		execute("Collection.removeSelected", "viewObject=xava_view_receptionists");
+		execute("Collection.deleteSelected", "viewObject=xava_view_receptionists");
 		assertCollectionRowCount("receptionists", 2);
 	}
 				

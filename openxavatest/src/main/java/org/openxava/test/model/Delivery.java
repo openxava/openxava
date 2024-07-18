@@ -246,7 +246,7 @@ public class Delivery {
 	@DetailAction(forViews="DEFAULT, MoreSections", value="DeliveryDetail.saveFailing") 
 	@HideDetailAction(forViews="DEFAULT, MoreSections", value="DeliveryDetail.hideDetail")
 	@RemoveAction(forViews="DEFAULT, MoreSections", value="DeliveryDetail.remove")
-	@RemoveSelectedAction(forViews="DEFAULT, MoreSections", value="DeliveryDetail.removeSelected")
+	@DeleteSelectedAction(forViews="DEFAULT, MoreSections", value="DeliveryDetail.deleteSelected")
 	private Collection<DeliveryDetail> details;	
 	
 	@Transient

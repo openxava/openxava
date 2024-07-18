@@ -9,7 +9,7 @@ import org.openxava.actions.*;
  * @author Javier Paniza
  */
 
-public class RemoveSelectedDeliveryDetailsAction extends RemoveSelectedInCollectionAction {
+public class DeleteSelectedDeliveryDetailsAction extends DeleteSelectedInCollectionAction {
 	
 	protected void removeElement(Map values) throws Exception {
 		super.removeElement(values);

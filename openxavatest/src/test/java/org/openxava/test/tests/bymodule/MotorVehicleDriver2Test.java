@@ -27,7 +27,7 @@ public class MotorVehicleDriver2Test extends ModuleTestBase {
 		execute("Collection.save");
 		assertMessagesCount(2);
 		assertCollectionRowCount("vehicles", 1);
-		execute("Collection.removeSelected", "row=0,viewObject=xava_view_vehicles");
+		execute("Collection.deleteSelected", "row=0,viewObject=xava_view_vehicles");
 		assertMessage("Motor vehicle deleted from database"); 
 		execute("CRUD.delete");
 		assertMessage("Motor vehicle driver 2 deleted successfully");

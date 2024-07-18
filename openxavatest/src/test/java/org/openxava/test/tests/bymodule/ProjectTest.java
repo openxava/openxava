@@ -90,7 +90,7 @@ public class ProjectTest extends ModuleTestBase {
 		assertValueInCollection("tasks", 0, 1, "HIGH");
 		assertValueInCollection("tasks", 0, 2, "3/20/2015");
 		
-		execute("Collection.removeSelected", "row=0,viewObject=xava_view_tasks");
+		execute("Collection.deleteSelected", "row=0,viewObject=xava_view_tasks");
 		assertCollectionRowCount("tasks", 0);
 		assertEquals(initialTasksCount, ProjectTask.count());
 				

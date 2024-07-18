@@ -12886,17 +12886,18 @@ class="re2">/&gt;</span></span></pre>
 @SaveAction             <span class="co1">// 13</span>
 @HideDetailAction       <span class="co1">// 14</span>
 @RemoveAction           <span class="co1">// 15</span>
-@RemoveSelectedAction   <span class="co1">// 16</span>
-@ListAction             <span class="co1">// 17</span>
-@RowAction              <span class="co1">// 18 Nuevo en v4.6</span>
-@DetailAction           <span class="co1">// 19</span>
-@OnSelectElementAction  <span class="co1">// 20 Nuevo en v3.1.2</span>
-@Editor                 <span class="co1">// 21 Nuevo en v3.1.3</span>
-@SearchListCondition    <span class="co1">// 22 Nuevo en v4m4</span>
-@Tree                   <span class="co1">// 23 Nuevo en v4m4</span>
-@Collapsed              <span class="co1">// 24 Nuevo en v5.0</span>
-@ListSubcontroller      <span class="co1">// 25 Nuevo en v5.7<br></span>@Chart                  <span
-class="co1">// 26 Nuevo en v7.4<br></span>@OneToMany/@ManyToMany
+@RemoveSelectedAction   <span class="co1">// 16</span><br>@DeleteSelectedAction   <span
+class="co1">// 17 Nuevo en v7.4</span>
+@ListAction             <span class="co1">// 18</span>
+@RowAction              <span class="co1">// 19 Nuevo en v4.6</span>
+@DetailAction           <span class="co1">// 20</span>
+@OnSelectElementAction  <span class="co1">// 21 Nuevo en v3.1.2</span>
+@Editor                 <span class="co1">// 22 Nuevo en v3.1.3</span>
+@SearchListCondition    <span class="co1">// 23 Nuevo en v4m4</span>
+@Tree                   <span class="co1">// 24 Nuevo en v4m4</span>
+@Collapsed              <span class="co1">// 25 Nuevo en v5.0</span>
+@ListSubcontroller      <span class="co1">// 26 Nuevo en v5.7<br></span>@Chart                  <span
+class="co1">// 27 Nuevo en v7.4<br></span>@OneToMany/@ManyToMany
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
 class="kw46">Collection</span></a> nombreColeccion<span class="sy0">;</span></pre>
       Y las siguientes anotaciones para una <em>@ElementCollection (nuevo en
@@ -13202,9 +13203,18 @@ class="kw46">Collection</span></a> nombreColleccion<span class="sy0">;</span></p
             rel="nofollow">OX</a>): Permite definir nuestra propia acción para
           quitar los elementos seleccionados de la colección. Ésta es la acción
           que se ejecuta al seleccionar algunas filas y pulsar en el botón
-          'Quitar seleccionados', o pulsar directamente el icono de eliminar en
-          la fila deseada. Solo una <em>@RemoveSelectedAction</em> por vista
-          está permitida.</li>
+          'Quitar seleccionados', o pulsar directamente el icono de quitar en la
+          fila deseada. Solo una <em>@RemoveSelectedAction</em> por vista está
+          permitida.</li>
+        <li><strong><a class="wiki_link" href="#Vista-Personalizacion+de+coleccion-Refinar+comportamiento+por+defecto+para+la+vista+de+coleccion">@DeleteSelectedAction</a></strong>
+          (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/DeleteSelectedAction.html"
+            rel="nofollow">OX</a>): <em>(Nuevo en v7.4) </em>Permite definir
+          nuestra propia acción para eliminar los elementos seleccionados de la
+          colección y de la base de datos. Ésta es la acción que se ejecuta al
+          seleccionar algunas filas y pulsar en el botón 'Eliminar
+          seleccionados', o pulsar directamente el icono de eliminar en la fila
+          deseada. Solo una <em>@DeleteSelectedAction</em> por vista está
+          permitida.</li>
         <li><strong><a class="wiki_link" href="#Vista-Personalizacion+de+coleccion-Acciones+de+lista+y+fila+propias">@ListAction</a></strong>
           (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/ListAction.html"
             rel="nofollow">OX</a>): Para poder añadir acciones en el modo lista;
@@ -16275,12 +16285,13 @@ class="kw46">Map</span></a> map<span class="br0">)</span> <span class="br0">{</s
           rel="nofollow">@SaveAction</a></em>, <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/HideDetailAction.html"
           rel="nofollow">@HideDetailAction</a></em>, <em><a class="wiki_link_ext"
           href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/RemoveAction.html"
-          rel="nofollow">@RemoveAction</a></em> y <em><a class="wiki_link_ext"
-          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/RemoveSelectedAction.html"
-          rel="nofollow">@RemoveSelectedAction</a></em> podemos refinar el
-      comportamiento por defecto para una vista de colección. Por ejemplo, si
-      queremos refinar el comportamiento de la acción de grabar un detalle
-      podemos definir nuestra vista de esta forma:<br>
+          rel="nofollow">@RemoveAction</a></em>, <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/RemoveSelectedAction.html"
+          rel="nofollow">@RemoveSelectedAction</a></em> y <em><a class="wiki_link_ext"
+          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/DeleteSelectedAction.html"
+          rel="nofollow">@DeleteSelectedAction</a>(nuevo en v7.4)</em> podemos
+      refinar el comportamiento por defecto para una vista de colección. Por
+      ejemplo, si queremos refinar el comportamiento de la acción de grabar un
+      detalle podemos definir nuestra vista de esta forma:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -16927,7 +16938,11 @@ class="sy0">&gt;</span> lineas<span class="sy0">;</span></pre>
       una acción Java, de esta manera se puede refinar el comportamiento.
       Podemos extender <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/RemoveSelectedInElementCollectionAction.html"
           rel="nofollow">RemoveSelectedInElementCollectionAction</a> <span style="line-height: 1.5;">(nuevo
-          en v5.3.2)</span></em><span style="line-height: 1.5;"> para hacerlo.</span><br>
+          en v5.3.2)</span></em><span style="line-height: 1.5;"> para hacerlo.<br>
+        <em>Nuevo en v7.4: @DeleteSelectedAction</em>. Podemos extender de </span><em><a
+          class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/DeleteSelectedInCollectionAction.html"
+          rel="nofollow">DeleteSelectedInCollectionAction</a><span style="line-height: 1.5;"></span></em><span
+        style="line-height: 1.5;">para refinar el comportamiento.&nbsp;</span>
       <h3 id="toc34"><a name="Vista-Personalizacion+de+coleccion-Accion+cuando+un+elemento+de+la+coleccion+es+seleccionado+(nuevo+en+v3.1.2)"></a>Acción
         cuando un elemento de la colección es seleccionado <em>(nuevo en
           v3.1.2)</em></h3>

@@ -89,7 +89,7 @@ public class ParentTest extends ModuleTestBase {
 		execute("Collection.remove");
 		assertNoErrors();
 		// Delete from collection list 
-		execute("Collection.removeSelected", "row=0,viewObject=xava_view_children");
+		execute("Collection.deleteSelected", "row=0,viewObject=xava_view_children");
 	}
 	
 	/**
@@ -107,7 +107,7 @@ public class ParentTest extends ModuleTestBase {
 		execute("Collection.save");
 		assertNoErrors();
 		assertCollectionRowCount("children", 1);
-		execute("Collection.removeSelected", "row=0,viewObject=xava_view_children");
+		execute("Collection.deleteSelected", "row=0,viewObject=xava_view_children");
 	}
 	
 	private void removeEntities() throws Exception {
