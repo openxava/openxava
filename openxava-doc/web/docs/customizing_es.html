@@ -250,13 +250,12 @@ class="sc-1">                &lt;!-- 28  Nuevo en v4.6 --&gt;</span>
           acciones que procesan varios elementos. Actualmente aplica sólo a
           editores de modo lista. Por defecto vale <em>true</em>.</li>
         <li><strong>formato-etiqueta-defecto</strong> (opcional) <em>(Nuevo en
-            v7.4)</em>: Permite indica el formato de la etiqueta que se usara
+            v7.4)</em>: Permite indicar el formato de la etiqueta que se usara
           para este editor cuando el miembro no esté anotado con <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/LabelFormat.html"><i>@LabelFormat</i></a>.
-          TMR ME QUEDÉ POR AQUÍ. Si <em>true</em>, el editor permite al usuario
-          seleccionar varios elementos (con casillas de verificación o
-          similares). De esta manera OpenXava puede saber cuando ocultar las
-          acciones que procesan varios elementos. Actualmente aplica sólo a
-          editores de modo lista. Por defecto vale <em>true</em>.</li>
+          Los valores posibles son <i>normal</i>, <i>pequena</i> y <i>sin-etiqueta</i>.
+          Si no se especifica este atributo el formato de etiqueta será el de
+          por defecto para la aplicación, que se puede indicar con <i>defaultLabelFormat</i>
+          en <i>xava.properties</i>.</li>
         <li><strong>propiedad</strong> (varias, opcional): Permite enviar
           valores al editor, de esta forma podemos configurar un editor y poder
           usarlo en diferente situaciones.</li>
