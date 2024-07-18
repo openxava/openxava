@@ -16,7 +16,7 @@ if (metaCollectionView != null) {
 	if (metaCollectionView.getNewActionName() == null && !collectionView.isRepresentsEntityReference()) {
 		collectionView.setNewCollectionElementAction("TreeView.new");
 	}
-	if (metaCollectionView.getRemoveSelectedActionName() == null) {
+	if (metaCollectionView.getDeleteSelectedActionName() == null) {
 		collectionView.setRemoveSelectedCollectionElementsAction("TreeView.removeSelected");
 	}
 	if (metaCollectionView.getRemoveActionName() == null) {
@@ -29,8 +29,8 @@ if (metaCollectionView != null) {
 	if (collectionView.getNewCollectionElementAction().equals("Collection.new")) {
 		collectionView.setNewCollectionElementAction("TreeView.new");
 	}
-	if (collectionView.getRemoveSelectedCollectionElementsAction().equals("Collection.removeSelected")) {
-		collectionView.setRemoveSelectedCollectionElementsAction("TreeView.removeSelected");
+	if (collectionView.getDeleteSelectedCollectionElementsAction().equals("Collection.deleteSelected")) {
+		collectionView.setDeleteSelectedCollectionElementsAction("TreeView.removeSelected");
 	}
 	if (collectionView.getRemoveCollectionElementAction().equals("Collection.remove")) {
 		collectionView.setRemoveCollectionElementAction("TreeView.remove");
