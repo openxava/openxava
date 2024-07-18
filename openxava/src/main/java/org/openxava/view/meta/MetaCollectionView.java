@@ -21,6 +21,7 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 	private String hideActionName;
 	private String removeActionName;
 	private String removeSelectedActionName;
+	private String deleteSelectedActionName;
 	private String nextActionName;
 	private String previousActionName;
 	private Collection actionsDetailNames;
@@ -147,7 +148,6 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 	public Map<String, List<String>> getTotalProperties() { 
 		return totalProperties == null?Collections.EMPTY_MAP:totalProperties;
 	}
-
 	
 	private String removeSquareBrackets(String name) { 
 		return name.replaceAll("[\\[\\] ]", "");
@@ -262,6 +262,14 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 
 	public void setRemoveSelectedActionName(String removeSelectedActionName) {
 		this.removeSelectedActionName = removeSelectedActionName;
+	}
+	
+	public String getDeleteSelectedActionName() {
+		return deleteSelectedActionName;
+	}
+
+	public void setDeleteSelectedActionName(String deleteSelectedActionName) {
+		this.deleteSelectedActionName = deleteSelectedActionName;
 	}
 
 	public String getOnSelectElementActionName() {

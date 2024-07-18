@@ -23,7 +23,7 @@ public class JournalistTest extends ModuleTestBase {
 		execute("ManyToManyNewElement.save");
 		assertCollectionRowCount("articles", 1);		
 		assertValueInCollection("articles", 0, 0, "JUNIT JOURNALIST ARTICLE");
-		execute("Collection.removeSelected", "row=0,viewObject=xava_view_articles");
+		execute("Collection.deleteSelected", "row=0,viewObject=xava_view_articles");
 		assertCollectionRowCount("articles", 0);
 	}
 				

@@ -1798,7 +1798,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("Sections.change", "activeSection=1");
 		assertCollectionRowCount("details", 2);
 		checkRowCollection("details", 0);
-		execute("Collection.removeSelected", "viewObject=xava_view_section1_details");
+		execute("Collection.deleteSelected", "viewObject=xava_view_section1_details");
 		assertNoErrors();
 		assertCollectionRowCount("details", 1);
 		assertRowCollectionUnchecked("details", 0); 
@@ -2016,7 +2016,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 			"Sections.change",
 			"Invoice.editDetail", // because it is overwrite, otherwise 'Collection.edit'
 			"Collection.new",
-			"Collection.removeSelected",
+			"Collection.deleteSelected",
 			"CollectionCopyPaste.cut", 
 			"Print.generatePdf", // In collection
 			"Print.generateExcel", // In collection

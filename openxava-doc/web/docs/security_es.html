@@ -160,8 +160,17 @@
       <img src="files/xavapro-configuration_es.png" alt="xavapro-configuration_es.png"
         title="xavapro-configuration_es.png"><br>
       Puedes configurar estas políticas para que tu sistema sea compatible con
-      PCI-DSS, algo muy útil en aplicaciones bancarias.<br>
-      Estas políticas para usuarios y contraseñas sólo están disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
+      PCI-DSS, algo muy útil en aplicaciones bancarias.</div>
+    <div class="wiki" style="display: block;">La opcion <i>Permitir varias
+        sesiones por usuario (nueva en v7.4)</i> permite que el mismo nombre de
+      usuario pueda ser usado por varios personas diferentes desde diferentes
+      máquinas/navegadores al mismo tiempo. Esto permite desactivar una
+      característica introducida en v7.3 que hacía que al identificarse con un
+      nombre de usuario si ese usuario tenía una sesión iniciada desde otra
+      máquina o navegador, esa sesión se cancelara, forzando que un mismo
+      usuario sólo pudiera estar identificado una vez al mismo tiempo.</div>
+    <div class="wiki" style="display: block;"><i> </i>Estas políticas para
+      usuarios y contraseñas sólo están disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
       <h2 id="toc5"><a name="Seguridad+y+gestion+de+usuarios-LDAP"></a>LDAP</h2>
       <a href="http://www.openxava.org/xavapro">XavaPro</a> permite a los
       usuarios ser autentificados vía LDAP. Para configurar LDAP edita el

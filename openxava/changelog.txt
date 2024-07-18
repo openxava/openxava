@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- New delete action for collection that always deletes the element completely from the database.
+- @DeleteSelectedAction annotation for collection to define a custom action for deleting an element.
+- Icon and label for remove action in collection changed to indicate it just removes from the collection. 
+- README instructions includes the usage of archetypes.
+- Getting started guide adapted to OpenXava Studio 7 R3. 
 - @Chart annotation for collections to display the collection as a chart from its data. 
 - As @DescriptionsList defaults 'name' takes preferences over 'description', and 'title' is recognized.
 - New methods getAnnotationAttributeValue() and getAnnotationsWithRepeatables() in Classes utity class.
