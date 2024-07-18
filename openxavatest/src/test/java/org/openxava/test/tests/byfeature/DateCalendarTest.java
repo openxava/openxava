@@ -11,7 +11,37 @@ import org.openqa.selenium.support.ui.*;
  * @author Chungyen Tsai
  */
 public class DateCalendarTest extends WebDriverTestBase {
+	
+	public void testLocalDateTime() throws Exception {
+		goModule("Event");
+		assertValueInList(0, 4, "9/30/2023 3:21 PM");
+		execute("List.viewDetail", "row=0");
+		execute("CRUD.save");
+		execute("Mode.list");
 		
+		changeLanguage("es-ES");
+		goModule("Event");
+		assertValueInList(0, 4, "30/09/2023 15:21");
+		execute("List.viewDetail", "row=0");
+		execute("CRUD.save");
+		execute("Mode.list");
+		
+		changeLanguage("sr");
+		goModule("Event");
+		assertValueInList(0, 4, "30.9.2023. 15:21");
+		
+		changeLanguage("zh-CN");
+		goModule("Event");
+		assertValueInList(0, 4, "2023/9/30 PM3:21");
+		execute("List.viewDetail", "row=0");
+		execute("CRUD.save");
+		execute("Mode.list");
+		
+		changeLanguage("zh-TW");
+		goModule("Event");
+		assertValueInList(0, 4, "2023/9/30 PM3:21");
+	}
+	
 	public void testGreek() throws Exception { 
 		changeLanguage("el");
 		goModule("Event");
