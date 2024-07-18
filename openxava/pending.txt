@@ -1,4 +1,8 @@
-- Documentar. ¿Vista o Modelo?
-	- CSS y color negativo. O puede que con indicar que el color negativo sale en rojo, o que salga en el pantallazo sobra.
+- Documentar. 
+	- Vista sección. 
+		- CSS y color negativo. O puede que con indicar que el color negativo sale en rojo, o que salga en el pantallazo sobra.
+		- Incluir en menú
+		- Linkar desde opción enumerada
+	- Links vista a modelo y modelo a vista.	
 - Limpiar código y hacer changelog.
 - Suite.

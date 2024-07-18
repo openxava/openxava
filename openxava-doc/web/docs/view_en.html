@@ -6012,10 +6012,9 @@ class="st0">"VerySimple"</span><span class="br0">)</span>
 @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/Action.html"><span
 class="kw105">Action</span></a> <span class="co1">// 5</span>
 @Editor <span class="co1">// 6</span>
-@LabelStyle <span class="co1">// 7 New in v4m4</span>
-<span class="kw2">private</span> type propertyName<span class="sy0">;</span>
-&nbsp;</pre>
-      All these annotations follow the <a class="wiki_link" href="#View-Rules%20for%20view%20annotations">rules
+@LabelStyle <span class="co1">// 7 New in v4m4</span><br>@LargeDisplay <span class="co1">// 8 New in v7.4<br></span><span
+class="kw2">private</span> type propertyName<span class="sy0">;</span>
+</pre> All these annotations follow the <a class="wiki_link" href="#View-Rules%20for%20view%20annotations">rules
         for view annotations</a> and all they are optionals. OpenXava always
       assumes a correct default values if they are omitted.<br>
       <ol>
@@ -6066,6 +6065,13 @@ class="kw105">Action</span></a> <span class="co1">// 5</span>
           label of this property. It has the predefined styles 'bold-label',
           'italic-label' and 'reverse-label'; <span class="short_text">though
             you can use your own custom style if you define it in a CSS file.</span></li>
+        <li><strong>@LargeDisplay</strong> (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/LargeDisplay.html"
+            rel="nofollow">OX</a>): (<em>New in v7.4</em>): To display the value
+          of the property in large format t<span class="short_text">o make the
+            value clearly visible</span><span class="short_text">. Generally
+            with a large font, inside a small frame with spacing, etc. Also it
+            allows to show an icon, a prefix and a suffix optionally.<br>
+          </span></li>
       </ol>
       <h3 id="toc9"><a name="View-Property customization-Label format"></a>Label
         format</h3>

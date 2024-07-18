@@ -6026,8 +6026,8 @@ class="st0">"MuySimple"</span><span class="br0">)</span>
 @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/Action.html"><span
 class="kw105">Action</span></a> <span class="co1">// 5</span>
 @Editor <span class="co1">// 6</span>
-@LabelStyle <span class="co1">// 7 Nuevo en v4m4</span>
-<span class="kw2">private</span> tipo nombrePropiedad<span class="sy0">;</span></pre>
+@LabelStyle <span class="co1">// 7 Nuevo en v4m4</span><br>@LargeDisplay <span class="co1">// 8 Nuevo en v7.4</span><br><span
+class="kw2">private</span> tipo nombrePropiedad<span class="sy0">;</span></pre>
       Todas estas anotaciones siguen las <a class="wiki_link" href="#Vista-Normas%20para%20las%20anotaciones%20de%20vista">normas
         para anotaciones de vista</a> y todas ellas son opcionales. OpenXava
       siempre asume valores por defecto correcto si se omiten.<br>
@@ -6078,6 +6078,12 @@ class="kw105">Action</span></a> <span class="co1">// 5</span>
           definidos los estilos 'bold-label', 'italic-label' y 'reverse-label';
           cualquier otro estilo puede ser definido por el propio usuario (basta
           con incluirlo en un .css).</li>
+        <li><strong>@LargeDisplay</strong> (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/LargeDisplay.html"
+            rel="nofollow">OX</a>): (<em>Nuevo en v7.4</em>): El valor de la
+          propiedad se muestra en un formato grande para hacerlo claramente
+          visible. Generalmente se utiliza una fuente grande, dentro de un marco
+          pequeño con espaciado, etc. Además, permite mostrar un icono, un
+          prefijo y un sufijo opcionalmente.</li>
       </ol>
       <h3 id="toc9"><a name="Vista-Personalizacion+de+propiedad-Formato+de+etiqueta"></a>Formato
         de etiqueta</h3>
@@ -7936,8 +7942,37 @@ class="kw1">private</span> <span class="kw3">String</span> color<span class="sy0
       valores no se agregarán a la lista original de opciones para el uso en
       otros registros.<br>
       <img src="files/view_es115.png" alt="view_es115.png" title="view_es115.png"><br>
-      <h2 id="toc14"><a name="Vista-Personalizacion+de+referencia"></a>Personalización
-        de referencia</h2>
+      <h3><a name="formato-grande-visualizacion"></a>Formato grande de
+        visualización <em>(nuevo en v7.4)</em></h3>
+      Es posible hacer que el valor de una propiedad se visualice con un tamaño
+      grande. Así podemos resaltar la propiedad en la vista o hacer una vista
+      estilo cuadro de mandos donde todos los datos tienen formato grande.</div>
+    <div class="wiki" style="display: block;">Solo hemos de anotar la propiedad
+      con <a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/LargeDisplay.html"><i>@LargeDisplay</i></a>,
+      de esta forma:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@LargeDisplay 
+int year;
+
+@Money @LargeDisplay 
+BigDecimal discount;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Lo que se visualizara así:</div>
+    <img src="files/view_es117.png" alt="view_es117.png" title="view_es117.png">
+    <div class="wiki" style="display: block;">Además, bla y blo:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@LargeDisplay(prefix="€") 
+BigDecimal sumaImportes;
+
+@LargeDisplay(suffix="%", icon="label-percent-outline") 
+BigDecimal porcentajeIVA;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Que se visualizaría:</div>
+    <img src="files/view_es118.png" alt="view_es118.png" title="view_es118.png">
+    <div class="wiki" style="display: block;">Finalmente, <br>
+      <h2 id="toc14"></h2>
+      <h2><a name="Vista-Personalizacion+de+referencia"></a>Personalización de
+        referencia</h2>
       Podemos refinar la forma de visualización y comportamiento de una
       referencia en la vista usando las siguientes anotaciones:<br>
       <style type="text/css"><!--
