@@ -1,4 +1,4 @@
 - Documentar. ¿Vista o Modelo?
 	- CSS y color negativo. O puede que con indicar que el color negativo sale en rojo, o que salga en el pantallazo sobra.
-	- default-label-format en editors.xml
 - Limpiar código y hacer changelog.
+- Suite.
