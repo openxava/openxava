@@ -308,10 +308,8 @@ public class Dates {
 	private static DateFormat getDateTimeFormat(Locale locale, boolean fourDigitsForYear) { 
 		// To use the Java 8 (and previous) format for Java 9 and better
 		DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale);
-		System.out.println("getDateTimeFormat");
 		if (df instanceof SimpleDateFormat) {
 			String patternBeforeReFormat = ((SimpleDateFormat) df).toPattern();
-			System.out.println(patternBeforeReFormat);
 			String pattern = locale.toString().equalsIgnoreCase("sr")?patternBeforeReFormat.substring(0,10) + (patternBeforeReFormat.substring(10, patternBeforeReFormat.length())).replace(".", ":"):patternBeforeReFormat;
 			if (locale.toString().equalsIgnoreCase("zh_CN") || locale.toString().equalsIgnoreCase("nl")) fourDigitsForYear = true;
 			boolean java9 = XSystem.isJava9orBetter();

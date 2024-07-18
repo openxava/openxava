@@ -28,7 +28,8 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 		return getDateTimeFormat(false).format(date); 
 	}
 
-	public Object parse(HttpServletRequest request, String string) throws ParseException {		if (Is.emptyString(string)) return null;
+	public Object parse(HttpServletRequest request, String string) throws ParseException {
+		if (Is.emptyString(string)) return null;
 		if (string.indexOf('-') >= 0 && !isDashFormat()) { // SimpleDateFormat does not work well with -
 			string = Strings.change(string, "-", "/");
 		}
@@ -36,18 +37,13 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 		DateFormat [] dateFormats = getDateTimeFormats();
 		for (int i=0; i<dateFormats.length; i++) {
 			try {
-				System.out.println("for");
 				java.util.Date result = (java.util.Date) dateFormats[i].parseObject(string);
-				System.out.println(new java.sql.Timestamp( result.getTime()));
-				//return new java.sql.Timestamp( result.getTime() );
+				return new java.sql.Timestamp( result.getTime() );
 			}
 			catch (ParseException ex) {
 			} 
 		}
-		System.out.println("fffff");
 		java.util.Date result = (java.util.Date) new DateFormatter().parse(request, string);
-		System.out.println(result);
-		System.out.println(new java.sql.Timestamp( result.getTime()));
 		return new java.sql.Timestamp( result.getTime() );
 	}
 
