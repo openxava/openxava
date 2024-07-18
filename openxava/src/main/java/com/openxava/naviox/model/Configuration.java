@@ -63,7 +63,7 @@ public class Configuration implements java.io.Serializable {
 	/** @since 7.4 */
 	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
 	@Column(columnDefinition="varchar(1) default 'N' not null")	
-	private boolean allowSeveralSessionsPerUser; // tmr Cambiar schema-update.sql. Actualizar pantallazo doc. i18n 	
+	private boolean allowSeveralSessionsPerUser;   	
 	
 	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
 	@Column(columnDefinition="varchar(1) default 'Y' not null")
