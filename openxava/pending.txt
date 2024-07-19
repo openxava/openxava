@@ -4,6 +4,5 @@
 		- Incluir en menú
 		- Linkar desde opción enumerada
 	- Links vista a modelo y modelo a vista.	
-- Merge desde master.
 - Limpiar código y hacer changelog. 
 - Suite.
