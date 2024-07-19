@@ -4,6 +4,6 @@
 		- Incluir en menú
 		- Linkar desde opción enumerada
 	- Links vista a modelo y modelo a vista.	
-- Limpiar código y hacer changelog.
-- Revisar etiqueta para remove en diálogo, con o sin cascada. Puede que tenga que quitar lo de lista. 
+- Merge desde master.
+- Limpiar código y hacer changelog. 
 - Suite.

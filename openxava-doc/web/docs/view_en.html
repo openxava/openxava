@@ -7929,7 +7929,61 @@ class="kw1">private</span> <span class="kw3">String</span> color<span class="sy0
       In this example selecting <i>White</i>, you can edit it by <i>White
         beige</i> or enter a new value as <i>Yellow</i>. These new values will
       not be added to the original list of options for use in other records.<br>
-      <img src="files/view_en115.png" alt="view_en115.png" title="view_en115.png"><br>
+      <img src="files/view_en115.png" alt="view_en115.png" title="view_en115.png"></div>
+    <div class="wiki" style="display: block;"><br>
+      <h3><a name="formato-grande-visualizacion"></a>Large display format <em>(new
+          in v7.4)</em></h3>
+      It is possible to display the value of a property in a large size. This
+      way, we can highlight the property in the view or create a dashboard-style
+      view where all the data is in a large format.
+      <div class="wiki" style="display: block;">You just have to annotate your
+        properties with <a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/LargeDisplay.html"><i>@LargeDisplay</i></a>,
+        like this:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">@LargeDisplay 
+int year;
+
+@Money @LargeDisplay 
+BigDecimal discount;
+</code></pre> </div>
+      <div class="wiki" style="display: block;">It will be displayed like this:</div>
+      <img src="files/view_en117.png" alt="view_en117.png" title="view_en117.png">
+      <div class="wiki" style="display: block;">Notice how, in the case of the <i>discount</i>
+        property, the value appears in red. This is because negative values are
+        displayed in red (this color can be changed via CSS). Also, note how it
+        has the euro symbol as a suffix. This is because the property is
+        annotated with <i>@Money</i>, in which case the currency symbol is
+        displayed as a <i>prefix</i> or <i>suffix</i> according to the
+        server's locale.</div>
+      <div class="wiki" style="display: block;">We also have the option to
+        specify which prefix or suffix we want, using the <i>prefix</i> and <i>suffix</i>
+        attributes:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">@LargeDisplay(prefix="€") 
+BigDecimal amountsSum;
+
+@LargeDisplay(suffix="%", icon="label-percent-outline") 
+BigDecimal vatPercentage;
+</code></pre> </div>
+      <div class="wiki" style="display: block;">It would be displayed as:</div>
+      <img src="files/view_es118.png" alt="view_es118.png" title="view_es118.png">
+      <div class="wiki" style="display: block;">Ahora el símbolo del euro
+        aparece como prefijo de forma fija, no importa que la propiedad esté o
+        no anotada con <i>@Money</i>. Y un detalle más, se visualiza un icono
+        en la propiedad <i>porcentajeIVA</i>, esto lo hemos conseguido con <i>icon="label-percent-outline"</i>.
+        Los iconos son identificadores de <a href="https://pictogrammers.com/library/mdi/">Material
+          Design Icons</a>.</div>
+      <div class="wiki" style="display: block;">Como ocurre con todos los
+        elementos visuales de OpenXava, puedes cambiar el estilo del formato
+        grande de visualización (<i>@LargeDisplay</i>), como el tamaño de la
+        letra, espaciado, etc. usando CSS. Las clases CSS disponibles son <i>.ox-large-display,
+          .ox-large-display-suffix, .ox-large-display-negative,
+          .ox-large-display-value</i> o <i>.ox-large-display i</i> para el
+        icono. Para los colores puedes cambiar los valores de las variables <i>--large-display-color,
+          --large-display-negative-color</i> y <i>--large-display-icon-color</i>.
+        El código CSS lo pueddes incluir en <i>custom.css</i> o en tu propio
+        estilo como se explica en la <a href="custom-style_es.html">documentación
+          sobre el estilo visual personalizado</a>.</div>
       <h2 id="toc14"><a name="View-Reference customization"></a>Reference
         customization</h2>
       You can refine the visual aspect and behavior of a reference in a view

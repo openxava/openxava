@@ -7947,19 +7947,27 @@ class="kw1">private</span> <span class="kw3">String</span> color<span class="sy0
       Es posible hacer que el valor de una propiedad se visualice con un tamaño
       grande. Así podemos resaltar la propiedad en la vista o hacer una vista
       estilo cuadro de mandos donde todos los datos tienen formato grande.</div>
-    <div class="wiki" style="display: block;">Solo hemos de anotar la propiedad
+    <div class="wiki" style="display: block;">Solo has de anotar tus propiedades
       con <a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/LargeDisplay.html"><i>@LargeDisplay</i></a>,
       de esta forma:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@LargeDisplay 
-int year;
+int anyo;
 
 @Money @LargeDisplay 
-BigDecimal discount;
+BigDecimal descuento;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Lo que se visualizara así:</div>
     <img src="files/view_es117.png" alt="view_es117.png" title="view_es117.png">
-    <div class="wiki" style="display: block;">Además, bla y blo:</div>
+    <div class="wiki" style="display: block;">Fíjate como en el caso de la
+      propiedad <i>descuento</i> el valor aparece en rojo, esto es porque los
+      valores negativos salen en rojo (este color se puede cambiar vía CSS).
+      Además, nota como tiene como sufijo el símbolo del euro, esto es porque la
+      propiedad está anotada con <i>@Money,</i> en ese caso saca el símbolo de
+      la móneda como prefijo o sufijo según el locale del servidor.</div>
+    <div class="wiki" style="display: block;">También tenemos la opción de
+      especificar nosotros que sufijo o prefijo queremos, con los atributos <i>prefix</i>
+      y <i>suffix</i>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@LargeDisplay(prefix="€") 
 BigDecimal sumaImportes;
@@ -7969,7 +7977,23 @@ BigDecimal porcentajeIVA;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Que se visualizaría:</div>
     <img src="files/view_es118.png" alt="view_es118.png" title="view_es118.png">
-    <div class="wiki" style="display: block;">Finalmente, <br>
+    <div class="wiki" style="display: block;">Ahora el símbolo del euro aparece
+      como prefijo de forma fija, no importa que la propiedad esté o no anotada
+      con <i>@Money</i>. Y un detalle más, se visualiza un icono en la
+      propiedad <i>porcentajeIVA</i>, esto lo hemos conseguido con <i>icon="label-percent-outline"</i>.
+      Los iconos son identificadores de <a href="https://pictogrammers.com/library/mdi/">Material
+        Design Icons</a>.</div>
+    <div class="wiki" style="display: block;">Como ocurre con todos los
+      elementos visuales de OpenXava, puedes cambiar el estilo del formato
+      grande de visualización (<i>@LargeDisplay</i>), como el tamaño de la
+      letra, espaciado, etc. usando CSS. Las clases CSS disponibles son <i>.ox-large-display,
+        .ox-large-display-suffix, .ox-large-display-negative,
+        .ox-large-display-value</i> o <i>.ox-large-display i</i> para el icono.
+      Para los colores puedes cambiar los valores de las variables <i>--large-display-color,
+        --large-display-negative-color</i> y <i>--large-display-icon-color</i>.
+      El código CSS lo pueddes incluir en <i>custom.css</i> o en tu propio
+      estilo como se explica en la <a href="custom-style_es.html">documentación
+        sobre el estilo visual personalizado</a>.<br>
       <h2 id="toc14"></h2>
       <h2><a name="Vista-Personalizacion+de+referencia"></a>Personalización de
         referencia</h2>
