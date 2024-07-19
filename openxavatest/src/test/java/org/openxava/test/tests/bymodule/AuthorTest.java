@@ -208,8 +208,9 @@ public class AuthorTest extends CustomizeListTestBase {
 		execute("Collection.removeSelected", "row=0,viewObject=xava_view_humans");
 		execute("Collection.add", "viewObject=xava_view_humans");
 		assertListRowCount(7);
+		execute("List.orderBy", "property=name"); 
 		execute("AddToCollection.add", "row=6");
-		assertValueInCollection("humans", 0, 0, "XAVI");
+		assertValueInCollection("humans", 0, 0, "XAVI"); 
 		execute("Collection.deleteSelected", "row=0,viewObject=xava_view_humans");
 		execute("Collection.add", "viewObject=xava_view_humans");
 		assertListRowCount(6);

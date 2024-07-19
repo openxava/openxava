@@ -22,7 +22,7 @@ public class CollectionTest extends WebDriverTestBase {
 		execute("Sections.change", "activeSection=1");
 		assertCollectionRowCount("details", (0+2));
 		execute("CRUD.refresh");
-		assertCollectionRowCount("details", (2+2));
+		assertCollectionRowCount("details", (2+2)); 
 		
 		goModule("CustomerWithSection");
 		execute("CRUD.new");
