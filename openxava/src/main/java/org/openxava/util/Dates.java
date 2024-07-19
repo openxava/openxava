@@ -251,10 +251,32 @@ public class Dates {
 		return DateFormat.getDateInstance(DateFormat.SHORT, Locales.getCurrent()).format(date);			
 	}
 	
+	/**
+	 * DateFormat for date + time consistently among all Java versions, according current <i>locale</i>. <p>
+	 * 
+	 * The date format is consistent among all Java versions. 
+	 * While standard Java format differently since Java 9. 
+	 * 
+	 * Current locale is from {@link Locales#getCurrent}. <br>
+	 * 
+	 * @return Not null
+	 * @since 7.4
+	 */
 	public static DateTimeFormatter getLocalDateTimeFormat() {
 		return getLocalDateTimeFormat(Locales.getCurrent(), true);
 	}
 	
+	/**
+	 * DateFormat for date + time consistently among all Java versions, according current <i>locale</i>. <p>
+	 * 
+	 * The date format is consistent among all Java versions.
+	 * While standard Java format differently since Java 9. 
+	 * 
+	 * Current locale is from {@link Locales#getCurrent}. <br>
+	 * 
+	 * @return Not null
+	 * @since 7.4
+	 */
 	public static DateTimeFormatter getLocalDateTimeFormatForParsing() { 
 		return getLocalDateTimeFormat(Locales.getCurrent(), false);
 	}

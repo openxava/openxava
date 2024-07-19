@@ -8,6 +8,12 @@ import javax.servlet.http.*;
 
 import org.openxava.util.*;
 
+/**
+ * Time formatter with multilocale support. <p> 
+ * 
+ * @author Chungyen Tsai
+ */
+
 public class LocalDateTimeFormatter extends DateTimeBaseFormatter implements IFormatter {
 	
 	private static DateTimeFormatter extendedFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"); // Only for some locales like "es" and "pl"
@@ -29,9 +35,7 @@ public class LocalDateTimeFormatter extends DateTimeBaseFormatter implements IFo
 	
 	public String format(HttpServletRequest request, Object date) {
 		if (date == null) return "";
-		if (date instanceof String || date instanceof Number) {
-			return date.toString();
-		}
+		if (date instanceof String || date instanceof Number) return date.toString();
 		return getLocalDateTimeFormatter(false).format((LocalDateTime)date);
 	}
 
@@ -43,8 +47,8 @@ public class LocalDateTimeFormatter extends DateTimeBaseFormatter implements IFo
 		DateTimeFormatter [] dateTimeFormats = getLocalDateTimeFormats();
 		for (int i=0; i<dateTimeFormats.length; i++) {
 			try {
-				LocalDateTime result2 = LocalDateTime.parse(string, dateTimeFormats[i]);
-	            return result2;
+				LocalDateTime result = LocalDateTime.parse(string, dateTimeFormats[i]);
+	            return result;
 			}
 			catch (DateTimeParseException ex) {
 			} 
@@ -62,7 +66,7 @@ public class LocalDateTimeFormatter extends DateTimeBaseFormatter implements IFo
 	
 	private DateTimeFormatter[] getLocalDateTimeFormats() {
 		if (isExtendedFormat() || isDotFormat() || isZhFormat()) return extendedFormatters;
-		return new DateTimeFormatter [] { getLocalDateTimeFormatter(false) }; 
+		return new DateTimeFormatter[] { getLocalDateTimeFormatter(false) }; 
 	}
 	
 }
