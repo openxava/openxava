@@ -7,7 +7,6 @@ import org.openxava.annotations.*;
 import org.openxava.model.meta.*;
 
 /**
- * tmr En changelog
  * Utility class to work with money values and properties. 
  * 
  * @since 7.4

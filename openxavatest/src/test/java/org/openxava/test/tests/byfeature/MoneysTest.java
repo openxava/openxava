@@ -10,7 +10,6 @@ import org.openxava.util.*;
 import junit.framework.*;
 
 /**
- * tmr
  * 
  * @author Javier Paniza
  */

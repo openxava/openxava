@@ -410,10 +410,8 @@
 		<for-annotation annotation="org.openxava.annotations.Mask"/> 
 	</editor>
 	
-	<!-- tmr ini -->
 	<editor name="LargeDisplay" url="largeDisplayEditor.jsp" default-label-format="small">
 		<for-annotation annotation="org.openxava.annotations.LargeDisplay"/>
 	</editor>
-	<!-- tmr fin -->	
 		
 </editors>

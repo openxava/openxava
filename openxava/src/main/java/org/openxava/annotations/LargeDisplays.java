@@ -3,7 +3,6 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * tmr 
  * A group of <code>@{@link LargeDisplay}</code> associated to the same member. <p>
  * 
  * Applies to properties.<p>

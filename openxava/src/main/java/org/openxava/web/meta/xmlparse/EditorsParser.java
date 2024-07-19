@@ -42,9 +42,7 @@ public class EditorsParser extends ParserBase {
 		editor.setFrame(getAttributeBoolean(el, xwithframe[lang]));	
 		editor.setAlwaysReload(getAttributeBoolean(el, xalways_reload[lang])); 
 		editor.setComposite(getAttributeBoolean(el, xcomposite[lang])); 
-		// tmr ini
 		editor.setDefaultLabelFormat(getDefaultLabelFormat(el));
-		// tmr fin
 		String dependsStereotypes = el.getAttribute(xdepends_stereotypes[lang]);
 		String dependsProperties = el.getAttribute(xdepends_properties[lang]);
 		if (
@@ -89,7 +87,7 @@ public class EditorsParser extends ParserBase {
 		addEditorsForTabModel(editor, el);
 	}	
 	
-	private Integer getDefaultLabelFormat(Element el) { // tmr
+	private Integer getDefaultLabelFormat(Element el) { 
 		String labelFormat = el.getAttribute(xdefault_label_format[lang]);
 		if (Is.emptyString(labelFormat)) return null;
 		if (xnormal[lang].equals(labelFormat)) return MetaPropertyView.NORMAL_LABEL;

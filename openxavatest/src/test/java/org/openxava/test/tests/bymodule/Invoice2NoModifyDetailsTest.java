@@ -15,17 +15,7 @@ public class Invoice2NoModifyDetailsTest extends ModuleTestBase {
 		super(testName, "Invoice2NoModifyDetails");		
 	}
 
-	/* tmr
-	public void testNoModifyInCollection() throws Exception {
-		execute("List.viewDetail", "row=0");
-		assertCollectionNotEmpty("details");
-		execute("Collection.view", "row=0,viewObject=xava_view_details");
-		assertNoEditable("quantity");
-		assertNoAction("Collection.save");
-	}
-	*/
-	
-	public void testNoModifyInCollection_largeDisplay() throws Exception { // tmr
+	public void testNoModifyInCollection_largeDisplay() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		assertLargeDisplay();
 		assertNoModifyInCollection();
@@ -67,12 +57,12 @@ public class Invoice2NoModifyDetailsTest extends ModuleTestBase {
 		assertSmallLabel("total");
 	}
 
-	private void assertSmallLabel(String property) { // tmr
+	private void assertSmallLabel(String property) { 
 		HtmlElement label = getHtmlPage().getHtmlElementById("ox_openxavatest_Invoice2NoModifyDetails__label_" + property);
 		assertEquals("small-label", label.getAttribute("class").trim());
 	}
 
-	private void assertNoModifyInCollection() throws Exception { // tmr
+	private void assertNoModifyInCollection() throws Exception { 
 		assertCollectionNotEmpty("details");
 		execute("Collection.view", "row=0,viewObject=xava_view_details");
 		assertNoEditable("quantity");

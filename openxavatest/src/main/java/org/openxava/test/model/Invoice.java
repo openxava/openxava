@@ -302,8 +302,7 @@ public class Invoice {
 	@AddAction(forViews="AddDeliveries", value="Invoice.addDelivery") 
 	private Collection<Delivery> deliveries;
 	
-	// tmr @Stereotype("MONEY")
-	@Stereotype("DINERO") // To test a case with Spanish version // tmr
+	@Stereotype("DINERO") // To test a case with Spanish version 
 	public BigDecimal getSellerDiscount() {
 		Customer customer = getCustomer();
 		if (customer == null) return null;
@@ -312,8 +311,7 @@ public class Invoice {
 		return seller.getNumber() == 1?DISCOUNT:BigDecimal.ZERO;
 	}
 
-	// tmr @Stereotype("MONEY") 
-	@Money // In this way, not with @Stereotype("MONEY"), to test a case // tmr
+	@Money // In this way, not with @Stereotype("MONEY"), to test a case 
 	@Depends("year")
 	public BigDecimal getYearDiscount() {		
 		if (year < 2002) return new BigDecimal("0.00");
@@ -321,7 +319,7 @@ public class Invoice {
 		return new BigDecimal("400.00");
 	}
 	
-	@Stereotype("MONEY") // In this way, not with @Money, to test a case // tmr
+	@Stereotype("MONEY") // In this way, not with @Money, to test a case 
 	public BigDecimal getAmountsSum() {		
 		BigDecimal result = BigDecimal.ZERO;		
 		for (InvoiceDetail detail: getDetails()) { 			

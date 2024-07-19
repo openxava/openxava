@@ -4,5 +4,7 @@
 		- Incluir en menú
 		- Linkar desde opción enumerada
 	- Links vista a modelo y modelo a vista.	
-- Limpiar código y hacer changelog. 
+	- Customize doc. 
+		- Ahora la prioridad de las anotaciones depende del orden de declaración
+		- Anotaciones preferencia sobre estereotipos. 
 - Suite.

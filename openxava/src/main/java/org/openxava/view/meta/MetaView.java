@@ -829,24 +829,19 @@ public class MetaView extends MetaElement implements Cloneable {
 		return editable?metaReferenceView.getActionsNames():metaReferenceView.getAlwaysEnabledActionsNames();
 	}
 	
-	// tmr public int getLabelFormatForProperty(MetaProperty p) {
 	/** If not label format specified for the property returns null. */
-	public Integer getLabelFormatForProperty(MetaProperty p) { // tmr doc
+	public Integer getLabelFormatForProperty(MetaProperty p) { 
 		MetaPropertyView metaPropertyView = getMetaPropertyViewFor(p.getName());
-		if (metaPropertyView == null) return null; // tmr 
-		// tmr if (metaPropertyView == null) return XavaPreferences.getInstance().getDefaultLabelFormat();
+		if (metaPropertyView == null) return null;  
 		return metaPropertyView.getLabelFormat();
 	}
 	
-	// tmr public int getLabelFormatForReference(MetaReference ref) {
 	/** If not label format specified for the reference returns null. */
-	public Integer getLabelFormatForReference(MetaReference ref) { // tmr
+	public Integer getLabelFormatForReference(MetaReference ref) { 
 		MetaReferenceView metaReferenceView = getMetaReferenceViewFor(ref.getName());
-		// tmr if (metaReferenceView == null) return XavaPreferences.getInstance().getDefaultLabelFormat(); 
-		if (metaReferenceView == null) return null; // tmr
+		if (metaReferenceView == null) return null; 
 		MetaDescriptionsList descriptionsList = metaReferenceView.getMetaDescriptionsList(); 
-		// tmr if (descriptionsList == null) return XavaPreferences.getInstance().getDefaultLabelFormat();  
-		if (descriptionsList == null) return null; // tmr
+		if (descriptionsList == null) return null; 
 		return descriptionsList.getLabelFormat();		
 	}
 
@@ -855,17 +850,11 @@ public class MetaView extends MetaElement implements Cloneable {
 	 * If not label format specified for the member returns the defaultLabelFormat from XavaPreferences.  
 	 * @since 5.7 
 	 */
-	public int getLabelFormatFor(MetaMember m) { // tmr doc
-		/* tmr
-		if (m instanceof MetaProperty) return getLabelFormatForProperty((MetaProperty) m);
-		if (m instanceof MetaReference) return getLabelFormatForReference((MetaReference) m);
-		*/
-		// tmr ini
+	public int getLabelFormatFor(MetaMember m) { 
 		Integer labelFormat = null;
 		if (m instanceof MetaProperty) labelFormat = getLabelFormatForProperty((MetaProperty) m);
 		else if (m instanceof MetaReference) labelFormat = getLabelFormatForReference((MetaReference) m);
 		if (labelFormat != null) return labelFormat;
-		// tmr fin
 		return XavaPreferences.getInstance().getDefaultLabelFormat();
 	}	
 	

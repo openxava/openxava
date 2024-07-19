@@ -20,9 +20,9 @@ public class MetaEditor implements Cloneable {
 	
 	private static Log log = LogFactory.getLog(MetaEditor.class);
 	
-	private static int creationOrder = 0; // tmr 
+	private static int creationOrder = 0;  
 	
-	private int priority = creationOrder++; // tmr
+	private int priority = creationOrder++; 
 	private boolean formatterFromType;
 	private Object formatter; 
 	private String propertiesURL;
@@ -44,7 +44,7 @@ public class MetaEditor implements Cloneable {
 	private String initAction; 
 	private String releaseAction; 
 	private boolean selectableItems;
-	private Integer defaultLabelFormat; // tmr Añadir a changelog. Añadir a reference guide. 
+	private Integer defaultLabelFormat;   
 	private Set<String> typeSet;
 	private Set<String> annotationSet;
 	private Set<String> stereotypeSet;
@@ -103,10 +103,7 @@ public class MetaEditor implements Cloneable {
 					Map.Entry e = (Map.Entry) it.next();
 					sb.append(e.getKey());
 					sb.append("=");
-					// tmr sb.append(e.getValue());
-					// tmr ini
-					sb.append(filterPropertyValue(e.getValue())); // tmr En changelog para soportar símbolo euro y % como valor anotaciones y propieddes editores 
-					// tmr fin
+					sb.append(filterPropertyValue(e.getValue()));  
 					if (it.hasNext()) sb.append("&");
 				}
 				propertiesURL = sb.toString();
@@ -115,7 +112,7 @@ public class MetaEditor implements Cloneable {
 		return propertiesURL; 
 	}
 	
-	private String filterPropertyValue(Object originalValue) { // tmr
+	private String filterPropertyValue(Object originalValue) { 
 		try {
 			return URLEncoder.encode(originalValue.toString(), "UTF-8");
 		} catch (UnsupportedEncodingException e) {

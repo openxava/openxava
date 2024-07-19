@@ -1,7 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
-
+- @LargeDisplay annotation to display a property value in large format, with large fonts, spacing, etc.
+- Moneys utility class to work with money values and properties.
+- If conflict to choose an editor from a stereotype or from annotation, the annotation has preference.
+- When several annotations with editor over a member it's chosen the last one declared in editors.xml. 
+- Special characters (%, euro, etc.) supported as value in annotations attributes and editor properties. 
 - New attribute default-label-format for editor in editors.xml.
 
 - New delete action for collection that always deletes the element completely from the database.

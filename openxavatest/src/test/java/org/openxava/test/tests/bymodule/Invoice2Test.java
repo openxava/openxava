@@ -49,8 +49,7 @@ public class Invoice2Test extends ModuleTestBase {
 		assertListSelectedConfiguration("Year = 2002"); 
 		assertListAllConfigurations("Year = 2002", "All");
 		assertListRowCount(1);
-		// tmr assertValueInList(0, "1\n2002\nDate: 1/1/2002, VAT %: 16.0, Amounts sum: 2,500.00, Number: 1, Name: Javi"); 
-		assertValueInList(0, "1\n2002\nDate: 1/1/2002, VAT %: 16.0, Amounts sum: 2,500.00, Number: 1, Name: Javi, Discount: -250.00, Total: 2,650.00"); // tmr
+		assertValueInList(0, "1\n2002\nDate: 1/1/2002, VAT %: 16.0, Amounts sum: 2,500.00, Number: 1, Name: Javi, Discount: -250.00, Total: 2,650.00"); 
 		
 		
 		selectListConfiguration("All"); 
@@ -82,10 +81,8 @@ public class Invoice2Test extends ModuleTestBase {
 			{"vatPercentage", "VAT %"},
 			{"amountsSum", "Amounts sum"},
 			{"customer.number", "Customer number"},
-			// tmr ini
 			{"discount", "Discount"},
 			{"total", "Total"},
-			// tmr fin
 			{"__MORE__", "[SHOW MORE...]"}
 		};
 		assertValidValuesInCollection("columns", 0, "name", chartColumnValues); 

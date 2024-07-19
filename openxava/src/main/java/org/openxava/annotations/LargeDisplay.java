@@ -3,7 +3,6 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * tmr
  * To display the value of the property in large format. <p>
  * 
  * Generally with a large font, inside a small frame with spacing, etc. 

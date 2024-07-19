@@ -150,13 +150,11 @@ public class MetaWebEditors {
 			return editorsByMember.get(memberId);
 		}		 
 		Annotation[] annotations = member.getAnnotations(); 
-		MetaEditor editor = null; // tmr
+		MetaEditor editor = null; 
 		if (annotations != null) for (Annotation a: annotations) {
-			// tmr MetaEditor editor = getEditorsByAnnotation().get(a.annotationType().getName());
-			if (!isForViews(viewName, a)) continue; // tmr
-			editor = getEditorsByAnnotation().get(a.annotationType().getName()); //tmr
+			if (!isForViews(viewName, a)) continue; 
+			editor = getEditorsByAnnotation().get(a.annotationType().getName()); 
 			if (editor != null) {
-				// tmr if (!isForViews(viewName, a)) continue; 
 				MetaEditor clonedEditor = null;				 
 				for (Method m: a.annotationType().getMethods()) {
 					if (Is.anyEqual(m.getName(), "equals", "toString", "hashCode", "annotationType", "forViews", "notForViews")) continue; 
@@ -172,21 +170,13 @@ public class MetaWebEditors {
 				}
 				if (editorsByMember == null) editorsByMember = new HashMap<>();
 				if (clonedEditor != null) editor = clonedEditor;
-				/* tmr				
-				editorsByMember.put(memberId, editor);
-				return editor;
-				*/
-				// tmr ini
-				// tmr En changelog y customize doc. Ahora la prioridad depende del orden de declaración
 				MetaEditor alreadyFoundEditor = editorsByMember.get(memberId);
 				if (alreadyFoundEditor == null || editor.getPriority() > alreadyFoundEditor.getPriority()) {
 					editorsByMember.put(memberId, editor);
 				}
-				// tmr fin
 			}
 		}
-		return editor; // tmr
-		// tmr return null;
+		return editor; 
 	}
 	
 
@@ -301,20 +291,6 @@ public class MetaWebEditors {
 				return r;				
 			}
 		}				
-		/* tmr
-		if (p.hasStereotype()) {			
-			MetaEditor r = (MetaEditor) getMetaEditorForStereotype(p.getStereotype());				
-			if (r != null) {				
-				return r;
-			}
-		}
-		MetaEditor r = (MetaEditor) getMetaEditorForAnnotation(p, viewName);
-		if (r != null) {
-			return r;
-		}
-		*/
-		// tmr ini
-		// tmr En changelog y customizing doc. Anotaciones preferencia sobre estereotipos
 		MetaEditor r = (MetaEditor) getMetaEditorForAnnotation(p, viewName);
 		if (r != null) {
 			return r;
@@ -325,7 +301,6 @@ public class MetaWebEditors {
 				return r;
 			}
 		}
-		// tmr fin
 		r = (MetaEditor) getMetaEditorForTypeOfProperty(p);
 		if (r == null) {
 			throw new ElementNotFoundException("editor_not_found", p.getId());
