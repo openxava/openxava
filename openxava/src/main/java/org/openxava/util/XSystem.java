@@ -74,48 +74,30 @@ public class XSystem {
 	
 	/** @since 6.0 */
 	public static boolean isJava9orBetter() {
-		try {
-			String version = System.getProperty("java.specification.version");
-			return Integer.parseInt(version) >= 9;
-		}
-		catch (NumberFormatException ex) {
-			// Because because 1.6, 1.7 and 1.8 as value
-			return false;
-		}
-		catch (Exception ex) {
-			log.warn(XavaResources.getString("determine_is_java9_problem"), ex);
-			return false;
-		}
+		return isEqualOrBetterThanJavaVersion(9);
 	}
 	
 	/** @since 7.3 */
 	public static boolean isJava17orBetter() {
-		try {
-			String version = System.getProperty("java.specification.version");
-			return Integer.parseInt(version) >= 17;
-		}
-		catch (NumberFormatException ex) {
-			// Because because 1.6, 1.7 and 1.8 as value
-			return false;
-		}
-		catch (Exception ex) {
-			log.warn(XavaResources.getString("determine_is_java_version_problem", "17"), ex);
-			return false;
-		}
+		return isEqualOrBetterThanJavaVersion(17);
 	}
 	
 	/** @since 7.3.1 */
 	public static boolean isJava21orBetter() {
+		return isEqualOrBetterThanJavaVersion(21);
+	}
+	
+	private static boolean isEqualOrBetterThanJavaVersion(int javaVersion) {
 		try {
 			String version = System.getProperty("java.specification.version");
-			return Integer.parseInt(version) >= 21;
+			return Integer.parseInt(version) >= javaVersion;
 		}
 		catch (NumberFormatException ex) {
 			// Because because 1.6, 1.7 and 1.8 as value
 			return false;
 		}
 		catch (Exception ex) {
-			log.warn(XavaResources.getString("determine_is_java_version_problem", "21"), ex);
+			log.warn(XavaResources.getString("determine_is_java_version_problem", javaVersion), ex);
 			return false;
 		}
 	}

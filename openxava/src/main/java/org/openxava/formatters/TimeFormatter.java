@@ -20,22 +20,30 @@ public class TimeFormatter implements IFormatter {
 	
 	private static DateTimeFormatter zhTimeFormat = DateTimeFormatter.ofPattern("ah:mm");
 
-	public String format(HttpServletRequest request, Object time) { 
+	public String format(HttpServletRequest request, Object time) {
 		if (time == null) return "";
 		if (time instanceof String || time instanceof Number) return time.toString();
 		String formattedTime = getTimeFormat().format((LocalTime) time);
-		if (XSystem.isJava17orBetter()) return getTimeFormat().format((LocalTime) time).replace("p.�m.", "PM").replace("a.�m.", "AM"); //use java 17 blank space \u00a0
+		if (XSystem.isJava17orBetter()) return getTimeFormat().format((LocalTime) time).replace("p. m.", "PM").replace("a. m.", "AM"); //use java 17 blank space \u00a0
 		if (XSystem.isJava9orBetter()) return getTimeFormat().format((LocalTime) time).replace("p. m.", "PM").replace("a. m.", "AM"); //use normal blank space \u0020
 		return formattedTime;
 	}
 	
 	public Object parse(HttpServletRequest request, String string) throws ParseException {
 		if (Is.emptyString(string)) return null;
-		if (XSystem.isJava17orBetter() && isZhFormat()) {
-			string = string.replace("p. m.", "PM").replace("a.�m.", "AM"); 
-		} else if (XSystem.isJava9orBetter() && isZhFormat()) {
-			string = string.replace("p. m.", "PM").replace("a. m.", "AM");
+		if (isZhFormat()) {
+			if (XSystem.isJava17orBetter()) {
+				string = string.replace("p. m.", "PM").replace("a. m.", "AM");
+			} else if (XSystem.isJava9orBetter()) {
+				string = string.replace("p. m.", "PM").replace("a. m.", "AM");
+			}
+		} else {
+			if (XSystem.isJava21orBetter()) {
+				string = string.replace(" PM", " PM").replace(" AM", " AM");
+				string = string.replace("PM ", "PM ").replace("AM ", "AM ");
+			}
 		}
+		
 		DateTimeFormatter timeFormat = getTimeFormat();
 		try {
 			return LocalTime.parse(string, timeFormat);
