@@ -469,7 +469,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		}
 		List<WebElement> spanElements = getDriver().findElements(By.cssSelector("span.flatpickr-am-pm"));
 		if (!spanElements.isEmpty()) {
-		    WebElement firstSpanElement = spanElements.get(0);
+		    WebElement firstSpanElement = spanElements.get(1);
 		    firstSpanElement.click();
 		}
 		WebElement label = getDriver().findElement(By.id("ox_openxavatest_Event__label_name"));
@@ -497,7 +497,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		endTime.sendKeys(Keys.TAB);
 		assertValue("endTime", "AM1:00");
 		openTimeCalendar(0);
-		changeAmPm(0);
+		changeAmPm(1);
 		assertValue("endTime", "PM1:00");
 		execute("CRUD.save"); 
 	}
