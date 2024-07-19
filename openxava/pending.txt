@@ -1,5 +1,0 @@
-- Documentar. 
-	- Links vista a modelo y modelo a vista.	
-	- Customize doc. 
-		- Ahora la prioridad de las anotaciones depende del orden de declaración
-		- Anotaciones preferencia sobre estereotipos. 
