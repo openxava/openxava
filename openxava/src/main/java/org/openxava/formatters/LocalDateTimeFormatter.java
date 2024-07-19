@@ -11,6 +11,7 @@ import org.openxava.util.*;
 /**
  * Time formatter with multilocale support. <p> 
  * 
+ * @since v7.4
  * @author Chungyen Tsai
  */
 

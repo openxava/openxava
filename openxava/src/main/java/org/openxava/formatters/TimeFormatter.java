@@ -16,7 +16,6 @@ import org.openxava.util.*;
  * @author Chungyen Tsai
  */
 
-
 public class TimeFormatter implements IFormatter {
 	
 	private static DateTimeFormatter zhTimeFormat = DateTimeFormatter.ofPattern("ah:mm");
