@@ -150,10 +150,11 @@ public class MetaWebEditors {
 			return editorsByMember.get(memberId);
 		}		 
 		Annotation[] annotations = member.getAnnotations(); 
+		MetaEditor editor = null; 
 		if (annotations != null) for (Annotation a: annotations) {
-			MetaEditor editor = getEditorsByAnnotation().get(a.annotationType().getName());
+			if (!isForViews(viewName, a)) continue; 
+			editor = getEditorsByAnnotation().get(a.annotationType().getName()); 
 			if (editor != null) {
-				if (!isForViews(viewName, a)) continue; 
 				MetaEditor clonedEditor = null;				 
 				for (Method m: a.annotationType().getMethods()) {
 					if (Is.anyEqual(m.getName(), "equals", "toString", "hashCode", "annotationType", "forViews", "notForViews")) continue; 
@@ -169,11 +170,13 @@ public class MetaWebEditors {
 				}
 				if (editorsByMember == null) editorsByMember = new HashMap<>();
 				if (clonedEditor != null) editor = clonedEditor;
-				editorsByMember.put(memberId, editor);
-				return editor;
+				MetaEditor alreadyFoundEditor = editorsByMember.get(memberId);
+				if (alreadyFoundEditor == null || editor.getPriority() > alreadyFoundEditor.getPriority()) {
+					editorsByMember.put(memberId, editor);
+				}
 			}
 		}
-		return null;
+		return editor; 
 	}
 	
 
@@ -288,15 +291,15 @@ public class MetaWebEditors {
 				return r;				
 			}
 		}				
-		if (p.hasStereotype()) {			
-			MetaEditor r = (MetaEditor) getMetaEditorForStereotype(p.getStereotype());				
-			if (r != null) {				
-				return r;
-			}
-		}
 		MetaEditor r = (MetaEditor) getMetaEditorForAnnotation(p, viewName);
 		if (r != null) {
 			return r;
+		}
+		if (p.hasStereotype()) {			
+			r = (MetaEditor) getMetaEditorForStereotype(p.getStereotype());				
+			if (r != null) {				
+				return r;
+			}
 		}
 		r = (MetaEditor) getMetaEditorForTypeOfProperty(p);
 		if (r == null) {

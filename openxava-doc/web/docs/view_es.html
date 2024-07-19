@@ -46,6 +46,8 @@
             un editor (propiedad)</a></div>
         <div style="margin-left: 3em;"><a href="#Vista-Personalizacion+de+propiedad-Combos+dinamicos+%28nuevo+en+v5.8%29">Combos
             dinámicos (nuevo en v5.8)</a></div>
+        <div style="margin-left: 3em;"><a href="#formato-grande-visualizacion">Formato
+            grande de visualización (nuevo en v7.4)</a></div>
         <div style="margin-left: 2em;"><a href="#Vista-Personalizacion+de+referencia">Personalización
             de referencia</a></div>
         <div style="margin-left: 3em;"><a href="#Vista-Personalizacion+de+referencia-Escoger+vista">Escoger
@@ -6026,8 +6028,8 @@ class="st0">"MuySimple"</span><span class="br0">)</span>
 @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/Action.html"><span
 class="kw105">Action</span></a> <span class="co1">// 5</span>
 @Editor <span class="co1">// 6</span>
-@LabelStyle <span class="co1">// 7 Nuevo en v4m4</span>
-<span class="kw2">private</span> tipo nombrePropiedad<span class="sy0">;</span></pre>
+@LabelStyle <span class="co1">// 7 Nuevo en v4m4</span><br>@LargeDisplay <span class="co1">// 8 Nuevo en v7.4</span><br><span
+class="kw2">private</span> tipo nombrePropiedad<span class="sy0">;</span></pre>
       Todas estas anotaciones siguen las <a class="wiki_link" href="#Vista-Normas%20para%20las%20anotaciones%20de%20vista">normas
         para anotaciones de vista</a> y todas ellas son opcionales. OpenXava
       siempre asume valores por defecto correcto si se omiten.<br>
@@ -6078,6 +6080,18 @@ class="kw105">Action</span></a> <span class="co1">// 5</span>
           definidos los estilos 'bold-label', 'italic-label' y 'reverse-label';
           cualquier otro estilo puede ser definido por el propio usuario (basta
           con incluirlo en un .css).</li>
+        <li><strong><a class="wiki_link" href="#formato-grande-visualizacion">@LargeDisplay</a></strong>
+          (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/LargeDisplay.html"
+            rel="nofollow">OX</a>): (<em>Nuevo en v7.4</em>): El valor de la
+          propiedad se muestra en un formato grande para hacerlo claramente
+          visible. Generalmente se utiliza una fuente grande, dentro de un marco
+          pequeño con espaciado, etc. Además, permite mostrar un icono, un
+          prefijo y un sufijo opcionalmente.</li>
+      </ol>
+      <p>Aparte de las anotaciones relacionadas con la vista de arriba puedes
+        anotar tus propiedades con <a href="model_es.html#Modelo-Propiedades-Estereotipo">anotaciones
+          estilo estereotipo</a>.</p>
+      <ol>
       </ol>
       <h3 id="toc9"><a name="Vista-Personalizacion+de+propiedad-Formato+de+etiqueta"></a>Formato
         de etiqueta</h3>
@@ -7936,8 +7950,61 @@ class="kw1">private</span> <span class="kw3">String</span> color<span class="sy0
       valores no se agregarán a la lista original de opciones para el uso en
       otros registros.<br>
       <img src="files/view_es115.png" alt="view_es115.png" title="view_es115.png"><br>
-      <h2 id="toc14"><a name="Vista-Personalizacion+de+referencia"></a>Personalización
-        de referencia</h2>
+      <h3><a name="formato-grande-visualizacion"></a>Formato grande de
+        visualización <em>(nuevo en v7.4)</em></h3>
+      Es posible hacer que el valor de una propiedad se visualice con un tamaño
+      grande. Así podemos resaltar la propiedad en la vista o hacer una vista
+      estilo cuadro de mandos donde todos los datos tienen formato grande.</div>
+    <div class="wiki" style="display: block;">Solo has de anotar tus propiedades
+      con <a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/LargeDisplay.html"><i>@LargeDisplay</i></a>,
+      de esta forma:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@LargeDisplay 
+int anyo;
+
+@Money @LargeDisplay 
+BigDecimal descuento;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Lo que se visualizara así:</div>
+    <img src="files/view_es117.png" alt="view_es117.png" title="view_es117.png">
+    <div class="wiki" style="display: block;">Fíjate como en el caso de la
+      propiedad <i>descuento</i> el valor aparece en rojo, esto es porque los
+      valores negativos salen en rojo (este color se puede cambiar vía CSS).
+      Además, nota como tiene como sufijo el símbolo del euro, esto es porque la
+      propiedad está anotada con <i>@Money,</i> en ese caso saca el símbolo de
+      la móneda como prefijo o sufijo según el locale del servidor.</div>
+    <div class="wiki" style="display: block;">También tenemos la opción de
+      especificar nosotros que sufijo o prefijo queremos, con los atributos <i>prefix</i>
+      y <i>suffix</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@LargeDisplay(prefix="€") 
+BigDecimal sumaImportes;
+
+@LargeDisplay(suffix="%", icon="label-percent-outline") 
+BigDecimal porcentajeIVA;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Que se visualizaría:</div>
+    <img src="files/view_es118.png" alt="view_es118.png" title="view_es118.png">
+    <div class="wiki" style="display: block;">Ahora el símbolo del euro aparece
+      como prefijo de forma fija, no importa que la propiedad esté o no anotada
+      con <i>@Money</i>. Y un detalle más, se visualiza un icono en la
+      propiedad <i>porcentajeIVA</i>, esto lo hemos conseguido con <i>icon="label-percent-outline"</i>.
+      Los iconos son identificadores de <a href="https://pictogrammers.com/library/mdi/">Material
+        Design Icons</a>.</div>
+    <div class="wiki" style="display: block;">Como ocurre con todos los
+      elementos visuales de OpenXava, puedes cambiar el estilo del formato
+      grande de visualización (<i>@LargeDisplay</i>), como el tamaño de la
+      letra, espaciado, etc. usando CSS. Las clases CSS disponibles son <i>.ox-large-display,
+        .ox-large-display-suffix, .ox-large-display-negative,
+        .ox-large-display-value</i> o <i>.ox-large-display i</i> para el icono.
+      Para los colores puedes cambiar los valores de las variables <i>--large-display-color,
+        --large-display-negative-color</i> y <i>--large-display-icon-color</i>.
+      El código CSS lo pueddes incluir en <i>custom.css</i> o en tu propio
+      estilo como se explica en la <a href="custom-style_es.html">documentación
+        sobre el estilo visual personalizado</a>.<br>
+      <h2 id="toc14"></h2>
+      <h2><a name="Vista-Personalizacion+de+referencia"></a>Personalización de
+        referencia</h2>
       Podemos refinar la forma de visualización y comportamiento de una
       referencia en la vista usando las siguientes anotaciones:<br>
       <style type="text/css"><!--

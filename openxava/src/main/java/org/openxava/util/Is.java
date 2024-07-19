@@ -5,8 +5,6 @@ import java.util.*;
 
 import org.apache.commons.lang3.*;
 
-import net.sf.jasperreports.engine.virtualization.*;
-
 /**
  * Utility class to reduce the ifs size. <p>
  * 

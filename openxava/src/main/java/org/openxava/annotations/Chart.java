@@ -19,7 +19,7 @@ import java.lang.annotation.*;
  * However, you can determine explicitly what properties use, like in this example:
  * <pre>
  * &nbsp;@Chart(labelProperties = "firstName, lastName", dataProperties = "salary, bonus")
- * &nbsp;Collection<CorporationEmployee> employees; * 
+ * &nbsp;Collection<CorporationEmployee> employees;  
  * </pre>
  * In this case the concatenation of firstName and lastName is used as label, and the salary and
  * bonus properties as data.

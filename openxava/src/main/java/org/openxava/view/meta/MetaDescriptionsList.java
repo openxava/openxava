@@ -19,7 +19,7 @@ public class MetaDescriptionsList implements java.io.Serializable {
 	private boolean orderByKey;
 	private boolean showReferenceView; 
 	private Collection dependsNames;
-	private int labelFormat = XavaPreferences.getInstance().getDefaultLabelFormat();
+	private Integer labelFormat; 
 	private String forTabs;
 	private String notForTabs;
 	private String labelStyle = "";
@@ -91,11 +91,11 @@ public class MetaDescriptionsList implements java.io.Serializable {
 		this.order = order;
 	}
 
-	public int getLabelFormat() {
+	public Integer getLabelFormat() { 
 		return labelFormat;
 	}
 
-	public void setLabelFormat(int labelFormat) {
+	public void setLabelFormat(Integer labelFormat) { 
 		this.labelFormat = labelFormat;
 	}
 

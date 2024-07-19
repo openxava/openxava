@@ -265,6 +265,10 @@
 	--calendar-button-hover-color: var(--action-hover-color);
 	--calendar-button-hover-background: var(--action-hover-background);
 	--calendar-cell-border-color: var(--action-hover-background);
+	
+	--large-display-color: var(--link-color); 
+	--large-display-negative-color: red; 
+	--large-display-icon-color: var(--color); 
 }
 
 @font-face {
@@ -3002,4 +3006,25 @@ a[data-action="Collection.previous"] {
 
 .ox-icon-transparent {
 	color: transparent!important;
+}
+
+.ox-large-display {
+	font-size: xxx-large;
+	color: var(--large-display-color);
+	padding: 20px;
+	margin-top: -25px;
+	margin-left: -5px;
+}
+
+.ox-large-display-suffix {
+	font-size: x-large;
+}
+
+.ox-large-display-negative .ox-large-display-value {
+	color: var(--large-display-negative-color); 
+}
+
+.ox-large-display i { 
+	color: var(--large-display-icon-color); 
+	vertical-align: top;
 }

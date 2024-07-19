@@ -113,7 +113,7 @@
 	<editor name="LocalDateTimeCalendar" url="dateTimeCombinedCalendarEditor.jsp">
 		<formatter class="org.openxava.formatters.LocalDateTimeFormatter"/>
 		<for-type type="java.time.LocalDateTime" />
-	</editor>	
+	</editor>
 
 	<editor name="ValidValuesCombo" url="validValuesEditor.jsp">
 		<for-valid-values />
@@ -413,6 +413,10 @@
 	
 	<editor name="Mask" url="textEditor.jsp"> 
 		<for-annotation annotation="org.openxava.annotations.Mask"/> 
+	</editor>
+	
+	<editor name="LargeDisplay" url="largeDisplayEditor.jsp" default-label-format="small">
+		<for-annotation annotation="org.openxava.annotations.LargeDisplay"/>
 	</editor>
 		
 </editors>
