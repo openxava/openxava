@@ -24,26 +24,15 @@ public class TimeFormatter implements IFormatter {
 		if (time == null) return "";
 		if (time instanceof String || time instanceof Number) return time.toString();
 		String formattedTime = getTimeFormat().format((LocalTime) time);
-		if (XSystem.isJava17orBetter()) return getTimeFormat().format((LocalTime) time).replace("p. m.", "PM").replace("a. m.", "AM"); //use java 17 blank space \u00a0
-		if (XSystem.isJava9orBetter()) return getTimeFormat().format((LocalTime) time).replace("p. m.", "PM").replace("a. m.", "AM"); //use normal blank space \u0020
 		return formattedTime;
 	}
 	
 	public Object parse(HttpServletRequest request, String string) throws ParseException {
 		if (Is.emptyString(string)) return null;
-		if (isZhFormat()) {
-			if (XSystem.isJava17orBetter()) {
-				string = string.replace("p. m.", "PM").replace("a. m.", "AM");
-			} else if (XSystem.isJava9orBetter()) {
-				string = string.replace("p. m.", "PM").replace("a. m.", "AM");
-			}
-		} else {
-			if (XSystem.isJava21orBetter()) {
-				string = string.replace(" PM", "\u202fPM").replace(" AM", "\u202fAM");
-				string = string.replace("PM ", "PM\u202f").replace("AM ", "AM\u202f");
-			}
+		if (XSystem.isJava21orBetter()) {
+			string = string.replace(" PM", "\u202fPM").replace(" AM", "\u202fAM");
+			string = string.replace("PM ", "PM\u202f").replace("AM ", "AM\u202f");
 		}
-		
 		DateTimeFormatter timeFormat = getTimeFormat();
 		try {
 			return LocalTime.parse(string, timeFormat);
