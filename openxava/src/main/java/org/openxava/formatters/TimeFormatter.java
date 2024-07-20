@@ -39,8 +39,8 @@ public class TimeFormatter implements IFormatter {
 			}
 		} else {
 			if (XSystem.isJava21orBetter()) {
-				string = string.replace(" PM", " PM").replace(" AM", " AM");
-				string = string.replace("PM ", "PM ").replace("AM ", "AM ");
+				string = string.replace(" PM", "\u202fPM").replace(" AM", "\u202fAM");
+				string = string.replace("PM ", "PM\u202f").replace("AM ", "AM\u202f");
 			}
 		}
 		
