@@ -108,7 +108,12 @@
 	<editor name="LocalTimeCalendar" url="timeCalendarEditor.jsp">
 		<formatter class="org.openxava.formatters.TimeFormatter"/>
 		<for-type type="java.time.LocalTime" />
-	</editor>	
+	</editor>
+	
+	<editor name="LocalDateTimeCalendar" url="dateTimeCombinedCalendarEditor.jsp">
+		<formatter class="org.openxava.formatters.LocalDateTimeFormatter"/>
+		<for-type type="java.time.LocalDateTime" />
+	</editor>
 
 	<editor name="ValidValuesCombo" url="validValuesEditor.jsp">
 		<for-valid-values />

@@ -40,6 +40,8 @@ public class Event extends Identifiable{
 	@Editor("DateTimeSeparatedCalendar")
 	Timestamp createDate;
 	
+	LocalDateTime lastChangeTime;
+	
 	String name;
 	
 	String description;

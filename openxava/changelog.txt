@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Support for java.time.LocalDateTime as a type for properties in entities. 
+- LocalTime uses a consistent format across Java 8, 11, 17 and 21.
 - @LargeDisplay annotation to display a property value in large format, with large fonts, spacing, etc.
 - Moneys utility class to work with money values and properties.
 - If conflict to choose an editor from a stereotype or from annotation, the annotation has preference.

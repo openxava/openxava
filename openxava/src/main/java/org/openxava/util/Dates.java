@@ -254,6 +254,36 @@ public class Dates {
 	/**
 	 * DateFormat for date + time consistently among all Java versions, according current <i>locale</i>. <p>
 	 * 
+	 * The date format is consistent among all Java versions. 
+	 * While standard Java format differently since Java 9. 
+	 * 
+	 * Current locale is from {@link Locales#getCurrent}. <br>
+	 * 
+	 * @return Not null
+	 * @since 7.4
+	 */
+	public static DateTimeFormatter getLocalDateTimeFormat() {
+		return getLocalDateTimeFormat(Locales.getCurrent(), true);
+	}
+	
+	/**
+	 * DateFormat for date + time consistently among all Java versions, according current <i>locale</i>. <p>
+	 * 
+	 * The date format is consistent among all Java versions.
+	 * While standard Java format differently since Java 9. 
+	 * 
+	 * Current locale is from {@link Locales#getCurrent}. <br>
+	 * 
+	 * @return Not null
+	 * @since 7.4
+	 */
+	public static DateTimeFormatter getLocalDateTimeFormatForParsing() { 
+		return getLocalDateTimeFormat(Locales.getCurrent(), false);
+	}
+	
+	/**
+	 * DateFormat for date + time consistently among all Java versions, according current <i>locale</i>. <p>
+	 * 
 	 * The date format is consistent among all Java versions, including Java 6, 7, 8, 9, 10 and 11. 
 	 * While standard Java format differently since Java 9. 
 	 * 
@@ -295,7 +325,7 @@ public class Dates {
 	 */	
 	public static DateFormat getDateTimeFormatForParsing(Locale locale) { 
 		return getDateTimeFormat(locale, false);
-	}	
+	}
 	
 	private static DateFormat getDateTimeFormat(Locale locale, boolean fourDigitsForYear) { 
 		// To use the Java 8 (and previous) format for Java 9 and better
@@ -316,6 +346,16 @@ public class Dates {
 			df = sdf;
 		}
 		return df;
+	}
+	
+	private static DateTimeFormatter getLocalDateTimeFormat(Locale locale, boolean fourDigitsForYear) {
+		DateFormat df = getDateTimeFormat(locale, fourDigitsForYear);
+		String pattern = "";
+		if (df instanceof SimpleDateFormat) {
+	        pattern = ((SimpleDateFormat) df).toPattern();
+	    }
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern, locale);
+		return formatter;
 	}
 
 	/**
