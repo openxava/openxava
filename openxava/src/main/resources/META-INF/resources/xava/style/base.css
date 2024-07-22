@@ -3014,6 +3014,12 @@ a[data-action="Collection.previous"] {
 	padding: 20px;
 	margin-top: -25px;
 	margin-left: -5px;
+	/* tmr ini */
+	min-width: 150px;
+	display: flex;
+	justify-content: center;
+	align-items: center;	
+	/* tmr ini */
 }
 
 .ox-large-display-suffix {
