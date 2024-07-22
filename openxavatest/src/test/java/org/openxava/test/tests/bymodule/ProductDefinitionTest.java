@@ -26,7 +26,7 @@ public class ProductDefinitionTest extends ModuleTestBase {
 		assertNoErrors();
 		assertCollectionRowCount("subparts", 1);
 		
-		execute("Collection.removeSelected", "row=0,viewObject=xava_view_subparts");
+		execute("Collection.deleteSelected", "row=0,viewObject=xava_view_subparts");
 		assertCollectionRowCount("subparts", 0);
 	}
 	

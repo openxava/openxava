@@ -502,7 +502,7 @@ public class XavaPreferences {
 	
 	/** @since 7.1 */
 	public String[] getDefaultDescriptionPropertiesValueForDescriptionsList() { 
-		String properties = getProperties().getProperty("defaultDescriptionPropertiesValueForDescriptionsList", "descripcion,description,nombre,name");
+		String properties = getProperties().getProperty("defaultDescriptionPropertiesValueForDescriptionsList", "nombre,name,title,titulo,descripcion,description"); 
 		return properties.split(",");
 	}
 	

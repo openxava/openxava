@@ -23,7 +23,6 @@ import org.openxava.filters.*;
 import org.openxava.mapping.*;
 import org.openxava.model.*;
 import org.openxava.model.meta.*;
-import org.openxava.session.*;
 import org.openxava.tab.Tab;
 import org.openxava.util.*;
 import org.openxava.util.meta.*;
@@ -69,6 +68,7 @@ public class View implements java.io.Serializable {
 	private String hideCollectionElementAction;
 	private String removeCollectionElementAction;
 	private String removeSelectedCollectionElementsAction;
+	private String deleteSelectedCollectionElementsAction;
 	private String onSelectCollectionElementAction; 
 	private Collection subcontrollersNamesList; 
 	private boolean focusForward;
@@ -1094,6 +1094,7 @@ public class View implements java.io.Serializable {
 				newView.setHideCollectionElementAction(metaCollectionView.getHideActionName());
 				newView.setRemoveCollectionElementAction(metaCollectionView.getRemoveActionName());
 				newView.setRemoveSelectedCollectionElementsAction(metaCollectionView.getRemoveSelectedActionName());
+				newView.setDeleteSelectedCollectionElementsAction(metaCollectionView.getDeleteSelectedActionName());
 				newView.setOnSelectCollectionElementAction(metaCollectionView.getOnSelectElementActionName());
 				boolean editable = false;
 				if (!metaCollectionView.isReadOnly()) {
@@ -1803,7 +1804,6 @@ public class View implements java.io.Serializable {
 		assertRepresentsCollection("getMetaCollection()");
 		return getParentIfSectionOrGroup().getParent().getMetaModel().getMetaCollection(getMemberName()); 
 	}
-
 
 	/**
 	 * A list of all collection element when each element is a map 
@@ -5236,9 +5236,12 @@ public class View implements java.io.Serializable {
 	
 	public Collection getRowActionsNames() { 
 		Collection rowActionsNames = new ArrayList();
-		if (isCollectionEditable() && isRowAction(getRemoveSelectedCollectionElementsAction())) {
-			rowActionsNames.add(getRemoveSelectedCollectionElementsAction());
-		}		
+		if (isCollectionEditable()) {
+			if (isRepresentsEntityCollection() && isRowAction(getRemoveSelectedCollectionElementsAction())) 
+				rowActionsNames.add(getRemoveSelectedCollectionElementsAction());
+			if (isRowAction(getDeleteSelectedCollectionElementsAction())) 
+				rowActionsNames.add(getDeleteSelectedCollectionElementsAction());
+		}
 		rowActionsNames.addAll(getActionsNamesRow());
 		for (Object action: getActionsNamesList()) {
 			if (isRowAction(action)) {
@@ -5251,6 +5254,36 @@ public class View implements java.io.Serializable {
 	private boolean isRowAction(Object qualifiedAction) {
 		if (Is.emptyString((String) qualifiedAction)) return false;
 		return MetaControllers.getMetaAction((String) qualifiedAction).isInEachRow();
+	}
+	
+	/*
+	 * @since 7.4
+	 */
+	public boolean isRowActionHaveIcon(Collection rowActions) {
+		boolean hasIconOrImage = false;
+		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext();) {
+			MetaAction rowAction = MetaControllers.getMetaAction((String) itRowActions.next());
+			if (rowAction.hasIcon() || rowAction.hasImage()) {
+				hasIconOrImage = true;
+			}
+		}
+		return hasIconOrImage;
+	}
+	
+	/*
+	 * @since 7.4
+	 */
+	public Collection removeUnavailableActionFromRow(Collection collection, String actionArgv) {
+		ModuleManager moduleManager = getModuleManager(getRequest());
+		Collection rowActions = collection;
+		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext();) {
+			String action = (String) itRowActions.next();
+			MetaAction rowAction = MetaControllers.getMetaAction(action);
+			if (!moduleManager.isActionAvailable(rowAction, errors, messages, "row=" + 0 + actionArgv, getRequest())) {
+				itRowActions.remove();
+			}
+		}
+		return rowActions;
 	}
 		
 	public Collection getActionsNamesList() {
@@ -5344,14 +5377,24 @@ public class View implements java.io.Serializable {
 	
 	
 	public int getLabelFormatForProperty(MetaProperty p) throws XavaException {
-		if (isFlowLayout()) return LabelFormatType.SMALL.ordinal(); 
-		return getMetaView().getLabelFormatForProperty(p);
+		if (isFlowLayout()) return LabelFormatType.SMALL.ordinal();
+		Integer labelFormat = getMetaView().getLabelFormatForProperty(p);
+		if (labelFormat != null) return labelFormat;
+		return getDefaultLabelFormatFor(p);
+	}
+
+	public int getLabelFormatForReference(MetaReference ref) throws XavaException {
+		if (isFlowLayout()) return LabelFormatType.SMALL.ordinal();
+		Integer labelFormat = getMetaView().getLabelFormatForReference(ref);
+		if (labelFormat != null) return labelFormat;
+		return getDefaultLabelFormatFor(ref);
 	}
 	
-	public int getLabelFormatForReference(MetaReference ref) throws XavaException {
-		if (isFlowLayout()) return LabelFormatType.SMALL.ordinal(); 
-		return getMetaView().getLabelFormatForReference(ref);
-	}
+	private int getDefaultLabelFormatFor(MetaMember member) { 
+		MetaEditor editor = WebEditors.getMetaEditorFor(member, getViewName());
+		if (editor.getDefaultLabelFormat() != null) return editor.getDefaultLabelFormat();
+		return XavaPreferences.getInstance().getDefaultLabelFormat();
+	}	
 	
 	/**
 	 * To determine what type of layout to do with flowLayout activated.
@@ -5398,7 +5441,7 @@ public class View implements java.io.Serializable {
 	
 	public boolean isFlowLayout() { 
 		if ("SignIn".equals(getModelName()) || "ProSignIn".equals(getModelName())) return false; // A little ad hoc, but was the simplest way at the moment 
-		if (Chart.class.getSimpleName().equals(getModelName())) return false; // A little ad hoc, but was the simplest way at the moment
+		if (org.openxava.session.Chart.class.getSimpleName().equals(getModelName())) return false; // A little ad hoc, but was the simplest way at the moment
 		return XavaPreferences.getInstance().isFlowLayout(); 
 	}
 	
@@ -5814,7 +5857,7 @@ public class View implements java.io.Serializable {
 	}
 
 	public void setRemoveCollectionElementAction(
-			String removeCollectionElementAction) {		
+			String removeCollectionElementAction) {
 		this.removeCollectionElementAction = removeCollectionElementAction;
 	}
 	
@@ -5826,6 +5869,15 @@ public class View implements java.io.Serializable {
 	public void setRemoveSelectedCollectionElementsAction(
 			String removeSelectedCollectionElementAction) {		
 		this.removeSelectedCollectionElementsAction = removeSelectedCollectionElementAction;
+	}
+	
+	public String getDeleteSelectedCollectionElementsAction() {
+		return getCollectionAction(deleteSelectedCollectionElementsAction, 
+                isRepresentsElementCollection()?deleteSelectedCollectionElementsAction:"Collection.deleteSelected");
+	}
+
+	public void setDeleteSelectedCollectionElementsAction(String deleteSelectedCollectionElementsAction) {
+		this.deleteSelectedCollectionElementsAction = deleteSelectedCollectionElementsAction;
 	}
 	
 	public String getSaveCollectionElementAction() {
@@ -7196,6 +7248,16 @@ public class View implements java.io.Serializable {
 		MetaDescriptionsList descriptionsList = getMetaView().getMetaDescriptionList(metaReference);
 		if (descriptionsList == null) return "";
 		return descriptionsList.getCondition();
+	}
+	
+	/**
+	 * @since 7.4
+	 */
+	public boolean isRepresentsEntityCollection() throws XavaException {
+		if (!isRepresentsCollection()) return false;
+		MetaCollectionView metaCollectionView = getMetaView().getMetaCollectionView(getMetaCollection().getName());
+		if (metaCollectionView != null) return !metaCollectionView.isAsAggregate();
+		return getMetaModel() instanceof MetaEntity; 		
 	}
 
 }

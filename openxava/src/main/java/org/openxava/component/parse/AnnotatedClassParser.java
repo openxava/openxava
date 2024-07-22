@@ -1215,6 +1215,12 @@ public class AnnotatedClassParser implements IComponentParser {
 		if (element.isAnnotationPresent(RemoveSelectedActions.class)) {
 			notApply(property.getName(), RemoveSelectedActions.class, "collections");
 		}
+		if (element.isAnnotationPresent(DeleteSelectedAction.class)) {
+			notApply(property.getName(), DeleteSelectedAction.class, "collections");
+		}								
+		if (element.isAnnotationPresent(DeleteSelectedActions.class)) {
+			notApply(property.getName(), DeleteSelectedActions.class, "collections");
+		}
 		if (element.isAnnotationPresent(SaveAction.class)) {
 			notApply(property.getName(), SaveAction.class, "collections");
 		}
@@ -1632,6 +1638,29 @@ public class AnnotatedClassParser implements IComponentParser {
 						}
 						else {
 							duplicateAnnotationForView(collection.getName(), RemoveSelectedAction.class, metaView.getName());
+						}
+					}
+				}				
+			}
+			
+			// DeleteSelectedAction
+			if (element.isAnnotationPresent(DeleteSelectedAction.class)) {
+				DeleteSelectedAction action = element.getAnnotation(DeleteSelectedAction.class);
+				if (isForView(metaView, action.forViews(), action.notForViews())) {
+					collectionView.setDeleteSelectedActionName(action.value());
+					mustAddMetaView = true;				
+				}
+			}
+			if (element.isAnnotationPresent(DeleteSelectedActions.class)) {
+				DeleteSelectedAction [] actions = element.getAnnotation(DeleteSelectedActions.class).value();
+				for (DeleteSelectedAction action: actions) {				
+					if (isForView(metaView, action.forViews(), action.notForViews())) {
+						if (Is.emptyString(collectionView.getDeleteSelectedActionName())) {
+							collectionView.setDeleteSelectedActionName(action.value());
+							mustAddMetaView = true;				
+						}
+						else {
+							duplicateAnnotationForView(collection.getName(), DeleteSelectedAction.class, metaView.getName());
 						}
 					}
 				}				
@@ -2355,6 +2384,12 @@ public class AnnotatedClassParser implements IComponentParser {
 		if (element.isAnnotationPresent(RemoveSelectedActions.class)) {
 			notApply(ref.getName(), RemoveSelectedActions.class, "collections");
 		}
+		if (element.isAnnotationPresent(DeleteSelectedAction.class)) {
+			notApply(ref.getName(), DeleteSelectedAction.class, "collections");
+		}						
+		if (element.isAnnotationPresent(DeleteSelectedActions.class)) {
+			notApply(ref.getName(), DeleteSelectedActions.class, "collections");
+		}
 		if (element.isAnnotationPresent(SaveAction.class)) {
 			notApply(ref.getName(), SaveAction.class, "collections");
 		}
@@ -2751,8 +2786,13 @@ public class AnnotatedClassParser implements IComponentParser {
 		}		
 		return false;
 	}
+		
+	private boolean isForView(MetaView view, String forViews, String notForViews) {  
+		return isForView(view.getName(), forViews, notForViews);
+	}
 	
-	private boolean isForView(MetaView view, String forViews, String notForViews) {
+	/** @since 7.4 */
+	public static boolean isForView(String view, String forViews, String notForViews) {  
 		if (Is.emptyStringAll(forViews, notForViews)) return true;
 		if (!Is.emptyString(forViews) && !Is.emptyString(notForViews)) {
 			log.warn(XavaResources.getString("forViews_and_notForViews_not_compatible")); 
@@ -2761,8 +2801,8 @@ public class AnnotatedClassParser implements IComponentParser {
 			StringTokenizer st = new StringTokenizer(forViews, ",");
 			while (st.hasMoreTokens()) {
 				String viewName = st.nextToken().trim();
-				if (view.getName().equals(viewName)) return true;
-				if (Is.emptyString(view.getName()) && "DEFAULT".equals(viewName)) return true;
+				if (viewName.equals(view)) return true;
+				if (Is.emptyString(view) && "DEFAULT".equals(viewName)) return true;
 			}
 			return false;
 		}
@@ -2770,12 +2810,13 @@ public class AnnotatedClassParser implements IComponentParser {
 			StringTokenizer st = new StringTokenizer(notForViews, ",");
 			while (st.hasMoreTokens()) {
 				String viewName = st.nextToken().trim();
-				if (view.getName().equals(viewName)) return false;
-				if (Is.emptyString(view.getName()) && "DEFAULT".equals(viewName)) return false;
+				if (viewName.equals(view)) return false;
+				if (Is.emptyString(view) && "DEFAULT".equals(viewName)) return false;
 			}	
 			return true;
 		}				
 	}
+
 	
 		
 }

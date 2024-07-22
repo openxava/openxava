@@ -15,7 +15,9 @@ import org.openxava.model.*;
 @Entity
 @Views({
 	@View(members="name, icon; employees {employees}"), 
-	@View(name="Simple", members="name")
+	@View(name="Simple", members="name"),
+	@View(name="EmployeesChart", members="name; employees"),
+	@View(name="EmployeesRefinedChart", members="name; employees")
 })
 public class Corporation extends Identifiable {
 
@@ -27,7 +29,10 @@ public class Corporation extends Identifiable {
 	private String icon; 
 	
 	@OneToMany(mappedBy="corporation", cascade=CascadeType.ALL)
+	@Chart(forViews="EmployeesChart")
+	@Chart(forViews="EmployeesRefinedChart", labelProperties = "firstName, lastName", dataProperties = "salary")
 	private Collection<CorporationEmployee> employees;
+	
 	
 	public void setName(String name) {
 		this.name = name;

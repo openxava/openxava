@@ -152,7 +152,7 @@ abstract public class MetaMember extends MetaElement implements Comparable<MetaM
 		Annotation[] result = null;
 		try {
 			AnnotatedElement element = Classes.getField(getMetaModel().getPOJOClass(), getSimpleName()); 
-			result = element.getAnnotations();
+			result = Classes.getAnnotationsWithRepeatables(element); 
 		} 
 		catch (NoSuchFieldException ex) {
 			// It could be a calculated property, without field
@@ -176,7 +176,7 @@ abstract public class MetaMember extends MetaElement implements Comparable<MetaM
 
 	private Annotation[] getAnnotationsFromGetter(Annotation[] result, String prefix) throws NoSuchMethodException {   
 		AnnotatedElement element = getMetaModel().getPOJOClass().getMethod(prefix + Strings.firstUpper(getSimpleName()));
-		Annotation[] getterAnnotations = element.getAnnotations();
+		Annotation[] getterAnnotations = Classes.getAnnotationsWithRepeatables(element); 
 		if (getterAnnotations.length > 0) {
 			Collection<Annotation> annotations = new ArrayList<>();
 			if (result != null) annotations.addAll(Arrays.asList(result));

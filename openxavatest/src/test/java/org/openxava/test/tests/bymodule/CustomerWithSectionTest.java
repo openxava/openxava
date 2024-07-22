@@ -685,7 +685,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValue("name", "Javi");
 		assertCollectionRowCount("deliveryPlaces", 1);
 		assertValueInCollection("deliveryPlaces", 0, 0, "JUNIT DEVIVERY PLACE");
-		execute("Collection.removeSelected", "row=0,viewObject=xava_view_section0_deliveryPlaces");
+		execute("Collection.deleteSelected", "row=0,viewObject=xava_view_section0_deliveryPlaces");
 		assertCollectionRowCount("deliveryPlaces", 0); 
 	}
 	

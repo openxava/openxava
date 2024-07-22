@@ -1,6 +1,25 @@
 Change Log for OpenXava project
 ===============================
 
+- @LargeDisplay annotation to display a property value in large format, with large fonts, spacing, etc.
+- Moneys utility class to work with money values and properties.
+- If conflict to choose an editor from a stereotype or from annotation, the annotation has preference.
+- When several annotations with editor over a member it's chosen the last one declared in editors.xml. 
+- Special characters (%, euro, etc.) supported as value in annotations attributes and editor properties. 
+- New attribute default-label-format for editor in editors.xml.
+- New delete action for collection that always deletes the element completely from the database.
+- @DeleteSelectedAction annotation for collection to define a custom action for deleting an element.
+- Icon and label for remove action in collection changed to indicate it just removes from the collection. 
+- README instructions includes the usage of archetypes.
+- Getting started guide adapted to OpenXava Studio 7 R3. 
+- @Chart annotation for collections to display the collection as a chart from its data. 
+- As @DescriptionsList defaults 'name' takes preferences over 'description', and 'title' is recognized.
+- New methods getAnnotationAttributeValue() and getAnnotationsWithRepeatables() in Classes utity class.
+- Attributes forViews y notForViews recognized for custom annotations.
+- Some new common use labels to be used in applications.
+- Fix: Missing a entry in navigation of view section of reference guide in English. 
+- New 'Open in new tab' row action by default in collections. 
+- Popup menu for row actions in list and collections when there are more than two actions.
 - Chinese translations removed from all OpenXava official documentation. 
 - Fix: New article and video with a list of sample applications and instructions to get them up and running. 
 - Fix: Incorrect description for project in license and pom.xml for Project Management archetypes.

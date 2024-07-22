@@ -34,10 +34,8 @@ if (!Is.emptyString(actionName)) {
 		<i class="mdi mdi-<%=action.getIcon()%>"></i>
 		<% } else if (showImage) { %>
 		<img src="<%=request.getContextPath()%>/<%=style.getImagesFolder()%>/<%=action.getImage()%>"/>	
-		<% } else if(addSpace) {%>
-		<span>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		</span>
+		<% } else if (addSpace) {%>
+		<i class="mdi mdi-square ox-icon-transparent"></i>
 		<%
 		}
 		if (showLabel) { %>			 				 			

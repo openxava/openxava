@@ -53,8 +53,8 @@ public @interface DescriptionsList {
 	/**
 	 * The property (or properties) to show in the list. <p>
 	 *  
-	 * If not specified, the property named description, descripcion, 
-	 * name or nombre is assumed. If the referenced object does not have a 
+	 * If not specified, the property named name, nombre, title, titulo, 
+	 * description or descripcion is assumed. If the referenced object does not have a 
 	 * property called this way then it is required to specify a property name
      * here.<br>
      * It's possible to indicate several properties separated by commas. 

@@ -4,6 +4,8 @@ import java.lang.annotation.*;
 import java.lang.reflect.*;
 import java.util.*;
 
+import org.openxava.web.meta.*;
+
 /**
  * Utility class to work with classes. <p>
  * 
@@ -84,4 +86,43 @@ public class Classes {
 		}
 		fillMethodsAnnotatedWith(result, theClass.getSuperclass(), annotation);
 	}
+
+	/** @since 7.4 */
+	public static String getAnnotationAttributeValue(Annotation annotation, String attribute) { 
+		Object value = null;
+		try {
+			value = XObjects.execute(annotation, attribute);
+		}
+		catch (NoSuchMethodException ex) {			
+		} 
+		catch (Exception ex) {
+			MetaWebEditors.log.warn(XavaResources.getString("impossible_get_value_annotation_attribute", attribute, annotation.annotationType().getName()), ex);			
+		}		
+		return value==null?null:value.toString();
+	}
+	
+	/** @since 7.4 */
+	public static Annotation[] getAnnotationsWithRepeatables(AnnotatedElement element) { 
+	    List<Annotation> allAnnotations = new ArrayList<>();
+	    Annotation[] annotations = element.getAnnotations();
+	    for (Annotation annotation : annotations) {
+	        Method valueMethod;
+	        try {
+	            valueMethod = annotation.annotationType().getMethod("value");
+	            Class<?> returnType = valueMethod.getReturnType();
+	            if (returnType.isArray() && Annotation.class.isAssignableFrom(returnType.getComponentType())) {
+	                Annotation[] repeatableAnnotations = (Annotation[]) valueMethod.invoke(annotation);
+	                for (Annotation repeatableAnnotation : repeatableAnnotations) {
+	                    allAnnotations.add(repeatableAnnotation);
+	                }
+	            } else {
+	                allAnnotations.add(annotation);
+	            }
+	        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+	            allAnnotations.add(annotation);
+	        }
+	    }
+	    return allAnnotations.toArray(new Annotation[0]);
+	}
+	
 }

@@ -829,17 +829,32 @@ public class MetaView extends MetaElement implements Cloneable {
 		return editable?metaReferenceView.getActionsNames():metaReferenceView.getAlwaysEnabledActionsNames();
 	}
 	
-
-	public int getLabelFormatForProperty(MetaProperty p) {
+	/** If not label format specified for the property returns null. */
+	public Integer getLabelFormatForProperty(MetaProperty p) { 
 		MetaPropertyView metaPropertyView = getMetaPropertyViewFor(p.getName());
-		if (metaPropertyView == null) return XavaPreferences.getInstance().getDefaultLabelFormat(); 
+		if (metaPropertyView == null) return null;  
 		return metaPropertyView.getLabelFormat();
 	}
 	
-	/** @since 5.7 */
+	/** If not label format specified for the reference returns null. */
+	public Integer getLabelFormatForReference(MetaReference ref) { 
+		MetaReferenceView metaReferenceView = getMetaReferenceViewFor(ref.getName());
+		if (metaReferenceView == null) return null; 
+		MetaDescriptionsList descriptionsList = metaReferenceView.getMetaDescriptionsList(); 
+		if (descriptionsList == null) return null; 
+		return descriptionsList.getLabelFormat();		
+	}
+
+	
+	/**
+	 * If not label format specified for the member returns the defaultLabelFormat from XavaPreferences.  
+	 * @since 5.7 
+	 */
 	public int getLabelFormatFor(MetaMember m) { 
-		if (m instanceof MetaProperty) return getLabelFormatForProperty((MetaProperty) m);
-		if (m instanceof MetaReference) return getLabelFormatForReference((MetaReference) m);
+		Integer labelFormat = null;
+		if (m instanceof MetaProperty) labelFormat = getLabelFormatForProperty((MetaProperty) m);
+		else if (m instanceof MetaReference) labelFormat = getLabelFormatForReference((MetaReference) m);
+		if (labelFormat != null) return labelFormat;
 		return XavaPreferences.getInstance().getDefaultLabelFormat();
 	}	
 	
@@ -860,16 +875,7 @@ public class MetaView extends MetaElement implements Cloneable {
 		MetaMemberView metaMemberView = getMetaMemberViewFor(m.getName()); 
 		if (metaMemberView == null) return "";
 		return metaMemberView.getEditor();
-	}	
-	
-	public int getLabelFormatForReference(MetaReference ref) {
-		MetaReferenceView metaReferenceView = getMetaReferenceViewFor(ref.getName());
-		if (metaReferenceView == null) return XavaPreferences.getInstance().getDefaultLabelFormat(); 
-		MetaDescriptionsList descriptionsList = metaReferenceView.getMetaDescriptionsList(); 
-		if (descriptionsList == null) return XavaPreferences.getInstance().getDefaultLabelFormat();  
-		return descriptionsList.getLabelFormat();		
-	}
-	
+	}		
 
 	private boolean isSection() {
 		return section;

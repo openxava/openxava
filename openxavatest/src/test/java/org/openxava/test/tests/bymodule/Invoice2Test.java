@@ -49,7 +49,8 @@ public class Invoice2Test extends ModuleTestBase {
 		assertListSelectedConfiguration("Year = 2002"); 
 		assertListAllConfigurations("Year = 2002", "All");
 		assertListRowCount(1);
-		assertValueInList(0, "1\n2002\nDate: 1/1/2002, VAT %: 16.0, Amounts sum: 2,500.00, Number: 1, Name: Javi"); 
+		assertValueInList(0, "1\n2002\nDate: 1/1/2002, VAT %: 16.0, Amounts sum: 2,500.00, Number: 1, Name: Javi, Discount: -250.00, Total: 2,650.00"); 
+		
 		
 		selectListConfiguration("All"); 
 		assertListAllConfigurations("All", "Year = 2002");
@@ -79,7 +80,9 @@ public class Invoice2Test extends ModuleTestBase {
 			{"number", "Number"},
 			{"vatPercentage", "VAT %"},
 			{"amountsSum", "Amounts sum"},
-			{"customer.number", "Customer number"},  
+			{"customer.number", "Customer number"},
+			{"discount", "Discount"},
+			{"total", "Total"},
 			{"__MORE__", "[SHOW MORE...]"}
 		};
 		assertValidValuesInCollection("columns", 0, "name", chartColumnValues); 
@@ -300,7 +303,7 @@ public class Invoice2Test extends ModuleTestBase {
 		resetModule();
 		assertListSelectedConfiguration("All");
 		assertListRowCount(9);
-		assertListColumnCount(7);
+		assertListColumnCount(9); 
 
 		selectGroupBy("Group by year");
 		execute("ListFormat.select", "editor=Charts");
@@ -332,7 +335,7 @@ public class Invoice2Test extends ModuleTestBase {
 		
 		selectGroupBy("No grouping");
 		assertListRowCount(5); // The 'Javis' 
-		assertListColumnCount(7);
+		assertListColumnCount(9);
 	}
 
 	private void assertCombosForGroupByInCharts() throws Exception {

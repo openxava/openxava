@@ -57,8 +57,12 @@
 	
 	<editor name="ElementCollection" url="elementCollectionEditor.jsp">
 		<for-element-collections/>
-	</editor>	
+	</editor>
 	
+	<editor name="CollectionChart" url="collectionChartEditor.jsp">
+	    <for-annotation annotation="org.openxava.annotations.Chart"/>
+	</editor>	
+		
 	<editor name="TextField" url="textEditor.jsp">
 		<list-formatter class="org.openxava.formatters.HTMLFilterListFormatter" />
 		<for-type type="java.lang.String" />
@@ -404,6 +408,10 @@
 	
 	<editor name="Mask" url="textEditor.jsp"> 
 		<for-annotation annotation="org.openxava.annotations.Mask"/> 
+	</editor>
+	
+	<editor name="LargeDisplay" url="largeDisplayEditor.jsp" default-label-format="small">
+		<for-annotation annotation="org.openxava.annotations.LargeDisplay"/>
 	</editor>
 		
 </editors>

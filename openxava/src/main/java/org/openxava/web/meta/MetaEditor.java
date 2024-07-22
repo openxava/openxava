@@ -1,6 +1,8 @@
 package org.openxava.web.meta;
 
+import java.io.*;
 import java.lang.annotation.*;
+import java.net.*;
 import java.util.*;
 
 import org.apache.commons.logging.*;
@@ -18,6 +20,9 @@ public class MetaEditor implements Cloneable {
 	
 	private static Log log = LogFactory.getLog(MetaEditor.class);
 	
+	private static int creationOrder = 0;  
+	
+	private int priority = creationOrder++; 
 	private boolean formatterFromType;
 	private Object formatter; 
 	private String propertiesURL;
@@ -38,7 +43,8 @@ public class MetaEditor implements Cloneable {
 	private String icon; 
 	private String initAction; 
 	private String releaseAction; 
-	private boolean selectableItems; 
+	private boolean selectableItems;
+	private Integer defaultLabelFormat;   
 	private Set<String> typeSet;
 	private Set<String> annotationSet;
 	private Set<String> stereotypeSet;
@@ -97,13 +103,21 @@ public class MetaEditor implements Cloneable {
 					Map.Entry e = (Map.Entry) it.next();
 					sb.append(e.getKey());
 					sb.append("=");
-					sb.append(e.getValue());
+					sb.append(filterPropertyValue(e.getValue()));  
 					if (it.hasNext()) sb.append("&");
 				}
 				propertiesURL = sb.toString();
 			}
 		}		
 		return propertiesURL; 
+	}
+	
+	private String filterPropertyValue(Object originalValue) { 
+		try {
+			return URLEncoder.encode(originalValue.toString(), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			return originalValue.toString().replace("&", "%26").replace(";", "%3B");
+		}
 	}
 	
 	public void setDependsStereotypes(String stereotypes) {
@@ -379,6 +393,27 @@ public class MetaEditor implements Cloneable {
 
 	public void setSelectableItems(boolean selectableItems) {
 		this.selectableItems = selectableItems;
+	}
+
+	public int getPriority() {
+		return priority;
+	}
+
+	/**
+	 * Default label format for the editor. <p>
+	 * 
+	 * The possible values are NORMAL_LABEL, SMALL_LABEL and NO_LABEL
+	 * from MetaPropertyView.<br>
+	 * If not specified the value will be null.
+	 * 
+	 * @since 7.4
+	 */
+	public Integer getDefaultLabelFormat() {
+		return defaultLabelFormat;
+	}
+
+	public void setDefaultLabelFormat(Integer defaultLabelFormat) {
+		this.defaultLabelFormat = defaultLabelFormat;
 	}
 
 }

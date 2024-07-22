@@ -5,7 +5,7 @@ import java.util.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
- 
+
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.jpa.*;
@@ -27,7 +27,8 @@ import org.openxava.jpa.*;
 	),
 	@View( name="NoModifyDetails", members =
 		"year, number, date;" + 
-		"details;"
+		"details;" +
+		"amountsSum, vatPercentage, discount, total"  
 	)
 })
 @Tab(defaultOrder="year, number") // Don't remove, for verify that grouping work with defaultOrder with columns not in the resultset. Tested in Invoice2Test.testGroupBy
@@ -47,12 +48,33 @@ public class Invoice2 {
 	@DefaultValueCalculator(CurrentDateCalculator.class)
 	private java.util.Date date;
 	
+	// Don't add @LabelFormat to automatic label format for @LargeDisplay
 	@Digits(integer=2, fraction=1) 
 	@Required
+	@LargeDisplay(forViews="NoModifyDetails", suffix = "%", icon="label-percent-outline") 
 	private BigDecimal vatPercentage;
 	
-	@Stereotype("MONEY") @ReadOnly
-	private BigDecimal amountsSum; 
+	// Don't add @LabelFormat to automatic label format for @LargeDisplay
+	@Stereotype("MONEY") // In this way, not with @Money, to test a case 
+	@ReadOnly // Don't remove, to test a case combining @LargeDisplay with some other property view attribute
+	@LargeDisplay(forViews="NoModifyDetails", prefix = "€") // Euro symbol at start to try prefix and euro symbol processing 
+	private BigDecimal amountsSum;
+	
+	// Don't add @LabelFormat to automatic label format for @LargeDisplay
+	@Money @LargeDisplay 
+	public BigDecimal getDiscount() { 
+		if (amountsSum == null) return BigDecimal.ZERO;
+		return amountsSum.multiply(new BigDecimal("0.1")).negate();
+	}
+	
+	// Don't add @LabelFormat to automatic label format for @LargeDisplay
+	@Money // In this way, not with @Stereotype("MONEY"), to test a case
+	@LargeDisplay // Without prefix or suffix, to try a case 
+	public BigDecimal getTotal() { 
+		if (amountsSum == null) return BigDecimal.ZERO; 
+		BigDecimal vat = amountsSum.multiply(vatPercentage).divide(new BigDecimal("100")); 
+		return amountsSum.add(vat).add(getDiscount());
+	}
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@ReferenceView("Simplest")

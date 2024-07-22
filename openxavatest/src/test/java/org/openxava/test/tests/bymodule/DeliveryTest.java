@@ -304,7 +304,7 @@ public class DeliveryTest extends ModuleTestBase {
 		
 		execute("List.orderBy", "property=number,collection=details"); 
 		checkRowCollection("details", 2);
-		execute("DeliveryDetail.removeSelected", "viewObject=xava_view_section2_details_details");
+		execute("DeliveryDetail.deleteSelected", "viewObject=xava_view_section2_details_details");
 		assertNoErrors();
 		assertMessage("Delivery detail deleted from database");
 		assertMessage("Delivery detail 13 deleted successfully"); // This message is by the override action for removeSelected  		
@@ -345,7 +345,7 @@ public class DeliveryTest extends ModuleTestBase {
 		execute("DeliveryDetail.hideDetail");
 		assertCollectionRowCount("details", 3);
 		checkAllCollection("details");
-		execute("DeliveryDetail.removeSelected", "viewObject=xava_view_section2_details_details");
+		execute("DeliveryDetail.deleteSelected", "viewObject=xava_view_section2_details_details");
 		assertCollectionRowCount("details", 0);
 	}
 	

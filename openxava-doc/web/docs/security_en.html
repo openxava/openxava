@@ -151,8 +151,17 @@
         title="xavapro-configuration_en.png"><br>
       You can configure these policies in order for your system to be PCI-DSS
       compliant, which is required for any applications which handles credit
-      card data!<br>
-      These policies for users and passwords are only available in <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
+      card data!</div>
+    <div class="wiki" style="display: block;">The option to <i>Allow several
+        sessions per user</i> <i>(new in v7.4)</i> allows the same username to
+      be used by several different people from different machines/browsers at
+      the same time. This allows to deactivate a feature introduced in v7.3 that
+      made it so that when identifying with a username if that user had a
+      session started from another machine or browser, that session would be
+      cancelled, forcing that a same user could only be identified once at the
+      same time.</div>
+    <div class="wiki" style="display: block;"> These policies for users and
+      passwords are only available in <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
       <h2 id="toc5"><a name="Security and user management-LDAP"></a>LDAP</h2>
       <a href="http://www.openxava.org/xavapro">XavaPro</a> allows the users to
       be authenticated via LDAP. To configure LDAP edit the <em>naviox.properties</em>

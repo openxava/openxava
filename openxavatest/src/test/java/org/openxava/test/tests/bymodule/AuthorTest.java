@@ -198,6 +198,24 @@ public class AuthorTest extends CustomizeListTestBase {
 		assertError("Uppercase text is not allowed for Biography");
 	}
 	
+	public void testDeleteElementInCollection() throws Exception {
+		execute("List.viewDetail", "row=0");
+		assertValue("author", "JAVIER PANIZA");
+		assertCollectionRowCount("humans", 0);
+		execute("Collection.new", "viewObject=xava_view_humans");
+		setValue("name","XAVI");
+		execute("Collection.save");
+		execute("Collection.removeSelected", "row=0,viewObject=xava_view_humans");
+		execute("Collection.add", "viewObject=xava_view_humans");
+		assertListRowCount(7);
+		execute("List.orderBy", "property=name"); 
+		execute("AddToCollection.add", "row=6");
+		assertValueInCollection("humans", 0, 0, "XAVI"); 
+		execute("Collection.deleteSelected", "row=0,viewObject=xava_view_humans");
+		execute("Collection.add", "viewObject=xava_view_humans");
+		assertListRowCount(6);
+	}
+	
 	protected String getModuleURL() {  
 		return modulesLimit?super.getModuleURL():"http://" + getHost() + ":" + getPort() + getContextPath() + "m/Author"; // /m/ not /modules/ in order a test works 
 	}
