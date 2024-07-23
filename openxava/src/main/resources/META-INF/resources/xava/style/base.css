@@ -3018,7 +3018,7 @@ a[data-action="Collection.previous"] {
 	min-width: 150px;
 	display: flex;
 	justify-content: center;
-	align-items: center;	
+	align-items: baseline;	
 	/* tmr ini */
 }
 

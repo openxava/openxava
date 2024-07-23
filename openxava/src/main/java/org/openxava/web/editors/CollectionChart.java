@@ -72,6 +72,7 @@ public class CollectionChart {
 			property.isNumber() &&
 			StringUtils.containsAnyIgnoreCase(property.getName(), "year", "anyo", "anio", "number", "numero", "code", "codigo", "id"));
 		if (result.size() == 2) return result;
+		result = new LinkedHashSet<String>(result); // tmr ¿Prueba unitaria?
 		Collection<String> descriptions = createDefaultProperties(1, property -> 
 		StringUtils.containsAnyIgnoreCase(property.getName(), XavaPreferences.getInstance().getDefaultDescriptionPropertiesValueForDescriptionsList())); 
 		result.addAll(descriptions); 
