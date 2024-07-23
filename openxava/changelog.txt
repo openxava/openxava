@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Second lesson of the reporting course with JasperReports available in documentation with video.
 - Support for java.time.LocalDateTime as a type for properties in entities. 
 - LocalTime uses a consistent format across Java 8, 11, 17 and 21.
 - @LargeDisplay annotation to display a property value in large format, with large fonts, spacing, etc.
