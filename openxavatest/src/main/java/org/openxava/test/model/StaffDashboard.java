@@ -13,9 +13,9 @@ import org.openxava.jpa.*;
  * @author Javier Paniza
  */
 @View(members=
-	"staffCount, averageAge, tenureYears, turnover, menPercentage; " +
+	"staffCount, averageAge, tenureYears,  menPercentage, womanPercentage; " +
 	"turnoverEvolution;" +
-	"womanPercentage, illnessRate, accidentRate, maternityRate, paternityRate;" +
+	"turnover, illnessRate, accidentRate, maternityRate, paternityRate;" +
 	"turnoverByYear, moreSeniorWorkers"
 )
 
@@ -39,11 +39,6 @@ public class StaffDashboard {
 	}
 	
 	@LargeDisplay(suffix="%")
-	public int getTurnover() { // tmr i18n
-		return 5; // tmr Poner alguna lógica
-	}
-	
-	@LargeDisplay(suffix="%")
 	public BigDecimal getMenPercentage() { // tmr i18n
 		return new BigDecimal("31.17"); // tmr Poner alguna lógica
 	}
@@ -52,6 +47,11 @@ public class StaffDashboard {
 	public BigDecimal getWomanPercentage() { // tmr i18n
 		return new BigDecimal("67.12"); // tmr Poner alguna lógica
 	}
+	
+	@LargeDisplay(suffix="%")
+	public int getTurnover() { // tmr i18n
+		return 5; // tmr Poner alguna lógica
+	}	
 	
 	@LargeDisplay(suffix="%")
 	public BigDecimal getIllnessRate() { // tmr i18n
