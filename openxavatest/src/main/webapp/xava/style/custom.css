@@ -3,10 +3,6 @@
 }
 
 /* tmr ini */
-/* tmr ¿Así o debería ser más automático? 
-	Así queda mucho más bonito, especialmente cuando se ensacha la pantalla
-	Los número exacto podrían depender del contenido y forma del dashboard
-*/
 #ox_openxavatest_StaffDashboard__core .ox-view {
 	max-width: 1055px;
 	margin-top: 40px;

@@ -21,51 +21,69 @@ import org.openxava.jpa.*;
 
 public class StaffDashboard {
 	
-	// TMR ME QUEDÉ POR: YA TENGO UN DASHBOARD DECENTE. DECIDIR SI DEBERÍA IMPLEMENTAR LO DE ABAJO. CAMBIAR NÚMERO SI NO. REVISAR TODO EL CÓDIGO
+	// TMR ME QUEDÉ POR: YA ESTÁ HECHO. FALTA REVISAR CÓDIGO. ¿DOC?. SUITE
 	
 	@LargeDisplay(icon="account-group")
-	public int getStaffCount() {  
-		return 683; // tmr Poner alguna lógica
+	public int getStaffCount() {
+		// Intead of return an ad hoc number write your own logic
+		// with JPA queries and Java to obtain the returned value
+		return 223; 
 	}
 	
 	@LargeDisplay(icon="cake-variant")
 	public int getAverageAge() { 
-		return 41; // tmr Poner alguna lógica
+		// Intead of return an ad hoc number write your own logic
+		// with JPA queries and Java to obtain the returned value		
+		return 37; 
 	}
 		
 	@LargeDisplay(suffix="%", icon="face")
-	public BigDecimal getMenPercentage() { 
-		return new BigDecimal("31.17"); // tmr Poner alguna lógica
+	public BigDecimal getMenPercentage() {
+		// Intead of return an ad hoc number write your own logic
+		// with JPA queries and Java to obtain the returned value
+		return new BigDecimal("34.27"); 
 	}
 	
 	@LargeDisplay(suffix="%", icon="face-woman")
 	public BigDecimal getWomanPercentage() { 
-		return new BigDecimal("67.12"); // tmr Poner alguna lógica
+		// Intead of return an ad hoc number write your own logic
+		// with JPA queries and Java to obtain the returned value		
+		return new BigDecimal("65.73"); 
 	}
 	
 	@LargeDisplay(suffix="%", icon="account-convert")
-	public int getTurnover() { 
-		return 5; // tmr Poner alguna lógica
+	public int getTurnover() {
+		// Intead of return an ad hoc number write your own logic
+		// with JPA queries and Java to obtain the returned value
+		return 4; 
 	}	
 	
 	@LargeDisplay(suffix="%", icon="hotel")
-	public BigDecimal getIllnessRate() { 
-		return new BigDecimal("1.22"); // tmr Poner alguna lógica
+	public BigDecimal getIllnessRate() {
+		// Intead of return an ad hoc number write your own logic
+		// with JPA queries and Java to obtain the returned value
+		return new BigDecimal("2.13"); 
 	}
 	
 	@LargeDisplay(suffix="%", icon="bandage")
-	public BigDecimal getAccidentRate() { 
-		return new BigDecimal("0.08"); // tmr Poner alguna lógica
+	public BigDecimal getAccidentRate() {
+		// Intead of return an ad hoc number write your own logic
+		// with JPA queries and Java to obtain the returned value		
+		return new BigDecimal("0.03"); 
 	}		
 	
 	@LargeDisplay(suffix="%", icon="baby-carriage")
-	public BigDecimal getMaternityRate() { 
-		return new BigDecimal("0.62"); // tmr Poner alguna lógica
+	public BigDecimal getMaternityRate() {
+		// Intead of return an ad hoc number write your own logic
+		// with JPA queries and Java to obtain the returned value		
+		return new BigDecimal("0.91"); 
 	}		
 		
-	// tmr Salían añor repetido 2021, 2021, arreglado
 	@Chart
 	public Collection<StaffTurnover> getTurnoverEvolution() {
+		// Here we create some ad hoc elements, but you shoud
+		// write your own logic with JPA queries, Java or both
+		// to get the list
 		Collection<StaffTurnover> result = new ArrayList<>();
 		result.add(new StaffTurnover(2020, 9, 5));
 		result.add(new StaffTurnover(2021, 12, 3));
@@ -75,15 +93,16 @@ public class StaffDashboard {
 		return result;
 	}
 	
-	
 	@ReadOnly @ViewAction("") // To be changed by @SimpleList when available
 	public Collection<StaffTurnover> getTurnoverByYear() {
+		// An example that we can see the same data with different format
 		return getTurnoverEvolution();
 	}	
 	
 	
 	@ReadOnly @ViewAction("") // To be changed by @SimpleList when available
 	public Collection<Worker> getMoreSeniorWorkers() {
+		// An example using JPA, note the setMaxResults(5) to limit the size
 		return XPersistence.getManager().createQuery("from Worker").setMaxResults(5).getResultList();
 	}
 	
