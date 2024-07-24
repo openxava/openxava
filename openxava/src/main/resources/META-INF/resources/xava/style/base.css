@@ -3015,11 +3015,11 @@ a[data-action="Collection.previous"] {
 	margin-top: -25px;
 	margin-left: -5px;
 	/* tmr ini */
-	min-width: 150px;
+	min-width: 200px;
 	display: flex;
 	justify-content: center;
 	align-items: baseline;	
-	/* tmr ini */
+	/* tmr fin */
 }
 
 .ox-large-display-suffix {
@@ -3033,4 +3033,8 @@ a[data-action="Collection.previous"] {
 .ox-large-display i { 
 	color: var(--large-display-icon-color); 
 	vertical-align: top;
+	/* tmr ini */
+	font-size: xxx-large;
+	margin-right: 10px;
+	/* tmr fin */
 }
