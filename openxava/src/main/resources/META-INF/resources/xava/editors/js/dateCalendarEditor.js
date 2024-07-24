@@ -38,7 +38,7 @@ openxava.addEditorInitFunction(function() {
 
     $('.xava_date > input').change(function() {
         if ($(this).val().length > 0 && $(this).val().length < 5) {
-			 $(this).val(dateCalendarEditor.formatDate($('.xava_date').data('date-format'), $(this).val()));
+			$(this).val(dateCalendarEditor.formatDate($('.xava_date').data('date-format'), $(this).val()));
         }
         var dateFormat = $(this).parent().data("dateFormat");
         var date = dateCalendarEditor.readInput ? dateCalendarEditor.enterDate : $(this).val();
