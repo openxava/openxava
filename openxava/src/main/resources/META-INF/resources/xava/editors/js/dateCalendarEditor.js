@@ -196,10 +196,10 @@ dateCalendarEditor.formatDate = function(dateFormat, number) {
     var year = today.getFullYear();
 	var month = today.getMonth() + 1;
 	var day = number;
-	var dayIndex = dateFormat.includes('d') ? dateFormat.indexOf('d') : dateFormat.indexOf('j');
-	var monthIndex = dateFormat.includes('m') ? dateFormat.indexOf('m') : dateFormat.indexOf('n');
-	var dayFirst = dayIndex < monthIndex ? true : false;
 	if (number.length > 2) {
+		var dayIndex = dateFormat.includes('d') ? dateFormat.indexOf('d') : dateFormat.indexOf('j');
+		var monthIndex = dateFormat.includes('m') ? dateFormat.indexOf('m') : dateFormat.indexOf('n');
+		var dayFirst = dayIndex < monthIndex ? true : false;
 		if (dayFirst) {
             day = number.substring(0, 2);
             month = number.substring(2, 4);

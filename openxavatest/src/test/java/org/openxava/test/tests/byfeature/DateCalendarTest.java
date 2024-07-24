@@ -103,7 +103,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertNoErrors(); 
 	}
 
-	public void testChineseDateTimeInJava8AndAmIssue_formatDateAndDateTimeUsingTwoDigits() throws Exception { 
+	public void testChineseDateTimeInJava8AndAmIssue_formatDateAndDateTimeUsingTwoDigits_usingFourDigits() throws Exception { 
 		changeLanguage("zh-TW");
 		appointment2();
 		quarter();
@@ -111,12 +111,12 @@ public class DateCalendarTest extends WebDriverTestBase {
 		appointment2();
 		quarter();
 		
-		formatDateUsingTwoDigits_usingForDigits("zh-CN");
+		formatDateUsingTwoAndFourDigits("zh-CN");
 		changeLanguage("es-ES");
 		goModule("Quarter");
-		formatDateUsingTwoDigits_usingForDigits("es-ES");
+		formatDateUsingTwoAndFourDigits("es-ES");
 		goModule("Shipment");
-		formatDateTimeUsingTwoDigits_usingFourDigits(); //es-ES
+		formatDateTimeUsingTwoAndFourDigits(); //es-ES
 	}
 	
 	public void testCalendarIconChangeInFilter() throws Exception {
@@ -502,7 +502,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		execute("CRUD.save"); 
 	}
 	
-	private void formatDateUsingTwoDigits_usingForDigits(String format) throws Exception {
+	private void formatDateUsingTwoAndFourDigits(String format) throws Exception {
 		execute("CRUD.new");
 		Calendar calendar = Calendar.getInstance();
 		int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -533,7 +533,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		} 
 	}
 
-	private void formatDateTimeUsingTwoDigits_usingFourDigits() throws Exception {
+	private void formatDateTimeUsingTwoAndFourDigits() throws Exception {
 		execute("CRUD.new");
 		Calendar calendar = Calendar.getInstance();
 		int day = calendar.get(Calendar.DAY_OF_MONTH);
