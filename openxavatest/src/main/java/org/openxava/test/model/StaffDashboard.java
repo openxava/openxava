@@ -21,8 +21,6 @@ import org.openxava.jpa.*;
 
 public class StaffDashboard {
 	
-	// TMR ME QUEDÉ POR: YA ESTÁ HECHO. FALTA REVISAR CÓDIGO. SUITE
-	
 	@LargeDisplay(icon="account-group")
 	public int getStaffCount() {
 		// Intead of return an ad hoc number write your own logic
@@ -88,7 +86,7 @@ public class StaffDashboard {
 		result.add(new StaffTurnover(2020, 9, 5));
 		result.add(new StaffTurnover(2021, 12, 3));
 		result.add(new StaffTurnover(2022, 14, 1));
-		result.add(new StaffTurnover(2024, 4, 16));
+		result.add(new StaffTurnover(2023, 4, 16));
 		result.add(new StaffTurnover(2024, 3, 21));
 		return result;
 	}

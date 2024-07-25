@@ -1595,12 +1595,5 @@
 		<action name="changeTab" mode="list"
 			class="org.openxava.test.actions.ChangeTabNameAction"/>
 	</controller>
-	
-	<!-- tmr ini -->
-	<controller name="StaffDashboard">
-		<action name="init" hidden="true" on-init="true"
-			class="org.openxava.test.actions.InitStaffDashboardAction"/>
-	</controller>
-	<!-- tmr fin -->
 
 </controllers>
