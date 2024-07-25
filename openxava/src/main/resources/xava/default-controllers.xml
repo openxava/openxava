@@ -861,5 +861,12 @@ here that you want to override.
 			<set property="subscribe" value="false" />	
 		</action>	
 	</controller>
+	
+	<!-- tmr ini -->
+	<controller name="InitModelWithNewInstance">
+		<action name="initModelWithNewInstance" hidden="true" on-init="true" 
+			class="org.openxava.actions.SetViewModelWithNewInstanceAction"/>
+	</controller>	
+	<!-- tmr fin -->
 
 </controllers>

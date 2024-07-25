@@ -21,7 +21,7 @@ import org.openxava.jpa.*;
 
 public class StaffDashboard {
 	
-	// TMR ME QUEDÉ POR: YA ESTÁ HECHO. FALTA REVISAR CÓDIGO. ¿DOC?. SUITE
+	// TMR ME QUEDÉ POR: YA ESTÁ HECHO. FALTA REVISAR CÓDIGO. SUITE
 	
 	@LargeDisplay(icon="account-group")
 	public int getStaffCount() {
