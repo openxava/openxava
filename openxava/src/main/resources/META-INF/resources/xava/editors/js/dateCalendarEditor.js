@@ -192,6 +192,7 @@ openxava.addEditorInitFunction(function() {
 });
 
 dateCalendarEditor.formatDate = function(dateFormat, number) {
+	if (number.length == 3) return number;
     var today = new Date();
     var year = today.getFullYear();
 	var month = today.getMonth() + 1;
