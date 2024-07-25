@@ -7,7 +7,6 @@ import org.openxava.annotations.*;
 import org.openxava.jpa.*;
 
 /**
- * tmr
  * 
  * @since 7.4
  * @author Javier Paniza

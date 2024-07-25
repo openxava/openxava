@@ -862,12 +862,9 @@ here that you want to override.
 		</action>	
 	</controller>
 	
-	<!-- tmr ini -->
-	<!-- tmr En changelog -->
 	<controller name="InitModelWithNewInstance">
 		<action name="initModelWithNewInstance" hidden="true" on-init="true" 
 			class="org.openxava.actions.SetViewModelWithNewInstanceAction"/>
 	</controller>	
-	<!-- tmr fin -->
 
 </controllers>

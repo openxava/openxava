@@ -1,7 +1,6 @@
 package org.openxava.actions;
 
 /**
- * tmr 
  * 
  * @since 7.4 
  * @author Javier Paniza

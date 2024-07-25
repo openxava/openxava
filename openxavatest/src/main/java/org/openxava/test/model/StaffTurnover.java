@@ -3,7 +3,6 @@ package org.openxava.test.model;
 import lombok.*;
 
 /**
- * tmr
  * 
  * @author Javier Paniza
  */

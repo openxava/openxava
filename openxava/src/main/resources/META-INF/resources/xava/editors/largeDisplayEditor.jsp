@@ -25,6 +25,5 @@ if (value instanceof Number) {
 }
 %>
 <div class="ox-large-display ox-frame <%=negativeClass%>"><%=iconHTML%><span class="ox-large-display-prefix"><%=prefix%></span><span class="ox-large-display-value"><%=fvalue%></span><span class="ox-large-display-suffix"><%=suffix%></span></div>
-<%-- tmr ini --%>
 <input type="hidden" name="<%=propertyKey%>" value="<%=fvalue%>">
-<%-- tmr fin --%>
+
