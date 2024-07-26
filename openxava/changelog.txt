@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Typing day and month in a date or date/time field autocompletes the date with the current year.
 - New built-in controller InitModelWithNewInstance to init the model of the view with a new model instance. 
 - Example of creating a dashboard in openxavatest with the StaffDashboard module.
 - Second lesson of the reporting course with JasperReports available in documentation with video.
