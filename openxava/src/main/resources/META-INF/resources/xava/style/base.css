@@ -3014,6 +3014,10 @@ a[data-action="Collection.previous"] {
 	padding: 20px;
 	margin-top: -25px;
 	margin-left: -5px;
+	min-width: 200px;
+	display: flex;
+	justify-content: center;
+	align-items: baseline;	
 }
 
 .ox-large-display-suffix {
@@ -3027,4 +3031,6 @@ a[data-action="Collection.previous"] {
 .ox-large-display i { 
 	color: var(--large-display-icon-color); 
 	vertical-align: top;
+	font-size: xxx-large;
+	margin-right: 10px;
 }

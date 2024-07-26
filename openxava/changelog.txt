@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- New built-in controller InitModelWithNewInstance to init the model of the view with a new model instance. 
+- Example of creating a dashboard in openxavatest with the StaffDashboard module.
 - Second lesson of the reporting course with JasperReports available in documentation with video.
 - Support for java.time.LocalDateTime as a type for properties in entities. 
 - LocalTime uses a consistent format across Java 8, 11, 17 and 21.
