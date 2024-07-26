@@ -8,9 +8,18 @@ openxava.addEditorInitFunction(function() {
         popUpMenuIcon.on('click', function(event) {
             popUpMenu.removeClass("ox-display-none");
             var buttonOffset = popUpMenuIcon.offset();
+            // tmr ini
+            // TMR ¿RENOMBRAR listEditor.js como popupMenu.js?
+            var positionPopup = popUpMenu.get(0).getBoundingClientRect();
+			var left = buttonOffset.left; 
+			if (buttonOffset.left + positionPopup.width > window.innerWidth) {
+				// TMR ME QUEDÉ POR AQUÍI: PARA HACER ESTO, PARA QUE EL MENÚ SALGA DENTRO
+			}
+            // tmr fin
             popUpMenu.css({
                 top: buttonOffset.top + popUpMenuIcon.outerHeight(),
-                left: buttonOffset.left
+                // tmr left: buttonOffset.left
+                left: left // tmr
             });
         });
 		
