@@ -139,7 +139,7 @@ private List getMetaProperties(Tab tab, Integer columnCountLimit) {
 Tab tab = (Tab) request.getSession().getAttribute("xava_reportTab");
 String reportName = Strings.change(tab.getModelName(), ".", "_"); 
 Collection totalProperties = tab.getTotalPropertiesNames();  	
-int totalRecords = tab.getTableModel().getRowCount();
+int totalRecords = (tab.getSelectedKeys().length == 0) ? tab.getTableModel().getRowCount() : tab.getSelectedKeys().length;
 String language = request.getParameter("language");
 if (language == null) language = org.openxava.util.Locales.getCurrent().getDisplayLanguage();
 language = language == null?request.getLocale().getDisplayLanguage():language;
@@ -224,10 +224,6 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 	String fontName="DejaVu Sans";
 	String pdfEncoding="Identity-H";
 	int totalRecordsWidth = columnWidth - 150;
-	if (!reportName.isEmpty()){
-	System.out.println(pageWidth);
-	System.out.println(totalRecordsWidth);
-	}
 	%>	
 	<reportFont name="Arial_Normal" isDefault="true" fontName="<%=fontName%>" size="8" pdfFontName="<%=fontName%>" pdfEncoding="<%=pdfEncoding%>" isPdfEmbedded="true"/>
 	<reportFont name="Arial_Bold" isDefault="false" fontName="<%=fontName%>" size="8" isBold="true" pdfFontName="<%=fontName%>" pdfEncoding="<%=pdfEncoding%>" isPdfEmbedded="true"/>
@@ -328,7 +324,7 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 					<textElement textAlignment="Right" verticalAlignment="Bottom" lineSpacing="Single">
 						<font reportFont="Arial_Normal" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA["<%=XavaResources.getString(request, "totalRecords")%>" + " <%=totalRecords%>"]]></textFieldExpression>
+					<textFieldExpression><![CDATA["<%=XavaResources.getString(request, "number_of_records")%>" + " <%=totalRecords%>"]]></textFieldExpression>
 				</textField>
 				
 
