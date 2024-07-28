@@ -138,7 +138,8 @@ private List getMetaProperties(Tab tab, Integer columnCountLimit) {
 <%
 Tab tab = (Tab) request.getSession().getAttribute("xava_reportTab");
 String reportName = Strings.change(tab.getModelName(), ".", "_"); 
-Collection totalProperties = tab.getTotalPropertiesNames();  		
+Collection totalProperties = tab.getTotalPropertiesNames();  	
+int totalRecords = tab.getTableModel().getRowCount();
 String language = request.getParameter("language");
 if (language == null) language = org.openxava.util.Locales.getCurrent().getDisplayLanguage();
 language = language == null?request.getLocale().getDisplayLanguage():language;
@@ -217,10 +218,16 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 		 bottomMargin="20"
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
-		 isSummaryNewPage="false">		 
+		 isSummaryNewPage="false">	
+		 
 	<%
 	String fontName="DejaVu Sans";
 	String pdfEncoding="Identity-H";
+	int totalRecordsWidth = columnWidth - 150;
+	if (!reportName.isEmpty()){
+	System.out.println(pageWidth);
+	System.out.println(totalRecordsWidth);
+	}
 	%>	
 	<reportFont name="Arial_Normal" isDefault="true" fontName="<%=fontName%>" size="8" pdfFontName="<%=fontName%>" pdfEncoding="<%=pdfEncoding%>" isPdfEmbedded="true"/>
 	<reportFont name="Arial_Bold" isDefault="false" fontName="<%=fontName%>" size="8" isBold="true" pdfFontName="<%=fontName%>" pdfEncoding="<%=pdfEncoding%>" isPdfEmbedded="true"/>
@@ -254,6 +261,9 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 	<%
 	}
 	%>	
+		<variable name="Variable_1" class="java.lang.Integer" incrementType="Report">
+			<variableExpression><![CDATA[$V{REPORT_COUNT}]]></variableExpression>
+		</variable>
 		<background>
 			<band height="0"  isSplitAllowed="true" >
 			</band>
@@ -298,7 +308,27 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 					<textElement textAlignment="Center" verticalAlignment="Top" lineSpacing="Single">
 						<font reportFont="Arial_Normal" size="15"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String">$P{Title}</textFieldExpression>					
+					<textFieldExpression class="java.lang.String">$P{Title} + "1"</textFieldExpression>					
+				</textField>
+				
+				<textField>
+					<reportElement
+						mode="Transparent"
+						x="<%=totalRecordsWidth%>"
+						y="-5"
+						width="150"
+						height="25"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						positionType="FixRelativeToTop"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="false"
+						isPrintInFirstWholeBand="false"
+						isPrintWhenDetailOverflows="false"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom" lineSpacing="Single">
+						<font reportFont="Arial_Normal" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<%=XavaResources.getString(request, "totalRecords")%>" + " <%=totalRecords%>"]]></textFieldExpression>
 				</textField>
 				
 
@@ -492,7 +522,8 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 		</detail>
 		<pageFooter>
 			<band height="27"  isSplitAllowed="true" >
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >					<reportElement
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >					
+					<reportElement
 						mode="Transparent"
 						x="<%=columnWidth - 210%>"
 						y="4"
