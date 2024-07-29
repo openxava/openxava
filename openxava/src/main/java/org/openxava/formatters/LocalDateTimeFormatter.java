@@ -22,22 +22,22 @@ public class LocalDateTimeFormatter extends DateTimeBaseFormatter implements IFo
 	private static DateTimeFormatter zhFormatter = DateTimeFormatter.ofPattern("yyyy/M/d ah:mm");
 	
 	private static DateTimeFormatter[] extendedFormatters = { 
-			DateTimeFormatter.ofPattern("dd/MM/yy HH:mm:ss").withResolverStyle(ResolverStyle.SMART),
-			DateTimeFormatter.ofPattern("dd/MM/yy HH:mm").withResolverStyle(ResolverStyle.SMART),
-			DateTimeFormatter.ofPattern("ddMMyy HH:mm").withResolverStyle(ResolverStyle.SMART),
-			DateTimeFormatter.ofPattern("ddMMyy HH:mm:ss").withResolverStyle(ResolverStyle.SMART),
-			DateTimeFormatter.ofPattern("dd.MM.yy HH:mm").withResolverStyle(ResolverStyle.SMART),
-			DateTimeFormatter.ofPattern("dd.MM.yy HH:mm:ss").withResolverStyle(ResolverStyle.SMART),
-			DateTimeFormatter.ofPattern("dd/MM/yy").withResolverStyle(ResolverStyle.SMART),
-			DateTimeFormatter.ofPattern("ddMMyy").withResolverStyle(ResolverStyle.SMART),
-			DateTimeFormatter.ofPattern("dd.MM.yy").withResolverStyle(ResolverStyle.SMART),
-			DateTimeFormatter.ofPattern("yyyy/M/d ah:mm").withResolverStyle(ResolverStyle.SMART),
+			DateTimeFormatter.ofPattern("dd/MM/yy HH:mm:ss"),
+			DateTimeFormatter.ofPattern("dd/MM/yy HH:mm"),
+			DateTimeFormatter.ofPattern("ddMMyy HH:mm"),
+			DateTimeFormatter.ofPattern("ddMMyy HH:mm:ss"),
+			DateTimeFormatter.ofPattern("dd.MM.yy HH:mm"),
+			DateTimeFormatter.ofPattern("dd.MM.yy HH:mm:ss"),
+			DateTimeFormatter.ofPattern("dd/MM/yy"),
+			DateTimeFormatter.ofPattern("ddMMyy"),
+			DateTimeFormatter.ofPattern("dd.MM.yy"),
+			DateTimeFormatter.ofPattern("yyyy/M/d ah:mm")
 	};
 	
 	public String format(HttpServletRequest request, Object date) {
 		if (date == null) return "";
 		if (date instanceof String || date instanceof Number) return date.toString();
-		return getLocalDateTimeFormatter(false).format((LocalDateTime)date);
+		return (String) reformatLocalDateTime(getLocalDateTimeFormatter(false).format((LocalDateTime)date));
 	}
 
 	public Object parse(HttpServletRequest request, String string) throws ParseException {
@@ -45,6 +45,7 @@ public class LocalDateTimeFormatter extends DateTimeBaseFormatter implements IFo
 		if (string.indexOf('-') >= 0 && !isDashFormat()) { // SimpleDateFormat does not work well with -
 			string = Strings.change(string, "-", "/");
 		}
+		string = reformatLocalDateTime(string, true);
 		DateTimeFormatter [] dateTimeFormats = getLocalDateTimeFormats();
 		for (int i=0; i<dateTimeFormats.length; i++) {
 			try {
@@ -68,6 +69,21 @@ public class LocalDateTimeFormatter extends DateTimeBaseFormatter implements IFo
 	private DateTimeFormatter[] getLocalDateTimeFormats() {
 		if (isExtendedFormat() || isDotFormat() || isZhFormat()) return extendedFormatters;
 		return new DateTimeFormatter[] { getLocalDateTimeFormatter(false) }; 
+	}
+	
+	private String reformatLocalDateTime(String string) {
+		return reformatLocalDateTime(string, false);
+	}
+			
+	private String reformatLocalDateTime(String string, boolean parsing) {
+		String date = string;
+		if (parsing) {
+			if (XSystem.isJava17orBetter() && isZhFormat()) return date.replace("PM", "p.\u00a0m.").replace("AM", "a.\u00a0m.");
+		} else {
+			if (XSystem.isJava17orBetter()) return date.replace("p.\u00a0m.", "PM").replace("a.\u00a0m.", "AM");
+			if (XSystem.isJava9orBetter()) return date.replace("p.m.", "PM").replace("a.m.", "AM");
+		}
+		return string;
 	}
 	
 }
