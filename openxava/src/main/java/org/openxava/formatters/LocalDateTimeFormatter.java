@@ -83,7 +83,7 @@ public class LocalDateTimeFormatter extends DateTimeBaseFormatter implements IFo
 			if (XSystem.isJava17orBetter()) return date.replace("p.\u00a0m.", "PM").replace("a.\u00a0m.", "AM");
 			if (XSystem.isJava9orBetter()) return date.replace("p.m.", "PM").replace("a.m.", "AM");
 		}
-		return string;
+		return date;
 	}
 	
 }
