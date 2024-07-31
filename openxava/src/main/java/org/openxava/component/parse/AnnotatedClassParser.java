@@ -1254,6 +1254,12 @@ public class AnnotatedClassParser implements IComponentParser {
 		if (element.isAnnotationPresent(SearchListConditions.class)) {
 			notApply(property.getName(), SearchListConditions.class, "references & collections");
 		}
+		if (element.isAnnotationPresent(SearchListTab.class)) {
+			notApply(property.getName(), SearchListTab.class, "references & collections");
+		}
+		if (element.isAnnotationPresent(SearchListTabs.class)) {
+			notApply(property.getName(), SearchListTabs.class, "references & collections");
+		}
 		if (element.isAnnotationPresent(Tree.class)) {
 			notApply(property.getName(), Tree.class, "collections");
 		}
@@ -1780,7 +1786,29 @@ public class AnnotatedClassParser implements IComponentParser {
 						mustAddMetaView = true;
 					}
 				}
+			}
+
+			// SearchListTab
+			if (element.isAnnotationPresent(SearchListTab.class)) {
+				System.out.println(1);
+				SearchListTab searchListTab = element.getAnnotation(SearchListTab.class);
+				if (isForView(metaView, searchListTab.forTabs(), searchListTab.notForTabs())) {
+					System.out.println(searchListTab.value());
+					//tab condition value
+					collectionView.setSearchListTabCondition(searchListTab.value());
+					mustAddMetaView = true;
+				}
 			}			
+			// SearchListTabs
+			if (element.isAnnotationPresent(SearchListTabs.class)) {
+				SearchListTab[] searchListTabs = element.getAnnotation(SearchListTabs.class).value();
+				for (SearchListTab searchListTab : searchListTabs) {
+					if (isForView(metaView, searchListTab.forTabs(), searchListTab.notForTabs())) {
+						collectionView.setSearchListTabCondition(searchListTab.value());
+						mustAddMetaView = true;
+					}
+				}
+			}
 
 			// Path
 			if (element.isAnnotationPresent(Tree.class)) {
@@ -1842,7 +1870,8 @@ public class AnnotatedClassParser implements IComponentParser {
 				NoCreate.class, 
 				NoModify.class, 
 				AsEmbedded.class, 
-				SearchListCondition.class, SearchListConditions.class 
+				SearchListCondition.class, SearchListConditions.class,
+				SearchListTab.class, SearchListTabs.class
 			};
 			notApply(element, collection.getName(), forReferencesAndCollectionAnnotations, "references & @OneToMany/@ManyToMany collections");
 		}
@@ -2263,6 +2292,26 @@ public class AnnotatedClassParser implements IComponentParser {
 				for (SearchListCondition searchListCondition : searchListConditions) {
 					if (isForView(metaView, searchListCondition.forViews(), searchListCondition.notForViews())) {
 						referenceView.setSearchListCondition(searchListCondition.value());
+						mustAddMetaView = true;
+					}
+				}
+			}
+			
+			//SearchListTab
+			if (element.isAnnotationPresent(SearchListTab.class)) {
+				System.out.println(2);
+				SearchListTab searchListTab = element.getAnnotation(SearchListTab.class);
+				if (isForView(metaView, searchListTab.forTabs(), searchListTab.notForTabs())) {
+					System.out.println(searchListTab.value());
+					referenceView.setSearchListTabCondition(searchListTab.value());
+					mustAddMetaView = true;
+				}
+			}
+			if (element.isAnnotationPresent(SearchListTabs.class)) {
+				SearchListTab[] searchListTabs = element.getAnnotation(SearchListTabs.class).value();
+				for (SearchListTab searchListTab : searchListTabs) {
+					if (isForView(metaView, searchListTab.forTabs(), searchListTab.notForTabs())) {
+						referenceView.setSearchListTabCondition(searchListTab.value());
 						mustAddMetaView = true;
 					}
 				}

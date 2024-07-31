@@ -19,6 +19,7 @@ public class MetaMemberView {
 	private Collection alwaysEnabledActionsNames;
 	private String editor;
 	private String searchListCondition;
+	private String searchListTabCondition;
 	private boolean collapsed;
 	private boolean readOnlyOnCreate; 
 	
@@ -45,13 +46,22 @@ public class MetaMemberView {
 	public void setEditor(String editor) {
 		this.editor = editor;
 	}
+	
 	public void setSearchListCondition(String searchListCondition) {
 		this.searchListCondition = searchListCondition;
 	}
 	public String getSearchListCondition() {
 		return searchListCondition;
-	}		
+	}
 	
+	public void setSearchListTabCondition(String searchListTabCondition) {
+		System.out.println("adding " + searchListTabCondition);
+		this.searchListTabCondition = searchListTabCondition;
+	}
+	public String getSearchListTabCondition() {
+		System.out.println("getSearchListTabCondition");
+		return searchListTabCondition;
+	}
 	public boolean isCollapsed() {
 		return collapsed;
 	}

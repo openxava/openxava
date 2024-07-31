@@ -230,6 +230,10 @@ public class MetaReference extends MetaMember implements Cloneable {
 		if (Is.emptyString(depends)) return "";
 		StringTokenizer st = new StringTokenizer(depends, ",");
 		StringBuffer result = new StringBuffer();
+		System.out.println("getParameterValuesPropertiesInDescriptionsList");
+		System.out.println(depends);
+		System.out.println(descriptionsList.getCondition());
+		System.out.println(st.hasMoreTokens());
 		while (st.hasMoreTokens()) {
 			String member = st.nextToken().trim();
 			if (usesReferenceInCondition(member, descriptionsList.getCondition())) {
@@ -255,11 +259,15 @@ public class MetaReference extends MetaMember implements Cloneable {
 					result.append(member);			
 				}		
 			}
-		}		
+		}
+		System.out.println("result"); // parece que es depends
+		System.out.println(result);
 		return result.toString();
 	}
 	
-	private boolean usesReferenceInCondition(String dependsMember, String condition) {  
+	private boolean usesReferenceInCondition(String dependsMember, String condition) {
+		System.out.println("usesReferenceInCondition");
+		System.out.println(!getMetaModel().containsMetaReference(dependsMember));
 		if (!getMetaModel().containsMetaReference(dependsMember)) return false;
 		MetaReference dependsReference = getMetaModel().getMetaReference(dependsMember);
 		for (MetaReference refFromReferencedModel: getMetaModelReferenced().getMetaReferences()) { 
