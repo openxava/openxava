@@ -89,6 +89,7 @@ if (grouping) action = null;
 <input type="hidden" name="xava_list<%=tab.getTabName()%>_filter_visible"/>
 
 <%String resizeColumnClass = resizeColumns?style.getResizeColumns():""; %>
+
 <div class="<xava:id name='<%=scrollId%>'/> <%=resizeColumnClass%> ox-overflow-auto">
 <table id="<xava:id name='<%=id%>'/>" class="xava_sortable_column ox-list" <%=style.getListCellSpacing()%>>
 <% if (sortable) { %><tbody class="xava_sortable_row"><% } %> 
@@ -354,6 +355,7 @@ while (it.hasNext()) {
 } // while
 %>
 </tr>
+
 <%
 	} /* if (filter) */
 %>

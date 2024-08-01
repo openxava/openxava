@@ -29,6 +29,20 @@ openxava.addEditorInitFunction(function() {
         });
     });
 	
+	$(document).ready(function() {
+        $(window).on('scroll', function() {
+            var header = $('th.ox-list-header');
+            var toolbarHeight = $('.ox-button-bar').outerHeight();
+                
+            if ($(window).scrollTop() > toolbarHeight) {
+				console.log(1);
+                header.addClass('fixed-header');
+            } else {
+				console.log(2);
+                header.removeClass('fixed-header');
+            }
+        });
+     });
 	
 	
 });

@@ -3034,3 +3034,17 @@ a[data-action="Collection.previous"] {
 	font-size: xxx-large;
 	margin-right: 10px;
 }
+
+th.ox-list-header {
+  	position: sticky;
+ 	z-index: 10;
+  	top: 0px;
+}
+
+.ox-overflow-visible {
+	overflow: visible;
+}
+
+.fixed-header {
+	top: 39px;
+}
