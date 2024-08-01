@@ -30,19 +30,52 @@ openxava.addEditorInitFunction(function() {
     });
 	
 	$(document).ready(function() {
-        $(window).on('scroll', function() {
-            var header = $('th.ox-list-header');
-            var toolbarHeight = $('.ox-button-bar').outerHeight();
-                
-            if ($(window).scrollTop() > toolbarHeight) {
-				console.log(1);
-                header.addClass('fixed-header');
-            } else {
-				console.log(2);
-                header.removeClass('fixed-header');
-            }
-        });
-     });
+        if ($('tr.ox-list-header').length) {
+            var $table = $('table.ox-list');
+            $table.floatThead({
+                scrollContainer: function($table) {
+					console.log("scrolling");
+                    return $table.closest('.overflowdiv');
+                },
+				position: 'auto'
+            });
+        }
+    });
 	
+	 /*
+	$(document).ready(function() {
+    var buttonBar = $('.ox-button-bar');
+    var headers = $('th.ox-list-header');
+
+    var initialHeaderTop = headers.offset().top;
+    var buttonBarHeight = buttonBar.outerHeight();
 	
+    function setHeaderPosition() {
+		console.log(initialHeaderTop);
+        var scrollTop = $(window).scrollTop();
+        var buttonBarBottom = buttonBar.offset().top + buttonBarHeight;
+
+        if (scrollTop > initialHeaderTop - buttonBarHeight) {
+			console.log(1);
+            headers.css('top', buttonBarHeight + 'px');
+        } else {
+			console.log(1);
+            headers.css('top', 0 + 'px');
+        }
+    }
+
+    // Establecer la posición inicial
+    setHeaderPosition();
+
+    // Actualizar la posición al hacer scroll
+    $(window).scroll(function() {
+        setHeaderPosition();
+    });
+
+    // Actualizar la posición al cambiar el tamaño de la ventana
+    $(window).resize(function() {
+        setHeaderPosition();
+    });
+    });*/
+
 });

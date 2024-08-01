@@ -89,10 +89,11 @@ if (grouping) action = null;
 <input type="hidden" name="xava_list<%=tab.getTabName()%>_filter_visible"/>
 
 <%String resizeColumnClass = resizeColumns?style.getResizeColumns():""; %>
-
-<div class="<xava:id name='<%=scrollId%>'/> <%=resizeColumnClass%> ox-overflow-auto">
+<div class="">
+<div class="<xava:id name='<%=scrollId%>'/> <%=resizeColumnClass%> overflowdiv ox-overflow-auto">
 <table id="<xava:id name='<%=id%>'/>" class="xava_sortable_column ox-list" <%=style.getListCellSpacing()%>>
 <% if (sortable) { %><tbody class="xava_sortable_row"><% } %> 
+<thead>
 <tr class="ox-list-header">
 <th class="ox-list-header ox-text-align-center">
 <nobr>
@@ -207,6 +208,7 @@ String headerLabel=Strings.noLastToken(label) + " <nobr>" + Strings.lastToken(la
 }
 %>
 </tr>
+</thead>
 <%
 	if (filter) {
 %>
@@ -355,7 +357,7 @@ while (it.hasNext()) {
 } // while
 %>
 </tr>
-
+</div>
 <%
 	} /* if (filter) */
 %>

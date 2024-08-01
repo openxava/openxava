@@ -3035,6 +3035,7 @@ a[data-action="Collection.previous"] {
 	margin-right: 10px;
 }
 
+/*
 th.ox-list-header {
   	position: sticky;
  	z-index: 10;
@@ -3047,4 +3048,4 @@ th.ox-list-header {
 
 .fixed-header {
 	top: 39px;
-}
+}*/
