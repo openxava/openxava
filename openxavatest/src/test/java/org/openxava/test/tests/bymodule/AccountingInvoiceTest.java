@@ -1,8 +1,7 @@
 package org.openxava.test.tests.bymodule;
 
-import org.openxava.tests.*;
-
 import org.htmlunit.html.*;
+import org.openxava.tests.*;
 
 /**
  * 
@@ -15,7 +14,7 @@ public class AccountingInvoiceTest extends ModuleTestBase {
 		super(testName, "AccountingInvoice");		
 	}
 			
-	public void testManyToManyNotRemoveEntityWhenReferencedEntityIsAlsoAOneToManyCascadeRemoveFromOtherEntity_excludeMembersOfParentOfCollectionOnAddingColumnsUsingInheritance_editorForAnnotationWithInheritance() throws Exception {
+	public void testManyToManyNotRemoveEntityWhenReferencedEntityIsAlsoAOneToManyCascadeRemoveFromOtherEntity_excludeMembersOfParentOfCollectionOnAddingColumnsUsingInheritance_editorForAnnotationWithInheritance_dateNumericType() throws Exception {
 		execute("List.addColumns");
 		assertNoAction("AddColumns.showMoreColumns");
 		// We could have more columns if we modify the model, 
@@ -40,9 +39,15 @@ public class AccountingInvoiceTest extends ModuleTestBase {
 		
 		changeModule("AccountingDocument");
 		execute("List.viewDetail", "row=0");
+		assertNoErrors();
 		assertValue("description", "DOCUMENT 1");
 		assertCollectionRowCount("positions", 1);
 		assertValueInCollection("positions", 0, 0, "POSITION 1");
+		execute("CRUD.save");
+		assertNoErrors();
+		execute("Mode.list");
+		execute("CRUD.new");
+		assertNoErrors();
 	}
 
 	private void assertDescriptionIsTextArea() {
