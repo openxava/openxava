@@ -304,7 +304,7 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 					<textElement textAlignment="Center" verticalAlignment="Top" lineSpacing="Single">
 						<font reportFont="Arial_Normal" size="15"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String">$P{Title} + "1"</textFieldExpression>					
+					<textFieldExpression class="java.lang.String">$P{Title}</textFieldExpression>					
 				</textField>
 				
 				<textField>
