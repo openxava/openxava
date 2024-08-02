@@ -138,8 +138,8 @@ private List getMetaProperties(Tab tab, Integer columnCountLimit) {
 <%
 Tab tab = (Tab) request.getSession().getAttribute("xava_reportTab");
 String reportName = Strings.change(tab.getModelName(), ".", "_"); 
-Collection totalProperties = tab.getTotalPropertiesNames();  	
-int totalRecords = (tab.getSelectedKeys().length == 0) ? tab.getTableModel().getRowCount() : tab.getSelectedKeys().length;
+Collection totalProperties = tab.getTotalPropertiesNames();  
+int totalRecords = (tab.getSelectedKeys().length == 0) ? tab.getTotalSize() : tab.getSelectedKeys().length;
 String language = request.getParameter("language");
 if (language == null) language = org.openxava.util.Locales.getCurrent().getDisplayLanguage();
 language = language == null?request.getLocale().getDisplayLanguage():language;
