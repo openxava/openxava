@@ -1343,6 +1343,7 @@ abstract public class ModuleTestBase extends TestCase {
 	
 	private HtmlElement getListElement(String id, String errorId) {  
 		try {
+			System.out.println("[ModuleTestBase.getListElement] id=" + id); // tmr
 			return getElementById(id);
 		}
 		catch (org.htmlunit.ElementNotFoundException ex) {
@@ -1557,11 +1558,22 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	private int getListColumnCount(String id, String message) throws Exception {
+		// tmr ini
+		HtmlTable table = getTable(id, message);
+		if (isSimpleList(table)) return table.getRow(0).getCells().size(); // tmr
+		int c = 0;
+		for (HtmlTableCell cell: table.getRow(0).getCells()) {
+			if (cell.isDisplayed()) c++;
+		}
+		return c - 2;
+		// tmr fin
+		/* tmr
 		int c = 0;
 		for (HtmlTableCell cell: getTable(id, message).getRow(0).getCells()) {
 			if (cell.isDisplayed()) c++;
 		}
 		return c - 2;
+		*/
 	}	
 	
 	/**
@@ -1570,6 +1582,7 @@ abstract public class ModuleTestBase extends TestCase {
 	 */
 	protected int getCollectionRowCount(String collection) throws Exception {		
 		HtmlTable table = getTable(collection, XavaResources.getString("collection_not_displayed"));
+		if (isSimpleList(table)) return table.getRows().size() - 1; // tmr
 		int count = 0;
 		for (HtmlTableRow row: table.getRows()) {
 			if (!Is.emptyString(row.getId()) && !row.getId().equals("nodata") && !row.getId().contains("_list_filter_")) {
@@ -1580,6 +1593,10 @@ abstract public class ModuleTestBase extends TestCase {
 		return count;
 	}
 	
+	private boolean isSimpleList(HtmlTable table) { // tmr
+		return table.getAttribute("class").contains("ox-simple-list");
+	}
+
 	// Because HtmlElement.isDisplayed only works when CSS is active
 	private boolean isDisplayed(DomElement element) { 
 		String cssClass = element.getAttribute("class");

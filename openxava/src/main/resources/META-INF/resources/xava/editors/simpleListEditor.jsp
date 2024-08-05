@@ -1,4 +1,6 @@
-<%-- tmr Mover a openxava. Probar en un proyecto nuevo --%>
+<%-- tmr --%>
+
+<%@ include file="../imports.jsp"%>
 
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
@@ -11,14 +13,13 @@
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
 
 <%
-// TMR ME QUEDÉ POR AQUÍ: JUSTO ME ACABÓ DE FUNCIONAR, AHORA TENGO QUE PONERME CON EL ESTILO.
 String collectionName = request.getParameter("collectionName");
 String viewObject = request.getParameter("viewObject");
 View view = (View) context.get(request, viewObject);
 View subview = view.getSubview(collectionName);
 %>
 
-<table>
+<table id="<xava:id name='<%=collectionName%>'/>" class="ox-simple-list">
 
 <tr>
 <%
