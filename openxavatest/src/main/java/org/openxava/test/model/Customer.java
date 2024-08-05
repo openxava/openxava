@@ -226,6 +226,8 @@ import org.openxava.test.actions.*;
 
 @View( name="OnlyAddress", members="address") 
 
+@View( name="SearchListCondition", members=	"number; name; alternateSeller;")
+
 @Tabs ({
 	@Tab(
 		rowStyles={
@@ -323,10 +325,10 @@ public class Customer implements IWithName {
 		forViews="SellerAsDescriptionsListShowingReferenceView, "
 				+ "SellerAsDescriptionsListShowingReferenceViewNoKey, "
 				+ "SellerAsDescriptionsListShowingReferenceViewNoFrameInSection", 
-		showReferenceView=true) 		
+		showReferenceView=true) 	
 	private Seller seller; 
 	
-	@Transient @ManyToOne(fetch=FetchType.LAZY) 
+	@Transient @ManyToOne(fetch=FetchType.LAZY)
 	private Seller transientSeller; 
 	
 	@DefaultValueCalculator(
@@ -342,6 +344,7 @@ public class Customer implements IWithName {
 	@NoCreate(forViews="DEFAULT")
 	@ReadOnly(forViews="SomeMembersReadOnly")
 	@DescriptionsList(forViews="SomeMembersReadOnly", descriptionProperties="level.description, name")
+	@SearchListCondition(value="${number} = ${this.number}", forViews="SearchListCondition")
 	private Seller alternateSeller;
 	
 	@ManyToOne(fetch=FetchType.LAZY)

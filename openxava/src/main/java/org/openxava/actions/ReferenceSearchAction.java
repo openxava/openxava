@@ -64,7 +64,6 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 				}	
 			}
 			getTab().setBaseCondition(reformatCondition(condition.toString()));
-			//getTab().setBaseCondition(condition.toString());
 		}
 		else {
 			getTab().setBaseCondition(null);
@@ -80,7 +79,7 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 				}
 			}
 		}
-			
+
 		showDialog();
 		getView().setTitleId("choose_reference_prompt", ref.getLabel()); 
 		setControllers(getNextControllers()); 
