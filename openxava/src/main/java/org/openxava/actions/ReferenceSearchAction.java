@@ -1,6 +1,7 @@
 package org.openxava.actions;
 
 import java.util.*;
+import java.util.regex.*;
 
 import javax.inject.*;
 
@@ -61,8 +62,9 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 				if (itOverlappingProperties.hasNext()) {
 					condition.append(" AND "); 
 				}	
-			}					
-			getTab().setBaseCondition(condition.toString());
+			}
+			getTab().setBaseCondition(reformatCondition(condition.toString()));
+			//getTab().setBaseCondition(condition.toString());
 		}
 		else {
 			getTab().setBaseCondition(null);
@@ -74,7 +76,7 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 			if (metaReferenceView != null) {
 				String searchListCondition = metaReferenceView.getSearchListCondition();
 				if (searchListCondition != null) {
-					getTab().setBaseCondition(searchListCondition);
+					getTab().setBaseCondition(reformatCondition(searchListCondition));
 				}
 			}
 		}
@@ -131,5 +133,19 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 		this.tabName = tabName;
 	}
 
+	private String reformatCondition(String condition) {
+		if (condition.contains("this.")) {
+	        Pattern pattern = Pattern.compile("\\$\\{this\\.([a-zA-Z0-9_]+)\\}");
+	        Matcher matcher = pattern.matcher(condition);
+	        StringBuffer result = new StringBuffer();
+	        while (matcher.find()) {
+	        	String value = (String) getView().getValue(matcher.group(1)).toString();
+	        	matcher.appendReplacement(result, value);
+	        }
+	        matcher.appendTail(result);
+	        return result.toString();
+		}
+		return condition;
+	}
 
 }
