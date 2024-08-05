@@ -1,5 +1,10 @@
 if (listEditor == null) var listEditor = {};
 
+// tmr ¿Renombrar listEditor.js como popupMenu.js?
+// tmr También:
+// tmr - Id debería ser único
+// tmr - Al pulsar en el propio botón no se oculta.
+
 openxava.addEditorInitFunction(function() {
     $('.xava_popup_menu_icon').each(function() {
         var popUpMenuIcon = $(this);
@@ -7,20 +12,25 @@ openxava.addEditorInitFunction(function() {
 
         popUpMenuIcon.on('click', function(event) {
             popUpMenu.removeClass("ox-display-none");
+            /* tmr
             var buttonOffset = popUpMenuIcon.offset();
-            // tmr ini
-            // TMR ¿RENOMBRAR listEditor.js como popupMenu.js?
-            var positionPopup = popUpMenu.get(0).getBoundingClientRect();
-			var left = buttonOffset.left; 
-			if (buttonOffset.left + positionPopup.width > window.innerWidth) {
-				// TMR ME QUEDÉ POR AQUÍI: PARA HACER ESTO, PARA QUE EL MENÚ SALGA DENTRO
-			}
-            // tmr fin
             popUpMenu.css({
                 top: buttonOffset.top + popUpMenuIcon.outerHeight(),
-                // tmr left: buttonOffset.left
-                left: left // tmr
+                left: buttonOffset.left
             });
+            */
+            // tmr ini
+			var buttonRect = popUpMenuIcon.get(0).getBoundingClientRect();
+            var positionPopup = popUpMenu.get(0).getBoundingClientRect();
+			var left = buttonRect.left; 
+			if (buttonRect.left + positionPopup.width > window.innerWidth) {
+				left -= (positionPopup.width - buttonRect.width);
+			}
+            popUpMenu.css({
+                top: buttonRect.top + popUpMenuIcon.outerHeight(),
+                left: left 
+            });            
+            // tmr fin
         });
 		
 		if (popUpMenu) {
