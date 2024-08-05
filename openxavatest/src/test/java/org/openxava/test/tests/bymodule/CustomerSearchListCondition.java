@@ -3,7 +3,7 @@ package org.openxava.test.tests.bymodule;
 import org.openxava.tests.*;
 
 /**
- * @author Javier Paniza
+ * @author Chungyen Tsai
  */
 
 public class CustomerSearchListCondition extends ModuleTestBase {

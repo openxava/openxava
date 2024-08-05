@@ -226,7 +226,7 @@ import org.openxava.test.actions.*;
 
 @View( name="OnlyAddress", members="address") 
 
-@View( name="SearchListCondition", members=	"number; name; alternateSeller;")
+@View( name="SearchListCondition", members="number; name; alternateSeller;")
 
 @Tabs ({
 	@Tab(
