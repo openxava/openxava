@@ -83,7 +83,7 @@ public class ColorTest extends ModuleTestBase {
 		execute("Print.generatePdf");
 		assertContentTypeForPopup("application/pdf");
 		assertPopupPDFLinesCount(8);
-		assertPopupPDFLine(2, "Number of records: 3");
+		assertPopupPDFLine(2, "Record count: 3");
 		assertPopupPDFLine(4, getPDFLine(number0, name0, hexValue0, useTo0, characteristicThing0));
 		assertPopupPDFLine(5, getPDFLine(number5, name5, hexValue5, useTo5, characteristicThing5));
 		assertPopupPDFLine(6, getPDFLine(number1, name1, hexValue1, useTo1, characteristicThing1));

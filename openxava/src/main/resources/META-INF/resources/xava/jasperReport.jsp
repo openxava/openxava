@@ -324,7 +324,7 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 					<textElement textAlignment="Right" verticalAlignment="Top" lineSpacing="Single">
 						<font reportFont="Arial_Normal" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA["<%=XavaResources.getString(request, "number_of_records")%>" + " <%=totalRecords%>"]]></textFieldExpression>
+					<textFieldExpression><![CDATA["<%=XavaResources.getString(request, "record_count")%>" + ": <%=totalRecords%>"]]></textFieldExpression>
 				</textField>
 				
 
