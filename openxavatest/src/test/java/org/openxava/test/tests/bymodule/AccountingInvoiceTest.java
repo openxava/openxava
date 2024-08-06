@@ -43,8 +43,15 @@ public class AccountingInvoiceTest extends ModuleTestBase {
 		assertValue("description", "DOCUMENT 1");
 		assertCollectionRowCount("positions", 1);
 		assertValueInCollection("positions", 0, 0, "POSITION 1");
+		assertValue("date", "6/10/2019");
+		setValue("date", "8/7/2019");
 		execute("CRUD.save");
 		assertNoErrors();
+		execute("Mode.list");
+		execute("List.viewDetail", "row=0");
+		assertValue("date", "8/7/2019");
+		setValue("date", "6/10/2019");
+		execute("CRUD.save");
 		execute("Mode.list");
 		execute("CRUD.new");
 		assertNoErrors();
