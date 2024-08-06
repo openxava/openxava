@@ -19,7 +19,6 @@ public class StaffDashboardTest extends ModuleTestBase {
 		assertValue("staffCount", "223");
 		
 		// tmr ini
-		// TMR ME QUEDÉ POR AQUÍ: LA SUITE HA PASADO. FALTARÍA LA DOC.
 		// Simple list
 		HtmlElement listEditor = getHtmlPage().getHtmlElementById("ox_openxavatest_StaffDashboard__collection_turnoverByYear___");
 		listEditor.asXml().contains("ox-simple-list"); // The correct editor is chosen
