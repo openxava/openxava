@@ -311,7 +311,7 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 					<reportElement
 						mode="Transparent"
 						x="<%=totalRecordsWidth%>"
-						y="-5"
+						y="0"
 						width="150"
 						height="25"
 						forecolor="#000000"
@@ -321,7 +321,7 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
-					<textElement textAlignment="Right" verticalAlignment="Bottom" lineSpacing="Single">
+					<textElement textAlignment="Right" verticalAlignment="Top" lineSpacing="Single">
 						<font reportFont="Arial_Normal" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA["<%=XavaResources.getString(request, "number_of_records")%>" + " <%=totalRecords%>"]]></textFieldExpression>
