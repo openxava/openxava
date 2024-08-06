@@ -32,7 +32,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		
 		changeLanguage("zh-CN");
 		goModule("Event");
-		assertValueInList(0, 4, "2023/9/30 PM3:21"); // TMR FALLA
+		assertValueInList(0, 4, "2023/9/30 PM3:21"); 
 		execute("List.viewDetail", "row=0");
 		execute("CRUD.save");
 		execute("Mode.list");
@@ -460,7 +460,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 	public void testTime_dateTimeSeparatedUseTimeEditor_separatedTimePartOnChange_autoFillColon() throws Exception {
 		goModule("Event");
 		execute("List.viewDetail", "row=0");
-		assertValue("endTime", "1:00 PM"); // TMR FALLA
+		assertValue("endTime", "1:00 PM"); 
 		List<WebElement> iconElements = getDriver().findElements(By.cssSelector("i.mdi.mdi-clock-outline"));
 		assertTrue(iconElements.size() == 2);
 		if (!iconElements.isEmpty()) {

@@ -45,7 +45,7 @@ public class AppointmentTest extends ModuleTestBase {
 		StringTokenizer excel = new StringTokenizer(getPopupText(), "\n\r");
 		excel.nextToken(); // To skip the header
 		String line1 = excel.nextToken();
-		assertEquals("line1", "\"5/26/2015 10:15 AM\";\"ALMUERZO\";0;", line1); // TMR FALLA ME QUEDÉ POR AQUÍ HACER LOS FALLA, Y DOCUMENTACIÓN
+		assertEquals("line1", "\"5/26/2015 10:15 AM\";\"ALMUERZO\";0;", line1);  
 		
 	}
 	

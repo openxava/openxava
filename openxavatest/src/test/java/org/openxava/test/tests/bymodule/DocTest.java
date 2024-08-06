@@ -19,7 +19,7 @@ public class DocTest extends ModuleTestBase {
 		assertValueInList(0, 0, "DON QUIJOTE");
 		
 		String html = getHtml();
-		assertTrue(html.contains("tres partes de su hacienda")); // The tooltip is complete // TMR FALLA
+		assertTrue(html.contains("tres partes de su hacienda")); // The tooltip is complete 
 		assertEquals(2, StringUtils.countMatches(html, "En un lugar de la Mancha")); // The tooltip is not duplicated
 		
 		HtmlDivision div = (HtmlDivision) getHtmlPage().getByXPath("//div[@class='ox_openxavatest_Doc__tipable ox_openxavatest_Doc__list_col1 ox-width-100']").get(0);  
