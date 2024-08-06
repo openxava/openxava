@@ -23,15 +23,12 @@ public class TimeFormatter implements IFormatter {
 	public String format(HttpServletRequest request, Object time) {
 		if (time == null) return "";
 		if (time instanceof String || time instanceof Number) return time.toString();
-		return getTimeFormat().format((LocalTime) time);
+		return reformatTime(getTimeFormat().format((LocalTime) time));
 	}
 	
 	public Object parse(HttpServletRequest request, String string) throws ParseException {
 		if (Is.emptyString(string)) return null;
-		if (XSystem.isJava21orBetter()) {
-			string = string.replace(" PM", "\u202fPM").replace(" AM", "\u202fAM");
-			string = string.replace("PM ", "PM\u202f").replace("AM ", "AM\u202f");
-		}
+		string = reformatTime(string, true);
 		DateTimeFormatter timeFormat = getTimeFormat();
 		try {
 			return LocalTime.parse(string, timeFormat);
@@ -53,6 +50,27 @@ public class TimeFormatter implements IFormatter {
 	    String pattern = DateTimeFormatterBuilder.getLocalizedDateTimePattern(
 	        null, FormatStyle.SHORT, Chronology.ofLocale(locale), locale);
 	    return pattern;
+	}
+	
+	protected String reformatTime(String string) {
+		return reformatTime(string, false);
+	}
+	
+	protected String reformatTime(String string, boolean parsing) {
+		String date = string;
+		if (parsing) {
+			if (XSystem.isJava21orBetter()) {
+				date = date.replace(" PM", "\u202fPM").replace(" AM", "\u202fAM");
+				date = date.replace("PM ", "PM\u202f").replace("AM ", "AM\u202f");
+				return date;
+			}
+			if (XSystem.isJava17orBetter()) return date.replace("PM", "p.\u00a0m.").replace("AM", "a.\u00a0m.");
+			if (XSystem.isJava9orBetter()) return date.replace("PM", "p.m.").replace("AM", "a.m.");
+		} else {
+			if (XSystem.isJava17orBetter()) return date.replace("p.\u00a0m.", "PM").replace("a.\u00a0m.", "AM");
+			if (XSystem.isJava9orBetter()) return date.replace("p.m.", "PM").replace("a.m.", "AM");
+		}
+		return date;
 	}
 	
 }
