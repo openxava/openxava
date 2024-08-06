@@ -138,7 +138,7 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 	        Matcher matcher = pattern.matcher(condition);
 	        StringBuffer result = new StringBuffer();
 	        while (matcher.find()) {
-	        	String value = (String) getView().getValue(matcher.group(1)).toString();
+	        	String value = "'" + (String) getView().getValue(matcher.group(1)).toString() + "'";
 	        	matcher.appendReplacement(result, value);
 	        }
 	        matcher.appendTail(result);

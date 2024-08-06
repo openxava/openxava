@@ -226,7 +226,7 @@ import org.openxava.test.actions.*;
 
 @View( name="OnlyAddress", members="address") 
 
-@View( name="SearchListCondition", members="number; name; alternateSeller;")
+@View( name="SearchListCondition", members="number; name; sellerNameInCondition; transientSeller; alternateSeller;")
 
 @Tabs ({
 	@Tab(
@@ -329,6 +329,7 @@ public class Customer implements IWithName {
 	private Seller seller; 
 	
 	@Transient @ManyToOne(fetch=FetchType.LAZY)
+	@SearchListCondition(value="${name} = ${this.sellerNameInCondition}", forViews="SearchListCondition")
 	private Seller transientSeller; 
 	
 	@DefaultValueCalculator(
@@ -576,5 +577,8 @@ public class Customer implements IWithName {
 	public void setCreditCard(String creditCard) {
 		this.creditCard = creditCard;
 	}
-				
+	
+	public String getSellerNameInCondition () {
+		return "GALILEO GALILEI";
+	}
 }
