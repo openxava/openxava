@@ -90,8 +90,7 @@ public class StaffDashboard {
 		return result;
 	}
 	
-	// tmr @ReadOnly @ViewAction("") // To be changed by @SimpleList when available
-	@SimpleList // tmr
+	@SimpleList 
 	public Collection<StaffTurnover> getTurnoverByYear() {
 		// An example that we can see the same data with different format
 		return getTurnoverEvolution();
@@ -100,7 +99,7 @@ public class StaffDashboard {
 	
 	@ReadOnly // Not needed @SimpleList are read only by default
 	@ViewAction("") // Not needed @SimpleList has not actions by default
-	@SimpleList // tmr
+	@SimpleList 
 	public Collection<Worker> getMoreSeniorWorkers() {
 		// An example using JPA, note the setMaxResults(5) to limit the size
 		return XPersistence.getManager().createQuery("from Worker").setMaxResults(5).getResultList();

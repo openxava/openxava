@@ -1,5 +1,3 @@
-<%-- tmr --%>
-
 <%@ include file="../imports.jsp"%>
 
 <%@ page import="java.util.List" %>

@@ -419,10 +419,8 @@
 		<for-annotation annotation="org.openxava.annotations.LargeDisplay"/>
 	</editor>
 	
-	<!-- tmr ini -->
 	<editor name="SimpleList" url="simpleListEditor.jsp">
 		<for-annotation annotation="org.openxava.annotations.SimpleList"/>
 	</editor>	
-	<!-- tmr fin -->
 		
 </editors>

@@ -14,11 +14,10 @@ public class StaffDashboardTest extends ModuleTestBase {
 		super(testName, "StaffDashboard");		
 	}
 			
-	public void testInitModelWithNewInstance_simpleList() throws Exception { // tmr Cambiar nombre
+	public void testInitModelWithNewInstance_simpleList() throws Exception { 
 		// Init model with new instance
 		assertValue("staffCount", "223");
 		
-		// tmr ini
 		// Simple list
 		HtmlElement listEditor = getHtmlPage().getHtmlElementById("ox_openxavatest_StaffDashboard__collection_turnoverByYear___");
 		listEditor.asXml().contains("ox-simple-list"); // The correct editor is chosen
@@ -30,7 +29,6 @@ public class StaffDashboardTest extends ModuleTestBase {
 		
 		assertNoAction("Collection.add");
 		assertNoAction("Collection.edit");
-		// tmr fin
 	}
 					
 }
