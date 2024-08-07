@@ -268,7 +268,10 @@
 	
 	--large-display-color: var(--link-color); 
 	--large-display-negative-color: red; 
-	--large-display-icon-color: var(--color); 
+	--large-display-icon-color: var(--color);
+	
+	--simple-list-detail-color: var(--link-color);
+	--simple-list-header-color: inherit;
 }
 
 @font-face {
@@ -3033,4 +3036,22 @@ a[data-action="Collection.previous"] {
 	vertical-align: top;
 	font-size: xxx-large;
 	margin-right: 10px;
+}
+
+.ox-simple-list {
+	margin: 0px 10px 5px 25px;
+	font-size: larger;
+}
+
+.ox-simple-list td, .ox-simple-list th {
+	padding: 1px 5px 1px 5px;
+}
+
+.ox-simple-list td {
+	color: var(--simple-list-detail-color); 
+}
+
+.ox-simple-list th {
+	text-align: left;
+	color: var(--simple-list-header-color);  
 }

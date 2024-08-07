@@ -37,8 +37,8 @@ openxava.addEditorInitFunction(function() {
     });
 
     $('.xava_date > input').change(function() {
-        if ($(this).val().length > 0 && $(this).val().length < 3) {
-            $(this).val(dateCalendarEditor.formatTwoDigitDate($('.xava_date').data('date-format'), $(this).val()));
+        if ($(this).val().length > 0 && $(this).val().length < 5) {
+			$(this).val(dateCalendarEditor.formatDate($('.xava_date').data('date-format'), $(this).val()));
         }
         var dateFormat = $(this).parent().data("dateFormat");
         var date = dateCalendarEditor.readInput ? dateCalendarEditor.enterDate : $(this).val();
@@ -191,16 +191,31 @@ openxava.addEditorInitFunction(function() {
 
 });
 
-dateCalendarEditor.formatTwoDigitDate = function(dateFormat, number) {
+dateCalendarEditor.formatDate = function(dateFormat, number) {
+	if (number.length == 3) return number;
     var today = new Date();
     var year = today.getFullYear();
-    var month = today.getMonth();
-    var date = new Date(year, month, number);
+	var month = today.getMonth() + 1;
+	var day = number;
+	if (number.length > 2) {
+		var dayIndex = dateFormat.includes('d') ? dateFormat.indexOf('d') : dateFormat.indexOf('j');
+		var monthIndex = dateFormat.includes('m') ? dateFormat.indexOf('m') : dateFormat.indexOf('n');
+		var dayFirst = dayIndex < monthIndex ? true : false;
+		if (dayFirst) {
+            day = number.substring(0, 2);
+            month = number.substring(2, 4);
+        } else {
+            month = number.substring(0, 2);
+            day = number.substring(2, 4);
+        }
+	}
+
+    var date = new Date(year, month, day);
     var formattedDate = dateFormat
         .replace('d', ('0' + date.getDate()).slice(-2))
         .replace('j', date.getDate())
-        .replace('m', ('0' + (date.getMonth() + 1)).slice(-2))
-        .replace('n', date.getMonth() + 1)
+        .replace('m', ('0' + date.getMonth()).slice(-2))
+        .replace('n', date.getMonth())
         .replace('Y', date.getFullYear())
         .replace('H', "")
         .replace('h', "")
