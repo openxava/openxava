@@ -1,5 +1,6 @@
 package org.openxava.actions;
 
+import java.math.*;
 import java.util.*;
 import java.util.regex.*;
 
@@ -138,13 +139,29 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 	        Matcher matcher = pattern.matcher(condition);
 	        StringBuffer result = new StringBuffer();
 	        while (matcher.find()) {
-	        	String value = "'" + (String) getView().getValue(matcher.group(1)).toString() + "'";
-	        	matcher.appendReplacement(result, value);
+	        	Object value = getView().getValue(matcher.group(1));
+	        	if (value == null) matcher.appendReplacement(result, ""); 
+	        	if (isNumeric(value)) {
+	        		matcher.appendReplacement(result, value.toString());
+	        	} else {
+	        		matcher.appendReplacement(result, "'" + value.toString() + "'");
+	        	}
 	        }
 	        matcher.appendTail(result);
 	        return result.toString();
 		}
 		return condition;
+	}
+	
+	private boolean isNumeric(Object obj) {
+	    return (obj instanceof Byte ||
+	            obj instanceof Short ||
+	            obj instanceof Integer ||
+	            obj instanceof Long ||
+	            obj instanceof Float ||
+	            obj instanceof Double ||
+	            obj instanceof BigInteger ||
+	            obj instanceof BigDecimal);
 	}
 
 }
