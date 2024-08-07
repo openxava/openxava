@@ -3,36 +3,18 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * tmr Redoc
- * To display the value of the property in large format. <p>
+ * To display a collection as a simple read-only list, without actions, filters, pagination, sorting, etc. <p>
  * 
- * Generally with a large font, inside a small frame with spacing, etc. 
- * To make the value clearly visible, for emphasizing the value in the view, or
- * for creating a dashboard style view.<br>
- * 
- * Applies to properties. <p>
+ * Applies to collections. <p>
  *
  * Example:
  * <pre>
- * &nbsp;@LargeDisplay
- * &nbsp;int activeUsersCount;
-  * </pre>	
- * It will display the active user count with a large number in the user interface.<br>
- * Moreover, you can specify a prefix/suffix and icon, like this:
- * <pre>
- * &nbsp;@LargeDisplay(suffix = "%", icon="label-percent-outline")
- * &nbsp;BigDecimal vatPercentage;
+ * &nbsp;@OneToMany(mappedBy="parent")
+ * &nbsp;@SimpleList
+ * &nbsp;Collection<StaffTurnover> turnoverByYear;
  * </pre>
- * In this case the suffix % is displayed after the value and the icon label-percent-outline is also
- * displayed near the value, the icon is from Material Design Icons, like the ones used for actions.<br>
- * Also if you combine @LargeDisplay with @Money and don't specify any value for suffix or prefix,
- * the value for suffix/prefix is automatic, so if you write:
- * <pre>
- * &nbsp;@Money @LargeDisplay
- * &nbsp;BigDecimal discount;
- * </pre>
- * Now the discount is displayed with the suffix &euro; if the server is configure for Spain, or
- * with the prefix $ if the server is configured for USA.
+ * 
+ * It will display the collection showing only the header and the data with a simple user interface, with no ornament.<br>
  *
  * @since 7.4
  * @author Javier Paniza

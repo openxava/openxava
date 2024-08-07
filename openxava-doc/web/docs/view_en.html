@@ -102,6 +102,8 @@
             in a collection (new in v5.7)</a></div>
         <div style="margin-left: 3em;"><a href="#chart-from-collection">Chart
             from a collection (new in v7.4)</a></div>
+        <div style="margin-left: 3em;"><a href="#simple-list">Simple list (new
+            in v7.4)</a></div>
         <div style="margin-left: 2em;"><a href="#transient-properties-ui-controls">Transient
             properties for UI controls</a></div>
         <div style="margin-left: 2em;"><a href="#View-View%20actions">View
@@ -12940,7 +12942,7 @@ class="co1">// 1<span style="color: #505050;">7 New in v7.4</span></span>
 @Tree                   <span class="co1">// 24 New in v4m4</span>
 @Collapsed              <span class="co1">// 25 New in v5.0</span>
 @ListSubcontroller      <span class="co1">// 26 New in v5.7<br></span>@Chart                  <span
-class="co1">// 27 New in v7.4<br></span>@OneToMany/@ManyToMany
+class="co1">// 27 New in v7.4<br></span>@SimpleList             <span class="co1">// 28 New in v7.4<br></span>@OneToMany/@ManyToMany
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
 class="kw46">Collection</span></a> collectionName<span class="sy0">;</span></pre>
       And the next annotations for a <em>@ElementCollection (new in v5.0)</em>:<br>
@@ -13136,8 +13138,8 @@ class="kw46">Collection</span></a> collectionName<span class="sy0">;</span></pre
 @ListProperties         <span class="co1">//  7</span>
 @RemoveSelectedAction   <span class="co1">// 15 New in v5.3</span>
 @Editor                 <span class="co1">// 20</span>
-@Collapsed              <span class="co1">// 23</span>
-@ElementCollection
+@Collapsed              <span class="co1">// 23</span><br>@Chart                  <span
+class="co1">// 27 New in v7.4<br></span>@SimpleList             <span class="co1">// 28 New in v7.4<br></span>@ElementCollection
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
 class="kw46">Collection</span></a> collectionName<span class="sy0">;</span></pre>
       All these annotations follow the <a class="wiki_link" href="#View-Rules%20for%20view%20annotations">rules
@@ -13299,10 +13301,15 @@ class="kw46">Collection</span></a> collectionName<span class="sy0">;</span></pre
           (<a class="wiki_link_ext" href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/ListSubcontroller.html"
             rel="nofollow">OX</a>): <em>(New in v5.7)</em> To group several
           actions and to show them in a drop-down button.</li>
-        <li><strong><a class="wiki_link" href="view_en.html#subcontroller-collection">@Chart</a></strong>
+        <li><strong><a class="wiki_link" href="view_en.html#chart-from-collection">@Chart</a></strong>
           (<a class="wiki_link_ext" href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Chart.html"
             rel="nofollow">OX</a>): <em>(New in v7.4)</em> To display the
           values from the collection as a chart.</li>
+        <li><strong><a class="wiki_link" href="view_en.html#simple-list">@SimpleList</a></strong><strong></strong>
+          (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/SimpleList.html"
+            rel="nofollow">OX</a>): <em>(New in v7.4)</em> The collection will
+          be displayed as a simple read-only list, without actions, filters,
+          pagination, sorting, etc.</li>
       </ol>
       <h3 id="toc26"><a name="View-Collection customization-Properties in list"></a>Properties
         in list</h3>
@@ -19213,7 +19220,8 @@ class="st0">"roles"</span>/<span class="sy0">&gt;</span>
         </em></h3>
       <em>Applies to @OneToMany/@ManyToMany and @ElementCollection collections</em><br>
       It can be done so that a collection is visualized using a chart, for this
-      you have to annotate the collection with <i>@Chart</i>, like this:
+      you have to annotate the collection with <a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Chart.html"><i>@Chart</i></a>,
+      like this:
       <div class="wiki" style="display: block;">
         <pre><code class="java">@OneToMany(mappedBy="company")
 @Chart
@@ -19250,7 +19258,26 @@ Collection&lt;Employee&gt; employees;
       Of course, more properties can be put in <i>dataProperties</i> separated
       by commas. </div>
     <div class="wiki" style="display: block;">In addition, the <i>forViews</i>
-      and <i>notForViews</i> attributes are available in <i>@Chart</i>.<br>
+      and <i>notForViews</i> attributes are available in <i>@Chart</i>.</div>
+    <div class="wiki" style="display: block;">
+      <h3 id="simple-list">Simple list <em>(new in v7.4)</em></h3>
+      <em>Applies to @OneToMany/@ManyToMany and @ElementCollection collections</em><br>
+      With the <a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/SimpleList.html"><i>@SimpleList</i></a>
+      annotation, the list is displayed as read-only, without actions, filters,
+      pagination, sorting, etc. That is, if we annotate our collection with <i>@SimpleList</i>,
+      in this way:<br>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">@OneToMany(mappedBy="parent")
+@SimpleList
+Collection&lt;StaffTurnover&gt; turnoverByYear;
+</code></pre> </div>
+      <div class="wiki" style="display: block;">It would be displayed like this:</div>
+      <img src="files/view_en270.png" alt="view_en270.png" title="view_en270.png">
+      <div class="wiki" style="display: block;">Useful when the user needs to
+        see the data in a simple and clear way, without having to interact with
+        it, such as in a dashboard, for example.</div>
+      <div class="wiki" style="display: block;">In addition, the <i>forViews</i>
+        and <i>notForViews</i> attributes are available in <i>@SimpleList.</i></div>
       <div class="wiki" style="display: block;">
         <h2 id="toc40"><a name="Vista-Propiedades+transitorias+para+controles+graficos"></a></h2>
       </div>
