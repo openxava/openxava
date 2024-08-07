@@ -39,6 +39,14 @@
       </div>
       <div class="wiki" style="display: block;">
         <h2>Para migrar de OpenXava 7.3.3 a OpenXava 7.4</h2>
+        <h3>Nueva fila en PDF generado en modo lista (para pruebas JUnit)</h3>
+        <p>Ahora los PDF generados en modo lista tienen un nuevo elemento que muestra la cantidad de registros presentes en el reporte, por lo que si compruebas detalles del reporte en pruebas JUnit, es necesario hacer unos cambios, anteriormente era: </p>
+        <pre><code class="java">assertPopupPDFLinesCount(7);
+assertPopupPDFLine(2, "Name");<br></code></pre>
+        Ahora es:<br>
+        <pre><code class="java">assertPopupPDFLinesCount(8); // +1
+assertPopupPDFLine(2, "Record count: 3"); // SE AGREGÓ ESTA NUEVA FILA
+assertPopupPDFLine(3, "Name");<br></code></pre>
         <h3>Nueva acción en colecciones (para pruebas JUnit)</h3>
         <p>Ahora las colecciones tendrán una nueva acción tanto en lista como en cada fila, <i>Collection.deleteSelected</i>, por lo que si comprueban las acciones presentes en las pruebas JUnit, es necesario hacer algunos cambios, agregando la nueva acción y en algunos casos quitando <i>Collection.removeSelected</i> si la colección tiene <em>(cascade=CascadeTYPE.REMOVE)</em>. Por ejemplo: </p>
         <pre><code class="java">String [] actions = { <br>    "Collection.new",

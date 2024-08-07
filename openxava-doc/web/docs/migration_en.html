@@ -40,6 +40,15 @@
     </div>
     <div class="wiki" style="display: block;">
       <h2>Migration from OpenXava 7.3.3 to OpenXava 7.4</h2>
+      <h3>New Row in PDF Generated in List Mode (for JUnit Tests)</h3>
+      <p>Now the PDFs generated in list mode have a new element that shows the number of records present in the report. Therefore, if you check report details in JUnit tests, you need to make some changes. Previously, it was:</p>
+      <pre><code class="java">assertPopupPDFLinesCount(7);
+assertPopupPDFLine(2, "Name");<br></code></pre>
+      Now it is:<br>
+      <pre><code class="java">assertPopupPDFLinesCount(8); // +1
+assertPopupPDFLine(2, "Record count: 3"); // THIS NEW ROW WAS ADDED
+assertPopupPDFLine(3, "Name");</code></pre>
+      <p></p>
       <h3>New action in collections (for JUnit tests and custom actions)</h3>
       <p>Now collections will have a new action in the list and in each row, <em>Collection.deleteSelected</em>. Therefore, if you check the actions present in the JUnit tests, it is necessary to make some changes, adding the new action and in some cases, removing <em>Collection.removeSelected</em> if the collection has <em>(cascade=CascadeTYPE.REMOVE)</em>. For example:</p>
       <pre><code class="java">String [] actions = { <br>    "Collection.new",
