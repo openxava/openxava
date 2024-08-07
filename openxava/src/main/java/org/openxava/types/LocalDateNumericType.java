@@ -15,9 +15,9 @@ import org.hibernate.usertype.*;
  * 
  * @author Miguel Garbín
  */
-public class DateNumericType implements UserType {
+public class LocalDateNumericType implements UserType {
 	
-    private static Log log = LogFactory.getLog(DateNumericType.class);
+    private static Log log = LogFactory.getLog(LocalDateNumericType.class);
 
     public int[] sqlTypes() {       
         return new int[] { Types.NUMERIC };
