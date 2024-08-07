@@ -102,6 +102,8 @@
             en una colección (nuevo en v5.7)</a></div>
         <div style="margin-left: 3em;"><a href="#grafico-desde-coleccion">Gráfico
             a partir de una colección (nuevo en v7.4)</a></div>
+        <div style="margin-left: 3em;"><a href="#lista-simple">Lista simple
+            (nuevo en v7.4)</a></div>
         <div style="margin-left: 2em;"><a href="#Vista-Propiedades+transitorias+para+controles+graficos">Propiedades
             transitorias para controles gráficos</a></div>
         <div style="margin-left: 2em;"><a href="#Vista-Acciones%20de%20la%20vista">Acciones
@@ -12963,8 +12965,8 @@ class="co1">// 17 Nuevo en v7.4</span>
 @SearchListCondition    <span class="co1">// 23 Nuevo en v4m4</span>
 @Tree                   <span class="co1">// 24 Nuevo en v4m4</span>
 @Collapsed              <span class="co1">// 25 Nuevo en v5.0</span>
-@ListSubcontroller      <span class="co1">// 26 Nuevo en v5.7<br></span>@Chart                  <span
-class="co1">// 27 Nuevo en v7.4<br></span>@OneToMany/@ManyToMany
+@ListSubcontroller      <span class="co1">// 26 Nuevo en v5.7</span><br>@Chart                  <span
+class="co1">// 27 Nuevo en v7.4<br></span>@SimpleList             <span class="co1">// 28 Nuevo en v7.4<br></span>@OneToMany/@ManyToMany
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
 class="kw46">Collection</span></a> nombreColeccion<span class="sy0">;</span></pre>
       Y las siguientes anotaciones para una <em>@ElementCollection (nuevo en
@@ -13161,8 +13163,8 @@ class="kw46">Collection</span></a> nombreColeccion<span class="sy0">;</span></pr
 @ListProperties         <span class="co1">//  7</span>
 @RemoveSelectedAction   <span class="co1">// 15 Nuevo en v5.3</span>
 @Editor                 <span class="co1">// 20</span>
-@Collapsed              <span class="co1">// 23</span>
-@ElementCollection
+@Collapsed              <span class="co1">// 23</span><br>@Chart                  <span
+class="co1">// 27 Nuevo en v7.4<br></span>@SimpleList             <span class="co1">// 28 Nuevo en v7.4<br></span>@ElementCollection
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
 class="kw46">Collection</span></a> nombreColleccion<span class="sy0">;</span></pre>
       Todas estas anotaciones siguen las <a class="wiki_link" href="#Vista-Normas%20para%20las%20anotaciones%20de%20vista">normas
@@ -13332,10 +13334,15 @@ class="kw46">Collection</span></a> nombreColleccion<span class="sy0">;</span></p
           (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/ListSubcontroller.html"
             rel="nofollow">OX</a>): <em>(Nuevo en v5.7)</em> Permite agrupar
           varias acciones y verlas mediante un único botón desplegable.</li>
-        <li><strong><a class="wiki_link" href="view_es.html#subcontrolador-coleccion">@Chart</a></strong><strong></strong>
+        <li><strong><a class="wiki_link" href="view_es.html#grafico-desde-coleccion">@Chart</a></strong><strong></strong>
           (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Chart.html"
             rel="nofollow">OX</a>): <em>(Nuevo en v7.4)</em> Para visualizar
           los valores de una colección como un gráfico.</li>
+        <li><strong><a class="wiki_link" href="view_es.html#lista-simple">@SimpleList</a></strong><strong></strong>
+          (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/SimpleList.html"
+            rel="nofollow">OX</a>): <em>(Nuevo en v7.4)</em> La colección se
+          visualizará como una lista simple de solo lectura, sin acciones,
+          filtros, paginación, ordenación, etc.</li>
       </ol>
       <h3 id="toc26"><a name="Vista-Personalizacion+de+coleccion-Propiedades+en+lista"></a>Propiedades
         en lista</h3>
@@ -19273,7 +19280,8 @@ class="st0">"roles"</span>/<span class="sy0">&gt;</span>
           en v7.4)</em></h3>
       <em>Aplica a colecciones @OneToMany/@ManyToMany y @ElementCollection</em><br>
       Se puede hacer que para visualizar una colección se use un gráfico, para
-      ellos hay que anotar la colección con <i>@Chart</i>, de esta manera:</div>
+      ellos hay que anotar la colección con <a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Chart.html"><i>@Chart</i></a>,
+      de esta manera:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@OneToMany(mappedBy="empresa")
 @Chart
@@ -19309,7 +19317,26 @@ Collection&lt;Empleado&gt; empleados;
       Por supuesto, se pueden poner más propiedades en <i>dataProperties</i>
       separadas por comas.</div>
     <div class="wiki" style="display: block;">Además, los atributos <em>forViews</em>
-      y <em>notForViews</em> están disponibles en <i>@Chart</i>.<br>
+      y <em>notForViews</em> están disponibles en <i>@Chart</i>.</div>
+    <div class="wiki" style="display: block;">
+      <h3 id="lista-simple">Lista simple <em>(nuevo en v7.4)</em></h3>
+      <em>Aplica a colecciones @OneToMany/@ManyToMany y @ElementCollection</em><br>
+      Con la anotación <a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/SimpleList.html"><i>@SimpleList</i></a>
+      la lista se visualiza de solo lectura, sin acciones, sin filtros, sin
+      paginación, sin ordenación, etc. Es decir, si anotamos nuestra colección
+      con <i>@SimpleList</i>, de esta manera:<br>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">@OneToMany(mappedBy="padre")
+@SimpleList
+Collection&lt;RotacionPersonal&gt; rotacionPorAnyo;
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Se visualizaría así:</div>
+      <img src="files/view_es270.png" alt="view_es270.png" title="view_es270.png">
+      <div class="wiki" style="display: block;">Útil cuando el usuario necesite
+        ver los datos de forma simple y clara, y no tenga que interactuar con
+        ellos, como en un cuadro de mandos, por ejemplo.</div>
+      <div class="wiki" style="display: block;">Además, los atributos <em>forViews</em>
+        y <em>notForViews</em> están disponibles en <i>@SimpleList.</i></div>
       <h2 id="toc40"><a name="Vista-Propiedades+transitorias+para+controles+graficos"></a>Propiedades
         transitorias para controles gráficos</h2>
       Con <em><a class="wiki_link_ext" href="http://java.sun.com/javaee/5/docs/api/javax/persistence/Transient.html"
