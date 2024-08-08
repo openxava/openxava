@@ -1,0 +1,169 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Report generation - Lesson 3: Master-detail report</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
+          / </span>Report generation - Lesson 3: Master-detail report</h1>
+      <div class="wiki" style="display: block;">
+        <h2>Video</h2>
+        <p>In this video, we will see how to create a master-detail report by
+          receiving information from a data source in an OpenXava application.</p>
+        <p><a href="https://youtu.be/-vkH4jKddLQ" target="_blank"><img
+
+              src="files/report-course_en030.png" title="report-generation-030"></a>
+        </p>
+        <p><strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
+              rel="nofollow">Ask in the forum</a></strong> </p>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h2>Code</h2>
+        <p>You can <strong><a href="https://github.com/openxava/report-generation-course/tree/lesson_3"
+
+              target="_blank">download the project for this lesson</a></strong>.
+          You can also copy the code used in the video here:</p>
+        In <em>controllers.xml</em> file:
+        <pre><code class="xml">&lt;controller name="Invoice"&gt;
+    &lt;extends controller="Invoicing"/&gt;
+    &lt;action name="printInvoiceDetail"
+        class="com.yourcompany.invoicing.actions.PrintInvoiceDetailAction"
+	mode="detail"
+	icon="printer"/&gt;
+&lt;/controller&gt;
+</code></pre> In <em>PrintInvoiceDetailAction.java</em> file:<br>
+        <pre><code class="java">public class PrintInvoiceDetailAction extends JasperReportBaseAction {
+
+	private Invoice invoice;
+	
+	@Override
+	protected JRDataSource getDataSource() throws Exception {
+		return new JRBeanCollectionDataSource(getInvoice().getDetails());
+	}
+
+	@Override
+	protected String getJRXML() throws Exception {
+		return "InvoiceDetail.jrxml";
+	}
+
+	@Override
+	protected Map getParameters() throws Exception {
+		Messages errors = MapFacade.validate("Invoice", getView().getValues());
+		if (errors.contains()) throw new ValidationException(errors);
+		Map parameters = new HashMap();			
+		parameters.put("customerNumber", getInvoice().getCustomer().getNumber());
+		parameters.put("customerName", getInvoice().getCustomer().getName());
+		parameters.put("invoiceNumber", getInvoice().getNumber());
+		parameters.put("date", getInvoice().getDate().toString());
+		parameters.put("vatPercentage", getInvoice().getVatPercentage());
+		parameters.put("vat", getInvoice().getVat());
+		parameters.put("totalAmount", getInvoice().getTotalAmount());
+		
+		return parameters;
+	}
+
+	private Invoice getInvoice() {
+		if (invoice == null) {
+			int year = getView().getValueInt("year");
+			int number = getView().getValueInt("number");
+			invoice = Invoice.findByYearNumber(year, number);
+		}
+		return invoice;
+	}
+	
+}<br></code></pre>
+        In <em>Invoice</em> class add the method:<br>
+        <pre><code class="java"> public static Invoice findByYearNumber(int year, int number) {
+    Query query = XPersistence.getManager()
+	    .createQuery("from Invoice as i where i.year = :year and number = :number");
+    query.setParameter("year", year);
+    query.setParameter("number", number);
+    return (Invoice) query.getSingleResult();
+}<br></code></pre>
+        <br>
+        <h2>Transcription</h2>
+        Hello, I'm Monica. In this lesson, we will see how to generate a
+        master-detail report and also learn how to use a JR DataSource to send
+        data to the report. For this, we will use the last lesson of the
+        OpenXava course.<br>
+        <br>
+        Today's goal will be to create a button that prints the invoice,
+        including the detail lines. To do this, we will create the action. Since
+        Invoice already has its controller, we define the printInvoiceDetail
+        action directly within it. Then we will create the
+        PrintInvoiceDetailAction action. We will also extend the
+        JasperReportBaseAction class. Just like we did in the previous lesson,
+        we will first send some invoice data as a parameter. However, we will
+        slightly change the way we fetch the invoice. In the action, we will
+        have a method that obtains the year and number values from the view and
+        calls a findByYearNumber method that we will create in Invoice, sending
+        the year and number as parameters. This method will search with the
+        received values and return the invoice. Once we have the defined
+        parameters, we set the name of the report that we will create later, and
+        in getDataSource, we return a new JRBeanCollectionDataSource. Almost any
+        data can be sent via data source, such as collections, maps, tables,
+        JSON, among others. We will send the collection of details that the
+        invoice has.<br>
+        <br>
+        In Jaspersoft Studio, we create a new report called InvoiceDetail and
+        proceed to declare the parameters we expect to receive. Remember that
+        they must be of the same data type that we send from OpenXava. Once
+        done, we drag the client and invoice data to the title zone. The summary
+        of the detail lines goes to the column footer zone, and we remove the
+        sections we will not use. Now it's time to deal with the collection data
+        we receive from the data source. For this, we must create fields whose
+        names must match the data they contain. In Detail, we have a quantity
+        property, so we define a field named quantity. We have a product, for
+        which we are interested in its number and description, so we define
+        product.number and product.description. We will also include Amount and
+        pricePerUnit. Right-click on Fields, Create field, and define the fields
+        we mentioned one by one. Remember that they must have the same data
+        types.<br>
+        <br>
+        Done, we drag the fields to the detail 1 section. We can see that in the
+        column header section, static text has been automatically created, one
+        for each field, where each field represents a column. Below, we find a
+        line of TextField, which shows the values of the Fields we just
+        declared. These lines of TextField will repeat one below the other until
+        all the elements in the collection are finished. We decorate the report
+        a bit and copy it to the OpenXava project to test it.<br>
+        <br>
+        We start the application. It seems that the data is displayed correctly,
+        only some details remain, such as the percentage or currency sign where
+        needed, or if we want to change the date format. Also, the column footer
+        is at the end of the report, this configuration is default, but we can
+        change it.<br>
+        <br>
+        First, we add the currency and percentage signs. If we click outside the
+        report, we can see in the properties panel that this report is being
+        worked on in Java. So, to handle dates, we will do it as if we were in
+        Java. It is worth mentioning that in date, we are receiving it as a
+        String. So first, we define a SimpleDateFormat with the date format we
+        want to display. But we cannot put our date directly; we must first
+        convert it from String to date. So we use another SimpleDateFormat with
+        the date format it has to convert it from String to date.<br>
+        <br>
+        Finally, we want the column footer lines to appear just below the detail
+        lines. So we click outside the report again and check the Float Column
+        Footer option. This will make the column footer immediately follow the
+        last detail line. With this, we are done, we save and copy the report to
+        the project and test generating it again. These would be the results.<br>
+        <br>
+        As mentioned in the video, you can send many types of data sources, such
+        as collections, maps, lists, images, JSON, among others. You can also
+        send it empty and define the data source in the report; we will see this
+        method later. If you have any questions about this lesson, you can ask
+        us on the forum. You can also download the code for this lesson from the
+        repository link; both links are in the video description.<br>
+        <br>
+        Bye.</div>
+    </div>
+  </body>
+</html>
