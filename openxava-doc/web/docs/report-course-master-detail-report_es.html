@@ -1,0 +1,172 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Generación de informes - Lección 3: Informe maestro-detalle</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span>Generación de informes - Lección 3: Informe maestro-detalle</h1>
+      <div class="wiki" style="display: block;">
+        <h2>Video</h2>
+        <p>En este video veremos como crear un informe maestro detalle
+          recibiendo información de un data source desde una aplicación
+          OpenXava.</p>
+        <p><a href="https://youtu.be/ANTmsMfq_po" target="_blank"><img
+
+              src="files/report-course_es030.png" title="report-generation-030"></a>
+        </p>
+        <p><strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
+              rel="nofollow">Pregunta en el foro</a></strong></p>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h2>Código</h2>
+        <p>Puedes <strong><a href="https://github.com/openxava/report-generation-course/tree/lesson_3"
+
+              target="_blank">descargar el proyecto de esta lección</a>.</strong>
+          También puedes copiar el código que se usa en el video por aquí:</p>
+        En el archivo <em>controllers.xml</em>:
+        <pre><code class="xml">&lt;controller name="Invoice"&gt;
+    &lt;extends controller="Invoicing"/&gt;
+    &lt;action name="printInvoiceDetail"
+        class="com.yourcompany.invoicing.actions.PrintInvoiceDetailAction"<br>	mode="detail"<br>	icon="printer"/&gt;
+&lt;/controller&gt;
+</code></pre> En el archivo <em>PrintInvoiceDetailAction.java</em>:<br>
+        <pre><code class="java">public class PrintInvoiceDetailAction extends JasperReportBaseAction {
+
+	private Invoice invoice;
+	
+	@Override
+	protected JRDataSource getDataSource() throws Exception {
+		return new JRBeanCollectionDataSource(getInvoice().getDetails());
+	}
+
+	@Override
+	protected String getJRXML() throws Exception {
+		return "InvoiceDetail.jrxml";
+	}
+
+	@Override
+	protected Map getParameters() throws Exception {
+		Messages errors = MapFacade.validate("Invoice", getView().getValues());
+		if (errors.contains()) throw new ValidationException(errors);
+		Map parameters = new HashMap();			
+		parameters.put("customerNumber", getInvoice().getCustomer().getNumber());
+		parameters.put("customerName", getInvoice().getCustomer().getName());
+		parameters.put("invoiceNumber", getInvoice().getNumber());
+		parameters.put("date", getInvoice().getDate().toString());
+		parameters.put("vatPercentage", getInvoice().getVatPercentage());
+		parameters.put("vat", getInvoice().getVat());
+		parameters.put("totalAmount", getInvoice().getTotalAmount());
+		
+		return parameters;
+	}
+
+	private Invoice getInvoice() {
+		if (invoice == null) {
+			int year = getView().getValueInt("year");
+			int number = getView().getValueInt("number");
+			invoice = Invoice.findByYearNumber(year, number);
+		}
+		return invoice;
+	}
+	
+}
+</code></pre> En la clase <em>Invoice</em> añadir el método:<br>
+        <pre><code class="java"> public static Invoice findByYearNumber(int year, int number) {
+    Query query = XPersistence.getManager()
+	    .createQuery("from Invoice as i where i.year = :year and number = :number");
+    query.setParameter("year", year);
+    query.setParameter("number", number);
+    return (Invoice) query.getSingleResult();
+}<br></code></pre>
+        <br>
+        <h2>Transcripción</h2>
+        Hola, soy Mónica. En esta lección veremos un ejemplo simple de cómo
+        trabajar con data source. Para esto, utilizaremos la última lección del
+        curso de OpenXava.<br>
+        <br>
+        El objetivo de hoy será crear un botón que imprima la factura,
+        incluyendo las líneas de detalle. Para esto vamos a crear la acción.
+        Como Invoice ya tiene su controlador, definimos la acción
+        printInvoiceDetail directamente dentro. Luego vamos a crear la acción
+        PrintInvoiceDetailAction. También extendemos de la clase
+        JasperReportBaseAction. De la misma manera que hicimos en la lección
+        anterior, primero enviaremos algunos datos de la factura como parámetro.
+        Solo que vamos a cambiar un poquito la forma de buscar la factura. En la
+        acción tendremos un método que obtiene los valores año y número de la
+        vista. Y llama un método findByYearNumber que crearemos en Invoice,
+        enviando como parámetro al año y número. Este método hará la búsqueda
+        con los valores recibidos y devolverá la factura. Una vez que tengamos
+        los parámetros definidos, ponemos el nombre del reporte que luego vamos
+        a crear y en getDataSource, devolvemos un nuevo
+        JRBeanCollectionDataSource. Se pueden enviar casi cualquier dato por
+        data source, como colecciones, mapas, tablas, JSON, entre otros.
+        Nosotros enviaremos la colección de detalles que tiene factura.<br>
+        <br>
+        En Jaspersoft Studio, creamos un nuevo reporte llamado InvoiceDetail. Y
+        procedemos a declarar los parámetros que esperamos recibir. Recuerda que
+        deben ser del mismo tipo de dato que enviamos desde OpenXava. Una vez
+        hecho, arrastramos los datos de cliente y factura a la zona de título.
+        El resumen de la línea de detalles a la zona de pie de columna. Y
+        eliminamos las secciones que no vamos a usar. Ahora toca tratar con los
+        datos de la colección que recibimos del data source. Para esto debemos
+        crear fields cuyo nombre deben ser iguales a los datos que contiene. En
+        Detalle tenemos una propiedad quantity, entonces definimos un field
+        llamado quantity. Tenemos producto, que nos interesa su número y
+        descripción, entonces definimos product.number y product.description.
+        También vamos a incluir Amount y pricePerUnit. Hacemos click derecho en
+        Fields, Create field y definimos uno por uno los campos que dijimos
+        recién. Recuerda que deben tener los mismos tipos de dato.<br>
+        <br>
+        Listo, arrastramos los fields a la sección de detail 1. Podemos ver que
+        en la sección del encabezado de columna se han creado automáticamente
+        static text, uno para cada campo, donde cada campo representa una
+        columna. Debajo encontramos una línea de TextField, que muestran los
+        valores de los Fields que declaramos recién. Estas líneas de TextField
+        van a repetirse uno debajo de otro hasta terminar con todos los
+        elementos que hay en la colección. Adornamos un poco el reporte y lo
+        copiamos al proyecto de OpenXava para probarlo.<br>
+        <br>
+        Iniciamos la aplicación. Al parecer los datos se muestran correctamente,
+        solo quedan algunos detalles como el signo de porcentaje o dinero en
+        donde se necesita. O si queremos cambiar el formato de fecha. También
+        que el pie de columna está al final de reporte, esta configuración es
+        por defecto así, pero podemos cambiarlo.<br>
+        <br>
+        Primero agregamos los signos de dinero y porcentaje. Si apretamos fuera
+        del reporte, podemos ver en el panel de propiedades que este reporte se
+        está trabajando en Java. Entonces, para tratar con fechas, vamos a
+        hacerlo como si estuviésemos en Java. Cabe aclarar que en date, lo
+        estamos recibiendo como un String. Así que primero definimos un
+        SimpleDateFormat con un formato de fecha en que deseamos mostrar. Pero
+        no podemos poner nuestra fecha directamente, sino que debemos
+        convertirlo primero de String a fecha. Así que usaremos otro
+        SimpleDateFormat con el formato de fecha que tiene para convertirlo de
+        String a fecha.<br>
+        <br>
+        Por último, queremos que las líneas del pie de columna aparezcan justo
+        abajo de las líneas de detalle. Así que apretamos de nuevo afuera del
+        reporte y tildamos en la opción Float Column Footer. Esto hará que el
+        pie de columna esté inmediatamente luego de la última línea de detalles.
+        Con esto ya estaría, guardamos y copiamos el reporte al proyecto y
+        probamos en generarlo nuevamente. Así serían los resultados.<br>
+        <br>
+        Como mencionamos en el video, puedes enviar muchos tipos de data source,
+        como colecciones, mapas, listas, imágenes, JSON, entre otros. También
+        puedes enviarlo vacío y definir el data source en el reporte, esta forma
+        la veremos más adelante. Si tienes alguna duda sobre esta lección,
+        puedes preguntarnos por el foro. También puedes descargar el código de
+        esta lección por el enlace del repositorio; ambos enlaces se encuentran
+        en la descripción del video.<br>
+        <br>
+        Chao.</div>
+    </div>
+  </body>
+</html>
