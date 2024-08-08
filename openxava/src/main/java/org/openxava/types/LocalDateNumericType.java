@@ -13,6 +13,7 @@ import org.hibernate.usertype.*;
 /**
  * Allows LocalDate work with numeric date values in format yyyymmdd from database. <p>
  * 
+ * @since 7.4
  * @author Miguel Garbín
  */
 public class LocalDateNumericType implements UserType {
