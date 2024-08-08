@@ -12,8 +12,8 @@ openxava.addEditorInitFunction(function() {
 
         popUpMenuIcon.on('click', function(event) {
             popUpMenu.removeClass("ox-display-none");
-            /* tmr
             var buttonOffset = popUpMenuIcon.offset();
+            /* tmr
             popUpMenu.css({
                 top: buttonOffset.top + popUpMenuIcon.outerHeight(),
                 left: buttonOffset.left
@@ -27,7 +27,7 @@ openxava.addEditorInitFunction(function() {
 				left -= (positionPopup.width - buttonRect.width);
 			}
             popUpMenu.css({
-                top: buttonRect.top + popUpMenuIcon.outerHeight(),
+                top: buttonOffset.top + popUpMenuIcon.outerHeight(),
                 left: left 
             });            
             // tmr fin
