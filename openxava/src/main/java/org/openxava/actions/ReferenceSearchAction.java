@@ -1,8 +1,6 @@
 package org.openxava.actions;
 
-import java.math.*;
 import java.util.*;
-import java.util.regex.*;
 
 import javax.inject.*;
 
@@ -132,36 +130,5 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 	public void setTabName(String tabName) {
 		this.tabName = tabName;
 	}
-
-	private String reformatCondition(String condition) {
-		if (condition.contains("this.")) {
-	        Pattern pattern = Pattern.compile("\\$\\{this\\.([a-zA-Z0-9_]+)\\}");
-	        Matcher matcher = pattern.matcher(condition);
-	        StringBuffer result = new StringBuffer();
-	        while (matcher.find()) {
-	        	Object value = getView().getValue(matcher.group(1));
-	        	if (value == null) matcher.appendReplacement(result, ""); 
-	        	if (isNumeric(value)) {
-	        		matcher.appendReplacement(result, value.toString());
-	        	} else {
-	        		matcher.appendReplacement(result, "'" + value.toString() + "'");
-	        	}
-	        }
-	        matcher.appendTail(result);
-	        return result.toString();
-		}
-		return condition;
-	}
 	
-	private boolean isNumeric(Object obj) {
-	    return (obj instanceof Byte ||
-	            obj instanceof Short ||
-	            obj instanceof Integer ||
-	            obj instanceof Long ||
-	            obj instanceof Float ||
-	            obj instanceof Double ||
-	            obj instanceof BigInteger ||
-	            obj instanceof BigDecimal);
-	}
-
 }

@@ -1,6 +1,8 @@
 package org.openxava.actions;
 
+import java.math.*;
 import java.util.*;
+import java.util.regex.*;
 
 import javax.inject.*;
 
@@ -182,11 +184,46 @@ abstract public class ViewBaseAction extends BaseAction {
 		this.previousViews = previousViews;
 	}
 	
-	
 	protected void setControllers(String... controllers) {
 		if (dialogShown) getManager().setControllersNames(controllers);
 		else super.setControllers(controllers);		
 		hasNextControllers = controllers != null; 
+	}
+	
+	/*
+	 * Reformat searchListCondition's condition when it use ${this.} 
+	 * to reference a property of the entity.
+	 * @since 7.4
+	 */
+	protected String reformatCondition(String condition) {
+		if (condition.contains("this.")) {
+	        Pattern pattern = Pattern.compile("\\$\\{this\\.([a-zA-Z0-9_]+)\\}");
+	        Matcher matcher = pattern.matcher(condition);
+	        StringBuffer result = new StringBuffer();
+	        while (matcher.find()) {
+	        	Object value = getView().getValue(matcher.group(1));
+	        	if (value == null) matcher.appendReplacement(result, ""); 
+	        	if (isNumeric(value)) {
+	        		matcher.appendReplacement(result, value.toString());
+	        	} else {
+	        		matcher.appendReplacement(result, "'" + value.toString() + "'");
+	        	}
+	        }
+	        matcher.appendTail(result);
+	        return result.toString();
+		}
+		return condition;
+	}
+	
+	private boolean isNumeric(Object obj) {
+	    return (obj instanceof Byte ||
+	            obj instanceof Short ||
+	            obj instanceof Integer ||
+	            obj instanceof Long ||
+	            obj instanceof Float ||
+	            obj instanceof Double ||
+	            obj instanceof BigInteger ||
+	            obj instanceof BigDecimal);
 	}
 	
 }
