@@ -288,7 +288,6 @@ public class WebEditors {
 				if (!Is.emptyString(editorName)) {
 					MetaEditor metaEditor = MetaWebEditors.getMetaEditorByName(editorName);
 					if (metaEditor != null) {
-						System.out.println("[WebEditors.getMetaEditorFor(" + m.getName() + ")] metaEditor=" + metaEditor.getName()); // tmr
 						return metaEditor;
 					}
 					else {
@@ -299,9 +298,7 @@ public class WebEditors {
 			catch (ElementNotFoundException ex) {
 			}
 		}
-		MetaEditor result = MetaWebEditors.getMetaEditorFor(m, viewName);
-		System.out.println("[WebEditors.getMetaEditorFor(" + m.getName() + ")] result=" + result.getName()); // tmr
-		return result;
+		return MetaWebEditors.getMetaEditorFor(m, viewName);
 	}
 				
 	/** 

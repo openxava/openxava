@@ -143,24 +143,18 @@ public class MetaWebEditors {
 	}
 	
 	private static MetaEditor getMetaEditorForAnnotation(MetaMember member, String viewName) throws XavaException {
-		// TMR ME QUEDÉ POR AQUÍ, DEPURANDO
-		System.out.println("[MetaWebEditors.getMetaEditorForAnnotation(" + member.getName() + ")] Entramos"); // tmr
 		if (member.getMetaModel() == null) return null;
 		if (!member.getMetaModel().isPOJOAvailable()) return null;
 		String memberId = member.getMetaModel().getName() + ":" + viewName + ":" + member.getSimpleName();
-		System.out.println("[MetaWebEditors.getMetaEditorForAnnotation(" + member.getName() + ")] memberId=" + memberId); // tmr
 		if (editorsByMember != null && editorsByMember.containsKey(memberId)) {
-			System.out.println("[MetaWebEditors.getMetaEditorForAnnotation(" + member.getName() + ")] cacheado=" + editorsByMember.get(memberId)); // tmr
 			return editorsByMember.get(memberId);
 		}		 
 		Annotation[] annotations = member.getAnnotations(); 
 		MetaEditor editor = null; 
 		if (annotations != null) for (Annotation a: annotations) {
-			if (!isForViews(viewName, a)) continue; 
-			editor = getEditorsByAnnotation().get(a.annotationType().getName());
-			System.out.println("[MetaWebEditors.getMetaEditorForAnnotation(" + member.getName() + ")] annotation=" + a.annotationType().getName()); // tmr
-			if (editor != null) {
-				System.out.println("[MetaWebEditors.getMetaEditorForAnnotation(" + member.getName() + ")] editor=" + editor.getName()); // tmr
+			if (!isForViews(viewName, a)) continue;
+			MetaEditor editorForAnnotation = getEditorsByAnnotation().get(a.annotationType().getName()); // tmr No era así
+			if (editorForAnnotation != null) {
 				MetaEditor clonedEditor = null;				 
 				for (Method m: a.annotationType().getMethods()) {
 					if (Is.anyEqual(m.getName(), "equals", "toString", "hashCode", "annotationType", "forViews", "notForViews")) continue; 
@@ -171,20 +165,19 @@ public class MetaWebEditors {
 						log.warn(XavaResources.getString("impossible_get_value_annotation_attribute", m.getName(), a.annotationType().getName()), e);
 						
 					}
-					if (clonedEditor == null) clonedEditor = editor.cloneMetaEditor();
+					if (clonedEditor == null) clonedEditor = editorForAnnotation.cloneMetaEditor();
 					clonedEditor.addProperty(m.getName(), value.toString());
 				}
 				if (editorsByMember == null) editorsByMember = new HashMap<>();
-				if (clonedEditor != null) editor = clonedEditor;
+				if (clonedEditor != null) editorForAnnotation = clonedEditor;
 				MetaEditor alreadyFoundEditor = editorsByMember.get(memberId);
-				if (alreadyFoundEditor == null || editor.getPriority() > alreadyFoundEditor.getPriority()) {
-					System.out.println("[MetaWebEditors.getMetaEditorForAnnotation(" + member.getName() + ")] Editor added"); // tmr
-					editorsByMember.put(memberId, editor);
+				if (alreadyFoundEditor == null || editorForAnnotation.getPriority() > alreadyFoundEditor.getPriority()) {
+					editorsByMember.put(memberId, editorForAnnotation);
+					editor = editorForAnnotation;
 				}
 			}
 		}
-		System.out.println("[MetaWebEditors.getMetaEditorForAnnotation(" + member.getName() + ")] result=" + (editor==null?null:editor.getName())); // tmr
-		return editor; 
+		return editor;
 	}
 	
 
@@ -296,19 +289,16 @@ public class MetaWebEditors {
 		if (p.hasMetaModel()) {			
 			MetaEditor r = (MetaEditor) getMetaEditorForModelProperty(p.getName(), p.getMetaModel().getName());
 			if (r != null) {			
-				System.out.println("[MetaWebEditors.getMetaEditorFor(" + p.getName() + ")] for model: " + r.getName()); // tmr
 				return r;				
 			}
 		}				
 		MetaEditor r = (MetaEditor) getMetaEditorForAnnotation(p, viewName);
 		if (r != null) {
-			System.out.println("[MetaWebEditors.getMetaEditorFor(" + p.getName() + ")] for annotation: " + r.getName()); // tmr
 			return r;
 		}
 		if (p.hasStereotype()) {			
 			r = (MetaEditor) getMetaEditorForStereotype(p.getStereotype());				
 			if (r != null) {				
-				System.out.println("[MetaWebEditors.getMetaEditorFor(" + p.getName() + ")] for stereotype: " + r.getName()); // tmr
 				return r;
 			}
 		}
@@ -316,7 +306,6 @@ public class MetaWebEditors {
 		if (r == null) {
 			throw new ElementNotFoundException("editor_not_found", p.getId());
 		}		
-		System.out.println("[MetaWebEditors.getMetaEditorFor(" + p.getName() + ")] for type: " + r.getName()); // tmr
 		return r;
 	}
 	

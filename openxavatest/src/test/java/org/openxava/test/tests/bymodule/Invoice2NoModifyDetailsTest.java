@@ -1,5 +1,7 @@
 package org.openxava.test.tests.bymodule;
 
+import java.util.*;
+
 import org.htmlunit.html.*;
 import org.openxava.tests.*;
 
@@ -10,6 +12,11 @@ import org.openxava.tests.*;
 
 public class Invoice2NoModifyDetailsTest extends ModuleTestBase {
 	
+	private static final List<String> EURO_ZONE_COUNTRIES = Arrays.asList( // tmr
+		"AT", "BE", "CY", "EE", "FI", "FR", "DE", "GR", 
+        "IE", "IT", "LV", "LT", "LU", "MT", "NL", 
+        "PT", "SK", "SI", "ES"
+    );
 
 	public Invoice2NoModifyDetailsTest(String testName) {
 		super(testName, "Invoice2NoModifyDetails");		
@@ -25,8 +32,12 @@ public class Invoice2NoModifyDetailsTest extends ModuleTestBase {
 		assertSmallLabels(); // It also tests default-label-format for editor in editors.xml
 		assertDisplayValue("amountsSum", "\u20AC2,500.00"); // Euro and prefix
 		assertDisplayValue("vatPercentage", "16.0%"); // Percentage and suffix
-		assertDisplayValue("total", "2,650.00\u20AC"); // Automatic @Money suffix. Symbol and position depend on the server locale, not browser locale
-		// assertDisplayValue("total", "$2,650.00"); // Automatic @Money prefix. Starting openxavatest with -Duser.language=en -Duser.country=US
+		if (inEuroCountry()) { // It works if user.country for server and test in the same // tmr
+			assertDisplayValue("total", "2,650.00\u20AC"); // Automatic @Money suffix. Symbol and position depend on the server locale, not browser locale
+		}
+		else {
+			assertDisplayValue("total", "$2,650.00"); // Automatic @Money prefix. Starting openxavatest with -Duser.language=en -Duser.country=US
+		}
 		
 		assertEditorContains("vatPercentage", "<i class=\"mdi mdi-label-percent-outline\">"); // Icon
 		assertEditorNotContain("amountsSum", "<i class=\"mdi mdi"); // Icon
@@ -67,6 +78,12 @@ public class Invoice2NoModifyDetailsTest extends ModuleTestBase {
 		execute("Collection.view", "row=0,viewObject=xava_view_details");
 		assertNoEditable("quantity");
 		assertNoAction("Collection.save");
-	}	
+	}
+	
+	private boolean inEuroCountry() { // tmr
+		String userCountry = System.getProperty("user.country");
+		return EURO_ZONE_COUNTRIES.contains(userCountry);
+	}
+
 	
 }
