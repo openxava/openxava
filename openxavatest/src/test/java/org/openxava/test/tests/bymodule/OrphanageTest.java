@@ -23,11 +23,11 @@ public class OrphanageTest extends ModuleTestBase {
 		execute("Print.generatePdf", "viewObject=xava_view_orphanage_orphans"); 
 		assertNoErrors();
 		assertContentTypeForPopup("application/pdf"); 
-		assertPopupPDFLinesCount(6);
+		assertPopupPDFLinesCount(7);
 		assertPopupPDFLine(1, "Orphans of Orphanage: EL INTERNADO");
-		assertPopupPDFLine(2, "Name"); 
-		assertPopupPDFLine(3, "JUAN");
-		assertPopupPDFLine(4, "ANTONIO");
+		assertPopupPDFLine(3, "Name"); 
+		assertPopupPDFLine(4, "JUAN");
+		assertPopupPDFLine(5, "ANTONIO");
 		
 		setValue("name", "THE BOARDING SCHOOL"); 
 		
@@ -36,13 +36,13 @@ public class OrphanageTest extends ModuleTestBase {
 		execute("Print.generatePdf", "viewObject=xava_view_orphanage_orphans");
 		assertNoErrors();
 		assertContentTypeForPopup("application/pdf");
-		assertPopupPDFLinesCount(5);
+		assertPopupPDFLinesCount(6);
 		assertPopupPDFLine(1, "Orphans of Orphanage: THE BOARDING SCHOOL"); 
-		assertPopupPDFLine(2, "Name");
-		assertPopupPDFLine(3, "ANTONIO");
+		assertPopupPDFLine(3, "Name");
+		assertPopupPDFLine(4, "ANTONIO");
 		
 		// Date formatted in English. It's only tested when the server use a non-English locale
-		assertPopupPDFLine(4, "Page 1 of 1" + getCurrentDateInEnglish()); 
+		assertPopupPDFLine(5, "Page 1 of 1" + getCurrentDateInEnglish()); 
 		
 		assertValue("name", "THE BOARDING SCHOOL"); 
 	}

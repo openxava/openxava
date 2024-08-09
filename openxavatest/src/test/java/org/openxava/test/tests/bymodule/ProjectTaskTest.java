@@ -17,7 +17,7 @@ public class ProjectTaskTest extends ModuleTestBase {
 		assertTrue(row0.contains("<i class=\"mdi mdi-transfer-down\" title=\"LOW\">")); // Icon in the list 
 		execute("Print.generatePdf"); 		
 		assertContentTypeForPopup("application/pdf");
-		assertPopupPDFLine(3, "THE BIG PROJECT ANALYSIS LOW 4/28/2015"); // The important thing is the "LOW"
+		assertPopupPDFLine(4, "THE BIG PROJECT ANALYSIS LOW 4/28/2015"); // The important thing is the "LOW"
 	}
 	
 	

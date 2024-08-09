@@ -15,8 +15,8 @@ public class Movie3Test extends MovieBaseTest {
 	public void testShowFileNameForFileAnnotationWhenPrint() throws Exception {
 		execute("Print.generatePdf");
 		assertContentTypeForPopup("application/pdf"); 
-		assertPopupPDFLine(3, "FORREST GUMP ROBERT ZEMECKIS ERIC ROTH Y WINSTON GROOM 7/6/1994 Forrest Gump Trailer.webm");
-		assertPopupPDFLine(4, "GATTACA gattaca-trailer.png");
+		assertPopupPDFLine(4, "FORREST GUMP ROBERT ZEMECKIS ERIC ROTH Y WINSTON GROOM 7/6/1994 Forrest Gump Trailer.webm");
+		assertPopupPDFLine(5, "GATTACA gattaca-trailer.png");
 
 		execute("Print.generateExcel");
 		assertContentTypeForPopup("text/x-csv");		

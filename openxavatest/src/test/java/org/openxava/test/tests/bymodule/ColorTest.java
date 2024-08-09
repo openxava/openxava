@@ -55,7 +55,7 @@ public class ColorTest extends ModuleTestBase {
 		assertNoAction("ColorSub.thirdAction");
 	}
 	
-	public void testPrintPDF() throws Exception {
+	public void testPrintPDF_numberOfRecordsSelected() throws Exception {
 		execute("List.orderBy", "property=number");
 		checkRow(1);
 		String number1 = getValueInList(1, 0);
@@ -82,10 +82,11 @@ public class ColorTest extends ModuleTestBase {
 		
 		execute("Print.generatePdf");
 		assertContentTypeForPopup("application/pdf");
-		assertPopupPDFLinesCount(7);
-		assertPopupPDFLine(3, getPDFLine(number0, name0, hexValue0, useTo0, characteristicThing0));
-		assertPopupPDFLine(4, getPDFLine(number5, name5, hexValue5, useTo5, characteristicThing5));
-		assertPopupPDFLine(5, getPDFLine(number1, name1, hexValue1, useTo1, characteristicThing1));
+		assertPopupPDFLinesCount(8);
+		assertPopupPDFLine(2, "Record count: 3");
+		assertPopupPDFLine(4, getPDFLine(number0, name0, hexValue0, useTo0, characteristicThing0));
+		assertPopupPDFLine(5, getPDFLine(number5, name5, hexValue5, useTo5, characteristicThing5));
+		assertPopupPDFLine(6, getPDFLine(number1, name1, hexValue1, useTo1, characteristicThing1));
 	}
 	
 	private String getPDFLine(String number, String name, String hexValue, String useTo, String characteristicThing){
