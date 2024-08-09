@@ -62,7 +62,7 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 					condition.append(" AND "); 
 				}	
 			}
-			getTab().setBaseCondition(reformatCondition(condition.toString()));
+			getTab().setBaseCondition(changeThisPropertyByViewValue(condition.toString()));
 		}
 		else {
 			getTab().setBaseCondition(null);
@@ -74,7 +74,7 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 			if (metaReferenceView != null) {
 				String searchListCondition = metaReferenceView.getSearchListCondition();
 				if (searchListCondition != null) {
-					getTab().setBaseCondition(reformatCondition(searchListCondition));
+					getTab().setBaseCondition(changeThisPropertyByViewValue(searchListCondition));
 				}
 			}
 		}

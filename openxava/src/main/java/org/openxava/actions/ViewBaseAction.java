@@ -191,11 +191,11 @@ abstract public class ViewBaseAction extends BaseAction {
 	}
 	
 	/*
-	 * Reformat searchListCondition's condition when it use ${this.} 
-	 * to reference a property of the entity.
+	 * Used for reformat searchListCondition's condition 
+	 * when it use ${this.} to reference a property of the entity.
 	 * @since 7.4
 	 */
-	protected String reformatCondition(String condition) {
+	protected String changeThisPropertyByViewValue(String condition) {
 		if (condition.contains("this.")) {
 	        Pattern pattern = Pattern.compile("\\$\\{this\\.([a-zA-Z0-9_]+)\\}");
 	        Matcher matcher = pattern.matcher(condition);
