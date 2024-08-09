@@ -287,7 +287,7 @@ public class WebEditors {
 				String editorName = metaView.getEditorFor(m);
 				if (!Is.emptyString(editorName)) {
 					MetaEditor metaEditor = MetaWebEditors.getMetaEditorByName(editorName);
-					if (metaEditor != null) {						
+					if (metaEditor != null) {
 						return metaEditor;
 					}
 					else {
@@ -298,7 +298,7 @@ public class WebEditors {
 			catch (ElementNotFoundException ex) {
 			}
 		}
-		return MetaWebEditors.getMetaEditorFor(m, viewName); 
+		return MetaWebEditors.getMetaEditorFor(m, viewName);
 	}
 				
 	/** 

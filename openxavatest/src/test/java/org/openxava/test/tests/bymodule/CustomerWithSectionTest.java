@@ -76,7 +76,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInCollection("columns", 6, 0, "Web site");
 		
 		execute("MyReport.generatePdf");						 
-		assertPopupPDFLine(2, "My name Type Seller Address city My seller level Address state Web site"); 
+		assertPopupPDFLine(3, "My name Type Seller Address city My seller level Address state Web site"); 
 		assertLabelInList(0, "Name"); // The list labels are not affected
 		
 		execute("ExtendedPrint.myReports");
@@ -148,13 +148,13 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInCollection("columns", 1, 2, "Steady");
 		
 		execute("MyReport.generatePdf");
-		assertPopupPDFLinesCount(5); 
-		assertTrue(getPopupPDFLine(3).startsWith("Javi Steady"));
+		assertPopupPDFLinesCount(6); 
+		assertTrue(getPopupPDFLine(4).startsWith("Javi Steady"));
 		
 		execute("ExtendedPrint.myReports");
 		execute("MyReport.generatePdf");
-		assertPopupPDFLinesCount(5);
-		assertTrue(getPopupPDFLine(3).startsWith("Javi Steady"));
+		assertPopupPDFLinesCount(6);
+		assertTrue(getPopupPDFLine(4).startsWith("Javi Steady"));
 				
 		execute("ExtendedPrint.myReports");  		
 		execute("MyReport.remove", "xava.keyProperty=name");

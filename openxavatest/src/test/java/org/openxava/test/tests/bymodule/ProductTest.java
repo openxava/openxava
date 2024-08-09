@@ -105,8 +105,8 @@ public class ProductTest extends ModuleTestBase {
 		execute("MyReport.saveColumn");
 		assertValueInCollection("columns", 2, 4, "Sum"); 
 		execute("MyReport.generatePdf");
-		assertPopupPDFLinesCount(12); // There are 7 products 
-		assertPopupPDFLine(10, "629.00"); // The sum of the 7 product, if the price of some product has been changed you have to change this value
+		assertPopupPDFLinesCount(13); // There are 7 products 
+		assertPopupPDFLine(11, "629.00"); // The sum of the 7 product, if the price of some product has been changed you have to change this value
 
 		execute("ExtendedPrint.myReports");
 		assertValueInCollection("columns", 2, 4, "Sum"); 
@@ -116,7 +116,7 @@ public class ProductTest extends ModuleTestBase {
 		assertValueInCollection("columns", 2, 4, ""); 
 		execute("MyReport.generatePdf");
 		
-		assertPopupPDFLinesCount(11); // There are 7 products, but now without the summation
+		assertPopupPDFLinesCount(12); // There are 7 products, but now without the summation
 	}
 	
 	public void testCards() throws Exception {

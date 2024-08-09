@@ -570,8 +570,8 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValueInCollection("columns", 2, 2, "5/28/07");
 		
 		execute("MyReport.generatePdf");				
-		assertPopupPDFLinesCount(5);  
-		assertTrue(getPopupPDFLine(3).startsWith("2007 14"));
+		assertPopupPDFLinesCount(6);  
+		assertTrue(getPopupPDFLine(4).startsWith("2007 14"));
 		
 		execute("ExtendedPrint.myReports");
 		assertValueInCollection("columns", 2, 0, "Date"); 
@@ -610,10 +610,10 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValueInCollection("columns", 2, 2, "2004");
 		
 		execute("MyReport.generatePdf");				
-		assertPopupPDFLinesCount(7); 
-		assertTrue(getPopupPDFLine(3).startsWith("2004 2"));
-		assertTrue(getPopupPDFLine(4).startsWith("2004 9"));
-		assertTrue(getPopupPDFLine(5).startsWith("2004 10"));
+		assertPopupPDFLinesCount(8); 
+		assertTrue(getPopupPDFLine(4).startsWith("2004 2"));
+		assertTrue(getPopupPDFLine(5).startsWith("2004 9"));
+		assertTrue(getPopupPDFLine(6).startsWith("2004 10"));
 
 		execute("ExtendedPrint.myReports");
 		assertValueInCollection("columns", 2, 0, "Date");
@@ -662,13 +662,13 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValueInCollection("columns", 6, 2, "Yes");
 		
 		execute("MyReport.generatePdf");		
-		assertPopupPDFLinesCount(5);  
-		assertTrue(getPopupPDFLine(3).startsWith("2004 2"));
+		assertPopupPDFLinesCount(6);  
+		assertTrue(getPopupPDFLine(4).startsWith("2004 2"));
 		
 		execute("ExtendedPrint.myReports");
 		execute("MyReport.generatePdf");		
-		assertPopupPDFLinesCount(5);  
-		assertTrue(getPopupPDFLine(3).startsWith("2004 2"));		
+		assertPopupPDFLinesCount(6);  
+		assertTrue(getPopupPDFLine(4).startsWith("2004 2"));		
 		
 		execute("ExtendedPrint.myReports"); 
 		execute("MyReport.remove", "xava.keyProperty=name"); 
