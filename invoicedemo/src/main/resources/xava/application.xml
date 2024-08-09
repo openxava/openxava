@@ -20,4 +20,11 @@
 	</module>		
 	-->
 	
+	<!-- tmr ini -->
+	<module name="Dashboard">
+		<model name="Dashboard"/>
+		<controller name="InitModelWithNewInstance"/>
+	</module>
+	<!-- tmr fin -->
+	
 </application>
