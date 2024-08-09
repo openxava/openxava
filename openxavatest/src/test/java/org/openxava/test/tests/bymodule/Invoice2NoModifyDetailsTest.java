@@ -12,7 +12,7 @@ import org.openxava.tests.*;
 
 public class Invoice2NoModifyDetailsTest extends ModuleTestBase {
 	
-	private static final List<String> EURO_ZONE_COUNTRIES = Arrays.asList( // tmr
+	private static final List<String> EURO_ZONE_COUNTRIES = Arrays.asList( 
 		"AT", "BE", "CY", "EE", "FI", "FR", "DE", "GR", 
         "IE", "IT", "LV", "LT", "LU", "MT", "NL", 
         "PT", "SK", "SI", "ES"
@@ -32,7 +32,7 @@ public class Invoice2NoModifyDetailsTest extends ModuleTestBase {
 		assertSmallLabels(); // It also tests default-label-format for editor in editors.xml
 		assertDisplayValue("amountsSum", "\u20AC2,500.00"); // Euro and prefix
 		assertDisplayValue("vatPercentage", "16.0%"); // Percentage and suffix
-		if (inEuroCountry()) { // It works if user.country for server and test in the same // tmr
+		if (inEuroCountry()) { // It works if user.country for server and test in the same 
 			assertDisplayValue("total", "2,650.00\u20AC"); // Automatic @Money suffix. Symbol and position depend on the server locale, not browser locale
 		}
 		else {
@@ -80,7 +80,7 @@ public class Invoice2NoModifyDetailsTest extends ModuleTestBase {
 		assertNoAction("Collection.save");
 	}
 	
-	private boolean inEuroCountry() { // tmr
+	private boolean inEuroCountry() { 
 		String userCountry = System.getProperty("user.country");
 		return EURO_ZONE_COUNTRIES.contains(userCountry);
 	}

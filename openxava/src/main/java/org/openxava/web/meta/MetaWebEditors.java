@@ -153,7 +153,7 @@ public class MetaWebEditors {
 		MetaEditor editor = null; 
 		if (annotations != null) for (Annotation a: annotations) {
 			if (!isForViews(viewName, a)) continue;
-			MetaEditor editorForAnnotation = getEditorsByAnnotation().get(a.annotationType().getName()); // tmr No era así
+			MetaEditor editorForAnnotation = getEditorsByAnnotation().get(a.annotationType().getName()); 
 			if (editorForAnnotation != null) {
 				MetaEditor clonedEditor = null;				 
 				for (Method m: a.annotationType().getMethods()) {
