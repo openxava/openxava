@@ -13,13 +13,19 @@ import java.lang.annotation.*;
  * 
  * Example:
  * <pre>
+ * &nbsp;private int code;
+ * &nbsp;private String level;
+ * 
  * &nbsp;@ManyToOne
  * &nbsp;@SearchListCondition(value="${id} &lt; 'C'")
+ * &nbsp;@SearchListCondition(value="${id} = ${this.level}") // ${this. } since v7.4
  * &nbsp;private SellerLevel level;
  * 
  * &nbsp;@OneToMany(mappedBy="seller")
  * &nbsp;@SearchListCondition(value="${number} &lt; 5")
+ * &nbsp;@SearchListCondition(value="${number} &lt; ${this.code}") // ${this. } since v7.4
  * &nbsp;private Collection<Customer> customers;
+ * 
  * </pre>
  *
  * @author Federico Alcantara

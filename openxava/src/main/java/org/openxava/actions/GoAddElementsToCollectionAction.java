@@ -1,14 +1,11 @@
 package org.openxava.actions;
 
-import javax.inject.Inject;
+import javax.inject.*;
 
-import org.openxava.model.meta.MetaCollection;
-import org.openxava.tab.Tab;
-import org.openxava.util.Is;
-import org.openxava.util.Labels;
-import org.openxava.util.XavaResources;
-import org.openxava.view.meta.MetaCollectionView;
-import org.openxava.view.meta.MetaView;
+import org.openxava.model.meta.*;
+import org.openxava.tab.*;
+import org.openxava.util.*;
+import org.openxava.view.meta.*;
 
 /**
  * 
@@ -40,7 +37,7 @@ public class GoAddElementsToCollectionAction extends CollectionElementViewBaseAc
 					metaView.getMetaCollectionView(collection.getName()); 
 				if (collectionView != null &&
 						collectionView.getSearchListCondition() != null) {
-					tab.setBaseCondition(collectionView.getSearchListCondition());
+					tab.setBaseCondition(changeThisPropertyByViewValue(collectionView.getSearchListCondition()));
 				}
 			}
 		}
