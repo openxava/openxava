@@ -22,10 +22,8 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 	private String tabName = "";
 	private String nextController = "ReferenceSearch"; // If you change the default value change setter and getter doc too
 	
-	
 	public void execute() throws Exception {
 		super.execute();
-		System.out.println("ref");
 		Tab tab = new Tab();
 		tab.setRequest(getTab().getRequest());
 		setTab(tab);
@@ -35,8 +33,6 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 		getTab().setModelName(subview.getBaseModelName());
 		MetaReference ref = getMetaReference(metaRootModel, getViewInfo().getMemberName());
 		tab.setTabName(tabName);
-		
-		
 		
 		ModelMapping rootMapping = null;
 		try {
@@ -69,19 +65,16 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 			getTab().setBaseCondition(null);
 		}
 		MetaView metaView = ref.getMetaModel().getMetaView(subview.getParent().getViewName());
-		System.out.println(metaView == null);
 		if (metaView != null) {
 			MetaReferenceView metaReferenceView
 				= metaView.getMetaReferenceViewFor(ref.getName());
-			System.out.println(metaReferenceView == null);
 			if (metaReferenceView != null) {
+				String tabName = metaReferenceView.getTabName();
+				if (!tabName.isEmpty()) getTab().setTabName(tabName);
 				String searchListCondition = metaReferenceView.getSearchListCondition();
 				if (searchListCondition != null) {
 					getTab().setBaseCondition(searchListCondition);
 				}
-				String tabName = metaReferenceView.getTabName();
-				System.out.println("tabName " + tabName); 
-				if (!tabName.isEmpty()) getTab().setTabName(tabName);
 			}
 		}
 			

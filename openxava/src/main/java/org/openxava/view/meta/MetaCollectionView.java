@@ -32,6 +32,7 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 	private String collectionName;
 	private String mediatorClassName;
 	private String viewName;
+	private String tabName;
 	private boolean readOnly = false;
 	private boolean editOnly = false; 
 	private boolean createReference = true;
@@ -99,6 +100,14 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 		
 	public void setViewName(String string) {
 		viewName = string;
+	}
+
+	public String getTabName() {
+		return tabName;
+	}
+
+	public void setTabName(String tabName) {
+		this.tabName = tabName;
 	}
 
 	public boolean hasListProperties() {		

@@ -1788,6 +1788,25 @@ public class AnnotatedClassParser implements IComponentParser {
 				}
 			}			
 
+			// SearchListTab
+			if (element.isAnnotationPresent(SearchListTab.class)) {
+				SearchListTab searchListTab = element.getAnnotation(SearchListTab.class);
+				if (isForView(metaView, searchListTab.forViews(), searchListTab.notForViews())) {
+					collectionView.setTabName(searchListTab.value());
+					mustAddMetaView = true;
+				}
+			}			
+			// SearchListTabs
+			if (element.isAnnotationPresent(SearchListTabs.class)) {
+				SearchListTab[] searchListTabs = element.getAnnotation(SearchListTabs.class).value();
+				for (SearchListTab searchListTab : searchListTabs) {
+					if (isForView(metaView, searchListTab.forViews(), searchListTab.notForViews())) {
+						collectionView.setTabName(searchListTab.value());
+						mustAddMetaView = true;
+					}
+				}
+			}
+			
 			// Path
 			if (element.isAnnotationPresent(Tree.class)) {
 				Tree path = element.getAnnotation(Tree.class);
