@@ -16,6 +16,7 @@ public class MetaReferenceView extends MetaMemberView implements java.io.Seriali
 	
 	private String referenceName;
 	private String viewName;
+	private String tabName;
 	private MetaSearchAction metaSearchAction;
 	private MetaDescriptionsList metaDescriptionsList;
 	private boolean frame = true;
@@ -66,6 +67,14 @@ public class MetaReferenceView extends MetaMemberView implements java.io.Seriali
 
 	public void setViewName(String viewName) {
 		this.viewName = viewName;
+	}
+
+	public String getTabName() {
+		return tabName;
+	}
+
+	public void setTabName(String tabName) {
+		this.tabName = tabName;
 	}
 
 	public boolean isFrame() {

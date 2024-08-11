@@ -1154,7 +1154,7 @@ public class AnnotatedClassParser implements IComponentParser {
 		}
 		if (element.isAnnotationPresent(ReferenceViews.class)) {
 			notApply(property.getName(), ReferenceViews.class, "references");
-		}												
+		}
 		if (element.isAnnotationPresent(NoFrame.class)) {
 			notApply(property.getName(), NoFrame.class, "references");
 		}
@@ -1254,6 +1254,12 @@ public class AnnotatedClassParser implements IComponentParser {
 		if (element.isAnnotationPresent(SearchListConditions.class)) {
 			notApply(property.getName(), SearchListConditions.class, "references & collections");
 		}
+		if (element.isAnnotationPresent(SearchListTab.class)) {
+			notApply(property.getName(), SearchListTab.class, "references & collections");
+		}
+		if (element.isAnnotationPresent(SearchListTabs.class)) {
+			notApply(property.getName(), SearchListTabs.class, "references & collections");
+		}	
 		if (element.isAnnotationPresent(Tree.class)) {
 			notApply(property.getName(), Tree.class, "collections");
 		}
@@ -2052,7 +2058,7 @@ public class AnnotatedClassParser implements IComponentParser {
 					}
 				}				
 			}			
-		}		
+		}
 				
 		// for View
 		for (Object oMetaView: ref.getMetaModel().getMetaViews()) {
@@ -2266,6 +2272,24 @@ public class AnnotatedClassParser implements IComponentParser {
 						mustAddMetaView = true;
 					}
 				}
+			}
+			
+			//SearchListTab
+			if (element.isAnnotationPresent(SearchListTab.class)) {
+				SearchListTab tabName = element.getAnnotation(SearchListTab.class);
+				if (isForView(metaView, tabName.forViews(), tabName.notForViews())) {
+					referenceView.setTabName(tabName.value());
+					mustAddMetaView = true;				
+				}
+			}
+			if (element.isAnnotationPresent(SearchListTabs.class)) {
+				SearchListTab [] tabNames = element.getAnnotation(SearchListTabs.class).value();				
+				for (SearchListTab tabName: tabNames) {
+					if (isForView(metaView, tabName.forViews(), tabName.notForViews())) {
+						referenceView.setTabName(tabName.value());
+						mustAddMetaView = true;				
+					}
+				}					
 			}
 			
 			// Collapsed
@@ -2816,7 +2840,5 @@ public class AnnotatedClassParser implements IComponentParser {
 			return true;
 		}				
 	}
-
-	
 		
 }
