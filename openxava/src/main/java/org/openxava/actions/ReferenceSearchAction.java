@@ -70,7 +70,7 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 				= metaView.getMetaReferenceViewFor(ref.getName());
 			if (metaReferenceView != null) {
 				String tabName = metaReferenceView.getTabName();
-				if (!tabName.isEmpty()) getTab().setTabName(tabName);
+				if (tabName != null) getTab().setTabName(tabName);
 				String searchListCondition = metaReferenceView.getSearchListCondition();
 				if (searchListCondition != null) {
 					getTab().setBaseCondition(searchListCondition);
