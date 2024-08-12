@@ -36,7 +36,7 @@ public class GoAddElementsToCollectionAction extends CollectionElementViewBaseAc
 					metaView.getMetaCollectionView(collection.getName()); 
 				if (collectionView != null) {
 					String tabName = collectionView.getTabName();
-					if (!tabName.isEmpty()) tab.setTabName(tabName);
+					if (tabName != null) tab.setTabName(tabName);
 					if (collectionView.getSearchListCondition() != null) tab.setBaseCondition(collectionView.getSearchListCondition());
 				}
 			}
