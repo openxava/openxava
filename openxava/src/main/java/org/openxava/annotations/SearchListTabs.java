@@ -3,24 +3,22 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * A group of <code>@{@link ReferenceView}</code> associated to the same reference. <p>
+ * A group of <code>@{@link SearchListTab}</code> associated to the same reference or collection. <p>
  * 
- * Applies to references.<p>
+ * Applies to references and collections.<p>
  * 
- * It allows to define a value different for <code>@{@link ReferenceView}</code> 
+ * It allows to define a value different for <code>@{@link SearchListTab}</code> 
  * in each view.<br>
  * Example:
  * <pre>
- * &nbsp;@ReferenceViews({
- * &nbsp;&nbsp;&nbsp;@ReferenceView(forViews="DEFAULT", value= ... ),
- * &nbsp;&nbsp;&nbsp;@ReferenceView(forViews="Simple, VerySimple", value= ... ),
- * &nbsp;&nbsp;&nbsp;@ReferenceView(forViews="Complete", value= ... )
+ * &nbsp;@SearchListTabs({
+ * &nbsp;&nbsp;&nbsp;@SearchListTab(forViews="DEFAULT", value= ... ),
+ * &nbsp;&nbsp;&nbsp;@SearchListTab(forViews="Simple, VerySimple", value= ... ),
+ * &nbsp;&nbsp;&nbsp;@SearchListTab(forViews="Complete", value= ... )
  * &nbsp;})
  * </pre>
  * 
- * Since 6.1 @ReferenceView is repeatable, so you don't need to use @ReferenceViews any more.
- *
- * @author Javier Paniza
+ * @author Chungyen Tsai
  */
 
 @Retention(RetentionPolicy.RUNTIME)

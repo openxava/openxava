@@ -3,20 +3,25 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * View of the referenced object used to display it in a reference. <p>
+ * Name of the tab used to display when searching on a reference or collection <p>
  * 
- * Applies to references. <p>
+ * Applies to references and collections. <p>
  * 
  * If you omit this annotation, then the default view of the referenced object 
  * is used. With this attribute you can indicate that it uses another view.<br>
  * Example:
  * <pre>
- * &nbsp;@ManyToOne 
- * &nbsp;@ReferenceView("LevelNoDescriptionsList")
- * &nbsp;private Seller seller;
+ * &nbsp;@OneToMany(mappedBy="seller")
+ * &nbsp;@SearchListTab(forViews="SearchListCondition", value="Demo")
+ * &nbsp;private Collection<Customer> customers;
+ * 
+ * 
+ * &nbsp;@ManyToOne(optional=false) 
+ * &nbsp;@SearchListTab(forViews="Fellows", value="OnlyName")
+ * &nbsp;private Warehouse warehouse;
  * </pre>
  * 
- * @author Javier Paniza
+ * @author Chungyen Tsai
  */
 
 @Repeatable(SearchListTabs.class)
