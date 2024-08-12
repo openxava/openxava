@@ -22,7 +22,10 @@ public class CarrierFellowsTest extends ModuleTestBase {
 		
 		execute("CarrierFellows.addTranslateName");
 		assertAction("Carrier.translateName");
-		assertMessage("Final fellows actions=[Carrier.translateName, Carrier.allToEnglish, CollectionCopyPaste.cut, CollectionCopyPaste.paste, Print.generatePdf, Print.generateExcel]"); 
+		assertMessage("Final fellows actions=[Carrier.translateName, Carrier.allToEnglish, CollectionCopyPaste.cut, CollectionCopyPaste.paste, Print.generatePdf, Print.generateExcel]");
+		
+		execute("Reference.search", "keyProperty=warehouse.number");
+		assertListColumnCount(1);
 	}
 	
 }
