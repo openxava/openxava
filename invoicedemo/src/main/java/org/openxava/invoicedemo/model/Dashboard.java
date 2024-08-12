@@ -1,6 +1,8 @@
 package org.openxava.invoicedemo.model;
 
 import java.math.*;
+import java.util.*;
+import java.util.stream.*;
 
 import org.openxava.annotations.*;
 
@@ -10,8 +12,8 @@ import org.openxava.annotations.*;
  * @author Javier Paniza
  */
 @View(members=
-	"totalInvoiced, numberOfInvoices, numberOfCustomers, invoicedPerCustomer; " // tmr + 
-	// tmr "turnoverEvolution;" +
+	"totalInvoiced, numberOfInvoices, numberOfCustomers, invoicedPerCustomer; " + 
+	"invoicingEvolution;" // tmr +
 	// tmr "turnover, illnessRate, accidentRate, maternityRate;" +  // tmr ¿Dejar esta línea? 
 	// tmr "turnoverByYear, moreSeniorWorkers"
 )
@@ -20,48 +22,44 @@ public class Dashboard {
 	@Money
 	@LargeDisplay(icon="cash")
 	public BigDecimal getTotalInvoiced() { // tmr i18n
-		// Intead of return an ad hoc number write your own logic
-		// with JPA queries and Java to obtain the returned value
-		return new BigDecimal("123412.31"); 
+		return Invoice.sumAllTotals(); 
 	}
 	
-	@LargeDisplay(icon="cake-variant")
-	public int getNumberOfInvoices() { // tmr i18n
-		// Intead of return an ad hoc number write your own logic
-		// with JPA queries and Java to obtain the returned value		
-		return 37; 
+	@LargeDisplay(icon="animation")
+	public long getNumberOfInvoices() { // tmr i18n		
+		return Invoice.size(); 
 	}
 		
 	@LargeDisplay(icon="account-group")
-	public int getNumberOfCustomers() { // tmr i18n
-		// Intead of return an ad hoc number write your own logic
-		// with JPA queries and Java to obtain the returned value
-		return 17; 
+	public long getNumberOfCustomers() { // tmr i18n
+		return Customer.size(); 
 	}
 	
 	@Money
 	@LargeDisplay(icon="account-cash")
 	public BigDecimal getInvoicedPerCustomer() { // tmr i18n
-		// Intead of return an ad hoc number write your own logic
-		// with JPA queries and Java to obtain the returned value		
-		return new BigDecimal("65.73"); 
+		return getTotalInvoiced().divide(new BigDecimal(getNumberOfCustomers()), 2, BigDecimal.ROUND_HALF_DOWN); 
 	}
 			
-	/* tmr
 	@Chart
-	public Collection<StaffTurnover> getTurnoverEvolution() {
-		// Here we create some ad hoc elements, but you shoud
-		// write your own logic with JPA queries, Java or both
-		// to get the list
-		Collection<StaffTurnover> result = new ArrayList<>();
-		result.add(new StaffTurnover(2020, 9, 5));
-		result.add(new StaffTurnover(2021, 12, 3));
-		result.add(new StaffTurnover(2022, 14, 1));
-		result.add(new StaffTurnover(2023, 4, 16));
-		result.add(new StaffTurnover(2024, 3, 21));
-		return result;
+	public Collection<InvoicedPerYear> getInvoicingEvolution() {
+		// tmr Así o con JPA
+		// TMR ME QUEDÉ POR AQUÍ: ESTO YA FUNCIONA, TENGO QUE DETERMINAR:
+		// TMR  - SI DEBERÍA IMPLEMENTARLO CON JPA Y 
+		// TMR  - SI DEBERÍA MOVER LA LÓGICA A Invoice 
+        Map<Integer, BigDecimal> invoicingPerYear = Invoice.findAllAsStream()
+            .collect(Collectors.groupingBy(
+                Invoice::getYear,
+                TreeMap::new,
+                Collectors.reducing(BigDecimal.ZERO, Invoice::getTotal, BigDecimal::add)
+            )
+        );
+
+        Collection<InvoicedPerYear> result = new ArrayList<>();
+        invoicingPerYear.forEach((year, total) -> result.add(new InvoicedPerYear(year, total)));
+
+        return result;
 	}
-	*/
 	
 	/* tmr
 	@SimpleList 

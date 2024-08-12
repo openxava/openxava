@@ -3,6 +3,7 @@ package org.openxava.invoicedemo.model;
 import javax.persistence.*;
 
 import org.openxava.annotations.*;
+import org.openxava.jpa.*;
 
 import lombok.*;
 
@@ -11,6 +12,10 @@ import lombok.*;
 @View(name="Simple", members="number, name") 
 @Tab(properties="number, name, photo") 
 public class Customer {
+	
+	public static long size() {
+		return (Long) XPersistence.getManager().createQuery("select count(*) from Customer").getSingleResult();
+	} 	
 	
 	@Id
 	int number;
@@ -33,6 +38,6 @@ public class Customer {
 	
 	@Stereotype("COORDINATES") 
 	@Column(length=50)
-	String location; 
+	String location;
 	
 }

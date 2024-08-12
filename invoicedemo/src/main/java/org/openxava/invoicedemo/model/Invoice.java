@@ -2,11 +2,13 @@ package org.openxava.invoicedemo.model;
 
 import java.math.*;
 import java.util.*;
+import java.util.stream.*;
 
 import javax.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
+import org.openxava.jpa.*;
 import org.openxava.model.*;
 
 import lombok.*;
@@ -20,6 +22,22 @@ import lombok.*;
 )
 @Tab(properties="year, number, date, customer.name, remarks")
 public class Invoice extends Identifiable {
+	
+	public static long size() { // tmr		
+		return (Long) XPersistence.getManager().createQuery("select count(*) from Invoice").getSingleResult();
+	}
+	
+	public static BigDecimal sumAllTotals() { // tmr
+		// tmr ¿Implementar con @Calculation o dejar así?
+		// tmr return (BigDecimal) XPersistence.getManager().createQuery("select sum(i.total) from Invoice i").getSingleResult();
+		return findAllAsStream()
+			.map(Invoice::getTotal)
+			.reduce(BigDecimal.ZERO, BigDecimal::add);
+	}
+	
+	public static Stream<Invoice> findAllAsStream() { // tmr
+		return XPersistence.getManager().createQuery("from Invoice i").getResultStream();
+	}
 	
 	@DefaultValueCalculator(CurrentYearCalculator.class)
 	@Column(length=4) @Required
