@@ -32,7 +32,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		
 		changeLanguage("zh-CN");
 		goModule("Event");
-		assertValueInList(0, 4, "2023/9/30 PM3:21");
+		assertValueInList(0, 4, "2023/9/30 PM3:21"); 
 		execute("List.viewDetail", "row=0");
 		execute("CRUD.save");
 		execute("Mode.list");
@@ -103,7 +103,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertNoErrors(); 
 	}
 
-	public void testChineseDateTimeInJava8AndAmIssue_formatDateAndDateTimeUsingTwoDigits() throws Exception { 
+	public void testChineseDateTimeInJava8AndAmIssue_formatDateAndDateTimeUsingTwoDigits_usingFourDigits() throws Exception { 
 		changeLanguage("zh-TW");
 		appointment2();
 		quarter();
@@ -111,12 +111,12 @@ public class DateCalendarTest extends WebDriverTestBase {
 		appointment2();
 		quarter();
 		
-		formatDateUsingTwoDigits("zh-CN");
+		formatDateUsingTwoAndFourDigits("zh-CN");
 		changeLanguage("es-ES");
 		goModule("Quarter");
-		formatDateUsingTwoDigits("es-ES");
+		formatDateUsingTwoAndFourDigits("es-ES");
 		goModule("Shipment");
-		formatDateTimeUsingTwoDigits(); 
+		formatDateTimeUsingTwoAndFourDigits(); //es-ES
 	}
 	
 	public void testCalendarIconChangeInFilter() throws Exception {
@@ -460,7 +460,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 	public void testTime_dateTimeSeparatedUseTimeEditor_separatedTimePartOnChange_autoFillColon() throws Exception {
 		goModule("Event");
 		execute("List.viewDetail", "row=0");
-		assertValue("endTime", "1:00 PM");
+		assertValue("endTime", "1:00 PM"); 
 		List<WebElement> iconElements = getDriver().findElements(By.cssSelector("i.mdi.mdi-clock-outline"));
 		assertTrue(iconElements.size() == 2);
 		if (!iconElements.isEmpty()) {
@@ -502,26 +502,39 @@ public class DateCalendarTest extends WebDriverTestBase {
 		execute("CRUD.save"); 
 	}
 	
-	private void formatDateUsingTwoDigits(String format) throws Exception {
+	private void formatDateUsingTwoAndFourDigits(String format) throws Exception {
 		execute("CRUD.new");
 		Calendar calendar = Calendar.getInstance();
 		int day = calendar.get(Calendar.DAY_OF_MONTH);
 		int month = calendar.get(Calendar.MONTH) + 1;
 		int year = calendar.get(Calendar.YEAR);
+		String dayFormatted = (day < 10 ? "0" : "") + day;
+		String monthFormatted = (month < 10 ? "0" : "") + month;
 		setValue("initDate", String.valueOf(day));
 		WebElement input = getDriver().findElement(By.id("ox_openxavatest_Quarter__initDate"));
 		input.sendKeys(Keys.TAB);
 		if (format.equals("zh-CN")) {
 			assertEquals(getValue("initDate"), year + "/" + month + "/" + day);
 		} else {
-			String m = month < 10 ? "0"+ String.valueOf(month) : String.valueOf(month);
-			String d = day < 10 ? "0"+ String.valueOf(day) : String.valueOf(day);
-			assertEquals(getValue("initDate"), d + "/" + m + "/" + year);
+			assertEquals(getValue("initDate"), dayFormatted + "/" + monthFormatted + "/" + year);
+		} 
+		
+		input.clear();
+	
+
+		if (format.equals("zh-CN")) {
+			setValue("initDate", monthFormatted + dayFormatted);			
+			input.sendKeys(Keys.TAB);
+			assertEquals(getValue("initDate"), year + "/" + month + "/" + day);
+		} else {
+			setValue("initDate", dayFormatted + monthFormatted);
+			input.sendKeys(Keys.TAB);
+			assertEquals(getValue("initDate"), dayFormatted + "/" + monthFormatted + "/" + year);
 		} 
 	}
-	
-	private void formatDateTimeUsingTwoDigits() throws Exception {
-		execute("CRUD.new"); 
+
+	private void formatDateTimeUsingTwoAndFourDigits() throws Exception {
+		execute("CRUD.new");
 		Calendar calendar = Calendar.getInstance();
 		int day = calendar.get(Calendar.DAY_OF_MONTH);
 		int month = calendar.get(Calendar.MONTH) + 1;
@@ -529,11 +542,15 @@ public class DateCalendarTest extends WebDriverTestBase {
 		setValue("time", String.valueOf(day));
 		WebElement input = getDriver().findElement(By.id("ox_openxavatest_Shipment__time"));
 		input.sendKeys(Keys.TAB);
-		String m = month < 10 ? "0"+ String.valueOf(month) : String.valueOf(month);
-		String d = day < 10 ? "0"+ String.valueOf(day) : String.valueOf(day);
-		assertEquals(getValue("time"), d + "/" + m + "/" + year + " 00:00");
+		String dayFormatted = (day < 10 ? "0" : "") + day;
+		String monthFormatted = (month < 10 ? "0" : "") + month;
+		assertEquals(getValue("time"), dayFormatted + "/" + monthFormatted + "/" + year + " 00:00");
+		
+		input.clear();
+		setValue("time", dayFormatted + monthFormatted);
+		input.sendKeys(Keys.TAB);
+		assertEquals(getValue("time"), dayFormatted + "/" + monthFormatted + "/" + year + " 00:00");
 	}
-	
 	
 	private void appointment2() throws Exception {
 		goModule("Appointment2");

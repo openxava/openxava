@@ -142,19 +142,19 @@ public class MetaWebEditors {
 		return r;
 	}
 	
-	private static MetaEditor getMetaEditorForAnnotation(MetaMember member, String viewName) throws XavaException { 
+	private static MetaEditor getMetaEditorForAnnotation(MetaMember member, String viewName) throws XavaException {
 		if (member.getMetaModel() == null) return null;
 		if (!member.getMetaModel().isPOJOAvailable()) return null;
-		String memberId = member.getMetaModel().getName() + ":" + viewName + ":" + member.getSimpleName(); 
+		String memberId = member.getMetaModel().getName() + ":" + viewName + ":" + member.getSimpleName();
 		if (editorsByMember != null && editorsByMember.containsKey(memberId)) {
 			return editorsByMember.get(memberId);
 		}		 
 		Annotation[] annotations = member.getAnnotations(); 
 		MetaEditor editor = null; 
 		if (annotations != null) for (Annotation a: annotations) {
-			if (!isForViews(viewName, a)) continue; 
-			editor = getEditorsByAnnotation().get(a.annotationType().getName()); 
-			if (editor != null) {
+			if (!isForViews(viewName, a)) continue;
+			MetaEditor editorForAnnotation = getEditorsByAnnotation().get(a.annotationType().getName()); 
+			if (editorForAnnotation != null) {
 				MetaEditor clonedEditor = null;				 
 				for (Method m: a.annotationType().getMethods()) {
 					if (Is.anyEqual(m.getName(), "equals", "toString", "hashCode", "annotationType", "forViews", "notForViews")) continue; 
@@ -165,18 +165,19 @@ public class MetaWebEditors {
 						log.warn(XavaResources.getString("impossible_get_value_annotation_attribute", m.getName(), a.annotationType().getName()), e);
 						
 					}
-					if (clonedEditor == null) clonedEditor = editor.cloneMetaEditor();
+					if (clonedEditor == null) clonedEditor = editorForAnnotation.cloneMetaEditor();
 					clonedEditor.addProperty(m.getName(), value.toString());
 				}
 				if (editorsByMember == null) editorsByMember = new HashMap<>();
-				if (clonedEditor != null) editor = clonedEditor;
+				if (clonedEditor != null) editorForAnnotation = clonedEditor;
 				MetaEditor alreadyFoundEditor = editorsByMember.get(memberId);
-				if (alreadyFoundEditor == null || editor.getPriority() > alreadyFoundEditor.getPriority()) {
-					editorsByMember.put(memberId, editor);
+				if (alreadyFoundEditor == null || editorForAnnotation.getPriority() > alreadyFoundEditor.getPriority()) {
+					editorsByMember.put(memberId, editorForAnnotation);
+					editor = editorForAnnotation;
 				}
 			}
 		}
-		return editor; 
+		return editor;
 	}
 	
 
@@ -287,7 +288,7 @@ public class MetaWebEditors {
 	private static MetaEditor getMetaEditorFor(MetaProperty p, String viewName) throws ElementNotFoundException, XavaException { 
 		if (p.hasMetaModel()) {			
 			MetaEditor r = (MetaEditor) getMetaEditorForModelProperty(p.getName(), p.getMetaModel().getName());
-			if (r != null) {				
+			if (r != null) {			
 				return r;				
 			}
 		}				

@@ -204,10 +204,10 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		setValue("name", "jUnit Carrier report");
 		execute("MyReport.generatePdf");		
 		
-		assertPopupPDFLinesCount(5); // Instead of 9, because of warehouse.zoneNumber = 1 and name like 'c%' condition 
+		assertPopupPDFLinesCount(6); // Instead of 9, because of warehouse.zoneNumber = 1 and name like 'c%' condition 
 		assertPopupPDFLine(1, "jUnit Carrier report");
-		assertPopupPDFLine(2, "Name Number Warehouse zone");  
-		assertPopupPDFLine(3, "CUATRO 4 1");
+		assertPopupPDFLine(3, "Name Number Warehouse zone");  
+		assertPopupPDFLine(4, "CUATRO 4 1");
 		
 		execute("ExtendedPrint.myReports");
 		execute("MyReport.remove", "xava.keyProperty=name");
@@ -275,10 +275,10 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 
 		execute("MyReport.generatePdf");
 
-		assertPopupPDFLinesCount(5); // Instead of 9, because of warehouse.zoneNumber = 1 and name like 'c%' condition 
+		assertPopupPDFLinesCount(6); // Instead of 9, because of warehouse.zoneNumber = 1 and name like 'c%' condition 
 		assertPopupPDFLine(1, "Carriers of zone 2");
-		assertPopupPDFLine(2, "Calculated Number Name");  
-		assertPopupPDFLine(3, "TR 5 Cinco");
+		assertPopupPDFLine(3, "Calculated Number Name");  
+		assertPopupPDFLine(4, "TR 5 Cinco");
 		
 		execute("ExtendedPrint.myReports");
 		assertCollectionRowCount("columns", 4);
@@ -359,12 +359,12 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		
 		execute("MyReport.generatePdf");		
 		
-		assertPopupPDFLinesCount(7); // Instead of 9, because of number is between 2 and 4 
+		assertPopupPDFLinesCount(8); // Instead of 9, because of number is between 2 and 4 
 		assertPopupPDFLine(1, "Carriers between 2 and 4");
-		assertPopupPDFLine(2, "Calculated Number Name");  
-		assertPopupPDFLine(3, "TR 2 DOS");
-		assertPopupPDFLine(4, "TR 3 TRES");
-		assertPopupPDFLine(5, "TR 4 CUATRO");
+		assertPopupPDFLine(3, "Calculated Number Name");  
+		assertPopupPDFLine(4, "TR 2 DOS");
+		assertPopupPDFLine(5, "TR 3 TRES");
+		assertPopupPDFLine(6, "TR 4 CUATRO");
 		
 		execute("ExtendedPrint.myReports");
 		execute("MyReport.remove", "xava.keyProperty=name");		
@@ -390,10 +390,10 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		assertValueInCollection("columns", 2, 2, "UNO");		
 		execute("MyReport.generatePdf");		
 		
-		assertPopupPDFLinesCount(5); // Instead of 9, because of name = 'UNO' 
+		assertPopupPDFLinesCount(6); // Instead of 9, because of name = 'UNO' 
 		assertPopupPDFLine(1, "Carrier report");
-		assertPopupPDFLine(2, "Calculated Number Name");
-		assertPopupPDFLine(3, "TR 1 UNO");
+		assertPopupPDFLine(3, "Calculated Number Name");
+		assertPopupPDFLine(4, "TR 1 UNO");
 		
 		checkRow(3); // To test that checked rows are ignored in custom reports
 		execute("ExtendedPrint.myReports");
@@ -408,11 +408,11 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		assertValueInCollection("columns", 1, 3, "Descending");
 		execute("MyReport.generatePdf");		
 		
-		assertPopupPDFLinesCount(9);  
+		assertPopupPDFLinesCount(10);  
 		assertPopupPDFLine(1, "Carrier report");
-		assertPopupPDFLine(2, "Calculated Number Name");
-		assertPopupPDFLine(3, "TR 5 Cinco");
-		assertPopupPDFLine(7, "TR 1 UNO");
+		assertPopupPDFLine(3, "Calculated Number Name");
+		assertPopupPDFLine(4, "TR 5 Cinco");
+		assertPopupPDFLine(8, "TR 1 UNO");
 		
 		execute("ExtendedPrint.myReports");
 		execute("MyReport.generateExcel");
@@ -496,24 +496,24 @@ public class CarrierWithSectionsTest extends ModuleTestBase {
 		assertValueInCollection("columns", 1, 2, "");
 		assertValueInCollection("columns", 1, 3, "Descending");
 		execute("MyReport.generatePdf");		
-		assertPopupPDFLinesCount(8);  
+		assertPopupPDFLinesCount(9);  
 		assertPopupPDFLine(1, "Carrier report With no CALCULATED");		
-		assertPopupPDFLine(2, "Number Name");
-		assertPopupPDFLine(3, "1 UNO");
-		assertPopupPDFLine(4, "3 TRES");
-		assertPopupPDFLine(5, "2 DOS");
-		assertPopupPDFLine(6, "4 CUATRO");				
+		assertPopupPDFLine(3, "Number Name");
+		assertPopupPDFLine(4, "1 UNO");
+		assertPopupPDFLine(5, "3 TRES");
+		assertPopupPDFLine(6, "2 DOS");
+		assertPopupPDFLine(7, "4 CUATRO");				
 		
 		execute("ExtendedPrint.myReports");
 		assertValue("name", "Carrier report With no CALCULATED"); 
 		execute("MyReport.generatePdf");
-		assertPopupPDFLinesCount(8);  
+		assertPopupPDFLinesCount(9);  
 		assertPopupPDFLine(1, "Carrier report With no CALCULATED");		
-		assertPopupPDFLine(2, "Number Name");
-		assertPopupPDFLine(3, "1 UNO");
-		assertPopupPDFLine(4, "3 TRES");
-		assertPopupPDFLine(5, "2 DOS");
-		assertPopupPDFLine(6, "4 CUATRO");				
+		assertPopupPDFLine(3, "Number Name");
+		assertPopupPDFLine(4, "1 UNO");
+		assertPopupPDFLine(5, "3 TRES");
+		assertPopupPDFLine(6, "2 DOS");
+		assertPopupPDFLine(7, "4 CUATRO");				
 		execute("ExtendedPrint.myReports"); 
 		assertValue("name", "Carrier report With no CALCULATED"); 
 		String [][] customReports3 = {

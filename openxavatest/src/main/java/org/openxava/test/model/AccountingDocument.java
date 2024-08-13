@@ -4,7 +4,10 @@ import java.time.*;
 import java.util.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 
+import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
 import org.openxava.model.*;
 
@@ -20,6 +23,8 @@ public class AccountingDocument extends Identifiable {
 	@Column(length = 4)
 	private int number;
 	
+	@Type(type="org.openxava.types.LocalDateNumericType") 
+	@Column(name="DATE")
 	@Required
 	private LocalDate date; 
 	

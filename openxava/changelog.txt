@@ -1,7 +1,14 @@
 Change Log for OpenXava project
 ===============================
 
-- Second lesson of the reporting course with JasperReports available in documentation with video.
+- @SearchListCondition allows the use of ${this.somePropertyDisplayedInView} in the condition.
+- Record count included in automatic PDF reports of list mode and collections.
+- Hibernate type converter LocalDateNumericType to store LocalDate values as numbers with yyyymmdd format.
+- @SimpleList annotation for collections to display it without actions, filters, pagination, sorting, etc. 
+- Typing day and month in a date or date/time field autocompletes the date with the current year.
+- New built-in controller InitModelWithNewInstance to init the model of the view with a new model instance. 
+- Example of creating a dashboard in openxavatest with the StaffDashboard module.
+- Lessons 2, 3 and 4 of the reporting course with JasperReports available in documentation with video.
 - Support for java.time.LocalDateTime as a type for properties in entities. 
 - LocalTime uses a consistent format across Java 8, 11, 17 and 21.
 - @LargeDisplay annotation to display a property value in large format, with large fonts, spacing, etc.

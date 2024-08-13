@@ -61,8 +61,8 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 				if (itOverlappingProperties.hasNext()) {
 					condition.append(" AND "); 
 				}	
-			}					
-			getTab().setBaseCondition(condition.toString());
+			}
+			getTab().setBaseCondition(changeThisPropertyByViewValue(condition.toString()));
 		}
 		else {
 			getTab().setBaseCondition(null);
@@ -74,11 +74,11 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 			if (metaReferenceView != null) {
 				String searchListCondition = metaReferenceView.getSearchListCondition();
 				if (searchListCondition != null) {
-					getTab().setBaseCondition(searchListCondition);
+					getTab().setBaseCondition(changeThisPropertyByViewValue(searchListCondition));
 				}
 			}
 		}
-			
+
 		showDialog();
 		getView().setTitleId("choose_reference_prompt", ref.getLabel()); 
 		setControllers(getNextControllers()); 
@@ -130,6 +130,5 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 	public void setTabName(String tabName) {
 		this.tabName = tabName;
 	}
-
-
+	
 }

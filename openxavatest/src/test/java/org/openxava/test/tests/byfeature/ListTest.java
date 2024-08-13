@@ -27,7 +27,7 @@ public class ListTest extends WebDriverTestBase {
 
 		goModule("Carrier");
 		assertEnableDisableCustomizeList(); 
-		assertCustomizeCollection();
+		assertCustomizeCollection(); 
 
 		goModule("CustomerWithSection");
 		assertCustomizeList();
