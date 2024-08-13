@@ -5353,8 +5353,7 @@ public class View implements java.io.Serializable {
 		return result;
 	}
 	
-	// tmr public Collection getActionsNamesForReference(MetaReference ref, boolean editable) throws XavaException {		
-	public Collection<String> getActionsNamesForReference(MetaReference ref, boolean editable) throws XavaException { // tmr
+	public Collection<String> getActionsNamesForReference(MetaReference ref, boolean editable) throws XavaException { 
 		return getMetaView().getActionsNamesForReference(ref, editable);
 	}
 	

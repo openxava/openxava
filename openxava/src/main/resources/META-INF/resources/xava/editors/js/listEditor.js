@@ -1,10 +1,5 @@
 if (listEditor == null) var listEditor = {};
 
-// tmr ¿Renombrar listEditor.js como popupMenu.js?
-// tmr También:
-// tmr - Id debería ser único
-// tmr - Al pulsar en el propio botón no se oculta.
-
 openxava.addEditorInitFunction(function() {
     $('.xava_popup_menu_icon').each(function() {
         var popUpMenuIcon = $(this);
@@ -13,13 +8,6 @@ openxava.addEditorInitFunction(function() {
         popUpMenuIcon.on('click', function(event) {
             popUpMenu.removeClass("ox-display-none");
             var buttonOffset = popUpMenuIcon.offset();
-            /* tmr
-            popUpMenu.css({
-                top: buttonOffset.top + popUpMenuIcon.outerHeight(),
-                left: buttonOffset.left
-            });
-            */
-            // tmr ini
 			var buttonRect = popUpMenuIcon.get(0).getBoundingClientRect();
             var positionPopup = popUpMenu.get(0).getBoundingClientRect();
 			var left = buttonRect.left; 
@@ -30,7 +18,6 @@ openxava.addEditorInitFunction(function() {
                 top: buttonOffset.top + popUpMenuIcon.outerHeight(),
                 left: left 
             });            
-            // tmr fin
         });
 		
 		if (popUpMenu) {
@@ -46,8 +33,6 @@ openxava.addEditorInitFunction(function() {
                 popUpMenu.addClass("ox-display-none");
             }
         });
-    });
-	
-	
+    });	
 	
 });
