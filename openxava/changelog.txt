@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- @SearchListCondition allows the use of ${this.somePropertyDisplayedInView} in the condition.
 - Record count included in automatic PDF reports of list mode and collections.
 - Hibernate type converter LocalDateNumericType to store LocalDate values as numbers with yyyymmdd format.
 - @SimpleList annotation for collections to display it without actions, filters, pagination, sorting, etc. 
