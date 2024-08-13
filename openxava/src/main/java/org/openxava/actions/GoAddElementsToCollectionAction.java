@@ -37,7 +37,7 @@ public class GoAddElementsToCollectionAction extends CollectionElementViewBaseAc
 				if (collectionView != null) {
 					String tabName = collectionView.getTabName();
 					if (tabName != null) tab.setTabName(tabName);
-					if (collectionView.getSearchListCondition() != null) tab.setBaseCondition(collectionView.getSearchListCondition());
+					if (collectionView.getSearchListCondition() != null) tab.setBaseCondition(changeThisPropertyByViewValue(collectionView.getSearchListCondition()));
 				}
 			}
 		}

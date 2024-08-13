@@ -46,9 +46,8 @@
         <div style="margin-left: 3em;"><a href="#View-Reference%20customization-Descriptions%20list%20%28combos%29">Descriptions list (combos)</a></div>
         <div style="margin-left: 3em;"><a href="#View-Reference%20customization-Reference%20value%20change%20event">Reference value change event</a></div>
         <div style="margin-left: 3em;"><a href="#View-Reference%20customization-Reference%20search%20on%20change%20event">Reference search on change event</a></div>
-        <div style="margin-left: 3em;"><a href="#View-Reference%20customization-Choosing%20an%20editor%20%28reference,%20new%20in%20v3.1.3%29">Choosing an editor (reference, new in v3.1.3)</a></div>
-        <div style="margin-left: 3em;"><a href="#choose-tab-for-search-action-reference">Choose tab for search action (reference, new in v7.4)<br>
-          </a></div>
+        <div style="margin-left: 3em;"><a href="#View-Reference%20customization-Choosing%20an%20editor%20%28reference,%20new%20in%20v3.1.3%29">Choosing an editor (reference, new in v3.1.3)</a><br>
+          <a href="#choose-tab-for-search-action-reference">Choose tab for search action (reference, new in v7.4)</a></div>
         <div style="margin-left: 2em;"><a href="#View-Collection%20customization">Collection customization</a></div>
         <div style="margin-left: 3em;"><a href="#View-Collection%20customization-Properties%20in%20list">Properties in list</a></div>
         <div style="margin-left: 3em;"><a href="#View-Collection%20customization-View%20for%20editing">View for editing</a></div>
@@ -65,9 +64,8 @@
         <div style="margin-left: 3em;"><a href="#View-Collection%20customization-Total%20properties%20%28new%20in%20v4.3%29">Total properties (new in v4.3)</a></div>
         <div style="margin-left: 3em;"><a href="#View-Collection%20customization-Subcontroller%20in%20a%20collection%20%28new%20in%20v5.7%29">Subcontroller in a collection (new in v5.7)</a></div>
         <div style="margin-left: 3em;"><a href="#chart-from-collection">Chart from a collection (new in v7.4)</a></div>
-        <div style="margin-left: 3em;"><a href="#simple-list">Simple list (new in v7.4)</a></div>
-        <div style="margin-left: 3em;"><a href="#choose-tab-for-search-action-collection">Choose tab for search action (collection, new in v7.4)<br>
-          </a></div>
+        <div style="margin-left: 3em;"><a href="#simple-list">Simple list (new in v7.4)</a><br>
+          <a href="#choose-tab-for-search-action-collection">Choose tab for search action (collection, new in v7.4)</a></div>
         <div style="margin-left: 2em;"><a href="#transient-properties-ui-controls">Transient properties for UI controls</a></div>
         <div style="margin-left: 2em;"><a href="#View-View%20actions">View actions</a></div>
         <div style="margin-left: 2em;"><a href="#View-Transient%20class:%20Only%20for%20creating%20views">Transient class: Only for creating views</a></div>
@@ -7983,7 +7981,8 @@ class="kw105">Action</span></a>              <span class="co1">// 12</span>
 @OnChangeSearch      <span class="co1">// 14</span>
 @Editor              <span class="co1">// 15 New in v3.1.3</span>
 @LabelStyle          <span class="co1">// 16 New in v4m4</span>
-@Collapsed           <span class="co1">// 17 New in v5.0</span>
+@Collapsed           <span class="co1">// 17 New in v5.0</span><br>@SearchListTab       <span
+class="co1">// 18 New in v7.<span style="color: #505050;">4</span></span>
 @ManyToOne
 <span class="kw2">private</span> type referenceName<span class="sy0">;</span></pre>
       All these annotations follow the <a class="wiki_link" href="#View-Rules%20for%20view%20annotations">rules for view annotations</a> and all they are optionals. OpenXava always assumes a correct default values if they are omitted.<br>
@@ -9306,7 +9305,7 @@ class="sy0">;</span> <span class="co1">// Adding a filter to the list</span>
           name="search-list-condition-reference"></a>Condition for search list (reference, <em>new in v4m4</em>)</h3>
       When the user clicks in the lantern he go to a list where he can filter, order, etc, and mark the wished object. You can use <em>@SearchAction</em> to overwrite completely this behavior, though if you only want to set a custom condition for the list, then using <em><a
           class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/SearchListCondition.html"
-          rel="nofollow">@SearchListCondition</a></em> is faster. The above example can be rewritten as following:<br>
+          rel="nofollow">@SearchListCondition</a></em> is faster. Since <em>v7.4</em>, the condition supports the use of <em>${this.}</em> to refer to a property of the entity itself. The above example can be rewritten as following:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -9494,9 +9493,12 @@ class="sy0">;</span> <span class="co1">// Adding a filter to the list</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@ManyToOne<span class="br0">(</span>fetch=FetchType.<span
-class="me1">LAZY</span><span class="br0">)</span> @SearchListCondition<span
-class="br0">(</span><span class="st0">"${number} &lt; 3"</span><span class="br0">)</span>
+</style><pre class="java5"><span class="kw2">private</span> int code<span
+class="sy0">;</span><br><br>@ManyToOne<span class="br0">(</span>fetch=FetchType.<span
+class="me1">LAZY</span><span class="br0">)</span> <br>@SearchListCondition<span
+class="br0">(</span><span class="st0">"${number} &lt; 3"</span><span class="br0">)</span><br>@SearchListCondition<span
+class="br0">(</span><span class="st0">"${number} &lt; ${this.code}"</span><span
+class="br0">, forViews="SearchListCondition")</span> <span class="co1">// ${this.} New in v7.4</span>
 <span class="kw2">private</span> Seller seller<span class="sy0">;</span>
 &nbsp;</pre>
       Note as you do not need to create any action.<br>
@@ -12327,9 +12329,8 @@ class="re0">url</span>=<span class="st0">"colorRadioButtonsEditor.jsp"</span><sp
 class="re2">/&gt;</span></span></pre>
       Also you have to write the JSP code for your editor in <em>colorRadioButonsEditor.jsp</em>.<br>
       This feature is for changing the editor for a concrete reference in a concrete entity only, or even only in one view of that entity (using <em>@Editor(forViews=)</em>). If you want to change the editor for all references to certain entity type at application level then it's better to configure it using <em>editors.xml</em> file.<br>
-      Learn more on <a class="wiki_link" href="customizing_en.html#Customizing-Editors-Editors%20for%20references%20%28new%20in%20v3.1.3%29">Editors for references</a>.</div>
-    <div class="wiki" style="display: block;">
-      <h3 id="toc25"> <a name="choose-tab-for-search-action-reference"></a> Choose tab for search action (reference, new in v7.4) </h3>
+      Learn more on <a class="wiki_link" href="customizing_en.html#Customizing-Editors-Editors%20for%20references%20%28new%20in%20v3.1.3%29">Editors for references</a>.<br>
+      <h3 id="toc25"><a name="choose-tab-for-search-action-reference"></a> Choose tab for search action (reference, new in v7.4) </h3>
       <p>With <em>@SearchListTab</em>, you can specify which tab to display in the dialog when use a search action.</p>
       <pre class="java5">@ManyToOne<span class="br0">(</span>fetch=FetchType.<span
 class="me1">LAZY</span><span class="br0">)</span>
@@ -12535,7 +12536,7 @@ class="st0">"name;"</span><span class="br0">)</span>,
  ...
 <span class="br0">}</span><span class="br0">)</span>
 <span class="kw2">public</span> <span class="kw2">class</span> Warehouse <span
-class="br0">{<span style="color: #505050;"><span style="font-family: arial,helvetica,sans-serif;"></span></span></span></pre>
+class="br0">{</span></pre>
       </div>
       <h2 id="toc25"><a name="View-Collection customization"></a>Collection customization</h2>
       You can refine the visual aspect and behavior of an <em>@OneToMany</em> or <em>@ManyToMany</em> collection in a view using the next annotations:<br>
@@ -17318,7 +17319,7 @@ class="re2">/&gt;</span></span></pre>
       <h3 id="toc36"><a name="View-Collection customization-Condition for search list (collection, new in v4m4)"></a><a
           name="search-list-condition-collection"></a>Condition for search list (collection, <em>new in v4m4</em>)</h3>
       <em>Applies to @OneToMany/@ManyToMany collections</em><br>
-      You can specify a condition to be applied to the list of items available for selection. In the case of non-embedded collections. By using <em>@SearchListCondition</em> you can define a condition only applicable to the search list, furthermore, you can use it along with the <em>forViews</em> and <em>notForViews</em> property to define different criteria for different views (1) as shown in the following code snippet.<br>
+      You can specify a condition to be applied to the list of items available for selection. In the case of non-embedded collections. By using <em>@SearchListCondition</em> you can define a condition only applicable to the search list, furthermore, you can use it along with the <em>forViews</em> and <em>notForViews</em> property to define different criteria for different views (1). Since <em>v7.4</em>, the condition supports the use of <em>${this.}</em> to refer to a property of the entity itself (2). As shown in the following code snippet.<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -17506,11 +17507,15 @@ class="re2">/&gt;</span></span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@OneToMany<span class="br0">(</span>mappedBy=<span
-class="st0">"seller"</span><span class="br0">)</span>
+</style><pre class="java5"><span class="kw2">private</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+class="kw46"></span></a> int code<span class="sy0">;</span><br><br>@OneToMany<span
+class="br0">(</span>mappedBy=<span class="st0">"seller"</span><span class="br0">)</span>
 @SearchListCondition<span class="br0">(</span>value=<span class="st0">"${number} &lt; 5"</span>, forViews=<span
 class="st0">"SearchListCondition, SearchListConditionBlank"</span><span
-class="br0">)</span> <span class="co1">// 1</span>
+class="br0">)</span> <span class="co1">// 1</span><br>@SearchListCondition<span
+class="br0">(</span>value=<span class="st0">"${number} &lt; ${this.code}"</span>, forViews=<span
+class="st0">"SearchListConditionCode"</span><span class="br0">)</span> <span
+class="co1">// 2</span>
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
 class="kw46">Collection</span></a><span class="sy0">&lt;</span>Customer<span
 class="sy0">&gt;</span> customers<span class="sy0">;</span></pre>
@@ -18830,7 +18835,8 @@ Collection&lt;StaffTurnover&gt; turnoverByYear;
       <div class="wiki" style="display: block;">It would be displayed like this:</div>
       <img src="files/view_en270.png" alt="view_en270.png" title="view_en270.png">
       <div class="wiki" style="display: block;">Useful when the user needs to see the data in a simple and clear way, without having to interact with it, such as in a dashboard, for example.</div>
-      <div class="wiki" style="display: block;">In addition, the <i>forViews</i> and <i>notForViews</i> attributes are available in <i>@SimpleList.</i><br>
+      <div class="wiki" style="display: block;">In addition, the <i>forViews</i> and <i>notForViews</i> attributes are available in <i>@SimpleList.<br>
+        </i>
         <h3 id="choose-tab-for-search-action-collection">Choose tab for search action (collection, new in v7.4) </h3>
         <p>With <em>@SearchListTab</em>, you can specify which tab to display in the dialog when use an add action.</p>
         <pre class="java5">@OneToMany(mappedBy="seller")
@@ -19036,7 +19042,7 @@ class="st0">"name, type, seller.name;"</span><span class="br0">)</span>,
  ...
 <span class="br0">}</span><span class="br0">)</span>
 <span class="kw2">public</span> <span class="kw2">class</span> Customer <span
-class="br0">{</span><span class="br0"></span></pre>
+class="br0">{</span></pre>
         </div>
       </div>
       <div class="wiki" style="display: block;">

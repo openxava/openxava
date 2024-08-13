@@ -1,0 +1,101 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Report generation - Lesson 4: Working with images</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
+            href="index_en.html">documentation</a> / </span>Report generation - Lesson 4: Working with images</h1>
+      <div class="wiki" style="display: block;">
+        <h2>Video</h2>
+        <p>In this video we will see how to send images from OpenXava as parameter and data source to our report.</p>
+        <p><a href="https://youtu.be/qrAzu-JPOrE" target="_blank"><img
+
+              src="files/report-course_en040.png" title="report-generation-040"></a> </p>
+        <p><strong>Any problem with this lesson? <a class="wiki_link_ext"
+
+              href="http://sourceforge.net/p/openxava/discussion/419690/"
+
+              rel="nofollow">Ask in the forum</a></strong> </p>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h2>Code</h2>
+        <p>You can <strong><a href="https://github.com/openxava/report-generation-course/tree/lesson_4"
+
+              target="_blank">download the project for this lesson</a></strong>. You can also copy the code used in the video here:</p>
+        <code class="xml"></code> In <em>PrintProductAction.java</em> file:<br>
+        <pre><code class="java">public class PrintProductAction extends JasperReportBaseAction {
+
+	private Product product;
+	
+	@Override
+	protected JRDataSource getDataSource() throws Exception {
+		return new JRBeanCollectionDataSource(FilePersistorFactory.getInstance().findLibrary(getProduct().getPhotos()));
+	}
+
+	@Override
+	protected String getJRXML() throws Exception {
+		return "ProductDetail.jrxml"; 
+	}
+
+	@Override
+	protected Map getParameters() throws Exception {
+		Messages errors = MapFacade.validate("Product", getView().getValues());
+		if (errors.contains()) throw new ValidationException(errors);
+		
+		Map parameters = new HashMap();	
+		parameters.put("id", (getProduct().getNumber()));
+		parameters.put("description", getProduct().getDescription());
+		parameters.put("author", getProduct().getAuthor().getName());
+		parameters.put("isbn", getProduct().getIsbn());
+		parameters.put("category", getProduct().getCategory().getDescription());
+		parameters.put("price", getProduct().getPrice());
+		<br>		Collection&lt;AttachedFile&gt; attachedFiles = FilePersistorFactory.getInstance().findLibrary(getProduct().getPhotos());
+		byte[] file = attachedFiles.iterator().next().getData();
+		parameters.put("photoFromParameter", file);<br>
+		return parameters;
+	}
+
+	private Product getProduct() throws Exception {
+		if (product == null) {
+			int number = getView().getValueInt("number");
+			product = XPersistence.getManager().find(Product.class, Integer.valueOf(number));
+		}
+		return product;
+	}
+
+}<br></code></pre>
+        <p><strong><a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
+              rel="nofollow"></a></strong><br>
+          <strong></strong></p>
+        <h2>Transcription</h2>
+        Hello, I'm Mónica. In this lesson, you'll learn how to design a report that includes images and send them from your OpenXava application. We'll see how to send a single image to appear in the header data using a parameter, and also how to send a collection of images using a DataSource.<br>
+        <br>
+        We'll include images in the report we created in lesson 2, and for that, we'll need to modify the action.<br>
+        First, we'll include an image as a parameter. We'll declare a collection of AttachedFile, which we obtain using findLibrary, sending the library or gallery ID as a parameter; this ID is found in getPhotos. If we look at the Product class, we can see that photos is a String, used to store the library key. We declare a collection of AttachedFile because photos has the @Files annotation, indicating that more than one file, or in this case, image, can be attached.<br>
+        We'll send the first image from the collection. To do this, we declare a file of type byte and assign it the getData from the first element in the collection. Finally, we send it as a parameter.<br>
+        If we have a @File annotation instead of declaring a collection of AttachedFile, it would just be one file. Instead of using findLibrary, we use only find to search for the attached file, sending getPhoto as a parameter. We also get the image with getData.<br>
+        We'll comment out everything we just did because we won't use @File. Now we'll send the collection of images as a DataSource using the same method we saw in the previous lesson. We had a collection of AttachedFile, so we send that directly. Done. Now it's time to modify the report.<br>
+        <br>
+        In the ProductDetail report, drag an Image element to the report. We see that there are various ways to insert an image: from the workspace, from our system, using a URL, and so on. We leave the option as "No image". Now we create a parameter to receive the image. It will have the same name we just used, and its data type will be Object. If we don't see it in the dropdown list, we need to search for it manually.<br>
+        Once the parameter is created, we go to the source view of the report and search for the image element to add the expression. We can also do this directly from the properties panel. Here is the image element. We're sending a byte array and receiving it as an object. This is fine. But now we need to interpret that byte array, so we use ByteArrayInputStream, set the parameter, and specify that the received object is a byte array.<br>
+        Done. In the case of the DataSource, in the previous class, we saw that we need to directly access the property of each element. In this case, data is one of them. We create a field named data of type Object. We add the sections we removed earlier. Drag data to the detail section. Then in the source view, we manually modify the element from a textField to an image; we need to change the label from textField to image and textFieldExpression to imageExpression.<br>
+        Now we add the expression, similar to before, but using the field data. Save and arrange the report elements. Done, copy the report and test it. Remember to restart the application. It seems to be working fine.<br>
+        <br>
+        I added two more images to see how it would look. By default, the detail lines are added one below the other. We'll change this. By clicking outside the report, we can edit its properties. In Edit Page Format, we change it to 3 columns and set the print order to horizontal. We made the changes, but they didn't seem to take effect. We go to advanced and manually enter the values: 3 in column count and horizontal in print order. There it is.<br>
+        Then select the static text and in the properties panel, uncheck Print repeated Values so that the text is not printed every time the element is repeated. Check Print in First Whole Band so it prints the first time. Copy and test the report again. These would be the results.<br>
+        In this lesson, you've seen two techniques for sending images: parameters and DataSource. You've also learned how to obtain images from properties annotated with @Files or @File, although you can send any image obtained from any source as a byte array. Additionally, we saw how to design the report to distribute the images to our liking.<br>
+        <br>
+        We invite you to try out what you've seen in the lesson. If you have any questions or problems, you can ask us in the forum; you can also download the code from this lesson from the repository link, both links are in the video description. Goodbye!</div>
+    </div>
+  </body>
+</html>

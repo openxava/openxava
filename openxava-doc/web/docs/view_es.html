@@ -46,9 +46,9 @@
         <div style="margin-left: 3em;"><a href="#Vista-Personalizacion+de+referencia-Lista+descripciones+%28combos%29">Lista descripciones (combos)</a></div>
         <div style="margin-left: 3em;"><a href="#Vista-Personalizacion+de+referencia-Evento+de+cambio+de+valor+de+referencia">Evento de cambio de valor de referencia</a></div>
         <div style="margin-left: 3em;"><a href="#Vista-Personalizacion+de+referencia-Busqueda+de+referencia+al+cambiar">Búsqueda de referencia al cambiar</a></div>
-        <div style="margin-left: 3em;"><a href="#Vista-Personalizacion+de+referencia-Escoger+un+editor+%28referencia,+nuevo+in+v3.1.3%29">Escoger un editor (referencia, nuevo en v3.1.3)</a></div>
-        <div style="margin-left: 3em;"><a href="#escoger-tab-para-accion-de-busqueda-referencias">Escoger tab para la acción de busqueda (referencia, nuevo en v7.4)<br>
-          </a></div>
+        <div style="margin-left: 3em;"><a href="#Vista-Personalizacion+de+referencia-Escoger+un+editor+%28referencia,+nuevo+in+v3.1.3%29">Escoger un editor (referencia, nuevo in v3.1.3)</a></div>
+        <div style="margin-left: 3em;"><a href="#escoger-tab-para-accion-de-busqueda-referencias">Escoger tab para la acción de busqueda (referencia, nuevo en v7.4)</a><a
+            href="#Vista-Personalizacion+de+referencia-Escoger+un+editor+%28referencia,+nuevo+in+v3.1.3%29"></a></div>
         <div style="margin-left: 2em;"><a href="#Vista-Personalizacion+de+coleccion">Personalización de colección</a></div>
         <div style="margin-left: 3em;"><a href="#Vista-Personalizacion+de+coleccion-Propiedades+en+lista">Propiedades en lista</a></div>
         <div style="margin-left: 3em;"><a href="#Vista-Personalizacion+de+coleccion-Vista+para+editar">Vista para editar</a></div>
@@ -66,8 +66,8 @@
         <div style="margin-left: 3em;"><a href="#Vista-Personalizacion+de+coleccion-Subcontrolador+en+una+coleccion+%28nuevo+en+v5.7%29">Subcontrolador en una colección (nuevo en v5.7)</a></div>
         <div style="margin-left: 3em;"><a href="#grafico-desde-coleccion">Gráfico a partir de una colección (nuevo en v7.4)</a></div>
         <div style="margin-left: 3em;"><a href="#lista-simple">Lista simple (nuevo en v7.4)</a></div>
-        <div style="margin-left: 3em;"><a href="#escoger-tab-para-accion-de-busqueda-colecciones">Escoger tab para la acción de busqueda (colecciones, nuevo en v7.4)<br>
-          </a></div>
+        <div style="margin-left: 3em;"><a href="#escoger-tab-para-accion-de-busqueda-colecciones">Escoger tab para la acción de busqueda (colecciones, nuevo en v7.4)</a><a
+            href="#lista-simple"></a></div>
         <div style="margin-left: 2em;"><a href="#Vista-Propiedades+transitorias+para+controles+graficos">Propiedades transitorias para controles gráficos</a></div>
         <div style="margin-left: 2em;"><a href="#Vista-Acciones%20de%20la%20vista">Acciones de la vista</a></div>
         <div style="margin-left: 2em;"><a href="#Vista-Clase%20transitoria:%20Solo%20para%20crear%20vistas">Clase transitoria: Solo para crear vistas</a></div>
@@ -471,7 +471,7 @@ class="br0">{</span></pre>
 
 -->
 </style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-class="kw166">Entity</span></a>View-Reference%20customization-choose+tab+for+search+action
+class="kw166">Entity</span></a>
 @IdClass<span class="br0">(</span>OficinistaKey.<span class="kw2">class</span><span
 class="br0">)</span>
 <span class="kw2">public</span> <span class="kw2">class</span> Oficinista <span
@@ -9293,7 +9293,7 @@ class="sy0">;</span> <span class="co1">// Añadir un filtro a la lista</span>
           name="search-list-condition-reference"></a>Condición para la lista de búsqueda (referencia, <em>nuevo en v4m4</em>)</h3>
       Cuando el usuario pulsa la linternita va a una lista donde puede filtrar, ordenar, etc, y marca el objeto deseado. Puedes usar <em>@SearchAction</em> para sobreescribir completamente este comportamiento, aunque si solo quieres establecer una condición propia, es más práctico usar <em><a
           class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/SearchListCondition.html"
-          rel="nofollow">@SearchListCondition</a></em>. El ejemplo anterior se puede reescribir como sigue:<br>
+          rel="nofollow">@SearchListCondition</a></em>. Desde <em>v7.4</em> la condición soporta el uso de <em>${this.}</em> para referenciar una propiedad de la entidad misma. El ejemplo anterior se puede reescribir como sigue:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -9481,12 +9481,14 @@ class="sy0">;</span> <span class="co1">// Añadir un filtro a la lista</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@ManyToOne<span class="br0">(</span>fetch=FetchType.<span
-class="me1">LAZY</span><span class="br0">)</span> @SearchListCondition<span
-class="br0">(</span><span class="st0">"${codigo} &lt; 3"</span><span class="br0">)</span>
+</style><pre class="java5"><span class="kw2">private</span> int numero<span
+class="sy0">;</span><br><br>@ManyToOne<span class="br0">(</span>fetch=FetchType.<span
+class="me1">LAZY</span><span class="br0">)</span> <br>@SearchListCondition<span
+class="br0">(</span><span class="st0">"${codigo} &lt; 3"</span><span class="br0">)</span><br>@SearchListCondition<span
+class="br0">(</span><span class="st0">"${codigo} &lt; ${this.numero}", forViews="SearchListCondition"</span><span
+class="br0">)</span> <span class="co1">// ${this.} Nuevo en v7.4</span>
 <span class="kw2">private</span> Comercial comercial<span class="sy0">;</span>
-&nbsp;</pre>
-      Fíjate como no necesitas crear ninguna acción.<br>
+</pre> Fíjate como no necesitas crear ninguna acción.<br>
       <h3 id="toc19"><a name="Vista-Personalizacion+de+referencia-Accion+de+creacion+propia"></a>Acción de creación propia</h3>
       Si no hemos puesto <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoCreate.html"
           rel="nofollow">@NoCreate</a></em> el usuario tendrá un vínculo para poder crear un nuevo objeto. Por defecto muestra la vista por defecto del componente referenciado y permite introducir valores y pulsar un botón para crearlo. Si queremos podemos definir nuestras propias acciones (entre ellas la de crear) en el formulario a donde se va para crear uno nuevo, para esto hemos de tener un controlador llamado como el componente con el sufijo Creation. Si OpenXava ve que existe un controlador así lo usa en vez del de por defecto para permitir crear un nuevo objeto desde una referencia. Por ejemplo, podemos poner en nuestro <em>controladores.xml</em>:<br>
@@ -12511,9 +12513,8 @@ class="st0">"name;"</span><span class="br0">)</span>,
  ...
 <span class="br0">}</span><span class="br0">)</span>
 <span class="kw2">public</span> <span class="kw2">class</span> Warehouse <span
-class="br0">{<span style="color: #505050;"><span style="font-family: arial,helvetica,sans-serif;"></span></span></span></pre>
+class="br0">{</span></pre>
       </div>
-      <p></p>
       <h2 id="toc25"><a name="Vista-Personalizacion+de+coleccion"></a>Personalización de colección</h2>
       Podemos refinar la forma de visualización y comportamiento de una colección <em>@OneToMany/@ManyToMany</em> en la vista usando las siguientes anotaciones:<br>
       <style type="text/css"><!--
@@ -17302,7 +17303,7 @@ class="re2">/&gt;</span></span></pre>
       <h3 id="toc36"><a name="Vista-Personalizacion+de+coleccion-Condicion+para+lista+de+busqueda+(coleccion,+nuevo+en+v4m4)"></a><a
           name="search-list-condition-collection"></a>Condición para lista de búsqueda (colección, <em>nuevo en v4m4</em>)</h3>
       <em>Aplica a colecciones @OneToMany/@ManyToMany</em><br>
-      Puedes especificar una condición para ser aplicada a la lista de elementos disponible para seleccionar. Usando <em>@SearchListCondition</em> puedes definir una condición aplicable a la lista para seccionar, además puedes usarlo junto con <em>forViews</em> y <em>notForViews</em> para definir criterios diferentes para cada vista (1) como muestra el siguiente fragmento de código:<br>
+      Puedes especificar una condición para ser aplicada a la lista de elementos disponible para seleccionar. Usando <em>@SearchListCondition</em> puedes definir una condición aplicable a la lista para seccionar, además puedes usarlo junto con <em>forViews</em> y <em>notForViews</em> para definir criterios diferentes para cada vista (1). Desde la v7.4 la condición soporta el uso de <em>${this.}</em> para referenciar una propiedad de la entidad misma (2), como muestra el siguiente fragmento de código:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -17490,11 +17491,15 @@ class="re2">/&gt;</span></span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@OneToMany<span class="br0">(</span>mappedBy=<span
+</style><pre class="java5"><span class="kw2">private</span> <span class="sy0"></span>int numero<span
+class="sy0">;</span><br><br>@OneToMany<span class="br0">(</span>mappedBy=<span
 class="st0">"comercial"</span><span class="br0">)</span>
 @SearchListCondition<span class="br0">(</span>value=<span class="st0">"${codigo} &lt; 5"</span>, forViews=<span
 class="st0">"SearchListCondition, SearchListConditionBlank"</span><span
-class="br0">)</span> <span class="co1">// 1</span>
+class="br0">)</span> <span class="co1">// 1</span><br>@SearchListCondition<span
+class="br0">(</span>value=<span class="st0">"${codigo} &lt; ${this.numero}"</span>, forViews=<span
+class="st0">"SearchListConditionNumber"</span><span class="br0">)</span> <span
+class="co1">// 2</span>
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
 class="kw46">Collection</span></a><span class="sy0">&lt;</span>Cliente<span
 class="sy0">&gt;</span> clientes<span class="sy0">;</span></pre>
