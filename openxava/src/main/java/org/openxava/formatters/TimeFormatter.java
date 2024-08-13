@@ -58,6 +58,17 @@ public class TimeFormatter implements IFormatter {
 	
 	protected String reformatTime(String string, boolean parsing) {
 		String date = string;
+		System.out.println(date);
+		LocalTime specificTime = LocalTime.of(15, 0);
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("a");
+        String formattedTimePM = specificTime.format(timeFormat);
+        String formattedTimeAM;
+        if (Character.isUpperCase(formattedTimePM.charAt(0))) {
+        	formattedTimeAM = formattedTimePM.replace("P", "A");
+        } else {
+        	formattedTimeAM = formattedTimePM.replace("p", "a"); 
+        }
+        System.out.println(formattedTimePM + " " + formattedTimeAM);
 		if (parsing) {
 			if (XSystem.isJava21orBetter()) {
 				date = date.replace(" PM", "\u202fPM").replace(" AM", "\u202fAM");
@@ -65,12 +76,30 @@ public class TimeFormatter implements IFormatter {
 				return date;
 			}
 			if (XSystem.isJava17orBetter()) return date.replace("PM", "p.\u00a0m.").replace("AM", "a.\u00a0m.");
-			if (XSystem.isJava9orBetter()) return date.replace("PM", "p.m.").replace("AM", "a.m.");
+			if (XSystem.isJava9orBetter()) {
+				return date.replace("PM", formattedTimePM).replace("AM", formattedTimeAM);
+			}
 		} else {
 			if (XSystem.isJava17orBetter()) return date.replace("p.\u00a0m.", "PM").replace("a.\u00a0m.", "AM");
-			if (XSystem.isJava9orBetter()) return date.replace("p.m.", "PM").replace("a.m.", "AM");
+			if (XSystem.isJava9orBetter()) {
+				return date.replace(formattedTimePM, "PM").replace(formattedTimeAM, "AM");
+			}
 		}
 		return date;
 	}
+	
+    private static String detectAmPmMarker(String formattedTime) {
+        if (formattedTime.contains("p. m.")) {
+            return "p. m.";
+        } else if (formattedTime.contains("p.m.")) {
+            return "p.m.";
+        } else if (formattedTime.contains("PM")) {
+            return "PM";
+        } else if (formattedTime.contains("pm")) {
+            return "pm";
+        } else {
+            return "Formato de AM/PM desconocido";
+        }
+    }
 	
 }
