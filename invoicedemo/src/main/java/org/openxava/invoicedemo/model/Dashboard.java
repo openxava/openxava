@@ -2,7 +2,6 @@ package org.openxava.invoicedemo.model;
 
 import java.math.*;
 import java.util.*;
-import java.util.stream.*;
 
 import org.openxava.annotations.*;
 
@@ -43,22 +42,11 @@ public class Dashboard {
 			
 	@Chart
 	public Collection<InvoicedPerYear> getInvoicingEvolution() {
-		// tmr Así o con JPA
-		// TMR ME QUEDÉ POR AQUÍ: ESTO YA FUNCIONA, TENGO QUE DETERMINAR:
-		// TMR  - SI DEBERÍA IMPLEMENTARLO CON JPA Y 
-		// TMR  - SI DEBERÍA MOVER LA LÓGICA A Invoice 
-        Map<Integer, BigDecimal> invoicingPerYear = Invoice.findAllAsStream()
-            .collect(Collectors.groupingBy(
-                Invoice::getYear,
-                TreeMap::new,
-                Collectors.reducing(BigDecimal.ZERO, Invoice::getTotal, BigDecimal::add)
-            )
-        );
-
-        Collection<InvoicedPerYear> result = new ArrayList<>();
-        invoicingPerYear.forEach((year, total) -> result.add(new InvoicedPerYear(year, total)));
-
-        return result;
+		long ini = System.currentTimeMillis(); // tmr
+		Collection<InvoicedPerYear> result = Invoice.invoicedPerYear();
+		long cuesta = System.currentTimeMillis() - ini; // tmr
+		System.out.println("[Dashboard.getInvoicingEvolution] query.cuesta=" + cuesta); // tmr
+		return result;
 	}
 	
 	/* tmr

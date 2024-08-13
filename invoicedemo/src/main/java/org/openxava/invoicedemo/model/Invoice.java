@@ -29,10 +29,37 @@ public class Invoice extends Identifiable {
 	
 	public static BigDecimal sumAllTotals() { // tmr
 		// tmr ¿Implementar con @Calculation o dejar así?
-		// tmr return (BigDecimal) XPersistence.getManager().createQuery("select sum(i.total) from Invoice i").getSingleResult();
+		return (BigDecimal) XPersistence.getManager().createQuery("select sum(i.total) from Invoice i").getSingleResult();
+		/* Cronometré y era igual con 3 facturas, cronometrar con más
 		return findAllAsStream()
 			.map(Invoice::getTotal)
 			.reduce(BigDecimal.ZERO, BigDecimal::add);
+		*/	
+	}
+	
+	public static Collection<InvoicedPerYear> invoicedPerYear() {
+		/* tmr
+        Map<Integer, BigDecimal> invoicingPerYear = Invoice.findAllAsStream()
+            .collect(Collectors.groupingBy(
+                Invoice::getYear,
+                TreeMap::new,
+                Collectors.reducing(BigDecimal.ZERO, Invoice::getTotal, BigDecimal::add)
+            )
+        );
+
+        Collection<InvoicedPerYear> result = new ArrayList<>();
+        invoicingPerYear.forEach((year, total) -> result.add(new InvoicedPerYear(year, total)));
+
+        return result;
+        */
+		// tmr ini
+		String jpql = "select new org.openxava.invoicedemo.model.InvoicedPerYear(i.year, sum(i.total)) " +
+			"from Invoice i " +
+			"group by i.year " +
+			"order by i.year asc";
+		TypedQuery<InvoicedPerYear> query = XPersistence.getManager().createQuery(jpql, InvoicedPerYear.class);
+		return query.getResultList();		
+		// tmr fin
 	}
 	
 	public static Stream<Invoice> findAllAsStream() { // tmr
@@ -58,12 +85,14 @@ public class Invoice extends Identifiable {
 	Customer customer;
 	
 	@ElementCollection @OrderColumn
-	@ListProperties("product.number, product.description, unitPrice, quantity, amount[invoice.sum, invoice.vatPercentage, invoice.vat, invoice.total]")
+	// tmr @ListProperties("product.number, product.description, unitPrice, quantity, amount[invoice.sum, invoice.vatPercentage, invoice.vat, invoice.total]")
+	@ListProperties("product.number, product.description, unitPrice, quantity, amount+[invoice.vatPercentage, invoice.vat, invoice.total]")
 	List<InvoiceDetail> details;
 	
 	@Stereotype("HTML_TEXT")
 	String remarks;
-	
+
+	/* tmr
 	public BigDecimal getSum() {
 		BigDecimal sum = BigDecimal.ZERO;
 		for (InvoiceDetail detail: details) {
@@ -81,5 +110,15 @@ public class Invoice extends Identifiable {
 	public BigDecimal getTotal() {
 		return getSum().add(getVat()).setScale(2, RoundingMode.UP);
 	}
+	*/
+	// tmr ini
+	@ReadOnly @Money
+	@Calculation("sum(details.amount) * vatPercentage / 100")
+	BigDecimal vat;
+	
+	@ReadOnly @Money
+	@Calculation("sum(details.amount) + vat")
+	BigDecimal total;
+	// tmr fin
 	
 }
