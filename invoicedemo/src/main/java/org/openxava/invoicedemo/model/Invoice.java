@@ -2,13 +2,11 @@ package org.openxava.invoicedemo.model;
 
 import java.math.*;
 import java.util.*;
-import java.util.stream.*;
 
 import javax.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
-import org.openxava.jpa.*;
 import org.openxava.model.*;
 
 import lombok.*;
@@ -22,50 +20,7 @@ import lombok.*;
 )
 @Tab(properties="year, number, date, customer.name, remarks")
 public class Invoice extends Identifiable {
-	
-	public static long size() { // tmr		
-		return (Long) XPersistence.getManager().createQuery("select count(*) from Invoice").getSingleResult();
-	}
-	
-	public static BigDecimal sumAllTotals() { // tmr
-		// tmr ¿Implementar con @Calculation o dejar así?
-		return (BigDecimal) XPersistence.getManager().createQuery("select sum(i.total) from Invoice i").getSingleResult();
-		/* Cronometré y era igual con 3 facturas, cronometrar con más
-		return findAllAsStream()
-			.map(Invoice::getTotal)
-			.reduce(BigDecimal.ZERO, BigDecimal::add);
-		*/	
-	}
-	
-	public static Collection<InvoicedPerYear> invoicedPerYear() {
-		/* tmr
-        Map<Integer, BigDecimal> invoicingPerYear = Invoice.findAllAsStream()
-            .collect(Collectors.groupingBy(
-                Invoice::getYear,
-                TreeMap::new,
-                Collectors.reducing(BigDecimal.ZERO, Invoice::getTotal, BigDecimal::add)
-            )
-        );
-
-        Collection<InvoicedPerYear> result = new ArrayList<>();
-        invoicingPerYear.forEach((year, total) -> result.add(new InvoicedPerYear(year, total)));
-
-        return result;
-        */
-		// tmr ini
-		String jpql = "select new org.openxava.invoicedemo.model.InvoicedPerYear(i.year, sum(i.total)) " +
-			"from Invoice i " +
-			"group by i.year " +
-			"order by i.year asc";
-		TypedQuery<InvoicedPerYear> query = XPersistence.getManager().createQuery(jpql, InvoicedPerYear.class);
-		return query.getResultList();		
-		// tmr fin
-	}
-	
-	public static Stream<Invoice> findAllAsStream() { // tmr
-		return XPersistence.getManager().createQuery("from Invoice i").getResultStream();
-	}
-	
+		
 	@DefaultValueCalculator(CurrentYearCalculator.class)
 	@Column(length=4) @Required
 	int year;
