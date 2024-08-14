@@ -46,6 +46,7 @@ public class LocalDateTimeFormatter extends DateTimeBaseFormatter implements IFo
 			string = Strings.change(string, "-", "/");
 		}
 		string = reformatLocalDateTime(string, true);
+		System.out.println(string);
 		DateTimeFormatter [] dateTimeFormats = getLocalDateTimeFormats();
 		for (int i=0; i<dateTimeFormats.length; i++) {
 			try {
@@ -77,13 +78,51 @@ public class LocalDateTimeFormatter extends DateTimeBaseFormatter implements IFo
 			
 	private String reformatLocalDateTime(String string, boolean parsing) {
 		String date = string;
+		System.out.println("LocalDateTime2"); 
+		LocalTime specificTime = LocalTime.of(15, 0);
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("a");
+        String formattedTimePM = specificTime.format(timeFormat);
+        String formattedTimeAM;
+        if (Character.isUpperCase(formattedTimePM.charAt(0))) {
+        	formattedTimeAM = formattedTimePM.replace("P", "A");
+        } else {
+        	formattedTimeAM = formattedTimePM.replace("p", "a"); 
+        }
+        System.out.println(formattedTimePM + " " + formattedTimeAM);
+        
+        // PROBAR CON 21, 17 PASS
+        
+        String unicode = toUnicodeString(formattedTimePM);
+        boolean hasNonBreakingSpace = unicode.contains("\\u00A0");
+        System.out.println(unicode);
 		if (parsing) {
 			if (XSystem.isJava17orBetter() && isZhFormat()) return date.replace("PM", "p.\u00a0m.").replace("AM", "a.\u00a0m.");
+			if (!XSystem.isJava17orBetter() && XSystem.isJava9orBetter()) return date.replace("PM", formattedTimePM).replace("AM", formattedTimeAM);
+			/*
+			if (XSystem.isJava17orBetter() && isZhFormat()) return date.replace("PM", "p.\u00a0m.").replace("AM", "a.\u00a0m.");
+			if (XSystem.isJava9orBetter()) {
+				return date.replace("PM", formattedTimePM).replace("AM", formattedTimeAM);
+			}
+			*/
 		} else {
 			if (XSystem.isJava17orBetter()) return date.replace("p.\u00a0m.", "PM").replace("a.\u00a0m.", "AM");
-			if (XSystem.isJava9orBetter()) return date.replace("p.m.", "PM").replace("a.m.", "AM");
+			if (!XSystem.isJava17orBetter() && XSystem.isJava9orBetter()) return date.replace(formattedTimePM, "PM").replace(formattedTimeAM, "AM");
+			/*
+			if (XSystem.isJava17orBetter()) return date.replace("p.\u00a0m.", "PM").replace("a.\u00a0m.", "AM");
+			//if (XSystem.isJava9orBetter()) return date.replace("p.m.", "PM").replace("a.m.", "AM");
+			if (XSystem.isJava9orBetter()) {
+				return date.replace(formattedTimePM, "PM").replace(formattedTimeAM, "AM");
+			}*/
 		}
 		return date;
 	}
+	
+    private static String toUnicodeString(String text) {
+        StringBuilder unicodeBuilder = new StringBuilder();
+        for (char c : text.toCharArray()) {
+            unicodeBuilder.append(String.format("\\u%04X", (int) c));
+        }
+        return unicodeBuilder.toString();
+    }
 	
 }

@@ -58,7 +58,7 @@ public class TimeFormatter implements IFormatter {
 	
 	protected String reformatTime(String string, boolean parsing) {
 		String date = string;
-		System.out.println(date);
+		//System.out.println(date);
 		LocalTime specificTime = LocalTime.of(15, 0);
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("a");
         String formattedTimePM = specificTime.format(timeFormat);
@@ -66,10 +66,23 @@ public class TimeFormatter implements IFormatter {
         if (Character.isUpperCase(formattedTimePM.charAt(0))) {
         	formattedTimeAM = formattedTimePM.replace("P", "A");
         } else {
-        	formattedTimeAM = formattedTimePM.replace("p", "a"); 
+        	formattedTimeAM = formattedTimePM.replace("\u0070", "\u0061"); 
         }
-        System.out.println(formattedTimePM + " " + formattedTimeAM);
+        //System.out.println(formattedTimePM + " " + formattedTimeAM);
+        
+        
+        //\u0070 p
+        //\u0061 a
+        //\u002E .
+        //\u006D m
+        //\u00A0 java 17 space
+        String unicode = toUnicodeString(formattedTimePM);
+        boolean hasNonBreakingSpace = unicode.contains("\\u00A0");
+        //System.out.println(unicode);
 		if (parsing) {
+			if (hasNonBreakingSpace) return date.replace("PM", "p.\u00a0m.").replace("AM", "a.\u00a0m.");
+			if (XSystem.isJava9orBetter()) return date.replace("PM", formattedTimePM).replace("AM", formattedTimeAM);
+			/*
 			if (XSystem.isJava21orBetter()) {
 				date = date.replace(" PM", "\u202fPM").replace(" AM", "\u202fAM");
 				date = date.replace("PM ", "PM\u202f").replace("AM ", "AM\u202f");
@@ -78,28 +91,24 @@ public class TimeFormatter implements IFormatter {
 			if (XSystem.isJava17orBetter()) return date.replace("PM", "p.\u00a0m.").replace("AM", "a.\u00a0m.");
 			if (XSystem.isJava9orBetter()) {
 				return date.replace("PM", formattedTimePM).replace("AM", formattedTimeAM);
-			}
+			}*/
 		} else {
+			if (XSystem.isJava9orBetter()) return date.replace(formattedTimePM, "PM").replace(formattedTimeAM, "AM");
+			/*
 			if (XSystem.isJava17orBetter()) return date.replace("p.\u00a0m.", "PM").replace("a.\u00a0m.", "AM");
 			if (XSystem.isJava9orBetter()) {
 				return date.replace(formattedTimePM, "PM").replace(formattedTimeAM, "AM");
-			}
+			}*/
 		}
 		return date;
 	}
 	
-    private static String detectAmPmMarker(String formattedTime) {
-        if (formattedTime.contains("p. m.")) {
-            return "p. m.";
-        } else if (formattedTime.contains("p.m.")) {
-            return "p.m.";
-        } else if (formattedTime.contains("PM")) {
-            return "PM";
-        } else if (formattedTime.contains("pm")) {
-            return "pm";
-        } else {
-            return "Formato de AM/PM desconocido";
+    private static String toUnicodeString(String text) {
+        StringBuilder unicodeBuilder = new StringBuilder();
+        for (char c : text.toCharArray()) {
+            unicodeBuilder.append(String.format("\\u%04X", (int) c));
         }
+        return unicodeBuilder.toString();
     }
 	
 }
