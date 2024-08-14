@@ -58,7 +58,6 @@ public class TimeFormatter implements IFormatter {
 	
 	protected String reformatTime(String string, boolean parsing) {
 		String date = string;
-		//System.out.println(date);
 		LocalTime specificTime = LocalTime.of(15, 0);
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("a");
         String formattedTimePM = specificTime.format(timeFormat);
@@ -68,37 +67,13 @@ public class TimeFormatter implements IFormatter {
         } else {
         	formattedTimeAM = formattedTimePM.replace("\u0070", "\u0061"); 
         }
-        //System.out.println(formattedTimePM + " " + formattedTimeAM);
-        
-        
-        //\u0070 p
-        //\u0061 a
-        //\u002E .
-        //\u006D m
-        //\u00A0 java 17 space
         String unicode = toUnicodeString(formattedTimePM);
         boolean hasNonBreakingSpace = unicode.contains("\\u00A0");
-        //System.out.println(unicode);
 		if (parsing) {
 			if (hasNonBreakingSpace) return date.replace("PM", "p.\u00a0m.").replace("AM", "a.\u00a0m.");
 			if (XSystem.isJava9orBetter()) return date.replace("PM", formattedTimePM).replace("AM", formattedTimeAM);
-			/*
-			if (XSystem.isJava21orBetter()) {
-				date = date.replace(" PM", "\u202fPM").replace(" AM", "\u202fAM");
-				date = date.replace("PM ", "PM\u202f").replace("AM ", "AM\u202f");
-				return date;
-			}
-			if (XSystem.isJava17orBetter()) return date.replace("PM", "p.\u00a0m.").replace("AM", "a.\u00a0m.");
-			if (XSystem.isJava9orBetter()) {
-				return date.replace("PM", formattedTimePM).replace("AM", formattedTimeAM);
-			}*/
 		} else {
 			if (XSystem.isJava9orBetter()) return date.replace(formattedTimePM, "PM").replace(formattedTimeAM, "AM");
-			/*
-			if (XSystem.isJava17orBetter()) return date.replace("p.\u00a0m.", "PM").replace("a.\u00a0m.", "AM");
-			if (XSystem.isJava9orBetter()) {
-				return date.replace(formattedTimePM, "PM").replace(formattedTimeAM, "AM");
-			}*/
 		}
 		return date;
 	}
