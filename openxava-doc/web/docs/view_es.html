@@ -8033,7 +8033,7 @@ class="co1">// 18 Nuevo en v<span style="color: #505050;">7.4</span></span>
             rel="nofollow">OX</a>): <em>(Nuevo en v5.0)</em> La referencia se mostrará contraída para las vistas indicadas. Visualmente significa que el marco que rodea a la vista de la referencia se iniciará cerrado. Más tarde el usuario podrá establecer sus preferencias haciendo clic en el icono de expansión.</li>
         <li><strong><a class="wiki_link" href="#escoger-tab-para-accion-de-busqueda-referencias">@SearchListTab</a></strong> (<a
             class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/SearchListTab.html"
-            rel="nofollow">OX</a>): <em>(Nuevo en v7.4)</em> Si omitimos esta anotación, al realizar una búsqueda se usará la vista por defecto del tab. </li>
+            rel="nofollow">OX</a>): <em>(Nuevo en v7.4)</em> Definimos el tab a mostrar cuando se hace una busqueda. Si omitimos esta anotación, al realizar una búsqueda se mostrará el tab por defecto.</li>
       </ol>
       Si no usamos ninguna de estas anotaciones OpenXava dibuja la referencia usando su vista por defecto. Por ejemplo si tenemos una referencia así:<br>
       <style type="text/css"><!--
@@ -12078,7 +12078,7 @@ class="br0">)</span><span class="sy0">;</span>
       La acción implementa <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/IOnChangePropertyAction.html"
           rel="nofollow">IOnChangePropertyAction</a></em>, mediante <em>OnChangeSearchAction</em> (1), aunque es una referencia. Recibe el cambio de la propiedad clave de la referencia; en este caso <em>subfamilia.codigo</em>.<br>
       Este caso es un ejemplo de refinamiento del comportamiento de la búsqueda al cambiar, porque extiende de <em>OnChangeSearchAction</em>, que es la acción por defecto para buscar, y llama a <em>super.execute()</em>. También es posible hacer una acción al cambiar convencional (extendiendo de <em>OnChangePropertyBaseAction</em> por ejemplo) anulando completamente la lógica de búsqueda.<br>
-      <h3 id="toc24"><a name="Vista-Personalizacion+de+referencia-Escoger+un+editor+(referencia,+nuevo+in+v3.1.3)"></a>Escoger un editor (referencia, <em>nuevo in v3.1.3</em>)</h3>
+      <h3 id="toc24"><a name="Vista-Personalizacion+de+referencia-Escoger+un+editor+(referencia,+nuevo+in+v3.1.3)"></a>Escoger un editor (referencia, <em>nuevo en v3.1.3</em>)</h3>
       Un editor visualiza la referencia al usuario y le permite editar su valor. Por defecto, el editor que OpenXava usa para las referencias una vista de detalle dentro de un marco (la forma estándar) o un a combo (si usas <em>@DescriptionsList)</em>, pero puedes especificar tu propio editor para una referencia concreta usando <em><a
           class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Editor.html"
           rel="nofollow">@Editor</a></em>.<br>
@@ -12307,11 +12307,11 @@ class="re2">/&gt;</span></span></pre>
       Esta característica es para cambiar el editor para una referencia concreta en una entidad concreta, o incluso solo en una vista de esa entidad (usando <em>@Editor(forViews=)</em>). Si lo que quieres es cambiar un editor para todas las referencias a cierto tipo de entidad a nivel de aplicación entonces es mejor configurarlo usando el archivo <em>editores.xml</em>.<br>
       Veáse más en la sección de <a class="wiki_link" href="customizing_es.html#Personalizacion-Editores-Editores+para+referencias+%28nuevo+en+v3.1.3%29">Editores para referencias</a>.</div>
     <div class="wiki" style="display: block;">
-      <h3 id="toc25"><a name="escoger-tab-para-accion-de-busqueda-referencias"></a>Escoger tab para la acción de busqueda (<em>reference, nuevo in v7.4</em>)</h3>
+      <h3 id="toc25"><a name="escoger-tab-para-accion-de-busqueda-referencias"></a>Escoger tab para la acción de busqueda (referencia, <em>nuevo en v7.4</em>)</h3>
       <p>Con <em>@SearchListTab</em> podemos indicar que tab mostrar en el dialogo al realizar la acción de busqueda.</p>
       <pre class="java5">@ManyToOne<span class="br0">(</span>fetch=FetchType.<span
 class="me1">LAZY</span><span class="br0">)</span>
-@SearchListTab(forViews="Fellows", value="OnlyName")
+@SearchListTab(value="OnlyName")
 <span class="kw2">private</span> <span class="kw6">Warehouse</span> warehouse<span
 class="sy0">;</span></pre>
       Para esto en el <em>Warehouse</em> debemos tener un tab llamado <em>OnlyName</em>:<br>
@@ -12505,13 +12505,11 @@ class="sy0">;</span></pre>
 -->
 </style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>
-@Tabs<span class="br0">(</span><span class="br0">{</span>
- ...
- @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
+@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
 class="kw116">Tab</span></a><span class="br0">(</span>name=<span class="st0">"OnlyName"</span>, properties=<span
-class="st0">"name;"</span><span class="br0">)</span>,
- ...
-<span class="br0">}</span><span class="br0">)</span>
+class="st0">"id, number, name, year", <span style="color: #030303;">defaultOrder=</span>"${number} desc", <span
+style="color: #030303;">baseCondition=</span>"${year} &gt; ?"</span><span
+class="br0">)</span>
 <span class="kw2">public</span> <span class="kw2">class</span> Warehouse <span
 class="br0">{</span></pre>
       </div>
@@ -13018,7 +13016,7 @@ class="kw46">Collection</span></a> nombreColleccion<span class="sy0">;</span></p
             rel="nofollow">OX</a>): <em>(Nuevo en v7.4)</em> La colección se visualizará como una lista simple de solo lectura, sin acciones, filtros, paginación, ordenación, etc.</li>
         <li><strong><span class="wiki_link_ext"><a class="wiki_link" href="#escoger-tab-para-accion-de-busqueda-colecciones">@SearchListTab</a></span></strong> (<a
             class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/SearchListTab.html"
-            rel="nofollow">OX</a>): <em>(Nuevo en v7.4)</em> Si omitimos esta anotación, al realizar una búsqueda se usará la vista por defecto del tab.</li>
+            rel="nofollow">OX</a>): <em>(Nuevo en v7.4)</em> Definimos el tab a mostrar cuando se hace una busqueda. Si omitimos esta anotación, al realizar una búsqueda se mostrará el tab por defecto.</li>
       </ol>
       <h3 id="toc26"><a name="Vista-Personalizacion+de+coleccion-Propiedades+en+lista"></a>Propiedades en lista</h3>
       <em>Aplica a colecciones @OneToMany/@ManyToMany y @ElementCollection</em><br>
@@ -18821,7 +18819,7 @@ Collection&lt;RotacionPersonal&gt; rotacionPorAnyo;
       <img src="files/view_es270.png" alt="view_es270.png" title="view_es270.png">
       <div class="wiki" style="display: block;">Útil cuando el usuario necesite ver los datos de forma simple y clara, y no tenga que interactuar con ellos, como en un cuadro de mandos, por ejemplo.</div>
       <div class="wiki" style="display: block;">Además, los atributos <em>forViews</em> y <em>notForViews</em> están disponibles en <i>@SimpleList.</i><br>
-        <h3 id="escoger-tab-para-accion-de-busqueda-colecciones">Escoger tab para la acción de busqueda (colecciones<em>, nuevo in v7.4</em>)</h3>
+        <h3 id="escoger-tab-para-accion-de-busqueda-colecciones">Escoger tab para la acción de busqueda (colecciones<em>, nuevo en v7.4</em>)</h3>
         <p>Con <em>@SearchListTab</em> podemos indicar que tab mostrar en el dialogo al realizar la acción de añadir.</p>
         <pre class="java5">@OneToMany(mappedBy="seller")
 @SearchListTab(forViews="SearchListCondition", value="Demo")
@@ -19018,13 +19016,10 @@ class="sy0">;</span></pre>
 -->
 </style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>
-@Tabs<span class="br0">(</span><span class="br0">{</span>
- ...
- @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
+@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
 class="kw116">Tab</span></a><span class="br0">(</span>name=<span class="st0">"Demo"</span>, properties=<span
-class="st0">"name, type, seller.name;"</span><span class="br0">)</span>,
- ...
-<span class="br0">}</span><span class="br0">)</span>
+class="st0">"name, type, seller.name", <span style="color: #030303;">defaultOrder=</span>"${name} desc", <span
+style="color: #030303;">baseCondition=</span>"${type} = ?"</span><span class="br0">)</span>
 <span class="kw2">public</span> <span class="kw2">class</span> Customer <span
 class="br0">{</span></pre>
         </div>

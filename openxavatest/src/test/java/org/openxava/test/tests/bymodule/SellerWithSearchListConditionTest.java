@@ -11,7 +11,7 @@ public class SellerWithSearchListConditionTest extends CustomizeListTestBase {
 		super(testName, "SellerSearchListCondition");		
 	}
 	
-	public void testSearchListCondition_moveColumns_searchListTab() throws Exception {
+	public void testSearchListCondition_moveColumns_searchListTabInCollection() throws Exception {
 		changeModule("SellerSearchListCondition");
 		execute("List.viewDetail", "row=0");
 		execute("Reference.search", "keyProperty=level.id");

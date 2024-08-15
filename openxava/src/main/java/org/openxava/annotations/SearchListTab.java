@@ -3,12 +3,13 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * Name of the tab used to display when searching on a reference or collection <p>
+ * Name of the tab used to display the list data in the dialog 
+ * when searching on a reference or collection <p>
  * 
  * Applies to references and collections. <p>
  * 
- * If you omit this annotation, then the default view of the referenced object 
- * is used. With this attribute you can indicate that it uses another view.<br>
+ * If you omit this annotation, then the default tab will be displayed. 
+ * With this attribute you can indicate that it uses another tab.<br>
  * Example:
  * <pre>
  * &nbsp;@OneToMany(mappedBy="seller")
@@ -21,6 +22,7 @@ import java.lang.annotation.*;
  * &nbsp;private Warehouse warehouse;
  * </pre>
  * 
+ * @since v7.4
  * @author Chungyen Tsai
  */
 
@@ -52,7 +54,7 @@ public @interface SearchListTab {
 	String notForViews() default "";
 	
 	/**
-	 * Name of a view of present in the referenced object. 
+	 * Name of a tab used to display the list. 
 	 */
 	String value();
 	
