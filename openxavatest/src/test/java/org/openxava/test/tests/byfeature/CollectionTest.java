@@ -48,9 +48,15 @@ public class CollectionTest extends WebDriverTestBase {
 		List<WebElement> menuIcons;
 		List<WebElement> menu;
 		execute("List.viewDetail", "row=0");
-		menuIcons = getDriver().findElements(By.id("xava_popup_menu_icon"));
+		menuIcons = getDriver().findElements(By.className("xava_popup_menu_icon"));
 		assertTrue(menuIcons.size() == 6);
-		menu = getDriver().findElements(By.id("xava_popup_menu"));
+		menu = getDriver().findElements(By.className("ox-popup-menu"));
+		assertTrue(menu.get(3).getAttribute("class").contains("ox-display-none"));
+		menuIcons.get(3).click();
+		Thread.sleep(100);
+		assertFalse(menu.get(3).getAttribute("class").contains("ox-display-none"));
+		menuIcons.get(3).click();
+		Thread.sleep(100);
 		assertTrue(menu.get(3).getAttribute("class").contains("ox-display-none"));
 		menuIcons.get(3).click();
 		Thread.sleep(100);
@@ -59,22 +65,22 @@ public class CollectionTest extends WebDriverTestBase {
 		menu.get(3).findElements(By.tagName("a")).get(3).click();
 		wait(getDriver());
 		assertEquals("TWO ", getDriver().findElements(By.cssSelector(".ox_openxavatest_Carrier__tipable.ox_openxavatest_Carrier__fellowCarriersCalculated_col1")).get(0).getText());
-		menuIcons = getDriver().findElements(By.id("xava_popup_menu_icon"));
+		menuIcons = getDriver().findElements(By.className("xava_popup_menu_icon"));
 		menuIcons.get(3).click();
-		menu = getDriver().findElements(By.id("xava_popup_menu"));
+		menu = getDriver().findElements(By.className("ox-popup-menu"));
 		menu.get(3).findElements(By.tagName("a")).get(3).click();
 		
 		goModule("Invoice");
-		menuIcons = getDriver().findElements(By.id("xava_popup_menu_icon"));
+		menuIcons = getDriver().findElements(By.className("xava_popup_menu_icon"));
 		assertTrue(menuIcons.isEmpty());
 		execute("List.viewDetail", "row=0");
 		execute("Sections.change", "activeSection=3");
-		menuIcons = getDriver().findElements(By.id("xava_popup_menu_icon"));
+		menuIcons = getDriver().findElements(By.className("xava_popup_menu_icon"));
 		assertTrue(menuIcons.isEmpty());
 		execute("Sections.change", "activeSection=1");
-		menuIcons = getDriver().findElements(By.id("xava_popup_menu_icon"));
+		menuIcons = getDriver().findElements(By.className("xava_popup_menu_icon"));
 		menuIcons.get(0).click();
-		menu = getDriver().findElements(By.id("xava_popup_menu"));
+		menu = getDriver().findElements(By.className("ox-popup-menu"));
 		assertTrue(menu.get(0).findElements(By.tagName("li")).size() == 3);
 		
 		String mainWindow = getDriver().getWindowHandle();

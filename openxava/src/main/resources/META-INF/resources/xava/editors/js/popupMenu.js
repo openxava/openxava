@@ -1,12 +1,10 @@
-if (listEditor == null) var listEditor = {};
-
 openxava.addEditorInitFunction(function() {
     $('.xava_popup_menu_icon').each(function() {
         var popUpMenuIcon = $(this);
-        var popUpMenu = popUpMenuIcon.next('#xava_popup_menu');
+        var popUpMenu = popUpMenuIcon.next('.ox-popup-menu');
 
         popUpMenuIcon.on('click', function(event) {
-            popUpMenu.removeClass("ox-display-none");
+            popUpMenu.toggleClass("ox-display-none");
             var buttonOffset = popUpMenuIcon.offset();
 			var buttonRect = popUpMenuIcon.get(0).getBoundingClientRect();
             var positionPopup = popUpMenu.get(0).getBoundingClientRect();
