@@ -65,11 +65,12 @@ public class TimeFormatter implements IFormatter {
         if (Character.isUpperCase(formattedTimePM.charAt(0))) {
         	formattedTimeAM = formattedTimePM.replace("P", "A");
         } else {
-        	formattedTimeAM = formattedTimePM.replace("\u0070", "\u0061"); 
+        	//formattedTimeAM = formattedTimePM.replace("\u0070", "\u0061");
+        	formattedTimeAM = formattedTimePM.replace("p", "a"); 
         }
-        String unicode = toUnicodeString(formattedTimePM);
-        boolean hasNonBreakingSpace = unicode.contains("\\u00A0");
 		if (parsing) {
+	        String unicode = toUnicodeString(formattedTimePM);
+	        boolean hasNonBreakingSpace = unicode.contains("\\u00A0");
 			if (hasNonBreakingSpace) return date.replace("PM", "p.\u00a0m.").replace("AM", "a.\u00a0m.");
 			if (XSystem.isJava9orBetter()) return date.replace("PM", formattedTimePM).replace("AM", formattedTimeAM);
 		} else {
