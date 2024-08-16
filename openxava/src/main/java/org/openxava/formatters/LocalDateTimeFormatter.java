@@ -77,11 +77,24 @@ public class LocalDateTimeFormatter extends DateTimeBaseFormatter implements IFo
 			
 	private String reformatLocalDateTime(String string, boolean parsing) {
 		String date = string;
+		LocalTime specificTime = LocalTime.of(15, 0);
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("a");
+        String formattedTimePM = specificTime.format(timeFormat);
+        String formattedTimeAM;
+        if (Character.isUpperCase(formattedTimePM.charAt(0))) {
+        	formattedTimeAM = formattedTimePM.replace("P", "A");
+        } else {
+        	formattedTimeAM = formattedTimePM.replace("p", "a"); 
+        }
 		if (parsing) {
 			if (XSystem.isJava17orBetter() && isZhFormat()) return date.replace("PM", "p.\u00a0m.").replace("AM", "a.\u00a0m.");
+			if (!XSystem.isJava17orBetter() && XSystem.isJava9orBetter()) return date.replace("PM", formattedTimePM).replace("AM", formattedTimeAM);
 		} else {
-			if (XSystem.isJava17orBetter()) return date.replace("p.\u00a0m.", "PM").replace("a.\u00a0m.", "AM");
-			if (XSystem.isJava9orBetter()) return date.replace("p.m.", "PM").replace("a.m.", "AM");
+			if (XSystem.isJava17orBetter()) {
+				return date.replace("p.\u00a0m.", "PM").replace("a.\u00a0m.", "AM");
+			} else if (XSystem.isJava9orBetter()) {
+				return date.replace(formattedTimePM, "PM").replace(formattedTimeAM, "AM");
+			}
 		}
 		return date;
 	}
