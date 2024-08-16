@@ -61,6 +61,7 @@ public class Carrier {
 	@ReferenceView("KeyInGroup")
 	@Action("WarehouseReference.createNewNoDialog") 
 	@DescriptionsList(forViews="CollectionsTogether", descriptionProperties="name")
+	@SearchListTab(forViews="Fellows", value="OnlyName")
 	private Warehouse warehouse;
 
 	@Stereotype("MEMO")

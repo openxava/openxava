@@ -22,8 +22,7 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 	private String tabName = "";
 	private String nextController = "ReferenceSearch"; // If you change the default value change setter and getter doc too
 	
-	
-	public void execute() throws Exception {		
+	public void execute() throws Exception {
 		super.execute();
 		Tab tab = new Tab();
 		tab.setRequest(getTab().getRequest());
@@ -34,8 +33,6 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 		getTab().setModelName(subview.getBaseModelName());
 		MetaReference ref = getMetaReference(metaRootModel, getViewInfo().getMemberName());
 		tab.setTabName(tabName);
-		
-		
 		
 		ModelMapping rootMapping = null;
 		try {
@@ -72,6 +69,8 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 			MetaReferenceView metaReferenceView
 				= metaView.getMetaReferenceViewFor(ref.getName());
 			if (metaReferenceView != null) {
+				String tabName = metaReferenceView.getTabName();
+				if (tabName != null) getTab().setTabName(tabName);
 				String searchListCondition = metaReferenceView.getSearchListCondition();
 				if (searchListCondition != null) {
 					getTab().setBaseCondition(changeThisPropertyByViewValue(searchListCondition));

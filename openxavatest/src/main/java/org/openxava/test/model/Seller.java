@@ -66,6 +66,7 @@ public class Seller {
 	@RowStyle(style="row-highlight", property="type", value="steady")
 	@SearchListCondition(value="${number} < 5", forViews="SearchListCondition, SearchListConditionBlank")
 	@SearchListCondition(value="${number} = ${this.number}", forViews="SearchListConditionReformatted")
+	@SearchListTab(forViews="SearchListCondition", value="Demo")
 	private Collection<Customer> customers;
 			
 	@ManyToOne(fetch=FetchType.LAZY) @JoinColumn(name="BOSS")

@@ -17,6 +17,7 @@ import org.openxava.test.actions.*;
 	filter=org.openxava.test.filters.LimitZoneFilter.class,
 	baseCondition="${zoneNumber} <= ?"
 )
+@Tab(name="OnlyName", properties="name")
 @Views({
 	@View (name="KeyInGroup", members="key [zoneNumber, number]; name"),
 	@View (name="WithOnChangeZone"),

@@ -23,8 +23,7 @@ public class GoAddElementsToCollectionAction extends CollectionElementViewBaseAc
 	private String collectionViewObject;
 	private String nextController = "AddToCollection"; // If you change the default value change setter and getter doc too
 	
-	
-	public void execute() throws Exception {		
+	public void execute() throws Exception {
 		Tab tab = new Tab();
 		tab.setRequest(getTab().getRequest());
 		tab.setModelName(getCollectionElementView().getModelName());
@@ -35,9 +34,10 @@ public class GoAddElementsToCollectionAction extends CollectionElementViewBaseAc
 			if (metaView != null) {
 				MetaCollectionView collectionView =
 					metaView.getMetaCollectionView(collection.getName()); 
-				if (collectionView != null &&
-						collectionView.getSearchListCondition() != null) {
-					tab.setBaseCondition(changeThisPropertyByViewValue(collectionView.getSearchListCondition()));
+				if (collectionView != null) {
+					String tabName = collectionView.getTabName();
+					if (tabName != null) tab.setTabName(tabName);
+					if (collectionView.getSearchListCondition() != null) tab.setBaseCondition(changeThisPropertyByViewValue(collectionView.getSearchListCondition()));
 				}
 			}
 		}
