@@ -2631,6 +2631,14 @@ public class AnnotatedClassParser implements IComponentParser {
 	}
 		
 	private static Collection<String> getManagedClassPackages() {
+		// tmr ini
+		long ini = System.currentTimeMillis();
+		Package [] packs = Package.getPackages();
+		long cuesta = System.currentTimeMillis() - ini;
+		System.out.println("[AnnotatedClassParser.getManagedClassPackages] cuesta=" + cuesta); // tmr
+		System.out.println("[AnnotatedClassParser.getManagedClassPackages] packs=" + Arrays.toString(packs) ); // tmr
+		System.out.println("[AnnotatedClassParser.getManagedClassPackages] packs.length=" + packs.length); // tmr		
+		// tmr fin
 		if (managedClassPackages == null) {
 			managedClassPackages = new HashSet<String>();			
 			for (String className: getManagedClassNames()) {
@@ -2647,6 +2655,22 @@ public class AnnotatedClassParser implements IComponentParser {
 				}
 			}
 		}
+		// tmr ini
+		// TMR ME QUEDÉ POR AQUÍ: EL OBJETIVO ES OBTENER LOS PAQUETES HERMANOS DE LOS PAQUETE MODEL PARA
+		// TMR   PODER PONER Dashboard EN EL PAQUETE dashboards EN invoicedemo
+		// TMR TENER EN CUENTA:
+		// TMR 1. HE DE QUITAR PAQUETES EXTRA, COMO java.util Y org.openxava.web.editors
+		// TMR 2. HE DE HACERLO EN UN MÉTODO APARTE, Y LLAMARLO DESDE getClassNameIfExists() AL FINAL
+		// TMR 3. HE DE PONERLO EN UN TEST DE openxavatest. QUIZAS SACANDO StaffDashboard DE model, EN dashboards
+		// TMR 4. SI NO LO CONSIGO SIEMPRE PUEDO USAR CLASES ANIDADAS
+		// TMR 5. PONERLO COMO CARACTERÍSTICA EXTRA Y AÑADIRLO A LA DOC
+		Set<String> parentPackages = new HashSet<>();
+		for (String pack: managedClassPackages) {
+			parentPackages.add(Strings.noLastToken(pack, "."));
+		}
+		System.out.println("[AnnotatedClassParser.getManagedClassPackages] parentPackages=" + parentPackages); // tmr
+		// tmr fin
+		
 		return managedClassPackages;
 	}
 
