@@ -22,7 +22,7 @@ import java.lang.annotation.*;
  * &nbsp;private Warehouse warehouse;
  * </pre>
  * 
- * @since v7.4
+ * @since 7.4
  * @author Chungyen Tsai
  */
 
