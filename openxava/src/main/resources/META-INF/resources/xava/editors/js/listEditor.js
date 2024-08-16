@@ -8,10 +8,16 @@ openxava.addEditorInitFunction(function() {
         popUpMenuIcon.on('click', function(event) {
             popUpMenu.removeClass("ox-display-none");
             var buttonOffset = popUpMenuIcon.offset();
+			var buttonRect = popUpMenuIcon.get(0).getBoundingClientRect();
+            var positionPopup = popUpMenu.get(0).getBoundingClientRect();
+			var left = buttonRect.left; 
+			if (buttonRect.left + positionPopup.width > window.innerWidth) {
+				left -= (positionPopup.width - buttonRect.width);
+			}
             popUpMenu.css({
                 top: buttonOffset.top + popUpMenuIcon.outerHeight(),
-                left: buttonOffset.left
-            });
+                left: left 
+            });            
         });
 		
 		if (popUpMenu) {
@@ -27,8 +33,6 @@ openxava.addEditorInitFunction(function() {
                 popUpMenu.addClass("ox-display-none");
             }
         });
-    });
-	
-	
+    });	
 	
 });
