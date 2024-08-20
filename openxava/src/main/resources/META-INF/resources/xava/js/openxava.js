@@ -109,8 +109,35 @@ openxava.refreshPage = function(result) {
 			openxava.disableElements(result);
 		}
 		else if (result.hideDialog) {
-			openxava.closeDialog(result); 
+			console.log("hide dialog");
+			function sleep(ms) {
+				return new Promise(resolve => setTimeout(resolve, ms));
+			}
+async function executeWithDelay(result) {
+    console.log('Inicio de la ejecución');
+	for (let i = 0; i < 3; i++) {
+		await sleep(2000);
+		openxava.closeDialog(result);
+	}
+    console.log('Ejecución retrasada por 2 segundos');
+}
+			if (Math.abs(openxava.dialogLevel - result.dialogLevel) > 1) {
+				openxava.closeDialog(result);
+				executeWithDelay(result);
+
+				//closeDialogMultipleTimes(result, openxava.dialogLevel - result.dialogLevel);
+			} else {
+				openxava.closeDialog(result); 
+			}
 		}
+		/*
+		if ((openxava.dialogLevel - result.dialogLevel) === 1){
+			openxava.dialogLevel = result.dialogLevel;
+		} else if ((openxava.dialogLevel - result.dialogLevel) > 1 ){
+			openxava.dialogLevel = openxava.dialogLevel-1;
+		} else {
+			openxava.dialogLevel = result.dialogLevel;
+		}*/
 		openxava.dialogLevel = result.dialogLevel;
 		var dialog;
 		if (result.showDialog || result.resizeDialog) { 
@@ -486,6 +513,8 @@ openxava.disableScrolls = function(result, rootId, type) {
 }
 
 openxava.closeDialog = function(result) {
+	console.log("closeDialog");
+	console.log(result);
 	var dialog = openxava.getDialog(result.application, result.module);
 	dialog.attr("application", ""); 
 	dialog.attr("module", "");
@@ -494,6 +523,8 @@ openxava.closeDialog = function(result) {
 }
 
 openxava.onCloseDialog = function(event) {  
+console.log("onCloseDialog");
+console.log($(event.target));
 	var dialog = $(event.target); 
 	var application = dialog.attr("application");
 	if (application && application != "") { 
