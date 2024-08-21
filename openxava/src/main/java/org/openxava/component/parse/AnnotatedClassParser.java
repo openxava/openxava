@@ -1227,6 +1227,9 @@ public class AnnotatedClassParser implements IComponentParser {
 		if (element.isAnnotationPresent(SaveActions.class)) {
 			notApply(property.getName(), SaveActions.class, "collections");
 		}
+		if (element.isAnnotationPresent(NoDefaultActions.class)) {
+			notApply(property.getName(), NoDefaultActions.class, "collections");
+		}
 		if (element.isAnnotationPresent(XOrderBy.class)) {
 			notApply(property.getName(), XOrderBy.class, "collections");
 		}
@@ -1532,6 +1535,14 @@ public class AnnotatedClassParser implements IComponentParser {
 					}
 				}				
 			}			
+			
+			if (element.isAnnotationPresent(NoDefaultActions.class)) {
+				NoDefaultActions action = element.getAnnotation(NoDefaultActions.class);
+				if (isForView(metaView, action.forViews(), action.notForViews())) {
+					collectionView.setDefaultActions(false);
+					mustAddMetaView = true;				
+				}
+			}
 			
 			// SaveAction
 			if (element.isAnnotationPresent(SaveAction.class)) {
@@ -1852,7 +1863,8 @@ public class AnnotatedClassParser implements IComponentParser {
 				ViewAction.class, ViewActions.class, 
 				NewAction.class, NewActions.class,
 				AddAction.class, AddActions.class, 
-				SaveAction.class, SaveActions.class, 
+				SaveAction.class, SaveActions.class,
+				NoDefaultActions.class,
 				HideDetailAction.class, HideDetailActions.class, 
 				RemoveAction.class, RemoveActions.class, 
 				ListAction.class, ListActions.class,

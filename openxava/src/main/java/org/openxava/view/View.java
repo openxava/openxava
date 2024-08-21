@@ -1113,7 +1113,7 @@ public class View implements java.io.Serializable {
 					metaCollectionView.isModifyReference());
 				newView.setViewName(metaCollectionView.getViewName());
 				Collection actionsListNames = metaCollectionView.getActionsListNames();
-				if (!actionsListNames.isEmpty()) {					
+				if (!actionsListNames.isEmpty()) {	
 					Collection actions = new ArrayList(actionsListNames);
 					actions.addAll(newView.getDefaultListActionsForCollections());
 					newView.setActionsNamesList(actions);
@@ -1124,7 +1124,7 @@ public class View implements java.io.Serializable {
 					newView.setSubcontrollersNamesList(subcontroller);
 				}
 				Collection actionsRowNames = metaCollectionView.getActionsRowNames();
-				if (!actionsRowNames.isEmpty()) {					
+				if (!actionsRowNames.isEmpty()) {
 					Collection actions = new ArrayList(actionsRowNames);
 					actions.addAll(newView.getDefaultRowActionsForCollections());
 					newView.setActionsNamesRow(actions);
@@ -1163,7 +1163,7 @@ public class View implements java.io.Serializable {
 
 	private Collection getDefaultListActionsForCollections() {
 		try {
-			if (!isDefaultListActionsForCollectionsIncluded()) return Collections.EMPTY_LIST; 
+			if (!isDefaultListActionsForCollectionsIncluded() || !hasDefaultActions()) return Collections.EMPTY_LIST; 
 			if (isCollectionFromModel()) {
 				if (defaultListActionsForCollectionsFromModel == null) {			
 					defaultListActionsForCollectionsFromModel = createDefaultActionsForCollections("DefaultListActionsForCollections",  true); 
@@ -1185,7 +1185,7 @@ public class View implements java.io.Serializable {
 	
 	private Collection getDefaultRowActionsForCollections() { 
 		try {
-			if (!isDefaultRowActionsForCollectionsIncluded()) return Collections.EMPTY_LIST; 
+			if (!isDefaultRowActionsForCollectionsIncluded() || !hasDefaultActions()) return Collections.EMPTY_LIST;
 			if (isCollectionFromModel()) {
 				if (defaultRowActionsForCollectionsFromModel == null) {			
 					defaultRowActionsForCollectionsFromModel = createDefaultActionsForCollections("DefaultRowActionsForCollections", true);
@@ -7258,6 +7258,12 @@ public class View implements java.io.Serializable {
 		MetaCollectionView metaCollectionView = getMetaView().getMetaCollectionView(getMetaCollection().getName());
 		if (metaCollectionView != null) return !metaCollectionView.isAsAggregate();
 		return getMetaModel() instanceof MetaEntity; 		
+	}
+	
+	private boolean hasDefaultActions() {
+		MetaCollectionView metaCollectionView = getRoot().getMetaView().getMetaCollectionView(getMemberName());
+		if (metaCollectionView != null) return metaCollectionView.hasDefaultActions();
+		return true;
 	}
 
 }
