@@ -3,7 +3,16 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * Allow user to disable 
+ * Available in collections, when using this annotation, 
+ * the actions from the controllers DefaultListActionsForCollections 
+ * and DefaultRowActionsForCollections will not be displayed. <p>
+ * 
+ * Example:
+ * <pre>
+ * &nbsp;@OneToMany
+ * &nbsp;@NoDefaultActions
+ * &nbsp;private Collection<Carrier> carriers;
+ * </pre>
  * 
  * @since 7.4
  * @author Chungyen Tsai
