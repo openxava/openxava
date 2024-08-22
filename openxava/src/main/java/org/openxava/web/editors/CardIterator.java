@@ -47,7 +47,7 @@ public class CardIterator implements Iterator<Card>, Iterable<Card> {
 		el.setHeader(obtainHeader(row)); 
 		el.setSubheader(obtainSubheader(row)); 
 		el.setContent(obtainContent(row));
-		el.setStyle(tab.getStyle(row));
+		el.setStyle(obtainStyle(row));
 		row++;
 		return el;
 	}
@@ -76,6 +76,11 @@ public class CardIterator implements Iterator<Card>, Iterable<Card> {
 			result.append("</b>");
 		}
 		return result.toString();
+	}
+	
+	private String obtainStyle(int row) {
+		String style = tab.getStyle(row);
+		return (style == null) ? "" : " " + style;
 	}
 	
 	private String format(int column, Object value) {
