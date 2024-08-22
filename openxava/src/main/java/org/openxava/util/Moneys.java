@@ -27,7 +27,8 @@ public class Moneys {
 
 	public static String getCurrencySymbol(Locale locale) { 
 		try {
-			return Currency.getInstance(locale).getSymbol(locale); 
+			String currencySymbol = XavaPreferences.getInstance().getCurrencySymbol();
+			return (currencySymbol == null) ? Currency.getInstance(locale).getSymbol(locale) : currencySymbol; 
 		}
 		catch (Exception ex) { // Because locale may not contain the country
 			return "?";
