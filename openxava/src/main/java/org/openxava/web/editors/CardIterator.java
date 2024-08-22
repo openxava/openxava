@@ -46,7 +46,8 @@ public class CardIterator implements Iterator<Card>, Iterable<Card> {
 		Card el = new Card();
 		el.setHeader(obtainHeader(row)); 
 		el.setSubheader(obtainSubheader(row)); 
-		el.setContent(obtainContent(row)); 
+		el.setContent(obtainContent(row));
+		el.setStyle(tab.getStyle(row));
 		row++;
 		return el;
 	}
