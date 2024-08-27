@@ -1163,7 +1163,7 @@ public class View implements java.io.Serializable {
 
 	private Collection getDefaultListActionsForCollections() {
 		try {
-			if (!isDefaultListActionsForCollectionsIncluded() || !hasDefaultActions()) return Collections.EMPTY_LIST; 
+			if (!isDefaultListActionsForCollectionsIncluded() || !isCollectionHasDefaultActions()) return Collections.EMPTY_LIST; 
 			if (isCollectionFromModel()) {
 				if (defaultListActionsForCollectionsFromModel == null) {			
 					defaultListActionsForCollectionsFromModel = createDefaultActionsForCollections("DefaultListActionsForCollections",  true); 
@@ -1185,7 +1185,7 @@ public class View implements java.io.Serializable {
 	
 	private Collection getDefaultRowActionsForCollections() { 
 		try {
-			if (!isDefaultRowActionsForCollectionsIncluded() || !hasDefaultActions()) return Collections.EMPTY_LIST;
+			if (!isDefaultRowActionsForCollectionsIncluded() || !isCollectionHasDefaultActions()) return Collections.EMPTY_LIST;
 			if (isCollectionFromModel()) {
 				if (defaultRowActionsForCollectionsFromModel == null) {			
 					defaultRowActionsForCollectionsFromModel = createDefaultActionsForCollections("DefaultRowActionsForCollections", true);
@@ -7260,7 +7260,7 @@ public class View implements java.io.Serializable {
 		return getMetaModel() instanceof MetaEntity; 		
 	}
 	
-	private boolean hasDefaultActions() {
+	private boolean isCollectionHasDefaultActions() {
 		MetaCollectionView metaCollectionView = getRoot().getMetaView().getMetaCollectionView(getMemberName());
 		if (metaCollectionView != null) return metaCollectionView.hasDefaultActions();
 		return true;
