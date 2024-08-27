@@ -109,7 +109,10 @@ openxava.refreshPage = function(result) {
 			openxava.disableElements(result);
 		}
 		else if (result.hideDialog) {
-			openxava.closeDialog(result); 
+			while (openxava.dialogLevel > result.dialogLevel) {
+				openxava.closeDialog(result); 
+				openxava.dialogLevel--;
+			}
 		}
 		openxava.dialogLevel = result.dialogLevel;
 		var dialog;
