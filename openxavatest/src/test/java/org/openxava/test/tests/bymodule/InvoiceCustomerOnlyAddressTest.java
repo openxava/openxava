@@ -23,6 +23,7 @@ public class InvoiceCustomerOnlyAddressTest extends ModuleTestBase {
 		execute("Reference.clear", "keyProperty=customer.number");
 		execute("ShowCustomer.showRecommendedCustomer");
 		execute("ShowSellerDialog.showSellerDialog");
+		execute("CloseDialog.close");
 		assertValue("customer.address.street", "");
 	}
 		
