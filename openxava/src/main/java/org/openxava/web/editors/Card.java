@@ -9,6 +9,7 @@ public class Card {
 	private String header;
 	private String subheader;
 	private String content;
+	private String style;
 
 	public String getHeader() {
 		return header;
@@ -27,6 +28,12 @@ public class Card {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getStyle() {
+		return style;
+	}
+	public void setStyle(String style) {
+		this.style = style;
 	}
 	
 }

@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- @RowStyle in @Tab(rowStyles=) for list mode works for card list format.
+- New @NoDefaultActions annotation for now show default actions for a specific collection.
 - New @SearchListTab annotation for references and collections to choose the tab for the dialog search list.
 - @SearchListCondition allows the use of ${this.somePropertyDisplayedInView} in the condition.
 - Record count included in automatic PDF reports of list mode and collections.
