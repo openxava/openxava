@@ -27,8 +27,7 @@ public class Moneys {
 
 	public static String getCurrencySymbol(Locale locale) { 
 		try {
-			String currencySymbol = XavaPreferences.getInstance().getCurrencySymbol();
-			return (currencySymbol == null) ? Currency.getInstance(locale).getSymbol(locale) : currencySymbol; 
+			return Currency.getInstance(locale).getSymbol(locale); 
 		}
 		catch (Exception ex) { // Because locale may not contain the country
 			return "?";
@@ -37,8 +36,10 @@ public class Moneys {
 	
 	/** From the JVM locale, not from browser. */
 	public static String getCurrencySymbol() { 
-		return getCurrencySymbol(Locale.getDefault()); // Locale from server, not from browser
+		String currencySymbol = XavaPreferences.getInstance().getCurrencySymbol();
+		return (currencySymbol == null) ? getCurrencySymbol(Locale.getDefault()) : currencySymbol; // Locale from server, not from browser
 	}
+
 	
 	public static boolean isMoneyProperty(MetaProperty property) {
 		if ("MONEY".equals(property.getStereotype())) return true;

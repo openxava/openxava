@@ -33,7 +33,6 @@ public class XavaPreferences {
 	private Level hibernateJavaLoggingLevel;
 	private int pageRowCount;
 	private int defaultLabelFormat = -1;
-	private String currencySymbol;
 
 	private XavaPreferences() {
 	}
@@ -255,6 +254,9 @@ public class XavaPreferences {
 		return pageRowCount;
 	}
 	
+	/**
+	 * @since 7.4
+	 */
 	public String getCurrencySymbol() {
 		return getProperties().getProperty("currencySymbol");
 	}
