@@ -5,6 +5,7 @@ openxava.addEditorInitFunction(function() {
 
         popUpMenuIcon.on('click', function(event) {
             popUpMenu.toggleClass("ox-display-none");
+            if (popUpMenu.hasClass("ox-display-none")) return; 
             var buttonOffset = popUpMenuIcon.offset();
 			var buttonRect = popUpMenuIcon.get(0).getBoundingClientRect();
             var positionPopup = popUpMenu.get(0).getBoundingClientRect();
