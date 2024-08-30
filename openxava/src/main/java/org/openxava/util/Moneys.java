@@ -34,7 +34,7 @@ public class Moneys {
 		}
 	}
 	
-	/** From the JVM locale, not from browser. */
+	/** From currencySymbol property in xava.properties or the JVM locale, not from browser. */
 	public static String getCurrencySymbol() { 
 		String currencySymbol = XavaPreferences.getInstance().getCurrencySymbol();
 		return (currencySymbol == null) ? getCurrencySymbol(Locale.getDefault()) : currencySymbol; // Locale from server, not from browser
