@@ -22,6 +22,7 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 	private String removeActionName;
 	private String removeSelectedActionName;
 	private String deleteSelectedActionName;
+	private boolean defaultActions = true;
 	private String nextActionName;
 	private String previousActionName;
 	private Collection actionsDetailNames;
@@ -38,6 +39,7 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 	private boolean createReference = true;
 	private boolean modifyReference = true; 
 	private boolean asAggregate = false;
+	
 	private String propertiesListNamesAsString;
 	private Collection rowStyles; 
 	private String onSelectElementActionName;
@@ -320,7 +322,13 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 	public void setPreviousActionName(String previousActionName) {
 		this.previousActionName = previousActionName;
 	}
-	
-	
+
+	public boolean hasDefaultActions() {
+		return defaultActions;
+	}
+
+	public void setDefaultActions(boolean defaultActions) {
+		this.defaultActions = defaultActions;
+	}
 
 }

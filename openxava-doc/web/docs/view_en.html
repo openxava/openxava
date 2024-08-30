@@ -108,6 +108,8 @@
             in v7.4)</a><br>
           <a href="#choose-tab-for-search-action-collection">Choose tab for
             search action (collection, new in v7.4)</a></div>
+        <div style="margin-left: 3em;"><a href="#no-default-actions">Hide
+            default list and row actions (new in v7.4)</a></div>
         <div style="margin-left: 2em;"><a href="#transient-properties-ui-controls">Transient
             properties for UI controls</a></div>
         <div style="margin-left: 2em;"><a href="#View-View%20actions">View
@@ -13165,7 +13167,8 @@ class="co1">// 1<span style="color: #505050;">7 New in v7.4</span></span>
 @Collapsed              <span class="co1">// 25 New in v5.0</span>
 @ListSubcontroller      <span class="co1">// 26 New in v5.7<br></span>@Chart                  <span
 class="co1">// 27 New in v7.4<br></span>@SimpleList             <span class="co1">// 28 New in v7.4</span><br>@SearchListTab         <span
-style="color: #666666;"> </span><span class="co1">// 29 New in v7.4<br></span>@OneToMany/@ManyToMany
+style="color: #666666;"> </span><span class="co1">// 29 New in v7.4</span><br>@NoDefaultActions       <span
+class="co1">// 30 New in v7.4<br></span>@OneToMany/@ManyToMany
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
 class="kw46">Collection</span></a> collectionName<span class="sy0">;</span></pre>
       And the next annotations for a <em>@ElementCollection (new in v5.0)</em>:<br>
@@ -13538,6 +13541,11 @@ class="kw46">Collection</span></a> collectionName<span class="sy0">;</span></pre
             rel="nofollow">OX</a>): <em>(New in v7.4)</em> Define the tab to
           display in the list when searching. If you omit this annotation, when
           searching, the default tab will be displayed.</li>
+        <li><strong><span class="wiki_link_ext"><a class="wiki_link" href="#no-default-actions">@NoDefaultActions</a>
+            </span></strong>(<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoDefaultActions.html"
+            rel="nofollow">OX</a>): <em>(New in v7.4)</em> Using this
+          annotation will hide the actions from the <i>DefaultListActionsForCollections</i>
+          and <i>DefaultRowActionsForCollections</i> controllers.</li>
       </ol>
       <h3 id="toc26"><a name="View-Collection customization-Properties in list"></a>Properties
         in list</h3>
@@ -16000,7 +16008,9 @@ class="re2">&gt;</span></span>
         section) but it applies to all collections at once.</div>
       Since v5.9 this feature applies to both persistent and calculated
       collections, before calculated collections were not supported for default
-      list and row actions.<br>
+      list and row actions.</div>
+    <div class="wiki" style="display: block;">Since v7.4, you can use <em><a href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoDefaultActions.html">@NoDefaultActions</a></em>
+      to not display the default list and row actions for a specific collection.<br>
       <h3 id="toc32"><a name="View-Collection customization-Custom detail actions"></a>Custom
         detail actions</h3>
       <em>Applies to @OneToMany/@ManyToMany collections</em><br>
@@ -19717,7 +19727,22 @@ class="st0">"name, type, seller.name", <span style="color: #030303;">defaultOrde
 style="color: #030303;">baseCondition=</span>"${type} = 'R'"</span><span class="br0">)</span>
 <span class="kw2">public</span> <span class="kw2">class</span> Customer <span class="br0">{</span></pre>
           In addition, the <i>forViews</i> and <i>notForViews</i> attributes
-          are available in <i>@SearchListTab</i>. </div>
+          are available in <i>@SearchListTab</i>.</div>
+        <div class="wiki">
+          <h3 id="no-default-actions">Hide default list and row actions <i>(new
+              in v7.4)</i></h3>
+          <p>With <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoDefaultActions.html"><em>@NoDefaultActions</em></a>
+            you can hide actions from the <em>DefaultListActionsForCollections
+            </em>and <em>DefaultRowActionsForCollections </em>controllers.<em></em></p>
+          <pre class="java5">@OneToMany(mappedBy="vendedor")
+@NoDefaultActions
+<span class="kw2">private</span> <span class="kw6">Collection&lt;Carrier&gt;</span> carriers<span
+class="sy0">;</span></pre>
+          <div class="wiki"><img src="files/view_es280.png" alt="view_es270.png"
+              title="view_es270.png"></div>
+          <div class="wiki">In addition, the <i>forViews</i> and <i>notForViews</i>
+            attributes are available in <i>@NoDefaultActions</i>.</div>
+        </div>
       </div>
       <div class="wiki" style="display: block;">
         <h2 id="toc40"><a name="Vista-Propiedades+transitorias+para+controles+graficos"></a></h2>

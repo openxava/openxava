@@ -13,6 +13,7 @@ public class ShowSellerDialogAction extends ViewBaseAction {
 		showDialog();
 		getView().setModelName("Seller");
 		getView().setViewName("SimpleLevelFirst");
+		setControllers("CloseDialog"); 
 	}
 
 }

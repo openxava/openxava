@@ -107,7 +107,9 @@
         <div style="margin-left: 3em;"><a href="#lista-simple">Lista simple
             (nuevo en v7.4)</a></div>
         <div style="margin-left: 3em;"><a href="#escoger-tab-para-accion-de-busqueda-colecciones">Escoger
-            tab para la acción de busqueda (colecciones, nuevo en v7.4)</a><a href="#lista-simple"></a></div>
+            tab para la acción de busqueda (colecciones, nuevo en v7.4)</a></div>
+        <div style="margin-left: 3em;"><a href="#no-default-actions">Ocultar
+            acciones por defecto de lista y fila (nuevo en v7.4)</a></div>
         <div style="margin-left: 2em;"><a href="#Vista-Propiedades+transitorias+para+controles+graficos">Propiedades
             transitorias para controles gráficos</a></div>
         <div style="margin-left: 2em;"><a href="#Vista-Acciones%20de%20la%20vista">Acciones
@@ -13188,7 +13190,8 @@ class="co1">// 17 Nuevo en v7.4</span>
 @Collapsed              <span class="co1">// 25 Nuevo en v5.0</span>
 @ListSubcontroller      <span class="co1">// 26 Nuevo en v5.7</span><br>@Chart                  <span
 class="co1">// 27 Nuevo en v7.4<br></span>@SimpleList             <span class="co1">// 28 Nuevo en v7.4</span><br>@SearchListTab          <span
-style="color: #666666;"></span><span class="co1">// 29 Neuevo en v7.4<br></span>@OneToMany/@ManyToMany
+style="color: #666666;"></span><span class="co1">// 29 Neuevo en v7.4</span><br>@NoDefaultActions       <span
+class="co1">// 30 Neuevo en v7.4<br></span>@OneToMany/@ManyToMany
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
 class="kw46">Collection</span></a> nombreColeccion<span class="sy0">;</span></pre>
       Y las siguientes anotaciones para una <em>@ElementCollection (nuevo en
@@ -13570,6 +13573,11 @@ class="kw46">Collection</span></a> nombreColleccion<span class="sy0">;</span></p
             rel="nofollow">OX</a>): <em>(Nuevo en v7.4)</em> Definimos el tab a
           mostrar en la lista cuando se hace una busqueda. Si omitimos esta
           anotación, al realizar una búsqueda se mostrará el tab por defecto.</li>
+        <li><strong><span class="wiki_link_ext"><a class="wiki_link" href="#no-default-actions">@NoDefaultActions</a></span></strong>
+          (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoDefaultActions.html"
+            rel="nofollow">OX</a>): <em>(Nuevo en v7.4)</em> Usando esta
+          anotación, no se mostrarán las acciones de los controladores <i>DefaultListActionsForCollections</i>
+          y ´<i></i>.</li>
       </ol>
       <h3 id="toc26"><a name="Vista-Personalizacion+de+coleccion-Propiedades+en+lista"></a>Propiedades
         en lista</h3>
@@ -16042,7 +16050,11 @@ class="re2">&gt;</span></span>
       colecciones a la vez.<br>
       A partir de v5.9 esta característica aplica tanto a las colecciones
       calculadas como a las persistentes. Antes las propiedades calculadas no
-      soportaban acciones por defecto para lista y fila.<br>
+      soportaban acciones por defecto para lista y fila.</div>
+    <div class="wiki" style="display: block;">A partir de v7.4 puedes usar <em><a
+          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoDefaultActions.html">@NoDefaultActions</a></em>
+      para que las acciones de lista y fila por defecto no se muestren para una
+      colección concreta.<br>
       <h3 id="toc32"><a name="Vista-Personalizacion+de+coleccion-Acciones+de+detalle+propias"></a>Acciones
         de detalle propias</h3>
       <em>Aplica a colecciones @OneToMany/@ManyToMany</em><br>
@@ -19775,6 +19787,20 @@ style="color: #030303;">baseCondition=</span>"${tipo} = 'R'"</span><span class="
 <span class="kw2">public</span> <span class="kw2">class</span> Cliente <span class="br0">{</span></pre>
           Además, los atributos <em>forViews</em> y <em>notForViews</em> están
           disponibles en <i>@SearchListTab</i>. </div>
+        <div class="wiki">
+          <h3 id="no-default-actions">Ocultar acciones por defecto de lista y
+            fila (<em>nuevo en v7.4</em>)</h3>
+          <p>Con <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoDefaultActions.html"><em>@NoDefaultActions</em></a>
+            podemos ocultar las acciones de los controladores <em>DefaultListActionsForCollections
+              </em>y <em>DefaultRowActionsForCollections.</em></p>
+          <pre class="java5">@OneToMany(mappedBy="vendedor")
+@NoDefaultActions
+<span class="kw2">private</span> <span class="kw6">Collection&lt;Carrier&gt;</span> carriers<span
+class="sy0">;</span></pre>
+        </div>
+        <div class="wiki"><img src="files/view_es280.png" alt="view_es270.png" title="view_es270.png"></div>
+        <div class="wiki">Además, los atributos <em>forViews</em> y <em>notForViews</em>
+          están disponibles en <i>@NoDefaultActions</i>. </div>
       </div>
       <h2 id="toc40"><a name="Vista-Propiedades+transitorias+para+controles+graficos"></a>Propiedades
         transitorias para controles gráficos</h2>

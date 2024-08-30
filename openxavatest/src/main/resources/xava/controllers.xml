@@ -19,6 +19,16 @@
 		That is to say, it is better specify the labels in resources files and not here.		
 	-->	
 	
+	<controller name="ShowCustomer">
+		<action name="showRecommendedCustomer" class="org.openxava.test.actions.ShowCustomerAction"/>
+	</controller>
+	
+	<controller name="CloseDialog">
+		<action name="close" class="org.openxava.test.actions.CloseDialogAction">
+			<set property="quantity" value="2"/>
+		</action>
+	</controller>
+	
 	<controller name="ShowSeller">
 		<action name="show" class="org.openxava.test.actions.ShowSellerAction"/>
 		<action name="goShowSeller" class="org.openxava.actions.ChangeModuleAction">
