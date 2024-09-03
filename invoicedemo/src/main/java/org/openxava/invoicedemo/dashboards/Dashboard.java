@@ -10,8 +10,7 @@ import org.openxava.jpa.*;
 
 /**
  * tmr
- * TMR NO FUNCIONA AL PONERLO EN dashboards. INTENTANDO QUE OPENXAVA LO COJA, SINO OTRA OPCIÓN ES PONERLO
- * TMR EN MODEL CON LAS CLASES ANIDADAS 
+ * TMR ME QUEDE POR AQUÍ: ACABO DE CONSEGUIR QUE FUNCIONE AL PONERLO EN dashboard
  * @since 7.4
  * @author Javier Paniza
  */
