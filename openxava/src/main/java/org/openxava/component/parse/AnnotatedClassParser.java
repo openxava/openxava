@@ -51,6 +51,7 @@ public class AnnotatedClassParser implements IComponentParser {
 	
 	private static Collection<String> managedClassNames; 
 	private static Collection<String> managedClassPackages;
+	private static Collection<String> managedClassSiblingPackages; 
 	private static Map<Class, Collection<Class>> entityFirstLevelSubclasses;
 	private static Map<String, MetaComponent> parsingComponents;
 	
@@ -1155,7 +1156,7 @@ public class AnnotatedClassParser implements IComponentParser {
 		}
 		if (element.isAnnotationPresent(ReferenceViews.class)) {
 			notApply(property.getName(), ReferenceViews.class, "references");
-		}												
+		}
 		if (element.isAnnotationPresent(NoFrame.class)) {
 			notApply(property.getName(), NoFrame.class, "references");
 		}
@@ -1228,6 +1229,9 @@ public class AnnotatedClassParser implements IComponentParser {
 		if (element.isAnnotationPresent(SaveActions.class)) {
 			notApply(property.getName(), SaveActions.class, "collections");
 		}
+		if (element.isAnnotationPresent(NoDefaultActions.class)) {
+			notApply(property.getName(), NoDefaultActions.class, "collections");
+		}
 		if (element.isAnnotationPresent(XOrderBy.class)) {
 			notApply(property.getName(), XOrderBy.class, "collections");
 		}
@@ -1255,6 +1259,12 @@ public class AnnotatedClassParser implements IComponentParser {
 		if (element.isAnnotationPresent(SearchListConditions.class)) {
 			notApply(property.getName(), SearchListConditions.class, "references & collections");
 		}
+		if (element.isAnnotationPresent(SearchListTab.class)) {
+			notApply(property.getName(), SearchListTab.class, "references & collections");
+		}
+		if (element.isAnnotationPresent(SearchListTabs.class)) {
+			notApply(property.getName(), SearchListTabs.class, "references & collections");
+		}	
 		if (element.isAnnotationPresent(Tree.class)) {
 			notApply(property.getName(), Tree.class, "collections");
 		}
@@ -1528,6 +1538,14 @@ public class AnnotatedClassParser implements IComponentParser {
 				}				
 			}			
 			
+			if (element.isAnnotationPresent(NoDefaultActions.class)) {
+				NoDefaultActions action = element.getAnnotation(NoDefaultActions.class);
+				if (isForView(metaView, action.forViews(), action.notForViews())) {
+					collectionView.setDefaultActions(false);
+					mustAddMetaView = true;				
+				}
+			}
+			
 			// SaveAction
 			if (element.isAnnotationPresent(SaveAction.class)) {
 				SaveAction action = element.getAnnotation(SaveAction.class);
@@ -1783,6 +1801,25 @@ public class AnnotatedClassParser implements IComponentParser {
 				}
 			}			
 
+			// SearchListTab
+			if (element.isAnnotationPresent(SearchListTab.class)) {
+				SearchListTab searchListTab = element.getAnnotation(SearchListTab.class);
+				if (isForView(metaView, searchListTab.forViews(), searchListTab.notForViews())) {
+					collectionView.setTabName(searchListTab.value());
+					mustAddMetaView = true;
+				}
+			}			
+			// SearchListTabs
+			if (element.isAnnotationPresent(SearchListTabs.class)) {
+				SearchListTab[] searchListTabs = element.getAnnotation(SearchListTabs.class).value();
+				for (SearchListTab searchListTab : searchListTabs) {
+					if (isForView(metaView, searchListTab.forViews(), searchListTab.notForViews())) {
+						collectionView.setTabName(searchListTab.value());
+						mustAddMetaView = true;
+					}
+				}
+			}
+			
 			// Path
 			if (element.isAnnotationPresent(Tree.class)) {
 				Tree path = element.getAnnotation(Tree.class);
@@ -1828,7 +1865,8 @@ public class AnnotatedClassParser implements IComponentParser {
 				ViewAction.class, ViewActions.class, 
 				NewAction.class, NewActions.class,
 				AddAction.class, AddActions.class, 
-				SaveAction.class, SaveActions.class, 
+				SaveAction.class, SaveActions.class,
+				NoDefaultActions.class,
 				HideDetailAction.class, HideDetailActions.class, 
 				RemoveAction.class, RemoveActions.class, 
 				ListAction.class, ListActions.class,
@@ -2053,7 +2091,7 @@ public class AnnotatedClassParser implements IComponentParser {
 					}
 				}				
 			}			
-		}		
+		}
 				
 		// for View
 		for (Object oMetaView: ref.getMetaModel().getMetaViews()) {
@@ -2267,6 +2305,24 @@ public class AnnotatedClassParser implements IComponentParser {
 						mustAddMetaView = true;
 					}
 				}
+			}
+			
+			//SearchListTab
+			if (element.isAnnotationPresent(SearchListTab.class)) {
+				SearchListTab tabName = element.getAnnotation(SearchListTab.class);
+				if (isForView(metaView, tabName.forViews(), tabName.notForViews())) {
+					referenceView.setTabName(tabName.value());
+					mustAddMetaView = true;				
+				}
+			}
+			if (element.isAnnotationPresent(SearchListTabs.class)) {
+				SearchListTab [] tabNames = element.getAnnotation(SearchListTabs.class).value();				
+				for (SearchListTab tabName: tabNames) {
+					if (isForView(metaView, tabName.forViews(), tabName.notForViews())) {
+						referenceView.setTabName(tabName.value());
+						mustAddMetaView = true;				
+					}
+				}					
 			}
 			
 			// Collapsed
@@ -2618,9 +2674,97 @@ public class AnnotatedClassParser implements IComponentParser {
 			if (className.endsWith(suffix)) return className;
 		}
 		// Maybe it's not a managed entity, but a transient object used for UI generation
-		String className = null;
-		for (String packageName: getManagedClassPackages()) {
-			className = packageName + name;			
+		String className = classNameForPackages(name, getManagedClassPackages()); // From same packages of entities
+		if (className != null) return className;
+		return  classNameForPackages(name, getManagedClassSiblingPackages()); // From sibling packages of entities packages
+	}
+
+	private Collection<String> getManagedClassSiblingPackages() { 
+		if (managedClassSiblingPackages == null) {
+			managedClassSiblingPackages = new HashSet<>();
+			Set<String> parentPackages = new HashSet<>();
+			for (String pack: getManagedClassPackages()) {
+				int lastDotIndex = pack.lastIndexOf('.', pack.length() - 2); 
+	            if (lastDotIndex >= 0) {
+	                parentPackages.add(pack.substring(0, lastDotIndex));
+	            }	
+				
+			}
+			parentPackages.remove("java");
+			parentPackages.remove("org.openxava");
+			parentPackages.remove("org.openxava.web");
+			parentPackages.remove("org.openxava.util");
+			parentPackages.remove("com.openxava.naviox");
+			
+			for (String parentPackage: parentPackages) {
+				Set<String> subpackages = getSubpackages(parentPackage);
+				for (String siblingPackage: subpackages) {
+					managedClassSiblingPackages.add(siblingPackage + "."); 		
+				}
+			}
+
+		}
+		return managedClassSiblingPackages;
+	}
+	
+    private static Set<String> getSubpackages(String packageName) { 
+    	try {
+	        Set<String> subpackages = new HashSet<>();
+	        String packagePath = packageName.replace('.', '/');
+	        Enumeration<URL> resources = Thread.currentThread().getContextClassLoader().getResources(packagePath);
+	        Set<String> processedResources = new HashSet<>();
+	        while (resources.hasMoreElements()) {
+	            URL resource = resources.nextElement();
+	            String [] resourceTokens = resource.getPath().split("/"); 
+	            String simpleName = resourceTokens[resourceTokens.length - 1];
+	            if (processedResources.contains(simpleName)) continue;
+	            processedResources.add(simpleName);
+	            if (resource.getProtocol().equals("jar")) {
+	                String jarPath = resource.getPath().substring(5, resource.getPath().indexOf("!"));
+	                try (JarFile jarFile = new JarFile(jarPath)) {
+	                    Enumeration<JarEntry> entries = jarFile.entries();
+	                    while (entries.hasMoreElements()) {
+	                        JarEntry entry = entries.nextElement();
+	                        String entryName = entry.getName();
+	                        if (entryName.startsWith(packagePath) && entryName.length() > packagePath.length() + 1) {
+	                        	int idx = entryName.indexOf('/', packagePath.length() + 1);
+	                        	if (idx >= 0) {
+		                            String subpackage = entryName.substring(0, idx).replace('/', '.');
+		                            if (!subpackages.contains(subpackage)) {
+		                                subpackages.add(subpackage);
+		                            }
+	                        	}
+	                        }
+	                    }
+	                }
+	            } else if (resource.getProtocol().equals("file")) {
+	                File directory = new File(resource.getFile());	        
+	                if (directory.exists() && directory.isDirectory()) {	                	
+	                	File[] files = directory.listFiles();
+	                	if (files != null) {
+	                        for (File file : files) {
+	                            if (file.isDirectory()) {
+	                                String subpackage = packageName + "." + file.getName();
+	                                subpackages.add(subpackage);
+	                                subpackages.addAll(getSubpackages(subpackage));
+	                            }
+	                        }
+	                    }
+	                }
+	            }
+	        }
+	        return subpackages;
+    	}
+    	catch (Exception ex) {
+    		log.warn(XavaResources.getString("impossible_obtain_sibling_model_packages"), ex);
+    		return Collections.emptySet();
+    	}
+    }
+
+
+	private String classNameForPackages(String simpleClassName, Collection<String> packageNames) { 
+		for (String packageName: packageNames) {
+			String className = packageName + simpleClassName;			
 			try {			
 				Class.forName(className);
 				return className;
@@ -2628,7 +2772,7 @@ public class AnnotatedClassParser implements IComponentParser {
 			catch (ClassNotFoundException ex) {				
 			}
 		}
-		return null; 
+		return null;
 	}
 		
 	private static Collection<String> getManagedClassPackages() {
@@ -2647,94 +2791,9 @@ public class AnnotatedClassParser implements IComponentParser {
 				catch (ClassNotFoundException ex) {				
 				}
 			}
-			
-			// tmr ini
-			// TMR EL OBJETIVO ES OBTENER LOS PAQUETES HERMANOS DE LOS PAQUETE MODEL PARA
-			// TMR   PODER PONER Dashboard EN EL PAQUETE dashboards EN invoicedemo
-			// TMR TENER EN CUENTA:
-			// TMR 2. HE DE HACERLO EN UN MÉTODO APARTE, Y LLAMARLO DESDE getClassNameIfExists() AL FINAL
-			// TMR 3. HE DE PONERLO EN UN TEST DE openxavatest. QUIZAS SACANDO StaffDashboard DE model, EN dashboards
-			// TMR 4. SI NO LO CONSIGO SIEMPRE PUEDO USAR CLASES ANIDADAS
-			// TMR 5. PONERLO COMO CARACTERÍSTICA EXTRA Y AÑADIRLO A LA DOC
-			
-			System.out.println("[AnnotatedClassParser.getManagedClassPackages] managedClassPackages>" + managedClassPackages); // tmr
-			long ini = System.currentTimeMillis(); // tmr
-			Set<String> parentPackages = new HashSet<>();
-			for (String pack: managedClassPackages) {
-				int lastDotIndex = pack.lastIndexOf('.', pack.length() - 2); 
-	            if (lastDotIndex >= 0) {
-	                parentPackages.add(pack.substring(0, lastDotIndex));
-	            }	
-				
-			}
-			parentPackages.remove("org.openxava");
-			parentPackages.remove("org.openxava.web");
-			parentPackages.remove("com.openxava.naviox");
-			
-			for (String parentPackage: parentPackages) {
-				System.out.println("[AnnotatedClassParser.getManagedClassPackages] parentPackage=" + parentPackage); // tmr
-				for (String siblingPackage: getSubpackages(parentPackage)) {
-					System.out.println("[AnnotatedClassParser.getManagedClassPackages] > siblingPackage=" + siblingPackage); // tmr
-					managedClassPackages.add(siblingPackage + "."); 		
-				}
-			}
-			long cuesta = System.currentTimeMillis() - ini; // tmr
-			System.out.println("[AnnotatedClassParser.getManagedClassPackages] cuesta=" + cuesta); // tmr
-			System.out.println("[AnnotatedClassParser.getManagedClassPackages] managedClassPackages<" + managedClassPackages); // tmr
-			// tmr fin
-			
 		}
-		
 		return managedClassPackages;
 	}
-	
-    private static Set<String> getSubpackages(String packageName) { // tmr
-    	try {
-	        Set<String> subpackages = new HashSet<>();
-	        String packagePath = packageName.replace('.', '/');
-	        Enumeration<URL> resources = Thread.currentThread().getContextClassLoader().getResources(packagePath);
-	
-	        while (resources.hasMoreElements()) {
-	            URL resource = resources.nextElement();
-	            if (resource.getProtocol().equals("jar")) {
-	                String jarPath = resource.getPath().substring(5, resource.getPath().indexOf("!"));
-	                try (JarFile jarFile = new JarFile(jarPath)) {
-	                    Enumeration<JarEntry> entries = jarFile.entries();
-	                    while (entries.hasMoreElements()) {
-	                        JarEntry entry = entries.nextElement();
-	                        String entryName = entry.getName();
-	                        if (entryName.startsWith(packagePath) && entryName.length() > packagePath.length() + 1) {
-	                            String subpackage = entryName.substring(0, entryName.indexOf('/', packagePath.length() + 1)).replace('/', '.');
-	                            if (!subpackages.contains(subpackage)) {
-	                                subpackages.add(subpackage);
-	                            }
-	                        }
-	                    }
-	                }
-	            } else if (resource.getProtocol().equals("file")) {
-	                File directory = new File(resource.getFile());
-	                if (directory.exists() && directory.isDirectory()) {
-	                    File[] files = directory.listFiles();
-	                    if (files != null) {
-	                        for (File file : files) {
-	                            if (file.isDirectory()) {
-	                                String subpackage = packageName + "." + file.getName();
-	                                subpackages.add(subpackage);
-	                                subpackages.addAll(getSubpackages(subpackage));
-	                            }
-	                        }
-	                    }
-	                }
-	            }
-	        }
-	        return subpackages;
-    	}
-    	catch (Exception ex) {
-    		ex.printStackTrace(); // tmr Cambiar por un log
-    		return Collections.emptySet();
-    	}
-    }
-	
 
 
 	/**
@@ -2902,7 +2961,5 @@ public class AnnotatedClassParser implements IComponentParser {
 			return true;
 		}				
 	}
-
-	
 		
 }
