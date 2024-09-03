@@ -48,7 +48,7 @@ public class Dashboard {
 			
 	@Chart
 	public Collection<InvoicedPerYear> getInvoicingEvolution() {
-		String jpql = "select new org.openxava.invoicedemo.model.InvoicedPerYear(i.year, sum(i.total), sum(i.vat)) " +
+		String jpql = "select new org.openxava.invoicedemo.dashboards.InvoicedPerYear(i.year, sum(i.total), sum(i.vat)) " +
 			"from Invoice i " +
 			"group by i.year " +
 			"order by i.year asc";
@@ -58,7 +58,7 @@ public class Dashboard {
 	
 	@SimpleList 
 	public Collection<InvoicedPerCustomer> getBetterCustomers() {
-		String jpql = "select new org.openxava.invoicedemo.model.InvoicedPerCustomer(i.customer.name, sum(i.total) as amount) " +
+		String jpql = "select new org.openxava.invoicedemo.dashboards.InvoicedPerCustomer(i.customer.name, sum(i.total) as amount) " +
 			"from Invoice i " +
 			"group by i.customer.number, amount " +
 			"order by amount desc";

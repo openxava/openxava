@@ -2647,55 +2647,53 @@ public class AnnotatedClassParser implements IComponentParser {
 				catch (ClassNotFoundException ex) {				
 				}
 			}
-		}
-		// tmr ini
-		// TMR EL OBJETIVO ES OBTENER LOS PAQUETES HERMANOS DE LOS PAQUETE MODEL PARA
-		// TMR   PODER PONER Dashboard EN EL PAQUETE dashboards EN invoicedemo
-		// TMR TENER EN CUENTA:
-		// TMR 2. HE DE HACERLO EN UN MÉTODO APARTE, Y LLAMARLO DESDE getClassNameIfExists() AL FINAL
-		// TMR 3. HE DE PONERLO EN UN TEST DE openxavatest. QUIZAS SACANDO StaffDashboard DE model, EN dashboards
-		// TMR 4. SI NO LO CONSIGO SIEMPRE PUEDO USAR CLASES ANIDADAS
-		// TMR 5. PONERLO COMO CARACTERÍSTICA EXTRA Y AÑADIRLO A LA DOC
-		
-		System.out.println("[AnnotatedClassParser.getManagedClassPackages] managedClassPackages>" + managedClassPackages); // tmr
-		long ini = System.currentTimeMillis(); // tmr
-		Set<String> parentPackages = new HashSet<>();
-		for (String pack: managedClassPackages) {
-			int lastDotIndex = pack.lastIndexOf('.', pack.length() - 2); 
-            if (lastDotIndex >= 0) {
-                parentPackages.add(pack.substring(0, lastDotIndex + 1));
-            }	
 			
-		}
-		parentPackages.remove("org.openxava.");
-		parentPackages.remove("org.openxava.web.");
-		parentPackages.remove("com.openxava.naviox.");
-		
-		System.out.println("[AnnotatedClassParser.getManagedClassPackages] Package.getPackages()=" + Arrays.toString(Package.getPackages())); // tmr
+			// tmr ini
+			// TMR EL OBJETIVO ES OBTENER LOS PAQUETES HERMANOS DE LOS PAQUETE MODEL PARA
+			// TMR   PODER PONER Dashboard EN EL PAQUETE dashboards EN invoicedemo
+			// TMR TENER EN CUENTA:
+			// TMR 2. HE DE HACERLO EN UN MÉTODO APARTE, Y LLAMARLO DESDE getClassNameIfExists() AL FINAL
+			// TMR 3. HE DE PONERLO EN UN TEST DE openxavatest. QUIZAS SACANDO StaffDashboard DE model, EN dashboards
+			// TMR 4. SI NO LO CONSIGO SIEMPRE PUEDO USAR CLASES ANIDADAS
+			// TMR 5. PONERLO COMO CARACTERÍSTICA EXTRA Y AÑADIRLO A LA DOC
+			
+			System.out.println("[AnnotatedClassParser.getManagedClassPackages] managedClassPackages>" + managedClassPackages); // tmr
+			long ini = System.currentTimeMillis(); // tmr
+			Set<String> parentPackages = new HashSet<>();
+			for (String pack: managedClassPackages) {
+				int lastDotIndex = pack.lastIndexOf('.', pack.length() - 2); 
+	            if (lastDotIndex >= 0) {
+	                parentPackages.add(pack.substring(0, lastDotIndex));
+	            }	
 				
-		for (Package pack: Package.getPackages()) {
-			String packName = pack.getName();
+			}
+			parentPackages.remove("org.openxava");
+			parentPackages.remove("org.openxava.web");
+			parentPackages.remove("com.openxava.naviox");
+			
 			for (String parentPackage: parentPackages) {
-				if (packName.startsWith(parentPackage)) {
-					managedClassPackages.add(packName + "."); 		
+				System.out.println("[AnnotatedClassParser.getManagedClassPackages] parentPackage=" + parentPackage); // tmr
+				for (String siblingPackage: getSubpackages(parentPackage)) {
+					System.out.println("[AnnotatedClassParser.getManagedClassPackages] > siblingPackage=" + siblingPackage); // tmr
+					managedClassPackages.add(siblingPackage + "."); 		
 				}
 			}
+			long cuesta = System.currentTimeMillis() - ini; // tmr
+			System.out.println("[AnnotatedClassParser.getManagedClassPackages] cuesta=" + cuesta); // tmr
+			System.out.println("[AnnotatedClassParser.getManagedClassPackages] managedClassPackages<" + managedClassPackages); // tmr
+			// tmr fin
+			
 		}
-		long cuesta = System.currentTimeMillis() - ini; // tmr
-		System.out.println("[AnnotatedClassParser.getManagedClassPackages] cuesta=" + cuesta); // tmr
-		System.out.println("[AnnotatedClassParser.getManagedClassPackages] managedClassPackages<" + managedClassPackages); // tmr
-		// TMR ME QUEDÉ POR AQUÍ: INTENTANDO OBTENER LOS SUBPAQUETES
-		// TMR System.out.println("[AnnotatedClassParser.getManagedClassPackages] " + getSubpackages("org.openxava.invoicedemo")); // tmr
-		// tmr fin
 		
 		return managedClassPackages;
 	}
 	
-	 public static List<String> getSubpackages(String packageName) throws Exception { // tmr
-	        List<String> subpackages = new ArrayList<>();
+    private static Set<String> getSubpackages(String packageName) { // tmr
+    	try {
+	        Set<String> subpackages = new HashSet<>();
 	        String packagePath = packageName.replace('.', '/');
 	        Enumeration<URL> resources = Thread.currentThread().getContextClassLoader().getResources(packagePath);
-
+	
 	        while (resources.hasMoreElements()) {
 	            URL resource = resources.nextElement();
 	            if (resource.getProtocol().equals("jar")) {
@@ -2713,10 +2711,29 @@ public class AnnotatedClassParser implements IComponentParser {
 	                        }
 	                    }
 	                }
+	            } else if (resource.getProtocol().equals("file")) {
+	                File directory = new File(resource.getFile());
+	                if (directory.exists() && directory.isDirectory()) {
+	                    File[] files = directory.listFiles();
+	                    if (files != null) {
+	                        for (File file : files) {
+	                            if (file.isDirectory()) {
+	                                String subpackage = packageName + "." + file.getName();
+	                                subpackages.add(subpackage);
+	                                subpackages.addAll(getSubpackages(subpackage));
+	                            }
+	                        }
+	                    }
+	                }
 	            }
 	        }
 	        return subpackages;
-	    }
+    	}
+    	catch (Exception ex) {
+    		ex.printStackTrace(); // tmr Cambiar por un log
+    		return Collections.emptySet();
+    	}
+    }
 	
 
 
