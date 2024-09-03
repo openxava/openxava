@@ -20706,8 +20706,13 @@ class="sy0">;</span>
       transitoria. Hasta v4.9.1 se podía usar una clase transitoria sin definir
       un módulo dado que se generaba uno por defecto, sólo era necesario si
       queriamos generar el portlet.<br>
-      El paquete para las clases transitorias del modelo tiene que ser el mismo
-      que el de las clases persistentes.<br>
+      Hasta v7.3.3 el paquete para las clases transitorias del modelo tenía que
+      ser el mismo que el de las clases persistentes. Sin embargo, a partir de
+      v7.4 las clases transitorias también pueden estar en los paquetes hermanos
+      del paquete modelo, es decir si tu paquete modelo es <i>com.tuempresa.tuaplicacion.modelo</i>
+      puedes poner tu clases transitorias en <i>com.tuempresa.tuaplicacion.</i><i>cuadrosmando</i>
+      o&nbsp;<i><i>com.tuempresa.tuaplicacion.</i>dialogos</i>, por ejemplo,
+      aunque estos paquetes no contengan ninguna clase persistente.<br>
       Podemos así tener un generador de cualquier tipo de interfaz gráficas
       sencillo y bastante flexible, aunque no queramos que la información
       visualizada sea persistente.<br>

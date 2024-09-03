@@ -20646,8 +20646,12 @@ class="sy0">;</span>
         explicitly a module in application.xml</a> for each transient class,
       until v4.9.1 you could use a transient class without defining a module, it
       was only needed to generate the portlet.<br>
-      The package for transient model classes must be the same of the persistent
-      classes.<br>
+      Until v7.3.3 the package for transient model classes must be the same of
+      the persistent classes. However, since v7.4 transient classes can be also
+      in sibling packages of model package, that is if your model package is <i>com.yourcompany.yourapp.model</i>
+      you can put transient classes in <i>com.yourcompany.yourapp.dashboards</i>
+      or <i>com.yourcompany.yourapp.dialogs</i>, for example, even if these
+      packages does not contain any persistent class.<br>
       With this simple trick you can use OpenXava as a simple and flexible
       generator for user interfaces although the displayed data won't be stored.<br>
       <span style="display: block; height: 1px; left: -40px; overflow: hidden; position: absolute; top: -25px; width: 1px;">deliveryDate[invoice.deliveryDate]</span><span

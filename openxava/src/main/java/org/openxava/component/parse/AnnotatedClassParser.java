@@ -7,6 +7,7 @@ import java.lang.reflect.*;
 import java.lang.reflect.ParameterizedType;
 import java.net.*;
 import java.util.*;
+import java.util.jar.*;
 import java.util.stream.*;
 
 import javax.persistence.*;
@@ -50,6 +51,7 @@ public class AnnotatedClassParser implements IComponentParser {
 	
 	private static Collection<String> managedClassNames; 
 	private static Collection<String> managedClassPackages;
+	private static Collection<String> managedClassSiblingPackages; 
 	private static Map<Class, Collection<Class>> entityFirstLevelSubclasses;
 	private static Map<String, MetaComponent> parsingComponents;
 	
@@ -2672,9 +2674,97 @@ public class AnnotatedClassParser implements IComponentParser {
 			if (className.endsWith(suffix)) return className;
 		}
 		// Maybe it's not a managed entity, but a transient object used for UI generation
-		String className = null;
-		for (String packageName: getManagedClassPackages()) {
-			className = packageName + name;			
+		String className = classNameForPackages(name, getManagedClassPackages()); // From same packages of entities
+		if (className != null) return className;
+		return  classNameForPackages(name, getManagedClassSiblingPackages()); // From sibling packages of entities packages
+	}
+
+	private Collection<String> getManagedClassSiblingPackages() { 
+		if (managedClassSiblingPackages == null) {
+			managedClassSiblingPackages = new HashSet<>();
+			Set<String> parentPackages = new HashSet<>();
+			for (String pack: getManagedClassPackages()) {
+				int lastDotIndex = pack.lastIndexOf('.', pack.length() - 2); 
+	            if (lastDotIndex >= 0) {
+	                parentPackages.add(pack.substring(0, lastDotIndex));
+	            }	
+				
+			}
+			parentPackages.remove("java");
+			parentPackages.remove("org.openxava");
+			parentPackages.remove("org.openxava.web");
+			parentPackages.remove("org.openxava.util");
+			parentPackages.remove("com.openxava.naviox");
+			
+			for (String parentPackage: parentPackages) {
+				Set<String> subpackages = getSubpackages(parentPackage);
+				for (String siblingPackage: subpackages) {
+					managedClassSiblingPackages.add(siblingPackage + "."); 		
+				}
+			}
+
+		}
+		return managedClassSiblingPackages;
+	}
+	
+    private static Set<String> getSubpackages(String packageName) { 
+    	try {
+	        Set<String> subpackages = new HashSet<>();
+	        String packagePath = packageName.replace('.', '/');
+	        Enumeration<URL> resources = Thread.currentThread().getContextClassLoader().getResources(packagePath);
+	        Set<String> processedResources = new HashSet<>();
+	        while (resources.hasMoreElements()) {
+	            URL resource = resources.nextElement();
+	            String [] resourceTokens = resource.getPath().split("/"); 
+	            String simpleName = resourceTokens[resourceTokens.length - 1];
+	            if (processedResources.contains(simpleName)) continue;
+	            processedResources.add(simpleName);
+	            if (resource.getProtocol().equals("jar")) {
+	                String jarPath = resource.getPath().substring(5, resource.getPath().indexOf("!"));
+	                try (JarFile jarFile = new JarFile(jarPath)) {
+	                    Enumeration<JarEntry> entries = jarFile.entries();
+	                    while (entries.hasMoreElements()) {
+	                        JarEntry entry = entries.nextElement();
+	                        String entryName = entry.getName();
+	                        if (entryName.startsWith(packagePath) && entryName.length() > packagePath.length() + 1) {
+	                        	int idx = entryName.indexOf('/', packagePath.length() + 1);
+	                        	if (idx >= 0) {
+		                            String subpackage = entryName.substring(0, idx).replace('/', '.');
+		                            if (!subpackages.contains(subpackage)) {
+		                                subpackages.add(subpackage);
+		                            }
+	                        	}
+	                        }
+	                    }
+	                }
+	            } else if (resource.getProtocol().equals("file")) {
+	                File directory = new File(resource.getFile());	        
+	                if (directory.exists() && directory.isDirectory()) {	                	
+	                	File[] files = directory.listFiles();
+	                	if (files != null) {
+	                        for (File file : files) {
+	                            if (file.isDirectory()) {
+	                                String subpackage = packageName + "." + file.getName();
+	                                subpackages.add(subpackage);
+	                                subpackages.addAll(getSubpackages(subpackage));
+	                            }
+	                        }
+	                    }
+	                }
+	            }
+	        }
+	        return subpackages;
+    	}
+    	catch (Exception ex) {
+    		log.warn(XavaResources.getString("impossible_obtain_sibling_model_packages"), ex);
+    		return Collections.emptySet();
+    	}
+    }
+
+
+	private String classNameForPackages(String simpleClassName, Collection<String> packageNames) { 
+		for (String packageName: packageNames) {
+			String className = packageName + simpleClassName;			
 			try {			
 				Class.forName(className);
 				return className;
@@ -2682,7 +2772,7 @@ public class AnnotatedClassParser implements IComponentParser {
 			catch (ClassNotFoundException ex) {				
 			}
 		}
-		return null; 
+		return null;
 	}
 		
 	private static Collection<String> getManagedClassPackages() {

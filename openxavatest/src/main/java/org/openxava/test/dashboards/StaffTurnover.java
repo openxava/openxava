@@ -1,4 +1,4 @@
-package org.openxava.test.model;
+package org.openxava.test.dashboards;
 
 import lombok.*;
 

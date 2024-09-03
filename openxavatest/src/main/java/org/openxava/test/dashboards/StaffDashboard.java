@@ -1,13 +1,15 @@
-package org.openxava.test.model;
+package org.openxava.test.dashboards;
 
 import java.math.*;
 import java.util.*;
 
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;
+import org.openxava.test.model.*;
 
 /**
- * 
+ * In dashboards package to test transient classes not in model package.
+ *  
  * @since 7.4
  * @author Javier Paniza
  */
