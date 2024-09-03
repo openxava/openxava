@@ -11,7 +11,7 @@ public class SellerWithSearchListConditionTest extends CustomizeListTestBase {
 		super(testName, "SellerSearchListCondition");		
 	}
 	
-	public void testSearchListCondition_moveColumns() throws Exception {
+	public void testSearchListCondition_moveColumns_searchListTabInCollection() throws Exception {
 		changeModule("SellerSearchListCondition");
 		execute("List.viewDetail", "row=0");
 		execute("Reference.search", "keyProperty=level.id");
@@ -29,6 +29,8 @@ public class SellerWithSearchListConditionTest extends CustomizeListTestBase {
 		closeDialog();
 		execute("Collection.add", "viewObject=xava_view_customers");
 		assertListRowCount(4);
+		
+		assertListColumnCount(3);
 	}
 
 	public void testSearchListConditionOff() throws Exception {  

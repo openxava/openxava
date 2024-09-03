@@ -20,7 +20,8 @@ import lombok.*;
 @View(name="CalculatedFellows", extendsView="Simple", members="; fellowCarriersCalculatedSize; fellowCarriersCalculated")
 @View(name="ReadOnlyCalculatedFellows", members="number, name; fellowCarriersCalculated")
 @View(name="FellowsNames", members="number, name; fellowCarriers")
-@View(name="Fellows", members="number, name; warehouse; fellowCarriers") 
+@View(name="Fellows", members="number, name; warehouse; fellowCarriers")
+@View(name="NoDefaultActions", members="number, name; warehouse; fellowCarriers; fellowCarriersCalculated")
 @View(
 	name="WithSections",
 	members=
@@ -61,6 +62,7 @@ public class Carrier {
 	@ReferenceView("KeyInGroup")
 	@Action("WarehouseReference.createNewNoDialog") 
 	@DescriptionsList(forViews="CollectionsTogether", descriptionProperties="name")
+	@SearchListTab(forViews="Fellows", value="OnlyName")
 	private Warehouse warehouse;
 
 	@Stereotype("MEMO")
@@ -90,6 +92,7 @@ public class Carrier {
 	@OrderBy("number") 
 	@ListProperties("number, name, remarks, calculated") 
 	@Editor(forViews="FellowsNames", value="CarriersNames")
+	@NoDefaultActions(forViews="NoDefaultActions")
 	public Collection<Carrier> getFellowCarriers() { 
 		// At the moment you must write a code that returns the same result
 		// of the @Condition. 
@@ -111,6 +114,7 @@ public class Carrier {
 	@ListAction("Carrier.translateName")
 	@OnSelectElementAction(forViews="CalculatedFellows", value="Carrier.onSelectFellowCarriersCalculated") 
 	@OnSelectElementAction(forViews="CollectionsTogether", value="Carrier.syncCarriersSelection")
+	@NoDefaultActions(forViews="NoDefaultActions")
 	public Collection<Carrier> getFellowCarriersCalculated() {
 		// This method exists for compliance with OpenXavaTest
 		return getFellowCarriers();

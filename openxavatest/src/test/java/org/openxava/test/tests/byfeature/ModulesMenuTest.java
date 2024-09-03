@@ -58,8 +58,9 @@ public class ModulesMenuTest extends WebDriverTestBase {
 	}
 	
 	protected void showModulesList() throws Exception {
+		WebElement hideListButton = getDriver().findElement(By.id("modules_list_hide"));
 		WebElement showListButton = getDriver().findElement(By.id("modules_list_show"));
-		if (showListButton.isDisplayed()) {
+		if (!hideListButton.isDisplayed()) {
 			showListButton.click();
 			wait(getDriver());
 		}

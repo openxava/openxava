@@ -58,19 +58,33 @@ public class TimeFormatter implements IFormatter {
 	
 	protected String reformatTime(String string, boolean parsing) {
 		String date = string;
+		LocalTime specificTime = LocalTime.of(15, 0);
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("a");
+        String formattedTimePM = specificTime.format(timeFormat);
+        String formattedTimeAM;
+        if (Character.isUpperCase(formattedTimePM.charAt(0))) {
+        	formattedTimeAM = formattedTimePM.replace("P", "A");
+        } else {
+        	//formattedTimeAM = formattedTimePM.replace("\u0070", "\u0061");
+        	formattedTimeAM = formattedTimePM.replace("p", "a"); 
+        }
 		if (parsing) {
-			if (XSystem.isJava21orBetter()) {
-				date = date.replace(" PM", "\u202fPM").replace(" AM", "\u202fAM");
-				date = date.replace("PM ", "PM\u202f").replace("AM ", "AM\u202f");
-				return date;
-			}
-			if (XSystem.isJava17orBetter()) return date.replace("PM", "p.\u00a0m.").replace("AM", "a.\u00a0m.");
-			if (XSystem.isJava9orBetter()) return date.replace("PM", "p.m.").replace("AM", "a.m.");
+	        String unicode = toUnicodeString(formattedTimePM);
+	        boolean hasNonBreakingSpace = unicode.contains("\\u00A0");
+			if (hasNonBreakingSpace) return date.replace("PM", "p.\u00a0m.").replace("AM", "a.\u00a0m.");
+			if (XSystem.isJava9orBetter()) return date.replace("PM", formattedTimePM).replace("AM", formattedTimeAM);
 		} else {
-			if (XSystem.isJava17orBetter()) return date.replace("p.\u00a0m.", "PM").replace("a.\u00a0m.", "AM");
-			if (XSystem.isJava9orBetter()) return date.replace("p.m.", "PM").replace("a.m.", "AM");
+			if (XSystem.isJava9orBetter()) return date.replace(formattedTimePM, "PM").replace(formattedTimeAM, "AM");
 		}
 		return date;
 	}
+	
+    private static String toUnicodeString(String text) {
+        StringBuilder unicodeBuilder = new StringBuilder();
+        for (char c : text.toCharArray()) {
+            unicodeBuilder.append(String.format("\\u%04X", (int) c));
+        }
+        return unicodeBuilder.toString();
+    }
 	
 }

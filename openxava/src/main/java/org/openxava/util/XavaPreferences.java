@@ -254,6 +254,13 @@ public class XavaPreferences {
 		return pageRowCount;
 	}
 	
+	/**
+	 * @since 7.4
+	 */
+	public String getCurrencySymbol() {
+		return getProperties().getProperty("currencySymbol");
+	}
+
 	/** @since 6.4.2 */
 	public int getApplicationPort() { 
 		return Integer.parseInt(getProperties().getProperty("applicationPort", "8080"));

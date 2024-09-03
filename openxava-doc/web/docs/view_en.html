@@ -69,7 +69,9 @@
         <div style="margin-left: 3em;"><a href="#View-Reference%20customization-Reference%20search%20on%20change%20event">Reference
             search on change event</a></div>
         <div style="margin-left: 3em;"><a href="#View-Reference%20customization-Choosing%20an%20editor%20%28reference,%20new%20in%20v3.1.3%29">Choosing
-            an editor (reference, new in v3.1.3)</a></div>
+            an editor (reference, new in v3.1.3)</a><br>
+          <a href="#choose-tab-for-search-action-reference">Choose tab for
+            search action (reference, new in v7.4)</a></div>
         <div style="margin-left: 2em;"><a href="#View-Collection%20customization">Collection
             customization</a></div>
         <div style="margin-left: 3em;"><a href="#View-Collection%20customization-Properties%20in%20list">Properties
@@ -103,7 +105,11 @@
         <div style="margin-left: 3em;"><a href="#chart-from-collection">Chart
             from a collection (new in v7.4)</a></div>
         <div style="margin-left: 3em;"><a href="#simple-list">Simple list (new
-            in v7.4)</a></div>
+            in v7.4)</a><br>
+          <a href="#choose-tab-for-search-action-collection">Choose tab for
+            search action (collection, new in v7.4)</a></div>
+        <div style="margin-left: 3em;"><a href="#no-default-actions">Hide
+            default list and row actions (new in v7.4)</a></div>
         <div style="margin-left: 2em;"><a href="#transient-properties-ui-controls">Transient
             properties for UI controls</a></div>
         <div style="margin-left: 2em;"><a href="#View-View%20actions">View
@@ -8200,7 +8206,8 @@ class="kw105">Action</span></a>              <span class="co1">// 12</span>
 @OnChangeSearch      <span class="co1">// 14</span>
 @Editor              <span class="co1">// 15 New in v3.1.3</span>
 @LabelStyle          <span class="co1">// 16 New in v4m4</span>
-@Collapsed           <span class="co1">// 17 New in v5.0</span>
+@Collapsed           <span class="co1">// 17 New in v5.0</span><br>@SearchListTab       <span
+class="co1">// 18 New in v7.<span style="color: #505050;">4</span></span>
 @ManyToOne
 <span class="kw2">private</span> type referenceName<span class="sy0">;</span></pre>
       All these annotations follow the <a class="wiki_link" href="#View-Rules%20for%20view%20annotations">rules
@@ -8303,6 +8310,11 @@ class="kw105">Action</span></a>              <span class="co1">// 12</span>
           the frame surrounding the reference view will be initially closed.
           Later the user will be able to set his preferences by clicking on the
           expansion icon.</li>
+        <li><strong><a class="wiki_link" href="#choose-tab-for-search-action-reference">@SearchListTab</a></strong>
+          (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/SearchListTab.html"
+            rel="nofollow">OX</a>): <em>(New in v7.4) </em>Define the tab to
+          display in the list when searching. If you omit this annotation, when
+          searching, the default tab will be displayed.</li>
       </ol>
       If you do not use any of these annotations OpenXava draws a reference
       using the default view. For example, if you have a reference like this:<br>
@@ -9579,8 +9591,10 @@ class="sy0">;</span> <span class="co1">// Adding a filter to the list</span>
       order, etc, and mark the wished object. You can use <em>@SearchAction</em>
       to overwrite completely this behavior, though if you only want to set a
       custom condition for the list, then using <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/SearchListCondition.html"
-          rel="nofollow">@SearchListCondition</a></em> is faster. The above
-      example can be rewritten as following:<br>
+          rel="nofollow">@SearchListCondition</a></em> is faster. Since <em>v7.4</em>,
+      the condition supports the use of <em>${this.}</em> to refer to a
+      property of the entity itself. The above example can be rewritten as
+      following:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -9768,9 +9782,11 @@ class="sy0">;</span> <span class="co1">// Adding a filter to the list</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@ManyToOne<span class="br0">(</span>fetch=FetchType.<span
-class="me1">LAZY</span><span class="br0">)</span> @SearchListCondition<span class="br0">(</span><span
-class="st0">"${number} &lt; 3"</span><span class="br0">)</span>
+</style><pre class="java5"><span class="kw2">private</span> int code<span class="sy0">;</span><br><br>@ManyToOne<span
+class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span class="br0">)</span> <br>@SearchListCondition<span
+class="br0">(</span><span class="st0">"${number} &lt; 3"</span><span class="br0">)</span><br>@SearchListCondition<span
+class="br0">(</span><span class="st0">"${number} &lt; ${this.code}"</span><span
+class="br0">, forViews="SearchListCondition")</span> <span class="co1">// ${this.} New in v7.4</span>
 <span class="kw2">private</span> Seller seller<span class="sy0">;</span>
 &nbsp;</pre>
       Note as you do not need to create any action.<br>
@@ -12725,6 +12741,214 @@ class="st0">"colorRadioButtonsEditor.jsp"</span><span class="re2">/&gt;</span></
       file.<br>
       Learn more on <a class="wiki_link" href="customizing_en.html#Customizing-Editors-Editors%20for%20references%20%28new%20in%20v3.1.3%29">Editors
         for references</a>.<br>
+      <h3 id="toc25"><a name="choose-tab-for-search-action-reference"></a>
+        Choose tab for search action (reference, <em>new in v7.4</em>) </h3>
+      <p>With <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/SearchListTab.html"><em>@SearchListTab</em></a>,
+        you can specify which tab to display in the dialog when use a search
+        action.</p>
+      <pre class="java5">@ManyToOne<span class="br0">(</span>fetch=FetchType.<span
+class="me1">LAZY</span><span class="br0">)</span>
+@SearchListTab("ZoneA")
+<span class="kw2">private</span> <span class="kw6">Warehouse</span> warehouse<span
+class="sy0">;</span></pre>
+      For this in the <em>Warehouse </em>we must have a tab called <em>ZoneA</em>:<br>
+      <div class="wiki">
+        <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+class="kw166">Entity</span></a>
+@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
+class="kw116">Tab</span></a><span class="br0">(</span>name=<span class="st0">"ZoneA"</span>, properties=<span
+class="st0">"number, name, zone", <span style="color: #030303;">defaultOrder=</span>"${number} desc", <span
+style="color: #030303;">baseCondition=</span>"${zone} = 'A'"</span><span class="br0">)</span>
+<span class="kw2">public</span> <span class="kw2">class</span> Warehouse <span class="br0">{</span></pre>
+        In addition, the <i>forViews</i> and <i>notForViews</i> attributes are
+        available in <i>@SearchListTab</i>. </div>
       <h2 id="toc25"><a name="View-Collection customization"></a>Collection
         customization</h2>
       You can refine the visual aspect and behavior of an <em>@OneToMany</em>
@@ -12942,7 +13166,9 @@ class="co1">// 1<span style="color: #505050;">7 New in v7.4</span></span>
 @Tree                   <span class="co1">// 24 New in v4m4</span>
 @Collapsed              <span class="co1">// 25 New in v5.0</span>
 @ListSubcontroller      <span class="co1">// 26 New in v5.7<br></span>@Chart                  <span
-class="co1">// 27 New in v7.4<br></span>@SimpleList             <span class="co1">// 28 New in v7.4<br></span>@OneToMany/@ManyToMany
+class="co1">// 27 New in v7.4<br></span>@SimpleList             <span class="co1">// 28 New in v7.4</span><br>@SearchListTab         <span
+style="color: #666666;"> </span><span class="co1">// 29 New in v7.4</span><br>@NoDefaultActions       <span
+class="co1">// 30 New in v7.4<br></span>@OneToMany/@ManyToMany
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
 class="kw46">Collection</span></a> collectionName<span class="sy0">;</span></pre>
       And the next annotations for a <em>@ElementCollection (new in v5.0)</em>:<br>
@@ -13310,6 +13536,16 @@ class="kw46">Collection</span></a> collectionName<span class="sy0">;</span></pre
             rel="nofollow">OX</a>): <em>(New in v7.4)</em> The collection will
           be displayed as a simple read-only list, without actions, filters,
           pagination, sorting, etc.</li>
+        <li><strong><span class="wiki_link_ext"><a class="wiki_link" href="#choose-tab-for-search-action-collection">@SearchListTab</a>
+            </span></strong>(<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/SearchListTab.html"
+            rel="nofollow">OX</a>): <em>(New in v7.4)</em> Define the tab to
+          display in the list when searching. If you omit this annotation, when
+          searching, the default tab will be displayed.</li>
+        <li><strong><span class="wiki_link_ext"><a class="wiki_link" href="#no-default-actions">@NoDefaultActions</a>
+            </span></strong>(<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoDefaultActions.html"
+            rel="nofollow">OX</a>): <em>(New in v7.4)</em> Using this
+          annotation will hide the actions from the <i>DefaultListActionsForCollections</i>
+          and <i>DefaultRowActionsForCollections</i> controllers.</li>
       </ol>
       <h3 id="toc26"><a name="View-Collection customization-Properties in list"></a>Properties
         in list</h3>
@@ -15772,7 +16008,9 @@ class="re2">&gt;</span></span>
         section) but it applies to all collections at once.</div>
       Since v5.9 this feature applies to both persistent and calculated
       collections, before calculated collections were not supported for default
-      list and row actions.<br>
+      list and row actions.</div>
+    <div class="wiki" style="display: block;">Since v7.4, you can use <em><a href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoDefaultActions.html">@NoDefaultActions</a></em>
+      to not display the default list and row actions for a specific collection.<br>
       <h3 id="toc32"><a name="View-Collection customization-Custom detail actions"></a>Custom
         detail actions</h3>
       <em>Applies to @OneToMany/@ManyToMany collections</em><br>
@@ -17682,8 +17920,9 @@ class="st0">"customersNamesEditor.jsp"</span><span class="re2">/&gt;</span></spa
       for selection. In the case of non-embedded collections. By using <em>@SearchListCondition</em>
       you can define a condition only applicable to the search list,
       furthermore, you can use it along with the <em>forViews</em> and <em>notForViews</em>
-      property to define different criteria for different views (1) as shown in
-      the following code snippet.<br>
+      property to define different criteria for different views (1). Since <em>v7.4</em>,
+      the condition supports the use of <em>${this.}</em> to refer to a
+      property of the entity itself (2). As shown in the following code snippet.<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -17871,11 +18110,14 @@ class="st0">"customersNamesEditor.jsp"</span><span class="re2">/&gt;</span></spa
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"seller"</span><span
-class="br0">)</span>
+</style><pre class="java5"><span class="kw2">private</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+class="kw46"></span></a> int code<span class="sy0">;</span><br><br>@OneToMany<span
+class="br0">(</span>mappedBy=<span class="st0">"seller"</span><span class="br0">)</span>
 @SearchListCondition<span class="br0">(</span>value=<span class="st0">"${number} &lt; 5"</span>, forViews=<span
 class="st0">"SearchListCondition, SearchListConditionBlank"</span><span class="br0">)</span> <span
-class="co1">// 1</span>
+class="co1">// 1</span><br>@SearchListCondition<span class="br0">(</span>value=<span
+class="st0">"${number} &lt; ${this.code}"</span>, forViews=<span class="st0">"SearchListConditionCode"</span><span
+class="br0">)</span> <span class="co1">// 2</span>
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
 class="kw46">Collection</span></a><span class="sy0">&lt;</span>Customer<span class="sy0">&gt;</span> customers<span
 class="sy0">;</span></pre>
@@ -19277,7 +19519,231 @@ Collection&lt;StaffTurnover&gt; turnoverByYear;
         see the data in a simple and clear way, without having to interact with
         it, such as in a dashboard, for example.</div>
       <div class="wiki" style="display: block;">In addition, the <i>forViews</i>
-        and <i>notForViews</i> attributes are available in <i>@SimpleList.</i></div>
+        and <i>notForViews</i> attributes are available in <i>@SimpleList.<br>
+        </i>
+        <h3 id="choose-tab-for-search-action-collection">Choose tab for search
+          action (collection, <em>new in v7.4</em>) </h3>
+        <p>With <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/SearchListTab.html"><em>@SearchListTab</em></a>,
+          you can specify which tab to display in the dialog when use an add
+          action.</p>
+        <pre class="java5">@OneToMany(mappedBy="seller")
+@SearchListTab("Demo")
+<span class="kw2">private</span> <span class="kw6">Collection&lt;Customer&gt;</span> customers<span
+class="sy0">;</span><span class="sy0"></span></pre>
+        For this in the <em>Customer </em>we must have a tab called <em>Demo</em>:<br>
+        <div class="wiki">
+          <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.java5  {font-family:monospace;}
+.java5 .imp {font-weight: bold; color: red;}
+.java5 .kw1 {color: #000000;  font-weight: bold;}
+.java5 .kw2 {color: #000000; font-weight: bold;}
+.java5 .kw3 {color: #006600; font-weight: bold;}
+.java5 .kw4 {color: #006600; font-weight: bold;}
+.java5 .kw5 {color: #003399; font-weight: bold;}
+.java5 .kw6 {color: #003399; font-weight: bold;}
+.java5 .kw7 {color: #003399; font-weight: bold;}
+.java5 .kw8 {color: #003399; font-weight: bold;}
+.java5 .kw9 {color: #003399; font-weight: bold;}
+.java5 .kw10 {color: #003399; font-weight: bold;}
+.java5 .kw11 {color: #003399; font-weight: bold;}
+.java5 .kw12 {color: #003399; font-weight: bold;}
+.java5 .kw13 {color: #003399; font-weight: bold;}
+.java5 .kw14 {color: #003399; font-weight: bold;}
+.java5 .kw15 {color: #003399; font-weight: bold;}
+.java5 .kw16 {color: #003399; font-weight: bold;}
+.java5 .kw17 {color: #003399; font-weight: bold;}
+.java5 .kw18 {color: #003399; font-weight: bold;}
+.java5 .kw19 {color: #003399; font-weight: bold;}
+.java5 .kw20 {color: #003399; font-weight: bold;}
+.java5 .kw21 {color: #003399; font-weight: bold;}
+.java5 .kw22 {color: #003399; font-weight: bold;}
+.java5 .kw23 {color: #003399; font-weight: bold;}
+.java5 .kw24 {color: #003399; font-weight: bold;}
+.java5 .kw25 {color: #003399; font-weight: bold;}
+.java5 .kw26 {color: #003399; font-weight: bold;}
+.java5 .kw27 {color: #003399; font-weight: bold;}
+.java5 .kw28 {color: #003399; font-weight: bold;}
+.java5 .kw29 {color: #003399; font-weight: bold;}
+.java5 .kw30 {color: #003399; font-weight: bold;}
+.java5 .kw31 {color: #003399; font-weight: bold;}
+.java5 .kw32 {color: #003399; font-weight: bold;}
+.java5 .kw33 {color: #003399; font-weight: bold;}
+.java5 .kw34 {color: #003399; font-weight: bold;}
+.java5 .kw35 {color: #003399; font-weight: bold;}
+.java5 .kw36 {color: #003399; font-weight: bold;}
+.java5 .kw37 {color: #003399; font-weight: bold;}
+.java5 .kw38 {color: #003399; font-weight: bold;}
+.java5 .kw39 {color: #003399; font-weight: bold;}
+.java5 .kw40 {color: #003399; font-weight: bold;}
+.java5 .kw41 {color: #003399; font-weight: bold;}
+.java5 .kw42 {color: #003399; font-weight: bold;}
+.java5 .kw43 {color: #003399; font-weight: bold;}
+.java5 .kw44 {color: #003399; font-weight: bold;}
+.java5 .kw45 {color: #003399; font-weight: bold;}
+.java5 .kw46 {color: #003399; font-weight: bold;}
+.java5 .kw47 {color: #003399; font-weight: bold;}
+.java5 .kw48 {color: #003399; font-weight: bold;}
+.java5 .kw49 {color: #003399; font-weight: bold;}
+.java5 .kw50 {color: #003399; font-weight: bold;}
+.java5 .kw51 {color: #003399; font-weight: bold;}
+.java5 .kw52 {color: #003399; font-weight: bold;}
+.java5 .kw53 {color: #003399; font-weight: bold;}
+.java5 .kw54 {color: #003399; font-weight: bold;}
+.java5 .kw55 {color: #003399; font-weight: bold;}
+.java5 .kw56 {color: #003399; font-weight: bold;}
+.java5 .kw57 {color: #003399; font-weight: bold;}
+.java5 .kw58 {color: #003399; font-weight: bold;}
+.java5 .kw59 {color: #003399; font-weight: bold;}
+.java5 .kw60 {color: #003399; font-weight: bold;}
+.java5 .kw61 {color: #003399; font-weight: bold;}
+.java5 .kw62 {color: #003399; font-weight: bold;}
+.java5 .kw63 {color: #003399; font-weight: bold;}
+.java5 .kw64 {color: #003399; font-weight: bold;}
+.java5 .kw65 {color: #003399; font-weight: bold;}
+.java5 .kw66 {color: #003399; font-weight: bold;}
+.java5 .kw67 {color: #003399; font-weight: bold;}
+.java5 .kw68 {color: #003399; font-weight: bold;}
+.java5 .kw69 {color: #003399; font-weight: bold;}
+.java5 .kw70 {color: #003399; font-weight: bold;}
+.java5 .kw71 {color: #003399; font-weight: bold;}
+.java5 .kw72 {color: #003399; font-weight: bold;}
+.java5 .kw73 {color: #003399; font-weight: bold;}
+.java5 .kw74 {color: #003399; font-weight: bold;}
+.java5 .kw75 {color: #003399; font-weight: bold;}
+.java5 .kw76 {color: #003399; font-weight: bold;}
+.java5 .kw77 {color: #003399; font-weight: bold;}
+.java5 .kw78 {color: #003399; font-weight: bold;}
+.java5 .kw79 {color: #003399; font-weight: bold;}
+.java5 .kw80 {color: #003399; font-weight: bold;}
+.java5 .kw81 {color: #003399; font-weight: bold;}
+.java5 .kw82 {color: #003399; font-weight: bold;}
+.java5 .kw83 {color: #003399; font-weight: bold;}
+.java5 .kw84 {color: #003399; font-weight: bold;}
+.java5 .kw85 {color: #003399; font-weight: bold;}
+.java5 .kw86 {color: #003399; font-weight: bold;}
+.java5 .kw87 {color: #003399; font-weight: bold;}
+.java5 .kw88 {color: #003399; font-weight: bold;}
+.java5 .kw89 {color: #003399; font-weight: bold;}
+.java5 .kw90 {color: #003399; font-weight: bold;}
+.java5 .kw91 {color: #003399; font-weight: bold;}
+.java5 .kw92 {color: #003399; font-weight: bold;}
+.java5 .kw93 {color: #003399; font-weight: bold;}
+.java5 .kw94 {color: #003399; font-weight: bold;}
+.java5 .kw95 {color: #003399; font-weight: bold;}
+.java5 .kw96 {color: #003399; font-weight: bold;}
+.java5 .kw97 {color: #003399; font-weight: bold;}
+.java5 .kw98 {color: #003399; font-weight: bold;}
+.java5 .kw99 {color: #003399; font-weight: bold;}
+.java5 .kw100 {color: #003399; font-weight: bold;}
+.java5 .kw101 {color: #003399; font-weight: bold;}
+.java5 .kw102 {color: #003399; font-weight: bold;}
+.java5 .kw103 {color: #003399; font-weight: bold;}
+.java5 .kw104 {color: #003399; font-weight: bold;}
+.java5 .kw105 {color: #003399; font-weight: bold;}
+.java5 .kw106 {color: #003399; font-weight: bold;}
+.java5 .kw107 {color: #003399; font-weight: bold;}
+.java5 .kw108 {color: #003399; font-weight: bold;}
+.java5 .kw109 {color: #003399; font-weight: bold;}
+.java5 .kw110 {color: #003399; font-weight: bold;}
+.java5 .kw111 {color: #003399; font-weight: bold;}
+.java5 .kw112 {color: #003399; font-weight: bold;}
+.java5 .kw113 {color: #003399; font-weight: bold;}
+.java5 .kw114 {color: #003399; font-weight: bold;}
+.java5 .kw115 {color: #003399; font-weight: bold;}
+.java5 .kw116 {color: #003399; font-weight: bold;}
+.java5 .kw117 {color: #003399; font-weight: bold;}
+.java5 .kw118 {color: #003399; font-weight: bold;}
+.java5 .kw119 {color: #003399; font-weight: bold;}
+.java5 .kw120 {color: #003399; font-weight: bold;}
+.java5 .kw121 {color: #003399; font-weight: bold;}
+.java5 .kw122 {color: #003399; font-weight: bold;}
+.java5 .kw123 {color: #003399; font-weight: bold;}
+.java5 .kw124 {color: #003399; font-weight: bold;}
+.java5 .kw125 {color: #003399; font-weight: bold;}
+.java5 .kw126 {color: #003399; font-weight: bold;}
+.java5 .kw127 {color: #003399; font-weight: bold;}
+.java5 .kw128 {color: #003399; font-weight: bold;}
+.java5 .kw129 {color: #003399; font-weight: bold;}
+.java5 .kw130 {color: #003399; font-weight: bold;}
+.java5 .kw131 {color: #003399; font-weight: bold;}
+.java5 .kw132 {color: #003399; font-weight: bold;}
+.java5 .kw133 {color: #003399; font-weight: bold;}
+.java5 .kw134 {color: #003399; font-weight: bold;}
+.java5 .kw135 {color: #003399; font-weight: bold;}
+.java5 .kw136 {color: #003399; font-weight: bold;}
+.java5 .kw137 {color: #003399; font-weight: bold;}
+.java5 .kw138 {color: #003399; font-weight: bold;}
+.java5 .kw139 {color: #003399; font-weight: bold;}
+.java5 .kw140 {color: #003399; font-weight: bold;}
+.java5 .kw141 {color: #003399; font-weight: bold;}
+.java5 .kw142 {color: #003399; font-weight: bold;}
+.java5 .kw143 {color: #003399; font-weight: bold;}
+.java5 .kw144 {color: #003399; font-weight: bold;}
+.java5 .kw145 {color: #003399; font-weight: bold;}
+.java5 .kw146 {color: #003399; font-weight: bold;}
+.java5 .kw147 {color: #003399; font-weight: bold;}
+.java5 .kw148 {color: #003399; font-weight: bold;}
+.java5 .kw149 {color: #003399; font-weight: bold;}
+.java5 .kw150 {color: #003399; font-weight: bold;}
+.java5 .kw151 {color: #003399; font-weight: bold;}
+.java5 .kw152 {color: #003399; font-weight: bold;}
+.java5 .kw153 {color: #003399; font-weight: bold;}
+.java5 .kw154 {color: #003399; font-weight: bold;}
+.java5 .kw155 {color: #003399; font-weight: bold;}
+.java5 .kw156 {color: #003399; font-weight: bold;}
+.java5 .kw157 {color: #003399; font-weight: bold;}
+.java5 .kw158 {color: #003399; font-weight: bold;}
+.java5 .kw159 {color: #003399; font-weight: bold;}
+.java5 .kw160 {color: #003399; font-weight: bold;}
+.java5 .kw161 {color: #003399; font-weight: bold;}
+.java5 .kw162 {color: #003399; font-weight: bold;}
+.java5 .kw163 {color: #003399; font-weight: bold;}
+.java5 .kw164 {color: #003399; font-weight: bold;}
+.java5 .kw165 {color: #003399; font-weight: bold;}
+.java5 .kw166 {color: #003399; font-weight: bold;}
+.java5 .co1 {color: #666666; font-style: italic;}
+.java5 .co2 {color: #006699;}
+.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java5 .coMULTI {color: #666666; font-style: italic;}
+.java5 .es0 {color: #000099; font-weight: bold;}
+.java5 .br0 {color: #009900;}
+.java5 .sy0 {color: #339933;}
+.java5 .st0 {color: #0000ff;}
+.java5 .nu0 {color: #cc66cc;}
+.java5 .me1 {color: #006633;}
+.java5 .me2 {color: #006633;}
+.java5 span.xtra { display:block; }
+
+-->
+</style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+class="kw166">Entity</span></a>
+@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/swing/text/View.html"><span
+class="kw116">Tab</span></a><span class="br0">(</span>name=<span class="st0">"Demo"</span>, properties=<span
+class="st0">"name, type, seller.name", <span style="color: #030303;">defaultOrder=</span>"${name} desc", <span
+style="color: #030303;">baseCondition=</span>"${type} = 'R'"</span><span class="br0">)</span>
+<span class="kw2">public</span> <span class="kw2">class</span> Customer <span class="br0">{</span></pre>
+          In addition, the <i>forViews</i> and <i>notForViews</i> attributes
+          are available in <i>@SearchListTab</i>.</div>
+        <div class="wiki">
+          <h3 id="no-default-actions">Hide default list and row actions <i>(new
+              in v7.4)</i></h3>
+          <p>With <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoDefaultActions.html"><em>@NoDefaultActions</em></a>
+            you can hide actions from the <em>DefaultListActionsForCollections
+            </em>and <em>DefaultRowActionsForCollections </em>controllers.<em></em></p>
+          <pre class="java5">@OneToMany(mappedBy="vendedor")
+@NoDefaultActions
+<span class="kw2">private</span> <span class="kw6">Collection&lt;Carrier&gt;</span> carriers<span
+class="sy0">;</span></pre>
+          <div class="wiki"><img src="files/view_es280.png" alt="view_es270.png"
+              title="view_es270.png"></div>
+          <div class="wiki">In addition, the <i>forViews</i> and <i>notForViews</i>
+            attributes are available in <i>@NoDefaultActions</i>.</div>
+        </div>
+      </div>
       <div class="wiki" style="display: block;">
         <h2 id="toc40"><a name="Vista-Propiedades+transitorias+para+controles+graficos"></a></h2>
       </div>
@@ -20180,8 +20646,12 @@ class="sy0">;</span>
         explicitly a module in application.xml</a> for each transient class,
       until v4.9.1 you could use a transient class without defining a module, it
       was only needed to generate the portlet.<br>
-      The package for transient model classes must be the same of the persistent
-      classes.<br>
+      Until v7.3.3 the package for transient model classes must be the same of
+      the persistent classes. However, since v7.4 transient classes can be also
+      in sibling packages of model package, that is if your model package is <i>com.yourcompany.yourapp.model</i>
+      you can put transient classes in <i>com.yourcompany.yourapp.dashboards</i>
+      or <i>com.yourcompany.yourapp.dialogs</i>, for example, even if these
+      packages does not contain any persistent class.<br>
       With this simple trick you can use OpenXava as a simple and flexible
       generator for user interfaces although the displayed data won't be stored.<br>
       <span style="display: block; height: 1px; left: -40px; overflow: hidden; position: absolute; top: -25px; width: 1px;">deliveryDate[invoice.deliveryDate]</span><span

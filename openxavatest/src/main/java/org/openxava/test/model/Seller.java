@@ -32,7 +32,8 @@ import org.openxava.annotations.*;
 	@View(name="LevelNoDescriptionsList", members="number; name; level"),
 	@View(name="SearchListCondition", members="number; name;level;customers"),
 	@View(name="SearchListConditionOff", members="number; name;level;customers"),
-	@View(name="SearchListConditionBlank", members="number; name;level;customers")
+	@View(name="SearchListConditionBlank", members="number; name;level;customers"),
+	@View(name="SearchListConditionReformatted", members="number; name;customers")
 })
 @Tabs({
 	@Tab(filter=org.openxava.test.filters.NumbersToLettersFilter.class, properties="number, name, regions"), 
@@ -64,6 +65,8 @@ public class Seller {
 	@NoCreate(forViews="CannotCreateCustomer")
 	@RowStyle(style="row-highlight", property="type", value="steady")
 	@SearchListCondition(value="${number} < 5", forViews="SearchListCondition, SearchListConditionBlank")
+	@SearchListCondition(value="${number} = ${this.number}", forViews="SearchListConditionReformatted")
+	@SearchListTab(forViews="SearchListCondition", value="Demo")
 	private Collection<Customer> customers;
 			
 	@ManyToOne(fetch=FetchType.LAZY) @JoinColumn(name="BOSS")

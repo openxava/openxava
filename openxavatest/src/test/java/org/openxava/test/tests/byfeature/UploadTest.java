@@ -36,6 +36,7 @@ public class UploadTest extends WebDriverTestBase {
 		executor.executeScript("arguments[0].click();", removeButton);
 		acceptInDialogJS(getDriver());
 		wait(getDriver());
+		Thread.sleep(100);
 		assertMessage("Photo changed", log);
 		
 		execute("CRUD.save");

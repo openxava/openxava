@@ -108,11 +108,11 @@ for (int f=0; itAggregates.hasNext(); f++) {
 				}
 			} else {
 %>
-<a id="xava_popup_menu_icon" class="ox-image-link xava_popup_menu_icon">
+<a class="ox-image-link xava_popup_menu_icon">
 	<i class="mdi mdi-dots-vertical"></i>
 </a>
 
-<ul id="xava_popup_menu" class="ox-popup-menu ox-image-link ox-display-none">
+<ul class="ox-popup-menu ox-image-link ox-display-none">
 <%		
 				for (java.util.Iterator itRowActions = rowActionNames.iterator(); itRowActions.hasNext(); ) { 	
 					String rowActionString = (String) itRowActions.next();			

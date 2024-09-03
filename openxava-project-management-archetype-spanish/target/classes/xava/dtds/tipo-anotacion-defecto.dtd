@@ -1,9 +1,0 @@
-<!ELEMENT tipo-anotacion-defecto (para*)>
-
-<!ELEMENT para EMPTY>
-<!ATTLIST para
- anotacion CDATA #REQUIRED
- tipo CDATA #REQUIRED
->
-
-

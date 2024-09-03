@@ -1,13 +1,20 @@
 Change Log for OpenXava project
 ===============================
 
+- Transient classes can be placed in sibling packages of model package, with no entities in the package.
+- New currencySymbol property in xava.properties to specify the default symbol to use for money. 
+- It's possible to close several dialogs at once from one action, calling several times to closeDialog().
+- @RowStyle in @Tab(rowStyles=) for list mode works for card list format.
+- New @NoDefaultActions annotation for now show default actions for a specific collection.
+- New @SearchListTab annotation for references and collections to choose the tab for the dialog search list.
+- @SearchListCondition allows the use of ${this.somePropertyDisplayedInView} in the condition.
 - Record count included in automatic PDF reports of list mode and collections.
 - Hibernate type converter LocalDateNumericType to store LocalDate values as numbers with yyyymmdd format.
 - @SimpleList annotation for collections to display it without actions, filters, pagination, sorting, etc. 
 - Typing day and month in a date or date/time field autocompletes the date with the current year.
 - New built-in controller InitModelWithNewInstance to init the model of the view with a new model instance. 
 - Example of creating a dashboard in openxavatest with the StaffDashboard module.
-- Second and third lessons of the reporting course with JasperReports available in documentation with video.
+- Lessons 2, 3 and 4 of the reporting course with JasperReports available in documentation with video.
 - Support for java.time.LocalDateTime as a type for properties in entities. 
 - LocalTime uses a consistent format across Java 8, 11, 17 and 21.
 - @LargeDisplay annotation to display a property value in large format, with large fonts, spacing, etc.

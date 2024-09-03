@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Generación de informes - Lección 4: Trabajando con imágenes</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_es.html">documentación</a> / </span>Generación de informes - Lección 4: Trabajando con imágenes</h1>
+      <div class="wiki" style="display: block;">
+        <h2>Video</h2>
+        <p>En este video veremos como enviar imágenes desde OpenXava como parámetro y data source a nuestro reporte.</p>
+        <p><a href="https://youtu.be/aSEX-a3sHGk" target="_blank"><img src="files/report-course_es040.png"
+              title="report-generation-040"></a> </p>
+        <p><strong>¿Problemas con la lección? <a class="wiki_link_ext"
+              href="http://sourceforge.net/p/openxava/discussion/437013/"
+              rel="nofollow">Pregunta en el foro</a></strong></p>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h2>Código</h2>
+        <p>Puedes <strong><a href="https://github.com/openxava/report-generation-course/tree/lesson_4"
+              target="_blank">descargar el proyecto de esta lección</a>.</strong> También puedes copiar el código que se usa en el video por aquí:</p>
+        <code class="xml"></code> En el archivo <em>PrintProductAction.java</em>:<br>
+        <pre><code class="java">public class PrintProductAction extends JasperReportBaseAction {
+
+	private Product product;
+	
+	@Override
+	protected JRDataSource getDataSource() throws Exception {
+		return new JRBeanCollectionDataSource(FilePersistorFactory.getInstance().findLibrary(getProduct().getPhotos()));
+	}
+
+	@Override
+	protected String getJRXML() throws Exception {
+		return "ProductDetail.jrxml"; 
+	}
+
+	@Override
+	protected Map getParameters() throws Exception {
+		Messages errors = MapFacade.validate("Product", getView().getValues());
+		if (errors.contains()) throw new ValidationException(errors);
+		
+		Map parameters = new HashMap();	
+		parameters.put("id", (getProduct().getNumber()));
+		parameters.put("description", getProduct().getDescription());
+		parameters.put("author", getProduct().getAuthor().getName());
+		parameters.put("isbn", getProduct().getIsbn());
+		parameters.put("category", getProduct().getCategory().getDescription());
+		parameters.put("price", getProduct().getPrice());
+		<br>		Collection&lt;AttachedFile&gt; attachedFiles = FilePersistorFactory.getInstance().findLibrary(getProduct().getPhotos());
+		byte[] file = attachedFiles.iterator().next().getData();
+		parameters.put("photoFromParameter", file);<br>
+		return parameters;
+	}
+
+	private Product getProduct() throws Exception {
+		if (product == null) {
+			int number = getView().getValueInt("number");
+			product = XPersistence.getManager().find(Product.class, Integer.valueOf(number));
+		}
+		return product;
+	}
+
+}
+</code></pre>
+        <h2><br>
+        </h2>
+        <h2>Transcripción</h2>
+        Hola, soy Mónica. En esta lección aprenderás a diseñar un reporte que incluya imágenes y a enviarlas desde tu aplicación OpenXava. Veremos cómo enviar una única imagen que aparezca en los datos de cabecera, con un parámetro. Y también a enviar una colección de imágenes usando un DataSource.<br>
+        <br>
+        Vamos a incluir imágenes en el reporte que creamos en la lección 2. Para esto debemos modificar la acción.<br>
+        Primero vamos a incluir una imagen como parámetro. Declaramos una colección de AttachedFile. Esta colección la obtenemos usando findLibrary enviando el ID de la librería o galería como parámetro; este ID se encuentra en getPhotos. Si vamos a la clase Product, podemos ver que photos es un String, que es usado para guardar la llave de la librería. Y declaramos una colección de AttachedFile porque photos tiene la anotación de @Files, donde indica que puede adjuntar más de un archivo o, en este caso, imagen.<br>
+        Vamos a enviar la primera imagen de la colección. Para esto, declaramos un file de tipo byte y le asignamos el getData del primer elemento de la colección. Por último, lo enviamos como parámetro.<br>
+        En caso de que tengamos una anotación @File, en vez de declarar una colección de AttachedFile, sería solo uno. Y en vez de usar findLibrary, usamos solamente find para buscar el archivo adjunto enviando getPhoto como parámetro. También obtenemos la imagen con getData.<br>
+        Comentamos todo lo que hicimos recién porque no usaremos @File. Ahora vamos a enviar la colección de imágenes como datasource usando lo mismo que vimos en la lección anterior. Teníamos una colección de AttachedFile, enviamos directamente eso. Listo. Ahora toca modificar el reporte.<br>
+        <br>
+        En el reporte de ProductDetail, arrastramos un elemento Image al reporte. Vemos que hay varias formas de insertar una imagen: desde el workspace, desde nuestro sistema, usar un URL, entre otros. Dejamos la opción en "No image". Ahora creamos un parámetro para recibir la imagen. Llevará el mismo nombre que pusimos recién y como tipo de dato será object. Si no lo vemos en la lista desplegable, lo debemos buscar manualmente.<br>
+        Una vez creado el parámetro, vamos a la vista source del reporte y buscamos el elemento imagen para añadirle la expresión. También lo podemos hacer directamente desde el panel de propiedades. Aquí está el elemento de la imagen. Estamos enviando un array de byte y lo recibimos como un objeto. Esto está bien. Pero ahora tenemos que interpretar ese array de bytes, por eso usamos ByteArrayInputStream, ponemos el parámetro y le aclaramos que el objeto recibido es un array de bytes.<br>
+        Listo. En caso del datasource, en la clase pasada vimos que debemos acceder directamente a la propiedad de cada elemento. En este caso, data es uno de ellos. Creamos un field llamado data de tipo object. Añadimos las secciones que eliminamos anteriormente. Y arrastramos data a la sección detail. Luego en la vista source modificamos manualmente el elemento de un textField a una imagen, debemos cambiar la etiqueta de textField por image y textFieldExpression por imageExpression.<br>
+        Ahora añadimos la expresión, similar a la de recién, pero usando field data. Guardamos y ordenamos los elementos del reporte. Listo, copiamos el reporte y lo probamos. Recuerda que debes iniciar de nuevo la aplicación. Al parecer está funcionando bien.<br>
+        <br>
+        Añadí dos imágenes más para probar cómo se vería. Por defecto, las líneas de detalle se agregan una debajo de otra. Vamos a cambiar esto. Apretando fuera del reporte, podemos editar las propiedades del mismo. En Edit Page Format, cambiamos a 3 columnas y que el orden de la impresión sea horizontal. Hicimos los cambios, pero al parecer no dieron efecto. Vamos a advanced e ingresamos manualmente los valores: 3 en column count y horizontal en print order. Ahí está.<br>
+        Luego seleccionamos el static text y en el panel de propiedades destildamos Print repeated Values para que no imprima el texto cada vez que se repite el elemento. Y tildamos Print in First Whole Band para que se imprima la primera vez. Copiamos y probamos de nuevo el reporte. Así serían los resultados.<br>
+        En esta lección has visto dos técnicas para enviar imágenes: los parámetros y el datasource. También has aprendido a obtener las imágenes de propiedades anotadas con Files o File, aunque puedes enviar cualquier imagen obtenida de cualquier fuente como un array de bytes. Además, vimos cómo diseñar el informe para que distribuya las imágenes a nuestro gusto.<br>
+        <br>
+        Te invitamos a que pruebes lo que has visto en la lección. Si tienes alguna duda o problema, puedes preguntarnos por el foro; también puedes descargar el código de esta lección por el link del repositorio, ambos enlaces se encuentran en la descripción del video. ¡Chao!</div>
+    </div>
+  </body>
+</html>
