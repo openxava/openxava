@@ -1,0 +1,100 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Generación de informes - Lección 5: Códigos de barra</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span>Generación de informes - Lección 5: Códigos de barra</h1>
+      <div class="wiki" style="display: block;">
+        <h2>Video</h2>
+        <p>En este video veremos cómo trabajar con códigos de barra en nuestro
+          reporte utilizando datos enviados desde la aplicación OpenXava.</p>
+        <p><a href="https://youtu.be/e5sWPNMvepg" target="_blank"><img src="files/report-course_es050.png"
+
+              title="report-generation-050"></a> </p>
+        <p><strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
+              >Pregunta en el foro</a></strong></p>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h2>Código</h2>
+        <p>Puedes <strong><a href="https://github.com/openxava/report-generation-course/tree/lesson_5"
+
+              target="_blank">descargar el proyecto de esta lección</a>.</strong>
+          También puedes copiar el código que se usa en el video por aquí:</p>
+        <code class="xml"></code> En el archivo <em>pom.xml</em>:<br>
+        <pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;net.sf.barcode4j&lt;/groupId&gt;
+    &lt;artifactId&gt;barcode4j&lt;/artifactId&gt;
+    &lt;version&gt;2.1&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.xmlgraphics&lt;/groupId&gt;
+    &lt;artifactId&gt;batik-bridge&lt;/artifactId&gt;
+    &lt;version&gt;1.11&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+    &lt;groupId&gt;com.google.zxing&lt;/groupId&gt;
+    &lt;artifactId&gt;core&lt;/artifactId&gt;
+    &lt;version&gt;3.3.0&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+    &lt;groupId&gt;com.google.zxing&lt;/groupId&gt;
+    &lt;artifactId&gt;javase&lt;/artifactId&gt;
+    &lt;version&gt;3.3.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+        <h2><br>
+        </h2>
+        <h2>Transcripción</h2>
+        Hola, soy Mónica. En esta lección aprenderás a generar códigos de barra
+        y códigos QR en el reporte, a partir de información enviada desde
+        OpenXava.<br>
+        <br>
+        Siguiendo con el reporte de la lección pasada, arrastramos un elemento
+        barcode al reporte. De todas las opciones disponibles elegimos EAN13 de
+        Barcode4J. En el barcode del panel de properties podemos asignarle una
+        expresión. Vamos a usar el parámetro ISBN. Guardamos, copiamos e
+        iniciamos la aplicación. Luego de esperar un rato no genera el reporte.
+        Vamos a la consola de OpenXava Studio y aparece un error. Dice que no
+        puede encontrar una clase de la librería barcode4j. Copiamos la traza y
+        lo pegamos en el buscador. Aquí nos propone una solución, que es agregar
+        una dependencia en el archivo pom.xml ubicado en la raíz del proyecto.
+        Copiamos la dependencia y lo pegamos en el pom. Guardamos y hacemos un
+        maven install antes de iniciar la aplicación. Probamos en generar el
+        reporte de nuevo. El reporte se generó pero está incompleto, vamos a la
+        consola a ver qué error dio esta vez. También dice que no encuentra una
+        clase. Hacemos lo mismo, buscamos en el navegador. Aquí dice que la
+        solución es agregando una dependencia más. Así que lo pegamos en el pom
+        y hacemos maven install antes de iniciar la aplicación. Esta vez
+        funcionó. Así sería el resultado, el elemento genera un código de barra
+        a partir de los 13 dígitos del ISBN que recibe.<br>
+        <br>
+        Vamos a probar otro más. Esta vez vamos a seleccionar QRCode y también
+        le asignamos el parámetro de ISBN. Guardamos, copiamos y probamos el
+        reporte. Nos dice que no puede encontrar una clase. Copiamos la traza en
+        el buscador a ver si encontramos alguna solución. Al parecer nos faltan
+        estas dos dependencias. Lo agregamos en nuestro pom. Guardamos y hacemos
+        maven install antes de reiniciar la aplicación. Ahí está el QRCode, si
+        lo escaneamos nos mostrará su información, que sería el ISBN.<br>
+        <br>
+        En esta lección has visto dos tipos de código de barra: EAN13 y QRCode.
+        Existen otros tipos de barcode, cada uno de ellos tiene un diseño
+        específico para satisfacer las necesidades de su ámbito particular. Te
+        invitamos a que pruebes los otros tipos. Si tienes alguna duda o
+        problema puedes preguntarnos por el foro, también puedes descargar el
+        código de esta lección por el link del repositorio, ambos enlaces se
+        encuentran en la descripción del video. Chao</div>
+    </div>
+  </body>
+</html>
