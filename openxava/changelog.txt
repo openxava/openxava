@@ -14,7 +14,7 @@ Change Log for OpenXava project
 - Typing day and month in a date or date/time field autocompletes the date with the current year.
 - New built-in controller InitModelWithNewInstance to init the model of the view with a new model instance. 
 - Example of creating a dashboard in openxavatest with the StaffDashboard module.
-- Lessons 2, 3 and 4 of the reporting course with JasperReports available in documentation with video.
+- Lessons 2, 3, 4 and 5 of the reporting course with JasperReports available in documentation with video.
 - Support for java.time.LocalDateTime as a type for properties in entities. 
 - LocalTime uses a consistent format across Java 8, 11, 17 and 21.
 - @LargeDisplay annotation to display a property value in large format, with large fonts, spacing, etc.
