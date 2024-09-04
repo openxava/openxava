@@ -35,13 +35,8 @@ public class Detail {
 	@Required
 	int quantity;	
 
-	@Depends("unitPrice, quantity") 
-	public BigDecimal getAmount() {
-		return new BigDecimal(getQuantity()).multiply(getUnitPrice()); 
-	}
-
-	public BigDecimal getUnitPrice() {
-		return unitPrice == null?new BigDecimal("0.00"):unitPrice;
-	}
+	@ReadOnly @Money
+	@Calculation("unitPrice * quantity") 
+	BigDecimal amount;
 	
 }

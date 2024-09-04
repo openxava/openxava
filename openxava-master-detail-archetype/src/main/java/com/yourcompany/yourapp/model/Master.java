@@ -26,7 +26,7 @@ import lombok.*;
 	"details { details };" +
 	"remarks { remarks }"
 )
-@Tab(properties="year, number, date, person.name, remarks")
+@Tab(properties="year, number, date, person.name, total, remarks")
 public class Master extends Identifiable {
 	
 	@DefaultValueCalculator(CurrentYearCalculator.class)
@@ -48,28 +48,18 @@ public class Master extends Identifiable {
 	Person person;
 	
 	@ElementCollection @OrderColumn
-	@ListProperties("item.number, item.description, unitPrice, quantity, amount[master.sum, master.taxPercentage, master.tax, master.total]")
+	@ListProperties("item.number, item.description, unitPrice, quantity, amount+[master.taxPercentage, master.tax, master.total]") 
 	List<Detail> details;
 	
 	@HtmlText
 	String remarks;
 	
-	public BigDecimal getSum() {
-		BigDecimal sum = BigDecimal.ZERO;
-		for (Detail detail: details) {
-			sum = sum.add(detail.getAmount());
-		}
-		return sum;
-	}
+	@ReadOnly @Money
+	@Calculation("sum(details.amount) * taxPercentage / 100")
+	BigDecimal tax;
 	
-	@Depends("sum, taxPercentage")
-	public BigDecimal getTax() {
-		return getSum().multiply(new BigDecimal(getTaxPercentage()).divide(new BigDecimal(100))).setScale(2, RoundingMode.UP);
-	}
-	
-	@Depends("sum, tax")
-	public BigDecimal getTotal() {
-		return getSum().add(getTax()).setScale(2, RoundingMode.UP);
-	}
+	@ReadOnly @Money
+	@Calculation("sum(details.amount) + tax")
+	BigDecimal total;	
 	
 }
