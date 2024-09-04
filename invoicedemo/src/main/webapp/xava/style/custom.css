@@ -1,0 +1,10 @@
+#ox_invoicedemo_Dashboard__core .ox-view {
+	max-width: 900px;
+	margin-top: 40px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#ox_invoicedemo_Dashboard__editor_totalInvoiced .ox-large-display {
+    width: 307px;
+}

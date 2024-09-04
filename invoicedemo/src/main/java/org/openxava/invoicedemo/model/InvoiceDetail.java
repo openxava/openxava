@@ -27,22 +27,8 @@ public class InvoiceDetail {
 	@Required
 	int quantity;	
 
-	/* tmr
-	@Depends("unitPrice, quantity") 
-	public BigDecimal getAmount() {
-		return new BigDecimal(getQuantity()).multiply(getUnitPrice()); 
-	}
-	
-	public BigDecimal getUnitPrice() {
-		return unitPrice == null?new BigDecimal("0.00"):unitPrice;
-	}	
-	*/
-	
-	// tmr ini
 	@ReadOnly @Money
 	@Calculation("unitPrice * quantity") 
 	BigDecimal amount;
-	// tmr fin
-
 	
 }

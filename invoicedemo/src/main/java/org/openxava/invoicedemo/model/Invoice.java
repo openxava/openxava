@@ -40,33 +40,12 @@ public class Invoice extends Identifiable {
 	Customer customer;
 	
 	@ElementCollection @OrderColumn
-	// tmr @ListProperties("product.number, product.description, unitPrice, quantity, amount[invoice.sum, invoice.vatPercentage, invoice.vat, invoice.total]")
 	@ListProperties("product.number, product.description, unitPrice, quantity, amount+[invoice.vatPercentage, invoice.vat, invoice.total]")
 	List<InvoiceDetail> details;
 	
-	@Stereotype("HTML_TEXT")
+	@HtmlText
 	String remarks;
 
-	/* tmr
-	public BigDecimal getSum() {
-		BigDecimal sum = BigDecimal.ZERO;
-		for (InvoiceDetail detail: details) {
-			sum = sum.add(detail.getAmount());
-		}
-		return sum;
-	}
-	
-	@Depends("sum, vatPercentage")
-	public BigDecimal getVat() {
-		return getSum().multiply(new BigDecimal(getVatPercentage()).divide(new BigDecimal(100))).setScale(2, RoundingMode.UP);
-	}
-	
-	@Depends("sum, vat")
-	public BigDecimal getTotal() {
-		return getSum().add(getVat()).setScale(2, RoundingMode.UP);
-	}
-	*/
-	// tmr ini
 	@ReadOnly @Money
 	@Calculation("sum(details.amount) * vatPercentage / 100")
 	BigDecimal vat;
@@ -74,6 +53,5 @@ public class Invoice extends Identifiable {
 	@ReadOnly @Money
 	@Calculation("sum(details.amount) + vat")
 	BigDecimal total;
-	// tmr fin
 	
 }

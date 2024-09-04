@@ -4,8 +4,6 @@ import java.math.*;
 
 import lombok.*;
 
-// tmr 
-
 @Getter @Setter @AllArgsConstructor 
 public class InvoicedPerCustomer {
 	
