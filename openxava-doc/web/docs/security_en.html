@@ -215,7 +215,95 @@
       To enable LDAP you have to select the users and check <em>Authenticate
         with LDAP</em> option:<br>
       <img src="files/naviox_ldap_en.png" alt="naviox_ldap_en.png" title="naviox_ldap_en.png"><br>
-      LDAP support is only available in <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
+      LDAP support is only available in <a href="http://www.openxava.org/xavapro">XavaPro</a>.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="codigo-autentificacion-ldap-personalizado">Custom authentication
+        code for LDAP <em>(new in v7.4)</em></h2>
+      TMR ME QUEDÉ POR AQUÍ</div>
+    <div class="wiki" style="display: block;"> Para definir tu propia lógica de
+      autentificación de usuarios contra tu servidor LDAP has de crear una clase
+      que implemente la interfaz <a href="https://www.openxava.org/OpenXavaDoc/apidocs/com/openxava/naviox/impl/ILDAPAuthenticatorProvider.html"><i>ILDAPAuthenticatorProvider</i></a>.
+      A veces la lógica por defecto con la que cuenta XavaPro para identificarse
+      contra el servidor LDAP no es suficiente, puede que quieras identificarte
+      contra varios servidores LDAP, contra un servidor LDAP especial que
+      requiera un código especial, etc. En estos casos puedes definir la manera
+      en que XavaPro autentifica a los usuarios contra LDAP en tu aplicación,
+      para eso extiende <i>ProLDAPAuthenticatorProvider</i>, de esta manera:
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">package com.miempresa.miaplicacion.impl;
+
+import java.util.*;
+
+import javax.naming.*;
+import javax.naming.directory.*;
+
+import org.apache.commons.logging.*;
+import org.openxava.util.*;
+
+import com.openxava.naviox.impl.*;
+
+public class MiPropioProLDAPAuthenticatorProvider extends ProLDAPAuthenticatorProvider {
+    
+    private static Log log = LogFactory.getLog(MiPropioProLDAPAuthenticatorProvider.class);    
+    
+    public boolean isValidLogin(String user, String password) {
+        // Este código es un ejemplo de lógica para acceder a LDAP,
+        // tendrás que escribir la tuya propia
+        Hashtable&lt;String, String&gt; props = new Hashtable&lt;String, String&gt;();        
+        String ldapDomain = getProperties().getProperty("ldapDomain", "").trim();
+        String ldapHost = getProperties().getProperty("ldapHost", "").trim();
+        String ldapPort = getProperties().getProperty("ldapPort", "").trim();
+        String ldapDN =  getProperties().getProperty("ldapDN", "").trim();
+        String ldapProtocol = "636".equals(ldapPort)?"ldaps":"ldap";         
+        String ldapURL;        
+        String securityPrincipal;
+        if (Is.emptyString(ldapDomain)) {  
+            ldapURL = String.format("%s://%s:%s", ldapProtocol, ldapHost, ldapPort); 
+            securityPrincipal = String.format("%s%s%s", "uid=" + user,         
+                                                           ldapDN.equals("")?"":",", 
+                                                           ldapDN);    
+        }
+        else {     
+            ldapURL = String.format("%s://%s:%s/%s", ldapProtocol, ldapHost, ldapPort, ldapDN); 
+            securityPrincipal = String.format("%s%s%s", ldapDomain, 
+                                                        ldapDomain.equals("")?"":"\\", 
+                                                        user);
+        }
+        
+        props.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+        props.put(Context.PROVIDER_URL, ldapURL);
+        props.put(Context.SECURITY_AUTHENTICATION, "simple");
+        props.put(Context.SECURITY_PRINCIPAL, securityPrincipal);
+        props.put(Context.SECURITY_CREDENTIALS, password);
+        props.put("com.sun.jndi.ldap.connect.timeout", "60000"); 
+        try {
+            DirContext ctx = new InitialDirContext(props);
+            ctx.close();
+            return true;
+        } catch (NamingException ex) {
+            log.error(XavaResources.getString("ldap_authentication_error"), ex);  
+        } finally {
+            log.info("javax.naming.Context.PROVIDER_URL: " + ldapURL);
+            log.info("javax.naming.Context.SECURITY_PRINCIPAL: " + securityPrincipal);
+        }
+        return false;
+    }
+    
+}
+</code></pre> </div>
+      <div class="wiki" style="display: block;">En este ejemplo la lógica usada
+        es la forma típica de conectarse a un servidor LDAP y es muy parecida a
+        la que usa XavaPro por defecto, tu tendrás escribir aquí tu propia
+        lógica. Esta lógica de autentificación solo se aplica a los usuarios
+        marcados con <i>Autentificar con LDAP</i>.</div>
+      <div class="wiki" style="display: block;">Para que tu aplicación use la
+        clase de arriba para autentificación contra LDAP has de añadir la
+        siguiente entrada en el archivo <i>naviox.properties</i> de tu
+        proyecto:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="properties">ldapAuthenticatorProviderClass=com.miempresa.miaplicacion.impl.MiPropioProLDAPAuthenticatorProvider</code></pre>
+        El soporte para definir una lógica propia para autentificarse con LDAP
+        sólo está disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.</div>
       <h2 id="toc6"><a name="Security and user management-Guest can create a user account himself"></a>Guest
         can create a user account himself</h2>
       In the sign in box you have a link labeled as SIGN UP:<br>

@@ -18,7 +18,7 @@ import org.apache.commons.logging.*;
 import org.openxava.util.*;
 import org.openxava.validators.*;
 
-import com.openxava.naviox.Modules;
+import com.openxava.naviox.*;
 import com.openxava.naviox.impl.*;
 import com.openxava.phone.impl.*;
 
@@ -270,6 +270,21 @@ public class NaviOXPreferences {
 	/** @since 7.2.3 */
 	public String getXavaProSubscriptionLicenseKey() { 
 		return getProperties().getProperty("xavaProSubscriptionLicenseKey", "").trim();
+	}
+
+	/** @since 7.4 */
+	public String getLDAPAuthenticatorProviderClass() { // tmr
+		return getProperties().getProperty("ldapAuthenticatorProviderClass", LDAPAuthenticatorProvider.class.getName()).trim();
+	}
+	
+	/** @since 7.4 */
+	public boolean isEncryptPassword() { // tmr
+		return "true".equalsIgnoreCase(getProperties().getProperty("encryptPassword", "true").trim());
+	}
+	
+	/** @since 7.4 */
+	public boolean isStorePasswordAsHex() { // tmr
+		return "true".equalsIgnoreCase(getProperties().getProperty("storePasswordAsHex", "true").trim());
 	}
 
 }

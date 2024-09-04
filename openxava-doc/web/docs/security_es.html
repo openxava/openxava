@@ -32,6 +32,8 @@
         <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-Politicas+para+usuarios+y+contrasenas">Políticas
             para usuarios y contraseñas</a></div>
         <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-LDAP">LDAP</a></div>
+        <div style="margin-left: 2em;"><a href="#codigo-autentificacion-ldap-personalizado">Código de autentificación LDAP personalizado (nuevo
+          en v7.4)</a></div>
         <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-Invitado+puede+crearse+una+cuenta+de+usuario+el+mismo">Invitado
             puede crearse una cuenta de usuario él mismo</a></div>
         <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-Fecha+de+creacion+de+usuario+y+registro+de+inicios+de+sesion">Fecha
@@ -56,7 +58,8 @@
             pasos (2FA) (nuevo en v7.1)</a><br>
         </div>
       </div>
-      <em>Todas las funcionalidades en este artículo están disponible solo en <a
+      <em>Todas las funcionalidades en este artículo están disponible solo en <a
+
           href="http://openxava.org/xavapro">XavaPro</a></em><br>
       <h2 id="toc1"><a name="Seguridad+y+gestion+de+usuarios-Gestion+de+usuarios"></a>Gestión
         de usuarios</h2>
@@ -87,7 +90,8 @@
       algunas acciones, ve al módulo <em>Roles</em> y escoge ese rol para
       editarlo en modo detalle. Ahora haz click en el módulo donde quieras
       restringir las acciones. Te aparecerá un diálogo como este:<br>
-      <img src="files/xavapro-restrict-actions_es.png" alt="xavapro-restrict-actions_es.png"
+      <img src="files/xavapro-restrict-actions_es.png" alt="xavapro-restrict-actions_es.png"
+
         title="xavapro-restrict-actions_es.png"><br>
       Selecciona las acciones que quieras excluir y pulsar <em>Grabar</em>. A
       partir de ahora, todos los usuario de ese rol no podrán ejecutar esas
@@ -107,7 +111,8 @@
       y escoge ese rol para editarlo en modo detalle. Ahora haz click en el
       módulo donde quieras restringir el acceso a los miembros. Te aparecerá un
       diálogo como este:<br>
-      <img src="files/restrict-data-read-only-data-xavapro_es.png" alt="restrict-data-read-only-data-xavapro_es.png"
+      <img src="files/restrict-data-read-only-data-xavapro_es.png" alt="restrict-data-read-only-data-xavapro_es.png"
+
         title="restrict-data-read-only-data-xavapro_es.png"><br>
       Selecciona los miembros en <em>Datos excluidos</em> que quieras excluir y
       pulsar <em>Grabar</em>. A partir de ahora, todos los usuario de ese rol
@@ -131,7 +136,8 @@
       casilla te permite marcar un módulo como de solo lectura para el rol
       seleccionado con un solo clic, simplificando significativamente el
       proceso:<br>
-      <img src="files/readonly-module-for-role_es.png" alt="readonly-module-for-role_es.png"
+      <img src="files/readonly-module-for-role_es.png" alt="readonly-module-for-role_es.png"
+
         title="readonly-module-for-role_es.png"><br>
       Un módulo de sólo lectura tiene todos los miembros no editables y sólo
       tiene acciones de navegación e impresión.<br>
@@ -144,7 +150,8 @@
       ejemplo. Ve al módulo <em>Roles</em> y escoge el rol que quieras editar
       en modo detalle, una vez allí pulsa en el módulo que quieras ocultar en el
       menú y un diálogo como el siguiente aparecerá:<br>
-      <img src="files/hide-module-in-menu-for-role_es.png" alt="hide-module-in-menu-for-role_es.png"
+      <img src="files/hide-module-in-menu-for-role_es.png" alt="hide-module-in-menu-for-role_es.png"
+
         title="hide-module-in-menu-for-role_es.png"><br>
       Marca la opción <i>No en el menú</i> y pulsa en <em>Grabar</em>. A
       partir de ahora, todos los usuario de ese rol no verán el módulo, <i>Customer</i>
@@ -157,7 +164,8 @@
       Hay un montón de opciones para configurar las políticas de gestión de
       usuarios y contraseñas. En la carpeta <em>Admin</em> encontrarás un
       módulo <em>Configuración</em>:<br>
-      <img src="files/xavapro-configuration_es.png" alt="xavapro-configuration_es.png"
+      <img src="files/xavapro-configuration_es.png" alt="xavapro-configuration_es.png"
+
         title="xavapro-configuration_es.png"><br>
       Puedes configurar estas políticas para que tu sistema sea compatible con
       PCI-DSS, algo muy útil en aplicaciones bancarias.</div>
@@ -224,7 +232,93 @@
       almacenadas por XavaPro. Para activar LDAP has de seleccionar los usuarios
       y marcar la opción <em>Autentificar con LDAP</em>:<br>
       <img src="files/naviox_ldap_es.png" alt="naviox_ldap_es.png" title="naviox_ldap_es.png"><br>
-      El soporte de LDAP sólo están disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
+      El soporte de LDAP sólo está disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="codigo-autentificacion-ldap-personalizado">Código de
+        autentificación LDAP personalizado <em>(nuevo en v7.4)</em></h2>
+      Para definir tu propia lógica de autentificación de usuarios contra tu
+      servidor LDAP has de crear una clase que implemente la interfaz <a href="https://www.openxava.org/OpenXavaDoc/apidocs/com/openxava/naviox/impl/ILDAPAuthenticatorProvider.html"><i>ILDAPAuthenticatorProvider</i></a>.
+      A veces la lógica por defecto con la que cuenta XavaPro para identificarse
+      contra el servidor LDAP no es suficiente, puede que quieras identificarte
+      contra varios servidores LDAP, contra un servidor LDAP especial que
+      requiera un código especial, etc. En estos casos puedes definir la manera
+      en que XavaPro autentifica a los usuarios contra LDAP en tu aplicación,
+      para eso extiende <i>ProLDAPAuthenticatorProvider</i>, de esta manera:
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">package com.miempresa.miaplicacion.impl;
+
+import java.util.*;
+
+import javax.naming.*;
+import javax.naming.directory.*;
+
+import org.apache.commons.logging.*;
+import org.openxava.util.*;
+
+import com.openxava.naviox.impl.*;
+
+public class MiPropioProLDAPAuthenticatorProvider extends ProLDAPAuthenticatorProvider {
+    
+    private static Log log = LogFactory.getLog(MiPropioProLDAPAuthenticatorProvider.class);    
+    
+    public boolean isValidLogin(String user, String password) {
+        // Este código es un ejemplo de lógica para acceder a LDAP,
+        // tendrás que escribir la tuya propia
+        Hashtable&lt;String, String&gt; props = new Hashtable&lt;String, String&gt;();        
+        String ldapDomain = getProperties().getProperty("ldapDomain", "").trim();
+        String ldapHost = getProperties().getProperty("ldapHost", "").trim();
+        String ldapPort = getProperties().getProperty("ldapPort", "").trim();
+        String ldapDN =  getProperties().getProperty("ldapDN", "").trim();
+        String ldapProtocol = "636".equals(ldapPort)?"ldaps":"ldap";         
+        String ldapURL;        
+        String securityPrincipal;
+        if (Is.emptyString(ldapDomain)) {  
+            ldapURL = String.format("%s://%s:%s", ldapProtocol, ldapHost, ldapPort); 
+            securityPrincipal = String.format("%s%s%s", "uid=" + user,         
+                                                           ldapDN.equals("")?"":",", 
+                                                           ldapDN);    
+        }
+        else {     
+            ldapURL = String.format("%s://%s:%s/%s", ldapProtocol, ldapHost, ldapPort, ldapDN); 
+            securityPrincipal = String.format("%s%s%s", ldapDomain, 
+                                                        ldapDomain.equals("")?"":"\\", 
+                                                        user);
+        }
+        
+        props.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+        props.put(Context.PROVIDER_URL, ldapURL);
+        props.put(Context.SECURITY_AUTHENTICATION, "simple");
+        props.put(Context.SECURITY_PRINCIPAL, securityPrincipal);
+        props.put(Context.SECURITY_CREDENTIALS, password);
+        props.put("com.sun.jndi.ldap.connect.timeout", "60000"); 
+        try {
+            DirContext ctx = new InitialDirContext(props);
+            ctx.close();
+            return true;
+        } catch (NamingException ex) {
+            log.error(XavaResources.getString("ldap_authentication_error"), ex);  
+        } finally {
+            log.info("javax.naming.Context.PROVIDER_URL: " + ldapURL);
+            log.info("javax.naming.Context.SECURITY_PRINCIPAL: " + securityPrincipal);
+        }
+        return false;
+    }
+    
+}
+</code></pre> </div>
+      <div class="wiki" style="display: block;">En este ejemplo la lógica usada
+        es la forma típica de conectarse a un servidor LDAP y es muy parecida a
+        la que usa XavaPro por defecto, tu tendrás escribir aquí tu propia
+        lógica. Esta lógica de autentificación solo se aplica a los usuarios
+        marcados con <i>Autentificar con LDAP</i>.</div>
+      <div class="wiki" style="display: block;">Para que tu aplicación use la
+        clase de arriba para autentificación contra LDAP has de añadir la
+        siguiente entrada en el archivo <i>naviox.properties</i> de tu
+        proyecto:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="properties">ldapAuthenticatorProviderClass=com.miempresa.miaplicacion.impl.MiPropioProLDAPAuthenticatorProvider</code></pre>
+        El soporte para definir una lógica propia para autentificarse con LDAP
+        sólo está disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.</div>
       <h2 id="toc6"><a name="Seguridad+y+gestion+de+usuarios-Invitado+puede+crearse+una+cuenta+de+usuario+el+mismo"></a>Invitado
         puede crearse una cuenta de usuario él mismo</h2>
       En la caja de identificación hay un vínculo etiquetado como CREAR CUENTA:<br>
@@ -246,18 +340,21 @@
       <h2 id="toc7"><a name="Seguridad+y+gestion+de+usuarios-Fecha+de+creacion+de+usuario+y+registro+de+inicios+de+sesion"></a>Fecha
         de creación de usuario y registro de inicios de sesión</h2>
       Ve al módulo de usuarios para ver esta información:<br>
-      <img src="files/user-creation-date-sessions_es.png" alt="user-creation-date-sessions_es.png"
+      <img src="files/user-creation-date-sessions_es.png" alt="user-creation-date-sessions_es.png"
+
         title="user-creation-date-sessions_es.png"><br>
       <h2 id="toc8"><a name="Seguridad+y+gestion+de+usuarios-Recuperacion+de+contrasena"></a>Recuperación
         de contraseña <em>(nuevo en v5.7)</em></h2>
       El usuario puede recuperar su contraseña por sí mismo. Cuando falla al
       introducir la contraseña correcta se muestra un mensaje "¿Has olvidado tu
       contraseña?" con un vínculo:<br>
-      <img src="files/recover-password-login_es.png" alt="recover-password-login_es.png"
+      <img src="files/recover-password-login_es.png" alt="recover-password-login_es.png"
+
         title="recover-password-login_es.png"><br>
       Cuando el usuario pulsa en el vínculo va a una página para introducir su
       correo electrónico:<br>
-      <img src="files/enter-email-recover-password_es.png" alt="enter-email-recover-password_es.png"
+      <img src="files/enter-email-recover-password_es.png" alt="enter-email-recover-password_es.png"
+
         title="enter-email-recover-password_es.png"><br>
       Después de pulsar en el botón "Recuperar contraseña" un correo electrónico
       con instrucciones para recuperar la contraseña es enviado. Por supuesto,
@@ -295,7 +392,8 @@
       necesario que cada usuario tenga su correo electrónico registrado en el
       sistema. Por tanto ahora si el usuario no tiene correo electrónico XavaPro
       se lo pregunta después de entrar:<br>
-      <img src="files/enter-email-personal-data_es.png" alt="enter-email-personal-data_es.png"
+      <img src="files/enter-email-personal-data_es.png" alt="enter-email-personal-data_es.png"
+
         title="enter-email-personal-data_es.png"><br>
       Introducir el correo no es obligatorio, el usuario puede irse a cualquier
       otro módulo dejando el correo electrónico en blanco.<br>
@@ -329,7 +427,8 @@
       ese usuario sólo pueda acceder desde esa IP. Para ello, ve al módulo <i>Usuarios</i>
       en la carpeta <i>Admin</i>, escoge un usuario y dale valor al campo <i>IP
         permitida</i>:</div>
-    <div class="wiki" style="display: block;"> <img src="files/allowed-ip_es.png"
+    <div class="wiki" style="display: block;"> <img src="files/allowed-ip_es.png"
+
         alt="allowed-ip_es.png" title="allowed-ip_es.png">
       <div class="wiki" style="display: block;">Finalmente, pulsa en <i>Grabar</i>.
         Si el valor de <i>IP permitida</i> es blanco el usuario puede acceder
