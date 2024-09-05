@@ -48,28 +48,18 @@ public class Maestro extends Identifiable {
 	Persona persona;
 	
 	@ElementCollection @OrderColumn
-	@ListProperties("item.codigo, item.descripcion, precioUnitario, cantidad, importe[maestro.suma, maestro.porcentajeIVA, maestro.iva, maestro.total]")
+	@ListProperties("item.codigo, item.descripcion, precioUnitario, cantidad, importe+[maestro.porcentajeIVA, maestro.iva, maestro.total]")
 	List<Detalle> detalles;
 	
 	@HtmlText
 	String observaciones;
 	
-	public BigDecimal getSuma() {
-		BigDecimal sum = BigDecimal.ZERO;
-		for (Detalle detalle: detalles) {
-			sum = sum.add(detalle.getImporte());
-		}
-		return sum;
-	}
+	@ReadOnly @Money
+	@Calculation("sum(detalles.importe) * porcentajeIVA / 100")
+	BigDecimal iva;
 	
-	@Depends("sum, taxPercentage")
-	public BigDecimal getIva() {
-		return getSuma().multiply(new BigDecimal(getPorcentajeIVA()).divide(new BigDecimal(100))).setScale(2, RoundingMode.UP);
-	}
-	
-	@Depends("sum, tax")
-	public BigDecimal getTotal() {
-		return getSuma().add(getIva()).setScale(2, RoundingMode.UP);
-	}
+	@ReadOnly @Money
+	@Calculation("sum(detalles.importe) + iva")
+	BigDecimal total;	
 	
 }

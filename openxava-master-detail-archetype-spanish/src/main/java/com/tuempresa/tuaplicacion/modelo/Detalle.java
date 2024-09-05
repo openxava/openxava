@@ -35,13 +35,8 @@ public class Detalle {
 	@Required
 	int cantidad;	
 
-	@Depends("precioUnitario, cantidad") 
-	public BigDecimal getImporte() {
-		return new BigDecimal(getCantidad()).multiply(getPrecioUnitario()); 
-	}
-
-	public BigDecimal getPrecioUnitario() {
-		return precioUnitario == null?new BigDecimal("0.00"):precioUnitario;
-	}
+	@ReadOnly @Money
+	@Calculation("precioUnitario * cantidad") 
+	BigDecimal importe;
 	
 }
