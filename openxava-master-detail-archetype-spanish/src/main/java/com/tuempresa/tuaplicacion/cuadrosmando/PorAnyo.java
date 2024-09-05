@@ -7,10 +7,10 @@ import lombok.*;
 @Getter @Setter @AllArgsConstructor 
 public class PorAnyo {
 	
-	int year;
+	int anyo;
 	
 	BigDecimal total;
 	
-	BigDecimal tax;
+	BigDecimal iva;
 
 }

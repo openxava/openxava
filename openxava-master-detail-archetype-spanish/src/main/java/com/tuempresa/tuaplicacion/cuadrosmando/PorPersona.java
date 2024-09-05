@@ -7,8 +7,8 @@ import lombok.*;
 @Getter @Setter @AllArgsConstructor 
 public class PorPersona {
 	
-	String name;
+	String nombre;
 	
-	BigDecimal amount;
+	BigDecimal importe;
 	
 }

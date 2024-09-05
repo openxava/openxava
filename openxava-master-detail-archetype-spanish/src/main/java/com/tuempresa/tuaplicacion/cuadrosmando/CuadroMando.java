@@ -15,55 +15,53 @@ import org.openxava.jpa.*;
 )
 public class CuadroMando {
 	
-	// TMR ME QUEDÉ POR AQUÍ: TRADUCIENDO
-	
 	@Money
 	@LargeDisplay(icon="cash")
-	public BigDecimal getTotalSum() { 
-		return (BigDecimal) XPersistence.getManager().createQuery("select sum(m.total) from Master m").getSingleResult();
+	public BigDecimal getSumaTotal() { 
+		return (BigDecimal) XPersistence.getManager().createQuery("select sum(m.total) from Maestro m").getSingleResult();
 	}
 	
 	@LargeDisplay(icon="animation")
-	public long getNumberOfMasters() { 		
-		return count("Master"); 
+	public long getNumeroMaestros() { 		
+		return contar("Maestro"); 
 	}
 		
 	@LargeDisplay(icon="account-group")
-	public long getNumberOfPeople() { 
-		return count("Person");
+	public long getNumeroPersonas() { 
+		return contar("Persona");
 	}
 	
 	@Chart
-	public Collection<PorAnyo> getEvolution() { 
-		String jpql = "select new com.yourcompany.yourapp.dashboards.PerYear(m.year, sum(m.total), sum(m.tax)) " +
-			"from Master m " +
-			"group by m.year " +
-			"order by m.year asc";
+	public Collection<PorAnyo> getEvolucion() { 
+		String jpql = "select new com.tuempresa.tuaplicacion.cuadrosmando.PorAnyo(m.anyo, sum(m.total), sum(m.iva)) " +
+			"from Maestro m " +
+			"group by m.anyo " +
+			"order by m.anyo asc";
 		TypedQuery<PorAnyo> query = XPersistence.getManager().createQuery(jpql, PorAnyo.class);
 		return query.getResultList();
 	}
 	
 	@SimpleList 
-	public Collection<PorPersona> getTopPeople() { 
-		String jpql = "select new com.yourcompany.yourapp.dashboards.PerPerson(m.person.name, sum(m.total) as amount) " +
-			"from Master m " +
-			"group by m.person.number, amount " +
-			"order by amount desc";
+	public Collection<PorPersona> getPersonasDestacadas() { 
+		String jpql = "select new com.tuempresa.tuaplicacion.cuadrosmando.PorPersona(m.persona.nombre, sum(m.total) as importe) " +
+			"from Maestro m " +
+			"group by m.persona.numero, importe " +
+			"order by importe desc";
 		TypedQuery<PorPersona> query = XPersistence.getManager().createQuery(jpql, PorPersona.class).setMaxResults(5);
 		return query.getResultList();
 	}
 	
-	@SimpleList @ListProperties("year, total")
-	public Collection<PorAnyo> getTopYears() { 
-		String jpql = "select new com.yourcompany.yourapp.dashboards.PerYear(m.year, sum(m.total) as amount, sum(m.tax)) " +
-			"from Master m " +
-			"group by m.year " +
-			"order by amount desc";
+	@SimpleList @ListProperties("anyo, total")
+	public Collection<PorAnyo> getMejoresAnyos() { 
+		String jpql = "select new com.tuempresa.tuaplicacion.cuadrosmando.PorAnyo(m.anyo, sum(m.total) as importe, sum(m.iva)) " +
+			"from Maestro m " +
+			"group by m.anyo " +
+			"order by importe desc";
 		TypedQuery<PorAnyo> query = XPersistence.getManager().createQuery(jpql, PorAnyo.class).setMaxResults(5);
 		return query.getResultList();
 	}	
 	
-	private Long count(String entity) {
+	private Long contar(String entity) {
 		return (Long) XPersistence.getManager().createQuery("select count(*) from " + entity).getSingleResult();
 	}
 	

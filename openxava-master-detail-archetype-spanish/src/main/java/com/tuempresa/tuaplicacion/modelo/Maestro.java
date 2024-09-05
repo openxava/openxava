@@ -26,7 +26,7 @@ import lombok.*;
 	"detalles { detalles };" +
 	"observaciones { observaciones }"
 )
-@Tab(properties="anyo, numero, fecha, persona.nombre, observaciones")
+@Tab(properties="anyo, numero, fecha, persona.nombre, total, observaciones")
 public class Maestro extends Identifiable {
 	
 	@DefaultValueCalculator(CurrentYearCalculator.class)
