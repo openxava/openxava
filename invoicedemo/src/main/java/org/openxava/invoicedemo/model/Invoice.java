@@ -18,8 +18,7 @@ import lombok.*;
 	"details { details };" +
 	"remarks { remarks }"
 )
-// tmr @Tab(properties="year, number, date, customer.name, remarks")
-@Tab(properties="year, number, date, customer.name, total, remarks") // tmr
+@Tab(properties="year, number, date, customer.name, total, remarks") 
 public class Invoice extends Identifiable {
 		
 	@DefaultValueCalculator(CurrentYearCalculator.class)

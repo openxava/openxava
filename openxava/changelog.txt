@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Master-Detail archetypes include a dashboard and uses @Calculation instead of calculated properties.
 - The invoicedemo project includes a dashboard and uses @Calculation instead of calculated properties.
 - Transient classes can be placed in sibling packages of model package, with no entities in the package.
 - New currencySymbol property in xava.properties to specify the default symbol to use for money. 
