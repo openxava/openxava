@@ -273,17 +273,17 @@ public class NaviOXPreferences {
 	}
 
 	/** @since 7.4 */
-	public String getLDAPAuthenticatorProviderClass() { // tmr
+	public String getLDAPAuthenticatorProviderClass() { 
 		return getProperties().getProperty("ldapAuthenticatorProviderClass", LDAPAuthenticatorProvider.class.getName()).trim();
 	}
 	
 	/** @since 7.4 */
-	public boolean isEncryptPassword() { // tmr
+	public boolean isEncryptPassword() { 
 		return "true".equalsIgnoreCase(getProperties().getProperty("encryptPassword", "true").trim());
 	}
 	
 	/** @since 7.4 */
-	public boolean isStorePasswordAsHex() { // tmr
+	public boolean isStorePasswordAsHex() { 
 		return "true".equalsIgnoreCase(getProperties().getProperty("storePasswordAsHex", "true").trim());
 	}
 
