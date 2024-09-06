@@ -1110,8 +1110,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		cloneMetaTab();
 		try {
 			XObjects.execute(refiner, "polish", MetaModule.class, getModuleManager(request).getMetaModule(),
-				// tmr MetaTab.class, metaTab);
-				Tab.class, this); // tmr	
+				Tab.class, this); 	
 			resetAfterChangeProperties(); 
 		}
 		catch (Exception ex) {

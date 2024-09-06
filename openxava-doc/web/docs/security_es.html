@@ -29,6 +29,8 @@
           </a></div>
         <div style="margin-left: 2em;"><a href="#ocultar-un-modulo-en-el-menu-sin-restringirlo">Ocultar
             un módulo en el menú sin restringirlo (nuevo en v6.5)</a></div>
+        <div style="margin-left: 2em;"><a href="#desactivar-personalizaci%C3%B3n-lista">Desactivar
+            personalización de la lista (nuevo en v7.4)</a></div>
         <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-Politicas+para+usuarios+y+contrasenas">Políticas
             para usuarios y contraseñas</a></div>
         <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-LDAP">LDAP</a></div>
@@ -153,7 +155,30 @@
       en nuestro ejemplo, en el menú de la izquierda, sin embargo, seguirá
       estando disponible, por lo que si el usuario va a <i>http://tusitio.com/TuAplicacion/m/Customer</i>
       con su navegador el módulo funcionará.<br>
-      Ocultar módulos en el menú sólo está disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
+      Ocultar módulos en el menú sólo está disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="desactivar-personalización-lista">Desactivar personalización de la
+        lista <em>(nuevo en v7.4)</em></h2>
+      OpenXava permite a los usuarios personalizar la lista a su gusto
+      añadiendo, quitando o moviendo columnas. Por supuesto, XavaPro nunca ha
+      permitido que el usuario pueda añadir propiedades a las que ese usuario no
+      tenga acceso por la configuración de permisos de XavaPro. Además, desde
+      siempre OpenXava ha permitido desactivar esta característica a nivel
+      global (para todos los módulos y usuarios) poniendo <i>customizeList=false</i>
+      en <i>xava.properties</i>. Pero no es suficiente cuando se quiere que
+      ciertos usuarios no tengan la posibilidad de personalizar la lista en
+      absoluto, pero otros sí. Para eso, desde la versión 7.4 es posible
+      desactivar la posibilidad de personalizar la lista para los usuarios de un
+      rol específico. Para desactivar la personalización de la lista ve al
+      módulo de roles, escoge un rol y desde ahí escoge un módulo. Esto mostrará
+      el cuadro de diálogo de configuración de derechos del módulo para un rol,
+      que ahora incluye una casilla de verificación denominada <i>No
+        personalizar lista</i>. Márcala para desactivar la personalización de la
+      lista para ese módulo, para usuarios de ese rol:<br>
+      <img src="files/no-list-customization_es.png" alt="no-list-customization_es.png"
+        title="no-list-customization_es.png"><br>
+      Desactivar la personalización de la lista por roles sólo está disponible
+      en <a href="http://www.openxava.org/xavapro">XavaPro</a>.
       <h2 id="toc4"><a name="Seguridad+y+gestion+de+usuarios-Politicas+para+usuarios+y+contrasenas"></a>Políticas
         para usuarios y contraseñas</h2>
       Hay un montón de opciones para configurar las políticas de gestión de

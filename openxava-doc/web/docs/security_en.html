@@ -26,11 +26,14 @@
         <div style="margin-left: 2em;"><a href="#readonly-module-for-role">Read
             only module with one click (new in v7.2)</a></div>
         <div style="margin-left: 2em;"><a href="#hiding-a-module-in-the-menu-without-restricting-it">Hiding
-            a module in the menu without restricting it (new in v6.5)</a></div>
+            a module in the menu without restricting it (new in
+            v6.5)</a></div>
+        <div style="margin-left: 2em;"><a href="#disable-list-customization">Disable list customization (new in v7.4)</a></div>        
         <div style="margin-left: 2em;"><a href="#Security%20and%20user%20management-User%20and%20password%20policies">User
             and password policies</a></div>
         <div style="margin-left: 2em;"><a href="#Security%20and%20user%20management-LDAP">LDAP</a></div>
-        <div style="margin-left: 2em;"><a href="#custom-authentication-code-ldap">Custom authentication code for LDAP (new in v7.4)</a></div>
+        <div style="margin-left: 2em;"><a href="#custom-authentication-code-ldap">Custom
+            authentication code for LDAP (new in v7.4)</a></div>
         <div style="margin-left: 2em;"><a href="#Security%20and%20user%20management-Guest%20can%20create%20a%20user%20account%20himself">Guest
             can create a user account himself</a></div>
         <div style="margin-left: 2em;"><a href="#Security%20and%20user%20management-Creation%20date%20and%20record%20of%20logins%20for%20each%20user">Creation
@@ -146,7 +149,28 @@
       in our example, in the left menu, however it will be still accessible, so
       if the user goes to <i>http://yoursite.com/YourApp/m/Customer</i> with
       his browser the module will work.<br>
-      Hiding modules in the menu is only available in <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
+      Hiding modules in the menu is only available in <a href="http://www.openxava.org/xavapro">XavaPro</a>.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="disable-list-customization">Disable list customization <em>(new
+          in v7.4)</em></h2>
+      OpenXava allows users to customize the list to their liking by adding,
+      removing, or moving columns. Of course, XavaPro has never allowed users to
+      add properties to which they do not have access according to the XavaPro
+      permission settings. Additionally, OpenXava has always allowed this
+      feature to be disabled globally (for all modules and users) by setting <i>customizeList=false</i>
+      in <i>xava.properties</i>. However, this is not sufficient when certain
+      users should not have the ability to customize the list at all, while
+      others should. For this reason, since version 7.4, it is possible to
+      disable the ability to customize the list for users of a specific role. </div>
+    <div class="wiki" style="display: block;">To disable list customization, go
+      to the roles module, choose a role, and from there select a module. This
+      will display the module rights configuration dialog for a role, which now
+      includes a checkbox labeled <i>No list customization</i>. Check it to
+      disable list customization for that module, for users of that role:<br>
+      <img src="files/no-list-customization_en.png" alt="no-list-customization_en.png"
+
+        title="no-list-customization_en.png"><br>
+      Disabling list customization by roles is only available in <a href="http://www.openxava.org/xavapro">XavaPro</a>.
       <h2 id="toc4"><a name="Security and user management-User and password policies"></a>User
         and password policies</h2>
       There are a lot of options available for user management and password
