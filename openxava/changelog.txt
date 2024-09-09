@@ -3,14 +3,16 @@ Change Log for OpenXava project
 
 - Commons-logging upgraded to 1.3.4.
 - Poi and poi-ooxml upgraded to 5.3.0.
-- Jasperreports and jasperreports-fonts upgraded to 1.3.4.
+- Jasperreports and jasperreports-fonts upgraded to 7.0.0. --- revert
 - Groovy upgraded to 4.0.22.
 - Jsoup upgraded to 1.18.1.
 - Htmlunit upgraded to 4.4.0.
-- Pdfbox upgraded to 3.0.3.
+- Pdfbox upgraded to 3.0.3. --- revert
 - Lombok upgraded to 1.18.34.
 - Embedded Tomcat used in development upgraded to 9.0.93.
 - Log4j-api log4j-core upgraded to 2.24.0.
+- Junit change to junit-jupiter-api and uggraded to 5.11.0.
+
 
 - New delete action for collection that always deletes the element completely from the database.
 - @DeleteSelectedAction annotation for collection to define a custom action for deleting an element.
