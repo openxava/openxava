@@ -1,44 +1,57 @@
 Change Log for OpenXava project
 ===============================
 
-- Master-Detail archetypes include a dashboard and uses @Calculation instead of calculated properties.
-- The invoicedemo project includes a dashboard and uses @Calculation instead of calculated properties.
-- Transient classes can be placed in sibling packages of model package, with no entities in the package.
-- New currencySymbol property in xava.properties to specify the default symbol to use for money. 
-- It's possible to close several dialogs at once from one action, calling several times to closeDialog().
-- @RowStyle in @Tab(rowStyles=) for list mode works for card list format.
-- New @NoDefaultActions annotation for now show default actions for a specific collection.
-- New @SearchListTab annotation for references and collections to choose the tab for the dialog search list.
-- @SearchListCondition allows the use of ${this.somePropertyDisplayedInView} in the condition.
-- Record count included in automatic PDF reports of list mode and collections.
-- Hibernate type converter LocalDateNumericType to store LocalDate values as numbers with yyyymmdd format.
-- @SimpleList annotation for collections to display it without actions, filters, pagination, sorting, etc. 
-- Typing day and month in a date or date/time field autocompletes the date with the current year.
-- New built-in controller InitModelWithNewInstance to init the model of the view with a new model instance. 
-- Example of creating a dashboard in openxavatest with the StaffDashboard module.
-- Lessons 2, 3, 4 and 5 of the reporting course with JasperReports available in documentation with video.
-- Support for java.time.LocalDateTime as a type for properties in entities. 
-- LocalTime uses a consistent format across Java 8, 11, 17 and 21.
-- @LargeDisplay annotation to display a property value in large format, with large fonts, spacing, etc.
-- Moneys utility class to work with money values and properties.
-- If conflict to choose an editor from a stereotype or from annotation, the annotation has preference.
-- When several annotations with editor over a member it's chosen the last one declared in editors.xml. 
-- Special characters (%, euro, etc.) supported as value in annotations attributes and editor properties. 
-- New attribute default-label-format for editor in editors.xml.
+
+
 - New delete action for collection that always deletes the element completely from the database.
 - @DeleteSelectedAction annotation for collection to define a custom action for deleting an element.
-- Icon and label for remove action in collection changed to indicate it just removes from the collection. 
-- README instructions includes the usage of archetypes.
-- Getting started guide adapted to OpenXava Studio 7 R3. 
-- @Chart annotation for collections to display the collection as a chart from its data. 
-- As @DescriptionsList defaults 'name' takes preferences over 'description', and 'title' is recognized.
-- New methods getAnnotationAttributeValue() and getAnnotationsWithRepeatables() in Classes utity class.
-- Attributes forViews y notForViews recognized for custom annotations.
-- Some new common use labels to be used in applications.
-- Fix: Missing a entry in navigation of view section of reference guide in English. 
+- Icon and label for remove action in collection changed to indicate it just removes from the collection.
 - New 'Open in new tab' row action by default in collections. 
 - Popup menu for row actions in list and collections when there are more than two actions.
-- Chinese translations removed from all OpenXava official documentation. 
+
+- Master-Detail archetypes include a dashboard and use @Calculation instead of calculated properties.
+- The invoicedemo project includes a dashboard and uses @Calculation instead of calculated properties.
+- @Chart annotation for collections to display the collection as a chart from its data.
+- @LargeDisplay annotation to display a property value in large format, with large fonts, spacing, etc.
+- Example of creating a dashboard in openxavatest with the StaffDashboard module.
+- @SimpleList annotation for collections to display it without actions, filters, pagination, sorting, etc.
+
+- Support for java.time.LocalDateTime as a type for properties in entities.
+
+- Typing day and month in a date or date/time field autocompletes the date with the current year.
+
+- Record count included in automatic PDF reports of list mode and collections.
+
+- @SearchListCondition allows the use of ${this.somePropertyDisplayedInView} in the condition.
+
+- New @SearchListTab annotation for references and collections to choose the tab for the dialog search list.
+
+- New @NoDefaultActions annotation for not showing default actions for a specific collection.
+
+
+- Lessons 2, 3, 4 and 5 of the reporting course with JasperReports available in documentation with video.
+- README instructions include the usage of archetypes.
+- Getting started guide adapted to OpenXava Studio 7 R3.  
+- Chinese translations removed from all OpenXava official documentation.
+
+- It's possible to close several dialogs at once from one action, calling several times to closeDialog().
+- New currencySymbol property in xava.properties to specify the default symbol to use for money.
+- @RowStyle in @Tab(rowStyles=) for list mode works for card list format.
+- Hibernate type converter LocalDateNumericType to store LocalDate values as numbers with yyyymmdd format.
+- New built-in controller InitModelWithNewInstance to init the model of the view with a new model instance.
+- LocalTime uses a consistent format across Java 8, 11, 17 and 21.
+- Moneys utility class to work with money values and properties.
+- If conflict to choose an editor from a stereotype or from an annotation, the annotation has preference.
+- When several annotations with editor over a memberthe last one declared in editors.xml is chosen. 
+- Special characters (%, euro, etc.) supported as value in annotation attributes and editor properties.
+- New attribute default-label-format for editor in editors.xml.
+- Transient classes can be placed in sibling packages of the model package, with no entities in the package.
+- Attributes forViews y notForViews recognized for custom annotations.
+- New methods getAnnotationAttributeValue() and getAnnotationsWithRepeatables() in Classes utility class.
+- Some new common use labels to be used in applications.
+- As @DescriptionsList defaults, 'name' takes preferences over 'description', and 'title' is recognized. 
+
+- Fix: Missing an entry in the navigation of view section of the reference guide in English.
 - Fix: New article and video with a list of sample applications and instructions to get them up and running. 
 - Fix: Incorrect description for project in license and pom.xml for Project Management archetypes.
 
