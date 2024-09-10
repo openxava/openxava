@@ -10,7 +10,7 @@ Change Log for OpenXava project
 - Embedded Tomcat used in development upgraded to 9.0.93.
 - Log4j-api log4j-core upgraded to 2.24.0.
 - Pdfbox upgraded to 3.0.3.
-- Jersey-client, hk2, media-json-binding upgraded to 3.0.15.
+- Jersey-client, hk2, media-json-binding upgraded to 2.45.
 - Jakarta json bind-api upgraded to 3.0.1.
 
 - New delete action for collection that always deletes the element completely from the database.
