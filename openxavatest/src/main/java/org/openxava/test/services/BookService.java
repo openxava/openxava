@@ -1,9 +1,9 @@
 package org.openxava.test.services;
 
-import org.openxava.test.model.*;
+import javax.json.bind.annotation.*;
+import javax.ws.rs.client.*;
 
-import jakarta.json.bind.annotation.*;
-import jakarta.ws.rs.client.*;
+import org.openxava.test.model.*;
 
 /**
  * 
