@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.logging.*;
 
 import org.apache.commons.logging.*;
+import org.apache.pdfbox.*;
 import org.apache.pdfbox.pdmodel.*;
 import org.apache.pdfbox.text.*;
 import org.htmlunit.*;
@@ -984,12 +985,24 @@ abstract public class ModuleTestBase extends TestCase {
 	protected String getPopupPDFAsText() throws Exception { 
 		if (popupPDFAsText == null) {
 			InputStream is = getPopupPage(-1).getWebResponse().getContentAsStream();
-			PDDocument doc = PDDocument.load(is); 
+			byte[] pdfBytes = convertInputStreamToByteArray(is);
+			PDDocument doc = Loader.loadPDF(pdfBytes);
 			popupPDFAsText = new PDFTextStripper().getText(doc);
 			doc.close();
 			is.close();
 		}
 		return popupPDFAsText;
+	}
+	
+	private byte[] convertInputStreamToByteArray(InputStream inputStream) throws Exception {
+	    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+	    int nRead;
+	    byte[] data = new byte[16384];
+	    while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
+	        buffer.write(data, 0, nRead);
+	    }
+	    buffer.flush();
+	    return buffer.toByteArray();
 	}
 	
 	/**
@@ -1009,7 +1022,8 @@ abstract public class ModuleTestBase extends TestCase {
 	protected int getPopupPDFPageCount() throws Exception {
 		if(popupPDFPageCount == -1) {
 			InputStream is = getPopupPage(-1).getWebResponse().getContentAsStream();
-			PDDocument doc = PDDocument.load(is);
+			byte[] pdfBytes = convertInputStreamToByteArray(is);
+			PDDocument doc = Loader.loadPDF(pdfBytes);
 			popupPDFPageCount = doc.getNumberOfPages();
 			doc.close();
 			is.close();
