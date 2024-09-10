@@ -197,7 +197,7 @@
 		<dependency>
 			<groupId>jakarta.json.bind</groupId>
 			<artifactId>jakarta.json.bind-api</artifactId>
-			<version>1.0.2</version>
+			<version>3.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>jstl</groupId>
