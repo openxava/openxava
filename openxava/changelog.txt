@@ -11,6 +11,7 @@ Change Log for OpenXava project
 - Log4j-api log4j-core upgraded to 2.24.0.
 - Pdfbox upgraded to 3.0.3.
 - Jersey-client, hk2, media-json-binding upgraded to 2.45.
+- Driver version in doc and new projects upgraded for MySQL, PostgreSQL, Oracle, Microsoft SQL Server, Informix, Firebird.
 
 - New delete action for collection that always deletes the element completely from the database.
 - @DeleteSelectedAction annotation for collection to define a custom action for deleting an element.
