@@ -13,7 +13,8 @@ public class DiscussionTest extends WebDriverTestBase {
 
 	
 	protected WebDriver createWebDriver(String lang) {
-		// If fails try to add -Dwebdriver.gecko.driver=/snap/bin/geckodriver 
+		// If fails with Linux try to add -Dwebdriver.gecko.driver=/snap/bin/geckodriver
+		// If fails with Windows 7 try to add -Dwebdriver.gecko.driver=C:\Users\youruser\opt\geckodriver34.exe (v34 is the last supported for Windows 7)
 		FirefoxOptions options = new FirefoxOptions();
 		options.addArguments("--headless");
 		return new FirefoxDriver(options);

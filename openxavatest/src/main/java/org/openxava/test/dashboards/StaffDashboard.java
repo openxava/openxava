@@ -24,56 +24,56 @@ public class StaffDashboard {
 	
 	@LargeDisplay(icon="account-group")
 	public int getStaffCount() {
-		// Intead of return an ad hoc number write your own logic
+		// Instead of return an ad hoc number write your own logic
 		// with JPA queries and Java to obtain the returned value
 		return 223; 
 	}
 	
 	@LargeDisplay(icon="cake-variant")
 	public int getAverageAge() { 
-		// Intead of return an ad hoc number write your own logic
+		// Instead of return an ad hoc number write your own logic
 		// with JPA queries and Java to obtain the returned value		
 		return 37; 
 	}
 		
 	@LargeDisplay(suffix="%", icon="face")
 	public BigDecimal getMenPercentage() {
-		// Intead of return an ad hoc number write your own logic
+		// Instead of return an ad hoc number write your own logic
 		// with JPA queries and Java to obtain the returned value
 		return new BigDecimal("34.27"); 
 	}
 	
 	@LargeDisplay(suffix="%", icon="face-woman")
 	public BigDecimal getWomanPercentage() { 
-		// Intead of return an ad hoc number write your own logic
+		// Instead of return an ad hoc number write your own logic
 		// with JPA queries and Java to obtain the returned value		
 		return new BigDecimal("65.73"); 
 	}
 	
 	@LargeDisplay(suffix="%", icon="account-convert")
 	public int getTurnover() {
-		// Intead of return an ad hoc number write your own logic
+		// Instead of return an ad hoc number write your own logic
 		// with JPA queries and Java to obtain the returned value
 		return 4; 
 	}	
 	
 	@LargeDisplay(suffix="%", icon="hotel")
 	public BigDecimal getIllnessRate() {
-		// Intead of return an ad hoc number write your own logic
+		// Instead of return an ad hoc number write your own logic
 		// with JPA queries and Java to obtain the returned value
 		return new BigDecimal("2.13"); 
 	}
 	
 	@LargeDisplay(suffix="%", icon="bandage")
 	public BigDecimal getAccidentRate() {
-		// Intead of return an ad hoc number write your own logic
+		// Instead of return an ad hoc number write your own logic
 		// with JPA queries and Java to obtain the returned value		
 		return new BigDecimal("0.03"); 
 	}		
 	
 	@LargeDisplay(suffix="%", icon="baby-carriage")
 	public BigDecimal getMaternityRate() {
-		// Intead of return an ad hoc number write your own logic
+		// Instead of return an ad hoc number write your own logic
 		// with JPA queries and Java to obtain the returned value		
 		return new BigDecimal("0.91"); 
 	}		
