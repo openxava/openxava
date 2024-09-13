@@ -2,53 +2,29 @@ Change Log for OpenXava project
 ===============================
 
 
+- @Chart annotation for collections to display the collection as a chart from its data.
+- @LargeDisplay annotation to display a property value in large format, with large fonts, spacing, etc.
+- @SimpleList annotation for collections to display it without actions, filters, pagination, sorting, etc.
+- Master-Detail archetypes include a dashboard and use @Calculation instead of calculated properties.
+- The invoicedemo project includes a dashboard and uses @Calculation instead of calculated properties.
+- Example of creating a dashboard in openxavatest with the StaffDashboard module.
 
-- Commons-logging upgraded to 1.3.4.
-- Poi and poi-ooxml upgraded to 5.3.0.
-- Groovy upgraded to 4.0.22.
-- Jsoup upgraded to 1.18.1.
-- Htmlunit upgraded to 4.4.0.
-- Lombok upgraded to 1.18.34.
-- Embedded Tomcat used in development upgraded to 9.0.93.
-- Log4j-api log4j-core upgraded to 2.24.0.
-- Pdfbox upgraded to 3.0.3.
-- Jersey-client, hk2, media-json-binding upgraded to 2.45.
-- Driver version in doc and new projects upgraded for MySQL, PostgreSQL, Oracle, Microsoft SQL Server, Informix, Firebird.
-
+- Popup menu for row actions in list and collections when there are more than two actions.
+- New 'Open in new tab' row action by default in collections. 
 - New delete action for collection that always deletes the element completely from the database.
 - @DeleteSelectedAction annotation for collection to define a custom action for deleting an element.
 - Icon and label for remove action in collection changed to indicate it just removes from the collection.
-- New 'Open in new tab' row action by default in collections. 
-- Popup menu for row actions in list and collections when there are more than two actions.
-
-- Master-Detail archetypes include a dashboard and use @Calculation instead of calculated properties.
-- The invoicedemo project includes a dashboard and uses @Calculation instead of calculated properties.
-- @Chart annotation for collections to display the collection as a chart from its data.
-- @LargeDisplay annotation to display a property value in large format, with large fonts, spacing, etc.
-- Example of creating a dashboard in openxavatest with the StaffDashboard module.
-- @SimpleList annotation for collections to display it without actions, filters, pagination, sorting, etc.
-
-- Support for java.time.LocalDateTime as a type for properties in entities.
-
-- Typing day and month in a date or date/time field autocompletes the date with the current year.
-
-- Record count included in automatic PDF reports of list mode and collections.
-
+- New @NoDefaultActions annotation for not showing default actions for a specific collection.
+- @RowStyle in @Tab(rowStyles=) for list mode works for card list format.
+- As @DescriptionsList defaults, 'name' takes preferences over 'description', and 'title' is recognized.
 - @SearchListCondition allows the use of ${this.somePropertyDisplayedInView} in the condition.
-
 - New @SearchListTab annotation for references and collections to choose the tab for the dialog search list.
 
-- New @NoDefaultActions annotation for not showing default actions for a specific collection.
-
-
-- Lessons 2, 3, 4 and 5 of the reporting course with JasperReports available in documentation with video.
-- README instructions include the usage of archetypes.
-- Getting started guide adapted to OpenXava Studio 7 R3.  
-- Chinese translations removed from all OpenXava official documentation.
-
+- Support for java.time.LocalDateTime as a type for properties in entities.
+- Typing day and month in a date or date/time field autocompletes the date with the current year.
+- Record count included in automatic PDF reports of list mode and collections.
 - It's possible to close several dialogs at once from one action, calling several times to closeDialog().
 - New currencySymbol property in xava.properties to specify the default symbol to use for money.
-- @RowStyle in @Tab(rowStyles=) for list mode works for card list format.
 - Hibernate type converter LocalDateNumericType to store LocalDate values as numbers with yyyymmdd format.
 - New built-in controller InitModelWithNewInstance to init the model of the view with a new model instance.
 - LocalTime uses a consistent format across Java 8, 11, 17 and 21.
@@ -61,11 +37,27 @@ Change Log for OpenXava project
 - Attributes forViews y notForViews recognized for custom annotations.
 - New methods getAnnotationAttributeValue() and getAnnotationsWithRepeatables() in Classes utility class.
 - Some new common use labels to be used in applications.
-- As @DescriptionsList defaults, 'name' takes preferences over 'description', and 'title' is recognized. 
+
+- Commons Logging upgraded to 1.3.4.
+- POI and POI OOXML upgraded to 5.3.0.
+- Groovy upgraded to 4.0.22.
+- JSoup upgraded to 1.18.1.
+- HtmlUnit upgraded to 4.4.0.
+- Lombok upgraded to 1.18.34.
+- Embedded Tomcat used in development upgraded to 9.0.93.
+- Log4j API and core upgraded to 2.24.0.
+- PdfBox upgraded to 3.0.3.
+- Jersey client, hk2, media-json-binding upgraded to 2.45.
+- Driver version in doc/new projects upgraded for MySQL, PostgreSQL, Oracle, SQL Server, Informix, Firebird.
+
+- Lessons 2, 3, 4 and 5 of the reporting course with JasperReports available in documentation with video.
+- README instructions include the usage of archetypes.
+- Getting started guide adapted to OpenXava Studio 7 R3.  
+- Chinese translations removed from all OpenXava official documentation.
+- New article and video with a list of sample applications and instructions to get them up and running.
 
 - Fixed 1 critical security vulnerability in dependencies, now we have 0 vulnerabilities.
 - Fix: Missing an entry in the navigation of view section of the reference guide in English.
-- Fix: New article and video with a list of sample applications and instructions to get them up and running. 
 - Fix: Incorrect description for project in license and pom.xml for Project Management archetypes.
 
 OpenXava 7.3.3 (2024-6-14)
