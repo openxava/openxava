@@ -34,7 +34,7 @@ public class ProjectTest extends ModuleTestBase {
 		
 		setValueInCollection("notes", 0, 2, "www.openxava.org");
 		setValueInCollection("notes", 1, 2, "http://www.wikipedia.org/"); 
-		assertLinkOnNote(0, "The best time-to-market for Java");
+		assertLinkOnNote(0, "Automatic frontend engine for Java"); 
 		assertLinkOnNote(1, "The Free Encyclopedia"); 
 	}
 
