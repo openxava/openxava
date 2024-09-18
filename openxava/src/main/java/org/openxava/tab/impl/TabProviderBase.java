@@ -58,6 +58,8 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		eof = false;
 		this.key = toArray(key);		
 		condition = condition == null ? "" : condition.trim();
+		// TMR ME QUEDÉ POR AQUÍ: DEPURANDO
+		System.out.println("[TabProviderBase.search] condition=" + condition); // tmr
 		select = translateCondition(condition);
 		select = toGroupBySelect(select);
 		select = toSearchByCollectionMemberSelect(select); 

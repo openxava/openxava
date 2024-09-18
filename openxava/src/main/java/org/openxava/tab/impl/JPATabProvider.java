@@ -279,7 +279,8 @@ public class JPATabProvider extends TabProviderBase {
 		
 	private List<Object []> nextBlock() {		
 		if (keyHasNulls()) return Collections.EMPTY_LIST; // Because some databases (like Informix) have problems setting nulls
-				
+			
+		System.out.println("[JPATabProvider.nextBlock] getSelect()=" + getSelect()); // tmr
 		Query query = XPersistence.getManager().createQuery(getSelect()); 
 		// Fill key values
 		StringBuffer message =
