@@ -211,90 +211,106 @@ public class TreeViewParser {
 		JSONArray json = new JSONArray();
         String mapId = map.get("id").toString();
         String[] listProperties = (String[]) map.get("listProperties");
-        String separator = (String) map.get("pathSeparator");
         JSONObject tooltip = new JSONObject();
         tooltip.put("title", XavaResources.getString("double_click_to_edit_view"));
-        for (int i = 0; i < data.length(); i++) {
-            JSONObject node = data.getJSONObject(i);
-            String id = node.get(mapId).toString();
-            String path = node.get("path").toString();
-            String row = node.get("row").toString();
-            String description = "";
-            int c = 0;
-            for (String p : listProperties) {
-                String d = node.get(p.toLowerCase().trim()).toString();
-                description += d;
-                if (c < listProperties.length - 1) {
-                    description += ", ";
-                }
-                c++;
-            }
-            // usar doble if, primero verificar rootNodeFound y luego si el path es vacio o no.. 
-            // asi se puede combinar con el codigo de !rootNodeFound && json.isEmpty() 
-            if (path.equals("") && parentId.equals("0")) {
-                JSONObject rootNode = new JSONObject();
-                rootNode.put("id", id);
-                rootNode.put("path", path);
-                rootNode.put("row", row);
-                rootNode.put("a_attr", tooltip);
-                rootNode.put("text", description);
-                JSONArray childNodes = findChildrenOfNode(id, data, map, true);
-                if (childNodes.length() > 0) {
-                    rootNode.put("children", childNodes);
-                }
-                json.put(rootNode);
-                rootNodeFound = true;
-            } else if (path.endsWith(separator + parentId)) {
-                JSONObject childNode = new JSONObject();
-                childNode.put("id", id);
-                childNode.put("path", path);
-                childNode.put("row", row);
-                childNode.put("a_attr", tooltip);
-                childNode.put("text", description);
-                JSONArray childNodes = findChildrenOfNode(id, data, map, rootNodeFound);
-                if (childNodes.length() > 0) {
-                    childNode.put("children", childNodes);
-                }
-                json.put(childNode);
-            }
+        
+        preprocessDescriptions(data, listProperties);
+		List<JSONObject> rootNodes = findRootNodes(data);
+        
+	    for (JSONObject rootNode : rootNodes) {
+	        String rootId = rootNode.get(mapId).toString();
+	        String rootPath = rootNode.get("path").toString();
+	        rootNode.put("a_attr", tooltip);
 
-        }
-        System.out.println("1 if");
-        System.out.println(json);
-        System.out.println(rootNodeFound);
-    	if (!rootNodeFound && json.isEmpty()) {
-    		System.out.println("no hay root && json.isEmpty()");
-    		rootNodeFound = true;
-    		JSONObject node = data.getJSONObject(0);
-            String id = node.get(mapId).toString();
-            String path = node.get("path").toString();
-            String row = node.get("row").toString();
-            String description = "";
-            int c = 0;
-            for (String p : listProperties) {
-                String d = node.get(p).toString();
-                description += d;
-                if (c < listProperties.length - 1) {
-                    description += ", ";
-                }
-                c++;
-            }
-            
-            JSONObject rootNode = new JSONObject();
-            rootNode.put("id", id);
-            rootNode.put("path", path);
-            rootNode.put("text", description);
-            rootNode.put("a_attr", tooltip);
-            rootNode.put("row", row);
-            JSONArray childNodes = findChildrenOfNode(id, data, map, true);
-            if (childNodes.length() > 0) {
-            	rootNode.put("children", childNodes);
-            }
-        	json.put(rootNode);
-        	
-        	System.out.println(rootNode);
-    	}
+	        JSONArray childNodes = findChildren(rootId, rootPath, data, map);
+	        if (childNodes.length() > 0) {
+	            rootNode.put("children", childNodes);
+	        }
+	        json.put(rootNode);
+	    }
+
         return json;
     }
+	
+	
+	private static List<JSONObject> findRootNodes(JSONArray data) {
+	    List<JSONObject> rootNodes = new ArrayList<>();
+	    for (int i = 0; i < data.length(); i++) {
+	        JSONObject node = data.getJSONObject(i);
+	        String path = node.get("path").toString();
+	        if (path.equals("")) {
+	            rootNodes.add(node);
+	        }
+	    }
+	    if (rootNodes.isEmpty()) {
+	        List<JSONObject> candidates = new ArrayList<>();
+	        String minPath = null;
+	        for (int i = 0; i < data.length(); i++) {
+	            JSONObject node = data.getJSONObject(i);
+	            String path = node.get("path").toString();
+	            if (!path.isEmpty()) {
+	                if (minPath == null || path.compareTo(minPath) < 0) {
+	                    candidates.clear();
+	                    candidates.add(node);
+	                    minPath = path;
+	                } else if (path.equals(minPath)) {
+	                    candidates.add(node);
+	                }
+	            }
+	        }
+	        if (!candidates.isEmpty()) {
+	            rootNodes.addAll(candidates);
+	        }
+	    }
+	    return rootNodes;
+	}
 
+	
+	private static JSONArray findChildren(String parentId, String parentPath, JSONArray data, Map<String, Object> map) {
+	    JSONArray children = new JSONArray();
+	    String mapId = map.get("id").toString();
+        String separator = (String) map.get("pathSeparator");
+
+	    for (int i = 0; i < data.length(); i++) {
+	        JSONObject node = data.getJSONObject(i);
+	        String path = node.get("path").toString();
+	        String id = node.get(mapId).toString();
+	        if (path.equals(parentPath + separator + parentId)) {
+	            node.put("a_attr", new JSONObject().put("title", XavaResources.getString("double_click_to_edit_view")));
+	            JSONArray childNodes = findChildren(id, path, data, map);
+	            if (childNodes.length() > 0) {
+	                node.put("children", childNodes);
+	            }
+	            children.put(node);
+	        }
+	    }
+
+	    return children;
+	}
+	
+	private static void preprocessDescriptions(JSONArray data, String[] listProperties) {
+	    for (int i = 0; i < data.length(); i++) {
+	        JSONObject node = data.getJSONObject(i);
+	        if (!node.has("text")) {
+	            buildDescriptionIfAbsent(node, listProperties);
+	        }
+	    }
+	}
+	
+	private static String buildDescriptionIfAbsent(JSONObject node, String[] listProperties) {
+	    if (!node.has("text")) {
+	        StringBuilder description = new StringBuilder();
+	        int c = 0;
+	        for (String p : listProperties) {
+	            String value = node.optString(p.toLowerCase().trim());
+	            description.append(value);
+	            if (c < listProperties.length - 1) {
+	                description.append(", ");
+	            }
+	            c++;
+	        }
+	        node.put("text", description.toString());
+	    }
+	    return node.getString("text");
+	}
 }
