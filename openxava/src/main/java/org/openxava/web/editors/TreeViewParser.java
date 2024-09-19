@@ -207,7 +207,7 @@ public class TreeViewParser {
 	
 	public static JSONArray findChildrenOfNode(String parentId, JSONArray data, Map<String, Object> map, boolean rootNodeFound) {
         if (data.isEmpty()) return new JSONArray();
-
+        
 		JSONArray json = new JSONArray();
         String mapId = map.get("id").toString();
         String[] listProperties = (String[]) map.get("listProperties");
@@ -229,7 +229,8 @@ public class TreeViewParser {
                 }
                 c++;
             }
-            // usar doble if, primero verificar rootNodeFound y luego si el path es vacio o no.. asi se puede combinar con el codigo de !rootNodeFound && json.isEmpty() 
+            // usar doble if, primero verificar rootNodeFound y luego si el path es vacio o no.. 
+            // asi se puede combinar con el codigo de !rootNodeFound && json.isEmpty() 
             if (path.equals("") && parentId.equals("0")) {
                 JSONObject rootNode = new JSONObject();
                 rootNode.put("id", id);
@@ -258,7 +259,11 @@ public class TreeViewParser {
             }
 
         }
+        System.out.println("1 if");
+        System.out.println(json);
+        System.out.println(rootNodeFound);
     	if (!rootNodeFound && json.isEmpty()) {
+    		System.out.println("no hay root && json.isEmpty()");
     		rootNodeFound = true;
     		JSONObject node = data.getJSONObject(0);
             String id = node.get(mapId).toString();
@@ -286,6 +291,8 @@ public class TreeViewParser {
             	rootNode.put("children", childNodes);
             }
         	json.put(rootNode);
+        	
+        	System.out.println(rootNode);
     	}
         return json;
     }
