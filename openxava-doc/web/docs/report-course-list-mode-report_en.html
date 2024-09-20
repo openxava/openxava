@@ -1,0 +1,82 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Report generation - Lesson 6: Reports in list mode - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_en.html">documentation</a> / </span>Report generation - Lesson 6: Reports in list mode</h1>
+      <div class="wiki" style="display: block;">
+        <h2>Video</h2>
+        <p>In this video we will see how to generate custom reports from list mode for each module of our OpenXava application.</p>
+        <p><a href="https://youtu.be/G0j_6sC_RpE" target="_blank"><img src="files/report-course_en060.png"
+              title="report-generation-060"></a> </p>
+        <p><strong>Any problem with this lesson? <a class="wiki_link_ext"
+              href="http://sourceforge.net/p/openxava/discussion/419690/">Ask in the forum</a></strong> </p>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h2>Code</h2>
+        <p>You can <strong><a href="https://github.com/openxava/report-generation-course/tree/lesson_6"
+              target="_blank">download the project for this lesson</a></strong>. You can also copy the code used in the video here:</p>
+        <code class="xml"></code> In <em>PrintInvoiceListAction.java</em> file:<br>
+        <pre><code class="java">public class PrintInvoiceListAction extends JasperReportBaseAction {
+
+	@Inject
+	private Tab tab;
+
+	@Override
+	protected JRDataSource getDataSource() throws Exception {
+		List invoiceList = new ArrayList();
+		if (tab.getSelectedKeys().length &gt; 0) {
+			for (Map key : tab.getSelectedKeys()) {
+				Invoice invoice = (Invoice) MapFacade.findEntity("Invoice", key);
+				invoiceList.add(invoice);
+			}
+		} else {
+			for (int i = 0; i&lt;tab.getTableModel().getRowCount(); i++) {
+				Invoice invoice = (Invoice) MapFacade.findEntity("Invoice", (Map) tab.getTableModel().getObjectAt(i));
+				invoiceList.add(invoice);
+			}
+		}
+		return new JRBeanCollectionDataSource(invoiceList);
+	}
+
+	@Override
+	protected String getJRXML() throws Exception {
+		return "InvoiceList.jrxml";
+	}
+
+	@Override
+	protected Map getParameters() throws Exception {
+		return null;
+	}
+
+}<br></code></pre>
+        <p></p>
+        <code class="xml"></code> In <em>controllers.xml</em> file:<br>
+        <pre><code class="xml">&lt;action name="printInvoiceList"
+      class="com.yourcompany.invoicing.actions.PrintInvoiceListAction"
+      mode="list"
+      icon="printer"/&gt;</code></pre>
+        <p><br>
+          <strong></strong></p>
+        <h2>Transcription</h2>
+        Hello, I’m Mónica. In this lesson, you will learn how to design custom reports for list mode.<br>
+        <br>
+        Currently, OpenXava offers the ability to generate reports in list mode for each module. Although you can add columns, remove them, and sort the records before generating the report, they always have the same design. So, in this lesson, we will see how to generate our own report from the list mode of the Invoice. For this, we need to create an action first. We rename the action, change the class to another one we will create later, and in "mode", we must specify "list" so that the action appears in the list view. Then we create the PrintInvoiceListAction. We extend from JasperReportBaseAction. We won’t be working with parameters this time. Instead, we will directly send a collection, in this case, the list of records. To work with the table we see in the list, we must declare a Tab with the @Inject annotation. We import it from OpenXava tab. If the user has selected any rows, we take the keys of the selected rows and look them up one by one based on the key, then add them to the list. If the user hasn’t selected anything, we go through the entire table and use the key of each row to find the record and add it to the list. Finally, we send that list as the data source.<br>
+        <br>
+        In Jaspersoft, we create a new report called InvoiceList. We create a title and date in the Title section and remove the sections we won’t be using. Then, we create the fields—remember, they must have the same data type as the one they were sent with. Once we have it ready, we drag them into the detail 1 section and add some formatting to keep it organized. That’s it. We save it and copy it to the project before restarting it. We will generate a report without selecting records, so all the records in the list will be shown. On the other hand, if we select some, only those will be displayed.<br>
+        <br>
+        This is a simple example. But in your report, you can add styles, images, and other elements. For example, I want the report to highlight invoice rows where the total amount exceeds 100. So, I can do something like this: I drag a rectangle element into the detail section, adjust it to be about the same size as a row, change its background color, and in the logic, I add that if totalAmount is greater than 100, it shows the element. Otherwise, it doesn’t. Since totalAmount is a BigDecimal, I need to add intValue to get the integer value. Finally, I make the element appear in the background of the row. We save it, copy the report to the project, and restart the application. That’s how it would look.<br>
+        <br>
+        With what you’ve learned in this lesson, you can now access each record in list mode, work with it, and then send it to the report. We’ve used a data source to send a list to the report, but you can also do it with parameters. If you have any questions or issues, you can ask us on the forum, and you can also download the code from this lesson through the repository link, both links are in the video description.<br>
+        Bye.</div>
+    </div>
+  </body>
+</html>

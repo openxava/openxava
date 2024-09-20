@@ -1,0 +1,83 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Generación de informes - Lección 6: Reportes en modo lista - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_es.html">documentación</a> / </span>Generación de informes - Lección 6: Reportes en modo lista</h1>
+      <div class="wiki" style="display: block;">
+        <h2>Video</h2>
+        <p>En este video veremos cómo generar informes personalizados desde modo lista de cada módulo de nuestra aplicación OpenXava.</p>
+        <p><a href="https://youtu.be/e5sWPNMvepg" target="_blank"><img src="files/report-course_es060.png"
+              title="report-generation-060"></a> </p>
+        <p><strong>¿Problemas con la lección? <a class="wiki_link_ext"
+              href="http://sourceforge.net/p/openxava/discussion/437013/">Pregunta en el foro</a></strong></p>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h2>Código</h2>
+        <p>Puedes <strong><a href="https://github.com/openxava/report-generation-course/tree/lesson_6"
+              target="_blank">descargar el proyecto de esta lección</a>.</strong> También puedes copiar el código que se usa en el video por aquí:</p>
+        <p>En el archivo <em>PrintInvoiceListAction.java</em>:</p>
+        <pre><code class="java">public class PrintInvoiceListAction extends JasperReportBaseAction {
+
+	@Inject
+	private Tab tab;
+
+	@Override
+	protected JRDataSource getDataSource() throws Exception {
+		List invoiceList = new ArrayList();
+		if (tab.getSelectedKeys().length &gt; 0) {
+			for (Map key : tab.getSelectedKeys()) {
+				Invoice invoice = (Invoice) MapFacade.findEntity("Invoice", key);
+				invoiceList.add(invoice);
+			}
+		} else {
+			for (int i = 0; i&lt;tab.getTableModel().getRowCount(); i++) {
+				Invoice invoice = (Invoice) MapFacade.findEntity("Invoice", (Map) tab.getTableModel().getObjectAt(i));
+				invoiceList.add(invoice);
+			}
+		}
+		return new JRBeanCollectionDataSource(invoiceList);
+	}
+
+	@Override
+	protected String getJRXML() throws Exception {
+		return "InvoiceList.jrxml";
+	}
+
+	@Override
+	protected Map getParameters() throws Exception {
+		return null;
+	}
+
+}<br></code></pre>
+        <p></p>
+        <code class="xml"></code> En el archivo <em>controllers.xml</em>:<br>
+        <pre><code class="xml">&lt;action name="printInvoiceList"
+      class="com.yourcompany.invoicing.actions.PrintInvoiceListAction"
+      mode="list"
+      icon="printer"/&gt;
+</code></pre>
+        <h2><br>
+        </h2>
+        <h2>Transcripción</h2>
+        Hola, soy Mónica. En esta lección aprenderás a diseñar reportes personalizados para el modo lista.<br>
+        <br>
+        Actualmente OpenXava ofrece generar reportes en el modo lista de cada módulo. Aunque puedas agregar columnas, quitarlas y ordenar los registros antes de generar el reporte, estos siempre tienen el mismo diseño. Así que en esta lección veremos cómo generar nuestro propio reporte desde modo lista de Invoice. Para esto necesitamos crear una acción primero. Cambiamos el nombre de la acción, también cambiamos la clase por otra que vamos a crear luego y en mode debemos especificar list para que la acción aparezca en la vista de lista. Luego creamos la acción PrintInvoiceListAction. Extendemos de JasperReportBaseAction. No trabajaremos con parámetros esta vez. Si no que enviaremos directamente una colección, en este caso, la lista de registros. Para trabajar con la tabla que vemos en la lista, debemos declarar un Tab con la anotación Inject. Importamos de openxava tab. En caso de que el usuario haya seleccionado alguna fila, tomamos las claves de las filas seleccionadas y buscamos uno por uno a partir de la clave, para luego añadirlo a la lista. En caso de que el usuario no haya seleccionado nada, recorremos toda la tabla y usamos la clave de cada fila para buscar el registro y añadirlo a la lista. Por último enviamos esa lista como data source.<br>
+        <br>
+        En Jaspersoft, creamos un nuevo reporte llamado InvoiceList. Creamos título y fecha en la sección Title. Y eliminamos las secciones que no vamos a usar. Luego creamos los fields, recuerda que deben tener el mismo tipo de dato con el cual se enviaron. Una vez que lo tengamos listo, los arrastramos a la sección detail 1 y le agregamos unos detalles para que esté ordenado. Listo. Guardamos y lo copiamos al proyecto antes de reiniciarlo. Vamos a generar un reporte sin seleccionar registros, de esta forma se ven todos los registros de la lista. En cambio, si seleccionamos algunos, solo se mostrarán esos.<br>
+        <br>
+        Esto es un ejemplo simple. Pero en tu reporte puedes agregar estilos, imágenes y otros elementos más. Por ejemplo, yo quiero que el reporte me marque las filas de las facturas cuando el monto total supere los 100. Entonces puedo hacer algo así. Arrastro un elemento rectángulo a la sección detail, lo ajusto a que tenga un tamaño similar a una fila, le cambio el color de fondo y en la lógica le agrego que si totalAmount es mayor a 100, muestra el elemento. De lo contrario, no lo hace. Como totalAmount es un BigDecimal, tengo que agregarle un intValue para que tome el valor entero. Por último hago que el elemento se muestre en el fondo de la fila. Guardamos, copiamos el reporte al proyecto y reiniciamos la aplicación. Así quedaría.<br>
+        <br>
+        Con lo visto en esta lección ya puedes acceder a cada registro que se encuentra en modo lista, trabajar con ello y luego enviarlo al reporte. Hemos usado data source para enviar una lista al reporte, pero también puedes hacerlo con parámetros. Si tienes alguna duda o problema puedes preguntarnos por el foro, también puedes descargar el código de esta lección por el link del repositorio, ambos enlaces se encuentran en la descripción del video.<br>
+        Chao.</div>
+    </div>
+  </body>
+</html>
