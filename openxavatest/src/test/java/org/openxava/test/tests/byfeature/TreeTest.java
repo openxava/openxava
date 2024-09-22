@@ -139,8 +139,12 @@ public class TreeTest extends WebDriverTestBase{
 		executeDnd(driver, treeItemNodesId.get("child1sub2") + "_anchor", treeItemNodesId.get("child1sub1") + "_anchor");
 		executeDndBetween(driver, treeItemNodesId.get("child1") + "_anchor", treeItemNodesId.get("root"));
 		expandNode(driver, treeItemNodesId.get("child1sub1"));
+		driver.navigate().refresh(); // manually not need refresh
+		wait(driver);
 		executeDnd(driver, treeItemNodesId.get("child3sub1") + "_anchor", treeItemNodesId.get("child1sub2") + "_anchor");
 		expandNode(driver, treeItemNodesId.get("child1sub2"));
+		driver.navigate().refresh(); // manually not need refresh
+		wait(driver);
 		executeDnd(driver, treeItemNodesId.get("child1") + "_anchor", treeItemNodesId.get("root") + "_anchor");
 		driver.navigate().refresh();
 		wait(driver);
