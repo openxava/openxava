@@ -73,9 +73,10 @@ public class Chart implements Serializable {
 	
 	public static Chart load(org.openxava.tab.Tab tab) { 
 		try { 			
+			if (!Is.emptyString(tab.getGroupBy())) return null; // Because Tab does not save list customization when "group by" is used, by now
 			Chart result = new Chart();
 			result.setNodeName(tab);  
-			result.load();
+			result.load();				
 			if (result.getChartType() == null) return null;
 			return result;
 		}

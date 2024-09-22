@@ -103,7 +103,7 @@ public class Invoice2Test extends ModuleTestBase {
 	}
 
 	
-	public void testRecordCountInChart() throws Exception {  
+	public void testRecordCountInChart_groupByInChartAfterChangingChartType() throws Exception {  
 		int originalColumnCount = getListColumnCount();
 		execute("ListFormat.select", "editor=Charts");
 		execute("Chart.selectType", "chartType=PIE");
@@ -117,6 +117,11 @@ public class Invoice2Test extends ModuleTestBase {
 		assertListColumnCount(originalColumnCount);
 		execute("ListFormat.select", "editor=Charts");
 		assertChartEditor();		
+		
+		execute("Chart.selectType", "chartType=PIE");
+		execute("Chart.selectType", "chartType=BAR");
+		selectGroupBy("Group by year");
+		assertChartEditor();
 	}
 	
     private void assertChartEditor() throws Exception { 

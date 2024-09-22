@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Charts in list mode broken ("editor not available") if user does a "Group by" after changing chart type.
+
 OpenXava 7.4 (2024-9-13)
 ------------------------
 - @Chart annotation for collections to display the collection as a chart from its data.
