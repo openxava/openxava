@@ -5407,6 +5407,7 @@ public class View implements java.io.Serializable {
 			return false;
 		}
 		
+		System.out.println("[View(" + oid + ").isSimple] getMetaMembers().size()=" + getMetaMembers().size()); // tmr
 		if (getMetaMembers().size() == 1) {
 			MetaMember uniqueMember = getMetaMembers().iterator().next();   
 			if (uniqueMember instanceof MetaReference) {
@@ -5418,15 +5419,19 @@ public class View implements java.io.Serializable {
 		}
 
 		int c = 0; 
+		System.out.println("[View.isSimple] getMetaMembers()=" + getMetaMembers()); // tmr
 		for (MetaMember member: getMetaMembers()) {
+			System.out.println("[View(" + oid + ").isSimple] Trying " + member.getName()); // tmr
 			if (member instanceof PropertiesSeparator) continue;
 			if (member.isHidden()) continue;
 			if (member instanceof MetaProperty) {
+				System.out.println("[View(" + oid + ").isSimple] " + member.getName() + " is MetaPropety"); // tmr
 				MetaEditor editor = WebEditors.getMetaEditorFor(member, getViewName());
 				if (editor.isFrame() || editor.isComposite()) return false;
 				c++;
 			}
 			else if (member instanceof MetaReference) {
+				System.out.println("[View(" + oid + ").isSimple] " + member.getName() + " is MetaReference"); // tmr
 				if (!displayAsDescriptionsList((MetaReference) member)) {
 					MetaEditor editor = WebEditors.getMetaEditorFor(member, getViewName());
 					if (editor.isFrame() || editor.isComposite()) return false;
@@ -5434,6 +5439,7 @@ public class View implements java.io.Serializable {
 				c++;
 			}
 			else return false;
+			System.out.println("[View(" + oid + ").isSimple] c=" + c); // tmr
 			if (c > 8) return false;
 		}
 		return true;
