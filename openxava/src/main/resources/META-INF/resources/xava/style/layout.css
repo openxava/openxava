@@ -47,7 +47,6 @@
 
 .ox-flow-layout-new-line {
 	flex-basis: 100%;
-    /* tmr height: 0; */ /* tmr ¿Hay un test manual que lo compruebe? */ /* TMR ME QUEDÉ POR AQUÍ: ESTO LO ARREGLA, FALTA PROBAR A FONDO */ 
 }
 
 .ox-flow-layout .ox-layout-hide-frame-in-section {
