@@ -13,7 +13,7 @@ import org.openxava.annotations.*;
 
 @Entity
 @Views({
-	@View(members="description; treeItems; treeItemTwos"),
+	@View(members="description; treeItems; treeItemTwos; steps"),
 	@View(name="Simple", members="description; treeItems"),
 	@View(name="Alternate", members="description;treeItems"),
 	@View(name="NoDefaultPath", members="description; treeItemTwos")
@@ -39,6 +39,12 @@ public class TreeContainer {
 	@OrderBy("folder, treeOrder")
 	@Tree(pathProperty="folder", pathSeparator="-", idProperties="id")
 	private Collection<TreeItemTwo> treeItemTwos;
+	
+	@OneToMany(mappedBy="parentContainer", cascade = CascadeType.REMOVE)
+	@ListProperties("description")
+	@OrderBy("path, treeOrder")
+	@Editor("TreeView")
+	private Collection<Step> steps;
 
 	public Integer getId() {
 		return id;
@@ -70,6 +76,14 @@ public class TreeContainer {
 
 	public Collection<TreeItemTwo> getTreeItemTwos() {
 		return treeItemTwos;
+	}
+	
+	public Collection<Step> getSteps() {
+		return steps;
+	}
+
+	public void setSteps(Collection<Step> steps) {
+		this.steps = steps;
 	}
 	
 }
