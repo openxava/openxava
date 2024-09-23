@@ -3,6 +3,7 @@ package org.openxava.test.tests.byfeature;
 import java.util.*;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.*;
 
 /**
@@ -27,6 +28,7 @@ public class TreeTest extends WebDriverTestBase{
 		
 		goModule("TreeContainer");
 		execute("List.viewDetail", "row=0");
+		rootWithPath(getDriver());
 		createNewNodeSelecting_state(getDriver());	
 		
 		goModule("TreeItem");
@@ -46,13 +48,18 @@ public class TreeTest extends WebDriverTestBase{
 		resetModule(getDriver());
 		//goModule("TreeContainer");
 		execute("List.viewDetail", "row=0");
-		createNodeWithPathSeparator_dnd(getDriver()); 
+		createNodeWithPathSeparator_dnd(getDriver());
 	}
 	
 	// Wait until the element is available and return it
 	private WebElement findElement(WebDriver driver, By by) { 
 		wait(driver, by);
 		return driver.findElement(by);		
+	}
+	
+	private void rootWithPath(WebDriver driver) {
+		assertFalse(isElementInsideXPath(driver, "2", ("1" + "_anchor")));
+		assertFalse(isElementInsideXPath(driver, "3", ("1" + "_anchor")));
 	}
 
 	private void createNewNodeSelecting_state(WebDriver driver) throws Exception {
@@ -222,9 +229,23 @@ public class TreeTest extends WebDriverTestBase{
 	}
 	
 	private boolean isElementInside(WebDriver driver, String parentElementId, String childElementId) {
-		WebElement parentElement = driver.findElement(By.id(parentElementId));
-		WebElement childElement = parentElement.findElement(By.id(childElementId));
-		return (childElement != null);
+		try {
+			WebElement parentElement = driver.findElement(By.id(parentElementId));
+			WebElement childElement = parentElement.findElement(By.id(childElementId));
+			return true;
+		} catch (NoSuchElementException e) {
+			return false;
+		}
+	}
+	
+	private boolean isElementInsideXPath(WebDriver driver, String parentElementId, String childElementId) {
+		try {
+			WebElement parentElement = driver.findElement(By.xpath("//*[@id='" + parentElementId + "']"));
+			WebElement childElement = parentElement.findElement(By.xpath(".//*[@id='" + childElementId + "']"));
+			return true;
+		} catch (NoSuchElementException e) {
+	        return false;
+	    }
 	}
 	
 	private Map<String, String> addTreeIdValues(String rootId) {
