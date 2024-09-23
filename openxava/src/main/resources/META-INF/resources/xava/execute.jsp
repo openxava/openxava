@@ -48,10 +48,11 @@ if (deselected != null){
 manager.setApplicationName(request.getParameter("application"));
 manager.setModuleName(request.getParameter("module"));
 boolean loadingModulePage = "true".equals(request.getParameter("loadingModulePage"));
-if (!loadingModulePage) manager.executeBeforeEachRequestActions(request, errors, messages); 
 view.setRequest(request);
 view.setErrors(errors);
 view.setMessages(messages);
+if (!loadingModulePage) manager.executeBeforeEachRequestActions(request, errors, messages); 
+
 
 java.util.Stack previousViews = (java.util.Stack) context.get(request, "xava_previousViews");
 for (Iterator it = previousViews.iterator(); it.hasNext(); ) {

@@ -1751,6 +1751,7 @@ public class View implements java.io.Serializable {
 			collectionTab.setDefaultOrder(getMetaCollection().getOrder());
 			collectionTabLabels(collectionTab);
 		}
+		collectionTab.setRequest(getRequest());
 		return collectionTab;
 	}
 	
