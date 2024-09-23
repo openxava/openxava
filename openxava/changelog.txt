@@ -1,7 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
-- Charts in list mode broken ("editor not available") if user does a "Group by" after changing chart type.
+- Fix: Layout for groups side by side does not work correctly for flowLayout=true. 
+- Fix: Bottom buttons mounted on view with flowLayout=true when we place two frames in same row. 
+- Fix: Charts in list mode broken if user does a "Group by" after changing chart type.
 
 OpenXava 7.4 (2024-9-13)
 ------------------------
