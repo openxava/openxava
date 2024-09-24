@@ -97,7 +97,8 @@ $(document).on('dnd_stop.vakata', function(e, data) {
 		while(!nextRoot){
 			nextRoot = (auxNode.parent === "#") ? true : false;
 			parents.push(auxNode.id);
-			newPath = "/" + auxNode.id + newPath; 
+			let rootPath = nextRoot ? auxNode.original.path || "" : "";
+			newPath = rootPath + "/" + auxNode.id + newPath;
 			auxNode = ref.get_node(auxNode.parent);
 		}
 	}
