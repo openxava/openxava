@@ -16,28 +16,28 @@ public class Product2SeveralViewsTest extends ModuleTestBase {
 	public void testSimpleView() throws Exception {  
 		assertSimpleView(); 
 		
-		execute("Product2SeveralViews.changeToNotSimple9");
-		assertNotSimpleView();
+		execute("Product2SeveralViews.changeToNotSimple16"); 
+		assertNotSimpleView(); 
 		
-		execute("Product2SeveralViews.changeToSimple8");
+		execute("Product2SeveralViews.changeToSimple15"); 
 		assertSimpleView();
 		
 		execute("Product2SeveralViews.changeToNotSimpleReference");
 		assertNotSimpleView();
 		
-		execute("Product2SeveralViews.changeToSimple8");
+		execute("Product2SeveralViews.changeToSimple15");
 		assertSimpleView();
 		
 		execute("Product2SeveralViews.changeToNotSimpleGroup");
 		assertNotSimpleView();
 		
-		execute("Product2SeveralViews.changeToSimple8");
+		execute("Product2SeveralViews.changeToSimple15");
 		assertSimpleView();
 		
 		execute("Product2SeveralViews.changeToNotSimpleSection");
 		assertNotSimpleView();
 		
-		execute("Product2SeveralViews.changeToSimple8");
+		execute("Product2SeveralViews.changeToSimple15");
 		assertSimpleView();
 		
 		execute("Product2SeveralViews.changeToNotSimpleFramedEditor");

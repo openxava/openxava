@@ -5408,17 +5408,13 @@ public class View implements java.io.Serializable {
 			return false;
 		}
 		
-		// tmr if (getMetaMembers().size() == 1) {
-		if (getMetaMembers().size() == 1 || getMetaMembers().size() == 2) { // tmr 
-			// tmr MetaMember uniqueMember = getMetaMembers().iterator().next();
-			// tmr ini
+		if (getMetaMembers().size() == 1 || getMetaMembers().size() == 2) {  
 			Iterator<MetaMember> membersIterator = getMetaMembers().iterator();
 			MetaMember uniqueMember = membersIterator.next();
 			if (membersIterator.hasNext()) {
 				MetaMember secondMember = membersIterator.next();
 				if (!PropertiesSeparator.INSTANCE.equals(secondMember)) uniqueMember = null;
 			}
-			// tmr fin
 			if (uniqueMember instanceof MetaReference) {
 				return getSubview(uniqueMember.getName()).isSimple();
 			}
@@ -5444,8 +5440,7 @@ public class View implements java.io.Serializable {
 				c++;
 			}
 			else return false;
-			// tmr if (c > 8) return false;
-			if (c > 15) return false; // tmr En changelog
+			if (c > 15) return false; 
 		}
 		return true;
 	}

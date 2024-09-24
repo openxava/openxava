@@ -73,18 +73,22 @@ import org.openxava.test.validators.*;
 	),
 	@View(name="SimpleWithFamily", members="number, description, unitPrice; family"),
 	@View(name="OnlySoftware"),
-	@View( name = "Simple8", members=
+	@View( name = "Simple15", members=
 		"number, description;" + 	
 		"color;" +  
 		"family, subfamily;" +
-		"warehouse, unitPrice, unitPriceWithTax" 
+		"warehouse, unitPrice, unitPriceWithTax, unitPriceWithTax;" +
+		"zoneOne;" +
+		"zone11, zone12, zone13, zone14, zone15"
 	),
-	@View( name = "NotSimple9", members=
+	@View( name = "NotSimple16", members=
 		"number, description;" + 	
-		"color;" + 
+		"color;" +  
 		"family, subfamily;" +
-		"warehouse, unitPrice, unitPriceInPesetas, unitPriceWithTax;" 
-	),
+		"warehouse, unitPrice, unitPriceWithTax, unitPriceWithTax;" +
+		"zoneOne;" +
+		"zone11, zone12, zone13, zone14, zone15, zone16"
+	),	
 	@View( name = "NotSimpleReference", members=
 		"number, description;" + 	
 		"color, unitPrice;" + 
@@ -205,6 +209,36 @@ public class Product2 {
 	public String getZoneOne() {
 		return "IN ZONE 1";
 	}
+	
+	@Label 
+	public String getZone11() {
+		return "IN ZONE 11";
+	}	
+	
+	@Label 
+	public String getZone12() {
+		return "IN ZONE 12";
+	}
+	
+	@Label 
+	public String getZone13() {
+		return "IN ZONE 13";
+	}
+	
+	@Label 
+	public String getZone14() {
+		return "IN ZONE 14";
+	}
+	
+	@Label 
+	public String getZone15() {
+		return "IN ZONE 15";
+	}
+	
+	@Label 
+	public String getZone16() {
+		return "IN ZONE 16";
+	}	
 	
  	public static Product2 findByNumber(long number) throws NoResultException { 	 			
  		Query query = XPersistence.getManager().createQuery("from Product2 as o where o.number = :number"); 

@@ -501,14 +501,14 @@
 		<extends controller="Typical"/>
 		<action name="goDetail" hidden="true" on-init="true"
 			class="org.openxava.actions.NewAction"/>
-		<action name="changeToSimple8" mode="detail"
+		<action name="changeToSimple15" mode="detail"
 			class="org.openxava.test.actions.ChangeViewAction">
-			<set property="newView" value="Simple8"/>			
+			<set property="newView" value="Simple15"/>			
 		</action>
-		<action name="changeToNotSimple9" mode="detail"
+		<action name="changeToNotSimple16" mode="detail"
 			class="org.openxava.test.actions.ChangeViewAction">
-			<set property="newView" value="NotSimple9"/>			
-		</action>
+			<set property="newView" value="NotSimple16"/>			
+		</action>		
 		<action name="changeToNotSimpleReference" mode="detail"
 			class="org.openxava.test.actions.ChangeViewAction">
 			<set property="newView" value="NotSimpleReference"/>			

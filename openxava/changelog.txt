@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Simple layout with flowLayout=true not used for view with a single reference if not explicit @View.
+- Simple view layout when flowLayout=true applied until 15 plain properties instead of 8.
 - Fix: The tree editor ignores hierarchy and order.
 - Fix: IllegalStateException (request object ... recycled) in log on saving preferences from time to time.
 - Fix: Layout for groups side by side does not work correctly for flowLayout=true. 

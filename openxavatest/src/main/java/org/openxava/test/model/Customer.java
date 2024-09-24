@@ -224,8 +224,7 @@ import org.openxava.test.actions.*;
 
 @View( name="PersonalInformation", members="name; passport, creditCard;")
 
-// tmr @View( name="OnlyAddress", members="address") 
-@View( name="OnlyAddress", members="address;") // ; at end to test a case // tmr 
+@View( name="OnlyAddress", members="address;") // ; at end to test a case  
 
 @View( name="SearchListCondition", members="number; name; sellerNameInCondition; transientSeller; alternateSeller;")
 
