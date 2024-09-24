@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: The tree editor ignores hierarchy and order.
+- Fix: IllegalStateException (request object ... recycled) in log on saving preferences from time to time.
 - Fix: Layout for groups side by side does not work correctly for flowLayout=true. 
 - Fix: Bottom buttons mounted on view with flowLayout=true when we place two frames in same row. 
 - Fix: Charts in list mode broken if user does a "Group by" after changing chart type.
