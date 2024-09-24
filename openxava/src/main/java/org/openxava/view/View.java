@@ -252,7 +252,7 @@ public class View implements java.io.Serializable {
 			metaMembers = extractAggregateRecursiveReference(metaMembers);
 		}				
 		extractRecursiveReference(metaMembers); 
-		if (!hiddenIncluded && hiddenMembers != null) {
+		if (!hiddenIncluded && hiddenMembers != null) {		
 			removeHidden(metaMembers);
 			removeFirstAndLastSeparator(metaMembers);
 		}
@@ -5408,9 +5408,17 @@ public class View implements java.io.Serializable {
 			return false;
 		}
 		
-		System.out.println("[View(" + oid + ").isSimple] getMetaMembers().size()=" + getMetaMembers().size()); // tmr
-		if (getMetaMembers().size() == 1) {
-			MetaMember uniqueMember = getMetaMembers().iterator().next();   
+		// tmr if (getMetaMembers().size() == 1) {
+		if (getMetaMembers().size() == 1 || getMetaMembers().size() == 2) { // tmr 
+			// tmr MetaMember uniqueMember = getMetaMembers().iterator().next();
+			// tmr ini
+			Iterator<MetaMember> membersIterator = getMetaMembers().iterator();
+			MetaMember uniqueMember = membersIterator.next();
+			if (membersIterator.hasNext()) {
+				MetaMember secondMember = membersIterator.next();
+				if (!PropertiesSeparator.INSTANCE.equals(secondMember)) uniqueMember = null;
+			}
+			// tmr fin
 			if (uniqueMember instanceof MetaReference) {
 				return getSubview(uniqueMember.getName()).isSimple();
 			}
@@ -5420,19 +5428,15 @@ public class View implements java.io.Serializable {
 		}
 
 		int c = 0; 
-		System.out.println("[View.isSimple] getMetaMembers()=" + getMetaMembers()); // tmr
 		for (MetaMember member: getMetaMembers()) {
-			System.out.println("[View(" + oid + ").isSimple] Trying " + member.getName()); // tmr
 			if (member instanceof PropertiesSeparator) continue;
 			if (member.isHidden()) continue;
 			if (member instanceof MetaProperty) {
-				System.out.println("[View(" + oid + ").isSimple] " + member.getName() + " is MetaPropety"); // tmr
 				MetaEditor editor = WebEditors.getMetaEditorFor(member, getViewName());
 				if (editor.isFrame() || editor.isComposite()) return false;
 				c++;
 			}
 			else if (member instanceof MetaReference) {
-				System.out.println("[View(" + oid + ").isSimple] " + member.getName() + " is MetaReference"); // tmr
 				if (!displayAsDescriptionsList((MetaReference) member)) {
 					MetaEditor editor = WebEditors.getMetaEditorFor(member, getViewName());
 					if (editor.isFrame() || editor.isComposite()) return false;
@@ -5440,8 +5444,8 @@ public class View implements java.io.Serializable {
 				c++;
 			}
 			else return false;
-			System.out.println("[View(" + oid + ").isSimple] c=" + c); // tmr
-			if (c > 8) return false;
+			// tmr if (c > 8) return false;
+			if (c > 15) return false; // tmr En changelog
 		}
 		return true;
 	}
