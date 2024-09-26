@@ -1,6 +1,10 @@
 package org.openxava.actions;
 
+import javax.inject.*;
+
+import org.openxava.tab.*;
 import org.openxava.view.*;
+import org.openxava.view.meta.*;
 
 /**
  * The default action to execute for search a reference when the
@@ -10,12 +14,22 @@ import org.openxava.view.*;
  */
 public class OnChangeSearchAction extends OnChangePropertyBaseAction implements IChainActionWithArgv { 
 	
+	@Inject		
+	private Tab tab;	
+	private String tabName = "";
 	private String nextAction; 
 	
 	public void execute() throws Exception {
-		System.out.println("ex");
-		System.out.println(getChangedMetaProperty());
-		System.out.println(getView().findObject(getChangedMetaProperty()));
+		System.out.println("OnChangeSearchAction");
+		MetaReferenceView metaReferenceView
+		= getView().getRoot().getMetaView().getMetaReferenceViewFor(getView().getMemberName());
+
+		Tab tab = new Tab();
+		tab.setRequest(getTab().getRequest());
+		setTab(tab);
+		getTab().setModelName(getView().getModelName());
+		getTab().setTabName(metaReferenceView.getTabName());
+		System.out.println(getTab().getMetaTab().getBaseCondition());
 		if (!getView().findObject(getChangedMetaProperty())) {
 			nextAction = getView().getSearchAction();
 		}
@@ -26,14 +40,30 @@ public class OnChangeSearchAction extends OnChangePropertyBaseAction implements 
 	}
 
 	public String getNextActionArgv() throws Exception {
-		System.out.println("getNextActionArgv");
 		String keyProperty = getView().getMemberName() + "." + getChangedProperty();
-		System.out.println(keyProperty);
 		View parent = getView().getParent();
 		if (parent != null && parent.isRepresentsElementCollection()) { 
 			keyProperty = parent.getMemberName() + "." + parent.getCollectionEditingRow() + "." + keyProperty;
 		}
 		return "keyProperty=" + keyProperty;
 	}
+
+	public Tab getTab() {
+		return tab;
+	}
+
+	public void setTab(Tab tab) {
+		this.tab = tab;
+	}
+
+	public String getTabName() {
+		return tabName;
+	}
+
+	public void setTabName(String tabName) {
+		this.tabName = tabName;
+	}
+	
+	
 
 }
