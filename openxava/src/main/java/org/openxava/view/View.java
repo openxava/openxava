@@ -3734,12 +3734,13 @@ public class View implements java.io.Serializable {
 	}
 	
 	/**
-	 * Using the key values loaded in the view and table's base condition 
-	 * to search the rest of the data from persistent storage and fill the view.
+	 * Using the key value of the map to search from persistent storage
+	 * and fill the view.
 	 * 
 	 * @param changedProperty
 	 * @param map
 	 * @return true if the object is found
+	 * @since 7.4.1
 	 */
 	public boolean findObject(MetaProperty changedProperty, Map map) throws Exception { 
 		return findObjectWithBaseCondition(changedProperty, map);
@@ -3766,7 +3767,7 @@ public class View implements java.io.Serializable {
 			}
 			else if (isRepresentsEntityReference() && hasSearchMemberKeys()) {
 				Map alternateKey = getSearchKeyValues();
-				if (!map.isEmpty()) {
+				if (map != null) {
 					alternateKey = map;
 				}
 				clear();

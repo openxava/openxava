@@ -22,7 +22,6 @@ public class OnChangeSearchAction extends OnChangePropertyBaseAction implements 
 	private String nextAction; 
 	
 	public void execute() throws Exception {
-		System.out.println("OnChangeSearchAction");
 		MetaReferenceView metaReferenceView
 		= getView().getRoot().getMetaView().getMetaReferenceViewFor(getView().getMemberName());
 		Tab tab = new Tab();
@@ -33,7 +32,7 @@ public class OnChangeSearchAction extends OnChangePropertyBaseAction implements 
 		String baseCondition = tab.getMetaTab().getBaseCondition();
 		if (baseCondition != null) {
 		    tab.setBaseCondition("${" + getChangedMetaProperty().getName() + "} = " + getNewValue());
-		    Map key = (Map) tab.getAllDataTableModel().getObjectAt(0);
+		    Map key = (Map) tab.getTableModel().getObjectAt(0);
 			if (!getView().findObject(getChangedMetaProperty(), key)) {
 				nextAction = getView().getSearchAction();
 			}
