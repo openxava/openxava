@@ -3731,6 +3731,22 @@ public class View implements java.io.Serializable {
 	 * @return true  if the object is found
 	 */	
 	public boolean findObject(MetaProperty changedProperty) throws Exception { 
+		return findObjectWithBaseCondition(changedProperty, null);
+	}
+	
+	/**
+	 * Using the key values loaded in the view and table's base condition 
+	 * to search the rest of the data from persistent storage and fill the view.
+	 * 
+	 * @param changedProperty
+	 * @param map
+	 * @return true if the object is found
+	 */
+	public boolean findObject(MetaProperty changedProperty, Map map) throws Exception { 
+		return findObjectWithBaseCondition(changedProperty, map);
+	}
+	
+	private boolean findObjectWithBaseCondition(MetaProperty changedProperty, Map map) throws Exception { 
 		System.out.println("findObject");
 		Map key = getKeyValues();
 		System.out.println(key);
@@ -3757,10 +3773,11 @@ public class View implements java.io.Serializable {
 				System.out.println(3);
 				Map alternateKey = getSearchKeyValues();
 				System.out.println(alternateKey);
-				Map alternateKey2 = new HashMap<>();
-				alternateKey2.put("number", "");
-		        alternateKey2.put("dni", 9487);
-		        alternateKey2.put("status", 1);
+				
+				if (!map.isEmpty()) {
+					alternateKey.putAll(map);
+				}
+				System.out.println(alternateKey);
 				clear();
 				if (!Maps.isEmptyOrZero(alternateKey)) {
 					System.out.println(getMembersNamesForFindObject());
