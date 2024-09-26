@@ -3354,7 +3354,6 @@ public class View implements java.io.Serializable {
 	}
 
 	private void fillReferenceValues(Map referenceValues, MetaReference ref, String value, String qualifier, String propertyPrefix) {
-		System.out.println("fillReferenceValues");
 		MetaModel metaModel = ref.getMetaModelReferenced();
 		if (!value.startsWith("[")) value = "";
 		StringTokenizer st = new StringTokenizer(Strings.change(value, "..", ". ."), "[.]");
@@ -3747,13 +3746,10 @@ public class View implements java.io.Serializable {
 	}
 	
 	private boolean findObjectWithBaseCondition(MetaProperty changedProperty, Map map) throws Exception { 
-		System.out.println("findObject");
 		Map key = getKeyValues();
-		System.out.println(key);
 		try {			
 			if (isRepresentsEntityReference() && isFirstPropertyAndViewHasNoKeys(changedProperty) && isKeyEditable()) {
 				// Searching by the first visible property: Useful for searching from a reference with hidden key
-				System.out.println("1");
 				Map alternateKey = new HashMap();
 				alternateKey.put(changedProperty.getName(), getValue(changedProperty.getName()));
 				clear();
@@ -3763,25 +3759,18 @@ public class View implements java.io.Serializable {
 			}
 			else if (isRepresentsEntityReference() && changedProperty != null && changedProperty.isHidden() && changedProperty.isKey()) {
 				// If changed property is hidden key, although there are search member we search by key
-				System.out.println("2");
 				clear();
 				if (!Maps.isEmptyOrZero(key)) {				
 					setValues(MapFacade.getValues(getModelName(), key, getMembersNamesForFindObject()));					
 				}
 			}
 			else if (isRepresentsEntityReference() && hasSearchMemberKeys()) {
-				System.out.println(3);
 				Map alternateKey = getSearchKeyValues();
-				System.out.println(alternateKey);
-				
 				if (!map.isEmpty()) {
-					alternateKey.putAll(map);
+					alternateKey = map;
 				}
-				System.out.println(alternateKey);
 				clear();
 				if (!Maps.isEmptyOrZero(alternateKey)) {
-					System.out.println(getMembersNamesForFindObject());
-					System.out.println(MapFacade.getValuesByAnyProperty(getModelName(), alternateKey, getMembersNamesForFindObject()));
 					setValues(MapFacade.getValuesByAnyProperty(getModelName(), alternateKey, getMembersNamesForFindObject())); 
 				}				
 			}						
@@ -3798,7 +3787,6 @@ public class View implements java.io.Serializable {
 					oldValues.remove(keyName);
 				}
 			}
-			System.out.println("true");
 			return true; 
 		}
 		catch (ObjectNotFoundException ex) {

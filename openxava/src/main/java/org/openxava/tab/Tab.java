@@ -740,6 +740,38 @@ public class Tab implements java.io.Serializable, Cloneable {
 		throw new ElementNotFoundException("property_not_found_in_tab", qualifiedName, getTabName(), getModelName()); 
 	}
 	
+	public boolean containsKey(Map<String, Object> mapKey) {
+	    Map<String, Object>[] mapsKeys = getAllKeys();
+	    for (String key : mapKey.keySet()) {
+	        for (Map<String, Object> map : mapsKeys) {
+	        	System.out.println(map);
+	            if (map.containsKey(key)) {
+	                return true;
+	            }
+	        }
+	    }
+
+	    return false;
+	    
+		/*
+		Set<Map.Entry<String, Object>> keySet = new HashSet<>();
+		for (Map<String, Object> map : key) {
+            keySet.addAll(map.entrySet());
+        }
+		
+		Map[] keys = getAllKeys();
+		System.out.println(keys);
+		for (Map<String, Object> map : keys) {
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                if (keySet.contains(entry)) {
+                    return true;
+                }
+            }
+        }
+		return false;
+		*/
+	}
+	
 	/**
 	 * @since 5.9
 	 */
