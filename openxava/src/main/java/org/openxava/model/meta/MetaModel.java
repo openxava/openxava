@@ -444,7 +444,7 @@ abstract public class MetaModel extends MetaElement {
 		}
 		MetaReference r = (MetaReference) getMapMetaReferences().get(name);
 		if (r == null) {
-			name = Strings.change(name, "_", "."); 			
+			// tmr name = Strings.change(name, "_", "."); 			
 			int idx = name.indexOf('.');
 			if (idx >= 0) {
 				String aggregate = name.substring(0, idx);			

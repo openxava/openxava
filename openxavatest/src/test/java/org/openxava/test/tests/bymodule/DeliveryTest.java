@@ -238,7 +238,7 @@ public class DeliveryTest extends ModuleTestBase {
 		setValue("number", "1");
 		execute("Reference.search", "keyProperty=customer.number");		
 		execute("ReferenceSearch.choose", "row=1"); 
-		assertValue("customer.name", "Juanillo"); 
+		assertValue("customer.name", "Juanillo"); // TMR FALLA
 		setValue("customer.number", "1");
 		assertValue("customer.name", "Javi"); 
 		execute("Sections.change", "activeSection=2");

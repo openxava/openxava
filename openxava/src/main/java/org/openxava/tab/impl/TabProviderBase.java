@@ -297,7 +297,8 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 				MetaModel refModel = null;
 				if (ref.isAggregate()) {
 					refModel = metaModel.getMetaComponent().getMetaAggregate(ref.getReferencedModelName());
-					fillEntityReferencesMappings(result, memberName, refModel, concat(parentReference, referenceName), referenceName + "_", metaModel);
+					// tmr fillEntityReferencesMappings(result, memberName, refModel, concat(parentReference, referenceName), referenceName + "_", metaModel);
+					fillEntityReferencesMappings(result, memberName, refModel, concat(parentReference, referenceName), referenceName + ":", metaModel); // tmr
 				}
 				else {
 					refModel = MetaComponent.get(ref.getReferencedModelName()).getMetaEntity();

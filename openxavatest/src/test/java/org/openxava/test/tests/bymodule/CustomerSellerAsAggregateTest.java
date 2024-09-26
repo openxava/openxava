@@ -58,7 +58,7 @@ public class CustomerSellerAsAggregateTest extends ModuleTestBase {
 		
 		// Removing
 		execute("CRUD.delete");
-		assertNoErrors();
+		assertNoErrors(); // TMR FALLA
 		assertMessage("Customer deleted successfully");
 		
 		// Asserting that seller is not removed

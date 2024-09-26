@@ -17,7 +17,7 @@ public class UploadTest extends WebDriverTestBase {
 	
 	public void testOnChange() throws Exception {
 		goModule("CustomerFramesOnSameRow");
-		execute("List.viewDetail", "row=1");
+		execute("List.viewDetail", "row=1"); // TMR FALLA
 		uploadPhoto();		
 		assertMessage("Photo changed", log); 
 		

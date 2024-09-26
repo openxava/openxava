@@ -825,7 +825,7 @@ public class Strings {
 	 * If you send "firstName" it returns "First name". <br>
 	 * If you send  "CustomerOrder" it returns "Customer order". <br>
 	 */
-	public static String javaIdentifierToNaturalLabel(String name) { 
+	public static String javaIdentifierToNaturalLabel(String name) {
 		if (Is.emptyString(name)) return "";
 		if (name.toUpperCase().equals(name)) return change(name, "_", " "); 
 		StringBuffer result = new StringBuffer();
@@ -833,6 +833,12 @@ public class Strings {
         boolean acronym = false;
         for (int i=1; i<name.length(); i++) {
             char letter = name.charAt(i);
+            // tmr ini
+            if (letter == '_') {
+            	result.append(' ');
+            	continue;
+            }
+            // tmr fin
             boolean isUpperCase = Character.isUpperCase(letter);
             if (!acronym && (isUpperCase || Character.isDigit(letter))) result.append(' ');
             if (isUpperCase) {
