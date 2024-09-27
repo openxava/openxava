@@ -9,7 +9,6 @@ import org.openxava.model.*;
 import lombok.*;
 
 /**
- * tmr
  * To test snake case works with OpenXava, though in Java is advisable
  * to use camel case instead.
  * 

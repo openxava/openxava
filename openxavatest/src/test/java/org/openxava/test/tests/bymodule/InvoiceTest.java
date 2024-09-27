@@ -1524,7 +1524,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("CRUD.new");		
 				
 		execute("Reference.search", "keyProperty=xava.Invoice.customer.number");
-		String customerName = getValueInList(0, 0);	// TMR FALLA	
+		String customerName = getValueInList(0, 0);		
 		checkRow(0);		
 		execute("ReferenceSearch.choose");
 		assertValue("customer.name", customerName);				

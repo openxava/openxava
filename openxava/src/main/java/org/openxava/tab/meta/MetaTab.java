@@ -355,7 +355,6 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 				result.add(member);
 			}
 			else if ((getMetaModel().containsMetaReference(member))) {
-				// tmr if (member.contains("_")) continue; // For references inside aggregates
 				MetaReference ref = getMetaModel().getMetaReference(member);
 				if (ref.getMetaCollectionFromReferencedModel() != null && representCollection()) continue;
 				

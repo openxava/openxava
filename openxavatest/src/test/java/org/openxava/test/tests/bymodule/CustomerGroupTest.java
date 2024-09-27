@@ -15,7 +15,7 @@ public class CustomerGroupTest extends ModuleTestBase {
 			
 	public void testPropertyOfRerenceInsideAggregateInCascadeRemoveCollection() throws Exception { 
 		execute("List.viewDetail", "row=0");
-		assertValueInCollection("customers", 0, "address.state.name", "KANSAS"); // TMR FALLA
+		assertValueInCollection("customers", 0, "address.state.name", "KANSAS");
 	}
 	
 			

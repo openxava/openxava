@@ -59,11 +59,6 @@ public class AnnotatedClassParser implements IComponentParser {
 		if (isParsingComponent(name)) return getParsingComponent(name);
 		String className = getClassNameIfExists(name);
 		if (className == null) return null;
-		/* tmr
-		if (name.contains("_")) { 
-			log.warn(XavaResources.getString("underscore_not_allowed_for_class_name", name));
-		}
-		*/
 		MetaComponent component = new MetaComponent();
 		component.setName(name);
 		putParsingComponent(component);
@@ -226,8 +221,7 @@ public class AnnotatedClassParser implements IComponentParser {
 	}
 	
 	private void parseAttributeOverrides(AnnotatedElement element, ModelMapping mapping, String embedded) throws XavaException {
-		// tmr String prefix = embedded == null?"":embedded + "_"; 
-		String prefix = embedded == null?"":embedded + ":"; // tmr
+		String prefix = embedded == null?"":embedded + ":"; 
 		if (element.isAnnotationPresent(AttributeOverride.class)) {
 			AttributeOverride override = (AttributeOverride) element.getAnnotation(AttributeOverride.class);
 			parseAttributeOverride(override, mapping, prefix); 
@@ -327,8 +321,7 @@ public class AnnotatedClassParser implements IComponentParser {
 			metaAggregate.setAnnotatedEJB3(true); 
 			model.getMetaComponent().addMetaAggregate(metaAggregate);
 			parseViews(model.getMetaComponent(), pd.getPropertyType(), modelName);
-			// tmr String embedded = Is.emptyString(parentEmbedded) ? pd.getName() : parentEmbedded + "_" + pd.getName();  
-			String embedded = Is.emptyString(parentEmbedded) ? pd.getName() : parentEmbedded + ":" + pd.getName(); // tmr
+			String embedded = Is.emptyString(parentEmbedded) ? pd.getName() : parentEmbedded + ":" + pd.getName(); 
 			parseMembers(metaAggregate, pd.getPropertyType(), mapping, embedded);			
 			parseAttributeOverrides(pd.getReadMethod(), mapping, embedded);			 
 			parseAttributeOverrides(field, mapping, embedded);						
@@ -404,8 +397,7 @@ public class AnnotatedClassParser implements IComponentParser {
 		else metaModelReferenced = ref.getMetaModelReferenced();
 		if (mapping != null && !(metaModelReferenced instanceof MetaAggregateForReference)) { 
 			ReferenceMapping refMapping = new ReferenceMapping();
-			// tmr refMapping.setReference(embedded==null?pd.getName():embedded + "_" + pd.getName());			
-			refMapping.setReference(embedded==null?pd.getName():embedded + ":" + pd.getName()); // tmr
+			refMapping.setReference(embedded==null?pd.getName():embedded + ":" + pd.getName()); 
 			
 			for (Object oreferencedModelPropertyName: metaModelReferenced.getAllKeyPropertiesNames()) {
 				String column = null;
@@ -706,8 +698,7 @@ public class AnnotatedClassParser implements IComponentParser {
 		// The mapping part
 		if (mapping != null && field != null) { 
 			PropertyMapping pMapping = new PropertyMapping(mapping);			
-			// tmr pMapping.setProperty(embedded==null?pd.getName():embedded + "_" + pd.getName());
-			pMapping.setProperty(embedded==null?pd.getName():embedded + ":" + pd.getName()); // tmr
+			pMapping.setProperty(embedded==null?pd.getName():embedded + ":" + pd.getName()); 
 			// Column
 			if (field != null && field.isAnnotationPresent(Column.class)) {
 				Column column = field.getAnnotation(Column.class);
@@ -2018,12 +2009,6 @@ public class AnnotatedClassParser implements IComponentParser {
 	private void processAnnotations(MetaReference ref, AnnotatedElement element) throws XavaException {
 		if (element == null) return;
 		
-		/* tmr
-		if (ref.getName().contains("_")) { 
-			log.warn(XavaResources.getString("underscore_not_allowed_for_reference_name", ref.getName()));
-		}
-		*/
-
 		// key
 		if (element.isAnnotationPresent(Id.class)) {
 			ref.setKey(true);

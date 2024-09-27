@@ -30,7 +30,7 @@ public class ListTest extends WebDriverTestBase {
 		assertCustomizeCollection(); 
 
 		goModule("CustomerWithSection");
-		assertCustomizeList(); // TMR FALLA
+		assertCustomizeList();
 		assertCustomizeList_addAndResetModule(); 
 		
 		goModule("Invoice");

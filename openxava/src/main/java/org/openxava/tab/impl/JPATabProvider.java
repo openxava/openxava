@@ -61,11 +61,7 @@ public class JPATabProvider extends TabProviderBase {
 			while (itReferencesMappings.hasNext()) {
 				ReferenceMapping referenceMapping = (ReferenceMapping) itReferencesMappings.next();				
 				String reference = referenceMapping.getReference();	
-				System.out.println("[JPATabProvider.getSelectWithEntityAndJoins] reference=" + reference); // tmp
-				// tmr int idx = reference.lastIndexOf('_');
-				// TMR ME QUEDÉ POR AQUÍ, INTENDO USAR : DE COMPARADOR. DESPUÉS DE CAMBIARLO EN AnnotatedClassParser
-				// TMR  ME DA ERROR 500. PROBANDOLO CON CustomerGroup
-				int idx = reference.lastIndexOf(':'); // tmr
+				int idx = reference.lastIndexOf(':'); 
 				if (idx >= 0) {
 					// In the case of reference to entity in aggregate only we will take the last reference name
 					reference = reference.substring(idx + 1);
@@ -305,8 +301,6 @@ public class JPATabProvider extends TabProviderBase {
 	}
 
 	protected Number executeNumberSelect(String select, String errorId) {
-		return 1; // tmr
-		/* tmr
 		if (select == null) return Integer.MAX_VALUE; 
 		if (keyHasNulls()) return 0;						
 		try {			
@@ -321,7 +315,6 @@ public class JPATabProvider extends TabProviderBase {
 			log.error(ex.getMessage(), ex);
 			throw new XavaException(errorId);
 		}
-		*/
 	}
 
 	public boolean usesConverters() {
