@@ -60,12 +60,12 @@ public class JPATabProvider extends TabProviderBase {
 			Iterator itReferencesMappings = getEntityReferencesMappings().iterator();	
 			while (itReferencesMappings.hasNext()) {
 				ReferenceMapping referenceMapping = (ReferenceMapping) itReferencesMappings.next();				
-				String reference = referenceMapping.getReference();			
-				int idx = reference.lastIndexOf('_');				
+				String reference = referenceMapping.getReference();	
+				int idx = reference.lastIndexOf(':'); 
 				if (idx >= 0) {
 					// In the case of reference to entity in aggregate only we will take the last reference name
 					reference = reference.substring(idx + 1);
-				}								 			
+				}		
 				String nestedReference = (String) getEntityReferencesReferenceNames().get(referenceMapping);
 				addJoin(entityAndJoins, reference, nestedReference);
 				if (!Is.emptyString(nestedReference)) {					
