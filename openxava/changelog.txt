@@ -1,9 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
-- Fix: Automatic label generation for identifier with snake_case includes the _.
+- Fix: Members with with underscores (_) in the name (snake_case) are not shown in detail mode.
 - Fix: Default properties in list (when @Tab is missing) does not include references if snake_case is used.
-- Fix: Members with snake_case style names are not shown in detail mode. 
+- Fix: Automatic label generation for identifier with snake_case includes the _.
 - Fix: Simple layout with flowLayout=true not used for view with a single reference if not explicit @View.
 - Simple view layout when flowLayout=true applied until 15 plain properties instead of 8.
 - Fix: The tree editor ignores hierarchy and order.
