@@ -22,12 +22,11 @@ public class OnChangeSearchAction extends OnChangePropertyBaseAction implements 
 	private String nextAction; 
 	
 	public void execute() throws Exception {
-		MetaReferenceView metaReferenceView
-		= getView().getRoot().getMetaView().getMetaReferenceViewFor(getView().getMemberName());
+		MetaReferenceView metaReferenceView = getView().getRoot().getMetaView().getMetaReferenceViewFor(getView().getMemberName());
 
 		Tab tab = new Tab();
-		tab.setRequest(getTab().getRequest()); // need for ? in condition
-		tab.setModelName(getView().getBaseModelName()); // for polymorphic model
+		tab.setRequest(getTab().getRequest());
+		tab.setModelName(getView().getBaseModelName());
 		setTab(tab);
 		String tabName = metaReferenceView == null ? "" : metaReferenceView.getTabName();
 		tab.setTabName(tabName);
