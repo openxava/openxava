@@ -668,10 +668,6 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	}
 
 	public void setBaseCondition(String string) {
-		System.out.println("setting base condition " + string);
-		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-		 StackTraceElement caller = stackTrace[2];
-		 System.out.println("fue llamado por: " + caller.getClassName() + "." + caller.getMethodName());
 		baseCondition = string;
 		sQLBaseCondition = null;
 	}
@@ -829,10 +825,7 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 			if (t.getMetaFilter() != null && getMetaFilter() == null) setMetaFilter(t.getMetaFilter());
 			if (t.getMetaRowStyles() != null && getMetaRowStyles() == null) setMetaRowStyles(t.getMetaRowStyles());
 			if (t.properties != null && properties == null) properties = t.properties;
-			if (!Is.emptyString(t.getBaseCondition()) && Is.emptyString(getBaseCondition())) {
-				System.out.println("setDefaultValues");
-				setBaseCondition(t.getBaseCondition());
-			}
+			if (!Is.emptyString(t.getBaseCondition()) && Is.emptyString(getBaseCondition())) setBaseCondition(t.getBaseCondition());
 			if (!Is.emptyString(t.getDefaultOrder()) & Is.emptyString(getDefaultOrder())) setDefaultOrder(t.getDefaultOrder());		
 			if (!Is.emptyString(t.getEditors()) && Is.emptyString(getEditors())) {
 				if (Is.emptyString(getEditor())) setEditors(t.getEditors());

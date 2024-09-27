@@ -27,15 +27,13 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 		Tab tab = new Tab();
 		tab.setRequest(getTab().getRequest());
 		setTab(tab);
+				
 		View subview = getViewInfo().getView();
 		MetaModel metaRootModel = getViewInfo().getParent().getMetaModel();		
 		getTab().setModelName(subview.getBaseModelName());
 		MetaReference ref = getMetaReference(metaRootModel, getViewInfo().getMemberName());
 		tab.setTabName(tabName);
-//		System.out.println("modelname " + tab.getModelName());
-//		System.out.println("metatab modelname " + tab.getMetaTab().getModelName());
-//		System.out.println("tabname " + tab.getMetaTab().getName());
-//		System.out.println("ref " + tab.getMetaTab().getBaseCondition());
+		
 		ModelMapping rootMapping = null;
 		try {
 			rootMapping = metaRootModel.getMapping();
@@ -61,11 +59,9 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 					condition.append(" AND "); 
 				}	
 			}
-			System.out.println(0);
 			getTab().setBaseCondition(changeThisPropertyByViewValue(condition.toString()));
 		}
 		else {
-			System.out.println(1);
 			getTab().setBaseCondition(null);
 		}
 		MetaView metaView = ref.getMetaModel().getMetaView(subview.getParent().getViewName());
@@ -77,7 +73,6 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 				if (tabName != null) getTab().setTabName(tabName);
 				String searchListCondition = metaReferenceView.getSearchListCondition();
 				if (searchListCondition != null) {
-					System.out.println(2);
 					getTab().setBaseCondition(changeThisPropertyByViewValue(searchListCondition));
 				}
 			}

@@ -591,8 +591,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		return baseCondition;
 	}
 			
-	public void setBaseCondition(String condition) throws XavaException {
-		System.out.println("setBaseCondition " + condition);
+	public void setBaseCondition(String condition) throws XavaException { 		
 		if (Is.equal(this.baseCondition, condition)) return;
 		
 		this.tableModel = null; 
@@ -739,38 +738,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 			if (property.getQualifiedName().equals(qualifiedName)) return property;
 		}
 		throw new ElementNotFoundException("property_not_found_in_tab", qualifiedName, getTabName(), getModelName()); 
-	}
-	
-	public boolean containsKey(Map<String, Object> mapKey) {
-	    Map<String, Object>[] mapsKeys = getAllKeys();
-	    for (String key : mapKey.keySet()) {
-	        for (Map<String, Object> map : mapsKeys) {
-	        	System.out.println(map);
-	            if (map.containsKey(key)) {
-	                return true;
-	            }
-	        }
-	    }
-
-	    return false;
-	    
-		/*
-		Set<Map.Entry<String, Object>> keySet = new HashSet<>();
-		for (Map<String, Object> map : key) {
-            keySet.addAll(map.entrySet());
-        }
-		
-		Map[] keys = getAllKeys();
-		System.out.println(keys);
-		for (Map<String, Object> map : keys) {
-            for (Map.Entry<String, Object> entry : map.entrySet()) {
-                if (keySet.contains(entry)) {
-                    return true;
-                }
-            }
-        }
-		return false;
-		*/
 	}
 	
 	/**

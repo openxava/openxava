@@ -4,7 +4,6 @@ import java.util.*;
 
 import javax.inject.*;
 
-import org.openxava.model.meta.*;
 import org.openxava.tab.*;
 import org.openxava.view.*;
 import org.openxava.view.meta.*;
@@ -26,34 +25,20 @@ public class OnChangeSearchAction extends OnChangePropertyBaseAction implements 
 		MetaReferenceView metaReferenceView
 		= getView().getRoot().getMetaView().getMetaReferenceViewFor(getView().getMemberName());
 
-		MetaReference metaReference = getView().getParent().getMetaReference(getView().getMemberName());
-		System.out.println(metaReference.getSimpleName());
-
-
-		MetaReferenceView metaReferenceView2 = getView().getMetaView().getMetaReferenceViewFor(getView().getMemberName());
-		//System.out.println(metaReferenceView2.getReferenceName());
-
 		Tab tab = new Tab();
-		//tab.setRequest(getTab().getRequest());
+		tab.setRequest(getTab().getRequest()); // need for ? in condition
 		tab.setModelName(getView().getBaseModelName()); // for polymorphic model
-		System.out.println("setModelName " + getView().getBaseModelName());
-		
 		setTab(tab);
-		System.out.println("--");
 		String tabName = metaReferenceView == null ? "" : metaReferenceView.getTabName();
 		tab.setTabName(tabName);
-		//String baseCondition = tab.getMetaTab().getBaseCondition();
 		if (tab.getMetaTab().hasBaseCondition()) {
-			System.out.println("hasBaseCondition2"); 
-			System.out.println(tab.getMetaTab().getBaseCondition());
+			tab.getMetaTab().setBaseCondition(tab.getMetaTab().getBaseCondition().replace("?", "1"));
 			tab.setBaseCondition("${" + getChangedMetaProperty().getName() + "} = " + getNewValue());
-		    System.out.println(tab.getBaseCondition());
 		    Map key = (Map) tab.getTableModel().getObjectAt(0);
 			if (!getView().findObject(getChangedMetaProperty(), key)) {
 				nextAction = getView().getSearchAction();
 			}
 		} else {
-			System.out.println("original mode");
 			if (!getView().findObject(getChangedMetaProperty())) {
 				nextAction = getView().getSearchAction();
 			}
