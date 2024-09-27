@@ -591,7 +591,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 		return baseCondition;
 	}
 			
-	public void setBaseCondition(String condition) throws XavaException { 		
+	public void setBaseCondition(String condition) throws XavaException {
+		System.out.println("setBaseCondition " + condition);
 		if (Is.equal(this.baseCondition, condition)) return;
 		
 		this.tableModel = null; 

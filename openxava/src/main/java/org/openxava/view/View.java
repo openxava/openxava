@@ -3766,10 +3766,12 @@ public class View implements java.io.Serializable {
 				}
 			}
 			else if (isRepresentsEntityReference() && hasSearchMemberKeys()) {
+				System.out.println(3);
 				Map alternateKey = getSearchKeyValues();
 				if (map != null) {
 					alternateKey = map;
 				}
+				System.out.println(alternateKey); 
 				clear();
 				if (!Maps.isEmptyOrZero(alternateKey)) {
 					setValues(MapFacade.getValuesByAnyProperty(getModelName(), alternateKey, getMembersNamesForFindObject())); 
