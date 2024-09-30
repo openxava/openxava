@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 import org.openxava.annotations.*;
 
-import com.yourcompany.invoicing.calculators.*;
+import com.yourcompany.yourapp.calculators.*;
 
 import lombok.*;
  

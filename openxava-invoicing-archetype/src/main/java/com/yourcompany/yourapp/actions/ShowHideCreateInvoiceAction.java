@@ -3,10 +3,10 @@ package com.yourcompany.yourapp.actions; // In the 'actions' package
 import org.openxava.actions.*; // Needed to use OnChangePropertyAction,
 
 public class ShowHideCreateInvoiceAction
-    extends OnChangePropertyBaseAction  { // Needed for @OnChange actions (1)
+    extends OnChangePropertyBaseAction  { // Needed for @OnChange actions 
 
     public void execute() throws Exception {
-        if (isOrderCreated() && isDelivered() && !hasInvoice()) { // (2)
+        if (isOrderCreated() && isDelivered() && !hasInvoice()) { 
             addActions("Order.createInvoice");
         }
         else {

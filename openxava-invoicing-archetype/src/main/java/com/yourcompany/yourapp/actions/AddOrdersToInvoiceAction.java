@@ -10,7 +10,7 @@ import org.openxava.model.*;
 import org.openxava.util.*;
 import org.openxava.validators.*;
 
-import com.yourcompany.invoicing.model.*;
+import com.yourcompany.yourapp.model.*;
 
 public class AddOrdersToInvoiceAction
     extends AddElementsToCollectionAction { // Standard logic for adding
@@ -25,8 +25,8 @@ public class AddOrdersToInvoiceAction
             XavaException, ObjectNotFoundException,// associate each order to the invoice
             FinderException, RemoteException
     {
-        super.associateEntity(keyValues); // It executes the standard logic (1)
-        Order order = (Order) MapFacade.findEntity("Order", keyValues); // (2)
-        order.copyDetailsToInvoice(); // Delegates the main work to the entity (3)
+        super.associateEntity(keyValues); // It executes the standard logic
+        Order order = (Order) MapFacade.findEntity("Order", keyValues); 
+        order.copyDetailsToInvoice(); // Delegates the main work to the entity 
     }
 }

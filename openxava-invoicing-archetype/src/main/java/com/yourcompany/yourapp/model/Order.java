@@ -11,7 +11,7 @@ import org.openxava.annotations.*;
 import org.openxava.jpa.*;
 import org.openxava.util.*;
 
-import com.yourcompany.invoicing.actions.*;
+import com.yourcompany.yourapp.actions.*;
 
 import lombok.*;
 
@@ -88,7 +88,7 @@ public class Order extends CommercialDocument {
 		super.setDeleted(deleted);
 	}
 
-	public void createInvoice() throws CreateInvoiceException // An application exception (1)
+	public void createInvoice() throws CreateInvoiceException // An application exception 
 	{
 		if (this.invoice != null) { // If an invoice is already present we cannot create one
 			throw new CreateInvoiceException("order_already_has_invoice"); // Allows an i18n id as argument
@@ -104,8 +104,8 @@ public class Order extends CommercialDocument {
 			invoice.setDetails(new ArrayList<>(getDetails()));
 			XPersistence.getManager().persist(invoice);
 			this.invoice = invoice;
-		} catch (Exception ex) { // Any unexpected exception (2)
-			throw new SystemException( // A runtime exception is thrown (3)
+		} catch (Exception ex) { // Any unexpected exception 
+			throw new SystemException( // A runtime exception is thrown 
 					"impossible_create_invoice", ex);
 		}
 	}

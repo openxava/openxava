@@ -6,7 +6,7 @@ import javax.ws.rs.client.*; // To use JAX-RS
 import org.apache.commons.logging.*; // To use Log
 import org.openxava.util.*;
 
-import com.yourcompany.invoicing.annotations.*;
+import com.yourcompany.yourapp.annotations.*;
  
 public class ISBNValidator
     implements ConstraintValidator<ISBN, Object> {

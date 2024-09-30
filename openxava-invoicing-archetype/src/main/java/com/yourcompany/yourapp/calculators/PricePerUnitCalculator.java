@@ -5,7 +5,7 @@ import static org.openxava.jpa.XPersistence.getManager;
 
 import org.openxava.calculators.*;
 
-import com.yourcompany.invoicing.model.*;
+import com.yourcompany.yourapp.model.*;
 
 import lombok.*;
  

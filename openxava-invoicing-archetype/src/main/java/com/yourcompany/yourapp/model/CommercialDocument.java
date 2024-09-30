@@ -32,9 +32,6 @@ abstract public class CommercialDocument extends Deletable {
     int year;
  
     @Column(length=6)
-    // @DefaultValueCalculator(value=NextNumberForYearCalculator.class, // Remove this
-    //      properties=@PropertyValue(name="year")
-    // )
     @ReadOnly // The user cannot modify the value
     @SearchKey
     int number;

@@ -4,7 +4,7 @@ import java.lang.annotation.*;
 
 import javax.validation.*;
  
-@Constraint(validatedBy = com.yourcompany.invoicing.validators.ISBNValidator.class)
+@Constraint(validatedBy = com.yourcompany.yourapp.validators.ISBNValidator.class)
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ISBN { // A regular Java annotation definition
