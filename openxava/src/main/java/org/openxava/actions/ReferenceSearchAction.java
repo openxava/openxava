@@ -27,7 +27,6 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 		Tab tab = new Tab();
 		tab.setRequest(getTab().getRequest());
 		setTab(tab);
-				
 		View subview = getViewInfo().getView();
 		MetaModel metaRootModel = getViewInfo().getParent().getMetaModel();		
 		getTab().setModelName(subview.getBaseModelName());

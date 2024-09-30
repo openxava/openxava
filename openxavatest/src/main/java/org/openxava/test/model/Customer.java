@@ -257,7 +257,10 @@ import org.openxava.test.actions.*;
 	),
 	@Tab(name="FromAlaska",  
 		properties="number, name", 
-		baseCondition="from Customer e, in (e.states) s where s.id = 'AK'")
+		baseCondition="from Customer e, in (e.states) s where s.id = 'AK'"),
+	@Tab(name="LessThanFour",
+		properties="number, name", 
+		baseCondition="${number} < 4")
 })
 public class Customer implements IWithName {
 	

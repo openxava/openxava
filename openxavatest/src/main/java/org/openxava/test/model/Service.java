@@ -26,6 +26,7 @@ import org.openxava.annotations.*;
 	"	invoice;" +
 	"}"
 )
+@View(name = "OnlyFirst", members = "number; description; invoice")
 public class Service {
 
 	@Id @Column(length=3)
@@ -42,6 +43,7 @@ public class Service {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@Action("Service.seeMessage")
+	@SearchListTab(forViews="OnlyFirst", value="OnlyFirst")
 	private ServiceInvoice invoice; 
 	
 	@OneToMany (mappedBy="service", cascade=CascadeType.REMOVE)

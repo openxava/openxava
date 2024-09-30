@@ -276,6 +276,7 @@ public class Invoice {
 	})
 	@AsEmbedded(forViews="CustomerAsAggregateWithDeliveryPlaces")
 	@NoFrame(forViews="CustomerNoFrame") 
+	@SearchListTab(forViews="DetailsWithSections", value="LessThanFour")
 	private Customer customer;
 	
 	@OneToMany (mappedBy="invoice", cascade=CascadeType.REMOVE)

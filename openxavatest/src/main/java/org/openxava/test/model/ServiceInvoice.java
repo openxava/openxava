@@ -3,7 +3,9 @@ package org.openxava.test.model;
 import java.math.*;
 
 import javax.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.Entity;
+
+import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 
@@ -14,7 +16,8 @@ import org.openxava.calculators.*;
 
 @Entity
 @View( members = "year, number, amount; description" )
-@Tab( properties = "year, number, description, amount+" ) 
+@Tab( properties = "year, number, description, amount+" )
+@Tab(name="OnlyFirst", baseCondition="number < 2")
 public class ServiceInvoice {
 	
 	@Id @GeneratedValue(generator="system-uuid") @Hidden 

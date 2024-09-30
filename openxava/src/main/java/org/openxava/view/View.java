@@ -3750,6 +3750,7 @@ public class View implements java.io.Serializable {
 		Map key = getKeyValues();
 		try {			
 			if (isRepresentsEntityReference() && isFirstPropertyAndViewHasNoKeys(changedProperty) && isKeyEditable()) {
+				System.out.println(1);
 				// Searching by the first visible property: Useful for searching from a reference with hidden key
 				Map alternateKey = new HashMap();
 				alternateKey.put(changedProperty.getName(), getValue(changedProperty.getName()));
@@ -3759,6 +3760,7 @@ public class View implements java.io.Serializable {
 				}
 			}
 			else if (isRepresentsEntityReference() && changedProperty != null && changedProperty.isHidden() && changedProperty.isKey()) {
+				System.out.println(2);
 				// If changed property is hidden key, although there are search member we search by key
 				clear();
 				if (!Maps.isEmptyOrZero(key)) {				
@@ -3766,18 +3768,21 @@ public class View implements java.io.Serializable {
 				}
 			}
 			else if (isRepresentsEntityReference() && hasSearchMemberKeys()) {
+				System.out.println(3);
 				Map alternateKey = getSearchKeyValues();
-				if (map != null) {
-					alternateKey = map;
-				}
+				System.out.println(map);
+				System.out.println(alternateKey);
+				if (!map.isEmpty()) alternateKey = map;
 				clear();
 				if (!Maps.isEmptyOrZero(alternateKey)) {
 					setValues(MapFacade.getValuesByAnyProperty(getModelName(), alternateKey, getMembersNamesForFindObject())); 
 				}				
 			}						
-			else {							
+			else {
+				System.out.println(4);
 				// Searching by key, the normal case
 				clear();
+				if (map.isEmpty()) return false;
 				if (!Maps.isEmpty(key)) {				
 					setValues(MapFacade.getValues(getModelName(), key, getMembersNamesForFindObject())); 
 				}
