@@ -18,7 +18,6 @@ public class OnChangeSearchAction extends OnChangePropertyBaseAction implements 
 	
 	@Inject		
 	private Tab tab;	
-	private String tabName = "";
 	private String nextAction; 
 	
 	public void execute() throws Exception {
@@ -62,14 +61,6 @@ public class OnChangeSearchAction extends OnChangePropertyBaseAction implements 
 
 	public void setTab(Tab tab) {
 		this.tab = tab;
-	}
-
-	public String getTabName() {
-		return tabName;
-	}
-
-	public void setTabName(String tabName) {
-		this.tabName = tabName;
 	}
 
 }

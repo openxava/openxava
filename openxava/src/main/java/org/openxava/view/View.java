@@ -3734,8 +3734,8 @@ public class View implements java.io.Serializable {
 	}
 	
 	/**
-	 * Using the key value of the map to search from persistent storage
-	 * and fill the view. The map can be null
+	 * Using the key values loaded in the view and the parameter map 
+	 * to search from persistent storage and fill the view.
 	 * 
 	 * @param changedProperty
 	 * @param map
