@@ -127,7 +127,6 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		setValue("remarks", "A good product");
 		assertMessage("OnChangeVoidAction executed");
 		assertMessagesCount(1); 
-		execute("Mode.list");
 	}
 	
 	private void assertIndexOfOutBoundInList() throws Exception { 
