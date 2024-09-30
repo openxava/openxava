@@ -30,9 +30,8 @@ public class OnChangeSearchAction extends OnChangePropertyBaseAction implements 
 		String tabName = metaReferenceView == null ? "" : metaReferenceView.getTabName();
 		tab.setTabName(tabName);
 		if (tab.getMetaTab().hasBaseCondition()) {
-			tab.setBaseCondition("${" + getChangedMetaProperty().getName() + "} = " + getNewValue());
-		    Map key = (Map) tab.getTableModel().getObjectAt(0);
-		    System.out.println(key);
+			tab.setBaseCondition("${" + getChangedMetaProperty().getName() + "} = " + "'" + getNewValue() +"'");
+			Map key = (Map) tab.getTableModel().getObjectAt(0);
 		    if (key == null) key = new HashMap<>();
 			if (!getView().findObject(getChangedMetaProperty(), key)) {
 				nextAction = getView().getSearchAction();
