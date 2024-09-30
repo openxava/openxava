@@ -3,7 +3,7 @@
 <project name="OpenXavaDoc" default="createWar" basedir=".">
 
 	<property name="xava.version" value="7.4"/>
-	<property name="dist.dir" value="/home/javi/site"/>
+	<property name="dist.dir" value="\\wsl$\Ubuntu\home\javi"/>
 	<!--
 	<property name="dist.dir" value="\\wsl$\Ubuntu\home\javi"/> 
 	<property name="dist.dir" value="/home/javi/site"/>
