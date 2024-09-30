@@ -3730,12 +3730,12 @@ public class View implements java.io.Serializable {
 	 * @return true  if the object is found
 	 */	
 	public boolean findObject(MetaProperty changedProperty) throws Exception { 
-		return findObjectWithBaseCondition(changedProperty, null);
+		return findObjectWithBaseCondition(changedProperty, new HashMap<>());
 	}
 	
 	/**
 	 * Using the key value of the map to search from persistent storage
-	 * and fill the view.
+	 * and fill the view. The map can be null
 	 * 
 	 * @param changedProperty
 	 * @param map
@@ -3767,6 +3767,7 @@ public class View implements java.io.Serializable {
 			}
 			else if (isRepresentsEntityReference() && hasSearchMemberKeys()) {
 				Map alternateKey = getSearchKeyValues();
+				if (map == null) return false;
 				if (!map.isEmpty()) alternateKey.putAll(map);
 				clear();
 				if (!Maps.isEmptyOrZero(alternateKey)) {
@@ -3776,7 +3777,7 @@ public class View implements java.io.Serializable {
 			else {
 				// Searching by key, the normal case
 				clear();
-				if (map.isEmpty()) return false;
+				if (map == null) return false;
 				if (!Maps.isEmpty(key)) {				
 					setValues(MapFacade.getValues(getModelName(), key, getMembersNamesForFindObject())); 
 				}

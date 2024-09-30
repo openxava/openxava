@@ -107,6 +107,18 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		assertListRowCount(3);
 	}
 	
+	public void testOnChangeSearchActionNotAddingNonExistentRecordOfTabUsingId() throws Exception {
+		execute("CRUD.new");
+		execute("Reference.search", "keyProperty=customer.number");
+		assertListRowCount(3);
+		assertValueInList(2, 0, "3");
+		execute("ReferenceSearch.cancel");
+		setValue("customer.number", "4");
+		assertListRowCount(3);
+		execute("ReferenceSearch.choose","row=0");
+		assertValue("customer.number", "1");
+	}
+	
 	private void assertFocusInDialogWithAllMembersInSections_onChangeOnceWhenSectionWithGroupsInCollectionElementDialog() throws Exception {   
 		execute("List.viewDetail", "row=0");
 		execute("Invoice.editDetailWithSections", "row=0,viewObject=xava_view_details");
@@ -115,6 +127,7 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		setValue("remarks", "A good product");
 		assertMessage("OnChangeVoidAction executed");
 		assertMessagesCount(1); 
+		execute("Mode.list");
 	}
 	
 	private void assertIndexOfOutBoundInList() throws Exception { 
