@@ -1622,6 +1622,7 @@ input[type="button"] {
 
 .ox-flow-layout .ox-half-frame {
 	width: calc(50% - 31px);
+	min-width: inherit;
 }
 
 .ox-detail.ox-flow-layout, .ox-active-section > .ox-flow-layout { 

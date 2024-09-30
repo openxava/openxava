@@ -252,7 +252,7 @@ public class View implements java.io.Serializable {
 			metaMembers = extractAggregateRecursiveReference(metaMembers);
 		}				
 		extractRecursiveReference(metaMembers); 
-		if (!hiddenIncluded && hiddenMembers != null) {
+		if (!hiddenIncluded && hiddenMembers != null) {		
 			removeHidden(metaMembers);
 			removeFirstAndLastSeparator(metaMembers);
 		}
@@ -1751,6 +1751,7 @@ public class View implements java.io.Serializable {
 			collectionTab.setDefaultOrder(getMetaCollection().getOrder());
 			collectionTabLabels(collectionTab);
 		}
+		collectionTab.setRequest(getRequest());
 		return collectionTab;
 	}
 	
@@ -5407,8 +5408,13 @@ public class View implements java.io.Serializable {
 			return false;
 		}
 		
-		if (getMetaMembers().size() == 1) {
-			MetaMember uniqueMember = getMetaMembers().iterator().next();   
+		if (getMetaMembers().size() == 1 || getMetaMembers().size() == 2) {  
+			Iterator<MetaMember> membersIterator = getMetaMembers().iterator();
+			MetaMember uniqueMember = membersIterator.next();
+			if (membersIterator.hasNext()) {
+				MetaMember secondMember = membersIterator.next();
+				if (!PropertiesSeparator.INSTANCE.equals(secondMember)) uniqueMember = null;
+			}
 			if (uniqueMember instanceof MetaReference) {
 				return getSubview(uniqueMember.getName()).isSimple();
 			}
@@ -5434,7 +5440,7 @@ public class View implements java.io.Serializable {
 				c++;
 			}
 			else return false;
-			if (c > 8) return false;
+			if (c > 15) return false; 
 		}
 		return true;
 	}

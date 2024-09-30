@@ -174,9 +174,10 @@ public class ApplicantTest extends ModuleTestBase {
 		
 		searchBox.type("artist");
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		assertModulesCount(2); // Test 'Artist' not duplicate when module in application.xml 
+		assertModulesCount(3); // Test 'Artist' not duplicate when module in application.xml 
 		assertModuleInMenu(0, "Artist");  
-		assertModuleInMenu(1, "Artist some members read only"); 
+		assertModuleInMenu(1, "Artist some members read only");
+		assertModuleInMenu(2, "Artist snake"); 
 		
 		assertHelp("en"); 
 	}
@@ -203,7 +204,7 @@ public class ApplicantTest extends ModuleTestBase {
 	
 	private void assertLabels(String propertyLabel, String moduleLabel) throws Exception {
 		assertLabelInList(0, propertyLabel);
-		assertModuleInMenu(19, moduleLabel); // Adapt the index if you add more modules on top of Author
+		assertModuleInMenu(20, moduleLabel); // Adapt the index if you add more modules on top of Author
 		
 		HtmlElement searchBox = getHtmlPage().getHtmlElementById("search_modules_text");
 		searchBox.type("aut");

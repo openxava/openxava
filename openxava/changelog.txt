@@ -1,7 +1,16 @@
 Change Log for OpenXava project
 ===============================
 
-- Charts in list mode broken ("editor not available") if user does a "Group by" after changing chart type.
+- Fix: Members with with underscores (_) in the name (snake_case) are not shown in detail mode.
+- Fix: Default properties in list (when @Tab is missing) does not include references if snake_case is used.
+- Fix: Automatic label generation for identifier with snake_case includes the _.
+- Fix: Simple layout with flowLayout=true not used for view with a single reference if not explicit @View.
+- Simple view layout when flowLayout=true applied until 15 plain properties instead of 8.
+- Fix: The tree editor ignores hierarchy and order.
+- Fix: IllegalStateException (request object ... recycled) in log on saving preferences from time to time.
+- Fix: Layout for groups side by side does not work correctly for flowLayout=true. 
+- Fix: Bottom buttons mounted on view with flowLayout=true when we place two frames in same row. 
+- Fix: Charts in list mode broken if user does a "Group by" after changing chart type.
 
 OpenXava 7.4 (2024-9-13)
 ------------------------

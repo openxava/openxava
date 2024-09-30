@@ -104,7 +104,7 @@ public class Tree extends DWRBase {
 			String pathSeparator = tree != null && tree.pathSeparator() !=null ? tree.pathSeparator() : "/";
 			String idProperties = tree != null && tree.idProperties() !=null ? tree.idProperties() : "";
 			newPath = newPath.replace("/", pathSeparator);
-			
+
 			Map<String, String> pathIdMap = new HashMap<>();
 			pathIdMap.put(pathProperty, null);
 			Map<String, String> newPathValue = new HashMap<>();

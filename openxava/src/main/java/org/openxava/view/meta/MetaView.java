@@ -201,7 +201,7 @@ public class MetaView extends MetaElement implements Cloneable {
 				else if (name.equals(NAME_SEPARATOR)) {					
 					metaMembers.add(PropertiesSeparator.INSTANCE);
 				}					
-				else if (!name.contains("_")) { 
+				else { 
 					MetaMember member = null;
 					try {
 						member = getMetaModel().getMetaMember(name);

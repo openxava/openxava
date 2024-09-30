@@ -823,9 +823,10 @@ public class Strings {
 	 * Convert a string with a Java identifier in label natural for a human. <p>
 	 * 
 	 * If you send "firstName" it returns "First name". <br>
-	 * If you send  "CustomerOrder" it returns "Customer order". <br>
+	 * If you send "CustomerOrder" it returns "Customer order". <br>
+	 * If you send "first_name" it returns "First name" (snake_case support since 7.4.1). <br>
 	 */
-	public static String javaIdentifierToNaturalLabel(String name) { 
+	public static String javaIdentifierToNaturalLabel(String name) {
 		if (Is.emptyString(name)) return "";
 		if (name.toUpperCase().equals(name)) return change(name, "_", " "); 
 		StringBuffer result = new StringBuffer();
@@ -833,6 +834,10 @@ public class Strings {
         boolean acronym = false;
         for (int i=1; i<name.length(); i++) {
             char letter = name.charAt(i);
+            if (letter == '_') {
+            	result.append(' ');
+            	continue;
+            }
             boolean isUpperCase = Character.isUpperCase(letter);
             if (!acronym && (isUpperCase || Character.isDigit(letter))) result.append(' ');
             if (isUpperCase) {

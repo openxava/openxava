@@ -399,18 +399,18 @@ abstract public class ModelMapping implements java.io.Serializable {
 				) {
 					propertyMapping =
 						(PropertyMapping) propertyMappings.get(
-							referenceName + "_" + propertyName);
+								referenceName + ":" + propertyName); 	
 					if (propertyMapping == null) {
 						int idx2 = propertyName.indexOf('.'); 
 						if (idx2 >= 0) {
 							String referenceName2 = propertyName.substring(0, idx2);
 							String propertyName2 = propertyName.substring(idx2 + 1);
-							return getTableColumn(referenceName + "_" + referenceName2 + "." + propertyName2, qualifyReferenceMappingColumn);							
+							return getTableColumn(referenceName + ":" + referenceName2 + "." + propertyName2, qualifyReferenceMappingColumn); 
 						}
 						else {
 							throw new ElementNotFoundException(
 								"property_mapping_not_found", 
-								referenceName + "_" + propertyName, getModelName());
+								referenceName + ":" + propertyName, getModelName()); 
 						}
 					}
 					return propertyMapping.getColumn();
