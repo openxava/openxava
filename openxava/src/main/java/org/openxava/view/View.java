@@ -3738,15 +3738,15 @@ public class View implements java.io.Serializable {
 	 * to search from persistent storage and fill the view.
 	 * 
 	 * @param changedProperty
-	 * @param map
+	 * @param key
 	 * @return true if the object is found
 	 * @since 7.4.1
 	 */
-	public boolean findObject(MetaProperty changedProperty, Map map) throws Exception { 
-		return findObjectWithBaseCondition(changedProperty, map);
+	public boolean findObject(MetaProperty changedProperty, Map keys) throws Exception { 
+		return findObjectWithBaseCondition(changedProperty, keys);
 	}
 	
-	private boolean findObjectWithBaseCondition(MetaProperty changedProperty, Map map) throws Exception { 
+	private boolean findObjectWithBaseCondition(MetaProperty changedProperty, Map keys) throws Exception { 
 		Map key = getKeyValues();
 		try {			
 			if (isRepresentsEntityReference() && isFirstPropertyAndViewHasNoKeys(changedProperty) && isKeyEditable()) {
@@ -3767,8 +3767,8 @@ public class View implements java.io.Serializable {
 			}
 			else if (isRepresentsEntityReference() && hasSearchMemberKeys()) {
 				Map alternateKey = getSearchKeyValues();
-				if (map == null) return false;
-				if (!map.isEmpty()) alternateKey.putAll(map);
+				if (keys == null) return false;
+				if (!keys.isEmpty()) alternateKey.putAll(keys);
 				clear();
 				if (!Maps.isEmptyOrZero(alternateKey)) {
 					setValues(MapFacade.getValuesByAnyProperty(getModelName(), alternateKey, getMembersNamesForFindObject())); 
@@ -3777,7 +3777,7 @@ public class View implements java.io.Serializable {
 			else {
 				// Searching by key, the normal case
 				clear();
-				if (map == null) return false;
+				if (keys == null) return false;
 				if (!Maps.isEmpty(key)) {				
 					setValues(MapFacade.getValues(getModelName(), key, getMembersNamesForFindObject())); 
 				}
