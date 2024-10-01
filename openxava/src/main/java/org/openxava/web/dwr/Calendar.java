@@ -139,6 +139,7 @@ public class Calendar extends DWRBase {
 			Preferences preferences = Users.getCurrentPreferences();
 			preferences.put(prefNodeName, dateLabel);
 			preferences.put(prefNodeName + "_SimpleName", dateSimpleName);
+			preferences.flush();
 			String result = getEvents(request, response, application, module,
 					monthYear, dateSimpleName);
 			return result;
