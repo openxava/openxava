@@ -23,6 +23,7 @@ public class CalendarTest extends WebDriverTestBase {
     	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime();
     	assertAnyNameAsDateProperty();
     	assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear();
+    	assertDropDownVisible();
     }    
 
 	private void nextOnCalendar() throws Exception {
@@ -75,6 +76,24 @@ public class CalendarTest extends WebDriverTestBase {
 		List<WebElement> datesElement = getDriver().findElements(By.cssSelector("td[data-date='" + date + "']"));
 		assertFalse(datesElement.isEmpty());
 		moveToListView();
+	}
+	
+	private void assertDropDownVisible() throws Exception {
+		goModule("Quarter");
+		execute("ListFormat.select", "editor=Calendar");
+		
+		WebElement option = getDriver().findElement(By.id("xava_calendar_date_preferences"));
+		assertEquals("initDate", option.getAttribute("value"));
+		
+		WebElement selectElement = getDriver().findElement(By.className("xava_calendar_date_preferences"));
+		Select select = new Select(selectElement);
+		select.selectByIndex(1);
+		
+		execute("CRUD.new");
+		execute("Mode.list");
+		
+		option = getDriver().findElement(By.id("xava_calendar_date_preferences"));
+		assertEquals("endDate", option.getAttribute("value"));
 	}
 
 	private void assertFilterPerformance() throws Exception {
