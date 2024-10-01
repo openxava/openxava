@@ -84,7 +84,6 @@ public class CalendarTest extends WebDriverTestBase {
 		
 		WebElement option = getDriver().findElement(By.id("xava_calendar_date_preferences"));
 		assertEquals("initDate", option.getAttribute("value"));
-		
 		WebElement selectElement = getDriver().findElement(By.className("xava_calendar_date_preferences"));
 		Select select = new Select(selectElement);
 		select.selectByIndex(1);
@@ -92,8 +91,10 @@ public class CalendarTest extends WebDriverTestBase {
 		execute("CRUD.new");
 		execute("Mode.list");
 		
+		selectElement = getDriver().findElement(By.className("xava_calendar_date_preferences"));
 		option = getDriver().findElement(By.id("xava_calendar_date_preferences"));
 		assertEquals("endDate", option.getAttribute("value"));
+		execute("ListFormat.select", "editor=List");
 	}
 
 	private void assertFilterPerformance() throws Exception {
