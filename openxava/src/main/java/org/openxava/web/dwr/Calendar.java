@@ -6,6 +6,7 @@ import java.time.*;
 import java.time.format.*;
 import java.util.*;
 import java.util.prefs.*;
+import java.util.regex.*;
 
 import javax.ejb.*;
 import javax.servlet.http.*;
@@ -400,6 +401,8 @@ public class Calendar extends DWRBase {
 			tab.clearProperties();
 			tab.addProperties(newTabColumn);
 		}
+		
+		if (tab.getMetaTab().hasBaseCondition()) tab.addProperties(getBaseConditionPropertiesAsString(tab.getMetaTab().getBaseCondition()));
 		return tab;
 	}
 
@@ -487,6 +490,16 @@ public class Calendar extends DWRBase {
 	    } else if (className.startsWith("java.time.")) {
 	        oldLib = false;
 	    }
+	}
+	
+	private List<String> getBaseConditionPropertiesAsString(String baseCondition){
+		Pattern pattern = Pattern.compile("\\$\\{([^}]+)\\}");
+	    Matcher matcher = pattern.matcher(baseCondition);
+	    List<String> matches = new ArrayList<>();
+        while (matcher.find()) {
+            matches.add(matcher.group(1));
+        }
+        return matches;
 	}
 
 }

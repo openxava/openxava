@@ -233,7 +233,10 @@ import lombok.*;
 	@Tab(name="PropertiesFromCollection", 
 		properties="year, number, date, customer.name, amountsSum, vat, detailsCount, paid, importance, details.product.unitPrice, deliveries.description"
 		// Without defaultOrder to test a case
-	) 
+	),
+	@Tab(name="WithSeller", 
+		properties="year, number, date, customer.seller.name", 
+		baseCondition="${customer.seller.name} = 'MANUEL CHAVARRI'")
 })
 
 public class Invoice {
