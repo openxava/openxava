@@ -56,7 +56,6 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 				setConditionProperties(condition);
 			}
 			StringBuffer select = new StringBuffer(getSelectBase());
-			System.out.println("[EntityTab.search] select=" + select); // tmp
 			if (!Is.emptyString(condition)) {				
 				if (!condition.toUpperCase().trim().startsWith("ORDER BY")) {
 					if (select.toString().toUpperCase().indexOf("WHERE") < 0) select.append(" WHERE "); 
