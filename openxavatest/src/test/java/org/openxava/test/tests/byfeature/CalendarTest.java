@@ -95,7 +95,12 @@ public class CalendarTest extends WebDriverTestBase {
 		selectElement = getDriver().findElement(By.className("xava_calendar_date_preferences"));
 		option = getDriver().findElement(By.id("xava_calendar_date_preferences"));
 		assertEquals("endDate", option.getAttribute("value"));
+		select = new Select(selectElement);
+		select.selectByIndex(1);
 		execute("ListFormat.select", "editor=List");
+		execute("ListFormat.select", "editor=Calendar");
+		option = getDriver().findElement(By.id("xava_calendar_date_preferences"));
+		assertEquals("initDate", option.getAttribute("value"));
 	}
 	
 	private void assertTabWithBaseCondition() throws Exception {
