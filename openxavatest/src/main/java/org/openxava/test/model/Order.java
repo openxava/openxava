@@ -20,7 +20,10 @@ import org.openxava.test.actions.*;
 	"amount;" +
 	"remarks"
 )
-@View(name="ProductInDetailAsDescriptionsList", extendsView = "DEFAULT") 
+@View(name="ProductInDetailAsDescriptionsList", extendsView = "DEFAULT")
+@Tab(name="WithSeller", 
+properties="year, number, date, customer.seller.name", 
+baseCondition="${customer.seller.name} = 'MANUEL CHAVARRI'")
 public class Order extends Identifiable {
 	
 	@Column(length=4) 

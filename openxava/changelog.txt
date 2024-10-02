@@ -4,6 +4,7 @@ Change Log for OpenXava project
 - Groovy upgraded to 4.0.23.
 - Embedded Tomcat used in development upgraded to 9.0.95.
 - Log4j API and core upgraded to 2.24.1.
+- Fix: Calendar list format fails when baseCondition references a not displayed qualified property.
 - Lesson 6 of the reporting course with JasperReports available in the documentation with video.
 - Fix: Members with with underscores (_) in the name (snake_case) are not shown in detail mode.
 - Fix: Default properties in list (when @Tab is missing) does not include references if snake_case is used.
