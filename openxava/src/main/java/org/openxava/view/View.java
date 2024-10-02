@@ -3737,16 +3737,15 @@ public class View implements java.io.Serializable {
 	 * Using the key values loaded in the view and the parameter map 
 	 * to search from persistent storage and fill the view.
 	 * 
-	 * @param changedProperty
-	 * @param key
+	 * @param changedProperty Property which change produces the search.
 	 * @return true if the object is found
 	 * @since 7.4.1
 	 */
-	public boolean findObject(MetaProperty changedProperty, Map keys) throws Exception { 
-		return findObjectWithBaseCondition(changedProperty, keys);
+	public boolean findObject(MetaProperty changedProperty, Map extraKeysForSearchingReference) throws Exception { 
+		return findObjectWithBaseCondition(changedProperty, extraKeysForSearchingReference);
 	}
 	
-	private boolean findObjectWithBaseCondition(MetaProperty changedProperty, Map keys) throws Exception { 
+	private boolean findObjectWithBaseCondition(MetaProperty changedProperty, Map extraKeysForSearchingReference) throws Exception { 
 		Map key = getKeyValues();
 		try {			
 			if (isRepresentsEntityReference() && isFirstPropertyAndViewHasNoKeys(changedProperty) && isKeyEditable()) {
@@ -3767,8 +3766,8 @@ public class View implements java.io.Serializable {
 			}
 			else if (isRepresentsEntityReference() && hasSearchMemberKeys()) {
 				Map alternateKey = getSearchKeyValues();
-				if (keys == null) return false;
-				if (!keys.isEmpty()) alternateKey.putAll(keys);
+				if (extraKeysForSearchingReference == null) return false;
+				alternateKey.putAll(extraKeysForSearchingReference);
 				clear();
 				if (!Maps.isEmptyOrZero(alternateKey)) {
 					setValues(MapFacade.getValuesByAnyProperty(getModelName(), alternateKey, getMembersNamesForFindObject())); 
@@ -3777,7 +3776,7 @@ public class View implements java.io.Serializable {
 			else {
 				// Searching by key, the normal case
 				clear();
-				if (keys == null) return false;
+				if (extraKeysForSearchingReference == null) return false;
 				if (!Maps.isEmpty(key)) {				
 					setValues(MapFacade.getValues(getModelName(), key, getMembersNamesForFindObject())); 
 				}
