@@ -1,0 +1,117 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE controladores SYSTEM "dtds/controladores.dtd">
+
+<controladores>
+    
+    <!-- Variable de entorno: 
+    <var-entorno nombre="tuaplicacion_ANYO_DEFECTO" valor="2025"/>
+    -->
+    
+    <!-- Objeto de sesión:
+    <Objeto nombre="tuaplicacion_anyoActivo" clase="java.lang.Integer" valor="2025" 
+            ambito="global"/>
+    -->
+    
+    <!-- Controlador:
+    <controlador nombre="Almacen">
+        <hereda-de controlador="Typical"/>
+        <accion nombre="new" icono="library-plus" atajo-de-teclado="Control N" 
+                clase="com.tuempresa.tuaplicacion.acciones.CrearAlmacen"/>        
+    </controlador>
+    -->
+    
+	<!-- Para definir un valor global para una variable de entorno -->
+	<var-entorno nombre="XAVA_SEARCH_ACTION"
+		valor="Facturacion.buscarExcluyendoEliminados" />
+
+	<controlador nombre="Facturacion"> <!-- El mismo nombre de la entidad -->
+
+		<hereda-de controlador="Typical" /> <!-- Hereda todas las acciones de 'Typical' -->
+
+		<!-- Typical ya tiene una acción 'delete', al usar el mismo nombre la sobrescribimos -->
+		<accion nombre="delete" modo="detail" confirmar="true"
+			clase="com.tuempresa.tuaplicacion.acciones.EliminarParaFacturacion"
+			icono="delete" disponible-en-nuevo="false"
+			atajo-de-teclado="Control D" />
+
+		<accion nombre="buscarExcluyendoEliminados" oculta="true"
+			clase="com.tuempresa.tuaplicacion.acciones.BuscarExcluyendoEliminados" />
+		<!-- oculta="true" : Así la acción no se mostrará en la barra de botones -->
+
+		<accion nombre="deleteSelected" modo="list" confirmar="true"
+			procesar-elementos-seleccionados="true" icono="delete"
+			clase="com.tuempresa.tuaplicacion.acciones.EliminarSeleccionadoParaFacturacion"
+			atajo-de-teclado="Control D" />
+
+		<accion nombre="deleteRow" modo="NONE" confirmar="true"
+			clase="com.tuempresa.tuaplicacion.acciones.EliminarSeleccionadoParaFacturacion"
+			icono="delete" en-cada-fila="true" />
+	</controlador>
+
+
+
+	<controlador nombre="Papelera">
+		<accion nombre="restaurar" modo="list"
+			clase="com.tuempresa.tuaplicacion.acciones.EliminarSeleccionadoParaFacturacion">
+			<poner propiedad="restaurar" valor="true" /> <!-- Pone la propiedad restaurar a true -->
+			<!-- antes de llamar al método execute() de la acción -->
+		</accion>
+	</controlador>
+
+
+	<controlador nombre="Pedido">
+		<hereda-de controlador="Facturacion" /> <!-- Para tener las acciones estándar -->
+
+		<accion nombre="crearFactura" modo="detail"
+			clase="com.tuempresa.tuaplicacion.acciones.CrearFacturaDesdePedido" />
+		<!-- modo="detail" : Sólo en modo detalle -->
+
+		<!-- La nueva acción -->
+		<accion nombre="crearFacturaDesdePedidosSeleccionados"
+			modo="list"
+			clase="com.tuempresa.tuaplicacion.acciones.CrearFacturaDesdePedidosSeleccionados" />
+		<!-- modo="list": Sólo se muestra en modo lista -->
+
+		<accion nombre="buscarFactura"
+			clase="com.tuempresa.tuaplicacion.acciones.BuscarFacturaDesdePedido"
+			oculta="true" icono="magnify" />
+		<!-- oculta="true" : Para que no se muestre en la barra de botones del 
+			módulo icono="magnify" : La misma imagen que la de la acción estándar -->
+
+	</controlador>
+
+
+	<controlador nombre="EdicionFactura">
+
+		<accion nombre="grabar"
+			clase="com.tuempresa.tuaplicacion.acciones.GrabarFactura"
+			atajo-de-teclado="Control S" />
+
+		<accion nombre="cerrar"
+			clase="org.openxava.actions.CancelAction" />
+
+	</controlador>
+
+
+	<controlador nombre="Factura">
+		<hereda-de controlador="Facturacion" />
+
+		<accion nombre="anyadirPedidos"
+			clase="com.tuempresa.tuaplicacion.acciones.IrAnyadirPedidosAFactura"
+			oculta="true" icono="table-row-plus-after" />
+		<!-- oculta="true" : No se mostrará en la barra de botones del módulo icono="table-row-plus-after" 
+			: La misma imagen que la acción estándar -->
+
+	</controlador>
+
+	<controlador nombre="AnyadirPedidosAFactura">
+		<hereda-de controlador="AddToCollection" /> <!-- Extiende del controlador estándar -->
+
+		<!-- Sobrescribe la acción para añadir -->
+		<accion nombre="add"
+			clase="com.tuempresa.tuaplicacion.acciones.AnyadirPedidosAFactura" />
+
+	</controlador>    
+    
+</controladores>
