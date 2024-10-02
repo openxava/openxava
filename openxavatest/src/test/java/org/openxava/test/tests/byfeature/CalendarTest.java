@@ -17,14 +17,14 @@ import org.openqa.selenium.support.ui.*;
 public class CalendarTest extends WebDriverTestBase {
 	
     public void testCalendar() throws Exception {
-//    	assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate(); 
-//    	assertMultipleDatesPropertiesAndSelectDateToShow();
-//    	assertFilterPerformance();
-//    	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime();
-//    	assertAnyNameAsDateProperty();
-//    	assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear();
+    	assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate(); 
+    	assertMultipleDatesPropertiesAndSelectDateToShow();
+    	assertFilterPerformance();
+    	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime();
+    	assertAnyNameAsDateProperty();
+    	assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear();
     	assertDropDownVisible();
-//    	assertTabWithBaseCondition();
+    	assertTabWithBaseCondition();
     }    
 
 	private void nextOnCalendar() throws Exception {
