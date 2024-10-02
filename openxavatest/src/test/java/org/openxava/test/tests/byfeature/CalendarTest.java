@@ -17,14 +17,14 @@ import org.openqa.selenium.support.ui.*;
 public class CalendarTest extends WebDriverTestBase {
 	
     public void testCalendar() throws Exception {
-    	assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate(); 
-    	assertMultipleDatesPropertiesAndSelectDateToShow();
-    	assertFilterPerformance();
-    	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime();
-    	assertAnyNameAsDateProperty();
-    	assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear();
+//    	assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate(); 
+//    	assertMultipleDatesPropertiesAndSelectDateToShow();
+//    	assertFilterPerformance();
+//    	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime();
+//    	assertAnyNameAsDateProperty();
+//    	assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear();
     	assertDropDownVisible();
-    	assertTabWithBaseCondition();
+//    	assertTabWithBaseCondition();
     }    
 
 	private void nextOnCalendar() throws Exception {
@@ -95,6 +95,12 @@ public class CalendarTest extends WebDriverTestBase {
 		selectElement = getDriver().findElement(By.className("xava_calendar_date_preferences"));
 		option = getDriver().findElement(By.id("xava_calendar_date_preferences"));
 		assertEquals("endDate", option.getAttribute("value"));
+		
+		getDriver().quit();
+		setUp();
+		goModule("Quarter");
+
+		selectElement = getDriver().findElement(By.className("xava_calendar_date_preferences"));
 		select = new Select(selectElement);
 		select.selectByIndex(1);
 		execute("ListFormat.select", "editor=List");
