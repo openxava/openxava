@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- New Maven archetypes "openxava-invoicing-archetype" in English and Spanish (-spanish).
 - Fix: Combo for choosing date in calendar list format disappears from time to time.
 - Groovy upgraded to 4.0.23.
 - Embedded Tomcat used in development upgraded to 9.0.95.
