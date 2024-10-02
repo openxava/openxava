@@ -24,6 +24,7 @@ public class CalendarTest extends WebDriverTestBase {
     	assertAnyNameAsDateProperty();
     	assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear();
     	assertDropDownVisible();
+    	assertTabWithBaseCondition();
     }    
 
 	private void nextOnCalendar() throws Exception {
@@ -95,6 +96,25 @@ public class CalendarTest extends WebDriverTestBase {
 		option = getDriver().findElement(By.id("xava_calendar_date_preferences"));
 		assertEquals("endDate", option.getAttribute("value"));
 		execute("ListFormat.select", "editor=List");
+	}
+	
+	private void assertTabWithBaseCondition() throws Exception {
+		goModule("OrderWithSeller");
+		execute("ListFormat.select", "editor=Calendar");
+		List<WebElement> elements = getDriver().findElements(By.cssSelector(".fc-event-today"));
+		assertTrue(elements.isEmpty());
+		execute("ListFormat.select", "editor=List");
+		execute("CRUD.new");
+		setValue("customer.number", "1");
+		execute("CRUD.save");
+		execute("Mode.list");
+		execute("ListFormat.select", "editor=Calendar");
+		elements = getDriver().findElements(By.cssSelector(".fc-event-today"));
+		assertFalse(elements.isEmpty());
+		execute("ListFormat.select", "editor=List");
+		execute("CRUD.new");
+		execute("CRUD.refresh");
+		execute("CRUD.delete");
 	}
 
 	private void assertFilterPerformance() throws Exception {
