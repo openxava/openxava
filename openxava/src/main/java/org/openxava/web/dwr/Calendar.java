@@ -140,8 +140,7 @@ public class Calendar extends DWRBase {
 			Preferences preferences = Users.getCurrentPreferences();
 			preferences.put(prefNodeName, dateLabel);
 			preferences.put(prefNodeName + "_SimpleName", dateSimpleName);
-			preferences.flush(); // If this code is changed, it should be tested to ensure that 
-			// the select element in the calendar view remembers its option every time the application is restarted
+			preferences.flush();
 			String result = getEvents(request, response, application, module,
 					monthYear, dateSimpleName);
 			return result;
