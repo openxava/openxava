@@ -1,0 +1,112 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE controllers SYSTEM "dtds/controllers.dtd">
+
+<controllers>
+    
+    <!-- Environment variable:
+    <env-var name="yourapp_DEFAULT_YEAR" value="2025"/> 
+    -->
+    
+    <!-- Session object:
+    <object name="yourapp_activeYear" class="java.lang.Integer" value="2025" 
+    	    scope="global"/>    
+    -->
+    
+    <!-- Controller:
+    <controller name="Warehouse">
+    	<extends controller="Typical"/>
+    	<action name="new" icon="library-plus" keystroke="Control N"
+        	class="com.yourcompany.yourapp.actions.CreateWarehouseAction">
+    	</action>
+	</controller>    
+    -->
+    
+	<env-var name="XAVA_SEARCH_ACTION"
+		value="Invoicing.searchExcludingDeleted" />
+	<controller name="Invoicing"> 
+
+		<extends controller="Typical" /> <!-- It has all the actions from Typical -->
+
+		<!-- Typical already has a 'delete' action, by using the same name we override it -->
+		<action name="delete" mode="detail" confirm="true"
+			class="com.yourcompany.yourapp.actions.InvoicingDeleteAction"
+			icon="delete" available-on-new="false" keystroke="Control D" />
+
+		<action name="searchExcludingDeleted" hidden="true"
+			class="com.yourcompany.yourapp.actions.SearchExcludingDeletedAction" />
+
+		<action name="deleteSelected" mode="list" confirm="true"
+			process-selected-items="true" icon="delete"
+			class="com.yourcompany.yourapp.actions.InvoicingDeleteSelectedAction"
+			keystroke="Control D" />
+
+		<action name="deleteRow" mode="NONE" confirm="true"
+			class="com.yourcompany.yourapp.actions.InvoicingDeleteSelectedAction"
+			icon="delete" in-each-row="true" />
+
+	</controller>
+
+
+	<controller name="Trash">
+		<action name="restore" mode="list"
+			class="com.yourcompany.yourapp.actions.InvoicingDeleteSelectedAction">
+			<set property="restore" value="true" /> <!-- Initialize the restore property to -->
+			<!-- true before calling the execute() method of the action -->
+		</action>
+	</controller>
+
+
+	<controller name="Order">
+		<extends controller="Invoicing" /> <!-- In order to have the standard actions -->
+
+		<action name="createInvoice" mode="detail"
+			class="com.yourcompany.yourapp.actions.CreateInvoiceFromOrderAction" />
+		<!-- mode="detail" : Only in detail mode -->
+
+		<!-- The new action -->
+		<action name="createInvoiceFromSelectedOrders" mode="list"
+			class="com.yourcompany.yourapp.actions.CreateInvoiceFromSelectedOrdersAction" />
+		<!-- mode="list": Only shown in list mode -->
+
+		<action name="searchInvoice"
+			class="com.yourcompany.yourapp.actions.SearchInvoiceFromOrderAction"
+			hidden="true" icon="magnify" />
+		<!-- hidden="true" : Because we don't want the action to be shown in module 
+			button bar icon="magnify" : The same icon as for the standard search action -->
+	</controller>
+
+
+	<controller name="InvoiceEdition">
+
+		<action name="save"
+			class="com.yourcompany.yourapp.actions.SaveInvoiceAction"
+			keystroke="Control S" />
+
+		<action name="close" class="org.openxava.actions.CancelAction" />
+
+	</controller>
+
+
+	<controller name="Invoice">
+		<extends controller="Invoicing" />
+
+		<action name="addOrders"
+			class="com.yourcompany.yourapp.actions.GoAddOrdersToInvoiceAction"
+			hidden="true" icon="table-row-plus-after" />
+		<!-- hidden="true" : Because we don't want the action to be shown in module 
+			button bar icon="table-row-plus-after" : The same icon as for the standard 
+			action -->
+
+	</controller>
+
+	<controller name="AddOrdersToInvoice">
+		<extends controller="AddToCollection" /> <!-- Extends from the standard controller -->
+
+		<!-- Overwrites the action to add -->
+		<action name="add"
+			class="com.yourcompany.yourapp.actions.AddOrdersToInvoiceAction" />
+
+	</controller>    
+    
+</controllers>

@@ -33,8 +33,7 @@ List<String> calculatedProperties = new ArrayList<>(tab.getMetaTab().getMetaMode
 List<MetaProperty> datePropertyList = new ArrayList<>();
 for (MetaProperty mp : metaPropertiesList) {
     if (datesProperties.contains(mp.getTypeName()) 
-        && !calculatedProperties.contains(mp.getName()) 
-        && !mp.getLabel().equals(datePref)) {
+        && !calculatedProperties.contains(mp.getName())) {
         datePropertyList.add(mp);
     }
 }
