@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: The chosen date in the list calendar format is not remembered by the user between sessions.
 - New Maven archetypes "openxava-invoicing-archetype" in English and Spanish (-spanish).
 - Fix: Combo for choosing date in calendar list format disappears from time to time.
 - Groovy upgraded to 4.0.23.

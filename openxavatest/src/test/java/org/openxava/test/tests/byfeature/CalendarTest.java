@@ -23,7 +23,7 @@ public class CalendarTest extends WebDriverTestBase {
     	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime();
     	assertAnyNameAsDateProperty();
     	assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear();
-    	assertDropDownVisible();
+    	assertDropDownVisible_DropDownOptionSavePrefDate();
     	assertTabWithBaseCondition();
     }    
 
@@ -79,7 +79,7 @@ public class CalendarTest extends WebDriverTestBase {
 		moveToListView();
 	}
 	
-	private void assertDropDownVisible() throws Exception {
+	private void assertDropDownVisible_DropDownOptionSavePrefDate() throws Exception {
 		goModule("Quarter");
 		execute("ListFormat.select", "editor=Calendar");
 		
@@ -95,6 +95,20 @@ public class CalendarTest extends WebDriverTestBase {
 		selectElement = getDriver().findElement(By.className("xava_calendar_date_preferences"));
 		option = getDriver().findElement(By.id("xava_calendar_date_preferences"));
 		assertEquals("endDate", option.getAttribute("value"));
+		
+		getDriver().quit();
+		setUp();
+		goModule("Quarter");
+
+		option = getDriver().findElement(By.id("xava_calendar_date_preferences"));
+		assertEquals("endDate", option.getAttribute("value"));
+		selectElement = getDriver().findElement(By.className("xava_calendar_date_preferences"));
+		select = new Select(selectElement);
+		select.selectByIndex(1);
+		execute("ListFormat.select", "editor=List");
+		execute("ListFormat.select", "editor=Calendar");
+		option = getDriver().findElement(By.id("xava_calendar_date_preferences"));
+		assertEquals("initDate", option.getAttribute("value"));
 		execute("ListFormat.select", "editor=List");
 	}
 	
