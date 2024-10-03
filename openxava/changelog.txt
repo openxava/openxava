@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Search in a reference typing the key can get a record excluded from the search using the dialog.
 - Fix: The chosen date in the list calendar format is not remembered by the user between sessions.
 - New Maven archetypes "openxava-invoicing-archetype" in English and Spanish (-spanish).
 - Fix: Combo for choosing date in calendar list format disappears from time to time.
