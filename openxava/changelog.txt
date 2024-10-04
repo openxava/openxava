@@ -1,15 +1,14 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.4.1 (2024-10-4)
+--------------------------
 - New Maven archetypes "openxava-invoicing-archetype" in English and Spanish (-spanish).
 - Simple view layout when flowLayout=true applied until 15 plain properties instead of 8.
-
 - Groovy upgraded to 4.0.23.
 - Embedded Tomcat used in development upgraded to 9.0.95.
 - Log4j API and core upgraded to 2.24.1.
-
 - Lesson 6 of the reporting course with JasperReports available in the documentation with video.
-
 - Fix: The tree editor ignores hierarchy and order.
 - Fix: Search in a reference typing the key can get a record excluded from the search using the dialog.
 - Fix: The chosen date in the list calendar format is not remembered by the user between sessions.

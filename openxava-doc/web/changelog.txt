@@ -1,6 +1,28 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.4.1 (2024-10-4)
+--------------------------
+- New Maven archetypes "openxava-invoicing-archetype" in English and Spanish (-spanish).
+- Simple view layout when flowLayout=true applied until 15 plain properties instead of 8.
+- Groovy upgraded to 4.0.23.
+- Embedded Tomcat used in development upgraded to 9.0.95.
+- Log4j API and core upgraded to 2.24.1.
+- Lesson 6 of the reporting course with JasperReports available in the documentation with video.
+- Fix: The tree editor ignores hierarchy and order.
+- Fix: Search in a reference typing the key can get a record excluded from the search using the dialog.
+- Fix: The chosen date in the list calendar format is not remembered by the user between sessions.
+- Fix: Combo for choosing date in calendar list format disappears from time to time.
+- Fix: Calendar list format fails when baseCondition references a not displayed qualified property.
+- Fix: Members with underscores (_) in the name (snake_case) are not shown in detail mode.
+- Fix: Default properties in list (when @Tab is missing) does not include references if snake_case is used.
+- Fix: Automatic label generation for identifier with snake_case includes the _.
+- Fix: Simple layout with flowLayout=true not used for view with a single reference if not explicit @View.
+- Fix: IllegalStateException (request object ... recycled) in log on saving preferences from time to time.
+- Fix: Layout for groups side by side does not work correctly for flowLayout=true. 
+- Fix: Bottom buttons mounted on view with flowLayout=true when we place two frames in the same row. 
+- Fix: Charts in list mode broken if user does a "Group by" after changing chart type.
+
 OpenXava 7.4 (2024-9-13)
 ------------------------
 - @Chart annotation for collections to display the collection as a chart from its data.
