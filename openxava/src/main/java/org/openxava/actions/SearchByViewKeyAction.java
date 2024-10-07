@@ -36,21 +36,10 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 	Tab tab;
 
 	public void execute() throws Exception {
-		System.out.println("SearchByViewKeyAction");
 		Map keys = null;  
 		Map valuesForSearchByAnyProperty = null;
 		try {
-			Tab tab = new Tab();
-			tab.setRequest(getTab().getRequest());
-			tab.setModelName(getView().getBaseModelName());
-			setTab(tab);
-			//String tabName = getView().getMetaView().getMetaModel().get
-			tab.setTabName(tabName);
 			keys = getKeyValuesFromView();
-			System.out.println(tab.getTabName());
-			System.out.println(tab.getMetaTab().getBaseCondition());
-			System.out.println(tab.getBaseCondition());
-			System.out.println(tab.containsKeys(keys));
 			Map values = null;			
 			if (Maps.isEmpty(keys)) {
 				try {					
@@ -64,7 +53,8 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 					values = MapFacade.getValues(getModelName(), keys, getMemberNames());					
 				}
 			}
-			else {				
+			else {
+				if (!tab.containsKeys(keys)) throw new ObjectNotFoundException();
 				getView().clear(); 
 				values = MapFacade.getValues(getModelName(), keys, getMemberNames());
 			}

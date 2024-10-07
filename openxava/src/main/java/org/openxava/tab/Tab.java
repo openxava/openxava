@@ -758,8 +758,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 * @since 7.4.2
 	 */
 	public boolean containsKeys(Map keys) {
-		for (Map<String, Object> currentMap : getAllKeys()) {
-            if (keys.equals(currentMap)) {
+		for (Map<String, Object> keysMap : getAllKeys()) {
+            if (keys.equals(keysMap)) {
                 return true;
             }
         }
