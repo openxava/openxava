@@ -6,7 +6,7 @@
 
 	<groupId>org.openxava</groupId>
 	<artifactId>openxava-project-management-archetype</artifactId>
-	<version>7.4.1</version>
+	<version>7.4.2-SNAPSHOT</version>
 	<packaging>maven-archetype</packaging>
 
   	<name>OpenXava Archetype</name>
