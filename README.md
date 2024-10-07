@@ -52,6 +52,10 @@ For a basic CRM use openxava-crm-archetype, thus:
 For a project management application use openxava-project-management-archetype:
 
 	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-project-management-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourtracker -DinteractiveMode=false
+	
+For an invoicing application use openxava-invoicing-archetype:
+
+	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-invoicing-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourinvoicing -DinteractiveMode=false	
 
 ## Learn more
 To learn more go to the official OpenXava documentation here: [openxava.org/doc](https://openxava.org/doc)
