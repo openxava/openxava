@@ -3,11 +3,13 @@ package org.openxava.actions;
 import java.util.*;
 
 import javax.ejb.*;
+import javax.inject.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.component.*;
 import org.openxava.model.*;
 import org.openxava.model.meta.*;
+import org.openxava.tab.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
 
@@ -29,12 +31,26 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 	
 	private static final long serialVersionUID = 1L;
 	private static Log log = LogFactory.getLog(SearchByViewKeyAction.class);
+	
+	@Inject
+	Tab tab;
 
 	public void execute() throws Exception {
+		System.out.println("SearchByViewKeyAction");
 		Map keys = null;  
 		Map valuesForSearchByAnyProperty = null;
-		try {									
-			keys = getKeyValuesFromView();		
+		try {
+			Tab tab = new Tab();
+			tab.setRequest(getTab().getRequest());
+			tab.setModelName(getView().getBaseModelName());
+			setTab(tab);
+			//String tabName = getView().getMetaView().getMetaModel().get
+			tab.setTabName(tabName);
+			keys = getKeyValuesFromView();
+			System.out.println(tab.getTabName());
+			System.out.println(tab.getMetaTab().getBaseCondition());
+			System.out.println(tab.getBaseCondition());
+			System.out.println(tab.containsKeys(keys));
 			Map values = null;			
 			if (Maps.isEmpty(keys)) {
 				try {					
@@ -141,5 +157,15 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 		}		
 		return "'" + sb.toString().trim() + "'";
 	}
+
+	public Tab getTab() {
+		return tab;
+	}
+
+	public void setTab(Tab tab) {
+		this.tab = tab;
+	}
+	
+	
 	
 }
