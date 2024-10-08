@@ -36,6 +36,7 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 	Tab tab;
 
 	public void execute() throws Exception {
+		System.out.println("SearchByViewKeyAction");
 		Map keys = null;  
 		Map valuesForSearchByAnyProperty = null;
 		try {
@@ -54,7 +55,23 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 				}
 			}
 			else {
-				if (!tab.containsKeys(keys)) throw new ObjectNotFoundException();
+				
+				System.out.println("else");
+				System.out.println(keys);
+				//System.out.println("allkeys");
+				//System.out.println(tab.containsKeys(keys));
+				//System.out.println(isSimpleMap(keys));
+//				System.out.println(getView().getModelName());
+//				System.out.println(tab.getModelName());
+//				System.out.println(tab.getTabName());
+				//if (tab.getModelName().equals(getView().getModelName())
+				//tab.setModelName(getView().getModelName());
+				
+				if (isSimpleMap(keys)) {
+					if (!tab.containsKeys(keys) && !tab.getModelName().equals(getView().getModelName())) {
+						throw new ObjectNotFoundException();
+					}
+				}
 				getView().clear(); 
 				values = MapFacade.getValues(getModelName(), keys, getMemberNames());
 			}
@@ -147,7 +164,7 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 		}		
 		return "'" + sb.toString().trim() + "'";
 	}
-
+/*
 	public Tab getTab() {
 		return tab;
 	}
@@ -155,7 +172,33 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 	public void setTab(Tab tab) {
 		this.tab = tab;
 	}
-	
-	
+	*/
+	/*
+    private boolean isNestedMap(Map<String, Object> map) {
+        for (Object value : map.values()) {
+            if (value instanceof Map) {
+                return true;
+            }
+        }
+        return false;
+    }*/
+    
+    public static boolean isSimpleMap(Map<String, Object> map) {
+        for (Object value : map.values()) {
+            if (value instanceof Map) {
+            	System.out.println("vlue is map");
+                return false;
+            } else if (value instanceof Object[]) {
+            	System.out.println("map is arr");
+                Object[] array = (Object[]) value;
+                for (Object element : array) {
+                    if (element instanceof Map) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
 	
 }
