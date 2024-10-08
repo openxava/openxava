@@ -55,27 +55,33 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 				}
 			}
 			else {
-				
-				System.out.println("else");
-				System.out.println(keys);
-				//System.out.println("allkeys");
-				//System.out.println(tab.containsKeys(keys));
-				//System.out.println(isSimpleMap(keys));
-//				System.out.println(getView().getModelName());
+//				System.out.println("else");
+//				System.out.println(keys);
+//				System.out.println(isSimpleMap(keys));
+//				System.out.println(tab.containsKeys(keys));
 //				System.out.println(tab.getModelName());
-//				System.out.println(tab.getTabName());
-				//if (tab.getModelName().equals(getView().getModelName())
-				//tab.setModelName(getView().getModelName());
-				
+//				System.out.println(getView().getModelName());
 				if (isSimpleMap(keys)) {
-					if (!tab.containsKeys(keys) && !tab.getModelName().equals(getView().getModelName())) {
+//					System.out.println("base1");
+//					System.out.println(Arrays.toString(tab.getConditionValues()));
+//					System.out.println(tab.getTotalSize());
+//					System.out.println("tabName " + tab.getTabName());
+					Tab tab2 = tab.clone();
+					tab2.clearCondition();
+					//tab2.reloadMetaModel();
+					tab2.reset(); 
+//					System.out.println("tabName " + tab2.getTabName());
+					System.out.println(Arrays.toString(tab2.getConditionValues()));
+//					System.out.println(tab2.getTotalSize());
+					if (!tab2.containsKeys(keys) && tab.getModelName().equals(getView().getModelName())) {
+						System.out.println("notfound");
+						getView().clear();
 						throw new ObjectNotFoundException();
 					}
 				}
-				getView().clear(); 
+				getView().clear();
 				values = MapFacade.getValues(getModelName(), keys, getMemberNames());
 			}
-		
 			getView().setEditable(true);	
 			getView().setKeyEditable(false);			
 			setValuesToView(values); 		
