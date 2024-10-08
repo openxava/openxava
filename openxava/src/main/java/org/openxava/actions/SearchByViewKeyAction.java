@@ -55,22 +55,26 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 				}
 			}
 			else {
-//				System.out.println("else");
+				System.out.println("else");
 //				System.out.println(keys);
 //				System.out.println(isSimpleMap(keys));
 //				System.out.println(tab.containsKeys(keys));
-//				System.out.println(tab.getModelName());
-//				System.out.println(getView().getModelName());
+				
+				///DriverWithTab issue
+				
+				
+				System.out.println(tab.getModelName()); 
+				System.out.println(getView().getModelName());
 				if (isSimpleMap(keys)) {
 //					System.out.println("base1");
-//					System.out.println(Arrays.toString(tab.getConditionValues()));
-//					System.out.println(tab.getTotalSize());
-//					System.out.println("tabName " + tab.getTabName());
+					System.out.println(Arrays.toString(tab.getConditionValues()));
+					System.out.println(tab.getTotalSize());
+					System.out.println("tabName " + tab.getTabName());
 					Tab tab2 = tab.clone();
 					tab2.clearCondition();
 					//tab2.reloadMetaModel();
 					tab2.reset(); 
-//					System.out.println("tabName " + tab2.getTabName());
+					System.out.println("tabName " + tab2.getTabName());
 					System.out.println(Arrays.toString(tab2.getConditionValues()));
 //					System.out.println(tab2.getTotalSize());
 					if (!tab2.containsKeys(keys) && tab.getModelName().equals(getView().getModelName())) {
