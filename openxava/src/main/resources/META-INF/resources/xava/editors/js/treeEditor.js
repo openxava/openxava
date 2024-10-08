@@ -10,6 +10,7 @@ treeEditor.initTree = function() {
             var application = oxTree.data("application");
             var module = oxTree.data("module");
             var collectionName = oxTree.data("collection-name");
+			var collectionViewParentName = oxTree.data("collection-view-parent-name");
             var kValue = oxTree.data("k-value");
             var state = localStorage.getItem(module + "_" + collectionName + "_" + "xava_tree_state_" + kValue);
 
@@ -19,7 +20,7 @@ treeEditor.initTree = function() {
             if (dialogs.length > 0) isInsideDialog = treeEditor.isInsideDialog($focusedElement, dialogs);
 
             if (!isInsideDialog) {
-                Tree.getNodes(application, module, collectionName, function(array) {
+                Tree.getNodes(application, module, collectionName, collectionViewParentName, function(array) {
                     var nodes = JSON.parse(array);
                     oxTree.jstree({
                         "core": {
@@ -80,6 +81,7 @@ $(document).on('dnd_stop.vakata', function(e, data) {
     var module = oxTree.data("module");
     var modelName = oxTree.data("model-name");
     var collectionName = oxTree.data("collection-name");
+	var collectionViewParentName = oxTree.data("collection-view-parent-name");
     var rows = [];
     var childRows = [];
     var allChilds = [];
@@ -119,7 +121,8 @@ $(document).on('dnd_stop.vakata', function(e, data) {
             auxNode = ref.get_node(auxNode.parent);
         }
     }
-    Tree.updateNode(application, module, collectionName, newPath, rows, childRows);
+    Tree.updateNode(application, module, collectionName, 
+					collectionViewParentName, newPath, rows, childRows);
 });
 
 
