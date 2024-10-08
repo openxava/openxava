@@ -17,7 +17,7 @@ treeEditor.initTree = function() {
             var dialogs = $('.ui-dialog');
             var $focusedElement = $(document.activeElement);
             var isInsideDialog = false
-            if (dialogs.length > 0) isInsideDialog = treeEditor.isInsideDialog($focusedElement, dialogs);
+            if (dialogs.length > 0) isInsideDialog = treeEditor.isDialogOpenOrTreeNotInDialog($focusedElement, dialogs, oxTree);
 
             if (!isInsideDialog) {
                 Tree.getNodes(application, module, collectionName, collectionViewParentName, function(array) {
@@ -51,9 +51,12 @@ treeEditor.initTree = function() {
     }
 }
 
-treeEditor.isInsideDialog = function($focusedElement, dialogs) {
+treeEditor.isDialogOpenOrTreeNotInDialog= function($focusedElement, dialogs, oxTree) {
     for (let i = 0; i < dialogs.length; i++) {
         if ($focusedElement.closest(dialogs[i]).length) {
+			if ($(dialogs[i]).find(oxTree).length > 0) {
+                return false;
+            }
             return true;
         }
     }
