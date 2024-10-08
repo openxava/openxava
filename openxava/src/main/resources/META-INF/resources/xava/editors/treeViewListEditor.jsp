@@ -29,7 +29,18 @@
 <%
 String viewObject = request.getParameter("viewObject"); // Id to access to the view object of the collection
 View collectionView = (View) context.get(request, viewObject); // We get the collection view by means of context
+System.out.println(collectionView == null);
+System.out.println(collectionView.getModelName()); // TreeContainer.TreeItem
+System.out.println(collectionView.getParent().getModelName());
+System.out.println(collectionView.getMetaCollection().getName()); // treeItems
+System.out.println(collectionView.getMetaCollection().getMetaReference().getName()); // treeItem abajo tb
+System.out.println(collectionView.getMetaCollection().getMetaReference().getReferencedModelName());
 View rootView = collectionView.getRoot(); // In this case we use the root view
+System.out.println(rootView == null);
+boolean isReferenced = !collectionView.getModelName().contains(rootView.getModelName());
+System.out.println(isReferenced);
+System.out.println(rootView.getModelName());
+System.out.println(rootView.getMembersNames());
 String collectionName = request.getParameter("collectionName");
 Map key = rootView.getKeyValues();
 String action = request.getParameter("rowAction");
@@ -54,8 +65,30 @@ String contextPath = (String) request.getAttribute("xava.contextPath");
 if (contextPath == null) contextPath = request.getContextPath();
 String version = org.openxava.controller.ModuleManager.getVersion();
 MetaView metaView = rootView.getMetaModel().getMetaView(rootView.getViewName());
-MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
+System.out.println("--");
+System.out.println(metaView == null);
+MetaCollectionView metaCollectionView = null;
+if (isReferenced) {
+metaCollectionView = collectionView.getParent().getMetaView().getMetaCollectionView(collectionName);
+System.out.println(metaCollectionView == null);
+System.out.println(collectionView.getParent().getMemberName());
+System.out.println(collectionView.getParent().getModelName());
+
+/*
+mcv3 = rootView.getSubview("treeContainer").getMetaView().getMetaCollectionView("treeItems");
+System.out.println(mcv3 == null);
+System.out.println(mcv3.getPath());
+*/
+} else {
+metaCollectionView = metaView.getMetaCollectionView(collectionName);
+System.out.println(collectionName);
+System.out.println(metaCollectionView == null);
+System.out.println(metaCollectionView.getPath());
+}
+
+
 Tree tree = metaCollectionView.getPath();
+
 String idProperties = "";
 boolean initialState = true;
 List<String> keysList = new ArrayList<>(metaView.getMetaModel().getKeyPropertiesNames());

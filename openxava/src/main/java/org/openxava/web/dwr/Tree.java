@@ -33,9 +33,12 @@ public class Tree extends DWRBase {
 			String tabObject = "xava_collectionTab_" + collectionName;
 			Tab tab2 = getTab(request, application, module, tabObject);
 			Tab tab = tab2.clone();
-			View view = getView(request, application, module);
+			View view = getView(request, application, module); // root
 			MetaView metaView = view.getMetaModel().getMetaView(view.getViewName());
 			MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
+			if (metaCollectionView == null) {
+				metaCollectionView = view.getSubview("treeContainer").getMetaView().getMetaCollectionView(collectionName);
+			}
 			org.openxava.annotations.Tree tree = metaCollectionView.getPath();
 			String pathProperty = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "path";
 			String pathSeparator = tree != null && tree.pathSeparator() !=null ? tree.pathSeparator() : "/";
