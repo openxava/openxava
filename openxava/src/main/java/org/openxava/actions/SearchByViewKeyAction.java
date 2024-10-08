@@ -33,6 +33,7 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 	private static Log log = LogFactory.getLog(SearchByViewKeyAction.class);
 	
 	@Inject
+	@Named("mainTab")
 	Tab tab;
 
 	public void execute() throws Exception {
