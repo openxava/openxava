@@ -26,8 +26,16 @@ public class TreeTest extends WebDriverTestBase{
 		rootIdValue = getValueInList(0, 0);
 		treeItemTwoNodesId = addTreeIdValues(rootIdValue);
 		
-		goModule("TreeContainer");
-		assertTreeShowInDialog(getDriver());
+		goModule("Step"); // tree as reference
+		execute("List.viewDetail","row=0");
+		assertTreeIsPresent(getDriver());
+		
+		goModule("TreeContainer"); // tree in dialog
+		execute("TreeContainer.showTree");
+		assertTreeIsPresent(getDriver());
+		WebElement closeButton = getDriver().findElement(By.className("ui-dialog-titlebar-close"));
+		closeButton.click();
+		Thread.sleep(200);
 		execute("List.viewDetail", "row=0");
 		rootWithPath(getDriver());
 		createNewNodeSelecting_state(getDriver());	
@@ -50,6 +58,7 @@ public class TreeTest extends WebDriverTestBase{
 		//goModule("TreeContainer");
 		execute("List.viewDetail", "row=0");
 		createNodeWithPathSeparator_dnd(getDriver());
+		
 	}
 	
 	// Wait until the element is available and return it
@@ -268,10 +277,9 @@ public class TreeTest extends WebDriverTestBase{
 		treeItemNodesId.put("b", getValueInList(8, 0));
 	}
 	
-	private void assertTreeShowInDialog(WebDriver driver) throws Exception {
-		execute("TreeContainer.showTree");
-		List<WebElement> childItem2CheckBox = driver.findElements(By.xpath("//a[@id='"+ treeItemNodesId.get("root") +"_anchor']/i")); 
-		assertFalse(childItem2CheckBox.isEmpty());
+	private void assertTreeIsPresent(WebDriver driver) throws Exception {
+		List<WebElement> rootElement = driver.findElements(By.xpath("//a[@id='"+ treeItemNodesId.get("root") +"_anchor']/i")); 
+		assertFalse(rootElement.isEmpty());
 	}
 	
 }
