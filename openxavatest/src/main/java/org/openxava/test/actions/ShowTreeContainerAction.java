@@ -2,6 +2,11 @@ package org.openxava.test.actions;
 
 import org.openxava.actions.*;
 
+/**
+ * 
+ * @author Chungyen Tsai
+ *
+ */
 public class ShowTreeContainerAction extends ViewBaseAction {
 
 	@Override
