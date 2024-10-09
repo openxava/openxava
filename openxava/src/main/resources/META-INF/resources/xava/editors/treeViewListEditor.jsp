@@ -30,7 +30,8 @@
 String viewObject = request.getParameter("viewObject"); // Id to access to the view object of the collection
 View collectionView = (View) context.get(request, viewObject); // We get the collection view by means of context
 View rootView = collectionView.getRoot(); // In this case we use the root view
-boolean isReferenced = !collectionView.getModelName().contains(rootView.getModelName());
+boolean isReferenced = !collectionView.getModelName().contains(rootView.getModelName()) 
+					|| !collectionView.getParent().getModelName().equals(rootView.getModelName()) ; // first condition is when tree use cascada remove, second when not
 String collectionName = request.getParameter("collectionName");
 Map key = rootView.getKeyValues();
 String action = request.getParameter("rowAction");

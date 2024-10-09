@@ -27,6 +27,7 @@ public class TreeTest extends WebDriverTestBase{
 		treeItemTwoNodesId = addTreeIdValues(rootIdValue);
 		
 		goModule("TreeContainer");
+		assertTreeShowInDialog(getDriver());
 		execute("List.viewDetail", "row=0");
 		rootWithPath(getDriver());
 		createNewNodeSelecting_state(getDriver());	
@@ -265,6 +266,12 @@ public class TreeTest extends WebDriverTestBase{
 	private void addNewNodeId(WebDriver driver) throws Exception {
 		treeItemNodesId.put("a", getValueInList(7, 0));
 		treeItemNodesId.put("b", getValueInList(8, 0));
+	}
+	
+	private void assertTreeShowInDialog(WebDriver driver) throws Exception {
+		execute("TreeContainer.showTree");
+		List<WebElement> childItem2CheckBox = driver.findElements(By.xpath("//a[@id='"+ treeItemNodesId.get("root") +"_anchor']/i")); 
+		assertFalse(childItem2CheckBox.isEmpty());
 	}
 	
 }
