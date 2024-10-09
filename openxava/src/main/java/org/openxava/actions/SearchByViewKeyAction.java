@@ -56,30 +56,32 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 				}
 			}
 			else {
-				System.out.println("else");
-//				System.out.println(keys);
-//				System.out.println(isSimpleMap(keys));
-//				System.out.println(tab.containsKeys(keys));
-				
-				///DriverWithTab issue
-				
-				
-				System.out.println(tab.getModelName()); 
-				System.out.println(getView().getModelName());
-				if (isSimpleMap(keys)) {
-//					System.out.println("base1");
-					System.out.println(Arrays.toString(tab.getConditionValues()));
+				if (isSimpleMap(keys) && tab.getModelName() != null) {
+					Map.Entry keysEntry = (Map.Entry) keys.entrySet().iterator().next();
+					Tab tab2 = tab.clone(); 
+					
+					System.out.println(keys);
 					System.out.println(tab.getTotalSize());
-					System.out.println("tabName " + tab.getTabName());
-					Tab tab2 = tab.clone();
-					tab2.clearCondition();
-					//tab2.reloadMetaModel();
-					tab2.reset(); 
-					System.out.println("tabName " + tab2.getTabName());
-					System.out.println(Arrays.toString(tab2.getConditionValues()));
-//					System.out.println(tab2.getTotalSize());
-					if (!tab2.containsKeys(keys) && tab.getModelName().equals(getView().getModelName())) {
-						System.out.println("notfound");
+					/*
+					System.out.println(tab == null);
+					System.out.println(tab2 == null);
+					System.out.println();
+					
+					*/
+					
+					tab2.addProperty(0, keysEntry.getKey().toString());
+					tab2.setConditionValue(keysEntry.getKey().toString(), keysEntry.getValue().toString());
+					/*
+					Object value = getChangedMetaProperty().isNumber() 
+							|| getChangedMetaProperty().getCMPTypeName().contains("Boolean") 
+							? keysEntry.getValue() 
+							: "'" + keysEntry.getValue() + "'";
+					tab2.setBaseCondition("${" + keysEntry.getKey() + "} = " + );
+					*/
+					System.out.println(tab2.getTotalSize());
+					if (tab2.getTotalSize() == 0) {
+						//tab.getModelName().equals(getView().getModelName())
+						//System.out.println("notfound");
 						getView().clear();
 						throw new ObjectNotFoundException();
 					}
@@ -175,26 +177,11 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 		}		
 		return "'" + sb.toString().trim() + "'";
 	}
-/*
-	public Tab getTab() {
-		return tab;
-	}
-
-	public void setTab(Tab tab) {
-		this.tab = tab;
-	}
-	*/
-	/*
-    private boolean isNestedMap(Map<String, Object> map) {
-        for (Object value : map.values()) {
-            if (value instanceof Map) {
-                return true;
-            }
-        }
-        return false;
-    }*/
     
     public static boolean isSimpleMap(Map<String, Object> map) {
+    	if (map.size() != 1) {
+            return false;
+        }
         for (Object value : map.values()) {
             if (value instanceof Map) {
             	System.out.println("vlue is map");
