@@ -13,7 +13,7 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-@View(members="id; description; path; treeOrder")
+@View(members="id; description; path; treeOrder; parentContainer")
 public class Step {
 	@Id
 	private int id;

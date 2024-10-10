@@ -1605,5 +1605,11 @@
 		<action name="changeTab" mode="list"
 			class="org.openxava.test.actions.ChangeTabNameAction"/>
 	</controller>
+	
+	<controller name="TreeContainer">
+		<extends controller="Typical"/>
+		<action name="showTree" mode="list"
+			class="org.openxava.test.actions.ShowTreeContainerAction"/>
+	</controller>
 
 </controllers>

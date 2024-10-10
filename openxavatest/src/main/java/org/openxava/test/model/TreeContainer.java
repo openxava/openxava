@@ -40,7 +40,7 @@ public class TreeContainer {
 	@Tree(pathProperty="folder", pathSeparator="-", idProperties="id")
 	private Collection<TreeItemTwo> treeItemTwos;
 	
-	@OneToMany(mappedBy="parentContainer", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy="parentContainer")
 	@ListProperties("description")
 	@OrderBy("path, treeOrder")
 	@Editor("TreeView")
