@@ -56,13 +56,15 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 				}
 			}
 			else {
-				if (isSimpleMap(keys) && tab.getModelName() != null) {
+				if (isSimpleMap(keys) && tab.getModelName() != null && tab.getModelName().equals(getView().getModelName())) {
 					Map.Entry keysEntry = (Map.Entry) keys.entrySet().iterator().next();
 					Tab tab2 = tab.clone(); 
-					
+					 /*
 					System.out.println(keys);
 					System.out.println(tab.getTotalSize());
-					/*
+					System.out.println(tab.getModelName());
+					System.out.println(getView().getModelName());
+					
 					System.out.println(tab == null);
 					System.out.println(tab2 == null);
 					System.out.println();
@@ -78,7 +80,7 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 							: "'" + keysEntry.getValue() + "'";
 					tab2.setBaseCondition("${" + keysEntry.getKey() + "} = " + );
 					*/
-					System.out.println(tab2.getTotalSize());
+					//System.out.println(tab2.getTotalSize());
 					if (tab2.getTotalSize() == 0) {
 						//tab.getModelName().equals(getView().getModelName())
 						//System.out.println("notfound");
