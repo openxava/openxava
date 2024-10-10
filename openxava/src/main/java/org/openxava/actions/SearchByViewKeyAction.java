@@ -163,10 +163,8 @@ public class SearchByViewKeyAction extends ViewBaseAction {
         }
         for (Object value : map.values()) {
             if (value instanceof Map) {
-            	System.out.println("vlue is map");
                 return false;
             } else if (value instanceof Object[]) {
-            	System.out.println("map is arr");
                 Object[] array = (Object[]) value;
                 for (Object element : array) {
                     if (element instanceof Map) {
