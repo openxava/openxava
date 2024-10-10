@@ -753,19 +753,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 		}
 	}
 	
-	/**
-	 * 
-	 * @since 7.4.2
-	 */
-	public boolean containsKeys(Map keys) {
-		for (Map<String, Object> keysMap : getAllKeys()) {
-            if (keys.equals(keysMap)) {
-                return true;
-            }
-        }
-        return false;
-	}
-	
 	public void setMetaRowStyles(Collection styles) throws XavaException {
 		// WARNING! This will change the row style for all tab with this MetaTab
 		getMetaTab().setMetaRowStyles(styles);
@@ -2664,7 +2651,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 			}
 		}
 		Map [] keys = new Map[allKeys.size()];
-		System.out.println(allKeys);
 		allKeys.toArray(keys);
 		return keys;		
 	}

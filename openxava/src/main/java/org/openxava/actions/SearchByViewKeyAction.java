@@ -37,7 +37,6 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 	Tab tab;
 
 	public void execute() throws Exception {
-		System.out.println("SearchByViewKeyAction");
 		Map keys = null;  
 		Map valuesForSearchByAnyProperty = null;
 		try {
@@ -59,31 +58,9 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 				if (isSimpleMap(keys) && tab.getModelName() != null && tab.getModelName().equals(getView().getModelName())) {
 					Map.Entry keysEntry = (Map.Entry) keys.entrySet().iterator().next();
 					Tab tab2 = tab.clone(); 
-					 /*
-					System.out.println(keys);
-					System.out.println(tab.getTotalSize());
-					System.out.println(tab.getModelName());
-					System.out.println(getView().getModelName());
-					
-					System.out.println(tab == null);
-					System.out.println(tab2 == null);
-					System.out.println();
-					
-					*/
-					
 					tab2.addProperty(0, keysEntry.getKey().toString());
 					tab2.setConditionValue(keysEntry.getKey().toString(), keysEntry.getValue().toString());
-					/*
-					Object value = getChangedMetaProperty().isNumber() 
-							|| getChangedMetaProperty().getCMPTypeName().contains("Boolean") 
-							? keysEntry.getValue() 
-							: "'" + keysEntry.getValue() + "'";
-					tab2.setBaseCondition("${" + keysEntry.getKey() + "} = " + );
-					*/
-					//System.out.println(tab2.getTotalSize());
 					if (tab2.getTotalSize() == 0) {
-						//tab.getModelName().equals(getView().getModelName())
-						//System.out.println("notfound");
 						getView().clear();
 						throw new ObjectNotFoundException();
 					}
