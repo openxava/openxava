@@ -39,6 +39,8 @@
             in File System</a></div>
         <div style="margin-left: 4em;"><a href="#Model-Properties-FILE%20%28new%20in%20v5.0%29//%20and%20FILES%20//%28new%20in%20v5.1%29%20stereotypes-Storage%20in%20Database">Storage
             in Database</a></div>
+        <div style="margin-left: 4em;"><a href="#manage-files-programmatically">Manage
+            files programmatically</a></div>
         <div style="margin-left: 3em;"><a href="#discussion">Discussion (new in
             v5.6)</a></div>
         <div style="margin-left: 3em;"><a href="#coordinates">Coordinates (new
@@ -1550,7 +1552,190 @@ class="br0">)</span><span class="sy0">,</span>
 class="br0">)</span>
 <span class="br0">)</span>;</pre>
       You should check that the type of DATA column is the most suitable type
-      for storing byte[] (in our case LONGVARBINARY).<br>
+      for storing byte[] (in our case LONGVARBINARY).</div>
+    <div class="wiki" style="display: block;">
+      <h4 id="manage-files-programmatically">Manage files programmatically</h4>
+      <p>Properties annotated with <i>@File, @Files, Stereotype(“FILE”)</i> or
+        <i>@Stereotype(“FILES”)</i> only store a 32-character identifier, not
+        the file content. To access the content of the uploaded file from your
+        own code, you need to use an <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/web/editors/IFilePersistor.html"><i>IFilePersistor</i></a>
+        obtained from <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/web/editors/FilePersistorFactory.html"><i>FilePersistorFactory</i></a>,
+        classes that you can find in the <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/web/editors/package-summary.html"><i>org.openxava.web.editors</i></a>
+        package. These classes work the same regardless of whether the files are
+        stored in the file system, a database, or any other location.</p>
+      <p>In the case of <i>@File</i> or <i>@Stereotype(“FILE”)</i>, the
+        property directly stores the file ID. For example, if we have a property
+        like this:</p>
+      <p></p>
+      <pre><code class="java">@File @Column(length=32)
+String photo;
+</code></pre>
+      <p></p>
+      <p>We can fill it with a file using our own code like this:</p>
+      <pre><code class="java">import java.nio.file.*;
+
+import org.openxava.actions.*;
+import org.openxava.web.editors.*;
+
+public class LoadPhotoAction extends ViewBaseAction {
+
+    public void execute() throws Exception {
+        // In this example we get the file from filesystem
+        // but in your case you could get the file from any other place
+        String filePath = "/home/me/images/myphoto.png";
+        byte[] fileBytes = Files.readAllBytes(Paths.get(filePath));
+
+        // An IFilePersistor to work with the file 
+        IFilePersistor filePersistor = FilePersistorFactory.getInstance();
+
+        // We create an AttachedFile object 
+        AttachedFile file = new AttachedFile();
+        file.setName("myphoto.png");
+        file.setData(fileBytes);
+		
+        // This save the file 
+        filePersistor.save(file);
+		
+        // After saved, the AttachedFile has its id populated
+        // so we set it to the property in the view
+        getView().setValue("photo", file.getId());
+    }
+
+}
+</code></pre>
+      <p>You create an <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/web/editors/AttachedFile.html"><i>AttachedFile</i></a>
+        and save it with an <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/web/editors/IFilePersistor.html"><i>IFilePersistor</i></a>,
+        then obtain the file ID to use it as the value for the property. The <i>photo</i>
+        property stores the file ID.</p>
+      <p>The reverse process, that is, obtaining and manipulating the file
+        already in the <i>@File</i> property, would be like this:</p>
+      <pre><code class="java">import java.nio.file.*;
+
+import org.openxava.actions.*;
+import org.openxava.web.editors.*;
+
+public class SavePhotoAction extends ViewBaseAction {
+
+    public void execute() throws Exception {
+        // An IFilePersistor to work with the file
+        IFilePersistor filePersistor = FilePersistorFactory.getInstance();
+		
+        // We get the photo id from the property
+        String photoId = getView().getValueString("photo");
+		
+        // And find the AttachedFile with that id using the IFilePersistor
+        AttachedFile file = filePersistor.find(photoId);
+		
+        // We get the name and the content from the AttachedFile
+        String fileName = file.getName();
+        byte[] fileBytes = file.getData();
+		
+        // In this example we save the file in the filesystem
+        // but you could do anything you want with the file
+        String filePath = "/home/me/images/" + fileName;
+        Files.write(Paths.get(filePath), fileBytes);
+    }
+
+}
+</code></pre>
+      <p>You search for an <i>AttachedFile</i> using an <i>IFilePersistor</i>
+        based on the photo ID you have in the property.</p>
+      <p>Working with <i>@Files</i> or <i>@Stereotype(“FILES”)</i> is slightly
+        different because, in this case, the property stores the library ID, not
+        the file ID. A library is a group of files. Each file has its own ID,
+        but they all share a common library ID. For example, with a property
+        like this:</p>
+      <pre><code class="java">@Files @Column(length=32)
+String documents;
+</code></pre>
+      <p>We can populate it with multiple files using our own code like this:</p>
+      <pre><code class="java">import java.nio.file.*;
+
+import org.openxava.actions.*;
+import org.openxava.web.editors.*;
+
+public class LoadDocumentsAction 
+    extends GenerateIdForPropertyBaseAction { // To use the generateIdForProperty() method
+
+    public void execute() throws Exception {
+        // In this example we're going to upload some files from the filesystem
+        // but you could get the files or files content from any other place
+        String basePath = "/home/me/documents/";
+        String [] fileNames = {
+            "limiting-data-by-user.pdf",
+            "quick-start.odg"
+        };
+
+        // We need generate an id for the library first time or use the one
+        // that already exists. This work is done for you by generateIdForProperty()
+        // The generated id is left in the 'documents' property in the view
+        String libraryId = generateIdForProperty("documents"); 
+		
+        // An IFilePersistor to work with the files
+        IFilePersistor filePersistor = FilePersistorFactory.getInstance();
+        for (String fileName: fileNames) {
+            // For our example we get the file content from filesystem
+            byte[] fileBytes = Files.readAllBytes(Paths.get(basePath + fileName));
+			
+            // We create an AttachedFile and fill it
+            AttachedFile file = new AttachedFile();
+            file.setLibraryId(libraryId); // The same libraryId for all files
+            file.setName(fileName);
+            file.setData(fileBytes);
+			
+            // Then save it using the IFilePersistor
+            filePersistor.save(file);
+        }
+    }
+
+}
+</code></pre>
+      <p>The trick is that we need to have a single library ID to assign to each
+        of the files we are going to save. This ID is generated with <i>generateIdForProperty()</i>,
+        which creates it if it doesn’t exist or returns it if it already does.
+        If a new one is generated, it is assigned to the property in the view,
+        so when the entity is saved, it will be saved with the correct library
+        ID. The rest is simply a loop creating <i>AttachedFile</i> and saving
+        them with <i>IFilePersistor</i>, assigning each one the same library
+        ID.</p>
+      <p>The opposite process, that is, retrieving and manipulating the files
+        that are already in the <i>@Files</i> property, would be like this:</p>
+      <pre><code class="java">import java.nio.file.*;
+import java.util.*;
+
+import org.openxava.actions.*;
+import org.openxava.web.editors.*;
+
+public class SaveDocumentsAction extends ViewBaseAction {
+
+    public void execute() throws Exception {
+        // An IFilePersistor to work with the files
+        IFilePersistor filePersistor = FilePersistorFactory.getInstance();
+		
+        // For @Files the property stores the library id, not any file id
+        String libraryId = getView().getValueString("documents");
+		
+        // We use findLibrary() of IFilePersistor to get a collection of files
+        Collection&lt;AttachedFile&gt; files =filePersistor.findLibrary(libraryId);
+        for (AttachedFile file: files) {
+            // We get the name and content from the AttachedFile
+            String fileName = file.getName();
+            byte[] fileBytes = file.getData();
+            String filePath = "/home/me/documents/" + fileName;
+			
+            // In our example we save in the filesystem, 
+            // but in your case you can do whatever you want
+            Files.write(Paths.get(filePath), fileBytes);
+        }
+    }
+
+}
+</code></pre>
+      <p>Remember that for <i>@Files</i> in the property, the library ID is
+        stored, not the file ID. From this ID, we use the <i>findLibrary()</i>
+        method of <i>IFilePersistor</i> to get all the files associated with
+        that library, i.e., that property. Then we loop through those files and
+        process them as desired.</p>
       <h3 id="toc10"><a name="discussion"></a>Discussion <em>(new in v5.6)</em></h3>
       If you want a property of your component to contain a discussion thread,
       just like the ones in forums, trackers, blogs, etc. You only have to

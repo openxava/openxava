@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Documentation in reference guide to manage programmatically files of @File/@Files/FILE/FILES properties.
 - Fix: Tree is not shown correctly when it's inside a reference.
 - Fix: NullPointerException in the log when clicking an action inside the dialog on a tree element.
 
