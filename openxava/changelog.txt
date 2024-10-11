@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Tree is not shown correctly when it's inside a reference.
+- Fix: NullPointerException in the log when clicking an action inside the dialog on a tree element.
+
 OpenXava 7.4.1 (2024-10-4)
 --------------------------
 - New Maven archetypes "openxava-invoicing-archetype" in English and Spanish (-spanish).
