@@ -12,7 +12,9 @@ import org.openxava.annotations.*;
 
 @Entity
 @Table(name="PRODUCT")
-@Tab(properties = "description", baseCondition = "${subfamily.number}  = 1 and ${subfamily.family.number} = 1") 
+// tmr @Tab(properties = "description", baseCondition = "${subfamily.number}  = 1 and ${subfamily.family.number} = 1") 
+@Tab(properties = "description", baseCondition = "${subfamily.family.number} = 1")
+@Tab(name="Software", properties = "description", baseCondition = "${subfamily.family.description} = 'SOFTWARE'") // tmr
 public class Product6 {
 	
 	// WARNING! DON'T ADD ANY @OnChange, @Depends, @DefaultValueCalculator WITH "from" PROPERTIES @DescriptionList WITH depends.
