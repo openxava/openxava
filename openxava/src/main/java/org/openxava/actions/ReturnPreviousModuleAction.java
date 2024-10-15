@@ -9,7 +9,7 @@ package org.openxava.actions;
 
 public class ReturnPreviousModuleAction extends BaseAction implements IChangeModuleAction {
 
-	
+	private boolean reinit = false; // tmr En changelog
 	
 	public void execute() throws Exception {
 	}
@@ -19,7 +19,16 @@ public class ReturnPreviousModuleAction extends BaseAction implements IChangeMod
 	}
 
 	public boolean hasReinitNextModule() { 
-		return false;
+		// tmr return false;
+		return reinit; // tmr
+	}
+
+	public boolean isReinit() {
+		return reinit;
+	}
+
+	public void setReinit(boolean reinit) {
+		this.reinit = reinit;
 	}
 
 }

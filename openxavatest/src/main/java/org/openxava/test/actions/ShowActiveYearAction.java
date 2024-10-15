@@ -7,6 +7,7 @@ public class ShowActiveYearAction extends ViewBaseAction {
 	private Integer activeYear;
 	
 	public void execute() throws Exception {
+		addMessage("active_year_is", "'" + getActiveYear() + "'"); 
 		getView().setValue("year", getActiveYear());
 	}
 

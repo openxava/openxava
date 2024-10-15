@@ -314,6 +314,11 @@
 			<use-object name="xava_view"/>
 			<use-object name="xavatest_activeYear"/>
 		</action>
+		<!-- tmr ini -->		
+		<action name="goInvoiceActiveYear" class="org.openxava.actions.ChangeModuleAction">
+			<set property="nextModule" value="InvoiceActiveYear"/>
+		</action>		
+		<!-- tmr fin -->
 	</controller>
 		
 	<controller name="SellerJSP">
@@ -1377,6 +1382,14 @@
 	<controller name="ReturnPreviousModule">
 		<action name="return" class="org.openxava.actions.ReturnPreviousModuleAction"/>
 	</controller>
+	
+	<!-- tmr ini -->
+	<controller name="ReturnPreviousModuleWithReinit">
+		<action name="return" class="org.openxava.actions.ReturnPreviousModuleAction">
+			<set property="reinit" value="true"/>
+		</action>
+	</controller>	
+	<!-- tmr fin -->
 	
 	<controller name="ColorM1">
 		<action name="changeModule2" 

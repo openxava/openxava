@@ -190,7 +190,7 @@
 	<module name="InvoiceActiveYear" folder="invoicing.variations">
 		<model name="Invoice"/>				<view name="ActiveYear"/> 
 		<tab name="ActiveYear"/>
-		<controller name="Typical"/>	
+		<controller name="Typical"/>			<!-- tmr ini -->		<controller name="ReturnPreviousModuleWithReinit"/>		<!-- tmr fin -->
 	</module>		<module name="InvoiceListManyTypes" folder="invoicing.variations">		<model name="Invoice"/>				<tab name="ManyTypes"/>		<controller name="Typical"/>	</module>	
 	<module name="InvoiceNestedSections" folder="invoicing.variations">
 		<model name="Invoice"/>
