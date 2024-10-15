@@ -1,7 +1,7 @@
 package org.openxava.test.tests.bymodule;
 
 /**
- * tmr
+ * 
  * @author Javier Paniza
  */
 
@@ -12,7 +12,7 @@ public class Product6SoftwareTest extends CustomizeListTestBase {
 	}
 	
 	public void testBaseCondition3levelNotKeyProperties() throws Exception { 
-		assertListRowCount(5);
+		assertListRowCount(6);
 		assertListColumnCount(1); // Just one column, to test that a baseCondition bug
 		assertLabelInList(0, "Description"); // Not a property from baseCondition condition		
 	}

@@ -196,28 +196,21 @@ public class JPATabProvider extends TabProviderBase {
 		int orderByIdx = select.indexOf(" order by ");
 		String where = orderByIdx<0?select.substring(whereIdx + 5):select.substring(whereIdx + 5, orderByIdx);
 		String orderBy = orderByIdx<0?"":select.substring(orderByIdx);
-		System.out.println("[JPATabProvider.toIncludeJoinsUsedInWhere] where=" + where); // tmp
 		
 		String [] tokens = where.split(" ");
 		Collection<String> neededJoins = new HashSet<>();
+		// Probably this code does not work if the developer use snake_case for naming members
 		for (String token: tokens) {
-			System.out.println("[JPATabProvider.toIncludeJoinsUsedInWhere] token=" + token); // tmp
 			if (token.startsWith("e_")) {
 				String join = Strings.firstToken(token, ".");
 				neededJoins.add(join);
-				// TMR ME QUEDÉ POR AQUÍ, TRABAJANDO EN ESTO
-				// tmr ini
-				// tmr Debería ser infinito recursivo
-				// tmr Debería soporpar snake case
+				// To support infinite depth level we should turn the below code into a recursive thing 
 				if (join.contains("_")) {
-					String join2 = Strings.noLastToken(token, "_");
-					System.out.println("[JPATabProvider.toIncludeJoinsUsedInWhere] join2=" + join2); // tmp
+					String join2 = Strings.noLastTokenWithoutLastDelim(token, "_");
 					neededJoins.add(join2);
 				}
-				// tmr fin
 			}
 		}
-		System.out.println("[JPATabProvider.toIncludeJoinsUsedInWhere] neededJoins=" + neededJoins); // tmp
 		if (neededJoins.isEmpty()) return select;
 		
 		String selectBase = select.substring(0, whereIdx); 
@@ -225,7 +218,7 @@ public class JPATabProvider extends TabProviderBase {
 		for (String join: neededJoins) {
 			if (selectBase.contains(" " + join + " ") || selectBase.endsWith(" " + join)) continue;  
 			joins.append(" left join ");
-			joins.append(join.replace("e_", "e."));
+			joins.append(Strings.changeLast(join, "_", ".")); 
 			joins.append(" ");
 			joins.append(join);
 		}

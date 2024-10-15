@@ -61,9 +61,7 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		select = translateCondition(condition);
 		select = toGroupBySelect(select);
 		select = toSearchByCollectionMemberSelect(select); 
-		System.out.println("[TabProviderBase.search] select> " + select); // tmp
 		select = toIncludeJoinsUsedInWhere(select);
-		System.out.println("[TabProviderBase.search] select< " + select); // tmp
 		selectSize = createSizeSelect(select); 
 	}
 							
