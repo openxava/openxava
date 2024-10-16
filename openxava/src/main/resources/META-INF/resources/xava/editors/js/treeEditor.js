@@ -35,7 +35,8 @@ treeEditor.initTree = function() {
                                 "dots": true,
                                 "icons": false
                             },
-                            'data': nodes,
+                            "data": nodes,
+							"dblclick_toggle": false,
                         },
                         "checkbox": {
                             "three_state": false
