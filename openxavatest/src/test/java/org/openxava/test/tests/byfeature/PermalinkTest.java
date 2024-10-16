@@ -1,13 +1,13 @@
 package org.openxava.test.tests.byfeature;
 
 /**
- * To test any URL issues with Selenium.
+ * To test any link issues with Selenium.
  * 
  * @author Chungyen Tsai
  */
-public class UrlTest extends WebDriverTestBase {
+public class PermalinkTest extends WebDriverTestBase {
 	
-	public void testAccessingRecordByURLWhenHasTabBaseCondition() throws Exception {
+	public void testAccessingRecordByPermalinkWhenHasTabBaseCondition() throws Exception {
 		goModule("CustomerLessThanFour");
 		assertListRowCount(3);
 		getDriver().get("http://localhost:8080/openxavatest/m/CustomerLessThanFour?detail=4");

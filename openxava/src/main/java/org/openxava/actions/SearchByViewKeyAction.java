@@ -55,11 +55,14 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 				}
 			}
 			else {
-				if (isSimpleMap(keys) && tab.getModelName() != null && tab.getModelName().equals(getView().getModelName())) {
+				if (isSimpleMap(keys) 
+						&& tab.getModelName() != null 
+						&& !tab.getMetaTab().getBaseCondition().isEmpty() 
+						&& tab.getModelName().equals(getView().getModelName())) {
 					Map.Entry keysEntry = (Map.Entry) keys.entrySet().iterator().next();
-					Tab tab2 = tab.clone(); 
+					Tab tab2 = tab.clone();
 					tab2.addProperty(0, keysEntry.getKey().toString());
-					tab2.setConditionValue(keysEntry.getKey().toString(), keysEntry.getValue().toString());
+					tab2.setConditionValue(keysEntry.getKey().toString(), keysEntry.getValue());
 					if (tab2.getTotalSize() == 0) {
 						getView().clear();
 						throw new ObjectNotFoundException();
