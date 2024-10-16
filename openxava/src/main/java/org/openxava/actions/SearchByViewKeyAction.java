@@ -3,11 +3,13 @@ package org.openxava.actions;
 import java.util.*;
 
 import javax.ejb.*;
+import javax.inject.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.component.*;
 import org.openxava.model.*;
 import org.openxava.model.meta.*;
+import org.openxava.tab.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
 
@@ -29,12 +31,16 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 	
 	private static final long serialVersionUID = 1L;
 	private static Log log = LogFactory.getLog(SearchByViewKeyAction.class);
+	
+	@Inject
+	@Named("mainTab")
+	Tab tab;
 
 	public void execute() throws Exception {
 		Map keys = null;  
 		Map valuesForSearchByAnyProperty = null;
-		try {									
-			keys = getKeyValuesFromView();		
+		try {
+			keys = getKeyValuesFromView();
 			Map values = null;			
 			if (Maps.isEmpty(keys)) {
 				try {					
@@ -48,11 +54,23 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 					values = MapFacade.getValues(getModelName(), keys, getMemberNames());					
 				}
 			}
-			else {				
-				getView().clear(); 
+			else {
+				if (isSimpleMap(keys) 
+						&& tab.getModelName() != null 
+						&& !tab.getMetaTab().getBaseCondition().isEmpty() 
+						&& tab.getModelName().equals(getView().getModelName())) {
+					Map.Entry keysEntry = (Map.Entry) keys.entrySet().iterator().next();
+					Tab tab2 = tab.clone();
+					tab2.addProperty(0, keysEntry.getKey().toString());
+					tab2.setConditionValue(keysEntry.getKey().toString(), keysEntry.getValue());
+					if (tab2.getTotalSize() == 0) {
+						getView().clear();
+						throw new ObjectNotFoundException();
+					}
+				}
+				getView().clear();
 				values = MapFacade.getValues(getModelName(), keys, getMemberNames());
 			}
-		
 			getView().setEditable(true);	
 			getView().setKeyEditable(false);			
 			setValuesToView(values); 		
@@ -141,5 +159,24 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 		}		
 		return "'" + sb.toString().trim() + "'";
 	}
+    
+    public static boolean isSimpleMap(Map<String, Object> map) {
+    	if (map.size() != 1) {
+            return false;
+        }
+        for (Object value : map.values()) {
+            if (value instanceof Map) {
+                return false;
+            } else if (value instanceof Object[]) {
+                Object[] array = (Object[]) value;
+                for (Object element : array) {
+                    if (element instanceof Map) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
 	
 }
