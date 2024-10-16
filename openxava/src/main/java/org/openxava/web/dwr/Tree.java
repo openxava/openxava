@@ -27,20 +27,22 @@ public class Tree extends DWRBase {
 	private static Log log = LogFactory.getLog(Tree.class);
 
 	public String getNodes(HttpServletRequest request, HttpServletResponse response, String application, String module,
-			String collectionName) throws Exception {
+			String collectionName, String collectionViewParentName) throws Exception {
 		try {
 			initRequest(request, response, application, module);
 			String tabObject = "xava_collectionTab_" + collectionName;
 			Tab tab2 = getTab(request, application, module, tabObject);
 			Tab tab = tab2.clone();
-			View view = getView(request, application, module);
+			View view = getView(request, application, module); // root
 			MetaView metaView = view.getMetaModel().getMetaView(view.getViewName());
-			MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
+			MetaCollectionView metaCollectionView = collectionViewParentName.isEmpty() 
+					? metaView.getMetaCollectionView(collectionName)
+					: view.getSubview(collectionViewParentName).getMetaView().getMetaCollectionView(collectionName);
 			org.openxava.annotations.Tree tree = metaCollectionView.getPath();
 			String pathProperty = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "path";
 			String pathSeparator = tree != null && tree.pathSeparator() !=null ? tree.pathSeparator() : "/";
 			String idProperties = tree != null && tree.idProperties() !=null ? tree.idProperties() : "";
-
+			
 			String[] listProperties = metaCollectionView.getPropertiesListNamesAsString().split(",");
 			List<String> keysList = new ArrayList<>(tab.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
 			Map<String, Object> propertiesMap = new HashMap<>();
@@ -90,7 +92,7 @@ public class Tree extends DWRBase {
 	}
 
 	public void updateNode(HttpServletRequest request, HttpServletResponse response, String application, String module,
-			String collectionName, String newPath, List<String> rows,
+			String collectionName, String collectionViewParentName, String newPath, List<String> rows,
 			List<String> childRows) throws NumberFormatException, XavaException, FinderException, RemoteException {
 		try {
 			initRequest(request, response, application, module);
@@ -98,7 +100,9 @@ public class Tree extends DWRBase {
 			View collectionView = view.getSubview(collectionName);
 			String modelName = collectionView.getMetaModel().getQualifiedName();
 			MetaView metaView = view.getMetaModel().getMetaView(view.getViewName());
-			MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
+			MetaCollectionView metaCollectionView = collectionViewParentName.isEmpty() 
+					? metaView.getMetaCollectionView(collectionName)
+					: view.getSubview(collectionViewParentName).getMetaView().getMetaCollectionView(collectionName);
 			org.openxava.annotations.Tree tree = metaCollectionView.getPath();
 			String pathProperty = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "path";
 			String pathSeparator = tree != null && tree.pathSeparator() !=null ? tree.pathSeparator() : "/";

@@ -1,6 +1,14 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Third level qualified properties in baseCondition of @Tab fails if those properties are not in list.
+- New changeLast() in Strings utility class to change the last occurrence of a string inside other string.
+- Some new common use labels to be used in applications.
+- Fix: AccessTracker sends all values for the key upon modification for @AsEmbedded references.
+- Documentation in reference guide to manage programmatically files of @File/@Files/FILE/FILES properties.
+- Fix: Tree is not shown correctly when it's inside a reference.
+- Fix: NullPointerException in the log when clicking an action inside the dialog on a tree element.
+
 OpenXava 7.4.1 (2024-10-4)
 --------------------------
 - New Maven archetypes "openxava-invoicing-archetype" in English and Spanish (-spanish).

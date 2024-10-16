@@ -670,7 +670,25 @@ public class Strings {
 			i = sb.toString().indexOf(original, i + newString.length());
 		}		
 		return sb.toString();
-	} 
+	}
+	
+	/**
+	 * Change in <code>string</tt> the last occurrence of <code>original</code> by <code>newString</code>. <p>
+	 * 
+	 * @param string  String in which we make the changes. Can be null
+	 * @param original  String to search. Not null
+	 * @param newString  New value to put in place of original. Not null
+	 * @return The changed string, if the sent string is null a null is returned 
+	 * @sincd 7.4.2
+	 */	
+	public static String changeLast(String string, String original, String newString) { 
+		if (string == null) return null; 
+		int lastIndex = string.lastIndexOf(original);
+		if (lastIndex == -1) {
+			return string;
+		}
+		return string.substring(0, lastIndex) + newString + string.substring(lastIndex + original.length());
+	}
 
 	/** 
 	 * @return If string if null or have no tokens returns empty string.

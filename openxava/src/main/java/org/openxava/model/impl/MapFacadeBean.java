@@ -1009,7 +1009,8 @@ public class MapFacadeBean {
 				if (referenceValues.size() + hiddenKeyNotPresent > ref.getMetaModelReferenced().getMetaMembersKey().size()) {
 					try {	
 						findEntity(ref.getMetaModelReferenced(), referenceValues);
-						setValues(ref.getMetaModelReferenced(), new HashMap(referenceValues), new HashMap(referenceValues));
+						Map referenceKey = ref.getMetaModelReferenced().extractKeyValues(referenceValues);
+						setValues(ref.getMetaModelReferenced(), referenceKey, new HashMap(referenceValues));
 					}
 					catch (FinderException ex) {					
 						referenceValues = createReturningValues(ref.getMetaModelReferenced(), new HashMap(referenceValues)); 
@@ -1613,9 +1614,9 @@ public class MapFacadeBean {
 	private void setValues(MetaModel metaModel, Map keyValues, Map values, boolean validate, boolean tracking, boolean updateSortableCollections)  
 		throws FinderException, ValidationException, XavaException 
 	{ 		
-		try {				
+		try {			
 			Object entity = findEntity(metaModel, keyValues);
-			updateReferencedEntities(metaModel, values);			
+			updateReferencedEntities(metaModel, values);
 			removeKeyFields(metaModel, values);			
 			removeReadOnlyFields(metaModel, values);						
 			if (validate) validate(metaModel, values, keyValues, null, false);

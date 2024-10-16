@@ -68,6 +68,18 @@ public class CustomerSellerAsAggregateTest extends ModuleTestBase {
 		assertCustomerNotExist(66);
 		assertSellerExist(66);
 		deleteSeller(66);
+		
+		// Test that AccessTracker works for references @AsEmbedded
+		LogTrackerUtils.assertAccessLog( 
+			"CREATED: user=admin, model=Seller, key={number=66}",
+			"CREATED: user=admin, model=Customer, key={number=66}",
+			"CONSULTED: user=admin, model=Customer, key={number=66}",
+			// The MODIFIED includes the key for the key, not all the values (it was a bug)
+			"MODIFIED: user=admin, model=Seller, key={number=66}, changes=Name: SELLER CREATED FROM CUSTOMER --> SELLER MODIFIED FROM CUSTOMER",
+			"CONSULTED: user=admin, model=Customer, key={number=66}",
+			"REMOVED: user=admin, model=Customer, key={number=66}",
+			"CONSULTED: user=admin, model=Customer, key={number=1}"			
+		);		
 	}
 
 

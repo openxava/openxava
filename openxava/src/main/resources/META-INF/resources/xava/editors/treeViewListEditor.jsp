@@ -30,6 +30,9 @@
 String viewObject = request.getParameter("viewObject"); // Id to access to the view object of the collection
 View collectionView = (View) context.get(request, viewObject); // We get the collection view by means of context
 View rootView = collectionView.getRoot(); // In this case we use the root view
+boolean isReferenced = collectionView.getModelName().equals(rootView.getModelName()) 
+					|| (!collectionView.getModelName().contains(rootView.getModelName()) 
+					&& !collectionView.getParent().getModelName().equals(rootView.getModelName())) ; // first condition is when tree use cascada remove, second when not
 String collectionName = request.getParameter("collectionName");
 Map key = rootView.getKeyValues();
 String action = request.getParameter("rowAction");
@@ -54,8 +57,14 @@ String contextPath = (String) request.getAttribute("xava.contextPath");
 if (contextPath == null) contextPath = request.getContextPath();
 String version = org.openxava.controller.ModuleManager.getVersion();
 MetaView metaView = rootView.getMetaModel().getMetaView(rootView.getViewName());
-MetaCollectionView metaCollectionView = metaView.getMetaCollectionView(collectionName);
+MetaCollectionView metaCollectionView = isReferenced 
+			? collectionView.getParent().getMetaView().getMetaCollectionView(collectionName)
+			: metaView.getMetaCollectionView(collectionName);
+String collectionViewParentName = isReferenced 
+			? collectionView.getParent().getMemberName()
+			: "";
 Tree tree = metaCollectionView.getPath();
+
 String idProperties = "";
 boolean initialState = true;
 List<String> keysList = new ArrayList<>(metaView.getMetaModel().getKeyPropertiesNames());
@@ -107,7 +116,8 @@ if(!Is.empty(key)){
 	</div>
 
 	<div class="xava_tree" 
-	data-collection-name="<%=collectionName%>" 
+	data-collection-name="<%=collectionName%>"
+	data-collection-view-parent-name="<%=collectionViewParentName%>"
 	data-application="<%=request.getParameter("application")%>" 
 	data-module="<%=request.getParameter("module")%>" 
 	data-action-argv="<%=actionArgv%>"

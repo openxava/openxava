@@ -195,14 +195,20 @@ public class JPATabProvider extends TabProviderBase {
 		if (whereIdx < 0) return select;
 		int orderByIdx = select.indexOf(" order by ");
 		String where = orderByIdx<0?select.substring(whereIdx + 5):select.substring(whereIdx + 5, orderByIdx);
-		String orderBy = orderByIdx<0?"":select.substring(orderByIdx);		
+		String orderBy = orderByIdx<0?"":select.substring(orderByIdx);
 		
 		String [] tokens = where.split(" ");
 		Collection<String> neededJoins = new HashSet<>();
+		// Probably this code does not work if the developer use snake_case for naming members
 		for (String token: tokens) {
 			if (token.startsWith("e_")) {
 				String join = Strings.firstToken(token, ".");
 				neededJoins.add(join);
+				// To support infinite depth level we should turn the below code into a recursive thing 
+				if (join.contains("_")) {
+					String join2 = Strings.noLastTokenWithoutLastDelim(token, "_");
+					neededJoins.add(join2);
+				}
 			}
 		}
 		if (neededJoins.isEmpty()) return select;
@@ -212,7 +218,7 @@ public class JPATabProvider extends TabProviderBase {
 		for (String join: neededJoins) {
 			if (selectBase.contains(" " + join + " ") || selectBase.endsWith(" " + join)) continue;  
 			joins.append(" left join ");
-			joins.append(join.replace("e_", "e."));
+			joins.append(Strings.changeLast(join, "_", ".")); 
 			joins.append(" ");
 			joins.append(join);
 		}

@@ -39,6 +39,8 @@
             en el Sistema de Archivos</a></div>
         <div style="margin-left: 4em;"><a href="#Modelo-Propiedades-Estereotipos%20ARCHIVO%20%28nuevo%20en%20v5.0%29//%20y%20ARCHIVOS%20//%28nuevo%20en%20v5.1%29-Almacenamiento%20en%20Base%20de%20Datos">Almacenamiento
             en Base de Datos</a></div>
+        <div style="margin-left: 4em;"><a href="#manipular-archivos-por-codigo">Manipular
+            los archivos por código</a></div>
         <div style="margin-left: 3em;"><a href="#discusion">Discusion (nuevo en
             v5.6)</a></div>
         <div style="margin-left: 3em;"><a href="#coordenadas">Coordenadas (nuevo
@@ -1569,7 +1571,190 @@ class="br0">)</span><span class="sy0">,</span>
 class="br0">)</span>
 <span class="br0">)</span>;</pre>
       Debemos verificar que el tipo de la columna DATA sea el tipo más adecuado
-      para almacenar byte[] (en nuestro caso LONGVARBINARY).<br>
+      para almacenar byte[] (en nuestro caso LONGVARBINARY).</div>
+    <div class="wiki" style="display: block;">
+      <h4 id="manipular-archivos-por-codigo">Manipular los archivos por código</h4>
+      <p>Las propiedades anotadas con <i>@File</i>, <i>@Files</i>, <i>Stereotype("ARCHIVO")</i>
+        o <i> @Stereotype("ARCHIVOS")</i> solo almacenan un identificador de 32
+        caracteres, no almacenan el contenido del archivo. Para acceder desde tu
+        propio código al contenido del archivo subido has de usar un <i> <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/web/editors/IFilePersistor.html">IFilePersistor</a></i>
+        que se obtiene desde <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/web/editors/FilePersistorFactory.html"><i>FilePersistorFactory</i></a>,
+        clases que puedes encontrar en el paquete <i><a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/web/editors/package-summary.html">org.openxava.web.editors</a></i>.
+        Estas clases funcionan igual no importa si los archivos se guardan en el
+        sistema de archivos, una base de datos o cualquier otro sitio.</p>
+      <p>En el caso de <i>@File</i> o <i>@Stereotype("ARCHIVO")</i> la
+        propiedad guarda directamente el id del archivo. Por ejemplo si tenemos
+        una propiedad como esta:</p>
+      <p></p>
+      <pre><code class="java">@File @Column(length=32)
+String foto;
+</code></pre>
+      <p></p>
+      <p>Podemos llenarla con un archivo usando nuestro propio código así:</p>
+      <pre><code class="java">import java.nio.file.*;
+
+import org.openxava.actions.*;
+import org.openxava.web.editors.*;
+
+public class CargarFoto extends ViewBaseAction {
+
+    public void execute() throws Exception {
+        // En este ejemplo obtenemos el archivos del sistema de archivos
+        // pero en tu caso puedes obtener el archivo desde cualquier otro sitio
+        String filePath = "/home/me/images/mifoto.png";
+        byte[] fileBytes = Files.readAllBytes(Paths.get(filePath));
+
+        // Un IFilePersistor para trabajar con el archivo
+        IFilePersistor filePersistor = FilePersistorFactory.getInstance();
+
+        // Creamos un objeto AttachedFile 
+        AttachedFile file = new AttachedFile();
+        file.setName("mifoto.png");
+        file.setData(fileBytes);
+		
+        // Esto graba el archivo
+        filePersistor.save(file);
+		
+        // Después de grabado, el AttachedFile tiene el id generado
+        // por lo que lo asignamos a la propiedad de la vista
+        getView().setValue("foto", file.getId());
+    }
+
+}
+</code></pre>
+      <p>Creas un <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/web/editors/AttachedFile.html"><i>AttachedFile</i></a>
+        y lo guardas con un <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/web/editors/IFilePersistor.html"><i>IFilePersistor</i></a>,
+        luego obtienes el id del archivo para usarlo como valor para la
+        propiedad. La propiedad <i>foto</i> almacena el id del archivo.</p>
+      <p>El proceso contrario, es decir, obtener y manipular el archivo que ya
+        hay en la propiedad <i>@File</i>, sería así:</p>
+      <pre><code class="java">import java.nio.file.*;
+
+import org.openxava.actions.*;
+import org.openxava.web.editors.*;
+
+public class GrabarFoto extends ViewBaseAction {
+
+    public void execute() throws Exception {
+        // Un IFilePersistor para trabajar con el archivo
+        IFilePersistor filePersistor = FilePersistorFactory.getInstance();
+		
+        // Obtenemos el id de la foto de la propiedad
+        String photoId = getView().getValueString("foto");
+		
+        // Y buscamos el AttachedFile a partir del id usando IFilePersistor
+        AttachedFile file = filePersistor.find(photoId);
+		
+        // Obtenemos el nombre y el contenido del AttachedFile
+        String fileName = file.getName();
+        byte[] fileBytes = file.getData();
+		
+        // En este ejemplo grabamos el archivo en el sistema de archivos
+        // pero tú puedes hacer lo que quieras con él
+        String filePath = "/home/me/images/" + fileName;
+        Files.write(Paths.get(filePath), fileBytes);
+    }
+
+}
+</code></pre>
+      <p>Buscas un <i>AttachedFile</i> usando un <i>IFilePersistor</i> a
+        partir del id de la foto que tienes en la propiedad.</p>
+      <p>Trabajar con <i>@Files</i> o <i>@Stereotype("ARCHIVOS")</i> es
+        ligeramente diferente, porque en este caso en la propiedad se almacen el
+        id de la librería, no del archivo. Una librería es un grupo de archivos.
+        Cada archivo tiene su propio id, pero todos comparten un id común de
+        librería. Por ejemplo, con una propiedad como esta:</p>
+      <pre><code class="java">@Files @Column(length=32)
+String documentos;
+</code></pre>
+      <p>Podemos llenarla con varios archivos usando nuestro propio código así:</p>
+      <pre><code class="java">import java.nio.file.*;
+
+import org.openxava.actions.*;
+import org.openxava.web.editors.*;
+
+public class CargarDocumentos
+    extends GenerateIdForPropertyBaseAction { // Para usar el método generateIdForProperty()
+
+    public void execute() throws Exception {
+        // En este ejemplo vamos a subir algunos archivos desde el sistema de archivos
+        // pero podrías obtener los archivos o su contenido desde cualquier otro lugar
+        String basePath = "/home/me/documents/";
+        String [] fileNames = {
+            "limiting-data-by-user.pdf",
+            "quick-start.odg"
+        };
+
+        // Necesitamos generar un id para la librería la primera vez o usar el que ya existe
+        // Este trabajo lo hace generateIdForProperty() por nosotros
+        // El id generado se deja en la propiedad 'documentos' en la vista
+        String libraryId = generateIdForProperty("documentos"); 
+		
+        // Un IFilePersistor para trabajar con los archivos
+        IFilePersistor filePersistor = FilePersistorFactory.getInstance();
+        for (String fileName: fileNames) {
+            // En nuestro ejemplo obtenemos el contenido del archivo desde el sistema de archivos
+            byte[] fileBytes = Files.readAllBytes(Paths.get(basePath + fileName));
+			
+            // Creamos un AttachedFile y lo rellenamos
+            AttachedFile file = new AttachedFile();
+            file.setLibraryId(libraryId); // El mismo libraryId para todos los archivos
+            file.setName(fileName);
+            file.setData(fileBytes);
+			
+            // Lo grabamos usando IFilePersistor
+            filePersistor.save(file);
+        }
+    }
+
+}
+</code></pre>
+      <p>El truco es que tenemos que tener un único id de librería para asignar
+        a cada uno de los archivos que vamos a ir guardando. Este id lo
+        generamos con <i>generateIdForProperty()</i> que lo genera si no existe
+        o lo devuelve si ya existente, también si genera uno nuevo lo asigna a
+        la propiedad en la vista, por lo que al grabar la entidad se grabará con
+        el id de librería correcto. Lo demás es simplemente un bucle creando <i>
+          AttachedFile</i> y grabándolos con <i>IFilePersistor</i>, asignando a
+        cada uno el mismo id de librería.</p>
+      <p>El proceso contrario, es decir, obtener y manipular los archivos que ya
+        hay en la propiedad <i>@Files</i>, sería así:</p>
+      <pre><code class="java">import java.nio.file.*;
+import java.util.*;
+
+import org.openxava.actions.*;
+import org.openxava.web.editors.*;
+
+public class GrabarDocumentos extends ViewBaseAction {
+
+    public void execute() throws Exception {
+        // Un IFilePersistor para trabajar con los archivos
+        IFilePersistor filePersistor = FilePersistorFactory.getInstance();
+		
+        // Con @Files la propiedad almacena el id de la librería y no un id de archivo
+        String libraryId = getView().getValueString("documentos");
+		
+        // Usamos findLibrary() de IFilePersistor para obtener la colección de archivos
+        Collection&lt;AttachedFile&gt; files =filePersistor.findLibrary(libraryId);
+        for (AttachedFile file: files) {
+            // Obtenemos el nombre y el contenido de AttachedFile
+            String fileName = file.getName();
+            byte[] fileBytes = file.getData();
+            String filePath = "/home/me/documents/" + fileName;
+			
+            // En nuestro ejemplo lo grabamos en el sistema de archivos, 
+            // pero en tu caso puedes hacer lo que quieras
+            Files.write(Paths.get(filePath), fileBytes);
+        }
+    }
+
+}
+</code></pre>
+      <p>Recuerda que para <i>@Files</i> en la propiedad se guarda el id de la
+        librería, no el id del archivo. A partir de este id usamos el método <i>findLibrary()</i>
+        de <i>IFilePersistor</i> para obtener todos los archivos asociados a
+        esa librería, es decir a esa propiedad. Después hacemos un bucle sobre
+        esos archivos y los procesamos al gusto.</p>
       <h3 id="discusion">Discusión <em>(nuevo en v5.6)</em></h3>
       Si quieres que una propiedad de tu componente contenga un hilo de
       discusión, como los que hay en los foros, gestores de incidencias, blogs,
