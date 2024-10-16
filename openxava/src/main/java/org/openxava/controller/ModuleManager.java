@@ -693,12 +693,9 @@ public class ModuleManager implements java.io.Serializable {
 				nextModule = moduleChange.getNextModule();
 				if (!Is.emptyString(nextModule)) {
 					if (moduleChange.hasReinitNextModule()) {
-						// tmr ini
 						String moduleToReinit = nextModule;
-						if (nextModule.equals(IChangeModuleAction.PREVIOUS_MODULE)) moduleToReinit = getPreviousModules().peek(); // tmr						
-						getContext().put(getApplicationName(), moduleToReinit, "manager", null); // tmr
-						// tmr fin
-						// tmr getContext().put(getApplicationName(), nextModule, "manager", null);
+						if (nextModule.equals(IChangeModuleAction.PREVIOUS_MODULE)) moduleToReinit = getPreviousModules().peek(); 						
+						getContext().put(getApplicationName(), moduleToReinit, "manager", null); 
 					}
 					request.setAttribute("xava.sendParametersToTab", "false");
 				}

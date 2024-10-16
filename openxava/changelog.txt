@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Return to PREVIOUS_MODULE with hasReinitNextModule in IChangeModuleAction not execute on-init action.
+- Added reinit property to ReturnPreviousModuleAction to customize the initiation of the module on return.
 - Fix: Using a permalink, it's possible to access a record not available in the list.
 - Fix: Third level qualified properties in baseCondition of @Tab fails if those properties are not in list.
 - New changeLast() in Strings utility class to change the last occurrence of a string inside other string.
