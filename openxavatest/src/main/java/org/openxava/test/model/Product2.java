@@ -112,7 +112,12 @@ import org.openxava.test.validators.*;
 		"number, description;" + 	
 		"family; " +
 		"subfamily;" 
-	)
+	),
+	@View( name = "SectionByDescriptionsList", members=
+		"number, description;" + 	
+		"family { family }" +  
+		"subfamily { subfamily }" 
+	)	
 })
 @Tab(properties="number, description, family.description, subfamily.description, unitPrice, unitPriceWithTax, subfamily.family.description") 
 
@@ -161,7 +166,11 @@ public class Product2 {
 			showReferenceView=true, 
 			depends="family",
 			condition="${family.number} = ?"
-		)
+		),
+		@DescriptionsList( forViews="SectionByDescriptionsList",
+			depends="this.family", // With "this." to test a case
+			condition="${family.number} = ?"
+		),		
 	})
 	private Subfamily2 subfamily;
 

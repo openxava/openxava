@@ -108,7 +108,7 @@
 		<model name="Product2"/>
 		<view name="WithFormulaAsAggregate"/>
 		<controller name="Typical"/>
-	</module>		<module name="Product2OnlySoftware" folder="warehousing/variations"> 		<model name="Product2"/>		<view name="OnlySoftware"/>		<controller name="Typical"/>	</module>		<module name="Product2SeveralViews" folder="warehousing/variations"> 		<model name="Product2"/>		<view name="Simple15"/>		<controller name="Product2SeveralViews"/>	</module>		<module name="Product2DescriptionsListShowsReferenceView" folder="warehousing/variations"> 		<model name="Product2"/>		<view name="DescriptionsListShowsReferenceView"/>		<controller name="Typical"/>	</module>		
+	</module>		<module name="Product2OnlySoftware" folder="warehousing/variations"> 		<model name="Product2"/>		<view name="OnlySoftware"/>		<controller name="Typical"/>	</module>		<module name="Product2SeveralViews" folder="warehousing/variations"> 		<model name="Product2"/>		<view name="Simple15"/>		<controller name="Product2SeveralViews"/>	</module>		<module name="Product2DescriptionsListShowsReferenceView" folder="warehousing/variations"> 		<model name="Product2"/>		<view name="DescriptionsListShowsReferenceView"/>		<controller name="Typical"/>	</module>		<module name="Product2SectionByDescriptionsList" folder="warehousing/variations"> 		<model name="Product2"/>		<view name="SectionByDescriptionsList"/>		<controller name="Typical"/>	</module>		
 	<module name="Product3" folder="warehousing/variations">
 		<model name="Product3"/>
 		<controller name="Typical"/>		<controller name="SearchForCRUD"/>	</module>	
