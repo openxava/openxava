@@ -756,6 +756,23 @@ public class Dates {
 	    return false;
 	}
 	
+	/**
+	 * 
+	 */
+	public static String dateFormatForJavaFromJSCalendarFormat(String dateFormat) {
+		if (dateFormat != null) // probar eliminar if
+			dateFormat = dateFormat.replace("n", "M")
+								   .replace("m", "MM")
+								   .replace("d", "dd")
+								   .replace("j", "d")
+								   .replace("H", "H")
+								   .replace("h", "h")
+								   .replace("G", "hh")
+								   .replace("i", "mm")
+								   .replace("Y", "yyyy");
+		return dateFormat;
+	}
+	
 }
 
 
