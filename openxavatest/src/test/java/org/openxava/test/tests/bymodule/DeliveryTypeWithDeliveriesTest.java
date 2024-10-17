@@ -31,10 +31,12 @@ public class DeliveryTypeWithDeliveriesTest extends ModuleTestBase {
 		setValue("number", "88");
 		setValue("description", "JUNIT DELIVERY DETAIL");		
 		execute("Collection.save");
+		
 		assertNoErrors(); 
 		assertMessage("Delivery type created successfully");
 		assertMessage("Delivery created successfully"); 
 		assertMessage("Delivery detail created successfully");
+		
 		execute("Collection.hideDetail");
 		
 		execute("Mode.list");
@@ -47,6 +49,13 @@ public class DeliveryTypeWithDeliveriesTest extends ModuleTestBase {
 		assertCollectionRowCount("details", 1);
 		assertValueInCollection("details", 0, 0, "88");
 		assertValueInCollection("details", 0, 1, "JUNIT DELIVERY DETAIL");
+		// tmr ini
+		setValue("advice", "Be happy");
+		execute("DeliveryType.saveDelivery"); // tmr
+		assertNoErrors();
+		assertMessage("type={number=66}"); // tmr
+		// tmr fin
+		
 		
 		delete("DeliveryDetail", "88");
 		delete("Delivery", "77");

@@ -379,6 +379,10 @@
 		</action>
 		<action name="assertComboDeliveries" mode="detail"
 			class="org.openxava.test.actions.AssertComboDeliveriesAction"/>
+		<!-- tmr ini -->
+		<action name="saveDelivery" mode="detail"
+			class="org.openxava.test.actions.SaveDeliveryFromDeliveryTypeAction"/>
+		<!-- tmr fin -->	
 	</controller>
 	
 	<controller name="EditableOnOff">

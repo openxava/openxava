@@ -1548,7 +1548,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	public Map getKeyValues() throws XavaException {		
-		Map values = getValues(false, true);
+		Map values = getValues(false, true); // TMR ME QUEDÉ POR AQUÍ, CREO QUE EL PROBLEMA ESTÁ EN getValues(false, true)
 		Iterator it = values.keySet().iterator();
 		Map result = new HashMap();
 		while (it.hasNext()) {
@@ -1557,6 +1557,7 @@ public class View implements java.io.Serializable {
 				result.put(name, values.get(name));
 			}			
 		}		
+		System.out.println("[View(" + getModelName() + ").getKeyValues] result.1=" + result); // tmp
 
 		if (getParent() != null && !getParent().isRepresentsAggregate()) {			
 			// At the moment reference to entity within aggregate can not be part of key
@@ -1575,7 +1576,8 @@ public class View implements java.io.Serializable {
 					
 				}								
 			}		
-		}	
+		}
+		System.out.println("[View(" + getModelName() + ").getKeyValues] result.2=" + result); // tmp
 		return result; 
 	}
 	
