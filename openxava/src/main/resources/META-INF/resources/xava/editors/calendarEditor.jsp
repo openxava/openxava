@@ -42,11 +42,7 @@ if (contextPath == null) contextPath = request.getContextPath();
 String version = org.openxava.controller.ModuleManager.getVersion();
 String action = request.getParameter("rowAction");
 action=action==null?manager.getEnvironment().getValue("XAVA_CALENDAR_VIEWEVENT_ACTION"):action;
-String dateFormat = Dates.dateFormatForJavaFromJSCalendarFormat(Dates.dateFormatForJSCalendar());
-System.out.println("dateFormat");
-System.out.println(dateFormat);
-String dateTimeFormat = Dates.dateFormatForJavaFromJSCalendarFormat(Dates.dateFormatForJSCalendar(true));
-System.out.println(dateTimeFormat);
+String dateFormat = Dates.dateFormatForJSCalendar(true);
 String actionNew = "";
 boolean hasDateTime = view.getMetaModel().hasDateTimeProperty();
 for (MetaAction ma: manager.getMetaActions()) {
@@ -54,6 +50,18 @@ for (MetaAction ma: manager.getMetaActions()) {
        actionNew = ma.getQualifiedName();
        break;
    }
+}
+
+if (dateFormat != null) {
+    dateFormat = dateFormat.replace("n", "M")
+                           .replace("m", "MM")
+			               .replace("d", "dd")
+				           .replace("j", "d")
+						   .replace("H", "H")
+						   .replace("h", "h")
+						   .replace("G", "hh")
+						   .replace("i", "mm")
+				           .replace("Y", "yyyy");
 }
 
 if (datePropertyList.size() > 1) {
@@ -81,7 +89,6 @@ if (datePropertyList.size() > 1) {
     <input type="hidden" id="xava_calendar_application" value="<%=request.getParameter("application")%>">
     <input type="hidden" id="xava_calendar_action" value="<%=action%>,<%=actionNew%>">
     <input type="hidden" id="xava_calendar_dateFormat" value="<%=dateFormat%>">
-	<input type="hidden" id="xava_calendar_dateTimeFormat" value="<%=dateTimeFormat%>">
 	<input type="hidden" id="xava_calendar_hasDateTime" value="<%=hasDateTime%>">
 	<input type="hidden" id="xava_calendar_nextYear" value="<xava:label key="nextYear"/>">
 	<input type="hidden" id="xava_calendar_prevYear" value="<xava:label key="prevYear"/>">

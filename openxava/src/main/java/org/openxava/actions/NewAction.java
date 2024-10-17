@@ -18,8 +18,6 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 	private boolean restoreModel = false;
 
 	public void execute() throws Exception {
-		System.out.println("crud new " + defaultValues); 
-		
 		if (restoreModel) getView().setModelName(modelName);
 		getView().setKeyEditable(true);
 		getView().setEditable(true);
@@ -77,28 +75,15 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 		//String[] dates = defaultValues.split(";");
 		int firstColonIndex = defaultValues.indexOf(":");
 		String name = defaultValues.substring(0, firstColonIndex);
-		//String date = dates[1];
-		MetaProperty mp = getView().getMetaProperty(name); 
+		MetaProperty mp = getView().getMetaProperty(name);
 		Object value = null;
-		System.out.println(defaultValues.substring(firstColonIndex + 1).trim());
 		int firstSpaceIndex = defaultValues.indexOf(" ");
-		
-		//System.out.println(defaultValues.substring(firstColonIndex +1, firstSpaceIndex));
-		try {//
-			if (firstSpaceIndex != 1) {
-				value = WebEditors.parse(getRequest(), mp, defaultValues.substring(firstColonIndex + 1).trim(), getErrors(), getView().getViewName());
-			} else {
-				value = WebEditors.parse(getRequest(), mp, defaultValues.substring(firstColonIndex +1, firstSpaceIndex), getErrors(), getView().getViewName());
-			}
-			//normal
-			//value = mp.parse(defaultValues.substring(firstColonIndex + 1).trim());
-			
-			//value = WebEditors.parse(getRequest(), mp, defaultValues.substring(firstColonIndex +1, firstSpaceIndex), getErrors(), getView().getViewName());
-		} catch(Exception e) {
-			//con hora
-			//firstSpaceIndex != 1
-			//value = mp.parse(defaultValues.substring(firstColonIndex +1, firstSpaceIndex));
-			//value = WebEditors.parse(getRequest(), mp, defaultValues.substring(firstColonIndex +1, firstSpaceIndex), getErrors(), getView().getViewName());
+		if (mp.isDateType()) {
+			value = WebEditors.parse(getRequest(), mp, defaultValues.substring(firstColonIndex +1, firstSpaceIndex), getErrors(), getView().getViewName());
+		} else if (mp.isDateTimeType()) {
+			value = WebEditors.parse(getRequest(), mp, defaultValues.substring(firstColonIndex + 1).trim(), getErrors(), getView().getViewName());
+		} else {
+			value = defaultValues.substring(firstColonIndex + 1).trim();
 		}
 		getView().setValue(name, value);
 	}

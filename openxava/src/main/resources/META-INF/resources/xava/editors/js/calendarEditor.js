@@ -21,7 +21,6 @@ openxava.addEditorInitFunction(function() {
         var application = $('#xava_calendar_application').val();
         var module = $('#xava_calendar_module').val();
         var dateFormat = $('#xava_calendar_dateFormat').val();
-		var dateTimeFormat = $('#xava_calendar_dateTimeFormat').val();
         var newAction = $("#xava_calendar_action").val().split(",")[1];
         var selectAction = $("#xava_calendar_action").val().split(",")[0];
         var moduleHasDateTime = $('#xava_calendar_hasDateTime').val();
@@ -154,7 +153,7 @@ openxava.addEditorInitFunction(function() {
         function reformatDate(date) {
             date = (date.toString().length < 11) ? date + 'T00:00:00' : date;
             let d = new Date(date);
-            formattedDate = moduleHasDateTime === 'true' ? formatDate(d, dateTimeFormat) : formatDate(d, dateFormat);
+            formattedDate = formatDate(d, dateFormat);
             return formattedDate;
         }
 

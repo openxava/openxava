@@ -1278,4 +1278,32 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		return false;
 	}
 	
+	public boolean isDateType() {
+		return isDateOrDateTime(false);
+
+	}
+	
+	public boolean isDateTimeType() {
+		return isDateOrDateTime(true);
+	}
+	
+	private boolean isDateOrDateTime(boolean dateTimeExpected) {
+		String type = getTypeName();
+		if (type.equals("java.util.Date") && getAnnotations() != null) {
+			for (Annotation a : getAnnotations()) {
+				if (a.annotationType().getSimpleName().equals("DateTime")) {
+					return dateTimeExpected;
+				}
+			}
+		}
+		if (getTypeName().contains("LocalDateTime") || 
+				getTypeName().contains("Timestamp") || 
+				(getStereotype()!=null && (
+				getStereotype().equals("DATETIME") || 
+				getStereotype().equals("FECHAHORA")))) {
+			return dateTimeExpected;
+		}
+		return !dateTimeExpected;
+	}
+	
 }
