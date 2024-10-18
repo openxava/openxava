@@ -537,7 +537,7 @@ public class View implements java.io.Serializable {
 		} 
 		else { 
 			hiddenKeyAndVersion = getHiddenKeyAndVersion(values); 
-		}  
+		}
 		if (hasSubviews()) { 
 			Iterator it = getSubviews().entrySet().iterator(); 
 			while (it.hasNext()) { 
@@ -1548,16 +1548,28 @@ public class View implements java.io.Serializable {
 	}
 	
 	public Map getKeyValues() throws XavaException {		
-		Map values = getValues(false, true); // TMR ME QUEDÉ POR AQUÍ, CREO QUE EL PROBLEMA ESTÁ EN getValues(false, true)
+		Map values = getValues(false, true); 
+		/* tmr
 		Iterator it = values.keySet().iterator();
 		Map result = new HashMap();
 		while (it.hasNext()) {
 			String name = (String) it.next();			
 			if (getMetaModel().isKey(name)) {
-				result.put(name, values.get(name));
+				// tmr result.put(name, values.get(name));
+				// tmr ini
+				if (getMetaModel().containsMetaReference(name)) {
+					result.put(name, getSubview(name).getKeyValues());
+				}
+				else {
+					result.put(name, values.get(name));
+				}
+				// tmr fin
 			}			
-		}		
-		System.out.println("[View(" + getModelName() + ").getKeyValues] result.1=" + result); // tmp
+		}
+		*/		
+		// tmr ini
+		Map result = getMetaModel().extractKeyValues(values);
+		// tmr fin
 
 		if (getParent() != null && !getParent().isRepresentsAggregate()) {			
 			// At the moment reference to entity within aggregate can not be part of key
@@ -1577,7 +1589,6 @@ public class View implements java.io.Serializable {
 				}								
 			}		
 		}
-		System.out.println("[View(" + getModelName() + ").getKeyValues] result.2=" + result); // tmp
 		return result; 
 	}
 	

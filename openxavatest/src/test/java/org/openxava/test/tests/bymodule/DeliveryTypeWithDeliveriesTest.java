@@ -16,7 +16,7 @@ public class DeliveryTypeWithDeliveriesTest extends ModuleTestBase {
 		super(testName, "DeliveryTypeWithDeliveries");		
 	}
 	
-	public void testNestedCollectionsWhereParentCollectionIsNotCascade() throws Exception { 
+	public void testNestedCollectionsWhereParentCollectionIsNotCascade_onlyKeyValuesInNestedKeys() throws Exception { // tmr onlyKeyValuesInNestedKeys 
 		execute("CRUD.new");
 		setValue("number", "66");
 		setValue("description", "JUNIT DELIVERY TYPE");

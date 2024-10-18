@@ -82,7 +82,8 @@ public class Messages implements java.io.Serializable {
 				return format(m, translate(argv, locale), locale);
 			}
 			catch (Exception ex) {
-				if (argv != null && !(argv[0] instanceof String)
+				if (argv != null && argv.length > 0 && !(argv[0] instanceof String) // tmr En changelog
+				// tmr if (argv != null && !(argv[0] instanceof String)
 						&& hasMessageBrackets(m)) 
 				{
 					Matcher matcher = MESSAGE_WITH_BRACKETS.matcher(m);

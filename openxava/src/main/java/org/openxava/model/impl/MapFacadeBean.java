@@ -1767,7 +1767,8 @@ public class MapFacadeBean {
 				}
 			} else if (metaModel.containsMetaPropertyView(memberName)) {
 				metaModel.getMetaPropertyView(memberName).validate(errors, values, creating);									
-			} else {					
+			// tmr } else {
+			} else if (!MapFacade.MODEL_NAME.equals(memberName)) { // tmr En changelog	
 				log.warn(XavaResources.getString("not_validate_member_warning", memberName, metaModel.getName()));
 			}
 		} catch (XavaException ex) {
