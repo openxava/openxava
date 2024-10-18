@@ -1620,5 +1620,11 @@
 		<action name="showTree" mode="list"
 			class="org.openxava.test.actions.ShowTreeContainerAction"/>
 	</controller>
+	
+	<controller name="Appointment2">
+		<extends controller="Typical"/>
+		<action name="obtainDate" mode="detail"
+			class="org.openxava.test.actions.ObtainDateTimeAction"/>
+	</controller>
 
 </controllers>
