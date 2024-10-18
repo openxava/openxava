@@ -1613,18 +1613,17 @@
 		<extends controller="Typical"/>
 		<action name="changeTab" mode="list"
 			class="org.openxava.test.actions.ChangeTabNameAction"/>
+		<action name="new"
+			class="org.openxava.test.actions.ObtainDateNewAction"
+			image="new.gif"
+			icon="library-plus"
+			keystroke="Control N"/>
 	</controller>
 	
 	<controller name="TreeContainer">
 		<extends controller="Typical"/>
 		<action name="showTree" mode="list"
 			class="org.openxava.test.actions.ShowTreeContainerAction"/>
-	</controller>
-	
-	<controller name="Appointment2">
-		<extends controller="Typical"/>
-		<action name="obtainDate" mode="detail"
-			class="org.openxava.test.actions.ObtainDateTimeAction"/>
 	</controller>
 
 </controllers>
