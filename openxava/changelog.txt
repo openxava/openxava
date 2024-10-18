@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Jasperreports and fonts upgraded to 6.21.4.
+- Embedded Tomcat used in development upgraded to 9.0.96.
+- Driver version in doc/new projects upgraded for MySQL, Firebird.
 - Fix: View.getKeyValues() sometimes includes non-key values, such as __MODEL_NAME__ or @Version properties. 
 - Fix: Not applicable warning about not validating a __MODEL_NAME__ member in the log.
 - Fix: Module broken when sending a message that includes {somekey=somevalue} with addError/Message().

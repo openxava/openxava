@@ -34,7 +34,7 @@
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>		
-    		<version>9.0.0</version>
+    		<version>9.1.0</version>
 		</dependency>
 		-->
 		
@@ -91,7 +91,7 @@
 		<dependency>
 			<groupId>org.firebirdsql.jdbc</groupId>
 			<artifactId>jaybird</artifactId>
-			<version>5.0.5.java8</version>
+			<version>5.0.6.java8</version>
 		</dependency>
 		-->
 		
