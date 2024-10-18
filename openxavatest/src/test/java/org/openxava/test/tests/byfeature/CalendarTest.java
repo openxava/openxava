@@ -355,7 +355,7 @@ public class CalendarTest extends WebDriverTestBase {
 		List<WebElement> iconElements = getDriver().findElements(By.cssSelector("i.mdi.mdi-calendar"));
 		if (!iconElements.isEmpty()) {
 			WebElement firstIconElement = iconElements.get(1);
-			firstIconElement.click();
+			((JavascriptExecutor) getDriver()).executeScript("arguments[0].click();", firstIconElement);
 		}
 		List<WebElement> spanElements = getDriver().findElements(By.xpath("//div[@class='dayContainer']//span[contains(@class, 'flatpickr-day') and not(contains(@class, 'nextMonthDay')) and text()='2']"));
 		if (!spanElements.isEmpty()) {

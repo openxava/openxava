@@ -1615,6 +1615,11 @@
 		<extends controller="Typical"/>
 		<action name="changeTab" mode="list"
 			class="org.openxava.test.actions.ChangeTabNameAction"/>
+		<action name="new"
+			class="org.openxava.test.actions.ObtainDateNewAction"
+			image="new.gif"
+			icon="library-plus"
+			keystroke="Control N"/>
 	</controller>
 	
 	<controller name="TreeContainer">

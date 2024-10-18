@@ -1,5 +1,8 @@
 package org.openxava.actions;
 
+import org.openxava.model.meta.*;
+import org.openxava.web.*;
+
 /**
  * @author Javier Paniza
  * @author Chungyen Tsai
@@ -66,11 +69,19 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 	
 	private void setValueFromDefaultValues() {
 		//defaultvalues=name:dateStr;name2:dateStr
-		String[] dates = defaultValues.split(";");
 		int firstColonIndex = defaultValues.indexOf(":");
 		String name = defaultValues.substring(0, firstColonIndex);
-		String dateStr = defaultValues.substring(firstColonIndex + 1).trim();
-		getView().setValue(name, dateStr);
+		MetaProperty mp = getView().getMetaProperty(name);
+		Object value = null;
+		int firstSpaceIndex = defaultValues.indexOf(" ");
+		if (mp.isDateType()) {
+			value = WebEditors.parse(getRequest(), mp, defaultValues.substring(firstColonIndex +1, firstSpaceIndex), getErrors(), getView().getViewName());
+		} else if (mp.isDateTimeType()) {
+			value = WebEditors.parse(getRequest(), mp, defaultValues.substring(firstColonIndex + 1).trim(), getErrors(), getView().getViewName());
+		} else {
+			value = defaultValues.substring(firstColonIndex + 1).trim();
+		}
+		getView().setValue(name, value);
 	}
 
 }
