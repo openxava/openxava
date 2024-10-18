@@ -1265,14 +1265,25 @@ abstract public class MetaModel extends MetaElement {
 		while (it.hasNext()) {
 			String name = (String) it.next();
 			if (isKey(keyTester, name)) {
-				if (isReference(name) && getMetaReference(name).isAggregate()) { // @EmbeddedId case  
-					if (flattenEmbeddedIds) {
-						return (Map) values.get(name);
-					}
+				if (isReference(name)) {
+					if (getMetaReference(name).isAggregate()) { // @EmbeddedId case  
+						if (flattenEmbeddedIds) {
+							return (Map) values.get(name);
+						}
+						else {
+							Map embeddedId = new HashMap();
+							embeddedId.put(name, values.get(name));
+							return embeddedId;
+						}
+					}	
 					else {
-						Map embeddedId = new HashMap();
-						embeddedId.put(name, values.get(name));
-						return embeddedId;
+						Object value = values.get(name);
+						if (value instanceof Map) {
+							result.put(name, getMetaReference(name).getMetaModelReferenced().extractKeyValues((Map) value));
+						}
+						else {
+							result.put(name, value);
+						}
 					}
 				}
 				else {

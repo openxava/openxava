@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: View.getKeyValues() sometimes includes non-key values, such as __MODEL_NAME__ or @Version properties. 
+- Fix: Not applicable warning about not validating a __MODEL_NAME__ member in the log.
+- Fix: Module broken when sending a message that includes {somekey=somevalue} with addError/Message().
 - Fix: The date field set by the calendar list format when creating a new record is String instead of Date.
 - Fix: @DescriptionsList in section/group dependent (with this.) on a member in another section/group fails.
 - Fix: Return to PREVIOUS_MODULE with hasReinitNextModule in IChangeModuleAction not execute on-init action.
