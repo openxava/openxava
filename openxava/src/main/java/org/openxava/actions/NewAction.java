@@ -1,9 +1,6 @@
 package org.openxava.actions;
 
-import java.text.*;
-
 import org.openxava.model.meta.*;
-import org.openxava.util.*;
 import org.openxava.web.*;
 
 /**
@@ -70,9 +67,8 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 		this.defaultValues = defaultValues;
 	}
 	
-	private void setValueFromDefaultValues() throws XavaException, ParseException {
+	private void setValueFromDefaultValues() {
 		//defaultvalues=name:dateStr;name2:dateStr
-		//String[] dates = defaultValues.split(";");
 		int firstColonIndex = defaultValues.indexOf(":");
 		String name = defaultValues.substring(0, firstColonIndex);
 		MetaProperty mp = getView().getMetaProperty(name);
