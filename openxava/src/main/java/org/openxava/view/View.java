@@ -954,9 +954,9 @@ public class View implements java.io.Serializable {
 		createSubviews();
 		View subview = (View) getSubviews().get(name);
 		if (subview == null) {			
-			subview = findSubviewInSection(name);			
+			subview = getParentIfSectionOrGroup().findSubviewInSection(name); 
 			if (subview == null) {			
-				subview = findSubviewInGroup(name);
+				subview = getParentIfSectionOrGroup().findSubviewInGroup(name); 
 				if (subview == null) {					
 					throw new ElementNotFoundException("subview_not_found", name, getModelName());
 				}							

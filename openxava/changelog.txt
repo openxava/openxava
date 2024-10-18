@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @DescriptionsList in section/group dependent (with this.) on a member in another section/group fails.
 - Fix: Return to PREVIOUS_MODULE with hasReinitNextModule in IChangeModuleAction not execute on-init action.
 - Added reinit property to ReturnPreviousModuleAction to customize the initiation of the module on return.
 - Fix: Using a permalink, it's possible to access a record not available in the list.
