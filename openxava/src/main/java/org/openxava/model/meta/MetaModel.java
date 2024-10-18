@@ -1265,19 +1265,6 @@ abstract public class MetaModel extends MetaElement {
 		while (it.hasNext()) {
 			String name = (String) it.next();
 			if (isKey(keyTester, name)) {
-				/* tmr
-				if (isReference(name) && getMetaReference(name).isAggregate()) { // @EmbeddedId case  
-					if (flattenEmbeddedIds) {
-						return (Map) values.get(name);
-					}
-					else {
-						Map embeddedId = new HashMap();
-						embeddedId.put(name, values.get(name));
-						return embeddedId;
-					}
-				}
-				*/
-				// tmr ini
 				if (isReference(name)) {
 					if (getMetaReference(name).isAggregate()) { // @EmbeddedId case  
 						if (flattenEmbeddedIds) {
@@ -1299,7 +1286,6 @@ abstract public class MetaModel extends MetaElement {
 						}
 					}
 				}
-				// tmr fin
 				else {
 					result.put(name, values.get(name));
 				}

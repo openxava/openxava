@@ -29,7 +29,7 @@ public class DeliveryType {
 	
 	@CollectionView("SimpleWithDetails") 
 	@OneToMany(mappedBy="type") // Never CascadeType.REMOVE or CascadeType.ALL to test a case
-	@SaveAction("DeliveryType.saveDelivery") // tmr
+	@SaveAction("DeliveryType.saveDelivery") 
 	private Collection<Delivery> deliveries;
 
 	// For testing description lists which keys	are references to other entities	

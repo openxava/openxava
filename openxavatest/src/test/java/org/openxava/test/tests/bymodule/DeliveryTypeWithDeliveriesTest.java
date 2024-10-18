@@ -16,7 +16,7 @@ public class DeliveryTypeWithDeliveriesTest extends ModuleTestBase {
 		super(testName, "DeliveryTypeWithDeliveries");		
 	}
 	
-	public void testNestedCollectionsWhereParentCollectionIsNotCascade_onlyKeyValuesInNestedKeys() throws Exception { // tmr onlyKeyValuesInNestedKeys 
+	public void testNestedCollectionsWhereParentCollectionIsNotCascade_onlyKeyValuesInNestedKeys() throws Exception {  
 		execute("CRUD.new");
 		setValue("number", "66");
 		setValue("description", "JUNIT DELIVERY TYPE");
@@ -49,13 +49,10 @@ public class DeliveryTypeWithDeliveriesTest extends ModuleTestBase {
 		assertCollectionRowCount("details", 1);
 		assertValueInCollection("details", 0, 0, "88");
 		assertValueInCollection("details", 0, 1, "JUNIT DELIVERY DETAIL");
-		// tmr ini
 		setValue("advice", "Be happy");
-		execute("DeliveryType.saveDelivery"); // tmr
+		execute("DeliveryType.saveDelivery"); 
 		assertNoErrors();
-		assertMessage("type={number=66}"); // tmr
-		// tmr fin
-		
+		assertMessage("type={number=66}"); 		
 		
 		delete("DeliveryDetail", "88");
 		delete("Delivery", "77");

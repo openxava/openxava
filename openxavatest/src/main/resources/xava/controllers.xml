@@ -379,7 +379,7 @@
 		</action>
 		<action name="assertComboDeliveries" mode="detail"
 			class="org.openxava.test.actions.AssertComboDeliveriesAction"/>
-		<action name="saveDelivery" mode="detail"
+		<action name="saveDelivery" hidden="true"
 			class="org.openxava.test.actions.SaveDeliveryFromDeliveryTypeAction"/>
 	</controller>
 	
