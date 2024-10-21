@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Using qualified properties, ${this.someReference.someProperty}, in @SearchListCondition doesn't work. 
 - Fix: View.getKeyValues() sometimes includes non-key values, such as __MODEL_NAME__ or @Version properties. 
 - Fix: Not applicable warning about not validating a __MODEL_NAME__ member in the log.
 - Fix: Module broken when sending a message that includes {somekey=somevalue} with addError/Message().
