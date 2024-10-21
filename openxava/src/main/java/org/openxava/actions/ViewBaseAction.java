@@ -197,12 +197,12 @@ abstract public class ViewBaseAction extends BaseAction {
 	 */
 	protected String changeThisPropertyByViewValue(String condition) {
 		if (condition.contains("this.")) {
-	        Pattern pattern = Pattern.compile("\\$\\{this\\.([a-zA-Z0-9_]+)\\}");
+	        Pattern pattern = Pattern.compile("\\$\\{this\\.([^}]+)\\}");
 	        Matcher matcher = pattern.matcher(condition);
 	        StringBuffer result = new StringBuffer();
 	        while (matcher.find()) {
 	        	Object value = getView().getValue(matcher.group(1));
-	        	if (value == null) matcher.appendReplacement(result, ""); 
+	        	if (value == null) matcher.appendReplacement(result, "");
 	        	if (isNumeric(value)) {
 	        		matcher.appendReplacement(result, value.toString());
 	        	} else {

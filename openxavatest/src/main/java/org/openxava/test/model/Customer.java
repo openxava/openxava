@@ -226,7 +226,7 @@ import org.openxava.test.actions.*;
 
 @View( name="OnlyAddress", members="address;") // ; at end to test a case  
 
-@View( name="SearchListCondition", members="number; name; sellerNameInCondition; transientSeller; alternateSeller;")
+@View( name="SearchListCondition", members="number; name; sellerNameInCondition; seller; transientSeller; alternateSeller;")
 
 @Tabs ({
 	@Tab(
@@ -328,7 +328,7 @@ public class Customer implements IWithName {
 		forViews="SellerAsDescriptionsListShowingReferenceView, "
 				+ "SellerAsDescriptionsListShowingReferenceViewNoKey, "
 				+ "SellerAsDescriptionsListShowingReferenceViewNoFrameInSection", 
-		showReferenceView=true) 	
+		showReferenceView=true) 
 	private Seller seller; 
 	
 	@Transient @ManyToOne(fetch=FetchType.LAZY)
@@ -348,7 +348,7 @@ public class Customer implements IWithName {
 	@NoCreate(forViews="DEFAULT")
 	@ReadOnly(forViews="SomeMembersReadOnly")
 	@DescriptionsList(forViews="SomeMembersReadOnly", descriptionProperties="level.description, name")
-	@SearchListCondition(value="${number} = ${this.number}", forViews="SearchListCondition")
+	@SearchListCondition(value="${number} = ${this.seller.number}", forViews="SearchListCondition")
 	private Seller alternateSeller;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
