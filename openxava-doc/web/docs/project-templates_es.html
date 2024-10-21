@@ -1,0 +1,537 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Project templates - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;" id="content_view">
+      <h1 id="toc0"><a name="Seguridad y gestión de usuarios"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>Plantillas
+        de proyecto</h1>
+      <div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#Seguridad+y+gestion+de+usuarios">Seguridad
+            y gestión de usuarios</a></div>
+        <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-Gestion+de+usuarios">Gestión
+            de usuarios</a></div>
+        <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-Restringir+el+acceso+a+ciertas+acciones">Restringir
+            el acceso a ciertas acciones</a></div>
+        <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-Restringir+el+acceso+a+ciertas+propiedades,+referencias+o+colecciones">Restringir
+            el acceso a ciertas propiedades, referencias o colecciones (nuevo en
+            v5.5)</a></div>
+        <div style="margin-left: 2em;"><a href="#modulo-solo-lectura-para-role">Módulo
+            de sólo lectura con un solo clic (nuevo en v7.2)<br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#ocultar-un-modulo-en-el-menu-sin-restringirlo">Ocultar
+            un módulo en el menú sin restringirlo (nuevo en v6.5)</a></div>
+        <div style="margin-left: 2em;"><a href="#desactivar-personalizaci%C3%B3n-lista">Desactivar
+            personalización de la lista (nuevo en v7.4)</a></div>
+        <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-Politicas+para+usuarios+y+contrasenas">Políticas
+            para usuarios y contraseñas</a></div>
+        <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-LDAP">LDAP</a></div>
+        <div style="margin-left: 2em;"><a href="#codigo-autentificacion-ldap-personalizado">Código
+            de autentificación LDAP personalizado (nuevo en v7.4)</a></div>
+        <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-Invitado+puede+crearse+una+cuenta+de+usuario+el+mismo">Invitado
+            puede crearse una cuenta de usuario él mismo</a></div>
+        <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-Fecha+de+creacion+de+usuario+y+registro+de+inicios+de+sesion">Fecha
+            de creación de usuario y registro de inicios de sesión</a></div>
+        <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-Recuperacion+de+contrasena">Recuperación
+            de contraseña (nuevo en v5.7)</a></div>
+        <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-Se+le+pide+al+usuario+su+correo+electronico">Se
+            le pide al usuario su correo electrónico</a></div>
+        <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-Correo+electronico+como+nombre+de+usuario">Correo
+            electrónico como nombre de usuario (nuevo en in v6.0)</a></div>
+        <div style="margin-left: 2em;"><a href="#Seguridad+y+gestion+de+usuarios-Restringir-acceso-por-IP">Restringir
+            acceso por IP (nuevo en v6.4)</a></div>
+        <div style="margin-left: 2em;"><a href="#codigo-autentificacion-personalizado">Código
+            de autentificación personalizado (nuevo en <br>
+          </a></div>
+        <div style="margin-left: 2em;"><a href="#codigo-autentificacion-personalizado">v7.0)</a></div>
+        <div style="margin-left: 2em;"><a href="#pagina-identificacion-personalizada">Página
+            de identificación (login) personalizada (nuevo en v7.1)</a></div>
+        <div style="margin-left: 2em;"><a href="#sso">Single Sign-On (SSO)
+            (nuevo en v7.1)</a></div>
+        <div style="margin-left: 2em;"><a href="#2fa">Autentificación en dos
+            pasos (2FA) (nuevo en v7.1)</a><br>
+        </div>
+      </div>
+      OpenXava cuenta con un conjunto de plantillas de proyecto, o arquetipos
+      como se llaman en el mundo Java, para que no tengas que empezar tu nuevo
+      proyecto OpenXava desde cero. Estas plantillas no solo te ahorran tiempo,
+      sino que contienen muchos ejemplos de código que te pueden ser útiles para
+      aprender.</div>
+    <div class="wiki" style="display: block;">Para usar estas plantilla desde
+      OpenXava Studio, al crear un nuevo proyecto, abre el combo <i>Templates</i>
+      y escoge una de las plantillas sugeridas:</div>
+    <div class="wiki" style="display: block;"> <img src="files/project-template-studio-wizard.png"
+        alt="project-template-studio-wizard.png" title="project-template-studio-wizard.png"><br>
+      Si por ejemplo escoges <i>Project Management</i> y pulsas en <i>Finish</i>,
+      en unos segundos tendrás una aplicación de gestión de proyectos en
+      OpenXava, lista para funcionar.<br>
+      Si usas IntelliJ, VisualStudio Code o Maven desde la línea de órdenes,
+      puedes hacer referencias a los arquetipos Maven, porque cada una de estas
+      plantillas corresponde a un arquetipo Maven. Más abajo se detalla el
+      nombre del arquetipo Maven para cada plantilla disponible, junto con la
+      línea de órdenes que has de usar.<br>
+      <h2 id="toc2">Maestro-Detalle</h2>
+      Es un ejemplo básico de maestro detalle. Con las entidades Maestro,
+      Persona, Detalle e Item, que puedes renombrar según tus necesidades.</div>
+    <div class="wiki" style="display: block;">Muy útil como base para una
+      factura, orden de compra, parte de trabajo, albaran, cuenta bancaria,
+      envío, etc. TMR ME QUEDÉ POR AQUÍ</div>
+    <div class="wiki" style="display: block;">Contiene una entidad Maestro, la
+      cabecera, con una colección de líneas de detalle. El maestra hace
+      referencia a entidad Me Si quieres que los usuarios de un determinado rol
+      no pueda ejecutar algunas acciones, ve al módulo <em>Roles</em> y escoge
+      ese rol para editarlo en modo detalle. Ahora haz click en el módulo donde
+      quieras restringir las acciones. Te aparecerá un diálogo como este:<br>
+      <img src="files/xavapro-restrict-actions_es.png" alt="xavapro-restrict-actions_es.png"
+        title="xavapro-restrict-actions_es.png"><br>
+      Selecciona las acciones que quieras excluir y pulsar <em>Grabar</em>. A
+      partir de ahora, todos los usuario de ese rol no podrán ejecutar esas
+      acciones en ese módulo.<br>
+      Restringir el acceso a <em>Nuevo</em> y <em>Grabar</em> también
+      restringe la posibilidad de crear y modificar desde las referencias, si se
+      hace en el módulo por defecto para esa entidad. Por ejemplo, si restringes
+      el acceso a la acción <em>Grabar</em> en el módulo <em>Cliente</em>, el
+      usuario no podrá modificar los datos de <em>Cliente</em> desde el módulo
+      <em>Factura</em> <em>(nuevo en v5.3)</em>.<br>
+      Restringir el acceso a acciones sólo está disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
+      <h2 id="toc3"><a name="Seguridad+y+gestion+de+usuarios-Restringir+el+acceso+a+ciertas+propiedades,+referencias+o+colecciones"></a>Restringir
+        el acceso a ciertas propiedades, referencias o colecciones <em>(nuevo
+          en v5.5)</em></h2>
+      Si quieres que los usuarios de un determinado rol no pueda acceder a
+      ciertas propiedades, referencias o colecciones, ve al módulo <em>Roles</em>
+      y escoge ese rol para editarlo en modo detalle. Ahora haz click en el
+      módulo donde quieras restringir el acceso a los miembros. Te aparecerá un
+      diálogo como este:<br>
+      <img src="files/restrict-data-read-only-data-xavapro_es.png" alt="restrict-data-read-only-data-xavapro_es.png"
+        title="restrict-data-read-only-data-xavapro_es.png"><br>
+      Selecciona los miembros en <em>Datos excluidos</em> que quieras excluir y
+      pulsar <em>Grabar</em>. A partir de ahora, todos los usuario de ese rol
+      no podrán acceder a esos miembros. Fíjate que también tenemos <em>Datos
+        de solo lectura</em> para marcar miembros que los usuarios del rol
+      podrán leer pero no modificar.<br>
+      Restringir el acceso a miembros sólo está disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.</div>
+    <div class="wiki" style="display: block;">
+      <h2><a name="modulo-solo-lectura-para-role"></a>Módulo de sólo lectura con
+        un solo clic <em>(nuevo en v7.2)</em></h2>
+      Desde la versión 5.5, tienes la capacidad de designar datos específicos
+      como de solo lectura para un rol particular y controlar las acciones
+      disponibles para ese rol. Con esta característica, puedes hacer que un
+      módulo sea de solo lectura para un rol en particular de manera sencilla.
+      Sin embargo, este enfoque tenía sus inconvenientes, especialmente cuando
+      se introducían nuevos campos a la entidad, ya que requería ajustes
+      constantes en la configuración.<br>
+      Para abordar estos desafíos, a partir de la versión 7.2, el cuadro de
+      diálogo de configuración de derechos del módulo para un rol ahora incluye
+      una práctica casilla de verificación denominada <i>Sólo lectura</i>. Esta
+      casilla te permite marcar un módulo como de solo lectura para el rol
+      seleccionado con un solo clic, simplificando significativamente el
+      proceso:<br>
+      <img src="files/readonly-module-for-role_es.png" alt="readonly-module-for-role_es.png"
+        title="readonly-module-for-role_es.png"><br>
+      Un módulo de sólo lectura tiene todos los miembros no editables y sólo
+      tiene acciones de navegación e impresión.<br>
+      Los módulos de sólo lectura sólo están disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.
+      <h2 id="toc3"><a name="ocultar-un-modulo-en-el-menu-sin-restringirlo"></a>Ocultar
+        un módulo en el menú sin restringirlo <em>(nuevo en v6.5)</em></h2>
+      Si quieres que un módulo no se muestre en el menú para los usuarios<strong>
+      </strong>de ciertos roles pero que al mismo tiempo ese módulo sea
+      accesible por esos usuarios, tecleando la URL en el navegador, por
+      ejemplo. Ve al módulo <em>Roles</em> y escoge el rol que quieras editar
+      en modo detalle, una vez allí pulsa en el módulo que quieras ocultar en el
+      menú y un diálogo como el siguiente aparecerá:<br>
+      <img src="files/hide-module-in-menu-for-role_es.png" alt="hide-module-in-menu-for-role_es.png"
+        title="hide-module-in-menu-for-role_es.png"><br>
+      Marca la opción <i>No en el menú</i> y pulsa en <em>Grabar</em>. A
+      partir de ahora, todos los usuario de ese rol no verán el módulo, <i>Customer</i>
+      en nuestro ejemplo, en el menú de la izquierda, sin embargo, seguirá
+      estando disponible, por lo que si el usuario va a <i>http://tusitio.com/TuAplicacion/m/Customer</i>
+      con su navegador el módulo funcionará.<br>
+      Ocultar módulos en el menú sólo está disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="desactivar-personalización-lista">Desactivar personalización de la
+        lista <em>(nuevo en v7.4)</em></h2>
+      OpenXava permite a los usuarios personalizar la lista a su gusto
+      añadiendo, quitando o moviendo columnas. Por supuesto, XavaPro nunca ha
+      permitido que el usuario pueda añadir propiedades a las que ese usuario no
+      tenga acceso por la configuración de permisos de XavaPro. Además, desde
+      siempre OpenXava ha permitido desactivar esta característica a nivel
+      global (para todos los módulos y usuarios) poniendo <i>customizeList=false</i>
+      en <i>xava.properties</i>. Pero no es suficiente cuando se quiere que
+      ciertos usuarios no tengan la posibilidad de personalizar la lista en
+      absoluto, pero otros sí. Para eso, desde la versión 7.4 es posible
+      desactivar la posibilidad de personalizar la lista para los usuarios de un
+      rol específico. Para desactivar la personalización de la lista ve al
+      módulo de roles, escoge un rol y desde ahí escoge un módulo. Esto mostrará
+      el cuadro de diálogo de configuración de derechos del módulo para un rol,
+      que ahora incluye una casilla de verificación denominada <i>No
+        personalizar lista</i>. Márcala para desactivar la personalización de la
+      lista para ese módulo, para usuarios de ese rol:<br>
+      <img src="files/no-list-customization_es.png" alt="no-list-customization_es.png"
+        title="no-list-customization_es.png"><br>
+      Desactivar la personalización de la lista por roles sólo está disponible
+      en <a href="http://www.openxava.org/xavapro">XavaPro</a>.
+      <h2 id="toc4"><a name="Seguridad+y+gestion+de+usuarios-Politicas+para+usuarios+y+contrasenas"></a>Políticas
+        para usuarios y contraseñas</h2>
+      Hay un montón de opciones para configurar las políticas de gestión de
+      usuarios y contraseñas. En la carpeta <em>Admin</em> encontrarás un
+      módulo <em>Configuración</em>:<br>
+      <img src="files/xavapro-configuration_es.png" alt="xavapro-configuration_es.png"
+        title="xavapro-configuration_es.png"><br>
+      Puedes configurar estas políticas para que tu sistema sea compatible con
+      PCI-DSS, algo muy útil en aplicaciones bancarias.</div>
+    <div class="wiki" style="display: block;">La opcion <i>Permitir varias
+        sesiones por usuario (nueva en v7.4)</i> permite que el mismo nombre de
+      usuario pueda ser usado por varios personas diferentes desde diferentes
+      máquinas/navegadores al mismo tiempo. Esto permite desactivar una
+      característica introducida en v7.3 que hacía que al identificarse con un
+      nombre de usuario si ese usuario tenía una sesión iniciada desde otra
+      máquina o navegador, esa sesión se cancelara, forzando que un mismo
+      usuario sólo pudiera estar identificado una vez al mismo tiempo.</div>
+    <div class="wiki" style="display: block;"><i> </i>Estas políticas para
+      usuarios y contraseñas sólo están disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
+      <h2 id="toc5"><a name="Seguridad+y+gestion+de+usuarios-LDAP"></a>LDAP</h2>
+      <a href="http://www.openxava.org/xavapro">XavaPro</a> permite a los
+      usuarios ser autentificados vía LDAP. Para configurar LDAP edita el
+      archivo <em>naviox.properties</em> y añade las siguientes entradas:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
+
+-->
+</style><pre class="properties"><span class="co1"># Configuración LDAP</span>
+<span class="re0">ldapHost</span><span class="sy0">=</span><span class="re1">192.168.0.0</span>
+<span class="re0">ldapDomain</span><span class="sy0">=</span><span class="re1">XX</span>
+<span class="re0">ldapDN</span><span class="sy0">=</span><span class="re1">DC=XX,DC=XX,DC=XX</span>
+<span class="re0">ldapPort</span><span class="sy0">=</span><span class="re1">389</span></pre>
+      Si usas OpenLDAP omite la entrada <em>ldapDomain</em> <em>(a partir de
+        v5.9.1)</em>, como en este ejemplo:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
+
+-->
+</style><pre class="properties"><span class="co1"># Ejemplo de configuración OpenLDAP</span>
+<span class="re0">ldapHost</span><span class="sy0">=</span><span class="re1">192.168.2.xxx</span>
+<span class="re0">ldapDomain</span><span class="sy0">=</span>
+<span class="re0">ldapDN</span><span class="sy0">=</span><span class="re1">ou=people,dc=dgrtdf,dc=gov,dc=ar</span>
+<span class="re0">ldapPort</span><span class="sy0">=</span><span class="re1">389</span></pre>
+      Fíjate como <em>ldapDomain</em> no tiene valor.<br>
+      Por defecto todos los usuarios son autentificados usando las contraseñas
+      almacenadas por XavaPro. Para activar LDAP has de seleccionar los usuarios
+      y marcar la opción <em>Autentificar con LDAP</em>:<br>
+      <img src="files/naviox_ldap_es.png" alt="naviox_ldap_es.png" title="naviox_ldap_es.png"><br>
+      El soporte de LDAP sólo está disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="codigo-autentificacion-ldap-personalizado">Código de
+        autentificación LDAP personalizado <em>(nuevo en v7.4)</em></h2>
+      Para definir tu propia lógica de autentificación de usuarios contra tu
+      servidor LDAP has de crear una clase que implemente la interfaz <a href="https://www.openxava.org/OpenXavaDoc/apidocs/com/openxava/naviox/impl/ILDAPAuthenticatorProvider.html"><i>ILDAPAuthenticatorProvider</i></a>.
+      A veces la lógica por defecto con la que cuenta XavaPro para identificarse
+      contra el servidor LDAP no es suficiente, puede que quieras identificarte
+      contra varios servidores LDAP, contra un servidor LDAP especial que
+      requiera un código especial, etc. En estos casos puedes definir la manera
+      en que XavaPro autentifica a los usuarios contra LDAP en tu aplicación,
+      para eso extiende <i>ProLDAPAuthenticatorProvider</i>, de esta manera:
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">package com.miempresa.miaplicacion.impl;
+
+import java.util.*;
+
+import javax.naming.*;
+import javax.naming.directory.*;
+
+import org.apache.commons.logging.*;
+import org.openxava.util.*;
+
+import com.openxava.naviox.impl.*;
+
+public class MiPropioLDAPAuthenticatorProvider extends ProLDAPAuthenticatorProvider {
+    
+    private static Log log = LogFactory.getLog(MiPropioLDAPAuthenticatorProvider.class);    
+    
+    public boolean isValidLogin(String user, String password) {
+        // Este código es un ejemplo de lógica para acceder a LDAP,
+        // tendrás que escribir la tuya propia
+        Hashtable&lt;String, String&gt; props = new Hashtable&lt;String, String&gt;();        
+        String ldapDomain = getProperties().getProperty("ldapDomain", "").trim();
+        String ldapHost = getProperties().getProperty("ldapHost", "").trim();
+        String ldapPort = getProperties().getProperty("ldapPort", "").trim();
+        String ldapDN =  getProperties().getProperty("ldapDN", "").trim();
+        String ldapProtocol = "636".equals(ldapPort)?"ldaps":"ldap";         
+        String ldapURL;        
+        String securityPrincipal;
+        if (Is.emptyString(ldapDomain)) {  
+            ldapURL = String.format("%s://%s:%s", ldapProtocol, ldapHost, ldapPort); 
+            securityPrincipal = String.format("%s%s%s", "uid=" + user,         
+                                                           ldapDN.equals("")?"":",", 
+                                                           ldapDN);    
+        }
+        else {     
+            ldapURL = String.format("%s://%s:%s/%s", ldapProtocol, ldapHost, ldapPort, ldapDN); 
+            securityPrincipal = String.format("%s%s%s", ldapDomain, 
+                                                        ldapDomain.equals("")?"":"\\", 
+                                                        user);
+        }
+        
+        props.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+        props.put(Context.PROVIDER_URL, ldapURL);
+        props.put(Context.SECURITY_AUTHENTICATION, "simple");
+        props.put(Context.SECURITY_PRINCIPAL, securityPrincipal);
+        props.put(Context.SECURITY_CREDENTIALS, password);
+        props.put("com.sun.jndi.ldap.connect.timeout", "60000"); 
+        try {
+            DirContext ctx = new InitialDirContext(props);
+            ctx.close();
+            return true;
+        } catch (NamingException ex) {
+            log.error(XavaResources.getString("ldap_authentication_error"), ex);  
+        } finally {
+            log.info("javax.naming.Context.PROVIDER_URL: " + ldapURL);
+            log.info("javax.naming.Context.SECURITY_PRINCIPAL: " + securityPrincipal);
+        }
+        return false;
+    }
+    
+}
+</code></pre> </div>
+      <div class="wiki" style="display: block;">En este ejemplo la lógica usada
+        es la forma típica de conectarse a un servidor LDAP y es muy parecida a
+        la que usa XavaPro por defecto, tu tendrás escribir aquí tu propia
+        lógica. Esta lógica de autentificación solo se aplica a los usuarios
+        marcados con <i>Autentificar con LDAP</i>.</div>
+      <div class="wiki" style="display: block;">Para que tu aplicación use la
+        clase de arriba para autentificación contra LDAP has de añadir la
+        siguiente entrada en el archivo <i>naviox.properties</i> de tu
+        proyecto:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="properties">ldapAuthenticatorProviderClass=com.miempresa.miaplicacion.impl.MiPropioLDAPAuthenticatorProvider</code></pre>
+        El soporte para definir una lógica propia para autentificarse con LDAP
+        sólo está disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.</div>
+      <h2 id="toc6"><a name="Seguridad+y+gestion+de+usuarios-Invitado+puede+crearse+una+cuenta+de+usuario+el+mismo"></a>Invitado
+        puede crearse una cuenta de usuario él mismo</h2>
+      En la caja de identificación hay un vínculo etiquetado como CREAR CUENTA:<br>
+      <img src="files/login-with-signup_es.png" alt="login-with-signup_es.png" title="login-with-signup_es.png"><br>
+      El usuario puede pulsar en él para ir a un formulario de registro:<br>
+      <img src="files/signup-form_es.png" alt="signup-form_es.png" title="signup-form_es.png"><br>
+      Después de rellenar el formulario y pulsar el botón la cuenta de usuario
+      se crea y además se inicia la sesión. Hay un rol <em>self sign up</em>
+      para determinar los permisos de los usuarios autocreados.<br>
+      Esta característica se puede desactivar en el módulo de configuración.<br>
+      A partir de la v6.0 se puede mostrar una política de privacidad en la
+      página de registro, el texto de la política de privacidad se obtiene de la
+      entrada privacy_policy en los archivos de mensajes i18n. Es obligatorio
+      que el usuario marque la casilla aceptando la política para poder hacer el
+      registro. La fecha de la aceptación de la política se almacena junto con
+      los datos del usuario. Puedes ocultar la política de privacidad usando el
+      módulo de configuración. <br>
+      <br>
+      <h2 id="toc7"><a name="Seguridad+y+gestion+de+usuarios-Fecha+de+creacion+de+usuario+y+registro+de+inicios+de+sesion"></a>Fecha
+        de creación de usuario y registro de inicios de sesión</h2>
+      Ve al módulo de usuarios para ver esta información:<br>
+      <img src="files/user-creation-date-sessions_es.png" alt="user-creation-date-sessions_es.png"
+        title="user-creation-date-sessions_es.png"><br>
+      <h2 id="toc8"><a name="Seguridad+y+gestion+de+usuarios-Recuperacion+de+contrasena"></a>Recuperación
+        de contraseña <em>(nuevo en v5.7)</em></h2>
+      El usuario puede recuperar su contraseña por sí mismo. Cuando falla al
+      introducir la contraseña correcta se muestra un mensaje "¿Has olvidado tu
+      contraseña?" con un vínculo:<br>
+      <img src="files/recover-password-login_es.png" alt="recover-password-login_es.png"
+        title="recover-password-login_es.png"><br>
+      Cuando el usuario pulsa en el vínculo va a una página para introducir su
+      correo electrónico:<br>
+      <img src="files/enter-email-recover-password_es.png" alt="enter-email-recover-password_es.png"
+        title="enter-email-recover-password_es.png"><br>
+      Después de pulsar en el botón "Recuperar contraseña" un correo electrónico
+      con instrucciones para recuperar la contraseña es enviado. Por supuesto,
+      un usuario con ese correo electrónico ha de estar registrado en el
+      sistema.<br>
+      Para usar la funcionalidad de recuperación de contraseña has de configurar
+      las propiedades de correo electrónico en <em>xava.properties</em>, algo
+      como esto:<br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.properties  {font-family:monospace;}
+.properties .imp {font-weight: bold; color: red;}
+.properties .kw1 {font-weight: bold;}
+.properties .co1 {color: #808080; font-style: italic;}
+.properties .sy0 {color: #000000;}
+.properties .st0 {color: #933;}
+.properties .re0 {color: #000080; font-weight:bold;}
+.properties .re1 {color: #008000; font-weight:bold;}
+.properties span.xtra { display:block; }
+
+-->
+</style><pre class="properties"><span class="co1">#SMTP related information</span>
+<span class="re0">smtpHost</span><span class="sy0">=</span><span class="re1">smtp.gmail.com</span>
+<span class="re0">smtpPort</span><span class="sy0">=</span><span class="re1">587</span>
+<span class="re0">smtpUserId</span><span class="sy0">=</span><span class="re1">micorreo@gmail.com</span>
+<span class="re0">smtpUserPassword</span><span class="sy0">=</span><span class="re1">micontrasena</span>
+<span class="re0">smtpHostTrusted</span><span class="sy0">=</span><span class="re1">true</span>
+<span class="re0">smtpStartTLSEnable</span><span class="sy0">=</span><span class="re1">true</span></pre>
+      <h2 id="toc9"><a name="Seguridad+y+gestion+de+usuarios-Se+le+pide+al+usuario+su+correo+electronico"></a>Se
+        le pide al usuario su correo electrónico</h2>
+      Para que este mecanismo de recuperación de contraseña funcione es
+      necesario que cada usuario tenga su correo electrónico registrado en el
+      sistema. Por tanto ahora si el usuario no tiene correo electrónico XavaPro
+      se lo pregunta después de entrar:<br>
+      <img src="files/enter-email-personal-data_es.png" alt="enter-email-personal-data_es.png"
+        title="enter-email-personal-data_es.png"><br>
+      Introducir el correo no es obligatorio, el usuario puede irse a cualquier
+      otro módulo dejando el correo electrónico en blanco.<br>
+      Este nuevo módulo "Mis datos personales" esta siempre disponible para que
+      todos los usuarios puedan modificar sus propios datos personales. </div>
+    <div class="wiki" style="display: block;">Para desactivar esta
+      característica y así que no se le pregunte al usuario por su correo
+      electrónico cada vez que se identifique, has de quitar el módulo "Mis
+      datos personales" del rol del usuario.
+      <h2 id="toc9"><a name="Seguridad+y+gestion+de+usuarios-Correo+electronico+como+nombre+de+usuario"></a>Correo
+        electrónico como nombre de usuario <em>(nuevo en v6.0)</em></h2>
+      En el módulo de configuración hay una opción llamada <i>Usar correo
+        electrónico como nombre de usuario</i>. Si la marcas será obligatorio
+      que el usuario se registre usando un correo electrónico como nombre de
+      usuario. Además, los usuarios ya creados pueden identificarse usando su
+      cuenta de correo en lugar de su nombre.<br>
+      La validación del correo electrónico al registrarse se puede personalizar
+      con <i>emailValidatorForSignUpClass</i> en <i>naviox.properties</i>, por
+      ejemplo:
+      <pre>emailValidatorForSignUpClass=com.miempresa.miaplicacion.MiValidadorCorreo</pre>
+      En este caso la lógica de <i>MiValidadorCorreo</i> (ha de implementar <i>IPropertyValidator</i>)
+      se aplica al correo electrónico al registrarse. La validación por defecto
+      para el correo electrónico verifica que la sintaxis es correcta, pero a
+      veces queremos una validación diferente, como que sea un correo de
+      empresa, por ejemplo. Puede hacer eso con tu propio validador de correo
+      electrónico. </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="toc10"><a name="Seguridad+y+gestion+de+usuarios-Restringir-acceso-por-IP"></a>Restringir
+        acceso por IP <em>(nuevo en v6.4)</em></h2>
+      Es posible definir una "IP permitida" para un usuario de tal manera que
+      ese usuario sólo pueda acceder desde esa IP. Para ello, ve al módulo <i>Usuarios</i>
+      en la carpeta <i>Admin</i>, escoge un usuario y dale valor al campo <i>IP
+        permitida</i>:</div>
+    <div class="wiki" style="display: block;"> <img src="files/allowed-ip_es.png"
+        alt="allowed-ip_es.png" title="allowed-ip_es.png">
+      <div class="wiki" style="display: block;">Finalmente, pulsa en <i>Grabar</i>.
+        Si el valor de <i>IP permitida</i> es blanco el usuario puede acceder
+        desde cualquier IP.</div>
+      <div class="wiki" style="display: block;">
+        <h2><a name="codigo-autentificacion-personalizado"></a>Código de
+          autentificación personalizado <em>(nuevo en v7.0)</em></h2>
+        Para definir tu propia lógica de autentificación de usuarios has de
+        crear una clase que implemente la interfaz <a href="https://www.openxava.org/OpenXavaDoc/apidocs/com/openxava/naviox/impl/ISignInHelperProvider.html"><i>ISignInHelperProvider</i></a>.
+        El caso típico sería refinar la manera estándar en que XavaPro
+        autentifica a los usuarios, para eso extiende <i>ProSignInHelperProvider</i>,
+        de esta manera:
+        <div class="wiki" style="display: block;">
+          <pre><code class="java">package com.miempresa.miaplicacion.impl;
+
+import javax.servlet.*;
+import org.openxava.util.*;
+import com.openxava.naviox.impl.*;
+
+public class MiPropioSignInHelperProvider extends ProSignInHelperProvider {
+	
+    @Override
+    public boolean isAuthorized(
+		ServletRequest request, String userName, 
+		String password, Messages errors, String unauthorizedMessage) 
+	{
+        // Esta es tu lógica personalizada de autentificación
+        if (userName.equals("admin") &amp;&amp; password.equals("masterkey")) return true; 
+		
+		
+        // Aquí delegamos en la lógica de autentificación por defecto de XavaPro
+        return super.isAuthorized(request, userName, password, errors, unauthorizedMessage);
+    }
+
+}
+</code></pre> </div>
+        <div class="wiki" style="display: block;">En este caso la lógica es
+          simple, si el usuario teclea "masterkey" como clave para el usuario
+          "admin" el usuario accede a la aplicación como "admin", en caso
+          contrario se aplica la lógica de autentificación por defecto de
+          XavaPro. Sin embargo, aquí puedes escribir cualquier lógica que
+          quieras, incluyendo llama a servicios web, leer tu propia base de
+          datos de usuarios, consultar tu directorio LDAP en la manera que tu
+          quieras, etc.</div>
+        <div class="wiki" style="display: block;">Para que tu aplicación use la
+          clase de arriba para autentificación has de añadir la siguiente
+          entrada en el archivo <i>naviox.properties</i> de tu proyecto:</div>
+        <div class="wiki" style="display: block;">
+          <pre><code class="properties">signInHelperProviderClass=com.miempresa.miaplicacion.impl.MiPropioSignInHelperProvider
+</code></pre> </div>
+        <div class="wiki" style="display: block;">
+          <h2><a name="pagina-identificacion-personalizada"></a>Página de
+            identificación (login) personalizada <em>(nuevo en v7.1)</em></h2>
+          Para definir tu propia página de identificación de usuario (página de
+          login) crea un JSP dentro de la carpeta <i>src/main/webapp/naviox</i>
+          de tu proyecto, puede que necesites crear la carpeta <i>naviox</i>.
+          Por ejemplo, puedes crear un <i>miSignIn.jsp</i> (o cualquier otro
+          nombre excepto <i>signIn.jsp</i>) con este contenido:<br>
+          <div class="wiki" style="display: block;">
+            <pre><code class="html">&lt;div&gt;Hola, soy un página de identificación personalizada&lt;/div&gt;
+&lt;div&gt;
+&lt;jsp:include page="signIn.jsp"/&gt;
+&lt;/div&gt;
+</code></pre> </div>
+          <div class="wiki" style="display: block;">En este caso incluimos la
+            página de identificación original (<i>signIn.jsp</i>) añadiendo
+            algún contenido adicional, pero puedes crear la página desde cero, o
+            incluir tu propio módulo OpenXava (mira el <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/naviox/signIn.jsp">código
+              original de <i>signIn.jsp</i></a>) que use tu propia entidad y
+            controladores.</div>
+          <div class="wiki" style="display: block;">Para que la aplicación use
+            la susodicha página de identificación has de añadir la siguiente
+            entrada en el archivo <i>naviox.properties</i> de tu proyecto:</div>
+          <div class="wiki" style="display: block;">
+            <pre><code class="properties">signInJSP=miSignIn.jsp</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wiki" style="display: block;">
+      <h2><a name="sso"></a>Single Sign-On (SSO) <em>(nuevo en v7.1)</em></h2>
+      A partir de XavaPro 7.1 puedes usar Azure AD para proporcionar SSO a tus
+      aplicaciones OpenXava. Mira la <a href="sso-azure-ad_es.html">guía SSO
+        con Azure AD</a>.
+      <div class="wiki" style="display: block;">
+        <h2><a name="2fa"></a>Autentificación en dos pasos (2FA) <em>(nuevo in
+            v7.1)</em></h2>
+        A partir de XavaPro 7.1 puedes usar Azure AD para proporcionar
+        autentificación en dos pasos a tus aplicaciones OpenXava. Mira la <a href="sso-azure-ad_es.html">guía
+          SSO con Azure AD</a>. </div>
+    </div>
+  </body>
+</html>
