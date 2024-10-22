@@ -10,6 +10,7 @@ calendarEditor.requesting = false;
 
 calendarEditor.setEvents = function(calendarEvents) {
     try {
+		console.log(calendarEvents);
         var arr = JSON.parse(calendarEvents);
 		calendarEditor.showCalendar();
         calendarEditor.startName = arr[0].startName;
@@ -56,8 +57,16 @@ openxava.addEditorInitFunction(function() {
         calendarEditor.listEvents = [];
         calendarEditor.requesting = true;
         var selectedValue = $('#xava_calendar_date_preferences').val();
-        Calendar.getEvents(application, module, "", selectedValue, calendarEditor.setEvents);
-
+		
+		Calendar.getEvents(application, module, "", selectedValue, {
+			callback: function(events) {
+				calendarEditor.setEvents(events);
+			},
+			errorHandler: function(error) {
+				calendarEditor.hideCalendar();
+			}
+		});
+		
         $("#xava_calendar").ready(function() {
             calendarEditor.calendarEl = $('#xava_calendar')[0];
             calendarEditor.calendar = new FullCalendar.Calendar(calendarEditor.calendarEl, {

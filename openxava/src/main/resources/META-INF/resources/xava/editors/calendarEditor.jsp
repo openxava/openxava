@@ -66,6 +66,7 @@ if (dateFormat != null) {
 
 if (datePropertyList.size() > 1) {
 %>
+
 <div class="ox-layout-detail ox-center-calendar">
     <select class="xava_calendar_date_preferences">
         <option id="xava_calendar_date_preferences" value="<%= dateNamePref.isEmpty() ? datePropertyList.get(0).getSimpleName() : dateNamePref %>"><%= datePref.isEmpty() ? datePropertyList.get(0).getLabel() : datePref %></option>

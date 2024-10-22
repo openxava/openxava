@@ -272,6 +272,8 @@
 	
 	--simple-list-detail-color: var(--link-color);
 	--simple-list-header-color: inherit;
+	
+	--system-inline-error: red;
 }
 
 @font-face {
@@ -3059,4 +3061,8 @@ a[data-action="Collection.previous"] {
 .ox-simple-list th {
 	text-align: left;
 	color: var(--simple-list-header-color);  
+}
+
+#nodata .ox-errors b {    
+  color: var(--system-inline-error);
 }
