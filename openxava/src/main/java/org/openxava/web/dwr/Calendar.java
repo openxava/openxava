@@ -81,7 +81,6 @@ public class Calendar extends DWRBase {
 			this.module = module;
 			this.response = response;
 			view = getView(request, application, module);
-			errors = new Messages();
 
 			String tabObject = "xava_tab";
 			tab2 = getTab(request, application, module, tabObject);
@@ -125,6 +124,8 @@ public class Calendar extends DWRBase {
 				jsonArray.put(nullJson);
 			}
 			return jsonArray.toString();
+		} catch (Exception e) {
+			return "error";
 		} finally {
 			XPersistence.commit();
 			cleanRequest();
@@ -502,5 +503,5 @@ public class Calendar extends DWRBase {
         }
         return matches;
 	}
-
+	
 }

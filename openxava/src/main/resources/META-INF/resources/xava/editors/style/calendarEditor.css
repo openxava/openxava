@@ -143,3 +143,9 @@
 	transform: translateX(25%);
 	z-index: 1;
 }
+
+.ox-calendar-errors {
+	margin-bottom: 20px;
+    margin-top: 40px;
+    margin-left: 15px;
+}

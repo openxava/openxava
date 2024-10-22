@@ -84,6 +84,11 @@ if (datePropertyList.size() > 1) {
 <% } else { %>
 	<input type="hidden" id="xava_calendar_date_preferences" value="<%=datePropertyList.get(0).getSimpleName()%>">
 <% } %>
+<div id="nodata" class="ox-calendar-errors ox-display-none">
+	<div class="ox-errors">
+		<b><xava:message key="calendar_error"/></b>
+	</div>
+</div>
 <div>
     <input type="hidden" id="xava_calendar_module" value="<%=request.getParameter("module")%>">
     <input type="hidden" id="xava_calendar_application" value="<%=request.getParameter("application")%>">
