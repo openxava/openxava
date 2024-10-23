@@ -59,7 +59,8 @@ public class CalendarTest extends WebDriverTestBase {
     	goModule("InvoiceNonExistentProperty");
 		moveToCalendarView(getDriver());
 		WebElement errorDiv = getDriver().findElement(By.className("ox-calendar-errors"));
-		assertFalse(errorDiv.getAttribute("class").contains("ox-display-none"));
+		assertTrue(errorDiv.isDisplayed());
+		//assertFalse(errorDiv.getAttribute("class").contains("ox-display-none"));
 		
 		//Calendar.java exception
 		goModule("Appointment2");
@@ -67,7 +68,8 @@ public class CalendarTest extends WebDriverTestBase {
 		execute("List.filter");
 		moveToCalendarView(getDriver());
 		errorDiv = getDriver().findElement(By.className("ox-calendar-errors"));
-		assertFalse(errorDiv.getAttribute("class").contains("ox-display-none"));
+		//assertFalse(errorDiv.getAttribute("class").contains("ox-display-none"));
+		assertTrue(errorDiv.isDisplayed());
 		moveToListView();
 	}
 
