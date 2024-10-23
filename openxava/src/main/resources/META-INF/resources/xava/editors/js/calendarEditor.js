@@ -10,7 +10,6 @@ calendarEditor.requesting = false;
 
 calendarEditor.setEvents = function(calendarEvents) {
     try {
-		console.log(calendarEvents);
         var arr = JSON.parse(calendarEvents);
 		calendarEditor.showCalendar();
         calendarEditor.startName = arr[0].startName;

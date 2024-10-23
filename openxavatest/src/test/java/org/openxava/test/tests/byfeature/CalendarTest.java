@@ -69,7 +69,6 @@ public class CalendarTest extends WebDriverTestBase {
 		errorDiv = getDriver().findElement(By.className("ox-calendar-errors"));
 		assertFalse(errorDiv.getAttribute("class").contains("ox-display-none"));
 		moveToListView();
-
 	}
 
 	private void assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear() throws Exception {
