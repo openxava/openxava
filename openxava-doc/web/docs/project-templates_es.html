@@ -68,7 +68,7 @@
     <div class="wiki" style="display: block;">Para usar estas plantilla desde
       OpenXava Studio, al crear un nuevo proyecto, abre el combo <i>Templates</i>
       y escoge una de las plantillas sugeridas:</div>
-    <div class="wiki" style="display: block;"> <img src="files/project-template-studio-wizard.png"
+    <div class="wiki" style="display: block;"> <img src="files/project-template-studio-wizard.png"
         alt="project-template-studio-wizard.png" title="project-template-studio-wizard.png"><br>
       Si por ejemplo escoges <i>Project Management</i> y pulsas en <i>Finish</i>,
       en unos segundos tendrás una aplicación de gestión de proyectos en
@@ -100,25 +100,46 @@
       pon el nombre que quieras para tu aplicación.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc2">CRM</h2>
-      TMR ME QUEDÉ POR AQUÍ. Es un ejemplo básico de <b>maestro detalle</b>,
-      con las entidades <i>Maestro, Persona, Detalle</i> e <i>Item</i>, que
-      puedes renombrar según tus necesidades.
-      <div class="wiki" style="display: block;">Muy útil como base para una
-        factura, orden de compra, parte de trabajo, albaran, cuenta bancaria,
-        envío, etc. </div>
-      <div class="wiki" style="display: block;">Además, contiene un ejemplo de <b>cuadro
-          de mando</b>, mira el código en el paquete <i>cuadrosmando</i>.</div>
-      <div class="wiki" style="display: block;">Para usarlo desde OpenXava
-        Studio escoge <i>Master-Detail</i> como plantilla al crear el proyecto.</div>
+      Un CRM muy, muy simple, con tan solo <i>Prospecto </i>con una colección
+      de actividades (<i>Actividad</i>) y un estado (<i>EstadoProspecto</i>). La
+      vista principal está organizada en pestañas y contiene un editor de texto
+      rico, colecciones editables (grid) y poder subir archivos adjuntos.</div>
+    <div class="wiki" style="display: block;">Además, contiene un ejemplo de
+      prueba automática con JUnit. El código de la prueba se encuentra en <i>src/test/java</i>
+      y está lista para que la ejecutes. Desde OpenXava Studio pulsa el botón
+      derecho en el proyecto y escoge <i>Run As &gt; JUnit Test</i>.
       <div class="wiki" style="display: block;">Para usarlo desde IntelliJ o
-        Visual Studio usa el arquetipo disponible en Maven Central llamado <i>openxava-master-detail-archetype-spanish</i>.</div>
+        Visual Studio usa el arquetipo disponible en Maven Central llamado <i>openxava-crm-archetype-spanish</i>.</div>
       <div class="wiki" style="display: block;">Si prefieres crear tu proyecto
         desde línea de órdenes hazlo así:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="sh">mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-master-detail-archetype-spanish -DarchetypeVersion=RELEASE -DgroupId=com.tuempresa -DartifactId=tumaestrodetalle -DinteractiveMode=false
+        <pre><code class="sh">mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-crm-archetype-spanish -DarchetypeVersion=RELEASE -DgroupId=com.tuempresa -DartifactId=tucrm -DinteractiveMode=false
 </code></pre> </div>
-      <div class="wiki" style="display: block;">Donde en lugar de <i>tumaestrodetalle</i>
+      <div class="wiki" style="display: block;">Donde en lugar de <i>tucrm</i>
         pon el nombre que quieras para tu aplicación.</div>
+      <div class="wiki" style="display: block;">
+        <h2 id="toc2">Gestor de proyectos</h2>
+        Un gestor de proyectos bastante competo listo para usar. TMR ME QUEDÉ
+        POR AQUÍ CRM muy, muy simple, con tan solo <i>Prospecto </i>con una
+        colección de actividades (<i>Actividad</i>) y un estado (<i>EstadoProspecto</i>).
+        La vista principal está organizada en pestañas y contiene un editor de
+        texto rico, colecciones editables (grid) y poder subir archivos
+        adjuntos.
+        <div class="wiki" style="display: block;">Además, contiene un ejemplo de
+          prueba automática con JUnit. El código de la prueba se encuentra en <i>src/test/java</i>
+          y está lista para que la ejecutes. Desde OpenXava Studio pulsa el
+          botón derecho en el proyecto y escoge <i>Run As &gt; JUnit Test</i>.
+          <div class="wiki" style="display: block;">Para usarlo desde IntelliJ o
+            Visual Studio usa el arquetipo disponible en Maven Central llamado <i>openxava-crm-archetype-spanish</i>.</div>
+          <div class="wiki" style="display: block;">Si prefieres crear tu
+            proyecto desde línea de órdenes hazlo así:</div>
+          <div class="wiki" style="display: block;">
+            <pre><code class="sh">mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-crm-archetype-spanish -DarchetypeVersion=RELEASE -DgroupId=com.tuempresa -DartifactId=tucrm -DinteractiveMode=false
+</code></pre> </div>
+          <div class="wiki" style="display: block;">Donde en lugar de <i>tucrm</i>
+            pon el nombre que quieras para tu aplicación.</div>
+        </div>
+      </div>
     </div>
     <br>
   </body>
