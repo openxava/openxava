@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Errors in executing the query are not noticeable to the user in the calendar list format.
+- The error message in list format when the query fails is now red.
 - JasperReports and fonts upgraded to 6.21.4.
 - Embedded Tomcat used in development upgraded to 9.0.96.
 - Driver version in doc/new projects upgraded for MySQL and Firebird.
