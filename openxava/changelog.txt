@@ -1,25 +1,27 @@
 Change Log for OpenXava project
 ===============================
 
-- Fix: Errors in executing the query are not noticeable to the user in the calendar list format.
+OpenXava 7.4.2 (2024-10-25)
+---------------------------
+- New changeLast() in Strings utility class to change the last occurrence of a string inside another string.
 - The error message in list format when the query fails is now red.
+- Added reinit property to ReturnPreviousModuleAction to customize the initiation of the module on return.
+- Some new common use labels to be used in applications.
 - JasperReports and fonts upgraded to 6.21.4.
 - Embedded Tomcat used in development upgraded to 9.0.96.
 - Driver version in doc/new projects upgraded for MySQL and Firebird.
-- Fix: Using qualified properties, ${this.someReference.someProperty}, in @SearchListCondition doesn't work. 
+- Documentation in reference guide to manage programmatically files of @File/@Files/FILE/FILES properties.
+- Fix: Using a permalink, it's possible to access a record not available in the list.
+- Fix: AccessTracker sends all values for the key upon modification for @AsEmbedded references.
+- Fix: Using qualified properties, ${this.someReference.someProperty}, in @SearchListCondition doesn't work.
+- Fix: Errors in executing the query are not noticeable to the user in the calendar list format.
 - Fix: View.getKeyValues() sometimes includes non-key values, such as __MODEL_NAME__ or @Version properties. 
 - Fix: Not applicable warning about not validating a __MODEL_NAME__ member in the log.
 - Fix: Module broken when sending a message that includes {somekey=somevalue} with addError/Message().
 - Fix: The date field set by the calendar list format when creating a new record is String instead of Date.
 - Fix: @DescriptionsList in section/group dependent (with this.) on a member in another section/group fails.
 - Fix: Return to PREVIOUS_MODULE with hasReinitNextModule in IChangeModuleAction not execute on-init action.
-- Added reinit property to ReturnPreviousModuleAction to customize the initiation of the module on return.
-- Fix: Using a permalink, it's possible to access a record not available in the list.
 - Fix: Third level qualified properties in baseCondition of @Tab fails if those properties are not in list.
-- New changeLast() in Strings utility class to change the last occurrence of a string inside other string.
-- Some new common use labels to be used in applications.
-- Fix: AccessTracker sends all values for the key upon modification for @AsEmbedded references.
-- Documentation in reference guide to manage programmatically files of @File/@Files/FILE/FILES properties.
 - Fix: Tree is not shown correctly when it's inside a reference.
 - Fix: NullPointerException in the log when clicking an action inside the dialog on a tree element.
 
