@@ -6,7 +6,7 @@
 
 	<groupId>org.openxava</groupId>
 	<artifactId>openxava-invoicing-archetype-spanish</artifactId>
-	<version>7.4.2-SNAPSHOT</version>
+	<version>7.4.2</version>
 	<packaging>maven-archetype</packaging>
 
   	<name>OpenXava Invoicing Archetype in Spanish</name>
