@@ -9,10 +9,31 @@ calendarEditor.outModule;
 calendarEditor.requesting = false;
 
 calendarEditor.setEvents = function(calendarEvents) {
-    var arr = JSON.parse(calendarEvents);
-    calendarEditor.startName = arr[0].startName;
-    calendarEditor.calendar.addEventSource(arr);
+    try {
+        var arr = JSON.parse(calendarEvents);
+		calendarEditor.showCalendar();
+        calendarEditor.startName = arr[0].startName;
+        calendarEditor.calendar.addEventSource(arr);
+    } catch (e) {
+        calendarEditor.hideCalendar();
+    }
     calendarEditor.requesting = false;
+}
+
+calendarEditor.hideCalendar = function () {
+    if (calendarEditor.calendarEl) {
+        calendarEditor.calendarEl.classList.add('ox-display-none');
+		var errorElement = $('.ox-calendar-errors');
+        errorElement[0].classList.remove('ox-display-none');
+    }
+}
+
+calendarEditor.showCalendar = function () {
+    if (calendarEditor.calendarEl.classList.contains('ox-display-none')) {
+        calendarEditor.calendarEl.classList.remove('ox-display-none');
+		var errorElement = $('.ox-calendar-errors');
+        errorElement[0].classList.add('ox-display-none');
+    }
 }
 
 
@@ -35,8 +56,16 @@ openxava.addEditorInitFunction(function() {
         calendarEditor.listEvents = [];
         calendarEditor.requesting = true;
         var selectedValue = $('#xava_calendar_date_preferences').val();
-        Calendar.getEvents(application, module, "", selectedValue, calendarEditor.setEvents);
-
+		
+		Calendar.getEvents(application, module, "", selectedValue, {
+			callback: function(events) {
+				calendarEditor.setEvents(events);
+			},
+			errorHandler: function(error) {
+				calendarEditor.hideCalendar();
+			}
+		});
+		
         $("#xava_calendar").ready(function() {
             calendarEditor.calendarEl = $('#xava_calendar')[0];
             calendarEditor.calendar = new FullCalendar.Calendar(calendarEditor.calendarEl, {

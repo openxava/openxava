@@ -17,6 +17,7 @@ import org.openqa.selenium.support.ui.*;
 public class CalendarTest extends WebDriverTestBase {
 	
     public void testCalendar() throws Exception {
+    	assertErrorsHandlingCorrectly();
     	assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate(); 
     	assertMultipleDatesPropertiesAndSelectDateToShow();
     	assertFilterPerformance();
@@ -51,6 +52,23 @@ public class CalendarTest extends WebDriverTestBase {
 		WebElement prevYearButton = getDriver().findElement(By.cssSelector("button.fc-prevYear-button.fc-button.fc-button-primary"));
 		prevYearButton.click();
 		waitCalendarEvent(getDriver());
+	}
+	
+	private void assertErrorsHandlingCorrectly() throws Exception {
+		//DWR errors
+    	goModule("InvoiceNonExistentProperty");
+		moveToCalendarView(getDriver());
+		WebElement errorDiv = getDriver().findElement(By.className("ox-calendar-errors"));
+		assertTrue(errorDiv.isDisplayed());
+		
+		//Calendar.java exception
+		goModule("Appointment2");
+		setConditionValue("***", 0);
+		execute("List.filter");
+		moveToCalendarView(getDriver());
+		errorDiv = getDriver().findElement(By.className("ox-calendar-errors"));
+		assertTrue(errorDiv.isDisplayed());
+		moveToListView();
 	}
 
 	private void assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear() throws Exception {

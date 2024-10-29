@@ -233,7 +233,8 @@ import lombok.*;
 	@Tab(name="PropertiesFromCollection", 
 		properties="year, number, date, customer.name, amountsSum, vat, detailsCount, paid, importance, details.product.unitPrice, deliveries.description"
 		// Without defaultOrder to test a case
-	) 
+	),
+	@Tab(name="NonExistentProperty", properties="year", baseCondition ="${anyo} = 2000")
 })
 
 public class Invoice {
