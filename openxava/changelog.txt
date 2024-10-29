@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- How to install documentation improved to cover some tips to work with Mac.
+
 OpenXava 7.4.2 (2024-10-25)
 ---------------------------
 - New changeLast() in Strings utility class to change the last occurrence of a string inside another string.
