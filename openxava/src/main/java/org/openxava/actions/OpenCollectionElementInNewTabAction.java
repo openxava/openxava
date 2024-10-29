@@ -2,7 +2,6 @@ package org.openxava.actions;
 
 import java.util.*;
 
-import org.openxava.model.*;
 import org.openxava.util.*;
 
 import com.openxava.naviox.util.*;
@@ -32,8 +31,7 @@ public class OpenCollectionElementInNewTabAction extends CollectionElementViewBa
 			keys = (Map) getCollectionElementView().getCollectionTab().getTableModel().getObjectAt(row);
 		}
 		
-		Object o = MapFacade.findEntity(getCollectionElementView().getModelName(), keys);
-		keys = MapFacade.getKeyValues(getCollectionElementView().getModelName(), o);
+		keys = getCollectionElementView().getMetaModel().extractKeyValues(keys);
 		
 		if (keys != null) {
 			nextURI = getOrganizationPrefix() + "/m/" + getReferencedModel() + "?detail=" + getReferencedId(keys);
