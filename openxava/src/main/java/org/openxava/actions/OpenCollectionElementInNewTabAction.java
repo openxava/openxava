@@ -27,9 +27,12 @@ public class OpenCollectionElementInNewTabAction extends CollectionElementViewBa
 			if (elements instanceof List) {
 				keys = (Map) ((List) elements).get(row);
 			}
-		} else {
+		} else { 
 			keys = (Map) getCollectionElementView().getCollectionTab().getTableModel().getObjectAt(row);
 		}
+		
+		keys = getCollectionElementView().getMetaModel().extractKeyValues(keys);
+		
 		if (keys != null) {
 			nextURI = getOrganizationPrefix() + "/m/" + getReferencedModel() + "?detail=" + getReferencedId(keys);
 		}

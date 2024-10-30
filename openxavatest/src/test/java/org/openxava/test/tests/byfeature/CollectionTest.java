@@ -102,6 +102,30 @@ public class CollectionTest extends WebDriverTestBase {
 		
 		getDriver().close();
 		getDriver().switchTo().window(mainWindow);
+		
+		goModule("Project");
+		execute("List.viewDetail", "row=0");
+		mainWindow = getDriver().getWindowHandle();
+		
+		execute("CollectionOpenInNewTab.openInNewTab", "row=0,viewObject=xava_view_members");
+		
+		allWindows = getDriver().getWindowHandles();
+		newWindow = null;
+		for (String handle : allWindows) {
+		    if (!handle.equals(mainWindow)) {
+		        newWindow = handle;
+		        break;
+		    }
+		}
+		
+		getDriver().switchTo().window(newWindow);
+		assertEquals("http://localhost:8080/openxavatest/m/ProjectMember?detail=ff8080824d095a71014d0967110a0005", getDriver().getCurrentUrl());
+		wait(getDriver());
+		
+		getDriver().close();
+		getDriver().switchTo().window(mainWindow);
+		
+		
 	}
 
 }
