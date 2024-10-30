@@ -1,7 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
-- How to install documentation improved to cover some tips to work with Mac.
+- Fix: 'Open in new tab' row action does not work for lists annotated with @OrderColumn. 
+- 'How to install' documentation improved to cover some tips to work with Mac.
 
 OpenXava 7.4.2 (2024-10-25)
 ---------------------------
