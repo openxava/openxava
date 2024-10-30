@@ -13,13 +13,13 @@
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
           / </span>Project templates</h1>
       <div id="toc">
-        <h1 class="nopad">Tabla de contenidos</h1>
-        <div style="margin-left: 1em;"><a href="#toc0">Plantillas de proyecto</a></div>
-        <div style="margin-left: 2em;"><a href="#maestro-detalle">Maestro-Detalle</a></div>
+        <h1 class="nopad">Table of contents</h1>
+        <div style="margin-left: 1em;"><a href="#toc0">Project templates</a></div>
+        <div style="margin-left: 2em;"><a href="#master-detail">Master-Detail</a></div>
         <div style="margin-left: 2em;"><a href="#crm">CRM</a></div>
-        <div style="margin-left: 2em;"><a href="#gestor-proyectos">Gestor de
-            proyectos</a></div>
-        <div style="margin-left: 2em;"><a href="#facturacion">Facturación</a></div>
+        <div style="margin-left: 2em;"><a href="#project-management">Project
+            management</a></div>
+        <div style="margin-left: 2em;"><a href="#invoicing">Invoicing</a></div>
       </div>
       OpenXava includes a set of project templates, or archetypes as they're
       called in the Java world, so you don't have to start your new OpenXava
@@ -28,7 +28,7 @@
     <div class="wiki" style="display: block;">To use these templates from
       OpenXava Studio, when creating a new project, open the <i>Templates</i>
       combo box and choose one of the suggested templates:</div>
-    <div class="wiki" style="display: block;"> <img src="files/project-template-studio-wizard.png"
+    <div class="wiki" style="display: block;"> <img src="files/project-template-studio-wizard.png"
         alt="project-template-studio-wizard.png" title="project-template-studio-wizard.png"><br>
       For example, if you choose <i>Project Management</i> and click <i>Finish</i>,
       in a few seconds you'll have a project management application in OpenXava,
@@ -38,7 +38,7 @@
       corresponds to a Maven archetype. Below, you will find the name of the
       Maven archetype for each available template, along with the command line
       you need to use.<br>
-      <h2 id="maestro-detalle">Master-Detail</h2>
+      <h2 id="master-detail">Master-Detail</h2>
       It is a basic example of <b>master-detail</b>, with the entities <i>Master</i>,
       <i>Person</i>, <i>Detail</i>, and <i>Item</i>, which you can rename
       according to your needs. Very useful as a basis for an invoice, purchase
@@ -63,11 +63,10 @@
       view is organized into <b>tabs</b> and contains a <b>rich text editor,</b>
       <b>editable collections</b> (grid), and the ability to <b>upload
         attachments</b>. </div>
-    <div class="wiki" style="display: block;">TMR ME QUEDÉ POR AQUÍ. Además,
-      contiene un ejemplo de <b>prueba automática con JUnit.</b> El código de
-      la prueba se encuentra en <i>src/test/java</i> y está lista para que la
-      ejecutes. Desde OpenXava Studio pulsa el botón derecho en el proyecto y
-      escoge <i>Run As &gt; JUnit Test</i>. </div>
+    <div class="wiki" style="display: block;">Additionally, it includes an<b>
+        automatic test example with JUnit</b>. The test code is located in <i>src/test/java</i>
+      and is ready for you to run it. From OpenXava Studio, right-click on the
+      project and choose <i>Run As &gt; JUnit Test</i>.</div>
     <div class="wiki" style="display: block;">To use it from OpenXava Studio,
       select <i>CRM</i> as the template when creating the project.
       <div class="wiki" style="display: block;">To use it from IntelliJ or
@@ -75,29 +74,29 @@
       <div class="wiki" style="display: block;">If you prefer to create your
         project from the command line, do it like this:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="sh">mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-crm-archetype-spanish -DarchetypeVersion=RELEASE -DgroupId=com.tuempresa -DartifactId=tucrm -DinteractiveMode=false
+        <pre><code class="sh">mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-crm-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourcrm -DinteractiveMode=false
 </code></pre> </div>
-      <div class="wiki" style="display: block;">Where instead of X put the name
-        you want for your application.</div>
+      <div class="wiki" style="display: block;">Where instead of <i>yourcrm</i>
+        put the name you want for your application.</div>
       <div class="wiki" style="display: block;">
-        <h2 id="gestor-proyectos">Gestor de proyectos</h2>
-        Un gestor de proyectos bastante completo listo para usar. Aparte de lo
-        básico como getionar incidencias, proyectos y versiones, permite crear
-        planes por trabajador con períodos, como Enero 2025 o Semana 32, asociar
-        el período al trabajador, y obtener el plan del trabajador al que se
-        pueden asignar incidencias y ordenarlas. También soporta el control de
-        clientes y tiempo que se les dedica.</div>
-      <div class="wiki" style="display: block;">Al ser una aplicación más
-        completa podrás aprender muchas cosas, como el uso de la <b>herencia</b>,
-        campos para guardar <b>iconos</b>, métodos de <b>búsqueda con JPA</b>
-        en las entidades, campos de <b>texto rico</b>, <b>hilos de discusión</b>,
-        <b>listas ordenables</b> por el usuario con arrastrar y soltar, <b>acciones
-          propias</b> para la colecciones, etc.</div>
-      <div class="wiki" style="display: block;">Además, incluye una base de
-        datos inicial con datos de prueba y un conjunto de <b>pruebas
-          automáticas JUnit.</b> El código de las pruebas se encuentra en <i>src/test/java</i>
-        y están listas para que las ejecutes. Desde OpenXava Studio pulsa el
-        botón derecho en el proyecto y escoge <i>Run As &gt; JUnit Test</i>. </div>
+        <h2 id="project-management">Project management</h2>
+        A fairly complete project manager ready to use. Apart from the basics
+        like managing issues, projects, and versions, it allows you to create
+        plans per worker with periods, such as January 2025 or Week 32,
+        associate the period with the worker, and obtain the worker's plan to
+        which issues can be assigned and ordered. It also supports client
+        control and the time dedicated to them.</div>
+      <div class="wiki" style="display: block;">Being a more complete
+        application, you will be able to learn many things, such as the use of <b>inheritance</b>,
+        fields to store <b>icons</b>, <b>search methods with JPA</b> in
+        entities, <b>rich text</b> fields, <b>discussion threads</b>, <b>user-sortable
+          lists</b> with drag and drop, <b>custom actions</b> for collections,
+        etc.</div>
+      <div class="wiki" style="display: block;">Additionally, it includes an
+        initial database with test data and a set of <b>JUnit automated tests</b>.
+        The test code is located in <i>src/test/java</i> and is ready for you
+        to run. From OpenXava Studio, right-click on the project and choose <i>Run
+          As &gt; JUnit Test</i>. </div>
       <div class="wiki" style="display: block;">To use it from OpenXava Studio,
         select <i>Project Management</i> as the template when creating the
         project.
@@ -107,21 +106,20 @@
           <div class="wiki" style="display: block;">If you prefer to create your
             project from the command line, do it like this:</div>
           <div class="wiki" style="display: block;">
-            <pre><code class="sh">mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-project-management-archetype-spanish -DarchetypeVersion=RELEASE -DgroupId=com.tuempresa -DartifactId=tugestorproyectos -DinteractiveMode=false
+            <pre><code class="sh">mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-project-management-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourtracker -DinteractiveMode=false
 </code></pre> </div>
-          <div class="wiki" style="display: block;">Where instead of X put the
-            name you want for your application.</div>
+          <div class="wiki" style="display: block;">Where instead of <i>yourtracker</i>
+            put the name you want for your application.</div>
           <div class="wiki" style="display: block;">
-            <h2 id="facturacion">Facturación</h2>
-            Es el código de la aplicación acabada que se desarrolla en el <a href="course_es.html">curso
-              de OpenXava</a>. Aunque no es una aplicación de facturación lista
-            para producción, contiene muchos ejemplos de código típicos en una
-            aplicación empresarial de la vida real. Lo que incluye el <b>modelado</b>
-            usando entidades JPA, la definición de la <b>interfaz de usuario</b>,
-            el uso avanzado de la <b>herencia</b>, <b>validación</b>, Bean
-            Validation, JAX-RS (<b>servicios REST</b>), <b>refinar el
-              comportamiendo</b> predefinido, añadir <b>comportamiento propio</b>,
-            <b>lógica de negocio</b>, usa avanzado de <b>referencias</b> y <b>colecciones</b>,
+            <h2 id="invoicing">Invoicing</h2>
+            It is the finished application code developed in the <a href="course_en.html">OpenXava
+              course</a>. Although it is not a billing application ready for
+            production, it contains many code examples typical of a real-life
+            business application. This includes <b>modeling </b>using JPA
+            entities, defining the <b>user interface</b>, advanced use of <b>inheritance</b>,
+            <b>validation</b>, Bean Validation, JAX-RS (<b>REST services</b>), <b>refining
+              predefined behavior</b>, adding <b>custom behavior</b>, <b>business
+              logic</b>, advanced use of <b>references </b>and <b>collections</b>,
             etc.</div>
           <div class="wiki" style="display: block;">To use it from OpenXava
             Studio, select <i>Invoicing</i> as the template when creating the
@@ -133,10 +131,10 @@
                 <div class="wiki" style="display: block;">If you prefer to
                   create your project from the command line, do it like this:</div>
                 <div class="wiki" style="display: block;">
-                  <pre><code class="sh">mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-invoicing-spanish -DarchetypeVersion=RELEASE -DgroupId=com.tuempresa -DartifactId=tufacturacion -DinteractiveMode=false
+                  <pre><code class="sh">mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-invoicing-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourinvoicing -DinteractiveMode=false
 </code></pre> </div>
-                <div class="wiki" style="display: block;">Where instead of X put
-                  the name you want for your application.</div>
+                <div class="wiki" style="display: block;">Where instead of <i>yourinvoicing</i>
+                  put the name you want for your application.</div>
               </div>
             </div>
           </div>
