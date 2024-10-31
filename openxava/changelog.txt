@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Lesson 7 of the reporting course with JasperReports available in the documentation with video.
 - Fix: 'Open in new tab' row action does not work for lists annotated with @OrderColumn. 
 - 'How to install' documentation improved to cover some tips to work with Mac.
 
