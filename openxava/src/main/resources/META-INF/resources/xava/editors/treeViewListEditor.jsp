@@ -70,9 +70,13 @@ boolean initialState = true;
 List<String> keysList = new ArrayList<>(metaView.getMetaModel().getKeyPropertiesNames());
 String kValue = "";
 if (!key.isEmpty()){
+	System.out.println(keysList);
+	System.out.println(key);
 	boolean containNull = key.values().stream().anyMatch(value -> value == null);
+	System.out.println(containNull);
 	if (!containNull) kValue = key.get(keysList.get(0)).toString();
 }
+System.out.println("kValue " + kValue);
 
 if (tree != null) {
 	initialState = tree.initialExpandedState();

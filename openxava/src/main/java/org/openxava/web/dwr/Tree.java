@@ -42,7 +42,8 @@ public class Tree extends DWRBase {
 			String pathProperty = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "path";
 			String pathSeparator = tree != null && tree.pathSeparator() !=null ? tree.pathSeparator() : "/";
 			String idProperties = tree != null && tree.idProperties() !=null ? tree.idProperties() : "";
-			
+			System.out.println("idProperties");
+			System.out.println(idProperties);
 			String[] listProperties = metaCollectionView.getPropertiesListNamesAsString().split(",");
 			List<String> keysList = new ArrayList<>(tab.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
 			Map<String, Object> propertiesMap = new HashMap<>();
