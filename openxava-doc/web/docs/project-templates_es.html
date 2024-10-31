@@ -1,0 +1,149 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Plantillas de proyecto - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;" id="content_view">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span>Plantillas de proyecto</h1>
+      <div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#toc0">Plantillas de proyecto</a></div>
+        <div style="margin-left: 2em;"><a href="#maestro-detalle">Maestro-Detalle</a></div>
+        <div style="margin-left: 2em;"><a href="#crm">CRM</a></div>
+        <div style="margin-left: 2em;"><a href="#gestor-proyectos">Gestor de
+            proyectos</a></div>
+        <div style="margin-left: 2em;"><a href="#facturacion">Facturación</a></div>
+      </div>
+      OpenXava cuenta con un conjunto de plantillas de proyecto, o arquetipos
+      como se llaman en el mundo Java, para que no tengas que empezar tu nuevo
+      proyecto OpenXava desde cero. Estas plantillas no solo te ahorran tiempo,
+      sino que contienen muchos ejemplos de código que te pueden ser útiles para
+      aprender.</div>
+    <div class="wiki" style="display: block;">Para usar estas plantilla desde
+      OpenXava Studio, al crear un nuevo proyecto, abre el combo <i>Templates</i>
+      y escoge una de las plantillas sugeridas:</div>
+    <div class="wiki" style="display: block;"> <img src="files/project-template-studio-wizard.png"
+        alt="project-template-studio-wizard.png" title="project-template-studio-wizard.png"><br>
+      Si por ejemplo escoges <i>Project Management</i> y pulsas en <i>Finish</i>,
+      en unos segundos tendrás una aplicación de gestión de proyectos en
+      OpenXava, lista para funcionar.<br>
+      Si usas IntelliJ, VisualStudio Code o Maven desde la línea de órdenes,
+      puedes hacer referencias a los arquetipos Maven, porque cada una de estas
+      plantillas corresponde a un arquetipo Maven. Más abajo se detalla el
+      nombre del arquetipo Maven para cada plantilla disponible, junto con la
+      línea de órdenes que has de usar.<br>
+      <h2 id="maestro-detalle">Maestro-Detalle</h2>
+      Es un ejemplo básico de <b>maestro-detalle</b>, con las entidades <i>Maestro,
+        Persona, Detalle</i> e <i>Item</i>, que puedes renombrar según tus
+      necesidades. Muy útil como base para una factura, orden de compra, parte
+      de trabajo, albaran, cuenta bancaria, envío, etc. </div>
+    <div class="wiki" style="display: block;">Además, contiene un ejemplo de <b>cuadro
+        de mando</b>, mira el código en el paquete <i>cuadrosmando</i>.</div>
+    <div class="wiki" style="display: block;">Para usarlo desde OpenXava Studio
+      escoge <i>Master-Detail</i> como plantilla al crear el proyecto.</div>
+    <div class="wiki" style="display: block;">Para usarlo desde IntelliJ o
+      Visual Studio usa el arquetipo disponible en Maven Central llamado <i>openxava-master-detail-archetype-spanish</i>.</div>
+    <div class="wiki" style="display: block;">Si prefieres crear tu proyecto
+      desde línea de órdenes hazlo así:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="sh">mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-master-detail-archetype-spanish -DarchetypeVersion=RELEASE -DgroupId=com.tuempresa -DartifactId=tumaestrodetalle -DinteractiveMode=false
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Donde en lugar de <i>tumaestrodetalle</i>
+      pon el nombre que quieras para tu aplicación.</div>
+    <div class="wiki" style="display: block;">
+      <h2 id="crm">CRM</h2>
+      Un CRM muy, muy simple, con tan solo <i>Prospecto </i>con una colección
+      de actividades (<i>Actividad</i>) y un estado (<i>EstadoProspecto</i>). La
+      vista principal está organizada en <b>pestañas</b> y contiene un <b>editor
+        de texto rico</b>, <b>colecciones editables</b> (grid) y poder subir <b>archivos
+        adjuntos</b>.</div>
+    <div class="wiki" style="display: block;">Además, contiene un ejemplo de <b>prueba
+        automática con JUnit.</b> El código de la prueba se encuentra en <i>src/test/java</i>
+      y está lista para que la ejecutes. Desde OpenXava Studio pulsa el botón
+      derecho en el proyecto y escoge <i>Run As &gt; JUnit Test</i>. </div>
+    <div class="wiki" style="display: block;">Para usarlo desde OpenXava Studio
+      escoge <i>CRM</i> como plantilla al crear el proyecto.
+      <div class="wiki" style="display: block;">Para usarlo desde IntelliJ o
+        Visual Studio usa el arquetipo disponible en Maven Central llamado <i>openxava-crm-archetype-spanish</i>.</div>
+      <div class="wiki" style="display: block;">Si prefieres crear tu proyecto
+        desde línea de órdenes hazlo así:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="sh">mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-crm-archetype-spanish -DarchetypeVersion=RELEASE -DgroupId=com.tuempresa -DartifactId=tucrm -DinteractiveMode=false
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Donde en lugar de <i>tucrm</i>
+        pon el nombre que quieras para tu aplicación.</div>
+      <div class="wiki" style="display: block;">
+        <h2 id="gestor-proyectos">Gestor de proyectos</h2>
+        Un gestor de proyectos bastante completo listo para usar. Aparte de lo
+        básico como getionar incidencias, proyectos y versiones, permite crear
+        planes por trabajador con períodos, como Enero 2025 o Semana 32, asociar
+        el período al trabajador, y obtener el plan del trabajador al que se
+        pueden asignar incidencias y ordenarlas. También soporta el control de
+        clientes y tiempo que se les dedica.</div>
+      <div class="wiki" style="display: block;">Al ser una aplicación más
+        completa podrás aprender muchas cosas, como el uso de la <b>herencia</b>,
+        campos para guardar <b>iconos</b>, métodos de <b>búsqueda con JPA</b>
+        en las entidades, campos de <b>texto rico</b>, <b>hilos de discusión</b>,
+        <b>listas ordenables</b> por el usuario con arrastrar y soltar, <b>acciones
+          propias</b> para la colecciones, etc.</div>
+      <div class="wiki" style="display: block;">Además, incluye una base de
+        datos inicial con datos de prueba y un conjunto de <b>pruebas
+          automáticas JUnit.</b> El código de las pruebas se encuentra en <i>src/test/java</i>
+        y están listas para que las ejecutes. Desde OpenXava Studio pulsa el
+        botón derecho en el proyecto y escoge <i>Run As &gt; JUnit Test</i>. </div>
+      <div class="wiki" style="display: block;">Para usarlo desde OpenXava
+        Studio escoge <i>Project Management</i> como plantilla al crear el
+        proyecto.
+        <div class="wiki" style="display: block;">
+          <div class="wiki" style="display: block;">Para usarlo desde IntelliJ o
+            Visual Studio usa el arquetipo disponible en Maven Central llamado <i>openxava-project-management-archetype-spanish</i>.</div>
+          <div class="wiki" style="display: block;">Si prefieres crear tu
+            proyecto desde línea de órdenes hazlo así:</div>
+          <div class="wiki" style="display: block;">
+            <pre><code class="sh">mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-project-management-archetype-spanish -DarchetypeVersion=RELEASE -DgroupId=com.tuempresa -DartifactId=tugestorproyectos -DinteractiveMode=false
+</code></pre> </div>
+          <div class="wiki" style="display: block;">Donde en lugar de <i>tugestorproyectos</i>
+            pon el nombre que quieras para tu aplicación.</div>
+          <div class="wiki" style="display: block;">
+            <h2 id="facturacion">Facturación</h2>
+            Es el código de la aplicación acabada que se desarrolla en el <a href="course_es.html">curso
+              de OpenXava</a>. Aunque no es una aplicación de facturación lista
+            para producción, contiene muchos ejemplos de código típicos en una
+            aplicación empresarial de la vida real. Lo que incluye el <b>modelado</b>
+            usando entidades JPA, la definición de la <b>interfaz de usuario</b>,
+            el uso avanzado de la <b>herencia</b>, <b>validación</b>, Bean
+            Validation, JAX-RS (<b>servicios REST</b>), <b>refinar el
+              comportamiendo</b> predefinido, añadir <b>comportamiento propio</b>,
+            <b>lógica de negocio</b>, uso avanzado de <b>referencias</b> y <b>colecciones</b>,
+            etc.</div>
+          <div class="wiki" style="display: block;">Para usarlo desde OpenXava
+            Studio escoge <i>Invoicing</i> como plantilla al crear el proyecto.
+            <div class="wiki" style="display: block;">Para usarlo desde IntelliJ
+              o Visual Studio usa el arquetipo disponible en Maven Central
+              llamado <i>openxava-invoicing-archetype-spanish</i>.
+              <div class="wiki" style="display: block;">
+                <div class="wiki" style="display: block;">Si prefieres crear tu
+                  proyecto desde línea de órdenes hazlo así:</div>
+                <div class="wiki" style="display: block;">
+                  <pre><code class="sh">mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-invoicing-archetype-spanish -DarchetypeVersion=RELEASE -DgroupId=com.tuempresa -DartifactId=tufacturacion -DinteractiveMode=false
+</code></pre> </div>
+                <div class="wiki" style="display: block;">Donde en lugar de <i>tufacturacion</i>
+                  pon el nombre que quieras para tu aplicación.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p> </p>
+    <p><br>
+    </p>
+  </body>
+</html>
