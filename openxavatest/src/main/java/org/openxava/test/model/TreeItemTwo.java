@@ -37,6 +37,7 @@ public class TreeItemTwo {
 	}
 
 	public void setId(Integer id) {
+		this.auxId = id;
 		this.id = id;
 	}
 

@@ -19,15 +19,13 @@ public class NewTreeViewItemAction extends CollectionElementViewBaseAction {
 		String fullPath = null;
 		List<Map> keyValues = getCollectionElementView().getCollectionSelectedValues(); 
 		if (getCollectionElementView().isRepresentsAggregate()) {
-			System.out.println("isRepresentsAggregate");
 			getCollectionElementView().reset();				
 		}
 		
 		// if we have a selected one let's add one as a child
-		if (keyValues.size() > 0) {
-			System.out.println("se selecciono uno");
+		if (keyValues.size() > 0) {	
 			Map keyValue = (Map)keyValues.get(keyValues.size() - 1);
-			System.out.println(keyValue);
+			
 			Object treeNode = MapFacade.findEntity(getCollectionElementView().getModelName(), keyValue);
 			TreeViewParser treeViewParser = (TreeViewParser) getContext().get(getRequest(), TreeViewParser.XAVA_TREE_VIEW_PARSER);
 			TreeView metaTreeView = treeViewParser.getMetaTreeView(getCollectionElementView().getModelName());
@@ -40,8 +38,6 @@ public class NewTreeViewItemAction extends CollectionElementViewBaseAction {
 			}
 			
 		}
-		
-		System.out.println(fullPath);
 		
 		getContext().put(getRequest(), TreeViewParser.XAVA_TREE_VIEW_NODE_FULL_PATH, fullPath);
 		getCollectionElementView().setCollectionDetailVisible(true);

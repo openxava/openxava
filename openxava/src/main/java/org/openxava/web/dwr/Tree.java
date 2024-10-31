@@ -82,7 +82,7 @@ public class Tree extends DWRBase {
 				}
 			}
 			
-			propertiesMap.put("id", "id");//force id to work with idProperties
+			propertiesMap.put("id", "id");//force id in order to work with idProperties
 			
 			jsonArray = TreeViewParser.findChildrenOfNode("0", jsonArray, propertiesMap, false);
 			return jsonArray.toString();
