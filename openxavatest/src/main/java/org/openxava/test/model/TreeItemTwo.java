@@ -37,7 +37,6 @@ public class TreeItemTwo {
 	}
 
 	public void setId(Integer id) {
-		this.auxId = id;
 		this.id = id;
 	}
 
@@ -80,6 +79,11 @@ public class TreeItemTwo {
 	public void setAuxId(Integer auxId) {
 		this.auxId = auxId;
 	}
+	
+	@PostPersist
+    public void postPersist() {
+        this.auxId = this.id;
+    }
 
 	@Override
 	public String toString() {
