@@ -12,12 +12,8 @@ treeEditor.initTree = function() {
             var collectionName = oxTree.data("collection-name");
 			var collectionViewParentName = oxTree.data("collection-view-parent-name");
             var kValue = oxTree.data("k-value");
-			console.log("module: " + module + ", collectionName: " + collectionName + ", keyValue: " + kValue);
-			
-			
             var state = localStorage.getItem(module + "_" + collectionName + "_" + "xava_tree_state_" + kValue);
-			//var state = localStorage.getItem("states");
-			console.log(state);
+
             var dialogs = $('.ui-dialog');
             var $focusedElement = $(document.activeElement);
             var isInsideDialog = false
@@ -45,8 +41,7 @@ treeEditor.initTree = function() {
                             "three_state": false
                         },
                         "state": {
-                            //"key": "states"
-							"key": module + "_" + collectionName + "_" + "xava_tree_state_" + kValue
+                            "key": module + "_" + collectionName + "_" + "xava_tree_state_" + kValue
                         },
                         "plugins": ["checkbox", "dnd", "state"]
                     });
@@ -181,7 +176,6 @@ openxava.addEditorInitFunction(function() {
         var collectionName = $(this).data("collection-name");
         var kValue = $(this).data("k-value");
         var state = localStorage.getItem(module + "_" + collectionName + "_" + "xava_tree_state_" + kValue);
-		//var state = localStorage.getItem("states");
         if (state === null) $(this).jstree().open_all();
     })
 

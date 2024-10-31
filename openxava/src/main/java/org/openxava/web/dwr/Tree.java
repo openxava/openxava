@@ -42,8 +42,7 @@ public class Tree extends DWRBase {
 			String pathProperty = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "path";
 			String pathSeparator = tree != null && tree.pathSeparator() !=null ? tree.pathSeparator() : "/";
 			String idProperties = tree != null && tree.idProperties() !=null ? tree.idProperties() : "";
-			System.out.println("idProperties");
-			System.out.println(idProperties);
+			
 			String[] listProperties = metaCollectionView.getPropertiesListNamesAsString().split(",");
 			List<String> keysList = new ArrayList<>(tab.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
 			Map<String, Object> propertiesMap = new HashMap<>();
@@ -75,12 +74,16 @@ public class Tree extends DWRBase {
 						Object value = table.getValueAt(i, j);
 						String propertyName = listProperties[j];
 						propertyName = propertyName.equals(pathProperty) ? "path" : propertyName;
+						propertyName = propertyName.equals(idProperties) ? "id" : propertyName;
 						jsonRow.put(propertyName.toLowerCase(), value);
 					}
 					jsonRow.put("row", i);
 					jsonArray.put(jsonRow);
 				}
 			}
+			
+			propertiesMap.put("id", "id");//force id to work with idProperties
+			
 			jsonArray = TreeViewParser.findChildrenOfNode("0", jsonArray, propertiesMap, false);
 			return jsonArray.toString();
 		} catch (Exception e) {
