@@ -209,14 +209,14 @@ public class TreeViewParser {
         if (data.isEmpty()) return new JSONArray();
         
 		JSONArray json = new JSONArray();
-        String mapId = map.get("id").toString();
+        String mapId = map.get("id").toString().toLowerCase();
         String[] listProperties = (String[]) map.get("listProperties");
         JSONObject tooltip = new JSONObject();
         tooltip.put("title", XavaResources.getString("double_click_to_edit_view"));
-        
+
         preprocessDescriptions(data, listProperties);
 		List<JSONObject> rootNodes = findRootNodes(data);
-        
+
 	    for (JSONObject rootNode : rootNodes) {
 	        String rootId = rootNode.get(mapId).toString();
 	        String rootPath = rootNode.get("path").toString();
@@ -228,7 +228,7 @@ public class TreeViewParser {
 	        }
 	        json.put(rootNode);
 	    }
-
+	    
         return json;
     }
 	
@@ -268,7 +268,7 @@ public class TreeViewParser {
 	
 	private static JSONArray findChildren(String parentId, String parentPath, JSONArray data, Map<String, Object> map) {
 	    JSONArray children = new JSONArray();
-	    String mapId = map.get("id").toString();
+	    String mapId = map.get("id").toString().toLowerCase() ;
         String separator = (String) map.get("pathSeparator");
 
 	    for (int i = 0; i < data.length(); i++) {

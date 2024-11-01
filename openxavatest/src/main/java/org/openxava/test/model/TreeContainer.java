@@ -37,7 +37,7 @@ public class TreeContainer {
 	@Editor("TreeView")
 	@ListProperties("description, descriptionItem")
 	@OrderBy("folder, treeOrder")
-	@Tree(pathProperty="folder", pathSeparator="-", idProperties="id")
+	@Tree(pathProperty="folder", pathSeparator="-", idProperties="auxId")
 	private Collection<TreeItemTwo> treeItemTwos;
 	
 	@OneToMany(mappedBy="parentContainer")
