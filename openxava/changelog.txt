@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: The tree collapses when the dialog closes if idProperties of @Tree uses a property other than 'id'.
 - Article in documentation about how to use project templates or archetypes.
 - Lesson 7 of the reporting course with JasperReports available in the documentation with video.
 - Fix: 'Open in new tab' row action does not work for lists annotated with @OrderColumn. 

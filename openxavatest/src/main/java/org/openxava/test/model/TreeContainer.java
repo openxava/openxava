@@ -37,7 +37,7 @@ public class TreeContainer {
 	@Editor("TreeView")
 	@ListProperties("description, descriptionItem")
 	@OrderBy("folder, treeOrder")
-	@Tree(pathProperty="folder", pathSeparator="-", idProperties="auxId")
+	@Tree(pathProperty="folder", pathSeparator="-", idProperties="auxId") // auxId to test a id with a name other than 'id', for a bug
 	private Collection<TreeItemTwo> treeItemTwos;
 	
 	@OneToMany(mappedBy="parentContainer")
