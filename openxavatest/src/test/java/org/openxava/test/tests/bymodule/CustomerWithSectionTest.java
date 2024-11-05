@@ -626,6 +626,18 @@ public class CustomerWithSectionTest extends CustomerTest {
 		confirmHandler.assertMessage();
 		assertValue("name", "");
 		
+		// Reference to null
+		execute("Navigation.first");
+		assertValue("name", "Javi");
+		confirmHandler.assertNoMessage();
+		assertValue("alternateSeller.number", "2");
+		assertValue("alternateSeller.name", "JUANVI LLAVADOR");
+		setValue("alternateSeller.number", "");
+		assertValue("alternateSeller.name", "");
+		execute("CRUD.new");
+		confirmHandler.assertMessage();
+		assertValue("name", "");		
+		
 		// DescriptionsList
 		execute("Navigation.first");
 		assertValue("name", "Javi");

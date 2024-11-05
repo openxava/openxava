@@ -1333,7 +1333,12 @@ public class View implements java.io.Serializable {
 	}
 	
 	private boolean isRepresentsTransientReference() { 
-		return isRepresentsEntityReference() && getParent().getMetaReference(getMemberName()).isTransient();
+		try {
+			return isRepresentsEntityReference() && !isRepresentsCollection() && getParent().getMetaReference(getMemberName()).isTransient(); 
+		}
+		catch (ElementNotFoundException ex) {			
+			return false;
+		}
 	}
 	
 	private boolean isTransient(String memberName) { 
@@ -1549,27 +1554,7 @@ public class View implements java.io.Serializable {
 	
 	public Map getKeyValues() throws XavaException {		
 		Map values = getValues(false, true); 
-		/* tmr
-		Iterator it = values.keySet().iterator();
-		Map result = new HashMap();
-		while (it.hasNext()) {
-			String name = (String) it.next();			
-			if (getMetaModel().isKey(name)) {
-				// tmr result.put(name, values.get(name));
-				// tmr ini
-				if (getMetaModel().containsMetaReference(name)) {
-					result.put(name, getSubview(name).getKeyValues());
-				}
-				else {
-					result.put(name, values.get(name));
-				}
-				// tmr fin
-			}			
-		}
-		*/		
-		// tmr ini
 		Map result = getMetaModel().extractKeyValues(values);
-		// tmr fin
 
 		if (getParent() != null && !getParent().isRepresentsAggregate()) {			
 			// At the moment reference to entity within aggregate can not be part of key
@@ -2594,6 +2579,7 @@ public class View implements java.io.Serializable {
 				getSectionView(i).clear();
 			}	
 		}		
+		getRoot().dataChanged = isRepresentsEntityReference() && !isRepresentsTransientReference(); 
 	}
 	
 	/**
