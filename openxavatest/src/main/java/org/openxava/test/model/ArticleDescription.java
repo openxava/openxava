@@ -9,7 +9,6 @@ import lombok.*;
 
 /**
  * tmr 
- * TMR ME QUEDÉ POR AQUÍ FALTA GENERAR LA DB Y CREAR EL MÓDULO
  * 
  * @author Javier Paniza
  */
