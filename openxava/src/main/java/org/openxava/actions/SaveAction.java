@@ -22,13 +22,17 @@ public class SaveAction extends TabBaseAction {
 	private boolean refreshAfter = true; 
     
 	public void execute() throws Exception {
+		System.out.println("saveAction");
 		try {
 			if (getView().isKeyEditable()) {
 				Map values = create();
+				//System.out.println(getValuesToSave());
+				System.out.println(values); 
 				updateView(values, isResetAfterOnCreate());
 			}
 			else {
 				Map values = modify();
+				System.out.println(values);
 				updateView(values, isResetAfterOnModify());
 			}
 			

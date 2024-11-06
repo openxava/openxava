@@ -1536,7 +1536,7 @@ public class View implements java.io.Serializable {
 				if (isEmptyValue(value)) continue;
 				result.put(name, value);
 			}			
-		}						
+		}					
 		return result;
 	}
 	
@@ -1830,6 +1830,7 @@ public class View implements java.io.Serializable {
 	 */	
 	// 
 	public List<Map<String, Object>> getCollectionValues() throws XavaException {
+		//System.out.println("collectionValues");
 		if (collectionValues == null) { 			
 			assertRepresentsCollection("getCollectionValues()");
 			if (getMetaCollection().isElementCollection()) collectionValues = new ArrayList<>(); 
@@ -1869,6 +1870,8 @@ public class View implements java.io.Serializable {
 				collectionValues = getCollectionValues(getCollectionTab().getAllKeys()); 
 			}
 		}
+		
+		//System.out.println(collectionValues);
 		return collectionValues; 
 	}
 	
@@ -4297,7 +4300,9 @@ public class View implements java.io.Serializable {
 	}
 
 	public List<MetaProperty> getMetaPropertiesList() throws XavaException {
+		//System.out.println("mp list");
 		if (metaPropertiesList == null) {
+			System.out.println(1);
 			metaPropertiesList = new ArrayList<MetaProperty>();
 			Iterator it = getMetaModel().getPropertiesNames().iterator();
 			while (it.hasNext()) {
@@ -4310,10 +4315,13 @@ public class View implements java.io.Serializable {
 			}
 			setLabelsIdForMetaPropertiesList();
 		} else {
+			//System.out.println(2);
 			Map labels = getLabels();
 			if (labels != null && labelsChanged) {
+				//System.out.println("2.1");
 				labelsChanged = false;
 				for(MetaProperty mp : metaPropertiesList) {
+					System.out.println(mp.getName());
 					if (labels.containsKey(mp.getName())) {
 						String newLabel = (String) labels.get(mp.getName());
 						if (!mp.getLabel().equals(newLabel)) mp.setLabel(newLabel);
@@ -4321,7 +4329,41 @@ public class View implements java.io.Serializable {
 				}
 			}
 		}
+		//System.out.println(metaPropertiesList);
 		return metaPropertiesList;
+	}
+	
+	public List<MetaProperty> getKeyPropertiesOfReferencesEntity() {
+		List<MetaProperty> keys = new ArrayList<>();
+		Collection<String> referencesNames = getMetaModel().getReferencesNames();
+		for (String referenceName : referencesNames) {
+		    MetaReference mr = getMetaModel().getMetaReference(referenceName);
+		    //System.out.println(mr.getMetaModelReferenced().getAllKeyPropertiesNames());
+		    keys.addAll(mr.getMetaModelReferenced().getAllMetaPropertiesKey());
+		}
+		
+		List<MetaProperty> auxMetaPropertiesList = new ArrayList<>(metaPropertiesList);
+
+		for (MetaProperty metaProperty : keys) {
+			System.out.println(metaProperty.getMetaModel().getName());
+			System.out.println(metaProperty.getName());
+			for (MetaProperty metaPropertiesListProperty : auxMetaPropertiesList) {
+				System.out.println(metaPropertiesListProperty.getMetaModel().getName());
+				System.out.println(metaPropertiesListProperty.getName());
+				if (metaProperty.getMetaModel().getName().equals(metaPropertiesListProperty.getMetaModel().getName())) {
+					System.out.println(1);
+					MetaProperty newMetaProperty = new MetaProperty();
+					newMetaProperty = metaProperty;
+//					newMetaProperty.setName("productos.oid");
+					newMetaProperty.setMetaModel(metaPropertiesListProperty.getMetaModel());
+					metaPropertiesList.add(newMetaProperty);
+					continue;
+				}
+			}
+		}
+		System.out.println(metaPropertiesList); 
+		//return metaPropertiesList;
+		return keys;
 	}
 	
 	private void setLabelsIdForMetaPropertiesList() throws XavaException {

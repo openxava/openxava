@@ -3,6 +3,7 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
 <%@page import="org.openxava.controller.meta.MetaAction"%>
 <%@page import="org.openxava.web.Ids"%>
 <%@page import="org.openxava.controller.meta.MetaControllers"%>
@@ -153,7 +154,10 @@ for (int f=0; f < rowCount; f++) {
 	</td>
 <% } %>
 <%
-	it = subview.getMetaPropertiesList().iterator();	
+	List<MetaProperty> metaPropertiesList = subview.getMetaPropertiesList();
+	List<MetaProperty> keyProperties = subview.getKeyPropertiesOfReferencesEntity();
+	//metaPropertiesList.addAll(keyProperties);
+	it = metaPropertiesList.iterator();
 	for (int columnIndex = 0; it.hasNext(); columnIndex++) { 
 		MetaProperty p = (MetaProperty) it.next();
 		String align =p.isNumber() && !p.hasValidValues()?"ox-text-align-right":""; 
