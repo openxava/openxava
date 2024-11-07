@@ -713,7 +713,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 		
 	public static int friendViewGetDefaultColumnWidth(MetaProperty p) {
-		return Math.min(p.getSize(), 20) * 7;
+		return Math.min(p.getSize(), 20) * 7; // TMR ME QUEDÉ POR AQUÍ. AQUÍ SE ESTABLECE EL TAMAÑO
 	}
 
 	public void setColumnWidth(int columnIndex, int width) {

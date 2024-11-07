@@ -26,6 +26,7 @@ public class Corporation extends Identifiable {
 	
 	@Icon
 	@Column(length=40)
+	@DisplaySize(1) // tmr
 	private String icon; 
 	
 	@OneToMany(mappedBy="corporation", cascade=CascadeType.ALL)
