@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @OnChange in a reference not triggered on typing if the referenced model has a @SearchKey reference.
 - Fix: Clearing a reference value does not fire the changed message on leaving the record.
 - Invoicing archetypes include an initial database populated with sample data.
 - Fix: The tree collapses when the dialog closes if idProperties of @Tree uses a property other than 'id'.

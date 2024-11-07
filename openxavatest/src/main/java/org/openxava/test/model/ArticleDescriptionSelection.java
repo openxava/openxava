@@ -8,7 +8,6 @@ import org.openxava.test.actions.*;
 import lombok.*;
 
 /**
- * tmr
  * 
  * @author Javier Paniza
  */

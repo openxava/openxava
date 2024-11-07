@@ -3615,7 +3615,6 @@ public class View implements java.io.Serializable {
 				moveViewValuesToCollectionValues();
 			}
 
-			System.out.println("[View.tryPropertyChanged(" + getModelName() + ")] Trying " + changedPropertyQualifiedName); // tmr
 			if (hasToSearchOnChangeIfSubview && !isFirstLevel() && isRepresentsEntityReference() && !isGroup() && !displayAsDescriptionsList() && 
 					( 	
 					(getLastPropertyKeyName().equals(changedProperty.getName()) && getMetaPropertiesIncludingGroups().contains(changedProperty)) || // Visible keys
@@ -3624,10 +3623,8 @@ public class View implements java.io.Serializable {
 					(hasSearchMemberKeys() && isLastPropertyMarkedAsSearch(changedPropertyQualifiedName))  // Explicit search key
 					)
 				) {
-				System.out.println("[View.tryPropertyChanged(" + getModelName() + ")] " + changedPropertyQualifiedName + " meets"); // tmr
 				if (!searchingObject) { // To avoid recursive infinite loops
 					try {
-						System.out.println("[View.tryPropertyChanged(" + getModelName() + ")] " + changedPropertyQualifiedName + " searching"); // tmr
 						searchingObject = true;												
 						IOnChangePropertyAction action = getParent().getMetaView().createOnChangeSearchAction(getMemberName());
 						executeOnChangeAction(changedPropertyQualifiedName, action);
@@ -3635,11 +3632,8 @@ public class View implements java.io.Serializable {
 						//   key and we are using a search key (or simply the first displayed property),
 						// then we throw the change of the id, because the id changed too. And maybe
 						//   there are events attached to it.
-						String changedPropertyBase = changedPropertyQualifiedName.contains(".")?changedPropertyQualifiedName.split(".")[0]:changedPropertyQualifiedName; // tmr
-						System.out.println("[View.tryPropertyChanged] changedPropertyBase=" + changedPropertyBase); // tmr
-						// tmr if (!getMetaModel().isKey(changedPropertyQualifiedName)) {
-						if (!getMetaModel().isKey(changedPropertyBase)) { // tmr ME QUEDÉ POR AQUI: PROBÉ ESTO PERO FALL
-							System.out.println("[View.tryPropertyChanged(" + getModelName() + ")] " + changedPropertyQualifiedName + " propertyChanged()"); // tmr
+						String changedPropertyBase = Strings.firstToken(changedPropertyQualifiedName, "."); 
+						if (!getMetaModel().isKey(changedPropertyBase)) {  
 							String id = (String) getMetaModel().getKeyPropertiesNames().iterator().next();
 							propertyChanged(id);
 						}	
@@ -3701,7 +3695,6 @@ public class View implements java.io.Serializable {
 			action.setView(viewOfAction);
 			action.setChangedProperty(changedPropertyQualifiedName); 
 			action.setNewValue(getValue(changedPropertyQualifiedName));
-			System.out.println("[View.executeOnChangeAction] Executing " + action.getClass()); // tmr
 			getModuleManager(getRequest()).executeAction(action, getErrors(), getMessages(), getRequest());
 			registerExecutedAction(changedPropertyQualifiedName, action);
 		}
