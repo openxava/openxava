@@ -8,7 +8,6 @@ with Terra and Light theme at least the next cases:
 	- Narrow the browser, the content of type and description columns are not overlapped between rows.  
 - Invoice: Go to first detail. 
 	- Checkbox of paid must be well aligned.
-		(It fails with Firefox: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff8080818ab36037018ad5f223c10023)
 	- Action links in name of customer and street of address must be well aligned.
 	- The editors for street (with regular label) and postal code (with small label) must be well aligned.
 		(Here we tolerate the street label slightly to up)

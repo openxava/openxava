@@ -718,8 +718,7 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 }
 
 .xava_editor input[type="checkbox"] {
-	position: relative;
-	top: 5px;
+	vertical-align: middle; 
 }
 
 .ox-list input[type="checkbox"] {
