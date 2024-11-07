@@ -533,9 +533,12 @@ public class View implements java.io.Serializable {
 	private Map getValues(boolean all, boolean onlyKeyFromSubviews) throws XavaException {
 		Map hiddenKeyAndVersion = null;
 		if (values == null) {
+			System.out.println("values == null");
 			values = new HashMap();  
 		} 
 		else { 
+			System.out.println("values != null");
+			System.out.println(values);
 			hiddenKeyAndVersion = getHiddenKeyAndVersion(values); 
 		}
 		if (hasSubviews()) { 
@@ -579,15 +582,21 @@ public class View implements java.io.Serializable {
 		return values; 
 	} 	
 	
-	private Map getHiddenKeyAndVersion(Map keyValues) throws XavaException { 
+	private Map getHiddenKeyAndVersion(Map keyValues) throws XavaException {
+		System.out.println("getHiddenKeyAndVersion");
+		System.out.println(keyValues);
 		Map result = null;
 		for (Iterator it=keyValues.keySet().iterator(); it.hasNext(); ) {
 			String property = (String) it.next();
 			if (getMetaModel().isHiddenKey(property) || getMetaModel().isVersion(property)) { 
 				if (result == null) result = new HashMap();
+//				System.out.println(property);
+//				System.out.println(keyValues.get(property));
 				result.put(property, keyValues.get(property));
 			}
 		}
+		System.out.println("last");
+		System.out.println(result);
 		return result;
 	}
 
@@ -1525,7 +1534,8 @@ public class View implements java.io.Serializable {
 	/**
 	 * Excludes those values that are null, zero or empty string.
 	 */
-	public Map getKeyValuesWithValue() throws XavaException {		
+	public Map getKeyValuesWithValue() throws XavaException {
+		System.out.println("getKeyValuesWithValue");
 		Map values = getValues(false, true); 
 		Iterator it = values.keySet().iterator();
 		Map result = new HashMap();
@@ -1536,7 +1546,8 @@ public class View implements java.io.Serializable {
 				if (isEmptyValue(value)) continue;
 				result.put(name, value);
 			}			
-		}					
+		}	
+		System.out.println(result);
 		return result;
 	}
 	
@@ -1547,7 +1558,8 @@ public class View implements java.io.Serializable {
 		return false;		
 	}
 	
-	public Map getKeyValues() throws XavaException {		
+	public Map getKeyValues() throws XavaException {
+		System.out.println("getKeyValues");
 		Map values = getValues(false, true); 
 		/* tmr
 		Iterator it = values.keySet().iterator();
@@ -1589,6 +1601,7 @@ public class View implements java.io.Serializable {
 				}								
 			}		
 		}
+		System.out.println(result); 
 		return result; 
 	}
 	
@@ -3691,6 +3704,7 @@ public class View implements java.io.Serializable {
 	}
 
 	private void moveViewValuesToCollectionValues() { 
+		System.out.println("moveViewValuesToCollectionValues");
 		if (!isRepresentsElementCollection()) {
 			View parent = getParent();
 			if (parent == null) return;
@@ -3698,8 +3712,18 @@ public class View implements java.io.Serializable {
 			return;
 		}
 		if (collectionValues == null) return;
-		if (collectionEditingRow == collectionValues.size()) collectionValues.add(collectionEditingRow, getAllValues());
-		else if (collectionEditingRow >= 0) collectionValues.set(collectionEditingRow, getAllValues()); 
+		if (collectionEditingRow == collectionValues.size()) {
+			System.out.println(1);
+			System.out.println(collectionEditingRow);
+			System.out.println(getAllValues());
+			collectionValues.add(collectionEditingRow, getAllValues());
+		}
+		else if (collectionEditingRow >= 0) {
+			System.out.println(2);
+			System.out.println(collectionEditingRow);
+			System.out.println(getAllValues());
+			collectionValues.set(collectionEditingRow, getAllValues()); 
+		}
 	}
 
 	private void executeOnChangeAction(String changedPropertyQualifiedName, IOnChangePropertyAction action) 
