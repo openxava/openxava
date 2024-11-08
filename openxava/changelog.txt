@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: SchemaTool does not work against Oracle.
 - Fix: Checkbox of boolean editor bad aligned.
 - Fix: @OnChange in a reference not triggered on typing if the referenced model has a @SearchKey reference.
 - Fix: Clearing a reference value does not fire the changed message on leaving the record.

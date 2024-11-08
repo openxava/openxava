@@ -125,7 +125,9 @@ public class SchemaTool {
 			String fileName = Files.getOpenXavaBaseDir() + "ddl-" + UUID.randomUUID() + ".sql";
 			File file = new File(fileName);
 			java.sql.Connection connection = ((SessionImpl) XPersistence.getManager().getDelegate()).connection(); 
-	    	boolean supportsSchemasInIndexDefinitions = supportsSchemasInIndexDefinitions(connection);
+	    	DatabaseMetaData metaData = connection.getMetaData();
+	    	boolean supportsSchemasInIndexDefinitions = supportsSchemasInIndexDefinitions(metaData);
+	    	boolean supportsSemicolonAtEnd = supportsSemicolonAtEnd(metaData);
 	    	XPersistence.commit();			
 	    	if (update) {
 				SchemaUpdate schemaUpdate = new SchemaUpdate();
@@ -134,6 +136,7 @@ public class SchemaTool {
 				Collection<String> scripts = FileUtils.readLines(file);
 		    	for (String script: scripts) {
 		    		script = addSchema(script, supportsSchemasInIndexDefinitions, schema); 
+		    		script = refineScript(script, supportsSemicolonAtEnd); 
 		    		log.info(XavaResources.getString("executing") + ": " + script);
 		    		try {
 		    			Query query = XPersistence.getManager().createNativeQuery(script); 
@@ -156,9 +159,11 @@ public class SchemaTool {
 					if (onlySequences && !script.startsWith("create sequence ")) continue;
 					script = addSchema(script, supportsSchemasInIndexDefinitions, schema); 
 					if (console) {
+						// script = refineScript(script, supportsSemicolonAtEnd); // Not needed for console 
 						System.out.println(script); 
 					}
 					else {
+						script = refineScript(script, supportsSemicolonAtEnd); 
 						log.info(XavaResources.getString("executing") + ": " + script);
 						Query query = XPersistence.getManager().createNativeQuery(script);						
 						query.executeUpdate();
@@ -176,13 +181,23 @@ public class SchemaTool {
 		}
 
 	}
-	
-	private boolean supportsSchemasInIndexDefinitions(Connection connection) throws SQLException { 
-		DatabaseMetaData metaData = connection.getMetaData();
+		
+	private String refineScript(String script, boolean supportsSemicolonAtEnd) {
+		if (supportsSemicolonAtEnd) return script;
+		script = script.trim();
+		if (script.endsWith(";")) return script.substring(0, script.length() - 1);
+		return script;
+	}
+
+	private boolean supportsSchemasInIndexDefinitions(DatabaseMetaData metaData) throws SQLException {  
 		if ("PostgreSQL".equals(metaData.getDatabaseProductName())) return false;
 		if ("Microsoft SQL Server".equals(metaData.getDatabaseProductName())) return false; 
 		return metaData.supportsSchemasInIndexDefinitions();
-	}
+	}	
+	
+	private boolean supportsSemicolonAtEnd(DatabaseMetaData metaData) throws SQLException { 
+		return !"Oracle".equals(metaData.getDatabaseProductName());
+	}	
 	
 	private String addSchema(String script, boolean supportsSchemasInIndexDefinitions, String schema) { 
 		if (!supportsSchemasInIndexDefinitions || Is.emptyString(schema)) return script;
