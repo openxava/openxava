@@ -44,6 +44,7 @@ boolean sortable = subview.isCollectionSortable();
 	</th>
 <%
 	// Heading
+boolean singleLineHeader = false; // By now a fixed value 	
 Iterator it = subview.getMetaPropertiesList().iterator();
 for (int columnIndex=0; it.hasNext(); columnIndex++) {
 	MetaProperty p = (MetaProperty) it.next();
@@ -53,9 +54,9 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 %>
 	<th class="ox-list-header ox-padding-right-0">
 		<div id="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):(""))%>" <%=width%>>
-		<%if (resizeColumns) {%><nobr><%}%>
+		<%if (singleLineHeader && resizeColumns) {%><nobr><%}%>
 		<%=label%>&nbsp;
-		<%if (resizeColumns) {%></nobr><%}%>
+		<%if (singleLineHeader && resizeColumns) {%></nobr><%}%>
 		</div>
 	</th>
 <%

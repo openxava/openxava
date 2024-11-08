@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- List header labels are multiline with resizeColumns=true varying the number of lines as the width changes. 
+- Fix: Default width for icon type columns too big when resizeColumns=true.
+- Fix: Date and some numeric values truncated on the right by default when resizeColumns=true in wide lists.
 - Fix: SchemaTool does not work against Oracle.
 - Fix: Checkbox of boolean editor bad aligned.
 - Fix: @OnChange in a reference not triggered on typing if the referenced model has a @SearchKey reference.

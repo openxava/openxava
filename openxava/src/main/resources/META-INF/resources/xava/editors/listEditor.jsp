@@ -142,6 +142,7 @@ java.util.Collection properties = tab.getMetaProperties();
 java.util.Iterator it = properties.iterator();
 int columnIndex = 0;
 Preferences preferences = Users.getCurrentPreferences();
+boolean singleLineHeader = false; // By now a fixed value 
 while (it.hasNext()) {
 	MetaProperty property = (MetaProperty) it.next();
 	String align = "";
@@ -152,7 +153,7 @@ while (it.hasNext()) {
 	String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
 %>
 <th class="ox-list-header ox-padding-right-0 ox-vertical-align-middle <%=align%>" data-property="<%=property.getQualifiedName()%>">
-<% if (resizeColumns) { %> <nobr> <% } %> 
+<% if (singleLineHeader && resizeColumns) { %> <nobr> <% } %> 
 <div id="<xava:id name='<%=id%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):("")) %>" <%=width%>>
 <%
 	if (tab.isCustomizeAllowed()) {
@@ -165,7 +166,7 @@ while (it.hasNext()) {
 %>
 <%
 	String label = property.getQualifiedLabel(request);
-	if (resizeColumns) label = label.replaceAll(" ", "&nbsp;");
+	if (singleLineHeader && resizeColumns) label = label.replaceAll(" ", "&nbsp;");  
 	if (!tab.isOrderCapable(property) || sortable) { 
 %>
 <%=label%>&nbsp;
@@ -199,7 +200,7 @@ String headerLabel=Strings.noLastToken(label) + " <nobr>" + Strings.lastToken(la
 	}
 %>
 </div> 
-<% if (resizeColumns) { %> </nobr> <% } %>
+<% if (singleLineHeader && resizeColumns) { %> </nobr> <% } %>
 </th>
 <%
 	columnIndex++;

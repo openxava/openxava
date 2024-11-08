@@ -5837,25 +5837,14 @@ public class View implements java.io.Serializable {
 	}	
 	
 	private int defaultColumnWidth(MetaProperty p, int columnIndex) { 
-		if (getSumPropertiesSize() < 100) return -1;
-		if (hasCollectionTotal(1, columnIndex) || hasCollectionTotal(1, columnIndex + 1)) return -1; 
-		return Tab.friendViewGetDefaultColumnWidth(p);
+		return -1; // In versions before 7.4.3 we used an algorithm for this 
 	} 
-	
-	private int getSumPropertiesSize() { 
-		int result = 0;
-		for (MetaProperty eachProperty: getMetaPropertiesList()) {
-			result += eachProperty.getSize();
-		}
-		return result;
-	}
-	
+		
 	private Preferences getPreferences() throws BackingStoreException { 		
 		String viewName = getViewName();
 		if (viewName == null) viewName = ""; 
 		return Users.getCurrentPreferences().node("view." + getMetaModel().getName() + "." + viewName + ".");
 	}
-
 
 	public String getHideCollectionElementAction() {
 		return getCollectionAction(hideCollectionElementAction, "Collection.hideDetail");
