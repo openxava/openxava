@@ -390,7 +390,7 @@ public class Invoice2Test extends ModuleTestBase {
 		setValue("quantity", "7");
 		setValue("unitPrice", "8");
 		
-		assertValue("amount", "56.00"); 
+		assertValue("amount", "56.00"); // TMR ME QUEDÉ POR AQUÍ: FALLA, ES EL TEST ORIGINAL PERO PILLA EL BUG. EL PROBLEMA ESTÁ EN QUE NO LANZA EL EVENTO AL CAMBIAR EL PRECIO UNTIARIO, EL DE DENTRO
 		setValue("product.number", "1");
 		assertValue("product.description", "MULTAS DE TRAFICO");
 		execute("Collection.save");

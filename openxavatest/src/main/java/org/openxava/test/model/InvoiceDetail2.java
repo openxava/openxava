@@ -13,6 +13,7 @@ import org.openxava.annotations.*;
 
 @Entity
 @Table(name="INVOICEDETAIL")
+/* tmr
 @View(members=
 	"amounts [ " + 
 		"quantity; " + 
@@ -23,6 +24,21 @@ import org.openxava.annotations.*;
 	"productList;" +
 	"product"
 )
+*/
+// tmr ini
+@View(members=
+	"amounts [ " + 
+		"quantity; " + 
+		"money [" +	
+			"prices [ unitPrice ];" + 
+			"amount; " + 
+		"]" +
+	"]; " +
+	"familyList;" +
+	"productList;" +
+	"product"
+)
+// tmr fin
 public class InvoiceDetail2 {
 	
 	@ManyToOne(fetch=FetchType.LAZY)	 
