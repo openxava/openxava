@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Third level properties in baseCondition but not in list for @Tab fails for certain properties names.
 - List header labels are multiline with resizeColumns=true varying the number of lines as the width changes. 
 - Fix: Default width for icon type columns too big when resizeColumns=true.
 - Fix: Date and some numeric values truncated on the right by default when resizeColumns=true in wide lists.

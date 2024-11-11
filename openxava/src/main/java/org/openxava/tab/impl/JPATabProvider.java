@@ -198,19 +198,16 @@ public class JPATabProvider extends TabProviderBase {
 		String orderBy = orderByIdx<0?"":select.substring(orderByIdx);
 		
 		String [] tokens = where.split(" ");
-		// tmr Collection<String> neededJoins = new HashSet<>();
-		List<String> neededJoins = new LinkedList<>(); // tmr
+		List<String> neededJoins = new LinkedList<>(); 
 		// Probably this code does not work if the developer use snake_case for naming members
 		for (String token: tokens) {
 			if (token.startsWith("e_")) {
 				String join = Strings.firstToken(token, ".");
-				// tmr neededJoins.add(join);
-				if (!neededJoins.contains(join)) neededJoins.add(0, join); // tmr
+				if (!neededJoins.contains(join)) neededJoins.add(0, join); 
 				// To support infinite depth level we should turn the below code into a recursive thing 
 				if (join.contains("_")) {
 					String join2 = Strings.noLastTokenWithoutLastDelim(token, "_");
-					// tmr neededJoins.add(join2);
-					if (!neededJoins.contains(join2)) neededJoins.add(0, join2); // tmr
+					if (!neededJoins.contains(join2)) neededJoins.add(0, join2); 
 				}
 			}
 		}
