@@ -15,7 +15,7 @@ import lombok.*;
 @Entity @Getter @Setter
 public class WorkerPlan extends Identifiable {
 	
-	@DescriptionsList
+	@DescriptionsList(descriptionProperties="nickName")
 	@ManyToOne(optional=false)
 	Worker worker;
 	

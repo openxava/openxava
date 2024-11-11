@@ -15,16 +15,7 @@ import org.openxava.util.*;
  */
 
 @Entity
-@Tab(defaultOrder="${description} asc", properties="id, description") // failed to change default schema in as400
-// tmr ini
-/* tmr
- * ME QUEDÉ POR AQUÍ, ESTO LO REPRODUCE. LA PEGA ES QUE LAS TABLAS ESTÁN EN VARIOS ESQUEMAS
-@Tab( 
-	properties="description", 
-	baseCondition = "${assignedTo.worker.nickName} = ?", 
-	filter=org.openxava.filters.UserFilter.class)
-*/	
-// tmr fin
+@Tab(defaultOrder="${description} asc", properties="id, description") // failed to change default schema in as400 
 @View(name="IssueWeb", members="id, description")
 public class Issue {
 	
@@ -36,10 +27,6 @@ public class Issue {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Worker worker;
-	
-	@ManyToOne(fetch=FetchType.LAZY, optional=true)
-	@DescriptionsList(descriptionProperties="worker.nickName, period")
-	private	WorkerPlan assignedTo; // tmr  
 	
 	@OneToMany(mappedBy="issue", cascade=CascadeType.REMOVE)
 	private Collection<Comment> comments;
@@ -90,14 +77,6 @@ public class Issue {
 
 	public void setWorker(Worker worker) {
 		this.worker = worker;
-	}
-
-	public WorkerPlan getAssignedTo() {
-		return assignedTo;
-	}
-
-	public void setAssignedTo(WorkerPlan assignedTo) {
-		this.assignedTo = assignedTo;
 	}
 
 }
