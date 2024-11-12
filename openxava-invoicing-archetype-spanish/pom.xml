@@ -23,10 +23,10 @@
 		</dependency>
 		
 		<!-- 
-		Para acceder a tu base de datos descomenta la entrada correspondiente 
-		de las dependencias de abajo. Si no encuentras la tuya, busca en
-		internet por la dependencia maven para tu base de datos y añádela
-		aquí tu mismo.
+		To access to your database uncomment the corresponding entry 
+		from the below dependencies. If you don't find yours, look in
+		internet for the maven depencency for your database and add it 
+		here yourself.
 		-->
 		
 		<!-- MySQL 
@@ -49,7 +49,7 @@
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
 			<artifactId>ojdbc8</artifactId>
-			<version>23.5.0.24.07</version>
+			<version>23.6.0.24.10</version>
 		</dependency>
 		-->
 		

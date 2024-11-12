@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- Hsqldb upgraded to 2.7.4.
+- Hibernate-validator upgraded to 6.2.5.Final.
+- Groovy upgraded to 4.0.24.
+- Embedded Tomcat used in development upgraded to 9.0.97.
 - Fix: Third level properties in baseCondition but not in list for @Tab fails for certain properties names.
 - List header labels are multiline with resizeColumns=true varying the number of lines as the width changes. 
 - Fix: Default width for icon type columns too big when resizeColumns=true.
