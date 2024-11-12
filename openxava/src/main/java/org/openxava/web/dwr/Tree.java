@@ -136,7 +136,7 @@ public class Tree extends DWRBase {
 				MapFacade.setValues(modelName, keys, newPathValue);
 			}
 			childRows.removeIf(rows::contains);
-
+			System.out.println(childRows);
 			for (String row : childRows) {
 				Map keys = (Map) collectionView.getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
 				pathValueMap = MapFacade.getValues(modelName, keys, pathIdMap);
