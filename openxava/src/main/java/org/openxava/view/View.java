@@ -3372,9 +3372,9 @@ public class View implements java.io.Serializable {
 			}									
 		}
 	}
-		
+	
 	public boolean throwsPropertyChanged(MetaProperty p) {
-		try {									
+		try {			
 			if (hasDependentsProperties(p) && 
 				!(isSubview() && isRepresentsEntityReference() && !displayAsDescriptionsList())) 
 			{
@@ -3392,7 +3392,7 @@ public class View implements java.io.Serializable {
 		}		 		 				
 	}
 	
-	public boolean throwsPropertyChanged(String propertyName) throws XavaException { 
+	public boolean throwsPropertyChanged(String propertyName) throws XavaException { 		
 		int idx = propertyName.indexOf('.'); 
 		if (idx >= 0) {
 			String reference = propertyName.substring(0, idx);			
@@ -3833,6 +3833,11 @@ public class View implements java.io.Serializable {
 		return this;
 	}
 	
+	private View getParentIfGroup() { 
+		if (isGroup()) return getParent().getParentIfGroup();
+		return this;
+	}
+	
 	private void calculateValue(MetaProperty metaProperty, MetaCalculator metaCalculator, ICalculator calculator, Messages errors, Messages messages) {		
 		try {	
 			PropertiesManager mp = new PropertiesManager(calculator);
@@ -4053,11 +4058,11 @@ public class View implements java.io.Serializable {
 
 	private boolean hasDependentsProperties(MetaProperty p) {		
 		try {			
-			// In this view								
-			for (Iterator it = getMetaPropertiesQualified().iterator(); it.hasNext();) {
+			// In this view						
+			for (Iterator it = getParentIfGroup().getMetaPropertiesQualified().iterator(); it.hasNext();) { 
 				Object element = it.next();				
 				if (isMetaProperty(element)) {
-					MetaProperty pro = (MetaProperty) element;					
+					MetaProperty pro = (MetaProperty) element;
 					if (WebEditors.depends(pro, p, getViewName())) {
 						return true;
 					}
@@ -4073,8 +4078,8 @@ public class View implements java.io.Serializable {
 			for (Iterator it = getRoot().getMetaPropertiesQualified().iterator(); it.hasNext();) {
 				Object element = (Object) it.next();
 				if (isMetaProperty(element)) {
-					MetaProperty pro = (MetaProperty) element;					
-					if (pro.getPropertyNamesThatIDepend().contains(p.getName())) {						
+					MetaProperty pro = (MetaProperty) element;
+					if (pro.getPropertyNamesThatIDepend().contains(p.getName())) {
 						return true;
 					}										
 					if (WebEditors.depends(pro, p, getViewName())) {

@@ -32,6 +32,7 @@ import com.openxava.naviox.util.*;
 public class NaviOXFilter implements Filter {
 	
 	public void init(FilterConfig cfg) throws ServletException {
+		System.setProperty("java.awt.headless", "true"); // In order keystrokes and PDF reports work with a headless Java 
 		String contextPath = cfg.getServletContext().getContextPath();
 		String applicationName = null;
 		if (Is.emptyString(contextPath)) {
