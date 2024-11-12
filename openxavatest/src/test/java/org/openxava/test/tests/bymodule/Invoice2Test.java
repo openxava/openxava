@@ -376,8 +376,7 @@ public class Invoice2Test extends ModuleTestBase {
 		
 	}
 	
-	
-	public void testTouchContainerFromCallback_calculatedPropertiesInGroupInCollectionDetail() throws Exception { 
+	public void testTouchContainerFromCallback_calculatedPropertiesInNestedGroupsInCollectionDetail() throws Exception { 
 		execute("CRUD.new");
 		setValue("number", "66");
 		setValue("vatPercentage", "16");
@@ -390,7 +389,7 @@ public class Invoice2Test extends ModuleTestBase {
 		setValue("quantity", "7");
 		setValue("unitPrice", "8");
 		
-		assertValue("amount", "56.00"); // TMR ME QUEDÉ POR AQUÍ: FALLA, ES EL TEST ORIGINAL PERO PILLA EL BUG. EL PROBLEMA ESTÁ EN QUE NO LANZA EL EVENTO AL CAMBIAR EL PRECIO UNTIARIO, EL DE DENTRO
+		assertValue("amount", "56.00");  
 		setValue("product.number", "1");
 		assertValue("product.description", "MULTAS DE TRAFICO");
 		execute("Collection.save");
