@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Modules does not start in some Linux with some JDKs with a javax.swing.KeyStroke error.
 - Fix: Calculated property outside a group that @Depends on a property inside that group is not calculated. 
 - Fix: Third level properties in baseCondition but not in list for @Tab fails for certain property names.
 - List header labels are multiline with resizeColumns=true varying the number of lines as the width changes. 
