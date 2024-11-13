@@ -5,6 +5,7 @@ Change Log for OpenXava project
 - Hibernate-validator upgraded to 6.2.5.Final.
 - Groovy upgraded to 4.0.24.
 - Embedded Tomcat used in development upgraded to 9.0.97.
+- Driver version in doc/new projects upgraded for Oracle.
 - Fix: Third level properties in baseCondition but not in list for @Tab fails for certain properties names.
 - Fix: Modules don't start in production Tomcat with some Linux and JDKs with a javax.swing.KeyStroke error.
 - Fix: Calculated property outside a group that @Depends on a property inside that group is not calculated. 
