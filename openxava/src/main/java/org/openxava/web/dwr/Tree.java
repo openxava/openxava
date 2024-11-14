@@ -124,8 +124,6 @@ public class Tree extends DWRBase {
 			for (String row : rows) {
 				Map keys = (Map) collectionView.getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
 				pathValueMap = MapFacade.getValues(modelName, keys, pathIdMap);
-				System.out.println(pathValueMap);
-				System.out.println(newPathValue);
 				if (pathValueMap.get(pathProperty).equals("")) {
 					if (idProperties.equals("")) {
 						parentsValues.add(keys.get("id").toString());
@@ -137,39 +135,21 @@ public class Tree extends DWRBase {
 				}
 				MapFacade.setValues(modelName, keys, newPathValue);
 			}
-			System.out.println(rows);
-			System.out.println(childRows);
 			childRows.removeIf(rows::contains);
-			System.out.println("new");
-			System.out.println(childRows);
 			for (String row : childRows) {
 				Map keys = (Map) collectionView.getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
 				pathValueMap = MapFacade.getValues(modelName, keys, pathIdMap);
-				System.out.println(pathValueMap);
 				String childPathValue = (String) pathValueMap.get(pathProperty);
-				System.out.println("childPathValue " + childPathValue);
-				System.out.println("parentsValues " + parentsValues);
 				for (String pValue : parentsValues) {
 					pValue = pValue.startsWith(pathSeparator) ? pValue : pathSeparator + pValue;
-					System.out.println("pValue " + pValue);
 					if (childPathValue.startsWith(pValue)) {
-						System.out.println("start");
 						childPathValue = newPath.equals("") 
 								? childPathValue.replace(pValue, newPath)
-								: newPath + childPathValue.substring(childPathValue.indexOf(pValue) + pValue.length());
-										
-						/*
-						childPathValue = newPath.equals("") 
-								? childPathValue.replace(pValue, newPath)
-								: pValue.startsWith(newPath) ? childPathValue.substring(childPathValue.indexOf(pValue)) : newPath + childPathValue.substring(childPathValue.indexOf(pValue));
-						*/
-						System.out.println("newPath " + newPath);
-						//System.out.println(childPathValue.substring(childPathValue.indexOf(pValue)  + pValue.length()));
-						//System.out.println(childPathValue);
+								: pValue.contains(newPath) && pValue.startsWith(newPath) 
+									? newPath + childPathValue.substring(childPathValue.indexOf(pValue) + pValue.length()) 
+									: newPath + childPathValue.substring(childPathValue.indexOf(pValue));
 					} else if (childPathValue.contains(pValue)) {
-						System.out.println("no start");
 						childPathValue = childPathValue.substring(childPathValue.indexOf(pValue) - 1);
-						System.out.println(childPathValue);
 					}
 					break;
 				}
