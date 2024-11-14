@@ -1,7 +1,16 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: If an exception is produced by the getter of a calculated collection the module breaks.
+- Fixed 1 security vulnerability in dependencies, now we have 0 vulnerabilities.
+- HSQLDB upgraded to 2.7.4.
+- Hibernate Validator upgraded to 6.2.5.
+- Groovy upgraded to 4.0.24.
+- Embedded Tomcat used in development upgraded to 9.0.97.
+- Driver version in doc/new projects upgraded for Oracle.
 - Fix: Third level properties in baseCondition but not in list for @Tab fails for certain properties names.
+- Fix: Modules don't start in production Tomcat with some Linux and JDKs with a javax.swing.KeyStroke error.
+- Fix: Calculated property outside a group that @Depends on a property inside that group is not calculated. 
 - List header labels are multiline with resizeColumns=true varying the number of lines as the width changes. 
 - Fix: Default width for icon type columns too big when resizeColumns=true.
 - Fix: Date and some numeric values truncated on the right by default when resizeColumns=true in wide lists.

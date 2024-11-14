@@ -45,6 +45,21 @@
       <div class="wiki" style="display: block;"><br>
       </div>
       <div class="wiki" style="display: block;">
+        <h2>Para migrar de OpenXava 7.4.2 a OpenXava 7.4.3</h2>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h3 style="font-weight: bold; padding: 5px 0px 0px; margin: 0px; font-size: 1.1em; color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">Hibernate
+          validator actualizado desde 6.0.23.Final a 6.2.5.Final</h3>
+        <h3 style="font-weight: bold; padding: 5px 0px 0px; margin: 0px; font-size: 1.1em; color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"></h3>
+        <p style="margin: 0px; padding: 5px 0px; color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">Hemos
+          tenido que actualizar la versión de Hibernate validator debido a una
+          vulnerabilidad en versiones anteriores a 6.2.0.Final. Aunque hemos
+          probado que funciona bien sin necesidad de hacer cambios, puede que
+          haya algún problema si usas <i>@SafeHtml</i> o Expression Language
+          for custom violations. Para más información puedes <a href="https://hibernate.org/validator/releases/6.2/#migrate"
+            title="https://hibernate.org/validator/releases/6.2/#migrate">visitar
+            la web oficial de hibernate.</a></p>
+        <h2></h2>
         <h2>Para migrar de OpenXava 7.4.1 a OpenXava 7.4.2</h2>
         No hay consideraciones.
         <h2>Para migrar de OpenXava 7.4 a OpenXava 7.4.1</h2>
