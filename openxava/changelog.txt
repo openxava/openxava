@@ -1,8 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
-- Hsqldb upgraded to 2.7.4.
-- Hibernate-validator upgraded to 6.2.5.Final.
+- HSQLDB upgraded to 2.7.4.
+- Hibernate Validator upgraded to 6.2.5.
 - Groovy upgraded to 4.0.24.
 - Embedded Tomcat used in development upgraded to 9.0.97.
 - Driver version in doc/new projects upgraded for Oracle.

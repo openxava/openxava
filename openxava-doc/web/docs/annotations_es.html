@@ -6,66 +6,88 @@
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Apéndice C: Anotaciones"></a> <span id="breadcrumbs"> <span
-            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
-            href="index_es.html">documentación</a> / </span> Apéndice C: Anotaciones </h1>
-      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1. Primeros pasos</a> | <a
-        class="wiki_link" href="basic-domain-model1_es.html">2. Modelo básico del dominio (1)</a> |&nbsp;<a
-        class="wiki_link" href="basic-domain-model2_es.html">3. Modelo básico del dominio (2)</a> | <a
-        class="wiki_link" href="refining-user-interface_es.html">4. Refinar la interfaz de usuario</a> | <a
-        class="wiki_link" href="agile-development_es.html">5. Desarrollo ágil</a> | <a
-        class="wiki_link" href="mapped-superclass-inheritance_es.html">6. Herencia de superclases mapedas</a> | <a
-        class="wiki_link" href="entity-inheritance_es.html">7. Herencia de entidades</a> | <a
-        class="wiki_link" href="view-inheritance_es.html">8. Herencia de vistas</a> | <a
-        class="wiki_link" href="java-properties_es.html">9. Propiedades Java</a> | <a
-        class="wiki_link" href="calculated-properties_es.html">10. Propiedades calculadas</a> | <a
-        class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11. @DefaultValueCalculator en colecciones</a> | <a
-        class="wiki_link" href="calculation-and-collections-total_es.html">12. @Calculation y totales de colección</a> |<a
-        class="wiki_link" href="attributes-in-annotations_es.html"></a> <span
-        style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13. @DefaultValueCalculator desde archivo</a> | <a
-        class="wiki_link" href="manual-schema-evolution_es.html">14. Evolución del esquema manual</a> | <a
-        class="wiki_link" href="multi-user-default-value-calculation_es.html">15. Cálculo de valor por defecto multiusuario</a> | <a
-        class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16. Sincronizar propiedades persistentes y calculadas</a> | <a
-        class="wiki_link" href="logic-from-database_es.html">17. Lógica desde la base de datos</a> | <a
-        class="wiki_link" href="validating-with-entityvalidator_es.html">18. Validando con @EntityValidator</a> | <a
-        class="wiki_link" href="validation-alternatives_es.html">19. Alternativas de validación&nbsp;</a> | <a
-        class="wiki_link" href="validation-on-remove_es.html">20. Validación al borrar&nbsp;</a> |&nbsp;<a
-        class="wiki_link" href="custom-bean-validation-annotation_es.html"> 21. Anotación Bean Validation propia</a> | <a
-        class="wiki_link" href="rest-service-call-from-validation_es.html">22. Llamada REST desde una validación&nbsp;</a> | <a
-        class="wiki_link" href="attributes-in-annotations_es.html">23. Atributos en anotaciones</a>&nbsp; | <a
-        class="wiki_link" href="refining-standard-behavior_es.html">24. Refinar el comportamiento predefinido</a> | <a
-        class="wiki_link" href="business-logic-behavior_es.html">25. Comportamiento y lógica de negocio</a> | <a
-        class="wiki_link" href="references-collections_es.html">26. Referencias y colecciones</a> | <a
-        class="wiki_link" href="philosophy_es.html">A. Arquitectura y filosofía</a> | <a
-        class="wiki_link" href="jpa_es.html">B. Java Persistence API</a> |<a
-        class="wiki_link" href="basic-domain-model2_es.html"></a> <strong>C. Anotaciones</strong> | <a
-        class="wiki_link" href="testing_es.html">D. Pruebas automáticas</a> <a
-        class="wiki_link" href="testing_es.html"></a>
+      <h1 id="toc0"><a name="Apéndice C: Anotaciones"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_es.html">documentación</a> / </span>
+        Apéndice C: Anotaciones </h1>
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1.
+        Primeros pasos</a> | <a class="wiki_link" href="basic-domain-model1_es.html">2.
+        Modelo básico del dominio (1)</a> |&nbsp;<a class="wiki_link" href="basic-domain-model2_es.html">3.
+        Modelo básico del dominio (2)</a> | <a class="wiki_link" href="refining-user-interface_es.html">4.
+        Refinar la interfaz de usuario</a> | <a class="wiki_link" href="agile-development_es.html">5.
+        Desarrollo ágil</a> | <a class="wiki_link" href="mapped-superclass-inheritance_es.html">6.
+        Herencia de superclases mapedas</a> | <a class="wiki_link" href="entity-inheritance_es.html">7.
+        Herencia de entidades</a> | <a class="wiki_link" href="view-inheritance_es.html">8.
+        Herencia de vistas</a> | <a class="wiki_link" href="java-properties_es.html">9.
+        Propiedades Java</a> | <a class="wiki_link" href="calculated-properties_es.html">10.
+        Propiedades calculadas</a> | <a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11.
+        @DefaultValueCalculator en colecciones</a> | <a class="wiki_link" href="calculation-and-collections-total_es.html">12.
+        @Calculation y totales de colección</a> |<a class="wiki_link" href="attributes-in-annotations_es.html"></a>
+      <span style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13.
+        @DefaultValueCalculator desde archivo</a> | <a class="wiki_link" href="manual-schema-evolution_es.html">14.
+        Evolución del esquema manual</a> | <a class="wiki_link" href="multi-user-default-value-calculation_es.html">15.
+        Cálculo de valor por defecto multiusuario</a> | <a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16.
+        Sincronizar propiedades persistentes y calculadas</a> | <a class="wiki_link"
+        href="logic-from-database_es.html">17. Lógica desde la base de datos</a>
+      | <a class="wiki_link" href="validating-with-entityvalidator_es.html">18.
+        Validando con @EntityValidator</a> | <a class="wiki_link" href="validation-alternatives_es.html">19.
+        Alternativas de validación&nbsp;</a> | <a class="wiki_link" href="validation-on-remove_es.html">20.
+        Validación al borrar&nbsp;</a> |&nbsp;<a class="wiki_link" href="custom-bean-validation-annotation_es.html">
+        21. Anotación Bean Validation propia</a> | <a class="wiki_link" href="rest-service-call-from-validation_es.html">22.
+        Llamada REST desde una validación&nbsp;</a> | <a class="wiki_link" href="attributes-in-annotations_es.html">23.
+        Atributos en anotaciones</a>&nbsp; | <a class="wiki_link" href="refining-standard-behavior_es.html">24.
+        Refinar el comportamiento predefinido</a> | <a class="wiki_link" href="business-logic-behavior_es.html">25.
+        Comportamiento y lógica de negocio</a> | <a class="wiki_link" href="references-collections_es.html">26.
+        Referencias y colecciones</a> | <a class="wiki_link" href="philosophy_es.html">A.
+        Arquitectura y filosofía</a> | <a class="wiki_link" href="jpa_es.html">B.
+        Java Persistence API</a> |<a class="wiki_link" href="basic-domain-model2_es.html"></a>
+      <strong>C. Anotaciones</strong> | <a class="wiki_link" href="testing_es.html">D.
+        Pruebas automáticas</a> <a class="wiki_link" href="testing_es.html"></a>
       <hr>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
-        <div style="margin-left: 1em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones">Apéndice C: Anotaciones</a></div>
+        <div style="margin-left: 1em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones">Apéndice
+            C: Anotaciones</a></div>
         <div style="margin-left: 2em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones-Validaci%C3%B3n">Validación</a></div>
-        <div style="margin-left: 3em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones-Validaci%C3%B3n-Validaci%C3%B3n+declarativa">Validación declarativa</a></div>
-        <div style="margin-left: 3em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones-Validaci%C3%B3n-Validaciones+predefinidas">Validaciones predefinidas</a></div>
-        <div style="margin-left: 3em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones-Validaci%C3%B3n-Validaci%C3%B3n+propia">Validación propia</a></div>
-        <div style="margin-left: 2em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones-Interfaz+de+usuario">Interfaz de usuario</a></div>
-        <div style="margin-left: 3em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones-Interfaz+de+usuario-La+interfaz+de+usuario+por+defecto">La interfaz de usuario por defecto</a></div>
-        <div style="margin-left: 3em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones-Interfaz+de+usuario-La+anotaci%C3%B3n+@View">La anotación @View</a></div>
-        <div style="margin-left: 3em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones-Interfaz+de+usuario-Refinando+la+presentaci%C3%B3n+de+los+miembros">Refinando la presentación de los miembros</a></div>
-        <div style="margin-left: 3em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones-Interfaz+de+usuario-Aprende+m%C3%A1s+acerca+de+la+interfaz+de+usuario">Aprende más acerca de la interfaz de usuario</a></div>
-        <div style="margin-left: 2em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones-Otras+anotaciones">Otras anotaciones</a></div>
+        <div style="margin-left: 3em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones-Validaci%C3%B3n-Validaci%C3%B3n+declarativa">Validación
+            declarativa</a></div>
+        <div style="margin-left: 3em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones-Validaci%C3%B3n-Validaciones+predefinidas">Validaciones
+            predefinidas</a></div>
+        <div style="margin-left: 3em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones-Validaci%C3%B3n-Validaci%C3%B3n+propia">Validación
+            propia</a></div>
+        <div style="margin-left: 2em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones-Interfaz+de+usuario">Interfaz
+            de usuario</a></div>
+        <div style="margin-left: 3em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones-Interfaz+de+usuario-La+interfaz+de+usuario+por+defecto">La
+            interfaz de usuario por defecto</a></div>
+        <div style="margin-left: 3em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones-Interfaz+de+usuario-La+anotaci%C3%B3n+@View">La
+            anotación @View</a></div>
+        <div style="margin-left: 3em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones-Interfaz+de+usuario-Refinando+la+presentaci%C3%B3n+de+los+miembros">Refinando
+            la presentación de los miembros</a></div>
+        <div style="margin-left: 3em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones-Interfaz+de+usuario-Aprende+m%C3%A1s+acerca+de+la+interfaz+de+usuario">Aprende
+            más acerca de la interfaz de usuario</a></div>
+        <div style="margin-left: 2em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones-Otras+anotaciones">Otras
+            anotaciones</a></div>
         <div style="margin-left: 2em;"><a href="#Ap%C3%A9ndice+C:+Anotaciones-Resumen">Resumen</a></div>
       </div>
-      Las anotaciones son la herramienta que Java provee para definir metadatos en tus aplicaciones, en otras palabras, es la forma de hacer desarrollo declarativo con Java, donde dices el “qué” y no el “cómo”.<br>
-      En esta lección verás las anotaciones que puedes usar en una aplicación OpenXava para definir validaciones, la interfaz de usuario y otros aspectos para ajustar la aplicación a tus necesidades.<br>
-      El objetivo de esta lección es introducirte a estas anotaciones, pero no te muestra todas su sutilezas y posibles casos de uso; lo cual requeriría varios libros de los gordos.<br>
+      Las anotaciones son la herramienta que Java provee para definir metadatos
+      en tus aplicaciones, en otras palabras, es la forma de hacer desarrollo
+      declarativo con Java, donde dices el “qué” y no el “cómo”.<br>
+      En esta lección verás las anotaciones que puedes usar en una aplicación
+      OpenXava para definir validaciones, la interfaz de usuario y otros
+      aspectos para ajustar la aplicación a tus necesidades.<br>
+      El objetivo de esta lección es introducirte a estas anotaciones, pero no
+      te muestra todas su sutilezas y posibles casos de uso; lo cual requeriría
+      varios libros de los gordos.<br>
       <h2 id="toc1"><a name="Apéndice C: Anotaciones-Validación"></a>Validación</h2>
-      OpenXava incluye un marco de validación fácil de usar y extensible. Además soporta <a
-        class="wiki_link_ext" href="http://beanvalidation.org/" rel="nofollow">Bean Validation</a> e <a
-        class="wiki_link_ext" href="http://hibernate.org/validator/" rel="nofollow">Hibernate Validator</a>.<br>
-      <h3 id="toc2"><a name="Apéndice C: Anotaciones-Validación-Validación declarativa"></a>Validación declarativa</h3>
-      La forma preferida de hacer validación en OpenXava es mediante anotaciones, es decir, de manera declarativa. Por ejemplo, sólo has de marcar una propiedad como <em>@Required</em>:<br>
+      OpenXava incluye un marco de validación fácil de usar y extensible. Además
+      soporta <a class="wiki_link_ext" href="http://beanvalidation.org/" rel="nofollow">Bean
+        Validation</a> e <a class="wiki_link_ext" href="http://hibernate.org/validator/"
+        rel="nofollow">Hibernate Validator</a>.<br>
+      <h3 id="toc2"><a name="Apéndice C: Anotaciones-Validación-Validación declarativa"></a>Validación
+        declarativa</h3>
+      La forma preferida de hacer validación en OpenXava es mediante
+      anotaciones, es decir, de manera declarativa. Por ejemplo, sólo has de
+      marcar una propiedad como <em>@Required</em>:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -257,10 +279,11 @@
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
 class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
       Y OpenXava hará la validación correspondiente al grabar:<br>
-      <img src="files/annotations_es010.png" alt="annotations_es010.png"
-        title="annotations_es010.png"><br>
-      <h3 id="toc3"><a name="Apéndice C: Anotaciones-Validación-Validaciones predefinidas"></a>Validaciones predefinidas</h3>
-      Las anotaciones de validación que OpenXava tiene incluidas (en <i>org.openxava.annotations</i>) son:<br>
+      <img src="files/annotations_es010.png" alt="annotations_es010.png" title="annotations_es010.png"><br>
+      <h3 id="toc3"><a name="Apéndice C: Anotaciones-Validación-Validaciones predefinidas"></a>Validaciones
+        predefinidas</h3>
+      Las anotaciones de validación que OpenXava tiene incluidas (en <i>org.openxava.annotations</i>)
+      son:<br>
       <table class="wiki_table">
         <tbody>
           <tr>
@@ -305,7 +328,9 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
           </tr>
         </tbody>
       </table>
-      Las anotaciones de Bean Validation (<i>javax.validation.constraints</i>) son reconocidas por OpenXava, por tanto puedes usar todas las anotaciones predefinidas de Bean Validation en tus aplicaciones OpenXava:<br>
+      Las anotaciones de Bean Validation (<i>javax.validation.constraints</i>)
+      son reconocidas por OpenXava, por tanto puedes usar todas las anotaciones
+      predefinidas de Bean Validation en tus aplicaciones OpenXava:<br>
       <table class="wiki_table">
         <tbody>
           <tr>
@@ -337,7 +362,8 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
             </td>
             <td>Propiedad (numérica o cadena representando un valor numérico)<br>
             </td>
-            <td>Comprueba que el valor sea igual o menor al máximo el cual puede contener decimales<br>
+            <td>Comprueba que el valor sea igual o menor al máximo el cual puede
+              contener decimales<br>
             </td>
           </tr>
           <tr>
@@ -345,7 +371,8 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
             </td>
             <td>Propiedad (numérica o cadena representando un valor numérico)<br>
             </td>
-            <td>Comprueba que el valor sea igual o mayor al mínimo el cual puede contener decimales<br>
+            <td>Comprueba que el valor sea igual o mayor al mínimo el cual puede
+              contener decimales<br>
             </td>
           </tr>
           <tr>
@@ -385,7 +412,8 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
             </td>
             <td>Propiedad (cadena)<br>
             </td>
-            <td>Comprueba que la propiedad cumpla la expresión regular dado un <em>match flag</em><br>
+            <td>Comprueba que la propiedad cumpla la expresión regular dado un <em>match
+                flag</em><br>
             </td>
           </tr>
           <tr>
@@ -393,7 +421,8 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
             </td>
             <td>Propiedad (cadena, array, colección, mapa)<br>
             </td>
-            <td>Comprueba que la cantidad de elementos esté entre min y max (ambos incluidos)<br>
+            <td>Comprueba que la cantidad de elementos esté entre min y max
+              (ambos incluidos)<br>
             </td>
           </tr>
           <tr>
@@ -401,7 +430,8 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
             </td>
             <td>Propiedad<br>
             </td>
-            <td>Comprueba que el método se evalúe a falso (útil para restricciones expresadas con código en vez de por anotaciones)<br>
+            <td>Comprueba que el método se evalúe a falso (útil para
+              restricciones expresadas con código en vez de por anotaciones)<br>
             </td>
           </tr>
           <tr>
@@ -409,7 +439,8 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
             </td>
             <td>Propiedad<br>
             </td>
-            <td>Comprueba que el método se evalúe a cierto (útil para restricciones expresadas con código en vez de por anotaciones)<br>
+            <td>Comprueba que el método se evalúe a cierto (útil para
+              restricciones expresadas con código en vez de por anotaciones)<br>
             </td>
           </tr>
           <tr>
@@ -417,12 +448,15 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
             </td>
             <td>Propiedad (numérica o cadena representando un valor numérico)<br>
             </td>
-            <td>Comprueba que la propiedad sea un número con como máximo los enteros indicados en <em>integer</em> y los decimales indicados en <em>fraction</em><br>
+            <td>Comprueba que la propiedad sea un número con como máximo los
+              enteros indicados en <em>integer</em> y los decimales indicados
+              en <em>fraction</em><br>
             </td>
           </tr>
         </tbody>
       </table>
-      A partir de OpenXava 6.1 se soporta Bean Validation 2.0, por lo que también tenemos disponibles las siguientes anotaciones en <i>javax.validation.constraints</i>:
+      A partir de OpenXava 6.1 se soporta Bean Validation 2.0, por lo que
+      también tenemos disponibles las siguientes anotaciones en <i>javax.validation.constraints</i>:
       <table class="wiki_table">
         <tbody>
           <tr>
@@ -437,7 +471,8 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
             <td>@Email<br>
             </td>
             <td>Propiedad (cadena) </td>
-            <td>Comprueba que la cadena cumpla con la especificación de formato para una dirección de correo electrónico</td>
+            <td>Comprueba que la cadena cumpla con la especificación de formato
+              para una dirección de correo electrónico</td>
           </tr>
           <tr>
             <td>@NotEmpty<br>
@@ -450,7 +485,8 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
             <td>@NotBlank<br>
             </td>
             <td>Propiedad (cadena)</td>
-            <td>Comprueba que la cadena no sea nulo y su longitud sea mayor de cero después de hacer un <em>trim()</em></td>
+            <td>Comprueba que la cadena no sea nulo y su longitud sea mayor de
+              cero después de hacer un <em>trim()</em></td>
           </tr>
           <tr>
             <td>@Positive<br>
@@ -537,10 +573,12 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
             </td>
           </tr>
           <tr>
-            <td>@Email <b><i>Obsoleto, usa el @Email estándar en su lugar</i></b> </td>
+            <td>@Email <b><i>Obsoleto, usa el @Email estándar en su lugar</i></b>
+            </td>
             <td>Propiedad (cadena)<br>
             </td>
-            <td>Comprueba que la cadena cumpla con la especificación de formato para una dirección de correo electrónico<br>
+            <td>Comprueba que la cadena cumpla con la especificación de formato
+              para una dirección de correo electrónico<br>
             </td>
           </tr>
           <tr>
@@ -548,7 +586,8 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
             </td>
             <td>Propiedad (cadena)<br>
             </td>
-            <td>Comprueba si la cadena es un número de tarjeta de crédito bien formateado (derivado del algoritmo del Luhn)<br>
+            <td>Comprueba si la cadena es un número de tarjeta de crédito bien
+              formateado (derivado del algoritmo del Luhn)<br>
             </td>
           </tr>
           <tr>
@@ -556,46 +595,59 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
             </td>
             <td>Propiedad (cadena)<br>
             </td>
-            <td>Comprueba que la cadena sea un código EAN o UPC-A correctamente formateado<br>
+            <td>Comprueba que la cadena sea un código EAN o UPC-A correctamente
+              formateado<br>
             </td>
           </tr>
           <tr>
-            <td>@LuhnCheck(startIndex=, endIndex=, checkDigitIndex=, ignoreNonDigitCharacters=)<br>
+            <td>@LuhnCheck(startIndex=, endIndex=, checkDigitIndex=,
+              ignoreNonDigitCharacters=)<br>
             </td>
             <td>Propiedad (cadena)<br>
             </td>
-            <td>Comprueba que los dígitos en la cadena pasen el algoritmo de Luhn<br>
+            <td>Comprueba que los dígitos en la cadena pasen el algoritmo de
+              Luhn<br>
             </td>
           </tr>
           <tr>
-            <td>@Mod10Check(multiplier=, weight=, startIndex=, endIndex=, checkDigitIndex=, ignoreNonDigitCharacters=)<br>
+            <td>@Mod10Check(multiplier=, weight=, startIndex=, endIndex=,
+              checkDigitIndex=, ignoreNonDigitCharacters=)<br>
             </td>
             <td>Propiedad (cadena)<br>
             </td>
-            <td>Comprueba que los dígitos en la cadena pasen el algoritmo genérico mod 10<br>
+            <td>Comprueba que los dígitos en la cadena pasen el algoritmo
+              genérico mod 10<br>
             </td>
           </tr>
           <tr>
-            <td>@Mod11Check(threshold=, startIndex=, endIndex=, checkDigitIndex=, ignoreNonDigitCharacters=, treatCheck10As=, treatCheck11As=)<br>
+            <td>@Mod11Check(threshold=, startIndex=, endIndex=,
+              checkDigitIndex=, ignoreNonDigitCharacters=, treatCheck10As=,
+              treatCheck11As=)<br>
             </td>
             <td>Propiedad (cadena)<br>
             </td>
-            <td>Comprueba que los dígitos en la cadena pasen el algoritmo genérico mod 11<br>
+            <td>Comprueba que los dígitos en la cadena pasen el algoritmo
+              genérico mod 11<br>
             </td>
           </tr>
           <tr>
-            <td>@NotBlank <b><i>Obsoleto, usa el @NotBlank estándar en su lugar</i></b> </td>
+            <td>@NotBlank <b><i>Obsoleto, usa el @NotBlank estándar en su lugar</i></b>
+            </td>
             <td>Propiedad (cadena)<br>
             </td>
-            <td>Comprueba que la cadena no sea nulo y su longitud sea mayor de cero después de hacer un <em>trim()</em><br>
+            <td>Comprueba que la cadena no sea nulo y su longitud sea mayor de
+              cero después de hacer un <em>trim()</em><br>
             </td>
           </tr>
           <tr>
-            <td>@SafeHtml(whitelistType=, additionalTags=, additionalTagsWithAttributes=) (No disponible desde la versión 7.4.3)<br>
+            <td>@SafeHtml(whitelistType=, additionalTags=,
+              additionalTagsWithAttributes=) <i><b>No disponible desde la
+                  v7.4.3</b></i><br>
             </td>
             <td>Propiedad (cadena)<br>
             </td>
-            <td>Comprueba que la cadena no contenga fragmentos potencialmente peligrosos como <em>&lt;script/&gt;</em><br>
+            <td>Comprueba que la cadena no contenga fragmentos potencialmente
+              peligrosos como <em>&lt;script/&gt;</em><br>
             </td>
           </tr>
           <tr>
@@ -603,7 +655,8 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
             </td>
             <td>Propiedad (cualquier tipo)<br>
             </td>
-            <td>Comprueba que el script provisto pueda ser evaluado con éxito contra el valor de la propiedad<br>
+            <td>Comprueba que el script provisto pueda ser evaluado con éxito
+              contra el valor de la propiedad<br>
             </td>
           </tr>
           <tr>
@@ -616,7 +669,8 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
           </tr>
         </tbody>
       </table>
-      A partir de OpenXava 6.1 se soporta Hibernate Validator 6.0, por lo que también tenemos disponibles las siguiente anotaciones en <i>org.hibernate.validator.constraints</i>:
+      A partir de OpenXava 6.1 se soporta Hibernate Validator 6.0, por lo que
+      también tenemos disponibles las siguiente anotaciones en <i>org.hibernate.validator.constraints</i>:
       <table class="wiki_table">
         <tbody>
           <tr>
@@ -631,34 +685,42 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
             <td>@CodePointLength<br>
             </td>
             <td>Propiedad (cadena)</td>
-            <td>Comprueba si la longitud de punto de código está entre min y max ambos incluidos</td>
+            <td>Comprueba si la longitud de punto de código está entre min y max
+              ambos incluidos</td>
           </tr>
           <tr>
             <td>@Currency<br>
             </td>
             <td>Propiedad (MonetaryAmount de javax.money)<br>
             </td>
-            <td>Comprueba si la MonetaryAmount tiene que estar en la CurrencyUnit correcta</td>
+            <td>Comprueba si la MonetaryAmount tiene que estar en la
+              CurrencyUnit correcta</td>
           </tr>
           <tr>
             <td>@ISBN<br>
             </td>
             <td>Propiedad (cadena)</td>
-            <td>Comprueba si la cadena es un ISBN válido. La longitud del número y el dígito de control se verifican</td>
+            <td>Comprueba si la cadena es un ISBN válido. La longitud del número
+              y el dígito de control se verifican</td>
           </tr>
           <tr>
             <td>@UniqueElements<br>
             </td>
             <td>Propiedad (colección)<br>
             </td>
-            <td>Comprueba que cada uno de los objetos de la colección es único, es decir, no podemos encontrar 2 elementos iguales en la colección<br>
+            <td>Comprueba que cada uno de los objetos de la colección es único,
+              es decir, no podemos encontrar 2 elementos iguales en la colección<br>
             </td>
           </tr>
         </tbody>
       </table>
-      <h3 id="toc4"><a name="Apéndice C: Anotaciones-Validación-Validación propia"></a>Validación propia</h3>
-      Añadir tu propia lógica de validación a tu entidad es muy fácil porque las anotaciones <em>@PropertyValidator</em>, <em>@EntityValidator</em> y <em>@RemoveValidator</em> te permiten indicar una clase (el validador) con la lógica de validación.<br>
-      Por ejemplo, si quieres tu propia lógica para validar una propiedad <em>precioUnitario</em>, has de escribir algo parecido a esto:<br>
+      <h3 id="toc4"><a name="Apéndice C: Anotaciones-Validación-Validación propia"></a>Validación
+        propia</h3>
+      Añadir tu propia lógica de validación a tu entidad es muy fácil porque las
+      anotaciones <em>@PropertyValidator</em>, <em>@EntityValidator</em> y <em>@RemoveValidator</em>
+      te permiten indicar una clase (el validador) con la lógica de validación.<br>
+      Por ejemplo, si quieres tu propia lógica para validar una propiedad <em>precioUnitario</em>,
+      has de escribir algo parecido a esto:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -1053,9 +1115,8 @@ class="kw21">String</span></a> nombreObjeto,  <span class="co1">// El nombre de 
 class="kw21">String</span></a> nombrePropiedad<span class="br0">)</span>  <span
 class="co1">// El nombre de propiedad, normalmente para usar en el mensaje</span>
     <span class="br0">{</span>
-        <span class="kw1">if</span> <span class="br0">(</span>objeto == <span
-class="kw4">null</span><span class="br0">)</span> <span class="kw2">return</span><span
-class="sy0">;</span>
+        <span class="kw1">if</span> <span class="br0">(</span>objeto == <span class="kw4">null</span><span
+class="br0">)</span> <span class="kw2">return</span><span class="sy0">;</span>
         <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span><span
 class="br0">(</span>objeto <span class="kw2">instanceof</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
 class="kw27">BigDecimal</span></a><span class="br0">)</span><span class="br0">)</span> <span
@@ -1071,23 +1132,38 @@ class="sy0">;</span>
         <span class="br0">}</span>
         <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
 class="kw27">BigDecimal</span></a> n = <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-class="kw27">BigDecimal</span></a><span class="br0">)</span> objeto<span
-class="sy0">;</span>
+class="kw27">BigDecimal</span></a><span class="br0">)</span> objeto<span class="sy0">;</span>
         <span class="kw1">if</span> <span class="br0">(</span>n.<span class="me1">intValue</span><span
 class="br0">(</span><span class="br0">)</span> <span class="sy0">&gt;</span> <span
 class="nu0">1000</span><span class="br0">)</span> <span class="br0">{</span>
-            errors.<span class="me1">add</span><span class="br0">(</span><span
-class="st0">"no_mayor_de_1000"</span><span class="br0">)</span><span class="sy0">;</span>  <span
-class="co1">// Id de mensaje en el archivo i18n</span>
+            errors.<span class="me1">add</span><span class="br0">(</span><span class="st0">"no_mayor_de_1000"</span><span
+class="br0">)</span><span class="sy0">;</span>  <span class="co1">// Id de mensaje en el archivo i18n</span>
         <span class="br0">}</span>
     <span class="br0">}</span>
 <span class="br0">}</span></pre>
-      Como ves tu clase validador ha de implementar <em>IPropertyValidator</em> (1), esto te obliga a tener un método <em>validate()</em> (2) que recibe un objeto <em>Messages</em>, que llamamos <em>errores</em> (3); que es un contenedor de los mensajes de error. Solo necesitas añadir algún mensaje de error para hacer que falle la validación.<br>
-      Esta es una forma sencilla de hacer tus propias validaciones, además la lógica de validación en tus validadores puede reutilizarse por toda tu aplicación. Aunque, si lo que quieres es crear validaciones reutilizables una opción mejor es crear tu propia anotación de validación usando Bean Validation; es más largo que usar una clase validador, pero es más elegante si reutilizas la validación muchas veces.<br>
-      <h2 id="toc5"><a name="Apéndice C: Anotaciones-Interfaz de usuario"></a>Interfaz de usuario</h2>
-      Aunque OpenXava genera automáticamente una interfaz de usuario bastante funcional a partir de una entidad JPA desnuda, esto es solo útil para casos muy básicos. En aplicaciones de la vida real es necesario refinar la manera en que la interfaz de usuario es generada. En OpenXava esto se hace con anotaciones que, con un nivel de abstracción alto, definen el aspecto de la interfaz de usuario.<br>
-      <h3 id="toc6"><a name="Apéndice C: Anotaciones-Interfaz de usuario-La interfaz de usuario por defecto"></a>La interfaz de usuario por defecto</h3>
-      Por defecto, OpenXava genera una interfaz de usuario que muestra todos los miembros de la entidad en secuencia. Con una entidad como esta:<br>
+      Como ves tu clase validador ha de implementar <em>IPropertyValidator</em>
+      (1), esto te obliga a tener un método <em>validate()</em> (2) que recibe
+      un objeto <em>Messages</em>, que llamamos <em>errores</em> (3); que es
+      un contenedor de los mensajes de error. Solo necesitas añadir algún
+      mensaje de error para hacer que falle la validación.<br>
+      Esta es una forma sencilla de hacer tus propias validaciones, además la
+      lógica de validación en tus validadores puede reutilizarse por toda tu
+      aplicación. Aunque, si lo que quieres es crear validaciones reutilizables
+      una opción mejor es crear tu propia anotación de validación usando Bean
+      Validation; es más largo que usar una clase validador, pero es más
+      elegante si reutilizas la validación muchas veces.<br>
+      <h2 id="toc5"><a name="Apéndice C: Anotaciones-Interfaz de usuario"></a>Interfaz
+        de usuario</h2>
+      Aunque OpenXava genera automáticamente una interfaz de usuario bastante
+      funcional a partir de una entidad JPA desnuda, esto es solo útil para
+      casos muy básicos. En aplicaciones de la vida real es necesario refinar la
+      manera en que la interfaz de usuario es generada. En OpenXava esto se hace
+      con anotaciones que, con un nivel de abstracción alto, definen el aspecto
+      de la interfaz de usuario.<br>
+      <h3 id="toc6"><a name="Apéndice C: Anotaciones-Interfaz de usuario-La interfaz de usuario por defecto"></a>La
+        interfaz de usuario por defecto</h3>
+      Por defecto, OpenXava genera una interfaz de usuario que muestra todos los
+      miembros de la entidad en secuencia. Con una entidad como esta:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -1277,35 +1353,43 @@ class="co1">// Id de mensaje en el archivo i18n</span>
 -->
 </style><pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
 class="kw166">Entity</span></a>
-<span class="kw2">public</span> <span class="kw2">class</span> Comercial <span
-class="br0">{</span>
+<span class="kw2">public</span> <span class="kw2">class</span> Comercial <span class="br0">{</span>
 &nbsp;
     @Id @Column<span class="br0">(</span>length=<span class="nu0">3</span><span
 class="br0">)</span>
-    <span class="kw2">private</span> <span class="kw3">int</span> numero<span
-class="sy0">;</span>
+    <span class="kw2">private</span> <span class="kw3">int</span> numero<span class="sy0">;</span>
 &nbsp;
-    @Column<span class="br0">(</span>length=<span class="nu0">40</span><span
-class="br0">)</span> @Required
+    @Column<span class="br0">(</span>length=<span class="nu0">40</span><span class="br0">)</span> @Required
     <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
 class="kw21">String</span></a> nombre<span class="sy0">;</span>
 &nbsp;
     @OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"comercial"</span><span
 class="br0">)</span>
     <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>Cliente<span
-class="sy0">&gt;</span> clientes<span class="sy0">;</span>
+class="kw46">Collection</span></a><span class="sy0">&lt;</span>Cliente<span class="sy0">&gt;</span> clientes<span
+class="sy0">;</span>
 &nbsp;
     <span class="co1">// Getters y setters</span>
     ...
 <span class="br0">}</span></pre>
       OpenXava producirá para ti la siguiente interfaz de usuario:<br>
-      <img src="files/annotations_es020.png" alt="annotations_es020.png"
-        title="annotations_es020.png"><br>
-      Como ves, muestra los miembros (<em>numero</em>, <em>nombre</em> y <em>clientes</em> en este caso) en el mismo orden en que fueron declarados en el código Java. OpenXava usa las anotaciones JPA y de validación para generar la mejor interfaz de usuario posible, por ejemplo, determina el tamaño del editor a partir de <em>@Column(length)</em>, muestra la llavecita de clave para la propiedad con <em>@Id</em> y muestra un icono para indicar que es requerido si la propiedad está marcada con <em>@Required</em> y así por el estilo.<br>
-      Esta interfaz por defecto es útil para casos simples, pero para interfaces de usuario más avanzadas necesitas una forma de personalizar. OpenXava te proporciona anotaciones para hacerlo, tal como <em>@View</em> para definir la disposición de los miembros.<br>
-      <h3 id="toc7"><a name="Apéndice C: Anotaciones-Interfaz de usuario-La anotación @View"></a>La anotación @View</h3>
-      <em>@View</em> sirve para definir la disposición de los miembros en la interfaz de usuario. Se define a nivel de entidad:<br>
+      <img src="files/annotations_es020.png" alt="annotations_es020.png" title="annotations_es020.png"><br>
+      Como ves, muestra los miembros (<em>numero</em>, <em>nombre</em> y <em>clientes</em>
+      en este caso) en el mismo orden en que fueron declarados en el código
+      Java. OpenXava usa las anotaciones JPA y de validación para generar la
+      mejor interfaz de usuario posible, por ejemplo, determina el tamaño del
+      editor a partir de <em>@Column(length)</em>, muestra la llavecita de
+      clave para la propiedad con <em>@Id</em> y muestra un icono para indicar
+      que es requerido si la propiedad está marcada con <em>@Required</em> y
+      así por el estilo.<br>
+      Esta interfaz por defecto es útil para casos simples, pero para interfaces
+      de usuario más avanzadas necesitas una forma de personalizar. OpenXava te
+      proporciona anotaciones para hacerlo, tal como <em>@View</em> para
+      definir la disposición de los miembros.<br>
+      <h3 id="toc7"><a name="Apéndice C: Anotaciones-Interfaz de usuario-La anotación @View"></a>La
+        anotación @View</h3>
+      <em>@View</em> sirve para definir la disposición de los miembros en la
+      interfaz de usuario. Se define a nivel de entidad:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -1507,13 +1591,15 @@ class="kw116">View</span></a><span class="br0">(</span>members=
     <span class="st0">"importes { sumaImportes; porcentajeIVA; iva }"</span> +
     <span class="st0">"albaranes { albaranes }"</span>
 <span class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Factura <span
-class="br0">{</span></pre>
+<span class="kw2">public</span> <span class="kw2">class</span> Factura <span class="br0">{</span></pre>
       La interfaz de usuario resultante es:<br>
-      <img src="files/annotations_es030.png" alt="annotations_es030.png"
-        title="annotations_es030.png"><br>
-      Como ves, definir la disposición de los miembros es fácil, solo necesitas enumerarlos dentro de una cadena, usando comas para separar los elementos, punto y coma para salto de línea, corchetes para grupos (marcos), llavecitas para secciones (pestañas) y así por el estilo.<br>
-      Puedes tener varias vistas por cada entidad, para eso usa la anotación <em>@Views</em>, dando un nombre a cada vista:<br>
+      <img src="files/annotations_es030.png" alt="annotations_es030.png" title="annotations_es030.png"><br>
+      Como ves, definir la disposición de los miembros es fácil, solo necesitas
+      enumerarlos dentro de una cadena, usando comas para separar los elementos,
+      punto y coma para salto de línea, corchetes para grupos (marcos),
+      llavecitas para secciones (pestañas) y así por el estilo.<br>
+      Puedes tener varias vistas por cada entidad, para eso usa la anotación <em>@Views</em>,
+      dando un nombre a cada vista:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -1713,15 +1799,26 @@ class="kw116">View</span></a><span class="br0">(</span>
         name=<span class="st0">"Simple"</span>, members=<span class="st0">"codigo, nombre"</span>
     <span class="br0">)</span>
 <span class="br0">}</span><span class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Cliente <span
-class="br0">{</span></pre>
-      Si dejas una vista sin nombre, será la vista por defecto. Los nombres de vista se usarán desde otras partes de la aplicación para escoger que vista usar.<br>
-      Con <em>@View</em> defines la distribución, pero también necesitas definir la forma en que cada miembro es visualizado, para eso, OpenXava te proporciona un conjunto de anotaciones bastante útiles que verás en la siguiente sección.<br>
-      <h3 id="toc8"><a name="Apéndice C: Anotaciones-Interfaz de usuario-Refinando la presentación de los miembros"></a>Refinando la presentación de los miembros</h3>
-      OpenXava te permite refinar la interfaz de usuario para cualquier propiedad, referencia o colección de infinidad de maneras. Sólo necesitas añadir la anotación correspondiente. Por ejemplo, por defecto una referencia (una relación <em>@ManyToOne</em>) se visualiza usando un marco con una vista detallada, si quieres mostrar esa referencia usando un combo solo has de anotar la referencia con <em>@DescriptionsList</em>:<br>
-      <img src="files/annotations_es040.png" alt="annotations_es040.png"
-        title="annotations_es040.png"><br>
-      Puede que quieras el efecto de una anotación solo para algunas vistas. Para ello usa el atributo <em>forViews</em> disponible en todas las anotaciones de interfaz de usuario:<br>
+<span class="kw2">public</span> <span class="kw2">class</span> Cliente <span class="br0">{</span></pre>
+      Si dejas una vista sin nombre, será la vista por defecto. Los nombres de
+      vista se usarán desde otras partes de la aplicación para escoger que vista
+      usar.<br>
+      Con <em>@View</em> defines la distribución, pero también necesitas
+      definir la forma en que cada miembro es visualizado, para eso, OpenXava te
+      proporciona un conjunto de anotaciones bastante útiles que verás en la
+      siguiente sección.<br>
+      <h3 id="toc8"><a name="Apéndice C: Anotaciones-Interfaz de usuario-Refinando la presentación de los miembros"></a>Refinando
+        la presentación de los miembros</h3>
+      OpenXava te permite refinar la interfaz de usuario para cualquier
+      propiedad, referencia o colección de infinidad de maneras. Sólo necesitas
+      añadir la anotación correspondiente. Por ejemplo, por defecto una
+      referencia (una relación <em>@ManyToOne</em>) se visualiza usando un
+      marco con una vista detallada, si quieres mostrar esa referencia usando un
+      combo solo has de anotar la referencia con <em>@DescriptionsList</em>:<br>
+      <img src="files/annotations_es040.png" alt="annotations_es040.png" title="annotations_es040.png"><br>
+      Puede que quieras el efecto de una anotación solo para algunas vistas.
+      Para ello usa el atributo <em>forViews</em> disponible en todas las
+      anotaciones de interfaz de usuario:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -1924,15 +2021,15 @@ class="st0">" ... "</span><span class="br0">)</span>,
 class="kw116">View</span></a><span class="br0">(</span>name=<span class="st0">"Completa"</span>, members=<span
 class="st0">" ... "</span><span class="br0">)</span>
 <span class="br0">}</span><span class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Comercial <span
-class="br0">{</span>
+<span class="kw2">public</span> <span class="kw2">class</span> Comercial <span class="br0">{</span>
 &nbsp;
     @DescriptionsList<span class="br0">(</span>forViews=<span class="st0">"Simplisima, Simple"</span><span
 class="br0">)</span>  <span class="co1">// El combo solo se usará</span>
     @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
 class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Simplisima y Simple</span>
     <span class="kw2">private</span> NivelComercial nivel<span class="sy0">;</span></pre>
-      La siguiente tabla muestra todas las anotaciones OpenXava para personalizar la interfaz de usuario de los miembros de una entidad:<br>
+      La siguiente tabla muestra todas las anotaciones OpenXava para
+      personalizar la interfaz de usuario de los miembros de una entidad:<br>
       <table class="wiki_table">
         <tbody>
           <tr>
@@ -1954,7 +2051,9 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@AsEmbedded<br>
             </td>
-            <td>Hace que comportamiento en la vista de una referencia (o colección) a entidad sea como en el caso de un objeto incrustado (o colección de entidades con CascadeType.REMOVE)<br>
+            <td>Hace que comportamiento en la vista de una referencia (o
+              colección) a entidad sea como en el caso de un objeto incrustado
+              (o colección de entidades con CascadeType.REMOVE)<br>
             </td>
             <td>Referencias y colecciones<br>
             </td>
@@ -1970,7 +2069,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@CollectionView<br>
             </td>
-            <td>La vista del objeto referenciado (cada elemento de la colección) que será usada para visualizar el detalle<br>
+            <td>La vista del objeto referenciado (cada elemento de la colección)
+              que será usada para visualizar el detalle<br>
             </td>
             <td>Colecciones<br>
             </td>
@@ -1986,7 +2086,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@DescriptionsList<br>
             </td>
-            <td>Para visualizar una referencia como una lista de descripciones (un combo)<br>
+            <td>Para visualizar una referencia como una lista de descripciones
+              (un combo)<br>
             </td>
             <td>Referencias<br>
             </td>
@@ -1994,7 +2095,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@DetailAction<br>
             </td>
-            <td>Añade una acción al detalle que está siendo editado en una colección<br>
+            <td>Añade una acción al detalle que está siendo editado en una
+              colección<br>
             </td>
             <td>Colecciones<br>
             </td>
@@ -2002,7 +2104,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@DisplaySize<br>
             </td>
-            <td>El tamaño en caracteres del editor en la interfaz de usuario usado para visualizar esta propiedad<br>
+            <td>El tamaño en caracteres del editor en la interfaz de usuario
+              usado para visualizar esta propiedad<br>
             </td>
             <td>Propiedades<br>
             </td>
@@ -2010,7 +2113,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@EditAction<br>
             </td>
-            <td>Permite definir una acción propia para editar el elemento de la colección<br>
+            <td>Permite definir una acción propia para editar el elemento de la
+              colección<br>
             </td>
             <td>Colecciones<br>
             </td>
@@ -2018,7 +2122,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@EditOnly<br>
             </td>
-            <td>El usuario final podrá modifica los elementos existentes en la colección, pero no añadir o quitar elementos<br>
+            <td>El usuario final podrá modifica los elementos existentes en la
+              colección, pero no añadir o quitar elementos<br>
             </td>
             <td>Colecciones<br>
             </td>
@@ -2026,7 +2131,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@Editor<br>
             </td>
-            <td>Nombre del editor a usar para visualizar el miembro en esta vista<br>
+            <td>Nombre del editor a usar para visualizar el miembro en esta
+              vista<br>
             </td>
             <td>Propiedades, referencias y colecciones.<br>
             </td>
@@ -2034,7 +2140,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@HideDetailAction<br>
             </td>
-            <td>En una colección permite definir una acción propia para ocultar la vista de detalle<br>
+            <td>En una colección permite definir una acción propia para ocultar
+              la vista de detalle<br>
             </td>
             <td>Colecciones<br>
             </td>
@@ -2042,7 +2149,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@LabelFormat<br>
             </td>
-            <td>Formato para visualizar la etiqueta de esta propiedad o referencia (visualizada como lista descripciones)<br>
+            <td>Formato para visualizar la etiqueta de esta propiedad o
+              referencia (visualizada como lista descripciones)<br>
             </td>
             <td>Propiedades y referencias<br>
             </td>
@@ -2074,7 +2182,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@NewAction<br>
             </td>
-            <td>Permite definir una acción propia para añadir un nuevo elemento a la colección<br>
+            <td>Permite definir una acción propia para añadir un nuevo elemento
+              a la colección<br>
             </td>
             <td>Colecciones<br>
             </td>
@@ -2082,7 +2191,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@NoCreate<br>
             </td>
-            <td>El usuario final no podrá crear nuevos objetos del tipo referenciado desde aquí<br>
+            <td>El usuario final no podrá crear nuevos objetos del tipo
+              referenciado desde aquí<br>
             </td>
             <td>Referencias y colecciones<br>
             </td>
@@ -2098,7 +2208,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@NoModify<br>
             </td>
-            <td>El usuario final no podrá modificar el objeto actual referenciado desde aquí<br>
+            <td>El usuario final no podrá modificar el objeto actual
+              referenciado desde aquí<br>
             </td>
             <td>Referencias y colecciones<br>
             </td>
@@ -2106,7 +2217,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@NoSearch<br>
             </td>
-            <td>El usuario no tendrá el vínculo para hacer búsquedas con una lista, filtros, etc.<br>
+            <td>El usuario no tendrá el vínculo para hacer búsquedas con una
+              lista, filtros, etc.<br>
             </td>
             <td>Referencias<br>
             </td>
@@ -2114,7 +2226,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@OnChange<br>
             </td>
-            <td>Acción a ejecutar cuando el valor de la propiedad o referencia cambia<br>
+            <td>Acción a ejecutar cuando el valor de la propiedad o referencia
+              cambia<br>
             </td>
             <td>Propiedades y referencias<br>
             </td>
@@ -2122,7 +2235,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@OnChangeSearch<br>
             </td>
-            <td>Acción a ejecutar para hacer la búsqueda de la referencia cuando el usuario teclea los valores clave<br>
+            <td>Acción a ejecutar para hacer la búsqueda de la referencia cuando
+              el usuario teclea los valores clave<br>
             </td>
             <td>Referencias<br>
             </td>
@@ -2130,7 +2244,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@OnSelectElementAction<br>
             </td>
-            <td>Permite definir una acción a ejecutar cuando un elemento de la colección es seleccionado o deseleccionado<br>
+            <td>Permite definir una acción a ejecutar cuando un elemento de la
+              colección es seleccionado o deseleccionado<br>
             </td>
             <td>Colecciones<br>
             </td>
@@ -2138,7 +2253,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@ReadOnly<br>
             </td>
-            <td>El miembro nunca será editable por el usuario final en las vistas indicadas<br>
+            <td>El miembro nunca será editable por el usuario final en las
+              vistas indicadas<br>
             </td>
             <td>Propiedades, referencias y colecciones<br>
             </td>
@@ -2146,7 +2262,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@ReferenceView<br>
             </td>
-            <td>Vista del objeto referenciado a usar para visualizar esta referencia<br>
+            <td>Vista del objeto referenciado a usar para visualizar esta
+              referencia<br>
             </td>
             <td>Referencia<br>
             </td>
@@ -2154,7 +2271,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@RemoveAction<br>
             </td>
-            <td>Permite definir una acción propia para quitar el elemento de la colección<br>
+            <td>Permite definir una acción propia para quitar el elemento de la
+              colección<br>
             </td>
             <td>Colecciones<br>
             </td>
@@ -2162,7 +2280,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@RemoveSelectedAction<br>
             </td>
-            <td>Permite definir una acción propia para quitar los elementos seleccionados de la colección<br>
+            <td>Permite definir una acción propia para quitar los elementos
+              seleccionados de la colección<br>
             </td>
             <td>Colecciones<br>
             </td>
@@ -2170,7 +2289,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@RowAction<br>
             </td>
-            <td>En las colecciones añade una acción en cada fila, pero no en la barra de botones de la colección<br>
+            <td>En las colecciones añade una acción en cada fila, pero no en la
+              barra de botones de la colección<br>
             </td>
             <td>Colecciones<br>
             </td>
@@ -2186,7 +2306,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@SaveAction<br>
             </td>
-            <td>Permite definir una acción propia para grabar el elemento de la colección<br>
+            <td>Permite definir una acción propia para grabar el elemento de la
+              colección<br>
             </td>
             <td>Colecciones<br>
             </td>
@@ -2202,7 +2323,9 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@SearchListCondition<br>
             </td>
-            <td>Define una condición para ser usada cuando se muestra la lista de elementos seleccionables para añadir a una colección o asignar a una referencia<br>
+            <td>Define una condición para ser usada cuando se muestra la lista
+              de elementos seleccionables para añadir a una colección o asignar
+              a una referencia<br>
             </td>
             <td>Referencias y colecciones<br>
             </td>
@@ -2218,7 +2341,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           <tr>
             <td>@ViewAction<br>
             </td>
-            <td>Permite definir una acción propia para visualizar el elemento de la colección<br>
+            <td>Permite definir una acción propia para visualizar el elemento de
+              la colección<br>
             </td>
             <td>Colecciones<br>
             </td>
@@ -2233,7 +2357,9 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
           </tr>
         </tbody>
       </table>
-      Puedes pensar que hay muchas anotaciones, pero en realidad hay todavía más, porque la mayoría de estas anotaciones tienen una versión en plural para definir diferentes valores para diferentes vistas:<br>
+      Puedes pensar que hay muchas anotaciones, pero en realidad hay todavía
+      más, porque la mayoría de estas anotaciones tienen una versión en plural
+      para definir diferentes valores para diferentes vistas:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -2421,8 +2547,8 @@ class="br0">)</span>           <span class="co1">// para 'nivel' en la vistas Si
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@DisplaySizes<span class="br0">(</span><span
-class="br0">{</span>  <span class="co1">// Para usar varias veces @DisplaySize</span>
+</style><pre class="java5">@DisplaySizes<span class="br0">(</span><span class="br0">{</span>  <span
+class="co1">// Para usar varias veces @DisplaySize</span>
     @DisplaySize<span class="br0">(</span>forViews=<span class="st0">"Simple"</span>, value=<span
 class="nu0">20</span><span class="br0">)</span>,  <span class="co1">// nombre tiene  20 para display</span>
                                         <span class="co1">// size en la vista Simple</span>
@@ -2432,12 +2558,21 @@ class="nu0">40</span><span class="br0">)</span>  <span class="co1">// nombre tie
 <span class="br0">}</span><span class="br0">)</span>
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
 class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
-      No te preocupes si aún no sabes como usar todas las anotaciones. Las irás aprendiendo poco a poco a medida que desarrolles aplicaciones OpenXava.<br>
-      <h3 id="toc9"><a name="Apéndice C: Anotaciones-Interfaz de usuario-Aprende más acerca de la interfaz de usuario"></a>Aprende más acerca de la interfaz de usuario</h3>
-      Esta sección te introduce brevemente a la generación de interfaz de usuario con OpenXava. Por desgracia, muchas e interesantes cosas se nos han quedado en el tintero, como por ejemplo, los grupos y secciones anidados, la herencia de vistas, detalles sobre como usar todas las anotaciones de IU, etc.<br>
-      A través de este curso aprenderás técnicas avanzadas sobre la interfaz de usuario.<br>
-      <h2 id="toc10"><a name="Apéndice C: Anotaciones-Otras anotaciones"></a>Otras anotaciones</h2>
-      Aparte de las validaciones y de la interfaz de usuario, OpenXava dispone de algunas otras anotaciones interesantes:<br>
+      No te preocupes si aún no sabes como usar todas las anotaciones. Las irás
+      aprendiendo poco a poco a medida que desarrolles aplicaciones OpenXava.<br>
+      <h3 id="toc9"><a name="Apéndice C: Anotaciones-Interfaz de usuario-Aprende más acerca de la interfaz de usuario"></a>Aprende
+        más acerca de la interfaz de usuario</h3>
+      Esta sección te introduce brevemente a la generación de interfaz de
+      usuario con OpenXava. Por desgracia, muchas e interesantes cosas se nos
+      han quedado en el tintero, como por ejemplo, los grupos y secciones
+      anidados, la herencia de vistas, detalles sobre como usar todas las
+      anotaciones de IU, etc.<br>
+      A través de este curso aprenderás técnicas avanzadas sobre la interfaz de
+      usuario.<br>
+      <h2 id="toc10"><a name="Apéndice C: Anotaciones-Otras anotaciones"></a>Otras
+        anotaciones</h2>
+      Aparte de las validaciones y de la interfaz de usuario, OpenXava dispone
+      de algunas otras anotaciones interesantes:<br>
       <table class="wiki_table">
         <tbody>
           <tr>
@@ -2459,7 +2594,8 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
           <tr>
             <td>@Hidden<br>
             </td>
-            <td>Una propiedad oculta tiene significado para el desarrollador pero no para el usuario<br>
+            <td>Una propiedad oculta tiene significado para el desarrollador
+              pero no para el usuario<br>
             </td>
             <td>Propiedades<br>
             </td>
@@ -2475,7 +2611,8 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
           <tr>
             <td>@Stereotype<br>
             </td>
-            <td>Un estereotipo es la forma de determinar un comportamiento específico para un tipo<br>
+            <td>Un estereotipo es la forma de determinar un comportamiento
+              específico para un tipo<br>
             </td>
             <td>Propiedades<br>
             </td>
@@ -2483,7 +2620,8 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
           <tr>
             <td>@Tab<br>
             </td>
-            <td>Define el comportamiento para la presentación de los datos tabulares (modo lista)<br>
+            <td>Define el comportamiento para la presentación de los datos
+              tabulares (modo lista)<br>
             </td>
             <td>Entidades<br>
             </td>
@@ -2491,7 +2629,8 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
           <tr>
             <td>@SearchKey<br>
             </td>
-            <td>Una propiedad o referencia marcada como clave de búsqueda se usará por el usuario para buscar<br>
+            <td>Una propiedad o referencia marcada como clave de búsqueda se
+              usará por el usuario para buscar<br>
             </td>
             <td>Propiedades y referencias<br>
             </td>
@@ -2499,11 +2638,18 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
         </tbody>
       </table>
       <h2 id="toc11"><a name="Apéndice C: Anotaciones-Resumen"></a>Resumen</h2>
-      Este capítulo ha mostrado como usar anotaciones Java para hacer programación declarativa con OpenXava. Cosas como la interfaz de usuario o las validaciones, que típicamente son pura programación, se pueden hacer con tan solo anotar nuestro código.<br>
-      Puedes aprender más detalles sobre estas anotaciones e incluso aprender más anotaciones en <em><a
-          class="wiki_link" href="reference_es.html">la Guía de Referencia</a></em> de OpenXava y en <em><a
-          class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/package-summary.html"
-          rel="nofollow">OpenXava API Doc de org.openxava.annotations</a></em>. Sin embargo, la mejor forma de aprender es con ejemplos, y el resto del curso es justo eso, un conjunto de ejemplos y más ejemplos que te mostrarán como usar estas anotaciones.<br>
+      Este capítulo ha mostrado como usar anotaciones Java para hacer
+      programación declarativa con OpenXava. Cosas como la interfaz de usuario o
+      las validaciones, que típicamente son pura programación, se pueden hacer
+      con tan solo anotar nuestro código.<br>
+      Puedes aprender más detalles sobre estas anotaciones e incluso aprender
+      más anotaciones en <em><a class="wiki_link" href="reference_es.html">la
+          Guía de Referencia</a></em> de OpenXava y en <em><a class="wiki_link_ext"
+          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/package-summary.html"
+          rel="nofollow">OpenXava API Doc de org.openxava.annotations</a></em>.
+      Sin embargo, la mejor forma de aprender es con ejemplos, y el resto del
+      curso es justo eso, un conjunto de ejemplos y más ejemplos que te
+      mostrarán como usar estas anotaciones.<br>
       Empecemos a aprender.<br>
       <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
