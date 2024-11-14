@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: If an exception is produced by the getter of a calculated collection the module breaks.
 - Fixed 1 security vulnerability in dependencies, now we have 0 vulnerabilities.
 - HSQLDB upgraded to 2.7.4.
 - Hibernate Validator upgraded to 6.2.5.

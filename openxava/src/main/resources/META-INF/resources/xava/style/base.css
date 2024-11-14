@@ -3065,3 +3065,8 @@ a[data-action="Collection.previous"] {
 #nodata .ox-errors b {    
   color: var(--system-inline-error);
 }
+
+.ox-collection .ox-list .ox-errors {    
+	color: var(--system-inline-error);
+	font-weight: bold;	
+}

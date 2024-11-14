@@ -1,8 +1,7 @@
 package org.openxava.test.tests.bymodule;
 
-import org.openxava.tests.*;
-
 import org.htmlunit.html.*;
+import org.openxava.tests.*;
 
 /**
  * 
@@ -15,7 +14,7 @@ public class Invoice4Test extends ModuleTestBase {
 		super(testName, "Invoice4");		
 	}
 	
-	public void testHibernateTypeDef() throws Exception {
+	public void testHibernateTypeDef_failedCollectionNotBreakModule() throws Exception { 
 		assertValueInList(0, 0, "2002");
 		assertValueInList(0, 1, "1");
 		assertValueInList(0, 3, "");
@@ -31,6 +30,10 @@ public class Invoice4Test extends ModuleTestBase {
 		assertValue("year", "2004");
 		assertValue("number", "2");
 		assertValue("paid", "true");
+		
+		assertCollectionRowCount("details", 0);
+		HtmlElement detailsTable = getHtmlPage().getHtmlElementById("ox_openxavatest_Invoice4__details");
+		assertTrue(detailsTable.asNormalizedText().contains("Errors obtaining the collection of details"));
 	}
 	
 	public void testTabSetConditionValueByDate_enterToFilterByRangeInList() throws Exception {

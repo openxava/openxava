@@ -1,15 +1,15 @@
 package org.openxava.test.model;
 
-import java.math.*;
+import java.util.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.*;
 
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
-import org.openxava.test.actions.*;
 
 /**
  * 
@@ -39,6 +39,11 @@ public class Invoice4 {
 		
 	@Type(type="si_no")	
 	private boolean paid;
+	
+	public Collection<InvoiceDetail> getDetails() { 
+		throw new RuntimeException("Problem returning details"); // To test a case
+	}
+
 	
 	public int getYear() {
 		return year;

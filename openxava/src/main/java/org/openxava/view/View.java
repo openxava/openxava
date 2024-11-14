@@ -1871,25 +1871,31 @@ public class View implements java.io.Serializable {
 	private int getCollectionSize(boolean fromCurrentTableModel) throws XavaException { 
 		if (collectionSize < 0) { // The cache is for when the user changes to a section with just a collection (so with the counter on the tab) not to execute an SELECT COUNT(*) several times 
 			assertRepresentsCollection("getCollectionSize()");
-			if (isCollectionFromModel() ||	!isDefaultListActionsForCollectionsIncluded() || !isDefaultRowActionsForCollectionsIncluded()) { 
-				collectionSize = getCollectionValues().size();
-			}
-			else {
-				// If not calculated we obtain the data from the Tab
-				if (getRequest().getAttribute(Tab.TAB_RESETED_PREFIX + getCollectionTab()) == null) {
-					getCollectionTab().reset();
+			try { 
+				if (isCollectionFromModel() ||	!isDefaultListActionsForCollectionsIncluded() || !isDefaultRowActionsForCollectionsIncluded()) { 
+					collectionSize = getCollectionValues().size();
 				}
-				if (fromCurrentTableModel) collectionSize = getCollectionTab().getTotalSize();
 				else {
-					try {
-						collectionSize = getCollectionTab().getAllDataTableModel().getTotalSize(); // We use getAllDataTableModel() to reduce the amount of SELECTs when change the view entity
-																	// with sections with record count in tab. In this way we only add one SELECT COUNT(*) for each section with count.
+					// If not calculated we obtain the data from the Tab
+					if (getRequest().getAttribute(Tab.TAB_RESETED_PREFIX + getCollectionTab()) == null) {
+						getCollectionTab().reset();
 					}
-					catch (Exception ex) {
-						log.warn(XavaResources.getString("tab_size_warning"),ex);
-						collectionSize = getCollectionTab().getTotalSize();
+					if (fromCurrentTableModel) collectionSize = getCollectionTab().getTotalSize();
+					else {
+						try {
+							collectionSize = getCollectionTab().getAllDataTableModel().getTotalSize(); // We use getAllDataTableModel() to reduce the amount of SELECTs when change the view entity
+																		// with sections with record count in tab. In this way we only add one SELECT COUNT(*) for each section with count.
+						}
+						catch (Exception ex) {
+							log.warn(XavaResources.getString("tab_size_warning"),ex);
+							collectionSize = getCollectionTab().getTotalSize();
+						}
 					}
 				}
+			}
+			catch (Exception ex) {
+				log.warn(XavaResources.getString("collection_row_count_error"),ex);
+				return -1;
 			}
 		}
 		return collectionSize;
