@@ -1,30 +1,32 @@
 Change Log for OpenXava project
 ===============================
 
-- Fix: Drag & drop in the tree does not move the element to the correct place and removes nodes.
-- Fix: If an exception is produced by the getter of a calculated collection the module breaks.
-- Fixed 1 security vulnerability in dependencies, now we have 0 vulnerabilities.
+OpenXava 7.4.3 (2024-11-15)
+---------------------------
+- List header labels are multiline with resizeColumns=true varying the number of lines as the width changes. 
+- Invoicing archetypes include an initial database populated with sample data.
 - HSQLDB upgraded to 2.7.4.
 - Hibernate Validator upgraded to 6.2.5.
 - Groovy upgraded to 4.0.24.
 - Embedded Tomcat used in development upgraded to 9.0.97.
 - Driver version in doc/new projects upgraded for Oracle.
+- Article in documentation about how to use project templates or archetypes.
+- Lesson 7 of the reporting course with JasperReports available in the documentation with video.
+- 'How to install' documentation improved to cover some tips to work with Mac.
+- Fixed 1 security vulnerability in dependencies, now we have 0 vulnerabilities.
+- Fix: Drag & drop in the tree does not move the element to the correct place and removes nodes.
+- Fix: If an exception is produced by the getter of a calculated collection the module breaks.
 - Fix: Third level properties in baseCondition but not in list for @Tab fails for certain properties names.
 - Fix: Modules don't start in production Tomcat with some Linux and JDKs with a javax.swing.KeyStroke error.
 - Fix: Calculated property outside a group that @Depends on a property inside that group is not calculated. 
-- List header labels are multiline with resizeColumns=true varying the number of lines as the width changes. 
 - Fix: Default width for icon type columns too big when resizeColumns=true.
 - Fix: Date and some numeric values truncated on the right by default when resizeColumns=true in wide lists.
 - Fix: SchemaTool does not work against Oracle.
-- Fix: Checkbox of boolean editor bad aligned.
+- Fix: Checkbox of boolean editor badly aligned.
 - Fix: @OnChange in a reference not triggered on typing if the referenced model has a @SearchKey reference.
 - Fix: Clearing a reference value does not fire the changed message on leaving the record.
-- Invoicing archetypes include an initial database populated with sample data.
-- Fix: The tree collapses when the dialog closes if idProperties of @Tree uses a property other than 'id'.
-- Article in documentation about how to use project templates or archetypes.
-- Lesson 7 of the reporting course with JasperReports available in the documentation with video.
 - Fix: 'Open in new tab' row action does not work for lists annotated with @OrderColumn. 
-- 'How to install' documentation improved to cover some tips to work with Mac.
+- Fix: The tree collapses when the dialog closes if idProperties of @Tree uses a property other than 'id'.
 
 OpenXava 7.4.2 (2024-10-25)
 ---------------------------
