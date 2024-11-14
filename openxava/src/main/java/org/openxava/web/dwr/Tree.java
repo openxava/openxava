@@ -143,11 +143,29 @@ public class Tree extends DWRBase {
 				for (String pValue : parentsValues) {
 					pValue = pValue.startsWith(pathSeparator) ? pValue : pathSeparator + pValue;
 					if (childPathValue.startsWith(pValue)) {
-						childPathValue = newPath.equals("") 
-								? childPathValue.replace(pValue, newPath)
-								: pValue.contains(newPath) && pValue.startsWith(newPath) 
-									? newPath + childPathValue.substring(childPathValue.indexOf(pValue) + pValue.length()) 
-									: newPath + childPathValue.substring(childPathValue.indexOf(pValue));
+						System.out.println(pValue);
+						System.out.println(newPath);
+						System.out.println(childPathValue);
+						System.out.println(pValue.startsWith(newPath));
+						System.out.println(newPath + childPathValue.substring(childPathValue.indexOf(pValue) + pValue.length()));
+						System.out.println(newPath + childPathValue.substring(childPathValue.indexOf(pValue)));
+						if (newPath.equals("")) {
+							childPathValue = childPathValue.replace(pValue, newPath);
+						} else {
+							if (pValue.startsWith(newPath)) {
+								if (pValue.length() < newPath.length()) {
+									childPathValue = newPath + childPathValue.substring(childPathValue.indexOf(pValue));
+								} else {
+									childPathValue = childPathValue.replace(pValue, newPath);
+								}
+							} else {
+								if (pValue.length() < newPath.length()) {
+									childPathValue = newPath + childPathValue.substring(childPathValue.indexOf(pValue)  + pValue.length());
+								} else {
+									childPathValue = newPath + childPathValue.substring(childPathValue.indexOf(pValue));
+								}
+							}
+						}
 					} else if (childPathValue.contains(pValue)) {
 						childPathValue = childPathValue.substring(childPathValue.indexOf(pValue) - 1);
 					}
