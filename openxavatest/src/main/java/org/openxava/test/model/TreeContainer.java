@@ -13,7 +13,7 @@ import org.openxava.annotations.*;
 
 @Entity
 @Views({
-	@View(members="description; treeItems; treeItemTwos; steps"),
+	@View(members="description; treeItems; treeItemTwos; steps; treeItemNoIdGeneration"),
 	@View(name="Simple", members="description; treeItems"),
 	@View(name="Alternate", members="description;treeItems"),
 	@View(name="NoDefaultPath", members="description; treeItemTwos")
@@ -45,6 +45,13 @@ public class TreeContainer {
 	@OrderBy("path, treeOrder")
 	@Editor("TreeView")
 	private Collection<Step> steps;
+	
+	@Editor(value="TreeView")
+	@Tree(pathProperty = "way", idProperties = "code")
+	@ListProperties("description")
+	@OrderBy("way, theOrder")
+	@OneToMany(mappedBy="parentContainer")
+	private Collection<TreeItemNoIdGeneration> treeItemNoIdGeneration;
 
 	public Integer getId() {
 		return id;
@@ -84,6 +91,14 @@ public class TreeContainer {
 
 	public void setSteps(Collection<Step> steps) {
 		this.steps = steps;
+	}
+
+	public Collection<TreeItemNoIdGeneration> getTreeItemNoIdGeneration() {
+		return treeItemNoIdGeneration;
+	}
+
+	public void setTreeItemNoIdGeneration(Collection<TreeItemNoIdGeneration> treeItemNoIdGeneration) {
+		this.treeItemNoIdGeneration = treeItemNoIdGeneration;
 	}
 	
 }

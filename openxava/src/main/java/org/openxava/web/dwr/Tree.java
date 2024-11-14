@@ -120,19 +120,10 @@ public class Tree extends DWRBase {
 
 			Map<String, String> pathValueMap = new HashMap<>();
 			List<String> parentsValues = new ArrayList<>();
-
 			for (String row : rows) {
 				Map keys = (Map) collectionView.getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
 				pathValueMap = MapFacade.getValues(modelName, keys, pathIdMap);
-				if (pathValueMap.get(pathProperty).equals("")) {
-					if (idProperties.equals("")) {
-						parentsValues.add(keys.get("id").toString());
-					} else {
-						// for multiple ids
-					}
-				} else {
-					parentsValues.add(pathValueMap.get(pathProperty));
-				}
+				parentsValues.add(pathValueMap.get(pathProperty));
 				MapFacade.setValues(modelName, keys, newPathValue);
 			}
 			childRows.removeIf(rows::contains);
@@ -141,14 +132,12 @@ public class Tree extends DWRBase {
 				pathValueMap = MapFacade.getValues(modelName, keys, pathIdMap);
 				String childPathValue = (String) pathValueMap.get(pathProperty);
 				for (String pValue : parentsValues) {
-					pValue = pValue.startsWith(pathSeparator) ? pValue : pathSeparator + pValue;
+					if (pValue.isEmpty()) {
+						childPathValue = newPath + childPathValue;
+						break;
+					}
+					pValue = pValue.startsWith(pathSeparator) ? pValue : pathSeparator + pValue; 
 					if (childPathValue.startsWith(pValue)) {
-						System.out.println(pValue);
-						System.out.println(newPath);
-						System.out.println(childPathValue);
-						System.out.println(pValue.startsWith(newPath));
-						System.out.println(newPath + childPathValue.substring(childPathValue.indexOf(pValue) + pValue.length()));
-						System.out.println(newPath + childPathValue.substring(childPathValue.indexOf(pValue)));
 						if (newPath.equals("")) {
 							childPathValue = childPathValue.replace(pValue, newPath);
 						} else {
