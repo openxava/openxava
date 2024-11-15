@@ -6,7 +6,7 @@
 
 	<groupId>org.openxava</groupId>
 	<artifactId>openxava-crm-archetype</artifactId>
-	<version>7.4.3-SNAPSHOT</version>
+	<version>7.4.3</version>
 	<packaging>maven-archetype</packaging>
 
   	<name>OpenXava CRM Archetype</name>
