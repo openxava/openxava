@@ -15,6 +15,8 @@ public class TreeItemTwo {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
+	private Integer auxId; // to test idProperties
+	
 	@Column(length=255)
 	private String folder;
 	
@@ -70,6 +72,19 @@ public class TreeItemTwo {
 		return treeOrder;
 	}
 	
+	public Integer getAuxId() {
+		return auxId;
+	}
+
+	public void setAuxId(Integer auxId) {
+		this.auxId = auxId;
+	}
+	
+	@PostPersist
+    public void postPersist() {
+        this.auxId = this.id;
+    }
+
 	@Override
 	public String toString() {
 		return id.toString();

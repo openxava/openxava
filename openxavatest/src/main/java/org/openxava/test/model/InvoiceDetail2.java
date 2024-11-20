@@ -14,10 +14,12 @@ import org.openxava.annotations.*;
 @Entity
 @Table(name="INVOICEDETAIL")
 @View(members=
-	"amounts [ " + 
+	"amounts [ " + // Keep this exact group structure to test a case
 		"quantity; " + 
-		"unitPrice; " + 
-		"amount; " + 
+		"money [" +	
+			"prices [ unitPrice ];" + 
+			"amount; " + 
+		"]" +
 	"]; " +
 	"familyList;" +
 	"productList;" +

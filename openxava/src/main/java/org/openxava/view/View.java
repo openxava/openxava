@@ -1342,7 +1342,12 @@ public class View implements java.io.Serializable {
 	}
 	
 	private boolean isRepresentsTransientReference() { 
-		return isRepresentsEntityReference() && getParent().getMetaReference(getMemberName()).isTransient();
+		try {
+			return isRepresentsEntityReference() && !isRepresentsCollection() && getParent().getMetaReference(getMemberName()).isTransient(); 
+		}
+		catch (ElementNotFoundException ex) {			
+			return false;
+		}
 	}
 	
 	private boolean isTransient(String memberName) { 
@@ -1561,27 +1566,7 @@ public class View implements java.io.Serializable {
 	public Map getKeyValues() throws XavaException {
 		System.out.println("getKeyValues");
 		Map values = getValues(false, true); 
-		/* tmr
-		Iterator it = values.keySet().iterator();
-		Map result = new HashMap();
-		while (it.hasNext()) {
-			String name = (String) it.next();			
-			if (getMetaModel().isKey(name)) {
-				// tmr result.put(name, values.get(name));
-				// tmr ini
-				if (getMetaModel().containsMetaReference(name)) {
-					result.put(name, getSubview(name).getKeyValues());
-				}
-				else {
-					result.put(name, values.get(name));
-				}
-				// tmr fin
-			}			
-		}
-		*/		
-		// tmr ini
 		Map result = getMetaModel().extractKeyValues(values);
-		// tmr fin
 
 		if (getParent() != null && !getParent().isRepresentsAggregate()) {			
 			// At the moment reference to entity within aggregate can not be part of key
@@ -1902,25 +1887,31 @@ public class View implements java.io.Serializable {
 	private int getCollectionSize(boolean fromCurrentTableModel) throws XavaException { 
 		if (collectionSize < 0) { // The cache is for when the user changes to a section with just a collection (so with the counter on the tab) not to execute an SELECT COUNT(*) several times 
 			assertRepresentsCollection("getCollectionSize()");
-			if (isCollectionFromModel() ||	!isDefaultListActionsForCollectionsIncluded() || !isDefaultRowActionsForCollectionsIncluded()) { 
-				collectionSize = getCollectionValues().size();
-			}
-			else {
-				// If not calculated we obtain the data from the Tab
-				if (getRequest().getAttribute(Tab.TAB_RESETED_PREFIX + getCollectionTab()) == null) {
-					getCollectionTab().reset();
+			try { 
+				if (isCollectionFromModel() ||	!isDefaultListActionsForCollectionsIncluded() || !isDefaultRowActionsForCollectionsIncluded()) { 
+					collectionSize = getCollectionValues().size();
 				}
-				if (fromCurrentTableModel) collectionSize = getCollectionTab().getTotalSize();
 				else {
-					try {
-						collectionSize = getCollectionTab().getAllDataTableModel().getTotalSize(); // We use getAllDataTableModel() to reduce the amount of SELECTs when change the view entity
-																	// with sections with record count in tab. In this way we only add one SELECT COUNT(*) for each section with count.
+					// If not calculated we obtain the data from the Tab
+					if (getRequest().getAttribute(Tab.TAB_RESETED_PREFIX + getCollectionTab()) == null) {
+						getCollectionTab().reset();
 					}
-					catch (Exception ex) {
-						log.warn(XavaResources.getString("tab_size_warning"),ex);
-						collectionSize = getCollectionTab().getTotalSize();
+					if (fromCurrentTableModel) collectionSize = getCollectionTab().getTotalSize();
+					else {
+						try {
+							collectionSize = getCollectionTab().getAllDataTableModel().getTotalSize(); // We use getAllDataTableModel() to reduce the amount of SELECTs when change the view entity
+																		// with sections with record count in tab. In this way we only add one SELECT COUNT(*) for each section with count.
+						}
+						catch (Exception ex) {
+							log.warn(XavaResources.getString("tab_size_warning"),ex);
+							collectionSize = getCollectionTab().getTotalSize();
+						}
 					}
 				}
+			}
+			catch (Exception ex) {
+				log.warn(XavaResources.getString("collection_row_count_error"),ex);
+				return -1;
 			}
 		}
 		return collectionSize;
@@ -2610,6 +2601,7 @@ public class View implements java.io.Serializable {
 				getSectionView(i).clear();
 			}	
 		}		
+		getRoot().dataChanged = isRepresentsEntityReference() && !isRepresentsTransientReference(); 
 	}
 	
 	/**
@@ -3402,9 +3394,9 @@ public class View implements java.io.Serializable {
 			}									
 		}
 	}
-		
+	
 	public boolean throwsPropertyChanged(MetaProperty p) {
-		try {									
+		try {			
 			if (hasDependentsProperties(p) && 
 				!(isSubview() && isRepresentsEntityReference() && !displayAsDescriptionsList())) 
 			{
@@ -3422,7 +3414,7 @@ public class View implements java.io.Serializable {
 		}		 		 				
 	}
 	
-	public boolean throwsPropertyChanged(String propertyName) throws XavaException { 
+	public boolean throwsPropertyChanged(String propertyName) throws XavaException { 		
 		int idx = propertyName.indexOf('.'); 
 		if (idx >= 0) {
 			String reference = propertyName.substring(0, idx);			
@@ -3662,7 +3654,8 @@ public class View implements java.io.Serializable {
 						//   key and we are using a search key (or simply the first displayed property),
 						// then we throw the change of the id, because the id changed too. And maybe
 						//   there are events attached to it.
-						if (!getMetaModel().isKey(changedPropertyQualifiedName)) {
+						String changedPropertyBase = Strings.firstToken(changedPropertyQualifiedName, "."); 
+						if (!getMetaModel().isKey(changedPropertyBase)) {  
 							String id = (String) getMetaModel().getKeyPropertiesNames().iterator().next();
 							propertyChanged(id);
 						}	
@@ -3870,6 +3863,11 @@ public class View implements java.io.Serializable {
 
 	private View getParentIfSectionOrGroup() { 
 		if (isSection() || isGroup()) return getParent().getParentIfSectionOrGroup();
+		return this;
+	}
+	
+	private View getParentIfGroup() { 
+		if (isGroup()) return getParent().getParentIfGroup();
 		return this;
 	}
 	
@@ -4093,11 +4091,11 @@ public class View implements java.io.Serializable {
 
 	private boolean hasDependentsProperties(MetaProperty p) {		
 		try {			
-			// In this view								
-			for (Iterator it = getMetaPropertiesQualified().iterator(); it.hasNext();) {
+			// In this view						
+			for (Iterator it = getParentIfGroup().getMetaPropertiesQualified().iterator(); it.hasNext();) { 
 				Object element = it.next();				
 				if (isMetaProperty(element)) {
-					MetaProperty pro = (MetaProperty) element;					
+					MetaProperty pro = (MetaProperty) element;
 					if (WebEditors.depends(pro, p, getViewName())) {
 						return true;
 					}
@@ -4113,8 +4111,8 @@ public class View implements java.io.Serializable {
 			for (Iterator it = getRoot().getMetaPropertiesQualified().iterator(); it.hasNext();) {
 				Object element = (Object) it.next();
 				if (isMetaProperty(element)) {
-					MetaProperty pro = (MetaProperty) element;					
-					if (pro.getPropertyNamesThatIDepend().contains(p.getName())) {						
+					MetaProperty pro = (MetaProperty) element;
+					if (pro.getPropertyNamesThatIDepend().contains(p.getName())) {
 						return true;
 					}										
 					if (WebEditors.depends(pro, p, getViewName())) {
@@ -5916,25 +5914,14 @@ public class View implements java.io.Serializable {
 	}	
 	
 	private int defaultColumnWidth(MetaProperty p, int columnIndex) { 
-		if (getSumPropertiesSize() < 100) return -1;
-		if (hasCollectionTotal(1, columnIndex) || hasCollectionTotal(1, columnIndex + 1)) return -1; 
-		return Tab.friendViewGetDefaultColumnWidth(p);
+		return -1; // In versions before 7.4.3 we used an algorithm for this 
 	} 
-	
-	private int getSumPropertiesSize() { 
-		int result = 0;
-		for (MetaProperty eachProperty: getMetaPropertiesList()) {
-			result += eachProperty.getSize();
-		}
-		return result;
-	}
-	
+		
 	private Preferences getPreferences() throws BackingStoreException { 		
 		String viewName = getViewName();
 		if (viewName == null) viewName = ""; 
 		return Users.getCurrentPreferences().node("view." + getMetaModel().getName() + "." + viewName + ".");
 	}
-
 
 	public String getHideCollectionElementAction() {
 		return getCollectionAction(hideCollectionElementAction, "Collection.hideDetail");

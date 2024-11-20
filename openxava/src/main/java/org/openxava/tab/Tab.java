@@ -693,28 +693,14 @@ public class Tab implements java.io.Serializable, Cloneable {
 	
 	public int getColumnWidth(int columnIndex) {
 		MetaProperty p = getMetaProperty(columnIndex);
-		if (columnWidths == null) return defaultColumnWidth(p, columnIndex); 
+		if (columnWidths == null) return defaultColumnWidth(p, columnIndex);
 		Integer result = columnWidths.get(p.getQualifiedName());		
 		return result==null?defaultColumnWidth(p, columnIndex):result;
 	}
 	
-	private int defaultColumnWidth(MetaProperty p, int columnIndex) { 
-		if (getSumPropertiesSize() < 100) return -1;
-		if (getAdditionalTotalsCount() > 0 && (hasTotal(1, columnIndex) || hasTotal(1, columnIndex + 1))) return -1; 
-		return friendViewGetDefaultColumnWidth(p);
+	private int defaultColumnWidth(MetaProperty p, int columnIndex) {
+		return -1; // In versions before 7.4.3 we used an algorithm for this
 	} 
-	
-	private int getSumPropertiesSize() { 
-		int result = 0;
-		for (MetaProperty eachProperty: getMetaProperties()) {
-			result += eachProperty.getSize();
-		}
-		return result;
-	}
-		
-	public static int friendViewGetDefaultColumnWidth(MetaProperty p) {
-		return Math.min(p.getSize(), 20) * 7;
-	}
 
 	public void setColumnWidth(int columnIndex, int width) {
 		if (isResizeColumns()) { 

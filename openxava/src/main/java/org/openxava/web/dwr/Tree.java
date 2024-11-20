@@ -74,12 +74,16 @@ public class Tree extends DWRBase {
 						Object value = table.getValueAt(i, j);
 						String propertyName = listProperties[j];
 						propertyName = propertyName.equals(pathProperty) ? "path" : propertyName;
+						propertyName = propertyName.equals(idProperties) ? "id" : propertyName;
 						jsonRow.put(propertyName.toLowerCase(), value);
 					}
 					jsonRow.put("row", i);
 					jsonArray.put(jsonRow);
 				}
 			}
+			
+			propertiesMap.put("id", "id");//force id in order to work with idProperties
+			
 			jsonArray = TreeViewParser.findChildrenOfNode("0", jsonArray, propertiesMap, false);
 			return jsonArray.toString();
 		} catch (Exception e) {
@@ -116,33 +120,41 @@ public class Tree extends DWRBase {
 
 			Map<String, String> pathValueMap = new HashMap<>();
 			List<String> parentsValues = new ArrayList<>();
-
 			for (String row : rows) {
 				Map keys = (Map) collectionView.getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
 				pathValueMap = MapFacade.getValues(modelName, keys, pathIdMap);
-				if (pathValueMap.get(pathProperty).equals("")) {
-					if (idProperties.equals("")) {
-						parentsValues.add(keys.get("id").toString());
-					} else {
-						// for multiple ids
-					}
-				} else {
-					parentsValues.add(pathValueMap.get(pathProperty));
-				}
+				parentsValues.add(pathValueMap.get(pathProperty));
 				MapFacade.setValues(modelName, keys, newPathValue);
 			}
 			childRows.removeIf(rows::contains);
-
 			for (String row : childRows) {
 				Map keys = (Map) collectionView.getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
 				pathValueMap = MapFacade.getValues(modelName, keys, pathIdMap);
 				String childPathValue = (String) pathValueMap.get(pathProperty);
 				for (String pValue : parentsValues) {
-					pValue = pValue.startsWith(pathSeparator) ? pValue : pathSeparator + pValue;
+					if (pValue.isEmpty()) {
+						childPathValue = newPath + childPathValue;
+						break;
+					}
+					pValue = pValue.startsWith(pathSeparator) ? pValue : pathSeparator + pValue; 
 					if (childPathValue.startsWith(pValue)) {
-						childPathValue = newPath.equals("") 
-								? childPathValue.replace(pValue, newPath)
-								: newPath + childPathValue.substring(childPathValue.indexOf(pValue));
+						if (newPath.equals("")) {
+							childPathValue = childPathValue.replace(pValue, newPath);
+						} else {
+							if (pValue.startsWith(newPath)) {
+								if (pValue.length() < newPath.length()) {
+									childPathValue = newPath + childPathValue.substring(childPathValue.indexOf(pValue));
+								} else {
+									childPathValue = childPathValue.replace(pValue, newPath);
+								}
+							} else {
+								if (pValue.length() < newPath.length()) {
+									childPathValue = newPath + childPathValue.substring(childPathValue.indexOf(pValue)  + pValue.length());
+								} else {
+									childPathValue = newPath + childPathValue.substring(childPathValue.indexOf(pValue));
+								}
+							}
+						}
 					} else if (childPathValue.contains(pValue)) {
 						childPathValue = childPathValue.substring(childPathValue.indexOf(pValue) - 1);
 					}

@@ -59,6 +59,7 @@ public class TreeTest extends WebDriverTestBase{
 		execute("List.viewDetail", "row=0");
 		createNodeWithPathSeparator_dnd(getDriver());
 		
+		
 	}
 	
 	// Wait until the element is available and return it
@@ -172,6 +173,19 @@ public class TreeTest extends WebDriverTestBase{
 		
 		executeDnd(driver, treeItemNodesId.get("child3sub1") + "_anchor", treeItemNodesId.get("child3") + "_anchor");
 		executeDndBetween(driver, treeItemNodesId.get("child1sub2") + "_anchor", treeItemNodesId.get("child1"));
+
+		executeDnd(driver, "14_anchor", "11_anchor");
+		driver.navigate().refresh();
+		Thread.sleep(5000);
+		assertTrue(isElementInside(driver, "14", "15_anchor"));
+		executeDndBetween(driver, "14_anchor", "11");
+		driver.navigate().refresh();
+		Thread.sleep(5000);
+		assertTrue(isElementInside(driver, "14", "15_anchor"));
+		executeDnd(driver, "14_anchor", "12_anchor");
+		driver.navigate().refresh();
+		Thread.sleep(5000);
+		assertTrue(isElementInside(driver, "14", "15_anchor"));
 	}
 	
 	private void createNodeWithPathSeparator_dnd(WebDriver driver) throws Exception {
@@ -206,7 +220,7 @@ public class TreeTest extends WebDriverTestBase{
 	
 	private void executeDnd(WebDriver driver, String sourceElementId, String targetElementId) throws InterruptedException {
         WebElement sourceElement = findElement(driver, By.id(sourceElementId));
-        WebElement targetElement = findElement(driver, By.id(targetElementId));		
+        WebElement targetElement = findElement(driver, By.id(targetElementId));
         Actions actions = new Actions(driver);
         actions.dragAndDrop(sourceElement, targetElement).build().perform();
         Thread.sleep(500);// wait animation and html
