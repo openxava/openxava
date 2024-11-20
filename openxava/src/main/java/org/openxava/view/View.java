@@ -3872,6 +3872,7 @@ public class View implements java.io.Serializable {
 			}					
 			
 			Object newValue = calculator.calculate();
+			System.out.println("[View.calculateValue] Calculated " + metaProperty.getName() + ", value=" + newValue); // tmr
 			
 			if (calculator instanceof IOptionalCalculator) {
 				if (!((IOptionalCalculator) calculator).isCalculate()) {
