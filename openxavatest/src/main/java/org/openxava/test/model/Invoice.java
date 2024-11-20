@@ -137,8 +137,7 @@ import lombok.*;
 		"customer"
 	),		
 	@View(name="DetailsWithTotals", members= 
-		// tmr  "year, number, date, vatPercentage;" +
-		"year, number, date, vatPercentage, totalCalculationsCount;" + // tmr
+		"year, number, date, vatPercentage;" +
 		"customer;" +
 		"details;" + 
 		"calculatedDetails"
@@ -244,6 +243,10 @@ public class Invoice {
 	
 	final private static BigDecimal DISCOUNT = new BigDecimal("20.00");
 	final private static BigDecimal HUNDRED = new BigDecimal("100");
+	
+	// tmr ini
+	private static int totalCalculationsCount;
+	// tmr fin
 	
 	@Id @Column(length=4) @Max(9999) @Required 
 	@DefaultValueCalculator(CurrentYearCalculator.class)
@@ -428,20 +431,20 @@ public class Invoice {
 	@Depends("vat") 
 	public BigDecimal getTotal() {
 		totalCalculationsCount++;
-		System.out.println("[Invoice.getTotal] totalCalculationsCount=" + totalCalculationsCount); // tmr
 		return getVat().add(getAmountsSum());
 	}
 	
 	// tmr ini
-	// TMR ME QUEDÉ POR AQUÍ. INTENTANDO CREAR UNA FORMA DE HACER UNA PRUEBA AUTOMÁTICA.
-	// TMR  PERO AÑADE DEMASIADOS VALORES, QUIZÁS TENDRÍA QUE CREAR DOS ACCIONES, PARA RESETEAR Y PARA VISUALIZAR COMO MENSAJE.
 	// TMR AHORA HACE 33 SELECTs CUANDO SE CAMBIA EL IVA. COMPROBAR SI MEJORA. SI MEJORA PODRÍA SER UN BUG DIFERENTE RESUELTO.
-	private static int totalCalculationsCount;
-	public int getTotalCalculationsCount() {
+	public static int getTotalCalculationsCount() {
 		return totalCalculationsCount;
 	}
+	public static void resetTotalCalculationsCount() {
+		totalCalculationsCount = 0;
+	}	
 	// tmr fin
 	
+		
  	public static Collection findAll()  {  		 			
  		Query query = XPersistence.getManager().createQuery("from Invoice"); 
  		return query.getResultList();  		 		

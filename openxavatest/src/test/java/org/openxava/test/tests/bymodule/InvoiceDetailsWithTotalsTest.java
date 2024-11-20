@@ -57,6 +57,7 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 	}
 	
 	private void assertTotalUpdatedWhenDependsPropertyChanged() throws Exception {  
+		execute("InvoiceDetailsWithTotals.resetTotalCalculationsCount"); // tmr
 		assertTotalInCollection("details", 1, "amount",   "400.00"); 
 		assertTotalInCollection("details", 2, "amount", "2,900.00");
 		assertTotalInCollection("calculatedDetails", 1, "amount",   "400.00"); 
@@ -70,7 +71,12 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		assertTotalInCollection("calculatedDetails", 2, "amount", "2,925.00");
 		
 		assertTotalsInFrameOfCollection("details", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 425.00    Total: 2,925.00", false);      
-		assertTotalsInFrameOfCollection("calculatedDetails", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 425.00    Total: 2,925.00", true); 
+		assertTotalsInFrameOfCollection("calculatedDetails", "(2)    Delivery date: 12/15/2010    Product unit price sum: 20.00    Amounts sum: 2,500.00    V.A.T.: 425.00    Total: 2,925.00", true);
+		
+		// tmr ini
+		execute("InvoiceDetailsWithTotals.showTotalCalculationsCount"); 
+		assertMessage("totalCalculationsCount=2");
+		// tmr fin
 	}
 
 	public void testTotalsAndAddActionInCollectionFrame() throws Exception {
