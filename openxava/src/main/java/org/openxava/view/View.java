@@ -1098,6 +1098,9 @@ public class View implements java.io.Serializable {
 				}
 				Collection propertiesListNames = metaCollectionView.getPropertiesListNames();
 				if (!propertiesListNames.isEmpty()) {
+					System.out.println("aca");
+					System.out.println(metaCollectionView.getPropertiesListNamesAsString());
+					System.out.println(newView.getModelName());
 					newView.setPropertiesListNames(metaCollectionView.getPropertiesListNamesAsString());
 					newView.setMetaPropertiesList(namesToMetaProperties(newView, propertiesListNames));
 				}				
@@ -4390,7 +4393,8 @@ public class View implements java.io.Serializable {
 	}
 
 	public List<MetaProperty> getMetaPropertiesList() throws XavaException {
-		//System.out.println("mp list");
+		System.out.println("mp list");
+		System.out.println(metaPropertiesList);
 		if (metaPropertiesList == null) {
 			System.out.println(1);
 			metaPropertiesList = new ArrayList<MetaProperty>();
@@ -4405,7 +4409,7 @@ public class View implements java.io.Serializable {
 			}
 			setLabelsIdForMetaPropertiesList();
 		} else {
-			//System.out.println(2);
+			System.out.println(2);
 			Map labels = getLabels();
 			if (labels != null && labelsChanged) {
 				//System.out.println("2.1");
@@ -4431,7 +4435,15 @@ public class View implements java.io.Serializable {
 		    //System.out.println(mr.getMetaModelReferenced().getAllKeyPropertiesNames());
 		    keys.addAll(mr.getMetaModelReferenced().getAllMetaPropertiesKey());
 		}
+		//metacollectionview
+		getMetaModel().getPropertiesListNamesAsString();
+
+		System.out.println("new property name");
+		System.out.println(this.getModelName());
+		System.out.println(getPropertiesListNamesAsString());
+		System.out.println(namesToMetaProperties(this, Arrays.asList("productos.oid")));
 		
+		/*
 		List<MetaProperty> auxMetaPropertiesList = new ArrayList<>(metaPropertiesList);
 
 		for (MetaProperty metaProperty : keys) {
@@ -4451,8 +4463,9 @@ public class View implements java.io.Serializable {
 				}
 			}
 		}
-		
-		System.out.println(metaPropertiesList); 
+		*/
+		System.out.println("keyss");
+		System.out.println(keys); 
 		//return metaPropertiesList;
 		return keys;
 	}
@@ -4478,9 +4491,12 @@ public class View implements java.io.Serializable {
 		
 	public void setMetaPropertiesList(List<MetaProperty> metaProperties) throws XavaException {
 		System.out.println("setMetaPropertiesList");
+		System.out.println(metaProperties);
 		if (hasSameQualifiedNames(this.metaPropertiesList, metaProperties)) return;
 		this.metaPropertiesList = metaProperties;
+		System.out.println(metaPropertiesList);
 		setLabelsIdForMetaPropertiesList();
+		System.out.println(metaPropertiesList);
 	}
 
 	private boolean hasSameQualifiedNames(List<MetaProperty> metaProperties1, List<MetaProperty> metaProperties2) { 
