@@ -540,27 +540,38 @@ public class View implements java.io.Serializable {
 			System.out.println("values != null");
 			System.out.println(values);
 			hiddenKeyAndVersion = getHiddenKeyAndVersion(values); 
+			System.out.println(hiddenKeyAndVersion);
 		}
 		if (hasSubviews()) { 
+			System.out.println("hasSubviews");
 			Iterator it = getSubviews().entrySet().iterator(); 
 			while (it.hasNext()) { 
 				Map.Entry en = (Map.Entry) it.next(); 
 				View v = (View) en.getValue();
 				if (v.isRepresentsCollection()) {
+					System.out.println(1);
 					if (v.getMetaCollection().isElementCollection()) {
+						System.out.println(en.getKey());
+						//System.out.println(v.getCollectionValues());
+						
+						//[{cantidad=1, productos={descripcion=b, numerosos=2, oid=2}}]
+						//[{cantidad=1, productos={descripcion=b, numerosos=2}}]
 						values.put(en.getKey(), v.getCollectionValues());  
 					}
 				}
-				else if (!onlyKeyFromSubviews && (all || v.isRepresentsAggregate())) {					
+				else if (!onlyKeyFromSubviews && (all || v.isRepresentsAggregate())) {
+					System.out.println(2);
 					values.put(en.getKey(), v.getValues(all, onlyKeyFromSubviews));					
 				} 
-				else {  					
+				else {  			
+					System.out.println(3);
 					values.put(en.getKey(), v.getKeyValues());					
 				}  
 			} 
 		} 
 		
 		if (hasGroups()) { 
+			System.out.println("hasGroups");
 			Iterator it = getGroupsViews().values().iterator(); 
 			while (it.hasNext()) { 
 				View v = (View) it.next(); 
@@ -569,6 +580,7 @@ public class View implements java.io.Serializable {
 		} 
 		 
 		if (hasSections()) { 
+			System.out.println("hasSections");
 			int count = getSections().size(); 
 			for (int i=0; i<count; i++) {  
 				values.putAll(getSectionView(i).getValues(all, onlyKeyFromSubviews));
@@ -576,9 +588,11 @@ public class View implements java.io.Serializable {
 		}  
 		
 		if (hiddenKeyAndVersion != null) { 
+			System.out.println("hiddenKeyAndVersion != null");
 			values.putAll(hiddenKeyAndVersion);  
 		} 
-
+		System.out.println("last of getValues");
+		System.out.println(values);
 		return values; 
 	} 	
 	
@@ -776,19 +790,32 @@ public class View implements java.io.Serializable {
 		}				
 	}
 	
-	private void moveCollectionValuesToViewValues() {  
+	private void moveCollectionValuesToViewValues() {
+		System.out.println("moveCollectionValuesToViewValues");
 		if (!isRepresentsElementCollection()) {
+			System.out.println(1);
 			View parent = getParent();
 			if (parent == null) return;
 			parent.moveCollectionValuesToViewValues();
 			return;
 		}
-		if (collectionValues == null) return;	
-		if (collectionEditingRow < 0 || collectionEditingRow > collectionValues.size()) return; 
+		if (collectionValues == null) {
+			System.out.println(2);
+			return;	
+		}
+		if (collectionEditingRow < 0 || collectionEditingRow > collectionValues.size()) {
+			System.out.println(3);
+			return; 
+		}
 		if (collectionValues.size() == collectionEditingRow) {
+			System.out.println(4);
 			clearValues(); 
 		}
-		else setValues(collectionValues.get(collectionEditingRow)); 		
+		else {
+			System.out.println(5);
+			System.out.println(collectionValues);
+			setValues(collectionValues.get(collectionEditingRow)); 		
+		}
 	}
 	
 	private void clearValues() {  
@@ -857,6 +884,7 @@ public class View implements java.io.Serializable {
 	 * @param recalculatingValues If true reobtain values from views, groups and sections.
 	 */
 	private Object getValue(String name, boolean recalculatingValues) throws XavaException {
+		System.out.println("getValue");
 		int idx = name.indexOf('.');		
 		if (idx < 0) { 						
 			if (!getMembersNamesWithoutSections().contains(name) && (hiddenMembers == null || !hiddenMembers.contains(name)) && !getMetaModel().getKeyPropertiesNames().contains(name)) {
@@ -1376,6 +1404,8 @@ public class View implements java.io.Serializable {
 	}
 					
 	private boolean trySetValue(String name, Object value, boolean setValuesForSubviews) throws XavaException {
+		System.out.println("trySetValue");
+		System.out.println(collectionValues);
 		name = Ids.undecorate(name); 
 		int idx = name.indexOf('.');
 		if (idx < 0) {
@@ -1564,10 +1594,10 @@ public class View implements java.io.Serializable {
 	}
 	
 	public Map getKeyValues() throws XavaException {
-		System.out.println("getKeyValues");
+		System.out.println("getKeyValues2");
 		Map values = getValues(false, true); 
 		Map result = getMetaModel().extractKeyValues(values);
-
+		System.out.println(result.isEmpty());
 		if (getParent() != null && !getParent().isRepresentsAggregate()) {			
 			// At the moment reference to entity within aggregate can not be part of key
 			if (isRepresentsEntityReference() && !isRepresentsCollection()) {				
@@ -1828,11 +1858,16 @@ public class View implements java.io.Serializable {
 	 */	
 	// 
 	public List<Map<String, Object>> getCollectionValues() throws XavaException {
-		//System.out.println("collectionValues");
-		if (collectionValues == null) { 			
+		System.out.println("collectionValues");
+		if (collectionValues == null) {
+			System.out.println(1);
 			assertRepresentsCollection("getCollectionValues()");
-			if (getMetaCollection().isElementCollection()) collectionValues = new ArrayList<>(); 
-			else if (isCollectionFromModel() ||	!isDefaultListActionsForCollectionsIncluded() || !isDefaultRowActionsForCollectionsIncluded()) {				
+			if (getMetaCollection().isElementCollection()) {
+				System.out.println(11);
+				collectionValues = new ArrayList<>(); 
+			}
+			else if (isCollectionFromModel() ||	!isDefaultListActionsForCollectionsIncluded() || !isDefaultRowActionsForCollectionsIncluded()) {
+				System.out.println(12);
 				// If calculated we obtain the data directly from the model object
 				Map mapMembersNames = new HashMap();
 				mapMembersNames.put(getMemberName(), new HashMap(getCollectionMemberNames()));
@@ -1864,12 +1899,14 @@ public class View implements java.io.Serializable {
 				}
 			}
 			else {
-				// If not calculated we obtain the data from the Tab			
+				// If not calculated we obtain the data from the Tab	
+				System.out.println(13);
 				collectionValues = getCollectionValues(getCollectionTab().getAllKeys()); 
 			}
 		}
 		
-		//System.out.println(collectionValues);
+		System.out.println(collectionValues);
+		
 		return collectionValues; 
 	}
 	
@@ -3200,7 +3237,12 @@ public class View implements java.io.Serializable {
 	}
 	
 	private void assignValuesToElementCollection(String qualifier) {
-		if (!isCollectionMembersEditables()) return;
+		System.out.println("assignValuesToElementCollection");
+		System.out.println(collectionValues);
+		if (!isCollectionMembersEditables()) {
+			System.out.println(1);
+			return;
+		}
 		int oldCount = collectionValues == null?0:collectionValues.size(); 
 		List<Map<String, Object>> oldCollectionValues = collectionValues;
 		collectionValues = new ArrayList();		
@@ -3212,6 +3254,8 @@ public class View implements java.io.Serializable {
 			MetaReference ref = getMetaModel().getMetaReference(lastLineScannedPropertyBase);
 			lastLineScannedPropertyisDescriptionsList = displayAsDescriptionsList(ref);
 		}
+		System.out.println(2);
+		System.out.println(collectionValues);
 		if (lastLineScannedPropertyisDescriptionsList || 
 			getMetaPropertiesList().get(0).isKey() && 
 			getMetaPropertiesList().get(0).getMetaModel().getAllKeyPropertiesNames().size() > 1) 
@@ -3228,18 +3272,31 @@ public class View implements java.io.Serializable {
 			collectionNewSize++;
 		}
 		if (collectionNewSize > 1) collectionNewSize--; 
+		System.out.println(3);
+		System.out.println(collectionValues);
 		for (int i=0; ;i++) {
 			String lastLineKey = qualifier + (i + lastLineKeyIncrement) + lastLineKeySuffix;
-			if (getRequest().getParameterValues(lastLineKey) == null) break;
-			if (i >= collectionNewSize && hasBoolean) break; 
+			if (getRequest().getParameterValues(lastLineKey) == null) {
+				System.out.println("break1");
+				break;
+			}
+			if (i >= collectionNewSize && hasBoolean) {
+				System.out.println("break2");
+				break; 
+			}
 			boolean containsReferences = false;
 			Set<String> falseBooleans = null; 
 			Map element = new HashMap();
 			Map originalValues = null; 
 			for (MetaProperty p: getMetaPropertiesList()) {
+				System.out.println(getMetaPropertiesList());
+				System.out.println(p.getName());
 				String propertyKey= qualifier + i + "." + p.getName();
+				System.out.println(propertyKey);
 				String [] results = getRequest().getParameterValues(propertyKey);
+				System.out.println(Arrays.toString(results));
 				if (results == null && p.getName().contains(".")) {
+					System.out.println(11);
 					String refName = Strings.noLastTokenWithoutLastDelim(p.getName(), ".");
 					if (p.getMetaModel().getAllKeyPropertiesNames().size() > 1) {						
 						propertyKey= qualifier + i + "." + refName + DescriptionsLists.COMPOSITE_KEY_SUFFIX; 
@@ -3260,12 +3317,15 @@ public class View implements java.io.Serializable {
 					}
 				}		
 				if (results == null && (p.getType().equals(boolean.class) || p.getType().equals(Boolean.class))) {
+					System.out.println(12);
 					if (falseBooleans == null) falseBooleans = new HashSet();
 					falseBooleans.add(p.getName());
 					if (!hasBoolean) hasBoolean = true;
 				}
-				if (results == null || !WebEditors.mustToFormat(p, getViewName())) { 
+				if (results == null || !WebEditors.mustToFormat(p, getViewName())) {
+					System.out.println(13);
 					if (oldCollectionValues != null && i < oldCollectionValues.size()) {
+						System.out.println("old not null");
 						Object originalValue = oldCollectionValues.get(i).get(p.getName());
 						if (originalValues == null) originalValues = new HashMap();
 						originalValues.put(p.getName(), originalValue);
@@ -3276,7 +3336,8 @@ public class View implements java.io.Serializable {
 				element.put(p.getName(), value);
 				if (p.getName().contains(".")) containsReferences = true;
 			}
-			
+			System.out.println("22");
+			System.out.println(collectionValues);
 			if (originalValues != null) element.putAll(originalValues);
 			if (Maps.isEmpty(element)) continue;
 			if (falseBooleans != null) {
@@ -3284,9 +3345,12 @@ public class View implements java.io.Serializable {
 					element.put(property, false); 
 				}
 			}
+			System.out.println("33");
 			if (containsReferences) element = Maps.plainToTree(element);
 			collectionValues.add(element);
 		}
+		System.out.println(4);
+		System.out.println(collectionValues);
 		setCollectionEditionRowFromChangedProperty();
 		oldCollectionTotals = collectionTotals; 
 		moveCollectionValuesToViewValues();
@@ -3295,7 +3359,9 @@ public class View implements java.io.Serializable {
 			collectionTotals = null;
 			collectionSize = -1; 
 		}
-		setOldStateInElementCollection();		
+		setOldStateInElementCollection();	
+		System.out.println("end");
+		System.out.println(collectionValues);
 	}
 
 	private void setCollectionEditionRowFromChangedProperty() {  
@@ -3707,9 +3773,11 @@ public class View implements java.io.Serializable {
 		if (collectionValues == null) return;
 		if (collectionEditingRow == collectionValues.size()) {
 			System.out.println(1);
-			System.out.println(collectionEditingRow);
-			System.out.println(getAllValues());
+			//System.out.println(collectionEditingRow);
+			//System.out.println(getAllValues());
 			collectionValues.add(collectionEditingRow, getAllValues());
+			System.out.println("moveViewValuesToCollectionValues done");
+			System.out.println(collectionValues);
 		}
 		else if (collectionEditingRow >= 0) {
 			System.out.println(2);
@@ -4373,7 +4441,7 @@ public class View implements java.io.Serializable {
 				System.out.println(metaPropertiesListProperty.getMetaModel().getName());
 				System.out.println(metaPropertiesListProperty.getName());
 				if (metaProperty.getMetaModel().getName().equals(metaPropertiesListProperty.getMetaModel().getName())) {
-					System.out.println(1);
+					System.out.println(12);
 					MetaProperty newMetaProperty = new MetaProperty();
 					newMetaProperty = metaProperty;
 //					newMetaProperty.setName("productos.oid");
@@ -4383,6 +4451,7 @@ public class View implements java.io.Serializable {
 				}
 			}
 		}
+		
 		System.out.println(metaPropertiesList); 
 		//return metaPropertiesList;
 		return keys;
@@ -4408,6 +4477,7 @@ public class View implements java.io.Serializable {
 	}
 		
 	public void setMetaPropertiesList(List<MetaProperty> metaProperties) throws XavaException {
+		System.out.println("setMetaPropertiesList");
 		if (hasSameQualifiedNames(this.metaPropertiesList, metaProperties)) return;
 		this.metaPropertiesList = metaProperties;
 		setLabelsIdForMetaPropertiesList();
