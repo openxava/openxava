@@ -1,8 +1,7 @@
 package org.openxava.test.tests.bymodule;
 
-import org.openxava.tests.*;
-
 import org.htmlunit.html.*;
+import org.openxava.tests.*;
 
 /**
  * 
@@ -135,7 +134,7 @@ public class InvoiceNoSectionsTest extends ModuleTestBase {
 		assertValueInCollection("details", 1, "amount", "60.00");
 		assertValue("amountsSum", "120.00");
 		assertValue("vatPercentage", "14.0"); 
-		assertValue("vat", "16.80");
+		assertValue("vat", "16.80"); // TMR FALLA ME QUEDÉ POR AQUÍ. CUANDO LO ARREGLE COMPROBAR QUE PRODUCT CON SECCIONES SIGUE FUNCIONANDO
 		assertValue("total", "136.80");		
 		
 		// Restoring original values

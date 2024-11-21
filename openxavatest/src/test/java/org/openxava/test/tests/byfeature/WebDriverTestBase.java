@@ -21,7 +21,8 @@ import junit.framework.*;
  */
 abstract public class WebDriverTestBase extends TestCase {
 	
-	private boolean headless = false;
+	// tmr private boolean headless = false;
+	private boolean headless = true; // tmr
 	private String module;
 	private WebDriver driver;
 	

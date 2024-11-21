@@ -175,7 +175,6 @@ public class View implements java.io.Serializable {
 	private boolean subcontrollersNamesListRefined = false; 
 	private Map<String, String> refinedCollectionActions;
 	private Map<String, Boolean> refinedReferenceActions;
-	private transient MetaProperty propertyBeingCalculated; // tmr
 	
 	// firstLevel is the root view that receives the request 
 	// usually match with getRoot(), but not always. For example,
@@ -2771,7 +2770,7 @@ public class View implements java.io.Serializable {
 		if (getRoot().executedActions == null) return false;
 		return getRoot().executedActions.contains(getModelName() + "::" + getMemberName() + "::" + name + "::" + action.getClass()); 
 	}
-
+	
 	public boolean isKeyEditable() {
 		if (insideAViewDisplayedAsDescriptionsListAndReferenceView()) return false;
 		View baseView = getParentIfSectionOrGroup();
@@ -2783,8 +2782,6 @@ public class View implements java.io.Serializable {
 		return !isReadOnly() && keyEditable;
 	}
 	
-	
-
 	private boolean insideAViewDisplayedAsDescriptionsListAndReferenceView() {
 		if (displayAsDescriptionsListAndReferenceView()) return true;
 		if (getParent() == null) return false;
@@ -3083,13 +3080,15 @@ public class View implements java.io.Serializable {
 			if (firstLevel) {
 				if (!Is.emptyString(changedProperty)) {
 					getRoot().registeringExecutedActions = true;
+					resetRecalculatedProperties(); // tmr
 					try {	
 						if (isKeyEditable()) resetCollectionTotals(); // The isKeyEditable() is to improve performance 
 						propertyChanged(changedProperty);			  //   If you change it verify that InvoiceDetailsWithTotals does not
 					}												  //   reload totals in View.getCollectionTotals() on changing VAT. 
 					finally {
 						getRoot().registeringExecutedActions = false;		
-						resetExecutedActions();						
+						resetExecutedActions();
+						// tmr resetRecalculatedProperties(); // tmr
 					}						
 				}			
 			}
@@ -3584,7 +3583,6 @@ public class View implements java.io.Serializable {
 	private void tryPropertyChanged(MetaProperty changedProperty, String changedPropertyQualifiedName) throws Exception {
 		if (!isOnlyThrowsOnChange()) {
 			
-			System.out.println("[View(" + getModelName() + ":" + oid + ").tryPropertyChanged] 10"); // tmr
 			boolean calculationDone = false;
 			Iterator it = getMetaPropertiesIncludingGroups().iterator();	
 			while (it.hasNext()) {
@@ -3601,7 +3599,6 @@ public class View implements java.io.Serializable {
 				}
 			}
 			
-			System.out.println("[View(" + getModelName() + ":" + oid + ").tryPropertyChanged] 20"); // tmr
 			for (MetaReference ref: getMetaModel().getMetaReferencesWithDefaultValueCalculator()) {
 				if (hasSubview(ref.getName()) && ref.getMetaCalculatorDefaultValue().containsMetaSetsWithoutValue()) {
 					MetaProperty pr = ref.getMetaModelReferenced().getAllMetaPropertiesKey().get(0).cloneMetaProperty();
@@ -3611,7 +3608,6 @@ public class View implements java.io.Serializable {
 				}
 			}
 			
-			System.out.println("[View(" + getModelName() + ":" + oid + ").tryPropertyChanged] 30"); // tmr
 			if (isRepresentsElementCollection() && changedPropertyQualifiedName.contains(".")) { 
 				String refName = org.openxava.util.Strings.noLastTokenWithoutLastDelim(changedPropertyQualifiedName, ".");
 				if (isDescriptionsListInElementCollectionThatFireSearch(refName)) {
@@ -3621,12 +3617,10 @@ public class View implements java.io.Serializable {
 				}
 			}
 			
-			System.out.println("[View(" + getModelName() + ":" + oid + ").tryPropertyChanged] 40"); // tmr
 			if (calculationDone && isRepresentsElementCollection()) {
 				moveViewValuesToCollectionValues();
 			}
 
-			System.out.println("[View(" + getModelName() + ":" + oid + ").tryPropertyChanged] 50"); // tmr
 			if (hasToSearchOnChangeIfSubview && !isFirstLevel() && isRepresentsEntityReference() && !isGroup() && !displayAsDescriptionsList() && 
 					( 	
 					(getLastPropertyKeyName().equals(changedProperty.getName()) && getMetaPropertiesIncludingGroups().contains(changedProperty)) || // Visible keys
@@ -3657,15 +3651,12 @@ public class View implements java.io.Serializable {
 					}				
 				}			
 			}
-			System.out.println("[View(" + getModelName() + ":" + oid + ").tryPropertyChanged] 60"); // tmr
 			
 		} // of if (!isOnlyThrowsOnChange())
-		System.out.println("[View(" + getModelName() + ":" + oid + ").tryPropertyChanged] 70"); // tmr
 		if (!isSection() && getMetaView().hasOnChangeAction(changedPropertyQualifiedName)) {
 			IOnChangePropertyAction action = getMetaView().createOnChangeAction(changedPropertyQualifiedName);
 			executeOnChangeAction(changedPropertyQualifiedName, action);
 		}
-		System.out.println("[View(" + getModelName() + ":" + oid + ").tryPropertyChanged] 80"); // tmr
 		if (hasGroups()) {
 			Iterator itGroups = getGroupsViews().values().iterator();
 			while (itGroups.hasNext()) {
@@ -3680,14 +3671,12 @@ public class View implements java.io.Serializable {
 				}
 			}		
 		}
-		System.out.println("[View(" + getModelName() + ":" + oid + ").tryPropertyChanged] 90"); // tmr
 		if (hasSections()) {
 			int count = getSections().size();
 			for (int i = 0; i < count; i++) {
 				getSectionView(i).propertyChanged(changedProperty, changedPropertyQualifiedName); 				
 			}			
 		}		
-		System.out.println("[View(" + getModelName() + ":" + oid + ").tryPropertyChanged] 999"); // tmr
 	}
 
 	private void moveViewValuesToCollectionValues() { 
@@ -3854,16 +3843,11 @@ public class View implements java.io.Serializable {
 		return this;
 	}
 	
-	private static int veces = 0; // tmr
 	private void calculateValue(MetaProperty metaProperty, MetaCalculator metaCalculator, ICalculator calculator, Messages errors, Messages messages) {		
 		try {	
 			// tmr ini
-			System.out.println("[View(" + oid + ").calculateValue] propertyBeingCalculated=" + propertyBeingCalculated); // tmr
-			System.out.println("[View(" + oid + ").calculateValue] metaProperty=" + metaProperty); // tmr
-			// TMR ME QUEDÉ POR AQUÍ. ESTE TRUCO NO ME FUNCIONÓ
-			if (propertyBeingCalculated == metaProperty) return;
-			propertyBeingCalculated = metaProperty;
-			// tmr 
+			if (isRecalculatedProperty(metaProperty)) return;
+			// tmr fin 
 			PropertiesManager mp = new PropertiesManager(calculator);
 			Iterator it = metaCalculator.getMetaSets().iterator();			
 			while (it.hasNext()) {
@@ -3890,15 +3874,6 @@ public class View implements java.io.Serializable {
 			}					
 			
 			Object newValue = calculator.calculate();
-			// tmr ini
-			System.out.println("[View.calculateValue] Calculated " + metaProperty.getName() + ", value=" + newValue); // tmr
-			/* tmr
-			if (newValue != null && newValue.toString().equals("2925.00")) {
-				veces++;
-				if (veces == 2) throw new RuntimeException("KASKO");
-			}
-			*/
-			// tmr fin
 			
 			if (calculator instanceof IOptionalCalculator) {
 				if (!((IOptionalCalculator) calculator).isCalculate()) {
@@ -3916,11 +3891,6 @@ public class View implements java.io.Serializable {
 		catch (Exception ex) {
 			log.warn(XavaResources.getString("value_calculate_warning", metaProperty),ex);
 		}
-		// tmr ini
-		finally {
-			propertyBeingCalculated = null;
-		}
-		// tmr fin		
 	}
 
 	private boolean setValueNotifyingInTotals(String propertyName, Object newValue, Object oldValue) { 
@@ -3962,19 +3932,39 @@ public class View implements java.io.Serializable {
 		if (recalculatedMetaProperties == null) recalculatedMetaProperties = new HashSet<MetaProperty>();
 		else if (recalculatedMetaProperties.contains(metaProperty)) return;
 		recalculatedMetaProperties.add(metaProperty);
+		
+		// tmr ini
+		/*
+		if (getFirstLevelView().recalculatedMetaProperties == null) getFirstLevelView().recalculatedMetaProperties = new HashSet<MetaProperty>();
+		else if (getFirstLevelView().recalculatedMetaProperties.contains(metaProperty)) return;
+		getFirstLevelView().recalculatedMetaProperties.add(metaProperty);
+		*/		
+		// tmr fin
 	}
 	
 	private void resetRecalculatedProperties() { 
 		if (recalculatedMetaProperties != null) recalculatedMetaProperties.clear();
+		// tmr if (getFirstLevelView().recalculatedMetaProperties != null) getFirstLevelView().recalculatedMetaProperties.clear(); // tmr
 	}
 	
 	private void recalculateRecalculatedProperties() { 
 		if (recalculatedMetaProperties == null) return;
 		for (MetaProperty pr: recalculatedMetaProperties) {
-			System.out.println("[View.recalculateRecalculatedProperties] >"); // tmr
 			calculateValue(pr, pr.getMetaCalculator(), pr.getCalculator(), errors, messages);
-			System.out.println("[View.recalculateRecalculatedProperties] <"); // tmr
 		}
+		// tmr ini
+		/*
+		if (getFirstLevelView().recalculatedMetaProperties == null) return;
+		for (MetaProperty pr: getFirstLevelView().recalculatedMetaProperties) {
+			getFirstLevelView().calculateValue(pr, pr.getMetaCalculator(), pr.getCalculator(), errors, messages);
+		}
+		*/
+		// tmr fin
+	}
+	
+	private boolean isRecalculatedProperty(MetaProperty metaProperty) { // tmr
+		// tmr return recalculatedMetaProperties != null && recalculatedMetaProperties.contains(metaProperty);
+		return getFirstLevelView().recalculatedMetaProperties != null && getFirstLevelView().recalculatedMetaProperties.contains(metaProperty); // tmr
 	}
 	
 	/**
@@ -5705,7 +5695,6 @@ public class View implements java.io.Serializable {
 	}	
 
 	public void recalculateProperties() {
-		System.out.println("[View(" + getModelName() + ":" + oid + ").recalculateProperties] "); // tmr
 		try {												
 			Map names = getCalculatedPropertiesNames();
 			if (!names.isEmpty()) {

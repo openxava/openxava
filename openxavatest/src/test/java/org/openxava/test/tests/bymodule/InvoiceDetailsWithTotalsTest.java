@@ -75,7 +75,15 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		
 		// tmr ini
 		execute("InvoiceDetailsWithTotals.showTotalCalculationsCount"); 
-		assertMessage("totalCalculationsCount=2");
+		assertMessage("totalCalculationsCount=1");
+		
+		// It should work the second time
+		setValue("vatPercentage", "16");
+		
+		assertTotalInCollection("details", 1, "amount",   "400.00"); 
+		assertTotalInCollection("details", 2, "amount", "2,900.00");
+		assertTotalInCollection("calculatedDetails", 1, "amount",   "400.00"); 
+		assertTotalInCollection("calculatedDetails", 2, "amount", "2,900.00");		
 		// tmr fin
 	}
 
