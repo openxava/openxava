@@ -4,6 +4,8 @@
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.Set"%>
+<%@page import="java.util.HashSet"%>
 <%@page import="org.openxava.controller.meta.MetaAction"%>
 <%@page import="org.openxava.web.Ids"%>
 <%@page import="org.openxava.controller.meta.MetaControllers"%>
@@ -155,13 +157,26 @@ for (int f=0; f < rowCount; f++) {
 <% } %>
 <%
 	List<MetaProperty> metaPropertiesList = subview.getMetaPropertiesList();
-	List<MetaProperty> keyProperties = subview.getKeyPropertiesOfReferencesEntity();
-	//metaPropertiesList.addAll(keyProperties);
+	List<MetaProperty> keyPropertiesList = subview.addKeyPropertiesOfReferencesEntity();
+	//metaPropertiesList = subview.addKeyPropertiesOfReferencesEntity(metaPropertiesList);
+	System.out.println("jsp");
+	/*
+	Set<MetaProperty> metaPropertiesSet = new HashSet<>(metaPropertiesList);
+	for (MetaProperty metaProperty : keyPropertiesList) {
+		if (metaPropertiesSet.add(metaProperty)) {
+		    metaPropertiesList.add(metaProperty);
+		}
+	}
+	*/
+	System.out.println("jsp");
+	boolean done = false;
 	it = metaPropertiesList.iterator();
 	for (int columnIndex = 0; it.hasNext(); columnIndex++) { 
 		MetaProperty p = (MetaProperty) it.next();
 		String align =p.isNumber() && !p.hasValidValues()?"ox-text-align-right":""; 
+		System.out.println("antes");
 		int columnWidth = subview.getCollectionColumnWidth(columnIndex);
+		System.out.println("despues");
 		String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
 		String referenceName = null;
 		String searchAction = null;
@@ -212,6 +227,57 @@ for (int f=0; f < rowCount; f++) {
 	</td>
 	<% } %>
 <%
+
+		if (!it.hasNext()) {
+			for (MetaProperty mp : keyPropertiesList) {
+				System.out.println("columnIndex");
+				System.out.println(columnIndex);
+				columnIndex++;
+				propertyName = collectionName + "." + f + "." + mp.getName();
+				throwPropertyChanged = subview.throwsPropertyChanged(mp.getName());
+				if (p.getName().contains(".")) {
+				String refName = org.openxava.util.Strings.noLastTokenWithoutLastDelim(mp.getName(), ".");
+					if (subview.displayAsDescriptionsList(subview.getMetaReference(refName))) {
+						referenceName = collectionName + "." + f + "." + refName;
+					}
+					else { 			
+						View refView = subview.getSubview(refName);
+						if (refView.isSearch()) searchAction = refView.getSearchAction();
+					}
+				}
+			%>
+		
+		<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell">
+		<% if (labelOnEachCell) { %>
+			<span class="<%=style.getLabel()%>"><%=p.getQualifiedLabel(request)%></span>
+		<% } %>
+		<div class="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%> <%=lastRowClass%>" <%=width%>
+			data-row="<%=f%>">
+		<nobr> 
+		
+		<% if (!subview.isCollectionMembersEditables()) {%>
+			<% if (referenceName == null) { %>
+				<%=fvalue%>&nbsp;
+			<% } else { %>
+				<xava:descriptionsList reference="<%=referenceName%>" readOnlyAsLabel="true"/>	
+			<% } %>
+		<% } else if (referenceName != null) { %>
+		<xava:descriptionsList reference="<%=referenceName%>"/>
+		<% } else { %>
+
+		<span id="<xava:id name='<%="editor_" + view.getPropertyPrefix() + propertyName%>'/>" class="xava_editor">
+		<xava:editor property="<%=propertyName%>" throwPropertyChanged="<%=throwPropertyChanged%>"/>
+		</span>
+		<% } %>	
+	 	</nobr>  
+		</div>
+	</td>
+		
+		<%
+			}
+		}
+		
+		
 	}
 }
 %>

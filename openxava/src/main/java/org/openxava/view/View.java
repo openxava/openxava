@@ -4427,12 +4427,13 @@ public class View implements java.io.Serializable {
 		return metaPropertiesList;
 	}
 	
-	public List<MetaProperty> getKeyPropertiesOfReferencesEntity(String collectionName) {
-		List<String> keys = new ArrayList<>();
-		Collection<String> referencesNames = getMetaModel().getReferencesNames();
+	public List<MetaProperty> addKeyPropertiesOfReferencesEntity() {
 		MetaCollectionView metaCollectionView = getParent().getMetaView().getMetaCollectionView(getMemberName());
 		String propertiesListAsString = metaCollectionView.getPropertiesListNamesAsString();
 		System.out.println(propertiesListAsString);
+		
+		List<String> keys = new ArrayList<>();
+		Collection<String> referencesNames = getMetaModel().getReferencesNames();
 		for (String referenceName : referencesNames) {
 		    MetaReference mr = getMetaModel().getMetaReference(referenceName);
 		    Collection<String> allKeyPropertiesNames = mr.getMetaModelReferenced().getAllKeyPropertiesNames();
@@ -4442,18 +4443,19 @@ public class View implements java.io.Serializable {
 		    	}
 		    }
 		}
-		//
+		
 		List<MetaProperty> keysAsMetaProperty = namesToMetaProperties(this, keys);
-		//newView.setPropertiesListNames(metaCollectionView.getPropertiesListNamesAsString());
-		//newView.setMetaPropertiesList(namesToMetaProperties(newView, propertiesListNames));
-		//productos.numerosos, productos.descripcion, cantidad
-		//YourFirstEntity.Detail
-		//[MetaProperty:YourFirstEntity.details.productos.numerosos, 
-		//MetaProperty:YourFirstEntity.details.productos.descripcion, 
-		//MetaProperty:YourFirstEntity.details.cantidad]
 		keysAsMetaProperty = setLabelsIdForMetaPropertiesList(keysAsMetaProperty);
+		/*
 		System.out.println("keysAsMetaProperty");
 		System.out.println(keysAsMetaProperty);
+		for (MetaProperty property : keysAsMetaProperty) {
+		    if (metaPropertiesSet.add(property)) {
+		    	auxMetaPropertiesList.add(property);
+		    }
+		}
+		System.out.println(auxMetaPropertiesList);
+		*/
 		return keysAsMetaProperty;
 	}
 	
