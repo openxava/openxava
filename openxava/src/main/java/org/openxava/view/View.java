@@ -4427,54 +4427,47 @@ public class View implements java.io.Serializable {
 		return metaPropertiesList;
 	}
 	
-	public List<MetaProperty> getKeyPropertiesOfReferencesEntity() {
-		List<MetaProperty> keys = new ArrayList<>();
+	public List<MetaProperty> getKeyPropertiesOfReferencesEntity(String collectionName) {
+		List<String> keys = new ArrayList<>();
 		Collection<String> referencesNames = getMetaModel().getReferencesNames();
+		MetaCollectionView metaCollectionView = getParent().getMetaView().getMetaCollectionView(getMemberName());
+		String propertiesListAsString = metaCollectionView.getPropertiesListNamesAsString();
+		System.out.println(propertiesListAsString);
 		for (String referenceName : referencesNames) {
 		    MetaReference mr = getMetaModel().getMetaReference(referenceName);
-		    //System.out.println(mr.getMetaModelReferenced().getAllKeyPropertiesNames());
-		    keys.addAll(mr.getMetaModelReferenced().getAllMetaPropertiesKey());
+		    Collection<String> allKeyPropertiesNames = mr.getMetaModelReferenced().getAllKeyPropertiesNames();
+		    for (String keyPropertyName : allKeyPropertiesNames) {
+		    	if (!propertiesListAsString.contains(referenceName + "." + keyPropertyName)) {
+		    		keys.add(referenceName + "." + keyPropertyName);
+		    	}
+		    }
 		}
-		//metacollectionview
-		getMetaModel().getPropertiesListNamesAsString();
-
-		System.out.println("new property name");
-		System.out.println(this.getModelName());
-		System.out.println(getPropertiesListNamesAsString());
-		System.out.println(namesToMetaProperties(this, Arrays.asList("productos.oid")));
-		
-		/*
-		List<MetaProperty> auxMetaPropertiesList = new ArrayList<>(metaPropertiesList);
-
-		for (MetaProperty metaProperty : keys) {
-			System.out.println(metaProperty.getMetaModel().getName());
-			System.out.println(metaProperty.getName());
-			for (MetaProperty metaPropertiesListProperty : auxMetaPropertiesList) {
-				System.out.println(metaPropertiesListProperty.getMetaModel().getName());
-				System.out.println(metaPropertiesListProperty.getName());
-				if (metaProperty.getMetaModel().getName().equals(metaPropertiesListProperty.getMetaModel().getName())) {
-					System.out.println(12);
-					MetaProperty newMetaProperty = new MetaProperty();
-					newMetaProperty = metaProperty;
-//					newMetaProperty.setName("productos.oid");
-					newMetaProperty.setMetaModel(metaPropertiesListProperty.getMetaModel());
-					metaPropertiesList.add(newMetaProperty);
-					continue;
-				}
-			}
-		}
-		*/
-		System.out.println("keyss");
-		System.out.println(keys); 
-		//return metaPropertiesList;
-		return keys;
+		//
+		List<MetaProperty> keysAsMetaProperty = namesToMetaProperties(this, keys);
+		//newView.setPropertiesListNames(metaCollectionView.getPropertiesListNamesAsString());
+		//newView.setMetaPropertiesList(namesToMetaProperties(newView, propertiesListNames));
+		//productos.numerosos, productos.descripcion, cantidad
+		//YourFirstEntity.Detail
+		//[MetaProperty:YourFirstEntity.details.productos.numerosos, 
+		//MetaProperty:YourFirstEntity.details.productos.descripcion, 
+		//MetaProperty:YourFirstEntity.details.cantidad]
+		keysAsMetaProperty = setLabelsIdForMetaPropertiesList(keysAsMetaProperty);
+		System.out.println("keysAsMetaProperty");
+		System.out.println(keysAsMetaProperty);
+		return keysAsMetaProperty;
 	}
 	
 	private void setLabelsIdForMetaPropertiesList() throws XavaException {
-		if (getMemberName() == null || metaPropertiesList == null) return;
-		
+		metaPropertiesList = setLabelsIdForMetaPropertiesList(null);
+	}
+	
+	private List<MetaProperty> setLabelsIdForMetaPropertiesList(List<MetaProperty> mpList) throws XavaException {
+		if (getMemberName() == null || metaPropertiesList == null) return null;
+		System.out.println("setLabelsIdForMetaPropertiesList");
 		List<MetaProperty> newList = new ArrayList();
-		Iterator it = metaPropertiesList.iterator();
+		
+		Iterator it = mpList == null ? metaPropertiesList.iterator() : mpList.iterator();
+		System.out.println(mpList);
 		while (it.hasNext()) {
 			MetaProperty p = ((MetaProperty) it.next()).cloneMetaProperty();
 			if (p.getQualifiedName().contains(".") && !p.getName().contains(".")) {
@@ -4486,7 +4479,8 @@ public class View implements java.io.Serializable {
 			p.setLabelId(prefix + "." + getMemberName() + "." + p.getName());
 			newList.add(p);
 		}
-		metaPropertiesList = newList;
+		//metaPropertiesList = newList;
+		return newList;
 	}
 		
 	public void setMetaPropertiesList(List<MetaProperty> metaProperties) throws XavaException {
