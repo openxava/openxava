@@ -1628,7 +1628,6 @@
 			class="org.openxava.test.actions.ShowTreeContainerAction"/>
 	</controller>
 	
-	<!-- tmr ini -->
 	<controller name="InvoiceDetailsWithTotals">
 		<extends controller="Typical"/>
 		<action name="resetTotalCalculationsCount" mode="detail"
@@ -1636,6 +1635,5 @@
 		<action name="showTotalCalculationsCount" mode="detail"
 			class="org.openxava.test.actions.ShowInvoiceTotalCalculationsCountAction"/>			
 	</controller>		
-	<!-- tmr fin -->
 
 </controllers>

@@ -242,7 +242,7 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		execute("Reference.search", "keyProperty=details.1.product.number");
 		execute("ReferenceSearch.choose", "row=0");
 		assertValueInCollection("details", 1, "product.number", "1");
-		assertValueInCollection("details", 1, "unitPrice", "11.00");		
+		assertValueInCollection("details", 1, "unitPrice", "11.00"); 		
 		assertValueInCollection("details", 1, "amount", "33.00");
 		
 		assertTotalInCollection("details", 0, "amount", "73.00");

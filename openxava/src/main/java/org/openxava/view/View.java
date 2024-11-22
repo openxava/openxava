@@ -139,6 +139,7 @@ public class View implements java.io.Serializable {
 	private Map labels;
 	private Collection executedActions;	
 	private boolean registeringExecutedActions = false;
+	private transient Collection<MetaProperty> alreadyCalculatedMetaProperties;  
 	private Tab collectionTab; 	
 	private String propertiesListNames;
 	private Collection rowStyles; // Of type MetaRowStyle
@@ -662,6 +663,7 @@ public class View implements java.io.Serializable {
 		clearValues(); 
 		if (closeCollections) resetCollections(true);
 		resetCollectionTotals();
+		resetAlreadyCalculatedProperties(); 
 		addValues(map, true);
 	}
 
@@ -2557,6 +2559,7 @@ public class View implements java.io.Serializable {
 		setFocusCurrentId(null); 
 		setCollectionDetailVisible(false);
 		resetRecalculatedProperties();
+		resetAlreadyCalculatedProperties(); 
 		if (values == null) return;
 		Iterator it = values.entrySet().iterator();
 		while (it.hasNext()) {
@@ -3080,7 +3083,7 @@ public class View implements java.io.Serializable {
 			if (firstLevel) {
 				if (!Is.emptyString(changedProperty)) {
 					getRoot().registeringExecutedActions = true;
-					resetRecalculatedProperties(); // tmr
+					resetAlreadyCalculatedProperties(); 
 					try {	
 						if (isKeyEditable()) resetCollectionTotals(); // The isKeyEditable() is to improve performance 
 						propertyChanged(changedProperty);			  //   If you change it verify that InvoiceDetailsWithTotals does not
@@ -3088,7 +3091,6 @@ public class View implements java.io.Serializable {
 					finally {
 						getRoot().registeringExecutedActions = false;		
 						resetExecutedActions();
-						// tmr resetRecalculatedProperties(); // tmr
 					}						
 				}			
 			}
@@ -3845,9 +3847,7 @@ public class View implements java.io.Serializable {
 	
 	private void calculateValue(MetaProperty metaProperty, MetaCalculator metaCalculator, ICalculator calculator, Messages errors, Messages messages) {		
 		try {	
-			// tmr ini
-			if (isRecalculatedProperty(metaProperty)) return;
-			// tmr fin 
+			if (isPropertyAlreadyCalculated(metaProperty)) return;
 			PropertiesManager mp = new PropertiesManager(calculator);
 			Iterator it = metaCalculator.getMetaSets().iterator();			
 			while (it.hasNext()) {
@@ -3886,7 +3886,8 @@ public class View implements java.io.Serializable {
 					setValueNotifying(metaProperty.getName(), newValue);
 				}
 			}  
-			addRecalculatedProperty(metaProperty); 
+			addRecalculatedProperty(metaProperty);
+			addAlreadyCalculatedProperty(metaProperty); 
 		}
 		catch (Exception ex) {
 			log.warn(XavaResources.getString("value_calculate_warning", metaProperty),ex);
@@ -3932,19 +3933,10 @@ public class View implements java.io.Serializable {
 		if (recalculatedMetaProperties == null) recalculatedMetaProperties = new HashSet<MetaProperty>();
 		else if (recalculatedMetaProperties.contains(metaProperty)) return;
 		recalculatedMetaProperties.add(metaProperty);
-		
-		// tmr ini
-		/*
-		if (getFirstLevelView().recalculatedMetaProperties == null) getFirstLevelView().recalculatedMetaProperties = new HashSet<MetaProperty>();
-		else if (getFirstLevelView().recalculatedMetaProperties.contains(metaProperty)) return;
-		getFirstLevelView().recalculatedMetaProperties.add(metaProperty);
-		*/		
-		// tmr fin
 	}
 	
 	private void resetRecalculatedProperties() { 
 		if (recalculatedMetaProperties != null) recalculatedMetaProperties.clear();
-		// tmr if (getFirstLevelView().recalculatedMetaProperties != null) getFirstLevelView().recalculatedMetaProperties.clear(); // tmr
 	}
 	
 	private void recalculateRecalculatedProperties() { 
@@ -3952,19 +3944,20 @@ public class View implements java.io.Serializable {
 		for (MetaProperty pr: recalculatedMetaProperties) {
 			calculateValue(pr, pr.getMetaCalculator(), pr.getCalculator(), errors, messages);
 		}
-		// tmr ini
-		/*
-		if (getFirstLevelView().recalculatedMetaProperties == null) return;
-		for (MetaProperty pr: getFirstLevelView().recalculatedMetaProperties) {
-			getFirstLevelView().calculateValue(pr, pr.getMetaCalculator(), pr.getCalculator(), errors, messages);
-		}
-		*/
-		// tmr fin
 	}
 	
-	private boolean isRecalculatedProperty(MetaProperty metaProperty) { // tmr
-		// tmr return recalculatedMetaProperties != null && recalculatedMetaProperties.contains(metaProperty);
-		return getFirstLevelView().recalculatedMetaProperties != null && getFirstLevelView().recalculatedMetaProperties.contains(metaProperty); // tmr
+	private void addAlreadyCalculatedProperty(MetaProperty metaProperty) { 
+		if (getRoot().alreadyCalculatedMetaProperties == null) getRoot().alreadyCalculatedMetaProperties = new HashSet<MetaProperty>();
+		else if (getRoot().alreadyCalculatedMetaProperties.contains(metaProperty)) return;
+		getRoot().alreadyCalculatedMetaProperties.add(metaProperty);
+	}
+	
+	private void resetAlreadyCalculatedProperties() { 
+		if (getRoot().alreadyCalculatedMetaProperties != null) getRoot().alreadyCalculatedMetaProperties.clear();
+	}
+		
+	private boolean isPropertyAlreadyCalculated(MetaProperty metaProperty) { 
+		return getRoot().alreadyCalculatedMetaProperties != null && getRoot().alreadyCalculatedMetaProperties.contains(metaProperty);
 	}
 	
 	/**

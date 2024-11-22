@@ -1,7 +1,8 @@
 package org.openxava.test.tests.bymodule;
 
-import org.htmlunit.html.*;
 import org.openxava.tests.*;
+
+import org.htmlunit.html.*;
 
 /**
  * 
@@ -21,7 +22,7 @@ public class InvoicesByYearTest extends ModuleTestBase {
 		assertCollectionRowCount("invoices", 5);
 		assertInvoicesCountInSection(5);
 		
-		assertTotalInCollection("invoices", "total", "9,060.10"); // TMR FALLA
+		assertTotalInCollection("invoices", "total", "9,060.10");
 		execute("InvoicesByYear.setModel");
 		setValue("year", "2002");
 		assertTotalInCollection("invoices", "total", "2,900.00");

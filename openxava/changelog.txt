@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Lots of SQL queries for recalculating property values on change-dependent properties in some cases.
+- Fix: Collection total recalculated many times if depends on a property of main view with two collections.
+  
 OpenXava 7.4.3 (2024-11-15)
 ---------------------------
 - List header labels are multiline with resizeColumns=true varying the number of lines as the width changes. 
