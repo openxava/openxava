@@ -4,7 +4,6 @@
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="org.openxava.controller.meta.MetaAction"%>
@@ -48,7 +47,6 @@ for (MetaProperty metaProperty : keyPropertiesList) {
 		metaPropertiesList.add(metaProperty);
 	}
 }
-	
 %>
 <div class="<%=collectionClass%> ox-overflow-auto">
 <% if (resizeColumns) { %> 
@@ -167,9 +165,7 @@ for (int f=0; f < rowCount; f++) {
 	</td>
 <% } %>
 <%
-	//List<MetaProperty> metaPropertiesList = subview.getMetaPropertiesList();
-	//List<MetaProperty> keyPropertiesList = subview.addKeyPropertiesOfReferencesEntity();
-	it = metaPropertiesList.iterator();
+	it = metaPropertiesList.iterator();	
 	for (int columnIndex = 0; it.hasNext(); columnIndex++) { 
 		MetaProperty p = (MetaProperty) it.next();
 		boolean isHiddenKey = keyPropertiesList.contains(p);
@@ -225,15 +221,15 @@ for (int f=0; f < rowCount; f++) {
 	</td>
 	<% } %>
 <%
-	}	
+	}
 }
 %>
 </tr>
-<% if (!hideTotals) { %>
-	<jsp:include page="collectionTotals.jsp"/>
+<% if (!hideTotals) { %> 
+	<jsp:include page="collectionTotals.jsp" />
 <% } %> 
 <% if (sortable) { %></tbody><% } %>
-</table>	
+</table>
 <% if (resizeColumns) { %>
 </div>
 <% } %>

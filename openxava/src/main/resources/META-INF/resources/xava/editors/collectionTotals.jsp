@@ -20,15 +20,16 @@ String idCollection = org.openxava.web.Collections.id(request, collectionName);
 String propertyPrefix = request.getParameter("propertyPrefix");
 String collectionPrefix = propertyPrefix == null?collectionName + ".":propertyPrefix + collectionName + ".";
 String collectionArgv=",collection="+collectionName; 
+
 boolean elementCollection = subview.isRepresentsElementCollection(); 
 int additionalTotalsCount = subview.getCollectionTotalsCount();
+
 List<MetaProperty> keyPropertiesList = subview.addKeyPropertiesOfReferencesEntity();
 int mpListSize = 0;
 if (!keyPropertiesList.isEmpty()) {
 	mpListSize = subview.getMetaPropertiesList().size() - keyPropertiesList.size();
-	System.out.println(subview.getMetaPropertiesList());
-	System.out.println("mpListSize " + mpListSize);
 }
+
 for (int i=0; i<additionalTotalsCount; i++) {
 %>
 	<tr class="<%=style.getTotalRow()%>">
@@ -66,7 +67,7 @@ for (int c = 0; it.hasNext(); c++) {
 	}
 	else if (subview.hasCollectionTotal(i, c + 1) && (i > 0 || !subview.hasCollectionSum(c + 1))) { 	
 	%>
-	<td class="ox-total-label-cell" <%=(mpListSize>0 && c>=mpListSize) ? "hidden" : ""%>>
+	<td class="ox-total-label-cell">
 		<%=subview.getCollectionTotalLabel(i, c + 1)%>&nbsp;
 	</td>
 	<%	
