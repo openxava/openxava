@@ -244,6 +244,8 @@ public class Invoice {
 	final private static BigDecimal DISCOUNT = new BigDecimal("20.00");
 	final private static BigDecimal HUNDRED = new BigDecimal("100");
 	
+	private static int totalCalculationsCount;
+	
 	@Id @Column(length=4) @Max(9999) @Required 
 	@DefaultValueCalculator(CurrentYearCalculator.class)
 	@OnChange(forViews="ActiveYear", value=OnChangeInvoiceYearAction.class) 
@@ -426,9 +428,17 @@ public class Invoice {
 	@Stereotype("MONEY")
 	@Depends("vat") 
 	public BigDecimal getTotal() {
+		totalCalculationsCount++;
 		return getVat().add(getAmountsSum());
 	}
 	
+	public static int getTotalCalculationsCount() {
+		return totalCalculationsCount;
+	}
+	public static void resetTotalCalculationsCount() {
+		totalCalculationsCount = 0;
+	}	
+		
  	public static Collection findAll()  {  		 			
  		Query query = XPersistence.getManager().createQuery("from Invoice"); 
  		return query.getResultList();  		 		

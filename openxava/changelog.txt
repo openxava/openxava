@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Lots of SQL queries for recalculating property values on change-dependent properties in some cases.
+- Fix: Collection total recalculated many times if depends on a property of main view with two collections.
+  
 OpenXava 7.4.3 (2024-11-15)
 ---------------------------
 - List header labels are multiline with resizeColumns=true varying the number of lines as the width changes. 
@@ -820,7 +823,7 @@ OpenXava 6.6.2 (2022-2-7)
 - Fix: JUnit suite does not pass at 100% on Linux.
 - Fix: @GenericGenerator annotation missing in sample code of course, so course code does not work.
 - Fix: @Id property with @DefaultValueCalculator dependent in an entity with an @ElementCollection doesn't work.
-- Fix: Calculated properties whose calculation depends on references fail recalculating after a change event. 
+- Fix: d properties whose calculation depends on references fail recalculating after a change event. 
 - Fix: @DescriptionsList doesn't throw change event for @Depends properties in @ElementCollection collections. 
 - Fix: @DescriptionsList doesn't throw change event for @Depends properties editing in an @OneToMany collection.   
 - Fix: No dependent @DefaultValueCalculator for @DescriptionsList in @ElementCollection does not work.
