@@ -197,6 +197,22 @@ for (int f=0; f < rowCount; f++) {
 			Object value = view.getValue(propertyName); 
 			fvalue = org.openxava.web.WebEditors.formatToStringOrArray(request, p, value, errors, view.getViewName(), false);
 		}
+		
+		
+		<%
+	List<MetaProperty> keyPropertiesList = subview.addKeyPropertiesOfReferencesEntity();
+	for (int f=0; f < rowCount; f++) {
+		for (MetaProperty mp : keyPropertiesList) {
+			//hiddenKeyColumn++;
+			String propertyName = collectionName + "." + f + "." + mp.getName();
+		%>
+		<xava:editor property="<%=propertyName%>"/>
+		<%
+		}
+	}
+		%>
+		
+		
 %>
 	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell">
 		<% if (labelOnEachCell) { %>
@@ -228,57 +244,9 @@ for (int f=0; f < rowCount; f++) {
 	<% } %>
 <%
 
-		if (!it.hasNext()) {
-			for (MetaProperty mp : keyPropertiesList) {
-				System.out.println("columnIndex");
-				System.out.println(columnIndex);
-				columnIndex++;
-				propertyName = collectionName + "." + f + "." + mp.getName();
-				throwPropertyChanged = subview.throwsPropertyChanged(mp.getName());
-				if (p.getName().contains(".")) {
-				String refName = org.openxava.util.Strings.noLastTokenWithoutLastDelim(mp.getName(), ".");
-					if (subview.displayAsDescriptionsList(subview.getMetaReference(refName))) {
-						referenceName = collectionName + "." + f + "." + refName;
-					}
-					else { 			
-						View refView = subview.getSubview(refName);
-						if (refView.isSearch()) searchAction = refView.getSearchAction();
-					}
-				}
-			%>
-		
-		<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell">
-		<% if (labelOnEachCell) { %>
-			<span class="<%=style.getLabel()%>"><%=p.getQualifiedLabel(request)%></span>
-		<% } %>
-		<div class="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%> <%=lastRowClass%>" <%=width%>
-			data-row="<%=f%>">
-		<nobr> 
-		
-		<% if (!subview.isCollectionMembersEditables()) {%>
-			<% if (referenceName == null) { %>
-				<%=fvalue%>&nbsp;
-			<% } else { %>
-				<xava:descriptionsList reference="<%=referenceName%>" readOnlyAsLabel="true"/>	
-			<% } %>
-		<% } else if (referenceName != null) { %>
-		<xava:descriptionsList reference="<%=referenceName%>"/>
-		<% } else { %>
 
-		<span id="<xava:id name='<%="editor_" + view.getPropertyPrefix() + propertyName%>'/>" class="xava_editor">
-		<xava:editor property="<%=propertyName%>" throwPropertyChanged="<%=throwPropertyChanged%>"/>
-		</span>
-		<% } %>	
-	 	</nobr>  
-		</div>
-	</td>
 		
-		<%
-			}
-		}
-		
-		
-	}
+	}		
 }
 %>
 </tr>
@@ -286,7 +254,7 @@ for (int f=0; f < rowCount; f++) {
 	<jsp:include page="collectionTotals.jsp" />
 <% } %> 
 <% if (sortable) { %></tbody><% } %>
-</table>
+</table>	
 <% if (resizeColumns) { %>
 </div>
 <% } %>
