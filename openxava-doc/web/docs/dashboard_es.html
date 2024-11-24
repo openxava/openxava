@@ -1,0 +1,123 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Cuadro de mandos - Dashboard - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
+            href="index_es.html">documentación</a> / </span>Cuadro de mandos - Dashboard</h1>
+      <div class="wiki" style="display: block;">
+        <h2>Video</h2>
+        <p>En este video veremos cómo crear un cuadro de mandos en una aplicación de OpenXava.</p>
+        <p><a href="" target="_blank"><img src="files/dashboard_es010.png"
+
+              title="dashboard_es010"></a> </p>
+        <p><strong>¿Problemas con la lección? <a class="wiki_link_ext"
+
+              href="http://sourceforge.net/p/openxava/discussion/437013/">Pregunta en el foro</a></strong></p>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h2>Código</h2>
+        <p>Puedes copiar el código que se usa en el video por aquí:</p>
+        <code class="xml"></code> En el archivo <em>pom.xml</em>:<br>
+        <pre><code class="xml">&lt;module name="InvoiceDashboard"&gt;
+    &lt;model name="InvoiceDashboard"/&gt;
+    &lt;controller name="InitModelWithNewInstance"/&gt;
+&lt;/module&gt;</code></pre>
+        En el archivo <i><em>InvoiceDashboard.java</em></i>:
+        <pre><code class="java">@View(members="numberOfCustomers, numberOfInvoices, totalInvoiced; invoicingEvolution; topMonth")
+public class InvoiceDashboard {
+
+	@LargeDisplay(icon="cash")
+	@Money
+	public BigDecimal getTotalInvoiced() {
+		BigDecimal total = (BigDecimal) XPersistence.getManager()
+				.createQuery("select sum(totalAmount) from Invoice").getSingleResult();
+		return total;
+	}
+	
+	@LargeDisplay(icon="account")
+	public String getNumberOfCustomers() { 
+		return XPersistence.getManager()
+				.createQuery("select count(distinct customer.number) from Invoice "
+						+ "where deleted = false")
+				.getSingleResult().toString();
+	}
+	
+	@LargeDisplay(icon="invoice")
+	public String getNumberOfInvoices() { 
+		return XPersistence.getManager()
+				.createQuery("select count(number) from Invoice "
+						+ "where deleted = false")
+				.getSingleResult().toString();
+	}
+
+	@Chart
+	public Collection&lt;InvoicedPerMonth&gt; getInvoicingEvolution() {
+		String jpql = "select new com.yourcompany.invoicing.dashboards.InvoicedPerMonth("
+				+ "MONTH(date), sum(totalAmount), sum(vat)) "
+				+ "from Invoice "
+				+ "where deleted = false "
+				+ "group by MONTH(date) "
+				+ "order by MONTH(date) asc";
+		TypedQuery&lt;InvoicedPerMonth&gt; query = XPersistence.getManager()
+				.createQuery(jpql, InvoicedPerMonth.class);
+		return query.getResultList();
+	}
+	
+	@SimpleList
+	@ListProperties("month, totalAmount")
+	public Collection&lt;InvoicedPerMonth&gt; getTopMonth() {
+		String jpql = "select new com.yourcompany.invoicing.dashboards.InvoicedPerMonth("
+				+ "MONTH(date), sum(totalAmount) as totalAmount, sum(vat)) "
+				+ "from Invoice "
+				+ "where deleted = false "
+				+ "group by MONTH(date) "
+				+ "order by totalAmount desc";
+		TypedQuery&lt;InvoicedPerMonth&gt; query = XPersistence.getManager()
+				.createQuery(jpql, InvoicedPerMonth.class)
+				.setMaxResults(5);
+		return query.getResultList();
+	}
+	
+}</code></pre>
+        <p>En el archivo <em>InvoicePerMonth.java</em>:</p>
+        <pre><code class="java">@Getter @Setter @AllArgsConstructor
+public class InvoicedPerMonth {
+
+	int month;
+	
+	BigDecimal totalAmount;
+	
+	BigDecimal vat;
+	
+}
+</code></pre>
+        <h2>Transcripción</h2>
+        Hola, soy Mónica.<br>
+        En este video aprenderás a añadir un cuadro de mando o dashboard a tu aplicación OpenXava. Es muy fácil, porque sólo tienes que escribir una simple clase Java con getters que devuelvan los datos que quieres visualizar y unas pocas anotaciones. El primer paso será crear un proyecto usando la plantilla de invoicing, que es similar a la última lección del curso de OpenXava. Luego aprenderás a utilizar las anotaciones Large Display, Chart y SimpleList. Finalmente ajustarás la vista del cuadro de mandos usando CSS. </div>
+      <div class="wiki" style="display: block;"><br>
+      </div>
+      <div class="wiki" style="display: block;">Creamos un nuevo proyecto en OpenXava. bLe asignamos un nombre al proyecto. En template seleccionamos invoicing. Finish. Nuestro primer paso es crear un módulo manualmente. Así que creamos un paquete llamado com.yourcompany.invoicing.dashboards. Y dentro creamos una clase llamada InvoiceDashboard. Vamos a application.xml ubicado en la carpeta src/main/resources/xava. Y creamos un módulo con el nombre de InvoiceDashboard, El cual usará como modelo la clase transitoria que creamos recién. Como controlador, usaremos InitModelWithNewInstance. Guardamos y listo. Hacemos maven install e iniciamos la aplicación. Aquí hemos usado el nombre del módulo igual al modelo, pero puedes usar otro nombre si deseas. El controlador que usamos tiene una acción que instancia un objeto del modelo y lo asigna a la vista, así se cargan los getters que vamos a crear luego. Ingresamos con admin admin y vamos al módulo que creamos. Actualmente nuestro módulo está vacío.<br>
+        <br>
+        Vamos a crear un método getter que devuelva un valor estático y mostrarlo en nuestro módulo. Le agregamos la anotación de @LargeDisplay para decirle que se muestre de esta manera. Guardamos y reiniciamos la aplicación. Así se visualiza un LargeDisplay. Si vamos a la anotación, podemos ver que tiene varios atributos que podemos usar, por ejemplo definirle un icono. También podemos agregarle un prefijo, pero en nuestro caso no nos hace falta, ya que con la anotación @Money, lo hace automáticamente. Guardamos y reiniciamos la aplicación. El icono de dinero es por el atributo icon y en cuanto la anotación @Money, agrega el símbolo de dinero. OpenXava usa Material Design Icons, por lo que de allí provienen los nombres de los iconos. Vamos a mostrar un valor que obtenemos a partir de una consulta JPA, Que sería la sumatoria del total de todas las facturas. Lo probamos. Perfecto. Agregamos otros métodos para obtener la cantidad de clientes que tuvieron factura y cantidad de facturas creadas. A este punto podemos definir el orden de cómo se muestran en la vista. En la anotación @View ponemos los nombres de las propiedades con coma para que se ubiquen en la misma fila: NumberOfCustomers, NumberOfInvoices y TotalInvoiced. Probamos el cambio.<br>
+        <br>
+        Ahora vamos a mostrar un chart. Y para esto necesitamos crear una clase auxiliar, lo llamaremos InvoicedPerMonth. Agregamos las anotaciones de Lombok: @Getter, @Setter y @AllArgsConstructor. Luego declaramos las propiedades que se van a usar: month, totalAmount y vat. Guardamos. Este método devolverá una colección para que el Chart pueda trabajar con la información. En la consulta JPA de este método, hay algo a tener en cuenta: Debemos usar todas las propiedades de la clase auxiliar, en el mismo orden que lo hemos declarado en la clase y los valores a obtener deben ser del mismo tipo de dato. Leyendo la consulta, parece que estuviéramos obteniendo valores para una colección de objetos InvoicedPerMonth con su constructor. Por último, agregamos el miembro a la anotación @View y probamos. Perfecto.<br>
+        <br>
+        Ahora vamos a mostrar una lista no editable donde se muestren los meses mejores facturados. La consulta es parecida a la que hicimos para el Chart. Agregamos la anotación @SimpleList. Aquí podemos usar la anotación @ListProperties para indicarle qué valores mostrar en la lista. A pesar de que no usaremos vat, debe estar en la consulta. Por último, agregamos el miembro al @View y probamos. Así es cómo se vería un SimpleList.<br>
+        <br>
+        Vamos a hacer unos cambios en la vista usando CSS. En el navegador Chrome aprieto F12 para usar las herramientas de desarrollador. Haciendo clic en este ícono, me permitirá ubicar automáticamente el elemento que selecciono luego. Por ejemplo, este lugar vacío. Nos marca un elemento cuyo class es ox-detail, pero este no nos interesa. Sino su padre, el div cuyo class es ox-view. Este ox-view, está dentro de otro div, que nos va a servir luego para ubicar el ox-view en CSS. Seleccionamos el div ox-view y en style puedo simular el cambio de CSS. Probamos con max-width. Agregamos un margen superior, que es para separar un poco aquí. Y dejamos margen derecho e izquierdo en auto. Listo. Ahora vamos a cambiar el ancho de los LargeDisplay. Vemos que aún queda un pequeño espacio, este parece tener algo que ver con el margin o padding, así que lo pondremos como 0px. Aún queda un poco, lo arreglaremos con un -5px. Perfecto. Vamos al archivo custom.css ubicado en la carpeta src/main/webapp/xava/style. Aquí es donde debemos poner nuestro CSS. Como tenemos varios elementos que tienen la misma clase ox-large-display, nos ayudaremos con el id del span padre para identificarlo. En cuanto al ox-view, también nos ayudaremos con el id. Listo. Hacemos un maven install y reiniciamos la aplicación. Puedes tener más de un dashboard o tener muchos elementos, por eso cuando necesitas ordenarlos, puedes usar CSS para lograrlo fácilmente. Perfecto, así es como quedaría.<br>
+        <br>
+        Hemos visto cómo crear tu propio dashboard, usar anotaciones como LargeDisplay, Chart, SimpleList y luego personalizar la vista con CSS para ajustarlos.<br>
+        Si tienes alguna duda o problema puedes preguntarnos por el foro, también puedes descargar el código de esta lección por el link del repositorio, ambos enlaces se encuentran en la descripción del video. Chao.</div>
+    </div>
+  </body>
+</html>
