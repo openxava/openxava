@@ -20,8 +20,8 @@ public class ReallocationDetailsNoIdTest extends ModuleTestBase {
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
 		assertValueInCollection("details", 0, "product.code", "1");
-		assertValueInCollection("details", 0, "product.code", "4");
-		assertValueInCollection("details", 0, "product.code", "3");
+		assertValueInCollection("details", 1, "product.code", "4");
+		assertValueInCollection("details", 2, "product.code", "3");
 	}
 	
 }
