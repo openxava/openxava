@@ -210,7 +210,7 @@ public class Product {
 	}
 
 	public void setCode(long code) {
-		this.number = code;
+		this.code = code;
 	}
 
 	@Stereotype("WAREHOUSE") @Required
