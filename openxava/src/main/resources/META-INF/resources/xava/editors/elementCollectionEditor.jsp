@@ -43,7 +43,7 @@ boolean hideTotals = "true".equals(request.getParameter("hideTotals"));
 //List<MetaProperty> metaPropertiesList = new ArrayList<>(subview.getMetaPropertiesList());
 //int metaPropertyListOldSize = metaPropertiesList.size();
 List<MetaProperty> metaPropertiesList = subview.getMetaPropertiesList();
-List<MetaProperty> auxMetaPropertiesList = new ArrayList<>(metaPropertiesList);
+//List<MetaProperty> auxMetaPropertiesList = new ArrayList<>(metaPropertiesList);
 List<MetaProperty> keyPropertiesList = subview.getKeyPropertiesOfReferencesEntity();
 //System.out.println(metaPropertyListOldSize);
 System.out.println("modificando");
@@ -55,7 +55,7 @@ for (MetaProperty metaProperty : keyPropertiesList) {
 }
 //System.out.println(metaPropertiesList.size());
 //subview.setMetaPropertiesList(metaPropertiesList);
-int mpWithOutKeyPropertiesSize = metaPropertiesList.size() - keyPropertiesList.size();
+//int mpWithOutKeyPropertiesSize = metaPropertiesList.size() - keyPropertiesList.size();
 %>
 <div class="<%=collectionClass%> ox-overflow-auto">
 <% if (resizeColumns) { %> 

@@ -4366,21 +4366,14 @@ public class View implements java.io.Serializable {
 		}
 		
 		keysAsMetaProperty = namesToMetaProperties(this, keys);
-		keysAsMetaProperty = setLabelsIdForMetaPropertiesList(keysAsMetaProperty);
+		keysAsMetaProperty = setLabelsIdForCustomMetaPropertiesList(keysAsMetaProperty);
 		return keysAsMetaProperty;
 	}
 	
-	private void setLabelsIdForMetaPropertiesList() throws XavaException {
-		metaPropertiesList = setLabelsIdForMetaPropertiesList(null);
-	}
-	
-	private List<MetaProperty> setLabelsIdForMetaPropertiesList(List<MetaProperty> mpList) throws XavaException {
-		if (getMemberName() == null || metaPropertiesList == null) return null;
+	private List<MetaProperty> setLabelsIdForCustomMetaPropertiesList(List<MetaProperty> mpList) throws XavaException {
+		if (mpList == null) return null;
 		List<MetaProperty> newList = new ArrayList();
-		System.out.println(mpList == null);
-		System.out.println(metaPropertiesList == null); 
-		System.out.println(metaPropertiesList);
-		Iterator it = (mpList == null) ? metaPropertiesList.iterator() : mpList.iterator();
+		Iterator it = mpList.iterator();
 		while (it.hasNext()) {
 			MetaProperty p = ((MetaProperty) it.next()).cloneMetaProperty();
 			if (p.getQualifiedName().contains(".") && !p.getName().contains(".")) {
@@ -4393,6 +4386,25 @@ public class View implements java.io.Serializable {
 			newList.add(p);
 		}
 		return newList;
+	}
+	
+	private void setLabelsIdForMetaPropertiesList() throws XavaException {
+		if (getMemberName() == null || metaPropertiesList == null) return;
+		
+		List<MetaProperty> newList = new ArrayList();
+		Iterator it = metaPropertiesList.iterator();
+		while (it.hasNext()) {
+			MetaProperty p = ((MetaProperty) it.next()).cloneMetaProperty();
+			if (p.getQualifiedName().contains(".") && !p.getName().contains(".")) {
+				p.setName(p.getQualifiedName());
+			}
+			String prefix = Is.empty(getParent().getMetaModel().getName()) ? 
+				getMetaModel().getMetaComponent().getName() :
+				getParent().getMetaModel().getName();	
+			p.setLabelId(prefix + "." + getMemberName() + "." + p.getName());
+			newList.add(p);
+		}
+		metaPropertiesList = newList;
 	}
 		
 	public void setMetaPropertiesList(List<MetaProperty> metaProperties) throws XavaException {
