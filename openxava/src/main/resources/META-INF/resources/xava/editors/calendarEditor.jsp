@@ -25,6 +25,8 @@ String prefNodeName = tab.getPreferencesNodeName("datePref.");
 Preferences preferences = Users.getCurrentPreferences();
 String datePref = preferences.get(prefNodeName,"");
 String dateNamePref = preferences.get(prefNodeName + "_SimpleName","");
+System.out.println("calendar");
+System.out.println(view.getModelName());
 List<MetaProperty> metaPropertiesList = new ArrayList<>(view.getMetaPropertiesList());
 List<String> datesProperties = Arrays.asList(
             "java.util.Date", "java.time.LocalDateTime", "java.sql.Timestamp", "java.time.LocalDate", 

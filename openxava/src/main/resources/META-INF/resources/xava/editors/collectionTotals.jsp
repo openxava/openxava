@@ -24,7 +24,7 @@ String collectionArgv=",collection="+collectionName;
 boolean elementCollection = subview.isRepresentsElementCollection(); 
 int additionalTotalsCount = subview.getCollectionTotalsCount();
 
-List<MetaProperty> keyPropertiesList = subview.addKeyPropertiesOfReferencesEntity();
+List<MetaProperty> keyPropertiesList = subview.getKeyPropertiesOfReferencesEntity();
 int mpListSize = 0;
 if (!keyPropertiesList.isEmpty()) {
 	mpListSize = subview.getMetaPropertiesList().size() - keyPropertiesList.size();

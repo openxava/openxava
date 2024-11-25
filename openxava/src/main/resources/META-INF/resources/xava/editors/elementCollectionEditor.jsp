@@ -4,6 +4,7 @@
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="org.openxava.controller.meta.MetaAction"%>
@@ -39,14 +40,22 @@ String removeSelectedAction = subview.getRemoveSelectedCollectionElementsAction(
 boolean suppressRemoveAction = removeSelectedAction != null && "".equals(removeSelectedAction);
 boolean labelOnEachCell = "true".equals(request.getParameter("labelOnEachCell"));
 boolean hideTotals = "true".equals(request.getParameter("hideTotals"));
+//List<MetaProperty> metaPropertiesList = new ArrayList<>(subview.getMetaPropertiesList());
+//int metaPropertyListOldSize = metaPropertiesList.size();
 List<MetaProperty> metaPropertiesList = subview.getMetaPropertiesList();
-List<MetaProperty> keyPropertiesList = subview.addKeyPropertiesOfReferencesEntity();
+List<MetaProperty> auxMetaPropertiesList = new ArrayList<>(metaPropertiesList);
+List<MetaProperty> keyPropertiesList = subview.getKeyPropertiesOfReferencesEntity();
+//System.out.println(metaPropertyListOldSize);
+System.out.println("modificando");
 Set<MetaProperty> metaPropertiesSet = new HashSet<>(metaPropertiesList);
 for (MetaProperty metaProperty : keyPropertiesList) {
 	if (metaPropertiesSet.add(metaProperty)) {
 		metaPropertiesList.add(metaProperty);
 	}
 }
+//System.out.println(metaPropertiesList.size());
+//subview.setMetaPropertiesList(metaPropertiesList);
+int mpWithOutKeyPropertiesSize = metaPropertiesList.size() - keyPropertiesList.size();
 %>
 <div class="<%=collectionClass%> ox-overflow-auto">
 <% if (resizeColumns) { %> 
@@ -65,6 +74,10 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 	MetaProperty p = (MetaProperty) it.next();
 	boolean isHiddenKey = keyPropertiesList.contains(p);
 	String label = p.getQualifiedLabel(request);
+	//System.out.println(columnIndex);
+	//System.out.println(!keyPropertiesList.isEmpty() && columnIndex >=metaPropertyListOldSize);
+	//System.out.println(metaPropertyListOldSize);
+	//int columnWidth = isHiddenKey ? 0 : subview.getCollectionColumnWidth(columnIndex);
 	int columnWidth = subview.getCollectionColumnWidth(columnIndex);
 	String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
 	MetaReference ref = null;	
@@ -170,6 +183,10 @@ for (int f=0; f < rowCount; f++) {
 		MetaProperty p = (MetaProperty) it.next();
 		boolean isHiddenKey = keyPropertiesList.contains(p);
 		String align =p.isNumber() && !p.hasValidValues()?"ox-text-align-right":""; 
+		//System.out.println(columnIndex);
+		//System.out.println(keyPropertiesList.isEmpty());
+		//System.out.println(metaPropertyListOldSize);
+		//int columnWidth = isHiddenKey ? 0 : subview.getCollectionColumnWidth(columnIndex);
 		int columnWidth = subview.getCollectionColumnWidth(columnIndex);
 		String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
 		String referenceName = null;

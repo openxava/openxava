@@ -19,7 +19,6 @@ openxava.addEditorInitFunction(function() {
 });
 
 elementCollectionEditor.onChangeRow = function(element, rowIndex) {
-	console.log("onChangeRow");
 	var currentRow = $(element).parent().parent();
 	var nextRow = currentRow.next();
 	if (!nextRow.hasClass('ox-display-none')) return; 
@@ -52,7 +51,6 @@ elementCollectionEditor.onChangeRow = function(element, rowIndex) {
 }
 
 elementCollectionEditor.setDefaultValues = function(table, rowIndex) {
-	console.log("setDefaultValues");
 	var header = table.children().first().children().first(); 
 	header.children("[id]").each(function() { 
 		var headerId = $( this ).attr("id");
@@ -67,7 +65,6 @@ elementCollectionEditor.setDefaultValues = function(table, rowIndex) {
 }
 
 elementCollectionEditor.removeRow = function(application, module, element, rowIndex, hasTotals) {
-	console.log("removeRow");
 	var currentRow = $(element).parent().parent().parent().parent();
 	var nextRow = currentRow.next();
 	currentRow.remove();
@@ -78,8 +75,7 @@ elementCollectionEditor.removeRow = function(application, module, element, rowIn
 	openxava.initEditors();
 }
 
-elementCollectionEditor.renumber = function(row, rowIndex) {
-	console.log("renumber");
+elementCollectionEditor.renumber = function(row, rowIndex) { 
 	var token1 = new RegExp("__\\d+", "g");
 	var token2 = "__" + rowIndex;
 	row.attr("id", row.attr("id").replace(token1, token2));

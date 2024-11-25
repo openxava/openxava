@@ -4312,6 +4312,9 @@ public class View implements java.io.Serializable {
 	}
 
 	public List<MetaProperty> getMetaPropertiesList() throws XavaException {
+		System.out.println("getMetaPropertiesList");
+		System.out.println(metaPropertiesList == null);
+		System.out.println(getModelName());
 		if (metaPropertiesList == null) {
 			metaPropertiesList = new ArrayList<MetaProperty>();
 			Iterator it = getMetaModel().getPropertiesNames().iterator();
@@ -4336,11 +4339,18 @@ public class View implements java.io.Serializable {
 				}
 			}
 		}
+		
 		return metaPropertiesList;
 	}
 	
-	public List<MetaProperty> addKeyPropertiesOfReferencesEntity() {
+	/**
+	 * @since 7.4.4
+	 * 
+	 */
+	public List<MetaProperty> getKeyPropertiesOfReferencesEntity() {
+		List<MetaProperty> keysAsMetaProperty =  new ArrayList<>();
 		MetaCollectionView metaCollectionView = getParent().getMetaView().getMetaCollectionView(getMemberName());
+		if (metaCollectionView == null) return keysAsMetaProperty;
 		String propertiesListAsString = metaCollectionView.getPropertiesListNamesAsString();
 		
 		List<String> keys = new ArrayList<>();
@@ -4355,7 +4365,7 @@ public class View implements java.io.Serializable {
 		    }
 		}
 		
-		List<MetaProperty> keysAsMetaProperty = namesToMetaProperties(this, keys);
+		keysAsMetaProperty = namesToMetaProperties(this, keys);
 		keysAsMetaProperty = setLabelsIdForMetaPropertiesList(keysAsMetaProperty);
 		return keysAsMetaProperty;
 	}
@@ -4367,8 +4377,10 @@ public class View implements java.io.Serializable {
 	private List<MetaProperty> setLabelsIdForMetaPropertiesList(List<MetaProperty> mpList) throws XavaException {
 		if (getMemberName() == null || metaPropertiesList == null) return null;
 		List<MetaProperty> newList = new ArrayList();
-		
-		Iterator it = mpList == null ? metaPropertiesList.iterator() : mpList.iterator();
+		System.out.println(mpList == null);
+		System.out.println(metaPropertiesList == null); 
+		System.out.println(metaPropertiesList);
+		Iterator it = (mpList == null) ? metaPropertiesList.iterator() : mpList.iterator();
 		while (it.hasNext()) {
 			MetaProperty p = ((MetaProperty) it.next()).cloneMetaProperty();
 			if (p.getQualifiedName().contains(".") && !p.getName().contains(".")) {
@@ -5879,7 +5891,7 @@ public class View implements java.io.Serializable {
 	public int getCollectionColumnWidth(int columnIndex) {
 		MetaProperty p = getMetaPropertiesList().get(columnIndex); 
 		try {
-			return getPreferences().getInt( 				
+			return getPreferences().getInt( 		
 				COLUMN_WIDTH + p.getQualifiedName(), defaultColumnWidth(p, columnIndex) 
 			);
 		}
