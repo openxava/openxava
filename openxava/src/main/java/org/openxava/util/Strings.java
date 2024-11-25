@@ -18,8 +18,12 @@ import org.apache.commons.logging.*;
 public class Strings {
 	
 	private static Log log = LogFactory.getLog(Strings.class);
-	private final static String XSS_REGEXP_PATTERN = "(?i)<[\\s]*/?script.*?>|<[\\s]*/?embed.*?>|<[\\s]*/?object.*?>|<[\\s]*/?iframe.*?>|window.location|<[\\s]*a[\\s]*href[^>]*javascript[\\s]*:[^(^)^>]*[(][^)]*[)][^>]*>[^<]*(<[\\s]*/[\\s]*a[^>]*>)*";
+	private final static String XSS_REGEXP_PATTERN = "(?i)<[\\s]*/?script.*?>|<[\\s]*/?embed.*?>|<[\\s]*/?object.*?>|<[\\s]*/?iframe.*?>|window.location|<[\\s]*a[\\s]*href[^>]*javascript[\\s]*:[^(^)^>]*[(][^)]*[)][^>]*>[^<]*(<[\\s]*/[\\s]*a[^>]*>)*";	
 	private final static Pattern XSS_PATTERN = Pattern.compile(XSS_REGEXP_PATTERN);
+	// tmr ini
+	private final static String WEBSERVICE_REGEXP_PATTERN = "(?i)=WEBSERVICE\\([^)]*\\)";
+	private final static Pattern WEBSERVICE_PATTERN = Pattern.compile(XSS_REGEXP_PATTERN); // tmr
+	// tmr fin
 	private static Map separatorsBySpaces;	
 	
 	/**
