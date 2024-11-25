@@ -20,10 +20,8 @@ public class Strings {
 	private static Log log = LogFactory.getLog(Strings.class);
 	private final static String XSS_REGEXP_PATTERN = "(?i)<[\\s]*/?script.*?>|<[\\s]*/?embed.*?>|<[\\s]*/?object.*?>|<[\\s]*/?iframe.*?>|window.location|<[\\s]*a[\\s]*href[^>]*javascript[\\s]*:[^(^)^>]*[(][^)]*[)][^>]*>[^<]*(<[\\s]*/[\\s]*a[^>]*>)*";	
 	private final static Pattern XSS_PATTERN = Pattern.compile(XSS_REGEXP_PATTERN);
-	// tmr ini
-	private final static String WEBSERVICE_REGEXP_PATTERN = "(?i)=WEBSERVICE\\([^)]*\\)";
-	private final static Pattern WEBSERVICE_PATTERN = Pattern.compile(XSS_REGEXP_PATTERN); // tmr
-	// tmr fin
+	private final static String WEBSERVICE_REGEXP_PATTERN = "(?i)=WEBSERVICE\\((?:[^)(]*|\\([^)(]*\\))*\\)";
+	private final static Pattern WEBSERVICE_PATTERN = Pattern.compile(WEBSERVICE_REGEXP_PATTERN); 
 	private static Map separatorsBySpaces;	
 	
 	/**
@@ -827,7 +825,11 @@ public class Strings {
 		CharSequence sequence = notSafeValue.subSequence(0, notSafeValue.length()); 
 		Matcher matcher = XSS_PATTERN.matcher(sequence); 
 			 
-		return matcher.replaceAll(""); 
+		String xssSafeValue = matcher.replaceAll("");
+		CharSequence xssSafeValueSencence = xssSafeValue.subSequence(0, xssSafeValue.length());
+		Matcher webserviceMatcher = WEBSERVICE_PATTERN.matcher(xssSafeValueSencence);
+		String safeValue = webserviceMatcher.replaceAll("");
+		return safeValue;
 	} 	
 	
 	/** 
