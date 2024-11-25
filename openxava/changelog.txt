@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Permits data entry enabling attackers to read arbitrary files via =WEBSERVICE calls in LibreOffice.
 - Fix: Lots of SQL queries for recalculating property values on change-dependent properties in some cases.
 - Fix: Collection total recalculated many times if depends on a property of main view with two collections.
   
