@@ -58,6 +58,7 @@ abstract public class MetaModel extends MetaElement {
 	private boolean pojoGenerated;
 	private Collection keyReferencesNames; 
 	private Collection<String> keyPropertiesNames; 
+	private Collection<String> searchKeyPropertiesNames;
 	
 	private Collection metaPropertiesWithDefaultValueCalculator;
 	private List propertiesNames;
@@ -659,6 +660,29 @@ abstract public class MetaModel extends MetaElement {
 			}
 		}
 		return Collections.unmodifiableCollection(result);
+	}
+	
+	/**
+	 * SearchKey properties names ordered in declaration order.
+	 * 
+	 * @since 7.4.4
+	 */
+	public Collection<String> getSarchKeyPropertiesNames() throws XavaException { 
+		if (searchKeyPropertiesNames == null) {
+			Iterator it = getMembersNames().iterator(); // memberNames to keep order		
+			ArrayList result = new ArrayList();
+			while (it.hasNext()) {
+				String name = (String) it.next();
+				if (containsMetaProperty(name)) { 	
+					MetaProperty p = (MetaProperty) getMetaProperty(name);
+					if (p.isSearchKey()) {
+						result.add(name);
+					}
+				}
+			}
+			searchKeyPropertiesNames = Collections.unmodifiableCollection(result);
+		}
+		return searchKeyPropertiesNames;
 	}
 	
 	

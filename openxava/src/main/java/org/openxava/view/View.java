@@ -4312,9 +4312,6 @@ public class View implements java.io.Serializable {
 	}
 
 	public List<MetaProperty> getMetaPropertiesList() throws XavaException {
-		System.out.println("getMetaPropertiesList");
-		System.out.println(metaPropertiesList == null);
-		System.out.println(getModelName());
 		if (metaPropertiesList == null) {
 			metaPropertiesList = new ArrayList<MetaProperty>();
 			Iterator it = getMetaModel().getPropertiesNames().iterator();
@@ -4352,11 +4349,20 @@ public class View implements java.io.Serializable {
 		MetaCollectionView metaCollectionView = getParent().getMetaView().getMetaCollectionView(getMemberName());
 		if (metaCollectionView == null) return keysAsMetaProperty;
 		String propertiesListAsString = metaCollectionView.getPropertiesListNamesAsString();
-		
+		if (propertiesListAsString == null) return keysAsMetaProperty;
+
 		List<String> keys = new ArrayList<>();
 		Collection<String> referencesNames = getMetaModel().getReferencesNames();
 		for (String referenceName : referencesNames) {
 		    MetaReference mr = getMetaModel().getMetaReference(referenceName);
+		    
+		    Collection<String> allSearchKeyPropertiesNames = mr.getMetaModelReferenced().getSarchKeyPropertiesNames();
+		    for (String searchKeyPropertyName : allSearchKeyPropertiesNames) {
+		    	if (propertiesListAsString.contains(referenceName + "." + searchKeyPropertyName)) {
+		    		return keysAsMetaProperty;
+		    	}
+		    }
+		    
 		    Collection<String> allKeyPropertiesNames = mr.getMetaModelReferenced().getAllKeyPropertiesNames();
 		    for (String keyPropertyName : allKeyPropertiesNames) {
 		    	if (!propertiesListAsString.contains(referenceName + "." + keyPropertyName)) {
