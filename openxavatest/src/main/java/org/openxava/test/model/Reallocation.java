@@ -23,11 +23,10 @@ public class Reallocation extends Identifiable {
 	@Column(length=40) @Required
 	private String description;
 	
-	
 	@ReadOnly(forViews="DetailsReadOnly") 
 	@EditOnly(forViews="DetailsEditOnly") 
 	@ElementCollection
-	@ListProperties("place, product.number, product.description, product.unitPrice, done")
+	@ListProperties("place, product.code, product.description, product.unitPrice, done")
 	@ListProperties(forViews="DetailsNoProduct", value="place, done") 
 	private Collection<ReallocationDetail> details;
 
