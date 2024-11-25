@@ -16,7 +16,8 @@ import org.openxava.model.*;
 @Views({
 	@View(name="DetailsReadOnly"),
 	@View(name="DetailsEditOnly"),
-	@View(name="DetailsNoProduct") 
+	@View(name="DetailsNoProduct"),
+	@View(name="DetailsNoId")
 })
 public class Reallocation extends Identifiable {
 	
@@ -26,7 +27,8 @@ public class Reallocation extends Identifiable {
 	@ReadOnly(forViews="DetailsReadOnly") 
 	@EditOnly(forViews="DetailsEditOnly") 
 	@ElementCollection
-	@ListProperties("place, product.code, product.description, product.unitPrice, done")
+	@ListProperties("place, product.number, product.description, product.unitPrice, done")
+	@ListProperties(forViews="DetailsNoId", value="place, product.code, product.description, product.unitPrice")
 	@ListProperties(forViews="DetailsNoProduct", value="place, done") 
 	private Collection<ReallocationDetail> details;
 

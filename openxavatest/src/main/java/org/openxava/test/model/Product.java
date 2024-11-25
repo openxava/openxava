@@ -80,7 +80,6 @@ public class Product {
 	@Id @Column(length=10) 
 	private long number;
 	
-	@Hidden
 	private long code;
 	
 	@Column(length=40) @Required
@@ -207,7 +206,7 @@ public class Product {
 	}
 
 	public long getCode() {
-		return number;
+		return code;
 	}
 
 	public void setCode(long code) {
