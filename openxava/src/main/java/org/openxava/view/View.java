@@ -4376,8 +4376,17 @@ public class View implements java.io.Serializable {
 		return keysAsMetaProperty;
 	}
 	
+	private void setLabelsIdForMetaPropertiesList() throws XavaException {
+		if (getMemberName() == null || metaPropertiesList == null) return;
+		metaPropertiesList = processLabelIdForMetaProperties(metaPropertiesList);
+	}
+	
 	private List<MetaProperty> setLabelsIdForCustomMetaPropertiesList(List<MetaProperty> mpList) throws XavaException {
 		if (mpList == null) return null;
+		return processLabelIdForMetaProperties(mpList);
+	}
+	
+	private List<MetaProperty> processLabelIdForMetaProperties(List<MetaProperty> mpList) {
 		List<MetaProperty> newList = new ArrayList();
 		Iterator it = mpList.iterator();
 		while (it.hasNext()) {
@@ -4392,25 +4401,6 @@ public class View implements java.io.Serializable {
 			newList.add(p);
 		}
 		return newList;
-	}
-	
-	private void setLabelsIdForMetaPropertiesList() throws XavaException {
-		if (getMemberName() == null || metaPropertiesList == null) return;
-		
-		List<MetaProperty> newList = new ArrayList();
-		Iterator it = metaPropertiesList.iterator();
-		while (it.hasNext()) {
-			MetaProperty p = ((MetaProperty) it.next()).cloneMetaProperty();
-			if (p.getQualifiedName().contains(".") && !p.getName().contains(".")) {
-				p.setName(p.getQualifiedName());
-			}
-			String prefix = Is.empty(getParent().getMetaModel().getName()) ? 
-				getMetaModel().getMetaComponent().getName() :
-				getParent().getMetaModel().getName();	
-			p.setLabelId(prefix + "." + getMemberName() + "." + p.getName());
-			newList.add(p);
-		}
-		metaPropertiesList = newList;
 	}
 		
 	public void setMetaPropertiesList(List<MetaProperty> metaProperties) throws XavaException {
