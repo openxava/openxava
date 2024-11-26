@@ -74,7 +74,7 @@ for (int c = 0; it.hasNext(); c++) {
 	}
 	else {
 	%>	 
-	<td/>
+	<td <%=(mpListSize>0 && c>=mpListSize) ? "hidden" : ""%>></td>
 	<%		
 	}	
 	if (elementCollection && subview.isLastSearchKey(p.getName())) { 
