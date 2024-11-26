@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Article about dashboard creation available in the documentation with video.
 - Fix: Using a view of the parent entity that is not present in the module entity breaks the module.
 - Fix: Permits data entry enabling attackers to read arbitrary files via =WEBSERVICE calls in LibreOffice.
 - Fix: Lots of SQL queries for recalculating property values on change-dependent properties in some cases.
