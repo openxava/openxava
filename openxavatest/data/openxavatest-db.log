@@ -1,2 +1,5 @@
 /*C3*/SET SCHEMA PUBLIC
+create table XAVATEST.Reallocation_details2 (Reallocation_id varchar(32) not null, done boolean not null, place varchar(20), product_number bigint)
+DISCONNECT
+/*C4*/SET SCHEMA PUBLIC
 DISCONNECT
