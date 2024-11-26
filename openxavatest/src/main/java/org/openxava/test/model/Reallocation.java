@@ -28,7 +28,7 @@ public class Reallocation extends Identifiable {
 	@EditOnly(forViews="DetailsEditOnly") 
 	@ElementCollection
 	@ListProperties("place, product.number, product.description, product.unitPrice, done")
-	@ListProperties(forViews="DetailsNoId", value="place, product.code, product.description, product.unitPrice")
+	@ListProperties(forViews="DetailsNoId", value="place, product.code, product.description, product.unitPrice, done")
 	@ListProperties(forViews="DetailsNoProduct", value="place, done") 
 	private Collection<ReallocationDetail> details;
 
