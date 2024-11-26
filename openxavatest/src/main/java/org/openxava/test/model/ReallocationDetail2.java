@@ -10,7 +10,6 @@ import org.openxava.annotations.*;
  */
 
 @Embeddable
-@Table(name="REALLOCATION_DETAILS")
 public class ReallocationDetail2 {
 	
 	@Column(length=20)
@@ -21,7 +20,7 @@ public class ReallocationDetail2 {
 		value=org.openxava.calculators.IntegerCalculator.class,
 		properties={ @PropertyValue(name="value", value="1") }		
 	)
-	@ManyToOne(fetch=FetchType.LAZY, optional=true)
+	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	private Product7 product;
 	
 	private boolean done; 

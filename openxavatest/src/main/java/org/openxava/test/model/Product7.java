@@ -15,13 +15,13 @@ import lombok.*;
  */
 
 @Entity @Getter @Setter
-@Table(name="PRODUCT")
 public class Product7 {
 	
 	@Id @Column(length=10) @Hidden
-	private long number;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer number;
 	
-	private long code;
+	private int code;
 	
 	@Column(length=40) @Required
 	private String description;
