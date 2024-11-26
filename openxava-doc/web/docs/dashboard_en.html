@@ -9,18 +9,16 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
-          / </span>Dashboard</h1>
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_en.html">documentation</a> / </span>Dashboard</h1>
       <div class="wiki" style="display: block;">
         <h2>Video</h2>
-        <p>In this video, we will see how to create a dashboard in an OpenXava
-          application.</p>
-        <p><a href="https://youtu.be/UDKiY_rA-vA" target="_blank"><img src="files/dashboard_en010.png"
-
+        <p>In this video, we will see how to create a dashboard in an OpenXava application.</p>
+        <p><a href="https://youtu.be/UDKiY_rA-vA" target="_blank"><img src="files/dashboard_en010.png"
               title="dashboard_en010"></a> </p>
-        <p><strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/">Ask
-              in the forum</a></strong></p>
+        <p><strong>Any problem with this lesson? <a class="wiki_link_ext"
+              href="http://sourceforge.net/p/openxava/discussion/419690/">Ask in the forum</a></strong></p>
       </div>
       <div class="wiki" style="display: block;">
         <h2>Code</h2>
@@ -31,7 +29,13 @@
     &lt;controller name="InitModelWithNewInstance"/&gt;
 &lt;/module&gt;</code></pre>
         In the<i><em> InvoiceDashboard.java</em></i> file:
-        <pre><code class="java">@View(members="numberOfCustomers, numberOfInvoices, totalInvoiced; invoicingEvolution; topMonth")
+        <pre><code class="java">import java.math.*;
+import java.util.*;
+
+import javax.persistence.*;
+
+import org.openxava.annotations.*;
+import org.openxava.jpa.*;<br><br>@View(members="numberOfCustomers, numberOfInvoices, totalInvoiced; invoicingEvolution; topMonth")
 public class InvoiceDashboard {
 
 	@LargeDisplay(icon="cash")
@@ -88,7 +92,9 @@ public class InvoiceDashboard {
 	
 }</code></pre>
         <p>In the <em>InvoicePerMonth.java</em> file:</p>
-        <pre><code class="java">@Getter @Setter @AllArgsConstructor
+        <pre><code class="java">import java.math.*;
+
+import lombok.*;<br><br>@Getter @Setter @AllArgsConstructor
 public class InvoicedPerMonth {
 
 	int month;
@@ -99,98 +105,43 @@ public class InvoicedPerMonth {
 	
 }
 </code></pre>
+        <p>In the <em>custom.css</em> file:</p>
+        <pre><code class="">#ox_invoicing_InvoiceDashboard__editor_totalInvoiced .ox-large-display {
+    width: 505px;
+    margin-right: -5px;
+    padding-right: 0px;
+}
+
+#ox_invoicing_InvoiceDashboard__editor_numberOfCustomers .ox-large-display {
+    width: 300px;
+}
+
+#ox_invoicing_InvoiceDashboard__editor_numberOfInvoices .ox-large-display {
+    width: 300px;
+}
+
+#ox_invoicing_InvoiceDashboard__core .ox-view {
+    max-width: 1300px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+</code></pre>
         <h2>Transcription</h2>
-        Hello, I’m Monica. In this video, you will learn to add a dashboard to
-        your OpenXava application. It’s very easy because you only need to write
-        a simple Java class with getters that return the data you want to
-        display and a few annotations. The first step will be to create a
-        project using the Invoicing template, which is similar to the last
-        lesson of the OpenXava course. Then, you will learn to use the
-        annotations @LargeDisplay, @Chart, and @SimpleList. Finally, you will
-        adjust the dashboard view using CSS.<br>
+        Hello, I’m Monica. In this video, you will learn to add a dashboard to your OpenXava application. It’s very easy because you only need to write a simple Java class with getters that return the data you want to display and a few annotations. The first step will be to create a project using the Invoicing template, which is similar to the last lesson of the OpenXava course. Then, you will learn to use the annotations @LargeDisplay, @Chart, and @SimpleList. Finally, you will adjust the dashboard view using CSS.<br>
         <br>
-        We create a new project in OpenXava. We assign a name to the project. In
-        the template, we select invoicing. Finish. Our first step is to create a
-        module manually. So we create a package called
-        com.yourcompany.invoicing.dashboards. And inside, we create a class
-        called InvoiceDashboard. We go to application.xml located in the folder
-        src/main/resources/xava. And we create a module with the name
-        InvoiceDashboard, which will use as a model the transient class we just
-        created. As a controller, we will use InitModelWithNewInstance. We save
-        it, and that’s it. We do maven install and start the application. Here,
-        we have used the module name equal to the model, but you can use another
-        name if you wish. The controller we used has an action that instantiates
-        a model object and assigns it to the view so that the getters we will
-        create later are loaded. We log in with admin admin and go to the module
-        we created. Currently, our module is empty.<br>
+        We create a new project in OpenXava. We assign a name to the project. In the template, we select invoicing. Finish. Our first step is to create a module manually. So we create a package called com.yourcompany.invoicing.dashboards. And inside, we create a class called InvoiceDashboard. We go to application.xml located in the folder src/main/resources/xava. And we create a module with the name InvoiceDashboard, which will use as a model the transient class we just created. As a controller, we will use InitModelWithNewInstance. We save it, and that’s it. We do maven install and start the application. Here, we have used the module name equal to the model, but you can use another name if you wish. The controller we used has an action that instantiates a model object and assigns it to the view so that the getters we will create later are loaded. We log in with admin admin and go to the module we created. Currently, our module is empty.<br>
         <br>
-        We are going to create a getter method that returns a static value and
-        displays it in our module. We add the @LargeDisplay annotation to tell
-        it to display it in this way. We save and restart the application. This
-        is how a LargeDisplay is displayed. If we go to the annotation, we can
-        see that it has several attributes we can use, for example, to define an
-        icon. We can also add a prefix, but in our case, it is unnecessary since
-        the @Money annotation does it automatically. We save and restart the
-        application. The money icon is due to the icon attribute, and as for the
-        @Money annotation, it adds the money symbol. OpenXava uses Material
-        Design Icons, so the icon names come from there. We are going to display
-        a value that we obtain from a JPA query, which would be the sum of the
-        total of all invoices.<br>
-        We test it. Perfect. We add other methods to get the number of clients
-        who had an invoice and the number of invoices created. At this point, we
-        can define the order of how they are displayed in the view. In the @View
-        annotation, we put the property names separated by commas so they are
-        placed in the same row: NumberOfCustomers, NumberOfInvoices, and
-        TotalInvoiced. We test the change.<br>
+        We are going to create a getter method that returns a static value and displays it in our module. We add the @LargeDisplay annotation to tell it to display it in this way. We save and restart the application. This is how a LargeDisplay is displayed. If we go to the annotation, we can see that it has several attributes we can use, for example, to define an icon. We can also add a prefix, but in our case, it is unnecessary since the @Money annotation does it automatically. We save and restart the application. The money icon is due to the icon attribute, and as for the @Money annotation, it adds the money symbol. OpenXava uses Material Design Icons, so the icon names come from there. We are going to display a value that we obtain from a JPA query, which would be the sum of the total of all invoices.<br>
+        We test it. Perfect. We add other methods to get the number of clients who had an invoice and the number of invoices created. At this point, we can define the order of how they are displayed in the view. In the @View annotation, we put the property names separated by commas so they are placed in the same row: NumberOfCustomers, NumberOfInvoices, and TotalInvoiced. We test the change.<br>
         <br>
-        Now we are going to display a chart. And for this, we need to create an
-        auxiliary class, which we will call InvoicedPerMonth. We add the Lombok
-        annotations: @Getter, @Setter, and @AllArgsConstructor. Then, we declare
-        the properties to be used: month, totalAmount, and vat. We save it. This
-        method will return a collection so the Chart can work with the
-        information. In the JPA query of this method, there is something to keep
-        in mind: We must use all the properties of the auxiliary class in the
-        same order that we have declared them in the class, and the values to be
-        obtained must be of the same data type. By reading the query, it seems
-        like we are obtaining values for a collection of InvoicedPerMonth
-        objects with its constructor. Finally, we add the member to the @View
-        annotation and test it. Perfect.<br>
+        Now we are going to display a chart. And for this, we need to create an auxiliary class, which we will call InvoicedPerMonth. We add the Lombok annotations: @Getter, @Setter, and @AllArgsConstructor. Then, we declare the properties to be used: month, totalAmount, and vat. We save it. This method will return a collection so the Chart can work with the information. In the JPA query of this method, there is something to keep in mind: We must use all the properties of the auxiliary class in the same order that we have declared them in the class, and the values to be obtained must be of the same data type. By reading the query, it seems like we are obtaining values for a collection of InvoicedPerMonth objects with its constructor. Finally, we add the member to the @View annotation and test it. Perfect.<br>
         <br>
-        Now we are going to display a non-editable list where the best-billed
-        months are shown. The query is similar to the one we did for the Chart.
-        We add the @SimpleList annotation. Here, we can use the @ListProperties
-        annotation to indicate which values to display in the list. Even though
-        we will not use vat, it must be in the query. Finally, we add the member
-        to the @View annotation and test it. This is how a SimpleList would
-        look.<br>
+        Now we are going to display a non-editable list where the best-billed months are shown. The query is similar to the one we did for the Chart. We add the @SimpleList annotation. Here, we can use the @ListProperties annotation to indicate which values to display in the list. Even though we will not use vat, it must be in the query. Finally, we add the member to the @View annotation and test it. This is how a SimpleList would look.<br>
         <br>
-        Let’s make some changes to the view using CSS. In Chrome, I press F12 to
-        use the developer tools. Clicking this icon will automatically locate
-        the element I select later. For example, this empty space. It marks an
-        element whose class is ox-detail, but this one doesn’t interest us.
-        Instead, its parent, the div whose class is ox-view. This ox-view is
-        inside another div, which will help us later to locate the ox-view in
-        CSS. We select the ox-view div, and in style, I can simulate the CSS
-        change. We test with max-width. We add a top margin, which is to
-        separate a bit here. And we leave the right and left margin as auto.
-        Done. Now we are going to change the width of the LargeDisplay. We see
-        there is still a small space; this seems to have something to do with
-        the margin or padding, so we’ll set it to 0px. There’s still a bit left;
-        we’ll fix it with -5px. Perfect. We go to the custom.css file located in
-        the folder src/main/webapp/xava/style. This is where we should put our
-        CSS. Since we have several elements with the same ox-large-display
-        class, we will use the parent span’s id to identify it. As for the
-        ox-view, we will also use the id. Done. We do a maven install and
-        restart the application.<br>
+        Let’s make some changes to the view using CSS. In Chrome, I press F12 to use the developer tools. Clicking this icon will automatically locate the element I select later. For example, this empty space. It marks an element whose class is ox-detail, but this one doesn’t interest us. Instead, its parent, the div whose class is ox-view. This ox-view is inside another div, which will help us later to locate the ox-view in CSS. We select the ox-view div, and in style, I can simulate the CSS change. We test with max-width. We add a top margin, which is to separate a bit here. And we leave the right and left margin as auto. Done. Now we are going to change the width of the LargeDisplay. We see there is still a small space; this seems to have something to do with the margin or padding, so we’ll set it to 0px. There’s still a bit left; we’ll fix it with -5px. Perfect. We go to the custom.css file located in the folder src/main/webapp/xava/style. This is where we should put our CSS. Since we have several elements with the same ox-large-display class, we will use the parent span’s id to identify it. As for the ox-view, we will also use the id. Done. We do a maven install and restart the application.<br>
         <br>
-        You can have more than one dashboard or many elements, so when you need
-        to organize them, you can use CSS to do it easily. Perfect, this is how
-        it would look. We have seen how to create your own dashboard, use
-        annotations like @LargeDisplay, @Chart, @SimpleList, and then customize
-        the view with CSS to adjust them. If you have any questions or issues,
-        you can ask us on the forum. You can also download the code for this
-        lesson via the repository link; both links are in the video description.
-        Bye.</div>
+        You can have more than one dashboard or many elements, so when you need to organize them, you can use CSS to do it easily. Perfect, this is how it would look. We have seen how to create your own dashboard, use annotations like @LargeDisplay, @Chart, @SimpleList, and then customize the view with CSS to adjust them. If you have any questions or issues, you can ask us on the forum. You can also download the code for this lesson via the repository link; both links are in the video description. Bye.</div>
     </div>
   </body>
 </html>
