@@ -499,7 +499,9 @@ abstract public class MetaModel extends MetaElement {
 	public MetaView getMetaView(String name) throws ElementNotFoundException, XavaException {
 		MetaView r = (MetaView) getMapMetaViews().get(name == null?"":name);		
 		if (r == null) {			
-			if (Is.emptyString(name)) return getMetaViewByDefault();						
+			if (Is.emptyString(name)) return getMetaViewByDefault();
+			MetaModel parent = getParentMetaModel();
+			if (parent != null) return parent.getMetaView(name);
 			throw new ElementNotFoundException("view_not_found_in_model", name, getName());
 		}
 		return r;		
@@ -1885,6 +1887,17 @@ abstract public class MetaModel extends MetaElement {
 			superClass = superClass.getSuperclass();			
 		}
 		return result;
+	}
+	
+	private MetaModel getParentMetaModel() { 
+		Class superClass = getPOJOClass().getSuperclass();
+		if (superClass.equals(Object.class)) return null;
+		try {
+			return get(superClass.getSimpleName());
+		} 
+		catch (ElementNotFoundException ex) {				
+			return null;
+		}
 	}
 
 	/**
