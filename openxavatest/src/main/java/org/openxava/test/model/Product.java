@@ -80,8 +80,6 @@ public class Product {
 	@Id @Column(length=10) 
 	private long number;
 	
-	private long code;
-	
 	@Column(length=40) @Required
 	@PropertyValidator(value=ExcludeStringValidator.class, properties=
 		@PropertyValue(name="string", value="MOTO")
@@ -203,14 +201,6 @@ public class Product {
 
 	public void setUnitPrice(BigDecimal unitPrice) {
 		this.unitPrice = unitPrice;
-	}
-
-	public long getCode() {
-		return code;
-	}
-
-	public void setCode(long code) {
-		this.code = code;
 	}
 
 	@Stereotype("WAREHOUSE") @Required

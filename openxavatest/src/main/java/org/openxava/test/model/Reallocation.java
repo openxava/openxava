@@ -14,28 +14,22 @@ import org.openxava.model.*;
 
 @Entity
 @Views({
-	@View(members="description; details"),
-	@View(name="DetailsReadOnly", members="description; details"),
-	@View(name="DetailsEditOnly", members="description; details"),
-	@View(name="DetailsNoProduct", members="description; details"),
-	@View(name="DetailsNoId", members="description; details; details2")
+	@View(name="DetailsReadOnly"),
+	@View(name="DetailsEditOnly"),
+	@View(name="DetailsNoProduct") 
 })
 public class Reallocation extends Identifiable {
 	
 	@Column(length=40) @Required
 	private String description;
 	
+	
 	@ReadOnly(forViews="DetailsReadOnly") 
 	@EditOnly(forViews="DetailsEditOnly") 
 	@ElementCollection
 	@ListProperties("place, product.number, product.description, product.unitPrice, done")
-	@ListProperties(forViews="DetailsNoId", value="place, product.code, product.description, product.unitPrice, done")
 	@ListProperties(forViews="DetailsNoProduct", value="place, done") 
 	private Collection<ReallocationDetail> details;
-	
-	@ElementCollection
-	@ListProperties(forViews="DetailsNoId", value="place, product.code, product.description, product.unitPrice, done")
-	private Collection<ReallocationDetail2> details2;
 
 	public String getDescription() {
 		return description;
@@ -53,13 +47,4 @@ public class Reallocation extends Identifiable {
 		this.details = details;
 	}
 
-	public Collection<ReallocationDetail2> getDetails2() {
-		return details2;
-	}
-
-	public void setDetails2(Collection<ReallocationDetail2> details2) {
-		this.details2 = details2;
-	}
-
-	
 }
