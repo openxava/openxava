@@ -13,7 +13,7 @@ import org.openxava.model.*;
 @Tab(defaultOrder="${description} asc") 
 public class Skill extends Identifiable {
 
-	@Column(length=60) @Required
+	@Column(length=130) @Required 
 	private String description;
 
 	public String getDescription() {

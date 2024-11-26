@@ -11,6 +11,7 @@ import org.openxava.model.*;
  * @author Javier Paniza
  */
 @MappedSuperclass
+@View(name="OnlyName", members="name") 
 public class Nameable extends Identifiable {
 
 	@Column(length=50) @Required
