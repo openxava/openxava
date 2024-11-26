@@ -10,18 +10,18 @@ import org.openxava.model.*;
 import lombok.*;
 
 @Entity @Getter @Setter
-public class OrderDetailsNoId extends Identifiable {
+public class OrderDetailNoId extends Identifiable {
 
 	@ManyToOne(fetch=FetchType.LAZY, optional=true)
 	@ReferenceView("Simplest")
 	private Customer customer;
 	
 	@ElementCollection
-	@ListProperties("product.code, product.description, unitPrice")
+	@ListProperties("product.code, product.description, product.unitPrice")
 	Collection<Detail> detail;
 	
 	@ElementCollection
-	@ListProperties("product.code, product.description, unitPrice")
+	@ListProperties("product.code, product.description, product.unitPrice")
 	Collection<Detail2> detail2;
 	
 }

@@ -11,4 +11,5 @@ public class Detail2 {
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	ProductIdVisible product;
+	
 }
