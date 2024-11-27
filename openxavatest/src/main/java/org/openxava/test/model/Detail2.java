@@ -10,6 +10,6 @@ public class Detail2 {
 	int quantity;
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
-	ProductIdVisible product;
+	ProductIdHidden2 product;
 	
 }

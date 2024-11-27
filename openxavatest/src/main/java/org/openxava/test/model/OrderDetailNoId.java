@@ -17,11 +17,11 @@ public class OrderDetailNoId extends Identifiable {
 	private Customer customer;
 	
 	@ElementCollection
-	@ListProperties("product.code, product.description, product.unitPrice")
-	Collection<Detail> detail;
+	@ListProperties("product.code, product.description")
+	Collection<Detail> details;
 	
 	@ElementCollection
-	@ListProperties("product.code, product.description, product.unitPrice")
-	Collection<Detail2> detail2;
+	@ListProperties("product.code, product.description")
+	Collection<Detail2> details2;
 	
 }

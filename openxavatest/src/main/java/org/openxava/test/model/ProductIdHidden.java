@@ -1,7 +1,5 @@
 package org.openxava.test.model;
 
-import java.math.*;
-
 import javax.persistence.*;
 
 import org.openxava.annotations.*;
@@ -9,7 +7,7 @@ import org.openxava.annotations.*;
 import lombok.*;
 
 /** 
- * For test elementCollection with hidden key and not listed in listProperties
+ * For test elementCollection with wrapper hidden key and not listed in listProperties
  * 
  * @author Chungyen Tsai
  */
@@ -25,7 +23,5 @@ public class ProductIdHidden {
 	
 	@Column(length=40) @Required
 	private String description;
-	
-	private BigDecimal unitPrice;
 
 }
