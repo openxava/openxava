@@ -16,17 +16,24 @@ import org.openxava.view.*;
 public class EditorsEvents { 
 	
 	/** @since 7.2 */
-	public static String onChangeCalculateDataAttributes(String application, String module, View rootView, String changedProperty) {  
-		String calculatedProperty = rootView.getDependentCalculationPropertyNameFor(changedProperty);
-		String calculatedPropertyKey = org.openxava.web.Ids.decorate(application, module, calculatedProperty);
-		MetaProperty calculatedMetaProperty = rootView.getMetaProperty(calculatedProperty);
+	public static String onChangeCalculateDataAttributes(String application, String module, View rootView, String changedProperty) {
+		int idx = 0;
 		StringBuffer sb = new StringBuffer();
-		sb.append("data-calculated-property='");
-		sb.append(calculatedPropertyKey);
-		sb.append("' data-scale='");
-		sb.append(calculatedMetaProperty.getScale());
-		sb.append("'");
-		return sb.toString();
+		for (String calculatedProperty: rootView.getDependentCalculationPropertiesNamesFor(changedProperty)) {		
+			String calculatedPropertyKey = org.openxava.web.Ids.decorate(application, module, calculatedProperty);
+			MetaProperty calculatedMetaProperty = rootView.getMetaProperty(calculatedProperty);
+			sb.append("data-calculated-property-");
+			sb.append(idx);
+			sb.append("='");
+			sb.append(calculatedPropertyKey);
+			sb.append("' data-scale-");
+			sb.append(idx);
+			sb.append("='");
+			sb.append(calculatedMetaProperty.getScale());
+			sb.append("' ");
+			idx++;
+		}
+		return sb.toString();		
 	}
 
 }

@@ -13,7 +13,7 @@ import org.openxava.annotations.*;
  */
 @Entity
 @View(	
-	members="number, description; hours; worker; workCost; tripCost; discount; vatPercentage; total" 
+	members="number, description; hours; worker; workCost; laborCost; tripCost; discount; vatPercentage; total" 
 )
 public class WorkInvoice { 
 	
@@ -36,13 +36,16 @@ public class WorkInvoice {
 	@DescriptionsList 
 	private WorkCost workCost;
 	
+	@Calculation("hours * worker.hourPrice")
+	private BigDecimal laborCost;  
+	
 	@Max(99) 
 	@DefaultValueCalculator(
 		value=org.openxava.calculators.IntegerCalculator.class,
 		properties={ @PropertyValue(name="value", value="16") }		
 	)
 	private int vatPercentage;
-		
+			
 	@Calculation("((hours * worker.hourPrice) + tripCost - discount) * (1 + vatPercentage / 100)")
 	private BigDecimal total;
 
@@ -116,6 +119,14 @@ public class WorkInvoice {
 
 	public void setWorkCost(WorkCost workCost) {
 		this.workCost = workCost;
+	}
+
+	public BigDecimal getLaborCost() {
+		return laborCost;
+	}
+
+	public void setLaborCost(BigDecimal laborCost) {
+		this.laborCost = laborCost;
 	}
 	
 }
