@@ -3,20 +3,23 @@ package org.openxava.test.tests.bymodule;
 import org.openxava.tests.*;
 
 /**
- * @author Javier Paniza
+ *
+ * @author Chungyen Tsai
+ *
  */
 
-public class OrderDetailNoIdTest extends ModuleTestBase {
+public class OrderWithDetailsProductIdHiddenTest extends ModuleTestBase {
 	
-	public OrderDetailNoIdTest(String testName) {
-		super(testName, "OrderDetailNoId");		
+	public OrderWithDetailsProductIdHiddenTest(String testName) {
+		super(testName, "OrderWithDetailsProductIdHidden");		
 	}
 	
 	public void testEntityInAPackageNotNamedModel() throws Exception {
 		execute("List.viewDetail", "row=0");
-		assertValueInCollection("details", 0, "product.code", "1313"); // if error, cant be saved
+		assertValueInCollection("details", 0, "product.code", "1313");
 		assertValueInCollection("details2", 0, "product.code", "1414");
 		execute("CRUD.save");
+		assertNoErrors(); // details issue
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
 		assertValueInCollection("details", 0, "product.code", "1313"); 

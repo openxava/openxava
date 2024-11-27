@@ -9,8 +9,14 @@ import org.openxava.model.*;
 
 import lombok.*;
 
+/**
+ * 
+ * @author Chungyen Tsai
+ *
+ */
+
 @Entity @Getter @Setter
-public class OrderDetailNoId extends Identifiable {
+public class OrderWithDetailsProductIdHidden extends Identifiable {
 
 	@ManyToOne(fetch=FetchType.LAZY, optional=true)
 	@ReferenceView("Simplest")
@@ -18,10 +24,10 @@ public class OrderDetailNoId extends Identifiable {
 	
 	@ElementCollection
 	@ListProperties("product.code, product.description")
-	Collection<Detail> details;
+	Collection<OrderDetailProductIdHidden> details;
 	
 	@ElementCollection
 	@ListProperties("product.code, product.description")
-	Collection<Detail2> details2;
+	Collection<OrderDetailProductIdHidden2> details2;
 	
 }

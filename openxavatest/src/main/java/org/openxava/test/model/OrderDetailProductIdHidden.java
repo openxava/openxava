@@ -4,12 +4,17 @@ import javax.persistence.*;
 
 import lombok.*;
 
+/**
+ * 
+ * @author Chungyen Tsai
+ * 
+ */
+
 @Embeddable @Getter @Setter
-public class Detail2 {
+public class OrderDetailProductIdHidden {
 
 	int quantity;
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
-	ProductIdHidden2 product;
-	
+	ProductIdHidden product;
 }
