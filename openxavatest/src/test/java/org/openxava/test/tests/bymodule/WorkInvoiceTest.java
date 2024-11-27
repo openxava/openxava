@@ -29,10 +29,12 @@ public class WorkInvoiceTest extends ModuleTestBase {
 		assertValue("vatPercentage", "16");
 		
 		setValue("hours", "250");
+		assertValue("laborCost", "0" + decimalSeparator + "00"); 
 		assertValue("total", "0" + decimalSeparator + "00");
 		
 		setValue("worker.nickName", "john");
 		assertValue("worker.hourPrice", "20" + decimalSeparator + "00");
+		assertValue("laborCost", "5" + groupingSeparator + "000" + decimalSeparator + "00"); 
 		assertValue("total", "5" + groupingSeparator + "800" + decimalSeparator + "00"); 
 		
 		setValue("tripCost", "299" + decimalSeparator + "9");
@@ -55,6 +57,7 @@ public class WorkInvoiceTest extends ModuleTestBase {
 		assertValue("number", "66");
 		assertValue("hours", "250");
 		assertValue("worker.hourPrice", "20" + decimalSeparator + "00");
+		assertValue("laborCost", "5" + groupingSeparator + "000" + decimalSeparator + "00"); 
 		assertValue("tripCost", "299" + decimalSeparator + "90");
 		assertValue("discount", "1" + groupingSeparator + "200" + decimalSeparator + "00");
 		assertValue("vatPercentage", "21");

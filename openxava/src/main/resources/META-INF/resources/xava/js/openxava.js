@@ -244,7 +244,13 @@ openxava.initEditorsEvents = function(application, module) {
 	});
 	$('.xava_onchange_calculate .editor, input.xava_onchange_calculate').off('change').change(function() {
 		var container = $(this).closest('.xava_onchange_calculate');
-  		openxava.calculate(application, module, container.data('calculated-property'), container.data('scale'));
+  		let index = 0;
+		while (container.data(`calculated-property-${index}`) !== undefined) {
+		    const calculatedProperty = container.data(`calculated-property-${index}`);
+		    const scale = container.data(`scale-${index}`);
+		    openxava.calculate(application, module, calculatedProperty, scale);
+		    index++;
+		}
 	});
 	$('.xava_editor .editor').off('blur').blur(function() {
   		openxava.onBlur(application, module, $(this).attr('id'));

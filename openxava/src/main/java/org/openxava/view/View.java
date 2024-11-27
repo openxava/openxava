@@ -7033,7 +7033,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	public boolean isPropertyUsedInCalculation(String qualifiedName) {  
-		boolean propertyUsedInCalculation = !Is.emptyString(getDependentCalculationPropertyNameFor(qualifiedName));
+		boolean propertyUsedInCalculation = !getDependentCalculationPropertiesNamesFor(qualifiedName).isEmpty(); 
 		if (propertyUsedInCalculation) return true;
 		if (isMemberFromElementCollection(qualifiedName)) {
 			String collection = Strings.firstToken(qualifiedName, ".");
@@ -7043,12 +7043,13 @@ public class View implements java.io.Serializable {
 			return getSubview(collection).isPropertyUsedInCalculation(qualifiedName);
 		}
 		return false;
-	}
+	}	
 	
-	public String getDependentCalculationPropertyNameFor(String qualifiedName) { 
+	public Collection<String> getDependentCalculationPropertiesNamesFor(String qualifiedName) { 
+		Collection<String> result = new ArrayList<>(); 
 		for (MetaProperty property: getMetaPropertiesQualified()) {
 			if (property.usesForCalculation(qualifiedName)) {
-				return property.getName(); 
+				result.add(property.getName()); 
 			}
 		}
 		if (isMemberFromElementCollection(qualifiedName)) {
@@ -7057,10 +7058,12 @@ public class View implements java.io.Serializable {
 			int idx2 = qualifiedName.indexOf(".", idx+1);
 			String prefix = qualifiedName.substring(0, idx2+1);
 			qualifiedName = qualifiedName.substring(idx2+1);
-			String dependentCalculationPropertyName = getSubview(collection).getDependentCalculationPropertyNameFor(qualifiedName);
-			if (dependentCalculationPropertyName != null) return prefix + dependentCalculationPropertyName;
+			Collection<String> dependentCalculationPropertiesNames = getSubview(collection).getDependentCalculationPropertiesNamesFor(qualifiedName);
+			for (String dependentCalculationPropertyName: dependentCalculationPropertiesNames) {
+				result.add(prefix + dependentCalculationPropertyName);
+			}
 		}
-		return null;
+		return result;
 	} 
 	
 	private String getCollectionAction(String action, String defaultAction) {
