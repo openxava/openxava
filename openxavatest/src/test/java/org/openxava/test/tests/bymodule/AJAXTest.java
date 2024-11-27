@@ -821,7 +821,6 @@ public class AJAXTest extends ModuleTestBase {
 				"editor_product.unitPrice, " +
 				"editor_product.subfamilyNumber, " +
 				"editor_product.unitPriceInPesetas, " +
-				"editor_product.code, " +
 				"editor_product.description, " +
 				"messages");		
 		setValue("product.number", "2");
@@ -832,7 +831,6 @@ public class AJAXTest extends ModuleTestBase {
 				"editor_product.subfamilyNumber, " +
 				"editor_product.unitPrice, " +
 				"editor_product.unitPriceInPesetas, " +
-				"editor_product.code, " +
 				"editor_product.description, " +
 				"messages");		
 	}	

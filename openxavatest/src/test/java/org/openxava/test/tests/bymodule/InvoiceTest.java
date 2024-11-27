@@ -367,7 +367,6 @@ public class InvoiceTest extends CustomizeListTestBase {
 			{ "details.quantity", "Details quantity" },
 			{ "details.unitPrice", "Details unit price" },
 			{ "details.product.number", "Details product number" },
-			{ "details.product.code", "Details product code" },
 			{ "details.product.description", "Details product description" },
 			{ "details.product.photos", "Details product photos" },
 			{ "details.product.familyNumber", "Details product family" },
@@ -984,7 +983,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		
 		
 		execute("AddColumns.showMoreColumns");
-		assertCollectionRowCount("xavaPropertiesList", 119);  
+		assertCollectionRowCount("xavaPropertiesList", 118);  
 		assertValueInCollection("xavaPropertiesList",   0, 0, "Comment");
 		assertValueInCollection("xavaPropertiesList",   1, 0, "Considerable");
 		assertValueInCollection("xavaPropertiesList",   2, 0, "Customer additional emails");
@@ -1065,45 +1064,44 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValueInCollection("xavaPropertiesList",  77, 0, "Details amount");
 		assertValueInCollection("xavaPropertiesList",  78, 0, "Details delivery date");
 		assertValueInCollection("xavaPropertiesList",  79, 0, "Details free");
-		assertValueInCollection("xavaPropertiesList",  80, 0, "Details product code");
-		assertValueInCollection("xavaPropertiesList",  81, 0, "Details product description");
-		assertValueInCollection("xavaPropertiesList",  82, 0, "Details product family");
-		assertValueInCollection("xavaPropertiesList",  83, 0, "Details product number");
-		assertValueInCollection("xavaPropertiesList",  84, 0, "Details product photos");
-		assertValueInCollection("xavaPropertiesList",  85, 0, "Details product remarks");
-		assertValueInCollection("xavaPropertiesList",  86, 0, "Details product subfamily");
-		assertValueInCollection("xavaPropertiesList",  87, 0, "Details product unit price");
-		assertValueInCollection("xavaPropertiesList",  88, 0, "Details product unit price in pesetas");
-		assertValueInCollection("xavaPropertiesList",  89, 0, "Details product warehouse");
-		assertValueInCollection("xavaPropertiesList",  90, 0, "Details quantity");
-		assertValueInCollection("xavaPropertiesList",  91, 0, "Details remarks");
-		assertValueInCollection("xavaPropertiesList",  92, 0, "Details service type");
-		assertValueInCollection("xavaPropertiesList",  93, 0, "Details sold by customers additional emails");
-		assertValueInCollection("xavaPropertiesList",  94, 0, "Details sold by customers city");
-		assertValueInCollection("xavaPropertiesList",  95, 0, "Details sold by customers credit card");
-		assertValueInCollection("xavaPropertiesList",  96, 0, "Details sold by customers email");
-		assertValueInCollection("xavaPropertiesList",  97, 0, "Details sold by customers lokal");
-		assertValueInCollection("xavaPropertiesList",  98, 0, "Details sold by customers name");
-		assertValueInCollection("xavaPropertiesList",  99, 0, "Details sold by customers number");
-		assertValueInCollection("xavaPropertiesList", 100, 0, "Details sold by customers passport");
-		assertValueInCollection("xavaPropertiesList", 101, 0, "Details sold by customers photo");
-		assertValueInCollection("xavaPropertiesList", 102, 0, "Details sold by customers relation with seller");
-		assertValueInCollection("xavaPropertiesList", 103, 0, "Details sold by customers remarks");
-		assertValueInCollection("xavaPropertiesList", 104, 0, "Details sold by customers seller name in condition");
-		assertValueInCollection("xavaPropertiesList", 105, 0, "Details sold by customers telephone");
-		assertValueInCollection("xavaPropertiesList", 106, 0, "Details sold by customers type");
-		assertValueInCollection("xavaPropertiesList", 107, 0, "Details sold by customers web site");
-		assertValueInCollection("xavaPropertiesList", 108, 0, "Details sold by level description");
-		assertValueInCollection("xavaPropertiesList", 109, 0, "Details sold by level id");
-		assertValueInCollection("xavaPropertiesList", 110, 0, "Details sold by name");
-		assertValueInCollection("xavaPropertiesList", 111, 0, "Details sold by number");
-		assertValueInCollection("xavaPropertiesList", 112, 0, "Details sold by regions");
-		assertValueInCollection("xavaPropertiesList", 113, 0, "Details unit price");
-		assertValueInCollection("xavaPropertiesList", 114, 0, "Product unit price sum");
-		assertValueInCollection("xavaPropertiesList", 115, 0, "Seller discount");
-		assertValueInCollection("xavaPropertiesList", 116, 0, "Total");
-		assertValueInCollection("xavaPropertiesList", 117, 0, "VAT %");
-		assertValueInCollection("xavaPropertiesList", 118, 0, "Year discount");
+		assertValueInCollection("xavaPropertiesList",  80, 0, "Details product description");
+		assertValueInCollection("xavaPropertiesList",  81, 0, "Details product family");
+		assertValueInCollection("xavaPropertiesList",  82, 0, "Details product number");
+		assertValueInCollection("xavaPropertiesList",  83, 0, "Details product photos");
+		assertValueInCollection("xavaPropertiesList",  84, 0, "Details product remarks");
+		assertValueInCollection("xavaPropertiesList",  85, 0, "Details product subfamily");
+		assertValueInCollection("xavaPropertiesList",  86, 0, "Details product unit price");
+		assertValueInCollection("xavaPropertiesList",  87, 0, "Details product unit price in pesetas");
+		assertValueInCollection("xavaPropertiesList",  88, 0, "Details product warehouse");
+		assertValueInCollection("xavaPropertiesList",  89, 0, "Details quantity");
+		assertValueInCollection("xavaPropertiesList",  90, 0, "Details remarks");
+		assertValueInCollection("xavaPropertiesList",  91, 0, "Details service type");
+		assertValueInCollection("xavaPropertiesList",  92, 0, "Details sold by customers additional emails");
+		assertValueInCollection("xavaPropertiesList",  93, 0, "Details sold by customers city");
+		assertValueInCollection("xavaPropertiesList",  94, 0, "Details sold by customers credit card");
+		assertValueInCollection("xavaPropertiesList",  95, 0, "Details sold by customers email");
+		assertValueInCollection("xavaPropertiesList",  96, 0, "Details sold by customers lokal");
+		assertValueInCollection("xavaPropertiesList",  97, 0, "Details sold by customers name");
+		assertValueInCollection("xavaPropertiesList",  98, 0, "Details sold by customers number");
+		assertValueInCollection("xavaPropertiesList",  99, 0, "Details sold by customers passport");
+		assertValueInCollection("xavaPropertiesList", 100, 0, "Details sold by customers photo");
+		assertValueInCollection("xavaPropertiesList", 101, 0, "Details sold by customers relation with seller");
+		assertValueInCollection("xavaPropertiesList", 102, 0, "Details sold by customers remarks");
+		assertValueInCollection("xavaPropertiesList", 103, 0, "Details sold by customers seller name in condition");
+		assertValueInCollection("xavaPropertiesList", 104, 0, "Details sold by customers telephone");
+		assertValueInCollection("xavaPropertiesList", 105, 0, "Details sold by customers type");
+		assertValueInCollection("xavaPropertiesList", 106, 0, "Details sold by customers web site");
+		assertValueInCollection("xavaPropertiesList", 107, 0, "Details sold by level description");
+		assertValueInCollection("xavaPropertiesList", 108, 0, "Details sold by level id");
+		assertValueInCollection("xavaPropertiesList", 109, 0, "Details sold by name");
+		assertValueInCollection("xavaPropertiesList", 110, 0, "Details sold by number");
+		assertValueInCollection("xavaPropertiesList", 111, 0, "Details sold by regions");
+		assertValueInCollection("xavaPropertiesList", 112, 0, "Details unit price");
+		assertValueInCollection("xavaPropertiesList", 113, 0, "Product unit price sum");
+		assertValueInCollection("xavaPropertiesList", 114, 0, "Seller discount");
+		assertValueInCollection("xavaPropertiesList", 115, 0, "Total");
+		assertValueInCollection("xavaPropertiesList", 116, 0, "VAT %");
+		assertValueInCollection("xavaPropertiesList", 117, 0, "Year discount");
 		
 		assertNoAction("AddColumns.showMoreColumns");
 		
@@ -1157,7 +1155,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertAction("AddColumns.showMoreColumns");
 		
 		execute("AddColumns.showMoreColumns");		
-		assertCollectionRowCount("xavaPropertiesList", 119); 
+		assertCollectionRowCount("xavaPropertiesList", 118); 
 		searchBox = getHtmlPage().getHtmlElementById("xava_search_columns_text");
 		searchBox.type("DISCOUNT");
 		assertEquals("DISCOUNT", searchBox.getValue()); 
