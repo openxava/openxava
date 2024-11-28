@@ -769,7 +769,9 @@ public class View implements java.io.Serializable {
 		}				
 	}
 	
-	private void moveCollectionValuesToViewValues() {  
+	private void moveCollectionValuesToViewValues() { 
+		System.out.println("moveCollectionValuesToViewValues");
+		System.out.println(getCollectionValues());
 		if (!isRepresentsElementCollection()) {
 			View parent = getParent();
 			if (parent == null) return;
@@ -781,7 +783,9 @@ public class View implements java.io.Serializable {
 		if (collectionValues.size() == collectionEditingRow) {
 			clearValues(); 
 		}
-		else setValues(collectionValues.get(collectionEditingRow)); 		
+		else setValues(collectionValues.get(collectionEditingRow));
+		System.out.println("end " + collectionEditingRow);
+		System.out.println(getCollectionValues());
 	}
 	
 	private void clearValues() {  
@@ -878,6 +882,8 @@ public class View implements java.io.Serializable {
 			if (subview.isRepresentsElementCollection()) { 	
 				int elementIndex = Integer.parseInt(Strings.firstToken(member, "."));
 				List collectionValues = subview.getCollectionValues();
+				System.out.println("getValue");
+				System.out.println(collectionValues);
 				if (elementIndex < 0 || elementIndex >= collectionValues.size()) return null;
 				Map element = (Map) collectionValues.get(elementIndex);
 				String collectionMember = Strings.noFirstTokenWithoutFirstDelim(member, ".");
@@ -1390,7 +1396,9 @@ public class View implements java.io.Serializable {
 					else subview.addValues((Map)value);
 				}
 				else {
+					System.out.println("trySetValue");
 					subview.collectionValues = (List) value;
+					System.out.println(collectionValues);
 					subview.refreshCollection(); 
 				}		
 			}
@@ -1413,6 +1421,8 @@ public class View implements java.io.Serializable {
 			if (subview.isRepresentsElementCollection()) { 	
 				int elementIndex = Integer.parseInt(Strings.firstToken(member, "."));
 				List collectionValues = subview.getCollectionValues();
+				System.out.println("trySetValue2");
+				System.out.println(collectionValues);
 				if (elementIndex < 0) return false;
 				if (elementIndex >= collectionValues.size()) growCollection(collectionValues, elementIndex + 1);
 				Map element = (Map) collectionValues.get(elementIndex);
@@ -1817,7 +1827,7 @@ public class View implements java.io.Serializable {
 	 */	
 	// 
 	public List<Map<String, Object>> getCollectionValues() throws XavaException {
-		if (collectionValues == null) { 			
+		if (collectionValues == null) {
 			assertRepresentsCollection("getCollectionValues()");
 			if (getMetaCollection().isElementCollection()) collectionValues = new ArrayList<>(); 
 			else if (isCollectionFromModel() ||	!isDefaultListActionsForCollectionsIncluded() || !isDefaultRowActionsForCollectionsIncluded()) {				
@@ -1827,14 +1837,17 @@ public class View implements java.io.Serializable {
 				try	{
 					Map mapReturnValues = null;
 					Map mapKeys = getParent().getKeyValues();					
-					if (null != mapKeys && !mapKeys.isEmpty() && model == null) { 
+					if (null != mapKeys && !mapKeys.isEmpty() && model == null) {
+						System.out.println(1);
 						mapReturnValues = MapFacade.getValues(getParent().getModelName(), mapKeys, mapMembersNames);	
 					}
 					else {
+						System.out.println(2);
 						// get transient view object model so that it might be used instead of keyValues, what is more fill
 						// it with data so that accessory methods might be used on current view members values
 						Object oParentObject = getParent().model;
 						if (oParentObject == null) {
+							System.out.println(21);
 							oParentObject = getParent().getMetaModel().getPOJOClass().newInstance();
 						}
 						getParent().getMetaModel().fillPOJO(oParentObject, getParent().getValues());
@@ -1852,10 +1865,13 @@ public class View implements java.io.Serializable {
 				}
 			}
 			else {
-				// If not calculated we obtain the data from the Tab			
+				// If not calculated we obtain the data from the Tab		
+				System.out.println(3);
 				collectionValues = getCollectionValues(getCollectionTab().getAllKeys()); 
 			}
 		}
+		System.out.println("getCollectionValues");
+		System.out.println(collectionValues);
 		return collectionValues; 
 	}
 	
@@ -3186,6 +3202,8 @@ public class View implements java.io.Serializable {
 	}
 	
 	private void assignValuesToElementCollection(String qualifier) {
+		System.out.println("assignValuesToElementCollection");
+		System.out.println(collectionValues);
 		if (!isCollectionMembersEditables()) return;
 		int oldCount = collectionValues == null?0:collectionValues.size(); 
 		List<Map<String, Object>> oldCollectionValues = collectionValues;
@@ -3281,7 +3299,9 @@ public class View implements java.io.Serializable {
 			collectionTotals = null;
 			collectionSize = -1; 
 		}
-		setOldStateInElementCollection();		
+		setOldStateInElementCollection();
+		System.out.println("end");
+		System.out.println(collectionValues);
 	}
 
 	private void setCollectionEditionRowFromChangedProperty() {  
@@ -3681,7 +3701,9 @@ public class View implements java.io.Serializable {
 		}		
 	}
 
-	private void moveViewValuesToCollectionValues() { 
+	private void moveViewValuesToCollectionValues() {
+		System.out.println("moveViewValuesToCollectionValues");
+		//System.out.println(getAllValues());
 		if (!isRepresentsElementCollection()) {
 			View parent = getParent();
 			if (parent == null) return;
@@ -3690,7 +3712,9 @@ public class View implements java.io.Serializable {
 		}
 		if (collectionValues == null) return;
 		if (collectionEditingRow == collectionValues.size()) collectionValues.add(collectionEditingRow, getAllValues());
-		else if (collectionEditingRow >= 0) collectionValues.set(collectionEditingRow, getAllValues()); 
+		else if (collectionEditingRow >= 0) collectionValues.set(collectionEditingRow, getAllValues());
+		System.out.println("end");
+		//System.out.println(getCollectionValues());
 	}
 
 	private void executeOnChangeAction(String changedPropertyQualifiedName, IOnChangePropertyAction action) 
