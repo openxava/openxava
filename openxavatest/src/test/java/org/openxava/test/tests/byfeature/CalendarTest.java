@@ -291,6 +291,7 @@ public class CalendarTest extends WebDriverTestBase {
 		dragAndDrop(calendar.getTime(), dateFormat);
 		event = getDriver().findElement(By.cssSelector(".fc-event-time"));
 		assertTrue(event.getText().contains("2:30"));
+		//anteriormente la vista volvia a month view, hay que cambiar de acuerdo a eso
 		event.click();
 		wait(getDriver());
 		
