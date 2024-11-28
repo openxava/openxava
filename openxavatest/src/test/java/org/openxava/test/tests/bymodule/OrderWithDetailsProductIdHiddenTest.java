@@ -14,7 +14,7 @@ public class OrderWithDetailsProductIdHiddenTest extends ModuleTestBase {
 		super(testName, "OrderWithDetailsProductIdHidden");		
 	}
 	
-	public void testEntityInAPackageNotNamedModel() throws Exception {
+	public void testElementCollectionCanSaveWithHiddenKeyPrimitiveAndWrapper() throws Exception {
 		execute("List.viewDetail", "row=0");
 		assertValueInCollection("details", 0, "product.code", "1313");
 		execute("CRUD.save");
