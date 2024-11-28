@@ -16,6 +16,8 @@ import lombok.*;
  */
 
 @Entity @Getter @Setter
+@View(members="customer; details")
+@View(name="Primitive", members="customer; details2")
 public class OrderWithDetailsProductIdHidden extends Identifiable {
 
 	@ManyToOne(fetch=FetchType.LAZY, optional=true)

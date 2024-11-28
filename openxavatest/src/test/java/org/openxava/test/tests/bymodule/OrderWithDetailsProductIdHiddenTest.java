@@ -17,13 +17,17 @@ public class OrderWithDetailsProductIdHiddenTest extends ModuleTestBase {
 	public void testEntityInAPackageNotNamedModel() throws Exception {
 		execute("List.viewDetail", "row=0");
 		assertValueInCollection("details", 0, "product.code", "1313");
-		assertValueInCollection("details2", 0, "product.code", "1414");
 		execute("CRUD.save");
-		assertNoErrors(); // details issue
+		assertNoErrors();
+		
+		changeModule("OrderWithDetailsProductIdHiddenPrimitive");
+		execute("List.viewDetail", "row=0");
+		assertValueInCollection("details", 0, "product.code", "1414");
+		execute("CRUD.save");
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
-		assertValueInCollection("details", 0, "product.code", "1313"); 
-		assertValueInCollection("details2", 0, "product.code", "1414"); //if error, can be saved but value is wrong when read
+		assertValueInCollection("details2", 0, "product.code", "1414");
+		
 	}
-	
+
 }

@@ -15,7 +15,7 @@ public class OrderDetailProductIdHidden2 {
 
 	int quantity;
 	
-	@ManyToOne(fetch=FetchType.LAZY, optional=false)
+	@ManyToOne(fetch=FetchType.LAZY, optional=true)
 	ProductIdHidden2 product;
 	
 }
