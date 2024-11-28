@@ -1638,7 +1638,7 @@
 	
 	<controller name="ReallocationDetailsEditOnly">
 		<extends controller="Typical"/>
-		<action name="showQuantity" mode="list"
+		<action name="showQuantity" mode="detail"
 			class="org.openxava.test.actions.ShowReallocationDetailQuantityAction"/>
 	</controller>
 	
