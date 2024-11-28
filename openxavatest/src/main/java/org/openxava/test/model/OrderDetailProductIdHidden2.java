@@ -5,6 +5,7 @@ import javax.persistence.*;
 import lombok.*;
 
 /**
+ * With product id hidden and optional true
  * 
  * @author Chungyen Tsai
  *
@@ -15,7 +16,7 @@ public class OrderDetailProductIdHidden2 {
 
 	int quantity;
 	
-	@ManyToOne(fetch=FetchType.LAZY, optional=true)
+	@ManyToOne(fetch=FetchType.LAZY, optional=true) // keep optional = true
 	ProductIdHidden2 product;
 	
 }
