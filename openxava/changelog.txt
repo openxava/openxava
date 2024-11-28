@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Wrong OpenXava base directory (the .openxava folder) path in some UNIX systems running as root user.  
 - Fix: If one property is used in more than one @Calculation only the first @Calculation property works.
 - Article about dashboard creation available in the documentation with video.
 - Fix: Using a view of the parent entity that is not present in the module entity breaks the module.
