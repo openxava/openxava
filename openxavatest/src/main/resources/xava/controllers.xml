@@ -1635,5 +1635,12 @@
 		<action name="showTotalCalculationsCount" mode="detail"
 			class="org.openxava.test.actions.ShowInvoiceTotalCalculationsCountAction"/>			
 	</controller>		
+	
+	<controller name="ReallocationDetailsEditOnly">
+		<extends controller="Typical"/>
+		<action name="showQuantity" mode="list"
+			class="org.openxava.test.actions.ShowReallocationDetailQuantityAction"/>
+	</controller>
+	
 
 </controllers>
