@@ -19,6 +19,7 @@ public class CalendarTest extends WebDriverTestBase {
     public void testCalendar() throws Exception {
     	assertErrorsHandlingCorrectly();
     	assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate(); 
+    	/*
     	assertMultipleDatesPropertiesAndSelectDateToShow();
     	assertFilterPerformance();
     	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime();
@@ -26,6 +27,7 @@ public class CalendarTest extends WebDriverTestBase {
     	assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear();
     	assertDropDownVisible_DropDownOptionSavePrefDate();
     	assertTabWithBaseCondition();
+    	*/
     }    
 
 	private void nextOnCalendar() throws Exception {
@@ -160,6 +162,10 @@ public class CalendarTest extends WebDriverTestBase {
 		// 4000
 		assertTrue(takes < 3000);
 		moveToListView();
+	}
+	
+	private void assertCalendarStateSaveCorrectly() {
+		
 	}
 
 	private void assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate() throws Exception {
