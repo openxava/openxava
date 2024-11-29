@@ -166,6 +166,7 @@ public class TreeTest extends WebDriverTestBase{
 		executeDnd(driver, treeItemNodesId.get("child1") + "_anchor", treeItemNodesId.get("root") + "_anchor");
 		driver.navigate().refresh();
 		wait(driver);
+		Thread.sleep(500);
 		assertTrue(isElementInside(driver, treeItemNodesId.get("root"), treeItemNodesId.get("child1") + "_anchor"));
 		assertTrue(isElementInside(driver, treeItemNodesId.get("child1"), treeItemNodesId.get("child1sub1") + "_anchor"));
 		assertTrue(isElementInside(driver, treeItemNodesId.get("child1sub1"), treeItemNodesId.get("child1sub2") + "_anchor"));
