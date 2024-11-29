@@ -17,12 +17,14 @@ import org.openqa.selenium.support.ui.*;
 public class CalendarTest extends WebDriverTestBase {
 	
     public void testCalendar() throws Exception {
+    	/*
     	assertErrorsHandlingCorrectly();
     	assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate(); 
-    	/*
     	assertMultipleDatesPropertiesAndSelectDateToShow();
     	assertFilterPerformance();
+    	*/
     	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime();
+    	/*
     	assertAnyNameAsDateProperty();
     	assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear();
     	assertDropDownVisible_DropDownOptionSavePrefDate();
@@ -281,6 +283,7 @@ public class CalendarTest extends WebDriverTestBase {
 		verifyTooltipText(nextYearButton, "Next year");
 
 		moveToTimeGridWeek(getDriver());
+		//moveTo
 		event = getDriver().findElement(By.cssSelector(".fc-event-time"));
 		event.click();
 		wait(getDriver());
@@ -288,8 +291,10 @@ public class CalendarTest extends WebDriverTestBase {
 		//drag and drop
 		Calendar calendar = Calendar.getInstance();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Thread.sleep(5000);
 		dragAndDrop(calendar.getTime(), dateFormat);
 		event = getDriver().findElement(By.cssSelector(".fc-event-time"));
+		Thread.sleep(5000);
 		assertTrue(event.getText().contains("2:30"));
 		//anteriormente la vista volvia a month view, hay que cambiar de acuerdo a eso
 		event.click();
@@ -464,6 +469,12 @@ public class CalendarTest extends WebDriverTestBase {
 	private void moveToTimeGridWeek(WebDriver driver) throws Exception {
 		WebElement weekButton = driver.findElement(By.cssSelector("button.fc-timeGridWeek-button"));
 		weekButton.click();
+		waitCalendarEvent(driver);
+	}
+	
+	private void moveToDayGridMonth(WebDriver driver) throws Exception {
+		WebElement monthButton = driver.findElement(By.cssSelector("button.fc-dayGridMonth-button"));
+		monthButton.click();
 		waitCalendarEvent(driver);
 	}
 

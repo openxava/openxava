@@ -68,7 +68,7 @@ openxava.addEditorInitFunction(function() {
 		
 		Calendar.getEvents(application, module, initialDateMonthYear, selectedValue, {
 			callback: function(events) {
-				saveCalendarState(application, module, calendarEditor.calendar.getDate().toISOString().split('T')[0], calendarEditor.calendar.view.type);
+				clearCalendarState(application, module);
 				calendarEditor.setEvents(events);
 			},
 			errorHandler: function(error) {
@@ -95,7 +95,7 @@ openxava.addEditorInitFunction(function() {
                     minute: '2-digit',
                 },
                 viewClassNames: function(info) {
-					saveCalendarState(application, module, calendarEditor.calendar.getDate().toISOString().split('T')[0], info.view.type);
+					clearCalendarState(application, module);
                     if (info.view.type === 'timeGridWeek' || info.view.type === 'timeGridDay') {
                         calendarEditor.calendar.setOption('displayEventTime', true);
                         const h2 = calendarElement.querySelector(".fc-toolbar-title");
@@ -316,6 +316,10 @@ openxava.addEditorInitFunction(function() {
 			const key = application + '_' + module + '_calendarState';
 			const state = localStorage.getItem(key);
 			return state ? JSON.parse(state) : null;
+		}
+		
+		function clearCalendarState(application, module){
+			localStorage.removeItem(application + '_' + module + '_calendarState');
 		}
 
     }
