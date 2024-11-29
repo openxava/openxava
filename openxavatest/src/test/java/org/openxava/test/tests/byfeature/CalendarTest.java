@@ -17,19 +17,16 @@ import org.openqa.selenium.support.ui.*;
 public class CalendarTest extends WebDriverTestBase {
 	
     public void testCalendar() throws Exception {
-    	/*
     	assertErrorsHandlingCorrectly();
     	assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate(); 
     	assertMultipleDatesPropertiesAndSelectDateToShow();
     	assertFilterPerformance();
-    	*/
-    	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime();
-    	/*
+    	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime_saveStateWhenClickDates();
     	assertAnyNameAsDateProperty();
     	assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear();
     	assertDropDownVisible_DropDownOptionSavePrefDate();
     	assertTabWithBaseCondition();
-    	*/
+    	
     }    
 
 	private void nextOnCalendar() throws Exception {
@@ -248,7 +245,7 @@ public class CalendarTest extends WebDriverTestBase {
 		clearListCondition();
 	}
 
-	private void assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime() throws Exception {
+	private void assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime_saveStateWhenClickDates() throws Exception {
 		goModule("Appointment");
 		moveToCalendarView(getDriver());
 		moveToTimeGridWeek(getDriver());
@@ -283,20 +280,21 @@ public class CalendarTest extends WebDriverTestBase {
 		verifyTooltipText(nextYearButton, "Next year");
 
 		moveToTimeGridWeek(getDriver());
-		//moveTo
+		
 		event = getDriver().findElement(By.cssSelector(".fc-event-time"));
 		event.click();
 		wait(getDriver());
 		execute("Mode.list");
+		
+		//save calendar state when click dates
+		moveToDayGridMonth(getDriver());
+		
 		//drag and drop
 		Calendar calendar = Calendar.getInstance();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Thread.sleep(5000);
 		dragAndDrop(calendar.getTime(), dateFormat);
 		event = getDriver().findElement(By.cssSelector(".fc-event-time"));
-		Thread.sleep(5000);
 		assertTrue(event.getText().contains("2:30"));
-		//anteriormente la vista volvia a month view, hay que cambiar de acuerdo a eso
 		event.click();
 		wait(getDriver());
 		
