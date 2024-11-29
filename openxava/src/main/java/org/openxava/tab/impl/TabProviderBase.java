@@ -2,6 +2,7 @@ package org.openxava.tab.impl;
 
 import java.rmi.*;
 import java.util.*;
+import java.util.regex.*;
 
 import javax.ejb.*;
 
@@ -65,6 +66,18 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		selectSize = createSizeSelect(select); 
 	}
 							
+	private String toGroupCountInHaving(String select) { 
+	    if (!select.contains(" group by ")) return select;
+	    if (!select.contains("count(*)")) return select;
+	    Pattern pattern = Pattern.compile("count\\(\\*\\)\\s*([!=<>]+|<=|>=)\\s*:(p\\d+)\\s*and");
+	    Matcher matcher = pattern.matcher(select);
+	    if (matcher.find()) {
+	        String result = matcher.replaceFirst("");
+	        return result + " having count(*) " + matcher.group(1) + " :" + matcher.group(2);
+	    }
+	    return select;
+	}
+	
 	private String toGroupBySelect(String select) { 
 		if (!select.contains(" group by ")) return select;
 		String groupByProperty = Strings.lastToken(removeOrder(select)).replace("[month]", "").replace("[year]", "");
@@ -78,6 +91,7 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 			String original = st.nextToken().trim();
 			select = select.replaceFirst(original, noValueInSelect()); 
 		}
+
 		while (st.hasMoreTokens()) {
 			String original = st.nextToken().trim();
 			if (original.equals(groupByProperty)) continue;
@@ -107,7 +121,8 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 			select = select.replaceFirst(groupByProperty, "year(" + groupByProperty + ")");
 			if (orderBy != null) orderBy = orderBy.replaceFirst(groupByProperty, "year(" + groupByProperty + ")"); 
 		} 
-		
+
+		select = toGroupCountInHaving(select); 
 		if (orderBy != null) select = select + " order by " + orderBy; 
 
 		return select;

@@ -64,7 +64,9 @@ public class Files {
 	 * @since 5.9
 	 */
 	public static String getOpenXavaBaseDir() { 
-		return System.getProperty("user.home") + "/.openxava/"; 
+		String userHome = System.getProperty("user.home");
+		if (userHome != null && userHome.endsWith("/")) userHome = userHome.substring(0, userHome.length() - 1); 
+		return  userHome + "/.openxava/";
 	}
 
 }
