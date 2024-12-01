@@ -103,7 +103,7 @@ public class Calendar extends DWRBase {
 			int tableSize = 0;
 			JSONArray jsonArray = new JSONArray();
 			tableSize = tab.getTableModel().getTotalSize();
-
+			System.out.println(tab.getPropertiesNamesAsString());
 			if (tableSize > 0) {
 				for (int i = 0; i < tableSize; i++) {
 					JSONObject jsonRow = new JSONObject();
@@ -125,6 +125,7 @@ public class Calendar extends DWRBase {
 			} else if (tableSize == -1) {
 				throw new Exception();
 			}
+			System.out.println(jsonArray.toString());
 			return jsonArray.toString();
 		} catch (Exception e) {
 			return "error";
@@ -170,13 +171,25 @@ public class Calendar extends DWRBase {
 				key.put(allKeyPropertiesNames.get(i).toString(), keyObject);
 			}
 			MetaProperty metaProperty = metaModel.getMetaProperty(dropDateString); //for more than 1 date, have to loop
+			System.out.println(dropDate);
+			System.out.println(newDate);
+			System.out.println(metaProperty.getTypeName());
 			if (isDateWithTime(metaProperty)) {
 				DateTimeCombinedFormatter dtf = new DateTimeCombinedFormatter();
 				newDate.put(dropDateString, dtf.parse(request, dropDate)); 
 			} else {
-				DateFormatter df = new DateFormatter();
-				newDate.put(dropDateString, df.parse(request, dropDate)); 
+				if (metaProperty.getTypeName().equals("java.time.LocalDate")) {
+					LocalDateFormatter ldf = new LocalDateFormatter();
+					dropDate = dropDate.split(" ")[0];
+					System.out.println("aca");
+					newDate.put(dropDateString, ldf.parse(request, dropDate)); 
+				} else {
+					DateFormatter df = new DateFormatter();
+					newDate.put(dropDateString, df.parse(request, dropDate)); 
+				}
 			}
+
+			
 			MapFacade.setValues(view.getModelName(), key, newDate);
 		} finally {
 			XPersistence.commit();
