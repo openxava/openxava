@@ -163,10 +163,6 @@ public class CalendarTest extends WebDriverTestBase {
 		moveToListView();
 	}
 	
-	private void assertCalendarStateSaveCorrectly() {
-		
-	}
-
 	private void assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate_dragAndDropLocalDate() throws Exception {
 		goModule("Invoice");
 		moveToCalendarView(getDriver());
