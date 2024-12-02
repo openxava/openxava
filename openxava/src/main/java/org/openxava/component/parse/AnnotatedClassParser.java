@@ -873,12 +873,7 @@ public class AnnotatedClassParser implements IComponentParser {
 
 		// size
 		boolean defaultSize = false; 
-		/* tmr
-		if (element.isAnnotationPresent(javax.validation.constraints.Max.class)) {
-			javax.validation.constraints.Max max = element.getAnnotation(javax.validation.constraints.Max.class);
-			property.setSize((int) (Math.log10(max.value()) + 1));
-		}
-		else */ if (element.isAnnotationPresent(javax.validation.constraints.DecimalMax.class)) {
+		if (element.isAnnotationPresent(javax.validation.constraints.DecimalMax.class)) {
 			javax.validation.constraints.DecimalMax max = element.getAnnotation(javax.validation.constraints.DecimalMax.class);
 			int size = max.value().length();
 			int idx = max.value().indexOf('.'); 
@@ -924,12 +919,10 @@ public class AnnotatedClassParser implements IComponentParser {
 			property.setSize(digits.integer() + digits.fraction()); 
 			property.setScale(digits.fraction());
 		}
-		// tmr ini
 		if (element.isAnnotationPresent(javax.validation.constraints.Max.class)) {
 			javax.validation.constraints.Max max = element.getAnnotation(javax.validation.constraints.Max.class);
 			property.setSize((int) (Math.log10(max.value()) + 1));
 		}		
-		// tmr fin
 				
 		// required
 		if (element.isAnnotationPresent(Required.class)) {						

@@ -31,7 +31,7 @@ public class ConversionFactor implements Serializable {
 	
 	@Digits(integer=6, fraction=0) 
 	@Max(200) // To test @Max combined with @Digits
-	private BigDecimal storedFactorIndex; // tmr 
+	private BigDecimal storedFactorIndex;  
 	
 	@Column(scale = 6) 
 	@DecimalMax("0.999999")
