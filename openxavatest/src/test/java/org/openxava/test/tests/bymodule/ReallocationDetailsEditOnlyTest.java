@@ -1,8 +1,7 @@
 package org.openxava.test.tests.bymodule;
 
-import org.openxava.tests.*;
-
 import org.htmlunit.html.*;
+import org.openxava.tests.*;
 
 
 /**
@@ -16,11 +15,15 @@ public class ReallocationDetailsEditOnlyTest extends ModuleTestBase {
 		super(testName, "ReallocationDetailsEditOnly");		
 	}	
 	
-	public void testEditOnlyElementCollections() throws Exception {
+	public void testEditOnlyElementCollections_booleanWithEditOnlyElementCollection() throws Exception {
 		execute("List.viewDetail", "row=0");
 		assertValue("description", "THE BIG REALLOCATION");
 		assertNoErrors();
 		
+		assertCollectionRowCount("details", 3);
+		execute("CRUD.save");
+		execute("Mode.list");
+		execute("List.viewDetail", "row=0");
 		assertCollectionRowCount("details", 3);
 
 		assertValueInCollection("details", 0, "place", "Valencia Office"); // In lowercase because of @Editor
