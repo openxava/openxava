@@ -152,6 +152,7 @@ openxava.addEditorInitFunction(function() {
                     }
                 },
                 eventMouseEnter: function(info) {
+					hideTooltip();
 					showTooltip(info.el, info.event.title);
                 },
                 eventMouseLeave: function(info) {
