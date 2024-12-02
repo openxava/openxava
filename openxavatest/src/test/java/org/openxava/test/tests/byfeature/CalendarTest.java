@@ -213,6 +213,7 @@ public class CalendarTest extends WebDriverTestBase {
 		moveToCalendarView(getDriver());
 		WebElement firstDayElement = getDriver().findElement(By.cssSelector(".fc-daygrid-day"));
 		firstDayElement.click();
+		wait(getDriver());
 		setValue("userName", "Pedro");
 		execute("CRUD.save");
 		execute("Mode.list");
