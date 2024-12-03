@@ -29,6 +29,10 @@ public class ConversionFactor implements Serializable {
 	@Digits(integer=10, fraction=6) 
 	private BigDecimal reverseFactor;
 	
+	@Digits(integer=6, fraction=0) 
+	@Max(200) // To test @Max combined with @Digits
+	private BigDecimal storedFactorIndex;  
+	
 	@Column(scale = 6) 
 	@DecimalMax("0.999999")
 	public BigDecimal getMirrorFactor() {
@@ -48,8 +52,7 @@ public class ConversionFactor implements Serializable {
 	@Column(precision=6, scale=0)
 	public BigDecimal getFactorGrade() { 
 		return factor.multiply(new BigDecimal("1000000"));
-	}
-	
+	}	
 	
 	public Long getId() {
 		return id;
@@ -89,6 +92,14 @@ public class ConversionFactor implements Serializable {
 
 	public void setReverseFactor(BigDecimal reverseFactor) {
 		this.reverseFactor = reverseFactor;
+	}
+
+	public BigDecimal getStoredFactorIndex() {
+		return storedFactorIndex;
+	}
+
+	public void setStoredFactorIndex(BigDecimal storedFactorIndex) {
+		this.storedFactorIndex = storedFactorIndex;
 	}
 
 }

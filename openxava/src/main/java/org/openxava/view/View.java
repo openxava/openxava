@@ -3213,14 +3213,17 @@ public class View implements java.io.Serializable {
 			if (getRequest().getParameterValues(lastLineKey) == null) break;
 			collectionNewSize++;
 		}
-		if (collectionNewSize > 1) collectionNewSize--; 
+		MetaCollectionView metaCollectionView = getParent().getMetaView().getMetaCollectionView(getMemberName());
+		if (collectionNewSize > 1 && (metaCollectionView == null || !metaCollectionView.isEditOnly())) {
+		    collectionNewSize--;
+		}
 		for (int i=0; ;i++) {
 			String lastLineKey = qualifier + (i + lastLineKeyIncrement) + lastLineKeySuffix;
 			if (getRequest().getParameterValues(lastLineKey) == null) break;
 			if (i >= collectionNewSize && hasBoolean) break; 
 			boolean containsReferences = false;
 			Set<String> falseBooleans = null; 
-			Map element = new HashMap();
+			Map element = new HashMap(); 
 			Map originalValues = null; 
 			for (MetaProperty p: getMetaPropertiesList()) {
 				String propertyKey= qualifier + i + "." + p.getName();

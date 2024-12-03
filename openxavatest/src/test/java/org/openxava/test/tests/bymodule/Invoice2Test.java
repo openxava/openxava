@@ -305,6 +305,17 @@ public class Invoice2Test extends ModuleTestBase {
 		assertListSelectedConfiguration("All");
 		execute("List.filter");
 		assertListSelectedConfiguration("All");
+
+		setConditionValues("", "", "5");
+		execute("List.filter");
+		assertListRowCount(1); 
+		assertListColumnCount(3);
+		assertValuesInList(0, "2004",  "5,706.00", "5");
+		setConditionComparators("=", "=", "<");
+		execute("List.filter");
+		assertListRowCount(4); 
+		assertListColumnCount(3);		
+
 		resetModule();
 		assertListSelectedConfiguration("All");
 		assertListRowCount(9);
@@ -337,7 +348,7 @@ public class Invoice2Test extends ModuleTestBase {
 		assertListRowCount(1); 
 		assertListColumnCount(3);
 		assertValuesInList(0, "2004",  "4,396.00", "1");
-		
+				
 		selectGroupBy("No grouping");
 		assertListRowCount(5); // The 'Javis' 
 		assertListColumnCount(9);

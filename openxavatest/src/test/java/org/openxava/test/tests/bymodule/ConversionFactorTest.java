@@ -31,6 +31,7 @@ public class ConversionFactorTest extends ModuleTestBase {
 		setValue("toUnit", "CUBIC FEET");
 		setValue("factor", "0.133681");
 		setValue("reverseFactor", "7.480519");
+		setValue("storedFactorIndex", "133"); 
 		execute("CRUD.save");
 		assertNoErrors(); 
 		execute("CRUD.new");
@@ -44,5 +45,6 @@ public class ConversionFactorTest extends ModuleTestBase {
 		assertValue("shortFactor", "0.13");
 		assertValue("factorIndex", "133,681");
 		assertValue("factorGrade", "133,681");
+		assertValue("storedFactorIndex", "133"); 
 	}
 }

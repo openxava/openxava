@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @Max annotation cancels the effect of @Digits(fraction=) and @Column(scale=).
+- Fix: Tooltip duplicated in calendar list format after dragging and dropping a record from one day to another. 
+- Fix: Drag & drop in the calendar list format fails when the date is of type LocalDate.
+- Fix: @ElementCollection with @ReadOnly does not recognize the last row if it contains a boolean property.
+- Fix: Fails to filter by record count when the list is grouped.
 - Fix: Wrong OpenXava base directory (the .openxava folder) path in some UNIX systems running as root user.  
 - Fix: If one property is used in more than one @Calculation only the first @Calculation property works.
 - Article about dashboard creation available in the documentation with video.

@@ -18,7 +18,7 @@ public class CalendarTest extends WebDriverTestBase {
 	
     public void testCalendar() throws Exception {
     	assertErrorsHandlingCorrectly();
-    	assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate(); 
+    	assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate_dragAndDropLocalDate(); 
     	assertMultipleDatesPropertiesAndSelectDateToShow();
     	assertFilterPerformance();
     	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime();
@@ -162,7 +162,7 @@ public class CalendarTest extends WebDriverTestBase {
 		moveToListView();
 	}
 
-	private void assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate() throws Exception {
+	private void assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate_dragAndDropLocalDate() throws Exception {
 		goModule("Invoice");
 		moveToCalendarView(getDriver());
 		prevOnCalendar();
@@ -205,6 +205,34 @@ public class CalendarTest extends WebDriverTestBase {
 			execute("CRUD.deleteRow", "row=0");
 		}
 		Thread.sleep(300);
+		
+		//drag and drop localdate
+		goModule("UserWithBirthday");
+		execute("Mode.list");
+		moveToCalendarView(getDriver());
+		WebElement firstDayElement = getDriver().findElement(By.cssSelector(".fc-daygrid-day"));
+		firstDayElement.click();
+		Thread.sleep(300); 
+		setValue("userName", "Pedro");
+		execute("CRUD.save");
+		execute("Mode.list");
+		WebElement firstDayEvent = getDriver().findElement(By.cssSelector(".fc-event"));
+		List<WebElement> dayElements = getDriver().findElements(By.cssSelector(".fc-daygrid-day"));
+		WebElement secondDayElement = dayElements.get(1);
+		Actions actions = new Actions(getDriver());
+		actions.dragAndDrop(firstDayEvent, secondDayElement).build().perform();
+		Thread.sleep(300);
+		getDriver().navigate().refresh();
+		wait(getDriver());
+		waitCalendarEvent(getDriver());
+		
+		dayElements = getDriver().findElements(By.cssSelector(".fc-daygrid-day"));
+		secondDayElement = dayElements.get(1);
+		WebElement foundEvent = secondDayElement.findElement(By.cssSelector(".fc-event"));
+		
+		moveToListView();
+		execute("List.viewDetail", "row=0");
+		execute("CRUD.delete");
 	}
 
 	private void assertAnyNameAsDateProperty() throws Exception {

@@ -174,8 +174,14 @@ public class Calendar extends DWRBase {
 				DateTimeCombinedFormatter dtf = new DateTimeCombinedFormatter();
 				newDate.put(dropDateString, dtf.parse(request, dropDate)); 
 			} else {
-				DateFormatter df = new DateFormatter();
-				newDate.put(dropDateString, df.parse(request, dropDate)); 
+				if (metaProperty.getTypeName().equals("java.time.LocalDate")) {
+					LocalDateFormatter ldf = new LocalDateFormatter();
+					dropDate = dropDate.split(" ")[0];
+					newDate.put(dropDateString, ldf.parse(request, dropDate)); 
+				} else {
+					DateFormatter df = new DateFormatter();
+					newDate.put(dropDateString, df.parse(request, dropDate)); 
+				}
 			}
 			MapFacade.setValues(view.getModelName(), key, newDate);
 		} finally {
