@@ -21,11 +21,12 @@ public class CalendarTest extends WebDriverTestBase {
     	assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate_dragAndDropLocalDate(); 
     	assertMultipleDatesPropertiesAndSelectDateToShow();
     	assertFilterPerformance();
-    	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime();
+    	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime_saveStateWhenClickDates();
     	assertAnyNameAsDateProperty();
     	assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear();
     	assertDropDownVisible_DropDownOptionSavePrefDate();
     	assertTabWithBaseCondition();
+    	
     }    
 
 	private void nextOnCalendar() throws Exception {
@@ -161,7 +162,7 @@ public class CalendarTest extends WebDriverTestBase {
 		assertTrue(takes < 3000);
 		moveToListView();
 	}
-
+	
 	private void assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate_dragAndDropLocalDate() throws Exception {
 		goModule("Invoice");
 		moveToCalendarView(getDriver());
@@ -169,7 +170,7 @@ public class CalendarTest extends WebDriverTestBase {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		List<Date> dates = setDates();
 		for (int i = 0; i < dates.size(); i++) {
-			if (i == 2) {
+			if (i > 0) {
 				nextOnCalendar();
 				wait(getDriver());
 			}
@@ -181,6 +182,7 @@ public class CalendarTest extends WebDriverTestBase {
 			wait(getDriver());
 			createInvoice(i);
 		}
+		prevOnCalendar();
 		prevOnCalendar();
 		verifyPrevInvoiceEvent();
 		moveToListView();
@@ -212,7 +214,7 @@ public class CalendarTest extends WebDriverTestBase {
 		moveToCalendarView(getDriver());
 		WebElement firstDayElement = getDriver().findElement(By.cssSelector(".fc-daygrid-day"));
 		firstDayElement.click();
-		Thread.sleep(300); 
+		wait(getDriver());
 		setValue("userName", "Pedro");
 		execute("CRUD.save");
 		execute("Mode.list");
@@ -268,7 +270,7 @@ public class CalendarTest extends WebDriverTestBase {
 		clearListCondition();
 	}
 
-	private void assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime() throws Exception {
+	private void assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime_saveStateWhenClickDates() throws Exception {
 		goModule("Appointment");
 		moveToCalendarView(getDriver());
 		moveToTimeGridWeek(getDriver());
@@ -303,10 +305,15 @@ public class CalendarTest extends WebDriverTestBase {
 		verifyTooltipText(nextYearButton, "Next year");
 
 		moveToTimeGridWeek(getDriver());
+		
 		event = getDriver().findElement(By.cssSelector(".fc-event-time"));
 		event.click();
 		wait(getDriver());
 		execute("Mode.list");
+		
+		//save calendar state when click dates
+		moveToDayGridMonth(getDriver());
+		
 		//drag and drop
 		Calendar calendar = Calendar.getInstance();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -485,6 +492,12 @@ public class CalendarTest extends WebDriverTestBase {
 	private void moveToTimeGridWeek(WebDriver driver) throws Exception {
 		WebElement weekButton = driver.findElement(By.cssSelector("button.fc-timeGridWeek-button"));
 		weekButton.click();
+		waitCalendarEvent(driver);
+	}
+	
+	private void moveToDayGridMonth(WebDriver driver) throws Exception {
+		WebElement monthButton = driver.findElement(By.cssSelector("button.fc-dayGridMonth-button"));
+		monthButton.click();
 		waitCalendarEvent(driver);
 	}
 

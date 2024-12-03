@@ -3,6 +3,10 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Set"%>
+<%@page import="java.util.HashSet"%>
 <%@page import="org.openxava.controller.meta.MetaAction"%>
 <%@page import="org.openxava.web.Ids"%>
 <%@page import="org.openxava.controller.meta.MetaControllers"%>
@@ -36,6 +40,14 @@ String removeSelectedAction = subview.getRemoveSelectedCollectionElementsAction(
 boolean suppressRemoveAction = removeSelectedAction != null && "".equals(removeSelectedAction);
 boolean labelOnEachCell = "true".equals(request.getParameter("labelOnEachCell"));
 boolean hideTotals = "true".equals(request.getParameter("hideTotals"));
+List<MetaProperty> metaPropertiesList = subview.getMetaPropertiesList();
+List<MetaProperty> keyPropertiesList = subview.getKeyPropertiesOfReferencesEntity();
+Set<MetaProperty> metaPropertiesSet = new HashSet<>(metaPropertiesList);
+for (MetaProperty metaProperty : keyPropertiesList) {
+	if (metaPropertiesSet.add(metaProperty)) {
+		metaPropertiesList.add(metaProperty);
+	}
+}
 %>
 <div class="<%=collectionClass%> ox-overflow-auto">
 <% if (resizeColumns) { %> 
@@ -49,9 +61,10 @@ boolean hideTotals = "true".equals(request.getParameter("hideTotals"));
 	<% } %>
 <%
 	// Heading
-Iterator it = subview.getMetaPropertiesList().iterator();
+Iterator it = metaPropertiesList.iterator();
 for (int columnIndex=0; it.hasNext(); columnIndex++) {
-	MetaProperty p = (MetaProperty) it.next();	
+	MetaProperty p = (MetaProperty) it.next();
+	boolean isHiddenKey = keyPropertiesList.contains(p);
 	String label = p.getQualifiedLabel(request);
 	int columnWidth = subview.getCollectionColumnWidth(columnIndex);
 	String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
@@ -89,7 +102,7 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 		}
 	}
 %>
-	<th <%=headerId%> <%=dataDefaultValue%> class="ox-list-header ox-padding-right-0">
+	<th <%=headerId%> <%=dataDefaultValue%> class="ox-list-header ox-padding-right-0" <%=isHiddenKey? "hidden" : ""%>>
 		<div id="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):(""))%>" <%=width%>>
 		<%if (resizeColumns) {%><nobr><%}%>
 		<%=label%>&nbsp;
@@ -153,9 +166,10 @@ for (int f=0; f < rowCount; f++) {
 	</td>
 <% } %>
 <%
-	it = subview.getMetaPropertiesList().iterator();	
+	it = metaPropertiesList.iterator();	
 	for (int columnIndex = 0; it.hasNext(); columnIndex++) { 
 		MetaProperty p = (MetaProperty) it.next();
+		boolean isHiddenKey = keyPropertiesList.contains(p);
 		String align =p.isNumber() && !p.hasValidValues()?"ox-text-align-right":""; 
 		int columnWidth = subview.getCollectionColumnWidth(columnIndex);
 		String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
@@ -179,7 +193,7 @@ for (int f=0; f < rowCount; f++) {
 			fvalue = org.openxava.web.WebEditors.formatToStringOrArray(request, p, value, errors, view.getViewName(), false);
 		}
 %>
-	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell">
+	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell" <%=isHiddenKey ? "hidden" : ""%>>
 		<% if (labelOnEachCell) { %>
 			<span class="<%=style.getLabel()%>"><%=p.getQualifiedLabel(request)%></span>
 		<% } %>
@@ -203,7 +217,7 @@ for (int f=0; f < rowCount; f++) {
 		</div>
 	</td>		
 	<% if (searchAction != null && subview.isLastSearchKey(p.getName())) {	%>
-	<td class="<%=cssCellClass%> <%=align%> ox-element-collection-search-action-cell">
+	<td class="<%=cssCellClass%> <%=align%> ox-element-collection-search-action-cell" <%=isHiddenKey ? "hidden" : ""%>>
 		<xava:action action='<%=searchAction%>' argv='<%="keyProperty="+propertyName%>'/> 								
 	</td>
 	<% } %>

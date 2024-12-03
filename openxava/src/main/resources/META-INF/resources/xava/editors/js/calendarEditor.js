@@ -48,7 +48,10 @@ openxava.addEditorInitFunction(function() {
         var calendarViews = moduleHasDateTime === 'true' ? 'dayGridMonth,timeGridWeek,timeGridDay' : '';
         var displayTime = calendarViews === 'dayGridMonth,timeGridWeek,timeGridDay' ? 'true' : 'false';
         var formattedDate = "";
-
+		
+		const savedState = loadCalendarState(application, module);
+        const initialDate = savedState ? savedState.defaultDate : new Date().toISOString().split('T')[0];
+        const initialView = savedState ? savedState.defaultView : 'dayGridMonth';
         calendarEditor.outApplication = application;
         calendarEditor.outModule = module;
         var calendarElement = document.getElementById('xava_calendar');
@@ -57,8 +60,14 @@ openxava.addEditorInitFunction(function() {
         calendarEditor.requesting = true;
         var selectedValue = $('#xava_calendar_date_preferences').val();
 		
-		Calendar.getEvents(application, module, "", selectedValue, {
+		const dateParts = initialDate.split("-");
+		const initialDateYear = dateParts[0];
+		const initialDateMonth = parseInt(dateParts[1]) - 1;
+		const initialDateMonthYear = initialDateMonth + "_" + initialDateYear;
+		
+		Calendar.getEvents(application, module, initialDateMonthYear, selectedValue, {
 			callback: function(events) {
+				clearCalendarState(application, module);
 				calendarEditor.setEvents(events);
 			},
 			errorHandler: function(error) {
@@ -69,7 +78,8 @@ openxava.addEditorInitFunction(function() {
         $("#xava_calendar").ready(function() {
             calendarEditor.calendarEl = $('#xava_calendar')[0];
             calendarEditor.calendar = new FullCalendar.Calendar(calendarEditor.calendarEl, {
-                initialView: 'dayGridMonth',
+				initialDate: initialDate,
+				initialView: initialView,
                 eventStartEditable: true,
                 locale: navigator.language,
                 displayEventTime: true,
@@ -84,6 +94,7 @@ openxava.addEditorInitFunction(function() {
                     minute: '2-digit',
                 },
                 viewClassNames: function(info) {
+					clearCalendarState(application, module);
                     if (info.view.type === 'timeGridWeek' || info.view.type === 'timeGridDay') {
                         calendarEditor.calendar.setOption('displayEventTime', true);
                         const h2 = calendarElement.querySelector(".fc-toolbar-title");
@@ -138,6 +149,7 @@ openxava.addEditorInitFunction(function() {
                 },
                 eventClick: function(e) {
                     if (calendarEditor.requesting) return;
+					saveCalendarState(application, module, e.event.startStr.split('T')[0], calendarEditor.calendar.view.type);
                     if (!getSelection().toString()) {
                         hideTooltip();
                         openxava.executeAction(application, module, false, false, selectAction, 'calendarKey=' + e.event.extendedProps.key);
@@ -145,6 +157,7 @@ openxava.addEditorInitFunction(function() {
                 },
                 dateClick: function(e) {
                     if (calendarEditor.requesting) return;
+					saveCalendarState(application, module, e.dateStr, calendarEditor.calendar.view.type);
                     let selectedDate = reformatDate(e.dateStr);
                     let value = 'defaultValues=' + calendarEditor.startName + ':' + selectedDate;
                     if (!getSelection().toString()) {
@@ -292,6 +305,22 @@ openxava.addEditorInitFunction(function() {
             let monthYear = currentMonth + "_" + currentYear;
             Calendar.changeDateProperty(application, module, selectedValue, selectedText, monthYear, calendarEditor.setEvents);
         });
+		
+		function saveCalendarState(application, module, defaultDate, defaultView) {
+			const key = application + '_' + module + '_calendarState';
+			const state = { defaultDate, defaultView };
+			localStorage.setItem(key, JSON.stringify(state));
+		}	
+
+		function loadCalendarState(application, module) {
+			const key = application + '_' + module + '_calendarState';
+			const state = localStorage.getItem(key);
+			return state ? JSON.parse(state) : null;
+		}
+		
+		function clearCalendarState(application, module){
+			localStorage.removeItem(application + '_' + module + '_calendarState');
+		}
 
     }
 

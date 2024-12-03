@@ -4339,14 +4339,59 @@ public class View implements java.io.Serializable {
 				}
 			}
 		}
+		
 		return metaPropertiesList;
+	}
+	
+	/**
+	 * @since 7.4.4
+	 * 
+	 */
+	public List<MetaProperty> getKeyPropertiesOfReferencesEntity() {
+		List<MetaProperty> keysAsMetaProperty =  new ArrayList<>();
+		MetaCollectionView metaCollectionView = getParent().getMetaView().getMetaCollectionView(getMemberName());
+		if (metaCollectionView == null) return keysAsMetaProperty;
+		String propertiesListAsString = metaCollectionView.getPropertiesListNamesAsString();
+		if (propertiesListAsString == null) return keysAsMetaProperty;
+
+		List<String> keys = new ArrayList<>();
+		Collection<String> referencesNames = getMetaModel().getReferencesNames();
+		for (String referenceName : referencesNames) {
+		    MetaReference mr = getMetaModel().getMetaReference(referenceName);
+		    
+		    Collection<String> allSearchKeyPropertiesNames = mr.getMetaModelReferenced().getSarchKeyPropertiesNames();
+		    for (String searchKeyPropertyName : allSearchKeyPropertiesNames) {
+		    	if (propertiesListAsString.contains(referenceName + "." + searchKeyPropertyName)) {
+		    		return keysAsMetaProperty;
+		    	}
+		    }
+		    
+		    Collection<String> allKeyPropertiesNames = mr.getMetaModelReferenced().getAllKeyPropertiesNames();
+		    for (String keyPropertyName : allKeyPropertiesNames) {
+		    	if (!propertiesListAsString.contains(referenceName + "." + keyPropertyName)) {
+		    		keys.add(referenceName + "." + keyPropertyName);
+		    	}
+		    }
+		}
+		
+		keysAsMetaProperty = namesToMetaProperties(this, keys);
+		keysAsMetaProperty = setLabelsIdForCustomMetaPropertiesList(keysAsMetaProperty);
+		return keysAsMetaProperty;
 	}
 	
 	private void setLabelsIdForMetaPropertiesList() throws XavaException {
 		if (getMemberName() == null || metaPropertiesList == null) return;
-		
+		metaPropertiesList = processLabelIdForMetaProperties(metaPropertiesList);
+	}
+	
+	private List<MetaProperty> setLabelsIdForCustomMetaPropertiesList(List<MetaProperty> mpList) throws XavaException {
+		if (mpList == null) return null;
+		return processLabelIdForMetaProperties(mpList);
+	}
+	
+	private List<MetaProperty> processLabelIdForMetaProperties(List<MetaProperty> mpList) {
 		List<MetaProperty> newList = new ArrayList();
-		Iterator it = metaPropertiesList.iterator();
+		Iterator it = mpList.iterator();
 		while (it.hasNext()) {
 			MetaProperty p = ((MetaProperty) it.next()).cloneMetaProperty();
 			if (p.getQualifiedName().contains(".") && !p.getName().contains(".")) {
@@ -4358,7 +4403,7 @@ public class View implements java.io.Serializable {
 			p.setLabelId(prefix + "." + getMemberName() + "." + p.getName());
 			newList.add(p);
 		}
-		metaPropertiesList = newList;
+		return newList;
 	}
 		
 	public void setMetaPropertiesList(List<MetaProperty> metaProperties) throws XavaException {
@@ -5857,7 +5902,7 @@ public class View implements java.io.Serializable {
 	public int getCollectionColumnWidth(int columnIndex) {
 		MetaProperty p = getMetaPropertiesList().get(columnIndex); 
 		try {
-			return getPreferences().getInt( 				
+			return getPreferences().getInt( 		
 				COLUMN_WIDTH + p.getQualifiedName(), defaultColumnWidth(p, columnIndex) 
 			);
 		}
