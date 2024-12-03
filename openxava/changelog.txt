@@ -1,7 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
-- Fix: Some bug related with tooltips in calendar list format. ¿¿¿??? EXPLANATION PENDING 
+- Fix: @Max annotation cancels the effect of @Digits(fraction=) and @Column(scale=).
+- Fix: Tooltip duplicated in calendar list format after dragging and dropping a record from one day to another. 
 - Fix: Drag & drop in the calendar list format fails when the date is of type LocalDate.
 - Fix: @ElementCollection with @ReadOnly does not recognize the last row if it contains a boolean property.
 - Fix: Fails to filter by record count when the list is grouped.
