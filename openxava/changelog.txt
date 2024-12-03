@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Calendar list format forgets the user-selected month after returning to the list from detail.
 - Fix: @Max annotation cancels the effect of @Digits(fraction=) and @Column(scale=).
 - Fix: Tooltip duplicated in calendar list format after dragging and dropping a record from one day to another. 
 - Fix: Drag & drop in the calendar list format fails when the date is of type LocalDate.
