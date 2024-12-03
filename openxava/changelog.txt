@@ -1,9 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
-- Jsoup upgraded to 1.18.2.
+- JSoup upgraded to 1.18.2.
 - Lombok upgraded to 1.18.36.
-- Log4j-api and core upgraded to 2.24.2.
+- Log4j API and core upgraded to 2.24.2.
 - Driver version in doc/new projects upgraded for Informix and Db2.
 - Fix: Saves null for the foreign key if an @ElementCollection references an entity with a hidden key.
 - Fix: Calendar list format forgets the user-selected month after returning to the list from detail.
