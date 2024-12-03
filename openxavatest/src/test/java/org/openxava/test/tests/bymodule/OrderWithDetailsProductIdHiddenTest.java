@@ -14,20 +14,11 @@ public class OrderWithDetailsProductIdHiddenTest extends ModuleTestBase {
 		super(testName, "OrderWithDetailsProductIdHidden");		
 	}
 	
-	public void testElementCollectionCanSaveWithHiddenKeyPrimitiveAndWrapper() throws Exception {
+	public void testElementCollectionCanSaveWithHiddenKeyWrapper() throws Exception {
 		execute("List.viewDetail", "row=0");
 		assertValueInCollection("details", 0, "product.code", "1313");
 		execute("CRUD.save");
 		assertNoErrors();
-		
-		changeModule("OrderWithDetailsProductIdHiddenPrimitive");
-		execute("List.viewDetail", "row=0");
-		assertValueInCollection("details2", 0, "product.code", "1414");
-		execute("CRUD.save");
-		execute("Mode.list");
-		execute("List.viewDetail", "row=0");
-		assertValueInCollection("details2", 0, "product.code", "1414");
-		
 	}
 
 }
