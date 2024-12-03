@@ -170,7 +170,7 @@ public class CalendarTest extends WebDriverTestBase {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		List<Date> dates = setDates();
 		for (int i = 0; i < dates.size(); i++) {
-			if (i == 2) {
+			if (i > 0) {
 				nextOnCalendar();
 				wait(getDriver());
 			}
@@ -182,6 +182,7 @@ public class CalendarTest extends WebDriverTestBase {
 			wait(getDriver());
 			createInvoice(i);
 		}
+		prevOnCalendar();
 		prevOnCalendar();
 		verifyPrevInvoiceEvent();
 		moveToListView();

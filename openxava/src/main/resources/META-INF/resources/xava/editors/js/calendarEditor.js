@@ -52,7 +52,6 @@ openxava.addEditorInitFunction(function() {
 		const savedState = loadCalendarState(application, module);
         const initialDate = savedState ? savedState.defaultDate : new Date().toISOString().split('T')[0];
         const initialView = savedState ? savedState.defaultView : 'dayGridMonth';
-
         calendarEditor.outApplication = application;
         calendarEditor.outModule = module;
         var calendarElement = document.getElementById('xava_calendar');
@@ -150,7 +149,7 @@ openxava.addEditorInitFunction(function() {
                 },
                 eventClick: function(e) {
                     if (calendarEditor.requesting) return;
-					saveCalendarState(application, module, calendarEditor.calendar.getDate().toISOString().split('T')[0], calendarEditor.calendar.view.type);
+					saveCalendarState(application, module, e.event.startStr.split('T')[0], calendarEditor.calendar.view.type);
                     if (!getSelection().toString()) {
                         hideTooltip();
                         openxava.executeAction(application, module, false, false, selectAction, 'calendarKey=' + e.event.extendedProps.key);
@@ -158,7 +157,7 @@ openxava.addEditorInitFunction(function() {
                 },
                 dateClick: function(e) {
                     if (calendarEditor.requesting) return;
-					saveCalendarState(application, module, calendarEditor.calendar.getDate().toISOString().split('T')[0], calendarEditor.calendar.view.type);
+					saveCalendarState(application, module, e.dateStr, calendarEditor.calendar.view.type);
                     let selectedDate = reformatDate(e.dateStr);
                     let value = 'defaultValues=' + calendarEditor.startName + ':' + selectedDate;
                     if (!getSelection().toString()) {
