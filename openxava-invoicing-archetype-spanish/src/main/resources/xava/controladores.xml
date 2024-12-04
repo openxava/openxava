@@ -2,6 +2,17 @@
 
 <!DOCTYPE controladores SYSTEM "dtds/controladores.dtd">
 
+<!-- 
+Documentación sobre controladores: 
+https://www.openxava.org/OpenXavaDoc/docs/controllers_es.html
+
+Controladores por defecto, incluidos en OpenXava (puedes extender de ellos):
+https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml
+ 
+Ejemplos de controladores (de la aplicación de pruebas):
+https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources/xava/controllers.xml
+-->
+
 <controladores>
     
     <!-- Variable de entorno: 

@@ -2,6 +2,17 @@
 
 <!DOCTYPE controllers SYSTEM "dtds/controllers.dtd">
 
+<!-- 
+Controllers doc: 
+https://www.openxava.org/OpenXavaDoc/docs/controllers_en.html
+
+Default controllers included in OpenXava (you can extend from them):
+https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml
+ 
+Examples of controllers (from test application):
+https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources/xava/controllers.xml
+-->
+
 <controllers>
     
     <!-- Environment variable:
