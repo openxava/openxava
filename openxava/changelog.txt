@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- New projects from archetypes include links to doc, default controllers and sample code in controllers.xml.
+
 - JSoup upgraded to 1.18.2.
 - Lombok upgraded to 1.18.36.
 - Log4j API and core upgraded to 2.24.2.
@@ -8,6 +10,7 @@ Change Log for OpenXava project
 
 - Article about dashboard creation available in the documentation with video.
 - Video for creating a project management app included in the project templates documentation article.
+- Controllers reference documentation improved to include links to sample code controllers.
 
 - Fix: @ElementCollection with @ReadOnly does not recognize the last row if it contains a boolean property.
 - Fix: Saves null for the foreign key if an @ElementCollection references an entity with a hidden key.
