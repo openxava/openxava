@@ -1,31 +1,26 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.4.4 (2024-12-5)
+--------------------------
 - New projects from archetypes include links to doc, default controllers and sample code in controllers.xml.
-
 - JSoup upgraded to 1.18.2.
 - Lombok upgraded to 1.18.36.
 - Log4j API and core upgraded to 2.24.2.
 - Driver version in doc/new projects upgraded for Informix and Db2.
-
 - Article about dashboard creation available in the documentation with video.
 - Video for creating a project management app included in the project templates documentation article.
 - Controllers reference documentation improved to include links to sample code controllers.
-
 - Fix: @ElementCollection with @ReadOnly does not recognize the last row if it contains a boolean property.
 - Fix: Saves null for the foreign key if an @ElementCollection references an entity with a hidden key.
-
 - Fix: Calendar list format forgets the user-selected month after returning to the list from detail.
 - Fix: Drag & drop in the calendar list format fails when the date is of type LocalDate.
 - Fix: Tooltip duplicated in calendar list format after drag & drop a record from one day to another.
-
 - Fix: Fails to filter by record count when the list is grouped.
-
 - Fix: @Max annotation cancels the effect of @Digits(fraction=) and @Column(scale=).
 - Fix: Wrong OpenXava base directory (the .openxava folder) path in some UNIX systems running as root user.  
 - Fix: If one property is used in more than one @Calculation only the first @Calculation property works.
 - Fix: Using a view of the parent entity that is not present in the module entity breaks the module.
-
 - Fix: Permits data entry enabling attackers to read arbitrary files via =WEBSERVICE calls in LibreOffice.
 - Fix: Lots of SQL queries for recalculating property values on change-dependent properties in some cases.
 - Fix: Collection total recalculated many times if depends on a property of main view with two collections.
