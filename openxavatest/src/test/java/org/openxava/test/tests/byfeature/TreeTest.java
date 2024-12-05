@@ -28,7 +28,7 @@ public class TreeTest extends WebDriverTestBase{
 		
 		goModule("Step"); // tree as reference
 		execute("List.viewDetail","row=0");
-		assertTreeIsPresent(getDriver());
+		assertTreeIsPresent(getDriver()); 
 		
 		goModule("TreeContainer"); // tree in dialog
 		execute("TreeContainer.showTree");
@@ -293,6 +293,7 @@ public class TreeTest extends WebDriverTestBase{
 	}
 	
 	private void assertTreeIsPresent(WebDriver driver) throws Exception {
+		wait(driver);  
 		List<WebElement> rootElement = driver.findElements(By.xpath("//a[@id='"+ treeItemNodesId.get("root") +"_anchor']/i")); 
 		assertFalse(rootElement.isEmpty());
 	}
