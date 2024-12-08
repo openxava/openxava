@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Report generation - Lesson 8: SQL queries in the report</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_en.html">documentation</a> / </span>Report generation - Lesson 8: SQL queries in the report</h1>
+      <div class="wiki" style="display: block;">
+        <h2>Video</h2>
+        <p>In this video we will see how to generate custom reports from list mode for each module of our OpenXava application.</p>
+        <p><a href="" target="_blank"><img src="files/report-course_en080.png"
+              title="report-generation-080"></a> </p>
+        <p><strong>Any problem with this lesson? <a class="wiki_link_ext"
+              href="http://sourceforge.net/p/openxava/discussion/419690/">Ask in the forum</a></strong> </p>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h2>Code</h2>
+        <p>You can <strong><a href="https://github.com/openxava/report-generation-course/tree/lesson_8"
+              target="_blank">download the project for this lesson</a></strong>. You can also copy the code used in the video here:</p>
+        <code class="xml"></code> In <em>PrintCustomerInvoicesAction.java</em> file:<br>
+        <pre><code class="java">public class PrintCustomerInvoicesAction extends JasperReportBaseAction {
+	
+	@Override
+	protected JRDataSource getDataSource() throws Exception {
+		return null;
+	}
+
+	@Override
+	protected String getJRXML() throws Exception {
+		return "CustomerInvoices.jrxml";
+	}
+
+	@Override
+	protected Map getParameters() throws Exception {
+		Messages errors = MapFacade.validate("Customer", getView().getValues());
+		if (errors.contains()) throw new ValidationException(errors);
+		Map parameters = new HashMap();			
+		parameters.put("number", getView().getValueInt("number"));
+		parameters.put("name", getView().getValue("name"));
+		return parameters;
+	}
+
+}</code></pre>
+        <p></p>
+        <code class="xml"></code> In <em>controllers.xml</em> file:<br>
+        <pre><code class="xml">&lt;controller name="Customer"&gt;
+	&lt;extends controller="Invoicing"/&gt;
+	&lt;action name="printCustomerInvoices"
+		class="com.yourcompany.invoicing.actions.PrintCustomerInvoicesAction"
+		mode="detail"
+		icon="printer"/&gt;
+&lt;/controller&gt;</code></pre>
+        <p><br>
+          <strong></strong></p>
+        <h2>Transcription</h2>
+        Hi, I’m Mónica. In this lesson, you’ll learn how to design reports to work directly with the database, creating your own SQL query in the report itself.<br>
+        <br>
+        First, we create a new report called customer invoices. Then, we go to the repository explorer panel.<br>
+        Right-click on data adapter and create a new one. Choose the JDBC connection and give it a name to differentiate it from others: Invoicing.<br>
+        In the JDBC driver, for our case, we select the option for HSQLDB server. But you can work with any other database, like MySQL, Oracle, PostgreSQL, among others. As for the URL, user, and password, we can find them in the context.xml file located in the src/main/webapp/META-INF folder. By default, HSQLDB does not differentiate between uppercase and lowercase for the user. Remember to start the project so that the HSQLDB database starts running. We enter the URL and user we saw in the database manager and click on Test to test the connection. Perfect. Now, we create some parameters that will be used in the report: number and name. Then, we click on the icon to open the dataset and query dialog window. Here, we select the data adapter we just created. We can see all the tables in the application. On the right, we can enter our query. We will use the number parameter in the query, which essentially searches for all invoices of that client and shows information about those invoices. Next, we click on read fields to read the fields; this also verifies that the query is well written. Once the fields are read, the names and types are loaded below. If necessary, we can select one and edit it. These fields are automatically loaded into the report’s fields. Let’s test the query. We change the parameter to the number 1 and go to data preview. We click on refresh preview data, and it will show us the results of the query. Perfect. We put the parameter back in place and click OK. Here, we see that all the fields from the query are indeed present. Let’s add them to the report. Another way to test the report is in the preview view. We enter the parameters. In our case, the number must be real because it is used to search in the database. It seems the data is loaded correctly. Let’s tidy up the view a bit and change the date format. In the date’s pattern expression, we enter the format we want. Let’s test again. Perfect, this is how it should look in the application.<br>
+        <br>
+        Let’s create the action to generate the report. As always, we first create the controller if necessary. Then, we create the action extending from JasperReportBaseAction. In dataSource, we can send null because the report already has its dataset. In parameters, we will send number and name, taking the data from the view. In getView().getValues(), we must use the property names as parameters to get their value from the view where the action is being executed. We copy the report and start the application. Perfect. Let’s go to the invoice module to check if the records have been fetched correctly. Yes. The total amount data is correct.<br>
+        <br>
+        There are many ways to work with the database. You don’t necessarily have to do it from the report; you can also perform a JPA query in the OpenXava action and then send the results to the report to process them there. If you have any questions or problems, you can ask us in the forum. You can also download the code for this lesson from the repository link. Both links are in the video description. Bye.</div>
+    </div>
+  </body>
+</html>
