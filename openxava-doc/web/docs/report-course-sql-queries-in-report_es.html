@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Generación de informes - Lección 8: Consultas SQL dentro del reporte - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
+            href="index_es.html">documentación</a> / </span>Generación de informes - Lección 8: Consultas SQL dentro del reporte</h1>
+      <div class="wiki" style="display: block;">
+        <h2>Video</h2>
+        <p>En este video veremos cómo generar informes incluyendo consultas SQL dentro de él, aprovechando parámetros enviados desde nuestra aplicación OpenXava.</p>
+        <p><a href="" target="_blank"><img
+
+              src="files/report-course_es080.png" title="report-generation-080"></a> </p>
+        <p><strong>¿Problemas con la lección? <a class="wiki_link_ext"
+
+              href="http://sourceforge.net/p/openxava/discussion/437013/">Pregunta en el foro</a></strong></p>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h2>Código</h2>
+        <p>Puedes <strong><a href="https://github.com/openxava/report-generation-course/tree/lesson_8"
+
+              target="_blank">descargar el proyecto de esta lección</a>.</strong> También puedes copiar el código que se usa en el video por aquí:</p>
+        <p>En el archivo <em>PrintCustomerInvoicesAction.java</em>:</p>
+        <pre><code class="java">public class PrintCustomerInvoicesAction extends JasperReportBaseAction {
+	
+	@Override
+	protected JRDataSource getDataSource() throws Exception {
+		return null;
+	}
+
+	@Override
+	protected String getJRXML() throws Exception {
+		return "CustomerInvoices.jrxml";
+	}
+
+	@Override
+	protected Map getParameters() throws Exception {
+		Messages errors = MapFacade.validate("Customer", getView().getValues());
+		if (errors.contains()) throw new ValidationException(errors);
+		Map parameters = new HashMap();			
+		parameters.put("number", getView().getValueInt("number"));
+		parameters.put("name", getView().getValue("name"));
+		return parameters;
+	}
+
+}<br></code></pre>
+        <p></p>
+        <code class="xml"></code> En el archivo <em>controllers.xml</em>:<br>
+        <pre><code class="xml">&lt;controller name="Customer"&gt;
+	&lt;extends controller="Invoicing"/&gt;
+	&lt;action name="printCustomerInvoices"
+		class="com.yourcompany.invoicing.actions.PrintCustomerInvoicesAction"
+		mode="detail"
+		icon="printer"/&gt;
+&lt;/controller&gt;</code></pre>
+        <h2>Transcripción</h2>
+        Hola, soy Mónica. En esta lección aprenderás a diseñar reportes para trabajar directamente con la base de datos, creando tu propia consulta SQL en el reporte mismo.<br>
+        <br>
+        Primero creamos un reporte nuevo llamado customer invoices. Luego vamos al panel repository explorer. Clic derecho en data adapter y creamos uno nuevo. Elegimos la conexión por JDBC y le damos un nombre para diferenciarlo de otros: Invoicing. En JDBC driver, para nuestro caso seleccionamos la opción de HSQLDB server. Pero puedes trabajar con cualquier otra base de datos, como MySQL, Oracle, PostgreSQL, entre otros. En cuanto al URL, usuario y contraseña podemos encontrarlo en el archivo context.xml ubicado en la carpeta src/main/webapp/META-INF. Por defecto, en HSQLDB no se diferencia entre mayúsculas y minúsculas para el usuario. Recuerda iniciar el proyecto para que inicie la base de datos HSQLDB. Ingresamos el URL y usuario que vimos en database manager y hacemos clic en "Test" para probar la conexión. Perfecto. Ahora creamos unos parámetros que se usarán en el reporte: number y name. Luego hacemos clic en el icono para abrir la ventana de dataset and query dialog. Aquí seleccionamos el data adapter que creamos recién. Podemos ver todas las tablas de la aplicación. En la derecha podemos ingresar nuestra consulta. Usaremos el parámetro number en la consulta, que básicamente busca todas las facturas de ese cliente y muestra información de esas facturas. Luego hacemos clic en "read fields" para que se lean los campos; esto a la vez verifica que la consulta esté bien escrita. Una vez leídos los campos, aquí abajo se cargan los nombres y tipos. En caso de que sea necesario, podemos seleccionar alguno y editarlo. Estos campos se cargan automáticamente en fields del reporte. Vamos a probar la consulta. Cambiamos el parámetro por el número 1 y vamos a data preview. Hacemos clic en "refresh preview data" y nos mostrará los resultados de la consulta. Perfecto. Volvemos a poner el parámetro en su lugar y hacemos clic en "OK". Aquí vemos que efectivamente están todos los fields de la consulta. Vamos a agregarlos al reporte. Otra manera de probar el reporte es en la vista de preview. Ingresamos los parámetros. En nuestro caso, el número debe ser real, ya que se usa para buscar en la base de datos. Al parecer, se cargan bien los datos. Vamos a ordenar un poco la vista y cambiar el formato de fecha. En el pattern expression de la fecha ingresamos el formato que queremos. Probamos de nuevo. Perfecto, así lo deberíamos visualizar en la aplicación.<br>
+        <br>
+        Vamos a crear la acción para generar el reporte. Como siempre, primero creamos el controlador si es necesario.<br>
+        Luego creamos la acción que extienda de JasperReportBaseAction. En dataSource podemos enviar null, porque el reporte ya tiene su dataset. En parámetros vamos a enviar number y name, tomando los datos desde la vista. En getView().getValue() debemos usar como parámetro el nombre de las propiedades para obtener su valor desde la vista donde se está ejecutando la acción. Copiamos el reporte e iniciamos la aplicación. Perfecto. Vamos al módulo de invoice para ver si se han traído los registros correctamente. Sí. Los datos del monto total están bien.<br>
+        <br>
+        Hay muchas formas de trabajar con la base de datos. No necesariamente se debe hacer desde el reporte; también puedes hacer una consulta JPA en la acción de OpenXava y luego enviar los resultados al reporte para trabajarlos allí. Si tienes alguna duda o problema, puedes preguntarnos por el foro. También puedes descargar el código de esta lección por el enlace del repositorio, ambos enlaces se encuentran en la descripción del video. Chao.</div>
+    </div>
+  </body>
+</html>
