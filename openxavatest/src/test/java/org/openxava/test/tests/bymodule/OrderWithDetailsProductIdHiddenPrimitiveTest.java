@@ -8,7 +8,7 @@ public class OrderWithDetailsProductIdHiddenPrimitiveTest extends ModuleTestBase
 		super(testName, "OrderWithDetailsProductIdHiddenPrimitive");		
 	}
 	
-	public void testElementCollectionCanSaveWithHiddenKeyPrimitive_elementCollectioncanSaveWithHiddenKeyUsingInput() throws Exception {
+	public void testElementCollectionCanSaveWithHiddenKeyPrimitive_elementCollectionCanSaveWithHiddenKeyUsingInput() throws Exception {
 		execute("List.viewDetail", "row=0");
 		assertValueInCollection("details2", 0, "product.code", "1414");
 		setValueInCollection("details2", 1, "product.code", "1515");
