@@ -86,6 +86,7 @@ public class View implements java.io.Serializable {
 	private View parent;
 	private View realParent; 
 	private transient List<MetaProperty> metaPropertiesList;
+	private boolean elementCollectionWithReferenceWithoutKey = false;
 	private boolean knowIfDisplayDetailInCollection;
 	private boolean displayDetailInCollection;
 	private String lastPropertyKeyName;
@@ -4373,7 +4374,7 @@ public class View implements java.io.Serializable {
 		    	}
 		    }
 		}
-		
+		elementCollectionWithReferenceWithoutKey = true;
 		keysAsMetaProperty = namesToMetaProperties(this, keys);
 		keysAsMetaProperty = setLabelsIdForCustomMetaPropertiesList(keysAsMetaProperty);
 		return keysAsMetaProperty;
@@ -6284,7 +6285,9 @@ public class View implements java.io.Serializable {
 					getMetaModel().containsMetaProperty(name) || 
 					getMetaView().containsViewProperty(name)
 				) &&				
-				getMembersNamesWithoutSections().contains(name) && 
+				(getMembersNamesWithoutSections().contains(name) ||
+				 (getParent() != null && getParent().isElementCollectionWithReferenceWithoutKey()))
+				&& 
 				!getMembersNamesInGroup().contains(name)) 
 			{	
 				result.put(getPropertyPrefix() + name, getViewForChangedProperty());
@@ -7359,4 +7362,7 @@ public class View implements java.io.Serializable {
 		return true;
 	}
 
+	private boolean isElementCollectionWithReferenceWithoutKey() {
+		return elementCollectionWithReferenceWithoutKey;
+	}
 }
