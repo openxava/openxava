@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Typing to change a reference in an @ElementCollection fails if the ID is not among the properties.
+
 OpenXava 7.4.4 (2024-12-5)
 --------------------------
 - New projects from archetypes include links to doc, default controllers and sample code in controllers.xml.

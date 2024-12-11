@@ -11,6 +11,7 @@ public class OrderWithDetailsProductIdHiddenPrimitiveTest extends ModuleTestBase
 	public void testElementCollectionCanSaveWithHiddenKeyPrimitive_elementCollectionCanSaveWithHiddenKeyUsingInput() throws Exception {
 		execute("List.viewDetail", "row=0");
 		assertValueInCollection("details2", 0, "product.code", "1414");
+		assertValueInCollection("details2", 1, "product.code", ""); 
 		setValueInCollection("details2", 1, "product.code", "1515");
 		execute("CRUD.save");
 		execute("Mode.list");
