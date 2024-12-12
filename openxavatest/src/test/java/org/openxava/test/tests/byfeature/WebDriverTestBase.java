@@ -316,6 +316,7 @@ abstract public class WebDriverTestBase extends TestCase {
 	}
 	
 	protected void assertErrors() {
+		//for one error
 		WebElement errors = driver.findElement(By.id("ox_openxavatest_" + module + "__errors"));
 		WebElement errorsElement = errors.findElement(By.cssSelector(".ox-errors"));
 		boolean isVisibleAndHasText = errorsElement.isDisplayed() && !errorsElement.getText().trim().isEmpty();
