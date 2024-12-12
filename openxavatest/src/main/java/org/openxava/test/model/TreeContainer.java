@@ -40,7 +40,7 @@ public class TreeContainer {
 	@Tree(pathProperty="folder", pathSeparator="-", idProperties="auxId") // auxId to test a id with a name other than 'id', for a bug
 	private Collection<TreeItemTwo> treeItemTwos;
 	
-	@OneToMany(mappedBy="parentContainer")
+	@OneToMany(mappedBy="parentContainer", cascade = CascadeType.REMOVE)
 	@ListProperties("description")
 	@OrderBy("path, treeOrder")
 	@Editor("TreeView")
@@ -50,7 +50,7 @@ public class TreeContainer {
 	@Tree(pathProperty = "way", idProperties = "code")
 	@ListProperties("description")
 	@OrderBy("way, theOrder")
-	@OneToMany(mappedBy="parentContainer")
+	@OneToMany(mappedBy="parentContainer", cascade = CascadeType.REMOVE)
 	private Collection<TreeItemNoIdGeneration> treeItemNoIdGeneration;
 
 	public Integer getId() {
