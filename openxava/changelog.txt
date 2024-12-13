@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Action labels in subcontroller not aligned correctly when actions have images of different sizes.
 - Fix: Typing to change a reference in an @ElementCollection fails if the ID is not among the properties.
 
 OpenXava 7.4.4 (2024-12-5)
