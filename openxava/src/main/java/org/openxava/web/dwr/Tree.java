@@ -84,7 +84,19 @@ public class Tree extends DWRBase {
 			
 			propertiesMap.put("id", "id");//force id in order to work with idProperties
 			
-			jsonArray = TreeViewParser.findChildrenOfNode("0", jsonArray, propertiesMap, false);
+			jsonArray = TreeViewParser.findChildrenOfNode("0", jsonArray, propertiesMap, false, idProperties);
+			
+			if (!TreeViewParser.getDuplicatedIds().isEmpty()) {
+				log.warn(XavaResources.getString("tree_duplicated_ids", 
+						TreeViewParser.getDuplicatedIds(),
+						idProperties,
+						collectionName));
+				throw new XavaException("tree_duplicated_ids", 
+	                      				TreeViewParser.getDuplicatedIds(),
+	                      				idProperties,
+	                      				collectionName);
+			}
+		
 			return jsonArray.toString();
 		} catch (Exception e) {
 			log.error(XavaResources.getString("cant_load_collection_as_tree", collectionName, module), e);
