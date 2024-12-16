@@ -950,6 +950,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 .ox-button-bar .ox-button-bar-button a img {
 	vertical-align: text-top;  
 	padding-left: 7px;
+	max-height: 16px;
 } 
 
 .ox-button-bar > div:first-child > span:first-child {
