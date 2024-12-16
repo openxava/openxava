@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Lesson 8 of the reporting course with JasperReports available in the documentation with video.
 - Fix: Action labels in subcontroller not aligned correctly when actions have images of different sizes.
 - Fix: Typing to change a reference in an @ElementCollection fails if the ID is not among the properties.
 
