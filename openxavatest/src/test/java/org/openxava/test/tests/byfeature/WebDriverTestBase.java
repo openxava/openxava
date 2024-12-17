@@ -315,6 +315,14 @@ abstract public class WebDriverTestBase extends TestCase {
 		assertEquals(XavaResources.getString("unexpected_messages", "Errors"), "", errors.getText());
 	}
 	
+	protected void assertErrors() {
+		//for one error
+		WebElement errors = driver.findElement(By.id("ox_openxavatest_" + module + "__errors"));
+		WebElement errorsElement = errors.findElement(By.cssSelector(".ox-errors"));
+		boolean isVisibleAndHasText = errorsElement.isDisplayed() && !errorsElement.getText().trim().isEmpty();
+		assertTrue(isVisibleAndHasText);
+	}
+	
 	protected void clearListCondition() throws Exception{
 		driver.findElement(By.id("ox_openxavatest_" +  module + "__xava_clear_condition")).click();
 		wait(driver);

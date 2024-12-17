@@ -1,12 +1,10 @@
 package org.openxava.actions;
 
-import java.util.Map;
+import java.util.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.openxava.model.MapFacade;
-import org.openxava.web.editors.TreeView;
-import org.openxava.web.editors.TreeViewParser;
+import org.apache.commons.logging.*;
+import org.openxava.model.*;
+import org.openxava.web.editors.*;
 
 
 
@@ -27,6 +25,21 @@ public class SaveElementInTreeViewAction extends SaveElementInCollectionAction {
 			TreeViewParser treeViewParser = (TreeViewParser) getContext().get(getRequest(), TreeViewParser.XAVA_TREE_VIEW_PARSER);
 			TreeView metaTreeView = treeViewParser.getMetaTreeView(getCollectionElementView().getModelName());
 			if (metaTreeView != null && returnValue != null){
+				if (returnValue.containsKey(metaTreeView.getIdProperties())) {
+					Map searchingValues = new HashMap<>();
+					Map memberNames = new HashMap<>();
+					searchingValues.put(metaTreeView.getIdProperties(), returnValue.get(metaTreeView.getIdProperties()));
+					memberNames.put(metaTreeView.getIdProperties(), null);
+					Map map = null;
+					map = MapFacade.getValuesByAnyProperty(getCollectionElementView().getModelName(), searchingValues, memberNames);
+					if (map != null) {
+						addError("tree_duplicated_id", 
+								returnValue.get(metaTreeView.getIdProperties()),
+								metaTreeView.getIdProperties(),
+								getCollectionElementView().getModelName());
+						return new HashMap<>();
+					}
+				}
 				if (!returnValue.containsKey(metaTreeView.getPathProperty())) {
 					String fullPath = (String) getContext().get(getRequest(), TreeViewParser.XAVA_TREE_VIEW_NODE_FULL_PATH);
 					if (fullPath != null) {
@@ -48,7 +61,7 @@ public class SaveElementInTreeViewAction extends SaveElementInCollectionAction {
 		}
 		
 		getCollectionElementView().collectionDeselectAll();
-		
+
 		return returnValue;
 	}
 }

@@ -66,15 +66,23 @@ public class Tree extends DWRBase {
 			TableModel table = tab.getAllDataTableModel();
 			int tableSize = tab.getTableModel().getTotalSize();
 			listProperties = tab.getPropertiesNamesAsString().split(",");
-
+			Set<String> processedIds = new HashSet<>();
+			List<String> duplicatedIds = new ArrayList<>();
+			
 			if (tableSize > 0) {
 				for (int i = 0; i < tableSize; i++) {
 					JSONObject jsonRow = new JSONObject();
 					for (int j = 0; j < listProperties.length; j++) {
 						Object value = table.getValueAt(i, j);
 						String propertyName = listProperties[j];
-						propertyName = propertyName.equals(pathProperty) ? "path" : propertyName;
-						propertyName = propertyName.equals(idProperties) ? "id" : propertyName;
+						if (propertyName.equals(pathProperty)) {
+						    propertyName = "path";
+						} else if (propertyName.equals(idProperties)) {
+						    propertyName = "id";
+					        if (!processedIds.add(value.toString())) {
+					        	duplicatedIds.add(value.toString());
+					        }
+						}		
 						jsonRow.put(propertyName.toLowerCase(), value);
 					}
 					jsonRow.put("row", i);
@@ -83,6 +91,17 @@ public class Tree extends DWRBase {
 			}
 			
 			propertiesMap.put("id", "id");//force id in order to work with idProperties
+
+			if (!duplicatedIds.isEmpty()) {
+				log.warn(XavaResources.getString("tree_duplicated_ids", 
+						duplicatedIds,
+						idProperties,
+						collectionName));
+				throw new XavaException("tree_duplicated_ids", 
+						duplicatedIds,
+	                    idProperties,
+	                    collectionName);
+			}
 			
 			jsonArray = TreeViewParser.findChildrenOfNode("0", jsonArray, propertiesMap, false);
 			return jsonArray.toString();

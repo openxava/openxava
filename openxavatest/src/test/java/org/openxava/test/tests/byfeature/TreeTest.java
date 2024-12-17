@@ -37,6 +37,9 @@ public class TreeTest extends WebDriverTestBase{
 		closeButton.click();
 		Thread.sleep(200);
 		execute("List.viewDetail", "row=0");
+		idPropertiesNotDuplicated(getDriver());
+		
+		
 		rootWithPath(getDriver());
 		createNewNodeSelecting_state(getDriver());	
 		
@@ -71,6 +74,19 @@ public class TreeTest extends WebDriverTestBase{
 	private void rootWithPath(WebDriver driver) {
 		assertFalse(isElementInsideXPath(driver, "2", ("1" + "_anchor")));
 		assertFalse(isElementInsideXPath(driver, "3", ("1" + "_anchor")));
+	}
+	
+	private void idPropertiesNotDuplicated(WebDriver driver) throws Exception {
+		execute("TreeView.new", "viewObject=xava_view_treeItemNoIdGeneration");
+		setValue("id", "6");
+		setValue("code", "15");
+		setValue("way", "0");
+		setValue("description", "A");
+		setValue("theOrder", "0");
+		Thread.sleep(300);
+		execute("TreeView.save");
+		assertErrors();
+		execute("Collection.hideDetail");
 	}
 
 	private void createNewNodeSelecting_state(WebDriver driver) throws Exception {
