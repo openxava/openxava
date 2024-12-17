@@ -93,6 +93,7 @@ public class TreeTest extends WebDriverTestBase{
 		WebElement childItem2CheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemNodesId.get("child2") +"_anchor']/i")); 
 		childItem2CheckBox.click();
 		execute("TreeView.new", "viewObject=xava_view_treeItems");
+		Thread.sleep(1000);
 		setValue("description", "A");
 		execute("TreeView.save");
 		wait(driver);
