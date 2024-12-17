@@ -7110,7 +7110,7 @@ public class View implements java.io.Serializable {
 	public Collection<String> getDependentCalculationPropertiesNamesFor(String qualifiedName) { 
 		Collection<String> result = new ArrayList<>(); 
 		for (MetaProperty property: getMetaPropertiesQualified()) {
-			// tmr if (isMemberFromEntityReference(property.getName())) continue; // tmr ME QUEDÉ POR AQUÍ. LO CONSEGUIR REPRODUCIR. FALTA PRUEBA.
+			if (isMemberFromEntityReference(property.getName())) continue; // tmr 
 			if (property.usesForCalculation(qualifiedName)) {
 				result.add(property.getName()); 
 			}
