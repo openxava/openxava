@@ -4,7 +4,6 @@ import java.util.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.model.*;
-import org.openxava.util.*;
 import org.openxava.web.editors.*;
 
 
@@ -32,16 +31,13 @@ public class SaveElementInTreeViewAction extends SaveElementInCollectionAction {
 					searchingValues.put(metaTreeView.getIdProperties(), returnValue.get(metaTreeView.getIdProperties()));
 					memberNames.put(metaTreeView.getIdProperties(), null);
 					Map map = null;
-					try {
-						map = MapFacade.getValuesByAnyProperty(getCollectionElementView().getModelName(), searchingValues, memberNames);
-					} catch (Exception e) { }
-					finally {
-						if (map != null) {
-							throw new XavaException("tree_duplicated_id", 
-													returnValue.get(metaTreeView.getIdProperties()),
-													metaTreeView.getIdProperties(),
-													getCollectionElementView().getModelName());
-						}
+					map = MapFacade.getValuesByAnyProperty(getCollectionElementView().getModelName(), searchingValues, memberNames);
+					if (map != null) {
+						addError("tree_duplicated_id", 
+								returnValue.get(metaTreeView.getIdProperties()),
+								metaTreeView.getIdProperties(),
+								getCollectionElementView().getModelName());
+						return new HashMap<>();
 					}
 				}
 				if (!returnValue.containsKey(metaTreeView.getPathProperty())) {
@@ -65,7 +61,7 @@ public class SaveElementInTreeViewAction extends SaveElementInCollectionAction {
 		}
 		
 		getCollectionElementView().collectionDeselectAll();
-		
+
 		return returnValue;
 	}
 }

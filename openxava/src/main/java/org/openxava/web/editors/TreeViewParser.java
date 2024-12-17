@@ -46,9 +46,6 @@ public class TreeViewParser {
 	private StringBuilder lastParse = null;
 	private StringBuilder indexList;
 	
-	private static Set<String> processedIds;
-	private static List<String> duplicatedIds;
-	
 	/**
 	 * Default constructor
 	 */
@@ -208,7 +205,7 @@ public class TreeViewParser {
 		return metaTreeViews;
 	}
 	
-	public static JSONArray findChildrenOfNode(String parentId, JSONArray data, Map<String, Object> map, boolean rootNodeFound, String idProperties) {
+	public static JSONArray findChildrenOfNode(String parentId, JSONArray data, Map<String, Object> map, boolean rootNodeFound) {
         if (data.isEmpty()) return new JSONArray();
         
 		JSONArray json = new JSONArray();
@@ -219,22 +216,19 @@ public class TreeViewParser {
 
         preprocessDescriptions(data, listProperties);
 		List<JSONObject> rootNodes = findRootNodes(data);
-		processedIds = new HashSet<>();
-		duplicatedIds = new ArrayList<>();
 
 	    for (JSONObject rootNode : rootNodes) {
 	        String rootId = rootNode.get(mapId).toString();
 	        String rootPath = rootNode.get("path").toString();
 	        rootNode.put("a_attr", tooltip);
-	        
-	        verifyDuplicatedId(rootId);
-	        
+
 	        JSONArray childNodes = findChildren(rootId, rootPath, data, map);
 	        if (childNodes.length() > 0) {
 	            rootNode.put("children", childNodes);
 	        }
 	        json.put(rootNode);
 	    }
+	    
         return json;
     }
 	
@@ -288,7 +282,6 @@ public class TreeViewParser {
 	                node.put("children", childNodes);
 	            }
 	            children.put(node);
-	            verifyDuplicatedId(id);
 	        }
 	    }
 
@@ -320,15 +313,4 @@ public class TreeViewParser {
 	    }
 	    return node.getString("text");
 	}
-	
-	private static void verifyDuplicatedId(String id) {
-        if (!processedIds.add(id)) {
-        	duplicatedIds.add(id);
-        }
-	}
-	
-	public static List<String> getDuplicatedIds(){
-		return duplicatedIds;
-	}
-	
 }
