@@ -177,16 +177,28 @@ public class TreeTest extends WebDriverTestBase{
 
 		executeDnd(driver, "14_anchor", "11_anchor");
 		driver.navigate().refresh();
-		Thread.sleep(5000);
+		Thread.sleep(1500); // wait all trees
 		assertTrue(isElementInside(driver, "14", "15_anchor"));
 		executeDndBetween(driver, "14_anchor", "11");
 		driver.navigate().refresh();
-		Thread.sleep(5000);
+		Thread.sleep(1500); // wait all trees
 		assertTrue(isElementInside(driver, "14", "15_anchor"));
 		executeDnd(driver, "14_anchor", "12_anchor");
 		driver.navigate().refresh();
-		Thread.sleep(5000);
+		Thread.sleep(1500); // wait all trees
 		assertTrue(isElementInside(driver, "14", "15_anchor"));
+		
+		executeDnd(driver, treeItemNodesId.get("child1sub2")+ "_anchor", treeItemNodesId.get("child3sub1") + "_anchor");
+		executeDnd(driver, treeItemNodesId.get("child3sub1")+ "_anchor", treeItemNodesId.get("child1") + "_anchor");
+		driver.navigate().refresh();
+		Thread.sleep(1500); // wait all trees
+		expandNode(driver, treeItemNodesId.get("child3sub1"));
+		assertTrue(isElementInside(driver, treeItemNodesId.get("child1"), treeItemNodesId.get("child3sub1") + "_anchor"));
+		assertTrue(isElementInside(driver, treeItemNodesId.get("child3sub1"), treeItemNodesId.get("child1sub2") + "_anchor"));
+		
+		executeDnd(driver, treeItemNodesId.get("child3sub1"), treeItemNodesId.get("child3"));
+		executeDnd(driver, treeItemNodesId.get("child1sub2"), treeItemNodesId.get("child1"));
+		
 	}
 	
 	private void createNodeWithPathSeparator_dnd(WebDriver driver) throws Exception {
