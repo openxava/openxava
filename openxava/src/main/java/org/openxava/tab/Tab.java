@@ -12,6 +12,7 @@ import javax.servlet.http.*;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.logging.*;
 import org.openxava.application.meta.*;
 import org.openxava.component.*;
@@ -1759,6 +1760,75 @@ public class Tab implements java.io.Serializable, Cloneable {
 		setRowsHidden(false);
 		goPage(1);	
 	}
+	
+	public void filterByContentInAnyProperty(String content) { // tmr ¿Este nombre? ¿Aquí? ¿Esta lógica aquí?
+		// tmr Probar que pasa si hay una baseCondition en @Tab
+		// tmr Poner un filtre XSS
+		if (Is.emptyString(content)) {
+			setBaseCondition("");
+			return;
+		}
+		StringBuffer condition = new StringBuffer();
+		boolean needsOr = false;
+		for (MetaProperty property: getMetaPropertiesNotCalculated()) {
+			if (needsOr) condition.append(" or ");
+			needsOr = false;
+			if (property.getType().equals(String.class)) {
+				condition.append("upper(${");
+				condition.append(property.getQualifiedName());
+				condition.append("}) like '%");
+				condition.append(content.toUpperCase());
+				condition.append("%'");
+				needsOr = true;
+			}
+			else if (property.isNumber()) {
+				if (NumberUtils.isCreatable(content)) {
+					condition.append("${");
+					condition.append(property.getQualifiedName());
+					condition.append("} = ");
+					condition.append(content);
+					needsOr = true;
+				}
+			}
+			else if (property.getType().equals(Boolean.class) || property.getType().equals(boolean.class)) {
+				// TMR ME QUEDÉ POR AQUÍ: NO VA
+				if (property.getLabel().toUpperCase().contains(content)) {
+					condition.append("${");
+					condition.append(property.getQualifiedName());
+					condition.append("} = true");
+					needsOr = true;
+				}				
+			}
+			else if (property.isDateType() || property.isDateTimeType()) {
+				
+				try {
+					// TMR ME QUEDÉ POR AQUÍ: FALLA POR LAS FECHAS
+					Object date = property.parse(content);
+					condition.append("${");
+					condition.append(property.getQualifiedName());
+					condition.append("} = '");
+					condition.append(date);
+					condition.append("'");
+					needsOr = true;									
+				}
+				catch (ParseException ex) {					
+				}
+			}
+			else {
+				condition.append("${");
+				condition.append(property.getQualifiedName());
+				condition.append("} = ");
+				condition.append(content);
+				needsOr = true;
+			}
+			
+		}
+		
+		System.out.println("[Tab.filterByContentInAnyProperty] condition=" + condition); // tmr
+		setBaseCondition(condition.toString());
+	}
+	
+	
 	
 	/** @since 5.9 */
 	public void setConditionParameters() { 
