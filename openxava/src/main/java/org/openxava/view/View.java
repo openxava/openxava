@@ -928,6 +928,17 @@ public class View implements java.io.Serializable {
 		}
 	}
 	
+	private boolean isMemberFromEntityReference(String memberName) { // tmr
+		if (!memberName.contains(".")) return false;
+		String subviewName = memberName.split("\\.")[0];
+		try {
+			return getSubview(subviewName).isRepresentsEntityReference();
+		}
+		catch (ElementNotFoundException ex) {
+			return false;
+		}
+	}	
+	
 	/**
 	 * 
 	 * @param name  Qualified properties are allowed
@@ -7099,6 +7110,7 @@ public class View implements java.io.Serializable {
 	public Collection<String> getDependentCalculationPropertiesNamesFor(String qualifiedName) { 
 		Collection<String> result = new ArrayList<>(); 
 		for (MetaProperty property: getMetaPropertiesQualified()) {
+			// tmr if (isMemberFromEntityReference(property.getName())) continue; // tmr ME QUEDÉ POR AQUÍ. LO CONSEGUIR REPRODUCIR. FALTA PRUEBA.
 			if (property.usesForCalculation(qualifiedName)) {
 				result.add(property.getName()); 
 			}
