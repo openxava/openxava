@@ -9,7 +9,6 @@ import org.openxava.annotations.*;
 import lombok.*;
 
 /**
- * tmr
  * 
  * @author Javier Paniza
  */
@@ -17,11 +16,11 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-@View(extendsView = "super.DEFAULT", members = "estimatedDeliveryDays, delivered," + // Add delivered
-		"invoice { invoice }")
-@View(name = "NoCustomerNoInvoice", // A view named NoCustomerNoInvoice
-		members = // that does not include customer and invoice.
-		"year, number, date;" + // Ideal to be used from Invoice
+@View(extendsView = "super.DEFAULT", members = "estimatedDeliveryDays, delivered," + 
+		"invoice { invoice }") // With invoice inside a section for test a case
+@View(name = "NoCustomerNoInvoice", 
+		members = 
+		"year, number, date;" + 
 		"details; remarks") 
 public class OrderDocument extends CommercialDocument {
 

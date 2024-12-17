@@ -276,7 +276,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		Thread.sleep(100);
 		timeLabel = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__label_time"));
 		timeLabel.click();
-		Thread.sleep(200); 
+		Thread.sleep(300); 
 		assertMessage("OnChangeVoidAction executed");
 		execute("Mode.list");
 		

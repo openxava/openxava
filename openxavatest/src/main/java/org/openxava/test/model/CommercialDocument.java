@@ -15,7 +15,6 @@ import org.openxava.model.*;
 import lombok.*;
  
 /**
- * tmr
  * 
  * @author Javier Paniza
  */
@@ -55,7 +54,7 @@ abstract public class CommercialDocument extends Identifiable {
             "amount+[" + 
             	"commercialDocument.vatPercentage," +
             	"commercialDocument.vat," +
-            	"commercialDocument.totalAmount" +
+            	"commercialDocument.totalAmount" + // With a @Calculation property to test a case
             "]" 
         )
     Collection<CommercialDocumentDetail> details;
