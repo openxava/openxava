@@ -1,9 +1,8 @@
 package org.openxava.web.dwr;
 
-import java.rmi.*;
+import java.lang.annotation.*;
 import java.util.*;
 
-import javax.ejb.*;
 import javax.servlet.http.*;
 import javax.swing.table.*;
 
@@ -12,6 +11,7 @@ import org.apache.commons.logging.*;
 import org.json.*;
 import org.openxava.jpa.*;
 import org.openxava.model.*;
+import org.openxava.model.meta.*;
 import org.openxava.tab.Tab;
 import org.openxava.util.*;
 import org.openxava.view.View;
@@ -43,6 +43,7 @@ public class Tree extends DWRBase {
 			String pathSeparator = tree != null && tree.pathSeparator() !=null ? tree.pathSeparator() : "/";
 			String idProperties = tree != null && tree.idProperties() !=null ? tree.idProperties() : "";
 			
+			
 			String[] listProperties = metaCollectionView.getPropertiesListNamesAsString().split(",");
 			List<String> keysList = new ArrayList<>(tab.getMetaTab().getMetaModel().getAllKeyPropertiesNames());
 			Map<String, Object> propertiesMap = new HashMap<>();
@@ -50,8 +51,10 @@ public class Tree extends DWRBase {
 			propertiesMap.put("pathSeparator", pathSeparator);
 			propertiesMap.put("id", idProperties.isEmpty() ? String.join(",", keysList) : idProperties); //multiple ids not supported
 
-			tab.clearProperties();
+			tab.clearProperties(); 
  
+			System.out.println(1); // cyt
+			
 			for (String element : listProperties) {
 				tab.addProperty(element.trim());
 			}
@@ -68,7 +71,7 @@ public class Tree extends DWRBase {
 			listProperties = tab.getPropertiesNamesAsString().split(",");
 			Set<String> processedIds = new HashSet<>();
 			List<String> duplicatedIds = new ArrayList<>();
-			
+			System.out.println(tab.getPropertiesNamesAsString()); // cyt
 			if (tableSize > 0) {
 				for (int i = 0; i < tableSize; i++) {
 					JSONObject jsonRow = new JSONObject();
@@ -116,7 +119,7 @@ public class Tree extends DWRBase {
 
 	public void updateNode(HttpServletRequest request, HttpServletResponse response, String application, String module,
 			String collectionName, String collectionViewParentName, String newPath, List<String> rows,
-			List<String> childRows) throws NumberFormatException, XavaException, FinderException, RemoteException {
+			List<String> childRows, List<String> newOrder) throws Exception {
 		try {
 			initRequest(request, response, application, module);
 			View view = getView(request, application, module);
@@ -130,20 +133,47 @@ public class Tree extends DWRBase {
 			String pathProperty = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "path";
 			String pathSeparator = tree != null && tree.pathSeparator() !=null ? tree.pathSeparator() : "/";
 			String idProperties = tree != null && tree.idProperties() !=null ? tree.idProperties() : "";
+			String orderProperty = "";
+			Map<String, Object> newOrderMap = new HashMap<>();
 			newPath = newPath.replace("/", pathSeparator);
+			MetaCollection metaCollection = view.getMetaModel().getMetaCollection(collectionName);
+			MetaModel metaModel = collectionView.getMetaModel();
+
+			for (Annotation annotation : metaCollection.getAnnotations()) {
+			    if (annotation instanceof javax.persistence.OrderBy) {
+			    	String[] values = ((javax.persistence.OrderBy) annotation).value().split(",");
+			    	for (int i = 0; i < values.length; i++) {
+			    	    String v = values[i].trim();
+			    	    MetaProperty mp = metaModel.getMetaProperty(v);
+			    	    if (mp.isInteger()) {
+			    	    	orderProperty = mp.getName();
+			    	    	for (String item : newOrder) {
+			    	            String[] parts = item.split(":");
+			    	            String row = parts[0];
+			    	            Object order = mp.parse(parts[1]);
+			    	            newOrderMap.put(row, order);
+			    	        }
+			    	    	break;
+			    	    }
+			    	}
+			    	break;
+			    }
+			}
 
 			Map<String, String> pathIdMap = new HashMap<>();
 			pathIdMap.put(pathProperty, null);
-			Map<String, String> newPathValue = new HashMap<>();
-			newPathValue.put(pathProperty, newPath);
-
+			Map<String, Object> newNodeValue = new HashMap<>();
+			newNodeValue.put(pathProperty, newPath);
+			
 			Map<String, String> pathValueMap = new HashMap<>();
 			List<String> parentsValues = new ArrayList<>();
 			for (String row : rows) {
 				Map keys = (Map) collectionView.getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
 				pathValueMap = MapFacade.getValues(modelName, keys, pathIdMap);
+				newNodeValue.put(orderProperty, newOrderMap.get(row));
 				parentsValues.add(pathValueMap.get(pathProperty));
-				MapFacade.setValues(modelName, keys, newPathValue);
+				System.out.println(newNodeValue); // cyt
+				MapFacade.setValues(modelName, keys, newNodeValue);
 			}
 			childRows.removeIf(rows::contains);
 			for (String row : childRows) {

@@ -2,6 +2,8 @@ if (treeEditor == null) var treeEditor = {};
 
 treeEditor.dialogOpen = false;
 treeEditor.parentId;
+treeEditor.newPosition;
+treeEditor.oldParent;
 
 treeEditor.initTree = function() {
     if ($(".xava_tree").length) {
@@ -10,7 +12,7 @@ treeEditor.initTree = function() {
             var application = oxTree.data("application");
             var module = oxTree.data("module");
             var collectionName = oxTree.data("collection-name");
-			var collectionViewParentName = oxTree.data("collection-view-parent-name");
+            var collectionViewParentName = oxTree.data("collection-view-parent-name");
             var kValue = oxTree.data("k-value");
             var state = localStorage.getItem(module + "_" + collectionName + "_" + "xava_tree_state_" + kValue);
 
@@ -27,6 +29,7 @@ treeEditor.initTree = function() {
                             "check_callback": function(operation, node, parent, position, more) {
                                 if (operation === "move_node") {
                                     treeEditor.parentId = parent.id;
+                                    treeEditor.newPosition = position;
                                     return true;
                                 }
                                 return false;
@@ -51,10 +54,10 @@ treeEditor.initTree = function() {
     }
 }
 
-treeEditor.isDialogOpenOrTreeNotInDialog= function($focusedElement, dialogs, oxTree) {
+treeEditor.isDialogOpenOrTreeNotInDialog = function($focusedElement, dialogs, oxTree) {
     for (let i = 0; i < dialogs.length; i++) {
         if ($focusedElement.closest(dialogs[i]).length) {
-			if ($(dialogs[i]).find(oxTree).length > 0) {
+            if ($(dialogs[i]).find(oxTree).length > 0) {
                 return false;
             }
             return true;
@@ -84,7 +87,7 @@ $(document).on('dnd_stop.vakata', function(e, data) {
     var module = oxTree.data("module");
     var modelName = oxTree.data("model-name");
     var collectionName = oxTree.data("collection-name");
-	var collectionViewParentName = oxTree.data("collection-view-parent-name");
+    var collectionViewParentName = oxTree.data("collection-view-parent-name");
     var rows = [];
     var childRows = [];
     var allChilds = [];
@@ -92,11 +95,10 @@ $(document).on('dnd_stop.vakata', function(e, data) {
 
     nodeArray.forEach(function(element) {
         let node = ref.get_node(element);
-        rows.push(node.original.row);
+        //rows.push(node.original.row);
         node.children_d.forEach(function(childNodeId) {
             allChilds.push(childNodeId);
         });
-
     });
 
     if (allChilds.length > 0) {
@@ -105,6 +107,7 @@ $(document).on('dnd_stop.vakata', function(e, data) {
             childRows.push(node.original.row);
         });
     }
+
     var parentNode = ref.get_node(treeEditor.parentId);
     var parents = [];
     var newPath = "";
@@ -124,8 +127,56 @@ $(document).on('dnd_stop.vakata', function(e, data) {
             auxNode = ref.get_node(auxNode.parent);
         }
     }
-    Tree.updateNode(application, module, collectionName, 
-					collectionViewParentName, newPath, rows, childRows);
+
+    //update order
+    var newNodesOrder = [];
+    var siblings = parentNode.children;
+    siblings = siblings.filter(sibling => !nodeArray.includes(sibling));
+	var allNodes = [
+    ...siblings.slice(0, treeEditor.newPosition),
+    ...nodeArray,
+    ...siblings.slice(treeEditor.newPosition)
+	];
+
+	let i = 0;
+	allNodes.forEach(nodeId => {
+		let node = ref.get_node(nodeId);
+		rows.push(node.original.row);
+		newNodesOrder.push(node.original.row + ":" + i);
+		i++;
+	});
+	/*
+    if (siblings.length > 0) {
+        let i = 0;
+        for (let j = 0; j < treeEditor.newPosition && j < siblings.length; j++) {
+            let node = ref.get_node(siblings[j]);
+            rows.push(node.original.row);
+            newNodesOrder.push(node.original.row + ":" + i);
+            i++;
+        }
+        for (let j = 0; j < nodeArray.length; j++) {
+            let node = ref.get_node(nodeArray[j]);
+            newNodesOrder.push(node.original.row + ":" + i);
+            i++;
+        }
+        for (let j = treeEditor.newPosition; j < siblings.length; j++) {
+            let node = ref.get_node(siblings[j]);
+            rows.push(node.original.row);
+            newNodesOrder.push(node.original.row + ":" + i);
+            i++;
+        }
+    } else {
+        let i = 0;
+        for (let j = 0; j < nodeArray.length; j++) {
+            let node = ref.get_node(nodeArray[j]);
+            newNodesOrder.push(node.original.row + ":" + i);
+            i++;
+        }
+    }*/
+
+    Tree.updateNode(application, module, collectionName,
+        collectionViewParentName, newPath,
+        rows, childRows, newNodesOrder);
 });
 
 

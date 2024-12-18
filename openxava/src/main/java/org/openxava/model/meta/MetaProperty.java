@@ -275,6 +275,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	}
 	
 	public boolean isNumber() throws XavaException {
+		/*
 		return 
 			java.lang.Integer.class.equals(getType()) ||
 			int.class.equals(getType()) ||
@@ -288,7 +289,36 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			float.class.equals(getType()) ||
 			java.lang.Double.class.equals(getType()) ||
 			double.class.equals(getType());		
+		*/
+		return isTypeAmong(
+		        java.lang.Integer.class, int.class,
+		        java.lang.Long.class, long.class,
+		        java.math.BigDecimal.class, 
+		        java.math.BigInteger.class,
+		        java.lang.Short.class, short.class,
+		        java.lang.Float.class, float.class,
+		        java.lang.Double.class, double.class
+		    );
 	}
+	
+	public boolean isInteger() {
+		return isTypeAmong(
+		        java.lang.Integer.class, int.class,
+		        java.lang.Long.class, long.class,
+		        java.math.BigInteger.class,
+		        java.lang.Short.class, short.class
+		    );
+	}
+	
+	private boolean isTypeAmong(Class<?>... types) throws XavaException {
+	    for (Class<?> type : types) {
+	        if (type.equals(getType())) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
 	
 	/**
 	 * 
