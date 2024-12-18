@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Loading... message fixed with a @Calculation property of a reference inside a hidden section.
 - Fix: Bad tree behavior when property of idProperties of @Tree has duplicated values in database.
 - Fix: It's possible to add nodes to the tree with duplicate value for id property.
 - Lesson 8 of the reporting course with JasperReports available in the documentation with video.
