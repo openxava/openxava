@@ -593,7 +593,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 			
 	public void setBaseCondition(String condition) throws XavaException { 		
-		if (Is.equal(this.baseCondition, condition)) return;
+		// tmr if (Is.equal(this.baseCondition, condition)) return;
+		if (Is.equalAsString(this.baseCondition, condition)) return; // tmr Por esto debería pasar la suite de OpenXava
 		
 		this.tableModel = null; 
 		this.baseCondition = condition;		
@@ -802,6 +803,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 			condition =  condition.replace(" group by ", " and " + removeOrder(lastCondition) + " group by ");
 			key = addLastKey(key);
 		}
+		System.out.println("[Tab.search] condition=" + condition); // tmr
 		tab.search(condition, key);		
 	}
 	
@@ -1761,13 +1763,16 @@ public class Tab implements java.io.Serializable, Cloneable {
 		goPage(1);	
 	}
 	
-	public void filterByContentInAnyProperty(String content) { // tmr ¿Este nombre? ¿Aquí? ¿Esta lógica aquí?
+	public void filterByContentInAnyProperty(String content) { // tmr ¿Este nombre? ¿Aquí? ¿Esta lógica aquí? Añadirlo en changelog
 		// tmr Probar que pasa si hay una baseCondition en @Tab
-		// tmr Poner un filtre XSS
+		System.out.println("[Tab.filterByContentInAnyProperty] content=" + content); // tmr
+		System.out.println("[Tab.filterByContentInAnyProperty] getBaseCondition()=" + getBaseCondition()); // tmr
+		if (getCollectionView() != null) return; // tmr Poner en javadoc 
 		if (Is.emptyString(content)) {
 			setBaseCondition("");
 			return;
 		}
+		content = content.replaceAll("[\"'%;]", ""); // To avoid SQL injection
 		StringBuffer condition = new StringBuffer();
 		boolean needsOr = false;
 		for (MetaProperty property: getMetaPropertiesNotCalculated()) {
@@ -1791,8 +1796,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 				}
 			}
 			else if (property.getType().equals(Boolean.class) || property.getType().equals(boolean.class)) {
-				// TMR ME QUEDÉ POR AQUÍ: NO VA
-				if (property.getLabel().toUpperCase().contains(content)) {
+				if (property.getLabel().toUpperCase().contains(content.toUpperCase())) {
 					condition.append("${");
 					condition.append(property.getQualifiedName());
 					condition.append("} = true");
@@ -1802,7 +1806,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 			else if (property.isDateType() || property.isDateTimeType()) {
 				
 				try {
-					// TMR ME QUEDÉ POR AQUÍ: FALLA POR LAS FECHAS
 					Object date = property.parse(content);
 					condition.append("${");
 					condition.append(property.getQualifiedName());

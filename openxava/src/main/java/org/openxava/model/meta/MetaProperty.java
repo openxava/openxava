@@ -972,6 +972,11 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			}
 						
 		}
+		// tmr ini
+		catch (ParseException ex) {
+			throw ex;
+		}
+		// tmr fin
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
 			throw new ParseException(XavaResources.getString("from_string_on_property_error", value, type.getName(), getName()), -1);

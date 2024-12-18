@@ -51,6 +51,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	
 	
 	public void search(String condition, Object key) throws FinderException, RemoteException {
+		// TMR ME QUEDÉ POR AQUÍ, INTENTANDO VER DONDE SE AÑADE EL baseCondition DE @Tab
 		try {		
 			if (condition != null && condition.contains(" group by ")) {
 				setConditionProperties(condition);
@@ -62,7 +63,8 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 					else select.append(" AND "); 								
 				}
 				select.append(condition);
-			}																
+			}			
+			System.out.println("[EntityTab.search] select=" + select); // tmr
 			tabProvider.search(select.toString(), key);
 		}
 		catch (XavaException ex) {
