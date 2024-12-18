@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Drag & drop in the tree loses the children of the moved node in specific cases.
 - Fix: Loading... message fixed with a @Calculation property of a reference inside a hidden section.
 - Fix: Bad tree behavior when property of idProperties of @Tree has duplicated values in database.
 - Fix: It's possible to add nodes to the tree with duplicate value for id property.
