@@ -843,6 +843,25 @@ public class Strings {
 		return notSafeValue; 
 	}	
 	
+	/** @since 7.4.5 */
+	public static boolean isJavaIdentifier(String input) { 
+        if (input == null || input.isEmpty()) {
+            return false;
+        }
+        
+        if (!Character.isJavaIdentifierStart(input.charAt(0))) {
+            return false;
+        }
+        
+        for (int i = 1; i < input.length(); i++) {
+            if (!Character.isJavaIdentifierPart(input.charAt(i))) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+	
 	/**
 	 * Convert a string with a Java identifier in label natural for a human. <p>
 	 * 
