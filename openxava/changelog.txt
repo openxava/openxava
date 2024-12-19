@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- New filterByContentInAnyProperty() method in Tab to filter for a string value in any column.
 - New isJavaIdentifier() method in Strings utility class.
 - Fix: XSS vulnerability using script injection in module URL parameters. 
 - Fix: All English archetypes include a null folder in the created project.

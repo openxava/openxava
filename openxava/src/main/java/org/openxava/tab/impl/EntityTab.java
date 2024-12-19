@@ -57,15 +57,6 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 			}
 			StringBuffer select = new StringBuffer(getSelectBase());
 			if (!Is.emptyString(condition)) {				
-				/* tmr 
-				if (!condition.toUpperCase().trim().startsWith("ORDER BY")) {
-					if (select.toString().toUpperCase().indexOf("WHERE") < 0) select.append(" WHERE "); 
-					else select.append(" AND "); 								
-				}
-				select.append(condition);
-				*/
-				// tmr ini
-				// tmr Esto también es otro bug
 				String upperCondition = condition.toUpperCase().trim();
 				if (!upperCondition.startsWith("ORDER BY")) {
 				    if (!select.toString().toUpperCase().contains("WHERE")) {
@@ -83,8 +74,6 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 				        }
 				    }
 				}		
-										
-				// tmr fin
 			}			
 			tabProvider.search(select.toString(), key);
 		}

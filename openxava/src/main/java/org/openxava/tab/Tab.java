@@ -593,8 +593,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 			
 	public void setBaseCondition(String condition) throws XavaException { 		
-		// tmr if (Is.equal(this.baseCondition, condition)) return;
-		if (Is.equalAsString(this.baseCondition, condition)) return; // tmr Por esto debería pasar la suite de OpenXava
+		if (Is.equalAsString(this.baseCondition, condition)) return; 
 		
 		this.tableModel = null; 
 		this.baseCondition = condition;		
@@ -1762,8 +1761,15 @@ public class Tab implements java.io.Serializable, Cloneable {
 		goPage(1);	
 	}
 	
-	public void filterByContentInAnyProperty(String content) { // tmr Añadirlo en changelog
-		if (getCollectionView() != null) return; // tmr Poner en javadoc 
+	/**
+	 * Filter using like in any column. <p>
+	 * 
+	 * It does not work for Tab used for collections.
+	 * 
+	 * @since 7.4.5
+	 */
+	public void filterByContentInAnyProperty(String content) { 
+		if (getCollectionView() != null) return;  
 		if (Is.emptyString(content)) {
 			setBaseCondition("");
 			return;
@@ -1823,7 +1829,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 			
 		}
 		
-		System.out.println("[Tab.filterByContentInAnyProperty] condition=" + condition); // tmr
 		setBaseCondition(condition.toString());
 	}
 	
