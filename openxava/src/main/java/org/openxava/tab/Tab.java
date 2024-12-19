@@ -12,6 +12,7 @@ import javax.servlet.http.*;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.logging.*;
 import org.openxava.application.meta.*;
 import org.openxava.component.*;
@@ -592,7 +593,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 			
 	public void setBaseCondition(String condition) throws XavaException { 		
-		if (Is.equal(this.baseCondition, condition)) return;
+		if (Is.equalAsString(this.baseCondition, condition)) return; 
 		
 		this.tableModel = null; 
 		this.baseCondition = condition;		
@@ -1759,6 +1760,79 @@ public class Tab implements java.io.Serializable, Cloneable {
 		setRowsHidden(false);
 		goPage(1);	
 	}
+	
+	/**
+	 * Filter using like in any column. <p>
+	 * 
+	 * It does not work for Tab used for collections.
+	 * 
+	 * @since 7.4.5
+	 */
+	public void filterByContentInAnyProperty(String content) { 
+		if (getCollectionView() != null) return;  
+		if (Is.emptyString(content)) {
+			setBaseCondition("");
+			return;
+		}
+		content = content.replaceAll("[\"'%;]", ""); // To avoid SQL injection
+		StringBuffer condition = new StringBuffer();
+		boolean needsOr = false;
+		for (MetaProperty property: getMetaPropertiesNotCalculated()) {
+			if (needsOr) condition.append(" or ");
+			needsOr = false;
+			if (property.getType().equals(String.class)) {
+				condition.append("upper(${");
+				condition.append(property.getQualifiedName());
+				condition.append("}) like '%");
+				condition.append(content.toUpperCase());
+				condition.append("%'");
+				needsOr = true;
+			}
+			else if (property.isNumber()) {
+				if (NumberUtils.isCreatable(content)) {
+					condition.append("${");
+					condition.append(property.getQualifiedName());
+					condition.append("} = ");
+					condition.append(content);
+					needsOr = true;
+				}
+			}
+			else if (property.getType().equals(Boolean.class) || property.getType().equals(boolean.class)) {
+				if (property.getLabel().toUpperCase().contains(content.toUpperCase())) {
+					condition.append("${");
+					condition.append(property.getQualifiedName());
+					condition.append("} = true");
+					needsOr = true;
+				}				
+			}
+			else if (property.isDateType() || property.isDateTimeType()) {
+				
+				try {
+					Object date = property.parse(content);
+					condition.append("${");
+					condition.append(property.getQualifiedName());
+					condition.append("} = '");
+					condition.append(date);
+					condition.append("'");
+					needsOr = true;									
+				}
+				catch (ParseException ex) {					
+				}
+			}
+			else {
+				condition.append("${");
+				condition.append(property.getQualifiedName());
+				condition.append("} = ");
+				condition.append(content);
+				needsOr = true;
+			}
+			
+		}
+		
+		setBaseCondition(condition.toString());
+	}
+	
+	
 	
 	/** @since 5.9 */
 	public void setConditionParameters() { 

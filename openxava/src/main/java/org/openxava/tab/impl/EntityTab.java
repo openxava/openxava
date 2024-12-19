@@ -51,18 +51,30 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	
 	
 	public void search(String condition, Object key) throws FinderException, RemoteException {
-		try {		
+		try {
 			if (condition != null && condition.contains(" group by ")) {
 				setConditionProperties(condition);
 			}
 			StringBuffer select = new StringBuffer(getSelectBase());
 			if (!Is.emptyString(condition)) {				
-				if (!condition.toUpperCase().trim().startsWith("ORDER BY")) {
-					if (select.toString().toUpperCase().indexOf("WHERE") < 0) select.append(" WHERE "); 
-					else select.append(" AND "); 								
-				}
-				select.append(condition);
-			}																
+				String upperCondition = condition.toUpperCase().trim();
+				if (!upperCondition.startsWith("ORDER BY")) {
+				    if (!select.toString().toUpperCase().contains("WHERE")) {
+				        select.append(" WHERE ").append(condition);
+				    } 
+				    else {
+				        int orderByIdx = upperCondition.indexOf("ORDER BY");
+				        if (orderByIdx >= 0) {
+				            String where = condition.substring(0, orderByIdx);
+				            String orderBy = condition.substring(orderByIdx);
+				            select.append(" AND (").append(where).append(") ").append(orderBy);
+				        } 
+				        else {
+				            select.append(" AND (").append(condition).append(")");
+				        }
+				    }
+				}		
+			}			
 			tabProvider.search(select.toString(), key);
 		}
 		catch (XavaException ex) {
