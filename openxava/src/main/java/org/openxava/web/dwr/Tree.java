@@ -150,32 +150,25 @@ public class Tree extends DWRBase {
 				Map keys = (Map) collectionView.getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
 				pathValueMap = MapFacade.getValues(modelName, keys, pathIdMap);
 				String childPathValue = (String) pathValueMap.get(pathProperty);
-				for (String pValue : parentsValues) {
-					if (pValue.isEmpty()) {
+				for (String parentPathValue : parentsValues) {
+					if (parentPathValue.isEmpty()) {
 						childPathValue = newPath + childPathValue;
 						break;
 					}
-					pValue = pValue.startsWith(pathSeparator) ? pValue : pathSeparator + pValue; 
-					if (childPathValue.startsWith(pValue)) {
+					parentPathValue = parentPathValue.startsWith(pathSeparator) ? parentPathValue : pathSeparator + parentPathValue; 
+					if (childPathValue.startsWith(parentPathValue)) {
 						if (newPath.equals("")) {
-							childPathValue = childPathValue.replace(pValue, newPath);
+							childPathValue = childPathValue.replace(parentPathValue, newPath);
 						} else {
-							if (pValue.startsWith(newPath)) {
-								if (pValue.length() < newPath.length()) {
-									childPathValue = newPath + childPathValue.substring(childPathValue.indexOf(pValue));
-								} else {
-									childPathValue = childPathValue.replace(pValue, newPath);
-								}
+							if (parentPathValue.startsWith(newPath)) {
+								childPathValue = childPathValue.replace(parentPathValue, newPath);
 							} else {
-								if (pValue.length() < newPath.length()) {
-									childPathValue = newPath + childPathValue.substring(childPathValue.indexOf(pValue)  + pValue.length());
-								} else {
-									childPathValue = newPath + childPathValue.substring(childPathValue.indexOf(pValue));
-								}
+								childPathValue = newPath + childPathValue.substring(childPathValue.indexOf(parentPathValue)  + parentPathValue.length());
 							}
 						}
-					} else if (childPathValue.contains(pValue)) {
-						childPathValue = childPathValue.substring(childPathValue.indexOf(pValue) - 1);
+					} else if (childPathValue.contains(parentPathValue)) {
+						//for special cases
+						childPathValue = childPathValue.substring(childPathValue.indexOf(parentPathValue) - 1);
 					}
 					break;
 				}

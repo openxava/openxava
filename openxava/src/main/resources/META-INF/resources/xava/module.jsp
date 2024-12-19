@@ -29,8 +29,8 @@
 		for (java.util.Enumeration en = request.getParameterNames(); en
 				.hasMoreElements();) {
 			String name = (String) en.nextElement();
-			if ("application".equals(name) || "module".equals(name))
-				continue;
+			if ("application".equals(name) || "module".equals(name)) continue;
+			if (!Strings.isJavaIdentifier(name)) continue;	
 			String value = request.getParameter(name);
 			if (!Is.emptyString(value) && !(value.contains("<") || value.contains("\""))) { // If change pass the ZAP test again
 				result.append('&');
