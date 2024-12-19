@@ -803,7 +803,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 			condition =  condition.replace(" group by ", " and " + removeOrder(lastCondition) + " group by ");
 			key = addLastKey(key);
 		}
-		System.out.println("[Tab.search] condition=" + condition); // tmr
 		tab.search(condition, key);		
 	}
 	
@@ -1763,10 +1762,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		goPage(1);	
 	}
 	
-	public void filterByContentInAnyProperty(String content) { // tmr ¿Este nombre? ¿Aquí? ¿Esta lógica aquí? Añadirlo en changelog
-		// tmr Probar que pasa si hay una baseCondition en @Tab
-		System.out.println("[Tab.filterByContentInAnyProperty] content=" + content); // tmr
-		System.out.println("[Tab.filterByContentInAnyProperty] getBaseCondition()=" + getBaseCondition()); // tmr
+	public void filterByContentInAnyProperty(String content) { // tmr Añadirlo en changelog
 		if (getCollectionView() != null) return; // tmr Poner en javadoc 
 		if (Is.emptyString(content)) {
 			setBaseCondition("");

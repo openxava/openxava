@@ -51,20 +51,41 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	
 	
 	public void search(String condition, Object key) throws FinderException, RemoteException {
-		// TMR ME QUEDÉ POR AQUÍ, INTENTANDO VER DONDE SE AÑADE EL baseCondition DE @Tab
-		try {		
+		try {
 			if (condition != null && condition.contains(" group by ")) {
 				setConditionProperties(condition);
 			}
 			StringBuffer select = new StringBuffer(getSelectBase());
 			if (!Is.emptyString(condition)) {				
+				/* tmr 
 				if (!condition.toUpperCase().trim().startsWith("ORDER BY")) {
 					if (select.toString().toUpperCase().indexOf("WHERE") < 0) select.append(" WHERE "); 
 					else select.append(" AND "); 								
 				}
 				select.append(condition);
+				*/
+				// tmr ini
+				// tmr Esto también es otro bug
+				String upperCondition = condition.toUpperCase().trim();
+				if (!upperCondition.startsWith("ORDER BY")) {
+				    if (!select.toString().toUpperCase().contains("WHERE")) {
+				        select.append(" WHERE ").append(condition);
+				    } 
+				    else {
+				        int orderByIdx = upperCondition.indexOf("ORDER BY");
+				        if (orderByIdx >= 0) {
+				            String where = condition.substring(0, orderByIdx);
+				            String orderBy = condition.substring(orderByIdx);
+				            select.append(" AND (").append(where).append(") ").append(orderBy);
+				        } 
+				        else {
+				            select.append(" AND (").append(condition).append(")");
+				        }
+				    }
+				}		
+										
+				// tmr fin
 			}			
-			System.out.println("[EntityTab.search] select=" + select); // tmr
 			tabProvider.search(select.toString(), key);
 		}
 		catch (XavaException ex) {
