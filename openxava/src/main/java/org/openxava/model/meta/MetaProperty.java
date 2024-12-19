@@ -275,27 +275,13 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	}
 	
 	public boolean isNumber() throws XavaException {
-		/*
-		return 
-			java.lang.Integer.class.equals(getType()) ||
-			int.class.equals(getType()) ||
-			java.lang.Long.class.equals(getType()) ||
-			long.class.equals(getType()) ||
-			java.math.BigDecimal.class.equals(getType()) ||
-			java.math.BigInteger.class.equals(getType()) || 
-			java.lang.Short.class.equals(getType()) ||
-			short.class.equals(getType()) ||
-			java.lang.Float.class.equals(getType()) ||
-			float.class.equals(getType()) ||
-			java.lang.Double.class.equals(getType()) ||
-			double.class.equals(getType());		
-		*/
 		return isTypeAmong(
 		        java.lang.Integer.class, int.class,
 		        java.lang.Long.class, long.class,
 		        java.math.BigDecimal.class, 
 		        java.math.BigInteger.class,
 		        java.lang.Short.class, short.class,
+		        java.lang.Byte.class, byte.class,
 		        java.lang.Float.class, float.class,
 		        java.lang.Double.class, double.class
 		    );
@@ -306,7 +292,8 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		        java.lang.Integer.class, int.class,
 		        java.lang.Long.class, long.class,
 		        java.math.BigInteger.class,
-		        java.lang.Short.class, short.class
+		        java.lang.Short.class, short.class,
+		        java.lang.Byte.class, byte.class
 		    );
 	}
 	

@@ -95,7 +95,7 @@ $(document).on('dnd_stop.vakata', function(e, data) {
 
     nodeArray.forEach(function(element) {
         let node = ref.get_node(element);
-        //rows.push(node.original.row);
+        rows.push(node.original.row);
         node.children_d.forEach(function(childNodeId) {
             allChilds.push(childNodeId);
         });
@@ -141,38 +141,9 @@ $(document).on('dnd_stop.vakata', function(e, data) {
 	let i = 0;
 	allNodes.forEach(nodeId => {
 		let node = ref.get_node(nodeId);
-		rows.push(node.original.row);
 		newNodesOrder.push(node.original.row + ":" + i);
 		i++;
 	});
-	/*
-    if (siblings.length > 0) {
-        let i = 0;
-        for (let j = 0; j < treeEditor.newPosition && j < siblings.length; j++) {
-            let node = ref.get_node(siblings[j]);
-            rows.push(node.original.row);
-            newNodesOrder.push(node.original.row + ":" + i);
-            i++;
-        }
-        for (let j = 0; j < nodeArray.length; j++) {
-            let node = ref.get_node(nodeArray[j]);
-            newNodesOrder.push(node.original.row + ":" + i);
-            i++;
-        }
-        for (let j = treeEditor.newPosition; j < siblings.length; j++) {
-            let node = ref.get_node(siblings[j]);
-            rows.push(node.original.row);
-            newNodesOrder.push(node.original.row + ":" + i);
-            i++;
-        }
-    } else {
-        let i = 0;
-        for (let j = 0; j < nodeArray.length; j++) {
-            let node = ref.get_node(nodeArray[j]);
-            newNodesOrder.push(node.original.row + ":" + i);
-            i++;
-        }
-    }*/
 
     Tree.updateNode(application, module, collectionName,
         collectionViewParentName, newPath,

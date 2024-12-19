@@ -53,8 +53,6 @@ public class Tree extends DWRBase {
 
 			tab.clearProperties(); 
  
-			System.out.println(1); // cyt
-			
 			for (String element : listProperties) {
 				tab.addProperty(element.trim());
 			}
@@ -71,7 +69,6 @@ public class Tree extends DWRBase {
 			listProperties = tab.getPropertiesNamesAsString().split(",");
 			Set<String> processedIds = new HashSet<>();
 			List<String> duplicatedIds = new ArrayList<>();
-			System.out.println(tab.getPropertiesNamesAsString()); // cyt
 			if (tableSize > 0) {
 				for (int i = 0; i < tableSize; i++) {
 					JSONObject jsonRow = new JSONObject();
@@ -164,18 +161,26 @@ public class Tree extends DWRBase {
 			pathIdMap.put(pathProperty, null);
 			Map<String, Object> newNodeValue = new HashMap<>();
 			newNodeValue.put(pathProperty, newPath);
-			
+
 			Map<String, String> pathValueMap = new HashMap<>();
-			List<String> parentsValues = new ArrayList<>();
-			for (String row : rows) {
-				Map keys = (Map) collectionView.getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
-				pathValueMap = MapFacade.getValues(modelName, keys, pathIdMap);
-				newNodeValue.put(orderProperty, newOrderMap.get(row));
-				parentsValues.add(pathValueMap.get(pathProperty));
-				System.out.println(newNodeValue); // cyt
-				MapFacade.setValues(modelName, keys, newNodeValue);
+			Set<String> parentsValues = new HashSet<>();
+
+			for (String row : newOrderMap.keySet()) {
+			    Map keys = (Map) collectionView.getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
+			    if (rows.contains(row)) {
+			        pathValueMap = MapFacade.getValues(modelName, keys, pathIdMap);
+			        newNodeValue.put(orderProperty, newOrderMap.get(row));
+			        parentsValues.add(pathValueMap.get(pathProperty));
+			        MapFacade.setValues(modelName, keys, newNodeValue);
+			    } else {
+				    Map newOrderValues = new HashMap<>();
+				    newOrderValues.put(orderProperty, newOrderMap.get(row));
+				    MapFacade.setValues(modelName, keys, newOrderValues);
+			    }
 			}
+			
 			childRows.removeIf(rows::contains);
+
 			for (String row : childRows) {
 				Map keys = (Map) collectionView.getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
 				pathValueMap = MapFacade.getValues(modelName, keys, pathIdMap);
