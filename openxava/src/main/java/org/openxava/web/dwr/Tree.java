@@ -129,7 +129,6 @@ public class Tree extends DWRBase {
 			org.openxava.annotations.Tree tree = metaCollectionView.getPath();
 			String pathProperty = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "path";
 			String pathSeparator = tree != null && tree.pathSeparator() !=null ? tree.pathSeparator() : "/";
-			String idProperties = tree != null && tree.idProperties() !=null ? tree.idProperties() : "";
 			String orderProperty = "";
 			Map<String, Object> newOrderMap = new HashMap<>();
 			newPath = newPath.replace("/", pathSeparator);
