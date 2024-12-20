@@ -1636,11 +1636,9 @@
 			class="org.openxava.test.actions.ShowInvoiceTotalCalculationsCountAction"/>			
 	</controller>
 	
-	<!-- tmr ini -->	
 	<controller name="FilterByX">
 		<action name="filterByX" mode="list"
 			class="org.openxava.test.actions.FilterByXAction"/>			
 	</controller>	
-	<!-- tmr fin -->
 
 </controllers>

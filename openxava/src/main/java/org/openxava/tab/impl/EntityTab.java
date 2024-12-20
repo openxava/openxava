@@ -63,18 +63,6 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 				        select.append(" WHERE ").append(condition);
 				    } 
 				    else {
-				    	/* tmr
-				        int orderByIdx = upperCondition.indexOf("ORDER BY");
-				        if (orderByIdx >= 0) {
-				            String where = condition.substring(0, orderByIdx);
-				            String orderBy = condition.substring(orderByIdx);
-				            select.append(" AND (").append(where).append(") ").append(orderBy);
-				        } 
-				        else {
-				            select.append(" AND (").append(condition).append(")");
-				        }
-				        */
-				    	// tmr ini
 				        int orderByIndex = upperCondition.indexOf("ORDER BY");
 				        int groupByIndex = upperCondition.indexOf("GROUP BY");
 				        int conditionEndIndex = Math.min(
@@ -89,14 +77,11 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 				        else {
 				            select.append(" AND (").append(condition).append(")");
 				        }				    	
-				    	// tmr fin
 				    }
 				}
-				// tmr ini
 				else {
 					select.append(condition);
 				}
-				// tmr fin
 			}			
 			tabProvider.search(select.toString(), key);
 		}

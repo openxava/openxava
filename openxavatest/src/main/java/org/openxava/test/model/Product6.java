@@ -16,7 +16,7 @@ import org.openxava.annotations.*;
 @Tab(name="Software", 
 	properties = "description", 
 	baseCondition = "${subfamily.family.description} = 'SOFTWARE'",
-	defaultOrder="${description}") // tmr 
+	defaultOrder="${description}") 
 public class Product6 {
 	
 	// WARNING! DON'T ADD ANY @OnChange, @Depends, @DefaultValueCalculator WITH "from" PROPERTIES @DescriptionList WITH depends.
