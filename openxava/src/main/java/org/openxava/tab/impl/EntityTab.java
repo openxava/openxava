@@ -63,6 +63,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 				        select.append(" WHERE ").append(condition);
 				    } 
 				    else {
+				    	/* tmr
 				        int orderByIdx = upperCondition.indexOf("ORDER BY");
 				        if (orderByIdx >= 0) {
 				            String where = condition.substring(0, orderByIdx);
@@ -72,8 +73,30 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 				        else {
 				            select.append(" AND (").append(condition).append(")");
 				        }
+				        */
+				    	// tmr ini
+				        int orderByIndex = upperCondition.indexOf("ORDER BY");
+				        int groupByIndex = upperCondition.indexOf("GROUP BY");
+				        int conditionEndIndex = Math.min(
+			                orderByIndex != -1 ? orderByIndex : upperCondition.length(),
+			                groupByIndex != -1 ? groupByIndex : upperCondition.length()
+			            );
+				        if (conditionEndIndex < upperCondition.length()) {
+				            String where = condition.substring(0, conditionEndIndex);
+				            String afterCondition = condition.substring(conditionEndIndex);
+				            select.append(" AND (").append(where).append(") ").append(afterCondition);
+				        } 
+				        else {
+				            select.append(" AND (").append(condition).append(")");
+				        }				    	
+				    	// tmr fin
 				    }
-				}		
+				}
+				// tmr ini
+				else {
+					select.append(condition);
+				}
+				// tmr fin
 			}			
 			tabProvider.search(select.toString(), key);
 		}
@@ -82,6 +105,26 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 			throw new RemoteException(XavaResources.getString("tab_search_error", ex.getLocalizedMessage()));
 		}		
 	}
+	
+	private String wrapConditionIntoParentheses(String query) { // tmr
+	    String upperQuery = query.toUpperCase();
+	    int orderByIndex = upperQuery.indexOf(" ORDER BY");
+	    int groupByIndex = upperQuery.indexOf(" GROUP BY");
+	    
+	    int conditionEndIndex = Math.min(
+	        orderByIndex != -1 ? orderByIndex : upperQuery.length(),
+	        groupByIndex != -1 ? groupByIndex : upperQuery.length()
+	    );
+
+	    if (conditionEndIndex < upperQuery.length()) {
+	        String beforeCondition = query.substring(0, conditionEndIndex);
+	        String afterCondition = query.substring(conditionEndIndex);
+	        return "(" + beforeCondition.trim() + ")" + afterCondition;
+	    }
+	    
+	    return "(" + query.trim() + ")";
+	}
+
 	
 	private void setConditionProperties(String condition) {
 		tabProvider.setConditionProperties(Strings.extractVariables(condition));
