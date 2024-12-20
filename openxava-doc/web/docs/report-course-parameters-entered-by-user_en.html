@@ -1,0 +1,109 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Report generation - Lesson 9: Parameters entered by user - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_en.html">documentation</a> / </span>Report generation - Lesson 9: Parameters entered by user</h1>
+      <div class="wiki" style="display: block;">
+        <h2>Video</h2>
+        <p>In this video we will see how to create a dialog where the user can enter a date range, which will be used in the SQL query of the report.</p>
+        <p><a href="" target="_blank"><img src="files/report-course_en090.png"
+              title="report-generation-090"></a> </p>
+        <p><strong>Any problem with this lesson? <a class="wiki_link_ext"
+              href="http://sourceforge.net/p/openxava/discussion/419690/">Ask in the forum</a></strong> </p>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h2>Code</h2>
+        <p>You can <strong><a href="https://github.com/openxava/report-generation-course/tree/lesson_9"
+              target="_blank">download the project for this lesson</a></strong>. You can also copy the code used in the video here:</p>
+        <p>In <em>CustomDateRange.java</em> file:<br>
+        </p>
+        <pre><code class="java">@Getter @Setter
+public class CustomDateRange {
+
+	int customerNumber;
+	
+	LocalDate startDate;
+	
+	LocalDate endDate;
+	
+}</code></pre>
+        <p>In <em>ShowCustomDateRangeDialogAction.java</em> file:<br>
+        </p>
+        <pre><code class="java">public class ShowCustomDateRangeDialogAction extends ViewBaseAction {
+
+	@Override
+	public void execute() throws Exception {
+		int number = getView().getValueInt("number");
+		showDialog();
+		getView().setModelName("CustomDateRange");
+		getView().setValue("customerNumber", number);
+		addActions("CustomDateRange.print");
+	}
+
+}</code></pre>
+        <code class="xml"></code> In <em>PrintCustomerInvoicesByDateRangeAction.java</em> file:<br>
+        <pre><code class="java">public class PrintCustomerInvoicesByDateRangeAction extends JasperReportBaseAction {
+
+	@Override
+	protected JRDataSource getDataSource() throws Exception {
+		return null;
+	}
+
+	@Override
+	protected String getJRXML() throws Exception {
+		return "CustomerInvoicesByDateRange.jrxml";
+	}
+
+	@Override
+	protected Map getParameters() throws Exception {
+		Messages errors = MapFacade.validate("CustomDateRange", getView().getValues());
+		if (errors.contains()) throw new ValidationException(errors);
+		Map parameters = new HashMap();
+		parameters.put("name", getPreviousView().getValue("name"));
+		parameters.put("number", getView().getValueInt("customerNumber"));
+		parameters.put("startDate", getView().getValue("startDate").toString());
+		parameters.put("endDate", getView().getValue("endDate").toString());
+		return parameters;
+	}
+
+}</code></pre>
+        <code class="xml"></code> In <em>controllers.xml</em> file:<br>
+        <pre>&lt;controller name="Customer"&gt;
+	...
+	&lt;action name="printInvoicesByDateRange"
+		class="com.yourcompany.invoicing.actions.ShowCustomDateRangeDialogAction"
+		mode="detail"
+		icon="printer"/&gt;
+&lt;/controller&gt;
+	
+&lt;controller name="CustomDateRange"&gt;
+	&lt;extends controller="Invoicing"/&gt;
+	&lt;action name="print"
+		class="com.yourcompany.invoicing.actions.PrintCustomerInvoicesByDateRangeAction"
+		mode="detail"
+		icon="printer"/&gt;
+&lt;/controller&gt;</pre>
+        <p><br>
+          <strong></strong></p>
+        <h2>Transcription</h2>
+        Hi, I’m Monica. In this lesson, you will learn how to display a dialog where the user can input a date range, which will be used to filter the data displayed in the report.<br>
+        <br>
+        First, we create the transient class CustomDateRange with the property customerNumber to store the customer number value. Since we are using LocalDate for dates, we will use the same data type for the start and end dates. Done. Let’s create the action to display the dialog. This action will extend ViewBaseAction, so we can work with the view. With showDialog, we will display an empty dialog. When showing the dialog, the getView method will point to the dialog. We will specify that the dialog model name is CustomDateRange, which is the same as the transient class name. Let’s test it. Perfect. Ideally, it should automatically load the customer number, and we should also add an action to print the report. First, we will get the value of the customer number. We need to do this before showDialog, so the view returned by getView is the customer details view. Then, we set the value. Finally, with addActions, we will add the print action. We will create this action in a separate controller. The controller’s name can be anything; in my case, I’ll use the name of the transient class. Before continuing with the report action, we add the action to the dialog. We use the controller name and the action name to add it, meaning we can add any action from any controller. Similar to the report in the previous lesson, we send a null dataSource and, in the parameters, we send the values obtained from the view. We start the project to make the database available.<br>
+        <br>
+        We create a new report called Customer Invoice By Date Range. We define the parameters to receive. We select the Invoicing database we created in the previous lesson. We also write a similar query, but we add a line indicating that the invoice date must be between startDate and endDate. Perfect. We add the elements to the report. And we test it. The date format we get from the view matches how I’m entering it. It works well. We add another parameter to receive the customer’s name.<br>
+        In the report action, we are already in the dialog view, so if we want to get the customer’s name, we need to use getPreviousView. Done. After making some changes to the report, we copy it to the project and start the application. I will change the date of one invoice to make it different from the others. It shows us an expression error, which must be related to the parameters. It could be because we are receiving it as a String but sending it as an Object, and if you remember, they are of type LocalDate. Done, let’s test it again. Perfect, now it’s showing us the invoices between the selected dates. </div>
+      <div class="wiki" style="display: block;"><br>
+      </div>
+      <div class="wiki" style="display: block;">With this, users can customize the parameters for the report. You can take advantage of this to create more complex reports without needing to add much code. If you have any questions or issues, you can ask us on the forum. You can also download the code for this lesson from the repository link; both links are in the video description. Bye.</div>
+    </div>
+  </body>
+</html>
