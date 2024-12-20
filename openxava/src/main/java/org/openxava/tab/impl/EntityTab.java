@@ -106,26 +106,6 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		}		
 	}
 	
-	private String wrapConditionIntoParentheses(String query) { // tmr
-	    String upperQuery = query.toUpperCase();
-	    int orderByIndex = upperQuery.indexOf(" ORDER BY");
-	    int groupByIndex = upperQuery.indexOf(" GROUP BY");
-	    
-	    int conditionEndIndex = Math.min(
-	        orderByIndex != -1 ? orderByIndex : upperQuery.length(),
-	        groupByIndex != -1 ? groupByIndex : upperQuery.length()
-	    );
-
-	    if (conditionEndIndex < upperQuery.length()) {
-	        String beforeCondition = query.substring(0, conditionEndIndex);
-	        String afterCondition = query.substring(conditionEndIndex);
-	        return "(" + beforeCondition.trim() + ")" + afterCondition;
-	    }
-	    
-	    return "(" + query.trim() + ")";
-	}
-
-	
 	private void setConditionProperties(String condition) {
 		tabProvider.setConditionProperties(Strings.extractVariables(condition));
 		selectBase = null;
