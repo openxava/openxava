@@ -1200,7 +1200,7 @@ public class DeliveryTest extends ModuleTestBase {
 		int previous = Integer.MAX_VALUE;
 		for (int i=1; i<types.length; i++) { // 0 position is empty
 			int current = Integer.parseInt(types[i]);
-			assertTrue("delivery types must be in descending order by number", current < previous);
+			assertTrue("delivery types must be in descending order by number", current < previous); 
 			previous = current;
 		}
 		assertOrderCorrectInAutocomplete(); 

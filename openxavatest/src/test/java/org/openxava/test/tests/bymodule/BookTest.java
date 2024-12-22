@@ -1,9 +1,9 @@
 package org.openxava.test.tests.bymodule;
 
+import org.htmlunit.*;
 import org.openxava.test.services.*;
 import org.openxava.tests.*;
-
-import org.htmlunit.*;
+import org.openxava.util.*;
 
 /**
  * 
@@ -11,6 +11,8 @@ import org.htmlunit.*;
  */
 
 public class BookTest extends ModuleTestBase {
+	
+	private String moduleURLExtraParameters = "";
 	
 	private class MyAlertHandler implements AlertHandler {
 		
@@ -69,7 +71,7 @@ public class BookTest extends ModuleTestBase {
 	}
 	
 	// This test fails in PostgreSQL, but not in Hypersonic
-	public void testListFilterByBooleanColumnInDB_XSSNotJSInListFilterValues_bigIntegarAsNumeric() throws Exception {  
+	public void testListFilterByBooleanColumnInDB_XSSNotJSInListFilterValues_bigIntegarAsNumeric_XSSInURLParameters() throws Exception {   
 		MyAlertHandler alertHandler = new MyAlertHandler();
 		getWebClient().setAlertHandler(alertHandler);
 		
@@ -84,6 +86,14 @@ public class BookTest extends ModuleTestBase {
 		setConditionValues("<script>alert('hello');</script>");
 		execute("List.filter");
 		assertNotEquals("Message not expected", "hello", alertHandler.getMessage());
+		
+		moduleURLExtraParameters = "&21191\"%3balert(1)%2f%2f308=1";
+		changeModule("Book");
+		assertNotEquals("Message not expected", "1", alertHandler.getMessage());
 	}
+	
+	protected String getModuleURL() throws XavaException { 
+		return super.getModuleURL() + moduleURLExtraParameters;
+	}	
 		
 }

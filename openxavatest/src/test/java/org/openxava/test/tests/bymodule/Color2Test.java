@@ -88,7 +88,7 @@ public class Color2Test extends ModuleTestBase {
 			{ "DOOR", "DOOR" },
 			{ "CAR", "CAR" }
 		};		
-		assertValidValues("conditionValue___3", validValues); 		
+		assertValidValues("conditionValue___3", validValues);	
 		assertValueInList(0, 4, "CAR");
 		setConditionValues(new String[] { "", "", "", "CAR"} ); 
 		// execute("List.filter"); // Not needed because filterOnChange=true

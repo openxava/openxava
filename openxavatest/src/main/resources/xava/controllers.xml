@@ -1634,6 +1634,11 @@
 			class="org.openxava.test.actions.ResetInvoiceTotalCalculationsCountAction"/>
 		<action name="showTotalCalculationsCount" mode="detail"
 			class="org.openxava.test.actions.ShowInvoiceTotalCalculationsCountAction"/>			
-	</controller>		
+	</controller>
+	
+	<controller name="FilterByX">
+		<action name="filterByX" mode="list"
+			class="org.openxava.test.actions.FilterByXAction"/>			
+	</controller>	
 
 </controllers>
