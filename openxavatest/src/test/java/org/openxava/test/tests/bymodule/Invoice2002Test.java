@@ -79,7 +79,7 @@ public class Invoice2002Test extends CustomizeListTestBase {
 		selectGroupBy("Group by year");
 		assertListRowCount(1);
 		assertListColumnCount(2);
-		assertValueInList(0, 0, "2002");
+		assertValueInList(0, 0, "2002"); 
 		assertValueInList(0, 1, "1");
 	}
 	

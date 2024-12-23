@@ -51,18 +51,38 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	
 	
 	public void search(String condition, Object key) throws FinderException, RemoteException {
-		try {		
+		try {
 			if (condition != null && condition.contains(" group by ")) {
 				setConditionProperties(condition);
 			}
 			StringBuffer select = new StringBuffer(getSelectBase());
 			if (!Is.emptyString(condition)) {				
-				if (!condition.toUpperCase().trim().startsWith("ORDER BY")) {
-					if (select.toString().toUpperCase().indexOf("WHERE") < 0) select.append(" WHERE "); 
-					else select.append(" AND "); 								
+				String upperCondition = condition.toUpperCase().trim();
+				if (!upperCondition.startsWith("ORDER BY")) {
+				    if (!select.toString().toUpperCase().contains("WHERE")) {
+				        select.append(" WHERE ").append(condition);
+				    } 
+				    else {
+				        int orderByIndex = upperCondition.indexOf("ORDER BY");
+				        int groupByIndex = upperCondition.indexOf("GROUP BY");
+				        int conditionEndIndex = Math.min(
+			                orderByIndex != -1 ? orderByIndex : upperCondition.length(),
+			                groupByIndex != -1 ? groupByIndex : upperCondition.length()
+			            );
+				        if (conditionEndIndex < upperCondition.length()) {
+				            String where = condition.substring(0, conditionEndIndex);
+				            String afterCondition = condition.substring(conditionEndIndex);
+				            select.append(" AND (").append(where).append(") ").append(afterCondition);
+				        } 
+				        else {
+				            select.append(" AND (").append(condition).append(")");
+				        }				    	
+				    }
 				}
-				select.append(condition);
-			}																
+				else {
+					select.append(condition);
+				}
+			}			
 			tabProvider.search(select.toString(), key);
 		}
 		catch (XavaException ex) {
