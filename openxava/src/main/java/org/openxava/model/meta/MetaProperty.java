@@ -287,6 +287,10 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		    );
 	}
 	
+	/**
+	 * 
+	 * @since 7.4.5
+	 */
 	public boolean isInteger() {
 		return isTypeAmong(
 		        java.lang.Integer.class, int.class,

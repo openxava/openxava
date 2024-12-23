@@ -1,6 +1,5 @@
 package org.openxava.web.dwr;
 
-import java.lang.annotation.*;
 import java.util.*;
 
 import javax.servlet.http.*;
@@ -135,26 +134,24 @@ public class Tree extends DWRBase {
 			String orderProperty = "";
 			Map<String, Object> newOrderMap = new HashMap<>();
 			newPath = newPath.replace("/", pathSeparator);
-
-			for (Annotation annotation : metaCollection.getAnnotations()) {
-			    if (annotation instanceof javax.persistence.OrderBy) {
-			    	String[] values = ((javax.persistence.OrderBy) annotation).value().split(",");
-			    	for (int i = 0; i < values.length; i++) {
-			    	    String v = values[i].trim();
-			    	    MetaProperty mp = metaModel.getMetaProperty(v);
-			    	    if (mp.isInteger()) {
-			    	    	orderProperty = mp.getName();
-			    	    	for (String item : newOrder) {
-			    	            String[] parts = item.split(":");
-			    	            String row = parts[0];
-			    	            Object order = mp.parse(parts[1]);
-			    	            newOrderMap.put(row, order);
-			    	        }
-			    	    	break;
-			    	    }
-			    	}
-			    	break;
-			    }
+			
+			String[] orderProperties = Arrays.stream(metaCollection.getOrder().split(","))
+			        						 .map(String::trim)
+			        						 .map(s -> s.replaceAll("\\$\\{", "").replaceAll("}", ""))
+			        						 .toArray(String[]::new);
+		 
+			for (String property : orderProperties) {
+				MetaProperty mp = metaModel.getMetaProperty(property);
+	    	    if (mp.isInteger()) {
+	    	    	orderProperty = mp.getName();
+	    	    	for (String item : newOrder) {
+	    	            String[] parts = item.split(":");
+	    	            String row = parts[0];
+	    	            Object order = mp.parse(parts[1]);
+	    	            newOrderMap.put(row, order);
+	    	        }
+	    	    	break;
+	    	    }
 			}
 
 			Map<String, String> pathIdMap = new HashMap<>();
@@ -209,7 +206,7 @@ public class Tree extends DWRBase {
 						childPathValue = childPathValue.substring(childPathValue.indexOf(parentPathValue) - 1);
 						matched = true;
 					}
-					if (matched == true) break;
+					if (matched) break;
 				}
 				pathValueMap.clear();
 				pathValueMap.put(pathProperty, childPathValue);
