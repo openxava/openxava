@@ -183,7 +183,6 @@ public class TreeTest extends WebDriverTestBase{
 		executeDnd(driver, treeItemNodesId.get("child1") + "_anchor", treeItemNodesId.get("root") + "_anchor");
 		driver.navigate().refresh();
 		wait(driver);
-		Thread.sleep(500);
 		assertTrue(isElementInside(driver, treeItemNodesId.get("root"), treeItemNodesId.get("child1") + "_anchor"));
 		assertTrue(isElementInside(driver, treeItemNodesId.get("child1"), treeItemNodesId.get("child1sub1") + "_anchor"));
 		assertTrue(isElementInside(driver, treeItemNodesId.get("child1sub1"), treeItemNodesId.get("child1sub2") + "_anchor"));
@@ -205,17 +204,16 @@ public class TreeTest extends WebDriverTestBase{
 		Thread.sleep(1500); // wait all trees
 		assertTrue(isElementInside(driver, "14", "15_anchor"));
 		
-		executeDnd(driver, treeItemNodesId.get("child1sub2")+ "_anchor", treeItemNodesId.get("child3sub1") + "_anchor");
+		executeDnd(driver, treeItemNodesId.get("child1sub1")+ "_anchor", treeItemNodesId.get("child3sub1") + "_anchor");
 		executeDnd(driver, treeItemNodesId.get("child3sub1")+ "_anchor", treeItemNodesId.get("child1") + "_anchor");
 		driver.navigate().refresh();
 		Thread.sleep(1500); // wait all trees
 		expandNode(driver, treeItemNodesId.get("child3sub1"));
 		assertTrue(isElementInside(driver, treeItemNodesId.get("child1"), treeItemNodesId.get("child3sub1") + "_anchor"));
-		assertTrue(isElementInside(driver, treeItemNodesId.get("child3sub1"), treeItemNodesId.get("child1sub2") + "_anchor"));
-		
-		executeDnd(driver, treeItemNodesId.get("child3sub1"), treeItemNodesId.get("child3"));
-		executeDnd(driver, treeItemNodesId.get("child1sub2"), treeItemNodesId.get("child1"));
-		
+		assertTrue(isElementInside(driver, treeItemNodesId.get("child3sub1"), treeItemNodesId.get("child1sub1") + "_anchor"));
+		executeDnd(driver, treeItemNodesId.get("child3sub1") + "_anchor", treeItemNodesId.get("child3") + "_anchor");
+		expandNode(driver, treeItemNodesId.get("child3"));
+		executeDnd(driver, treeItemNodesId.get("child1sub1") + "_anchor", treeItemNodesId.get("child1") + "_anchor");
 	}
 	
 	private void createNodeWithPathSeparator_dnd(WebDriver driver) throws Exception {

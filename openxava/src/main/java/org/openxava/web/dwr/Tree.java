@@ -123,17 +123,18 @@ public class Tree extends DWRBase {
 			View collectionView = view.getSubview(collectionName);
 			String modelName = collectionView.getMetaModel().getQualifiedName();
 			MetaView metaView = view.getMetaModel().getMetaView(view.getViewName());
+			MetaCollection metaCollection = view.getMetaModel().getMetaCollection(collectionName);
+			MetaModel metaModel = collectionView.getMetaModel();
 			MetaCollectionView metaCollectionView = collectionViewParentName.isEmpty() 
 					? metaView.getMetaCollectionView(collectionName)
 					: view.getSubview(collectionViewParentName).getMetaView().getMetaCollectionView(collectionName);
 			org.openxava.annotations.Tree tree = metaCollectionView.getPath();
 			String pathProperty = tree != null && tree.pathProperty() !=null ? tree.pathProperty() : "path";
 			String pathSeparator = tree != null && tree.pathSeparator() !=null ? tree.pathSeparator() : "/";
+			String idProperties = tree != null && tree.idProperties() !=null ? tree.idProperties() : metaModel.getAllKeyPropertiesNamesOrderedAsInModel().iterator().next(); // currently only support one idProperty
 			String orderProperty = "";
 			Map<String, Object> newOrderMap = new HashMap<>();
 			newPath = newPath.replace("/", pathSeparator);
-			MetaCollection metaCollection = view.getMetaModel().getMetaCollection(collectionName);
-			MetaModel metaModel = collectionView.getMetaModel();
 
 			for (Annotation annotation : metaCollection.getAnnotations()) {
 			    if (annotation instanceof javax.persistence.OrderBy) {
@@ -158,6 +159,7 @@ public class Tree extends DWRBase {
 
 			Map<String, String> pathIdMap = new HashMap<>();
 			pathIdMap.put(pathProperty, null);
+			pathIdMap.put(idProperties, null);
 			Map<String, Object> newNodeValue = new HashMap<>();
 			newNodeValue.put(pathProperty, newPath);
 
@@ -169,7 +171,7 @@ public class Tree extends DWRBase {
 			    if (rows.contains(row)) {
 			        pathValueMap = MapFacade.getValues(modelName, keys, pathIdMap);
 			        newNodeValue.put(orderProperty, newOrderMap.get(row));
-			        parentsValues.add(pathValueMap.get(pathProperty));
+			        parentsValues.add(pathValueMap.get(pathProperty) + pathSeparator + String.valueOf(pathValueMap.get(idProperties)));
 			        MapFacade.setValues(modelName, keys, newNodeValue);
 			    } else {
 				    Map newOrderValues = new HashMap<>();
@@ -179,18 +181,19 @@ public class Tree extends DWRBase {
 			}
 			
 			childRows.removeIf(rows::contains);
-
 			for (String row : childRows) {
 				Map keys = (Map) collectionView.getCollectionTab().getTableModel().getObjectAt(Integer.valueOf(row));
 				pathValueMap = MapFacade.getValues(modelName, keys, pathIdMap);
 				String childPathValue = (String) pathValueMap.get(pathProperty);
+				boolean matched = false;
 				for (String parentPathValue : parentsValues) {
 					if (parentPathValue.isEmpty()) {
 						childPathValue = newPath + childPathValue;
 						break;
 					}
-					parentPathValue = parentPathValue.startsWith(pathSeparator) ? parentPathValue : pathSeparator + parentPathValue; 
+					parentPathValue = parentPathValue.startsWith(pathSeparator) ? parentPathValue : pathSeparator + parentPathValue;
 					if (childPathValue.startsWith(parentPathValue)) {
+						parentPathValue = parentPathValue.substring(0, parentPathValue.lastIndexOf(pathSeparator));
 						if (newPath.equals("")) {
 							childPathValue = childPathValue.replace(parentPathValue, newPath);
 						} else {
@@ -200,11 +203,13 @@ public class Tree extends DWRBase {
 								childPathValue = newPath + childPathValue.substring(childPathValue.indexOf(parentPathValue)  + parentPathValue.length());
 							}
 						}
+						matched = true;
 					} else if (childPathValue.contains(parentPathValue)) {
 						//for special cases
 						childPathValue = childPathValue.substring(childPathValue.indexOf(parentPathValue) - 1);
+						matched = true;
 					}
-					break;
+					if (matched == true) break;
 				}
 				pathValueMap.clear();
 				pathValueMap.put(pathProperty, childPathValue);
