@@ -1,6 +1,7 @@
 package org.openxava.test.tests.byfeature;
 
 import java.util.*;
+import java.util.stream.*;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
@@ -53,7 +54,7 @@ public class TreeTest extends WebDriverTestBase{
 		cutNode_treeState(getDriver()); 
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
-		dragAndDrop(getDriver()); 
+		dragAndDrop_verifyOrder(getDriver()); 
 		execute("Mode.list");
 		execute("CRUD.deleteRow", "row=1");
 		
@@ -170,7 +171,7 @@ public class TreeTest extends WebDriverTestBase{
 		assertFalse(driver.findElements(By.id(treeItemNodesId.get("child1") + "_anchor")).isEmpty()); 
 	}
 	
-	private void dragAndDrop(WebDriver driver) throws Exception {
+	private void dragAndDrop_verifyOrder(WebDriver driver) throws Exception {
 		executeDnd(driver, treeItemNodesId.get("child1sub2") + "_anchor", treeItemNodesId.get("child1sub1") + "_anchor");
 		executeDndBetween(driver, treeItemNodesId.get("child1") + "_anchor", treeItemNodesId.get("root"));
 		expandNode(driver, treeItemNodesId.get("child1sub1"));
@@ -190,7 +191,11 @@ public class TreeTest extends WebDriverTestBase{
 		
 		executeDnd(driver, treeItemNodesId.get("child3sub1") + "_anchor", treeItemNodesId.get("child3") + "_anchor");
 		executeDndBetween(driver, treeItemNodesId.get("child1sub2") + "_anchor", treeItemNodesId.get("child1"));
-
+		Thread.sleep(5000);
+		
+		List<String> childs = new ArrayList<>(Arrays.asList(treeItemNodesId.get("child1sub2"), treeItemNodesId.get("child1sub1")));
+		verifyChildsOrder(driver, treeItemNodesId.get("child1"), childs);
+		
 		executeDnd(driver, "14_anchor", "11_anchor");
 		driver.navigate().refresh();
 		Thread.sleep(1500); // wait all trees
@@ -214,6 +219,29 @@ public class TreeTest extends WebDriverTestBase{
 		executeDnd(driver, treeItemNodesId.get("child3sub1") + "_anchor", treeItemNodesId.get("child3") + "_anchor");
 		expandNode(driver, treeItemNodesId.get("child3"));
 		executeDnd(driver, treeItemNodesId.get("child1sub1") + "_anchor", treeItemNodesId.get("child1") + "_anchor");
+		
+		//order multiple node
+		WebElement childItem1CheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemNodesId.get("child1") +"_anchor']/i")); 
+		WebElement childItem3Sub1CheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemNodesId.get("child3sub1") +"_anchor']/i"));
+		childItem1CheckBox.click();
+		childItem3Sub1CheckBox.click();
+		Thread.sleep(500);
+		executeDndBetween(driver, treeItemNodesId.get("child1") + "_anchor", treeItemNodesId.get("root"));
+
+		driver.navigate().refresh();
+		Thread.sleep(1500);
+		childs = new ArrayList<>(Arrays.asList(treeItemNodesId.get("child1"), treeItemNodesId.get("child3sub1"), treeItemNodesId.get("root")));
+		verifyChildsOrder(driver, "#", childs);
+		assertTrue(isElementInside(driver, treeItemNodesId.get("child1"), treeItemNodesId.get("child1sub1") + "_anchor"));
+		
+		childItem1CheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemNodesId.get("child1") +"_anchor']/i"));
+		childItem3Sub1CheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemNodesId.get("child3sub1") +"_anchor']/i"));
+		childItem1CheckBox.click();
+		childItem3Sub1CheckBox.click();
+		
+		executeDnd(driver, treeItemNodesId.get("child3sub1") + "_anchor", treeItemNodesId.get("child3") + "_anchor");
+		executeDnd(driver, treeItemNodesId.get("child1") + "_anchor", treeItemNodesId.get("root") + "_anchor");
+		expandNode(driver, treeItemNodesId.get("child3"));
 	}
 	
 	private void createNodeWithPathSeparator_dnd(WebDriver driver) throws Exception {
@@ -324,5 +352,35 @@ public class TreeTest extends WebDriverTestBase{
 		List<WebElement> rootElement = driver.findElements(By.xpath("//a[@id='"+ treeItemNodesId.get("root") +"_anchor']/i")); 
 		assertFalse(rootElement.isEmpty());
 	}
+	
+	private void verifyChildsOrder(WebDriver driver, String parentId, List<String> expectedOrderIds) {
+		WebElement parentElement;
+		List<WebElement> childElements;
+		if (parentId == "#") {
+			//case root
+			parentElement = driver.findElement(By.cssSelector("div[data-table-id='ox_openxavatest_TreeContainer__treeItems']"));
+			childElements = parentElement.findElements(By.xpath("./ul[@class='jstree-container-ul jstree-children jstree-no-icons']/li"));
+	    } else {
+	    	parentElement = driver.findElement(By.id(parentId));
+	    	childElements = parentElement.findElements(By.xpath("./ul[@class='jstree-children']/li"));
+	    }
+	   
+	    List<String> actualOrderIds = childElements.stream()
+	            .map(child -> child.getAttribute("id"))
+	            .collect(Collectors.toList());
+	    
+	    for (int i = 0; i < expectedOrderIds.size(); i++) {
+	        String expectedId = expectedOrderIds.get(i);
+	        if (!actualOrderIds.contains(expectedId)) {
+	            throw new AssertionError("The ID " + expectedId + " is not among the children of " + parentId);
+	        }
+	        int actualIndex = actualOrderIds.indexOf(expectedId);
+	        if (i != actualIndex) {
+	            throw new AssertionError("Order is incorrect. Expected ID " + expectedId + " in the position " + i + " but was " + actualIndex);
+	        }
+	    }
+	}
+	
+	
 	
 }
