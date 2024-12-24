@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: In the tree, dropping a node onto a sibling doesn't maintain the intended placement order.
 - Fix: Tab.setBaseCondition() sometimes invalidates condition from @Tab(baseCondition=) or other condition. 
 - New filterByContentInAnyProperty() method in Tab to filter for a string value in any column.
 - New isJavaIdentifier() method in Strings utility class.
