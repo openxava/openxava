@@ -5,6 +5,9 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 import org.openxava.test.tests.byfeature.CollectionTest;
 
+/**
+ * @author Javier Paniza
+ */
 public class SingleTestSuite {
     
     public static Test suite() {

@@ -2,7 +2,6 @@ package org.openxava.test.tests.byfeature;
 
 import java.util.*;
 
-import org.junit.Test;
 import org.openqa.selenium.*;
 
 /**
@@ -14,10 +13,10 @@ import org.openqa.selenium.*;
  * @author Chungyen Tsai
  */
 public class CollectionTest extends WebDriverTestBase {
-
-    public CollectionTest(String testName) {
-        super(testName);
-    }
+	
+	public CollectionTest(String testName) {
+		super(testName);
+	}
 
     @Override
     protected boolean isHeadless() { // tmr

@@ -1,6 +1,7 @@
 package org.openxava.test.tests.byfeature;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 /**
  * To test subcontroller related issues with Selenium.
@@ -8,6 +9,10 @@ import org.openqa.selenium.*;
  * @author Javier Paniza
  */
 public class SubcontrollerTest extends WebDriverTestBase {
+	
+	public SubcontrollerTest(String testName) {
+		super(testName);
+	}
 	
 	public void testCharts() throws Exception {
 		goModule("Invoice");

@@ -1,15 +1,17 @@
 package org.openxava.test.tests.byfeature;
 
 import java.util.*;
-
 import org.openqa.selenium.*;
-
 /**
  * To test charts related issues with Selenium.
  * 
  * @author Javier Paniza
  */
 public class ChartsTest extends WebDriverTestBase {
+	
+	public ChartsTest(String testName) {
+		super(testName);
+	}
 	
 	public void testCharts() throws Exception {
 		goModule("Invoice");

@@ -1,6 +1,7 @@
 package org.openxava.test.tests.byfeature;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 /**
  * To test cards related issues with Selenium.
@@ -8,6 +9,10 @@ import org.openqa.selenium.*;
  * @author Chungyen Tsai
  */
 public class CardsTest extends WebDriverTestBase {
+	
+	public CardsTest(String testName) {
+		super(testName);
+	}
 	
 	public void testCardsStyle() throws Exception {
 		goModule("Customer");

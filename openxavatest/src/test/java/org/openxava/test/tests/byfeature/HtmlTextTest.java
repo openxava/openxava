@@ -1,9 +1,7 @@
 package org.openxava.test.tests.byfeature;
 
 import java.util.*;
-
 import org.openqa.selenium.*;
-
 /**
  * To test HtmlText related issue with Selenium.
  *
@@ -11,6 +9,10 @@ import org.openqa.selenium.*;
  */
 
 public class HtmlTextTest extends WebDriverTestBase {
+	
+	public HtmlTextTest(String testName) {
+		super(testName);
+	}
 	
 	public void testEditLinkFromDialog() throws Exception {
 		goModule("IncidentActivity");

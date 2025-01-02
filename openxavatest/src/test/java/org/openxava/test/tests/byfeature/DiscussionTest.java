@@ -10,7 +10,10 @@ import org.openqa.selenium.firefox.*;
  */
 
 public class DiscussionTest extends WebDriverTestBase {
-
+	
+	public DiscussionTest(String testName) {
+		super(testName);
+	}
 	
 	protected WebDriver createWebDriver(String lang) {
 		// If fails with Linux try to add -Dwebdriver.gecko.driver=/snap/bin/geckodriver

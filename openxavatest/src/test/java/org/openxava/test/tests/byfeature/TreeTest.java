@@ -6,14 +6,17 @@ import java.util.stream.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.*;
-
 /**
  * To test new tree library with Selenium.
  * 
  * @author Chungyen Tsai
  */
 public class TreeTest extends WebDriverTestBase{
-
+	
+	public TreeTest(String testName) {
+		super(testName);
+	}
+	
 	private Map<String, String> treeItemNodesId;
 	private Map<String, String> treeItemTwoNodesId;
 	

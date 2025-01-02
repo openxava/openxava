@@ -13,6 +13,10 @@ import org.openxava.util.*;
  */
 public class CoordinatesTest extends WebDriverTestBase {
 	
+	public CoordinatesTest(String testName) {
+		super(testName);
+	}
+	
 	public void testDependentCalculatedProperty() throws Exception {
 		goModule("CityMap");
 		execute("List.viewDetail", "row=0");

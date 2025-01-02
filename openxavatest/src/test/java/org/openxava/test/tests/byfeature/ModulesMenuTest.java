@@ -1,9 +1,7 @@
 package org.openxava.test.tests.byfeature;
 
 import java.util.*;
-
 import org.openqa.selenium.*;
-
 import com.openxava.naviox.util.*;
 
 /**
@@ -12,6 +10,10 @@ import com.openxava.naviox.util.*;
  * @author Javier Paniza
  */
 public class ModulesMenuTest extends WebDriverTestBase {
+	
+	public ModulesMenuTest(String testName) {
+		super(testName);
+	}
 	
 	public void testHideShowModulesMenu() throws Exception {
 		goModule("Applicant"); // Whatever

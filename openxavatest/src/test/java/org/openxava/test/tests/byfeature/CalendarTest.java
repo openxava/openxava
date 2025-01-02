@@ -3,7 +3,6 @@ package org.openxava.test.tests.byfeature;
 import java.text.*;
 import java.time.*;
 import java.util.*;
-
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.*;
@@ -15,6 +14,10 @@ import org.openqa.selenium.support.ui.*;
  * @author Chungyen Tsai
  */
 public class CalendarTest extends WebDriverTestBase {
+	
+	public CalendarTest(String testName) {
+		super(testName);
+	}
 	
     public void testCalendar() throws Exception {
     	assertErrorsHandlingCorrectly();
