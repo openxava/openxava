@@ -31,6 +31,7 @@ public class OrderTest extends ModuleTestBase {
 		// In the case of Charts we reduced the time at twice, but it still works slowly with calculated properties, something to improved
 	}
 	
+	// TMR FALLA
 	public void testGoodPerformanceWithCalculatedPropertiesInList_actionsNotLostAfterOpenDialogTwiceFromCollectionElement() throws Exception { 
 		long ini = System.currentTimeMillis();
 		execute("List.filter");
