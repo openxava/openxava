@@ -18,15 +18,6 @@ public class CollectionTest extends WebDriverTestBase {
 		super(testName);
 	}
 
-    @Override
-    protected boolean isHeadless() { // tmr
-        return false;
-    }
-
-    @Override
-    protected void tearDown() throws Exception { // tmr
-    }
-
     public void testChangeSectionNotLoadCollection() throws Exception {
         goModule("Invoice");
         execute("CRUD.new");
@@ -36,6 +27,7 @@ public class CollectionTest extends WebDriverTestBase {
         Thread.sleep(500);
         assertCollectionRowCount("details", (0+2));
         execute("CRUD.refresh");
+        Thread.sleep(300); 
         assertCollectionRowCount("details", (2+2)); 
 
         goModule("CustomerWithSection");
@@ -56,7 +48,19 @@ public class CollectionTest extends WebDriverTestBase {
         assertCollectionRowCount("defaultCarrier___fellowCarriersCalculated", (3+1));
     }
 
-    public void testRowActionsGroupInPopUp_openRecordInNewWindow() throws Exception { // TMR FALLA
+    
+    private String getCurrentUrl() throws Exception {
+        for (int i = 0; i < 20; i++) {
+            String url = getDriver().getCurrentUrl();
+            if (url != null && !url.trim().isEmpty() && !url.equals("about:blank")) {
+                return url;
+            }
+            Thread.sleep(100);
+        }
+        return "";
+    }
+
+    public void testRowActionsGroupInPopUp_openRecordInNewWindow() throws Exception { 
         goModule("Carrier");
         List<WebElement> menuIcons;
         List<WebElement> menu;
@@ -108,11 +112,7 @@ public class CollectionTest extends WebDriverTestBase {
         }
 
         getDriver().switchTo().window(newWindow);
-        System.out.println("currentUrl.1: " + getDriver().getCurrentUrl()); // tmr
-        Thread.sleep(5000); // tmr
-        System.out.println("currentUrl.2: " + getDriver().getCurrentUrl()); // tmr
-
-        assertEquals("http://localhost:8080/openxavatest/m/InvoiceDetail?detail=2002:1:0", getDriver().getCurrentUrl());
+        assertEquals("http://localhost:8080/openxavatest/m/InvoiceDetail?detail=2002:1:0", getCurrentUrl());
         wait(getDriver());
         WebElement number = getDriver().findElement(By.id("ox_openxavatest_InvoiceDetail__product___number"));
         assertEquals("2", number.getAttribute("value"));
@@ -136,7 +136,7 @@ public class CollectionTest extends WebDriverTestBase {
         }
 
         getDriver().switchTo().window(newWindow);
-        assertEquals("http://localhost:8080/openxavatest/m/ProjectMember?detail=ff8080824d095a71014d0967110a0005", getDriver().getCurrentUrl());
+        assertEquals("http://localhost:8080/openxavatest/m/ProjectMember?detail=ff8080824d095a71014d0967110a0005", getCurrentUrl());
         wait(getDriver());
 
         getDriver().close();
