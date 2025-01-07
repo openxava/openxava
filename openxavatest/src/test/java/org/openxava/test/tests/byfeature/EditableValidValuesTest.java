@@ -13,7 +13,7 @@ public class EditableValidValuesTest extends WebDriverTestBase {
 	public EditableValidValuesTest(String testName) {
 		super(testName);
 	}
-	
+
 	public void testEditableValidValuesWorksWithCSP() throws Exception {  
 		goModule("DeliveryEditableValidValues");
 		execute("CRUD.new");

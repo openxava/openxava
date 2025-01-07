@@ -1,3 +1,4 @@
 {
-    "java.debug.settings.onBuildFailureProceed": true
+    "files.encoding": "iso88591",
+    "files.autoGuessEncoding": false,
 }

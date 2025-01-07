@@ -16,6 +16,10 @@ import org.openxava.test.model.*;
 
 public class DescriptionsListTest extends WebDriverTestBase {
 
+	public DescriptionsListTest(String testName) {
+		super(testName);
+	}
+
 	protected void setUp() throws Exception {
 		super.setUp();
 		XPersistence.reset(); 
