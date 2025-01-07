@@ -9,7 +9,11 @@ import org.openqa.selenium.*;
  */
 
 public class ElementCollectionTest extends WebDriverTestBase {
-		
+	
+	public ElementCollectionTest(String testName) {
+		super(testName);
+	}
+	
 	public void testFocus() throws Exception {
 		goModule("Quote"); 
 		execute("CRUD.new");

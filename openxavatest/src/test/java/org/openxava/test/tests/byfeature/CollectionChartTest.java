@@ -1,16 +1,18 @@
 package org.openxava.test.tests.byfeature;
 
 import java.util.*;
-
 import org.openqa.selenium.*;
-
 /**
  * To test CollectionChart editor related issues with Selenium.
  * 
  * @author Javier Paniza
  */
 public class CollectionChartTest extends WebDriverTestBase {
-		
+	
+	public CollectionChartTest(String testName) {
+		super(testName);
+	}
+	
 	protected String getLang() { 
 		return "es"; // So we can test that translations work
 	}

@@ -1,16 +1,18 @@
 package org.openxava.test.tests.byfeature;
 
 import java.util.*;
-
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
-
 /**
  * To test pop up calendar with Selenium.
  * 
  * @author Chungyen Tsai
  */
 public class DateCalendarTest extends WebDriverTestBase {
+	
+	public DateCalendarTest(String testName) {
+		super(testName);
+	}
 	
 	public void testLocalDateTime() throws Exception {
 		goModule("Event");
@@ -249,7 +251,8 @@ public class DateCalendarTest extends WebDriverTestBase {
 		dateLabel.click();
 		assertValue("date", "5/13/2017");
 	}
-		
+	
+	// TMR FALLA
 	public void testDateTime_onChange_twoDigitYear_dateTimeSeparated_srDateTime() throws Exception {
 		goModule("ShipmentWithOnChange");
 		WebElement dateTime;

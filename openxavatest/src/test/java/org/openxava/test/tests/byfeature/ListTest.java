@@ -2,7 +2,6 @@ package org.openxava.test.tests.byfeature;
 
 import java.time.*;
 import java.util.*;
-
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.*;
@@ -15,6 +14,10 @@ import org.openxava.web.*;
  * @author Javier Paniza
  */
 public class ListTest extends WebDriverTestBase {
+	
+	public ListTest(String testName) {
+		super(testName);
+	}
 	
 	private final static String ACTION_PREFIX = "action";
 	

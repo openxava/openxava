@@ -1,11 +1,15 @@
 package org.openxava.test.tests.byfeature;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
 
-/*
+/**
  * @author Chungyen Tsai
  */
 public class MessagesTest extends WebDriverTestBase {
+	
+	public MessagesTest(String testName) {
+		super(testName);
+	}
 	
 	public void testMessagesHideAfterOpenDialog() throws Exception {
 		goModule("Blog");

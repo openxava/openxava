@@ -10,7 +10,7 @@ import org.openxava.tests.*;
  * @author Javier Paniza
  */
 
-public class Invoice2NoModifyDetailsTest extends ModuleTestBase {
+public class Invoice2NoModifyDetailsTest extends ModuleTestBase { 
 	
 	private static final List<String> EURO_ZONE_COUNTRIES = Arrays.asList( 
 		"AT", "BE", "CY", "EE", "FI", "FR", "DE", "GR", 

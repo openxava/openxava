@@ -16,7 +16,11 @@ import org.openqa.selenium.support.ui.*;
  */
 public class CalendarTest extends WebDriverTestBase {
 	
-    public void testCalendar() throws Exception {
+	public CalendarTest(String testName) {
+		super(testName);
+	}
+
+	public void testCalendar() throws Exception {
     	assertErrorsHandlingCorrectly();
     	assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate_dragAndDropLocalDate(); 
     	assertMultipleDatesPropertiesAndSelectDateToShow();

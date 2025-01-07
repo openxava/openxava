@@ -1,7 +1,6 @@
 package org.openxava.test.tests.byfeature;
 
 import java.time.*;
-
 import org.apache.commons.logging.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
@@ -14,6 +13,10 @@ import org.openqa.selenium.support.ui.*;
 public class UploadTest extends WebDriverTestBase {
 	
 	private static Log log = LogFactory.getLog(UploadTest.class);
+	
+	public UploadTest(String testName) {
+		super(testName);
+	}
 	
 	public void testOnChange() throws Exception {
 		goModule("CustomerFramesOnSameRow");

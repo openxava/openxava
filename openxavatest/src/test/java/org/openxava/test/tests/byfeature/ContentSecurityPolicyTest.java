@@ -10,6 +10,10 @@ import org.openqa.selenium.*;
 
 public class ContentSecurityPolicyTest extends WebDriverTestBase {
 	
+	public ContentSecurityPolicyTest(String testName) {
+		super(testName);
+	}
+	
 	protected boolean isHeadless() { // In order to work with Windows 7, because of timing issues
 		return false;
 	}

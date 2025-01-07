@@ -7,6 +7,7 @@ Change Log for OpenXava project
 - JSoup upgraded to 1.18.3.
 - Embedded Tomcat used in development upgraded to 9.0.98.
 - Driver version in doc/new projects upgraded for AS/400.
+- Works nicely with core OpenXava code using Visual Studio Code, including running the openxavatest suite.
 - Fix: In the tree, dropping a node onto a sibling doesn't maintain the intended placement order.
 - Fix: Tab.setBaseCondition() sometimes invalidates condition from @Tab(baseCondition=) or other condition. 
 - New filterByContentInAnyProperty() method in Tab to filter for a string value in any column.

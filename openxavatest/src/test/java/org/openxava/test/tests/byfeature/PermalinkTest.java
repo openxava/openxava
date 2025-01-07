@@ -7,6 +7,10 @@ package org.openxava.test.tests.byfeature;
  */
 public class PermalinkTest extends WebDriverTestBase {
 	
+	public PermalinkTest(String testName) {
+		super(testName);
+	}
+	
 	public void testAccessingRecordByPermalinkWhenHasTabBaseCondition() throws Exception {
 		goModule("CustomerLessThanFour");
 		assertListRowCount(3);

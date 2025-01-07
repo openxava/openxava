@@ -1,6 +1,7 @@
 package org.openxava.test.tests.byfeature;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 /**
  * 
@@ -9,6 +10,10 @@ import org.openqa.selenium.*;
  */
 public class MaskTest extends WebDriverTestBase {
 
+	public MaskTest(String testName) {
+		super(testName);
+	}
+	
 	public void testMask_MaskAsPropertyInEditorXml() throws Exception {
 		goModule("CustomerWithSection");
 		execute("CRUD.new");
