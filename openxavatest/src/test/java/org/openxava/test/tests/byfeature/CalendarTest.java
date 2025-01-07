@@ -212,15 +212,16 @@ public class CalendarTest extends WebDriverTestBase {
 		goModule("UserWithBirthday");
 		execute("Mode.list");
 		moveToCalendarView(getDriver());
-		WebElement firstDayElement = getDriver().findElement(By.cssSelector(".fc-daygrid-day"));
+		WebElement firstDayElement = getDriver().findElement(By.cssSelector(".fc-daygrid-day:not(.fc-day-other)"));
 		firstDayElement.click();
 		wait(getDriver());
 		setValue("userName", "Pedro");
 		execute("CRUD.save");
 		execute("Mode.list");
 		WebElement firstDayEvent = getDriver().findElement(By.cssSelector(".fc-event"));
-		List<WebElement> dayElements = getDriver().findElements(By.cssSelector(".fc-daygrid-day"));
+		List<WebElement> dayElements = getDriver().findElements(By.cssSelector(".fc-daygrid-day:not(.fc-day-other)"));
 		WebElement secondDayElement = dayElements.get(1);
+		Thread.sleep(5000);
 		Actions actions = new Actions(getDriver());
 		actions.dragAndDrop(firstDayEvent, secondDayElement).build().perform();
 		Thread.sleep(300);
@@ -228,8 +229,9 @@ public class CalendarTest extends WebDriverTestBase {
 		wait(getDriver());
 		waitCalendarEvent(getDriver());
 		
-		dayElements = getDriver().findElements(By.cssSelector(".fc-daygrid-day"));
+		dayElements = getDriver().findElements(By.cssSelector(".fc-daygrid-day:not(.fc-day-other)"));
 		secondDayElement = dayElements.get(1);
+		Thread.sleep(5000);
 		WebElement foundEvent = secondDayElement.findElement(By.cssSelector(".fc-event"));
 		
 		moveToListView();

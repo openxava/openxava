@@ -1,5 +1,6 @@
 package org.openxava.test.filters;
 
+import java.time.*;
 import java.util.*;
 
 import org.openxava.filters.*;
@@ -28,7 +29,8 @@ public class DefaultYearEnvFilter extends BaseContextFilter {
 
 	private Integer getDefaultYear() throws FilterException {
 		try {
-			return new Integer(getEnvironment().getValue("XAVATEST_DEFAULT_YEAR"));			
+			int year = new Integer(getEnvironment().getValue("XAVATEST_DEFAULT_YEAR"));
+			return year != 0 ? year : LocalDate.now().getYear();			
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
