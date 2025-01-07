@@ -3,7 +3,7 @@ package org.openxava.test.tests.byfeature;
 import java.util.*;
 import org.openqa.selenium.*;
 /**
- * To test charts related issues with Selenium.
+ * To test charts related issues with Seleniumx.
  * 
  * @author Javier Paniza
  */
