@@ -43,13 +43,6 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValue("year", "2004");
 		assertValue("number", "12");
 		
-		execute("CRUD.delete");
-		if (Locale.getDefault().equals("en")) { // msg change if use -Duser.language=es -Duser.country=ES in VM Arguments
-			assertError("integrity constraint violation: foreign key no action ; FKB2B28E2D92A73ADC table: DELIVERY");
-		} else if (Locale.getDefault().equals("es")) {
-			assertError("violación del restricción de integridad: sin acción para la clave foránea ; FKB2B28E2D92A73ADC table: DELIVERY");
-		}
-		
 		execute("Sections.change", "activeSection=1");
 		assertCollectionRowCount("details", 2);
 		assertValueInCollection("details", 0, 1, "MULTAS DE TRAFICO");
@@ -1476,23 +1469,23 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertNoErrors();
 		assertValue("date", "04/01/2004");
 		
-		setValue("date", "4/1/44"); // If current year is 2024 
+		setValue("date", "4/1/45"); // If current year is 2025 
 		execute("CRUD.save");
 		assertNoErrors();
 		setValue("year", String.valueOf(getInvoice().getYear()));
 		setValue("number", String.valueOf(getInvoice().getNumber()));
 		execute("CRUD.refresh");
 		assertNoErrors();
-		assertValue("date", "04/01/2044"); 
+		assertValue("date", "04/01/2045"); 
 		
-		setValue("date", "040145"); // If current year is 2024 
+		setValue("date", "040146"); // If current year is 2025
 		execute("CRUD.save");
 		assertNoErrors();
 		setValue("year", String.valueOf(getInvoice().getYear()));
 		setValue("number", String.valueOf(getInvoice().getNumber()));
 		execute("CRUD.refresh");
 		assertNoErrors();
-		assertValue("date", "04/01/1945"); 
+		assertValue("date", "04/01/1946"); 
 		
 		setValue("date", "30/2/2008");
 		execute("CRUD.save");

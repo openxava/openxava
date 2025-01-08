@@ -3,6 +3,7 @@ package org.openxava.test.tests.byfeature;
 import java.text.*;
 import java.time.*;
 import java.util.*;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.*;
@@ -18,8 +19,8 @@ public class CalendarTest extends WebDriverTestBase {
 	public CalendarTest(String testName) {
 		super(testName);
 	}
-	
-    public void testCalendar() throws Exception {
+
+	public void testCalendar() throws Exception {
     	assertErrorsHandlingCorrectly();
     	assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate_dragAndDropLocalDate(); 
     	assertMultipleDatesPropertiesAndSelectDateToShow();
@@ -215,15 +216,16 @@ public class CalendarTest extends WebDriverTestBase {
 		goModule("UserWithBirthday");
 		execute("Mode.list");
 		moveToCalendarView(getDriver());
-		WebElement firstDayElement = getDriver().findElement(By.cssSelector(".fc-daygrid-day"));
+		WebElement firstDayElement = getDriver().findElement(By.cssSelector(".fc-daygrid-day:not(.fc-day-other)"));
 		firstDayElement.click();
 		wait(getDriver());
 		setValue("userName", "Pedro");
 		execute("CRUD.save");
 		execute("Mode.list");
 		WebElement firstDayEvent = getDriver().findElement(By.cssSelector(".fc-event"));
-		List<WebElement> dayElements = getDriver().findElements(By.cssSelector(".fc-daygrid-day"));
+		List<WebElement> dayElements = getDriver().findElements(By.cssSelector(".fc-daygrid-day:not(.fc-day-other)"));
 		WebElement secondDayElement = dayElements.get(1);
+		Thread.sleep(5000);
 		Actions actions = new Actions(getDriver());
 		actions.dragAndDrop(firstDayEvent, secondDayElement).build().perform();
 		Thread.sleep(300);
@@ -231,8 +233,9 @@ public class CalendarTest extends WebDriverTestBase {
 		wait(getDriver());
 		waitCalendarEvent(getDriver());
 		
-		dayElements = getDriver().findElements(By.cssSelector(".fc-daygrid-day"));
+		dayElements = getDriver().findElements(By.cssSelector(".fc-daygrid-day:not(.fc-day-other)"));
 		secondDayElement = dayElements.get(1);
+		Thread.sleep(5000);
 		WebElement foundEvent = secondDayElement.findElement(By.cssSelector(".fc-event"));
 		
 		moveToListView();

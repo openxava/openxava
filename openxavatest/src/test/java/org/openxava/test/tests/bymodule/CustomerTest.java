@@ -104,12 +104,26 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertCollectionRowCount("receptionists", 2);
 	}
 				
-	public void testObtainAggregateValues() throws Exception { 
+	public void testObtainAggregateValues_constraintViolationShowWell() throws Exception { 
 		String city = getValueInList(0, "address.city");
 		assertTrue("Value for city in first customer is required for run this test", !Is.emptyString(city));
 		execute("List.viewDetail", "row=0");
 		assertValue("address.city", city);
 		assertNoLabel("addres.city");
+		
+		execute("CRUD.delete");
+		int errorCount = 0;
+		try { // when system language is english
+		assertError("integrity constraint violation: foreign key no action ; FK7904A1B492FC9643 table: INVOICE");
+		} catch (AssertionError e) {
+			errorCount++;
+		}
+		try { // when system language is spanish
+		assertError("violación del restricción de integridad: sin acción para la clave foránea ; FK7904A1B492FC9643 table: INVOICE");
+		} catch (AssertionError e) {
+			errorCount++;
+		}
+		assertTrue(errorCount < 2); // the system language is another or msg is not showing well
 	}
 	
 	public void testCalculatedPropertyDependsOnPropertyOfAggregate() throws Exception { 

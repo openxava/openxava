@@ -1,6 +1,14 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Deleting an entity with a foreign key restriction shows a confusing FK2342432343 message to the user.
+- Fixed 1 security vulnerability in dependencies, now we have 0 vulnerabilities.
+- Json upgraded to 20241224.
+- Jersey client, hk2 and media upgraded to 2.46.
+- Log4j API and core upgraded to 2.24.3.
+- JSoup upgraded to 1.18.3.
+- Embedded Tomcat used in development upgraded to 9.0.98.
+- Driver version in doc/new projects upgraded for AS/400.
 - Works nicely with core OpenXava code using Visual Studio Code, including running the openxavatest suite.
 - Fix: In the tree, dropping a node onto a sibling doesn't maintain the intended placement order.
 - Fix: Tab.setBaseCondition() sometimes invalidates condition from @Tab(baseCondition=) or other condition. 
