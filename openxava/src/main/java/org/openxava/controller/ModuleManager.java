@@ -909,7 +909,9 @@ public class ModuleManager implements java.io.Serializable {
 			MetaAction metaAction, Messages errors, Messages messages,
 			org.hibernate.exception.ConstraintViolationException ex) {
 		String constraintName = ex.getConstraintName().toLowerCase();
-		if (constraintName.startsWith("fk") || ex.getCause().getMessage().contains("foreign")) {
+		if (constraintName.startsWith("fk") 
+				|| ex.getCause().getMessage().contains("foreign")
+				|| ex.getCause().getMessage().contains("foránea")) {
 			errors.add(ex.getCause().getMessage());
 		} else {
 			errors.add(constraintName);
