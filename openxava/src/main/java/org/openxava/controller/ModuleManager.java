@@ -856,6 +856,7 @@ public class ModuleManager implements java.io.Serializable {
 	}
 
 	private void manageException(MetaAction metaAction, Messages errors, Messages messages, Exception ex) {
+		System.out.println("manageException"); // cyt
 		if (ex instanceof ValidationException) {
 			errors.add(((ValidationException) ex).getErrors());
 			messages.removeAll();
@@ -880,9 +881,11 @@ public class ModuleManager implements java.io.Serializable {
 			doRollback();
 			
 		} else if (ex instanceof javax.persistence.PersistenceException) {
+			System.out.println("1"); // cyt
 			if (ex.getCause() instanceof org.hibernate.exception.ConstraintViolationException
 					&& ((org.hibernate.exception.ConstraintViolationException) ex
 							.getCause()).getConstraintName() != null) {
+				System.out.println("11"); // cyt
 				manageHibernateConstraintViolationlException(
 						metaAction,
 						errors,
@@ -909,7 +912,7 @@ public class ModuleManager implements java.io.Serializable {
 			MetaAction metaAction, Messages errors, Messages messages,
 			org.hibernate.exception.ConstraintViolationException ex) {
 		String constraintName = ex.getConstraintName().toLowerCase();
-		if (ex.getCause().getMessage().contains("foreign")) {
+		if (constraintName.contains("fk")) {
 			errors.add(ex.getCause().getMessage());
 		} else {
 			errors.add(constraintName);
