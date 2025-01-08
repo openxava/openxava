@@ -38,6 +38,7 @@ public class SaveCollectionTotalsAction extends ViewBaseAction implements IForwa
 	public void setSumProperty(String sumProperty) {
 		this.sumProperty = sumProperty;
 	}
+	
 
 	public String getForwardURI() { 
 		return "javascript:void(0)"; // A dirty trick to show messages of previous action 
@@ -46,5 +47,11 @@ public class SaveCollectionTotalsAction extends ViewBaseAction implements IForwa
 	public boolean inNewWindow() { 
 		return false;
 	}
+/*
+	@Override
+	public String getForwardURI() {
+		// TODO Auto-generated method stub
+		return null;
+	}*/
 
 }

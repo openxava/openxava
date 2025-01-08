@@ -29,7 +29,7 @@ if (editable || !label) {
 	size="<%=size%>" 
 	value="<%=fDate%>" <%=disabled%>>
 	<%if (editable) {%>
-	<a href="javascript:void(0)" data-toggle>
+	<a data-toggle>
 	<i class="mdi mdi-calendar"></i>
 	</a>
 	<%} %>

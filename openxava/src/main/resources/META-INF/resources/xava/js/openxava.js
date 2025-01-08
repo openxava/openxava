@@ -57,7 +57,7 @@ openxava.refreshPage = function(result) {
 		window.location.reload();
 		return;
 	}		
-	if (result.forwardURL != null) {
+	if (result.forwardURL != null && result.forwardURL !== "javascript:void(0)") {
 		if (result.forwardInNewWindow) { 
 			if (openxava.newWindow != null) {
 				openxava.newWindow.location = result.forwardURL;
