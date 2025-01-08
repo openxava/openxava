@@ -57,7 +57,7 @@ openxava.refreshPage = function(result) {
 		window.location.reload();
 		return;
 	}		
-	if (result.forwardURL != null && result.forwardURL !== "javascript:void(0)") {
+	if (result.forwardURL != null) {
 		if (result.forwardInNewWindow) { 
 			if (openxava.newWindow != null) {
 				openxava.newWindow.location = result.forwardURL;
@@ -78,7 +78,7 @@ openxava.refreshPage = function(result) {
 			return; 			
 		}
 		else {
-			location.href=result.forwardURL;			
+			if (result.forwardURL !== "javascript:void(0)") location.href=result.forwardURL;			
 		}
 	}
 	else if (result.forwardURLs != null) { 
