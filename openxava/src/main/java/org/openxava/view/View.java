@@ -2688,8 +2688,7 @@ public class View implements java.io.Serializable {
 					
 			// Sections		
 			if (hasSections()) {
-				int count = getSections().size();
-				for (int i = 0; i < count; i++) {
+				for (int i = 0; i < getSections().size(); i++) {
 					getSectionView(i).calculateDefaultValues(false);
 				}	
 			}
@@ -4993,7 +4992,7 @@ public class View implements java.io.Serializable {
 		if (hasSections()) {
 			int count = getSections().size();
 			for (int i = 0; i < count; i++) {				
-				getSectionView(i).setHidden(name, hidden);				
+				getSectionView(i).setHidden(name, hidden);	
 			}	
 		}
 		
