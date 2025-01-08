@@ -4,6 +4,9 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.openxava.annotations.*;
+import org.openxava.test.actions.*;
+
 import lombok.*;
 
 /**
@@ -13,9 +16,11 @@ import lombok.*;
  */
 
 @Entity @Getter @Setter
+@View(members="year; contributions; sectionA { } sectionB { } sectionC { } ")
 public class AnnualContribution {
 	
 	@Id @Column(length=4)
+	@OnChange(OnChangeYearAction.class)
 	int year;
 	
 	@ElementCollection
