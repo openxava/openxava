@@ -1469,7 +1469,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertNoErrors();
 		assertValue("date", "04/01/2004");
 		
-		setValue("date", "4/1/45"); // If current year is 2024 
+		setValue("date", "4/1/45"); // If current year is 2025 
 		execute("CRUD.save");
 		assertNoErrors();
 		setValue("year", String.valueOf(getInvoice().getYear()));
@@ -1478,7 +1478,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertNoErrors();
 		assertValue("date", "04/01/2045"); 
 		
-		setValue("date", "040146"); // If current year is 2024 
+		setValue("date", "040146"); // If current year is 2025
 		execute("CRUD.save");
 		assertNoErrors();
 		setValue("year", String.valueOf(getInvoice().getYear()));
