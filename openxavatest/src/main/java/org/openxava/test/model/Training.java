@@ -18,7 +18,7 @@ import org.openxava.test.actions.*;
 public class Training extends Identifiable {
 		
 	@Required @Column(length=40)
-	@OnChange(OnChangeYearAction.class)
+	@OnChange(forViews="WithSections", value=OnChangeYearAction.class)
 	private String description;
 	
 	@javax.validation.constraints.Size(min=1, max=3) 

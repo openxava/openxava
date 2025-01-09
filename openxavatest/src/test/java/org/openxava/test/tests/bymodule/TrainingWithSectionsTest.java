@@ -15,9 +15,8 @@ public class TrainingWithSectionsTest extends ModuleTestBase {
 		super(testName, "TrainingWithSections");		
 	}
 	
-	public void testOnChangeHideSection() throws Exception { 
+	public void testOnChangeHideSectionWhenNoRecords() throws Exception { 
 		assertNoErrors();
 	}
-
 		
 }
