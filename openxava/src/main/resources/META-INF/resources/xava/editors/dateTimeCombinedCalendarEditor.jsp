@@ -24,7 +24,7 @@ if (editable || !label) {
 		maxlength="19"
 		data-input
 		size="19" 
-		value="<%=fvalue%>" <%=disabled%>><%if (editable) {%><a href="javascript:void(0)" data-toggle><i class="mdi mdi-calendar-clock"></i></a><%} %>	
+		value="<%=fvalue%>" <%=disabled%>><%if (editable) {%><a data-toggle><i class="mdi mdi-calendar-clock"></i></a><%} %>	
 </span>
 
 <%

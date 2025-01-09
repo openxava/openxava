@@ -78,7 +78,7 @@ openxava.refreshPage = function(result) {
 			return; 			
 		}
 		else {
-			location.href=result.forwardURL;			
+			if (result.forwardURL !== "javascript:void(0)") location.href=result.forwardURL;			
 		}
 	}
 	else if (result.forwardURLs != null) { 

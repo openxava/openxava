@@ -145,13 +145,13 @@ for (int f=0; f < rowCount; f++) {
 	<%if (!Is.emptyString(removeSelectedAction)) {%>
 	<xava:action action='<%=removeSelectedAction%>' argv='<%="row=" + f + ",viewObject=" + viewName%>'/>
 	<%} else if (suppressRemoveAction){%>
-	 <a title='<xava:message key="remove_row"/>' href="javascript:void(0)">
+	 <a title='<xava:message key="remove_row"/>'>
 		<img 		 
 			src='<%=request.getContextPath()%>/xava/images/spacer.gif'
 			border='0' align='absmiddle'/>
 	 </a>
 	<%} else { %>
-	 <a title='<xava:message key="remove_row"/>' href="javascript:void(0)" class='<%=style.getActionImage()%>'>
+	 <a title='<xava:message key="remove_row"/>' class='<%=style.getActionImage()%>'>
 	 	<% if (style.isUseIconsInsteadOfImages()) { %>
 		<i class="ox-element-collection-remove-action mdi mdi-delete" data-row="<%=f%>" data-has-totals="<%=hasTotals%>"></i>
 		<% } else { %>

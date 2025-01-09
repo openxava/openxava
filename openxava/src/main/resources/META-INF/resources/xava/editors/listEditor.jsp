@@ -215,7 +215,7 @@ String headerLabel=Strings.noLastToken(label) + " <nobr>" + Strings.lastToken(la
 <xava:action action="List.filter" argv="<%=collectionArgv%>"/>
 </td> 
 <td class="ox-list-subheader" width="5"> 
-	<a title='<xava:message key="clear_condition_values"/>' href="javascript:void(0)">
+	<a title='<xava:message key="clear_condition_values"/>'>
 		<i class="xava_clear_condition mdi mdi-eraser" 
 			id="<xava:id name='<%=prefix + "xava_clear_condition"%>' />" 
 			data-prefix="<%=prefix%>"></i>		
@@ -324,7 +324,7 @@ while (it.hasNext()) {
 	<% if (isDate) { 
 	String styleValue = styleCalendar != null ? styleCalendar : styleConditionValue;
 	%>
-		<a href="javascript:void(0)" data-toggle class="<%=styleValue%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
+		<a data-toggle class="<%=styleValue%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
 	<% } %>
 </nobr>
 <br/>
@@ -334,7 +334,7 @@ while (it.hasNext()) {
 	maxlength="<%=maxLength%>" size="<%=length%>" value="<%=valueTo%>" placeholder="<%=labelTo%>"
 	<%=isDate?"data-input":""%>/>
 	<% if (isDate) { %>
-		<a href="javascript:void(0)" data-toggle class="<%=styleConditionValueTo%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
+		<a data-toggle class="<%=styleConditionValueTo%>" tabindex="999"><i class="mdi mdi-<%=isTimestamp?"calendar-clock":"calendar"%>"></i></a>
 	<% } %>
 </nobr>
 	<%			
