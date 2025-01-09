@@ -1640,5 +1640,9 @@
 		<action name="filterByX" mode="list"
 			class="org.openxava.test.actions.FilterByXAction"/>			
 	</controller>	
+	
+	<controller name="TypicalWithOutNew">
+		<extends controller="Typical" excluded-actions="new"/>	
+	</controller>
 
 </controllers>

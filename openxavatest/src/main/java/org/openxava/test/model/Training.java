@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.model.*;
+import org.openxava.test.actions.*;
 
 /**
  * 
@@ -13,9 +14,11 @@ import org.openxava.model.*;
  */
 
 @Entity
+@View(name="WithSections", members="sectionA {description} sectionB {sessions} sectionC {} ")
 public class Training extends Identifiable {
 		
 	@Required @Column(length=40)
+	@OnChange(OnChangeYearAction.class)
 	private String description;
 	
 	@javax.validation.constraints.Size(min=1, max=3) 
