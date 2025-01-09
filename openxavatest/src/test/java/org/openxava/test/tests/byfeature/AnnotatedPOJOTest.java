@@ -32,6 +32,10 @@ public class AnnotatedPOJOTest extends TestCase {
 	protected void tearDown() throws Exception {
 		XPersistence.commit();
 	}
+
+	public void testSomething() throws Exception {
+		
+	}
 	
 	public void testRequiredAsBeanValidationAnnotation() throws Exception { 
 		DrivingLicence dl = new DrivingLicence();
