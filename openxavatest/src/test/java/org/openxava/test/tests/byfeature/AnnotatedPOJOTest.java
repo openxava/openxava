@@ -34,7 +34,12 @@ public class AnnotatedPOJOTest extends TestCase {
 	}
 
 	public void testSomething() throws Exception {
+		String expected = "test";
+		String actual = "test";
+		assertEquals("Strings should be equal", expected, actual);
 		
+		assertTrue("True should be true", true);
+		assertNotNull("Object should not be null", new Object());
 	}
 	
 	public void testRequiredAsBeanValidationAnnotation() throws Exception { 
