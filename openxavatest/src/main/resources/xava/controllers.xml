@@ -1642,7 +1642,18 @@
 	</controller>	
 	
 	<controller name="TypicalWithOutNew">
-		<extends controller="Typical" excluded-actions="new"/>	
+		<extends controller="Typical" excluded-actions="new"/>
+		<extends controller="New"/>	
 	</controller>
 
+	<controller name="New">
+			<action  name="new" 
+			class="org.openxava.actions.NewAction"
+			image="new.gif"
+			icon="library-plus"
+			keystroke="Control N">
+			<set property="restoreModel" value="true"/>			
+		</action>	
+	</controller>
+	
 </controllers>
