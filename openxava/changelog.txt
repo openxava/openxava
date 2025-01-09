@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Content-Security-Policy error in browser console related to javascript:void(0) in some modules.
 - Fix: Deleting an entity with a foreign key restriction shows a confusing FK2342432343 message to the user.
 - Fixed 1 security vulnerability in dependencies, now we have 0 vulnerabilities.
 - Json upgraded to 20241224.
