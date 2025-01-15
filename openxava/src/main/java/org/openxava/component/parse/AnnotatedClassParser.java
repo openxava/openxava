@@ -177,10 +177,8 @@ public class AnnotatedClassParser implements IComponentParser {
 			propertyDescriptors.remove(f.getName());
 		}
 		
-		System.out.println("[AnnotatedClassParser.parseMembers] Getters for " + model.getName() + ":"); // tmr
 		// We order the methods to be consistent with both Sun and JRockit, only JRockit returns the method as declared 			
 		for (Method m: getOrderedDeclaredGetterMethods(pojoClass)) { 
-			System.out.println("[AnnotatedClassParser.parseMembers] Getter=" + m.getName()); // tmr
 			if (!Modifier.isPublic(m.getModifiers())) continue; 
 			String propertyName = null;
 			if (m.getName().startsWith("get")) {
@@ -191,9 +189,7 @@ public class AnnotatedClassParser implements IComponentParser {
 			}
 			else continue;
 			PropertyDescriptor pd = propertyDescriptors.get(propertyName);
-			System.out.println("[AnnotatedClassParser.parseMembers] pd=" + pd); // tmr
 			if (pd == null) continue;
-			System.out.println("[AnnotatedClassParser.parseMembers] " + m.getName() + " added"); // tmr
 			addMember(model, mapping, pd, null, embedded);
 		}
 		
@@ -2625,16 +2621,9 @@ public class AnnotatedClassParser implements IComponentParser {
 		return metaValidator;
 	}
 	
-	
+	/* tmr
 	private Map<String, PropertyDescriptor> getPropertyDescriptors(Class pojoClass) throws IntrospectionException {
-		// TMR ME QUEDÉ POR AQUÍ: NO RECONOCE LA ÚLTIMA VERSIÓN DE LA CLASE
-		Introspector.flushCaches(); // tmr
-		System.out.println("[AnnotatedClassParser.getPropertyDescriptors] All chache flushed"); // tmr
-		Introspector.flushFromCaches(pojoClass); // tmr
-		System.out.println("[AnnotatedClassParser.getPropertyDescriptors] Flushed for " + pojoClass); // tmr
-		BeanInfo info = Introspector.getBeanInfo(pojoClass, Object.class); // tmr
-		System.out.println("[AnnotatedClassParser.getPropertyDescriptors] Using Object.class"); // tmr
-		// tmr BeanInfo info = Introspector.getBeanInfo(pojoClass);
+		BeanInfo info = Introspector.getBeanInfo(pojoClass);
 		Map<String, PropertyDescriptor> result = new HashMap<String, PropertyDescriptor>();
 		for (PropertyDescriptor pd: info.getPropertyDescriptors()) {
 			System.out.println("[AnnotatedClassParser.getPropertyDescriptors] pd.getName()=" + pd.getName()); // tmr
@@ -2643,6 +2632,80 @@ public class AnnotatedClassParser implements IComponentParser {
 		}
 		return result;
 	}
+	*/
+	
+	// tmr ini
+	private Map<String, PropertyDescriptor> getPropertyDescriptors(Class<?> pojoClass) { // tmr ¿Mover a classes? Cambiar todos los usos de Introspector
+	    Map<String, PropertyDescriptor> result = new HashMap<>();
+
+	    // Recorrer la jerarquía de clases para incluir métodos heredados
+	    Class<?> currentClass = pojoClass;
+	    while (currentClass != null && currentClass != Object.class) {
+	        // Obtener todos los métodos públicos (incluidos los heredados)
+	        Method[] methods = currentClass.getMethods();
+	        for (Method method : methods) {
+	            // Determinar si es un getter
+	            if (isGetter(method)) {
+	                String propertyName = extractPropertyNameFromGetter(method.getName());
+	                try {
+	                    // Buscar un setter correspondiente
+	                    Method setter = findSetterMethod(currentClass, propertyName, method.getReturnType());
+	                    PropertyDescriptor pd = new PropertyDescriptor(propertyName, method, setter);
+	                    result.putIfAbsent(propertyName, pd); // Evitar duplicados
+	                } catch (Exception e) {
+	                }
+	            }
+	        }
+	        currentClass = currentClass.getSuperclass();
+	    }
+
+	    return result;
+	}
+
+	// Verificar si un método es un getter
+	private boolean isGetter(Method method) {
+	    if (!method.getName().startsWith("get") && !method.getName().startsWith("is")) return false;
+	    if (method.getParameterCount() != 0) return false;
+	    if (void.class.equals(method.getReturnType())) return false;
+	    return true;
+	}
+
+	// Extraer el nombre de la propiedad a partir del nombre del getter
+	private String extractPropertyNameFromGetter(String getterName) {
+	    if (getterName.startsWith("get")) {
+	        return decapitalize(getterName.substring(3));
+	    } else if (getterName.startsWith("is")) {
+	        return decapitalize(getterName.substring(2));
+	    }
+	    throw new IllegalArgumentException("El método no es un getter válido: " + getterName);
+	}
+
+	// Buscar el método setter correspondiente
+	private Method findSetterMethod(Class<?> clazz, String propertyName, Class<?> propertyType) {
+	    String setterName = "set" + capitalize(propertyName);
+	    try {
+	        return clazz.getMethod(setterName, propertyType);
+	    } catch (NoSuchMethodException e) {
+	        return null; // Sin setter
+	    }
+	}
+
+	// Capitalizar la primera letra de una cadena
+	private String capitalize(String str) {
+	    if (str == null || str.isEmpty()) {
+	        return str;
+	    }
+	    return str.substring(0, 1).toUpperCase() + str.substring(1);
+	}
+
+	// Descapitalizar la primera letra de una cadena
+	private String decapitalize(String str) {
+	    if (str == null || str.isEmpty()) {
+	        return str;
+	    }
+	    return str.substring(0, 1).toLowerCase() + str.substring(1);
+	}	
+	// tmr fin
 	
 	private String getClassNameFor(String name) throws XavaException { 
 		String className = getClassNameIfExists(name);
