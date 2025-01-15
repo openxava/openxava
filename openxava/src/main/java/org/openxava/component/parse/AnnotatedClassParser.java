@@ -177,8 +177,10 @@ public class AnnotatedClassParser implements IComponentParser {
 			propertyDescriptors.remove(f.getName());
 		}
 		
+		System.out.println("[AnnotatedClassParser.parseMembers] Getters for " + model.getName() + ":"); // tmr
 		// We order the methods to be consistent with both Sun and JRockit, only JRockit returns the method as declared 			
 		for (Method m: getOrderedDeclaredGetterMethods(pojoClass)) { 
+			System.out.println("[AnnotatedClassParser.parseMembers] Getter=" + m.getName()); // tmr
 			if (!Modifier.isPublic(m.getModifiers())) continue; 
 			String propertyName = null;
 			if (m.getName().startsWith("get")) {
@@ -189,7 +191,9 @@ public class AnnotatedClassParser implements IComponentParser {
 			}
 			else continue;
 			PropertyDescriptor pd = propertyDescriptors.get(propertyName);
+			System.out.println("[AnnotatedClassParser.parseMembers] pd=" + pd); // tmr
 			if (pd == null) continue;
+			System.out.println("[AnnotatedClassParser.parseMembers] " + m.getName() + " added"); // tmr
 			addMember(model, mapping, pd, null, embedded);
 		}
 		
@@ -2623,9 +2627,17 @@ public class AnnotatedClassParser implements IComponentParser {
 	
 	
 	private Map<String, PropertyDescriptor> getPropertyDescriptors(Class pojoClass) throws IntrospectionException {
-		BeanInfo info = Introspector.getBeanInfo(pojoClass);
+		// TMR ME QUEDÉ POR AQUÍ: NO RECONOCE LA ÚLTIMA VERSIÓN DE LA CLASE
+		Introspector.flushCaches(); // tmr
+		System.out.println("[AnnotatedClassParser.getPropertyDescriptors] All chache flushed"); // tmr
+		Introspector.flushFromCaches(pojoClass); // tmr
+		System.out.println("[AnnotatedClassParser.getPropertyDescriptors] Flushed for " + pojoClass); // tmr
+		BeanInfo info = Introspector.getBeanInfo(pojoClass, Object.class); // tmr
+		System.out.println("[AnnotatedClassParser.getPropertyDescriptors] Using Object.class"); // tmr
+		// tmr BeanInfo info = Introspector.getBeanInfo(pojoClass);
 		Map<String, PropertyDescriptor> result = new HashMap<String, PropertyDescriptor>();
 		for (PropertyDescriptor pd: info.getPropertyDescriptors()) {
+			System.out.println("[AnnotatedClassParser.getPropertyDescriptors] pd.getName()=" + pd.getName()); // tmr
 			if (pd.getName().equals("metaClass")) continue; 
 			result.put(pd.getName(), pd);				
 		}

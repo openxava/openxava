@@ -56,6 +56,7 @@ public class MetaComponent implements Serializable {
 	public static MetaComponent get(String name) throws ElementNotFoundException, XavaException {
 		MetaComponent r = (MetaComponent) components.get(name);		
 		if (r == null) {		
+			long ini = System.currentTimeMillis(); // tmr
 			if (name.indexOf('.') >= 0) { // A component never is qualified
 				throw new ElementNotFoundException("component_not_found", name);
 			}
@@ -67,6 +68,9 @@ public class MetaComponent implements Serializable {
 			if (r.isMetaDataCached()) { 
 				components.put(name, r); 
 			}
+			long cuesta = System.currentTimeMillis() - ini; // tmr
+			System.out.println("[MetaComponent.get(" + name + ")] cuesta=" + cuesta); // tmr
+			System.out.println("[MetaComponent.get(" + name + ")] properties=" + r.getMetaEntity().getPropertiesNames()); // tmr
 		}
 		return r;
 	}
@@ -489,7 +493,8 @@ public class MetaComponent implements Serializable {
 	}
 
 	public boolean isMetaDataCached() {
-		return metaDataCached;
+		// tmr return metaDataCached;
+		return false; // tmr
 	}
 
 	public void setMetaDataCached(boolean metaDataCached) {
