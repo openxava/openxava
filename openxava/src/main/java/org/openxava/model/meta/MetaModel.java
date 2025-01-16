@@ -374,6 +374,7 @@ abstract public class MetaModel extends MetaElement {
 	 */
 	private Map getPropertyDescriptors() throws XavaException {
 		if (propertyDescriptors == null) {
+			/* tmr
 			try {
 				BeanInfo info = Introspector.getBeanInfo(getPropertiesClass());
 				PropertyDescriptor[] pds = info.getPropertyDescriptors();
@@ -386,6 +387,8 @@ abstract public class MetaModel extends MetaElement {
 				log.error(ex.getMessage(), ex);
 				throw new XavaException("property_descriptors_error", getPropertiesClass());
 			}
+			*/
+			propertyDescriptors = Classes.getPropertyDescriptors(getPropertiesClass()); // tmr
 		}
 		return propertyDescriptors;
 	}

@@ -464,6 +464,7 @@ public class PropertiesManager implements java.io.Serializable {
 	
 	private Map getPropertyDescriptors() throws PropertiesManagerException {
 		if (propertyDescriptors == null) {
+			/* tmr
 			try {
 				propertyDescriptors = new HashMap();
 				BeanInfo info = Introspector.getBeanInfo(getTheClass());
@@ -479,6 +480,8 @@ public class PropertiesManager implements java.io.Serializable {
 				log.error(ex.getMessage(), ex);
 				throw new PropertiesManagerException(XavaResources.getString("properties_manager_properties_error"));
 			}
+			*/
+			propertyDescriptors = Classes.getPropertyDescriptors(getTheClass()); // tmr
 		}
 		return propertyDescriptors;
 	}

@@ -1,5 +1,6 @@
 package org.openxava.util;
 
+import java.beans.*;
 import java.lang.annotation.*;
 import java.lang.reflect.*;
 import java.util.*;
@@ -125,4 +126,63 @@ public class Classes {
 	    return allAnnotations.toArray(new Annotation[0]);
 	}
 	
+	// tmr ini
+	public static Map<String, PropertyDescriptor> getPropertyDescriptors(Class<?> pojoClass) { // tmr Cambiar todos los usos de Introspector
+		// tmr Comentarios a inglés, o quitarlos
+	    Map<String, PropertyDescriptor> result = new HashMap<>();
+
+	    // Recorrer la jerarquía de clases para incluir métodos heredados
+	    Class<?> currentClass = pojoClass;
+	    while (currentClass != null && currentClass != Object.class) {
+	        // Obtener todos los métodos públicos (incluidos los heredados)
+	        Method[] methods = currentClass.getMethods();
+	        for (Method method : methods) {
+	            // Determinar si es un getter
+	            if (isGetter(method)) {
+	                String propertyName = extractPropertyNameFromGetter(method.getName());
+	                try {
+	                    // Buscar un setter correspondiente
+	                    Method setter = findSetterMethod(currentClass, propertyName, method.getReturnType());
+	                    PropertyDescriptor pd = new PropertyDescriptor(propertyName, method, setter);
+	                    result.putIfAbsent(propertyName, pd); // Evitar duplicados
+	                } catch (Exception e) {
+	                	// tmr ¿Qué hacer en este caso? ¿Nada, un log o una excepción? 
+	                }
+	            }
+	        }
+	        currentClass = currentClass.getSuperclass();
+	    }
+
+	    return result;
+	}
+
+	// Verificar si un método es un getter
+	private static boolean isGetter(Method method) {
+	    if (!method.getName().startsWith("get") && !method.getName().startsWith("is")) return false;
+	    if (method.getParameterCount() != 0) return false;
+	    if (void.class.equals(method.getReturnType())) return false;
+	    return true;
+	}
+
+	// Extraer el nombre de la propiedad a partir del nombre del getter
+	private static String extractPropertyNameFromGetter(String getterName) {
+	    if (getterName.startsWith("get")) {
+	        return Strings.firstLower(getterName.substring(3));
+	    } else if (getterName.startsWith("is")) {
+	        return Strings.firstLower(getterName.substring(2));
+	    }
+	    throw new IllegalArgumentException("El método no es un getter válido: " + getterName); // tmr i18n
+	}
+
+	// Buscar el método setter correspondiente
+	private static Method findSetterMethod(Class<?> clazz, String propertyName, Class<?> propertyType) {
+	    String setterName = "set" + Strings.firstUpper(propertyName);
+	    try {
+	        return clazz.getMethod(setterName, propertyType);
+	    } catch (NoSuchMethodException e) {
+	        return null; // Sin setter
+	    }
+	}
+	// tmr fin
+
 }
