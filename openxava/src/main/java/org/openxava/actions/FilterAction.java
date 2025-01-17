@@ -10,6 +10,8 @@ public class FilterAction extends FilterTabBaseAction {
 	private int configurationId;
 	
 	public void execute() throws Exception {
+		System.out.println("[FilterAction.execute] Original"); // tmr
+		//getTab().reloadMetaModel(); // tmr
 		getTab().filter(); 
 		if (configurationId == 0) getTab().createConfiguration();
 		else getTab().setConfigurationId(getConfigurationId());

@@ -771,7 +771,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 	
 	private IXTableModel createTableModel() throws Exception {
-		resetAfterChangeProperties(); // tmr ME QUEDÉ POR AQUÍ. INTENTADO QUE EL TAB SE DE CUENTA DE LOS CAMBIOS.
 		IXTableModel tableModel = null;
 		MetaTab metaTab = getMetaTab();
 		int chunkSize = optimizeChunkSize && metaTab.hasCalculatedProperties()?getPageRowCount():-1;
