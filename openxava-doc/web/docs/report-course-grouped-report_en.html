@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Report generation - Lesson 10: Grouped report - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+            href="index_en.html">documentation</a> / </span>Report generation - Lesson 10: Grouped report</h1>
+      <div class="wiki" style="display: block;">
+        <h2>Video</h2>
+        <p>In this video we will see how to create a report with grouped data, it will show an annual summary of clients, grouped by state and city.</p>
+        <p><a href="" target="_blank"><img src="files/report-course_en0100.png"
+              title="report-generation-0100"></a> </p>
+        <p><strong>Any problem with this lesson? <a class="wiki_link_ext"
+              href="http://sourceforge.net/p/openxava/discussion/419690/"
+              rel="nofollow">Ask in the forum</a></strong> </p>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h2>Code</h2>
+        <p>You can <strong><a href="https://github.com/openxava/report-generation-course/tree/lesson_10">download the project for this lesson</a></strong>. You can also copy the code used in the video here:</p>
+        In <em>controllers.xml</em> file:
+        <pre><code class="xml">&lt;controller name="Customer"&gt;
+	&lt;action name="printAnnualSummary"
+		class="com.yourcompany.invoicing.actions.PrintAnnualSummaryAction"
+		mode="list"
+		icon="printer"/&gt;
+&lt;/controller&gt;
+</code></pre> In <em>PrintAnnualSummaryAction.java</em> file:<br>
+        <pre><code class="java">public class PrintAnnualSummaryAction extends JasperReportBaseAction {
+
+	@Override
+	protected JRDataSource getDataSource() throws Exception {
+		return null;
+	}
+
+	@Override
+	protected String getJRXML() throws Exception {
+		return "AnnualBillingSummary.jrxml";
+	}
+
+	@Override
+	protected Map getParameters() throws Exception {
+		return null;
+	}
+
+}<br></code></pre>
+        <p><strong><a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+              rel="nofollow"></a></strong><br>
+          <strong></strong></p>
+        <h2>Transcription</h2>
+        Hello, I’m Monica. In this lesson, you will learn how to create an annual summary of customers, grouped alphabetically by state and city, with a total sum for each group.<br>
+        <br>
+        First, we create a new report called "annual billing summary." In the Dataset, we type the query to obtain a list of customers with the number of invoices and the billed amount for this year. Our goal is to show a summary for the current year, but since the invoices in this example application go up to 2024, we’ll configure the report to display only those from 2024. We test the query to ensure it’s working correctly. Perfect. In the outline panel, we right-click on the report and create a group. We name it STATE and also select STATE. The name doesn’t necessarily have to match what you select. We do the same for CITY. When we create the groups, headers and footers are automatically added for each one. We drag the fields into the report. In the headers, no calculations are needed, so we leave them as they are. We drag TOTAL AMOUNT to the footer of the CITY group and select SUM. There are other calculations available, but they’re not relevant for us. This will sum up the TOTAL AMOUNT in each CITY group. We do the same for STATE. We tidy up the report a bit and test it. The groups are displayed correctly, and the totals are accurate. Here, it seems the page ends, cutting off some displayed data. We can make the group information appear together. In the STATE group header, we check "keep together." This ensures that if the STATE group to be displayed doesn’t fit within the remaining space on the page, it will move to the next page. Of course, if the group is too large, it will still have to break across pages. Now the STATE group won’t split, but the CITY group information might still split. We can fix this the same way. If we look at the TOTAL AMOUNT summary, it is a variable element. We can create a variable as follows: Right-click on Variable and create a new one. We name it "number of customers." This will be an Integer. In the Calculation field, select Count, and in the Expression field, add the NAME field. Finally, in Reset Type, select STATE. This variable will count the number of NAME entries in each STATE group. We finish organizing the report and test it again. For this occasion, I made some changes to the database, adding and modifying customers and invoices. We copy the report to the project. In the controllers.xml file, we go to the Customer controller and define an action called "print annual summary" for list mode. Then, in the actions package, we create the action "Print Annual Summary Action." We extend JasperReportBaseAction. We leave the data source and parameters as null, only setting the report name. That’s it. We launch the application. Perfect.<br>
+        <br>
+        We’ve successfully visualized all the customers we had in 2024, their invoices, and most importantly, grouped by state and city. If you have any questions or problems, feel free to ask us in the forum. You can also download the code for this lesson via the repository link, both of which are available in the video description. Goodbye!</div>
+    </div>
+  </body>
+</html>
