@@ -1752,6 +1752,17 @@ public class Tab implements java.io.Serializable, Cloneable {
 
 	public synchronized void setRequest(HttpServletRequest request) {
 		this.request = request;
+		// tmr ini
+		// TMR ME QUEDÉ POR AQUÍ. ESTO NO VA, QUIZÁS ES POR UN TEMA DE CLASSLOADERS 
+        Integer sessionCacheVersion = (Integer) request.getSession().getAttribute("sessionCacheVersion"); // tmr Cambiar el nombre
+        System.out.println("[Tab.setRequest] sessionCacheVersion=" + sessionCacheVersion); // tmr
+        System.out.println("[Tab.setRequest] OpenXavaPlugin.cacheVersion=" + OpenXavaPlugin.cacheVersion); // tmr
+        if (sessionCacheVersion == null || sessionCacheVersion < OpenXavaPlugin.cacheVersion) {
+        	System.out.println("[Tab.setRequest] RECARGAMOS MODELO EN TAB"); // tmr
+        	reloadMetaModel();
+        	request.getSession().setAttribute("sessionCacheVersion", OpenXavaPlugin.cacheVersion); // Cambiar nombre 
+        }		
+		// tmr fin
 	}
 
 	/** @since 5.9 */

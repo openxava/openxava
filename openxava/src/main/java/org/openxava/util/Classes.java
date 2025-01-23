@@ -127,7 +127,7 @@ public class Classes {
 	}
 	
 	// tmr ini
-	public static Map<String, PropertyDescriptor> getPropertyDescriptors(Class<?> pojoClass) { // tmr Cambiar todos los usos de Introspector
+	public static Map<String, PropertyDescriptor> getPropertyDescriptors(Class<?> pojoClass) { // tmr ¿Es necesario con HotSwapAgent? Probar quitarlo
 		// tmr Comentarios a inglés, o quitarlos
 	    Map<String, PropertyDescriptor> result = new HashMap<>();
 
@@ -157,7 +157,7 @@ public class Classes {
 	}
 
 	// Verificar si un método es un getter
-	private static boolean isGetter(Method method) {
+	private static boolean isGetter(Method method) { 
 	    if (!method.getName().startsWith("get") && !method.getName().startsWith("is")) return false;
 	    if (method.getParameterCount() != 0) return false;
 	    if (void.class.equals(method.getReturnType())) return false;
@@ -165,7 +165,7 @@ public class Classes {
 	}
 
 	// Extraer el nombre de la propiedad a partir del nombre del getter
-	private static String extractPropertyNameFromGetter(String getterName) {
+	private static String extractPropertyNameFromGetter(String getterName) { 
 	    if (getterName.startsWith("get")) {
 	        return Strings.firstLower(getterName.substring(3));
 	    } else if (getterName.startsWith("is")) {
