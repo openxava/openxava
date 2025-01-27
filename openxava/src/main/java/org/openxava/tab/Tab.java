@@ -1,6 +1,5 @@
 package org.openxava.tab;
 
-import java.lang.reflect.*;
 import java.math.*;
 import java.sql.*;
 import java.text.*;
@@ -25,6 +24,7 @@ import org.openxava.model.meta.*;
 import org.openxava.tab.impl.*;
 import org.openxava.tab.meta.*;
 import org.openxava.util.*;
+import org.openxava.util.Messages.*;
 import org.openxava.view.*;
 import org.openxava.web.*;
 
@@ -1752,27 +1752,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 
 	public synchronized void setRequest(HttpServletRequest request) {
 		this.request = request;
-		// tmr ini
-		System.out.println("[Tab.setRequest] "); // tmr
-        Integer sessionCacheVersion = (Integer) request.getSession().getAttribute("sessionCacheVersion"); // tmr Cambiar el nombre
-        if (sessionCacheVersion == null || sessionCacheVersion < getCacheVersion()) {
-        	System.out.println("[Tab.setRequest] RECARGAMOS MODELO EN TAB"); // tmr
-        	reloadMetaModel();
-        	request.getSession().setAttribute("sessionCacheVersion", getCacheVersion()); // Cambiar nombre 
-        }		
-		// tmr fin
-	}
-		
-	private int getCacheVersion() { // tmr Mover a otro lugar. También lo tengo en View
-		// tmr Esto tendría que estar desactivado en producción
-		try {
-			Method getCacheVersion = getClass().getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
-					.getDeclaredMethod("getCacheVersion");
-			return (Integer) getCacheVersion.invoke(null);
-		} catch (Exception ex) {
-			ex.printStackTrace(); // tmr i18n ¿Quitar?
-			return -1;
-		}
 	}
 
 	/** @since 5.9 */
@@ -2072,7 +2051,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 			if (confWithSameName != null) {
 				configurations.remove(confWithSameName.getId());
 				removeConfigurationPreferences(confWithSameName.getId());
-				getMessages().add(org.openxava.util.Messages.Type.WARNING, "query_overwritten_warning", "'" + newName + "'");
+				getMessages().add(Type.WARNING, "query_overwritten_warning", "'" + newName + "'");
 			}
 			configurations.put(configuration.getId(), configuration);
 		}

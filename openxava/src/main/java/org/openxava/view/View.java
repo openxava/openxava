@@ -1,6 +1,5 @@
 package org.openxava.view;
 
-import java.lang.reflect.*;
 import java.math.*;
 import java.util.*;
 import java.util.Collections;
@@ -198,7 +197,6 @@ public class View implements java.io.Serializable {
 	private int collectionSize = -1;
 	private boolean dataChanged;  
 	private boolean labelsChanged;
-	private int sessionCacheVersion = -1; // tmr ¿Otro nombre?
 	
 	public static void setRefiner(Object newRefiner) {
 		refiner = newRefiner;
@@ -3059,12 +3057,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	public void assignValuesToWebView() {
-		// TMR ME QUEDÉ POR AQUÍ: PONIENDOLO AQUÍ RECONOCE EL CAMBIO AL PULSAR UNA ACCIÓN (REFRESCAR)
-		// TMR  PERO NO AL RECARGAR LA PÁGINA. AL CONTRARIO QUE CON setRequest(). CON ESTE ÚLTIMO
-		// TMR  SE EJECUTA MUCHAS VECES
-		boolean metaModelReloaded = reloadMetaModelIfNeeded(); // tmr
 		assignValuesToWebView("", true);
-		if (metaModelReloaded) reloadNeeded = true; // tmr
 	}
 		
 	private void assignValuesToWebView(String qualifier, boolean firstLevel) {
@@ -4584,32 +4577,6 @@ public class View implements java.io.Serializable {
 	public void setRequest(HttpServletRequest request) throws XavaException {			
 		getRoot().request = request;
 		polish(); 
-	}
-	
-	private boolean reloadMetaModelIfNeeded() { // tmr ¿Este nombre?
-		// tmr ini
-		System.out.println("[View.reloadMetaModelIfNeeded] "); // tmr
-        if (sessionCacheVersion < getCacheVersion()) {
-        	System.out.println("[View.reloadMetaModelIfNeeded] RECARGAMOS MODELO EN VIEW"); // tmr
-        	reloadMetaModel();
-        	sessionCacheVersion = getCacheVersion();
-        	return true;
-        }		
-        return false;
-		// tmr fin				
-	}
-
-	
-	private int getCacheVersion() { // tmr Mover a otro lugar. También lo tengo en Tab
-		// tmr Esto tendría que estar desactivado en producción
-		try {
-			Method getCacheVersion = getClass().getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
-					.getDeclaredMethod("getCacheVersion");
-			return (Integer) getCacheVersion.invoke(null);
-		} catch (Exception ex) {
-			ex.printStackTrace(); // tmr i18n ¿Quitar?
-			return -1;
-		}
 	}
 
 	public boolean displayAsDescriptionsList(MetaReference ref) throws XavaException {		
@@ -6739,7 +6706,7 @@ public class View implements java.io.Serializable {
 	}
 
 	public boolean isReloadNeeded() {
-		return reloadNeeded;
+		return reloadNeeded;		
 	}
 	
 	/**

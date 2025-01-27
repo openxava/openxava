@@ -163,7 +163,8 @@ public class ModuleManager implements java.io.Serializable {
 	private boolean viewKeyEditable;
 	private String moduleURL;
 	private String goListAction = "Mode.list";
-	private boolean formUploadNextTime = false; 
+	private boolean formUploadNextTime = false;
+	private int sessionCacheVersion = -1; // tmr ¿Otro nombre?
 
 	/**
 	 * HTML action bind to the current form.
@@ -1629,6 +1630,15 @@ public class ModuleManager implements java.io.Serializable {
 				setModeControllerName(Style.getInstance().getDefaultModeController());
 			}
 		}		
+		// tmr ini
+        if (sessionCacheVersion < getCacheVersion()) {
+        	System.out.println("[ModuleManager.preInitModule] RELADING METAMODULES...."); // tmr
+        	getView().reloadMetaModel();
+        	getTab().reloadMetaModel();
+        	reloadViewNeeded = true;
+        	sessionCacheVersion = getCacheVersion();
+        }
+		// tmr fin
 	}
 
 	public void initModule(HttpServletRequest request, Messages errors,	Messages messages) {
@@ -2099,5 +2109,18 @@ public class ModuleManager implements java.io.Serializable {
 		this.moduleURL = request.getScheme() + "://" + request.getServerName() + ":" + 
 				request.getServerPort() + request.getAttribute("javax.servlet.forward.request_uri");
 	}
+	
+	private int getCacheVersion() { // tmr 
+		// tmr Esto tendría que estar desactivado en producción
+		try {
+			Method getCacheVersion = getClass().getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
+					.getDeclaredMethod("getCacheVersion");
+			return (Integer) getCacheVersion.invoke(null);
+		} catch (Exception ex) {
+			ex.printStackTrace(); // tmr i18n ¿Quitar?
+			return -1;
+		}
+	}
+
 	
 }
