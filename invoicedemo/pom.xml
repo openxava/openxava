@@ -20,6 +20,16 @@
       <artifactId>openxava</artifactId>
       <version>${openxava.version}</version>
     </dependency>
+    
+		<!-- tmr ini -->
+		<!-- tmr Quitar -->		
+		<dependency>
+		    <groupId>org.hotswapagent</groupId>
+		    <artifactId>hotswap-agent-core</artifactId>
+		    <version>1.4.1</version> 
+		    <scope>provided</scope>
+		</dependency>
+		<!-- tmr fin -->
   </dependencies>
   
   <build>

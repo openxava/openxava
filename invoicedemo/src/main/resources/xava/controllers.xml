@@ -22,4 +22,11 @@
 	</controller>    
     -->
     
+    <controller name="Product">
+    	<extends controller="Typical"/>
+    	<action name="sayHello5" 
+        	class="actions.CreateTeacher">
+    	</action>
+	</controller>    
+    
 </controllers>
