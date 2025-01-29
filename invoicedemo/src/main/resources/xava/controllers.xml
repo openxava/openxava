@@ -22,11 +22,13 @@
 	</controller>    
     -->
     
+    <!-- tmr ini -->
     <controller name="Product">
     	<extends controller="Typical"/>
     	<action name="sayHello7" 
-        	class="actions.CreateTeacher">
+        	class="org.openxava.invoicedemo.actions.SayHelloAction">
     	</action>
-	</controller>    
+	</controller>
+	<!-- tmr ini -->    
     
 </controllers>
