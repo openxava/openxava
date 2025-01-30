@@ -19,9 +19,6 @@ public class OpenXavaPlugin {
 	private static boolean resourcesMonitoring; 
 	private static int cacheVersion = 0; // tmr En otro sitio, ¿otro nmbre?
 	
-	@Init
-    private static ClassLoader appClassLoader;
-
     @OnClassLoadEvent(classNameRegexp = ".*", events = LoadEvent.REDEFINE)
     public static void onClassModified() throws Exception {
     	// tmr ¿solo cuando se cambien entidades?
@@ -30,8 +27,13 @@ public class OpenXavaPlugin {
     }
     
     private static void onResourceModified(String resource) {
-    	// TMR ME QUEDÉ POR AQUÍ: YA SE EJECUTA, AHORA FALTA IMPLEMENTARLO PARA QUE RECARGE LOS CONTROLADORES
     	System.out.println("[OpenXavaPlugin.onResourceModified] resource=" + resource); // tmr
+    	cacheVersion++; // tmr ¿Uno diferente para resources?
+    	/*
+    	if ("controllers.xml".equals(resource) || "controladores.xml".equals(resource)) {
+    		MetaControllers.reset();
+    	}
+    	*/
     }
     
 	@Init

@@ -1,0 +1,42 @@
+HOT CODE RELOADING PENDING
+
+* Adding new methods.
+* Adding calculated properties.
+* OpenXava Studios works with Trava JDK 11.0.8.
+* Create OpenXava Studio R4 in Windows and Linux with Trava JDK 11.0.8, use it from now on.
+* Suite with Trava JDK 11.0.8.
+* Use autoHotswap=true, as pointed here.
+* Move all code to openxava core and try with another project.
+> Adding actions.
+	* Añadir/quitar/modificar acciones.
+	- Crear nuevo controlador. ME QUEDÉ PARA EMPEZAR ESTO
+	- Quitar controlador.
+	- Optimizar para cargar solo cuando se modifique controllers.xml
+	- Verificar que si hay dos módulos abiertos, lo de los MetaControladores solo lo cargue una vez.
+- Adding modules.
+- Changing @View, @Tab, @DescriptionsList, etc.
+- Adding persistent properties. 
+- Adding new entities.
+- Dashboard.
+- Inheritance.
+- Optimizar para que solo parsee los MetaModels cuando haya cambio. Tener en cuenta clases transitorias.
+- Modify openxava core and see the changes without reloading.
+- Refinar código.
+- Java 11 by default for new projects? For openxavatest? Otherwise if you have a Java 8 added as JDK, the project uses it, 
+	instead of the default one with Trava. We should try hot reloading with Java 8 and Java 11 in pom.xml, 
+	but logically it only works with JDK 11 Trava for run.
+- Try Getting Started guide.
+- Remove Run and Tool Run from buttonbar? To improve UX. Verify the performance different when running automated tests. 
+	We could change the Bettle icon by a Play with a Bettle.
+- Try with Visual Studio Code.
+- Visual Studio Code to modify openxava core without reloading.
+- Try with IntelliJ.
+- Documentation.
+
+
+AFTERWARDS
+
+- Release a new Studio version.
+- Modify the Getting Started guide to use it.
+- A videotutorial to use hot reloading with OpenXava Studio, Intellij and VSC.
+- Add it as main feature in openxava.org.

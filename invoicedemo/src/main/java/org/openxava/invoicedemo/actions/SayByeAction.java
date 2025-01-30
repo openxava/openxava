@@ -2,21 +2,15 @@ package org.openxava.invoicedemo.actions; // tmr Borrar paqueta cuando borremos 
 
 import org.openxava.actions.*;
 
-import lombok.*;
-
 /**
  * tmr Quitar
  * @author javi
  *
  */
-
-@Getter @Setter
-public class SayHelloAction extends BaseAction {
-	
-	String saludo = "Hello";
+public class SayByeAction extends BaseAction {
 
 	public void execute() throws Exception {
-		addMessage(saludo);
+		addWarning("Bye, bye");
 	}
 
 }

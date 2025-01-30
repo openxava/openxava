@@ -1,9 +1,8 @@
 package org.openxava.controller.meta;
 
 
+import java.lang.reflect.*;
 import java.util.*;
-
-
 
 import org.apache.commons.logging.*;
 import org.openxava.controller.meta.xmlparse.*;
@@ -23,6 +22,7 @@ public class MetaControllers {
 	private static Map<String, MetaObject> mapMetaObjects;
 	private static Collection<String> objectPrefixes; 
 	private static String context = WEB;
+	private static int sessionCacheVersion = -1; // tmr ¿Otro nombre?
 	
 	
 	public static void _addMetaController(MetaController newController) throws XavaException {
@@ -37,8 +37,15 @@ public class MetaControllers {
 		metaControllers = new HashMap();
 		ControllersParser.configureControllers(context);		
 	}
-	
+		
 	public synchronized static MetaController getMetaController(String name) throws ElementNotFoundException, XavaException {
+		// tmr ini
+        if (sessionCacheVersion < getCacheVersion()) {
+        	System.out.println("[MetaControllers.getMetaController] Reloading MetaControllers"); // tmr
+        	metaControllers = null;
+        	sessionCacheVersion = getCacheVersion();     
+        }		
+		// tmr fin
 		if (metaControllers == null) {
 			setup();
 		}
@@ -148,7 +155,19 @@ public class MetaControllers {
 			}		
 		}
 		return objectPrefixes;
-	}	
+	}
+	
+	private static int getCacheVersion() { // tmr 
+		// tmr Esto tendría que estar desactivado en producción
+		try {
+			Method getCacheVersion = MetaController.class.getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
+					.getDeclaredMethod("getCacheVersion");
+			return (Integer) getCacheVersion.invoke(null);
+		} catch (Exception ex) {
+			ex.printStackTrace(); // tmr i18n ¿Quitar?
+			return -1;
+		}
+	}
 	
 }
 
