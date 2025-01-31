@@ -27,7 +27,8 @@ public class MetaModule extends MetaElement implements java.io.Serializable {
 	private Collection<String> controllersNames = new ArrayList<String>();
 	private String modeControllerName;	
 	private MetaReport metaReport;
-
+	private boolean generatedByDefault; // tmr
+	
 	public String getModelName() {
 		return modelName;
 	}
@@ -42,12 +43,18 @@ public class MetaModule extends MetaElement implements java.io.Serializable {
 		this.metaApplication = application;
 	}
 
+
 	public Collection<String> getControllersNames() {
 		return controllersNames;
 	}		
 	public void addControllerName(String controller) {
 		controllersNames.add(controller);
 	}
+	
+	void clearControllers() { // tmr
+		controllersNames.clear();		
+	}
+
 
 	public String getSwingViewClass() {
 		return swingViewClass;
@@ -162,6 +169,13 @@ public class MetaModule extends MetaElement implements java.io.Serializable {
 		this.folder = folder;
 	}
 	
+	boolean isGeneratedByDefault() {
+		return generatedByDefault;
+	}
+	void setGeneratedByDefault(boolean generatedByDefault) {
+		this.generatedByDefault = generatedByDefault;
+	}
+	
 	public String toString() { 
 		return "MetaModule: " + getMetaApplication().getName() + "/" + getName();
 	}
@@ -177,4 +191,5 @@ public class MetaModule extends MetaElement implements java.io.Serializable {
 	public int hashCode() {
 		return this.getId().hashCode();
 	}
+	
 }

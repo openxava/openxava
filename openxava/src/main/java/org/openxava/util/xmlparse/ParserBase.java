@@ -78,7 +78,9 @@ abstract public class ParserBase extends XmlElementsNames {
 			Enumeration resources = getClass().getClassLoader().getResources("xava/" + xmlFileURL); 
 			while (resources.hasMoreElements()) {
 				URL resource = (URL) resources.nextElement();
-				xmlFileCompleteURL = resource.toExternalForm();		
+				xmlFileCompleteURL = resource.toExternalForm();	
+				if (xmlFileCompleteURL.contains("/target/") && xmlFileCompleteURL.contains("/WEB-INF/classes/")) continue; // tmr ¿Anular en producción?
+				System.out.println("[ParserBase.parse] xmlFileCompleteURL=" + xmlFileCompleteURL); // tmr
 				_parse(xmlFileCompleteURL);				
 			}			
 		} 

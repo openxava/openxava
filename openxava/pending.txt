@@ -1,4 +1,4 @@
-HOT CODE RELOADING PENDING
+HOT CODE RELOADING PENDING (TMR)
 
 * Adding new methods.
 * Adding calculated properties.
@@ -9,19 +9,22 @@ HOT CODE RELOADING PENDING
 * Move all code to openxava core and try with another project.
 > Adding actions.
 	* Añadir/quitar/modificar acciones.
-	- Crear nuevo controlador. ME QUEDÉ PARA EMPEZAR ESTO
-	- Quitar controlador.
-	- Optimizar para cargar solo cuando se modifique controllers.xml
-	- Verificar que si hay dos módulos abiertos, lo de los MetaControladores solo lo cargue una vez.
+	* Crear nuevo controlador. 
+	* Quitar controlador.
+	TMR ME QUEDÉ PARA EMPEZAR EL SIGUIENTE PUNTO
+	- Optimizar para cargar solo cuando se modifique controllers.xml, también lo de MetaModule, no solo MetaController
+	- Verificar que si hay dos módulos abiertos, lo de los MetaControladores solo lo cargue una vez, también lo de MetaModule, no solo MetaController
 - Adding modules.
 - Changing @View, @Tab, @DescriptionsList, etc.
 - Adding persistent properties. 
 - Adding new entities.
 - Dashboard.
 - Inheritance.
+- ¿Etiquetas?
 - Optimizar para que solo parsee los MetaModels cuando haya cambio. Tener en cuenta clases transitorias.
 - Modify openxava core and see the changes without reloading.
 - Refinar código.
+- ¿Prueba automáticas? Si no podriamos hacer pruebas manuales
 - Java 11 by default for new projects? For openxavatest? Otherwise if you have a Java 8 added as JDK, the project uses it, 
 	instead of the default one with Trava. We should try hot reloading with Java 8 and Java 11 in pom.xml, 
 	but logically it only works with JDK 11 Trava for run.

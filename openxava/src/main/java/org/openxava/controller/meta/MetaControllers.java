@@ -57,10 +57,21 @@ public class MetaControllers {
 	}
 	
 	public static boolean contains(String name) throws XavaException {
+		/* tmr
 		if (metaControllers == null) {
 			setup();
 		}
 		return metaControllers.containsKey(name);
+		*/
+		// tmr ini
+		try {
+			getMetaController(name);
+			return true;
+		}
+		catch (ElementNotFoundException ex) {
+			return false;
+		}
+		// tmr fin
 	}
 	
 	/** @since 6.1.2 */
@@ -157,7 +168,7 @@ public class MetaControllers {
 		return objectPrefixes;
 	}
 	
-	private static int getCacheVersion() { // tmr 
+	private static int getCacheVersion() { // tmr En otros sitios, refactorizar
 		// tmr Esto tendría que estar desactivado en producción
 		try {
 			Method getCacheVersion = MetaController.class.getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())

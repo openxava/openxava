@@ -1,6 +1,7 @@
 package org.openxava.application.meta;
 
 
+import java.lang.reflect.*;
 import java.util.*;
 
 import org.apache.commons.logging.*;
@@ -17,11 +18,13 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 
 	private static Log log = LogFactory.getLog(MetaApplication.class);
 
-	private Map metaModules = new HashMap();
+	// tmr private Map metaModules = new HashMap();
+	private Map<String, MetaModule> metaModules = new HashMap<>(); // tmr
 	private Collection modulesNames = new ArrayList(); // to preserve the order
 	private Collection folders;
 	private Collection controllersForDefaultModule;
 	private boolean defaultModulesGenerated = false;
+	private int sessionCacheVersion = -1; // tmr ¿Otro nombre?
 	
 	
 	/**
@@ -62,9 +65,17 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	 * @exception XavaException  Any problem 
 	 * @return of <tt>MetaModule</tt>. Not null.
 	 */
-	public Collection getMetaModules() throws XavaException {
+	public Collection<MetaModule> getMetaModules() throws XavaException { // tmr <MetaModule>
 		generateDefaultModules();
 		return metaModules.values();
+	}
+	
+	private void resetControllersForDefaultModules() { // tmr
+		for (MetaModule module: metaModules.values()) {
+			if (module.isGeneratedByDefault()) {
+				generateDefaultControllers(module);
+			}
+		}
 	}
 
 	private void generateDefaultModules() throws XavaException { 
@@ -137,6 +148,13 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
      * @exception ElementNotFoundException
 	 */
 	public MetaModule getMetaModule(String name) throws ElementNotFoundException, XavaException {
+		// tmr ini
+        if (sessionCacheVersion < getCacheVersion()) {
+        	System.out.println("[MetaControllers.getMetaController] Reloading MetaControllers"); // tmr
+        	resetControllersForDefaultModules();
+        	sessionCacheVersion = getCacheVersion();     
+        }		
+		// tmr fin
 		MetaModule result = (MetaModule) metaModules.get(name);
 		if (result == null) {
 			if (existsModel(name)) {				
@@ -158,6 +176,7 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 		module.setMetaApplication(this);
 		module.setName(modelName);			
 		module.setModelName(modelName);
+		/* tmr
 		if (MetaControllers.contains(modelName)) {
 			module.addControllerName(modelName);
 		}
@@ -166,8 +185,25 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 				module.addControllerName((String) it.next()); 
 			}
 		}
+		*/
+		generateDefaultControllers(module); // tmr
+		module.setGeneratedByDefault(true); // tmr
 		metaModules.put(modelName, module);
 		return module;		
+	}
+
+	private void generateDefaultControllers(MetaModule module) { // tmr
+		System.out.println("[MetaApplication.generateDefaultControllers] Generating conrollers for " + module.getName()); // tmr
+		module.clearControllers();
+		if (MetaControllers.contains(module.getModelName())) {
+			module.addControllerName(module.getModelName());
+		}
+		else {
+			for (Iterator it = getControllersForDefaultModule().iterator(); it.hasNext();) {
+				module.addControllerName((String) it.next()); 
+			}
+		}
+		System.out.println("[MetaApplication.generateDefaultControllers] " + module.getName() + ".controllers=" + module.getControllersNames()); // tmr
 	}
 	
 	public void addControllerForDefaultModule(String controllerName) { 
@@ -186,6 +222,18 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 
 	public String getId() {
 		return getName();
+	}
+	
+	private static int getCacheVersion() { // tmr En otros sitios, refactorizar 
+		// tmr Esto tendría que estar desactivado en producción
+		try {
+			Method getCacheVersion = MetaController.class.getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
+					.getDeclaredMethod("getCacheVersion");
+			return (Integer) getCacheVersion.invoke(null);
+		} catch (Exception ex) {
+			ex.printStackTrace(); // tmr i18n ¿Quitar?
+			return -1;
+		}
 	}
 	
 }

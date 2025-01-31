@@ -1632,11 +1632,12 @@ public class ModuleManager implements java.io.Serializable {
 		}		
 		// tmr ini
         if (sessionCacheVersion < getCacheVersion()) {
-        	System.out.println("[ModuleManager.preInitModule] Reloading MetaModules and reinit controllers..."); // tmr
+        	System.out.println("[ModuleManager.preInitModule] Reloading MetaModels, reset MetaModule and reinit controllers..."); // tmr
         	getView().reloadMetaModel();
         	getTab().reloadMetaModel();
         	reloadViewNeeded = true;
         	sessionCacheVersion = getCacheVersion();
+        	metaModule = null;
         	setupModuleControllers();
         }
 		// tmr fin
