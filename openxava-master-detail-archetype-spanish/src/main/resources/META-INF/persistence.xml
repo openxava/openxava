@@ -20,6 +20,7 @@
     	<class>com.openxava.naviox.model.SessionRecord</class>
     	<class>com.openxava.naviox.model.SSORecord</class>
     	<class>com.openxava.naviox.model.User</class>
+		<class>com.openxava.naviox.model.LDAPConfiguration</class>
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="update"/>
         </properties>
@@ -39,6 +40,7 @@
     	<class>com.openxava.naviox.model.SessionRecord</class>
     	<class>com.openxava.naviox.model.SSORecord</class>
     	<class>com.openxava.naviox.model.User</class>
+		<class>com.openxava.naviox.model.LDAPConfiguration</class>
         <properties>
 			<property name="hibernate.connection.url" value="jdbc:hsqldb:hsql://localhost:1666"/>
         </properties>
