@@ -164,7 +164,8 @@ public class ModuleManager implements java.io.Serializable {
 	private String moduleURL;
 	private String goListAction = "Mode.list";
 	private boolean formUploadNextTime = false;
-	private int sessionCacheVersion = -1; // tmr ¿Otro nombre?
+	private int sessionModelCacheVersion = -1; // tmr ¿Otro nombre?
+	private int sessionControllersCacheVersion = -1; // tmr ¿Otro nombre?
 
 	/**
 	 * HTML action bind to the current form.
@@ -1631,15 +1632,19 @@ public class ModuleManager implements java.io.Serializable {
 			}
 		}		
 		// tmr ini
-        if (sessionCacheVersion < getCacheVersion()) {
-        	System.out.println("[ModuleManager.preInitModule] Reloading MetaModels, reset MetaModule and reinit controllers..."); // tmr
+        if (sessionModelCacheVersion < getModelCacheVersion()) {
+        	System.out.println("[ModuleManager.preInitModule] Reloading MetaModels..."); // tmr
         	getView().reloadMetaModel();
         	getTab().reloadMetaModel();
         	reloadViewNeeded = true;
-        	sessionCacheVersion = getCacheVersion();
-        	metaModule = null;
-        	setupModuleControllers();
+        	sessionModelCacheVersion = getModelCacheVersion();
         }
+        if (sessionControllersCacheVersion < getControllersCacheVersion()) {
+        	System.out.println("[ModuleManager.preInitModule] Reset MetaModule and reinit controllers..."); // tmr
+        	metaModule = null;
+        	setupModuleControllers();        	
+        	sessionControllersCacheVersion = getControllersCacheVersion();
+        }        
 		// tmr fin
 	}
 
@@ -2112,12 +2117,24 @@ public class ModuleManager implements java.io.Serializable {
 				request.getServerPort() + request.getAttribute("javax.servlet.forward.request_uri");
 	}
 	
-	private int getCacheVersion() { // tmr 
+	private int getModelCacheVersion() { // tmr 
 		// tmr Esto tendría que estar desactivado en producción
 		try {
-			Method getCacheVersion = getClass().getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
-					.getDeclaredMethod("getCacheVersion");
-			return (Integer) getCacheVersion.invoke(null);
+			Method getModelCacheVersion = getClass().getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
+				.getDeclaredMethod("getModelCacheVersion");
+			return (Integer) getModelCacheVersion.invoke(null);
+		} catch (Exception ex) {
+			ex.printStackTrace(); // tmr i18n ¿Quitar?
+			return -1;
+		}
+	}
+	
+	private int getControllersCacheVersion() { // tmr 
+		// tmr Esto tendría que estar desactivado en producción
+		try {
+			Method getControllersCacheVersion = getClass().getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
+				.getDeclaredMethod("getControllersCacheVersion");
+			return (Integer) getControllersCacheVersion.invoke(null);
 		} catch (Exception ex) {
 			ex.printStackTrace(); // tmr i18n ¿Quitar?
 			return -1;

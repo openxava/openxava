@@ -17,23 +17,21 @@ import org.hotswap.agent.annotation.*;
 public class OpenXavaPlugin {
 	
 	private static boolean resourcesMonitoring; 
-	private static int cacheVersion = 0; // tmr En otro sitio, ¿otro nmbre?
+	private static int modelCacheVersion = 0; // tmr En otro sitio, ¿otro nombre?
+	private static int controllersCacheVersion = 0; // tmr En otro sitio, ¿otro nombre?
 	
     @OnClassLoadEvent(classNameRegexp = ".*", events = LoadEvent.REDEFINE)
     public static void onClassModified() throws Exception {
     	// tmr ¿solo cuando se cambien entidades?
     	// tmr Reiniciar caché de componentes
-    	cacheVersion++;
+    	modelCacheVersion++;
     }
     
     private static void onResourceModified(String resource) {
     	System.out.println("[OpenXavaPlugin.onResourceModified] resource=" + resource); // tmr
-    	cacheVersion++; // tmr ¿Uno diferente para resources?
-    	/*
     	if ("controllers.xml".equals(resource) || "controladores.xml".equals(resource)) {
-    		MetaControllers.reset();
+    		controllersCacheVersion++;
     	}
-    	*/
     }
     
 	@Init
@@ -69,8 +67,12 @@ public class OpenXavaPlugin {
 		watcherThread.start(); 
 	}    
     
-    public static int getCacheVersion() {
-    	return cacheVersion;
+    public static int getModelCacheVersion() {
+    	return modelCacheVersion;
     }
+    
+    public static int getControllersCacheVersion() {
+    	return controllersCacheVersion;
+    }    
         
 }

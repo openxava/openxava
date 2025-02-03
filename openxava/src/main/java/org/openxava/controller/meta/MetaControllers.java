@@ -40,10 +40,10 @@ public class MetaControllers {
 		
 	public synchronized static MetaController getMetaController(String name) throws ElementNotFoundException, XavaException {
 		// tmr ini
-        if (sessionCacheVersion < getCacheVersion()) {
+        if (sessionCacheVersion < getControllersCacheVersion()) {
         	System.out.println("[MetaControllers.getMetaController] Reloading MetaControllers"); // tmr
         	metaControllers = null;
-        	sessionCacheVersion = getCacheVersion();     
+        	sessionCacheVersion = getControllersCacheVersion();     
         }		
 		// tmr fin
 		if (metaControllers == null) {
@@ -168,12 +168,12 @@ public class MetaControllers {
 		return objectPrefixes;
 	}
 	
-	private static int getCacheVersion() { // tmr En otros sitios, refactorizar
+	private static int getControllersCacheVersion() { // tmr En otros sitios, refactorizar
 		// tmr Esto tendría que estar desactivado en producción
 		try {
-			Method getCacheVersion = MetaController.class.getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
-					.getDeclaredMethod("getCacheVersion");
-			return (Integer) getCacheVersion.invoke(null);
+			Method getControllersCacheVersion = MetaController.class.getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
+					.getDeclaredMethod("getControllersCacheVersion");
+			return (Integer) getControllersCacheVersion.invoke(null);
 		} catch (Exception ex) {
 			ex.printStackTrace(); // tmr i18n ¿Quitar?
 			return -1;

@@ -33,12 +33,10 @@
         	class="org.openxava.invoicedemo.actions.SayByeAction">
     	</action>
     	
-    	   
     	<action name="saySeeYouLater" 
         	class="org.openxava.invoicedemo.actions.SayHelloAction">
-        	<set property="saludo" value="Hasta luego" />
+        	<set property="saludo" value="Hasta la vista" />
     	</action>
-    	
     	     	 	    	
 	</controller>
 	

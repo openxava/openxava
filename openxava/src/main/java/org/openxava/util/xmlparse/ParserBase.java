@@ -80,7 +80,6 @@ abstract public class ParserBase extends XmlElementsNames {
 				URL resource = (URL) resources.nextElement();
 				xmlFileCompleteURL = resource.toExternalForm();	
 				if (xmlFileCompleteURL.contains("/target/") && xmlFileCompleteURL.contains("/WEB-INF/classes/")) continue; // tmr ¿Anular en producción?
-				System.out.println("[ParserBase.parse] xmlFileCompleteURL=" + xmlFileCompleteURL); // tmr
 				_parse(xmlFileCompleteURL);				
 			}			
 		} 

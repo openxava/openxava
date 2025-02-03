@@ -23,9 +23,11 @@ public class Product {
 	@Files
 	@Column(length=32)
 	String photos; 
-	
-	public BigDecimal getVat() {
+
+	/*
+	public BigDecimal getVat() { // tmr
 		return new BigDecimal(21);
 	}
+	*/
 
 }

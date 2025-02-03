@@ -149,10 +149,10 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	 */
 	public MetaModule getMetaModule(String name) throws ElementNotFoundException, XavaException {
 		// tmr ini
-        if (sessionCacheVersion < getCacheVersion()) {
-        	System.out.println("[MetaControllers.getMetaController] Reloading MetaControllers"); // tmr
+        if (sessionCacheVersion < getControllersCacheVersion()) {
+        	System.out.println("[MetaApplication.getMetaModule] Reset controllers for default modules"); // tmr
         	resetControllersForDefaultModules();
-        	sessionCacheVersion = getCacheVersion();     
+        	sessionCacheVersion = getControllersCacheVersion();     
         }		
 		// tmr fin
 		MetaModule result = (MetaModule) metaModules.get(name);
@@ -193,7 +193,6 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	}
 
 	private void generateDefaultControllers(MetaModule module) { // tmr
-		System.out.println("[MetaApplication.generateDefaultControllers] Generating conrollers for " + module.getName()); // tmr
 		module.clearControllers();
 		if (MetaControllers.contains(module.getModelName())) {
 			module.addControllerName(module.getModelName());
@@ -203,7 +202,6 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 				module.addControllerName((String) it.next()); 
 			}
 		}
-		System.out.println("[MetaApplication.generateDefaultControllers] " + module.getName() + ".controllers=" + module.getControllersNames()); // tmr
 	}
 	
 	public void addControllerForDefaultModule(String controllerName) { 
@@ -224,12 +222,12 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 		return getName();
 	}
 	
-	private static int getCacheVersion() { // tmr En otros sitios, refactorizar 
+	private static int getControllersCacheVersion() { // tmr En otros sitios, refactorizar 
 		// tmr Esto tendría que estar desactivado en producción
 		try {
-			Method getCacheVersion = MetaController.class.getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
-					.getDeclaredMethod("getCacheVersion");
-			return (Integer) getCacheVersion.invoke(null);
+			Method getControllersCacheVersion = MetaController.class.getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
+					.getDeclaredMethod("getControllersCacheVersion");
+			return (Integer) getControllersCacheVersion.invoke(null);
 		} catch (Exception ex) {
 			ex.printStackTrace(); // tmr i18n ¿Quitar?
 			return -1;
