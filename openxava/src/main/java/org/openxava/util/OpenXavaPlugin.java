@@ -19,6 +19,7 @@ public class OpenXavaPlugin {
 	private static boolean resourcesMonitoring; 
 	private static int modelCacheVersion = 0; // tmr En otro sitio, ¿otro nombre?
 	private static int controllersCacheVersion = 0; // tmr En otro sitio, ¿otro nombre?
+	private static int applicationCacheVersion = 0; // tmr En otro sitio, ¿otro nombre?
 	
     @OnClassLoadEvent(classNameRegexp = ".*", events = LoadEvent.REDEFINE)
     public static void onClassModified() throws Exception {
@@ -32,6 +33,9 @@ public class OpenXavaPlugin {
     	if ("controllers.xml".equals(resource) || "controladores.xml".equals(resource)) {
     		controllersCacheVersion++;
     	}
+    	else if ("application.xml".equals(resource) || "aplicacion.xml".equals(resource)) {
+    		applicationCacheVersion++;
+    	}    	
     }
     
 	@Init
@@ -73,6 +77,10 @@ public class OpenXavaPlugin {
     
     public static int getControllersCacheVersion() {
     	return controllersCacheVersion;
+    }
+    
+    public static int getApplicationCacheVersion() {
+    	return applicationCacheVersion;
     }    
-        
+          
 }

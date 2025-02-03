@@ -406,10 +406,14 @@ public class Modules implements Serializable {
 	}
 	
 	public List getAll(HttpServletRequest request) { 
+		all = null; // tmr 
+		long ini = System.currentTimeMillis(); // tmr
 		if (all == null) {			
 			all = ModulesHelper.getAll(request); 
 			Collections.sort(all, comparator);
 		}
+		long cuesta = System.currentTimeMillis() - ini;
+		System.out.println("[Modules.getAll] cuesta=" + cuesta); // tmr
 		return all;
 	}
 	

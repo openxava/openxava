@@ -14,6 +14,8 @@ HOT CODE RELOADING PENDING (TMR)
 	* Optimizar para cargar solo cuando se modifique controllers.xml
 	* Verificar que si hay dos módulos abiertos, los MetaControladores solo lo cargue una vez.
 - Adding modules.
+	- En el menú al recargar.
+	- Al acceder usando la URL.
 - Probar modificar controladores y módulos con una aplicación en español.
 - Changing @View, @Tab, @DescriptionsList, etc.
 - Adding persistent properties. 
@@ -25,6 +27,7 @@ HOT CODE RELOADING PENDING (TMR)
 - Modify openxava core and see the changes without reloading.
 - No cargar plugins estándar.
 - Quitar el LOG.
+- Probar con proyecto grande (openxavatest) para ver efectos en rendimiento
 - Refinar código.
 - ¿Prueba automáticas? Si no podriamos hacer pruebas manuales
 - Java 11 by default for new projects? For openxavatest? Otherwise if you have a Java 8 added as JDK, the project uses it, 

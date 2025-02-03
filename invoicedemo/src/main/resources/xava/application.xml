@@ -25,4 +25,12 @@
 		<controller name="InitModelWithNewInstance"/>
 	</module>
 	
+	<!-- tmr inix   
+	<module name="CustomerReadOnly">
+		<model name="Customer"/>
+		<controller name="Print"/>
+	</module>
+	-->
+	<!-- tmr fin -->
+	
 </application>

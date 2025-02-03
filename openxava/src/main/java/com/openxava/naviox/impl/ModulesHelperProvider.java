@@ -44,6 +44,7 @@ public class ModulesHelperProvider implements IModulesHelperProvider {
 	
 	public List<MetaModule> getAll(HttpServletRequest request) { 
 		if (Users.getCurrent() == null) return Collections.EMPTY_LIST;
+		all = null; // tmr
 		if (all == null) all = createAll();
 		return all;
 	}
