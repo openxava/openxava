@@ -50,6 +50,14 @@
         <p>Si usas XavaPro, o planeas usarlo en el futuro, edita el archivo <i>persistence.xml</i>
         y añade la siguiente entrada a todas tus unidades de persistencia:</p>
         <pre><code class="xml">&lt;class&gt;com.openxava.naviox.model.LDAPConfiguration&lt;/class&gt;</code></pre>
+        <h3>Configuración LDAP movida al módulo Admin (para XavaPro)</h3>
+        <p>En XavaPro, la configuración LDAP ya no se realiza en el archivo <i>naviox.properties</i>. Las siguientes propiedades ya no son válidas:</p>
+        <pre><code class="properties"># LDAP Config
+ldapHost=192.168.0.0
+ldapDomain=XX
+ldapDN=DC=XX,DC=XX,DC=XX
+ldapPort=389</code></pre>
+        <p>En su lugar, la configuración LDAP ahora se gestiona a través del módulo Admin. Puede configurar los ajustes de LDAP yendo a <i>Admin > LDAP</i> en el menú de la aplicación. Para información detallada sobre la configuración de LDAP en la versión 7.5, consulte la <a href="security_es.html#Seguridad+y+gestion+de+usuarios-LDAP">documentación de configuración LDAP</a>.</p>
       </div>
       <div class="wiki" style="display: block;">
         <h2>Para migrar de OpenXava 7.4.4 a OpenXava 7.4.5</h2>
@@ -542,7 +550,7 @@ BigDecimal factor;
 BigDecimal factor;
 </code></pre>
       <p></p>
-      No necesitas cambiar nada. Además, si la anotación <i>@Column</i> se
+ No necesitas cambiar nada. Además, si la anotación <i>@Column</i> se
       omite por completo <i>scale</i> todavía es 2, como siempre.
       <h2>Para migrar de OpenXava 7.0.4 a OpenXava 7.0.5</h2>
       No hay consideraciones.

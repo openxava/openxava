@@ -50,6 +50,14 @@
       <p>If you use XavaPro, or you plan to use it in the future, edit the <i>persistence.xml</i>
       file and add the next entry to all your persistence units:</p>
       <pre><code class="xml">&lt;class&gt;com.openxava.naviox.model.LDAPConfiguration&lt;/class&gt;</code></pre>
+      <h3>LDAP Configuration moved to Admin module (for XavaPro)</h3>
+      <p>In XavaPro, LDAP configuration is no longer done in <i>naviox.properties</i> file. The following properties are no longer valid:</p>
+      <pre><code class="properties"># LDAP Config
+ldapHost=192.168.0.0
+ldapDomain=XX
+ldapDN=DC=XX,DC=XX,DC=XX
+ldapPort=389</code></pre>
+      <p>Instead, LDAP configuration is now managed through the Admin module. You can configure LDAP settings by going to <i>Admin > LDAP</i> in the application menu. For detailed information about configuring LDAP in version 7.5, please refer to the <a href="security_en.html#Security%20and%20user%20management-LDAP">LDAP configuration documentation</a>.</p>
     </div>
     <div class="wiki" style="display: block;">
       <h2>Migration from OpenXava 7.4.4 to OpenXava 7.4.5</h2>
