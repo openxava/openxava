@@ -5,7 +5,6 @@ import java.lang.reflect.*;
 import java.util.*;
 
 import org.openxava.application.meta.xmlparse.*;
-import org.openxava.controller.meta.*;
 import org.openxava.util.*;
 
 /**
@@ -36,7 +35,6 @@ public class MetaApplications {
 	public static Collection<MetaApplication> getMetaApplications() throws XavaException {
 		// tmr ini
         if (sessionCacheVersion < getApplicationCacheVersion()) {
-        	// TMR ME QUEDÉ POR AQUÍ: HICE ESTO PERO NO FUNCIONO. QUIZÁS TENGA QUE HACER UN REBUILD
         	System.out.println("[MetaApplications.getMetaApplications] Reset metaApplications"); // tmr
         	metaAplicacions = null;
         	sessionCacheVersion = getApplicationCacheVersion();     
@@ -73,9 +71,12 @@ public class MetaApplications {
 	}
 	
 	public static MetaApplication getMetaApplication(String name) throws ElementNotFoundException, XavaException {
+		/* tmr
 		if (metaAplicacions == null) {
 			configure();
 		}
+		*/
+		getMetaApplications(); // tmr para iniciar metaAplicacions
 		MetaApplication result = (MetaApplication) metaAplicacions.get(name);
 		if (result == null) {
 			throw new ElementNotFoundException("application_not_found", name);
@@ -98,9 +99,11 @@ public class MetaApplications {
 	private static int getApplicationCacheVersion() { // tmr En otros sitios, refactorizar 
 		// tmr Esto tendría que estar desactivado en producción
 		try {
-			Method getApplicationCacheVersion = MetaController.class.getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
+			Method getApplicationCacheVersion = MetaApplications.class.getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
 					.getDeclaredMethod("getApplicationCacheVersion");
 			return (Integer) getApplicationCacheVersion.invoke(null);
+		} catch (ClassNotFoundException ex) { // For the first time before starting Tomcat with the incorrect classloader
+			return -1;
 		} catch (Exception ex) {
 			ex.printStackTrace(); // tmr i18n ¿Quitar?
 			return -1;

@@ -408,6 +408,7 @@ public class Modules implements Serializable {
 	public List getAll(HttpServletRequest request) { 
 		all = null; // tmr 
 		long ini = System.currentTimeMillis(); // tmr
+		// TMR ME QUEDÉ POR AQUÍ: NO CONSUME MUCHO. ¿QUÉ HACER? ¿DEJARLO SIEMPRE? TODAVÍA HAY OTRO PASO INTERMEDIO QUE HACE CACHÉ
 		if (all == null) {			
 			all = ModulesHelper.getAll(request); 
 			Collections.sort(all, comparator);

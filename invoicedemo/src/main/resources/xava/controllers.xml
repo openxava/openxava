@@ -23,7 +23,7 @@
     -->
     
     <!-- tmr ini -->
-    <!-- xxxxxx x -->             
+    <!-- xxxxxx xx -->             
     <controller name="Product">
     	<extends controller="Typical"/>
     	<action name="sayHello" 
