@@ -38,6 +38,7 @@ HOT CODE RELOADING PENDING (TMR)
 - Try with Visual Studio Code.
 - Visual Studio Code to modify openxava core without reloading.
 - Try with IntelliJ.
+- Try with XavaPro.
 - Documentation.
 
 
