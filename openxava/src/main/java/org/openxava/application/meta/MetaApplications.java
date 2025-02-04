@@ -17,7 +17,7 @@ public class MetaApplications {
 
 	private static Map<String, MetaApplication> metaAplicacions; 
 	private static MetaApplication mainMetaApplication; 
-	private static int sessionCacheVersion = -1; // tmr ¿Otro nombre?	
+	private static int sessionCacheVersion = 0; // tmr ¿Otro nombre?	
 	
 	/**
 	 * Only call this from parser.
@@ -33,11 +33,14 @@ public class MetaApplications {
 	 * @return Collection of <tt>MetaApplication</tt>. Not null.
 	 */
 	public static Collection<MetaApplication> getMetaApplications() throws XavaException {
-		// tmr ini
-        if (sessionCacheVersion < getApplicationCacheVersion()) {
-        	System.out.println("[MetaApplications.getMetaApplications] Reset metaApplications"); // tmr
-        	metaAplicacions = null;
-        	sessionCacheVersion = getApplicationCacheVersion();     
+		// tmr ini		
+        if (metaAplicacions != null) { // tmr ¿Poner la optimización metaAplicacions != null en los demás sitios?
+        	int applicationCacheVersion = getApplicationCacheVersion();
+        	if (sessionCacheVersion < applicationCacheVersion) {  
+	        	System.out.println("[MetaApplications.getMetaApplications] Reset metaApplications"); // tmr
+	        	metaAplicacions = null;
+	        	sessionCacheVersion = applicationCacheVersion;
+        	}
         }				
 		// tmr fin
 		if (metaAplicacions == null) {
@@ -76,7 +79,7 @@ public class MetaApplications {
 			configure();
 		}
 		*/
-		getMetaApplications(); // tmr para iniciar metaAplicacions
+		getMetaApplications(); // tmr para iniciar metaAplicacions, ¿un método específico para ello?
 		MetaApplication result = (MetaApplication) metaAplicacions.get(name);
 		if (result == null) {
 			throw new ElementNotFoundException("application_not_found", name);
@@ -103,10 +106,10 @@ public class MetaApplications {
 					.getDeclaredMethod("getApplicationCacheVersion");
 			return (Integer) getApplicationCacheVersion.invoke(null);
 		} catch (ClassNotFoundException ex) { // For the first time before starting Tomcat with the incorrect classloader
-			return -1;
+			return 0;
 		} catch (Exception ex) {
 			ex.printStackTrace(); // tmr i18n ¿Quitar?
-			return -1;
+			return 0; // ¿0? ¿Poner en los demás?
 		}
 	}
 	

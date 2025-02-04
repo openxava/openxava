@@ -16,9 +16,9 @@ HOT CODE RELOADING PENDING (TMR)
 * Adding modules.
 	* En el menú al recargar.
 	* Al acceder usando la URL.
-- Probar modificar controladores y módulos con una aplicación en español.
-- Changing @View, @Tab, @DescriptionsList, etc.
-- Adding persistent properties. 
+* Probar modificar controladores y módulos con una aplicación en español.
+* Changing @View, @Tab, @DescriptionsList, etc.
+- Adding persistent properties. TMR ME QUEDÉ POR AQUÍ. CREO QUE FUNCIONA PERO NO CREA COLUMNA. COMPROBARLO
 - Adding new entities.
 - Dashboard.
 - Inheritance.

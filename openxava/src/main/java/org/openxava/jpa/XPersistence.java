@@ -1,6 +1,7 @@
 package org.openxava.jpa;
 
 
+import java.lang.reflect.*;
 import java.util.*;
 import java.util.logging.*;
 
@@ -76,9 +77,11 @@ public class XPersistence {
 
 	private final static String XAVA_PERSISTENCE_UNIT_KEY = "xava.persistenceUnit";
 	final private static ThreadLocal currentManager = new ThreadLocal();
-	private static Map entityManagerFactories = new HashMap();
+	// tmr private static Map entityManagerFactories = new HashMap();
+	private static Map<Map, EntityManagerFactory> entityManagerFactories = new HashMap<>(); // tmr
 	final private static ThreadLocal currentPersistenceUnitProperties = new ThreadLocal();
 	private static Map defaultPersistenceUnitProperties;
+	private static int sessionCacheVersion = 0; // tmr ¿Otro nombre?	
 
 	/**
 	 * <code>EntityManager</code> associated to current thread. <p>
@@ -177,6 +180,14 @@ public class XPersistence {
 	}	
 	
 	private static EntityManagerFactory getEntityManagerFactory() {	
+		// tmr ini		
+        	int modelCacheVersion = getModelCacheVersion();
+        	if (sessionCacheVersion < modelCacheVersion) {  
+	        	System.out.println("[XPersistence.getEntityManagerFactory] Reset all EntityManagerFactory"); // tmr
+	        	resetAllEntityManagerFactories();
+	        	sessionCacheVersion = modelCacheVersion;
+        	}
+		// tmr fin
 		Map properties = getPersistenceUnitProperties();
 		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) 
 			entityManagerFactories.get(properties); 
@@ -219,6 +230,13 @@ public class XPersistence {
 		EntityManagerFactory factory = (EntityManagerFactory) 
 			entityManagerFactories.remove(properties);
 		if (factory != null) factory.close();
+	}
+	
+	private static void resetAllEntityManagerFactories() { // tmr
+		for (EntityManagerFactory factory: entityManagerFactories.values()) {
+			factory.close();
+		}
+		entityManagerFactories.clear();
 	}
 
 	/**
@@ -350,6 +368,18 @@ public class XPersistence {
 		catch (Exception ex) {
 			log.warn(XavaResources.getString("default_schema_warning"));
 			return null; 
+		}
+	}
+	
+	private static int getModelCacheVersion() { // tmr 
+		// tmr Esto tendría que estar desactivado en producción
+		try {
+			Method getModelCacheVersion = XPersistence.class.getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
+				.getDeclaredMethod("getModelCacheVersion");
+			return (Integer) getModelCacheVersion.invoke(null);
+		} catch (Exception ex) {
+			ex.printStackTrace(); // tmr i18n ¿Quitar?
+			return -1;
 		}
 	}
 			
