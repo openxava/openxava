@@ -10,6 +10,9 @@ import javax.xml.parsers.*;
 
 import org.apache.commons.logging.*;
 import org.hibernate.*;
+import org.hibernate.boot.*;
+import org.hibernate.boot.registry.*;
+import org.hibernate.tool.hbm2ddl.*;
 import org.openxava.jpa.impl.*;
 import org.openxava.util.*;
 
@@ -181,12 +184,12 @@ public class XPersistence {
 	
 	private static EntityManagerFactory getEntityManagerFactory() {	
 		// tmr ini		
-        	int modelCacheVersion = getModelCacheVersion();
-        	if (sessionCacheVersion < modelCacheVersion) {  
-	        	System.out.println("[XPersistence.getEntityManagerFactory] Reset all EntityManagerFactory"); // tmr
-	        	resetAllEntityManagerFactories();
-	        	sessionCacheVersion = modelCacheVersion;
-        	}
+    	int modelCacheVersion = getModelCacheVersion();
+    	if (sessionCacheVersion < modelCacheVersion) {  
+        	System.out.println("[XPersistence.getEntityManagerFactory] Reset all EntityManagerFactory"); // tmr
+        	resetAllEntityManagerFactories();
+        	sessionCacheVersion = modelCacheVersion;
+    	}
 		// tmr fin
 		Map properties = getPersistenceUnitProperties();
 		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) 
@@ -198,8 +201,22 @@ public class XPersistence {
 					factoryProperties = new HashMap(properties);
 					factoryProperties.put("hibernate.implicit_naming_strategy", "legacy-jpa"); 
 				}
-				Logger.getLogger("org.hibernate.boot.registry.classloading.internal").setLevel(Level.SEVERE); // To avoid a warning exception with Envers in development environment 
+				Logger.getLogger("org.hibernate.boot.registry.classloading.internal").setLevel(Level.SEVERE); // To avoid a warning exception with Envers in development environment
 				entityManagerFactory = Persistence.createEntityManagerFactory(getPersistenceUnit(), factoryProperties);
+				// tmr ini
+				long ini = System.currentTimeMillis();
+				MetadataSources metadataSources = new MetadataSources(new StandardServiceRegistryBuilder()
+				        .configure()
+				        .build());
+
+				Metadata metadata = metadataSources.getMetadataBuilder().build();
+				SchemaUpdate schemaUpdate = new SchemaUpdate();
+				schemaUpdate.execute(EnumSet.of(org.hibernate.tool.schema.TargetType.DATABASE), metadata);
+				long cuesta = System.currentTimeMillis() - ini;
+				// TMR ME QUEDÉ POR AQUÍ: FUNCIONA. FALTA CRONOMETRAR Y PROBAR EL CÓDIGO DE CHATGPT PARA IR CONTRA UNA UNIDAD DE PERSISTENCIA CONCRETA
+				System.out.println("[XPersistence.getEntityManagerFactory] cuesta=" + cuesta); // tmr
+				// tmr fin
+				
 			}
 			catch (NoSuchFieldError ex) {
 				log.error(XavaResources.getString("incorrect_openxava_upgrade")); 

@@ -16,7 +16,7 @@ public class Product {
 	
 	@Column(length=40) @Required
 	String description;
-	
+
 	@Required
 	BigDecimal unitPrice;
 	
@@ -24,7 +24,7 @@ public class Product {
 	@Column(length=32)
 	String photos;
 	
-	// int availableUnits; // tmr
+	Integer availableUnits; // tmr
 
 	/*
 	public BigDecimal getVat() { // tmr
