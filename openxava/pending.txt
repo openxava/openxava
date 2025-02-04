@@ -13,9 +13,9 @@ HOT CODE RELOADING PENDING (TMR)
 	* Quitar controlador.
 	* Optimizar para cargar solo cuando se modifique controllers.xml
 	* Verificar que si hay dos módulos abiertos, los MetaControladores solo lo cargue una vez.
-- Adding modules.
-	- En el menú al recargar.
-	- Al acceder usando la URL.
+* Adding modules.
+	* En el menú al recargar.
+	* Al acceder usando la URL.
 - Probar modificar controladores y módulos con una aplicación en español.
 - Changing @View, @Tab, @DescriptionsList, etc.
 - Adding persistent properties. 
@@ -28,14 +28,13 @@ HOT CODE RELOADING PENDING (TMR)
 - No cargar plugins estándar.
 - Quitar el LOG.
 - Probar con proyecto grande (openxavatest) para ver efectos en rendimiento
+- Que esté desactivado en producción.
 - Refinar código.
 - ¿Prueba automáticas? Si no podriamos hacer pruebas manuales
 - Java 11 by default for new projects? For openxavatest? Otherwise if you have a Java 8 added as JDK, the project uses it, 
 	instead of the default one with Trava. We should try hot reloading with Java 8 and Java 11 in pom.xml, 
 	but logically it only works with JDK 11 Trava for run.
 - Try Getting Started guide.
-- Remove Run and Tool Run from buttonbar? To improve UX. Verify the performance different when running automated tests. 
-	We could change the Bettle icon by a Play with a Bettle.
 - Try with Visual Studio Code.
 - Visual Studio Code to modify openxava core without reloading.
 - Try with IntelliJ.

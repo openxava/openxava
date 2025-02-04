@@ -11,6 +11,7 @@
 package com.openxava.naviox;
 
 import java.io.*;
+import java.lang.reflect.*;
 import java.util.*;
 import java.util.prefs.*;
 
@@ -43,7 +44,8 @@ public class Modules implements Serializable {
 	private List<MetaModule> fixedModules;
 	private List<MetaModule> notInMenuModules;
 	private List<MetaModule> topModules = null; 
-	private int fixedModulesCount = 0;  
+	private int fixedModulesCount = 0;
+	private int sessionCacheVersion = -1; // tmr ¿Otro nombre?
 	
 	private MetaModule current;
 
@@ -405,16 +407,18 @@ public class Modules implements Serializable {
 		return fixedModules;
 	}
 	
-	public List getAll(HttpServletRequest request) { 
-		all = null; // tmr 
-		long ini = System.currentTimeMillis(); // tmr
-		// TMR ME QUEDÉ POR AQUÍ: NO CONSUME MUCHO. ¿QUÉ HACER? ¿DEJARLO SIEMPRE? TODAVÍA HAY OTRO PASO INTERMEDIO QUE HACE CACHÉ
+	public List getAll(HttpServletRequest request) {  
+		// tmr ini
+        if (sessionCacheVersion < getApplicationCacheVersion()) {
+        	System.out.println("[Modules.getAll] Reset all"); // tmr
+        	all = null; 
+        	sessionCacheVersion = getApplicationCacheVersion();     
+        }				
+		// tmr fin		
 		if (all == null) {			
 			all = ModulesHelper.getAll(request); 
 			Collections.sort(all, comparator);
 		}
-		long cuesta = System.currentTimeMillis() - ini;
-		System.out.println("[Modules.getAll] cuesta=" + cuesta); // tmr
 		return all;
 	}
 	
@@ -472,6 +476,18 @@ public class Modules implements Serializable {
 	public void removeModule(int index) {
 		topModules.remove(index);
 		storeTopModules();
+	}
+	
+	private int getApplicationCacheVersion() { // tmr En otros sitios, refactorizar 
+		// tmr Esto tendría que estar desactivado en producción
+		try {
+			Method getApplicationCacheVersion = getClass().getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
+					.getDeclaredMethod("getApplicationCacheVersion");
+			return (Integer) getApplicationCacheVersion.invoke(null);
+		} catch (Exception ex) {
+			ex.printStackTrace(); // tmr i18n ¿Quitar?
+			return -1;
+		}
 	}
 
 }

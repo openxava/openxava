@@ -28,7 +28,7 @@ import com.openxava.naviox.*;
 
 public class ModulesHelperProvider implements IModulesHelperProvider { 
 	
-	private static List<MetaModule> all;
+	// tmr private static List<MetaModule> all;
 	
 	public void init(String applicationName) {
 	}
@@ -44,9 +44,11 @@ public class ModulesHelperProvider implements IModulesHelperProvider {
 	
 	public List<MetaModule> getAll(HttpServletRequest request) { 
 		if (Users.getCurrent() == null) return Collections.EMPTY_LIST;
-		all = null; // tmr
+		/* tmr
 		if (all == null) all = createAll();
 		return all;
+		*/
+		return createAll(); // tmr
 	}
 	
 	/** @since 6.5 */
