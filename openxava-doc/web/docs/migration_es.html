@@ -50,6 +50,12 @@
         <p>Si usas XavaPro, o planeas usarlo en el futuro, edita el archivo <i>persistence.xml</i>
         y añade la siguiente entrada a todas tus unidades de persistencia:</p>
         <pre><code class="xml">&lt;class&gt;com.openxava.naviox.model.LDAPConfiguration&lt;/class&gt;</code></pre>
+        <h3>Añadir módulo LDAPConfiguration a rol admin y carpeta Admin (para XavaPro)</h3>
+        <p>Si usas XavaPro con un proyecto existente, necesitas añadir el módulo LDAPConfiguration al rol admin y a la carpeta Admin. Para proyectos nuevos de XavaPro esto no es necesario ya que el módulo ya está incluido. XavaPro no añade automáticamente módulos nuevos a proyectos existentes por razones de seguridad:</p>
+        <p>1. Añade el módulo LDAPConfiguration al rol admin:</p>
+        <p><img src="files/add-ldap-to-admin-role_es.png" alt="Añadir módulo LDAPConfiguration al rol admin"/></p>
+        <p>2. Añade el módulo LDAPConfiguration a la carpeta Admin:</p>
+        <p><img src="files/add-ldap-to-admin-folder_es.png" alt="Añadir módulo LDAPConfiguration a la carpeta Admin"/></p>
         <h3>Configuración LDAP movida al módulo Admin (para XavaPro)</h3>
         <p>En XavaPro, la configuración LDAP ya no se realiza en el archivo <i>naviox.properties</i>. Las siguientes propiedades ya no son válidas:</p>
         <pre><code class="properties"># LDAP Config

@@ -50,6 +50,12 @@
       <p>If you use XavaPro, or you plan to use it in the future, edit the <i>persistence.xml</i>
       file and add the next entry to all your persistence units:</p>
       <pre><code class="xml">&lt;class&gt;com.openxava.naviox.model.LDAPConfiguration&lt;/class&gt;</code></pre>
+      <h3>Add LDAPConfiguration module to admin role and Admin folder (for XavaPro)</h3>
+      <p>If you use XavaPro with an existing project, you need to add the LDAPConfiguration module to the admin role and Admin folder. For new XavaPro projects this is not necessary since the module is already included. XavaPro does not automatically add new modules to existing projects for security reasons:</p>
+      <p>1. Add the LDAPConfiguration module to the admin role:</p>
+      <p><img src="files/add-ldap-to-admin-role_en.png" alt="Add LDAPConfiguration module to admin role"/></p>
+      <p>2. Add the LDAPConfiguration module to the Admin folder:</p>
+      <p><img src="files/add-ldap-to-admin-folder_en.png" alt="Add LDAPConfiguration module to Admin folder"/></p>
       <h3>LDAP Configuration moved to Admin module (for XavaPro)</h3>
       <p>In XavaPro, LDAP configuration is no longer done in <i>naviox.properties</i> file. The following properties are no longer valid:</p>
       <pre><code class="properties"># LDAP Config
@@ -278,7 +284,7 @@ assertActions(bottomActions);</code></pre>
       <pre><code class="html">&lt;script type='text/javascript' &lt;xava:nonce/&gt; src='&lt;%=contextPath%&gt;/dwr/interface/Discussion.js?ox=&lt;%=version%&gt;'&gt;&lt;/script&gt;
 </code></pre>
       <p></p>
-      <p>Note the <i>&lt;xava:nonce/&gt;</i> we have added. Although this
+      <p>Note the new <i>&lt;xava:nonce/&gt;</i> we have added. Although this
         option is the fastest to implement, the two JavaScript ways mentioned
         above work better.</p>
       <h2></h2>
@@ -897,13 +903,13 @@ session.save(customer);
     <div class="wiki" style="display: block;">
       <h3>HtmlUnit upgraded from 2.32 to 2.63 (for JUnit tests)</h3>
       If you use for testing the methods from <i>ModuleTestBase</i> you don't
-      need to touch anything. However, if you use directly the API of HtmlUnit,
-      something that can happen if you use <i>getWebClient()</i> or <i>getHtmlPage()</i>
-      in your test, in that case maybe you need to adapt your code. HtmlUnit
-      keeps its tradition of adding backward incompatible changes in each new
-      minor version, to do this they change capriciously the name of methods,
-      move things from a package to another or change the behavior of some
-      method. We found the next things, for example.</div>
+        need to touch anything. However, if you use directly the API of HtmlUnit,
+        something that can happen if you use <i>getWebClient()</i> or <i>getHtmlPage()</i>
+        in your test, in that case maybe you need to adapt your code. HtmlUnit
+        keeps its tradition of adding backward incompatible changes in each new
+        minor version, to do this they change capriciously the name of methods,
+        move things from a package to another or change the behavior of some
+        method. We found the next things, for example.</div>
     <div class="wiki" style="display: block;">The <i>asText()</i> method of <i>HtmlElement</i>
       has been rename as <i>asNormalizedText()</i>, so if you have a code like
       this in your test:</div>
