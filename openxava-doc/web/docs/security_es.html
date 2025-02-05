@@ -211,6 +211,8 @@
       </ol>
       <img src="files/ldap-configuration-detail-xavapro_es.png" alt="Detalle de Configuración LDAP" title="Detalle de Configuración LDAP"><br>
 
+      <p>Desde la versión 7.5, hemos añadido soporte para el formato <em>Nombre principal de usuario</em> además del formato tradicional <em>Nombre de cuenta SAM</em> para la autentificación con Active Directory. Ahora puedes elegir entre <em>Nombre de cuenta SAM</em> (DOMINIO\usuario) y <em>Nombre principal de usuario</em> (usuario@dominio.com) usando el nuevo campo <em>Formato de inicio de sesión</em>.</p>
+
       <h4>Múltiples Servidores LDAP</h4>
       Desde la versión 7.5, puedes configurar múltiples servidores LDAP. Cuando un usuario intenta autenticarse, el sistema probará cada servidor LDAP configurado en secuencia hasta que la autenticación tenga éxito o se hayan probado todos los servidores. Esto es particularmente útil para organizaciones que necesitan autenticar usuarios contra diferentes directorios LDAP.
       <br>
