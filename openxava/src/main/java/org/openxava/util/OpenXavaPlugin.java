@@ -3,6 +3,7 @@ package org.openxava.util;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 
 import java.io.*;
+import java.lang.annotation.*;
 import java.lang.reflect.*;
 import java.lang.reflect.Modifier;
 import java.nio.file.*;
@@ -106,30 +107,16 @@ public class OpenXavaPlugin {
     }
     */
     
-    @OnClassLoadEvent(classNameRegexp = ".*", events = { LoadEvent.DEFINE })
-    public static void onEntityModified(CtClass ct) {
-    	System.out.println("[OpenXavaPlugin.onEntityModified] ct=" + ct); // tmr
-    	if (ct != null) {
-    		try {
-    			// TMR ME QUEDÉ POR AQUÍ. LO DE LAS ANOTACIONES FUNCIONA
-	    		System.out.println("[OpenXavaPlugin.onEntityModified] ct.getAnnotations()=" + Arrays.toString(ct.getAnnotations())); // tmr
-	    		//System.out.println("[OpenXavaPlugin.onEntityModified] ct.toClass()=" + ct.toClass()); // tmr
-    		}
-    		catch (Exception ex) {
-    			ex.printStackTrace();
-    		}
-    	}
-    }
-
     @OnClassLoadEvent(classNameRegexp = ".*", events = { LoadEvent.REDEFINE, LoadEvent.DEFINE })
-    public static void onEntityModified(Class<?> clazz) {
+    public static void onEntityModified(CtClass ctClass) throws ClassNotFoundException  {
         // Process only persistent classes (@Entity or @MappedSuperclass)
-    	System.out.println("[OpenXavaPlugin.onEntityModified] clazz=" + clazz); // tmr
-    	if (clazz == null) return;
-        if (!isPersistentClass(clazz)) {
+    	System.out.println("[OpenXavaPlugin.onEntityModified] ctClass=" + ctClass); // tmr
+        if (!isPersistentClass(ctClass)) {
             return;
         }
 
+        Class clazz = Class.forName(ctClass.getName());
+        System.out.println("[OpenXavaPlugin.onEntityModified] clazz=" + clazz); // tmr
         String className = clazz.getName();
         Set<String> newFields = getPersistentFieldNames(clazz);
 
@@ -161,16 +148,20 @@ public class OpenXavaPlugin {
         classFieldsMap.put(className, newFields);
     }
 
-    private static boolean isPersistentClass(Class<?> clazz) {
-        return hasAnnotation(clazz, "javax.persistence.Entity") || hasAnnotation(clazz, "javax.persistence.MappedSuperclass");
+    private static boolean isPersistentClass(CtClass ctClass) {
+        return hasAnnotation(ctClass, "javax.persistence.Entity") || hasAnnotation(ctClass, "javax.persistence.MappedSuperclass");
     }
 
-    private static boolean hasAnnotation(Class<?> clazz, String annotationClassName) {
-        for (java.lang.annotation.Annotation annotation : clazz.getAnnotations()) {
-            if (annotation.annotationType().getName().equals(annotationClassName)) {
-                return true;
-            }
-        }
+    private static boolean hasAnnotation(CtClass ctClass, String annotationClassName) {
+        try {
+			for (Object annotation : ctClass.getAnnotations()) {
+			    if (((Annotation) annotation).annotationType().getName().equals(annotationClassName)) {
+			        return true;
+			    }
+			}
+		} 
+        catch (ClassNotFoundException ex) {
+		}
         return false;
     }
 
