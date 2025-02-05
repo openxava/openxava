@@ -107,45 +107,35 @@ public class OpenXavaPlugin {
     }
     */
     
-    @OnClassLoadEvent(classNameRegexp = ".*", events = { LoadEvent.REDEFINE, LoadEvent.DEFINE })
-    public static void onEntityModified(CtClass ctClass) throws ClassNotFoundException  {
+    @OnClassLoadEvent(classNameRegexp = ".*", events = { LoadEvent.DEFINE })
+    public static void onPersistentClassDefined(CtClass ctClass) throws ClassNotFoundException {
         // Process only persistent classes (@Entity or @MappedSuperclass)
-    	System.out.println("[OpenXavaPlugin.onEntityModified] ctClass=" + ctClass); // tmr
-        if (!isPersistentClass(ctClass)) {
-            return;
-        }
+        if (!isPersistentClass(ctClass)) return;
 
         Class clazz = Class.forName(ctClass.getName());
-        System.out.println("[OpenXavaPlugin.onEntityModified] clazz=" + clazz); // tmr
         String className = clazz.getName();
         Set<String> newFields = getPersistentFieldNames(clazz);
 
-        if (classFieldsMap.containsKey(className)) {
-            Set<String> oldFields = classFieldsMap.get(className);
-
-            // Detect added fields
-            Set<String> addedFields = new HashSet<>(newFields);
-            addedFields.removeAll(oldFields);
-
-            // Detect removed fields
-            Set<String> removedFields = new HashSet<>(oldFields);
-            removedFields.removeAll(newFields);
-
-            if (!addedFields.isEmpty() || !removedFields.isEmpty()) {
-                System.out.println("Persistent class modified: " + className);
-
-                if (!addedFields.isEmpty()) {
-                    System.out.println("New fields detected: " + addedFields);
-                }
-
-                if (!removedFields.isEmpty()) {
-                    System.out.println("Removed fields: " + removedFields);
-                }
-            }
-        }
-
         // Update the stored version of the entity fields
         classFieldsMap.put(className, newFields);
+    }
+    
+    
+    @OnClassLoadEvent(classNameRegexp = ".*", events = { LoadEvent.REDEFINE })
+    public static void onPersistentClassModified(Class clazz) throws ClassNotFoundException  {
+        // Process only persistent classes (@Entity or @MappedSuperclass)
+    	
+    	// TMR ME QUEDÉ POR AQUÍ: ACABADO DE HACER PERO NO FUNCIONA
+        if (!classFieldsMap.containsKey(clazz.getName())) return;
+
+        String className = clazz.getName();
+        Set<String> newFields = getPersistentFieldNames(clazz);
+        Set<String> oldFields = classFieldsMap.get(className);
+        if (!newFields.equals(oldFields)) {
+        	System.out.println("[OpenXavaPlugin.onPersistentClassModified] Fields modified for " + clazz); // tmr
+            // Update the stored version of the entity fields
+            classFieldsMap.put(className, newFields);
+        }
     }
 
     private static boolean isPersistentClass(CtClass ctClass) {

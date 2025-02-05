@@ -24,10 +24,10 @@ public class Product {
 	@Column(length=32)
 	String photos;
 	
-	/*
+	
 	Integer availableUnits; // tmr
 	
-	
+	/*
 	Integer disposableUnits; // tmr
 	
 	Integer units; // tmr
