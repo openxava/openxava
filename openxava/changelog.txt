@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Some new common use labels to be used in applications.
+
 OpenXava 7.4.5 (2025-1-10)
 --------------------------
 - New filterByContentInAnyProperty() method in Tab to filter for a string value in any column.
