@@ -5,14 +5,12 @@ import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import java.io.*;
 import java.lang.annotation.*;
 import java.lang.reflect.*;
-import java.lang.reflect.Modifier;
 import java.nio.file.*;
 import java.util.*;
 
 import javax.persistence.*;
 
 import org.hotswap.agent.annotation.*;
-import org.hotswap.agent.javassist.*;
 
 /**
  * tmr Renombrar, poner en otro paquete
@@ -30,7 +28,6 @@ public class OpenXavaPlugin {
 	
     @OnClassLoadEvent(classNameRegexp = ".*", events = LoadEvent.REDEFINE)
     public static void onClassModified() throws Exception {
-    	// tmr ¿solo cuando se cambien entidades?
     	// tmr Reiniciar caché de componentes
     	modelCacheVersion++;
     }
@@ -90,67 +87,30 @@ public class OpenXavaPlugin {
     	return applicationCacheVersion;
     }
     
-    // tmr ini Prueba
-    // Map to store the fields of each previously loaded entity class
-    private static final Map<String, Set<String>> classFieldsMap = new HashMap<>();
-    
-    /*
-    @OnClassLoadEvent(classNameRegexp = ".*", events = { LoadEvent.DEFINE })
-    public static void onEntityModified(String className) {
-    	System.out.println("[OpenXavaPlugin.onEntityModified] className=" + className); // tmr
-    	try {
-			onEntityModified(Class.forName(className));
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
-    */
-    
-    @OnClassLoadEvent(classNameRegexp = ".*", events = { LoadEvent.DEFINE })
-    public static void onPersistentClassDefined(CtClass ctClass) throws ClassNotFoundException {
-        // Process only persistent classes (@Entity or @MappedSuperclass)
-        if (!isPersistentClass(ctClass)) return;
-
-        Class clazz = Class.forName(ctClass.getName());
-        String className = clazz.getName();
-        Set<String> newFields = getPersistentFieldNames(clazz);
-
-        // Update the stored version of the entity fields
-        classFieldsMap.put(className, newFields);
-    }
-    
-    
     @OnClassLoadEvent(classNameRegexp = ".*", events = { LoadEvent.REDEFINE })
-    public static void onPersistentClassModified(Class clazz) throws ClassNotFoundException  {
-        // Process only persistent classes (@Entity or @MappedSuperclass)
+    public static void onPersistentClassModified(Class oldClass) throws ClassNotFoundException  {
+    	if (!isPersistentClass(oldClass)) return;
     	
-    	// TMR ME QUEDÉ POR AQUÍ: ACABADO DE HACER PERO NO FUNCIONA
-        if (!classFieldsMap.containsKey(clazz.getName())) return;
-
-        String className = clazz.getName();
-        Set<String> newFields = getPersistentFieldNames(clazz);
-        Set<String> oldFields = classFieldsMap.get(className);
+    	String className = oldClass.getName();
+        Class newClass = Class.forName(className);
+        
+        Set<String> newFields = getPersistentFieldNames(newClass);
+        Set<String> oldFields = getPersistentFieldNames(oldClass);
         if (!newFields.equals(oldFields)) {
-        	System.out.println("[OpenXavaPlugin.onPersistentClassModified] Fields modified for " + clazz); // tmr
-            // Update the stored version of the entity fields
-            classFieldsMap.put(className, newFields);
+        	// TMR ME QUEDÉ POR AQUÍ: YA VA, AHORA FALTA INCREMENTAR UNA VARIABLE CACHE PROPIA
+        	System.out.println("[OpenXavaPlugin.onPersistentClassModified] Fields modified for " + className); // tmr
         }
+    }    
+
+    private static boolean isPersistentClass(Class clazz) {
+        return hasAnnotation(clazz, "javax.persistence.Entity") || hasAnnotation(clazz, "javax.persistence.MappedSuperclass");
     }
 
-    private static boolean isPersistentClass(CtClass ctClass) {
-        return hasAnnotation(ctClass, "javax.persistence.Entity") || hasAnnotation(ctClass, "javax.persistence.MappedSuperclass");
-    }
-
-    private static boolean hasAnnotation(CtClass ctClass, String annotationClassName) {
-        try {
-			for (Object annotation : ctClass.getAnnotations()) {
-			    if (((Annotation) annotation).annotationType().getName().equals(annotationClassName)) {
-			        return true;
-			    }
-			}
-		} 
-        catch (ClassNotFoundException ex) {
+    private static boolean hasAnnotation(Class clazz, String annotationClassName) {
+    	for (Object annotation : clazz.getAnnotations()) {
+		    if (((Annotation) annotation).annotationType().getName().equals(annotationClassName)) {
+		        return true;
+		    }
 		}
         return false;
     }
@@ -169,6 +129,5 @@ public class OpenXavaPlugin {
         }
         return fieldNames;
     }
-    // tmr fin Prueba
           
 }

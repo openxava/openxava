@@ -26,6 +26,7 @@ HOT CODE RELOADING PENDING (TMR)
 - Optimizar para que solo parsee los MetaModels cuando haya cambio. Tener en cuenta clases transitorias.
 - Modify openxava core and see the changes without reloading.
 - No cargar plugins estándar.
+- No ejecutar HotswapAgent en tareas Maven. ¿Diferir como bug?
 - Quitar el LOG.
 - Probar con proyecto grande (openxavatest) para ver efectos en rendimiento
 - Que esté desactivado en producción.

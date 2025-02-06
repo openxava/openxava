@@ -189,6 +189,7 @@ public class XPersistence {
         	sessionCacheVersion = modelCacheVersion;
     	}
 		// tmr fin
+    	// tmr Asegurarme de que no crea EntityManagerFactory innecesarios, especialmente 2 veces seguidas al empezar 
 		Map properties = getPersistenceUnitProperties();
 		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) 
 			entityManagerFactories.get(properties); 
