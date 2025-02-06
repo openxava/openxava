@@ -25,6 +25,7 @@ public class OpenXavaPlugin {
 	private static int modelCacheVersion = 0; // tmr En otro sitio, ¿otro nombre?
 	private static int controllersCacheVersion = 0; // tmr En otro sitio, ¿otro nombre?
 	private static int applicationCacheVersion = 0; // tmr En otro sitio, ¿otro nombre?
+	private static int persistentModelCacheVersion = 0; // tmr En otro sitio, ¿otro nombre?
 	
     @OnClassLoadEvent(classNameRegexp = ".*", events = LoadEvent.REDEFINE)
     public static void onClassModified() throws Exception {
@@ -75,18 +76,6 @@ public class OpenXavaPlugin {
 		watcherThread.start(); 
 	}    
     
-    public static int getModelCacheVersion() {
-    	return modelCacheVersion;
-    }
-    
-    public static int getControllersCacheVersion() {
-    	return controllersCacheVersion;
-    }
-    
-    public static int getApplicationCacheVersion() {
-    	return applicationCacheVersion;
-    }
-    
     @OnClassLoadEvent(classNameRegexp = ".*", events = { LoadEvent.REDEFINE })
     public static void onPersistentClassModified(Class oldClass) throws ClassNotFoundException  {
     	if (!isPersistentClass(oldClass)) return;
@@ -97,8 +86,7 @@ public class OpenXavaPlugin {
         Set<String> newFields = getPersistentFieldNames(newClass);
         Set<String> oldFields = getPersistentFieldNames(oldClass);
         if (!newFields.equals(oldFields)) {
-        	// TMR ME QUEDÉ POR AQUÍ: YA VA, AHORA FALTA INCREMENTAR UNA VARIABLE CACHE PROPIA
-        	System.out.println("[OpenXavaPlugin.onPersistentClassModified] Fields modified for " + className); // tmr
+        	persistentModelCacheVersion++;
         }
     }    
 
@@ -128,6 +116,22 @@ public class OpenXavaPlugin {
             fieldNames.add(field.getName());
         }
         return fieldNames;
+    }
+    
+    public static int getModelCacheVersion() {
+    	return modelCacheVersion;
+    }
+    
+    public static int getControllersCacheVersion() {
+    	return controllersCacheVersion;
+    }
+    
+    public static int getApplicationCacheVersion() {
+    	return applicationCacheVersion;
+    }
+    
+    public static int getPersistentModelCacheVersion() {
+    	return persistentModelCacheVersion;
     }
           
 }

@@ -180,19 +180,16 @@ public class XPersistence {
 	}	
 	
 	private static EntityManagerFactory getEntityManagerFactory() {
-		long ini = System.currentTimeMillis(); // tmr
 		// tmr ini		
-    	int modelCacheVersion = getModelCacheVersion();
-    	if (sessionCacheVersion < modelCacheVersion) {  
+    	int persistentModelCacheVersion = getPersistentModelCacheVersion();
+    	if (sessionCacheVersion < persistentModelCacheVersion) {  
         	System.out.println("[XPersistence.getEntityManagerFactory] Reset all EntityManagerFactory"); // tmr
         	resetAllEntityManagerFactories();
-        	sessionCacheVersion = modelCacheVersion;
+        	sessionCacheVersion = persistentModelCacheVersion;
     	}
 		// tmr fin
-    	// tmr Asegurarme de que no crea EntityManagerFactory innecesarios, especialmente 2 veces seguidas al empezar 
 		Map properties = getPersistenceUnitProperties();
-		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) 
-			entityManagerFactories.get(properties); 
+		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) 	entityManagerFactories.get(properties); 
 		if (entityManagerFactory == null) {
 			Map factoryProperties = properties; 
 			try {
@@ -221,8 +218,6 @@ public class XPersistence {
 			}
 			entityManagerFactories.put(new HashMap(properties), entityManagerFactory);			
 		}
-		long cuesta = System.currentTimeMillis() - ini; // tmr
-		System.out.println("[XPersistence.getEntityManagerFactory] cuesta=" + cuesta); // tmr
 		return entityManagerFactory;
 	}	
 	
@@ -375,12 +370,12 @@ public class XPersistence {
 		}
 	}
 	
-	private static int getModelCacheVersion() { // tmr 
+	private static int getPersistentModelCacheVersion() { // tmr 
 		// tmr Esto tendría que estar desactivado en producción
 		try {
-			Method getModelCacheVersion = XPersistence.class.getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
-				.getDeclaredMethod("getModelCacheVersion");
-			return (Integer) getModelCacheVersion.invoke(null);
+			Method getPersistentModelCacheVersion = XPersistence.class.getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
+				.getDeclaredMethod("getPersistentModelCacheVersion");
+			return (Integer) getPersistentModelCacheVersion.invoke(null);
 		} catch (Exception ex) {
 			ex.printStackTrace(); // tmr i18n ¿Quitar?
 			return -1;
