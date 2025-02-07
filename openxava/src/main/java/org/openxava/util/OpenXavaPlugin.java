@@ -6,12 +6,14 @@ import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import java.io.*;
 import java.lang.annotation.*;
 import java.lang.reflect.*;
+import java.lang.reflect.Modifier;
 import java.nio.file.*;
 import java.util.*;
 
 import javax.persistence.*;
 
 import org.hotswap.agent.annotation.*;
+import org.hotswap.agent.javassist.*;
 import org.openxava.component.parse.*;
 
 /**
@@ -116,16 +118,23 @@ public class OpenXavaPlugin {
 
 		watcherThread.setDaemon(true); 
 		watcherThread.start(); 
-	}    
-	    
+	}
+	
+		    
     @OnClassLoadEvent(classNameRegexp = ".*", events = { LoadEvent.REDEFINE })
-    public static void onPersistentClassModified(Class oldClass) throws ClassNotFoundException  {
+    public static void onPersistentClassModified(CtClass newCtClass, Class oldClass) throws ClassNotFoundException  {
+    	// TMR ME QUEDÉ POR AQUÍ: A VECES EL Class.forName() DA LA CLASE ANTIGUE, MIENTROAS QUE CtClass SIEMPRE
+    	// TMR   ES LA NUEVA. REESCRIBIR LO DE ABAJO PARA QUE USE CtClass PARA OBTENER LA INFO NUEVA
+    	// TMR   DESPUÉS SEGUIR PROBANDO LO DE AÑADIR CLASE, QUE YA ESTABA HECHO, PERO NO FUNCIONABA PORQUE ESTO EMPIEZÓ A FALLAR
     	System.out.println("[OpenXavaPlugin.onPersistentClassModified] Trying " + oldClass.getName()); // tmr
-    	if (!isPersistentClass(oldClass)) return; // TMR ME QUEDÉ POR AQUÍ. NO TRATA LAS CLASES AÑADIDAS PORQUE MIRA EN LA CLASE VIEJA
+    	if (!isPersistentClass(oldClass)) return; 
     	System.out.println("[OpenXavaPlugin.onPersistentClassModified] " + oldClass.getName() + " is persistent"); // tmr
+
+    	ClassLoader classLoader = oldClass.getClassLoader();
+    	Class<?> newClass = Class.forName(oldClass.getName(), true, classLoader);    	
     	
-    	String className = oldClass.getName();
-        Class newClass = Class.forName(className);
+        System.out.println("[OpenXavaPlugin.onPersistentClassModified] newClass.getAnnotations()=" + Arrays.toString(newClass.getAnnotations())); // tmr
+        System.out.println("[OpenXavaPlugin.onPersistentClassModified] oldClass.getAnnotations()=" + Arrays.toString(oldClass.getAnnotations())); // tmr
         
         Set<String> newFields = getPersistentFieldNames(newClass);
         System.out.println("[OpenXavaPlugin.onPersistentClassModified] newFields=" + newFields); // tmr
@@ -135,10 +144,12 @@ public class OpenXavaPlugin {
         	persistentModelCacheVersion++;
         	System.out.println("[OpenXavaPlugin.onPersistentClassModified] persistentModelCacheVersion=" + persistentModelCacheVersion); // tmr
         }
-    }    
+    }
 
     private static boolean isPersistentClass(Class clazz) {
-        return hasAnnotation(clazz, "javax.persistence.Entity") || hasAnnotation(clazz, "javax.persistence.MappedSuperclass");
+        return hasAnnotation(clazz, "javax.persistence.Entity") 
+        	|| hasAnnotation(clazz, "javax.persistence.MappedSuperclass")
+        	|| hasAnnotation(clazz, "javax.persistence.Embeddable");
     }
 
     private static boolean hasAnnotation(Class clazz, String annotationClassName) {
