@@ -20,7 +20,7 @@ HOT CODE RELOADING PENDING (TMR)
 * Changing @View, @Tab, @DescriptionsList, etc.
 * Adding persistent properties. 
 - Adding new entities. 
-- Añadir clases persistente nueva.
+- Añadir clases transitoria nueva.
 - Dashboard.
 - Inheritance.
 - ¿Etiquetas?
