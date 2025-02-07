@@ -19,7 +19,8 @@ HOT CODE RELOADING PENDING (TMR)
 * Probar modificar controladores y módulos con una aplicación en español.
 * Changing @View, @Tab, @DescriptionsList, etc.
 * Adding persistent properties. 
-- Adding new entities. TMR ME QUEDÉ PARA EMPEZAR ESTO
+- Adding new entities. 
+- Añadir clases persistente nueva.
 - Dashboard.
 - Inheritance.
 - ¿Etiquetas?

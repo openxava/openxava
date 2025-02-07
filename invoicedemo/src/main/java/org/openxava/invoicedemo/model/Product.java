@@ -25,8 +25,7 @@ public class Product {
 	String photos;
 	
 	/*
-	Integer availableUnits; // tmr
-	
+	Integer availableUnits; // tmr	
 	
 	Integer disposableUnits; // tmr
 	
