@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Lesson 10 of the reporting course with JasperReports available in the documentation with video.
 - Some new common use labels to be used in applications.
 
 OpenXava 7.4.5 (2025-1-10)
