@@ -45,6 +45,27 @@
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">
+      <h2>Migration from OpenXava 7.4.5 to OpenXava 7.5</h2>
+      <h3>Add LDAPConfiguration entity to persistence.xml (for XavaPro)</h3>
+      <p>If you use XavaPro, or you plan to use it in the future, edit the <i>persistence.xml</i>
+      file and add the next entry to all your persistence units:</p>
+      <pre><code class="xml">&lt;class&gt;com.openxava.naviox.model.LDAPConfiguration&lt;/class&gt;</code></pre>
+      <h3>Add LDAPConfiguration module to admin role and Admin folder (for XavaPro)</h3>
+      <p>If you use XavaPro with an existing project, you need to add the LDAPConfiguration module to the admin role and Admin folder. For new XavaPro projects this is not necessary since the module is already included. XavaPro does not automatically add new modules to existing projects for security reasons:</p>
+      <p>1. Add the LDAPConfiguration module to the admin role:</p>
+      <p><img src="files/add-ldap-to-admin-role_en.png" alt="Add LDAPConfiguration module to admin role"/></p>
+      <p>2. Add the LDAPConfiguration module to the Admin folder:</p>
+      <p><img src="files/add-ldap-to-admin-folder_en.png" alt="Add LDAPConfiguration module to Admin folder"/></p>
+      <h3>LDAP Configuration moved to Admin module (for XavaPro)</h3>
+      <p>In XavaPro, LDAP configuration is no longer done in <i>naviox.properties</i> file. The following properties are no longer valid:</p>
+      <pre><code class="properties"># LDAP Config
+ldapHost=192.168.0.0
+ldapDomain=XX
+ldapDN=DC=XX,DC=XX,DC=XX
+ldapPort=389</code></pre>
+      <p>Instead, LDAP configuration is now managed through the Admin module. You can configure LDAP settings by going to <i>Admin > LDAP</i> in the application menu. For detailed information about configuring LDAP in version 7.5, please refer to the <a href="security_en.html#Security%20and%20user%20management-LDAP">LDAP configuration documentation</a>.</p>
+    </div>
+    <div class="wiki" style="display: block;">
       <h2>Migration from OpenXava 7.4.4 to OpenXava 7.4.5</h2>
       No issues.
       <h2>Migration from OpenXava 7.4.3 to OpenXava 7.4.4</h2>
@@ -58,7 +79,7 @@
         vulnerability in versions prior to 6.2.0.Final. While testing indicates
         it works smoothly without additional changes, there may be issues if you
         use <i>@SafeHtml</i> or Expression Language for custom violations. For
-        more details, you can <a href="https://hibernate.org/validator/releases/6.2/#migrate"
+        more details, you can <a href="https://hibernate.org/validator/releases/6.2/#migrate"
           title="https://hibernate.org/validator/releases/6.2/#migrate">visit
           Hibernate's official website</a>.</p>
     </div>
@@ -263,7 +284,7 @@ assertActions(bottomActions);</code></pre>
       <pre><code class="html">&lt;script type='text/javascript' &lt;xava:nonce/&gt; src='&lt;%=contextPath%&gt;/dwr/interface/Discussion.js?ox=&lt;%=version%&gt;'&gt;&lt;/script&gt;
 </code></pre>
       <p></p>
-      <p>Note the <i>&lt;xava:nonce/&gt;</i> we have added. Although this
+      <p>Note the new <i>&lt;xava:nonce/&gt;</i> we have added. Although this
         option is the fastest to implement, the two JavaScript ways mentioned
         above work better.</p>
       <h2></h2>
@@ -510,7 +531,7 @@ reload(); // ...you have to add this line
       module, search for the <i>Admin</i> folder in the list, and select it. In
       the <i>Admin</i> detail, click to add a new module, search for SSO, and
       add it:</div>
-    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_en.png"
+    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_en.png"
         alt=""><br>
       <h2>Migration from OpenXava 7.0.5 to OpenXava 7.0.6</h2>
       <h3>@Column(length=x) with no scale is no longer scale=2 by default</h3>
@@ -605,7 +626,7 @@ assertValidValues("descriptionsListValue", validValues);
       <p>The easier way to migrate to Maven is creating a new project using
         OpenXava 7.0, and then copying the source code and resources from your
         current project to the new one. So, first create a new OpenXava project
-        using Openxava Studio 7, for that you can follow the instructions in <a
+        using Openxava Studio 7, for that you can follow the instructions in <a
           href="getting-started_en.html">Getting started guide</a>.</p>
       <p>The next step is to copy all your source code and resources from the
         old project to the corresponding folder in the new project, as
@@ -882,13 +903,13 @@ session.save(customer);
     <div class="wiki" style="display: block;">
       <h3>HtmlUnit upgraded from 2.32 to 2.63 (for JUnit tests)</h3>
       If you use for testing the methods from <i>ModuleTestBase</i> you don't
-      need to touch anything. However, if you use directly the API of HtmlUnit,
-      something that can happen if you use <i>getWebClient()</i> or <i>getHtmlPage()</i>
-      in your test, in that case maybe you need to adapt your code. HtmlUnit
-      keeps its tradition of adding backward incompatible changes in each new
-      minor version, to do this they change capriciously the name of methods,
-      move things from a package to another or change the behavior of some
-      method. We found the next things, for example.</div>
+        need to touch anything. However, if you use directly the API of HtmlUnit,
+        something that can happen if you use <i>getWebClient()</i> or <i>getHtmlPage()</i>
+        in your test, in that case maybe you need to adapt your code. HtmlUnit
+        keeps its tradition of adding backward incompatible changes in each new
+        minor version, to do this they change capriciously the name of methods,
+        move things from a package to another or change the behavior of some
+        method. We found the next things, for example.</div>
     <div class="wiki" style="display: block;">The <i>asText()</i> method of <i>HtmlElement</i>
       has been rename as <i>asNormalizedText()</i>, so if you have a code like
       this in your test:</div>
@@ -946,7 +967,7 @@ assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asNormalizedTex
         +"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
     deleteLink.getHrefAttribute());
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
+    <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
         href="http://www.alanwood.net/demos/ansi.html">Look at this table</a> to
       know the mapping between ANSI and UNICODE.</div>
     <div class="wiki" style="display: block;">Now in <i>@HtmlText</i> or <i>@Stereotype("HTML_TEXT")</i>

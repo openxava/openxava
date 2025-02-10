@@ -60,7 +60,7 @@
             pasos (2FA) (nuevo en v7.1)</a><br>
         </div>
       </div>
-      <em>Todas las funcionalidades en este artículo están disponible solo en <a
+      <em>Todas las funcionalidades en este artículo están disponible solo en <a
           href="http://openxava.org/xavapro">XavaPro</a></em><br>
       <h2 id="toc1"><a name="Seguridad+y+gestion+de+usuarios-Gestion+de+usuarios"></a>Gestión
         de usuarios</h2>
@@ -91,7 +91,7 @@
       algunas acciones, ve al módulo <em>Roles</em> y escoge ese rol para
       editarlo en modo detalle. Ahora haz click en el módulo donde quieras
       restringir las acciones. Te aparecerá un diálogo como este:<br>
-      <img src="files/xavapro-restrict-actions_es.png" alt="xavapro-restrict-actions_es.png"
+      <img src="files/xavapro-restrict-actions_es.png" alt="xavapro-restrict-actions_es.png"
         title="xavapro-restrict-actions_es.png"><br>
       Selecciona las acciones que quieras excluir y pulsar <em>Grabar</em>. A
       partir de ahora, todos los usuario de ese rol no podrán ejecutar esas
@@ -111,7 +111,7 @@
       y escoge ese rol para editarlo en modo detalle. Ahora haz click en el
       módulo donde quieras restringir el acceso a los miembros. Te aparecerá un
       diálogo como este:<br>
-      <img src="files/restrict-data-read-only-data-xavapro_es.png" alt="restrict-data-read-only-data-xavapro_es.png"
+      <img src="files/restrict-data-read-only-data-xavapro_es.png" alt="restrict-data-read-only-data-xavapro_es.png"
         title="restrict-data-read-only-data-xavapro_es.png"><br>
       Selecciona los miembros en <em>Datos excluidos</em> que quieras excluir y
       pulsar <em>Grabar</em>. A partir de ahora, todos los usuario de ese rol
@@ -135,7 +135,7 @@
       casilla te permite marcar un módulo como de solo lectura para el rol
       seleccionado con un solo clic, simplificando significativamente el
       proceso:<br>
-      <img src="files/readonly-module-for-role_es.png" alt="readonly-module-for-role_es.png"
+      <img src="files/readonly-module-for-role_es.png" alt="readonly-module-for-role_es.png"
         title="readonly-module-for-role_es.png"><br>
       Un módulo de sólo lectura tiene todos los miembros no editables y sólo
       tiene acciones de navegación e impresión.<br>
@@ -148,7 +148,7 @@
       ejemplo. Ve al módulo <em>Roles</em> y escoge el rol que quieras editar
       en modo detalle, una vez allí pulsa en el módulo que quieras ocultar en el
       menú y un diálogo como el siguiente aparecerá:<br>
-      <img src="files/hide-module-in-menu-for-role_es.png" alt="hide-module-in-menu-for-role_es.png"
+      <img src="files/hide-module-in-menu-for-role_es.png" alt="hide-module-in-menu-for-role_es.png"
         title="hide-module-in-menu-for-role_es.png"><br>
       Marca la opción <i>No en el menú</i> y pulsa en <em>Grabar</em>. A
       partir de ahora, todos los usuario de ese rol no verán el módulo, <i>Customer</i>
@@ -175,7 +175,7 @@
       que ahora incluye una casilla de verificación denominada <i>No
         personalizar lista</i>. Márcala para desactivar la personalización de la
       lista para ese módulo, para usuarios de ese rol:<br>
-      <img src="files/no-list-customization_es.png" alt="no-list-customization_es.png"
+      <img src="files/no-list-customization_es.png" alt="no-list-customization_es.png"
         title="no-list-customization_es.png"><br>
       Desactivar la personalización de la lista por roles sólo está disponible
       en <a href="http://www.openxava.org/xavapro">XavaPro</a>.
@@ -184,7 +184,7 @@
       Hay un montón de opciones para configurar las políticas de gestión de
       usuarios y contraseñas. En la carpeta <em>Admin</em> encontrarás un
       módulo <em>Configuración</em>:<br>
-      <img src="files/xavapro-configuration_es.png" alt="xavapro-configuration_es.png"
+      <img src="files/xavapro-configuration_es.png" alt="xavapro-configuration_es.png"
         title="xavapro-configuration_es.png"><br>
       Puedes configurar estas políticas para que tu sistema sea compatible con
       PCI-DSS, algo muy útil en aplicaciones bancarias.</div>
@@ -200,8 +200,29 @@
       usuarios y contraseñas sólo están disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
       <h2 id="toc5"><a name="Seguridad+y+gestion+de+usuarios-LDAP"></a>LDAP</h2>
       <a href="http://www.openxava.org/xavapro">XavaPro</a> permite a los
-      usuarios ser autentificados vía LDAP. Para configurar LDAP edita el
-      archivo <em>naviox.properties</em> y añade las siguientes entradas:<br>
+      usuarios ser autentificados vía LDAP. A partir de la versión 7.5, la configuración LDAP se gestiona a través del módulo Admin, donde puedes configurar múltiples servidores LDAP y gestionarlos por organización.
+
+      <h3>Configuración LDAP en la versión 7.5 y posteriores</h3>
+      Para configurar LDAP en la versión 7.5:
+      <ol>
+        <li>Ve a <em>Admin > LDAP</em> en el menú de la aplicación</li>
+        <li>Haz clic en "Nuevo" para añadir una nueva configuración LDAP</li>
+        <li>Rellena los detalles del servidor LDAP:</li>
+      </ol>
+      <img src="files/ldap-configuration-detail-xavapro_es.png" alt="Detalle de Configuración LDAP" title="Detalle de Configuración LDAP"><br>
+
+      <p>Desde la versión 7.5, hemos añadido soporte para el formato <em>Nombre principal de usuario</em> además del formato tradicional <em>Nombre de cuenta SAM</em> para la autentificación con Active Directory. Ahora puedes elegir entre <em>Nombre de cuenta SAM</em> (DOMINIO\usuario) y <em>Nombre principal de usuario</em> (usuario@dominio.com) usando el nuevo campo <em>Formato de inicio de sesión</em>.</p>
+
+      <h4>Múltiples Servidores LDAP</h4>
+      Desde la versión 7.5, puedes configurar múltiples servidores LDAP. Cuando un usuario intenta autenticarse, el sistema probará cada servidor LDAP configurado en secuencia hasta que la autenticación tenga éxito o se hayan probado todos los servidores. Esto es particularmente útil para organizaciones que necesitan autenticar usuarios contra diferentes directorios LDAP.
+      <br>
+      <img src="files/ldap-configuration-list-xavapro_es.png" alt="Lista de Configuraciones LDAP" title="Lista de Configuraciones LDAP"><br>
+
+      <h4>Configuración Específica por Organización</h4>
+      Cada organización puede tener ahora su propia configuración LDAP. Esto permite que diferentes organizaciones utilicen diferentes servidores o configuraciones LDAP, proporcionando mejor aislamiento y flexibilidad para entornos multi-tenant.
+
+      <h3>Configuración LDAP en la versión 7.4.5 y anteriores</h3>
+      En versiones anteriores a la 7.5, LDAP se configuraba en el archivo <em>naviox.properties</em> con las siguientes entradas:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -218,13 +239,13 @@
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="co1"># Configuración LDAP</span>
+</style><pre class="properties"><span class="co1"># Configuración LDAP (válida hasta la versión 7.4.5)</span>
 <span class="re0">ldapHost</span><span class="sy0">=</span><span class="re1">192.168.0.0</span>
 <span class="re0">ldapDomain</span><span class="sy0">=</span><span class="re1">XX</span>
 <span class="re0">ldapDN</span><span class="sy0">=</span><span class="re1">DC=XX,DC=XX,DC=XX</span>
 <span class="re0">ldapPort</span><span class="sy0">=</span><span class="re1">389</span></pre>
-      Si usas OpenLDAP omite la entrada <em>ldapDomain</em> <em>(a partir de
-        v5.9.1)</em>, como en este ejemplo:<br>
+
+      Si usas OpenLDAP en la versión 7.4.5 o anterior, omite la entrada <em>ldapDomain</em>, como en este ejemplo:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -241,17 +262,16 @@
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="co1"># Ejemplo de configuración OpenLDAP</span>
+</style><pre class="properties"><span class="co1"># Ejemplo de configuración OpenLDAP (válida hasta la versión 7.4.5)</span>
 <span class="re0">ldapHost</span><span class="sy0">=</span><span class="re1">192.168.2.xxx</span>
 <span class="re0">ldapDomain</span><span class="sy0">=</span>
 <span class="re0">ldapDN</span><span class="sy0">=</span><span class="re1">ou=people,dc=dgrtdf,dc=gov,dc=ar</span>
 <span class="re0">ldapPort</span><span class="sy0">=</span><span class="re1">389</span></pre>
-      Fíjate como <em>ldapDomain</em> no tiene valor.<br>
-      Por defecto todos los usuarios son autentificados usando las contraseñas
-      almacenadas por XavaPro. Para activar LDAP has de seleccionar los usuarios
-      y marcar la opción <em>Autentificar con LDAP</em>:<br>
+
+      <h3>Habilitación de Autenticación LDAP para Usuarios</h3>
+      Por defecto, todos los usuarios se autentican usando las contraseñas almacenadas en XavaPro. Para habilitar la autenticación LDAP para usuarios específicos, selecciona los usuarios y marca la opción <em>Autenticar con LDAP</em>:<br>
       <img src="files/naviox_ldap_es.png" alt="naviox_ldap_es.png" title="naviox_ldap_es.png"><br>
-      El soporte de LDAP sólo está disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.</div>
+      El soporte LDAP solo está disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.</div>
     <div class="wiki" style="display: block;">
       <h2 id="codigo-autentificacion-ldap-personalizado">Código de
         autentificación LDAP personalizado <em>(nuevo en v7.4)</em></h2>
@@ -359,18 +379,18 @@ public class MiPropioLDAPAuthenticatorProvider extends ProLDAPAuthenticatorProvi
       <h2 id="toc7"><a name="Seguridad+y+gestion+de+usuarios-Fecha+de+creacion+de+usuario+y+registro+de+inicios+de+sesion"></a>Fecha
         de creación de usuario y registro de inicios de sesión</h2>
       Ve al módulo de usuarios para ver esta información:<br>
-      <img src="files/user-creation-date-sessions_es.png" alt="user-creation-date-sessions_es.png"
+      <img src="files/user-creation-date-sessions_es.png" alt="user-creation-date-sessions_es.png"
         title="user-creation-date-sessions_es.png"><br>
       <h2 id="toc8"><a name="Seguridad+y+gestion+de+usuarios-Recuperacion+de+contrasena"></a>Recuperación
         de contraseña <em>(nuevo en v5.7)</em></h2>
       El usuario puede recuperar su contraseña por sí mismo. Cuando falla al
       introducir la contraseña correcta se muestra un mensaje "¿Has olvidado tu
       contraseña?" con un vínculo:<br>
-      <img src="files/recover-password-login_es.png" alt="recover-password-login_es.png"
+      <img src="files/recover-password-login_es.png" alt="recover-password-login_es.png"
         title="recover-password-login_es.png"><br>
       Cuando el usuario pulsa en el vínculo va a una página para introducir su
       correo electrónico:<br>
-      <img src="files/enter-email-recover-password_es.png" alt="enter-email-recover-password_es.png"
+      <img src="files/enter-email-recover-password_es.png" alt="enter-email-recover-password_es.png"
         title="enter-email-recover-password_es.png"><br>
       Después de pulsar en el botón "Recuperar contraseña" un correo electrónico
       con instrucciones para recuperar la contraseña es enviado. Por supuesto,
@@ -408,7 +428,7 @@ public class MiPropioLDAPAuthenticatorProvider extends ProLDAPAuthenticatorProvi
       necesario que cada usuario tenga su correo electrónico registrado en el
       sistema. Por tanto ahora si el usuario no tiene correo electrónico XavaPro
       se lo pregunta después de entrar:<br>
-      <img src="files/enter-email-personal-data_es.png" alt="enter-email-personal-data_es.png"
+      <img src="files/enter-email-personal-data_es.png" alt="enter-email-personal-data_es.png"
         title="enter-email-personal-data_es.png"><br>
       Introducir el correo no es obligatorio, el usuario puede irse a cualquier
       otro módulo dejando el correo electrónico en blanco.<br>
@@ -442,7 +462,7 @@ public class MiPropioLDAPAuthenticatorProvider extends ProLDAPAuthenticatorProvi
       ese usuario sólo pueda acceder desde esa IP. Para ello, ve al módulo <i>Usuarios</i>
       en la carpeta <i>Admin</i>, escoge un usuario y dale valor al campo <i>IP
         permitida</i>:</div>
-    <div class="wiki" style="display: block;"> <img src="files/allowed-ip_es.png"
+    <div class="wiki" style="display: block;"> <img src="files/allowed-ip_es.png"
         alt="allowed-ip_es.png" title="allowed-ip_es.png">
       <div class="wiki" style="display: block;">Finalmente, pulsa en <i>Grabar</i>.
         Si el valor de <i>IP permitida</i> es blanco el usuario puede acceder

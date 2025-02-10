@@ -193,9 +193,29 @@
     <div class="wiki" style="display: block;"> These policies for users and
       passwords are only available in <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
       <h2 id="toc5"><a name="Security and user management-LDAP"></a>LDAP</h2>
-      <a href="http://www.openxava.org/xavapro">XavaPro</a> allows the users to
-      be authenticated via LDAP. To configure LDAP edit the <em>naviox.properties</em>
-      file and add the next entries:<br>
+      <a href="http://www.openxava.org/xavapro">XavaPro</a> allows users to be authenticated via LDAP. Starting from version 7.5, LDAP configuration is managed through the Admin module, where you can configure multiple LDAP servers and manage them per organization.
+
+      <h3>LDAP Configuration in version 7.5 and later</h3>
+      To configure LDAP in version 7.5:
+      <ol>
+        <li>Go to <em>Admin > LDAP</em> in the application menu</li>
+        <li>Click on "New" to add a new LDAP configuration</li>
+        <li>Fill in the LDAP server details:</li>
+      </ol>
+      <img src="files/ldap-configuration-detail-xavapro_en.png" alt="LDAP Configuration Detail" title="LDAP Configuration Detail"><br>
+
+      <p>From version 7.5, we have added support for <em>User Principal Name</em> format in addition to the traditional <em>SAM Account Name</em> format for Active Directory authentication. You can now choose between <em>SAM Account Name</em> (DOMAIN\user) and <em>User Principal Name</em> (user@domain.com) using the new <em>Login format</em> field.</p>
+
+      <h4>Multiple LDAP Servers</h4>
+      From version 7.5, you can configure multiple LDAP servers. When a user attempts to authenticate, the system will try each configured LDAP server in sequence until authentication succeeds or all servers have been tried. This is particularly useful for organizations that need to authenticate users against different LDAP directories.
+      <br>
+      <img src="files/ldap-configuration-list-xavapro_en.png" alt="LDAP Configurations List" title="LDAP Configurations List"><br>
+
+      <h4>Organization-Specific Configuration</h4>
+      Each organization can now have its own LDAP configuration. This allows different organizations to use different LDAP servers or configurations, providing better isolation and flexibility for multi-tenant environments.
+
+      <h3>LDAP Configuration in version 7.4.5 and earlier</h3>
+      In versions prior to 7.5, LDAP was configured in the <em>naviox.properties</em> file with the following entries:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -212,13 +232,13 @@
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="co1"># LDAP Config</span>
+</style><pre class="properties"><span class="co1"># LDAP Config (valid until version 7.4.5)</span>
 <span class="re0">ldapHost</span><span class="sy0">=</span><span class="re1">192.168.0.0</span>
 <span class="re0">ldapDomain</span><span class="sy0">=</span><span class="re1">XX</span>
 <span class="re0">ldapDN</span><span class="sy0">=</span><span class="re1">DC=XX,DC=XX,DC=XX</span>
 <span class="re0">ldapPort</span><span class="sy0">=</span><span class="re1">389</span></pre>
-      If you use OpenLDAP omit the <em>ldapDomain</em> entry <em>(since
-        v5.9.1)</em>, like in this example:<br>
+
+      If using OpenLDAP in version 7.4.5 or earlier, omit the <em>ldapDomain</em> entry, like in this example:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -235,15 +255,14 @@
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="co1"># Example of OpenLDAP Config</span>
+</style><pre class="properties"><span class="co1"># Example of OpenLDAP Config (valid until version 7.4.5)</span>
 <span class="re0">ldapHost</span><span class="sy0">=</span><span class="re1">192.168.2.xxx</span>
 <span class="re0">ldapDomain</span><span class="sy0">=</span>
 <span class="re0">ldapDN</span><span class="sy0">=</span><span class="re1">ou=people,dc=dgrtdf,dc=gov,dc=ar</span>
 <span class="re0">ldapPort</span><span class="sy0">=</span><span class="re1">389</span></pre>
-      Note as <em>ldapDomain</em> has no value.<br>
-      By default all the users are authenticated using XavaPro stored passwords.
-      To enable LDAP you have to select the users and check <em>Authenticate
-        with LDAP</em> option:<br>
+
+      <h3>Enabling LDAP Authentication for Users</h3>
+      By default, all users are authenticated using XavaPro stored passwords. To enable LDAP authentication for specific users, select the users and check the <em>Authenticate with LDAP</em> option:<br>
       <img src="files/naviox_ldap_en.png" alt="naviox_ldap_en.png" title="naviox_ldap_en.png"><br>
       LDAP support is only available in <a href="http://www.openxava.org/xavapro">XavaPro</a>.</div>
     <div class="wiki" style="display: block;">
