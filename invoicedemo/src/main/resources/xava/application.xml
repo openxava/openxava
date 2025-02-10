@@ -31,14 +31,7 @@
 		<controller name="Print"/>
 	</module>
 	-->
-	
-	<!-- tmr -->   
-	<module name="Family">
-		<model name="Family"/>
-		<controller name="Typical"/>
-	</module>
-	
-	
+		
 	<!-- tmr fin -->
 	
 </application>
