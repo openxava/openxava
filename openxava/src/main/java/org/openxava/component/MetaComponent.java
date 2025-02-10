@@ -54,8 +54,12 @@ public class MetaComponent implements Serializable {
 	 * @exception XavaException  Any other problem. 
 	 */
 	public static MetaComponent get(String name) throws ElementNotFoundException, XavaException {
-		MetaComponent r = (MetaComponent) components.get(name);		
+		components.clear(); // tmr
+		// TMR ME QUEDÉ POR AQUÍ. COMPROBAR CUANTO CUESTA EL PARSE PARA VER SI MERECE LA PENA BORRAR EL CACHE SOLO CON LAS ENTIDADES
+		// TMR   AQUÍ HAY QUE PONER EL CÓDIGO QUE BORRA EL CACHÉ
+		MetaComponent r = (MetaComponent) components.get(name);
 		if (r == null) {		
+			long ini = System.currentTimeMillis();
 			if (name.indexOf('.') >= 0) { // A component never is qualified
 				throw new ElementNotFoundException("component_not_found", name);
 			}
@@ -67,6 +71,8 @@ public class MetaComponent implements Serializable {
 			if (r.isMetaDataCached()) { 
 				components.put(name, r); 
 			}
+			long cuesta = System.currentTimeMillis() - ini;
+			System.out.println("[MetaComponent.get] Parse: " + name + ", cuesta=" + cuesta); // tmr
 		}
 		return r;
 	}
@@ -75,6 +81,7 @@ public class MetaComponent implements Serializable {
 		try {
 			for (IComponentParser parser: createParsers()) {
 				MetaComponent r = parser.parse(name);
+				System.out.println("[MetaComponent.parse] Parsed: " + name); // tmr
 				if (r != null) {
 					r.setPersistenceProvider(parser.getPersistenceProvider());
 					return r;
@@ -489,8 +496,7 @@ public class MetaComponent implements Serializable {
 	}
 
 	public boolean isMetaDataCached() {
-		// tmr return metaDataCached;
-		return false; // tmr
+		return metaDataCached;
 	}
 
 	public void setMetaDataCached(boolean metaDataCached) {
