@@ -33,16 +33,16 @@ public class Product {
 	
 	Integer units; // tmr
 	
-	
 	Integer futureUnits; // tmr
 	
 	Integer oldUnits; // tmr
 	*/
 
-	/* */
+	/*  
 	public BigDecimal getVat() { // tmr
 		return new BigDecimal(21);
 	}
+	*/
 	
 	
 

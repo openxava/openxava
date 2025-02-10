@@ -38,7 +38,6 @@ public class OpenXavaPlugin {
     }
     
     private static void onResourceModified(String resource) {
-    	System.out.println("[OpenXavaPlugin.onResourceModified] resource=" + resource); // tmr
     	if ("controllers.xml".equals(resource) || "controladores.xml".equals(resource)) {
     		controllersCacheVersion++;
     	}
@@ -48,7 +47,6 @@ public class OpenXavaPlugin {
     }
     
     private static void onClassCreated(String className) {
-    	System.out.println("[OpenXavaPlugin.onClassCreated] className=" + className); // tmr
     	try {
 			Class.forName(className);
 		} 
@@ -95,7 +93,6 @@ public class OpenXavaPlugin {
 	}
 	
 	private static void monitorDirectory(String directoryPath, WatchEvent.Kind<Path> kind, String packageName) {
-		System.out.println("[OpenXavaPlugin.monitorDirectory] directoryPath=" + directoryPath + " for " + kind + " in package " + packageName); // tmr
 		Thread watcherThread = new Thread(() -> {
 			Path path = Paths.get(directoryPath);
 			try (WatchService watchService = FileSystems.getDefault().newWatchService()) {
@@ -123,37 +120,45 @@ public class OpenXavaPlugin {
 		    
     @OnClassLoadEvent(classNameRegexp = ".*", events = { LoadEvent.REDEFINE })
     public static void onPersistentClassModified(CtClass newCtClass, Class oldClass) throws ClassNotFoundException  {
-    	// TMR ME QUEDÉ POR AQUÍ: A VECES EL Class.forName() DA LA CLASE ANTIGUE, MIENTROAS QUE CtClass SIEMPRE
-    	// TMR   ES LA NUEVA. REESCRIBIR LO DE ABAJO PARA QUE USE CtClass PARA OBTENER LA INFO NUEVA
-    	// TMR   DESPUÉS SEGUIR PROBANDO LO DE AÑADIR CLASE, QUE YA ESTABA HECHO, PERO NO FUNCIONABA PORQUE ESTO EMPIEZÓ A FALLAR
-    	System.out.println("[OpenXavaPlugin.onPersistentClassModified] Trying " + oldClass.getName()); // tmr
-    	if (!isPersistentClass(oldClass)) return; 
-    	System.out.println("[OpenXavaPlugin.onPersistentClassModified] " + oldClass.getName() + " is persistent"); // tmr
-
-    	ClassLoader classLoader = oldClass.getClassLoader();
-    	Class<?> newClass = Class.forName(oldClass.getName(), true, classLoader);    	
+    	if (!isPersistentClass(newCtClass)) return; 
     	
-        System.out.println("[OpenXavaPlugin.onPersistentClassModified] newClass.getAnnotations()=" + Arrays.toString(newClass.getAnnotations())); // tmr
-        System.out.println("[OpenXavaPlugin.onPersistentClassModified] oldClass.getAnnotations()=" + Arrays.toString(oldClass.getAnnotations())); // tmr
+    	if (!isPersistentClass(oldClass)) {
+    		applicationCacheVersion++;
+    		persistentModelCacheVersion++;
+    		return;
+    	}
+
         
-        Set<String> newFields = getPersistentFieldNames(newClass);
-        System.out.println("[OpenXavaPlugin.onPersistentClassModified] newFields=" + newFields); // tmr
+        Set<String> newFields = getPersistentFieldNames(newCtClass);
         Set<String> oldFields = getPersistentFieldNames(oldClass);
-        System.out.println("[OpenXavaPlugin.onPersistentClassModified] oldFields=" + oldFields); // tmr
         if (!newFields.equals(oldFields)) {
         	persistentModelCacheVersion++;
-        	System.out.println("[OpenXavaPlugin.onPersistentClassModified] persistentModelCacheVersion=" + persistentModelCacheVersion); // tmr
         }
     }
-
-    private static boolean isPersistentClass(Class clazz) {
+    
+    private static boolean isPersistentClass(Class clazz) throws ClassNotFoundException {
         return hasAnnotation(clazz, "javax.persistence.Entity") 
         	|| hasAnnotation(clazz, "javax.persistence.MappedSuperclass")
         	|| hasAnnotation(clazz, "javax.persistence.Embeddable");
-    }
+    }    
 
-    private static boolean hasAnnotation(Class clazz, String annotationClassName) {
+    private static boolean isPersistentClass(CtClass ctClass) throws ClassNotFoundException {
+        return hasAnnotation(ctClass, "javax.persistence.Entity") 
+        	|| hasAnnotation(ctClass, "javax.persistence.MappedSuperclass")
+        	|| hasAnnotation(ctClass, "javax.persistence.Embeddable");
+    }
+    
+    private static boolean hasAnnotation(Class clazz, String annotationClassName) throws ClassNotFoundException {
     	for (Object annotation : clazz.getAnnotations()) {
+		    if (((Annotation) annotation).annotationType().getName().equals(annotationClassName)) {
+		        return true;
+		    }
+		}
+        return false;
+    }    
+
+    private static boolean hasAnnotation(CtClass ctClass, String annotationClassName) throws ClassNotFoundException {
+    	for (Object annotation : ctClass.getAnnotations()) {
 		    if (((Annotation) annotation).annotationType().getName().equals(annotationClassName)) {
 		        return true;
 		    }
@@ -175,6 +180,21 @@ public class OpenXavaPlugin {
         }
         return fieldNames;
     }
+    
+    private static Set<String> getPersistentFieldNames(CtClass ctClass) {
+        Set<String> fieldNames = new HashSet<>();
+        for (CtField field : ctClass.getDeclaredFields()) {
+            int modifiers = field.getModifiers();
+
+            // Exclude static fields, transient fields, and fields annotated with @Transient
+            if (Modifier.isStatic(modifiers) || Modifier.isTransient(modifiers) || field.hasAnnotation(Transient.class)) {
+                continue;
+            }
+
+            fieldNames.add(field.getName());
+        }
+        return fieldNames;
+    }    
     
     public static int getModelCacheVersion() {
     	return modelCacheVersion;

@@ -32,12 +32,12 @@
 	</module>
 	-->
 	
-	<!-- tmr   
+	<!-- tmr -->   
 	<module name="Family">
 		<model name="Family"/>
 		<controller name="Typical"/>
 	</module>
-	-->
+	
 	
 	<!-- tmr fin -->
 	

@@ -407,7 +407,7 @@ public class Modules implements Serializable {
 		return fixedModules;
 	}
 	
-	public List getAll(HttpServletRequest request) {  
+	public List<MetaModule> getAll(HttpServletRequest request) { // tmr <MetaModule>   
 		// tmr ini
         if (sessionCacheVersion < getApplicationCacheVersion()) {
         	System.out.println("[Modules.getAll] Reset all"); // tmr

@@ -120,7 +120,8 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	 *  
 	 * @return of <tt>String</tt>. Not null.
 	 */	
-	public Collection getModulesNames() { 
+	public Collection getModulesNames() {
+		generateDefaultModules(); // tmr
 		return modulesNames;
 	}
 	
