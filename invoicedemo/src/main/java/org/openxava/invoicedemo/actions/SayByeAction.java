@@ -10,7 +10,7 @@ import org.openxava.actions.*;
 public class SayByeAction extends BaseAction {
 
 	public void execute() throws Exception {
-		addWarning("Bye, bye");
+		addWarning("bye_saludation");
 	}
 
 }

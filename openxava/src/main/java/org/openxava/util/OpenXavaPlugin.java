@@ -30,6 +30,7 @@ public class OpenXavaPlugin {
 	private static int controllersCacheVersion = 0; // tmr En otro sitio, ¿otro nombre?
 	private static int applicationCacheVersion = 0; // tmr En otro sitio, ¿otro nombre?
 	private static int persistentModelCacheVersion = 0; // tmr En otro sitio, ¿otro nombre?
+	private static int i18nResourcesCacheVersion = 0; // tmr En otro sitio, ¿otro nombre?
 	
     @OnClassLoadEvent(classNameRegexp = ".*", events = LoadEvent.REDEFINE)
     public static void onClassModified() throws Exception {
@@ -37,15 +38,21 @@ public class OpenXavaPlugin {
     	modelCacheVersion++;
     }
     
-    private static void onResourceModified(String resource) {
+    private static void onResourceModified(String resource, String directoryPath) {
+    	System.out.println("[OpenXavaPlugin.onResourceModified] resource=" + resource); // tmr
+    	System.out.println("[OpenXavaPlugin.onResourceModified] directoryPath=" + directoryPath); // tmr
     	if ("controllers.xml".equals(resource) || "controladores.xml".equals(resource)) {
     		controllersCacheVersion++;
     	}
     	else if ("application.xml".equals(resource) || "aplicacion.xml".equals(resource)) {
     		applicationCacheVersion++;
-    	}    	
+    	}
+    	else if (directoryPath.endsWith("/i18n")) {
+    		i18nResourcesCacheVersion++;
+    		System.out.println("[OpenXavaPlugin.onResourceModified] i18nResourcesCacheVersion=" + i18nResourcesCacheVersion); // tmr
+    	}
     }
-    
+        
     private static void onClassCreated(String className) {
     	try {
 			Class.forName(className);
@@ -59,11 +66,10 @@ public class OpenXavaPlugin {
 	public static void initResourcesMonitoring() {
 	    if (!resourcesMonitoring) {
 	    	monitorDirectory("target/classes/xava", ENTRY_MODIFY);
-	    	// tmr ini
-	    	Collection<String> managedClassNames = getManagedClassNames();
+	    	monitorDirectory("target/classes/i18n", ENTRY_MODIFY); 
 	    	
+	    	Collection<String> managedClassNames = getManagedClassNames();	    	
 	        Set<String> monitoredDirectories = new HashSet<>();
-
 	        for (String className : managedClassNames) {
 	        	String packageName = Strings.noLastTokenWithoutLastDelim(className, ".");
 	            String packagePath = "target/classes/" + packageName.replace('.', '/');
@@ -71,7 +77,7 @@ public class OpenXavaPlugin {
 	                monitorDirectory(packagePath, ENTRY_CREATE, packageName);
 	            }
 	        }	    	
-	    	// tmr fin
+	    	
 	    	resourcesMonitoring = true;
 	    }
     }
@@ -102,8 +108,8 @@ public class OpenXavaPlugin {
 					WatchKey key = watchService.take(); // Espera eventos
 					for (WatchEvent<?> event : key.pollEvents()) {
 						if (event.kind() == kind) {
-							if (kind == ENTRY_MODIFY) onResourceModified(event.context().toString());
-							else if (kind == ENTRY_CREATE) onClassCreated(packageName + "." + event.context().toString().replaceAll(".class$", ""));
+							if (packageName == null) onResourceModified(event.context().toString(), directoryPath);
+							else onClassCreated(packageName + "." + event.context().toString().replaceAll(".class$", ""));
 						}
 					}
 					key.reset(); // Reinicia la clave para seguir escuchando eventos
@@ -211,5 +217,9 @@ public class OpenXavaPlugin {
     public static int getPersistentModelCacheVersion() {
     	return persistentModelCacheVersion;
     }
-          
+    
+    public static int getI18nResourcesCacheVersion() {
+    	return i18nResourcesCacheVersion;
+    }
+              
 }

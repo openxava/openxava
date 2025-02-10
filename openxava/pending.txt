@@ -23,7 +23,7 @@ HOT CODE RELOADING PENDING (TMR)
 * Añadir clases transitoria nueva.
 * Dashboard.
 * Inheritance.
-- ¿Etiquetas?
+- Etiquetas y mensajes. FALTA PROBAR EN WINDOWS
 - Optimizar para que solo parsee los MetaModels cuando haya cambio. 
 	- Tener en cuenta clases transitorias.
 	- Cargar metamodels cuando se cambian acciones, ¿se puede evitar? ¿merece la pena?
