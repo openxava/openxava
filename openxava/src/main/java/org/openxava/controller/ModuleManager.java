@@ -1632,8 +1632,7 @@ public class ModuleManager implements java.io.Serializable {
 			}
 		}		
 		// tmr ini
-		//System.out.println("[ModuleManager.preInitModule] sessionModelCacheVersion=" + sessionModelCacheVersion); // tmr
-		//System.out.println("[ModuleManager.preInitModule] getModelCacheVersion()=" + getModelCacheVersion()); // tmr
+		System.out.println("[ModuleManager.preInitModule] A"); // tmr
         if (sessionModelCacheVersion < getModelCacheVersion()) {
         	System.out.println("[ModuleManager.preInitModule] Reloading MetaModels..."); // tmr
         	getView().reloadMetaModel();
@@ -1641,8 +1640,6 @@ public class ModuleManager implements java.io.Serializable {
         	reloadViewNeeded = true;
         	sessionModelCacheVersion = getModelCacheVersion();
         }
-        //System.out.println("[ModuleManager.preInitModule] sessionControllersCacheVersion=" + sessionControllersCacheVersion); // tmr
-        //System.out.println("[ModuleManager.preInitModule] getControllersCacheVersion()=" + getControllersCacheVersion()); // tmr
         if (sessionControllersCacheVersion < getControllersCacheVersion()) {
         	System.out.println("[ModuleManager.preInitModule] Reset MetaModule and reinit controllers..."); // tmr
         	metaModule = null;
