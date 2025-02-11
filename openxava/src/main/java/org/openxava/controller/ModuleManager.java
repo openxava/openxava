@@ -1632,7 +1632,6 @@ public class ModuleManager implements java.io.Serializable {
 			}
 		}		
 		// tmr ini
-		System.out.println("[ModuleManager.preInitModule] A"); // tmr
         if (sessionModelCacheVersion < getModelCacheVersion()) {
         	System.out.println("[ModuleManager.preInitModule] Reloading MetaModels..."); // tmr
         	getView().reloadMetaModel();

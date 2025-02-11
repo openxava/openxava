@@ -26,8 +26,7 @@ HOT CODE RELOADING PENDING (TMR)
 - Etiquetas y mensajes. FALTA PROBAR EN WINDOWS
 * Optimizar para que solo parsee los MetaModels cuando haya cambio. 
 * Al entrar en cada módulo desde el menú de la derecha hacer un "Reloading metamodules...". ¿Hace algo duplicado?	
-- Modify openxava core and see the changes without reloading.
-	- Probar reiniciar aplicación sin rebuild
+* Modify openxava core and see the changes without reloading.
 - No cargar plugins estándar.
 - No ejecutar HotswapAgent en tareas Maven. ¿Diferir como bug?
 - Quitar el LOG.
