@@ -211,7 +211,7 @@
       </ol>
       <img src="files/ldap-configuration-detail-xavapro_es.png" alt="Detalle de Configuración LDAP" title="Detalle de Configuración LDAP"><br>
 
-      <p>Desde la versión 7.5, hemos añadido soporte para el formato <em>Nombre principal de usuario</em> además del formato tradicional <em>Nombre de cuenta SAM</em> para la autentificación con Active Directory. Ahora puedes elegir entre <em>Nombre de cuenta SAM</em> (DOMINIO\usuario) y <em>Nombre principal de usuario</em> (usuario@dominio.com) usando el nuevo campo <em>Formato de inicio de sesión</em>.</p>
+      <p>A partir de la versión 7.5, hemos añadido soporte para el formato <em>Nombre principal de usuario</em> además del formato tradicional <em>Nombre de cuenta SAM</em> para la autentificación con Active Directory. Ahora puedes elegir entre <em>Nombre de cuenta SAM</em> (DOMINIO\usuario) y <em>Nombre principal de usuario</em> (usuario@dominio.com) usando el nuevo campo <em>Formato de inicio de sesión</em>.</p>
 
       <h4>Múltiples Servidores LDAP</h4>
       Desde la versión 7.5, puedes configurar múltiples servidores LDAP. Cuando un usuario intenta autenticarse, el sistema probará cada servidor LDAP configurado en secuencia hasta que la autenticación tenga éxito o se hayan probado todos los servidores. Esto es particularmente útil para organizaciones que necesitan autenticar usuarios contra diferentes directorios LDAP.
@@ -220,6 +220,9 @@
 
       <h4>Configuración Específica por Organización</h4>
       Cada organización puede tener ahora su propia configuración LDAP. Esto permite que diferentes organizaciones utilicen diferentes servidores o configuraciones LDAP, proporcionando mejor aislamiento y flexibilidad para entornos multi-tenant.
+
+      <h4>Registro Automático de Usuarios LDAP</h4>
+      <p>A partir de la versión 7.5, los usuarios LDAP ya no necesitan ser dados de alta manualmente en XavaPro. Cuando un usuario LDAP se autentifica contra la aplicación por primera vez, si no existe en XavaPro, se dará de alta automáticamente. Si la aplicación tiene un rol "ldap" definido, este rol se asignará automáticamente al nuevo usuario. Las nuevas organizaciones creadas a partir de la versión 7.5 tienen el rol "ldap" creado por defecto, pero también se puede crear manualmente si es necesario. Puede añadir módulos y otros permisos a este rol para controlar a qué pueden acceder los usuarios autenticados mediante LDAP. Esta característica hace posible tener nuevos usuarios en la aplicación simplemente añadiéndolos en LDAP.</p>
 
       <h3>Configuración LDAP en la versión 7.4.5 y anteriores</h3>
       En versiones anteriores a la 7.5, LDAP se configuraba en el archivo <em>naviox.properties</em> con las siguientes entradas:<br>
