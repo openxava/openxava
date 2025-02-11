@@ -86,7 +86,6 @@ public class MetaComponent implements Serializable {
 		try {
 			for (IComponentParser parser: createParsers()) {
 				MetaComponent r = parser.parse(name);
-				System.out.println("[MetaComponent.parse] Parsed: " + name); // tmr
 				if (r != null) {
 					r.setPersistenceProvider(parser.getPersistenceProvider());
 					return r;
