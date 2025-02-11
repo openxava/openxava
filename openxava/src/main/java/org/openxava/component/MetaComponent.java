@@ -1,6 +1,7 @@
 package org.openxava.component;
 
 import java.io.*;
+import java.lang.reflect.*;
 import java.util.*;
 
 import org.apache.commons.logging.*;
@@ -32,7 +33,8 @@ public class MetaComponent implements Serializable {
 	private static Properties packages;
 	private static boolean allComponentsLoaded = false;
 	private static Set allPackageNames;
-	private static Collection<Class> parsersClasses = null; 
+	private static Collection<Class> parsersClasses = null;
+	private static int sessionCacheVersion = -1; // tmr ¿Otro nombre?
 	
 	private String packageNameWithSlashWithoutModel;
 	private String name;
@@ -54,12 +56,17 @@ public class MetaComponent implements Serializable {
 	 * @exception XavaException  Any other problem. 
 	 */
 	public static MetaComponent get(String name) throws ElementNotFoundException, XavaException {
-		components.clear(); // tmr
-		// TMR ME QUEDÉ POR AQUÍ. COMPROBAR CUANTO CUESTA EL PARSE PARA VER SI MERECE LA PENA BORRAR EL CACHE SOLO CON LAS ENTIDADES
-		// TMR   AQUÍ HAY QUE PONER EL CÓDIGO QUE BORRA EL CACHÉ
+		// tmr ini		
+    	int modelCacheVersion = getModelCacheVersion();
+    	if (sessionCacheVersion < modelCacheVersion) {  
+        	System.out.println("[MetaComponent.get] Reset components"); // tmr
+        	components.clear(); // tmr
+        	sessionCacheVersion = modelCacheVersion;
+    	}
+		// tmr fin
+		
 		MetaComponent r = (MetaComponent) components.get(name);
 		if (r == null) {		
-			long ini = System.currentTimeMillis();
 			if (name.indexOf('.') >= 0) { // A component never is qualified
 				throw new ElementNotFoundException("component_not_found", name);
 			}
@@ -71,8 +78,6 @@ public class MetaComponent implements Serializable {
 			if (r.isMetaDataCached()) { 
 				components.put(name, r); 
 			}
-			long cuesta = System.currentTimeMillis() - ini;
-			System.out.println("[MetaComponent.get] Parse: " + name + ", cuesta=" + cuesta); // tmr
 		}
 		return r;
 	}
@@ -509,6 +514,18 @@ public class MetaComponent implements Serializable {
 
 	public void setLabelForModule(boolean labelForModule) {
 		this.labelForModule = labelForModule;
+	}
+	
+	private static int getModelCacheVersion() { // tmr ¿Mover a otro sitio, a una clase común? ¿Todos los que son como ete?
+		// tmr Esto tendría que estar desactivado en producción
+		try {
+			Method getModelCacheVersion = MetaComponent.class.getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
+				.getDeclaredMethod("getModelCacheVersion");
+			return (Integer) getModelCacheVersion.invoke(null);
+		} catch (Exception ex) {
+			ex.printStackTrace(); // tmr i18n ¿Quitar?
+			return -1;
+		}
 	}
 		
 }

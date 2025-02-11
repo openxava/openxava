@@ -34,13 +34,10 @@ public class OpenXavaPlugin {
 	
     @OnClassLoadEvent(classNameRegexp = ".*", events = LoadEvent.REDEFINE)
     public static void onClassModified() throws Exception {
-    	// tmr Reiniciar caché de componentes
     	modelCacheVersion++;
     }
     
     private static void onResourceModified(String resource, String directoryPath) {
-    	System.out.println("[OpenXavaPlugin.onResourceModified] resource=" + resource); // tmr
-    	System.out.println("[OpenXavaPlugin.onResourceModified] directoryPath=" + directoryPath); // tmr
     	if ("controllers.xml".equals(resource) || "controladores.xml".equals(resource)) {
     		controllersCacheVersion++;
     	}
@@ -49,7 +46,6 @@ public class OpenXavaPlugin {
     	}
     	else if (directoryPath.endsWith("/i18n")) {
     		i18nResourcesCacheVersion++;
-    		System.out.println("[OpenXavaPlugin.onResourceModified] i18nResourcesCacheVersion=" + i18nResourcesCacheVersion); // tmr
     	}
     }
         
