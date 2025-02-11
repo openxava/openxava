@@ -214,6 +214,9 @@
       <h4>Organization-Specific Configuration</h4>
       Each organization can now have its own LDAP configuration. This allows different organizations to use different LDAP servers or configurations, providing better isolation and flexibility for multi-tenant environments.
 
+      <h4>Automatic User Registration</h4>
+      Starting from version 7.5, LDAP users no longer need to be manually registered in XavaPro. When an LDAP user authenticates against the application for the first time, if they don't exist in XavaPro, they will be automatically registered. If the application has an "ldap" role defined, this role will be automatically assigned to the new user. New organizations created from version 7.5 onwards have the "ldap" role created by default, but it can also be created manually if needed. You can add modules and other permissions to this role to control what LDAP-authenticated users can access. This feature makes it possible to have new users in the application simply by adding them to LDAP.
+
       <h3>LDAP Configuration in version 7.4.5 and earlier</h3>
       In versions prior to 7.5, LDAP was configured in the <em>naviox.properties</em> file with the following entries:<br>
       <style type="text/css"><!--
