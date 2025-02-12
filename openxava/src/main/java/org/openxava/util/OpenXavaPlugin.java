@@ -127,18 +127,14 @@ public class OpenXavaPlugin {
     	if (!isPersistentClass(oldClass)) {
     		applicationCacheVersion++;
     		persistentModelCacheVersion++;
-    		System.out.println("[OpenXavaPlugin.onPersistentClassModified] applicationCacheVersion=" + applicationCacheVersion); // tmr
     		return;
     	}
 
         
         Set<String> newFields = getPersistentFieldNames(newCtClass);              
         Set<String> oldFields = getPersistentFieldNames(oldClass);
-        System.out.println("[OpenXavaPlugin.onPersistentClassModified] newFields=" + newFields); // tmr
-        System.out.println("[OpenXavaPlugin.onPersistentClassModified] oldFields=" + oldFields); // tmr
         if (!newFields.equals(oldFields)) {
         	persistentModelCacheVersion++;
-        	System.out.println("[OpenXavaPlugin.onPersistentClassModified] persistentModelCacheVersion=" + persistentModelCacheVersion); // tmr
         }
     }
     

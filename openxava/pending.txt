@@ -30,7 +30,7 @@ HOT CODE RELOADING PENDING (TMR)
 * No cargar plugins estándar.
 * Quitar el LOG.
 * No ejecutar HotswapAgent en tareas Maven. No es posible.
-- Probar con proyecto grande (openxavatest) para ver efectos en rendimiento
+* Probar con proyecto grande (openxavatest) para ver efectos en rendimiento
 - Que esté desactivado en producción.
 - Refinar código.
 - ¿Prueba automáticas? Si no podriamos hacer pruebas manuales

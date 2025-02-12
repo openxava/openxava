@@ -235,8 +235,7 @@ import org.openxava.test.actions.*;
 			@RowStyle(style="italic-label", property="type", value="steady"),
 			@RowStyle(style="row-red", property="type", value="special")	// 'row-red' defined in file 'custom.css'
 		},
-		// tmr properties="name, type, seller.name, address.city, seller.level.description, address.state.name, website" 
-		properties="name, type, seller.name, address.city, seller.level.description, address.state.name, website, despedida" // tmr
+		properties="name, type, seller.name, address.city, seller.level.description, address.state.name, website" 
 	),	
 	@Tab( name="TwoSellers",
 		properties="name, type, address.city, seller.name, seller.level.description, alternateSeller.name"		
@@ -264,37 +263,6 @@ import org.openxava.test.actions.*;
 		baseCondition="${number} < 4")
 })
 public class Customer implements IWithName {
-	
-	
-	public String getAlago() {
-		return "GUAPA";
-	}
-	
-	
-	public String getInsulto() {
-		return "IDIOTA";
-	}
-	
-	
-	public String getDespedida() {
-		return "ADIOS";
-	}
-	
-	/*
-	public String getSaludo() {
-		return "HOLA";
-	}
-	
-	
-	public String getAnimo() { // tmr
-		return "ALTO";
-	}
-	
-	
-	public String getObjetivo() { // tmr
-		return "IMPENSABLE";
-	}
-	*/
 	
 	@Id @Column(length=5)	
 	private int number;
@@ -335,7 +303,6 @@ public class Customer implements IWithName {
 	@Editor(forViews="WithSection", value="CustomWebURL") 
 	private String website;
 		
-	// TMR ME QUEDÉ POR AQUÍ. PROBANDO EL RENDIMIENTO CUANDO SE CAMBIA UNA PROPIEDAD PERSISTENTE
 	@Stereotype("MEMO") @Column(length=400)	
 	private String remarks;
 		
