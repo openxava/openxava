@@ -25,6 +25,11 @@ public class Product {
 	String photos;
 	
 	/*
+	Type type; // tmr
+	public enum Type { NORMAL, STEADY, SPECIAL }; // tmr
+	*/
+	
+	/*
 	Integer availableUnits; // tmr	
 	
 	
@@ -38,7 +43,7 @@ public class Product {
 	Integer oldUnits; // tmr
 	*/
 
-	/* */      
+	/* */        
 	public BigDecimal getVat() { // tmr
 		return new BigDecimal(21);
 	}

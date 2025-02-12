@@ -182,6 +182,8 @@ public class XPersistence {
 	private static EntityManagerFactory getEntityManagerFactory() {
 		// tmr ini		
     	int persistentModelCacheVersion = getPersistentModelCacheVersion();
+    	System.out.println("[XPersistence.getEntityManagerFactory] sessionCacheVersion=" + sessionCacheVersion); // tmr
+    	System.out.println("[XPersistence.getEntityManagerFactory] persistentModelCacheVersion=" + persistentModelCacheVersion); // tmr    	
     	if (sessionCacheVersion < persistentModelCacheVersion) {  
         	System.out.println("[XPersistence.getEntityManagerFactory] Reset all EntityManagerFactory"); // tmr
         	resetAllEntityManagerFactories();

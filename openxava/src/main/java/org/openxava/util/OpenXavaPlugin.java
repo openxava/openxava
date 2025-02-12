@@ -85,7 +85,7 @@ public class OpenXavaPlugin {
 		}
 		catch (NoClassDefFoundError er) {
 			// tmr Falla cuando se hace mvn install. Intentar otro modo para que no ejecute los plugins en maven
-			System.err.println("Failed obtaining managed class names: " + er.getMessage());
+			// tmr System.err.println("Failed obtaining managed class names: " + er.getMessage()); // No poner este mensaje porque sale en mvn install y me van a preguntar
 			return Collections.EMPTY_LIST;
 		}
 	}		
@@ -127,14 +127,18 @@ public class OpenXavaPlugin {
     	if (!isPersistentClass(oldClass)) {
     		applicationCacheVersion++;
     		persistentModelCacheVersion++;
+    		System.out.println("[OpenXavaPlugin.onPersistentClassModified] applicationCacheVersion=" + applicationCacheVersion); // tmr
     		return;
     	}
 
         
-        Set<String> newFields = getPersistentFieldNames(newCtClass);
+        Set<String> newFields = getPersistentFieldNames(newCtClass);              
         Set<String> oldFields = getPersistentFieldNames(oldClass);
+        System.out.println("[OpenXavaPlugin.onPersistentClassModified] newFields=" + newFields); // tmr
+        System.out.println("[OpenXavaPlugin.onPersistentClassModified] oldFields=" + oldFields); // tmr
         if (!newFields.equals(oldFields)) {
         	persistentModelCacheVersion++;
+        	System.out.println("[OpenXavaPlugin.onPersistentClassModified] persistentModelCacheVersion=" + persistentModelCacheVersion); // tmr
         }
     }
     
@@ -150,15 +154,15 @@ public class OpenXavaPlugin {
         	|| hasAnnotation(ctClass, "javax.persistence.Embeddable");
     }
     
-    private static boolean hasAnnotation(Class clazz, String annotationClassName) throws ClassNotFoundException {
-    	for (Object annotation : clazz.getAnnotations()) {
+    private static boolean hasAnnotation(AnnotatedElement element, String annotationClassName) throws ClassNotFoundException {
+    	for (Object annotation : element.getAnnotations()) {
 		    if (((Annotation) annotation).annotationType().getName().equals(annotationClassName)) {
 		        return true;
 		    }
 		}
         return false;
     }    
-
+    
     private static boolean hasAnnotation(CtClass ctClass, String annotationClassName) throws ClassNotFoundException {
     	for (Object annotation : ctClass.getAnnotations()) {
 		    if (((Annotation) annotation).annotationType().getName().equals(annotationClassName)) {
@@ -168,13 +172,13 @@ public class OpenXavaPlugin {
         return false;
     }
 
-    private static Set<String> getPersistentFieldNames(Class<?> clazz) {
+    private static Set<String> getPersistentFieldNames(Class<?> clazz) throws ClassNotFoundException {
         Set<String> fieldNames = new HashSet<>();
         for (Field field : clazz.getDeclaredFields()) {
             int modifiers = field.getModifiers();
 
             // Exclude static fields, transient fields, and fields annotated with @Transient
-            if (Modifier.isStatic(modifiers) || Modifier.isTransient(modifiers) || field.isAnnotationPresent(Transient.class)) {
+            if (Modifier.isStatic(modifiers) || Modifier.isTransient(modifiers) || hasAnnotation(field, "javax.persistence.Transient")) {
                 continue;
             }
 
