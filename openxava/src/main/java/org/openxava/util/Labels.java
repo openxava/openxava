@@ -17,7 +17,7 @@ public class Labels {
 	private static Log log = LogFactory.getLog(Labels.class);
 	private static Map<String, String> labels = Collections.synchronizedMap(new HashMap<>()); 
 	private static Map<String, String> customLabels;
-	private static int sessionCacheVersion = 0; // tmr ¿Otro nombre?
+	private static int sessionCacheVersion = getI18nResourcesCacheVersion(); // tmr ¿Otro nombre?
 	
 	/**
 	 * On any error returns the sent <code>id</code> with the first letter in uppercase.

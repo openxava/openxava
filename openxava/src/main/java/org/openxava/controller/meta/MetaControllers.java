@@ -22,7 +22,7 @@ public class MetaControllers {
 	private static Map<String, MetaObject> mapMetaObjects;
 	private static Collection<String> objectPrefixes; 
 	private static String context = WEB;
-	private static int sessionCacheVersion = -1; // tmr ¿Otro nombre?
+	private static int sessionCacheVersion = getControllersCacheVersion(); // tmr ¿Otro nombre?
 	
 	
 	public static void _addMetaController(MetaController newController) throws XavaException {

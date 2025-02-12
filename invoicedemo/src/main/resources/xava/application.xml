@@ -25,7 +25,7 @@
 		<controller name="InitModelWithNewInstance"/>
 	</module>
 	
-	<!-- tmr inix        
+	<!-- tmr ini   aa
 	<module name="CustomerReadOnly">
 		<model name="Customer"/>
 		<controller name="Print"/>

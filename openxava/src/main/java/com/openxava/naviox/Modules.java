@@ -45,7 +45,7 @@ public class Modules implements Serializable {
 	private List<MetaModule> notInMenuModules;
 	private List<MetaModule> topModules = null; 
 	private int fixedModulesCount = 0;
-	private int sessionCacheVersion = -1; // tmr ¿Otro nombre?
+	private int sessionCacheVersion = getApplicationCacheVersion(); // tmr ¿Otro nombre?
 	
 	private MetaModule current;
 

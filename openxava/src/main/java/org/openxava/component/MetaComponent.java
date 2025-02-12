@@ -34,7 +34,7 @@ public class MetaComponent implements Serializable {
 	private static boolean allComponentsLoaded = false;
 	private static Set allPackageNames;
 	private static Collection<Class> parsersClasses = null;
-	private static int sessionCacheVersion = -1; // tmr ¿Otro nombre?
+	private static int sessionCacheVersion = getModelCacheVersion(); // tmr ¿Otro nombre?
 	
 	private String packageNameWithSlashWithoutModel;
 	private String name;

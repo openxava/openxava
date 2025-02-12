@@ -24,7 +24,7 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	private Collection folders;
 	private Collection controllersForDefaultModule;
 	private boolean defaultModulesGenerated = false;
-	private int sessionCacheVersion = -1; // tmr ¿Otro nombre?
+	private int sessionCacheVersion = getControllersCacheVersion(); // tmr ¿Otro nombre?
 	
 	
 	/**
@@ -229,6 +229,9 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 			Method getControllersCacheVersion = MetaController.class.getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
 					.getDeclaredMethod("getControllersCacheVersion");
 			return (Integer) getControllersCacheVersion.invoke(null);
+		} catch (ClassNotFoundException ex) {
+			// Fails on initializing application
+			return 0;
 		} catch (Exception ex) {
 			ex.printStackTrace(); // tmr i18n ¿Quitar?
 			return -1;

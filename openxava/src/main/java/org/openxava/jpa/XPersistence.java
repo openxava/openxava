@@ -81,7 +81,7 @@ public class XPersistence {
 	private static Map<Map, EntityManagerFactory> entityManagerFactories = new HashMap<>(); // tmr
 	final private static ThreadLocal currentPersistenceUnitProperties = new ThreadLocal();
 	private static Map defaultPersistenceUnitProperties;
-	private static int sessionCacheVersion = 0; // tmr ¿Otro nombre?	
+	private static int sessionCacheVersion = getPersistentModelCacheVersion(); // tmr ¿Otro nombre?	
 
 	/**
 	 * <code>EntityManager</code> associated to current thread. <p>

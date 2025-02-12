@@ -31,7 +31,7 @@ HOT CODE RELOADING PENDING (TMR)
 * Quitar el LOG.
 * No ejecutar HotswapAgent en tareas Maven. No es posible.
 * Probar con proyecto grande (openxavatest) para ver efectos en rendimiento
-- Que esté desactivado en producción.
+* Que esté desactivado en producción.
 - Refinar código.
 - ¿Prueba automáticas? Si no podriamos hacer pruebas manuales
 - Java 11 by default for new projects? For openxavatest? Otherwise if you have a Java 8 added as JDK, the project uses it, 

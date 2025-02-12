@@ -1630,7 +1630,7 @@ public class ModuleManager implements java.io.Serializable {
 			else {
 				setModeControllerName(Style.getInstance().getDefaultModeController());
 			}
-		}		
+		}
 		// tmr ini
         if (sessionModelCacheVersion < getModelCacheVersion()) {
         	System.out.println("[ModuleManager.preInitModule] Reloading MetaModels..."); // tmr

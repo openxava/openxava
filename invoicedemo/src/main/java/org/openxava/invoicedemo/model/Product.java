@@ -43,11 +43,11 @@ public class Product {
 	Integer oldUnits; // tmr
 	*/
 
-	/* */        
+	/*         
 	public BigDecimal getVat() { // tmr
 		return new BigDecimal(21);
 	}
-	
+	*/
 	
 	
 

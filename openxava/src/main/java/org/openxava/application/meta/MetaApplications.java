@@ -17,7 +17,7 @@ public class MetaApplications {
 
 	private static Map<String, MetaApplication> metaAplicacions; 
 	private static MetaApplication mainMetaApplication; 
-	private static int sessionCacheVersion = 0; // tmr ¿Otro nombre?	
+	private static int sessionCacheVersion = getApplicationCacheVersion(); // tmr ¿Otro nombre?	
 	
 	/**
 	 * Only call this from parser.
