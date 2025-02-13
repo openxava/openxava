@@ -23,6 +23,7 @@ import org.openxava.actions.*;
 import org.openxava.application.meta.*;
 import org.openxava.component.*;
 import org.openxava.controller.meta.*;
+import org.openxava.hotswap.*;
 import org.openxava.jpa.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.*;
@@ -2120,7 +2121,7 @@ public class ModuleManager implements java.io.Serializable {
 	private int getModelCacheVersion() { // tmr 
 		// tmr Esto tendría que estar desactivado en producción
 		try {
-			Method getModelCacheVersion = getClass().getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
+			Method getModelCacheVersion = getClass().getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
 				.getDeclaredMethod("getModelCacheVersion");
 			return (Integer) getModelCacheVersion.invoke(null);
 		} catch (Exception ex) {
@@ -2132,7 +2133,7 @@ public class ModuleManager implements java.io.Serializable {
 	private int getControllersCacheVersion() { // tmr 
 		// tmr Esto tendría que estar desactivado en producción
 		try {
-			Method getControllersCacheVersion = getClass().getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
+			Method getControllersCacheVersion = getClass().getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
 				.getDeclaredMethod("getControllersCacheVersion");
 			return (Integer) getControllersCacheVersion.invoke(null);
 		} catch (Exception ex) {

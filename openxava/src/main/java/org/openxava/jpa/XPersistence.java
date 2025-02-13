@@ -10,6 +10,7 @@ import javax.xml.parsers.*;
 
 import org.apache.commons.logging.*;
 import org.hibernate.*;
+import org.openxava.hotswap.*;
 import org.openxava.jpa.impl.*;
 import org.openxava.util.*;
 
@@ -373,7 +374,7 @@ public class XPersistence {
 	private static int getPersistentModelCacheVersion() { // tmr 
 		// tmr Esto tendría que estar desactivado en producción
 		try {
-			Method getPersistentModelCacheVersion = XPersistence.class.getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
+			Method getPersistentModelCacheVersion = XPersistence.class.getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
 				.getDeclaredMethod("getPersistentModelCacheVersion");
 			return (Integer) getPersistentModelCacheVersion.invoke(null);
 		} catch (Exception ex) {

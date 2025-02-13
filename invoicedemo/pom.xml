@@ -10,8 +10,8 @@
   <properties>
     <openxava.version>7.5-SNAPSHOT</openxava.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>11</maven.compiler.source> <!-- tmr Era 1.8 -->
-    <maven.compiler.target>11</maven.compiler.target> <!-- tmr Era 1.8 -->
+    <maven.compiler.source>11</maven.compiler.source> 
+    <maven.compiler.target>11</maven.compiler.target> 
   </properties>
 
   <dependencies>
@@ -19,17 +19,7 @@
       <groupId>org.openxava</groupId>
       <artifactId>openxava</artifactId>
       <version>${openxava.version}</version>
-    </dependency>
-    
-		<!-- tmr ini -->
-		<!-- tmr Quitar -->		
-		<dependency>
-		    <groupId>org.hotswapagent</groupId>
-		    <artifactId>hotswap-agent-core</artifactId>
-		    <version>1.4.1</version> 
-		    <scope>provided</scope>
-		</dependency>
-		<!-- tmr fin -->
+    </dependency>    
   </dependencies>
   
   <build>

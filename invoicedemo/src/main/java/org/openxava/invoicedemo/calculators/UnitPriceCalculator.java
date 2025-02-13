@@ -2,8 +2,6 @@ package org.openxava.invoicedemo.calculators;
 
 import static org.openxava.jpa.XPersistence.getManager;
 
-import java.math.*;
-
 import org.openxava.calculators.*;
 import org.openxava.invoicedemo.model.*;
 
@@ -13,8 +11,7 @@ public class UnitPriceCalculator implements ICalculator {
 
 	public Object calculate() throws Exception {
 		Product	product = getManager().find(Product.class, productNumber);  
-		// tmr return product.getUnitPrice();
-		return new BigDecimal(13); // tmr
+		return product.getUnitPrice();		
 	}
 
 	public void setProductNumber(int productNumber) { 

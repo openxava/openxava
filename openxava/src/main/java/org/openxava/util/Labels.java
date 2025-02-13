@@ -5,6 +5,7 @@ import java.util.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.application.meta.*;
+import org.openxava.hotswap.*;
 
 /**
  * Utility class for obtain the i18n of the labels. <p>
@@ -320,7 +321,7 @@ public class Labels {
 	private static int getI18nResourcesCacheVersion() { // tmr En otros sitios, refactorizar 
 		// tmr Esto tendría que estar desactivado en producción
 		try {
-			Method getI18nResourcesCacheVersion = Labels.class.getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
+			Method getI18nResourcesCacheVersion = Labels.class.getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
 					.getDeclaredMethod("getI18nResourcesCacheVersion");
 			return (Integer) getI18nResourcesCacheVersion.invoke(null);
 		} catch (ClassNotFoundException ex) { // For the first time before starting Tomcat with the incorrect classloader

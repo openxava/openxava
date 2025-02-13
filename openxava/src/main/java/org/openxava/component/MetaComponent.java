@@ -6,6 +6,7 @@ import java.util.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.component.parse.*;
+import org.openxava.hotswap.*;
 import org.openxava.mapping.*;
 import org.openxava.model.impl.*;
 import org.openxava.model.meta.*;
@@ -518,7 +519,7 @@ public class MetaComponent implements Serializable {
 	private static int getModelCacheVersion() { // tmr ¿Mover a otro sitio, a una clase común? ¿Todos los que son como ete?
 		// tmr Esto tendría que estar desactivado en producción
 		try {
-			Method getModelCacheVersion = MetaComponent.class.getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
+			Method getModelCacheVersion = MetaComponent.class.getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
 				.getDeclaredMethod("getModelCacheVersion");
 			return (Integer) getModelCacheVersion.invoke(null);
 		} catch (Exception ex) {

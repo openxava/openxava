@@ -2794,9 +2794,11 @@ public class AnnotatedClassParser implements IComponentParser {
 
 
 	/**
-	 * Only for using from MetaApplication class. <p>
+	 * Explores the filesystem where the classes are, instead of using a Hibernate connection. <p>
+	 * 
+	 * @since 7.5 Before it was called friendMetaApplicationGetManagedClassNames()
 	 */
-	public static Collection<String> friendMetaApplicationGetManagedClassNames() { 
+	public static Collection<String> getManagedClassNamesFromFileClassPath() { 
 		return managedClassNames = obtainManagedClassNamesFromFileClassPath(); 
 	}
 	

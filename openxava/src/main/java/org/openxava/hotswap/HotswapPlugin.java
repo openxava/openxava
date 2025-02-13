@@ -1,4 +1,4 @@
-package org.openxava.util;
+package org.openxava.hotswap;
 
 import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
@@ -12,40 +12,44 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.apache.commons.logging.*;
 import org.hotswap.agent.annotation.*;
 import org.hotswap.agent.javassist.*;
 import org.openxava.component.parse.*;
+import org.openxava.util.*;
 
 /**
- * tmr Renombrar, poner en otro paquete
- * @author javi
  *
+ * @since 7.5
+ * @author Javier Paniza
  */
 
-@Plugin(name = "OpenXava", testedVersions = { "7.5+" }) // tmr ¿Este nombre?
-public class OpenXavaPlugin {
+@Plugin(name = "OpenXava", testedVersions = { "7.5+" }) 
+public class HotswapPlugin {
+	
+	private static Log log = LogFactory.getLog(HotswapPlugin.class);
 	
 	private static boolean resourcesMonitoring; 
-	private static int modelCacheVersion = 0; // tmr En otro sitio, ¿otro nombre?
-	private static int controllersCacheVersion = 0; // tmr En otro sitio, ¿otro nombre?
-	private static int applicationCacheVersion = 0; // tmr En otro sitio, ¿otro nombre?
-	private static int persistentModelCacheVersion = 0; // tmr En otro sitio, ¿otro nombre?
-	private static int i18nResourcesCacheVersion = 0; // tmr En otro sitio, ¿otro nombre?
+	private static int modelVersion = 0; 
+	private static int controllersVersion = 0; 
+	private static int applicationVersion = 0; 
+	private static int persistentModelVersion = 0; 
+	private static int i18nResourcesVersion = 0; 
 	
     @OnClassLoadEvent(classNameRegexp = ".*", events = LoadEvent.REDEFINE)
     public static void onClassModified() throws Exception {
-    	modelCacheVersion++;
+    	modelVersion++;
     }
     
     private static void onResourceModified(String resource, String directoryPath) {
     	if ("controllers.xml".equals(resource) || "controladores.xml".equals(resource)) {
-    		controllersCacheVersion++;
+    		controllersVersion++;
     	}
     	else if ("application.xml".equals(resource) || "aplicacion.xml".equals(resource)) {
-    		applicationCacheVersion++;
+    		applicationVersion++;
     	}
     	else if (directoryPath.endsWith("/i18n")) {
-    		i18nResourcesCacheVersion++;
+    		i18nResourcesVersion++;
     	}
     }
         
@@ -53,8 +57,8 @@ public class OpenXavaPlugin {
     	try {
 			Class.forName(className);
 		} 
-    	catch (ClassNotFoundException e) {
-			e.printStackTrace(); // tmr Algo mejor
+    	catch (ClassNotFoundException ex) {
+			log.error(ex);
 		}
     }
     
@@ -80,12 +84,11 @@ public class OpenXavaPlugin {
 
 	private static Collection<String> getManagedClassNames() {
 		try {
-			Collection<String> managedClassNames = AnnotatedClassParser.friendMetaApplicationGetManagedClassNames(); // ¿Cambiar el nombre de método?
+			Collection<String> managedClassNames = AnnotatedClassParser.getManagedClassNamesFromFileClassPath(); 
 			return managedClassNames;
 		}
 		catch (NoClassDefFoundError er) {
-			// tmr Falla cuando se hace mvn install. Intentar otro modo para que no ejecute los plugins en maven
-			// tmr System.err.println("Failed obtaining managed class names: " + er.getMessage()); // No poner este mensaje porque sale en mvn install y me van a preguntar
+			// Don't show any log because it fails on doing mvn install, so it generates an too alarming message
 			return Collections.EMPTY_LIST;
 		}
 	}		
@@ -101,17 +104,17 @@ public class OpenXavaPlugin {
 				path.register(watchService, kind);
 				
 				while (!Thread.currentThread().isInterrupted()) {
-					WatchKey key = watchService.take(); // Espera eventos
+					WatchKey key = watchService.take(); 
 					for (WatchEvent<?> event : key.pollEvents()) {
 						if (event.kind() == kind) {
 							if (packageName == null) onResourceModified(event.context().toString(), directoryPath);
 							else onClassCreated(packageName + "." + event.context().toString().replaceAll(".class$", ""));
 						}
 					}
-					key.reset(); // Reinicia la clave para seguir escuchando eventos
+					key.reset(); 
 				}
-			} catch (IOException | InterruptedException e) {
-				// tmr ¿Qué hacer aquí?
+			} catch (IOException | InterruptedException ex) {
+				log.error(ex);
 			}
 		});
 
@@ -125,8 +128,8 @@ public class OpenXavaPlugin {
     	if (!isPersistentClass(newCtClass)) return; 
     	
     	if (!isPersistentClass(oldClass)) {
-    		applicationCacheVersion++;
-    		persistentModelCacheVersion++;
+    		applicationVersion++;
+    		persistentModelVersion++;
     		return;
     	}
 
@@ -134,7 +137,7 @@ public class OpenXavaPlugin {
         Set<String> newFields = getPersistentFieldNames(newCtClass);              
         Set<String> oldFields = getPersistentFieldNames(oldClass);
         if (!newFields.equals(oldFields)) {
-        	persistentModelCacheVersion++;
+        	persistentModelVersion++;
         }
     }
     
@@ -198,24 +201,24 @@ public class OpenXavaPlugin {
         return fieldNames;
     }    
     
-    public static int getModelCacheVersion() {
-    	return modelCacheVersion;
+    static int getModelVersion() {
+    	return modelVersion;
     }
     
-    public static int getControllersCacheVersion() {
-    	return controllersCacheVersion;
+    static int getControllersVersion() {
+    	return controllersVersion;
     }
     
-    public static int getApplicationCacheVersion() {
-    	return applicationCacheVersion;
+    static int getApplicationVersion() {
+    	return applicationVersion;
     }
     
-    public static int getPersistentModelCacheVersion() {
-    	return persistentModelCacheVersion;
+    static int getPersistentModelVersion() {
+    	return persistentModelVersion;
     }
     
-    public static int getI18nResourcesCacheVersion() {
-    	return i18nResourcesCacheVersion;
+    static int getI18nResourcesVersion() {
+    	return i18nResourcesVersion;
     }
               
 }

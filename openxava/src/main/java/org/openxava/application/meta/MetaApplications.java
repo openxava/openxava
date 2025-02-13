@@ -5,6 +5,7 @@ import java.lang.reflect.*;
 import java.util.*;
 
 import org.openxava.application.meta.xmlparse.*;
+import org.openxava.hotswap.*;
 import org.openxava.util.*;
 
 /**
@@ -102,7 +103,7 @@ public class MetaApplications {
 	private static int getApplicationCacheVersion() { // tmr En otros sitios, refactorizar 
 		// tmr Esto tendría que estar desactivado en producción
 		try {
-			Method getApplicationCacheVersion = MetaApplications.class.getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
+			Method getApplicationCacheVersion = MetaApplications.class.getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
 					.getDeclaredMethod("getApplicationCacheVersion");
 			return (Integer) getApplicationCacheVersion.invoke(null);
 		} catch (ClassNotFoundException ex) { // For the first time before starting Tomcat with the incorrect classloader

@@ -6,6 +6,7 @@ import java.util.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.controller.meta.xmlparse.*;
+import org.openxava.hotswap.*;
 import org.openxava.util.*;
 
 public class MetaControllers {
@@ -171,7 +172,7 @@ public class MetaControllers {
 	private static int getControllersCacheVersion() { // tmr En otros sitios, refactorizar
 		// tmr Esto tendría que estar desactivado en producción
 		try {
-			Method getControllersCacheVersion = MetaController.class.getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
+			Method getControllersCacheVersion = MetaController.class.getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
 					.getDeclaredMethod("getControllersCacheVersion");
 			return (Integer) getControllersCacheVersion.invoke(null);
 		} catch (Exception ex) {

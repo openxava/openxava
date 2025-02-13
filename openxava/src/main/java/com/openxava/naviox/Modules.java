@@ -11,7 +11,6 @@
 package com.openxava.naviox;
 
 import java.io.*;
-import java.lang.reflect.*;
 import java.util.*;
 import java.util.prefs.*;
 
@@ -20,6 +19,7 @@ import javax.servlet.http.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.application.meta.*;
+import org.openxava.hotswap.*;
 import org.openxava.util.*;
 
 import com.openxava.naviox.impl.*;
@@ -45,7 +45,7 @@ public class Modules implements Serializable {
 	private List<MetaModule> notInMenuModules;
 	private List<MetaModule> topModules = null; 
 	private int fixedModulesCount = 0;
-	private int sessionCacheVersion = getApplicationCacheVersion(); // tmr ¿Otro nombre?
+	private int applicationCodeVersion = Hotswap.getApplicationVersion(); 
 	
 	private MetaModule current;
 
@@ -407,14 +407,11 @@ public class Modules implements Serializable {
 		return fixedModules;
 	}
 	
-	public List<MetaModule> getAll(HttpServletRequest request) { // tmr <MetaModule>   
-		// tmr ini
-        if (sessionCacheVersion < getApplicationCacheVersion()) {
-        	System.out.println("[Modules.getAll] Reset all"); // tmr
+	public List<MetaModule> getAll(HttpServletRequest request) {    
+        if (applicationCodeVersion < Hotswap.getApplicationVersion()) {
         	all = null; 
-        	sessionCacheVersion = getApplicationCacheVersion();     
+        	applicationCodeVersion = Hotswap.getApplicationVersion();     
         }				
-		// tmr fin		
 		if (all == null) {			
 			all = ModulesHelper.getAll(request); 
 			Collections.sort(all, comparator);
@@ -478,16 +475,4 @@ public class Modules implements Serializable {
 		storeTopModules();
 	}
 	
-	private int getApplicationCacheVersion() { // tmr En otros sitios, refactorizar 
-		// tmr Esto tendría que estar desactivado en producción
-		try {
-			Method getApplicationCacheVersion = getClass().getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
-					.getDeclaredMethod("getApplicationCacheVersion");
-			return (Integer) getApplicationCacheVersion.invoke(null);
-		} catch (Exception ex) {
-			ex.printStackTrace(); // tmr i18n ¿Quitar?
-			return -1;
-		}
-	}
-
 }

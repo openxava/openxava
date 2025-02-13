@@ -8,6 +8,7 @@ import org.apache.commons.logging.*;
 import org.openxava.component.*;
 import org.openxava.component.parse.*;
 import org.openxava.controller.meta.*;
+import org.openxava.hotswap.*;
 import org.openxava.util.*;
 import org.openxava.util.meta.*;
 
@@ -100,7 +101,7 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	private void generateDefaultModulesFromJPAEntities() throws XavaException {
 		boolean generateDefaultModules = XavaPreferences.getInstance().isGenerateDefaultModules();
 		try {
-			Collection classNames = AnnotatedClassParser.friendMetaApplicationGetManagedClassNames();
+			Collection classNames = AnnotatedClassParser.getManagedClassNamesFromFileClassPath();
 			for (Iterator it=classNames.iterator(); it.hasNext(); ) {
 				String className = (String) it.next();
 				String modelName = Strings.lastToken(className, ".");
@@ -226,7 +227,7 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	private static int getControllersCacheVersion() { // tmr En otros sitios, refactorizar 
 		// tmr Esto tendría que estar desactivado en producción
 		try {
-			Method getControllersCacheVersion = MetaController.class.getClassLoader().getParent().loadClass(OpenXavaPlugin.class.getName())
+			Method getControllersCacheVersion = MetaController.class.getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
 					.getDeclaredMethod("getControllersCacheVersion");
 			return (Integer) getControllersCacheVersion.invoke(null);
 		} catch (ClassNotFoundException ex) {

@@ -21,27 +21,5 @@
     	</action>
 	</controller>    
     -->
-    
-    <!-- tmr ini -->
-    <!-- xxxxxx xx -->             
-    <controller name="Product">
-    	<extends controller="Typical"/>
-    	<action name="sayHello" 
-        	class="org.openxava.invoicedemo.actions.SayHelloAction">
-    	</action>
-    	<action name="sayBye" 
-        	class="org.openxava.invoicedemo.actions.SayByeAction">
-    	</action>
-    	
-    	<action name="saySeeYouLater" 
-        	class="org.openxava.invoicedemo.actions.SayHelloAction">
-        	<set property="saludo" value="Hasta la vista" />
-    	</action>
-    	     	 	    	
-	</controller>
-	
-	
-	
-	<!-- tmr fin -->    
-    
+        
 </controllers>

@@ -24,31 +24,4 @@ public class Product {
 	@Column(length=32)
 	String photos;
 	
-	/*
-	Type type; // tmr
-	public enum Type { NORMAL, STEADY, SPECIAL }; // tmr
-	*/
-	
-	/*
-	Integer availableUnits; // tmr	
-	
-	
-	Integer disposableUnits; // tmr
-	
-	
-	Integer units; // tmr
-	
-	Integer futureUnits; // tmr
-	
-	Integer oldUnits; // tmr
-	*/
-
-	/*         
-	public BigDecimal getVat() { // tmr
-		return new BigDecimal(21);
-	}
-	*/
-	
-	
-
 }
