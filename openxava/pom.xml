@@ -235,16 +235,12 @@
 			<artifactId>json</artifactId>
 			<version>20241224</version>
 		</dependency>
-		
-		<!-- tmr ini -->		
 		<dependency>
 		    <groupId>org.hotswapagent</groupId>
 		    <artifactId>hotswap-agent-core</artifactId>
 		    <version>1.4.1</version> 
 		    <scope>provided</scope>
 		</dependency>
-		<!-- tmr fin -->
-
 	</dependencies>
 
 	<!-- Uncomment to deploy on Maven Central               

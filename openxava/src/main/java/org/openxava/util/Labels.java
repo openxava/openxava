@@ -1,6 +1,5 @@
 package org.openxava.util;
 
-import java.lang.reflect.*;
 import java.util.*;
 
 import org.apache.commons.logging.*;
@@ -18,7 +17,7 @@ public class Labels {
 	private static Log log = LogFactory.getLog(Labels.class);
 	private static Map<String, String> labels = Collections.synchronizedMap(new HashMap<>()); 
 	private static Map<String, String> customLabels;
-	private static int sessionCacheVersion = getI18nResourcesCacheVersion(); // tmr ¿Otro nombre?
+	private static int i18nResourceCodeVersion = Hotswap.getI18nResourcesVersion(); 
 	
 	/**
 	 * On any error returns the sent <code>id</code> with the first letter in uppercase.
@@ -103,15 +102,11 @@ public class Labels {
 	 */
 	private static String get(String id, Locale locale, boolean qualified) { 
 		String key = toKey(id, locale, qualified);
-		// tmr ini		
-        	int i18nResourcesCacheVersion = getI18nResourcesCacheVersion();
-        	if (sessionCacheVersion < i18nResourcesCacheVersion) {  
-	        	System.out.println("[Labels.get] Labels cache cleared"); // tmr
-	    		labels.clear(); // tmr
-	    		ResourceBundle.clearCache(); // tmr
-	        	sessionCacheVersion = i18nResourcesCacheVersion;
-        	}
-		// tmr fin
+    	if (i18nResourceCodeVersion < Hotswap.getI18nResourcesVersion()) {  
+    		labels.clear(); 
+    		ResourceBundle.clearCache(); 
+        	i18nResourceCodeVersion = Hotswap.getI18nResourcesVersion();
+    	}
 		String label = labels.get(key);
 		if (label == null) {
 			label = getWithoutCache(id, locale, qualified);
@@ -317,19 +312,5 @@ public class Labels {
 		String end = idx == label.length() - 1?"":label.substring(idx + 1);
 		return ini + end;
 	}
-	
-	private static int getI18nResourcesCacheVersion() { // tmr En otros sitios, refactorizar 
-		// tmr Esto tendría que estar desactivado en producción
-		try {
-			Method getI18nResourcesCacheVersion = Labels.class.getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
-					.getDeclaredMethod("getI18nResourcesCacheVersion");
-			return (Integer) getI18nResourcesCacheVersion.invoke(null);
-		} catch (ClassNotFoundException ex) { // For the first time before starting Tomcat with the incorrect classloader
-			return 0;
-		} catch (Exception ex) {
-			ex.printStackTrace(); // tmr i18n ¿Quitar?
-			return 0; // ¿0? ¿Poner en los demás?
-		}
-	}	
-		
+			
 }

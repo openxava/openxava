@@ -165,8 +165,8 @@ public class ModuleManager implements java.io.Serializable {
 	private String moduleURL;
 	private String goListAction = "Mode.list";
 	private boolean formUploadNextTime = false;
-	private int sessionModelCacheVersion = getModelCacheVersion(); // tmr ¿Otro nombre? ¿Inicializar así en los demás sitios?
-	private int sessionControllersCacheVersion = getControllersCacheVersion(); // tmr ¿Otro nombre? ¿Inicializar así en los demás sitios?
+	private int modelCodeVersion = Hotswap.getModelVersion(); 
+	private int controllersCodeVersion = Hotswap.getControllersVersion(); 
 
 	/**
 	 * HTML action bind to the current form.
@@ -1632,21 +1632,18 @@ public class ModuleManager implements java.io.Serializable {
 				setModeControllerName(Style.getInstance().getDefaultModeController());
 			}
 		}
-		// tmr ini
-        if (sessionModelCacheVersion < getModelCacheVersion()) {
-        	System.out.println("[ModuleManager.preInitModule] Reloading MetaModels..."); // tmr
+
+		if (modelCodeVersion < Hotswap.getModelVersion()) {
         	getView().reloadMetaModel();
         	getTab().reloadMetaModel();
         	reloadViewNeeded = true;
-        	sessionModelCacheVersion = getModelCacheVersion();
+        	modelCodeVersion = Hotswap.getModelVersion();
         }
-        if (sessionControllersCacheVersion < getControllersCacheVersion()) {
-        	System.out.println("[ModuleManager.preInitModule] Reset MetaModule and reinit controllers..."); // tmr
+        if (controllersCodeVersion < Hotswap.getControllersVersion()) {
         	metaModule = null;
         	setupModuleControllers();        	
-        	sessionControllersCacheVersion = getControllersCacheVersion();
+        	controllersCodeVersion = Hotswap.getControllersVersion();
         }        
-		// tmr fin
 	}
 
 	public void initModule(HttpServletRequest request, Messages errors,	Messages messages) {
@@ -2117,30 +2114,5 @@ public class ModuleManager implements java.io.Serializable {
 		this.moduleURL = request.getScheme() + "://" + request.getServerName() + ":" + 
 				request.getServerPort() + request.getAttribute("javax.servlet.forward.request_uri");
 	}
-	
-	private int getModelCacheVersion() { // tmr 
-		// tmr Esto tendría que estar desactivado en producción
-		try {
-			Method getModelCacheVersion = getClass().getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
-				.getDeclaredMethod("getModelCacheVersion");
-			return (Integer) getModelCacheVersion.invoke(null);
-		} catch (Exception ex) {
-			ex.printStackTrace(); // tmr i18n ¿Quitar?
-			return -1;
-		}
-	}
-	
-	private int getControllersCacheVersion() { // tmr 
-		// tmr Esto tendría que estar desactivado en producción
-		try {
-			Method getControllersCacheVersion = getClass().getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
-				.getDeclaredMethod("getControllersCacheVersion");
-			return (Integer) getControllersCacheVersion.invoke(null);
-		} catch (Exception ex) {
-			ex.printStackTrace(); // tmr i18n ¿Quitar?
-			return -1;
-		}
-	}
-
 	
 }

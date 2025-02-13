@@ -1,7 +1,6 @@
 package org.openxava.controller.meta;
 
 
-import java.lang.reflect.*;
 import java.util.*;
 
 import org.apache.commons.logging.*;
@@ -23,7 +22,7 @@ public class MetaControllers {
 	private static Map<String, MetaObject> mapMetaObjects;
 	private static Collection<String> objectPrefixes; 
 	private static String context = WEB;
-	private static int sessionCacheVersion = getControllersCacheVersion(); // tmr ¿Otro nombre?
+	private static int controllersCodeVersion = Hotswap.getControllersVersion(); 
 	
 	
 	public static void _addMetaController(MetaController newController) throws XavaException {
@@ -40,13 +39,10 @@ public class MetaControllers {
 	}
 		
 	public synchronized static MetaController getMetaController(String name) throws ElementNotFoundException, XavaException {
-		// tmr ini
-        if (sessionCacheVersion < getControllersCacheVersion()) {
-        	System.out.println("[MetaControllers.getMetaController] Reloading MetaControllers"); // tmr
+        if (controllersCodeVersion < Hotswap.getControllersVersion()) {
         	metaControllers = null;
-        	sessionCacheVersion = getControllersCacheVersion();     
+        	controllersCodeVersion = Hotswap.getControllersVersion();     
         }		
-		// tmr fin
 		if (metaControllers == null) {
 			setup();
 		}
@@ -58,13 +54,6 @@ public class MetaControllers {
 	}
 	
 	public static boolean contains(String name) throws XavaException {
-		/* tmr
-		if (metaControllers == null) {
-			setup();
-		}
-		return metaControllers.containsKey(name);
-		*/
-		// tmr ini
 		try {
 			getMetaController(name);
 			return true;
@@ -72,7 +61,6 @@ public class MetaControllers {
 		catch (ElementNotFoundException ex) {
 			return false;
 		}
-		// tmr fin
 	}
 	
 	/** @since 6.1.2 */
@@ -168,19 +156,7 @@ public class MetaControllers {
 		}
 		return objectPrefixes;
 	}
-	
-	private static int getControllersCacheVersion() { // tmr En otros sitios, refactorizar
-		// tmr Esto tendría que estar desactivado en producción
-		try {
-			Method getControllersCacheVersion = MetaController.class.getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
-					.getDeclaredMethod("getControllersCacheVersion");
-			return (Integer) getControllersCacheVersion.invoke(null);
-		} catch (Exception ex) {
-			ex.printStackTrace(); // tmr i18n ¿Quitar?
-			return -1;
-		}
-	}
-	
+		
 }
 
 

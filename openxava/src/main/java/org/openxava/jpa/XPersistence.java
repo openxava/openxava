@@ -1,7 +1,6 @@
 package org.openxava.jpa;
 
 
-import java.lang.reflect.*;
 import java.util.*;
 import java.util.logging.*;
 
@@ -78,11 +77,10 @@ public class XPersistence {
 
 	private final static String XAVA_PERSISTENCE_UNIT_KEY = "xava.persistenceUnit";
 	final private static ThreadLocal currentManager = new ThreadLocal();
-	// tmr private static Map entityManagerFactories = new HashMap();
-	private static Map<Map, EntityManagerFactory> entityManagerFactories = new HashMap<>(); // tmr
+	private static Map<Map, EntityManagerFactory> entityManagerFactories = new HashMap<>(); 
 	final private static ThreadLocal currentPersistenceUnitProperties = new ThreadLocal();
 	private static Map defaultPersistenceUnitProperties;
-	private static int sessionCacheVersion = getPersistentModelCacheVersion(); // tmr ¿Otro nombre?	
+	private static int persistentModelCodeVersion = Hotswap.getPersistentModelVersion(); 	
 
 	/**
 	 * <code>EntityManager</code> associated to current thread. <p>
@@ -181,14 +179,10 @@ public class XPersistence {
 	}	
 	
 	private static EntityManagerFactory getEntityManagerFactory() {
-		// tmr ini		
-    	int persistentModelCacheVersion = getPersistentModelCacheVersion();
-    	if (sessionCacheVersion < persistentModelCacheVersion) {  
-        	System.out.println("[XPersistence.getEntityManagerFactory] Reset all EntityManagerFactory"); // tmr
+    	if (persistentModelCodeVersion < Hotswap.getPersistentModelVersion()) {  
         	resetAllEntityManagerFactories();
-        	sessionCacheVersion = persistentModelCacheVersion;
+        	persistentModelCodeVersion = Hotswap.getPersistentModelVersion();
     	}
-		// tmr fin
 		Map properties = getPersistenceUnitProperties();
 		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) 	entityManagerFactories.get(properties); 
 		if (entityManagerFactory == null) {
@@ -232,7 +226,7 @@ public class XPersistence {
 		if (factory != null) factory.close();
 	}
 	
-	private static void resetAllEntityManagerFactories() { // tmr
+	private static void resetAllEntityManagerFactories() { 
 		for (EntityManagerFactory factory: entityManagerFactories.values()) {
 			factory.close();
 		}
@@ -370,17 +364,5 @@ public class XPersistence {
 			return null; 
 		}
 	}
-	
-	private static int getPersistentModelCacheVersion() { // tmr 
-		// tmr Esto tendría que estar desactivado en producción
-		try {
-			Method getPersistentModelCacheVersion = XPersistence.class.getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
-				.getDeclaredMethod("getPersistentModelCacheVersion");
-			return (Integer) getPersistentModelCacheVersion.invoke(null);
-		} catch (Exception ex) {
-			ex.printStackTrace(); // tmr i18n ¿Quitar?
-			return -1;
-		}
-	}
-			
+				
 }

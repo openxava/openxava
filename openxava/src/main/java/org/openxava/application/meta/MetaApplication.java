@@ -1,7 +1,6 @@
 package org.openxava.application.meta;
 
 
-import java.lang.reflect.*;
 import java.util.*;
 
 import org.apache.commons.logging.*;
@@ -19,13 +18,12 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 
 	private static Log log = LogFactory.getLog(MetaApplication.class);
 
-	// tmr private Map metaModules = new HashMap();
-	private Map<String, MetaModule> metaModules = new HashMap<>(); // tmr
+	private Map<String, MetaModule> metaModules = new HashMap<>(); 
 	private Collection modulesNames = new ArrayList(); // to preserve the order
 	private Collection folders;
 	private Collection controllersForDefaultModule;
 	private boolean defaultModulesGenerated = false;
-	private int sessionCacheVersion = getControllersCacheVersion(); // tmr ¿Otro nombre?
+	private int controllersCodeVersion = Hotswap.getControllersVersion(); 
 	
 	
 	/**
@@ -66,12 +64,12 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	 * @exception XavaException  Any problem 
 	 * @return of <tt>MetaModule</tt>. Not null.
 	 */
-	public Collection<MetaModule> getMetaModules() throws XavaException { // tmr <MetaModule>
+	public Collection<MetaModule> getMetaModules() throws XavaException { 
 		generateDefaultModules();
 		return metaModules.values();
 	}
 	
-	private void resetControllersForDefaultModules() { // tmr
+	private void resetControllersForDefaultModules() { 
 		for (MetaModule module: metaModules.values()) {
 			if (module.isGeneratedByDefault()) {
 				generateDefaultControllers(module);
@@ -122,7 +120,7 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	 * @return of <tt>String</tt>. Not null.
 	 */	
 	public Collection getModulesNames() {
-		generateDefaultModules(); // tmr
+		generateDefaultModules(); 
 		return modulesNames;
 	}
 	
@@ -150,13 +148,10 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
      * @exception ElementNotFoundException
 	 */
 	public MetaModule getMetaModule(String name) throws ElementNotFoundException, XavaException {
-		// tmr ini
-        if (sessionCacheVersion < getControllersCacheVersion()) {
-        	System.out.println("[MetaApplication.getMetaModule] Reset controllers for default modules"); // tmr
+        if (controllersCodeVersion < Hotswap.getControllersVersion()) {
         	resetControllersForDefaultModules();
-        	sessionCacheVersion = getControllersCacheVersion();     
+        	controllersCodeVersion = Hotswap.getControllersVersion();     
         }		
-		// tmr fin
 		MetaModule result = (MetaModule) metaModules.get(name);
 		if (result == null) {
 			if (existsModel(name)) {				
@@ -178,23 +173,13 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 		module.setMetaApplication(this);
 		module.setName(modelName);			
 		module.setModelName(modelName);
-		/* tmr
-		if (MetaControllers.contains(modelName)) {
-			module.addControllerName(modelName);
-		}
-		else {
-			for (Iterator it = getControllersForDefaultModule().iterator(); it.hasNext();) {
-				module.addControllerName((String) it.next()); 
-			}
-		}
-		*/
-		generateDefaultControllers(module); // tmr
-		module.setGeneratedByDefault(true); // tmr
+		generateDefaultControllers(module); 
+		module.setGeneratedByDefault(true); 
 		metaModules.put(modelName, module);
 		return module;		
 	}
 
-	private void generateDefaultControllers(MetaModule module) { // tmr
+	private void generateDefaultControllers(MetaModule module) { 
 		module.clearControllers();
 		if (MetaControllers.contains(module.getModelName())) {
 			module.addControllerName(module.getModelName());
@@ -223,22 +208,7 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	public String getId() {
 		return getName();
 	}
-	
-	private static int getControllersCacheVersion() { // tmr En otros sitios, refactorizar 
-		// tmr Esto tendría que estar desactivado en producción
-		try {
-			Method getControllersCacheVersion = MetaController.class.getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
-					.getDeclaredMethod("getControllersCacheVersion");
-			return (Integer) getControllersCacheVersion.invoke(null);
-		} catch (ClassNotFoundException ex) {
-			// Fails on initializing application
-			return 0;
-		} catch (Exception ex) {
-			ex.printStackTrace(); // tmr i18n ¿Quitar?
-			return -1;
-		}
-	}
-	
+		
 }
 
 

@@ -1,7 +1,6 @@
 package org.openxava.application.meta;
 
 
-import java.lang.reflect.*;
 import java.util.*;
 
 import org.openxava.application.meta.xmlparse.*;
@@ -18,7 +17,7 @@ public class MetaApplications {
 
 	private static Map<String, MetaApplication> metaAplicacions; 
 	private static MetaApplication mainMetaApplication; 
-	private static int sessionCacheVersion = getApplicationCacheVersion(); // tmr ¿Otro nombre?	
+	private static int applicationCodeVersion = Hotswap.getApplicationVersion(); 	
 	
 	/**
 	 * Only call this from parser.
@@ -34,20 +33,20 @@ public class MetaApplications {
 	 * @return Collection of <tt>MetaApplication</tt>. Not null.
 	 */
 	public static Collection<MetaApplication> getMetaApplications() throws XavaException {
-		// tmr ini		
-        if (metaAplicacions != null) { // tmr ¿Poner la optimización metaAplicacions != null en los demás sitios?
-        	int applicationCacheVersion = getApplicationCacheVersion();
-        	if (sessionCacheVersion < applicationCacheVersion) {  
-	        	System.out.println("[MetaApplications.getMetaApplications] Reset metaApplications"); // tmr
+        configureMetaApplications();
+		return metaAplicacions.values();
+	}
+
+	private static void configureMetaApplications() {
+		if (metaAplicacions != null) { 
+        	if (applicationCodeVersion < Hotswap.getApplicationVersion()) {  
 	        	metaAplicacions = null;
-	        	sessionCacheVersion = applicationCacheVersion;
+	        	applicationCodeVersion = Hotswap.getApplicationVersion();
         	}
         }				
-		// tmr fin
 		if (metaAplicacions == null) {
 			configure();
 		}
-		return metaAplicacions.values();
 	}
 	
 	/**
@@ -75,12 +74,7 @@ public class MetaApplications {
 	}
 	
 	public static MetaApplication getMetaApplication(String name) throws ElementNotFoundException, XavaException {
-		/* tmr
-		if (metaAplicacions == null) {
-			configure();
-		}
-		*/
-		getMetaApplications(); // tmr para iniciar metaAplicacions, ¿un método específico para ello?
+		configureMetaApplications();
 		MetaApplication result = (MetaApplication) metaAplicacions.get(name);
 		if (result == null) {
 			throw new ElementNotFoundException("application_not_found", name);
@@ -98,20 +92,6 @@ public class MetaApplications {
 			}
 		}
 		return applicationNames;
-	}
-	
-	private static int getApplicationCacheVersion() { // tmr En otros sitios, refactorizar 
-		// tmr Esto tendría que estar desactivado en producción
-		try {
-			Method getApplicationCacheVersion = MetaApplications.class.getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
-					.getDeclaredMethod("getApplicationCacheVersion");
-			return (Integer) getApplicationCacheVersion.invoke(null);
-		} catch (ClassNotFoundException ex) { // For the first time before starting Tomcat with the incorrect classloader
-			return 0;
-		} catch (Exception ex) {
-			ex.printStackTrace(); // tmr i18n ¿Quitar?
-			return 0; // ¿0? ¿Poner en los demás?
-		}
-	}
+	}	
 	
 }

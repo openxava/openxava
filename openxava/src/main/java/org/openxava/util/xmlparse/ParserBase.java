@@ -79,6 +79,7 @@ abstract public class ParserBase extends XmlElementsNames {
 			while (resources.hasMoreElements()) {
 				URL resource = (URL) resources.nextElement();
 				xmlFileCompleteURL = resource.toExternalForm();	
+				// TMR ME QUEDÉ POR AQUÍ: BUSCANDO UNA FORMA DE DESACTIVARLO EN PRODUCCIÓN
 				if (xmlFileCompleteURL.contains("/target/") && xmlFileCompleteURL.contains("/WEB-INF/classes/")) continue; // tmr ¿Anular en producción?
 				_parse(xmlFileCompleteURL);				
 			}			

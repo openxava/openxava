@@ -27,7 +27,7 @@ public class MetaModule extends MetaElement implements java.io.Serializable {
 	private Collection<String> controllersNames = new ArrayList<String>();
 	private String modeControllerName;	
 	private MetaReport metaReport;
-	private boolean generatedByDefault; // tmr
+	private boolean generatedByDefault; 
 	
 	public String getModelName() {
 		return modelName;
@@ -51,7 +51,7 @@ public class MetaModule extends MetaElement implements java.io.Serializable {
 		controllersNames.add(controller);
 	}
 	
-	void clearControllers() { // tmr
+	void clearControllers() { 
 		controllersNames.clear();		
 	}
 
