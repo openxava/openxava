@@ -35,13 +35,7 @@
       credentials:</div>
     <img src="files/microsoft-sign-in_en.png" alt="">
     <div class="wiki" style="display: block;">Furthermore, if the user is
-      already signed in on that browser, they will access the application
-      without being prompted for authentication. However, for this to happen,
-      the user needs to be added to the application in Azure AD configuration
-      and also registered as a XavaPro user in the application, with the
-      corresponding roles assigned. Please note that <b>the user must be
-        registered in the XavaPro application with the same name as in Azure</b>,
-      otherwise access to the application will not be possible.<br>
+      already signed in on that browser, they will access the application without being prompted for authentication. The user needs to be added to the application in Azure AD configuration. For versions prior to 7.5, the user must also be registered as a XavaPro user in the application with the corresponding roles assigned, and the user must be registered in the XavaPro application with the same name as in Azure. Starting from version 7.5, Azure AD users no longer need to be manually registered in XavaPro. When an Azure AD user authenticates against the application for the first time, if they don't exist in XavaPro, they will be automatically registered. If the application has an "azure ad" role defined, this role will be automatically assigned to the new user. New organizations created from version 7.5 onwards have the "azure ad" role created by default, but it can also be created manually if needed.<br>
       <h2>Configure the application in Azure AD</h2>
       If you already use Azure AD in your organization, you will be familiar
       with configuring applications and assigning users to them. You will also

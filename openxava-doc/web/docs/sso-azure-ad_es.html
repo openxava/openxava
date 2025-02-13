@@ -13,7 +13,7 @@
           <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>SSO
         con Azure AD</h1>
-      <em>Todas las funcionalidades en este artículo están disponible solo en <a
+      <em>Todas las funcionalidades en este artículo están disponible solo en <a
           href="http://openxava.org/xavapro">XavaPro</a></em></div>
     <div class="wiki" style="display: block;"> Desde XavaPro 7.1 puedes
       configurar la identificación de usuarios para que use Azure AD, lo que te
@@ -37,12 +37,7 @@
     <img src="files/microsoft-sign-in_es.png" alt="">
     <div class="wiki" style="display: block;"> Además, si el usuario ya
       estuviera identificado en ese navegador accedería a la aplicación sin que
-      se le pidiera identificación, aunque para eso el usuario tiene que estar
-      añadido a la aplicación en la configuración de Azure AD y además dado de
-      alta como usuario XavaPro en la aplicación y asignados los roles
-      correspondientes. Ojo,&nbsp; <b>el usuario ha de estar dado de alta en la
-        aplicación XavaPro</b> con el mismo nombre que en Azure, si no no se
-      podrá acceder a la aplicación.<br>
+      se le pidiera identificación. El usuario tiene que estar añadido a la aplicación en la configuración de Azure AD. Para versiones anteriores a la 7.5, el usuario también debe estar registrado como usuario de XavaPro en la aplicación con los roles correspondientes asignados, y el usuario debe estar registrado en la aplicación XavaPro con el mismo nombre que en Azure. A partir de la versión 7.5, los usuarios de Azure AD ya no necesitan ser registrados manualmente en XavaPro. Cuando un usuario de Azure AD se autentica contra la aplicación por primera vez, si no existe en XavaPro, se registrará automáticamente. Si la aplicación tiene un rol "azure ad" definido, este rol se asignará automáticamente al nuevo usuario. Las nuevas organizaciones creadas a partir de la versión 7.5 tienen el rol "azure ad" creado por defecto, pero también se puede crear manualmente si es necesario.<br>
       <h2>Configurar la aplicación en Azure AD</h2>
       Si ya usas Azure AD en tu organización estarás acostumbrado a configurar
       aplicaciones y asignar usuarios a ellos, tendrás claro, además, de donde
