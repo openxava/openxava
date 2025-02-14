@@ -19,7 +19,12 @@ import org.openxava.component.parse.*;
 import org.openxava.util.*;
 
 /**
- *
+ * Plugin for HotswapAgent, also monitors resources in project. <p>
+ * 
+ * Basically keep a version number for different kinds of classes/resorce.
+ * You can get this version number using Hotswap class from this package.<br>
+ * Used for manage hot code reloading.
+ * 
  * @since 7.5
  * @author Javier Paniza
  */
@@ -29,6 +34,7 @@ public class HotswapPlugin {
 	
 	private static Log log = LogFactory.getLog(HotswapPlugin.class);
 	
+	private static boolean active; 
 	private static boolean resourcesMonitoring; 
 	private static int modelVersion = 0; 
 	private static int controllersVersion = 0; 
@@ -80,6 +86,7 @@ public class HotswapPlugin {
 	    	
 	    	resourcesMonitoring = true;
 	    }
+	    active = true; 
     }
 
 	private static Collection<String> getManagedClassNames() {
@@ -199,7 +206,11 @@ public class HotswapPlugin {
             fieldNames.add(field.getName());
         }
         return fieldNames;
-    }    
+    }
+    
+    static boolean isActive() { 
+    	return active;
+    }
     
     static int getModelVersion() {
     	return modelVersion;

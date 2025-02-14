@@ -10,6 +10,7 @@ import java.util.*;
 import javax.xml.parsers.*;
 
 import org.apache.commons.logging.*;
+import org.openxava.hotswap.*;
 import org.openxava.util.*;
 import org.w3c.dom.*;
 
@@ -79,8 +80,9 @@ abstract public class ParserBase extends XmlElementsNames {
 			while (resources.hasMoreElements()) {
 				URL resource = (URL) resources.nextElement();
 				xmlFileCompleteURL = resource.toExternalForm();	
-				// TMR ME QUEDÉ POR AQUÍ: BUSCANDO UNA FORMA DE DESACTIVARLO EN PRODUCCIÓN
-				if (xmlFileCompleteURL.contains("/target/") && xmlFileCompleteURL.contains("/WEB-INF/classes/")) continue; // tmr ¿Anular en producción?
+				if (Hotswap.isActive() && xmlFileCompleteURL.contains("/target/") && xmlFileCompleteURL.contains("/WEB-INF/classes/")) {
+					continue; 
+				}				
 				_parse(xmlFileCompleteURL);				
 			}			
 		} 

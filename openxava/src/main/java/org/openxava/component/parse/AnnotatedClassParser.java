@@ -165,8 +165,7 @@ public class AnnotatedClassParser implements IComponentParser {
 			parseMembers(model, superClass, mapping, embedded);
 		}
 		// Using declared fields in order to preserve the order in source code
-		// tmr Map<String, PropertyDescriptor> propertyDescriptors = getPropertyDescriptors(pojoClass);
-		Map<String, PropertyDescriptor> propertyDescriptors = Classes.getPropertyDescriptors(pojoClass); // tmr
+		Map<String, PropertyDescriptor> propertyDescriptors = getPropertyDescriptors(pojoClass);
 		for (Field f: pojoClass.getDeclaredFields()) {
 			PropertyDescriptor pd = propertyDescriptors.get(f.getName());
 			if (pd == null) continue;			
@@ -2622,19 +2621,15 @@ public class AnnotatedClassParser implements IComponentParser {
 		return metaValidator;
 	}
 	
-	/* tmr
 	private Map<String, PropertyDescriptor> getPropertyDescriptors(Class pojoClass) throws IntrospectionException {
 		BeanInfo info = Introspector.getBeanInfo(pojoClass);
 		Map<String, PropertyDescriptor> result = new HashMap<String, PropertyDescriptor>();
 		for (PropertyDescriptor pd: info.getPropertyDescriptors()) {
-			System.out.println("[AnnotatedClassParser.getPropertyDescriptors] pd.getName()=" + pd.getName()); // tmr
 			if (pd.getName().equals("metaClass")) continue; 
 			result.put(pd.getName(), pd);				
 		}
 		return result;
 	}
-	*/
-	
 	
 	private String getClassNameFor(String name) throws XavaException { 
 		String className = getClassNameIfExists(name);

@@ -1,6 +1,7 @@
 package org.openxava.test.tests.byfeature;
 
 import java.util.*;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 /**
@@ -252,7 +253,6 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertValue("date", "5/13/2017");
 	}
 	
-	// TMR FALLA
 	public void testDateTime_onChange_twoDigitYear_dateTimeSeparated_srDateTime() throws Exception {
 		goModule("ShipmentWithOnChange");
 		WebElement dateTime;

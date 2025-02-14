@@ -22,6 +22,6 @@ public class Product {
 	
 	@Files
 	@Column(length=32)
-	String photos;
-	
+	String photos;	
+
 }
