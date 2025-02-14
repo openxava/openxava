@@ -409,6 +409,7 @@ public class Modules implements Serializable {
 	
 	public List<MetaModule> getAll(HttpServletRequest request) {    
         if (applicationCodeVersion < Hotswap.getApplicationVersion()) {
+        	System.out.println("[Modules.getAll] Reset modules"); // tmr
         	all = null; 
         	applicationCodeVersion = Hotswap.getApplicationVersion();     
         }				

@@ -1,26 +1,42 @@
 The automated tests in this project do not include hotswap code feature.
 Therefore, when you touch any Hotswap code you have to test this.
 
+TMR ME QUEDÉ POR AQUÍ: FALTA PROBAR Setup Y Calculated properies. Y DESPUÉS SEGUIR CLAR
+TMR ¿SUGERIR OTRO PROYECTO DE PLANTILLA? MEJOR UNO CON DATOS, ASÍ SE VE QUE LOS DATOS SE VEN Y NO HAY QUE AÑADIR
 Setup:
 - Add prints in all if (xxx < Hotswap.getXxx()).
-- Create a new project, using the master-detail archetype, for example.
+- Create a new project:
+	- Use the master-detail archetype, for example.
+	- Remember put the latest SNAPSHOT in pom.xml
+- Start the project. No prints.
 
 Calculated properties:
-	- Go to Product, click on play in list. No prints.
-	- Adding a calculated property to product.
-	- Clear console. 
-	- Open network in browser.
-	- Click on play:
-		- New property in list.
-		- Prints about reloading, but not about persistence reloading.
-		- Fast. Less than a second.
-	- Click on play again: No prints.	
-	- Go to detail. The new property is there.
-	// TMR ME QUEDÉ POR AQUÍ. HACER LA PARTE DEL DETALLE
-	- Add a new property to Product.
-	- Click 	
-	- Remove the property.
-	- Reload the page, the property is no longer there.	
+- Go to Product. No prints.
+- Click on play in list. No prints.
+- Adding a calculated property to product.
+- Clear console. 
+- Open network in browser.
+- Click on play:
+	- New property in list.
+	- Prints about reloading, but not about persistence reloading.
+	- Fast. Less than a second.
+- Click on play again. No prints.	
+- Go to detail. The new property is there.
+- Add a new property to Product.
+- Click on Refresh action. 
+	- The new property is shown.
+	- Prints, but not persistent prints.
+- Click on Refresh action. No prints.	
+- Remove a property from Product.
+- Reload page in the browser:
+	- The property removed is not present.
+	- Prints but not persistent prints.
+- Go list. The removed property is not present.	
+- Remove the other property.
+- Reload the page. 
+	- The property is no longer there.
+	- Prints but not persistent prints.
+- Reload the page again. No prints.		
 
 * Adding actions.
 	* Añadir/quitar/modificar acciones.

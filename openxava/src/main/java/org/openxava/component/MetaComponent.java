@@ -57,6 +57,7 @@ public class MetaComponent implements Serializable {
 	 */
 	public static MetaComponent get(String name) throws ElementNotFoundException, XavaException {
     	if (modelCodeVersion < Hotswap.getModelVersion()) {  
+    		System.out.println("[MetaComponent.get] Reset components"); // tmr
         	components.clear(); 
         	modelCodeVersion = Hotswap.getModelVersion();
     	}
