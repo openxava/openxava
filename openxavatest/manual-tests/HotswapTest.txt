@@ -1,0 +1,45 @@
+The automated tests in this project do not include hotswap code feature.
+Therefore, when you touch any Hotswap code you have to test this.
+
+Setup:
+- Add prints in all if (xxx < Hotswap.getXxx()).
+- Create a new project, using the master-detail archetype, for example.
+
+Calculated properties:
+	- Go to Product, click on play in list. No prints.
+	- Adding a calculated property to product.
+	- Clear console. 
+	- Open network in browser.
+	- Click on play:
+		- New property in list.
+		- Prints about reloading, but not about persistence reloading.
+		- Fast. Less than a second.
+	- Click on play again: No prints.	
+	- Go to detail. The new property is there.
+	// TMR ME QUEDÉ POR AQUÍ. HACER LA PARTE DEL DETALLE
+	- Add a new property to Product.
+	- Click 	
+	- Remove the property.
+	- Reload the page, the property is no longer there.	
+
+* Adding actions.
+	* Añadir/quitar/modificar acciones.
+	* Crear nuevo controlador. 
+	* Quitar controlador.
+	* Optimizar para cargar solo cuando se modifique controllers.xml
+	* Verificar que si hay dos módulos abiertos, los MetaControladores solo lo cargue una vez.
+* Adding modules.
+	* En el menú al recargar.
+	* Al acceder usando la URL.
+* Probar modificar controladores y módulos con una aplicación en español.
+* Changing @View, @Tab, @DescriptionsList, etc.
+* Adding persistent properties. 
+* Adding new entities. 
+* Añadir clases transitoria nueva.
+* Dashboard.
+* Inheritance.
+* Etiquetas y mensajes. 
+* Optimizar para que solo parsee los MetaModels cuando haya cambio. 
+* Al entrar en cada módulo desde el menú de la derecha hacer un "Reloading metamodules...". ¿Hace algo duplicado?	
+* Modify openxava core and see the changes without reloading.
+* Que esté desactivado en producción.
