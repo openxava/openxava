@@ -1,42 +1,45 @@
 The automated tests in this project do not include hotswap code feature.
 Therefore, when you touch any Hotswap code you have to test this.
 
-TMR ME QUEDÉ POR AQUÍ: FALTA PROBAR Setup Y Calculated properies. Y DESPUÉS SEGUIR CLAR
-TMR ¿SUGERIR OTRO PROYECTO DE PLANTILLA? MEJOR UNO CON DATOS, ASÍ SE VE QUE LOS DATOS SE VEN Y NO HAY QUE AÑADIR
 Setup:
 - Add prints in all if (xxx < Hotswap.getXxx()).
 - Create a new project:
-	- Use the master-detail archetype, for example.
-	- Remember put the latest SNAPSHOT in pom.xml
+	- Use the project-management archetype, for example.
+	- Update project version:
+		- Put the latest SNAPSHOT in pom.xml.
+		- Maven clean.
+		- Maven install. No stacktrace.
 - Start the project. No prints.
 
 Calculated properties:
-- Go to Product. No prints.
+- Go to Customer. No prints.
 - Click on play in list. No prints.
-- Adding a calculated property to product.
+- Add a calculated property to Customer.
 - Clear console. 
-- Open network in browser.
+- Open network in browser. Clear.
 - Click on play:
 	- New property in list.
 	- Prints about reloading, but not about persistence reloading.
-	- Fast. Less than a second.
+	- Fast. Less than 2 seconds.
 - Click on play again. No prints.	
-- Go to detail. The new property is there.
-- Add a new property to Product.
+- Go to detail. The new property is there. No prints.
+- Add a new calculated property to Customer.
 - Click on Refresh action. 
 	- The new property is shown.
 	- Prints, but not persistent prints.
 - Click on Refresh action. No prints.	
-- Remove a property from Product.
+- Remove a property from Customer.
 - Reload page in the browser:
 	- The property removed is not present.
 	- Prints but not persistent prints.
-- Go list. The removed property is not present.	
+- Go list. The removed property is not present.	No prints.
 - Remove the other property.
 - Reload the page. 
 	- The property is no longer there.
 	- Prints but not persistent prints.
 - Reload the page again. No prints.		
+
+TMR ME QUEDÉ POR AQUÍ
 
 * Adding actions.
 	* Añadir/quitar/modificar acciones.
