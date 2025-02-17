@@ -39,7 +39,36 @@ Calculated properties:
 	- Prints but not persistent prints.
 - Reload the page again. No prints.		
 
-TMR ME QUEDÉ POR AQUÍ
+Persistent properties:
+- Go to Customer. 
+- Add a persistent property to Customer.
+- Clear console. 
+- Open network in browser. Clear.
+- Click on play:
+	- New property in list.
+	- Prints including persistence reset.
+	- Slow. Less than 3 seconds.
+- Click on play again. No prints.	
+- Go to detail. The new property is there. No prints.
+- Add a new persistent property to Customer.
+- Click on Refresh action. 
+	- The new property is shown.
+	- Prints including persistent prints.
+- Click on Refresh action. No prints.	
+- Remove a property from Customer.
+- Reload page in the browser:
+	- The property removed is not present.
+	- Prints including persistent prints.
+- Enter a value in the persistent property. Save.	
+- Go list. The just removed property is not present. No prints.
+- The not removed property has the valued entered in detail.
+- Remove the other property.
+- Reload the page. 
+	- The property is no longer there.
+	- Prints including persistent prints.
+- Reload the page again. No prints.
+
+// TMR ME QUEDÉ POR AQUÍ. PARA EMPEZAR LO DE ABAJO
 
 * Adding actions.
 	* Añadir/quitar/modificar acciones.
@@ -52,7 +81,7 @@ TMR ME QUEDÉ POR AQUÍ
 	* Al acceder usando la URL.
 * Probar modificar controladores y módulos con una aplicación en español.
 * Changing @View, @Tab, @DescriptionsList, etc.
-* Adding persistent properties. 
+
 * Adding new entities. 
 * Añadir clases transitoria nueva.
 * Dashboard.
