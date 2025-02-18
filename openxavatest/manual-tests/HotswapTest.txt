@@ -68,24 +68,55 @@ Persistent properties:
 	- Prints including persistent prints.
 - Reload the page again. No prints.
 
-// TMR ME QUEDÉ POR AQUÍ. PARA EMPEZAR LO DE ABAJO
+Controllers:
+- Go to Issue.
+- Go to Customer.
+- Add a controller called Customer with an action.
+- Write the Java code for the action.
+- Click on any action in Customer module. 
+	- The new action is shown. 
+	- Prints.
+- Click on the action, it works. No prints.
+- Send a value to the action via XML in controllers.
+	- Click on the action, it works with modified code.
+	- Prints
+- Click again in the action. No prints.	
+- Add a new action (reuse the Java code).
+- Reload browser page. Prints.
+- Click on new action. Works. No prints.
+- Remove an action. Click on any action. 
+	- The action is no longer here.
+	- Prints
+- Click in any action. No prints.	
+- Remove the controller.
+- Click on any action. Action is not shown. Prints.
+- Click on any action. No prints.
+- Go to Invoice. Prints, but not MetaControllers loading.
+- Click any action. No prints.
+	
+Application:
+- Add in application.xml:
 
-* Adding actions.
-	* Añadir/quitar/modificar acciones.
-	* Crear nuevo controlador. 
-	* Quitar controlador.
-	* Optimizar para cargar solo cuando se modifique controllers.xml
-	* Verificar que si hay dos módulos abiertos, los MetaControladores solo lo cargue una vez.
+	<module name="Dashboard">
+		<model name="Dashboard"/>
+		<controller name="InitModelWithNewInstance"/>
+	</module>
+	
+- Create a Dashboard transient class in dashboards package.
+- Reload browser. The Dashboard module is in left menu. Prints.
+- Click on Dashboard module. It works. No prints.	
+TMR ME QUEDÉ POR AQUÍ. HACIENDO LO DE ARRIBA, FALTA REVISAR Y PROBAR
+
+* Añadir clases transitoria nueva.
 * Adding modules.
 	* En el menú al recargar.
 	* Al acceder usando la URL.
+	
 * Probar modificar controladores y módulos con una aplicación en español.
 * Changing @View, @Tab, @DescriptionsList, etc.
 
 * Adding new entities. 
-* Añadir clases transitoria nueva.
-* Dashboard.
-* Inheritance.
+
 * Etiquetas y mensajes. 
 * Optimizar para que solo parsee los MetaModels cuando haya cambio. 
 * Al entrar en cada módulo desde el menú de la derecha hacer un "Reloading metamodules...". ¿Hace algo duplicado?	
