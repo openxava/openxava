@@ -48,10 +48,10 @@ public class HotswapPlugin {
     }
     
     private static void onResourceModified(String resource, String directoryPath) {
-    	if ("controllers.xml".equals(resource) || "controladores.xml".equals(resource)) {
+    	if ("controllers.xml".equals(resource) || "controladores.xml".equals(resource)) { // If changed try to modify in hot controladores.xml in an application in Spanish
     		controllersVersion++;
     	}
-    	else if ("application.xml".equals(resource) || "aplicacion.xml".equals(resource)) {
+    	else if ("application.xml".equals(resource) || "aplicacion.xml".equals(resource)) { // If changed try to modify in hot aplicacion.xml in an application in Spanish
     		applicationVersion++;
     	}
     	else if (directoryPath.endsWith("/i18n")) {
