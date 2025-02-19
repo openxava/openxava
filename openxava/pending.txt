@@ -34,10 +34,10 @@ HOT CODE RELOADING PENDING (TMR)
 * Que esté desactivado en producción.
 * Refinar código.
 * Pruebas manuales.
-- Mezclar desde último master. 
+* Mezclar desde último master. 
 - Añadir a templates:
 
-				<plugin>
+			<plugin>
 			    <groupId>org.apache.maven.plugins</groupId>
 			    <artifactId>maven-compiler-plugin</artifactId>
 			    <version>3.8.1</version>
@@ -50,13 +50,17 @@ HOT CODE RELOADING PENDING (TMR)
 			    </configuration>
 			</plugin>
 			
-Y <argLine>-XX:+DisableHotswapAgent</argLine> a surefire
-
+TMR ME QUEDÉ POR AQUÍ: TODOS LOS ARQUETIPOS HAN SIDO MODIFICARLOS. FALTA PROBARLOS. INCLUIDO EL PRIMERO QUE FALLO CON UN ERROR 500
 Ponerlo también en migration
 
 - Java 11 by default for new projects? For openxavatest? Otherwise if you have a Java 8 added as JDK, the project uses it, 
 	instead of the default one with Trava. We should try hot reloading with Java 8 and Java 11 in pom.xml, 
 	but logically it only works with JDK 11 Trava for run.
+	- En arquetipos
+	- Poner en changelog
+	- Modificar doc de publicar OpenXava.
+	- Poner invoicedemo y openxavatest a Java 11
+	- Poner xavaprotest a Java 11.
 	
 	
 - Try Getting Started guide.
