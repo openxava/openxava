@@ -33,8 +33,7 @@ HOT CODE RELOADING PENDING (TMR)
 * Probar con proyecto grande (openxavatest) para ver efectos en rendimiento
 * Que esté desactivado en producción.
 * Refinar código.
-- ¿Prueba automáticas? Si no podriamos hacer pruebas manuales
-	- Quitar TMRs
+* Pruebas manuales. 
 - Añadir a templates:
 
 				<plugin>
@@ -69,7 +68,7 @@ Ponerlo también en migration
 
 AFTERWARDS
 
-- Release a new Studio version.
+* Release a new Studio version.
 - Modify the Getting Started guide to use it.
 - A videotutorial to use hot reloading with OpenXava Studio, Intellij and VSC.
 - Add it as main feature in openxava.org.

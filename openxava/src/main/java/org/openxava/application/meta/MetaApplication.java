@@ -149,7 +149,6 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	 */
 	public MetaModule getMetaModule(String name) throws ElementNotFoundException, XavaException {
         if (controllersCodeVersion < Hotswap.getControllersVersion()) {
-        	System.out.println("[MetaApplication.getMetaModule] Reset controllers for default modules"); // tmr
         	resetControllersForDefaultModules();
         	controllersCodeVersion = Hotswap.getControllersVersion();     
         }		

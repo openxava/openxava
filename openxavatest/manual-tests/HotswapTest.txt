@@ -68,7 +68,7 @@ Persistent properties:
 	- Prints including persistent prints.
 - Reload the page again. No prints.
 
-Controllers:
+Controllers/i18n:
 - Go to Issue.
 - Go to Customer.
 - Add a controller called Customer with an action.
@@ -89,7 +89,7 @@ Controllers:
 	- Prints
 - Click in any action. No prints.	
 - Add a label for the action. Add a message id and use it from the action.
-- Reload browser. Prints. (By now reloading page is needed to labels changes be effective)
+- Reload browser. Prints. (By now reloading page is needed to i18n changes be effective)
 - The label for action is changed.
 - Click on the action. The i18n message is shown. No prints.
 - Remove the controller.
@@ -116,15 +116,22 @@ OpenXava annotations:
 - Click an action to verify the changes in @View and @DescriptionsList. Prints.
 - Go to list. The @Tab is the new one. No prints.	
 
-New entities
+New entities:
 - Write the code for a new entity.
 - Refresh the browser. The module is on left. Prints.
 - Go to the module and create a new record. Works. No prints.
 
-Labels/messages: TMR ME QUEDÉ POR AQUÍ. INTEGRADO EN CONTROLLERS. FUNCIONÓ. ¿ME CONFORMO CO LO DE RECARGAR BROWSER? 
+OpenXava core:
+- Go to Customer. Click on New. No prints.
+- Add a message in NewAction code in openxava.
+- Click on New. Message shown. Prints.
+- Click on New. No prints.
 
-* Etiquetas y mensajes. 
-* Optimizar para que solo parsee los MetaModels cuando haya cambio. 
-* Al entrar en cada módulo desde el menú de la derecha hacer un "Reloading metamodules...". ¿Hace algo duplicado?	
-* Modify openxava core and see the changes without reloading.
-* Que esté desactivado en producción.
+Production:
+- Run the application with a JDK with no HotswapAgent.
+- Go to Customer, click in some action. No prints.
+- Modify some Customer code. 
+- Click in some action. No prints.
+- Reload page. No prints.
+
+Remove prints
