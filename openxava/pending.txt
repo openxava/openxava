@@ -50,8 +50,9 @@ HOT CODE RELOADING PENDING (TMR)
 			    </configuration>
 			</plugin>
 			
-TMR ME QUEDÉ POR AQUÍ: TODOS LOS ARQUETIPOS HAN SIDO MODIFICARLOS. FALTA PROBARLOS. INCLUIDO EL PRIMERO QUE FALLO CON UN ERROR 500
-Ponerlo también en migration
+TMR ME QUEDÉ POR AQUÍ. FALTA PROBAR TODOS LOS ARQUETIPOS. PERO EL PRIMERO FALLO AL COMPILARLO CON JAVA 8. 			
+			
+¿Ponerlo también en migration?
 
 - Java 11 by default for new projects? For openxavatest? Otherwise if you have a Java 8 added as JDK, the project uses it, 
 	instead of the default one with Trava. We should try hot reloading with Java 8 and Java 11 in pom.xml, 
