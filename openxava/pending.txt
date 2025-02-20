@@ -35,24 +35,26 @@ HOT CODE RELOADING PENDING (TMR)
 * Refinar código.
 * Pruebas manuales.
 * Mezclar desde último master. 
-- Añadir a templates:
+- Templates:
 
-			<plugin>
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-compiler-plugin</artifactId>
-			    <version>3.8.1</version>
-			    <configuration>
-			        <fork>true</fork>
-			        <executable>${java.home}/bin/javac</executable>
-			        <forkedProcessArguments>
-			            <arg>-XX:+DisableHotswapAgent</arg>
-			        </forkedProcessArguments>
-			    </configuration>
-			</plugin>
+TMR ME QUEDÉ POR AQUÍ:
+- CREE UN OPENXAVA STUDIO PARA LINUX Y LO SUBÍ. FALTA BAJARLO, INSTALARLO Y PROBARLO.
+- FALTA CREAR VERSIONES PARA WINDOWS Y MAC.
+- PROBAR QUE VAN CON PROYECTO 7.4, SIN EXCEPCIONES.
+- PROBAR QUE VAN CON PROYECTO 7.5. NO HACE FALTA PROBAR TODOS LOS CASOS, PERO LOS ESENCIALES.
+- PROBLARLO EN LOS 3 SOS.
+
 			
-TMR ME QUEDÉ POR AQUÍ. FALTA PROBAR TODOS LOS ARQUETIPOS. PERO EL PRIMERO FALLO AL COMPILARLO CON JAVA 8. 			
+TMR FALTA PROBAR TODOS LOS ARQUETIPOS.  	
+
+Poner esto en instrucciones Studio:
+
+# Configuration for OpenXava Studio, in order application prior v7.5 works nicely
+disabledPlugins=Hibernate, Hibernate3JPA, Hibernate3, Spring, Jersey1, Jersey2, Jetty, Tomcat, ZK, Logback, Log4j2, MyFaces, Mojarra, Omnifaces, ELResolver, WildFlyELResolver, OsgiEquinox, Owb, Proxy, WebObjects, Weld, JBossModules, ResteasyRegistry, Deltaspike, GlassFish, Vaadin, Wicket, CxfJAXRS, FreeMarker, Undertow, MyBatis
+LOGGER=error
+LOGGER.org.hotswap.agent.watch.nio.TreeWatcherNIO=error
+		
 			
-¿Ponerlo también en migration?
 
 - Java 11 by default for new projects? For openxavatest? Otherwise if you have a Java 8 added as JDK, the project uses it, 
 	instead of the default one with Trava. We should try hot reloading with Java 8 and Java 11 in pom.xml, 

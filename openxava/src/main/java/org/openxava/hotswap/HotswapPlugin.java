@@ -12,7 +12,6 @@ import java.util.*;
 
 import javax.persistence.*;
 
-import org.apache.commons.logging.*;
 import org.hotswap.agent.annotation.*;
 import org.hotswap.agent.javassist.*;
 import org.openxava.component.parse.*;
@@ -32,7 +31,7 @@ import org.openxava.util.*;
 @Plugin(name = "OpenXava", testedVersions = { "7.5+" }) 
 public class HotswapPlugin {
 	
-	private static Log log = LogFactory.getLog(HotswapPlugin.class);
+	// tmr private static Log log = LogFactory.getLog(HotswapPlugin.class);
 	
 	private static boolean active; 
 	private static boolean resourcesMonitoring; 
@@ -64,7 +63,8 @@ public class HotswapPlugin {
 			Class.forName(className);
 		} 
     	catch (ClassNotFoundException ex) {
-			log.error(ex);
+			// tmr log.error(ex);
+    		ex.printStackTrace(); // tmr
 		}
     }
     
@@ -121,7 +121,8 @@ public class HotswapPlugin {
 					key.reset(); 
 				}
 			} catch (IOException | InterruptedException ex) {
-				log.error(ex);
+				// tmr log.error(ex);
+				ex.printStackTrace(); // tmr
 			}
 		});
 
