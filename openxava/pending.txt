@@ -49,7 +49,7 @@ TMR FALTA PROBAR TODOS LOS ARQUETIPOS.
 
 Poner esto en instrucciones Studio:
 
-# Configuration for OpenXava Studio, in order application prior v7.5 works nicely
+# Configuration for OpenXava Studio, in order OpenXava applications prior v7.5 work nicely
 disabledPlugins=Hibernate, Hibernate3JPA, Hibernate3, Spring, Jersey1, Jersey2, Jetty, Tomcat, ZK, Logback, Log4j2, MyFaces, Mojarra, Omnifaces, ELResolver, WildFlyELResolver, OsgiEquinox, Owb, Proxy, WebObjects, Weld, JBossModules, ResteasyRegistry, Deltaspike, GlassFish, Vaadin, Wicket, CxfJAXRS, FreeMarker, Undertow, MyBatis
 LOGGER=error
 LOGGER.org.hotswap.agent.watch.nio.TreeWatcherNIO=error
