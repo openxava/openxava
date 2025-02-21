@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>OpenXava - SSO con Azure AD</title>
+    <title>SSO con Azure AD - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
@@ -9,11 +9,13 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="configuracion-para-kotlin"></a> <span id="breadcrumbs">
-          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
-              </a> </span> / <a href="index_es.html">documentación</a> / </span>SSO
-        con Azure AD</h1>
+      <h1 id="toc0"><a name="configuracion-para-kotlin"></a> <span
+
+          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span>SSO con Azure AD</h1>
       <em>Todas las funcionalidades en este artículo están disponible solo en <a
+
           href="http://openxava.org/xavapro">XavaPro</a></em></div>
     <div class="wiki" style="display: block;"> Desde XavaPro 7.1 puedes
       configurar la identificación de usuarios para que use Azure AD, lo que te
@@ -37,7 +39,19 @@
     <img src="files/microsoft-sign-in_es.png" alt="">
     <div class="wiki" style="display: block;"> Además, si el usuario ya
       estuviera identificado en ese navegador accedería a la aplicación sin que
-      se le pidiera identificación. El usuario tiene que estar añadido a la aplicación en la configuración de Azure AD. Para versiones anteriores a la 7.5, el usuario también debe estar registrado como usuario de XavaPro en la aplicación con los roles correspondientes asignados, y el usuario debe estar registrado en la aplicación XavaPro con el mismo nombre que en Azure. A partir de la versión 7.5, los usuarios de Azure AD ya no necesitan ser registrados manualmente en XavaPro. Cuando un usuario de Azure AD se autentica contra la aplicación por primera vez, si no existe en XavaPro, se registrará automáticamente. Si la aplicación tiene un rol "azure ad" definido, este rol se asignará automáticamente al nuevo usuario. Las nuevas organizaciones creadas a partir de la versión 7.5 tienen el rol "azure ad" creado por defecto, pero también se puede crear manualmente si es necesario.<br>
+      se le pidiera identificación. El usuario tiene que estar añadido a la
+      aplicación en la configuración de Azure AD. Para versiones anteriores a la
+      7.5, el usuario también debe estar registrado como usuario de XavaPro en
+      la aplicación con los roles correspondientes asignados, y el usuario debe
+      estar registrado en la aplicación XavaPro con el mismo nombre que en
+      Azure. A partir de la versión 7.5, los usuarios de Azure AD ya no
+      necesitan ser registrados manualmente en XavaPro. Cuando un usuario de
+      Azure AD se autentica contra la aplicación por primera vez, si no existe
+      en XavaPro, se registrará automáticamente. Si la aplicación tiene un rol
+      "azure ad" definido, este rol se asignará automáticamente al nuevo
+      usuario. Las nuevas organizaciones creadas a partir de la versión 7.5
+      tienen el rol "azure ad" creado por defecto, pero también se puede crear
+      manualmente si es necesario.<br>
       <h2>Configurar la aplicación en Azure AD</h2>
       Si ya usas Azure AD en tu organización estarás acostumbrado a configurar
       aplicaciones y asignar usuarios a ellos, tendrás claro, además, de donde
@@ -49,8 +63,7 @@
       <h3>Panel de control de Azure AD</h3>
     </div>
     <div class="wiki" style="display: block;">Lo primero es darte de alta en
-      Azure AD, en esta dirección:
-      <a href="https://azure.microsoft.com/es-es/products/active-directory">
+      Azure AD, en esta dirección: <a href="https://azure.microsoft.com/es-es/products/active-directory">
         https://azure.microsoft.com/es-es/products/active-directory</a> (si el
       vínculo no funciona busca en Google por "Azure AD").</div>
     <div class="wiki" style="display: block;">Una vez dado de alta ve a la
@@ -132,8 +145,8 @@
         <ul>
           <li><i>Id del cliente</i> en XavaPro con el <i>Id. de aplicación
               (cliente)</i> de Azure AD.</li>
-          <li>En <i>Autoridad</i> de XavaPro pone el prefijo
-            <i> https://login.microsoftonline.com/</i> y añádele el <i>Id. de
+          <li>En <i>Autoridad</i> de XavaPro pone el prefijo <i>
+              https://login.microsoftonline.com/</i> y añádele el <i>Id. de
               directorio (inquilino)</i> de Azure AD.</li>
           <li>En <i>Secreto</i> de XavaPro añade el secreto aplicación que has
             creado en el paso anterior y se supone te has apuntado.</li>
