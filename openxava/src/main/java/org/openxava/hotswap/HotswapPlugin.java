@@ -31,8 +31,6 @@ import org.openxava.util.*;
 @Plugin(name = "OpenXava", testedVersions = { "7.5+" }) 
 public class HotswapPlugin {
 	
-	// tmr private static Log log = LogFactory.getLog(HotswapPlugin.class);
-	
 	private static boolean active; 
 	private static boolean resourcesMonitoring; 
 	private static int modelVersion = 0; 
@@ -63,8 +61,7 @@ public class HotswapPlugin {
 			Class.forName(className);
 		} 
     	catch (ClassNotFoundException ex) {
-			// tmr log.error(ex);
-    		ex.printStackTrace(); // tmr
+    		ex.printStackTrace(); // We cannot use a log library because it fails when we do a mvn clean and then mvn install in a project
 		}
     }
     
@@ -121,8 +118,7 @@ public class HotswapPlugin {
 					key.reset(); 
 				}
 			} catch (IOException | InterruptedException ex) {
-				// tmr log.error(ex);
-				ex.printStackTrace(); // tmr
+				ex.printStackTrace(); // We cannot use a log library because it fails when we do a mvn clean and then mvn install in a project
 			}
 		});
 

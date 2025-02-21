@@ -35,43 +35,25 @@ HOT CODE RELOADING PENDING (TMR)
 * Refinar código.
 * Pruebas manuales.
 * Mezclar desde último master. 
-
-
-			
-TMR ME QUEDÉ POR:
-- INSTALAR NUEVO R4 EN WINDOWS7.
-- QUITAR TMRs DE HotswapAgent
-  	
-
-Poner esto en instrucciones Studio:
-
-# Configuration for OpenXava Studio, in order OpenXava applications prior v7.5 work nicely
-disabledPlugins=Hibernate, Hibernate3JPA, Hibernate3, Spring, Jersey1, Jersey2, Jetty, Tomcat, ZK, Logback, Log4j2, MyFaces, Mojarra, Omnifaces, ELResolver, WildFlyELResolver, OsgiEquinox, Owb, Proxy, WebObjects, Weld, JBossModules, ResteasyRegistry, Deltaspike, GlassFish, Vaadin, Wicket, CxfJAXRS, FreeMarker, Undertow, MyBatis
-LOGGER=error
-LOGGER.org.hotswap.agent.watch.nio.TreeWatcherNIO=error
-		
-			
-- Arquetipos. Falta probar todos los arquetipos. No hace falta añadir nada especial, no hace falta nada en migration para pom.xml.
-	- Con el primero: 
-		- Probar con clean e install. No excepción.
-		- Probar con Java 1.8.
-- Java 11 by default for new projects? For openxavatest? Otherwise if you have a Java 8 added as JDK, the project uses it, 
-	instead of the default one with Trava. We should try hot reloading with Java 8 and Java 11 in pom.xml, 
-	but logically it only works with JDK 11 Trava for run.
-	- En arquetipos
-	- Poner en changelog
-	- Modificar doc de publicar OpenXava.
-	- Poner invoicedemo y openxavatest a Java 11
-	- Poner xavaprotest a Java 11.
-
+* Arquetipos.  
+* Java 11 by default for new projects
+- Suite. Poner Java 11 en pom.xml de openxavatest
 - Descargar, instalar y probar nuevo Studio R4 para Linux. Probar con 7.4 y 7.5.	
 - Try Getting Started guide.
 - Try with Visual Studio Code.
 - Visual Studio Code to modify openxava core without reloading.
 - Try with IntelliJ.
 - Try with XavaPro.
-- Suite
+ 
+- Doc sobre Java 11 by default 
+	- Poner en changelog
+	- Modificar doc de publicar OpenXava.
+	- Poner xavaprotest a Java 11.
+- ¿Poner en anuncio de Studio R4indicación de que hay que ejecutar con JDK de Studio para que funcione? 
+	- ¿En anuncio de OpenXava 7.5?
+	- ¿Sólo en doc?
 - Documentation.
+
 
 
 
