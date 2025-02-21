@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Java 11 as default compiler level for new projects (from archetypes), though Java 1.8 is still supported. 
 - Lesson 10 of the reporting course with JasperReports available in the documentation with video.
 - Some new common use labels to be used in applications.
 
