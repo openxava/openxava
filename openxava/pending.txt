@@ -39,7 +39,7 @@ HOT CODE RELOADING PENDING (TMR)
 * Java 11 by default for new projects
 * Suite. Poner Java 11 en pom.xml de openxavatest
 * Try Getting Started guide.
-- Descargar, instalar y probar nuevo Studio R4 para Linux. Probar con 7.4 y 7.5.	
+* Descargar, instalar y probar nuevo Studio R4 para Linux. Probar con 7.4 y 7.5.	
 - Try with Visual Studio Code.
 - Visual Studio Code to modify openxava core without reloading.
 - Try with IntelliJ.
