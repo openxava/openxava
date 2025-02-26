@@ -69,15 +69,11 @@ HOT CODE RELOADING PENDING (TMR)
 
 	AppServer.run() con extraClassPath
 
-	
-
-
-
 
 AFTERWARDS
 * Try with XavaPro.
 * Release a new Studio version.
-- Arquetipos deberían funcionar con VSC y Eclipse a la vez. invoicedemo y openxavatest ya están.
+* Arquetipos deberían funcionar con VSC y Eclipse a la vez. invoicedemo y openxavatest ya están.
 - Modify the Getting Started guide to use it.
 - A videotutorial to use hot reloading with OpenXava Studio, Intellij and VSC.
 - Add it as main feature in openxava.org.
