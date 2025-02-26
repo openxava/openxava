@@ -2114,5 +2114,27 @@ public class ModuleManager implements java.io.Serializable {
 		this.moduleURL = request.getScheme() + "://" + request.getServerName() + ":" + 
 				request.getServerPort() + request.getAttribute("javax.servlet.forward.request_uri");
 	}
+
+	/**
+	 * Gets the dialog title based on the view title, last executed action and model name.
+	 * @return The dialog title to be displayed
+	 * @since 7.5
+	 */
+	public String getDialogTitle() {
+		if (!Is.emptyString(getView().getTitle())) {
+			return getView().getTitle();
+		}
+		else {	
+			MetaAction lastAction = getLastExecutedMetaAction();
+			String model = Labels.get(getView().getModelName());
+			if (lastAction == null) return model;
+			else {
+				String actionTitle = lastAction.getDescription();
+				if (Is.emptyString(actionTitle)) actionTitle = lastAction.getLabel();
+				if (Is.emptyString(model)) return actionTitle; 
+				else return actionTitle + " - " + model;
+			}
+		}		
+	}
 	
 }
