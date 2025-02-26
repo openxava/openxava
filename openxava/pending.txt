@@ -42,9 +42,9 @@ HOT CODE RELOADING PENDING (TMR)
 * Descargar, instalar y probar nuevo Studio R4 para Linux. Probar con 7.4 y 7.5.	
 * Try with Visual Studio Code.
 * Visual Studio Code to modify openxava core without reloading.
-- Try with IntelliJ. TMR ME QUEDÉ POR AQUÍ, PARA EMPEZARLO
-* Try with XavaPro.
- 
+* Try with IntelliJ. 
+- Quitar tmrs
+- Mezclar desde último master. 
 - Documentation.
 	- El archivo ya está creado hot-code-loading_es.html
 	- Si no Java 11, elegir JDK. También poner Java 11.
@@ -58,15 +58,22 @@ HOT CODE RELOADING PENDING (TMR)
     ]
 
 	Y  "java.jdt.ls.java.home": "${default}", en el del proyecto si hay problemas
+
+	En intelliJ 
+	- Dar de alta en File > Project Structure > SDKs 
+	- Establecer para el proyecto en File > Project Structure > Project > SDK
+	- No hace build automático, después de cambio hay que darle al botón Build (martillo)
+
+
 	
-- Quitar tmrs
+
 
 
 
 AFTERWARDS
-
+* Try with XavaPro.
 * Release a new Studio version.
-- Arquetipos y openxavatest deberían funcionar con VSC y Eclipse a la vez. invoicedemo ya está.
+- Arquetipos deberían funcionar con VSC y Eclipse a la vez. invoicedemo y openxavatest ya están.
 - Modify the Getting Started guide to use it.
 - A videotutorial to use hot reloading with OpenXava Studio, Intellij and VSC.
 - Add it as main feature in openxava.org.
