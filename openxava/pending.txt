@@ -43,9 +43,11 @@ HOT CODE RELOADING PENDING (TMR)
 * Try with Visual Studio Code.
 * Visual Studio Code to modify openxava core without reloading.
 * Try with IntelliJ. 
-- Quitar tmrs
+* Quitar tmrs
 - Mezclar desde último master. 
 - Documentation.
+	- En changelog:
+		- AppServer.run() con extraClassPath
 	- El archivo ya está creado hot-code-loading_es.html
 	- Si no Java 11, elegir JDK. También poner Java 11.
 	- Para VSC en settings.json del usuario:
@@ -64,6 +66,7 @@ HOT CODE RELOADING PENDING (TMR)
 	- Establecer para el proyecto en File > Project Structure > Project > SDK
 	- No hace build automático, después de cambio hay que darle al botón Build (martillo)
 
+	AppServer.run() con extraClassPath
 
 	
 

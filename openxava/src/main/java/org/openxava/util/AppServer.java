@@ -24,11 +24,11 @@ public class AppServer {
 	private static final String I18N_DIR = "/WEB-INF/classes/i18n/"; 
 	private final static Log log = LogFactory.getLog(AppServer.class);
 
-	public static void run(String app) throws Exception { // tmr
+	public static void run(String app) throws Exception { 
 		run(app, (String[]) null);
 	}
 	
-	// tmr En changelog, en doc hotreloading, en Migration instructions
+	/** @since 7.5 */
 	public static void run(String app, String ... extraClassPaths) throws Exception { 
 		System.out.println(XavaResources.getString("starting_application"));
 		System.setProperty("tomcat.util.scan.StandardJarScanFilter.jarsToSkip", "activation-*.jar,antlr-*.jar,aopalliance-repackaged-*.jar,bcprov-jdk15on-*.jar,byte-buddy-*.jar,castor-*.jar,classmate-*.jar,commons-*.jar,curvesapi-*.jar,dom4j-*.jar,dwr-*.jar,ecj-*.jar,ejb-api-*.jar,fontbox-*.jar,groovy-all-*.jar,hibernate-*.jar,hk2-*.jar,hsqldb-*.jar,htmlunit-*.jar,httpclient-*.jar,httpcore-*.jar,httpmime-*.jar,icu4j-*.jar,itext-*.jar,jackson-*.jar,jakarta.activation-*.jar,jakarta.annotation-api-*.jar,jakarta.inject-*.jar,jakarta.json-*.jar,jakarta.ws.rs-api-*.jar,jandex-*.jar,jasperreports-*.jar,javassist-*.jar,javax.activation-api-*.jar,javax.inject-*.jar,javax.mail-*.jar,javax.persistence-api-*.jar,jaxb-*.jar,jboss-logging-*.jar,jboss-transaction-*.jar,jcommon-*.jar,jersey-*.jar,jetty-*.jar,jfreechart-*.jar,jsoup-*.jar,junit-*.jar,lombok-*.jar,neko-htmlunit-*.jar,osgi-resource-locator-*.jar,pdfbox-*.jar,poi-*.jar,serializer-*.jar,stax-*.jar,tomcat-*.jar,validation-api-*.jar,websocket-*.jar,xalan-*.jar,xercesImpl-*.jar,xml-apis-*.jar,xmlbeans-*.jar,yasson-*.jar");
@@ -42,7 +42,7 @@ public class AppServer {
         int initialPort = XavaPreferences.getInstance().getApplicationPort();
         int finalPort = initialPort + 10;
         for (int port = initialPort; port < finalPort; port++) {
-        	tomcat = startTomcat(webappDir, contextPath, port, extraClassPaths); // tmr extraClassPaths
+        	tomcat = startTomcat(webappDir, contextPath, port, extraClassPaths); 
         	if (tomcat != null) {
         		if (port > initialPort) {
         			System.out.println(XavaResources.getString("port_for_faster_startup", "applicationPort=" + port)); 
@@ -59,7 +59,7 @@ public class AppServer {
         tomcat.getServer().await();
 	}
 	
-	private static Tomcat startTomcat(String webappDir, String contextPath, int port, String ... extraClassPaths) throws Exception {  // tmr extraClassPaths
+	private static Tomcat startTomcat(String webappDir, String contextPath, int port, String ... extraClassPaths) throws Exception {  
         Tomcat tomcat = new Tomcat();
         tomcat.setBaseDir("temp"); 
         tomcat.setPort(port);
@@ -79,11 +79,9 @@ public class AppServer {
 
         WebResourceRoot resources = new StandardRoot(context);
         resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes", "target/classes", "/"));
-        // tmr ini		
 		if (extraClassPaths != null) for (String extraClassPath : extraClassPaths) {
 			resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes", extraClassPath, "/")); 
 		}        
-		// tmr fin
         context.setResources(resources);
         context.setParentClassLoader(Thread.currentThread().getContextClassLoader()); // To work with mvn exec:java from command line
         
