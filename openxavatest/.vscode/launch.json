@@ -1,0 +1,42 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "DBManager",
+            "request": "launch",
+            "mainClass": "org.openxava.test.run.DBManager",
+            "projectName": "openxavatest"
+        },
+        {
+            "type": "java",
+            "name": "GenerateSchema",
+            "request": "launch",
+            "mainClass": "org.openxava.test.run.GenerateSchema",
+            "projectName": "openxavatest"
+        },
+        {
+            "type": "java",
+            "name": "openxavatest",
+            "request": "launch",
+            "mainClass": "org.openxava.test.run.openxavatest",
+            "projectName": "openxavatest"
+        },
+        {
+            "type": "java",
+            "name": "SingleTestSuite",
+            "request": "launch",
+            "mainClass": "org.openxava.test.tests.SingleTestSuite",
+            "projectName": "openxavatest"
+        }
+    ]
+}

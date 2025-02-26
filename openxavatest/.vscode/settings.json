@@ -1,4 +1,6 @@
 {
     "files.encoding": "iso88591",
     "files.autoGuessEncoding": false,
+    "java.jdt.ls.java.home": "${default}",
+    "java.configuration.updateBuildConfiguration": "automatic"
 }

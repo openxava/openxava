@@ -40,16 +40,26 @@ HOT CODE RELOADING PENDING (TMR)
 * Suite. Poner Java 11 en pom.xml de openxavatest
 * Try Getting Started guide.
 * Descargar, instalar y probar nuevo Studio R4 para Linux. Probar con 7.4 y 7.5.	
-- Try with Visual Studio Code.
-- Visual Studio Code to modify openxava core without reloading.
-- Try with IntelliJ.
+* Try with Visual Studio Code.
+* Visual Studio Code to modify openxava core without reloading.
+- Try with IntelliJ. TMR ME QUEDÉ POR AQUÍ, PARA EMPEZARLO
 * Try with XavaPro.
  
 - Documentation.
 	- El archivo ya está creado hot-code-loading_es.html
 	- Si no Java 11, elegir JDK. También poner Java 11.
-	
+	- Para VSC en settings.json del usuario:
+	"java.configuration.runtimes": [
+        {
+            "name": "JavaSE-11",
+            "path": "/home/javi/java/openxava-studio-7-r4/studio/jre",
+            "default": true
+        }
+    ]
 
+	Y  "java.jdt.ls.java.home": "${default}", en el del proyecto si hay problemas
+	
+- Quitar tmrs
 
 
 
