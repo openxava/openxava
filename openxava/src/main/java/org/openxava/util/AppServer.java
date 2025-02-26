@@ -74,6 +74,8 @@ public class AppServer {
 
         WebResourceRoot resources = new StandardRoot(context);
         resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes", "target/classes", "/"));
+        // tmr Me quedé por aquí. Hacerlo parametrizable
+        resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes", "/home/javi/code/openxava/openxava/target/classes", "/")); // tmr
         context.setResources(resources);
         context.setParentClassLoader(Thread.currentThread().getContextClassLoader()); // To work with mvn exec:java from command line
         

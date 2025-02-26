@@ -14,7 +14,12 @@ public class NewAction extends ViewBaseAction implements IChangeModeAction, IMod
 	private String modelName;
 	private boolean restoreModel = false;
 
+	private void sayHello() { // tmr
+		addMessage("Hola, soy la RELECHE"); // tmr
+	}
+
 	public void execute() throws Exception {
+		sayHello(); // tmr
 		if (restoreModel) getView().setModelName(modelName);
 		getView().setKeyEditable(true);
 		getView().setEditable(true);
