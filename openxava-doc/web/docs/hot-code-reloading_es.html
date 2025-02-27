@@ -29,17 +29,123 @@
           anotaciones, clases (incluidas anónimas), miembros estáticos y valores
           de enumeraciones. Se gestionan correctamente la redefinición de clases
           anónimas y la inicialización de miembros estáticos.</li>
-        <li>Calculated properties: TMR ME QUEDÉ POR AQUÍ. LOS PUNTOS SON LOS DE
-          ABAJO, HAY QUE EXPLICARLOS.</li>
-        <li>OpenXava annotations: @View, a @DescriptionsList and add a @Tab.</li>
-        <li>Persistent properties:</li>
-        <li>New entities. Añadiendo el módulo, creando la tabla</li>
-        <li>Controllers</li>
-        <li>Application: Reload</li>
-        <li>i18n: Reload</li>
+        <li>Calculated properties. Puedes añadir, eliminar o modificar una
+          propiedad calculada en una entidad y aparecerá inmediatamente en la
+          aplicación, tanto en modo lista como en modo detalle.</li>
+        <li>Anotaciones de OpenXava: Si cambias, añades o quitas anotaciones de
+          OpenXava como @View, @DescriptionsList, @Tab también verás el efecto
+          inmediatamente.</li>
+        <li>Propiedades persistente: Al añadir, modificar o quitar una propiedad
+          persistente a una entidad, se verá inmediatamente en la interfaz de
+          usuario, en modo detalle y modo lista. Además, si tenemos la evolución
+          de esquema activada, se creará la columna correspondiente en la tabla
+          de la base de datos.</li>
+        <li>Entidades nuevas: Si crea una nueva clase y la anotas con @Entity,
+          no solo se reconocerá sino que habrá automáticamente un nuevo módulo
+          disponible (en el menú de la izquierda y mediante URL). Si tenemos las
+          evolución de esquema activada se creará la tabla en la base de datos.
+          En este caso hay que pulsar el botón de recargar en el navegador para
+          ver el nuevo módulo.</li>
+        <li>Controladores: Si añadimos o quitamos controladores en
+          controladores.xml, añadimos, modificamos o cambiamos acciones en un
+          controlador, etc. Todo se reconoce inmediatamente, apareciendo (o
+          desapareciendo las acciones) nada más pulsemos una acción en la
+          interfaz de usuario.</li>
+        <li>Application: Podemos añadir, modificar y quitar módulos en
+          aplicacion.xml. Los nuevos módulos se ven después de pulsar recargar
+          en el navegador.</li>
+        <li>Etiquetas y mensajes: Si cambiamos las etiquitas y mensajes en los
+          archivos i18n, también tiene efecto sin reiniciar la aplicación.
+          Aunque en este caso hay que pulsar recargar en el navegador, para ver
+          las nuevas etiquetas.</li>
       </ul>
-      <p>Rendimiento producción</p>
+      <p>No es necesario arrancar en modo debug para que se reconozcan los
+        cambios, pero sí que hay que arrancar con el Java de OpenXava Studio 7
+        R4.</p>
       <h2>Java incluido en OpenXava Studio 7 R4</h2>
-      Si ya </div>
+      Para que la recarga de código funcione es necesario ejecutar la aplicación
+      con el Java incluido en OpenXava Studio 7 R4. Este Java es un JDK 11
+      basado en DCEVM y que integra HotswapAgent, además de estar afinado
+      especialmente para funcionar bien con la recarga en caliente de OpenXava.</div>
+    <div class="wiki" style="display: block;">Este JDK se encuentra en la
+      distribución de OpenXava Studio 7 R4, en <i>openxava-studio-7-r4/studio/jre</i>.
+    </div>
+    <div class="wiki" style="display: block;">Si ejecutas el OpenXava Studio en
+      una máquina limpia, sin Java, y en un workspace nuevo, lo normal es que se
+      use este Java por defecto. Ahora bien, si ya tienes otros JDK en tu
+      ordenador o tienes un workspace donde hayas dado de alta otros JDK, puede
+      que tu aplicación no esté usando el JDK con HotswapAgent y por tanto no
+      funcione la recarga de clases.</div>
+    <div class="wiki" style="display: block;">Sabrás si estás ejecutando el JDK
+      correcto si ves estas línea en el log al arrancar tu aplicación:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">HOTSWAP AGENT: 13:40:23.126 INFO (org.hotswap.agent.HotswapAgent) - Loading Hotswap agent {1.4.1} - unlimited runtime class redefinition.
+Starting HotswapAgent '/home/theuser/openxava-studio-7-r4/studio/jre/lib/hotswap/hotswap-agent.jar'
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Si no es así, en OpenXava Studio,
+      ve a <i>Window &gt; Preferences &gt; Java &gt; Installed JREs</i> y
+      verifica que tienes un JRE que apunta <i>openxava-studio-7-r4/studio/jre</i>,
+      como ves aquí:</div>
+    <div class="wiki" style="display: block;">TMR IMAGEN<br>
+      <div class="wiki" style="display: block;">Si no lo hubiese, añadelo tu
+        mismo. Además, elimina todos los demás Java 11 que tengas registrados.
+        Prueba de nuevo ejecutar tu aplicación.</div>
+    </div>
+    <div class="wiki" style="display: block;">Si todavía no ejecuta el Java con
+      HotswapAgent puede que tengas un Java 1.8 reconocido por OpenXava Studio y
+      tu proyecto esté configurado para trabajar con Java 1.8, y por eso escoge
+      el Java 1.8 en lugar del Java 11 (el de OpenXava Studio). Para arreglar
+      esto ve al <i>pom.xml</i> de tu proyecto y cambia:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;properties&gt;
+    ...  
+    &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
+    &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+&lt;/properties&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Por:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;properties&gt;
+    ...  
+    &lt;maven.compiler.source&gt;11&lt;/maven.compiler.source&gt;
+    &lt;maven.compiler.target&gt;11&lt;/maven.compiler.target&gt;
+&lt;/properties&gt;
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Después con el botón derecho
+      encima de tu proyecto escoge <i>Maven &gt; Update Project... </i>Con
+      esto ya debería funcionar. </div>
+    <div class="wiki" style="display: block;">Si quieres seguir compilando con
+      Java 1.8 y por eso no quieres cambiar el <i>pom.xml</i>, no hay problema.
+      Ve a <i>Run Configurations</i>:</div>
+    <div class="wiki" style="display: block;">TMR IMAGEN</div>
+    <div class="wiki" style="display: block;">Busca tu aplicación y en la
+      carpeta JRE, asegurate de que tu aplicación se ejecuta el JDK del OpenXava
+      Studio, si no es así cámbialo.</div>
+    <div class="wiki" style="display: block;">
+      <h2>IntelliJ</h2>
+      <p>También puedes disfrutar de la recarga de código en caliente usando
+        IntelliJ. El truco es ejecutar la aplicación con el JDK incluido en
+        OpenXava Studio 7 R4. Tendrás que descargar OpenXava Studio, aunque solo
+        sea para usar su JDK.</p>
+      <p>Da de alta el JDK incluido en OpenXava Studio 7 R4 en tu IntelliJ. Ve a
+        <i>File &gt; Project Structure</i>. Alli en la sección SDKs añade el JDK
+        que se encuentra en <i>openxava-studio-7-r4/studio/jre</i>. Después en
+        la sección JDK, escoge este JDK para el proyecto.</p>
+      <p>Ten en cuenta que IntelliJ no compila el código automáticamente si la
+        aplicación se está ejecutando, por eso después de cambiar el código has
+        de pulsar el botón de <i>Build</i>, el que tiene un martillito, para
+        que compile y poder ver los cambios actualizados.</p>
+      <h2>Rendimiento</h2>
+      <p>El mecanismo de recarga en caliente es</p>
+      <p></p>
+    </div>
+    <div class="wiki" style="display: block;">
+      <h2>Rendimiento</h2>
+      <p>El mecanismo de recarga en caliente está diseñado para un rendimiento
+        óptimo, cargando los metadatos justos únicamente cuando es necesario o
+        reiniciando la sesión de Hibernate solo cuando se modifica la parte
+        persistente de alguna entidad. Además, en producción donde usas un JDK
+        diferente al de desarrollo, el mecanismo de recarga está desactivado.</p>
+    </div>
   </body>
 </html>

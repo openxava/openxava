@@ -45,11 +45,11 @@ HOT CODE RELOADING PENDING (TMR)
 * Try with IntelliJ. 
 * Quitar tmrs
 * Mezclar desde último master. 
-- Suite.
+* Suite.
 - Documentation.
 	- En changelog:
 		- AppServer.run() con extraClassPath
-	- El archivo ya está creado hot-code-loading_es.html
+	- El archivo ya está creado hot-code-loading_es.html: TMR ME QUEDÉ HACIENDO...
 	- Si no Java 11, elegir JDK. También poner Java 11.
 	- Para VSC en settings.json del usuario:
 	"java.configuration.runtimes": [
@@ -62,10 +62,7 @@ HOT CODE RELOADING PENDING (TMR)
 
 	Y  "java.jdt.ls.java.home": "${default}", en el del proyecto si hay problemas
 
-	En intelliJ 
-	- Dar de alta en File > Project Structure > SDKs 
-	- Establecer para el proyecto en File > Project Structure > Project > SDK
-	- No hace build automático, después de cambio hay que darle al botón Build (martillo)
+	* En intelliJ 
 
 	AppServer.run() con extraClassPath
 
