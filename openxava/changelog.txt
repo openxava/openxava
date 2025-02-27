@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- AppServer launcher class has a new method run(application, extraClassPaths) to indicate extra classpaths.
 - Java 11 as default compiler level for new projects (from archetypes), though Java 1.8 is still supported. 
 - Video for creating a CRM included in the project templates documentation article.
 - Lesson 10 of the reporting course with JasperReports available in the documentation with video.

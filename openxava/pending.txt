@@ -47,8 +47,7 @@ HOT CODE RELOADING PENDING (TMR)
 * Mezclar desde último master. 
 * Suite.
 - Documentation.
-	- En changelog:
-		- AppServer.run() con extraClassPath
+	* En changelog: AppServer.run() con extraClassPath
 	- El archivo ya está creado hot-code-loading_es.html: TMR ME QUEDÉ HACIENDO...
 	- Si no Java 11, elegir JDK. También poner Java 11.
 	- Para VSC en settings.json del usuario:
@@ -59,12 +58,9 @@ HOT CODE RELOADING PENDING (TMR)
             "default": true
         }
     ]
-
 	Y  "java.jdt.ls.java.home": "${default}", en el del proyecto si hay problemas
-
 	* En intelliJ 
-
-	AppServer.run() con extraClassPath
+	- AppServer.run() con extraClassPath
 
 
 AFTERWARDS

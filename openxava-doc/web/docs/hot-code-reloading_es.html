@@ -16,9 +16,9 @@
       <em></em></div>
     <div class="wiki" style="display: block;"> A partir de OpenXava 7.5 puedes
       disfrutar de la recarga en caliente de código mientras desarrollas tu
-      aplicación. Esto quieres decir que puedes tocar cualquier parte del
+      aplicación. Esto quiere decir que puedes tocar cualquier parte del
       código, grabar, ir al navegador y ver la aplicación actualizada. Todo
-      instatáneo, sin necesidad de hacer un build, Maven install, reiniciar la
+      instantáneo, sin necesidad de hacer un build, Maven install, reiniciar la
       aplicación, ni siquiera recargar la página en el navegador.<br>
       <h2><a name="añadir-dependencias-en-pom.xml">Cambios soportados</a></h2>
       Estos son los cambios que puedes hacer en tu aplicación sin reiniciarla.
@@ -29,32 +29,31 @@
           anotaciones, clases (incluidas anónimas), miembros estáticos y valores
           de enumeraciones. Se gestionan correctamente la redefinición de clases
           anónimas y la inicialización de miembros estáticos.</li>
-        <li>Calculated properties. Puedes añadir, eliminar o modificar una
+        <li>Propiedades calculadas: Puedes añadir, eliminar o modificar una
           propiedad calculada en una entidad y aparecerá inmediatamente en la
           aplicación, tanto en modo lista como en modo detalle.</li>
         <li>Anotaciones de OpenXava: Si cambias, añades o quitas anotaciones de
-          OpenXava como @View, @DescriptionsList, @Tab también verás el efecto
-          inmediatamente.</li>
-        <li>Propiedades persistente: Al añadir, modificar o quitar una propiedad
+          OpenXava como <i>@View, @DescriptionsList</i> o <i>@Tab</i> también
+          verás el efecto inmediatamente.</li>
+        <li>Propiedades persistentes: Al añadir, modificar o quitar una propiedad
           persistente a una entidad, se verá inmediatamente en la interfaz de
           usuario, en modo detalle y modo lista. Además, si tenemos la evolución
           de esquema activada, se creará la columna correspondiente en la tabla
           de la base de datos.</li>
-        <li>Entidades nuevas: Si crea una nueva clase y la anotas con @Entity,
-          no solo se reconocerá sino que habrá automáticamente un nuevo módulo
-          disponible (en el menú de la izquierda y mediante URL). Si tenemos las
-          evolución de esquema activada se creará la tabla en la base de datos.
-          En este caso hay que pulsar el botón de recargar en el navegador para
-          ver el nuevo módulo.</li>
+        <li>Entidades nuevas: Si creas una nueva clase y la anotas con <i>
+            @Entity</i>, no solo se reconocerá sino que habrá automáticamente un
+          nuevo módulo disponible (en el menú de la izquierda y mediante URL).
+          Si tenemos la evolución de esquema activada se creará la tabla en la
+          base de datos. En este caso hay que pulsar el botón de recargar en el
+          navegador para ver el nuevo módulo.</li>
         <li>Controladores: Si añadimos o quitamos controladores en
-          controladores.xml, añadimos, modificamos o cambiamos acciones en un
-          controlador, etc. Todo se reconoce inmediatamente, apareciendo (o
-          desapareciendo las acciones) nada más pulsemos una acción en la
+          <i> controladores.xml</i>, añadimos, modificamos o cambiamos acciones
+          en un controlador, etc. Todo se reconoce inmediatamente, apareciendo
+          (o desapareciendo las acciones) nada más pulsemos una acción en la
           interfaz de usuario.</li>
-        <li>Application: Podemos añadir, modificar y quitar módulos en
-          aplicacion.xml. Los nuevos módulos se ven después de pulsar recargar
-          en el navegador.</li>
-        <li>Etiquetas y mensajes: Si cambiamos las etiquitas y mensajes en los
+        <li>Aplicación: Podemos añadir, modificar y quitar módulos en <i>aplicacion.xml</i>.
+          Los nuevos módulos se ven después de pulsar recargar en el navegador.</li>
+        <li>Etiquetas y mensajes: Si cambiamos las etiquetas y mensajes en los
           archivos i18n, también tiene efecto sin reiniciar la aplicación.
           Aunque en este caso hay que pulsar recargar en el navegador, para ver
           las nuevas etiquetas.</li>
@@ -77,7 +76,7 @@
       que tu aplicación no esté usando el JDK con HotswapAgent y por tanto no
       funcione la recarga de clases.</div>
     <div class="wiki" style="display: block;">Sabrás si estás ejecutando el JDK
-      correcto si ves estas línea en el log al arrancar tu aplicación:</div>
+      correcto si ves estas líneas en el log al arrancar tu aplicación:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="xml">HOTSWAP AGENT: 13:40:23.126 INFO (org.hotswap.agent.HotswapAgent) - Loading Hotswap agent {1.4.1} - unlimited runtime class redefinition.
 Starting HotswapAgent '/home/theuser/openxava-studio-7-r4/studio/jre/lib/hotswap/hotswap-agent.jar'
@@ -86,8 +85,9 @@ Starting HotswapAgent '/home/theuser/openxava-studio-7-r4/studio/jre/lib/hotswap
       ve a <i>Window &gt; Preferences &gt; Java &gt; Installed JREs</i> y
       verifica que tienes un JRE que apunta <i>openxava-studio-7-r4/studio/jre</i>,
       como ves aquí:</div>
-    <div class="wiki" style="display: block;">TMR IMAGEN<br>
-      <div class="wiki" style="display: block;">Si no lo hubiese, añadelo tu
+    <div class="wiki" style="display: block;"><img src="files/openxava-studio-7r4-jre.png"
+        alt="openxava-studio-7r4-jre.png" title="openxava-studio-7r4-jre.png"><br>
+      <div class="wiki" style="display: block;">Si no lo hubiese, añádelo tú
         mismo. Además, elimina todos los demás Java 11 que tengas registrados.
         Prueba de nuevo ejecutar tu aplicación.</div>
     </div>
@@ -117,10 +117,14 @@ Starting HotswapAgent '/home/theuser/openxava-studio-7-r4/studio/jre/lib/hotswap
     <div class="wiki" style="display: block;">Si quieres seguir compilando con
       Java 1.8 y por eso no quieres cambiar el <i>pom.xml</i>, no hay problema.
       Ve a <i>Run Configurations</i>:</div>
-    <div class="wiki" style="display: block;">TMR IMAGEN</div>
+    <img src="files/eclipse-run-configurations.png" alt="eclipse-run-configurations.png"
+      title="eclipse-run-configurations.png">
     <div class="wiki" style="display: block;">Busca tu aplicación y en la
-      carpeta JRE, asegurate de que tu aplicación se ejecuta el JDK del OpenXava
-      Studio, si no es así cámbialo.</div>
+      carpeta JRE, asegúrate de que tu aplicación se ejecuta con el JDK del OpenXava
+      Studio:</div>
+    <img src="files/run-configuration-jre.png" alt="run-configuration-jre.png" title="run-configuration-jre.png">
+    <div class="wiki" style="display: block;">Si no es así cámbialo, quizás
+      tengas que usar la opción <i>Alternate JRE</i>.</div>
     <div class="wiki" style="display: block;">
       <h2>IntelliJ</h2>
       <p>También puedes disfrutar de la recarga de código en caliente usando
@@ -128,16 +132,42 @@ Starting HotswapAgent '/home/theuser/openxava-studio-7-r4/studio/jre/lib/hotswap
         OpenXava Studio 7 R4. Tendrás que descargar OpenXava Studio, aunque solo
         sea para usar su JDK.</p>
       <p>Da de alta el JDK incluido en OpenXava Studio 7 R4 en tu IntelliJ. Ve a
-        <i>File &gt; Project Structure</i>. Alli en la sección SDKs añade el JDK
-        que se encuentra en <i>openxava-studio-7-r4/studio/jre</i>. Después en
-        la sección JDK, escoge este JDK para el proyecto.</p>
+        <i>File &gt; Project Structure</i>. Allí en la sección SDKs añade el JDK
+        que se encuentra en <i>openxava-studio-7-r4/studio/jre</i>:</p>
+      <img src="files/intellij-openxava-studio-jdk-definition.png" alt="intellij-openxava-studio-jdk-definition.png"
+        title="intellij-openxava-studio-jdk-definition.png">
+      <p> Después en la sección <i>Project</i>, escoge este JDK como SDK para
+        el proyecto:</p>
+      <img src="files/intellij-openxava-studio-jdk-for-project.png" alt="intellij-openxava-studio-jdk-for-project.png"
+        title="intellij-openxava-studio-jdk-for-project.png">
       <p>Ten en cuenta que IntelliJ no compila el código automáticamente si la
         aplicación se está ejecutando, por eso después de cambiar el código has
         de pulsar el botón de <i>Build</i>, el que tiene un martillito, para
         que compile y poder ver los cambios actualizados.</p>
-      <h2>Rendimiento</h2>
-      <p>El mecanismo de recarga en caliente es</p>
-      <p></p>
+      <h2>Visual Studio Code</h2>
+      <p>Para usar la recarga de código en caliente con Visual Studio Code has
+        de ejecutar la aplicación con el JDK incluido en OpenXava Studio 7 R4,
+        por eso tendrás que descargar OpenXava Studio, aunque solo sea para usar
+        su JDK.<br>
+        Para que Visual Studio Code reconozca tu JDK en el <i>settings.json</i>
+        para tu usuario añade:</p>
+      <pre><code class="json">"java.configuration.runtimes": [
+    {
+        "name": "JavaSE-11",
+        "path": "/home/youruser/openxava-studio-7-r4/studio/jre",
+        "default": true
+    }
+]
+</code></pre>
+      <p>Con esto debería bastar, pero si no funciona puede ser porque el <i>settings.json</i>
+        de tu proyecto interfiera, en ese caso añade al <i>settings.json</i> de
+        tu proyecto:</p>
+      <pre><code class="json">"java.jdt.ls.java.home": "${default}"
+</code></pre>
+      <p>Visual Studio Code compila el código automáticamente a medida que lo
+        editas, igual que OpenXava Studio, así que solo tienes que tocar el
+        código e ir al navegador para ver la aplicación cambiada de forma
+        inmediata.</p>
     </div>
     <div class="wiki" style="display: block;">
       <h2>Rendimiento</h2>
@@ -146,6 +176,23 @@ Starting HotswapAgent '/home/theuser/openxava-studio-7-r4/studio/jre/lib/hotswap
         reiniciando la sesión de Hibernate solo cuando se modifica la parte
         persistente de alguna entidad. Además, en producción donde usas un JDK
         diferente al de desarrollo, el mecanismo de recarga está desactivado.</p>
+      <h2>Classpaths extra</h2>
+      <p>A veces estás desarrollando una librería o un proyecto que es una
+        dependencia del proyecto actual, y te gustaría que cuando cambias el
+        código de la librería también ver los resultado en caliente. Para este
+        caso puede arrancar tu aplicación indicando un lista de classpaths
+        extra. Edita tu clase lanzadora y escribe algo así:</p>
+      <pre><code class="java">public static void main(String[] args) throws Exception {
+    AppServer.run("yourapp", "../yourlib/target/classes"); 
+}
+</code></pre>
+      <p>Ahora cuando se cambie algo en <i>../yourlib/target/classes</i>
+        también se recargará automáticamente. Esto te permite desarrollar tu
+        librería probándola en una aplicación final, con la misma agilidad que
+        con cualquier otra aplicación. </p>
+      <p>El indicar classpaths extra al arrancar la aplicación está disponible
+        desde la versión 7.5.</p>
+      <p></p>
     </div>
   </body>
 </html>
