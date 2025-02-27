@@ -13,6 +13,16 @@
           <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
               </a> </span> / <a href="index_es.html">documentación</a> / </span>Carga
         de código en caliente</h1>
+      <div id="toc">
+        <h1 class="nopad">Tabla de contenidos</h1>
+        <div style="margin-left: 1em;"><a href="#configuracion-para-kotlin">Carga de código en caliente</a></div>
+        <div style="margin-left: 2em;"><a href="#añadir-dependencias-en-pom.xml">Cambios soportados</a></div>
+        <div style="margin-left: 2em;"><a href="#java-incluido-en-openxava-studio-7-r4">Java incluido en OpenXava Studio 7 R4</a></div>
+        <div style="margin-left: 2em;"><a href="#intellij">IntelliJ</a></div>
+        <div style="margin-left: 2em;"><a href="#visual-studio-code">Visual Studio Code</a></div>
+        <div style="margin-left: 2em;"><a href="#rendimiento">Rendimiento</a></div>
+        <div style="margin-left: 2em;"><a href="#classpaths-extra">Classpaths extra</a></div>
+      </div>
       <em></em></div>
     <div class="wiki" style="display: block;"> A partir de OpenXava 7.5 puedes
       disfrutar de la recarga en caliente de código mientras desarrollas tu
@@ -61,7 +71,7 @@
       <p>No es necesario arrancar en modo debug para que se reconozcan los
         cambios, pero sí que hay que arrancar con el Java de OpenXava Studio 7
         R4.</p>
-      <h2>Java incluido en OpenXava Studio 7 R4</h2>
+      <h2 id="java-incluido-en-openxava-studio-7-r4">Java incluido en OpenXava Studio 7 R4</h2>
       Para que la recarga de código funcione es necesario ejecutar la aplicación
       con el Java incluido en OpenXava Studio 7 R4. Este Java es un JDK 11
       basado en DCEVM y que integra HotswapAgent, además de estar afinado
@@ -126,7 +136,7 @@ Starting HotswapAgent '/home/theuser/openxava-studio-7-r4/studio/jre/lib/hotswap
     <div class="wiki" style="display: block;">Si no es así cámbialo, quizás
       tengas que usar la opción <i>Alternate JRE</i>.</div>
     <div class="wiki" style="display: block;">
-      <h2>IntelliJ</h2>
+      <h2 id="intellij">IntelliJ</h2>
       <p>También puedes disfrutar de la recarga de código en caliente usando
         IntelliJ. El truco es ejecutar la aplicación con el JDK incluido en
         OpenXava Studio 7 R4. Tendrás que descargar OpenXava Studio, aunque solo
@@ -144,7 +154,7 @@ Starting HotswapAgent '/home/theuser/openxava-studio-7-r4/studio/jre/lib/hotswap
         aplicación se está ejecutando, por eso después de cambiar el código has
         de pulsar el botón de <i>Build</i>, el que tiene un martillito, para
         que compile y poder ver los cambios actualizados.</p>
-      <h2>Visual Studio Code</h2>
+      <h2 id="visual-studio-code">Visual Studio Code</h2>
       <p>Para usar la recarga de código en caliente con Visual Studio Code has
         de ejecutar la aplicación con el JDK incluido en OpenXava Studio 7 R4,
         por eso tendrás que descargar OpenXava Studio, aunque solo sea para usar
@@ -170,13 +180,13 @@ Starting HotswapAgent '/home/theuser/openxava-studio-7-r4/studio/jre/lib/hotswap
         inmediata.</p>
     </div>
     <div class="wiki" style="display: block;">
-      <h2>Rendimiento</h2>
+      <h2 id="rendimiento">Rendimiento</h2>
       <p>El mecanismo de recarga en caliente está diseñado para un rendimiento
         óptimo, cargando los metadatos justos únicamente cuando es necesario o
         reiniciando la sesión de Hibernate solo cuando se modifica la parte
         persistente de alguna entidad. Además, en producción donde usas un JDK
         diferente al de desarrollo, el mecanismo de recarga está desactivado.</p>
-      <h2>Classpaths extra</h2>
+      <h2 id="classpaths-extra">Classpaths extra</h2>
       <p>A veces estás desarrollando una librería o un proyecto que es una
         dependencia del proyecto actual, y te gustaría que cuando cambias el
         código de la librería también ver los resultado en caliente. Para este
