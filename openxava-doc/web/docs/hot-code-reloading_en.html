@@ -1,0 +1,214 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Hot code reloading - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="configuration-for-kotlin"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>Hot code reloading</h1>
+      <div id="toc">
+        <h1 class="nopad">Table of contents</h1>
+        <div style="margin-left: 1em;"><a href="#configuration-for-kotlin">Hot code reloading</a></div>
+        <div style="margin-left: 2em;"><a href="#supported-changes">Supported changes</a></div>
+        <div style="margin-left: 2em;"><a href="#java-included-in-openxava-studio-7-r4">Java included in OpenXava Studio 7 R4</a></div>
+        <div style="margin-left: 2em;"><a href="#intellij">IntelliJ</a></div>
+        <div style="margin-left: 2em;"><a href="#visual-studio-code">Visual Studio Code</a></div>
+        <div style="margin-left: 2em;"><a href="#performance">Performance</a></div>
+        <div style="margin-left: 2em;"><a href="#extra-classpaths">Extra classpaths</a></div>
+      </div>
+      <em></em></div>
+    <div class="wiki" style="display: block;">
+      Starting from OpenXava 7.5, you can enjoy hot code reloading while developing your application. 
+      This means you can modify any part of the code, save it, go to the browser and see the updated application. 
+      Everything happens instantly, without needing to build, run Maven install, restart the application, 
+      or even reload the page in the browser.<br>
+      
+      <h2><a name="supported-changes">Supported changes</a></h2>
+      These are the changes you can make to your application without restarting it.
+      Most of them take effect without even reloading the browser page:
+      
+      <ul>
+        <li>Java code: Add, remove, or modify fields, methods, annotations, classes (including anonymous ones), 
+            static members, and enumeration values. Anonymous class redefinition and static member initialization 
+            are properly handled.</li>
+        <li>Calculated properties: You can add, remove, or modify a calculated property in an entity and it will 
+            immediately appear in the application, both in list and detail modes.</li>
+        <li>OpenXava annotations: If you change, add, or remove OpenXava annotations like <i>@View, @DescriptionsList</i> 
+            or <i>@Tab</i>, you'll also see the effect immediately.</li>
+        <li>Persistent properties: When adding, modifying, or removing a persistent property from an entity, 
+            it will be immediately visible in the user interface, in both detail and list modes. Additionally, 
+            if schema evolution is enabled, the corresponding column will be created in the database table.</li>
+        <li>New entities: If you create a new class and annotate it with <i>@Entity</i>, it will not only be 
+            recognized but will automatically have a new module available (in the left menu and via URL). 
+            If schema evolution is enabled, the table will be created in the database. In this case, 
+            you need to press the reload button in the browser to see the new module.</li>
+        <li>Controllers: If we add or remove controllers in <i>controllers.xml</i>, add, modify or change actions 
+            in a controller, etc. Everything is recognized immediately, with actions appearing (or disappearing) 
+            as soon as we trigger an action in the user interface.</li>
+        <li>Application: We can add, modify and remove modules in <i>application.xml</i>. New modules are visible 
+            after pressing reload in the browser.</li>
+        <li>Labels and messages: If we change labels and messages in i18n files, it also takes effect without 
+            restarting the application. However, in this case, you need to reload the browser to see the new labels.</li>
+      </ul>
+      
+      <p>It's not necessary to start in debug mode for changes to be recognized, but you do need to start with 
+         the Java from OpenXava Studio 7 R4.</p>
+         
+      <h2 id="java-included-in-openxava-studio-7-r4">Java included in OpenXava Studio 7 R4</h2>
+      For code reloading to work, it's necessary to run the application with the Java included in OpenXava Studio 7 R4. 
+      This Java is a JDK 11 based on DCEVM that integrates HotswapAgent, and is specially tuned to work well with 
+      OpenXava's hot reloading.</div>
+      
+    <div class="wiki" style="display: block;">
+      This JDK is found in the OpenXava Studio 7 R4 distribution, in <i>openxava-studio-7-r4/studio/jre</i>.
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      If you run OpenXava Studio on a clean machine without Java and in a new workspace, this Java should be used 
+      by default. However, if you already have other JDKs on your computer or have a workspace where you've registered 
+      other JDKs, your application might not be using the JDK with HotswapAgent and therefore class reloading won't work.
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      You'll know if you're running the correct JDK if you see these lines in the log when starting your application:
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">HOTSWAP AGENT: 13:40:23.126 INFO (org.hotswap.agent.HotswapAgent) - Loading Hotswap agent {1.4.1} - unlimited runtime class redefinition.
+Starting HotswapAgent '/home/theuser/openxava-studio-7-r4/studio/jre/lib/hotswap/hotswap-agent.jar'
+</code></pre>
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      If not, in OpenXava Studio, go to <i>Window > Preferences > Java > Installed JREs</i> and verify that you 
+      have a JRE pointing to <i>openxava-studio-7-r4/studio/jre</i>, as shown here:
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      <img src="files/openxava-studio-7r4-jre.png" alt="openxava-studio-7r4-jre.png" title="openxava-studio-7r4-jre.png"><br>
+      <div class="wiki" style="display: block;">
+        If it's not there, add it yourself. Also, remove any other Java 11 you have registered.
+        Try running your application again.
+      </div>
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      If it still doesn't run Java with HotswapAgent, you might have Java 1.8 recognized by OpenXava Studio and 
+      your project might be configured to work with Java 1.8, so it chooses Java 1.8 instead of Java 11 
+      (the one from OpenXava Studio). To fix this, go to your project's <i>pom.xml</i> and change:
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;properties&gt;
+    ...  
+    &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
+    &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+&lt;/properties&gt;
+</code></pre>
+    </div>
+    
+    <div class="wiki" style="display: block;">To:</div>
+    
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;properties&gt;
+    ...  
+    &lt;maven.compiler.source&gt;11&lt;/maven.compiler.source&gt;
+    &lt;maven.compiler.target&gt;11&lt;/maven.compiler.target&gt;
+&lt;/properties&gt;
+</code></pre>
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      Then right-click on your project and choose <i>Maven > Update Project...</i>
+      This should make it work.
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      If you want to continue compiling with Java 1.8 and therefore don't want to change the <i>pom.xml</i>, 
+      that's not a problem. Go to <i>Run Configurations</i>:
+    </div>
+    
+    <img src="files/eclipse-run-configurations.png" alt="eclipse-run-configurations.png" title="eclipse-run-configurations.png">
+    
+    <div class="wiki" style="display: block;">
+      Find your application and in the JRE folder, make sure your application runs with the OpenXava Studio JDK:
+    </div>
+    
+    <img src="files/run-configuration-jre.png" alt="run-configuration-jre.png" title="run-configuration-jre.png">
+    
+    <div class="wiki" style="display: block;">
+      If not, change it - you might need to use the <i>Alternate JRE</i> option.
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      <h2 id="intellij">IntelliJ</h2>
+      <p>You can also enjoy hot code reloading using IntelliJ. The trick is to run the application with the JDK 
+         included in OpenXava Studio 7 R4. You'll need to download OpenXava Studio, even if it's just to use its JDK.</p>
+      
+      <p>Register the JDK included in OpenXava Studio 7 R4 in your IntelliJ. Go to <i>File > Project Structure</i>. 
+         There in the SDKs section add the JDK found in <i>openxava-studio-7-r4/studio/jre</i>:</p>
+      
+      <img src="files/intellij-openxava-studio-jdk-definition.png" alt="intellij-openxava-studio-jdk-definition.png" 
+           title="intellij-openxava-studio-jdk-definition.png">
+      
+      <p>Then in the <i>Project</i> section, choose this JDK as the SDK for the project:</p>
+      
+      <img src="files/intellij-openxava-studio-jdk-for-project.png" alt="intellij-openxava-studio-jdk-for-project.png" 
+           title="intellij-openxava-studio-jdk-for-project.png">
+      <p>Keep in mind that IntelliJ does not compile the code automatically when the application is running, 
+         so after changing the code you have to press the <i>Build</i> button, the one with the little hammer, 
+         for it to compile and be able to see the updated changes.</p>
+    </div>
+
+    <div class="wiki" style="display: block;">
+      <h2 id="visual-studio-code">Visual Studio Code</h2>
+      <p>To use hot code reloading with Visual Studio Code you need to run the application with the JDK included 
+         in OpenXava Studio 7 R4, so you'll need to download OpenXava Studio, even if it's just to use its JDK.<br>
+         For Visual Studio Code to recognize your JDK add this to your user's <i>settings.json</i>:</p>
+      <pre><code class="json">"java.configuration.runtimes": [
+    {
+        "name": "JavaSE-11",
+        "path": "/home/youruser/openxava-studio-7-r4/studio/jre",
+        "default": true
+    }
+]
+</code></pre>
+      <p>This should be enough, but if it doesn't work it might be because your project's <i>settings.json</i>
+        interferes, in that case add to your project's <i>settings.json</i>:</p>
+      <pre><code class="json">"java.jdt.ls.java.home": "${default}"
+</code></pre>
+      <p>Visual Studio Code compiles the code automatically as you edit it, just like OpenXava Studio, 
+         so you just have to touch the code and go to the browser to see the application changed immediately.</p>
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      <h2 id="performance">Performance</h2>
+      <p>The hot reloading mechanism is designed for optimal performance, loading just the necessary metadata 
+         only when needed or restarting the Hibernate session only when the persistent part of an entity is 
+         modified. Additionally, in production where you use a different JDK than in development, the reloading 
+         mechanism is disabled.</p>
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      <h2 id="extra-classpaths">Extra classpaths</h2>
+      <p>Sometimes you are developing a library or a project that is a dependency of the current project, 
+         and you would like to see the results instantly when you change the library code too. For this case, 
+         you can start your application indicating a list of extra classpaths. Edit your launcher class and 
+         write something like this:</p>
+      <pre><code class="java">public static void main(String[] args) throws Exception {
+    AppServer.run("yourapp", "../yourlib/target/classes"); 
+}
+</code></pre>
+      <p>Now when something changes in <i>../yourlib/target/classes</i> it will also be reloaded automatically. 
+         This allows you to develop your library testing it in a final application, with the same agility as 
+         with any other application.</p>
+      <p>Indicating extra classpaths when starting the application is available since version 7.5.</p>
+    </div>
+  </body>
+</html>
