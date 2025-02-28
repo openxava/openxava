@@ -20,19 +20,13 @@ public class XavaPreferences {
 
 	private Properties properties;
 
-	private boolean ejb2PersistenceLoaded = false;
-	private boolean ejb2Persistence = false;
-	private boolean jpaPersistenceLoaded = false;
-	private boolean jpaPersistence = false;
-	private boolean hibernatePersistenceLoaded = false;
-	private boolean hibernatePersistence = false;
 	private boolean duplicateComponentWarningsLoaded = false;
 	private boolean duplicateComponentWarnings = false;
 	private int maxSizeForTextEditor;
 	private Level javaLoggingLevel;
 	private Level hibernateJavaLoggingLevel;
 	private int pageRowCount;
-	private int rowActionsPopupThreshold = -1; // tmr
+	private int rowActionsPopupThreshold = -1; 
 	
 	private int defaultLabelFormat = -1;
 
@@ -256,7 +250,8 @@ public class XavaPreferences {
 		return pageRowCount;
 	}
 	
-	public int getRowActionsPopupThreshold() { // tmr En documentación. En arquetipos.
+	/** @since 7.5 */
+	public int getRowActionsPopupThreshold() { 
 		if (rowActionsPopupThreshold < 0) {
 			rowActionsPopupThreshold = Integer.parseInt(getProperties().getProperty(
 				"rowActionsPopupThreshold", "3"));

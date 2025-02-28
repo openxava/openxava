@@ -407,8 +407,7 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 	if (style.isSeveralActionsPerRow() && !grouping) {
 		rowActions = view.removeUnavailableActionFromRow(rowActions, actionArgv);
 		boolean hasIconOrImage = view.isRowActionHaveIcon(rowActions);
-		// tmr if (rowActions.size() < 2) {
-		if (rowActions.size() < XavaPreferences.getInstance().getRowActionsPopupThreshold() - 1) { // tmr
+		if (rowActions.size() < XavaPreferences.getInstance().getRowActionsPopupThreshold() - 1) { 
 			for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext(); ) { 	
 				String rowAction = (String) itRowActions.next();
 %>

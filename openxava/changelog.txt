@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Number of row actions to show a popup is configurable via rowActionsPopupThreshold in xava.properties.
 - Hot code reloading for development including entities, actions, controllers, modules, annotations, etc.
 - AppServer launcher class has a new method run(application, extraClassPaths) to indicate extra classpaths.
 - Java 11 as default compiler level for new projects (from archetypes), though Java 1.8 is still supported. 
