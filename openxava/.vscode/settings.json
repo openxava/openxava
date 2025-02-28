@@ -1,3 +1,4 @@
 {
-    "workbench.colorTheme": "Default Light Modern"
+    "workbench.colorTheme": "Default Light Modern",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
