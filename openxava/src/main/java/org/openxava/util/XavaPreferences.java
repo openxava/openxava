@@ -32,6 +32,8 @@ public class XavaPreferences {
 	private Level javaLoggingLevel;
 	private Level hibernateJavaLoggingLevel;
 	private int pageRowCount;
+	private int rowActionsPopupThreshold = -1; // tmr
+	
 	private int defaultLabelFormat = -1;
 
 	private XavaPreferences() {
@@ -253,6 +255,14 @@ public class XavaPreferences {
 		}
 		return pageRowCount;
 	}
+	
+	public int getRowActionsPopupThreshold() { // tmr En documentación. En arquetipos.
+		if (rowActionsPopupThreshold < 0) {
+			rowActionsPopupThreshold = Integer.parseInt(getProperties().getProperty(
+				"rowActionsPopupThreshold", "3"));
+		}
+		return rowActionsPopupThreshold;
+	}	
 	
 	/**
 	 * @since 7.4

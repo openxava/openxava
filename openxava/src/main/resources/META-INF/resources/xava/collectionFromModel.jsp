@@ -100,7 +100,8 @@ for (int f=0; itAggregates.hasNext(); f++) {
 			Collection rowActionNames;
 			rowActionNames = view.removeUnavailableActionFromRow(subview.getRowActionsNames(), (",viewObject="+viewName));
 			boolean hasIconOrImage = view.isRowActionHaveIcon(rowActionNames);
-			if (rowActionNames.size() < 2) {
+			// tmr if (rowActionNames.size() < 2) {
+			if (rowActionNames.size() < XavaPreferences.getInstance().getRowActionsPopupThreshold() - 1) { // tmr
 				for (java.util.Iterator itRowActions = rowActionNames.iterator(); itRowActions.hasNext(); ) { 	
 					String rowAction = (String) itRowActions.next();		
 %>
