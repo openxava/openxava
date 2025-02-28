@@ -2794,13 +2794,14 @@ public class AnnotatedClassParser implements IComponentParser {
 	 * @since 7.5 Before it was called friendMetaApplicationGetManagedClassNames()
 	 */
 	public static Collection<String> getManagedClassNamesFromFileClassPath() { 
-		return managedClassNames = obtainManagedClassNamesFromFileClassPath(); 
+		return obtainManagedClassNamesFromFileClassPath(); // tmr Debería probar la parte de añadir entidades
 	}
 	
 	public static Collection<String> getManagedClassNames() {
 		if (managedClassNames == null) {
 			try {
 				managedClassNames = obtainManagedClassNamesUsingJPA();
+				System.out.println("AnnotatedClassParser.getManagedClassNames(): " + managedClassNames); // tmr
 			}
 			catch (Exception ex) {				
 				// When no database connection is available, no session factory can
