@@ -2801,7 +2801,6 @@ public class AnnotatedClassParser implements IComponentParser {
 		if (managedClassNames == null) {
 			try {
 				managedClassNames = obtainManagedClassNamesUsingJPA();
-				System.out.println("AnnotatedClassParser.getManagedClassNames(): " + managedClassNames); // tmr
 			}
 			catch (Exception ex) {				
 				// When no database connection is available, no session factory can
