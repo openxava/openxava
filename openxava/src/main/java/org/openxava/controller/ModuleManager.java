@@ -914,7 +914,7 @@ public class ModuleManager implements java.io.Serializable {
 		String constraintName = ex.getConstraintName().toLowerCase();
 		if (constraintName.startsWith("fk") 
 				|| ex.getCause().getMessage().contains("foreign")
-				|| ex.getCause().getMessage().contains("foránea")) {
+				|| ex.getCause().getMessage().contains("forÃ¡nea")) {
 			errors.add(ex.getCause().getMessage());
 		} else {
 			errors.add(constraintName);

@@ -24,7 +24,7 @@ import org.openxava.web.*;
  * its protected methods.<p>
  * 
  * @author Javier Paniza
- * @author Ana Andrés
+ * @author Ana AndrÃ©s
  */
 
 public class SearchByViewKeyAction extends ViewBaseAction {

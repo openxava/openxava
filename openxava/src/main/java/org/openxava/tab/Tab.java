@@ -32,7 +32,7 @@ import org.openxava.web.*;
  * Session object to work with tabular data. <p> 
  * 
  * @author Javier Paniza
- * @author Ana Andrés
+ * @author Ana AndrÃ©s
  * @author Trifon Trifonov
  * @author Chungyen Tsai
  */
@@ -69,7 +69,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 					result = result.replaceAll("\\([\\?,*]+\\)", "(?)"); // Groups: (?,?,?) --> (?)
 					result = result.replaceAll(
 						"year\\((\\$\\{[a-zA-Z0-9\\._]+\\})\\) = \\? and month\\(\\1\\) = \\?", "year/month($1) = ?"); // Year/month: year(${date}) = ? and month(${date}) = ? --> year/month(${date}) = ?
-					result = result.replace("between ? and  ?", "between ? and ¿");
+					result = result.replace("between ? and  ?", "between ? and Â¿");
 					for (int i = 0; i < conditionValues.length; i++) {
 						String conditionValue = conditionValues[i];
 						if (Is.emptyString(conditionValue)) continue;
@@ -92,7 +92,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 				if (conditionValuesTo != null) for (int i = 0; i < conditionValuesTo.length; i++) {
 					String conditionValue = conditionValuesTo[i];
 					if (Is.emptyString(conditionValue)) continue;
-					result = result.replaceFirst("¿", conditionValue);
+					result = result.replaceFirst("Â¿", conditionValue);
 				}					
 				
 				result = result.replace("upper(", "");
@@ -1639,7 +1639,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		propertyName = propertyName.toLowerCase();
 		return !propertyName.contains("year")   && !propertyName.contains("number") 
 			&& !propertyName.contains("code")   && !propertyName.contains("percentage") 
-			&& !propertyName.contains("año")    && !propertyName.contains("ano") 
+			&& !propertyName.contains("aÃ±o")    && !propertyName.contains("ano") 
 			&& !propertyName.contains("anyo")   && !propertyName.contains("numero") 
 			&& !propertyName.contains("codigo") && !propertyName.contains("porcentaje");
 	}
