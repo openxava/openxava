@@ -307,7 +307,8 @@ class="re2">/&gt;</span></span></pre>
       aunque es bastante normal que los usemos en nuestras propias acciones.
       Para definir nuestro propios objetos podemos hacerlo en <em>controladores.xml</em>
       en el directorio <i>src/main/resources/xava</i> (simplemente <i>xava</i>
-      antes v7) de nuestro proyecto.<br>
+      antes v7) de nuestro proyecto o si estamos desarrollando una librería o un
+      framework en <i>controladores-defecto-ext.xml (desde v7.5)</i>.<br>
       <h2 id="toc3"><a name="Controladores-El controlador y sus acciones"></a>El
         controlador y sus acciones</h2>
       La sintaxis de un controlador es:<br>
@@ -5555,7 +5556,17 @@ class="sy0">;</span>
         En este case solo sobreescribimos el comportamiento de la accion <em>hideDetail</em>
         (1). Pero tenemos que declarar todas las acciones del controlador
         original, porque OpenXava confia en todas estas acciones para funcionar;
-        no podemos borrar o renombrar acciones.<br>
+        no podemos borrar o renombrar acciones.</div>
+      <div class="wiki" style="display: block;">A partir de la v7.5, si
+        desarrollas una librería o un framework en lugar de una aplicación
+        final, puedes definir los controladores de tu librería en <i>controladores-defecto-ext.xml</i>
+        (en lugar de <i>controladores.xml</i>). De este modo, en tu librería o
+        framework puedes sobrescribir un controlador de OpenXava, pero el
+        usuario de tu librería también podrá sobrescribirlo si lo desea,
+        respetando siempre la siguiente prioridad: primero <i>controladores.xml</i>
+        (aplicación), luego <i>controladores-defecto-ext.xml</i>
+        (librería/framework) y, por último, <i>controladores-defecto.xml</i>
+        (OpenXava).<br>
         <h2 id="toc19"><a name="Controladores-Mostrar+un+dialogo+modal+(nuevo+en+v4m2)"></a>Mostrar
           un diálogo modal <em>(nuevo en v4m2)</em></h2>
         Puedes mostrar un diálogo llamando al método <em>showDialog()</em> de <em><a

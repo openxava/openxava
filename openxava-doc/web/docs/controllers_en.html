@@ -304,7 +304,9 @@ class="re2">/&gt;</span></span></pre>
       These objects are used by OpenXava in order to work, although it is quite
       normal that you use some of these from your actions. If you want to create
       your own objects you can do it in your <em>controllers.xml</em> in the <i>src/main/resources/xava</i>
-      directory (just <i>xava</i> before v7) of your project.<br>
+      directory (just <i>xava</i> before v7) of your project or if you are
+      developing a library or framework in <i>default-controllers-ext.xml</i> <i>(since
+        v7.5)</i>.<br>
       <h2 id="toc3"><a name="Controllers-The controller and its actions"></a>The
         controller and its actions</h2>
       The syntax of controller is:<br>
@@ -5487,7 +5489,16 @@ class="sy0">;</span>
       In this case we only override the behavior of <em>hideDetail</em> (1)
       action. But we must declare all actions of the original controller,
       because OpenXava rely on all these actions for working; we cannot remove
-      or rename actions.<br>
+      or rename actions.</div>
+    <div class="wiki" style="display: block;">Starting from v7.5, if you are
+      developing a library or framework instead of a final application, you can
+      define your library's controllers in <i>default-controllers-ext.xml</i>
+      (instead of <i>controllers.xml</i>). This way, in your library or
+      framework, you can override an OpenXava controller, but the user of your
+      library will also be able to override it if they wish, always respecting
+      the following priority: first <i>controllers.xml</i> (application), then
+      <i>default-controllers-ext.xml</i> (library/framework), and finally <i>default-controllers.xml</i>
+      (OpenXava).<br>
       <h2 id="toc19"><a name="Controllers-Showing a modal dialog (new in v4m2)"></a>Showing
         a modal dialog <em>(new in v4m2)</em></h2>
       You can show a dialog calling to <em>showDialog()</em> method of <em><a
