@@ -8,7 +8,7 @@ import org.apache.commons.logging.*;
 import org.openxava.util.Is;
 
 /**
- * @author Ivan Martín
+ * @author Ivan MartÃ­n
  */
 
 public class TimeBaseFormatter implements IFormatter {	
