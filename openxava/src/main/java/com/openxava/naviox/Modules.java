@@ -407,8 +407,10 @@ public class Modules implements Serializable {
 		return fixedModules;
 	}
 	
-	public List<MetaModule> getAll(HttpServletRequest request) {    
+	public List<MetaModule> getAll(HttpServletRequest request) {   
+		System.out.println("Modules.getAll Hotswap.getApplicationVersion()=" + Hotswap.getApplicationVersion()); // tmr
         if (applicationCodeVersion < Hotswap.getApplicationVersion()) {
+			System.out.println("Modules.getAll Reseting"); // tmr
         	all = null; 
         	applicationCodeVersion = Hotswap.getApplicationVersion();     
         }				
