@@ -2796,15 +2796,11 @@ public class AnnotatedClassParser implements IComponentParser {
 	 * @since 7.5 Before it was called friendMetaApplicationGetManagedClassNames()
 	 */
 	public static Collection<String> getManagedClassNamesFromFileClassPath() { 
-		return obtainManagedClassNamesFromFileClassPath(); // tmr Debería probar la parte de añadir entidades
+		return obtainManagedClassNamesFromFileClassPath(); 
 	}
 	
 	public static Collection<String> getManagedClassNames() {
-		System.out.println("AnnotatedClassParser.getManagedClassNames Hotswap.getPersistentModelVersion()=" + Hotswap.getPersistentModelVersion()); // tmr
-		if (persistentModelCodeVersion < Hotswap.getPersistentModelVersion()) { // tmr Todavía no sabemos si esto sirve para algo
-			// TMR ME QUEDÉ POR AQUÍ: YA FUNCIONA AÑADIR UNA ENTIDAD Y QUE AÑADA EL MÓDULO, AUNQUE EN DOS TIEMPOS, CON Y SIN @ENTITY,
-			// TMR AHORA TENGO QUE COMPROBAR SI ESTE CÓDIGO DE AQUÍ ES NECESARIO PARA QUE ESO FUNCIONE
-			System.out.println("AnnotatedClassParser.getManagedClassNames Hotswap.getPersistentModelVersion() Reseting"); // tmr
+		if (persistentModelCodeVersion < Hotswap.getPersistentModelVersion()) { 
         	managedClassNames = null;
         	persistentModelCodeVersion = Hotswap.getPersistentModelVersion();
     	}
