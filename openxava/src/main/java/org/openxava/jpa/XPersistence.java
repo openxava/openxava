@@ -1,6 +1,5 @@
 package org.openxava.jpa;
 
-
 import java.util.*;
 import java.util.logging.*;
 
@@ -184,34 +183,11 @@ public class XPersistence {
         	persistentModelCodeVersion = Hotswap.getPersistentModelVersion();
     	}
 		Map properties = getPersistenceUnitProperties();
-		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) 	entityManagerFactories.get(properties); 
+		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) entityManagerFactories.get(properties); 
 		if (entityManagerFactory == null) {
-			Map factoryProperties = properties; 
-			try {
-				if (PersistenceXml.getPropetyValue(getPersistenceUnit(), "hibernate.implicit_naming_strategy") == null) { 
-					factoryProperties = new HashMap(properties);
-					factoryProperties.put("hibernate.implicit_naming_strategy", "legacy-jpa"); 
-				}
-				Logger.getLogger("org.hibernate.boot.registry.classloading.internal").setLevel(Level.SEVERE); // To avoid a warning exception with Envers in development environment
-				entityManagerFactory = Persistence.createEntityManagerFactory(getPersistenceUnit(), factoryProperties);
-			}
-			catch (NoSuchFieldError ex) {
-				log.error(XavaResources.getString("incorrect_openxava_upgrade")); 
-				throw ex;
-			}
-			catch (ParserConfigurationException ex) {
-				log.error(XavaResources.getString("incorrect_openxava_upgrade"));
-				throw new RuntimeException(ex);
-			}	
-			catch (HibernateException ex) {
-				// In case there is no connection to database and dialect is not set we get
-				// a too generic error, so we set a hibernate.dialect (whatever) and try again
-				// to get a meaningful message.
-				factoryProperties = new HashMap(factoryProperties);
-				factoryProperties.put("hibernate.dialect", "org.hibernate.dialect.HSQLDialect"); // HSQLDialect but it could be whatever else
-				entityManagerFactory = Persistence.createEntityManagerFactory(getPersistenceUnit(), factoryProperties);
-			}
-			entityManagerFactories.put(new HashMap(properties), entityManagerFactory);			
+			Map.Entry<Map, EntityManagerFactory> entry = EntityManagerFactoryFactory.createEntityManagerFactory(properties);
+			entityManagerFactory = entry.getValue();
+			entityManagerFactories.put(new HashMap(entry.getKey()), entityManagerFactory);			
 		}
 		return entityManagerFactory;
 	}	
