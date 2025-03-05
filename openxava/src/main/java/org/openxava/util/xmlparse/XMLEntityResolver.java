@@ -6,7 +6,7 @@ import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 
 /**
- * @author Daniel López (greeneyed@dev.java.net)
+ * @author Daniel LÃ³pez (greeneyed@dev.java.net)
  */
 public class XMLEntityResolver implements EntityResolver
 {

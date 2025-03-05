@@ -109,7 +109,7 @@ public class Factory {
    * <li> return != null
    * </ul>
    * @param name  Identifier name, which is registered in properties
-   * @exception InitException  Si hay algún problema el iniciar.
+   * @exception InitException  Si hay algÃºn problema el iniciar.
    */
   public Object create(String name) throws InitException {
 		try {

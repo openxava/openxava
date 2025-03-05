@@ -24,7 +24,7 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 		if (date == null) return "";
 		if (date instanceof String || date instanceof Number) return date.toString();
 		if (Dates.getYear((java.util.Date)date) < 2) return "";
-		if (isZhFormatAndJavaIs21orBetter()) return getDateTimeFormat(false).format(date).replace("p. m.", "PM").replace("a. m.", "AM"); //use java 17 blank space \u00a0
+		if (isZhFormatAndJavaIs21orBetter()) return getDateTimeFormat(false).format(date).replace("p.Â m.", "PM").replace("a.Â m.", "AM"); //use java 17 blank space \u00a0
 		return getDateTimeFormat(false).format(date); 
 	}
 
@@ -33,7 +33,7 @@ public class DateTimeCombinedFormatter extends DateTimeBaseFormatter implements 
 		if (string.indexOf('-') >= 0 && !isDashFormat()) { // SimpleDateFormat does not work well with -
 			string = Strings.change(string, "-", "/");
 		}
-		if (isZhFormatAndJavaIs21orBetter()) string = string.replace("PM", "p. m.").replace("AM", "a. m.");
+		if (isZhFormatAndJavaIs21orBetter()) string = string.replace("PM", "p.Â m.").replace("AM", "a.Â m.");
 		DateFormat [] dateFormats = getDateTimeFormats();
 		for (int i=0; i<dateFormats.length; i++) {
 			try {

@@ -6,7 +6,7 @@ import org.openxava.mapping.CmpField;
 
 /**
  * Create on 26/02/2010 (10:33:06)
- * @author Ana Andrés
+ * @author Ana AndrÃ©s
  */
 public class CMPFieldComparator implements Comparator {
 	final private static CMPFieldComparator instance = new CMPFieldComparator();

@@ -12,8 +12,6 @@ import org.w3c.dom.*;
  */
 public class ControllersParser extends ParserBase {
 	
-	private static Log log = LogFactory.getLog(ControllersParser.class); 
-	
 	private String context; // only for spanish version (with swing and web)	
 	
 	public ControllersParser(String xmlFileURL, int language) {
@@ -24,6 +22,12 @@ public class ControllersParser extends ParserBase {
 		ControllersParser defaultParser = new ControllersParser("default-controllers.xml", ENGLISH);
 		defaultParser.setContext(context);
 		defaultParser.parse();
+		ControllersParser defaultExtParser = new ControllersParser("default-controllers-ext.xml", ENGLISH);
+		defaultExtParser.setContext(context);
+		defaultExtParser.parse();
+		ControllersParser defectoExtParser = new ControllersParser("controladores-defecto-ext.xml", ESPANOL);
+		defectoExtParser.setContext(context);
+		defectoExtParser.parse();		
 		ControllersParser enParser = new ControllersParser("controllers.xml", ENGLISH);
 		enParser.setContext(context);
 		enParser.parse();		

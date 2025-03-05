@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Custom JPA EntityManagerFactory creation with entityManagerFactoryProviderClass in xava.properties.
+- default-controllers-ext.xml / controladores-defecto-ext.xml to define controllers in libraries/frameworks.
+- All Java code of openxava core framework converted to UTF-8 encoding.
 - Number of row actions to show a popup is configurable via rowActionsPopupThreshold in xava.properties.
 - Hot code reloading for development including entities, actions, controllers, modules, annotations, etc.
 - AppServer launcher class has a new method run(application, extraClassPaths) to indicate extra classpaths.

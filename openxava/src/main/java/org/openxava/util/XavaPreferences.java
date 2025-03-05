@@ -538,4 +538,10 @@ public class XavaPreferences {
 		return getProperties().getProperty("trustedHostsForFrames", "");
 	}
 	
+	/** @since 7.5 */
+	public String getEntityManagerFactoryProviderClass() {
+		return getProperties().getProperty("entityManagerFactoryProviderClass", 
+				"org.openxava.jpa.impl.EntityManagerFactoryProvider").trim();
+	}
+	
 }

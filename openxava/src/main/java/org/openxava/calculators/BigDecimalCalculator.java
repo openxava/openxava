@@ -8,7 +8,7 @@ import org.openxava.application.meta.xmlparse.ApplicationParser;
 
 
 /**
- * @author Luis Miguel Hern·ndez
+ * @author Luis Miguel Hern√°ndez
  */
 public class BigDecimalCalculator implements ICalculator {
 

@@ -10,7 +10,7 @@ import org.openxava.util.*;
 /**
  * It store dates, but never save null, instead save a 1/1/1 date. <p>
  * 
- * @author Ana Andrés
+ * @author Ana AndrÃ©s
  */
 public class NotNullDateConverter implements IConverter{
 	

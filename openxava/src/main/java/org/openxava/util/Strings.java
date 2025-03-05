@@ -27,8 +27,8 @@ public class Strings {
 	/**
 	 * Concatenates the list of strings using the separator. <p> 
 	 *
-	 * For example, concat(" - ", "Juan", "Perico", "Andrés") returns 
-	 * "Juan - Perico - Andrés".<br>
+	 * For example, concat(" - ", "Juan", "Perico", "AndrÃ©s") returns 
+	 * "Juan - Perico - AndrÃ©s".<br>
 	 *
 	 * @param separator  The character used as separator.
 	 * @param strings  Strings to be concatenated. Can be null.
@@ -906,7 +906,7 @@ public class Strings {
 	/**
 	 * Convert a string with a label natural for a human into a identifier valid to use as URL, file name, internal id, etc. <p>
 	 * 
-	 * If you send "León, España" it returns "LeonEspana". <br>
+	 * If you send "LeÃ³n, EspaÃ±a" it returns "LeonEspana". <br>
 	 * 
 	 * The % is changed by the "percent" string.
 	 * 
@@ -932,7 +932,7 @@ public class Strings {
 	/**
 	 * Change from a vowel with an accent, to vowel with no accent
 	 * 
-	 * If you send "Camión" it returns "Camion"
+	 * If you send "CamiÃ³n" it returns "Camion"
 	 * 
 	 * @since v4m6
 	 */

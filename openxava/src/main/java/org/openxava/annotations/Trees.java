@@ -19,7 +19,7 @@ import java.lang.annotation.*;
  * 
  * Since 6.1 @Tree is repeatable, so you don't need to use @Trees any more.
  *
- * @author Federico Alc·ntara
+ * @author Federico Alc√°ntara
  */
 @Retention(RetentionPolicy.RUNTIME) 
 @Target({ ElementType.FIELD, ElementType.METHOD}) 

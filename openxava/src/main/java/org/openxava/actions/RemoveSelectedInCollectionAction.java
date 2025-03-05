@@ -9,7 +9,7 @@ import org.openxava.model.*;
  * 
  * For an @ElementColection use {@link RemoveSelectedInElementCollectionAction}. 
  * 
- * @author Ana Andrés
+ * @author Ana AndrÃ©s
  * @author Jeromy Altuna
  * @author Javier Paniza 
  */

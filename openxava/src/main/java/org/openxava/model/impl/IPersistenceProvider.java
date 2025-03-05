@@ -20,7 +20,7 @@ import org.openxava.validators.*;
  * not mandatory. You can throw PersistenceException, JDOException, HibernateException, 
  * EJBException or whatever RuntimeException your want.<br>  
  * 
- * @author Mª Carmen Gimeno Alabau
+ * @author MÂª Carmen Gimeno Alabau
  */
 public interface IPersistenceProvider extends java.io.Serializable { 
 	
