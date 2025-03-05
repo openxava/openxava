@@ -6,9 +6,9 @@ import java.util.Map.Entry;
 import javax.persistence.EntityManagerFactory;
 
 /**
- * Interface for creating EntityManagerFactory instances.
+ * Interface for creating the JPA EntityManagerFactory instances used by OpenXava.
  * <p>
- * This is part of a Factory pattern implementation for EntityManagerFactory creation,
+ * This is part of a Factory pattern implementation for EntityManagerFactory creation for your application,
  * which allows extending or replacing the default mechanism without modifying OpenXava core code.
  * </p>
  * <p>
