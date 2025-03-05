@@ -22,6 +22,7 @@
         <div style="margin-left: 2em;"><a href="#visual-studio-code">Visual Studio Code</a></div>
         <div style="margin-left: 2em;"><a href="#rendimiento">Rendimiento</a></div>
         <div style="margin-left: 2em;"><a href="#classpaths-extra">Classpaths extra</a></div>
+        <div style="margin-left: 2em;"><a href="#xavapro">XavaPro</a></div>
       </div>
       <em></em></div>
     <div class="wiki" style="display: block;"> A partir de OpenXava 7.5 puedes
@@ -198,6 +199,22 @@ Starting HotswapAgent '/home/theuser/openxava-studio-7-r4/studio/jre/lib/hotswap
       <p>El indicar classpaths extra al arrancar la aplicación está disponible
         desde la versión 7.5.</p>
       <p></p>
+    </div>
+    <div class="wiki" style="display: block;">
+      <h2 id="xavapro">XavaPro</h2>
+      <p>En XavaPro 7.5, hay mejoras significativas respecto a la disponibilidad de módulos durante el desarrollo. Cuando se usa carga de código en caliente:</p>
+      
+      <ul>
+        <li>Cuando añades un nuevo módulo a una aplicación XavaPro, ya sea definiéndolo en <i>aplicacion.xml</i> o creando una nueva entidad JPA, 
+            el módulo aparece inmediatamente en el menú, en la carpeta raíz.</li>
+        <li>El nuevo módulo se asigna automáticamente al rol "user", si este rol existe.</li>
+        <li>De manera similar, si arrancas la aplicación con el JDK que incluye Hotswap Agent (el incluido en OpenXava Studio 7 R4), 
+            cualquier módulo añadido mientras la aplicación estaba parada será reconocido cuando la aplicación arranque.</li>
+      </ul>
+      
+      <p>Esto agiliza el proceso de desarrollo, ya que ya no es necesario añadir manualmente los nuevos módulos al rol "user" para tenerlos disponibles. 
+         Sin embargo, en entornos de producción (donde no se usa Hotswap Agent), el comportamiento sigue siendo el mismo por motivos de seguridad: 
+         los nuevos módulos deben asignarse explícitamente a un rol para estar disponibles para los usuarios.</p>
     </div>
   </body>
 </html>
