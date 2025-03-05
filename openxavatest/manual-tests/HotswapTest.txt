@@ -98,7 +98,7 @@ Controllers/i18n:
 - Go to Issue. Prints, but not MetaControllers loading.
 - Click any action. No prints.
 	
-Application:
+Application: Test also with XavaPro
 - Add in application.xml:
 
 	<module name="Dashboard">
@@ -116,7 +116,7 @@ OpenXava annotations:
 - Click an action to verify the changes in @View and @DescriptionsList. Prints.
 - Go to list. The @Tab is the new one. No prints.	
 
-New entities:
+New entities: Test also with XavaPro
 - Write the code for a new entity.
 - Refresh the browser. The module is on left. Prints.
 - Go to the module and create a new record. Works. No prints.

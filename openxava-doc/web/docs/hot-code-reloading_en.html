@@ -21,6 +21,7 @@
         <div style="margin-left: 2em;"><a href="#visual-studio-code">Visual Studio Code</a></div>
         <div style="margin-left: 2em;"><a href="#performance">Performance</a></div>
         <div style="margin-left: 2em;"><a href="#extra-classpaths">Extra classpaths</a></div>
+        <div style="margin-left: 2em;"><a href="#xavapro">XavaPro</a></div>
       </div>
       <em></em></div>
     <div class="wiki" style="display: block;">
@@ -206,6 +207,23 @@ Starting HotswapAgent '/home/theuser/openxava-studio-7-r4/studio/jre/lib/hotswap
          This allows you to develop your library testing it in a final application, with the same agility as 
          with any other application.</p>
       <p>Indicating extra classpaths when starting the application is available since version 7.5.</p>
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      <h2 id="xavapro">XavaPro</h2>
+      <p>In XavaPro 7.5, there are significant improvements regarding module availability during development. When using Hot code reloading:</p>
+      
+      <ul>
+        <li>When you add a new module to a XavaPro application, either by defining it in <i>application.xml</i> or by creating a new JPA entity, 
+            the module appears immediately in the menu, in the root folder.</li>
+        <li>The new module is automatically assigned to the "user" role, if this role exists.</li>
+        <li>Similarly, if you start the application with the JDK that includes Hotswap Agent (the one included in OpenXava Studio 7 R4), 
+            any modules added while the application was stopped will be recognized when the application starts.</li>
+      </ul>
+      
+      <p>This streamlines the development process, as you no longer need to manually add new modules to the "user" role to make them available. 
+         However, in production environments (where Hotswap Agent is not used), the behavior remains unchanged for security reasons: 
+         new modules must be explicitly assigned to a role to be available to users.</p>
     </div>
   </body>
 </html>

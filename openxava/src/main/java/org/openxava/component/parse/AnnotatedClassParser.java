@@ -28,6 +28,7 @@ import org.openxava.component.*;
 import org.openxava.converters.typeadapters.*;
 import org.openxava.filters.*;
 import org.openxava.filters.meta.*;
+import org.openxava.hotswap.Hotswap;
 import org.openxava.jpa.*;
 import org.openxava.mapping.*;
 import org.openxava.model.impl.*;
@@ -54,6 +55,7 @@ public class AnnotatedClassParser implements IComponentParser {
 	private static Collection<String> managedClassSiblingPackages; 
 	private static Map<Class, Collection<Class>> entityFirstLevelSubclasses;
 	private static Map<String, MetaComponent> parsingComponents;
+	private static int persistentModelCodeVersion = Hotswap.getPersistentModelVersion();
 	
 	public MetaComponent parse(String name) throws Exception {
 		if (isParsingComponent(name)) return getParsingComponent(name);
@@ -2794,10 +2796,14 @@ public class AnnotatedClassParser implements IComponentParser {
 	 * @since 7.5 Before it was called friendMetaApplicationGetManagedClassNames()
 	 */
 	public static Collection<String> getManagedClassNamesFromFileClassPath() { 
-		return managedClassNames = obtainManagedClassNamesFromFileClassPath(); 
+		return obtainManagedClassNamesFromFileClassPath(); 
 	}
 	
 	public static Collection<String> getManagedClassNames() {
+		if (persistentModelCodeVersion < Hotswap.getPersistentModelVersion()) { 
+        	managedClassNames = null;
+        	persistentModelCodeVersion = Hotswap.getPersistentModelVersion();
+    	}
 		if (managedClassNames == null) {
 			try {
 				managedClassNames = obtainManagedClassNamesUsingJPA();
