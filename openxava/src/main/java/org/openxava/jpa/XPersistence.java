@@ -185,9 +185,7 @@ public class XPersistence {
 		Map properties = getPersistenceUnitProperties();
 		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) entityManagerFactories.get(properties); 
 		if (entityManagerFactory == null) {
-			System.out.println("Creating new EntityManagerFactory"); // tmr
 			Map.Entry<Map, EntityManagerFactory> entry = EntityManagerFactoryFactory.createEntityManagerFactory(properties);
-			System.out.println("Created new EntityManagerFactory"); // tmr
 			entityManagerFactory = entry.getValue();
 			entityManagerFactories.put(new HashMap(entry.getKey()), entityManagerFactory);			
 		}
