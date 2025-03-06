@@ -4,8 +4,9 @@ import java.util.*;
 import java.util.stream.*;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 /**
  * To test new tree library with Selenium.
  * 
@@ -76,8 +77,8 @@ public class TreeTest extends WebDriverTestBase{
 	}
 	
 	private void rootWithPath(WebDriver driver) {
-		assertFalse(isElementInsideXPath(driver, "2", ("1" + "_anchor")));
-		assertFalse(isElementInsideXPath(driver, "3", ("1" + "_anchor")));
+		assertFalse(isElementInside(driver, "2", ("1" + "_anchor")));
+		assertFalse(isElementInside(driver, "3", ("1" + "_anchor")));
 	}
 	
 	private void idPropertiesNotDuplicated(WebDriver driver) throws Exception {
@@ -275,6 +276,9 @@ public class TreeTest extends WebDriverTestBase{
 		WebElement aCheckBox = findElement(driver, By.xpath("//a[@id='"+ childElementId +"_anchor']/i")); 
 		aCheckBox.click();
 		execute("TreeView.removeSelected", "viewObject=xava_view_treeItemTwos");
+		
+		// Verify that drag and drop is disabled when allowMoveNodes is false
+		verifyDragAndDropDisabledWhenAllowsMoveNodesFalse(driver);
 	}
 	
 	private void executeDnd(WebDriver driver, String sourceElementId, String targetElementId) throws InterruptedException {
@@ -316,7 +320,7 @@ public class TreeTest extends WebDriverTestBase{
 			WebElement parentElement = driver.findElement(By.id(parentElementId));
 			WebElement childElement = parentElement.findElement(By.id(childElementId));
 			return true;
-		} catch (NoSuchElementException e) {
+		} catch (org.openqa.selenium.NoSuchElementException e) {
 			return false;
 		}
 	}
@@ -326,7 +330,7 @@ public class TreeTest extends WebDriverTestBase{
 			WebElement parentElement = driver.findElement(By.xpath("//*[@id='" + parentElementId + "']"));
 			WebElement childElement = parentElement.findElement(By.xpath(".//*[@id='" + childElementId + "']"));
 			return true;
-		} catch (NoSuchElementException e) {
+		} catch (org.openqa.selenium.NoSuchElementException e) {
 	        return false;
 	    }
 	}
@@ -384,6 +388,109 @@ public class TreeTest extends WebDriverTestBase{
 	    }
 	}
 	
+	private void verifyDragAndDropDisabledWhenAllowsMoveNodesFalse(WebDriver driver) throws Exception {
+		// The treeItemNoIdGeneration collection is already visible in the detail view
+		// We just need to scroll to it to ensure it's in view
+		WebElement treeItemNoIdGenerationContainer = driver.findElement(By.cssSelector("div[data-table-id='ox_openxavatest_TreeContainer__treeItemNoIdGeneration']"));
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", treeItemNoIdGenerationContainer);
+		wait(driver);
+		
+		// Simple wait to ensure elements are loaded
+		Thread.sleep(1000);
+		
+		// Get all tree items
+		List<WebElement> treeItems = driver.findElements(By.cssSelector(".jstree-anchor"));
+		assertTrue("There should be at least two tree items for the test", treeItems.size() >= 2);
+		
+		// Find CHILD 1 and CHILD 2 elements
+		WebElement sourceElement = null;
+		WebElement targetElement = null;
+		int sourceIndex = -1;
+		int targetIndex = -1;
+		
+		for (int i = 0; i < treeItems.size(); i++) {
+			String text = treeItems.get(i).getText();
+			if (text.equals("CHILD 1")) {
+				sourceElement = treeItems.get(i);
+				sourceIndex = i;
+			} else if (text.equals("CHILD 2")) {
+				targetElement = treeItems.get(i);
+				targetIndex = i;
+			}
+		}
+		
+		assertNotNull("Could not find 'CHILD 1' element", sourceElement);
+		assertNotNull("Could not find 'CHILD 2' element", targetElement);
+		
+		// Store the original text of the elements to verify later
+		String sourceText = sourceElement.getText();
+		String targetText = targetElement.getText();
+		
+		
+		// Try to drag and drop using a more reliable implementation
+		try {
+			Actions actions = new Actions(driver);
+			actions.clickAndHold(sourceElement)
+				.moveToElement(targetElement)
+				.release()
+				.perform();
+			
+			// Wait for any animations to complete
+			Thread.sleep(1000);
+		} catch (Exception e) {
+		}
+		
+		// Refresh the page to ensure we see the updated state
+		driver.navigate().refresh();
+		wait(driver);
+		
+		// Wait for elements to load after refresh
+		Thread.sleep(1000);
+		
+		// Get all tree items again
+		List<WebElement> updatedTreeItems = driver.findElements(By.cssSelector(".jstree-anchor"));
+		
+		// Find the updated positions of CHILD 1 and CHILD 2
+		int updatedSourceIndex = -1;
+		int updatedTargetIndex = -1;
+		
+		for (int i = 0; i < updatedTreeItems.size(); i++) {
+			String text = updatedTreeItems.get(i).getText();
+			if (text.equals(sourceText)) {
+				updatedSourceIndex = i;
+			} else if (text.equals(targetText)) {
+				updatedTargetIndex = i;
+			}
+		}
+		
+		// Print debug information
+		System.out.println("After drag and drop:");
+		System.out.println("Source element: " + sourceText + " at index " + updatedSourceIndex);
+		System.out.println("Target element: " + targetText + " at index " + updatedTargetIndex);
+		
+		// Verify that the order hasn't changed (elements should be in the same position)
+		// If allowMoveNodes=false, the order should not change
+		assertEquals("When allowMoveNodes=false, the order should not change after drag and drop attempt", 
+				sourceIndex, updatedSourceIndex);
+		assertEquals("When allowMoveNodes=false, the order should not change after drag and drop attempt", 
+				targetIndex, updatedTargetIndex);
+	}
 	
-	
+	private int getElementIndex(WebElement element) {
+		// Get the parent element
+		WebElement parent = (WebElement) ((JavascriptExecutor) getDriver()).executeScript(
+				"return arguments[0].parentNode;", element);
+		
+		// Get all child elements of the same type
+		List<WebElement> children = parent.findElements(By.xpath("./*[local-name()='" + element.getTagName() + "']"));
+		
+		// Find the index of the element
+		for (int i = 0; i < children.size(); i++) {
+			if (children.get(i).equals(element)) {
+				return i;
+			}
+		}
+		
+		return -1; // Element not found
+	}
 }

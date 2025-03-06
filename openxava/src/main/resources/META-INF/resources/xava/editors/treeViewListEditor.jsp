@@ -127,6 +127,7 @@ if(!Is.empty(key)){
 	data-table-id="<%=tableId%>"
 	data-prefix="<%=prefix%>"
 	data-initial-state="<%=initialState%>"
+	data-allow-move-nodes="<%=(tree != null ? tree.allowMoveNodes() : true) ? "true" : "false"%>"
 	data-k-value="<%=kValue%>"
 	</div>
 

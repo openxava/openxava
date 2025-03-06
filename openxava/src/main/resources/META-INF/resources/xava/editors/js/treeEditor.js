@@ -15,6 +15,8 @@ treeEditor.initTree = function() {
             var collectionViewParentName = oxTree.data("collection-view-parent-name");
             var kValue = oxTree.data("k-value");
             var state = localStorage.getItem(module + "_" + collectionName + "_" + "xava_tree_state_" + kValue);
+            var allowMoveNodesValue = oxTree.data("allow-move-nodes");
+            var allowMoveNodes = allowMoveNodesValue === "true" || allowMoveNodesValue === true;
 
             var dialogs = $('.ui-dialog');
             var $focusedElement = $(document.activeElement);
@@ -24,13 +26,16 @@ treeEditor.initTree = function() {
             if (!isInsideDialog) {
                 Tree.getNodes(application, module, collectionName, collectionViewParentName, function(array) {
                     var nodes = JSON.parse(array);
+                    var plugins = ["checkbox", "state"];
+                    if (allowMoveNodes) plugins.push("dnd");
+                    
                     oxTree.jstree({
                         "core": {
                             "check_callback": function(operation, node, parent, position, more) {
                                 if (operation === "move_node") {
                                     treeEditor.parentId = parent.id;
                                     treeEditor.newPosition = position;
-                                    return true;
+                                    return allowMoveNodes;
                                 }
                                 return false;
                             },
@@ -46,7 +51,7 @@ treeEditor.initTree = function() {
                         "state": {
                             "key": module + "_" + collectionName + "_" + "xava_tree_state_" + kValue
                         },
-                        "plugins": ["checkbox", "dnd", "state"]
+                        "plugins": plugins
                     });
                 });
             }

@@ -47,7 +47,7 @@ public class TreeContainer {
 	private Collection<Step> steps;
 	
 	@Editor(value="TreeView")
-	@Tree(pathProperty = "way", idProperties = "code")
+	@Tree(pathProperty = "way", idProperties = "code", allowMoveNodes = false) 
 	@ListProperties("description")
 	@OrderBy("way, theOrder")
 	@OneToMany(mappedBy="parentContainer", cascade = CascadeType.REMOVE)
