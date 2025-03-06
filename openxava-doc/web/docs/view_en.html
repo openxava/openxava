@@ -18537,9 +18537,10 @@ class="sy0">;</span></pre>
   pathProperty=<span class="st0">"path"</span>,        <span class="co1">// 3</span>
   idProperties=<span class="st0">""</span>,            <span class="co1">// 4</span>
   initialExpandedState=<span class="kw4">true</span>,  <span class="co1">// 5</span>
-  orderIncrement=<span class="nu0">2</span>,           <span class="co1">// 6 deprecated since version 7.2</span>
-  pathSeparator=<span class="st0">"/"</span>           <span class="co1">// 7</span>
-<span class="br0">)</span></pre>
+  orderIncrement=<span class="nu0">2</span>,           <span class="co1">// 6  Deprecated since version 7.2</span>
+  pathSeparator=<span class="st0">"/"</span>           <span class="co1">// 7</span><br>  allowMoveNodes<span
+class="st0"></span>=<span class="kw4">true </span>        <span class="co1">// 8  New in v7.5</span><br><span
+class="br0">)</span></pre>
       <ol>
         <li><strong>forViews</strong>: Indicates in which views the tree
           behavior is going to be applied.</li>
@@ -18563,6 +18564,9 @@ class="sy0">;</span></pre>
         <li><strong>pathSeparator</strong>: If you use a separator for your path
           different than the default "/". Then you can set this property to the
           value that you are using.</li>
+        <li><strong>allowMoveNodes</strong>:<span>&nbsp;</span><em>(New in v7.5)</em><span>&nbsp;</span>Indicates
+          whether the user can move nodes in the tree. If set to <i>false</i>,
+          users cannot move nodes using drag-and-drop. Default value is <i>true</i>.</li>
       </ol>
       <h3 id="toc38"><a name="View-Collection customization-Total properties (new in v4.3)"></a>Total
         properties <em>(new in v4.3)</em></h3>

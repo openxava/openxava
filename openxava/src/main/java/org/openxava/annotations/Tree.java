@@ -2,7 +2,6 @@ package org.openxava.annotations;
 
 import java.lang.annotation.*;
 
-
 /**
  * With <code>@Tree</code> you can instruct OpenXava to visualize collections 
  * as a tree instead of a list. <p> 
@@ -18,7 +17,7 @@ import java.lang.annotation.*;
  * &nbsp;private Collection<TreeItem> treeItems;
  * </pre>
  * <br/>
- * The full syntax for @Tree is @Tree(forViews="", notForViews="", pathProperty="path", idProperties="", idSeparator=",", initialExpandedState=true, orderIncrement=2, pathSeparator="/").
+ * The full syntax for @Tree is @Tree(forViews="", notForViews="", pathProperty="path", idProperties="", idSeparator=",", initialExpandedState=true, orderIncrement=2, pathSeparator="/", allowMoveNodes=true).
  * <ol>
  * <li><b>forViews</b>. Indicates in which views the tree behavior is going to be applied.</li>
  * <li><b>notForViews</b>. Views which are excluded from the tree renderization.</li>
@@ -35,6 +34,7 @@ import java.lang.annotation.*;
  * This value allow easy reordering of elements.</li>
  * <li><b>pathSeparator</b>. If you use a separator for your path different than the default "/". 
  * Then you can set this property to the value that you are using.</li>
+ * <li><b>allowMoveNodes</b>. If false the user cannot move nodes in the tree. By default is true.</li>
  * @author Federico Alcantara
  *
  */
@@ -43,6 +43,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.FIELD, ElementType.METHOD})
 public @interface Tree {
+	
 	/**
 	 * List of comma separated view names where this annotation applies. <p>
 	 * 
@@ -66,52 +67,64 @@ public @interface Tree {
 	String notForViews() default "";
 
 	/**
-	 * Optional. Defaults to path.
 	 * Property used for the path, must be a String type with 
 	 * a size appropriate to the task at hand.
+	 * Optional. Defaults to path.
 	 * @return property name
 	 */
 	String pathProperty() default "path";
 	
 	/**
-	 * Optional.
 	 * Comma separated list of properties used for identifying the tree node. By default
 	 * the id of the entity is used. If more than one property is used, 
 	 * their values will be nodeIdSeparator separated and enclosed in brackets.
+	 * Optional.
 	 * @return node property name.
 	 */
 	String idProperties() default ""; 
 	
 	/**
-	 * Optional.
 	 * String to be used to separate multiple Id elements. 
+	 * Optional.
 	 */
 	String idSeparator() default ",";
 			
 	/**
-	 * Optional.
 	 * Indicates how to render the tree when the expandedPropertyName is
 	 * not defined. It's default value is true. 
+	 * Optional.
+	 * 
 	 * @return expanded state.
 	 */
 	boolean initialExpandedState() default true;
 
 	/**
-	 * @deprecated since OpenXava 7.2
-	 * 
-	 * Optional.
 	 * Defines the increment used for the keys when orderBy is used
 	 * The default value is 2. The minimum is 2.
+	 * Optional.
+	 * 
+	 * @deprecated since OpenXava 7.2
 	 * @return order increment.
 	 */
 	@Deprecated
 	int orderIncrement() default 2;
 	
 	/**
-	 * Optional.
 	 * Defines the separator for the path elements. Default value is / 
+	 * Optional.
+	 * 
 	 * @return path separator character.
 	 */
 	String pathSeparator() default "/";
+	
+	/**
+	 * Indicates whether the user can move nodes in the tree.
+	 * Default value is true (node movement is enabled).
+	 * Optional.
+	 * 
+	 * @return allowMoveNodes state.
+	 * @since 7.5
+	 */
+	boolean allowMoveNodes() default true;
 	
 }
