@@ -11,11 +11,17 @@ Pendiente:
 	* SignIn
 	* Tooltips
 * Marcos anidados
+* Quitar degradado de marcos.
 * Quitar todo mayúsculas: Pestañas y botones.
 * Botones. Sin sombre, rendodeados y sin todo mayúsculas, a estilo Material Design 3.
 - ¿Aplanar colecciones y listas? ¿Poner menos rendodeo si la colección está dentro de un marco?
+	- TMR ME QUEDÉ POR AQUÍ, AL APLANAR LO DE ARRIBA NO SE REDONDEA PERO SE ARREGLA CON overflow: hidden;
+- Texto rico y area de texto.
+- Lista de iconos.
+- Subir archivos.
 - Probar con bordes y redondeados de textfields.
-* Quitar degradado de marcos.
+- ¿Navegación entre módulos?
+
 - Arreglar listas/colecciones en Dark:
 	- Cuando no están en sección (Order), quizás podriamos poner un color más flojo de negro.
 	- No salen redondeadas
