@@ -11,8 +11,8 @@ Pendiente:
 	* SignIn
 	* Tooltips
 * Marcos anidados
-- Quitar todo mayúsculas: Comprobar tabs y botones.
-- Botones. Comparar con material design.
+* Quitar todo mayúsculas: Pestañas y botones.
+* Botones. Sin sombre, rendodeados y sin todo mayúsculas, a estilo Material Design 3.
 - ¿Aplanar colecciones y listas? ¿Poner menos rendodeo si la colección está dentro de un marco?
 - Probar con bordes y redondeados de textfields.
 * Quitar degradado de marcos.
@@ -1393,8 +1393,7 @@ input[type="button"]  {
 	text-decoration: none;
 	border-radius: 24px;  
 	cursor: pointer;
-	font-size: 13px;
-	text-transform: uppercase;
+	font-size: 15px;
 }
 
 .ui-dialog input[type="button"], 
@@ -1417,7 +1416,6 @@ input[type="button"]:focus {
 .ox-discussion-post-button input[type="button"]:nth-of-type(1) {
 	background: var(--default-action-button-background);
 	color: var(--default-action-button-color);
-	box-shadow: 0px 1px 3px var(--default-action-button-shadow); 
 }
 
 .ox-bottom-buttons input:nth-of-type(2):hover,
@@ -1773,7 +1771,6 @@ input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
 .ox-section-tab {	
 	font-weight: bold;
 	float: left;
-	text-transform: uppercase;
 	border-bottom: 3px solid transparent;
 }
 
