@@ -4,6 +4,7 @@
 	--my-dark: #2b2d30;
 	--my-darker: #1e1f22;	
 	--my-lightdark: #43454a;
+	--my-transparent-lightdark: rgba(74, 76, 81, 0.75);
 	--my-blue: #3574f0;
 	--my-darkblue: #365880;
 	--my-lightblue: #548AF7;	
@@ -33,7 +34,7 @@
 	--color: var(--my-silver);
 	
 	/* Frames */	
-	--frame-background: var(--my-lightdark);
+	--frame-background: var(--my-transparent-lightdark);
 	
 	/* Actions */
 	--action-color: var(--my-silver);  	
