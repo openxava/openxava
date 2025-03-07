@@ -6,9 +6,10 @@ Pendiente:
 	* Diálogos, 
 	* Listas, 
 	* Tarjetas, 
-	- Botones. TMR ME QUEDÉ POR AQUÍ. LOS BOTONES DE LAS COLECCIONES SALEN MAL, PERO EL DE LA LISTA BIEN. SON LOS TMR PROBANDO QUE TENGO ABAJO
+	* Botones. 
 	- Mensajes
 	- SignIn
+- Marcos anidados
 - Quitar todo mayúsculas: Comprobar tabs y botones.
 - Botones. Comparar con material design.
 - ¿Aplanar colecciones y listas? ¿Poner menos rendodeo si la colección está dentro de un marco?
@@ -935,7 +936,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 }
 
 .ox-button-bar {
-	padding: 8px 10px 16px 10px;
+	padding: 11px 10px 15px 10px; 
 	background: var(--button-bar-background);
 	box-shadow: 0px 1px 3px var(--button-bar-shadow); 
 }
@@ -969,8 +970,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 }
 
 .ox-button-bar .ox-button-bar-button a {  
-	/* padding: 6px 6px 6px 0px;  */
-	padding: 6px 4px 6px 6px; /* tmr Probando */
+	padding: 6px 4px 6px 6px; 
 }
 
 .ox-button-bar .ox-button-bar-button a img {
@@ -1061,7 +1061,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 }
 
 .ox-collection-list-actions .ox-button-bar-button a {
-	padding: 6px;  
+	padding: 6px 4px 6px 12px;
 }
 
 .ox-collection-list-actions .ox-button-bar-button a i {
@@ -1096,8 +1096,7 @@ i, .ox-icon i.mdi-close-circle,
 .ox-collection-list-actions .ox-button-bar-button a 
 {
 	border: 1px transparent;
-	/* margin: 3px; tmr */
-	margin: 1px; /* tmr Probando */
+	margin: 1px; 
 	border-radius: 16px;
 }
 
@@ -1976,8 +1975,7 @@ td.ox-list-subheader > div {
 }
 
 .ox-button-bar-button span {
-	/* margin-right: -7px;  tmr Probando*/
-	margin-left: -5px; /* tmr Probando */
+	margin-left: -5px; 
 }
 
 .ox-subcontroller-button .mdi-menu-down {
