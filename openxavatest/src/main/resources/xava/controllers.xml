@@ -1116,6 +1116,9 @@
 		<action name="removeWarehouse" mode="detail" 
 			class="org.openxava.test.actions.CarrierRemoveWarehouseAction"/>
 			
+		<action name="toUpperCase" mode="list" in-each-row="true" 
+			class="org.openxava.test.actions.ToUpperCaseAction"/>						
+			
 	</controller>
 		
 	<controller name="CarrierFellows">

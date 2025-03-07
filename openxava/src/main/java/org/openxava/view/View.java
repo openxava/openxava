@@ -126,9 +126,9 @@ public class View implements java.io.Serializable {
 	private boolean collectionMembersEditables; 
 	private boolean collectionEditable;
 	private boolean collectionEditableFixed;
-	private Collection actionsNamesDetail;
-	private Collection actionsNamesList;
-	private Collection actionsNamesRow; 
+	private Collection<String> actionsNamesDetail;
+	private Collection<String> actionsNamesList;
+	private Collection<String> actionsNamesRow; 
 	private int [] listSelected;
 	private boolean readOnly; // Always not editable, marked from xml
 	private boolean onlyThrowsOnChange; 
@@ -5235,7 +5235,7 @@ public class View implements java.io.Serializable {
 	/**
 	 * Has sense if the subview represents a collection, although always works.	 
 	 */
-	public Collection getActionsNamesDetail() {		
+	public Collection<String> getActionsNamesDetail() {		
 		return actionsNamesDetail==null?Collections.EMPTY_LIST:actionsNamesDetail;
 	}
 
@@ -5341,8 +5341,8 @@ public class View implements java.io.Serializable {
 		refreshCollection(); 
 	}
 	
-	public Collection getRowActionsNames() { 
-		Collection rowActionsNames = new ArrayList();
+	public Collection<String> getRowActionsNames() { 
+		Collection<String> rowActionsNames = new ArrayList<>();
 		if (isCollectionEditable()) {
 			if (isRepresentsEntityCollection() && isRowAction(getRemoveSelectedCollectionElementsAction())) 
 				rowActionsNames.add(getRemoveSelectedCollectionElementsAction());
@@ -5350,7 +5350,7 @@ public class View implements java.io.Serializable {
 				rowActionsNames.add(getDeleteSelectedCollectionElementsAction());
 		}
 		rowActionsNames.addAll(getActionsNamesRow());
-		for (Object action: getActionsNamesList()) {
+		for (String action: getActionsNamesList()) {
 			if (isRowAction(action)) {
 				rowActionsNames.add(action);
 			}			
@@ -5380,21 +5380,28 @@ public class View implements java.io.Serializable {
 	/*
 	 * @since 7.4
 	 */
-	public Collection removeUnavailableActionFromRow(Collection collection, String actionArgv) {
+	public Collection<String> removeUnavailableActionFromRow(Collection<String> rowActions, String actionArgv) {
+		// TMR ME QUEDÉ POR AQUÍ. CONSIDERANDO NO HACER NADA Y USAR LA ACTUAL IAvailableAction TAL CUAL.
+		// TMR  SOLO NECESITARÍA DOCUMENTACIÓN Y QUIZÁS UN TEST.
+		System.out.println("[View.removeUnavailableActionFromRow] NONE actionArgv=" + actionArgv); // tmr
 		ModuleManager moduleManager = getModuleManager(getRequest());
-		Collection rowActions = collection;
+		Collection<String> actionsToRemove = null;
 		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext();) {
 			String action = (String) itRowActions.next();
 			MetaAction rowAction = MetaControllers.getMetaAction(action);
-			if (!moduleManager.isActionAvailable(rowAction, errors, messages, "row=" + 0 + actionArgv, getRequest())) {
-				itRowActions.remove();
+			if (!moduleManager.isActionAvailable(rowAction, errors, messages, actionArgv, getRequest())) {
+				if (actionsToRemove == null) actionsToRemove = new ArrayList<>();
+				actionsToRemove.add(action);
 			}
 		}
-		return rowActions;
+		if (actionsToRemove == null) return rowActions;
+		Collection<String> availableActions = new ArrayList<>(rowActions);
+		availableActions.removeAll(actionsToRemove);
+		return availableActions;
 	}
 		
-	public Collection getActionsNamesList() {
-		if (actionsNamesList == null) actionsNamesList = new ArrayList(getDefaultListActionsForCollections());
+	public Collection<String> getActionsNamesList() {
+		if (actionsNamesList == null) actionsNamesList = new ArrayList<>(getDefaultListActionsForCollections());
 		if (!actionsNamesListRefined) {
 			refine(actionsNamesList);
 			actionsNamesListRefined = true;
@@ -5440,8 +5447,8 @@ public class View implements java.io.Serializable {
 		refreshCollection();
 	}	
 	
-	public Collection getActionsNamesRow() {
-		if (actionsNamesRow == null) actionsNamesRow = new ArrayList(getDefaultRowActionsForCollections());
+	public Collection<String> getActionsNamesRow() {
+		if (actionsNamesRow == null) actionsNamesRow = new ArrayList<>(getDefaultRowActionsForCollections());
 		if (!actionsNamesRowRefined) {
 			refine(actionsNamesRow);
 			actionsNamesRowRefined = true;
