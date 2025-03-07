@@ -7,8 +7,9 @@ Pendiente:
 	* Listas, 
 	* Tarjetas, 
 	* Botones. 
-	- Mensajes
+	* Mensajes
 	- SignIn
+	- Tooltips
 - Marcos anidados
 - Quitar todo mayúsculas: Comprobar tabs y botones.
 - Botones. Comparar con material design.
@@ -20,6 +21,7 @@ Pendiente:
 	- No salen redondeadas
 
 - Mover a openxava (borrar de aquí).
+- changelog
 - ¿Documentación? Quizás podría cambiar los pantallazos en estilo, ¿en openxava.org? ¿en firststeps?
 */
 
@@ -1912,7 +1914,7 @@ td.ox-list-subheader > div {
 	padding: 10px; 
 	border: 0px;
 	margin-bottom: 12px;
-	border-radius: 2px;	
+	border-radius: 12px;	
 	box-shadow: 0px 0px 7px var(--message-box-shadow);  
 }
 
