@@ -1,15 +1,15 @@
 /*
 tmr
 Pendiente:
-- Rounded: 
+* Rounded: 
 	* Marcos, 
 	* Diálogos, 
 	* Listas, 
 	* Tarjetas, 
 	* Botones. 
 	* Mensajes
-	- SignIn
-	- Tooltips
+	* SignIn
+	* Tooltips
 - Marcos anidados
 - Quitar todo mayúsculas: Comprobar tabs y botones.
 - Botones. Comparar con material design.
@@ -2113,6 +2113,7 @@ div.ox-subcontroller table{
 	width: 283px;
 	width: fit-content;
 	width: -moz-fit-content;
+	border-radius: 24px;
 }
 
 #sign_in_box .ox-bottom-buttons {
