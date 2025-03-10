@@ -7,10 +7,10 @@ import org.openxava.model.*;
 import org.openxava.test.model.*;
 
 /**
- * tmr ¿En collecciones? ¿en colecciones calculadas?
+ * tmr En collecciones? en colecciones calculadas?
  * @author Javier Paniza
  */
-public class ToUpperCaseAction extends TabBaseAction implements IOptionalRowAction, IAvailableAction {// tmr ¿Podremos prescindir de IOptionalRowAction?
+public class ToUpperCaseAction extends TabBaseAction implements IAvailableAction { 
 
 	@Override
 	public void execute() throws Exception {
@@ -22,19 +22,18 @@ public class ToUpperCaseAction extends TabBaseAction implements IOptionalRowActi
 	}
 
 	@Override
-	public boolean isApplicableForRow(Map key) {
-		System.out.println("[ToUpperCaseAction.isApplicableForRow] key=" + key); // tmr
-		return true;
-	}
-
-	@Override
 	public boolean isAvailable() {
 		try {
 			System.out.println("[ToUpperCaseAction.isAvailable] getRow()=" + getRow()); // tmr
 			if (getRow() < 0) return true;
+			System.out.println("ToUpperCase.isAvailable 10"); // tmr
 			Map key = getSelectedKeys()[0];
+			System.out.println("ToUpperCase.isAvailable 20: key=" + key); // tmr
 			Carrier carrier = (Carrier) MapFacade.findEntity("Carrier", key);
+			System.out.println("ToUpperCase.isAvailable 30"); // tmr
 			System.out.println("[ToUpperCaseAction.isAvailable] carrier.getName()=" + carrier.getName()); // tmr
+			if (carrier.getNumber() == 3) return true;
+			System.out.println("ToUpperCase.isAvailable 40"); // tmr
 			return !carrier.getName().equals(carrier.getName().toUpperCase());
 		}
 		catch (Exception ex) {

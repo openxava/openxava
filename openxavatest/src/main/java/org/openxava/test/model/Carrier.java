@@ -93,6 +93,7 @@ public class Carrier {
 	@ListProperties("number, name, remarks, calculated") 
 	@Editor(forViews="FellowsNames", value="CarriersNames")
 	@NoDefaultActions(forViews="NoDefaultActions")
+	//@RowAction("Carrier.toUpperCase") // tmr
 	public Collection<Carrier> getFellowCarriers() { 
 		// At the moment you must write a code that returns the same result
 		// of the @Condition. 
@@ -115,6 +116,7 @@ public class Carrier {
 	@OnSelectElementAction(forViews="CalculatedFellows", value="Carrier.onSelectFellowCarriersCalculated") 
 	@OnSelectElementAction(forViews="CollectionsTogether", value="Carrier.syncCarriersSelection")
 	@NoDefaultActions(forViews="NoDefaultActions")
+	@RowAction("Carrier.toUpperCaseCollection") // tmr
 	public Collection<Carrier> getFellowCarriersCalculated() {
 		// This method exists for compliance with OpenXavaTest
 		return getFellowCarriers();

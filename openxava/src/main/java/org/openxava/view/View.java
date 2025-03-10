@@ -5381,9 +5381,9 @@ public class View implements java.io.Serializable {
 	 * @since 7.4
 	 */
 	public Collection<String> removeUnavailableActionFromRow(Collection<String> rowActions, String actionArgv) {
-		// TMR ME QUEDÉ POR AQUÍ. CONSIDERANDO NO HACER NADA Y USAR LA ACTUAL IAvailableAction TAL CUAL.
-		// TMR  SOLO NECESITARÍA DOCUMENTACIÓN Y QUIZÁS UN TEST.
-		System.out.println("[View.removeUnavailableActionFromRow] NONE actionArgv=" + actionArgv); // tmr
+		// tmr En changelog, de esta forma:
+		// tmr   - No deja espacios extra entre acciones.
+		// tmr   - No ejecuta la pregunta de forma redundante.
 		ModuleManager moduleManager = getModuleManager(getRequest());
 		Collection<String> actionsToRemove = null;
 		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext();) {
