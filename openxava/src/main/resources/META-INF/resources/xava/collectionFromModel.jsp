@@ -97,14 +97,14 @@ for (int f=0; itAggregates.hasNext(); f++) {
 <xava:action action="<%=lineAction%>" argv='<%="row="+f + ",viewObject="+viewName%>'/>
 <% 		
 		if (style.isSeveralActionsPerRow()) {
-			Collection rowActionNames;
-			rowActionNames = view.removeUnavailableActionFromRow(subview.getRowActionsNames(), (",viewObject="+viewName));
+			String argv = "row=" + f + ",viewObject="+viewName;
+			Collection<String> rowActionNames = view.removeUnavailableActionFromRow(subview.getRowActionsNames(), argv);
 			boolean hasIconOrImage = view.isRowActionHaveIcon(rowActionNames);
 			if (rowActionNames.size() < XavaPreferences.getInstance().getRowActionsPopupThreshold() - 1) { 
 				for (java.util.Iterator itRowActions = rowActionNames.iterator(); itRowActions.hasNext(); ) { 	
 					String rowAction = (String) itRowActions.next();		
 %>
-<xava:action action='<%=rowAction%>' argv='<%="row=" + f + ",viewObject="+viewName%>'/>
+<xava:action action='<%=rowAction%>' argv='<%=argv%>'/>
 <%
 				}
 			} else {

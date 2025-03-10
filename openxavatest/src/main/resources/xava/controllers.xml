@@ -1116,19 +1116,13 @@
 		<action name="removeWarehouse" mode="detail" 
 			class="org.openxava.test.actions.CarrierRemoveWarehouseAction"/>
 
-		<!-- tmr -->
-		<action name="doA" mode="list" in-each-row="true" 
-			class="org.openxava.test.actions.CarrierRemoveWarehouseAction"/>
-			
+		<!-- tmr i18n -->	
 		<action name="toUpperCase" mode="list" in-each-row="true" 
-			class="org.openxava.test.actions.ToUpperCaseAction"/>		
+			class="org.openxava.test.actions.CarrierToUpperCaseInListAction"/>		
 
-		<!-- tmr -->
-		<action name="doC" mode="list" in-each-row="true" 
-			class="org.openxava.test.actions.CarrierRemoveWarehouseAction"/>
-
-		<action name="toUpperCaseCollection" mode="list" in-each-row="true" 
-			class="org.openxava.test.actions.ToUpperCaseCollectionAction"/>		
+		<!-- tmr i18n -->	
+		<action name="toUpperCaseCollection" in-each-row="true" hidden="true"
+			class="org.openxava.test.actions.CarrierToUpperCaseInCollectionAction"/>		
 			
 	</controller>
 		
