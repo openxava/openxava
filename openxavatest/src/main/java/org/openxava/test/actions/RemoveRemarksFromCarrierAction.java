@@ -8,12 +8,13 @@ import org.openxava.model.*;
 import org.openxava.test.model.*;
 
 /**
- * Acción para convertir a mayúsculas los elementos seleccionados en una lista.
+ * Acción para quitar los comentarios de los transportistas seleccionados en una colección.
+ * 
  * @author Javier Paniza
  */
-public class CarrierToUpperCaseInListAction extends TabBaseAction implements IAvailableAction { 
+public class RemoveRemarksFromCarrierAction extends CollectionBaseAction implements IAvailableAction { 
 
-	private static Log log = LogFactory.getLog(CarrierToUpperCaseInListAction.class);
+	private static Log log = LogFactory.getLog(RemoveRemarksFromCarrierAction.class);
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -21,22 +22,24 @@ public class CarrierToUpperCaseInListAction extends TabBaseAction implements IAv
 		Map<String, Object>[] selectedOnes = getSelectedKeys();
 		for (int i = 0; i < selectedOnes.length; i++) {
 			Carrier carrier = (Carrier) MapFacade.findEntity("Carrier", selectedOnes[i]);
-			carrier.setName(carrier.getName().toUpperCase());
+			carrier.setRemarks(null);
 		}
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public boolean isAvailable() {
-		// tmr Verificar las veces que se llama?
 		try {
 			if (getRow() < 0) return false;
+			
 			Map<String, Object> key = getSelectedKeys()[0];
+			
 			Carrier carrier = (Carrier) MapFacade.findEntity("Carrier", key);
-			return !carrier.getName().equals(carrier.getName().toUpperCase());
+			
+			return carrier.getRemarks() != null && !carrier.getRemarks().isEmpty();
 		}
 		catch (Exception ex) {
-			log.error("Error checking if CarrierToUpperCaseInListAction is available", ex);
+			log.error("Error checking if RemoveRemarksFromCarrierAction is available", ex);
 			return false;
 		}
 	}

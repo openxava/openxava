@@ -8,13 +8,12 @@ import org.openxava.model.*;
 import org.openxava.test.model.*;
 
 /**
- * Acción para convertir a mayúsculas los elementos seleccionados en una colección.
- * 
+ * Action to convert the selected items in a list to uppercase.
  * @author Javier Paniza
  */
-public class CarrierToUpperCaseInCollectionAction extends CollectionBaseAction implements IAvailableAction { 
+public class CarrierToUpperCaseAction extends TabBaseAction implements IAvailableAction { 
 
-	private static Log log = LogFactory.getLog(CarrierToUpperCaseInCollectionAction.class);
+	private static Log log = LogFactory.getLog(CarrierToUpperCaseAction.class);
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -29,21 +28,15 @@ public class CarrierToUpperCaseInCollectionAction extends CollectionBaseAction i
 	@Override
 	@SuppressWarnings("unchecked")
 	public boolean isAvailable() {
+		// tmr Check how many times it's called?
 		try {
-			System.out.println("[CarrierToUpperCaseInCollectionAction.isAvailable] getRow()=" + getRow());
-			if (getRow() < 0) return true;
-			
+			if (getRow() < 0) return false;
 			Map<String, Object> key = getSelectedKeys()[0];
-			System.out.println("CarrierToUpperCaseInCollection.isAvailable: key=" + key);
-			
 			Carrier carrier = (Carrier) MapFacade.findEntity("Carrier", key);
-			System.out.println("[CarrierToUpperCaseInCollectionAction.isAvailable] carrier.getName()=" + carrier.getName());
-			
-			if (carrier.getNumber() == 3) return true;
 			return !carrier.getName().equals(carrier.getName().toUpperCase());
 		}
 		catch (Exception ex) {
-			log.error("Error checking if CarrierToUpperCaseInCollectionAction is available", ex);
+			log.error("Error checking if CarrierToUpperCaseAction is available", ex);
 			return false;
 		}
 	}

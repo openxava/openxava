@@ -1118,11 +1118,11 @@
 
 		<!-- tmr i18n -->	
 		<action name="toUpperCase" mode="list" in-each-row="true" 
-			class="org.openxava.test.actions.CarrierToUpperCaseInListAction"/>		
+			class="org.openxava.test.actions.CarrierToUpperCaseAction"/>		
 
 		<!-- tmr i18n -->	
-		<action name="toUpperCaseCollection" in-each-row="true" hidden="true"
-			class="org.openxava.test.actions.CarrierToUpperCaseInCollectionAction"/>		
+		<action name="removeRemarks" in-each-row="true" hidden="true"
+			class="org.openxava.test.actions.RemoveRemarksFromCarrierAction"/>		
 			
 	</controller>
 		
