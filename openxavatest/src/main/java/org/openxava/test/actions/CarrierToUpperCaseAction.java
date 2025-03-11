@@ -6,6 +6,7 @@ import org.apache.commons.logging.*;
 import org.openxava.actions.*;
 import org.openxava.model.*;
 import org.openxava.test.model.*;
+import org.openxava.test.util.*;
 
 /**
  * Action to convert the selected items in a list to uppercase.
@@ -28,7 +29,10 @@ public class CarrierToUpperCaseAction extends TabBaseAction implements IAvailabl
 	@Override
 	@SuppressWarnings("unchecked")
 	public boolean isAvailable() {
+		// TMR ME QUEDÉ POR AQUÍ: LLAMA DEMASIADAS VECES. CORREGIRLO Y TESTEARLO
 		// tmr Check how many times it's called?
+		System.out.println("[CarrierToUpperCaseAction.isAvailable()] getRow()=" + getRow()); // tmr
+		StaticCounter.increment();
 		try {
 			if (getRow() < 0) return false;
 			Map<String, Object> key = getSelectedKeys()[0];

@@ -6,6 +6,7 @@ import org.apache.commons.logging.*;
 import org.openxava.actions.*;
 import org.openxava.model.*;
 import org.openxava.test.model.*;
+import org.openxava.test.util.*;
 
 /**
  * Acción para quitar los comentarios de los transportistas seleccionados en una colección.
@@ -30,6 +31,8 @@ public class RemoveRemarksFromCarrierAction extends CollectionBaseAction impleme
 	@SuppressWarnings("unchecked")
 	public boolean isAvailable() {
 		try {
+			System.out.println("[RemoveRemarksFromCarrierAction.isAvailable()] getRow()=" + getRow()); // tmr
+			StaticCounter.increment();
 			if (getRow() < 0) return false;
 			
 			Map<String, Object> key = getSelectedKeys()[0];
