@@ -22,7 +22,7 @@
 	--list-formats-hover-color: var(--my-gray);
 	
 	/* Backgrounds & labels */
-	--background: white;
+	--background: rgb(251, 251, 251);
 	--color: var(--my-black);
 	
 	/* Frames */

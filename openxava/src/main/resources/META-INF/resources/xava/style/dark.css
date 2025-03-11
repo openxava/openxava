@@ -94,7 +94,7 @@
 }
 
 .ox-list {	
-	border: 2px solid var(--my-lightdark)
+	background: var(--my-darker);
 }
 
 .ui-widget-content {
@@ -113,4 +113,8 @@
 
 .ox-popup-menu:hover {
     background-color: var(--my-dark);
+}
+
+.ox-card:hover {
+	filter: brightness(90%); 
 }

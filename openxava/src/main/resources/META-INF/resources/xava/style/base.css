@@ -14,11 +14,20 @@ Pendiente:
 * Quitar degradado de marcos.
 * Quitar todo mayúsculas: Pestañas y botones.
 * Botones. Sin sombre, rendodeados y sin todo mayúsculas, a estilo Material Design 3.
-- ¿Aplanar colecciones y listas? ¿Poner menos rendodeo si la colección está dentro de un marco?
-	- TMR ME QUEDÉ POR AQUÍ, AL APLANAR LO DE ARRIBA NO SE REDONDEA PERO SE ARREGLA CON overflow: hidden;
+* En Dark quitamos borde de la listas, cambiados por un cambio de tono en el fondo.
+ Aplanar: 
+	* Marcos
+	* Botones
+	* Charts
+	* Listas
+	* Tarjetas  
+	* SignIn 
+	* Colecciones
+- Colecciones: Dentro de marco y de sección.
 - Texto rico y area de texto.
 - Lista de iconos.
 - Subir archivos.
+- Charts.
 - Probar con bordes y redondeados de textfields.
 - ¿Navegación entre módulos?
 
@@ -28,6 +37,7 @@ Pendiente:
 
 - changelog
 - ¿Documentación? Quizás podría cambiar los pantallazos en estilo, ¿en openxava.org? ¿en firststeps?
+- Adaptar sitio a nuevo estilo.
 */
 
 
@@ -158,7 +168,7 @@ Pendiente:
 	--card-content-hover-color: var(--card-color);					
 	--card-subheader-hover-color: var(--action-hover-color);
 	--card-content-b-hover-color: var(--action-hover-color);
-    --card-hover-shadow: gray;
+    --card-hover-shadow: lightgray;
     --card-header-hover-color: var(--action-hover-color);
 		
 	--list-header-background: var(--header-background);
@@ -1692,10 +1702,6 @@ input[type="button"] {
 	border-radius: 12px;
 }
 
-#sign_in_box, .ox-card, .ox-list, .ox-chart-data {  
-	box-shadow: 0px 0px 3px var(--shadow) !important; 
-}
-
 #sign_in_box .ox-image-link {
     display: none;
 }
@@ -2031,6 +2037,7 @@ div.ox-subcontroller table{
 	background: var(--list-background);
 	margin: 10px;
 	border-radius: 12px;
+	overflow: hidden; 
 }
 
 .ox-list .ox-list-header:last-child  {
@@ -2608,7 +2615,7 @@ div[id$="_Index__view"] .ox-list-title {
 
 .ox-card:hover {
 	cursor: pointer;
-	box-shadow: 1px 1px 5px var(--card-hover-shadow);
+	filter: brightness(95%); 
 }
 
 .ox-card:hover .ox-card-header {
