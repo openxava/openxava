@@ -15,9 +15,13 @@ public class ActionTagBase extends TagSupport implements IActionTag {
 	
 	private String action;
 	private String argv;
+	private boolean alwaysAvailable;
 	
 	/** @since 5.9 */
 	protected boolean isActionAvailable(MetaAction metaAction, String application, String module, HttpServletRequest request) { 
+		if (isAlwaysAvailable()) {
+			return true;
+		}
 		ModuleManager manager = (ModuleManager) getContext(request).get(application, module, "manager");
 		Messages errors = (Messages) request.getAttribute("errors");
 		Messages messages = (Messages) request.getAttribute("messages");
@@ -57,6 +61,22 @@ public class ActionTagBase extends TagSupport implements IActionTag {
 
 	public void setArgv(String string) {
 		argv = string;		
+	}
+
+	/**
+	 * Returns if the action is always available, regardless of the isAvailable() method result.
+	 * @return true if the action is always available, false otherwise
+	 */
+	public boolean isAlwaysAvailable() {
+		return alwaysAvailable;
+	}
+
+	/**
+	 * Sets if the action is always available, regardless of the isAvailable() method result.
+	 * @param alwaysAvailable true to make the action always available, false otherwise
+	 */
+	public void setAlwaysAvailable(boolean alwaysAvailable) {
+		this.alwaysAvailable = alwaysAvailable;
 	}
 
 	private static ModuleContext getContext(HttpServletRequest request) { 

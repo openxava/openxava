@@ -24,6 +24,12 @@
        <required>false</required>
        <rtexprvalue>true</rtexprvalue>
     </attribute>    
+    <!-- tmr Documentar -->
+    <attribute>
+       <name>alwaysAvailable</name>
+       <required>false</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>                      
     <attribute>
        <name>cssClass</name>
        <required>false</required>
@@ -51,6 +57,12 @@
        <required>false</required>
        <rtexprvalue>true</rtexprvalue>
     </attribute>
+    <!-- tmr Documentar -->
+    <attribute>
+       <name>alwaysAvailable</name>
+       <required>false</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>                      
   </tag>         
   
   <tag>
@@ -68,6 +80,12 @@
        <required>false</required>
        <rtexprvalue>true</rtexprvalue>
     </attribute>
+    <!-- tmr Documentar -->
+    <attribute>
+       <name>alwaysAvailable</name>
+       <required>false</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>                      
     <attribute>
        <name>cssClass</name>
        <required>false</required>
@@ -95,6 +113,12 @@
        <required>false</required>
        <rtexprvalue>true</rtexprvalue>
     </attribute>    
+    <!-- tmr Documentar -->
+    <attribute>
+       <name>alwaysAvailable</name>
+       <required>false</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>                      
   </tag>         
   
   <tag>

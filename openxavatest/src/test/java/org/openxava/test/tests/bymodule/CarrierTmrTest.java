@@ -19,6 +19,12 @@ public class CarrierTmrTest extends CarrierTestBase {
 	 * but the fifth row should have it.
 	 */
 	public void testToUpperCaseActionAvailability() throws Exception {
+		// TMR ME QUEDÉ POR AQUÍ: LO DE ABAJO YA FUNCIONA. FALTA LA PRUEBA Y EL ARREGLO PARA LAS COLECCIONES
+		// Check the number of isAvailable calls
+		execute("Carrier.resetIsAvailableCallsCounter");
+		execute("Carrier.showIsAvailableCallsCounter");
+		assertMessage("isAvailable() has been called 5 times");
+		
 		execute("List.orderBy", "property=number");
 		
 		// Verify that the action is not available for the first 4 rows
@@ -28,6 +34,7 @@ public class CarrierTmrTest extends CarrierTestBase {
 		
 		// Verify that the action is available for the fifth row (index 4)
 		assertAction("Carrier.toUpperCase", "row=4");
+		
 		
 		// Execute the action on the fifth row
 		execute("Carrier.toUpperCase", "row=4");

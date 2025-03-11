@@ -405,7 +405,7 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 <%
 	}
 	if (style.isSeveralActionsPerRow() && !grouping) {
-		// tmr Poner lo de availableActions también en colecciones calculadas
+		// tmr Poner lo de availableActions tambiï¿½n en colecciones calculadas
 		String argv = "row=" + f + actionArgv;
 		Collection<String> availableActions = view.removeUnavailableActionFromRow(rowActions, argv);
 		boolean hasIconOrImage = view.isRowActionHaveIcon(availableActions);
@@ -413,7 +413,7 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 			for (java.util.Iterator itRowActions = availableActions.iterator(); itRowActions.hasNext(); ) { 	
 				String rowAction = (String) itRowActions.next();
 %>
-			<xava:action action='<%=rowAction%>' argv='<%=argv%>'/>
+			<xava:action action='<%=rowAction%>' argv='<%=argv%>' alwaysAvailable="true"/>
 <%
 			}
 		} else {
@@ -433,6 +433,7 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 			<jsp:param name="action" value="<%=rowActionString%>"/>
 			<jsp:param name="addSpaceWithoutImage" value="<%=hasIconOrImage%>"/>
 			<jsp:param name="argv" value='<%="row=" + f + actionArgv%>'/>
+			<jsp:param name="alwaysAvailable" value='true'/>
 		</jsp:include>
 	</li>
 <%
