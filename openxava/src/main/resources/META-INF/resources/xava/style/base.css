@@ -15,7 +15,7 @@ Pendiente:
 * Quitar todo mayúsculas: Pestañas y botones.
 * Botones. Sin sombre, rendodeados y sin todo mayúsculas, a estilo Material Design 3.
 * En Dark quitamos borde de la listas, cambiados por un cambio de tono en el fondo.
- Aplanar: 
+* Aplanar: 
 	* Marcos
 	* Botones
 	* Charts
@@ -23,7 +23,7 @@ Pendiente:
 	* Tarjetas  
 	* SignIn 
 	* Colecciones
-- Colecciones: Dentro de marco y de sección.
+* Colecciones: Dentro de marco y de sección.
 - Texto rico y area de texto.
 - Lista de iconos.
 - Subir archivos.
@@ -31,9 +31,6 @@ Pendiente:
 - Probar con bordes y redondeados de textfields.
 - ¿Navegación entre módulos?
 
-- Arreglar listas/colecciones en Dark:
-	- Cuando no están en sección (Order), quizás podriamos poner un color más flojo de negro.
-	- No salen redondeadas
 
 - changelog
 - ¿Documentación? Quizás podría cambiar los pantallazos en estilo, ¿en openxava.org? ¿en firststeps?
@@ -810,6 +807,10 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 input[type="radio"] {
 	margin: 4px 0px 4px 10px;
 	vertical-align: middle;
+}
+
+.ox-frame .ox-list { 
+	border: 2px solid;
 }
 
 .ox-list-subheader input[type="text"] { 
