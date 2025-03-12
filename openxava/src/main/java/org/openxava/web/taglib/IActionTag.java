@@ -13,6 +13,7 @@ public interface IActionTag extends IterationTag {
 	/**
 	 * Sets if the action is always available, regardless of the isAvailable() method result.
 	 * @param alwaysAvailable true to make the action always available, false otherwise
+	 * @since 7.5
 	 */
 	void setAlwaysAvailable(boolean alwaysAvailable);
 

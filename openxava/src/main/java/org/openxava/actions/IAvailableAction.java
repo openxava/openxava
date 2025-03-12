@@ -1,11 +1,14 @@
 package org.openxava.actions;
 
 /**
- * An action that can be available for the user or hidden, depend on a programmatic condition.
+ * An action that can be available for the user or hidden, depend on a programmatic condition. <p>
  * 
- * tmr Â¿Redoc para indicar que se puede usar en acciones de fila?
- * tmr Falta probar con 7.4.5 y 7.3.x
- * tmr Documentar con ejemplo en referencia
+ * It can be used for any type of action, even for list action or row action to have action
+ * that are only show in some rows, depending on the content.
+ * 
+ * tmr Documentar con ejemplo en referencia para lista y mencinoar en colecciones (desde la 5.9)
+ * TMR   ME QUEDÉ POR AQUÍ: PARA HACER ESA DOCUMENTACIÓN. QUERÍA AÑADIR UNA NUEVA SECCIÓN
+ * TMR     ACCIONES OPCIONALES EN CONTROLLERS, JUSTO DESPUÉS DE LA DE ACCIONES DE LISTA
  * 
  * @since 5.9
  * @author Javier Paniza

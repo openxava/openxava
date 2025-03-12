@@ -5,7 +5,6 @@ import java.util.stream.*;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * To test new tree library with Selenium.

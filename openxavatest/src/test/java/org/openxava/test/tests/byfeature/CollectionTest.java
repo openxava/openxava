@@ -59,7 +59,7 @@ public class CollectionTest extends WebDriverTestBase {
         }
         return "";
     }
-
+    
     public void testRowActionsGroupInPopUp_openRecordInNewWindow() throws Exception { 
         goModule("Carrier");
         List<WebElement> menuIcons;
@@ -77,15 +77,15 @@ public class CollectionTest extends WebDriverTestBase {
         assertTrue(menu.get(3).getAttribute("class").contains("ox-display-none"));
         menuIcons.get(3).click();
         Thread.sleep(100);
-        assertTrue(menu.get(3).findElements(By.tagName("li")).size() == 5);
+        assertTrue(menu.get(3).findElements(By.tagName("li")).size() == 6); 
         assertTrue(!menu.get(3).getAttribute("class").contains("ox-display-none"));
-        menu.get(3).findElements(By.tagName("a")).get(3).click();
+        menu.get(3).findElements(By.tagName("a")).get(4).click();
         wait(getDriver());
         assertEquals("TWO ", getDriver().findElements(By.cssSelector(".ox_openxavatest_Carrier__tipable.ox_openxavatest_Carrier__fellowCarriersCalculated_col1")).get(0).getText());
         menuIcons = getDriver().findElements(By.className("xava_popup_menu_icon"));
         menuIcons.get(3).click();
         menu = getDriver().findElements(By.className("ox-popup-menu"));
-        menu.get(3).findElements(By.tagName("a")).get(3).click();
+        menu.get(3).findElements(By.tagName("a")).get(4).click();
 
         goModule("Invoice");
         menuIcons = getDriver().findElements(By.className("xava_popup_menu_icon"));
