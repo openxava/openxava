@@ -405,7 +405,6 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 <%
 	}
 	if (style.isSeveralActionsPerRow() && !grouping) {
-		// tmr Poner lo de availableActions tambi�n en colecciones calculadas
 		String argv = "row=" + f + actionArgv;
 		Collection<String> availableActions = view.removeUnavailableActionFromRow(rowActions, argv);
 		boolean hasIconOrImage = view.isRowActionHaveIcon(availableActions);

@@ -1117,17 +1117,17 @@
 		<action name="removeWarehouse" mode="detail" 
 			class="org.openxava.test.actions.CarrierRemoveWarehouseAction"/>
 
-		<!-- tmr i18n -->	
 		<action name="toUpperCase" mode="list" in-each-row="true" 
 			class="org.openxava.test.actions.CarrierToUpperCaseAction"/>		
 
-		<!-- tmr i18n -->	
 		<action name="removeRemarks" in-each-row="true" hidden="true"
 			class="org.openxava.test.actions.RemoveRemarksFromCarrierAction"/>		
 			
-		<action name="showIsAvailableCallsCounter" class="org.openxava.test.actions.ShowIsAvailableCallsCounterAction"/>
+		<action name="showIsAvailableCallsCounter" 
+			class="org.openxava.test.actions.ShowIsAvailableCallsCounterAction"/>
 		
-		<action name="resetIsAvailableCallsCounter" class="org.openxava.test.actions.ResetIsAvailableCallsCounterAction"/>
+		<action name="resetIsAvailableCallsCounter" 
+			class="org.openxava.test.actions.ResetIsAvailableCallsCounterAction"/>
 	</controller>
 		
 	<controller name="CarrierFellows">

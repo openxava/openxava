@@ -29,9 +29,6 @@ public class CarrierToUpperCaseAction extends TabBaseAction implements IAvailabl
 	@Override
 	@SuppressWarnings("unchecked")
 	public boolean isAvailable() {
-		// TMR ME QUEDÉ POR AQUÍ: LLAMA DEMASIADAS VECES. CORREGIRLO Y TESTEARLO
-		// tmr Check how many times it's called?
-		System.out.println("[CarrierToUpperCaseAction.isAvailable()] getRow()=" + getRow()); // tmr
 		StaticCounter.increment();
 		try {
 			if (getRow() < 0) return false;

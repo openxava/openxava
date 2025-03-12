@@ -104,7 +104,7 @@ for (int f=0; itAggregates.hasNext(); f++) {
 				for (java.util.Iterator itRowActions = rowActionNames.iterator(); itRowActions.hasNext(); ) { 	
 					String rowAction = (String) itRowActions.next();		
 %>
-<xava:action action='<%=rowAction%>' argv='<%=argv%>'/>
+<xava:action action='<%=rowAction%>' argv='<%=argv%>' alwaysAvailable='true'/>
 <%
 				}
 			} else {
@@ -123,6 +123,7 @@ for (int f=0; itAggregates.hasNext(); f++) {
 			<jsp:param name="action" value="<%=rowActionString%>"/>
 			<jsp:param name="addSpaceWithoutImage" value="<%=hasIconOrImage%>"/>
 			<jsp:param name="argv" value='<%="row=" + f + ",viewObject="+viewName%>'/>
+			<jsp:param name="alwaysAvailable" value="true"/>
 		</jsp:include>
 	</li>
 <%

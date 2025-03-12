@@ -4,6 +4,8 @@ package org.openxava.actions;
  * An action that can be available for the user or hidden, depend on a programmatic condition.
  * 
  * tmr ¿Redoc para indicar que se puede usar en acciones de fila?
+ * tmr Falta probar con 7.4.5 y 7.3.x
+ * tmr Documentar con ejemplo en referencia
  * 
  * @since 5.9
  * @author Javier Paniza
