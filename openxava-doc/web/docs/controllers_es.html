@@ -2557,8 +2557,9 @@ class="sy0">;</span>
           href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/TabBaseAction.html"
           rel="nofollow">org.openxava.actions.TabBaseAction</a></em>.<br>
       Desde v2.1.4 este tipo de acciones <a class="wiki_link" href="view_en.html#toc22">también
-        pueden ser usadas como @ListAction</a> <em>(&lt;accion-lista/&gt;</em>
-      de una <em>&lt;vista-coleccion/&gt;)</em>.<br>
+        pueden ser usadas como @ListAction</a> para colecciones con <i>@OneToMany</i>
+      y <i>@Condition</i>, pero no para colecciones calculadas, <i>@ManyToMany</i>
+      o listas con <i>@OrderColumn</i>.<br>
       <h2 id="toc10"><a name="Controladores-Sobreescribir+busqueda+por+defecto"></a>Sobreescribir
         búsqueda por defecto</h2>
       Cuando en un módulo nos aparece el modo lista y pulsamos para visualizar
