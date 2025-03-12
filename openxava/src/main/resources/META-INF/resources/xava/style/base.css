@@ -24,17 +24,14 @@ Pendiente:
 	* SignIn 
 	* Colecciones
 * Colecciones: Dentro de marco y de sección.
-- Texto rico y area de texto.
-- Lista de iconos.
-- Subir archivos.
-- Charts.
-- Probar con bordes y redondeados de textfields.
-- ¿Navegación entre módulos?
-
+* Texto rico. 
+* Area de texto.
+* Subir archivos.
+* Dashboard
 
 - changelog
-- ¿Documentación? Quizás podría cambiar los pantallazos en estilo, ¿en openxava.org? ¿en firststeps?
-- Adaptar sitio a nuevo estilo.
+* ¿Documentación? Quizás podría cambiar los pantallazos en estilo, ¿en openxava.org? ¿en firststeps?
+* Adaptar sitio a nuevo estilo.
 */
 
 
@@ -743,6 +740,11 @@ input[type="datetime-local"], .ui-widget input[type="datetime-local"],
 	border-radius: 4px;
 	color: var(--input-color);
 	background: var(--input-background); 
+}
+
+textarea, .ui-widget textarea {   
+	border-radius: 12px;
+	color: var(--input-color);
 }
 
 input[type="text"], input[type="password"], input[type="file"], input[type="date"], input[type="datetime-local"], textarea { 
@@ -2514,7 +2516,8 @@ span[id*="reference_editor"] + .ox-layout-detail {
 
 .xava_editor .tox-tinymce {
 	border-style: none;	
-	border-radius: 2px;
+	border-radius: 12px;
+	margin-bottom: 3px;
 }
 
 .xava_editor .tox .tox-tbtn:hover, 
@@ -2796,6 +2799,7 @@ div[id$="_Index__view"] .ox-list-title {
 
 .filepond--root {
 	overflow: hidden; 
+	border-radius: 12px;
 }
 
 .filepond--drop-label label {
