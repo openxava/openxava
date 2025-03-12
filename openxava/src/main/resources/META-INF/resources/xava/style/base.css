@@ -125,7 +125,7 @@
 	--card-content-hover-color: var(--card-color);					
 	--card-subheader-hover-color: var(--action-hover-color);
 	--card-content-b-hover-color: var(--action-hover-color);
-    --card-hover-shadow: gray;
+    --card-hover-shadow: lightgray;
     --card-header-hover-color: var(--action-hover-color);
 		
 	--list-header-background: var(--header-background);
@@ -705,6 +705,11 @@ input[type="datetime-local"], .ui-widget input[type="datetime-local"],
 	background: var(--input-background); 
 }
 
+textarea, .ui-widget textarea {   
+	border-radius: 12px;
+	color: var(--input-color);
+}
+
 input[type="text"], input[type="password"], input[type="file"], input[type="date"], input[type="datetime-local"], textarea { 
 	padding: 4px;
 }
@@ -767,6 +772,10 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 input[type="radio"] {
 	margin: 4px 0px 4px 10px;
 	vertical-align: middle;
+}
+
+.ox-frame .ox-list { 
+	border: 2px solid;
 }
 
 .ox-list-subheader input[type="text"] { 
@@ -910,7 +919,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 }
 
 .ox-button-bar {
-	padding: 8px 10px 16px 10px;
+	padding: 9px 10px 15px 10px; 
 	background: var(--button-bar-background);
 	box-shadow: 0px 1px 3px var(--button-bar-shadow); 
 }
@@ -944,7 +953,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 }
 
 .ox-button-bar .ox-button-bar-button a {  
-	padding: 6px 6px 6px 0px;  
+	padding: 6px 4px 6px 6px; 
 }
 
 .ox-button-bar .ox-button-bar-button a img {
@@ -1035,7 +1044,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 }
 
 .ox-collection-list-actions .ox-button-bar-button a {
-	padding: 6px;  
+	padding: 6px 4px 6px 12px;
 }
 
 .ox-collection-list-actions .ox-button-bar-button a i {
@@ -1070,8 +1079,8 @@ i, .ox-icon i.mdi-close-circle,
 .ox-collection-list-actions .ox-button-bar-button a 
 {
 	border: 1px transparent;
-	margin: 3px;
-	border-radius: 5px;
+	margin: 1px; 
+	border-radius: 16px;
 }
 
 .ox-list-mode .ox-button-bar a[id*="new"], .ox-list-mode .ox-button-bar a[id*="new"] i,
@@ -1359,15 +1368,14 @@ a.ox-selected-list-format, a.ox-selected-list-format:hover {
 }
 
 input[type="button"]  { 
-	padding: 10px;
+	padding: 10px 15px 10px 15px;
 	margin-right: 4px;
 	margin-bottom: 8px;	
 	font-weight: bold;
 	text-decoration: none;
-	border-radius: 5px;  
+	border-radius: 24px;  
 	cursor: pointer;
-	font-size: 13px;
-	text-transform: uppercase;
+	font-size: 15px;
 }
 
 .ui-dialog input[type="button"], 
@@ -1390,7 +1398,6 @@ input[type="button"]:focus {
 .ox-discussion-post-button input[type="button"]:nth-of-type(1) {
 	background: var(--default-action-button-background);
 	color: var(--default-action-button-color);
-	box-shadow: 0px 1px 3px var(--default-action-button-shadow); 
 }
 
 .ox-bottom-buttons input:nth-of-type(2):hover,
@@ -1658,11 +1665,7 @@ input[type="button"] {
 	margin-bottom: 5px;
 	margin-right: 7px; 
 	padding: 10px 10px 3px 10px;
-	border-radius: 2px;
-}
-
-#sign_in_box, .ox-card, .ox-list, .ox-chart-data {  
-	box-shadow: 0px 0px 3px var(--shadow) !important; 
+	border-radius: 12px;
 }
 
 #sign_in_box .ox-image-link {
@@ -1674,11 +1677,7 @@ input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
 }
 
 .ox-frame {
-	background: linear-gradient(
-		to bottom,
-		var(--frame-background), 
-		rgba(0, 0, 0, 0)  
-	) var(--background);
+	background: var(--frame-background); 
 	box-shadow: none;	 
 }
 
@@ -1750,7 +1749,6 @@ input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
 .ox-section-tab {	
 	font-weight: bold;
 	float: left;
-	text-transform: uppercase;
 	border-bottom: 3px solid transparent;
 }
 
@@ -1834,7 +1832,7 @@ td.ox-list-subheader > div {
 }
 
 .ui-dialog, #xava_processing_layer {
-	border-radius: 2px !important; 
+	border-radius: 24px !important; 
 	border: none !important;
 	box-shadow: 4px 4px 18px var(--dialog-shadow);
 }
@@ -1849,6 +1847,7 @@ td.ox-list-subheader > div {
 
 .ui-dialog-titlebar, .ui-dialog-titlebar button {  
 	border-style: none !important;
+	margin-right: 5px;
 }
 
 .ui-dialog-titlebar {
@@ -1889,7 +1888,7 @@ td.ox-list-subheader > div {
 	padding: 10px; 
 	border: 0px;
 	margin-bottom: 12px;
-	border-radius: 2px;	
+	border-radius: 12px;	
 	box-shadow: 0px 0px 7px var(--message-box-shadow);  
 }
 
@@ -1952,7 +1951,7 @@ td.ox-list-subheader > div {
 }
 
 .ox-button-bar-button span {
-	margin-right: -7px;  
+	margin-left: -5px; 
 }
 
 .ox-subcontroller-button .mdi-menu-down {
@@ -2003,7 +2002,8 @@ div.ox-subcontroller table{
 .ox-list, .ox-chart-data {
 	background: var(--list-background);
 	margin: 10px;
-	border-radius: 2px;
+	border-radius: 12px;
+	overflow: hidden; 
 }
 
 .ox-list .ox-list-header:last-child  {
@@ -2088,6 +2088,7 @@ div.ox-subcontroller table{
 	width: 283px;
 	width: fit-content;
 	width: -moz-fit-content;
+	border-radius: 24px;
 }
 
 #sign_in_box .ox-bottom-buttons {
@@ -2478,7 +2479,8 @@ span[id*="reference_editor"] + .ox-layout-detail {
 
 .xava_editor .tox-tinymce {
 	border-style: none;	
-	border-radius: 2px;
+	border-radius: 12px;
+	margin-bottom: 3px;
 }
 
 .xava_editor .tox .tox-tbtn:hover, 
@@ -2580,7 +2582,7 @@ div[id$="_Index__view"] .ox-list-title {
 
 .ox-card:hover {
 	cursor: pointer;
-	box-shadow: 1px 1px 5px var(--card-hover-shadow);
+	filter: brightness(95%); 
 }
 
 .ox-card:hover .ox-card-header {
@@ -2760,6 +2762,7 @@ div[id$="_Index__view"] .ox-list-title {
 
 .filepond--root {
 	overflow: hidden; 
+	border-radius: 12px;
 }
 
 .filepond--drop-label label {

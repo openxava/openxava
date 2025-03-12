@@ -1,6 +1,12 @@
 Change Log for OpenXava project
 ===============================
 
+- Rounded corners for frames, dialogs, lists, cards, buttons, messages, sign in, tooltips, charts, etc.
+- Flat design applied to most UI elements, removing shadows.
+- Tabs and buttons no longer use all uppercase.
+- Frames no longer use gradients for backgrounds.
+- Nested frames use a different background color.
+- In the Dark theme, the border of lists is removed and replaced by a color change in the background.
 - New allowMoveNodes attribute in @Tree annotation to disable drag & drop to move nodes in the tree.
 - Custom JPA EntityManagerFactory creation with entityManagerFactoryProviderClass in xava.properties.
 - default-controllers-ext.xml / controladores-defecto-ext.xml to define controllers in libraries/frameworks.
