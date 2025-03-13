@@ -1,7 +1,10 @@
 package org.openxava.actions;
 
 /**
- * An action that can be available for the user or hidden, depend on a programmatic condition.
+ * An action that can be available for the user or hidden, depend on a programmatic condition. <p>
+ * 
+ * It can be used for any type of action, even for list action or row action to have action
+ * that are only show in some rows, depending on the content.
  * 
  * @since 5.9
  * @author Javier Paniza

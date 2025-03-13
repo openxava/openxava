@@ -115,6 +115,7 @@ public class Carrier {
 	@OnSelectElementAction(forViews="CalculatedFellows", value="Carrier.onSelectFellowCarriersCalculated") 
 	@OnSelectElementAction(forViews="CollectionsTogether", value="Carrier.syncCarriersSelection")
 	@NoDefaultActions(forViews="NoDefaultActions")
+	@RowAction("Carrier.removeRemarks") 
 	public Collection<Carrier> getFellowCarriersCalculated() {
 		// This method exists for compliance with OpenXavaTest
 		return getFellowCarriers();

@@ -405,13 +405,14 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 <%
 	}
 	if (style.isSeveralActionsPerRow() && !grouping) {
-		rowActions = view.removeUnavailableActionFromRow(rowActions, actionArgv);
-		boolean hasIconOrImage = view.isRowActionHaveIcon(rowActions);
-		if (rowActions.size() < XavaPreferences.getInstance().getRowActionsPopupThreshold() - 1) { 
-			for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext(); ) { 	
+		String argv = "row=" + f + actionArgv;
+		Collection<String> availableActions = view.removeUnavailableActionFromRow(rowActions, argv);
+		boolean hasIconOrImage = view.isRowActionHaveIcon(availableActions);
+		if (availableActions.size() < XavaPreferences.getInstance().getRowActionsPopupThreshold() - 1) { 
+			for (java.util.Iterator itRowActions = availableActions.iterator(); itRowActions.hasNext(); ) { 	
 				String rowAction = (String) itRowActions.next();
 %>
-			<xava:action action='<%=rowAction%>' argv='<%="row=" + f + actionArgv%>'/>
+			<xava:action action='<%=rowAction%>' argv='<%=argv%>' alwaysAvailable="true"/>
 <%
 			}
 		} else {
@@ -423,7 +424,7 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 
 <ul class="ox-popup-menu ox-image-link ox-display-none">
 <%		
-			for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext(); ) { 	
+			for (java.util.Iterator itRowActions = availableActions.iterator(); itRowActions.hasNext(); ) { 	
 				String rowActionString = (String) itRowActions.next();			
 %>
 	<li>
@@ -431,6 +432,7 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 			<jsp:param name="action" value="<%=rowActionString%>"/>
 			<jsp:param name="addSpaceWithoutImage" value="<%=hasIconOrImage%>"/>
 			<jsp:param name="argv" value='<%="row=" + f + actionArgv%>'/>
+			<jsp:param name="alwaysAvailable" value='true'/>
 		</jsp:include>
 	</li>
 <%

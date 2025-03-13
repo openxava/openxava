@@ -3591,6 +3591,10 @@ class="re0">action</span>=<span class="st0">""</span><span class="re2">/&gt;</sp
       característica puede ser útil cuando el nombre de la acción lo obtenemos
       dinámicamente (es decir <em>action=”&lt;%=micodigo()%&gt;”</em>), y el
       valor pueda estar vacío en ciertos casos.<br>
+      A partir de v7.5 <i>&lt;xava:action/&gt;, &lt;xava:link/&gt;, &lt;xava:image/&gt;</i> y <i>&lt;xava:button/&gt;</i> 
+      tienen un nuevo atributo, <i>alwaysAvailable</i>, es opcional y su valor por defecto es <i>false</i>. 
+      Cuando su valor es <i>true</i> la acción aparece siempre, incluso si <i>isAvailable()</i> de <i>IAvailableAction</i> 
+      devuelve <i>false</i>.
       <h3 id="toc18"><a name="Personalizacion-Vistas+JSP+propias+y+taglibs+de+OpenXava-xava:message+(nuevo+en+v2.0.3)"></a>xava:message
         (nuevo en v2.0.3)</h3>
       La marca (tag) &lt;xava:message/&gt; permite mostrar en HTML un mensaje de

@@ -18,13 +18,14 @@ if (!Is.emptyString(actionName)) {
 	MetaAction action = MetaControllers.getMetaAction(request.getParameter("action"));
 	String argv = request.getParameter("argv");
 	String label = action.getLabel(request); 
+	boolean alwaysAvailable = "true".equals(request.getParameter("alwaysAvailable"));
 %>
 
 	<% if (style.isUseStandardImageActionForOnlyImageActionOnButtonBar() && action.hasImage() && Is.emptyString(label)) { %>
-<xava:image action='<%=action.getQualifiedName()%>' argv='<%=argv %>' cssClass='<%=style.getButtonBarImage()%>'/>	
+<xava:image action='<%=action.getQualifiedName()%>' argv='<%=argv %>' cssClass='<%=style.getButtonBarImage()%>' alwaysAvailable="<%=alwaysAvailable%>"/>	
 	<% } else {  %>		
 <span class="ox-button-bar-button">	
-<xava:link action="<%=action.getQualifiedName()%>" argv='<%=argv %>'>
+<xava:link action="<%=action.getQualifiedName()%>" argv='<%=argv %>' alwaysAvailable="<%=alwaysAvailable%>">
 		<% 
 		boolean showLabel = (showLabels || !action.hasImage()) && !Is.emptyString(label);  
 		boolean showImage = showImages && action.hasImage() || action.hasImage() && Is.emptyString(label);

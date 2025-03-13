@@ -25,6 +25,11 @@
        <rtexprvalue>true</rtexprvalue>
     </attribute>    
     <attribute>
+       <name>alwaysAvailable</name>
+       <required>false</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>                      
+    <attribute>
        <name>cssClass</name>
        <required>false</required>
        <rtexprvalue>true</rtexprvalue>
@@ -51,6 +56,11 @@
        <required>false</required>
        <rtexprvalue>true</rtexprvalue>
     </attribute>
+    <attribute>
+       <name>alwaysAvailable</name>
+       <required>false</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>                      
   </tag>         
   
   <tag>
@@ -68,6 +78,11 @@
        <required>false</required>
        <rtexprvalue>true</rtexprvalue>
     </attribute>
+    <attribute>
+       <name>alwaysAvailable</name>
+       <required>false</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>                      
     <attribute>
        <name>cssClass</name>
        <required>false</required>
@@ -95,6 +110,11 @@
        <required>false</required>
        <rtexprvalue>true</rtexprvalue>
     </attribute>    
+    <attribute>
+       <name>alwaysAvailable</name>
+       <required>false</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>                      
   </tag>         
   
   <tag>

@@ -642,6 +642,7 @@
 		<action name="startRefisher" class="org.openxava.test.actions.StartRefisherAction"/>
 		<action name="stopRefisher" class="org.openxava.test.actions.StopRefisherAction"/>
 		
+		
 		<action name="filterBySellerOne" class="org.openxava.test.actions.FilterBySellerOneAction" mode="list"/>
 			
 	</controller>
@@ -1115,7 +1116,18 @@
 			
 		<action name="removeWarehouse" mode="detail" 
 			class="org.openxava.test.actions.CarrierRemoveWarehouseAction"/>
+
+		<action name="toUpperCase" mode="list" in-each-row="true" 
+			class="org.openxava.test.actions.CarrierToUpperCaseAction"/>		
+
+		<action name="removeRemarks" in-each-row="true" hidden="true"
+			class="org.openxava.test.actions.RemoveRemarksFromCarrierAction"/>		
 			
+		<action name="showIsAvailableCallsCounter" 
+			class="org.openxava.test.actions.ShowIsAvailableCallsCounterAction"/>
+		
+		<action name="resetIsAvailableCallsCounter" 
+			class="org.openxava.test.actions.ResetIsAvailableCallsCounterAction"/>
 	</controller>
 		
 	<controller name="CarrierFellows">

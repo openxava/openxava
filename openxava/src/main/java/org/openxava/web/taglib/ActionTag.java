@@ -20,6 +20,7 @@ public class ActionTag extends TagSupport {
 	private IActionTag actionTag;
 	private String action;
 	private String argv;
+	private boolean alwaysAvailable;
 	
 	public int doStartTag() throws JspException {
 		try {
@@ -49,6 +50,7 @@ public class ActionTag extends TagSupport {
 			actionTag.setPageContext(pageContext);
 			actionTag.setAction(action);
 			actionTag.setArgv(argv);
+			actionTag.setAlwaysAvailable(alwaysAvailable);
 			return actionTag.doStartTag();			
 		}
 		catch (Exception ex) {
@@ -79,6 +81,22 @@ public class ActionTag extends TagSupport {
 
 	public void setArgv(String string) {
 		argv = string;
+	}
+
+	/**
+	 * Returns if the action is always available, regardless of the isAvailable() method result.
+	 * @return true if the action is always available, false otherwise
+	 */
+	public boolean isAlwaysAvailable() {
+		return alwaysAvailable;
+	}
+
+	/**
+	 * Sets if the action is always available, regardless of the isAvailable() method result.
+	 * @param alwaysAvailable true to make the action always available, false otherwise
+	 */
+	public void setAlwaysAvailable(boolean alwaysAvailable) {
+		this.alwaysAvailable = alwaysAvailable;
 	}
 
 }

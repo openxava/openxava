@@ -212,8 +212,8 @@ public class ModuleManager implements java.io.Serializable {
 		return false;
 	}
 
-	public Collection getRowActionsNames() {
-		Collection actions = new ArrayList();
+	public Collection<String> getRowActionsNames() {
+		Collection<String> actions = new ArrayList<>();
 		for (MetaAction action : getMetaActions()) {
 			if (action.isHidden())
 				continue;

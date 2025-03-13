@@ -7,6 +7,12 @@ Change Log for OpenXava project
 - Frames no longer use gradients for backgrounds.
 - Nested frames use a different background color.
 - In the Dark theme, the border of lists is removed and replaced by a color change in the background.
+- Documentation in reference guide to create optional row actions depending on the content of the row.
+- JSP taglibs xava:action, xava:link, xava:image and xava:button have a new 'alwaysAvailable' attribute.
+- Fix: Redudant calls to isAvailable() of IAvailableAction in row actions (introduced in v7.4).
+- Fix: Extra space among row actions when one is ommited using IAvailableAction.
+- List mode actions documentation in controllers section of reference guide improved.
+- Fix: IAvailableAction in a row action not shown in any row if not available in the first row (bug of 7.4).
 - New allowMoveNodes attribute in @Tree annotation to disable drag & drop to move nodes in the tree.
 - Custom JPA EntityManagerFactory creation with entityManagerFactoryProviderClass in xava.properties.
 - default-controllers-ext.xml / controladores-defecto-ext.xml to define controllers in libraries/frameworks.
