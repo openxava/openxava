@@ -1,6 +1,12 @@
 Change Log for OpenXava project
 ===============================
 
+- Rounded corners for frames, dialogs, lists, cards, buttons, messages, sign in, tooltips, charts, etc.
+- Flat design applied to most UI elements, removing shadows.
+- Tabs and buttons no longer use all uppercase.
+- Frames no longer use gradients for backgrounds.
+- Nested frames use a different background color.
+- In the Dark theme, the border of lists is removed and replaced by a color change in the background.
 - Documentation in reference guide to create optional row actions depending on the content of the row.
 - JSP taglibs xava:action, xava:link, xava:image and xava:button have a new 'alwaysAvailable' attribute.
 - Fix: Redudant calls to isAvailable() of IAvailableAction in row actions (introduced in v7.4).

@@ -3,6 +3,7 @@
 :root {
 	--my-highlight: rgb(51, 103, 214);
 	--my-lightgray: rgb(243, 243, 243);
+	--my-transparent-lightgray: rgb(128, 128, 128, 0.1);	
 	--my-gray: rgb(95, 99, 104);
 	--my-black: rgb(32, 33, 36);
 	
@@ -21,11 +22,11 @@
 	--list-formats-hover-color: var(--my-gray);
 	
 	/* Backgrounds & labels */
-	--background: white;
+	--background: rgb(251, 251, 251);
 	--color: var(--my-black);
 	
 	/* Frames */
-	--frame-background: var(--my-lightgray);
+	--frame-background: var(--my-transparent-lightgray);
 	
 	/* Actions */
 	--action-color: var(--my-gray);
