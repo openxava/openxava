@@ -7,8 +7,6 @@ package org.openxava.actions;
  * that are only show in some rows, depending on the content.
  * 
  * tmr Documentar con ejemplo en referencia para lista y mencinoar en colecciones (desde la 5.9)
- * TMR   ME QUEDÉ POR AQUÍ: PARA HACER ESA DOCUMENTACIÓN. QUERÍA AÑADIR UNA NUEVA SECCIÓN
- * TMR     ACCIONES OPCIONALES EN CONTROLLERS, JUSTO DESPUÉS DE LA DE ACCIONES DE LISTA
  * 
  * @since 5.9
  * @author Javier Paniza
