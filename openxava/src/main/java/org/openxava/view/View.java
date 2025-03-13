@@ -5381,9 +5381,6 @@ public class View implements java.io.Serializable {
 	 * @since 7.4
 	 */
 	public Collection<String> removeUnavailableActionFromRow(Collection<String> rowActions, String actionArgv) {
-		// tmr En changelog, de esta forma:
-		// tmr   - No deja espacios extra entre acciones.
-		// tmr   - No ejecuta la pregunta de forma redundante.
 		ModuleManager moduleManager = getModuleManager(getRequest());
 		Collection<String> actionsToRemove = null;
 		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext();) {

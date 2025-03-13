@@ -3563,6 +3563,10 @@ class="re0">action</span>=<span class="st0">""</span><span class="re2">/&gt;</sp
       In this case the tag has no effect and no error is produced. This feature
       may be useful if you fill the name of the action dynamically (that is
       action=”&lt;%=mycode()%&gt;”), and the value can be empty in some cases.<br>
+      As of v7.5, <i>&lt;xava:action/&gt;, &lt;xava:link/&gt;, &lt;xava:image/&gt;</i>, and <i>&lt;xava:button/&gt;</i>
+have a new attribute, <i>alwaysAvailable</i>. It is optional, and its default value is <i>false</i>.
+When its value is <i>true</i>, the action always appears, even if <i>isAvailable()</i> from <i>IAvailableAction</i>
+returns <i>false</i>      
       <h3 id="toc18"><a name="Customizing-Custom JSP view and OpenXava taglibs-xava:message (new in v2.0.3)"></a>xava:message
         (new in v2.0.3)</h3>
       The &lt;xava:message/&gt; tag allows to show in HTML a message from the

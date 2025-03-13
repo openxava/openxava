@@ -24,7 +24,6 @@
        <required>false</required>
        <rtexprvalue>true</rtexprvalue>
     </attribute>    
-    <!-- tmr Documentar -->
     <attribute>
        <name>alwaysAvailable</name>
        <required>false</required>
@@ -57,7 +56,6 @@
        <required>false</required>
        <rtexprvalue>true</rtexprvalue>
     </attribute>
-    <!-- tmr Documentar -->
     <attribute>
        <name>alwaysAvailable</name>
        <required>false</required>
@@ -80,7 +78,6 @@
        <required>false</required>
        <rtexprvalue>true</rtexprvalue>
     </attribute>
-    <!-- tmr Documentar -->
     <attribute>
        <name>alwaysAvailable</name>
        <required>false</required>
@@ -113,7 +110,6 @@
        <required>false</required>
        <rtexprvalue>true</rtexprvalue>
     </attribute>    
-    <!-- tmr Documentar -->
     <attribute>
        <name>alwaysAvailable</name>
        <required>false</required>
