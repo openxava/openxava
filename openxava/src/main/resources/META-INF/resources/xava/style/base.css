@@ -1578,7 +1578,7 @@ input[type="button"] {
 }
 
 .ox-page-navigation, .ox-page-navigation-selected{
-	border-radius: 2px; 
+	border-radius: 16px; 
 	padding: 7px 10px 7px 10px;
 	font-weight: bold;
 }
@@ -1590,7 +1590,13 @@ input[type="button"] {
 
 .ox-page-navigation-arrow {
 	padding: 7px 0px 7px 2px;
+	border-radius: 16px;
 }
+
+.ox-first .ox-page-navigation-arrow {
+	padding: 7px 2px 7px 0px;	
+}
+
 
 .ox-page-navigation-arrow i, .ox-page-navigation-arrow-disable i {
 	font-size: 200%; 
@@ -1969,10 +1975,7 @@ td.ox-list-subheader > div {
 	display: none;  
 	z-index: 999999;
 	box-shadow: 4px 4px 18px var(--subcontroller-shadow);
-	border-bottom-left-radius: 2px;
-	border-bottom-right-radius: 2px;
-	border-top-left-radius: 2px;
-	border-top-right-radius: 2px;	
+	border-radius: 12px;	
 }
 
 .ox-subcontroller {
@@ -2978,7 +2981,7 @@ a[data-action="Collection.previous"] {
     position: absolute;
     background: var(--list-row-hover-background);
     box-shadow: 4px 4px 18px var(--subcontroller-shadow);
-    border-radius: 2px;
+    border-radius: 12px;
     list-style: none;
     padding: 0px;
     margin: 0;
