@@ -35,11 +35,12 @@
         <div style="margin-left: 3em;"><a href="#Controladores-Inyeccion+de+dependencias-@Inject+%28JSR-330%29+%28nuevo+en+v4m2%29">@Inject
             (JSR-330) (nuevo en v4m2)</a></div>
         <div style="margin-left: 3em;"><a href="#Controladores-Inyeccion+de+dependencias-Usar++para+inyeccion+de+dependencias">Usar
-            &lt;usa-objeto /&gt; para inyección de dependencias</a></div>
+            un módulo con una acción</a></div>
         <div style="margin-left: 2em;"><a href="#Controladores-Herencia%20de%20controladores">Herencia
             de controladores</a></div>
         <div style="margin-left: 2em;"><a href="#Controladores-Acciones%20en%20modo%20lista">Acciones
             en modo lista</a></div>
+        <div style="margin-left: 2em;"><a href="#Controladores-Acciones%20opcionales">Acciones opcionales (nuevo en v5.9)</a></div>
         <div style="margin-left: 2em;"><a href="#Controladores-Sobreescribir+busqueda+por+defecto">Sobreescribir
             búsqueda por defecto</a></div>
         <div style="margin-left: 2em;"><a href="#Controladores-Inicializando+un+modulo+con+una+accion">Inicializando
@@ -2560,7 +2561,64 @@ class="sy0">;</span>
         pueden ser usadas como @ListAction</a> para colecciones con <i>@OneToMany</i>
       y <i>@Condition</i>, pero no para colecciones calculadas, <i>@ManyToMany</i>
       o listas con <i>@OrderColumn</i>.<br>
-      <h2 id="toc10"><a name="Controladores-Sobreescribir+busqueda+por+defecto"></a>Sobreescribir
+      <h2 id="toc10"><a name="Controladores-Acciones opcionales"></a>Acciones opcionales <i>(nuevo en v5.9)</i></h2>
+      Puedes crear acciones que estén disponibles u ocultas según una condición programática.
+      Estas acciones implementan la interfaz <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/IAvailableAction.html" rel="nofollow">IAvailableAction</a></em>, que define un método
+      <em>isAvailable()</em> que devuelve un booleano indicando si la acción debe mostrarse
+      o no.<br>
+      La interfaz <em>IAvailableAction</em> puede ser implementada por cualquier tipo de acción (detalle, lista, colección, etc.).
+      Cuando OpenXava está a punto de mostrar una acción, comprueba si la acción implementa <em>IAvailableAction</em>
+      y si es así, llama al método <em>isAvailable()</em>. Si el método devuelve <em>false</em>, la acción
+      no se muestra.<br>
+      Veamos un ejemplo de una acción de lista que solo está disponible para filas específicas dependiendo de su contenido. En este caso, la acción solo se mostrará para las filas donde el nombre del transportista no esté ya en mayúsculas:<br>
+      <pre><code class="java">package org.openxava.test.actions;
+
+import java.util.*;
+
+import org.apache.commons.logging.*;
+import org.openxava.actions.*;
+import org.openxava.model.*;
+import org.openxava.test.model.*;
+
+/**
+ * Acción para convertir los elementos seleccionados en una lista a mayúsculas.
+ * @author Javier Paniza
+ */
+public class CarrierToUpperCaseAction extends TabBaseAction implements IAvailableAction {   // 1
+
+	private static Log log = LogFactory.getLog(CarrierToUpperCaseAction.class);
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public void execute() throws Exception {
+		Map<String, Object>[] selectedOnes = getSelectedKeys();
+		for (int i = 0; i < selectedOnes.length; i++) {
+			Carrier carrier = (Carrier) MapFacade.findEntity("Carrier", selectedOnes[i]);
+			carrier.setName(carrier.getName().toUpperCase());
+		}
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public boolean isAvailable() {                                                         // 2
+		try {
+			if (getRow() < 0) return false;                                                // 3
+			Map<String, Object> key = getSelectedKeys()[0];
+			Carrier carrier = (Carrier) MapFacade.findEntity("Carrier", key);
+			return !carrier.getName().equals(carrier.getName().toUpperCase());             // 4
+		}
+		catch (Exception ex) {
+			log.error("Error checking if CarrierToUpperCaseAction is available", ex);
+			return false;
+		}
+	}
+}</code></pre>
+      Esta acción convierte a mayúsculas los nombres de los transportistas seleccionados. La acción extiende de <em>TabBaseAction</em>
+      e implementa <em>IAvailableAction</em> (1), lo que le obliga a implementar el método <em>isAvailable()</em> (2).
+      El método <em>isAvailable()</em> primero comprueba si hay una fila seleccionada (3), y luego verifica si el nombre
+      del transportista no está ya en mayúsculas (4). La acción solo se mostrará para las filas que cumplan estas condiciones.<br>
+      Ten en cuenta que desde el método <em>isAvailable()</em> tienes acceso a los mismos recursos que desde el método <em>execute()</em>, como <em>getRow()</em> o <em>getSelectedKeys()</em>, lo que te permite implementar lógica compleja para determinar cuándo una acción debe estar disponible.
+      <h2 id="toc11"><a name="Controladores-Sobreescribir+busqueda+por+defecto"></a>Sobreescribir
         búsqueda por defecto</h2>
       Cuando en un módulo nos aparece el modo lista y pulsamos para visualizar
       un detalle, entonces OpenXava busca el objeto correspondiente y lo
