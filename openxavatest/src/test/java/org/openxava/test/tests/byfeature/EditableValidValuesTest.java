@@ -13,7 +13,7 @@ public class EditableValidValuesTest extends WebDriverTestBase {
 	public EditableValidValuesTest(String testName) {
 		super(testName);
 	}
-
+	
 	public void testEditableValidValuesWorksWithCSP() throws Exception {  
 		goModule("DeliveryEditableValidValues");
 		execute("CRUD.new");
@@ -28,8 +28,7 @@ public class EditableValidValuesTest extends WebDriverTestBase {
 		input.sendKeys("NR");
 		input.sendKeys(Keys.TAB);
 		wait(getDriver());
-		String text = getText("remarks");
-		assertEquals("No remarks", text); 
+		assertValue("remarks", "No remarks");
 		execute("Mode.list");
 	}
 	

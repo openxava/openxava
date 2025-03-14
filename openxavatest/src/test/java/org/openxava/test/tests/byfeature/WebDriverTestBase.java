@@ -2,6 +2,7 @@ package org.openxava.test.tests.byfeature;
 
 import java.time.*;
 import java.util.*;
+
 import org.apache.commons.logging.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
@@ -10,6 +11,7 @@ import org.openqa.selenium.interactions.*;
 import org.openqa.selenium.support.ui.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
+
 import junit.framework.*;
 /**
  * Base class to test using Selenium WebDriver
@@ -291,8 +293,14 @@ abstract public class WebDriverTestBase extends TestCase {
         return input.getAttribute("value");
     }
     
-    protected void assertValue(String name, String value) {
-        assertEquals(XavaResources.getString("unexpected_value", name), value, getValue(name));		
+    protected void assertValue(String name, String value) throws Exception {
+    	String actualValue = getValue(name);
+    	int c=0;
+    	while (!Is.equal(actualValue, value)) {
+    		if (c++ > 20) assertEquals(XavaResources.getString("unexpected_value", name), value, actualValue);
+			Thread.sleep(100);
+			actualValue = getValue(name);
+    	}
     }
     
     protected String getValue(String name) {

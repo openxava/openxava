@@ -1,6 +1,24 @@
 Change Log for OpenXava project
 ===============================
 
+- commons-logging 1.3.5
+- Groovy 4.0.26
+- Jsoup 1.19.1
+- HtmlUnit 4.10.0 
+- PDFBox 3.0.4
+- Tomcat 9.0.102
+- JSon 20250107
+Falta:
+* Suite with Java 8. 
+* Suite with Java 21.
+- For JDBC drivers in pom.xml of archetypes and doc
+	- mysql 9.2.0
+	- postgresql 42.7.5
+	- oracle 23.7.0.25.01
+	- AS/400 21.0.0
+	- Informix 15.0.0.1
+	TMR ME QUEDÉ: ME FALTA EL FIREBIRD
+
 - Rounded corners for frames, dialogs, lists, cards, buttons, messages, sign in, tooltips, charts, etc.
 - Flat design applied to most UI elements, removing shadows.
 - Tabs and buttons no longer use all uppercase.
