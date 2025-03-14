@@ -108,7 +108,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 
 	public void testChineseDateTimeInJava8AndAmIssue_formatDateAndDateTimeUsingTwoDigits_usingFourDigits() throws Exception { 
 		changeLanguage("zh-TW");
-		appointment2();
+		appointment2(); 
 		quarter();
 		changeLanguage("zh-CN");
 		appointment2();
@@ -504,7 +504,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		execute("List.viewDetail", "row=0");
 		endTime = getDriver().findElement(By.id("ox_openxavatest_Event__endTime"));
 		endTime.sendKeys(Keys.TAB);
-		assertValue("endTime", "AM1:00");
+		assertValue("endTime", "AM1:00"); // It fails in Java 21: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff8080819581a7c6019594cccba40021
 		openTimeCalendar(0);
 		changeAmPm(1);
 		assertValue("endTime", "PM1:00");
@@ -564,7 +564,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 	private void appointment2() throws Exception {
 		goModule("Appointment2");
 		execute("List.viewDetail", "row=2");
-		assertValue("time", "2015/5/26 PM1:34");
+		assertValue("time", "2015/5/26 PM1:34"); // Fails with Java 21: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff8080819581a7c6019594cccba40021
 		assertValue("dateTime", "2015/5/26 PM2:34");
 		List<WebElement> calendarPopUp = getDriver().findElements(By.cssSelector("i.mdi.mdi-calendar-clock"));
 		calendarPopUp.get(1).click();
