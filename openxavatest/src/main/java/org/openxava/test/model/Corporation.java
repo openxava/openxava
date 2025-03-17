@@ -7,7 +7,6 @@ import javax.persistence.*;
 import org.openxava.annotations.*;
 import org.openxava.model.*;
 import org.openxava.jpa.XPersistence;
-import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * 
@@ -18,9 +17,9 @@ import org.apache.commons.lang3.tuple.Pair;
 @Views({
 	@View(members="name, icon; employees {employees}"), 
 	@View(name="Simple", members="name"),
-	// tmr @View(name="EmployeesChart", members="name; employees"),
-	@View(name="EmployeesChart", members="name; employees; extenalEmployeesRatio"), // tmr
-	@View(name="EmployeesRefinedChart", members="name; employees")
+	@View(name="EmployeesChart", members="name; employees"),
+	@View(name="EmployeesRefinedChart", members="name; employees"),
+	@View(name="EmployeesLinePieCharts", members="name; employees; externalEmployeesRatio")
 })
 public class Corporation extends Identifiable {
 
@@ -32,35 +31,37 @@ public class Corporation extends Identifiable {
 	private String icon; 
 	
 	@OneToMany(mappedBy="corporation", cascade=CascadeType.ALL)
-	// tmr @Chart(forViews="EmployeesChart")
-	//@Chart(forViews="EmployeesChart", type=ChartType.PIE) // tmr
+	@Chart(forViews="EmployeesChart")
 	@Chart(forViews="EmployeesRefinedChart", labelProperties = "firstName, lastName", dataProperties = "salary")
+	@Chart(forViews="EmployeesLinePieCharts", type=ChartType.LINE) 
 	private Collection<CorporationEmployee> employees;
 
 	@Chart(type = ChartType.PIE)
-	public Collection<Pair<String, Integer>> getExtenalEmployeesRatio() { // tmr
+	public Collection<Ratio> getExternalEmployeesRatio() { 
 		EntityManager em = XPersistence.getManager();
 		
-		// Consulta para contar empleados internos (email contiene el nombre de la corporación)
+		// Query to count internal employees (email contains corporation name)
 		Query internalQuery = em.createQuery(
-			"SELECT COUNT(e) FROM CorporationEmployee e WHERE e.corporation.id = :corporationId AND LOWER(e.email) LIKE :pattern");
+			"SELECT COUNT(e) FROM CorporationEmployee e " +
+			"WHERE e.corporation.id = :corporationId AND LOWER(e.email) LIKE :pattern");
 		internalQuery.setParameter("corporationId", getId());
 		internalQuery.setParameter("pattern", "%" + name.toLowerCase() + "%");
 		Long internalCount = (Long) internalQuery.getSingleResult();
 		
-		// Consulta para contar empleados externos (email no contiene el nombre de la corporación)
+		// Query to count external employees (email does not contain corporation name)
 		Query externalQuery = em.createQuery(
-			"SELECT COUNT(e) FROM CorporationEmployee e WHERE e.corporation.id = :corporationId AND LOWER(e.email) NOT LIKE :pattern");
+			"SELECT COUNT(e) FROM CorporationEmployee e " +
+			"WHERE e.corporation.id = :corporationId AND LOWER(e.email) NOT LIKE :pattern");
 		externalQuery.setParameter("corporationId", getId());
 		externalQuery.setParameter("pattern", "%" + name.toLowerCase() + "%");
 		Long externalCount = (Long) externalQuery.getSingleResult();
 		
-		// Crear y devolver la colección de pares
-		Collection<Pair<String, Integer>> ratios = new ArrayList<>();
-		ratios.add(Pair.of("Internal", internalCount.intValue()));
-		ratios.add(Pair.of("External", externalCount.intValue()));
+		// Create and return the collection of ratios
+		Collection<Ratio> ratios = new ArrayList<>();
+		ratios.add(new Ratio("Internos", internalCount.intValue()));
+		ratios.add(new Ratio("Externos", externalCount.intValue()));
 
-		System.out.println("Internal: " + internalCount + ", External: " + externalCount);
+		System.out.println("Internos: " + internalCount + ", Externos: " + externalCount);
 		
 		return ratios;
 	}

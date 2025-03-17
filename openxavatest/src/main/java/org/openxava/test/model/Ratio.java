@@ -5,7 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Clase que representa un ratio con descripción y valor.
+ * Class that represents a ratio with description and value.
+ * 
+ * @author Javier Paniza
  */
 @Data
 @NoArgsConstructor
