@@ -88,7 +88,7 @@ public @interface Chart {
 	 * 
 	 * If not specified, BAR is used.
 	 * 
-	 * @since 7.x
+	 * @since 7.5
 	 */
 	ChartType type() default ChartType.BAR;
 }

@@ -4,7 +4,8 @@ openxava.addEditorInitFunction(function() {
 		var data = $(this).data("data");
 		var parentId = $(this).parent().attr("id");
 		var type = $(this).data("type");
-		c3.generate({
+		
+		var chartConfig = {
 		    bindto: '#' + parentId + " .xava_collection_chart", 
 	 		data: {
 		        columns: data, 
@@ -21,7 +22,19 @@ openxava.addEditorInitFunction(function() {
 		            ratio: 0.5 
 		        }
 		    }
-		});	
+		};
+		
+		if (type === 'pie') {
+			chartConfig.pie = {
+				label: {
+					format: function(value, ratio, id) {
+						return value; 
+					}
+				}
+			};
+		}
+		
+		c3.generate(chartConfig);	
 	});
 
 });

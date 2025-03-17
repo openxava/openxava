@@ -3,7 +3,7 @@ package org.openxava.annotations;
 /**
  * Types of charts supported by the @Chart annotation.
  * 
- * @since 7.x
+ * @since 7.5
  * @author Javier Paniza
  */
 public enum ChartType {
