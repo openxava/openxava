@@ -58,11 +58,9 @@ public class Corporation extends Identifiable {
 		
 		// Create and return the collection of ratios
 		Collection<Ratio> ratios = new ArrayList<>();
-		ratios.add(new Ratio("Internos", internalCount.intValue()));
-		ratios.add(new Ratio("Externos", externalCount.intValue()));
+		ratios.add(new Ratio("Internal", internalCount.intValue()));
+		ratios.add(new Ratio("External", externalCount.intValue()));
 
-		System.out.println("Internos: " + internalCount + ", Externos: " + externalCount);
-		
 		return ratios;
 	}
 	
