@@ -3,11 +3,12 @@ openxava.addEditorInitFunction(function() {
 		var labels = $(this).data("labels");
 		var data = $(this).data("data");
 		var parentId = $(this).parent().attr("id");
+		var type = $(this).data("type");
 		c3.generate({
 		    bindto: '#' + parentId + " .xava_collection_chart", 
 	 		data: {
 		        columns: data, 
-		        type: 'bar'
+		        type: type
 		    },
 		    axis: {
 		        x: {

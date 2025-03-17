@@ -16,6 +16,7 @@ collectionChart.setLabelProperties(request.getParameter("labelProperties"));
 collectionChart.setDataProperties(request.getParameter("dataProperties"));
 JSONArray labels = new JSONArray(collectionChart.getLabels());
 JSONArray data = new JSONArray(collectionChart.getData());
+String type = request.getParameter("type").toLowerCase();
 %>
 
-<div class="xava_collection_chart" data-labels='<%=labels%>' data-data='<%=data%>'></div>
+<div class="xava_collection_chart" data-labels='<%=labels%>' data-data='<%=data%>' data-type='<%=type%>'></div>

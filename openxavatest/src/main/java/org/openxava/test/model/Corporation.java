@@ -29,7 +29,8 @@ public class Corporation extends Identifiable {
 	private String icon; 
 	
 	@OneToMany(mappedBy="corporation", cascade=CascadeType.ALL)
-	@Chart(forViews="EmployeesChart")
+	// tmr @Chart(forViews="EmployeesChart")
+	@Chart(forViews="EmployeesChart", type=ChartType.PIE) // tmr
 	@Chart(forViews="EmployeesRefinedChart", labelProperties = "firstName, lastName", dataProperties = "salary")
 	private Collection<CorporationEmployee> employees;
 	
