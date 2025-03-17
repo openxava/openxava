@@ -24,7 +24,7 @@ import java.lang.annotation.*;
  * In this case the concatenation of firstName and lastName is used as label, and the salary and
  * bonus properties as data.
  * <p>
- * You can also specify the type of chart to use:
+ * Since v7.5 you can also specify the type of chart to use:
  * <pre>
  * &nbsp;@Chart(type = ChartType.LINE, labelProperties = "month", dataProperties = "sales")
  * &nbsp;Collection<MonthlySales> sales;  
