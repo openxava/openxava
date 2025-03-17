@@ -7,6 +7,7 @@ import javax.persistence.*;
 import org.openxava.annotations.*;
 import org.openxava.model.*;
 import org.openxava.jpa.XPersistence;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * 
@@ -36,8 +37,8 @@ public class Corporation extends Identifiable {
 	@Chart(forViews="EmployeesRefinedChart", labelProperties = "firstName, lastName", dataProperties = "salary")
 	private Collection<CorporationEmployee> employees;
 
-	@Chart(labelProperties = "description", dataProperties = "value", type = ChartType.PIE)
-	public Collection<Ratio> getExtenalEmployeesRatio() { // tmr
+	@Chart(type = ChartType.PIE)
+	public Collection<Pair<String, Integer>> getExtenalEmployeesRatio() { // tmr
 		EntityManager em = XPersistence.getManager();
 		
 		// Consulta para contar empleados internos (email contiene el nombre de la corporación)
@@ -54,10 +55,10 @@ public class Corporation extends Identifiable {
 		externalQuery.setParameter("pattern", "%" + name.toLowerCase() + "%");
 		Long externalCount = (Long) externalQuery.getSingleResult();
 		
-		// Crear y devolver la colección de ratios
-		Collection<Ratio> ratios = new ArrayList<>();
-		ratios.add(new Ratio("Internal", internalCount.intValue()));
-		ratios.add(new Ratio("External", externalCount.intValue()));
+		// Crear y devolver la colección de pares
+		Collection<Pair<String, Integer>> ratios = new ArrayList<>();
+		ratios.add(Pair.of("Internal", internalCount.intValue()));
+		ratios.add(Pair.of("External", externalCount.intValue()));
 
 		System.out.println("Internal: " + internalCount + ", External: " + externalCount);
 		
