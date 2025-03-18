@@ -2,6 +2,7 @@ Change Log for OpenXava project
 ===============================
 
 
+- Pie and line charts available for collections by means of new 'type' attribute in @Chart.
 - Commons Logging upgraded to 1.3.5.
 - Groovy upgraded to 4.0.26.
 - HtmlUnit upgraded to 4.10.0. 
