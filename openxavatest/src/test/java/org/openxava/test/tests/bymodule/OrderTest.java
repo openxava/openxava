@@ -55,7 +55,7 @@ public class OrderTest extends ModuleTestBase {
 		assertTrue(takes < 4000); // With the fix it takes 2500, without it it taken around 8000 (but never less 5600)
 		
 		setLocale("zh");
-		assertLabelInList(3,"客户编号"); 
+		assertLabelInList(3,"客户编号"); // TMR ME QUEDÉ POR AQUÍ. FALLA
 		setLocale("en");
 		
 		execute("List.viewDetail", "row=0"); 

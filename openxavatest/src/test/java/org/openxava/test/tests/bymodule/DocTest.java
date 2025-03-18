@@ -24,7 +24,7 @@ public class DocTest extends ModuleTestBase {
 		
 		HtmlDivision div = (HtmlDivision) getHtmlPage().getByXPath("//div[@class='ox_openxavatest_Doc__tipable ox_openxavatest_Doc__list_col1 ox-width-100']").get(0);  
 		String title = "En un lugar de la Mancha\'2, de cuyo nombre no quiero> acordarme3, <editor url=\"booleanWithSuffixEditor.jsp\"> </editor> no ha";
-		assertTrue(div.getFirstElementChild().getAttribute("title").startsWith(title));
+		assertTrue(div.getFirstElementChild().getFirstElementChild().getAttribute("title").startsWith(title));
 		
 		execute("ListFormat.select", "editor=Charts");
 		setValue("xColumn", "content");
