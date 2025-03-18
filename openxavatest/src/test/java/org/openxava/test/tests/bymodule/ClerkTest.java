@@ -88,7 +88,6 @@ public class ClerkTest extends ModuleTestBase {
 	}
 
 	public void testListFormatSelectedButtonStyle() throws Exception { 
-		// TMR ME QUEDÉ POR AQUÍ: FALLA. ADEMAS REEJECUTAR TESTS FALLIDOS
 		HtmlElement listLink = getHtmlPage().getBody().getOneHtmlElementByAttribute("a", "data-argv", "editor=List"); 
 		assertTrue(listLink.getAttribute("class").contains("ox-selected-list-format"));
 		HtmlElement chartsLink = getHtmlPage().getBody().getOneHtmlElementByAttribute("a", "data-argv", "editor=Charts"); 
