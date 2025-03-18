@@ -34,7 +34,6 @@ public class TreeContainer {
 	private Collection<TreeItem> treeItems;
 	
 	@OneToMany(mappedBy="parentContainer", cascade = CascadeType.REMOVE)
-	@Editor("TreeView")
 	@ListProperties("description, descriptionItem")
 	@OrderBy("folder, treeOrder")
 	@Tree(pathProperty="folder", pathSeparator="-", idProperties="auxId") // auxId to test a id with a name other than 'id', for a bug
@@ -43,10 +42,9 @@ public class TreeContainer {
 	@OneToMany(mappedBy="parentContainer", cascade = CascadeType.REMOVE)
 	@ListProperties("description")
 	@OrderBy("path, treeOrder")
-	@Editor("TreeView")
+	@Tree
 	private Collection<Step> steps;
 	
-	@Editor(value="TreeView")
 	@Tree(pathProperty = "way", idProperties = "code", allowMoveNodes = false) 
 	@ListProperties("description")
 	@OrderBy("way, theOrder")

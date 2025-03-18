@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- @Tree annotation is enough to visualize collections as a tree, no need to use @Editor("TreeView").
 - The HTML title for the module is now "Module name - Application name".
 - Resizing columns by the user in list and collections enabled by default.
 - Pie and line charts available for collections by means of new 'type' attribute in @Chart.

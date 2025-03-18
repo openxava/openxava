@@ -89,15 +89,19 @@
 			<set property="nullAsFalse" value="true"/>
 		</formatter>
 		<list-formatter class="org.openxava.formatters.BooleanListFormatter" />
-		<for-type type="boolean" />		<for-type type="java.lang.Boolean" />	</editor>
+		<for-type type="boolean" />
+		<for-type type="java.lang.Boolean" />
+	</editor>
 	
 	<editor name="BooleanYesNoCombo" url="booleanYesNoEditor.jsp">
 		<formatter class="org.openxava.formatters.BooleanFormatter" />
 		<list-formatter class="org.openxava.formatters.BooleanListFormatter" />
 		<for-model-property model="MyReportColumn" property="booleanValue" />
 	</editor>	
-	<editor name="DateCalendar" url="dateCalendarEditor.jsp">
-		<formatter class="org.openxava.formatters.DateFormatter" />		<for-type type="java.util.Date" />
+
+	<editor name="DateCalendar" url="dateCalendarEditor.jsp">
+		<formatter class="org.openxava.formatters.DateFormatter" />
+		<for-type type="java.util.Date" />
 	</editor>
 	
 	<editor name="LocalDateCalendar" url="dateCalendarEditor.jsp">
@@ -328,6 +332,7 @@
 
 	<editor name="TreeView" url="treeViewEditor.jsp">
 		<property name="reader" value="org.openxava.web.editors.TreeViewReaderImpl" />
+		<for-annotation annotation="org.openxava.annotations.Tree"/>
 	</editor>
 	
 	<editor url="myReportNameEditor.jsp">
