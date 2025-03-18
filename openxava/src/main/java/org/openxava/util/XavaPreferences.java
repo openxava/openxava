@@ -456,7 +456,7 @@ public class XavaPreferences {
 	
 	/** @since 4m5 */
 	public boolean isResizeColumns(){
-		return "true".equalsIgnoreCase(getProperties().getProperty("resizeColumns", "false").trim());
+		return "true".equalsIgnoreCase(getProperties().getProperty("resizeColumns", "true").trim());
 	}
 	
 	
