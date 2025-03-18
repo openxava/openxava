@@ -11,7 +11,7 @@ import java.lang.annotation.*;
  * Example:
  * <pre>
  * &nbsp;@OneToMany(mappedBy="parentContainer", cascade = CascadeType.REMOVE)
- * &nbsp;@Editor("TreeView")
+ * &nbsp;@Tree // In versions previous to v7.5 use @Editor("TreeView") too
  * &nbsp;@ListProperties("description")
  * &nbsp;@OrderBy("path, treeOrder")
  * &nbsp;private Collection<TreeItem> treeItems;
