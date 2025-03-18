@@ -31,6 +31,36 @@ public class CollectionChartTest extends WebDriverTestBase {
 		
 		goModule("StaffDashboard");
 		assertCollectionBar(2, "2020", "2021", "2022", "2023", "2024");
+		
+		goModule("CorporationEmployeesLinePieCharts");
+		execute("List.viewDetail", "row=0");
+		assertCollectionLine();
+		assertCollectionPie();
+	}
+	
+	private void assertCollectionLine() throws Exception {
+		// Verify line chart for employees
+		WebElement lineChart = getDriver().findElement(By.cssSelector("#ox_openxavatest_CorporationEmployeesLinePieCharts__collection_employees___ .xava_collection_chart"));
+		assertTrue(lineChart.isDisplayed());
+		assertEquals("line", lineChart.getAttribute("data-type"));
+		
+		List<WebElement> employeeLabels = getDriver().findElements(By.cssSelector("#ox_openxavatest_CorporationEmployeesLinePieCharts__collection_employees___ .xava_collection_chart svg .c3-axis.c3-axis-x .tick tspan"));
+		assertEquals(3, employeeLabels.size());
+		assertEquals("MARTIN", employeeLabels.get(0).getText());
+		assertEquals("ANA", employeeLabels.get(1).getText());
+		assertEquals("MIGUEL", employeeLabels.get(2).getText());
+	}
+	
+	private void assertCollectionPie() throws Exception {
+		// Verify pie chart for external employees ratio
+		WebElement pieChart = getDriver().findElement(By.cssSelector("#ox_openxavatest_CorporationEmployeesLinePieCharts__collection_externalEmployeesRatio___ .xava_collection_chart"));
+		assertTrue(pieChart.isDisplayed());
+		assertEquals("pie", pieChart.getAttribute("data-type"));
+		
+		List<WebElement> ratioLegends = getDriver().findElements(By.cssSelector("#ox_openxavatest_CorporationEmployeesLinePieCharts__collection_externalEmployeesRatio___ .xava_collection_chart .c3-legend-item"));
+		assertEquals(2, ratioLegends.size());
+		assertEquals("Internal", ratioLegends.get(0).getText());
+		assertEquals("External", ratioLegends.get(1).getText());
 	}
 	
 	private void assertCollectionBar(int barCount, String ... expectedLabels) throws Exception { 

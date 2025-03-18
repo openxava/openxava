@@ -20187,6 +20187,63 @@ Collection&lt;Empleado&gt; empleados;
       empleado, con el valor del salario, porque hemos puesto <i>dataProperties="salario"</i>.
       Por supuesto, se pueden poner más propiedades en <i>dataProperties</i>
       separadas por comas.</div>
+      <div class="wiki" style="display: block;">A partir de la versión 7.5, está disponible un nuevo atributo <i>type</i> en <i>@Chart</i>. Este atributo permite especificar el tipo de gráfico que se mostrará. Los valores posibles son:
+      <ul>
+        <li><i>BAR</i>: Muestra un gráfico de barras (este es el valor por defecto)</li>
+        <li><i>LINE</i>: Muestra un gráfico de líneas</li>
+        <li><i>PIE</i>: Muestra un gráfico de tarta</li>
+      </ul>
+      Por ejemplo:
+    </div>
+    <div class="wiki" style="display: block;">
+      En el caso de los gráficos de tarta, al igual que con otros tipos de gráficos, es común mostrar datos agregados. Raramente querríamos un gráfico de tarta que muestre todos (o muchos) los registros de una tabla (lo que sería una colección de entidades). Por lo tanto, normalmente es mejor usar una clase auxiliar para mostrar datos agregados o de resumen. Aquí hay un ejemplo:
+    </div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@Chart(type = ChartType.PIE)
+public Collection&lt;Proporcion&gt; getProporcionEmpleadosExternos() { 
+    EntityManager em = XPersistence.getManager();
+    
+    // Consulta para contar empleados internos (email contiene el nombre de la corporación)
+    Query consultaInternos = em.createQuery(
+        "SELECT COUNT(e) FROM EmpleadoCorporacion e " +
+        "WHERE e.corporacion.id = :idCorporacion AND LOWER(e.email) LIKE :patron");
+    consultaInternos.setParameter("idCorporacion", getId());
+    consultaInternos.setParameter("patron", "%" + nombre.toLowerCase() + "%");
+    Long cantidadInternos = (Long) consultaInternos.getSingleResult();
+    
+    // Consulta para contar empleados externos (email no contiene el nombre de la corporación)
+    Query consultaExternos = em.createQuery(
+        "SELECT COUNT(e) FROM EmpleadoCorporacion e " +
+        "WHERE e.corporacion.id = :idCorporacion AND LOWER(e.email) NOT LIKE :patron");
+    consultaExternos.setParameter("idCorporacion", getId());
+    consultaExternos.setParameter("patron", "%" + nombre.toLowerCase() + "%");
+    Long cantidadExternos = (Long) consultaExternos.getSingleResult();
+    
+    // Crear y devolver la colección de proporciones
+    Collection&lt;Proporcion&gt; proporciones = new ArrayList<>();
+    proporciones.add(new Proporcion("Internos", cantidadInternos.intValue()));
+    proporciones.add(new Proporcion("Externos", cantidadExternos.intValue()));
+
+    return proporciones;
+}</code></pre>
+    </div>
+    <div class="wiki" style="display: block;">
+      Donde <i>Proporcion</i> es una clase simple que representa una proporción con una descripción y un valor:
+    </div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Proporcion {
+    
+    String descripcion;
+    int valor;
+}</code></pre>
+    </div>
+    <div class="wiki" style="display: block;">
+      Esto generaría un gráfico de tarta como este:
+    </div>
+    <img src="files/view_es265.png" alt="view_es265.png" title="view_es265.png">
     <div class="wiki" style="display: block;">Además, los atributos <em>forViews</em>
       y <em>notForViews</em> están disponibles en <i>@Chart</i>.</div>
     <div class="wiki" style="display: block;">

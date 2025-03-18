@@ -23,6 +23,13 @@ import java.lang.annotation.*;
  * </pre>
  * In this case the concatenation of firstName and lastName is used as label, and the salary and
  * bonus properties as data.
+ * <p>
+ * Since v7.5 you can also specify the type of chart to use:
+ * <pre>
+ * &nbsp;@Chart(type = ChartType.LINE, labelProperties = "month", dataProperties = "sales")
+ * &nbsp;Collection<MonthlySales> sales;  
+ * </pre>
+ * Available chart types are BAR (default), LINE and PIE.
  *
  * @since 7.4
  * @author Javier Paniza
@@ -74,6 +81,14 @@ public @interface Chart {
 	 * As fallback the first property is used.<br>
      * It's possible to indicate several properties separated by commas. 
 	 */
-	String labelProperties() default "";	
+	String labelProperties() default "";
 	
+	/**
+	 * The type of chart to display. <p>
+	 * 
+	 * If not specified, BAR is used.
+	 * 
+	 * @since 7.5
+	 */
+	ChartType type() default ChartType.BAR;
 }
