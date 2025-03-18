@@ -192,7 +192,7 @@ public class Modules implements Serializable {
 		
 	public String getCurrentModuleDescription(HttpServletRequest request) {
 		try {
-			return Strings.concat(" - ", getOrganizationName(request), getApplicationLabel(request), current.getLabel());
+			return Strings.concat(" - ", current.getLabel(), getOrganizationName(request), getApplicationLabel(request));
 		}
 		catch (Exception ex) { 
 			log.warn(XavaResources.getString("module_description_problem"), ex);			
