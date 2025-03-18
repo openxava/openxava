@@ -20127,6 +20127,69 @@ Collection&lt;Employee&gt; employees;
       appears, with the salary value, because we have set <i>dataProperties=“salary”</i>.
       Of course, more properties can be put in <i>dataProperties</i> separated
       by commas. </div>
+      <div class="wiki" style="display: block;">Starting from version 7.5, a new attribute <i>type</i> is available in <i>@Chart</i>. This attribute allows you to specify the type of chart to be displayed. The possible values are:
+      <ul>
+        <li><i>BAR</i>: Displays a bar chart (this is the default)</li>
+        <li><i>LINE</i>: Displays a line chart</li>
+        <li><i>PIE</i>: Displays a pie chart</li>
+      </ul>
+      For example:
+    </div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@OneToMany(mappedBy="corporation")
+@Chart(type=ChartType.LINE)
+private Collection<CorporationEmployee> employees;</code></pre>
+    </div>
+    <div class="wiki" style="display: block;">
+      In the case of pie charts, as well as with other chart types, it's common to display aggregated data. Rarely would we want a pie chart showing all (or many) records from a table (which would be a collection of entities). Therefore, it's usually better to use an auxiliary class to show aggregated or summary data. Here's an example:
+    </div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@Chart(type = ChartType.PIE)
+public Collection&lt;Ratio&gt; getExternalEmployeesRatio() { 
+    EntityManager em = XPersistence.getManager();
+    
+    // Query to count internal employees (email contains corporation name)
+    Query internalQuery = em.createQuery(
+        "SELECT COUNT(e) FROM CorporationEmployee e " +
+        "WHERE e.corporation.id = :corporationId AND LOWER(e.email) LIKE :pattern");
+    internalQuery.setParameter("corporationId", getId());
+    internalQuery.setParameter("pattern", "%" + name.toLowerCase() + "%");
+    Long internalCount = (Long) internalQuery.getSingleResult();
+    
+    // Query to count external employees (email does not contain corporation name)
+    Query externalQuery = em.createQuery(
+        "SELECT COUNT(e) FROM CorporationEmployee e " +
+        "WHERE e.corporation.id = :corporationId AND LOWER(e.email) NOT LIKE :pattern");
+    externalQuery.setParameter("corporationId", getId());
+    externalQuery.setParameter("pattern", "%" + name.toLowerCase() + "%");
+    Long externalCount = (Long) externalQuery.getSingleResult();
+    
+    // Create and return the collection of ratios
+    Collection&lt;Ratio&gt; ratios = new ArrayList<>();
+    ratios.add(new Ratio("Internal", internalCount.intValue()));
+    ratios.add(new Ratio("External", externalCount.intValue()));
+
+    return ratios;
+}</code></pre>
+    </div>
+    <div class="wiki" style="display: block;">
+      Where <i>Ratio</i> is a simple class that represents a ratio with a description and a value:
+    </div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Ratio {
+    
+    String description;
+    int value;
+}</code></pre>
+    </div>
+    <div class="wiki" style="display: block;">
+      This would generate a pie chart like this:
+    </div>
+    <img src="files/view_en265.png" alt="view_en265.png" title="view_en265.png">
+
     <div class="wiki" style="display: block;">In addition, the <i>forViews</i>
       and <i>notForViews</i> attributes are available in <i>@Chart</i>.</div>
     <div class="wiki" style="display: block;">
