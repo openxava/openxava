@@ -24,6 +24,7 @@ org.openxava.filters
 org.openxava.filters.meta
 org.openxava.filters.meta.xmlparse
 org.openxava.formatters
+org.openxava.hotswap
 org.openxava.jpa
 org.openxava.jpa.impl
 org.openxava.mapping

@@ -2,8 +2,8 @@
 
 <project name="OpenXavaDoc" default="createWar" basedir=".">
 
-	<property name="xava.version" value="7.4.5"/>
-	<property name="dist.dir" value="\\wsl$\Ubuntu\home\javi"/>
+	<property name="xava.version" value="7.5"/>
+	<property name="dist.dir" value="/home/javi/site"/>
 	<!--
 	<property name="dist.dir" value="\\wsl$\Ubuntu\home\javi"/> 
 	<property name="dist.dir" value="/home/javi/site"/>
@@ -26,6 +26,7 @@
 				<fileset dir="../openxavatest/target/openxavatest/WEB-INF/lib"> 
 					<include name="**/*.jar"/> 
 				</fileset>
+				<pathelement location="${user.home}/.m2/repository/org/hotswapagent/hotswap-agent-core/1.4.1/hotswap-agent-core-1.4.1.jar"/>
 			</classpath> 
 
 		    <fileset dir="../openxava/src/main/java" defaultexcludes="yes"/>			
