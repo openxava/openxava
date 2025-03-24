@@ -1,10 +1,29 @@
 Change Log for OpenXava project
 ===============================
 
+- Hot code reloading for development including entities, actions, controllers, modules, annotations, etc.
+
+- Rounded corners for frames, dialogs, lists, cards, buttons, messages, sign in, tooltips, charts, etc.
+- Flat design applied to most UI elements, removing shadows.
+- Tabs and buttons no longer use all uppercase.
+- Frames no longer use gradients for backgrounds.
+- Nested frames use a different background color.
+- In the Dark theme, the border of lists is removed and replaced by a color change in the background.
+
+- Pie and line charts available for collections by means of the new 'type' attribute in @Chart.
+- Number of row actions to show a popup is configurable via rowActionsPopupThreshold in xava.properties.
+- New allowMoveNodes attribute in @Tree annotation to disable drag & drop to move nodes in the tree.
 - @Tree annotation is enough to visualize collections as a tree, no need to use @Editor("TreeView").
-- The HTML title for the module is now "Module name - Application name".
 - Resizing columns by the user in list and collections enabled by default.
-- Pie and line charts available for collections by means of new 'type' attribute in @Chart.
+- Custom JPA EntityManagerFactory creation with entityManagerFactoryProviderClass in xava.properties.
+- default-controllers-ext.xml / controladores-defecto-ext.xml to define controllers in libraries/frameworks.
+- The HTML title for the module is now "Module name - Application name".
+- JSP taglibs xava:action, xava:link, xava:image and xava:button have a new 'alwaysAvailable' attribute.
+- All Java code of openxava core framework converted to UTF-8 encoding.
+- AppServer launcher class has a new method run(application, extraClassPaths) to indicate extra classpaths.
+- Java 11 as default compiler level for new projects (from archetypes), though Java 1.8 is still supported. 
+- Some new common use labels to be used in applications.
+
 - Commons Logging upgraded to 1.3.5.
 - Groovy upgraded to 4.0.26.
 - HtmlUnit upgraded to 4.10.0. 
@@ -13,29 +32,16 @@ Change Log for OpenXava project
 - Json upgraded to 20250107.
 - Embedded Tomcat used in development upgraded to 9.0.102.
 - Driver version in doc/new projects upgraded for MySQL, PostgreSQL, Oracle, AS/400 and Informix.
-- Rounded corners for frames, dialogs, lists, cards, buttons, messages, sign in, tooltips, charts, etc.
-- Flat design applied to most UI elements, removing shadows.
-- Tabs and buttons no longer use all uppercase.
-- Frames no longer use gradients for backgrounds.
-- Nested frames use a different background color.
-- In the Dark theme, the border of lists is removed and replaced by a color change in the background.
+
 - Documentation in reference guide to create optional row actions depending on the content of the row.
-- JSP taglibs xava:action, xava:link, xava:image and xava:button have a new 'alwaysAvailable' attribute.
-- Fix: Redudant calls to isAvailable() of IAvailableAction in row actions (introduced in v7.4).
-- Fix: Extra space among row actions when one is ommited using IAvailableAction.
-- List mode actions documentation in controllers section of reference guide improved.
-- Fix: IAvailableAction in a row action not shown in any row if not available in the first row (bug of 7.4).
-- New allowMoveNodes attribute in @Tree annotation to disable drag & drop to move nodes in the tree.
-- Custom JPA EntityManagerFactory creation with entityManagerFactoryProviderClass in xava.properties.
-- default-controllers-ext.xml / controladores-defecto-ext.xml to define controllers in libraries/frameworks.
-- All Java code of openxava core framework converted to UTF-8 encoding.
-- Number of row actions to show a popup is configurable via rowActionsPopupThreshold in xava.properties.
-- Hot code reloading for development including entities, actions, controllers, modules, annotations, etc.
-- AppServer launcher class has a new method run(application, extraClassPaths) to indicate extra classpaths.
-- Java 11 as default compiler level for new projects (from archetypes), though Java 1.8 is still supported. 
+- List mode actions documentation in the controllers section of the reference guide improved.
 - Video for creating a CRM included in the project templates documentation article.
 - Lesson 10 of the reporting course with JasperReports available in the documentation with video.
-- Some new common use labels to be used in applications.
+
+- Fix: Redundant calls to isAvailable() of IAvailableAction in row actions (introduced in v7.4).
+- Fix: Extra space between row actions when one is omitted using IAvailableAction.
+- Fix: IAvailableAction in a row action not shown in any row if not available in the first row (bug of 7.4).
+
 
 OpenXava 7.4.5 (2025-1-10)
 --------------------------
