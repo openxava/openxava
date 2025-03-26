@@ -1215,8 +1215,9 @@ i {
 
 .ox-list-action-cell {
 	vertical-align: middle;
-	text-align: center;
+	text-align: left;
 	padding-right: 2px;
+	padding-left: 7px !important;
 }
 
 .ox-list-data-cell { 
