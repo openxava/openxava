@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Ugly square border in collection tables on Firefox.
+- Fix: "Unable to rename class file from" error when starting Tomcat occasionally with OpenXava Studio JDK.
+
 OpenXava 7.5 (2025-3-21)
 ------------------------
 - Hot code reloading for development including entities, actions, controllers, modules, annotations, etc.

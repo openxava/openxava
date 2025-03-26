@@ -775,7 +775,11 @@ input[type="radio"] {
 }
 
 .ox-frame .ox-list { 
-	border: 2px solid;
+	border: 2px solid var(--list-background);
+}
+
+.firefox .ox-frame .ox-list { 
+	border-collapse: separate;
 }
 
 .ox-list-subheader input[type="text"] { 
