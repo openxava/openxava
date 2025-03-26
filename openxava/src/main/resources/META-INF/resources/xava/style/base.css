@@ -3034,7 +3034,14 @@ a[data-action="Collection.previous"] {
 	min-width: 200px;
 	display: flex;
 	justify-content: center;
-	align-items: baseline;	
+	align-items: baseline;
+	flex-wrap: wrap;	
+}
+
+/* TMR ME QUEDÉ POR AQUÍ. INTENTANDO AJUSTAR TAMAÑO DE LA ETIQUETA */
+.ox-large-display .small-label {
+	flex-basis: 100%;
+	font-size: initial;
 }
 
 .firefox .ox-large-display {
