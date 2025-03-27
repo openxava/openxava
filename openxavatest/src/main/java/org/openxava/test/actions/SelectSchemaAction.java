@@ -14,7 +14,7 @@ import org.openxava.view.View;
 
 /**
  * Create on 03/09/2009 (14:49:04)
- * @autor Ana Andrés
+ * @autor Ana AndrÃ©s
  */
 public class SelectSchemaAction extends SetDefaultSchemaAction {
 	

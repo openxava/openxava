@@ -7,7 +7,7 @@ import org.openxava.annotations.DescriptionsList;
 
 /**
  * Create on 03/09/2009 (9:05:56)
- * @autor Ana Andres
+ * @autor Ana Andrés
  */
 public class IssueList {
 	

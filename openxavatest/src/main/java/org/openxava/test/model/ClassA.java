@@ -8,7 +8,7 @@ import javax.persistence.*;
 import org.openxava.model.*;
 
 /**
- * @author Federico Alcantara
+ * @author Federico Alcántara
  *
  */
 @Entity

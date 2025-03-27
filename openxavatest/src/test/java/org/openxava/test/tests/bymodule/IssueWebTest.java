@@ -4,7 +4,7 @@ import org.openxava.tests.*;
 
 /**
  * 
- * @author Federico Alcantara
+ * @author Federico Alcántara
  */
 
 public class IssueWebTest extends ModuleTestBase { 
@@ -22,7 +22,7 @@ public class IssueWebTest extends ModuleTestBase {
 		execute("Mode.list"); 
 		assertLabelInList(1, "Description");
 
-		// let's get locale es - espa�ol for companyA
+		// let's get locale es - español for companyA
 		newParameters="&locale=es"; 
 		resetModule();
 		execute("Mode.list"); 

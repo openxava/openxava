@@ -6,7 +6,7 @@ import org.openxava.annotations.View;
  * Used to assign default schema and restart modules
  * 
  * Create on 03/09/2009 (14:40:13)
- * @autor Ana Andrés
+ * @autor Ana AndrÃ©s
  */
 
 @View(members="schema, SelectSchema.set()")

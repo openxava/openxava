@@ -2,7 +2,7 @@ package org.openxava.test.tests.bymodule;
 
 /**
  * 
- * @author Federico Alcantara
+ * @author Federico Alcántara
  */
 
 public class SellerWithSearchListConditionTest extends CustomizeListTestBase {

@@ -11,7 +11,7 @@ import org.openxava.tests.*;
 /**
  * When keys are within groups.
  * 
- * @author Federico Alcantara
+ * @author Federico Alcántara
  *
  */
 public class CustomerWithGroupsTest extends ModuleTestBase {

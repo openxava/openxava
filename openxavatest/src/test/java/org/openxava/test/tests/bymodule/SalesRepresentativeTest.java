@@ -9,7 +9,7 @@ import org.openxava.tests.ModuleTestBase;
 /**
  * Test the behavior of embeddable classes
  * at more than 1 level
- * @author Federico Alcantara
+ * @author Federico Alcántara
  *
  */
 public class SalesRepresentativeTest extends ModuleTestBase{  

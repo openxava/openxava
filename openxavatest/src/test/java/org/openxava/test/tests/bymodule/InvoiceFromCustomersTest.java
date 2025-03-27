@@ -159,7 +159,7 @@ public class InvoiceFromCustomersTest extends ModuleTestBase {
 		for (int i = 0; i < rowCount; i++) {
 			if (year.equals(getValueInList(i, 0)) && number.equals(getValueInList(i, 1))) return;
 		}	
-		fail("Invoice " + year + "/" + number + " deber�a estar presente en la lista");
+		fail("Invoice " + year + "/" + number + " debería estar presente en la lista");
 	}
 
 	private Collection getInvoices() throws Exception {

@@ -15,7 +15,7 @@ import org.openxava.util.*;
 /**
  * 
  * @author Javier Paniza
- * @author Federico Alc�ntara
+ * @author Federico Alcántara
  */
 
 public class DeliveryTest extends ModuleTestBase { 

@@ -8,7 +8,7 @@ import org.openxava.test.model.Color;
 
 /**
  * Create on 05/03/2009 (9:28:28)
- * @autor Ana Andrés
+ * @autor Ana AndrÃ©s
  */
 public class OnChangeGroupInColorAction extends OnChangePropertyBaseAction implements IChangeControllersAction{
 	private static Log log = LogFactory.getLog(OnChangeGroupInColorAction.class);

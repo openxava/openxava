@@ -8,7 +8,7 @@ import org.openxava.tests.ModuleTestBase;
 
 /**
  * Tests callback methods.
- * @author Federico Alcantara
+ * @author Federico Alcántara
  *
  */
 public class CallBackLogTest extends ModuleTestBase {

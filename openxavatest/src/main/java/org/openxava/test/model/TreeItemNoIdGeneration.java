@@ -6,7 +6,7 @@ import org.openxava.annotations.*;
 
 /**
  * 
- * @author Federico Alcantara 
+ * @author Federico Alcántara 
  */
 @Entity
 @View(members="id;code;way;description;theOrder;parentContainer")

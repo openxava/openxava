@@ -1302,7 +1302,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("Print.generateExcel");		
 		assertContentTypeForPopup("text/x-csv");
 		assertExcel( 
-			"Año;Número;Fecha;Suma importes;I.V.A.;Cantidad líneas;Pagada;Importancia",	
+			"AÃ±o;NÃºmero;Fecha;Suma importes;I.V.A.;Cantidad lÃ­neas;Pagada;Importancia",	
 			"2002;1;\"01/01/2002\";\"2500,00\";\"400,00\";2;\"No\";\"Normal\""); // "2500,00" instead of "2.500,00"		
 	}
 	

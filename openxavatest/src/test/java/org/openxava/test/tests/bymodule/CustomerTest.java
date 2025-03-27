@@ -119,7 +119,7 @@ public class CustomerTest extends CustomizeListTestBase {
 			errorCount++;
 		}
 		try { // when system language is spanish
-		assertError("violación del restricción de integridad: sin acción para la clave foránea ; FK7904A1B492FC9643 table: INVOICE");
+		assertError("violaciÃ³n del restricciÃ³n de integridad: sin acciÃ³n para la clave forÃ¡nea ; FK7904A1B492FC9643 table: INVOICE");
 		} catch (AssertionError e) {
 			errorCount++;
 		}

@@ -3,7 +3,7 @@ package org.openxava.test.tests.bymodule;
 import org.openxava.tests.*;
 
 /**
- * @author Mª Carmen Gimeno
+ * @author MÂª Carmen Gimeno
  */
 
 public class StateJPATest extends ModuleTestBase {

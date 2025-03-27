@@ -12,7 +12,7 @@ import org.openxava.util.Strings;
 /**
  * Create on 14/04/2009 (18:37:04)
  * 
- * @autor Ana Andr�s 
+ * @autor Ana Andrés 
  */
 public class OnSelectIngredientAction extends OnSelectElementBaseAction {
 	private static Log log = LogFactory.getLog(OnSelectIngredientAction.class);

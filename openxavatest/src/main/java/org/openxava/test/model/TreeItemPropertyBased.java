@@ -13,7 +13,7 @@ import org.openxava.annotations.View;
 /**
  * This is the same as TreeItem, except that
  * the annotations are on the property instead of the field member.
- * @author Federico Alcantara 
+ * @author Federico Alcántara 
  */
 @Entity
 @Table(name="TREEITEM")
