@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- All Java code of openxavatest project converted to UTF-8 encoding.
 - Fix: Frame for @LargeDisplay properties is too close to the above frame, touching it.
 - Fix: Row actions are misaligned when an IAvailableAction is not displayed in some rows.
 - Fix: Ugly square border in collection tables on Firefox.
