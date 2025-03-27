@@ -33,7 +33,6 @@ if (value instanceof Number) {
 }
 %>
 <div id="<xava:id name='<%="label_" + view.getPropertyPrefix() + p.getName()%>'/>" class="ox-large-display-label"><%=label%></div>
-<div class="ox-large-display ox-frame <%=negativeClass%>">
-	<%=iconHTML%><span class="ox-large-display-prefix"><%=prefix%></span><span class="ox-large-display-value"><%=fvalue%></span><span class="ox-large-display-suffix"><%=suffix%></span></div>
+<div class="ox-large-display ox-frame <%=negativeClass%>"><%=iconHTML%><span class="ox-large-display-prefix"><%=prefix%></span><span class="ox-large-display-value"><%=fvalue%></span><span class="ox-large-display-suffix"><%=suffix%></span></div>
 <input type="hidden" name="<%=propertyKey%>" value="<%=fvalue%>">
 
