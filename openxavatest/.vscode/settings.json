@@ -1,5 +1,5 @@
 {
-    "files.encoding": "iso88591",
+    "files.encoding": "utf8",
     "files.autoGuessEncoding": false,
     "java.configuration.updateBuildConfiguration": "automatic"
 }

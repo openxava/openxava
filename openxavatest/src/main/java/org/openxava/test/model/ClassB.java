@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import org.openxava.annotations.View;
 
 /**
- * @author Federico Alcantara
+ * @author Federico Alcántara
  *
  */
 @Embeddable

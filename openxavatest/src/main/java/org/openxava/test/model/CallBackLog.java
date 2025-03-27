@@ -16,7 +16,7 @@ import org.openxava.util.Is;
 
 /**
  * Holds a callback log for testing the callback behavior
- * @author Federico Alcantara
+ * @author Federico Alcántara
  *
  */
 @Entity

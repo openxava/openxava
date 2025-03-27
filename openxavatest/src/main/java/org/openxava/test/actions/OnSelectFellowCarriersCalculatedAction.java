@@ -5,7 +5,7 @@ import org.openxava.test.model.*;
 
 /**
  * Create on 11/06/2009 (9:33:51)
- * @autor Ana Andr�s
+ * @autor Ana Andrés
  */
 public class OnSelectFellowCarriersCalculatedAction extends OnSelectElementBaseAction {
 

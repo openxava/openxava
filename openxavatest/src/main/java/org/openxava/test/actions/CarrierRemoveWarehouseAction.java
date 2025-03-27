@@ -4,7 +4,7 @@ import org.openxava.actions.ViewBaseAction;
 
 /**
  * 
- * @author Federico Alcantara
+ * @author Federico Alcántara
  * Created on Sep 23, 2020
  */
 public class CarrierRemoveWarehouseAction extends ViewBaseAction {

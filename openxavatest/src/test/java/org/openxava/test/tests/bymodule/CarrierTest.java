@@ -58,7 +58,7 @@ public class CarrierTest extends CarrierTestBase {
 		execute("List.viewDetail", "row=0");
 		HtmlAnchor deleteLink = getHtmlPage().getHtmlElementById("ox_openxavatest_Carrier__CRUD___delete");
 		// To ensure the question has an apostrophe
-		assertEquals("Effacer l" + (char) 8216 + "entité courante: Etes-vous sûr(e) ?", 
+		assertEquals("Effacer l" + (char) 8216 + "entitÃ© courante: Etes-vous sÃ»r(e) ?", 
 			deleteLink.getAttribute("data-confirm-message"));
 		execute("CRUD.delete");
 		execute("Mode.list");
@@ -69,10 +69,10 @@ public class CarrierTest extends CarrierTestBase {
 		String deleteRowLink = "<a title=\"Effacer l" 
 			// (char) 145 // ANSI
 			+ (char) 8216 // UNICODE
-			+ "entité\" class=\"xava_action ox-image-link\" data-application=\"openxavatest\" data-module=\"Carrier\" data-confirm-message=\"Effacer l"
+			+ "entitÃ©\" class=\"xava_action ox-image-link\" data-application=\"openxavatest\" data-module=\"Carrier\" data-confirm-message=\"Effacer l"
 			// (char) 145 // ANSI
 			+ (char) 8216 // UNICODE
-			+ "entité la ligne 1: êtes-vous sûr ?\"";
+			+ "entitÃ© la ligne 1: Ãªtes-vous sÃ»r ?\"";
 		assertTrue(getHtml().contains(deleteRowLink));
 		execute("CRUD.deleteRow", "row=0");
 		assertListRowCount(3);
@@ -80,7 +80,7 @@ public class CarrierTest extends CarrierTestBase {
 		// Apostrophe in dialog title
 		execute("List.viewDetail", "row=0");
 		execute("Collection.new", "viewObject=xava_view_fellowCarriersCalculated");
-		assertDialogTitle("Préparation d'une nouvelle entité - Transporteur");
+		assertDialogTitle("PrÃ©paration d'une nouvelle entitÃ© - Transporteur");
 		closeDialog();
 		
 		// Apostrophe in bottom button
@@ -88,7 +88,7 @@ public class CarrierTest extends CarrierTestBase {
 		assertEquals("Montrer l" + 
 			// (char) 145 + // ANSI  
 			(char) 8216 + // UNICODE
-			"article coupé", showCutRowsButton.getValue());
+			"article coupÃ©", showCutRowsButton.getValue());
 		
 		// Switzerland locale
 		execute("Mode.list"); 

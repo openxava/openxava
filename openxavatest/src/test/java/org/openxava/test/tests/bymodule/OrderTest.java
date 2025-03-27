@@ -2,13 +2,14 @@ package org.openxava.test.tests.bymodule;
 
 import static org.openxava.jpa.XPersistence.getManager;
 
-import java.util.*;
+import java.util.Date;
+import java.util.StringTokenizer;
 
-import javax.persistence.*;
+import javax.persistence.Query;
 
-import org.htmlunit.html.*;
-import org.openxava.tests.*;
-import org.openxava.util.*;
+import org.htmlunit.html.HtmlElement;
+import org.openxava.tests.ModuleTestBase;
+import org.openxava.util.Dates;
 
 
 /**

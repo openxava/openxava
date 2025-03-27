@@ -4,7 +4,7 @@ import org.openxava.actions.ViewBaseAction;
 
 /**
  * Create on 09/05/2008 (11:44:51)
- * @autor Ana Andr�s
+ * @autor Ana Andrés
  */
 
 public class SeeMessageAction extends ViewBaseAction{

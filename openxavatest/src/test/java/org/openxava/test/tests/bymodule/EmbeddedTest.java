@@ -10,7 +10,7 @@ import org.openxava.tests.*;
 
 
 /**
- * @author Federico Alcantara
+ * @author Federico Alcántara
  *
  */
 public class EmbeddedTest extends ModuleTestBase {

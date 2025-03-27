@@ -9,7 +9,7 @@ import org.openxava.annotations.*;
 
 /**
  * Representing a first level embeddable class as detailed in bug 3047205 
- * @author Federico Alcantara
+ * @author Federico Alcántara
  *
  */
 @Embeddable

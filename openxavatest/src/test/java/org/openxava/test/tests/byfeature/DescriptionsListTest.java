@@ -36,7 +36,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 	}
 	
 	public void testAutocomplete() throws Exception {
-		setFamilyDescription(1, "SOFTWARÉ"); // To test a bug with accents 
+		setFamilyDescription(1, "SOFTWARÃ‰"); // To test a bug with accents 
 		createWarehouseWithQuote(); // To test a bug with quotes
 
 		goModule("Product2");
@@ -78,7 +78,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		
 		List<WebElement> familyListChildren = familyList.findElements(By.tagName("li")); 
 		assertEquals(2, familyListChildren.size()); 
-		assertEquals("SOFTWARÉ", familyListChildren.get(0).getText()); 
+		assertEquals("SOFTWARÃ‰", familyListChildren.get(0).getText()); 
 		assertEquals("HARDWARE", familyListChildren.get(1).getText());
 		
 		familyListChildren.get(0).click(); // SOFTWARE
@@ -107,15 +107,15 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		execute("List.orderBy", "property=number");
 		assertValueInList(0, 0, "66"); 
 		assertValueInList(0, 1, "JUNIT PRODUCT");
-		assertValueInList(0, 2, "SOFTWARÉ"); 
+		assertValueInList(0, 2, "SOFTWARÃ‰"); 
 		assertValueInList(0, 3, "DESARROLLO");
 		
 		execute("List.viewDetail", "row=0");
 		assertValue("number", "66");
 		assertValue("family.number", "1");
-		assertDescriptionValue("family.number", "SOFTWARÉ");
+		assertDescriptionValue("family.number", "SOFTWARÃ‰");
 		familyTextField =  getDescriptionsListTextField("family");
-		assertEquals("SOFTWARÉ", familyTextField.getAttribute("value")); 
+		assertEquals("SOFTWARÃ‰", familyTextField.getAttribute("value")); 
 		assertValue("subfamily.number", "1");
 		assertDescriptionValue("subfamily.number", "DESARROLLO");
 		subfamilyTextField = getDescriptionsListTextField("subfamily");

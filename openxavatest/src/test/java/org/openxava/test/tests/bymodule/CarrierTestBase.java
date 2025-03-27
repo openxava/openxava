@@ -37,7 +37,7 @@ abstract public class CarrierTestBase extends CustomizeListTestBase {
 		c2.setWarehouse(wh);
 		c2.setNumber(2);
 		c2.setName("DOS");	
-		c2.setRemarks("compañero de uno, de tres y de cuatro. Pero, por ahora, no lo es de cinco");
+		c2.setRemarks("compañro de uno, de tres y de cuatro. Pero, por ahora, no lo es de cinco");
 		XPersistence.getManager().persist(c2);  
 	
 		Carrier c3 = new Carrier();

@@ -165,7 +165,7 @@ public class AppointmentTest extends ModuleTestBase {
 		assertValueInList(5, 1, "DRIVING MY BMW");
 		assertValueInList(5, 2, "0");
 		assertValueInList(6, 0, "6/19/2020 8:15 PM");
-		assertValueInList(6, 1, "PLAYING FÓRTNITE"); // With accent to test importing from UTF-8 so the csvEncoding of xava.properties
+		assertValueInList(6, 1, "PLAYING FÃ“RTNITE"); // With accent to test importing from UTF-8 so the csvEncoding of xava.properties
 		assertValueInList(6, 2, "4");
 		assertValueInList(6, 3, "PERSONAL DISPENSABLE");
 		

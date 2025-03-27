@@ -5,7 +5,7 @@ import org.openxava.tests.*;
 
 /**
  * Create on 21/01/2009 (17:18:32)
- * @autor Ana Andr�s
+ * @autor Ana Andrés
  */
 public class ColorM1Test extends ModuleTestBase { 
 	private static Log log = LogFactory.getLog(ColorM1Test.class);

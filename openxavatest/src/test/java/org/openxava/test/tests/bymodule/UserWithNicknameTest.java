@@ -65,7 +65,7 @@ public class UserWithNicknameTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		HtmlSpan span = getHtmlPage().getFirstByXPath("//span[@class='ox-editor-suffix']");
 		List<DomNode> insideSpan = span.getChildNodes();
-		assertEquals("El número u no s''esborrable", insideSpan.get(0).getNodeValue().toString().trim());
+		assertEquals("El nÃºmero u no s''esborrable", insideSpan.get(0).getNodeValue().toString().trim());
 		attachFiles(); 		
 		execute("CRUD.delete");
 		assertNoErrors();

@@ -13,7 +13,7 @@ import org.openxava.annotations.*;
 
 /**
  * Class person as described in bug 3047205
- * @author Federico Alcantara
+ * @author Federico Alcántara
  *
  */
 @Entity

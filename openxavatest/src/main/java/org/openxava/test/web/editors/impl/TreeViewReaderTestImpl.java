@@ -9,7 +9,7 @@ import org.openxava.model.*;
 import org.openxava.web.editors.*;
 
 /**
- * @author Federico Alcantara
+ * @author Federico Alcántara
  *
  */
 public class TreeViewReaderTestImpl implements ITreeViewReader {

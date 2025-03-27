@@ -86,7 +86,7 @@ public class POJOTest extends TestCase {
 		product.increasePrice();
 		assertEquals(new BigDecimal("102.00"), product.getUnitPrice());
 
-		assertEquals(new BigDecimal("102.00"), product.getPrice("España", new BigDecimal("0.00"))); 		 			
+		assertEquals(new BigDecimal("102.00"), product.getPrice("EspaÃ±a", new BigDecimal("0.00"))); 		 			
 		assertEquals(new BigDecimal("103.00"), product.getPrice("Guatemala", new BigDecimal("1.00")));
 		try {
 			product.getPrice("El Puig", new BigDecimal("2.00"));

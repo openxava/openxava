@@ -12,7 +12,7 @@ import org.openxava.view.View;
 /**
  * Create on 07/04/2008 (11:10:52)
  * 
- * @autor Ana Andrés
+ * @autor Ana AndrÃ©s
  */
 public class ViewNameFellowCarriersSelectedAction extends ViewBaseAction{
 	private static Log log = LogFactory.getLog(ViewNameFellowCarriersSelectedAction.class);

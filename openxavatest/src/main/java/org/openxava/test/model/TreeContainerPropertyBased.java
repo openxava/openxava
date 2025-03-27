@@ -22,7 +22,7 @@ import org.openxava.annotations.Views;
 /**
  * This is the same as the TreeContainer, except that
  * the annotations are on the property instead of the field member.
- * @author Federico Alcantara 
+ * @author Federico Alcántara 
  */
 
 @Entity
