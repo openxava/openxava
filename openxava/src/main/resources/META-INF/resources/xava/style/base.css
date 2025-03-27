@@ -3034,7 +3034,13 @@ a[data-action="Collection.previous"] {
 	min-width: 200px;
 	display: flex;
 	justify-content: center;
-	align-items: baseline;	
+	align-items: baseline;
+}
+
+.ox-large-display-label {
+	margin-top: 13px;
+	margin-left: 5px;
+	font-weight:  bold;
 }
 
 .firefox .ox-large-display {

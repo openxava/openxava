@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Frame for @LargeDisplay properties is too close to the above frame, touching it.
 - Fix: Row actions are misaligned when an IAvailableAction is not displayed in some rows.
 - Fix: Ugly square border in collection tables on Firefox.
 - Fix: "Unable to rename class file from" error when starting Tomcat occasionally with OpenXava Studio JDK.
