@@ -32,9 +32,8 @@ if (value instanceof Number) {
 	if (number.longValue() < 0) negativeClass = "ox-large-display-negative"; 
 }
 %>
+<div id="<xava:id name='<%="label_" + view.getPropertyPrefix() + p.getName()%>'/>" class="ox-large-display-label"><%=label%></div>
 <div class="ox-large-display ox-frame <%=negativeClass%>">
-	<%-- tmr ¿small-label o una clase propia?--%>
-	<div id="<xava:id name='<%="label_" + view.getPropertyPrefix() + p.getName()%>'/>" class="small-label"><%=label%></div>
 	<%=iconHTML%><span class="ox-large-display-prefix"><%=prefix%></span><span class="ox-large-display-value"><%=fvalue%></span><span class="ox-large-display-suffix"><%=suffix%></span></div>
 <input type="hidden" name="<%=propertyKey%>" value="<%=fvalue%>">
 

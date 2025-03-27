@@ -5,7 +5,6 @@ import java.util.*;
 import org.htmlunit.html.*;
 import org.openxava.tests.*;
 
-
 /**
  * @author Javier Paniza
  */
@@ -29,7 +28,7 @@ public class Invoice2NoModifyDetailsTest extends ModuleTestBase {
 	}
 
 	private void assertLargeDisplay() throws Exception { 
-		assertSmallLabels(); // It also tests default-label-format for editor in editors.xml
+		assertCustomLabels(); // It also tests default-label-format for editor in editors.xml
 		assertDisplayValue("amountsSum", "\u20AC2,500.00"); // Euro and prefix
 		assertDisplayValue("vatPercentage", "16.0%"); // Percentage and suffix
 		if (inEuroCountry()) { // It works if user.country for server and test in the same 
@@ -54,23 +53,29 @@ public class Invoice2NoModifyDetailsTest extends ModuleTestBase {
 	}	
 
 	private void assertDisplayValue(String property, String expectedValue) {
-		assertEquals(expectedValue, getEditor(property).asNormalizedText());
+		HtmlElement editor = getEditor(property);
+		HtmlElement largeDisplayDiv = editor.getFirstByXPath(".//div[contains(@class, 'ox-large-display ')]");
+		assertNotNull("Div with class ox-large-display not found inside editor for " + property, largeDisplayDiv);
+		assertEquals(expectedValue, largeDisplayDiv.asNormalizedText());
 	}
 
 	private HtmlElement getEditor(String property) {
 		return getHtmlPage().getHtmlElementById("ox_openxavatest_Invoice2NoModifyDetails__editor_" + property);
 	}
 
-	private void assertSmallLabels() {
-		assertSmallLabel("amountsSum");  
-		assertSmallLabel("vatPercentage");
-		assertSmallLabel("discount");
-		assertSmallLabel("total");
+	private void assertCustomLabels() {
+		assertCustomLabel("amountsSum");  
+		assertCustomLabel("vatPercentage");
+		assertCustomLabel("discount");
+		assertCustomLabel("total");
 	}
 
-	private void assertSmallLabel(String property) { 
-		HtmlElement label = getHtmlPage().getHtmlElementById("ox_openxavatest_Invoice2NoModifyDetails__label_" + property);
-		assertEquals("small-label", label.getAttribute("class").trim());
+	private void assertCustomLabel(String property) { 
+		String id = "ox_openxavatest_Invoice2NoModifyDetails__label_" + property;
+		List<?> elements = getHtmlPage().getElementsById(id);
+		assertEquals(1, elements.size()); // Only the label inside the editor, so the default-label-format="no-label" in editors.xml works
+		HtmlElement label = (HtmlElement) elements.get(0);
+		assertEquals("ox-large-display-label", label.getAttribute("class").trim());
 	}
 
 	private void assertNoModifyInCollection() throws Exception { 

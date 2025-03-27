@@ -238,10 +238,5 @@
 		<property name="suffix" value="one_not_deletable"/>
 		<for-model-property model="UserWithNickname" property="name" />
 	</editor>
-
-	<!-- tmr Mover a OpenXava -->	
-	<editor name="LargeDisplay" url="largeDisplayEditor.jsp" default-label-format="no-label">
-		<for-annotation annotation="org.openxava.annotations.LargeDisplay"/>
-	</editor>
 		
 </editors>
