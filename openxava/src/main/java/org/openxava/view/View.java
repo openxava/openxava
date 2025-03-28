@@ -5928,7 +5928,13 @@ public class View implements java.io.Serializable {
 	}	
 	
 	private int defaultColumnWidth(MetaProperty p, int columnIndex) { 
-		return -1; // In versions before 7.4.3 we used an algorithm for this 
+		// tmr return -1; // In versions before 7.4.3 we used an algorithm for this
+		// TMR ME QUEDÉ POR AQUÍ. PROBANDO ALGORITMO VIEJO. TENER EN CUENTA LOS ICONOS. PROBANDO CON DOC
+		// TMR   					PROBAR LOS ICONOS EN PROJECTS. QUIZÁS DEVOLVER -1 EN LUGAR DE VALOR ORIGINAL.
+		// tmr Probando algoritmo original
+		// tmr if (getSumPropertiesSize() < 100) return -1;
+		if (hasCollectionTotal(1, columnIndex) || hasCollectionTotal(1, columnIndex + 1)) return -1; 
+		return Tab.friendViewGetDefaultColumnWidth(p);
 	} 
 		
 	private Preferences getPreferences() throws BackingStoreException { 		

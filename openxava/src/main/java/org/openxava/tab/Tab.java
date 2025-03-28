@@ -701,7 +701,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 	
 	private int defaultColumnWidth(MetaProperty p, int columnIndex) {
 		// tmr return -1; // In versions before 7.4.3 we used an algorithm for this
-		// TMR ME QUEDÉ POR AQUÍ. PROBANDO ALGORITMO VIEJO. TENER EN CUENTA LOS ICONOS. PROBANDO CON DOC
 		// tmr Probando algoritmo viejo
 		// tmr if (getSumPropertiesSize() < 100) return -1;
 		if (getAdditionalTotalsCount() > 0 && (hasTotal(1, columnIndex) || hasTotal(1, columnIndex + 1))) return -1; 
