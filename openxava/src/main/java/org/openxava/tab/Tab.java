@@ -700,8 +700,19 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 	
 	private int defaultColumnWidth(MetaProperty p, int columnIndex) {
-		return -1; // In versions before 7.4.3 we used an algorithm for this
+		// tmr return -1; // In versions before 7.4.3 we used an algorithm for this
+		// TMR ME QUEDÉ POR AQUÍ. PROBANDO ALGORITMO VIEJO. TENER EN CUENTA LOS ICONOS. PROBANDO CON DOC
+		// tmr Probando algoritmo viejo
+		// tmr if (getSumPropertiesSize() < 100) return -1;
+		if (getAdditionalTotalsCount() > 0 && (hasTotal(1, columnIndex) || hasTotal(1, columnIndex + 1))) return -1; 
+		int result = friendViewGetDefaultColumnWidth(p);
+		System.out.println("[Tab.defaultColumnWidth] result=" + result); // tmr
+		return result;
 	} 
+	
+	public static int friendViewGetDefaultColumnWidth(MetaProperty p) { // tmr
+		return Math.min(p.getSize(), 20) * 7;
+	}
 
 	public void setColumnWidth(int columnIndex, int width) {
 		if (isResizeColumns()) { 
