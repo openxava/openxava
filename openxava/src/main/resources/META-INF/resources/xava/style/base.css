@@ -1864,7 +1864,8 @@ td.ox-list-subheader > div {
 .ui-dialog-titlebar {
 	font-size: 1.2em;
 	color: var(--dialog-titlebar-color) !important;
-	background: var(--dialog-titlebar-background) !important;  
+	background: var(--dialog-titlebar-background) !important;
+	border-radius: 24px;  
 }
 
 .ui-dialog-titlebar button {
