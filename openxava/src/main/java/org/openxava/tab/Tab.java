@@ -700,17 +700,17 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 	
 	private int defaultColumnWidth(MetaProperty p, int columnIndex) {
-		// tmr return -1; // In versions before 7.4.3 we used an algorithm for this
-		// tmr Probando algoritmo viejo
-		// tmr if (getSumPropertiesSize() < 100) return -1;
-		if (getAdditionalTotalsCount() > 0 && (hasTotal(1, columnIndex) || hasTotal(1, columnIndex + 1))) return -1; 
-		int result = friendViewGetDefaultColumnWidth(p);
-		System.out.println("[Tab.defaultColumnWidth] result=" + result); // tmr
-		return result;
+		// Until 7.4.2 we used a more complex algorithm for this
+		// Between 7.4.3 and 7.5 we just return -1 always
+		// If you modify this logic, revise that large columns are not very big
+		// and that icons with no labels are just the size of the icon
+		// You can test both thing in xavaprojects in plan, the icon in the list
+		// of issues, and the size adding new issues with Add
+		return friendViewGetDefaultColumnWidth(p);
 	} 
 	
-	public static int friendViewGetDefaultColumnWidth(MetaProperty p) { // tmr
-		return Math.min(p.getSize(), 20) * 7;
+	public static int friendViewGetDefaultColumnWidth(MetaProperty p) { 
+		return p.getSize() > 100?700:-1; // 700 = 7 pixels * 100 character
 	}
 
 	public void setColumnWidth(int columnIndex, int width) {
@@ -720,8 +720,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 			saveUserPreferences();
 		}
 	}
-	
-		
+			
 	public MetaProperty getMetaProperty(int i) {
 		return (MetaProperty) getMetaProperties().get(i);
 	}
