@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Too wide columns by default for long content properties in list with resizeColumn=true.
 - Fix: Small square corner appearing behind the rounded corner on top of dialogs.
 - All Java code of openxavatest project converted to UTF-8 encoding.
 - Fix: Frame for @LargeDisplay properties is too close to the above frame, touching it.

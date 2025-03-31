@@ -5928,7 +5928,7 @@ public class View implements java.io.Serializable {
 	}	
 	
 	private int defaultColumnWidth(MetaProperty p, int columnIndex) { 
-		return -1; // In versions before 7.4.3 we used an algorithm for this 
+		return Tab.friendViewGetDefaultColumnWidth(p);
 	} 
 		
 	private Preferences getPreferences() throws BackingStoreException { 		
