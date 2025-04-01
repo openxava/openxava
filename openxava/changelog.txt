@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- New projects created from archetypes do not include specific Eclipse configuration files.
+- Eclipse configuration files removed from GitHub code, still works with Eclipse importing as Maven project.
 - Fix: Too wide columns by default for long content properties in list with resizeColumn=true.
 - Fix: Small square corner appearing behind the rounded corner on top of dialogs.
 - All Java code of openxavatest project converted to UTF-8 encoding.

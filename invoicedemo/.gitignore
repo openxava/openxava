@@ -1,2 +1,5 @@
 /target/
 /temp/
+/.settings/
+/.classpath
+/.project
