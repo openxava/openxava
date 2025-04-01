@@ -6,6 +6,7 @@ import org.openxava.annotations.*;
 
 import lombok.*;
 
+// A simple change
 @Entity @Getter @Setter
 @View(members="customer [ number; name; photo; address; city; country ], location")
 @View(name="Simple", members="number, name") 
