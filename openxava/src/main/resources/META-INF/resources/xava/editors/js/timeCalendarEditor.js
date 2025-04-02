@@ -10,7 +10,6 @@ openxava.addEditorInitFunction(function() {
     timeCalendarEditor.calendarOpen = false;
     timeCalendarEditor.focusTimeValue;
 
-	/* TMR
     //for fix chinese pop up AM/PM issue
     timeCalendarEditor.inputElementList = $('.xava_time > input').toArray();
     timeCalendarEditor.inputValueList = [];
@@ -33,19 +32,15 @@ openxava.addEditorInitFunction(function() {
 			$(this).val(formattedValue);
 		}
 	});
-	*/
 
     $('.xava_time').flatpickr({
         allowInput: true,
-        // tmr clickOpens: false,
-        clickOpens: true,
-        // tmr wrap: true,
-        wrap: false, // tmr
-        // tmr locale: openxava.language,
-        locale: "en-US", // TMR
+        clickOpens: false,
+        wrap: true,
+        locale: openxava.language,
         enableTime: true,
         noCalendar: true,
-        /* tmr
+        dateFormat: "h:i K", // TMR ME QUEDÉ POR AQUÍ: ESTO LO ARREGLA. ESTÁ A PIÑON, HABRÍA QUE GENERARLO. ¿QUITAR LO DEL AM/PM CHINO?
         onOpen: function(selectedDates, dateStr, instance) {
             timeCalendarEditor.calendarOpen = true;
             timeCalendarEditor.onOpenDateTime = dateStr;
@@ -94,8 +89,6 @@ openxava.addEditorInitFunction(function() {
                 }
             }
         }
-        */
     });
-    
 
 });
