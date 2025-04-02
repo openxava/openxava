@@ -45,6 +45,32 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertValueInList(0, 4, "2023/9/30 PM3:21");
 	}
 	
+	protected boolean isHeadless() { // tmr
+		return false;
+	}
+	
+	protected void tearDown() throws Exception { // tmr
+	}
+	
+	public void testEnglish() throws Exception { 
+		changeLanguage("en");
+		goModule("Event");
+		execute("List.viewDetail", "row=0");
+		assertValue("lastChangeTime", "9/30/2023 3:21 PM");
+		execute("CRUD.save");
+		assertNoErrors();
+	}
+	
+	public void testSpanishUSA() throws Exception { 
+		changeLanguage("es-US");
+		goModule("Event");
+		execute("List.viewDetail", "row=0");
+		assertValue("endTime", "1:00 PM");
+		// tmr Faltaría comprobar el popup, que tenga el AM/PM
+		execute("CRUD.save");
+		assertNoErrors();
+	} 
+	
 	public void testGreek() throws Exception { 
 		changeLanguage("el");
 		goModule("Event");

@@ -10,6 +10,7 @@ openxava.addEditorInitFunction(function() {
     timeCalendarEditor.calendarOpen = false;
     timeCalendarEditor.focusTimeValue;
 
+	/* TMR
     //for fix chinese pop up AM/PM issue
     timeCalendarEditor.inputElementList = $('.xava_time > input').toArray();
     timeCalendarEditor.inputValueList = [];
@@ -32,14 +33,19 @@ openxava.addEditorInitFunction(function() {
 			$(this).val(formattedValue);
 		}
 	});
+	*/
 
     $('.xava_time').flatpickr({
         allowInput: true,
-        clickOpens: false,
-        wrap: true,
-        locale: openxava.language,
+        // tmr clickOpens: false,
+        clickOpens: true,
+        // tmr wrap: true,
+        wrap: false, // tmr
+        // tmr locale: openxava.language,
+        locale: "en-US", // TMR
         enableTime: true,
         noCalendar: true,
+        /* tmr
         onOpen: function(selectedDates, dateStr, instance) {
             timeCalendarEditor.calendarOpen = true;
             timeCalendarEditor.onOpenDateTime = dateStr;
@@ -88,6 +94,8 @@ openxava.addEditorInitFunction(function() {
                 }
             }
         }
+        */
     });
+    
 
 });

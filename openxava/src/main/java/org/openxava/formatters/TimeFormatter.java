@@ -21,9 +21,13 @@ public class TimeFormatter implements IFormatter {
 	private static DateTimeFormatter zhTimeFormat = DateTimeFormatter.ofPattern("ah:mm");
 
 	public String format(HttpServletRequest request, Object time) {
+		System.out.println("[TimeFormatter.format] time=" + time); // tmr
 		if (time == null) return "";
-		if (time instanceof String || time instanceof Number) return time.toString();
-		return reformatTime(getTimeFormat().format((LocalTime) time));
+		System.out.println("[TimeFormatter.format] time.getClass()=" + time.getClass()); // tmr
+		if (time instanceof String || time instanceof Number) return time.toString();		
+		String result = reformatTime(getTimeFormat().format((LocalTime) time));
+		System.out.println("[TimeFormatter.format] result=" + result); // tmr
+		return result;
 	}
 	
 	public Object parse(HttpServletRequest request, String string) throws ParseException {

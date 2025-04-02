@@ -33,7 +33,7 @@ abstract public class WebDriverTestBase extends TestCase {
     }
     
     protected void setUp() throws Exception {
-        driver = createWebDriver(getLang()); 
+        driver = createWebDriver(getLang()); // tmr Optimize this thing
     }
 
     protected void tearDown() throws Exception {

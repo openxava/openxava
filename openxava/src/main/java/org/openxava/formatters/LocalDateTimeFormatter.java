@@ -78,8 +78,9 @@ public class LocalDateTimeFormatter extends DateTimeBaseFormatter implements IFo
 	private String reformatLocalDateTime(String string, boolean parsing) {
 		String date = string;
 		LocalTime specificTime = LocalTime.of(15, 0);
-        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("a");
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("a", Locales.getCurrent());     
         String formattedTimePM = specificTime.format(timeFormat);
+        System.out.println("[LocalDateTimeFormatter.reformatLocalDateTime] formattedTimePM=" + formattedTimePM); // tmr
         String formattedTimeAM;
         if (Character.isUpperCase(formattedTimePM.charAt(0))) {
         	formattedTimeAM = formattedTimePM.replace("P", "A");
