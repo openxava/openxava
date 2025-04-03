@@ -52,7 +52,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 	protected void tearDown() throws Exception { // tmr
 	}
 	
-	public void testEnglish() throws Exception { 
+	public void testLocalTimeEnglish() throws Exception { 
 		changeLanguage("en");
 		goModule("Event");
 		execute("List.viewDetail", "row=0");
@@ -61,12 +61,12 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertNoErrors();
 	}
 	
-	public void testSpanishUSA() throws Exception { 
+	public void testLocalTimeAndLocalDateTimeSpanishUSA() throws Exception { 
 		changeLanguage("es-US");
 		goModule("Event");
 		execute("List.viewDetail", "row=0");
 		assertValue("endTime", "1:00 PM");
-		// tmr Faltaría comprobar el popup, que tenga el AM/PM
+		assertValue("lastChangeTime", "30/9/2023 3:21 PM");
 		execute("CRUD.save");
 		assertNoErrors();
 	} 

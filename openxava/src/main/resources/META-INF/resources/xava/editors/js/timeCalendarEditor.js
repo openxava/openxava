@@ -40,7 +40,6 @@ openxava.addEditorInitFunction(function() {
         locale: openxava.language,
         enableTime: true,
         noCalendar: true,
-        dateFormat: "h:i K", // TMR ME QUEDÉ POR AQUÍ: ESTO LO ARREGLA. ESTÁ A PIÑON, HABRÍA QUE GENERARLO. ¿QUITAR LO DEL AM/PM CHINO?
         onOpen: function(selectedDates, dateStr, instance) {
             timeCalendarEditor.calendarOpen = true;
             timeCalendarEditor.onOpenDateTime = dateStr;
