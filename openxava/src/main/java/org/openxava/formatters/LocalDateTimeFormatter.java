@@ -3,6 +3,7 @@ package org.openxava.formatters;
 import java.text.*;
 import java.time.*;
 import java.time.format.*;
+import java.util.Locale;
 
 import javax.servlet.http.*;
 
@@ -78,7 +79,8 @@ public class LocalDateTimeFormatter extends DateTimeBaseFormatter implements IFo
 	private String reformatLocalDateTime(String string, boolean parsing) {
 		String date = string;
 		LocalTime specificTime = LocalTime.of(15, 0);
-        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("a", Locales.getCurrent());     
+		Locale locale = isZhFormat()?Locale.getDefault():Locales.getCurrent(); // In order the above trick to fix Chinese AM/PM works
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("a", locale);     
         String formattedTimePM = specificTime.format(timeFormat);
         System.out.println("[LocalDateTimeFormatter.reformatLocalDateTime] formattedTimePM=" + formattedTimePM); // tmr
         String formattedTimeAM;

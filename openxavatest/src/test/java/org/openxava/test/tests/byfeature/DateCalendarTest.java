@@ -5,6 +5,9 @@ import java.util.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 /**
+ * TMR ME QUEDÉ POR AQUÍ: LANZANDO ESTA PRUEBA SE QUEDÓ BLOQUEADO.
+ * TMR   CUANDO SALGA VERDE YA ESTARÁN ACABADO LOS DOS BUG Y
+ * TMR   SOLO ME QUEDARÁ OPTIMIZAR EL WebDriverTestBase
  * To test pop up calendar with Selenium.
  * 
  * @author Chungyen Tsai
@@ -15,7 +18,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		super(testName);
 	}
 	
-	public void testLocalDateTime() throws Exception {
+	public void testLocalDateTime() throws Exception { 
 		goModule("Event");
 		assertValueInList(0, 4, "9/30/2023 3:21 PM");
 		execute("List.viewDetail", "row=0");
@@ -279,7 +282,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertValue("date", "5/13/2017");
 	}
 	
-	public void testDateTime_onChange_twoDigitYear_dateTimeSeparated_srDateTime() throws Exception {
+	public void testDateTime_onChange_twoDigitYear_dateTimeSeparated_srDateTime() throws Exception { 
 		goModule("ShipmentWithOnChange");
 		WebElement dateTime;
 		WebElement timeLabel;
@@ -394,7 +397,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertValue("time", "25.12.2018. 05:05");
 	}
 	
-	public void testDate_addSeparators() throws Exception {
+	public void testDate_addSeparators() throws Exception { 
 		goModule("Quarter");
 		WebElement endDate;
 		WebElement endDateLabel;
