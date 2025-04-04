@@ -45,7 +45,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertValueInList(0, 4, "2023/9/30 PM3:21");
 	}
 	
-	public void testLocalTimeEnglish() throws Exception { 
+	public void testLocalDateTimeEnglish() throws Exception { 
 		changeLanguage("en");
 		goModule("Event");
 		execute("List.viewDetail", "row=0");
