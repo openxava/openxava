@@ -3,7 +3,7 @@ package org.openxava.formatters;
 import java.text.*;
 import java.time.*;
 import java.time.format.*;
-import java.util.Locale;
+import java.util.*;
 
 import javax.servlet.http.*;
 
@@ -82,7 +82,6 @@ public class LocalDateTimeFormatter extends DateTimeBaseFormatter implements IFo
 		Locale locale = isZhFormat()?Locale.getDefault():Locales.getCurrent(); // In order the above trick to fix Chinese AM/PM works
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("a", locale);     
         String formattedTimePM = specificTime.format(timeFormat);
-        System.out.println("[LocalDateTimeFormatter.reformatLocalDateTime] formattedTimePM=" + formattedTimePM); // tmr
         String formattedTimeAM;
         if (Character.isUpperCase(formattedTimePM.charAt(0))) {
         	formattedTimeAM = formattedTimePM.replace("P", "A");

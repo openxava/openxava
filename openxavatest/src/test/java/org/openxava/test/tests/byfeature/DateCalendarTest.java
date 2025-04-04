@@ -5,9 +5,6 @@ import java.util.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 /**
- * TMR ME QUEDÉ POR AQUÍ: LANZANDO ESTA PRUEBA SE QUEDÓ BLOQUEADO.
- * TMR   CUANDO SALGA VERDE YA ESTARÁN ACABADO LOS DOS BUG Y
- * TMR   SOLO ME QUEDARÁ OPTIMIZAR EL WebDriverTestBase
  * To test pop up calendar with Selenium.
  * 
  * @author Chungyen Tsai
@@ -48,13 +45,6 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertValueInList(0, 4, "2023/9/30 PM3:21");
 	}
 	
-	protected boolean isHeadless() { // tmr
-		return false;
-	}
-	
-	protected void tearDown() throws Exception { // tmr
-	}
-	
 	public void testLocalTimeEnglish() throws Exception { 
 		changeLanguage("en");
 		goModule("Event");
@@ -65,13 +55,14 @@ public class DateCalendarTest extends WebDriverTestBase {
 	}
 	
 	public void testLocalTimeAndLocalDateTimeSpanishUSA() throws Exception { 
+		if (isWindows7()) setHeadless(false); // In Windows 7 with headless the language is not changed to "es-US" maybe because a bug of Chrome version in Windows 7
 		changeLanguage("es-US");
 		goModule("Event");
 		execute("List.viewDetail", "row=0");
 		assertValue("endTime", "1:00 PM");
 		assertValue("lastChangeTime", "30/9/2023 3:21 PM");
 		execute("CRUD.save");
-		assertNoErrors();
+		assertNoErrors(); 
 	} 
 	
 	public void testGreek() throws Exception { 
@@ -79,7 +70,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		goModule("Event");
 		WebElement calendarIcon = getDriver().findElement(By.cssSelector(".ox_openxavatest_Event__list_col0 .mdi-calendar"));
 		calendarIcon.click();
-		Thread.sleep(100); 
+		Thread.sleep(200); 
 		WebElement days = getDriver().findElement(By.className("flatpickr-weekdaycontainer"));
 		String daysText = days.getText();
 		assertEquals(916, daysText.charAt(0)); 
