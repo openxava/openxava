@@ -90,6 +90,33 @@ style="font-size:11.5pt;font-family:Arial;color:#0d0d0d;background-color:#ffffff
         <p>In this way you can modify the code in <i>xavapro</i> and see the
           result instantly, even without relaunching your application or
           reloading the browser. Just like magic.</p>
+        <h2>Hot code reloading <i>(new in v7.5)</i></h2>
+        <p>Starting with version 7.5, you can shorten the modification cycle
+          even further thanks to <a href="hot-code-reloading_en.html">hot code
+            reloading</a>, if you use the JDK included in OpenXava Studio 7 R4.
+          However, for XavaPro code to also be reloaded, you need to make a
+          small modification in your launcher class:</p>
+        <pre><code class="java">public static void main(String[] args) throws Exception {
+    AppServer.run("yourapp", "../xavapro/target/classes"); 
+}
+</code></pre>
+        <p>Note how we add the path to the <i>xavapro</i> project classes as
+          the second argument (If you also have the OpenXava code in your
+          environment you could add a third argument with <i>../openxava/target/classes</i>).
+          In this example, we assume that <i>xavapro</i> and your project are
+          in the same directory. This way, the modification cycle is reduced to
+          almost nothing. You just need to modify the Java code in <i>xavapro</i>
+          and use your application in the browser — you don't even need to
+          reload to see the changes. </p>
+        <p>Hot code reloading does not include web resources (JSP, HTML, CSS,
+          etc.). For that, you’ll need to copy the files (using your operating
+          system) from <i>xavapro/src/main/resources/META-INF/resources</i> to
+          <i>yourapp/target/yourapp</i>. This way, you'll see the changes just
+          by refreshing the browser. Also, it won't clutter your project because
+          everything in target is deleted when you run <i>mvn clean</i>.</p>
+        <h3><br>
+        </h3>
+        <p></p>
       </div>
     </div>
   </body>

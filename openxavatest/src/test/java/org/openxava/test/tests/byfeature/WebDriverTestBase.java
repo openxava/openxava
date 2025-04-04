@@ -33,6 +33,7 @@ abstract public class WebDriverTestBase extends TestCase {
     }
     
     protected void setUp() throws Exception { 
+    	driver = null;
     }
 
     protected void tearDown() throws Exception {
