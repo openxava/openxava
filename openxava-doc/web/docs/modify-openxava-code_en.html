@@ -13,7 +13,7 @@
       a new feature, etc.<br>
       <h2 id="toc1">Since v7.0</h2>
       <div class="wiki" style="display: block;">OpenXava source code is no
-        longer included in OpenXava distribution, now you have to get it from <a
+        longer included in OpenXava distribution, now you have to get it from <a
           href="https://github.com/openxava/openxava">OpenXava GitHub repository</a>.
         The code of OpenXava framework is in the project <i>openxava</i> inside
         the repository:</div>
@@ -32,7 +32,7 @@
         <img src="files/add-perspective-eclipse.png" alt=""></div>
       <div class="wiki" style="display: block;">It shows a dialog, choose the
         Git perspective:</div>
-      <div class="wiki" style="display: block;"><img src="files/choose-git-perspective-eclipse.png"
+      <div class="wiki" style="display: block;"><img src="files/choose-git-perspective-eclipse.png"
           alt=""><br>
         <p>In Git perspective click on <i>Clone a Git repository</i>:</p>
         <img src="files/clone-git-repository-option-eclipse.png" alt="">
@@ -58,18 +58,18 @@
         <p>To import the <i>openxava</i> project click on <i>File &gt;
             Import...</i>: </p>
         <img src="files/file-import-eclipse.png" alt="">
-        <p>Now select <i>Git &gt; Projects from Git</i> and click on <i>Next</i>:</p>
+        <p>Now select <i>Git &gt; Projects from Git (with smart import)</i> and
+          click on <i>Next</i>:</p>
         <img src="files/import-step1-eclipse.png" alt="">
         <p>Choose <i>Existing local repository</i> and click on <i>Next</i>:</p>
         <img src="files/import-step2-eclipse.png" alt="">
         <p>Select the <i>openxava</i> repository and click on <i>Next</i>:</p>
         <img src="files/import-step3-eclipse.png" alt="">
-        <p>Select the folder <i>openxava</i> and click on <i>Next</i>:</p>
-        <img src="files/import-step4-eclipse.png" alt="">
-        <p>Make sure <i>openxava</i> is checked in click on <i>Finish</i>:</p>
-        <img src="files/import-step5-eclipse.png" alt="">
-        <p>Finally the <i>openxava</i> project with all its code is in your
-          workspace:</p>
+        <p>Uncheck all projects and leave only <i>openxava\openxava</i>
+          checked. Click on <i>Finish</i>:</p>
+        <img src="files/import-step4-eclipse.png" alt=""></div>
+      <div class="wiki" style="display: block;">Finally the <i>openxava</i>
+        project with all its code is in your workspace:<br>
         <img src="files/openxava-project-in-workspace-eclipse.png" alt="">
         <p>Now you can modify the openxava code at your taste.</p>
         <h3>Modify OpenXava code</h3>
@@ -117,6 +117,28 @@
         <p>In this way you can modify the code in openxava and see the result
           instantly, even without relaunching your application or reloading the
           browser. Just like magic.</p>
+        <h3>Hot code reloading <i>(new in v7.5)</i></h3>
+        <p>Starting with version 7.5, you can shorten the modification cycle
+          even further thanks to <a href="hot-code-reloading_en.html">hot code
+            reloading</a>, if you use the JDK included in OpenXava Studio 7 R4.
+          However, for OpenXava code to also be reloaded, you need to make a
+          small modification in your launcher class:</p>
+        <pre><code class="java">public static void main(String[] args) throws Exception {
+    AppServer.run("yourapp", "../openxava/target/classes"); 
+}
+</code></pre>
+        <p>Note how we add the path to the <i>openxava</i> project classes as
+          the second argument. In this example, we assume that <i>openxava</i>
+          and your project are in the same directory. This way, the modification
+          cycle is reduced to almost nothing. You just need to modify the Java
+          code in <i>openxava</i> and use your application in the browser — you
+          don't even need to reload to see the changes. </p>
+        <p>Hot code reloading does not include web resources (JSP, HTML, CSS,
+          etc.). For that, you’ll need to copy the files (using your operating
+          system) from <i>openxava/src/main/resources/META-INF/resources</i> to
+          <i>yourapp/target/yourapp</i>. This way, you'll see the changes just
+          by refreshing the browser. Also, it won't clutter your project because
+          everything in target is deleted when you run <i>mvn clean</i>.</p>
         <h3>Branches</h3>
         <p>In the above example we have modified directly the master branch, not
           a problem at all because you have no rights to do a push against the

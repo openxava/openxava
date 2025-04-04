@@ -32,12 +32,12 @@ abstract public class WebDriverTestBase extends TestCase {
         return "en";
     }
     
-    protected void setUp() throws Exception {
-        driver = createWebDriver(getLang()); 
+    protected void setUp() throws Exception { 
+    	driver = null;
     }
 
     protected void tearDown() throws Exception {
-        driver.quit();
+        if (driver != null) driver.quit();
     }
     
     protected WebDriver createWebDriver(String lang) {
@@ -63,7 +63,8 @@ abstract public class WebDriverTestBase extends TestCase {
     }
     
     protected WebDriver getDriver() {
-        return this.driver;
+    	if (driver == null) driver = createWebDriver(getLang());
+        return driver;
     }
         
     protected void setDriver(WebDriver driver) {
@@ -172,6 +173,7 @@ abstract public class WebDriverTestBase extends TestCase {
     }
     
     protected void goModule(String module) throws Exception {
+    	if (driver == null) driver = createWebDriver(getLang());
         driver.get("http://localhost:8080/openxavatest/m/" + module);
         acceptInDialogJS(driver);
         wait(driver);

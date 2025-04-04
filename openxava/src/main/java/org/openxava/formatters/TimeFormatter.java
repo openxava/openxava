@@ -22,7 +22,7 @@ public class TimeFormatter implements IFormatter {
 
 	public String format(HttpServletRequest request, Object time) {
 		if (time == null) return "";
-		if (time instanceof String || time instanceof Number) return time.toString();
+		if (time instanceof String || time instanceof Number) return time.toString();		
 		return reformatTime(getTimeFormat().format((LocalTime) time));
 	}
 	
