@@ -91,5 +91,36 @@ style="font-size:11.5pt;font-family:Arial;color:#0d0d0d;background-color:#ffffff
     <div class="wiki" style="display: block;">De esta forma puedes modificar el
       código en <i>xavapro</i> y ver el resultado al instante, incluso sin
       reiniciar tu aplicación o recargar el navegador. Magia pura.</div>
+    <div class="wiki" style="display: block;">
+      <h2>Recarga del código en caliente <i>(nuevo en v7.5)</i></h2>
+      <p>A partir de la versión 7.5 puedes acorta todavía más el ciclo de
+        modificación gracias a la <a href="hot-code-reloading_es.html">carga
+          del código en caliente</a>, si usas el JDK incluido en OpenXava Studio
+        7 R4. Pero para que el código de XavaPro también se recargue en caliente
+        has de hacer una pequeña modificación en tu clase lanzadora:</p>
+      <pre><code class="java">public static void main(String[] args) throws Exception {
+    AppServer.run("tuaplicacion", "../xavapro/target/classes"); 
+}
+</code></pre>
+      <p>Nota como añadimos como segundo argumento la ruta de las clases del
+        proyecto <i>xavapro</i> (si también tienes el código de OpenXava en tu
+        entorno puedes añadir un tercer argumento con <i>../openxava/target/classes</i>).
+        En el ejemplo partimos de la base de que tienes <i>xavapro</i> y tu
+        proyecto en el mismo directorio. De esta forma el ciclo de modificación
+        se reduce a nada. Solo has de tocar el código Java en <i>xavapro</i> y
+        usar tu aplicación en el navegador, ni siquiera has de recargar para
+        tener los efectos. </p>
+      <p>La recarga del código en caliente no incluye los recursos web (JSP,
+        HTML, CSS, etc) para eso tendrás que copiar los archivos (usando el
+        sistema operativo) desde <i>xavapro/src/main/resources/META-INF/resources</i>
+        a <i>tuaplicacion/target/tuaplicacion</i>. Así, tendrias los cambios
+        con solo pulsar en recargar en el navegador, además sin ensuciar el
+        proyecto porque todo lo que hay en <i>target</i> se va al hacer un <i>mvn
+          clean</i>.</p>
+      <h3></h3>
+      <p></p>
+      <h3><br>
+      </h3>
+    </div>
   </body>
 </html>

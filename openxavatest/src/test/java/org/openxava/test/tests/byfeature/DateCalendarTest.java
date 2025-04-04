@@ -15,7 +15,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		super(testName);
 	}
 	
-	public void testLocalDateTime() throws Exception {
+	public void testLocalDateTime() throws Exception { 
 		goModule("Event");
 		assertValueInList(0, 4, "9/30/2023 3:21 PM");
 		execute("List.viewDetail", "row=0");
@@ -45,12 +45,32 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertValueInList(0, 4, "2023/9/30 PM3:21");
 	}
 	
+	public void testLocalDateTimeEnglish() throws Exception { 
+		changeLanguage("en");
+		goModule("Event");
+		execute("List.viewDetail", "row=0");
+		assertValue("lastChangeTime", "9/30/2023 3:21 PM");
+		execute("CRUD.save");
+		assertNoErrors();
+	}
+	
+	public void testLocalTimeAndLocalDateTimeSpanishUSA() throws Exception { 
+		if (isWindows7()) setHeadless(false); // In Windows 7 with headless the language is not changed to "es-US" maybe because a bug of Chrome version in Windows 7
+		changeLanguage("es-US");
+		goModule("Event");
+		execute("List.viewDetail", "row=0");
+		assertValue("endTime", "1:00 PM");
+		assertValue("lastChangeTime", "30/9/2023 3:21 PM");
+		execute("CRUD.save");
+		assertNoErrors(); 
+	} 
+	
 	public void testGreek() throws Exception { 
 		changeLanguage("el");
 		goModule("Event");
 		WebElement calendarIcon = getDriver().findElement(By.cssSelector(".ox_openxavatest_Event__list_col0 .mdi-calendar"));
 		calendarIcon.click();
-		Thread.sleep(100); 
+		Thread.sleep(200); 
 		WebElement days = getDriver().findElement(By.className("flatpickr-weekdaycontainer"));
 		String daysText = days.getText();
 		assertEquals(916, daysText.charAt(0)); 
@@ -95,7 +115,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 	public void testDutch_zhCN() throws Exception { 
 		changeLanguage("nl");
 		goModule("Appointment");
-		setConditionValue("26-5-2015 8:15", 0);
+		setConditionValue("26-5-2015 8:15", 0); 
 		execute("List.filter");
 		assertNoErrors(); 
 		
@@ -253,7 +273,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertValue("date", "5/13/2017");
 	}
 	
-	public void testDateTime_onChange_twoDigitYear_dateTimeSeparated_srDateTime() throws Exception {
+	public void testDateTime_onChange_twoDigitYear_dateTimeSeparated_srDateTime() throws Exception { 
 		goModule("ShipmentWithOnChange");
 		WebElement dateTime;
 		WebElement timeLabel;
@@ -368,7 +388,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertValue("time", "25.12.2018. 05:05");
 	}
 	
-	public void testDate_addSeparators() throws Exception {
+	public void testDate_addSeparators() throws Exception { 
 		goModule("Quarter");
 		WebElement endDate;
 		WebElement endDateLabel;

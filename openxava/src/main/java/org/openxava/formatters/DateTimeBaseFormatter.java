@@ -30,8 +30,15 @@ abstract public class DateTimeBaseFormatter {
 	}
 	
 	protected boolean isExtendedFormat() {
-		return "es".equals(Locales.getCurrent().getLanguage()) ||
-			"ca".equals(Locales.getCurrent().getLanguage()) || 
+		if ("es".equals(Locales.getCurrent().getLanguage())) {
+			String country = Locales.getCurrent().getCountry();
+			// Exclude United States (US) and Puerto Rico (PR) for Spanish language
+			if ("US".equals(country) || "PR".equals(country)) {
+				return false;
+			}
+			return true;
+		}
+		return "ca".equals(Locales.getCurrent().getLanguage()) || 
 			"pl".equals(Locales.getCurrent().getLanguage()) ||
 			"fr".equals(Locales.getCurrent().getLanguage());
 	}

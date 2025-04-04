@@ -28,7 +28,7 @@ public class CalendarTest extends WebDriverTestBase {
     	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime_saveStateWhenClickDates();
     	assertAnyNameAsDateProperty();
     	assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear();
-    	assertDropDownVisible_DropDownOptionSavePrefDate();
+    	assertDropDownVisible_DropDownOptionSavePrefDate(); 
     	assertTabWithBaseCondition();
     	
     }    

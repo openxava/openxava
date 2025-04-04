@@ -34,7 +34,7 @@
         <img src="files/add-perspective-eclipse.png" alt=""></div>
       <div class="wiki" style="display: block;">Esto muestra un diálogo, escoge
         la perspectiva Git:</div>
-      <div class="wiki" style="display: block;"><img src="files/choose-git-perspective-eclipse.png"
+      <div class="wiki" style="display: block;"><img src="files/choose-git-perspective-eclipse.png"
           alt=""><br>
         <p>Una vez en la perspectiva Git, pulsa en <i>Clone a Git repository</i>:</p>
         <img src="files/clone-git-repository-option-eclipse.png" alt="">
@@ -54,8 +54,7 @@
         <img src="files/openxava-repository-git-perspective-eclipse.png" alt="">
         <p>¡Enhorabuena! El repositorio de OpenXava está descargado en tu
           ordenador y configurado en el OpenXava Studio. El siguiente paso es
-          importar el proyecto <i>openxava</i>
-          en tu workspace.</p>
+          importar el proyecto <i>openxava</i> en tu workspace.</p>
         <h3>Importar openxava en el workspace</h3>
         <p>Primero, vuelve a la perspectiva Java, para ello pulsa el botón
           correspondiente en la esquina superior derecha del OpenXava Studio:</p>
@@ -63,16 +62,16 @@
         <p>Para importar el proyecto <i>openxava</i> pulsa en <i>File &gt;
             Import...</i>: </p>
         <img src="files/file-import-eclipse.png" alt="">
-        <p>Ahora selecciona <i>Git &gt; Projects from Git</i> y pulsa en <i>Next</i>:</p>
+        <p>Ahora selecciona <i>Git &gt; Projects from Git (with smart import)</i>
+          y pulsa en <i>Next</i>:</p>
         <img src="files/import-step1-eclipse.png" alt="">
         <p>Escoge <i>Existing local repository</i> y pulsa en <i>Next</i>:</p>
         <img src="files/import-step2-eclipse.png" alt="">
         <p>Selecciona el repositorio <i>openxava</i> y pulsa en <i>Next</i>:</p>
-        <img src="files/import-step3-eclipse.png" alt="">
-        <p>Selecciona la carpeta <i>openxava</i> y pulsa en <i>Next</i>:</p>
+        <img src="files/import-step3-eclipse.png" alt=""></div>
+      <div class="wiki" style="display: block;">Desmarca todos los proyectos y
+        deja solo marcado <i>openxava\openxava</i>. Pulsa en <i>Finish</i>: <br>
         <img src="files/import-step4-eclipse.png" alt="">
-        <p>Asegurate de que <i>openxava</i> está marcado y pulsa en <i>Finish</i>:</p>
-        <img src="files/import-step5-eclipse.png" alt="">
         <p>Y por fin el proyecto <i>openxava</i> con todo su código está en tu
           workspace:</p>
         <img src="files/openxava-project-in-workspace-eclipse.png" alt="">
@@ -124,6 +123,32 @@
         <p>De esta forma podrás modificar el código de openxava y ver el
           resultado en el acto, sin relanzar la aplicación e incluso sin
           recargar la página en el navegadro. Magia pura.</p>
+        <h3>Recarga del código en caliente <i>(nuevo en v7.5)</i></h3>
+        <p>A partir de la versión 7.5 puedes acorta todavía más el ciclo de
+          modificación gracias a la <a href="hot-code-reloading_es.html">carga
+            del código en caliente</a>, si usas el JDK incluido en OpenXava
+          Studio 7 R4. Pero para que el código de OpenXava también se recargue
+          en caliente has de hacer una pequeña modificación en tu clase
+          lanzadora:</p>
+        <pre><code class="java">public static void main(String[] args) throws Exception {
+    AppServer.run("tuaplicacion", "../openxava/target/classes"); 
+}
+</code></pre>
+        <p>Nota como añadimos como segundo argumento la ruta de las clases del
+          proyecto <i>openxava</i>. En el ejemplo partimos de la base de que
+          tienes <i>openxava</i> y tu proyecto en el mismo directorio. De esta
+          forma el ciclo de modificación se reduce a nada. Solo has de tocar el
+          código Java en <i>openxava</i> y usar tu aplicación en el navegador,
+          ni siquiera has de recargar para tener los efectos. </p>
+        <p>La recarga del código en caliente no incluye los recursos web (JSP,
+          HTML, CSS, etc) para eso tendrás que copiar los archivos (usando el
+          sistema operativo) desde <i>openxava/src/main/resources/META-INF/resources</i>
+          a <i>tuaplicacion/target/tuaplicacion</i>. Así, tendrias los cambios
+          con solo pulsar en recargar en el navegador, además sin ensuciar el
+          proyecto porque todo lo que hay en <i>target</i> se va al hacer un <i>mvn
+            clean</i>.</p>
+        <h3></h3>
+        <p></p>
         <h3>Ramas</h3>
         <p>En el ejemplo de arriba hemos modicado directamente la rama master,
           lo que no es un problema dado que no tienes permisos para hacer un
