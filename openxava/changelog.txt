@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Improved Getting Started guide to include a reference a hot code reloading.
 - Fix: Error parsing LocalDateTime properties in English.
 - Fix: Error parsing and formatting LocalDateTime and LocalTime properties in U.S. Spanish.
 - Doc for modifying OpenXava and XavaPro code now includes a section on using hot code reloading.
