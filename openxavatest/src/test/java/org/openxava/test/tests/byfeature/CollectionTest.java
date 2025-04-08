@@ -18,7 +18,7 @@ public class CollectionTest extends WebDriverTestBase {
 		super(testName);
 	}
 
-    public void testChangeSectionNotLoadCollection() throws Exception { // TMR ME QUEDÉ POR AQUÍ. FALLA. FALTA EJECUTAR TODOS LOS TESTS FALLIDOS
+    public void testChangeSectionNotLoadCollection() throws Exception { 
         goModule("Invoice");
         execute("CRUD.new");
         setValue("year", "2002");

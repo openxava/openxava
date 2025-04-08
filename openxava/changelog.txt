@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Row action popup not shown after executing an action that does not refresh the collection.
 - Improved Getting Started guide to include a reference to hot code reloading.
 - Fix: Error parsing LocalDateTime properties in English.
 - Fix: Error parsing and formatting LocalDateTime and LocalTime properties in U.S. Spanish.

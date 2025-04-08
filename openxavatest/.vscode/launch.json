@@ -30,13 +30,6 @@
             "request": "launch",
             "mainClass": "org.openxava.test.run.openxavatest",
             "projectName": "openxavatest"
-        },
-        {
-            "type": "java",
-            "name": "SingleTestSuite",
-            "request": "launch",
-            "mainClass": "org.openxava.test.tests.SingleTestSuite",
-            "projectName": "openxavatest"
         }
     ]
 }
