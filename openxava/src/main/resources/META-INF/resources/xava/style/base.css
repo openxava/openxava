@@ -1477,8 +1477,10 @@ input[type="button"] {
 }
 
 .ox-resize-columns .ox-list-header .mdi-close-circle {
+	/* tmr Probando esto
 	position: absolute;
 	right: 0px; 	
+	*/
 	padding-right: 10px; 
 	background: var(--close-column-icon); 
 	background:linear-gradient(to left, var(--close-column-icon), var(--close-column-icon), var(--close-column-icon), transparent);
