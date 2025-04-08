@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Lesson 1 of the OpenXava course with AI available in the documentation with video.
 - Fix: Row action popup not shown after executing an action that does not refresh the collection.
 - Improved Getting Started guide to include a reference to hot code reloading.
 - Fix: Error parsing LocalDateTime properties in English.
