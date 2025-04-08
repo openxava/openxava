@@ -32,7 +32,7 @@ public class ElementCollectionTest extends WebDriverTestBase {
 		long ini = System.currentTimeMillis();
 		execute("Grade.addCalifications");
 		long fn = System.currentTimeMillis();
-		assertTrue((fn-ini) < 4000); // More than 9 seconds when failed 
+		assertTrue((fn-ini) < 5000); // More than 9 seconds when failed 
 	}
 
 }

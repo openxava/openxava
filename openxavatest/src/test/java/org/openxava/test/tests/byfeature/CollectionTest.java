@@ -18,7 +18,7 @@ public class CollectionTest extends WebDriverTestBase {
 		super(testName);
 	}
 
-    public void testChangeSectionNotLoadCollection() throws Exception {
+    public void testChangeSectionNotLoadCollection() throws Exception { 
         goModule("Invoice");
         execute("CRUD.new");
         setValue("year", "2002");
@@ -86,6 +86,15 @@ public class CollectionTest extends WebDriverTestBase {
         menuIcons.get(3).click();
         menu = getDriver().findElements(By.className("ox-popup-menu"));
         menu.get(3).findElements(By.tagName("a")).get(4).click();
+
+        // To verify that popup works after calling an action that does not refresh the collection
+        wait(getDriver());
+        execute("CRUD.refresh");
+        menuIcons = getDriver().findElements(By.className("xava_popup_menu_icon"));
+        menu = getDriver().findElements(By.className("ox-popup-menu"));
+        assertFalse(menu.get(0).isDisplayed());
+        menuIcons.get(0).click();
+        assertTrue(menu.get(0).isDisplayed());
 
         goModule("Invoice");
         menuIcons = getDriver().findElements(By.className("xava_popup_menu_icon"));
