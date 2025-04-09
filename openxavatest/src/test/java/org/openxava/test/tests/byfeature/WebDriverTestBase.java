@@ -268,7 +268,7 @@ abstract public class WebDriverTestBase extends TestCase {
     
     protected void moveColumn(String collection, int sourceColumn, int targetColumn) throws Exception {
         WebElement handle = getHeader(collection, sourceColumn).findElement(By.className("xava_handle")); 
-        String classTargetPoint = sourceColumn > targetColumn?"xava_handle":"mdi-close-circle"; 
+        String classTargetPoint = sourceColumn > targetColumn?"xava_handle":"mdi-close-circle";
         WebElement targetPoint = getHeader(collection, targetColumn).findElement(By.className(classTargetPoint));
         Actions actions = new org.openqa.selenium.interactions.Actions(driver);
         actions.dragAndDrop(handle, targetPoint).build().perform();
