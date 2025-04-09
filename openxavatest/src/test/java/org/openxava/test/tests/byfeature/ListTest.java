@@ -660,10 +660,10 @@ public class ListTest extends WebDriverTestBase {
 		}
 		
 		try {
-			// Usamos JavaScript para verificar si el elemento es realmente visible
+			// We use JavaScript to verify that the elemeent is truly visible
 			JavascriptExecutor js = (JavascriptExecutor) getDriver();
 			
-			// Verificar si el elemento tiene dimensiones visibles
+			// Verify if the element has visible dimensions
 			Boolean hasSize = (Boolean) js.executeScript(
 				"var rect = arguments[0].getBoundingClientRect();" +
 				"return (rect.width > 0 && rect.height > 0);", 
@@ -673,7 +673,7 @@ public class ListTest extends WebDriverTestBase {
 				return false;
 			}
 			
-			// Verificar si el elemento está en el viewport
+			// Verify if the element if in the viewport
 			Boolean isInViewport = (Boolean) js.executeScript(
 				"var rect = arguments[0].getBoundingClientRect();" +
 				"return (" +
@@ -688,7 +688,7 @@ public class ListTest extends WebDriverTestBase {
 				return false;
 			}
 			
-			// Verificar si el elemento está oculto por otro elemento
+			// Verify if the element is hidden behind other element
 			Boolean isNotCovered = (Boolean) js.executeScript(
 				"var el = arguments[0];" +
 				"var rect = el.getBoundingClientRect();" +
