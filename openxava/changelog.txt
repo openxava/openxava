@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- New look & feel for column customization icons when column resizing is enabled.
+- Enabling list customization with column resizing does not alter the column widths.
+- Fix: Rename column icon not displayed in Chrome when column resizing is enabled.
+- Fix: Remove column icon not displayed in Firefox when column resizing is enabled.
 - Lesson 1 of the OpenXava course with AI available in the documentation with video.
 - Fix: Row action popup not shown after executing an action that does not refresh the collection.
 - Improved Getting Started guide to include a reference to hot code reloading.

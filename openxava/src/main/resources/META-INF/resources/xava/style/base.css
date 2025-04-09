@@ -136,6 +136,7 @@
 	--list-even-column-background: #f4f4f4;
 	--list-row-bottom-color: #EBEBEB;			
 	--customize-controls-color: var(--messages-background);
+	--customize-controls-column-icon-color: white;
 	--customize-controls-hover-color: white;		
 	--list-row-hover-background: linear-gradient(
 			to top,
@@ -156,7 +157,6 @@
 	--list-total-row-action-color: var(--list-row-action-color);
 	--list-total-row-action-hover-color: var(--list-row-action-hover-color);	
 	--sort-indicator-color: black;
-	--close-column-icon: white;
 	--xava-dropped-shadow: lightgray;		
 		
 	--dialog-titlebar-button-background: transparent;
@@ -1477,11 +1477,7 @@ input[type="button"] {
 }
 
 .ox-resize-columns .ox-list-header .mdi-close-circle {
-	position: absolute;
-	right: 0px; 	
 	padding-right: 10px; 
-	background: var(--close-column-icon); 
-	background:linear-gradient(to left, var(--close-column-icon), var(--close-column-icon), var(--close-column-icon), transparent);
 }
 
 .ox-list-subheader td { 
@@ -2029,6 +2025,28 @@ div.ox-subcontroller table{
 
 .ox-column-customize-controls-on-right {
 	float: right;
+}
+
+.ox-resize-columns .xava_handle {
+	position: absolute;
+	left: 0;
+	color: var(--customize-controls-column-icon-color);
+	background: var(--customize-controls-color);
+	background:linear-gradient(to right, var(--customize-controls-color), transparent);
+}
+
+.ox-resize-columns .ox-column-customize-controls-on-right {
+	position: absolute;
+	right: 0;
+	white-space: nowrap;
+	background: var(--customize-controls-color);
+	background: linear-gradient(to left, var(--customize-controls-color), transparent);
+}
+
+.ox-resize-columns .ox-column-customize-controls-on-right i {
+	color: var(--customize-controls-column-icon-color);
+	padding-left: 0;
+	padding-right: 0;
 }
 
 .ox-list a {

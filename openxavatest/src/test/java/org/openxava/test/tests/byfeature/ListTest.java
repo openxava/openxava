@@ -2,6 +2,7 @@ package org.openxava.test.tests.byfeature;
 
 import java.time.*;
 import java.util.*;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.*;
@@ -20,12 +21,13 @@ public class ListTest extends WebDriverTestBase {
 	}
 	
 	private final static String ACTION_PREFIX = "action";
-	
+		
 	public void testListAndCollection() throws Exception {
 		goModule("Author");
 		assertShowHideFilterInList();
 		assertMoveColumns();
 		assertRemoveColumnAfterFiltering(); 
+		
 		assertNoFilterInCollectionByDefault();
 
 		goModule("Carrier");
@@ -40,7 +42,7 @@ public class ListTest extends WebDriverTestBase {
 		assertRemoveSeveralColumns();
 	}
 	
-	public void testListFormatIsSelectable() throws Exception {
+	public void testListFormatIsSelectable() throws Exception { 
 		//has-type tested with CalendarTest
 		goModule("City");
 		assertTrue(hasClockIcon());
@@ -128,34 +130,45 @@ public class ListTest extends WebDriverTestBase {
 		WebElement column0 = getDriver().findElement(By.id("ox_openxavatest_Carrier__list_col0"));		
 		WebElement moveColumn0 = column0.findElement(By.cssSelector("i[class='xava_handle mdi mdi-cursor-move ui-sortable-handle']"));		
 		WebElement removeColumn0 = getDriver().findElement(By.cssSelector(".xava_remove_column[data-column='ox_openxavatest_Carrier__list_col0']"));
+		WebElement renameColumn0 = getDriver().findElement(By.cssSelector("a[data-action='List.changeColumnName'][data-argv='property=number']"));
 		WebElement column1 = getDriver().findElement(By.id("ox_openxavatest_Carrier__list_col1"));
 		WebElement moveColumn1 = column1.findElement(By.cssSelector("i[class='xava_handle mdi mdi-cursor-move ui-sortable-handle']")); 
 		WebElement removeColumn1 = getDriver().findElement(By.cssSelector(".xava_remove_column[data-column='ox_openxavatest_Carrier__list_col1']"));
+		WebElement renameColumn1 = getDriver().findElement(By.cssSelector("a[data-action='List.changeColumnName'][data-argv='property=name']"));
+		
 		assertFalse(addColumns.isDisplayed());
 		assertFalse(moveColumn0.isDisplayed());		
 		assertFalse(removeColumn0.isDisplayed());
+		assertFalse(isElementTrulyVisible(renameColumn0));
 		assertFalse(moveColumn1.isDisplayed());
-		assertFalse(removeColumn1.isDisplayed());		
+		assertFalse(removeColumn1.isDisplayed());
+		assertFalse(isElementTrulyVisible(renameColumn1));
+		
 		WebElement customize = getDriver().findElement(By.id("ox_openxavatest_Carrier__customize_list")); 
 		customize.click();
 		assertTrue(addColumns.isDisplayed());
 		assertTrue(moveColumn0.isDisplayed());
 		assertTrue(removeColumn0.isDisplayed());
+		assertTrue(isElementTrulyVisible(renameColumn0));
 		assertTrue(moveColumn1.isDisplayed());
-		assertTrue(removeColumn1.isDisplayed());		
+		assertTrue(removeColumn1.isDisplayed());
+		assertTrue(isElementTrulyVisible(renameColumn1));
+		
 		customize.click();
 		Thread.sleep(3000); // It needs time to fade out 
 		assertFalse(addColumns.isDisplayed()); 
-		assertFalse(moveColumn0.isDisplayed());		
+		assertFalse(moveColumn0.isDisplayed());
 		assertFalse(removeColumn0.isDisplayed());
+		assertFalse(isElementTrulyVisible(renameColumn0));
 		assertFalse(moveColumn1.isDisplayed()); 
 		assertFalse(removeColumn1.isDisplayed());
+		assertFalse(isElementTrulyVisible(renameColumn1));
 	}
 	
 	private WebElement getElementById(String id) {
 		return getDriver().findElement(By.id(Ids.decorate("openxavatest", getModule(), id)));
 	}
-
+	
 	private void assertCustomizeCollection() throws Exception {
 		// Original status		
 		assertListColumnCount(3);
@@ -544,7 +557,7 @@ public class ListTest extends WebDriverTestBase {
 	private void showCustomizeControls(String collection) {
 		getDriver().findElement(By.id("ox_openxavatest_" + getModule() + "__customize_" + collection)).click();
 	}
-	
+
 	private void assertNoAction(String qualifiedAction) {
 		String [] action = qualifiedAction.split("\\.");
 		String name = "ox_openxavatest_" + getModule() + "__action___" + action[0] + "___" + action[1];
@@ -640,5 +653,55 @@ public class ListTest extends WebDriverTestBase {
 		List<WebElement> iconElements = getDriver().findElements(By.cssSelector("i.mdi.mdi-clock"));
 		return !iconElements.isEmpty();
 	}
-
+	
+	private boolean isElementTrulyVisible(WebElement element) {
+		if (!element.isDisplayed()) {
+			return false;
+		}
+		
+		try {
+			// We use JavaScript to verify that the elemeent is truly visible
+			JavascriptExecutor js = (JavascriptExecutor) getDriver();
+			
+			// Verify if the element has visible dimensions
+			Boolean hasSize = (Boolean) js.executeScript(
+				"var rect = arguments[0].getBoundingClientRect();" +
+				"return (rect.width > 0 && rect.height > 0);", 
+				element);
+			
+			if (!hasSize) {
+				return false;
+			}
+			
+			// Verify if the element if in the viewport
+			Boolean isInViewport = (Boolean) js.executeScript(
+				"var rect = arguments[0].getBoundingClientRect();" +
+				"return (" +
+				"    rect.top >= 0 &&" +
+				"    rect.left >= 0 &&" +
+				"    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&" +
+				"    rect.right <= (window.innerWidth || document.documentElement.clientWidth)" +
+				");", 
+				element);
+				
+			if (!isInViewport) {
+				return false;
+			}
+			
+			// Verify if the element is hidden behind other element
+			Boolean isNotCovered = (Boolean) js.executeScript(
+				"var el = arguments[0];" +
+				"var rect = el.getBoundingClientRect();" +
+				"var x = rect.left + rect.width / 2;" +
+				"var y = rect.top + rect.height / 2;" +
+				"var elementAtPoint = document.elementFromPoint(x, y);" +
+				"return (elementAtPoint === el || el.contains(elementAtPoint));",
+				element);
+				
+			return isNotCovered;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
 }
