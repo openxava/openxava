@@ -17,9 +17,8 @@
         <h2>Video</h2>
         <p>In this video, we will install Windsurf (an IDE with an AI agent),
           create our project, and ask the AI to generate the entities.</p>
-        <p><a href="https://youtu.be/I7YGTDPQqAc" target="_blank"><img src="files/report-course_es010.png"
-              title="report-generation-010"></a><a href="https://www.youtube.com/watch?v=qejG_9BzgGA&amp;list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&amp;index=5"
-            target="_blank"></a> </p>
+        <p><a href="https://youtu.be/Zko-xQ2dDWs" target="_blank"><img src="files/course-with-ai_en010.png"
+              title="course-with-ai-010"></a></p>
         <p><strong>Problems with the lesson? <a class="wiki_link_ext" href="https://sourceforge.net/p/openxava/discussion/419690/"
               rel="nofollow">Ask in the forum</a></strong></p>
       
@@ -31,8 +30,54 @@
               GitHub repository</a></b>, in case you're interested in
           examining it.</p>
         <h2>Transcript</h2>
-        <p>Hello, I'm Monica...</p>
+        <h3>Course introduction</h3>
+        <p>Hello, I am Monica. This is the beginning of a fascinating journey, where we are going to create a car insurance policy management application using Java, OpenXava, and artificial intelligence. We will see how it is possible to develop a real business application without writing code. Moreover, an application that can be extended and maintained, without writing code.</p>
+        
+        <p>This video is the first lesson of a course. Yes, this is not a demo, it is a course. I hope you try to follow the video and do this at home. It doesn't matter if the result is not exactly the same—it certainly won't be. What matters is that you discover a new way of developing. Let's get started.</p>
+        
+        <h3>Setting up the environment</h3>
+        <p>For artificial intelligence to change the way we create software, it is not enough to just copy code from ChatGPT and paste it into our IDE. Something bolder and more daring is needed. We want AI to work under our command, to work for us and handle all the boring and tedious tasks. For AI to do rather than just talk, we need to use a special IDE—Eclipse or IntelliJ alone won't be enough.</p>
+        
+        <p>We need an IDE with an integrated artificial intelligence agent. In this video, we will use Windsurf by Codeium, but there are others, though slightly inferior, like Cursor or Copilot Edits. To download Windsurf, go to codeium.com/windsurf or simply search for "windsurf ide" on Google. Download and install it to follow along with this tutorial.</p>
+        
+        <h3>Creating the OpenXava project</h3>
+        <p>The next step is to create a basic OpenXava project. We will do this using Maven and ask ChatGPT to write the command line for us. In the video, we ask in English because it is dubbed in multiple languages, but you can use your own language, and it will work just fine. We name the project insurecar because it is an application for managing car insurance. We specify that the group should be com.insurancecorp.</p>
+        
+        
+        <p>We also instruct it to put the command on a single line and use the latest version of OpenXava, which happens if the version number is RELEASE. We check Search to ensure that ChatGPT consults the latest OpenXava documentation and does not make anything up. And here we have the command. We copy it. We go to the "Command Prompt" window, paste it, and wait. And now we have our insurecar project ready.</p>
+        
+        <p>Obviously, you need to have Java and Maven installed on your computer for this to work. If you're a Java programmer, you probably already have them. If not, you'll need to install them. Maven is the build tool for Java projects. Now we can open our newly created OpenXava project with Windsurf. Start Windsurf. Click on "Open Folder" and locate your OpenXava project folder.</p>
+        
+        <h3>Initial configuration</h3>
+        
+        <p>If you have used Visual Studio Code before, Windsurf will feel familiar since it is based on it. If you haven't opened a Java project with Windsurf yet, it will ask you to install the necessary extensions to work with Java—go ahead and install them. After that, you can start exploring your OpenXava project. Let's take this opportunity to delete the entity that OpenXava creates by default in a basic project. It is the entity YourFirstEntity, located in the model package.</p>
+        
+        <h3>Generating entities with AI</h3>
+        <p>Now comes the moment of truth. Finally, it's time to witness the magic we've been waiting for. We're going to ask Windsurf to generate the entities for our application and see what happens. To interact with Windsurf, we'll use the right side of the environment, called "Cascade." It's a chat where we can ask anything, just like in ChatGPT, but we can also request it to perform actions in our project.</p>
+        
+        
+        <p>We ask it, using simple and plain language, to write a car insurance policy management system in OpenXava for us. We do it in English, but we could do it in your own language, and we could even ask it to generate the code in your language if we wanted. We tell it to generate the entities for us. Without giving more details. Let's see what Windsurf responds. The video is unedited. In real time.</p>
+        
+        <p>First, it starts analyzing the code of our project. It has been able to find the correct place to put the classes, the model package. Well done! This thing is quite smart. Moreover, it has decided which classes are necessary for our application, namely: Customer, Vehicle, Policy, and Claim. And without further delay, it is already generating the code for our entities, directly into our project. Let's enjoy watching it work.</p>
+        
+        <p>Notice how the classes appear in the project tree, which we have on the left side, as they are generated. When finished, it gives us a summary of everything it has done, listing the four entities and highlighting the most relevant aspects of each one. It also suggests that we run the application and provides the command, which it could execute itself if we asked. But it's not time yet. Let's review the code it has generated for us.</p>
+        
+        <h3>Reviewing generated code</h3>
+        <p>First, let's look at the Customer class. Look, it has an OpenXava View annotation. We can also see the typical properties of a customer. But, there's something in red. The EmailValidator annotation does not exist in OpenXava—our AI got a little too creative with this detail. The easiest solution is to simply delete the annotation. Let's take a look at the other entities. For example, Claim, which represents an insurance claim. It also has an OpenXava View annotation, along with Lombok and JPA annotations. Everything looks pretty well done.</p>
+        
+        <p>Next, we see Policy, which represents the insurance policy. And Vehicle, which represents the vehicle. It has all its properties, including OpenXava annotations and a reference to the policy. After reviewing the code, we'd like to see the application running to check how it looks. But first, we need to package the application. Let's do it. We open the Maven section. There, we open Lifecycle. We look for package and execute it.</p>
 
+        <h3>Running the application</h3>
+        <p>The Maven package action packages or prepares the application so it can be executed. This step is only necessary the first time. From now on, we can modify the application and run it without having to execute Maven package again. Once it finishes, we can run our application. We open the Java Projects section and click the play symbol next to insurecar. We just need to wait a few seconds for our application to be ready to use. That's it. Now we click on the link to open a browser with our application.</p>
+        
+        <p>Let's test our application. We log in with admin, admin. And we see our application's modules in the menu. We enter Customers, which has basic fields and a list of policies. Let's see how the vehicles module looks. And now the policy. We'll also check the claims module. It's true that the user interface is ugly, abrupt and excessive. But don't worry, we're going to fix this, easily. Until we have a simple and friendly user interface. But it's also true that we got all this by writing just one simple sentence.</p>
+        
+        <h3>Conclusion and next steps</h3>
+        <p>That's enough for today. Let's recap. This is a live, unedited video, and in less than ten minutes, by just writing one sentence, we have a working application to manage car insurance policies. Without knowing the insurance world, without even knowing Java. Not bad at all.</p>
+        
+        <p>I know what you're thinking. That this application is just a demo that's useless and that to make a real application we need to know the insurance world and Java. And you're right. But it's undeniable that thanks to Windsurf and OpenXava, which automatically generates the entire user interface, we save a lot of work. And most importantly, we change the way we work. And if you continue with the course you'll see that making a serious application is possible.</p>
+        
+        <p>I invite you to try following this video tutorial at home and share your experience with me. Don't miss the next videos where we'll populate the database with test data, refine the user interface, add actions with custom business logic, implement automated tests, and everything that fortune and our imagination allow us to do with Windsurf and OpenXava. Until next time.</p>
       </div>    	
   </body>
 </html>
