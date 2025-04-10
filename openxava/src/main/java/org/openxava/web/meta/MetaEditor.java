@@ -109,6 +109,8 @@ public class MetaEditor implements Cloneable {
 				propertiesURL = sb.toString();
 			}
 		}		
+		// TMR ME QUEDÉ POR AQUÍ, AUNQUE CAMBIE EL TYPE, SIGUE SIENDO EL ORIGINAL
+		System.out.println("MetaEditor.getPropertiesURL() propertiesURL=" + propertiesURL); // tmr
 		return propertiesURL; 
 	}
 	
