@@ -8,6 +8,7 @@ import org.apache.commons.beanutils.*;
 import org.apache.commons.collections.*;
 import org.apache.commons.logging.*;
 import org.openxava.component.parse.*;
+import org.openxava.hotswap.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.meta.*;
 import org.openxava.util.*;
@@ -37,6 +38,7 @@ public class MetaWebEditors {
 	private static MetaEditor editorForElementCollections; 
 	private static Collection<MetaEditor> editorsForTabs;
 	private static Map<String, MetaEditor> editorsByMember;  
+	private static int modelCodeVersion = Hotswap.getModelVersion();
 	
 	public static void addMetaEditorForType(String type, MetaEditor editor) throws XavaException {
 		if (editorsByType == null) {
@@ -146,6 +148,10 @@ public class MetaWebEditors {
 		if (member.getMetaModel() == null) return null;
 		if (!member.getMetaModel().isPOJOAvailable()) return null;
 		String memberId = member.getMetaModel().getName() + ":" + viewName + ":" + member.getSimpleName();
+    	if (modelCodeVersion < Hotswap.getModelVersion()) {  
+    		if (editorsByMember != null) editorsByMember.clear();  
+        	modelCodeVersion = Hotswap.getModelVersion();
+    	}
 		if (editorsByMember != null && editorsByMember.containsKey(memberId)) {
 			return editorsByMember.get(memberId);
 		}		 
@@ -322,7 +328,7 @@ public class MetaWebEditors {
 	}
 	
 	private static MetaEditor getMetaEditorFor(MetaCollection col, String viewName) throws ElementNotFoundException, XavaException { 
-		MetaEditor r = (MetaEditor) getMetaEditorForCollectionModel(col.getMetaReference().getReferencedModelName());	
+		MetaEditor r = (MetaEditor) getMetaEditorForCollectionModel(col.getMetaReference().getReferencedModelName());
 		if (r == null) r = (MetaEditor) getMetaEditorForAnnotation(col, viewName);
 		if (r == null) {
 			r = col.isElementCollection()?editorForElementCollections:editorForCollections;
