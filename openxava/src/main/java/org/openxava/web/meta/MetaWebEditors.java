@@ -149,6 +149,7 @@ public class MetaWebEditors {
 		if (!member.getMetaModel().isPOJOAvailable()) return null;
 		String memberId = member.getMetaModel().getName() + ":" + viewName + ":" + member.getSimpleName();
     	if (modelCodeVersion < Hotswap.getModelVersion()) {  
+    		System.out.println("[MetaWebEditors.getMetaEditorForAnnotation] Reseting editors"); // tmr
     		if (editorsByMember != null) editorsByMember.clear();  
         	modelCodeVersion = Hotswap.getModelVersion();
     	}

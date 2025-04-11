@@ -58,7 +58,11 @@ public class HotswapPlugin {
         
     private static void onClassCreated(String className) {
     	try {
-			Class.forName(className);
+			Class newClass = Class.forName(className);
+	    	if (isPersistentClass(newClass)) {
+	    		applicationVersion++;
+	    		persistentModelVersion++;
+	    	}
 		} 
     	catch (ClassNotFoundException ex) {
     		ex.printStackTrace(); // We cannot use a log library because it fails when we do a mvn clean and then mvn install in a project
@@ -136,7 +140,6 @@ public class HotswapPlugin {
     		persistentModelVersion++;
     		return;
     	}
-
         
         Set<String> newFields = getPersistentFieldNames(newCtClass);              
         Set<String> oldFields = getPersistentFieldNames(oldClass);

@@ -1,13 +1,10 @@
 package org.openxava.jpa;
 
 import java.util.*;
-import java.util.logging.*;
 
 import javax.persistence.*;
-import javax.xml.parsers.*;
 
 import org.apache.commons.logging.*;
-import org.hibernate.*;
 import org.openxava.hotswap.*;
 import org.openxava.jpa.impl.*;
 import org.openxava.util.*;
@@ -179,6 +176,7 @@ public class XPersistence {
 	
 	private static EntityManagerFactory getEntityManagerFactory() {
     	if (persistentModelCodeVersion < Hotswap.getPersistentModelVersion()) { 
+    		System.out.println("[XPersistence.getEntityManagerFactory] Reseting entity manager factories"); // tmr
         	resetAllEntityManagerFactories();
         	persistentModelCodeVersion = Hotswap.getPersistentModelVersion();
     	}
