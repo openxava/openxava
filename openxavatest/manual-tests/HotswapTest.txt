@@ -131,6 +131,26 @@ Editor for annotations:
 - Click on Refresh. The issues is displayed as a regular list. Prints.
 - Click on Refresh. No prints.
 
+Reload module not changes view (bug):
+- Add this module to application.xml:
+
+	<module name="PlanChart">
+		<model name="Plan"/>
+		<view name="Chart"/>
+		<controller name="Typical"/>
+	</module>
+	
+- Add the next @View to Plan:
+
+	@View(name="Chart", members="worker, period; issues")
+	
+- Annotate issues with @Chart(forViews="Chart")
+- Go to PlanChart module. Choose a Plan.
+- You see the chart for issues.
+- Change some code in Plan.
+- Reload PlanChart with browser. You see the chart for issues. Prints.
+- Reload PlanChart with browser again. You see the chart for issues. No prints.
+
 New entities: Test also with XavaPro
 - Write the code for a new entity.
 - Refresh the browser. The module is on left. Prints.

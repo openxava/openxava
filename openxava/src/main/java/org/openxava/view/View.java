@@ -7090,7 +7090,9 @@ public class View implements java.io.Serializable {
 	 */
 	public void reloadMetaModel() { 
 		getFirstLevelView().reloadNeeded = true; 
+		String currentViewName = viewName;
 		resetMembers();
+		viewName = currentViewName;
 	}
 
 	public void setAddCollectionElementAction(String addCollectionElementAction) {
