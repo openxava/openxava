@@ -116,7 +116,7 @@ OpenXava annotations:
 - Click an action to verify the changes in @View and @DescriptionsList. Prints.
 - Go to list. The @Tab is the new one. No prints.	
 
-Custom annotations: // tmr ¿Este nombre?
+Editor for annotations: 
 - Go Plans. Choose a plan.
 - Create two issues in that plan with valur for hours.
 - Edit Plan entity and add hours in @ListProperties for issues.

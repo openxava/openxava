@@ -42,7 +42,6 @@ public class HotswapPlugin {
     @OnClassLoadEvent(classNameRegexp = ".*", events = LoadEvent.REDEFINE)
     public static void onClassModified() throws Exception {
     	modelVersion++;
-		System.out.println("HotswapPlugin.onClassModified() modelVersion=" + modelVersion); // tmr
     }
     
     private static void onResourceModified(String resource, String directoryPath) {

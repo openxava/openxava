@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Modifying or removing an annotation with an associated editor not recognized by hot code reloading. 
 - New look & feel for column customization icons when column resizing is enabled.
 - Enabling list customization with column resizing does not alter the column widths.
 - Fix: Rename column icon not displayed in Chrome when column resizing is enabled.
