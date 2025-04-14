@@ -3,7 +3,6 @@ Therefore, when you touch any Hotswap code you have to test this.
 
 Setup:
 - Add prints in all if (xxx < Hotswap.getXxx()).
-// TMR ME QUEDÉ POR AQUÍ. HACER LA PRUEBA Y YA ESTARÁ ACABADO.
 - Create a new project:
 	- Use the project-management archetype, for example.
 	- Update project version:
@@ -119,7 +118,7 @@ OpenXava annotations:
 
 Editor for annotations: 
 - Go Plans. Choose a plan.
-- Create two issues in that plan with valur for hours.
+- Create two issues in that plan with value for hours.
 - Edit Plan entity and add hours in @ListProperties for issues.
 - Click on Refresh. The hours are shown in the list. (We're not testing this, but should work)
 - Add the @Chart annotation to issues collection.
@@ -157,7 +156,6 @@ New entities from first time:
 - Copy the .java inside the package (from explorer to IDE).
 - Refresh the browser. The module is on left. Prints.
 - Go to the module and create a new record. Works. No prints.
-- TMR PROBARLO CON WINDSURF Y LA IA. SOLO AHORA.
 
 New entities: Test also with XavaPro
 - Create a Java class in the IDE and then add @Entity.
