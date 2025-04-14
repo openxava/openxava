@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Hot reloading fails to recognized new module when class is created already annotated with @Entity.
 - Fix: Reloading from browser shows default view instead of module's view when using hot code reloading.
 - Fix: Modifying or removing an annotation with an associated editor not recognized by hot code reloading. 
 - New look & feel for column customization icons when column resizing is enabled.

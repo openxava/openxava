@@ -28,7 +28,7 @@ import org.openxava.component.*;
 import org.openxava.converters.typeadapters.*;
 import org.openxava.filters.*;
 import org.openxava.filters.meta.*;
-import org.openxava.hotswap.Hotswap;
+import org.openxava.hotswap.*;
 import org.openxava.jpa.*;
 import org.openxava.mapping.*;
 import org.openxava.model.impl.*;

@@ -1,13 +1,10 @@
 package org.openxava.jpa;
 
 import java.util.*;
-import java.util.logging.*;
 
 import javax.persistence.*;
-import javax.xml.parsers.*;
 
 import org.apache.commons.logging.*;
-import org.hibernate.*;
 import org.openxava.hotswap.*;
 import org.openxava.jpa.impl.*;
 import org.openxava.util.*;

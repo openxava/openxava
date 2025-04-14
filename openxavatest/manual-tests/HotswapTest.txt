@@ -118,7 +118,7 @@ OpenXava annotations:
 
 Editor for annotations: 
 - Go Plans. Choose a plan.
-- Create two issues in that plan with valur for hours.
+- Create two issues in that plan with value for hours.
 - Edit Plan entity and add hours in @ListProperties for issues.
 - Click on Refresh. The hours are shown in the list. (We're not testing this, but should work)
 - Add the @Chart annotation to issues collection.
@@ -151,8 +151,14 @@ Reload module not changes view (bug):
 - Reload PlanChart with browser. You see the chart for issues. Prints.
 - Reload PlanChart with browser again. You see the chart for issues. No prints.
 
+New entities from first time:
+- Write the code for new entity outside the IDE.
+- Copy the .java inside the package (from explorer to IDE).
+- Refresh the browser. The module is on left. Prints.
+- Go to the module and create a new record. Works. No prints.
+
 New entities: Test also with XavaPro
-- Write the code for a new entity.
+- Create a Java class in the IDE and then add @Entity.
 - Refresh the browser. The module is on left. Prints.
 - Go to the module and create a new record. Works. No prints.
 
