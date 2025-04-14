@@ -2801,7 +2801,6 @@ public class AnnotatedClassParser implements IComponentParser {
 	
 	public static Collection<String> getManagedClassNames() {
 		if (persistentModelCodeVersion < Hotswap.getPersistentModelVersion()) { 
-			System.out.println("[AnnotatedClassParser.getManagedClassNames] Reset managed classes"); // tmr
         	managedClassNames = null;
         	persistentModelCodeVersion = Hotswap.getPersistentModelVersion();
     	}
