@@ -2301,6 +2301,7 @@ div.ox-subcontroller table{
 .ox-charts .ox-list {
 	box-shadow: none !important;
 	background: transparent;
+	border: none; 
 }
 
 .ox-charts .ox-list-header {
@@ -2315,6 +2316,7 @@ div.ox-subcontroller table{
 	width: 200px;
 	margin-left: -32px;
 	margin-right: -25px;
+	overflow: hidden;
 }
 
 .ox-charts .ox-element-collection i {

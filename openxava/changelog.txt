@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Ugly unclosed frame around column selection in charts list format with Firefox.
+- Fix: Unneeded horizontal scrollbar in column selection in charts list format.
 - Fix: Hot reloading fails to recognized new module when class is created already annotated with @Entity.
 - Fix: Reloading from browser shows default view instead of module's view when using hot code reloading.
 - Fix: Modifying or removing an annotation with an associated editor not recognized by hot code reloading. 
