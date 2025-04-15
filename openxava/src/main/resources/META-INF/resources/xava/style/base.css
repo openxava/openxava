@@ -1850,6 +1850,7 @@ td.ox-list-subheader > div {
 }
 .ui-dialog-content {	
 	color: var(--dialog-content-color) !important;
+	border-radius: 24px;
 }
 
 .ui-dialog-titlebar, .ui-dialog-titlebar button {  

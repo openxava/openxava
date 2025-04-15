@@ -102,6 +102,10 @@
 	background: var(--background) !important;
 }
 
+.ui-widget-content a {
+	color: var(--link-color);
+}
+
 .ui-tooltip {
 	background: var(--tooltip-background) !important;  
 	box-shadow: none !important;  
