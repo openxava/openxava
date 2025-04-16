@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Comments in @Discussion properties are not using rounded corners.
 - Fix: Setting detailOnBottomInCollections=true in xava.properties caused collections to break.
 - Property detailOnBottomInCollections removed from all archetypes and marked as deprecated in docs.
 - Fix: Small square corner appearing behind the rounded corner on bottom of dialogs in Dark theme.
