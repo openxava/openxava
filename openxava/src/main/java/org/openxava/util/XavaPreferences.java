@@ -209,6 +209,10 @@ public class XavaPreferences {
 				"mapFacadeAutoCommit", "false").trim());
 	}
 
+	/**
+	 * @deprecated Since 4.0, because collections now use a dialog to edit/view the detail
+	 */
+	@Deprecated
 	public boolean isDetailOnBottomInCollections() {
 		return "true".equalsIgnoreCase(getProperties().getProperty(
 				"detailOnBottomInCollections", "false").trim());

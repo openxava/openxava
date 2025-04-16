@@ -46,38 +46,6 @@ else {
 String propertyPrefix = propertyPrefixAccumulated == null?collectionName + ".":propertyPrefixAccumulated + collectionName + "."; 
 %>
 <table width="100%" <%=style.getListCellSpacing()%>>
-<% if (XavaPreferences.getInstance().isDetailOnBottomInCollections()) { %>
-<tr><td>
-<% try { %>
-	<% if (!Is.emptyString(listEditor)) { %>
-		<jsp:include page="<%=listEditor%>">
-			<jsp:param name="rowAction" value="<%=lineAction%>"/>	
-			<jsp:param name="viewObject" value="<%=viewName%>"/>
-		</jsp:include>
-	<%
-		} else if (collectionView.isCollectionFromModel()) {
-	%>
-		<%@include file="../collectionFromModel.jsp" %>
-	<%
-		} else {
-	%>
-		<%@include file="../collectionList.jsp" %>
-	<%
-		}
-	%>
-<%
-	} catch (Exception ex) {
-%>
-</td></tr>
-<tr><td class='ox-errors'>
-<%=ex.getLocalizedMessage()%>
-<%
-	}
-%>
-</td></tr>
-<%
-	} // of: if (XavaPreferences...
-%>
 <%
 	// New
 if (view.displayDetailInCollection(collectionName)) {
@@ -167,9 +135,6 @@ else {
 	%>
 
 </tr>
-<%
-	if (!XavaPreferences.getInstance().isDetailOnBottomInCollections()) {
-%>
 <tr><td>
 <%
 	try {
@@ -194,5 +159,4 @@ else {
 <%=ex.getLocalizedMessage()%>
 <% } %>
 </td></tr>
-<% } // of: if (!XavaPreferences... %>
 </table>
