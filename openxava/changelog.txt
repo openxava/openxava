@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Setting detailOnBottomInCollections=true in xava.properties caused collections to break.
+- Property detailOnBottomInCollections removed from all archetypes and marked as deprecated in docs.
 - Fix: Small square corner appearing behind the rounded corner on bottom of dialogs in Dark theme.
 - Fix: Links for list pagination and 'Hide them' inside a dialog in Dark theme are not visible.
 - Fix: Ugly unclosed frame around column selection in charts list format with Firefox.
