@@ -9,10 +9,10 @@
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
-              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
             href="index_en.html">documentation</a> / </span> Configuration for Informix </h1>
-      <i>If you're using an OpenXava version older than 7.0 look at the <a
+      <i>If you're using an OpenXava version older than 7.0 look at the <a
           href="informix-ox6_en.html">old instructions</a><br>
       </i>
       <div class="wiki" style="display: block;"><i></i>Configuring your OpenXava application to go against Informix is very simple, basically you have to add a dependency to the JDBC driver for Informix in your project and define correctly the datasource. You don't need to touch any code of your application.</div>
@@ -22,7 +22,7 @@
         <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;com.ibm.informix&lt;/groupId&gt;
     &lt;artifactId&gt;jdbc&lt;/artifactId&gt;
-    &lt;version&gt;15.0.0.0&lt;/version&gt;
+    &lt;version&gt;15.0.0.1.1&lt;/version&gt;
 &lt;/dependency&gt;
 </code></pre>Maybe the above code is already in your <i>pom.xml</i> but commented, in that case just uncomment it.</div>
       <div class="wiki" style="display: block;"> </div>
@@ -49,7 +49,7 @@
       <div class="wiki" style="display: block;">
         <h2>Rebuild your project</h2>
         After the changes you have to rebuild your project. In OpenXava Studio click with right mouse button on your project an choose <i>Run As &gt; Maven install</i>, thus: </div>
-      <div class="wiki" style="display: block;"><img src="files/run-as-maven-install.png"
+      <div class="wiki" style="display: block;"><img src="files/run-as-maven-install.png"
           alt=""></div>
       <div class="wiki" style="display: block;">Or if you have Maven installed in your computer and you prefer to use command line:
         <pre><code class="bash">$ cd myapp
