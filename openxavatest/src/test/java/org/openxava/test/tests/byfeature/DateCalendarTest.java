@@ -113,6 +113,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 	}
 		
 	public void testDutch_zhCN() throws Exception { 
+		resetPreferences();
 		changeLanguage("nl");
 		goModule("Appointment");
 		setConditionValue("26-5-2015 8:15", 0); 

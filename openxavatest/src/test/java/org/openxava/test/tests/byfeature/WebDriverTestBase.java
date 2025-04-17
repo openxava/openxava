@@ -40,6 +40,14 @@ abstract public class WebDriverTestBase extends TestCase {
         if (driver != null) driver.quit();
     }
     
+    /**
+     * Resets user preferences by accessing the resetPreferences.jsp page
+     */
+    protected void resetPreferences() throws Exception {
+        WebDriver driver = getDriver();
+        driver.get("http://localhost:8080/openxavatest/xava/resetPreferences.jsp?zxy=HOljkso83");
+    }
+    
     protected WebDriver createWebDriver(String lang) {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
