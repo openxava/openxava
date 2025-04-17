@@ -3,8 +3,9 @@ Change Log for OpenXava project
 
 - Lombok upgraded to 1.18.38.
 - Embedded Tomcat used in development upgraded to 9.0.104.
-TMR ME QUEDÉ PARA ACTUALIZAR POI. TODO LAS DEMÁS YA ESTÁ. PROBAR Product2. ¿PROBAR ALGO MÁS?
+- POI and POI OOXML upgraded to 5.4.1.
 
+ 
 
 - Fix: Comments in @Discussion properties are not using rounded corners.
 - Fix: Setting detailOnBottomInCollections=true in xava.properties caused collections to break.
