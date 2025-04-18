@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Curso con IA - Lección 2: Llenar la base de datos - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span>Curso con IA - Lección 2: Llenar la base de datos</h1>
+        <p>Esta es la segunda lección de un curso donde estamos creando una aplicación
+          de gestión de pólizas de seguro de automóviles usando OpenXava e
+          inteligencia artificial.</p>
+        <h2>Video</h2>
+        <p>En este video generamos datos de pruebas y los insertamos en la base de datos de nuestra aplicación. Tantos los datos como el código para insertar los datos los genera la IA, lo que nos permite acabar el trabajo de forma sencilla y en unos pocos minutos.</p>
+        <p><a href="https://youtu.be/wK6AURMaOlI" target="_blank"><img src="files/course-with-ai_es010.png"
+              title="report-generation-010"></a></p>
+        <p><strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+              rel="nofollow">Pregunta en el foro</a></strong></p>
+      
+        <h2>Código</h2>
+        <p>Si sigues el curso no tienes que escribir ningún código, lo escribirá
+          la IA por ti. Y tu código no tiene que ser exactamente como el del
+          video. Sin embargo, tienes el código generado en este video en <b><a
+              href="https://github.com/openxava/ai-course/tree/lesson-2">un
+              repositorio GitHub</a></b>, por si te resulta interesante
+          examinarlo.</p>
+        <h2>Transcripción</h2>
+        
+        <h3>Introducción al curso</h3>
+        <p>Hola, soy Mónica. Este es el principio de un viaje fascinante donde vamos a crear una aplicación de gestión de pólizas de seguro de automóviles usando Java, OpenXava e inteligencia artificial. Veremos cómo desarrollar una aplicación empresarial funcional sin escribir código, que además podrá extenderse y mantenerse de la misma forma.</p>
+        
+        <h3>Configuración del entorno</h3>
+        <p>Para descargar Windsurf, ve a codeium.com/windsurf o busca "windsurf ide" en Google. Descárgalo e instálalo. Este IDE incluye un agente de IA integrado, superior a alternativas como Cursor o Copilot Edits.</p>
+        
+        <h3>Creación del proyecto base</h3>
+        <p>Usaremos Maven y ChatGPT para generar el comando de creación del proyecto. El proyecto se llamará "insurecar" (grupo: com.insurancecorp). Especificamos usar la última versión de OpenXava (RELEASE) y verificamos que ChatGPT consulte la documentación oficial.</p>
+        
+        <h3>Preparación inicial</h3>
+        <p>Tras ejecutar el comando en el Símbolo del sistema, el proyecto estará listo. Requiere Java y Maven instalados. En Windsurf (basado en VSCode), abre la carpeta del proyecto e instala las extensiones Java si es necesario. Elimina la entidad predeterminada "YourFirstEntity" del paquete model.</p>
+        
+        <h3>Generación de entidades con IA</h3>
+        <p>Usando el panel Cascade de Windsurf, pedimos en español: "escribe un sistema de gestión de pólizas de seguro de automóviles en OpenXava". La IA analiza el proyecto y genera cuatro entidades: Cliente, Vehículo, Póliza y Siniestro. Observa cómo se crean las clases en tiempo real en el paquete model.</p>
+        
+        <h3>Revisión del código</h3>
+        <p>La clase Cliente incluye una anotación inválida "EmailValidator" que debe eliminarse. Las demás entidades usan anotaciones correctas de OpenXava, Lombok y JPA. Siniestro tiene relación con Póliza, y Vehículo incluye referencia a su póliza asociada.</p>
+        
+        <h3>Ejecución de la aplicación</h3>
+        <p>Empaquetamos con Maven (solo primera vez) y ejecutamos desde Java Projects. Al acceder con admin/admin, veremos módulos funcionales: Clientes (con listado de pólizas), Vehículos, Pólizas y Siniestros. La interfaz es básica pero operable.</p>
+        
+        <h3>Conclusión y mejoras</h3>
+        <p>En menos de 10 minutos tenemos un sistema funcional usando solo una instrucción. La interfaz se mejorará en próximas lecciones. Continuaremos añadiendo lógica de negocio, datos de prueba y pruebas automatizadas. Este enfoque demuestra el potencial de OpenXava con IA para desarrollo ágil.</p>
+        
+        <h3>Invitación final</h3>
+        <p>Te animo a replicar este proceso y compartir tu experiencia. En próximos videos refinaremos la aplicación hasta convertirla en una solución profesional. Hasta la próxima.</p>
+        
+      </div>    	
+  </body>
+</html>
