@@ -1,0 +1,79 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Curso con IA - Lección 2: Llenar la base de datos - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span>Curso con IA - Lección 2: Llenar la base de datos</h1>
+        <p>Esta es la segunda lección de un curso donde estamos creando una aplicación
+          de gestión de pólizas de seguro de automóviles usando OpenXava e
+          inteligencia artificial.</p>
+        <h2>Video</h2>
+        <p>En este video generamos datos de pruebas y los insertamos en la base de datos de nuestra aplicación. Tantos los datos como el código para insertar los datos los genera la IA, lo que nos permite acabar el trabajo de forma sencilla y en unos pocos minutos.</p>
+        <p><a href="https://youtu.be/kUYZ2k4AMaY" target="_blank"><img src="files/course-with-ai_es020.png"
+              title="report-generation-020"></a></p>
+        <p><strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+              rel="nofollow">Pregunta en el foro</a></strong></p>
+      
+        <h2>Código</h2>
+        <p>Si sigues el curso no tienes que escribir ningún código, lo escribirá
+          la IA por ti. Y tu código no tiene que ser exactamente como el del
+          video. Sin embargo, tienes el código generado en este video en <b><a
+              href="https://github.com/openxava/ai-course/tree/lesson-2">un
+              repositorio GitHub</a></b>, por si te resulta interesante
+          examinarlo.</p>
+        <h2>Transcripción</h2>
+        
+        <h3>Introducción</h3>
+        <p>Hola, soy Mónica. En esta segunda lección usaremos la inteligencia artificial para llenar la base de datos con datos de prueba. Así nuestra aplicación tendrá un mejor aspecto al mostrar datos realistas. Todo esto con poco esfuerzo. Vamos allá.</p>
+        
+        <h3>Recordatorio de la primera lección</h3>
+        <p>Recordad que en la primera lección escribimos una simple frase pidiendo que generara las entidades para nuestra aplicación. Windsurf generó Vehiculo, Poliza, Cliente y Siniestro. Tenemos la aplicación arrancada. Recordemos como se veía.</p>
+        
+        <h3>Estado actual de la aplicación</h3>
+        <p>Nuestra aplicación tiene los cuatro módulos listos para usar, pero sin datos. Podemos ir a la lista de vehículos y está vacía. También podemos ir a clientes. Vamos a la lista, y también vacía. La aplicación está desolada. Sin datos no parece de verdad. Justo el propósito de esta lección es solucionar esto. Probaremos pedirle a nuestra IA que genere algunos datos de prueba.</p>
+        
+        <h3>Generación de datos con IA</h3>
+        <p>Una vez en el IDE usamos la parte derecha, Cascade, para decirle a la IA que queremos llenar nuestra base de datos con algunos datos de prueba. Lo hacemos en inglés, pero también podemos usar español, sin problemas. Además, vamos a ser específicos, diciendo que queremos una clase Java con un main. También le indicamos que use JDBC y que obtenga las sentencias SQL de un archivo de texto.</p>
+        
+        <h3>Análisis del proyecto por la IA</h3>
+        <p>Unos pocos segundos y ya lo tenemos trabajando para nosotros. Lo primero que hace es analizar el proyecto para saber que controlador JDBC estamos usando. Después analiza nuestras entidades para entender la estructura de nuestros datos. A continuación examina persistence.xml y context.xml para encontrar la URL de conexión a la base de datos. Esta cosa sabe donde tiene que buscar, no es tonto que digamos.</p>
+        
+        <h3>Generación del código</h3>
+        <p>Y por fin, empieza a generar el código Java que le hemos pedido. Una clase Java que llama DatabasePopulator. Ya está. Ahora crea un archivo SQL con los datos de prueba. Un poco de paciencia mientras acaba de trabajar. El video está en tiempo real, sin editar, porque queremos que veas como es esto de ágil en la vida real, sin trucos.</p>
+        
+        <h3>Revisión del código generado</h3>
+        <p>Ya ha terminado y como siempre nos hace un resumen de lo que ha hecho. Lo aceptamos y vamos a ver el código con nuestros propios ojos. Vemos como ha creado un paquete util y dentro ha puesto la clase DatabasePopulator. Arriba tenemos las cadenas de conexión. Después el método main. El código típico de JDBC, atrapando las posibles excepciones. También ha creado métodos auxiliares para hacer el código más claro. Todo parece en su sitio.</p>
+        
+        <h3>Ejecución y corrección de errores</h3>
+        <p>Vamos a ejecutarlo, a ver que pasa. Subimos hacia arriba buscando el main. Ahí está. Pulsamos en Run, y falla. Sin calentarnos la cabeza, copiamos el mensaje de error y nos quejamos a Windsurf. Nos responde que la clase esperaba un argumento, pero que no hay problema. Va actualizar la clase para que funcione sin argumento. Lo que está haciendo es poner a piñón fijo la ruta del archivo SQL con los datos en el código. Lo cual nos sirve perfectamente.</p>
+        
+        <h3>Verificación de resultados</h3>
+        <p>Ya está. Aceptamos el código y Windsurf nos hace un resumen de lo que ha hecho. Probemos el nuevo código, a ver si ahora tenemos más suerte. Pulsamos en el Run del main. Y sí, ahora nos dice "Database pupulated successfully", lo cual suena bastante bien. Volvamos al navegador, pulsemos en recargar y veamos sí ya hay datos.</p>
+        
+        <h3>Exploración de los datos generados</h3>
+        <p>Y si que hay datos. Pulsemos en el primer cliente, en John. Tiene datos creíbles, incluso con algunas pólizas. También hay vehículos. Y siniestros. Tenemos también unas cuantas pólizas. Veamos una de ellas. Como veis en unos pocos minutos y sin apenas esfuerzo tenemos nuestra aplicación con datos de prueba creíbles y relacionados entre sí. La aplicación tiene mucho mejor aspecto.</p>
+        
+        <h3>El secreto para obtener buenos resultados</h3>
+        <p>Pero para conseguir esto hay un pequeño secreto que vamos a aprender. La clave para obtener un buen resultado de forma rápida y efectiva es: ser específico. En nuestro caso hemos dicho que queríamos una clase Java con un main, que usara JDBC y que lo leyera de un archivo de texto. Así forzamos a la IA a crear una solución que sabemos que funciona bien, y además está a nuestro gusto. Cuanto más específico seamos, menos tendremos que refinar a posteriori.</p>
+        
+        <h3>Consejos para trabajar con IA</h3>
+        <p>Si por otra parte le pedimos a la IA que haga el trabajo, sin dar muchos detalles, sin decirle cómo. La IA lo va a hacer, pero puede que el resultado no sea muy bueno, porque la IA no sabe hacer las cosas tan bien como nosotros, y además seguro que no está a nuestro gusto. El problema de ser específicos es que tenemos que tener experiencia con la tecnología y el dominio.</p>
+        
+        <p>Si eso no es así, si somos nuevos en Java, y no sabemos que es una clase, que es un main, que es JDBC y que es SQL, lo tenemos más difícil. Pero también es posible, podemos ser vagos, podemos decir simplemente que haga algo para llenar nuestra base de datos, y con paciencia e insistiendo, la IA lo conseguirá. Si lo hacemos así, lo que hemos de hacer es aprender, para que la siguiente vez, cuando nos enfrentemos a un caso similar, poder ser específicos.</p>
+        
+        <h3>Conclusión</h3>
+        <p>Espero que hayas disfrutado del video. Fíjate que en unos pocos minutos, sin escribir código hemos conseguido llenar la base de datos de nuestra aplicación con datos de prueba bastante buenos. Solo hemos tenido que escribir una clase pidiendo que lo haga y siendo específicos a como ha de hacerlo. Es verdad que no ha funcionado a la primera, pero con copiar y pegar el error en el chat, Windsurf ha sido capaz de arreglarlo.</p>
+        
+        <h3>Próxima lección</h3>
+        <p>Os espero en el siguiente video donde aprenderemos a usar la inteligencia artificial para modelar nuestro código OpenXava y conseguir una interfaz de usuario mejor. Hasta la próxima.</p>
+      </div>    	
+  </body>
+</html>
