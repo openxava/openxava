@@ -210,13 +210,15 @@ styleCSS=dark.css
         </div>
         <div class="wiki" style="display: block;">Pero no sólo los colores,
           puedes refinar cualquier aspecto de la interfaz: márgenes, fuentes,
-          bordes, etc. Por ejemplo, si quiere cambiar el bonito degradado que se
-          usa por defecto para los marcos, por un más convencional y aburrido
-          marco con sombra, puedes añadir estas líneas a tu CSS:</div>
+          bordes, etc. Por ejemplo, si quieres cambiar los marcos para que no
+          tengan los bordes tan redondeados, no tengan un color más oscuro de
+          fondo y tengan sobra en lugar de ser planos, puedes añadir estas
+          líneas a tu CSS:</div>
         <div class="wiki" style="display: block;">
           <pre><code class="css">.ox-frame {
-	background: white;
-	box-shadow: 0px 0px 4px gray;
+    background: white;
+    box-shadow: 0px 0px 4px gray;
+    border-radius: 2px;
 }
 </code></pre> </div>
         <div class="wiki" style="display: block;">De esta manera, los marcos se
@@ -274,10 +276,10 @@ styleCSS=dark.css
         página <em>(nuevo en v5.6)</em></h2>
       Si queremos añadir nuestros propios elementos a la pagina para que
       aparezcan siempre visibles en nuestra aplicación podemos hacerlo en <i><em>src/main/webapp/naviox/indexExt.jsp</em></i>
-      (<em>web/naviox/indexExt.jsp</em>
-      ein v6 o anterior) de nuestro proyecto, debería crear la carpeta <i>naviox</i>
-      y el archivo <i>indexExt.jsp</i>. Esto se incluye al final de la página,
-      pero usando CSS podemos colocarlo en cualquier parte de la pantalla.<br>
+      (<em>web/naviox/indexExt.jsp</em> ein v6 o anterior) de nuestro proyecto,
+      debería crear la carpeta <i>naviox</i> y el archivo <i>indexExt.jsp</i>.
+      Esto se incluye al final de la página, pero usando CSS podemos colocarlo
+      en cualquier parte de la pantalla.<br>
       Por ejemplo, si queremos poner un cartelito de BETA en la esquina superior
       derecha de la pantalla, así:<br>
       <img src="files/beta-corner_es.png" alt="beta-corner_es.png" title="beta-corner_es.png"><br>

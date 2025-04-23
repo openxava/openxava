@@ -200,13 +200,14 @@ styleCSS=dark.css
     </div>
     <div class="wiki" style="display: block;">But not only the colors, you can
       refine each single aspect of the interface: margins, fonts, borders, etc.
-      For example, if you want to change the beautiful gradient for frames used
-      by default, by a typical and dull frame, you can add these lines to your
-      CSS:</div>
+      For example, if you want to change the frames so they don’t have such
+      rounded corners, don’t have a darker background color, and have a shadow
+      instead of being flat, you can add these lines to your CSS:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="css">.ox-frame {
-	background: white;
-	box-shadow: 0px 0px 4px gray;
+    background: white;
+    box-shadow: 0px 0px 4px gray;
+    border-radius: 2px;
 }
 </code></pre> </div>
     <div class="wiki" style="display: block;">So now the frames are displayed in
