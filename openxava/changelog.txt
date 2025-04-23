@@ -1,7 +1,6 @@
 Change Log for OpenXava project
 ===============================
 
-- Screenshots of Getting Started guides updated to v7.5 visual style.
 - Fixed 1 security vulnerability in dependencies, now we have 0 vulnerabilities.
 - Lombok upgraded to 1.18.38.
 - Embedded Tomcat used in development upgraded to 9.0.104.
@@ -21,7 +20,7 @@ Change Log for OpenXava project
 - Enabling list customization with column resizing does not alter the column widths.
 - Fix: Rename column icon not displayed in Chrome when column resizing is enabled.
 - Fix: Remove column icon not displayed in Firefox when column resizing is enabled.
-- Lesson 1 of the OpenXava course with AI available in the documentation with video.
+- Lessons 1 and 2 of the OpenXava course with AI available in the documentation with video.
 - Fix: Row action popup not shown after executing an action that does not refresh the collection.
 - Improved Getting Started guide to include a reference to hot code reloading.
 - Fix: Error parsing LocalDateTime properties in English.
