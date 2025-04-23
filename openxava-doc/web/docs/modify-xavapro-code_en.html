@@ -21,8 +21,8 @@
         application using OpenXava Studio.</div>
       <div class="wiki" style="display: block;">
         <h2>Install a JDK 8</h2>
-        XavaPro is compiled with Java 8 in order to work with Java 8, 11 and 17.
-        You have to install Java 8 in your computer and configure OpenXava
+        XavaPro is compiled with Java 8 in order to work with Java 8, 11, 17 and
+        21. You have to install Java 8 in your computer and configure OpenXava
         Studio to recognize it. </div>
       <div class="wiki" style="display: block;">First, download JDK 8 and
         install it on your computer. Then in OpenXava Studio open <i>Windows
@@ -34,11 +34,10 @@
         <h2>Import xavapro into workspace</h2>
         To import the <i>xavapro</i> project click on <i>File &gt; Import...</i>:<br>
         <img src="files/file-import-eclipse.png" alt="">
-        <p>Now select <i>General &gt; Existing Projects into Workspace </i>and
-          click on <i>Next</i>:</p>
+        <p>Now select <i>Maven &gt; Existing Maven Projects </i>and click on <i>Next</i>:</p>
         <img src="files/import-existing-project-eclipse.png" alt=""><br>
-        <p>In <i>Select root directory </i>browse to choose the folder where
-          the XavaPro code is, that is, <i>xavapro-7.x.x/source-code</i>:</p>
+        <p>In <i>Root Directory </i>browse to choose the folder where the
+          XavaPro code is, that is, <i>xavapro-7.x.x/source-code</i>:</p>
         <img src="files/import-existing-project-eclipse-2.png" alt=""><br>
         <p>Make sure that <i>xavapro</i> project is checked, then click on <i>Finish</i>.</p>
         Finally the <i>xavapro</i> project with all its code is in your
@@ -61,9 +60,11 @@
         <p>This time it's not needed to do a <i>mvn clean</i> because it's the
           first time and <i>target</i> is empty, but if you get the code of a
           new XavaPro version you should do a <i>mvn clean</i> too.</p>
-        <p>Now, go to your project, edit the <i>pom.xml</i> and put the <i>openxava.version</i>
-          property to the value of the XavaPro SNAPSHOT version you have in your
-          workspace:</p>
+        <p>Now, go to your project, edit the <i>pom.xml</i>, look for the <i>xavapro</i>
+          dependency, and replace <i>${openxava.version}</i> with your own
+          SNAPSHOT version (7.0.2-SNAPSHOT in our example). Do not change the
+          value of the <i>openxava.version</i> property (unless you are also
+          working with your own modified version of OpenXava):</p>
         <img src="files/invoicing-pom-update-to-snapshot.png" alt="">
         <p>This is important, otherwise your project will not use the <i>xavapro</i>
           you have modified, but the official version from your Maven
