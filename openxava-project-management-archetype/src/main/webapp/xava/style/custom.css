@@ -44,3 +44,15 @@ Put here your own style
 .mobile .block {
 	margin: 30px 0px 30px 0px;
 }
+
+#ox_${artifactId}_MyCalendar__core .ox-list-title {
+	display: none;
+}
+
+#ox_${artifactId}_MyCalendar__core .xava_calendar_date_preferences {
+	display: none;
+}
+
+#ox_${artifactId}_MyCalendar__core #xava_calendar {
+	margin-top: 20px;
+}
