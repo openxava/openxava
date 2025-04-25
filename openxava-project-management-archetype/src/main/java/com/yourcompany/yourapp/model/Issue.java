@@ -20,15 +20,21 @@ import lombok.*;
 	"title, type;" +
 	"description;" +
 	"details [#" +
-		"project, createdBy;" +
-		"createdOn, priority;" +
-		"version, assignedTo;" +
-		"status, customer;" +
+		"createdBy, createdOn;" +
+		"project, version;" +
+		"assignedTo, plannedFor;" +
+		"status, priority;" +
+		"customer;" +
 		"minutes, hours;" +
 	"];" +
 	"attachments;" +
 	"discussion"
 )
+@Tab(properties="title, type.name, description, project.name, version.name, createdBy, createdOn, status.name")
+@Tab(name="MyCalendar", editors="Calendar", 
+	properties="title", 
+	baseCondition = "${assignedTo.worker.userName} = ?", 
+	filter=org.openxava.filters.UserFilter.class)
 public class Issue extends Identifiable {
 
 	@Column(length=100) @Required
@@ -51,6 +57,8 @@ public class Issue extends Identifiable {
 	@Column(length=30) @ReadOnly
 	@DefaultValueCalculator(CurrentUserCalculator.class)
 	String createdBy;
+	
+	LocalDate plannedFor;
 	
 	@ReadOnly 
 	@DefaultValueCalculator(CurrentLocalDateCalculator.class) 
