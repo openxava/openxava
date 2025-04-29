@@ -5,8 +5,7 @@ import java.time.format.*;
 
 import org.openxava.tests.*;
 
-// TMR ME QUEDÉ POR AQUÍ. CREO QUE YA ESTÁ TODO, FALTA PROBARLO A FONDO Y REVISAR
-// TMR DESPUÉS TENDRÍA QUE ADAPTAR LAS PRUEBAS JUNIT
+// TMR ME QUEDÉ POR AQUÍ. ADAPTAR LAS PRUEBAS JUNIT
 // TMR Y LA VERSIÓN EN ESPAÑOL
 public class IssueTest extends ModuleTestBase {
 
