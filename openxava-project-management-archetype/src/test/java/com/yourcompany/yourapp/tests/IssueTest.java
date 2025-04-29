@@ -5,8 +5,6 @@ import java.time.format.*;
 
 import org.openxava.tests.*;
 
-// TMR ME QUEDÉ POR AQUÍ. ADAPTAR LAS PRUEBAS JUNIT
-// TMR Y LA VERSIÓN EN ESPAÑOL
 public class IssueTest extends ModuleTestBase {
 
 	public IssueTest(String nameTest) {
@@ -19,7 +17,8 @@ public class IssueTest extends ModuleTestBase {
 		String [][] types = {
 			{ "", "" },
 			{ "2c94f081900875e801900896f25b0008", "Bug" },
-			{ "2c94f081900875e80190089701170009", "Feature" }
+			{ "2c94f081900875e80190089701170009", "Feature" },
+			{ "2c94f081900875e80190089701170010", "Task" }
 		};
 		assertValidValues("type.id", types);
 		setValue("type.id", "2c94f081900875e801900896f25b0008"); // Bug 
@@ -29,12 +28,14 @@ public class IssueTest extends ModuleTestBase {
 		assertValue("createdBy", "admin");
 		assertNoEditable("createdBy");
 		assertValue("createdOn", getCurrentDate());
+		assertValue("plannedFor", ""); 
+		setValue("plannedFor", "10/30/2024"); 
 
 		String [][] priorities = {
 			{ "", "" },
-			{ "7", "High" },
-			{ "5", "Normal" },
-			{ "3", "Low" }
+			{ "7", "7 High" },
+			{ "5", "5 Normal" },
+			{ "3", "3 Low" }
 		};
 		assertValidValues("priority.level", priorities);
 		assertValue("priority.level", "5");
@@ -107,6 +108,7 @@ public class IssueTest extends ModuleTestBase {
 		assertDescriptionValue("project.id", "OpenXava"); 
 		assertValue("createdBy", "admin");
 		assertValue("createdOn", getCurrentDate()); // If fails revise the serverTimezone in MySQL url
+		assertValue("plannedFor", "10/30/2024"); 
 		assertValue("priority.level", "7"); 
 		assertValue("version.id", "2c94f081900856030190085eb1610001"); // 1.0 
 		assertValue("assignedTo.id", "2c94f081900875e80190089c1211000b"); // Javi 2024.11
@@ -129,7 +131,8 @@ public class IssueTest extends ModuleTestBase {
 		String [][] types = {
 			{ "", "" },
 			{ "2c94f081900875e801900896f25b0008", "Bug" },
-			{ "2c94f081900875e80190089701170009", "Feature" }
+			{ "2c94f081900875e80190089701170009", "Feature" },
+			{ "2c94f081900875e80190089701170010", "Task" }
 		};
 		assertValidValues("type.id", types);
 		setValue("type.id", "2c94f081900875e801900896f25b0008"); // Bug

@@ -2,12 +2,14 @@ package com.yourcompany.yourapp.model;
 
 import java.math.*;
 import java.time.*;
+import java.util.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
+import org.openxava.jpa.*;
 import org.openxava.model.*;
 import org.openxava.web.editors.*;
 
@@ -105,6 +107,21 @@ public class Issue extends Identifiable {
 	@PreRemove
 	void removeDiscussion() {
 	    DiscussionComment.removeForDiscussion(discussion);
+	}
+	
+	/**
+	 * Finds an Issue by its title.
+	 * 
+	 * @param title The title of the issue to find
+	 * @return The Issue with the specified title, or null if not found
+	 */
+	public static Issue findByTitle(String title) {
+		Query query = XPersistence.getManager()
+			.createQuery("from Issue i where i.title = :title")
+			.setParameter("title", title);
+		
+		List<Issue> issues = query.getResultList();
+		return issues.isEmpty() ? null : issues.get(0);
 	}
 
 }
