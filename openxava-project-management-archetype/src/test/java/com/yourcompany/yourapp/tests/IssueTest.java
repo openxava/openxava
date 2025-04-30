@@ -33,9 +33,9 @@ public class IssueTest extends ModuleTestBase {
 
 		String [][] priorities = {
 			{ "", "" },
-			{ "7", "7 High" },
-			{ "5", "5 Normal" },
-			{ "3", "3 Low" }
+			{ "7", "High" },
+			{ "5", "Normal" },
+			{ "3", "Low" }
 		};
 		assertValidValues("priority.level", priorities);
 		assertValue("priority.level", "5");
@@ -62,6 +62,7 @@ public class IssueTest extends ModuleTestBase {
 			{ "2c94f081900875e80190088afdc30001", "Done" },
 			{ "2c94f081900875e80190088ce9d30002", "Not reproducible" },
 			{ "2c94f081900875e80190088a559a0000", "Pending" },
+			{ "2c94f081900875e80190088d8fb90004", "Planned" },
 			{ "2c94f081900875e80190088d8fb90003", "Rejected" }
 		};
 		

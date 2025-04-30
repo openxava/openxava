@@ -8,6 +8,7 @@ import javax.persistence.*;
 import org.openqa.selenium.*;
 import org.openxava.jpa.*;
 import org.openxava.util.*;
+
 import com.yourcompany.yourapp.model.*;
 import com.yourcompany.yourapp.model.Period;
 
@@ -67,7 +68,7 @@ public class MyCalendarTest extends WebDriverTestBase {
 		
 		// Test issue visibility for different users
 		logout();
-		login("juan", "juan");
+		login("peter", "peter");
 		goModule("MyCalendar");
 		assertDayText(15, "");
 		
@@ -150,7 +151,7 @@ public class MyCalendarTest extends WebDriverTestBase {
 		
 		// Create a plan for the worker
 		Plan plan = new Plan();
-		plan.setWorker(Worker.findById("4028808d7eea19fe017eea56ed120018")); // Javi
+		plan.setWorker(Worker.findById("2c94f081900875e80190088fd8f60004")); // Javi
 		plan.setPeriod(period);
 		
 		// Persist the entities
