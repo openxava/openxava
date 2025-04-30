@@ -21,6 +21,14 @@
 			<artifactId>openxava</artifactId>
 			<version>${openxava.version}</version>
 		</dependency>
+				
+		<!-- Última versión que soporta Java 8 -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>4.13.0</version>
+			<scope>test</scope>
+		</dependency>
 		
 		<!-- 
 		Para acceder a tu base de datos descomenta la entrada correspondiente 
