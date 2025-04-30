@@ -11,6 +11,7 @@ import org.openxava.util.*;
 
 import com.tuempresa.tuaplicacion.modelo.*;
 
+// TMR ME QUEDÉ POR AQUÍ: YA ESTÁ TERMINADO, SEGUIR CON LO SIGUIENTE
 public class CrearNuevaIncidenciaDesdeMiCalendario extends NewAction {
 
 	private boolean irALista = false;
@@ -31,36 +32,35 @@ public class CrearNuevaIncidenciaDesdeMiCalendario extends NewAction {
 	}
 
 	private void calcularValorDefectoPlan() {
-		// TMR ME QUEDÉ POR AQUÍ: TRADUCIENDO A ESPAÑOL
-		LocalDate plannedFor = (LocalDate) getView().getValue("plannedFor"); 		
-		if (plannedFor == null) {
-			plannedFor = LocalDate.now();
-			getView().setValue("plannedFor", plannedFor);
+		LocalDate planificadoPara = (LocalDate) getView().getValue("planificadoPara"); 		
+		if (planificadoPara == null) {
+			planificadoPara = LocalDate.now();
+			getView().setValue("planificadoPara", planificadoPara);
 		}
 		Query query = XPersistence.getManager().createQuery(
-			"from Plan p where p.worker.userName = :userName and :plannedFor between p.period.startDate and p.period.endDate");
-		query.setParameter("plannedFor", plannedFor);
-		query.setParameter("userName", Users.getCurrent());
-		List<Plan> plans = query.getResultList(); 
-		if (plans.isEmpty()) {
-			addError("no_plan_for_user_date", "assignedTo", plannedFor, "'" + Users.getCurrent() + "'"); 
+			"from Plan p where p.trabajador.nombreUsuario = :nombreUsuario and :planificadoPara between p.periodo.fechaInicio and p.periodo.fechaFin");
+		query.setParameter("planificadoPara", planificadoPara);
+		query.setParameter("nombreUsuario", Users.getCurrent());
+		List<Plan> planes = query.getResultList(); 
+		if (planes.isEmpty()) {
+			addError("no_plan_para_ususario_fecha", "asignadoA", planificadoPara, "'" + Users.getCurrent() + "'"); 
 			return;
 		}
-		Plan plan = plans.get(0);
+		Plan plan = planes.get(0);
 		getView().setValue("assignedTo.id", plan.getId());
 	}
 	
 	private void calcularValorDefectoEstado() {
-		IssueStatus issueStatus = IssueStatus.findTheDefaultOneForMyCalendar();
-		if (issueStatus != null) {
-			getView().setValue("status.id", issueStatus.getId());
+		EstadoIncidencia estadoIncidencia = EstadoIncidencia.findLaDePorDefectoParaMiCalendario();
+		if (estadoIncidencia != null) {
+			getView().setValue("estado.id", estadoIncidencia.getId());
 		}
 	}
 	
 	private void calcularValorDefectoTipo() {
-		IssueType issueType = IssueType.findTheDefaultOneForMyCalendar();
-		if (issueType != null) {
-			getView().setValue("type.id", issueType.getId());
+		TipoIncidencia tipoIncidencia = TipoIncidencia.findLaDePorDefectoParaMiCalendario();
+		if (tipoIncidencia != null) {
+			getView().setValue("tipo.id", tipoIncidencia.getId());
 		}
 	}	
 	
