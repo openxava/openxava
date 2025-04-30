@@ -2,12 +2,14 @@ package com.tuempresa.tuaplicacion.modelo;
 
 import java.math.*;
 import java.time.*;
+import java.util.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
+import org.openxava.jpa.*;
 import org.openxava.model.*;
 import org.openxava.web.editors.*;
 
@@ -20,15 +22,21 @@ import lombok.*;
 	"titulo, tipo;" +
 	"descripcion;" +
 	"detalles [#" +
-		"proyecto, creadoPor;" +
-		"creadoEl, prioridad;" +
-		"version, asignadoA;" +
-		"estado, cliente;" +
+		"creadoPor, creadoEl;" +
+		"proyecto, version;" +
+		"asignadoA, planificadoPara;" +
+		"estado, prioridad;" +
+		"cliente;" +
 		"minutos, horas;" +
 	"];" +
 	"adjuntos;" +
 	"discusion"
 )
+@Tab(properties="titulo, tipo.nombre, descripcion, proyecto.nombre, version.nombre, creadoPor, creadoEl, estado.nombre")
+@Tab(name="MiCalendario", editors="Calendar", 
+	properties="titulo", 
+	baseCondition = "${asignadoA.trabajador.nombreUsuario} = ?", 
+	filter=org.openxava.filters.UserFilter.class)
 public class Incidencia extends Identifiable {
 
 	@Column(length=100) @Required
@@ -51,10 +59,13 @@ public class Incidencia extends Identifiable {
 	@Column(length=30) @ReadOnly
 	@DefaultValueCalculator(CurrentUserCalculator.class)
 	String creadoPor;
+
+	LocalDate planificadoPara;
 	
 	@ReadOnly 
 	@DefaultValueCalculator(CurrentLocalDateCalculator.class) 
 	LocalDate creadoEl;
+	
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=true)
 	@DescriptionsList(order="${nivel} desc")
@@ -99,4 +110,11 @@ public class Incidencia extends Identifiable {
 	    DiscussionComment.removeForDiscussion(discusion);
 	}
 
+	public static Incidencia findByTitulo(String titulo) {
+		Query query = XPersistence.getManager().createQuery(
+			"from Incidencia i where i.titulo = :titulo");
+		query.setParameter("titulo", titulo);
+		List<Incidencia> incidencias = query.getResultList();
+		return incidencias.isEmpty() ? null : incidencias.get(0);
+	}
 }

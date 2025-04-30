@@ -11,7 +11,7 @@ import org.openxava.util.*;
 
 import com.tuempresa.tuaplicacion.modelo.*;
 
-// TMR ME QUEDÉ POR AQUÍ: YA ESTÁ TERMINADO, SEGUIR CON LO SIGUIENTE
+
 public class CrearNuevaIncidenciaDesdeMiCalendario extends NewAction {
 
 	private boolean irALista = false;
@@ -47,7 +47,7 @@ public class CrearNuevaIncidenciaDesdeMiCalendario extends NewAction {
 			return;
 		}
 		Plan plan = planes.get(0);
-		getView().setValue("assignedTo.id", plan.getId());
+		getView().setValue("asignadoA.id", plan.getId());
 	}
 	
 	private void calcularValorDefectoEstado() {

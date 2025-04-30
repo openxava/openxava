@@ -17,7 +17,8 @@ public class PruebaIncidencia extends ModuleTestBase {
 		String [][] tipos = {
 			{ "", "" },
 			{ "2c976081901309200190130d3e560006", "Característica" },
-			{ "2c976081901309200190130d0b150005", "Fallo" }
+			{ "2c976081901309200190130d0b150005", "Fallo" },
+			{ "2c976081901309200190130d3e560007", "Tarea" }
 		};
 		assertValidValues("tipo.id", tipos);
 		setValue("tipo.id", "2c976081901309200190130d0b150005"); // Fallo 
@@ -27,6 +28,8 @@ public class PruebaIncidencia extends ModuleTestBase {
 		assertValue("creadoPor", "admin");
 		assertNoEditable("creadoPor");
 		assertValue("creadoEl", getFechaActual());
+		assertValue("planificadoPara", ""); 
+		setValue("planificadoPara", "30/10/2024"); 
 
 		String [][] prioridades = {
 			{ "", "" },
@@ -59,6 +62,7 @@ public class PruebaIncidencia extends ModuleTestBase {
 			{ "2c97608190130fc20190131e9c820003", "Hecho" },
 			{ "2c97608190130fc20190131f26ad0004", "No reproducible" },
 			{ "2c97608190130fc20190131e45000002", "Pendiente" },
+			{ "2c97608190130fc20190131f91480006", "Planificado" },
 			{ "2c97608190130fc20190131f91480005", "Rechazado" }
 		};
 		assertValidValues("estado.id", estados);
@@ -103,6 +107,7 @@ public class PruebaIncidencia extends ModuleTestBase {
 		assertDescriptionValue("proyecto.id", "OpenXava"); 
 		assertValue("creadoPor", "admin");
 		assertValue("creadoEl", getFechaActual()); // Si falla revisa serverTimezone en la URL de MySQL
+		assertValue("planificadoPara", "30/10/2024"); 
 		assertValue("prioridad.nivel", "7"); 
 		assertValue("version.id", "2c97608190130fc2019013106fd10000"); // 1.0 
 		assertValue("asignadoA.id", "2c976081901309200190130a69590003"); // Javi 2024.11
@@ -125,7 +130,8 @@ public class PruebaIncidencia extends ModuleTestBase {
 		String [][] tipos = {
 			{ "", "" },
 			{ "2c976081901309200190130d3e560006", "Característica" },
-			{ "2c976081901309200190130d0b150005", "Fallo" }
+			{ "2c976081901309200190130d0b150005", "Fallo" },
+			{ "2c976081901309200190130d3e560007", "Tarea" }
 		};
 		assertValidValues("tipo.id", tipos);
 		setValue("tipo.id", "2c976081901309200190130d0b150005"); // Fallo
