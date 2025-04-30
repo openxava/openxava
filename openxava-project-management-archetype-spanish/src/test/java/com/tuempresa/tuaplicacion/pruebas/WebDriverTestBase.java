@@ -24,7 +24,7 @@ abstract public class WebDriverTestBase extends TestCase {
 	private WebDriver driver;
 	
 	protected String getLang() { 
-		return "en";
+		return "es";
 	}
 	
 	protected void setUp() throws Exception {
@@ -41,7 +41,7 @@ abstract public class WebDriverTestBase extends TestCase {
 	    options.addArguments("--accept-lang=" + lang);
 	    options.addArguments("--lang=" + lang); 
 	    options.addArguments("--disable-search-engine-choice-screen");
-	    options.addArguments("--window-size=900,850");
+	    options.addArguments("--window-size=1200,850");
 	    if (isHeadless()) {
 		    options.addArguments("--headless"); 
 		    options.addArguments("--disable-gpu");
@@ -129,37 +129,29 @@ abstract public class WebDriverTestBase extends TestCase {
 			try {
 				button.click();
 			}
-			catch (ElementClickInterceptedException ex) {
+			catch (Exception ex) {
 				JavascriptExecutor executor = (JavascriptExecutor) driver;
 				executor.executeScript("arguments[0].click();", button);
 			}
-			wait(driver);
 		}
 		catch (NoSuchElementException ex) {
-			try {
-				WebElement button = driver.findElement(By.id(action));
-				button.click();
-				wait(driver);
-			}
-			catch (NoSuchElementException ex2) {
-				fail(XavaResources.getString("button_not_found", action));
-			}
+			WebElement button = driver.findElement(By.id("ox_tuaplicacion_" + moduleName + "__" + action + "___" + arguments));
+			button.click();
 		}
+		acceptInDialogJS(driver);
+		wait(driver);
 	}
 	
-	protected void goModule(String module) throws Exception {
-		this.module = module;
-		driver.get("http://localhost:8080/tuaplicacion/");
+	protected void clickOnButtonWithId(String id) throws Exception {
+		WebElement button = driver.findElement(By.id(id));
+		button.click();
 		wait(driver);
-		try {
-			WebElement menuButton = driver.findElement(By.id("menu_button"));
-			menuButton.click();
-			wait(driver);
-		}
-		catch (NoSuchElementException ex) {
-		}
-		WebElement moduleLink = driver.findElement(By.id(module));
-		moduleLink.click();
+	}
+	
+	protected void clickOnSectionWithChildSpanId(String id) throws Exception {
+		WebElement span = driver.findElement(By.id(id));
+		WebElement section = span.findElement(By.xpath("./.."));
+		section.click();
 		wait(driver);
 	}
 	
@@ -169,6 +161,104 @@ abstract public class WebDriverTestBase extends TestCase {
 	
 	protected void setHeadless(boolean headless) {
 		this.headless = headless;
+	}
+	
+	protected void blur(WebElement element) {
+		Actions actions = new Actions(driver);
+		actions.moveToElement(element).click().build().perform();
+	}
+	
+	protected void goModule(String module) throws Exception {
+		this.module = module;
+		driver.get("http://localhost:8080/tuaplicacion/modules/" + module);
+		wait(driver);
+		acceptInDialogJS(driver);
+	}
+	
+	protected void moveToListView() throws Exception {
+		try {
+			WebElement button = driver.findElement(By.id("ox_tuaplicacion_" + module + "__Mode___list"));
+			button.click();
+			wait(driver);
+		}
+		catch (Exception ex) {
+		}
+	}
+	
+	protected void assertListColumnCount(int expectedColumnCount) throws Exception {
+		assertEquals(expectedColumnCount, getListColumnCount());
+	}
+	
+	protected int getListColumnCount() throws Exception {
+		return driver.findElements(By.cssSelector("#ox_tuaplicacion_" + module + "__list_core .xava_view_list_header th")).size();
+	}
+	
+	protected void assertCollectionColumnCount(String collection, int expectedColumnCount) throws Exception {
+		assertEquals(expectedColumnCount, getCollectionColumnCount(collection));
+	}
+	
+	protected int getCollectionColumnCount(String collection) throws Exception {
+		return driver.findElements(By.cssSelector("#" + Ids.decorate("tuaplicacion", module, collection) + " .xava_view_list_header th")).size();
+	}
+	
+	protected void assertListRowCount(int expectedRowCount) throws Exception {
+		assertEquals(expectedRowCount, getListRowCount());
+	}
+	
+	protected int getListRowCount() throws Exception {
+		return driver.findElements(By.cssSelector("#ox_tuaplicacion_" + module + "__list_core .ox-list-row")).size();
+	}
+	
+	protected void assertCollectionRowCount(String collection, int expectedRowCount) throws Exception {
+		assertEquals(expectedRowCount, getCollectionRowCount(collection));
+	}
+	
+	protected int getCollectionRowCount(String collection) throws Exception {
+		return driver.findElements(By.cssSelector("#" + Ids.decorate("tuaplicacion", module, collection) + " .ox-list-row")).size();
+	}
+	
+	protected void assertValueInList(int row, int column, String expectedValue) throws Exception {
+		assertEquals(expectedValue, getValueInList(row, column));
+	}
+	
+	protected String getValueInList(int row, int column) throws Exception {
+		return driver.findElement(By.cssSelector("#ox_tuaplicacion_" + module + "__list_core .ox-list-row:nth-child(" + (row + 1) + ") td:nth-child(" + (column + 1) + ")")).getText().trim();
+	}
+	
+	protected void assertValueInCollection(String collection, int row, int column, String expectedValue) throws Exception {
+		assertEquals(expectedValue, getValueInCollection(collection, row, column));
+	}
+	
+	protected String getValueInCollection(String collection, int row, int column) throws Exception {
+		return driver.findElement(By.cssSelector("#" + Ids.decorate("tuaplicacion", module, collection) + " .ox-list-row:nth-child(" + (row + 1) + ") td:nth-child(" + (column + 1) + ")")).getText().trim();
+	}
+	
+	protected void assertNoEditable(String name) throws Exception {
+		WebElement element = driver.findElement(By.id(Ids.decorate("tuaplicacion", module, name)));
+		assertTrue(element.getAttribute("readonly") != null || element.getAttribute("disabled") != null);
+	}
+	
+	protected void assertEditable(String name) throws Exception {
+		WebElement element = driver.findElement(By.id(Ids.decorate("tuaplicacion", module, name)));
+		assertTrue(element.getAttribute("readonly") == null && element.getAttribute("disabled") == null);
+	}
+	
+	protected void assertValidValues(String name, String [][] values) throws Exception {
+		WebElement select = driver.findElement(By.id(Ids.decorate("tuaplicacion", module, name)));
+		List<WebElement> options = select.findElements(By.tagName("option"));
+		assertEquals("Number of values for " + name, values.length, options.size());
+		int i=0;
+		for (WebElement option: options) {
+			assertEquals("Unexpected value for " + name, values[i][0], option.getAttribute("value"));
+			assertEquals("Unexpected description for " + name, values[i][1], option.getText());
+			i++;
+		}
+	}
+	
+	protected void assertValidValuesCount(String name, int count) throws Exception {
+		WebElement select = driver.findElement(By.id(Ids.decorate("tuaplicacion", module, name)));
+		List<WebElement> options = select.findElements(By.tagName("option"));
+		assertEquals("Number of values for " + name, count, options.size());
 	}
 	
 	protected void assertDescriptionValue(String name, String value) {

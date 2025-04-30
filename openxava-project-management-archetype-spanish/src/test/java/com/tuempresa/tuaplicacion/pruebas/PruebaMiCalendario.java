@@ -12,7 +12,7 @@ import org.openxava.util.*;
 import com.tuempresa.tuaplicacion.modelo.*;
 
 /**
- * Prueba para el mÃ³dulo Mi Calendario usando Selenium WebDriver.
+ * Prueba para el módulo Mi Calendario usando Selenium WebDriver.
  */
 public class PruebaMiCalendario extends WebDriverTestBase {
 	
@@ -26,7 +26,7 @@ public class PruebaMiCalendario extends WebDriverTestBase {
 		
 	public void testCrearIncidencia() throws Exception {
 		goModule("MiCalendario");
-		login("javi", "javi");
+		login("javi", "javi999");
 
 		// Probar crear una incidencia sin un plan
 		assertNuevoSinPlan();		
@@ -37,19 +37,19 @@ public class PruebaMiCalendario extends WebDriverTestBase {
 		// Probar crear una incidencia sin estado y tipo por defecto
 		assertNuevoSinValoresPorDefectoParaEstadoYTipo();
 		
-		// Probar hacer clic en un dÃ­a del calendario
+		// Probar hacer clic en un dí­a del calendario
 		clickEnDia();
 		assertNoErrors();
-		assertValue("planificadaPara", mes + "/15/" + anyo);
+		assertValue("planificadoPara", String.format("15/%02d/%d", mes, anyo));
 		assertDescriptionValue("tipo.id", "Tarea");
-		assertDescriptionValue("estado.id", "Planificada");
+		assertDescriptionValue("estado.id", "Planificado");
 		assertDescriptionValue("asignadoA.id", "Javi " + anyo + "." + mes);	
 		
-		// Probar error de validaciÃ³n cuando falta el tÃ­tulo
+		// Probar error de validación cuando falta el título
 		execute("MiCalendario.save"); 
-		assertError("Valor para TÃ­tulo en Incidencia es obligatorio");
+		assertError("Es obligado que Titulo en Incidencia tenga valor");
 
-		// Probar creaciÃ³n exitosa de una incidencia
+		// Probar creación exitosa de una incidencia
 		setValue("titulo", "Incidencia JUnit desde Mi calendario");
 		execute("MiCalendario.save"); 
 		assertNoErrors(); 
@@ -60,14 +60,14 @@ public class PruebaMiCalendario extends WebDriverTestBase {
 		// Probar crear una nueva incidencia con valores por defecto
 		execute("MiCalendario.new");
 		assertNoErrors();
-		assertValue("planificadaPara", mes + "/" + Dates.getDay(new Date()) + "/" + anyo);
+		assertValue("planificadoPara", String.format("%02d/%02d/%d", Dates.getDay(new Date()), mes, anyo));
 		assertDescriptionValue("tipo.id", "Tarea");
-		assertDescriptionValue("estado.id", "Planificada");
+		assertDescriptionValue("estado.id", "Planificado");
 		assertDescriptionValue("asignadoA.id", "Javi " + anyo + "." + mes);	
 		
 		// Probar visibilidad de incidencia para diferentes usuarios
 		logout();
-		login("pedro", "pedro");
+		login("pedro", "pedro888");
 		goModule("MiCalendario");
 		assertTextoDia(15, "");
 		
@@ -88,11 +88,11 @@ public class PruebaMiCalendario extends WebDriverTestBase {
 		
 		XPersistence.commit();
 		
-		// Hacer clic en un dÃ­a y verificar que no se usan valores por defecto
+		// Hacer clic en un dí­a y verificar que no se usan valores por defecto
 		clickEnDia();
 		
 		assertNoErrors();
-		assertValue("planificadaPara", mes + "/15/" + anyo);
+		assertValue("planificadoPara", String.format("15/%02d/%d", mes, anyo));
 		assertDescriptionValue("tipo.id", "");
 		assertDescriptionValue("estado.id", "Pendiente");  
 		assertDescriptionValue("asignadoA.id", "Javi " + anyo + "." + mes);
@@ -106,12 +106,12 @@ public class PruebaMiCalendario extends WebDriverTestBase {
 	}
 
 	private void assertNuevoSinPlan() throws Exception {
-		// Hacer clic en un dÃ­a cuando no hay plan
+		// Hacer clic en un dí­a cuando no hay plan
 		clickEnDia();
-		assertError("No hay plan para javi en la fecha " + fechaFormateada() + ". Cree uno y establÃ©zcalo en el campo Asignado a");
-		assertValue("planificadaPara", mes + "/15/" + anyo);
+		assertError("No hay ningún plan para javi en la fecha " + fechaFormateada() + ". Crea uno y asígnalo en el campo Asignado a");
+		assertValue("planificadoPara", String.format("15/%02d/%d", mes, anyo));
 		assertDescriptionValue("tipo.id", "Tarea");
-		assertDescriptionValue("estado.id", "Planificada");
+		assertDescriptionValue("estado.id", "Planificado");
 		assertDescriptionValue("asignadoA.id", "");
 		execute("Mode.list");
 	}
@@ -128,21 +128,21 @@ public class PruebaMiCalendario extends WebDriverTestBase {
 	}
 	
 	private void assertTextoDia(int dia, String textoEsperado) throws Exception {
-		// Verificar el texto mostrado en un dÃ­a del calendario
+		// Verificar el texto mostrado en un dí­a del calendario
 		WebElement elementoDia = getElementoDia();
 		String contenidoDiaEsperado = Is.emptyString(textoEsperado)?Integer.toString(dia): dia + "\n" + textoEsperado; 
 		assertEquals(contenidoDiaEsperado, elementoDia.getText());
 	}
 	
 	private WebElement getElementoDia() {
-		// Obtener el elemento del dÃ­a desde el calendario
+		// Obtener el elemento del día desde el calendario
 		String fecha = fechaFormateada();
 		WebElement elementoDia = getDriver().findElement(By.cssSelector("td[data-date='" + fecha + "']")); 
 		return elementoDia;
 	}	
 
 	private void crearPlanParaMes(int anyo, int mes) throws Exception {
-		// Crear un perÃ­odo para el mes
+		// Crear un periodo para el mes
 		Periodo periodo = new Periodo();
 		periodo.setNombre(anyo + "." + mes);
 		periodo.setFechaInicio(LocalDate.of(anyo, mes, 1));
@@ -150,7 +150,7 @@ public class PruebaMiCalendario extends WebDriverTestBase {
 		
 		// Crear un plan para el trabajador
 		Plan plan = new Plan();
-		plan.setTrabajador(Trabajador.findById("2c94f081900875e80190088fd8f60004")); // Javi
+		plan.setTrabajador(Trabajador.findById("2c976081901309200190130a11270000")); // Javi
 		plan.setPeriodo(periodo);
 		
 		// Persistir las entidades

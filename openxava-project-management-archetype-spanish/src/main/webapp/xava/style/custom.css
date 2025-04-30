@@ -51,9 +51,9 @@ Pon aqu� tu propio estilo
 }
 
 #ox_${artifactId}_MiCalendario__core .xava_calendar_date_preferences {
-	margin-bottom: 10px;
+	display: none;
 }
 
 #ox_${artifactId}_MiCalendario__core #xava_calendar {
-	width: 100%;
+	margin-top: 20px;
 }
