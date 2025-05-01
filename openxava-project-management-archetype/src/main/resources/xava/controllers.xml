@@ -38,5 +38,26 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
 			icon="library-plus"
 			class="com.yourcompany.yourapp.actions.CreateNewIssueInVersionAction"/>
 	</controller>
+	
+	<controller name="MyCalendar">
+		<extends controller="CRUD"/>
+		
+		<action name="new" 
+			class="com.yourcompany.yourapp.actions.NewIssueFromMyCalendarAction"
+			image="new.gif"
+			icon="library-plus"
+			keystroke="Control N"
+			loses-changed-data="true">
+			<set property="restoreModel" value="true"/>						
+		</action>
+		
+		<action name="save" mode="detail"
+			by-default="if-possible"
+			class="com.yourcompany.yourapp.actions.SaveReturningToListAction"
+			image="save.gif"
+			icon="content-save"
+			keystroke="Control S"/>
+			
+	</controller>
     
 </controllers>

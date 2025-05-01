@@ -16,6 +16,7 @@
  init-action CDATA #IMPLIED
  release-action CDATA #IMPLIED
  selectable-items (true|false) "true"
+ default-label-format (normal|small|no-label) #IMPLIED
 >
 
 <!ELEMENT property EMPTY>
@@ -76,7 +77,23 @@
  model CDATA #REQUIRED
 >
 
-<!ELEMENT for-tabs EMPTY>
+<!ELEMENT for-tabs (has-type*, has-annotation*, has-stereotype*)>
+
+<!ELEMENT has-type EMPTY>
+<!ATTLIST has-type
+  type CDATA #IMPLIED
+>
+
+<!ELEMENT has-annotation EMPTY>
+<!ATTLIST has-annotation
+  annotation CDATA #IMPLIED
+>
+
+<!ELEMENT has-stereotype EMPTY>
+<!ATTLIST has-stereotype
+  stereotype CDATA #IMPLIED
+>
+
 
 <!ELEMENT for-tab EMPTY>
 <!ATTLIST for-tab

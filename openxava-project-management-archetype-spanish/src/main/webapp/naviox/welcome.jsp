@@ -45,7 +45,7 @@ String welcomePoint2 = XavaResources.getString(request, "welcome_point2");
 
 <div class="grupo">
 
-	<% for (int i=1; i<=4; i++) { %>
+	<% for (int i=1; i<=5; i++) { %>
 		<div class='bloque'>
 			<%
 			String featureHeader = XavaResources.getString(request, "feature_header" + i);

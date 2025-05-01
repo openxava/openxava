@@ -17,7 +17,8 @@ public class IssueTest extends ModuleTestBase {
 		String [][] types = {
 			{ "", "" },
 			{ "2c94f081900875e801900896f25b0008", "Bug" },
-			{ "2c94f081900875e80190089701170009", "Feature" }
+			{ "2c94f081900875e80190089701170009", "Feature" },
+			{ "2c94f081900875e80190089701170010", "Task" }
 		};
 		assertValidValues("type.id", types);
 		setValue("type.id", "2c94f081900875e801900896f25b0008"); // Bug 
@@ -27,6 +28,8 @@ public class IssueTest extends ModuleTestBase {
 		assertValue("createdBy", "admin");
 		assertNoEditable("createdBy");
 		assertValue("createdOn", getCurrentDate());
+		assertValue("plannedFor", ""); 
+		setValue("plannedFor", "10/30/2024"); 
 
 		String [][] priorities = {
 			{ "", "" },
@@ -59,6 +62,7 @@ public class IssueTest extends ModuleTestBase {
 			{ "2c94f081900875e80190088afdc30001", "Done" },
 			{ "2c94f081900875e80190088ce9d30002", "Not reproducible" },
 			{ "2c94f081900875e80190088a559a0000", "Pending" },
+			{ "2c94f081900875e80190088d8fb90004", "Planned" },
 			{ "2c94f081900875e80190088d8fb90003", "Rejected" }
 		};
 		
@@ -105,6 +109,7 @@ public class IssueTest extends ModuleTestBase {
 		assertDescriptionValue("project.id", "OpenXava"); 
 		assertValue("createdBy", "admin");
 		assertValue("createdOn", getCurrentDate()); // If fails revise the serverTimezone in MySQL url
+		assertValue("plannedFor", "10/30/2024"); 
 		assertValue("priority.level", "7"); 
 		assertValue("version.id", "2c94f081900856030190085eb1610001"); // 1.0 
 		assertValue("assignedTo.id", "2c94f081900875e80190089c1211000b"); // Javi 2024.11
@@ -127,7 +132,8 @@ public class IssueTest extends ModuleTestBase {
 		String [][] types = {
 			{ "", "" },
 			{ "2c94f081900875e801900896f25b0008", "Bug" },
-			{ "2c94f081900875e80190089701170009", "Feature" }
+			{ "2c94f081900875e80190089701170009", "Feature" },
+			{ "2c94f081900875e80190089701170010", "Task" }
 		};
 		assertValidValues("type.id", types);
 		setValue("type.id", "2c94f081900875e801900896f25b0008"); // Bug

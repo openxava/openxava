@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Project Management archetypes include a personal calendar module to plan tasks for workers.
+- Project Management archetypes include an example of an automated test using Selenium.
 - Screenshots of Getting Started guides and Custom Visual Style doc updated to v7.5 visual style.
 - Fixed 1 security vulnerability in dependencies, now we have 0 vulnerabilities.
 - Lombok upgraded to 1.18.38.
@@ -36,7 +38,6 @@ Change Log for OpenXava project
 - Fix: Frame for @LargeDisplay properties is too close to the above frame, touching it.
 - Fix: Row actions are misaligned when an IAvailableAction is not displayed in some rows.
 - Fix: Ugly square border in collection tables on Firefox.
-- Fix: "Unable to rename class file from" error when starting Tomcat occasionally with OpenXava Studio JDK.
 
 OpenXava 7.5 (2025-3-21)
 ------------------------

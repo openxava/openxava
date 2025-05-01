@@ -9,26 +9,26 @@ import org.openxava.jpa.*;
 import lombok.*;
 
 @Entity @Getter @Setter
-public class EstadoIncidencia extends Iconable {
+public class EstadoIncidencia extends IconableConUsarComoValorPorDefectoParaMiCalendario {
 			
 	boolean usarComoValorPorDefecto;
+			
+	public static EstadoIncidencia findById(String id) { 
+		return (EstadoIncidencia) XPersistence.getManager().find(EstadoIncidencia.class, id);
+	}
 	
 	public static EstadoIncidencia findLaDePorDefecto() {
-		List<EstadoIncidencia> estado = XPersistence.getManager()
-			.createQuery("from EstadoIncidencia where usarComoValorPorDefecto = true")
-			.getResultList();
-		if (estado.size() == 1) return estado.get(0);
-		return null;
+		return (EstadoIncidencia) findLaDePorDefecto("EstadoIncidencia", "usarComoValorPorDefecto");
 	}
 		
-	private void unsetUsarComoValorPorDefectoParaTodos() {
-		XPersistence.getManager().createQuery("update EstadoIncidencia set usarComoValorPorDefecto = false").executeUpdate();
-	}
+	public static EstadoIncidencia findLaDePorDefectoParaMiCalendario() {
+		return (EstadoIncidencia) findLaDePorDefecto("EstadoIncidencia", "usarComoValorPorDefectoParaMiCalendario");
+	}	
 
 	public void setUsarComoValorPorDefecto(boolean usarComoValorPorDefecto) {
 		if (this.usarComoValorPorDefecto == usarComoValorPorDefecto) return;
-		unsetUsarComoValorPorDefectoParaTodos();
+		unsetUsarComoValorPorDefectoParaTodos("usarComoValorPorDefecto");
 		this.usarComoValorPorDefecto = usarComoValorPorDefecto;
-	}
+	}		
 
 }

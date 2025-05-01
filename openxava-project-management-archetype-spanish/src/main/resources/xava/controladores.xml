@@ -3,13 +3,13 @@
 <!DOCTYPE controladores SYSTEM "dtds/controladores.dtd">
 
 <!-- 
-Documentación sobre controladores: 
+Documentaciï¿½n sobre controladores: 
 https://www.openxava.org/OpenXavaDoc/docs/controllers_es.html
 
 Controladores por defecto, incluidos en OpenXava (puedes extender de ellos):
 https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml
  
-Ejemplos de controladores (de la aplicación de pruebas):
+Ejemplos de controladores (de la aplicaciï¿½n de pruebas):
 https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources/xava/controllers.xml
 -->
 
@@ -19,7 +19,7 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
     <var-entorno nombre="tuaplicacion_ANYO_DEFECTO" valor="2015"/>
     -->
     
-    <!-- Objeto de sesión:
+    <!-- Objeto de sesiï¿½n:
     <Objeto nombre="tuaplicacion_anyoActivo" clase="java.lang.Integer" valor="2015" 
             ambito="global"/>
     -->
@@ -36,6 +36,27 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
     	<accion nombre="new" oculta="true"
 			icono="library-plus"
 			clase="com.tuempresa.tuaplicacion.acciones.CrearNuevaIncidenciaEnVersion"/>
+	</controlador>
+    
+    <controlador nombre="MiCalendario">
+		<hereda-de controlador="CRUD"/>
+		
+		<accion nombre="new" 
+			clase="com.tuempresa.tuaplicacion.acciones.CrearNuevaIncidenciaDesdeMiCalendario"
+			imagen="new.gif"
+			icono="library-plus"
+			atajo-de-teclado="Control N"
+			pierde-datos-cambiados="true">
+			<poner propiedad="restoreModel" valor="true"/>						
+		</accion>
+		
+		<accion nombre="save" modo="detail"
+			por-defecto="si-es-posible"
+			clase="com.tuempresa.tuaplicacion.acciones.GuardarVolviendoALista"
+			imagen="save.gif"
+			icono="content-save"
+			atajo-de-teclado="Control S"/>
+			
 	</controlador>
     
 </controladores>
