@@ -43,7 +43,7 @@ public class CrearNuevaIncidenciaDesdeMiCalendario extends NewAction {
 		query.setParameter("nombreUsuario", Users.getCurrent());
 		List<Plan> planes = query.getResultList(); 
 		if (planes.isEmpty()) {
-			addError("no_plan_para_ususario_fecha", "asignadoA", planificadoPara, "'" + Users.getCurrent() + "'"); 
+			addError("no_plan_para_usuario_fecha", "asignadoA", planificadoPara, "'" + Users.getCurrent() + "'"); 
 			return;
 		}
 		Plan plan = planes.get(0);

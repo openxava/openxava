@@ -27,7 +27,7 @@ public class MyCalendarTest extends WebDriverTestBase {
 		
 	public void testCreateIssue() throws Exception {
 		goModule("MyCalendar");
-		login("javi", "javi");
+		login("javi", "javi999");
 
 		// Test creating an issue without a plan
 		assertNewWithNoPlan();		
@@ -68,7 +68,7 @@ public class MyCalendarTest extends WebDriverTestBase {
 		
 		// Test issue visibility for different users
 		logout();
-		login("peter", "peter");
+		login("peter", "peter888");
 		goModule("MyCalendar");
 		assertDayText(15, "");
 		
