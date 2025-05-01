@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Project Management archetypes include a personal calendar module to plan tasks for workers.
+- Project Management archetypes include an example of an automated test using Selenium.
 - Screenshots of Getting Started guides and Custom Visual Style doc updated to v7.5 visual style.
 - Fixed 1 security vulnerability in dependencies, now we have 0 vulnerabilities.
 - Lombok upgraded to 1.18.38.
