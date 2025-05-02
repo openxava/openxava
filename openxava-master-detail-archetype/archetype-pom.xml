@@ -9,8 +9,8 @@
 	<version>7.5.1-SNAPSHOT</version>
 	<packaging>maven-archetype</packaging>
 
-  	<name>OpenXava Archetype</name>
-	<description>Archetype for creating a new OpenXava project with a Detail-Master initial model</description>
+  	<name>OpenXava Master-Detail Archetype</name>
+	<description>Archetype for creating a new OpenXava project with a Master-Detail initial model</description>
 	<url>https://www.openxava.org</url>
 	
 	<licenses>

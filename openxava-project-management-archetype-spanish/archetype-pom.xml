@@ -9,7 +9,7 @@
 	<version>7.5.1-SNAPSHOT</version>
 	<packaging>maven-archetype</packaging>
 
-  	<name>OpenXava Archetype in Spanish</name>
+  	<name>OpenXava Project Management Archetype in Spanish</name>
 	<description>Archetype for creating a project management application based on OpenXava in Spanish</description>
 	<url>https://www.openxava.org</url>
 	
