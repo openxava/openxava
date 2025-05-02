@@ -1,6 +1,47 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.5.1 (2025-5-2)
+-------------------------
+- New look & feel for column customization icons when column resizing is enabled.
+- Project Management archetypes include a personal calendar module to plan tasks for workers.
+- Project Management archetypes include an example of an automated test using Selenium.
+- Enabling list customization with column resizing does not alter the column widths.
+- Property detailOnBottomInCollections removed from all archetypes and marked as deprecated in docs.
+- Eclipse configuration files removed from GitHub code, still works with Eclipse importing as Maven project.
+- All Java code of openxavatest project converted to UTF-8 encoding.
+- New projects created from archetypes do not include specific Eclipse configuration files.
+- Lombok upgraded to 1.18.38.
+- POI and POI OOXML upgraded to 5.4.1.
+- Embedded Tomcat used in development upgraded to 9.0.104.
+- Driver version in doc/new projects upgraded for MS SQL Server, AS/400 and Informix.
+- Improved Getting Started guide to include a reference to hot code reloading.
+- Screenshots of Getting Started guides and Custom Visual Style doc updated to v7.5 visual style.
+- Lessons 1 and 2 of the OpenXava course with AI available in the documentation with video.
+- Doc for modifying OpenXava and XavaPro code now includes a section on using hot code reloading.
+- Doc for modifying OpenXava code updated to import as a Maven project (no more Eclipse conf files).
+- Fixed 1 security vulnerability in dependencies, now we have 0 vulnerabilities.
+- Fix: Error parsing LocalDateTime properties in English.
+- Fix: Error parsing and formatting LocalDateTime and LocalTime properties in U.S. Spanish.
+- Fix: Too wide columns by default for long content properties in list with resizeColumn=true.
+- Fix: Incorrect archetype name for Master-Detail and Project Management archetypes.
+- Fix: Comments in @Discussion properties are not using rounded corners.
+- Fix: Setting detailOnBottomInCollections=true in xava.properties caused collections to break.
+- Fix: Small square corner appearing behind the rounded corner on bottom of dialogs in Dark theme.
+- Fix: Links for list pagination and 'Hide them' inside a dialog in Dark theme are not visible.
+- Fix: Ugly unclosed frame around column selection in charts list format with Firefox.
+- Fix: Unneeded horizontal scrollbar in column selection in charts list format.
+- Fix: Hot reloading fails to recognize a new module when a class is created already annotated with @Entity.
+- Fix: Reloading from browser shows default view instead of module's view when using hot code reloading.
+- Fix: Modifying or removing an annotation with an associated editor not recognized by hot code reloading. 
+- Fix: Rename column icon not displayed in Chrome when column resizing is enabled.
+- Fix: Remove column icon not displayed in Firefox when column resizing is enabled.
+- Fix: Row action popup not shown after executing an action that does not refresh the collection.
+- Fix: Small square corner appearing behind the rounded corner on top of dialogs.
+- Fix: Frame for @LargeDisplay properties is too close to the above frame, touching it.
+- Fix: Row actions are misaligned when an IAvailableAction is not displayed in some rows.
+- Fix: Ugly square border in collection tables on Firefox.
+
 OpenXava 7.5 (2025-3-21)
 ------------------------
 - Hot code reloading for development including entities, actions, controllers, modules, annotations, etc.
