@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Incorrect archetype name for Master-Detail and Project Management archetypes.
 - Project Management archetypes include a personal calendar module to plan tasks for workers.
 - Project Management archetypes include an example of an automated test using Selenium.
 - Screenshots of Getting Started guides and Custom Visual Style doc updated to v7.5 visual style.
