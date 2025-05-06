@@ -36,17 +36,8 @@ public class ElementCollectionTest extends WebDriverTestBase {
 		long fn = System.currentTimeMillis();
 		assertTrue((fn-ini) < 5000); // More than 9 seconds when failed 
 	}
-
-	@Override
-	protected boolean isHeadless() { // tmr
-		return false; 
-	}
-
-	@Override
-	protected void tearDown() throws Exception { // tmr
-	}
 	
-	public void testColumnResize() throws Exception {
+	public void testTotalInputsKeepColumnSizeAfterColumnResize() throws Exception {
 		resetPreferences();
 		goModule("CommercialDocument"); // Using CommercialDocument module directly
 		execute("List.viewDetail", "row=0"); // View the first record
@@ -60,7 +51,6 @@ public class ElementCollectionTest extends WebDriverTestBase {
 		// Make sure the element is visible
 		JavascriptExecutor js = (JavascriptExecutor) getDriver();
 		js.executeScript("arguments[0].scrollIntoView(true);", resizeHandle);
-		Thread.sleep(500);
 		
 		// Find the input elements to compare widths
 		WebElement detailsAmountInput = getDriver().findElement(By.id("ox_openxavatest_CommercialDocument__details___0___amount"));
@@ -83,7 +73,7 @@ public class ElementCollectionTest extends WebDriverTestBase {
 			.perform();
 		
 		// Wait for the action to complete
-		Thread.sleep(1000);
+		Thread.sleep(500);
 		
 		// Get widths after resizing
 		int detailsAmountFinalWidth = detailsAmountInput.getSize().getWidth();
@@ -91,5 +81,22 @@ public class ElementCollectionTest extends WebDriverTestBase {
 		
 		// Verify they still have the same width after resizing
 		assertEquals("Both inputs should still have the same width after resizing", detailsAmountFinalWidth, totalAmountFinalWidth);
+		
+		// Go back to list mode
+		execute("Mode.list");
+		
+		// View the first record again
+		execute("List.viewDetail", "row=0");
+		
+		// Find the input elements again to compare widths
+		WebElement detailsAmountInputAfterReload = getDriver().findElement(By.id("ox_openxavatest_CommercialDocument__details___0___amount"));
+		WebElement totalAmountInputAfterReload = getDriver().findElement(By.id("ox_openxavatest_CommercialDocument__totalAmount"));
+		
+		// Get widths after reloading
+		int detailsAmountWidthAfterReload = detailsAmountInputAfterReload.getSize().getWidth();
+		int totalAmountWidthAfterReload = totalAmountInputAfterReload.getSize().getWidth();
+		
+		// Verify they still have the same width after reloading
+		assertEquals("Both inputs should still have the same width after reloading", detailsAmountWidthAfterReload, totalAmountWidthAfterReload);
 	}
 }
