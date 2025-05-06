@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Odd characters and incorrect attribute values in XML files of Project Management Spanish archetype.
+
 OpenXava 7.5.1 (2025-5-2)
 -------------------------
 - New look & feel for column customization icons when column resizing is enabled.

@@ -5,7 +5,7 @@
 <aplicacion nombre="tuaplicacion"> 
 	
 	<!--
-	Un mï¿½dulo por defecto se asume para cada
+	Un módulo por defecto se asume para cada
 	controlador en <modulo-defecto/> 
 	-->
 	<modulo-defecto>		  
@@ -13,7 +13,7 @@
 	</modulo-defecto>
 	
 	<!--
-	Podemos definir mï¿½dulos adicionales, por ejemplo: 	
+	Podemos definir módulos adicionales, por ejemplo: 	
 	<modulo nombre="ProfesorSoloLectura">
 		<modelo nombre="Profesor"/>
 		<controlador nombre="Print"/>
