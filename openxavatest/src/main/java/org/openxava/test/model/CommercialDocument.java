@@ -82,7 +82,7 @@ abstract public class CommercialDocument extends Identifiable {
 
     @ReadOnly
     @Money
-    @Calculation("sum(details.amount) + vat")    
+    @Calculation("sum(details.amount) + vat") // Keep as @Calculation to test a case with resizing   
     BigDecimal totalAmount;    
     
     @PrePersist // Executed just before saving the object for the first time
