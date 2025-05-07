@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Total is not aligned in @ElementCollection when the column had been resized.
 - Fix: Odd characters and incorrect attribute values in XML files of Project Management Spanish archetype.
 
 OpenXava 7.5.1 (2025-5-2)

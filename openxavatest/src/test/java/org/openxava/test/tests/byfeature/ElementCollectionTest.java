@@ -1,6 +1,5 @@
 package org.openxava.test.tests.byfeature;
 
-import java.util.List;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.*;
 
@@ -16,7 +15,7 @@ public class ElementCollectionTest extends WebDriverTestBase {
 		super(testName);
 	}
 	
-	public void _testFocus() throws Exception { // tmr
+	public void testFocus() throws Exception { 
 		goModule("Quote"); 
 		execute("CRUD.new");
 		setValueInCollection("details", 0, "product.number", "1\t");
@@ -29,7 +28,7 @@ public class ElementCollectionTest extends WebDriverTestBase {
 		setValue(collection + "." + row + "." + property, value);
 	}
 	
-	public void _testSetLabelIdPerformance() throws Exception { // tmr
+	public void testSetLabelIdPerformance() throws Exception { 
 		goModule("Grade");
 		long ini = System.currentTimeMillis();
 		execute("Grade.addCalifications");

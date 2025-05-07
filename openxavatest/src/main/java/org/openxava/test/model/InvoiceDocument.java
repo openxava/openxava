@@ -26,7 +26,6 @@ public class InvoiceDocument extends CommercialDocument{
 
     @OneToMany(mappedBy="invoice")
     @CollectionView("NoCustomerNoInvoice") // This view is used to display orders
-    // tmr @AddAction("Invoice.addOrders") // Creo que no hace falta
     private Collection<OrderDocument> orders;
     	
 }

@@ -23,6 +23,7 @@ String collectionArgv=",collection="+collectionName;
 
 boolean elementCollection = subview.isRepresentsElementCollection(); 
 int additionalTotalsCount = subview.getCollectionTotalsCount();
+boolean resizeColumns = style.allowsResizeColumns() && XavaPreferences.getInstance().isResizeColumns();
 
 List<MetaProperty> keyPropertiesList = subview.getKeyPropertiesOfReferencesEntity();
 int mpListSize = 0;
@@ -45,9 +46,11 @@ for (int c = 0; it.hasNext(); c++) {
 	MetaProperty p = (MetaProperty) it.next();
 	String align =p.isNumber() && !p.hasValidValues()?"ox-text-align-right":"";
 	if (subview.hasCollectionTotal(i, c)) {
+		int columnWidth = subview.getCollectionColumnWidth(c);
+		String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
 	%> 	
 	<td class="ox-total-cell <%=align%>">	
-	<div id="<xava:id name='<%="collection_total_" + i + "_" + c + "_" + collectionPrefix%>'/>" class=" <xava:id name='<%=idCollection%>'/>_col<%=c%>">
+	<div id="<xava:id name='<%="collection_total_" + i + "_" + c + "_" + collectionPrefix%>'/>" class=" <xava:id name='<%=idCollection%>'/>_col<%=c%>" <%=width%>>
 	<jsp:include page="collectionTotal.jsp">
 		<jsp:param name="row" value="<%=i%>"/>
 		<jsp:param name="column" value="<%=c%>"/>
