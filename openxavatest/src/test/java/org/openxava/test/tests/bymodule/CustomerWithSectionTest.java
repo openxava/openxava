@@ -12,7 +12,7 @@ import org.openxava.test.model.*;
 
 public class CustomerWithSectionTest extends CustomerTest { 
 	
-	private class MessageConfirmHandler implements ConfirmHandler { 
+	private class MessageConfirmHandler implements ConfirmHandler { // tmr Quitar
 		
 		private boolean confirm = true;
 		

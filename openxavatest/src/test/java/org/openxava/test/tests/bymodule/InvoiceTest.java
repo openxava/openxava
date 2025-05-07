@@ -839,7 +839,10 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValue("comment", "");
 	}
 	
-	public void testPaginationInCollections() throws Exception {
+	public void testPaginationInCollections() throws Exception { // tmr Cambiar nombre del método
+		MessageConfirmHandler confirmHandler = new MessageConfirmHandler();
+		getWebClient().setConfirmHandler(confirmHandler);
+		
 		// The invoice 2007/14 has 14 detail lines
 		execute("CRUD.new");
 		setValue("year", "2007");
@@ -864,11 +867,16 @@ public class InvoiceTest extends CustomizeListTestBase {
 		closeDialog();
 		assertCollectionRowCount("details", 4);
 		execute("Navigation.first");
+		confirmHandler.assertNoMessage();
 		assertValue("year", "2002");
 		assertValue("number", "1");
 		assertCollectionRowCount("details", 2);
 		
-		
+		setValue("comment", "INVOICE MODIFIED");
+		execute("Invoice.editDetail", "row=0,viewObject=xava_view_section1_details");
+		closeDialog();
+		execute("Mode.list");
+		confirmHandler.assertMessage();
 	}
 	
 	public void testGeneratePdfAggregateCollection() throws Exception {
