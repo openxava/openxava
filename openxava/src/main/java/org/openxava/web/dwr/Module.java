@@ -57,9 +57,9 @@ public class Module extends DWRBase {
 			setPageReloadedLastTime(false);
 			this.manager = (ModuleManager) getContext(request).get(application, module, "manager");
 			restoreLastMessages();
-			int initialDialogLevel = manager.getDialogLevel();
-			System.out.println("[Module.request] manager.getDialogLevel().1=" + manager.getDialogLevel()); // tmp
-			System.out.println("[Module.request] getView().isDataChanged().1=" + getView().isDataChanged()); // tmp			
+			int initialDialogLevel = manager.getDialogLevel(); // tmr Quitar
+			System.out.println("[Module.request] manager.getDialogLevel().1=" + manager.getDialogLevel()); // tmr
+			System.out.println("[Module.request] getView().isDataChanged().1=" + getView().isDataChanged()); // tmr			
 			getURIAsStream("execute.jsp", values, multipleValues, selected, deselected, additionalParameters);
 			setDialogLevel(result); 
 			Map changedParts = new HashMap();
@@ -101,13 +101,11 @@ public class Module extends DWRBase {
 			result.setSelectedRows(getSelectedRows());
 			result.setUrlParam(getUrlParam());
 			result.setViewSimple(getView().isSimple());
-			result.setDataChanged(initialDialogLevel == 0 && getView().isDataChanged()); // TMR ME QUEDÉ POR AQUÍ: FUNCIONA CON LO BÁSICO
-																	// TMR PERO FALLA CUANDO SE MODIFICA LA VISTA PADRE ANTES.
-																	// TMR PRUEBA EN InvoiceTest.testPaginationInCollections()
-			System.out.println("[Module.request] getView().getModelName()=" + getView().getModelName()); // tmp
-			System.out.println("[Module.request] manager.getDialogLevel().2=" + manager.getDialogLevel()); // tmp
-			System.out.println("[Module.request] getView().isDataChanged().2=" + getView().isDataChanged()); // tmp
-			System.out.println("[Module.request] result.isDataChanged()=" + result.isDataChanged()); // tmp
+			result.setDataChanged(getView().isDataChanged()); 
+			System.out.println("[Module.request] getView().getModelName()=" + getView().getModelName()); // tmr
+			System.out.println("[Module.request] manager.getDialogLevel().2=" + manager.getDialogLevel()); // tmr
+			System.out.println("[Module.request] getView().isDataChanged().2=" + getView().isDataChanged()); // tmr
+			System.out.println("[Module.request] result.isDataChanged()=" + result.isDataChanged()); // tmr
 			return result;
 		}
 		catch (SecurityException ex) {

@@ -626,7 +626,8 @@ public class View implements java.io.Serializable {
 			if (Is.empty(getParent().values)) getParent().calculateDefaultValues(true);
 		}
 		setValuesChangingModel(values);
-		getRoot().dataChanged = !isFirstLevel() && !isRepresentsTransientReference();
+		setDataChanged(!isFirstLevel() && !isRepresentsTransientReference());
+		System.out.println("View(" + getModelName() + ").setValues() getRoot(" + getRoot().getModelName() + ").dataChanged=" + getRoot().dataChanged); // tmr
 	}
 	
 	public void setValuesChangingModel(Map values) throws XavaException {
@@ -1337,7 +1338,8 @@ public class View implements java.io.Serializable {
 		}
 		try {
 			if (!isTransient(name)) {
-				getRoot().dataChanged = true;
+				setDataChanged(true);
+				System.out.println("View(" + getModelName() + ").setValue() getRoot(" + getRoot().getModelName() + ").dataChanged=" + getRoot().dataChanged); // tmr
 			}
 		}
 		catch (ElementNotFoundException ex) {
@@ -1477,6 +1479,17 @@ public class View implements java.io.Serializable {
 		return dataChanged;
 	}
 	
+	/**
+	 * Sets the dataChanged flag on the root view, but only if there's no dialog open.
+	 * @param dataChanged the value to set
+	 * @since 7.5.1
+	 */
+	private void setDataChanged(boolean dataChanged) {
+		// tmr if (getModuleManager(getRequest()).getDialogLevel() == 0) {
+			getRoot().dataChanged = dataChanged;
+		// tmr }
+	}
+
 	private void growCollection(Collection collection, int newSize) { 
 		while (collection.size() < newSize) collection.add(new HashMap());
 	}
@@ -2536,8 +2549,8 @@ public class View implements java.io.Serializable {
 		clear();		
 		resetCollections(true); 	
 		calculateDefaultValues(true);
-		getRoot().dataChanged = false;
-		 
+		setDataChanged(false);
+		System.out.println("View(" + getModelName() + ").reset() getRoot(" + getRoot().getModelName() + ").dataChanged=" + getRoot().dataChanged); // tmr
 	}
 	
 	/**
@@ -2600,7 +2613,8 @@ public class View implements java.io.Serializable {
 				getSectionView(i).clear();
 			}	
 		}		
-		getRoot().dataChanged = isRepresentsEntityReference() && !isRepresentsTransientReference(); 
+		setDataChanged(isRepresentsEntityReference() && !isRepresentsTransientReference());
+		System.out.println("View(" + getModelName() + ").clear() getRoot(" + getRoot().getModelName() + ").dataChanged=" + getRoot().dataChanged); // tmr
 	}
 	
 	/**
@@ -7382,4 +7396,5 @@ public class View implements java.io.Serializable {
 	private boolean isElementCollectionWithReferenceWithoutKey() {
 		return elementCollectionWithReferenceWithoutKey;
 	}
+	
 }

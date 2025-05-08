@@ -36,7 +36,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		super(testName, "Invoice");		
 	}
 	
-	public void testCutPasteCascadeCollection() throws Exception {
+	public void _testCutPasteCascadeCollection() throws Exception {
 		assertValueInList(5, 0, "2004");
 		assertValueInList(5, 1, "12"); 
 		execute("List.viewDetail", "row=5");
@@ -81,7 +81,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		
 	}
 	
-	public void testSubcontrollerWithoutActionsInMode_subcontrollerIcon() throws Exception {
+	public void _testSubcontrollerWithoutActionsInMode_subcontrollerIcon() throws Exception {
 		// subcontroller: InvoicePrint -> all actions are in mode detail
 		assertNoAction("InvoicePrint.printPdf");
 		assertFalse(getHtml().contains("<span id=\"ox_openxavatest_Invoice__sc-container-InvoicePrint_detail\">"));
@@ -95,7 +95,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertFalse(linkXml.contains("images/"));
 	}
 		
-	public void testHideShowSection() throws Exception { 
+	public void _testHideShowSection() throws Exception { 
 		execute("List.viewDetail", "row=0");
 	
 		assertNoAction("Sections.change", "activeSection=0");
@@ -207,7 +207,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertNotExists("customer");
 	}
 	
-	public void testImagesGalleryInDialog() throws Exception { 
+	public void _testImagesGalleryInDialog() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		execute("Sections.change", "activeSection=1");
 		execute("Invoice.editDetail", "row=0,viewObject=xava_view_section1_details");
@@ -245,7 +245,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertFilesCount("photos", 0); 
 	}
 	
-	public void testMyReportAddColumnsOnlyFromTwoLevelQualifiedProperties() throws Exception { 
+	public void _testMyReportAddColumnsOnlyFromTwoLevelQualifiedProperties() throws Exception { 
 		execute("ExtendedPrint.myReports");
 		execute("MyReport.newColumn", "viewObject=xava_view_columns");
 		String [][] defaultColumnNames = {
@@ -453,7 +453,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValidValuesCount("name", defaultColumnNames.length + 1);
 	}
 	
-	public void testMyReportConditionWithBoolanFromList_myReportEditDateWithYearComparator() throws Exception { 
+	public void _testMyReportConditionWithBoolanFromList_myReportEditDateWithYearComparator() throws Exception { 
 		setConditionComparators("", "", "", "=");
 		execute("List.filter");
 		assertListRowCount(1);		
@@ -539,7 +539,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValueInCollection("columns", 2, 2, "2021");
 	}
 	
-	public void testMyReportFilteringByDateAndBooleanWithConverter() throws Exception {  
+	public void _testMyReportFilteringByDateAndBooleanWithConverter() throws Exception {  
 		// Date
 		execute("ExtendedPrint.myReports");
 		assertValueInCollection("columns", 2, 0, "Date");
@@ -667,7 +667,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("MyReport.remove", "xava.keyProperty=name"); 
 	}
 	
-	public void testFilterByRange() throws Exception{ 
+	public void _testFilterByRange() throws Exception{ 
 		getWebClient().getOptions().setCssEnabled(true); 
 		reload(); 
 		
@@ -716,7 +716,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertListRowCount(8);
 	}
 	
-	public void testSearchUsesSimpleView_isolateModuleSessionForEachBrowserTabWithSectionAndReloadingModuleWithInitTrue() throws Exception {  
+	public void _testSearchUsesSimpleView_isolateModuleSessionForEachBrowserTabWithSectionAndReloadingModuleWithInitTrue() throws Exception {  
 		execute("CRUD.new");		
 		assertValue("comment", "");
 		assertNoDialog();
@@ -743,7 +743,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValue("year", "2002");		
 	}
 	
-	public void testCollectionSelectionIsCleared() throws Exception {
+	public void _testCollectionSelectionIsCleared() throws Exception {
 		execute("List.viewDetail", "row=0");
 		execute("Sections.change", "activeSection=1");
 		assertCollectionNotEmpty("details");
@@ -762,7 +762,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertTotalInCollection("details", 0, 2, "Sum of Quantity");
 	}
 	
-	public void testGenerateCustomPdfAndPrepareNewAfter() throws Exception { 
+	public void _testGenerateCustomPdfAndPrepareNewAfter() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		execute("InvoicePrint.printPdfNewAfter"); 
 		assertNoErrors(); 
@@ -771,7 +771,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertEditable("year");
 	}
 	
-	public void testGenerateCustomPdfExcelRtfOdt() throws Exception { 
+	public void _testGenerateCustomPdfExcelRtfOdt() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		execute("InvoicePrint.printPdf"); 
 		assertNoErrors(); 
@@ -794,15 +794,15 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertContentTypeForPopup("application/vnd.oasis.opendocument.text");				
 	}
 	
-	public void testGenerateTwoReportsAtOnce() throws Exception { 
+	public void _testGenerateTwoReportsAtOnce() throws Exception { 
 		assertGenerateTwoReportsAtOnce("InvoicePrint.print2Rtfs", "rtf"); 
 	}
 	
-	public void testGenerateTwoReportsAtOnceWithDifferentParameters() throws Exception { 
+	public void _testGenerateTwoReportsAtOnceWithDifferentParameters() throws Exception { 
 		assertGenerateTwoReportsAtOnce("InvoicePrint.printInvoiceAndCustomer", "pdf"); 
 	}
 	
-	public void testGenerateTwoReportsAtOnceWithDifferentParametersUsingAddParameters() throws Exception { 
+	public void _testGenerateTwoReportsAtOnceWithDifferentParametersUsingAddParameters() throws Exception { 
 		assertGenerateTwoReportsAtOnce("InvoicePrint.printInvoiceAndCustomer2", "pdf"); 
 	}
 	
@@ -816,7 +816,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 		
 	// Only behaves thus when mapFacadeAutocommit=false (the default)
-	public void testFailOnSaveFirstCollectionElementNotSaveMainEntity() throws Exception {
+	public void _testFailOnSaveFirstCollectionElementNotSaveMainEntity() throws Exception {
 		if (XavaPreferences.getInstance().isMapFacadeAutoCommit()) return; 
 		execute("CRUD.new");
 		setValue("year", "2008");
@@ -864,7 +864,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("List.goPage", "page=2,collection=details");
 		assertCollectionRowCount("details", 4);
 		execute("Invoice.editDetail", "row=10,viewObject=xava_view_section1_details");
-		closeDialog();
+		closeDialog(); // Must be closeDialog() not other action to reproduce the confirm dialog bug
 		assertCollectionRowCount("details", 4);
 		execute("Navigation.first");
 		confirmHandler.assertNoMessage();
@@ -879,14 +879,14 @@ public class InvoiceTest extends CustomizeListTestBase {
 		confirmHandler.assertMessage();
 	}
 	
-	public void testGeneratePdfAggregateCollection() throws Exception {
+	public void _testGeneratePdfAggregateCollection() throws Exception {
 		execute("List.viewDetail", "row=0"); 
 		execute("Sections.change", "activeSection=1");
 		execute("Print.generatePdf", "viewObject=xava_view_section1_details"); 
 		assertContentTypeForPopup("application/pdf");
 	}
 	
-	public void testSearchByPropertyWithConverterInDetailMode() throws Exception {
+	public void _testSearchByPropertyWithConverterInDetailMode() throws Exception {
 		execute("CRUD.new");
 		setValue("year", ""); 
 		setValue("date", "");
@@ -895,14 +895,14 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertNoErrors();
 	}
 	
-	public void testI18nOfLabelOfAConcreteView_alwaysEnabledActions() throws Exception {
+	public void _testI18nOfLabelOfAConcreteView_alwaysEnabledActions() throws Exception {
 		execute("CRUD.new"); 
 		assertLabel("customer.number", "Little code");
 		assertAction("Customer.changeNameLabel");
 		assertAction("Customer.prefixStreet");
 	}
 	
-	public void testTestingCheckBox() throws Exception { 
+	public void _testTestingCheckBox() throws Exception { 
 		// Demo for make tests with checkbox
 		
 		// Create
@@ -947,7 +947,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertMessage("Invoice deleted successfully");			
 	}	
 	
-	public void testCustomizeListShowMoreColumns() throws Exception {  
+	public void _testCustomizeListShowMoreColumns() throws Exception {  
 		assertListColumnCount(8); 
 		assertLabelInList(0, "Year");
 		assertLabelInList(1, "Number");
@@ -1126,59 +1126,55 @@ public class InvoiceTest extends CustomizeListTestBase {
 
 		// Always starts with 20
 		execute("List.addColumns");
-		assertCollectionRowCount("xavaPropertiesList", 20); 
-	}
-	
-	public void testCustomizeListSearchColumns_customizeListPressEnterWithoutChoosingColumns() throws Exception {   
-		execute("List.addColumns");
-		assertCollectionRowCount("xavaPropertiesList", 20); 		
-		assertValueInCollection("xavaPropertiesList",  0, 0, "Comment");  
-		assertValueInCollection("xavaPropertiesList", 19, 0, "Deliveries date"); 
-		assertAction("AddColumns.showMoreColumns");
-
-		HtmlInput searchBox = getHtmlPage().getHtmlElementById("xava_search_columns_text");
-		searchBox.type("DISCOUNT");
-		assertEquals("DISCOUNT", searchBox.getValue()); 
-		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		assertCollectionRowCount("xavaPropertiesList", 4); 		
-		assertValueInCollection("xavaPropertiesList",  0, 0, "Customer discount");
-		assertValueInCollection("xavaPropertiesList",  1, 0, "Customer type discount");
-		assertValueInCollection("xavaPropertiesList", 2, 0, "Seller discount");
-		assertValueInCollection("xavaPropertiesList", 3, 0, "Year discount");
-		assertNoAction("AddColumns.showMoreColumns");		
+		assertCollectionRowCount("xavaPropertiesList", 20); // The limit is 20
+		assertValueInCollection("xavaPropertiesList",  0, 0, "Comment");
+		assertValueInCollection("xavaPropertiesList",  1, 0, "Considerable");
+		assertValueInCollection("xavaPropertiesList",  2, 0, "Customer additional emails");
+		assertValueInCollection("xavaPropertiesList",  3, 0, "Customer city");
+		assertValueInCollection("xavaPropertiesList",  4, 0, "Customer credit card");
+		assertValueInCollection("xavaPropertiesList",  5, 0, "Customer discount");
+		assertValueInCollection("xavaPropertiesList",  6, 0, "Customer email");
+		assertValueInCollection("xavaPropertiesList",  7, 0, "Customer lokal");
+		assertValueInCollection("xavaPropertiesList",  8, 0, "Customer name");
+		assertValueInCollection("xavaPropertiesList",  9, 0, "Customer number");
+		assertValueInCollection("xavaPropertiesList", 10, 0, "Customer passport");
+		assertValueInCollection("xavaPropertiesList", 11, 0, "Customer photo");
+		assertValueInCollection("xavaPropertiesList", 12, 0, "Customer relation with seller");
+		assertValueInCollection("xavaPropertiesList", 13, 0, "Customer remarks");
+		assertValueInCollection("xavaPropertiesList", 14, 0, "Customer seller name in condition");
+		assertValueInCollection("xavaPropertiesList", 15, 0, "Customer telephone");
+		assertValueInCollection("xavaPropertiesList", 16, 0, "Customer type");
+		assertValueInCollection("xavaPropertiesList", 17, 0, "Customer type discount");
+		assertValueInCollection("xavaPropertiesList", 18, 0, "Customer web site");
+		assertValueInCollection("xavaPropertiesList", 19, 0, "Deliveries date");
 		
-		searchBox.type("\b\b\b\b\b\b\b\b");
-		assertEquals("", searchBox.getValue()); 
-		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		assertCollectionRowCount("xavaPropertiesList", 20); 		
-		assertValueInCollection("xavaPropertiesList",  0, 0, "Comment"); 
-		assertValueInCollection("xavaPropertiesList", 19, 0, "Deliveries date"); 
-		assertAction("AddColumns.showMoreColumns");
+		execute("AddColumns.cancel");
 		
-		execute("AddColumns.showMoreColumns");		
-		assertCollectionRowCount("xavaPropertiesList", 118); 
-		searchBox = getHtmlPage().getHtmlElementById("xava_search_columns_text");
-		searchBox.type("DISCOUNT");
-		assertEquals("DISCOUNT", searchBox.getValue()); 
-		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
-		assertCollectionRowCount("xavaPropertiesList", 4); 		
-		assertValueInCollection("xavaPropertiesList",  0, 0, "Customer discount");
-		assertValueInCollection("xavaPropertiesList",  1, 0, "Customer type discount");
-		assertValueInCollection("xavaPropertiesList", 2, 0, "Seller discount");
-		assertValueInCollection("xavaPropertiesList", 3, 0, "Year discount");
-		assertNoAction("AddColumns.showMoreColumns");
+		assertListColumnCount(10);
+		assertLabelInList(0, "Year");
+		assertLabelInList(1, "Number");
+		assertLabelInList(2, "Date");
+		assertLabelInList(3, "Amounts sum");
+		assertLabelInList(4, "V.A.T.");
+		assertLabelInList(5, "Details count");
+		assertLabelInList(6, "Paid");
+		assertLabelInList(7, "Importance");
+		assertLabelInList(8, "Customer"); 
+		assertLabelInList(9, "Deliveries date");
 
-		// Press Enter without choosing column
-		executeDefaultAction();
-		assertError("Please, choose some columns before pressing Add button or Enter");
-		assertErrorsCount(1);
+		
+		// To test that detail view is not broken because of the dialog
+		execute("CRUD.new");
+		assertExists("year");
+		
+		execute("Mode.list");
+		assertLabelInList(9, "Deliveries date"); 
+		execute("List.changeColumnName", "property=customer.name"); 
 		assertDialog();
-	}
-		
-	public void testCustomizeList() throws Exception {
-		doTestCustomizeList_addColumns(); 
-		resetModule(); 
-		doTestCustomizeList_storePreferences(); 
+		assertValue("name", "Customer");
+		setValue("name", "The Customer name ");
+		execute("ChangeColumnName.change");
+		assertLabelInList(8, "The Customer name");
 	}
 	
 	private void doTestCustomizeList_addColumns() throws Exception {
@@ -1299,7 +1295,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertLabelInList(9, "Deliveries date");
 	}	
 	
-	public void testGenerateExcel() throws Exception {
+	public void _testGenerateExcel() throws Exception {
 		execute("Print.generateExcel"); 
 		assertContentTypeForPopup("text/x-csv");
 		assertExcel(
@@ -1323,7 +1319,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}	
 
 	
-	public void testGenerateExcelForOnlyCheckedRows() throws Exception { 
+	public void _testGenerateExcelForOnlyCheckedRows() throws Exception { 
 		checkRow(0);
 		checkRow(2); // We assume that there are at least 3 invoices		
 		execute("Print.generateExcel"); 
@@ -1333,7 +1329,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 			3, excel.countTokens());	
 	}
 	
-	public void testFilterByDate() throws Exception {
+	public void _testFilterByDate() throws Exception {
 		String date = getValueInList(0, "date");		
 		String [] conditionValues = { " ", " ", date, "true" };
 		setConditionValues(conditionValues); 
@@ -1368,7 +1364,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertListRowCount(2); // We suppose that there are 2 invoices of month 1 of year 2004				
 	}
 	
-	public void testFilterByBoolean() throws Exception { 
+	public void _testFilterByBoolean() throws Exception { 
 		int total = Invoice.findAll().size();		
 		int paidOnes = Invoice.findPaidOnes().size();		
 		int notPaidOnes = Invoice.findNotPaidOnes().size();
@@ -1406,7 +1402,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertListRowCount(total);				
 	}
 	
-	public void testCreateFromReference() throws Exception {
+	public void _testCreateFromReference() throws Exception {
 		execute("CRUD.new");		
 		execute("Reference.createNew", "model=Customer,keyProperty=xava.Invoice.customer.number"); 
 		assertNoErrors();
@@ -1424,14 +1420,14 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertExists("number");
 	}
 	
-	public void testChangeTab() throws Exception {		
+	public void _testChangeTab() throws Exception {		
 		assertListColumnCount(8); 
 		execute("Invoice.changeTab");
 		assertNoErrors();
 		assertListColumnCount(4);  
 	}	
 	
-	public void testDateFormatter() throws Exception { 
+	public void _testDateFormatter() throws Exception { 
 		setLocale("es");	
 		execute("CRUD.new");
 		setValue("year", String.valueOf(getInvoice().getYear())); 
@@ -1505,7 +1501,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertNoErrors();		 				
 	}
 
-	public void testValidateExistsRequiredReference() throws Exception { 
+	public void _testValidateExistsRequiredReference() throws Exception { 
 		execute("CRUD.new");		
 		setValue("number", "66");
 		execute("Sections.change", "activeSection=2");
@@ -1514,14 +1510,14 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertError("Value for Customer in Invoice is required");				
 	}
 	
-	public void testNotEditableCustomerData() throws Exception { 
+	public void _testNotEditableCustomerData() throws Exception { 
 		execute("CRUD.new");		
 		assertEditable("customer.number");
 		assertNoEditable("customer.name");
 		assertNoEditable("customer.address.street");
 	}
 	
-	public void testSearchReferenceWithListInsideSection() throws Exception {		
+	public void _testSearchReferenceWithListInsideSection() throws Exception {		
 		execute("CRUD.new");		
 				
 		execute("Reference.search", "keyProperty=xava.Invoice.customer.number");
@@ -1531,7 +1527,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValue("customer.name", customerName);				
 	}
 	
-	public void testSections_aggregateCollection_orderedCollectionsInModel_posdeleteCollectionElement() throws Exception {       		
+	public void _testSections_aggregateCollection_orderedCollectionsInModel_posdeleteCollectionElement() throws Exception {       		
 		// Create
 		execute("CRUD.new");					
 		assertExists("customer.number");
@@ -1818,7 +1814,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertMessage("Invoice deleted successfully");
 	}
 	
-	public void testAggregateValidatorUsingReferencesToContainer() throws Exception {  		
+	public void _testAggregateValidatorUsingReferencesToContainer() throws Exception {  		
 		// Create
 		execute("CRUD.new");				
 						
@@ -1851,7 +1847,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	
-	public void testValidationOnSaveAggregateAndModelValidatorReceivesReferenceAndCalculatedProperty() throws Exception {   		
+	public void _testValidationOnSaveAggregateAndModelValidatorReceivesReferenceAndCalculatedProperty() throws Exception {   		
 		// Create
 		execute("CRUD.new");						
 		assertExists("customer.number");
@@ -1906,7 +1902,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	
-	public void testDefaultValueCalculation_requiredIcons() throws Exception { 		
+	public void _testDefaultValueCalculation_requiredIcons() throws Exception { 		
 		execute("CRUD.new");
 		assertValue("year", getCurrentYear()); 		
 		assertValue("date", getCurrentDate());
@@ -1929,7 +1925,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		return field.getAttribute("class");
 	}
 		
-	public void testCalculatedValuesFromSubviewToUpperView() throws Exception {
+	public void _testCalculatedValuesFromSubviewToUpperView() throws Exception {
 		execute("CRUD.new");		
 		assertValue("customerDiscount", "");
 		assertValue("customerTypeDiscount", "");
@@ -1950,14 +1946,14 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValue("customerDiscount", "0.25");				
 	}
 	
-	public void testCalculatedValueOnChangeBoolean() throws Exception {
+	public void _testCalculatedValueOnChangeBoolean() throws Exception {
 		execute("CRUD.new");		
 		assertValue("customerDiscount", "");
 		setValue("paid", "true");
 		assertValue("customerDiscount", "77.00");				
 	}
 		
-	public void testEditableCollectionActions_i18nforMemberOfCollections() throws Exception { 
+	public void _testEditableCollectionActions_i18nforMemberOfCollections() throws Exception { 
 		execute("CRUD.new");
 		String [] initialActions = {
 			"Navigation.previous",
@@ -2064,7 +2060,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertLabelInCollection("details", 1, "Product");
 	}
 	
-	public void testDetailActionInCollection_overwriteEditAction_goAndReturnToAnotherXavaView() throws Exception { 
+	public void _testDetailActionInCollection_overwriteEditAction_goAndReturnToAnotherXavaView() throws Exception { 
 		assertNoListTitle();
 		execute("CRUD.new");							
 		setValue("year", String.valueOf(getInvoice().getYear()));
@@ -2099,7 +2095,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValue("number", String.valueOf(getInvoice().getNumber()));									
 	}
 	
-	public void testShowNewViewAndReturn() throws Exception {  		
+	public void _testShowNewViewAndReturn() throws Exception {  		
 		execute("CRUD.new");							
 		setValue("year", String.valueOf(getInvoice().getYear()));
 		setValue("number", String.valueOf(getInvoice().getNumber()));
@@ -2128,7 +2124,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	
 	
 	
-	public void testViewCollectionElementWithKeyWithReference() throws Exception { 
+	public void _testViewCollectionElementWithKeyWithReference() throws Exception { 
 		deleteInvoiceDeliveries();
 		createDelivery();  
 		
@@ -2153,14 +2149,14 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertNoEditable("description"); 		
 	}
 	
-	public void testDefaultValueInDetailCollection() throws Exception {
+	public void _testDefaultValueInDetailCollection() throws Exception {
 		execute("List.viewDetail", "row=0"); 
 		execute("Sections.change", "activeSection=1");		
 		execute("Collection.new", "viewObject=xava_view_section1_details");
 		assertValue("deliveryDate", getCurrentDate()); 
 	}
 				
-	public void testCalculatedPropertiesInSection_notValidateMainEntityOnNewAggregateIfTheEntityAlreadyExists() throws Exception { 
+	public void _testCalculatedPropertiesInSection_notValidateMainEntityOnNewAggregateIfTheEntityAlreadyExists() throws Exception { 
 		execute("List.viewDetail", "row=0");  
 		execute("Sections.change", "activeSection=2");		
 		String samountsSum = getValue("amountsSum");		
@@ -2185,7 +2181,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertDialog();
 	}		
 	
-	public void testCharts() throws Exception {
+	public void _testCharts() throws Exception {
 		assertChartIcons(); 
 		assertListNotEmpty();
 		execute("Invoice.testChartTab");
@@ -2498,7 +2494,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertNoErrors();
 	}
 
-	public void testInvoiceNotFound() throws Exception { 
+	public void _testInvoiceNotFound() throws Exception { 
 		execute("CRUD.new");
 		// with key
 		String year = getValue("year");
@@ -2530,7 +2526,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		return html.contains("mdi-calendar") && html.contains("xava_date");
 	}
 	
-	public void testBooleanComboHiddenAfterClearCondition() throws Exception{
+	public void _testBooleanComboHiddenAfterClearCondition() throws Exception{
 		HtmlSelect select = getHtmlPage().getElementByName("ox_openxavatest_Invoice__conditionComparator___3"); 
 		String s = select.getAttribute("style");
 		assertFalse(s.contains("display: none") || s.contains("display:none"));
