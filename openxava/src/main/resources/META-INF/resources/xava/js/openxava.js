@@ -22,7 +22,6 @@ openxava.init = function(application, module, initUI) {
 
 openxava.ajaxRequest = function(application, module, firstRequest, inNewWindow) {
 	if (openxava.isRequesting(application, module)) return;
-	console.log("[openxava.ajaxRequest] openxava.dataChanged=" + openxava.dataChanged); // tmr
 	openxava.setRequesting(application, module);
 	document.throwPropertyChange = false;
 	openxava.getElementById(application, module, "loading").value=true;
@@ -106,10 +105,7 @@ openxava.refreshPage = function(result) {
 	}	
 	else {		
 		openxava.destroyEditors(); // Before closeDialog() to avoid an error on closing a dialog with a CKEditor
-		console.log("[openxava.refreshPage] openxava.dialogLevel=" + openxava.dialogLevel); // tmr
-		console.log("[openxava.refreshPage] openxava.dataChanged>" + openxava.dataChanged); // tmr
 		if (openxava.dialogLevel == 0 && !result.showDialog) openxava.dataChanged = result.dataChanged; 
-		console.log("[openxava.refreshPage] openxava.dataChanged<" + openxava.dataChanged); // tmr
 		if (result.showDialog){	
 			openxava.disableElements(result);
 		}
@@ -334,7 +330,6 @@ openxava.listenChanges = function() {
 	$("." + openxava.editorClass).bind("change.changedCancelled", function() {
 		  if (!$(this).data('changedCancelled')) {
 			openxava.dataChanged = true;
-			console.log("[openxava.listenChanges] openxava.dataChanged=" + openxava.dataChanged); // tmr				
 		  }
 		  else {
 		  	$(this).removeData('changedCancelled');
