@@ -57,9 +57,6 @@ public class Module extends DWRBase {
 			setPageReloadedLastTime(false);
 			this.manager = (ModuleManager) getContext(request).get(application, module, "manager");
 			restoreLastMessages();
-			int initialDialogLevel = manager.getDialogLevel(); // tmr Quitar
-			System.out.println("[Module.request] manager.getDialogLevel().1=" + manager.getDialogLevel()); // tmr
-			System.out.println("[Module.request] getView().isDataChanged().1=" + getView().isDataChanged()); // tmr			
 			getURIAsStream("execute.jsp", values, multipleValues, selected, deselected, additionalParameters);
 			setDialogLevel(result); 
 			Map changedParts = new HashMap();
@@ -101,11 +98,7 @@ public class Module extends DWRBase {
 			result.setSelectedRows(getSelectedRows());
 			result.setUrlParam(getUrlParam());
 			result.setViewSimple(getView().isSimple());
-			result.setDataChanged(getView().isDataChanged()); 
-			System.out.println("[Module.request] getView().getModelName()=" + getView().getModelName()); // tmr
-			System.out.println("[Module.request] manager.getDialogLevel().2=" + manager.getDialogLevel()); // tmr
-			System.out.println("[Module.request] getView().isDataChanged().2=" + getView().isDataChanged()); // tmr
-			System.out.println("[Module.request] result.isDataChanged()=" + result.isDataChanged()); // tmr
+			result.setDataChanged(getView().isDataChanged());
 			return result;
 		}
 		catch (SecurityException ex) {
