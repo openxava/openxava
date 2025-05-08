@@ -12,36 +12,6 @@ import org.openxava.test.model.*;
 
 public class CustomerWithSectionTest extends CustomerTest { 
 	
-	private class MessageConfirmHandler implements ConfirmHandler { // tmr Quitar
-		
-		private boolean confirm = true;
-		
-		private String message;
-		
-		public MessageConfirmHandler() {			
-		}
-		
-		public MessageConfirmHandler(boolean confirm) {
-			this.confirm = confirm;
-		}
-		
-		public boolean handleConfirm(Page page, String message) {
-			this.message = message; 
-			return confirm;
-		}
-		
-		public void assertNoMessage() {
-			assertEquals(null, message);
-			message = null;
-		}
-		
-		public void assertMessage() {
-			assertEquals("You will lose all changes made since your last save. Do you want to continue?", message);
-			message = null;
-		}
-
-	}
-
 	public CustomerWithSectionTest(String testName) { 
 		super(testName, "CustomerWithSection", true);		
 	}
@@ -623,7 +593,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		execute("ReferenceSearch.choose", "row=0");
 		confirmHandler.assertNoMessage();
 		execute("CRUD.new");
-		confirmHandler.assertMessage();
+		confirmHandler.assertMessage(); // tmr falla
 		assertValue("name", "");
 		
 		// Reference to null

@@ -867,18 +867,19 @@ public class InvoiceTest extends CustomizeListTestBase {
 		closeDialog(); // Must be closeDialog() not other action to reproduce the confirm dialog bug
 		assertCollectionRowCount("details", 4);
 		execute("Navigation.first");
-		confirmHandler.assertNoMessage();
+		confirmHandler.assertNoMessage(); // tmr Aquí probamos el nuevo bug 
 		assertValue("year", "2002");
 		assertValue("number", "1");
 		assertCollectionRowCount("details", 2);
 		
+		// Aquí probamos el nuevo bug
 		setValue("comment", "INVOICE MODIFIED");
 		execute("Invoice.editDetail", "row=0,viewObject=xava_view_section1_details");
 		closeDialog();
 		execute("Mode.list");
 		confirmHandler.assertMessage();
 	}
-		
+
 	public void testGeneratePdfAggregateCollection() throws Exception {
 		execute("List.viewDetail", "row=0"); 
 		execute("Sections.change", "activeSection=1");

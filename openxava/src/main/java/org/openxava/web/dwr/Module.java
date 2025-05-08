@@ -99,6 +99,8 @@ public class Module extends DWRBase {
 			result.setUrlParam(getUrlParam());
 			result.setViewSimple(getView().isSimple());
 			result.setDataChanged(getView().isDataChanged());
+			System.out.println("Module.request() getView().getModelName()=" + getView().getModelName());
+			System.out.println("Module.request() dataChanged=" + result.isDataChanged()); // tmr
 			return result;
 		}
 		catch (SecurityException ex) {
