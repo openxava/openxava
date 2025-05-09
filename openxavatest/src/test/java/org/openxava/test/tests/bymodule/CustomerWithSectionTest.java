@@ -1,6 +1,5 @@
 package org.openxava.test.tests.bymodule;
 
-import org.htmlunit.*;
 import org.htmlunit.html.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
@@ -593,7 +592,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		execute("ReferenceSearch.choose", "row=0");
 		confirmHandler.assertNoMessage();
 		execute("CRUD.new");
-		confirmHandler.assertMessage(); // tmr falla
+		confirmHandler.assertMessage(); 
 		assertValue("name", "");
 		
 		// Reference to null

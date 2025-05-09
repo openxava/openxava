@@ -114,6 +114,7 @@ openxava.refreshPage = function(result) {
 				openxava.closeDialog(result); 
 				openxava.dialogLevel--;
 			}
+			if (openxava.dialogLevel == 0 && !openxava.dataChanged) openxava.dataChanged = result.dataChanged;
 		}
 		openxava.dialogLevel = result.dialogLevel;
 		var dialog;
