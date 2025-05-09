@@ -626,7 +626,7 @@ public class View implements java.io.Serializable {
 			if (Is.empty(getParent().values)) getParent().calculateDefaultValues(true);
 		}
 		setValuesChangingModel(values);
-		getRoot().dataChanged = !isFirstLevel() && !isRepresentsTransientReference();
+		setDataChanged(!isFirstLevel() && !isRepresentsTransientReference());
 	}
 	
 	public void setValuesChangingModel(Map values) throws XavaException {
@@ -1337,7 +1337,7 @@ public class View implements java.io.Serializable {
 		}
 		try {
 			if (!isTransient(name)) {
-				getRoot().dataChanged = true;
+				setDataChanged(true);
 			}
 		}
 		catch (ElementNotFoundException ex) {
@@ -1475,6 +1475,11 @@ public class View implements java.io.Serializable {
 	/** @since 6.3 */
 	public boolean isDataChanged() {  
 		return dataChanged;
+	}
+	
+	private void setDataChanged(boolean dataChanged) {
+		getRoot().dataChanged = false;
+		getFirstLevelView().dataChanged = dataChanged;
 	}
 	
 	private void growCollection(Collection collection, int newSize) { 
@@ -2536,8 +2541,7 @@ public class View implements java.io.Serializable {
 		clear();		
 		resetCollections(true); 	
 		calculateDefaultValues(true);
-		getRoot().dataChanged = false;
-		 
+		setDataChanged(false);	
 	}
 	
 	/**
@@ -2569,7 +2573,6 @@ public class View implements java.io.Serializable {
 		collectionSize = -1; 
 		setIdFocusProperty(null);
 		setFocusCurrentId(null); 
-		setCollectionDetailVisible(false);
 		resetRecalculatedProperties();
 		resetAlreadyCalculatedProperties(); 
 		if (values == null) return;
@@ -2600,7 +2603,7 @@ public class View implements java.io.Serializable {
 				getSectionView(i).clear();
 			}	
 		}		
-		getRoot().dataChanged = isRepresentsEntityReference() && !isRepresentsTransientReference(); 
+		setDataChanged(isRepresentsEntityReference() && !isRepresentsTransientReference());
 	}
 	
 	/**
@@ -4541,7 +4544,7 @@ public class View implements java.io.Serializable {
 			refreshCollection(); 
 		}
 		collectionDetailVisible = b;	
-		firstLevel = b; 
+		firstLevel = b;
 	}
 
 	public Messages getErrors() {		

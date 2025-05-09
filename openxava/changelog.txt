@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Not applicable "You will lose all changes" on exit if you used a dialog for a collection element.
+- Fix: "You will lose all changes" warning not shown on exit if data was modified before opening a dialog. 
 - Fix: Total is not aligned in @ElementCollection when the column had been resized.
 - Fix: Odd characters and incorrect attribute values in XML files of Project Management Spanish archetype.
 

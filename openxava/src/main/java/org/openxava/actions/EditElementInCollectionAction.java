@@ -21,9 +21,9 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 	private boolean openDialog = true;
 	
 	public void execute() throws Exception {
+		getCollectionElementView().setCollectionDetailVisible(true); 
 		getCollectionElementView().clear(); 
 		getCollectionElementView().setKeyEditable(false); 
-		getCollectionElementView().setCollectionDetailVisible(true);
 		Collection elements;
 		Map keys = null;
 		Map	values = null;

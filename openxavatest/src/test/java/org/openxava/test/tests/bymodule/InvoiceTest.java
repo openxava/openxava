@@ -839,7 +839,10 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValue("comment", "");
 	}
 	
-	public void testPaginationInCollections() throws Exception {
+	public void testPaginationInCollections_notLoseChangesMessageWhenModifyCollectionElement() throws Exception { 
+		MessageConfirmHandler confirmHandler = new MessageConfirmHandler();
+		getWebClient().setConfirmHandler(confirmHandler);
+		
 		// The invoice 2007/14 has 14 detail lines
 		execute("CRUD.new");
 		setValue("year", "2007");
@@ -861,16 +864,21 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("List.goPage", "page=2,collection=details");
 		assertCollectionRowCount("details", 4);
 		execute("Invoice.editDetail", "row=10,viewObject=xava_view_section1_details");
-		closeDialog();
+		closeDialog(); // Must be closeDialog() not other action to reproduce the confirm dialog bug
 		assertCollectionRowCount("details", 4);
 		execute("Navigation.first");
+		confirmHandler.assertNoMessage();  
 		assertValue("year", "2002");
 		assertValue("number", "1");
 		assertCollectionRowCount("details", 2);
 		
-		
+		setValue("comment", "INVOICE MODIFIED");
+		execute("Invoice.editDetail", "row=0,viewObject=xava_view_section1_details");
+		closeDialog();
+		execute("Mode.list");
+		confirmHandler.assertMessage();
 	}
-	
+
 	public void testGeneratePdfAggregateCollection() throws Exception {
 		execute("List.viewDetail", "row=0"); 
 		execute("Sections.change", "activeSection=1");

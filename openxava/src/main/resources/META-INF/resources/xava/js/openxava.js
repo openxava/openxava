@@ -105,6 +105,7 @@ openxava.refreshPage = function(result) {
 	}	
 	else {		
 		openxava.destroyEditors(); // Before closeDialog() to avoid an error on closing a dialog with a CKEditor
+		if (openxava.dialogLevel == 0 && !result.showDialog) openxava.dataChanged = result.dataChanged; 
 		if (result.showDialog){	
 			openxava.disableElements(result);
 		}
@@ -113,6 +114,7 @@ openxava.refreshPage = function(result) {
 				openxava.closeDialog(result); 
 				openxava.dialogLevel--;
 			}
+			if (openxava.dialogLevel == 0 && !openxava.dataChanged) openxava.dataChanged = result.dataChanged;
 		}
 		openxava.dialogLevel = result.dialogLevel;
 		var dialog;
@@ -192,7 +194,6 @@ openxava.refreshPage = function(result) {
 	openxava.showMessages(result); 
 	openxava.resetRequesting(result);
 	openxava.propertiesUsedInCalculationsChange(result);
-	openxava.dataChanged = result.dataChanged; 
 	$('#xava_loading').hide();
 	$('#xava_loading2').hide();
 	if (result.hasPostJS) {
@@ -325,11 +326,11 @@ openxava.setEnterAsFocusKey = function() {
 }
 
 openxava.listenChanges = function() { 
-	// WARNING: IF YOU CHANGE THIS PASS DateCalendarTest.txt
+	if (openxava.dialogLevel > 0) return;
 	$("." + openxava.editorClass).unbind("change.changedCancelled");
 	$("." + openxava.editorClass).bind("change.changedCancelled", function() {
 		  if (!$(this).data('changedCancelled')) {
-			openxava.dataChanged = true;			
+			openxava.dataChanged = true;
 		  }
 		  else {
 		  	$(this).removeData('changedCancelled');
