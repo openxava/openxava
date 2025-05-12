@@ -33,6 +33,7 @@ public class TimeFormatter implements IFormatter {
 		try {
 			return LocalTime.parse(string, timeFormat);
 		} catch (Exception ex) {
+			ex.printStackTrace(); // tmr
 		}
 		throw new ParseException(XavaResources.getString("bad_time_format",string),-1);
 	}
@@ -58,6 +59,7 @@ public class TimeFormatter implements IFormatter {
 	
 	protected String reformatTime(String string, boolean parsing) {
 		String date = string;
+		if (XSystem.isJava17orBetter()) date = date.replace((char) 8239, (char) 32); // tmr
 		LocalTime specificTime = LocalTime.of(15, 0);
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("a");
         String formattedTimePM = specificTime.format(timeFormat);
