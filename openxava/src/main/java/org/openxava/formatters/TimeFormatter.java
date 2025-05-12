@@ -30,6 +30,7 @@ public class TimeFormatter implements IFormatter {
 		if (Is.emptyString(string)) return null;
 		string = reformatTime(string, true);
 		DateTimeFormatter timeFormat = getTimeFormat();
+		System.out.println("TimeFormatter.parse() v4 string=" + string); // tmr
 		try {
 			return LocalTime.parse(string, timeFormat);
 		} catch (Exception ex) {
@@ -44,12 +45,16 @@ public class TimeFormatter implements IFormatter {
 	
 	private DateTimeFormatter getTimeFormat() {
 		if (isZhFormat()) return zhTimeFormat;
-		return DateTimeFormatter.ofPattern(getTimePattern(Locales.getCurrent()));
+		System.out.println("TimeFormatter.getTimeFormat() Locales.getCurrent()=" + Locales.getCurrent()); // tmr
+		// tmr return DateTimeFormatter.ofPattern(getTimePattern(Locales.getCurrent()), Locales.getCurrent());
+		// TMR ME QUEDÉ POR AQUÍ, LO DE ABAJO FUNCIONA, LO DE ARRIBA NO. COMPARAR LOS PATTERNS, QUIZÁS SEA EL ESPACIO
+		return DateTimeFormatter.ofPattern("h:mm a", Locales.getCurrent()); // tmr No dejar
 	}
 	
 	private String getTimePattern(Locale locale) {
 	    String pattern = DateTimeFormatterBuilder.getLocalizedDateTimePattern(
 	        null, FormatStyle.SHORT, Chronology.ofLocale(locale), locale);
+		System.out.println("TimeFormatter.getTimePattern() pattern=" + pattern); // tmr
 	    return pattern;
 	}
 	
@@ -59,9 +64,8 @@ public class TimeFormatter implements IFormatter {
 	
 	protected String reformatTime(String string, boolean parsing) {
 		String date = string;
-		if (XSystem.isJava17orBetter()) date = date.replace((char) 8239, (char) 32); // tmr
 		LocalTime specificTime = LocalTime.of(15, 0);
-        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("a");
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("a", Locales.getCurrent());
         String formattedTimePM = specificTime.format(timeFormat);
         String formattedTimeAM;
         if (Character.isUpperCase(formattedTimePM.charAt(0))) {
