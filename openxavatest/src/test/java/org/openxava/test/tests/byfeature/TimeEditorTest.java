@@ -70,7 +70,9 @@ public class TimeEditorTest extends WebDriverTestBase {
 		assertValue("endTime", "PM1:00"); // tmr Esto podría ser otro bug. Formateo de a. m. en Java 21, aunque creo que tiene que ver con el locale del servidor
 		endTime = getDriver().findElement(By.id("ox_openxavatest_Event__endTime"));
 		endTime.sendKeys(Keys.TAB);
-		// TMR ME QUEDÉ POR AQUÍ LO DE ABAJO FALLA. INVESTIGANDO ANULANDO COSAS EN timeCalendarEditor.js EN target
+		// tmr Al arreglar lo de abajo también se arregla que el popup rompe las horas (podría redactarse en el mismo bug)
+		// tmr Lo de abajo también falla con Java 11, pasaba porque el test estaba mal
+		// TMR ME QUEDÉ PROBANDO LO DE ABAJO EN timeCalendarEditor.js EN target
 		assertValue("endTime", "PM1:00"); // It fails in Java 21: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff8080819581a7c6019594cccba40021
 		openTimeCalendar(0);
 		changeAmPm(1);
