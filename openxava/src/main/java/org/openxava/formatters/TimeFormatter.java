@@ -18,7 +18,7 @@ import org.openxava.util.*;
 
 public class TimeFormatter implements IFormatter {
 	
-	private static DateTimeFormatter zhTimeFormat = DateTimeFormatter.ofPattern("ah:mm");
+	private static DateTimeFormatter zhTimeFormat = DateTimeFormatter.ofPattern("ah:mm", Locale.CHINESE);
 
 	public String format(HttpServletRequest request, Object time) {
 		if (time == null) return "";

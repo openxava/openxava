@@ -60,21 +60,26 @@ public class TimeEditorTest extends WebDriverTestBase {
 		endTime.sendKeys(Keys.TAB);
 		messages = getDriver().findElements(By.cssSelector(".ox-messages .ox-message-box"));
 		assertTrue(messages.isEmpty());
-		//execute("CRUD.save");
+		execute("CRUD.save");
 		assertNoErrors(); // tmr Mover a test original, Otro bug no era capaz de formatear 1:00 PM con Java 21 en inglés
-		
-		/* 
+				 
+		// tmr Hemos cambiado el test de abajo
 		changeLanguage("zh-CN");
 		goModule("Event");
 		execute("List.viewDetail", "row=0");
+		assertValue("endTime", "PM1:00"); // tmr Esto podría ser otro bug. Formateo de a. m. en Java 21, aunque creo que tiene que ver con el locale del servidor
 		endTime = getDriver().findElement(By.id("ox_openxavatest_Event__endTime"));
 		endTime.sendKeys(Keys.TAB);
-		assertValue("endTime", "AM1:00"); // It fails in Java 21: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff8080819581a7c6019594cccba40021
+		// TMR ME QUEDÉ POR AQUÍ LO DE ABAJO FALLA. INVESTIGANDO ANULANDO COSAS EN timeCalendarEditor.js EN target
+		assertValue("endTime", "PM1:00"); // It fails in Java 21: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff8080819581a7c6019594cccba40021
+		openTimeCalendar(0);
+		changeAmPm(1);
+		assertValue("endTime", "AM1:00");
 		openTimeCalendar(0);
 		changeAmPm(1);
 		assertValue("endTime", "PM1:00");
-		execute("CRUD.save"); 
-		*/
+		execute("CRUD.save"); 		
+		assertNoErrors();		
 	}
 	
 	/**
