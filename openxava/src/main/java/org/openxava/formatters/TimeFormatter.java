@@ -30,11 +30,9 @@ public class TimeFormatter implements IFormatter {
 		if (Is.emptyString(string)) return null;
 		string = reformatTime(string, true);
 		DateTimeFormatter timeFormat = getTimeFormat();
-		System.out.println("TimeFormatter.parse() v4 string=" + string); // tmr
 		try {
 			return LocalTime.parse(string, timeFormat);
 		} catch (Exception ex) {
-			ex.printStackTrace(); // tmr
 		}
 		throw new ParseException(XavaResources.getString("bad_time_format",string),-1);
 	}
@@ -45,17 +43,13 @@ public class TimeFormatter implements IFormatter {
 	
 	private DateTimeFormatter getTimeFormat() {
 		if (isZhFormat()) return zhTimeFormat;
-		System.out.println("TimeFormatter.getTimeFormat() Locales.getCurrent()=" + Locales.getCurrent()); // tmr
-		// tmr return DateTimeFormatter.ofPattern(getTimePattern(Locales.getCurrent()), Locales.getCurrent());
-		// TMR ME QUEDÉ POR AQUÍ, LO DE ABAJO FUNCIONA, LO DE ARRIBA NO. COMPARAR LOS PATTERNS, QUIZÁS SEA EL ESPACIO
-		return DateTimeFormatter.ofPattern("h:mm a", Locales.getCurrent()); // tmr No dejar
+		return DateTimeFormatter.ofPattern(getTimePattern(Locales.getCurrent()), Locales.getCurrent());
 	}
 	
 	private String getTimePattern(Locale locale) {
 	    String pattern = DateTimeFormatterBuilder.getLocalizedDateTimePattern(
 	        null, FormatStyle.SHORT, Chronology.ofLocale(locale), locale);
-		System.out.println("TimeFormatter.getTimePattern() pattern=" + pattern); // tmr
-	    return pattern;
+	    return pattern.replace((char) 8239, (char) 32); // The .replace() is for Java 21
 	}
 	
 	protected String reformatTime(String string) {
