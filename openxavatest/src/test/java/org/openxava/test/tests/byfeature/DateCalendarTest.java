@@ -5,6 +5,7 @@ import java.util.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 /**
+ * TMR ME QUEDE POR AQUI. YA PASA ESTA PRUEBA CON JAVA 8, 11 Y 21. FALTA LA SUITE CON JAVA 11 Y YA ESTARIA
  * To test pop up calendar with Selenium.
  * 
  * @author Chungyen Tsai
@@ -519,17 +520,30 @@ public class DateCalendarTest extends WebDriverTestBase {
 		messages = getDriver().findElements(By.cssSelector(".ox-messages .ox-message-box"));
 		assertTrue(messages.isEmpty());
 		execute("CRUD.save");
-		
+		assertNoErrors(); // tmr Otro bug, no era capaz de formatear 1:00 PM con Java 21 en inglés
+				 
 		changeLanguage("zh-CN");
 		goModule("Event");
 		execute("List.viewDetail", "row=0");
+		assertValue("endTime", "PM1:00"); // tmr Esto podría ser otro bug. Formateo de a. m. en Java 21, aunque creo que tiene que ver con el locale del servidor
 		endTime = getDriver().findElement(By.id("ox_openxavatest_Event__endTime"));
 		endTime.sendKeys(Keys.TAB);
-		assertValue("endTime", "AM1:00"); // It fails in Java 21: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff8080819581a7c6019594cccba40021
+		// tmr Al arreglar lo de abajo también se arregla que el popup rompe las horas (podría redactarse en el mismo bug)
+		// tmr Lo de abajo también falla con Java 11, pasaba porque el test estaba mal
+		assertValue("endTime", "PM1:00"); 
 		openTimeCalendar(0);
 		changeAmPm(1);
-		assertValue("endTime", "PM1:00");
-		execute("CRUD.save"); 
+		assertValue("endTime", "AM1:00");
+		execute("CRUD.save"); 		
+		assertNoErrors();
+		execute("Mode.list");
+		execute("List.viewDetail", "row=0");
+		assertValue("endTime", "AM1:00"); // tmr Aquí fallaba también con java 11, bug nuevo		
+
+		// Restoring data
+		setValue("endTime", "PM1:00");
+		execute("CRUD.save"); 		
+		assertNoErrors();
 	}
 	
 	private void formatDateUsingTwoAndFourDigits(String format) throws Exception {
