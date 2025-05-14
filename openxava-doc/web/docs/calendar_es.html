@@ -1,0 +1,132 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Calendario - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span>Calendario</h1>
+      <div class="wiki" style="display: block;">
+        <h2>Video</h2>
+        <p>En este video veremos cómo podemos usar un calendario en cualquier
+          módulo con una fecha y también cómo crear un módulo "Mi calendario"
+          con un calendario personal.</p>
+        <p><a href="https://youtu.be/e2tzPQ_hpZE" target="_blank"><img src="files/dashboard_es010.png"
+              title="dashboard_es010"></a> </p>
+        <p><strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/">Pregunta
+              en el foro</a></strong></p>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h2>Código</h2>
+        <p>Puedes copiar el código que se usa en el video desde aquí.</p>
+        <code class="xml"></code> En el archivo <em>application.xml</em> añade
+        el siguiente módulo:<br>
+        <pre><code class="xml">&lt;module name="MyCalendar"&gt;
+    &lt;model name="Issue"/&gt;
+    &lt;tab name="MyCalendar"/&gt;
+    &lt;controller name="MyCalendar"/&gt;
+&lt;/module&gt;
+</code></pre> <code class="xml"></code> En el archivo <em>controllers.xml</em>
+        añade el siguiente controlador:<br>
+        <pre><code class="xml">&lt;controller name="MyCalendar"&gt;
+    &lt;extends controller="CRUD"/&gt;
+    &lt;action name="new" icon="library-plus" keystroke="Control N"
+        class="com.yourcompany.projects.actions.NewIssueFromMyCalendarAction"&gt;
+    &lt;/action&gt;
+    &lt;action name="save" mode="detail"
+        by-default="if-possible"
+        class="com.yourcompany.projects.actions.SaveReturningToListAction"
+        icon="content-save"
+        keystroke="Control S"/&gt;
+&lt;/controller&gt;
+</code></pre>Crea la acción <i><em>NewIssueFromMyCalendarAction.java</em></i>:
+        <pre><code class="java">package com.yourcompany.projects.actions;
+
+import org.openxava.actions.*;
+
+public class NewIssueFromMyCalendarAction extends NewAction {
+	
+    private boolean goList = false;
+	
+    @Override
+    public void execute() throws Exception {
+        if ("true".equals(getRequest().getParameter("firstRequest"))) {
+            goList = true;
+            return;
+        }
+        super.execute();
+    }
+	
+    @Override
+    public String getNextMode() {
+        return goList?IChangeModeAction.LIST:IChangeModeAction.DETAIL;
+    }
+
+}
+</code></pre> Crea la acción <i><em>SaveReturningToListAction.java</em></i>:
+        <pre><code class="java">package com.yourcompany.projects.actions;
+
+import org.openxava.actions.*;
+
+public class SaveReturningToListAction extends SaveAction  {
+	
+    @Override
+    public String getNextMode() {
+        return getErrors().contains()?DETAIL:LIST;
+    }
+
+}
+</code></pre>
+        <p>En la entidad <em>Issue.java</em> añade el <i>@Tab MyCalendar</i>:</p>
+        <pre><code class="java">@Tab(name="MyCalendar", editors="Calendar",
+    properties="title",
+    baseCondition = "${createdBy} = ?",
+    filter=org.openxava.filters.UserFilter.class)
+public class Issue extends Identifiable {
+</code></pre>
+        <p>También en la entidad <em>Issue.java</em> añade la propiedad <i>plannedFor</i>
+          en el cuerpo de la clase y en <i>@View</i>:</p>
+        <pre><code class="java">@View(members=
+    "title, type;" +
+    "description;" +
+    "details [#" +
+        "project, createdBy;" +
+        "createdOn, priority;" +
+        "version, assignedTo;" +
+        "status, customer;" +
+        "plannedFor, minutes, hours;" + // Añadir plannedFor en @View
+    "];" +
+    "attachments;" +
+    "discussion"
+)
+public class Issue extends Identifiable {
+
+    ...
+
+    LocalDate plannedFor; // Añadir plannedFor como atributo
+</code></pre>
+        <p>En el archivo <em>custom.css</em>:</p>
+        <pre><code class="css">#ox_projects_MyCalendar__core .ox-list-title {
+    display: none;
+}
+
+#ox_projects_MyCalendar__core .xava_calendar_date_preferences {
+    display: none;
+}
+
+#ox_projects_MyCalendar__core #xava_calendar {
+    margin-top: 20px;
+}
+</code></pre>
+        <h2>Transcripción</h2>
+        Hola, soy Mónica.<br>
+        En este video...</div>
+    </div>
+  </body>
+</html>
