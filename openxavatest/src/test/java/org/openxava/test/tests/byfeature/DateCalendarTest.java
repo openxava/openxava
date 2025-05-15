@@ -5,6 +5,7 @@ import java.util.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 /**
+ * 
  * To test pop up calendar with Selenium.
  * 
  * @author Chungyen Tsai
@@ -519,17 +520,28 @@ public class DateCalendarTest extends WebDriverTestBase {
 		messages = getDriver().findElements(By.cssSelector(".ox-messages .ox-message-box"));
 		assertTrue(messages.isEmpty());
 		execute("CRUD.save");
-		
+		assertNoErrors(); 
+				 
 		changeLanguage("zh-CN");
 		goModule("Event");
 		execute("List.viewDetail", "row=0");
+		assertValue("endTime", "PM1:00"); 
 		endTime = getDriver().findElement(By.id("ox_openxavatest_Event__endTime"));
 		endTime.sendKeys(Keys.TAB);
-		assertValue("endTime", "AM1:00"); // It fails in Java 21: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff8080819581a7c6019594cccba40021
+		assertValue("endTime", "PM1:00"); 
 		openTimeCalendar(0);
 		changeAmPm(1);
-		assertValue("endTime", "PM1:00");
-		execute("CRUD.save"); 
+		assertValue("endTime", "AM1:00");
+		execute("CRUD.save"); 		
+		assertNoErrors();
+		execute("Mode.list");
+		execute("List.viewDetail", "row=0");
+		assertValue("endTime", "AM1:00"); 
+
+		// Restoring data
+		setValue("endTime", "PM1:00");
+		execute("CRUD.save"); 		
+		assertNoErrors();
 	}
 	
 	private void formatDateUsingTwoAndFourDigits(String format) throws Exception {

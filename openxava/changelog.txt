@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Unable sometimes to parse LocalTime in English with Java 21 depending on the server locale.
+- Fix: Incorrect format sometimes for LocalTime in Chinese with Java 21 depending on the server locale.
+- Fix: LocalTime in Chinese corrupts the data on focus lost.
+- Fix: LocalTime popup breaks the time value in Chinese.
+- Fix: LocalTime in Chinese parses AM times as PM.
 - Fix: Not applicable "You will lose all changes" on exit if you used a dialog for a collection element.
 - Fix: "You will lose all changes" warning not shown on exit if data was modified before opening a dialog. 
 - Fix: Total is not aligned in @ElementCollection when the column had been resized.

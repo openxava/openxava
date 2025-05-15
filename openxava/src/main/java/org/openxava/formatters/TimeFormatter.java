@@ -18,7 +18,8 @@ import org.openxava.util.*;
 
 public class TimeFormatter implements IFormatter {
 	
-	private static DateTimeFormatter zhTimeFormat = DateTimeFormatter.ofPattern("ah:mm");
+	// ENBLISH to have always AM/PM, with Chinese sometimes is AM/PM sometimes Chinese symbols
+	private static DateTimeFormatter zhTimeFormat = DateTimeFormatter.ofPattern("ah:mm", Locale.ENGLISH); 
 
 	public String format(HttpServletRequest request, Object time) {
 		if (time == null) return "";
@@ -43,13 +44,13 @@ public class TimeFormatter implements IFormatter {
 	
 	private DateTimeFormatter getTimeFormat() {
 		if (isZhFormat()) return zhTimeFormat;
-		return DateTimeFormatter.ofPattern(getTimePattern(Locales.getCurrent()));
+		return DateTimeFormatter.ofPattern(getTimePattern(Locales.getCurrent()), Locales.getCurrent());
 	}
 	
 	private String getTimePattern(Locale locale) {
 	    String pattern = DateTimeFormatterBuilder.getLocalizedDateTimePattern(
 	        null, FormatStyle.SHORT, Chronology.ofLocale(locale), locale);
-	    return pattern;
+	    return pattern.replace((char) 8239, (char) 32); // The .replace() is for Java 21
 	}
 	
 	protected String reformatTime(String string) {
@@ -59,7 +60,8 @@ public class TimeFormatter implements IFormatter {
 	protected String reformatTime(String string, boolean parsing) {
 		String date = string;
 		LocalTime specificTime = LocalTime.of(15, 0);
-        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("a");
+		Locale locale = isZhFormat()?Locale.ENGLISH:Locales.getCurrent();
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("a", locale);
         String formattedTimePM = specificTime.format(timeFormat);
         String formattedTimeAM;
         if (Character.isUpperCase(formattedTimePM.charAt(0))) {

@@ -31,6 +31,12 @@ openxava.addEditorInitFunction(function() {
 			var formattedValue = inputValue.slice(0, position) + ':' + inputValue.slice(position);
 			$(this).val(formattedValue);
 		}
+		if (timeCalendarEditor.isZh && inputValue.includes('PM')) {
+			timeCalendarEditor.blurTimeValue = inputValue;
+		}
+		else {
+			timeCalendarEditor.blurTimeValue = null;
+		}
 	});
 
     $('.xava_time').flatpickr({
@@ -51,6 +57,10 @@ openxava.addEditorInitFunction(function() {
             if (timeCalendarEditor.calendarOpen === true) {
                 $(instance.input).data("changedCancelled", true);
             } else {
+            	if (timeCalendarEditor.blurTimeValue != null) {
+					$(instance.input).val(timeCalendarEditor.blurTimeValue);
+					timeCalendarEditor.blurTimeValue = null;
+				}
 				var dateTimeSeparated = document.querySelectorAll('#' + instance.input.id);
                 if (timeCalendarEditor.focusTimeValue != dateStr) {
 					if (dateTimeSeparated.length > 1) {

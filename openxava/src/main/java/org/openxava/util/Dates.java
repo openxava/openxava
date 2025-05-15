@@ -609,12 +609,13 @@ public class Dates {
 		String result = datetime.
 				
 				// time part
-				replaceAll("15", "H").	// 24hr format 
-				replaceAll("03", "G").	// 12hr format - double digit 
-				replaceAll("3", "h").	// 12hr format - single digit
-				replaceAll("59","i").	// minute
-				replaceAll("PM", "K").	// AM/PM - uppercase
-				replaceAll("pm", "K").	// am/pm - lowercase // Not supported by the current calendar JS
+				replaceAll("15", "H").	  // 24hr format 
+				replaceAll("03", "G").	  // 12hr format - double digit 
+				replaceAll("3", "h").	  // 12hr format - single digit
+				replaceAll("59","i").	  // minute
+				replaceAll("PM", "K").	  // AM/PM - uppercase
+				replaceAll("pm", "K").	  // am/pm - lowercase // Not supported by the current calendar JS
+				replaceAll("p.\u00A0m.", "K"). // AM/PM - In some locales (like Chinese) with Java 21 
 
 				// date part
 				replaceAll("01", "d").	// day - double digit
