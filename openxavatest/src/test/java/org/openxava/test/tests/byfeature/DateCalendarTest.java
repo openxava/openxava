@@ -4,8 +4,8 @@ import java.util.*;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
+
 /**
- * 
  * To test pop up calendar with Selenium.
  * 
  * @author Chungyen Tsai
@@ -55,7 +55,8 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertNoErrors();
 	}
 	
-	public void testLocalTimeAndLocalDateTimeSpanishUSA() throws Exception { 
+	public void testLocalTimeAndLocalDateTimeSpanishUSA() throws Exception {
+		// It fails with Java 8 and 21: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff8080819581a7c6019594d82bf10022
 		if (isWindows7()) setHeadless(false); // In Windows 7 with headless the language is not changed to "es-US" maybe because a bug of Chrome version in Windows 7
 		changeLanguage("es-US");
 		goModule("Event");
@@ -127,7 +128,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		execute("List.filter");
 		assertNoErrors(); 
 	}
-
+	
 	public void testChineseDateTimeInJava8AndAmIssue_formatDateAndDateTimeUsingTwoDigits_usingFourDigits() throws Exception { 
 		changeLanguage("zh-TW");
 		appointment2(); 
@@ -597,7 +598,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 	private void appointment2() throws Exception {
 		goModule("Appointment2");
 		execute("List.viewDetail", "row=2");
-		assertValue("time", "2015/5/26 PM1:34"); // Fails with Java 21: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff8080819581a7c6019594cccba40021
+		assertValue("time", "2015/5/26 PM1:34"); 
 		assertValue("dateTime", "2015/5/26 PM2:34");
 		List<WebElement> calendarPopUp = getDriver().findElements(By.cssSelector("i.mdi.mdi-calendar-clock"));
 		calendarPopUp.get(1).click();
