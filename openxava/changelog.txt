@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- PDFBox upgraded to 3.0.5.
+- Embedded Tomcat used in development upgraded to 9.0.105.
+- Driver version in doc/new projects upgraded for MySQL, Oracle and Firebird. 
 - Fix: java.util.Date with @DateTime or @Stereotype("DATETIME") formats wrong in Chinese with Java 21.
 - Fix: Unable sometimes to parse LocalTime in English with Java 21 depending on the server locale.
 - Fix: Incorrect format sometimes for LocalTime in Chinese with Java 21 depending on the server locale.
