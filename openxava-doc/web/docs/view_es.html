@@ -8010,7 +8010,6 @@ BigDecimal porcentajeIVA;
       El código CSS lo pueddes incluir en <i>custom.css</i> o en tu propio
       estilo como se explica en la <a href="custom-style_es.html">documentación
         sobre el estilo visual personalizado</a>.<br>
-      <h2 id="toc14"></h2>
       <h2><a name="Vista-Personalizacion+de+referencia"></a>Personalización de
         referencia</h2>
       Podemos refinar la forma de visualización y comportamiento de una
@@ -9807,60 +9806,60 @@ class="br0">)</span> <span class="co1">// ${this.} Nuevo en v7.4</span>
 </pre> Fíjate como no necesitas crear ninguna acción.<br>
       <h3 id="toc19"><a name="Vista-Personalizacion+de+referencia-Accion+de+creacion+propia"></a>Acción
         de creación propia</h3>
-      Si no hemos puesto <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoCreate.html"
-          rel="nofollow">@NoCreate</a></em> el usuario tendrá un vínculo para
-      poder crear un nuevo objeto. Por defecto muestra la vista por defecto del
-      componente referenciado y permite introducir valores y pulsar un botón
-      para crearlo. Si queremos podemos definir nuestras propias acciones (entre
-      ellas la de crear) en el formulario a donde se va para crear uno nuevo,
-      para esto hemos de tener un controlador llamado como el componente con el
-      sufijo Creation. Si OpenXava ve que existe un controlador así lo usa en
-      vez del de por defecto para permitir crear un nuevo objeto desde una
-      referencia. Por ejemplo, podemos poner en nuestro <em>controladores.xml</em>:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc-1">&lt;!--</span>
-<span class="sc-1">Puesto que su nombre es AlmacenCreation (nombre modelo + Creation) es usado</span>
-<span class="sc-1">por defecto para crear desde referencias, en vez de NewCreation.</span>
-<span class="sc-1">La accion 'new' es ejecutada automáticamente.</span>
-<span class="sc-1">--&gt;</span>
-<span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
-class="st0">"AlmacenCreation"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;hereda-de</span> <span class="re0">controlador</span>=<span
-class="st0">"NewCreation"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;accion</span> <span class="re0">nombre</span>=<span
-class="st0">"new"</span> <span class="re0">oculta</span>=<span class="st0">"true"</span></span>
-<span class="sc3"> <span class="re0">clase</span>=<span class="st0">"org.openxava.test.actions.CrearNuevoAlmacenDesdeReferencia"</span><span
-class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;usa-objeto</span> <span class="re0">nombre</span>=<span
-class="st0">"xava_view"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- No obligatorio desde v4m2 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;/accion<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/controlador<span class="re2">&gt;</span></span></span></pre>
-      En este caso cuando en una referencia a <em>Almacen</em> pulsemos el
-      vínculo 'crear' irá a la vista por defecto de <em>Almacen</em> y mostrará
-      las acciones de <em>AlmacenCreation</em>.<br>
-      Sí tenemos una acción <em>new</em>, ésta se ejecuta automáticamente antes
-      de nada, la podemos usar para iniciar la vista si lo necesitamos.<br>
+      Si no hemos puesto <em><a href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoCreate.html">@NoCreate</a></em>
+      el usuario tendrá un vínculo para poder crear un nuevo objeto desde la
+      referencia:</div>
+    <div class="wiki" style="display: block;">IMAGEN_CON_VINCULO_CREAR</div>
+    <div class="wiki" style="display: block;">La anotación <b><i>@NewAction</i></b>
+      de las colecciones <b>no funciona</b> con las referencias, por lo que no
+      podemos definir un comportamiento propio para la acción de creación en una
+      referencia concreta. Es decir, esto no se puede hacer:</div>
+    <pre><code class="java">// @NewAction("Transportista.crearAlmacen")  // NO PERMITIDO
+@ManyToOne
+Almacen almacenPrincipal;
+</code></pre>
+    <div class="wiki" style="display: block;">OpenXava siempre sacará un diálogo
+      con la vista por defecto del componente referenciado y permitirá
+      introducir valores y pulsar un botón para crearlo. Así:</div>
+    <div class="wiki" style="display: block;">IMAGEN CON DIÁLOGO</div>
+    <div class="wiki" style="display: block;">Sí que podemos personalizar como
+      funciona este diálogo de creación, para todas las referencia a <i>Almacen</i>
+      en nuestra aplicación. Para esto hemos de crear un controlador llamado
+      como la entidad con el sufijo <i>Creation</i>. Si OpenXava ve que existe
+      un controlador así lo usa en vez del de por defecto para permitir crear un
+      nuevo objeto desde una referencia. Por ejemplo, podemos poner en nuestro <em>controladores.xml</em>:<br>
+      <pre><code class="xml">&lt;!--
+Because its name is WarehouseCreation (model name + Creation) it is used
+by default for creating from reference, instead of NewCreation.
+The action 'new' is executed automatically.
+--&gt;
+&lt;controller name="WarehouseCreation"&gt;
+    &lt;extends controller="NewCreation"/&gt;
+    &lt;action name="new" hidden="true"
+        class="org.openxava.test.actions.CreateNewWarehouseFromReferenceAction"/&gt;
+    &lt;action name="saveNew" by-default="almost-always"
+        class="org.openxava.test.actions.SaveNewWarehouseFromReferenceAction"/&gt;	
+&lt;/controller&gt;
+</code></pre> En este caso cuando en una referencia a <em>Almacen</em> pulsemos
+      el vínculo 'crear' motrará un diálogo para crear un <em>Almacen</em> como
+      el de arriba, pero en lugar de usar las acciones por defecto usará las
+      acciones en <em>AlmacenCreation</em>.<br>
+      Sí tenemos una acción <em>new</em>, ésta se ejecuta automáticamente justo
+      después de abrir el diálogo, la podemos usar para iniciar la vista si lo
+      necesitamos. Este sería un ejemplo de implementación:</div>
+    <div class="wiki" style="display: block;">CODIGO ACCION NEW</div>
+    <div class="wiki" style="display: block;">En este caso, lo que hace es poner
+      un valor por defecto al nombre, pero puede hacer cosas más complejas como
+      ocultar campos, usar otra vista diferente para el diálogo, etc.</div>
+    <div class="wiki" style="display: block;">En nuestro ejemplo también hemos
+      sobreescrtio la acción saveNew, que es la que se ejecuta al pulsar el
+      botón <i>Crear</i> del diálogo. Esto sería un ejemplo de implementación:</div>
+    <div class="wiki" style="display: block;">CODIGO ACCION SAVE</div>
+    <div class="wiki" style="display: block;">También una lógica muy simple, si
+      detecta que hemos grabado usando el valor por defecto para el nombre,
+      visualiza un mensaje de advertencia.</div>
+    <div class="wiki" style="display: block;">TMR ME QUEDÉ POR AQUÍ. DEBERÍA
+      ACABAR ESTO Y REVISAR EL CONTENIDO Y ESTRUCTURA<br>
       <h3 id="toc20"><a name="Vista-Personalizacion+de+referencia-Accion+de+modificacion+propia"></a>Acción
         de modificación propia</h3>
       Si no hemos puesto <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoModify.html"
