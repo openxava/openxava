@@ -12951,8 +12951,9 @@ style="color: #030303;">baseCondition=</span>"${zone} = 'A'"</span><span class="
         available in <i>@SearchListTab</i>. </div>
       <h2 id="toc25"><a name="View-Collection customization"></a>Collection
         customization</h2>
-      You can refine the visual aspect and behavior of an <em>@OneToMany</em>
-      or <em>@ManyToMany</em> collection in a view using the next annotations:<br>
+      You can refine the visual aspect and behavior of an <em>@OneToMany</em>/<em>@ManyToMany</em>
+      collection or <a href="model_en.html#calculated-collections">calculated
+        collection</a> in a view using the next annotations:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -13168,9 +13169,9 @@ class="co1">// 1<span style="color: #505050;">7 New in v7.4</span></span>
 @ListSubcontroller      <span class="co1">// 26 New in v5.7<br></span>@Chart                  <span
 class="co1">// 27 New in v7.4<br></span>@SimpleList             <span class="co1">// 28 New in v7.4</span><br>@SearchListTab         <span
 style="color: #666666;"> </span><span class="co1">// 29 New in v7.4</span><br>@NoDefaultActions       <span
-class="co1">// 30 New in v7.4<br></span>@OneToMany/@ManyToMany
+class="co1">// 30 New in v7.4<br></span>@OneToMany/@ManyToMany  // Not for calculated collections
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-class="kw46">Collection</span></a> collectionName<span class="sy0">;</span></pre>
+class="kw46">Collection</span></a> collectionName; // Or a getter for calculated collections</pre>
       And the next annotations for a <em>@ElementCollection (new in v5.0)</em>:<br>
       <style type="text/css"><!--
 /**
@@ -13549,7 +13550,8 @@ class="kw46">Collection</span></a> collectionName<span class="sy0">;</span></pre
       </ol>
       <h3 id="toc26"><a name="View-Collection customization-Properties in list"></a>Properties
         in list</h3>
-      <em>Applies to @OneToMany/@ManyToMany and @ElementCollection collections</em><br>
+      <em>Applies to @OneToMany/@ManyToMany, @ElementCollection and calculated
+        collections</em><br>
       If you do not use any of these annotations then the collection is
       displayed using the persistent properties in list mode; although in
       typical scenarios the properties of the list are specified:<br>
@@ -13753,7 +13755,7 @@ class="sy0">;</span></pre>
       <em>seller.level.description</em>).<br>
       <h3 id="toc27"><a name="View-Collection customization-View for editing"></a>View
         for editing</h3>
-      <em>Applies to @OneToMany/@ManyToMany</em><br>
+      <em>Applies to @OneToMany/@ManyToMany</em><em> and calculated collections</em><br>
       If you do not use any annotation then the default view is used to edit the
       entity in each row; although in typical scenarios the view for detail is
       specified:<br>
@@ -14778,7 +14780,7 @@ class="br0">)</span>
       supported in element collections.<br>
       <h3 id="toc29"><a name="View-Collection customization-Custom edit/view action"></a>Custom
         edit/view action</h3>
-      <em>Applies to @OneToMany/@ManyToMany collections</em><br>
+      <em>Applies to @OneToMany/@ManyToMany</em><em> and calculated collections</em><br>
       You can refine easily the behavior when the <img src="files/edit.gif" alt="edit.gif"
         title="edit.gif"> ('Edit') link is clicked using <em><a class="wiki_link_ext"
           href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/EditAction.html"
@@ -15442,7 +15444,7 @@ class="sy0">&gt;</span> details<span class="sy0">;</span></pre>
           rel="nofollow">@EditAction</a></em>.<br>
       <h3 id="toc30"><a name="View-Collection customization-Custom list and row actions"></a>Custom
         list and row actions</h3>
-      <em>Applies to @OneToMany/@ManyToMany collections</em><br>
+      <em>Applies to @OneToMany/@ManyToMany</em><em> and calculated collections</em><br>
       Use <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/ListAction.html"
           rel="nofollow">@ListAction</a></em> to define actions that applies to
       entire collection and <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/RowAction.html"
@@ -15916,7 +15918,7 @@ class="sy0">;</span>
         <i>IAvailableAction</i>, just like with list mode actions</a>.
       <h3 id="toc31"><a name="View-Collection customization-Default list and row actions"></a>Default
         list and row actions</h3>
-      <em>Applies to @OneToMany/@ManyToMany collections</em><br>
+      <em>Applies to @OneToMany/@ManyToMany</em><em> and calculated collections</em><br>
       If you want to add some custom list actions to all the collection of your
       application you can do it creating a controller called <em>DefaultListActionsForCollections</em>
       in your own <em>controllers.xml</em> file in <i>src/main/resources/xava</i>
@@ -16017,7 +16019,7 @@ class="re2">&gt;</span></span>
       to not display the default list and row actions for a specific collection.<br>
       <h3 id="toc32"><a name="View-Collection customization-Custom detail actions"></a>Custom
         detail actions</h3>
-      <em>Applies to @OneToMany/@ManyToMany collections</em><br>
+      <em>Applies to @OneToMany/@ManyToMany</em><em> and calculated collections</em><br>
       Also you can add your custom actions to the detail view used for editing
       each element. This is accomplish by means of <em><a class="wiki_link_ext"
           href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/DetailAction.html"
@@ -16547,8 +16549,9 @@ class="kw46">Map</span></a> map<span class="br0">)</span> <span class="br0">{</s
           rel="nofollow">org.openxava.view.View</a></em>.<br>
       <h3 id="toc33"><a name="View-Collection customization-Refining collection view default behavior"></a>Refining
         collection view default behavior</h3>
-      <em>Applies to @OneToMany/@ManyToMany collections (since v5.3
-        @RemoveSelectedAction applies to @ElementCollection too)</em><br>
+      <em>Applies to @OneToMany/@ManyToMany</em><em><em> and calculated
+          collections</em> (since v5.3 @RemoveSelectedAction applies to
+        @ElementCollection too)</em><br>
       Using <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NewAction.html"
           rel="nofollow">@NewAction</a></em>, <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/AddAction.html"
           rel="nofollow">@AddAction</a> (new in v5.7)</em>, <em><a class="wiki_link_ext"
@@ -17214,7 +17217,7 @@ class="sy0">&gt;</span> details<span class="sy0">;</span></pre>
       behavior.
       <h3 id="toc34"><a name="View-Collection customization-Action when a collection element is selected (new in v3.1.2)"></a>Action
         when a collection element is selected <em>(new in v3.1.2)</em></h3>
-      <em>Applies to @OneToMany/@ManyToMany collections</em><br>
+      <em>Applies to @OneToMany/@ManyToMany</em><em> and calculated collections</em><br>
       You can define an action to be executed when a collection element is
       selected or unselected. This is accomplished using the <em><a class="wiki_link_ext"
           href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/OnSelectElementAction.html"
@@ -17675,7 +17678,8 @@ class="br0">)</span><span class="sy0">;</span>
       the affected collection element.<br>
       <h3 id="toc35"><a name="View-Collection customization-Choosing an editor (collection, new in v3.1.3)"></a>Choosing
         an editor (collection, <em>new in v3.1.3</em>)</h3>
-      <em>Applies to @OneToMany/@ManyToMany and @ElementCollection collections</em><br>
+      <em>Applies to @OneToMany/@ManyToMany, @ElementCollection</em><em> and
+        calculated collections</em><br>
       An editor display the collection to the user and allows him to edit its
       values. By default, the editor OpenXava uses for collections is a list
       that shows the data in a tabular fashion, allowing to order, filter and
@@ -17919,7 +17923,7 @@ class="st0">"customersNamesEditor.jsp"</span><span class="re2">/&gt;</span></spa
       <h3 id="toc36"><a name="View-Collection customization-Condition for search list (collection, new in v4m4)"></a><a
           name="search-list-condition-collection"></a>Condition for search list
         (collection, <em>new in v4m4</em>)</h3>
-      <em>Applies to @OneToMany/@ManyToMany collections</em><br>
+      <em>Applies to @OneToMany/@ManyToMany</em><em> and calculated collections</em><br>
       You can specify a condition to be applied to the list of items available
       for selection. In the case of non-embedded collections. By using <em>@SearchListCondition</em>
       you can define a condition only applicable to the search list,
@@ -18575,7 +18579,8 @@ class="br0">)</span></pre>
       </ol>
       <h3 id="toc38"><a name="View-Collection customization-Total properties (new in v4.3)"></a>Total
         properties <em>(new in v4.3)</em></h3>
-      <em>Applies to @OneToMany/@ManyToMany and @ElementCollection collections</em><br>
+      <em>Applies to @OneToMany/@ManyToMany, @ElementCollection</em><em> and
+        calculated collections</em><br>
       Inside <em>@ListProperties</em> you can define, between square brakets, a
       set of properties of the parent entity of the collection to be shown in
       the footer of the collection as total values. That is, if you define a
@@ -19064,8 +19069,8 @@ class="kw27">BigDecimal</span></a> profit<span class="sy0">;</span></pre>
       <h3 id="toc39"><a name="View-Collection customization-Subcontroller in a collection (new in v5.7)"></a><a
           name="subcontroller-collection"></a><strong><span style="font-size: 17px;">Subcontroller
             in a collection (new in v5.7)</span></strong></h3>
-      <em><span style="line-height: 25px;">Applies to @OneToMany/@ManyToMany
-          collections.</span></em><br>
+      <em><span style="line-height: 25px;">Applies to @OneToMany/@ManyToMany</span></em><em>
+        and calculated collections</em><br>
       With <em>@ListSubcontroller</em> we can grouping several actions and show
       them in a drop-down button. If you put a collection as:<br>
       <style type="text/css"><!--
@@ -19469,7 +19474,8 @@ class="st0">"roles"</span>/<span class="sy0">&gt;</span>
 <span class="sy0">&lt;</span>/controller<span class="sy0">&gt;</span></pre>
       <h3 id="chart-from-collection">Chart from a collection <em>(new in v7.4)<br>
         </em></h3>
-      <em>Applies to @OneToMany/@ManyToMany and @ElementCollection collections</em><br>
+      <em>Applies to @OneToMany/@ManyToMany, @ElementCollection</em><em> and
+        calculated collections</em><br>
       It can be done so that a collection is visualized using a chart, for this
       you have to annotate the collection with <a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Chart.html"><i>@Chart</i></a>,
       like this:
@@ -19577,7 +19583,8 @@ public class Ratio {
       and <i>notForViews</i> attributes are available in <i>@Chart</i>.</div>
     <div class="wiki" style="display: block;">
       <h3 id="simple-list">Simple list <em>(new in v7.4)</em></h3>
-      <em>Applies to @OneToMany/@ManyToMany and @ElementCollection collections</em><br>
+      <em>Applies to @OneToMany/@ManyToMany, @ElementCollection</em><em> and
+        calculated collections</em><br>
       With the <a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/SimpleList.html"><i>@SimpleList</i></a>
       annotation, the list is displayed as read-only, without actions, filters,
       pagination, sorting, etc. That is, if we annotate our collection with <i>@SimpleList</i>,
@@ -19597,6 +19604,8 @@ Collection&lt;StaffTurnover&gt; turnoverByYear;
         </i>
         <h3 id="choose-tab-for-search-action-collection">Choose tab for search
           action (collection, <em>new in v7.4</em>) </h3>
+        <p> <em>Applies to @OneToMany/@ManyToMany</em><em> and calculated
+            collections</em></p>
         <p>With <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/SearchListTab.html"><em>@SearchListTab</em></a>,
           you can specify which tab to display in the dialog when use an add
           action.</p>
@@ -19805,6 +19814,8 @@ style="color: #030303;">baseCondition=</span>"${type} = 'R'"</span><span class="
         <div class="wiki">
           <h3 id="no-default-actions">Hide default list and row actions <i>(new
               in v7.4)</i></h3>
+          <p><em>Applies to @OneToMany/@ManyToMany</em><em> and calculated
+              collections</em></p>
           <p>With <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoDefaultActions.html"><em>@NoDefaultActions</em></a>
             you can hide actions from the <em>DefaultListActionsForCollections
             </em>and <em>DefaultRowActionsForCollections </em>controllers.<em></em></p>
