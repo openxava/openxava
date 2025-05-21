@@ -1193,6 +1193,11 @@
 		<extends controller="NewCreation"/>
 		<action name="new" hidden="true"
 			class="org.openxava.test.actions.CreateNewWarehouseFromReferenceAction"/>
+			
+		<!-- tmr Deberiamos pasar la suite -->
+		<action name="saveNew" by-default="almost-always"
+			class="org.openxava.test.actions.SaveNewWarehouseFromReferenceAction"/>	
+				
 	</controller>
 	
 	<!-- 
