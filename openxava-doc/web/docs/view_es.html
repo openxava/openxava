@@ -10061,17 +10061,17 @@ Almacen almacenPrincipal;
       vez del de por defecto para permitir crear un nuevo objeto desde una referencia. 
       Por ejemplo, podemos poner en nuestro <em>controladores.xml</em>:<br>
       <pre><code class="xml">&lt;!--
-Because its name is WarehouseCreation (model name + Creation) it is used
-by default for creating from reference, instead of NewCreation.
-The action 'new' is executed automatically.
+Dado que su nombre es AlmacenCreation (nombre modelo + Creation) es usado
+por defecto para crear desde referencia, en lugar de NewCreation.
+La acción 'new' se ejecuta automáticamente.
 --&gt;
-&lt;controller name="WarehouseCreation"&gt;
-    &lt;extends controller="NewCreation"/&gt;
-    &lt;action name="new" hidden="true"
-        class="org.openxava.test.actions.CreateNewWarehouseFromReferenceAction"/&gt;
-    &lt;action name="saveNew" by-default="almost-always"
-        class="org.openxava.test.actions.SaveNewWarehouseFromReferenceAction"/&gt;	
-&lt;/controller&gt;
+&lt;controlador nombre="AlmacenCreation"&gt;
+    &lt;hereda-de controlador="NewCreation"/&gt;
+    &lt;accion nombre="new" oculta="true"
+        clase="org.openxava.test.actions.CrearNuevoAlmacenDesdeReferenciaAction"/&gt;
+    &lt;accion nombre="saveNew" por-defecto="casi-siempre"
+        clase="org.openxava.test.actions.GuardarNuevoAlmacenDesdeReferenciaAction"/&gt;	
+&lt;/controlador&gt;
 </code></pre> En este caso cuando en una referencia a <em>Almacen</em> pulsemos
       el icono para crear, se mostrará un diálogo para crear un <em>Almacen</em> como
       el de arriba, pero en lugar de usar las acciones por defecto usará las
@@ -10085,12 +10085,12 @@ The action 'new' is executed automatically.
 
 import org.openxava.actions.*;
 
-public class CreateNewWarehouseFromReferenceAction extends NewAction {
+public class CrearNuevoAlmacenDesdeReferenciaAction extends NewAction {
 
     @Override
     public void execute() throws Exception {		
         super.execute();
-        getView().setValue("name", "NEW WAREHOUSE");
+        getView().setValue("nombre", "NUEVO ALMACEN");
     }
 
 }</code></pre>  
@@ -10108,14 +10108,14 @@ public class CreateNewWarehouseFromReferenceAction extends NewAction {
 
 import org.openxava.actions.*;
 
-public class SaveNewWarehouseFromReferenceAction extends SaveNewAction {
+public class GuardarNuevoAlmacenDesdeReferenciaAction extends SaveNewAction {
 	
     @Override
     public void execute() throws Exception {
-        String name = getView().getValueString("name"); // Get name before closing the dialog
-        super.execute(); // Saves the warehouse and closes the dialog (if not validation errors)
-        if (!getErrors().contains() && name.equals("NEW WAREHOUSE")) {
-            addWarning("warehouse_created_using_default_name"); // Message in i18n messages file  
+        String nombre = getView().getValueString("nombre"); // Obtener nombre antes de cerrar el diálogo
+        super.execute(); // Guarda el almacén y cierra el diálogo (si no hay errores de validación)
+        if (!getErrors().contains() && nombre.equals("NUEVO ALMACEN")) {
+            addWarning("almacen_creado_usando_nombre_por_defecto"); // Mensaje en archivo de mensajes i18n  
         }
     }
 
