@@ -9794,12 +9794,24 @@ class="br0">, forViews="SearchListCondition")</span> <span class="co1">// ${this
           name="no-create"></a>Custom creation action</h3>
       If you do not use <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoCreate.html"
           rel="nofollow">@NoCreate</a></em> annotation the user will have a link
-      to create a new object. By default when a user clicks on this link, a
-      default view of the referenced object is displayed and the final user can
-      type values and click a button to create it. If you want to define your
-      custom actions (among them your create custom action) in the form used
-      when creating a new object, you must have a controller named as component
-      but with the suffix Creation. If OpenXava sees this controller it uses it
+      to create a new object. It's the icon with a + that we've marked in red:</div>
+    <div class="wiki" style="display: block;"><img src="files/view_en143.png" alt="view_en143.png" title="view_en143.png"></div>
+    <div class="wiki" style="display: block;">The <b><i>@NewAction</i></b> annotation
+      used for collections <b>does not work</b> with references, so we cannot define
+      custom behavior for the creation action in a specific reference. That is, this cannot be done:</div>
+    <pre><code class="java">// @NewAction("Warehouse.createWarehouse")  // NOT ALLOWED
+@ManyToOne
+Warehouse mainWarehouse;
+</code></pre>
+    <div class="wiki" style="display: block;">OpenXava will always display a dialog
+      with the default view of the referenced component and allow the user to
+      enter values and click a button to create it. Like this:</div>
+    <div class="wiki" style="display: block;"><img src="files/view_en147.png" alt="view_en147.png" title="view_en147.png"></div>
+    <div class="wiki" style="display: block;">But we can customize how
+      this creation dialog works, for all references to <i>Warehouse</i>
+      in our application. To do this, we must create a controller named
+      as the entity with the suffix <i>Creation</i> (<i>WarehouseCreation, CustomerCreation, 
+      ProductCreation</i>, etc). If OpenXava sees this controller it uses it
       instead of the default one to allow creating a new object from a
       reference. For example, you can write in your <em>controllers.xml</em>:<br>
       <style type="text/css"><!--
@@ -9840,10 +9852,16 @@ class="re2">&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span
 class="st0">"xava_view"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- Not needed since v4m2 --&gt;</span>
  <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+class="st0">"saveNew"</span> <span class="re0">by-default</span>=<span class="st0">"almost-always"</span></span>
+<span class="sc3"> <span class="re0">class</span>=<span class="st0">"org.openxava.test.actions.SaveNewWarehouseFromReferenceAction"</span><span
+class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span></pre>
       In this case when the user clicks on the 'create' link, the user is
       directed to the default view of <em>Warehouse</em> and the actions in <em>WarehouseCreation</em>
-      will be allowed. We define it as hidden, so it's not shown as a button to the user. Here's an example implementation:</div>
+      will be allowed. If we have a <em>new</em> action, it is executed automatically right
+      after opening the dialog, we can use it to initialize the view if needed. We define it as hidden, so it's not shown as a button to the user. Here's an example implementation:</div>
      <div class="wiki" style="display: block;">
        <pre><code class="java">package org.openxava.test.actions;
 
@@ -9859,8 +9877,8 @@ public class CreateNewWarehouseFromReferenceAction extends NewAction {
 
 }</code></pre>  
      </div>
-     <div class="wiki" style="display: block;">In this case, it sets a default value for the name, but we can do more complex things like hiding fields, using a different view for the dialog, etc. Note that it doesn't call <i>showDialog()</i> because when the <i>new</i> action is executed, OpenXava has already opened the dialog.</div>
-     <div class="wiki" style="display: block;">In our example we have also overridden the <i>saveNew</i> action, which is executed when the <i>Create</i> button in the dialog is clicked. Here's an example implementation:</div>
+      <div class="wiki" style="display: block;">In this case, it sets a default value for the name, but we can do more complex things like hiding fields, using a different view for the dialog, etc. Note that it doesn't call <i>showDialog()</i> because when the <i>new</i> action is executed, OpenXava has already opened the dialog.</div>
+      <div class="wiki" style="display: block;">In our example we have also overridden the <i>saveNew</i> action, which is executed when the <i>Create</i> button in the dialog is clicked. Here's an example implementation:</div>
      <div class="wiki" style="display: block;">
        <pre><code class="java">package org.openxava.test.actions;
 
@@ -9878,12 +9896,18 @@ public class SaveNewWarehouseFromReferenceAction extends SaveNewAction {
     }
 
 }</code></pre>
-     </div>
-     <div class="wiki" style="display: block;">This is also a very simple logic. If it detects that we have saved using the default value for the name, it displays a warning message.</div>
-     <div class="wiki" style="display: block;">It's not necessary to override both actions, we can implement only <i>new</i> or only <i>saveNew</i>. We can also override the <i>cancel</i> action if needed. Additionally, if we add extra actions to our <i>WarehouseCreation</i> controller, these actions will appear as additional buttons in the creation dialog.
-       </div>
+      </div>
+      <div class="wiki" style="display: block;">This is also a very simple logic. If it detects that
+        we have saved using the default value for the name, it displays a warning
+        message.</div>
+      <div class="wiki" style="display: block;">It is not necessary to override both actions,
+        we can implement only <i>new</i> or only <i>saveNew</i>. We can also
+        override the <i>cancel</i> action if needed. Additionally, if we add extra actions
+        to our <i>WarehouseCreation</i> controller, these actions will appear
+        as additional buttons in the creation dialog.</div>
      <div class="wiki" style="display: block;">
       <h3 id="toc20"><a name="View-Reference customization-Custom modification action"></a><a
+{{ ... }}
           name="no-modify"></a>Custom modification action</h3>
       If you do not use <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoModify.html"
           rel="nofollow">@NoModify</a></em> the user will have a link to modify
