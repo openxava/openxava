@@ -874,7 +874,7 @@ public class AJAXTest extends ModuleTestBase {
 		execute("WarehouseReference.createNewNoDialog"); 
 		assertLoadedParts("errors, view, bottom_buttons, " +
 				"button_bar, messages");
-		execute("NewCreation.saveNew");
+		execute("WarehouseCreation.saveNew");
 		assertLoadedParts("errors, messages, editor_time,"); 
 	}
 	
@@ -883,7 +883,7 @@ public class AJAXTest extends ModuleTestBase {
 		execute("CRUD.new");
 		execute("Reference.createNew", "model=Warehouse,keyProperty=xava.Carrier.warehouse.number"); 
 		assertLoadedParts("dialog1");
-		execute("NewCreation.saveNew");
+		execute("WarehouseCreation.saveNew");
 		assertLoadedParts("errors, messages, editor_time,"); 
 	}
 

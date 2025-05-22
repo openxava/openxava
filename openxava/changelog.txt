@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Custom creation action documentation for references improved with more code examples and explanations.
 - Added explicit sections for condition, many-to-many and calculated collections in the model documentation.
 - The view documentation specifies which annotations and features apply to calculated collections.
 - Made some improvements to the documentation of collections with @Condition. 

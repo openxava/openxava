@@ -262,7 +262,7 @@ public class CarrierTest extends CarrierTestBase {
 		execute("Reference.createNew", "model=Warehouse,keyProperty=warehouse.number");
 		assertDialog(); 		
 		assertNoErrors();
-		assertAction("NewCreation.saveNew");
+		assertAction("WarehouseCreation.saveNew");
 		assertAction("NewCreation.cancel");
 		assertValue("Warehouse", "name", "NEW WAREHOUSE");
 		assertNoAction("Mode.list"); 	// Inside a dialog mode actions are disable
@@ -272,7 +272,7 @@ public class CarrierTest extends CarrierTestBase {
 		
 		assertNoDialog(); 		
 		assertNoErrors();
-		assertAction("NewCreation.saveNew");
+		assertAction("WarehouseCreation.saveNew");
 		assertAction("NewCreation.cancel");
 		assertValue("Warehouse", "name", "NEW WAREHOUSE");
 		assertNoAction("Mode.list"); 	// When navigate to another view actions are disable		
