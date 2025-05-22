@@ -10080,7 +10080,21 @@ The action 'new' is executed automatically.
       después de abrir el diálogo, la podemos usar para iniciar la vista si lo
       necesitamos. La definimos como oculta, para que no se muestre
       como un botón al usuario. Este sería un ejemplo de implementación:</div>
-    <div class="wiki" style="display: block;">CODIGO ACCION NEW</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">package org.openxava.test.actions;
+
+import org.openxava.actions.*;
+
+public class CreateNewWarehouseFromReferenceAction extends NewAction {
+
+    @Override
+    public void execute() throws Exception {		
+        super.execute();
+        getView().setValue("name", "NEW WAREHOUSE");
+    }
+
+}</code></pre>  
+    </div>
     <div class="wiki" style="display: block;">En este caso, lo que hace es poner
       un valor por defecto al nombre, pero podemos hacer cosas más complejas como
       ocultar campos, usar otra vista diferente para el diálogo, etc. Fíjate en 
@@ -10089,7 +10103,24 @@ The action 'new' is executed automatically.
     <div class="wiki" style="display: block;">En nuestro ejemplo también hemos
       sobreescrito la acción <i>saveNew</i>, que es la que se ejecuta al pulsar el
       botón <i>Crear</i> del diálogo. Esto sería un ejemplo de implementación:</div>
-    <div class="wiki" style="display: block;">CODIGO ACCION SAVE</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="java">package org.openxava.test.actions;
+
+import org.openxava.actions.*;
+
+public class SaveNewWarehouseFromReferenceAction extends SaveNewAction {
+	
+    @Override
+    public void execute() throws Exception {
+        String name = getView().getValueString("name"); // Get name before closing the dialog
+        super.execute(); // Saves the warehouse and closes the dialog (if not validation errors)
+        if (!getErrors().contains() &&  name.equals("NEW WAREHOUSE")) {
+            addWarning("warehouse_created_using_default_name"); // Message in i18n messages file  
+        }
+    }
+
+}</code></pre>
+    </div>
     <div class="wiki" style="display: block;">También una lógica muy simple, si
       detecta que hemos grabado usando el valor por defecto para el nombre,
       visualiza un mensaje de advertencia.</div>
