@@ -10114,20 +10114,20 @@ public class SaveNewWarehouseFromReferenceAction extends SaveNewAction {
     public void execute() throws Exception {
         String name = getView().getValueString("name"); // Get name before closing the dialog
         super.execute(); // Saves the warehouse and closes the dialog (if not validation errors)
-        if (!getErrors().contains() &&  name.equals("NEW WAREHOUSE")) {
+        if (!getErrors().contains() && name.equals("NEW WAREHOUSE")) {
             addWarning("warehouse_created_using_default_name"); // Message in i18n messages file  
         }
     }
 
 }</code></pre>
     </div>
-    <div class="wiki" style="display: block;">También una lógica muy simple, si
-      detecta que hemos grabado usando el valor por defecto para el nombre,
-      visualiza un mensaje de advertencia.</div>
+    <div class="wiki" style="display: block;">Es también una lógica muy simple. Si detecta que 
+      hemos grabado usando el valor por defecto para el nombre, visualiza un mensaje
+      de advertencia.</div>
     <div class="wiki" style="display: block;">No es necesario sobreescribir las dos, 
       podemos implementar solo <i>new</i> o solo <i>saveNew</i>. También podemos
       sobreescribir la acción <i>cancel</i> si lo necesitamos. Además, si ponemos acciones 
-      extra en nuestro controlador <i>AlmacenCreation</i>, estas acciones apareceran 
+      extra en nuestro controlador <i>AlmacenCreation</i>, estas acciones aparecerán 
       como botones adicionales en el diálogo de creación.
       </div>
     <div class="wiki" style="display: block;"> 
