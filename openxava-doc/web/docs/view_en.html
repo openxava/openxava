@@ -9590,7 +9590,7 @@ class="sy0">;</span> <span class="co1">// Adding a filter to the list</span>
       When the user clicks in the lantern he go to a list where he can filter,
       order, etc, and mark the wished object. You can use <em>@SearchAction</em>
       to overwrite completely this behavior, though if you only want to set a
-      custom condition for the list, then using <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/SearchListCondition.html"
+      custom condition for the list, then using <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/SearchListCondition.html"
           rel="nofollow">@SearchListCondition</a></em> is faster. Since <em>v7.4</em>,
       the condition supports the use of <em>${this.}</em> to refer to a
       property of the entity itself. The above example can be rewritten as
@@ -9782,24 +9782,24 @@ class="sy0">;</span> <span class="co1">// Adding a filter to the list</span>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5"><span class="kw2">private</span> int code<span class="sy0">;</span><br><br>@ManyToOne<span
-class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span class="br0">)</span> <br>@SearchListCondition<span
-class="br0">(</span><span class="st0">"${number} &lt; 3"</span><span class="br0">)</span><br>@SearchListCondition<span
-class="br0">(</span><span class="st0">"${number} &lt; ${this.code}"</span><span
+</style><pre class="java5"><span class="kw2">private</span> int code<span class="sy0">;</span><br><br>@ManyToOne<span
+class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span class="br0">)</span> <br>@SearchListCondition<span
+class="br0">(</span><span class="st0">"${number} &lt; 3"</span><span class="br0">)</span><br>@SearchListCondition<span
+class="br0">(</span><span class="st0">"${number} &lt; ${this.code}"</span><span
 class="br0">, forViews="SearchListCondition")</span> <span class="co1">// ${this.} New in v7.4</span>
 <span class="kw2">private</span> Seller seller<span class="sy0">;</span>
 &nbsp;</pre>
       Note as you do not need to create any action.<br>
-      <h3 id="toc19"><a name="View-Reference customization-Custom creation action"></a><a
+      <h3 id="toc19"><a name="View-Reference customization-Custom creation action"></a><a
           name="no-create"></a>Custom creation action</h3>
-      If you do not use <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoCreate.html"
+      If you do not use <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoCreate.html"
           rel="nofollow">@NoCreate</a></em> annotation the user will have a link
       to create a new object. By default when a user clicks on this link, a
       default view of the referenced object is displayed and the final user can
       type values and click a button to create it. If you want to define your
       custom actions (among them your create custom action) in the form used
       when creating a new object, you must have a controller named as component
-      but with the suffix Creation. If OpenXava see this controller it uses it
+      but with the suffix Creation. If OpenXava sees this controller it uses it
       instead of the default one to allow creating a new object from a
       reference. For example, you can write in your <em>controllers.xml</em>:<br>
       <style type="text/css"><!--
@@ -9829,27 +9829,63 @@ class="br0">, forViews="SearchListCondition")</span> <span class="co1">// ${this
 <span class="sc-1">by default for create from reference, instead of NewCreation.</span>
 <span class="sc-1">Action 'new' is executed automatically.</span>
 <span class="sc-1">--&gt;</span>
-<span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+<span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"WarehouseCreation"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+ <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
 class="st0">"NewCreation"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+ <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
 class="st0">"new"</span> <span class="re0">hidden</span>=<span class="st0">"true"</span></span>
-<span class="sc3"> <span class="re0">class</span>=<span class="st0">"org.openxava.test.actions.CreateNewWarehouseFromReferenceAction"</span><span
+<span class="sc3"> <span class="re0">class</span>=<span class="st0">"org.openxava.test.actions.CreateNewWarehouseFromReferenceAction"</span><span
 class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span
+ <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span
 class="st0">"xava_view"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- Not needed since v4m2 --&gt;</span>
  <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span></pre>
       In this case when the user clicks on the 'create' link, the user is
       directed to the default view of <em>Warehouse</em> and the actions in <em>WarehouseCreation</em>
-      will be allowed.<br>
-      If you have an action called <em>'new'</em>, it will be executed
-      automatically before all. It can be used to initialize the view used to
-      create a new object.<br>
-      <h3 id="toc20"><a name="View-Reference customization-Custom modification action"></a><a
+      will be allowed. We define it as hidden, so it's not shown as a button to the user. Here's an example implementation:</div>
+     <div class="wiki" style="display: block;">
+       <pre><code class="java">package org.openxava.test.actions;
+
+import org.openxava.actions.*;
+
+public class CreateNewWarehouseFromReferenceAction extends NewAction {
+
+    @Override
+    public void execute() throws Exception {		
+        super.execute();
+        getView().setValue("name", "NEW WAREHOUSE");
+    }
+
+}</code></pre>  
+     </div>
+     <div class="wiki" style="display: block;">In this case, it sets a default value for the name, but we can do more complex things like hiding fields, using a different view for the dialog, etc. Note that it doesn't call <i>showDialog()</i> because when the <i>new</i> action is executed, OpenXava has already opened the dialog.</div>
+     <div class="wiki" style="display: block;">In our example we have also overridden the <i>saveNew</i> action, which is executed when the <i>Create</i> button in the dialog is clicked. Here's an example implementation:</div>
+     <div class="wiki" style="display: block;">
+       <pre><code class="java">package org.openxava.test.actions;
+
+import org.openxava.actions.*;
+
+public class SaveNewWarehouseFromReferenceAction extends SaveNewAction {
+	
+    @Override
+    public void execute() throws Exception {
+        String name = getView().getValueString("name"); // Get name before closing the dialog
+        super.execute(); // Saves the warehouse and closes the dialog (if not validation errors)
+        if (!getErrors().contains() && name.equals("NEW WAREHOUSE")) {
+            addWarning("warehouse_created_using_default_name"); // Message in i18n messages file  
+        }
+    }
+
+}</code></pre>
+     </div>
+     <div class="wiki" style="display: block;">This is also a very simple logic. If it detects that we have saved using the default value for the name, it displays a warning message.</div>
+     <div class="wiki" style="display: block;">It's not necessary to override both actions, we can implement only <i>new</i> or only <i>saveNew</i>. We can also override the <i>cancel</i> action if needed. Additionally, if we add extra actions to our <i>WarehouseCreation</i> controller, these actions will appear as additional buttons in the creation dialog.
+       </div>
+     <div class="wiki" style="display: block;">
+      <h3 id="toc20"><a name="View-Reference customization-Custom modification action"></a><a
           name="no-modify"></a>Custom modification action</h3>
-      If you do not use <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoModify.html"
+      If you do not use <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoModify.html"
           rel="nofollow">@NoModify</a></em> the user will have a link to modify
       the current referenced object. By default when a user clicks on this link,
       a default view of the referenced object is displayed and the final user
@@ -9886,27 +9922,27 @@ class="st0">"xava_view"</span><span class="re2">/&gt;</span></span> <span class=
 <span class="sc-1">by default for modifying from reference, instead of Modification.</span>
 <span class="sc-1">The action 'search' is executed automatically.</span>
 <span class="sc-1">--&gt;</span>
-<span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+<span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"WarehouseModification"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
+ <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
 class="st0">"Modification"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
+ <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
 class="st0">"search"</span> <span class="re0">hidden</span>=<span class="st0">"true"</span></span>
-<span class="sc3"> <span class="re0">class</span>=<span class="st0">"org.openxava.test.actions.ModifyWarehouseFromReferenceAction"</span><span
+<span class="sc3"> <span class="re0">class</span>=<span class="st0">"org.openxava.test.actions.ModifyWarehouseFromReferenceAction"</span><span
 class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span
+ <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span
 class="st0">"xava_view"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- Not needed since v4m2 --&gt;</span>
  <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span></pre>
       In this case when the user clicks on the 'modify' link, the user is
       directed to the default view of <em>Warehouse</em> and the actions in <em>WarehouseModification</em>
       will be allowed.<br>
-      If you have an action called <em>'search'</em>, it will be executed
-      automatically before all. It is used to initialize the view with the
-      object to modify.<br>
-      <h3 id="toc21"><a name="View-Reference customization-Descriptions list (combos)"></a><a
+       If you have an action called <em>'search'</em>, it will be executed
+       automatically before all. It is used to initialize the view with the
+       object to modify.<br>
+      <h3 id="toc21"><a name="View-Reference customization-Descriptions list (combos)"></a><a
           name="descriptions-list"></a>Descriptions list (combos)</h3>
-      With <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/DescriptionsList.html"
+      With <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/DescriptionsList.html"
           rel="nofollow">@DescriptionsList</a></em> you can instruct OpenXava to
       visualize references as a descriptions list (actually a combo). This can
       be useful, if there are only a few elements and these elements have a
