@@ -1,6 +1,26 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.5.2 (2025-5-23)
+--------------------------
+- PDFBox upgraded to 3.0.5.
+- Embedded Tomcat used in development upgraded to 9.0.105.
+- Driver version in doc/new projects upgraded for MySQL, Oracle and Firebird. 
+- Custom creation action documentation for references improved with more code examples and explanations.
+- Added explicit sections for condition, many-to-many and calculated collections in the model documentation.
+- The view documentation specifies which annotations and features apply to calculated collections.
+- Made some improvements to the documentation of collections with @Condition. 
+- Fix: Not applicable "You will lose all changes" on exit if you used a dialog for a collection element.
+- Fix: "You will lose all changes" warning not shown on exit if data was modified before opening a dialog. 
+- Fix: java.util.Date with @DateTime or @Stereotype("DATETIME") formats wrong in Chinese with Java 21.
+- Fix: Unable sometimes to parse LocalTime in English with Java 21 depending on the server locale.
+- Fix: Incorrect format sometimes for LocalTime in Chinese with Java 21 depending on the server locale.
+- Fix: LocalTime field in Chinese locale corrupts data when focus is lost.
+- Fix: LocalTime popup breaks the time value in Chinese.
+- Fix: LocalTime in Chinese parses AM times as PM.
+- Fix: Odd characters and incorrect attribute values in XML files of Project Management Spanish archetype.
+- Fix: Total is not aligned in @ElementCollection when the column was resized.
+
 OpenXava 7.5.1 (2025-5-2)
 -------------------------
 - New look & feel for column customization icons when column resizing is enabled.
