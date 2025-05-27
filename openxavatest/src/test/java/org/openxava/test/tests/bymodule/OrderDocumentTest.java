@@ -13,8 +13,7 @@ public class OrderDocumentTest extends ModuleTestBase {
 		super(testName, "OrderDocument");		
 	}
 			
-	// tmr Cambiar nombre del test
-	public void testCalculationPropertyInReferenceInsideHiddenSection() throws Exception {
+	public void testCalculationPropertyInReferenceInsideHiddenSection_notLoseChangesMessageWhenEditableTotalsAndSum() throws Exception {
 		getWebClient().getOptions().setCssEnabled(true);
 		
 		// Configure MessageConfirmHandler to detect confirmation dialogs
