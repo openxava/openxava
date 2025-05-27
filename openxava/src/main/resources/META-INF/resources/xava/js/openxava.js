@@ -193,7 +193,10 @@ openxava.refreshPage = function(result) {
 	openxava.hasOnSelectAll(result.application, result.module);
 	openxava.showMessages(result); 
 	openxava.resetRequesting(result);
+	// TMR ME QUEDÉ POR AQUÍ. SE CAMBIA JUSTO ABAJO
+	console.log("openxava.refreshPage() openxava.dataChanged>" + openxava.dataChanged); // tmr
 	openxava.propertiesUsedInCalculationsChange(result);
+	console.log("openxava.refreshPage() openxava.dataChanged<" + openxava.dataChanged); // tmr
 	$('#xava_loading').hide();
 	$('#xava_loading2').hide();
 	if (result.hasPostJS) {
