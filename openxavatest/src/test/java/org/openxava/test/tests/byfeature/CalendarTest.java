@@ -20,21 +20,12 @@ public class CalendarTest extends WebDriverTestBase {
 		super(testName);
 	}
 	
-	@Override
-	protected boolean isHeadless() { // tmr
-		return false;
-	}
-	
-	@Override
-	protected void tearDown() throws Exception { // tmr
-	}
-
 	public void testCalendar() throws Exception {
     	assertErrorsHandlingCorrectly();
     	assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate_dragAndDropLocalDate(); 
     	assertMultipleDatesPropertiesAndSelectDateToShow();
     	assertFilterPerformance();
-    	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime_saveStateWhenClickDates(); // TMR FALLA ME QUEDÉ POR AQUÍ: PUEDE QUE FALLA POR NO BORRAR EL .openxava YA HE PASADO LA SUITE MENOS 2 TESTS
+    	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime_saveStateWhenClickDates(); 
     	assertAnyNameAsDateProperty();
     	assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear();
     	assertDropDownVisible_DropDownOptionSavePrefDate(); 

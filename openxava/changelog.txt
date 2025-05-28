@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: "You will lose all changes" not applicable when using summation and editable totals in a collection.
+
 OpenXava 7.5.2 (2025-5-23)
 --------------------------
 - PDFBox upgraded to 3.0.5.
