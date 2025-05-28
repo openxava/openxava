@@ -418,14 +418,17 @@ openxava.setStrokeActions = function(strokeActions) {
 }
 
 openxava.propertiesUsedInCalculationsChange = function(result) { 
-	if (result.propertiesUsedInCalculations != null) {
+	var originalDataChanged = openxava.dataChanged; 
+	if (result.propertiesUsedInCalculations != null) {		
 		for (var i=0; i<result.propertiesUsedInCalculations.length; i++) {
 			$('#' + openxava.decorateId(result.application, result.module, result.propertiesUsedInCalculations[i])).change();
 			if (/_SUM_$/.test(result.propertiesUsedInCalculations[i])) {
+				openxava.dataChanged = originalDataChanged;
 				openxava.executeAction(result.application, result.module, false, false, "CollectionTotals.save", "sumProperty=" + result.propertiesUsedInCalculations[i]);
 			}
 		}
 	}	
+	
 }
 
 openxava.showMessages = function(result) { 
