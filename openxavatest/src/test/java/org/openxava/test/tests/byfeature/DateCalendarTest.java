@@ -56,13 +56,14 @@ public class DateCalendarTest extends WebDriverTestBase {
 	}
 	
 	public void testLocalTimeAndLocalDateTimeSpanishUSA() throws Exception {
+		// TMR ME QUEDÉ POR AQUÍ: YA FUNCIONA CON JAVA 8
 		// It fails with Java 8 and 21: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff8080819581a7c6019594d82bf10022
 		if (isWindows7()) setHeadless(false); // In Windows 7 with headless the language is not changed to "es-US" maybe because a bug of Chrome version in Windows 7
 		changeLanguage("es-US");
 		goModule("Event");
 		execute("List.viewDetail", "row=0");
-		assertValue("endTime", "1:00 PM");
-		assertValue("lastChangeTime", "30/9/2023 3:21 PM");
+		assertValue("endTime", "1:00 PM"); // tmr Además de ser AM en modo lista sacaba p.m.
+		assertValue("lastChangeTime", "30/9/2023 3:21 PM"); // tmr Otro bug, era 9/30
 		execute("CRUD.save");
 		assertNoErrors(); 
 	} 

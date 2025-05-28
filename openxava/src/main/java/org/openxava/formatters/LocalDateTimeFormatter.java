@@ -88,6 +88,7 @@ public class LocalDateTimeFormatter extends DateTimeBaseFormatter implements IFo
         } else {
         	formattedTimeAM = formattedTimePM.replace("p", "a"); 
         }
+        /*tmr
 		if (parsing) {
 			if (XSystem.isJava17orBetter() && isZhFormat()) return date.replace("PM", "p.\u00a0m.").replace("AM", "a.\u00a0m.");
 			if (!XSystem.isJava17orBetter() && XSystem.isJava9orBetter()) return date.replace("PM", formattedTimePM).replace("AM", formattedTimeAM);
@@ -99,6 +100,15 @@ public class LocalDateTimeFormatter extends DateTimeBaseFormatter implements IFo
 			}
 		}
 		return date;
+		*/
+        // tmr ini
+		if (parsing) {
+			return date.replace("PM", formattedTimePM).replace("AM", formattedTimeAM);
+		} 
+		else {
+			return date.replace(formattedTimePM, "PM").replace(formattedTimeAM, "AM");
+		}        
+        // tmr fin
 	}
 	
 }

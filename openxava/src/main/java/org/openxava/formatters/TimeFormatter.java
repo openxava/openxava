@@ -23,8 +23,15 @@ public class TimeFormatter implements IFormatter {
 
 	public String format(HttpServletRequest request, Object time) {
 		if (time == null) return "";
-		if (time instanceof String || time instanceof Number) return time.toString();		
-		return reformatTime(getTimeFormat().format((LocalTime) time));
+		if (time instanceof String || time instanceof Number) return time.toString();
+		// tmr ini
+		String stime = getTimeFormat().format((LocalTime) time);
+		System.out.println("[TimeFormatter.format] stime=" + stime); // tmr
+		String result = reformatTime(stime);
+		System.out.println("[TimeFormatter.format] result=" + result); // tmr
+		return result;
+		// tmr fin
+		// tmr return reformatTime(getTimeFormat().format((LocalTime) time));
 	}
 	
 	public Object parse(HttpServletRequest request, String string) throws ParseException {
@@ -70,15 +77,19 @@ public class TimeFormatter implements IFormatter {
         	//formattedTimeAM = formattedTimePM.replace("\u0070", "\u0061");
         	formattedTimeAM = formattedTimePM.replace("p", "a"); 
         }
+        System.out.println("[TimeFormatter.reformatTime] formattedTimeAM=" + formattedTimeAM); // tmr
+        System.out.println("[TimeFormatter.reformatTime] formattedTimePM=" + formattedTimePM); // tmr
 		if (parsing) {
 	        String unicode = toUnicodeString(formattedTimePM);
 	        boolean hasNonBreakingSpace = unicode.contains("\\u00A0");
 			if (hasNonBreakingSpace) return date.replace("PM", "p.\u00a0m.").replace("AM", "a.\u00a0m.");
-			if (XSystem.isJava9orBetter()) return date.replace("PM", formattedTimePM).replace("AM", formattedTimeAM);
+			// tmr if (XSystem.isJava9orBetter()) return date.replace("PM", formattedTimePM).replace("AM", formattedTimeAM);
+			return date.replace("PM", formattedTimePM).replace("AM", formattedTimeAM); // tmr
 		} else {
-			if (XSystem.isJava9orBetter()) return date.replace(formattedTimePM, "PM").replace(formattedTimeAM, "AM");
+			// tmr if (XSystem.isJava9orBetter()) return date.replace(formattedTimePM, "PM").replace(formattedTimeAM, "AM");
+			return date.replace(formattedTimePM, "PM").replace(formattedTimeAM, "AM"); // tmr
 		}
-		return date;
+		// tmr return date;
 	}
 	
     private static String toUnicodeString(String text) {

@@ -336,6 +336,7 @@ public class Dates {
 			if (locale.toString().equalsIgnoreCase("zh_CN") || locale.toString().equalsIgnoreCase("nl")) fourDigitsForYear = true;
 			boolean java9 = XSystem.isJava9orBetter();
 			if (java9) pattern = pattern.replace(", ", " ").replace((char) 8239, (char) 32);
+			if (!java9 && locale.toString().equals("es_US")) pattern = pattern.replace("M/d", "d/M"); 
 			if (fourDigitsForYear && !pattern.contains("yyyy")) pattern = pattern.replace("yy", "yyyy");
 			SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 			if (java9) {
