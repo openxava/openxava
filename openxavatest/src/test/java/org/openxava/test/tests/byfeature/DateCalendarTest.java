@@ -61,8 +61,8 @@ public class DateCalendarTest extends WebDriverTestBase {
 		changeLanguage("es-US");
 		goModule("Event");
 		execute("List.viewDetail", "row=0");
-		assertValue("endTime", "1:00 PM");
-		assertValue("lastChangeTime", "30/9/2023 3:21 PM");
+		assertValue("endTime", "1:00 PM"); 
+		assertValue("lastChangeTime", "30/9/2023 3:21 PM"); 
 		execute("CRUD.save");
 		assertNoErrors(); 
 	} 

@@ -23,7 +23,7 @@ public class TimeFormatter implements IFormatter {
 
 	public String format(HttpServletRequest request, Object time) {
 		if (time == null) return "";
-		if (time instanceof String || time instanceof Number) return time.toString();		
+		if (time instanceof String || time instanceof Number) return time.toString();
 		return reformatTime(getTimeFormat().format((LocalTime) time));
 	}
 	
@@ -74,11 +74,10 @@ public class TimeFormatter implements IFormatter {
 	        String unicode = toUnicodeString(formattedTimePM);
 	        boolean hasNonBreakingSpace = unicode.contains("\\u00A0");
 			if (hasNonBreakingSpace) return date.replace("PM", "p.\u00a0m.").replace("AM", "a.\u00a0m.");
-			if (XSystem.isJava9orBetter()) return date.replace("PM", formattedTimePM).replace("AM", formattedTimeAM);
+			return date.replace("PM", formattedTimePM).replace("AM", formattedTimeAM); 
 		} else {
-			if (XSystem.isJava9orBetter()) return date.replace(formattedTimePM, "PM").replace(formattedTimeAM, "AM");
+			return date.replace(formattedTimePM, "PM").replace(formattedTimeAM, "AM"); 
 		}
-		return date;
 	}
 	
     private static String toUnicodeString(String text) {
