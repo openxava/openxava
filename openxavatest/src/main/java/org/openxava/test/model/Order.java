@@ -14,9 +14,8 @@ import org.openxava.test.actions.*;
 @Entity
 @Table(name="TOrder")
 @View(members=
-	// tmr Debería actualizar la documentación de view, explicando este caso, el de la coma
-	"year, number, date, delivered," + // Finish with comma instead of semicolon to test a case
-	"customer;" +
+	"year, number, date, delivered," + // Finish with comma instead of semicolon and... 
+	"customer;" + // ...followed by a reference with frame to test a case
 	"details;" +
 	"amount;" +
 	"remarks" 

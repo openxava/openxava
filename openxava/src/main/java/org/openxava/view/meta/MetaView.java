@@ -180,7 +180,7 @@ public class MetaView extends MetaElement implements Cloneable {
 	public Collection getMetaMembers() throws XavaException {
 		if (metaMembers == null) {
 			metaMembers = new ArrayList();
-			Iterator it = getMembersNames().iterator();		
+			Iterator it = getMembersNames().iterator();	
 			while (it.hasNext()) {
 				String name = (String) it.next();
 				if (name.startsWith("__GROUP__")) {
@@ -210,6 +210,7 @@ public class MetaView extends MetaElement implements Cloneable {
 						member = getMetaViewProperty(name);
 					}
 					member = modify(member);
+					addExtraSeparatorIfNeeded((List)metaMembers, member);
 					metaMembers.add(member);					
 				}
 			}
@@ -223,6 +224,31 @@ public class MetaView extends MetaElement implements Cloneable {
 			countDuplicatedProperties = 1 ;
 		}
 		return metaMembers;
+	}
+
+	private void addExtraSeparatorIfNeeded(List<MetaMember> metaMembers, MetaMember member) {
+		// We add an extra separtor if we find a reference with frame after a simple field
+		if (metaMembers.isEmpty()) return;
+		if (!(member instanceof MetaReference)) return;
+		Object lastMember = XCollections.last(metaMembers);
+		if (lastMember == PropertiesSeparator.INSTANCE) return;
+		if (!isDisplayedAsSimpleField(lastMember)) return;		
+		MetaReference ref = (MetaReference) member;
+		MetaReferenceView refView = getMetaReferenceView(ref);
+		if (refView != null) {
+			if (refView.getMetaDescriptionsList() != null) return;
+			if (!refView.isFrame()) return;
+		}
+		metaMembers.add(PropertiesSeparator.INSTANCE);
+	}
+
+	private boolean isDisplayedAsSimpleField(Object member) {
+		if (member instanceof MetaProperty) return true;
+		if (member instanceof MetaReference) {
+			MetaReference ref = (MetaReference) member;
+			return getMetaDescriptionList(ref) != null;
+		}
+		return false;
 	}
 
 	private MetaMember modify(MetaMember member) throws XavaException {
