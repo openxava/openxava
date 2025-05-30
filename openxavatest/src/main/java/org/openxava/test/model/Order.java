@@ -14,11 +14,11 @@ import org.openxava.test.actions.*;
 @Entity
 @Table(name="TOrder")
 @View(members=
-	"year, number, date, delivered;" +
-	"customer;" +
+	"year, number, date, delivered," + // Finish with comma instead of semicolon and... 
+	"customer;" + // ...followed by a reference with frame to test a case
 	"details;" +
 	"amount;" +
-	"remarks"
+	"remarks" 
 )
 @View(name="ProductInDetailAsDescriptionsList", extendsView = "DEFAULT")
 @Tab(name="WithSeller", 
