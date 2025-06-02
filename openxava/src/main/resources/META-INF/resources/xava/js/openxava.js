@@ -422,8 +422,8 @@ openxava.propertiesUsedInCalculationsChange = function(result) {
 	if (result.propertiesUsedInCalculations != null) {		
 		for (var i=0; i<result.propertiesUsedInCalculations.length; i++) {
 			$('#' + openxava.decorateId(result.application, result.module, result.propertiesUsedInCalculations[i])).change();
+			openxava.dataChanged = originalDataChanged;
 			if (/_SUM_$/.test(result.propertiesUsedInCalculations[i])) {
-				openxava.dataChanged = originalDataChanged;
 				openxava.executeAction(result.application, result.module, false, false, "CollectionTotals.save", "sumProperty=" + result.propertiesUsedInCalculations[i]);
 			}
 		}
