@@ -1270,6 +1270,11 @@ tr.ox-list-odd, tr.ox-list-pair {
 	padding-bottom: 3px;
 }
 
+.ox-list-default-column-width {
+	width: 100%;
+	max-width: 700px;
+}
+
 .ox-cut-row {
 	opacity: 0.3;
 }

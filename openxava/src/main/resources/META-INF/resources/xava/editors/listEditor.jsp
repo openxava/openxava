@@ -239,7 +239,8 @@ while (it.hasNext()) {
 		boolean isTimestamp = property.isCompatibleWith(java.sql.Timestamp.class); 
 		String editorURLDescriptionsList = WebEditors.getEditorURLDescriptionsList(tab.getTabName(), tab.getModelName(), Ids.decorate(request, property.getQualifiedName()), iConditionValues, prefix, property.getQualifiedName(), property.getName());
 		int maxLength = 100; 		
-		int length = Math.min(isString?property.getSize()*4/5:property.getSize(), 20);
+		// tmr int length = Math.min(isString?property.getSize()*4/5:property.getSize(), 20);
+		int length = 5; // tmr Experimentando
 		String value= conditionValues==null?"":conditionValues[iConditionValues];
 		String valueTo= conditionValuesTo==null?"":conditionValuesTo[iConditionValues];
 		String comparator = conditionComparators==null?"":Strings.change(conditionComparators[iConditionValues], "=", Tab.EQ_COMPARATOR);
@@ -316,7 +317,6 @@ while (it.hasNext()) {
 <jsp:include page="<%=urlComparatorsCombo%>" />
 <br/> 
 </span>
-<%-- WARNING: IF YOU CHANGE THE NEXT CODE PASS THE MANUAL TEST ON DateCalendarTest.txt --%> 
 <nobr <%=classConditionValue%> <%=attrConditionValue%>>
 <input id="<%=idConditionValue%>" name="<%=idConditionValue%>" class="<%=style.getEditor()%> <%=dateDisabled%> <%=styleConditionValue%>" type="text"
 	maxlength="<%=maxLength%>" size="<%=length%>" value="<%=value%>" placeholder="<%=labelFrom%>"
@@ -462,7 +462,7 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 		String align =p.isNumber() && !p.hasValidValues() && !tab.isFromCollection(p)?"ox-text-align-right":""; 
 		int columnWidth = tab.getColumnWidth(c);		 		
 		String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
-		String widthClass = width.equals("")?"ox-width-100":"";  
+		String widthClass = width.equals("")?"ox-list-default-column-width":"";  // tmr También en calculated collections
 		String fvalue = null;
 		Object title = null;
 		if (tab.isFromCollection(p)) {
