@@ -239,8 +239,7 @@ while (it.hasNext()) {
 		boolean isTimestamp = property.isCompatibleWith(java.sql.Timestamp.class); 
 		String editorURLDescriptionsList = WebEditors.getEditorURLDescriptionsList(tab.getTabName(), tab.getModelName(), Ids.decorate(request, property.getQualifiedName()), iConditionValues, prefix, property.getQualifiedName(), property.getName());
 		int maxLength = 100; 		
-		// tmr int length = Math.min(isString?property.getSize()*4/5:property.getSize(), 20);
-		int length = 5; // tmr Experimentando
+		int length = 5; 
 		String value= conditionValues==null?"":conditionValues[iConditionValues];
 		String valueTo= conditionValuesTo==null?"":conditionValuesTo[iConditionValues];
 		String comparator = conditionComparators==null?"":Strings.change(conditionComparators[iConditionValues], "=", Tab.EQ_COMPARATOR);
@@ -462,7 +461,7 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 		String align =p.isNumber() && !p.hasValidValues() && !tab.isFromCollection(p)?"ox-text-align-right":""; 
 		int columnWidth = tab.getColumnWidth(c);		 		
 		String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
-		String widthClass = width.equals("")?"ox-list-default-column-width":"";  // tmr También en calculated collections
+		String widthClass = width.equals("")?"ox-list-default-column-width":"";  // tmr También en calculated collections ME QUEDÉ POR AQUÍ
 		String fvalue = null;
 		Object title = null;
 		if (tab.isFromCollection(p)) {

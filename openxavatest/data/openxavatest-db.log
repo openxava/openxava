@@ -1,6 +1,2 @@
-/*C6*/SET SCHEMA PUBLIC
+/*C4*/SET SCHEMA PUBLIC
 DISCONNECT
-/*C7*/SET SCHEMA XAVATEST
-DELETE FROM BLOGCOMMENT WHERE ID='4028819621aae8160121aae8e5be0003'
-INSERT INTO BLOGCOMMENT VALUES('Blog','4028819621aae8160121aae8e5be0003','La que despu\u00e9s se llamar\u00eda \u00abPrimera Parte\u00bb originalmente se llam\u00f3 El Ingenioso Hidalgo don Quijote de la Mancha y consta de 52 cap\u00edtulos, separados a su vez en cuatro partes de 8, 6, 14 y 24 cap\u00edtulos, respectivamente. Empieza con un pr\u00f3logo en el que Cervantes se burla de la erudici\u00f3n pedantesca y con unos poemas c\u00f3micos, a manera de preliminares, compuestos en alabanza de la obra por el propio autor.','2009-06-04 00:00:00.000000','QUIXOTE: THE BEST BOOK',NULL)
-COMMIT

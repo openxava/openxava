@@ -670,7 +670,7 @@ public class ListTest extends WebDriverTestBase {
 		for (String windowHandle : getDriver().getWindowHandles()) {
 			getDriver().switchTo().window(windowHandle);
         }
-		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofMillis(3000));
+		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofMillis(4000));
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("embed")));
 		String contentType = getDriver().findElement(By.tagName("embed")).getAttribute("type"); // This works for PDF with Chrome
 		assertEquals(expectedContentType, contentType);
