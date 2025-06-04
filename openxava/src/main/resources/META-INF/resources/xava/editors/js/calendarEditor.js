@@ -50,6 +50,7 @@ openxava.addEditorInitFunction(function() {
         var formattedDate = "";
 		
 		const savedState = loadCalendarState(application, module);
+		// TMR ME QUEDÉ POR AQUÍ:
         const initialDate = savedState ? savedState.defaultDate : new Date().toISOString().split('T')[0];
         const initialView = savedState ? savedState.defaultView : 'dayGridMonth';
         calendarEditor.outApplication = application;
@@ -64,6 +65,8 @@ openxava.addEditorInitFunction(function() {
 		const initialDateYear = dateParts[0];
 		const initialDateMonth = parseInt(dateParts[1]) - 1;
 		const initialDateMonthYear = initialDateMonth + "_" + initialDateYear;
+		console.log("[calendarEditor.js] initialDate=" + initialDate); // tmr
+		console.log("[calendarEditor.js] initialDateMonth=" + initialDateMonth); // tmr
 		
 		Calendar.getEvents(application, module, initialDateMonthYear, selectedValue, {
 			callback: function(events) {
