@@ -709,9 +709,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 		return friendViewGetDefaultColumnWidth(p);
 	} 
 	
-	public static int friendViewGetDefaultColumnWidth(MetaProperty p) { // tmr ¿Eliminar?
-		// tmr return p.getSize() > 100?700:-1; // 700 = 7 pixels * 100 character
-		return -1; // tmr
+	public static int friendViewGetDefaultColumnWidth(MetaProperty p) { 
+		// return p.getSize() > 100?700:-1; // 700 = 7 pixels * 100 character
+		return -1; 
 	}
 
 	public void setColumnWidth(int columnIndex, int width) {
