@@ -21,7 +21,7 @@ public class ListTest extends WebDriverTestBase {
 	}
 	
 	private final static String ACTION_PREFIX = "action";
-		
+	
 	public void testListAndCollection() throws Exception {
 		goModule("Author");
 		assertShowHideFilterInList();
@@ -32,7 +32,8 @@ public class ListTest extends WebDriverTestBase {
 
 		goModule("Carrier");
 		assertEnableDisableCustomizeList(); 
-		assertCustomizeCollection(); 
+		assertCustomizeCollection();
+		assertDefaultColumnWidthsForCalculatedCollection();
 
 		goModule("CustomerWithSection");
 		assertCustomizeList();
@@ -42,7 +43,7 @@ public class ListTest extends WebDriverTestBase {
 		assertRemoveSeveralColumns();
 
 		goModule("Blog");
-		assertDefaultColumnWidths();
+		assertDefaultColumnWidthsForList();
 	}
 	
 	public void testListFormatIsSelectable() throws Exception { 
@@ -52,8 +53,28 @@ public class ListTest extends WebDriverTestBase {
 		goModule("Subfamily");
 		assertTrue(hasClockIcon());
 	}
+	
+	private void assertDefaultColumnWidthsForCalculatedCollection() throws Exception {
+		assertValue("number", "1"); // To verify we are in the first record before do the above testing
+		
+		// The column 2 has long content, so the limit is 700
+		WebElement col2 = getDriver().findElement(By.id("ox_openxavatest_Carrier__fellowCarriersCalculated_col2"));
+		int col2Width = col2.getSize().getWidth();
+		assertEquals("Column 2 width should be 700px", 700, col2Width);
+		
+		// Now the column 2 has few content so the width adapt to the content 
+		execute("Navigation.next");
+		assertValue("number", "2");
+		col2 = getDriver().findElement(By.id("ox_openxavatest_Carrier__fellowCarriersCalculated_col2"));
+		col2Width = col2.getSize().getWidth();
+		assertEquals("Column 2 width should be 130px", 130, col2Width); // This is for one Remarks with "no es muy amigable",
+																		// and that other empty, if this value change maybe
+																		// we should change the 130, but verifying that
+																		// the column width match the content
+	}
 
-	private void assertDefaultColumnWidths() throws Exception {
+
+	private void assertDefaultColumnWidthsForList() throws Exception {
 		// Get the column elements
 		WebElement col0 = getDriver().findElement(By.id("ox_openxavatest_Blog__list_col0"));
 		WebElement col2 = getDriver().findElement(By.id("ox_openxavatest_Blog__list_col2"));

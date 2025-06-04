@@ -461,7 +461,7 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 		String align =p.isNumber() && !p.hasValidValues() && !tab.isFromCollection(p)?"ox-text-align-right":""; 
 		int columnWidth = tab.getColumnWidth(c);		 		
 		String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
-		String widthClass = width.equals("")?"ox-list-default-column-width":"";  
+		String widthClass = width.equals("")?"ox-list-default-column-width":"";
 		String fvalue = null;
 		Object title = null;
 		if (tab.isFromCollection(p)) {

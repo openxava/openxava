@@ -51,9 +51,10 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 	String label = p.getQualifiedLabel(request);
 	int columnWidth = subview.getCollectionColumnWidth(columnIndex);
 	String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
+	String widthClass = width.equals("")?"ox-list-default-column-width":"";
 %>
 	<th class="ox-list-header ox-padding-right-0">
-		<div id="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):(""))%>" <%=width%>>
+		<div id="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):(""))%> <%=widthClass%>" <%=width%>>
 		<%if (singleLineHeader && resizeColumns) {%><nobr><%}%>
 		<%=label%>&nbsp;
 		<%if (singleLineHeader && resizeColumns) {%></nobr><%}%>
@@ -156,7 +157,8 @@ for (int f=0; itAggregates.hasNext(); f++) {
 		MetaProperty p = (MetaProperty) it.next();
 		String align =p.isNumber() && !p.hasValidValues()?"ox-text-align-right":"";
 		int columnWidth = subview.getCollectionColumnWidth(columnIndex);
-		String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth; 
+		String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
+		String widthClass = width.equals("")?"ox-list-default-column-width":""; 
 		String fvalue = null;
 		Object value = null;
 		String propertyName = p.getName();
@@ -166,7 +168,7 @@ for (int f=0; itAggregates.hasNext(); f++) {
 %>
 	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell">
 	<xava:link action="<%=lineAction%>" argv='<%="row="+f + ",viewObject="+viewName%>'>
-	<div title="<%=title%>" class="<xava:id name='tipable'/> <xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" <%=width%>>
+	<div title="<%=title%>" class="<xava:id name='tipable'/> <xava:id name='<%=idCollection%>'/>_col<%=columnIndex%> <%=widthClass%>" <%=width%>>
 	<%if (resizeColumns) {%><nobr><%}%>
 	<%=fvalue%>&nbsp; 
 	<%if (resizeColumns) {%></nobr><%}%>
