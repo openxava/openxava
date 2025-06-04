@@ -2,7 +2,6 @@ package org.openxava.test.tests.bymodule;
 
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
-import org.openxava.tests.*;
 
 /**
  * 
@@ -37,7 +36,11 @@ abstract public class CarrierTestBase extends CustomizeListTestBase {
 		c2.setWarehouse(wh);
 		c2.setNumber(2);
 		c2.setName("DOS");	
-		c2.setRemarks("compañro de uno, de tres y de cuatro. Pero, por ahora, no lo es de cinco");
+		c2.setRemarks( // A long remark to test a case
+			"Compañero de uno, de tres y de cuatro. Pero, por ahora, no lo es de cinco. " +
+			"Aunque es el DOS es tan importante como el UNO. Tiene varios comañeros y " +
+			"trabaja bien en equipo. Con capacidad de resolver problemas."
+		);
 		XPersistence.getManager().persist(c2);  
 	
 		Carrier c3 = new Carrier();

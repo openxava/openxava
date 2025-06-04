@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Too wide columns by default for short content properties in lists/collections with resizeColumn=true.
 - Fix: Reference frame takes only half space when listed after a plain property with comma in @View.
 - Fix: Inconsistencies and misbehaving with LocalDateTime and LocalTime for US Spanish on Java 8 and 21.
 - Fix: "You will lose all changes" warning was incorrectly shown with @Calculation properties.
