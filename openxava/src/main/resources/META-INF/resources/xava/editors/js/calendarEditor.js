@@ -36,8 +36,19 @@ calendarEditor.showCalendar = function () {
     }
 }
 
+// Define getCurrentLocalDate function for calendarEditor
+calendarEditor.getCurrentLocalDate = function() {
+    // Format current date as YYYY-MM-DD using local date (not UTC)
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return year + '-' + month + '-' + day;
+};
+
 
 openxava.addEditorInitFunction(function() {
+
     if ($("#xava_calendar").length) {
         var application = $('#xava_calendar_application').val();
         var module = $('#xava_calendar_module').val();
@@ -50,8 +61,7 @@ openxava.addEditorInitFunction(function() {
         var formattedDate = "";
 		
 		const savedState = loadCalendarState(application, module);
-		// TMR ME QUEDÉ POR AQUÍ:
-        const initialDate = savedState ? savedState.defaultDate : new Date().toISOString().split('T')[0];
+        const initialDate = savedState ? savedState.defaultDate : calendarEditor.getCurrentLocalDate();
         const initialView = savedState ? savedState.defaultView : 'dayGridMonth';
         calendarEditor.outApplication = application;
         calendarEditor.outModule = module;
@@ -65,8 +75,6 @@ openxava.addEditorInitFunction(function() {
 		const initialDateYear = dateParts[0];
 		const initialDateMonth = parseInt(dateParts[1]) - 1;
 		const initialDateMonthYear = initialDateMonth + "_" + initialDateYear;
-		console.log("[calendarEditor.js] initialDate=" + initialDate); // tmr
-		console.log("[calendarEditor.js] initialDateMonth=" + initialDateMonth); // tmr
 		
 		Calendar.getEvents(application, module, initialDateMonthYear, selectedValue, {
 			callback: function(events) {
@@ -324,6 +332,8 @@ openxava.addEditorInitFunction(function() {
 		function clearCalendarState(application, module){
 			localStorage.removeItem(application + '_' + module + '_calendarState');
 		}
+
+
 
     }
 
