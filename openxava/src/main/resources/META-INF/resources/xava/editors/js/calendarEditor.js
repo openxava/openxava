@@ -48,7 +48,6 @@ calendarEditor.getCurrentLocalDate = function() {
 
 
 openxava.addEditorInitFunction(function() {
-
     if ($("#xava_calendar").length) {
         var application = $('#xava_calendar_application').val();
         var module = $('#xava_calendar_module').val();
@@ -332,8 +331,6 @@ openxava.addEditorInitFunction(function() {
 		function clearCalendarState(application, module){
 			localStorage.removeItem(application + '_' + module + '_calendarState');
 		}
-
-
 
     }
 
