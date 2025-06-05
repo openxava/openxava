@@ -36,6 +36,16 @@ calendarEditor.showCalendar = function () {
     }
 }
 
+// Define getCurrentLocalDate function for calendarEditor
+calendarEditor.getCurrentLocalDate = function() {
+    // Format current date as YYYY-MM-DD using local date (not UTC)
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return year + '-' + month + '-' + day;
+};
+
 
 openxava.addEditorInitFunction(function() {
     if ($("#xava_calendar").length) {
@@ -50,7 +60,7 @@ openxava.addEditorInitFunction(function() {
         var formattedDate = "";
 		
 		const savedState = loadCalendarState(application, module);
-        const initialDate = savedState ? savedState.defaultDate : new Date().toISOString().split('T')[0];
+        const initialDate = savedState ? savedState.defaultDate : calendarEditor.getCurrentLocalDate();
         const initialView = savedState ? savedState.defaultView : 'dayGridMonth';
         calendarEditor.outApplication = application;
         calendarEditor.outModule = module;
