@@ -2853,6 +2853,9 @@ public class View implements java.io.Serializable {
 			MetaPropertyView metaPropertyView = getMetaView().getMetaPropertyViewFor(metaProperty.getName());
 			if (metaPropertyView != null) {
 				if (isKeyEditable() && metaPropertyView.isReadOnly() && !metaPropertyView.isReadOnlyOnCreate()) return true;
+				if (metaPropertyView.isReadOnly() && !(isRepresentsEntityReference() && !getParentIfSectionOrGroup().isFirstLevel())) {
+					return false;
+				}
 			}
 			if (metaProperty.isReadOnly() && !isRepresentsEntityReference()) return false; 
 			if (metaProperty.isKey() || (metaProperty.isSearchKey() && isRepresentsEntityReference())) return isKeyEditable();
