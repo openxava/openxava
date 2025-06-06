@@ -169,6 +169,8 @@ import org.openxava.test.actions.*;
 
 @View( name="SomeMembersReadOnly", members= "number; type; name; seller; alternateSeller" )
 
+@View( name="NameReadOnlyInGroup", members= "number; data [ type; name ]" )
+
 @View( name="SimpleWithDeliveryPlaces", members="number; type; name; address; deliveryPlaces" )
 
 @View( name="SellerAsAggregate2Levels", members="number; type; name; address; seller" )
@@ -269,7 +271,7 @@ public class Customer implements IWithName {
 		
 	@Required @Stereotype("PERSON_NAME")  
 	@OnChange(OnChangeCustomerNameAction.class)
-	@ReadOnly(forViews="SomeMembersReadOnly")
+	@ReadOnly(forViews="SomeMembersReadOnly, NameReadOnlyInGroup")
 	@Editor(forViews="SimpleStateAsForm", value="JbyXName")
 	private String name;
 	

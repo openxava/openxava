@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @ReadOnly not working in certain cases, e.g., inside a dialog for editing a collection item.
+- Some new common use labels to be used in applications.
 - Fix: Calendar list format showed the previous month during the first hours of the month's first day.
 - Fix: Too wide columns by default for short content properties in lists/collections with resizeColumn=true.
 - Fix: Reference frame takes only half space when listed after a plain property with comma in @View.
