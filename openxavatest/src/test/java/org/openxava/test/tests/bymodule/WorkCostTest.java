@@ -61,10 +61,19 @@ public class WorkCostTest extends WorkCostTestBase {
 		assertCollectionRowCount("invoices", 0); 		
 	}
 	
-	public void testCalculationAndEditableTotalsInCollections() throws Exception { 
+	public void testCalculationAndEditableTotalsInCollections_notLoseChangesMessageWhenCalculationProperties() throws Exception { 
+		// Execute the base test
 		super.testCalculationAndEditableTotalsInCollections(); 
 		execute("Navigation.first");
 		execute("CRUD.save"); 
+
+		// Setup confirm handler to verify no confirmation dialog appears
+		MessageConfirmHandler confirmHandler = new MessageConfirmHandler();
+		getWebClient().setConfirmHandler(confirmHandler);		
+		
+		// Verify that no confirmation dialog appears when creating a new record
+		execute("CRUD.new");
+		confirmHandler.assertNoMessage();
 	}
 	
 }

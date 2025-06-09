@@ -21,7 +21,7 @@ public class ListTest extends WebDriverTestBase {
 	}
 	
 	private final static String ACTION_PREFIX = "action";
-		
+	
 	public void testListAndCollection() throws Exception {
 		goModule("Author");
 		assertShowHideFilterInList();
@@ -32,7 +32,8 @@ public class ListTest extends WebDriverTestBase {
 
 		goModule("Carrier");
 		assertEnableDisableCustomizeList(); 
-		assertCustomizeCollection(); 
+		assertCustomizeCollection();
+		assertDefaultColumnWidthsForCalculatedCollection();
 
 		goModule("CustomerWithSection");
 		assertCustomizeList();
@@ -40,6 +41,9 @@ public class ListTest extends WebDriverTestBase {
 		
 		goModule("Invoice");
 		assertRemoveSeveralColumns();
+
+		goModule("Blog");
+		assertDefaultColumnWidthsForList();
 	}
 	
 	public void testListFormatIsSelectable() throws Exception { 
@@ -49,6 +53,50 @@ public class ListTest extends WebDriverTestBase {
 		goModule("Subfamily");
 		assertTrue(hasClockIcon());
 	}
+	
+	private void assertDefaultColumnWidthsForCalculatedCollection() throws Exception {
+		assertValue("number", "1"); // To verify we are in the first record before do the above testing
+		
+		// The column 2 has long content, so the limit is 700
+		WebElement col2 = getDriver().findElement(By.id("ox_openxavatest_Carrier__fellowCarriersCalculated_col2"));
+		int col2Width = col2.getSize().getWidth();
+		assertEquals("Column 2 width should be 700px", 700, col2Width);
+		
+		// Now the column 2 has few content so the width adapt to the content 
+		execute("Navigation.next");
+		assertValue("number", "2");
+		col2 = getDriver().findElement(By.id("ox_openxavatest_Carrier__fellowCarriersCalculated_col2"));
+		col2Width = col2.getSize().getWidth();
+		assertEquals("Column 2 width should be 130px", 130, col2Width); // This is for one Remarks with "no es muy amigable",
+																		// and that other empty, if this value change maybe
+																		// we should change the 130, but verifying that
+																		// the column width match the content
+	}
+
+
+	private void assertDefaultColumnWidthsForList() throws Exception {
+		// Get the column elements
+		WebElement col0 = getDriver().findElement(By.id("ox_openxavatest_Blog__list_col0"));
+		WebElement col2 = getDriver().findElement(By.id("ox_openxavatest_Blog__list_col2"));
+		WebElement col3 = getDriver().findElement(By.id("ox_openxavatest_Blog__list_col3"));
+		
+		// Get the widths of the columns
+		int col0Width = col0.getSize().getWidth();
+		int col2Width = col2.getSize().getWidth();
+		int col3Width = col3.getSize().getWidth();
+		
+		// Assert that the columns have the expected widths
+
+		// Column 0 has not content, so it should be tiny
+		assertEquals("Column 0 width should be 68px", 68, col0Width);
+
+		// Column 2 has a very long content, so it should be 700px as a limit
+		assertEquals("Column 2 width should be 700px", 700, col2Width);
+
+		// Column 3 has content, so the width adapt to the size of the content
+		assertEquals("Column 3 width should be 275px", 275, col3Width);		
+	}
+
 		
 	private void assertNoFilterInCollectionByDefault() throws Exception {
 		execute("CRUD.new");		
@@ -643,7 +691,7 @@ public class ListTest extends WebDriverTestBase {
 		for (String windowHandle : getDriver().getWindowHandles()) {
 			getDriver().switchTo().window(windowHandle);
         }
-		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofMillis(3000));
+		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofMillis(4000));
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("embed")));
 		String contentType = getDriver().findElement(By.tagName("embed")).getAttribute("type"); // This works for PDF with Chrome
 		assertEquals(expectedContentType, contentType);

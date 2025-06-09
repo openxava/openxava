@@ -702,17 +702,14 @@ public class Tab implements java.io.Serializable, Cloneable {
 	private int defaultColumnWidth(MetaProperty p, int columnIndex) {
 		// Until 7.4.2 we used a more complex algorithm for this
 		// Between 7.4.3 and 7.5 we just return -1 always
-		// If you modify this logic, revise that large columns are not very big
-		// and that icons with no labels are just the size of the icon
-		// You can test both thing in xavaprojects in plan, the icon in the list
-		// of issues, and the size adding new issues with Add
-		return friendViewGetDefaultColumnWidth(p);
+		// Between 7.5.1 and 7.5.2 we use a simple algorithm
+		// Since 7.5.3 we just return -1, and do the work using CSS (the .ox-list-default-column-width class)
+		// If you modify this logic, revise that icons with no labels are just the size of the icon
+		// You can test it in xavaprojects in plan
+		// The correct width for the rest of the cases is tested automatically
+		return -1; // Like in View.defaultColumnWidth()
 	} 
 	
-	public static int friendViewGetDefaultColumnWidth(MetaProperty p) { 
-		return p.getSize() > 100?700:-1; // 700 = 7 pixels * 100 character
-	}
-
 	public void setColumnWidth(int columnIndex, int width) {
 		if (isResizeColumns()) { 
 			if (columnWidths == null) columnWidths = new HashMap<String, Integer>(); 

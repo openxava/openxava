@@ -14,9 +14,12 @@ public class SellerCannotCreateCustomerTest extends ModuleTestBase {
 		super(testName, "SellerCannotCreateCustomer");		
 	}
 
-	public void testNotCreateNewReferenceFromCollection() throws Exception {		
-		execute("CRUD.new");
+	public void testNotCreateNewReferenceFromCollection_readOnlyMembersInCollectionElementDialog() throws Exception {		
+		execute("List.viewDetail", "row=0");
 		assertNoAction("Collection.add");  
+
+		execute("Collection.edit", "row=0,viewObject=xava_view_section0_customers");
+		assertNoEditable("name");
 	}
 	
 	

@@ -61,7 +61,8 @@ public class Seller {
 	@OneToMany(mappedBy="seller")
 	@CollectionView("Simple")
 	@CollectionView(forViews="Complete", value="SimpleWithDeliveryPlaces")
-	@CollectionView(forViews="CompleteWithCustomersWithSellerInSection", value="SellerInSection") 
+	@CollectionView(forViews="CompleteWithCustomersWithSellerInSection", value="SellerInSection")  
+	@CollectionView(forViews="CannotCreateCustomer", value="NameReadOnlyInGroup") // In group to test a case
 	@NoCreate(forViews="CannotCreateCustomer")
 	@RowStyle(style="row-highlight", property="type", value="steady")
 	@SearchListCondition(value="${number} < 5", forViews="SearchListCondition, SearchListConditionBlank")

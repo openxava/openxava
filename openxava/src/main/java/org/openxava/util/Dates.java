@@ -336,6 +336,7 @@ public class Dates {
 			if (locale.toString().equalsIgnoreCase("zh_CN") || locale.toString().equalsIgnoreCase("nl")) fourDigitsForYear = true;
 			boolean java9 = XSystem.isJava9orBetter();
 			if (java9) pattern = pattern.replace(", ", " ").replace((char) 8239, (char) 32);
+			if (!java9 && locale.toString().equals("es_US")) pattern = pattern.replace("M/d", "d/M"); 
 			if (fourDigitsForYear && !pattern.contains("yyyy")) pattern = pattern.replace("yy", "yyyy");
 			SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 			if (java9) {
@@ -609,12 +610,13 @@ public class Dates {
 		String result = datetime.
 				
 				// time part
-				replaceAll("15", "H").	// 24hr format 
-				replaceAll("03", "G").	// 12hr format - double digit 
-				replaceAll("3", "h").	// 12hr format - single digit
-				replaceAll("59","i").	// minute
-				replaceAll("PM", "K").	// AM/PM - uppercase
-				replaceAll("pm", "K").	// am/pm - lowercase // Not supported by the current calendar JS
+				replaceAll("15", "H").	  // 24hr format 
+				replaceAll("03", "G").	  // 12hr format - double digit 
+				replaceAll("3", "h").	  // 12hr format - single digit
+				replaceAll("59","i").	  // minute
+				replaceAll("PM", "K").	  // AM/PM - uppercase
+				replaceAll("pm", "K").	  // am/pm - lowercase // Not supported by the current calendar JS
+				replaceAll("p.\u00A0m.", "K"). // AM/PM - In some locales (like Chinese) with Java 21 
 
 				// date part
 				replaceAll("01", "d").	// day - double digit

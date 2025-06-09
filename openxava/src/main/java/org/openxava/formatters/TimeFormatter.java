@@ -18,11 +18,12 @@ import org.openxava.util.*;
 
 public class TimeFormatter implements IFormatter {
 	
-	private static DateTimeFormatter zhTimeFormat = DateTimeFormatter.ofPattern("ah:mm");
+	// ENBLISH to have always AM/PM, with Chinese sometimes is AM/PM sometimes Chinese symbols
+	private static DateTimeFormatter zhTimeFormat = DateTimeFormatter.ofPattern("ah:mm", Locale.ENGLISH); 
 
 	public String format(HttpServletRequest request, Object time) {
 		if (time == null) return "";
-		if (time instanceof String || time instanceof Number) return time.toString();		
+		if (time instanceof String || time instanceof Number) return time.toString();
 		return reformatTime(getTimeFormat().format((LocalTime) time));
 	}
 	
@@ -43,13 +44,13 @@ public class TimeFormatter implements IFormatter {
 	
 	private DateTimeFormatter getTimeFormat() {
 		if (isZhFormat()) return zhTimeFormat;
-		return DateTimeFormatter.ofPattern(getTimePattern(Locales.getCurrent()));
+		return DateTimeFormatter.ofPattern(getTimePattern(Locales.getCurrent()), Locales.getCurrent());
 	}
 	
 	private String getTimePattern(Locale locale) {
 	    String pattern = DateTimeFormatterBuilder.getLocalizedDateTimePattern(
 	        null, FormatStyle.SHORT, Chronology.ofLocale(locale), locale);
-	    return pattern;
+	    return pattern.replace((char) 8239, (char) 32); // The .replace() is for Java 21
 	}
 	
 	protected String reformatTime(String string) {
@@ -59,7 +60,8 @@ public class TimeFormatter implements IFormatter {
 	protected String reformatTime(String string, boolean parsing) {
 		String date = string;
 		LocalTime specificTime = LocalTime.of(15, 0);
-        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("a");
+		Locale locale = isZhFormat()?Locale.ENGLISH:Locales.getCurrent();
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("a", locale);
         String formattedTimePM = specificTime.format(timeFormat);
         String formattedTimeAM;
         if (Character.isUpperCase(formattedTimePM.charAt(0))) {
@@ -72,11 +74,10 @@ public class TimeFormatter implements IFormatter {
 	        String unicode = toUnicodeString(formattedTimePM);
 	        boolean hasNonBreakingSpace = unicode.contains("\\u00A0");
 			if (hasNonBreakingSpace) return date.replace("PM", "p.\u00a0m.").replace("AM", "a.\u00a0m.");
-			if (XSystem.isJava9orBetter()) return date.replace("PM", formattedTimePM).replace("AM", formattedTimeAM);
+			return date.replace("PM", formattedTimePM).replace("AM", formattedTimeAM); 
 		} else {
-			if (XSystem.isJava9orBetter()) return date.replace(formattedTimePM, "PM").replace(formattedTimeAM, "AM");
+			return date.replace(formattedTimePM, "PM").replace(formattedTimeAM, "AM"); 
 		}
-		return date;
 	}
 	
     private static String toUnicodeString(String text) {

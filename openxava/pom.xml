@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.openxava</groupId>
 	<artifactId>openxava</artifactId>
-	<version>7.5.2-SNAPSHOT</version>
+	<version>7.5.3-SNAPSHOT</version>
 	<name>OpenXava</name>
 	<description>Automatic frontend engine for Java</description>
 	<url>https://www.openxava.org</url>
@@ -151,7 +151,7 @@
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>pdfbox</artifactId>
-			<version>3.0.4</version>
+			<version>3.0.5</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.mail</groupId>
@@ -181,17 +181,17 @@
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-core</artifactId>
-			<version>9.0.104</version>
+			<version>9.0.105</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
-			<version>9.0.104</version>
+			<version>9.0.105</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-dbcp</artifactId>
-			<version>9.0.104</version>
+			<version>9.0.105</version>
 		</dependency>
 		<dependency>
 			<groupId>jakarta.json.bind</groupId>
@@ -242,7 +242,7 @@
 		</dependency>
 	</dependencies>
 
-	<!-- Uncomment to deploy on Maven Central                 
+	<!-- Uncomment to deploy on Maven Central                  
 	<distributionManagement>
 		<snapshotRepository>
 			<id>ossrh</id>

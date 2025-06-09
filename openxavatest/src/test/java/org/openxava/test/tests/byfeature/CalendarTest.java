@@ -19,13 +19,13 @@ public class CalendarTest extends WebDriverTestBase {
 	public CalendarTest(String testName) {
 		super(testName);
 	}
-
+	
 	public void testCalendar() throws Exception {
     	assertErrorsHandlingCorrectly();
     	assertCreateEventPrevCurrentNextMonth_conditionsAndFilter_dragAndDropDate_dragAndDropLocalDate(); 
     	assertMultipleDatesPropertiesAndSelectDateToShow();
     	assertFilterPerformance();
-    	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime_saveStateWhenClickDates();
+    	assertCreateDateWithTimeInWeekAndDailyView_tooltip_dragAndDropDateTime_saveStateWhenClickDates(); 
     	assertAnyNameAsDateProperty();
     	assertNavigationInDateCalendarAndDateTimeCalendar_hiddenPref_prevYear();
     	assertDropDownVisible_DropDownOptionSavePrefDate(); 
