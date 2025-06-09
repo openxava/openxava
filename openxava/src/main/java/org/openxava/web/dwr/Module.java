@@ -114,6 +114,12 @@ public class Module extends DWRBase {
 			return result;			
 		}
 		catch (Throwable ex) { 
+			if (isLinkageError(ex)) { // TMR ME QUEDE POR AQUI: REFACTORIZADO, FALTA PROBARLO
+				Result linkageResult = handleLinkageError(result);
+				if (linkageResult != null) {
+					return linkageResult;
+				}
+			}
 			log.error(ex.getMessage(), ex);
 			result.setError(ex.getMessage());
 			return result;
@@ -284,6 +290,8 @@ public class Module extends DWRBase {
 	private String filterHTML(String html) { 		
 		return html.replaceAll(",", "_#C#_"); 
 	}
+
+	
 
 	private void fillResult(Result result, Map values, Map multipleValues, String[] selected, String[] deselected, String additionalParameters) throws Exception {
 		Map changedParts = result.getChangedParts();
@@ -808,6 +816,40 @@ public class Module extends DWRBase {
 			charsetName = XSystem.getEncoding();
 		} 
 		return URLEncoder.encode(value.toString(), charsetName);
+	}
+	
+	/**
+	 * Checks if the exception has a LinkageError as its root cause
+	 * @param ex The exception to check
+	 * @return true if the cause of the cause is a LinkageError
+	 */
+	private boolean isLinkageError(Throwable ex) {
+		try {
+			return ex.getCause() != null && 
+				ex.getCause().getCause() instanceof java.lang.LinkageError;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	/**
+	 * Handles a LinkageError by cleaning up Tomcat's temporary directory
+	 * @param result The current result object
+	 * @return The modified result if the error was handled successfully, null otherwise
+	 */
+	private Result handleLinkageError(Result result) {
+		try {
+			File tempDir = new File("temp");
+			if (tempDir.exists() && tempDir.isDirectory()) {
+				Files.deleteDir(tempDir);
+				log.warn(XavaResources.getString("linkage_error_tomcat_temp_cleaned"));
+				result.setReload(true);
+				return result;
+			}
+		} catch (Exception e) {
+			log.error(XavaResources.getString("error_cleaning_tomcat_temp_directory", e.getMessage()), e);
+		}
+		return null;
 	}
 			
 }

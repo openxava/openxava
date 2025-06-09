@@ -3063,6 +3063,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	public void assignValuesToWebView() {
+		System.out.println("View.assignValuesToWebView() v12"); // tmr
 		assignValuesToWebView("", true);
 	}
 		
