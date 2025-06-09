@@ -114,7 +114,7 @@ public class Module extends DWRBase {
 			return result;			
 		}
 		catch (Throwable ex) { 
-			if (isLinkageError(ex)) { // TMR ME QUEDE POR AQUI: REFACTORIZADO, FALTA PROBARLO
+			if (isLinkageError(ex)) { 
 				Result linkageResult = handleLinkageError(result);
 				if (linkageResult != null) {
 					return linkageResult;

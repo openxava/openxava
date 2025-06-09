@@ -167,7 +167,13 @@ OpenXava core:
 - Add a message in NewAction code in openxava.
 - Click on New. Message shown. Prints.
 - Click on New. No prints.
-
+- Put a print in View.assignValuesToWebView() in openxava.
+- Click on New. 
+	- The print in View is in log.
+	- Ugly exceptions in log.
+	- Mesagge in log about LinkageError and deleting Tomcat temp dirs.
+	- The page is reloading, but it does not fail.
+	
 Production:
 - Run the application with a JDK with no HotswapAgent.
 - Go to Customer, click in some action. No prints.
