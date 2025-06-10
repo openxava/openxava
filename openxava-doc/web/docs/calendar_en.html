@@ -125,8 +125,55 @@ public class Issue extends Identifiable {
 }
 </code></pre>
         <h2>Transcript</h2>
-        Hello, I'm Monica.<br>
-        In this video...</div>
+        
+        <h3>Introduction</h3>
+        <p>Hi, I'm Mónica. If you stay with me, over the next few minutes I'm going to show you how to add a calendar module to your OpenXava application.</p>
+        
+        <h3>Project Overview</h3>
+        <p>We'll do it in the application you're seeing, a simple project management application. But the steps we're going to take to create a calendar module can be followed with any of your OpenXava applications, no matter what they are.</p>
+        
+        <h3>Built-in Calendar Feature</h3>
+        <p>The best part is that we already have a calendar without doing anything, because any module that contains a date automatically has a calendar available. Let's see it by going to Issues. Notice that there's a date, "Created on". That's why, when we go to list mode, we have an icon available to activate the calendar.</p>
+        
+        <h3>Using the Calendar</h3>
+        <p>If we click on a day, for example the 14th, it creates a new issue. If we scroll down and look at the creation date, it's the 14th. It uses the value of the day we clicked on for the date.</p>
+        
+        <h3>Customizing for Tasks</h3>
+        <p>When we go up and open the type dropdown, we find Feature and Bug. If we want to use this to plan events or tasks, maybe we can create a new type, like Event, Scheduled Task, or simply Task.</p>
+        
+        <p>It would also be a good idea to keep "Created on" as the creation date and add a new date field to indicate the date the task is scheduled for. Let's do that.</p>
+        
+        <h3>Implementation</h3>
+        <p>For that, we need to edit the code. In our project, which is called projects, we open the model package, and there we open the Issue class. We scroll down until we find the createOn date, and just above it, we add a new date property called plannedFor.</p>
+        
+        <p>For it to appear in the user interface, we also have to add it to the View annotation. Let's scroll up and add it to the last line of the details group, for example.</p>
+        
+        <h3>Testing the Implementation</h3>
+        <p>Now we have a dropdown to choose the date field to be used by the calendar. We click on the 19th. We scroll down to check the dates and see that the creation date has today's date, and the planning date has been set to the 19th. Let's create the task. We type a title, choose Task as the type, and then click Save.</p>
+        
+        <h3>User-Specific Calendar</h3>
+        <p>We go back to the list, and in the calendar, on the 19th, our task appears. Notice that I created this task with the user "admin". What would happen if I created another task with a different user? Let's see. I'm logging in as Mónica. And when I enter, I see the task from "admin". I click on the 13th to create a new task as Mónica. I type a title, choose Task as the type, click Save, and now I have two tasks in my calendar: one from admin and mine.</p>
+        
+        <p>This behavior is normal in OpenXava—if there are no records, it directly executes the New action to allow creating new entries. In most cases, this is reasonable, but in the case of a calendar, it's a bit odd that we click on a calendar and don't see one.</p>
+        
+        <h3>Creating a Dedicated Calendar Module</h3>
+        <p>To fix this, we'll create a dedicated calendar module. In the application.xml file, we add a new module called MyCalendar. For the model, we'll use Issue. For the controller, CRUD, so we can create, edit, and delete issues. And now comes the key part: the tab. We're going to use a special tab within Issue called MyCalendar. This tab will make only the calendar appear in the list and filter the issues by the logged-in user.</p>
+        
+        <h3>Custom Actions</h3>
+        <p>We'll also create a custom New action so that when entering the module for the first time, it always shows the calendar. We'll create a new action called NewIssueFromMyCalendarAction that extends NewAction. This action will check if it's the first time the module is being loaded and return to list mode if it is.</p>
+        
+        <p>We'll also create a SaveReturningToListAction that will extend SaveAction. In this case, the only thing we'll override is the getNextMode() method to return to list mode when finished, unless there are validation errors when saving.</p>
+        
+        <h3>Final Touches</h3>
+        <p>Finally, we'll hide unnecessary UI elements like the filter combo box, the date field selector, and the grouping one, as these don't make sense in a personal calendar. The simplest way to hide any element in an OpenXava application is using CSS.</p>
+        
+        <h3>Conclusion</h3>
+        <p>After these changes, we'll have a perfect calendar module that always opens in calendar mode (no list mode, no charts, no cards), returns to the calendar after saving, and filters by tasks created by me.</p>
+        
+        <p>In the video description, we'll include a link to an article in OpenXava's documentation where you'll find all the code snippets we've written in this tutorial. However, there's a faster way to get the source code - by creating a project using the Project Management template.</p>
+        
+        <p>If you've made it this far following the steps, you now have your calendar. Congratulations. If not, we encourage you to create a project using the Project Management template or the corresponding Maven archetype, try it out, and examine the code. If you have any issues with the video, don't hesitate to ask us in the forum.</p>
+        </div>
     </div>
   </body>
 </html>
