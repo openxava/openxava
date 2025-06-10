@@ -13,6 +13,7 @@ import org.apache.commons.logging.*;
 import org.openxava.actions.*;
 import org.openxava.controller.*;
 import org.openxava.controller.meta.*;
+import org.openxava.hotswap.Hotswap;
 import org.openxava.model.meta.*;
 import org.openxava.util.*;
 import org.openxava.view.View;
@@ -825,6 +826,7 @@ public class Module extends DWRBase {
 	 */
 	private boolean isLinkageError(Throwable ex) {
 		try {
+			if (!Hotswap.isActive()) return false; // Only an special treatment for LinkageError when hotswap is active
 			return ex.getCause() != null && 
 				ex.getCause().getCause() instanceof java.lang.LinkageError;
 		} catch (Exception e) {
