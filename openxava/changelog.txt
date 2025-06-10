@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Module broken after changing a class used in a JSP using hot code reloading.
 - Fix: @ReadOnly not working in certain cases, e.g., inside a dialog for editing a collection item.
 - Some new common use labels to be used in applications.
 - Fix: Calendar list format showed the previous month during the first hours of the month's first day.
