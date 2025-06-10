@@ -1,0 +1,180 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Calendario - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span>Calendario</h1>
+      <div class="wiki" style="display: block;">
+        <h2>Video</h2>
+        <p>En este video veremos cómo podemos usar un calendario en cualquier
+          módulo con una fecha y también cómo crear un módulo "Mi calendario"
+          con un calendario personal.</p>
+        <p><a href="https://youtu.be/OAVXy1zincY" target="_blank"><img src="files/calendar_es010.png"
+
+              title="calendar_es010"></a> </p>
+        <p><strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/">Pregunta
+              en el foro</a></strong></p>
+      </div>
+      <div class="wiki" style="display: block;">
+        <h2>Código</h2>
+        <p>Puedes copiar el código que se usa en el video desde aquí.</p>
+        <code class="xml"></code> En el archivo <em>application.xml</em> añade
+        el siguiente módulo:<br>
+        <pre><code class="xml">&lt;module name="MyCalendar"&gt;
+    &lt;model name="Issue"/&gt;
+    &lt;tab name="MyCalendar"/&gt;
+    &lt;controller name="MyCalendar"/&gt;
+&lt;/module&gt;
+</code></pre> <code class="xml"></code> En el archivo <em>controllers.xml</em>
+        añade el siguiente controlador:<br>
+        <pre><code class="xml">&lt;controller name="MyCalendar"&gt;
+    &lt;extends controller="CRUD"/&gt;
+    &lt;action name="new" icon="library-plus" keystroke="Control N"
+        class="com.yourcompany.projects.actions.NewIssueFromMyCalendarAction"&gt;
+    &lt;/action&gt;
+    &lt;action name="save" mode="detail"
+        by-default="if-possible"
+        class="com.yourcompany.projects.actions.SaveReturningToListAction"
+        icon="content-save"
+        keystroke="Control S"/&gt;
+&lt;/controller&gt;
+</code></pre>Crea la acción <i><em>NewIssueFromMyCalendarAction.java</em></i>:
+        <pre><code class="java">package com.yourcompany.projects.actions;
+
+import org.openxava.actions.*;
+
+public class NewIssueFromMyCalendarAction extends NewAction {
+	
+    private boolean goList = false;
+	
+    @Override
+    public void execute() throws Exception {
+        if ("true".equals(getRequest().getParameter("firstRequest"))) {
+            goList = true;
+            return;
+        }
+        super.execute();
+    }
+	
+    @Override
+    public String getNextMode() {
+        return goList?IChangeModeAction.LIST:IChangeModeAction.DETAIL;
+    }
+
+}
+</code></pre> Crea la acción <i><em>SaveReturningToListAction.java</em></i>:
+        <pre><code class="java">package com.yourcompany.projects.actions;
+
+import org.openxava.actions.*;
+
+public class SaveReturningToListAction extends SaveAction  {
+	
+    @Override
+    public String getNextMode() {
+        return getErrors().contains()?DETAIL:LIST;
+    }
+
+}
+</code></pre>
+        <p>En la entidad <em>Issue.java</em> añade el <i>@Tab MyCalendar</i>:</p>
+        <pre><code class="java">@Tab(name="MyCalendar", editors="Calendar",
+    properties="title",
+    baseCondition = "${createdBy} = ?",
+    filter=org.openxava.filters.UserFilter.class)
+public class Issue extends Identifiable {
+</code></pre>
+        <p>También en la entidad <em>Issue.java</em> añade la propiedad <i>plannedFor</i>
+          en el cuerpo de la clase y en <i>@View</i>:</p>
+        <pre><code class="java">@View(members=
+    "title, type;" +
+    "description;" +
+    "details [#" +
+        "project, createdBy;" +
+        "createdOn, priority;" +
+        "version, assignedTo;" +
+        "status, customer;" +
+        "plannedFor, minutes, hours;" + // Añadir plannedFor en @View
+    "];" +
+    "attachments;" +
+    "discussion"
+)
+public class Issue extends Identifiable {
+
+    ...
+
+    LocalDate plannedFor; // Añadir plannedFor como atributo
+</code></pre>
+        <p>En el archivo <em>custom.css</em>:</p>
+        <pre><code class="css">#ox_projects_MyCalendar__core .ox-list-title {
+    display: none;
+}
+
+#ox_projects_MyCalendar__core .xava_calendar_date_preferences {
+    display: none;
+}
+
+#ox_projects_MyCalendar__core #xava_calendar {
+    margin-top: 20px;
+}
+</code></pre>
+        <h2>Transcripción</h2>
+        
+        <h3>Introducción</h3>
+        <p>Hola, soy Mónica. Si te quedas conmigo, durante los próximos minutos te voy a enseñar como añadir un módulo de calendario a tu aplicación OpenXava.</p>
+        
+        <h3>Visión general del proyecto</h3>
+        <p>Lo haremos en la aplicación que estás viendo, una aplicación sencilla de gestión de proyectos. Pero los pasos que vamos a dar para crear un módulo calendario, los puedes seguir con cualquiera de tus aplicaciones OpenXava, sean de lo que sean.</p>
+        
+        <h3>Función de calendario integrada</h3>
+        <p>Lo mejor de todo es que ya tenemos un calendario sin hacer nada, porque cualquier módulo que contenga una fecha tiene disponible automáticamente un calendario. Vamos a verlo yendo a Incidencias. Fíjate que hay una fecha, "Creado el". Por eso, al ir al modo lista tenemos disponible un icono para activar el calendario.</p>
+        
+        <h3>Usando el calendario</h3>
+        <p>Si hacemos clic en un día, por ejemplo en el 14, crea una nueva incidencia. Si bajamos y vemos la fecha de creación, es el día 14. Usa el valor del día en el que hemos pulsado para la fecha.</p>
+        
+        <h3>Personalizando para tareas</h3>
+        <p>Al ir arriba y abrir el combo de tipos, nos encontramos con Característica y Bug. Si queremos usar esto para planificar eventos o tareas, quizás podemos crear un nuevo tipo, como Evento, Tarea planificada o simplemente Tarea.</p>
+        
+        <p>También sería buena idea dejar "Creado el" como fecha de creación y añadir un nuevo campo fecha, para indicar la fecha para cuando está planificada la tarea. Vamos a hacer eso, para ello necesitamos tocar el código.</p>
+        
+        <h3>Implementación</h3>
+        <p>Por eso nos vamos al IDE. En nuestro proyecto, que se llama projects, abrimos el paquete model, y ahí abrimos la clase Issue. Nos desplazamos hacia abajo hasta encontrar la fecha createOn, y justo encima añadimos una nueva propiedad de tipo fecha llamada plannedFor.</p>
+        
+        <p>Para que aparezca en la interfaz de usuario, también tenemos que añadirla a la anotación View. Vamos hacia arriba y la añadimos en la última línea del grupo details, por ejemplo.</p>
+        
+        <h3>Probando la implementación</h3>
+        <p>Ahora tenemos un desplegable para elegir el campo de fecha que usará el calendario. Hacemos clic en el día 19. Bajamos para comprobar las fechas y vemos que la fecha de creación tiene la de hoy, y la de planificación tiene el día 19. Vamos a crear la tarea. Escribimos un título, elegimos Tarea como tipo, y luego hacemos clic en Guardar.</p>
+        
+        <h3>Calendario específico del usuario</h3>
+        <p>Volvemos a la lista, y en el calendario, en el día 19, aparece nuestra tarea. Fíjate que he creado esta tarea con el usuario "admin". ¿Qué pasaría si creara otra tarea con un usuario diferente? Vamos a verlo. Inicio sesión como Mónica. Y cuando entro, veo la tarea de "admin". Hago clic en el día 13 para crear una nueva tarea como Mónica. Escribo un título, elijo Tarea como tipo, hago clic en Guardar, y ahora tengo dos tareas en mi calendario: una de admin y la mía.</p>
+        
+        <p>Este comportamiento es normal en OpenXava: si no hay registros, ejecuta directamente la acción Nuevo para permitir crear nuevas entradas. En la mayoría de los casos esto es razonable, pero en el caso de un calendario, es un poco raro que al hacer clic en un calendario no veamos uno.</p>
+        
+        <h3>Creando un módulo de calendario dedicado</h3>
+        <p>Para solucionar esto, crearemos un módulo de calendario dedicado. En el archivo application.xml, añadimos un nuevo módulo llamado MyCalendar. Para el modelo, usaremos Issue. Para el controlador, CRUD, para poder crear, editar y eliminar incidencias. Y ahora viene la parte clave: la pestaña. Vamos a usar una pestaña especial dentro de Issue llamada MyCalendar. Esta pestaña hará que solo aparezca el calendario en la lista y que filtre las incidencias por el usuario que ha iniciado sesión.</p>
+        
+        <h3>Acciones personalizadas</h3>
+        <p>También crearemos una acción Nuevo personalizada para que al entrar por primera vez al módulo siempre muestre el calendario. Crearemos una nueva acción llamada NewIssueFromMyCalendarAction que extienda de NewAction. Esta acción comprobará si es la primera vez que se carga el módulo y volverá al modo lista si es así.</p>
+        
+        <p>También crearemos un SaveReturningToListAction que extenderá de SaveAction. En este caso, lo único que haremos será sobrescribir el método getNextMode() para que al terminar vuelva al modo lista, a menos que haya errores de validación al guardar.</p>
+        
+        <h3>Toques finales</h3>
+        <p>Finalmente, ocultaremos los elementos de la interfaz de usuario innecesarios, como el combo de filtro, el selector de campo de fecha y el de agrupación, ya que no tienen sentido en un calendario personal. La forma más sencilla de ocultar cualquier elemento en una aplicación OpenXava es usando CSS.</p>
+        
+        <h3>Conclusión</h3>
+        <p>Después de estos cambios, tendremos un módulo de calendario perfecto que siempre se abre en modo calendario (sin modo lista, sin gráficos, sin tarjetas), que vuelve al calendario después de guardar, y que filtra por las tareas creadas por mí.</p>
+        
+        <p>En la descripción del video, incluiremos un enlace a un artículo en la documentación de OpenXava donde encontrarás todos los fragmentos de código que hemos escrito en este tutorial. Sin embargo, hay una forma más rápida de obtener el código fuente: creando un proyecto usando la plantilla Project Management.</p>
+        
+        <p>Si has llegado hasta aquí siguiendo los pasos, ya tienes tu calendario. Enhorabuena. Si no, te animamos a que crees un proyecto usando la plantilla Project Management o el correspondiente arquetipo de Maven, lo pruebes y examines el código. Si tienes algún problema con el video no dudes en preguntarnos en el foro.</p>
+        </div>
+    </div>
+  </body>
+</html>
