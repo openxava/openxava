@@ -1075,8 +1075,17 @@ public class View implements java.io.Serializable {
 				}
 				Collection propertiesListNames = metaCollectionView.getPropertiesListNames();
 				if (!propertiesListNames.isEmpty()) {
+					/* tmr 
 					newView.setPropertiesListNames(metaCollectionView.getPropertiesListNamesAsString());
 					newView.setMetaPropertiesList(namesToMetaProperties(newView, propertiesListNames));
+					*/
+					// tmr ini
+					// TMR ME QUEDE POR AQUI: CON ESTE CODIGO ARREGLO EL BUG PERO FALLAN DOS TESTS 
+					List<MetaProperty> metaPropertiesList = namesToMetaProperties(newView, propertiesListNames);  
+					newView.setMetaPropertiesList(metaPropertiesList);
+					newView.setPropertiesListNames(metaPropertiesToNamesAsString(metaPropertiesList));
+					
+					// tmr fin
 				}				
 				if (metaCollectionView.hasRowStyles()) { 
 					newView.setRowStyles(metaCollectionView.getMetaRowStyles());					
@@ -1175,6 +1184,12 @@ public class View implements java.io.Serializable {
 	} 
 
 
+	private String metaPropertiesToNamesAsString(List<MetaProperty> metaPropertiesList) { // tmr
+		return metaPropertiesList.stream()
+	        .map(MetaProperty::getQualifiedName)
+	        .collect(Collectors.joining(","));	
+	}
+
 	private Collection getDefaultListActionsForCollections() {
 		try {
 			if (!isDefaultListActionsForCollectionsIncluded() || !isCollectionHasDefaultActions()) return Collections.EMPTY_LIST; 
@@ -1252,30 +1267,35 @@ public class View implements java.io.Serializable {
 	private List<MetaProperty> namesToMetaProperties(View view, Collection names) throws XavaException {  
 		List<MetaProperty> metas = new ArrayList();
 		Iterator it = names.iterator();
-		while (it.hasNext()) {
+		while (it.hasNext()) {			
 			String name = (String) it.next();
-			if (name.endsWith("+")) {
-				name = name.substring(0, name.length() - 1);
-				if (view.isRepresentsCollection() && view.isCollectionFromModel()) {
-					view.addCollectionDefaultSumProperty(name); 
+			try {
+				if (name.endsWith("+")) {
+					name = name.substring(0, name.length() - 1);
+					if (view.isRepresentsCollection() && view.isCollectionFromModel()) {
+						view.addCollectionDefaultSumProperty(name); 
+					}
 				}
+				String qualifiedName = null;
+				if (view.getMetaModel().containsMetaReference(name)) {
+					MetaModel referencedModel = view.getMetaModel().getMetaReference(name).getMetaModelReferenced();
+					String keyProperty = referencedModel.getAllKeyPropertiesNames().iterator().next();
+					qualifiedName = name;
+					name = name + "." + keyProperty;
+				}
+				MetaProperty metaProperty = view.getMetaModel().getMetaProperty(name).cloneMetaProperty(); 
+				metaProperty.setQualifiedName(name);
+				if (name.indexOf('.') >= 0) { 
+					metaProperty.setName(name);		
+					if (qualifiedName != null) {
+						metaProperty.setQualifiedName(qualifiedName); // The qualifiedName is used to obtain the label in collections 
+					}												// so we use the label of the reference 
+				}				
+				metas.add(metaProperty);
 			}
-			String qualifiedName = null;
-			if (view.getMetaModel().containsMetaReference(name)) {
-				MetaModel referencedModel = view.getMetaModel().getMetaReference(name).getMetaModelReferenced();
-				String keyProperty = referencedModel.getAllKeyPropertiesNames().iterator().next();
-				qualifiedName = name;
-				name = name + "." + keyProperty;
+			catch (Exception ex) {
+				log.error(XavaResources.getString("property_not_shown_for", name, view.getMemberName()), ex);
 			}
-			MetaProperty metaProperty = view.getMetaModel().getMetaProperty(name).cloneMetaProperty(); 
-			metaProperty.setQualifiedName(name);
-			if (name.indexOf('.') >= 0) { 
-				metaProperty.setName(name);		
-				if (qualifiedName != null) {
-					metaProperty.setQualifiedName(qualifiedName); // The qualifiedName is used to obtain the label in collections 
-				}												// so we use the label of the reference 
-			}				
-			metas.add(metaProperty);		
 		}
 		return metas;
 	}

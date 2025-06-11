@@ -1,8 +1,7 @@
 package org.openxava.test.tests.bymodule;
 
-import org.openxava.tests.*;
-
 import org.htmlunit.html.*;
+import org.openxava.tests.*;
 
 /**
  * 
@@ -70,7 +69,7 @@ public class InvoiceNoSectionsTest extends ModuleTestBase {
 		assertCollectionRowCount("details", 2); 
 		assertValueInCollection("details", 0, "product.unitPrice", "11.00");
 		assertValueInCollection("details", 1, "product.unitPrice", "20.00");
-		assertTotalInCollection("details", "product.unitPrice", "31.00");		
+		assertTotalInCollection("details", "product.unitPrice", "31.00"); // TMR FALLA		
 				
 		// Defined by the user
 		execute("List.removeColumnSum", "property=product.unitPrice,collection=details");  

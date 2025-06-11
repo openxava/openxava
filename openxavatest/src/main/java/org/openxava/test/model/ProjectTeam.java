@@ -19,7 +19,8 @@ public class ProjectTeam extends Nameable {
 	@OneToMany(mappedBy="team")
 	@OrderColumn 
 	@CollectionView("Simple")
-	@ListProperties("name, project.name") 
+	// tmr puede que tenga que quitar phobias
+	@ListProperties("name, project.name, phobias") // phobias does not exist in ProjectMember, to test a case 
 	List<ProjectMember> members;
 	 
 	
