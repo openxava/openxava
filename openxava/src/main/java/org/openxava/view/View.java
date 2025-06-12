@@ -1028,7 +1028,6 @@ public class View implements java.io.Serializable {
 		return null;
 	}
 	
-
 	private void createAndAddSubview(MetaMember member) throws XavaException { 
 		if (!(member instanceof MetaReference || member instanceof MetaCollection || member instanceof MetaGroup)) return;
 		
@@ -1075,17 +1074,8 @@ public class View implements java.io.Serializable {
 				}
 				Collection propertiesListNames = metaCollectionView.getPropertiesListNames();
 				if (!propertiesListNames.isEmpty()) {
-					/* tmr 
 					newView.setPropertiesListNames(metaCollectionView.getPropertiesListNamesAsString());
 					newView.setMetaPropertiesList(namesToMetaProperties(newView, propertiesListNames));
-					*/
-					// tmr ini
-					// TMR ME QUEDE POR AQUI: CON ESTE CODIGO ARREGLO EL BUG PERO FALLAN DOS TESTS 
-					List<MetaProperty> metaPropertiesList = namesToMetaProperties(newView, propertiesListNames);  
-					newView.setMetaPropertiesList(metaPropertiesList);
-					newView.setPropertiesListNames(metaPropertiesToNamesAsString(metaPropertiesList));
-					
-					// tmr fin
 				}				
 				if (metaCollectionView.hasRowStyles()) { 
 					newView.setRowStyles(metaCollectionView.getMetaRowStyles());					
@@ -1182,13 +1172,6 @@ public class View implements java.io.Serializable {
 		newView.initDefaultValues(); 
 		subviews.put(member.getName(), newView);
 	} 
-
-
-	private String metaPropertiesToNamesAsString(List<MetaProperty> metaPropertiesList) { // tmr
-		return metaPropertiesList.stream()
-	        .map(MetaProperty::getQualifiedName)
-	        .collect(Collectors.joining(","));	
-	}
 
 	private Collection getDefaultListActionsForCollections() {
 		try {
@@ -2193,7 +2176,7 @@ public class View implements java.io.Serializable {
 			defaultSumProperties.append(property);
 		}
 	}
-	
+		
 	private Collection<String> getSumProperties() { 
 		if (sumProperties == null) sumProperties = loadSumProperties();
 		return sumProperties;
