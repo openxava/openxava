@@ -45,7 +45,7 @@ public class Formula {
 	
 	@OnSelectElementAction("Formula.onSelectIngredient") 
 	@OneToMany(mappedBy="formula", cascade=CascadeType.REMOVE)
-	@ListProperties("image, ingredient.name") 
+	@ListProperties("image, ingredient.name, dosis") // dosis does not exist, to test a case
 	private Collection<FormulaIngredient> ingredients;	
 	
 	@Stereotype("HTML_TEXT")	

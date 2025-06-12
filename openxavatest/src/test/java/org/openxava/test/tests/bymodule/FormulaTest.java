@@ -46,11 +46,12 @@ public class FormulaTest extends ModuleTestBase {
 		assertValue("selectedIngredientSize", "3");
 	}
 	
-	public void testOnSelectElementActionAndSelectDeselectFilterWithPaging() throws Exception{
+	public void testOnSelectElementActionAndSelectDeselectFilterWithPaging_nonexistentPropertyInCollection() throws Exception{
 		setConditionValues("L'AJUNTAMENT");
 		execute("List.filter");
 		assertListRowCount(1);
 		execute("List.viewDetail", "row=0");
+		assertCollectionColumnCount("ingredients", 2); // So dosis (nonexistent) is not shown, but collection works
 		assertValueInCollection("ingredients", 0, 1, "AZUCAR"); 
 		assertValueInCollection("ingredients", 9, 1, "AZUCAR");
 		execute("List.goNextPage", "collection=ingredients");

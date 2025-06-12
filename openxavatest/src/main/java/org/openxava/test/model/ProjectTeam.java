@@ -20,8 +20,6 @@ public class ProjectTeam extends Nameable {
 	@OrderColumn 
 	@CollectionView("Simple")
 	@ListProperties("name, project.name") 
-	List<ProjectMember> members;
-	 
-	
+	List<ProjectMember> members;	
 
 }

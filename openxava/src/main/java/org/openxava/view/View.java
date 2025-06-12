@@ -1028,7 +1028,6 @@ public class View implements java.io.Serializable {
 		return null;
 	}
 	
-
 	private void createAndAddSubview(MetaMember member) throws XavaException { 
 		if (!(member instanceof MetaReference || member instanceof MetaCollection || member instanceof MetaGroup)) return;
 		
@@ -1074,9 +1073,9 @@ public class View implements java.io.Serializable {
 					newView.setRepresentsAggregate(true); 
 				}
 				Collection propertiesListNames = metaCollectionView.getPropertiesListNames();
-				if (!propertiesListNames.isEmpty()) {
-					newView.setPropertiesListNames(metaCollectionView.getPropertiesListNamesAsString());
-					newView.setMetaPropertiesList(namesToMetaProperties(newView, propertiesListNames));
+				if (!propertiesListNames.isEmpty()) {					
+					newView.setMetaPropertiesList(newView.namesToMetaPropertiesPurgingNames(propertiesListNames));
+					newView.setPropertiesListNames(Strings.toString(propertiesListNames));
 				}				
 				if (metaCollectionView.hasRowStyles()) { 
 					newView.setRowStyles(metaCollectionView.getMetaRowStyles());					
@@ -1174,7 +1173,6 @@ public class View implements java.io.Serializable {
 		subviews.put(member.getName(), newView);
 	} 
 
-
 	private Collection getDefaultListActionsForCollections() {
 		try {
 			if (!isDefaultListActionsForCollectionsIncluded() || !isCollectionHasDefaultActions()) return Collections.EMPTY_LIST; 
@@ -1249,33 +1247,39 @@ public class View implements java.io.Serializable {
 		return groupsViews;
 	}
 
-	private List<MetaProperty> namesToMetaProperties(View view, Collection names) throws XavaException {  
+	private List<MetaProperty> namesToMetaPropertiesPurgingNames(Collection<String> names) throws XavaException {  
 		List<MetaProperty> metas = new ArrayList();
-		Iterator it = names.iterator();
-		while (it.hasNext()) {
-			String name = (String) it.next();
-			if (name.endsWith("+")) {
-				name = name.substring(0, name.length() - 1);
-				if (view.isRepresentsCollection() && view.isCollectionFromModel()) {
-					view.addCollectionDefaultSumProperty(name); 
+		Iterator<String> it = names.iterator();
+		while (it.hasNext()) {			
+			String name = it.next();
+			try {
+				if (name.endsWith("+")) {
+					name = name.substring(0, name.length() - 1);
+					if (isRepresentsCollection() && isCollectionFromModel()) {
+						addCollectionDefaultSumProperty(name); 
+					}
 				}
+				String qualifiedName = null;
+				if (getMetaModel().containsMetaReference(name)) {
+					MetaModel referencedModel = getMetaModel().getMetaReference(name).getMetaModelReferenced();
+					String keyProperty = referencedModel.getAllKeyPropertiesNames().iterator().next();
+					qualifiedName = name;
+					name = name + "." + keyProperty;
+				}
+				MetaProperty metaProperty = getMetaModel().getMetaProperty(name).cloneMetaProperty(); 
+				metaProperty.setQualifiedName(name);
+				if (name.indexOf('.') >= 0) { 
+					metaProperty.setName(name);		
+					if (qualifiedName != null) {
+						metaProperty.setQualifiedName(qualifiedName); // The qualifiedName is used to obtain the label in collections 
+					}												// so we use the label of the reference 
+				}				
+				metas.add(metaProperty);
 			}
-			String qualifiedName = null;
-			if (view.getMetaModel().containsMetaReference(name)) {
-				MetaModel referencedModel = view.getMetaModel().getMetaReference(name).getMetaModelReferenced();
-				String keyProperty = referencedModel.getAllKeyPropertiesNames().iterator().next();
-				qualifiedName = name;
-				name = name + "." + keyProperty;
+			catch (Exception ex) {
+				log.error(XavaResources.getString("property_not_shown_for", name, getMemberName()), ex);
+				it.remove(); // Remove the name from the collection if it can't be added as a MetaProperty
 			}
-			MetaProperty metaProperty = view.getMetaModel().getMetaProperty(name).cloneMetaProperty(); 
-			metaProperty.setQualifiedName(name);
-			if (name.indexOf('.') >= 0) { 
-				metaProperty.setName(name);		
-				if (qualifiedName != null) {
-					metaProperty.setQualifiedName(qualifiedName); // The qualifiedName is used to obtain the label in collections 
-				}												// so we use the label of the reference 
-			}				
-			metas.add(metaProperty);		
 		}
 		return metas;
 	}
@@ -2173,7 +2177,7 @@ public class View implements java.io.Serializable {
 			defaultSumProperties.append(property);
 		}
 	}
-	
+		
 	private Collection<String> getSumProperties() { 
 		if (sumProperties == null) sumProperties = loadSumProperties();
 		return sumProperties;
@@ -4391,7 +4395,7 @@ public class View implements java.io.Serializable {
 		    }
 		}
 		elementCollectionWithReferenceWithoutKey = true;
-		keysAsMetaProperty = namesToMetaProperties(this, keys);
+		keysAsMetaProperty = namesToMetaPropertiesPurgingNames(keys);
 		keysAsMetaProperty = setLabelsIdForCustomMetaPropertiesList(keysAsMetaProperty);
 		return keysAsMetaProperty;
 	}
