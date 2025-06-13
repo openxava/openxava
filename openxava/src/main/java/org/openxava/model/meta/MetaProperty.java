@@ -42,7 +42,8 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	private boolean readOnlyCalculated = false;
 	private boolean notFieldBackedAndNotCalculated = false; 
 	private MetaCalculator metaCalculator;	
-	private MetaCalculator metaCalculatorDefaultValue;		
+	private MetaCalculator metaCalculatorDefaultValue;
+	private boolean metaCalculatorRefined = false;
 	private Collection dependentPropertiesNames;
 	private String typeName;
 	private boolean key;
@@ -767,7 +768,27 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	}
 	
 	public MetaCalculator getMetaCalculator() {
+		if (metaCalculator != null && !metaCalculatorRefined) {
+			refineMetaCalculator();
+			metaCalculatorRefined = true;
+		}
 		return metaCalculator;
+	}
+
+	private void refineMetaCalculator() {
+		// If propertyNameFrom is a reference adds the last key as suffix
+		// For example "customer" would be turn into "customer.number"
+		for (MetaSet metaSet: metaCalculator.getMetaSets()) {
+			String propertyNameFrom = metaSet.getPropertyNameFrom();
+			if (Is.emptyString(propertyNameFrom)) continue;
+			if (getMetaModel().containsMetaReference(propertyNameFrom)) {
+				MetaModel referencedModel = getMetaModel()
+					.getMetaReference(propertyNameFrom)
+					.getMetaModelReferenced();
+				String lastKey = (String) XCollections.last(referencedModel.getAllKeyPropertiesNames());
+				metaSet.setPropertyNameFrom(propertyNameFrom + "." + lastKey);
+			}
+		}
 	}
 
 	public void setMetaCalculator(MetaCalculator metaCalculator) {
@@ -824,7 +845,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 					dependentPropertiesNames.add(metaProperty.getName());
 				}					
 			}
-		}		
+		}
 	}
 			
 	public void setReadOnly(boolean readOnly) {		

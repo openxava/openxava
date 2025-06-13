@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: @Depends fails with references when only the reference name is specified, without the key property.
+- Improved reference and JavaDoc documentation for @Depends, with clarifications and additional sample code.
 - Fix: Collection display breaks when @ListProperties contains a non-existent property.
 - Article about creating a calendar module available in the documentation with video.
 - Fix: Module broken after changing a class used in a JSP using hot code reloading.

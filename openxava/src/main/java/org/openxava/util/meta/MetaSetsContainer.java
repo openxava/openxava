@@ -3,8 +3,6 @@ package org.openxava.util.meta;
 import java.io.*;
 import java.util.*;
 
-
-
 import org.openxava.util.*;
 
 
@@ -13,13 +11,11 @@ import org.openxava.util.*;
  */
 public class MetaSetsContainer implements Serializable {
 		
-	private Collection metaSets;
+	private Collection<MetaSet> metaSets;
 	
-	
-		
 	public void addMetaSet(MetaSet metaSet) {
 		if (metaSets == null) {
-			metaSets = new ArrayList();
+			metaSets = new ArrayList<>();
 		}
 		metaSets.add(metaSet);		
 	}
@@ -36,12 +32,12 @@ public class MetaSetsContainer implements Serializable {
 	/** 
 	 * @return  Not null
 	 */
-	public Collection getMetaSets() {
+	public Collection<MetaSet> getMetaSets() {
 		return metaSets==null?Collections.EMPTY_LIST:metaSets;
 	}
 	
-	public Collection getMetaSetsWithoutValue() {		
-		Collection result = new ArrayList();
+	public Collection<MetaSet> getMetaSetsWithoutValue() {		
+		Collection<MetaSet> result = new ArrayList<>();
 		Iterator it = getMetaSets().iterator();
 		while (it.hasNext()) {
 			MetaSet set = (MetaSet) it.next();

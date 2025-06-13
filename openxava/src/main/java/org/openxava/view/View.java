@@ -3580,9 +3580,6 @@ public class View implements java.io.Serializable {
 			}
 		}
 		catch (ElementNotFoundException ex) {
-			// TMR ME QUEDE DEPURANDO POR AQUÍ
-			// TMR   LA ENTIDAD DE PRUEBA ES FilterBySubfamily Y EL TEST FamilyRangeProductsReportTest
-			System.out.println("ElementNotFoundException: " + propertyId + ": " + ex.getMessage()); // tmr
 			// So that sections that do not have all the properties do not throw exceptions
 		}
 		catch (Exception ex) {
