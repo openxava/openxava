@@ -43,7 +43,7 @@ public class FilterBySubfamily {
 	@ManyToOne(fetch=FetchType.LAZY) 
 	private Subfamily2 subfamilyTo;
 	
-	@Depends("subfamily.number, subfamilyTo.number")
+	@Depends("subfamily.number, subfamilyTo") // subfamilyTo instead of subfamilyTo.number to test a case
 	public String getRangeDescription() { 		
 		int subfamilyNumber = getSubfamily() == null?0:getSubfamily().getNumber();
 		int subfamilyToNumber = getSubfamilyTo() == null?0:getSubfamilyTo().getNumber();

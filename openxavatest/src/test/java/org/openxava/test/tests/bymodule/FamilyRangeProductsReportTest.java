@@ -12,7 +12,7 @@ public class FamilyRangeProductsReportTest extends ModuleTestBase {
 		super(testName, "FamilyRangeProductsReport");		
 	}
 
-	public void testDifferentLabelsForReferenceMembers_refiningSearchOnChangeAction_calculatedPropertiesInTransientModel() throws Exception {
+	public void testDifferentLabelsForReferenceMembers_refiningSearchOnChangeAction_calculatedPropertiesInTransientModel_dependsOnJustReferenceName() throws Exception {
 		// Different labels for reference members
 		assertLabel("subfamily.number", "Number");
 		assertLabel("subfamilyTo.number", "Number to");
