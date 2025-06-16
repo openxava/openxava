@@ -280,8 +280,9 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+					<textElement textAlignment="Left" verticalAlignment="Top">
 						<font reportFont="Arial_Normal" size="8"/>
+						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String">$P{Organization}</textFieldExpression>					
 				</textField>
@@ -300,8 +301,9 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
-					<textElement textAlignment="Center" verticalAlignment="Top" lineSpacing="Single">
+					<textElement textAlignment="Center" verticalAlignment="Top">
 						<font reportFont="Arial_Normal" size="15"/>
+						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String">$P{Title}</textFieldExpression>					
 				</textField>
@@ -320,8 +322,9 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
-					<textElement textAlignment="Right" verticalAlignment="Top" lineSpacing="Single">
+					<textElement textAlignment="Right" verticalAlignment="Top">
 						<font reportFont="Arial_Normal" size="8"/>
+						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression><![CDATA["<%=XavaResources.getString(request, "record_count")%>" + ": <%=totalRecords%>"]]></textFieldExpression>
 				</textField>
@@ -442,8 +445,9 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="true"
 						isPrintWhenDetailOverflows="true"/>
-					<textElement textAlignment="<%=getAlign(p)%>" verticalAlignment="Top" lineSpacing="Single">
+					<textElement textAlignment="<%=getAlign(p)%>" verticalAlignment="Top">
 						<font reportFont="Arial_Normal" size="<%=letterSize%>"/>
+						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<% String label = "<![CDATA[" + p.getQualifiedLabel(locale) + "]]>"; %>
 					<text><%=label%></text>					
@@ -503,8 +507,9 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
-					<textElement textAlignment="<%=getAlign(p)%>" verticalAlignment="Top" lineSpacing="Single">
+					<textElement textAlignment="<%=getAlign(p)%>" verticalAlignment="Top">
 						<font reportFont="Arial_Normal" size="<%=letterSize%>"/>
+						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String">$F{<%=Strings.change(p.getQualifiedName(), ".", "_")%>}</textFieldExpression>
 				</textField>
@@ -531,8 +536,9 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
-					<textElement textAlignment="Right" verticalAlignment="Top" lineSpacing="Single">
+					<textElement textAlignment="Right" verticalAlignment="Top">
 						<font reportFont="Arial_Normal" size="10"/>
+						<paragraph lineSpacing="Single"/>
 					</textElement>
 				<%
 				String iniPageLabel = "<![CDATA[\"" + XavaResources.getString(request, "page") + " \"";
@@ -553,8 +559,9 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+					<textElement textAlignment="Left" verticalAlignment="Top">
 						<font reportFont="Arial_Normal" size="10" />
+						<paragraph lineSpacing="Single"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 				</textField>
@@ -587,8 +594,9 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+					<textElement textAlignment="Left" verticalAlignment="Top">
 						<font reportFont="Arial_Normal" size="10"/>
+						<paragraph lineSpacing="Single"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String">
 					<![CDATA[$P{Date}]]>
@@ -635,8 +643,9 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
-					<textElement textAlignment="<%=getAlign(p)%>" verticalAlignment="Top" lineSpacing="Single">
+					<textElement textAlignment="<%=getAlign(p)%>" verticalAlignment="Top">
 						<font reportFont="Arial_Bold" size="<%=letterSize%>"/>
+						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String">$P{<%=p.getQualifiedName()%>__TOTAL__}</textFieldExpression>
 				</textField>
