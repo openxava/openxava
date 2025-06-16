@@ -260,11 +260,11 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 			<variableExpression><![CDATA[$V{REPORT_COUNT}]]></variableExpression>
 		</variable>
 		<background>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="0"  splitType="Stretch" >
 			</band>
 		</background>
 		<title>
-			<band height="25"  isSplitAllowed="true" >
+			<band height="25"  splitType="Stretch" >
 
 				<textField>
 					<reportElement
@@ -365,14 +365,14 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 			</band>
 		</title>
 		<pageHeader>
-			<band height="9"  isSplitAllowed="true" >
+			<band height="9"  splitType="Stretch" >
 			</band>
 		</pageHeader>
 		<% 
 		int headerHeight = rowsInHeader * lineHeight + 8; 
 		%>
 		<columnHeader>
-			<band height="<%=headerHeight%>" isSplitAllowed="true" >
+			<band height="<%=headerHeight%>" splitType="Stretch" >
 				<rectangle radius="0" >
 					<reportElement
 						mode="Opaque"
@@ -456,7 +456,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 		</columnHeader>
 		
 		<detail>
-			<band height="<%=detailHeight + 2%>"  isSplitAllowed="true" >
+			<band height="<%=detailHeight + 2%>"  splitType="Stretch" >
 				<line direction="TopDown">
 					<reportElement
 						mode="Opaque"
@@ -516,7 +516,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 			</band>
 		</detail>
 		<pageFooter>
-			<band height="27"  isSplitAllowed="true" >
+			<band height="27"  splitType="Stretch" >
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >					
 					<reportElement
 						mode="Transparent"
@@ -597,7 +597,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 			</band>
 		</pageFooter>
 		<summary>
-			<band height="19" isSplitAllowed="true" >
+			<band height="19" splitType="Stretch" >
 				<line direction="TopDown">
 					<reportElement
 						mode="Opaque"
