@@ -1,8 +1,5 @@
 <%="<?xml version='1.0' encoding='" + org.openxava.util.XSystem.getEncoding() + "' ?>"%>
 
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" 
-"http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
-
 <%-- 
 If you modify this file please past the manual tests in 
 OpenXavaTest/src/org/openxava/test/tests/PrettyPrintingTest.txt  
@@ -203,7 +200,9 @@ else {
 int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 %>
 
-<jasperReport
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" 
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		 xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
 		 name="<%=reportName%>"
 		 columnCount="1"
 		 printOrder="Vertical"
