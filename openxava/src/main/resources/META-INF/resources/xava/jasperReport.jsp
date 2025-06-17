@@ -2,7 +2,7 @@
 
 <%-- 
 If you modify this file please past the manual tests in 
-OpenXavaTest/src/org/openxava/test/tests/PrettyPrintingTest.txt  
+openxavatest/manual-tests/PrettyPrintingTest.txt 
 --%>
 
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
