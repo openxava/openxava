@@ -1,11 +1,8 @@
 <%="<?xml version='1.0' encoding='" + org.openxava.util.XSystem.getEncoding() + "' ?>"%>
 
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" 
-"http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
-
 <%-- 
 If you modify this file please past the manual tests in 
-OpenXavaTest/src/org/openxava/test/tests/PrettyPrintingTest.txt  
+openxavatest/manual-tests/PrettyPrintingTest.txt 
 --%>
 
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
@@ -203,7 +200,9 @@ else {
 int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 %>
 
-<jasperReport
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" 
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		 xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
 		 name="<%=reportName%>"
 		 columnCount="1"
 		 printOrder="Vertical"
@@ -261,11 +260,11 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 			<variableExpression><![CDATA[$V{REPORT_COUNT}]]></variableExpression>
 		</variable>
 		<background>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="0"  splitType="Stretch" >
 			</band>
 		</background>
 		<title>
-			<band height="25"  isSplitAllowed="true" >
+			<band height="25"  splitType="Stretch" >
 
 				<textField>
 					<reportElement
@@ -281,8 +280,9 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+					<textElement textAlignment="Left" verticalAlignment="Top">
 						<font reportFont="Arial_Normal" size="8"/>
+						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String">$P{Organization}</textFieldExpression>					
 				</textField>
@@ -301,8 +301,9 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
-					<textElement textAlignment="Center" verticalAlignment="Top" lineSpacing="Single">
+					<textElement textAlignment="Center" verticalAlignment="Top">
 						<font reportFont="Arial_Normal" size="15"/>
+						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String">$P{Title}</textFieldExpression>					
 				</textField>
@@ -321,8 +322,9 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
-					<textElement textAlignment="Right" verticalAlignment="Top" lineSpacing="Single">
+					<textElement textAlignment="Right" verticalAlignment="Top">
 						<font reportFont="Arial_Normal" size="8"/>
+						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression><![CDATA["<%=XavaResources.getString(request, "record_count")%>" + ": <%=totalRecords%>"]]></textFieldExpression>
 				</textField>
@@ -341,8 +343,11 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 						isPrintRepeatedValues="true"
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
-						isPrintWhenDetailOverflows="false"/>
-					<graphicElement stretchType="NoStretch" pen="1Point" fill="Solid" />
+						isPrintWhenDetailOverflows="false"
+						stretchType="NoStretch"/>
+					<graphicElement fill="Solid">
+						<pen lineWidth="1.0"/>
+					</graphicElement>
 				</line>
 
 				<!-- Top line
@@ -359,21 +364,24 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 						isPrintRepeatedValues="true"
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
-						isPrintWhenDetailOverflows="false"/>
-					<graphicElement stretchType="NoStretch" pen="1Point" fill="Solid" />
+						isPrintWhenDetailOverflows="false"
+						stretchType="NoStretch"/>
+					<graphicElement fill="Solid">
+						<pen lineWidth="1.0"/>
+					</graphicElement>
 				</line>
 				-->
 			</band>
 		</title>
 		<pageHeader>
-			<band height="9"  isSplitAllowed="true" >
+			<band height="9"  splitType="Stretch" >
 			</band>
 		</pageHeader>
 		<% 
 		int headerHeight = rowsInHeader * lineHeight + 8; 
 		%>
 		<columnHeader>
-			<band height="<%=headerHeight%>" isSplitAllowed="true" >
+			<band height="<%=headerHeight%>" splitType="Stretch" >
 				<rectangle radius="0" >
 					<reportElement
 						mode="Opaque"
@@ -387,8 +395,11 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 						isPrintRepeatedValues="true"
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
-						isPrintWhenDetailOverflows="false"/>
-					<graphicElement stretchType="NoStretch" pen="None" fill="Solid" />
+						isPrintWhenDetailOverflows="false"
+						stretchType="NoStretch"/>
+					<graphicElement fill="Solid">
+						<pen lineWidth="0.0"/>
+					</graphicElement>
 				</rectangle>
 				<line direction="BottomUp">
 					<reportElement
@@ -403,8 +414,11 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 						isPrintRepeatedValues="true"
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
-						isPrintWhenDetailOverflows="false"/>
-					<graphicElement stretchType="NoStretch" pen="Thin" fill="Solid" />
+						isPrintWhenDetailOverflows="false"
+						stretchType="NoStretch"/>
+					<graphicElement fill="Solid">
+						<pen lineWidth="0.5"/>
+					</graphicElement>
 				</line>
 				<line direction="BottomUp">
 					<reportElement
@@ -419,8 +433,11 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 						isPrintRepeatedValues="true"
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
-						isPrintWhenDetailOverflows="false"/>
-					<graphicElement stretchType="NoStretch" pen="Thin" fill="Solid" />
+						isPrintWhenDetailOverflows="false"
+						stretchType="NoStretch"/>
+					<graphicElement fill="Solid">
+						<pen lineWidth="0.5"/>
+					</graphicElement>
 				</line>
 <% 
 int x = 0;
@@ -443,8 +460,9 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="true"
 						isPrintWhenDetailOverflows="true"/>
-					<textElement textAlignment="<%=getAlign(p)%>" verticalAlignment="Top" lineSpacing="Single">
+					<textElement textAlignment="<%=getAlign(p)%>" verticalAlignment="Top">
 						<font reportFont="Arial_Normal" size="<%=letterSize%>"/>
+						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<% String label = "<![CDATA[" + p.getQualifiedLabel(locale) + "]]>"; %>
 					<text><%=label%></text>					
@@ -457,7 +475,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 		</columnHeader>
 		
 		<detail>
-			<band height="<%=detailHeight + 2%>"  isSplitAllowed="true" >
+			<band height="<%=detailHeight + 2%>"  splitType="Stretch" >
 				<line direction="TopDown">
 					<reportElement
 						mode="Opaque"
@@ -471,8 +489,11 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isPrintRepeatedValues="true"
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
-						isPrintWhenDetailOverflows="true"/>					
-					<graphicElement stretchType="NoStretch" pen="Thin" fill="Solid" />
+						isPrintWhenDetailOverflows="true"
+						stretchType="NoStretch"/>					
+					<graphicElement fill="Solid">
+						<pen lineWidth="0.5"/>
+					</graphicElement>
 				</line>
 <% 
 x = 0;
@@ -490,7 +511,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 	}
 	else {
 %>								
-				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" >
+				<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" >
 					<reportElement
 						mode="Transparent"
 						x="<%=x%>"
@@ -504,8 +525,9 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
-					<textElement textAlignment="<%=getAlign(p)%>" verticalAlignment="Top" lineSpacing="Single">
+					<textElement textAlignment="<%=getAlign(p)%>" verticalAlignment="Top">
 						<font reportFont="Arial_Normal" size="<%=letterSize%>"/>
+						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String">$F{<%=Strings.change(p.getQualifiedName(), ".", "_")%>}</textFieldExpression>
 				</textField>
@@ -517,8 +539,8 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 			</band>
 		</detail>
 		<pageFooter>
-			<band height="27"  isSplitAllowed="true" >
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >					
+			<band height="27"  splitType="Stretch" >
+				<textField textAdjust="CutText" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >					
 					<reportElement
 						mode="Transparent"
 						x="<%=columnWidth - 210%>"
@@ -532,8 +554,9 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
-					<textElement textAlignment="Right" verticalAlignment="Top" lineSpacing="Single">
+					<textElement textAlignment="Right" verticalAlignment="Top">
 						<font reportFont="Arial_Normal" size="10"/>
+						<paragraph lineSpacing="Single"/>
 					</textElement>
 				<%
 				String iniPageLabel = "<![CDATA[\"" + XavaResources.getString(request, "page") + " \"";
@@ -541,7 +564,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 				%>
 				<textFieldExpression class="java.lang.String"><%=iniPageLabel%> + $V{PAGE_NUMBER} + <%=endPageLabel%></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None" >					<reportElement
+				<textField textAdjust="CutText" pattern="" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None" >					<reportElement
 						mode="Transparent"
 						x="<%=columnWidth - 36%>"
 						y="4"
@@ -554,8 +577,9 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+					<textElement textAlignment="Left" verticalAlignment="Top">
 						<font reportFont="Arial_Normal" size="10" />
+						<paragraph lineSpacing="Single"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 				</textField>
@@ -572,10 +596,13 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isPrintRepeatedValues="true"
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
-						isPrintWhenDetailOverflows="false"/>
-					<graphicElement stretchType="NoStretch" pen="2Point" fill="Solid" />
+						isPrintWhenDetailOverflows="false"
+						stretchType="NoStretch"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
 				</line>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >					<reportElement
+				<textField textAdjust="CutText" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >					<reportElement
 						mode="Transparent"
 						x="1"
 						y="6"
@@ -588,8 +615,9 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+					<textElement textAlignment="Left" verticalAlignment="Top">
 						<font reportFont="Arial_Normal" size="10"/>
+						<paragraph lineSpacing="Single"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String">
 					<![CDATA[$P{Date}]]>
@@ -598,7 +626,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 			</band>
 		</pageFooter>
 		<summary>
-			<band height="19" isSplitAllowed="true" >
+			<band height="19" splitType="Stretch" >
 				<line direction="TopDown">
 					<reportElement
 						mode="Opaque"
@@ -612,8 +640,11 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isPrintRepeatedValues="true"
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
-						isPrintWhenDetailOverflows="true"/>					
-					<graphicElement stretchType="NoStretch" pen="Thin" fill="Solid" />
+						isPrintWhenDetailOverflows="true"
+						stretchType="NoStretch"/>					
+					<graphicElement fill="Solid">
+						<pen lineWidth="0.5"/>
+					</graphicElement>
 				</line>
 <% 
 x = 0;
@@ -623,7 +654,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 	int width=widths[i]*letterWidth + EXTRA_WIDTH;
 	if (totalProperties.contains(p.getQualifiedName())) { 
 %>								
-				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" >					<reportElement
+				<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" >					<reportElement
 						mode="Transparent"
 						x="<%=x%>"
 						y="2"
@@ -636,8 +667,9 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
-					<textElement textAlignment="<%=getAlign(p)%>" verticalAlignment="Top" lineSpacing="Single">
+					<textElement textAlignment="<%=getAlign(p)%>" verticalAlignment="Top">
 						<font reportFont="Arial_Bold" size="<%=letterSize%>"/>
+						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String">$P{<%=p.getQualifiedName()%>__TOTAL__}</textFieldExpression>
 				</textField>
