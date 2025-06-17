@@ -343,8 +343,9 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 						isPrintRepeatedValues="true"
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
-						isPrintWhenDetailOverflows="false"/>
-					<graphicElement stretchType="NoStretch" pen="1Point" fill="Solid" />
+						isPrintWhenDetailOverflows="false"
+						stretchType="NoStretch"/>
+					<graphicElement pen="1Point" fill="Solid" />
 				</line>
 
 				<!-- Top line
@@ -361,8 +362,9 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 						isPrintRepeatedValues="true"
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
-						isPrintWhenDetailOverflows="false"/>
-					<graphicElement stretchType="NoStretch" pen="1Point" fill="Solid" />
+						isPrintWhenDetailOverflows="false"
+						stretchType="NoStretch"/>
+					<graphicElement pen="1Point" fill="Solid" />
 				</line>
 				-->
 			</band>
@@ -389,8 +391,9 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 						isPrintRepeatedValues="true"
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
-						isPrintWhenDetailOverflows="false"/>
-					<graphicElement stretchType="NoStretch" pen="None" fill="Solid" />
+						isPrintWhenDetailOverflows="false"
+						stretchType="NoStretch"/>
+					<graphicElement pen="None" fill="Solid" />
 				</rectangle>
 				<line direction="BottomUp">
 					<reportElement
@@ -405,8 +408,9 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 						isPrintRepeatedValues="true"
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
-						isPrintWhenDetailOverflows="false"/>
-					<graphicElement stretchType="NoStretch" pen="Thin" fill="Solid" />
+						isPrintWhenDetailOverflows="false"
+						stretchType="NoStretch"/>
+					<graphicElement pen="Thin" fill="Solid" />
 				</line>
 				<line direction="BottomUp">
 					<reportElement
@@ -421,8 +425,9 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 						isPrintRepeatedValues="true"
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
-						isPrintWhenDetailOverflows="false"/>
-					<graphicElement stretchType="NoStretch" pen="Thin" fill="Solid" />
+						isPrintWhenDetailOverflows="false"
+						stretchType="NoStretch"/>
+					<graphicElement pen="Thin" fill="Solid" />
 				</line>
 <% 
 int x = 0;
@@ -474,8 +479,9 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isPrintRepeatedValues="true"
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
-						isPrintWhenDetailOverflows="true"/>					
-					<graphicElement stretchType="NoStretch" pen="Thin" fill="Solid" />
+						isPrintWhenDetailOverflows="true"
+						stretchType="NoStretch"/>					
+					<graphicElement pen="Thin" fill="Solid" />
 				</line>
 <% 
 x = 0;
@@ -578,8 +584,9 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isPrintRepeatedValues="true"
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
-						isPrintWhenDetailOverflows="false"/>
-					<graphicElement stretchType="NoStretch" pen="2Point" fill="Solid" />
+						isPrintWhenDetailOverflows="false"
+						stretchType="NoStretch"/>
+					<graphicElement pen="2Point" fill="Solid" />
 				</line>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >					<reportElement
 						mode="Transparent"
@@ -619,8 +626,9 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isPrintRepeatedValues="true"
 						isRemoveLineWhenBlank="false"
 						isPrintInFirstWholeBand="false"
-						isPrintWhenDetailOverflows="true"/>					
-					<graphicElement stretchType="NoStretch" pen="Thin" fill="Solid" />
+						isPrintWhenDetailOverflows="true"
+						stretchType="NoStretch"/>					
+					<graphicElement pen="Thin" fill="Solid" />
 				</line>
 <% 
 x = 0;
