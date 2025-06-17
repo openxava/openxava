@@ -511,7 +511,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 	}
 	else {
 %>								
-				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" >
+				<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" >
 					<reportElement
 						mode="Transparent"
 						x="<%=x%>"
@@ -540,7 +540,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 		</detail>
 		<pageFooter>
 			<band height="27"  splitType="Stretch" >
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >					
+				<textField textAdjust="CutText" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >					
 					<reportElement
 						mode="Transparent"
 						x="<%=columnWidth - 210%>"
@@ -564,7 +564,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 				%>
 				<textFieldExpression class="java.lang.String"><%=iniPageLabel%> + $V{PAGE_NUMBER} + <%=endPageLabel%></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None" >					<reportElement
+				<textField textAdjust="CutText" pattern="" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None" >					<reportElement
 						mode="Transparent"
 						x="<%=columnWidth - 36%>"
 						y="4"
@@ -602,7 +602,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						<pen lineWidth="2.0"/>
 					</graphicElement>
 				</line>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >					<reportElement
+				<textField textAdjust="CutText" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >					<reportElement
 						mode="Transparent"
 						x="1"
 						y="6"
@@ -654,7 +654,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 	int width=widths[i]*letterWidth + EXTRA_WIDTH;
 	if (totalProperties.contains(p.getQualifiedName())) { 
 %>								
-				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" >					<reportElement
+				<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" >					<reportElement
 						mode="Transparent"
 						x="<%=x%>"
 						y="2"
