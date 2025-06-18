@@ -10040,7 +10040,9 @@ class="br0">)</span> <span class="co1">// ${this.} Nuevo en v7.4</span>
       Si no hemos puesto <em><a href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoCreate.html">@NoCreate</a></em>
       el usuario tendrá un vínculo para poder crear un nuevo objeto desde la
       referencia. Es el icono con un + que hemos marcado en rojo:</div>
-    <div class="wiki" style="display: block;"><img src="files/view_es143.png" alt="view_es143.png" title="view_es143.png"></div>
+    <div class="wiki" style="display: block;"><img src="files/view_es143.png" alt="view_es143.png"
+
+        title="view_es143.png"></div>
     <div class="wiki" style="display: block;">La anotación <b><i>@NewAction</i></b>
       de las colecciones <b>no funciona</b> con las referencias, por lo que no
       podemos definir un comportamiento propio para la acción de creación en una
@@ -10052,14 +10054,16 @@ Almacen almacenPrincipal;
     <div class="wiki" style="display: block;">OpenXava siempre sacará un diálogo
       con la vista por defecto del componente referenciado y permitirá
       introducir valores y pulsar un botón para crearlo. Así:</div>
-    <div class="wiki" style="display: block;"><img src="files/view_es147.png" alt="view_es147.png" title="view_es147.png"></div>
-    <div class="wiki" style="display: block;">Pero sí que podemos personalizar como
-      funciona este diálogo de creación, para todas las referencia a <i>Almacen</i>
+    <div class="wiki" style="display: block;"><img src="files/view_es147.png" alt="view_es147.png"
+
+        title="view_es147.png"></div>
+    <div class="wiki" style="display: block;">Pero sí que podemos personalizar
+      como funciona este diálogo de creación, para todas las referencia a <i>Almacen</i>
       en nuestra aplicación. Para esto hemos de crear un controlador llamado
-      como la entidad con el sufijo <i>Creation</i> (<i>AlmacenCreation, ClienteCreation, 
-      ProductoCreation</i>, etc). Si OpenXava ve que existe un controlador así lo usa en 
-      vez del de por defecto para permitir crear un nuevo objeto desde una referencia. 
-      Por ejemplo, podemos poner en nuestro <em>controladores.xml</em>:<br>
+      como la entidad con el sufijo <i>Creation</i> (<i>AlmacenCreation,
+        ClienteCreation, ProductoCreation</i>, etc). Si OpenXava ve que existe
+      un controlador así lo usa en vez del de por defecto para permitir crear un
+      nuevo objeto desde una referencia. Por ejemplo, podemos poner en nuestro <em>controladores.xml</em>:<br>
       <pre><code class="xml">&lt;!--
 Dado que su nombre es AlmacenCreation (nombre modelo + Creation) es usado
 por defecto para crear desde referencia, en lugar de NewCreation.
@@ -10073,13 +10077,13 @@ La acción 'new' se ejecuta automáticamente.
         clase="org.openxava.test.actions.GuardarNuevoAlmacenDesdeReferenciaAction"/&gt;	
 &lt;/controlador&gt;
 </code></pre> En este caso cuando en una referencia a <em>Almacen</em> pulsemos
-      el icono para crear, se mostrará un diálogo para crear un <em>Almacen</em> como
-      el de arriba, pero en lugar de usar las acciones por defecto usará las
-      acciones en <em>AlmacenCreation</em>.<br>
+      el icono para crear, se mostrará un diálogo para crear un <em>Almacen</em>
+      como el de arriba, pero en lugar de usar las acciones por defecto usará
+      las acciones en <em>AlmacenCreation</em>.<br>
       Sí tenemos una acción <em>new</em>, ésta se ejecuta automáticamente justo
       después de abrir el diálogo, la podemos usar para iniciar la vista si lo
-      necesitamos. La definimos como oculta, para que no se muestre
-      como un botón al usuario. Este sería un ejemplo de implementación:</div>
+      necesitamos. La definimos como oculta, para que no se muestre como un
+      botón al usuario. Este sería un ejemplo de implementación:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package org.openxava.test.actions;
 
@@ -10093,16 +10097,17 @@ public class CrearNuevoAlmacenDesdeReferenciaAction extends NewAction {
         getView().setValue("nombre", "NUEVO ALMACEN");
     }
 
-}</code></pre>  
+}</code></pre>
     </div>
     <div class="wiki" style="display: block;">En este caso, lo que hace es poner
-      un valor por defecto al nombre, pero podemos hacer cosas más complejas como
-      ocultar campos, usar otra vista diferente para el diálogo, etc. Fíjate en 
-      el detalle de que no llama a <i>showDialog()</i> porque cuando se ejecuta
-      la acción <i>new</i> OpenXava ya ha abierto el diálogo.</div>
+      un valor por defecto al nombre, pero podemos hacer cosas más complejas
+      como ocultar campos, usar otra vista diferente para el diálogo, etc.
+      Fíjate en el detalle de que no llama a <i>showDialog()</i> porque cuando
+      se ejecuta la acción <i>new</i> OpenXava ya ha abierto el diálogo.</div>
     <div class="wiki" style="display: block;">En nuestro ejemplo también hemos
-      sobreescrito la acción <i>saveNew</i>, que es la que se ejecuta al pulsar el
-      botón <i>Crear</i> del diálogo. Esto sería un ejemplo de implementación:</div>
+      sobreescrito la acción <i>saveNew</i>, que es la que se ejecuta al pulsar
+      el botón <i>Crear</i> del diálogo. Esto sería un ejemplo de
+      implementación:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">package org.openxava.test.actions;
 
@@ -10114,26 +10119,131 @@ public class GuardarNuevoAlmacenDesdeReferenciaAction extends SaveNewAction {
     public void execute() throws Exception {
         String nombre = getView().getValueString("nombre"); // Obtener nombre antes de cerrar el diálogo
         super.execute(); // Guarda el almacén y cierra el diálogo (si no hay errores de validación)
-        if (!getErrors().contains() && nombre.equals("NUEVO ALMACEN")) {
+        if (!getErrors().contains() &amp;&amp; nombre.equals("NUEVO ALMACEN")) {
             addWarning("almacen_creado_usando_nombre_por_defecto"); // Mensaje en archivo de mensajes i18n  
         }
     }
 
 }</code></pre>
     </div>
-    <div class="wiki" style="display: block;">Es también una lógica muy simple. Si detecta que 
-      hemos grabado usando el valor por defecto para el nombre, visualiza un mensaje
-      de advertencia.</div>
-    <div class="wiki" style="display: block;">No es necesario sobreescribir las dos, 
-      podemos implementar solo <i>new</i> o solo <i>saveNew</i>. También podemos
-      sobreescribir la acción <i>cancel</i> si lo necesitamos. Además, si ponemos acciones 
-      extra en nuestro controlador <i>AlmacenCreation</i>, estas acciones aparecerán 
-      como botones adicionales en el diálogo de creación.
-      </div>
-    <div class="wiki" style="display: block;"> 
+    <div class="wiki" style="display: block;">Es también una lógica muy simple.
+      Si detecta que hemos grabado usando el valor por defecto para el nombre,
+      visualiza un mensaje de advertencia.</div>
+    <div class="wiki" style="display: block;">No es necesario sobreescribir las
+      dos, podemos implementar solo <i>new</i> o solo <i>saveNew</i>. También
+      podemos sobreescribir la acción <i>cancel</i> si lo necesitamos. Además,
+      si ponemos acciones extra en nuestro controlador <i>AlmacenCreation</i>,
+      estas acciones aparecerán como botones adicionales en el diálogo de
+      creación. </div>
+    <div class="wiki" style="display: block;">
       <h3 id="toc20"><a name="Vista-Personalizacion+de+referencia-Accion+de+modificacion+propia"></a>Acción
         de modificación propia</h3>
-      Si no hemos puesto <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoModify.html"
+      TMR NUEVO:</div>
+    <div class="wiki" style="display: block;">Si no hemos puesto <em> <a href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoModify.html">@NoModify</a>
+      </em>el usuario tendrá un vínculo para poder modificar el objeto
+      actualmente visualizado en la referencia. Es el icono con un lápiz que
+      hemos marcado en rojo:
+      <div class="wiki" style="display: block;"><img src="files/view_es148.png"
+
+          alt="view_es148.png" title="view_es148.png"></div>
+      <div class="wiki" style="display: block;">La anotación <b><i>@EditAction</i></b>
+        de las colecciones <b>no funciona</b> con las referencias, por lo que
+        no podemos definir un comportamiento propio para la acción de
+        modificación en una referencia concreta. Es decir, esto no se puede
+        hacer:</div>
+      <pre><code class="java">// @NewAction("Transportista.modificarAlmacen")  // NO PERMITIDO
+@ManyToOne
+Almacen almacenPrincipal;
+</code></pre>
+      <div class="wiki" style="display: block;">OpenXava siempre sacará un
+        diálogo con la vista por defecto del componente referenciado y permitirá
+        introducir valores y pulsar un botón para modificar los valores
+        actuales. Así:</div>
+      <div class="wiki" style="display: block;"><img src="files/view_es149.png"
+
+          alt="view_es149.png" title="view_es149.png"></div>
+      <div class="wiki" style="display: block;">Pero sí que podemos personalizar
+        como funciona este diálogo de modificación, para todas las referencia a
+        <i>Almacen</i> en nuestra aplicación. Para esto hemos de crear un
+        controlador llamado como la entidad con el sufijo <i>Modification</i> (<i>Almacen</i><i><i>Modification</i>,
+          Cliente</i><i><i>Modification</i>, Producto</i><i>Modification</i>,
+        etc). Si OpenXava ve que existe un controlador así lo usa en vez del de
+        por defecto para permitir modificar un objeto existente desde una
+        referencia. Por ejemplo, podemos poner en nuestro <em>controladores.xml</em>:<br>
+        <pre><code class="xml">&lt;!-- 
+Dado que su nombre es AlmacenModification (nombre modelo + Modification) es usado
+por defecto para modificar desde referencia, en lugar de Modification.
+La acción 'search' se ejecuta automáticamente.
+--&gt;
+&lt;controlador nombre="WarehouseModification"&gt;
+    &lt;hereda-de controlador="Modification"/&gt;
+    &lt;accion nombre="search" oculta="true"
+        clase="org.openxava.test.acciones.ModificarAlmacenDesdeReferencia"/&gt;
+    &lt;accion nombre="update" por-defecto="casi-siempre"
+        clase="org.openxava.test.acciones.ActualizarAlmacenDesdeReferencia"/&gt;			
+&lt;/controlador&gt;
+</code></pre> En este caso cuando en una referencia a <em>Almacen</em> pulsemos
+        el icono para modificar, se mostrará un diálogo para modificar un <em>Almacen</em>
+        como el de arriba, pero en lugar de usar las acciones por defecto usará
+        las acciones en <em>AlmacenModification</em>.<br>
+        Sí tenemos una acción <em>search</em>, ésta se ejecuta automáticamente
+        justo después de abrir el diálogo, la podemos usar para iniciar la vista
+        si lo necesitamos. La definimos como oculta, para que no se muestre como
+        un botón al usuario. Este sería un ejemplo de implementación:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">package org.openxava.test.acciones;
+
+import org.openxava.actions.*;
+
+public class ModificarAlmacenDesdeReferencia extends SearchByViewKeyAction {
+		
+    public void execute() throws Exception {		
+        super.execute();		
+        getView().setValue("name", "ALMACEN MODIFICADO");
+    }
+
+}</code></pre>
+      </div>
+      <div class="wiki" style="display: block;">En este caso, lo que hace es
+        poner un valor por defecto al nombre, pero podemos hacer cosas más
+        complejas como ocultar campos, usar otra vista diferente para el
+        diálogo, etc. Fíjate en el detalle de que no llama a <i>showDialog()</i>
+        porque cuando se ejecuta la acción <i>new</i> OpenXava ya ha abierto el
+        diálogo.</div>
+      <div class="wiki" style="display: block;">En nuestro ejemplo también hemos
+        sobreescrito la acción <i>saveNew</i>, que es la que se ejecuta al
+        pulsar el botón <i>Crear</i> del diálogo. Esto sería un ejemplo de
+        implementación:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">package org.openxava.test.actions;
+
+import org.openxava.actions.*;
+
+public class GuardarNuevoAlmacenDesdeReferenciaAction extends SaveNewAction {
+	
+    @Override
+    public void execute() throws Exception {
+        String nombre = getView().getValueString("nombre"); // Obtener nombre antes de cerrar el diálogo
+        super.execute(); // Guarda el almacén y cierra el diálogo (si no hay errores de validación)
+        if (!getErrors().contains() &amp;&amp; nombre.equals("NUEVO ALMACEN")) {
+            addWarning("almacen_creado_usando_nombre_por_defecto"); // Mensaje en archivo de mensajes i18n  
+        }
+    }
+
+}</code></pre>
+      </div>
+      <div class="wiki" style="display: block;">Es también una lógica muy
+        simple. Si detecta que hemos grabado usando el valor por defecto para el
+        nombre, visualiza un mensaje de advertencia.</div>
+      No es necesario sobreescribir las dos, podemos implementar solo <i>new</i>
+      o solo <i>saveNew</i>. También podemos sobreescribir la acción <i>cancel</i>
+      si lo necesitamos. Además, si ponemos acciones extra en nuestro
+      controlador <i>AlmacenCreation</i>, estas acciones aparecerán como
+      botones adicionales en el diálogo de creación.</div>
+    <div class="wiki" style="display: block;">TMR ORIGINAL:</div>
+    <div class="wiki" style="display: block;"> Si no hemos puesto <em><a class="wiki_link_ext"
+
+          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoModify.html"
 
           rel="nofollow">@NoModify</a></em> el usuario tendrá un vínculo para
       poder actualizar el objeto actualmente referenciado. Por defecto muestra
