@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- Fixed 2 security vulnerabilities in dependencies; now there are 0 vulnerabilities.
+- Groovy upgraded to 4.0.27.
+- Jersey upgraded to 2.47.
+- Embedded Tomcat used in development upgraded to 9.0.106.
+- Driver version in doc/new projects upgraded for PostgreSQL, AS/400, DB2 and Firebird. 
 - Fix: Cleaned up deprecated warnings in the log during PDF generation.
 - Fix: @Depends fails with references when only the reference name is specified, without the key property.
 - Improved reference and JavaDoc documentation for @Depends, with clarifications and additional sample code.
