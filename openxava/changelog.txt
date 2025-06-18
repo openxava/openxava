@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-TMR ME QUEDÉ POR AQUÍ: TODO ACTUALIZADO, FALTA LA SUITE
+- Fixed 2 security vulnerabilities in dependencies; now there are 0 vulnerabilities.
 - Groovy upgraded to 4.0.27.
 - Jersey upgraded to 2.47.
 - Embedded Tomcat used in development upgraded to 9.0.106.
