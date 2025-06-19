@@ -2834,6 +2834,36 @@ class="kw116">View</span></a><span class="br0">(</span>name=<span class="st0">"I
  <span class="st0">"}"</span>
 <span class="br0">)</span></pre>
       Con el mismo efecto que en el caso de los <a class="wiki_link" href="#Vista-Disposicion-Grupos">grupos</a>.<br>
+
+<h3>Marcos uno al lado del otro</h3>
+
+<p>Los miembros que se visualizan dentro de un marco, como es el caso de
+  las referencías, los grupos o las colecciones, se pueden visualizar uno al lado del otro 
+  en lugar de uno debajo del otro, si lo deseamos. Es decir, es posible disponer
+  dos marcos en una misma fila. Para esto sólo tenemos que separarlos con coma en
+   lugar de punto y coma, como se puede ver en este ejemplo:</p>
+  <pre><code class="java">@View( members= 
+    "nombre;" +  
+    "comercial, comercialAlternativo"
+)</code></pre>
+<p>En este caso <i>nombre</i> es una propiedad plana, pero <i>comercial</i> y <i>comercialAlternativo</i>
+  son referencias. El resultado visual sería:</p>
+<img src="files/view_es091.png"/>  
+<p>Donde puedes ver que <i>comercial</i> y <i>comercialAlternativo</i> se visualizan en la misma línea. 
+  Esto es así también para colecciones y grupos. Además, se pueden combinar, podemos poner una referencia 
+  y un grupo (por ejemplo) en la misma línea.</p>
+<p>Lo que no está permitido es colocar en la misma línea miembros que se visualicen con un campo simple,
+  como propiedades o referencia con <i>@DescriptionsList</i> y miembros que usen marcos como referencia,
+  grupos y colecciones. En caso de declarlo así en <i>@View</i>, OpenXava mostrará los marcos en su propia línea.</p>  
+<p>Por ejemplo, si tenemos este código:</p>  
+<pre><code class="java">@View( members="nombre, comercial" )</code></pre>
+<p>Donde indicamos que <i>nombre</i>, que es una propiedad plana, y <i>comercial</i>, que es una referencia, 
+  se visualicen uno al lado del otro, ya que los separamos por coma. Al visualizarlo, 
+  OpenXava acaba haciéndolo así:</p>
+<img src="files/view_es091bis.png"/>
+<p>Es decir, uno debajo del otro. OpenXava ha puesto la referencia <i>comercial</i> en su propia línea.
+  Vemos como no podemos visualizar campos simples y marcos uno al lado del otro.</p>
+
       <h3 id="toc4"><a name="Vista-Disposicion-Herencia+de+vistas+(nuevo+en+v3.1.2)"></a>Herencia
         de vistas <em>(nuevo en v3.1.2)</em></h3>
       Al definir una nueva vista podemos heredar los miembros y disposición de
