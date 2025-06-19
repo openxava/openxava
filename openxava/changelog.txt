@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Custom modification action documentation for references improved with more code examples and explanations.
 - Fixed 2 security vulnerabilities in dependencies; now there are 0 vulnerabilities.
 - Groovy upgraded to 4.0.27.
 - Jersey upgraded to 2.47.

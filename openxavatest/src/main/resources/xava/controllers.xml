@@ -1206,6 +1206,8 @@
 		<extends controller="Modification"/>
 		<action name="search" hidden="true"
 			class="org.openxava.test.actions.ModifyWarehouseFromReferenceAction"/>
+		<action name="update" by-default="almost-always"
+			class="org.openxava.test.actions.UpdateWarehouseFromReferenceAction"/>			
 	</controller>
 	
 	<controller name="WarehouseReference">

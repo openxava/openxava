@@ -252,7 +252,7 @@ public class CarrierTest extends CarrierTestBase {
 		execute("Reference.modify", "model=Warehouse,keyProperty=warehouse.number");		
 		assertNoErrors();		
 		assertDialog();
-		assertAction("Modification.update");
+		assertAction("WarehouseModification.update");
 		assertAction("Modification.cancel");
 		assertValue("Warehouse", "name", "MODIFIED WAREHOUSE");		
 		execute("Modification.cancel");
