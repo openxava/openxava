@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Added documentation in view reference guide about the layout of frames side by side.
 - Custom modification action documentation for references improved with more code examples and explanations.
 - Fixed 2 security vulnerabilities in dependencies; now there are 0 vulnerabilities.
 - Groovy upgraded to 4.0.27.
