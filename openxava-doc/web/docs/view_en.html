@@ -27,6 +27,7 @@
         <div style="margin-left: 2em;"><a href="#View-Layout">Layout</a></div>
         <div style="margin-left: 3em;"><a href="#View-Layout-Groups">Groups</a></div>
         <div style="margin-left: 3em;"><a href="#View-Layout-Sections">Sections</a></div>
+        <div style="margin-left: 3em;"><a href="#View-Layout-Frames+side+by+side">Frames side by side</a></div>
         <div style="margin-left: 3em;"><a href="#View-Layout-View%20inheritance%20%28new%20in%20v3.1.2%29">View
             inheritance (new in v3.1.2)</a></div>
         <div style="margin-left: 3em;"><a href="#View-Layout-Responsive%20layout%20%28new%20in%20v5.7%29">Responsive
@@ -2822,6 +2823,35 @@ class="kw116">View</span></a><span class="br0">(</span>name=<span class="st0">"A
 <span class="br0">)</span></pre>
       With the same effect as in the <a class="wiki_link" href="#View-Layout-Groups">group</a>
       case.<br>
+
+<h3 id="toc3.5"><a name="View-Layout-Frames+side+by+side"></a>Frames side by side</h3>
+
+<p>Members that are displayed within a frame, such as references, groups or collections, can be displayed side by side
+  instead of one below the other, if you wish. That is, it is possible to arrange
+  two frames in the same row. To do this you only have to separate them with a comma
+   instead of a semicolon, as you can see in this example:</p>
+  <pre><code class="java">@View( members= 
+    "name;" +  
+    "seller, alternateSeller"
+)</code></pre>
+<p>In this case <i>name</i> is a plain property, but <i>seller</i> and <i>alternateSeller</i>
+  are references. The visual result would be:</p>
+<img src="files/view_en091.png"/>  
+<p>Where you can see that <i>seller</i> and <i>alternateSeller</i> are displayed on the same line. 
+  This also works for collections and groups. Additionally, you can combine them, you can put a reference 
+  and a group (for example) on the same line.</p>
+<p>What is not allowed is to place members that are displayed with a simple field,
+  such as properties or references with <i>@DescriptionsList</i>, and members that use frames like reference,
+  groups and collections on the same line. If you declare it this way in <i>@View</i>, OpenXava will show the frames on their own line.</p>  
+<p>For example, if you have this code:</p>  
+<pre><code class="java">@View( members="name, seller" )</code></pre>
+<p>Where you indicate that <i>name</i>, which is a plain property, and <i>seller</i>, which is a reference, 
+  should be displayed side by side, since you separate them by comma. When displayed, 
+  OpenXava ends up doing it like this:</p>
+<img src="files/view_en091bis.png"/>
+<p>That is, one below the other. OpenXava has put the <i>seller</i> reference on its own line.
+  We see how we cannot display simple fields and frames side by side.</p>
+      
       <h3 id="toc4"><a name="View-Layout-View inheritance (new in v3.1.2)"></a>View
         inheritance <em>(new in v3.1.2)</em></h3>
       On defining a new view you can inherit the members and layout of an
