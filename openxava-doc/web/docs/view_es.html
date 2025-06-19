@@ -10239,71 +10239,7 @@ public class ActualizarAlmacenDesdeReferencia extends UpdateAction {
       si lo necesitamos. Además, si ponemos acciones extra en nuestro
       controlador <i>AlmacenModification</i>, estas acciones aparecerán como
       botones adicionales en el diálogo de modificación.</div>
-    <div class="wiki" style="display: block;">TMR ORIGINAL:</div>
-    <div class="wiki" style="display: block;"> Si no hemos puesto <em><a class="wiki_link_ext"
-
-          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoModify.html"
-
-          rel="nofollow">@NoModify</a></em> el usuario tendrá un vínculo para
-      poder actualizar el objeto actualmente referenciado. Por defecto muestra
-      la vista por defecto del componente referenciado y permite modificar
-      valores y pulsar un botón para actualizarlo. Si queremos podemos definir
-      nuestras propias acciones (entre ellas la de actualizar) en el formulario
-      a donde se va para modificar, para esto hemos de tener un controlador
-      llamado como el componente con el sufijo <em>Modification</em>. Si
-      OpenXava ve que existe un controlador así lo usa en vez del de por defecto
-      para permitir modificar el objeto referenciado desde una referencia. Por
-      ejemplo, podemos poner en nuestro <em>controladores.xml</em>:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc-1">&lt;!--</span>
-<span class="sc-1">Dado que su nombre es AlmacenModification (nombre modelo + Modification) es usado</span>
-<span class="sc-1">por defecto para modificar desde referencias, en lugar de Modification.</span>
-<span class="sc-1">La acción 'search' se ejecuta automáticamente.</span>
-<span class="sc-1">--&gt;</span>
-<span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
-
-class="st0">"AlmacenModification"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;hereda-de</span> <span class="re0">controlador</span>=<span
-
-class="st0">"Modification"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;accion</span> <span class="re0">nombre</span>=<span
-
-class="st0">"search"</span> <span class="re0">oculta</span>=<span class="st0">"true"</span></span>
-<span class="sc3"> <span class="re0">clase</span>=<span class="st0">"org.openxava.test.actions.ModificarAlmacenDesdeReferencia"</span><span
-
-class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;usa-objeto</span> <span class="re0">nombre</span>=<span
-
-class="st0">"xava_view"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- No obligatorio desde v4m2 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;/accion<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/controlador<span class="re2">&gt;</span></span></span></pre>
-      En este caso cuando en una referencia a <em>Almacen</em> pulsemos el
-      vínculo 'modificar' irá a la vista por defecto de <em>Almacen</em> y
-      mostrará las acciones de <em>AlmacenModification</em>.<br>
-      Sí tenemos una acción <em>search</em>, ésta se ejecuta automáticamente
-      antes de nada, la podemos usar para iniciar la vista con los datos del
-      objeto actualmente referenciado.<br>
+    <div class="wiki" style="display: block;">
       <h3 id="toc21"><a name="Vista-Personalizacion+de+referencia-Lista+descripciones+(combos)"></a>Lista
         descripciones (combos)</h3>
       Con <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/DescriptionsList.html"

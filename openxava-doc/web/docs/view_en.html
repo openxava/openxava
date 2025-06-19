@@ -10216,70 +10216,7 @@ public class UpdateWarehouseFromReferenceAction extends UpdateAction {
         if we add extra actions to our <i>WarehouseModification</i> controller,
         these actions will appear as additional buttons in the modification dialog.</div>
     </div>
-    <div class="wiki" style="display: block;">TMR ORIGINAL:</div>
-    <div class="wiki" style="display: block;"> If you do not use <em><a class="wiki_link_ext"
-
-          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoModify.html"
-
-          rel="nofollow">@NoModify</a></em> the user will have a link to modify
-      the current referenced object. By default when a user clicks on this link,
-      a default view of the referenced object is displayed and the final user
-      can modify values and click a button to update it. If you want to define
-      your custom actions (among them your update custom action) in the form
-      used when modifying the current object, you must have a controller named
-      as component but with the suffix <em>Modification</em>. If OpenXava see
-      this controller it uses it instead of the default one to allow modifying
-      the current object from a reference. For example, you can write in your <em>controllers.xml</em>:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc-1">&lt;!--</span>
-<span class="sc-1">Because its name is WarehouseModification (model name + Modification) it is used</span>
-<span class="sc-1">by default for modifying from reference, instead of Modification.</span>
-<span class="sc-1">The action 'search' is executed automatically.</span>
-<span class="sc-1">--&gt;</span>
-<span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
-
-class="st0">"WarehouseModification"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;extends</span> <span class="re0">controller</span>=<span
-
-class="st0">"Modification"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">name</span>=<span
-
-class="st0">"search"</span> <span class="re0">hidden</span>=<span class="st0">"true"</span></span>
-<span class="sc3"> <span class="re0">class</span>=<span class="st0">"org.openxava.test.actions.ModifyWarehouseFromReferenceAction"</span><span
-
-class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;use-object</span> <span class="re0">name</span>=<span
-
-class="st0">"xava_view"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- Not needed since v4m2 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/controller<span class="re2">&gt;</span></span></span></pre>
-      In this case when the user clicks on the 'modify' link, the user is
-      directed to the default view of <em>Warehouse</em> and the actions in <em>WarehouseModification</em>
-      will be allowed.<br>
-      If you have an action called <em>'search'</em>, it will be executed
-      automatically before all. It is used to initialize the view with the
-      object to modify.<br>
+    <div class="wiki" style="display: block;"> 
       <h3 id="toc21"><a name="View-Reference customization-Descriptions list (combos)"></a><a
 
           name="descriptions-list"></a>Descriptions list (combos)</h3>
