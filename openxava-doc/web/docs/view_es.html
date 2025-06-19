@@ -10072,9 +10072,9 @@ La acción 'new' se ejecuta automáticamente.
 &lt;controlador nombre="AlmacenCreation"&gt;
     &lt;hereda-de controlador="NewCreation"/&gt;
     &lt;accion nombre="new" oculta="true"
-        clase="org.openxava.test.actions.CrearNuevoAlmacenDesdeReferenciaAction"/&gt;
+        clase="org.openxava.test.acciones.CrearNuevoAlmacenDesdeReferencia"/&gt;
     &lt;accion nombre="saveNew" por-defecto="casi-siempre"
-        clase="org.openxava.test.actions.GuardarNuevoAlmacenDesdeReferenciaAction"/&gt;	
+        clase="org.openxava.test.acciones.GuardarNuevoAlmacenDesdeReferencia"/&gt;	
 &lt;/controlador&gt;
 </code></pre> En este caso cuando en una referencia a <em>Almacen</em> pulsemos
       el icono para crear, se mostrará un diálogo para crear un <em>Almacen</em>
@@ -10085,11 +10085,11 @@ La acción 'new' se ejecuta automáticamente.
       necesitamos. La definimos como oculta, para que no se muestre como un
       botón al usuario. Este sería un ejemplo de implementación:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.test.actions;
+      <pre><code class="java">package org.openxava.test.acciones;
 
 import org.openxava.actions.*;
 
-public class CrearNuevoAlmacenDesdeReferenciaAction extends NewAction {
+public class CrearNuevoAlmacenDesdeReferencia extends NewAction {
 
     @Override
     public void execute() throws Exception {		
@@ -10109,11 +10109,11 @@ public class CrearNuevoAlmacenDesdeReferenciaAction extends NewAction {
       el botón <i>Crear</i> del diálogo. Esto sería un ejemplo de
       implementación:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.test.actions;
+      <pre><code class="java">package org.openxava.test.acciones;
 
 import org.openxava.actions.*;
 
-public class GuardarNuevoAlmacenDesdeReferenciaAction extends SaveNewAction {
+public class GuardarNuevoAlmacenDesdeReferencia extends SaveNewAction {
 	
     @Override
     public void execute() throws Exception {
@@ -10137,8 +10137,7 @@ public class GuardarNuevoAlmacenDesdeReferenciaAction extends SaveNewAction {
       creación. </div>
     <div class="wiki" style="display: block;">
       <h3 id="toc20"><a name="Vista-Personalizacion+de+referencia-Accion+de+modificacion+propia"></a>Acción
-        de modificación propia</h3>
-      TMR NUEVO:</div>
+        de modificación propia</h3></div>
     <div class="wiki" style="display: block;">Si no hemos puesto <em> <a href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NoModify.html">@NoModify</a>
       </em>el usuario tendrá un vínculo para poder modificar el objeto
       actualmente visualizado en la referencia. Es el icono con un lápiz que
@@ -10151,7 +10150,7 @@ public class GuardarNuevoAlmacenDesdeReferenciaAction extends SaveNewAction {
         no podemos definir un comportamiento propio para la acción de
         modificación en una referencia concreta. Es decir, esto no se puede
         hacer:</div>
-      <pre><code class="java">// @NewAction("Transportista.modificarAlmacen")  // NO PERMITIDO
+      <pre><code class="java">// @EditAction("Transportista.modificarAlmacen")  // NO PERMITIDO
 @ManyToOne
 Almacen almacenPrincipal;
 </code></pre>
@@ -10199,7 +10198,7 @@ public class ModificarAlmacenDesdeReferencia extends SearchByViewKeyAction {
 		
     public void execute() throws Exception {		
         super.execute();		
-        getView().setValue("name", "ALMACEN MODIFICADO");
+        getView().setValue("nombre", "ALMACÉN MODIFICADO");
     }
 
 }</code></pre>
@@ -10208,25 +10207,25 @@ public class ModificarAlmacenDesdeReferencia extends SearchByViewKeyAction {
         poner un valor por defecto al nombre, pero podemos hacer cosas más
         complejas como ocultar campos, usar otra vista diferente para el
         diálogo, etc. Fíjate en el detalle de que no llama a <i>showDialog()</i>
-        porque cuando se ejecuta la acción <i>new</i> OpenXava ya ha abierto el
+        porque cuando se ejecuta la acción <i>search</i> OpenXava ya ha abierto el
         diálogo.</div>
       <div class="wiki" style="display: block;">En nuestro ejemplo también hemos
-        sobreescrito la acción <i>saveNew</i>, que es la que se ejecuta al
-        pulsar el botón <i>Crear</i> del diálogo. Esto sería un ejemplo de
+        sobreescrito la acción <i>update</i>, que es la que se ejecuta al
+        pulsar el botón <i>Actualizar</i> del diálogo. Esto sería un ejemplo de
         implementación:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">package org.openxava.test.actions;
+        <pre><code class="java">package org.openxava.test.acciones;
 
 import org.openxava.actions.*;
 
-public class GuardarNuevoAlmacenDesdeReferenciaAction extends SaveNewAction {
+public class ActualizarAlmacenDesdeReferencia extends UpdateAction {
 	
     @Override
     public void execute() throws Exception {
-        String nombre = getView().getValueString("nombre"); // Obtener nombre antes de cerrar el diálogo
-        super.execute(); // Guarda el almacén y cierra el diálogo (si no hay errores de validación)
-        if (!getErrors().contains() &amp;&amp; nombre.equals("NUEVO ALMACEN")) {
-            addWarning("almacen_creado_usando_nombre_por_defecto"); // Mensaje en archivo de mensajes i18n  
+        String nombre = getView().getValueString("nombre"); // Obtiene el nombre antes de cerrar el diálogo
+        super.execute(); // Actualiza el almacén y cierra el diálogo (si no hay errores de validación)
+        if (!getErrors().contains() && nombre.equals("ALMACÉN MODIFICADO")) {
+            addWarning("almacen_modificado_usando_nombre_por_defecto"); // Mensaje en archivo de mensajes i18n  
         }
     }
 
@@ -10235,11 +10234,11 @@ public class GuardarNuevoAlmacenDesdeReferenciaAction extends SaveNewAction {
       <div class="wiki" style="display: block;">Es también una lógica muy
         simple. Si detecta que hemos grabado usando el valor por defecto para el
         nombre, visualiza un mensaje de advertencia.</div>
-      No es necesario sobreescribir las dos, podemos implementar solo <i>new</i>
-      o solo <i>saveNew</i>. También podemos sobreescribir la acción <i>cancel</i>
+      No es necesario sobreescribir las dos, podemos implementar solo <i>search</i>
+      o solo <i>update</i>. También podemos sobreescribir la acción <i>cancel</i>
       si lo necesitamos. Además, si ponemos acciones extra en nuestro
-      controlador <i>AlmacenCreation</i>, estas acciones aparecerán como
-      botones adicionales en el diálogo de creación.</div>
+      controlador <i>AlmacenModification</i>, estas acciones aparecerán como
+      botones adicionales en el diálogo de modificación.</div>
     <div class="wiki" style="display: block;">TMR ORIGINAL:</div>
     <div class="wiki" style="display: block;"> Si no hemos puesto <em><a class="wiki_link_ext"
 
