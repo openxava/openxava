@@ -1,18 +1,17 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.5.3 (2025-6-20)
+--------------------------
 - Some new common use labels to be used in applications.
-
 - Groovy upgraded to 4.0.27.
 - Jersey upgraded to 2.47.
 - Embedded Tomcat used in development upgraded to 9.0.106.
 - Driver version in doc/new projects upgraded for PostgreSQL, AS/400, DB2 and Firebird. 
-
 - Added documentation in view reference guide about the layout of frames side by side.
 - Custom modification action documentation for references improved with more code examples and explanations.
 - Improved reference and JavaDoc documentation for @Depends, with clarifications and additional sample code.
 - Article about creating a calendar module available in the documentation with video.
-
 - Fixed 2 security vulnerabilities in dependencies; now there are 0 vulnerabilities.
 - Fix: Cleaned up deprecated warnings in the log during PDF generation.
 - Fix: @Depends fails with references when only the reference name is specified, without the key property.

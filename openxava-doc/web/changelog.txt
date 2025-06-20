@@ -1,6 +1,29 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.5.3 (2025-6-20)
+--------------------------
+- Some new common use labels to be used in applications.
+- Groovy upgraded to 4.0.27.
+- Jersey upgraded to 2.47.
+- Embedded Tomcat used in development upgraded to 9.0.106.
+- Driver version in doc/new projects upgraded for PostgreSQL, AS/400, DB2 and Firebird. 
+- Added documentation in view reference guide about the layout of frames side by side.
+- Custom modification action documentation for references improved with more code examples and explanations.
+- Improved reference and JavaDoc documentation for @Depends, with clarifications and additional sample code.
+- Article about creating a calendar module available in the documentation with video.
+- Fixed 2 security vulnerabilities in dependencies; now there are 0 vulnerabilities.
+- Fix: Cleaned up deprecated warnings in the log during PDF generation.
+- Fix: @Depends fails with references when only the reference name is specified, without the key property.
+- Fix: Collection display breaks when @ListProperties contains a non-existent property.
+- Fix: Module broken after changing a class used in a JSP using hot code reloading.
+- Fix: @ReadOnly not working in certain cases, e.g., inside a dialog for editing a collection item.
+- Fix: Calendar list format showed the previous month during the first hours of the month's first day.
+- Fix: Too wide columns by default for short content properties in lists/collections with resizeColumn=true.
+- Fix: Reference frame takes only half space when listed after a plain property with comma in @View.
+- Fix: Inconsistencies and misbehaving with LocalDateTime and LocalTime for US Spanish on Java 8 and 21.
+- Fix: "You will lose all changes" warning was incorrectly shown with @Calculation properties.
+
 OpenXava 7.5.2 (2025-5-23)
 --------------------------
 - PDFBox upgraded to 3.0.5.
