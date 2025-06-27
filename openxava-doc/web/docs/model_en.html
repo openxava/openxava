@@ -1662,15 +1662,16 @@ class="br0">)</span>
       for storing byte[] (in our case LONGVARBINARY).</div>
     <div class="wiki" style="display: block;">
       <h4 id="manage-files-programmatically">Manage files programmatically</h4>
-      <p>Properties annotated with <i>@File, @Files, Stereotype(“FILE”)</i> or
-        <i>@Stereotype(“FILES”)</i> only store a 32-character identifier, not
+      <p>Properties annotated with <i>@File, @Files, @HandwrittenSignature, Stereotype("FILE")</i>,
+        <i>@Stereotype("FILES")</i> or <i>@Stereotype("HANDWRITTEN_SIGNATURE")</i> only store a 32-character identifier, not
         the file content. To access the content of the uploaded file from your
         own code, you need to use an <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/web/editors/IFilePersistor.html"><i>IFilePersistor</i></a>
         obtained from <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/web/editors/FilePersistorFactory.html"><i>FilePersistorFactory</i></a>,
         classes that you can find in the <a href="https://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/web/editors/package-summary.html"><i>org.openxava.web.editors</i></a>
         package. These classes work the same regardless of whether the files are
         stored in the file system, a database, or any other location.</p>
-      <p>In the case of <i>@File</i> or <i>@Stereotype(“FILE”)</i>, the
+      <p>In the case of <i>@File</i>, <i>@HandwrittenSignature</i>, <i>@Stereotype("FILE")</i> o 
+        <i>@Stereotype("HANDWRITTEN_SIGNATURE")</i>, the
         property directly stores the file ID. For example, if we have a property
         like this:</p>
       <p></p>
@@ -2262,13 +2263,14 @@ private String customerSignature;</code></pre>
         or 
         <a href="#Model-Properties-FILE%20%28new%20in%20v5.0%29//%20and%20FILES%20//%28new%20in%20v5.1%29%20stereotypes-Storage%20in%20Database">
           in the database</a>, using the same mechanism (the same <i>filePersistorClass</i>)
-        as <i>@File</i> and <i>@Files</i>. It is also possible to <a href="#manage-files-programmatically">
+         as <i>@File</i> and <i>@Files</i>. It is also possible to <a href="#manage-files-programmatically">
           manipulate signatures programmatically with <i>FilePersistorFactory</i></a> as 
           with <i>@File</i> and <i>@Files</i>.</p>
 
       <h3><a name="masks"></a>Mask <em>(new in v7.1)</em></h3>
       A mask in String defines the valid format of input values. To do this, you
       must use the <i>@Mask</i> annotation with some of the following
+{{ ... }}
       validators:<br>
       <ul>
         <li>'L': the user must enter an alphabetical letter from A ~ z.</li>
