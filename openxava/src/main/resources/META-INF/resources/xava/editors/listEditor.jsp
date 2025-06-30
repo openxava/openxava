@@ -464,13 +464,17 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 		String widthClass = width.equals("")?"ox-list-default-column-width":"";
 		String fvalue = null;
 		Object title = null;
-		if (tab.isFromCollection(p)) {
-			title = fvalue = Strings.toString(model.getValueAt(f, c));
-		}
-		else {
-			fvalue = WebEditors.format(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
-			title = WebEditors.formatTitle(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
-		}
+			if (tab.isFromCollection(p)) {
+				title = fvalue = Strings.toString(model.getValueAt(f, c));
+			}
+			else {
+				fvalue = WebEditors.format(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
+				title = WebEditors.formatTitle(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
+				// Añadir la palabra EDITABLE si la propiedad está en la lista de propiedades editables
+				if (tab.isPropertyEditable(p.getName())) {
+					fvalue = fvalue + " <span style='color:green;font-weight:bold'>EDITABLE</span>";
+				}
+			}
 %>
 	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell">
 		<xava:link action='<%=action%>' argv='<%="row=" + f + actionArgv%>' cssClass='<%=cssStyle%>'>

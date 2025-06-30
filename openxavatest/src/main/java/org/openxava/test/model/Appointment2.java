@@ -14,8 +14,8 @@ import org.openxava.model.*;
 
 @Entity
 @Table(name="APPOINTMENT")
-@Tab(properties="time, dateTime, description, amountOfPeople, type.description")
-@Tab(editableProperties="amountOfPeople") // tmr Añadir type.description. Hacer un Appoiment2Test (antes probar que otros test de Appoiment2 funcionan bien)
+@Tab(properties="time, dateTime, description, amountOfPeople, type.description",
+	editableProperties="amountOfPeople") // tmr Añadir type.description. Hacer un Appoiment2Test (antes probar que otros test de Appoiment2 funcionan bien)
 @View(members="time; dateTime; description; amountOfPeople; type")
 public class Appointment2 extends Identifiable {
 	

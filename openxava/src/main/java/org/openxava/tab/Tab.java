@@ -3222,5 +3222,22 @@ public class Tab implements java.io.Serializable, Cloneable {
 	public void setMessages(Messages messages) {
 		this.messages = messages;
 	}
+	
+	/**
+	 * Checks if a property is in the editable properties list.
+	 * Delegates to the MetaTab implementation.
+	 * 
+	 * @param propertyName The name of the property to check
+	 * @return true if the property is editable, false otherwise
+	 * @since 7.6
+	 */
+	public boolean isPropertyEditable(String propertyName) {
+		try {
+			return getMetaTab().isPropertyEditable(propertyName);
+		} catch (XavaException e) {
+			log.error("Error checking if property is editable: " + propertyName, e);
+			return false;
+		}
+	}
 
 }

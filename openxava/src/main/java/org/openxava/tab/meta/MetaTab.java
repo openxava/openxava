@@ -896,5 +896,22 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		this.editableProperties = editableProperties;
 	}
 		
+	/**
+	 * Checks if a property is in the editable properties list.
+	 * 
+	 * @param propertyName The name of the property to check
+	 * @return true if the property is editable, false otherwise
+	 */
+	public boolean isPropertyEditable(String propertyName) {
+		if (editableProperties == null || editableProperties.trim().isEmpty()) {
+			return false;
+		}
+		String[] properties = editableProperties.split(",");
+		for (String property : properties) {
+			if (property.trim().equals(propertyName)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
-
