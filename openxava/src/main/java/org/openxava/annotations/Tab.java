@@ -47,6 +47,18 @@ public @interface Tab {
 	 * at any depth level).
 	 */
 	String properties() default "";
+
+
+	/**
+	 * List of properties that can be edited inline by the user. <p>
+	 * 
+	 * Only plain editable properties are allowed. 
+	 * Qualified properties (from references), calculated properties,
+	 * @Formula properties and @Calculation properties are not allowed.
+	 * 
+	 * @since 7.6
+	 */
+	String editableProperties() default "";	
 	
 	/**
 	 * Allows to define programmatically some logic to apply to the values
