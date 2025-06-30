@@ -52,6 +52,7 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	private String editor;
 	private String editors;  
 	private Set<String> droppedMembers; 
+	private String editableProperties;
 
 
 	
@@ -872,6 +873,27 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 
 	public void setEditors(String editors) {
 		this.editors = editors;
+	}
+	
+	/**
+	 * Gets the comma-separated list of editable properties for this tab.
+	 * Only plain editable properties are allowed.
+	 * 
+	 * @return The editable properties, or null if not defined
+	 * @since 7.6
+	 */
+	public String getEditableProperties() {
+		return editableProperties;
+	}
+	
+	/**
+	 * Sets the comma-separated list of editable properties for this tab.
+	 * 
+	 * @param editableProperties The editable properties to set
+	 * @since 7.6
+	 */
+	public void setEditableProperties(String editableProperties) {
+		this.editableProperties = editableProperties;
 	}
 		
 }

@@ -575,6 +575,7 @@ public class AnnotatedClassParser implements IComponentParser {
 		metaTab.setDefaultOrder(tab.defaultOrder());
 		metaTab.setEditor(tab.editor()); 
 		metaTab.setEditors(tab.editors()); 
+		metaTab.setEditableProperties(tab.editableProperties()); 
 		if (!tab.filter().equals(VoidFilter.class)) {
 			MetaFilter metaFilter = new MetaFilter();
 			metaFilter.setClassName(tab.filter().getName());
