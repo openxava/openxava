@@ -479,11 +479,11 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 %>
 	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell">
 		<% if (tab.isPropertyEditable(p.getName())) { %>
-			<div title="<%=title%>" class="<xava:id name='tipable'/> <xava:id name='<%=id%>'/>_col<%=c%> <%=widthClass%>" <%=width%>>
-				<%if (resizeColumns) {%><nobr><%}%>
-				<xava:editor property="<%=p.getName()%>" value="<%=model.getValueAt(f, c)%>" editable="true"/>
-				<%if (resizeColumns) {%>&nbsp;<%}%>
-				<%if (resizeColumns) {%></nobr><%}%>
+			<div title="<%=title%>" 
+				class="ox-list-cell-editor <xava:id name='tipable'/> <xava:id name='<%=id%>'/>_col<%=c%> <%=widthClass%>" 
+				<%=width%>
+				data-row="<%=f%>" data-property="<%=p.getName()%>">
+					<xava:editor property="<%=p.getName()%>" value="<%=model.getValueAt(f, c)%>" editable="true"/>
 			</div>
 		<% } else { %>
 			<xava:link action='<%=action%>' argv='<%="row=" + f + actionArgv%>' cssClass='<%=cssStyle%>'>
