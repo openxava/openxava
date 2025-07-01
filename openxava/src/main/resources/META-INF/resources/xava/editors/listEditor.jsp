@@ -468,22 +468,33 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 				title = fvalue = Strings.toString(model.getValueAt(f, c));
 			}
 			else {
-				fvalue = WebEditors.format(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
+				// Get the formatted title for all properties
 				title = WebEditors.formatTitle(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
-				// Añadir la palabra EDITABLE si la propiedad está en la lista de propiedades editables
-				if (tab.isPropertyEditable(p.getName())) {
-					fvalue = fvalue + " <span style='color:green;font-weight:bold'>EDITABLE</span>";
+				
+				// We only need fvalue for non-editable properties
+				if (!tab.isPropertyEditable(p.getName())) {
+					fvalue = WebEditors.format(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
 				}
 			}
 %>
 	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell">
-		<xava:link action='<%=action%>' argv='<%="row=" + f + actionArgv%>' cssClass='<%=cssStyle%>'>
+		<% if (tab.isPropertyEditable(p.getName())) { %>
 			<div title="<%=title%>" class="<xava:id name='tipable'/> <xava:id name='<%=id%>'/>_col<%=c%> <%=widthClass%>" <%=width%>>
 				<%if (resizeColumns) {%><nobr><%}%>
-				<%=fvalue%><%if (resizeColumns) {%>&nbsp;<%}%>
+				<xava:editor property="<%=p.getName()%>" value="<%=model.getValueAt(f, c)%>" editable="true"/>
+				<%if (resizeColumns) {%>&nbsp;<%}%>
 				<%if (resizeColumns) {%></nobr><%}%>
 			</div>
-		</xava:link>
+		<% } else { %>
+			<xava:link action='<%=action%>' argv='<%="row=" + f + actionArgv%>' cssClass='<%=cssStyle%>'>
+				<div title="<%=title%>" class="<xava:id name='tipable'/> <xava:id name='<%=id%>'/>_col<%=c%> <%=widthClass%>" <%=width%>>
+					<%if (resizeColumns) {%><nobr><%}%>
+					<%=fvalue%>
+					<%if (resizeColumns) {%>&nbsp;<%}%>
+					<%if (resizeColumns) {%></nobr><%}%>
+				</div>
+			</xava:link>
+		<% } %>
 	</td>
 <%
 	}
