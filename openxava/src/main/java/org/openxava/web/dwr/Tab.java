@@ -27,6 +27,36 @@ public class Tab extends DWRBase {
 		}
 	}
 	
+	/**
+	 * Updates a cell value in an editable list.
+	 * 
+	 * @param request The HTTP request
+	 * @param response The HTTP response
+	 * @param application The application name
+	 * @param module The module name
+	 * @param row The row number (0-based)
+	 * @param property The property name
+	 * @param value The new value
+	 * @param tabObject The tab object name
+	 */
+	public void updateValue(HttpServletRequest request, HttpServletResponse response, 
+			String application, String module, int row, String property, String value, String tabObject) {
+		try { 
+			System.out.println("Tab.updateValue()"); // tmr
+			initRequest(request, response, application, module); 
+			//org.openxava.tab.Tab tab = getTab(request, application, module, tabObject); 
+			
+			// For now, just print the values to verify the call is working
+			log.info("Updating value in list: row=" + row + ", property=" + property + ", value=" + value);
+			
+			// TODO: Implement the actual update logic using the tab object
+			// This will be implemented in a future iteration
+		}
+		finally {
+			cleanRequest();
+		}
+	}
+	
 	public void removeProperty(HttpServletRequest request, HttpServletResponse response, String application, String module, String property, String tabObject) {
 		try {
 			initRequest(request, response, application, module); 

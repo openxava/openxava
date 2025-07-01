@@ -19,10 +19,26 @@ openxava.addEditorInitFunction(function() {
             // Add our custom change event
             editor.on('change', function() {
                 var newValue = editor.val();
-                alert('Changed value in row ' + row + ', property ' + property + ': ' + newValue);
                 
-                // Here you would typically make an AJAX call to update the value in the server
-                // For now, we're just showing an alert as requested
+                // Get application and module from the URL
+                var url = window.location.href;
+                var urlParams = new URLSearchParams(url.substring(url.indexOf('?') + 1));
+                var application = urlParams.get('application');
+                var module = urlParams.get('module');
+                
+                // In OpenXava, the default tabObject is 'xava_tab' unless specified otherwise
+                var tabObject = 'xava_tab';
+                // If we're in a collection, the tabObject might be different
+                var collectionPrefix = $('#xava_collection_prefix').val();
+                if (collectionPrefix) {
+                    tabObject = collectionPrefix + 'tab';
+                }
+                
+                // TMR ME QUEDÉ POR AQUÍ: FALLA, POSIBLEMENTE document Y location NO SON CORRECTOS
+                // Call the DWR method to update the value in the server
+                Tab.updateValue(document, location, application, module, row, property, newValue, tabObject);
+                
+                // We could add visual feedback here to indicate the change was sent to the server
             });
         });
     });
