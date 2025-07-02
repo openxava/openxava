@@ -1,9 +1,13 @@
 package org.openxava.web.dwr;
 
+import java.util.*;
+
 import javax.servlet.http.*;
 
 import org.apache.commons.logging.*;
+import org.openxava.model.*;
 import org.openxava.util.*;
+import org.openxava.web.*;
 import org.openxava.web.servlets.*;
 
 /**
@@ -40,17 +44,31 @@ public class Tab extends DWRBase {
 	 * @param tabObject The tab object name
 	 */
 	public void updateValue(HttpServletRequest request, HttpServletResponse response, 
-			String application, String module, int row, String property, String value, String tabObject) {
+			String application, String module, int row, String property, String value) {
 		try { 
-			System.out.println("Tab.updateValue()"); // tmr
-			initRequest(request, response, application, module); 
-			//org.openxava.tab.Tab tab = getTab(request, application, module, tabObject); 
+			System.out.println("[Tab.updateValue] row=" + row + ", property=" + property + ", value=" + value); // tmr
+			initRequest(request, response, application, module);
+			org.openxava.tab.Tab tab = getTab(request, application, module, "xava_tab"); // By now only in list mode, not int collections
 			
-			// For now, just print the values to verify the call is working
-			log.info("Updating value in list: row=" + row + ", property=" + property + ", value=" + value);
-			
-			// TODO: Implement the actual update logic using the tab object
-			// This will be implemented in a future iteration
+			Map key = (Map) tab.getTableModel().getObjectAt(row);
+			System.out.println("[Tab.updateValue] key=" + key); // tmr
+			Map<String, Object> values = new HashMap<>();
+			Messages errors = new Messages();
+			Object ovalue = WebEditors.parse(request, tab.getMetaProperty(property), value, errors, value);
+			System.out.println("[Tab.updateValue] ovalue=" + ovalue); // tmr
+			if (ovalue != null) {
+				System.out.println("[Tab.updateValue] ovalue.getClass()=" + ovalue.getClass()); // tmr
+			}
+			if (errors.contains()) {
+				System.out.println("[Tab.updateValue] errors=" + errors); // tmr
+				// tmr ¿No seguir?
+			}
+			values.put(property, ovalue);
+			MapFacade.setValues(tab.getModelName(), key, values);
+			System.out.println("[Tab.updateValue] Grabado"); // tmr
+		}
+		catch (Exception ex) {
+			ex.printStackTrace(); // tmr ¿Qué hacer?
 		}
 		finally {
 			cleanRequest();
