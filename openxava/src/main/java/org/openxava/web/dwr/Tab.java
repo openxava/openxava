@@ -43,7 +43,7 @@ public class Tab extends DWRBase {
 	 * @param value The new value
 	 * @param tabObject The tab object name
 	 */
-	public void updateValue(HttpServletRequest request, HttpServletResponse response, 
+	public String updateValue(HttpServletRequest request, HttpServletResponse response, 
 			String application, String module, int row, String property, String value) {
 		try { 
 			System.out.println("[Tab.updateValue] row=" + row + ", property=" + property + ", value=" + value); // tmr
@@ -66,9 +66,11 @@ public class Tab extends DWRBase {
 			values.put(property, ovalue);
 			MapFacade.setValues(tab.getModelName(), key, values);
 			System.out.println("[Tab.updateValue] Grabado"); // tmr
+			return "Grabado nuevo valor para " + property + " en fila " + (row + 1); // tmr i18n
 		}
 		catch (Exception ex) {
 			ex.printStackTrace(); // tmr ¿Qué hacer?
+			return "Fallo";
 		}
 		finally {
 			cleanRequest();

@@ -1,3 +1,5 @@
+if (listEditor == null) var listEditor = {};
+
 /**
  * JavaScript for listEditor.jsp
  * Handles events for editable cells in list view
@@ -21,10 +23,14 @@ openxava.addEditorInitFunction(function() {
                 var newValue = editor.val();
                                 
                 // Call the DWR method to update the value in the server
-                Tab.updateValue(openxava.lastApplication, openxava.lastModule, row, property, newValue);
+                Tab.updateValue(openxava.lastApplication, openxava.lastModule, row, property, newValue, listEditor.showMessage);
                 
                 // We could add visual feedback here to indicate the change was sent to the server
             });
         });
     });
 });
+
+listEditor.showMessage = function(message) {
+	openxava.showMessage(message);
+}

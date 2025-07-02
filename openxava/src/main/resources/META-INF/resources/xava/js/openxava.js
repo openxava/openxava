@@ -431,6 +431,23 @@ openxava.propertiesUsedInCalculationsChange = function(result) {
 	
 }
 
+openxava.showMessage = function(message) { // tmr Documentar en algún sitio, ¿para usar desde editors? Añadir en changelog	
+    var app = openxava.lastApplication;
+    var module = openxava.lastModule;
+    var id = openxava.decorateId(app, module, "messages");
+	var tableId = openxava.decorateId(app, module, "messages_table");
+	// tmr Poner en JSP que genera esto que también hay que tenerlo sincronizado
+    var html = '<div class="ox-messages-wrapper"><table id="' 
+    	+ tableId 
+    	+ '"><tr><td class="ox-messages"><div class="ox-message-box"><i class="mdi mdi-close"></i>' 
+    	+ message + '</div></td></tr></table></div>';
+
+    $("#" + id).html(html);
+    
+    openxava.effectShow(app, module, "messages");
+    openxava.initMessages();
+};
+
 openxava.showMessages = function(result) { 
 	var messagesIsEmpty = openxava.getElementById(result.application, result.module, "messages_table") == null;
 	var errorsIsEmpty = openxava.getElementById(result.application, result.module, "errors_table") == null;
