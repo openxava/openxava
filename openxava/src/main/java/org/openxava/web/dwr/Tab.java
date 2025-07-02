@@ -5,6 +5,7 @@ import java.util.*;
 import javax.servlet.http.*;
 
 import org.apache.commons.logging.*;
+import org.openxava.controller.*;
 import org.openxava.model.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
@@ -71,7 +72,8 @@ public class Tab extends DWRBase {
 		}
 		catch (Exception ex) {
 			ex.printStackTrace(); // tmr ¿Qué hacer?
-			return "Fallo: " + ex.getMessage();
+			String error = ModuleManager.exceptionToMessage(ex); // TMR ME QUEDÉ POR AQUÍ. FALTA PROBARLO.
+			return "Fallo: " + error;
 		}
 		finally {
 			cleanRequest();

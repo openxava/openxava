@@ -858,7 +858,15 @@ public class ModuleManager implements java.io.Serializable {
 		}
 	}
 
-	private void manageException(MetaAction metaAction, Messages errors, Messages messages, Exception ex) {
+	
+	public static String exceptionToMessage(Exception ex) { // tmr ¿Este nombre? ¿Aquí?
+		Messages messages = new Messages();
+		Messages errors = new Messages();
+		manageException(null, errors, messages, ex);
+		return errors.toString();
+	}
+	
+	private static void manageException(MetaAction metaAction, Messages errors, Messages messages, Exception ex) {
 		if (ex instanceof ValidationException) {
 			errors.add(((ValidationException) ex).getErrors());
 			messages.removeAll();
@@ -908,7 +916,7 @@ public class ModuleManager implements java.io.Serializable {
 		}
 	}
 	
-	private void manageHibernateConstraintViolationlException(
+	private static void manageHibernateConstraintViolationlException(
 			MetaAction metaAction, Messages errors, Messages messages,
 			org.hibernate.exception.ConstraintViolationException ex) {
 		String constraintName = ex.getConstraintName().toLowerCase();
@@ -922,7 +930,7 @@ public class ModuleManager implements java.io.Serializable {
 		messages.removeAll();
 	}
 
-	private void manageConstraintViolationException(MetaAction metaAction,
+	private static void manageConstraintViolationException(MetaAction metaAction,
 			Messages errors, Messages messages,
 			javax.validation.ConstraintViolationException ex) {
 		for (javax.validation.ConstraintViolation<?> violation : ex
@@ -954,14 +962,14 @@ public class ModuleManager implements java.io.Serializable {
 		messages.removeAll();
 	}
 
-	private String removeBraces(String string) { 
+	private static String removeBraces(String string) { 
 		if (string.startsWith("{") && string.endsWith("}")) {
 			string = string.substring(1, string.length() - 1);
 		}
 		return string;
 	}
 
-	private String getMessage(ConstraintViolation<?> violation) { 
+	private static String getMessage(ConstraintViolation<?> violation) { 
 		String messageTemplate = violation.getMessageTemplate();
 		if (violation.getMessage().equals(messageTemplate)) return messageTemplate;
 		try {
@@ -981,7 +989,7 @@ public class ModuleManager implements java.io.Serializable {
 		}
 	}
 
-	private void manageRegularException(MetaAction metaAction, Messages errors,
+	private static void manageRegularException(MetaAction metaAction, Messages errors,
 			Messages messages, Exception ex) {
 		log.error(ex.getMessage(), ex);
 		if (metaAction != null) {
@@ -994,7 +1002,7 @@ public class ModuleManager implements java.io.Serializable {
 		messages.removeAll();
 	}
 	
-	private void manageSQLException(MetaAction metaAction, Messages errors,
+	private static void manageSQLException(MetaAction metaAction, Messages errors,
 			Messages messages, javax.persistence.PersistenceException ex) {
 		boolean foundSQLException = false;
 		Throwable cause = ex;
