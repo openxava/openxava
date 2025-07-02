@@ -42,6 +42,7 @@ public class Tab extends DWRBase {
 	 * @param property The property name
 	 * @param value The new value
 	 * @param tabObject The tab object name
+	 * @return Confirmatior or error message
 	 */
 	public String updateValue(HttpServletRequest request, HttpServletResponse response, 
 			String application, String module, int row, String property, String value) {
@@ -70,7 +71,7 @@ public class Tab extends DWRBase {
 		}
 		catch (Exception ex) {
 			ex.printStackTrace(); // tmr ¿Qué hacer?
-			return "Fallo";
+			return "Fallo: " + ex.getMessage();
 		}
 		finally {
 			cleanRequest();

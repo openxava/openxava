@@ -3,6 +3,7 @@ package org.openxava.test.model;
 import java.util.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import org.openxava.annotations.*;
 import org.openxava.model.*;
@@ -30,6 +31,7 @@ public class Appointment2 extends Identifiable {
 	@Column(length=60) @Required
 	private String description;
 	
+	@Max(13) // tmr
 	private int amountOfPeople;
 	
 	@DescriptionsList

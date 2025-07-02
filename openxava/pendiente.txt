@@ -2,7 +2,7 @@ Pendiente de listas editables TMR
 ---------------------------------
 
 * Mensaje de confirmación.
-- Validación
+- Validación: TMR ME QUEDÉ POR AQUÍ. PUSE UN @Max EN LA PROPIEDAD, PERO EL MENSAJE ES DEMASIADO TÉCNICO
 - Error de formateo.
 - Id duplicado. Posiblemente la causa de que el primer elemento adquiera el valor del cambiado.
 - Limitar propiedades disponibles.
