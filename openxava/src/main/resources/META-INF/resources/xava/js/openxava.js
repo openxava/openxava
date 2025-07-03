@@ -431,21 +431,51 @@ openxava.propertiesUsedInCalculationsChange = function(result) {
 	
 }
 
-openxava.showMessage = function(message) { // tmr Documentar en algún sitio, ¿para usar desde editors? Añadir en changelog	
+/**
+ * Base function to display messages or errors
+ * @param {string} message - The message to display
+ * @param {string} type - The type of message ('messages' or 'errors')
+ */
+openxava.showNotification = function(message, type) {
     var app = openxava.lastApplication;
     var module = openxava.lastModule;
-    var id = openxava.decorateId(app, module, "messages");
-	var tableId = openxava.decorateId(app, module, "messages_table");
-	// tmr Poner en JSP que genera esto que también hay que tenerlo sincronizado
-    var html = '<div class="ox-messages-wrapper"><table id="' 
+    
+    // Hide the opposite type of notification
+    var oppositeType = (type === "messages") ? "errors" : "messages";
+    $("#"+openxava.decorateId(app, module, oppositeType)).fadeOut();
+    
+    var id = openxava.decorateId(app, module, type);
+	var tableId = openxava.decorateId(app, module, type + "_table");
+	
+	// CSS classes depend on the type
+	var wrapperClass = "ox-" + type + "-wrapper";
+	var contentClass = "ox-" + type;
+	
+    var html = '<div class="' + wrapperClass + '"><table id="' 
     	+ tableId 
-    	+ '"><tr><td class="ox-messages"><div class="ox-message-box"><i class="mdi mdi-close"></i>' 
+    	+ '"><tr><td class="' + contentClass + '"><div class="ox-message-box"><i class="mdi mdi-close"></i>' 
     	+ message + '</div></td></tr></table></div>';
 
     $("#" + id).html(html);
     
-    openxava.effectShow(app, module, "messages");
+    openxava.effectShow(app, module, type);
     openxava.initMessages();
+};
+
+/**
+ * Shows an informative message
+ * @param {string} message - The message to display
+ */
+openxava.showMessage = function(message) { // tmr Documentar en algÃºn sitio, Â¿para usar desde editors? AÃ±adir en changelog	
+    openxava.showNotification(message, "messages");
+};
+
+/**
+ * Shows an error message
+ * @param {string} message - The error message to display
+ */
+openxava.showError = function(message) {
+    openxava.showNotification(message, "errors");
 };
 
 openxava.showMessages = function(result) { 

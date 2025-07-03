@@ -63,7 +63,7 @@ public class Tab extends DWRBase {
 			}
 			if (errors.contains()) {
 				System.out.println("[Tab.updateValue] errors=" + errors); // tmr
-				// tmr ¿No seguir?
+				// tmr Â¿No seguir?
 			}
 			values.put(property, ovalue);
 			MapFacade.setValues(tab.getModelName(), key, values);
@@ -71,9 +71,9 @@ public class Tab extends DWRBase {
 			return "Grabado nuevo valor para " + property + " en fila " + (row + 1); // tmr i18n
 		}
 		catch (Exception ex) {
-			ex.printStackTrace(); // tmr ¿Qué hacer?
-			String error = ModuleManager.exceptionToMessage(ex); // TMR ME QUEDÉ POR AQUÍ. FALTA PROBARLO.
-			return "Fallo: " + error;
+			ex.printStackTrace(); // tmr Â¿QuÃ© hacer?
+			String error = ModuleManager.exceptionToMessage(ex); 
+			return "ERROR: " + error;
 		}
 		finally {
 			cleanRequest();

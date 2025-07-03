@@ -25,12 +25,17 @@ openxava.addEditorInitFunction(function() {
                 // Call the DWR method to update the value in the server
                 Tab.updateValue(openxava.lastApplication, openxava.lastModule, row, property, newValue, listEditor.showMessage);
                 
-                // We could add visual feedback here to indicate the change was sent to the server
             });
         });
     });
 });
 
 listEditor.showMessage = function(message) {
-	openxava.showMessage(message);
+	if (message.startsWith("ERROR:")) {
+		var errorMessage = message.substring(6).trim(); // Remove "ERROR:" prefix and trim
+		openxava.showError(errorMessage);
+	}
+	else {
+		openxava.showMessage(message);
+	}
 }
