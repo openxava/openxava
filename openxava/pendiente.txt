@@ -1,14 +1,14 @@
 Pendiente de listas editables TMR
 ---------------------------------
 
-* Mensaje de confirmación.
-- Validación.
+* Mensaje de confirmaciÃ³n.
+* ValidaciÃ³n.
 - Error de formateo.
 - Id duplicado. Posiblemente la causa de que el primer elemento adquiera el valor del cambiado.
 - Limitar propiedades disponibles.
 - Prueba.
-- Estética.
-- @DescriptionsList ¿Diferir? 
+- EstÃ©tica.
+- @DescriptionsList Â¿Diferir? 
 
 Diferir:
 - Undo.

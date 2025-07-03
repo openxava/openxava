@@ -858,12 +858,21 @@ public class ModuleManager implements java.io.Serializable {
 		}
 	}
 
+	/**
+	 * Manages the exception using the same logic when executing an action and it fails. <p>
+	 * 
+	 * It includes the rollback if needed and log the error. <br>
+	 * 
+	 * @since 7.6
+	 * @param ex The exception to manage.
+	 * @return The errors extracted and curated from the exception and its causes.
+	 */
 	
-	public static String exceptionToMessage(Exception ex) { // tmr ¿Este nombre? ¿Aquí?
+	public static Messages manageException(Exception ex) { // tmr En changelog
 		Messages messages = new Messages();
 		Messages errors = new Messages();
 		manageException(null, errors, messages, ex);
-		return errors.toString();
+		return errors;
 	}
 	
 	private static void manageException(MetaAction metaAction, Messages errors, Messages messages, Exception ex) {
