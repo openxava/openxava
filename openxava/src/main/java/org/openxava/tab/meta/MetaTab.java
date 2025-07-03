@@ -897,21 +897,61 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	}
 		
 	/**
-	 * Checks if a property is in the editable properties list.
-	 * 
-	 * @param propertyName The name of the property to check
-	 * @return true if the property is editable, false otherwise
-	 */
-	public boolean isPropertyEditable(String propertyName) {
-		if (editableProperties == null || editableProperties.trim().isEmpty()) {
-			return false;
-		}
-		String[] properties = editableProperties.split(",");
-		for (String property : properties) {
-			if (property.trim().equals(propertyName)) {
-				return true;
-			}
-		}
+ * Checks if a property is in the editable properties list.
+ * 
+ * @param propertyName The name of the property to check
+ * @return true if the property is editable, false otherwise
+ */
+public boolean isPropertyEditable(String propertyName) {
+	if (editableProperties == null || editableProperties.trim().isEmpty()) {
 		return false;
 	}
+	if (propertyName.contains(".")) {
+		log.warn("Property " + propertyName + " is not editable because it is a qualified property (property from a reference)"); // tmr ini
+		return false;
+	}
+	String[] properties = editableProperties.split(",");
+	// TMR ME QUEDÉ PROBANDO LO DE ABAJO. NO FUNCIONA. TENGO CÓDIGO DE PRUEBA EN Appointment2, QUE DEBERÍA DE QUITAR CUANDO ESTO VAYA
+	for (String property : properties) {
+		if (property.trim().equals(propertyName)) {
+			MetaProperty p = getMetaModel().getMetaProperty(propertyName);
+			if (p.isCalculated()) {
+				log.warn("Property " + property + " is calculated and cannot be editable"); // tmr ini
+				return false;
+			}
+			if (p.isKey()) {
+				log.warn("Property " + property + " is a key and cannot be editable"); // tmr ini
+				return false;
+			}
+			if (p.hasCalculation()) {
+				log.warn("Property " + property + " has calculation and cannot be editable"); // tmr ini
+				return false;
+			}
+			if (p.isReadOnly()) {
+				log.warn("Property " + property + " is read-only and cannot be editable"); // tmr ini
+				return false;
+			}
+			if (p.isVersion()) {
+				log.warn("Property " + property + " is a version and cannot be editable"); // tmr ini
+				return false;
+			}
+			if (p.isTransient()) {
+				log.warn("Property " + property + " is transient and cannot be editable"); // tmr ini
+				return false;
+			}
+			if (p.usesForCalculation(propertyName)) {	
+				log.warn("Property " + property + " uses for calculation and cannot be editable"); // tmr ini
+				return false;
+			}
+			// Check if property has @Formula annotation
+			PropertyMapping mapping = p.getMapping();
+			if (mapping != null && mapping.hasFormula()) {
+				log.warn("Property " + property + " has @Formula annotation and cannot be editable"); // tmr ini
+				return false;
+			}
+			return true;
+		}
+	}
+	return false;
+}	
 }

@@ -15,8 +15,8 @@ import org.openxava.model.*;
 
 @Entity
 @Table(name="APPOINTMENT")
-@Tab(properties="time, dateTime, description, amountOfPeople, type.description",
-	editableProperties="amountOfPeople") // tmr Añadir type.description. Hacer un Appoiment2Test (antes probar que otros test de Appoiment2 funcionan bien)
+@Tab(properties="time, dateTime, description, amountOfPeople, type.description, amountOfPeopleString, extendedDescription",
+	editableProperties="amountOfPeople, amountOfPeopleString, extendedDescription") // tmr Añadir type.description. Hacer un Appoiment2Test (antes probar que otros test de Appoiment2 funcionan bien)
 @View(members="time; dateTime; description; amountOfPeople; type")
 public class Appointment2 extends Identifiable {
 	
@@ -33,6 +33,21 @@ public class Appointment2 extends Identifiable {
 	
 	@Max(13) // tmr
 	private int amountOfPeople;
+
+	public String getAmountOfPeopleString() { // tmr
+		return Integer.toString(amountOfPeople);
+	}
+
+	@org.hibernate.annotations.Formula("description || ' ' || amountOfPeople")
+	private String extendedDescription; // tmr
+	
+	public String getExtendedDescription() {
+		return extendedDescription;
+	}
+
+	public void setExtendedDescription(String extendedDescription) {
+		this.extendedDescription = extendedDescription;
+	}
 	
 	@DescriptionsList
 	@ManyToOne(fetch=FetchType.LAZY)
