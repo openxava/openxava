@@ -48,31 +48,23 @@ public class Tab extends DWRBase {
 	public String updateValue(HttpServletRequest request, HttpServletResponse response, 
 			String application, String module, int row, String property, String value) {
 		try { 
-			System.out.println("[Tab.updateValue] row=" + row + ", property=" + property + ", value=" + value); // tmr
 			initRequest(request, response, application, module);
 			org.openxava.tab.Tab tab = getTab(request, application, module, "xava_tab"); // By now only in list mode, not int collections
 			
 			Map key = (Map) tab.getTableModel().getObjectAt(row);
-			System.out.println("[Tab.updateValue] key=" + key); // tmr
 			Map<String, Object> values = new HashMap<>();
-			Messages errors = new Messages();
-			Object ovalue = WebEditors.parse(request, tab.getMetaProperty(property), value, errors, value);
-			System.out.println("[Tab.updateValue] ovalue=" + ovalue); // tmr
-			if (ovalue != null) {
-				System.out.println("[Tab.updateValue] ovalue.getClass()=" + ovalue.getClass()); // tmr
-			}
-			if (errors.contains()) {
-				System.out.println("[Tab.updateValue] errors=" + errors); // tmr
-				// tmr ¿No seguir?
+			Messages parsingErrors = new Messages();
+			Object ovalue = WebEditors.parse(request, tab.getMetaProperty(property), value, parsingErrors, value);
+			if (parsingErrors.contains()) {
+				return "ERROR: " + parsingErrors;
 			}
 			values.put(property, ovalue);
 			MapFacade.setValues(tab.getModelName(), key, values);
-			System.out.println("[Tab.updateValue] Grabado"); // tmr
 			return "Grabado nuevo valor para " + property + " en fila " + (row + 1); // tmr i18n
 		}
 		catch (Exception ex) {
-			String error = ModuleManager.manageException(ex).toString(); 
-			return "ERROR: " + error;
+			Messages errors = ModuleManager.manageException(ex); 
+			return "ERROR: " + errors;
 		}
 		finally {
 			cleanRequest();
