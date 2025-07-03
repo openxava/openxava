@@ -4248,6 +4248,9 @@ public class View implements java.io.Serializable {
 	}
 	
 	public MetaProperty getMetaProperty(String name) throws XavaException {		
+		if (name.contains("___")) { // We use ___ to separate the row number from the property name in some cases
+			name = name.substring(0, name.indexOf("___"));
+		}
 		int idx = name.indexOf('.');
 		if (idx >= 0) {
 			String reference = name.substring(0, idx);

@@ -483,7 +483,7 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 				class="ox-list-cell-editor <xava:id name='tipable'/> <xava:id name='<%=id%>'/>_col<%=c%> <%=widthClass%>" 
 				<%=width%>
 				data-row="<%=f%>" data-property="<%=p.getName()%>">
-					<xava:editor property="<%=p.getName()%>" value="<%=model.getValueAt(f, c)%>" editable="true"/>
+					<xava:editor property='<%=p.getName() + "___" + f%>' value='<%=model.getValueAt(f, c)%>' editable='true'/>
 			</div>
 		<% } else { %>
 			<xava:link action='<%=action%>' argv='<%="row=" + f + actionArgv%>' cssClass='<%=cssStyle%>'>
