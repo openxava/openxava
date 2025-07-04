@@ -5,7 +5,7 @@ Pendiente de listas editables TMR
 * Validación.
 * Error de formateo.
 * Id duplicado. Posiblemente la causa de que el primer elemento adquiera el valor del cambiado.
-- Limitar propiedades disponibles.
+* Limitar propiedades disponibles.
 - Prueba.
 - Estética.
 - @DescriptionsList ¿Diferir? 

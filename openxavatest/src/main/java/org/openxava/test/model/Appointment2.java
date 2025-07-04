@@ -31,23 +31,15 @@ public class Appointment2 extends Identifiable {
 	@Column(length=60) @Required
 	private String description;
 	
-	@Max(13) // tmr
+	@Max(13) 
 	private int amountOfPeople;
 
-	public String getAmountOfPeopleString() { // tmr
+	public String getAmountOfPeopleString() { 
 		return Integer.toString(amountOfPeople);
 	}
 
 	@org.hibernate.annotations.Formula("description || ' ' || amountOfPeople")
-	private String extendedDescription; // tmr
-	
-	public String getExtendedDescription() {
-		return extendedDescription;
-	}
-
-	public void setExtendedDescription(String extendedDescription) {
-		this.extendedDescription = extendedDescription;
-	}
+	private String extendedDescription; 
 	
 	@DescriptionsList
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -92,4 +84,13 @@ public class Appointment2 extends Identifiable {
 	public void setType(AppointmentType type) {
 		this.type = type;
 	}
+	
+	public String getExtendedDescription() {
+		return extendedDescription;
+	}
+
+	public void setExtendedDescription(String extendedDescription) {
+		this.extendedDescription = extendedDescription;
+	}
+
 }

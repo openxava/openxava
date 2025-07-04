@@ -911,7 +911,6 @@ public boolean isPropertyEditable(String propertyName) {
 		return false;
 	}
 	String[] properties = editableProperties.split(",");
-	// TMR ME QUEDÉ PROBANDO LO DE ABAJO. NO FUNCIONA. TENGO CÓDIGO DE PRUEBA EN Appointment2, QUE DEBERÍA DE QUITAR CUANDO ESTO VAYA
 	for (String property : properties) {
 		if (property.trim().equals(propertyName)) {
 			MetaProperty p = getMetaModel().getMetaProperty(propertyName);
