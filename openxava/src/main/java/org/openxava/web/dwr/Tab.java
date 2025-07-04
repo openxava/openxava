@@ -60,7 +60,8 @@ public class Tab extends DWRBase {
 			}
 			values.put(property, ovalue);
 			MapFacade.setValues(tab.getModelName(), key, values);
-			return "Grabado nuevo valor para " + property + " en fila " + (row + 1); // tmr i18n
+			String propertyLabel = Labels.get(property, request.getLocale()).toLowerCase();
+			return XavaResources.getString(request, "value_saved_for_property_in_row", propertyLabel, row + 1); 
 		}
 		catch (Exception ex) {
 			Messages errors = ModuleManager.manageException(ex); 

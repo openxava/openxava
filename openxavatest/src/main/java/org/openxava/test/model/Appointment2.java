@@ -15,9 +15,9 @@ import org.openxava.model.*;
 
 @Entity
 @Table(name="APPOINTMENT")
-@Tab(properties="time, dateTime, description, amountOfPeople, type.description, amountOfPeopleString, extendedDescription",
-	editableProperties="amountOfPeople, amountOfPeopleString, extendedDescription") // tmr Añadir type.description. Hacer un Appoiment2Test (antes probar que otros test de Appoiment2 funcionan bien)
-@View(members="time; dateTime; description; amountOfPeople; type")
+@Tab(properties="time, dateTime, description, peopleCount, type.description, extendedDescription",
+	editableProperties="peopleCount, extendedDescription") // tmr Añadir type.description. Hacer un Appoiment2Test (antes probar que otros test de Appoiment2 funcionan bien)
+@View(members="time; dateTime; description; peopleCount; type")
 public class Appointment2 extends Identifiable {
 	
 	@Stereotype("DATETIME")
@@ -31,14 +31,11 @@ public class Appointment2 extends Identifiable {
 	@Column(length=60) @Required
 	private String description;
 	
+	@Column(name="AMOUNTOFPEOPLE")
 	@Max(13) 
-	private int amountOfPeople;
+	private int peopleCount;
 
-	public String getAmountOfPeopleString() { 
-		return Integer.toString(amountOfPeople);
-	}
-
-	@org.hibernate.annotations.Formula("description || ' ' || amountOfPeople")
+	@org.hibernate.annotations.Formula("DESCRIPTION || ' ' || AMOUNTOFPEOPLE")
 	private String extendedDescription; 
 	
 	@DescriptionsList
@@ -69,14 +66,6 @@ public class Appointment2 extends Identifiable {
 		this.description = description;
 	}
 
-	public int getAmountOfPeople() {
-		return amountOfPeople;
-	}
-
-	public void setAmountOfPeople(int amountOfPeople) {
-		this.amountOfPeople = amountOfPeople;
-	}
-
 	public AppointmentType getType() {
 		return type;
 	}
@@ -91,6 +80,14 @@ public class Appointment2 extends Identifiable {
 
 	public void setExtendedDescription(String extendedDescription) {
 		this.extendedDescription = extendedDescription;
+	}
+
+	public int getPeopleCount() {
+		return peopleCount;
+	}
+
+	public void setPeopleCount(int peopleCount) {
+		this.peopleCount = peopleCount;
 	}
 
 }

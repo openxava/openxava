@@ -1398,7 +1398,60 @@ abstract public class ModuleTestBase extends TestCase {
 		int column = getPropertiesList(collection).indexOf(name);
 		return getValueInCollection(collection, row, column);
 	}
-
+	
+	/**
+	 * tmr En changelog 
+	 * @since 7.6 
+	 */
+	protected void setValueInList(int row, String name, String value) throws Exception {
+		String propertyName = name + "." + row;
+		setValue(propertyName, value);
+	}	
+	
+	/**
+	 * @since 7.6 
+	 */	
+	protected void setValueInList(int row, int column, String value) throws Exception {
+		String name = getMetaTab().getPropertiesNames().get(column);
+		setValueInList(row, name, value);
+	}
+	
+	/**
+	 * tmr En changelog
+	 *  
+	 * @since 7.6 
+	 */		
+	protected void assertEditableInList(int row, String name) throws Exception { 
+		String propertyName = name + "." + row;
+		assertTrue(name + " en la fila " + row + " de la lista no es editable (o no existe) y debería se editable", hasElementById(propertyName)); // tmr i18n
+	}
+	
+	/**
+	 * tmr En changelog
+	 *  
+	 * @since 7.6 
+	 */		
+	protected void assertNoEditableInList(int row, String name) throws Exception { 
+		String propertyName = name + "." + row;
+		assertTrue(name + " en la fila " + row + " de la lista es editable y no debería serlo", !hasElementById(propertyName)); // tmr i18n
+	}
+	
+	/**
+	 * @since 7.6 
+	 */		
+	protected void assertEditableInList(int row, int column) throws Exception {
+		String name = getMetaTab().getPropertiesNames().get(column);
+		assertEditableInList(row, name);
+	}
+	
+	/**
+	 * @since 7.6 
+	 */		
+	protected void assertNoEditableInList(int row, int column) throws Exception { 
+		String name = getMetaTab().getPropertiesNames().get(column);
+		assertNoEditableInList(row, name);
+	}
+	
 	/**
 	 * @since 5.0 
 	 */
