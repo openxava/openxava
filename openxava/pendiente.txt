@@ -7,7 +7,7 @@ Pendiente de listas editables TMR
 * Id duplicado. Posiblemente la causa de que el primer elemento adquiera el valor del cambiado.
 * Limitar propiedades disponibles.
 * Prueba.
-- Marcar en rojo el editor cuando hay problemas de validación.
+* Marcar en rojo el editor cuando hay problemas de validación.
 - EstÃ©tica.
 - @DescriptionsList Â¿Diferir? 
 - Doc:

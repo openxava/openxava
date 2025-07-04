@@ -13,7 +13,7 @@ openxava.addEditorInitFunction(function() {
         
         // Find all editors within this cell
         cellContainer.find('.editor').each(function() {
-            var editor = $(this);
+            var editor = $(this);         
             
             // Remove any existing change events
             editor.off('change');
@@ -24,7 +24,8 @@ openxava.addEditorInitFunction(function() {
                                 
                 // Call the DWR method to update the value in the server
                 Tab.updateValue(openxava.lastApplication, openxava.lastModule, row, property, newValue, listEditor.showMessage);
-                
+                listEditor.lastEditor = editor;
+                editor.parent().removeClass("ox-error-editor");
             });
         });
     });
@@ -34,6 +35,7 @@ listEditor.showMessage = function(message) {
 	if (message.startsWith("ERROR:")) {
 		var errorMessage = message.substring(6).trim(); // Remove "ERROR:" prefix and trim
 		openxava.showError(errorMessage);
+		listEditor.lastEditor.parent().addClass("ox-error-editor");
 	}
 	else {
 		openxava.showMessage(message);
