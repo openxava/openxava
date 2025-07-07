@@ -53,13 +53,22 @@ public class Tab extends DWRBase {
 			
 			Map key = (Map) tab.getTableModel().getObjectAt(row);
 			Map<String, Object> values = new HashMap<>();
-			Messages parsingErrors = new Messages();
-			// TMR ME QUEDÉ POR AQUÍ: DA UN ERROR EN LA LÍNEA SIGUIENTE AL ESCOGER UN VALOR DEL COMBO EN LA LISTA
-			Object ovalue = WebEditors.parse(request, tab.getMetaProperty(property), value, parsingErrors, value);
-			if (parsingErrors.contains()) {
-				return "ERROR: " + parsingErrors;
+			try {
+				Messages parsingErrors = new Messages();
+				System.out.println("Tab.updateValue() property=" + property); // tmr
+				System.out.println("Tab.updateValue() value=" + value); // tmr
+				Object ovalue = WebEditors.parse(request, tab.getMetaProperty(property), value, parsingErrors, value);
+				if (parsingErrors.contains()) {
+					return "ERROR: " + parsingErrors;
+				}
+				values.put(property, ovalue);
 			}
-			values.put(property, ovalue);
+			catch (ElementNotFoundException ex) {
+				if (!tab.getMetaTab().getMetaModel().containsMetaReference(property)) {
+					throw ex;
+				}
+				
+			}
 			System.out.println("Tab.updateValue() values=" + values); // tmr
 			System.out.println("Tab.updateValue() key=" + key); // tmr
 			System.out.println("Tab.updateValue() tab.getModelName()=" + tab.getModelName()); // tmr

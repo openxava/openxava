@@ -11,6 +11,8 @@ Pendiente de listas editables TMR
 * Estética.
 - @DescriptionsList ¿Diferir? 
     - Probar uno con clave simple
+    - Al entrar aparecen deshabilitados
+- Suite
 - Doc:
     - Nuevo parámetro value en editor.
     - Poner en changelog de lo de nuevas etiquetas de uso común
