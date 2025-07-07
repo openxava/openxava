@@ -1542,7 +1542,7 @@ input[type="button"] {
 	background: var(--element-collection-row-hover-background);
 }
 
-.ox-element-collection .editor { 
+.ox-element-collection .editor, .ox-list-cell-editor .editor { 
 	width: 100%; 
 	box-sizing: border-box; 
 	-moz-box-sizing: border-box; 

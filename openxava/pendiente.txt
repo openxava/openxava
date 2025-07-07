@@ -7,13 +7,13 @@ Pendiente de listas editables TMR
 * Id duplicado. Posiblemente la causa de que el primer elemento adquiera el valor del cambiado.
 * Limitar propiedades disponibles.
 * Prueba.
-* Marcar en rojo el editor cuando hay problemas de validación.
-- EstÃ©tica.
+* Marcar en rojo el editor cuando hay problemas de validaciÃ³n.
+* EstÃ©tica.
 - @DescriptionsList Â¿Diferir? 
 - Doc:
     - Nuevo parÃ¡metro value en editor.
-    - Poner en changelog de lo de nuevas etiquetas de uso común
-- ¿Debería incluir la característica en invoicedemo?
+    - Poner en changelog de lo de nuevas etiquetas de uso comÃºn
+- Â¿DeberÃ­a incluir la caracterÃ­stica en invoicedemo?
 
 Diferir:
 - Undo. Para la 8.1.
