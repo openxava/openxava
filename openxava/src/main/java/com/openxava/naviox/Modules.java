@@ -377,9 +377,12 @@ public class Modules implements Serializable {
 	}
 
 	private boolean isModuleNotInPreference(String moduleName) { 
+		/*
 		return moduleName.equals("RestorePassword") 
 			|| moduleName.equals("RecoverPassword")
 			|| moduleName.equals("UserJoin"); // tmr ¿Mover a la interfaz?
+		*/
+		return ModulesHelper.rememberVisitedModule(moduleName);
 	}
 
 	private static Preferences getPreferences() throws BackingStoreException { 

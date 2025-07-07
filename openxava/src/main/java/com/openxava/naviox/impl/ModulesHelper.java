@@ -71,6 +71,11 @@ public class ModulesHelper {
 		return getProvider().showsSearchModules(request);
 	}
 	
+	/** @since 7.6 */
+	public static boolean rememberVisitedModule(String moduleName) {
+		return getProvider().rememberVisitedModule(moduleName);
+	}
+	
 	private static IModulesHelperProvider getProvider() {
 		if (provider == null) {
 			try {

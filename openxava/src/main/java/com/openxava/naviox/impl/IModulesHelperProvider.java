@@ -44,4 +44,8 @@ public interface IModulesHelperProvider {
 
 	boolean showsSearchModules(HttpServletRequest request);
 
+	default boolean rememberVisitedModule(String moduleName) { // TMR ME QUEDÉ POR AQUÍ. DETERMINANDO EL NOMBRE
+		return true;
+	}
+
 }
