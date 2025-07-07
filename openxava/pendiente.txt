@@ -10,6 +10,7 @@ Pendiente de listas editables TMR
 * Marcar en rojo el editor cuando hay problemas de validación.
 * Estética.
 - @DescriptionsList ¿Diferir? 
+    - Probar uno con clave simple
 - Doc:
     - Nuevo parámetro value en editor.
     - Poner en changelog de lo de nuevas etiquetas de uso común

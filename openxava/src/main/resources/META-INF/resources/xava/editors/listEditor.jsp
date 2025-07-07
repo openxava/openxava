@@ -478,12 +478,27 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 			}
 %>
 	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell">
-		<% if (tab.isPropertyEditable(p.getName())) { %>
+		<% if (tab.isPropertyEditable(p.getQualifiedName())) { %>
+			<% 
+			String memberName = p.getQualifiedName();
+			if (memberName.contains(".")) {
+				memberName = memberName.substring(0, memberName.lastIndexOf("."));
+			}
+			%>
+
 			<div title="<%=title%>" 
 				class="ox-list-cell-editor <xava:id name='tipable'/> <xava:id name='<%=id%>'/>_col<%=c%> <%=widthClass%>" 
 				<%=width%>
-				data-row="<%=f%>" data-property="<%=p.getName()%>">
-					<xava:editor property='<%=p.getName() + "___" + f%>' value='<%=model.getValueAt(f, c)%>' editable='true'/>
+				data-row="<%=f%>" data-property="<%=memberName%>">
+				<% 
+				String editorURLDescriptionsList = WebEditors.getEditorURLDescriptionsList(tab.getTabName(), tab.getModelName(), 
+					Ids.decorate(request, memberName + "___" + f), -1, prefix, p.getQualifiedName(), p.getName());
+				if (!editorURLDescriptionsList.isEmpty()) { 
+				%>
+					<xava:descriptionsList reference="<%=memberName%>"/>
+				<% } else { %>
+					<xava:editor property='<%=memberName + "___" + f%>' value='<%=model.getValueAt(f, c)%>' editable='true'/>
+				<% } %>
 			</div>
 		<% } else { %>
 			<xava:link action='<%=action%>' argv='<%="row=" + f + actionArgv%>' cssClass='<%=cssStyle%>'>

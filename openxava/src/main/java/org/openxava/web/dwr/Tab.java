@@ -54,11 +54,15 @@ public class Tab extends DWRBase {
 			Map key = (Map) tab.getTableModel().getObjectAt(row);
 			Map<String, Object> values = new HashMap<>();
 			Messages parsingErrors = new Messages();
+			// TMR ME QUEDÉ POR AQUÍ: DA UN ERROR EN LA LÍNEA SIGUIENTE AL ESCOGER UN VALOR DEL COMBO EN LA LISTA
 			Object ovalue = WebEditors.parse(request, tab.getMetaProperty(property), value, parsingErrors, value);
 			if (parsingErrors.contains()) {
 				return "ERROR: " + parsingErrors;
 			}
 			values.put(property, ovalue);
+			System.out.println("Tab.updateValue() values=" + values); // tmr
+			System.out.println("Tab.updateValue() key=" + key); // tmr
+			System.out.println("Tab.updateValue() tab.getModelName()=" + tab.getModelName()); // tmr
 			MapFacade.setValues(tab.getModelName(), key, values);
 			String propertyLabel = Labels.get(property, request.getLocale()).toLowerCase();
 			return XavaResources.getString(request, "value_saved_for_property_in_row", propertyLabel, row + 1); 

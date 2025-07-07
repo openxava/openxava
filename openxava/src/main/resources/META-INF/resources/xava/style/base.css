@@ -1550,6 +1550,25 @@ input[type="button"] {
 	height: 30px;
 }
 
+/* tmr ini Dejar si me quedo con xava:descriptionsList */
+.ox-list-cell-editor .ox-descriptions-list {
+	white-space: nowrap;
+}
+
+.ox-list-cell-editor .ox-descriptions-list a {
+	height: 0px;
+}
+
+.ox-list-cell-editor .ox-descriptions-list a i {
+	top: -5px;
+}
+
+.ox-list-cell-editor .ox-image-link { /* tmr ¿Quitar desde Java? */
+	display: none;
+	
+}
+/* tmr fin */
+
 .ox-element-collection input[type="checkbox"] {
 	height: inherit;
 	margin-left: auto;
