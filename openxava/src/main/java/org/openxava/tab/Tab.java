@@ -3233,9 +3233,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 */
 	public boolean isPropertyEditable(String propertyName) {
 		try {
-			boolean editable = getMetaTab().isPropertyEditable(propertyName);
-			System.out.println("[Tab.isPropertyEditable(" + propertyName + ")] editable: " + editable); // tmr
-			return editable;
+			return getMetaTab().isPropertyEditable(propertyName);
 		} catch (Exception e) {
 			log.error("Error checking if property is editable: " + propertyName, e); // tmr i18n
 			return false;

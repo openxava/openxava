@@ -9,6 +9,7 @@
 <%@page import="org.openxava.web.DescriptionsLists"%> 
 <%@page import="org.openxava.util.XavaPreferences"%>
 <%@page import="org.openxava.util.Is"%>
+<%@page import="java.util.HashMap"%>
 
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
@@ -77,11 +78,18 @@ if (keys.size() == 1) {
 	keyProperty = keys.iterator().next().toString();
 	propertyKey = Ids.decorate(request, referenceKey + "." + keyProperty);
 	if (!composite) { 
-		Map values = (Map) view.getValue(ref.getName());
-		values = values == null?java.util.Collections.EMPTY_MAP:values;
-		Object value = values.get(keyProperty);
+		// First try to get the value from the request (for lists)
 		String valueKey = propertyKey + ".value";
-		request.setAttribute(valueKey, value);		
+		Object value = request.getAttribute(valueKey);
+		
+		// If not in the request, get it from the View (for forms)
+		if (value == null) {
+			Map values = (Map) view.getValue(ref.getName());
+			values = values == null?java.util.Collections.EMPTY_MAP:values;
+			value = values.get(keyProperty);
+			request.setAttribute(valueKey, value);
+		}
+			
 		String fvalue = value==null?"":value.toString();
 		request.setAttribute(propertyKey + ".fvalue", fvalue);
 	}
@@ -90,8 +98,30 @@ else {
 	propertyKey = referenceKey + DescriptionsLists.COMPOSITE_KEY_SUFFIX; 
 	Map values = null; 
 	if (!composite) { 
-		values = (Map) view.getValue(ref.getName());
-		values = values == null?java.util.Collections.EMPTY_MAP:values;
+		// First try to get the values from the request attributes (for lists)
+		boolean allValuesFromRequest = true;
+		values = new HashMap();
+		
+		for (Object keyObj : keys) {
+			String property = (String) keyObj;
+			String valueKey = Ids.decorate(request, referenceKey + "." + property) + ".value";
+			Object value = request.getAttribute(valueKey);
+			System.out.println("[reference.jsp] valueKey=" + valueKey); // tmr
+			System.out.println("[reference.jsp] value=" + value); // tmr
+			
+			if (value != null) {
+				values.put(property, value);
+			} else {
+				allValuesFromRequest = false;
+				break;
+			}
+		}
+		
+		// If not all values are in the request, get them from the View (for forms)
+		if (!allValuesFromRequest) {
+			values = (Map) view.getValue(ref.getName());
+			values = values == null ? java.util.Collections.EMPTY_MAP : values;
+		}
 	}
 	java.util.Iterator it = keys.iterator();
 	StringBuffer sb = new StringBuffer();

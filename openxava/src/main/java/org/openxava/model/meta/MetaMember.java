@@ -175,18 +175,24 @@ abstract public class MetaMember extends MetaElement implements Comparable<MetaM
 	}
 
 	private Annotation[] getAnnotationsFromGetter(Annotation[] result, String prefix) throws NoSuchMethodException {   
-		AnnotatedElement element = getMetaModel().getPOJOClass().getMethod(prefix + Strings.firstUpper(getSimpleName()));
-		Annotation[] getterAnnotations = Classes.getAnnotationsWithRepeatables(element); 
-		if (getterAnnotations.length > 0) {
-			Collection<Annotation> annotations = new ArrayList<>();
-			if (result != null) annotations.addAll(Arrays.asList(result));
-			annotations.addAll(Arrays.asList(getterAnnotations));
-			result = new Annotation[annotations.size()];
-			annotations.toArray(result);
-		}
-		return result;
+	// Handle property names with ___ suffix (used for list editors)
+	String simpleName = getSimpleName();
+	if (simpleName.contains("___")) { // tmr ¿Aquí o en reference.jsp? Las otras referencias a este truco están en View, pero no a nivel de MetaXXXX
+		simpleName = simpleName.substring(0, simpleName.indexOf("___"));
 	}
 	
+	AnnotatedElement element = getMetaModel().getPOJOClass().getMethod(prefix + Strings.firstUpper(simpleName));
+	Annotation[] getterAnnotations = Classes.getAnnotationsWithRepeatables(element); 
+	if (getterAnnotations.length > 0) {
+		Collection<Annotation> annotations = new ArrayList<>();
+		if (result != null) annotations.addAll(Arrays.asList(result));
+		annotations.addAll(Arrays.asList(getterAnnotations));
+		result = new Annotation[annotations.size()];
+		annotations.toArray(result);
+	}
+	return result;
+}
+
 	/**
 	 * Id used to look up label in resource files. <p>
 	 */ 	
