@@ -275,7 +275,7 @@ public class Modules implements Serializable {
 				if (applicationName == null) break;
 				String moduleName = preferences.get(prefix + "module." + i, null);
 				if (moduleName == null) break;			
-				if (isModuleNotInPreference(moduleName)) continue; 
+				if (ModulesHelper.isExcludedFromVisitedModules(moduleName)) continue; 
 				loadModule(request, modules, moduleName); 
 			}		
 		}
@@ -353,7 +353,7 @@ public class Modules implements Serializable {
 					firstSteps = module;
 					continue; 
 				}
-				if (isModuleNotInPreference(module.getName())) continue; 
+				if (ModulesHelper.isExcludedFromVisitedModules(module.getName())) continue; 
 				preferences.put(prefix + "application." + i, module.getMetaApplication().getName());
 				preferences.put(prefix + "module." + i, module.getName());
 				i++;
@@ -374,15 +374,6 @@ public class Modules implements Serializable {
 		catch (Exception ex) {
 			log.warn(XavaResources.getString("storing_modules_problem"), ex);  
 		}
-	}
-
-	private boolean isModuleNotInPreference(String moduleName) { 
-		/*
-		return moduleName.equals("RestorePassword") 
-			|| moduleName.equals("RecoverPassword")
-			|| moduleName.equals("UserJoin"); // tmr ¿Mover a la interfaz?
-		*/
-		return ModulesHelper.rememberVisitedModule(moduleName);
 	}
 
 	private static Preferences getPreferences() throws BackingStoreException { 

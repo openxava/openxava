@@ -72,8 +72,8 @@ public class ModulesHelper {
 	}
 	
 	/** @since 7.6 */
-	public static boolean rememberVisitedModule(String moduleName) {
-		return getProvider().rememberVisitedModule(moduleName);
+	public static boolean isExcludedFromVisitedModules(String moduleName) {
+		return getProvider().isExcludedFromVisitedModules(moduleName);
 	}
 	
 	private static IModulesHelperProvider getProvider() {
