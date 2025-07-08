@@ -199,8 +199,9 @@ public class CrearMiOrganizacionNueva extends CreateNewOrganizationAction {
       <img src="files/multitenancy_es040.png" alt="multitenancy_es040.png" title="multitenancy_es040.png"><br>
       Con "Usuarios compartidos" activados los usuarios y contraseñas para todas
       las organizaciones son los de la aplicación raíz. Has de crear los
-      usuarios en la aplicación raíz solamente y cuando estos usuarios traten de
-      acceder a una organización tendrán la posibilidad de unirse:<br>
+      usuarios en la aplicación raíz solamente y cuando estos usuarios 
+      accedan a una organización se unirán automáticamente a ella <i>(desde v7.6)</i>.<br>
+      Antes de v7.6 se les hacía la siguiente pregunta antes de unirse a una organización:<br>
       <img src="files/multitenancy_es050.png" alt="multitenancy_es050.png" title="multitenancy_es050.png"><br>
       Hay un rol <em>joined</em> en cada organización para definir los permisos
       de estos usuarios.<br>

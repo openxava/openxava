@@ -71,6 +71,11 @@ public class ModulesHelper {
 		return getProvider().showsSearchModules(request);
 	}
 	
+	/** @since 7.6 */
+	public static boolean isExcludedFromVisitedModules(String moduleName) {
+		return getProvider().isExcludedFromVisitedModules(moduleName);
+	}
+	
 	private static IModulesHelperProvider getProvider() {
 		if (provider == null) {
 			try {
