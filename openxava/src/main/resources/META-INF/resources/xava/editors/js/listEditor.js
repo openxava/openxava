@@ -21,37 +21,18 @@ openxava.addEditorInitFunction(function() {
             // Add our custom change event
             editor.on('change', function() {
                 var newValue = editor.val();
-                // Try different ways to get the name attribute
-                var editorName = editor.attr('name');
-                var editorNameProp = editor.prop('name');
-                var editorNameDirect = editor[0] ? editor[0].name : 'No direct name';
-                var editorNameGetAttribute = editor[0] ? editor[0].getAttribute('name') : 'No getAttribute';
                 
-                // TMR ME QUEDÉ POR AQUÍ: AL FINAL DESCUBRÍ QUE EL EVENTO LO LANZA UN SPAN PADRE
-                console.log("V3"); // tmr
-                console.log("newValue>" + newValue + "<");
-                console.log("Editor HTML:", editor.prop('outerHTML'));
-                console.log("editorName (attr):", editorName);
-                console.log("editorName (prop):", editorNameProp);
-                console.log("editorName (direct):", editorNameDirect);
-                console.log("editorName (getAttribute):", editorNameGetAttribute);
-                // If the value is undefined or empty and the name ends with __CONTROL__
-                if ((newValue === undefined || newValue === "") && editorName && editorName.endsWith('__CONTROL__')) {
-                    console.log("newValue is undefined and editorName ends with __CONTROL__"); // tmr
-                    // Get the field name without the __CONTROL__ suffix
-                    var baseFieldName = editorName.substring(0, editorName.length - '__CONTROL__'.length);
-                    // Find the field with that id and get its value
-                    var hiddenField = $('#' + baseFieldName);
-                    if (hiddenField.length > 0) {
-                        newValue = hiddenField.val();
-                        console.log("Using value from hidden field: " + baseFieldName + " = " + newValue); // tmr
+                // Special case for ox-descriptions-list editors
+                if (editor.hasClass('ox-descriptions-list')) {
+                    // Get the value from the first hidden input field
+                    var hiddenInput = editor.find('input[type="hidden"]').first();
+                    if (hiddenInput.length > 0) {
+                        newValue = hiddenInput.val();
                     }
-                }
-                
-                console.log("newValue<" + newValue);
-                console.log("editor.name=" + editorName);
+                }                
                 
                 // Call the DWR method to update the value in the server
+                console.log("listEditor.updateValue() row=" + row); // tmr
                 Tab.updateValue(openxava.lastApplication, openxava.lastModule, row, property, newValue, listEditor.showMessage);
                 listEditor.lastEditor = editor;
                 editor.parent().removeClass("ox-error-editor");

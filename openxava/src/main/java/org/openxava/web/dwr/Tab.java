@@ -7,6 +7,9 @@ import javax.servlet.http.*;
 import org.apache.commons.logging.*;
 import org.openxava.controller.*;
 import org.openxava.model.*;
+import org.openxava.model.meta.MetaModel;
+import org.openxava.model.meta.MetaProperty;
+import org.openxava.model.meta.MetaReference;
 import org.openxava.util.*;
 import org.openxava.web.*;
 import org.openxava.web.servlets.*;
@@ -58,16 +61,28 @@ public class Tab extends DWRBase {
 				System.out.println("Tab.updateValue() property=" + property); // tmr
 				System.out.println("Tab.updateValue() value=" + value); // tmr
 				Object ovalue = WebEditors.parse(request, tab.getMetaProperty(property), value, parsingErrors, value);
+				System.out.println("Tab.updateValue() ovalue=" + ovalue); // tmr
 				if (parsingErrors.contains()) {
 					return "ERROR: " + parsingErrors;
 				}
 				values.put(property, ovalue);
 			}
 			catch (ElementNotFoundException ex) {
+				System.out.println("Tab.updateValue() ElementNotFoundException"); // tmr
 				if (!tab.getMetaTab().getMetaModel().containsMetaReference(property)) {
+					System.out.println("Tab.updateValue() Relanzando ElementNotFoundException"); // tmr
 					throw ex;
 				}
-				
+				System.out.println("Tab.updateValue() Es una referencia"); // tmr
+				Map<String, Object> referenceValues = new HashMap<>();
+				System.out.println("Tab.updateValue() > fillReferenceValues"); // tmr
+				Messages errors = new Messages(); // Crear un nuevo objeto Messages para los errores
+				fillReferenceValues(referenceValues, tab.getMetaTab().getMetaModel().getMetaReference(property), value, null, null, request, errors, "");
+				if (errors.contains()) {
+					return "ERROR: " + errors;
+				}
+				System.out.println("Tab.updateValue() < fillReferenceValues"); // tmr
+				values.put(property, referenceValues);
 			}
 			System.out.println("Tab.updateValue() values=" + values); // tmr
 			System.out.println("Tab.updateValue() key=" + key); // tmr
@@ -77,6 +92,7 @@ public class Tab extends DWRBase {
 			return XavaResources.getString(request, "value_saved_for_property_in_row", propertyLabel, row + 1); 
 		}
 		catch (Exception ex) {
+			ex.printStackTrace(); // tmr
 			Messages errors = ModuleManager.manageException(ex); 
 			return "ERROR: " + errors;
 		}
@@ -84,6 +100,29 @@ public class Tab extends DWRBase {
 			cleanRequest();
 		}
 	}
+
+	// tmr Refactorizar con View
+	private void fillReferenceValues(Map referenceValues, MetaReference ref, String value, String qualifier, String propertyPrefix, HttpServletRequest request, Messages errors, String viewName) {
+		MetaModel metaModel = ref.getMetaModelReferenced();
+		if (!value.startsWith("[")) value = "";
+		StringTokenizer st = new StringTokenizer(Strings.change(value, "..", ". ."), "[.]");
+		for (String propertyName: metaModel.getAllKeyPropertiesNames()) {
+			MetaProperty p = metaModel.getMetaProperty(propertyName);			 								
+			Object propertyValue = null;
+			if (st.hasMoreTokens()) { // if not then null is assumed. This is a case of empty value
+				String stringPropertyValue = st.nextToken();
+				propertyValue = WebEditors.parse(request, p, stringPropertyValue, errors, viewName);								
+			}			
+			if (WebEditors.mustToFormat(p, viewName)) {				
+				if (qualifier != null) { 
+					String valueKey = qualifier + "." + ref.getName() + "." + propertyName + ".value"; 
+					request.setAttribute(valueKey, propertyValue);
+				}
+				referenceValues.put(propertyPrefix==null?propertyName:propertyPrefix + propertyName, propertyValue);
+			}								
+		}
+	}
+
 	
 	public void removeProperty(HttpServletRequest request, HttpServletResponse response, String application, String module, String property, String tabObject) {
 		try {

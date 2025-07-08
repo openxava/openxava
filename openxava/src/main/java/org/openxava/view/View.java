@@ -2895,6 +2895,9 @@ public class View implements java.io.Serializable {
 	}
 	
 	public boolean isEditable(String member) throws XavaException {
+		if (member.contains("___")) { // We use ___ to separate the row number from the property name in some cases
+			return true; // If the editor is in a list is always editable
+		}		
 		int idx = member.indexOf('.'); 
 		if (idx >= 0) {
 			String compoundMember = member.substring(0, idx); 
@@ -4284,7 +4287,10 @@ public class View implements java.io.Serializable {
 		}
 	}
 	
-	public MetaReference getMetaReference(String name) throws XavaException { 			
+	public MetaReference getMetaReference(String name) throws XavaException { 	
+		if (name.contains("___")) { // We use ___ to separate the row number from the property name in some cases
+			name = name.substring(0, name.indexOf("___"));
+		}		
 		int idx = name.indexOf('.');
 		if (idx >= 0) {
 			String reference = name.substring(0, idx);

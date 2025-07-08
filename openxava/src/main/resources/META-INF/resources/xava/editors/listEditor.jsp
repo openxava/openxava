@@ -495,7 +495,7 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 					Ids.decorate(request, memberName + "___" + f), -1, prefix, p.getQualifiedName(), p.getName());
 				if (!editorURLDescriptionsList.isEmpty()) { 
 				%>
-					<xava:descriptionsList reference="<%=memberName%>"/>
+					<xava:descriptionsList reference='<%=memberName + "___" + f%>'/>
 				<% } else { %>
 					<xava:editor property='<%=memberName + "___" + f%>' value='<%=model.getValueAt(f, c)%>' editable='true'/>
 				<% } %>

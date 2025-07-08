@@ -9,9 +9,12 @@ Pendiente de listas editables TMR
 * Prueba.
 * Marcar en rojo el editor cuando hay problemas de validación.
 * Estética.
-- @DescriptionsList ¿Diferir? 
-    - Probar uno con clave simple
-    - Al entrar aparecen deshabilitados
+- @DescriptionsList 
+    * Al entrar aparecen deshabilitados
+    - Que si visualicen en modo lista.
+    - Probar uno con clave simple.
+    - Refactorizar.
+    - JUnit   
 - Suite
 - Doc:
     - Nuevo parámetro value en editor.
