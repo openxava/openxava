@@ -494,8 +494,6 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 				String editorURLDescriptionsList = WebEditors.getEditorURLDescriptionsList(tab.getTabName(), tab.getModelName(), 
 					Ids.decorate(request, memberName + "___" + f), -1, prefix, p.getQualifiedName(), p.getName());
 				if (!editorURLDescriptionsList.isEmpty()) { 
-					// TMR ME QUEDÉ POR AQUÍ, PARA COMPROBAR EL VALOR DE model.getValueAt(f, c), PORQUE EN EL TAGLIBS VALUE NO SE PONE EL VALOR
-					System.out.println("[listEditor.jsp] model.getValueAt(" + f + ", " + c + ")=" + model.getValueAt(f, c)); // tmr
 				%>
 					<xava:descriptionsList reference='<%=memberName + "___" + f%>' value='<%=model.getValueAt(f, c)%>'/>
 				<% } else { %>

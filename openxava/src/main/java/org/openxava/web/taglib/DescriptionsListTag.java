@@ -50,7 +50,7 @@ public class DescriptionsListTag extends TagSupport {
 			if (value != null) {
 				// Get the keys from the referenced model
 				Collection<?> keys = metaReference.getMetaModelReferenced().getAllKeyPropertiesNames();
-				if (keys.size() == 1) {
+				if (keys.size() == 1) { // TMR ME QUEDÉ POR AQUÍ, CREO QUE POR ESTO NO LLEGA AL JSP
 					// If there is only one key, set the value directly
 					String keyProperty = keys.iterator().next().toString();
 					String valueKey = referenceKey + "." + keyProperty + ".value";
