@@ -193,7 +193,8 @@ if (calculator.getCondition() != null && !fvalue.isEmpty()) {
 
 boolean editable = "true".equals(request.getParameter("editable"));
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel() || "true".equalsIgnoreCase(request.getParameter("readOnlyAsLabel"));
-if (editable) {
+if (editable) {		
+		String descriptionValue = request.getParameter("descriptionValue");
 		java.util.Iterator it = descriptions.iterator();
 		String selectedDescription = "";
 		String selectedKey = "";
@@ -204,11 +205,11 @@ if (editable) {
 			String selected = "";
 			String description = formatter==null?cl.getDescription().toString():formatter.format(request, cl.getDescription());
 			if (description.length() > maxDescriptionLength) maxDescriptionLength = description.length();
-			if (Is.equalAsString(fvalue, cl.getKey())) {
+			if (descriptionValue != null && descriptionValue.equals(description) || Is.equalAsString(fvalue, cl.getKey())) {
 				selected = "selected"; 
 				selectedDescription = description;
-				selectedKey = cl.getKey().toString();
-			} 		
+				selectedKey = cl.getKey().toString();			
+			} 
 			values.append("{\"label\":\""); 
 			values.append(description.replace("\\","\\\\").replaceAll("'", "&apos;").replaceAll("\"", "&Prime;")); 
 			values.append("\",\"value\":\""); 

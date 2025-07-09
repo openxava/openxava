@@ -493,9 +493,9 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 				<% 
 				String editorURLDescriptionsList = WebEditors.getEditorURLDescriptionsList(tab.getTabName(), tab.getModelName(), 
 					Ids.decorate(request, memberName + "___" + f), -1, prefix, p.getQualifiedName(), p.getName());
-				if (!editorURLDescriptionsList.isEmpty()) { 
+				if (!editorURLDescriptionsList.isEmpty()) { // tmr ¿Preguntarlo de esta forma? 
 				%>
-					<xava:descriptionsList reference='<%=memberName + "___" + f%>' value='<%=model.getValueAt(f, c)%>'/>
+					<xava:descriptionsList reference='<%=memberName + "___" + f%>' descriptionValue='<%=model.getValueAt(f, c)%>'/>
 				<% } else { %>
 					<xava:editor property='<%=memberName + "___" + f%>' value='<%=model.getValueAt(f, c)%>' editable='true'/>
 				<% } %>

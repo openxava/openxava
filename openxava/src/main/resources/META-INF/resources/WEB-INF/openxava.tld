@@ -209,7 +209,7 @@
        <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-       <name>value</name>
+       <name>descriptionValue</name>
        <required>false</required>
        <rtexprvalue>true</rtexprvalue>
     </attribute>

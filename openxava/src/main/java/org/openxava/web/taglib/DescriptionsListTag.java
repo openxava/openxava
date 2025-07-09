@@ -4,7 +4,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 import javax.servlet.jsp.tagext.*;
-import java.util.Collection;
 
 import org.apache.commons.logging.*;
 import org.openxava.controller.*;
@@ -24,7 +23,7 @@ public class DescriptionsListTag extends TagSupport {
 	private static Log log = LogFactory.getLog(DescriptionsListTag.class);
 	private String reference;
 	private boolean readOnlyAsLabel;
-	private Object value; // Valor para el editor 
+	private Object descriptionValue;  
 	
 	public int doStartTag() throws JspException {
 		try {			
@@ -45,23 +44,13 @@ public class DescriptionsListTag extends TagSupport {
 			request.setAttribute(referenceKey, metaReference);
 			String readOnlyAsLabelSuffix = readOnlyAsLabel?"&readOnlyAsLabel=true":"";
 		
-			System.out.println("[DescriptionsListTag.doStartTag] value=" + value); // tmr
-			// If there is a value, set it as a request attribute
-			if (value != null) {
-				// Get the keys from the referenced model
-				Collection<?> keys = metaReference.getMetaModelReferenced().getAllKeyPropertiesNames();
-				if (keys.size() == 1) { // TMR ME QUEDÉ POR AQUÍ, CREO QUE POR ESTO NO LLEGA AL JSP
-					// If there is only one key, set the value directly
-					String keyProperty = keys.iterator().next().toString();
-					String valueKey = referenceKey + "." + keyProperty + ".value";
-					System.out.println("[DescriptionsListTag.doStartTag] valueKey=" + valueKey); // tmr
-					System.out.println("[DescriptionsListTag.doStartTag] value=" + value); // tmr
-					request.setAttribute(valueKey, value);
-				}
-			}
 		
 			String editorURL = "reference.jsp?referenceKey=" + referenceKey + "&onlyEditor=true&frame=false&composite=false&descriptionsList=true" + readOnlyAsLabelSuffix; 
-			String editorPrefix = "/xava/";  
+			if (descriptionValue != null) { 
+				editorURL += "&descriptionValue=" + descriptionValue; 
+			}
+			String editorPrefix = "/xava/";			
+			
 			try {
 				pageContext.include(editorPrefix + editorURL); 
 			}
@@ -98,12 +87,12 @@ public class DescriptionsListTag extends TagSupport {
 		this.readOnlyAsLabel = readOnlyAsLabel;
 	}
 	
-	public Object getValue() {
-		return value;
+	public Object getDescriptionValue() {
+		return descriptionValue;
 	}
 	
-	public void setValue(Object value) {
-		this.value = value;
+	public void setDescriptionValue(Object descriptionValue) {
+		this.descriptionValue = descriptionValue;
 	}
 	
 }
