@@ -1345,7 +1345,13 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	protected String getValueInList(int row, int column) throws Exception {
-		return getTableCellInList(row, column).asNormalizedText().trim();
+		HtmlTableCell cell = getTableCellInList(row, column);
+		for (HtmlElement input: cell.getElementsByTagName("input")) {
+			if (input.getAttribute("class").contains("editor")) {
+				return input.getAttribute("value");
+			}
+		}
+		return cell.asNormalizedText().trim();
 	}
 	
 	/**

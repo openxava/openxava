@@ -14,44 +14,41 @@ public class Product2EditableListTest extends ModuleTestBase {
 	}
 	
 	public void testEditablePropertiesInList() throws Exception {
-		// TMR ME QUEDÉ POR AQUÍ: ADAPTAR TEST A Product2
-		assertValueInList(0, "peopleCount", "0");
-		assertValueInList(1, "peopleCount", "0");
-		assertValueInList(2, "peopleCount", "0");
-		assertValueInList(3, "peopleCount", "0");
-		assertEditableInList(0, "peopleCount");
-		assertEditableInList(1, "peopleCount");
-		assertEditableInList(2, "peopleCount");
-		assertEditableInList(3, "peopleCount");
+		// TMR ME QUEDÉ POR AQUÍ: YA FUNCIONA PARA PROPIEDADES SIMPLE, FALTA PROBAR LOS @DescriptionsList
+		// tmr Comprobar que las trazas en el servidor no son culpa de la nueva funcionalidad
+		assertValueInList(0, "unitPrice", "11.00"); 
+		assertValueInList(1, "unitPrice", "23.00");
+		assertValueInList(2, "unitPrice",  "0.00");
+		assertEditableInList(0, "unitPrice");
+		assertEditableInList(1, "unitPrice");
+		assertEditableInList(2, "unitPrice");
 		assertNoEditableInList(0, "extendedDescription"); // Included in editableProperties but it's @Formula so not should be editable
 		assertNoEditableInList(1, "extendedDescription");
 		assertNoEditableInList(2, "extendedDescription");
-		assertNoEditableInList(3, "extendedDescription");
 		
-		setValueInList(0, "peopleCount", "5");
+		setValueInList(0, "unitPrice", "17");
 		assertNoErrors();
-		assertMessage("Saved new value for people count in row 1");
+		assertMessage("Saved new value for unit price in row 1");
 		
-		setValueInList(1, "peopleCount", "7");
+		setValueInList(1, "unitPrice", "31");
 		assertNoErrors();
-		assertMessage("Saved new value for people count in row 2");
+		assertMessage("Saved new value for unit price in row 2");
 		
-		setValueInList(1, "peopleCount", "15");
-		assertError("15 is not a valid value for People count of Appointment 2: must be less than or equal to 13");
+		setValueInList(1, "unitPrice", "1500");
+		assertError("{0} in {1} can not be greater than 1000"); // {0} and {1} should be replaced, but it fails too in detail mode, so it's another different bug
 		
 		execute("List.viewDetail", "row=0");
-		assertValue("peopleCount", "5");
+		assertValue("unitPrice", "17.00");
 		
 		execute("Mode.list");
 		
-		assertValueInList(0, "peopleCount", "5");
-		assertValueInList(1, "peopleCount", "7");
-		assertValueInList(2, "peopleCount", "0");
-		assertValueInList(3, "peopleCount", "0");
+		assertValueInList(0, "unitPrice", "17.00");
+		assertValueInList(1, "unitPrice", "31.00");
+		assertValueInList(2, "unitPrice",  "0.00");
 		
 		// Restoring
-		setValueInList(0, "peopleCount", "0");
-		setValueInList(1, "peopleCount", "0");
+		setValueInList(0, "unitPrice", "11.00");
+		setValueInList(1, "unitPrice", "23.00");
 	}
 	
 }

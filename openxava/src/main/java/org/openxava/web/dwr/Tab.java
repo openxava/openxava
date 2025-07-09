@@ -92,6 +92,7 @@ public class Tab extends DWRBase {
 		catch (Exception ex) {
 			ex.printStackTrace(); // tmr
 			Messages errors = ModuleManager.manageException(ex); 
+			
 			return "ERROR: " + errors;
 		}
 		finally {
