@@ -7,9 +7,7 @@ import javax.servlet.http.*;
 import org.apache.commons.logging.*;
 import org.openxava.controller.*;
 import org.openxava.model.*;
-import org.openxava.model.meta.MetaModel;
-import org.openxava.model.meta.MetaProperty;
-import org.openxava.model.meta.MetaReference;
+import org.openxava.model.meta.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
 import org.openxava.web.servlets.*;
@@ -104,7 +102,7 @@ public class Tab extends DWRBase {
 	// tmr Refactorizar con View
 	private void fillReferenceValues(Map referenceValues, MetaReference ref, String value, String qualifier, String propertyPrefix, HttpServletRequest request, Messages errors, String viewName) {
 		MetaModel metaModel = ref.getMetaModelReferenced();
-		if (!value.startsWith("[")) value = "";
+		if (!value.startsWith("[")) value = "[." + value + ".]";
 		StringTokenizer st = new StringTokenizer(Strings.change(value, "..", ". ."), "[.]");
 		for (String propertyName: metaModel.getAllKeyPropertiesNames()) {
 			MetaProperty p = metaModel.getMetaProperty(propertyName);			 								

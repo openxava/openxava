@@ -12,10 +12,9 @@ Pendiente de listas editables TMR
 - @DescriptionsList 
     * Al entrar aparecen deshabilitados
     * Que se visualicen en modo lista.
-    - Probar uno con clave simple.
-    - Refactorizar.
+    * Probar uno con clave simple.
     - JUnit   
-- tmrs
+- Refactorizar (tmrs).
 - Mezclar desde master (hacer un pull).
 - Suite
 - ¿Debería incluir la característica en invoicedemo?
