@@ -7,13 +7,14 @@ import org.openxava.tests.*;
  * @author Javier Paniza
  */
 
-public class Appointment2Test extends ModuleTestBase {
+public class Product2EditableListTest extends ModuleTestBase {
 	
-	public Appointment2Test(String testName) {
-		super(testName, "Appointment2");		
+	public Product2EditableListTest(String testName) {
+		super(testName, "Product2EditableList");		
 	}
 	
 	public void testEditablePropertiesInList() throws Exception {
+		// TMR ME QUEDÉ POR AQUÍ: ADAPTAR TEST A Product2
 		assertValueInList(0, "peopleCount", "0");
 		assertValueInList(1, "peopleCount", "0");
 		assertValueInList(2, "peopleCount", "0");
