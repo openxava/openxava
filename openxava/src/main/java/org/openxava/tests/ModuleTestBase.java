@@ -1444,6 +1444,7 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @since 7.6 
 	 */		
 	protected void assertNoEditableInList(int row, String name) throws Exception { 
+		// TMR ME QUEDÉ POR AQUÍ: VOLVER A PROBARLO TODO CON PROPIEDADES SIMPLE PORQUE NO HICE EL SAVE
 		String propertyName = name + "." + row;
 		try {
 			assertEditable(propertyName);
