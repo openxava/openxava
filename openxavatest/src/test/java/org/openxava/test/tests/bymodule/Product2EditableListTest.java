@@ -14,6 +14,10 @@ public class Product2EditableListTest extends ModuleTestBase {
 	}
 	
 	public void testEditablePropertiesInList() throws Exception {
+		// TMR ME QUEDÉ POR AQUÍ: COMPROBÉ QUE LA NUEVA IMPLEMENTACIÓN DE assertEditableInList
+		// TMR   Y assertNoEditableInList FUNCIONAN CON PROPIEDADES SIMPLE
+		// TMR   FALTA ADAPTARLAS PARA LOS @DescriptionsList Y COMPLETAR LA PRUEBA
+		
 		// Simple property
 		assertValueInList(0, "unitPrice", "11.00"); 
 		assertValueInList(1, "unitPrice", "23.00");
@@ -22,6 +26,7 @@ public class Product2EditableListTest extends ModuleTestBase {
 		assertEditableInList(1, "unitPrice");
 		assertEditableInList(2, "unitPrice");
 
+		
 		// @DescriptionsList with single key
 		assertValueInList(0, "family.description", "SOFTWARE");
 		assertValueInList(1, "family.description", "HARDWARE");
