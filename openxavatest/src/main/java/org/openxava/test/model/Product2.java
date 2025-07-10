@@ -120,7 +120,7 @@ import org.openxava.test.validators.*;
 	)	
 })
 @Tab(properties="number, description, family.description, subfamily.description, unitPrice, unitPriceWithTax, subfamily.family.description") 
-@Tab(name="Editable", // tmr Si nos quedamos con esto, quitar lo de Appointment2
+@Tab(name="Editable", 
 	properties="number, description, family.description, unitPrice, warehouse.name, extendedDescription",
 	editableProperties="family.description, unitPrice, warehouse.name, extendedDescription"
 )

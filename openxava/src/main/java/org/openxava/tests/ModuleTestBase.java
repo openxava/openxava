@@ -1429,7 +1429,12 @@ abstract public class ModuleTestBase extends TestCase {
 	 */		
 	protected void assertEditableInList(int row, String name) throws Exception { 
 		String propertyName = name + "." + row;
-		assertTrue(name + " en la fila " + row + " de la lista no es editable (o no existe) y deber�a se editable", hasElementById(propertyName)); // tmr i18n
+		// TMR ME QUEDÉ POR AQUÍ, PARA QUE FUNCIONE CON @DescriptionsList.
+		// TMR   PUEDO BUSCAR POR ESTO ox_openxavatest_Product2EditableList__unitPrice___0_EDITABLE_
+		// TMR   TAMBIÉN ESTÁ EN PROPIEDADES SIMPLES, POR LO QUE PUEDO USAR LA MISMA IMPLEMENTACIÓN
+		// TMR   INCLUSO DELEGAR EN EL assertEditable CONVENCIONAL
+		System.out.println("ModuleTestBase.assertEditableInList() propertyName=" + propertyName); // tmr
+		assertTrue(name + " en la fila " + row + " de la lista no es editable (o no existe) y deber�a se editable", hasElementById(propertyName)); // tmr i18n
 	}
 	
 	/**
@@ -1439,7 +1444,7 @@ abstract public class ModuleTestBase extends TestCase {
 	 */		
 	protected void assertNoEditableInList(int row, String name) throws Exception { 
 		String propertyName = name + "." + row;
-		assertTrue(name + " en la fila " + row + " de la lista es editable y no deber�a serlo", !hasElementById(propertyName)); // tmr i18n
+		assertTrue(name + " en la fila " + row + " de la lista es editable y no deber�a serlo", !hasElementById(propertyName)); // tmr i18n
 	}
 	
 	/**

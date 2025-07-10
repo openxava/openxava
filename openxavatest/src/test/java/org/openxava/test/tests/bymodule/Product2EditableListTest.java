@@ -14,15 +14,40 @@ public class Product2EditableListTest extends ModuleTestBase {
 	}
 	
 	public void testEditablePropertiesInList() throws Exception {
-		// TMR ME QUEDÉ POR AQUÍ: YA FUNCIONA PARA PROPIEDADES SIMPLE, FALTA PROBAR LOS @DescriptionsList
-		// tmr Comprobar que las trazas en el servidor no son culpa de la nueva funcionalidad
+		// Simple property
 		assertValueInList(0, "unitPrice", "11.00"); 
 		assertValueInList(1, "unitPrice", "23.00");
 		assertValueInList(2, "unitPrice",  "0.00");
 		assertEditableInList(0, "unitPrice");
 		assertEditableInList(1, "unitPrice");
 		assertEditableInList(2, "unitPrice");
-		assertNoEditableInList(0, "extendedDescription"); // Included in editableProperties but it's @Formula so not should be editable
+
+		// @DescriptionsList with single key
+		assertValueInList(0, "family.description", "SOFTWARE");
+		assertValueInList(1, "family.description", "HARDWARE");
+		assertValueInList(2, "family.description", "SERVICIOS");
+		assertEditableInList(0, "family.description");
+		assertEditableInList(1, "family.description");
+		assertEditableInList(2, "family.description");
+
+		// @DescriptionsList with multiple keys
+		assertValueInList(0, "subfamily.description", "Subfamily 2");
+		assertValueInList(1, "subfamily.description", "Subfamily 2");
+		assertValueInList(2, "subfamily.description", "Subfamily 2");
+		assertEditableInList(0, "subfamily.description");
+		assertEditableInList(1, "subfamily.description");
+		assertEditableInList(2, "subfamily.description");
+
+		// @DescriptionsList with multiple keys
+		assertValueInList(0, "subfamily.description", "Subfamily 2");
+		assertValueInList(1, "subfamily.description", "Subfamily 2");
+		assertValueInList(2, "subfamily.description", "Subfamily 2");
+		assertEditableInList(0, "subfamily.description");
+		assertEditableInList(1, "subfamily.description");
+		assertEditableInList(2, "subfamily.description");
+
+		// Included in editableProperties but it's @Formula so not should be editable
+		assertNoEditableInList(0, "extendedDescription"); 
 		assertNoEditableInList(1, "extendedDescription");
 		assertNoEditableInList(2, "extendedDescription");
 		
