@@ -42,6 +42,14 @@ public class Configuration implements java.io.Serializable {
 	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
 	@Column(name="forceLetterAndNumbersInPasswd", columnDefinition="varchar(1) default 'N' not null") 
 	private boolean forceLetterAndNumbersInPassword;
+
+	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
+	@Column(name="forceUpperAndLowerCaseInPasswd", columnDefinition="varchar(1) default 'N' not null") 
+	private boolean forceUpperAndLowerCaseInPassword;
+
+	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
+	@Column(name="forceSpecialCharactersInPasswd", columnDefinition="varchar(1) default 'N' not null") 
+	private boolean forceSpecialCharactersInPassword;
 	
 	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
 	@Column(columnDefinition="varchar(1) default 'N' not null") 
@@ -260,6 +268,22 @@ public class Configuration implements java.io.Serializable {
 
 	public void setAllowSeveralSessionsPerUser(boolean allowSeveralSessionsPerUser) {
 		this.allowSeveralSessionsPerUser = allowSeveralSessionsPerUser;
+	}
+
+	public boolean isForceUpperAndLowerCaseInPassword() {
+		return forceUpperAndLowerCaseInPassword;
+	}
+
+	public void setForceUpperAndLowerCaseInPassword(boolean forceUpperAndLowerCaseInPassword) {
+		this.forceUpperAndLowerCaseInPassword = forceUpperAndLowerCaseInPassword;
+	}
+
+	public boolean isForceSpecialCharactersInPassword() {
+		return forceSpecialCharactersInPassword;
+	}
+
+	public void setForceSpecialCharactersInPassword(boolean forceSpecialCharactersInPassword) {
+		this.forceSpecialCharactersInPassword = forceSpecialCharactersInPassword;
 	}
 
 }
