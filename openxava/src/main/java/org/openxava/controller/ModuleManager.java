@@ -868,7 +868,7 @@ public class ModuleManager implements java.io.Serializable {
 	 * @return The errors extracted and curated from the exception and its causes.
 	 */
 	
-	public static Messages manageException(Exception ex) { // tmr En changelog
+	public static Messages manageException(Exception ex) { 
 		Messages messages = new Messages();
 		Messages errors = new Messages();
 		manageException(null, errors, messages, ex);
