@@ -32,7 +32,6 @@ openxava.addEditorInitFunction(function() {
                 }                
                 
                 // Call the DWR method to update the value in the server
-                console.log("listEditor.updateValue() row=" + row); // tmr
                 Tab.updateValue(openxava.lastApplication, openxava.lastModule, row, property, newValue, listEditor.showMessage);
                 listEditor.lastEditor = editor;
                 editor.parent().removeClass("ox-error-editor");

@@ -56,43 +56,30 @@ public class Tab extends DWRBase {
 			Map<String, Object> values = new HashMap<>();
 			try {
 				Messages parsingErrors = new Messages();
-				System.out.println("Tab.updateValue() property=" + property); // tmr
-				System.out.println("Tab.updateValue() value=" + value); // tmr
 				Object ovalue = WebEditors.parse(request, tab.getMetaProperty(property), value, parsingErrors, value);
-				System.out.println("Tab.updateValue() ovalue=" + ovalue); // tmr
 				if (parsingErrors.contains()) {
 					return "ERROR: " + parsingErrors;
 				}
 				values.put(property, ovalue);
 			}
 			catch (ElementNotFoundException ex) {
-				System.out.println("Tab.updateValue() ElementNotFoundException"); // tmr
 				if (!tab.getMetaTab().getMetaModel().containsMetaReference(property)) {
-					System.out.println("Tab.updateValue() Relanzando ElementNotFoundException"); // tmr
 					throw ex;
 				}
-				System.out.println("Tab.updateValue() Es una referencia"); // tmr
 				Map<String, Object> referenceValues = new HashMap<>();
-				System.out.println("Tab.updateValue() > fillReferenceValues"); // tmr
-				Messages errors = new Messages(); // Crear un nuevo objeto Messages para los errores
+				Messages errors = new Messages(); 
 				fillReferenceValues(referenceValues, tab.getMetaTab().getMetaModel().getMetaReference(property), value, null, null, request, errors, "");
 				if (errors.contains()) {
 					return "ERROR: " + errors;
 				}
-				System.out.println("Tab.updateValue() < fillReferenceValues"); // tmr
 				values.put(property, referenceValues);
 			}
-			System.out.println("Tab.updateValue() values=" + values); // tmr
-			System.out.println("Tab.updateValue() key=" + key); // tmr
-			System.out.println("Tab.updateValue() tab.getModelName()=" + tab.getModelName()); // tmr
 			MapFacade.setValues(tab.getModelName(), key, values);
 			String propertyLabel = Labels.get(property, request.getLocale()).toLowerCase();
 			return XavaResources.getString(request, "value_saved_for_property_in_row", propertyLabel, row + 1); 
 		}
 		catch (Exception ex) {
-			ex.printStackTrace(); // tmr
-			Messages errors = ModuleManager.manageException(ex); 
-			
+			Messages errors = ModuleManager.manageException(ex); 		
 			return "ERROR: " + errors;
 		}
 		finally {
@@ -122,7 +109,6 @@ public class Tab extends DWRBase {
 		}
 	}
 
-	
 	public void removeProperty(HttpServletRequest request, HttpServletResponse response, String application, String module, String property, String tabObject) {
 		try {
 			initRequest(request, response, application, module); 

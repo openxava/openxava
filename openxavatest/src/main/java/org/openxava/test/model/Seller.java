@@ -36,12 +36,7 @@ import org.openxava.annotations.*;
 	@View(name="SearchListConditionReformatted", members="number; name;customers")
 })
 @Tabs({
-	// tmr @Tab(filter=org.openxava.test.filters.NumbersToLettersFilter.class, properties="number, name, regions"),
-	// tmr ini
-	@Tab(filter=org.openxava.test.filters.NumbersToLettersFilter.class, 
-		properties="number, name, regions, level.description",
-		editableProperties="level.description"),
-	// tmr fin
+	@Tab(filter=org.openxava.test.filters.NumbersToLettersFilter.class, properties="number, name, regions"), 
 	@Tab(name="Other", filter=org.openxava.test.filters.NumbersToLettersFilter.class)
 })
 

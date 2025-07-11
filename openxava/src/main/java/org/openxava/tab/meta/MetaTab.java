@@ -946,10 +946,6 @@ public boolean isPropertyEditable(String propertyName) {
 					log.warn("Property " + property + " is transient and cannot be editable"); // tmr ini
 					return false;
 				}
-				if (p.usesForCalculation(propertyName.contains(".") ? basePropertyName : propertyName)) {	// tmr ¿Hace algo?
-					log.warn("Property " + property + " uses for calculation and cannot be editable"); // tmr ini
-					return false;
-				}
 				// Check if property has @Formula annotation
 				PropertyMapping mapping = p.getMapping();
 				if (mapping != null && mapping.hasFormula()) {

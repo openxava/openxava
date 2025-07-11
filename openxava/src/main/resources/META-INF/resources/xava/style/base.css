@@ -1550,7 +1550,6 @@ input[type="button"] {
 	height: 30px;
 }
 
-/* tmr ini Dejar si me quedo con xava:descriptionsList */
 .ox-list-cell-editor .ox-descriptions-list {
 	white-space: nowrap;
 }
@@ -1567,7 +1566,6 @@ input[type="button"] {
 	display: none;
 	
 }
-/* tmr fin */
 
 .ox-element-collection input[type="checkbox"] {
 	height: inherit;

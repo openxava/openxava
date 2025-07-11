@@ -14,16 +14,20 @@ Pendiente de listas editables TMR
     * Que se visualicen en modo lista.
     * Probar uno con clave simple.
     * JUnit   
-- Refactorizar (tmrs).
+- Refactorizar (tmrs). TMR ME QUEDÉ POR AQUÍ. SEGUIR BUSCANDO TMRs. IGNORAR LOS DE I18N.
 - Mezclar desde master (hacer un pull).
+- i18n
 - Suite
 - ¿Debería incluir la característica en invoicedemo?
 - Doc:
     - Nuevo parámetro value en xava:editor y descriptionValue en xava:descriptionsList.
+    - Nuevos openxava.showMessage() y openxava.showError() utilizable desde JavaScript.
     - Poner en changelog:
-    	- Nuevas etiquetas de uso común
+    	- Nuevas etiquetas de uso común.
     	- Nuevos métodos de ModuleTestBase.
-    	- ModuleManager.manageException
+    	- ModuleManager.manageException.
+    	- Messages.toString() usa Locales.getCurrent() en lugar Locale.getDefault().
+    	- Nuevos openxava.showMessage() y openxava.showError()
 
 
 Diferir:

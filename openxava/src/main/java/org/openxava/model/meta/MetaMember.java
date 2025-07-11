@@ -175,26 +175,18 @@ abstract public class MetaMember extends MetaElement implements Comparable<MetaM
 	}
 
 	private Annotation[] getAnnotationsFromGetter(Annotation[] result, String prefix) throws NoSuchMethodException {   
-	// Handle property names with ___ suffix (used for list editors)
-	String simpleName = getSimpleName();
-	/*
-	 * TMR ME QUEDÉ POR AQUÍ: AL QUITARLO FUNCIONA, PERO DA EXCEPCIONES. SIN EMBARGO, CREO QUE PUEDO MOVERLO A VIEW
-	if (simpleName.contains("___")) { // tmr Â¿AquÃ­ o en reference.jsp? Las otras referencias a este truco estÃ¡n en View, pero no a nivel de MetaXXXX
-		simpleName = simpleName.substring(0, simpleName.indexOf("___"));
+		AnnotatedElement element = getMetaModel().getPOJOClass().getMethod(prefix + Strings.firstUpper(getSimpleName()));
+		Annotation[] getterAnnotations = Classes.getAnnotationsWithRepeatables(element); 
+		if (getterAnnotations.length > 0) {
+			Collection<Annotation> annotations = new ArrayList<>();
+			if (result != null) annotations.addAll(Arrays.asList(result));
+			annotations.addAll(Arrays.asList(getterAnnotations));
+			result = new Annotation[annotations.size()];
+			annotations.toArray(result);
+		}
+		return result;
 	}
-	*/
-	AnnotatedElement element = getMetaModel().getPOJOClass().getMethod(prefix + Strings.firstUpper(simpleName));
-	Annotation[] getterAnnotations = Classes.getAnnotationsWithRepeatables(element); 
-	if (getterAnnotations.length > 0) {
-		Collection<Annotation> annotations = new ArrayList<>();
-		if (result != null) annotations.addAll(Arrays.asList(result));
-		annotations.addAll(Arrays.asList(getterAnnotations));
-		result = new Annotation[annotations.size()];
-		annotations.toArray(result);
-	}
-	return result;
-}
-
+	
 	/**
 	 * Id used to look up label in resource files. <p>
 	 */ 	

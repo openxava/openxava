@@ -462,18 +462,10 @@ openxava.showNotification = function(message, type) {
     openxava.initMessages();
 };
 
-/**
- * Shows an informative message
- * @param {string} message - The message to display
- */
-openxava.showMessage = function(message) { // tmr Documentar en algún sitio, ¿para usar desde editors? Añadir en changelog	
+openxava.showMessage = function(message) { 	
     openxava.showNotification(message, "messages");
 };
 
-/**
- * Shows an error message
- * @param {string} message - The error message to display
- */
 openxava.showError = function(message) {
     openxava.showNotification(message, "errors");
 };

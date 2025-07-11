@@ -1406,7 +1406,6 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	/**
-	 * tmr En changelog 
 	 * @since 7.6 
 	 */
 	protected void setValueInList(int row, String name, String value) throws Exception {
@@ -1425,8 +1424,6 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	/**
-	 * tmr En changelog
-	 *  
 	 * @since 7.6 
 	 */		
 	protected void assertEditableInList(int row, String name) throws Exception {
@@ -1439,8 +1436,6 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	/**
-	 * tmr En changelog
-	 *  
 	 * @since 7.6 
 	 */		
 	protected void assertNoEditableInList(int row, String name) throws Exception { 

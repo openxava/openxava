@@ -5517,6 +5517,9 @@ public class View implements java.io.Serializable {
 		if (isFlowLayout()) return LabelFormatType.SMALL.ordinal();
 		Integer labelFormat = getMetaView().getLabelFormatForReference(ref);
 		if (labelFormat != null) return labelFormat;
+		if (ref.getName().contains("___")) return LabelFormatType.NO_LABEL.ordinal(); // For references in editableProperties in @Tab 
+								// where the name has a ___1 (1 is the row number). This is to avoid not finding the
+								// metadata and in this case no label is used anyways
 		return getDefaultLabelFormatFor(ref);
 	}
 	
