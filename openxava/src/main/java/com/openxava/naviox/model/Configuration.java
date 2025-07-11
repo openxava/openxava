@@ -43,10 +43,12 @@ public class Configuration implements java.io.Serializable {
 	@Column(name="forceLetterAndNumbersInPasswd", columnDefinition="varchar(1) default 'N' not null") 
 	private boolean forceLetterAndNumbersInPassword;
 
+	/** @since 7.6 */
 	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
 	@Column(name="forceUpperAndLowerCaseInPasswd", columnDefinition="varchar(1) default 'N' not null") 
 	private boolean forceUpperAndLowerCaseInPassword;
 
+	/** @since 7.6 */
 	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
 	@Column(name="forceSpecialCharactersInPasswd", columnDefinition="varchar(1) default 'N' not null") 
 	private boolean forceSpecialCharactersInPassword;
