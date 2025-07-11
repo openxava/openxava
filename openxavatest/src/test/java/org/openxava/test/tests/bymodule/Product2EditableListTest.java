@@ -1,5 +1,6 @@
 package org.openxava.test.tests.bymodule;
 
+import org.openxava.test.model.*;
 import org.openxava.tests.*;
 
 /**
@@ -14,10 +15,6 @@ public class Product2EditableListTest extends ModuleTestBase {
 	}
 	
 	public void testEditablePropertiesInList() throws Exception {
-		// TMR ME QUEDÉ POR AQUÍ: COMPROBÉ QUE LA NUEVA IMPLEMENTACIÓN DE assertEditableInList
-		// TMR   Y assertNoEditableInList FUNCIONAN CON PROPIEDADES SIMPLE
-		// TMR   FALTA ADAPTARLAS PARA LOS @DescriptionsList Y COMPLETAR LA PRUEBA
-		
 		// Simple property
 		assertValueInList(0, "unitPrice", "11.00"); 
 		assertValueInList(1, "unitPrice", "23.00");
@@ -25,7 +22,6 @@ public class Product2EditableListTest extends ModuleTestBase {
 		assertEditableInList(0, "unitPrice");
 		assertEditableInList(1, "unitPrice");
 		assertEditableInList(2, "unitPrice");
-
 		
 		// @DescriptionsList with single key
 		assertValueInList(0, "family.description", "SOFTWARE");
@@ -36,26 +32,22 @@ public class Product2EditableListTest extends ModuleTestBase {
 		assertEditableInList(2, "family.description");
 
 		// @DescriptionsList with multiple keys
-		assertValueInList(0, "subfamily.description", "Subfamily 2");
-		assertValueInList(1, "subfamily.description", "Subfamily 2");
-		assertValueInList(2, "subfamily.description", "Subfamily 2");
-		assertEditableInList(0, "subfamily.description");
-		assertEditableInList(1, "subfamily.description");
-		assertEditableInList(2, "subfamily.description");
-
-		// @DescriptionsList with multiple keys
-		assertValueInList(0, "subfamily.description", "Subfamily 2");
-		assertValueInList(1, "subfamily.description", "Subfamily 2");
-		assertValueInList(2, "subfamily.description", "Subfamily 2");
-		assertEditableInList(0, "subfamily.description");
-		assertEditableInList(1, "subfamily.description");
-		assertEditableInList(2, "subfamily.description");
+		assertValueInList(0, "warehouse.name", "ABASTOS 1");
+		assertValueInList(1, "warehouse.name", "CENTRAL VALENCIA");
+		assertValueInList(2, "warehouse.name", "ALICANTE CENTROX");
+		assertEditableInList(0, "warehouse.name");
+		assertEditableInList(1, "warehouse.name");
+		assertEditableInList(2, "warehouse.name");
 
 		// Included in editableProperties but it's @Formula so not should be editable
+		assertValueInList(0, "extendedDescription", "1 - MULTAS DE TRAFICO");
+		assertValueInList(1, "extendedDescription", "2 - IBM ESERVER ISERIES 270");
+		assertValueInList(2, "extendedDescription", "3 - XAVA");		
 		assertNoEditableInList(0, "extendedDescription"); 
 		assertNoEditableInList(1, "extendedDescription");
 		assertNoEditableInList(2, "extendedDescription");
 		
+		// Modifying simple property
 		setValueInList(0, "unitPrice", "17");
 		assertNoErrors();
 		assertMessage("Saved new value for unit price in row 1");
@@ -67,18 +59,43 @@ public class Product2EditableListTest extends ModuleTestBase {
 		setValueInList(1, "unitPrice", "1500");
 		assertError("{0} in {1} can not be greater than 1000"); // {0} and {1} should be replaced, but it fails too in detail mode, so it's another different bug
 		
-		execute("List.viewDetail", "row=0");
-		assertValue("unitPrice", "17.00");
+		// Modifying references as @DescriptionsList 
+		setValueInList(1, "family.number", "3"); // tmr Documentar que se asigna así, en API de ModuleTestBase
+		assertMessage("Saved new value for family in row 2");
 		
+		Warehouse warehouse = new Warehouse();
+		warehouse.setZoneNumber(4);
+		warehouse.setNumber(13);		 
+		String warehouseKey = toKeyString(warehouse);
+		setValueInList(1, "warehouse.KEY", warehouseKey); // tmr Documentar que se asigna así, en API de ModuleTestBase		
+		assertMessage("Saved new value for warehouse in row 2");
+		
+		// Verifying in detail
+		execute("List.viewDetail", "row=1");
+		assertValue("unitPrice", "31.00");
+		assertValue("family.number", "3");
+		assertValue("warehouse.KEY", warehouseKey);
+		
+		// New values shown in list 
 		execute("Mode.list");
 		
 		assertValueInList(0, "unitPrice", "17.00");
 		assertValueInList(1, "unitPrice", "31.00");
 		assertValueInList(2, "unitPrice",  "0.00");
+		assertValueInList(0, "family.description", "SOFTWARE");
+		assertValueInList(1, "family.description", "SERVICIOS");
+		assertValueInList(2, "family.description", "SERVICIOS");
+		assertValueInList(0, "warehouse.name", "ABASTOS 1");
+		assertValueInList(1, "warehouse.name", "ALMA 13");
+		assertValueInList(2, "warehouse.name", "ALICANTE CENTROX");		
 		
 		// Restoring
 		setValueInList(0, "unitPrice", "11.00");
 		setValueInList(1, "unitPrice", "23.00");
+		setValueInList(1, "family.number", "2");
+		warehouse.setZoneNumber(1);
+		warehouse.setNumber(1);
+		setValueInList(1, "warehouse.KEY", toKeyString(warehouse));		
 	}
 	
 }

@@ -1410,7 +1410,9 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @since 7.6 
 	 */
 	protected void setValueInList(int row, String name, String value) throws Exception {
-		String propertyName = name + "." + row;
+		String [] propertyTokens = name.split("\\.", 2);
+		String propertyName = propertyTokens[0] + "." + row;
+		if (propertyTokens.length > 1) propertyName += "." + propertyTokens[1]; 
 		setValue(propertyName, value);
 	}	
 	
@@ -1427,14 +1429,12 @@ abstract public class ModuleTestBase extends TestCase {
 	 *  
 	 * @since 7.6 
 	 */		
-	protected void assertEditableInList(int row, String name) throws Exception { 
-		String propertyName = name + "." + row;
-		System.out.println("ModuleTestBase.assertEditableInList() v3 propertyName=" + propertyName); // tmr
+	protected void assertEditableInList(int row, String name) throws Exception {
 		try {
-			assertEditable(propertyName);
+			assertEditable(toPropertyNameForEditableInList(row, name));
 		}
 		catch (ElementNotFoundException ex) {
-			fail(name + " en la fila " + row + " de la lista no es editable (o no existe) y debería se editable"); // tmr i18n
+			fail(name + " en la fila " + row + " de la lista no es editable (o no existe) y deber�a se editable"); // tmr i18n
 		}
 	}
 	
@@ -1444,11 +1444,9 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @since 7.6 
 	 */		
 	protected void assertNoEditableInList(int row, String name) throws Exception { 
-		// TMR ME QUEDÉ POR AQUÍ: VOLVER A PROBARLO TODO CON PROPIEDADES SIMPLE PORQUE NO HICE EL SAVE
-		String propertyName = name + "." + row;
 		try {
-			assertEditable(propertyName);
-			fail(name + " en la fila " + row + " de la lista es editable y no debería serlo"); // tmr i18n
+			assertEditable(toPropertyNameForEditableInList(row, name));
+			fail(name + " en la fila " + row + " de la lista es editable y no deber�a serlo"); // tmr i18n
 		}
 		catch (ElementNotFoundException ex) {
 			// There is no editor in the list cell, so it's not editable (or maybe it does not exist at all)
@@ -1469,6 +1467,11 @@ abstract public class ModuleTestBase extends TestCase {
 	protected void assertNoEditableInList(int row, int column) throws Exception { 
 		String name = getMetaTab().getPropertiesNames().get(column);
 		assertNoEditableInList(row, name);
+	}
+	
+	private String toPropertyNameForEditableInList(int row, String name) {
+		String baseName = Strings.firstToken(name, "."); // For qualified properties we get the reference name
+		return baseName + "." + row;
 	}
 	
 	/**
