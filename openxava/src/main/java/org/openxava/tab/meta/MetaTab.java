@@ -923,38 +923,38 @@ public boolean isPropertyEditable(String propertyName) {
 				MetaProperty p = getMetaModel().getMetaProperty(propertyName);
 				
 				if (p.isCalculated()) {
-					log.warn("Property " + property + " is calculated and cannot be editable"); // tmr ini
+					log.warn(XavaResources.getString("property_calculated_cannot_be_editable", property));
 					return false;
 				}
 				if (p.isKey()) {
-					log.warn("Property " + property + " is a key and cannot be editable"); // tmr ini
+					log.warn(XavaResources.getString("property_key_cannot_be_editable", property));
 					return false;
 				}
 				if (p.hasCalculation()) {
-					log.warn("Property " + property + " has calculation and cannot be editable"); // tmr ini
+					log.warn(XavaResources.getString("property_has_calculation_cannot_be_editable", property));
 					return false;
 				}
 				if (p.isReadOnly()) {
-					log.warn("Property " + property + " is read-only and cannot be editable"); // tmr ini
+					log.warn(XavaResources.getString("property_read_only_cannot_be_editable", property));
 					return false;
 				}
 				if (p.isVersion()) {
-					log.warn("Property " + property + " is a version and cannot be editable"); // tmr ini
+					log.warn(XavaResources.getString("property_version_cannot_be_editable", property));
 					return false;
 				}
 				if (p.isTransient()) {
-					log.warn("Property " + property + " is transient and cannot be editable"); // tmr ini
+					log.warn(XavaResources.getString("property_transient_cannot_be_editable", property));
 					return false;
 				}
 				// Check if property has @Formula annotation
 				PropertyMapping mapping = p.getMapping();
 				if (mapping != null && mapping.hasFormula()) {
-					log.warn("Property " + property + " has @Formula annotation and cannot be editable"); // tmr ini
+					log.warn(XavaResources.getString("property_formula_cannot_be_editable", property));
 					return false;
 				}
 				return true;
 			} catch (Exception e) {
-				log.warn("Error checking if property is editable: " + propertyName, e);
+				log.warn(XavaResources.getString("error_checking_property_editable", propertyName), e);
 				return false;
 			}
 		}

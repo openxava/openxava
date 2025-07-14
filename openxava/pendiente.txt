@@ -15,8 +15,8 @@ Pendiente de listas editables TMR
     * Probar uno con clave simple.
     * JUnit   
 * Refactorizar. 
-- Mezclar desde master (hacer un pull).
-- i18n
+* Mezclar desde master.
+* i18n
 - Suite
 - ¿Debería incluir la característica en invoicedemo?
 - Doc:

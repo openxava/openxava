@@ -1431,7 +1431,7 @@ abstract public class ModuleTestBase extends TestCase {
 			assertEditable(toPropertyNameForEditableInList(row, name));
 		}
 		catch (ElementNotFoundException ex) {
-			fail(name + " en la fila " + row + " de la lista no es editable (o no existe) y debería se editable"); // tmr i18n
+			fail(XavaResources.getString("property_in_list_row_not_editable_should_be", name, row));
 		}
 	}
 	
@@ -1441,7 +1441,7 @@ abstract public class ModuleTestBase extends TestCase {
 	protected void assertNoEditableInList(int row, String name) throws Exception { 
 		try {
 			assertEditable(toPropertyNameForEditableInList(row, name));
-			fail(name + " en la fila " + row + " de la lista es editable y no debería serlo"); // tmr i18n
+			fail(XavaResources.getString("property_in_list_row_editable_should_not_be", name, row));
 		}
 		catch (ElementNotFoundException ex) {
 			// There is no editor in the list cell, so it's not editable (or maybe it does not exist at all)

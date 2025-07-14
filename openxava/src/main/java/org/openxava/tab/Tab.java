@@ -3235,7 +3235,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		try {
 			return getMetaTab().isPropertyEditable(propertyName);
 		} catch (Exception e) {
-			log.error("Error checking if property is editable: " + propertyName, e); // tmr i18n
+			log.error(XavaResources.getString("error_checking_property_editable", propertyName), e);
 			return false;
 		}
 	}
