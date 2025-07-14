@@ -12,7 +12,6 @@ import org.openxava.model.meta.MetaProperty;
 import org.openxava.model.meta.MetaReference;
 import org.openxava.util.Messages;
 import org.openxava.util.Strings;
-import org.openxava.web.editors.WebEditors;
 
 /**
  * Created on 21/08/2009
