@@ -17,7 +17,7 @@ public class Product2EditableListTest extends ModuleTestBase {
 	public void testEditablePropertiesInList() throws Exception {
 		// Simple property
 		assertValueInList(0, "unitPrice", "11.00"); 
-		assertValueInList(1, "unitPrice", "23.00");
+		assertValueInList(1, "unitPrice", "20.00");
 		assertValueInList(2, "unitPrice",  "0.00");
 		assertEditableInList(0, "unitPrice");
 		assertEditableInList(1, "unitPrice");
@@ -94,7 +94,7 @@ public class Product2EditableListTest extends ModuleTestBase {
 		
 		// Restoring
 		setValueInList(0, "unitPrice", "11.00");
-		setValueInList(1, "unitPrice", "23.00");
+		setValueInList(1, "unitPrice", "20.00");
 		setValueInList(1, "family.number", "2");
 		warehouse.setZoneNumber(1);
 		warehouse.setNumber(1);
