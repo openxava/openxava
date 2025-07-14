@@ -26,7 +26,7 @@ public class Product2EditableListTest extends ModuleTestBase {
 		// @DescriptionsList with single key
 		assertValueInList(0, "family.description", "SOFTWARE");
 		assertValueInList(1, "family.description", "HARDWARE");
-		assertValueInList(2, "family.description", "SERVICIOS");
+		assertValueInList(2, "family.description", "SOFTWARE");
 		assertEditableInList(0, "family.description");
 		assertEditableInList(1, "family.description");
 		assertEditableInList(2, "family.description");
@@ -87,7 +87,7 @@ public class Product2EditableListTest extends ModuleTestBase {
 		assertValueInList(2, "unitPrice",  "0.00");
 		assertValueInList(0, "family.description", "SOFTWARE");
 		assertValueInList(1, "family.description", "SERVICIOS");
-		assertValueInList(2, "family.description", "SERVICIOS");
+		assertValueInList(2, "family.description", "SOFTWARE");
 		assertValueInList(0, "warehouse.name", "ALMA 11");
 		assertValueInList(1, "warehouse.name", "ALMA 13");
 		assertValueInList(2, "warehouse.name", "VALENCIA NORTE");		
