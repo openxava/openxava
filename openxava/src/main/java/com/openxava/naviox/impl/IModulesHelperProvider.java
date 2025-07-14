@@ -44,4 +44,9 @@ public interface IModulesHelperProvider {
 
 	boolean showsSearchModules(HttpServletRequest request);
 
+	/** @since 7.6 */
+	default boolean isExcludedFromVisitedModules(String moduleName) { 
+		return false;
+	}
+
 }
