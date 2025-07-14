@@ -493,7 +493,7 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 				<% 
 				String editorURLDescriptionsList = WebEditors.getEditorURLDescriptionsList(tab.getTabName(), tab.getModelName(), 
 					Ids.decorate(request, memberName + "___" + f), -1, prefix, p.getQualifiedName(), p.getName());
-				if (!editorURLDescriptionsList.isEmpty()) { // tmr ¿Preguntarlo de esta forma? 
+				if (!editorURLDescriptionsList.isEmpty()) { // If a combo is shown to filter, it's also shown for editing the value
 				%>
 					<xava:descriptionsList reference='<%=memberName + "___" + f%>' descriptionValue='<%=model.getValueAt(f, c)%>'/>
 				<% } else { %>

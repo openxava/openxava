@@ -32,6 +32,7 @@ boolean descriptionsListAndReferenceView = descriptionsList || !composite?false:
 if (descriptionsListAndReferenceView) {
 	composite = false;
 }
+boolean inEditableList = ref.getName().contains("___");
 %>
 
 <%@ include file="htmlTagsEditor.jsp"%>
@@ -196,7 +197,7 @@ else {
 }
 %>
 
-<% if (!frame) { %>
+<% if (!frame && !inEditableList) { %>
 	<%@ include file="referenceActions.jsp"%>
 	<%@ include file="referenceActionsExt.jsp"%>
 <% } %>

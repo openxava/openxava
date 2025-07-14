@@ -1562,11 +1562,6 @@ input[type="button"] {
 	top: -5px;
 }
 
-.ox-list-cell-editor .ox-image-link { /* tmr ¿Quitar desde Java? */
-	display: none;
-	
-}
-
 .ox-element-collection input[type="checkbox"] {
 	height: inherit;
 	margin-left: auto;

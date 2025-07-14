@@ -3388,24 +3388,11 @@ public class View implements java.io.Serializable {
 	}
 
 	private void fillReferenceValues(Map referenceValues, MetaReference ref, String value, String qualifier, String propertyPrefix) {
-		MetaModel metaModel = ref.getMetaModelReferenced();
-		if (!value.startsWith("[")) value = "";
-		StringTokenizer st = new StringTokenizer(Strings.change(value, "..", ". ."), "[.]");
-		for (String propertyName: metaModel.getAllKeyPropertiesNames()) {
-			MetaProperty p = metaModel.getMetaProperty(propertyName);			 													
-			Object propertyValue = null;
-			if (st.hasMoreTokens()) { // if not then null is assumed. This is a case of empty value
-				String stringPropertyValue = st.nextToken();
-				propertyValue = WebEditors.parse(getRequest(), p, stringPropertyValue, getErrors(), getViewName());									
-			}			
-			if (WebEditors.mustToFormat(p, getViewName())) {				
-				if (qualifier != null) { 
-					String valueKey = qualifier + "." + ref.getName() + "." + propertyName + ".value"; 
-					getRequest().setAttribute(valueKey, propertyValue);
-				}
-				referenceValues.put(propertyPrefix==null?propertyName:propertyPrefix + propertyName, propertyValue);
-			}									
-		}
+		// Delegating to the common implementation in DescriptionsLists
+		// Using emptyIfNotBracketed=true to maintain original View behavior
+		org.openxava.web.DescriptionsLists.fillReferenceValues(
+			referenceValues, ref, value, qualifier, propertyPrefix, 
+			getRequest(), getErrors(), getViewName(), true);
 	}
 	
 	public boolean throwsPropertyChanged(MetaProperty p) {

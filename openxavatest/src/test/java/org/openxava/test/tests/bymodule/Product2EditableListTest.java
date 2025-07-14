@@ -46,6 +46,9 @@ public class Product2EditableListTest extends ModuleTestBase {
 		assertNoEditableInList(0, "extendedDescription"); 
 		assertNoEditableInList(1, "extendedDescription");
 		assertNoEditableInList(2, "extendedDescription");
+
+		// No refence actions
+		assertNoAction("Reference.createNew");
 		
 		// Modifying simple property
 		setValueInList(0, "unitPrice", "17");
@@ -60,14 +63,14 @@ public class Product2EditableListTest extends ModuleTestBase {
 		assertError("{0} in {1} can not be greater than 1000"); // {0} and {1} should be replaced, but it fails too in detail mode, so it's another different bug
 		
 		// Modifying references as @DescriptionsList 
-		setValueInList(1, "family.number", "3"); // tmr Documentar que se asigna así, en API de ModuleTestBase
+		setValueInList(1, "family.number", "3"); 
 		assertMessage("Saved new value for family in row 2");
 		
 		Warehouse warehouse = new Warehouse();
 		warehouse.setZoneNumber(4);
 		warehouse.setNumber(13);		 
 		String warehouseKey = toKeyString(warehouse);
-		setValueInList(1, "warehouse.KEY", warehouseKey); // tmr Documentar que se asigna así, en API de ModuleTestBase		
+		setValueInList(1, "warehouse.KEY", warehouseKey); 
 		assertMessage("Saved new value for warehouse in row 2");
 		
 		// Verifying in detail

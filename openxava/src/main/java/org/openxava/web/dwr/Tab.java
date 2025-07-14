@@ -66,11 +66,10 @@ public class Tab extends DWRBase {
 				if (!tab.getMetaTab().getMetaModel().containsMetaReference(property)) {
 					throw ex;
 				}
-				Map<String, Object> referenceValues = new HashMap<>();
-				Messages errors = new Messages(); 
-				fillReferenceValues(referenceValues, tab.getMetaTab().getMetaModel().getMetaReference(property), value, null, null, request, errors, "");
-				if (errors.contains()) {
-					return "ERROR: " + errors;
+				Messages parsingErrors = new Messages(); 
+				Map<String, Object> referenceValues = getReferenceValues(tab.getMetaTab().getMetaModel().getMetaReference(property), value, request, parsingErrors);
+				if (parsingErrors.contains()) {
+					return "ERROR: " + parsingErrors;
 				}
 				values.put(property, referenceValues);
 			}
@@ -87,26 +86,23 @@ public class Tab extends DWRBase {
 		}
 	}
 
-	// tmr Refactorizar con View
-	private void fillReferenceValues(Map referenceValues, MetaReference ref, String value, String qualifier, String propertyPrefix, HttpServletRequest request, Messages errors, String viewName) {
-		MetaModel metaModel = ref.getMetaModelReferenced();
-		if (!value.startsWith("[")) value = "[." + value + ".]";
-		StringTokenizer st = new StringTokenizer(Strings.change(value, "..", ". ."), "[.]");
-		for (String propertyName: metaModel.getAllKeyPropertiesNames()) {
-			MetaProperty p = metaModel.getMetaProperty(propertyName);			 								
-			Object propertyValue = null;
-			if (st.hasMoreTokens()) { // if not then null is assumed. This is a case of empty value
-				String stringPropertyValue = st.nextToken();
-				propertyValue = WebEditors.parse(request, p, stringPropertyValue, errors, viewName);								
-			}			
-			if (WebEditors.mustToFormat(p, viewName)) {				
-				if (qualifier != null) { 
-					String valueKey = qualifier + "." + ref.getName() + "." + propertyName + ".value"; 
-					request.setAttribute(valueKey, propertyValue);
-				}
-				referenceValues.put(propertyPrefix==null?propertyName:propertyPrefix + propertyName, propertyValue);
-			}								
-		}
+	/**
+	 * Gets a map with reference values from a composite key string.
+	 * 
+	 * @param ref MetaReference containing the reference definition
+	 * @param value String value containing the composite key
+	 * @param request HttpServletRequest for parsing values
+	 * @param errors Messages object for error handling during parsing
+	 * @return Map with reference values
+	 */
+	private Map<String, Object> getReferenceValues(MetaReference ref, String value, HttpServletRequest request, Messages errors) {
+		Map<String, Object> referenceValues = new HashMap<>();
+		// Delegating to the common implementation in DescriptionsLists
+		// Using emptyIfNotBracketed=false to maintain original Tab behavior
+		org.openxava.web.DescriptionsLists.fillReferenceValues(
+			referenceValues, ref, value, null, null, 
+			request, errors, "", false);
+		return referenceValues;
 	}
 
 	public void removeProperty(HttpServletRequest request, HttpServletResponse response, String application, String module, String property, String tabObject) {
