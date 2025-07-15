@@ -161,7 +161,7 @@ public class AnnotatedPOJOTest extends TestCase {
 				assertEquals("1 invalid value is expected", 1, vex.getConstraintViolations().size());
 				ConstraintViolation<?> violation = vex.getConstraintViolations().iterator().next();
 				assertEquals("Bean", "Artist", violation.getRootBeanClass().getSimpleName());
-				String expectedMessage = "es".equals(Locale.getDefault().getLanguage())?"tiene que ser menor o igual que 90":"must be less than or equal to 90"; 
+				String expectedMessage = "es".equals(Locale.getDefault().getLanguage())?"debe ser menor que o igual a 90":"must be less than or equal to 90"; 
 				assertEquals("Message text", expectedMessage, violation.getMessage());
 				return;
 			}

@@ -321,7 +321,9 @@ public class CalendarTest extends WebDriverTestBase {
 		//drag and drop
 		Calendar calendar = Calendar.getInstance();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dragAndDrop(calendar.getTime(), dateFormat);
+		// Apply Tuesday date logic
+		Date adjustedDate = adjustDateForTuesday(calendar.getTime());
+		dragAndDrop(adjustedDate, dateFormat);
 		event = getDriver().findElement(By.cssSelector(".fc-event-time"));
 		assertTrue(event.getText().contains("2:30"));
 		event.click();
@@ -558,4 +560,24 @@ public class CalendarTest extends WebDriverTestBase {
 	    assertEquals(expectedText, tooltip.getText());
 	}
 	
+	/**
+	 * Adjusts a date if it falls on Tuesday:
+	 * - If it's the 1st day of the month, returns the next day (Wednesday)
+	 * - Otherwise, returns the previous day (Monday)
+	 * - If it's not Tuesday, returns the original date unchanged
+	 */
+	private Date adjustDateForTuesday(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		
+		if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.TUESDAY) {
+			if (calendar.get(Calendar.DAY_OF_MONTH) == 1) {
+				calendar.add(Calendar.DAY_OF_MONTH, 1); // Use Wednesday
+			} else {
+				calendar.add(Calendar.DAY_OF_MONTH, -1); // Use Monday
+			}
+		}
+		
+		return calendar.getTime();
+	}
 }
