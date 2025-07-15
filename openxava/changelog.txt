@@ -1,6 +1,15 @@
 Change Log for OpenXava project
 ===============================
 
+- Data can be edited directly in list mode, without entering detail view, with editableProperties in @Tab.
+- The Product module in invoicedemo has editable list mode.
+- setValueInList/assert(No)EditableInList methods in ModuleTestBase to test editable properties in lists.
+- New parameters value in xava:editor and descriptionValue in xava:descriptionsList taglibs. 
+- Public manageException() method in ModuleManager to use the exception management logic from custom code.
+- JavaScript functions openxava.showMessage() and openxava.showError() to show messages from custom JS code.
+- Messages.toString() uses the locale from the browser instead of from the server machine.
+- Some new common use labels to be used in applications.
+
 OpenXava 7.5.3 (2025-6-20)
 --------------------------
 - Some new common use labels to be used in applications.
