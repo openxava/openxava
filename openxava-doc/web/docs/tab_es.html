@@ -247,24 +247,27 @@
 </style><pre class="java5">@Tab<span class="br0">(</span>
     name=<span class="st0">"nombre"</span>,                           <span
 
-class="co1">// 1</span>
-    filter=clase del filtro,                 <span class="co1">// 2</span>
-    rowStyles=array de @RowStyle,            <span class="co1">// 3</span>
+class="co1">   // 1</span>
+    filter=clase del filtro,                 <span class="co1">   // 2</span>
+    rowStyles=array de @RowStyle,            <span class="co1">   // 3</span>
     properties=<span class="st0">"propiedades"</span>,                <span
 
-class="co1">// 4</span>
+class="co1">   // 4</span>
+    editableProperties=<span class="st0">"propiedades editables"</span>, <span
+
+class="co1">// 5  Nuevo en v7.6</span>
     baseCondition=<span class="st0">"condición base"</span>,          <span
 
-class="co1">// 5</span>
+class="co1">   // 6</span>
     defaultOrder=<span class="st0">"orden por defecto"</span>,        <span
 
-class="co1">// 6</span>
+class="co1">   // 7</span>
     editor=<span class="st0">"editor por defecto"</span>,             <span
 
-class="co1">// 7  Nuevo en v4.6</span>
+class="co1">   // 8  Nuevo en v4.6</span>
     editors=<span class="st0">"todos los editores disponibles"</span> <span
 
-class="co1">// 8  Nuevo en v5.7</span>
+class="co1">   // 9  Nuevo en v5.7</span>
 <span class="br0">)</span>
 <span class="kw2">public</span> <span class="kw2">class</span> MiEntidad <span
 
@@ -284,6 +287,7 @@ class="br0">{</span></pre>
         <li><strong><a class="wiki_link" href="#Datos%20tabulares-Propiedades%20iniciales%20y%20resaltar%20filas">properties</a></strong> (opcional): La lista de propiedades a visualizar inicialmente. Pueden ser calificadas. El sufijo + <em>(nuevo en v4.1)</em> se puede añadir a una propiedad para mostrar la <a
 
             class="wiki_link" href="tab_es.html#sumatorio-columna">suma de la columna</a> abajo.</li>
+        <li><strong><a class="wiki_link" href="#Datos%20tabulares-Propiedades%20editables">editableProperties</a></strong> (opcional): <em>(Nuevo en v7.6)</em> Lista de propiedades que pueden ser editadas directamente en la lista. Solo se permiten propiedades simples editables y referencias con <em>@DescriptionsList</em>.</li>
         <li><strong><a class="wiki_link" href="#Datos+tabulares-Filtros+y+condicion+base">baseCondition</a></strong> (opcional): Es una condición que aplicará siempre a los datos visualizados añadiendose a las que pueda poner el usuario.</li>
         <li><strong><a class="wiki_link" href="#Datos%20tabulares-Orden%20por%20defecto">defaultOrder</a></strong> (opcional): Para especificar el orden en que aparece los datos en la lista inicialmente.</li>
         <li><strong><a class="wiki_link" href="#Datos%20tabulares-Escoger%20un%20editor%20%28nuevo%20en%20v4.6%29">editor</a></strong> (opcional): <em>(Nuevo en v4.6)</em> Editor de <em>default-editors.xml</em> o <em>editores.xml</em> usado para visualizar la lista. Se usa para el formato por defecto, si la lista tiene varios formatos los otros permanecen inalterados.</li>
