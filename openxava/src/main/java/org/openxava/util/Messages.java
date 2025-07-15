@@ -61,7 +61,7 @@ public class Messages implements java.io.Serializable {
 		}
 		
 		public String toString() {
-			return toString(Locale.getDefault());
+			return toString(Locales.getCurrent()); 
 		}
 		
 		public boolean equals(Object other) {

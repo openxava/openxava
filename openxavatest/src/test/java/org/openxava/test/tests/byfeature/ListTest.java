@@ -94,7 +94,7 @@ public class ListTest extends WebDriverTestBase {
 		assertEquals("Column 2 width should be 700px", 700, col2Width);
 
 		// Column 3 has content, so the width adapt to the size of the content
-		assertEquals("Column 3 width should be 275px", 275, col3Width);		
+		assertEquals("Column 3 width should be 278px", 278, col3Width);		
 	}
 
 		

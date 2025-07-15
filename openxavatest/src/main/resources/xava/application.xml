@@ -554,6 +554,12 @@
 		<view name="SectionByDescriptionsList"/>
 		<controller name="Typical"/>
 	</module>
+	
+	<module name="Product2EditableList" folder="warehousing/variations"> 
+		<model name="Product2"/>
+		<tab name="Editable"/>
+		<controller name="Typical"/>
+	</module>	
 		
 	<module name="Product3" folder="warehousing/variations">
 		<model name="Product3"/>

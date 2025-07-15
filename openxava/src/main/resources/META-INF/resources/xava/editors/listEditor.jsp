@@ -464,22 +464,52 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 		String widthClass = width.equals("")?"ox-list-default-column-width":"";
 		String fvalue = null;
 		Object title = null;
-		if (tab.isFromCollection(p)) {
-			title = fvalue = Strings.toString(model.getValueAt(f, c));
-		}
-		else {
-			fvalue = WebEditors.format(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
-			title = WebEditors.formatTitle(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
-		}
+			if (tab.isFromCollection(p)) {
+				title = fvalue = Strings.toString(model.getValueAt(f, c));
+			}
+			else {
+				// Get the formatted title for all properties
+				title = WebEditors.formatTitle(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
+				
+				// We only need fvalue for non-editable properties
+				if (!tab.isPropertyEditable(p.getName())) {
+					fvalue = WebEditors.format(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
+				}
+			}
 %>
 	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell">
-		<xava:link action='<%=action%>' argv='<%="row=" + f + actionArgv%>' cssClass='<%=cssStyle%>'>
-			<div title="<%=title%>" class="<xava:id name='tipable'/> <xava:id name='<%=id%>'/>_col<%=c%> <%=widthClass%>" <%=width%>>
-				<%if (resizeColumns) {%><nobr><%}%>
-				<%=fvalue%><%if (resizeColumns) {%>&nbsp;<%}%>
-				<%if (resizeColumns) {%></nobr><%}%>
+		<% if (tab.isPropertyEditable(p.getQualifiedName())) { %>
+			<% 
+			String memberName = p.getQualifiedName();
+			if (memberName.contains(".")) {
+				memberName = memberName.substring(0, memberName.lastIndexOf("."));
+			}
+			%>
+
+			<div title="<%=title%>" 
+				class="ox-list-cell-editor <xava:id name='tipable'/> <xava:id name='<%=id%>'/>_col<%=c%> <%=widthClass%>" 
+				<%=width%>
+				data-row="<%=f%>" data-property="<%=memberName%>">
+				<% 
+				String editorURLDescriptionsList = WebEditors.getEditorURLDescriptionsList(tab.getTabName(), tab.getModelName(), 
+					Ids.decorate(request, memberName + "___" + f), -1, prefix, p.getQualifiedName(), p.getName());
+				if (!editorURLDescriptionsList.isEmpty()) { // If a combo is shown to filter, it's also shown for editing the value
+				%>
+					<xava:descriptionsList reference='<%=memberName + "___" + f%>' descriptionValue='<%=model.getValueAt(f, c)%>'/>
+				<% } else { %>
+					<xava:editor property='<%=memberName + "___" + f%>' value='<%=model.getValueAt(f, c)%>' editable='true'/>
+				<% } %>
 			</div>
-		</xava:link>
+		<% } else { %>
+			<xava:link action='<%=action%>' argv='<%="row=" + f + actionArgv%>' cssClass='<%=cssStyle%>'>
+				<div title="<%=title%>" class="<xava:id name='tipable'/> <xava:id name='<%=id%>'/>_col<%=c%> <%=widthClass%>" <%=width%>>
+					<%if (resizeColumns) {%><nobr><%}%>
+					<%=fvalue%>
+					<%if (resizeColumns) {%>&nbsp;<%}%>
+					<%if (resizeColumns) {%></nobr><%}%>
+				</div>
+			</xava:link>
+		<% } %>
 	</td>
 <%
 	}

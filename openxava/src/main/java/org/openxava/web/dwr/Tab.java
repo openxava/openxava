@@ -1,9 +1,15 @@
 package org.openxava.web.dwr;
 
+import java.util.*;
+
 import javax.servlet.http.*;
 
 import org.apache.commons.logging.*;
+import org.openxava.controller.*;
+import org.openxava.model.*;
+import org.openxava.model.meta.*;
 import org.openxava.util.*;
+import org.openxava.web.*;
 import org.openxava.web.servlets.*;
 
 /**
@@ -27,6 +33,78 @@ public class Tab extends DWRBase {
 		}
 	}
 	
+	/**
+	 * Updates a cell value in an editable list.
+	 * 
+	 * @param request The HTTP request
+	 * @param response The HTTP response
+	 * @param application The application name
+	 * @param module The module name
+	 * @param row The row number (0-based)
+	 * @param property The property name
+	 * @param value The new value
+	 * @param tabObject The tab object name
+	 * @return Confirmation or error message
+	 */
+	public String updateValue(HttpServletRequest request, HttpServletResponse response, 
+			String application, String module, int row, String property, String value) {
+		try { 
+			initRequest(request, response, application, module);
+			org.openxava.tab.Tab tab = getTab(request, application, module, "xava_tab"); // By now only in list mode, not int collections
+			
+			Map key = (Map) tab.getTableModel().getObjectAt(row);
+			Map<String, Object> values = new HashMap<>();
+			try {
+				Messages parsingErrors = new Messages();
+				Object ovalue = WebEditors.parse(request, tab.getMetaProperty(property), value, parsingErrors, value);
+				if (parsingErrors.contains()) {
+					return "ERROR: " + parsingErrors;
+				}
+				values.put(property, ovalue);
+			}
+			catch (ElementNotFoundException ex) {
+				if (!tab.getMetaTab().getMetaModel().containsMetaReference(property)) {
+					throw ex;
+				}
+				Messages parsingErrors = new Messages(); 
+				Map<String, Object> referenceValues = getReferenceValues(tab.getMetaTab().getMetaModel().getMetaReference(property), value, request, parsingErrors);
+				if (parsingErrors.contains()) {
+					return "ERROR: " + parsingErrors;
+				}
+				values.put(property, referenceValues);
+			}
+			MapFacade.setValues(tab.getModelName(), key, values);
+			String propertyLabel = Labels.get(property, request.getLocale()).toLowerCase();
+			return XavaResources.getString(request, "value_saved_for_property_in_row", propertyLabel, row + 1); 
+		}
+		catch (Exception ex) {
+			Messages errors = ModuleManager.manageException(ex); 		
+			return "ERROR: " + errors;
+		}
+		finally {
+			cleanRequest();
+		}
+	}
+
+	/**
+	 * Gets a map with reference values from a composite key string.
+	 * 
+	 * @param ref MetaReference containing the reference definition
+	 * @param value String value containing the composite key
+	 * @param request HttpServletRequest for parsing values
+	 * @param errors Messages object for error handling during parsing
+	 * @return Map with reference values
+	 */
+	private Map<String, Object> getReferenceValues(MetaReference ref, String value, HttpServletRequest request, Messages errors) {
+		Map<String, Object> referenceValues = new HashMap<>();
+		// Delegating to the common implementation in DescriptionsLists
+		// Using emptyIfNotBracketed=false to maintain original Tab behavior
+		org.openxava.web.DescriptionsLists.fillReferenceValues(
+			referenceValues, ref, value, null, null, 
+			request, errors, "", false);
+		return referenceValues;
+	}
+
 	public void removeProperty(HttpServletRequest request, HttpServletResponse response, String application, String module, String property, String tabObject) {
 		try {
 			initRequest(request, response, application, module); 

@@ -14,7 +14,7 @@
               </a> </span> / <a href="index_en.html">documentation</a> / </span>
         Customizing </h1>
       <strong>Reference guide</strong>: <a class="wiki_link" href="model_en.html">Model</a>
-      | <a class="wiki_link" href="view_en.html">View</a> | <a class="wiki_link"
+      | <a class="wiki_link" href="view_en.html">View</a> | <a class="wiki_link"
         href="tab_en.html">Tabular data</a> | <a class="wiki_link" href="mapping_en.html">Object/relational
         mapping</a> | <a class="wiki_link" href="controllers_en.html">Controllers</a>
       | <a class="wiki_link" href="application_en.html">Application</a> | <strong>Customizing</strong>
@@ -48,6 +48,7 @@
             v4m2</a></div>
         <div style="margin-left: 4em;"><a href="#Customizing-Editors-JavaScript%20in%20editors-Until%203.0.x">Until
             3.0.x</a></div>
+        <div style="margin-left: 3em;"><a href="#Customizing-Editors-JavaScript%20utility%20functions%20%28new%20in%20v7.6%29">JavaScript utility functions (new in v7.6)</a></div>
         <div style="margin-left: 3em;"><a href="#Customizing-Editors-CSS%20in%20editors%20%28new%20in%20v5.4%29">CSS
             in editors (new in v5.4)</a></div>
         <div style="margin-left: 3em;"><a href="#Customizing-Editors-Custom%20editors%20and%20stereotypes%20for%20displaying%20combos">Custom
@@ -111,7 +112,7 @@
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
 class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
 &nbsp;
 <span class="sc0">&lt;!DOCTYPE editors SYSTEM "dtds/editors.dtd"&gt;</span>
@@ -144,7 +145,7 @@ class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span c
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span></span>
-<span class="sc3">    <span class="re0">name</span>=<span class="st0">"name"</span>                                   &lt;!--  1  New in v2.1.3 --<span
+<span class="sc3">    <span class="re0">name</span>=<span class="st0">"name"</span>                                   &lt;!--  1  New in v2.1.3 --<span
 class="re2">&gt;</span></span>
     url="url"                           <span class="sc-1">          &lt;!--  2 --&gt;</span>
     format="true|false"                 <span class="sc-1">          &lt;!--  3 --&gt;</span>
@@ -156,37 +157,37 @@ class="re2">&gt;</span></span>
     icon="icon"                                   <span class="sc-1">&lt;!--  9  New in v5.7 --&gt;</span>
     init-action="Controller.action"     <span class="sc-1">          &lt;!-- 10  New in v5.7 --&gt;</span>
     release-action="Controller.action"  <span class="sc-1">          &lt;!-- 11  New in v5.7 --&gt;</span>
-    selectable-items="true|false"                 <span class="sc-1">&lt;!-- 12  New in v5.7 --&gt;</span><br>    default-label-format="normal|small|no-label"  <span
+    selectable-items="true|false"                 <span class="sc-1">&lt;!-- 12  New in v5.7 --&gt;</span><br>    default-label-format="normal|small|no-label"  <span
 class="sc-1">&lt;!-- 13  New in v7.4 --&gt;</span><br>&gt;
-   <span class="sc3"><span class="re1">&lt;property</span> ... <span class="re2">/&gt;</span></span> ...                 <span
+   <span class="sc3"><span class="re1">&lt;property</span> ... <span class="re2">/&gt;</span></span> ...                 <span
 class="sc-1">          &lt;!-- 14 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;formatter</span> ... <span class="re2">/&gt;</span></span>                    <span
+   <span class="sc3"><span class="re1">&lt;formatter</span> ... <span class="re2">/&gt;</span></span>                    <span
 class="sc-1">          &lt;!-- 15 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;list-formatter</span> ... <span class="re2">/&gt;</span></span>               <span
+   <span class="sc3"><span class="re1">&lt;list-formatter</span> ... <span class="re2">/&gt;</span></span>               <span
 class="sc-1">          &lt;!-- 16  New in v3.1.4 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-stereotype</span> ... <span class="re2">/&gt;</span></span> ...           <span
-class="sc-1">          &lt;!-- 17 --&gt;</span><br>   <span class="sc3"><span class="re1">&lt;for-annotation</span> ... <span
-class="re2">/&gt;</span></span> ...           <span class="sc-1">          &lt;!-- 18  New in v6.6 --&gt;<br>  </span>&nbsp;<span
-class="sc3"><span class="re1">&lt;for-type</span> ... <span class="re2">/&gt;</span></span> ...                 <span
-class="sc-1">          &lt;!-- 19 --&gt;<br></span>  &nbsp;<span class="sc3"><span
-class="re1">&lt;for-model-property</span> ... <span class="re2">/&gt;</span></span> ...       <span
+   <span class="sc3"><span class="re1">&lt;for-stereotype</span> ... <span class="re2">/&gt;</span></span> ...           <span
+class="sc-1">          &lt;!-- 17 --&gt;</span><br>   <span class="sc3"><span class="re1">&lt;for-annotation</span> ... <span
+class="re2">/&gt;</span></span> ...           <span class="sc-1">          &lt;!-- 18  New in v6.6 --&gt;<br>  </span>&nbsp;<span
+class="sc3"><span class="re1">&lt;for-type</span> ... <span class="re2">/&gt;</span></span> ...                 <span
+class="sc-1">          &lt;!-- 19 --&gt;<br></span>  &nbsp;<span class="sc3"><span
+class="re1">&lt;for-model-property</span> ... <span class="re2">/&gt;</span></span> ...       <span
 class="sc-1">          &lt;!-- 20 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-reference</span> ... <span class="re2">/&gt;</span></span> ...            <span
+   <span class="sc3"><span class="re1">&lt;for-reference</span> ... <span class="re2">/&gt;</span></span> ...            <span
 class="sc-1">          &lt;!-- 21  New in v3.1.3 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-collection</span> ... <span class="re2">/&gt;</span></span> ...           <span
+   <span class="sc3"><span class="re1">&lt;for-collection</span> ... <span class="re2">/&gt;</span></span> ...           <span
 class="sc-1">          &lt;!-- 22  New in v3.1.3 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-tab</span> ... <span class="re2">/&gt;</span></span> ...                            <span
-class="sc-1">&lt;!-- 23  New in v4.6 --&gt;</span><br>  &nbsp;<span class="sc3"><span
-class="re1">&lt;for-valid-values</span> <span class="re2">/&gt;</span></span>                 <span
+   <span class="sc3"><span class="re1">&lt;for-tab</span> ... <span class="re2">/&gt;</span></span> ...                            <span
+class="sc-1">&lt;!-- 23  New in v4.6 --&gt;</span><br>  &nbsp;<span class="sc3"><span
+class="re1">&lt;for-valid-values</span> <span class="re2">/&gt;</span></span>                 <span
 class="sc-1">          &lt;!-- 24  New in v2.1.2 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-references</span> <span class="re2">/&gt;</span></span>                   <span
+   <span class="sc3"><span class="re1">&lt;for-references</span> <span class="re2">/&gt;</span></span>                   <span
 class="sc-1">          &lt;!-- 25  New in v3.1.3 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-collections</span> <span class="re2">/&gt;</span></span>                            <span
+   <span class="sc3"><span class="re1">&lt;for-collections</span> <span class="re2">/&gt;</span></span>                            <span
 class="sc-1">&lt;!-- 26  New in v3.1.3 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-element-collections</span> <span
+   <span class="sc3"><span class="re1">&lt;for-element-collections</span> <span
 class="re2">/&gt;</span></span>          <span class="sc-1">          &lt;!-- 27  New in v5.0 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-tabs</span> <span class="re2">/&gt;</span></span>                         <span
-class="sc-1">          &lt;!-- 28  New in v4.6 --&gt;</span><br><span class="sc3"><span
+   <span class="sc3"><span class="re1">&lt;for-tabs</span> <span class="re2">/&gt;</span></span>                         <span
+class="sc-1">          &lt;!-- 28  New in v4.6 --&gt;</span><br><span class="sc3"><span
 class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
       <ol>
         <li><strong>name</strong> (optional): <em>(New in v2.1.3)</em> Name for
@@ -200,7 +201,7 @@ class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
           has the responsibility of formatting the data from HTML to Java and
           vice versa; if <em>false</em>, then the responsibility of this is for
           the editor itself (generally getting the data from <em>request</em>
-          and assigning it to <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html"
+          and assigning it to <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html"
               rel="nofollow">org.openxava.view.View</a></em> and vice versa).
           The default is <em>true</em>.</li>
         <li><strong>depends-stereotypes</strong> (optional): List of stereotypes
@@ -221,12 +222,12 @@ class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
           When <em>false</em> the editor is reloaded only when the data it
           represents has been changed. The default is <em>false</em>.</li>
         <li><strong>composite</strong> (optional): <em>(New in v3.1.3)</em> A
-          composite editor is made up by several other editors; it receives a <em><a
-              class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html"
+          composite editor is made up by several other editors; it receives a <em><a
+              class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html"
               rel="nofollow">View</a></em> object that represents a subview. The
           default is <em>false</em>.</li>
         <li><strong>icon</strong> (optional): <em>(New in v5.7)</em> Icon id
-          from <a class="wiki_link_ext" href="https://materialdesignicons.com/"
+          from <a class="wiki_link_ext" href="https://materialdesignicons.com/"
             rel="nofollow">Material Design Icons</a>. For example, if you write
           <em>icon="bell"</em> a bell will be used as icon to allow the user
           choose that editor. Currently choosing an editor is only available for
@@ -2369,8 +2370,8 @@ String name;
 .html4strict span.xtra { display:block; }
 
 -->
-</style><pre class="html4strict"><span class="sc2">&lt;<span class="kw2">input</span> ... <span
-class="kw3">onclick</span><span class="sy0">=</span><span class="st0">"f()"</span><span
+</style><pre class="html4strict"><span class="sc2">&lt;<span class="kw2">input</span> ... <span
+class="kw3">onclick</span><span class="sy0">=</span><span class="st0">"f()"</span><span
 class="sy0">/</span>&gt; &lt;!-- NOT ALLOWED SINCE v7.1 --&gt;</span></pre>
       Instead you have to attach the events from the code in your JS files. For
       your JavaScript code create a file called <em>myEditor.js</em> (or
@@ -2404,8 +2405,8 @@ class="sy0">/</span>&gt; &lt;!-- NOT ALLOWED SINCE v7.1 --&gt;</span></pre>
 .javascript span.xtra { display:block; }
 
 -->
-</style><pre class="javascript">openxava.<span class="me1">addEditorInitFunction</span><span
-class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
+</style><pre class="javascript">openxava.<span class="me1">addEditorInitFunction</span><span
+class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span>
 <span class="coMULTI">/*
 Here your initialization code for your editor.
@@ -2443,8 +2444,8 @@ or $(function() { ... }) of jQuery
 .javascript span.xtra { display:block; }
 
 -->
-</style><pre class="javascript">openxava.<span class="me1">addEditorDestroyFunction</span><span
-class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
+</style><pre class="javascript">openxava.<span class="me1">addEditorDestroyFunction</span><span
+class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span> <span class="co1">// New in v4.8.1</span>
 <span class="coMULTI">/*
 Here the destroy code for your editor.
@@ -2480,8 +2481,8 @@ This is to free resources obtained by the editor.
 .javascript span.xtra { display:block; }
 
 -->
-</style><pre class="javascript">openxava.<span class="me1">addEditorPreRequestFunction</span><span
-class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
+</style><pre class="javascript">openxava.<span class="me1">addEditorPreRequestFunction</span><span
+class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span> <span class="co1">// New in v7.1</span>
 <span class="coMULTI">/*
 Here the code to execute on your editor
@@ -2522,7 +2523,35 @@ before each AJAX request from OpenXava.
         3.0.x</h4>
       No AJAX is used, so the JavaScript code can be included directly in the
       JSP for the editor.<br>
-      <h3 id="toc12"><a name="Customizing-Editors-CSS in editors (new in v5.4)"></a>CSS
+      <h3 id="toc12"><a name="Customizing-Editors-JavaScript utility functions (new in v7.6)"></a>JavaScript utility functions <em>(new in v7.6)</em></h3>
+      In OpenXava there is a JavaScript object called <code>openxava</code> for internal use, but since version 7.6 it includes some utility functions that you can use in your custom editors. These functions allow you to interact with the OpenXava user interface in a consistent way.<br>
+      <h4>openxava.showMessage()</h4>
+      This function displays an informational message using the same format used by an OpenXava application. It's useful when your editor needs to show a confirmation or information message from JavaScript without having to call the server.<br>
+      <div class="wiki" style="display: block;">
+        <pre><code class="javascript">openxava.showMessage("Operation completed successfully");</code></pre>
+      </div>
+      <h4>openxava.showError()</h4>
+      Similar to the previous function, but displays an error message with the standard OpenXava format. Useful for showing validation errors or other issues detected on the client side.<br>
+      <div class="wiki" style="display: block;">
+        <pre><code class="javascript">openxava.showError("Could not complete the operation");</code></pre>
+      </div>
+      <p>Example of use in a custom editor:</p>
+      <div class="wiki" style="display: block;">
+        <pre><code class="javascript">openxava.addEditorInitFunction(function() {
+    $(".my-save-button").click(function() {
+        // Validation logic
+        if (validData) {
+            // Process data
+            openxava.showMessage("Data saved successfully");
+        }
+        else {
+            openxava.showError("Please review the entered data");
+        }
+    });
+});</code></pre>
+      </div>
+      <p>These functions are especially useful if your custom editor needs to display messages or errors from JavaScript without having to call the server, maintaining visual consistency with the rest of the OpenXava application.</p>
+      <h3 id="toc13"><a name="Customizing-Editors-CSS in editors (new in v5.4)"></a>CSS
         in editors <em>(new in v5.4)</em></h3>
       All the CSS files in the&nbsp; <i>src/main/webapp/xava/editors/style</i>
       folder (<em>web/xava/editors/style</em> in v6 or older) of your
@@ -2850,16 +2879,16 @@ class="st0">"SUBFAMILY"</span><span class="re2">/&gt;</span></span> <span class=
           which properties depends. It's used to fill the condition arguments
           and has to match with <em>depends-properties</em> attribute (13).</li>
         <li><strong>descriptionsFormatter</strong>: Formatter for the
-          descriptions displayed in a combo. It must implement <em><a class="wiki_link_ext"
-              href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IFormatter.html"
+          descriptions displayed in a combo. It must implement <em><a class="wiki_link_ext"
+              href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IFormatter.html"
               rel="nofollow">IFormatter</a></em>.</li>
       </ol>
       Following this example you can learn how to create your own stereotypes
       that display a simple property in combo format and with dynamic data.
-      Nevertheless, in most cases it is more convenient to use <a class="wiki_link"
+      Nevertheless, in most cases it is more convenient to use <a class="wiki_link"
         href="view_en.html#descriptions-list">references displayed as
         @DescriptionsList</a>; but you always can choose.<br>
-      <h2 id="toc14"><a name="Customizing-Custom JSP view and OpenXava taglibs"></a><span
+      <h2 id="toc14"><a name="Customizing-Custom JSP view and OpenXava taglibs"></a><span
           style="font-size: 1.3em; line-height: 1.5;"><strong>Custom JSP view
             and OpenXava taglibs</strong></span></h2>
       Obviously the better way to create user interfaces is using the view
@@ -2868,7 +2897,7 @@ class="st0">"SUBFAMILY"</span><span class="re2">/&gt;</span></span> <span class=
       view using JSP. OpenXava allows you to do it. And in order to help you to
       do it, you can use some JSP taglibs provided by OpenXava. Let's see an
       example.<br>
-      <h3 id="toc15"><a name="Customizing-Custom JSP view and OpenXava taglibs-Example"></a><span
+      <h3 id="toc15"><a name="Customizing-Custom JSP view and OpenXava taglibs-Example"></a><span
           style="font-size: 1.1em; line-height: 1.5;"><strong>Example</strong></span></h3>
       First you have to define in your module that you want to use your own JSP,
       in <em>application.xml</em>:<br>
@@ -2894,17 +2923,17 @@ class="st0">"SUBFAMILY"</span><span class="re2">/&gt;</span></span> <span class=
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
-class="re0">name</span>=<span class="st0">"SellersJSP"</span> <span class="re0">folder</span>=<span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
+class="re0">name</span>=<span class="st0">"SellersJSP"</span> <span class="re0">folder</span>=<span
 class="st0">"invoicing.variations"</span><span class="re2">&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+<span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
 class="st0">"Seller"</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;view</span> <span class="re0">name</span>=<span
+<span class="sc3"><span class="re1">&lt;view</span> <span class="re0">name</span>=<span
 class="st0">"ForCustomJSP"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 1 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;web-view</span> <span class="re0">url</span>=<span
-class="st0">"custom-jsp/seller.jsp"</span><span class="re2">/&gt;</span></span> <span
+<span class="sc3"><span class="re1">&lt;web-view</span> <span class="re0">url</span>=<span
+class="st0">"custom-jsp/seller.jsp"</span><span class="re2">/&gt;</span></span> <span
 class="sc-1">&lt;!-- 2 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+<span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       If you use web-view (2) on defining your module, OpenXava uses your JSP to
@@ -2956,8 +2985,8 @@ class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
 .php span.xtra { display:block; }
 
 -->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
-class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
+</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
+class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
 class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
 &nbsp;
 &lt;table&gt;
@@ -2987,7 +3016,7 @@ class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
       taglib is used, this renders an editor suitable for the indicated
       property, furthermore add the needed javascript to throw the events. If
       you use <em>&lt;xava:editor/&gt;</em>, you can manage the displayed data
-      using <em>xava_view</em> (of <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html"
+      using <em>xava_view</em> (of <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html"
           rel="nofollow">org.openxava.view.View</a></em> type) object, therefore
       all standard OpenXava controllers (including <em>CRUD</em>) work.<br>
       You can notice that qualified properties are allowed (as <em>level.id</em>
@@ -2996,7 +3025,7 @@ class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
       with the corresponding value. Yes, all the behaviour of an OpenXava view
       is available inside your JSP if you use the OpenXava taglibs.<br>
       Let's see the OpenXava taglibs.<br>
-      <h3 id="toc16"><a name="Customizing-Custom JSP view and OpenXava taglibs-xava:editor"></a><span
+      <h3 id="toc16"><a name="Customizing-Custom JSP view and OpenXava taglibs-xava:editor"></a><span
           style="font-size: 1.1em; line-height: 1.5;"><strong>xava:editor</strong></span></h3>
       The &lt;xava:editor/&gt; tag allows you to render an editor (a HTML
       control) for your property, in the same way that OpenXava does it when it
@@ -3024,10 +3053,11 @@ class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:editor</span></span>
-<span class="sc3"><span class="re0">property</span>=<span class="st0">"propertyName"</span> &lt;!-- 1 --<span
+<span class="sc3"><span class="re0">property</span>=<span class="st0">"propertyName"</span> &lt;!-- 1 --<span
 class="re2">&gt;</span></span>
 editable="true|false" <span class="sc-1">&lt;!-- 2 New in v2.0.1 --&gt;</span>
 throwPropertyChanged="true|false" <span class="sc-1">&lt;!-- 3 New in v2.0.1 --&gt;</span>
+value="explicitValue" <span class="sc-1">&lt;!-- 4 New in v7.6 --&gt;</span>
 /&gt;</pre>
       <ol>
         <li><strong>property</strong> (required): It's the property of the model
@@ -3038,11 +3068,15 @@ throwPropertyChanged="true|false" <span class="sc-1">&lt;!-- 3 New in v2.0.1 --&
         <li><strong>throwPropertyChanged</strong> (optional): <em>New in v2.0.1</em>.
           Forces to this editor to throws property changed event, otherwise the
           appropriate default value is assumed.</li>
+        <li><strong>value</strong> (optional): <em>New in v7.6</em>.
+          Allows setting the value to be displayed in the editor directly,
+          instead of having the editor automatically retrieve it from the view using <em>view.getValue(property)</em>.
+          This provides greater flexibility for displaying values that may not be directly in the view model.</li>
       </ol>
       This tag generates the needed JavaScript in order to allow your view to
       work in the same way as an automatic one. The qualified properties
       (properties of references) are supported <em>(new in v2.0.1)</em>.<br>
-      <h3 id="toc17"><a name="Customizing-Custom JSP view and OpenXava taglibs-xava:action, xava:link, xava:image, xava:button"></a><span
+      <h3 id="toc17"><a name="Customizing-Custom JSP view and OpenXava taglibs-xava:action, xava:link, xava:image, xava:button"></a><span
           style="font-size: 1.1em; line-height: 1.5;"><strong>xava:action,
             xava:link, xava:image, xava:button</strong></span></h3>
       The &lt;xava:action/&gt; tag allows you to render an action (a button or a
@@ -3069,8 +3103,8 @@ throwPropertyChanged="true|false" <span class="sc-1">&lt;!-- 3 New in v2.0.1 --&
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
-class="re0">action</span>=<span class="st0">"controller.action"</span> <span class="re0">argv</span>=<span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
+class="re0">action</span>=<span class="st0">"controller.action"</span> <span class="re0">argv</span>=<span
 class="st0">"argv"</span><span class="re2">/&gt;</span></span></pre>
       The action attribute indicates the action to execute, and the argv
       attribute (optional) allows you to put values to some properties of the
@@ -3097,8 +3131,8 @@ class="st0">"argv"</span><span class="re2">/&gt;</span></span></pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
-class="re0">action</span>=<span class="st0">"CRUD.save"</span> <span class="re0">argv</span>=<span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
+class="re0">action</span>=<span class="st0">"CRUD.save"</span> <span class="re0">argv</span>=<span
 class="st0">"resetAfter=true"</span><span class="re2">/&gt;</span></span></pre>
       When the user clicks on it, then it executes the action CRUD.save, before
       it puts true to the <em>resetAfter</em> property of the action.<br>
@@ -3130,7 +3164,7 @@ class="st0">"resetAfter=true"</span><span class="re2">/&gt;</span></span></pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
 class="re0">action</span>=<span class="st0">""</span><span class="re2">/&gt;</span></span></pre>
       In this case the tag has no effect and no error is produced. This feature
       may be useful if you fill the name of the action dynamically (that is
@@ -3167,9 +3201,9 @@ class="re0">action</span>=<span class="st0">""</span><span class="re2">/&gt;</sp
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
-class="re0">key</span>=<span class="st0">"message_key"</span> <span class="re0">param</span>=<span
-class="st0">"messageParam"</span> <span class="re0">intParam</span>=<span class="st0">"messageParam"</span><span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
+class="re0">key</span>=<span class="st0">"message_key"</span> <span class="re0">param</span>=<span
+class="st0">"messageParam"</span> <span class="re0">intParam</span>=<span class="st0">"messageParam"</span><span
 class="re2">/&gt;</span></span></pre>
       The message is searched first in the message resource files of your
       project (<em>yourproject/src/main/resources/i18n/yourproject-messages_en.properties</em>
@@ -3208,8 +3242,8 @@ class="re2">/&gt;</span></span></pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
-class="re0">key</span>=<span class="st0">"list_count"</span> <span class="re0">intParam</span>=<span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
+class="re0">key</span>=<span class="st0">"list_count"</span> <span class="re0">intParam</span>=<span
 class="st0">"&lt;%=totalSize%&gt;</span></span>"/&gt;</pre>
       <h3 id="toc19"><a name="Customizing-Custom JSP view and OpenXava taglibs-xava:label (new in v5.5)"></a>xava:label
         (new in v5.5)</h3>
@@ -3237,7 +3271,7 @@ class="st0">"&lt;%=totalSize%&gt;</span></span>"/&gt;</pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:label</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:label</span> <span
 class="re0">key</span>=<span class="st0">"memberName"</span><span class="re2">/&gt;</span></span></pre>
       The message is searched first in the label resource files of your project
       (<em>yourproject/src/main/resources/i18n/yourproject-labels_en.properties</em>
@@ -3288,9 +3322,9 @@ class="re0">key</span>=<span class="st0">"memberName"</span><span class="re2">/&
 
 -->
 </style><pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Number<span class="sy0">:</span> <span
+<span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Number<span class="sy0">:</span> <span
 class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;</span>td<span class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>xava<span class="sy0">:</span>editor property<span
+<span class="sy0">&lt;</span>xava<span class="sy0">:</span>editor property<span
 class="sy0">=</span><span class="st0">"number"</span><span class="sy0">/&gt;</span>
 <span class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
 <span class="sy0">&lt;/</span>tr<span class="sy0">&gt;</span></pre>
@@ -3335,11 +3369,11 @@ class="sy0">=</span><span class="st0">"number"</span><span class="sy0">/&gt;</sp
 
 -->
 </style><pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>td<span class="sy0">&gt;&lt;</span>xava<span class="sy0">:</span>label <span
-class="kw3">key</span><span class="sy0">=</span><span class="st0">"number"</span><span
-class="sy0">/&gt;:</span> <span class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;</span>td<span
+<span class="sy0">&lt;</span>td<span class="sy0">&gt;&lt;</span>xava<span class="sy0">:</span>label <span
+class="kw3">key</span><span class="sy0">=</span><span class="st0">"number"</span><span
+class="sy0">/&gt;:</span> <span class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;</span>td<span
 class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>xava<span class="sy0">:</span>editor property<span
+<span class="sy0">&lt;</span>xava<span class="sy0">:</span>editor property<span
 class="sy0">=</span><span class="st0">"number"</span><span class="sy0">/&gt;</span>
 <span class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
 <span class="sy0">&lt;/</span>tr<span class="sy0">&gt;</span></pre>
@@ -3372,13 +3406,14 @@ class="sy0">=</span><span class="st0">"number"</span><span class="sy0">/&gt;</sp
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:descriptionsList</span></span>
-<span class="sc3"><span class="re0"> reference</span>=<span class="st0">"referenceName"</span>     &lt;!-- 1 --<span
-class="re2">&gt;<br></span></span> readOnlyAsLabel="true|false" <span class="sc-1"> &lt;!-- 2 New in v6.0.1 --&gt;</span><br>/&gt;</pre>
+<span class="sc3"><span class="re0"> reference</span>=<span class="st0">"referenceName"</span>     &lt;!-- 1 --<span
+class="re2">&gt;<br></span></span> readOnlyAsLabel="true|false" <span class="sc-1"> &lt;!-- 2 New in v6.0.1 --&gt;</span><br> descriptionValue="descriptionValue" <span class="sc-1"> &lt;!-- 3 New in v7.6 --&gt;</span><br>/&gt;</pre>
       <ol>
         <li><strong>reference</strong> (required): It's a reference of the model
           associated with the current module.</li>
         <li><b>readOnlyAsLabel</b> (optional): <i>New in v6.0.1</i>. If <i>true</i>
           and the reference is read only it's displayed as a label.</li>
+        <li><b>descriptionValue</b> (optional): <i>New in v7.6</i>. Allows you to explicitly set the description value to be displayed in the dropdown list, instead of getting it automatically from the view.</li>
       </ol>
       This tag generates the needed JavaScript in order to allow your view to
       work in the same way as an automatic one.<br>
@@ -3423,15 +3458,66 @@ class="re2">&gt;<br></span></span> readOnlyAsLabel="true|false" <span class="sc-
 
 -->
 </style><pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Level<span class="sy0">:</span> <span
+<span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Level<span class="sy0">:</span> <span
 class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
 <span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>xava<span class="sy0">:</span>descriptionsList reference<span
+<span class="sy0">&lt;</span>xava<span class="sy0">:</span>descriptionsList reference<span
 class="sy0">=</span><span class="st0">"level"</span><span class="sy0">/&gt;</span>
 <span class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
 <span class="sy0">&lt;/</span>tr<span class="sy0">&gt;</span></pre>
       In this case level is a reference of the current model (for example <em>Seller</em>).
       A combo is shown with all available levels.<br>
+      <br>
+      <em>An example using descriptionValue:</em><br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.php  {font-family:monospace;}
+.php .imp {font-weight: bold; color: red;}
+.php .kw1 {color: #b1b100;}
+.php .kw2 {color: #000000; font-weight: bold;}
+.php .kw3 {color: #990000;}
+.php .kw4 {color: #009900; font-weight: bold;}
+.php .co1 {color: #666666; font-style: italic;}
+.php .co2 {color: #666666; font-style: italic;}
+.php .co3 {color: #0000cc; font-style: italic;}
+.php .co4 {color: #009933; font-style: italic;}
+.php .coMULTI {color: #666666; font-style: italic;}
+.php .es0 {color: #000099; font-weight: bold;}
+.php .es1 {color: #000099; font-weight: bold;}
+.php .es2 {color: #660099; font-weight: bold;}
+.php .es3 {color: #660099; font-weight: bold;}
+.php .es4 {color: #006699; font-weight: bold;}
+.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
+.php .es6 {color: #009933; font-weight: bold;}
+.php .es_h {color: #000099; font-weight: bold;}
+.php .br0 {color: #009900;}
+.php .sy0 {color: #339933;}
+.php .sy1 {color: #000000; font-weight: bold;}
+.php .st0 {color: #0000ff;}
+.php .st_h {color: #0000ff;}
+.php .nu0 {color: #cc66cc;}
+.php .nu8 {color: #208080;}
+.php .nu12 {color: #208080;}
+.php .nu19 {color:#800080;}
+.php .me1 {color: #004000;}
+.php .me2 {color: #004000;}
+.php .re0 {color: #000088;}
+.php span.xtra { display:block; }
+
+-->
+</style><pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Customer<span class="sy0">:</span> <span
+class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>xava<span class="sy0">:</span>descriptionsList reference<span
+class="sy0">=</span><span class="st0">"customer"</span> descriptionValue<span
+class="sy0">=</span><span class="st0">"${customerName}"</span><span class="sy0">/&gt;</span>
+<span class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
+<span class="sy0">&lt;/</span>tr<span class="sy0">&gt;</span></pre>
+      In this example, the description shown in the dropdown list will be the value of <em>customerName</em> instead of the default description value obtained from the view.<br>
       <h2><a name="modifying-openxava-core-jsps"></a>Modifying OpenXava core
         JSPs</h2>
       <i>These instructions are for v7 or better, with v6 or older you have the

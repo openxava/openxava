@@ -2895,6 +2895,9 @@ public class View implements java.io.Serializable {
 	}
 	
 	public boolean isEditable(String member) throws XavaException {
+		if (member.contains("___")) { // We use ___ to separate the row number from the property name in some cases
+			return true; // If the editor is in a list is always editable
+		}		
 		int idx = member.indexOf('.'); 
 		if (idx >= 0) {
 			String compoundMember = member.substring(0, idx); 
@@ -3385,24 +3388,11 @@ public class View implements java.io.Serializable {
 	}
 
 	private void fillReferenceValues(Map referenceValues, MetaReference ref, String value, String qualifier, String propertyPrefix) {
-		MetaModel metaModel = ref.getMetaModelReferenced();
-		if (!value.startsWith("[")) value = "";
-		StringTokenizer st = new StringTokenizer(Strings.change(value, "..", ". ."), "[.]");
-		for (String propertyName: metaModel.getAllKeyPropertiesNames()) {
-			MetaProperty p = metaModel.getMetaProperty(propertyName);			 													
-			Object propertyValue = null;
-			if (st.hasMoreTokens()) { // if not then null is assumed. This is a case of empty value
-				String stringPropertyValue = st.nextToken();
-				propertyValue = WebEditors.parse(getRequest(), p, stringPropertyValue, getErrors(), getViewName());									
-			}			
-			if (WebEditors.mustToFormat(p, getViewName())) {				
-				if (qualifier != null) { 
-					String valueKey = qualifier + "." + ref.getName() + "." + propertyName + ".value"; 
-					getRequest().setAttribute(valueKey, propertyValue);
-				}
-				referenceValues.put(propertyPrefix==null?propertyName:propertyPrefix + propertyName, propertyValue);
-			}									
-		}
+		// Delegating to the common implementation in DescriptionsLists
+		// Using emptyIfNotBracketed=true to maintain original View behavior
+		org.openxava.web.DescriptionsLists.fillReferenceValues(
+			referenceValues, ref, value, qualifier, propertyPrefix, 
+			getRequest(), getErrors(), getViewName(), true);
 	}
 	
 	public boolean throwsPropertyChanged(MetaProperty p) {
@@ -4248,6 +4238,9 @@ public class View implements java.io.Serializable {
 	}
 	
 	public MetaProperty getMetaProperty(String name) throws XavaException {		
+		if (name.contains("___")) { // We use ___ to separate the row number from the property name in some cases
+			name = name.substring(0, name.indexOf("___"));
+		}
 		int idx = name.indexOf('.');
 		if (idx >= 0) {
 			String reference = name.substring(0, idx);
@@ -4281,7 +4274,10 @@ public class View implements java.io.Serializable {
 		}
 	}
 	
-	public MetaReference getMetaReference(String name) throws XavaException { 			
+	public MetaReference getMetaReference(String name) throws XavaException { 	
+		if (name.contains("___")) { // We use ___ to separate the row number from the property name in some cases
+			name = name.substring(0, name.indexOf("___"));
+		}		
 		int idx = name.indexOf('.');
 		if (idx >= 0) {
 			String reference = name.substring(0, idx);
@@ -5508,6 +5504,9 @@ public class View implements java.io.Serializable {
 		if (isFlowLayout()) return LabelFormatType.SMALL.ordinal();
 		Integer labelFormat = getMetaView().getLabelFormatForReference(ref);
 		if (labelFormat != null) return labelFormat;
+		if (ref.getName().contains("___")) return LabelFormatType.NO_LABEL.ordinal(); // For references in editableProperties in @Tab 
+								// where the name has a ___1 (1 is the row number). This is to avoid not finding the
+								// metadata and in this case no label is used anyways
 		return getDefaultLabelFormatFor(ref);
 	}
 	

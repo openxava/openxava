@@ -9,6 +9,7 @@ import org.openxava.annotations.*;
 import lombok.*;
 
 @Entity @Getter @Setter
+@Tab(editableProperties = "description, unitPrice")
 public class Product {
 	
 	@Id @Column(length=9)

@@ -120,7 +120,10 @@ import org.openxava.test.validators.*;
 	)	
 })
 @Tab(properties="number, description, family.description, subfamily.description, unitPrice, unitPriceWithTax, subfamily.family.description") 
-
+@Tab(name="Editable", 
+	properties="number, description, family.description, unitPrice, warehouse.name, extendedDescription",
+	editableProperties="family.description, unitPrice, warehouse.name, extendedDescription"
+)
 public class Product2 {
 	
 	@Id @Column(length=10) 
@@ -206,6 +209,9 @@ public class Product2 {
 	// Only to show in view
 	@Transient @Stereotype("SUBFAMILY_DEPENDS_REFERENCE")
 	private int subfamilyNumber; 
+	
+	@org.hibernate.annotations.Formula("NUMBER || ' - ' || DESCRIPTION")
+	private String extendedDescription; 
 	
 	@Depends("unitPrice") 
 	@Max(999999999999999999L) 	
@@ -342,6 +348,14 @@ public class Product2 {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+
+	public String getExtendedDescription() {
+		return extendedDescription;
+	}
+
+	public void setExtendedDescription(String extendedDescription) {
+		this.extendedDescription = extendedDescription;
 	}
 	
 

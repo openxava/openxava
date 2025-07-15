@@ -22,15 +22,17 @@ public class EditorTag extends TagSupport {
 	
 	private static Log log = LogFactory.getLog(EditorTag.class);
 	
-	private String property;		
-	private boolean editable; 
-	private boolean explicitEditable = false; 
-	private boolean throwPropertyChanged;  
-	private boolean explicitThrowPropertyChanged; 
+	private String property;
+	private boolean editable;
+	private boolean explicitEditable;
+	private boolean throwPropertyChanged;
+	private boolean explicitThrowPropertyChanged;
 	private String viewObject;
 	private boolean viewObjectSet;
 	private String propertyPrefix;
 	private boolean propertyPrefixSet;
+	private Object value;
+	private boolean valueSet;
 	
 	public EditorTag() {
 		viewObjectSet = false;
@@ -62,7 +64,7 @@ public class EditorTag extends TagSupport {
 			String propertyKey = Ids.decorate(application, module, propertyPrefix + property);
 			String valueKey = propertyKey + ".value";
 			request.setAttribute(propertyKey, metaProperty);
-			Object value = view.getValue(property);
+			Object value = valueSet ? this.value : view.getValue(property);
 			request.setAttribute(valueKey, value);
 									
 			Messages errors = (Messages) request.getAttribute("errors"); 	
@@ -246,9 +248,13 @@ public class EditorTag extends TagSupport {
 	 * @param propertyPrefix the propertyPrefix to set
 	 */
 	public void setPropertyPrefix(String propertyPrefix) {
-		this.propertyPrefixSet = true;
 		this.propertyPrefix = propertyPrefix;
+		this.propertyPrefixSet = true;
 	}
-
+	
+	public void setValue(Object value) {
+		this.value = value;
+		this.valueSet = true;
+	}
 	
 }

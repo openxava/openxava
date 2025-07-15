@@ -1542,12 +1542,24 @@ input[type="button"] {
 	background: var(--element-collection-row-hover-background);
 }
 
-.ox-element-collection .editor { 
+.ox-element-collection .editor, .ox-list-cell-editor .editor { 
 	width: 100%; 
 	box-sizing: border-box; 
 	-moz-box-sizing: border-box; 
 	-webkit-box-sizing: border-box;
 	height: 30px;
+}
+
+.ox-list-cell-editor .ox-descriptions-list {
+	white-space: nowrap;
+}
+
+.ox-list-cell-editor .ox-descriptions-list a {
+	height: 0px;
+}
+
+.ox-list-cell-editor .ox-descriptions-list a i {
+	top: -5px;
 }
 
 .ox-element-collection input[type="checkbox"] {
