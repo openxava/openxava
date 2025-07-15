@@ -21,10 +21,13 @@ Pendiente de listas editables TMR
 * Incluir la característica en invoicedemo
 - Doc:
     * En referencia.
-    - Nuevo parámetro value en xava:editor y descriptionValue en xava:descriptionsList.
+    * Nuevo parámetro value en xava:editor 
+    - Nuevo parámetro descriptionValue en xava:descriptionsList.
     - Nuevos openxava.showMessage() y openxava.showError() utilizable desde JavaScript.
     - Javadoc para nuevos métodos en ModuleTestBase con ejemplos de código para asignar referencias (de Product2EditableListTest).
     - Poner en changelog:
+        - Nuevo parámetro value en xava:editor 
+        - Nuevo parámetro descriptionValue en xava:descriptionsList.     
     	- Nuevas etiquetas de uso común.
     	- Nuevos métodos de ModuleTestBase.
     	- ModuleManager.manageException.

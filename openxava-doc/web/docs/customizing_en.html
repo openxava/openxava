@@ -2850,16 +2850,16 @@ class="st0">"SUBFAMILY"</span><span class="re2">/&gt;</span></span> <span class=
           which properties depends. It's used to fill the condition arguments
           and has to match with <em>depends-properties</em> attribute (13).</li>
         <li><strong>descriptionsFormatter</strong>: Formatter for the
-          descriptions displayed in a combo. It must implement <em><a class="wiki_link_ext"
-              href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IFormatter.html"
+          descriptions displayed in a combo. It must implement <em><a class="wiki_link_ext"
+              href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IFormatter.html"
               rel="nofollow">IFormatter</a></em>.</li>
       </ol>
       Following this example you can learn how to create your own stereotypes
       that display a simple property in combo format and with dynamic data.
-      Nevertheless, in most cases it is more convenient to use <a class="wiki_link"
+      Nevertheless, in most cases it is more convenient to use <a class="wiki_link"
         href="view_en.html#descriptions-list">references displayed as
         @DescriptionsList</a>; but you always can choose.<br>
-      <h2 id="toc14"><a name="Customizing-Custom JSP view and OpenXava taglibs"></a><span
+      <h2 id="toc14"><a name="Customizing-Custom JSP view and OpenXava taglibs"></a><span
           style="font-size: 1.3em; line-height: 1.5;"><strong>Custom JSP view
             and OpenXava taglibs</strong></span></h2>
       Obviously the better way to create user interfaces is using the view
@@ -2868,7 +2868,7 @@ class="st0">"SUBFAMILY"</span><span class="re2">/&gt;</span></span> <span class=
       view using JSP. OpenXava allows you to do it. And in order to help you to
       do it, you can use some JSP taglibs provided by OpenXava. Let's see an
       example.<br>
-      <h3 id="toc15"><a name="Customizing-Custom JSP view and OpenXava taglibs-Example"></a><span
+      <h3 id="toc15"><a name="Customizing-Custom JSP view and OpenXava taglibs-Example"></a><span
           style="font-size: 1.1em; line-height: 1.5;"><strong>Example</strong></span></h3>
       First you have to define in your module that you want to use your own JSP,
       in <em>application.xml</em>:<br>
@@ -2894,17 +2894,17 @@ class="st0">"SUBFAMILY"</span><span class="re2">/&gt;</span></span> <span class=
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
-class="re0">name</span>=<span class="st0">"SellersJSP"</span> <span class="re0">folder</span>=<span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
+class="re0">name</span>=<span class="st0">"SellersJSP"</span> <span class="re0">folder</span>=<span
 class="st0">"invoicing.variations"</span><span class="re2">&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+<span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
 class="st0">"Seller"</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;view</span> <span class="re0">name</span>=<span
+<span class="sc3"><span class="re1">&lt;view</span> <span class="re0">name</span>=<span
 class="st0">"ForCustomJSP"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 1 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;web-view</span> <span class="re0">url</span>=<span
-class="st0">"custom-jsp/seller.jsp"</span><span class="re2">/&gt;</span></span> <span
+<span class="sc3"><span class="re1">&lt;web-view</span> <span class="re0">url</span>=<span
+class="st0">"custom-jsp/seller.jsp"</span><span class="re2">/&gt;</span></span> <span
 class="sc-1">&lt;!-- 2 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+<span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       If you use web-view (2) on defining your module, OpenXava uses your JSP to
@@ -2956,8 +2956,8 @@ class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
 .php span.xtra { display:block; }
 
 -->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
-class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
+</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
+class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
 class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
 &nbsp;
 &lt;table&gt;
@@ -2987,7 +2987,7 @@ class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
       taglib is used, this renders an editor suitable for the indicated
       property, furthermore add the needed javascript to throw the events. If
       you use <em>&lt;xava:editor/&gt;</em>, you can manage the displayed data
-      using <em>xava_view</em> (of <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html"
+      using <em>xava_view</em> (of <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html"
           rel="nofollow">org.openxava.view.View</a></em> type) object, therefore
       all standard OpenXava controllers (including <em>CRUD</em>) work.<br>
       You can notice that qualified properties are allowed (as <em>level.id</em>
@@ -2996,7 +2996,7 @@ class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
       with the corresponding value. Yes, all the behaviour of an OpenXava view
       is available inside your JSP if you use the OpenXava taglibs.<br>
       Let's see the OpenXava taglibs.<br>
-      <h3 id="toc16"><a name="Customizing-Custom JSP view and OpenXava taglibs-xava:editor"></a><span
+      <h3 id="toc16"><a name="Customizing-Custom JSP view and OpenXava taglibs-xava:editor"></a><span
           style="font-size: 1.1em; line-height: 1.5;"><strong>xava:editor</strong></span></h3>
       The &lt;xava:editor/&gt; tag allows you to render an editor (a HTML
       control) for your property, in the same way that OpenXava does it when it
@@ -3024,10 +3024,11 @@ class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:editor</span></span>
-<span class="sc3"><span class="re0">property</span>=<span class="st0">"propertyName"</span> &lt;!-- 1 --<span
+<span class="sc3"><span class="re0">property</span>=<span class="st0">"propertyName"</span> &lt;!-- 1 --<span
 class="re2">&gt;</span></span>
 editable="true|false" <span class="sc-1">&lt;!-- 2 New in v2.0.1 --&gt;</span>
 throwPropertyChanged="true|false" <span class="sc-1">&lt;!-- 3 New in v2.0.1 --&gt;</span>
+value="explicitValue" <span class="sc-1">&lt;!-- 4 New in v7.6 --&gt;</span>
 /&gt;</pre>
       <ol>
         <li><strong>property</strong> (required): It's the property of the model
@@ -3038,11 +3039,15 @@ throwPropertyChanged="true|false" <span class="sc-1">&lt;!-- 3 New in v2.0.1 --&
         <li><strong>throwPropertyChanged</strong> (optional): <em>New in v2.0.1</em>.
           Forces to this editor to throws property changed event, otherwise the
           appropriate default value is assumed.</li>
+        <li><strong>value</strong> (optional): <em>New in v7.6</em>.
+          Allows setting the value to be displayed in the editor directly,
+          instead of having the editor automatically retrieve it from the view using <em>view.getValue(property)</em>.
+          This provides greater flexibility for displaying values that may not be directly in the view model.</li>
       </ol>
       This tag generates the needed JavaScript in order to allow your view to
       work in the same way as an automatic one. The qualified properties
       (properties of references) are supported <em>(new in v2.0.1)</em>.<br>
-      <h3 id="toc17"><a name="Customizing-Custom JSP view and OpenXava taglibs-xava:action, xava:link, xava:image, xava:button"></a><span
+      <h3 id="toc17"><a name="Customizing-Custom JSP view and OpenXava taglibs-xava:action, xava:link, xava:image, xava:button"></a><span
           style="font-size: 1.1em; line-height: 1.5;"><strong>xava:action,
             xava:link, xava:image, xava:button</strong></span></h3>
       The &lt;xava:action/&gt; tag allows you to render an action (a button or a
@@ -3069,8 +3074,8 @@ throwPropertyChanged="true|false" <span class="sc-1">&lt;!-- 3 New in v2.0.1 --&
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
-class="re0">action</span>=<span class="st0">"controller.action"</span> <span class="re0">argv</span>=<span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
+class="re0">action</span>=<span class="st0">"controller.action"</span> <span class="re0">argv</span>=<span
 class="st0">"argv"</span><span class="re2">/&gt;</span></span></pre>
       The action attribute indicates the action to execute, and the argv
       attribute (optional) allows you to put values to some properties of the
@@ -3097,8 +3102,8 @@ class="st0">"argv"</span><span class="re2">/&gt;</span></span></pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
-class="re0">action</span>=<span class="st0">"CRUD.save"</span> <span class="re0">argv</span>=<span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
+class="re0">action</span>=<span class="st0">"CRUD.save"</span> <span class="re0">argv</span>=<span
 class="st0">"resetAfter=true"</span><span class="re2">/&gt;</span></span></pre>
       When the user clicks on it, then it executes the action CRUD.save, before
       it puts true to the <em>resetAfter</em> property of the action.<br>
@@ -3130,7 +3135,7 @@ class="st0">"resetAfter=true"</span><span class="re2">/&gt;</span></span></pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
 class="re0">action</span>=<span class="st0">""</span><span class="re2">/&gt;</span></span></pre>
       In this case the tag has no effect and no error is produced. This feature
       may be useful if you fill the name of the action dynamically (that is
@@ -3167,9 +3172,9 @@ class="re0">action</span>=<span class="st0">""</span><span class="re2">/&gt;</sp
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
-class="re0">key</span>=<span class="st0">"message_key"</span> <span class="re0">param</span>=<span
-class="st0">"messageParam"</span> <span class="re0">intParam</span>=<span class="st0">"messageParam"</span><span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
+class="re0">key</span>=<span class="st0">"message_key"</span> <span class="re0">param</span>=<span
+class="st0">"messageParam"</span> <span class="re0">intParam</span>=<span class="st0">"messageParam"</span><span
 class="re2">/&gt;</span></span></pre>
       The message is searched first in the message resource files of your
       project (<em>yourproject/src/main/resources/i18n/yourproject-messages_en.properties</em>
@@ -3208,8 +3213,8 @@ class="re2">/&gt;</span></span></pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
-class="re0">key</span>=<span class="st0">"list_count"</span> <span class="re0">intParam</span>=<span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
+class="re0">key</span>=<span class="st0">"list_count"</span> <span class="re0">intParam</span>=<span
 class="st0">"&lt;%=totalSize%&gt;</span></span>"/&gt;</pre>
       <h3 id="toc19"><a name="Customizing-Custom JSP view and OpenXava taglibs-xava:label (new in v5.5)"></a>xava:label
         (new in v5.5)</h3>
@@ -3237,7 +3242,7 @@ class="st0">"&lt;%=totalSize%&gt;</span></span>"/&gt;</pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:label</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:label</span> <span
 class="re0">key</span>=<span class="st0">"memberName"</span><span class="re2">/&gt;</span></span></pre>
       The message is searched first in the label resource files of your project
       (<em>yourproject/src/main/resources/i18n/yourproject-labels_en.properties</em>

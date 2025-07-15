@@ -2880,8 +2880,8 @@ class="st0">"SUBFAMILIA"</span><span class="re2">/&gt;</span></span> <span class
           condición y deben coincidir con el atributo <em>depende-de-propiedades</em>.
           (13)</li>
         <li><strong>formateadorDescripciones</strong>: Formateador para las
-          descripciones visualizadas en el combo. Ha de implementar <em><a class="wiki_link_ext"
-              href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IFormatter.html"
+          descripciones visualizadas en el combo. Ha de implementar <em><a class="wiki_link_ext"
+              href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IFormatter.html"
               rel="nofollow">IFormatter</a></em>.</li>
       </ol>
       Siguiendo este ejemplo podemos hacer fácilmente nuestro propios
@@ -2923,17 +2923,17 @@ class="st0">"SUBFAMILIA"</span><span class="re2">/&gt;</span></span> <span class
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
-class="re0">nombre</span>=<span class="st0">"ComercialJSP"</span> <span class="re0">carpeta</span>=<span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
+class="re0">nombre</span>=<span class="st0">"ComercialJSP"</span> <span class="re0">carpeta</span>=<span
 class="st0">"facturacion.variaciones"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
+ <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
 class="st0">"Comercial"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;vista</span> <span class="re0">nombre</span>=<span
+ <span class="sc3"><span class="re1">&lt;vista</span> <span class="re0">nombre</span>=<span
 class="st0">"ParaJSPPropio"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 1 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;vista-web</span> <span class="re0">url</span>=<span
-class="st0">"jsp-propios/comercial.jsp"</span><span class="re2">/&gt;</span></span> <span
+ <span class="sc3"><span class="re1">&lt;vista-web</span> <span class="re0">url</span>=<span
+class="st0">"jsp-propios/comercial.jsp"</span><span class="re2">/&gt;</span></span> <span
 class="sc-1">&lt;!-- 2 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
+ <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
       Si usamos <em>vista-web</em> (2) al definir el módulo, OpenXava usa
@@ -2986,8 +2986,8 @@ class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
 .php span.xtra { display:block; }
 
 -->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
-class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
+</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
+class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
 class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
 &nbsp;
 &lt;table&gt;
@@ -3017,7 +3017,7 @@ class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
       esto dibuja un editor apto para la propiedad indicada, además añade el
       JavaScript necesario para lanzar los eventos. Si usamos <em>&lt;xava:editor/&gt;</em>,
       podemos manejar la información visualizada usando el objeto <em>xava_view</em>
-      (del tipo <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html"
+      (del tipo <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html"
           rel="nofollow">org.openxava.view.View</a></em>), por lo tanto todos
       los controladores estándar de OpenXava (<em>CRUD</em> incluido) funcionan.<br>
       Podemos observar como las propiedades cualificadas están soportadas (como
@@ -3054,10 +3054,11 @@ class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:editor</span></span>
-<span class="sc3"> <span class="re0">property</span>=<span class="st0">"nombrePropiedad"</span> &lt;!-- 1 --<span
+<span class="sc3"> <span class="re0">property</span>=<span class="st0">"nombrePropiedad"</span> &lt;!-- 1 --<span
 class="re2">&gt;</span></span>
  editable="true|false" <span class="sc-1">&lt;!-- 2 Nuevo en v2.0.1 --&gt;</span>
  throwPropertyChanged="true|false" <span class="sc-1">&lt;!-- 3 Nuevo en v2.0.1 --&gt;</span>
+ value="valorExplicito" <span class="sc-1">&lt;!-- 4 Nuevo en v7.6 --&gt;</span>
 /&gt;</pre>
       <ol>
         <li><strong>property</strong> (obligado): Propiedad del modelo asociado
@@ -3068,6 +3069,9 @@ class="re2">&gt;</span></span>
         <li><strong>throwPropertyChanged</strong> (opcional): <em>Nuevo en
             v2.0.1</em>. Fuerza a este editor a lanzar el evento de propiedad
           cambiada, de otra forma se asume un valor por defecto apropiado.</li>
+        <li><strong>value</strong> (opcional): <em>Nuevo en v7.6</em>. Permite establecer el valor que se mostrará en el editor directamente,
+          en lugar de que el editor lo obtenga automáticamente de la vista usando <em>view.getValue(property)</em>.
+          Esto proporciona mayor flexibilidad para mostrar valores que pueden no estar directamente en el modelo de vista.</li>
       </ol>
       Esta marca genera el JavaScript para permitir a nuestra vista trabajar de
       la misma forma que una vista automática. Las propiedades calificadas
@@ -3098,8 +3102,8 @@ class="re2">&gt;</span></span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
-class="re0">action</span>=<span class="st0">"controlador.accion"</span> <span class="re0">argv</span>=<span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
+class="re0">action</span>=<span class="st0">"controlador.accion"</span> <span class="re0">argv</span>=<span
 class="st0">"argv"</span><span class="re2">/&gt;</span></span></pre>
       El atributo action indica la acción a ejecutar, y el atributo <em>argv</em>
       (opcional) nos permite establecer valores a algunas propiedades de la
@@ -3126,8 +3130,8 @@ class="st0">"argv"</span><span class="re2">/&gt;</span></span></pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
-class="re0">action</span>=<span class="st0">"CRUD.save"</span> <span class="re0">argv</span>=<span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
+class="re0">action</span>=<span class="st0">"CRUD.save"</span> <span class="re0">argv</span>=<span
 class="st0">"resetAfter=true"</span><span class="re2">/&gt;</span></span></pre>
       Cuando el usuario pulse en la acción se ejecutará <em>CRUD.save</em>,
       antes pone a true la propiedad <em>resetAfter</em> de la acción.<br>
@@ -3159,7 +3163,7 @@ class="st0">"resetAfter=true"</span><span class="re2">/&gt;</span></span></pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
 class="re0">action</span>=<span class="st0">""</span><span class="re2">/&gt;</span></span></pre>
       En este caso la marca (tag) no tiene efecto y no se produce error. Esta
       característica puede ser útil cuando el nombre de la acción lo obtenemos
@@ -3196,9 +3200,9 @@ class="re0">action</span>=<span class="st0">""</span><span class="re2">/&gt;</sp
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
-class="re0">key</span>=<span class="st0">"clave_mensaje"</span> <span class="re0">param</span>=<span
-class="st0">"parametroMensaje"</span> <span class="re0">intParam</span>=<span class="st0">"paramMensaje"</span><span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
+class="re0">key</span>=<span class="st0">"clave_mensaje"</span> <span class="re0">param</span>=<span
+class="st0">"parametroMensaje"</span> <span class="re0">intParam</span>=<span class="st0">"paramMensaje"</span><span
 class="re2">/&gt;</span></span></pre>
       El mensaje es buscado primero en los archivos de recursos de nuestro
       proyecto (<em><em>miproyecto/src/main/resources/i18n/</em></em><em><em><em><em>miproyecto</em></em>-messages_es.properties</em></em>
@@ -3237,8 +3241,8 @@ class="re2">/&gt;</span></span></pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
-class="re0">key</span>=<span class="st0">"cantidad_lista"</span> <span class="re0">intParam</span>=<span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
+class="re0">key</span>=<span class="st0">"cantidad_lista"</span> <span class="re0">intParam</span>=<span
 class="st0">"&lt;%=cantidadTotal%&gt;</span></span>"/&gt;</pre>
       <h3 id="toc19"><a name="Personalizacion-Vistas+JSP+propias+y+taglibs+de+OpenXava-xava:label+(nuevo+en+v5.5)"></a>xava:label
         (nuevo en v5.5)</h3>
@@ -3266,7 +3270,7 @@ class="st0">"&lt;%=cantidadTotal%&gt;</span></span>"/&gt;</pre>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:label</span> <span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:label</span> <span
 class="re0">key</span>=<span class="st0">"nombreMiembro"</span><span class="re2">/&gt;</span></span></pre>
       El mensaje es buscado primero en los archivos de etiquetas de nuestro
       proyecto (<em><em>miproyecto/src/main/resources/i18n/</em></em><em><em><em><em>miproyecto</em></em>-labels_es.properties</em></em>
