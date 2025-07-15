@@ -3293,9 +3293,9 @@ class="re0">key</span>=<span class="st0">"memberName"</span><span class="re2">/&
 
 -->
 </style><pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Number<span class="sy0">:</span> <span
+<span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Number<span class="sy0">:</span> <span
 class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;</span>td<span class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>xava<span class="sy0">:</span>editor property<span
+<span class="sy0">&lt;</span>xava<span class="sy0">:</span>editor property<span
 class="sy0">=</span><span class="st0">"number"</span><span class="sy0">/&gt;</span>
 <span class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
 <span class="sy0">&lt;/</span>tr<span class="sy0">&gt;</span></pre>
@@ -3340,11 +3340,11 @@ class="sy0">=</span><span class="st0">"number"</span><span class="sy0">/&gt;</sp
 
 -->
 </style><pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>td<span class="sy0">&gt;&lt;</span>xava<span class="sy0">:</span>label <span
-class="kw3">key</span><span class="sy0">=</span><span class="st0">"number"</span><span
-class="sy0">/&gt;:</span> <span class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;</span>td<span
+<span class="sy0">&lt;</span>td<span class="sy0">&gt;&lt;</span>xava<span class="sy0">:</span>label <span
+class="kw3">key</span><span class="sy0">=</span><span class="st0">"number"</span><span
+class="sy0">/&gt;:</span> <span class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;</span>td<span
 class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>xava<span class="sy0">:</span>editor property<span
+<span class="sy0">&lt;</span>xava<span class="sy0">:</span>editor property<span
 class="sy0">=</span><span class="st0">"number"</span><span class="sy0">/&gt;</span>
 <span class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
 <span class="sy0">&lt;/</span>tr<span class="sy0">&gt;</span></pre>
@@ -3377,13 +3377,14 @@ class="sy0">=</span><span class="st0">"number"</span><span class="sy0">/&gt;</sp
 
 -->
 </style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:descriptionsList</span></span>
-<span class="sc3"><span class="re0"> reference</span>=<span class="st0">"referenceName"</span>     &lt;!-- 1 --<span
-class="re2">&gt;<br></span></span> readOnlyAsLabel="true|false" <span class="sc-1"> &lt;!-- 2 New in v6.0.1 --&gt;</span><br>/&gt;</pre>
+<span class="sc3"><span class="re0"> reference</span>=<span class="st0">"referenceName"</span>     &lt;!-- 1 --<span
+class="re2">&gt;<br></span></span> readOnlyAsLabel="true|false" <span class="sc-1"> &lt;!-- 2 New in v6.0.1 --&gt;</span><br> descriptionValue="descriptionValue" <span class="sc-1"> &lt;!-- 3 New in v7.6 --&gt;</span><br>/&gt;</pre>
       <ol>
         <li><strong>reference</strong> (required): It's a reference of the model
           associated with the current module.</li>
         <li><b>readOnlyAsLabel</b> (optional): <i>New in v6.0.1</i>. If <i>true</i>
           and the reference is read only it's displayed as a label.</li>
+        <li><b>descriptionValue</b> (optional): <i>New in v7.6</i>. Allows you to explicitly set the description value to be displayed in the dropdown list, instead of getting it automatically from the view.</li>
       </ol>
       This tag generates the needed JavaScript in order to allow your view to
       work in the same way as an automatic one.<br>
@@ -3428,15 +3429,66 @@ class="re2">&gt;<br></span></span> readOnlyAsLabel="true|false" <span class="sc-
 
 -->
 </style><pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Level<span class="sy0">:</span> <span
+<span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Level<span class="sy0">:</span> <span
 class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
 <span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>xava<span class="sy0">:</span>descriptionsList reference<span
+<span class="sy0">&lt;</span>xava<span class="sy0">:</span>descriptionsList reference<span
 class="sy0">=</span><span class="st0">"level"</span><span class="sy0">/&gt;</span>
 <span class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
 <span class="sy0">&lt;/</span>tr<span class="sy0">&gt;</span></pre>
       In this case level is a reference of the current model (for example <em>Seller</em>).
       A combo is shown with all available levels.<br>
+      <br>
+      <em>An example using descriptionValue:</em><br>
+      <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.php  {font-family:monospace;}
+.php .imp {font-weight: bold; color: red;}
+.php .kw1 {color: #b1b100;}
+.php .kw2 {color: #000000; font-weight: bold;}
+.php .kw3 {color: #990000;}
+.php .kw4 {color: #009900; font-weight: bold;}
+.php .co1 {color: #666666; font-style: italic;}
+.php .co2 {color: #666666; font-style: italic;}
+.php .co3 {color: #0000cc; font-style: italic;}
+.php .co4 {color: #009933; font-style: italic;}
+.php .coMULTI {color: #666666; font-style: italic;}
+.php .es0 {color: #000099; font-weight: bold;}
+.php .es1 {color: #000099; font-weight: bold;}
+.php .es2 {color: #660099; font-weight: bold;}
+.php .es3 {color: #660099; font-weight: bold;}
+.php .es4 {color: #006699; font-weight: bold;}
+.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
+.php .es6 {color: #009933; font-weight: bold;}
+.php .es_h {color: #000099; font-weight: bold;}
+.php .br0 {color: #009900;}
+.php .sy0 {color: #339933;}
+.php .sy1 {color: #000000; font-weight: bold;}
+.php .st0 {color: #0000ff;}
+.php .st_h {color: #0000ff;}
+.php .nu0 {color: #cc66cc;}
+.php .nu8 {color: #208080;}
+.php .nu12 {color: #208080;}
+.php .nu19 {color:#800080;}
+.php .me1 {color: #004000;}
+.php .me2 {color: #004000;}
+.php .re0 {color: #000088;}
+.php span.xtra { display:block; }
+
+-->
+</style><pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Customer<span class="sy0">:</span> <span
+class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>
+<span class="sy0">&lt;</span>xava<span class="sy0">:</span>descriptionsList reference<span
+class="sy0">=</span><span class="st0">"customer"</span> descriptionValue<span
+class="sy0">=</span><span class="st0">"${customerName}"</span><span class="sy0">/&gt;</span>
+<span class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
+<span class="sy0">&lt;/</span>tr<span class="sy0">&gt;</span></pre>
+      In this example, the description shown in the dropdown list will be the value of <em>customerName</em> instead of the default description value obtained from the view.<br>
       <h2><a name="modifying-openxava-core-jsps"></a>Modifying OpenXava core
         JSPs</h2>
       <i>These instructions are for v7 or better, with v6 or older you have the
