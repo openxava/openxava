@@ -3,6 +3,9 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Tabular data - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -24,6 +27,7 @@
         <div style="margin-left: 2em;"><a href="#Tabular%20data-Partial%20select%20%28new%20in%20v5.6%29">Partial select (new in v5.6)</a></div>
         <div style="margin-left: 2em;"><a href="#Tabular%20data-Complete%20select">Complete select</a></div>
         <div style="margin-left: 2em;"><a href="#Tabular%20data-Default%20order">Default order</a></div>
+        <div style="margin-left: 2em;"><a href="#Tabular%20data-Editable%20properties%20%28new%20in%20v7.6%29">Editable properties (new in v7.6)</a></div>
         <div style="margin-left: 2em;"><a href="#Tabular%20data-Default%20values%20for%20tabs%20at%20application%20level%20%28new%20in%20v4m4%29">Default values for tabs at application level (new in v4m4)</a></div>
         <div style="margin-left: 2em;"><a href="#Tabular%20data-Column%20summation%20%28new%20in%20v4.1%29">Column summation (new in v4.1)</a></div>
         <div style="margin-left: 2em;"><a href="#Tabular%20data-Choosing%20an%20editor%20%28new%20in%20v4.6%29">Choosing an editor (new in v4.6)</a></div>
@@ -233,28 +237,30 @@
 
 -->
 </style><pre class="java5">@Tab<span class="br0">(</span>
-    name=<span class="st0">"name"</span>,                    <span class="co1">// 1</span>
-    filter=filter <span class="kw2">class</span>,            <span class="co1">// 2</span>
-    rowStyles=array of @RowStyle,   <span class="co1">// 3</span>
-    properties=<span class="st0">"properties"</span>,        <span class="co1">// 4</span>
-    baseCondition=<span class="st0">"base condition"</span>, <span class="co1">// 5</span>
-    defaultOrder=<span class="st0">"default order"</span>,   <span class="co1">// 6</span>
-    editor=<span class="st0">"defult editor"</span>,         <span class="co1">// 7  New in v4.6</span>
-    editors=<span class="st0">"all available editors"</span> <span class="co1">// 8  New in v5.7</span>
+    name=<span class="st0">"name"</span>,                    <span class="co1">   // 1</span>
+    filter=filter <span class="kw2">class</span>,            <span class="co1">   // 2</span>
+    rowStyles=array of @RowStyle,   <span class="co1">   // 3</span>
+    properties=<span class="st0">"properties"</span>,        <span class="co1">   // 4</span>
+    editableProperties=<span class="st0">"editable properties"</span>, <span class="co1">// 5  New in v7.6</span>
+    baseCondition=<span class="st0">"base condition"</span>, <span class="co1">   // 6</span>
+    defaultOrder=<span class="st0">"default order"</span>,   <span class="co1">   // 7</span>
+    editor=<span class="st0">"defult editor"</span>,         <span class="co1">   // 8  New in v4.6</span>
+    editors=<span class="st0">"all available editors"</span> <span class="co1">   // 9  New in v5.7</span>
 <span class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> MyEntity <span
+<span class="kw2">public</span> <span class="kw2">class</span> MyEntity <span
 class="br0">{</span>
 &nbsp;</pre>
       <ol>
-        <li><strong>name</strong> (optional): You can define several tabs in a entity (use <em><a
-              class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Tabs.html"
+        <li><strong>name</strong> (optional): You can define several tabs in a entity (use <em><a
+              class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Tabs.html"
               rel="nofollow">@Tabs</a></em>for versions older than 6.1), and set a name for each one. This name is used to indicate the tab that you want to use (usually in <em>application.xml</em>).</li>
         <li><strong><a class="wiki_link" href="#Tabular%20data-Filters%20and%20base%20condition">filter</a></strong> (optional): Allows to define programmatically some logic to apply to the values entered by user when he filters the list data.</li>
-        <li><strong><a class="wiki_link" href="#Tabular%20data-Initial%20properties%20and%20emphasize%20rows">rowStyles</a></strong> (optional): A simple way to specify a different visual style for some rows. Normally to emphasize rows that fulfill certain condition. You specify an array of <em><a
-              class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/RowStyle.html"
+        <li><strong><a class="wiki_link" href="#Tabular%20data-Initial%20properties%20and%20emphasize%20rows">rowStyles</a></strong> (optional): A simple way to specify a different visual style for some rows. Normally to emphasize rows that fulfill certain condition. You specify an array of <em><a
+              class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/RowStyle.html"
               rel="nofollow">@RowStyle</a></em>, in this way you can use several styles for a tab.</li>
-        <li><strong><a class="wiki_link" href="#Tabular%20data-Initial%20properties%20and%20emphasize%20rows">properties</a></strong> (optional): The list of properties to show initially. Can be qualified (that is you can specify <em>referenceName.propertyName</em> at any depth level). The suffix + <em>(new in v4.1)</em> can be added to a property to show the <a
+        <li><strong><a class="wiki_link" href="#Tabular%20data-Initial%20properties%20and%20emphasize%20rows">properties</a></strong> (optional): The list of properties to show initially. Can be qualified (that is you can specify <em>referenceName.propertyName</em> at any depth level). The suffix + <em>(new in v4.1)</em> can be added to a property to show the <a
             class="wiki_link" href="tab_en#Chapter%205:%20Tabular%20data-Column%20summation%20%28new%20in%20v4.1%29">sum of the column</a> at bottom.</li>
+        <li><strong><a class="wiki_link" href="#Tabular%20data-Editable%20properties%20%28new%20in%20v7.6%29">editableProperties</a></strong> (optional): <em>(New in v7.6)</em> List of properties that can be edited directly in the list. Only simple editable properties and references with <em>@DescriptionsList</em> are allowed.</li>
         <li><strong><a class="wiki_link" href="#Tabular%20data-Filters%20and%20base%20condition">baseCondition</a></strong> (optional): Condition to be fulfilled by the displayed data. It's added to the user condition if needed.</li>
         <li><strong><a class="wiki_link" href="#Tabular%20data-Default%20order">defaultOrder</a></strong> (optional): To specify the initial order for data.</li>
         <li><strong><a class="wiki_link" href="#Tabular%20data-Choosing%20an%20editor%20%28new%20in%20v4.6%29">editor</a></strong> (optional): <em>(New in v4.6)</em> Editor from <em>default-editors.xml</em> or <em>editors.xml</em> used to display the list. It's used for the default format, if the list has several formats the other formats are not affected.</li>
@@ -450,8 +456,8 @@ class="br0">{</span>
 
 -->
 </style><pre class="java5">@Tab<span class="br0">(</span>
- rowStyles=@RowStyle<span class="br0">(</span>style=<span class="st0">"row-highlight"</span>, property=<span
-class="st0">"type"</span>, value=<span class="st0">"steady"</span><span
+ rowStyles=@RowStyle<span class="br0">(</span>style=<span class="st0">"row-highlight"</span>, property=<span
+class="st0">"type"</span>, value=<span class="st0">"steady"</span><span
 class="br0">)</span>,
  properties=<span class="st0">"name, type, seller.name, address.city, seller.level.description, address.state.name"</span>
 <span class="br0">)</span>
@@ -2392,12 +2398,23 @@ class="br0">)</span></pre>
 .java5 span.xtra { display:block; }
 
 -->
-</style><pre class="java5">@Tab<span class="br0">(</span>name=<span class="st0">"Simple"</span>, properties=<span
+</style><pre class="java5">@Tab<span class="br0">(</span>name=<span class="st0">"Simple"</span>, properties=<span
 class="st0">"year, number, date"</span>,
     defaultOrder=<span class="st0">"${year} desc, ${number} desc"</span>
 <span class="br0">)</span></pre>
       This specified the initial order and the user can choose any other order by clicking in the heading of a column.<br>
-      <h2 id="toc6"><a name="Tabular data-Default values for tabs at application level (new in v4m4)"></a><a
+      <h2 id="toc6"><a name="Tabular data-Editable properties (new in v7.6)"></a>Editable properties <em>(new in v7.6)</em></h2>
+      OpenXava allows defining properties that can be edited directly in the list, without the need to enter the record detail. To do this, use the <em>editableProperties</em> attribute of the <em>@Tab</em> annotation:<br>
+      <pre><code class="java">@Tab(
+    properties="number, description, unitPrice, family.description",
+    editableProperties="unitPrice, family.description"
+)</code></pre>
+      In this example, we have declared as editable <em>unitPrice</em>, which is a simple property, and <em>family.description</em>, which is a reference that is displayed with a combo, thanks to the <em>@DescriptionsList</em> annotation in the entity. The result is as follows:<br>
+      <img src="files/tab_en025.png" alt="tab_en025.png" title="tab_en025.png"><br>
+      Only simple editable properties and references with <em>@DescriptionsList</em> are allowed. Calculated properties, properties with <em>@Formula</em> and <em>@Calculation</em> annotations are not allowed. Properties that are keys (<em>@Id</em>), read-only (<em>@ReadOnly</em>), versions (<em>@Version</em>) or transient (<em>@Transient</em>) are also not allowed.<br>
+      <br>
+      When editing a property in the list, the value is automatically saved and a confirmation message is displayed. If there are validations configured for the property, these will be applied normally and the corresponding error messages will be displayed. Be careful! because the <em>save</em> action of the module is not executed to save the value, nor are the <em>@OnChange</em> actions executed. That is, validations at the model level (annotations, setters, callback methods, etc.) are executed, but not at the controller level (in the actions). This makes sense given that the detail view on which these actions rely is not available in the list.
+      <h2 id="toc7"><a name="Tabular data-Default values for tabs at application level (new in v4m4)"></a><a
           name="default-values-for-tabs"></a>Default values for tabs at application level <em>(new in v4m4)</em></h2>
       You can define default values for all (or selected) <em>@Tab</em>s of your application at once. To do so, create a <em>tabs-default-values.xml</em> file in the <i>src/main/resources/xava</i> folder (just <i>xava</i> before v7) of your application, just as the next example:<br>
       <style type="text/css"><!--
@@ -2422,8 +2439,8 @@ class="st0">"year, number, date"</span>,
 .xml span.xtra { display:block; }
 
 -->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
-class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
+class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span
 class="re2">?&gt;</span></span>
 &nbsp;
 <span class="sc0">&lt;!DOCTYPE tabs-default-values SYSTEM "dtds/tabs-default-values.dtd"&gt;</span>
@@ -2431,46 +2448,46 @@ class="re2">?&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;tabs-default-values<span class="re2">&gt;</span></span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;tab<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;filter</span> <span class="re0">class</span>=<span
+        <span class="sc3"><span class="re1">&lt;filter</span> <span class="re0">class</span>=<span
 class="st0">"org.openxava.test.filters.ActiveYearFilter"</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;base-condition<span class="re2">&gt;</span></span></span>${year} = ?<span
+        <span class="sc3"><span class="re1">&lt;base-condition<span class="re2">&gt;</span></span></span>${year} = ?<span
 class="sc3"><span class="re1">&lt;/base-condition<span class="re2">&gt;</span></span></span>
 &nbsp;
-        <span class="sc3"><span class="re1">&lt;for-model</span> <span class="re0">model</span>=<span
+        <span class="sc3"><span class="re1">&lt;for-model</span> <span class="re0">model</span>=<span
 class="st0">"Delivery"</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;for-model</span> <span class="re0">model</span>=<span
+        <span class="sc3"><span class="re1">&lt;for-model</span> <span class="re0">model</span>=<span
 class="st0">"Invoice"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;tab<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>year, number, date<span
+        <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>year, number, date<span
 class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;default-order<span class="re2">&gt;</span></span></span>${number} desc<span
+        <span class="sc3"><span class="re1">&lt;default-order<span class="re2">&gt;</span></span></span>${number} desc<span
 class="sc3"><span class="re1">&lt;/default-order<span class="re2">&gt;</span></span></span>
 &nbsp;
-        <span class="sc3"><span class="re1">&lt;for-model</span> <span class="re0">model</span>=<span
+        <span class="sc3"><span class="re1">&lt;for-model</span> <span class="re0">model</span>=<span
 class="st0">"Delivery"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;tab<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;filter</span> <span class="re0">class</span>=<span
+        <span class="sc3"><span class="re1">&lt;filter</span> <span class="re0">class</span>=<span
 class="st0">"org.openxava.filters.UserFilter"</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;base-condition<span class="re2">&gt;</span></span></span>${user} = ?<span
+        <span class="sc3"><span class="re1">&lt;base-condition<span class="re2">&gt;</span></span></span>${user} = ?<span
 class="sc3"><span class="re1">&lt;/base-condition<span class="re2">&gt;</span></span></span>
 &nbsp;
-        <span class="sc3"><span class="re1">&lt;except-for-model</span> <span
+        <span class="sc3"><span class="re1">&lt;except-for-model</span> <span
 class="re0">model</span>=<span class="st0">"User"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;tab<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;default-order<span class="re2">&gt;</span></span></span>${oid} asc<span
+        <span class="sc3"><span class="re1">&lt;default-order<span class="re2">&gt;</span></span></span>${oid} asc<span
 class="sc3"><span class="re1">&lt;/default-order<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;for-all-models</span><span
+        <span class="sc3"><span class="re1">&lt;for-all-models</span><span
 class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/tab<span class="re2">&gt;</span></span></span>
 &nbsp;
 <span class="sc3"><span class="re1">&lt;/tabs-default-values<span class="re2">&gt;</span></span></span></pre>
-      The <em>&lt;tab/&gt;</em> element follows the syntax of <a class="wiki_link"
+      The <em>&lt;tab/&gt;</em> element follows the syntax of <a class="wiki_link"
         href="tab-xml_en.html">XML Components for tabs</a>. With the addition of <em>&lt;for-model/&gt;</em>, <em>&lt;except-for-model/&gt;</em> and <em>&lt;for-all-models/&gt;</em> used to apply the values to the tabs of the desired entities.<br>
       With this <em>tab</em> elements you define <em>default values</em> for the tabs of your entities, therefore the values used in the <em>@Tab</em>s defined in your entities always take preference over these ones.<br>
       <h2 id="toc7"><a name="Tabular data-Column summation (new in v4.1)"></a>Column summation <em>(new in v4.1)</em></h2>
