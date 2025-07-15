@@ -48,6 +48,7 @@
             v4m2</a></div>
         <div style="margin-left: 4em;"><a href="#Personalizacion-Editores-JavaScript+en+los+editores-Until+3.0.x">Until
             3.0.x</a></div>
+        <div style="margin-left: 3em;"><a href="#Personalizacion-Editores-Funciones+JavaScript+de+utilidad+%28nuevo+en+v7.6%29">Funciones JavaScript de utilidad (nuevo en v7.6)</a></div>
         <div style="margin-left: 3em;"><a href="#Personalizacion-Editores-CSS+en+editores+%28nuevo+en+v5.4%29">CSS
             en editores (nuevo en v5.4)</a></div>
         <div style="margin-left: 3em;"><a href="#Personalizacion-Editores-Editores+personalizables+y+estereotipos+para+crear+combos">Editores
@@ -2396,8 +2397,8 @@ String nombre;
 .html4strict span.xtra { display:block; }
 
 -->
-</style><pre class="html4strict"><span class="sc2">&lt;<span class="kw2">input</span> ... <span
-class="kw3">onclick</span><span class="sy0">=</span><span class="st0">"f()"</span><span
+</style><pre class="html4strict"><span class="sc2">&lt;<span class="kw2">input</span> ... <span
+class="kw3">onclick</span><span class="sy0">=</span><span class="st0">"f()"</span><span
 class="sy0">/</span>&gt; &lt;!-- NO PERMITIDO DESDE V7.1--&gt;</span></pre>
       En su lugar has de asociar los eventos desde el código en tus archivos JS.
       Para tu código JavaScript crea un archivo llamado <em>miEditor.js</em> (o
@@ -2432,8 +2433,8 @@ class="sy0">/</span>&gt; &lt;!-- NO PERMITIDO DESDE V7.1--&gt;</span></pre>
 .javascript span.xtra { display:block; }
 
 -->
-</style><pre class="javascript">openxava.<span class="me1">addEditorInitFunction</span><span
-class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
+</style><pre class="javascript">openxava.<span class="me1">addEditorInitFunction</span><span
+class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span>
  <span class="coMULTI">/*
  Aquí tu código de inicialización para tu editor.
@@ -2471,8 +2472,8 @@ class="br0">)</span> <span class="br0">{</span>
 .javascript span.xtra { display:block; }
 
 -->
-</style><pre class="javascript">openxava.<span class="me1">addEditorDestroyFunction</span><span
-class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
+</style><pre class="javascript">openxava.<span class="me1">addEditorDestroyFunction</span><span
+class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span> <span class="co1">// Nuevo en v4.8.1</span>
 <span class="coMULTI">/*
 Aquí el código de destrucción de tu editor.
@@ -2506,9 +2507,9 @@ Esto es para liberar los recursos obtenidos por el editor.
 .javascript span.xtra { display:block; }
 
 -->
-</style><pre class="javascript">openxava.<span class="me1">addEditorPreRequestFunction</span><span
-class="br0"></span><span class="br0">(</span><span class="kw2">function</span><span
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span> <span
+</style><pre class="javascript">openxava.<span class="me1">addEditorPreRequestFunction</span><span
+class="br0"></span><span class="br0">(</span><span class="kw2">function</span><span
+class="br0">(</span><span class="br0">)</span> <span class="br0">{</span> <span
 class="co1">// Nuevo en v7.1</span>
 <span class="coMULTI">/*
 Aquí el código a ejecutar para tu editor
@@ -2554,7 +2555,35 @@ antes de cada llamada AJAX de OpenXava.
         3.0.x</h4>
       No se usa AJAX, por tanto el código JavaScript se puede incluir
       directamente en el JSP del editor.<br>
-      <h3 id="toc12"><a name="Personalizacion-Editores-CSS+en+editores+(nuevo+en+v5.4)"></a>CSS
+      <h3 id="toc12"><a name="Personalizacion-Editores-Funciones+JavaScript+de+utilidad+(nuevo+en+v7.6)"></a>Funciones JavaScript de utilidad <em>(nuevo en v7.6)</em></h3>
+      En OpenXava existe un objeto JavaScript llamado <code>openxava</code> de uso interno, pero desde la versión 7.6 incluye algunas funciones de utilidad que puedes usar en tus editores personalizados. Estas funciones te permiten interactuar con la interfaz de usuario de OpenXava de forma consistente.<br>
+      <h4>openxava.showMessage()</h4>
+      Esta función muestra un mensaje informativo utilizando el mismo formato que usa una aplicación OpenXava. Es útil cuando tu editor necesita mostrar un mensaje de confirmación o información desde JavaScript sin necesidad de llamar al servidor.<br>
+      <div class="wiki" style="display: block;">
+        <pre><code class="javascript">openxava.showMessage("Operación completada con éxito");</code></pre>
+      </div>
+      <h4>openxava.showError()</h4>
+      Similar a la función anterior, pero muestra un mensaje de error con el formato estándar de OpenXava. Útil para mostrar errores de validación u otros problemas detectados en el lado del cliente.<br>
+      <div class="wiki" style="display: block;">
+        <pre><code class="javascript">openxava.showError("No se pudo completar la operación");</code></pre>
+      </div>
+      <p>Ejemplo de uso en un editor personalizado:</p>
+      <div class="wiki" style="display: block;">
+        <pre><code class="javascript">openxava.addEditorInitFunction(function() {
+    $(".mi-boton-guardar").click(function() {
+        // Lógica de validación
+        if (datosValidos) {
+            // Procesar datos
+            openxava.showMessage("Datos guardados correctamente");
+        }
+        else {
+            openxava.showError("Por favor, revise los datos ingresados");
+        }
+    });
+});</code></pre>
+      </div>
+      <p>Estas funciones son especialmente útiles si tu editor personalizado necesita mostrar mensajes o errores desde JavaScript sin tener que llamar al servidor, manteniendo la consistencia visual con el resto de la aplicación OpenXava.</p>
+      <h3 id="toc13"><a name="Personalizacion-Editores-CSS+en+editores+(nuevo+en+v5.4)"></a>CSS
         en editores <em>(nuevo en v5.4)</em></h3>
       Todos los archivos CSS en la carpeta <i>src/main/webapp/xava/editors/style</i>
       (<em>web/xava/editors/style</em> en v6 o anteriores) de nuestra aplicación
