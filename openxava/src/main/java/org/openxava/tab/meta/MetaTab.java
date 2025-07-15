@@ -897,68 +897,68 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	}
 		
 	/**
- * Checks if a property is in the editable properties list.
- * 
- * @param propertyName The name of the property to check
- * @return true if the property is editable, false otherwise
- */
-public boolean isPropertyEditable(String propertyName) {
-	if (editableProperties == null || editableProperties.trim().isEmpty()) {
-		return false;
-	}
-	
-	// Extract the base property name if it's a qualified property
-	String basePropertyName = propertyName;
-	if (propertyName.contains(".")) {
-		basePropertyName = propertyName.substring(propertyName.lastIndexOf(".") + 1);
-	}
-	
-	String[] properties = editableProperties.split(",");
-	for (String property : properties) {
-		property = property.trim();
-		// Check if the property or its base name is in the editable properties list
-		if (property.equals(propertyName) || property.equals(basePropertyName)) {
-			try {
-				// MetaModel.getMetaProperty() already handles qualified properties with dots
-				MetaProperty p = getMetaModel().getMetaProperty(propertyName);
-				
-				if (p.isCalculated()) {
-					log.warn(XavaResources.getString("property_calculated_cannot_be_editable", property));
+	 * Checks if a property is in the editable properties list.
+	 * 
+	 * @param propertyName The name of the property to check
+	 * @return true if the property is editable, false otherwise
+	 */
+	public boolean isPropertyEditable(String propertyName) {
+		if (editableProperties == null || editableProperties.trim().isEmpty()) {
+			return false;
+		}
+		
+		// Extract the base property name if it's a qualified property
+		String basePropertyName = propertyName;
+		if (propertyName.contains(".")) {
+			basePropertyName = propertyName.substring(propertyName.lastIndexOf(".") + 1);
+		}
+		
+		String[] properties = editableProperties.split(",");
+		for (String property : properties) {
+			property = property.trim();
+			// Check if the property or its base name is in the editable properties list
+			if (property.equals(propertyName) || property.equals(basePropertyName)) {
+				try {
+					// MetaModel.getMetaProperty() already handles qualified properties with dots
+					MetaProperty p = getMetaModel().getMetaProperty(propertyName);
+					
+					if (p.isCalculated()) {
+						log.warn(XavaResources.getString("property_calculated_cannot_be_editable", property));
+						return false;
+					}
+					if (p.isKey()) {
+						log.warn(XavaResources.getString("property_key_cannot_be_editable", property));
+						return false;
+					}
+					if (p.hasCalculation()) {
+						log.warn(XavaResources.getString("property_has_calculation_cannot_be_editable", property));
+						return false;
+					}
+					if (p.isReadOnly()) {
+						log.warn(XavaResources.getString("property_read_only_cannot_be_editable", property));
+						return false;
+					}
+					if (p.isVersion()) {
+						log.warn(XavaResources.getString("property_version_cannot_be_editable", property));
+						return false;
+					}
+					if (p.isTransient()) {
+						log.warn(XavaResources.getString("property_transient_cannot_be_editable", property));
+						return false;
+					}
+					// Check if property has @Formula annotation
+					PropertyMapping mapping = p.getMapping();
+					if (mapping != null && mapping.hasFormula()) {
+						log.warn(XavaResources.getString("property_formula_cannot_be_editable", property));
+						return false;
+					}
+					return true;
+				} catch (Exception e) {
+					log.warn(XavaResources.getString("error_checking_property_editable", propertyName), e);
 					return false;
 				}
-				if (p.isKey()) {
-					log.warn(XavaResources.getString("property_key_cannot_be_editable", property));
-					return false;
-				}
-				if (p.hasCalculation()) {
-					log.warn(XavaResources.getString("property_has_calculation_cannot_be_editable", property));
-					return false;
-				}
-				if (p.isReadOnly()) {
-					log.warn(XavaResources.getString("property_read_only_cannot_be_editable", property));
-					return false;
-				}
-				if (p.isVersion()) {
-					log.warn(XavaResources.getString("property_version_cannot_be_editable", property));
-					return false;
-				}
-				if (p.isTransient()) {
-					log.warn(XavaResources.getString("property_transient_cannot_be_editable", property));
-					return false;
-				}
-				// Check if property has @Formula annotation
-				PropertyMapping mapping = p.getMapping();
-				if (mapping != null && mapping.hasFormula()) {
-					log.warn(XavaResources.getString("property_formula_cannot_be_editable", property));
-					return false;
-				}
-				return true;
-			} catch (Exception e) {
-				log.warn(XavaResources.getString("error_checking_property_editable", propertyName), e);
-				return false;
 			}
 		}
-	}
-	return false;
-}	
+		return false;
+	}	
 }
