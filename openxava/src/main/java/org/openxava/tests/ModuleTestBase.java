@@ -1406,6 +1406,36 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	/**
+	 * Sets the value of a property in a specific row of the list.
+	 * 
+	 * This method allows you to modify the value of a property directly in the list view,
+	 * simulating the user editing the cell in-place. Works with properties that are configured
+	 * as editable in the list.
+	 * 
+	 * For reference properties using @DescriptionsList, note that even though the list displays
+	 * the description or name of the reference, when setting a value you must use the key property
+	 * of the reference. For example, if you have a family reference that shows descriptions in the list,
+	 * you would read the value using family.description but set it using family.number.
+	 * 
+	 * Example:
+	 * <pre>
+	 * // Simple property
+	 * setValueInList(0, "unitPrice", "17.00"); // Sets the first row's unitPrice to 17.00
+	 * 
+	 * // Reference property with @DescriptionsList
+	 * assertValueInList(1, "family.description", "HARDWARE"); // Reading shows the description
+	 * setValueInList(1, "family.number", "3");    // Setting uses the key property
+	 * 
+	 * // Reference property with multiple keys
+	 * Warehouse warehouse = new Warehouse();
+	 * warehouse.setZoneNumber(4);
+	 * warehouse.setNumber(13);
+	 * setValueInList(1, "warehouse.KEY", toKeyString(warehouse)); // For composite keys
+	 * </pre>
+	 * 
+	 * @param row The row number (0-based) in the list
+	 * @param name The property name to set, can be a simple property or a qualified property (e.g. "family.number")
+	 * @param value The value to set for the property
 	 * @since 7.6 
 	 */
 	protected void setValueInList(int row, String name, String value) throws Exception {
@@ -1416,6 +1446,20 @@ abstract public class ModuleTestBase extends TestCase {
 	}	
 	
 	/**
+	 * Sets the value of a property in a specific row and column of the list.
+	 * 
+	 * This method allows you to modify the value of a property directly in the list view
+	 * by specifying the column index instead of the property name. The column index corresponds
+	 * to the order of properties displayed in the list.
+	 * 
+	 * Example:
+	 * <pre>
+	 * setValueInList(0, 2, "17.00"); // Sets the first row's third column to 17.00
+	 * </pre>
+	 * 
+	 * @param row The row number (0-based) in the list
+	 * @param column The column number (0-based) in the list
+	 * @param value The value to set for the property
 	 * @since 7.6 
 	 */	
 	protected void setValueInList(int row, int column, String value) throws Exception {
@@ -1424,6 +1468,20 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	/**
+	 * Asserts that a property in a specific row of the list is editable.
+	 * 
+	 * This method verifies that a property in the list can be edited in-place by the user.
+	 * It fails the test if the property is not editable in the specified row.
+	 * 
+	 * Example:
+	 * <pre>
+	 * assertEditableInList(0, "unitPrice"); // Verifies the unitPrice in first row is editable
+	 * assertEditableInList(1, "family.description"); // Verifies a reference property is editable
+	 * </pre>
+	 * 
+	 * @param row The row number (0-based) in the list
+	 * @param name The property name to check, can be a simple property or a qualified property
+	 * @throws Exception If the property is not editable or if any error occurs during verification
 	 * @since 7.6 
 	 */		
 	protected void assertEditableInList(int row, String name) throws Exception {
@@ -1436,6 +1494,24 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	/**
+	 * Asserts that a property in a specific row of the list is NOT editable.
+	 * 
+	 * This method verifies that a property in the list cannot be edited in-place by the user.
+	 * It fails the test if the property is editable in the specified row when it should not be.
+	 * 
+	 * Example:
+	 * <pre>
+	 * assertNoEditableInList(0, "extendedDescription"); // Verifies the property is not editable
+	 * assertNoEditableInList(1, "id"); // Verifies a key property is not editable
+	 * </pre>
+	 * 
+	 * This is particularly useful for testing properties that should be read-only in the list,
+	 * such as calculated fields, formula properties, or properties explicitly excluded from
+	 * the editable properties configuration.
+	 * 
+	 * @param row The row number (0-based) in the list
+	 * @param name The property name to check, can be a simple property or a qualified property
+	 * @throws Exception If the property is editable or if any error occurs during verification
 	 * @since 7.6 
 	 */		
 	protected void assertNoEditableInList(int row, String name) throws Exception { 
@@ -1449,6 +1525,20 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	/**
+	 * Asserts that a property in a specific row and column of the list is editable.
+	 * 
+	 * This method verifies that a property in the list can be edited in-place by the user,
+	 * using column index instead of property name. The column index corresponds to the
+	 * order of properties displayed in the list.
+	 * 
+	 * Example:
+	 * <pre>
+	 * assertEditableInList(0, 2); // Verifies the third column in first row is editable
+	 * </pre>
+	 * 
+	 * @param row The row number (0-based) in the list
+	 * @param column The column number (0-based) in the list
+	 * @throws Exception If the property is not editable or if any error occurs during verification
 	 * @since 7.6 
 	 */		
 	protected void assertEditableInList(int row, int column) throws Exception {
@@ -1457,6 +1547,24 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	/**
+	 * Asserts that a property in a specific row and column of the list is NOT editable.
+	 * 
+	 * This method verifies that a property in the list cannot be edited in-place by the user,
+	 * using column index instead of property name. It fails the test if the property is
+	 * editable in the specified row and column when it should not be.
+	 * 
+	 * Example:
+	 * <pre>
+	 * assertNoEditableInList(0, 3); // Verifies the fourth column in first row is not editable
+	 * </pre>
+	 * 
+	 * This is particularly useful for testing properties that should be read-only in the list,
+	 * such as calculated fields, formula properties, or properties explicitly excluded from
+	 * the editable properties configuration.
+	 * 
+	 * @param row The row number (0-based) in the list
+	 * @param column The column number (0-based) in the list
+	 * @throws Exception If the property is editable or if any error occurs during verification
 	 * @since 7.6 
 	 */		
 	protected void assertNoEditableInList(int row, int column) throws Exception { 
