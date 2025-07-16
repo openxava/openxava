@@ -15,28 +15,37 @@
 	<div id="toc">
 	    <h1 class="nopad">Tabla de contenidos</h1>
 	    <div style="margin-left: 1em;"><a href="#toc0">Restringir datos por usuario/rol</a></div>
-	    <div style="margin-left: 2em;"><a href="#filtrar-datos-de-la-lista">Filtrar datos de la lista</a></div>
+	    <div style="margin-left: 2em;"><a href="#filtrar-datos-de-la-lista">Filtrar datos por usuario en la lista</a></div>
 	    <div style="margin-left: 2em;"><a href="#restringir-datos-en-modo-detalle">Restringir datos en modo detalle</a></div>
 	    <div style="margin-left: 2em;"><a href="#valor-por-defecto-para-usuario">Valor por defecto para usuario</a></div>
 	    <div style="margin-left: 2em;"><a href="#restringir-datos-por-rol">Restringir datos por rol</a></div>
 	</div>
     
 	<p>
-	TMR ME QUEDÉ POR AQUÍ: REFINAR LA PRESENTACIÓN. MENCIONAR LO DE ROW-LEVEL ACCESS
 	En muchas aplicaciones empresariales es necesario que cada usuario
 	vea solo los datos que le corresponden, como sus pedidos, facturas o tareas.
 	Este control es esencial para agilizar el trabajo y también para proteger 
-	la información.
+	la información. Sería lo se conoce como seguiridad a nivel de fila en
+	el mundo de las bases de datos.
 	</p>
 	
 	<p>
-	OpenXava te permite resolver este problema de forma sencilla mediante filtros y
-	condiciones base en las listas, lo que permite restringir la visibilidad de los datos
+	OpenXava te permite resolver este problema de forma sencilla mediante 
+	<a href="tab_es.html#Datos+tabulares-Filtros+y+condicion+base">filtros y condiciones 
+	base en las listas</a>, lo que permite restringir la visibilidad de los datos
 	según el usuario conectado o su rol.
 	</p>
 	
-	<h2 id="filtrar-datos-de-la-lista">Filtrar datos de la lista</h2>   
-	<p>Voy a ponerme con esto...</p>
+	<h2 id="filtrar-datos-de-la-lista">Filtrar datos por usuario en la lista</h2>   
+	
+	<p>Basta con definir una <i>baseCondition</i> en el 
+	<i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Tab.html">@Tab</a></i> 
+	por la propiedad que contenga el nombre del usuario, usando 
+	<i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/filters/UserFilter.html">UserFilter</a></i> 
+	como filtro. Por ejemplo, si tenemos una entidad <i>Tarea</i> con un propiedad <i>usuario</i> que almacena 
+	el usuario que tiene asignada la tarea, podríamos definir el <i>@Tab</i> de esta forma:</p>
+	
+	TMR ME QUEDÉ POR AQUÍ
 	
 	<h2 id="restringir-datos-en-modo-detalle">Restringir datos en modo detalle</h2>
 	
