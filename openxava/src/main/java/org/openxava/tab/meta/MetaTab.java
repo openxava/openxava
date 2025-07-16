@@ -52,7 +52,7 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	private String editor;
 	private String editors;  
 	private Set<String> droppedMembers; 
-	private String editableProperties;
+	private Collection<String> editableProperties;
 
 
 	
@@ -879,21 +879,50 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	 * Gets the comma-separated list of editable properties for this tab.
 	 * Only plain editable properties are allowed.
 	 * 
-	 * @return The editable properties, or null if not defined
+	 * @return The editable properties as a comma-separated string, or null if not defined
 	 * @since 7.6
 	 */
 	public String getEditableProperties() {
-		return editableProperties;
+		if (editableProperties == null || editableProperties.isEmpty()) return null;
+		return org.openxava.util.Strings.toString(editableProperties);
 	}
 	
 	/**
 	 * Sets the comma-separated list of editable properties for this tab.
 	 * 
-	 * @param editableProperties The editable properties to set
+	 * @param editableProperties The editable properties to set as a comma-separated string
 	 * @since 7.6
 	 */
 	public void setEditableProperties(String editableProperties) {
-		this.editableProperties = editableProperties;
+		if (editableProperties == null || editableProperties.trim().isEmpty()) {
+			this.editableProperties = null;
+			return;
+		}
+		
+		if (this.editableProperties == null) {
+			this.editableProperties = new ArrayList<String>();
+		} else {
+			this.editableProperties.clear();
+		}
+		
+		String[] properties = editableProperties.split(",");
+		for (String property : properties) {
+			String trimmedProperty = property.trim();
+			if (!trimmedProperty.isEmpty()) {
+				this.editableProperties.add(trimmedProperty);
+			}
+		}
+	}
+
+	/**
+	 * Removes a property from the editable properties list.
+	 * 
+	 * @param propertyName The name of the property to remove
+	 * @since 7.6
+	 */
+	public void removeEditableProperty(String propertyName) {
+		if (editableProperties == null) return;
+		editableProperties.remove(propertyName);
 	}
 		
 	/**
@@ -903,7 +932,7 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	 * @return true if the property is editable, false otherwise
 	 */
 	public boolean isPropertyEditable(String propertyName) {
-		if (editableProperties == null || editableProperties.trim().isEmpty()) {
+		if (editableProperties == null || editableProperties.isEmpty()) {
 			return false;
 		}
 		
@@ -913,10 +942,8 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 			basePropertyName = propertyName.substring(propertyName.lastIndexOf(".") + 1);
 		}
 		
-		String[] properties = editableProperties.split(",");
-		for (String property : properties) {
-			property = property.trim();
-			// Check if the property or its base name is in the editable properties list
+		// Check if the property or its base name is in the editable properties list
+		for (String property : editableProperties) {
 			if (property.equals(propertyName) || property.equals(basePropertyName)) {
 				try {
 					// MetaModel.getMetaProperty() already handles qualified properties with dots
