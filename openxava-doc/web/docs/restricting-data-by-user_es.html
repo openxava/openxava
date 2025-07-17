@@ -25,12 +25,12 @@
 	En muchas aplicaciones empresariales es necesario que cada usuario
 	vea solo los datos que le corresponden, como sus pedidos, facturas o tareas.
 	Este control es esencial para agilizar el trabajo y también para proteger 
-	la información. Sería lo se conoce como seguiridad a nivel de fila en
+	la información. Sería lo se conoce como seguridad a nivel de fila en
 	el mundo de las bases de datos.
 	</p>
 	
 	<p>
-	OpenXava te permite resolver este problema de forma sencilla mediante 
+	OpenXava resuelve este problema de forma sencilla mediante 
 	<a href="tab_es.html#Datos+tabulares-Filtros+y+condicion+base">filtros y condiciones 
 	base en las listas</a>, lo que permite restringir la visibilidad de los datos
 	según el usuario conectado o su rol.
@@ -45,9 +45,52 @@
 	como filtro. Por ejemplo, si tenemos una entidad <i>Tarea</i> con un propiedad <i>usuario</i> que almacena 
 	el usuario que tiene asignada la tarea, podríamos definir el <i>@Tab</i> de esta forma:</p>
 	
-	TMR ME QUEDÉ POR AQUÍ
+	<pre><code class="java">import org.openxava.filters.UserFilter;
+
+@Entity
+@Tab(filter=UserFilter.class, baseCondition="${user} = ?")
+public class Task {
+	
+	@Column(length=50, name="USERNAME")
+	private String user;
+	
+	// Resto de propiedades y métodos
+}
+</code></pre>
+	
+	<p>En este ejemplo, la anotación <i>@Tab(filter=UserFilter.class, baseCondition="${user} = ?")</i> 
+	establece una condición base que filtra automáticamente los datos por el usuario 
+	identificado actualmente en la aplicación. El <i>UserFilter</i> es un filtro predefinido 
+	en OpenXava que proporciona el nombre del usuario conectado, mientras que la expresión 
+	<i>${user}</i> hace referencia a la propiedad <i>user</i> de la entidad. El signo de 
+	interrogación <i>?</i> será reemplazado por el valor que devuelva el filtro, es decir, 
+	el nombre del usuario que ha iniciado sesión.</p>
+
+	<p>Con esta configuración, cada usuario solo verá sus propias tareas en la lista.</p>
 	
 	<h2 id="restringir-datos-en-modo-detalle">Restringir datos en modo detalle</h2>
+	
+	<p>
+	Desde la versión 7.4.2 de OpenXava, el framework automáticamente impide que se acceda 
+	en modo detalle a datos que no están incluidos en la lista. Esto significa que si has 
+	configurado una <i>UserFilter</i> en tu <i>@Tab</i> como se explicó en la sección anterior, 
+	no necesitas hacer nada adicional para restringir el acceso a los datos en modo detalle.
+	</p>
+	
+	<p>
+	Este comportamiento funciona tanto con los enlaces permanentes (permalinks) como con la 
+	acción de búsqueda estándar, garantizando que los usuarios solo puedan ver en detalle 
+	los registros que les corresponden según los filtros aplicados.
+	</p>
+	
+	<p>
+	Si estás utilizando una versión anterior a la 7.4.2, deberías implementar tu propia 
+	acción de búsqueda (usando <i>XAVA_SEARCH_ACTION</i>) con la lógica necesaria para 
+	impedir la consulta de datos que no pertenecen al usuario actual. Para más información 
+	sobre cómo sobreescribir la búsqueda por defecto, consulta la sección 
+	<a href="controllers_es.html#Controladores-Sobreescribir+busqueda+por+defecto">Sobreescribir 
+	búsqueda por defecto</a> en la documentación de controladores.
+	</p>
 	
 	<h2 id="valor-por-defecto-para-usuario">Valor por defecto para usuario</h2>
 	
