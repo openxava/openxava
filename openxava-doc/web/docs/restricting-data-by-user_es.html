@@ -18,14 +18,14 @@
 	    <div style="margin-left: 2em;"><a href="#filtrar-datos-de-la-lista">Filtrar datos por usuario en la lista</a></div>
 	    <div style="margin-left: 2em;"><a href="#restringir-datos-en-modo-detalle">Restringir datos en modo detalle</a></div>
 	    <div style="margin-left: 2em;"><a href="#valor-por-defecto-para-usuario">Valor por defecto para usuario</a></div>
-	    <div style="margin-left: 2em;"><a href="#restringir-datos-por-rol">Restringir datos por rol</a></div>
+	    <div style="margin-left: 2em;"><a href="#restringir-datos-por-rol">Restringir datos por rol (nuevo en v7.6)</a></div>
 	</div>
     
 	<p>
 	En muchas aplicaciones empresariales es necesario que cada usuario
 	vea solo los datos que le corresponden, como sus pedidos, facturas o tareas.
 	Este control es esencial para agilizar el trabajo y también para proteger 
-	la información. Sería lo se conoce como seguridad a nivel de fila en
+	la información. Sería lo que se conoce como seguridad a nivel de fila en
 	el mundo de las bases de datos.
 	</p>
 	
@@ -42,7 +42,7 @@
 	<i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Tab.html">@Tab</a></i> 
 	por la propiedad que contenga el nombre del usuario, usando 
 	<i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/filters/UserFilter.html">UserFilter</a></i> 
-	como filtro. Por ejemplo, si tenemos una entidad <i>Tarea</i> con un propiedad <i>usuario</i> que almacena 
+	como filtro. Por ejemplo, si tenemos una entidad <i>Tarea</i> con una propiedad <i>usuario</i> que almacena 
 	el usuario que tiene asignada la tarea, podríamos definir el <i>@Tab</i> de esta forma:</p>
 	
 	<pre><code class="java">import org.openxava.filters.UserFilter;
@@ -50,13 +50,12 @@
 @Entity
 @Tab(filter=UserFilter.class, baseCondition="${user} = ?")
 public class Task {
-	
-	@Column(length=50, name="USERNAME")
-	private String user;
-	
-	// Resto de propiedades y métodos
-}
-</code></pre>
+    
+    @Column(length=50, name="USERNAME")
+    private String user;
+    
+    // Resto de propiedades y métodos
+}</code></pre>
 	
 	<p>En este ejemplo, la anotación <i>@Tab(filter=UserFilter.class, baseCondition="${user} = ?")</i> 
 	establece una condición base que filtra automáticamente los datos por el usuario 
@@ -94,7 +93,124 @@ public class Task {
 	
 	<h2 id="valor-por-defecto-para-usuario">Valor por defecto para usuario</h2>
 	
-	<h2 id="restringir-datos-por-rol">Restringir datos por rol</h2>
+	<p>
+	Para asignar automáticamente el usuario actual a los nuevos registros, existen dos 
+	opciones principales dependiendo de si quieres que el campo de usuario sea visible 
+	o no en la interfaz de usuario.
+	</p>
+	
+	<h3>Opción 1: Usuario visible pero no editable</h3>
+	
+	<p>Si deseas que el campo de usuario sea visible en la interfaz pero no editable:</p>
+	
+	<pre><code class="java">@DefaultValueCalculator(CurrentUserCalculator.class)
+@ReadOnly
+@Column(length=50, name="USERNAME")
+private String user;</code></pre>
+	
+	<p>
+	En este caso, <i>@DefaultValueCalculator(CurrentUserCalculator.class)</i> asigna 
+	automáticamente el nombre del usuario actual cuando se crea un nuevo registro, mientras 
+	que <i>@ReadOnly</i> impide que el usuario pueda modificar este valor.
+	</p>
+	
+	<p>
+	Recuerda importar la clase <i>CurrentUserCalculator</i>:
+	</p>
+	
+	<pre><code class="java">import org.openxava.calculators.CurrentUserCalculator;</code></pre>
+	
+	<h3>Opción 2: Usuario oculto</h3>
+	
+	<p>Si prefieres que el campo de usuario no sea visible en la interfaz:</p>
+	
+	<pre><code class="java">@Hidden
+@Column(length=50, name="USERNAME")
+private String user;
+
+@PrePersist
+public void assignCurrentUser() {
+    this.user = Users.getCurrent();
+}</code></pre>
+	
+	<p>
+	En esta opción, la anotación <i>@Hidden</i> oculta el campo en la interfaz de usuario, 
+	y el método anotado con <i>@PrePersist</i> se ejecuta automáticamente antes de 
+	persistir la entidad, asignando el usuario actual mediante <i>Users.getCurrent()</i>.
+	</p>
+	
+	<p>
+	Esta segunda opción es útil cuando el usuario no necesita ver quién es el propietario 
+	del registro, ya que siempre será él mismo, y simplifica la interfaz al ocultar 
+	campos que no requieren interacción.
+	</p>
+	
+	<p>
+	Recuerda importar la clase <i>Users</i> si utilizas la segunda opción:
+	</p>
+	
+	<pre><code class="java">import org.openxava.util.Users;</code></pre>
+	
+	<h2 id="restringir-datos-por-rol">Restringir datos por rol <em>(nuevo en v7.6)</em></h2>
+	
+	<p><i>Esta funcionalidad solo está disponible en XavaPro.</i></p>
+	
+	<p>
+	En XavaPro, un usuario puede tener asociado un grupo de roles. El framework proporciona 
+	un filtro llamado <i>RolesFilter</i> que permite restringir el acceso a los datos según 
+	los roles del usuario actual. Este filtro funciona comparando los roles del usuario con 
+	una propiedad de la entidad que contiene un nombre de rol.
+	</p>
+	
+	<p>Para implementar esta restricción, sigue estos pasos:</p>
+	
+	<h3>1. Define una propiedad para el rol en tu entidad</h3>
+	
+	<pre><code class="java">@Column(length=30, columnDefinition = "VARCHAR(30) DEFAULT 'user'")
+private String role;</code></pre>
+	
+	<p>
+	Esta propiedad almacenará el nombre del rol que tiene permiso para acceder al registro. 
+	Puedes establecer un valor por defecto si lo deseas, como en el ejemplo anterior donde 
+	el valor predeterminado es 'user'.
+	</p>
+	
+	<h3>2. Configura el filtro en la anotación @Tab</h3>
+	
+	<pre><code class="java">@Tab(baseCondition = "${role} IN (?)",
+    filter=com.openxava.naviox.filters.RolesFilter.class,
+    properties="year, number, date, customer.number, customer.name, ...")</code></pre>
+	
+	<p>
+	La condición base <i>${role} IN (?)</i> indica que se filtrarán los registros donde 
+	el valor de la propiedad <i>role</i> esté incluido en la lista de roles del usuario 
+	actual. El filtro <i>RolesFilter</i> proporciona automáticamente esta lista de roles.
+	</p>
+	
+	<h3>3. Cómo funciona</h3>
+	
+	<p>
+	Cuando un usuario accede a la lista, el filtro <i>RolesFilter</i> obtiene todos los 
+	roles asignados al usuario actual y los utiliza para filtrar los datos. Por ejemplo:
+	</p>
+	
+	<ul>
+		<li>Si un usuario tiene asignado solo el rol 'user', solo verá los registros donde 
+		la propiedad <i>role</i> tenga el valor 'user'.</li>
+		<li>Si un usuario tiene asignados los roles 'admin' y 'user', verá los registros 
+		donde la propiedad <i>role</i> tenga el valor 'admin' o 'user'.</li>
+	</ul>
+	
+	<p>
+	Esto permite implementar un sistema de acceso a datos basado en roles, donde diferentes 
+	tipos de usuarios pueden ver diferentes conjuntos de datos según sus roles asignados.
+	</p>
+	
+	<p>
+	Recuerda importar las clases necesarias:
+	</p>
+	
+	<pre><code class="java">import com.openxava.naviox.filters.RolesFilter; // Nota: paquete com.openxava.naviox, no org.openxava</code></pre>
     
   </body>
 </html>
