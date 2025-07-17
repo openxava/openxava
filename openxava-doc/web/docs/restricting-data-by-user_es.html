@@ -48,20 +48,20 @@
 	<pre><code class="java">import org.openxava.filters.UserFilter;
 
 @Entity
-@Tab(filter=UserFilter.class, baseCondition="${user} = ?")
-public class Task {
+@Tab(filter=UserFilter.class, baseCondition="${usuario} = ?")
+public class Tarea {
     
     @Column(length=50, name="USERNAME")
-    private String user;
+    private String usuario;
     
     // Resto de propiedades y métodos
 }</code></pre>
 	
-	<p>En este ejemplo, la anotación <i>@Tab(filter=UserFilter.class, baseCondition="${user} = ?")</i> 
+	<p>En este ejemplo, la anotación <i>@Tab(filter=UserFilter.class, baseCondition="${usuario} = ?")</i> 
 	establece una condición base que filtra automáticamente los datos por el usuario 
 	identificado actualmente en la aplicación. El <i>UserFilter</i> es un filtro predefinido 
 	en OpenXava que proporciona el nombre del usuario conectado, mientras que la expresión 
-	<i>${user}</i> hace referencia a la propiedad <i>user</i> de la entidad. El signo de 
+	<i>${usuario}</i> hace referencia a la propiedad <i>usuario</i> de la entidad. El signo de 
 	interrogación <i>?</i> será reemplazado por el valor que devuelva el filtro, es decir, 
 	el nombre del usuario que ha iniciado sesión.</p>
 
@@ -106,7 +106,7 @@ public class Task {
 	<pre><code class="java">@DefaultValueCalculator(CurrentUserCalculator.class)
 @ReadOnly
 @Column(length=50, name="USERNAME")
-private String user;</code></pre>
+private String usuario;</code></pre>
 	
 	<p>
 	En este caso, <i>@DefaultValueCalculator(CurrentUserCalculator.class)</i> asigna 
@@ -126,11 +126,11 @@ private String user;</code></pre>
 	
 	<pre><code class="java">@Hidden
 @Column(length=50, name="USERNAME")
-private String user;
+private String usuario;
 
 @PrePersist
-public void assignCurrentUser() {
-    this.user = Users.getCurrent();
+public void asignarUsuarioActual() {
+    this.usuario = Users.getCurrent();
 }</code></pre>
 	
 	<p>
@@ -153,7 +153,7 @@ public void assignCurrentUser() {
 	
 	<h2 id="restringir-datos-por-rol">Restringir datos por rol <em>(nuevo en v7.6)</em></h2>
 	
-	<p><i>Esta funcionalidad solo está disponible en XavaPro.</i></p>
+	<p><i>Esta funcionalidad solo está disponible en <a href="https://openxava.org/xavapro/">XavaPro</a></i></p>
 	
 	<p>
 	En XavaPro, un usuario puede tener asociado un grupo de roles. El framework proporciona 
@@ -167,7 +167,7 @@ public void assignCurrentUser() {
 	<h3>1. Define una propiedad para el rol en tu entidad</h3>
 	
 	<pre><code class="java">@Column(length=30, columnDefinition = "VARCHAR(30) DEFAULT 'user'")
-private String role;</code></pre>
+private String rol;</code></pre>
 	
 	<p>
 	Esta propiedad almacenará el nombre del rol que tiene permiso para acceder al registro. 
@@ -177,13 +177,13 @@ private String role;</code></pre>
 	
 	<h3>2. Configura el filtro en la anotación @Tab</h3>
 	
-	<pre><code class="java">@Tab(baseCondition = "${role} IN (?)",
+	<pre><code class="java">@Tab(baseCondition = "${rol} IN (?)",
     filter=com.openxava.naviox.filters.RolesFilter.class,
-    properties="year, number, date, customer.number, customer.name, ...")</code></pre>
+    properties="anyo, numero, fecha, cliente.numero, cliente.nombre, ...")</code></pre>
 	
 	<p>
-	La condición base <i>${role} IN (?)</i> indica que se filtrarán los registros donde 
-	el valor de la propiedad <i>role</i> esté incluido en la lista de roles del usuario 
+	La condición base <i>${rol} IN (?)</i> indica que se filtrarán los registros donde 
+	el valor de la propiedad <i>rol</i> esté incluido en la lista de roles del usuario 
 	actual. El filtro <i>RolesFilter</i> proporciona automáticamente esta lista de roles.
 	</p>
 	
@@ -196,9 +196,9 @@ private String role;</code></pre>
 	
 	<ul>
 		<li>Si un usuario tiene asignado solo el rol 'user', solo verá los registros donde 
-		la propiedad <i>role</i> tenga el valor 'user'.</li>
+		la propiedad <i>rol</i> tenga el valor 'user'.</li>
 		<li>Si un usuario tiene asignados los roles 'admin' y 'user', verá los registros 
-		donde la propiedad <i>role</i> tenga el valor 'admin' o 'user'.</li>
+		donde la propiedad <i>rol</i> tenga el valor 'admin' o 'user'.</li>
 	</ul>
 	
 	<p>
