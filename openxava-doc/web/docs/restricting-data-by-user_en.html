@@ -1,0 +1,216 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Restricting data by user/role - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body class="wiki">
+
+	<h1 id="toc0"> <span id="breadcrumbs">
+	      <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+	          </a> </span> / <a href="index_en.html">documentation</a> / </span>Restricting data by user/role</h1>
+	<div id="toc">
+	    <h1 class="nopad">Table of contents</h1>
+	    <div style="margin-left: 1em;"><a href="#toc0">Restricting data by user/role</a></div>
+	    <div style="margin-left: 2em;"><a href="#filter-list-data">Filtering data by user in the list</a></div>
+	    <div style="margin-left: 2em;"><a href="#restricting-data-in-detail-mode">Restricting data in detail mode</a></div>
+	    <div style="margin-left: 2em;"><a href="#default-value-for-user">Default value for user</a></div>
+	    <div style="margin-left: 2em;"><a href="#restricting-data-by-role">Restricting data by role (new in v7.6)</a></div>
+	</div>
+    
+	<p>
+	In many business applications, it is necessary for each user
+	to see only the data that corresponds to them, such as their orders, invoices, or tasks.
+	This control is essential to streamline work and also to protect
+	information. This would be what is known as row-level security in
+	the database world.
+	</p>
+	
+	<p>
+	OpenXava solves this problem in a simple way through
+	<a href="tab_en.html#Tabular%20data-Filters%20and%20base%20condition">filters and base conditions
+	in the lists</a>, which allows restricting the visibility of data
+	according to the connected user or their role.
+	</p>
+	
+	<h2 id="filter-list-data">Filtering data by user in the list</h2>   
+	
+	<p>It is enough to define a <i>baseCondition</i> in the
+	<i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Tab.html">@Tab</a></i>
+	for the property that contains the user name, using
+	<i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/filters/UserFilter.html">UserFilter</a></i>
+	as filter. For example, if we have a <i>Task</i> entity with a <i>user</i> property that stores
+	the user who has the task assigned, we could define the <i>@Tab</i> like this:</p>
+	
+	<pre><code class="java">import org.openxava.filters.UserFilter;
+
+@Entity
+@Tab(filter=UserFilter.class, baseCondition="${user} = ?")
+public class Task {
+    
+    @Column(length=50, name="USERNAME")
+    private String user;
+    
+    // Rest of properties and methods
+}</code></pre>
+	
+	<p>In this example, the annotation <i>@Tab(filter=UserFilter.class, baseCondition="${user} = ?")</i>
+	establishes a base condition that automatically filters the data by the user
+	currently identified in the application. The <i>UserFilter</i> is a predefined filter
+	in OpenXava that provides the name of the connected user, while the expression
+	<i>${user}</i> refers to the <i>user</i> property of the entity. The question
+	mark <i>?</i> will be replaced by the value returned by the filter, that is,
+	the name of the user who has logged in.</p>
+
+	<p>With this configuration, each user will only see their own tasks in the list.</p>
+	
+	<h2 id="restricting-data-in-detail-mode">Restricting data in detail mode</h2>
+	
+	<p>
+	Since OpenXava version 7.4.2, the framework automatically prevents access
+	in detail mode to data that is not included in the list. This means that if you have
+	configured a <i>UserFilter</i> in your <i>@Tab</i> as explained in the previous section,
+	you don't need to do anything additional to restrict access to data in detail mode.
+	</p>
+	
+	<p>
+	This behavior works with both permanent links (permalinks) and the
+	standard search action, ensuring that users can only see in detail
+	the records that correspond to them according to the applied filters.
+	</p>
+	
+	<p>
+	If you are using a version prior to 7.4.2, you should implement your own
+	search action (using <i>XAVA_SEARCH_ACTION</i>) with the necessary logic to
+	prevent the query of data that does not belong to the current user. For more information
+	on how to override the default search, see the section
+	<a href="controllers_en.html#Controllers-Overwriting%20default%20search">Overwriting
+	default search</a> in the controllers documentation.
+	</p>
+	
+	<h2 id="default-value-for-user">Default value for user</h2>
+	
+	<p>
+	To automatically assign the current user to new records, there are two
+	main options depending on whether you want the user field to be visible
+	or not in the user interface.
+	</p>
+	
+	<h3>Option 1: Visible but non-editable user</h3>
+	
+	<p>If you want the user field to be visible in the interface but not editable:</p>
+	
+	<pre><code class="java">@DefaultValueCalculator(CurrentUserCalculator.class)
+@ReadOnly
+@Column(length=50, name="USERNAME")
+private String user;</code></pre>
+	
+	<p>
+	In this case, <i>@DefaultValueCalculator(CurrentUserCalculator.class)</i> automatically assigns
+	the name of the current user when a new record is created, while
+	<i>@ReadOnly</i> prevents the user from modifying this value.
+	</p>
+	
+	<p>
+	Remember to import the <i>CurrentUserCalculator</i> class:
+	</p>
+	
+	<pre><code class="java">import org.openxava.calculators.CurrentUserCalculator;</code></pre>
+	
+	<h3>Option 2: Hidden user</h3>
+	
+	<p>If you prefer that the user field is not visible in the interface:</p>
+	
+	<pre><code class="java">@Hidden
+@Column(length=50, name="USERNAME")
+private String user;
+
+@PrePersist
+public void assignCurrentUser() {
+    this.user = Users.getCurrent();
+}</code></pre>
+	
+	<p>
+	In this option, the <i>@Hidden</i> annotation hides the field in the user interface,
+	and the method annotated with <i>@PrePersist</i> is automatically executed before
+	persisting the entity, assigning the current user through <i>Users.getCurrent()</i>.
+	</p>
+	
+	<p>
+	This second option is useful when the user does not need to see who is the owner
+	of the record, since it will always be themselves, and it simplifies the interface by hiding
+	fields that do not require interaction.
+	</p>
+	
+	<p>
+	Remember to import the <i>Users</i> class if you use the second option:
+	</p>
+	
+	<pre><code class="java">import org.openxava.util.Users;</code></pre>
+	
+	<h2 id="restricting-data-by-role">Restricting data by role <em>(new in v7.6)</em></h2>
+	
+	<p><i>This functionality is only available in XavaPro.</i></p>
+	
+	<p>
+	In XavaPro, a user can have a group of roles associated. The framework provides
+	a filter called <i>RolesFilter</i> that allows restricting access to data according to
+	the roles of the current user. This filter works by comparing the user's roles with
+	a property of the entity that contains a role name.
+	</p>
+	
+	<p>To implement this restriction, follow these steps:</p>
+	
+	<h3>1. Define a property for the role in your entity</h3>
+	
+	<pre><code class="java">@Column(length=30, columnDefinition = "VARCHAR(30) DEFAULT 'user'")
+private String role;</code></pre>
+	
+	<p>
+	This property will store the name of the role that has permission to access the record.
+	You can set a default value if you wish, as in the previous example where
+	the default value is 'user'.
+	</p>
+	
+	<h3>2. Configure the filter in the @Tab annotation</h3>
+	
+	<pre><code class="java">@Tab(baseCondition = "${role} IN (?)",
+    filter=com.openxava.naviox.filters.RolesFilter.class,
+    properties="year, number, date, customer.number, customer.name, ...")</code></pre>
+	
+	<p>
+	The base condition <i>${role} IN (?)</i> indicates that records will be filtered where
+	the value of the <i>role</i> property is included in the list of roles of the current
+	user. The <i>RolesFilter</i> automatically provides this list of roles.
+	</p>
+	
+	<h3>3. How it works</h3>
+	
+	<p>
+	When a user accesses the list, the <i>RolesFilter</i> gets all the
+	roles assigned to the current user and uses them to filter the data. For example:
+	</p>
+	
+	<ul>
+		<li>If a user has only the 'user' role assigned, they will only see records where
+		the <i>role</i> property has the value 'user'.</li>
+		<li>If a user has the 'admin' and 'user' roles assigned, they will see the records
+		where the <i>role</i> property has the value 'admin' or 'user'.</li>
+	</ul>
+	
+	<p>
+	This allows implementing a role-based data access system, where different
+	types of users can see different sets of data according to their assigned roles.
+	</p>
+	
+	<p>
+	Remember to import the necessary classes:
+	</p>
+	
+	<pre><code class="java">import com.openxava.naviox.filters.RolesFilter; // Note: package com.openxava.naviox, not org.openxava</code></pre>
+    
+  </body>
+</html>
