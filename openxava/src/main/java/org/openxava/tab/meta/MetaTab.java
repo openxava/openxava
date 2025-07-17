@@ -748,6 +748,9 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 			if (r.hiddenPropertiesNames != null) {
 				r.hiddenPropertiesNames = new ArrayList(hiddenPropertiesNames);
 			}
+			if (r.editableProperties != null) {
+				r.editableProperties = new ArrayList<String>(editableProperties);
+			}
 			if (r.propertiesNamesWithKeyAndHidden != null) {
 				r.propertiesNamesWithKeyAndHidden = new ArrayList(propertiesNamesWithKeyAndHidden);
 			} 
@@ -915,14 +918,27 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Removes a property from the editable properties list.
+	 * Removes a member from the editable properties list.
+	 * If the member is a reference (e.g. "cliente"), all qualified properties
+	 * starting with that reference (e.g. "cliente.numero", "cliente.nombre") will be removed.
 	 * 
-	 * @param propertyName The name of the property to remove
+	 * @param memberName The name of the member to remove
 	 * @since 7.6
 	 */
-	public void removeEditableProperty(String propertyName) {
+	public void removeEditableMember(String memberName) {
 		if (editableProperties == null) return;
-		editableProperties.remove(propertyName);
+		
+		// Remove exact match
+		editableProperties.remove(memberName);
+		
+		// Remove all qualified properties starting with memberName + "."
+		Iterator<String> it = editableProperties.iterator();
+		while (it.hasNext()) {
+			String property = it.next();
+			if (property.startsWith(memberName + ".")) {
+				it.remove();
+			}
+		}
 	}
 		
 	/**
