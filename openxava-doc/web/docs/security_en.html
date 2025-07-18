@@ -50,6 +50,7 @@
             authentication code (new in v7.0)</a></div>
         <div style="margin-left: 2em;"><a href="#custom-signin-page">Custom Sign
             In page (new in v7.1)</a></div>
+        <div style="margin-left: 2em;"><a href="#row-level-security">Row-level security</a></div>            
         <div style="margin-left: 2em;"><a href="#sso">Single Sign-On (SSO) (new
             in v7.1)</a></div>
         <div style="margin-left: 2em;"><a href="#2fa">Two-Factor Authentication
@@ -525,6 +526,12 @@ public class MyCustomSignInHelperProvider extends ProSignInHelperProvider {
 </code></pre> </div>
     </div>
     <div class="wiki" style="display: block;">
+
+	    <h2><a name="row-level-security"></a>Row-level security</h2>
+		<p>You can add row-level security to your application using filters in <i>@Tab</i>. See the documentation on 
+		<a href="restricting-data-by-user_en.html">restricting data by user/role.</a>
+		</p>
+    
       <h2><a name="sso"></a>Single Sign-On (SSO) <em>(new in v7.1)</em></h2>
       Since XavaPro 7.1 you can use Azure AD to give SSO to your OpenXava
       applications. Look at the <a href="sso-azure-ad_en.html">SSO with Azure
