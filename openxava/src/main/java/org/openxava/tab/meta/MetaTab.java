@@ -52,7 +52,7 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	private String editor;
 	private String editors;  
 	private Set<String> droppedMembers; 
-	private String editableProperties;
+	private Collection<String> editableProperties;
 
 
 	
@@ -748,6 +748,9 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 			if (r.hiddenPropertiesNames != null) {
 				r.hiddenPropertiesNames = new ArrayList(hiddenPropertiesNames);
 			}
+			if (r.editableProperties != null) {
+				r.editableProperties = new ArrayList<String>(editableProperties);
+			}
 			if (r.propertiesNamesWithKeyAndHidden != null) {
 				r.propertiesNamesWithKeyAndHidden = new ArrayList(propertiesNamesWithKeyAndHidden);
 			} 
@@ -879,21 +882,63 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	 * Gets the comma-separated list of editable properties for this tab.
 	 * Only plain editable properties are allowed.
 	 * 
-	 * @return The editable properties, or null if not defined
+	 * @return The editable properties as a comma-separated string, or null if not defined
 	 * @since 7.6
 	 */
 	public String getEditableProperties() {
-		return editableProperties;
+		if (editableProperties == null || editableProperties.isEmpty()) return null;
+		return org.openxava.util.Strings.toString(editableProperties);
 	}
 	
 	/**
 	 * Sets the comma-separated list of editable properties for this tab.
 	 * 
-	 * @param editableProperties The editable properties to set
+	 * @param editableProperties The editable properties to set as a comma-separated string
 	 * @since 7.6
 	 */
 	public void setEditableProperties(String editableProperties) {
-		this.editableProperties = editableProperties;
+		if (editableProperties == null || editableProperties.trim().isEmpty()) {
+			this.editableProperties = null;
+			return;
+		}
+		
+		if (this.editableProperties == null) {
+			this.editableProperties = new ArrayList<String>();
+		} else {
+			this.editableProperties.clear();
+		}
+		
+		String[] properties = editableProperties.split(",");
+		for (String property : properties) {
+			String trimmedProperty = property.trim();
+			if (!trimmedProperty.isEmpty()) {
+				this.editableProperties.add(trimmedProperty);
+			}
+		}
+	}
+
+	/**
+	 * Removes a member from the editable properties list.
+	 * If the member is a reference (e.g. "cliente"), all qualified properties
+	 * starting with that reference (e.g. "cliente.numero", "cliente.nombre") will be removed.
+	 * 
+	 * @param memberName The name of the member to remove
+	 * @since 7.6
+	 */
+	public void removeEditableMember(String memberName) {
+		if (editableProperties == null) return;
+		
+		// Remove exact match
+		editableProperties.remove(memberName);
+		
+		// Remove all qualified properties starting with memberName + "."
+		Iterator<String> it = editableProperties.iterator();
+		while (it.hasNext()) {
+			String property = it.next();
+			if (property.startsWith(memberName + ".")) {
+				it.remove();
+			}
+		}
 	}
 		
 	/**
@@ -903,7 +948,7 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	 * @return true if the property is editable, false otherwise
 	 */
 	public boolean isPropertyEditable(String propertyName) {
-		if (editableProperties == null || editableProperties.trim().isEmpty()) {
+		if (editableProperties == null || editableProperties.isEmpty()) {
 			return false;
 		}
 		
@@ -913,10 +958,8 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 			basePropertyName = propertyName.substring(propertyName.lastIndexOf(".") + 1);
 		}
 		
-		String[] properties = editableProperties.split(",");
-		for (String property : properties) {
-			property = property.trim();
-			// Check if the property or its base name is in the editable properties list
+		// Check if the property or its base name is in the editable properties list
+		for (String property : editableProperties) {
 			if (property.equals(propertyName) || property.equals(basePropertyName)) {
 				try {
 					// MetaModel.getMetaProperty() already handles qualified properties with dots
