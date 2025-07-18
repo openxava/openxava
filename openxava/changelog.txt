@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Documentation article on row-level security using @Tab's baseCondition and filter. 
 - Data can be edited directly in list mode, without entering detail view, with editableProperties in @Tab.
 - The Product module in invoicedemo has editable list mode.
 - setValueInList/assert(No)EditableInList methods in ModuleTestBase to test editable properties in lists.
