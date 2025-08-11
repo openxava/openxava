@@ -15,6 +15,7 @@ See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl
 <%@page import="org.openxava.util.Is"%>
 <%@page import="com.openxava.naviox.util.NaviOXPreferences"%>
 <%@page import="org.openxava.util.Users"%>
+<%@page import="org.openxava.util.Locales"%>
 <%@page import="com.openxava.naviox.util.OrganizationsCurrent"%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
@@ -56,7 +57,7 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 		if (isSelected) {
 	%>		
 	<div class="module-header-tab">
-		<span class="selected"><%=metaModule.getLabel(request.getLocale())%>
+		<span class="selected"><%=metaModule.getLabel(Locales.getCurrent())%>
 		<% if (!topMenuModules.contains(metaModule.getName())) { %>
 			<span class="mdi mdi-close close-icon"></span>
 		<% } %>
@@ -68,7 +69,7 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 		else {
 	%>
 	<div class="module-header-tab">
-		<a href="<%=modules.getModuleURI(request, metaModule)%>?retainOrder=true" class="unselected"><%=metaModule.getLabel(request.getLocale())%></a>
+		<a href="<%=modules.getModuleURI(request, metaModule)%>?retainOrder=true" class="unselected"><%=metaModule.getLabel(Locales.getCurrent())%></a>
 		<% if (!topMenuModules.contains(metaModule.getName())){ %>
 			<span class="mdi mdi-close close-icon unselected-module"></span>
 		<% } %>

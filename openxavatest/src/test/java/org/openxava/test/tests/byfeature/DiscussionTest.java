@@ -40,7 +40,7 @@ public class DiscussionTest extends WebDriverTestBase {
 		assertTrue(cancelCommentButton.isDisplayed());		
 		 
 		cancelCommentButton.click();
-		Thread.sleep(200); 
+		Thread.sleep(400); 
 		assertTrue(createButton.isDisplayed());
 		assertFalse(cancelCommentButton.isDisplayed());		
 	}	
