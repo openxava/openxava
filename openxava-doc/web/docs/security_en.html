@@ -174,6 +174,7 @@
       Disabling list customization by roles is only available in <a href="http://www.openxava.org/xavapro">XavaPro</a>.
       <h2 id="toc4"><a name="Security and user management-User and password policies"></a>User
         and password policies</h2>
+      <h3>Configuration module settings</h3>
       There are a lot of options available for user management and password
       policies. In the <em>Admin</em> folder you'll find a <em>Configuration</em>
       module:<br>
@@ -192,7 +193,21 @@
       session started from another machine or browser, that session would be
       cancelled, forcing that a same user could only be identified once at the
       same time.</div>
-    <div class="wiki" style="display: block;"> These policies for users and
+    <div class="wiki" style="display: block;">
+      <h3>Password configuration in naviox.properties</h3>
+      In addition to the runtime configuration available in the <em>Configuration</em> module, 
+      you can also set basic password security options directly in the <i>naviox.properties</i> file:
+      <pre><code class="properties"># Password setting
+encryptPassword=true
+storePasswordAsHex=true
+initialPasswordForAdmin=admin</code></pre>
+      <ul>
+        <li><strong>encryptPassword</strong>: When set to true, passwords are stored encrypted in the database. Default is true.</li>
+        <li><strong>storePasswordAsHex</strong>: When set to true, encrypted passwords are stored in hexadecimal format. Default is true.</li>
+        <li><strong>initialPasswordForAdmin</strong>: Defines the initial password for the admin user when the application is first executed or when new organizations are created. Default is "admin".</li>
+      </ul>
+      <br>
+      These policies for users and
       passwords are only available in <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
       <h2 id="toc5"><a name="Security and user management-LDAP"></a>LDAP</h2>
       <a href="http://www.openxava.org/xavapro">XavaPro</a> allows users to be authenticated via LDAP. Starting from version 7.5, LDAP configuration is managed through the Admin module, where you can configure multiple LDAP servers and manage them per organization.

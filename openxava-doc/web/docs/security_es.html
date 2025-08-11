@@ -182,6 +182,7 @@
       en <a href="http://www.openxava.org/xavapro">XavaPro</a>.
       <h2 id="toc4"><a name="Seguridad+y+gestion+de+usuarios-Politicas+para+usuarios+y+contrasenas"></a>Políticas
         para usuarios y contraseñas</h2>
+      <h3>Configuración mediante el módulo de Configuración</h3>
       Hay un montón de opciones para configurar las políticas de gestión de
       usuarios y contraseñas. En la carpeta <em>Admin</em> encontrarás un
       módulo <em>Configuración</em>:<br>
@@ -199,7 +200,21 @@
       nombre de usuario si ese usuario tenía una sesión iniciada desde otra
       máquina o navegador, esa sesión se cancelara, forzando que un mismo
       usuario sólo pudiera estar identificado una vez al mismo tiempo.</div>
-    <div class="wiki" style="display: block;"><i> </i>Estas políticas para
+    <div class="wiki" style="display: block;">
+      <h3>Configuración de contraseñas en naviox.properties</h3>
+      Además de la configuración en tiempo de ejecución disponible en el módulo <em>Configuración</em>, 
+      también puedes establecer opciones básicas de seguridad de contraseñas directamente en el archivo <i>naviox.properties</i>:
+      <pre><code class="properties"># Configuración de contraseña
+encryptPassword=true
+storePasswordAsHex=true
+initialPasswordForAdmin=admin</code></pre>
+      <ul>
+        <li><strong>encryptPassword</strong>: Cuando se establece en true, las contraseñas se almacenan cifradas en la base de datos. El valor predeterminado es true.</li>
+        <li><strong>storePasswordAsHex</strong>: Cuando se establece en true, las contraseñas cifradas se almacenan en formato hexadecimal. El valor predeterminado es true.</li>
+        <li><strong>initialPasswordForAdmin</strong>: Define la contraseña inicial para el usuario administrador cuando la aplicación se ejecuta por primera vez o cuando se crean nuevas organizaciones. El valor predeterminado es "admin".</li>
+      </ul>
+      <br>
+      Estas políticas para
       usuarios y contraseñas sólo están disponible en <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
       <h2 id="toc5"><a name="Seguridad+y+gestion+de+usuarios-LDAP"></a>LDAP</h2>
       <a href="http://www.openxava.org/xavapro">XavaPro</a> permite a los
