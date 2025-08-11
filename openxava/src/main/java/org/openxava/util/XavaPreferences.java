@@ -223,6 +223,20 @@ public class XavaPreferences {
 				"i18nWarnings", "false").trim());
 	}
 
+	/**
+	 * Languages available for the UI, ignoring country/region.
+	 * <p>
+	 * Reads the comma-separated value from <code>availableLanguages</code> in
+	 * xava.properties, for example: <code>availableLanguages=es, ca</code>.
+	 * Empty or missing means: all languages allowed (backward compatible).
+	 * Parsing/normalization is responsibility of caller classes.
+	 *
+	 * @since 7.6
+	 */
+	public String getAvailableLanguages() {
+		return getProperties().getProperty("availableLanguages", "").trim();
+	}
+
 	public boolean isDuplicateComponentWarnings() {
 		if (!duplicateComponentWarningsLoaded) {
 			duplicateComponentWarnings = "true"
