@@ -37,20 +37,59 @@ openxava.addEditorInitFunction(function() {
 	$(".xava_select").each(function() { 
 		$(this).autocomplete({
 			minLength: 0,
+			// Configurar scroll infinito
+			open: function() {
+				var input = $(this);
+				var menu = input.autocomplete("widget");
+				
+				// Eliminar handler anterior si existe
+				menu.off("scroll.infiniteScroll");
+				
+				// Añadir handler de scroll
+				menu.on("scroll.infiniteScroll", function() {
+					// Comprobar si estamos cerca del final
+					var scrollHeight = menu.prop("scrollHeight");
+					var scrollTop = menu.scrollTop();
+					var menuHeight = menu.height();
+					var triggerPoint = scrollHeight - menuHeight - 50; // 50px antes del final
+					
+					// Si estamos cerca del final y hay más elementos, cargar más
+					if (scrollTop >= triggerPoint && input.data("hasMoreItems") && !input.data("loadingMore")) {
+						console.log("Scroll infinito: cargando más elementos...");
+						
+						// Marcar como cargando para evitar múltiples cargas
+						input.data("loadingMore", true);
+						
+						// Guardar el valor actual del input
+						var currentValue = input.val();
+						
+						// Forzar una nueva búsqueda con el mismo término
+						setTimeout(function() {
+							// Restaurar el valor original para evitar filtrado por elemento seleccionado
+							input.val(input.data("lastTerm") || "");
+							
+							// Mantener el menú abierto
+							var wasOpen = input.autocomplete("widget").is(":visible");
+							
+							// Realizar la búsqueda
+							input.autocomplete("search", input.data("lastTerm") || "");
+							
+							// Asegurar que el menú permanece abierto
+							if (wasOpen) {
+								input.autocomplete("widget").show();
+							}
+							
+							// Restaurar la posición de scroll
+							var menu = input.autocomplete("widget");
+							var scrollHeight = menu.prop("scrollHeight");
+							var menuHeight = menu.height();
+							menu.scrollTop(scrollHeight - menuHeight - 60); // Un poco más arriba del punto de activación
+						}, 50);
+					}
+				});
+			},
 			select: function(event, ui) {
 				var input = $(this);
-				
-				// Si es el botón "Cargar más", cargar más resultados
-				if (ui.item.loadMore) {
-					// Evitar cerrar el dropdown
-					setTimeout(function() {
-						// Restaurar el valor original
-						input.val(input.data("lastTerm") || "");
-						// Forzar una nueva búsqueda con el mismo término
-						input.autocomplete("search", input.val());
-					}, 50);
-					return false;
-				}
 				
 				// Comportamiento normal para elementos regulares
 				var hidden = input.next();
@@ -216,14 +255,15 @@ openxava.addEditorInitFunction(function() {
 									$(input).data("allItems", allItems);
 								}
 								
-								// Añadir botón "Cargar más" si hay más elementos
+								// Guardar si hay más elementos disponibles
 								if (items.length >= limit) {
-									allItems.push({
-										label: "--- Cargar más resultados ---",
-										value: "__load_more__",
-										loadMore: true
-									});
+									$(input).data("hasMoreItems", true);
+								} else {
+									$(input).data("hasMoreItems", false);
 								}
+								
+								// Restablecer flag de carga
+								$(input).data("loadingMore", false);
 								
 								console.log("items procesados:", items.length, "total acumulado:", allItems.length);
 								response(allItems);
