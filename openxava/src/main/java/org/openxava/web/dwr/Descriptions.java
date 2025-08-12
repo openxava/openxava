@@ -22,7 +22,7 @@ import org.openxava.formatters.IFormatter;
 import org.openxava.mapping.PropertyMapping;
 import org.openxava.model.meta.MetaProperty;
 import org.openxava.util.Is;
-import org.openxava.util.XavaException;
+// import eliminado
 import org.openxava.util.XavaResources;
 import org.openxava.view.View;
 import org.openxava.web.Ids;
@@ -196,18 +196,31 @@ public class Descriptions extends DWRBase {
 
             int count = 0;
             java.util.Iterator it = descriptions.iterator();
+            
+            // Crear array de objetos simples {label, value} para jQuery UI
+            List<Map<String, String>> simpleItems = new ArrayList<>();
+            
             while (it.hasNext()) {
                 KeyAndDescription kd = (KeyAndDescription) it.next();
                 String label = formatter == null ? String.valueOf(kd.getDescription()) : formatter.format(request, kd.getDescription());
                 if (qt.isEmpty() || normalize(label).contains(qt)) {
                     Map<String, String> item = new HashMap<>(2);
-                    item.put("label", label);
-                    item.put("value", String.valueOf(kd.getKey()));
-                    out.add(item);
+                    item.put("label", label); // Descripción visible
+                    item.put("value", String.valueOf(kd.getKey())); // Valor para el hidden input
+                    simpleItems.add(item);
                     count++;
                     if (count >= max) break;
                 }
             }
+            
+            // Asignar al resultado final
+            out = simpleItems;
+            
+            if (log.isDebugEnabled()) {
+                log.debug("Descriptions.getSuggestions returning " + out.size() + " filtered items");
+            }
+            
+            return out;
         }
         catch (Exception ex) {
             log.warn("Error getting descriptions suggestions", ex);

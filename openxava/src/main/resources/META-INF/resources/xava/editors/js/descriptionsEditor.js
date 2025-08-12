@@ -1,6 +1,36 @@
 if (descriptionsEditor == null) var descriptionsEditor = {};
 
-openxava.getScript(openxava.contextPath + "/dwr/interface/Descriptions.js"); 
+// Cargar script DWR de manera más robusta
+var dwrScriptLoaded = false;
+var dwrScriptAttempts = 0;
+var MAX_DWR_ATTEMPTS = 3;
+
+function loadDwrScript() {
+    if (typeof Descriptions !== 'undefined') {
+        dwrScriptLoaded = true;
+        return;
+    }
+    
+    if (dwrScriptAttempts >= MAX_DWR_ATTEMPTS) {
+        console.warn("No se pudo cargar el script DWR después de " + MAX_DWR_ATTEMPTS + " intentos");
+        return;
+    }
+    
+    dwrScriptAttempts++;
+    var script = document.createElement('script');
+    script.src = openxava.contextPath + "/dwr/interface/Descriptions.js";
+    script.onload = function() { 
+        dwrScriptLoaded = true; 
+        console.log("Script DWR cargado correctamente");
+    };
+    script.onerror = function() {
+        console.error("Error al cargar el script DWR");
+        setTimeout(loadDwrScript, 1000); // Reintentar en 1 segundo
+    };
+    document.head.appendChild(script);
+}
+
+loadDwrScript();
 
 openxava.addEditorInitFunction(function() {
 	
@@ -62,6 +92,14 @@ openxava.addEditorInitFunction(function() {
 					var keyProperties = $(input).data("keyproperties") || "";
 					var descriptionProperty = $(input).data("descriptionproperty") || "";
 					var descriptionProperties = $(input).data("descriptionproperties") || "";
+					
+					// Verificar si DWR está disponible
+					if (typeof Descriptions === 'undefined' || !Descriptions.getSuggestions) {
+						console.warn("DWR Descriptions no disponible, usando lista vacía");
+						response([]);
+						return;
+					}
+					
 					Descriptions.getSuggestions(
 						openxava.lastApplication, openxava.lastModule,
 						propertyKey, viewObject,
@@ -71,23 +109,82 @@ openxava.addEditorInitFunction(function() {
 						parameterValuesProperties, parameterValuesStereotypes,
 						model, keyProperty, keyProperties,
 						descriptionProperty, descriptionProperties,
-						function(items) { 
-							if (window.DEBUG_DESCRIPTIONS) {
-								console.log('Descriptions.getSuggestions response for', {
-									term: request.term,
-									model: model, keyProperty: keyProperty, keyProperties: keyProperties,
-									descriptionProperty: descriptionProperty, descriptionProperties: descriptionProperties,
-									condition: condition, orderByKey: orderByKey, order: order, limit: limit
-								});
-							}
+							function(items) { 
+								// Activar depuración para ver la respuesta
+								window.DEBUG_DESCRIPTIONS = true;
+								
+								// Mostrar la respuesta exacta que llega
+								console.log('DWR response raw:', items);
+								console.log('DWR response type:', typeof items);
+								if (typeof items === 'string') {
+									console.log('DWR response string length:', items.length);
+									console.log('DWR response string first 100 chars:', items.substring(0, 100));
+								}
+								
+								if (window.DEBUG_DESCRIPTIONS) {
+									console.log('Descriptions.getSuggestions response for', {
+										term: request.term,
+										model: model, keyProperty: keyProperty, keyProperties: keyProperties,
+										descriptionProperty: descriptionProperty, descriptionProperties: descriptionProperties,
+										condition: condition, orderByKey: orderByKey, order: order, limit: limit
+									});
+								}
 							try {
+								// Si es un string (posible JSON), intentar parsearlo
+								if (typeof items === 'string') {
+									try { 
+										// Corregir formato de JSON si tiene comillas simples en lugar de dobles
+										var fixedJson = items
+											.replace(/([{,])\s*([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+											.replace(/:\s*'([^']*)'\s*([,}])/g, ':"$1"$2')
+											.replace(/:\s*"([^"]*)"\s*([,}])/g, ':"$1"$2');
+										console.log('Intentando parsear JSON corregido:', fixedJson.substring(0, 100) + '...');
+										items = JSON.parse(fixedJson);
+										console.log('JSON parseado correctamente');
+									} catch(e) { 
+										console.error('Error parseando JSON:', e);
+										// Intento alternativo: parseo manual
+										try {
+											console.log('Intentando extraer datos manualmente');
+											// Extraer pares label/value manualmente con regex
+											var results = [];
+											var regex = /\{\s*value\s*:\s*"([^"]+)"\s*,\s*label\s*:\s*"([^"]+)"\s*\}/g;
+											var match;
+											while ((match = regex.exec(items)) !== null) {
+												results.push({
+													value: match[1],
+													label: match[2]
+												});
+											}
+											console.log('Extracción manual exitosa, encontrados:', results.length);
+											items = results;
+										} catch(e2) {
+											console.error('Extracción manual fallida:', e2);
+											items = []; // Último recurso: lista vacía
+										}
+									}
+								}
+								
+								// Si no es array, intentar convertirlo
 								if (!$.isArray(items)) {
-									try { items = Array.prototype.slice.call(items); }
+									try { 
+										items = Array.prototype.slice.call(items); 
+									}
 									catch(e) { items = []; }
 								}
-								if (window.DEBUG_DESCRIPTIONS) console.log('items length', items.length, items[0]);
+								
+								// Si los items no tienen la estructura correcta {label,value}, crear array vacío
+								if (items.length > 0 && (typeof items[0] !== 'object' || !items[0].label)) {
+									console.warn('Formato incorrecto de items en Descriptions.getSuggestions');
+									items = [];
+								}
+								
+								if (window.DEBUG_DESCRIPTIONS) console.log('items procesados:', items.length, items[0]);
 								response(items);
-							} catch(e) { response([]); }
+							} catch(e) { 
+								console.error('Error en procesamiento de respuesta DWR', e);
+								response([]); 
+							}
 						}
 					);
 				}
