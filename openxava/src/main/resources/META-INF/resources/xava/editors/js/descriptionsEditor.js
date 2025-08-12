@@ -37,12 +37,28 @@ openxava.addEditorInitFunction(function() {
 	$(".xava_select").each(function() { 
 		$(this).autocomplete({
 			minLength: 0,
-			select: function( event, ui ) {
-				$(event.target).val(ui.item.label);
-				$(event.target).next().val(ui.item.value);
-				$(event.target).next().next().val(ui.item.label);
-				event.preventDefault();
-				descriptionsEditor.executeOnChange($(event.target));
+			select: function(event, ui) {
+				var input = $(this);
+				
+				// Si es el botón "Cargar más", cargar más resultados
+				if (ui.item.loadMore) {
+					// Evitar cerrar el dropdown
+					setTimeout(function() {
+						// Restaurar el valor original
+						input.val(input.data("lastTerm") || "");
+						// Forzar una nueva búsqueda con el mismo término
+						input.autocomplete("search", input.val());
+					}, 50);
+					return false;
+				}
+				
+				// Comportamiento normal para elementos regulares
+				var hidden = input.next();
+				hidden.val(ui.item.value);
+				input.val(ui.item.label);
+				input.data("changed", "true");
+				input.change();
+				return false;
 			},
 			focus: function( event, ui ) {
 				$(event.target).val(ui.item.label);
@@ -79,8 +95,9 @@ openxava.addEditorInitFunction(function() {
 				if (isRemote) {
 					var propertyKey = $(input).next().attr("id");
 					var viewObject = $(input).data("view-object") || "xava_view";
-					var limit = $(input).data("limit") || 30;
-					var condition = $(input).data("condition") || $(input).data("condicion") || "";
+					var limit = 30; // Máximo de elementos a mostrar por página
+					var offset = 0; // Offset inicial para paginación
+					var condition = $(input).data("condition") || "";
 					var orderByKey = $(input).data("orderbykey") || $(input).data("ordenadoporclave") || "";
 					var order = $(input).data("order") || $(input).data("orden") || "";
 					var filter = $(input).data("filter") || $(input).data("filtro") || "";
@@ -92,6 +109,16 @@ openxava.addEditorInitFunction(function() {
 					var keyProperties = $(input).data("keyproperties") || "";
 					var descriptionProperty = $(input).data("descriptionproperty") || "";
 					var descriptionProperties = $(input).data("descriptionproperties") || "";
+					
+					// Reiniciar offset si es una nueva búsqueda
+					if (request.term !== $(input).data("lastTerm")) {
+						offset = 0;
+						$(input).data("lastTerm", request.term);
+						$(input).data("allItems", []);
+					} else {
+						// Si es continuación de búsqueda anterior, usar offset
+						offset = $(input).data("allItems") ? $(input).data("allItems").length : 0;
+					}
 					
 					// Verificar si DWR está disponible
 					if (typeof Descriptions === 'undefined' || !Descriptions.getSuggestions) {
@@ -109,6 +136,7 @@ openxava.addEditorInitFunction(function() {
 						parameterValuesProperties, parameterValuesStereotypes,
 						model, keyProperty, keyProperties,
 						descriptionProperty, descriptionProperties,
+						offset, // Nuevo parámetro para paginación
 							function(items) { 
 								// Activar depuración para ver la respuesta
 								window.DEBUG_DESCRIPTIONS = true;
@@ -173,14 +201,32 @@ openxava.addEditorInitFunction(function() {
 									catch(e) { items = []; }
 								}
 								
-								// Si los items no tienen la estructura correcta {label,value}, crear array vacío
-								if (items.length > 0 && (typeof items[0] !== 'object' || !items[0].label)) {
-									console.warn('Formato incorrecto de items en Descriptions.getSuggestions');
+								// Verificar que items sea un array
+								if (!$.isArray(items)) {
+									console.error("Formato incorrecto de items en Descriptions.getSuggestions");
 									items = [];
 								}
 								
-								if (window.DEBUG_DESCRIPTIONS) console.log('items procesados:', items.length, items[0]);
-								response(items);
+								// Acumular items para paginación
+								var allItems = $(input).data("allItems") || [];
+								
+								// Añadir nuevos items a la lista acumulada
+								if (items.length > 0) {
+									allItems = allItems.concat(items);
+									$(input).data("allItems", allItems);
+								}
+								
+								// Añadir botón "Cargar más" si hay más elementos
+								if (items.length >= limit) {
+									allItems.push({
+										label: "--- Cargar más resultados ---",
+										value: "__load_more__",
+										loadMore: true
+									});
+								}
+								
+								console.log("items procesados:", items.length, "total acumulado:", allItems.length);
+								response(allItems);
 							} catch(e) { 
 								console.error('Error en procesamiento de respuesta DWR', e);
 								response([]); 

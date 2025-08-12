@@ -49,7 +49,8 @@ public class Descriptions extends DWRBase {
             String filterClass, String descriptionsFormatterClass,
             String parameterValuesProperties, String parameterValuesStereotypes,
             String model, String keyProperty, String keyProperties,
-            String descriptionProperty, String descriptionProperties
+            String descriptionProperty, String descriptionProperties,
+            int offset // Nuevo parámetro para paginación
     ) {
         List<Map<String, String>> out = new ArrayList<>();
         try {
@@ -195,18 +196,27 @@ public class Descriptions extends DWRBase {
             }
 
             int count = 0;
+            int skipped = 0;
             java.util.Iterator it = descriptions.iterator();
             
             // Crear array de objetos simples {label, value} para jQuery UI
             List<Map<String, String>> simpleItems = new ArrayList<>();
             
+            // Filtrar y aplicar paginación
             while (it.hasNext()) {
                 KeyAndDescription kd = (KeyAndDescription) it.next();
                 String label = formatter == null ? String.valueOf(kd.getDescription()) : formatter.format(request, kd.getDescription());
                 if (qt.isEmpty() || normalize(label).contains(qt)) {
+                    // Aplicar offset (saltar elementos según paginación)
+                    if (skipped < offset) {
+                        skipped++;
+                        continue;
+                    }
+                    
                     Map<String, String> item = new HashMap<>(2);
                     item.put("label", label); // Descripción visible
                     item.put("value", String.valueOf(kd.getKey())); // Valor para el hidden input
+                    item.put("position", String.valueOf(skipped + count)); // Posición para referencia
                     simpleItems.add(item);
                     count++;
                     if (count >= max) break;
