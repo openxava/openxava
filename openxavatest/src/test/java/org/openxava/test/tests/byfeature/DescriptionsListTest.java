@@ -19,12 +19,23 @@ public class DescriptionsListTest extends WebDriverTestBase {
 	public DescriptionsListTest(String testName) {
 		super(testName);
 	}
+	
+	@Override
+	protected boolean isHeadless() { // tmr
+		return false; 
+	}
+	
+	@Override
+	protected void tearDown() throws Exception { // tmr
+	}
 
 	protected void setUp() throws Exception {
 		super.setUp();
 		XPersistence.reset(); 
 		XPersistence.setPersistenceUnit("junit");
 	}
+	
+	// TMR ME QUEDÉ POR AQUÍ PARA AÑADIR EL TEST. TAMBIÉN DEBERÍA REFINAR EL CÓDIGO JS
 	
 	public void testDropDownWhenValuesHasBackSlash() throws Exception {
 		goModule("Carrier");

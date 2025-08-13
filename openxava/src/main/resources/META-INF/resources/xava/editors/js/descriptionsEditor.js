@@ -89,6 +89,8 @@ openxava.addEditorInitFunction(function() {
 				});
 			},
 			select: function(event, ui) {
+				console.log("[descriptionsEditor.js::select] "); // tmr
+				/* tmr Creado por Claude, no funciona bien
 				var input = $(this);
 				
 				// Comportamiento normal para elementos regulares
@@ -98,12 +100,22 @@ openxava.addEditorInitFunction(function() {
 				input.data("changed", "true");
 				input.change();
 				return false;
+				*/
+				
+				// tmr ini Original
+				$(event.target).val(ui.item.label);
+				$(event.target).next().val(ui.item.value);
+				$(event.target).next().next().val(ui.item.label);
+				event.preventDefault();
+				descriptionsEditor.executeOnChange($(event.target));
+				// tmr fin
 			},
 			focus: function( event, ui ) {
 				$(event.target).val(ui.item.label);
 				event.preventDefault();
 			},			
 			change: function( event, ui ) {
+				console.log("[descriptionsEditor.js::change] "); // tmr
 				if ($(event.target).val() === "" && $(event.target).next().val() !== "") {  
 					$(event.target).next().val("");
 					$(event.target).next().next().val("");
@@ -120,13 +132,16 @@ openxava.addEditorInitFunction(function() {
 				$(event.target).next().next().next().next().show();
 			},
 			close: function( event, ui ) {
+				console.log("[descriptionsEditor.js::close] "); // tmr
 				$(event.target).next().next().next().next().hide();
-				$(event.target).next().next().next().show();	
+				$(event.target).next().next().next().show();
+				console.log("[descriptionsEditor.js::close] $(event.target).val()=" + $(event.target).val()); // tmr
+				console.log("[descriptionsEditor.js::close] $(event.target).next().next().val()=" + $(event.target).next().next().val()); // tmr
 				if ($(event.target).val() !== $(event.target).next().next().val()) {
 					// To work clicking outside combo after mouse hover in plain view and dialog
 					if ($(event.target).val() === "") $(event.target).val("");
 					else $(event.target).val($(event.target).next().next().val()); 
-				}				
+				}		
 			},
 			source: function( request, response ) {
 				var input = $(this)[0]["element"];
@@ -313,6 +328,7 @@ descriptionsEditor.executeOnChange = function(element) {
 	$(element).parent().trigger("change"); 
 }
 
+/* tmr original
 descriptionsEditor.removeAccents = function(str) { 
 	return str.toLowerCase()
 		.replace(/[áàâä]/,"a")
@@ -321,6 +337,13 @@ descriptionsEditor.removeAccents = function(str) {
 		.replace(/[óòôö]/,"o")
 		.replace(/[úùûü]/,"u");	
 }
+*/
+
+/* tmr Propuesta por ChatGPT */
+descriptionsEditor.removeAccents = function(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
 
 descriptionsEditor.is = function(input) {
 	return input.prev().hasClass('ui-autocomplete-input');
