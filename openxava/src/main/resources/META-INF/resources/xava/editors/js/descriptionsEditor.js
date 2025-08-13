@@ -1,11 +1,13 @@
 if (descriptionsEditor == null) var descriptionsEditor = {};
 
+// tmr Quitar todos los console.og
+
 // Cargar script DWR de manera más robusta
 var dwrScriptLoaded = false;
 var dwrScriptAttempts = 0;
 var MAX_DWR_ATTEMPTS = 3;
 
-function loadDwrScript() {
+function loadDwrScript() { // tmr Eliminar. Reñir a la IA por esta aberración
     if (typeof Descriptions !== 'undefined') {
         dwrScriptLoaded = true;
         return;
@@ -144,9 +146,10 @@ openxava.addEditorInitFunction(function() {
 				}		
 			},
 			source: function( request, response ) {
+				
 				var input = $(this)[0]["element"];
 				var isRemote = $(input).data("remote") === true || $(input).data("remote") === "true";
-				if (isRemote) {
+				if (isRemote) { // tmr ¿Siempre remoto?
 					var propertyKey = $(input).next().attr("id");
 					var viewObject = $(input).data("view-object") || "xava_view";
 					var limit = 30; // Máximo de elementos a mostrar por página
@@ -163,6 +166,8 @@ openxava.addEditorInitFunction(function() {
 					var keyProperties = $(input).data("keyproperties") || "";
 					var descriptionProperty = $(input).data("descriptionproperty") || "";
 					var descriptionProperties = $(input).data("descriptionproperties") || "";
+
+					// tmr Simplificar el código. No tan defensivo
 					
 					// Reiniciar offset si es una nueva búsqueda
 					if (request.term !== $(input).data("lastTerm")) {
@@ -181,7 +186,7 @@ openxava.addEditorInitFunction(function() {
 						return;
 					}
 					
-					Descriptions.getSuggestions(
+					Descriptions.getSuggestions( // tmr ¿Son necesarios todos los parámetros?
 						openxava.lastApplication, openxava.lastModule,
 						propertyKey, viewObject,
 						request.term, limit,

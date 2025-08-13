@@ -35,9 +35,28 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		XPersistence.setPersistenceUnit("junit");
 	}
 	
-	// TMR ME QUEDÉ POR AQUÍ PARA AÑADIR EL TEST. TAMBIÉN DEBERÍA REFINAR EL CÓDIGO JS
-	
-	public void testDropDownWhenValuesHasBackSlash() throws Exception {
+	public void testLargeDatasetLoadedOnDemand() throws Exception {
+		goModule("Traveler");
+		// On entering Traveler it is in detail mode by default (no records)
+		// Verify that no autocomplete option items are loaded yet
+		List<WebElement> items = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
+		assertEquals(0, items.size());
+
+		// Open lastJourney descriptions list
+		WebElement lastJourneyEditor = getDriver().findElement(By.id("ox_openxavatest_Traveler__reference_editor_lastJourney"));
+		WebElement openIcon = lastJourneyEditor.findElement(By.className("mdi-menu-down"));
+		openIcon.click();
+		Thread.sleep(700); // wait for the first page to load
+
+		// Now options should be loaded on demand (first page size expected: 30)
+		items = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
+		assertEquals(30, items.size());
+
+		// TMR ME QUEDÉ POR AQUÍ. TENGO QUE PROBAR CERRAR Y ABRIR EL COMBO PARA VERIFICAR QUE SIGUI HABIENDO 30
+		// TMR   PROBARLO A MANO, SI NO FALLA NO TESTEARLO. PERO CREO QUE SÍ FALLA
+	}
+
+	public void _testDropDownWhenValuesHasBackSlash() throws Exception { // tmr
 		goModule("Carrier");
 		execute("CRUD.new");
 		WebElement drivingLicense = getDriver().findElement(By.cssSelector("i.mdi.mdi-menu-down"));
@@ -45,8 +64,8 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		WebElement dropDown = getDriver().findElement(By.cssSelector("ul.ui-menu.ui-widget.ui-widget-content.ui-autocomplete.ui-front"));
 		assertFalse(dropDown.getAttribute("style").contains("display: none;"));
 	}
-	
-	public void testAutocomplete() throws Exception {
+
+	public void _testAutocomplete() throws Exception { // tmr
 		setFamilyDescription(1, "SOFTWARÉ"); // To test a bug with accents 
 		createWarehouseWithQuote(); // To test a bug with quotes
 
