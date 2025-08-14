@@ -26,6 +26,41 @@ public class Journey {
 		
 	@Column(length=40)
 	private String description;
+
+	// Static counter for slowName calls; resets if idle > 2s
+	private static int slowNameCount = 0; // tmr
+	private static long slowNameLastTsMs = 0L; // tmr
+
+	public String getSlowName() { // tmr Debería hacer un @Tab que no lo incluya, para no afectar lo demás
+		long now = System.currentTimeMillis();
+		if (now - slowNameLastTsMs > 2000) { // reset if idle > 2s
+			slowNameCount = 0;
+		}
+		slowNameLastTsMs = now;
+		int current = ++slowNameCount;
+		System.out.println("getSlowName() called - count=" + current); // tmr Quitar
+		// If the second token in name is a number > 100, throw a runtime exception
+		/* tmr 
+		if (name != null) {
+			String[] parts = name.trim().split("\\s+");
+			if (parts.length >= 2) {
+				try {
+					int n = Integer.parseInt(parts[1]);
+					if (n > 100) {
+						Thread.sleep(100);
+					}
+				}
+				catch (NumberFormatException ignore) {
+					// Not a number, ignore
+				} 
+				catch (InterruptedException e) {
+				}
+			}
+		}
+		*/
+		return name;
+	}
+
 	
 	@PrePersist
 	private void generateOid() { 
@@ -63,5 +98,5 @@ public class Journey {
 	public void setAverageSpeed(AverageSpeed averageSpeed) {
 		this.averageSpeed = averageSpeed;
 	}
-	
+		
 }

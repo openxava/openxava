@@ -22,7 +22,6 @@ import org.openxava.formatters.IFormatter;
 import org.openxava.mapping.PropertyMapping;
 import org.openxava.model.meta.MetaProperty;
 import org.openxava.util.Is;
-// import eliminado
 import org.openxava.util.XavaResources;
 import org.openxava.view.View;
 import org.openxava.web.Ids;
@@ -50,7 +49,7 @@ public class Descriptions extends DWRBase {
             String parameterValuesProperties, String parameterValuesStereotypes,
             String model, String keyProperty, String keyProperties,
             String descriptionProperty, String descriptionProperties,
-            int offset // Nuevo parámetro para paginación
+            int offset // Pagination offset (new parameter)
     ) {
         List<Map<String, String>> out = new ArrayList<>();
         try {
@@ -199,31 +198,31 @@ public class Descriptions extends DWRBase {
             int skipped = 0;
             java.util.Iterator it = descriptions.iterator();
             
-            // Crear array de objetos simples {label, value} para jQuery UI
+            // Create simple {label, value} objects for jQuery UI
             List<Map<String, String>> simpleItems = new ArrayList<>();
             
-            // Filtrar y aplicar paginación
+            // Filter and apply pagination
             while (it.hasNext()) {
                 KeyAndDescription kd = (KeyAndDescription) it.next();
                 String label = formatter == null ? String.valueOf(kd.getDescription()) : formatter.format(request, kd.getDescription());
                 if (qt.isEmpty() || normalize(label).contains(qt)) {
-                    // Aplicar offset (saltar elementos según paginación)
+                    // Apply offset (skip items according to pagination)
                     if (skipped < offset) {
                         skipped++;
                         continue;
                     }
                     
                     Map<String, String> item = new HashMap<>(2);
-                    item.put("label", label); // Descripción visible
-                    item.put("value", String.valueOf(kd.getKey())); // Valor para el hidden input
-                    item.put("position", String.valueOf(skipped + count)); // Posición para referencia
+                    item.put("label", label); // Visible description
+                    item.put("value", String.valueOf(kd.getKey())); // Value for the hidden input
+                    item.put("position", String.valueOf(skipped + count)); // Position for reference
                     simpleItems.add(item);
                     count++;
                     if (count >= max) break;
                 }
             }
             
-            // Asignar al resultado final
+            // Assign to the final result
             out = simpleItems;
             
             if (log.isDebugEnabled()) {

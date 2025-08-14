@@ -19,17 +19,17 @@ String viewObject = request.getParameter("viewObject");
 viewObject = (viewObject == null || viewObject.equals(""))?"xava_view":viewObject;
 org.openxava.view.View view = (org.openxava.view.View) context.get(request, viewObject);
 String propertyKey = request.getParameter("propertyKey");
-//modelForId is for have a different cache for each condition
+// modelForId is to have a different cache per model
 String modelForId = "." + view.getModelName(); 
-// conditionForId is for have a different cache for each condition
+// conditionForId is to have a different cache per condition
 String conditionForId = request.getParameter("condition");
 if (Is.emptyString(conditionForId)) conditionForId = request.getParameter("condicion");
 conditionForId = Is.emptyString(conditionForId)?"":"." + conditionForId;
-// orderByKeyForId is for have a different cache for each orderByKey
+// orderByKeyForId is to have a different cache per orderByKey
 String orderByKeyForId = request.getParameter("orderByKey");
 if (Is.emptyString(orderByKeyForId)) orderByKeyForId = request.getParameter("ordenadoPorClave");
 orderByKeyForId = Is.emptyString(orderByKeyForId)?"":"." + orderByKeyForId;
-//orderForId is for have a different cache for each order
+// orderForId is to have a different cache per order
 String orderForId = request.getParameter("order");
 if (Is.emptyString(orderForId)) orderForId = request.getParameter("orden");
 orderForId = Is.emptyString(orderForId)?"":"." + orderForId;

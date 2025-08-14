@@ -1,6 +1,6 @@
 if (descriptionsEditor == null) var descriptionsEditor = {};
 
-// Cargar script DWR usando la utilidad estándar de OpenXava (como en discussionEditor.js)
+// Load DWR script using OpenXava helper (same approach as discussionEditor.js)
 openxava.getScript(openxava.contextPath + "/dwr/interface/Descriptions.js");
 
 openxava.addEditorInitFunction(function() {
@@ -8,85 +8,72 @@ openxava.addEditorInitFunction(function() {
 	$(".xava_select").each(function() { 
 		$(this).autocomplete({
 			minLength: 0,
-			// Configurar scroll infinito
+			// Configure infinite scroll
 			open: function() {
 				var input = $(this);
 				var menu = input.autocomplete("widget");
 				
-				// Eliminar handler anterior si existe
+				// Remove previous scroll handler if any
 				menu.off("scroll.infiniteScroll");
 				
-				// Añadir handler de scroll
+				// Add scroll handler
 				menu.on("scroll.infiniteScroll", function() {
-					// Comprobar si estamos cerca del final
+					// Check if we are near the bottom
 					var scrollHeight = menu.prop("scrollHeight");
 					var scrollTop = menu.scrollTop();
 					var menuHeight = menu.height();
-					var triggerPoint = scrollHeight - menuHeight - 50; // 50px antes del final
+					var triggerPoint = scrollHeight - menuHeight - 50; // 50px before the end
 					
-					// Si estamos cerca del final y hay más elementos, cargar más
+					// If near the end and more items are available, load more
 					if (scrollTop >= triggerPoint && input.data("hasMoreItems") && !input.data("loadingMore")) {
-						console.log("Scroll infinito: cargando más elementos...");
+						console.log("Infinite scroll: loading more items...");
 						
-						// Marcar como cargando para evitar múltiples cargas
+						// Mark as loading to avoid duplicate loads
 						input.data("loadingMore", true);
 						
-						// Guardar el valor actual del input
+						// Keep current input value
 						var currentValue = input.val();
 						
-						// Forzar una nueva búsqueda con el mismo término
+						// Trigger a new search with the same term
 						setTimeout(function() {
-							// Restaurar el valor original para evitar filtrado por elemento seleccionado
+							// Restore original value to avoid filtering by selected item
 							input.val(input.data("lastTerm") || "");
 							
-							// Mantener el menú abierto
+							// Keep the menu open
 							var wasOpen = input.autocomplete("widget").is(":visible");
 							
-							// Realizar la búsqueda
+							// Perform the search
 							input.autocomplete("search", input.data("lastTerm") || "");
 							
-							// Asegurar que el menú permanece abierto
+							// Ensure the menu remains open
 							if (wasOpen) {
 								input.autocomplete("widget").show();
 							}
 							
-							// Restaurar la posición de scroll
+							// Restore scroll position
 							var menu = input.autocomplete("widget");
 							var scrollHeight = menu.prop("scrollHeight");
 							var menuHeight = menu.height();
-							menu.scrollTop(scrollHeight - menuHeight - 60); // Un poco más arriba del punto de activación
+							menu.scrollTop(scrollHeight - menuHeight - 60); // Slightly above trigger point
 						}, 50);
 					}
 				});
 			},
 			select: function(event, ui) {
-				console.log("[descriptionsEditor.js::select] "); // tmr
-				/* tmr Creado por Claude, no funciona bien
-				var input = $(this);
-				
-				// Comportamiento normal para elementos regulares
-				var hidden = input.next();
-				hidden.val(ui.item.value);
-				input.val(ui.item.label);
-				input.data("changed", "true");
-				input.change();
-				return false;
-				*/
-				
-				// tmr ini Original
+				console.log("[descriptionsEditor.js::select]");			
+				// Original behavior
 				$(event.target).val(ui.item.label);
 				$(event.target).next().val(ui.item.value);
 				$(event.target).next().next().val(ui.item.label);
 				event.preventDefault();
 				descriptionsEditor.executeOnChange($(event.target));
-				// tmr fin
 			},
 			focus: function( event, ui ) {
 				$(event.target).val(ui.item.label);
 				event.preventDefault();
-			},			
+			},            
 			change: function( event, ui ) {
-				console.log("[descriptionsEditor.js::change] "); // tmr
+				console.log("[descriptionsEditor.js::change]");
 				if ($(event.target).val() === "" && $(event.target).next().val() !== "") {  
 					$(event.target).next().val("");
 					$(event.target).next().next().val("");
@@ -103,34 +90,34 @@ openxava.addEditorInitFunction(function() {
 				$(event.target).next().next().next().next().show();
 			},
 			close: function( event, ui ) {
-                console.log("[descriptionsEditor.js::close] "); // tmr
-                $(event.target).next().next().next().next().hide();
-                $(event.target).next().next().next().show();
-                console.log("[descriptionsEditor.js::close] $(event.target).val()=" + $(event.target).val()); // tmr
-                console.log("[descriptionsEditor.js::close] $(event.target).next().next().val()=" + $(event.target).next().next().val()); // tmr
-                if ($(event.target).val() !== $(event.target).next().next().val()) {
-                    // To work clicking outside combo after mouse hover in plain view and dialog
-                    if ($(event.target).val() === "") $(event.target).val("");
-                    else $(event.target).val($(event.target).next().next().val()); 
-                }
+				console.log("[descriptionsEditor.js::close]");
+				$(event.target).next().next().next().next().hide();
+				$(event.target).next().next().next().show();
+				console.log("[descriptionsEditor.js::close] value=" + $(event.target).val());
+				console.log("[descriptionsEditor.js::close] hidden description=" + $(event.target).next().next().val());
+				if ($(event.target).val() !== $(event.target).next().next().val()) {
+					// To work clicking outside combo after mouse hover in plain view and dialog
+					if ($(event.target).val() === "") $(event.target).val("");
+					else $(event.target).val($(event.target).next().next().val()); 
+				}
 
-                // Reset pagination state so reopening does not append more items
-                var $input = $(event.target);
-                $input.data("allItems", []);
-                $input.data("hasMoreItems", true);
-                $input.data("loadingMore", false);
-                // Keep lastTerm as-is to preserve UX; alternatively uncomment next line to force full reset
-                // $input.data("lastTerm", null);
-            },
+				// Reset pagination state so reopening does not append more items
+				var $input = $(event.target);
+				$input.data("allItems", []);
+				$input.data("hasMoreItems", true);
+				$input.data("loadingMore", false);
+				// Keep lastTerm as-is to preserve UX; alternatively uncomment next line to force full reset
+				// $input.data("lastTerm", null);
+			},
 			source: function( request, response ) {
 				
 				var input = $(this)[0]["element"];
 				var isRemote = $(input).data("remote") === true || $(input).data("remote") === "true";
-				if (isRemote) { // tmr ¿Siempre remoto?
+				if (isRemote) { // Possibly always remote in large datasets
 					var propertyKey = $(input).next().attr("id");
 					var viewObject = $(input).data("view-object") || "xava_view";
-					var limit = 30; // Máximo de elementos a mostrar por página
-					var offset = 0; // Offset inicial para paginación
+					var limit = 30; // Max items per page
+					var offset = 0; // Initial offset for pagination
 					var condition = $(input).data("condition") || "";
 					var orderByKey = $(input).data("orderbykey") || $(input).data("ordenadoporclave") || "";
 					var order = $(input).data("order") || $(input).data("orden") || "";
@@ -144,26 +131,26 @@ openxava.addEditorInitFunction(function() {
 					var descriptionProperty = $(input).data("descriptionproperty") || "";
 					var descriptionProperties = $(input).data("descriptionproperties") || "";
 
-					// tmr Simplificar el código. No tan defensivo
+					// TODO: Simplify code, reduce defensive branches
 					
-					// Reiniciar offset si es una nueva búsqueda
+					// Reset offset when term changes (new search)
 					if (request.term !== $(input).data("lastTerm")) {
 						offset = 0;
 						$(input).data("lastTerm", request.term);
 						$(input).data("allItems", []);
 					} else {
-						// Si es continuación de búsqueda anterior, usar offset
+						// Continue from previous accumulated items
 						offset = $(input).data("allItems") ? $(input).data("allItems").length : 0;
 					}
 					
-					// Verificar si DWR está disponible
+					// Check DWR availability
 					if (typeof Descriptions === 'undefined' || !Descriptions.getSuggestions) {
-						console.warn("DWR Descriptions no disponible, usando lista vacía");
+						console.warn("DWR Descriptions not available, using empty list");
 						response([]);
 						return;
 					}
 					
-					Descriptions.getSuggestions( // tmr ¿Son necesarios todos los parámetros?
+					Descriptions.getSuggestions( // TODO: Are all these parameters necessary?
 						openxava.lastApplication, openxava.lastModule,
 						propertyKey, viewObject,
 						request.term, limit,
@@ -172,12 +159,12 @@ openxava.addEditorInitFunction(function() {
 						parameterValuesProperties, parameterValuesStereotypes,
 						model, keyProperty, keyProperties,
 						descriptionProperty, descriptionProperties,
-						offset, // Nuevo parámetro para paginación
+						offset, // New pagination parameter
 							function(items) { 
-								// Activar depuración para ver la respuesta
+								// Enable debugging to inspect responses
 								window.DEBUG_DESCRIPTIONS = true;
 								
-								// Mostrar la respuesta exacta que llega
+								// Log raw response data
 								console.log('DWR response raw:', items);
 								console.log('DWR response type:', typeof items);
 								if (typeof items === 'string') {
@@ -194,23 +181,23 @@ openxava.addEditorInitFunction(function() {
 									});
 								}
 							try {
-								// Si es un string (posible JSON), intentar parsearlo
+								// If it is a string (possible JSON), try to parse it
 								if (typeof items === 'string') {
 									try { 
-										// Corregir formato de JSON si tiene comillas simples en lugar de dobles
+										// Fix JSON format if single quotes are used instead of double quotes
 										var fixedJson = items
 											.replace(/([{,])\s*([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
 											.replace(/:\s*'([^']*)'\s*([,}])/g, ':"$1"$2')
 											.replace(/:\s*"([^"]*)"\s*([,}])/g, ':"$1"$2');
-										console.log('Intentando parsear JSON corregido:', fixedJson.substring(0, 100) + '...');
+										console.log('Trying to parse fixed JSON:', fixedJson.substring(0, 100) + '...');
 										items = JSON.parse(fixedJson);
-										console.log('JSON parseado correctamente');
+										console.log('JSON parsed successfully');
 									} catch(e) { 
-										console.error('Error parseando JSON:', e);
-										// Intento alternativo: parseo manual
+										console.error('Error parsing JSON:', e);
+										// Fallback: manual extraction
 										try {
-											console.log('Intentando extraer datos manualmente');
-											// Extraer pares label/value manualmente con regex
+											console.log('Trying manual data extraction');
+											// Extract label/value pairs manually with regex
 											var results = [];
 											var regex = /\{\s*value\s*:\s*"([^"]+)"\s*,\s*label\s*:\s*"([^"]+)"\s*\}/g;
 											var match;
@@ -220,16 +207,16 @@ openxava.addEditorInitFunction(function() {
 													label: match[2]
 												});
 											}
-											console.log('Extracción manual exitosa, encontrados:', results.length);
+											console.log('Manual extraction succeeded, found:', results.length);
 											items = results;
 										} catch(e2) {
-											console.error('Extracción manual fallida:', e2);
-											items = []; // Último recurso: lista vacía
+											console.error('Manual extraction failed:', e2);
+											items = []; // Last resort: empty list
 										}
 									}
 								}
 								
-								// Si no es array, intentar convertirlo
+								// If not an array, try to convert
 								if (!$.isArray(items)) {
 									try { 
 										items = Array.prototype.slice.call(items); 
@@ -237,35 +224,35 @@ openxava.addEditorInitFunction(function() {
 									catch(e) { items = []; }
 								}
 								
-								// Verificar que items sea un array
+								// Ensure items is an array
 								if (!$.isArray(items)) {
-									console.error("Formato incorrecto de items en Descriptions.getSuggestions");
+									console.error("Incorrect items format from Descriptions.getSuggestions");
 									items = [];
 								}
 								
-								// Acumular items para paginación
+								// Accumulate items for pagination
 								var allItems = $(input).data("allItems") || [];
 								
-								// Añadir nuevos items a la lista acumulada
+								// Append new items to the accumulated list
 								if (items.length > 0) {
 									allItems = allItems.concat(items);
 									$(input).data("allItems", allItems);
 								}
 								
-								// Guardar si hay más elementos disponibles
+								// Set whether more items are available
 								if (items.length >= limit) {
 									$(input).data("hasMoreItems", true);
 								} else {
 									$(input).data("hasMoreItems", false);
 								}
 								
-								// Restablecer flag de carga
+								// Reset loading flag
 								$(input).data("loadingMore", false);
 								
-								console.log("items procesados:", items.length, "total acumulado:", allItems.length);
+								console.log("processed items:", items.length, "accumulated total:", allItems.length);
 								response(allItems);
 							} catch(e) { 
-								console.error('Error en procesamiento de respuesta DWR', e);
+								console.error('Error processing DWR response', e);
 								response([]); 
 							}
 						}
@@ -280,8 +267,8 @@ openxava.addEditorInitFunction(function() {
 				}
 			},
 			appendTo: "body"
-		}); 	
-		
+		}); 
+
 		$(this).attr("autocomplete", "nope");
 		
 		$('.xava_descriptions_editor_open').off('click').click(function() {
@@ -310,18 +297,18 @@ descriptionsEditor.executeOnChange = function(element) {
 	$(element).parent().trigger("change"); 
 }
 
-/* tmr original
+/* Original implementation kept for reference
 descriptionsEditor.removeAccents = function(str) { 
-	return str.toLowerCase()
-		.replace(/[áàâä]/,"a")
-		.replace(/[éèêë]/,"e")
-		.replace(/[íìîï]/,"i")
-		.replace(/[óòôö]/,"o")
-		.replace(/[úùûü]/,"u");	
+    return str.toLowerCase()
+        .replace(/[áàâä]/,"a")
+        .replace(/[éèêë]/,"e")
+        .replace(/[íìîï]/,"i")
+        .replace(/[óòôö]/,"o")
+        .replace(/[úùûü]/,"u"); 
 }
 */
 
-/* tmr Propuesta por ChatGPT */
+/* Alternative implementation */
 descriptionsEditor.removeAccents = function(str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }

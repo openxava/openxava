@@ -12,12 +12,13 @@ import lombok.*;
  * @author Javier Paniza
  */
 @Entity @Getter @Setter
+@Tab(defaultOrder = "name")
 public class Traveler extends Identifiable {
 
     @Column(length = 50) @Required
     String name;
 
-    @DescriptionsList(orderByKey = true)
+    @DescriptionsList(orderByKey = true, descriptionProperties = "slowName")
     @ManyToOne(fetch = FetchType.LAZY)
     Journey lastJourney;
 
