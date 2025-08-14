@@ -134,17 +134,25 @@ openxava.addEditorInitFunction(function() {
 				$(event.target).next().next().next().next().show();
 			},
 			close: function( event, ui ) {
-				console.log("[descriptionsEditor.js::close] "); // tmr
-				$(event.target).next().next().next().next().hide();
-				$(event.target).next().next().next().show();
-				console.log("[descriptionsEditor.js::close] $(event.target).val()=" + $(event.target).val()); // tmr
-				console.log("[descriptionsEditor.js::close] $(event.target).next().next().val()=" + $(event.target).next().next().val()); // tmr
-				if ($(event.target).val() !== $(event.target).next().next().val()) {
-					// To work clicking outside combo after mouse hover in plain view and dialog
-					if ($(event.target).val() === "") $(event.target).val("");
-					else $(event.target).val($(event.target).next().next().val()); 
-				}		
-			},
+                console.log("[descriptionsEditor.js::close] "); // tmr
+                $(event.target).next().next().next().next().hide();
+                $(event.target).next().next().next().show();
+                console.log("[descriptionsEditor.js::close] $(event.target).val()=" + $(event.target).val()); // tmr
+                console.log("[descriptionsEditor.js::close] $(event.target).next().next().val()=" + $(event.target).next().next().val()); // tmr
+                if ($(event.target).val() !== $(event.target).next().next().val()) {
+                    // To work clicking outside combo after mouse hover in plain view and dialog
+                    if ($(event.target).val() === "") $(event.target).val("");
+                    else $(event.target).val($(event.target).next().next().val()); 
+                }
+
+                // Reset pagination state so reopening does not append more items
+                var $input = $(event.target);
+                $input.data("allItems", []);
+                $input.data("hasMoreItems", true);
+                $input.data("loadingMore", false);
+                // Keep lastTerm as-is to preserve UX; alternatively uncomment next line to force full reset
+                // $input.data("lastTerm", null);
+            },
 			source: function( request, response ) {
 				
 				var input = $(this)[0]["element"];

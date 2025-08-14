@@ -1,12 +1,14 @@
 package org.openxava.test.tests.byfeature;
 
-import java.util.*;
+import java.util.List;
 
 import javax.persistence.*;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
+ 
 
 /**
  * To test @DescriptionsList related issue with Selenium.
@@ -52,9 +54,55 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		items = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
 		assertEquals(30, items.size());
 
-		// TMR ME QUEDÉ POR AQUÍ. TENGO QUE PROBAR CERRAR Y ABRIR EL COMBO PARA VERIFICAR QUE SIGUI HABIENDO 30
-		// TMR   PROBARLO A MANO, SI NO FALLA NO TESTEARLO. PERO CREO QUE SÍ FALLA
+		// Close and reopen the list, it should still show 30 items
+		WebElement closeIcon = lastJourneyEditor.findElement(By.className("mdi-menu-up"));
+		closeIcon.click();
+		Thread.sleep(300); // wait for list to close
+		openIcon = lastJourneyEditor.findElement(By.className("mdi-menu-down"));
+		openIcon.click();
+		Thread.sleep(700); // wait for the first page to load again
+		items = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
+		assertEquals(30, items.size());
+
+		// Scroll to load next page and verify 60 items
+		WebElement list = getDriver().findElement(By.id(getListId(0)));
+		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", list);
+		Thread.sleep(900); // wait for the next page to load
+		items = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
+		assertEquals(60, items.size());
+
+		// --- Incomplete simulation of mouse-wheel bug ---
+		// We mimic user interaction that previously exposed a wheel-related bug by:
+		// 1) Hovering a deep item (35) as a real user would (Actions + native events)
+		// 2) Forcing another lazy-load page via programmatic scrollTop change
+		// Note: This does not generate a real wheel event; it's a pragmatic approximation.
+		// Move to and then synthetically dispatch mouse events on a deeper list item (index 35)
+		WebElement itemToHover = items.get(35);
+		hoverLikeRealMouse(itemToHover);
+
+		// Then scroll again using the same working method to load next page and verify 90 items
+		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", list);
+		Thread.sleep(900); // wait for the next page (third) to load
+		items = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
+		assertEquals(90, items.size());
+		// --- End incomplete simulation block ---
+
 	}
+
+    // --- Helpers ---
+    private void hoverLikeRealMouse(WebElement element) throws InterruptedException {
+        // Position pointer with Actions, then dispatch native mouse events with coordinates
+        new Actions(getDriver()).moveToElement(element).perform();
+        Thread.sleep(150);
+        ((JavascriptExecutor) getDriver()).executeScript(
+            "(function(el){\n" +
+            "  const r = el.getBoundingClientRect();\n" +
+            "  const o = {bubbles:true, cancelable:true, view:window, clientX:r.left+r.width/2, clientY:r.top+r.height/2};\n" +
+            "  ['mouseover','mouseenter','mousemove'].forEach(t => el.dispatchEvent(new MouseEvent(t, o)));\n" +
+            "})(arguments[0]);\n",
+            element
+        );
+    }
 
 	public void _testDropDownWhenValuesHasBackSlash() throws Exception { // tmr
 		goModule("Carrier");

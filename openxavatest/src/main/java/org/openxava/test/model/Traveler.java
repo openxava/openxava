@@ -17,7 +17,7 @@ public class Traveler extends Identifiable {
     @Column(length = 50) @Required
     String name;
 
-    @DescriptionsList
+    @DescriptionsList(orderByKey = true)
     @ManyToOne(fetch = FetchType.LAZY)
     Journey lastJourney;
 
