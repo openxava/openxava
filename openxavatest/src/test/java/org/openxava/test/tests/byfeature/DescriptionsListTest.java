@@ -87,6 +87,50 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertEquals(90, items.size());
 		// --- End incomplete simulation block ---
 
+		// Type filter '24' in the input and verify only the expected suggestions are shown
+		WebElement lastJourneyInput = lastJourneyEditor.findElement(By.className("ui-autocomplete-input"));
+		lastJourneyInput.clear();
+		lastJourneyInput.sendKeys("24");
+		Thread.sleep(700); // wait for filtering
+		List<WebElement> filtered = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
+		List<String> filteredTexts = new java.util.ArrayList<>();
+		for (WebElement it : filtered) filteredTexts.add(it.getText());
+		List<String> expected = java.util.Arrays.asList(
+			"JORNEY 24",
+			"JORNEY 124",
+			"JORNEY 224",
+			"JORNEY 240",
+			"JORNEY 241"
+		);
+		assertEquals(expected, filteredTexts);
+
+		// Select one value from suggestions (JORNEY 224), set name, save, go to list and verify presence
+		for (WebElement opt : filtered) {
+			if ("JORNEY 224".equals(opt.getText())) { opt.click(); break; }
+		}
+		// Ensure input shows the chosen value
+		assertEquals("JORNEY 224", lastJourneyEditor.findElement(By.className("ui-autocomplete-input")).getAttribute("value"));
+
+		setValue("name", "YESICA");
+		execute("CRUD.save");
+		assertNoErrors();
+		execute("Mode.list");
+
+		// Verify in list view that both YESICA and JORNEY 224 appear
+		assertValueInList(0, 0, "YESICA");
+		assertValueInList(0, 1, "JORNEY 224");
+
+		// Open first row detail and verify lastJourney and that combo has 0 loaded items
+		execute("List.viewDetail", "row=0");
+		WebElement lastJourneyTextField = getDescriptionsListTextField("lastJourney");
+		assertEquals("JORNEY 224", lastJourneyTextField.getAttribute("value"));
+		WebElement listAfterDetail = getDriver().findElement(By.id(getListId(0)));
+		assertFalse(listAfterDetail.isDisplayed());
+		assertEquals(0, listAfterDetail.findElements(By.tagName("li")).size());
+
+		// Reset data
+		execute("CRUD.delete");
+		assertNoErrors();
 	}
 
     // --- Helpers ---

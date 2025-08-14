@@ -1,38 +1,7 @@
 if (descriptionsEditor == null) var descriptionsEditor = {};
 
-// tmr Quitar todos los console.og
-
-// Cargar script DWR de manera más robusta
-var dwrScriptLoaded = false;
-var dwrScriptAttempts = 0;
-var MAX_DWR_ATTEMPTS = 3;
-
-function loadDwrScript() { // tmr Eliminar. Reñir a la IA por esta aberración
-    if (typeof Descriptions !== 'undefined') {
-        dwrScriptLoaded = true;
-        return;
-    }
-    
-    if (dwrScriptAttempts >= MAX_DWR_ATTEMPTS) {
-        console.warn("No se pudo cargar el script DWR después de " + MAX_DWR_ATTEMPTS + " intentos");
-        return;
-    }
-    
-    dwrScriptAttempts++;
-    var script = document.createElement('script');
-    script.src = openxava.contextPath + "/dwr/interface/Descriptions.js";
-    script.onload = function() { 
-        dwrScriptLoaded = true; 
-        console.log("Script DWR cargado correctamente");
-    };
-    script.onerror = function() {
-        console.error("Error al cargar el script DWR");
-        setTimeout(loadDwrScript, 1000); // Reintentar en 1 segundo
-    };
-    document.head.appendChild(script);
-}
-
-loadDwrScript();
+// Cargar script DWR usando la utilidad estándar de OpenXava (como en discussionEditor.js)
+openxava.getScript(openxava.contextPath + "/dwr/interface/Descriptions.js");
 
 openxava.addEditorInitFunction(function() {
 	
