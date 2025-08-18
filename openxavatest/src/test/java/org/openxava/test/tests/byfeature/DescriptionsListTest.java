@@ -38,6 +38,8 @@ public class DescriptionsListTest extends WebDriverTestBase {
 	}
 	
 	public void testLargeDatasetLoadedOnDemand() throws Exception {
+		// TMR ME QUEDÉ POR AQUÍ: FALTA PROBAR EL TEST Y AÑADIR UN TEST PARA FILTRAR POR PROPIEDADES PERSISTENTES
+		
 		goModule("Traveler"); 
 
 		// On demand server side fetch. If it takes more than 7 seconds, all the records have been loaded

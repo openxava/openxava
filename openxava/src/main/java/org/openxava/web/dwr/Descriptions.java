@@ -192,13 +192,10 @@ public class Descriptions extends DWRBase {
             
             Collection descriptions;
             if (qt.isEmpty()) {
-                // No filtering needed, use database pagination directly
                 descriptions = calculator.getDescriptionsPaginated(max, offset);
             } else {
-                // When filtering by term, we need to get more records to account for filtering
-                // Get a larger batch and filter in memory (still better than loading all)
-                int batchSize = Math.max(max * 3, 100); // Get 3x more to account for filtering
-                descriptions = calculator.getDescriptionsPaginated(batchSize, offset);
+                // Use database-level filtering with search term
+                descriptions = calculator.getDescriptionsPaginatedWithSearch(max, offset, qt);
             }
             
             if (log.isDebugEnabled()) {
@@ -208,31 +205,24 @@ public class Descriptions extends DWRBase {
             }
 
             int count = 0;
-            int skipped = 0;
             java.util.Iterator it = descriptions.iterator();
             
             // Create simple {label, value} objects for jQuery UI
             List<Map<String, String>> simpleItems = new ArrayList<>();
             
-            // Filter and apply pagination (only needed when filtering by term)
+            // Process results (filtering already done in calculator when needed)
             while (it.hasNext()) {
                 KeyAndDescription kd = (KeyAndDescription) it.next();
                 String label = formatter == null ? String.valueOf(kd.getDescription()) : formatter.format(request, kd.getDescription());
-                if (qt.isEmpty() || normalize(label).contains(qt)) {
-                    // When filtering by term, apply offset in memory
-                    if (!qt.isEmpty() && skipped < offset) {
-                        skipped++;
-                        continue;
-                    }
-                    
-                    Map<String, String> item = new HashMap<>(2);
-                    item.put("label", label); // Visible description
-                    item.put("value", String.valueOf(kd.getKey())); // Value for the hidden input
-                    item.put("position", String.valueOf(skipped + count)); // Position for reference
-                    simpleItems.add(item);
-                    count++;
-                    if (count >= max) break;
-                }
+                
+                // No additional filtering needed - calculator already filtered if term was provided
+                Map<String, String> item = new HashMap<>(2);
+                item.put("label", label); // Visible description
+                item.put("value", String.valueOf(kd.getKey())); // Value for the hidden input
+                item.put("position", String.valueOf(count)); // Position for reference
+                simpleItems.add(item);
+                count++;
+                if (count >= max) break;
             }
             
             // Assign to the final result

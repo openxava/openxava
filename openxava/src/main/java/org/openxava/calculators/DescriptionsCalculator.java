@@ -125,7 +125,7 @@ public class DescriptionsCalculator implements ICalculator {
 	
 	private List readPaginated(int limit, int offset) throws Exception {
 		// Use the collection method directly instead of going through TableModel
-		return (List) executeQueryPaginatedCollection(limit, offset);
+		return (List) executeQueryPaginatedCollection(limit, offset, null);
 	}	
 	
 
@@ -175,8 +175,50 @@ public class DescriptionsCalculator implements ICalculator {
 	 * @since 7.6
 	 */
 	public Collection getDescriptionsPaginated(int limit, int offset) throws Exception {
-		if (conditionHasArguments() && !hasParameters()) return Collections.EMPTY_LIST;
-		return readPaginated(limit, offset);
+		return executeQueryPaginatedCollection(limit, offset, null);
+	}
+	
+	/**
+	 * Gets descriptions with filtering and pagination.
+	 * Uses database-level filtering for regular properties, or in-memory filtering for calculated properties.
+	 * 
+	 * @param limit Maximum number of records to return
+	 * @param offset Number of records to skip
+	 * @param searchTerm Term to search for in description properties
+	 * @return Collection of KeyAndDescription objects matching the search term
+	 * @throws Exception if there's an error executing the query
+	 */
+	public Collection getDescriptionsPaginatedWithSearch(int limit, int offset, String searchTerm) throws Exception {
+		// Check if we have calculated properties that require in-memory filtering
+		boolean hasCalculated = hasCalculatedDescriptionProperties();
+		System.out.println("DEBUG: hasCalculatedDescriptionProperties: " + hasCalculated);
+		
+		if (hasCalculated) {
+			// For calculated properties, load a larger batch and filter in memory
+			int batchSize = Math.min(1000, Math.max(limit * 10, 100));
+			System.out.println("DEBUG: Loading " + batchSize + " records for in-memory filtering");
+			Collection allDescriptions = executeQueryPaginatedCollection(batchSize, 0, null);
+			System.out.println("DEBUG: executeQueryPaginatedCollection returned: " + (allDescriptions == null ? "null" : allDescriptions.size() + " items"));
+			
+			try {
+				System.out.println("DEBUG: About to call filterDescriptionsInMemory...");
+				Collection result = filterDescriptionsInMemory(allDescriptions, searchTerm, limit, offset);
+				System.out.println("DEBUG: filterDescriptionsInMemory returned: " + (result == null ? "null" : result.size() + " items"));
+				return result;
+			} catch (Exception e) {
+				System.out.println("DEBUG: Exception in filterDescriptionsInMemory: " + e.getMessage());
+				e.printStackTrace();
+				return Collections.EMPTY_LIST;
+			}
+		} else {
+			// For regular properties, use database-level filtering
+			System.out.println("DEBUG: Using database-level filtering");
+			return executeQueryPaginatedCollection(limit, offset, searchTerm);
+		}
+	}
+	
+	public Collection getDescriptionsPaginated(int limit, int offset, String searchTerm) throws Exception {
+		return executeQueryPaginatedCollection(limit, offset, searchTerm);
 	}
 	
 	/**
@@ -369,7 +411,7 @@ public class DescriptionsCalculator implements ICalculator {
 		return tab.getTable();
 	}
 	
-	private Collection executeQueryPaginatedCollection(int limit, int offset) throws Exception {
+	private Collection executeQueryPaginatedCollection(int limit, int offset, String searchTerm) throws Exception {
 		
 		// Create EntityTab with a large chunk size to get all needed data in one go
 		int chunkSize = offset + limit;
@@ -379,6 +421,19 @@ public class DescriptionsCalculator implements ICalculator {
 		if (hasCondition()) {
 			condition = getCondition(); 
 		}
+		
+		// Add search term filter to condition if provided
+		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+			String searchCondition = buildSearchCondition(searchTerm.trim());
+			if (!searchCondition.isEmpty()) {
+				if (!condition.isEmpty()) {
+					condition += " AND " + searchCondition;
+				} else {
+					condition = searchCondition;
+				}
+			}
+		}
+		
 		String order = "";		
 		if (hasOrder()) {
 			order = " ORDER BY " + getOrder(); 
@@ -709,6 +764,128 @@ public class DescriptionsCalculator implements ICalculator {
 		
 		@Override
 		public void removeTableModelListener(TableModelListener l) {}
+	}
+	
+	/**
+	 * Filters descriptions in memory for calculated properties.
+	 * This is used when description properties are calculated and can't be filtered at DB level.
+	 * 
+	 * @param descriptions Collection of KeyAndDescription objects to filter
+	 * @param searchTerm Term to search for in descriptions
+	 * @param limit Maximum number of results to return
+	 * @param offset Number of results to skip
+	 * @return Filtered and paginated collection
+	 */
+	private Collection filterDescriptionsInMemory(Collection descriptions, String searchTerm, int limit, int offset) {
+		if (descriptions == null || descriptions.isEmpty()) {
+			return Collections.EMPTY_LIST;
+		}
+		
+		List filteredResults = new ArrayList();
+		String normalizedSearchTerm = searchTerm.toLowerCase().trim();
+		
+		// Filter descriptions that contain the search term
+		Iterator it = descriptions.iterator();
+		while (it.hasNext()) {
+			Object next = it.next();
+			
+			if (next instanceof KeyAndDescription) {
+				KeyAndDescription item = (KeyAndDescription) next;
+				Object descObj = item.getDescription();
+				if (descObj != null) {
+					String description = String.valueOf(descObj);
+					if (description.toLowerCase().contains(normalizedSearchTerm)) {
+						filteredResults.add(item);
+					}
+				}
+			}
+		}
+		
+		// Apply pagination to filtered results
+		int startIndex = Math.min(offset, filteredResults.size());
+		int endIndex = Math.min(startIndex + limit, filteredResults.size());
+		
+		if (startIndex >= filteredResults.size()) {
+			return Collections.EMPTY_LIST;
+		}
+		
+		return filteredResults.subList(startIndex, endIndex);
+	}
+	
+	/**
+	 * Checks if any of the description properties are calculated properties.
+	 * Calculated properties don't have database columns and must be filtered in memory.
+	 * 
+	 * @return true if any description property is calculated, false otherwise
+	 */
+	private boolean hasCalculatedDescriptionProperties() {
+		try {
+			String descriptionProperties = getDescriptionProperties();
+			if (Is.emptyString(descriptionProperties)) {
+				return false;
+			}
+			
+			MetaModel metaModel = getMetaModel();
+			String[] properties = descriptionProperties.split(",");
+			
+			for (String property : properties) {
+				property = property.trim();
+				if (metaModel.containsMetaProperty(property)) {
+					MetaProperty metaProperty = metaModel.getMetaProperty(property);
+					if (metaProperty.isCalculated()) {
+						return true;
+					}
+				}
+			}
+			return false;
+		} catch (Exception e) {
+			// If we can't determine, assume they are calculated to be safe
+			return true;
+		}
+	}
+	
+	/**
+	 * Builds a search condition for filtering descriptions based on the search term.
+	 * This method constructs a LIKE condition for the description properties.
+	 * Only works for non-calculated properties that have database columns.
+	 * 
+	 * @param searchTerm The term to search for
+	 * @return SQL condition string for filtering, or empty if properties are calculated
+	 */
+	private String buildSearchCondition(String searchTerm) {
+		if (searchTerm == null || searchTerm.trim().isEmpty()) {
+			return "";
+		}
+		
+		// Get description properties to build the search condition
+		String descriptionProperties = getDescriptionProperties();
+		if (Is.emptyString(descriptionProperties)) {
+			return "";
+		}
+		
+		// Check if any properties are calculated - if so, we can't filter at DB level
+		if (hasCalculatedDescriptionProperties()) {
+			return "";
+		}
+		
+		// Build LIKE condition for each description property
+		StringBuilder condition = new StringBuilder();
+		String[] properties = descriptionProperties.split(",");
+		
+		for (int i = 0; i < properties.length; i++) {
+			if (i > 0) {
+				condition.append(" OR ");
+			}
+			String property = properties[i].trim();
+			// Use UPPER for case-insensitive search and ${} for OpenXava property substitution
+			condition.append("UPPER(${").append(property).append("}) LIKE UPPER('%").append(searchTerm.replace("'", "''")).append("%')");
+		}
+		
+		if (properties.length > 1) {
+			return "(" + condition.toString() + ")";
+		} else {
+			return condition.toString();
+		}
 	}
 
 }
