@@ -38,7 +38,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 	}
 	
 	public void testLargeDatasetLoadedOnDemand() throws Exception {
-		// TMR ME QUEDÉ POR AQUÍ: FALTA PROBAR EL TEST Y AÑADIR UN TEST PARA FILTRAR POR PROPIEDADES PERSISTENTES
+		// TMR ME QUEDÉ POR AQUÍ: AÑADIR UN TEST PARA FILTRAR POR PROPIEDADES PERSISTENTES (YA ESTÁ LA REFERENCIA AÑADIDA)
 		
 		goModule("Traveler"); 
 
@@ -100,7 +100,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		WebElement lastJourneyInput = lastJourneyEditor.findElement(By.className("ui-autocomplete-input"));
 		lastJourneyInput.clear();
 		lastJourneyInput.sendKeys("24");
-		Thread.sleep(700); // wait for filtering
+		Thread.sleep(10000); // Given it's calculated property all the records are loaded in server to filter, so it costs
 		List<WebElement> filtered = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
 		List<String> filteredTexts = new java.util.ArrayList<>();
 		for (WebElement it : filtered) filteredTexts.add(it.getText());

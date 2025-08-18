@@ -22,4 +22,8 @@ public class Traveler extends Identifiable {
     @ManyToOne(fetch = FetchType.LAZY)
     Journey lastJourney;
 
+    @DescriptionsList(orderByKey = true, descriptionProperties = "name") 
+    @ManyToOne(fetch = FetchType.LAZY)
+    Journey nextJourney;    
+
 }
