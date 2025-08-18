@@ -40,6 +40,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 	public void testLargeDatasetLoadedOnDemand() throws Exception {
 		goModule("Traveler"); 
 
+		// On demand server side fetch. If it takes more than 7 seconds, all the records have been loaded
 		long start = System.currentTimeMillis();
 		execute("CRUD.new");
 		long elapsed = System.currentTimeMillis() - start;
