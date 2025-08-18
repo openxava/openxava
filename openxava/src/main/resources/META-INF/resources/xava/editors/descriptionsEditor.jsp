@@ -184,48 +184,82 @@ try {
     title = "";
 }
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
-java.util.Collection descriptions = calculator.getDescriptions();
-if (calculator.getCondition() != null && !fvalue.isEmpty()) {
-	String condition = request.getParameter("condition");
-	descriptions = calculator.getDescriptionsWithSelected(fvalue);
-	calculator.setCondition(condition);
+// Determine if we should use remote mode based on count, not by loading all data
+int REMOTE_THRESHOLD = 200; // Over this size we switch to remote (DWR) sourcing
+int descriptionsCount = calculator.getDescriptionsCount();
+boolean remote = descriptionsCount > REMOTE_THRESHOLD;
+
+java.util.Collection descriptions = null;
+String selectedDescription = "";
+String selectedKey = "";
+
+// Only load descriptions if we need them (non-remote mode or to find selected item)
+if (!remote) {
+	// For non-remote mode, load a reasonable amount (not all)
+	descriptions = calculator.getDescriptionsPaginated(Math.min(descriptionsCount, 200), 0);
+} else if (!fvalue.isEmpty()) {
+	// For remote mode, only get the selected item if there's a value
+	try {
+		KeyAndDescription selected = calculator.findDescriptionByKey(fvalue);
+		if (selected != null) {
+			descriptions = java.util.Collections.singletonList(selected);
+		} else {
+			descriptions = java.util.Collections.emptyList();
+		}
+	} catch (Exception e) {
+		descriptions = java.util.Collections.emptyList();
+	}
 }
 
 boolean editable = "true".equals(request.getParameter("editable"));
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel() || "true".equalsIgnoreCase(request.getParameter("readOnlyAsLabel"));
 if (editable) {		
 		String descriptionValue = request.getParameter("descriptionValue");
-		java.util.Iterator it = descriptions.iterator();
-		String selectedDescription = "";
-		String selectedKey = "";
-		int REMOTE_THRESHOLD = 200; // Over this size we switch to remote (DWR) sourcing
-		boolean remote = descriptions.size() > REMOTE_THRESHOLD;
+		
+		// Find selected item if we have descriptions loaded
+		if (descriptions != null) {
+			java.util.Iterator it = descriptions.iterator();
+			while (it.hasNext()) {
+				KeyAndDescription cl = (KeyAndDescription) it.next();
+				String description = formatter==null?cl.getDescription().toString():formatter.format(request, cl.getDescription());
+				if (descriptionValue != null && descriptionValue.equals(description) || Is.equalAsString(fvalue, cl.getKey())) {
+					selectedDescription = description;
+					selectedKey = cl.getKey().toString();
+					break; // Found it, no need to continue
+				}
+			}
+		} else if (!Is.emptyString(fvalue)) {
+			// In remote mode, find just the selected item by key
+			KeyAndDescription selectedItem = calculator.findDescriptionByKey(fvalue);
+			if (selectedItem != null) {
+				String description = formatter==null?selectedItem.getDescription().toString():formatter.format(request, selectedItem.getDescription());
+				selectedDescription = description;
+				selectedKey = selectedItem.getKey().toString();
+			}
+		}
+		
 		StringBuffer values = remote ? null : new StringBuffer("[");
 		int maxDescriptionLength = 0;
-		while (it.hasNext()) {
-			KeyAndDescription cl = (KeyAndDescription) it.next();	
-			String selected = "";
-			String description = formatter==null?cl.getDescription().toString():formatter.format(request, cl.getDescription());
-			if (!remote && description.length() > maxDescriptionLength) maxDescriptionLength = description.length();
-			if (descriptionValue != null && descriptionValue.equals(description) || Is.equalAsString(fvalue, cl.getKey())) {
-				selected = "selected"; 
-				selectedDescription = description;
-				selectedKey = cl.getKey().toString();			
-				// We can break early if remote and we already found the selected one
-				if (remote) {
-					break;
-				}
-			} 
-			if (!remote) {
+		
+		// Build values array only for non-remote mode
+		if (!remote && descriptions != null) {
+			java.util.Iterator it = descriptions.iterator();
+			boolean first = true;
+			while (it.hasNext()) {
+				KeyAndDescription cl = (KeyAndDescription) it.next();	
+				String description = formatter==null?cl.getDescription().toString():formatter.format(request, cl.getDescription());
+				if (description.length() > maxDescriptionLength) maxDescriptionLength = description.length();
+				
+				if (!first) values.append(",");
 				values.append("{\"label\":\""); 
 				values.append(description.replace("\\","\\\\").replaceAll("'", "&apos;").replaceAll("\"", "&Prime;")); 
 				values.append("\",\"value\":\""); 
 				values.append(cl.getKey().toString().replace("\\","\\\\").replaceAll("'", "&apos;").replaceAll("\"", "&Prime;")); 
 				values.append("\"}");
-				if (it.hasNext()) values.append(",");
+				first = false;
 			}
-		} 
-		if (!remote) values.append("]");
+			values.append("]");
+		}
 		String browser = request.getHeader("user-agent");
 		maxDescriptionLength = remote ? Math.max((selectedDescription==null?0:selectedDescription.length()) + 5, 30) : maxDescriptionLength + 5;
 		selectedDescription = selectedDescription.replaceAll("\"", "&quot;").replace("\\\\", "\\\\\\\\"); 

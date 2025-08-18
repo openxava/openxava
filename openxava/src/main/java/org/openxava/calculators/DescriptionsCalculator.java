@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.*;
 
 import javax.swing.table.*;
+import javax.swing.event.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.component.*;
@@ -120,6 +121,11 @@ public class DescriptionsCalculator implements ICalculator {
 			if (el.getKey() != null) result.add(el);
 		}
 		return result;
+	}
+	
+	private List readPaginated(int limit, int offset) throws Exception {
+		// Use the collection method directly instead of going through TableModel
+		return (List) executeQueryPaginatedCollection(limit, offset);
 	}	
 	
 
@@ -146,6 +152,7 @@ public class DescriptionsCalculator implements ICalculator {
 	 */
 	public Collection getDescriptions() throws Exception {	
 		if (conditionHasArguments() && !hasParameters()) return Collections.EMPTY_LIST;
+		
 		if (!isUseCache()) {
 			return (Collection) calculate();
 		}
@@ -156,6 +163,76 @@ public class DescriptionsCalculator implements ICalculator {
 		Collection result = (Collection) calculate();
 		getCache().put(getParameters(), result);				
 		return result;	
+	}
+	
+	/**
+	 * Returns a paginated collection of descriptions with database-level LIMIT and OFFSET.
+	 * This method bypasses cache to ensure fresh data for pagination.
+	 * 
+	 * @param limit Maximum number of results to return
+	 * @param offset Number of results to skip
+	 * @return Collection of <tt>KeyAndDescription</tt>. Not null.
+	 * @since 7.6
+	 */
+	public Collection getDescriptionsPaginated(int limit, int offset) throws Exception {
+		if (conditionHasArguments() && !hasParameters()) return Collections.EMPTY_LIST;
+		return readPaginated(limit, offset);
+	}
+	
+	/**
+	 * Returns the total count of descriptions without loading the actual data.
+	 * Used to determine if remote mode should be activated.
+	 * 
+	 * @return Total count of descriptions
+	 * @since 7.6
+	 */
+	public int getDescriptionsCount() throws Exception { // tmr ¿Hará falta si siempre usamos carga bajo demanda?
+		if (conditionHasArguments() && !hasParameters()) return 0;
+		return executeQueryCount();
+	}
+	
+	/**
+	 * Finds a specific description by key without loading all data.
+	 * Used in remote mode to get the selected item description.
+	 * 
+	 * @param key The key to search for
+	 * @return KeyAndDescription if found, null otherwise
+	 * @since 7.6
+	 */
+	public KeyAndDescription findDescriptionByKey(Object key) throws Exception {
+		if (key == null || conditionHasArguments() && !hasParameters()) return null;
+		
+		// Create a temporary condition to find the specific key
+		String originalCondition = getCondition();
+		String keyCondition = buildKeyCondition(key);
+		
+		try {
+			// Temporarily modify condition to find specific key
+			if (Is.emptyString(originalCondition)) {
+				setCondition(keyCondition);
+			} else {
+				setCondition("(" + originalCondition + ") AND (" + keyCondition + ")");
+			}
+			
+			Collection results = readPaginated(1, 0);
+			if (results != null && !results.isEmpty()) {
+				return (KeyAndDescription) results.iterator().next();
+			}
+			return null;
+		} finally {
+			// Restore original condition
+			setCondition(originalCondition);
+		}
+	}
+	
+	private String buildKeyCondition(Object key) {
+		if (isMultipleKey()) {
+			// For composite keys, we'd need to parse the key string
+			// For now, use a simple approach
+			return getKeyProperties().split(",")[0].trim() + " = '" + key.toString() + "'";
+		} else {
+			return getKeyProperty() + " = '" + key.toString() + "'";
+		}
 	}
 	
 	/*
@@ -290,6 +367,111 @@ public class DescriptionsCalculator implements ICalculator {
 		}						
 		tab.search(condition + order, key); 
 		return tab.getTable();
+	}
+	
+	private Collection executeQueryPaginatedCollection(int limit, int offset) throws Exception {
+		
+		// Create EntityTab with a large chunk size to get all needed data in one go
+		int chunkSize = offset + limit;
+		EntityTab tab = EntityTabFactory.create(getMetaTab(), chunkSize);
+		
+		String condition = "";
+		if (hasCondition()) {
+			condition = getCondition(); 
+		}
+		String order = "";		
+		if (hasOrder()) {
+			order = " ORDER BY " + getOrder(); 
+		}
+		
+		Object [] key = null;
+		if (hasParameters()) {
+			key = new Object[getParameters().size()];
+			Iterator it = getParameters().iterator();
+			for (int i=0; i<key.length; i++) {	
+				key[i] = it.next();
+				if (key[i] == null) return Collections.EMPTY_LIST;
+			}				
+		}
+		
+		tab.search(condition + order, key);
+		
+		// Get only the first chunk, don't call getTable() which loads everything
+		try {
+			DataChunk firstChunk = tab.nextChunk();
+			
+			// Process the chunk data into KeyAndDescription objects like read() does
+			List result = new ArrayList();
+			List chunkData = firstChunk.getData();
+			
+			// Apply offset and limit to the chunk data
+			int startIndex = Math.min(offset, chunkData.size());
+			int endIndex = Math.min(startIndex + limit, chunkData.size());
+			
+			for (int i = startIndex; i < endIndex; i++) {
+				Object[] row = (Object[]) chunkData.get(i);
+				KeyAndDescription el = new KeyAndDescription();
+				
+				int iKey = 0;
+				if (isMultipleKey()) {
+					// For composite keys, we'd need to parse the key string
+					// For now, use a simple approach
+					Iterator itKeyNames = getKeyPropertiesCollection().iterator();
+					Map keyMap = new HashMap();
+					boolean isNull = true;
+					while (itKeyNames.hasNext()) {
+						String name = (String) itKeyNames.next();
+						Object value = row[iKey++];
+						keyMap.put(name, value);
+						if (value != null) isNull = false;
+					}
+					if (isNull) {
+						el.setKey(null);
+					} else {
+						el.setKey(getMetaModel().toString(keyMap));
+					}
+				} else {
+					el.setKey(row[iKey++]);
+				}
+				
+				StringBuffer value = new StringBuffer();
+				// Only use the last column (index 2) which contains the actual description
+				// Skip the key column (index 0) and the duplicate key column (index 1)
+				int lastColumnIndex = row.length - 1;
+				if (lastColumnIndex >= iKey && row[lastColumnIndex] != null) {
+					value.append(String.valueOf(row[lastColumnIndex]).trim());
+				}
+				el.setDescription(value.toString());
+				el.setShowCode(true);
+				if (el.getKey() != null) result.add(el);
+			}
+			
+			// Return the collection directly
+			return result;
+		} catch (Exception e) {
+			// Fallback to empty collection
+			return Collections.EMPTY_LIST;
+		}
+	}
+	
+	private int executeQueryCount() throws Exception {
+		EntityTab tab = EntityTabFactory.createAllData(getMetaTab());		
+		String condition = "";
+		if (hasCondition()) {
+			condition = getCondition(); 
+		}
+		
+		Object [] key = null;
+		if (hasParameters()) {
+			key = new Object[getParameters().size()];
+			Iterator it = getParameters().iterator();
+			for (int i=0; i<key.length; i++) {	
+				key[i] = it.next();
+				if (key[i] == null) return 0;
+			}				
+		}						
+		tab.search(condition, key); 
+		return tab.getResultSize();
 	}
 		
 	private boolean hasCondition() {
@@ -437,6 +619,96 @@ public class DescriptionsCalculator implements ICalculator {
 	 */	
 	public void setDistinct(boolean distinct) {
 		this.distinct = distinct;
+	}
+	
+	/**
+	 * TableModel that wraps processed KeyAndDescription objects
+	 */
+	private static class KeyDescriptionTableModel implements TableModel {
+		private final List<KeyAndDescription> data;
+		
+		public KeyDescriptionTableModel(List<KeyAndDescription> data) {
+			this.data = data;
+		}
+		
+		@Override
+		public int getRowCount() {
+			return data.size();
+		}
+		
+		@Override
+		public int getColumnCount() {
+			return 2; // key and description
+		}
+		
+		@Override
+		public String getColumnName(int columnIndex) {
+			return columnIndex == 0 ? "key" : "description";
+		}
+		
+		@Override
+		public Class<?> getColumnClass(int columnIndex) {
+			return Object.class;
+		}
+		
+		@Override
+		public boolean isCellEditable(int rowIndex, int columnIndex) {
+			return false;
+		}
+		
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			if (rowIndex >= data.size()) return null;
+			KeyAndDescription item = data.get(rowIndex);
+			return columnIndex == 0 ? item.getKey() : item.getDescription();
+		}
+		
+		@Override
+		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+			// Not supported
+		}
+		
+		@Override
+		public void addTableModelListener(TableModelListener l) {
+			// Not supported
+		}
+		
+		@Override
+		public void removeTableModelListener(TableModelListener l) {
+			// Not supported
+		}
+	}
+	
+	/**
+	 * Empty TableModel for fallback cases
+	 */
+	private static class SimpleTableModel implements TableModel {
+		@Override
+		public int getRowCount() { return 0; }
+		
+		@Override
+		public int getColumnCount() { return 0; }
+		
+		@Override
+		public String getColumnName(int columnIndex) { return ""; }
+		
+		@Override
+		public Class<?> getColumnClass(int columnIndex) { return Object.class; }
+		
+		@Override
+		public boolean isCellEditable(int rowIndex, int columnIndex) { return false; }
+		
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) { return null; }
+		
+		@Override
+		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {}
+		
+		@Override
+		public void addTableModelListener(TableModelListener l) {}
+		
+		@Override
+		public void removeTableModelListener(TableModelListener l) {}
 	}
 
 }

@@ -10,6 +10,7 @@ openxava.addEditorInitFunction(function() {
 			minLength: 0,
 			// Configure infinite scroll
 			open: function() {
+				// tmr Al cerrar y abrir el combo vuelve a cargar todo, ¿optimizar?
 				var input = $(this);
 				var menu = input.autocomplete("widget");
 				
