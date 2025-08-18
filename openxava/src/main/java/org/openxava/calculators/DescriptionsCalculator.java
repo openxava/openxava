@@ -140,7 +140,7 @@ public class DescriptionsCalculator implements ICalculator {
 	}
 			
 	/**
-	 * It uses cach� depend on current parameter values. <p>
+	 * It uses cache depend on current parameter values. <p>
 	 * 
 	 * @return Collection of <tt>KeyAndDescription</tt>. Not null.
 	 */
