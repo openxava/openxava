@@ -12,6 +12,8 @@ import org.openxava.annotations.*;
  * @author Javier Paniza
  */
 
+@Tab(properties="name, averageSpeed.speed, description")
+@View(members="name; averageSpeed; description")
 @Entity
 public class Journey {
 	
@@ -27,27 +29,15 @@ public class Journey {
 	@Column(length=40)
 	private String description;
 
-	// Static counter for slowName calls; resets if idle > 2s
-	private static int slowNameCount = 0; // tmr
-	private static long slowNameLastTsMs = 0L; // tmr
-
-	public String getSlowName() { // tmr Debería hacer un @Tab que no lo incluya, para no afectar lo demás
-		long now = System.currentTimeMillis();
-		if (now - slowNameLastTsMs > 2000) { // reset if idle > 2s
-			slowNameCount = 0;
-		}
-		slowNameLastTsMs = now;
-		int current = ++slowNameCount;
-		System.out.println("getSlowName() called - count=" + current); // tmr Quitar
-		// If the second token in name is a number > 100, throw a runtime exception
-		/* tmr 
+	public String getSlowName() { // To test on demand fetch in server side
 		if (name != null) {
 			String[] parts = name.trim().split("\\s+");
 			if (parts.length >= 2) {
 				try {
 					int n = Integer.parseInt(parts[1]);
+					System.out.println("Journey.getSlowName() n=" + n);
 					if (n > 100) {
-						Thread.sleep(100);
+						Thread.sleep(50);
 					}
 				}
 				catch (NumberFormatException ignore) {
@@ -57,7 +47,6 @@ public class Journey {
 				}
 			}
 		}
-		*/
 		return name;
 	}
 

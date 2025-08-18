@@ -18,7 +18,7 @@ public class Traveler extends Identifiable {
     @Column(length = 50) @Required
     String name;
 
-    @DescriptionsList(orderByKey = true, descriptionProperties = "slowName")
+    @DescriptionsList(orderByKey = true, descriptionProperties = "slowName") // slowName to test on demand fetch in server side
     @ManyToOne(fetch = FetchType.LAZY)
     Journey lastJourney;
 

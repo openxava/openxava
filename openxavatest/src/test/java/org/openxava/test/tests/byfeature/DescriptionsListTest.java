@@ -40,12 +40,10 @@ public class DescriptionsListTest extends WebDriverTestBase {
 	public void testLargeDatasetLoadedOnDemand() throws Exception {
 		goModule("Traveler"); 
 
-		// TMR ME QUEDÉ POR AQUÍ: PARA HACER UN TEST QUE VERIFIQUE QUE NO SE CARGUE TODO EL DATASET AL INGRESAR AL MÓDULO
-		// TMR   USANDO slowName
 		long start = System.currentTimeMillis();
 		execute("CRUD.new");
 		long elapsed = System.currentTimeMillis() - start;
-		assertTrue("CRUD.new should take less than 14 seconds, but took " + elapsed + " ms", elapsed < 14000);
+		assertTrue("CRUD.new should take less than 7 seconds, but took " + elapsed + " ms", elapsed < 7000);
 
 		// On entering Traveler it is in detail mode by default (no records)
 		// Verify that no autocomplete option items are loaded yet
