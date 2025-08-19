@@ -38,8 +38,6 @@ public class DescriptionsListTest extends WebDriverTestBase {
 	}
 	
 	public void testLargeDatasetLoadedOnDemand() throws Exception {
-		// TMR ME QUEDÉ POR AQUÍ: AÑADIR UN TEST PARA FILTRAR POR PROPIEDADES PERSISTENTES (YA ESTÁ LA REFERENCIA AÑADIDA)
-		
 		goModule("Traveler"); 
 
 		// On demand server side fetch. If it takes more than 7 seconds, all the records have been loaded
@@ -120,19 +118,57 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		// Ensure input shows the chosen value
 		assertEquals("JORNEY 224", lastJourneyEditor.findElement(By.className("ui-autocomplete-input")).getAttribute("value"));
 
+		// Test filtering for nextJourney reference (uses persistent property 'name' instead of calculated 'slowName')
+		WebElement nextJourneyEditor = getDriver().findElement(By.id("ox_openxavatest_Traveler__reference_editor_nextJourney"));
+		WebElement nextJourneyOpenIcon = nextJourneyEditor.findElement(By.className("mdi-menu-down"));
+		nextJourneyOpenIcon.click();
+		Thread.sleep(700); // wait for the first page to load
+
+		// Type filter '24' in nextJourney input and verify filtering with persistent property
+		WebElement nextJourneyInput = nextJourneyEditor.findElement(By.className("ui-autocomplete-input"));
+		nextJourneyInput.clear();
+		nextJourneyInput.sendKeys("24");
+		Thread.sleep(2000); // Less time needed since it's filtering by persistent property, not calculated
+		WebElement nextJourneyList = getDriver().findElement(By.id(getListId(1))); // Get the second combo list (index 1)
+		List<WebElement> nextJourneyFiltered = nextJourneyList.findElements(By.tagName("li"));
+		List<String> nextJourneyFilteredTexts = new java.util.ArrayList<>();
+		for (WebElement it : nextJourneyFiltered) nextJourneyFilteredTexts.add(it.getText());
+		List<String> nextJourneyExpected = java.util.Arrays.asList(
+			"JORNEY 24",
+			"JORNEY 124", 
+			"JORNEY 224",
+			"JORNEY 240",
+			"JORNEY 241"
+		);
+		assertEquals(nextJourneyExpected, nextJourneyFilteredTexts);
+
+		// Select JORNEY 241 from nextJourney suggestions
+		for (WebElement opt : nextJourneyFiltered) {
+			if ("JORNEY 241".equals(opt.getText())) { opt.click(); break; }
+		}
+		// Ensure nextJourney input shows the chosen value
+		assertEquals("JORNEY 241", nextJourneyEditor.findElement(By.className("ui-autocomplete-input")).getAttribute("value"));
+
 		setValue("name", "YESICA");
 		execute("CRUD.save");
 		assertNoErrors();
 		execute("Mode.list");
 
-		// Verify in list view that both YESICA and JORNEY 224 appear
+		// Verify in list view that YESICA, JORNEY 224 (lastJourney) and JORNEY 241 (nextJourney) appear
 		assertValueInList(0, 0, "YESICA");
 		assertValueInList(0, 1, "JORNEY 224");
+		assertValueInList(0, 3, "JORNEY 241");
 
-		// Open first row detail and verify lastJourney and that combo has 0 loaded items
+		// Open first row detail and verify both lastJourney and nextJourney values, and that combo has 0 loaded items
+		start = System.currentTimeMillis();
 		execute("List.viewDetail", "row=0");
+		elapsed = System.currentTimeMillis() - start;
+		assertTrue("List.viewDetail take less than 7 seconds, but took " + elapsed + " ms", elapsed < 7000);
+
 		WebElement lastJourneyTextField = getDescriptionsListTextField("lastJourney");
 		assertEquals("JORNEY 224", lastJourneyTextField.getAttribute("value"));
+		WebElement nextJourneyTextField = getDescriptionsListTextField("nextJourney");
+		assertEquals("JORNEY 241", nextJourneyTextField.getAttribute("value"));
 		WebElement listAfterDetail = getDriver().findElement(By.id(getListId(0)));
 		assertFalse(listAfterDetail.isDisplayed());
 		assertEquals(0, listAfterDetail.findElements(By.tagName("li")).size());
