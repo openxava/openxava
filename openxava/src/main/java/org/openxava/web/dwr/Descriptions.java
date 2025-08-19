@@ -51,7 +51,6 @@ public class Descriptions extends DWRBase {
             String descriptionProperty, String descriptionProperties,
             int offset // Pagination offset (new parameter)
     ) {
-        // tmr Se puede optimizar, porque al pedir la segunda página instancia los elementos de la primera también.
         List<Map<String, String>> out = new ArrayList<>();
         try {
             initRequest(request, response, application, module);

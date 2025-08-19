@@ -1,0 +1,19 @@
+Pending for @DescriptionsList for large datasets
+------------------------------------------------
+
+- Considerar una única implementación.
+    - Consideraciones propias.
+    - Preguntar a LLM.
+    - Test de rendimento.
+- Posibles optimizaciones:
+    - No recargar al abrir y cerrar.
+    - Al pedir la segunda página evitar instanciar los elementos de la primera también.
+    - ¿Guardar DescriptionsCalculator en sesión?
+- Buscar tmrs.
+- Refactorizar.         
+- Suite completa.
+- Prueba con tabla gigante real en MySQL.
+    - Comparar 7.5 con 7.6.
+- Documentar.
+- Borrar este archivo.
+ 
