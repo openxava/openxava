@@ -1,17 +1,18 @@
 Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
+- En comparadores de modo lista.
 - Implementación única.    
 - Posibles optimizaciones:
     - No recargar al abrir y cerrar.
     - Al pedir la segunda página evitar instanciar los elementos de la primera también.
     - ¿Guardar DescriptionsCalculator en sesión?
-- En comparadores de modo lista.
 - Buscar tmrs and todos.
 - Refactorizar.         
 - Suite completa.
 - Prueba con tabla gigante real en MySQL.
     - Comparar 7.5 con 7.6.
 - Documentar.
+	- Indicar que en los comparadores de las lista solo se cargan hasta 200 elementos.
 - Borrar este archivo.
  

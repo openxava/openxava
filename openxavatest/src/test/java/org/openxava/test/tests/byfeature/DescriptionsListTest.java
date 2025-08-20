@@ -38,6 +38,9 @@ public class DescriptionsListTest extends WebDriverTestBase {
 	}
 	
 	public void testLargeDatasetLoadedOnDemand() throws Exception {
+		// TMR ME QUEDÉ POR AQUÍ: AÑADIR TEST PARA COMPROBAR QUE EL COMPARADOR DE LISTA SOLO SACA 200 ELEMENTOS Y TIENE UN -- ETC --
+		// TMR   PROBARLO A MANO EN OTROS DESCRIPTIONS LIST CORTOS
+		
 		goModule("Traveler"); 
 
 		// On demand server side fetch. If it takes more than 7 seconds, all the records have been loaded
