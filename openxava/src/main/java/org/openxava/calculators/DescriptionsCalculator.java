@@ -1,7 +1,6 @@
 package org.openxava.calculators;
 
 import java.util.*;
-import java.util.stream.*;
 
 import javax.swing.table.*;
 import javax.swing.event.*;
@@ -38,38 +37,22 @@ public class DescriptionsCalculator implements ICalculator {
 	private String componentName;
 	private String aggregateName;
 	private transient MetaModel metaModel;
-	private transient Map cache;
 	private boolean orderByKey = false;
-	private boolean useCache = true;
 	private boolean useConvertersInKeys = false;
 	private Collection keyPropertiesCollection;
 	private MetaTab metaTab;
 	private int hiddenPropertiesCount; 
 	private boolean distinct = false;   
 	
-	
 	/**
-	 * Pure execution, without cache... <p>
-	 * 
-	 * Better call to {@link #getDescriptions} if you wish to use
-	 * directly.<br>
+	 * Implementation of ICalculator interface.
+	 * Uses the new paginated approach for compatibility.
 	 */
-	public Object calculate() throws Exception {		
-	 	checkPreconditions();			 			
-		if (keyProperty == null && keyProperties == null) {
-			throw new XavaException("descriptions_calculator_keyProperty_required", getClass().getName());
-		}
-		List result = read();
-		if (!hasOrder()) { 
-			Comparator comparator = isOrderByKey()?
-				KeyAndDescriptionComparator.getByKey():
-					KeyAndDescriptionComparator.getByDescription();										
-			Collections.sort(result, comparator);
-			if (isDistinct()) result = (List) result.stream().distinct().collect(Collectors.toList());  
-		}
-		return result;
+	public Object calculate() throws Exception {
+		// Use paginated loading with a reasonable limit for compatibility
+		return getDescriptionsPaginated(10000, 0);
 	}
-
+	
 	private void checkPreconditions() throws XavaException {
 		if (Is.emptyString(getModel())) {
 			throw new XavaException("descriptions_calculator_model_required", getClass().getName());
@@ -82,51 +65,7 @@ public class DescriptionsCalculator implements ICalculator {
 		}				
 	}
 	
-	private List read() throws Exception {
-		List result = new ArrayList();
-		TableModel table = executeQuery();
-		if (table == null) return result;
-		for (int i=0; i<table.getRowCount(); i++) {
-			KeyAndDescription el = new KeyAndDescription();			
-			int iKey = 0;
-			if (isMultipleKey()) {
-				Iterator itKeyNames = getKeyPropertiesCollection().iterator();
-				Map key = new HashMap();
-				boolean isNull = true; 
-				while (itKeyNames.hasNext()) {
-					String name = (String) itKeyNames.next();
-					Object value = table.getValueAt(i, iKey++);
-					key.put(name, value);
-					if (value != null) isNull = false; 
-				}		
-				if (isNull) { 
-					el.setKey(null);
-				}				
-				else { 
-					el.setKey(getMetaModel().toString(key));
-				}
-			}
-			else {
-				el.setKey(table.getValueAt(i, iKey++));
-			}
-			StringBuffer value = new StringBuffer();
-			int columnCount = table.getColumnCount() - hiddenPropertiesCount;
-			List<MetaProperty> metaProperties = getMetaTab().getMetaProperties(); 
-			for (int j=iKey; j<columnCount; j++) {
-				if (value.length() > 0) value.append(' ');
-				value.append(metaProperties.get(j).format(table.getValueAt(i, j), Locales.getCurrent()).trim()); 
-			}
-			el.setDescription(value.toString());
-			el.setShowCode(true);
-			if (el.getKey() != null) result.add(el);
-		}
-		return result;
-	}
 	
-	private List readPaginated(int limit, int offset) throws Exception {
-		// Use the collection method directly instead of going through TableModel
-		return (List) executeQueryPaginatedCollection(limit, offset, null);
-	}	
 	
 
 	private MetaModel getMetaModel() throws XavaException {
@@ -146,23 +85,16 @@ public class DescriptionsCalculator implements ICalculator {
 	}
 			
 	/**
-	 * It uses cache depend on current parameter values. <p>
+	 * Returns descriptions using on-demand loading. This method is deprecated.
+	 * Use getDescriptionsPaginated() instead for better performance with large datasets.
 	 * 
 	 * @return Collection of <tt>KeyAndDescription</tt>. Not null.
+	 * @deprecated Use getDescriptionsPaginated() instead
 	 */
 	public Collection getDescriptions() throws Exception {	
 		if (conditionHasArguments() && !hasParameters()) return Collections.EMPTY_LIST;
-		
-		if (!isUseCache()) {
-			return (Collection) calculate();
-		}
-		Collection saved = (Collection) getCache().get(getParameters());
-		if (saved != null) {						
-			return saved;
-		}
-		Collection result = (Collection) calculate();
-		getCache().put(getParameters(), result);				
-		return result;	
+		// Use paginated loading with a large limit to maintain compatibility
+		return getDescriptionsPaginated(10000, 0);
 	}
 	
 	/**
@@ -228,7 +160,7 @@ public class DescriptionsCalculator implements ICalculator {
 	 * @return Total count of descriptions
 	 * @since 7.6
 	 */
-	public int getDescriptionsCount() throws Exception { // tmr ¿Hará falta si siempre usamos carga bajo demanda?
+	public int getDescriptionsCount() throws Exception {
 		if (conditionHasArguments() && !hasParameters()) return 0;
 		return executeQueryCount();
 	}
@@ -256,7 +188,7 @@ public class DescriptionsCalculator implements ICalculator {
 				setCondition("(" + originalCondition + ") AND (" + keyCondition + ")");
 			}
 			
-			Collection results = readPaginated(1, 0);
+			Collection results = executeQueryPaginatedCollection(1, 0, null);
 			if (results != null && !results.isEmpty()) {
 				return (KeyAndDescription) results.iterator().next();
 			}
@@ -283,35 +215,29 @@ public class DescriptionsCalculator implements ICalculator {
 	 * It is used to display the item that was previously selected and no longer satisfies the condition.
 	 */
 	public Collection getDescriptionsWithSelected(String fvalue) throws Exception {
-		List<KeyAndDescription> saved = new ArrayList<>((Collection)getCache().get(getParameters()));
-		for (KeyAndDescription kp : saved) { 
-		    if (kp.getKey().toString().equals(fvalue)) {
-		    	return saved;
-		    }
-		}
-		setCondition(null);
-		Collection withOutCondition  = (Collection) calculate();
-		java.util.Iterator it = withOutCondition.iterator();
-		while(it.hasNext()) {
-			KeyAndDescription kd = (KeyAndDescription) it.next();
-			if (Is.equalAsStringIgnoreCase(fvalue, kd.getKey())) {
-				saved.add(0, kd);
-				return saved;
+		// Try to find the specific item first
+		KeyAndDescription selected = findDescriptionByKey(fvalue);
+		if (selected != null) {
+			List<KeyAndDescription> result = new ArrayList<>();
+			result.add(selected);
+			// Add some additional items for context
+			Collection additional = getDescriptionsPaginated(50, 0);
+			for (Object item : additional) {
+				KeyAndDescription kd = (KeyAndDescription) item;
+				if (!kd.getKey().toString().equals(fvalue)) {
+					result.add(kd);
+				}
 			}
+			return result;
 		}
-		return saved;
+		// Fallback to regular paginated loading
+		return getDescriptionsPaginated(100, 0);
 	}
 
 	private boolean conditionHasArguments() {
 		return this.condition != null && this.condition.indexOf('?') >= 0;		
 	}
 
-	private Map getCache() {
-		if (cache == null) {
-			cache = new HashMap();
-		}
-		return cache;		
-	}
 
 	/**
 	 * It's used when there is only a key property.
@@ -388,28 +314,6 @@ public class DescriptionsCalculator implements ICalculator {
 	}
 	
 
-	private TableModel executeQuery() throws Exception {
-		EntityTab tab = EntityTabFactory.createAllData(getMetaTab());		
-		String condition = "";
-		if (hasCondition()) {
-			condition = getCondition(); 
-		}
-		String order = "";		
-		if (hasOrder()) {
-			order = " ORDER BY " + getOrder(); 
-		}
-		Object [] key = null;
-		if (hasParameters()) {
-			key = new Object[getParameters().size()];
-			Iterator it = getParameters().iterator();
-			for (int i=0; i<key.length; i++) {	
-				key[i] = it.next();
-				if (key[i] == null) return null;
-			}				
-		}						
-		tab.search(condition + order, key); 
-		return tab.getTable();
-	}
 	
 	private Collection executeQueryPaginatedCollection(int limit, int offset, String searchTerm) throws Exception {
 		
@@ -625,13 +529,6 @@ public class DescriptionsCalculator implements ICalculator {
 		setOrderByKey("true".equalsIgnoreCase(b));
 	}
 
-	public boolean isUseCache() {
-		return useCache;
-	}
-
-	public void setUseCache(boolean b) {
-		useCache = b;
-	}
 
 	public String getDescriptionProperties() {
 		return Is.emptyString(descriptionProperties)?getDescriptionProperty():descriptionProperties;

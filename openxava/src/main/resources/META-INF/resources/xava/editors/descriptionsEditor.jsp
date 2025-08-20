@@ -184,21 +184,14 @@ try {
     title = "";
 }
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
-// Determine if we should use remote mode based on count, not by loading all data
-int REMOTE_THRESHOLD = 200; // Over this size we switch to remote (DWR) sourcing
-int descriptionsCount = calculator.getDescriptionsCount();
-boolean remote = descriptionsCount > REMOTE_THRESHOLD;
+// Always use on-demand loading for better performance
 
 java.util.Collection descriptions = null;
 String selectedDescription = "";
 String selectedKey = "";
 
-// Only load descriptions if we need them (non-remote mode or to find selected item)
-if (!remote) {
-	// For non-remote mode, load a reasonable amount (not all)
-	descriptions = calculator.getDescriptionsPaginated(Math.min(descriptionsCount, 200), 0);
-} else if (!fvalue.isEmpty()) {
-	// For remote mode, only get the selected item if there's a value
+// Only load the selected item if there's a value
+if (!Is.emptyString(fvalue)) {
 	try {
 		KeyAndDescription selected = calculator.findDescriptionByKey(fvalue);
 		if (selected != null) {
@@ -209,6 +202,8 @@ if (!remote) {
 	} catch (Exception e) {
 		descriptions = java.util.Collections.emptyList();
 	}
+} else {
+	descriptions = java.util.Collections.emptyList();
 }
 
 boolean editable = "true".equals(request.getParameter("editable"));
@@ -229,7 +224,7 @@ if (editable) {
 				}
 			}
 		} else if (!Is.emptyString(fvalue)) {
-			// In remote mode, find just the selected item by key
+			// Find just the selected item by key
 			KeyAndDescription selectedItem = calculator.findDescriptionByKey(fvalue);
 			if (selectedItem != null) {
 				String description = formatter==null?selectedItem.getDescription().toString():formatter.format(request, selectedItem.getDescription());
@@ -238,37 +233,13 @@ if (editable) {
 			}
 		}
 		
-		StringBuffer values = remote ? null : new StringBuffer("[");
-		int maxDescriptionLength = 0;
-		
-		// Build values array only for non-remote mode
-		if (!remote && descriptions != null) {
-			java.util.Iterator it = descriptions.iterator();
-			boolean first = true;
-			while (it.hasNext()) {
-				KeyAndDescription cl = (KeyAndDescription) it.next();	
-				String description = formatter==null?cl.getDescription().toString():formatter.format(request, cl.getDescription());
-				if (description.length() > maxDescriptionLength) maxDescriptionLength = description.length();
-				
-				if (!first) values.append(",");
-				values.append("{\"label\":\""); 
-				values.append(description.replace("\\","\\\\").replaceAll("'", "&apos;").replaceAll("\"", "&Prime;")); 
-				values.append("\",\"value\":\""); 
-				values.append(cl.getKey().toString().replace("\\","\\\\").replaceAll("'", "&apos;").replaceAll("\"", "&Prime;")); 
-				values.append("\"}");
-				first = false;
-			}
-			values.append("]");
-		}
-		String browser = request.getHeader("user-agent");
-		maxDescriptionLength = remote ? Math.max((selectedDescription==null?0:selectedDescription.length()) + 5, 30) : maxDescriptionLength + 5;
+		// Calculate max description length for input sizing
+		int maxDescriptionLength = Math.max((selectedDescription==null?0:selectedDescription.length()) + 5, 30);
 		selectedDescription = selectedDescription.replaceAll("\"", "&quot;").replace("\\\\", "\\\\\\\\"); 
 	%>
 	<span class="<%=style.getDescriptionsList()%> <%=style.getEditor()%>">
 	<%-- The JavaScript code depends on the order of the next elements --%>
     <input name="<%=propertyKey%>__CONTROL__" type="text" tabindex="1" class="xava_select <%=style.getEditor()%>" size="<%=maxDescriptionLength%>" title="<%=title%>" 
-		<% if (remote) { %>
-		data-remote="true"
 		data-view-object="<%=viewObject%>"
 		data-limit="60"
 		data-condition="<%=calculator.getCondition()%>"
@@ -287,9 +258,6 @@ if (editable) {
 		data-keyProperties="<%=request.getParameter("keyProperties")==null?"":request.getParameter("keyProperties")%>"
 		data-descriptionProperty="<%=request.getParameter("descriptionProperty")==null?"":request.getParameter("descriptionProperty")%>"
 		data-descriptionProperties="<%=request.getParameter("descriptionProperties")==null?"":request.getParameter("descriptionProperties")%>"
-		<% } else { %>
-		data-values='<%=values%>'
-		<% } %>
 		value="<%=selectedDescription%>"/>
 	<input id="<%=propertyKey%>" type="hidden" name="<%=propertyKey%>" value="<%=selectedKey%>"/>
     <input type="hidden" name="<%=propertyKey%>__DESCRIPTION__" value="<%=selectedDescription%>"/>

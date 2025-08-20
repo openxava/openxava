@@ -112,9 +112,8 @@ openxava.addEditorInitFunction(function() {
 			source: function( request, response ) {
 				
 				var input = $(this)[0]["element"];
-				var isRemote = $(input).data("remote") === true || $(input).data("remote") === "true";
-				if (isRemote) { // Possibly always remote in large datasets
-					var propertyKey = $(input).next().attr("id");
+				// Always use on-demand loading for better performance
+				var propertyKey = $(input).next().attr("id");
 					var viewObject = $(input).data("view-object") || "xava_view";
 					var limit = 60; // Max items per page
 					var offset = 0; // Initial offset for pagination
@@ -257,14 +256,6 @@ openxava.addEditorInitFunction(function() {
 							}
 						}
 					);
-				}
-				else {
-					var values = $(input).data("values") || [];
-					var matcher = new RegExp($.ui.autocomplete.escapeRegex(descriptionsEditor.removeAccents(request.term)), "i");
-					response( $.grep( values, function( value ) {
-						return matcher.test(descriptionsEditor.removeAccents(value.label));
-					}) );
-				}
 			},
 			appendTo: "body"
 		}); 

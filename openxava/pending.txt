@@ -1,7 +1,7 @@
 Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
-- Implementación única.    
+- Probar Product y Product2.
 - Posibles optimizaciones:
     - No recargar al abrir y cerrar.
     - Al pedir la segunda página evitar instanciar los elementos de la primera también.
