@@ -270,7 +270,7 @@ if (editable) {
 		<% if (remote) { %>
 		data-remote="true"
 		data-view-object="<%=viewObject%>"
-		data-limit="30"
+		data-limit="60"
 		data-condition="<%=calculator.getCondition()%>"
 		data-orderByKey="<%=request.getParameter("orderByKey")==null?"":request.getParameter("orderByKey")%>"
 		data-order="<%=request.getParameter("order")==null?"":request.getParameter("order")%>"

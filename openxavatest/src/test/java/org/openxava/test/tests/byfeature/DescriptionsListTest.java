@@ -1,11 +1,11 @@
 package org.openxava.test.tests.byfeature;
 
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.*;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
  
@@ -44,7 +44,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		long start = System.currentTimeMillis();
 		execute("CRUD.new");
 		long elapsed = System.currentTimeMillis() - start;
-		assertTrue("CRUD.new should take less than 7 seconds, but took " + elapsed + " ms", elapsed < 7000);
+		assertTrue("CRUD.new should take less than 6 seconds, but took " + elapsed + " ms", elapsed < 6000);
 
 		// On entering Traveler it is in detail mode by default (no records)
 		// Verify that no autocomplete option items are loaded yet
@@ -57,11 +57,11 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		openIcon.click();
 		Thread.sleep(700); // wait for the first page to load
 
-		// Now options should be loaded on demand (first page size expected: 30)
+		// Now options should be loaded on demand (first page size expected: 60)
 		items = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
-		assertEquals(30, items.size());
+		assertEquals(60, items.size());
 
-		// Close and reopen the list, it should still show 30 items
+		// Close and reopen the list, it should still show 60 items
 		WebElement closeIcon = lastJourneyEditor.findElement(By.className("mdi-menu-up"));
 		closeIcon.click();
 		Thread.sleep(300); // wait for list to close
@@ -69,14 +69,14 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		openIcon.click();
 		Thread.sleep(700); // wait for the first page to load again
 		items = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
-		assertEquals(30, items.size());
+		assertEquals(60, items.size());
 
-		// Scroll to load next page and verify 60 items
+		// Scroll to load next page and verify 120 items
 		WebElement list = getDriver().findElement(By.id(getListId(0)));
 		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", list);
 		Thread.sleep(900); // wait for the next page to load
 		items = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
-		assertEquals(60, items.size());
+		assertEquals(120, items.size());
 
 		// --- Incomplete simulation of mouse-wheel bug ---
 		// We mimic user interaction that previously exposed a wheel-related bug by:
@@ -84,21 +84,21 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		// 2) Forcing another lazy-load page via programmatic scrollTop change
 		// Note: This does not generate a real wheel event; it's a pragmatic approximation.
 		// Move to and then synthetically dispatch mouse events on a deeper list item (index 35)
-		WebElement itemToHover = items.get(35);
+		WebElement itemToHover = items.get(65);
 		hoverLikeRealMouse(itemToHover);
 
 		// Then scroll again using the same working method to load next page and verify 90 items
 		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", list);
 		Thread.sleep(900); // wait for the next page (third) to load
 		items = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
-		assertEquals(90, items.size());
+		assertEquals(180, items.size());
 		// --- End incomplete simulation block ---
 
 		// Type filter '24' in the input and verify only the expected suggestions are shown
 		WebElement lastJourneyInput = lastJourneyEditor.findElement(By.className("ui-autocomplete-input"));
 		lastJourneyInput.clear();
 		lastJourneyInput.sendKeys("24");
-		Thread.sleep(10000); // Given it's calculated property all the records are loaded in server to filter, so it costs
+		Thread.sleep(9000); // Given it's calculated property all the records are loaded in server to filter, so it costs
 		List<WebElement> filtered = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
 		List<String> filteredTexts = new java.util.ArrayList<>();
 		for (WebElement it : filtered) filteredTexts.add(it.getText());
@@ -128,7 +128,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		WebElement nextJourneyInput = nextJourneyEditor.findElement(By.className("ui-autocomplete-input"));
 		nextJourneyInput.clear();
 		nextJourneyInput.sendKeys("24");
-		Thread.sleep(2000); // Less time needed since it's filtering by persistent property, not calculated
+		Thread.sleep(1000); // Less time needed since it's filtering by persistent property, not calculated
 		WebElement nextJourneyList = getDriver().findElement(By.id(getListId(1))); // Get the second combo list (index 1)
 		List<WebElement> nextJourneyFiltered = nextJourneyList.findElements(By.tagName("li"));
 		List<String> nextJourneyFilteredTexts = new java.util.ArrayList<>();
@@ -163,7 +163,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		start = System.currentTimeMillis();
 		execute("List.viewDetail", "row=0");
 		elapsed = System.currentTimeMillis() - start;
-		assertTrue("List.viewDetail take less than 7 seconds, but took " + elapsed + " ms", elapsed < 7000);
+		assertTrue("List.viewDetail take less than 6 seconds, but took " + elapsed + " ms", elapsed < 6000);
 
 		WebElement lastJourneyTextField = getDescriptionsListTextField("lastJourney");
 		assertEquals("JORNEY 224", lastJourneyTextField.getAttribute("value"));

@@ -116,7 +116,7 @@ openxava.addEditorInitFunction(function() {
 				if (isRemote) { // Possibly always remote in large datasets
 					var propertyKey = $(input).next().attr("id");
 					var viewObject = $(input).data("view-object") || "xava_view";
-					var limit = 30; // Max items per page
+					var limit = 60; // Max items per page
 					var offset = 0; // Initial offset for pagination
 					var condition = $(input).data("condition") || "";
 					var orderByKey = $(input).data("orderbykey") || $(input).data("ordenadoporclave") || "";
@@ -297,18 +297,6 @@ descriptionsEditor.executeOnChange = function(element) {
 	$(element).parent().trigger("change"); 
 }
 
-/* Original implementation kept for reference
-descriptionsEditor.removeAccents = function(str) { 
-    return str.toLowerCase()
-        .replace(/[áàâä]/,"a")
-        .replace(/[éèêë]/,"e")
-        .replace(/[íìîï]/,"i")
-        .replace(/[óòôö]/,"o")
-        .replace(/[úùûü]/,"u"); 
-}
-*/
-
-/* Alternative implementation */
 descriptionsEditor.removeAccents = function(str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }

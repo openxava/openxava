@@ -1,10 +1,7 @@
 package org.openxava.test.model;
 
-import java.util.*;
-
 import javax.persistence.*;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
 
 /**
@@ -36,8 +33,8 @@ public class Journey {
 				try {
 					int n = Integer.parseInt(parts[1]);
 					System.out.println("Journey.getSlowName() n=" + n);
-					if (n > 100) {
-						Thread.sleep(50);
+					if (n > 180) {
+						Thread.sleep(100);
 					}
 				}
 				catch (NumberFormatException ignore) {

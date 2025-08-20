@@ -1,32 +1,21 @@
 package org.openxava.web.dwr;
 
-import java.io.UnsupportedEncodingException;
-import java.text.Normalizer;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.io.*;
+import java.text.*;
+import java.util.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.openxava.calculators.DescriptionsCalculator;
-import org.openxava.converters.IConverter;
-import org.openxava.filters.IFilter;
-import org.openxava.filters.IRequestFilter;
-import org.openxava.formatters.IFormatter;
-import org.openxava.mapping.PropertyMapping;
-import org.openxava.model.meta.MetaProperty;
-import org.openxava.util.Is;
-import org.openxava.util.XavaResources;
+import org.apache.commons.logging.*;
+import org.openxava.calculators.*;
+import org.openxava.converters.*;
+import org.openxava.filters.*;
+import org.openxava.formatters.*;
+import org.openxava.mapping.*;
+import org.openxava.model.meta.*;
+import org.openxava.util.*;
 import org.openxava.view.View;
-import org.openxava.web.Ids;
-import org.openxava.web.WebEditors;
-import org.openxava.util.KeyAndDescription;
+import org.openxava.web.*;
 
 /**
  * DWR endpoint to fetch descriptions incrementally for @DescriptionsList.
@@ -248,7 +237,7 @@ public class Descriptions extends DWRBase {
     private static String nvl(String a, String b) { return Is.emptyString(a) ? (b == null ? "" : b) : a; }
 
     private static int sanitizeLimit(int limit) {
-        if (limit <= 0) return 30;
+        if (limit <= 0) return 60;
         return Math.min(limit, 100);
     }
 
