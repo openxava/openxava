@@ -38,10 +38,11 @@ public class DescriptionsListTest extends WebDriverTestBase {
 	}
 	
 	public void testLargeDatasetLoadedOnDemand() throws Exception {
-		// TMR ME QUEDÉ POR AQUÍ: AÑADIR TEST PARA COMPROBAR QUE EL COMPARADOR DE LISTA SOLO SACA 200 ELEMENTOS Y TIENE UN -- ETC --
-		// TMR   PROBARLO A MANO EN OTROS DESCRIPTIONS LIST CORTOS
 		
 		goModule("Traveler"); 
+
+		// Verify filter SELECT is limited to 200 entries before CRUD.new
+		verifyFilterSelectLimitedTo200Entries();
 
 		// On demand server side fetch. If it takes more than 7 seconds, all the records have been loaded
 		long start = System.currentTimeMillis();
@@ -356,6 +357,29 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		XPersistence.commit();
 	}
 	
+	private void verifyFilterSelectLimitedTo200Entries() throws Exception {
+		// Find the SELECT element for the filter
+		WebElement filterSelect = getDriver().findElement(By.name("ox_openxavatest_Traveler__conditionValue___3"));
+		List<WebElement> options = filterSelect.findElements(By.tagName("option"));
+		
+		// Should have 202 entries: 1 empty + 200 JORNEY entries + 1 ETC entry
+		assertEquals("Filter SELECT should have exactly 202 entries", 202, options.size());
+		
+		// First option should be empty
+		assertEquals("", options.get(0).getAttribute("value"));
+		assertEquals("", options.get(0).getText());
+		
+		// Second option should be JORNEY 1
+		assertEquals("JORNEY 1", options.get(1).getText());
+		
+		// Penultimate option (201st, index 200) should be JORNEY 200
+		assertEquals("JORNEY 200", options.get(200).getText());
+		
+		// Last option should be "--- ETC ---"
+		assertEquals("", options.get(201).getAttribute("value"));
+		assertEquals("--- ETC ---", options.get(201).getText());
+	}
+
 	private WebElement getDescriptionsListTextField(String reference) {
 		WebElement referenceEditor = getDriver().findElement(By.id("ox_openxavatest_" + getModule() + "__reference_editor_" + reference));
 		return referenceEditor.findElement(By.className("ui-autocomplete-input"));

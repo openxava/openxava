@@ -1,7 +1,6 @@
 Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
-- En comparadores de modo lista.
 - Implementación única.    
 - Posibles optimizaciones:
     - No recargar al abrir y cerrar.
