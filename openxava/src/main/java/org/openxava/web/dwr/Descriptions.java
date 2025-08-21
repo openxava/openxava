@@ -201,6 +201,8 @@ public class Descriptions extends DWRBase {
             // Process results (filtering already done in calculator when needed)
             while (it.hasNext()) {
                 KeyAndDescription kd = (KeyAndDescription) it.next();
+                // Asegurarse de que showCode sea false para evitar que se muestre el código en la UI
+                kd.setShowCode(false);
                 String label = formatter == null ? String.valueOf(kd.getDescription()) : formatter.format(request, kd.getDescription());
                 
                 // No additional filtering needed - calculator already filtered if term was provided

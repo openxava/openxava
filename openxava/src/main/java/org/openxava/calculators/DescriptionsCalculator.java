@@ -12,6 +12,7 @@ import org.openxava.model.meta.*;
 import org.openxava.tab.impl.*;
 import org.openxava.tab.meta.*;
 import org.openxava.util.*;
+import org.openxava.web.DescriptionsLists;
 
 /**
  * It obtain a description collection. <p>
@@ -200,14 +201,65 @@ public class DescriptionsCalculator implements ICalculator {
 	}
 	
 	private String buildKeyCondition(Object key) {
-		if (isMultipleKey()) {
-			// For composite keys, we'd need to parse the key string
-			// For now, use a simple approach
-			return getKeyProperties().split(",")[0].trim() + " = '" + key.toString() + "'";
-		} else {
-			return getKeyProperty() + " = '" + key.toString() + "'";
-		}
-	}
+        try {
+            // Always parse using DescriptionsLists (uses WebEditors under the hood)
+            Map<String, Object> values = new HashMap<String, Object>();
+            DescriptionsLists.fillReferenceValues(values, getMetaModel(), key == null ? null : key.toString());
+            StringBuilder condition = new StringBuilder();
+            for (String propertyName : getMetaModel().getAllKeyPropertiesNames()) {
+                MetaProperty p = getMetaModel().getMetaProperty(propertyName);
+                Object value = values == null ? null : values.get(propertyName);
+                appendConditionPart(condition, propertyName, p, value);
+            }
+            return condition.toString();
+        }
+        catch (Exception ex) {
+            // Fallback to previous (simplistic) behavior if anything goes wrong
+            return (isMultipleKey()? getKeyProperties().split(",")[0].trim(): getKeyProperty())
+                + " = '" + (key==null?"":key.toString()) + "'";
+        }
+    }
+
+    /**
+     * Appends a single property condition into the builder, using proper
+     * literal formatting depending on the MetaProperty type and supporting nulls.
+     */
+    private void appendConditionPart(StringBuilder condition, String propertyName, MetaProperty p, Object value) throws Exception {
+        if (condition.length() > 0) condition.append(" AND ");
+        if (value == null || (value instanceof String && ((String) value).length() == 0)) {
+            condition.append("${").append(propertyName).append("} is null");
+            return;
+        }
+        condition.append("${").append(propertyName).append("} = ").append(formatLiteralValue(p, value));
+    }
+
+    /**
+     * Formats a token value as an HQL literal based on property type.
+     * Numbers and booleans are unquoted; strings are single-quoted with escaping.
+     */
+    private String formatLiteralValue(MetaProperty p, Object parsed) throws Exception {
+        if (parsed == null) return "null"; // although we handle null/empty earlier
+
+        if (parsed instanceof java.lang.Boolean) {
+            return ((Boolean) parsed) ? "true" : "false";
+        }
+        if (parsed instanceof java.lang.Number) {
+            return parsed.toString(); // standard dot decimal
+        }
+        if (parsed instanceof java.util.Date) {
+            // Format as ISO timestamp literal
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String formatted = sdf.format((java.util.Date) parsed);
+            return "'" + formatted + "'";
+        }
+
+        // Default: quote as string and escape single quotes
+        String v = String.valueOf(parsed);
+        String escaped = v.replace("'", "''");
+        return "'" + escaped + "'";
+    }
+
+    
 	
 	/*
 	 * @since 7.1.6 
@@ -316,122 +368,138 @@ public class DescriptionsCalculator implements ICalculator {
 
 	
 	private Collection executeQueryPaginatedCollection(int limit, int offset, String searchTerm) throws Exception {
-		
-		// Create EntityTab with a large chunk size to get all needed data in one go
-		int chunkSize = offset + limit;
-		EntityTab tab = EntityTabFactory.create(getMetaTab(), chunkSize);
-		
-		String condition = "";
-		if (hasCondition()) {
-			condition = getCondition(); 
-		}
-		
-		// Add search term filter to condition if provided
-		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
-			String searchCondition = buildSearchCondition(searchTerm.trim());
-			if (!searchCondition.isEmpty()) {
-				if (!condition.isEmpty()) {
-					condition += " AND " + searchCondition;
-				} else {
-					condition = searchCondition;
-				}
-			}
-		}
-		
-		String order = "";		
-		if (hasOrder()) {
-			order = " ORDER BY " + getOrder(); 
-		}
-		
-		Object [] key = null;
-		if (hasParameters()) {
-			key = new Object[getParameters().size()];
-			Iterator it = getParameters().iterator();
-			for (int i=0; i<key.length; i++) {	
-				key[i] = it.next();
-				if (key[i] == null) return Collections.EMPTY_LIST;
-			}				
-		}
-		
-		tab.search(condition + order, key);
-		
-		// Get only the first chunk, don't call getTable() which loads everything
-		try {
-			DataChunk firstChunk = tab.nextChunk();
-			
-			// Process the chunk data into KeyAndDescription objects like read() does
-			List result = new ArrayList();
-			List chunkData = firstChunk.getData();
-			
-			// Apply offset and limit to the chunk data
-			int startIndex = Math.min(offset, chunkData.size());
-			int endIndex = Math.min(startIndex + limit, chunkData.size());
-			
-			for (int i = startIndex; i < endIndex; i++) {
-				Object[] row = (Object[]) chunkData.get(i);
-				KeyAndDescription el = new KeyAndDescription();
-				
-				int iKey = 0;
-				if (isMultipleKey()) {
-					// For composite keys, we'd need to parse the key string
-					// For now, use a simple approach
-					Iterator itKeyNames = getKeyPropertiesCollection().iterator();
-					Map keyMap = new HashMap();
-					boolean isNull = true;
-					while (itKeyNames.hasNext()) {
-						String name = (String) itKeyNames.next();
-						Object value = row[iKey++];
-						keyMap.put(name, value);
-						if (value != null) isNull = false;
-					}
-					if (isNull) {
-						el.setKey(null);
-					} else {
-						el.setKey(getMetaModel().toString(keyMap));
-					}
-				} else {
-					el.setKey(row[iKey++]);
-				}
-				
-				StringBuffer value = new StringBuffer();
-				// Only use the last column (index 2) which contains the actual description
-				// Skip the key column (index 0) and the duplicate key column (index 1)
-				int lastColumnIndex = row.length - 1;
-				if (lastColumnIndex >= iKey && row[lastColumnIndex] != null) {
-					value.append(String.valueOf(row[lastColumnIndex]).trim());
-				}
-				el.setDescription(value.toString());
-				el.setShowCode(true);
-				if (el.getKey() != null) result.add(el);
-			}
-			
-			// Return the collection directly
-			return result;
-		} catch (Exception e) {
-			// Fallback to empty collection
-			return Collections.EMPTY_LIST;
-		}
-	}
-	
-	private int executeQueryCount() throws Exception {
+ 		// Build tab with chunk size to avoid loading everything
+ 		int chunkSize = Math.max(0, offset) + Math.max(0, limit);
+ 		if (chunkSize <= 0) chunkSize = 50; // sane default
+ 		EntityTab tab = EntityTabFactory.create(getMetaTab(), chunkSize);
+ 
+ 		String condition = "";
+ 		if (hasCondition()) {
+ 			condition = getCondition(); 
+ 		}
+ 
+ 		// Add search condition if provided
+ 		if (!Is.emptyString(searchTerm)) {
+ 			String searchCondition = buildSearchCondition(searchTerm);
+ 			if (!Is.emptyString(searchCondition)) {
+ 				if (Is.emptyString(condition)) {
+ 					condition = searchCondition;
+ 				} else {
+ 					condition = "(" + condition + ") AND (" + searchCondition + ")";
+ 				}
+ 			}
+ 		}
+ 
+ 		String order = "";
+ 		if (hasOrder()) {
+ 			order = " ORDER BY " + getOrder(); 
+ 		}
+ 
+ 		Object [] key = null;
+ 		if (hasParameters()) {
+ 			key = new Object[getParameters().size()];
+ 			Iterator it = getParameters().iterator();
+ 			for (int i=0; i<key.length; i++) { 
+ 				key[i] = it.next();
+ 				if (key[i] == null) return Collections.EMPTY_LIST;
+ 			}
+ 		}
+ 
+ 		tab.search(condition + order, key);
+ 
+ 		try {
+ 			DataChunk firstChunk = tab.nextChunk();
+ 			List result = new ArrayList();
+ 			List chunkData = firstChunk == null ? Collections.EMPTY_LIST : firstChunk.getData();
+ 
+ 			int startIndex = Math.min(Math.max(0, offset), chunkData.size());
+ 			int endIndex = Math.min(startIndex + Math.max(0, limit), chunkData.size());
+ 
+ 			for (int i = startIndex; i < endIndex; i++) {
+ 				Object[] row = (Object[]) chunkData.get(i);
+ 				KeyAndDescription el = new KeyAndDescription();
+ 
+ 				int iKey = 0;
+ 				if (isMultipleKey()) {
+ 					Iterator itKeyNames = getKeyPropertiesCollection().iterator();
+ 					Map keyMap = new HashMap();
+ 					boolean isNull = true;
+ 					while (itKeyNames.hasNext()) {
+ 						String name = (String) itKeyNames.next();
+ 						Object v = row[iKey++];
+ 						keyMap.put(name, v);
+ 						if (v != null) isNull = false;
+ 					}
+ 					if (isNull) {
+ 						el.setKey(null);
+ 					} else {
+ 						el.setKey(getMetaModel().toString(keyMap));
+ 					}
+ 				} else {
+ 					el.setKey(row[iKey++]);
+ 				}
+ 
+ 				StringBuilder value = new StringBuilder();
+ 				String descPropsStr = getDescriptionProperties();
+ 
+ 				String keyPropsStr = getKeyProperties();
+ 				String[] keyProps = keyPropsStr.split(",");
+ 
+ 				if (Is.emptyString(descPropsStr) || descPropsStr.equals(getKeyProperties())) {
+ 					int lastColumnIndex = row.length - 1;
+ 					if (lastColumnIndex >= iKey) {
+ 						Object d = row[lastColumnIndex];
+ 						if (d != null) {
+ 							value.append(String.valueOf(d).trim());
+ 						}
+ 					}
+ 				} else {
+ 					// Use the configured description properties: columns are after key columns
+ 					String[] descProps = descPropsStr.split(",");
+ 					for (int j = 0; j < descProps.length; j++) {
+ 						int colIndex = iKey + j;
+ 						if (colIndex >= 0 && colIndex < row.length) {
+ 							Object d = row[colIndex];
+ 							if (d != null) {
+ 								if (value.length() > 0) value.append(" - ");
+ 								value.append(String.valueOf(d).trim());
+ 							}
+ 						}
+ 					}
+ 				}
+ 
+ 				el.setDescription(value.toString());
+ 				el.setShowCode(keyProps.length > 1);
+ 				if (el.getKey() != null) result.add(el);
+ 			}
+ 
+ 			return result;
+ 		}
+ 		catch (Exception e) {
+ 			return Collections.EMPTY_LIST;
+ 		}
+ 	}
+ 
+  
+  private int executeQueryCount() throws Exception {
 		EntityTab tab = EntityTabFactory.createAllData(getMetaTab());		
 		String condition = "";
 		if (hasCondition()) {
 			condition = getCondition(); 
 		}
-		
-		Object [] key = null;
-		if (hasParameters()) {
-			key = new Object[getParameters().size()];
-			Iterator it = getParameters().iterator();
-			for (int i=0; i<key.length; i++) {	
-				key[i] = it.next();
-				if (key[i] == null) return 0;
-			}				
-		}						
-		tab.search(condition, key); 
-		return tab.getResultSize();
-	}
+ 
+ 		Object [] key = null;
+ 		if (hasParameters()) {
+ 			key = new Object[getParameters().size()];
+ 			Iterator it = getParameters().iterator();
+ 			for (int i=0; i<key.length; i++) {	
+ 				key[i] = it.next();
+ 				if (key[i] == null) return 0;
+ 			}				
+ 		}						
+ 		tab.search(condition, key); 
+ 		return tab.getResultSize();
+ 	}
 		
 	private boolean hasCondition() {
 		return !Is.emptyString(condition);
@@ -440,6 +508,7 @@ public class DescriptionsCalculator implements ICalculator {
 	private boolean hasOrder() {
 		return !Is.emptyString(order);
 	}
+	
 	
 	public String getModel() {
 		return model;
