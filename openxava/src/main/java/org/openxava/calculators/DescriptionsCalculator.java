@@ -416,57 +416,59 @@ public class DescriptionsCalculator implements ICalculator {
  			int endIndex = Math.min(startIndex + Math.max(0, limit), chunkData.size());
  
  			for (int i = startIndex; i < endIndex; i++) {
- 				Object[] row = (Object[]) chunkData.get(i);
- 				KeyAndDescription el = new KeyAndDescription();
- 
- 				int iKey = 0;
- 				if (isMultipleKey()) {
- 					Iterator itKeyNames = getKeyPropertiesCollection().iterator();
- 					Map keyMap = new HashMap();
- 					boolean isNull = true;
- 					while (itKeyNames.hasNext()) {
- 						String name = (String) itKeyNames.next();
- 						Object v = row[iKey++];
- 						keyMap.put(name, v);
- 						if (v != null) isNull = false;
- 					}
- 					if (isNull) {
- 						el.setKey(null);
- 					} else {
- 						el.setKey(getMetaModel().toString(keyMap));
- 					}
- 				} else {
- 					el.setKey(row[iKey++]);
- 				}
+				Object[] row = (Object[]) chunkData.get(i);
+				KeyAndDescription el = new KeyAndDescription();
+
+				int iKey = 0;
+				if (isMultipleKey()) {
+					Iterator itKeyNames = getKeyPropertiesCollection().iterator();
+					Map keyMap = new HashMap();
+					boolean isNull = true;
+					while (itKeyNames.hasNext()) {
+						String name = (String) itKeyNames.next();
+						Object v = row[iKey++];
+						keyMap.put(name, v);
+						if (v != null) isNull = false;
+					}
+					if (isNull) {
+						el.setKey(null);
+					} else {
+						el.setKey(getMetaModel().toString(keyMap));
+					}
+				} else {
+					el.setKey(row[iKey++]);
+				}
  
  				StringBuilder value = new StringBuilder();
- 				String descPropsStr = getDescriptionProperties();
- 
- 				String keyPropsStr = getKeyProperties();
- 				String[] keyProps = keyPropsStr.split(",");
- 
- 				if (Is.emptyString(descPropsStr) || descPropsStr.equals(getKeyProperties())) {
- 					int lastColumnIndex = row.length - 1;
- 					if (lastColumnIndex >= iKey) {
- 						Object d = row[lastColumnIndex];
- 						if (d != null) {
- 							value.append(String.valueOf(d).trim());
- 						}
- 					}
- 				} else {
- 					// Use the configured description properties: columns are after key columns
- 					String[] descProps = descPropsStr.split(",");
- 					for (int j = 0; j < descProps.length; j++) {
- 						int colIndex = iKey + j;
- 						if (colIndex >= 0 && colIndex < row.length) {
- 							Object d = row[colIndex];
- 							if (d != null) {
- 								if (value.length() > 0) value.append(" - ");
- 								value.append(String.valueOf(d).trim());
- 							}
- 						}
- 					}
- 				}
+				String descPropsStr = getDescriptionProperties();
+
+				String keyPropsStr = getKeyProperties();
+				String[] keyProps = keyPropsStr.split(",");
+
+				if (Is.emptyString(descPropsStr) || descPropsStr.equals(getKeyProperties())) {
+					// When description properties are same as key properties, use key value as description
+					if (el.getKey() != null) {
+						value.append(String.valueOf(el.getKey()).trim());
+					}
+				} else {
+					// Description properties are different from key properties
+					// Based on debug output: SELECT e.number, e.number, e.description, e.number
+					// Structure: [key, key_duplicate, description, key_duplicate]
+					String[] descProps = descPropsStr.split(",");
+					
+					for (int j = 0; j < descProps.length; j++) {
+						// Description columns are at positions: keyCount + keyCount + j
+						// Structure: [key, key_dup, desc, key_dup] -> desc at position 2
+						int colIndex = keyProps.length + keyProps.length + j;
+						if (colIndex >= 0 && colIndex < row.length) {
+							Object d = row[colIndex];
+							if (d != null) {
+								if (value.length() > 0) value.append(" - ");
+								value.append(String.valueOf(d).trim());
+							}
+						}
+					}
+				}
  
  				el.setDescription(value.toString());
  				el.setShowCode(keyProps.length > 1);
