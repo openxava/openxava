@@ -2480,20 +2480,75 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	private List<KeyAndDescription> getValidValuesWithUIAutocomplete(String name) throws Exception { 
-		HtmlElement textField = (HtmlElement) page.getHtmlElementById(decorateId(name)).getPreviousElementSibling();
-		String actualValues = textField.getAttribute("data-values");
-		StringTokenizer st = new StringTokenizer(actualValues, "\"");
-		nextTokens(st, 3); 
-		List<KeyAndDescription> validValues = new ArrayList<KeyAndDescription>();
-		while (st.hasMoreTokens()) {			
-			String description = st.nextToken();
-			nextTokens(st, 3); 
-			String key = st.nextToken();
-			nextTokens(st, 3); 
-			validValues.add(new KeyAndDescription(key, description));
+		// 1) Locate the editor container and the button to open the menu
+		String referenceName = name.contains(".") ? name.substring(0, name.indexOf(".")) : name;
+		HtmlElement editorContainer = getElementById("reference_editor_" + referenceName);
+
+		List<HtmlElement> dropdownButtons = editorContainer.getByXPath(".//i[contains(@class, 'mdi-menu-down')]");
+		if (dropdownButtons.isEmpty()) {
+			fail(XavaResources.getString("dropdown_button_not_found", name));
 		}
+
+		// 2) Open the menu and wait for it to load
+		dropdownButtons.get(0).click();
+		Thread.sleep(700);
+
+		// 3) Get the visible menu and capture all displayed labels (descriptions)
+		List<HtmlElement> autocompleteMenus = page.getByXPath("//ul[contains(@class, 'ui-autocomplete')]");
+		List<KeyAndDescription> validValues = new ArrayList<KeyAndDescription>();
+		List<String> labels = new ArrayList<String>();
+		if (!autocompleteMenus.isEmpty()) {
+			HtmlElement visibleMenu = null;
+			for (HtmlElement menu : autocompleteMenus) {
+				String style = menu.getAttribute("style");
+				if (style == null || !style.contains("display: none")) { visibleMenu = menu; break; }
+			}
+			if (visibleMenu != null) {
+				List<HtmlElement> menuItems = visibleMenu.getByXPath(".//li[contains(@class, 'ui-menu-item')]/div[contains(@class,'ui-menu-item-wrapper')]");
+				for (HtmlElement wrapper : menuItems) {
+					labels.add(wrapper.getTextContent().trim());
+				}
+			}
+		}
+
+		// 4) For each label, select it so the hidden input receives the key, read it, then reopen the menu
+		for (String label : labels) {
+			// If the menu is not visible, open it again
+			List<HtmlElement> menus = page.getByXPath("//ul[contains(@class, 'ui-autocomplete')]");
+			HtmlElement visibleMenu = null;
+			for (HtmlElement menu : menus) {
+				String style = menu.getAttribute("style");
+				if (style == null || !style.contains("display: none")) { visibleMenu = menu; break; }
+			}
+			if (visibleMenu == null) {
+				// reopen
+				dropdownButtons.get(0).click();
+				Thread.sleep(400);
+				menus = page.getByXPath("//ul[contains(@class, 'ui-autocomplete')]");
+				for (HtmlElement menu : menus) {
+					String style = menu.getAttribute("style");
+					if (style == null || !style.contains("display: none")) { visibleMenu = menu; break; }
+				}
+			}
+
+			if (visibleMenu != null) {
+				// Find the item with the exact label and click to select
+				String xpath = ".//div[contains(@class,'ui-menu-item-wrapper') and normalize-space(text())='" + label.replace("'", "&apos;") + "']";
+				List<HtmlElement> candidates = visibleMenu.getByXPath(xpath);
+				if (!candidates.isEmpty()) {
+					candidates.get(0).click(); // select the item -> it fills the hidden input with the key
+					Thread.sleep(200);
+					// Read the key from the field's hidden input
+					HtmlInput hidden = getForm().getInputByName(decorateId(name));
+					String key = hidden.getValueAttribute();
+					validValues.add(new KeyAndDescription(key, label));
+				}
+			}
+		}
+
 		return validValues;
 	}
+
 	
 	private void nextTokens(StringTokenizer st, int count) { 
 		for (int i=0; i<count; i++) {
