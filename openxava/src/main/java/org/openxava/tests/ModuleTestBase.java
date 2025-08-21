@@ -2546,6 +2546,17 @@ abstract public class ModuleTestBase extends TestCase {
 			}
 		}
 
+
+		// 5) Close the descriptions editor so it's ready for the next time
+		try {
+			List<HtmlElement> closeButtons = editorContainer.getByXPath(".//a[contains(@class,'xava_descriptions_editor_close')]");
+			if (!closeButtons.isEmpty()) {
+				closeButtons.get(0).click();
+				Thread.sleep(200);
+			}
+		}
+		catch (Exception ignore) { }
+
 		return validValues;
 	}
 

@@ -292,7 +292,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 			{ "11", "SERVIDORES"}						
 		};
 		assertValue("subfamily.number", "");
-		assertValidValues("subfamily.number", hardwareValues);
+		assertValidValues("subfamily.number", hardwareValues); // TMR ME QUEDÉ POR AQUÍ: FALLA, EL PROBLEMA ES EL ORDEN
 		
 		// Changing the value again
 		setValue("family.number", "1");
