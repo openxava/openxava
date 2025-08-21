@@ -43,6 +43,10 @@ public class Descriptions extends DWRBase {
         List<Map<String, String>> out = new ArrayList<>();
         try {
             initRequest(request, response, application, module);
+            
+            // Set application and module parameters for filters that expect them in request
+            request.setAttribute("xava.application", application);
+            request.setAttribute("xava.module", module);
 
             // View and style for potential parsing/formatting needs
             viewObject = (Is.emptyString(viewObject) ? "xava_view" : viewObject);
@@ -155,10 +159,22 @@ public class Descriptions extends DWRBase {
                     }
                     p.add(parameterValue);
                 }
-                calculator.setParameters(p, filter);
+                try {
+                    calculator.setParameters(p, filter);
+                } catch (FilterException ex) {
+                    // If filter fails due to missing context, continue without filtering
+                    log.warn("Filter failed in DWR context, continuing without filter: " + ex.getMessage());
+                    calculator.setParameters(p, null);
+                }
             }
             else if (filter != null) {
-                calculator.setParameters(null, filter);
+                try {
+                    calculator.setParameters(null, filter);
+                } catch (FilterException ex) {
+                    // If filter fails due to missing context, continue without filtering
+                    log.warn("Filter failed in DWR context, continuing without filter: " + ex.getMessage());
+                    calculator.setParameters(null, null);
+                }
             }
 
             // Log effective configuration
